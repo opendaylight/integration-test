@@ -21,7 +21,3 @@ Find Max Switches
     Log    ${max-switches}
     Append To File    ${SWITCHES_RESULT_FILE}    ${max-switches}\n
 
-*** Keywords ***
-Scalability Suite Teardown
-    Delete All Sessions
-    Clean Mininet System
