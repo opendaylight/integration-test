@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20131112 19:37:52.317" generator="Robot 2.8.1 (Python 2.6.6 on linux2)">
+<suite source="/home/odluser/public_html/CSIT/01__Switch_Manager/test.txt" id="s1" name="Test">
+<test id="s1-t1" name="Get Nodes">
+<kw type="kw" name="${node1} = BuiltIn.Set Variable">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>"node":{"type":"OF","id":"00:00:00:00:00:00:00:01"}</arg>
+</arguments>
+<msg timestamp="20131112 19:37:52.471" level="INFO">${node1} = "node":{"type":"OF","id":"00:00:00:00:00:00:00:01"}</msg>
+<status status="PASS" endtime="20131112 19:37:52.470" starttime="20131112 19:37:52.470"></status>
+</kw>
+<kw type="kw" name="${node2} = BuiltIn.Set Variable">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>"node":{"type":"OF","id":"00:00:00:00:00:00:00:02"}</arg>
+</arguments>
+<msg timestamp="20131112 19:37:52.472" level="INFO">${node2} = "node":{"type":"OF","id":"00:00:00:00:00:00:00:02"}</msg>
+<status status="PASS" endtime="20131112 19:37:52.472" starttime="20131112 19:37:52.471"></status>
+</kw>
+<kw type="kw" name="${node3} = BuiltIn.Set Variable">
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<arguments>
+<arg>"node":{"type":"OF","id":"00:00:00:00:00:00:00:03"}</arg>
+</arguments>
+<msg timestamp="20131112 19:37:52.473" level="INFO">${node3} = "node":{"type":"OF","id":"00:00:00:00:00:00:00:03"}</msg>
+<status status="PASS" endtime="20131112 19:37:52.473" starttime="20131112 19:37:52.473"></status>
+</kw>
+<kw type="kw" name="${auth} = BuiltIn.Create List">
+<doc>Returns a list containing given items.</doc>
+<arguments>
+<arg>admin</arg>
+<arg>admin</arg>
+</arguments>
+<msg timestamp="20131112 19:37:52.474" level="INFO">${auth} = [u'admin', u'admin']</msg>
+<status status="PASS" endtime="20131112 19:37:52.474" starttime="20131112 19:37:52.474"></status>
+</kw>
+<kw type="kw" name="${headers} = Collections.Create Dictionary">
+<doc>Creates and returns a dictionary based on given items.</doc>
+<arguments>
+<arg>Content-Type</arg>
+<arg>application/json</arg>
+</arguments>
+<msg timestamp="20131112 19:37:52.475" level="INFO">${headers} = {u'Content-Type': u'application/json'}</msg>
+<status status="PASS" endtime="20131112 19:37:52.475" starttime="20131112 19:37:52.475"></status>
+</kw>
+<kw type="kw" name="RequestsLibrary.Create Session">
+<doc>Create Session: create a HTTP session to a server</doc>
+<arguments>
+<arg>controller</arg>
+<arg>http://10.125.136.52:8080</arg>
+<arg>headers=${headers}</arg>
+<arg>auth=${auth}</arg>
+</arguments>
+<msg timestamp="20131112 19:37:52.481" level="INFO">Argument types are:
+&lt;type 'bool'&gt;</msg>
+<status status="PASS" endtime="20131112 19:37:52.481" starttime="20131112 19:37:52.476"></status>
+</kw>
+<kw type="kw" name="${resp} = RequestsLibrary.Get">
+<doc>Send a GET request on the session object found using the</doc>
+<arguments>
+<arg>controller</arg>
+<arg>/controller/nb/v2/switchmanager/default/nodes</arg>
+</arguments>
+<msg timestamp="20131112 19:37:52.491" level="INFO">Starting new HTTP connection (1): 10.125.136.52</msg>
+<msg timestamp="20131112 19:37:52.508" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20131112 19:37:52.508" starttime="20131112 19:37:52.481"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal As Strings">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+<arg>200</arg>
+</arguments>
+<msg timestamp="20131112 19:37:52.509" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20131112 19:37:52.509" starttime="20131112 19:37:52.508"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.content}</arg>
+</arguments>
+<msg timestamp="20131112 19:37:52.511" level="INFO">{"nodeProperties":[{"node":{"type":"OF","id":"00:00:00:00:00:00:00:02"},"properties":{"tables":{"value":-1},"forwarding":{"value":0},"timeStamp":{"value":1384313779597,"name":"connectedSince"},"buffers":{"value":256},"description":{"value":"None"},"capabilities":{"value":199},"macAddress":{"value":"00:00:00:00:00:02"},"supportedFlowActions":{"value":"[Controller, Drop, Enqueue, HwPath, Output, PopVlan, SetDlDst, SetDlSrc, SetNwDst, SetNwSrc, SetNwTos, SetTpDst, SetTpSrc, SetVlanId, SetVlanPcp, SwPath]"}}},{"node":{"type":"OF","id":"00:00:00:00:00:00:00:03"},"properties":{"tables":{"value":-1},"forwarding":{"value":0},"timeStamp":{"value":1384313779656,"name":"connectedSince"},"buffers":{"value":256},"description":{"value":"None"},"capabilities":{"value":199},"macAddress":{"value":"00:00:00:00:00:03"},"supportedFlowActions":{"value":"[Controller, Drop, Enqueue, HwPath, Output, PopVlan, SetDlDst, SetDlSrc, SetNwDst, SetNwSrc, SetNwTos, SetTpDst, SetTpSrc, SetVlanId, SetVlanPcp, SwPath]"}}},{"node":{"type":"OF","id":"00:00:00:00:00:00:00:01"},"properties":{"tables":{"value":-1},"forwarding":{"value":0},"timeStamp":{"value":1384313779539,"name":"connectedSince"},"buffers":{"value":256},"description":{"value":"None"},"macAddress":{"value":"00:00:00:00:00:01"},"capabilities":{"value":199},"supportedFlowActions":{"value":"[Controller, Drop, Enqueue, HwPath, Output, PopVlan, SetDlDst, SetDlSrc, SetNwDst, SetNwSrc, SetNwTos, SetTpDst, SetTpSrc, SetVlanId, SetVlanPcp, SwPath]"}}}]}</msg>
+<status status="PASS" endtime="20131112 19:37:52.511" starttime="20131112 19:37:52.510"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Contain">
+<doc>Fails if `item1` does not contain `item2` one or more times.</doc>
+<arguments>
+<arg>${resp.content}</arg>
+<arg>${node1}</arg>
+</arguments>
+<status status="PASS" endtime="20131112 19:37:52.513" starttime="20131112 19:37:52.512"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Contain">
+<doc>Fails if `item1` does not contain `item2` one or more times.</doc>
+<arguments>
+<arg>${resp.content}</arg>
+<arg>${node2}</arg>
+</arguments>
+<status status="PASS" endtime="20131112 19:37:52.514" starttime="20131112 19:37:52.513"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Contain">
+<doc>Fails if `item1` does not contain `item2` one or more times.</doc>
+<arguments>
+<arg>${resp.content}</arg>
+<arg>${node3}</arg>
+</arguments>
+<status status="PASS" endtime="20131112 19:37:52.515" starttime="20131112 19:37:52.514"></status>
+</kw>
+<doc></doc>
+<tags>
+</tags>
+<status status="PASS" endtime="20131112 19:37:52.516" critical="yes" starttime="20131112 19:37:52.469"></status>
+</test>
+<doc></doc>
+<metadata>
+</metadata>
+<status status="PASS" endtime="20131112 19:37:52.517" starttime="20131112 19:37:52.317"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="1">Critical Tests</stat>
+<stat fail="0" pass="1">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat fail="0" pass="1" id="s1" name="Test">Test</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
