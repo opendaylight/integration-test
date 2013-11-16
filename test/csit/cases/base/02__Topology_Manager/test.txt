@@ -10,7 +10,7 @@ Get Topology
     ${nodeconn4}=  Set Variable  NodeConnector":{"type":"OF","node":{"type":"OF","id":"00:00:00:00:00:00:00:03"},"id":"3"}
     ${auth}=    Create List    admin    admin
     ${headers}=    Create Dictionary    Content-Type   application/json
-    Create Session    controller   http://10.125.136.52:8080    headers=${headers}   auth=${auth} 
+    Create Session    controller   http://${CONTROLLER}:8080    headers=${headers}   auth=${auth} 
     ${resp}=    Get    controller    /controller/nb/v2/topology/default 
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
