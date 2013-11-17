@@ -17,4 +17,7 @@ opendaylight/northbound/integrationtest/logs/*
 *.iml
 *.iws
 .idea
-
+*.pyc
+log.html
+output.xml
+report.html
