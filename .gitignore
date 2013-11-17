@@ -21,3 +21,4 @@ opendaylight/northbound/integrationtest/logs/*
 log.html
 output.xml
 report.html
+*.swp
