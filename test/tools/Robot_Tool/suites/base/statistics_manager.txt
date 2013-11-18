@@ -1,0 +1,11 @@
+*** Settings ***
+Documentation     Test suite for the statistics manager bundle.
+Library           Collections
+Library           RequestsLibrary
+Library           ../../libraries/Common.py
+Variables         ../../variables/Variables.py
+
+*** Variables ***
+${REST_CONTEXT}        /controller/nb/v2/statistics
+
+*** Test Cases ***

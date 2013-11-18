@@ -1,0 +1,29 @@
+*** Settings ***
+Documentation     Test suite for the arp handler bundle.
+Library           Collections
+Library           RequestsLibrary
+Library           ../../libraries/Common.py
+Library           ../../libraries/HostTracker.py
+Variables         ../../variables/Variables.py
+
+*** Variables ***
+${name}           10.0.1.4
+${key}            hostConfig
+
+*** Test Cases ***
+Add and remove a host
+    [Documentation]    Add and remove a host. After each operation, list to validate the result.
+    [Tags]    add_remove_info
+    ${body}    Create Dictionary    nodeType    OF    dataLayerAddress    5e:bf:79:84:10:a6    vlan
+    ...    1    nodeId    00:00:00:00:00:00:00:03    nodeConnectorId    9    networkAddress
+    ...    10.0.1.4    staticHost    ${True}    nodeConnectorType    OF
+    Add Host    ${name}    ${body}
+    ${result}    Get Hosts
+    Dictionary Should Contain Key    ${result}    ${key}
+    ${content}    Get From Dictionary    ${result}    ${key}
+    List Should Contain Value    ${content}    ${body}
+    Remove Host    ${name}
+    ${result}    Get Hosts
+    Dictionary Should Contain Key    ${result}    ${key}
+    ${content}    Get From Dictionary    ${result}    ${key}
+    List Should Not Contain Value    ${content}    ${body}

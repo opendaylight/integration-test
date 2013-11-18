@@ -1,0 +1,28 @@
+*** Settings ***
+Documentation     Test suite for the arp handler bundle.
+Library           Collections
+Library           RequestsLibrary
+Library           ../../libraries/Common.py
+Library           ../../libraries/TopologyManager.py
+Variables         ../../variables/Variables.py
+
+*** Variables ***
+${name}           test_userlink1
+${key}            userLinks
+
+*** Test Cases ***
+Add and remove a userlink
+    [Documentation]    Add and remove a userlink. After each operation, list to validate the result.
+    [Tags]    add_remove_info
+    ${body}    Create Dictionary    name    ${name}    status    Success    srcNodeConnector
+    ...    OF|1@OF|00:00:00:00:00:00:00:02    dstNodeConnector    OF|1@OF|00:00:00:00:00:00:00:03
+    Add Userlink    ${name}    ${body}
+    ${result}    Get Userlinks
+    Dictionary Should Contain Key    ${result}    ${key}
+    ${content}    Get From Dictionary    ${result}    ${key}
+    List Should Contain Value    ${content}    ${body}
+    Remove Userlink    ${name}
+    ${result}    Get Userlinks
+    Dictionary Should Contain Key    ${result}    ${key}
+    ${content}    Get From Dictionary    ${result}    ${key}
+    List Should Not Contain Value    ${content}    ${body}

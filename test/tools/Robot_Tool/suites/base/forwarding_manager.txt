@@ -1,0 +1,28 @@
+*** Settings ***
+Documentation     Test suite for the arp handler bundle.
+Library           Collections
+Library           RequestsLibrary
+Library           ../../libraries/Common.py
+Library           ../../libraries/ForwardingManager.py
+Variables         ../../variables/Variables.py
+
+*** Variables ***
+${name}           test_route1
+${key}            staticRoute
+
+*** Test Cases ***
+Add and remove a static route
+    [Documentation]    Add and remove a static route. After each operation, list to validate the result.
+    [Tags]    add_remove_info
+    ${body}    Create Dictionary    name    ${name}    prefix    192.168.1.0/24    nextHop
+    ...    10.0.0.2
+    Add Static Route    ${name}    ${body}
+    ${result}    Get Routes
+    Dictionary Should Contain Key    ${result}    ${key}
+    ${content}    Get From Dictionary    ${result}    ${key}
+    List Should Contain Value    ${content}    ${body}
+    Remove Static Route    ${name}
+    ${result}    Get Routes
+    Dictionary Should Contain Key    ${result}    ${key}
+    ${content}    Get From Dictionary    ${result}    ${key}
+    List Should Not Contain Value    ${content}    ${body}

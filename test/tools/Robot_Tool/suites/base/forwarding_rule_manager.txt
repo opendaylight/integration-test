@@ -1,0 +1,33 @@
+*** Settings ***
+Documentation     Test suite for the arp handler bundle.
+Library           Collections
+Library           RequestsLibrary
+Library           ../../libraries/Common.py
+Library           ../../libraries/ForwardingRuleManager.py
+Variables         ../../variables/Variables.py
+
+*** Variables ***
+${name}           flow1
+${key}            flowConfig
+${node_id}        00:00:00:00:00:00:00:02
+
+*** Test Cases ***
+Add and remove a flow
+    [Documentation]    Add and remove a flow. After each operation, list to validate the result.
+    [Tags]    add_remove_info
+    ${node }    Create Dictionary    type    OF    id    ${node_id}
+    ${actions}    Create List    OUTPUT=1
+    ${body}    Create Dictionary    name    ${name}    installInHw    true    node
+    ...    ${node}    priority    1    etherType    0x800    nwDst
+    ...    10.0.0.1/32    actions    ${actions}
+    Add Flow To Node    OF    ${node_id}    ${name}    ${body}
+    Log Variables
+    ${result}    Get Flows
+    Dictionary Should Contain Key    ${result}    ${key}
+    ${content}    Get From Dictionary    ${result}    ${key}
+    List Should Contain Value    ${content}    ${body}
+    Remove Flow From Node    OF    ${node_id}    ${name}
+    ${result}    Get Flows
+    Dictionary Should Contain Key    ${result}    ${key}
+    ${content}    Get From Dictionary    ${result}    ${key}
+    List Should Not Contain Value    ${content}    ${body}
