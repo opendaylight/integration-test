@@ -1,0 +1,26 @@
+*** Settings ***
+Documentation     Test suite for the switch manager bundle.
+Suite Setup       Create Session    ${ODL_CONTROLLER_SESSION}    ${PREFIX}    auth=${AUTH}
+Suite Teardown    Delete All Sessions
+Library           Collections
+Library           RequestsLibrary
+Library           ../../libraries/Common.py
+Library           ../../libraries/SwitchManager.py
+Variables         ../../variables/Variables.py
+Library           ../../libraries/Topology.py
+
+*** Variables ***
+${REST_CONTEXT}    /controller/nb/v2/switchmanager
+
+*** Test Cases ***
+List all nodes
+    [Documentation]    List all nodes and their properties in the network.
+    [Tags]    list_info
+    ${URL}    Combine Strings    ${REST_CONTEXT}    /    ${CONTAINER}    /nodes
+    Log    ${topo_tree_level}
+    ${topo_nodes}    Get Nodes From Topology    ${TOPO_TREE_LEVEL}
+    ${resp}    Get    ${ODL_CONTROLLER_SESSION}    ${URL}
+    Should Be Equal As Strings    ${resp.status_code}    200    Response status code error
+    ${jsondata}=    To JSON    ${resp.content}
+    ${nodes}    Extract All Nodes    ${jsondata}
+    Collection Should Contain    ${nodes}    ${topo_nodes}
