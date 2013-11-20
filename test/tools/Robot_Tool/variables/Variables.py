@@ -6,9 +6,9 @@ Updated: 2013-11-14
 import collections
 
 # Global variables
-CONTROLLER_IP = '127.0.0.1'
+CONTROLLER = '127.0.0.1'
 PORT = '8080'
-PREFIX = 'http://' + CONTROLLER_IP + ':' + PORT
+PREFIX = 'http://' + CONTROLLER + ':' + PORT
 CONTAINER = 'default'
 USER = 'admin'
 PWD = 'admin'
