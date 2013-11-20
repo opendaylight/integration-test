@@ -1,0 +1,15 @@
+*** Settings ***
+Documentation     Test suite for the OpenDaylight base edition
+Suite Setup       Log    Start the test on the base edition
+Force Tags        base
+Metadata          Version    0.1
+Metadata          More Info    For more information see https://wiki.opendaylight.org/view/CrossProject:Integration_Group:CSIT_Test_Tools:_Robot_Based
+Metadata          Executed At    ${HOST}
+Library           Collections
+Library           ../../libraries/RequestsLibrary.py
+Library           ../../libraries/Common.py
+Variables         ../../variables/Variables.py
+
+*** Variables ***
+
+*** Keywords ***
