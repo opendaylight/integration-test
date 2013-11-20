@@ -1,28 +1,43 @@
 *** Settings ***
-Documentation     Test suite for the arp handler bundle.
+Documentation     Test suite for the forwarding manager bundle.
+Suite Teardown    Delete All Sessions
 Library           Collections
-Library           RequestsLibrary
+Library           ../../libraries/RequestsLibrary.py
 Library           ../../libraries/Common.py
-Library           ../../libraries/ForwardingManager.py
 Variables         ../../variables/Variables.py
 
 *** Variables ***
 ${name}           test_route1
 ${key}            staticRoute
+${REST_CONTEXT}    /controller/nb/v2/staticroute
 
 *** Test Cases ***
-Add and remove a static route
-    [Documentation]    Add and remove a static route. After each operation, list to validate the result.
-    [Tags]    add_remove_info
+Add a static route
+    [Documentation]    Add a static route, list to validate the result.
+    [Tags]    add
     ${body}    Create Dictionary    name    ${name}    prefix    192.168.1.0/24    nextHop
     ...    10.0.0.2
-    Add Static Route    ${name}    ${body}
-    ${result}    Get Routes
-    Dictionary Should Contain Key    ${result}    ${key}
+    ${headers}    Create Dictionary    Content-Type    application/json
+    Create Session    session    http://${CONTROLLER}:8080    headers=${headers}    auth=${auth}
+    ${resp}    Put    session    ${REST_CONTEXT}/${CONTAINER}/route/${name}    data=${body}
+    Should Be Equal As Strings    ${resp.status_code}    201    Response status code error
+    ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}/routes
+    Should Be Equal As Strings    ${resp.status_code}    200    Response status code error
+    ${result}    To JSON    ${resp.content}
     ${content}    Get From Dictionary    ${result}    ${key}
     List Should Contain Value    ${content}    ${body}
-    Remove Static Route    ${name}
-    ${result}    Get Routes
-    Dictionary Should Contain Key    ${result}    ${key}
+
+Remove a subnet
+    [Documentation]    Remove a subnet, list to validate the result.
+    [Tags]    remove
+    ${body}    Create Dictionary    name    ${name}    prefix    192.168.1.0/24    nextHop
+    ...    10.0.0.2
+    ${headers}    Create Dictionary    Content-Type    application/json
+    Create Session    session    http://${CONTROLLER}:8080    headers=${headers}    auth=${auth}
+    ${resp}    Delete    session    ${REST_CONTEXT}/${CONTAINER}/route/${name}
+    Should Be Equal As Strings    ${resp.status_code}    204    Response status code error
+    ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}/routes
+    Should Be Equal As Strings    ${resp.status_code}    200    Response status code error
+    ${result}    To JSON    ${resp.content}
     ${content}    Get From Dictionary    ${result}    ${key}
     List Should Not Contain Value    ${content}    ${body}
