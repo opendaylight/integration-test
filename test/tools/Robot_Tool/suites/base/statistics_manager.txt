@@ -1,11 +1,12 @@
 *** Settings ***
-Documentation     Test suite for the statistics manager bundle.
+Documentation     Test suite for the statistics manager module.
+Suite Teardown    Delete All Sessions
 Library           Collections
-Library           RequestsLibrary
+Library           ../../libraries/RequestsLibrary.py
 Library           ../../libraries/Common.py
 Variables         ../../variables/Variables.py
 
 *** Variables ***
-${REST_CONTEXT}        /controller/nb/v2/statistics
+${REST_CONTEXT}    /controller/nb/v2/statistics
 
 *** Test Cases ***

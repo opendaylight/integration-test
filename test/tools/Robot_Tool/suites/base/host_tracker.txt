@@ -1,29 +1,45 @@
 *** Settings ***
-Documentation     Test suite for the arp handler bundle.
+Documentation     Test suite for the host tracker module.
+Suite Teardown    Delete All Sessions
 Library           Collections
-Library           RequestsLibrary
+Library           ../../libraries/RequestsLibrary.py
 Library           ../../libraries/Common.py
-Library           ../../libraries/HostTracker.py
 Variables         ../../variables/Variables.py
 
 *** Variables ***
 ${name}           10.0.1.4
 ${key}            hostConfig
+${REST_CONTEXT}    /controller/nb/v2/hosttracker
 
 *** Test Cases ***
-Add and remove a host
-    [Documentation]    Add and remove a host. After each operation, list to validate the result.
-    [Tags]    add_remove_info
+Add a host
+    [Documentation]    Add a host, list to validate the result.
+    [Tags]    add
     ${body}    Create Dictionary    nodeType    OF    dataLayerAddress    5e:bf:79:84:10:a6    vlan
     ...    1    nodeId    00:00:00:00:00:00:00:03    nodeConnectorId    9    networkAddress
     ...    10.0.1.4    staticHost    ${True}    nodeConnectorType    OF
-    Add Host    ${name}    ${body}
-    ${result}    Get Hosts
-    Dictionary Should Contain Key    ${result}    ${key}
+    ${headers}    Create Dictionary    Content-Type    application/json
+    Create Session    session    http://${CONTROLLER}:8080    headers=${headers}    auth=${auth}
+    ${resp}    Put    session    ${REST_CONTEXT}/${CONTAINER}/address/${name}    data=${body}
+    Should Be Equal As Strings    ${resp.status_code}    201    Response status code error
+    ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}/hosts/inactive
+    Should Be Equal As Strings    ${resp.status_code}    200    Response status code error
+    ${result}    To JSON    ${resp.content}
     ${content}    Get From Dictionary    ${result}    ${key}
     List Should Contain Value    ${content}    ${body}
-    Remove Host    ${name}
-    ${result}    Get Hosts
-    Dictionary Should Contain Key    ${result}    ${key}
+
+Remove a host
+    [Documentation]    Remove a host, list to validate the result.
+    [Tags]    remove
+    ${body}    Create Dictionary    nodeType    OF    dataLayerAddress    5e:bf:79:84:10:a6    vlan
+    ...    1    nodeId    00:00:00:00:00:00:00:03    nodeConnectorId    9    networkAddress
+    ...    10.0.1.4    staticHost    ${True}    nodeConnectorType    OF
+    ${headers}    Create Dictionary    Content-Type    application/json
+    Create Session    session    http://${CONTROLLER}:8080    headers=${headers}    auth=${auth}
+    ${resp}    Delete    session    ${REST_CONTEXT}/${CONTAINER}/address/${name}
+    Should Be Equal As Strings    ${resp.status_code}    204    Response status code error
+    ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}/hosts/inactive
+    Should Be Equal As Strings    ${resp.status_code}    200    Response status code error
+    ${result}    To JSON    ${resp.content}
     ${content}    Get From Dictionary    ${result}    ${key}
     List Should Not Contain Value    ${content}    ${body}

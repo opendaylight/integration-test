@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite for the arp handler bundle.
+Documentation     Test suite for the arp handler module.
 Suite Teardown    Delete All Sessions
 Library           Collections
 Library           ../../libraries/RequestsLibrary.py

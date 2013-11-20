@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite for the forwarding manager bundle.
+Documentation     Test suite for the forwarding manager module.
 Suite Teardown    Delete All Sessions
 Library           Collections
 Library           ../../libraries/RequestsLibrary.py
