@@ -13,5 +13,6 @@ CONTAINER = 'default'
 USER = 'admin'
 PWD = 'admin'
 AUTH = [u'admin',u'admin']
+HEADERS={'Content-Type':'application/json'}
 ODL_CONTROLLER_SESSION=None
 TOPO_TREE_LEVEL=2
