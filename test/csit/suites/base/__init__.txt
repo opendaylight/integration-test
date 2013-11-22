@@ -11,7 +11,7 @@ ${start}=  sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,2
 Start Suite  
     Log    Start the test on the base edition
     Open Connection   ${MININET}     prompt=>
-    Login With Public Key    ${REMOTEUSER}   ${KEYPATH}/.ssh/id_rsa   any 
+    Login With Public Key    ${MININET_USER}   ${USER_HOME}/.ssh/id_rsa   any 
     Write    sudo mn -c
     Sleep    2
     Read
