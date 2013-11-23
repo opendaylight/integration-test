@@ -1,0 +1,50 @@
+*** Settings ***
+Documentation     Test suite for the forwarding rule manager module.
+Suite Teardown    Delete All Sessions
+Library           Collections
+Library           ../../libraries/RequestsLibrary.py
+Library           ../../libraries/Common.py
+Variables         ../../variables/Variables.py
+
+*** Variables ***
+${name}           flow1
+${key}            flowConfig
+${node_id}        00:00:00:00:00:00:00:02
+${REST_CONTEXT}    /controller/nb/v2/flowprogrammer
+
+*** Test Cases ***
+Add a flow
+    [Documentation]    Add a flow, list to validate the result.
+    [Tags]    add
+    ${node}    Create Dictionary    type    OF    id    ${node_id}
+    ${actions}    Create List    OUTPUT=1
+    ${body}    Create Dictionary    name    ${name}    installInHw    true    node
+    ...    ${node}    priority    1    etherType    0x800    nwDst
+    ...    10.0.0.1/32    actions    ${actions}
+    ${headers}    Create Dictionary    Content-Type    application/json
+    Create Session    session    http://${CONTROLLER}:8080    headers=${headers}    auth=${auth}
+    ${resp}    Put    session    ${REST_CONTEXT}/${CONTAINER}/node/OF/${node_id}/staticFlow/${name}    data=${body}
+    Should Be Equal As Strings    ${resp.status_code}    201    Response status code error
+    ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}
+    Should Be Equal As Strings    ${resp.status_code}    200    Response status code error
+    ${result}    To JSON    ${resp.content}
+    ${content}    Get From Dictionary    ${result}    ${key}
+    List Should Contain Value    ${content}    ${body}
+
+Remove a flow
+    [Documentation]    Remove a flow, list to validate the result.
+    [Tags]    remove
+    ${node}    Create Dictionary    type    OF    id    ${node_id}
+    ${actions}    Create List    OUTPUT=1
+    ${body}    Create Dictionary    name    ${name}    installInHw    true    node
+    ...    ${node}    priority    1    etherType    0x800    nwDst
+    ...    10.0.0.1/32    actions    ${actions}
+    ${headers}    Create Dictionary    Content-Type    application/json
+    Create Session    session    http://${CONTROLLER}:8080    headers=${headers}    auth=${auth}
+    ${resp}    Delete    session    ${REST_CONTEXT}/${CONTAINER}/node/OF/${node_id}/staticFlow/${name}
+    Should Be Equal As Strings    ${resp.status_code}    204    Response status code error
+    ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}
+    Should Be Equal As Strings    ${resp.status_code}    200    Response status code error
+    ${result}    To JSON    ${resp.content}
+    ${content}    Get From Dictionary    ${result}    ${key}
+    List Should Not Contain Value    ${content}    ${body}
