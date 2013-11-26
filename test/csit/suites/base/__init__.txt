@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation     Test suite for the OpenDaylight base edition
 Suite Setup       Start Suite
+Suite Teardown    Stop Suite
 Library     SSHLibrary
 
 *** Variables ***
@@ -17,6 +18,8 @@ Start Suite
 Stop Suite
     Log    Stop the test on the base edition
     Write    exit 
+    Sleep    2
+    Write    sudo mn -c
     Sleep    2
     Read 
     Close Connection 
