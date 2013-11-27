@@ -13,7 +13,7 @@ Start Suite
     Open Connection   ${MININET}     prompt=>
     Login With Public Key    ${MININET_USER}   ${USER_HOME}/.ssh/id_rsa   any 
     Write    ${start}
-    Sleep    60
+    Sleep    65
     Read
 Stop Suite
     Log    Stop the test on the base edition
