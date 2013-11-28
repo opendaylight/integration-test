@@ -14,7 +14,7 @@ import os
 from restlib import *
 
 
-def test_case(module_name):
+def test_module(module_name):
     '''
     Run single test on given module.
     '''
@@ -30,10 +30,10 @@ def run(modules=None):
     '''
     backup_dir = os.getcwd()
     if not modules:
-        modules = [e[:-3] for e in os.listdir(CASES_DIR) if e.endswith('.py')]
-    os.chdir(backup_dir + '/' + CASES_DIR)
+        modules = [e[:-3] for e in os.listdir(MODULES_DIR) if e.endswith('.py')]
+    os.chdir(backup_dir + '/' + MODULES_DIR)
     for name in modules:
-        test_case(name)
+        test_module(name)
     os.chdir(backup_dir)
 
 
