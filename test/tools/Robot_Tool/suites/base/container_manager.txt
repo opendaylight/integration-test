@@ -9,7 +9,7 @@ Variables         ../../variables/Variables.py
 *** Variables ***
 ${name}           test_container1
 @{nodeconnectors}    OF|1@OF|00:00:00:00:00:00:00:01    OF|23@OF|00:00:00:00:00:00:20:21
-${key}            container-config
+${key}            containerConfig
 ${REST_CONTEXT}    /controller/nb/v2/containermanager
 
 *** Test Cases ***
