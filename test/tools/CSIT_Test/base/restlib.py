@@ -16,7 +16,7 @@ DEFAULT_PREFIX = 'http://' + DEFAULT_CONTROLLER_IP + ':' + DEFAULT_PORT
 DEFAULT_CONTAINER = 'default'
 DEFAULT_USER = 'admin'
 DEFAULT_PWD = 'admin'
-CASES_DIR = 'cases'
+MODULES_DIR = 'modules'
 TIMEOUTS = 2
 
 '''

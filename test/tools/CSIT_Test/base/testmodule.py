@@ -22,6 +22,16 @@ class TestModule(object):
         self.contentType = contentType
         self.prefix = prefix
 
+
+    def extract_properties(self, content, key, property):
+        """
+        Return all nodes.
+        """
+        if not isinstance(content, dict) or not content.has_key(key):
+            return None
+        else:
+            return [e.get(property) for e in content[key]]
+
     def get_entries(self, suffix=None, key=None):
         """
         Get the existed entries in the service.

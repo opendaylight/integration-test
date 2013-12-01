@@ -79,8 +79,8 @@ class SwitchManager(TestModule):
         """
         result = []
         r = self.get_nodes()
-        if r:
-            t = [e['node'] for e in r['nodeProperties']]
+        t = super(self.__class__, self).extract_properties(r, 'nodeProperties', 'node')
+        if t:
             result.append({u'type': u'OF', u'id': u'00:00:00:00:00:00:00:01'} in t)
             result.append({u'type': u'OF', u'id': u'00:00:00:00:00:00:00:02'} in t)
             result.append({u'type': u'OF', u'id': u'00:00:00:00:00:00:00:03'} in t)
