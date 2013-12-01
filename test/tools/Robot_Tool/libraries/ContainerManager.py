@@ -49,4 +49,4 @@ class ContainerManager(TestModule):
         True
         """
         return super(self.__class__, self).test_add_remove_operations('containers', 'container', name, body,
-                                                                      'container-config')
+                                                                      'containerConfig')
