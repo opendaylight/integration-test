@@ -1,5 +1,6 @@
 *** Settings ***
 Documentation     Test suite for the forwarding rule manager module.
+Suite Setup       Create Session   session   http://${CONTROLLER}:8080  auth=${AUTH}   headers=${HEADERS}
 Suite Teardown    Delete All Sessions
 Library           Collections
 Library           ../../libraries/RequestsLibrary.py
@@ -21,8 +22,6 @@ Add a flow
     ${body}    Create Dictionary    name    ${name}    installInHw    true    node
     ...    ${node}    priority    1    etherType    0x800    nwDst
     ...    10.0.0.1/32    actions    ${actions}
-    ${headers}    Create Dictionary    Content-Type    application/json
-    Create Session    session    http://${CONTROLLER}:8080    headers=${headers}    auth=${auth}
     ${resp}    Put    session    ${REST_CONTEXT}/${CONTAINER}/node/OF/${node_id}/staticFlow/${name}    data=${body}
     Should Be Equal As Strings    ${resp.status_code}    201    Response status code error
     ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}
@@ -39,8 +38,6 @@ Remove a flow
     ${body}    Create Dictionary    name    ${name}    installInHw    true    node
     ...    ${node}    priority    1    etherType    0x800    nwDst
     ...    10.0.0.1/32    actions    ${actions}
-    ${headers}    Create Dictionary    Content-Type    application/json
-    Create Session    session    http://${CONTROLLER}:8080    headers=${headers}    auth=${auth}
     ${resp}    Delete    session    ${REST_CONTEXT}/${CONTAINER}/node/OF/${node_id}/staticFlow/${name}
     Should Be Equal As Strings    ${resp.status_code}    204    Response status code error
     ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}
