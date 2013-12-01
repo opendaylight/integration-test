@@ -22,7 +22,7 @@ List all nodes
     Should Be Equal As Strings    ${resp.status_code}    200    Response   status code error
     ${jsondata}=    To JSON    ${resp.content}
     ${nodes}    Extract All Nodes    ${jsondata}
-    Collection Should Contain    ${nodes}    ${topo_nodes}
+    List Should Contain Sublist   ${nodes}    ${topo_nodes}
 Get a node
     [Documentation]    Get a node
     Get node    00:00:00:00:00:00:00:02    OF
