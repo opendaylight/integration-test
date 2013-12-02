@@ -72,7 +72,7 @@ Add s4 ports
 Ping h1 to h4
     [Documentation]    Ping h1 to h4, verify no packet loss
     [Tags]   Get
-    Sleep   5
+    Sleep   6
     Write   h1 ping -c 3 h4
     Sleep   6
     ${result}    Read
