@@ -1,5 +1,6 @@
 *** Settings ***
 Documentation     Test suite for the forwarding manager module.
+Suite Setup       Create Session   session   http://${CONTROLLER}:8080   auth=${AUTH}   headers=${HEADERS}
 Suite Teardown    Delete All Sessions
 Library           Collections
 Library           ../../libraries/RequestsLibrary.py
@@ -17,8 +18,6 @@ Add a static route
     [Tags]    add
     ${body}    Create Dictionary    name    ${name}    prefix    192.168.1.0/24    nextHop
     ...    10.0.0.2
-    ${headers}    Create Dictionary    Content-Type    application/json
-    Create Session    session    http://${CONTROLLER}:8080    headers=${headers}    auth=${auth}
     ${resp}    Put    session    ${REST_CONTEXT}/${CONTAINER}/route/${name}    data=${body}
     Should Be Equal As Strings    ${resp.status_code}    201    Response status code error
     ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}/routes
@@ -32,8 +31,6 @@ Remove a static route
     [Tags]    remove
     ${body}    Create Dictionary    name    ${name}    prefix    192.168.1.0/24    nextHop
     ...    10.0.0.2
-    ${headers}    Create Dictionary    Content-Type    application/json
-    Create Session    session    http://${CONTROLLER}:8080    headers=${headers}    auth=${auth}
     ${resp}    Delete    session    ${REST_CONTEXT}/${CONTAINER}/route/${name}
     Should Be Equal As Strings    ${resp.status_code}    204    Response status code error
     ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}/routes
