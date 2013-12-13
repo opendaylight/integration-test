@@ -26,7 +26,7 @@ Add a static route
     ${result}    To JSON    ${resp.content}
     ${content}    Get From Dictionary    ${result}    ${key}
     List Should Contain Value    ${content}    ${body}
-    Sleep    2
+    Sleep    3
 Remove a static route
     [Documentation]    Remove a static route, list to validate the result.
     [Tags]    remove
