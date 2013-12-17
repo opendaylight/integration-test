@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite for the OpenDaylight base edition
+Documentation     Test suite for the OpenDaylight SP edition
 Suite Setup       Start Suite
 Suite Teardown    Stop Suite
 Library     SSHLibrary
@@ -22,6 +22,6 @@ Stop Suite
     Log    Stop the test on the base edition
     Read
     Write    exit 
-    Sleep    2
+    Sleep    4
     Read 
     Close Connection 
