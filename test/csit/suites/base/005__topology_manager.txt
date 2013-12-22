@@ -21,7 +21,7 @@ Get Topology
     [Documentation]    Get Topology and validate the result.
     [Tags]    get
     ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}
-    Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
+    Should Be Equal As Strings    ${resp.status_code}    200 
     Log    ${resp.content}
     Should Contain X Times  ${resp.content}   ${nodeconn1}   2
     Should Contain X Times  ${resp.content}   ${nodeconn2}   2
@@ -33,9 +33,9 @@ Add a userlink
     ${body}    Create Dictionary    name    ${name}    status    Success    srcNodeConnector
     ...    OF|1@OF|00:00:00:00:00:00:00:02    dstNodeConnector    OF|1@OF|00:00:00:00:00:00:00:03
     ${resp}    Put    session    ${REST_CONTEXT}/${CONTAINER}/userLink/${name}    data=${body}
-    Should Be Equal As Strings    ${resp.status_code}    201    Response status code error
+    Should Be Equal As Strings    ${resp.status_code}    201
     ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}/userLinks
-    Should Be Equal As Strings    ${resp.status_code}    200    Response status code error
+    Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     ${content}    Get From Dictionary    ${result}    ${key}
     List Should Contain Value    ${content}    ${body}
@@ -46,9 +46,9 @@ Remove a userlink
     ${body}    Create Dictionary    name    ${name}    status    Success    srcNodeConnector
     ...    OF|1@OF|00:00:00:00:00:00:00:02    dstNodeConnector    OF|1@OF|00:00:00:00:00:00:00:03
     ${resp}    Delete    session    ${REST_CONTEXT}/${CONTAINER}/userLink/${name}
-    Should Be Equal As Strings    ${resp.status_code}    204    Response status code error
+    Should Be Equal As Strings    ${resp.status_code}    204
     ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}/userLinks
-    Should Be Equal As Strings    ${resp.status_code}    200    Response status code error
+    Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     ${content}    Get From Dictionary    ${result}    ${key}
     List Should Not Contain Value    ${content}    ${body}
