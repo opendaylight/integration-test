@@ -12,6 +12,7 @@ Variables         ../../variables/Variables.py
 ${name}           test_route1
 ${key}            staticRoute
 ${REST_CONTEXT}    /controller/nb/v2/staticroute
+${REST_CONTEXT_HT}   /controller/nb/v2/hosttracker
 
 *** Test Cases ***
 Add a static route
@@ -26,6 +27,7 @@ Add a static route
     ${result}    To JSON    ${resp.content}
     ${content}    Get From Dictionary    ${result}    ${key}
     List Should Contain Value    ${content}    ${body}
+    Sleep    5
 Remove a static route
     [Documentation]    Remove a static route, list to validate the result.
     [Tags]    remove
