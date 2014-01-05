@@ -8,18 +8,9 @@ Library           ../../libraries/Common.py
 Variables         ../../variables/Variables.py
 
 *** Variables ***
-${node1}       "node":{"type":"OF","id":"00:00:00:00:00:00:00:01"}
-${node2}       "node":{"type":"OF","id":"00:00:00:00:00:00:00:02"}
-${node3}       "node":{"type":"OF","id":"00:00:00:00:00:00:00:03"}
-${nodeconn1}   "nodeConnector":{"type":"OF","node":{"type":"OF","id":"00:00:00:00:00:00:00:01"},"id":"1"}
-${nodeconn2}   "nodeConnector":{"type":"OF","node":{"type":"OF","id":"00:00:00:00:00:00:00:01"},"id":"2"}
-${nodeconn3}   "nodeConnector":{"type":"OF","node":{"type":"OF","id":"00:00:00:00:00:00:00:02"},"id":"1"}
-${nodeconn4}   "nodeConnector":{"type":"OF","node":{"type":"OF","id":"00:00:00:00:00:00:00:02"},"id":"2"}
-${nodeconn5}   "nodeConnector":{"type":"OF","node":{"type":"OF","id":"00:00:00:00:00:00:00:02"},"id":"3"}
-${nodeconn6}   "nodeConnector":{"type":"OF","node":{"type":"OF","id":"00:00:00:00:00:00:00:03"},"id":"1"}
-${nodeconn7}   "nodeConnector":{"type":"OF","node":{"type":"OF","id":"00:00:00:00:00:00:00:03"},"id":"2"}
-${nodeconn8}   "nodeConnector":{"type":"OF","node":{"type":"OF","id":"00:00:00:00:00:00:00:03"},"id":"3"}
-
+${node1}       "00:00:00:00:00:00:00:01"
+${node2}       "00:00:00:00:00:00:00:02"
+${node3}       "00:00:00:00:00:00:00:03"
 ${key}             portStatistics
 ${REST_CONTEXT}    /controller/nb/v2/statistics
 
@@ -28,18 +19,15 @@ get port stats
     [Documentation]    Show port stats and validate result
     [Tags]    get
     ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}/port
-    Should Contain    ${resp.content}    ${nodeconn1}
-    Should Contain    ${resp.content}    ${nodeconn2}
-    Should Contain    ${resp.content}    ${nodeconn3}
-    Should Contain    ${resp.content}    ${nodeconn4}
-    Should Contain    ${resp.content}    ${nodeconn5}
-    Should Contain    ${resp.content}    ${nodeconn6}
-    Should Contain    ${resp.content}    ${nodeconn7}
-    Should Contain    ${resp.content}    ${nodeconn8}
+    Should Be Equal As Strings    ${resp.status_code}    200 
+    Should Contain X Times   ${resp.content}    ${node1}    4
+    Should Contain X Times   ${resp.content}    ${node2}    5
+    Should Contain X Times   ${resp.content}    ${node3}    5
 get flow stats
     [Documentation]    Show flow stats and validate result
     [Tags]    get
     ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}/flow
+    Should Be Equal As Strings    ${resp.status_code}    200 
     Should Contain    ${resp.content}    ${node1}
     Should Contain    ${resp.content}    ${node2}
     Should Contain    ${resp.content}    ${node3}
@@ -47,6 +35,7 @@ get table stats
     [Documentation]    Show flow stats and validate result
     [Tags]    get
     ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}/table
+    Should Be Equal As Strings    ${resp.status_code}    200 
     Should Contain    ${resp.content}    ${node1}
     Should Contain    ${resp.content}    ${node2}
     Should Contain    ${resp.content}    ${node3}
