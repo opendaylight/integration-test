@@ -6,13 +6,14 @@ Updated: 2013-11-14
 import collections
 
 # Global variables
-CONTROLLER = '127.0.0.1'
+CONTROLLER = '10.125.136.52'
 PORT = '8080'
 PREFIX = 'http://' + CONTROLLER + ':' + PORT
 CONTAINER = 'default'
 USER = 'admin'
 PWD = 'admin'
 AUTH = [u'admin',u'admin']
-HEADERS={'Content-Type':'application/json'}
+HEADERS={'Content-Type': 'application/json'}
+HEADERS_XML={'Content-Type': 'application/xml'}
 ODL_CONTROLLER_SESSION=None
 TOPO_TREE_LEVEL=2

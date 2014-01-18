@@ -1,0 +1,20 @@
+*** Settings ***
+Documentation    Restat Mininet with OF10 simulation
+Library     SSHLibrary
+
+*** Variables ***
+${start}=  sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,2
+
+*** Test Cases ***
+Stop Mininet
+    Log    Stop Mininet
+    Read
+    Write    exit 
+    Sleep    4
+    Read 
+Start Mininet
+    Log    Start Mininet
+    Write    ${start}
+    Sleep    70
+    Read
+

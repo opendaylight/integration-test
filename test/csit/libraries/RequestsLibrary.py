@@ -3,6 +3,7 @@ import json
 
 from urllib import urlencode
 
+
 import robot
 
 from robot.libraries.BuiltIn import BuiltIn
@@ -150,8 +151,34 @@ class RequestsLibrary(object):
         """
 
         session = self._cache.switch(alias)
-        #data = json.dumps(self._utf8_urlencode(data))
+	#data = self._utf8_urlencode(data)
         data = json.dumps(data)
+
+        resp = session.put(self._get_url(session, uri),
+                    data=data, headers=headers,
+                    cookies=self.cookies, timeout=self.timeout)
+
+        self.builtin.log("PUT response: %s DEBUG" % resp.content)
+
+        # store the last response object
+        session.last_resp = resp
+        return resp
+
+    def put_xml(self, alias, uri, data=None, headers=None):
+        """ Send a PUT_xml request on the session object found using the
+        given `alias`
+
+        `alias` that will be used to identify the Session object in the cache
+
+        `uri` to send the PUT_xml request to
+
+        `headers` a dictionary of headers to use with the request
+
+        """
+
+        session = self._cache.switch(alias)
+	data = self._utf8_urlencode(data)
+        #data = json.dumps(data)
 
         resp = session.put(self._get_url(session, uri),
                     data=data, headers=headers,
@@ -185,6 +212,7 @@ class RequestsLibrary(object):
         session.last_resp = resp
         return resp
 
+	
     def head(self, alias, uri, headers=None):
         """ Send a HEAD request on the session object found using the
         given `alias`

@@ -1,0 +1,53 @@
+*** Settings ***
+Documentation     Test suite for pushing/verify/remove a flow through RESTCONF
+Suite Setup       Create Session   session   http://${CONTROLLER}:8080   auth=${AUTH}   headers=${HEADERS_XML}
+Suite Teardown    Delete All Sessions
+Library           Collections
+Library           ../../libraries/RequestsLibrary.py
+Library           ../../libraries/Common.py
+Variables         ../../variables/Variables.py
+
+*** Variables ***
+
+${REST_CON}        /restconf/config/opendaylight-inventory:nodes
+${REST_OPR}        /restconf/operational/opendaylight-inventory:nodes
+${BODY}		   <flow xmlns="urn:opendaylight:flow:inventory"><priority>2</priority><flow-name>Foo</flow-name><match><ethernet-match><ethernet-type><type>2048</type></ethernet-type></ethernet-match><ipv4-destination>10.0.10.2/24</ipv4-destination></match><id>139</id><table_id>2</table_id><instructions><instruction><order>0</order><apply-actions><action><order>0</order><dec-nw-ttl/></action></apply-actions></instruction></instructions></flow>
+
+*** Test Cases *** 
+Add a flow
+    [Documentation]    Push a flow through REST-API
+    [Tags]   Push
+    ${resp}   Putxml    session   ${REST_CON}/node/openflow:1/table/2/flow/139    data=${BODY}
+    Should Be Equal As Strings    ${resp.status_code}    200
+	
+Verify after adding flow config
+    [Documentation]    Verify the flow
+    [Tags]   Get
+    ${resp}    Get    session     ${REST_CON}/node/openflow:1/table/2
+    Should Be Equal As Strings    ${resp.status_code}    200  
+    Should Contain     ${resp.content}    10.0.10.2/24
+    Should Contain     ${resp.content}    2048
+
+Verify after adding flow operational
+    [Documentation]    Verify the flow
+    [Tags]   Get
+    ${resp}    Get    session     ${REST_OPR}/node/openflow:1/table/2
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain     ${resp.content}    "flow-node-inventory:id": 2
+
+Remove a flow
+    [Documentation]    Remove a flow
+    [Tags]    remove
+    ${resp}   Delete    session   ${REST_CON}/node/openflow:1/table/2/flow/139    
+    Should Be Equal As Strings    ${resp.status_code}    200
+   
+Verify after deleting flow config
+    [Documentation]    Verify the flow
+    [Tags]   Get
+    ${resp}    Get    session     ${REST_CON}/node/openflow:1/table/2
+    Should Be Equal As Strings    ${resp.status_code}    404  
+    Should Contain    ${resp.content}    No data exists
+    Should Not Contain     ${resp.content}    10.0.10.2/24
+    Should Not Contain     ${resp.content}    2048
+
+
