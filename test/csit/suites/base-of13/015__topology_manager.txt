@@ -1,0 +1,51 @@
+*** Settings ***
+Documentation     Test suite for Topology Manager
+Suite Setup       Create Session   session   http://${CONTROLLER}:8080   auth=${AUTH}   headers=${HEADERS}
+Suite Teardown    Delete All Sessions
+Library           Collections
+Library           ../../libraries/RequestsLibrary.py
+Library           ../../libraries/Common.py
+Variables         ../../variables/Variables.py
+
+*** Variables ***
+${node1}   "openflow:1"
+${node2}   "openflow:2"
+${node3}   "openflow:3"
+${name}           test_userlink1
+${key}            userLinks
+${REST_CONTEXT}    /controller/nb/v2/topology
+
+*** Test Cases ***
+Get Topology
+    [Documentation]    Get Topology and validate the result.
+    [Tags]    get
+    ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}
+    Should Be Equal As Strings    ${resp.status_code}    200 
+    Log    ${resp.content}
+    Should Contain X Times  ${resp.content}   ${node1}   4
+    Should Contain X Times  ${resp.content}   ${node2}   2
+    Should Contain X Times  ${resp.content}   ${node3}   2
+Add a userlink
+    [Documentation]    Add a userlink, list to validate the result.
+    [Tags]    add
+    ${body}    Create Dictionary    name    ${name}    status    Success    srcNodeConnector
+    ...    MD_SAL|openflow:2:1@MD_SAL|openflow:2    dstNodeConnector    MD_SAL|openflow:3:1@MD_SAL|openflow:3
+    ${resp}    Put    session    ${REST_CONTEXT}/${CONTAINER}/userLink/${name}    data=${body}
+    Should Be Equal As Strings    ${resp.status_code}    201
+    ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}/userLinks
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${result}    To JSON    ${resp.content}
+    ${content}    Get From Dictionary    ${result}    ${key}
+    List Should Contain Value    ${content}    ${body}
+Remove a userlink
+    [Documentation]    Remove a userlink, list to validate the result.
+    [Tags]    remove
+    ${body}    Create Dictionary    name    ${name}    status    Success    srcNodeConnector
+    ...    MD_SAL|openflow:2:1@MD_SAL|openflow:2    dstNodeConnector    MD_SAL|openflow:3:1@MD_SAL|openflow:3
+    ${resp}    Delete    session    ${REST_CONTEXT}/${CONTAINER}/userLink/${name}
+    Should Be Equal As Strings    ${resp.status_code}    204
+    ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}/userLinks
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${result}    To JSON    ${resp.content}
+    ${content}    Get From Dictionary    ${result}    ${key}
+    List Should Not Contain Value    ${content}    ${body}

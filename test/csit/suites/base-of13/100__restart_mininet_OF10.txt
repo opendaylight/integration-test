@@ -1,5 +1,6 @@
 *** Settings ***
-Documentation    Restat Mininet with OF10 simulation
+Documentation    Restat Mininet with OF10 simulation 
+Documentation    Test suite for the OpenDaylight base edition with of10
 Library     SSHLibrary
 
 *** Variables ***
@@ -10,7 +11,7 @@ Stop Mininet
     Log    Stop Mininet
     Read
     Write    exit 
-    Sleep    4
+    Sleep    40
     Read 
 Start Mininet
     Log    Start Mininet
