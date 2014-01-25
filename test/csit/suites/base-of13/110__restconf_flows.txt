@@ -11,8 +11,8 @@ Variables         ../../variables/Variables.py
 
 ${REST_CON}        /restconf/config/opendaylight-inventory:nodes
 ${REST_OPR}        /restconf/operational/opendaylight-inventory:nodes
-${BODY1}		   <flow xmlns="urn:opendaylight:flow:inventory"><priority>2</priority><flow-name>Foo</flow-name><match><ethernet-match><ethernet-type><type>2048</type></ethernet-type></ethernet-match><ipv4-destination>10.0.10.2/24</ipv4-destination></match><id>139</id><table_id>2</table_id><instructions><instruction><order>0</order><apply-actions><action><order>0</order><dec-nw-ttl/></action></apply-actions></instruction></instructions></flow>
-${BODY2}		   <flow xmlns="urn:opendaylight:flow:inventory"><priority>2</priority><flow-name>Foo</flow-name><match><ethernet-match><ethernet-type><type>2048</type></ethernet-type></ethernet-match><ipv4-destination>10.0.10.2/24</ipv4-destination></match><id>141</id><table_id>2</table_id><instructions><instruction><order>0</order><apply-actions><action><order>0</order><dec-nw-ttl/></action></apply-actions></instruction></instructions></flow>
+${BODY1}		   <flow xmlns="urn:opendaylight:flow:inventory"><priority>2</priority><flow-name>Foo</flow-name><match><ethernet-match><ethernet-type><type>2048</type></ethernet-type></ethernet-match><ipv4-destination>10.0.10.1/32</ipv4-destination></match><id>139</id><table_id>2</table_id><instructions><instruction><order>0</order><apply-actions><action><order>0</order><dec-nw-ttl/></action></apply-actions></instruction></instructions></flow>
+${BODY2}		   <flow xmlns="urn:opendaylight:flow:inventory"><priority>2</priority><flow-name>Foo</flow-name><match><ethernet-match><ethernet-type><type>2048</type></ethernet-type></ethernet-match><ipv4-destination>10.0.20.1/32</ipv4-destination></match><id>152</id><table_id>2</table_id><instructions><instruction><order>0</order><apply-actions><action><order>0</order><output-action><output-node-connector>1</output-node-connector><max-length>60</max-length></output-action></action></apply-actions></instruction></instructions></flow>
 
 *** Test Cases *** 
 Add a flow - Sending IPv4 Dest Address and Eth type
@@ -26,15 +26,15 @@ Verify after adding flow config - Sending IPv4 Dest Address and Eth type
     [Tags]   Get
     ${resp}    Get    session     ${REST_CON}/node/openflow:1/table/2
     Should Be Equal As Strings    ${resp.status_code}    200  
-    Should Contain     ${resp.content}    10.0.10.2/24
-    Should Contain     ${resp.content}    2048
+    Should Contain     ${resp.content}    139    
 
-Verify after adding flow operational - Sending IPv4 Dest Address and Eth type
-    [Documentation]    Verify the flow
-    [Tags]   Get
-    ${resp}    Get    session     ${REST_OPR}/node/openflow:1/table/2
-    Should Be Equal As Strings    ${resp.status_code}    200
-    Should Contain     ${resp.content}    "flow-node-inventory:id": 2
+#Verify after adding flow operational - Sending IPv4 Dest Address and Eth type
+#    [Documentation]    Verify the flow
+#    [Tags]   Get
+#    Sleep    5
+#    ${resp}    Get    session     ${REST_OPR}/node/openflow:1/table/2
+#    Should Be Equal As Strings    ${resp.status_code}    200
+#    Should Contain     ${resp.content}    10.0.10.1
 
 Remove a flow - - Sending IPv4 Dest Address and Eth type
     [Documentation]    Remove a flow
@@ -47,14 +47,19 @@ Verify after deleting flow config - Sending IPv4 Dest Address and Eth type
     [Tags]   Get
     ${resp}    Get    session     ${REST_CON}/node/openflow:1/table/2
     Should Be Equal As Strings    ${resp.status_code}    404  
-    Should Contain    ${resp.content}    No data exists
-    Should Not Contain     ${resp.content}    10.0.10.2/24
-    Should Not Contain     ${resp.content}    2048
+    Should Not Contain     ${resp.content}    139
 
+#Verify after deleting flow operational - Sending IPv4 Dest Address and Eth type
+#    [Documentation]    Verify the flow
+#    [Tags]   Get
+#    ${resp}    Get    session     ${REST_OPR}/node/openflow:1/table/2
+#    Should Be Equal As Strings    ${resp.status_code}    200
+#    Should Not Contain     ${resp.content}    10.0.10.1
+ 
 Add a flow - Output to physical port#
     [Documentation]    Push a flow through REST-API
     [Tags]   Push
-    ${resp}   Putxml    session   ${REST_CON}/node/openflow:1/table/2/flow/141    data=${BODY2}
+    ${resp}   Putxml    session   ${REST_CON}/node/openflow:1/table/2/flow/152    data=${BODY2}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after adding flow config - Output to physical port#
@@ -62,35 +67,33 @@ Verify after adding flow config - Output to physical port#
     [Tags]   Get
     ${resp}    Get    session     ${REST_CON}/node/openflow:1/table/2
     Should Be Equal As Strings    ${resp.status_code}    200  
-    Should Contain     ${resp.content}    10.0.10.2/24
-    Should Contain     ${resp.content}    2048
-
-Verify after adding flow operational - Output to physical port#
-    [Documentation]    Verify the flow
-    [Tags]   Get
-    ${resp}    Get    session     ${REST_OPR}/node/openflow:1/table/2
-    Should Be Equal As Strings    ${resp.status_code}    200
-    Should Contain     ${resp.content}    "flow-node-inventory:id": 2
+    Should Contain     ${resp.content}    152
+ 
+#Verify after adding flow operational - Output to physical port#
+#    [Documentation]    Verify the flow
+#    [Tags]   Get
+#    Sleep    5
+#    ${resp}    Get    session     ${REST_OPR}/node/openflow:1/table/2
+#    Should Be Equal As Strings    ${resp.status_code}    200
+#    Should Contain     ${resp.content}    10.0.20.1
 
 Remove a flow - Output to physical port#
     [Documentation]    Remove a flow
     [Tags]    remove
-    ${resp}   Delete    session   ${REST_CON}/node/openflow:1/table/2/flow/141    
+    ${resp}   Delete    session   ${REST_CON}/node/openflow:1/table/2/flow/152    
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting flow config - Output to physical port#
     [Documentation]    Verify the flow
     [Tags]   Get
     ${resp}    Get    session     ${REST_CON}/node/openflow:1/table/2
-    Should Be Equal As Strings    ${resp.status_code}    404  
-    Should Contain    ${resp.content}    No data exists
-    Should Not Contain     ${resp.content}    10.0.10.2/24
-    Should Not Contain     ${resp.content}    2048
+    Should Be Equal As Strings    ${resp.status_code}    404 
+    Should Not Contain     ${resp.content}    152
 
 #Verify after deleting flow operational - Output to physical port#
 #    [Documentation]    Verify the flow
 #    [Tags]   Get
 #    ${resp}    Get    session     ${REST_OPR}/node/openflow:1/table/2
 #    Should Be Equal As Strings    ${resp.status_code}    200
-#    Should Not Contain     ${resp.content}    "flow-node-inventory:id": 2
+#    Should Not Contain     ${resp.content}    10.0.20.1
 
