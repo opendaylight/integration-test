@@ -19,7 +19,6 @@ ${REST_CONTEXT}    /controller/nb/v2/topology
 Get Topology
     [Documentation]    Get Topology and validate the result.
     [Tags]    get
-#    Sleep	10
     ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}
     Should Be Equal As Strings    ${resp.status_code}    200 
     Log    ${resp.content}

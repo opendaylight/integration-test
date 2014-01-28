@@ -31,7 +31,7 @@ Verify after adding flow config - Sending IPv4 Dest Address and Eth type
 Verify after adding flow operational - Sending IPv4 Dest Address and Eth type
     [Documentation]    Verify the flow
     [Tags]   Get
-    Sleep    5
+    Sleep    10
     ${resp}    Get    session     ${REST_OPR}/node/openflow:1/table/2
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain     ${resp.content}    10.0.10.1
@@ -49,9 +49,11 @@ Verify after deleting flow config - Sending IPv4 Dest Address and Eth type
     Should Be Equal As Strings    ${resp.status_code}    404  
     Should Not Contain     ${resp.content}    139
 
+#  This only works the first time
 #Verify after deleting flow operational - Sending IPv4 Dest Address and Eth type
 #    [Documentation]    Verify the flow
 #    [Tags]   Get
+#    Sleep   3
 #    ${resp}    Get    session     ${REST_OPR}/node/openflow:1/table/2
 #    Should Be Equal As Strings    ${resp.status_code}    200
 #    Should Not Contain     ${resp.content}    10.0.10.1
@@ -72,7 +74,7 @@ Verify after adding flow config - Output to physical port#
 Verify after adding flow operational - Output to physical port#
     [Documentation]    Verify the flow
     [Tags]   Get
-    Sleep    5
+    Sleep    10
     ${resp}    Get    session     ${REST_OPR}/node/openflow:1/table/2
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain     ${resp.content}    10.0.20.1
@@ -90,10 +92,11 @@ Verify after deleting flow config - Output to physical port#
     Should Be Equal As Strings    ${resp.status_code}    404 
     Should Not Contain     ${resp.content}    152
 
-#Verify after deleting flow operational - Output to physical port#
-#    [Documentation]    Verify the flow
-#    [Tags]   Get
-#    ${resp}    Get    session     ${REST_OPR}/node/openflow:1/table/2
-#    Should Be Equal As Strings    ${resp.status_code}    200
-#    Should Not Contain     ${resp.content}    10.0.20.1
+Verify after deleting flow operational - Output to physical port#
+    [Documentation]    Verify the flow
+    [Tags]   Get
+    Sleep    3
+    ${resp}    Get    session     ${REST_OPR}/node/openflow:1/table/2
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Not Contain     ${resp.content}    10.0.20.1
 

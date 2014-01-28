@@ -69,14 +69,14 @@ Add s4 ports
     ${resp}   Post   session   ${REST_CONTEXT_BD}/port/OVS/MININET/s3/s3-eth3
     ...   data={"type":"patch", "CUSTOM":{"peer":"s4-eth2"}}
     Should Be Equal As Strings    ${resp.status_code}    201
-#Ping h1 to h4
-#    [Documentation]    Ping h1 to h4, verify no packet loss
-#    [Tags]   Get
-#    Sleep   5
-#    Write   h1 ping -c 30 h4
-#    Sleep   40
-#   ${result}    Read
-#    Should Contain   ${result}   64 bytes
+Ping h1 to h4
+    [Documentation]    Ping h1 to h4, verify no packet loss
+    [Tags]   Get
+    Sleep   5
+    Write   h1 ping -c 30 h4
+    Sleep   40
+   ${result}    Read
+    Should Contain   ${result}   64 bytes
 Delete s4 ports
     [Documentation]    Delete s4 connected ports
     [Tags]    delete

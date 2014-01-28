@@ -11,7 +11,7 @@ Stop Mininet
     Log    Stop Mininet
     Read
     Write    exit 
-    Sleep    40
+    Sleep    60
     Read 
 Start Mininet
     Log    Start Mininet
