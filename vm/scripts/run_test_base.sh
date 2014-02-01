@@ -10,4 +10,4 @@ if [ -d $1 ]; then
    exit 1
 fi
 cd ~
-pybot -v CONTROLLER:$1 -v MININET:$MYIP -v USER_HOME:${HOME} -v MININET_USER:${USER} ${HOME}/integration/test/csit/suites/base
+pybot -d ${HOME} -v CONTROLLER:$1 -v MININET:$MYIP -v USER_HOME:${HOME} -v MININET_USER:${USER} ${HOME}/integration/test/csit/suites/base

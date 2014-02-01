@@ -8,7 +8,7 @@ cd ~/controller-base/opendaylight
 sleep 120
 ./run.sh -status
 cd ~
-pybot -v CONTROLLER:127.0.0.1 -v MININET:127.0.0.1 -v USER_HOME:${HOME} -v MININET_USER:${USER} ${HOME}/integration/test/csit/suites/base
+pybot -d ${HOME} -v CONTROLLER:127.0.0.1 -v MININET:127.0.0.1 -v USER_HOME:${HOME} -v MININET_USER:${USER} ${HOME}/integration/test/csit/suites/base
 cd ~/controller-base/opendaylight
 ./run.sh -stop
 
