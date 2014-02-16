@@ -138,6 +138,36 @@ class RequestsLibrary(object):
         self.builtin.log("Post response: " + resp.content, 'DEBUG')
         return resp
 
+    def postjson(self, alias, uri, data={}, headers=None, files={}):
+        """ Send a POST request on the session object found using the
+        given `alias`
+
+        `alias` that will be used to identify the Session object in the cache
+
+        `uri` to send the GET request to
+
+        `data` a dictionary of key-value pairs that will be urlencoded
+               and sent as POST data
+               or binary data that is sent as the raw body content
+
+        `headers` a dictionary of headers to use with the request
+
+        `files` a dictionary of file names containing file data to POST to the server
+        """
+
+        session = self._cache.switch(alias)
+        data = json.dumps(data)
+
+        resp = session.post(self._get_url(session, uri),
+                       data=data, headers=headers,
+                       files=files,
+                       cookies=self.cookies, timeout=self.timeout)
+
+        # store the last response object
+        session.last_resp = resp
+        self.builtin.log("Post response: " + resp.content, 'DEBUG')
+        return resp
+
     def put(self, alias, uri, data=None, headers=None):
         """ Send a PUT request on the session object found using the
         given `alias`
