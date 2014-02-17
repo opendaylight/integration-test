@@ -75,6 +75,8 @@ Ping h1 to h4
     Sleep   5
     Write   h1 ping -c 30 h4
     Sleep   40
+    Write   h4 ping -c 30 h1
+    Sleep   40
     ${result}    Read
     Should Contain   ${result}   64 bytes
 Delete s4 ports
