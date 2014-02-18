@@ -8,7 +8,7 @@ Library           ../../libraries/Common.py
 Variables         ../../variables/Variables.py
 
 *** Variables ***
-${REST_CONTEXT}    /restconf/datastore/opendaylight-inventory:nodes
+${REST_CONTEXT}    /restconf/operational/opendaylight-inventory:nodes
 
 *** Test Cases *** 
 Get list of nodes

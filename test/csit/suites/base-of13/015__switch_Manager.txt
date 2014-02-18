@@ -51,7 +51,7 @@ Add property to node
     [Documentation]    Add a property to node
     Add property to node    MD_SAL    openflow:2    description     Switch2
     Node property should exist    MD_SAL    openflow:2    description    Switch2
-#    Standing bug #335
+#    Standing bug #335 - This has been fixed!
 #Remove property from node
 #    [Documentation]    Remove a property from node
 #    Remove property from node    MD_SAL    openflow:2    description
