@@ -29,7 +29,9 @@ Ping h1 to h4
     [Tags]   Get
     Write   h1 ping -c 3 h4
     Sleep   6
-    ${result}    Read
+    Write   h4 ping -c 3 h1
+    Sleep   6
+     ${result}    Read
     Should Contain   ${result}   64 bytes
 List hosts
     [Documentation]    List hosts and verify h1 and h4
