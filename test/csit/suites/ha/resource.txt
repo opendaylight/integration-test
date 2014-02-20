@@ -1,0 +1,38 @@
+*** Settings ***
+Documentation     A resource file with reusable keywords and variables.
+...
+...               The system specific keywords created here form our own
+...               domain specific language. They utilize keywords provided
+...               by the imported Selenium2Library.
+
+*** Variables ***
+${CONTROLLER1}    192.168.56.101:6633
+${CONTROLLER2}    192.168.56.102:6633
+${Controller1_IP}    192.168.56.101
+${Controller2_IP}    192.168.56.102
+${HOST}              192.168.56.103
+${BROWSER}        Firefox
+${DELAY}          0
+${DELAY2}         40
+${USER}           admin
+${PASSWORD}       admin
+${SERVER1}        192.168.56.101:8080
+${SERVER2}        192.168.56.102:8080
+${LOGIN URL1}     http://${SERVER1}/
+${LOGIN URL2}     http://${SERVER2}/
+${ERROR URL1}     http://${SERVER1}/
+${ERROR URL2}     http://${SERVER2}/
+${VM USERNAME}    odluser
+${VM PASSWORD}    odluser1
+
+${nodeconn1}   NodeConnector":{"type":"OF","node":{"type":"OF","id":"00:00:00:00:00:00:00:01"},"id":"1"}
+${nodeconn2}   NodeConnector":{"type":"OF","node":{"type":"OF","id":"00:00:00:00:00:00:00:01"},"id":"2"}
+${nodeconn3}   NodeConnector":{"type":"OF","node":{"type":"OF","id":"00:00:00:00:00:00:00:02"},"id":"3"}
+${nodeconn4}   NodeConnector":{"type":"OF","node":{"type":"OF","id":"00:00:00:00:00:00:00:03"},"id":"3"}
+
+
+${name}           flow995
+${key}            flowConfig
+${node_id}        00:00:00:00:00:00:00:02
+${REST_CONTEXT}    /controller/nb/v2/flowprogrammer
+${REST_CONTEXT_2}    /controller/nb/v2/statistics/default/flow

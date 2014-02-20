@@ -1,0 +1,113 @@
+*** Settings ***
+Documentation     ODL controller clustering test case using the gherkin syntax.
+...
+...               This test has a workflow similar to the keyword-driven
+...               examples. The difference is that the keywords use higher
+...               abstraction level and their arguments are embedded into
+...               the keyword names.
+...
+...               This kind of _gherkin_ syntax has been made popular by
+...               [http://cukes.info|Cucumber]. It works well especially when
+...               tests act as examples that need to be easily understood also
+...               by the business people.
+Resource          resource.txt
+Library           Selenium2Library
+Library           SSHLibrary
+Library           Collections
+Library           ../../libraries/RequestsLibrary.py
+Library           ../../libraries/Common.py
+Variables         ../../variables/Variables.py
+
+
+*** Test Cases ***
+Controller1 and Controller2 fail
+    Given C1 a controller in cluster of two controllers
+    And C2 a controllers in cluster of two controllers
+    And all switches are introduced to both controllers
+    When C1 goes down
+    And C2 goes down
+    Then the system does not work any more
+
+
+*** Keywords ***
+C1 goes down
+    Open Connection    ${Controller1_IP}    prompt=>
+    Login    ${VM USERNAME}    ${VM PASSWORD}
+    Write    cd controller-base/opendaylight
+    Write    sudo ./run.sh -stop
+    Set Selenium Speed    ${DELAY2}
+    Open Browser    ${LOGIN URL1}    ${BROWSER}
+    Maximize Browser Window
+    Set Selenium Speed    ${DELAY}
+    Location Should Be    ${ERROR URL1}
+    Title Should Be    Problem loading page
+    [Teardown]    Close Browser
+
+C2 goes down
+    Open Connection    ${Controller2_IP}    prompt=>
+    Login    ${VM USERNAME}    ${VM PASSWORD}
+    Write    cd controller-base/opendaylight
+    Write    sudo ./run.sh -stop
+    Set Selenium Speed    ${DELAY2}
+    Open Browser    ${LOGIN URL2}    ${BROWSER}
+    Maximize Browser Window
+    Set Selenium Speed    ${DELAY}
+    Location Should Be    ${ERROR URL2}
+    Title Should Be    Problem loading page
+    [Teardown]    Close Browser
+
+
+C1 a controller in cluster of two controllers
+#    Open Connection    ${Controller1_IP}    prompt=>
+#    Login    ${VM USERNAME}    ${VM PASSWORD}
+#    Write    cd controller-base/opendaylight
+#    Write    sudo ./run.sh -Dsupernodes=${Controller1_IP}:${Controller2_IP} -start
+    Open Connection    ${HOST}
+    Login    ${VM USERNAME}    ${VM PASSWORD}
+    ${stdout}=    Execute Command    sudo ovs-vsctl show
+    Should Contain X Times    ${stdout}    Controller "tcp:${CONTROLLER1}"  3
+    
+
+
+C2 a controller in cluster of two controllers
+#    Open Connection    ${Controller2_IP}    prompt=>
+#    Login    ${VM USERNAME}    ${VM PASSWORD}
+#    Write    cd controller-base/opendaylight
+#    Write    sudo ./run.sh -Dsupernodes=${Controller1_IP}:${Controller2_IP} -start
+    Open Connection    ${HOST}
+    Login    ${VM USERNAME}    ${VM PASSWORD}
+    ${stdout}=    Execute Command    sudo ovs-vsctl show
+    Should Contain X Times    ${stdout}    Controller "tcp:${CONTROLLER2}"  3    
+
+
+all switches are introduced to both controllers
+    Open Connection    ${HOST}
+    Login    ${VM USERNAME}    ${VM PASSWORD}
+#   ${stdout1}=    Execute Command    sudo ovs-vsctl set-controller s1 tcp:${CONTROLLER1} tcp:${CONTROLLER2}
+#   ${stdout2}=    Execute Command    sudo ovs-vsctl set-controller s2 tcp:${CONTROLLER1} tcp:${CONTROLLER2}
+#   ${stdout2}=    Execute Command    sudo ovs-vsctl set-controller s3 tcp:${CONTROLLER1} tcp:${CONTROLLER2}
+    ${stdout}=    Execute Command   sudo ovs-vsctl show
+    Should Contain X Times    ${stdout}    Controller "tcp:${CONTROLLER1}"  3
+    Should Contain X Times    ${stdout}    Controller "tcp:${CONTROLLER2}"  3
+    Should Contain     ${stdout}    Bridge "s1"
+    Should Contain     ${stdout}    Bridge "s2"
+    Should Contain     ${stdout}    Bridge "s3"
+    Should Contain X Times    ${stdout}    is_connected: true    6
+    ${stdout}=    Execute Command   sudo ovs-vsctl get-controller "s1"
+    Should Contain     ${stdout}    ${CONTROLLER1}
+    Should Contain     ${stdout}    ${CONTROLLER2}
+    ${stdout}=    Execute Command   sudo ovs-vsctl get-controller "s2"
+    Should Contain     ${stdout}    ${CONTROLLER1}
+    Should Contain     ${stdout}    ${CONTROLLER2}
+    ${stdout}=    Execute Command   sudo ovs-vsctl get-controller "s3"
+    Should Contain     ${stdout}    ${CONTROLLER1}
+    Should Contain     ${stdout}    ${CONTROLLER2}
+		
+
+the system does not work any more
+    Open Connection    ${HOST}
+    Login    ${VM USERNAME}    ${VM PASSWORD}
+    ${stdout}=    Execute Command   sudo ovs-vsctl show
+    Should Not Contain    ${stdout}    is_connected: true 
+
+
