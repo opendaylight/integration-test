@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for VTN Coordinator
-Suite Setup       Create Session    session    http://${CONTROLLER}:8081  headers=${VTNC_HEADERS}
+Suite Setup       Create Session    session    http://${VTNC}:8083  headers=${VTNC_HEADERS}
 Suite Teardown    Delete All Sessions
 Library           SSHLibrary
 Library           Collections
@@ -86,14 +86,14 @@ Add a Controller
    ${controllerinfo}    Create Dictionary   controller_id   ${ctrlname}   type    odc    ipaddr    ${CONTROLLER}    version    1.0    auditstatus    enable
    ${controllercreate}    Create Dictionary   controller    ${controllerinfo}
    ${resp}    PostJson    session    ${VTNWEBAPI}/${CTRLS_CREATE}    data=${controllercreate}
-   Should Be Equal As Strings    ${resp.status_code}    200
+   Should Be Equal As Strings    ${resp.status_code}    201
 
 
 Remove Controller
    [Arguments]   ${ctrlname}
    [Documentation]   Delete a Controller
    ${resp}    Delete   session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}.json
-   Should Be Equal As Strings    ${resp.status_code}    200
+   Should Be Equal As Strings    ${resp.status_code}    204
 
 
 Check Controller Status
@@ -113,14 +113,14 @@ Add a VTN
    ${vtninfo}    Create Dictionary    vtn_name    ${vtnname}    description    ${vtndescription}
    ${vtncreate}    Create Dictionary    vtn    ${vtninfo}
    ${resp}    PostJson    session    ${VTNWEBAPI}/${VTNS_CREATE}    data=${vtncreate}
-   Should Be Equal As Strings    ${resp.status_code}    200
+   Should Be Equal As Strings    ${resp.status_code}    201
 
 
 Delete a VTN
    [Arguments]   ${vtnname}
    [Documentation]  Delete a VTN Created
    ${resp}    Delete    session    ${VTNWEBAPI}/${VTNS}/${vtnname}.json
-   Should Be Equal As Strings    ${resp.status_code}    200
+   Should Be Equal As Strings    ${resp.status_code}    204
 
 
 Create VBR in VTN
@@ -129,7 +129,7 @@ Create VBR in VTN
    ${vbrinfo}    Create Dictionary   vbr_name    ${vbrname}    controller_id   ${ctrlname}    domain_id    (DEFAULT)
    ${vbrcreate}   Create Dictionary   vbridge    ${vbrinfo}
    ${resp}    PostJson    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS_CREATE}    data=${vbrcreate}
-   Should Be Equal As Strings    ${resp.status_code}    200
+   Should Be Equal As Strings    ${resp.status_code}    201
 
 
 Create VBRIF in VBR
@@ -138,7 +138,7 @@ Create VBRIF in VBR
    ${vbrifinfo}    Create Dictionary   if_name    ${vbrifname}    description    ${ifdescription}
    ${vbrifcreate}    Create Dictionary   interface    ${vbrifinfo}
    ${resp}    PostJson    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${VBRIFS_CREATE}  data=${vbrifcreate}
-   Should Be Equal As Strings    ${resp.status_code}    200
+   Should Be Equal As Strings    ${resp.status_code}    201
 
 
 Define Portmap for VBRIF
@@ -147,7 +147,7 @@ Define Portmap for VBRIF
    ${logical_port_info}    Create Dictionary    logical_port_id    ${logical_port_id}
    ${portmapdefine}     Create Dictionary     portmap     ${logical_port_info}
    ${resp}   Put     session      ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${VBRIFS}/${vbrifname}/${PORTMAP_CREATE}    data=${portmapdefine}
-   Should Be Equal As Strings    ${resp.status_code}    200
+   Should Be Equal As Strings    ${resp.status_code}    204
 
 Test Ping
    [Arguments]   ${host1}    ${host2}

@@ -20,7 +20,7 @@ TOPO_TREE_LEVEL=2
 
 # VTN Coordinator Variables
 VTNC = '127.0.0.1'
-VTNCPORT = '8081'
+VTNCPORT = '8083'
 VTNC_PREFIX = 'http://' + VTNC + ':' + VTNCPORT
 VTNC_HEADERS={'Content-Type': 'application/json', 'username' : 'admin' , 'password' : 'adminpass'}
 
