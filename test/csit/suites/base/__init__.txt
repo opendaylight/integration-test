@@ -12,7 +12,7 @@ Start Suite
     Log    Start the test on the base edition
     Open Connection   ${MININET}     prompt=>
     Login With Public Key    ${MININET_USER}   ${USER_HOME}/.ssh/id_rsa   any 
-    Write    sudo ovs-vsctl set-manager ptcp:6640
+    Write    sudo ovs-vsctl set-manager ptcp:6644
     Write    sudo mn -c
     Sleep    2
     Write    ${start}

@@ -17,7 +17,7 @@ ${REST_CONTEXT_BD}    /controller/nb/v2/networkconfig/bridgedomain
 *** Test Cases ***
 List connections
     [Documentation]    Get node connections and validate result
-    [Tags]    Get
+    [Tags]    ovsdb
     ${topo_nodes}    Get Nodes From Topology    ${TOPO_TREE_LEVEL}
     ${resp}    Get    session    ${REST_CONTEXT_CM}/nodes
     Should Be Equal As Strings   ${resp.status_code}   200
@@ -26,9 +26,9 @@ List connections
     List Should Contain Sublist   ${nodes}    ${topo_nodes}
 Connect to mininet
     [Documentation]    Connect to mininet, list the nodes and validate result
-    [Tags]    add
+    [Tags]    ovsdb
     ${body}   Create Dictionary   type   OVS   id   MININET
-    ${resp}   Put   session   ${REST_CONTEXT_CM}/node/MININET/address/${MININET}/port/6640
+    ${resp}   Put   session   ${REST_CONTEXT_CM}/node/MININET/address/${MININET}/port/6644
     Should Be Equal As Strings   ${resp.status_code}   200
     ${result}    To JSON    ${resp.content}
     Dictionaries Should Be Equal    ${result}   ${body}
@@ -40,12 +40,12 @@ Connect to mininet
     Sleep   2
 Add bridge s4
     [Documentation]    Add bridge s4
-    [Tags]    add
+    [Tags]    ovsdb
     ${resp}    Post    session    ${REST_CONTEXT_BD}/bridge/OVS/MININET/s4  data={}
     Should Be Equal As Strings    ${resp.status_code}    201
 Delete s1 ports
     [Documentation]    Delete s1 connected ports
-    [Tags]    delete
+    [Tags]    ovsdb
     ${resp}    Delete   session   ${REST_CONTEXT_BD}/port/OVS/MININET/s1/s1-eth1
     Should Be Equal As Strings    ${resp.status_code}    200
     ${resp}    Delete   session   ${REST_CONTEXT_BD}/port/OVS/MININET/s1/s1-eth2
@@ -56,7 +56,7 @@ Delete s1 ports
     Should Be Equal As Strings    ${resp.status_code}    200
 Add s4 ports 
     [Documentation]    Add s4 connected ports
-    [Tags]    add
+    [Tags]    ovsdb
     ${resp}   Post   session   ${REST_CONTEXT_BD}/port/OVS/MININET/s4/s4-eth1   
     ...   data={"type":"patch", "CUSTOM":{"peer":"s2-eth3"}}
     Should Be Equal As Strings    ${resp.status_code}    201
@@ -71,7 +71,7 @@ Add s4 ports
     Should Be Equal As Strings    ${resp.status_code}    201
 Ping h1 to h4
     [Documentation]    Ping h1 to h4, verify no packet loss
-    [Tags]   Get
+    [Tags]   ovsdb
     Sleep   5
     Write   h1 ping -c 30 h4
     Sleep   40
@@ -81,7 +81,7 @@ Ping h1 to h4
     Should Contain   ${result}   64 bytes
 Delete s4 ports
     [Documentation]    Delete s4 connected ports
-    [Tags]    delete
+    [Tags]    ovsdb
     ${resp}    Delete   session   ${REST_CONTEXT_BD}/port/OVS/MININET/s4/s4-eth1
     Should Be Equal As Strings    ${resp.status_code}    200
     ${resp}    Delete   session   ${REST_CONTEXT_BD}/port/OVS/MININET/s4/s4-eth2
@@ -92,7 +92,7 @@ Delete s4 ports
     Should Be Equal As Strings    ${resp.status_code}    200
 Add s1 ports 
     [Documentation]    Add s1 connected ports
-    [Tags]    add
+    [Tags]    ovsdb
     ${resp}   Post   session   ${REST_CONTEXT_BD}/port/OVS/MININET/s1/s1-eth1
     ...   data={"type":"patch", "CUSTOM":{"peer":"s2-eth3"}}
     Should Be Equal As Strings    ${resp.status_code}    201
@@ -107,12 +107,12 @@ Add s1 ports
     Should Be Equal As Strings    ${resp.status_code}    201
 Delete bridge s4
     [Documentation]    Delete bridge s4
-    [Tags]    Delete
+    [Tags]    ovsdb
     ${resp}    Delete    session    ${REST_CONTEXT_BD}/bridge/OVS/MININET/s4
     Should Be Equal As Strings    ${resp.status_code}    200
 Disconnect mininet
     [Documentation]    Disconnect mininet, list the nodes and validate result
-    [Tags]    delete
+    [Tags]    ovsdb
     ${body}   Create Dictionary   type   OVS   id   MININET
     ${resp}   Delete   session   ${REST_CONTEXT_CM}/node/OVS/MININET
     Should Be Equal As Strings   ${resp.status_code}   200
