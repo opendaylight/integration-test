@@ -46,7 +46,7 @@ Verify after deleting flow config - Sending IPv4 Dest Address and Eth type
     [Documentation]    Verify the flow
     [Tags]   Get
     ${resp}    Get    session     ${REST_CON}/node/openflow:1/table/2
-    Should Be Equal As Strings    ${resp.status_code}    404  
+    Should Be Equal As Strings    ${resp.status_code}    200  
     Should Not Contain     ${resp.content}    139
 
 # Reason in using high time is, I used STOPWATCH to check the timer after deleting the flow config
@@ -89,7 +89,7 @@ Verify after deleting flow config - Output to physical port#
     [Documentation]    Verify the flow
     [Tags]   Get
     ${resp}    Get    session     ${REST_CON}/node/openflow:1/table/2
-    Should Be Equal As Strings    ${resp.status_code}    404 
+    Should Be Equal As Strings    ${resp.status_code}    200 
     Should Not Contain     ${resp.content}    152
 
 Verify after deleting flow operational - Output to physical port#
