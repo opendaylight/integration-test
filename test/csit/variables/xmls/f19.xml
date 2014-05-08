@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flow xmlns="urn:opendaylight:flow:inventory">
+    <strict>false</strict>
+    <flow-name>FooXf19</flow-name>
+    <id>142</id>
+    <cookie_mask>255</cookie_mask>
+    <cookie>19</cookie>
+    <table_id>2</table_id>
+    <priority>1</priority>
+    <hard-timeout>1200</hard-timeout>
+    <idle-timeout>3400</idle-timeout>
+    <installHw>false</installHw>
+    <instructions>
+        <instruction>
+            <order>0</order>
+            <apply-actions>
+                <action>
+                    <order>0</order>
+                    <dec-nw-ttl/>
+                </action>
+            </apply-actions>
+        </instruction>
+    </instructions>
+    <match>
+        <metadata>
+            <metadata>12345</metadata>
+        </metadata>
+    </match>
+</flow>

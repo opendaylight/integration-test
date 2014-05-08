@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flow xmlns="urn:opendaylight:flow:inventory">
+    <strict>false</strict>
+    <flow-name>FooXf18</flow-name>
+    <id>141</id>
+    <cookie_mask>255</cookie_mask>
+    <cookie>18</cookie>
+    <table_id>2</table_id>
+    <priority>2</priority>
+    <hard-timeout>1200</hard-timeout>
+    <idle-timeout>3400</idle-timeout>
+    <installHw>false</installHw>
+    <instructions>
+        <instruction>
+            <order>0</order>
+            <apply-actions>
+                <action>
+                    <order>0</order>
+                    <dec-nw-ttl/>
+                </action>
+            </apply-actions>
+        </instruction>
+    </instructions>
+    <match>
+        <ethernet-match>
+            <ethernet-type>
+                <type>34525</type>
+            </ethernet-type>
+        </ethernet-match>
+        <ipv6-source>fe80::2acf:e9ff:fe21:6431/128</ipv6-source>
+        <ipv6-destination>aabb:1234:2acf:e9ff::fe21:6431/64</ipv6-destination>
+    </match>
+</flow>
+
