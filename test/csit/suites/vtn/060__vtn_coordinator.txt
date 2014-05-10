@@ -170,7 +170,7 @@ Test Ping
    [Arguments]   ${host1}    ${host2}
    [Documentation]  Ping hosts to check connectivity
    Sleep   5
-   Write    ${host1} ping -c 10 ${host2}
+   Write    ${host1} ping -w 10 ${host2}
    Sleep    10
    ${result}    Read
    Should Contain    ${result}    64 bytes
