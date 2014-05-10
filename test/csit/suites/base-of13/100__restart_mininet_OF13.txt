@@ -1,10 +1,10 @@
 *** Settings ***
 Documentation    Restat Mininet with OF10 simulation 
-Documentation    Test suite for the OpenDaylight base edition with of10
+Documentation    Test suite for the OpenDaylight base edition with of13
 Library     SSHLibrary
 
 *** Variables ***
-${start}=  sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,2
+${start}=  sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,2 --switch ovsk,protocols=OpenFlow13
 
 *** Test Cases ***
 Stop Mininet
