@@ -4,6 +4,7 @@ Authors: Baohua Yang@IBM, Denghui Huang@IBM
 Updated: 2013-11-14
 """
 import collections
+import xml.etree.ElementTree as ET
 
 '''
 Common constants and functions for the robot framework.
@@ -35,5 +36,28 @@ def combine_strings(*strings):
     else:
         return result
 
+        
+def compare_xml(xml1, xml2):
+    """
+    compare the two XML files to see if they contain the same data
+    but could be if different order.
+    It just split the xml in to lines and just check the line is in
+    the other file 
+    """
+    for line in xml1.rstrip().split('\n'):
+        if line not in xml2.rstrip().split('\n'):
+            return False
+
+    for line in xml2.rstrip().split('\n'):
+        if line not in xml1.rstrip().split('\n'):
+            return False
+
+    return True
+
+    
+
+
 if __name__ == '__main__':
+    
+
     pass
