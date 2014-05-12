@@ -15,7 +15,7 @@ PWD = 'admin'
 AUTH = [u'admin',u'admin']
 HEADERS={'Content-Type': 'application/json'}
 HEADERS_XML={'Content-Type': 'application/xml'}
-HEADERS_ACCEPT={'Accept': 'application/xml'}
+ACCEPT_XML={'Accept': 'application/xml'}
 ODL_CONTROLLER_SESSION=None
 TOPO_TREE_LEVEL=2
 
@@ -29,6 +29,7 @@ VTNWEBAPI='/vtn-webapi'
 #controllers URL
 CTRLS_CREATE='controllers.json'
 CTRLS='controllers'
+SW='switches'
 
 #vtn URL
 VTNS_CREATE='vtns.json'
@@ -44,3 +45,9 @@ VBRIFS='interfaces'
 
 #portmap URL
 PORTMAP_CREATE='portmap.json'
+
+#vlanmap URL
+VLANMAP_CREATE='vlanmaps.json'
+
+#ports URL
+PORTS='ports/detail.json'
