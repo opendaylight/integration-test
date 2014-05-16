@@ -1,0 +1,67 @@
+*** Settings ***
+Documentation     controller1 fails
+Library           SSHLibrary
+Library           Collections
+Library           ../../libraries/RequestsLibrary.py
+Library           ../../libraries/Common.py
+Variables         ../../variables/Variables.py
+
+*** Variables ***
+${node1}   "00:00:00:00:00:00:00:01"
+${node2}   "00:00:00:00:00:00:00:02"
+${node3}   "00:00:00:00:00:00:00:03"
+${REST_CONTEXT}    /controller/nb/v2/topology
+${REST_CONTEXT_ST}    /controller/nb/v2/statistics
+${CONTROLLER1}    10.125.136.38:6633
+${CONTROLLER2}    10.125.136.43:6633
+${Controller1_IP}    10.125.136.38
+${Controller2_IP}    10.125.136.43
+${CTRL_USER}      odluser
+${FLOW}           "10.0.0.1"
+
+*** Test Cases ***
+C1 fails
+    [Documentation]    C1 fails suddenly
+    Open Connection    ${Controller1_IP}    prompt=$
+    Login With Public Key    odluser   ${USER_HOME}/.ssh/id_rsa   any
+    Write    cd controller-base/opendaylight
+    Write    ./run.sh -stop
+    Sleep    5
+    Read
+
+C2 takes over and verifying the bridges
+    [Documentation]    C2 is taking over from c1 failure 
+    Switch Connection    1
+    ${stdout}=    Execute Command    sudo ovs-vsctl show
+    Read
+    Should Contain X Times    ${stdout}    Controller "tcp:${CONTROLLER2}"  3
+    Sleep    5
+    Should Contain X Times    ${stdout}    is_connected: true    3
+
+Verifying the topology in C2
+    [Documentation]    Get Topology for C2 and validate the result.
+    [Tags]    get
+    Create Session    session    http://${Controller2_IP}:8080   headers=${HEADERS}    auth=${auth}
+    ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}
+    Should Be Equal As Strings    ${resp.status_code}    200 
+    Log    ${resp.content}
+    Should Contain X Times  ${resp.content}   ${node1}   4
+    Should Contain X Times  ${resp.content}   ${node2}   2
+    Should Contain X Times  ${resp.content}   ${node3}   2
+
+Check flow in flow stats in C2
+    [Documentation]    Checking the flow stats and validating the result in C2
+    [Tags]   get
+    Sleep   10
+    Create Session    session    http://${Controller2_IP}:8080   headers=${HEADERS}    auth=${auth}
+    ${resp}    Get    session    ${REST_CONTEXT_ST}/${CONTAINER}/flow
+    Should Be Equal As Strings    ${resp.status_code}    200 
+    Log    ${resp.content}
+    Should Contain    ${resp.content}    ${FLOW}
+
+
+
+
+
+
+

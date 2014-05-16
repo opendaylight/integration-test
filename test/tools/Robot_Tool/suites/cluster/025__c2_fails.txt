@@ -1,0 +1,71 @@
+*** Settings ***
+Documentation     controller1 fails
+Library           SSHLibrary
+Library           Collections
+Library           ../../libraries/RequestsLibrary.py
+Library           ../../libraries/Common.py
+Variables         ../../variables/Variables.py
+
+*** Variables ***
+${node1}   "00:00:00:00:00:00:00:01"
+${node2}   "00:00:00:00:00:00:00:02"
+${node3}   "00:00:00:00:00:00:00:03"
+${REST_CONTEXT}    /controller/nb/v2/topology
+${REST_CONTEXT_ST}    /controller/nb/v2/statistics
+${CONTROLLER1}    10.125.136.38:6633
+${CONTROLLER2}    10.125.136.43:6633
+${Controller1_IP}    10.125.136.38
+${Controller2_IP}    10.125.136.43
+${CTRL_USER}      odluser
+${FLOW}           "10.0.0.1"
+
+*** Test Cases ***
+C1 recovers from failure
+    [Documentation]    C1 recovers from failure
+    Switch Connection    2
+    Write    cd controller-base/opendaylight
+    Write    ./run.sh -start
+    Sleep    60
+    Read
+
+C2 fails
+    [Documentation]    C2 fails suddenly
+    Open Connection    ${Controller2_IP}    prompt=$
+    Login With Public Key    odluser   ${USER_HOME}/.ssh/id_rsa   any
+    Write    cd controller-base/opendaylight
+    Write    ./run.sh -stop
+    Sleep    5
+    Read
+
+C1 takes over and verifying the bridges
+    [Documentation]    C1 is taking over from C2 
+    Switch Connection    1
+    ${stdout}=    Execute Command    sudo ovs-vsctl show
+    Read
+    Should Contain X Times    ${stdout}    Controller "tcp:${CONTROLLER1}"  3
+    Should Contain X Times    ${stdout}    Controller "tcp:${CONTROLLER2}"  3
+
+Verifying the topology in C1
+    [Documentation]    Get Topology for C1 and validate the result.
+    [Tags]    get
+    Create Session    session    http://${Controller1_IP}:8080   headers=${HEADERS}    auth=${auth}
+    ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}
+    Should Be Equal As Strings    ${resp.status_code}    200 
+    Log    ${resp.content}
+    Should Contain X Times  ${resp.content}   ${node1}   4
+    Should Contain X Times  ${resp.content}   ${node2}   2
+    Should Contain X Times  ${resp.content}   ${node3}   2
+
+Check flow in flow stats in C1
+    [Documentation]    Checking the flow stats and validating the result in C1
+    [Tags]   get
+    Sleep   10
+    ${resp}    Get    session    ${REST_CONTEXT_ST}/${CONTAINER}/flow
+    Should Be Equal As Strings    ${resp.status_code}    200 
+    Log    ${resp.content}
+    Should Contain    ${resp.content}    ${FLOW}
+
+
+
+
+

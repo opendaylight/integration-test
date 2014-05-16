@@ -1,0 +1,27 @@
+*** Settings ***
+Documentation     Test suite for the OpenDaylight Cluster
+Suite Setup       Start Suite
+Suite Teardown    Stop Suite
+Library     SSHLibrary
+
+*** Variables ***
+${start}=  sudo mn --controller=remote,ip=${CONTROLLER},port=6633 --topo tree,2
+
+*** Keywords ***
+Start Suite  
+    Log    Start the test on the base edition
+    Open Connection   ${MININET}     prompt=>
+    Login With Public Key    ${MININET_USER}   ${USER_HOME}/.ssh/id_rsa   any
+    Write    sudo mn -c
+    Sleep    5
+    Write    ${start}
+    Sleep    20
+    Read
+Stop Suite
+    Log    Stop the test on the base edition
+    Read
+    Write    exit 
+    Sleep    4
+    Read 
+    Close Connection 
+

@@ -1,0 +1,60 @@
+*** Settings ***
+Documentation     Introducing switches to both the controllers C1  and C2
+Suite Teardown    Delete All Sessions
+Library           SSHLibrary
+Library           Collections
+Library           ../../libraries/RequestsLibrary.py
+Library           ../../libraries/Common.py
+Variables         ../../variables/Variables.py
+
+*** Variables ***
+${node1}   "00:00:00:00:00:00:00:01"
+${node2}   "00:00:00:00:00:00:00:02"
+${node3}   "00:00:00:00:00:00:00:03"
+${key}            flowConfig
+${name}           flow1
+${REST_CONTEXT_P}    /controller/nb/v2/flowprogrammer
+${REST_CONTEXT_ST}    /controller/nb/v2/statistics
+${CONTROLLER1}    10.125.136.38:6633
+${CONTROLLER2}    10.125.136.43:6633
+${Controller1_IP}    10.125.136.38
+${Controller2_IP}    10.125.136.43
+${node_id}        00:00:00:00:00:00:00:02
+${FLOW}           "10.0.0.1"
+
+
+*** Test Cases ***
+Add a flow in C1
+    [Documentation]    	Adding a flow, list to validate the result in C1
+    [Tags]    add
+    ${node}    Create Dictionary    type    OF    id    ${node_id}
+    ${actions}    Create List    OUTPUT=1
+    ${body}    Create Dictionary    name    ${name}    installInHw    true    node
+    ...    ${node}    priority    1    etherType    0x800    nwDst
+    ...    10.0.0.1/32    actions    ${actions}
+    Create Session    session    http://${Controller1_IP}:8080   auth=${AUTH}   headers=${HEADERS}
+    ${resp}    Put    session    ${REST_CONTEXT_P}/${CONTAINER}/node/OF/${node_id}/staticFlow/${name}    data=${body}
+    Should Be Equal As Strings    ${resp.status_code}    201
+
+
+Check flow stats in C1
+    [Documentation]    Checking the flow stats and validating the result in C1
+    [Tags]   get
+    Sleep   10
+    Create Session    session    http://${Controller1_IP}:8080   auth=${AUTH}   headers=${HEADERS}
+    ${resp}    Get    session    ${REST_CONTEXT_ST}/${CONTAINER}/flow
+    Should Be Equal As Strings    ${resp.status_code}    200 
+    Log    ${resp.content}
+    Should Contain    ${resp.content}    ${FLOW}
+
+
+Check flow stats in C2
+    [Documentation]    Checking the flow stats and validating the result in C2
+    [Tags]   get
+    Sleep   10
+    Create Session    session    http://${Controller2_IP}:8080   auth=${AUTH}   headers=${HEADERS}
+    ${resp}    Get    session    ${REST_CONTEXT_ST}/${CONTAINER}/flow
+    Should Be Equal As Strings    ${resp.status_code}    200 
+    Log    ${resp.content}
+    Should Contain    ${resp.content}    ${FLOW}
+
