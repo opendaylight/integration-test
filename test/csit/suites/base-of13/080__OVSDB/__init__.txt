@@ -1,0 +1,27 @@
+*** Settings ***
+Documentation     Test suite for OVSDB
+Suite Setup       Start Suite
+Suite Teardown    Stop Suite
+Library     SSHLibrary
+
+*** Variables ***
+${start}=   sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,2 
+
+** Keywords ***
+Start Suite  
+    Log    Start the test on the base edition
+    Open Connection   ${MININET}     prompt=>
+    Login With Public Key    ${MININET_USER}   ${USER_HOME}/.ssh/id_rsa   any 
+    Write    sudo ovs-vsctl set-manager ptcp:6644
+    Write    sudo mn -c
+    Sleep    2
+    Write    ${start}
+    Sleep    20
+    Read
+Stop Suite
+    Log    Stop the test on the base edition
+    Read
+    Write    exit 
+    Sleep    4
+    Read 
+    Close Connection 
