@@ -73,10 +73,10 @@ Ping h1 to h4
     [Documentation]    Ping h1 to h4, verify no packet loss
     [Tags]   ovsdb
     Sleep   5
-    Write   h1 ping -w 40 h4
-    Sleep   40
-    Write   h4 ping -w 40 h1
-    Sleep   40
+    Write   h1 ping -w 6 h4
+    Sleep   6
+    Write   h4 ping -w 6 h1
+    Sleep   6
     ${result}    Read
     Should Contain   ${result}   64 bytes
 Delete s4 ports

@@ -5,10 +5,10 @@ Suite Setup       Create Session    session    http://${VTNC}:8083  headers=${VT
 Suite Teardown    Delete All Sessions
 Library           SSHLibrary
 Library           Collections
-Library           ../../libraries/RequestsLibrary.py
-Library           ../../libraries/Common.py
-Library           ../../libraries/Topology.py
-Variables         ../../variables/Variables.py
+Library           ../../../libraries/RequestsLibrary.py
+Library           ../../../libraries/Common.py
+Library           ../../../libraries/Topology.py
+Variables         ../../../variables/Variables.py
 
 
 *** Test Cases ***

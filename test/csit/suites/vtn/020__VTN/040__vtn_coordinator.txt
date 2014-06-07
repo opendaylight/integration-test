@@ -4,11 +4,10 @@ Suite Setup       Create Session    session    http://${VTNC}:8083  headers=${VT
 Suite Teardown    Delete All Sessions
 Library           SSHLibrary
 Library           Collections
-Library           ../../libraries/RequestsLibrary.py
-Library           ../../libraries/Common.py
-Library           ../../libraries/Topology.py
-Variables         ../../variables/Variables.py
-
+Library           ../../../libraries/RequestsLibrary.py
+Library           ../../../libraries/Common.py
+Library           ../../../libraries/Topology.py
+Variables         ../../../variables/Variables.py
 
 
 *** Test Cases ***
@@ -17,66 +16,75 @@ Add a ODL Controller
     [Tags]    vtnc
     Add a Controller    odc_test     ${CONTROLLER}
 
-
 Verify the Controller Status is up
     [Documentation]    Check Controller status
-    [Tags]   vtnc 
-    Check Controller Status    odc_test
-
+    [Tags]   vtnc
+    Check Controller Status    odc_test   up   20
 
 Add a Vtn Tenant1
     [Documentation]   Create Vtn Tenant1
-    [Tags]   vtnc 
+    [Tags]   vtnc
     Add a VTN  Tenant1  VTN_TEST
-
 
 Create VBR in VTN Tenant1
     [Documentation]   Create a VBR in Tenant1 as Vbridge1
-    [Tags]   vtnc 
+    [Tags]   vtnc
     Create VBR in VTN     Tenant1    Vbridge1    odc_test
 
+Update controller ip invalid
+    [Documentation]    Update Controller ip to invalid
+    [Tags]    vtnc
+    Update Controller    odc_test     10.0.0.1   invalid_IP
+
+Verify the Controller State is down
+    [Documentation]    Check Controller status
+    [Tags]   vtnc
+    Check Controller Status    odc_test   down   45
 
 Create VBRIF in VBRIDGE Vbridge1 Interface1
     [Documentation]   Create an interface to Vbridge1
-    [Tags]   vtnc 
+    [Tags]   vtnc
     Create VBRIF in VBR   Tenant1    Vbridge1   Interface1  Interface1
-
 
 Create VBRIF in VBRIDGE Vbridge1 Interface2
     [Documentation]   Create an interface to Vbridge1
-    [Tags]   vtnc 
+    [Tags]   vtnc
     Create VBRIF in VBR   Tenant1    Vbridge1   Interface2  Interface2
 
+Update controller ip valid
+    [Documentation]    Update Controller ip to valid
+    [Tags]    vtnc
+    Update Controller    odc_test     ${CONTROLLER}   valid_IP
+
+Verify the Controller State is up
+    [Documentation]    Check Controller status
+    [Tags]   vtnc
+    Check Controller Status    odc_test   up   45
 
 Define Portmap for Interface1
     [Documentation]   Map Interface1 to a logical port
     [Tags]   vtnc
-    Define Portmap for VBRIF    Tenant1    Vbridge1     Interface1    PP-OF:00:00:00:00:00:00:00:03-s3-eth1
-
+    Define Portmap for VBRIF    Tenant1    Vbridge1     Interface1    PP-OF:00:00:00:00:00:00:00:02-s2-eth1
 
 Define Portmap for Interface2
     [Documentation]   Map Interface2 to a logical port
-    [Tags]   vtnc 
-    Define Portmap for VBRIF    Tenant1    Vbridge1     Interface2    PP-OF:00:00:00:00:00:00:00:02-s2-eth1
-
+    [Tags]   vtnc
+    Define Portmap for VBRIF    Tenant1    Vbridge1     Interface2    PP-OF:00:00:00:00:00:00:00:02-s2-eth2
 
 Test Ping for Configuration1
     [Documentation]   ping between hosts in mininet
-    [Tags]   vtnc 
-    Test Ping    h1    h3
-
+    [Tags]   vtnc
+    Test Ping    h1    h2
 
 Delete a VTN Tenant1
     [Documentation]   Delete Vtn Tenant1
     [Tags]   vtnc
     Delete a VTN  Tenant1
 
-
 Delete a Controller odc1
     [Documentation]   Delete Controller odc1
     [Tags]   vtnc
     Remove Controller    odc_test
-
 
 
 *** Keywords ***
@@ -96,15 +104,24 @@ Remove Controller
    Should Be Equal As Strings    ${resp.status_code}    204
 
 
+Update Controller
+   [Arguments]   ${ctrlname}    ${ctrlip}    ${desc}
+   [Documentation]    Update controller
+   ${controllerinfo}    Create Dictionary    description    ${desc}    ipaddr    ${ctrlip}    version    1.0    auditstatus    enable
+   ${controllerupdate}    Create Dictionary   controller    ${controllerinfo}
+   ${resp}    Put    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}.json    data=${controllerupdate}
+   Should Be Equal As Strings    ${resp.status_code}    204
+
+
 Check Controller Status
-   [Arguments]   ${ctrlname}
+   [Arguments]   ${ctrlname}   ${stat}   ${sec}
    [Documentation]    Get controller status
-   Sleep    15
+   Sleep    ${sec}
    ${resp}    Get   session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}.json
    ${contents}    To JSON    ${resp.content}
    ${controllerblock}    Get From Dictionary    ${contents}   controller
    ${status}    Get From Dictionary    ${controllerblock}     operstatus
-   Should Be Equal As Strings    ${status}    up
+   Should Be Equal As Strings    ${status}    ${stat}
 
 
 Add a VTN

@@ -4,10 +4,10 @@ Suite Setup       Create Session    session    http://${CONTROLLER}:8080    auth
 Suite Teardown    Delete All Sessions
 Library           SSHLibrary
 Library           Collections
-Library           ../../libraries/RequestsLibrary.py
-Library           ../../libraries/Common.py
-Library           ../../libraries/Topology.py
-Variables         ../../variables/Variables.py
+Library           ../../../libraries/RequestsLibrary.py
+Library           ../../../libraries/Common.py
+Library           ../../../libraries/Topology.py
+Variables         ../../../variables/Variables.py
 
 *** Variables ***
 ${REST_CONTEXT_VTNS}    controller/nb/v2/vtn/default/vtns

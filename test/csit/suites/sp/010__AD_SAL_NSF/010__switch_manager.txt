@@ -1,13 +1,13 @@
 *** Settings ***
-Documentation     Test suite for the switch manager bundle.
+Documentation     Test suite for Switch Manager
 Suite Setup       Create Session    ${ODL_CONTROLLER_SESSION}    http://${CONTROLLER}:8080    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
 Library           Collections
 Library           RequestsLibrary
-Library           ../../libraries/Common.py
-Library           ../../libraries/SwitchManager.py
-Variables         ../../variables/Variables.py
-Library           ../../libraries/Topology.py
+Library           ../../../libraries/Common.py
+Library           ../../../libraries/SwitchManager.py
+Variables         ../../../variables/Variables.py
+Library           ../../../libraries/Topology.py
 
 *** Variables ***
 ${REST_CONTEXT}    /controller/nb/v2/switchmanager
@@ -18,22 +18,42 @@ List all nodes
     [Tags]    list_info
     Log    ${TOPO_TREE_LEVEL}
     ${topo_nodes}    Get Nodes From Topology    ${TOPO_TREE_LEVEL}
-    ${resp}    Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/${CONTAINER}/nodes
+    ${resp}    Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/nodes
     Should Be Equal As Strings    ${resp.status_code}    200    Response   status code error
     ${jsondata}=    To JSON    ${resp.content}
     ${nodes}    Extract All Nodes    ${jsondata}
     List Should Contain Sublist   ${nodes}    ${topo_nodes}
-Get a node
-    [Documentation]    Get a node
-    Get node    00:00:00:00:00:00:00:02    OF
+Check node 1 connectors 
+    [Documentation]    List node connectors and verify all connectors are there
+    [Tags]    list_info
+    ${resp}    Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/node/OF/00:00:00:00:00:00:00:01
+    Should Be Equal As Strings    ${resp.status_code}    200    Response   status code error
+    Should Contain     ${resp.content}    s1-eth1
+    Should Contain     ${resp.content}    s1-eth2
+Check node 2 connectors               
+    [Documentation]    List node connectors and verify all connectors are there                      
+    [Tags]    list_info
+    ${resp}    Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/node/OF/00:00:00:00:00:00:00:02
+    Should Be Equal As Strings    ${resp.status_code}    200    Response   status code error
+    Should Contain     ${resp.content}    s2-eth1             
+    Should Contain     ${resp.content}    s2-eth2  
+    Should Contain     ${resp.content}    s2-eth3
+Check node 3 connectors               
+    [Documentation]    List node connectors and verify all connectors are there                      
+    [Tags]    list_info
+    ${resp}    Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/node/OF/00:00:00:00:00:00:00:03
+    Should Be Equal As Strings    ${resp.status_code}    200    Response   status code error
+    Should Contain     ${resp.content}    s3-eth1           
+    Should Contain     ${resp.content}    s3-eth2
+    Should Contain     ${resp.content}    s3-eth3
 Add property to node
     [Documentation]    Add a property to node
     Add property to node    OF    00:00:00:00:00:00:00:02    description     Switch2
     Node property should exist    OF    00:00:00:00:00:00:00:02    description    Switch2
-Remove property from node
-    [Documentation]    Remove a property from node
-    Remove property from node    OF    00:00:00:00:00:00:00:02    description
-    Node property should not exist    OF    00:00:00:00:00:00:00:02     description    Switch2
+#Remove property from node
+#    [Documentation]    Remove a property from node
+#    Remove property from node    OF    00:00:00:00:00:00:00:02    description
+#    Node property should not exist    OF    00:00:00:00:00:00:00:02     description    Switch2
 Add property to nodeconnector
     [Documentation]    Add a property to nodeconnector
     Add property to nodeconnector    OF    00:00:00:00:00:00:00:02    OF    2    bandwidth    1000
