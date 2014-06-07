@@ -9,7 +9,7 @@ ${start}=   sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,2 --switch 
 
 ** Keywords ***
 Start Suite  
-    Log    Start the test on the base edition
+    Log    Start mininet
     Open Connection   ${MININET}     prompt=>
     Login With Public Key    ${MININET_USER}   ${USER_HOME}/.ssh/id_rsa   any 
     Write    sudo ovs-vsctl set-manager ptcp:6644
@@ -19,7 +19,7 @@ Start Suite
     Sleep    30
     Read
 Stop Suite
-    Log    Stop the test on the base edition
+    Log    Stop mininet
     Read
     Write    exit 
     Sleep    4

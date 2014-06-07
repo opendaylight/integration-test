@@ -1,11 +1,11 @@
 *** Settings ***
-Documentation     Test suite for the host tracker module.
+Documentation     Test suite for Host Tracker
 Suite Setup       Create Session   session   http://${CONTROLLER}:8080   auth=${AUTH}   headers=${HEADERS}
 Suite Teardown    Delete All Sessions
 Library           Collections
-Library           ../../libraries/RequestsLibrary.py
-Library           ../../libraries/Common.py
-Variables         ../../variables/Variables.py
+Library           ../../../libraries/RequestsLibrary.py
+Library           ../../../libraries/Common.py
+Variables         ../../../variables/Variables.py
 
 *** Variables ***
 ${name}           10.0.1.4

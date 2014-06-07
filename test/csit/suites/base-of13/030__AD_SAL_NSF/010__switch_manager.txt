@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite for the Switch Manager
+Documentation     Test suite for Switch Manager
 Suite Setup       Create Session    ${ODL_CONTROLLER_SESSION}    http://${CONTROLLER}:8080    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
 Library           Collections
