@@ -18,7 +18,7 @@
     <match>
         <ethernet-match>
             <ethernet-type>
-                <type>2048</type>
+                <type>34887</type>
             </ethernet-type>
             <ethernet-destination>
                 <address>ff:ff:29:01:19:61</address>

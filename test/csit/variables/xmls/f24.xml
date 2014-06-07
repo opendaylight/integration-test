@@ -16,7 +16,9 @@
             <apply-actions>
                 <action>
                     <order>0</order>
-                    <dec-nw-ttl/>
+                        <output-action>
+                        <output-node-connector>TABLE</output-node-connector>
+                    </output-action>
                 </action>
             </apply-actions>
         </instruction>

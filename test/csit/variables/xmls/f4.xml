@@ -19,7 +19,7 @@
     <match>
         <ethernet-match>
             <ethernet-type>
-                <type>45</type>
+                <type>34887</type>
             </ethernet-type>
             <ethernet-destination>
                 <address>ff:ff:ff:ff:ff:ff</address>

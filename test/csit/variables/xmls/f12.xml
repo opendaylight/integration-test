@@ -7,11 +7,7 @@
             <apply-actions>
                 <action>
                     <order>0</order>
-                    <dec-nw-ttl/>
-                </action>
-                <action>
-                    <order>1</order>
-                    <dec-mpls-ttl/>
+                    <flood-action/>
                 </action>
             </apply-actions>
         </instruction>
@@ -22,7 +18,7 @@
     <match>
         <ethernet-match>
             <ethernet-type>
-                <type>2054</type>
+                <type>0x806</type>
             </ethernet-type>
             <ethernet-destination>
                 <address>ff:ff:ff:ff:ff:ff</address>

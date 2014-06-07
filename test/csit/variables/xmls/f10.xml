@@ -7,7 +7,7 @@
             <apply-actions>
                 <action>
                     <order>0</order>
-                    <dec-mpls-ttl/>
+                    <dec-nw-ttl/>
                 </action>
             </apply-actions>
         </instruction>
@@ -18,7 +18,7 @@
     <match>
         <ethernet-match>
             <ethernet-type>
-                <type>2048</type>
+                <type>0x800</type>
             </ethernet-type>
             <ethernet-destination>
                 <address>ff:ff:29:01:19:61</address>

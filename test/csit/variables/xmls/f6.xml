@@ -9,10 +9,6 @@
                     <order>0</order>
                     <dec-nw-ttl/>
                 </action>
-                <action>
-                    <order>1</order>
-                    <dec-mpls-ttl/>
-                </action>
             </apply-actions>
         </instruction>
     </instructions>
@@ -22,7 +18,7 @@
     <match>
         <ethernet-match>
             <ethernet-type>
-                <type>2048</type>
+                <type>0x800</type>
             </ethernet-type>
             <ethernet-destination>
                 <address>ff:ff:ff:ff:ff:ff</address>

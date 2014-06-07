@@ -7,7 +7,7 @@
             <apply-actions>
                 <action>
                     <order>0</order>
-                    <dec-mpls-ttl/>
+                    <dec-nw-ttl/>
                 </action>
             </apply-actions>
         </instruction>

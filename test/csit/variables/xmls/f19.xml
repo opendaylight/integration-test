@@ -16,7 +16,10 @@
             <apply-actions>
                 <action>
                     <order>0</order>
-                    <dec-nw-ttl/>
+                    <output-action>
+                        <output-node-connector>INPORT</output-node-connector>
+                        <max-length>60</max-length>
+                    </output-action>>
                 </action>
             </apply-actions>
         </instruction>

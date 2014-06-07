@@ -36,7 +36,7 @@
             <metadata>12345</metadata>
         </metadata>
         <ip-match>
-            <ip-protocol>6</ip-protocol>
+            <ip-protocol>133</ip-protocol>
             <ip-dscp>60</ip-dscp>
             <ip-ecn>3</ip-ecn>
         </ip-match>
