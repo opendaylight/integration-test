@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite for pushing/verify/remove a flow through RESTCONF
+Documentation     Test suite for metadata and mask
 Suite Setup       Create Session    session    http://${CONTROLLER}:8080    auth=${AUTH}    headers=${HEADERS_XML}
 Suite Teardown    Delete All Sessions
 Library           SSHLibrary
@@ -12,10 +12,11 @@ Variables         ../../../variables/Variables.py
 *** Variables ***
 ${REST_CON}       /restconf/config/opendaylight-inventory:nodes
 ${REST_OPR}       /restconf/operational/opendaylight-inventory:nodes
-${FILE}           ${CURDIR}/../../../variables/xmls/f1.xml
-${FLOW}           124
+${FILE}           ${CURDIR}/../../../variables/xmls/f21.xml
+${FLOW}           144
 ${TABLE}          2
-@{FLOWELMENTS}    nw_dst=10.0.1.0    table=2    dec_ttl
+@{FLOWELMENTS}    metadata=0x3039    udp6    ipv6    ipv6_dst=fe80::2acf:e9ff:fe21:6431    nw_tos=32    nw_ecn=3    tp_src=25364
+...               tp_dst=8080    ipv6_src=1234:5678:9abc:def0:fdc0::/76    dec_ttl
 
 *** Test Cases ***
 Add a flow - Output to physical port#
@@ -36,6 +37,7 @@ Verify after adding flow config - Output to physical port#
 Verify flows after adding flow config on OVS
     [Documentation]    Checking Flows on switch
     [Tags]    Switch
+    sleep    2
     write    dpctl dump-flows -O OpenFlow13
     ${body}    OperatingSystem.Get File    ${FILE}
     Sleep    1

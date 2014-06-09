@@ -1,27 +1,28 @@
 *** Settings ***
-Documentation     Test suite for Flow Mod test mininet OF13
+Documentation     Test suite for the OpenDaylight base edition with of10
 Suite Setup       Start Suite
 Suite Teardown    Stop Suite
-Library     SSHLibrary
+Library           SSHLibrary
 
 *** Variables ***
-${start}=   sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,2 --switch ovsk,protocols=OpenFlow13 
+${start}          sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,1 --switch ovsk,protocols=OpenFlow13
 
-** Keywords ***
-Start Suite  
-    Log    Start mininet
-    Open Connection   ${MININET}     prompt=>
-    Login With Public Key    ${MININET_USER}   ${USER_HOME}/.ssh/id_rsa   any 
+*** Keywords ***
+Start Suite
+    Log    Start the test on the base edition
+    Open Connection    ${MININET}    prompt=>
+    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
     Write    sudo ovs-vsctl set-manager ptcp:6644
     Write    sudo mn -c
     Sleep    2
     Write    ${start}
-    Sleep    20
+    Sleep    10
     Read
+
 Stop Suite
-    Log    Stop mininet
+    Log    Stop the test on the base edition
     Read
-    Write    exit 
+    Write    exit
     Sleep    4
-    Read 
-    Close Connection 
+    Read
+    Close Connection

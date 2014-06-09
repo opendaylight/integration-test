@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite for pushing/verify/remove a flow through RESTCONF
+Documentation     Test suite for IP,Ethernet,QoS, TCP dst/src port and Action dec MPLS TTL
 Suite Setup       Create Session    session    http://${CONTROLLER}:8080    auth=${AUTH}    headers=${HEADERS_XML}
 Suite Teardown    Delete All Sessions
 Library           SSHLibrary
@@ -12,10 +12,11 @@ Variables         ../../../variables/Variables.py
 *** Variables ***
 ${REST_CON}       /restconf/config/opendaylight-inventory:nodes
 ${REST_OPR}       /restconf/operational/opendaylight-inventory:nodes
-${FILE}           ${CURDIR}/../../../variables/xmls/f1.xml
-${FLOW}           124
+${FILE}           ${CURDIR}/../../../variables/xmls/f9.xml
+${FLOW}           132
 ${TABLE}          2
-@{FLOWELMENTS}    nw_dst=10.0.1.0    table=2    dec_ttl
+@{FLOWELMENTS}    dl_dst=20:14:29:01:19:61    table=2    nw_ecn=3    dl_src=00:00:00:11:23:ae    nw_src=19.1.0.0    nw_dst=172.168.5.0    dec_ttl
+...               udp    nw_tos=32    in_port=0    tp_dst=8080    tp_src=25364
 
 *** Test Cases ***
 Add a flow - Output to physical port#

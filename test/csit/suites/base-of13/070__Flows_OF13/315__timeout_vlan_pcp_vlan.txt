@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite for pushing/verify/remove a flow through RESTCONF
+Documentation     Test suite for Time our values and Vlan and PCP Vlan
 Suite Setup       Create Session    session    http://${CONTROLLER}:8080    auth=${AUTH}    headers=${HEADERS_XML}
 Suite Teardown    Delete All Sessions
 Library           SSHLibrary
@@ -12,10 +12,11 @@ Variables         ../../../variables/Variables.py
 *** Variables ***
 ${REST_CON}       /restconf/config/opendaylight-inventory:nodes
 ${REST_OPR}       /restconf/operational/opendaylight-inventory:nodes
-${FILE}           ${CURDIR}/../../../variables/xmls/f1.xml
-${FLOW}           124
+${FILE}           ${CURDIR}/../../../variables/xmls/f16.xml
+${FLOW}           139
 ${TABLE}          2
-@{FLOWELMENTS}    nw_dst=10.0.1.0    table=2    dec_ttl
+@{FLOWELMENTS}    table=2    idle_timeout=3400    hard_timeout=1200    priority=2    ip    dl_vlan=78    dl_vlan_pcp=3
+...               dl_src=00:00:00:11:23:ae    dl_dst=ff:ff:29:01:19:61    dec_ttl
 
 *** Test Cases ***
 Add a flow - Output to physical port#
