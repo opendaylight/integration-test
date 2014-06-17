@@ -36,14 +36,14 @@ Add a interface if2
 Add a portmap for interface if1
     [Documentation]    Create a portmap on Interface if1 of vBridge1
     [Tags]    add
-    ${node}    Create Dictionary    type    OF    id    00:00:00:00:00:00:00:02
+    ${node}    Create Dictionary    type    MD_SAL    id    openflow:2
     ${port}    Create Dictionary    name    s2-eth1
     ${portmap_data}    Create Dictionary    node    ${node}    port    ${port}
     Add a portmap    Tenant1    vBridge1    if1    ${portmap_data}
 
 Add a portmap for interface if2
     [Documentation]    Create a portmap on Interface if2 of vBridge1
-    ${node}    Create Dictionary    type    OF    id    00:00:00:00:00:00:00:03
+    ${node}    Create Dictionary    type    MD_SAL    id    openflow:3
     ${port}    Create Dictionary    name    s3-eth1
     ${portmap_data}    Create Dictionary    node    ${node}    port    ${port}
     Add a portmap    Tenant1    vBridge1    if2    ${portmap_data} 
@@ -66,14 +66,14 @@ Add a interface if4
 Add a portmap for interface if3
     [Documentation]    Create a portmap on Interface if3 of vBridge2
     [Tags]    add
-    ${node}    Create Dictionary    type    OF    id    00:00:00:00:00:00:00:02
+    ${node}    Create Dictionary    type    MD_SAL    id    openflow:2
     ${port}    Create Dictionary    name    s2-eth2
     ${portmap_data}    Create Dictionary    node    ${node}    port    ${port}
     Add a portmap    Tenant1    vBridge2    if3    ${portmap_data}
 
 Add a portmap for interface if4
     [Documentation]    Create a portmap on Interface if4 of vBridge2
-    ${node}    Create Dictionary    type    OF    id    00:00:00:00:00:00:00:03
+    ${node}    Create Dictionary    type    MD_SAL    id    openflow:3
     ${port}    Create Dictionary    name    s3-eth2
     ${portmap_data}    Create Dictionary    node    ${node}    port    ${port}
     Add a portmap    Tenant1    vBridge2    if4    ${portmap_data}
@@ -81,16 +81,16 @@ Add a portmap for interface if4
 Ping h1 to h3
     [Documentation]    Ping h1 to h3, verify no packet loss
     Sleep    5
-    Write    h1 ping -w 10 h3
-    Sleep    10
+    Write    h1 ping -w 15 h3
+    Sleep    15
     ${result}    Read
     Should Contain    ${result}    64 bytes
 
 Ping h2 to h4
     [Documentation]    Ping h2 to h4, verify no packet loss
     Sleep    5
-    Write    h2 ping -w 10 h4
-    Sleep    10
+    Write    h2 ping -w 15 h4
+    Sleep    15
     ${result}    Read
     Should Contain    ${result}    64 bytes
 
