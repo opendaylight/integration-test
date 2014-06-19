@@ -6,7 +6,7 @@ Updated: 2013-11-14
 import collections
 
 # Global variables
-CONTROLLER = '10.125.136.52'
+CONTROLLER = '127.0.0.1'
 PORT = '8080'
 PREFIX = 'http://' + CONTROLLER + ':' + PORT
 CONTAINER = 'default'

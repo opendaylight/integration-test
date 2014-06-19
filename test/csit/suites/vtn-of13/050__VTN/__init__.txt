@@ -16,7 +16,7 @@ Start Suite
     Write    sudo mn -c
     Sleep    2
     Write    ${start}
-    Sleep    10
+    Sleep    30
     Read
 Stop Suite
     Log    Stop mininet
