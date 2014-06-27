@@ -7,13 +7,12 @@ Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Library           ../../../libraries/SwitchManager.py
 Variables         ../../../variables/Variables.py
-Library           ../../../libraries/Topologynew.py
+Library           ../../../libraries/Topology.py
 
 *** Variables ***
 ${REST_CONTEXT}    /controller/nb/v2/switchmanager
 
 *** Test Cases ***
-
 List all nodes
     [Documentation]    List all nodes and their properties in the network.
     [Tags]    list_info
@@ -27,49 +26,49 @@ List all nodes
 Check node 1 connectors 
     [Documentation]    List node connectors and verify all connectors are there
     [Tags]    list_info
-    ${resp}    Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/node/MD_SAL/openflow:1
+    ${resp}    Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/node/OF/00:00:00:00:00:00:00:01
     Should Be Equal As Strings    ${resp.status_code}    200    Response   status code error
-    Should Contain     ${resp.content}    openflow:1:1
-    Should Contain     ${resp.content}    openflow:1:2
+    Should Contain     ${resp.content}    s1-eth1
+    Should Contain     ${resp.content}    s1-eth2
 Check node 2 connectors               
     [Documentation]    List node connectors and verify all connectors are there                      
     [Tags]    list_info
-    ${resp}    Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/node/MD_SAL/openflow:2
+    ${resp}    Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/node/OF/00:00:00:00:00:00:00:02
     Should Be Equal As Strings    ${resp.status_code}    200    Response   status code error
-    Should Contain     ${resp.content}    openflow:2:1              
-    Should Contain     ${resp.content}    openflow:2:2  
-    Should Contain     ${resp.content}    openflow:2:3
+    Should Contain     ${resp.content}    s2-eth1             
+    Should Contain     ${resp.content}    s2-eth2  
+    Should Contain     ${resp.content}    s2-eth3
 Check node 3 connectors               
     [Documentation]    List node connectors and verify all connectors are there                      
     [Tags]    list_info
-    ${resp}    Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/node/MD_SAL/openflow:3
+    ${resp}    Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/node/OF/00:00:00:00:00:00:00:03
     Should Be Equal As Strings    ${resp.status_code}    200    Response   status code error
-    Should Contain     ${resp.content}    openflow:3:1              
-    Should Contain     ${resp.content}    openflow:3:2  
-    Should Contain     ${resp.content}    openflow:3:3
+    Should Contain     ${resp.content}    s3-eth1           
+    Should Contain     ${resp.content}    s3-eth2
+    Should Contain     ${resp.content}    s3-eth3
 Add property to node
     [Documentation]    Add a property to node
-    Add property to node    MD_SAL    openflow:2    description     Switch2
-    Node property should exist    MD_SAL    openflow:2    description    Switch2
-#    Standing bug #335 - This has been fixed!
+    Add property to node    OF    00:00:00:00:00:00:00:02    description     Switch2
+    Node property should exist    OF    00:00:00:00:00:00:00:02    description    Switch2
 #Remove property from node
 #    [Documentation]    Remove a property from node
-#    Remove property from node    MD_SAL    openflow:2    description
-#    Node property should not exist    MD_SAL    openflow:2     description    Switch2
+#    Remove property from node    OF    00:00:00:00:00:00:00:02    description
+#    Node property should not exist    OF    00:00:00:00:00:00:00:02     description    Switch2
 Add property to nodeconnector
     [Documentation]    Add a property to nodeconnector
-    Add property to nodeconnector    MD_SAL    openflow:2    MD_SAL    openflow:2:2    bandwidth    1000
-    Nodeconnector property should exist    MD_SAL    openflow:2    MD_SAL    openflow:2:2    bandwidth    ${1000}
+    Add property to nodeconnector    OF    00:00:00:00:00:00:00:02    OF    2    bandwidth    1000
+    Nodeconnector property should exist    OF    00:00:00:00:00:00:00:02    OF    2    bandwidth    ${1000}
+
 Remove property from nodeconnector
     [Documentation]    Remove a property from nodeconnector
-    Remove property from nodeconnector    MD_SAL    openflow:2    MD_SAL    openflow:2:2    bandwidth
-    Nodeconnector property should not exist    MD_SAL    openflow:2    MD_SAL    openflow:2:2    bandwidth    ${1000}
+    Remove property from nodeconnector    OF    00:00:00:00:00:00:00:02    OF    2    bandwidth
+    Nodeconnector property should not exist    OF    00:00:00:00:00:00:00:02    OF    2    bandwidth    ${1000}
 
 *** Keywords ***
 Get node
     [Arguments]    ${node_id}    ${node_type}
     [Documentation]    Get a specific node
-    ${resp}    Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/nodes
+    ${resp}    Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/${CONTAINER}/nodes
     Should Be Equal As Strings    ${resp.status_code}    200    Response status code error
     ${result}    TO JSON    ${resp.content}
     ${node}    Create Dictionary    id    ${node_id}    type    ${node_type}

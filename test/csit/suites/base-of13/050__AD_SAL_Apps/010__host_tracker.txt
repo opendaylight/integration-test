@@ -18,9 +18,9 @@ ${FLOW}           "10.0.1.4"
 Add a host
     [Documentation]    Add a host, list to validate the result.
     [Tags]    add
-    ${body}    Create Dictionary    nodeType    MD_SAL    dataLayerAddress    5e:bf:79:84:10:a6    vlan
-    ...    1    nodeId    openflow:3    nodeConnectorId    openflow:3:2    networkAddress
-    ...    10.0.1.4    staticHost    ${True}    nodeConnectorType    MD_SAL
+    ${body}    Create Dictionary    nodeType    OF    dataLayerAddress    5e:bf:79:84:10:a6    vlan
+    ...    1    nodeId    00:00:00:00:00:00:00:03    nodeConnectorId    2    networkAddress
+    ...    10.0.1.4    staticHost    ${True}    nodeConnectorType    OF
     ${resp}    Put    session    ${REST_CONTEXT}/${CONTAINER}/address/${name}    data=${body}
     Should Be Equal As Strings    ${resp.status_code}    201
     ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}/hosts/active
@@ -31,17 +31,17 @@ Add a host
 Check flow in flow stats
     [Documentation]    Show flow stats and validate result
     [Tags]   get
-    Sleep	30
+    Sleep   30
     ${resp}    Get    session    ${REST_CONTEXT_ST}/${CONTAINER}/flow
-    Should Be Equal As Strings    ${resp.status_code}    200   
+    Should Be Equal As Strings    ${resp.status_code}    200 
     Log    ${resp.content}
     Should Contain X Times   ${resp.content}    ${FLOW}   3
 Remove a host
     [Documentation]    Remove a host, list to validate the result.
     [Tags]    remove
-    ${body}    Create Dictionary    nodeType    MD_SAL    dataLayerAddress    5e:bf:79:84:10:a6    vlan
-    ...    1    nodeId    openflow:3    nodeConnectorId    openflow:3:2    networkAddress
-    ...    10.0.1.4    staticHost    ${True}    nodeConnectorType    MD_SAL
+    ${body}    Create Dictionary    nodeType    OF    dataLayerAddress    5e:bf:79:84:10:a6    vlan
+    ...    1    nodeId    00:00:00:00:00:00:00:03    nodeConnectorId    2    networkAddress
+    ...    10.0.1.4    staticHost    ${True}    nodeConnectorType    OF
     ${resp}    Delete    session    ${REST_CONTEXT}/${CONTAINER}/address/${name}
     Should Be Equal As Strings    ${resp.status_code}    204
     ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}/hosts/inactive
@@ -52,9 +52,9 @@ Remove a host
 Check flow is not in flow stats
     [Documentation]    Show flow stats and validate result
     [Tags]    get
-    Sleep	30
+    Sleep    30
     ${resp}    Get    session    ${REST_CONTEXT_ST}/${CONTAINER}/flow
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be Equal As Strings    ${resp.status_code}    200 
     Log    ${resp.content}
     Should Not Contain    ${resp.content}    ${FLOW}
 

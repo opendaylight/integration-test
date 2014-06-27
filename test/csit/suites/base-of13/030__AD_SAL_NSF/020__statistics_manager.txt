@@ -8,9 +8,9 @@ Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${node1}       "openflow:1"
-${node2}       "openflow:2"
-${node3}       "openflow:3"
+${node1}       "00:00:00:00:00:00:00:01"
+${node2}       "00:00:00:00:00:00:00:02"
+${node3}       "00:00:00:00:00:00:00:03"
 ${key}             portStatistics
 ${REST_CONTEXT}    /controller/nb/v2/statistics
 
