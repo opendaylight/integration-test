@@ -1,13 +1,13 @@
 *** Settings ***
-Documentation     Test suite for VTN mininet OF13
+Documentation     Test suite for VTN
 Suite Setup       Start Suite
 Suite Teardown    Stop Suite
 Library     SSHLibrary
 
 *** Variables ***
-${start}=   sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,2 --switch ovsk,protocols=OpenFlow13 
+${start}=  sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,2
 
-** Keywords ***
+*** Keywords ***
 Start Suite  
     Log    Start mininet
     Open Connection   ${MININET}     prompt=>

@@ -51,13 +51,13 @@ Create VBRIF in VBRIDGE Vbridge1 Interface2
 Define Portmap for Interface1
     [Documentation]   Map Interface1 to a logical port
     [Tags]   vtnc
-    Define Portmap for VBRIF    Tenant1    Vbridge1     Interface1    PP-MD_SAL:openflow:3-s3-eth1
+    Define Portmap for VBRIF    Tenant1    Vbridge1     Interface1    PP-OF:00:00:00:00:00:00:00:03-s3-eth1
 
 
 Define Portmap for Interface2
     [Documentation]   Map Interface2 to a logical port
     [Tags]   vtnc 
-    Define Portmap for VBRIF    Tenant1    Vbridge1     Interface2    PP-MD_SAL:openflow:2-s2-eth1
+    Define Portmap for VBRIF    Tenant1    Vbridge1     Interface2    PP-OF:00:00:00:00:00:00:00:02-s2-eth1
 
 
 Test Ping for Configuration1
@@ -153,7 +153,7 @@ Test Ping
    [Arguments]   ${host1}    ${host2}
    [Documentation]  Ping hosts to check connectivity
    Sleep   5
-   Write    ${host1} ping -w 15 ${host2}
-   Sleep    15
+   Write    ${host1} ping -w 10 ${host2}
+   Sleep    10
    ${result}    Read
    Should Contain    ${result}    64 bytes

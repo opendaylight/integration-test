@@ -25,32 +25,32 @@ Verify the Controller Status is up
 Verify switch1
     [Documentation]    Get switch1
     [Tags]   vtnc
-    Verify Switch    odc_test     openflow:1  30
+    Verify Switch    odc_test     00:00:00:00:00:00:00:01  30
 
 Verify switch2
     [Documentation]    Get switch2
     [Tags]   vtnc
-    Verify Switch    odc_test     openflow:2  1
+    Verify Switch    odc_test     00:00:00:00:00:00:00:02  1
 
 Verify switch3
     [Documentation]    Get switch3
     [Tags]   vtnc
-    Verify Switch    odc_test     openflow:3  1
+    Verify Switch    odc_test     00:00:00:00:00:00:00:03  1
 
 Verify switchPort switch1
     [Documentation]   Get switchport/switch1
     [Tags]   vtnc
-    Verify SwitchPort    odc_test     openflow:1  15
+    Verify SwitchPort    odc_test     00:00:00:00:00:00:00:01  15
 
 Verify switchPort switch2
     [Documentation]   Get switchport/switch2
     [Tags]   vtnc
-    Verify SwitchPort    odc_test     openflow:2  1
+    Verify SwitchPort    odc_test     00:00:00:00:00:00:00:02  1
 
 Verify switchPort switch3
     [Documentation]   Get switchport/switch3
     [Tags]   vtnc
-    Verify SwitchPort    odc_test     openflow:3  1
+    Verify SwitchPort    odc_test     00:00:00:00:00:00:00:03  1
 
 Delete a Controller
     [Documentation]   Delete Controller odc1
