@@ -54,10 +54,28 @@ def compare_xml(xml1, xml2):
 
     return True
 
-    
+def num_of_nodes(depth, fanout):
+    '''returns num of switches of a mininet with tree topology 
+    with particular depth and fanout parameters
+    '''
+    result = 0
+    for i in xrange(depth):
+        result += fanout**i
+    return result    
 
+def num_of_links_for_node(nodeid, leaflist, fanout):
+    '''
+    If the given node is a leaf node, there will be an only one link for it
+    and nodeid will be represented 2 times in topology
+    If the given node is not a leaf node, then there will be fanout+1 links
+    for it and nodeid will be represented (fanout+1)*2 times in topology
+    
+    p.s. root node is excluded.
+    '''
+    if nodeid in leaflist:
+        return 1
+    return (fanout+1)
 
 if __name__ == '__main__':
-    
-
-    pass
+	print num_of_nodes(3,4)
+	pass

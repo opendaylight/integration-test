@@ -1,0 +1,22 @@
+*** Settings ***
+Documentation     Test suite for do pingall test
+Library           SSHLibrary
+Library           Collections
+Library           ../../../libraries/RequestsLibrary.py
+Library           ../../../libraries/Common.py
+Variables         ../../../variables/Variables.py
+
+*** Variables ***
+
+*** Test Cases ***
+Ping all
+    [Documentation]    Do ping all test, verify no packet loss
+    [Tags]   pingall
+	${TOPO_TREE_DEPTH}    Convert To Integer  ${TOPO_TREE_DEPTH}
+    ${TOPO_TREE_FANOUT}   Convert To Integer  ${TOPO_TREE_FANOUT}
+	${numnodes}		Num Of Nodes		${TOPO_TREE_DEPTH}	${TOPO_TREE_FANOUT}
+	Write	pingall
+    Sleep   ${numnodes*3}
+    ${result}    Read
+    Should Not Contain   ${result}	X  
+

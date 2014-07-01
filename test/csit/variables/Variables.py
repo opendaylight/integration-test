@@ -18,7 +18,8 @@ HEADERS_XML={'Content-Type': 'application/xml'}
 ACCEPT_XML={'Accept': 'application/xml'}
 ODL_CONTROLLER_SESSION=None
 TOPO_TREE_LEVEL=2
-
+TOPO_TREE_DEPTH=3
+TOPO_TREE_FANOUT=2
 # VTN Coordinator Variables
 VTNC = '127.0.0.1'
 VTNCPORT = '8083'
