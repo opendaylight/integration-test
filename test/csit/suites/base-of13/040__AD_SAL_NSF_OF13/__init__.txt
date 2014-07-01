@@ -22,6 +22,6 @@ Stop Suite
     Log    Stop mininet
     Read
     Write    exit 
-    Sleep    4
+    Sleep    6
     Read 
     Close Connection 
