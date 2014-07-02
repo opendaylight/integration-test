@@ -37,7 +37,6 @@
         <in-port>0</in-port>
     </match>
     <hard-timeout>12000</hard-timeout>
-    <flags>FlowModFlags [_cHECKOVERLAP=false, _rESETCOUNTS=false, _nOPKTCOUNTS=false, _nOBYTCOUNTS=false, _sENDFLOWREM=false]</flags>
     <cookie>7</cookie>
     <idle-timeout>12000</idle-timeout>
     <flow-name>FooXf7</flow-name>

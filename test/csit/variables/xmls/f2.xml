@@ -25,7 +25,6 @@
         <ipv4-source>10.0.0.1</ipv4-source>
     </match>
     <hard-timeout>12</hard-timeout>
-    <flags>FlowModFlags [_cHECKOVERLAP=false, _rESETCOUNTS=false, _nOPKTCOUNTS=false, _nOBYTCOUNTS=false, _sENDFLOWREM=false]</flags>
     <cookie>2</cookie>
     <idle-timeout>34</idle-timeout>
     <flow-name>FooXf2</flow-name>

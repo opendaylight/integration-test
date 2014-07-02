@@ -38,5 +38,4 @@
             <mpls-bos>1</mpls-bos>
         </protocol-match-fields>
     </match>
-    <flags>FlowModFlags [_cHECKOVERLAP=false, _rESETCOUNTS=false, _nOPKTCOUNTS=false, _nOBYTCOUNTS=false, _sENDFLOWREM=false]</flags>
 </flow>

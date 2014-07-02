@@ -41,7 +41,6 @@
         </arp-target-hardware-address>
     </match>
     <hard-timeout>12</hard-timeout>
-    <flags>FlowModFlags [_cHECKOVERLAP=false, _rESETCOUNTS=false, _nOPKTCOUNTS=false, _nOBYTCOUNTS=false, _sENDFLOWREM=false]</flags>
     <cookie>14</cookie>
     <idle-timeout>34</idle-timeout>
     <flow-name>FooXf14</flow-name>

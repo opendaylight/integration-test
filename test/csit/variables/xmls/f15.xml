@@ -35,7 +35,6 @@
         </vlan-match>
     </match>
     <hard-timeout>1200</hard-timeout>
-    <flags>FlowModFlags [_cHECKOVERLAP=false, _rESETCOUNTS=false, _nOPKTCOUNTS=false, _nOBYTCOUNTS=false, _sENDFLOWREM=false]</flags>
     <cookie>15</cookie>
     <idle-timeout>3400</idle-timeout>
     <flow-name>FooXf15</flow-name>

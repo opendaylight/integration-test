@@ -31,7 +31,6 @@
         </vlan-match>
     </match>
     <hard-timeout>0</hard-timeout>
-    <flags>FlowModFlags [_cHECKOVERLAP=false, _rESETCOUNTS=false, _nOPKTCOUNTS=false, _nOBYTCOUNTS=false, _sENDFLOWREM=false]</flags>
     <cookie>10</cookie>
     <idle-timeout>0</idle-timeout>
     <flow-name>flow-instruction-apply-actions-push-pbb</flow-name>
