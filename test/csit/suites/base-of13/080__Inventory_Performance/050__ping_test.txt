@@ -16,7 +16,7 @@ Ping all
     ${TOPO_TREE_FANOUT}   Convert To Integer  ${TOPO_TREE_FANOUT}
 	${numnodes}		Num Of Nodes		${TOPO_TREE_DEPTH}	${TOPO_TREE_FANOUT}
 	Write	pingall
-    Sleep   ${numnodes*3}
+    Sleep   ${numnodes}
     ${result}    Read
     Should Not Contain   ${result}	X  
 
