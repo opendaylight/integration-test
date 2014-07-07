@@ -95,7 +95,7 @@ Verify after deleting flow config - Output to physical port#
 Verify after deleting flow operational - Output to physical port#
     [Documentation]    Verify the flow
     [Tags]   Get
-    Sleep    30
+    Sleep    40
     ${resp}    Get    session     ${REST_OPR}/node/openflow:1/table/2
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Not Contain     ${resp.content}    10.0.20.1

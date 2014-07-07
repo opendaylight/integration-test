@@ -22,7 +22,7 @@ Start Suite
     Write    sudo mn -c
     Sleep    2
     Write    ${start}
-    Sleep    ${numnodes*2+20}
+    Sleep    ${numnodes*2+30}
     Read
 Stop Suite
     Log    Stop mininet
