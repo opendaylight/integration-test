@@ -1,0 +1,51 @@
+*** Settings ***
+Documentation     Test suite for Topology Manager
+Suite Setup       Create Session   session   http://${CONTROLLER}:8080   auth=${AUTH}   headers=${HEADERS}
+Suite Teardown    Delete All Sessions
+Library           Collections
+Library           ../../../libraries/RequestsLibrary.py
+Library           ../../../libraries/Common.py
+Variables         ../../../variables/Variables.py
+
+*** Variables ***
+${node1}   "00:00:00:00:00:00:00:01"
+${node2}   "00:00:00:00:00:00:00:02"
+${node3}   "00:00:00:00:00:00:00:03"
+${name}           test_userlink1
+${key}            userLinks
+${REST_CONTEXT}    /controller/nb/v2/topology
+
+*** Test Cases ***
+Get Topology
+    [Documentation]    Get Topology and validate the result.
+    [Tags]    get
+    ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}
+    Should Be Equal As Strings    ${resp.status_code}    200 
+    Log    ${resp.content}
+    Should Contain X Times  ${resp.content}   ${node1}   4
+    Should Contain X Times  ${resp.content}   ${node2}   2
+    Should Contain X Times  ${resp.content}   ${node3}   2
+Add a userlink
+    [Documentation]    Add a userlink, list to validate the result.
+    [Tags]    add
+    ${body}    Create Dictionary    name    ${name}    status    Success    srcNodeConnector
+    ...    OF|1@OF|00:00:00:00:00:00:00:02    dstNodeConnector    OF|1@OF|00:00:00:00:00:00:00:03
+    ${resp}    Put    session    ${REST_CONTEXT}/${CONTAINER}/userLink/${name}    data=${body}
+    Should Be Equal As Strings    ${resp.status_code}    201
+    ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}/userLinks
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${result}    To JSON    ${resp.content}
+    ${content}    Get From Dictionary    ${result}    ${key}
+    List Should Contain Value    ${content}    ${body}
+Remove a userlink
+    [Documentation]    Remove a userlink, list to validate the result.
+    [Tags]    remove
+    ${body}    Create Dictionary    name    ${name}    status    Success    srcNodeConnector
+    ...    OF|1@OF|00:00:00:00:00:00:00:02    dstNodeConnector    OF|1@OF|00:00:00:00:00:00:00:03
+    ${resp}    Delete    session    ${REST_CONTEXT}/${CONTAINER}/userLink/${name}
+    Should Be Equal As Strings    ${resp.status_code}    204
+    ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}/userLinks
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${result}    To JSON    ${resp.content}
+    ${content}    Get From Dictionary    ${result}    ${key}
+    List Should Not Contain Value    ${content}    ${body}
