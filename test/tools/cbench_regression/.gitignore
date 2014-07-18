@@ -1,0 +1,6 @@
+*.swp
+*.swo
+*.swn
+*.swm
+*.csv
+logs/
