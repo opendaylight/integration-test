@@ -1,0 +1,20 @@
+{
+  "hosts": {
+    "opendaylight": {
+      "name": "opendaylight",
+      "ipaddress": "192.168.50.1"
+    },
+    "ds-ctl": {
+      "name": "ds-ctl",
+      "ipaddress": "192.168.50.20"
+    },
+    "ds-c1": {
+      "name": "ds-c1",
+      "ipaddress": "192.168.50.21"
+    },
+      "ds-c2": {
+      "name": "ds-c2",
+      "ipaddress": "192.168.50.22"
+    }
+  }
+}
