@@ -74,4 +74,4 @@ Remove a link
     ${resp}    Delete   session    ${REST_CONTEXT_3}  
     Should Be Equal As Strings    ${resp.status_code}    200
     ${resp}    Get    session    ${REST_CONTEXT_3}
-    Should Be Equal As Strings    ${resp.status_code}    404
+    Should Be Equal As Strings    ${resp.status_code}    409
