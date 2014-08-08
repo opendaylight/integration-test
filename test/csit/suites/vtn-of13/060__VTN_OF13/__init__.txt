@@ -5,7 +5,7 @@ Suite Teardown    Stop Suite
 Library     SSHLibrary
 
 *** Variables ***
-${start}=  sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,2
+${start}=  sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,2 --switch ovsk,protocols=OpenFlow13
 
 *** Keywords ***
 Start Suite  
