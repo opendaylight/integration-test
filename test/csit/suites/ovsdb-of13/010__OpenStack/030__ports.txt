@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Checking Network created in OpenStack are pushed to OpenDaylight
+Documentation     Checking Port  created in OpenStack are pushed to OpenDaylight
 Suite Setup	  Create Session    OSSession     http://${OPENSTACK}:9696    headers=${X-AUTH}    
 Suite Teardown    Delete All Sessions
 Library           SSHLibrary
@@ -10,24 +10,24 @@ Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
  
 *** Variables ***
-${ODLREST}       /controller/nb/v2/neutron/networks
-${OSREST}        /v2.0/networks
-${postNet}	{"network":{"name":"odl_network","admin_state_up":true}}
+${ODLREST}       /controller/nb/v2/neutron/ports
+${OSREST}        /v2.0/ports
+${data}       {"port":{"network_id":"${NETID}","admin_state_up": true}}
  
 *** Test Cases ***
-Check OpenStack Networks
-	[Documentation]     Checking OpenStack Neutron for known networks
-	[Tags]              Network Neutron OpenStack
+Check OpenStack ports
+	[Documentation]     Checking OpenStack Neutron for known ports
+	[Tags]              Ports Neutron OpenStack
         Log	${X-AUTH}
-        ${resp}		get	OSSession	${OSREST}   
+        ${resp}		get	OSSession	${OSREST}    
 	Should be Equal As Strings	${resp.status_code}	200
         ${OSResult}	To Json		${resp.content}
         Set Suite Variable	${OSResult}
         Log	${OSResult}
 
-Check OpenDaylight Networks
-	[Documentation]    Checking OpenDaylight Neutron API for Known Networks
-        [Tags] 		   Network Neutron OpenDaylight
+Check OpenDaylight ports
+	[Documentation]    Checking OpenDaylight Neutron API for Known Ports
+        [Tags] 		   Ports Neutron OpenDaylight
         Create Session	ODLSession	http://${CONTROLLER}:8080     headers=${HEADERS}  auth=${AUTH}
         ${resp} 	get	ODLSession	${ODLREST}    
 	Should be Equal As Strings	${resp.status_code}	200
@@ -35,24 +35,24 @@ Check OpenDaylight Networks
         Set Suite Variable	${ODLResult}
         Log	${ODLResult}
 
-Create Network 
-	[Documentation]	   Create new network in OpenStack
-	[Tags]		   Create Network OpenStack Neutron
-        Log   	${postNet}
-        ${resp}		post	OSSession	${OSREST}  data=${postNet}  
+Create New Port
+	[Documentation]	   Create new port in OpenStack
+	[Tags]		   Create port OpenStack Neutron
+        Log   	${data}
+        ${resp}		post	OSSession	${OSREST}       data=${data}  
         Should be Equal As Strings	${resp.status_code}	201
 	${result}	To JSON		${resp.content}
-	${result}	Get From Dictionary	${result}	network	
-        ${NETID}	Get From Dictionary	${result}	id
+	${result}	Get From Dictionary	${result}	port	
+        ${PORTID}	Get From Dictionary	${result}	id
         Log	${result}
-	Log	${NETID}
-        Set Global Variable	${NETID}
+	Log	${PORTID}
+        Set Global Variable	${PORTID}
         sleep    2
 
-Check Network
-	[Documentation]	  Check Network created in OpenDaylight
-	[Tags]		Check  Network OpenDaylight
-	${resp}		get	ODLSession	${ODLREST}/${NetID}
+Check New Port
+	[Documentation]	  Check new subnet created in OpenDaylight
+	[Tags]		Check  subnet OpenDaylight
+	${resp}		get	ODLSession	${ODLREST}/${PORTID}
         Should be Equal As Strings	${resp.status_code}	200
 
 
