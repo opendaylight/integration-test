@@ -1,0 +1,102 @@
+*** Settings ***
+Documentation     OF1.3 Suite to cover TTL Actions
+...               - Set IP TTL
+...               - Decrement IP TTL
+...               - Copy TTL outwards
+...               - Copy TTL inwards
+...               - Set MPLS TTL
+...               - Decrement MPLS TTL
+...
+...               NOTE: for OVS, it appears that set_ttl, and both copy in/out are not supported, so need to skip those checks for now.
+Suite Setup       Create Session    session    http://${CONTROLLER}:8080    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Teardown    Delete All Sessions
+Test Template     Create And Remove Flow
+Library           SSHLibrary
+Library           Collections
+Library           OperatingSystem
+Library           String
+Library           XML
+Library           ../../../libraries/RequestsLibrary.py
+Library           ../../../libraries/Common.py
+Variables         ../../../variables/Variables.py
+
+*** Variables ***
+${REST_CON}       /restconf/config/opendaylight-inventory:nodes
+${REST_OPR}       /restconf/operational/opendaylight-inventory:nodes
+${GENERIC_ACTION_FLOW_FILE}    ${CURDIR}/../../../variables/xmls/genericActionFlow.xml
+${MININET_CMD}    sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,1 --switch ovsk,protocols=OpenFlow13
+
+*** Test Cases ***    ODL flow action        action XML                tableID    flowID    verify OVS?    OVS specific string?
+Set_IP_TTL            set-nw-ttl-action      <nw-ttl>1</nw-ttl>        2          101       no             set_ttl
+
+Dec_TTL               dec-nw-ttl             none                      3          305       yes            dec_ttl
+
+Copy_TTL_In           copy-ttl-in            none                      9          202       no             copy_ttl_in
+
+Copy_TTL_Out          copy-ttl-out           none                      8          909       no             copy_ttl_out
+
+Set_MPLS_TTL          set-mpls-ttl-action    <mpls-ttl>1</mpls-ttl>    4          505       yes            set_mpls_ttl
+
+Dec_MPLS_TTL          dec-mpls-ttl           none                      2          1001      yes            dec_mpls_ttl
+
+*** Keywords ***
+Create And Remove Flow
+    [Arguments]    ${flow_action}    ${action_xml}    ${table_id}    ${flow_id}    ${verify_switch_flag}    ${additional_ovs_flowelements}
+    ${flow_body}=    OperatingSystem.Get File    ${GENERIC_ACTION_FLOW_FILE}
+    ${flow_body}=    Replace String    ${flow_body}    FLOW_ACTION    ${flow_action}
+    ${flow_body}=    Replace String    ${flow_body}    FLOW_ID    ${flow_id}
+    ${flow_body}=    Replace String    ${flow_body}    TABLE_ID    ${table_id}
+    Log    ${flow_body}
+    ${flow_root}=    Parse XML    ${flow_body}
+    Run Keyword If    "set" in "${flow_action}"    Add Element    ${flow_root}    ${action_xml}    xpath=instructions/instruction/apply-actions/action/${flow_action}
+    ${nw_src}=    Get Element    ${flow_root}    match/ipv4-source
+    ${nw_dst}=    Get Element    ${flow_root}    match/ipv4-destination
+    ${eth_src}=    Get Element    ${flow_root}    match/ethernet-match/ethernet-source/address
+    ${eth_dst}=    Get Element    ${flow_root}    match/ethernet-match/ethernet-destination/address
+    @{OVS_FLOWELEMENTS}    Create List    dl_dst=${eth_dst.text}    table=${table_id}    dl_src=${eth_src.text}    nw_src=${nw_src.text}    nw_dst=${nw_dst.text}
+    ...    ${additional_ovs_flowelements}
+    ${flow_data}=    Element To String    ${flow_root}
+    Log    ${flow_data}
+    Add Flow To Controller And Verify    ${flow_data}    ${table_id}    ${flow_id}
+    Run Keyword If    "${verify_switch_flag}" == "yes"    Verify Flow On Switch    ${OVS_FLOWELEMENTS}
+    Remove Flow From Controller And Verify    ${flow_body}    ${table_id}    ${flow_id}
+    Run Keyword If    "${verify_switch_flag}" == "yes"    Verify Flow Does Not Exist On Switch    ${OVS_FLOWELEMENTS}
+
+Add Flow To Controller And Verify
+    [Arguments]    ${flow_body}    ${table_id}    ${flow_id}
+    [Documentation]    Push flow through REST-API and verify in data-store
+    ${resp}    Put Xml    session    ${REST_CON}/node/openflow:1/table/${table_id}/flow/${flow_id}    data=${flow_body}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp}    get    session    ${REST_CON}/node/openflow:1/table/${table_id}/flow/${flow_id}    headers=${ACCEPT_XML}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    compare xml    ${flow_body}    ${resp.content}
+
+Verify Flow On Switch
+    [Arguments]    ${flow_elements}
+    [Documentation]    Checking flow on switch
+    sleep    1
+    write    dpctl dump-flows -O OpenFlow13
+    ${switchoutput}    Read Until    >
+    : FOR    ${flowElement}    IN    @{flow_elements}
+    \    should Contain    ${switchoutput}    ${flowElement}
+
+Remove Flow From Controller And Verify
+    [Arguments]    ${flow_body}    ${table_id}    ${flow_id}
+    [Documentation]    Remove flow
+    ${resp}    Delete    session    ${REST_CON}/node/openflow:1/table/${table_id}/flow/${flow_id}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp}    Get    session    ${REST_CON}/node/openflow:1/table/${table_id}
+    Log    ${resp.content}
+    Should Not Contain    ${resp.content}    ${flow_id}
+
+Verify Flow Does Not Exist On Switch
+    [Arguments]    ${flow_elements}
+    [Documentation]    Checking flow on switch is removed
+    sleep    1
+    write    dpctl dump-flows -O OpenFlow13
+    ${switchoutput}    Read Until    >
+    : FOR    ${flowElement}    IN    @{flow_elements}
+    \    should Not Contain    ${switchoutput}    ${flowElement}

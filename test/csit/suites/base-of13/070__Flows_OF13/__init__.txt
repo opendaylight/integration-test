@@ -14,15 +14,13 @@ Start Suite
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
     Write    sudo ovs-vsctl set-manager ptcp:6644
     Write    sudo mn -c
-    Sleep    2
+    Read Until  > 
     Write    ${start}
-    Sleep    20
-    Read
+    Read Until  mininet>
 
 Stop Suite
     Log    Stop the test on the base edition
     Read
     Write    exit
-    Sleep    2
-    Read
+    Read Until  >
     Close Connection
