@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for IPv6 Flow label and ICMP type
-Suite Setup       Create Session    session    http://${CONTROLLER}:8080    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Setup       Create Session    session    http://${CONTROLLER}:${PORT}    auth=${AUTH}    headers=${HEADERS_XML}
 Suite Teardown    Delete All Sessions
 Library           SSHLibrary
 Library           Collections

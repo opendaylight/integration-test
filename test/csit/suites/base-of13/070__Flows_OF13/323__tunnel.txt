@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for Tunnel ID
-Suite Setup       Create Session    session    http://${CONTROLLER}:8080    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Setup       Create Session    session    http://${CONTROLLER}:${PORT}    auth=${AUTH}    headers=${HEADERS_XML}
 Suite Teardown    Delete All Sessions
 Library           SSHLibrary
 Library           Collections
