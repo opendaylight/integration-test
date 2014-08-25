@@ -28,10 +28,8 @@
         </ethernet-match>
         <ipv4-destination>10.0.0.0/24</ipv4-destination>
     </match>
-    <hard-timeout>12</hard-timeout>
     <cookie>10</cookie>
-    <idle-timeout>34</idle-timeout>
     <flow-name>FooXf40</flow-name>
-    <priority>2</priority>
+    <priority>40</priority>
     <barrier>false</barrier>
 </flow>

@@ -24,9 +24,7 @@
         </ethernet-match>
         <ipv4-source>10.0.0.1</ipv4-source>
     </match>
-    <hard-timeout>12</hard-timeout>
     <cookie>2</cookie>
-    <idle-timeout>34</idle-timeout>
     <flow-name>FooXf2</flow-name>
     <priority>2</priority>
     <barrier>false</barrier>

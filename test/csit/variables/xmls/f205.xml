@@ -40,10 +40,8 @@
         <sctp-destination-port>384</sctp-destination-port>
         <in-port>0</in-port>
     </match>
-    <hard-timeout>1200</hard-timeout>
     <cookie>10</cookie>
-    <idle-timeout>3400</idle-timeout>
     <flow-name>sctp-source-port-action</flow-name>
-    <priority>2</priority>
+    <priority>205</priority>
     <barrier>false</barrier>
 </flow>

@@ -4,9 +4,7 @@
     <id>139</id>
     <cookie_mask>255</cookie_mask>
     <cookie>16</cookie>
-    <hard-timeout>1200</hard-timeout>
-    <idle-timeout>3400</idle-timeout>
-    <priority>2</priority>
+    <priority>16</priority>
     <table_id>2</table_id>
     <strict>false</strict>
     <instructions>

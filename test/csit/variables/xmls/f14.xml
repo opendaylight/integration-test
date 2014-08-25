@@ -40,11 +40,8 @@
             <address>FE:DC:BA:98:76:54</address>
         </arp-target-hardware-address>
     </match>
-    <hard-timeout>12</hard-timeout>
     <cookie>14</cookie>
-    <idle-timeout>34</idle-timeout>
     <flow-name>FooXf14</flow-name>
-    <priority>2</priority>
+    <priority>14</priority>
     <barrier>false</barrier>
 </flow>
-

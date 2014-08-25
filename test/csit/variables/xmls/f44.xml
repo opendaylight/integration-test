@@ -22,10 +22,8 @@
         <in-port>202</in-port>
         <in-phy-port>10122</in-phy-port>
     </match>
-    <hard-timeout>12</hard-timeout>
     <cookie>10</cookie>
-    <idle-timeout>34</idle-timeout>
     <flow-name>FooXf44</flow-name>
-    <priority>2</priority>
+    <priority>44</priority>
     <barrier>false</barrier>
 </flow>

@@ -31,10 +31,8 @@
         <ipv4-destination>20.4.0.0/16</ipv4-destination>
         <in-port>0</in-port>
     </match>
-    <hard-timeout>12</hard-timeout>
     <cookie>5</cookie>
-    <idle-timeout>34</idle-timeout>
     <flow-name>FooXf5</flow-name>
-    <priority>2</priority>
+    <priority>5</priority>
     <barrier>false</barrier>
 </flow>

@@ -36,10 +36,8 @@
             <vlan-pcp>3</vlan-pcp>
         </vlan-match>
     </match>
-    <hard-timeout>0</hard-timeout>
     <cookie>10</cookie>
-    <idle-timeout>0</idle-timeout>
     <flow-name>flow-instruction-write-actions</flow-name>
-    <priority>2</priority>
+    <priority>221</priority>
     <barrier>false</barrier>
 </flow>

@@ -24,10 +24,8 @@
         </ethernet-match>
         <ipv4-destination>10.0.0.1/24</ipv4-destination>
     </match>
-    <hard-timeout>12</hard-timeout>
     <cookie>10</cookie>
-    <idle-timeout>34</idle-timeout>
     <flow-name>flow-instruction-write-metadata</flow-name>
-    <priority>2</priority>
+    <priority>220</priority>
     <barrier>false</barrier>
 </flow>

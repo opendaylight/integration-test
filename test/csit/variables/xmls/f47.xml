@@ -32,10 +32,8 @@
             <ip-protocol>132</ip-protocol>
         </ip-match>
     </match>
-    <hard-timeout>12</hard-timeout>
     <cookie>10</cookie>
-    <idle-timeout>34</idle-timeout>
     <flow-name>FooXf47</flow-name>
-    <priority>2</priority>
+    <priority>47</priority>
     <barrier>false</barrier>
 </flow>

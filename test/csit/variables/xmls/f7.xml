@@ -36,10 +36,8 @@
         </ip-match>
         <in-port>0</in-port>
     </match>
-    <hard-timeout>12000</hard-timeout>
     <cookie>7</cookie>
-    <idle-timeout>12000</idle-timeout>
     <flow-name>FooXf7</flow-name>
-    <priority>2</priority>
+    <priority>7</priority>
     <barrier>false</barrier>
 </flow>

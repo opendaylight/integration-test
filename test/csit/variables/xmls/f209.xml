@@ -6,9 +6,7 @@
     <cookie_mask>255</cookie_mask>
     <cookie>101</cookie>
     <table_id>2</table_id>
-    <priority>2</priority>
-    <hard-timeout>1200</hard-timeout>
-    <idle-timeout>3400</idle-timeout>
+    <priority>209</priority>
     <installHw>false</installHw>
     <instructions>
         <instruction>
@@ -45,4 +43,3 @@
         <tcp-destination-port>8080</tcp-destination-port>
     </match>
 </flow>
-

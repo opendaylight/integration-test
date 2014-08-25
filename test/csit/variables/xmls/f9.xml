@@ -38,11 +38,8 @@
         <udp-destination-port>8080</udp-destination-port>
         <in-port>0</in-port>
     </match>
-    <hard-timeout>1200</hard-timeout>
     <cookie>9</cookie>
-    <idle-timeout>3400</idle-timeout>
     <flow-name>FooXf9</flow-name>
-    <priority>2</priority>
+    <priority>9</priority>
     <barrier>false</barrier>
 </flow>
-

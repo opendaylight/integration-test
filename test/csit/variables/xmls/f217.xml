@@ -25,10 +25,8 @@
             <vlan-pcp>3</vlan-pcp>
         </vlan-match>
     </match>
-    <hard-timeout>0</hard-timeout>
    <cookie>10</cookie>
-    <idle-timeout>0</idle-timeout>
     <flow-name>flow-instruction-meter-id</flow-name>
-    <priority>2</priority>
+    <priority>217</priority>
     <barrier>false</barrier>
 </flow>

@@ -6,9 +6,7 @@
     <cookie_mask>255</cookie_mask>
     <cookie>24</cookie>
     <table_id>2</table_id>
-    <priority>2</priority>
-    <hard-timeout>1200</hard-timeout>
-    <idle-timeout>3400</idle-timeout>
+    <priority>24</priority>
     <installHw>false</installHw>
     <instructions>
         <instruction>
@@ -29,4 +27,3 @@
         </tunnel>
     </match>
 </flow>
-

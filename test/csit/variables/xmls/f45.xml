@@ -24,10 +24,8 @@
             <metadata>500</metadata>
         </metadata>
     </match>
-    <hard-timeout>12</hard-timeout>
     <cookie>10</cookie>
-    <idle-timeout>34</idle-timeout>
     <flow-name>FooXf45</flow-name>
-    <priority>2</priority>
+    <priority>45</priority>
     <barrier>false</barrier>
 </flow>

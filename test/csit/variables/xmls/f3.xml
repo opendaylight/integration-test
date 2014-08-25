@@ -23,10 +23,8 @@
             </ethernet-source>
         </ethernet-match>
     </match>
-    <hard-timeout>12</hard-timeout>
     <cookie>3</cookie>
-    <idle-timeout>34</idle-timeout>
     <flow-name>FooXf3</flow-name>
-    <priority>2</priority>
+    <priority>3</priority>
     <barrier>false</barrier>
 </flow>

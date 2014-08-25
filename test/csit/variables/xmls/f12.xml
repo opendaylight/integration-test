@@ -29,10 +29,8 @@
         </ethernet-match>
         <arp-op>1</arp-op>
     </match>
-    <hard-timeout>12</hard-timeout>
     <cookie>12</cookie>
-    <idle-timeout>34</idle-timeout>
     <flow-name>FooXf12</flow-name>
-    <priority>2</priority>
+    <priority>12</priority>
     <barrier>false</barrier>
 </flow>

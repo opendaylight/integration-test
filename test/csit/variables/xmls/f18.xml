@@ -6,9 +6,7 @@
     <cookie_mask>255</cookie_mask>
     <cookie>18</cookie>
     <table_id>2</table_id>
-    <priority>2</priority>
-    <hard-timeout>1200</hard-timeout>
-    <idle-timeout>3400</idle-timeout>
+    <priority>18</priority>
     <installHw>false</installHw>
     <instructions>
         <instruction>
@@ -31,4 +29,3 @@
         <ipv6-destination>aabb:1234:2acf:e9ff::fe21:6431/64</ipv6-destination>
     </match>
 </flow>
-

@@ -21,10 +21,8 @@
             <tunnel-id>10668</tunnel-id>
         </tunnel>
     </match>
-    <hard-timeout>12</hard-timeout>
     <cookie>10</cookie>
-    <idle-timeout>34</idle-timeout>
     <flow-name>FooXf48</flow-name>
-    <priority>2</priority>
+    <priority>48</priority>
     <barrier>false</barrier>
 </flow>

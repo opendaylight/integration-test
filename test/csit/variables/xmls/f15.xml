@@ -34,11 +34,8 @@
             </vlan-id>
         </vlan-match>
     </match>
-    <hard-timeout>1200</hard-timeout>
     <cookie>15</cookie>
-    <idle-timeout>3400</idle-timeout>
     <flow-name>FooXf15</flow-name>
-    <priority>2</priority>
+    <priority>15</priority>
     <barrier>false</barrier>
 </flow>
-
