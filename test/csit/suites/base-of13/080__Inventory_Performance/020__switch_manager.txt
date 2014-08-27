@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for Switch Manager
-Suite Setup       Create Session    ${ODL_CONTROLLER_SESSION}    http://${CONTROLLER}:${PORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Setup       Create Session    ${ODL_CONTROLLER_SESSION}    http://${CONTROLLER}:${RESTPORT}    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
 Library           Collections
 Library           RequestsLibrary

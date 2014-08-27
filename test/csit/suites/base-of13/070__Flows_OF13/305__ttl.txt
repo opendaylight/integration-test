@@ -8,7 +8,7 @@ Documentation     OF1.3 Suite to cover TTL Actions
 ...               - Decrement MPLS TTL
 ...
 ...               NOTE: for OVS, it appears that set_ttl, and both copy in/out are not supported, so need to skip those checks for now.
-Suite Setup       Create Session    session    http://${CONTROLLER}:${PORT}    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
 Suite Teardown    Delete All Sessions
 Test Template     Create And Remove Flow
 Library           SSHLibrary

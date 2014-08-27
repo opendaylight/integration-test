@@ -8,6 +8,8 @@ import collections
 # Global variables
 CONTROLLER = '127.0.0.1'
 PORT = '8080'
+RESTPORT = '8080'
+RESTCONFPORT = '8080'
 PREFIX = 'http://' + CONTROLLER + ':' + PORT
 CONTAINER = 'default'
 USER = 'admin'
