@@ -17,15 +17,15 @@ Get flows before ping through console
         Write   sh ovs-ofctl dump-flows s1 -O OpenFlow13
         Sleep   5
         ${result}    Read
-        Should Contain X Times    ${result}    actions    5
+        Should Contain X Times    ${result}    actions    4
         Write   sh ovs-ofctl dump-flows s2 -O OpenFlow13
         Sleep   5
         ${result}    Read
-        Should Contain X Times    ${result}    actions    6
+        Should Contain X Times    ${result}    actions    5
         Write   sh ovs-ofctl dump-flows s3 -O OpenFlow13
         Sleep   5
         ${result}    Read
-        Should Contain X Times    ${result}    actions    5
+        Should Contain X Times    ${result}    actions    4
 
 # Get flows before ping through restconf
 #    [Documentation]    Get the inventory, should not contain flows
