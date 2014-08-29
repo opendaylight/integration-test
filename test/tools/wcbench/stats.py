@@ -45,7 +45,7 @@ class Stats(object):
 
     def build_cols(self):
         """Parse results file into lists of values, one per column."""
-        self.run_col= []
+        self.run_col = []
         self.flows_col = []
         self.runtime_col = []
         self.used_ram_col = []
@@ -61,16 +61,18 @@ class Stats(object):
                 try:
                     self.run_col.append(float(row[self.run_index]))
                     self.flows_col.append(float(row[self.flow_index]))
-                    self.runtime_col.append(float(row[self.end_time_index]) - \
-                        float(row[self.start_time_index]))
+                    self.runtime_col.append(float(row[self.end_time_index]) -
+                                            float(row[self.start_time_index]))
                     self.used_ram_col.append(float(row[self.used_ram_index]))
-                    self.iowait_col.append(float(row[self.end_iowait_index]) - \
-                        float(row[self.start_iowait_index]))
-                    self.steal_time_col.append(float(row[self.end_steal_time_index]) - \
+                    self.iowait_col.append(float(row[self.end_iowait_index]) -
+                                           float(row[self.start_iowait_index]))
+                    self.steal_time_col.append(
+                        float(row[self.end_steal_time_index]) -
                         float(row[self.start_steal_time_index]))
                     self.one_load_col.append(float(row[self.one_load_index]))
                     self.five_load_col.append(float(row[self.five_load_index]))
-                    self.fifteen_load_col.append(float(row[self.fifteen_load_index]))
+                    self.fifteen_load_col.append(
+                        float(row[self.fifteen_load_index]))
                 except ValueError:
                     # Skips header
                     continue
@@ -89,7 +91,7 @@ class Stats(object):
 
         """
         self.build_generic_graph(total_gcount, graph_num,
-            "Flows per Second", self.flows_col)
+                                 "Flows per Second", self.flows_col)
 
     def compute_ram_stats(self):
         """Compute used RAM stats."""
@@ -105,7 +107,7 @@ class Stats(object):
 
         """
         self.build_generic_graph(total_gcount, graph_num,
-            "Used RAM (MB)", self.used_ram_col)
+                                 "Used RAM (MB)", self.used_ram_col)
 
     def compute_runtime_stats(self):
         """Compute CBench runtime length stats."""
@@ -121,7 +123,7 @@ class Stats(object):
 
         """
         self.build_generic_graph(total_gcount, graph_num,
-            "CBench Runtime (sec)", self.runtime_col)
+                                 "CBench Runtime (sec)", self.runtime_col)
 
     def compute_iowait_stats(self):
         """Compute iowait stats."""
@@ -137,7 +139,7 @@ class Stats(object):
 
         """
         self.build_generic_graph(total_gcount, graph_num,
-            "IOWait Time (sec)", self.iowait_col)
+                                 "IOWait Time (sec)", self.iowait_col)
 
     def compute_steal_time_stats(self):
         """Compute steal time stats."""
@@ -153,7 +155,7 @@ class Stats(object):
 
         """
         self.build_generic_graph(total_gcount, graph_num,
-            "Steal Time (sec)", self.steal_time_col)
+                                 "Steal Time (sec)", self.steal_time_col)
 
     def compute_one_load_stats(self):
         """Compute one minute load stats."""
@@ -169,7 +171,7 @@ class Stats(object):
 
         """
         self.build_generic_graph(total_gcount, graph_num,
-            "One Minute Load", self.one_load_col)
+                                 "One Minute Load", self.one_load_col)
 
     def compute_five_load_stats(self):
         """Compute five minute load stats."""
@@ -185,7 +187,7 @@ class Stats(object):
 
         """
         self.build_generic_graph(total_gcount, graph_num,
-            "Five Minute Load", self.five_load_col)
+                                 "Five Minute Load", self.five_load_col)
 
     def compute_fifteen_load_stats(self):
         """Compute fifteen minute load stats."""
@@ -201,7 +203,7 @@ class Stats(object):
 
         """
         self.build_generic_graph(total_gcount, graph_num,
-            "Fifteen Minute Load", self.fifteen_load_col)
+                                 "Fifteen Minute Load", self.fifteen_load_col)
 
     def compute_generic_stats(self, stats_name, stats_col):
         """Helper for computing generic stats."""
@@ -211,8 +213,9 @@ class Stats(object):
         generic_stats["mean"] = round(numpy.mean(stats_col), self.precision)
         generic_stats["stddev"] = round(numpy.std(stats_col), self.precision)
         try:
-            generic_stats["relstddev"] = round(generic_stats["stddev"] / \
-                generic_stats["mean"] * 100, self.precision)
+            generic_stats["relstddev"] = round(generic_stats["stddev"] /
+                                               generic_stats["mean"] *
+                                               100, self.precision)
         except ZeroDivisionError:
             generic_stats["relstddev"] = 0.
         self.results[stats_name] = generic_stats
@@ -262,13 +265,13 @@ stats_map = {"flows": stats.compute_flow_stats,
 # Build argument parser
 parser = argparse.ArgumentParser(description="Compute stats about CBench data")
 parser.add_argument("-S", "--all-stats", action="store_true",
-    help="compute all stats")
+                    help="compute all stats")
 parser.add_argument("-s", "--stats", choices=stats_map.keys(),
-    help="compute stats on specified data", nargs="+")
+                    help="compute stats on specified data", nargs="+")
 parser.add_argument("-G", "--all-graphs", action="store_true",
-    help="graph all data")
+                    help="graph all data")
 parser.add_argument("-g", "--graphs", choices=graph_map.keys(),
-    help="graph specified data", nargs="+")
+                    help="graph specified data", nargs="+")
 
 
 # Print help if no arguments are given

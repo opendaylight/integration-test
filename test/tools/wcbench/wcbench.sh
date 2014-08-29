@@ -1,13 +1,12 @@
 #!/usr/bin/env sh
-# Script for running automated CBench regression tests
-
-# For remote runs, you must have .ssh/config setup such that `ssh $SSH_HOSTMANE` works w/o pw
-# Example host setup in .ssh/config:
-# Host cbench
-#     Hostname 209.132.178.170
-#     User fedora
-#     IdentityFile /home/daniel/.ssh/id_rsa_nopass
-#     StrictHostKeyChecking no
+# Main WCBench script. WCBench wraps CBench in stuff to make it useful.
+# This script supports installing ODL, installing CBench, starting and
+# configuring ODL, running CBench against ODL, pinning ODL to a given
+# number of CPUs, using given-length CBench runs, collecting CBench
+# results and system stats, storing results in CSV format, stopping
+# ODL and removing all source/binaries installed by this script.
+# The main repo for WCBench is: https://github.com/dfarrell07/wcbench
+# See README.md for more details.
 
 # Exit codes
 EX_USAGE=64
@@ -16,31 +15,41 @@ EX_OK=0
 EX_ERR=1
 
 # Params for CBench test and ODL config
-NUM_SWITCHES=256
-NUM_MACS=100000
-TESTS_PER_SWITCH=10  # Comment out to speed up testing of this script
-#TESTS_PER_SWITCH=2  # ^^Then uncomment this one
-MS_PER_TEST=10000
-CBENCH_WARMUP=1
-OSGI_PORT=2400
-ODL_STARTUP_DELAY=90
-ODL_RUNNING_STATUS=0
-ODL_STOPPED_STATUS=255
-ODL_BROKEN_STATUS=1
-CONTROLLER="OpenDaylight"
-CONTROLLER_IP="localhost"
-#CONTROLLER_IP="172.18.14.26"
-CONTROLLER_PORT=6633
-SSH_HOSTNAME="cbenchc"
+NUM_SWITCHES=64 # Default number of switches for CBench to simulate
+NUM_MACS=100000  # Default number of MACs for CBench to use
+TESTS_PER_SWITCH=10  # Default number of CBench tests to do per CBench run
+MS_PER_TEST=10000  # Default milliseconds to run each CBench test
+CBENCH_WARMUP=1  # Default number of warmup cycles to run CBench
+OSGI_PORT=2400  # Port that the OSGi console listens for telnet on
+ODL_STARTUP_DELAY=90  # Default time in seconds to give ODL to start
+ODL_RUNNING_STATUS=0  # run.sh gives this status when ODL is running
+ODL_STOPPED_STATUS=255  # run.sh gives this status when ODL is stopped
+ODL_BROKEN_STATUS=1  # run.sh gives this status when things are FUBR
+CONTROLLER="OpenDaylight"  # Currently only support ODL
+CONTROLLER_IP="localhost"  # Change this to remote IP if running on two systems
+CONTROLLER_PORT=6633  # Default port for OpenDaylight
+SSH_HOSTNAME="cbenchc"  # You'll need to update this to reflect ~/.ssh/config
+
+# Paths used in this script
+BASE_DIR=$HOME  # Directory that code and such is dropped into
+OF_DIR=$BASE_DIR/openflow  # Directory that contains OpenFlow code
+OFLOPS_DIR=$BASE_DIR/oflops  # Directory that contains oflops repo
+ODL_DIR=$BASE_DIR/opendaylight  # Directory with ODL code
+ODL_ZIP="distributions-base-0.2.0-SNAPSHOT-osgipackage.zip"  # ODL zip name
+ODL_ZIP_PATH=$BASE_DIR/$ODL_ZIP  # Full path to ODL zip
+PLUGIN_DIR=$ODL_DIR/plugins  # ODL plugin directory
+RESULTS_FILE=$BASE_DIR/"results.csv"  # File that results are stored in
+CBENCH_LOG=$BASE_DIR/"cbench.log"  # Log file used to store strange error msgs
+CBENCH_BIN="/usr/local/bin/cbench"  # Path to CBench binary
 
 # Array that stores results in indexes defined by cols array
 declare -a results
 
 # The order of these array values determines column order in RESULTS_FILE
 cols=(run_num cbench_avg start_time end_time controller_ip human_time
-      num_switches num_macs tests_per_switch ms_per_test start_steal_time
-      end_steal_time total_ram used_ram free_ram cpus one_min_load five_min_load
-      fifteen_min_load controller start_iowait end_iowait)
+    num_switches num_macs tests_per_switch ms_per_test start_steal_time
+    end_steal_time total_ram used_ram free_ram cpus one_min_load five_min_load
+    fifteen_min_load controller start_iowait end_iowait)
 
 # This two-stat-array system is needed until I find an answer to this question:
 # http://goo.gl/e0M8Tp
@@ -70,21 +79,17 @@ remote_stats_cmds=([total_ram]='free -m | awk '"'"'/^Mem:/{print $2}'"'"''
             [iowait]='cat /proc/stat | awk '"'"'NR==1 {print $6}'"'"''
             [steal_time]='cat /proc/stat | awk '"'"'NR==1 {print $9}'"'"'')
 
-# Paths used in this script
-BASE_DIR=$HOME
-OF_DIR=$BASE_DIR/openflow
-OFLOPS_DIR=$BASE_DIR/oflops
-ODL_DIR=$BASE_DIR/opendaylight
-ODL_ZIP="distributions-base-0.2.0-SNAPSHOT-osgipackage.zip"
-ODL_ZIP_PATH=$BASE_DIR/$ODL_ZIP
-PLUGIN_DIR=$ODL_DIR/plugins
-RESULTS_FILE=$BASE_DIR/"results.csv"
-CBENCH_LOG=$BASE_DIR/"cbench.log"
-CBENCH_BIN="/usr/local/bin/cbench"
-
+###############################################################################
+# Prints usage message
+# Globals:
+#   None
+# Arguments:
+#   None
+# Returns:
+#   None
+###############################################################################
 usage()
 {
-    # Print usage message
     cat << EOF
 Usage $0 [options]
 
@@ -95,14 +100,24 @@ OPTIONS:
     -c Install CBench
     -t <time> Run CBench for given number of minutes
     -r Run CBench against OpenDaylight
-    -i Install ODL from last sucessful build
+    -i Install ODL from last successful build
     -p <processors> Pin ODL to given number of processors
-    -o Run ODL from last sucessful build
+    -o Run ODL from last successful build
     -k Kill OpenDaylight
     -d Delete local ODL and CBench code
 EOF
 }
 
+###############################################################################
+# Globals:
+#   EX_OK
+#   EX_NOT_FOUND
+# Arguments:
+#   None
+# Returns:
+#   EX_OK if CBench is installed
+#   EX_NOT_FOUND if CBench isn't installed
+###############################################################################
 cbench_installed()
 {
     # Checks if CBench is installed
@@ -115,12 +130,24 @@ cbench_installed()
     fi
 }
 
+###############################################################################
+# Installs CBench, including its dependencies
+# This function is idempotent
+# This has been tested on fresh cloud versions of Fedora 20 and CentOS 6.5
+# Not currently building oflops/netfpga-packet-generator-c-library (optional)
+# Globals:
+#   EX_OK
+#   EX_ERR
+#   OFLOPS_DIR
+#   OF_DIR
+# Arguments:
+#   None
+# Returns:
+#   EX_OK if CBench is already installed or successfully installed
+#   EX_ERR if CBench fails to install
+###############################################################################
 install_cbench()
 {
-    # Installs CBench, including its dependencies
-    # This function is idempotent
-    # This has been tested on fresh cloud versions of Fedora 20 and CentOS 6.5
-    # Note that I'm not currently building oflops/netfpga-packet-generator-c-library (optional)
     if cbench_installed; then
         return $EX_OK
     fi
@@ -160,10 +187,18 @@ install_cbench()
     fi
 }
 
+###############################################################################
+# Get the number of the next run, as found in results file
+# Assumes that the results file hasn't had rows removed by a human
+# Globals:
+#   RESULTS_FILE
+# Arguments:
+#   None
+# Returns:
+#   The run number of the next run
+###############################################################################
 next_run_num()
 {
-    # Get the number of the next run
-    # Assumes that the file hasn't had rows removed by a human
     # Check if there's actually a results file
     if [ ! -s $RESULTS_FILE ]; then
         echo 0
@@ -175,9 +210,17 @@ next_run_num()
     echo $(expr $num_lines - 1)
 }
 
+###############################################################################
+# Given the name of a results column, get its index in cols (therefore results)
+# Globals:
+#   cols
+# Arguments:
+#   The name of the column to find the index of
+# Returns:
+#   The index of the given column name in cols
+###############################################################################
 name_to_index()
 {
-    # Convert results column name to column index
     name=$1
     for (( i = 0; i < ${#cols[@]}; i++ )); do
         if [ "${cols[$i]}" = $name ]; then
@@ -187,11 +230,21 @@ name_to_index()
     done
 }
 
+###############################################################################
+# Accepts an array and writes it in CSV format to the results file
+# Globals:
+#   RESULTS_FILE
+# Arguments:
+#   Array to write to results file
+# Returns:
+#   None
+###############################################################################
 write_csv_row()
 {
-    # Accepts an array and writes it in CSV format to the results file
+    # Creates var for array argument
     declare -a array_to_write=("${!1}")
     i=0
+    # Write all but the last column of the array to results file
     while [ $i -lt $(expr ${#array_to_write[@]} - 1) ]; do
         # Only use echo with comma and no newline for all but last col
         echo -n "${array_to_write[$i]}," >> $RESULTS_FILE
@@ -201,6 +254,20 @@ write_csv_row()
     echo "${array_to_write[$i]}" >> $RESULTS_FILE
 }
 
+###############################################################################
+# Collects local or remote system stats that should be collected pre-CBench
+# Pre and post-test collection is needed for computing the change in stats
+# Globals:
+#   CONTROLLER_IP
+#   SSH_HOSTNAME
+#   results
+#   local_stats_commands
+#   remote_stats_commands
+# Arguments:
+#   None
+# Returns:
+#   None
+###############################################################################
 get_pre_test_stats()
 {
     echo "Collecting pre-test stats"
@@ -214,10 +281,22 @@ get_pre_test_stats()
     fi
 }
 
+###############################################################################
+# Collects local or remote system stats that should be collected post-CBench
+# Pre and post-test collection is needed for computing the change in stats
+# Globals:
+#   CONTROLLER_IP
+#   SSH_HOSTNAME
+#   results
+#   local_stats_commands
+#   remote_stats_commands
+# Arguments:
+#   None
+# Returns:
+#   None
+###############################################################################
 get_post_test_stats()
 {
-    # Collect system stats post CBench test
-    # Pre and post test collection is needed for computing the change in stats
     # Start by collecting always-local stats that are time-sensitive
     echo "Collecting post-test stats"
     results[$(name_to_index "end_time")]=`date +%s`
@@ -239,6 +318,24 @@ get_post_test_stats()
     fi
 }
 
+###############################################################################
+# Collects local or remote system stats for which collection time is irrelevant
+# Globals:
+#   CONTROLLER_IP
+#   NUM_SWITCHES
+#   NUM_MACS
+#   TESTS_PER_SWITCH
+#   MS_PER_TEST
+#   CONTROLLER
+#   SSH_HOSTNAME
+#   results
+#   local_stats_commands
+#   remote_stats_commands
+# Arguments:
+#   None
+# Returns:
+#   None
+###############################################################################
 get_time_irrelevant_stats()
 {
     # Collect always-local stats that aren't time-sensitive
@@ -265,9 +362,19 @@ get_time_irrelevant_stats()
     fi
 }
 
+###############################################################################
+# Write data stored in results array to results file
+# Globals:
+#   RESULTS_FILE
+#   cols
+#   results
+# Arguments:
+#   None
+# Returns:
+#   None
+###############################################################################
 write_results()
 {
-    # Write data stored in results array to results file
     # Write header if this is a fresh results file
     if [ ! -s $RESULTS_FILE ]; then
         echo "$RESULTS_FILE not found or empty, building fresh one" >&2
@@ -276,9 +383,25 @@ write_results()
     write_csv_row results[@]
 }
 
+###############################################################################
+# Runs the CBench against the controller
+# Globals:
+#   CONTROLLER_IP
+#   CONTROLLER_PORT
+#   MS_PER_TEST
+#   TEST_PER_SWITCH
+#   NUM_SWITCHES
+#   NUM_MACS
+#   CBENCH_WARMUP
+#   CBENCH_LOG
+#   results
+# Arguments:
+#   None
+# Returns:
+#   None
+###############################################################################
 run_cbench()
 {
-    # Runs the CBench test against the controller
     get_pre_test_stats
     echo "Running CBench against ODL on $CONTROLLER_IP:$CONTROLLER_PORT"
     cbench_output=`cbench -c $CONTROLLER_IP -p $CONTROLLER_PORT -m $MS_PER_TEST -l $TESTS_PER_SWITCH -s $NUM_SWITCHES -M $NUM_MACS -w $CBENCH_WARMUP 2>&1`
@@ -300,13 +423,20 @@ run_cbench()
 
     # Write results to results file
     write_results
-
-    # TODO: Integrate with Jenkins Plot Plugin
 }
 
+###############################################################################
+# Deletes OpenDaylight source (zipped and unzipped)
+# Globals:
+#   ODL_DIR
+#   ODL_ZIP_PATH
+# Arguments:
+#   None
+# Returns:
+#   None
+###############################################################################
 uninstall_odl()
 {
-    # Uninstall OpenDaylight zipped and unzipped code
     if [ -d $ODL_DIR ]; then
         echo "Removing $ODL_DIR"
         rm -rf $ODL_DIR
@@ -317,9 +447,21 @@ uninstall_odl()
     fi
 }
 
+###############################################################################
+# Installs latest build of the OpenDaylight controller
+# Note that the installed build is via an Integration team Jenkins job
+# Globals:
+#   BASE_DIR
+#   ODL_ZIP_DIR
+#   ODL_ZIP
+#   EX_ERR
+# Arguments:
+#   None
+# Returns:
+#   EX_ERR if ODL download fails, typically because of version bump
+###############################################################################
 install_opendaylight()
 {
-    # Installs latest build of the OpenDaylight controller
     # Remove old controller code
     uninstall_odl
 
@@ -346,20 +488,40 @@ install_opendaylight()
     rm $PLUGIN_DIR/org.opendaylight.controller.arphandler-0.5.2-SNAPSHOT.jar
 
     # TODO: Change controller log level to ERROR. Confirm this is necessary.
+    # Relevant Issue: https://github.com/dfarrell07/wcbench/issues/3
 }
 
+###############################################################################
+# Checks if OpenDaylight is installed
+# Globals:
+#   ODL_DIR
+#   EX_NOT_FOUND
+# Arguments:
+#   None
+# Returns:
+#   EX_NOT_FOUND if ODL isn't installed
+#   0 if ODL is installed
+###############################################################################
 odl_installed()
 {
-    # Checks if OpenDaylight is installed
     if [ ! -d $ODL_DIR ]; then
         return $EX_NOT_FOUND
     fi
 }
 
+###############################################################################
+# Checks if OpenDaylight is running
+# Assumes you've checked that ODL is installed
+# Globals:
+#   ODL_DIR
+# Arguments:
+#   None
+# Returns:
+#   EX_OK if ODL is running
+#   EX_NOT_FOUND if ODL isn't running
+###############################################################################
 odl_started()
 {
-    # Checks if OpenDaylight is running
-    # Assumes you've checked that ODL is installed
     old_cwd=$PWD
     cd $ODL_DIR
     ./run.sh -status &> /dev/null
@@ -371,9 +533,23 @@ odl_started()
     cd $old_cwd
 }
 
+###############################################################################
+# Starts the OpenDaylight controller
+# Pins ODL process to given number of CPUs if `$processors` is non-zero
+# Makes call to issue ODL config once ODL is up and running
+# Globals:
+#   ODL_DIR
+#   EX_OK
+#   processors
+#   OSGI_PORT
+#   ODL_STARTUP_DELAY
+# Arguments:
+#   None
+# Returns:
+#   EX_OK if ODL is already running
+###############################################################################
 start_opendaylight()
 {
-    # Starts the OpenDaylight controller
     old_cwd=$PWD
     cd $ODL_DIR
     if odl_started; then
@@ -389,11 +565,13 @@ start_opendaylight()
                 echo "Increasing ODL start time, as 1 processor will slow it down"
                 ODL_STARTUP_DELAY=120
             fi
+            # Use taskset to pin ODL to a given number of processors
             taskset -c 0-$(expr $processors - 1) ./run.sh -start $OSGI_PORT -of13 -Xms1g -Xmx4g &> /dev/null
         fi
     fi
     cd $old_cwd
     # TODO: Smarter block until ODL is actually up
+    # Relevant Issue: https://github.com/dfarrell07/wcbench/issues/6
     echo "Giving ODL $ODL_STARTUP_DELAY seconds to get up and running"
     while [ $ODL_STARTUP_DELAY -gt 0 ]; do
         sleep 10
@@ -403,12 +581,20 @@ start_opendaylight()
     issue_odl_config
 }
 
+###############################################################################
+# Give `dropAllPackets on` command via telnet to OSGi
+# See: http://goo.gl/VEJIRc
+# TODO: This can be issued too early. Smarter check needed.
+# Relevant Issue: https://github.com/dfarrell07/wcbench/issues/6
+# Globals:
+#   OSGI_PORT
+# Arguments:
+#   None
+# Returns:
+#   None
+###############################################################################
 issue_odl_config()
 {
-    # Give dropAllPackets command via telnet to OSGi
-    # This is a bit of a hack, but it's the only method I know of
-    # See: https://ask.opendaylight.org/question/146/issue-non-interactive-gogo-shell-command/
-    # TODO: There seems to be a timing-related bug here. More delay? Smarter check?
     if ! command -v telnet &> /dev/null; then
         echo "Installing telnet, as it's required for issuing ODL config."
         sudo yum install -y telnet &> /dev/null
@@ -418,9 +604,17 @@ issue_odl_config()
     (sleep 3; echo dropAllPacketsRpc on; sleep 3) | telnet localhost $OSGI_PORT
 }
 
+###############################################################################
+# Stops OpenDaylight using run.sh
+# Globals:
+#   ODL_DIR
+# Arguments:
+#   None
+# Returns:
+#   None
+###############################################################################
 stop_opendaylight()
 {
-    # Stops OpenDaylight using run.sh
     old_cwd=$PWD
     cd $ODL_DIR
     if odl_started; then
@@ -432,9 +626,19 @@ stop_opendaylight()
     cd $old_cwd
 }
 
+###############################################################################
+# Uninstall CBench binary and the code that built it
+# Globals:
+#   OF_DIR
+#   OFLOPS_DIR
+#   CBENCH_BIN
+# Arguments:
+#   None
+# Returns:
+#   None
+###############################################################################
 uninstall_cbench()
 {
-    # Uninstall CBench binary and the code that built it
     if [ -d $OF_DIR ]; then
         echo "Removing $OF_DIR"
         rm -rf $OF_DIR
@@ -447,6 +651,8 @@ uninstall_cbench()
         echo "Removing $CBENCH_BIN"
         sudo rm -f $CBENCH_BIN
     fi
+    # TODO: Remove oflops binary
+    # Relevant issue: https://github.com/dfarrell07/wcbench/issues/25
 }
 
 # If executed with no options
@@ -455,6 +661,7 @@ if [ $# -eq 0 ]; then
     exit $EX_USAGE
 fi
 
+# Parse options given from command line
 while getopts ":hrcip:ot:kd" opt; do
     case "$opt" in
         h)
@@ -535,6 +742,7 @@ while getopts ":hrcip:ot:kd" opt; do
             uninstall_cbench
             ;;
         *)
+            # Print usage message
             usage
             exit $EX_USAGE
     esac
