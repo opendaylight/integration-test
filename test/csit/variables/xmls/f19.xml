@@ -19,7 +19,7 @@
                     <output-action>
                         <output-node-connector>INPORT</output-node-connector>
                         <max-length>60</max-length>
-                    </output-action>>
+                    </output-action>
                 </action>
             </apply-actions>
         </instruction>
