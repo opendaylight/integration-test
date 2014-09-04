@@ -107,7 +107,7 @@ def addCarPerson(numberOfCarPersons):
         print(resp)
 
     print("getting the car_persons for verification")
-    resp=getCarPersons(0)
+    resp=getCarPersonMappings(0)
 
     #TBD detailed validation
 
@@ -135,7 +135,7 @@ def buyCar(numberOfCarBuyers):
         print(resp)
 
     print("getting the car_persons for verification")
-    resp=getCarPersons(0)
+    resp=getCarPersonMappings(0)
 
 
 #
@@ -209,7 +209,7 @@ def options():
              'pass 0 if <command>=gc or gp or gcp or dc or dp'\
 
 
-    usageString = 'usage: populate <ipaddress> <command> <param>\nwhere\n\t<ipaddress> = ODL server ip address' \
+    usageString = 'usage: python crud <ipaddress> <command> <param>\nwhere\n\t<ipaddress> = ODL server ip address' \
                   '\n\t<command> = any of the following commands \n\t\t'
 
     usageString = usageString + command +param
