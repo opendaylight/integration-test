@@ -5,7 +5,7 @@ Suite Teardown    Stop Suite
 Library     SSHLibrary
 
 *** Variables ***
-${start}=  sudo mn --controller=remote,ip=${CONTROLLER} --custom ${USER_HOME}/integration/test/csit/suites/l2switch/topologies/loop.py --topo loop --switch ovsk,protocols=OpenFlow13
+${start}=  sudo mn --controller=remote,ip=${CONTROLLER} --custom customtopo.py --topo ring --switch ovsk,protocols=OpenFlow13
 
 ** Keywords ***
 Start Suite
@@ -15,6 +15,7 @@ Start Suite
     Write    sudo ovs-vsctl set-manager ptcp:6644
     Write    sudo mn -c
     Sleep    2
+    Put File    ${USER_HOME}/integration/test/csit/suites/l2switch/topologies/customtopo.py
     Write    ${start}
     Sleep    30
     Read
