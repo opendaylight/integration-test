@@ -31,31 +31,38 @@ ${ipv4_dst}       40.4.0.0/16
 ${eth_type}       0x800
 ${eth_src}        00:00:00:01:23:ae
 ${eth_dst}        ff:ff:ff:ff:ff:ff
+${node_id}        openflow:1
+${set_ip_ttl_doc}    OF1.3: \ OFPAT_SET_NW_TTL = 23, /* IP TTL. */\n(currently not supported on OVS)
+${dec_ttl_doc}    OF1.3: \ OFPAT_DEC_NW_TTL = 24, /* Decrement IP TTL. */
+${copy_ttl_in_doc}    OFPAT_COPY_TTL_IN = 12, /* Copy TTL "inwards" -- from outermost to\nnext-to-outermost */\n(currently NOT supported in OVS)\n
+${copy_ttl_out_doc}    OFPAT_COPY_TTL_OUT = 11, /* Copy TTL "outwards" -- from next-to-outermost\nto outermost */\n(currently NOT suported in OVS)
+${set_mpls_ttl_doc}    OFPAT_SET_MPLS_TTL = 15, /* MPLS TTL */
+${dec_mpls_ttl_doc}    OFPAT_DEC_MPLS_TTL = 16, /* Decrement MPLS TTL */
 
-*** Test Cases ***    ODL flow action        action key                                                                                                                      action value    tableID    flowID    verify OVS?    OVS specific string?
-Set_IP_TTL            [Documentation]        OF1.3: \ OFPAT_SET_NW_TTL = 23, /* IP TTL. */\n(currently not supported on OVS)\n
-                      [Tags]                 ttl                                                                                                                             set
-                      set-nw-ttl-action      nw-ttl                                                                                                                          1               2          101       no             set_ttl
+*** Test Cases ***    ODL flow action        action key             action value    tableID    flowID    verify OVS?    OVS specific string?
+Set_IP_TTL            [Documentation]        ${set_ip_ttl_doc}
+                      [Tags]                 ttl                    set
+                      set-nw-ttl-action      nw-ttl                 1               2          101       no             set_ttl
 
-Dec_TTL               [Documentation]        OF1.3: \ OFPAT_DEC_NW_TTL = 24, /* Decrement IP TTL. */\n
-                      [Tags]                 ttl                                                                                                                             dec
-                      dec-nw-ttl             none                                                                                                                            none            3          305       yes            dec_ttl
+Dec_TTL               [Documentation]        ${dec_ttl_doc}
+                      [Tags]                 ttl                    dec
+                      dec-nw-ttl             none                   none            3          305       yes            dec_ttl
 
-Copy_TTL_In           [Documentation]        OFPAT_COPY_TTL_IN = 12, /* Copy TTL "inwards" -- from outermost to\nnext-to-outermost */\n(currently NOT supported in OVS)\n
-                      [Tags]                 ttl                                                                                                                             copyin
-                      copy-ttl-in            none                                                                                                                            none            9          202       no             copy_ttl_in
+Copy_TTL_In           [Documentation]        ${copy_ttl_in_doc}
+                      [Tags]                 ttl                    copyin
+                      copy-ttl-in            none                   none            9          202       no             copy_ttl_in
 
-Copy_TTL_Out          [Documentation]        OFPAT_COPY_TTL_OUT = 11, /* Copy TTL "outwards" -- from next-to-outermost\nto outermost */\n(currently NOT suported in OVS)
-                      [Tags]                 ttl                                                                                                                             copyout
-                      copy-ttl-out           none                                                                                                                            none            8          909       no             copy_ttl_out
+Copy_TTL_Out          [Documentation]        ${copy_ttl_out_doc}
+                      [Tags]                 ttl                    copyout
+                      copy-ttl-out           none                   none            8          909       no             copy_ttl_out
 
-Set_MPLS_TTL          [Documentation]        OFPAT_SET_MPLS_TTL = 15, /* MPLS TTL */
-                      [Tags]                 ttl                                                                                                                             setmpls
-                      set-mpls-ttl-action    mpls-ttl                                                                                                                        1               4          505       yes            set_mpls_ttl
+Set_MPLS_TTL          [Documentation]        ${set_mpls_ttl_doc}
+                      [Tags]                 ttl                    setmpls
+                      set-mpls-ttl-action    mpls-ttl               1               4          505       yes            set_mpls_ttl
 
-Dec_MPLS_TTL          [Documentation]        OFPAT_DEC_MPLS_TTL = 16, /* Decrement MPLS TTL */
-                      [Tags]                 ttl                                                                                                                             decmpls
-                      dec-mpls-ttl           none                                                                                                                            none            2          1001      yes            dec_mpls_ttl
+Dec_MPLS_TTL          [Documentation]        ${dec_mpls_ttl_doc}
+                      [Tags]                 ttl                    decmpls
+                      dec-mpls-ttl           none                   none            2          1001      yes            dec_mpls_ttl
 
 *** Keywords ***
 Create And Remove Flow
@@ -77,46 +84,7 @@ Create And Remove Flow
     ##If the ${flow_action} contains the string "set" we need to include a deeper action detail (e.g. set-ttl needs a element to indicate the value to set it to)
     Run Keyword If    "set" in "${flow_action}"    Add Flow XML Element    ${flow}    ${action_key}    ${action_value}    instructions/instruction/apply-actions/action/${flow_action}
     Log    Flow XML is ${flow.xml}
-    Add Flow To Controller And Verify    ${flow.xml}    ${flow.table_id}    ${flow.id}
-    Run Keyword If    "${verify_switch_flag}" == "yes"    Verify Flow On Switch    ${OVS_FLOWELEMENTS}
-    Remove Flow From Controller And Verify    ${flow.xml}    ${flow.table_id}    ${flow.id}
-    Run Keyword If    "${verify_switch_flag}" == "yes"    Verify Flow Does Not Exist On Switch    ${OVS_FLOWELEMENTS}
-
-Add Flow To Controller And Verify
-    [Arguments]    ${flow_body}    ${table_id}    ${flow_id}
-    [Documentation]    Push flow through REST-API and verify in data-store
-    ${resp}    Put Xml    session    ${REST_CON}/node/openflow:1/table/${table_id}/flow/${flow_id}    data=${flow_body}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    ${resp}    get    session    ${REST_CON}/node/openflow:1/table/${table_id}/flow/${flow_id}    headers=${ACCEPT_XML}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    compare xml    ${flow_body}    ${resp.content}
-
-Verify Flow On Switch
-    [Arguments]    ${flow_elements}
-    [Documentation]    Checking flow on switch
-    sleep    1
-    write    dpctl dump-flows -O OpenFlow13
-    ${switchoutput}    Read Until    >
-    : FOR    ${flowElement}    IN    @{flow_elements}
-    \    should Contain    ${switchoutput}    ${flowElement}
-
-Remove Flow From Controller And Verify
-    [Arguments]    ${flow_body}    ${table_id}    ${flow_id}
-    [Documentation]    Remove flow
-    ${resp}    Delete    session    ${REST_CON}/node/openflow:1/table/${table_id}/flow/${flow_id}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    ${resp}    Get    session    ${REST_CON}/node/openflow:1/table/${table_id}
-    Log    ${resp.content}
-    Should Not Contain    ${resp.content}    ${flow_id}
-
-Verify Flow Does Not Exist On Switch
-    [Arguments]    ${flow_elements}
-    [Documentation]    Checking flow on switch is removed
-    sleep    1
-    write    dpctl dump-flows -O OpenFlow13
-    ${switchoutput}    Read Until    >
-    : FOR    ${flowElement}    IN    @{flow_elements}
-    \    should Not Contain    ${switchoutput}    ${flowElement}
+    Add Flow To Controller And Verify    ${flow.xml}    ${node_id}    ${flow.table_id}    ${flow.id}
+    Run Keyword If    "${verify_switch_flag}" == "yes"    Verify Flow On Mininet Switch    ${OVS_FLOWELEMENTS}
+    Remove Flow From Controller And Verify    ${flow.xml}    ${node_id}    ${flow.table_id}    ${flow.id}
+    Run Keyword If    "${verify_switch_flag}" == "yes"    Verify Flow Does Not Exist On Mininet Switch    ${OVS_FLOWELEMENTS}

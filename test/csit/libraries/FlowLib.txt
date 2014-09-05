@@ -51,6 +51,12 @@ Set Flow Action
     Add Flow XML Element    ${flow}    ${action}    ${action_val}    instructions/instruction/apply-actions/action
     [Return]    ${flow}
 
+Set Flow Output Action
+    [Arguments]    ${flow}    ${instruction_order}    ${action_order}    ${output_port}
+    Set Flow Action    ${flow}    ${instruction_order}    ${action_order}    output-action
+    Add Flow XML Element    ${flow}    output-node-connector    ${output_port}    instructions/instruction/apply-actions/action/output-action
+    [Return]    ${flow}
+
 Set Flow Ethernet Match
     [Arguments]    ${flow}    ${match_value_dict}
     [Documentation]    Specific keyword for adding an ethernet match rules where the elements are given
@@ -117,3 +123,62 @@ Remove Flow XML Element
     ${xml_string}=    Element To String    ${flow_xml}
     Set Flow Field    ${flow}    xml    ${xml_string}
     [Return]    ${flow}
+
+Add Flow To Controller And Verify
+    [Arguments]    ${flow_body}    ${node_id}    ${table_id}    ${flow_id}
+    [Documentation]    Push flow through REST-API and verify in data-store
+    ${resp}    Put Xml    session    ${REST_CON}/node/${node_id}/table/${table_id}/flow/${flow_id}    data=${flow_body}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp}    get    session    ${REST_CON}/node/${node_id}/table/${table_id}/flow/${flow_id}    headers=${ACCEPT_XML}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    compare xml    ${flow_body}    ${resp.content}
+
+Verify Flow On Mininet Switch
+    [Arguments]    ${flow_elements}
+    [Documentation]    Checking flow on switch
+    sleep    1
+    write    dpctl dump-flows -O OpenFlow13
+    ${switchoutput}    Read Until    >
+    : FOR    ${flowElement}    IN    @{flow_elements}
+    \    should Contain    ${switchoutput}    ${flowElement}
+
+Remove Flow From Controller And Verify
+    [Arguments]    ${flow_body}    ${node_id}    ${table_id}    ${flow_id}
+    [Documentation]    Remove flow
+    ${resp}    Delete    session    ${REST_CON}/node/${node_id}/table/${table_id}/flow/${flow_id}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp}    Get    session    ${REST_CON}/node/${node_id}/table/${table_id}
+    Log    ${resp.content}
+    Should Not Contain    ${resp.content}    ${flow_id}
+
+Verify Flow Does Not Exist On Mininet Switch
+    [Arguments]    ${flow_elements}
+    [Documentation]    Checking flow on switch is removed
+    sleep    1
+    write    dpctl dump-flows -O OpenFlow13
+    ${switchoutput}    Read Until    >
+    : FOR    ${flowElement}    IN    @{flow_elements}
+    \    should Not Contain    ${switchoutput}    ${flowElement}
+
+Remove Default Flows
+    [Arguments]    ${node_id}
+    [Documentation]    Removes any flows considered "default". one such flow is
+    ...    to forward all traffic to the CONTROLLER. If/When others are implemented
+    ...    this keyword can be updated to include those.
+    ##The preference for deleting flows would be via REST to the controller, but
+    ##it's not possible with a call to the config API. For now, the flows are
+    ##deleted via dpctl on mininet. The flows are present in the operational
+    ##datastore, but you may need to wait for some time (15s) before it's refelcted
+    ##there.
+    write    dpctl del-flows -O OpenFlow13
+    ${switchoutput}    Read Until    >
+    #${flow}=    Create Flow
+    #Set "${flow}" "table_id" With "0"
+    #Set "${flow}" "id" With "0"
+    #Set Flow Output Action    ${flow}    0    0    CONTROLLER
+    #Log    Flow XML is ${flow.xml}
+    #Remove Flow From Controller And Verify    ${flow.xml}    ${node_id}    ${flow.table_id}    ${flow.id}
+    #Run Keyword If    "${verify_switch_flag}" == "yes"    Verify Flow Does Not Exist On Mininet Switch    CONTROLLER
