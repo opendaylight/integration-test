@@ -1,0 +1,119 @@
+*** Settings ***
+Documentation     Keywords used to create/modify flow objects. The object is defined in the
+...               corresponding FlowLib.py library and contains pertinent fields and methods (e.g.,
+...               cookie and barrier fields, string formatted xml that can be used to push to
+...               controller)
+Library           ./FlowLib.py
+Library           XML
+
+*** Variables ***
+##default flow attributes ...
+@{default_flow_fields}    strict    table_id    id    hard_timeout    idle_timeout    flow_name    priority
+...               barrier    cookie    cookie_mask
+
+*** Keywords ***
+Create Flow
+    [Documentation]    Calls FlowLib.Make_Flow_Object() function and initializes and sanitizes
+    ...    the basic flow elements.
+    ${flow}=    Make Flow Object
+    : FOR    ${field}    IN    @{default_flow_fields}
+    \    Set "${flow}" "${field}" With "${flow.${field}}"
+    [Return]    ${flow}
+
+Set "${flow}" "${property}" With "${property_val}"
+    [Documentation]    Embedded variables to make higher level keywords more readable.
+    ...    There are some cases where the python attribute uses an underscore,
+    ...    but a hyphen needs to be used. This seems inconsistent, and may need
+    ...    to be looked at from the openflow plugin perspective.
+    ...
+    ...    At this point, this library will remove the element ${property} from the
+    ...    xml representation of the flow and reset with the given value. \ It's not
+    ...    possible, yet, to have multiple elements with the same name. \ That will
+    ...    likely be needed in the future.
+    ${property}    Run Keyword If    "table_id" != "${property}" and "cookie_mask" != "${property}"    Replace String    ${property}    _    -
+    ...    ELSE    Set Variable    ${property}
+    Remove Flow XML Element    ${flow}    ${property}
+    Add Flow XML Element    ${flow}    ${property}    ${property_val}
+    Set Flow Field    ${flow}    ${property}    ${property_val}
+    [Return]    ${flow}
+
+Set Flow Action
+    [Arguments]    ${flow}    ${instruction_order}    ${action_order}    ${action}    ${action_val}=${EMPTY}
+    [Documentation]    Will remove the instruction element first, then add the proper xml structure
+    ...    to implement the action as given in the arguments
+    ##For the case that any of the instruction/apply-actions/action elements are not there we need to add them'
+    Remove Flow XML Element    ${flow}    instruction
+    Add Flow XML Element    ${flow}    instruction    ${EMPTY}    instructions
+    Add Flow XML Element    ${flow}    order    ${instruction_order}    instructions/instruction
+    Add Flow XML Element    ${flow}    apply-actions    ${EMPTY}    instructions/instruction
+    Add Flow XML Element    ${flow}    action    ${EMPTY}    instructions/instruction/apply-actions
+    Add Flow XML Element    ${flow}    order    ${action_order}    instructions/instruction/apply-actions/action
+    Add Flow XML Element    ${flow}    ${action}    ${action_val}    instructions/instruction/apply-actions/action
+    [Return]    ${flow}
+
+Set Flow Ethernet Match
+    [Arguments]    ${flow}    ${match_value_dict}
+    [Documentation]    Specific keyword for adding an ethernet match rules where the elements are given
+    ...    in key/value pairs inside the ${match_value_dict} argument. This keyword will also remove any
+    ...    existing ethernet-match elements from the flow before adding
+    Clear Flow Matches    ${flow}    match/ethernet-match
+    Add Flow XML Element    ${flow}    ethernet-match    ${EMPTY}    match
+    ${type}=    Get From Dictionary    ${match_value_dict}    type
+    Add Flow XML Element    ${flow}    ethernet-type    ${EMPTY}    match/ethernet-match
+    Add Flow XML Element    ${flow}    type    ${type}    match/ethernet-match/ethernet-type
+    ${src}=    Get From Dictionary    ${match_value_dict}    source
+    Add Flow XML Element    ${flow}    ethernet-source    ${EMPTY}    match/ethernet-match
+    Add Flow XML Element    ${flow}    address    ${src}    match/ethernet-match/ethernet-source
+    ${dst}=    Get From Dictionary    ${match_value_dict}    destination
+    Add Flow XML Element    ${flow}    ethernet-destination    ${EMPTY}    match/ethernet-match
+    Add Flow XML Element    ${flow}    address    ${dst}    match/ethernet-match/ethernet-destination
+    [Return]    ${flow}
+
+Set Flow IPv4 Match
+    [Arguments]    ${flow}    ${match_value_dict}
+    [Documentation]    Specific keyword for adding an ipv4 match rules where the elements are given
+    ...    in key/value pairs inside the ${match_value_dict} argument. This keyword will also remove any
+    ...    existing ipv4 match elements from the flow before adding
+    Clear Flow Matches    ${flow}    match/ipv4-source
+    Clear Flow Matches    ${flow}    match/ipv4-destination
+    ${src}=    Get From Dictionary    ${match_value_dict}    source
+    Add Flow XML Element    ${flow}    ipv4-source    ${src}    match
+    ${dst}=    Get From Dictionary    ${match_value_dict}    destination
+    Add Flow XML Element    ${flow}    ipv4-destination    ${dst}    match
+    [Return]    ${flow}
+
+Clear Flow Actions
+    [Arguments]    ${flow}
+    [Documentation]    Will clean out any existing flow actions in the given ${flow} object
+    Remove Flow XML Element    ${flow}    instructions/instruction
+    [Return]    ${flow}
+
+Clear Flow Matches
+    [Arguments]    ${flow}    ${match_element}
+    [Documentation]    Will clean out any existing flow matches in the given ${flow} object
+    Remove Flow XML Element    ${flow}    match/${match_element}
+    [Return]    ${flow}
+
+Add Flow XML Element
+    [Arguments]    ${flow}    ${element}    ${element_val}=${EMPTY}    ${xpath}=.
+    [Documentation]    Will modify the current xml representation of the ${flow} object to contain
+    ...    the given ${element} at the given ${xpath}. If the ${element} uses a value, that can be
+    ...    passed eith the ${element_val} which defaults to ${EMPTY} if not used. NOTE: since there
+    ...    are two default parameters to this keyword, if you have an ${xpath} to use, but no ${element_val}
+    ...    you will still need to pass ${EMPTY} when invoking so that ${xpath} will end up at the right
+    ...    location in the parameter list
+    ${flow_xml}=    Parse XML    ${flow.xml}
+    Add Element    ${flow_xml}    <${element}>${element_val}</${element}>    xpath=${xpath}
+    ${xml_string}=    Element To String    ${flow_xml}
+    Set Flow Field    ${flow}    xml    ${xml_string}
+    [Return]    ${flow}
+
+Remove Flow XML Element
+    [Arguments]    ${flow}    ${element_xpath}
+    [Documentation]    Removes the element at the given ${element_xpath} within the given ${flow}
+    ...    object. The ${flow} object's xml representation will be updated to reflect this removal.
+    ${flow_xml}=    Parse XML    ${flow.xml}
+    Run Keyword And Ignore Error    Remove Elements    ${flow_xml}    xpath=${element_xpath}
+    ${xml_string}=    Element To String    ${flow_xml}
+    Set Flow Field    ${flow}    xml    ${xml_string}
+    [Return]    ${flow}
