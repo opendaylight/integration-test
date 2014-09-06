@@ -4,12 +4,7 @@ __license__ = "New-style BSD"
 __email__ = "syedbahm@cisco.com"
 
 
-import urllib
-from urllib import request
-import json
 import requests
-import socket
-
 
 #
 #Helps in making GET REST calls
@@ -21,10 +16,10 @@ def get(url, userId, password):
     headers['Accept']= 'application/xml'
 
     # Send the GET request
-    req = urllib.request.Request(url, None, headers)
+    req = requests.get(url, None, headers)
 
     # Read the response
-    return urllib.request.urlopen(req).read()
+    return req
 
 #
 #Helps in making POST REST calls without outputs
