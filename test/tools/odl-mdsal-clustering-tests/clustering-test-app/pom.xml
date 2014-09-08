@@ -126,6 +126,7 @@
   </build>
   
   <modules>
+    <module>configuration</module>
     <module>model</module>
     <module>provider</module>
   </modules>
