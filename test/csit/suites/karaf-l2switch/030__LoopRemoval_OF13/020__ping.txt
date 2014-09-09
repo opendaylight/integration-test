@@ -16,8 +16,7 @@ Ping All
     [Documentation]    Pingall, verify no packet loss
     [Tags]   Get
         Write   pingall
-        Sleep   5
-        ${result}    Read
+        ${result}    Read Until		mininet>
         Should Contain   ${result}   0% dropped
         Should Contain X Times    ${result}   h1    3
         Should Contain X Times    ${result}   h2    3
@@ -29,10 +28,9 @@ Ping h1 to h2
     [Documentation]    Ping h1 to h2, verify no packet loss or duplicates
     [Tags]   Get
         Write   h1 ping -w 6 h2
-        Sleep   5
+        Read Until	mininet>
         Write   h2 ping -w 6 h1
-        Sleep   5
-        ${result}    Read
+        ${result}    Read Until		mininet>
         Should Contain   ${result}   0% packet loss
         Should Not Contain    ${result}    duplicates
 

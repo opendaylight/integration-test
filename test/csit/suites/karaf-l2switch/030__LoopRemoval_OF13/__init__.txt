@@ -11,19 +11,19 @@ ${start}=  sudo mn --controller=remote,ip=${CONTROLLER} --custom customtopo.py -
 ** Keywords ***
 Start Suite
     Log    Start mininet
-    Open Connection   ${MININET}     prompt=>
+    Open Connection   ${MININET}     prompt=>	timeout=10
     Login With Public Key    ${MININET_USER}   ${USER_HOME}/.ssh/id_rsa   any
     Write    sudo ovs-vsctl set-manager ptcp:6644
     Write    sudo mn -c
-    Sleep    2
+    Read Until		>
     Put File    ${CURDIR}/../topologies/customtopo.py
     Write    ${start}
-    Sleep    30
-    Read
+    Read Until		mininet>
+    Sleep 	10
 Stop Suite
     Log    Stop mininet
     Read
     Write    exit
-    Sleep    6
+    Read Until		>
     Read
     Close Connection
