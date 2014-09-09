@@ -15,7 +15,7 @@ ${REST_OPR}       /restconf/operational/opendaylight-inventory:nodes
 ${FILE}           ${CURDIR}/../../../variables/xmls/f16.xml
 ${FLOW}           139
 ${TABLE}          2
-@{FLOWELMENTS}    table=2    idle_timeout=3400    hard_timeout=1200    priority=2    dl_vlan=78    dl_vlan_pcp=3
+@{FLOWELMENTS}    table=2    idle_timeout=300    hard_timeout=600    priority=16    dl_vlan=78    dl_vlan_pcp=3
 ...               dl_src=00:00:00:11:23:ae    dl_dst=ff:ff:29:01:19:61    dec_ttl
 
 *** Test Cases ***
@@ -39,11 +39,9 @@ Verify flows after adding flow config on OVS
     [Tags]    Switch
     sleep    1
     write    dpctl dump-flows -O OpenFlow13
-    ${body}    OperatingSystem.Get File    ${FILE}
-    Sleep    1
-    ${switchouput}    Read
+    ${switchoutput}    Read Until     mininet>
     : FOR    ${flowElement}    IN    @{FLOWELMENTS}
-    \    should Contain    ${switchouput}    ${flowElement}
+    \    should Contain    ${switchoutput}    ${flowElement}
 
 Remove a flow - Output to physical port#
     [Documentation]    Remove a flow
@@ -62,8 +60,6 @@ Verify flows after deleting flow config on OVS
     [Tags]    Switch
     Sleep    1
     write    dpctl dump-flows -O OpenFlow13
-    ${body}    OperatingSystem.Get File    ${FILE}
-    Sleep    1
-    ${switchouput}    Read
+    ${switchoutput}    Read Until     mininet>
     : FOR    ${flowElement}    IN    @{FLOWELMENTS}
-    \    should Not Contain    ${switchouput}    ${flowElement}
+    \    should Not Contain    ${switchoutput}    ${flowElement}
