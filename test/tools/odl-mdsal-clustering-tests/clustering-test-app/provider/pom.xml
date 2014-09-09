@@ -70,8 +70,8 @@
     <dependencies>
         <dependency>
             <groupId>org.opendaylight.controller</groupId>
-            <artifactId>sal-clustering-it-model</artifactId>
-            <version>1.1-SNAPSHOT</version>
+            <artifactId>clustering-it-model</artifactId>
+            <version>${version}</version>
         </dependency>
         <dependency>
             <groupId>org.opendaylight.controller</groupId>
