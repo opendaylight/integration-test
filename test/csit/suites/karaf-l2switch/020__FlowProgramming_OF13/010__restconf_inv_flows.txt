@@ -1,4 +1,4 @@
-*** Settings ***
+** Settings ***
 Documentation     Test suite for FlowProgramming in RESTCONF inventory
 Suite Setup       Create Session   session   http://${CONTROLLER}:${PORT}   auth=${AUTH}   headers=${HEADERS_XML}
 Suite Teardown    Delete All Sessions
@@ -15,16 +15,13 @@ ${REST_CONTEXT}    /restconf/operational/opendaylight-inventory:nodes
 Get flows before ping through console
     [Documentation]    Dump flows should list initial flows (drop, arp, lldp, flood per port)
         Write   sh ovs-ofctl dump-flows s1 -O OpenFlow13
-        Sleep   5
-        ${result}    Read
+        ${result}    Read Until	    	mininet>
         Should Contain X Times    ${result}    actions    4
         Write   sh ovs-ofctl dump-flows s2 -O OpenFlow13
-        Sleep   5
-        ${result}    Read
+        ${result}    Read Until    	mininet>
         Should Contain X Times    ${result}    actions    5
         Write   sh ovs-ofctl dump-flows s3 -O OpenFlow13
-        Sleep   5
-        ${result}    Read
+        ${result}    Read Until    	mininet>
         Should Contain X Times    ${result}    actions    4
 
 # Get flows before ping through restconf
@@ -37,24 +34,22 @@ Ping All
     [Documentation]    Pingall, verify no packet loss
     [Tags]   Get
         Write   pingall
-        Sleep   5
-        ${result}    Read
+        ${result}    Read Until		mininet>
         Should Contain   ${result}   0% dropped
         Should Not Contain    ${result}    X
 
 #Get flows after ping through console
 #    [Documentation]    Dump flows should list flows
 #        Write   sh ovs-ofctl dump-flows s1 -O OpenFlow13
-#        Sleep   5
-#        ${result}    Read
+#        ${result}    Read Until	mininet>
 #        Should Contain X Times    ${result}    actions    4
 #        Write   sh ovs-ofctl dump-flows s2 -O OpenFlow13
 #        Sleep   5
-#        ${result}    Read
+#        ${result}    Read Until	mininet>
 #        Should Contain X Times    ${result}    actions    6
 #        Write   sh ovs-ofctl dump-flows s3 -O OpenFlow13
 #        Sleep   5
-#        ${result}    Read
+#        ${result}    Read Until	mininet>
 #        Should Contain X Times    ${result}    actions    4
 
 

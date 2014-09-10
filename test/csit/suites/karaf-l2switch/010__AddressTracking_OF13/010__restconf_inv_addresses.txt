@@ -31,10 +31,10 @@ Ping All
     [Documentation]    Pingall, verify no packet loss
     [Tags]   Get
         Write   pingall
-        Sleep   5
-        ${result}    Read
+        ${result}    Read Until		mininet>
         Should Contain   ${result}   0% dropped
         Should Not Contain    ${result}    X
+        Sleep 	1 
 
 Get node 1 addresses
     [Documentation]    Get the address observations for node 1
@@ -42,7 +42,7 @@ Get node 1 addresses
         Should Be Equal As Strings   ${resp.status_code}    200
         Should Contain     ${resp.content}      openflow:1:1
         Should Contain     ${resp.content}      openflow:1:2
-        Should Contain     ${resp.content}      address-tracker:addresses
+        Should Contain     ${resp.content}      addresses
         Should Contain X Times    ${resp.content}   ${IP_1}  1
         Should Not Contain    ${resp.content}    ${IP_2}
         Should Not Contain    ${resp.content}    ${IP_3}
@@ -54,7 +54,7 @@ Get node 2 addresses
         Should Contain     ${resp.content}      openflow:2:1
         Should Contain     ${resp.content}      openflow:2:2
         Should Contain     ${resp.content}      openflow:2:3
-        Should Contain     ${resp.content}      address-tracker:addresses
+        Should Contain     ${resp.content}      addresses
         Should Not Contain    ${resp.content}    ${IP_1}
         Should Contain X Times    ${resp.content}   ${IP_2}  1
         Should Not Contain    ${resp.content}    ${IP_3}
@@ -65,7 +65,7 @@ Get node 3 addresses
         Should Be Equal As Strings   ${resp.status_code}    200
         Should Contain     ${resp.content}	openflow:3:1
         Should Contain     ${resp.content}	openflow:3:2
-        Should Contain     ${resp.content}      address-tracker:addresses
+        Should Contain     ${resp.content}      addresses
         Should Not Contain    ${resp.content}    ${IP_1}
         Should Not Contain    ${resp.content}    ${IP_2}
         Should Contain X Times    ${resp.content}   ${IP_3}  1

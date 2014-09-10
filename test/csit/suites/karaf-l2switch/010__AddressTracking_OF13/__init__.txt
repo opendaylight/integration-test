@@ -10,18 +10,17 @@ ${start}=  sudo mn --controller=remote,ip=${CONTROLLER} --topo=linear,3 --switch
 ** Keywords ***
 Start Suite
     Log    Start mininet
-    Open Connection   ${MININET}     prompt=>
+    Open Connection   ${MININET}     prompt=>	timeout=20
     Login With Public Key    ${MININET_USER}   ${USER_HOME}/.ssh/id_rsa   any
     Write    sudo ovs-vsctl set-manager ptcp:6644
     Write    sudo mn -c
-    Sleep    2
+    Read Until		>
     Write    ${start}
-    Sleep    30
-    Read
+    Read Until		mininet>
+    Sleep 	15
 Stop Suite
     Log    Stop mininet
     Read
     Write    exit
-    Sleep    6
-    Read
+    Read Until		>
     Close Connection
