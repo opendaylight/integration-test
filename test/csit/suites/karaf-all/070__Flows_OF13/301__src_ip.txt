@@ -39,8 +39,7 @@ Verify flows after adding flow config on OVS
     sleep    1
     write    dpctl dump-flows -O OpenFlow13
     ${body}    OperatingSystem.Get File    ${FILE}
-    Sleep    1
-    ${switchouput}    Read
+    ${switchouput}    Read Until    >
     : FOR    ${flowElement}    IN    @{FLOWELMENTS}
     \    should Contain    ${switchouput}    ${flowElement}
 
@@ -62,7 +61,6 @@ Verify flows after deleting flow config on OVS
     sleep    1
     write    dpctl dump-flows -O OpenFlow13
     ${body}    OperatingSystem.Get File    ${FILE}
-    Sleep    1
-    ${switchouput}    Read
+    ${switchouput}    Read Until    >
     : FOR    ${flowElement}    IN    @{FLOWELMENTS}
     \    should Not Contain    ${switchouput}    ${flowElement}
