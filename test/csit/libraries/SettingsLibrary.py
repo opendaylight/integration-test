@@ -6,7 +6,7 @@ __email__ = "syedbahm@cisco.com"
 from string import Template
 
 # helps in taking the hostname entered by the user
-#global hostname 
+#global hostname
 #global port
 
 #def setHostname(host):
@@ -47,6 +47,10 @@ def getAddCarPersonUrl(hostname,port):
 #POST URL for buy car rpc
 def getBuyCarRpcUrl(hostname,port):
     return "http://"+hostname+":"+port+"/restconf/operations/car-purchase:buy-car"
+
+#GET URL for jolokia
+def getJolokiaURL(hostname,port, shardIndex,shardName):
+    return "http://"+ hostname + ":"+ port+"/jolokia/read/org.opendaylight.controller:Category=Shards,name=member-"+shardIndex+"-"+shardName+",type=DistributedConfigDatastore"
 
 
 # Template for Car resource payload
@@ -108,6 +112,8 @@ buy_car_rpc_template = Template ( '{'
             '\"car-purchase:car-id\" : \"$carId\"'
         '}'
 '}')
+
+
 
 
 

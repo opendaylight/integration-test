@@ -11,7 +11,7 @@ from SSHLibrary import SSHLibrary
 #Helps in making GET REST calls
 #
 
-def get(url, userId, password):
+def get(url, userId=None, password=None):
 
     headers = {}
     headers['Accept']= 'application/xml'
