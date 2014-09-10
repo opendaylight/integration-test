@@ -7,6 +7,10 @@ __email__ = "syedbahm@cisco.com"
 import requests
 from SSHLibrary import SSHLibrary
 
+import robot
+
+global _cache
+
 #
 #Helps in making GET REST calls
 #
@@ -17,10 +21,11 @@ def get(url, userId=None, password=None):
     headers['Accept']= 'application/xml'
 
     # Send the GET request
-    req = requests.get(url, params=None, headers=headers)
+    session = _cache.switch("CLUSTERING_GET")
+    resp = session.get(url,headers=headers)
 
     # Read the response
-    return req
+    return resp
 
 #
 #Helps in making POST REST calls without outputs
@@ -31,7 +36,8 @@ def nonprintpost(url, userId, password,data):
     headers['Content-Type'] = 'application/json'
     #headers['Accept']= 'application/xml'
 
-    resp = requests.post(url,data.encode(),headers=headers)
+    session = _cache.switch("CLUSTERING_POST")
+    resp = session.post(url,data.encode('utf-8'),headers=headers)
 
 
     return resp
@@ -45,8 +51,8 @@ def post(url, userId, password,data):
     headers = {}
     headers['Content-Type'] = 'application/json'
     #headers['Accept']= 'application/xml'
-
-    resp = requests.post(url,data.encode(),headers=headers)
+    session = _cache.switch("CLUSTERING_POST")
+    resp = session.post(url,data.encode('utf-8'),headers=headers)
 
     #print (resp.raise_for_status())
     print (resp.headers)
@@ -58,7 +64,8 @@ def post(url, userId, password,data):
 #
 def delete(url,userId,password):
     print("delete all resources belonging to url"+url)
-    resp=requests.delete(url)
+    session = _cache.switch("CLUSTERING_DELETE")
+    resp=session.delete(url)
 
 
 # use username and password of controller server for ssh and need

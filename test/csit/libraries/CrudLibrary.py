@@ -6,7 +6,6 @@ import sys
 import UtilLibrary
 import SettingsLibrary
 
-
 #
 #Creates the specified number of cars based on Cars yang model
 # using RESTCONF
@@ -239,7 +238,7 @@ def main():
         options()
         quit(0)
     SettingsLibrary.hostname = sys.argv[1]
-    SettingsLibrary.port = '8080'
+    SettingsLibrary.port = '8181'
     call = dict(ac=addCar, ap=addPerson, bc=buyCar,
                 gc=getCars, gp=getPersons, gcp=getCarPersonMappings,dc=deleteAllCars,dp=deleteAllPersons)
 

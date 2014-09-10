@@ -123,7 +123,7 @@ def testGetClusterRoles():
             print (ip + " seems to have value "+ str(dict[ip]))
 
 def testGetLeader ():
-  leader =  getLeader("shard-car-config",3,1,1,8181,"10.194.126.116","10.194.126.117","10.194.126.118")
+  leader =  getLeader("shard-inventory-config",3,1,1,8181,"10.194.126.116","10.194.126.117","10.194.126.118")
   print leader
   return leader
 
@@ -133,7 +133,7 @@ def testGetFollowers():
    return followers
 
 #testGetClusterRoles()
-testGetLeader()
+#testGetLeader()
 #testGetFollowers()
 
 
