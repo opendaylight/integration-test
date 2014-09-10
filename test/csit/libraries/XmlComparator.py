@@ -297,3 +297,20 @@ class XmlComparator:
                 return False, 'Flow found with diferences {0}'.format(XMLtoDictParserTools.getDifferenceDict(nodeDict, origDict))
         return False, ''
 
+    def get_data_for_flow_put_update(self, xml):
+        # action only for yet
+        xml_dom_input = md.parseString( xml )
+        actionList = xml_dom_input.getElementsByTagName( 'action' )
+        if actionList is not None and len( actionList ) > 0 :
+            action = actionList[0]
+            for child in action.childNodes :
+                if child.nodeType == Element.ELEMENT_NODE:
+                    nodeKey = ( child.localName ).encode( 'utf-8', 'ignore' )
+                    if nodeKey != 'order' :
+                        if nodeKey != 'drop-action' :
+                            new_act = child.ownerDocument.createElement( 'drop-action' )
+                        else :
+                            new_act = child.ownerDocument.createElement( 'dec-mpls-ttl' )
+                        child.parentNode.replaceChild( new_act, child )
+        return xml_dom_input.toxml( encoding = 'utf-8' )
+
