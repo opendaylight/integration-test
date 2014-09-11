@@ -13,7 +13,7 @@ import sys
 # Given a shardname (e.g. shard-inventory-config), number of shards and bunch of ips
 # determines what role each ip has in an Akka (Raft based) cluster
 # result would look like
-# {'Leader':10.194.126.118', 'Follower':10.194.126.118':, '10.194.126.117': None}
+# {'10.194.126.118':'Leader', '10.194.126.118':'Follower', '10.194.126.117': None}
 #
 
 def getClusterRoles(shardName,numOfShards=3,numOfTries=3,sleepBetweenRetriesInSecs=1,port=8181,*ips):
@@ -123,7 +123,7 @@ def testGetClusterRoles():
             print (ip + " seems to have value "+ str(dict[ip]))
 
 def testGetLeader ():
-  leader =  getLeader("shard-inventory-config",3,1,1,8181,"10.194.126.116","10.194.126.117","10.194.126.118")
+  leader =  getLeader("shard-car-config",3,1,1,8181,"10.194.126.116","10.194.126.117","10.194.126.118")
   print leader
   return leader
 
@@ -133,7 +133,7 @@ def testGetFollowers():
    return followers
 
 #testGetClusterRoles()
-#testGetLeader()
+testGetLeader()
 #testGetFollowers()
 
 

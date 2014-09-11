@@ -175,7 +175,7 @@ def getCarPersonMappings(hostname,port,ignore):
     resp = UtilLibrary.get(SettingsLibrary.getCarPersonUrl(hostname,port),"admin","admin")
     resp.encoding = 'utf-8'
     print (resp)
-    
+
     return resp
 
 #
@@ -193,6 +193,16 @@ def deleteAllCars(hostname,port,ignore):
 #
 def deleteAllPersons(hostname,port,ignore):
     UtilLibrary.delete(SettingsLibrary.getPersonsUrl(hostname,port),"admin","admin")
+    resp = getPersons(hostname,port,ignore)
+    print("Persons in store after deletion:"+ str(resp))
+
+
+#
+#delete all car -poeple s in the store using RESTCONF
+#
+#
+def deleteAllCarsPersons(hostname,port,ignore):
+    UtilLibrary.delete(SettingsLibrary.getCarPersonsUrl(hostname,port),"admin","admin")
     resp = getPersons(hostname,port,ignore)
     print("Persons in store after deletion:"+ str(resp))
 
