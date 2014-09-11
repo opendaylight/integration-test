@@ -4,12 +4,15 @@
     <instructions>
         <instruction>
             <order>0</order>
-	    <write-actions>
-		<action>
+            <write-actions>
+                <action>
                     <order>0</order>
-		    <dec-mpls-ttl/>
+                    <dec-mpls-ttl/>
                 </action>
-	    </write-actions>
+            </write-actions>
+        </instruction>
+        <instruction>
+            <order>1</order>
             <apply-actions>
                 <action>
                     <order>0</order>
@@ -19,7 +22,7 @@
                     </output-action>
                 </action>
             </apply-actions>
-	</instruction>
+        </instruction>
     </instructions>
     <table_id>2</table_id>
     <id>172</id>

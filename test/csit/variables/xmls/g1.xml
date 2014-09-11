@@ -218,7 +218,7 @@
                 </set-queue-action>
                <order>0</order>
             </action>
-            <bucket-id>31</bucket-id>
+            <bucket-id>32</bucket-id>
             <watch_group>14</watch_group>
             <watch_port>1234</watch_port>
         </bucket>
@@ -237,5 +237,5 @@
     </buckets>
     <barrier>false</barrier>
     <group-name>Foo</group-name>
-    <group-id>140</group-id>
+    <group-id>1</group-id>
 </group>

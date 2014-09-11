@@ -3,9 +3,12 @@
     <strict>false</strict>
     <instructions>
         <instruction>
-                    <order>0</order>
+            <order>0</order>
             <apply-actions>
-                <action/>
+                <action>
+                    <order>0</order>
+                    <drop-action/>
+                </action>
             </apply-actions>
         </instruction>
     </instructions>
