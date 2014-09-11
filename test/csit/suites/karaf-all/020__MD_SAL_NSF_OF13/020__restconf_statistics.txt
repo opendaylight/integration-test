@@ -15,19 +15,19 @@ Get Stats for node 1
     [Documentation]    Get the stats for a node
         ${resp}    Get    session    ${REST_CONTEXT}/node/openflow:1
         Should Be Equal As Strings   ${resp.status_code}    200
-        Should Contain     ${resp.content}      opendaylight-port-statistics
-        Should Contain     ${resp.content}      opendaylight-flow-table-statistics
+        Should Contain     ${resp.content}      flow-capable-node-connector-statistics
+        Should Contain     ${resp.content}      flow-table-statistics
 
 Get Stats for node 2
     [Documentation]    Get the stats for a node
         ${resp}    Get    session    ${REST_CONTEXT}/node/openflow:2
         Should Be Equal As Strings   ${resp.status_code}    200
-        Should Contain     ${resp.content}      opendaylight-port-statistics
-        Should Contain     ${resp.content}      opendaylight-flow-table-statistics
+        Should Contain     ${resp.content}      flow-capable-node-connector-statistics
+        Should Contain     ${resp.content}      flow-table-statistics
 
 Get Stats for node 3
     [Documentation]    Get the stats for a node
    	${resp}    Get    session    ${REST_CONTEXT}/node/openflow:3
 	Should Be Equal As Strings   ${resp.status_code}    200
-	Should Contain     ${resp.content}	opendaylight-port-statistics
-	Should Contain     ${resp.content}	opendaylight-flow-table-statistics    
+	Should Contain     ${resp.content}      flow-capable-node-connector-statistics	
+	Should Contain     ${resp.content}	flow-table-statistics    

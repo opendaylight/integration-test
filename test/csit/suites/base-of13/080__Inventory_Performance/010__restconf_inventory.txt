@@ -47,8 +47,8 @@ Get Stats for a node
     :FOR    ${IND}  IN RANGE    1   ${numnodes+1}
     \   ${resp}    Get    session    ${REST_CONTEXT}/node/openflow:${IND}
     \   Should Be Equal As Strings   ${resp.status_code}    200
-    \   Should Contain     ${resp.content}      opendaylight-port-statistics
-    \   Should Contain     ${resp.content}      opendaylight-flow-table-statistics
+    \   Should Contain     ${resp.content}      flow-capable-node-connector-statistics
+    \   Should Contain     ${resp.content}      flow-table-statistics
 
 *** Keywords ***
 Check conn loop
