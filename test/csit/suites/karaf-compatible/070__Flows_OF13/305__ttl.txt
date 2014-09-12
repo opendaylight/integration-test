@@ -25,7 +25,6 @@ Variables         ../../../variables/Variables.py
 ${REST_CON}       /restconf/config/opendaylight-inventory:nodes
 ${REST_OPR}       /restconf/operational/opendaylight-inventory:nodes
 ${GENERIC_ACTION_FLOW_FILE}    ${CURDIR}/../../../variables/xmls/genericActionFlow.xml
-${MININET_CMD}    sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,1 --switch ovsk,protocols=OpenFlow13
 ${ipv4_src}       10.1.2.0/24
 ${ipv4_dst}       40.4.0.0/16
 ${eth_type}       0x800
@@ -74,7 +73,7 @@ Create And Remove Flow
     ${ethernet_match_dict}=    Create Dictionary    type=${eth_type}    destination=${eth_dst}    source=${eth_src}
     ${ipv4_match_dict}=    Create Dictionary    source=${ipv4_src}    destination=${ipv4_dst}
     ##flow is a python Object to build flow details, including the xml format to send to controller
-    ${flow}=    Create Flow
+    ${flow}=    Create Inventory Flow
     Set "${flow}" "table_id" With "${table_id}"
     Set "${flow}" "id" With "${flow_id}"
     Clear Flow Actions    ${flow}

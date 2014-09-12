@@ -13,12 +13,17 @@ import string
 import robot
 from robot.libraries.BuiltIn import BuiltIn
 
-##bare bones xml for building a flow
-xml_skeleton = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>' +      \
+##bare bones xml for building a flow xml for flow:inventory
+flow_xml_skeleton = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>' +      \
                '<flow xmlns="urn:opendaylight:flow:inventory">'         +      \
                     '<instructions></instructions>'                     +      \
                     '<match></match>'                                   +      \
                '</flow>'
+
+input_xml_skeleton = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>' +      \
+               '<input xmlns="urn:opendaylight:flow:service">'          +      \
+               '</input>'
+
 
 class Flow:
     '''
@@ -38,7 +43,7 @@ class Flow:
     priority = 0
     barrier = "false"
 
-    xml = xml_skeleton
+    xml = ""
 
     json = ""
 
@@ -51,12 +56,23 @@ class Flow:
         '''
         setattr(self, field, value)
 
-def Make_Flow_Object():
+def Make_Inventory_Flow():
     '''
         Robot Keyword to create and return an instance of the Flow
         class.
     '''
     flow = Flow()
+    flow.xml = flow_xml_skeleton
+    return flow
+
+def Make_Service_Flow():
+    '''
+        Robot Keyword to create an input XML that can be used to
+        directly send to flow:service for things like accessing
+        the remove-flow RPC via restconf
+    '''
+    flow = Flow()
+    flow.xml = input_xml_skeleton
     return flow
 
 def Set_Flow_Field(flow, field, value):

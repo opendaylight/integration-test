@@ -74,7 +74,7 @@ Create And Remove Flow
     ${ethernet_match_dict}=    Create Dictionary    type=${eth_type}    destination=${eth_dst}    source=${eth_src}
     ${ipv4_match_dict}=    Create Dictionary    source=${ipv4_src}    destination=${ipv4_dst}
     ##flow is a python Object to build flow details, including the xml format to send to controller
-    ${flow}=    Create Flow
+    ${flow}=    Create Inventory Flow
     Set "${flow}" "table_id" With "${table_id}"
     Set "${flow}" "id" With "${flow_id}"
     Clear Flow Actions    ${flow}

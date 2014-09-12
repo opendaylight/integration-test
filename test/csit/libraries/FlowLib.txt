@@ -7,17 +7,18 @@ Library           ./FlowLib.py
 Library           XML
 
 *** Variables ***
-##default flow attributes ...
-@{default_flow_fields}    strict    table_id    id    hard_timeout    idle_timeout    flow_name    priority
-...               barrier    cookie    cookie_mask
 
 *** Keywords ***
-Create Flow
-    [Documentation]    Calls FlowLib.Make_Flow_Object() function and initializes and sanitizes
-    ...    the basic flow elements.
-    ${flow}=    Make Flow Object
-    : FOR    ${field}    IN    @{default_flow_fields}
-    \    Set "${flow}" "${field}" With "${flow.${field}}"
+Create Inventory Flow
+    [Documentation]    Calls FlowLib.Make_Inventory_Flow function and initializes and sanitizes
+    ...    the basic flow elements that can be given to flow:inventory
+    ${flow}=    Make Inventory Flow
+    [Return]    ${flow}
+
+Create Service Flow
+    [Documentation]    Used for creating an object that will use an XML format that
+    ...    can be given to flow:service.
+    ${flow}=    Make Service Flow
     [Return]    ${flow}
 
 Set "${flow}" "${property}" With "${property_val}"
@@ -100,6 +101,17 @@ Clear Flow Matches
     Remove Flow XML Element    ${flow}    match/${match_element}
     [Return]    ${flow}
 
+Set Flow XML Element Attribute
+    [Arguments]    ${flow}    ${element}    ${id}    ${value}
+    [Documentation]    Will set the given id/value pair to the given to the element provided
+    ...    and make the proper changes to the ${flow} object also provided.
+    ${flow_xml}=    Parse XML    ${flow.xml}
+    Set Element Attribute    ${flow_xml}    ${id}    ${value}    xpath=${element}
+    ${xml_string}=    Element To String    ${flow_xml}
+    Set Flow Field    ${flow}    xml    ${xml_string}
+    Log    ${flow.xml}
+    [Return]    ${flow}
+
 Add Flow XML Element
     [Arguments]    ${flow}    ${element}    ${element_val}=${EMPTY}    ${xpath}=.
     [Documentation]    Will modify the current xml representation of the ${flow} object to contain
@@ -112,6 +124,7 @@ Add Flow XML Element
     Add Element    ${flow_xml}    <${element}>${element_val}</${element}>    xpath=${xpath}
     ${xml_string}=    Element To String    ${flow_xml}
     Set Flow Field    ${flow}    xml    ${xml_string}
+    Log    ${flow.xml}
     [Return]    ${flow}
 
 Remove Flow XML Element
@@ -166,19 +179,22 @@ Verify Flow Does Not Exist On Mininet Switch
 Remove Default Flows
     [Arguments]    ${node_id}
     [Documentation]    Removes any flows considered "default". one such flow is
-    ...    to forward all traffic to the CONTROLLER. If/When others are implemented
-    ...    this keyword can be updated to include those.
-    ##The preference for deleting flows would be via REST to the controller, but
-    ##it's not possible with a call to the config API. For now, the flows are
-    ##deleted via dpctl on mininet. The flows are present in the operational
-    ##datastore, but you may need to wait for some time (15s) before it's refelcted
-    ##there.
-    write    dpctl del-flows -O OpenFlow13
+    ...    to forward all traffic to the CONTROLLER with priority 0 at flow-table 0
+    ...    If/When others are implemented this keyword can be updated to include those.
+    ${flow}=    Make Service Flow
+    Set "${flow}" "priority" With "0"
+    Set "${flow}" "flow-table" With "0"
+    Add Flow XML Element    ${flow}    node    /inv:nodes/inv:node[inv:id="${node_id}"]
+    Set Flow XML Element Attribute    ${flow}    node    xmlns:inv    urn:opendaylight:inventory
+    Log    Flow XML is ${flow.xml}
+    write    dpctl dump-flows -O OpenFlow13
     ${switchoutput}    Read Until    >
-    #${flow}=    Create Flow
-    #Set "${flow}" "table_id" With "0"
-    #Set "${flow}" "id" With "0"
-    #Set Flow Output Action    ${flow}    0    0    CONTROLLER
-    #Log    Flow XML is ${flow.xml}
-    #Remove Flow From Controller And Verify    ${flow.xml}    ${node_id}    ${flow.table_id}    ${flow.id}
-    #Run Keyword If    "${verify_switch_flag}" == "yes"    Verify Flow Does Not Exist On Mininet Switch    CONTROLLER
+    ${headers}=    Create Dictionary    Content-Type    application/yang.data+xml
+    ${resp}    RequestsLibrary.Post    session    restconf/operations/sal-flow:remove-flow    data=${flow.xml}    headers=${headers}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp}=    Get    session    ${REST_OPR}
+    Log    ${resp.content}
+    Should Not Contain    ${resp.content}    "output-node-connector": "CONTROLLER",
+    ${strings_to_check_for}=    Create List    CONTROLLER
+    Verify Flow Does Not Exist On Mininet Switch    ${strings_to_check_for}
