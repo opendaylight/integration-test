@@ -1,0 +1,41 @@
+*** Settings ***
+Documentation     Test suite with connection of multiple switches
+Library        OperatingSystem
+Library        Collections
+Library        XML
+Library        SSHLibrary
+Variables      ../../../../csit/variables/Variables.py
+Library        ../../../../csit/libraries/RequestsLibrary.py
+Library        ../../../../csit/libraries/Common.py
+
+*** Test Cases ***
+Are 256 Switches Connected
+      [Setup]      Start Mininet   256
+      [Teardown]   Stop Mininet
+      [Documentation]   Checks wheather switches are connected to controller
+      ${resp}=   Get   session     /restconf/operational/network-topology:network-topology/topology/flow:1    headers=${ACCEPT_XML}
+      Log    ${resp.content}
+      ${count}=   Get Element Count   ${resp.content}   xpath=node
+      Should Be Equal As Numbers    ${count}    256
+
+*** Keywords ***
+Start Mininet   [Arguments]   ${swnr}
+      [Documentation]    Starts mininet with requested number of switches (${swnr})
+      Log    Starting mininet with ${swnr} switches
+      Open Connection   ${MININET}   prompt=>     timeout=600
+      Login With Public Key   ${MININET_USER}   ${USER_HOME}/.ssh/id_rsa   any
+      Write   sudo ovs-vsctl set-manager ptcp:6644
+      Write   sudo mn -c
+      Read Until   >
+      Write    sudo mn --controller=remote,ip=${CONTROLLER} --topo linear,${swnr} --switch ovsk,protocols=OpenFlow13
+      Read Until   mininet>
+      Sleep     3s
+      Create Session   session   http://${CONTROLLER}:${PORT}   auth=${AUTH}   headers=${HEADERS_XML}
+Stop Mininet
+    [Documentation]    Stops mininet 
+    Log    Stopping mininet
+    Delete All Sessions
+    Read
+    Write   exit
+    Read Until    >
+    Close Connection
