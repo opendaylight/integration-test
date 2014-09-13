@@ -2,7 +2,7 @@
 <flow xmlns="urn:opendaylight:flow:inventory">
     <strict>false</strict>
     <flow-name>FooXf105</flow-name>
-    <id>260</id>
+    <id>228</id>
     <cookie_mask>255</cookie_mask>
     <cookie>105</cookie>
     <table_id>2</table_id>

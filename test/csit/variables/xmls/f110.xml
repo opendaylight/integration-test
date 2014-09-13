@@ -2,7 +2,7 @@
 <flow xmlns="urn:opendaylight:flow:inventory">
     <strict>false</strict>
     <flow-name>push-vlan-action</flow-name>
-    <id>256</id>
+    <id>233</id>
     <cookie_mask>255</cookie_mask>
     <cookie>201</cookie>
     <table_id>2</table_id>

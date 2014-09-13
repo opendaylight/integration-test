@@ -2,7 +2,7 @@
 <flow xmlns="urn:opendaylight:flow:inventory">
     <strict>false</strict>
     <flow-name>set-field-ip-dscp</flow-name>
-    <id>256</id>
+    <id>336</id>
     <cookie_mask>255</cookie_mask>
     <cookie>101</cookie>
     <table_id>2</table_id>
