@@ -60,30 +60,37 @@ def delete(url,userId,password):
     print("delete all resources belonging to url"+url)
     resp=requests.delete(url)
 
-#
+
 # use username and password of controller server for ssh and need
 # karaf distribution location like /root/Documents/dist
 #
-def startcontroller(ip,username,password,karafHome):
-
-    print "start controller"
+def execute_ssh_command(ip, username, password, command):
+    print "executing ssh command"
     lib = SSHLibrary()
     lib.open_connection(ip)
     lib.login(username=username,password=password)
     print "login done"
-    lib.execute_command(karafHome+"/bin/start")
-    print "Starting server"
+    lib.execute_command(command)
+    print "command executed : " + command
     lib.close_connection()
 
-def stopcontroller(ip,username,password,karafHome):
+def startcontroller(ip,username,password,karafhome):
+    execute_ssh_command(ip, username, password, karafhome+"/bin/start")
 
-    print "stop controller"
-    lib = SSHLibrary()
-    lib.open_connection(ip)
-    lib.login(username=username,password=password)
-    print "login done"
-    lib.execute_command(karafHome+"/bin/stop")
-    print "Stopped server"
-    lib.close_connection()
+def stopcontroller(ip,username,password,karafhome):
+    execute_ssh_command(ip, username, password, karafhome+"/bin/stop")
 
+def clean_journal(ip, username, password, karafHome):
+    execute_ssh_command(ip, username, password, "rm -rf " + karafHome + "/journal")
 
+def kill_controller(ip, username, password, karafHome):
+    execute_ssh_command(ip, username, password, "ps axf | grep karaf | grep -v grep | awk '{print \"kill -9 \" $1}' | sh")
+
+#
+# main invoked
+if __name__ != "__main__":
+    _cache = robot.utils.ConnectionCache('No sessions created')
+    # here create one session for each HTTP functions
+    _cache.register(requests.session(), alias='CLUSTERING_GET')
+    _cache.register(requests.session(),alias='CLUSTERING_POST')
+    _cache.register(requests.session(),alias='CLUSTERING_DELETE')
