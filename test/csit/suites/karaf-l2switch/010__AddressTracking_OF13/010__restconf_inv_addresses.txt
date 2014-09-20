@@ -34,7 +34,7 @@ Ping All
         ${result}    Read Until		mininet>
         Should Contain   ${result}   0% dropped
         Should Not Contain    ${result}    X
-        Sleep 	1 
+        Sleep 	3 
 
 Get node 1 addresses
     [Documentation]    Get the address observations for node 1
