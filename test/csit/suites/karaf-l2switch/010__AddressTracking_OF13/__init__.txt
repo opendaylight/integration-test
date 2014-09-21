@@ -17,7 +17,7 @@ Start Suite
     Read Until		>
     Write    ${start}
     Read Until		mininet>
-    Sleep 	15
+    Sleep 	30
 Stop Suite
     Log    Stop mininet
     Read
