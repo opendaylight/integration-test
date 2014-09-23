@@ -13,39 +13,44 @@ Library           ../../../libraries/Topologynew.py
 ${REST_CONTEXT}    /controller/nb/v2/switchmanager
 
 *** Test Cases ***
-
 List all nodes
     [Documentation]    List all nodes and their properties in the network.
     [Tags]    list_info
     Log    ${TOPO_TREE_LEVEL}
     ${topo_nodes}    Get Nodes From Tree Topo    (${TOPO_TREE_DEPTH},${TOPO_TREE_FANOUT})
     ${resp}    Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/nodes
-    Should Be Equal As Strings    ${resp.status_code}    200    Response   status code error
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
     ${jsondata}=    To JSON    ${resp.content}
     ${nodes}    Extract All Nodes    ${jsondata}
-    List Should Contain Sublist   ${nodes}    ${topo_nodes}
+    List Should Contain Sublist    ${nodes}    ${topo_nodes}
 
-Check root node connectors 
+Check root node connectors
     [Documentation]    List node connectors and verify all connectors are there
     [Tags]    list_info
     ${resp}    Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/node/OF/00:00:00:00:00:00:00:01
-    Should Be Equal As Strings    ${resp.status_code}    200    Response   status code error
-    ${TOPO_TREE_FANOUT}   Convert To Integer  ${TOPO_TREE_FANOUT}
-    Check conn loop     ${TOPO_TREE_FANOUT}   1   ${resp.content}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
+    ${TOPO_TREE_FANOUT}    Convert To Integer    ${TOPO_TREE_FANOUT}
+    Check conn loop    ${TOPO_TREE_FANOUT}    1    ${resp.content}
 
-Check node i connectors              
-    [Documentation]    List node connectors and verify all connectors are there                      
+Check node i connectors
+    [Documentation]    List node connectors and verify all connectors are there
     [Tags]    list_info
-    ${topo_nodes}    Get Nodes From Tree Topo    (${TOPO_TREE_DEPTH},${TOPO_TREE_FANOUT})   1
-    :FOR    ${ITEM}  IN     @{topo_nodes}
-    \   ${IND}  Get From Dictionary    ${ITEM}    id
-    \   ${resp}    Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/node/OF/${IND}
-    \   Should Be Equal As Strings   ${resp.status_code}    200
-    \   Check conn loop   ${TOPO_TREE_FANOUT+1}   ${IND}  ${resp.content}
+    ${topo_nodes}    Get Nodes From Tree Topo    (${TOPO_TREE_DEPTH},${TOPO_TREE_FANOUT})    1
+    Wait Until Keyword Succeeds    30s    2s    Check Every Nodes Connectors    ${topo_nodes}
 
 *** Keywords ***
-Check conn loop
-    [Arguments]     ${arg}  ${outerind}     ${content}
-    :FOR    ${var}  IN RANGE    0   ${arg+1}
-    \   Should Contain     ${content}      "id":"${var}"
+Check Every Nodes Connectors
+    [Arguments]    ${topo_nodes}
+    : FOR    ${ITEM}    IN    @{topo_nodes}
+    \    ${IND}    Get From Dictionary    ${ITEM}    id
+    \    ${resp}    Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/node/OF/${IND}
+    \    Log    ${resp.content}
+    \    Should Be Equal As Strings    ${resp.status_code}    200
+    \    Check conn loop    ${TOPO_TREE_FANOUT+1}    ${IND}    ${resp.content}
 
+Check conn loop
+    [Arguments]    ${arg}    ${outerind}    ${content}
+    : FOR    ${var}    IN RANGE    0    ${arg+1}
+    \    Should Contain    ${content}    "id":"${var}"

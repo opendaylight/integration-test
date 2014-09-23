@@ -11,12 +11,11 @@ Variables         ../../../variables/Variables.py
 *** Test Cases ***
 Ping all
     [Documentation]    Do ping all test, verify no packet loss
-    [Tags]   pingall
-	${TOPO_TREE_DEPTH}    Convert To Integer  ${TOPO_TREE_DEPTH}
-    ${TOPO_TREE_FANOUT}   Convert To Integer  ${TOPO_TREE_FANOUT}
-	${numnodes}		Num Of Nodes		${TOPO_TREE_DEPTH}	${TOPO_TREE_FANOUT}
-	Write	pingall
-    Sleep   ${numnodes}
+    [Tags]    pingall
+    ${TOPO_TREE_DEPTH}    Convert To Integer    ${TOPO_TREE_DEPTH}
+    ${TOPO_TREE_FANOUT}    Convert To Integer    ${TOPO_TREE_FANOUT}
+    ${numnodes}    Num Of Nodes    ${TOPO_TREE_DEPTH}    ${TOPO_TREE_FANOUT}
+    Write    pingall
+    Sleep    ${numnodes}
     ${result}    Read
-    Should Not Contain   ${result}	X  
-
+    Should Not Contain    ${result}    X

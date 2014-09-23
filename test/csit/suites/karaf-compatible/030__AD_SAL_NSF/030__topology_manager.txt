@@ -1,16 +1,17 @@
 *** Settings ***
 Documentation     Test suite for Topology Manager
-Suite Setup       Create Session   session   http://${CONTROLLER}:${RESTPORT}   auth=${AUTH}   headers=${HEADERS}
+Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTPORT}    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
 Library           Collections
 Library           ../../../libraries/RequestsLibrary.py
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
+Resource          ../../../libraries/Utils.txt
 
 *** Variables ***
-${node1}   "00:00:00:00:00:00:00:01"
-${node2}   "00:00:00:00:00:00:00:02"
-${node3}   "00:00:00:00:00:00:00:03"
+${node1}          "00:00:00:00:00:00:00:01"
+${node2}          "00:00:00:00:00:00:00:02"
+${node3}          "00:00:00:00:00:00:00:03"
 ${name}           test_userlink1
 ${key}            userLinks
 ${REST_CONTEXT}    /controller/nb/v2/topology
@@ -19,12 +20,10 @@ ${REST_CONTEXT}    /controller/nb/v2/topology
 Get Topology
     [Documentation]    Get Topology and validate the result.
     [Tags]    get
-    ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}
-    Should Be Equal As Strings    ${resp.status_code}    200 
-    Log    ${resp.content}
-    Should Contain X Times  ${resp.content}   ${node1}   4
-    Should Contain X Times  ${resp.content}   ${node2}   2
-    Should Contain X Times  ${resp.content}   ${node3}   2
+    Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${REST_CONTEXT}/${CONTAINER}    ${node1}    4
+    Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${REST_CONTEXT}/${CONTAINER}    ${node1}    4
+    Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${REST_CONTEXT}/${CONTAINER}    ${node1}    4
+
 Add a userlink
     [Documentation]    Add a userlink, list to validate the result.
     [Tags]    add
@@ -37,6 +36,7 @@ Add a userlink
     ${result}    To JSON    ${resp.content}
     ${content}    Get From Dictionary    ${result}    ${key}
     List Should Contain Value    ${content}    ${body}
+
 Remove a userlink
     [Documentation]    Remove a userlink, list to validate the result.
     [Tags]    remove
