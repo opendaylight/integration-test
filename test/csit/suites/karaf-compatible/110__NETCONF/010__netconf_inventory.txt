@@ -1,0 +1,42 @@
+*** Settings ***
+Documentation     Test suite for NETCONF
+Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Teardown    Delete All Sessions
+Library           Collections
+Library           SSHLibrary
+Library           OperatingSystem
+Library           ../../../libraries/RequestsLibrary.py
+Library           ../../../libraries/Common.py
+Variables         ../../../variables/Variables.py
+
+*** Variables ***
+${REST_CONTEXT}          /restconf/config/opendaylight-inventory:nodes
+${REST__ntpr_rest}       /restconf/config/opendaylight-inventory:nodes/node/netopeer/yang-ext:mount/
+${REST_ntpr_op}          /operational/restconf/opendaylight-inventory:nodes/node/netopeer/yang-ext:mount
+
+*** Test Cases ***
+Get Controller Inventory using NetConf
+    [Documentation]    Get the Controller Inventory
+    [Tags]    netconf
+    ${resp}   Get    session    ${REST_CONTEXT}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${resp.content}    nodes
+    Should Contain    ${resp.content}    id
+    Should Contain    ${resp.content}    netopeer
+
+Pull External Device configuration
+    [Documentation]    Get the inventory for a node
+    [Tags]    netconf
+    ${resp}   Get    session    ${REST_ntpr_rest}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${resp.content}    data
+
+Verify Operational data and mount of external device
+    [Documentation]    Get the Operational data and verify mount of external device
+    [Tags]    netconf
+    ${resp}   Get    session    ${REST_ntpr_op}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${resp.content}    Username
+    Should Contain    ${resp.content}    Password
+    Should Contain    ${resp.content}    submit
+
