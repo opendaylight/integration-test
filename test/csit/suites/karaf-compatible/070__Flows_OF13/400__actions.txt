@@ -79,7 +79,6 @@ ANY                   [Documentation]    ${ANY_doc}
 Create And Remove Flow
     [Arguments]    ${output_port}    ${table_id}    ${flow_id}    ${verify_switch_flag}    ${additional_ovs_flowelements}
     Remove Default Flows    ${node_id}
-    Run Keyword If    "${output_port}" == "ANY"    Pass Execution    Skipping ${output_port} test and marking it passed
     @{OVS_FLOWELEMENTS}    Create List    dl_dst=${eth_dst}    table=${table_id}    dl_src=${eth_src}    nw_src=${ipv4_src}    nw_dst=${ipv4_dst}
     ...    ${additional_ovs_flowelements}
     ##The dictionaries here will be used to populate the match and action elements of the flow mod
