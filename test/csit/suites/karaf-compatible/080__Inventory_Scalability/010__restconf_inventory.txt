@@ -42,7 +42,7 @@ Get Stats for a node
     ${TOPO_TREE_DEPTH}    Convert To Integer    ${TOPO_TREE_DEPTH}
     ${TOPO_TREE_FANOUT}    Convert To Integer    ${TOPO_TREE_FANOUT}
     ${numnodes}    Num Of Nodes    ${TOPO_TREE_DEPTH}    ${TOPO_TREE_FANOUT}
-    Wait Until Keyword Succeeds    60s    2s    Check Every Nodes Stats    ${numnodes}
+    Wait Until Keyword Succeeds    90s    2s    Check Every Nodes Stats    ${numnodes}
 
 *** Keywords ***
 Check Every Nodes Stats

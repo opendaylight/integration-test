@@ -15,7 +15,7 @@ ${REST_CONTEXT}    /controller/nb/v2/topology
 *** Test Cases ***
 Get Topology
     [Documentation]    Get Topology and validate the result.
-    [Tags]    get
+    [Tags]    adsal
     ${TOPO_TREE_DEPTH}    Convert To Integer    ${TOPO_TREE_DEPTH}
     ${TOPO_TREE_FANOUT}    Convert To Integer    ${TOPO_TREE_FANOUT}
     ${leaflist}    Get Ids Of Leaf Nodes    ${TOPO_TREE_FANOUT}    ${TOPO_TREE_DEPTH}
