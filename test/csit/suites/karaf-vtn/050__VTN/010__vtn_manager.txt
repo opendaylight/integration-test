@@ -24,12 +24,12 @@ Add a vBridge vBridge1
     Add a vBridge    Tenant1    vBridge1    {}
 
 Add a interface If1
-    [Documentation]    Add a interface if1 into vBrdige vBrdige1
+    [Documentation]    Add a interface if1 into vBridge vBrdige1
     [Tags]    add
     Add a interface    Tenant1    vBridge1    if1    {}
 
 Add a interface if2
-    [Documentation]    Add a interface if2 into vBrdige vBrdige1
+    [Documentation]    Add a interface if2 into vBridge vBrdige1
     [Tags]    add
     Add a interface    Tenant1    vBridge1    if2    {}
 
@@ -54,12 +54,12 @@ Add a vBridge vBridge2
     Add a vBridge    Tenant1    vBridge2    {}
 
 Add a interface If3
-    [Documentation]    Add a interface if3 into vBrdige vBrdige2
+    [Documentation]    Add a interface if3 into vBridge vBrdige2
     [Tags]    add
     Add a interface    Tenant1    vBridge2    if3    {}
 
 Add a interface if4
-    [Documentation]    Add a interface if4 into vBrdige vBrdige2
+    [Documentation]    Add a interface if4 into vBridge vBrdige2
     [Tags]    add
     Add a interface    Tenant1    vBridge2    if4    {}
 
@@ -80,18 +80,14 @@ Add a portmap for interface if4
 
 Ping h1 to h3
     [Documentation]    Ping h1 to h3, verify no packet loss
-    Sleep    5
     Write    h1 ping -w 10 h3
-    Sleep    10
-    ${result}    Read
+    ${result}    Read Until    mininet>
     Should Contain    ${result}    64 bytes
 
 Ping h2 to h4
     [Documentation]    Ping h2 to h4, verify no packet loss
-    Sleep    5
     Write    h2 ping -w 10 h4
-    Sleep    10
-    ${result}    Read
+    ${result}    Read Until    mininet>
     Should Contain    ${result}    64 bytes
 
 Delete a vtn Tenant1
