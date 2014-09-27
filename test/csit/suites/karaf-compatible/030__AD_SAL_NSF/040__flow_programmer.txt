@@ -6,6 +6,7 @@ Library           Collections
 Library           ../../../libraries/RequestsLibrary.py
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
+Resource          ../../../libraries/Utils.txt      
 
 *** Variables ***
 ${name}           flow1
@@ -13,12 +14,11 @@ ${key}            flowConfig
 ${node_id}        00:00:00:00:00:00:00:02
 ${REST_CONTEXT}    /controller/nb/v2/flowprogrammer
 ${REST_CONTEXT_ST}    /controller/nb/v2/statistics
-${FLOW}           "10.0.0.1"
 
 *** Test Cases ***
 Add a flow
     [Documentation]    Add a flow, list to validate the result.
-    [Tags]    add
+    [Tags]    adsal 
     ${node}    Create Dictionary    type    OF    id    ${node_id}
     ${actions}    Create List    OUTPUT=1
     ${body}    Create Dictionary    name    ${name}    installInHw    true    node
@@ -33,15 +33,12 @@ Add a flow
     List Should Contain Value    ${content}    ${body}
 Check flow in flow stats
     [Documentation]    Show flow stats and validate result
-    [Tags]   get
-    Sleep   30
-    ${resp}    Get    session    ${REST_CONTEXT_ST}/${CONTAINER}/flow
-    Should Be Equal As Strings    ${resp.status_code}    200 
-    Log    ${resp.content}
-    Should Contain    ${resp.content}    ${FLOW}
+    [Tags]    adsal 
+    ${elements}=    Create List    10.0.0.1
+    Wait Until Keyword Succeeds    90s    2s    Check For Elements At URI    ${REST_CONTEXT_ST}/${CONTAINER}/flow    ${elements}
 Remove a flow
     [Documentation]    Remove a flow, list to validate the result.
-    [Tags]    remove
+    [Tags]    adsal 
     ${node}    Create Dictionary    type    OF    id    ${node_id}
     ${actions}    Create List    OUTPUT=1
     ${body}    Create Dictionary    name    ${name}    installInHw    true    node
@@ -56,10 +53,6 @@ Remove a flow
     List Should Not Contain Value    ${content}    ${body}
 Check flow is not in flow stats
     [Documentation]    Show flow stats and validate result
-    [Tags]    get
-    Sleep   30
-    ${resp}    Get    session    ${REST_CONTEXT_ST}/${CONTAINER}/flow
-    Should Be Equal As Strings    ${resp.status_code}    200 
-    Log    ${resp.content}
-    Should Not Contain    ${resp.content}    ${FLOW}
-
+    [Tags]    adsal 
+    ${elements}=    Create List    10.0.0.1
+    Wait Until Keyword Succeeds    60s    2s    Check For Elements Not At URI    ${REST_CONTEXT_ST}/${CONTAINER}/flow    ${elements}

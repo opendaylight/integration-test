@@ -19,14 +19,14 @@ ${REST_CONTEXT}    /controller/nb/v2/topology
 *** Test Cases ***
 Get Topology
     [Documentation]    Get Topology and validate the result.
-    [Tags]    get
+    [Tags]    adsal 
     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${REST_CONTEXT}/${CONTAINER}    ${node1}    4
     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${REST_CONTEXT}/${CONTAINER}    ${node1}    4
     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${REST_CONTEXT}/${CONTAINER}    ${node1}    4
 
 Add a userlink
     [Documentation]    Add a userlink, list to validate the result.
-    [Tags]    add
+    [Tags]    adsal 
     ${body}    Create Dictionary    name    ${name}    status    Success    srcNodeConnector
     ...    OF|1@OF|00:00:00:00:00:00:00:02    dstNodeConnector    OF|1@OF|00:00:00:00:00:00:00:03
     ${resp}    Put    session    ${REST_CONTEXT}/${CONTAINER}/userLink/${name}    data=${body}
@@ -39,7 +39,7 @@ Add a userlink
 
 Remove a userlink
     [Documentation]    Remove a userlink, list to validate the result.
-    [Tags]    remove
+    [Tags]    adsal 
     ${body}    Create Dictionary    name    ${name}    status    Success    srcNodeConnector
     ...    OF|1@OF|00:00:00:00:00:00:00:02    dstNodeConnector    OF|1@OF|00:00:00:00:00:00:00:03
     ${resp}    Delete    session    ${REST_CONTEXT}/${CONTAINER}/userLink/${name}

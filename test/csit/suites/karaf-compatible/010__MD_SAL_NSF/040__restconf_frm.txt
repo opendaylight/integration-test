@@ -31,7 +31,7 @@ Verify after adding flow operational - Output to physical port#
     [Documentation]    Verify the flow
     [Tags]    Get
     ${elements}=    Create List    10.0.20.1
-    Wait Until Keyword Succeeds    30s    2s    Check For Elements At URI    ${REST_OPR}/node/openflow:1/table/0    ${elements}
+    Wait Until Keyword Succeeds    60s    2s    Check For Elements At URI    ${REST_OPR}/node/openflow:1/table/0    ${elements}
 
 Remove a flow - Output to physical port#
     [Documentation]    Remove a flow
@@ -51,4 +51,4 @@ Verify after deleting flow operational - Output to physical port#
     [Documentation]    Verify the flow
     [Tags]    Get
     ${elements}=    Create List    10.0.20.1
-    Wait Until Keyword Succeeds    40s    2s    Check For Elements Not At URI    ${REST_OPR}/node/openflow:1/table/0    ${elements}
+    Wait Until Keyword Succeeds    60s    2s    Check For Elements Not At URI    ${REST_OPR}/node/openflow:1/table/0    ${elements}

@@ -13,14 +13,10 @@ ${REST_CONTEXT}    /restconf/operational/opendaylight-inventory:nodes
 *** Test Cases ***
 Get list of nodes
     [Documentation]    Get the inventory
-    ${resp}    Get    session    ${REST_CONTEXT}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
     ${TOPO_TREE_DEPTH}    Convert To Integer    ${TOPO_TREE_DEPTH}
     ${TOPO_TREE_FANOUT}    Convert To Integer    ${TOPO_TREE_FANOUT}
     ${numnodes}    Num Of Nodes    ${TOPO_TREE_DEPTH}    ${TOPO_TREE_FANOUT}
-    : FOR    ${IND}    IN RANGE    1    ${numnodes+1}
-    \    Wait Until Keyword Succeeds    30s    2s    Should Contain    ${resp.content}    openflow:${IND}
+    Wait Until Keyword Succeeds    30s    2s    Check Every Nodes    ${numnodes}
 
 Get nodeconnector for the root node
     [Documentation]    Get the inventory for the root node
@@ -42,9 +38,16 @@ Get Stats for a node
     ${TOPO_TREE_DEPTH}    Convert To Integer    ${TOPO_TREE_DEPTH}
     ${TOPO_TREE_FANOUT}    Convert To Integer    ${TOPO_TREE_FANOUT}
     ${numnodes}    Num Of Nodes    ${TOPO_TREE_DEPTH}    ${TOPO_TREE_FANOUT}
-    Wait Until Keyword Succeeds    90s    2s    Check Every Nodes Stats    ${numnodes}
+    Wait Until Keyword Succeeds    120s    2s    Check Every Nodes Stats    ${numnodes}
 
 *** Keywords ***
+Check Every Nodes
+    [Arguments]    ${numnodes}
+    ${resp}    Get    session    ${REST_CONTEXT}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${IND}    IN RANGE    1    ${numnodes+1}
+    \    Should Contain    ${resp.content}    openflow:${IND}
+
 Check Every Nodes Stats
     [Arguments]    ${numnodes}
     : FOR    ${IND}    IN RANGE    1    ${numnodes+1}
