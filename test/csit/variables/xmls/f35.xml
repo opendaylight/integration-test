@@ -7,9 +7,9 @@
             <apply-actions>
                 <action>
                     <order>0</order>
-                    <set-nw-src-action>
-                        <ipv4-address>10.0.23.21/24</ipv4-address>
-                    </set-nw-src-action>
+                    <set-field>
+                        <ipv4-source>10.0.23.21</ipv4-source>
+                    </set-field>
                 </action>
             </apply-actions>
         </instruction>

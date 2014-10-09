@@ -3,14 +3,14 @@
     <strict>false</strict>
     <instructions>
         <instruction>
-                    <order>0</order>
+            <order>0</order>
             <apply-actions>
-                <action>
-                    <order>0</order>
-                    <set-nw-dst-action>
-                        <ipv4-address>10.0.0.21/24</ipv4-address>
-                    </set-nw-dst-action>
-                </action>
+               <action>
+                  <order>0</order>
+                  <set-field>
+                     <ipv4-destination>10.0.0.21</ipv4-destination>
+                  </set-field>
+               </action>
             </apply-actions>
         </instruction>
     </instructions>
