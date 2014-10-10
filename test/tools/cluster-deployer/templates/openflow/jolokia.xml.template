@@ -1,0 +1,5 @@
+<features>
+  <feature name="feature-jolokia">
+    <bundle>mvn:org.jolokia/jolokia-osgi/1.1.5</bundle>
+  </feature>
+</features>
