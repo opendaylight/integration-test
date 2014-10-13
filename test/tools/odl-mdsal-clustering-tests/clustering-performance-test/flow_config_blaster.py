@@ -65,12 +65,15 @@ class FlowConfigBlaster(object):
         self.nflows = nflows
         self.startflow = startflow
         self.auth = auth
+
         self.json_template = json_template
+        self.url_template = 'http://' + self.host + ":" + self.port + '/' + self.FLWURL
 
         self.ok_rate = Counter(0.0)
         self.total_rate = Counter(0.0)
 
         self.ip_addr = Counter(int(netaddr.IPAddress('10.0.0.1')) + startflow)
+
 
         self.print_lock = threading.Lock()
         self.cond = threading.Condition()
@@ -108,14 +111,14 @@ class FlowConfigBlaster(object):
         return nodes
 
 
-    def add_flow(self, session, url_template, tid, node, flow_id, ipaddr):
+    def add_flow(self, session, tid, node, flow_id, ipaddr):
         """
         Adds a single flow to the config data store via REST
         """
         flow_data = self.json_template % (tid + flow_id, 'TestFlow-%d' % flow_id, 65000,
-                                      str(flow_id), 65000, str(netaddr.IPAddress(ipaddr)))
+                                          str(flow_id), 65000, str(netaddr.IPAddress(ipaddr)))
         # print flow_data
-        flow_url = url_template % (node, flow_id)
+        flow_url = self.url_template % (node, flow_id)
         # print flow_url
 
         if not self.auth:
@@ -131,8 +134,6 @@ class FlowConfigBlaster(object):
         Adds flows into the ODL config space. This function is executed by a worker thread
         """
 
-        put_url = 'http://' + self.host + ":" + self.port + '/' + self.FLWURL
-
         add_res = {200: 0}
 
         s = requests.Session()
@@ -147,7 +148,7 @@ class FlowConfigBlaster(object):
                 node_id = randrange(1, n_nodes + 1)
                 flow_id = tid * (self.ncycles * self.nflows) + flow + start_flow + self.startflow
                 self.flows[tid][flow_id] = node_id
-                sts = self.add_flow(s, put_url, tid, node_id, flow_id, self.ip_addr.increment())
+                sts = self.add_flow(s, tid, node_id, flow_id, self.ip_addr.increment())
                 try:
                     add_res[sts] += 1
                 except KeyError:
@@ -175,8 +176,17 @@ class FlowConfigBlaster(object):
             self.cond.notifyAll()
 
 
-    def delete_flow(self, session, url_template, node, flow_id):
-        flow_url = url_template % (node, flow_id)
+    def delete_flow(self, session, node, flow_id):
+        """
+        Deletes a single flow from the ODL config data store via REST
+
+        :param session:
+        :param url_template:
+        :param node:
+        :param flow_id:
+        :return:
+        """
+        flow_url = self.url_template % (node, flow_id)
 
         if not self.auth:
             r = session.delete(flow_url, headers=self.getheaders)
@@ -191,8 +201,6 @@ class FlowConfigBlaster(object):
         Deletes flow from the ODL config space that have been added using the 'add_flows()' function. This function is
         executed by a worker thread
         """
-        del_url = 'http://' + self.host + ":" + self.port + '/' + self.FLWURL
-
         del_res = {200: 0}
 
         s = requests.Session()
@@ -204,7 +212,7 @@ class FlowConfigBlaster(object):
         with Timer() as t:
             for flow in range(self.nflows):
                 flow_id = tid * (self.ncycles * self.nflows) + flow + start_flow + self.startflow
-                sts = self.delete_flow(s, del_url, self.flows[tid][flow_id], flow_id)
+                sts = self.delete_flow(s, self.flows[tid][flow_id], flow_id)
                 try:
                     del_res[sts] += 1
                 except KeyError:
@@ -248,14 +256,18 @@ class FlowConfigBlaster(object):
                 threads.append(t)
                 t.start()
 
-            # Wait for all threads to finish
-            while self.threads_done < self.nthreads:
-                with self.cond:
-                    self.cond.wait()
+            # Wait for all threads to finish and measure the execution time
+            with Timer() as t:
+                while self.threads_done < self.nthreads:
+                    with self.cond:
+                        self.cond.wait()
 
             with self.print_lock:
-                print '    Overall success rate:  %.2f, Overall rate: %.2f' % (
-                    self.ok_rate.value, self.total_rate.value)
+                print '    Total success rate: %.2f, Total rate: %.2f' % (
+                      self.ok_rate.value, self.total_rate.value)
+                measured_rate = self.nthreads * self.nflows * self.ncycles / t.secs
+                print '    Measured rate:      %.2f (%.2f%% of Total success rate)' % \
+                      (measured_rate, measured_rate / self.total_rate.value * 100)
                 self.threads_done = 0
 
             self.ok_rate.value = 0
@@ -273,6 +285,12 @@ class FlowConfigBlaster(object):
 
     def get_ok_flows(self):
         return self.ok_total
+
+
+def get_json_from_file(filename):
+    with open(filename, 'r') as f:
+        read_data = f.read()
+    return read_data
 
 
 if __name__ == "__main__":
@@ -317,7 +335,6 @@ if __name__ == "__main__":
         ]
     }'''
 
-
     parser = argparse.ArgumentParser(description='Flow programming performance test: First adds and then deletes flows '
                                                  'into the config tree, as specified by optional parameters.')
 
@@ -325,34 +342,44 @@ if __name__ == "__main__":
                         help='Host where odl controller is running (default is 127.0.0.1)')
     parser.add_argument('--port', default='8181',
                         help='Port on which odl\'s RESTCONF is listening (default is 8181)')
-    parser.add_argument('--flows', type=int, default=10,
-                        help='Number of flow add/delete requests to send in each cycle; default 10')
     parser.add_argument('--cycles', type=int, default=1,
-                        help='Number of flow add/delete cycles to send in each thread; default 1')
+                        help='Number of flow add/delete cycles; default 1. Both Flow Adds and Flow Deletes are '
+                             'performed in cycles. <THREADS> worker threads are started in each cycle and the cycle '
+                             'ends when all threads finish. Another cycle is started when the previous cycle finished.')
     parser.add_argument('--threads', type=int, default=1,
-                        help='Number of request worker threads, default=1. '
-                             'Each thread will add/delete nflows.')
+                        help='Number of request worker threads to start in each cycle; default=1. '
+                             'Each thread will add/delete <FLOWS> flows.')
+    parser.add_argument('--flows', type=int, default=10,
+                        help='Number of flows that will be added/deleted by each worker thread in each cycle; '
+                             'default 10')
     parser.add_argument('--nodes', type=int, default=16,
                         help='Number of nodes if mininet is not connected; default=16. If mininet is connected, '
                              'flows will be evenly distributed (programmed) into connected nodes.')
     parser.add_argument('--delay', type=int, default=0,
-                        help='Time to wait between the add and delete cycles; default=0')
+                        help='Time (in seconds) to wait between the add and delete cycles; default=0')
     parser.add_argument('--delete', dest='delete', action='store_true', default=True,
                         help='Delete all added flows one by one, benchmark delete '
                              'performance.')
     parser.add_argument('--no-delete', dest='delete', action='store_false',
                         help='Do not perform the delete cycle.')
-    parser.add_argument('--no-auth', dest='auth', action='store_false', default=False,
-                        help="Do not use authenticated access to REST (default)")
-    parser.add_argument('--auth', dest='auth', action='store_true',
-                        help="Use authenticated access to REST (username: 'admin', password: 'admin').")
+    parser.add_argument('--auth', dest='auth', action='store_true', default=False,
+                        help="Use the ODL default username/password 'admin'/'admin' to authenticate access to REST; "
+                             'default: no authentication')
     parser.add_argument('--startflow', type=int, default=0,
                         help='The starting Flow ID; default=0')
+    parser.add_argument('--file', default='',
+                        help='File from which to read the JSON flow template; default: no file, use a built in '
+                             'template.')
 
     in_args = parser.parse_args()
 
+    if in_args.file != '':
+        flow_template = get_json_from_file(in_args.file)
+    else:
+        flow_template = JSON_FLOW_MOD1
+
     fct = FlowConfigBlaster(in_args.host, in_args.port, in_args.cycles, in_args.threads, in_args.nodes,
-                            in_args.flows, in_args.startflow, in_args.auth, JSON_FLOW_MOD1)
+                            in_args.flows, in_args.startflow, in_args.auth, flow_template)
 
     # Run through <cycles>, where <threads> are started in each cycle and <flows> are added from each thread
     fct.add_blaster()

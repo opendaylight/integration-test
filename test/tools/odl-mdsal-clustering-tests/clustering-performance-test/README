@@ -85,11 +85,14 @@ The Flow Config Blaster:
 To see the command line options, type:
   > ./flow_config_blaster.py --help
 
-usage: flow_config_blaster.py [-h] [--host HOST] [--port PORT] [--flows FLOWS]
+usage: flow_config_blaster.py [-h] [--host HOST] [--port PORT]
                               [--cycles CYCLES] [--threads THREADS]
-                              [--nodes NODES] [--delay DELAY] [--delete]
-                              [--no-delete] [--no-auth] [--auth]
-                              [--startflow STARTFLOW]
+                              [--flows FLOWS] [--nodes NODES] [--delay DELAY]
+                              [--delete] [--no-delete] [--auth]
+                              [--startflow STARTFLOW] [--file FILE]
+
+Flow programming performance test: First adds and then deletes flows into the
+config tree, as specified by optional parameters.
 
 optional arguments:
   -h, --help            show this help message and exit
@@ -97,25 +100,31 @@ optional arguments:
                         127.0.0.1)
   --port PORT           Port on which odl's RESTCONF is listening (default is
                         8181)
-  --flows FLOWS         Number of flow add/delete requests to send in each
-                        cycle; default 10
-  --cycles CYCLES       Number of flow add/delete cycles to send in each
-                        thread; default 1
-  --threads THREADS     Number of request worker threads, default=1. Each
-                        thread will add/delete flows.
+  --cycles CYCLES       Number of flow add/delete cycles; default 1. Both Flow
+                        Adds and Flow Deletes are performed in cycles.
+                        <THREADS> worker threads are started in each cycle and
+                        the cycle ends when all threads finish. Another cycle
+                        is started when the previous cycle finished.
+  --threads THREADS     Number of request worker threads to start in each
+                        cycle; default=1. Each thread will add/delete <FLOWS>
+                        flows.
+  --flows FLOWS         Number of flows that will be added/deleted by each
+                        worker thread in each cycle; default 10
   --nodes NODES         Number of nodes if mininet is not connected;
                         default=16. If mininet is connected, flows will be
                         evenly distributed (programmed) into connected nodes.
-  --delay DELAY         Time to wait between the add and delete cycles;
-                        default=0
+  --delay DELAY         Time (in seconds) to wait between the add and delete
+                        cycles; default=0
   --delete              Delete all added flows one by one, benchmark delete
                         performance.
   --no-delete           Do not perform the delete cycle.
-  --no-auth             Do not use authenticated access to REST (default)
-  --auth                Use authenticated access to REST (username: 'admin',
-                        password: 'admin').
+  --auth                Use the ODL default username/password 'admin'/'admin'
+                        to authenticate access to REST; default: no
+                        authentication
   --startflow STARTFLOW
                         The starting Flow ID; default=0
+  --file FILE           File from which to read the JSON flow template;
+                        default: no file, use a built in template.
 
 NOTE: The 'startflow' command line parameter is used with multiple 
 flow_config_blasters blasting flows at the same ODL instance. With Python's
@@ -131,7 +140,8 @@ network, flow_config_blaster will evenly distribute flows across the network.
 If ODL is not connected to a network, flows are only stored in the config 
 data store (i.e. nodes that may connect at some point in the future are in 
 effect "preconfigured"). The not-connected mode can be used to test the 
-performance of the data store and the REST subsystems. The 'nodes' parameter determines how many nodes are used in the non-connected mode.
+performance of the data store and the REST subsystems. The 'nodes' parameter
+determines how many nodes are used in the non-connected mode.
 
 Examples:
 ---------
@@ -163,9 +173,14 @@ add/delete cycles type:
 
    NOTE: Both Add and Delete are performed in 10 cycles. 5 worker threads 
    are started in each cycle and the cycle ends when all threads finish. 
-   Another cycle is started when the previous cycle finished. Cycles are
-   useful to determine performance degradation with increasing number of
-   flows in the datastore and in the network.
+   Cycles are useful to determine performance degradation with increasing
+   number of flows in the datastore and in the network.
+
+To  put and then delete 1000 flows with nicira match and action extensions,
+type:
+   >./flow_config_blaster.py --flows=1000 --auth --file=./nicira-ext-all.json
+
+   NOTE: json for flow adds will be taken from the file 'nicira-ext-all.json'
 
 
 
