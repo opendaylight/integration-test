@@ -7,10 +7,9 @@ __email__ = "jmedved@cisco.com"
 
 import argparse
 import time
-from flow_config_blaster import FlowConfigBlaster
+from flow_config_blaster import FlowConfigBlaster, get_json_from_file
 from inventory_crawler import InventoryCrawler
 from config_cleanup import cleanup_config
-
 
 
 if __name__ == "__main__":
@@ -55,7 +54,6 @@ if __name__ == "__main__":
         ]
     }'''
 
-
     parser = argparse.ArgumentParser(description='Flow programming performance test: First adds and then deletes flows '
                                                  'into the config tree, as specified by optional parameters.')
 
@@ -86,14 +84,22 @@ if __name__ == "__main__":
                         help="Use authenticated access to REST (username: 'admin', password: 'admin'); default=False")
     parser.add_argument('--startflow', type=int, default=0,
                         help='The starting Flow ID; default=0')
+    parser.add_argument('--file', default='',
+                        help='File from which to read the JSON flow template; default: no file, use a built in '
+                             'template.')
 
     in_args = parser.parse_args()
 
     # Initialize
+    if in_args.file != '':
+        flow_template = get_json_from_file(in_args.file)
+    else:
+        flow_template = JSON_FLOW_MOD1
+
     ic = InventoryCrawler(in_args.host, in_args.port, 0, 'operational', in_args.auth, False)
 
     fct = FlowConfigBlaster(in_args.host, in_args.port, in_args.cycles, in_args.threads, in_args.nodes,
-                            in_args.flows, in_args.startflow, in_args.auth, JSON_FLOW_MOD1)
+                            in_args.flows, in_args.startflow, in_args.auth, flow_template)
 
     # Get baseline stats
     ic.crawl_inventory()
@@ -118,7 +124,7 @@ if __name__ == "__main__":
     print 'Waiting for stats to catch up:'
     while True:
         ic.crawl_inventory()
-        print '   %d, %d' %(ic.reported_flows, ic.found_flows)
+        print '   %d, %d' % (ic.reported_flows, ic.found_flows)
         if ic.found_flows == exp_found or total_delay > in_args.timeout:
             break
         total_delay += in_args.delay
@@ -135,8 +141,8 @@ if __name__ == "__main__":
         print '\nDeleting all flows in bulk:\n   ',
         cleanup_config(in_args.host, in_args.port, in_args.auth)
     else:
-       print '\nDeleting flows one by one\n   ',
-       fct.delete_blaster()
+        print '\nDeleting flows one by one\n   ',
+        fct.delete_blaster()
 
     # Wait for stats to catch up
     total_delay = 0
@@ -147,7 +153,7 @@ if __name__ == "__main__":
         if ic.found_flows == found or total_delay > in_args.timeout:
             break
         total_delay += in_args.delay
-        print '   %d, %d' %(ic.reported_flows, ic.found_flows)
+        print '   %d, %d' % (ic.reported_flows, ic.found_flows)
         time.sleep(in_args.delay)
 
     if total_delay < in_args.timeout:
