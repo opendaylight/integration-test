@@ -77,7 +77,7 @@ class XMLtoDictParserTools():
                 if key in ['ipv4-destination', 'ipv4-source', 'ipv6-destination', 'ipv6-source', 'ipv6-nd-target']:
                     nvalue = _allign_address(value)
                     m_dict[key] = nvalue
-                elif key in ['tunnel-mask','type','metadata-mask']:
+                elif key in ['tunnel-mask','type','metadata-mask','out_port','out_group']:
                     nvalue = _convert_numbers(value)
                     m_dict[key] = nvalue
                 else:
