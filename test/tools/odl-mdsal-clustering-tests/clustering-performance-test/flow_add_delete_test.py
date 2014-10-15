@@ -61,20 +61,23 @@ if __name__ == "__main__":
                         help='Host where odl controller is running (default is 127.0.0.1)')
     parser.add_argument('--port', default='8181',
                         help='Port on which odl\'s RESTCONF is listening (default is 8181)')
-    parser.add_argument('--flows', type=int, default=10,
-                        help='Number of flow add/delete requests to send in each cycle; default 10')
     parser.add_argument('--cycles', type=int, default=1,
-                        help='Number of flow add/delete cycles to send in each thread; default 1')
+                        help='Number of flow add/delete cycles; default 1. Both Flow Adds and Flow Deletes are '
+                             'performed in cycles. <THREADS> worker threads are started in each cycle and the cycle '
+                             'ends when all threads finish. Another cycle is started when the previous cycle finished.')
     parser.add_argument('--threads', type=int, default=1,
-                        help='Number of request worker threads, default=1. '
-                             'Each thread will add/delete nflows.')
+                        help='Number of request worker threads to start in each cycle; default=1. '
+                             'Each thread will add/delete <FLOWS> flows.')
+    parser.add_argument('--flows', type=int, default=10,
+                        help='Number of flows that will be added/deleted by each worker thread in each cycle; '
+                             'default 10')
     parser.add_argument('--nodes', type=int, default=16,
                         help='Number of nodes if mininet is not connected; default=16. If mininet is connected, '
                              'flows will be evenly distributed (programmed) into connected nodes.')
     parser.add_argument('--delay', type=int, default=2,
-                        help='Time to wait between the add and delete cycles; default=0')
+                        help='Time (seconds) to between inventory polls when waiting for stats to catch up; default=1')
     parser.add_argument('--timeout', type=int, default=100,
-                        help='The maximum time to wait between the add and delete cycles; default=100')
+                        help='The maximum time (seconds) to wait between the add and delete cycles; default=100')
     parser.add_argument('--delete', dest='delete', action='store_true', default=True,
                         help='Delete all added flows one by one, benchmark delete '
                              'performance.')
