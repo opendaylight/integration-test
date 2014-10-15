@@ -31,15 +31,13 @@ def cleanup_config(host, port, auth):
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description='Cleans up the config space')
-    parser.add_argument('--odlhost', default='127.0.0.1', help='host where '
+    parser.add_argument('--host', default='127.0.0.1', help='host where '
                         'odl controller is running (default is 127.0.0.1)')
-    parser.add_argument('--odlport', default='8181', help='port on '
+    parser.add_argument('--port', default='8181', help='port on '
                         'which odl\'s RESTCONF is listening (default is 8181)')
-    parser.add_argument('--no-auth', dest='auth', action='store_false', default=False,
-                        help="Do not use authenticated access to REST (default)")
-    parser.add_argument('--auth', dest='auth', action='store_true',
+    parser.add_argument('--auth', dest='auth', action='store_true', default=False,
                         help="Use authenticated access to REST "
                         "(username: 'admin', password: 'admin').")
 
     in_args = parser.parse_args()
-    cleanup_config(in_args.odlhost, in_args.odlport, in_args.auth)
+    cleanup_config(in_args.host, in_args.port, in_args.auth)
