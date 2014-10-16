@@ -1,0 +1,50 @@
+*** Settings ***
+Documentation     Test suite for Stats Manager flows collection
+Library           libconfig.py
+Suite Teardown    Delete Flows
+
+
+*** Variables ***
+${expdur}=     660
+
+*** Test Cases ***
+Configure 100k Flows
+      ${task1}=    Configure Flows   ${CONTROLLER}    ${RESTCONFPORT}   1   1   1   10000
+      ${task2}=    Configure Flows   ${CONTROLLER}    ${RESTCONFPORT}   1   1   10001   20000
+      ${task3}=    Configure Flows   ${CONTROLLER}    ${RESTCONFPORT}   1   1   20001   30000
+      ${task4}=    Configure Flows   ${CONTROLLER}    ${RESTCONFPORT}   1   1   30001   40000
+      ${task5}=    Configure Flows   ${CONTROLLER}    ${RESTCONFPORT}   1   1   40001   50000
+      ${task6}=    Configure Flows   ${CONTROLLER}    ${RESTCONFPORT}   1   2   1   10000
+      ${task7}=    Configure Flows   ${CONTROLLER}    ${RESTCONFPORT}   1   2   10001   20000
+      ${task8}=    Configure Flows   ${CONTROLLER}    ${RESTCONFPORT}   1   2   20001   30000
+      ${task9}=    Configure Flows   ${CONTROLLER}    ${RESTCONFPORT}   1   2   30001   40000
+      ${task10}=    Configure Flows   ${CONTROLLER}    ${RESTCONFPORT}   1   2    40001   50000
+      ${dur}=       Wait Until   ${task1}   ${task2}   ${task3}   ${task4}   ${task5}  ${task6}   ${task7}   ${task8}   ${task9}   ${task10}    timeout=${expdur}
+      ${added1}=    Call Method    ${task1}   result
+      ${added2}=    Call Method    ${task2}   result
+      ${added3}=    Call Method    ${task3}   result
+      ${added4}=    Call Method    ${task4}   result
+      ${added5}=    Call Method    ${task5}   result
+      ${added6}=    Call Method    ${task6}   result
+      ${added7}=    Call Method    ${task7}   result
+      ${added8}=    Call Method    ${task8}   result
+      ${added9}=    Call Method    ${task9}   result
+      ${added10}=    Call Method    ${task10}   result
+      ${count}=  Evaluate  ${added1}+${added2}+${added3}+${added4}+${added5}+${added6}+${added7}+${added8}+${added9}+${added10}
+      Should Be Equal As Strings   ${count}   100000    ${count} flows added in ${dur} seconds
+
+
+*** Keywords ****
+Delete Flows
+      ${task1}=    Deconfigure Flows   ${CONTROLLER}    ${RESTCONFPORT}   1   1   1   10000
+      ${task2}=    Deconfigure Flows   ${CONTROLLER}    ${RESTCONFPORT}   1   1   10001   20000
+      ${task3}=    Deconfigure Flows   ${CONTROLLER}    ${RESTCONFPORT}   1   1   20001   30000
+      ${task4}=    Deconfigure Flows   ${CONTROLLER}    ${RESTCONFPORT}   1   1   30001   40000
+      ${task5}=    Deconfigure Flows   ${CONTROLLER}    ${RESTCONFPORT}   1   1   40001   50000
+      ${task6}=    Deconfigure Flows   ${CONTROLLER}    ${RESTCONFPORT}   1   2   1   10000
+      ${task7}=    Deconfigure Flows   ${CONTROLLER}    ${RESTCONFPORT}   1   2   10001   20000
+      ${task8}=    Deconfigure Flows   ${CONTROLLER}    ${RESTCONFPORT}   1   2   20001   30000
+      ${task9}=    Deconfigure Flows   ${CONTROLLER}    ${RESTCONFPORT}   1   2   30001   40000
+      ${task10}=    Deconfigure Flows   ${CONTROLLER}    ${RESTCONFPORT}   1   2   40001   50000
+      Wait Until   ${task1}   ${task2}   ${task3}   ${task4}   ${task5}   ${task6}   ${task7}   ${task8}   ${task9}   ${task10}   timeout=${expdur}
+
