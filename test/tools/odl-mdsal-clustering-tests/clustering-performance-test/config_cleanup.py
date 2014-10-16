@@ -6,26 +6,29 @@ __email__ = "jmedved@cisco.com"
 
 import argparse
 import requests
+import sys
+
+getheaders = {'Accept': 'application/json'}
+
+def cleanup_config_fl(host, port):
+    global getheaders
+
+    url = 'http://' + host + ":" + port + '/wm/staticflowentrypusher/clear/all/json'
+    r = requests.get(url, headers=getheaders)
+    return r.status_code
 
 
-def cleanup_config(host, port, auth):
-    CONFIGURL = 'restconf/config/opendaylight-inventory:nodes'
-    getheaders = {'Accept': 'application/json'}
+def cleanup_config_odl(host, port, auth):
+    global getheaders
 
-    url = 'http://' + host + ":" + port + '/' + CONFIGURL
-    s = requests.Session()
+    url = 'http://' + host + ":" + port + '/restconf/config/opendaylight-inventory:nodes'
 
     if not auth:
-        r = s.delete(url, headers=getheaders)
+        r = requests.delete(url, headers=getheaders)
     else:
-        r = s.delete(url, headers=getheaders, auth=('admin', 'admin'))
+        r = requests.delete(url, headers=getheaders, auth=('admin', 'admin'))
 
-    s.close()
-
-    if r.status_code != 200:
-        print 'Failed to delete nodes in the config space, code %d' % r.status_code
-    else:
-        print 'Nodes in config space deleted.'
+    return r.status_code
 
 
 if __name__ == "__main__":
@@ -38,6 +41,23 @@ if __name__ == "__main__":
     parser.add_argument('--auth', dest='auth', action='store_true', default=False,
                         help="Use authenticated access to REST "
                         "(username: 'admin', password: 'admin').")
+    parser.add_argument('--controller', choices=['odl', 'floodlight'], default='odl',
+                         help='Controller type (ODL or Floodlight); default odl (OpenDaylight)')
 
     in_args = parser.parse_args()
-    cleanup_config(in_args.host, in_args.port, in_args.auth)
+
+    if in_args.controller == 'odl':
+        sts = cleanup_config_odl(in_args.host, in_args.port, in_args.auth)
+        exp = 200
+    elif in_args.controller == 'floodlight':
+        sts = cleanup_config_fl(in_args.host, in_args.port)
+        exp = 204
+    else:
+        print 'Unknown controller type'
+        sys.exit(-1)
+
+    if sts != exp:
+        print 'Failed to delete nodes in the config space, code %d' % sts
+    else:
+        print 'Nodes in config space deleted.'
+
