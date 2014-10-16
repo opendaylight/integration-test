@@ -9,7 +9,24 @@ import argparse
 import time
 from flow_config_blaster import FlowConfigBlaster, get_json_from_file
 from inventory_crawler import InventoryCrawler
-from config_cleanup import cleanup_config
+from config_cleanup import cleanup_config_odl
+
+
+def wait_for_stats(crawler, exp_found, timeout, delay):
+    total_delay = 0
+    print 'Waiting for stats to catch up:'
+    while True:
+        crawler.crawl_inventory()
+        print '   %d, %d' % (crawler.reported_flows, crawler.found_flows)
+        if crawler.found_flows == exp_found or total_delay > timeout:
+            break
+        total_delay += delay
+        time.sleep(delay)
+
+    if total_delay < timeout:
+        print 'Stats collected in %d seconds.' % total_delay
+    else:
+        print 'Stats collection did not finish in %d seconds. Aborting...' % total_delay
 
 
 if __name__ == "__main__":
@@ -18,7 +35,7 @@ if __name__ == "__main__":
         "flow-node-inventory:flow": [
             {
                 "flow-node-inventory:cookie": %d,
-                "flow-node-inventory:cookie_mask": 65535,
+                "flow-node-inventory:cookie_mask": 4294967295,
                 "flow-node-inventory:flow-name": "%s",
                 "flow-node-inventory:hard-timeout": %d,
                 "flow-node-inventory:id": "%s",
@@ -120,46 +137,20 @@ if __name__ == "__main__":
     print '    HTTP[OK] results:  %d\n' % fct.get_ok_flows()
 
     # Wait for stats to catch up
-    total_delay = 0
-    exp_found = found + fct.get_ok_flows()
-    exp_reported = reported + fct.get_ok_flows()
-
-    print 'Waiting for stats to catch up:'
-    while True:
-        ic.crawl_inventory()
-        print '   %d, %d' % (ic.reported_flows, ic.found_flows)
-        if ic.found_flows == exp_found or total_delay > in_args.timeout:
-            break
-        total_delay += in_args.delay
-        time.sleep(in_args.delay)
-
-    if total_delay < in_args.timeout:
-        print 'Stats collected in %d seconds.' % total_delay
-    else:
-        print 'Stats collection did not finish in %d seconds. Aborting...' % total_delay
+    wait_for_stats(ic, found + fct.get_ok_flows(), in_args.timeout, in_args.delay)
 
     # Run through <cycles>, where <threads> are started in each cycle and <flows> previously added in an add cycle are
     # deleted in each thread
     if in_args.bulk_delete:
-        print '\nDeleting all flows in bulk:\n   ',
-        cleanup_config(in_args.host, in_args.port, in_args.auth)
+        print '\nDeleting all flows in bulk:'
+        sts = cleanup_config_odl(in_args.host, in_args.port, in_args.auth)
+        if sts != 200:
+            print '   Failed to delete flows, code %d' % sts
+        else:
+            print '   All flows deleted.'
     else:
         print '\nDeleting flows one by one\n   ',
         fct.delete_blaster()
 
     # Wait for stats to catch up
-    total_delay = 0
-
-    print '\nWaiting for stats to catch up:'
-    while True:
-        ic.crawl_inventory()
-        if ic.found_flows == found or total_delay > in_args.timeout:
-            break
-        total_delay += in_args.delay
-        print '   %d, %d' % (ic.reported_flows, ic.found_flows)
-        time.sleep(in_args.delay)
-
-    if total_delay < in_args.timeout:
-        print 'Stats collected in %d seconds.' % total_delay
-    else:
-        print 'Stats collection did not finish in %d seconds. Aborting...' % total_delay
+    wait_for_stats(ic, found, in_args.timeout, in_args.delay)
