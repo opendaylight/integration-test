@@ -7,10 +7,11 @@ __email__ = "jmedved@cisco.com"
 from random import randrange
 import json
 import argparse
-import requests
 import time
 import threading
 import re
+
+import requests
 import netaddr
 
 
@@ -74,7 +75,6 @@ class FlowConfigBlaster(object):
 
         self.ip_addr = Counter(int(netaddr.IPAddress('10.0.0.1')) + startflow)
 
-
         self.print_lock = threading.Lock()
         self.cond = threading.Condition()
         self.threads_done = 0
@@ -111,12 +111,12 @@ class FlowConfigBlaster(object):
         return nodes
 
 
-    def add_flow(self, session, tid, node, flow_id, ipaddr):
+    def add_flow(self, session, node, flow_id, ipaddr):
         """
         Adds a single flow to the config data store via REST
         """
-        flow_data = self.json_template % (tid + flow_id, 'TestFlow-%d' % flow_id, 65000,
-                                          str(flow_id), 65000, str(netaddr.IPAddress(ipaddr)))
+        flow_data = self.json_template % (flow_id, 'TestFlow-%d' % flow_id, 65000, str(flow_id), 65000,
+                                          str(netaddr.IPAddress(ipaddr)))
         # print flow_data
         flow_url = self.url_template % (node, flow_id)
         # print flow_url
@@ -148,7 +148,7 @@ class FlowConfigBlaster(object):
                 node_id = randrange(1, n_nodes + 1)
                 flow_id = tid * (self.ncycles * self.nflows) + flow + start_flow + self.startflow
                 self.flows[tid][flow_id] = node_id
-                sts = self.add_flow(s, tid, node_id, flow_id, self.ip_addr.increment())
+                sts = self.add_flow(s, node_id, flow_id, self.ip_addr.increment())
                 try:
                     add_res[sts] += 1
                 except KeyError:
@@ -179,12 +179,6 @@ class FlowConfigBlaster(object):
     def delete_flow(self, session, node, flow_id):
         """
         Deletes a single flow from the ODL config data store via REST
-
-        :param session:
-        :param url_template:
-        :param node:
-        :param flow_id:
-        :return:
         """
         flow_url = self.url_template % (node, flow_id)
 
@@ -264,7 +258,7 @@ class FlowConfigBlaster(object):
 
             with self.print_lock:
                 print '    Total success rate: %.2f, Total rate: %.2f' % (
-                      self.ok_rate.value, self.total_rate.value)
+                    self.ok_rate.value, self.total_rate.value)
                 measured_rate = self.nthreads * self.nflows * self.ncycles / t.secs
                 print '    Measured rate:      %.2f (%.2f%% of Total success rate)' % \
                       (measured_rate, measured_rate / self.total_rate.value * 100)
@@ -299,7 +293,7 @@ if __name__ == "__main__":
         "flow-node-inventory:flow": [
             {
                 "flow-node-inventory:cookie": %d,
-                "flow-node-inventory:cookie_mask": 65535,
+                "flow-node-inventory:cookie_mask": 4294967295,
                 "flow-node-inventory:flow-name": "%s",
                 "flow-node-inventory:hard-timeout": %d,
                 "flow-node-inventory:id": "%s",
