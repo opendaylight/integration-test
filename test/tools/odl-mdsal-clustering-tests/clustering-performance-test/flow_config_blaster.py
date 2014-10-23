@@ -237,7 +237,7 @@ class FlowConfigBlaster(object):
     def run_cycle(self, function):
         """
         Runs an add or delete cycle. Starts a number of worker threads that each add a bunch of flows. Work is done
-        in context of the worker threads
+        in context of the worker threads.
         """
 
         for c in range(self.ncycles):
@@ -259,7 +259,7 @@ class FlowConfigBlaster(object):
             with self.print_lock:
                 print '    Total success rate: %.2f, Total rate: %.2f' % (
                     self.ok_rate.value, self.total_rate.value)
-                measured_rate = self.nthreads * self.nflows * self.ncycles / t.secs
+                measured_rate = (self.nthreads * self.nflows) / t.secs
                 print '    Measured rate:      %.2f (%.2f%% of Total success rate)' % \
                       (measured_rate, measured_rate / self.total_rate.value * 100)
                 self.threads_done = 0
@@ -282,13 +282,17 @@ class FlowConfigBlaster(object):
 
 
 def get_json_from_file(filename):
+    """
+    Get a flow programming template from a file
+    :param filename: File from which to get the template
+    :return: The json flow template (string)
+    """
     with open(filename, 'r') as f:
         read_data = f.read()
     return read_data
 
 
 if __name__ == "__main__":
-
     JSON_FLOW_MOD1 = '''{
         "flow-node-inventory:flow": [
             {
