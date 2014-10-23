@@ -154,9 +154,9 @@ class InventoryCrawler(object):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Restconf test program')
-    parser.add_argument('--odlhost', default='127.0.0.1', help='host where '
+    parser.add_argument('--host', default='127.0.0.1', help='host where '
                                                                'odl controller is running (default is 127.0.0.1)')
-    parser.add_argument('--odlport', default='8181', help='port on '
+    parser.add_argument('--port', default='8181', help='port on '
                                                           'which odl\'s RESTCONF is listening (default is 8181)')
     parser.add_argument('--plevel', type=int, default=0,
                         help='Print Level: 0 - Summary (stats only); 1 - Node names; 2 - Node details;'
@@ -173,7 +173,7 @@ if __name__ == "__main__":
 
     in_args = parser.parse_args()
 
-    ic = InventoryCrawler(in_args.odlhost, in_args.odlport, in_args.plevel, in_args.datastore, in_args.auth,
+    ic = InventoryCrawler(in_args.host, in_args.port, in_args.plevel, in_args.datastore, in_args.auth,
                           in_args.debug)
 
     print "Crawling '%s'" % ic.url

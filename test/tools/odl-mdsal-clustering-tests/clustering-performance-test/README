@@ -31,9 +31,9 @@ The test suite contains the following scripts:
 
 - flow_add_delete_test.py:
   Adds/deletes ("blasts") flows into ODL's config space. Similar to the 
-  flow_config_blaster (in fact, flow_config_blaster is used in this test),
-  but has more advanced handling of the add/delete cycles. The test 
-  executes in three steps:
+  flow_config_blaster (in fact, the flow_config_blaster is used in this
+  test), but has more advanced handling of the add/delete cycles. The
+  test executes in three steps:
   1. The specified number of flows is added in the 'add cycle' (uses
      flow_config_blaster to blast flows)
   2. The network is polled for flow statistics from the network 
@@ -43,6 +43,9 @@ The test suite contains the following scripts:
      config_cleanup script or one by one using the flow_config_blaster) 
 
 
+Prerequisites:
+- requests
+- netaddr
 
 The Inventory Crawler:
 ======================
