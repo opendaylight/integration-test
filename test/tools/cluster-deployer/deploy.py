@@ -36,9 +36,10 @@ import pystache
 import os
 import sys
 import random
+import re
 
 parser = argparse.ArgumentParser(description='Cluster Deployer')
-parser.add_argument("--distribution", default="", help="the absolute path of the distribution on the local host that needs to be deployed", required=True)
+parser.add_argument("--distribution", default="", help="the absolute path of the distribution on the local host that needs to be deployed. (Must contain version in the form: \"<#>.<#>.<#>-<name>\", e.g. 0.2.0-SNAPSHOT)", required=True)
 parser.add_argument("--rootdir", default="/root", help="the root directory on the remote host where the distribution is to be deployed", required=True)
 parser.add_argument("--hosts", default="", help="a comma separated list of host names or ip addresses", required=True)
 parser.add_argument("--clean", action="store_true", default=False, help="clean the deployment on the remote host")
@@ -139,6 +140,14 @@ class Deployer:
         self.replicas = replicas
 
     def deploy(self):
+        # Determine distribution version
+        distribution_name = os.path.splitext(os.path.basename(self.distribution))[0]
+        distribution_ver = re.search('(\d)\.(\d)\.(\d)-(\w)+', distribution_name)
+        if distribution_ver is None:
+            print distribution_name + " is not a valid distribution version. (Must contain version in the form: \"<#>.<#>.<#>-<name>\", e.g. 0.2.0-SNAPSHOT)"
+            sys.exit(1)
+        distribution_ver = distribution_ver.group()
+
         # Render all the templates
         renderer = TemplateRenderer(self.template)
         akka_conf = renderer.render("akka.conf.template", "akka.conf", 
@@ -151,7 +160,7 @@ class Deployer:
         )
         module_shards_conf = renderer.render("module-shards.conf.template", "module-shards.conf", self.replicas)
         modules_conf = renderer.render("modules.conf.template", "modules.conf")
-        features_cfg = renderer.render("org.apache.karaf.features.cfg.template", "org.apache.karaf.features.cfg")
+        features_cfg = renderer.render("org.apache.karaf.features.cfg.template", "org.apache.karaf.features.cfg", {"ODL_DISTRIBUTION" : distribution_ver})
         jolokia_xml = renderer.render("jolokia.xml.template", "jolokia.xml")
         management_cfg = renderer.render("org.apache.karaf.management.cfg.template", "org.apache.karaf.management.cfg", {"HOST" : self.host})
 
@@ -175,7 +184,6 @@ class Deployer:
         remote.exec_cmd("unzip " + odl_file_path + " -d " + self.dir_name + "/")
 
         # Rename the distribution directory to odl
-        distribution_name = os.path.splitext(os.path.basename(self.distribution))[0]
         remote.exec_cmd("mv " + self.dir_name + "/" + distribution_name + " " + self.dir_name + "/odl")
 
         # Copy all the generated files to the server
