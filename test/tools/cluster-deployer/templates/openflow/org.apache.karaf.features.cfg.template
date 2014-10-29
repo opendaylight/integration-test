@@ -40,7 +40,7 @@ featuresRepositories = mvn:org.apache.karaf.features/standard/3.0.1/xml/features
 #
 # Comma separated list of features to install at startup
 #
-featuresBoot=config,standard,region,package,kar,ssh,management,odl-openflowplugin-flow-services,odl-restconf,odl-mdsal-clustering
+featuresBoot=config,standard,region,package,kar,ssh,management,odl-openflowplugin-flow-services,odl-restconf-noauth,odl-mdsal-clustering
 
 #
 # Defines if the boot features are started in asynchronous mode (in a dedicated thread)
