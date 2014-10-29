@@ -15,9 +15,9 @@
     <table_id>2</table_id>
     <id>168</id>
     <cookie_mask>10</cookie_mask>
-    <out_port>0xffffffff</out_port>
+    <out_port>10</out_port>
     <installHw>false</installHw>
-    <out_group>0xffffffff</out_group>
+    <out_group>2</out_group>
     <match>
         <metadata>
             <metadata-mask>0x46645a66</metadata-mask>

@@ -5,7 +5,6 @@ __email__ = "syedbahm@cisco.com"
 import sys
 import UtilLibrary
 import SettingsLibrary
-import time
 
 #
 #Creates the specified number of cars based on Cars yang model
@@ -205,66 +204,6 @@ def deleteAllCarsPersons(hostname,port,ignore):
     UtilLibrary.delete(SettingsLibrary.getCarPersonsUrl(hostname,port),"admin","admin")
     resp = getPersons(hostname,port,ignore)
     print("Persons in store after deletion:"+ str(resp))
-
-#
-# Write longevity
-#
-def testlongevity(inputtime,port,*ips):
-    max_time = int(inputtime)
-    start_time = time.time()  # remember when we started
-    while (time.time() - start_time) < max_time:
-        for ip in ips:
-            deleteAllCars(ip,port,0)
-            resp = getCars(ip,port,0)
-            if resp.status_code == 404:
-                print("Pass: no cars found after deletion")
-            else:
-                print("Fail: Cars are present after deletion")
-            deleteAllPersons(ip,port,0)
-            resp = getPersons(ip,port,0)
-            if resp.status_code == 404:
-                print("Pass: no person found after deletion")
-            else:
-                print("Fail: people are present after deletion")
-
-            addCar(ip,port,100)
-            time.sleep(20)
-            resp = getCars(ip,port,0)
-            if resp.status_code == 200:
-                print("Pass: car data available after addition")
-                if resp.content.find("manufacturer100") == -1:
-                    print("Fail: last car is not there")
-                else:
-                    print("Pass: car data matches")
-            else:
-                print("Fail: car addition failed")
-            addPerson(ip,port,0)
-            addPerson(ip,port,100)
-            time.sleep(20)
-            resp = getPersons(ip,port,0)
-            if resp.status_code == 200:
-                print("Pass: people data available after addition")
-                if resp.content.find("user100") == -1:
-                    print("Fail: last person is not there")
-                else:
-                    print("Pass: person data matches")
-            else:
-                print("Fail: person addition failed")
-
-            addCarPerson(ip,port,0)
-            buyCar(ip,port,100)
-            time.sleep(20)
-            resp = getCarPersonMappings(ip,port,0)
-            if resp.status_code == 200:
-                print("Pass: car person data available after addition")
-                if resp.content.find("user100") == -1:
-                    print("Fail: last car person is not there")
-                else:
-                    print("Pass: car person data matches")
-            else:
-                print("Fail: car person addition failed")
-            time.sleep(60)    # sleep before next host starts working
-
 
 #
 # Usage message shown to user

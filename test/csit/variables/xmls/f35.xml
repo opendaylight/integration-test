@@ -7,9 +7,9 @@
             <apply-actions>
                 <action>
                     <order>0</order>
-                    <set-field>
-                        <ipv4-source>10.0.23.21</ipv4-source>
-                    </set-field>
+                    <set-nw-src-action>
+                        <ipv4-address>10.0.23.21/24</ipv4-address>
+                    </set-nw-src-action>
                 </action>
             </apply-actions>
         </instruction>
@@ -17,9 +17,9 @@
     <table_id>2</table_id>
     <id>158</id>
     <cookie_mask>10</cookie_mask>
-    <out_port>0xffffffff</out_port>
+    <out_port>10</out_port>
     <installHw>false</installHw>
-    <out_group>0xffffffff</out_group>
+    <out_group>2</out_group>
     <match>
         <ethernet-match>
             <ethernet-type>

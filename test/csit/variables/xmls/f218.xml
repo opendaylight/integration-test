@@ -12,9 +12,9 @@
     <table_id>2</table_id>
     <id>341</id>
     <cookie_mask>10</cookie_mask>
-    <out_port>0xffffffff</out_port>
+    <out_port>10</out_port>
     <installHw>false</installHw>
-    <out_group>0xffffffff</out_group>
+    <out_group>2</out_group>
     <match>
         <tunnel>
             <tunnel-mask>0xf7d120c</tunnel-mask>

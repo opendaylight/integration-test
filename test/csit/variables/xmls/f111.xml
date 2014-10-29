@@ -16,7 +16,7 @@
     <id>234</id>
     <cookie_mask>10</cookie_mask>
     <installHw>false</installHw>
-    <out_group>0xffffffff</out_group>
+    <out_group>2</out_group>
     <match>
         <ethernet-match>
             <ethernet-type>

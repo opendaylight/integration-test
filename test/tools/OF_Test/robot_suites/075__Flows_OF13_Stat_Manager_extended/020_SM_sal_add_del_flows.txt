@@ -16,7 +16,7 @@ Suite Teardown    Teardown Phase
 ${XmlsDir}=       ${CURDIR}/../../../../csit/variables/xmls
 ${switch_idx}=    1
 ${switch_name}=   s${switch_idx}
-@{flowlist0}=     f1.xml  f2.xml  f3.xml  f4.xml  f5.xml  f6.xml  f7.xml  f8.xml  f9.xml  f10.xml  f11.xml  f12.xml  f13.xml  f14.xml  f15.xml  f16.xml  f17.xml  f18.xml  f19.xml  f20.xml  f21.xml  f22.xml  f23.xml  f24.xml  f25.xml  f29.xml  f30.xml  f31.xml  f32.xml  f33.xml  f34.xml  f35.xml  f36.xml  f38.xml  f41.xml  f42.xml  f43.xml  f45.xml  f47.xml  f101.xml  f102.xml  f103.xml  f104.xml  f105.xml  f106.xml  f107.xml  f108.xml  f109.xml  f110.xml  f111.xml  f112.xml  f113.xml  f114.xml  f201.xml  f202.xml  f203.xml  f204.xml  f205.xml  f206.xml  f207.xml  f208.xml  f209.xml  f210.xml  f211.xml  f214.xml  f218.xml  f219.xml  f220.xml
+@{flowlist0}=     f1.xml  f2.xml  f3.xml  f4.xml  f5.xml  f6.xml  f7.xml  f8.xml  f9.xml  f10.xml  f11.xml  f12.xml  f13.xml  f14.xml  f15.xml  f16.xml  f17.xml  f18.xml  f19.xml  f20.xml  f21.xml  f22.xml  f23.xml  f24.xml  f25.xml  f26.xml  f27.xml  f28.xml  f29.xml  f30.xml  f31.xml  f32.xml  f33.xml  f34.xml  f35.xml  f36.xml  f37.xml  f38.xml  f39.xml  f40.xml  f41.xml  f42.xml  f43.xml  f44.xml  f45.xml  f46.xml  f47.xml  f48.xml  f49.xml  f101.xml  f102.xml  f103.xml  f104.xml  f105.xml  f106.xml  f107.xml  f108.xml  f109.xml  f110.xml  f111.xml  f112.xml  f113.xml  f114.xml  f201.xml  f202.xml  f203.xml  f204.xml  f205.xml  f206.xml  f207.xml  f208.xml  f209.xml  f210.xml  f211.xml  f214.xml  f217.xml  f218.xml  f219.xml  f220.xml  f221.xml
 
 
 *** Test Cases ***
@@ -156,6 +156,21 @@ Test Is Flow 25 Added
       Init Flow Variables       f25.xml
       Check Config Flow         ${False}   ${data}
       Check Operational Table   ${True}   ${data}
+Test Is Flow 26 Added
+    [Documentation]    Checks if flow is configured and operational
+      Init Flow Variables       f26.xml
+      Check Config Flow         ${False}   ${data}
+      Check Operational Table   ${True}   ${data}
+Test Is Flow 27 Added
+    [Documentation]    Checks if flow is configured and operational
+      Init Flow Variables       f27.xml
+      Check Config Flow         ${False}   ${data}
+      Check Operational Table   ${True}   ${data}
+Test Is Flow 28 Added
+    [Documentation]    Checks if flow is configured and operational
+      Init Flow Variables       f28.xml
+      Check Config Flow         ${False}   ${data}
+      Check Operational Table   ${True}   ${data}
 Test Is Flow 29 Added
     [Documentation]    Checks if flow is configured and operational
       Init Flow Variables       f29.xml
@@ -196,9 +211,24 @@ Test Is Flow 36 Added
       Init Flow Variables       f36.xml
       Check Config Flow         ${False}   ${data}
       Check Operational Table   ${True}   ${data}
+Test Is Flow 37 Added
+    [Documentation]    Checks if flow is configured and operational
+      Init Flow Variables       f37.xml
+      Check Config Flow         ${False}   ${data}
+      Check Operational Table   ${True}   ${data}
 Test Is Flow 38 Added
     [Documentation]    Checks if flow is configured and operational
       Init Flow Variables       f38.xml
+      Check Config Flow         ${False}   ${data}
+      Check Operational Table   ${True}   ${data}
+Test Is Flow 39 Added
+    [Documentation]    Checks if flow is configured and operational
+      Init Flow Variables       f39.xml
+      Check Config Flow         ${False}   ${data}
+      Check Operational Table   ${True}   ${data}
+Test Is Flow 40 Added
+    [Documentation]    Checks if flow is configured and operational
+      Init Flow Variables       f40.xml
       Check Config Flow         ${False}   ${data}
       Check Operational Table   ${True}   ${data}
 Test Is Flow 41 Added
@@ -216,14 +246,34 @@ Test Is Flow 43 Added
       Init Flow Variables       f43.xml
       Check Config Flow         ${False}   ${data}
       Check Operational Table   ${True}   ${data}
+Test Is Flow 44 Added
+    [Documentation]    Checks if flow is configured and operational
+      Init Flow Variables       f44.xml
+      Check Config Flow         ${False}   ${data}
+      Check Operational Table   ${True}   ${data}
 Test Is Flow 45 Added
     [Documentation]    Checks if flow is configured and operational
       Init Flow Variables       f45.xml
       Check Config Flow         ${False}   ${data}
       Check Operational Table   ${True}   ${data}
+Test Is Flow 46 Added
+    [Documentation]    Checks if flow is configured and operational
+      Init Flow Variables       f46.xml
+      Check Config Flow         ${False}   ${data}
+      Check Operational Table   ${True}   ${data}
 Test Is Flow 47 Added
     [Documentation]    Checks if flow is configured and operational
       Init Flow Variables       f47.xml
+      Check Config Flow         ${False}   ${data}
+      Check Operational Table   ${True}   ${data}
+Test Is Flow 48 Added
+    [Documentation]    Checks if flow is configured and operational
+      Init Flow Variables       f48.xml
+      Check Config Flow         ${False}   ${data}
+      Check Operational Table   ${True}   ${data}
+Test Is Flow 49 Added
+    [Documentation]    Checks if flow is configured and operational
+      Init Flow Variables       f49.xml
       Check Config Flow         ${False}   ${data}
       Check Operational Table   ${True}   ${data}
 Test Is Flow 101 Added
@@ -356,6 +406,11 @@ Test Is Flow 214 Added
       Init Flow Variables       f214.xml
       Check Config Flow         ${False}   ${data}
       Check Operational Table   ${True}   ${data}
+Test Is Flow 217 Added
+    [Documentation]    Checks if flow is configured and operational
+      Init Flow Variables       f217.xml
+      Check Config Flow         ${False}   ${data}
+      Check Operational Table   ${True}   ${data}
 Test Is Flow 218 Added
     [Documentation]    Checks if flow is configured and operational
       Init Flow Variables       f218.xml
@@ -371,357 +426,11 @@ Test Is Flow 220 Added
       Init Flow Variables       f220.xml
       Check Config Flow         ${False}   ${data}
       Check Operational Table   ${True}   ${data}
-Test Update Flows Group 0
-   [Documentation]    Update all flows and waits for SM to collect data
-     :FOR   ${flowfile}   IN   @{flowlist0}
-     \       Log   ${flowfile}
-     \       Init Flow Variables  ${flowfile}
-     \       Run Keyword And Continue On Failure   Update Flow
-     Sleep  40s
-     Write    dpctl dump-flows -O OpenFlow13
-     Sleep  1s
-     ${switchouput}    Read
-     Log     ${switchouput}
-Test Is Flow 1 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f1.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 2 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f2.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 3 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f3.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 4 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f4.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 5 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f5.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 6 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f6.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 7 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f7.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 8 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f8.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 9 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f9.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 10 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f10.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 11 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f11.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 12 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f12.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 13 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f13.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 14 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f14.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 15 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f15.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 16 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f16.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 17 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f17.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 18 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f18.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 19 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f19.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 20 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f20.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 21 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f21.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 22 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f22.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 23 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f23.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 24 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f24.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 25 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f25.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 29 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f29.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 30 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f30.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 31 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f31.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 32 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f32.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 33 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f33.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 34 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f34.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 35 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f35.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 36 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f36.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 38 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f38.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 41 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f41.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 42 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f42.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 43 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f43.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 45 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f45.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 47 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f47.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 101 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f101.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 102 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f102.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 103 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f103.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 104 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f104.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 105 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f105.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 106 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f106.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 107 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f107.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 108 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f108.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 109 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f109.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 110 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f110.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 111 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f111.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 112 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f112.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 113 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f113.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 114 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f114.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 201 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f201.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 202 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f202.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 203 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f203.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 204 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f204.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 205 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f205.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 206 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f206.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 207 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f207.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 208 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f208.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 209 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f209.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 210 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f210.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 211 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f211.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 214 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f214.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 218 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f218.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 219 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f219.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
-Test Is Flow 220 Updated
-    [Documentation]    Checks if flow is configured and operational
-      Init Flow Variables       f220.xml
-      Check Config Flow         ${False}   ${upddata}
-      Check Operational Table   ${True}   ${upddata}
+Test Is Flow 221 Added
+    [Documentation]    Checks if flow is configured and operational
+      Init Flow Variables       f221.xml
+      Check Config Flow         ${False}   ${data}
+      Check Operational Table   ${True}   ${data}
 Test Delete Flows Group 0
    [Documentation]    Delete all flows and waits for SM to collect data
      :FOR   ${flowfile}   IN   @{flowlist0}
@@ -858,6 +567,21 @@ Test Is Flow 25 Deleted
       Init Flow Variables       f25.xml
       Check Config Flow         ${False}   ${upddata}
       Check Operational Table   ${False}   ${upddata}
+Test Is Flow 26 Deleted
+    [Documentation]    Checks if flow is not configured and operational 
+      Init Flow Variables       f26.xml
+      Check Config Flow         ${False}   ${upddata}
+      Check Operational Table   ${False}   ${upddata}
+Test Is Flow 27 Deleted
+    [Documentation]    Checks if flow is not configured and operational 
+      Init Flow Variables       f27.xml
+      Check Config Flow         ${False}   ${upddata}
+      Check Operational Table   ${False}   ${upddata}
+Test Is Flow 28 Deleted
+    [Documentation]    Checks if flow is not configured and operational 
+      Init Flow Variables       f28.xml
+      Check Config Flow         ${False}   ${upddata}
+      Check Operational Table   ${False}   ${upddata}
 Test Is Flow 29 Deleted
     [Documentation]    Checks if flow is not configured and operational 
       Init Flow Variables       f29.xml
@@ -898,9 +622,24 @@ Test Is Flow 36 Deleted
       Init Flow Variables       f36.xml
       Check Config Flow         ${False}   ${upddata}
       Check Operational Table   ${False}   ${upddata}
+Test Is Flow 37 Deleted
+    [Documentation]    Checks if flow is not configured and operational 
+      Init Flow Variables       f37.xml
+      Check Config Flow         ${False}   ${upddata}
+      Check Operational Table   ${False}   ${upddata}
 Test Is Flow 38 Deleted
     [Documentation]    Checks if flow is not configured and operational 
       Init Flow Variables       f38.xml
+      Check Config Flow         ${False}   ${upddata}
+      Check Operational Table   ${False}   ${upddata}
+Test Is Flow 39 Deleted
+    [Documentation]    Checks if flow is not configured and operational 
+      Init Flow Variables       f39.xml
+      Check Config Flow         ${False}   ${upddata}
+      Check Operational Table   ${False}   ${upddata}
+Test Is Flow 40 Deleted
+    [Documentation]    Checks if flow is not configured and operational 
+      Init Flow Variables       f40.xml
       Check Config Flow         ${False}   ${upddata}
       Check Operational Table   ${False}   ${upddata}
 Test Is Flow 41 Deleted
@@ -918,14 +657,34 @@ Test Is Flow 43 Deleted
       Init Flow Variables       f43.xml
       Check Config Flow         ${False}   ${upddata}
       Check Operational Table   ${False}   ${upddata}
+Test Is Flow 44 Deleted
+    [Documentation]    Checks if flow is not configured and operational 
+      Init Flow Variables       f44.xml
+      Check Config Flow         ${False}   ${upddata}
+      Check Operational Table   ${False}   ${upddata}
 Test Is Flow 45 Deleted
     [Documentation]    Checks if flow is not configured and operational 
       Init Flow Variables       f45.xml
       Check Config Flow         ${False}   ${upddata}
       Check Operational Table   ${False}   ${upddata}
+Test Is Flow 46 Deleted
+    [Documentation]    Checks if flow is not configured and operational 
+      Init Flow Variables       f46.xml
+      Check Config Flow         ${False}   ${upddata}
+      Check Operational Table   ${False}   ${upddata}
 Test Is Flow 47 Deleted
     [Documentation]    Checks if flow is not configured and operational 
       Init Flow Variables       f47.xml
+      Check Config Flow         ${False}   ${upddata}
+      Check Operational Table   ${False}   ${upddata}
+Test Is Flow 48 Deleted
+    [Documentation]    Checks if flow is not configured and operational 
+      Init Flow Variables       f48.xml
+      Check Config Flow         ${False}   ${upddata}
+      Check Operational Table   ${False}   ${upddata}
+Test Is Flow 49 Deleted
+    [Documentation]    Checks if flow is not configured and operational 
+      Init Flow Variables       f49.xml
       Check Config Flow         ${False}   ${upddata}
       Check Operational Table   ${False}   ${upddata}
 Test Is Flow 101 Deleted
@@ -1058,6 +817,11 @@ Test Is Flow 214 Deleted
       Init Flow Variables       f214.xml
       Check Config Flow         ${False}   ${upddata}
       Check Operational Table   ${False}   ${upddata}
+Test Is Flow 217 Deleted
+    [Documentation]    Checks if flow is not configured and operational 
+      Init Flow Variables       f217.xml
+      Check Config Flow         ${False}   ${upddata}
+      Check Operational Table   ${False}   ${upddata}
 Test Is Flow 218 Deleted
     [Documentation]    Checks if flow is not configured and operational 
       Init Flow Variables       f218.xml
@@ -1071,6 +835,11 @@ Test Is Flow 219 Deleted
 Test Is Flow 220 Deleted
     [Documentation]    Checks if flow is not configured and operational 
       Init Flow Variables       f220.xml
+      Check Config Flow         ${False}   ${upddata}
+      Check Operational Table   ${False}   ${upddata}
+Test Is Flow 221 Deleted
+    [Documentation]    Checks if flow is not configured and operational 
+      Init Flow Variables       f221.xml
       Check Config Flow         ${False}   ${upddata}
       Check Operational Table   ${False}   ${upddata}
 
@@ -1147,29 +916,6 @@ Add Flow
       Log Element   ${req}
       ${strxml}=   Element To String    ${req}
       ${resp}=        Post    session   /restconf/operations/sal-flow:add-flow   data=${strxml} 
-      Log  ${resp.content}
-      Should Be Equal As Strings  ${resp.status_code}  200
-Update Flow
-      Log   ${data}
-      Log   ${upddata}
-      ${xml}   Parse Xml      <input xmlns="urn:opendaylight:flow:service"></input>
-      Log Element   ${xml}
-      ${origflow}=    Parse Xml    ${data}
-      ${updflow}=     Parse Xml    ${upddata}
-      Remove Element   ${origflow}         id     clear_tail=True
-      Remove Element   ${updflow}         id     clear_tail=True
-      Remove Element Attribute    ${origflow}    xmlns
-      Remove Element Attribute    ${updflow}    xmlns
-      Set Element Tag  ${origflow}        original-flow
-      Set Element Tag  ${updflow}         updated-flow
-      Add Element   ${xml}    ${origflow}
-      Add Element   ${xml}    ${updflow}
-      Add Element   ${xml}   <node>/inv:nodes/inv:node[inv:id="openflow:${switch_idx}"]</node>
-      ${nodeelm}=   Get Element   ${xml}   node
-      Set Element Attribute   ${nodeelm}   xmlns:inv   urn:opendaylight:inventory
-      Log Element   ${xml}
-      ${strxml}=   Element To String    ${xml}
-      ${resp}=        Post    session   /restconf/operations/sal-flow:update-flow   data=${strxml} 
       Log  ${resp.content}
       Should Be Equal As Strings  ${resp.status_code}  200
 Delete Flow
