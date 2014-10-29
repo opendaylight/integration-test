@@ -1,0 +1,31 @@
+*** Settings ***
+Documentation     Run this test after running test no 05
+Library           ../../../../libraries/CrudLibrary.py
+Library           ../../../../libraries/UtilLibrary.py
+Library           ../../../../libraries/ClusterStateLibrary.py
+
+*** Variables ***
+${SHARD}    shard-car-config
+
+*** Test Cases ***
+Stop Leader
+    [Documentation]    find new leader
+  ${FOLLOWERS}    GetFollowers  ${SHARD}  ${3}  ${3}  ${2}  ${8181}  ${LEADER}  ${FOLLOWER1}  ${FOLLOWER2}
+  Log  ${FOLLOWERS}
+  ${LAST_FOLLOWER}  Set Variable  ${FOLLOWERS[0]}
+  Set Suite Variable	${LAST_FOLLOWER}
+  ${NEW_LEADER}    GetLeader  ${SHARD}  ${3}  ${3}  ${2}  ${8181}  ${LEADER}  ${FOLLOWER1}  ${FOLLOWER2}
+  Log  ${NEW_LEADER}
+  Stopcontroller  ${NEW_LEADER}  ${USERNAME}  ${PASSWORD}  ${KARAFHOME}
+  Sleep    30
+
+
+Get cars from last follower
+    [Documentation]    get cars from last follower
+	${resp}		Getcars	${LAST_FOLLOWER}	${PORT}	${0}
+	Should Be Equal As Strings    ${resp.status_code}    500
+
+Add cars and get cars from last follower
+    [Documentation]    Add 80 cars and get added cars from last follower
+	${resp}		AddCar	${LAST_FOLLOWER}	${PORT}	${80}
+	Should Be Equal As Strings    ${resp.status_code}    500
