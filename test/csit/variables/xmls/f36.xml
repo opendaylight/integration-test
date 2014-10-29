@@ -7,9 +7,11 @@
             <apply-actions>
                 <action>
                     <order>0</order>
-                    <set-nw-tos-action>
-                        <tos>1</tos>
-                    </set-nw-tos-action>
+                    <set-field>
+                        <ip-match>
+                            <ip-dscp>1</ip-dscp>
+                        </ip-match>
+                    </set-field>
                 </action>
             </apply-actions>
         </instruction>
