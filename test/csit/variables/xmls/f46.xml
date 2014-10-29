@@ -15,9 +15,9 @@
     <table_id>2</table_id>
     <id>169</id>
     <cookie_mask>10</cookie_mask>
-    <out_port>10</out_port>
+    <out_port>0xffffffff</out_port>
     <installHw>false</installHw>
-    <out_group>2</out_group>
+    <out_group>0xffffffff</out_group>
     <match>
         <ethernet-match>
             <ethernet-type>
