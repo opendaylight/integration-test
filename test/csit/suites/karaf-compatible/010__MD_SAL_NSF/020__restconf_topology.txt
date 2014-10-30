@@ -24,7 +24,7 @@ Get RESTCONF Topology
     [Documentation]    Get RESTCONF Topology and validate the result.
     [Tags]    get
     Wait Until Keyword Succeeds    30s    2s    Ensure All Nodes Are In Response    ${REST_CONTEXT_1}    ${node_list}
-    ${resp}    Get    session    ${REST_CONTEXT_1}
+    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT_1}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
     Should Contain    ${resp.content}    ${topology1}
@@ -55,9 +55,9 @@ Add a link
     ${body3}    Create Dictionary    link-id=userlink    destination=${body1}    source=${body2}
     ${links}    Create List    ${body3}
     ${body}    Create Dictionary    link=${links}
-    ${resp}    Put    session    ${REST_CONTEXT_3}    data=${body}
+    ${resp}    RequestsLibrary.Put    session    ${REST_CONTEXT_3}    data=${body}
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${resp}    Get    session    ${REST_CONTEXT_3}
+    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT_3}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     ${link}    Get From Dictionary    ${result}    link
@@ -66,15 +66,15 @@ Add a link
 Remove a link
     [Documentation]    Remove a link, list to validate the result.
     [Tags]    remove
-    ${resp}    Delete    session    ${REST_CONTEXT_3}
+    ${resp}    RequestsLibrary.Delete    session    ${REST_CONTEXT_3}
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${resp}    Get    session    ${REST_CONTEXT_3}
+    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT_3}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 *** Keywords ***
 Verify Links
     [Arguments]    ${expected_links}
-    ${resp}    Get    session    ${REST_CONTEXT_2}
+    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT_2}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}

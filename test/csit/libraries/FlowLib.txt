@@ -143,7 +143,7 @@ Add Flow To Controller And Verify
     ${resp}    Put Xml    session    ${REST_CON}/node/${node_id}/table/${table_id}/flow/${flow_id}    data=${flow_body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${resp}    get    session    ${REST_CON}/node/${node_id}/table/${table_id}/flow/${flow_id}    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.Get    session    ${REST_CON}/node/${node_id}/table/${table_id}/flow/${flow_id}    headers=${ACCEPT_XML}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     compare xml    ${flow_body}    ${resp.content}
@@ -160,10 +160,10 @@ Verify Flow On Mininet Switch
 Remove Flow From Controller And Verify
     [Arguments]    ${flow_body}    ${node_id}    ${table_id}    ${flow_id}
     [Documentation]    Remove flow
-    ${resp}    Delete    session    ${REST_CON}/node/${node_id}/table/${table_id}/flow/${flow_id}
+    ${resp}    RequestsLibrary.Delete    session    ${REST_CON}/node/${node_id}/table/${table_id}/flow/${flow_id}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${resp}    Get    session    ${REST_CON}/node/${node_id}/table/${table_id}
+    ${resp}    RequestsLibrary.Get    session    ${REST_CON}/node/${node_id}/table/${table_id}
     Log    ${resp.content}
     Should Not Contain    ${resp.content}    ${flow_id}
 
@@ -193,7 +193,7 @@ Remove Default Flows
     ${resp}    RequestsLibrary.Post    session    restconf/operations/sal-flow:remove-flow    data=${flow.xml}    headers=${headers}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${resp}=    Get    session    ${REST_OPR}
+    ${resp}=    RequestsLibrary.Get    session    ${REST_OPR}
     Log    ${resp.content}
     Should Not Contain    ${resp.content}    "output-node-connector": "CONTROLLER",
     ${strings_to_check_for}=    Create List    CONTROLLER

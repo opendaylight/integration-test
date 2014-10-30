@@ -67,6 +67,13 @@ def delete(url,userId,password):
     session = _cache.switch("CLUSTERING_DELETE")
     resp=session.delete(url)
 
+def Should_Not_Be_Type_None(var):
+    '''Keyword to check if the given variable is of type NoneType.  If the
+        variable type does match  raise an assertion so the keyword will fail
+    '''
+    if var == None:
+        raise AssertionError('the variable passed was type NoneType')
+    return 'PASS'
 
 # use username and password of controller server for ssh and need
 # karaf distribution location like /root/Documents/dist

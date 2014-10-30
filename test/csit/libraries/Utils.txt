@@ -1,5 +1,6 @@
 *** Settings ***
 Library           SSHLibrary
+Library           ./UtilLibrary.py
 
 *** Variables ***
 ${start}          sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,1 --switch ovsk,protocols=OpenFlow13
@@ -16,7 +17,7 @@ Start Suite
     Read Until    >
     Write    ${start}
     Read Until    mininet>
-    Sleep   6
+    Sleep    6
 
 Stop Suite
     [Documentation]    Cleanup/Shutdown work that should be done at the completion of all
@@ -34,7 +35,7 @@ Ensure All Nodes Are In Response
     ...    specific but any list of strings can be given in ${node_list}. Refactoring of this
     ...    to make it more generic should be done. (see keyword "Check For Elements At URI")
     : FOR    ${node}    IN    @{node_list}
-    \    ${resp}    Get    session    ${URI}
+    \    ${resp}    RequestsLibrary.Get    session    ${URI}
     \    Should Be Equal As Strings    ${resp.status_code}    200
     \    Should Contain    ${resp.content}    ${node}
 
@@ -42,7 +43,7 @@ Check Nodes Stats
     [Arguments]    ${node}
     [Documentation]    A GET on the /node/${node} API is made and specific flow stat
     ...    strings are checked for existence.
-    ${resp}    Get    session    ${REST_CONTEXT}/node/${node}
+    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}/node/${node}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    flow-capable-node-connector-statistics
     Should Contain    ${resp.content}    flow-table-statistics
@@ -52,7 +53,7 @@ Check That Port Count Is Ok
     [Documentation]    A GET on the /port API is made and the specified port ${count} is
     ...    verified. A more generic Keyword "Check For Specific Number Of Elements At URI"
     ...    also does this work and further consolidation should be done.
-    ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}/port
+    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}/${CONTAINER}/port
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain X Times    ${resp.content}    ${node}    ${count}
@@ -61,7 +62,7 @@ Check For Specific Number Of Elements At URI
     [Arguments]    ${uri}    ${element}    ${expected_count}
     [Documentation]    A GET is made to the specified ${URI} and the specific count of a
     ...    given element is done (as supplied by ${element} and ${expected_count})
-    ${resp}    Get    session    ${uri}
+    ${resp}    RequestsLibrary.Get    session    ${uri}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain X Times    ${resp.content}    ${element}    ${expected_count}
@@ -70,7 +71,7 @@ Check For Elements At URI
     [Arguments]    ${uri}    ${elements}
     [Documentation]    A GET is made at the supplied ${URI} and every item in the list of
     ...    ${elements} is verified to exist in the response
-    ${resp}    Get    session    ${uri}
+    ${resp}    RequestsLibrary.Get    session    ${uri}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${i}    IN    @{elements}
@@ -80,8 +81,22 @@ Check For Elements Not At URI
     [Arguments]    ${uri}    ${elements}
     [Documentation]    A GET is made at the supplied ${URI} and every item in the list of
     ...    ${elements} is verified to NOT exist in the response
-    ${resp}    Get    session    ${uri}
+    ${resp}    RequestsLibrary.Get    session    ${uri}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${i}    IN    @{elements}
     \    Should Not Contain    ${resp.content}    ${i}
+
+Extract Value From Content
+    [Arguments]    ${content}    ${index}    ${strip}=nostrip
+    [Documentation]    Will take the given response content and return the value at the given index as a string
+    ${value}=    Get Json Value    ${content}    ${index}
+    ${value}=    Convert To String    ${value}
+    ${value}=    Run Keyword If    '${strip}' == 'strip'    Strip Quotes    ${value}
+    [Return]    ${value}
+
+Strip Quotes
+    [Arguments]    ${string_to_strip}
+    [Documentation]    Will strip ALL quotes from given string and return the new string
+    ${string_to_return}=    Replace String    ${string_to_strip}    "    \    count=-1
+    [Return]    ${string_to_return}

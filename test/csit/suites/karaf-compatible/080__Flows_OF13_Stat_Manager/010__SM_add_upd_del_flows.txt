@@ -239,7 +239,7 @@ Check Config Flow Presence
 
 Flow Presence Config Flow
     ${headers}=    Create Dictionary    Accept    application/xml
-    ${resp}=    Get    session    /restconf/config/opendaylight-inventory:nodes/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}    headers=${headers}
+    ${resp}=    RequestsLibrary.Get    session    /restconf/config/opendaylight-inventory:nodes/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}    headers=${headers}
     Log    ${resp}
     Log    ${resp.content}
     Return From Keyword If    ${resp.status_code}!=200    ${False}    ${EMPTY}
@@ -259,7 +259,7 @@ Check Operational Table Presence
 
 Flow Presence Operational Table
     ${headers}=    Create Dictionary    Accept    application/xml
-    ${resp}=    Get    session    /restconf/operational/opendaylight-inventory:nodes/node/openflow:${switch_idx}/table/${table_id}    headers=${headers}
+    ${resp}=    RequestsLibrary.Get    session    /restconf/operational/opendaylight-inventory:nodes/node/openflow:${switch_idx}/table/${table_id}    headers=${headers}
     Log    ${resp}
     Log    ${resp.content}
     Return From Keyword If    ${resp.status_code}!=200    ${False}    ${EMPTY}

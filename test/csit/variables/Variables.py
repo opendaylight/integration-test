@@ -15,6 +15,7 @@ CONTAINER = 'default'
 USER = 'admin'
 PWD = 'admin'
 AUTH = [u'admin',u'admin']
+SCOPE = 'sdn'
 HEADERS={'Content-Type': 'application/json'}
 HEADERS_XML={'Content-Type': 'application/xml'}
 ACCEPT_XML={'Accept': 'application/xml'}
@@ -54,3 +55,11 @@ VLANMAP_CREATE='vlanmaps.json'
 
 #ports URL
 PORTS='ports/detail.json'
+
+#nodes
+OPERATIONAL_NODES_API='/restconf/operational/opendaylight-inventory:nodes'
+
+#TOKEN
+AUTH_TOKEN_API='/oauth2/token'
+REVOKE_TOKEN_API='/oauth2/revoke'
+

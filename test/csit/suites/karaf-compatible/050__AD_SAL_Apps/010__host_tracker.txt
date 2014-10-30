@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for Host Tracker
-Suite Setup       Create Session   session   http://${CONTROLLER}:${RESTPORT}   auth=${AUTH}   headers=${HEADERS}
+Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTPORT}    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
 Library           Collections
 Library           ../../../libraries/RequestsLibrary.py
@@ -21,40 +21,42 @@ Add a host
     ${body}    Create Dictionary    nodeType    OF    dataLayerAddress    5e:bf:79:84:10:a6    vlan
     ...    1    nodeId    00:00:00:00:00:00:00:03    nodeConnectorId    2    networkAddress
     ...    10.0.1.4    staticHost    ${True}    nodeConnectorType    OF
-    ${resp}    Put    session    ${REST_CONTEXT}/${CONTAINER}/address/${name}    data=${body}
+    ${resp}    RequestsLibrary.Put    session    ${REST_CONTEXT}/${CONTAINER}/address/${name}    data=${body}
     Should Be Equal As Strings    ${resp.status_code}    201
-    ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}/hosts/active
-    Should Be Equal As Strings    ${resp.status_code}    200 
+    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}/${CONTAINER}/hosts/active
+    Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     ${content}    Get From Dictionary    ${result}    ${key}
-    List Should Contain Value    ${content}    ${body} 
+    List Should Contain Value    ${content}    ${body}
+
 Check flow in flow stats
     [Documentation]    Show flow stats and validate result
-    [Tags]   apps
-    Sleep   30
-    ${resp}    Get    session    ${REST_CONTEXT_ST}/${CONTAINER}/flow
-    Should Be Equal As Strings    ${resp.status_code}    200 
+    [Tags]    apps
+    Sleep    30
+    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT_ST}/${CONTAINER}/flow
+    Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
-    Should Contain X Times   ${resp.content}    ${FLOW}   3
+    Should Contain X Times    ${resp.content}    ${FLOW}    3
+
 Remove a host
     [Documentation]    Remove a host, list to validate the result.
     [Tags]    apps
     ${body}    Create Dictionary    nodeType    OF    dataLayerAddress    5e:bf:79:84:10:a6    vlan
     ...    1    nodeId    00:00:00:00:00:00:00:03    nodeConnectorId    2    networkAddress
     ...    10.0.1.4    staticHost    ${True}    nodeConnectorType    OF
-    ${resp}    Delete    session    ${REST_CONTEXT}/${CONTAINER}/address/${name}
+    ${resp}    RequestsLibrary.Delete    session    ${REST_CONTEXT}/${CONTAINER}/address/${name}
     Should Be Equal As Strings    ${resp.status_code}    204
-    ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}/hosts/inactive
+    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}/${CONTAINER}/hosts/inactive
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     ${content}    Get From Dictionary    ${result}    ${key}
     List Should Not Contain Value    ${content}    ${body}
+
 Check flow is not in flow stats
     [Documentation]    Show flow stats and validate result
     [Tags]    apps
     Sleep    30
-    ${resp}    Get    session    ${REST_CONTEXT_ST}/${CONTAINER}/flow
-    Should Be Equal As Strings    ${resp.status_code}    200 
+    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT_ST}/${CONTAINER}/flow
+    Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
     Should Not Contain    ${resp.content}    ${FLOW}
-

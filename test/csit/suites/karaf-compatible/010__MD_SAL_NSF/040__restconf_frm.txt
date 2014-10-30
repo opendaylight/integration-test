@@ -23,7 +23,7 @@ Add a flow - Output to physical port#
 Verify after adding flow config - Output to physical port#
     [Documentation]    Verify the flow
     [Tags]    Get
-    ${resp}    Get    session    ${REST_CON}/node/openflow:1/table/0
+    ${resp}    RequestsLibrary.Get    session    ${REST_CON}/node/openflow:1/table/0
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    152
 
@@ -36,13 +36,13 @@ Verify after adding flow operational - Output to physical port#
 Remove a flow - Output to physical port#
     [Documentation]    Remove a flow
     [Tags]    remove
-    ${resp}    Delete    session    ${REST_CON}/node/openflow:1/table/0/flow/152
+    ${resp}    RequestsLibrary.Delete    session    ${REST_CON}/node/openflow:1/table/0/flow/152
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting flow config - Output to physical port#
     [Documentation]    Verify the flow
     [Tags]    Get
-    ${resp}    Get    session    ${REST_CON}/node/openflow:1/table/0
+    ${resp}    RequestsLibrary.Get    session    ${REST_CON}/node/openflow:1/table/0
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Not Contain    ${resp.content}    152
     #    Standing bug #368 - This has been fixed
