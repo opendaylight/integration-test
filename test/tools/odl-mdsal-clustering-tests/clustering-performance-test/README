@@ -22,6 +22,10 @@ The test suite contains the following scripts:
   flow_config_blaster.py provides the FlowConfigBlaster class that is 
   reusable in other tests, such as in flow_add_delete_test.py
 
+- flow_config_blaster_fle.py:
+  "FlowConfigBlaster Floodlight Edition" - the same as flow_config_blaster,
+  but for the Floodlight controller.
+
 - config_cleanup.py:
   Cleans up the config data store by deleting the entire inventory.
 
@@ -227,19 +231,23 @@ optional arguments:
                         127.0.0.1)
   --port PORT           Port on which odl's RESTCONF is listening (default is
                         8181)
-  --flows FLOWS         Number of flow add/delete requests to send in each
-                        cycle; default 10
-  --cycles CYCLES       Number of flow add/delete cycles to send in each
-                        thread; default 1
-  --threads THREADS     Number of request worker threads, default=1. Each
-                        thread will add/delete FLOWS flows.
+  --cycles CYCLES       Number of flow add/delete cycles; default 1. Both Flow
+                        Adds and Flow Deletes are performed in cycles.
+                        <THREADS> worker threads are started in each cycle and
+                        the cycle ends when all threads finish. Another cycle
+                        is started when the previous cycle finished.
+  --threads THREADS     Number of request worker threads to start in each
+                        cycle; default=1. Each thread will add/delete <FLOWS>
+                        flows.
+  --flows FLOWS         Number of flows that will be added/deleted by each
+                        worker thread in each cycle; default 10
   --nodes NODES         Number of nodes if mininet is not connected;
                         default=16. If mininet is connected, flows will be
                         evenly distributed (programmed) into connected nodes.
-  --delay DELAY         Time to wait between the add and delete cycles;
-                        default=0
-  --timeout TIMEOUT     The maximum time to wait between the add and delete
-                        cycles; default=100
+  --delay DELAY         Time (seconds) to between inventory polls when waiting
+                        for stats to catch up; default=1
+  --timeout TIMEOUT     The maximum time (seconds) to wait between the add and
+                        delete cycles; default=100
   --delete              Delete all added flows one by one, benchmark delete
                         performance.
   --bulk-delete         Delete all flows in bulk; default=False
@@ -247,3 +255,11 @@ optional arguments:
                         password: 'admin'); default=False
   --startflow STARTFLOW
                         The starting Flow ID; default=0
+  --file FILE           File from which to read the JSON flow template;
+                        default: no file, use a built in template.
+
+Examples:
+---------
+To put 5000 flows into ODL, then wait for stats to catch up and then delete
+the flows in bulk (using config_cleanup):
+   > ./flow_add_delete_test.py --flows=5000 --auth --no-delete --bulk-delete
