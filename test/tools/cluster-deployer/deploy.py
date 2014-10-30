@@ -37,6 +37,7 @@ import os
 import sys
 import random
 import re
+from remote_host import RemoteHost
 
 parser = argparse.ArgumentParser(description='Cluster Deployer')
 parser.add_argument("--distribution", default="", help="the absolute path of the distribution on the local host that needs to be deployed. (Must contain version in the form: \"<#>.<#>.<#>-<name>\", e.g. 0.2.0-SNAPSHOT)", required=True)
@@ -49,41 +50,7 @@ parser.add_argument("--user", default="root", help="the SSH username for the rem
 parser.add_argument("--password", default="Ecp123", help="the SSH password for the remote host(s)")
 args = parser.parse_args()
 
-# 
-# The RemoteHost class provides methods to do operations on a remote host
-#
-class RemoteHost:
-	def __init__(self, host, user, password, rootdir):
-		self.host = host
-		self.user = user
-		self.password = password
-		self.rootdir = rootdir
 
-	def exec_cmd(self, command):
-		print "Executing command " + command + " on host " + self.host
-		lib = SSHLibrary()
-		lib.open_connection(self.host)
-		lib.login(username=self.user,password=self.password)
-		lib.execute_command(command)
-		lib.close_connection()
-
-
-	def mkdir(self, dir_name):
-		self.exec_cmd("mkdir -p " + dir_name)
-
-	def copy_file(self, src, dest):
-	    lib = SSHLibrary()
-	    lib.open_connection(self.host)
-	    lib.login(username=self.user, password=self.password)
-	    print "Copying " + src + " to " + dest + " on " + self.host
-	    lib.put_file(src, dest)
-	    lib.close_connection()
-
-	def kill_controller(self):
-	    self.exec_cmd("ps axf | grep karaf | grep -v grep | awk '{print \"kill -9 \" $1}' | sh")
-
-	def start_controller(self, dir_name):
-		self.exec_cmd(dir_name + "/odl/bin/start")
 
 #
 # The TemplateRenderer provides methods to render a template
@@ -196,7 +163,7 @@ class Deployer:
         remote.copy_file(management_cfg, self.dir_name + "/odl/etc/")
 
         # Add symlink
-        remote.exec_cmd("ln -s " + self.dir_name + " " + args.rootdir + "/deploy/current")
+        remote.exec_cmd("ln -sfn " + self.dir_name + " " + args.rootdir + "/deploy/current")
 
         # Run karaf
         remote.start_controller(self.dir_name)      
