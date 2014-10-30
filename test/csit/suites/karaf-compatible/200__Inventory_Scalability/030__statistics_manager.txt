@@ -39,7 +39,7 @@ get table stats
 *** Keywords ***
 Check For Correct Number Of Nodes At URI
     [Arguments]    ${uri}    ${topo_nodes}
-    ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}/${uri}
+    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}/${CONTAINER}/${uri}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain X Times    ${resp.content}    "00:00:00:00:00:00:00:01"    ${TOPO_TREE_FANOUT+2}
@@ -49,7 +49,7 @@ Check For Correct Number Of Nodes At URI
 
 Check For All Nodes At URI
     [Arguments]    ${uri}    ${topo_nodes}
-    ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}/${uri}
+    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}/${CONTAINER}/${uri}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${ITEM}    IN    @{topo_nodes}

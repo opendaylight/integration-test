@@ -140,6 +140,7 @@ class ProVision(BaseSwitch):
             return 'Controller Port'
         if (action == 'LOCAL'):
             return 'Local'
+        return 'UNKNOWN'
 
     @property
     def datapath_id_output_command(self):

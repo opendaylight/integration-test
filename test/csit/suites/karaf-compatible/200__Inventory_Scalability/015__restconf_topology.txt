@@ -30,7 +30,7 @@ Get Links Count
 *** Keywords ***
 Verify Element Count
     [Arguments]    ${URI}    ${xpath_location}    ${expected_count}
-    ${resp}    Get    session    ${REST_CONTEXT}    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}    headers=${ACCEPT_XML}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${count}=    Get Element Count    ${resp.content}    xpath=${xpath_location}

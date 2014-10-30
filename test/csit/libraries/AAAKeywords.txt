@@ -1,0 +1,32 @@
+*** Settings ***
+Library           ./RequestsLibrary.py
+Variables         ../variables/Variables.py
+
+*** Variables ***
+
+
+*** Keywords ***
+AAA Login
+    [Arguments]    ${controller_ip}    ${auth_data}
+    [Documentation]    Makes a POST REST call to the AUTH_TOKEN_API with the given auth_data and returns the response
+    Create Session    ODL_SESSION    http://${controller_ip}:8181
+    ${headers}=    Create Dictionary    Content-Type    application/x-www-form-urlencoded
+    ${resp}=    RequestsLibrary.POST    ODL_SESSION    ${AUTH_TOKEN_API}    data=${auth_data}    headers=${headers}
+    Delete All Sessions
+    [Return]    ${resp}
+
+Create Auth Data
+    [Arguments]    ${user}=${USER}    ${password}=${PWD}    ${scope}=${SCOPE}    ${client_id}=${EMPTY}    ${client_secret}=${EMPTY}
+    [Documentation]    returns a string in the direct authentacation format (e.g., grant_type=password&username=admin&password=admin).
+    ...    It can also be passed scope, client_id and client_secret arguments for the case of client specific authorization
+    ${data}=    Set Variable    grant_type=password&username=${user}&password=${password}&scope=${scope}
+    ${data}=    Run Keyword If    "${client_id}" != "${EMPTY}"    Set Variable    ${data}&client_id=${client_id}    ELSE    Set Variable
+    ...    ${data}
+    ${data}=    Run Keyword If    "${client_secret}" != "${EMPTY}"    Set Variable    ${data}&client_secret=${client_secret}    ELSE    Set Variable
+    ...    ${data}
+    [Return]    ${data}
+
+Validate Token Format
+    [Arguments]    ${token}
+    [Documentation]    Validates the given string is in the proper "token" format
+    Should Match Regexp    ${token}    [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}

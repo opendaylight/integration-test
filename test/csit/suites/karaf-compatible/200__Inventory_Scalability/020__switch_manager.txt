@@ -18,7 +18,7 @@ List all nodes
     [Tags]    adsal
     Log    ${TOPO_TREE_LEVEL}
     ${topo_nodes}    Get Nodes From Tree Topo    (${TOPO_TREE_DEPTH},${TOPO_TREE_FANOUT})
-    ${resp}    Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/nodes
+    ${resp}    RequestsLibrary.Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/nodes
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
     ${jsondata}=    To JSON    ${resp.content}
@@ -28,7 +28,7 @@ List all nodes
 Check root node connectors
     [Documentation]    List node connectors and verify all connectors are there
     [Tags]    adsal
-    ${resp}    Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/node/OF/00:00:00:00:00:00:00:01
+    ${resp}    RequestsLibrary.Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/node/OF/00:00:00:00:00:00:00:01
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
     ${TOPO_TREE_FANOUT}    Convert To Integer    ${TOPO_TREE_FANOUT}
@@ -45,7 +45,7 @@ Check Every Nodes Connectors
     [Arguments]    ${topo_nodes}
     : FOR    ${ITEM}    IN    @{topo_nodes}
     \    ${IND}    Get From Dictionary    ${ITEM}    id
-    \    ${resp}    Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/node/OF/${IND}
+    \    ${resp}    RequestsLibrary.Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/node/OF/${IND}
     \    Log    ${resp.content}
     \    Should Be Equal As Strings    ${resp.status_code}    200
     \    Check conn loop    ${TOPO_TREE_FANOUT+1}    ${IND}    ${resp.content}

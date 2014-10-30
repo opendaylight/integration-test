@@ -25,7 +25,7 @@ Get Topology
 *** Keywords ***
 Check Link Counts For Each Node
     [Arguments]    ${topo_nodes}    ${leaflist}
-    ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}
+    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}/${CONTAINER}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain X Times    ${resp.content}    "00:00:00:00:00:00:00:01"    ${TOPO_TREE_FANOUT*2}

@@ -19,19 +19,19 @@ ${REST_CONTEXT}    /controller/nb/v2/topology
 *** Test Cases ***
 Get Topology
     [Documentation]    Get Topology and validate the result.
-    [Tags]    adsal 
+    [Tags]    adsal
     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${REST_CONTEXT}/${CONTAINER}    ${node1}    4
     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${REST_CONTEXT}/${CONTAINER}    ${node1}    4
     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${REST_CONTEXT}/${CONTAINER}    ${node1}    4
 
 Add a userlink
     [Documentation]    Add a userlink, list to validate the result.
-    [Tags]    adsal 
+    [Tags]    adsal
     ${body}    Create Dictionary    name    ${name}    status    Success    srcNodeConnector
     ...    OF|1@OF|00:00:00:00:00:00:00:02    dstNodeConnector    OF|1@OF|00:00:00:00:00:00:00:03
-    ${resp}    Put    session    ${REST_CONTEXT}/${CONTAINER}/userLink/${name}    data=${body}
+    ${resp}    RequestsLibrary.Put    session    ${REST_CONTEXT}/${CONTAINER}/userLink/${name}    data=${body}
     Should Be Equal As Strings    ${resp.status_code}    201
-    ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}/userLinks
+    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}/${CONTAINER}/userLinks
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     ${content}    Get From Dictionary    ${result}    ${key}
@@ -39,12 +39,12 @@ Add a userlink
 
 Remove a userlink
     [Documentation]    Remove a userlink, list to validate the result.
-    [Tags]    adsal 
+    [Tags]    adsal
     ${body}    Create Dictionary    name    ${name}    status    Success    srcNodeConnector
     ...    OF|1@OF|00:00:00:00:00:00:00:02    dstNodeConnector    OF|1@OF|00:00:00:00:00:00:00:03
-    ${resp}    Delete    session    ${REST_CONTEXT}/${CONTAINER}/userLink/${name}
+    ${resp}    RequestsLibrary.Delete    session    ${REST_CONTEXT}/${CONTAINER}/userLink/${name}
     Should Be Equal As Strings    ${resp.status_code}    204
-    ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}/userLinks
+    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}/${CONTAINER}/userLinks
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     ${content}    Get From Dictionary    ${result}    ${key}
