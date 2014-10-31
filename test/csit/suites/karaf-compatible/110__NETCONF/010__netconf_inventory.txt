@@ -3,40 +3,61 @@ Documentation     Test suite for NETCONF
 Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
 Suite Teardown    Delete All Sessions
 Library           Collections
-Library           SSHLibrary
 Library           OperatingSystem
+Library           String
 Library           ../../../libraries/RequestsLibrary.py
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${REST_CONTEXT}          /restconf/config/opendaylight-inventory:nodes
-${REST__ntpr_rest}       /restconf/config/opendaylight-inventory:nodes/node/netopeer/yang-ext:mount/
-${REST_ntpr_op}          /operational/restconf/opendaylight-inventory:nodes/node/netopeer/yang-ext:mount
+${FILE}                 ${CURDIR}/../../../variables/xmls/netconf.xml
+${REST_CONT_CONF}        /restconf/config/opendaylight-inventory:nodes
+${REST_CONT_OPER}       /restconf/operational/opendaylight-inventory:nodes 
+${REST_NTPR_CONF}        node/controller-config/yang-ext:mount/config:modules/config:module/netopeer
+${REST_NTPR_MOUNT}      node/netopeer/yang-ext:mount/
 
 *** Test Cases ***
-Get Controller Inventory using NetConf
-    [Documentation]    Get the Controller Inventory
-    [Tags]    netconf
-    ${resp}   Get    session    ${REST_CONTEXT}
+Add NetConf device
+    [Documentation]    Add NetConf device using REST
+    [Tags]     netconf
+    ${XML1}    Get File    ${FILE}
+    ${XML2}    Replace String    127.0.0.1    ${MININET}     ${XML1}
+    ${body}    Replace String    mininet      ${MININET_USER}    ${XML2}
+    Log    ${body}
+    ${resp}    Putxml    session    ${REST_CONT_CONF}/${REST_NTPR_CONF}    data=${body}
+    Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
-    Should Contain    ${resp.content}    nodes
-    Should Contain    ${resp.content}    id
-    Should Contain    ${resp.content}    netopeer
+
+Get Controller Inventory
+    [Documentation]    Get Controller operational inventory
+    [Tags]    netconf
+    ${resp}   Get    session    ${REST_CONT_OPER}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${resp.content}    "id":"netopeer"
+    Should Contain    ${resp.content}    "netconf-node-inventory:connected":true
+    Should Contain    ${resp.content}    "netconf-node-inventory:initial-capability"
 
 Pull External Device configuration
-    [Documentation]    Get the inventory for a node
+    [Documentation]    Pull Netopeer configuration
     [Tags]    netconf
-    ${resp}   Get    session    ${REST_ntpr_rest}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    Should Contain    ${resp.content}    data
+    Wait Until Keyword Succeeds    10s    2s    Pull Config
 
-Verify Operational data and mount of external device
-    [Documentation]    Get the Operational data and verify mount of external device
+Verify Device Operational data
+    [Documentation]    Verify Netopeer operational data
     [Tags]    netconf
-    ${resp}   Get    session    ${REST_ntpr_op}
+    ${resp}   Get    session    ${REST_CONT_OPER}/${REST_NTPR_MOUNT}
+    Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
-    Should Contain    ${resp.content}    Username
-    Should Contain    ${resp.content}    Password
-    Should Contain    ${resp.content}    submit
+    Should Contain    ${resp.content}    schema
+    Should Contain    ${resp.content}    statistics
+    Should Contain    ${resp.content}    datastores
+
+*** Keywords ***
+Pull Config
+    ${resp}   Get    session    ${REST_CONT_CONF}/${REST_NTPR_MOUNT}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${resp.content}    {}
+
 
