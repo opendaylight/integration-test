@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<features name="jolokia-1.1.5" xmlns="http://karaf.apache.org/xmlns/features/v1.2.0">
+
+    <feature name='feature-jolokia' version='1.1.5' install="auto">
+       <bundle>mvn:org.jolokia/jolokia-osgi/1.1.5</bundle>
+    </feature>
+
+</features>
