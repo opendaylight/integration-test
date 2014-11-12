@@ -1,4 +1,4 @@
-<module>
+<module xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
   <type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">prefix:sal-netconf-connector</type>
   <name>netopeer</name>
   <address xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">127.0.0.1</address>
