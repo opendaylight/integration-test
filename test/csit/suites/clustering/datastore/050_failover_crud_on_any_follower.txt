@@ -1,7 +1,7 @@
 *** Settings ***
-Documentation     Run this test after running test no 06
-Library           ../../../../libraries/CrudLibrary.py
-Library           ../../../../libraries/ClusterStateLibrary.py
+Documentation     This test executes CRUD operations on any one follower after the old leader has been brought down
+Library           ../../../libraries/CrudLibrary.py
+Library           ../../../libraries/ClusterStateLibrary.py
 
 *** Variables ***
 ${SHARD}    shard-car-config
@@ -9,7 +9,7 @@ ${SHARD}    shard-car-config
 *** Test Cases ***
 Find follower
     [Documentation]    find follower
-  ${FOLLOWERS}    GetFollowers  ${SHARD}  ${3}  ${3}  ${2}  ${8181}  ${LEADER}  ${FOLLOWER1}  ${FOLLOWER2}
+  ${FOLLOWERS}    GetFollowers  ${SHARD}  ${3}  ${3}  ${2}  ${8181}  ${MEMBER1}  ${MEMBER2}  ${MEMBER3}
   Log  ${FOLLOWERS}
   ${LAST_FOLLOWER}  Set Variable  ${FOLLOWERS[0]}
   Set Suite Variable	${LAST_FOLLOWER}
