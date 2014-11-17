@@ -3,7 +3,9 @@ Library           ./RequestsLibrary.py
 Variables         ../variables/Variables.py
 
 *** Variables ***
-
+${WORKSPACE}      /opt/jenkins-integration/workspace/shared-controller
+${BUNDLEFOLDER}    distribution-karaf-0.3.0-SNAPSHOT
+${AUTHN_CFG_FILE}    ${WORKSPACE}/${BUNDLEFOLDER}/etc/org.opendaylight.aaa.authn.cfg
 
 *** Keywords ***
 AAA Login
@@ -25,6 +27,38 @@ Create Auth Data
     ${data}=    Run Keyword If    "${client_secret}" != "${EMPTY}"    Set Variable    ${data}&client_secret=${client_secret}    ELSE    Set Variable
     ...    ${data}
     [Return]    ${data}
+
+Disable Authentication On Controller
+    [Arguments]    ${controller_ip}
+    [Documentation]    Will disable token based authentication. Currently, that is done with a config file change
+    SSHLibrary.Open Connection    ${controller_ip}
+    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
+    ${cmd}=    Set Variable    sed -i 's/^authEnabled=.*$/authEnabled=false/g' ${AUTHN_CFG_FILE}
+    SSHLibrary.Execute Command    ${cmd}
+
+Enable Authentication On Controller
+    [Arguments]    ${controller_ip}
+    [Documentation]    Will enable token based authentication. Currently, that is done with a config file change
+    SSHLibrary.Open Connection    ${controller_ip}
+    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
+    ${cmd}=    Set Variable    sed -i 's/^authEnabled=.*$/authEnabled=true/g' ${AUTHN_CFG_FILE}
+    SSHLibrary.Execute Command    ${cmd}
+
+Get Auth Token
+    [Arguments]    ${user}=${USER}    ${password}=${PWD}    ${scope}=${SCOPE}    ${client_id}=${EMPTY}    ${client_secret}=${EMPTY}
+    [Documentation]    Wrapper used to login to controller and retrieve an auth token. Optional argumented available for client based credentials.
+    ${auth_data}=    Create Auth Data    ${USER}    ${PWD}    ${scope}    ${client_id}    ${client_secret}
+    ${resp}=    AAA Login    ${CONTROLLER}    ${auth_data}
+    Should Be Equal As Strings    ${resp.status_code}    201
+    ${auth_token}=    Extract Value From Content    ${resp.content}    /access_token    strip
+    [Return]    ${auth_token}
+
+Revoke Auth Token
+    [Arguments]    ${token}
+    [Documentation]    Requests the given token be revoked via POST to ${REVOKE_TOKEN_API}
+    ${headers}=    Create Dictionary    Content-Type    application/x-www-form-urlencoded
+    ${resp}=    RequestsLibrary.POST    ODL_SESSION    ${REVOKE_TOKEN_API}    data=${token}    headers=${headers}
+    Should Be Equal As Strings    ${resp.status_code}    204
 
 Validate Token Format
     [Arguments]    ${token}
