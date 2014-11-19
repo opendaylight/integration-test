@@ -25,17 +25,19 @@ class Stats(object):
     log_file = "cbench.log"
     precision = 3
     run_index = 0
-    flow_index = 1
-    start_time_index = 2
-    end_time_index = 3
-    start_steal_time_index = 10
-    end_steal_time_index = 11
-    used_ram_index = 13
-    one_load_index = 16
-    five_load_index = 17
-    fifteen_load_index = 18
-    start_iowait_index = 20
-    end_iowait_index = 21
+    min_flow_index = 1
+    max_flow_index = 2
+    avg_flow_index = 3
+    start_time_index = 4
+    end_time_index = 5
+    start_steal_time_index = 12
+    end_steal_time_index = 13
+    used_ram_index = 15
+    one_load_index = 18
+    five_load_index = 19
+    fifteen_load_index = 20
+    start_iowait_index = 22
+    end_iowait_index = 23
 
     def __init__(self):
         """Setup some flags and data structures, kick off build_cols call."""
@@ -46,7 +48,9 @@ class Stats(object):
     def build_cols(self):
         """Parse results file into lists of values, one per column."""
         self.run_col = []
-        self.flows_col = []
+        self.min_flows_col = []
+        self.max_flows_col = []
+        self.avg_flows_col = []
         self.runtime_col = []
         self.used_ram_col = []
         self.iowait_col = []
@@ -60,7 +64,9 @@ class Stats(object):
             for row in results_reader:
                 try:
                     self.run_col.append(float(row[self.run_index]))
-                    self.flows_col.append(float(row[self.flow_index]))
+                    self.min_flows_col.append(float(row[self.min_flow_index]))
+                    self.max_flows_col.append(float(row[self.max_flow_index]))
+                    self.avg_flows_col.append(float(row[self.avg_flow_index]))
                     self.runtime_col.append(float(row[self.end_time_index]) -
                                             float(row[self.start_time_index]))
                     self.used_ram_col.append(float(row[self.used_ram_index]))
@@ -77,12 +83,12 @@ class Stats(object):
                     # Skips header
                     continue
 
-    def compute_flow_stats(self):
-        """Compute CBench flows/second stats."""
-        self.compute_generic_stats("flows", self.flows_col)
+    def compute_avg_flow_stats(self):
+        """Compute CBench average flows/second stats."""
+        self.compute_generic_stats("flows", self.avg_flows_col)
 
-    def build_flow_graph(self, total_gcount, graph_num):
-        """Plot flows/sec data.
+    def build_avg_flow_graph(self, total_gcount, graph_num):
+        """Plot average flows/sec data.
 
         :param total_gcount: Total number of graphs to render.
         :type total_gcount: int
@@ -91,7 +97,39 @@ class Stats(object):
 
         """
         self.build_generic_graph(total_gcount, graph_num,
-                                 "Flows per Second", self.flows_col)
+                                 "Average Flows per Second", self.avg_flows_col)
+
+    def compute_min_flow_stats(self):
+        """Compute CBench min flows/second stats."""
+        self.compute_generic_stats("min_flows", self.min_flows_col)
+
+    def build_min_flow_graph(self, total_gcount, graph_num):
+        """Plot min flows/sec data.
+
+        :param total_gcount: Total number of graphs to render.
+        :type total_gcount: int
+        :param graph_num: Number for this graph, <= total_gcount.
+        :type graph_num: int
+
+        """
+        self.build_generic_graph(total_gcount, graph_num,
+                                 "Minimum Flows per Second", self.min_flows_col)
+
+    def compute_max_flow_stats(self):
+        """Compute CBench max flows/second stats."""
+        self.compute_generic_stats("max_flows", self.max_flows_col)
+
+    def build_max_flow_graph(self, total_gcount, graph_num):
+        """Plot max flows/sec data.
+
+        :param total_gcount: Total number of graphs to render.
+        :type total_gcount: int
+        :param graph_num: Number for this graph, <= total_gcount.
+        :type graph_num: int
+
+        """
+        self.build_generic_graph(total_gcount, graph_num,
+                                 "Maximum Flows per Second", self.max_flows_col)
 
     def compute_ram_stats(self):
         """Compute used RAM stats."""
@@ -116,9 +154,9 @@ class Stats(object):
     def build_runtime_graph(self, total_gcount, graph_num):
         """Plot CBench runtime length data.
 
-        :paruntime total_gcount: Total number of graphs to render.
+        :param total_gcount: Total number of graphs to render.
         :type total_gcount: int
-        :paruntime graph_num: Number for this graph, <= total_gcount.
+        :param graph_num: Number for this graph, <= total_gcount.
         :type graph_num: int
 
         """
@@ -132,9 +170,9 @@ class Stats(object):
     def build_iowait_graph(self, total_gcount, graph_num):
         """Plot iowait data.
 
-        :paiowait total_gcount: Total number of graphs to render.
+        :param total_gcount: Total number of graphs to render.
         :type total_gcount: int
-        :paiowait graph_num: Number for this graph, <= total_gcount.
+        :param graph_num: Number for this graph, <= total_gcount.
         :type graph_num: int
 
         """
@@ -148,9 +186,9 @@ class Stats(object):
     def build_steal_time_graph(self, total_gcount, graph_num):
         """Plot steal time data.
 
-        :pasteal_time total_gcount: Total number of graphs to render.
+        :param total_gcount: Total number of graphs to render.
         :type total_gcount: int
-        :pasteal_time graph_num: Number for this graph, <= total_gcount.
+        :param graph_num: Number for this graph, <= total_gcount.
         :type graph_num: int
 
         """
@@ -164,9 +202,9 @@ class Stats(object):
     def build_one_load_graph(self, total_gcount, graph_num):
         """Plot one minute load data.
 
-        :paone_load total_gcount: Total number of graphs to render.
+        :param total_gcount: Total number of graphs to render.
         :type total_gcount: int
-        :paone_load graph_num: Number for this graph, <= total_gcount.
+        :param graph_num: Number for this graph, <= total_gcount.
         :type graph_num: int
 
         """
@@ -180,9 +218,9 @@ class Stats(object):
     def build_five_load_graph(self, total_gcount, graph_num):
         """Plot five minute load data.
 
-        :pafive_load total_gcount: Total number of graphs to render.
+        :param total_gcount: Total number of graphs to render.
         :type total_gcount: int
-        :pafive_load graph_num: Number for this graph, <= total_gcount.
+        :param graph_num: Number for this graph, <= total_gcount.
         :type graph_num: int
 
         """
@@ -196,9 +234,9 @@ class Stats(object):
     def build_fifteen_load_graph(self, total_gcount, graph_num):
         """Plot fifteen minute load data.
 
-        :pafifteen_load total_gcount: Total number of graphs to render.
+        :param total_gcount: Total number of graphs to render.
         :type total_gcount: int
-        :pafifteen_load graph_num: Number for this graph, <= total_gcount.
+        :param graph_num: Number for this graph, <= total_gcount.
         :type graph_num: int
 
         """
@@ -223,9 +261,9 @@ class Stats(object):
     def build_generic_graph(self, total_gcount, graph_num, y_label, data_col):
         """Helper for plotting generic data.
 
-        :pageneric total_gcount: Total number of graphs to render.
+        :param total_gcount: Total number of graphs to render.
         :type total_gcount: int
-        :pageneric graph_num: Number for this graph, <= total_gcount.
+        :param graph_num: Number for this graph, <= total_gcount.
         :type graph_num: int
         :param y_label: Lable of Y axis.
         :type y_label: string
@@ -245,7 +283,9 @@ class Stats(object):
 stats = Stats()
 
 # Map of graph names to the Stats.fns that build them
-graph_map = {"flows": stats.build_flow_graph,
+graph_map = {"min_flows": stats.build_min_flow_graph,
+             "max_flows": stats.build_max_flow_graph,
+             "flows": stats.build_avg_flow_graph,
              "runtime": stats.build_runtime_graph,
              "iowait": stats.build_iowait_graph,
              "steal_time": stats.build_steal_time_graph,
@@ -253,7 +293,9 @@ graph_map = {"flows": stats.build_flow_graph,
              "five_load": stats.build_five_load_graph,
              "fifteen_load": stats.build_fifteen_load_graph,
              "ram": stats.build_ram_graph}
-stats_map = {"flows": stats.compute_flow_stats,
+stats_map = {"min_flows": stats.compute_min_flow_stats,
+             "max_flows": stats.compute_max_flow_stats,
+             "flows": stats.compute_avg_flow_stats,
              "runtime": stats.compute_runtime_stats,
              "iowait": stats.compute_iowait_stats,
              "steal_time": stats.compute_steal_time_stats,
