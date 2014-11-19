@@ -6,6 +6,9 @@
 EX_USAGE=64
 EX_OK=0
 
+# Output verbose debug info (true) or not (anything else)
+VERBOSE=false
+
 ###############################################################################
 # Prints usage message
 # Globals:
@@ -24,6 +27,7 @@ Run WCBench against OpenDaylight in a loop.
 
 OPTIONS:
     -h Show this help message
+    -v Output verbose debug info
     -l Loop WCBench runs without restarting ODL
     -r Loop WCBench runs, restart ODL between runs
     -t <time> Run WCBench for a given number of minutes
@@ -35,6 +39,7 @@ EOF
 # Starts ODL, optionally pinning it to a given number of processors
 # Globals:
 #   processors
+#   VERBOSE
 # Arguments:
 #   None
 # Returns:
@@ -42,14 +47,26 @@ EOF
 ###############################################################################
 start_odl()
 {
-    if [ -z $processors ]; then
-        # Start ODL, don't pass processor info
-        echo "Starting ODL, not passing processor info"
-        ./wcbench.sh -o
+    if "$VERBOSE" = true; then
+        if [ -z $processors ]; then
+            # Start ODL, don't pass processor info
+            echo "Starting ODL, not passing processor info"
+            ./wcbench.sh -vo
+        else
+            # Start ODL, pinning it to given number of processors
+            echo "Pinning ODL to $processors processor(s)"
+            ./wcbench.sh -vp $processors -o
+        fi
     else
-        # Start ODL, pinning it to given number of processors
-        echo "Pinning ODL to $processors processor(s)"
-        ./wcbench.sh -p $processors -o
+        if [ -z $processors ]; then
+            # Start ODL, don't pass processor info
+            echo "Starting ODL, not passing processor info"
+            ./wcbench.sh -o
+        else
+            # Start ODL, pinning it to given number of processors
+            echo "Pinning ODL to $processors processor(s)"
+            ./wcbench.sh -p $processors -o
+        fi
     fi
 }
 
@@ -57,6 +74,7 @@ start_odl()
 # Run WCBench against ODL, optionally passing a WCBench run time
 # Globals:
 #   run_time
+#   VERBOSE
 # Arguments:
 #   None
 # Returns:
@@ -64,14 +82,26 @@ start_odl()
 ###############################################################################
 run_wcbench()
 {
-    if [ -z $run_time ]; then
-        # Flag means run WCBench
-        echo "Running WCBench, not passing run time info"
-        ./wcbench.sh -r
+    if "$VERBOSE" = true; then
+        if [ -z $run_time ]; then
+            # Flag means run WCBench
+            echo "Running WCBench, not passing run time info"
+            ./wcbench.sh -vr
+        else
+            # Flags mean use $run_time WCBench runs, run WCBench
+            echo "Running WCBench with $run_time minute(s) run time"
+            ./wcbench.sh -vt $run_time -r
+        fi
     else
-        # Flags mean use $run_time WCBench runs, run WCBench
-        echo "Running WCBench with $run_time minute(s) run time"
-        ./wcbench.sh -t $run_time -r
+        if [ -z $run_time ]; then
+            # Flag means run WCBench
+            echo "Running WCBench, not passing run time info"
+            ./wcbench.sh -r
+        else
+            # Flags mean use $run_time WCBench runs, run WCBench
+            echo "Running WCBench with $run_time minute(s) run time"
+            ./wcbench.sh -t $run_time -r
+        fi
     fi
 }
 
@@ -96,7 +126,7 @@ loop_no_restart()
 ###############################################################################
 # Repeatedly run WCBench against ODL, restart ODL between runs
 # Globals:
-#   None
+#   VERBOSE
 # Arguments:
 #   None
 # Returns:
@@ -109,7 +139,11 @@ loop_with_restart()
         start_odl
         run_wcbench
         # Stop ODL
-        ./wcbench.sh -k
+        if "$VERBOSE" = true; then
+            ./wcbench.sh -vk
+        else
+            ./wcbench.sh -k
+        fi
     done
 }
 
@@ -119,17 +153,25 @@ if [ $# -eq 0 ]; then
     exit $EX_USAGE
 fi
 
+# Used to output help if no valid action results from arguments
+action_taken=false
+
 # Parse options given from command line
-while getopts ":hlp:rt:" opt; do
+while getopts ":hvlp:rt:" opt; do
     case "$opt" in
         h)
             # Help message
             usage
             exit $EX_OK
             ;;
+        v)
+            # Output debug info verbosely
+            VERBOSE=true
+            ;;
         l)
             # Loop without restarting ODL between WCBench runs
             loop_no_restart
+            action_taken=true
             ;;
         p)
             # Pin a given number of processors
@@ -143,6 +185,7 @@ while getopts ":hlp:rt:" opt; do
         r)
             # Restart ODL between each WCBench run
             loop_with_restart
+            action_taken=true
             ;;
         t)
             # Set length of WCBench run in minutes
@@ -154,3 +197,9 @@ while getopts ":hlp:rt:" opt; do
             exit $EX_USAGE
     esac
 done
+
+# Output help message if no valid action was taken
+if ! "$action_taken" = true; then
+    usage
+    exit $EX_USAGE
+fi

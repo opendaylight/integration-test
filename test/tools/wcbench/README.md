@@ -10,7 +10,8 @@ CBench, wrapped in stuff that makes it useful.
         - [Usage Details: loop_wcbench.sh](#user-content-usage-details-loop_wcbenchsh)
         - [Usage Details: stats.py](#user-content-usage-details-statspy)
     - [WCBench Results](#user-content-wcbench-results)
-    - [Detailed Walkthrough](#user-content-detailed-walkthrough)
+    - [Detailed Walkthrough: Vagrant](#user-content-detailed-walkthrough-vagrant)
+    - [Detailed Walkthrough: Manual](#user-content-detailed-walkthrough-manual)
     - [Contributing](#user-content-contributing)
     - [Contact](#user-content-contact)
 
@@ -18,7 +19,7 @@ CBench, wrapped in stuff that makes it useful.
 
 CBench is a somewhat classic SDN controller benchmark tool. It blasts a controller with OpenFlow packet-in messages and counts the rate of flow mod messages returned. WCBench consumes CBench as a library, then builds a robust test automation, stats collection and stats analysis/graphing system around it.
 
-WCBench currently only supports the OpenDaylight SDN controller, but it would be fairly easy to add support for other controllers. Community contributions are encouraged!
+WCBench currently only supports the Helium release of the OpenDaylight SDN controller, but it would be fairly easy to add support for other controllers. Community contributions are encouraged!
 
 ### Usage
 
@@ -33,12 +34,13 @@ Setup and/or run CBench and/or OpenDaylight.
 
 OPTIONS:
     -h Show this message
+    -v Output verbose debug info
     -c Install CBench
     -t <time> Run CBench for given number of minutes
     -r Run CBench against OpenDaylight
-    -i Install ODL from last successful build
+    -i Install OpenDaylight Helium 0.2.1
     -p <processors> Pin ODL to given number of processors
-    -o Run ODL from last successful build
+    -o Start and configure OpenDaylight Helium 0.2.1
     -k Kill OpenDaylight
     -d Delete local ODL and CBench code
 ```
@@ -50,6 +52,7 @@ Run WCBench against OpenDaylight in a loop.
 
 OPTIONS:
     -h Show this help message
+    -v Output verbose debug info
     -l Loop WCBench runs without restarting ODL
     -r Loop WCBench runs, restart ODL between runs
     -t <time> Run WCBench for a given number of minutes
@@ -95,7 +98,7 @@ Host cbench
 As you likely know, `ssh-copy-id` can help you setup your system to connect with the remote box via public key crypto. If you don't have keys setup for public key crypto, google for guides (very out of scope). Finally, note that the `SSH_HOSTNAME` var in `wcbench.sh` must be set to the exact same value given on the `Host` line above.
 * Trivially installing/configuring ODL from the last successful build (via an Integration team Jenkins job).
 * Pinning the OpenDaylight process to a given number of CPU cores. This is useful for ensuring that ODL is properly pegged, working as hard as it can with given resource limits. It can also expose bad ODL behavior that comes about when the process is pegged.
-* Running OpenDaylight and issuing all of the required configurations. Note that the `ODL_STARTUP_DELAY` variable in `wcbench.sh` might need some attention when running on a new system. If ODL takes longer than this value (in seconds) to start, `wcbench.sh` will attempt to issue the required configuration via telnet to the OSGi console before ODL can accept the configuration changes. This will result in fairly obvious error messages dumped to stdout. If you see these, increase the `ODL_STARTUP_DELAY` time. Alternatively, you can manually issue the required configuration after ODL starts by connecting to the OSGi console via telnet and issuing `dropAllPacketsRpc on`. See the `issue_odl_config` function in `wcbench.sh` for more info. Note that there's an open issue to make this config process more robust ([Issue #6](issue_odl_config)). Community contributions solicited!
+* Running OpenDaylight and issuing all of the required configurations.
 * Stopping the OpenDaylight process. This is done cleanly via the `run.sh` script, not `kill` or `pkill`.
 * Cleaning up everything changed by the `wcbench.sh` script, including deleting ODL and CBench sources and binaries.
 
@@ -131,7 +134,49 @@ Examples are useful:
 ```
 
 ```
-# Command for graphs of flows/sec and used RAM stats
+# All stats
+./stats.py -S
+{'fifteen_load': {'max': 0,
+                  'mean': 0.62,
+                  'min': 0,
+                  'relstddev': 0.0,
+                  'stddev': 0.0},
+ 'five_load': {'max': 0,
+               'mean': 0.96,
+               'min': 0,
+               'relstddev': 0.0,
+               'stddev': 0.0},
+ 'flows': {'max': 22384,
+           'mean': 22384.52,
+           'min': 22384,
+           'relstddev': 0.0,
+           'stddev': 0.0},
+ 'iowait': {'max': 0, 'mean': 0.0, 'min': 0, 'relstddev': 0.0, 'stddev': 0.0},
+ 'one_load': {'max': 0,
+              'mean': 0.85,
+              'min': 0,
+              'relstddev': 0.0,
+              'stddev': 0.0},
+ 'runtime': {'max': 120,
+             'mean': 120.0,
+             'min': 120,
+             'relstddev': 0.0,
+             'stddev': 0.0},
+ 'sample_size': 1,
+ 'steal_time': {'max': 0,
+                'mean': 0.0,
+                'min': 0,
+                'relstddev': 0.0,
+                'stddev': 0.0},
+ 'used_ram': {'max': 3657,
+              'mean': 3657.0,
+              'min': 3657,
+              'relstddev': 0.0,
+              'stddev': 0.0}}
+```
+
+```
+# Create graphs of flows/sec and used RAM stats
 ./stats.py -g flows ram
 ```
 
@@ -170,7 +215,88 @@ The data collected by WCBench and stored in the results file for each run includ
 * The iowait value at the start of the test on the system running ODL
 * The iowait value at the end of the test on the system running ODL
 
-### Detailed Walkthrough
+### Detailed Walkthrough: Vagrant
+
+A Vagrantfile is provided for WCBench, which allows you to get an OpenDaylight+WCBench environment up-and-running trivially easily. Vagrant also allows folks on otherwise unsupported operating systems (Ubuntu, Debian, Windows) to use WCBench.
+
+If you don't have Vagrant installed already, head over to [their docs](https://docs.vagrantup.com/v2/installation/) and get that knocked out.
+
+If you haven't already, you'll need to clone the WCBench repo:
+
+```
+[~]$ git clone https://github.com/dfarrell07/wcbench.git
+```
+
+You can now trivially stand up a VM with OpenDaylight+CBench+WCBench properly configured:
+
+```
+[~/wcbench]$ vagrant up
+```
+
+If this is your first time using the `chef/fedora-20` Vagrant box, that'll have to download. Future `vagrant up`s will use a locally cached version. Once the box is provisioned, you can connect to it like this:
+
+```
+[~/wcbench]$ vagrant ssh
+Last login: Mon Nov 17 14:29:33 2014 from 10.0.2.2
+[vagrant@localhost ~]$
+```
+
+WCBench, OpenDaylight and CBench are already installed and configured. You can start OpenDaylight like this:
+
+```
+[vagrant@localhost ~]$ cd wcbench/
+[vagrant@localhost wcbench]$ ./wcbench.sh -o
+Starting OpenDaylight
+Will repeatedly attempt connecting to Karaf shell until it's ready
+Issued `dropAllPacketsRpc on` command via Karaf shell to localhost:8101
+Issued `log:set ERROR` command via Karaf shell to localhost:8101
+```
+
+Run CBench against OpenDaylight like this:
+
+```
+[vagrant@localhost wcbench]$ ./wcbench.sh -r
+Collecting pre-test stats
+Running CBench against ODL on localhost:6633
+Collecting post-test stats
+Collecting time-irrelevant stats
+Average responses/second: 29486.95
+```
+
+Since the WCBench Vagrant box is headless, you'll want to move the `results.txt` to a system with a GUI for graphing.
+
+Vagrant hard-links `/home/vagrant/wcbench/` to the directory on your local system that contains WCBench's Vagrantfile. Dropping `results.txt` in `/home/vagrant/wcbench/` will therefore move it to your local system for analysis. You can also modify the `RESULTS_FILE` variable in `wcbench.sh` to point at `/home/vagrant/wcbench/`, if you'd like to put it there by default.
+
+```
+# Move results.txt to hard-linked dir
+[vagrant@localhost wcbench]$ mv ../results.csv .
+```
+
+```
+# Configure wcbench to create results.txt in hard-linked dir
+RESULTS_FILE=$BASE_DIR/wcbench/"results.csv"
+```
+
+You can now generate graphs and stats, as described in the [Usage Details: stats.py](#user-content-usage-details-statspy) section.
+
+To run long batches of tests, use `loop_wcbench.sh`, as described in [Usage Details: loop_wcbench.sh](#user-content-usage-details-loop_wcbenchsh).
+
+Once you're done, you can kill OpenDaylight like this:
+
+```
+[vagrant@localhost wcbench]$ ./wcbench.sh -k
+Stopping OpenDaylight
+```
+
+Unless you want a fresh WCBench Vagrant box, you can save yourself some time at your next `vagrant up` by suspending (instead of destroying) the box:
+
+```
+# On my local system
+[~/wcbench]$ vagrant suspend
+==> default: Saving VM state and suspending execution...
+```
+
+### Detailed Walkthrough: Manual
 
 This walkthrough describes how to setup a system for WCBench testing, starting with a totally fresh [Fedora 20 Cloud](http://fedoraproject.org/get-fedora#clouds) install. I'm going to leave out the VM creation details for the sake of space. As long as you can SSH into the machine and it has access to the Internet, all of the following should work as-is. Note that this process has also been tested on CentOS 6.5 (so obviously should work on RHEL).
 
@@ -195,7 +321,7 @@ You can now SSH into your fresh VM:
 ```
 [~]$ ssh wcbench
 Warning: Permanently added '10.3.9.110' (RSA) to the list of known hosts.
-[fedora@dfarrell-wcbench ~]$ 
+[fedora@dfarrell-wcbench ~]$
 ```
 
 You'll need a utility like screen or tmux, so you can start long-running tests, log out of the system and leave them running. My Linux configurations are very scripted, so here's how I install tmux and its configuration file. You're welcome to copy this.
@@ -239,18 +365,17 @@ Huzzah! You now have WCBench "installed" on your VM. Now, to install CBench and 
 [fedora@dfarrell-wcbench wcbench]$ ./wcbench.sh -ci
 CBench is not installed
 Installing CBench dependencies
-Cloning CBench repo
-Cloning openflow source code
+Cloning CBench repo into /home/fedora/oflops
+Cloning openflow source code into /home/fedora/openflow
 Building oflops/configure file
 Building CBench
 CBench is installed
 Successfully installed CBench
 Installing OpenDaylight dependencies
-Downloading last successful ODL build
-Unzipping last successful ODL build
-Downloading openflowplugin
-Removing simpleforwarding plugin
-Removing arphandler plugin
+Downloading OpenDaylight Helium 0.2.1
+Unzipping OpenDaylight Helium 0.2.1
+odl-openflowplugin-flow-services added to features installed at boot
+odl-openflowplugin-drop-test added to features installed at boot
 ```
 
 Huzzah! You now have CBench and OpenDaylight installed/configured.
@@ -260,24 +385,9 @@ You're ready to get started using WCBench. You can start ODL like this:
 ```
 [fedora@dfarrell-wcbench wcbench]$ ./wcbench.sh -o
 Starting OpenDaylight
-Giving ODL 90 seconds to get up and running
-80 seconds remaining
-70 seconds remaining
-60 seconds remaining
-50 seconds remaining
-40 seconds remaining
-30 seconds remaining
-20 seconds remaining
-10 seconds remaining
-0 seconds remaining
-Installing telnet, as it's required for issuing ODL config.
-Issuing `dropAllPacketsRpc on` command via telnet to localhost:2400
-Trying ::1...
-Connected to localhost.
-Escape character is '^]'.
-osgi> dropAllPacketsRpc on
-DropAllFlows transitions to on
-osgi> Connection closed by foreign host.
+Will repeatedly attempt connecting to Karaf shell until it's ready
+Issued `dropAllPacketsRpc on` command via Karaf shell to localhost:8101
+Issued `log:set ERROR` command via Karaf shell to localhost:8101
 ```
 
 Here's an example of running a two minute CBench test against OpenDaylight:
@@ -299,48 +409,7 @@ I suggest copying your results.csv file back to your local system for analysis, 
 [~/wcbench]$ rsync wcbench:/home/fedora/results.csv .
 ```
 
-You can now run `stats.py` against it:
-
-```
-[~/wcbench]$ ./stats.py -S
-{'fifteen_load': {'max': 0,
-                  'mean': 0.62,
-                  'min': 0,
-                  'relstddev': 0.0,
-                  'stddev': 0.0},
- 'five_load': {'max': 0,
-               'mean': 0.96,
-               'min': 0,
-               'relstddev': 0.0,
-               'stddev': 0.0},
- 'flows': {'max': 22384,
-           'mean': 22384.52,
-           'min': 22384,
-           'relstddev': 0.0,
-           'stddev': 0.0},
- 'iowait': {'max': 0, 'mean': 0.0, 'min': 0, 'relstddev': 0.0, 'stddev': 0.0},
- 'one_load': {'max': 0,
-              'mean': 0.85,
-              'min': 0,
-              'relstddev': 0.0,
-              'stddev': 0.0},
- 'runtime': {'max': 120,
-             'mean': 120.0,
-             'min': 120,
-             'relstddev': 0.0,
-             'stddev': 0.0},
- 'sample_size': 1,
- 'steal_time': {'max': 0,
-                'mean': 0.0,
-                'min': 0,
-                'relstddev': 0.0,
-                'stddev': 0.0},
- 'used_ram': {'max': 3657,
-              'mean': 3657.0,
-              'min': 3657,
-              'relstddev': 0.0,
-              'stddev': 0.0}}
-```
+You can now generate graphs and stats, as described in the [Usage Details: stats.py](#user-content-usage-details-statspy) section.
 
 If you'd like to collect some serious long-term data, use the `loop_wcbench.sh` script (of course, back on the VM).
 
@@ -357,8 +426,8 @@ Once you're done, you can stop ODL and clean up the CBench and ODL source/binari
 [fedora@dfarrell-wcbench wcbench]$ ./wcbench.sh -k
 Stopping OpenDaylight
 [fedora@dfarrell-wcbench wcbench]$ ./wcbench.sh -d
-Removing /home/fedora/opendaylight
-Removing /home/fedora/distributions-base-0.2.0-SNAPSHOT-osgipackage.zip
+Removing /home/fedora/distribution-karaf-0.2.1-Helium-SR1
+Removing /home/fedora/distribution-karaf-0.2.1-Helium-SR1.zip
 Removing /home/fedora/openflow
 Removing /home/fedora/oflops
 Removing /usr/local/bin/cbench
@@ -376,6 +445,4 @@ Note that the code is Open Source under a BSD 2-clause license.
 
 ### Contact
 
-As mentioned in the [Contributing section](https://github.com/dfarrell07/wcbench/blob/master/README.md#contributing), for bugs/features, please raise an [Issue](https://github.com/dfarrell07/wcbench/issues) on the WCBench GitHub page.
-
-Daniel Farrell is the main developer of WCBench. You can contact him directly at dfarrell@redhat.com or dfarrell07@gmail.com. He also hangs out on IRC at Freenode/#opendaylight most of his waking hours.
+For feature requests, bug reports and questions please raise an [Issue](https://github.com/dfarrell07/wcbench/issues). Daniel Farrell is the primary developer of this tool. He can be contacted directly at dfarrell@redhat.com or on IRC (dfarrell07 on Freenode). **Prefer public, documented communication like Issues over direct 1-1 communication. This is an Open Source project. Keep the community in the loop.**
