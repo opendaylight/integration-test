@@ -22,7 +22,7 @@
                 <type>2048</type>
             </ethernet-type>
         </ethernet-match>
-        <ipv4-source>10.0.0.1</ipv4-source>
+        <ipv4-source>10.0.0.1/32</ipv4-source>
     </match>
     <cookie>2</cookie>
     <flow-name>FooXf2</flow-name>
