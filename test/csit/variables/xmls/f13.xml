@@ -28,8 +28,8 @@
             </ethernet-source>
         </ethernet-match>
         <arp-op>1</arp-op>
-        <arp-source-transport-address>192.168.4.1</arp-source-transport-address>
-        <arp-target-transport-address>10.21.22.23</arp-target-transport-address>
+        <arp-source-transport-address>192.168.4.1/32</arp-source-transport-address>
+        <arp-target-transport-address>10.21.22.23/32</arp-target-transport-address>
     </match>
     <cookie>13</cookie>
     <flow-name>FooXf13</flow-name>
