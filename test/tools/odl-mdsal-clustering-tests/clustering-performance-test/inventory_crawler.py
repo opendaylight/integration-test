@@ -155,15 +155,14 @@ class InventoryCrawler(object):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Restconf test program')
     parser.add_argument('--host', default='127.0.0.1', help='host where '
-                                                               'odl controller is running (default is 127.0.0.1)')
+                                                               'the controller is running; default 127.0.0.1')
     parser.add_argument('--port', default='8181', help='port on '
-                                                          'which odl\'s RESTCONF is listening (default is 8181)')
+                                                          'which odl\'s RESTCONF is listening; default 8181')
     parser.add_argument('--plevel', type=int, default=0,
                         help='Print Level: 0 - Summary (stats only); 1 - Node names; 2 - Node details;'
                              '3 - Flow details')
     parser.add_argument('--datastore', choices=['operational', 'config'],
-                        default='operational', help='Which data store to crawl; '
-                                                    'default operational')
+                        default='operational', help='Which data store to crawl; default operational')
     parser.add_argument('--no-auth', dest='auth', action='store_false', default=False,
                         help="Do not use authenticated access to REST (default)")
     parser.add_argument('--auth', dest='auth', action='store_true',
