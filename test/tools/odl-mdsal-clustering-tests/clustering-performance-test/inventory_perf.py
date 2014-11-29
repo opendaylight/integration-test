@@ -54,6 +54,15 @@ print_lock = threading.Lock()
 
 
 def get_inventory(tnum, url, hdrs, rnum, cond):
+    """
+
+    :param tnum:
+    :param url:
+    :param hdrs:
+    :param rnum:
+    :param cond:
+    :return:
+    """
     total_len = float(0)
     results = {}
 
