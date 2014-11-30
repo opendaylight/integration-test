@@ -1,6 +1,6 @@
 # remote_host.py
-
-# 
+#
+#
 # The RemoteHost class provides methods to do operations on a remote host
 #
 
@@ -18,8 +18,10 @@ class RemoteHost:
 		lib = SSHLibrary()
 		lib.open_connection(self.host)
 		lib.login(username=self.user,password=self.password)
-		lib.execute_command(command)
+		rc = lib.execute_command(command, return_rc = True)
 		lib.close_connection()
+		if rc[1] != 0:
+		   raise Exception('remote command failed [{0}] with exit code {1}'.format(command, rc))
 
 
 	def mkdir(self, dir_name):
