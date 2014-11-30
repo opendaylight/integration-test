@@ -13,6 +13,7 @@ Start Suite
     Open Connection    ${MININET}    prompt=>    timeout=30s
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
     Write    sudo ovs-vsctl set-manager ptcp:6644
+    Read Until    >
     Write    sudo mn -c
     Read Until    >
     Write    ${start}
