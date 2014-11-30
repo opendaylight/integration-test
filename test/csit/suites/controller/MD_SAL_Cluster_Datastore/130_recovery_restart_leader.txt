@@ -1,0 +1,104 @@
+*** Settings ***
+Documentation     This test kills the leader and verifies that on restart the old leader is able to rejoin the cluster
+Library           Collections
+Library           ../../../libraries/RequestsLibrary.py
+Library           ../../../libraries/Common.py
+Library           ../../../libraries/CrudLibrary.py
+Library           ../../../libraries/SettingsLibrary.py
+Library           ../../../libraries/UtilLibrary.py
+Library           ../../../libraries/ClusterStateLibrary.py
+Variables         ../../../variables/Variables.py
+
+*** Variables ***
+${REST_CONTEXT}    /restconf/config/
+${KARAF_HOME}      /root/odl/dist
+${USER_NAME}       root
+${PASSWORD}        Ecp123
+${CAR_SHARD}	   shard-car-config
+
+*** Test Cases *** 
+Stop All Controllers
+    [Documentation]    Stop all the controllers in the cluster
+    Stopcontroller    ${MEMBER1}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
+    Stopcontroller    ${MEMBER2}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
+    Stopcontroller    ${MEMBER3}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
+    Sleep    30
+    KillController    ${MEMBER1}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
+    KillController    ${MEMBER2}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
+    KillController    ${MEMBER3}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
+
+
+Clean All Journals
+    [Documentation]    Clean the journals of all the controllers in the cluster
+    CleanJournal    ${MEMBER1}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
+    CleanJournal    ${MEMBER2}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
+    CleanJournal    ${MEMBER3}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
+    Sleep    5
+
+Start All Controllers
+    [Documentation]    Start all the controllers in the cluster
+    Startcontroller    ${MEMBER1}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
+    Startcontroller    ${MEMBER2}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
+    Startcontroller    ${MEMBER3}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
+    Sleep    120
+
+Delete all cars
+    [Documentation]    Delete all the cars from the system
+	${resp}		DeleteAllCars	${MEMBER1}	${PORT}		0
+	${resp}		GetCars	${MEMBER1}	${PORT}		0
+	Should Be Equal As Strings    ${resp.status_code}    404
+	
+
+Delete all people
+    [Documentation]    Delete all the people from the system
+	${resp}		DeleteAllPersons	${MEMBER1}	${PORT}		0
+	${resp}		GetPersons	${MEMBER1}	${PORT}    0	
+	Should Be Equal As Strings    ${resp.status_code}    404
+
+Add 200 cars
+    [Documentation]    Add 200 cars
+	${resp}		AddCar	${MEMBER1}	${PORT}  ${200}
+	Should Be Equal As Strings    ${resp.status_code}    204
+
+Add 200 people
+    [Documentation]    Add 200 people
+	${resp}		AddPerson	${MEMBER1}	${PORT}	${0}    
+	${resp}		AddPerson	${MEMBER1}	${PORT}  ${200}
+	Should Be Equal As Strings    ${resp.status_code}    204
+
+Add Car Person mapping
+    [Documentation]    Add Car Persons
+	${resp}		AddCarPerson	${MEMBER1}	${PORT}	${0}	
+	${resp}		BuyCar	${MEMBER1}	${PORT}	${200}	
+
+Stop the Leader
+    ${CAR_LEADER}  GetLeader  ${CAR_SHARD}  ${3}  ${3}  ${1}  8181  ${MEMBER1}  ${MEMBER2}  ${MEMBER3}
+    Set Suite Variable    ${CAR_LEADER}
+    Stopcontroller    ${CAR_LEADER}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
+    Sleep    30
+    KillController    ${CAR_LEADER}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
+
+Get all the cars from Follower 1
+    ${followers}  GetFollowers  ${CAR_SHARD}  ${3}  ${3}  ${1}  8181  ${MEMBER1}  ${MEMBER2}  ${MEMBER3}
+	${resp}		Getcars	${followers[0]}	${PORT}	${0}
+	Should Be Equal As Strings    ${resp.status_code}    200
+	Should Contain     ${resp.content}   manufacturer1
+
+Restart the Leader
+    Startcontroller   ${CAR_LEADER}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
+    Sleep    120
+
+Get all the cars from Leader
+	${resp}		Getcars	${CAR_LEADER}	${PORT}	${0}
+	Should Be Equal As Strings    ${resp.status_code}    200
+	Should Contain     ${resp.content}   manufacturer1
+
+Cleanup All Controllers 
+    [Documentation]    Stop all the controllers in the cluster
+    Stopcontroller    ${MEMBER1}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
+    Stopcontroller    ${MEMBER2}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
+    Stopcontroller    ${MEMBER3}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
+    Sleep    30
+
+
+
