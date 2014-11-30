@@ -16,7 +16,7 @@ Suite Teardown    Teardown Phase
 ${XmlsDir}=       ${CURDIR}/../../../../csit/variables/xmls
 ${switch_idx}=    1
 ${switch_name}=   s${switch_idx}
-@{flowlist0}=     f1.xml  f2.xml  f3.xml  f4.xml  f5.xml  f6.xml  f7.xml  f8.xml  f9.xml  f10.xml  f11.xml  f12.xml  f13.xml  f14.xml  f15.xml  f16.xml  f17.xml  f18.xml  f19.xml  f20.xml  f21.xml  f22.xml  f23.xml  f24.xml  f25.xml  f29.xml  f30.xml  f31.xml  f32.xml  f33.xml  f34.xml  f35.xml  f36.xml  f38.xml  f41.xml  f42.xml  f43.xml  f45.xml  f47.xml  f101.xml  f102.xml  f103.xml  f104.xml  f105.xml  f106.xml  f107.xml  f108.xml  f109.xml  f110.xml  f111.xml  f112.xml  f113.xml  f114.xml  f201.xml  f202.xml  f203.xml  f204.xml  f205.xml  f206.xml  f207.xml  f208.xml  f209.xml  f210.xml  f211.xml  f214.xml  f218.xml  f219.xml  f220.xml
+@{flowlist0}=     f1.xml  f2.xml  f3.xml  f4.xml  f5.xml  f6.xml  f7.xml  f8.xml  f9.xml  f10.xml  f11.xml  f12.xml  f13.xml  f14.xml  f15.xml  f16.xml  f17.xml  f18.xml  f19.xml  f20.xml  f21.xml  f22.xml  f23.xml  f24.xml  f25.xml  f29.xml  f30.xml  f31.xml  f32.xml  f33.xml  f34.xml  f35.xml  f36.xml  f38.xml  f41.xml  f42.xml  f43.xml  f45.xml  f47.xml  f101.xml  f102.xml  f103.xml  f104.xml  f105.xml  f106.xml  f107.xml  f108.xml  f109.xml  f110.xml  f111.xml  f112.xml  f113.xml  f114.xml  f156.xml  f157.xml  f158.xml  f159.xml  f160.xml  f201.xml  f202.xml  f203.xml  f204.xml  f205.xml  f206.xml  f207.xml  f208.xml  f209.xml  f210.xml  f211.xml  f214.xml  f218.xml  f219.xml  f220.xml
 
 
 *** Test Cases ***
@@ -294,6 +294,31 @@ Test Is Flow 113 Added
 Test Is Flow 114 Added
     [Documentation]    Checks if flow is configured and operational
       Init Flow Variables       f114.xml
+      Check Config Flow         ${True}   ${data}
+      Check Operational Table   ${True}   ${data}
+Test Is Flow 156 Added
+    [Documentation]    Checks if flow is configured and operational
+      Init Flow Variables       f156.xml
+      Check Config Flow         ${True}   ${data}
+      Check Operational Table   ${True}   ${data}
+Test Is Flow 157 Added
+    [Documentation]    Checks if flow is configured and operational
+      Init Flow Variables       f157.xml
+      Check Config Flow         ${True}   ${data}
+      Check Operational Table   ${True}   ${data}
+Test Is Flow 158 Added
+    [Documentation]    Checks if flow is configured and operational
+      Init Flow Variables       f158.xml
+      Check Config Flow         ${True}   ${data}
+      Check Operational Table   ${True}   ${data}
+Test Is Flow 159 Added
+    [Documentation]    Checks if flow is configured and operational
+      Init Flow Variables       f159.xml
+      Check Config Flow         ${True}   ${data}
+      Check Operational Table   ${True}   ${data}
+Test Is Flow 160 Added
+    [Documentation]    Checks if flow is configured and operational
+      Init Flow Variables       f160.xml
       Check Config Flow         ${True}   ${data}
       Check Operational Table   ${True}   ${data}
 Test Is Flow 201 Added
@@ -647,6 +672,31 @@ Test Is Flow 114 Updated
       Init Flow Variables       f114.xml
       Check Config Flow         ${True}   ${upddata}
       Check Operational Table   ${True}   ${upddata}
+Test Is Flow 156 Updated
+    [Documentation]    Checks if flow is configured and operational
+      Init Flow Variables       f156.xml
+      Check Config Flow         ${True}   ${upddata}
+      Check Operational Table   ${True}   ${upddata}
+Test Is Flow 157 Updated
+    [Documentation]    Checks if flow is configured and operational
+      Init Flow Variables       f157.xml
+      Check Config Flow         ${True}   ${upddata}
+      Check Operational Table   ${True}   ${upddata}
+Test Is Flow 158 Updated
+    [Documentation]    Checks if flow is configured and operational
+      Init Flow Variables       f158.xml
+      Check Config Flow         ${True}   ${upddata}
+      Check Operational Table   ${True}   ${upddata}
+Test Is Flow 159 Updated
+    [Documentation]    Checks if flow is configured and operational
+      Init Flow Variables       f159.xml
+      Check Config Flow         ${True}   ${upddata}
+      Check Operational Table   ${True}   ${upddata}
+Test Is Flow 160 Updated
+    [Documentation]    Checks if flow is configured and operational
+      Init Flow Variables       f160.xml
+      Check Config Flow         ${True}   ${upddata}
+      Check Operational Table   ${True}   ${upddata}
 Test Is Flow 201 Updated
     [Documentation]    Checks if flow is configured and operational
       Init Flow Variables       f201.xml
@@ -996,6 +1046,31 @@ Test Is Flow 113 Deleted
 Test Is Flow 114 Deleted
     [Documentation]    Checks if flow is not configured and operational 
       Init Flow Variables       f114.xml
+      Check Config Flow         ${False}   ${upddata}
+      Check Operational Table   ${False}   ${upddata}
+Test Is Flow 156 Deleted
+    [Documentation]    Checks if flow is not configured and operational 
+      Init Flow Variables       f156.xml
+      Check Config Flow         ${False}   ${upddata}
+      Check Operational Table   ${False}   ${upddata}
+Test Is Flow 157 Deleted
+    [Documentation]    Checks if flow is not configured and operational 
+      Init Flow Variables       f157.xml
+      Check Config Flow         ${False}   ${upddata}
+      Check Operational Table   ${False}   ${upddata}
+Test Is Flow 158 Deleted
+    [Documentation]    Checks if flow is not configured and operational 
+      Init Flow Variables       f158.xml
+      Check Config Flow         ${False}   ${upddata}
+      Check Operational Table   ${False}   ${upddata}
+Test Is Flow 159 Deleted
+    [Documentation]    Checks if flow is not configured and operational 
+      Init Flow Variables       f159.xml
+      Check Config Flow         ${False}   ${upddata}
+      Check Operational Table   ${False}   ${upddata}
+Test Is Flow 160 Deleted
+    [Documentation]    Checks if flow is not configured and operational 
+      Init Flow Variables       f160.xml
       Check Config Flow         ${False}   ${upddata}
       Check Operational Table   ${False}   ${upddata}
 Test Is Flow 201 Deleted

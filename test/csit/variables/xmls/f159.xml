@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flow 
+    xmlns="urn:opendaylight:flow:inventory">
+    <flow-name>FooXf159</flow-name>
+    <instructions>
+        <instruction>
+            <order>0</order>
+            <apply-actions>
+                <action>
+                    <pop-mpls-action>
+                        <ethernet-type>2048</ethernet-type>
+                    </pop-mpls-action>
+                    <order>1</order>
+                </action>
+                <action>
+                    <output-action>
+                        <output-node-connector>2</output-node-connector>
+                        <max-length>60</max-length>
+                    </output-action>
+                    <order>2</order>
+                </action>
+            </apply-actions>
+        </instruction>
+    </instructions>
+    <id>282</id>
+    <strict>false</strict>
+    <match>
+        <ethernet-match>
+            <ethernet-type>
+                <type>34887</type>
+            </ethernet-type>
+        </ethernet-match>
+        <in-port>1</in-port>
+        <protocol-match-fields>
+            <mpls-label>37</mpls-label>
+        </protocol-match-fields>
+    </match>
+    <cookie>889</cookie>
+    <cookie_mask>255</cookie_mask>
+    <installHw>false</installHw>
+    <priority>159</priority>
+    <table_id>2</table_id>
+</flow>
