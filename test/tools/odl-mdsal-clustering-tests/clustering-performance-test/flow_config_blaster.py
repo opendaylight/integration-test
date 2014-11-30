@@ -262,6 +262,7 @@ class FlowConfigBlaster(object):
                 measured_rate = (self.nthreads * self.nflows) / t.secs
                 print '    Measured rate:      %.2f (%.2f%% of Total success rate)' % \
                       (measured_rate, measured_rate / self.total_rate.value * 100)
+                print '    Measured time:      %.2fs' % t.secs
                 self.threads_done = 0
 
             self.ok_rate.value = 0
