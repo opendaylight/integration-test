@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite for MD-SAL NSF
+Documentation     Test suite for Clustering Datastore
 Library     SSHLibrary
 
 
