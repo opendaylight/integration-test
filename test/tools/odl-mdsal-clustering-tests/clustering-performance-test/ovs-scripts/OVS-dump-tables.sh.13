@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# author__ = "Michal Rehak"
+# copyright__ = "Copyright(c) 2014, Cisco Systems, Inc."
+# license__ = "New-style BSD"
+# email__ = "jmedved@cisco.com"
+
+if [ -z "$1" ]; then
+    echo "usage:: $0 <switch name, e.g.: s1>"
+    exit 1
+fi
+
+key="${0##*.}"
+#echo "${key}"
+
+sudo ovs-ofctl -O OpenFlow${key} dump-tables $1
