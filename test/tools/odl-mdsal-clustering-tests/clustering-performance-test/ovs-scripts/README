@@ -1,0 +1,11 @@
+Put these files into a directory on your mininet VM.
+
+To find the number of all flows reported on all OVS switches running in
+mininet, type:
+
+> ./get-total-found.sh
+
+To find the number of all flows reported in table statistics in all OVS
+switches running in mininet, type:
+
+> ./get-total-reported.sh
