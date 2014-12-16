@@ -6,6 +6,7 @@ Variables         ../variables/Variables.py
 ${WORKSPACE}      /opt/jenkins-integration/workspace/shared-controller
 ${BUNDLEFOLDER}    distribution-karaf-0.3.0-SNAPSHOT
 ${AUTHN_CFG_FILE}    ${WORKSPACE}/${BUNDLEFOLDER}/etc/org.opendaylight.aaa.authn.cfg
+${CONTROLLER_USER}  ${MININET_USER}
 
 *** Keywords ***
 AAA Login
@@ -32,17 +33,19 @@ Disable Authentication On Controller
     [Arguments]    ${controller_ip}
     [Documentation]    Will disable token based authentication. Currently, that is done with a config file change
     SSHLibrary.Open Connection    ${controller_ip}
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
+    Login With Public Key    ${CONTROLLER_USER}    ${USER_HOME}/.ssh/id_rsa    any
     ${cmd}=    Set Variable    sed -i 's/^authEnabled=.*$/authEnabled=false/g' ${AUTHN_CFG_FILE}
     SSHLibrary.Execute Command    ${cmd}
+    SSHLibrary.Close Connection
 
 Enable Authentication On Controller
     [Arguments]    ${controller_ip}
     [Documentation]    Will enable token based authentication. Currently, that is done with a config file change
     SSHLibrary.Open Connection    ${controller_ip}
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
+    Login With Public Key    ${CONTROLLER_USER}    ${USER_HOME}/.ssh/id_rsa    any
     ${cmd}=    Set Variable    sed -i 's/^authEnabled=.*$/authEnabled=true/g' ${AUTHN_CFG_FILE}
     SSHLibrary.Execute Command    ${cmd}
+    SSHLibrary.Close Connection
 
 Get Auth Token
     [Arguments]    ${user}=${USER}    ${password}=${PWD}    ${scope}=${SCOPE}    ${client_id}=${EMPTY}    ${client_secret}=${EMPTY}
