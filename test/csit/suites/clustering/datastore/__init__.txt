@@ -1,6 +1,5 @@
 *** Settings ***
 Documentation     Test suite for Clustering Datastore
-Library     SSHLibrary
+Library           SSHLibrary
 
-
-** Keywords ***
+*** Keywords ***

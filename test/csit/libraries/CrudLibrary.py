@@ -27,6 +27,7 @@ def addCar(hostname,port,numberOfCars):
         print("the response of the POST to add car=")
         print(resp)
 
+    time.sleep(5) # Let the add finish
     return resp
 
     #TBD: Detailed validation
@@ -202,7 +203,7 @@ def deleteAllPersons(hostname,port,ignore):
 #
 #
 def deleteAllCarsPersons(hostname,port,ignore):
-    UtilLibrary.delete(SettingsLibrary.getCarPersonsUrl(hostname,port),"admin","admin")
+    UtilLibrary.delete(SettingsLibrary.getCarPersonUrl(hostname,port),"admin","admin")
     resp = getPersons(hostname,port,ignore)
     print("Persons in store after deletion:"+ str(resp))
 
