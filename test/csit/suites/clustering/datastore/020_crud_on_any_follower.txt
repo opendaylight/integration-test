@@ -15,67 +15,100 @@ ${REST_CONTEXT}    /restconf/config/
 ${SHARD_CAR_NAME}      shard-car-config
 ${SHARD_PEOPLE_NAME}      shard-people-config
 ${SHARD_CAR_PERSON_NAME}      shard-car-people-config
-
+${NUM_ENTRIES}  ${40}
 
 *** Test Cases ***
-Add cars and get cars from Follower1
-    [Documentation]    Add 100 cars and get added cars from Follower1
-    ${FOLLOWERS}   GetFollowers   ${SHARD_CAR_PERSON_NAME}   ${3}    ${3}    ${1}    ${PORT}     ${MEMBER1}   ${MEMBER2}    ${MEMBER3}
-    Log 		${FOLLOWERS}
-    SET SUITE VARIABLE  ${FOLLOWERS}
+Get Car Followers
+    ${CAR_FOLLOWERS}   GetFollowers   ${SHARD_CAR_NAME}   ${3}    ${3}    ${1}    ${PORT}     ${MEMBER1}   ${MEMBER2}    ${MEMBER3}
+    Log    ${CAR_FOLLOWERS}
+    SET SUITE VARIABLE  ${CAR_FOLLOWERS}
 
-	${resp}		AddCar	${FOLLOWERS[0]}	${PORT}	${100}
-	Sleep   1
-	${resp}		Getcars	${FOLLOWERS[0]}	${PORT}	${0}
-	Should Be Equal As Strings    ${resp.status_code}    200
-	Should Contain     ${resp.content}   manufacturer1
+Get People Followers
+    ${PEOPLE_FOLLOWERS}   GetFollowers   ${SHARD_PEOPLE_NAME}   ${3}    ${3}    ${1}    ${PORT}     ${MEMBER1}   ${MEMBER2}    ${MEMBER3}
+    Log    ${PEOPLE_FOLLOWERS}
+    SET SUITE VARIABLE  ${PEOPLE_FOLLOWERS}
+
+Get Car-Person Followers
+    ${CAR_PERSON_FOLLOWERS}   GetFollowers   ${SHARD_CAR_NAME}   ${3}    ${3}    ${1}    ${PORT}     ${MEMBER1}   ${MEMBER2}    ${MEMBER3}
+    Log    ${CAR_PERSON_FOLLOWERS}
+    SET SUITE VARIABLE  ${CAR_PERSON_FOLLOWERS}
+
+Delete cars from Follower1
+    DeleteAllCars    @{CAR_FOLLOWERS}[0]    ${PORT}    ${0}
+    ${resp}    Getcars    @{CAR_FOLLOWERS}[0]    ${PORT}    ${0}
+    Should Be Equal As Strings    ${resp.status_code}    404
+
+Delete people from Follower1
+    DeleteAllPersons    @{PEOPLE_FOLLOWERS}[0]    ${PORT}    ${0}
+    ${resp}         GetPersons      @{PEOPLE_FOLLOWERS}[0]   ${PORT}    ${0}
+    Should Be Equal As Strings    ${resp.status_code}    404
+
+Delete car-persons from Follower1
+    DeleteAllCarsPersons    @{CAR_PERSON_FOLLOWERS}[0]    ${PORT}    ${0}
+    ${resp}         GetCarPersonMappings      @{CAR_PERSON_FOLLOWERS}[0]   ${PORT}    ${0}
+    Should Be Equal As Strings    ${resp.status_code}    404
+
+Add cars and get cars from Follower1
+    [Documentation]    Add cars and get added cars from Follower1
+    ${resp}		AddCar	@{CAR_FOLLOWERS}[0]	${PORT}	${NUM_ENTRIES}
+    ${resp}		Getcars	@{CAR_FOLLOWERS}[0]	${PORT}	${0}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    :FOR    ${i}    IN RANGE    1    ${NUM_ENTRIES}
+    \    Should Contain     ${resp.content}   manufacturer${i}
+
+Get added cars using Follower2
+   [Documentation]   Get added cars using Follower2
+   ${resp}             Getcars  @{CAR_FOLLOWERS}[1]  ${PORT}  ${0}
+   Should Be Equal As Strings    ${resp.status_code}    200
+   :FOR    ${i}    IN RANGE    1    ${NUM_ENTRIES}
+   \    Should Contain     ${resp.content}   manufacturer${i}
 
 Add persons and get persons from Follower1
-    [Documentation]    Add 100 persons and get persons from Follower1
+    [Documentation]    Add persons and get persons from Follower1
     [Documentation]    Note: There should be one person added first to enable rpc
-	${resp}		AddPerson	${FOLLOWERS[0]}	${PORT}	${0}
-	${resp}		AddPerson	${FOLLOWERS[0]}	${PORT}	${100}
-	Sleep   1
-	${resp}		GetPersons	${FOLLOWERS[0]}	${PORT}	${0}
-	Should Be Equal As Strings    ${resp.status_code}    200
-	Should Contain     ${resp.content}   user5
+    ${resp}		AddPerson	@{PEOPLE_FOLLOWERS}[0]	${PORT}	${0}
+    ${resp}		AddPerson	@{PEOPLE_FOLLOWERS}[0]	${PORT}	${NUM_ENTRIES}
+    Sleep               5
+    ${resp}		GetPersons	@{PEOPLE_FOLLOWERS}[0]	${PORT}	${0}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    :FOR    ${i}    IN RANGE    1    ${NUM_ENTRIES}
+    \    Should Contain     ${resp.content}   user${i}
 
 Add car-person mapping and get car-person mapping from Follower1
-    [Documentation]	Add car-person and get car-person from Follower1
-    [Documentation]  Note: This is done to enable working of rpc
+    [Documentation]    Add car-person and get car-person from Follower1
+    [Documentation]    Note: This is done to enable working of rpc
 
-	${resp}		AddCarPerson	${FOLLOWERS[0]}	${PORT}	${0}
-	${resp}		GetCarPersonMappings	${FOLLOWERS[0]}	${PORT}	${0}
-	Should Be Equal As Strings    ${resp.status_code}    200
-	Should Contain     ${resp.content}   user0
+    ${resp}		AddCarPerson	@{CAR_PERSON_FOLLOWERS}[0]	${PORT}	${0}
+    Sleep    1
+    ${resp}		GetCarPersonMappings	@{CAR_PERSON_FOLLOWERS}[0]	${PORT}	${0}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain     ${resp.content}   user0
 
-Purchase 100 cars using Follower1
-    [Documentation]  Purchase 100 cars using Follower1
-
-	${resp}		BuyCar	${FOLLOWERS[0]}	${PORT}	${100}
-	Sleep   1
-	${resp}		GetCarPersonMappings	${FOLLOWERS[0]}	${PORT}	${0}
-	Should Be Equal As Strings    ${resp.status_code}    200
+Purchase cars using Follower1
+    [Documentation]  Purchase cars using Follower1
+    ${resp}		BuyCar	@{CAR_PERSON_FOLLOWERS}[0]	${PORT}	${NUM_ENTRIES}
+    Sleep   5
 
 Get car-person mappings using Follower1
-   [Documentation] 	Get car-person mappings using follower1 to see 100 entry
-	${resp}		GetCarPersonMappings	${FOLLOWERS[0]}	${PORT}	${0}
-	Should Be Equal As Strings    ${resp.status_code}    200
-	Should Contain     ${resp.content}   user100
-	Should Contain     ${resp.content}   user5
+    [Documentation] 	Get car-person mappings using follower1 to see 100 entry
+    ${resp}		GetCarPersonMappings	@{CAR_PERSON_FOLLOWERS}[0]	${PORT}	${0}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    :FOR    ${i}    IN RANGE    1    ${NUM_ENTRIES}
+    \    Should Contain     ${resp.content}   user${i}
 
 Get car-person mappings using Leader
-   [Documentation] 	Get car-person mappings using Leader to see 100 entry
+    [Documentation] 	Get car-person mappings using Leader to see 100 entry
     ${CURRENT_CAR_LEADER}   GetLeader   ${SHARD_CAR_PERSON_NAME}   ${3}    ${3}    ${1}    ${PORT}     ${MEMBER1}   ${MEMBER2}    ${MEMBER3}
     Log     ${CURRENT_CAR_LEADER}
     Sleep   1
-	${resp}		GetCarPersonMappings	${CURRENT_CAR_LEADER}	${PORT}	${0}
-	Should Be Equal As Strings    ${resp.status_code}    200
-	Should Contain     ${resp.content}   user100
+    ${resp}		GetCarPersonMappings	${CURRENT_CAR_LEADER}	${PORT}	${0}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    :FOR    ${i}    IN RANGE    1    ${NUM_ENTRIES}
+    \    Should Contain     ${resp.content}   user${i}
 
 Get car-person mappings using Follower2
-   [Documentation] 	Get car-person mappings using Follower2 to see 100 entry
-	${resp}		GetCarPersonMappings	${FOLLOWERS[1]}	${PORT}	${0}
-	Should Be Equal As Strings    ${resp.status_code}    200
-	Should Contain     ${resp.content}   user0
-	Should Contain     ${resp.content}   user100
+    [Documentation] 	Get car-person mappings using Follower2 to see 100 entry
+    ${resp}		GetCarPersonMappings	@{CAR_PERSON_FOLLOWERS}[1]	${PORT}	${0}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    :FOR    ${i}    IN RANGE    1    ${NUM_ENTRIES}
+    \    Should Contain     ${resp.content}   user${i}

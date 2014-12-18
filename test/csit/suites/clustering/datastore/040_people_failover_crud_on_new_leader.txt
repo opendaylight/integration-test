@@ -1,0 +1,83 @@
+*** Settings ***
+Documentation     This test brings down the current leader of the "car" shard and then executes CRUD operations on the new leader
+Library           ../../../libraries/CrudLibrary.py
+Library           ../../../libraries/UtilLibrary.py
+Library           ../../../libraries/ClusterStateLibrary.py
+
+*** Variables ***
+${PEOPLE_SHARD}   shard-people-config
+${NUM_ENTRIES}  ${50}
+
+*** Test Cases ***
+Switch People Leader
+  [Documentation]    stop leader and elect new leader
+  ${OLD_PEOPLE_LEADER}    GetLeader  ${PEOPLE_SHARD}  ${3}  ${3}  ${2}  ${PORT}  ${MEMBER1}  ${MEMBER2}  ${MEMBER3}
+  Stopcontroller  ${OLD_PEOPLE_LEADER}  ${USERNAME}  ${PASSWORD}  ${KARAFHOME}
+  Sleep    3
+  ${NEW_PEOPLE_LEADER}    GetLeader  ${PEOPLE_SHARD}  ${3}  ${3}  ${2}  ${PORT}  ${MEMBER1}  ${MEMBER2}  ${MEMBER3}
+  Log  ${NEW_PEOPLE_LEADER}
+  Should Not Be Equal As Strings   ${NEW_PEOPLE_LEADER}   None
+  Should Not Be Equal    ${OLD_PEOPLE_LEADER}    ${NEW_PEOPLE_LEADER}
+  Set Suite Variable    ${NEW_PEOPLE_LEADER}
+  Set Suite Variable    ${OLD_PEOPLE_LEADER}
+
+Delete people from new leader
+    [Documentation]    delete people
+        DeleteAllPersons  ${NEW_PEOPLE_LEADER}   ${PORT}    ${0}
+        ${resp}         GetPersons      ${NEW_PEOPLE_LEADER}   ${PORT}   ${0}
+  Should Be Equal As Strings    ${resp.status_code}    404
+
+Add persons and get from new leader
+    [Documentation]    Add persons and get persons from new leader
+    [Documentation]    Note: There should be one person added first to enable rpc
+    ${resp}             AddPerson       ${NEW_PEOPLE_LEADER}  ${PORT}   ${0}
+    ${resp}             AddPerson       ${NEW_PEOPLE_LEADER}  ${PORT}   ${NUM_ENTRIES}
+    Sleep               10
+    ${resp}             GetPersons      ${NEW_PEOPLE_LEADER}  ${PORT}   ${0}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    :FOR    ${i}    IN RANGE    1    ${NUM_ENTRIES}
+    \    Should Contain     ${resp.content}   user${i}
+
+Get People Followers
+    ${PEOPLE_FOLLOWERS}   GetFollowers   ${PEOPLE_SHARD}   ${3}    ${3}    ${1}    ${PORT}     ${MEMBER1}   ${MEMBER2}    ${MEMBER3}
+    Log    ${PEOPLE_FOLLOWERS}
+    SET SUITE VARIABLE  ${PEOPLE_FOLLOWERS}
+
+Get added persons from follower
+    ${resp}             GetPersons      @{PEOPLE_FOLLOWERS}[0]   ${PORT}   ${0}
+    Should Be Equal As Strings    ${resp.status_code}    200  
+    :FOR    ${i}    IN RANGE    1    ${NUM_ENTRIES}
+    \    Should Contain     ${resp.content}   user${i}
+
+Delete people from new Follower
+    [Documentation]    delete people
+    DeleteAllPersons  @{PEOPLE_FOLLOWERS}[0]   ${PORT}    ${0}
+    ${resp}         GetPersons      @{PEOPLE_FOLLOWERS}[0]   ${PORT}   ${0}
+    Should Be Equal As Strings    ${resp.status_code}    404
+
+Add persons from new Follower
+    [Documentation]    Add persons and get persons from follower
+    [Documentation]    Note: There should be one person added first to enable rpc
+    ${resp}             AddPerson       @{PEOPLE_FOLLOWERS}[0]  ${PORT}   ${0}
+    ${resp}             AddPerson       @{PEOPLE_FOLLOWERS}[0]  ${PORT}   ${NUM_ENTRIES}
+    Sleep               10
+    ${resp}             GetPersons      @{PEOPLE_FOLLOWERS}[0]  ${PORT}   ${0}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    :FOR    ${i}    IN RANGE    1    ${NUM_ENTRIES}
+    \    Should Contain     ${resp.content}   user${i}
+
+Get added persons from new leader
+    ${resp}             GetPersons      ${NEW_PEOPLE_LEADER}   ${PORT}   ${0}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    :FOR    ${i}    IN RANGE    1    ${NUM_ENTRIES}
+    \    Should Contain     ${resp.content}   user${i}
+
+Restart old People leader
+    Startcontroller    ${OLD_PEOPLE_LEADER}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${PORT}
+    Sleep    3
+
+Get added persons from old leader
+    ${resp}             GetPersons      ${OLD_PEOPLE_LEADER}    ${PORT}    ${0}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    :FOR    ${i}    IN RANGE    1    ${NUM_ENTRIES}
+    \    Should Contain     ${resp.content}   user${i}

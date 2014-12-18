@@ -1,0 +1,55 @@
+*** Settings ***
+Documentation     This test restarts all controllers to verify recovery of car data from persistene
+Library           ../../../libraries/CrudLibrary.py
+Library           ../../../libraries/UtilLibrary.py
+Library           ../../../libraries/ClusterStateLibrary.py
+Variables         ../../../variables/Variables.py
+
+*** Variables ***
+${CAR_SHARD}      shard-car-config
+${NUM_CARS}  ${50}
+
+*** Test Cases ***
+Get car leader
+    ${CAR_LEADER}    GetLeader  ${CAR_SHARD}  ${3}  ${3}  ${2}  ${PORT}  ${MEMBER1}  ${MEMBER2}  ${MEMBER3}
+    Should Not Be Equal As Strings   ${CAR_LEADER}   None
+    Set Suite Variable    ${CAR_LEADER}
+
+Delete cars from leader
+    DeleteAllCars  ${CAR_LEADER}  ${PORT}  ${0}
+    ${resp}     Getcars   ${CAR_LEADER}   ${PORT}   ${0}
+    Should Be Equal As Strings    ${resp.status_code}    404
+
+Stop all controllers after delete
+    StopAllControllers    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${MEMBER1}    ${MEMBER2}    ${MEMBER3}
+
+Start all controllers after delete
+    ${rc}    StartAllControllers    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${RESTCONFPORT}
+    ...    ${MEMBER1}    ${MEMBER2}    ${MEMBER3}
+    Should Be True    ${rc}
+
+Verify no cars on leader after restart
+    ${resp}     Getcars   ${CAR_LEADER}   ${PORT}   ${0}
+    Should Be Equal As Strings    ${resp.status_code}    404
+ 
+Add cars on leader
+    ${resp}             AddCar    ${CAR_LEADER}   ${PORT}   ${NUM_CARS}
+    ${resp}             Getcars   ${CAR_LEADER}   ${PORT}   ${0}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    :FOR    ${i}    IN RANGE    1    ${NUM_CARS}
+    \    Should Contain     ${resp.content}   manufacturer${i}
+
+Stop all controllers after add
+    StopAllControllers    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${MEMBER1}    ${MEMBER2}    ${MEMBER3}
+
+Start all controllers after add
+    ${rc}    StartAllControllers    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${RESTCONFPORT}
+    ...    ${MEMBER1}    ${MEMBER2}    ${MEMBER3}
+    Should Be True    ${rc}
+
+Get cars from leader after restart
+    ${resp}  Getcars   ${CAR_LEADER}   ${PORT}   ${0}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    :FOR    ${i}    IN RANGE    1    ${NUM_CARS}
+    \    Should Contain     ${resp.content}   manufacturer${i}
+
