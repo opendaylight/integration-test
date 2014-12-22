@@ -34,6 +34,7 @@ def getClusterRoles(shardName,numOfShards=3,numOfTries=3,sleepBetweenRetriesInSe
                 resp = UtilLibrary.get(url)
                 print resp
                 if(resp.status_code != 200):
+                    sleep(sleepBetweenRetriesInSecs)
                     continue
                 data = json.loads(resp.text)
                 if('value' in data):
@@ -76,10 +77,11 @@ def isLeader(shardName,numOfShards,numOfRetries,sleepFor,port,ipAddress):
 # Or None
 #
 def getLeader(shardName,numOfShards=3,numOfTries=3,sleepBetweenRetriesInSecs=1,port=8181,*ips):
-    dict = getClusterRoles(shardName,numOfShards,numOfTries,sleepBetweenRetriesInSecs,port,*ips)
-    for ip in dict.keys():
-        if(dict[ip]=='Leader'):
-             return ip
+    for i in range(3): # Try 3 times to find a leader
+        dict = getClusterRoles(shardName,numOfShards,numOfTries,sleepBetweenRetriesInSecs,port,*ips)
+        for ip in dict.keys():
+            if(dict[ip]=='Leader'):
+                return ip
 
     return None
 

@@ -11,21 +11,13 @@ Variables         ../../../variables/Variables.py
 
 *** Variables ***
 ${REST_CONTEXT}    /restconf/config/
-${KARAF_HOME}      /root/odl/dist
-${USER_NAME}       root
-${PASSWORD}        Ecp123
 ${CAR_SHARD}	   shard-car-config
+${NUM_CARS}     ${60}
 
 *** Test Cases *** 
 Stop All Controllers
     [Documentation]    Stop all the controllers in the cluster
-    Stopcontroller    ${MEMBER1}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
-    Stopcontroller    ${MEMBER2}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
-    Stopcontroller    ${MEMBER3}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
-    Sleep    30
-    KillController    ${MEMBER1}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
-    KillController    ${MEMBER2}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
-    KillController    ${MEMBER3}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
+    StopAllControllers    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${MEMBER1}    ${MEMBER2}    ${MEMBER3}
 
 
 Clean All Journals
@@ -37,69 +29,48 @@ Clean All Journals
 
 Start All Controllers
     [Documentation]    Start all the controllers in the cluster
-    Startcontroller    ${MEMBER1}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
-    Startcontroller    ${MEMBER2}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
-    Startcontroller    ${MEMBER3}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
-    Sleep    120
+    ${rc}   StartAllControllers    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${RESTCONFPORT}
+    ...    ${MEMBER1}    ${MEMBER2}    ${MEMBER3}
+    Should Be True    ${rc}
+    Sleep    3
 
-Delete all cars
-    [Documentation]    Delete all the cars from the system
-	${resp}		DeleteAllCars	${MEMBER1}	${PORT}		0
-	${resp}		GetCars	${MEMBER1}	${PORT}		0
-	Should Be Equal As Strings    ${resp.status_code}    404
-	
+Get car leader and followers
+    ${CURRENT_CAR_LEADER}   GetLeader   ${CAR_SHARD}   ${3}    ${3}    ${1}    ${PORT}     ${MEMBER1}   ${MEMBER2}    ${MEMBER3}
+    Set Suite Variable    ${CURRENT_CAR_LEADER}
+    ${CAR_FOLLOWERS}  GetFollowers  ${CAR_SHARD}  ${3}  ${3}  ${1}  ${PORT}  ${MEMBER1}  ${MEMBER2}  ${MEMBER3}
+    Set Suite Variable    ${CAR_FOLLOWERS}
 
-Delete all people
-    [Documentation]    Delete all the people from the system
-	${resp}		DeleteAllPersons	${MEMBER1}	${PORT}		0
-	${resp}		GetPersons	${MEMBER1}	${PORT}    0	
-	Should Be Equal As Strings    ${resp.status_code}    404
+Stop both of the followers
+    StopAllControllers    ${USER_NAME}   ${PASSWORD}   ${KARAF_HOME}   @{CAR_FOLLOWERS}[0]    @{CAR_FOLLOWERS}[1]
 
-Add 200 cars
-    [Documentation]    Add 200 cars
-	${resp}		AddCar	${MEMBER1}	${PORT}  ${200}
-	Should Be Equal As Strings    ${resp.status_code}    204
+Attempt to add a car from the leader
+    [Documentation]    Should fail as both followers are down
+    ${resp}   AddCar  ${CURRENT_CAR_LEADER}    ${PORT}    ${1}
+    ${resp}    Getcars    ${CURRENT_CAR_LEADER}    ${PORT}    ${1}
+    Should Be Equal As Strings    ${resp.status_code}    404
 
-Add 200 people
-    [Documentation]    Add 200 people
-	${resp}		AddPerson	${MEMBER1}	${PORT}	${0}    
-	${resp}		AddPerson	${MEMBER1}	${PORT}  ${200}
-	Should Be Equal As Strings    ${resp.status_code}    204
+Restart the first follower
+    Startcontroller    @{CAR_FOLLOWERS}[0]   ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${PORT}
+    Sleep    3
 
-Add Car Person mapping
-    [Documentation]    Add Car Persons
-	${resp}		AddCarPerson	${MEMBER1}	${PORT}	${0}	
-	${resp}		BuyCar	${MEMBER1}	${PORT}	${200}	
+Add cars from the first follower
+    ${resp}             AddCar  @{CAR_FOLLOWERS}[0]     ${PORT}    ${NUM_CARS}
+    Should Be Equal As Strings    ${resp.status_code}    204
+    ${resp}             Getcars  @{CAR_FOLLOWERS}[0]   ${PORT}   ${0}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    :FOR    ${i}    IN RANGE    1    ${NUM_CARS}
+    \    Should Contain     ${resp.content}   manufacturer${i}
 
-Stop one of the followers
-    ${followers}  GetFollowers  ${CAR_SHARD}  ${3}  ${3}  ${1}  8181  ${MEMBER1}  ${MEMBER2}  ${MEMBER3}
-    ${CAR_FOLLOWER}    Set Variable    ${followers[0]}
-    Set Suite Variable    ${CAR_FOLLOWER}
-    Stopcontroller    ${CAR_FOLLOWER}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
-    Sleep    30
-    KillController    ${CAR_FOLLOWER}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
+Restart the second follower
+    Startcontroller    @{CAR_FOLLOWERS}[1]   ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${PORT}
+    Sleep    3
 
-Get all the cars from the other Follower
-    ${followers}  GetFollowers  ${CAR_SHARD}  ${3}  ${3}  ${1}  8181  ${MEMBER1}  ${MEMBER2}  ${MEMBER3}
-	${resp}		Getcars	${followers[0]}	${PORT}	${0}
-	Should Be Equal As Strings    ${resp.status_code}    200
-	Should Contain     ${resp.content}   manufacturer1
-
-Restart the Stopped Follower
-    Startcontroller   ${CAR_FOLLOWER}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
-    Sleep    120
-
-Get all the cars from Stopped Follower
-	${resp}		Getcars	${CAR_FOLLOWER}	${PORT}	${0}
-	Should Be Equal As Strings    ${resp.status_code}    200
-	Should Contain     ${resp.content}   manufacturer1
+Get all the cars from the second follower
+    ${resp}    Getcars    @{CAR_FOLLOWERS}[1]    ${PORT}    ${0}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    :FOR    ${i}    IN RANGE    1    ${NUM_CARS}
+    \    Should Contain     ${resp.content}   manufacturer${i}
 
 Cleanup All Controllers 
     [Documentation]    Stop all the controllers in the cluster
-    Stopcontroller    ${MEMBER1}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
-    Stopcontroller    ${MEMBER2}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
-    Stopcontroller    ${MEMBER3}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
-    Sleep    30
-
-
-
+    StopAllControllers    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${MEMBER1}    ${MEMBER2}    ${MEMBER3}

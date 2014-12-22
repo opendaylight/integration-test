@@ -14,13 +14,7 @@ ${REST_CONTEXT}    /restconf/config/
 *** Test Cases *** 
 Stop All Controllers
     [Documentation]    Stop all the controllers in the cluster
-    Stopcontroller    ${MEMBER1}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
-    Stopcontroller    ${MEMBER2}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
-    Stopcontroller    ${MEMBER3}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
-    Sleep    30
-    KillController    ${MEMBER1}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
-    KillController    ${MEMBER2}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
-    KillController    ${MEMBER3}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
+    StopAllControllers    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${MEMBER1}    ${MEMBER2}    ${MEMBER3}
 
 
 Clean All Journals
@@ -32,7 +26,6 @@ Clean All Journals
 
 Start All Controllers
     [Documentation]    Start all the controllers in the cluster
-    Startcontroller    ${MEMBER1}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
-    Startcontroller    ${MEMBER2}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
-    Startcontroller    ${MEMBER3}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
-    Sleep    120
+    ${rc}    StartAllControllers    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${RESTCONFPORT}
+    ...    ${MEMBER1}    ${MEMBER2}    ${MEMBER3}
+    Should Be True    ${rc}
