@@ -119,23 +119,23 @@ def addCarPerson(hostname,port,numberOfCarPersons):
 # </note>
 #
 
-def buyCar(hostname,port,numberOfCarBuyers):
-    for x in range(1, numberOfCarBuyers+1):
-        strId = str(x)
+def buyCar(hostname,port,numberOfCarBuyers,start=0):
+    for x in range(start, start+numberOfCarBuyers):
+        strId = str(x+1)
 
         payload = SettingsLibrary.buy_car_rpc_template.substitute(personId="user"+strId,carId=strId)
 
         # Send the POST request using RPC
         resp = UtilLibrary.post(SettingsLibrary.getBuyCarRpcUrl(hostname,port),"admin", "admin",payload)
 
-        print("payload formed after template substitution=")
-        print(payload)
-
-        print("the response of the POST to buycar=")
         print(resp)
+        print(resp.text)
+        
+        if (resp.status_code != 204):
+            return False
 
-    print("getting the car_persons for verification")
-    resp=getCarPersonMappings(hostname,port,0)
+
+    return True
 
 
 #

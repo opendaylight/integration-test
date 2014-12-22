@@ -1,5 +1,7 @@
 *** Settings ***
 Documentation     Start the controllers
+Default Tags  3-node-cluster
+
 Library           Collections
 Library           ../../../libraries/RequestsLibrary.py
 Library           ../../../libraries/Common.py
