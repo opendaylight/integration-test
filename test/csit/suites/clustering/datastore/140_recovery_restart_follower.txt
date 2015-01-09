@@ -49,7 +49,7 @@ Attempt to add a car from the leader
     AddCar  ${CURRENT_CAR_LEADER}    ${PORT}    ${1}
     Sleep  2
     ${resp}    Getcars    ${CURRENT_CAR_LEADER}    ${PORT}    ${1}
-    Should Be Equal As Strings    ${resp.status_code}    404
+    Should Not Be Equal As Strings    ${resp.status_code}    200
 
 Restart the first follower
     StartController    @{CAR_FOLLOWERS}[0]   ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${PORT}
