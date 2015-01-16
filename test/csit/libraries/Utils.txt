@@ -17,6 +17,8 @@ Start Suite
     Read Until    >
     Write    sudo mn -c
     Read Until    >
+    Read Until    >
+    Read Until    >
     Write    ${start}
     Read Until    mininet>
     Sleep    6
