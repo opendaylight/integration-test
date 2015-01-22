@@ -22,8 +22,4 @@ Start Suite
     Read Until    mininet>
     Sleep               30
 Stop Suite
-    Log    Stop mininet
-    Read
-    Write    exit
-    Read Until    >
     Close Connection
