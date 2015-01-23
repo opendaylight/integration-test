@@ -155,7 +155,7 @@ Create VBRIF in VBR
    ${vbrifinfo}    Create Dictionary   if_name    ${vbrifname}    description    ${ifdescription}
    ${vbrifcreate}    Create Dictionary   interface    ${vbrifinfo}
    ${resp}    PostJson    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${VBRIFS_CREATE}  data=${vbrifcreate}
-   Should Be Equal As Strings    ${resp.status_code}    201
+   Should Be Equal As Strings    ${resp.status_code}    202
 
 
 Define Portmap for VBRIF
