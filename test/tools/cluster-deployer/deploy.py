@@ -109,10 +109,9 @@ class Deployer:
     def deploy(self):
         # Determine distribution version
         distribution_name = os.path.splitext(os.path.basename(self.distribution))[0]
-        distribution_ver = re.search('(\d+\.\d+\.\d+-\w+\Z)|(\d+\.\d+\.\d+-\w+)(-SR\d+\Z)|(\d+\.\d+\.\d+-\w+)(-SR\d+(\.\d+)\Z)', distribution_name)
-
+        distribution_ver = re.search('(\d)\.(\d)\.(\d)-(\w)+', distribution_name)
         if distribution_ver is None:
-            print distribution_name + " is not a valid distribution version. (Must contain version in the form: \"<#>.<#>.<#>-<name>\" or \"<#>.<#>.<#>-<name>-SR<#>\" or \"<#>.<#>.<#>-<name>\", e.g. 0.2.0-SNAPSHOT)"
+            print distribution_name + " is not a valid distribution version. (Must contain version in the form: \"<#>.<#>.<#>-<name>\", e.g. 0.2.0-SNAPSHOT)"
             sys.exit(1)
         distribution_ver = distribution_ver.group()
 
