@@ -36,9 +36,11 @@ def getClusterRoles(shardName,numOfShards=3,numOfTries=3,sleepBetweenRetriesInSe
                 if(resp.status_code != 200):
                     sleep(sleepBetweenRetriesInSecs)
                     continue
+                print resp.text
                 data = json.loads(resp.text)
                 if('value' in data):
                     dataValue = data['value']
+                    print "datavalue RaftState is", dataValue['RaftState']
                     if(dataValue['RaftState']=='Follower'):
                         dict[ip]='Follower'
                         break;
@@ -90,12 +92,17 @@ def getLeader(shardName,numOfShards=3,numOfTries=3,sleepBetweenRetriesInSecs=1,p
 # Or []
 #
 def getFollowers (shardName,numOfShards=3,numOfTries=3,sleepBetweenRetriesInSecs=1,port=8181,*ips):
-    dict = getClusterRoles(shardName,numOfShards,numOfTries,sleepBetweenRetriesInSecs,port,*ips)
-    result = []
+    for i in range(6): # Try 6 times to find all followers
+        dict = getClusterRoles(shardName,numOfShards,numOfTries,sleepBetweenRetriesInSecs,port,*ips)
+        result = []
 
-    for ip in dict.keys():
-        if(dict[ip]=='Follower'):
-            result.append(ip)
+        for ip in dict.keys():
+            if(dict[ip]=='Follower'):
+                result.append(ip)
+        print "i=", i, "result=", result
+        if (len(result) == (len(ips) - 1)):
+	    break;
+	sleep(1)
 
     return result
 #
