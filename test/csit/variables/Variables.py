@@ -8,7 +8,7 @@ import collections
 # Global variables
 CONTROLLER = '127.0.0.1'
 PORT = '8080'
-RESTPORT = '8080'
+RESTPORT = '8282'
 RESTCONFPORT = '8181'
 PREFIX = 'http://' + CONTROLLER + ':' + PORT
 CONTAINER = 'default'
