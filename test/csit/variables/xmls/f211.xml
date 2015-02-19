@@ -15,7 +15,7 @@
                 <action>
                     <order>0</order>
                     <set-field>
-        		<ipv4-source>20.1.2.3</ipv4-source>
+                        <ipv4-source>20.1.2.3/32</ipv4-source>
                     </set-field>
                 </action>
             </apply-actions>
