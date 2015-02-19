@@ -15,7 +15,7 @@
                 <action>
                     <order>0</order>
                     <set-field>
-                        <ipv6-source>1004:5608:900c:d000:f00d::200f</ipv6-source>
+                        <ipv6-source>1004:5608:900c:d000:f00d::200f/128</ipv6-source>
                     </set-field>
                 </action>
             </apply-actions>

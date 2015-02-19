@@ -15,7 +15,7 @@
                 <action>
                     <order>0</order>
                     <set-field>
-                        <ipv4-destination>10.2.3.4</ipv4-destination>
+                        <ipv4-destination>10.2.3.4/32</ipv4-destination>
                     </set-field>
                 </action>
             </apply-actions>
