@@ -4,21 +4,20 @@ Library           ./UtilLibrary.py
 
 *** Variables ***
 ${start}          sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,1 --switch ovsk,protocols=OpenFlow13
+${linux_prompt}   >
 
 *** Keywords ***
 Start Suite
     [Documentation]    Basic setup/cleanup work that can be done safely before any system
     ...    is run.
     Log    Start the test on the base edition
-    ${mininet_conn_id}=     Open Connection    ${MININET}    prompt=>    timeout=30s
+    ${mininet_conn_id}=     Open Connection    ${MININET}    prompt=${linux_prompt}    timeout=30s
     Set Suite Variable  ${mininet_conn_id}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
     Write    sudo ovs-vsctl set-manager ptcp:6644
-    Read Until    >
+    Read Until    ${linux_prompt}
     Write    sudo mn -c
-    Read Until    >
-    Read Until    >
-    Read Until    >
+    Read Until    ${linux_prompt}
     Write    ${start}
     Read Until    mininet>
     Sleep    6
@@ -30,7 +29,7 @@ Stop Suite
     Switch Connection   ${mininet_conn_id}
     Read
     Write    exit
-    Read Until    >
+    Read Until    ${linux_prompt}
     Close Connection
 
 Ensure All Nodes Are In Response
