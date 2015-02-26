@@ -15,7 +15,7 @@
                 <action>
                     <order>0</order>
                     <set-field>
-                        <ipv6-destination>2160:2160:216::6431</ipv6-destination>
+                        <ipv6-destination>2160:2160:216::6431/128</ipv6-destination>
                     </set-field>
                 </action>
             </apply-actions>

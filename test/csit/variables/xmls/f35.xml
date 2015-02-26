@@ -8,7 +8,7 @@
                 <action>
                     <order>0</order>
                     <set-field>
-                        <ipv4-source>10.0.23.21</ipv4-source>
+                        <ipv4-source>10.0.23.21/32</ipv4-source>
                     </set-field>
                 </action>
             </apply-actions>
