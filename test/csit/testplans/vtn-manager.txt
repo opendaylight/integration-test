@@ -1,0 +1,4 @@
+# Place the suites in run order:
+integration/test/csit/suites/vtn/VTN_Mgr_OF10
+integration/test/csit/suites/vtn/VTN_Mgr_OF13
+
