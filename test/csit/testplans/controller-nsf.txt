@@ -1,8 +1,0 @@
-# Place the suites in run order:
-integration/test/csit/suites/controller/MD_SAL_NSF_OF10
-integration/test/csit/suites/controller/AD_SAL_NSF_OF10
-integration/test/csit/suites/controller/Inventory_Scalability_OF10
-integration/test/csit/suites/controller/MD_SAL_NSF_OF13
-integration/test/csit/suites/controller/AD_SAL_NSF_OF13
-integration/test/csit/suites/controller/Inventory_Scalability_OF13
-

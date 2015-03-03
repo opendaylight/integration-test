@@ -1,4 +1,10 @@
 # Place the suites in run order:
+integration/test/csit/suites/openflowplugin/MD_SAL_NSF_OF10
+integration/test/csit/suites/openflowplugin/AD_SAL_NSF_OF10
+integration/test/csit/suites/openflowplugin/Inventory_Scalability_OF10
+integration/test/csit/suites/openflowplugin/MD_SAL_NSF_OF13
+integration/test/csit/suites/openflowplugin/AD_SAL_NSF_OF13
 integration/test/csit/suites/openflowplugin/Flows_OF13
 integration/test/csit/suites/openflowplugin/Flows_Stats_OF13
 integration/test/csit/suites/openflowplugin/Groups_Meters_OF13
+integration/test/csit/suites/openflowplugin/Inventory_Scalability_OF13
