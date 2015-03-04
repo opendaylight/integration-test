@@ -1,4 +1,5 @@
 # Place the suites in run order:
 integration/test/csit/suites/openflowplugin/Flows_OF13
+integration/test/csit/suites/openflowplugin/Switch_Qualification
 integration/test/csit/suites/openflowplugin/Flows_Stats_OF13
 # integration/test/csit/suites/openflowplugin/Groups_Meters_OF13
