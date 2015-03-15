@@ -7,22 +7,17 @@ Updated: 2014-08-29
 xmltodict and json libs not needed at this point, but may be useful in
 the future.
 '''
-##import xmltodict
-##import json
-import string
-import robot
-from robot.libraries.BuiltIn import BuiltIn
 
-##bare bones xml for building a flow xml for flow:inventory
+# bare bones xml for building a flow xml for flow:inventory
 flow_xml_skeleton = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>' +      \
-               '<flow xmlns="urn:opendaylight:flow:inventory">'         +      \
-                    '<instructions></instructions>'                     +      \
-                    '<match></match>'                                   +      \
-               '</flow>'
+                    '<flow xmlns="urn:opendaylight:flow:inventory">' +      \
+                    '<instructions></instructions>' +      \
+                    '<match></match>' +      \
+                    '</flow>'
 
 input_xml_skeleton = '<?xml version="1.0" encoding="UTF-8" standalone="no"?>' +      \
-               '<input xmlns="urn:opendaylight:flow:service">'          +      \
-               '</input>'
+                     '<input xmlns="urn:opendaylight:flow:service">' +      \
+                     '</input>'
 
 
 class Flow:
@@ -56,6 +51,7 @@ class Flow:
         '''
         setattr(self, field, value)
 
+
 def Make_Inventory_Flow():
     '''
         Robot Keyword to create and return an instance of the Flow
@@ -64,6 +60,7 @@ def Make_Inventory_Flow():
     flow = Flow()
     flow.xml = flow_xml_skeleton
     return flow
+
 
 def Make_Service_Flow():
     '''
@@ -75,20 +72,21 @@ def Make_Service_Flow():
     flow.xml = input_xml_skeleton
     return flow
 
+
 def Set_Flow_Field(flow, field, value):
     '''
-        Robot Keyword to allow the modification (setting) of the 
+        Robot Keyword to allow the modification (setting) of the
         flow object attributes
     '''
-    flow.set_field(field,value)
+    flow.set_field(field, value)
     return flow
 
 
-#def Convert_Flow_XML_To_Json(flow):
+# def Convert_Flow_XML_To_Json(flow):
 #    '''
 #       There may be a need in the future to use json to push
-#       flows, as opposed to xml format that is prevalent in 
-#       test code at this point.  This function will give a 
+#       flows, as opposed to xml format that is prevalent in
+#       test code at this point.  This function will give a
 #       conversion, but unsure if it's proper.  Also, unsure
 #       if the xmltodict library is viable in the CSIT environment
 #    '''
