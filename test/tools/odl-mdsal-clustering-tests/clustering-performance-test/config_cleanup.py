@@ -10,6 +10,7 @@ import sys
 
 getheaders = {'Accept': 'application/json'}
 
+
 def cleanup_config_fl(host, port):
     global getheaders
 
@@ -42,7 +43,7 @@ if __name__ == "__main__":
                         help="Use authenticated access to REST "
                         "(username: 'admin', password: 'admin').")
     parser.add_argument('--controller', choices=['odl', 'floodlight'], default='odl',
-                         help='Controller type (ODL or Floodlight); default odl (OpenDaylight)')
+                        help='Controller type (ODL or Floodlight); default odl (OpenDaylight)')
 
     in_args = parser.parse_args()
 
@@ -60,4 +61,3 @@ if __name__ == "__main__":
         print 'Failed to delete nodes in the config space, code %d' % sts
     else:
         print 'Nodes in config space deleted.'
-
