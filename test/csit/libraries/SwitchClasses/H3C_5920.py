@@ -3,11 +3,8 @@ Provision 3800 Object Definition
 Authors: james.luhrsen@hp.com
 Created: 2014-10-02
 """
-import string
-import robot
-import re
-from robot.libraries.BuiltIn import BuiltIn
-from H3C import *
+from H3C import *  # noqa
+
 
 class H3C_5920(H3C):
     '''
