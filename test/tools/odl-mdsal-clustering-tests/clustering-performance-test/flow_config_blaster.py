@@ -82,7 +82,6 @@ class FlowConfigBlaster(object):
         for i in range(self.nthreads):
             self.flows[i] = {}
 
-
     def get_num_nodes(self, session):
         """
         Determines the number of OF nodes in the connected mininet network. If mininet is not connected, the default
@@ -110,7 +109,6 @@ class FlowConfigBlaster(object):
 
         return nodes
 
-
     def add_flow(self, session, node, flow_id, ipaddr):
         """
         Adds a single flow to the config data store via REST
@@ -127,7 +125,6 @@ class FlowConfigBlaster(object):
             r = session.put(flow_url, data=flow_data, headers=self.putheaders, stream=False, auth=('admin', 'admin'))
 
         return r.status_code
-
 
     def add_flows(self, start_flow, tid):
         """
@@ -175,7 +172,6 @@ class FlowConfigBlaster(object):
         with self.cond:
             self.cond.notifyAll()
 
-
     def delete_flow(self, session, node, flow_id):
         """
         Deletes a single flow from the ODL config data store via REST
@@ -188,7 +184,6 @@ class FlowConfigBlaster(object):
             r = session.delete(flow_url, headers=self.getheaders, auth=('admin', 'admin'))
 
         return r.status_code
-
 
     def delete_flows(self, start_flow, tid):
         """
@@ -233,7 +228,6 @@ class FlowConfigBlaster(object):
         with self.cond:
             self.cond.notifyAll()
 
-
     def run_cycle(self, function):
         """
         Runs an add or delete cycle. Starts a number of worker threads that each add a bunch of flows. Work is done
@@ -267,7 +261,6 @@ class FlowConfigBlaster(object):
 
             self.ok_rate.value = 0
             self.total_rate.value = 0
-
 
     def add_blaster(self):
         self.run_cycle(self.add_flows)
