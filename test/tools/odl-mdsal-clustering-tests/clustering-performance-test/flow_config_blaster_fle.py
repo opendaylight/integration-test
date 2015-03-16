@@ -10,6 +10,7 @@ import netaddr
 import time
 import json
 
+
 class FlowConfigBlasterFLE(FlowConfigBlaster):
     """
     FlowConfigBlaster, Floodlight Edition; Uses the Floodlight Static Flow Entry Pusher REST API to inject flows.
@@ -31,7 +32,6 @@ class FlowConfigBlasterFLE(FlowConfigBlaster):
         # Create the service URL
         self.url = 'http://' + self.host + ":" + self.port + '/wm/staticflowentrypusher/json'
 
-
     def get_num_nodes(self, session):
         """
         Determines the number of nodes in the network. Overrides the get_num_nodes method in FlowConfigBlaster.
@@ -50,7 +50,6 @@ class FlowConfigBlasterFLE(FlowConfigBlaster):
                 pass
 
         return nodes
-
 
     def add_flow(self, session, node, flow_id, ipaddr):
         """
@@ -72,7 +71,6 @@ class FlowConfigBlasterFLE(FlowConfigBlaster):
 
         r = session.post(self.url, data=flow_data, headers=self.putheaders, stream=False)
         return r.status_code
-
 
     def delete_flow(self, session, node, flow_id):
         """
@@ -119,7 +117,6 @@ if __name__ == "__main__":
                         help='The starting Flow ID; default=0')
 
     in_args = parser.parse_args()
-
 
     fct = FlowConfigBlasterFLE(in_args.host, in_args.port, in_args.cycles, in_args.threads, in_args.nodes,
                                in_args.flows, in_args.startflow)
