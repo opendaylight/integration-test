@@ -3,11 +3,8 @@ Provision 3800 Object Definition
 Authors: james.luhrsen@hp.com
 Created: 2014-10-02
 """
-import string
-import robot
-import re
-from robot.libraries.BuiltIn import BuiltIn
-from ProVision import *
+from ProVision import *  # noqa
+
 
 class ProVision_3800(ProVision):
     '''
