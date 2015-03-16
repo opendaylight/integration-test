@@ -42,7 +42,7 @@ def wait_for_stats(crawler, exp_found, timeout, delay):
 
 if __name__ == "__main__":
     ########################################################################################
-    #This program executes an ODL performance test. The test is executed in three steps:
+    # This program executes an ODL performance test. The test is executed in three steps:
     #
     # 1. The specified number of flows is added in the 'add cycle' (uses flow_config_blaster to blast flows)
     #
