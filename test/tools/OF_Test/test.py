@@ -1,8 +1,8 @@
 from xml.dom import minidom
 
-xmldoc=minidom.parse('./xmls/f1.xml')
-flow=xmldoc.childNodes[0]
-match=flow.childNodes[15]
+xmldoc = minidom.parse('./xmls/f1.xml')
+flow = xmldoc.childNodes[0]
+match = flow.childNodes[15]
 
 ipv4dst = match.getElementsByTagName("ipv4-destination")
 print ipv4dst[0].childNodes[0].data
