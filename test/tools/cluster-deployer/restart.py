@@ -1,20 +1,23 @@
 # #!/usr/local/bin/python
-# 
+#
 # This script restarts the cluster nodes. It can optionally cleanup the persistent data.
 # --------------------------------------------------------------------------------------
-# 
+#
 # This script takes a list of hosts as parameter
 #
-# 
+#
 # -------------------------------------------------------------------------------------------------------------
 
 import argparse
 from remote_host import RemoteHost
 
 parser = argparse.ArgumentParser(description='Cluster Restart')
-parser.add_argument("--rootdir", default="/root", help="the root directory on the remote host where the distribution is deployed", required=True)
-parser.add_argument("--hosts", default="", help="a comma separated list of host names or ip addresses", required=True)
-parser.add_argument("--clean", action="store_true", default=False, help="clean the persistent data for the current deployment")
+parser.add_argument("--rootdir", default="/root",
+                    help="the root directory on the remote host where the distribution is deployed", required=True)
+parser.add_argument("--hosts", default="",
+                    help="a comma separated list of host names or ip addresses", required=True)
+parser.add_argument("--clean", action="store_true", default=False,
+                    help="clean the persistent data for the current deployment")
 parser.add_argument("--user", default="root", help="the SSH username for the remote host(s)")
 parser.add_argument("--password", default="Ecp123", help="the SSH password for the remote host(s)")
 args = parser.parse_args()
