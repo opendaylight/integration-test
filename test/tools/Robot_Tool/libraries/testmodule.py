@@ -4,7 +4,7 @@ Authors: Baohua Yang@IBM, Denghui Huang@IBM
 Updated: 2013-10-30
 """
 
-from restlib import *
+from restlib import *  # noqa
 
 
 class TestModule(object):
@@ -22,12 +22,11 @@ class TestModule(object):
         self.contentType = contentType
         self.prefix = prefix
 
-
     def extract_properties(self, content, key, property):
         """
         Return all nodes.
         """
-        if not isinstance(content, dict) or not content.has_key(key):
+        if not isinstance(content, dict) or key not in content:
             return None
         else:
             return [e.get(property) for e in content[key]]
@@ -63,13 +62,13 @@ class TestModule(object):
 
     def test_add_remove_operations(self, suffix_entries, suffix_entry, name, body, key):
         result = []
-        #Add an entry
+        # Add an entry
         self.add_entry(suffix_entry, name, body)
         r = self.get_entries(suffix_entries, key)
         if r:
             v = r.get(key)
             result.append(body in v if v else False)
-            #Remove the added entry
+            # Remove the added entry
         if result == [True]:
             self.remove_entry(suffix_entry, name)
             r = self.get_entries(suffix_entries, key)
