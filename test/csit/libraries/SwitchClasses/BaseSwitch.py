@@ -3,10 +3,9 @@ Base Switch Object Definition
 Authors: james.luhrsen@hp.com
 Created: 2014-09-20
 """
-import string
-import robot
 import importlib
-from xml.etree.ElementTree import *
+from xml.etree.ElementTree import *  # noqa
+
 
 class BaseSwitch(object):
     '''
@@ -22,7 +21,7 @@ class BaseSwitch(object):
     mgmt_port = ''
     mgmt_user = ''
     mgmt_password = ''
-    mgmt_prompt = '' 
+    mgmt_prompt = ''
 
     connection_index = ''
 
@@ -102,8 +101,8 @@ class BaseSwitch(object):
         self.ip_dst = match_element.find('{urn:opendaylight:flow:inventory}ipv4-destination').text
 
     def convert_hex_to_decimal_as_string(self, hex_string):
-        ##TODO: need to add error checking in case the hex_string is
-        ##not fully hex
+        # TODO: need to add error checking in case the hex_string is
+        #       not fully hex
         return str(int(hex_string, 16))
 
     def get_switch(self, switch_type):
@@ -113,7 +112,7 @@ class BaseSwitch(object):
         type.  (EX: Get Switch  OVS)
         '''
 
-        ##TODO:  what if the module "switch_type" does not exist.  Need some
-        ##error checking for that.
+        # TODO: what if the module "switch_type" does not exist.  Need some
+        #       error checking for that.
         module = importlib.import_module(switch_type)
         return getattr(module, switch_type)()
