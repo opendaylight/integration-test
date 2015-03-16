@@ -3,8 +3,8 @@ Library for the robot based system test tool of the OpenDaylight project.
 Authors: Baohua Yang@IBM, Denghui Huang@IBM
 Updated: 2013-11-10
 """
-import robot
 from robot.libraries.BuiltIn import BuiltIn
+
 
 class SwitchManager(object):
     def __init__(self):
@@ -14,17 +14,17 @@ class SwitchManager(object):
         """
         Return all nodes.
         """
-        if isinstance(content,dict) and content.has_key('nodeProperties'):
+        if isinstance(content, dict) and 'nodeProperties' in content:
             self.builtin.log("18")
             return [e.get('node') for e in content['nodeProperties']]
         else:
             self.builtin.log("21")
-            return None 
+            return None
 
     def extract_all_properties(self, content, property_type):
-        if isinstance(content,dict) and content.has_key(property_type):
+        if isinstance(content, dict) and property_type in content:
             self.builtin.log("26")
-            list1=[e.get('properties') for e in content[property_type]]
+            list1 = [e.get('properties') for e in content[property_type]]
             self.builtin.log(list1)
             return [e.get('properties') for e in content[property_type]]
         else:
