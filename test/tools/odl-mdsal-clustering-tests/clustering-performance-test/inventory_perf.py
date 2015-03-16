@@ -8,10 +8,12 @@ import requests
 import time
 import threading
 
+
 class Counter(object):
     def __init__(self, start=0):
         self.lock = threading.Lock()
         self.value = start
+
     def increment(self, value=1):
         self.lock.acquire()
         try:
@@ -72,7 +74,7 @@ def get_inventory(tnum, url, hdrs, rnum, cond):
     s = requests.Session()
     with Timer() as t:
         for i in range(rnum):
-            r = s.get(url, headers=hdrs, stream=False )
+            r = s.get(url, headers=hdrs, stream=False)
             total_len += len(r.content)
 
             try:
@@ -125,7 +127,7 @@ if __name__ == "__main__":
 
     for i in range(nthreads):
         t = threading.Thread(target=get_inventory,
-                             args=(i,url, getheaders, int(in_args.requests), cond))
+                             args=(i, url, getheaders, int(in_args.requests), cond))
         threads.append(t)
         t.start()
 
@@ -136,7 +138,7 @@ if __name__ == "__main__":
             finished = finished + 1
 
     print '\nAggregate requests: %d, Aggregate requests/sec: %.2f' % (total_requests.value,
-                                                                    total_req_rate.value)
+                                                                      total_req_rate.value)
     print 'Aggregate Volume: %.2f MB, Aggregate Rate: %.2f MByte/s' % (total_mbytes.value,
                                                                        total_mb_rate.value)
 
