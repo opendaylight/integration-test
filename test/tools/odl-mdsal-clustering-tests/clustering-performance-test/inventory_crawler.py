@@ -27,7 +27,6 @@ class InventoryCrawler(object):
         self.auth = auth
         self.debug = debug
 
-
     def crawl_flows(self, flows):
         """
         Collects and prints summary information for all flows in a table
@@ -47,7 +46,6 @@ class InventoryCrawler(object):
                     s = s.lstrip('\n')
                     print "             Flow %s:" % f['id']
                     print s
-
 
     def crawl_table(self, table):
         """
@@ -78,7 +76,6 @@ class InventoryCrawler(object):
         except KeyError:
             pass
 
-
     def crawl_node(self, node):
         """
         Collects and prints summary information about a single node
@@ -105,7 +102,6 @@ class InventoryCrawler(object):
         except KeyError:
             if self.plevel > 1:
                 print '    Data for tables not available.'
-
 
     def crawl_inventory(self):
         """
@@ -145,19 +141,16 @@ class InventoryCrawler(object):
 
         s.close()
 
-
     def set_plevel(self, plevel):
         self.plevel = plevel
-
-
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Restconf test program')
     parser.add_argument('--host', default='127.0.0.1', help='host where '
-                                                               'the controller is running; default 127.0.0.1')
+                        'the controller is running; default 127.0.0.1')
     parser.add_argument('--port', default='8181', help='port on '
-                                                          'which odl\'s RESTCONF is listening; default 8181')
+                        'which odl\'s RESTCONF is listening; default 8181')
     parser.add_argument('--plevel', type=int, default=0,
                         help='Print Level: 0 - Summary (stats only); 1 - Node names; 2 - Node details;'
                              '3 - Flow details')
@@ -188,5 +181,3 @@ if __name__ == "__main__":
         if n_missing > 0:
             print '\nMissing table stats (%d nodes):' % n_missing
             print "%s\n" % ", ".join([x for x in ic.table_stats_fails])
-
-
