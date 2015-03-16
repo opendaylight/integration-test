@@ -10,11 +10,11 @@
 # - argparse (pip install argparse)
 #
 # The input that this script will take is as follows,
-# 
+#
 # - A comma separated list of ip addresses/hostnames for each host on which the distribution needs to be deployed
 # - The replication factor to be used
 # - The ssh username/password of the remote host(s). Note that this should be the same for each host
-# - The name of the template to be used. 
+# - The name of the template to be used.
 #   Note that this template name should match the name of a template folder in the templates directory.
 #   The templates directory can be found in the same directory as this script.
 #
@@ -30,7 +30,6 @@
 # -------------------------------------------------------------------------------------------------------------
 
 import argparse
-from SSHLibrary import SSHLibrary
 import time
 import pystache
 import os
@@ -40,16 +39,24 @@ import re
 from remote_host import RemoteHost
 
 parser = argparse.ArgumentParser(description='Cluster Deployer')
-parser.add_argument("--distribution", default="", help="the absolute path of the distribution on the local host that needs to be deployed. (Must contain version in the form: \"<#>.<#>.<#>-<name>\", e.g. 0.2.0-SNAPSHOT)", required=True)
-parser.add_argument("--rootdir", default="/root", help="the root directory on the remote host where the distribution is to be deployed", required=True)
-parser.add_argument("--hosts", default="", help="a comma separated list of host names or ip addresses", required=True)
+parser.add_argument("--distribution", default="",
+                    help="the absolute path of the distribution on the local host that needs to be deployed. "
+                    "(Must contain version in the form: \"<#>.<#>.<#>-<name>\", e.g. 0.2.0-SNAPSHOT)",
+                    required=True)
+parser.add_argument("--rootdir", default="/root",
+                    help="the root directory on the remote host where the distribution is to be deployed",
+                    required=True)
+parser.add_argument("--hosts", default="", help="a comma separated list of host names or ip addresses",
+                    required=True)
 parser.add_argument("--clean", action="store_true", default=False, help="clean the deployment on the remote host")
-parser.add_argument("--template", default="openflow", help="the name of the template to be used. This name should match a folder in the templates directory.")
-parser.add_argument("--rf", default=3, type=int, help="replication factor. This is the number of replicas that should be created for each shard.")
+parser.add_argument("--template", default="openflow",
+                    help="the name of the template to be used. "
+                    "This name should match a folder in the templates directory.")
+parser.add_argument("--rf", default=3, type=int,
+                    help="replication factor. This is the number of replicas that should be created for each shard.")
 parser.add_argument("--user", default="root", help="the SSH username for the remote host(s)")
 parser.add_argument("--password", default="Ecp123", help="the SSH password for the remote host(s)")
 args = parser.parse_args()
-
 
 
 #
@@ -57,21 +64,22 @@ args = parser.parse_args()
 #
 class TemplateRenderer:
     def __init__(self, template):
-	    self.cwd = os.getcwd()
-	    self.template_root = self.cwd + "/templates/" + template + "/"
+        self.cwd = os.getcwd()
+        self.template_root = self.cwd + "/templates/" + template + "/"
 
     def render(self, template_path, output_path, variables={}):
-        with open (self.template_root + template_path, "r") as myfile:
-            data=myfile.read()
+        with open(self.template_root + template_path, "r") as myfile:
+            data = myfile.read()
 
         parsed = pystache.parse(u"%(data)s" % locals())
         renderer = pystache.Renderer()
 
         output = renderer.render(parsed, variables)
 
-        with open (os.getcwd() + "/temp/" + output_path, "w") as myfile:
-	        myfile.write(output)
+        with open(os.getcwd() + "/temp/" + output_path, "w") as myfile:
+            myfile.write(output)
         return os.getcwd() + "/temp/" + output_path
+
 
 #
 # The array_str method takes an array of strings and formats it into a string such that
@@ -86,12 +94,13 @@ def array_str(arr):
     s = s + "]"
     return s
 
+
 #
-# The Deployer deploys the controller to one host and configures it 
+# The Deployer deploys the controller to one host and configures it
 #
 class Deployer:
-    def __init__(self, host, member_no, template, user, password, rootdir, distribution, 
-                dir_name, hosts, ds_seed_nodes, rpc_seed_nodes, replicas, clean=False):
+    def __init__(self, host, member_no, template, user, password, rootdir, distribution,
+                 dir_name, hosts, ds_seed_nodes, rpc_seed_nodes, replicas, clean=False):
         self.host = host
         self.member_no = member_no
         self.template = template
@@ -109,37 +118,41 @@ class Deployer:
     def deploy(self):
         # Determine distribution version
         distribution_name = os.path.splitext(os.path.basename(self.distribution))[0]
-        distribution_ver = re.search('(\d+\.\d+\.\d+-\w+\Z)|(\d+\.\d+\.\d+-\w+)(-SR\d+\Z)|(\d+\.\d+\.\d+-\w+)(-SR\d+(\.\d+)\Z)', distribution_name)
+        distribution_ver = re.search('(\d+\.\d+\.\d+-\w+\Z)|(\d+\.\d+\.\d+-\w+)(-SR\d+\Z)|(\d+\.\d+\.\d+-\w+)(-SR\d+(\.\d+)\Z)', distribution_name)  # noqa
 
         if distribution_ver is None:
-            print distribution_name + " is not a valid distribution version. (Must contain version in the form: \"<#>.<#>.<#>-<name>\" or \"<#>.<#>.<#>-<name>-SR<#>\" or \"<#>.<#>.<#>-<name>\", e.g. 0.2.0-SNAPSHOT)"
+            print distribution_name + " is not a valid distribution version. (Must contain version in the form: \"<#>.<#>.<#>-<name>\" or \"<#>.<#>.<#>-<name>-SR<#>\" or \"<#>.<#>.<#>-<name>\", e.g. 0.2.0-SNAPSHOT)"  # noqa
             sys.exit(1)
         distribution_ver = distribution_ver.group()
 
         # Render all the templates
         renderer = TemplateRenderer(self.template)
-        akka_conf = renderer.render("akka.conf.template", "akka.conf", 
-        {
-        "HOST" : self.host, 
-        "MEMBER_NAME" : "member-" + str(self.member_no), 
-        "DS_SEED_NODES" : array_str(self.ds_seed_nodes),
-        "RPC_SEED_NODES" : array_str(self.rpc_seed_nodes)
-        }
-        )
+        akka_conf = renderer.render(
+            "akka.conf.template", "akka.conf",
+            {
+                "HOST": self.host,
+                "MEMBER_NAME": "member-" + str(self.member_no),
+                "DS_SEED_NODES": array_str(self.ds_seed_nodes),
+                "RPC_SEED_NODES": array_str(self.rpc_seed_nodes)
+            })
         module_shards_conf = renderer.render("module-shards.conf.template", "module-shards.conf", self.replicas)
         modules_conf = renderer.render("modules.conf.template", "modules.conf")
-        features_cfg = renderer.render("org.apache.karaf.features.cfg.template", "org.apache.karaf.features.cfg", {"ODL_DISTRIBUTION" : distribution_ver})
+        features_cfg = renderer.render("org.apache.karaf.features.cfg.template",
+                                       "org.apache.karaf.features.cfg",
+                                       {"ODL_DISTRIBUTION": distribution_ver})
         jolokia_xml = renderer.render("jolokia.xml.template", "jolokia.xml")
-        management_cfg = renderer.render("org.apache.karaf.management.cfg.template", "org.apache.karaf.management.cfg", {"HOST" : self.host})
+        management_cfg = renderer.render("org.apache.karaf.management.cfg.template",
+                                         "org.apache.karaf.management.cfg",
+                                         {"HOST": self.host})
 
         # Connect to the remote host and start doing operations
         remote = RemoteHost(self.host, self.user, self.password, self.rootdir)
         remote.mkdir(self.dir_name)
 
         # Delete all the sub-directories under the deploy directory if the --clean flag is used
-        if(self.clean == True):
+        if(self.clean is True):
             remote.exec_cmd("rm -rf " + self.rootdir + "/deploy/*")
-        
+
         # Clean the m2 repository
         remote.exec_cmd("rm -rf " + self.rootdir + "/.m2/repository")
 
@@ -167,23 +180,23 @@ class Deployer:
         remote.exec_cmd("ln -sfn " + self.dir_name + " " + args.rootdir + "/deploy/current")
 
         # Run karaf
-        remote.start_controller(self.dir_name)      
+        remote.start_controller(self.dir_name)
 
 
-def main():    
+def main():
     # Validate some input
-    if os.path.exists(args.distribution) == False:
+    if os.path.exists(args.distribution) is False:
         print args.distribution + " is not a valid file"
         sys.exit(1)
 
-    if os.path.exists(os.getcwd() + "/templates/" + args.template) == False:
+    if os.path.exists(os.getcwd() + "/templates/" + args.template) is False:
         print args.template + " is not a valid template"
 
     # Prepare some 'global' variables
     hosts = args.hosts.split(",")
     time_stamp = time.time()
     dir_name = args.rootdir + "/deploy/" + str(time_stamp)
-    distribution_name = os.path.splitext(os.path.basename(args.distribution))[0]
+    distribution_name = os.path.splitext(os.path.basename(args.distribution))[0]  # noqa
 
     ds_seed_nodes = []
     rpc_seed_nodes = []
@@ -193,8 +206,7 @@ def main():
     for x in range(0, len(hosts)):
         ds_seed_nodes.append("akka.tcp://opendaylight-cluster-data@" + hosts[x] + ":2550")
         rpc_seed_nodes.append("akka.tcp://odl-cluster-rpc@" + hosts[x] + ":2551")
-        all_replicas.append("member-" + str(x+1))
-
+        all_replicas.append("member-" + str(x + 1))
 
     for x in range(0, 10):
         if len(all_replicas) > args.rf:
@@ -203,7 +215,9 @@ def main():
             replicas["REPLICAS_" + str(x+1)] = array_str(all_replicas)
 
     for x in range(0, len(hosts)):
-        Deployer(hosts[x], x+1, args.template, args.user, args.password, args.rootdir, args.distribution, dir_name, hosts, ds_seed_nodes, rpc_seed_nodes, replicas, args.clean).deploy()
+        Deployer(hosts[x], x + 1, args.template, args.user, args.password,
+                 args.rootdir, args.distribution, dir_name, hosts, ds_seed_nodes,
+                 rpc_seed_nodes, replicas, args.clean).deploy()
 
 # Run the script
 main()
