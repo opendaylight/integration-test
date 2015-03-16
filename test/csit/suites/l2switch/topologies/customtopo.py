@@ -1,6 +1,7 @@
 # !/usr/bin/python
 
-# usage: sudo mn --controller=remote,ip=<controller_ip> --switch=ovsk,protocols=OpenFlow13 --custom <path to customtopo.py> --topo ring ...
+# usage: sudo mn --controller=remote,ip=<controller_ip> --switch=ovsk,protocols=OpenFlow13
+#                --custom <path to customtopo.py> --topo ring ...
 
 from mininet.topo import Topo
 
