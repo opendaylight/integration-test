@@ -9,6 +9,7 @@ import collections
 Common constants and functions for the robot framework.
 '''
 
+
 def collection_should_contain(collection, *members):
     """
     Fail if not every members is in the collection.
@@ -21,6 +22,7 @@ def collection_should_contain(collection, *members):
     else:
         return True
 
+
 def combine_strings(*strings):
     """
     Combines the given `strings` together and returns the result.
@@ -28,7 +30,7 @@ def combine_strings(*strings):
     """
     result = ''
     for s in strings:
-        if isinstance(s,str) or isinstance(s,unicode):
+        if isinstance(s, str) or isinstance(s, unicode):
             result += s
     if result == '':
         return None
