@@ -73,7 +73,6 @@ class ShardPerformanceTester(object):
         self.url_counters = []
         self.total_rate = 0
 
-
     def make_request(self, session, urls):
         """
         Makes a request for a resource at a random URL selected from a list of URLs passed as input parameter
@@ -90,7 +89,6 @@ class ShardPerformanceTester(object):
         else:
             r = session.get(r_url, headers=self.headers, stream=False, auth=('admin', 'admin'))
         return r.status_code
-
 
     def worker(self, tid, urls):
         """
@@ -131,7 +129,6 @@ class ShardPerformanceTester(object):
 
         with self.cond:
             self.cond.notifyAll()
-
 
     def run_test(self, urls):
         """
@@ -349,7 +346,3 @@ if __name__ == "__main__":
         print 'Testing combined shards (topo+inv) performance:'
         print '==============================================='
         st.run_test(topo_urls + inv_urls)
-
-
-
-
