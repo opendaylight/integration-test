@@ -7,7 +7,7 @@ Updated: 2013-11-01
 import sys
 
 sys.path.append('..')
-from restlib import *
+from restlib import *  # noqa
 from testmodule import TestModule
 
 sys.path.remove('..')
@@ -16,7 +16,8 @@ sys.path.remove('..')
 class ForwardingManager(TestModule):
     """
     Test for the forwarding manager.
-    Start 2-layer tree topology network. e.g., in Mininet, run  'sudo mn --controller=remote,ip=127.0.0.1 --mac --topo tree,2'
+    Start 2-layer tree topology network. e.g., in Mininet, run
+        'sudo mn --controller=remote,ip=127.0.0.1 --mac --topo tree,2'
     """
 
     def __init__(self, restSubContext='/controller/nb/v2/staticroute', user=DEFAULT_USER, password=DEFAULT_PWD,
@@ -34,18 +35,19 @@ class ForwardingManager(TestModule):
         """
         Add a static route.
         """
-        r = super(self.__class__, self).add_entry('route', name, body)
+        super(self.__class__, self).add_entry('route', name, body)
 
     def remove_static_route(self, name):
         """
         Remove a static route
         """
-        r = super(self.__class__, self).remove_entry('route', name)
+        super(self.__class__, self).remove_entry('route', name)
 
     def test_static_route_operations(self, name, body):
         """
         Test static route operations, like adding and removeing a route.
-        >>> ForwardingManager().test_static_route_operations('route1',{'name':'route1','prefix':'192.168.1.0/24','nextHop':'10.0.0.2'})
+        >>> ForwardingManager().test_static_route_operations('route1',
+                {'name':'route1','prefix':'192.168.1.0/24','nextHop':'10.0.0.2'})
         True
         """
         return super(self.__class__, self).test_add_remove_operations('routes', 'route', name, body, 'staticRoute')
