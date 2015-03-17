@@ -7,7 +7,7 @@ Updated: 2013-11-06
 import sys
 
 sys.path.append('..')
-from restlib import *
+from restlib import *  # noqa
 from testmodule import TestModule
 
 sys.path.remove('..')
@@ -16,7 +16,8 @@ sys.path.remove('..')
 class HostTracker(TestModule):
     """
     Test for the host tracker..
-    Start 2-layer tree topology network. e.g., in Mininet, run  'sudo mn --controller=remote,ip=127.0.0.1 --mac --topo tree,2'
+    Start 2-layer tree topology network. e.g., in Mininet, run
+        'sudo mn --controller=remote,ip=127.0.0.1 --mac --topo tree,2'
     """
 
     def __init__(self, restSubContext='/controller/nb/v2/hosttracker', user=DEFAULT_USER, password=DEFAULT_PWD,
@@ -34,18 +35,20 @@ class HostTracker(TestModule):
         """
         Add a host.
         """
-        r = super(self.__class__, self).add_entry('address', name, body)
+        super(self.__class__, self).add_entry('address', name, body)
 
     def remove_host(self, name):
         """
         Remove a host.
         """
-        r = super(self.__class__, self).remove_entry('address', name)
+        super(self.__class__, self).remove_entry('address', name)
 
     def test_host_operations(self, name, body):
         """
         Test host operations, like adding and removing.
-        >>> HostTracker().test_host_operations('10.0.1.4',{'nodeType': 'OF', 'dataLayerAddress': '5e:bf:79:84:10:a6', 'vlan': '1', 'nodeId': '00:00:00:00:00:00:00:03', 'nodeConnectorId': '9', 'networkAddress': '10.0.1.4', 'staticHost': True, 'nodeConnectorType': 'OF'})
+        >>> HostTracker().test_host_operations('10.0.1.4',{'nodeType': 'OF', 'dataLayerAddress': '5e:bf:79:84:10:a6',
+                'vlan': '1', 'nodeId': '00:00:00:00:00:00:00:03', 'nodeConnectorId': '9', 'networkAddress': '10.0.1.4',
+                'staticHost': True, 'nodeConnectorType': 'OF'})
         True
         """
         return super(self.__class__, self).test_add_remove_operations(['hosts/active', 'hosts/inactive'], 'address',
