@@ -42,7 +42,7 @@ class ProVision(BaseSwitch):
     def cleanup_cmds(self):
         return ['end',
                 'config',
-                'no openflow\r'
+                'no openflow\r',
                 'y']
 
     @property
