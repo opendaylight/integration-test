@@ -7,7 +7,7 @@ Updated: 2013-11-01
 import sys
 
 sys.path.append('..')
-from restlib import *
+from restlib import *  # noqa
 from testmodule import TestModule
 
 sys.path.remove('..')
@@ -16,7 +16,8 @@ sys.path.remove('..')
 class StatisticsManager(TestModule):
     """
     Test for the statistics manager.
-    Start 2-layer tree topology network. e.g., in Mininet, run  'sudo mn --controller=remote,ip=127.0.0.1 --mac --topo tree,2'
+    Start 2-layer tree topology network. e.g., in Mininet, run
+        'sudo mn --controller=remote,ip=127.0.0.1 --mac --topo tree,2'
     """
 
     def __init__(self, restSubContext='/controller/nb/v2/statistics', user=DEFAULT_USER, password=DEFAULT_PWD,
