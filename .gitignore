@@ -23,3 +23,5 @@ output.xml
 report.html
 *.swp
 .vagrant
+.tox/
+*.egg-info/
