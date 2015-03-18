@@ -408,7 +408,7 @@ class TestOpenFlowXMLs(unittest.TestCase):
 
 
 def get_values(node, *tags):
-    result = {tag: None for tag in tags}
+    result = dict((tag, None) for tag in tags)
     for node in all_nodes(node):
         if node.nodeName in result and len(node.childNodes) > 0:
             result[node.nodeName] = node.childNodes[0].nodeValue
