@@ -310,6 +310,14 @@ class XmlComparator:
                         if nodeKey != 'drop-action':
                             new_act = child.ownerDocument.createElement('drop-action')
                         else:
-                            new_act = child.ownerDocument.createElement('dec-mpls-ttl')
+                            new_act = child.ownerDocument.createElement('output-action')
+                            onc = child.ownerDocument.createElement('output-node-connector')
+                            onc_content = child.ownerDocument.createTextNode('TABLE')
+                            onc.appendChild(onc_content)
+                            new_act.appendChild(onc)
+                            ml = child.ownerDocument.createElement('max-length')
+                            ml_content = child.ownerDocument.createTextNode('60')
+                            ml.appendChild(ml_content)
+                            new_act.appendChild(ml)
                         child.parentNode.replaceChild(new_act, child)
         return xml_dom_input.toxml(encoding='utf-8')
