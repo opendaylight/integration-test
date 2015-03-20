@@ -1,0 +1,85 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# Set memory value (MB) and number of CPU cores here
+$MEMORY = "2048"
+$CPU = "2"
+
+# Opendaylight release version and distribution name
+$ODL_RELEASE = "0.2.3-Helium-SR3"
+$ODL_DIST = "distribution-karaf" + "-" + $ODL_RELEASE
+
+# Inline shell script for provisioning CentOS 7
+$centos_script = <<SCRIPT
+#sudo yum update
+
+sudo yum install -y \
+  git \
+  git-review \
+  vim \
+  nano \
+  java-1.7.0-openjdk
+
+wget https://nexus.opendaylight.org/content/groups/public/org/opendaylight/integration/distribution-karaf/$1/$2.tar.gz
+
+tar -xzvf $2.tar.gz
+
+sudo chown -R vagrant:vagrant $2
+
+rm $2.tar.gz
+SCRIPT
+
+# Initial vagrant configuration
+Vagrant.configure(2) do |config|
+
+  # --------------------------------
+  # Initial virtualbox configuration
+  # --------------------------------
+  config.vm.provider "virtualbox" do |vb|
+    # Set memory value here
+    vb.memory = $MEMORY
+    # Set number of CPU cores here
+    vb.cpus = $CPU
+  end
+
+  # --------------------------
+  # Configuration for CentOS 7
+  # --------------------------
+  config.vm.define "centos" do |centos|
+    # Build vagrant box based on CentOS 7
+    centos.vm.box = "chef/centos-7.0"
+    # Hostname of virtual machine
+    centos.vm.hostname = "tools-centos"
+    # X11 ssh forwarding
+    config.ssh.forward_x11 = "true"
+    # Provision VM
+    centos.vm.provision "shell" do |shell|
+      # Inline shell provisionning
+      shell.inline = $centos_script
+      # Pass arguments to shell provisionning
+      shell.args = [$ODL_RELEASE, $ODL_DIST].join(" ")
+    end
+    # Specific virtualbox guest configuration
+    centos.vm.provider "virtualbox" do |vb|
+      # Name of virtualbox guest machine
+      vb.name = "Integration Tools: CentOS-7"
+    end
+  end
+
+  # ----------------------------------
+  # Configuration for Ubuntu 14.04 LTS
+  # ----------------------------------
+  config.vm.define "ubuntu" do |ubuntu|
+    # Build vagrant box based on Ubuntu 14.04
+    ubuntu.vm.box = "ubuntu/trusty64"
+    # Hostname of virtual machine
+    ubuntu.vm.hostname = "tools-ubuntu"
+    # X11 ssh forwarding
+    config.ssh.forward_x11 = "true"
+    # Specific virtualbox guest configuration
+    ubuntu.vm.provider "virtualbox" do |vb|
+      # Name of virtualbox guest machine
+      vb.name = "Integration Tools: Ubuntu-14.04"
+    end
+  end
+end
