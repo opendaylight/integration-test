@@ -5,40 +5,30 @@
 $MEMORY = "2048"
 $CPU = "2"
 
-# Opendaylight release version and distribution name
-$ODL_RELEASE = "0.2.3-Helium-SR3"
-$ODL_DIST = "distribution-karaf" + "-" + $ODL_RELEASE
-
 # Inline shell script for provisioning CentOS 7
 $centos_script = <<SCRIPT
-#sudo yum update
+# Add EPEL repo for access to Puppet, git-review, etc.
+sudo yum install -y epel-release
 
+# Install other packages (must be done after EPEL repo add)
 sudo yum install -y \
+  puppet \
   git \
   git-review \
   vim \
-  nano \
-  java-1.7.0-openjdk
-
-wget https://nexus.opendaylight.org/content/groups/public/org/opendaylight/integration/distribution-karaf/$1/$2.tar.gz
-
-tar -xzvf $2.tar.gz
-
-sudo chown -R vagrant:vagrant $2
-
-rm $2.tar.gz
+  nano
 SCRIPT
 
-# Initial vagrant configuration
+# Initial Vagrant configuration
 Vagrant.configure(2) do |config|
 
   # --------------------------------
-  # Initial virtualbox configuration
+  # Shared VirtualBox configuration
   # --------------------------------
   config.vm.provider "virtualbox" do |vb|
-    # Set memory value here
+    # Set RAM in MB
     vb.memory = $MEMORY
-    # Set number of CPU cores here
+    # Set num CPU cores
     vb.cpus = $CPU
   end
 
@@ -46,22 +36,28 @@ Vagrant.configure(2) do |config|
   # Configuration for CentOS 7
   # --------------------------
   config.vm.define "centos" do |centos|
-    # Build vagrant box based on CentOS 7
+    # Build Vagrant box based on CentOS 7
     centos.vm.box = "chef/centos-7.0"
-    # Hostname of virtual machine
+    # Set hostname of box
     centos.vm.hostname = "tools-centos"
-    # X11 ssh forwarding
+    # Enable X11 SSH forwarding for GUI applications
     config.ssh.forward_x11 = "true"
-    # Provision VM
+
+    # Use shell provisioner to install additional packages
     centos.vm.provision "shell" do |shell|
-      # Inline shell provisionning
+      # Inline shell provisioning
       shell.inline = $centos_script
-      # Pass arguments to shell provisionning
-      shell.args = [$ODL_RELEASE, $ODL_DIST].join(" ")
     end
-    # Specific virtualbox guest configuration
+
+    # Install OpenDaylight using its Puppet module
+    centos.vm.provision "puppet" do |puppet|
+      puppet.module_path = ["modules"]
+      puppet.manifest_file = "odl_install.pp"
+    end
+
+    # VirtualBox configuration specific to this box
     centos.vm.provider "virtualbox" do |vb|
-      # Name of virtualbox guest machine
+      # Name of VirtualBox guest machine
       vb.name = "Integration Tools: CentOS-7"
     end
   end
@@ -70,15 +66,15 @@ Vagrant.configure(2) do |config|
   # Configuration for Ubuntu 14.04 LTS
   # ----------------------------------
   config.vm.define "ubuntu" do |ubuntu|
-    # Build vagrant box based on Ubuntu 14.04
+    # Build Vagrant box based on Ubuntu 14.04
     ubuntu.vm.box = "ubuntu/trusty64"
-    # Hostname of virtual machine
+    # Set hostname of box
     ubuntu.vm.hostname = "tools-ubuntu"
-    # X11 ssh forwarding
+    # Enable X11 SSH forwarding for GUI applications
     config.ssh.forward_x11 = "true"
-    # Specific virtualbox guest configuration
+    # VirtualBox configuration specific to this box
     ubuntu.vm.provider "virtualbox" do |vb|
-      # Name of virtualbox guest machine
+      # Name of VirtualBox guest machine
       vb.name = "Integration Tools: Ubuntu-14.04"
     end
   end
