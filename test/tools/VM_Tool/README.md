@@ -1,45 +1,117 @@
-# VM Tool
+## Integration Team Tools VM
 
-This Vagrantfile is used as a tool to provide a virtualbox test VM for developing/running integration/system test on an OpenDaylight controller. It's built for a "multi-machine" environnement, so you can choose the VM's operating system.
+This Vagrantfile provides VMs with many of the tools used by the OpenDaylight Integration Team pre-installed and configured. It's meant to serve as a known-working, reproducible, clearly defined environment for consuming them.
 
-##### Configuration
+### Dependencies
 
-You only need to edit the memory and CPU variables at the top of the Vagrantfile to suit your needs. By default, it is configured to use 2048 MB (2 GB) of memory and 2 CPUs.
+#### Installing Vagrant
 
-##### Running a VM
+If you don't have Vagrant installed, head over to the [Vagrant Downloads](https://www.vagrantup.com/downloads.html) page and grab the latest version for your OS. Fedora/RHEL/CentOS folks need the RPM package, Ubuntu/Debian folks need the DEB package. Note that Vagrant also supports Windows and OSX.
 
-You can choose between the following operating systems for the VM:
-  - CentOS 7
-  - Ubuntu 14.04 (Work in progress)
+Assuming you're on Fedora/RHEL/CentOS, find the .rpm file you just downloaded and install it:
 
-###### CentOS 7
-To start the VM, do:
-```sh
+```ShellSession
+sudo rpm -i <name of rpm>
+```
+
+Vagrant uses various "providers" for virtualization support. By default, it uses VirtualBox. If you don't have VirtualBox installed, you'll see an error message when you try to `vagrant up` anything. Install VirtualBox (Fedora/RHEL/CentOS):
+
+```ShellSession
+$ sudo yum install VirtualBox kmod-VirtualBox -y
+```
+
+You may need to restart your system, or at least `systemctl restart systemd-modules-load.service`. If you see Kernel-related errors, try that.
+
+#### Installing Required Gems
+
+We use Bundler to make gem management trivial.
+
+```ShellSession
+$ gem install bundler
+$ bundle install
+```
+
+Among other things, this will provide `librarian-puppet`, which is required for the next section.
+
+#### Installing Required Puppet Modules
+
+Once you've installed `librarian-puppet` through Bundler (as described above), you can use it to install our Puppet module dependences.
+
+```ShellSession
+$ librarian-puppet install
+$ ls modules
+archive  java  opendaylight  stdlib
+```
+
+### Configuration
+
+To configure the RAM and CPU resources to be used by the tools boxes, adjust the variables at the top of the Vagrantfile.
+
+```ruby
+# Set memory value (MB) and number of CPU cores here
+$MEMORY = "2048"
+$CPU = "2"
+```
+
+To configure the ODL install, adjust the params passed to the [OpenDaylight Puppet module](https://github.com/dfarrell07/puppet-opendaylight) in `manifests/odl_install.pp`.
+
+By default, the newest ODL stable release will be installed via its RPM.
+
+### Common Vagrant commands
+
+Since this Vagrantfile defines a multi-machine environment, it's mandatory to give the name of the box for most Vagrant command. For example, `vagrant up` should be `vagrant up <name of box>`.
+
+#### Gathering information
+
+Use `vagrant status` to see the supported boxes and their current status.
+
+```ShellSession
+$ vagrant status
+Current machine states:
+
+centos                    not created (virtualbox)
+ubuntu                    not created (virtualbox)
+```
+
+#### Starting boxes
+
+To start a tools VM:
+
+```ShellSession
+$ vagrant up <name of box>
+```
+
+For example, to start the CentOS tools VM:
+
+```ShellSession
 $ vagrant up centos
 ```
-To log into the VM, do:
-```sh
-$ vagrant ssh centos
-```
-To suspend|resume the VM, do:
-```sh
-$ vagrant suspend centos
-$ vagrant resume centos
-```
-To shutdown the VM, do:
-```sh
-$ vagrant halt centos
-```
-To remove the VM, do:
-```sh
-$ vagrant destroy centos
-```
-###### Ubuntu 14.04
-Use the same commands as above, but replace "centos" with "ubuntu"
-Example:
-```sh
-$ vagrant up ubuntu
-```
-This multi-machine environnement means that it is mandatory to add the name of the VM for each vagrant command. For example, if you only use "vagrant up", it won't work.
 
-Always shutdown your VMs using "vagrant halt «name»". Don't shutdown within the VM, or it can break the state of the VM between Vagrant and Virtualbox. (Exit the VM before shutting it down)
+#### Connecting to boxes
+
+To get a shell on a tools VM:
+
+```ShellSession
+$ vagrant ssh <name of box>
+```
+
+For example, to connect to the CentOS tools VM:
+
+```ShellSession
+$ vagrant ssh centos
+[vagrant@tools-centos ~]$
+```
+
+#### Cleaning up boxes
+
+Suspending a tools VM will allow you to re-access it quickly.
+
+```ShellSession
+$ vagrant suspend <name of box>
+```
+
+To totally remove a VM:
+
+```ShellSession
+$ vagrant destroy -f <name of box>
+```
