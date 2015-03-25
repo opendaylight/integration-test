@@ -60,7 +60,7 @@ def getJolokiaURL(hostname, port, shardIndex, shardName):
     """GET URL for jolokia"""
     return "http://" + hostname + ":" + port + \
         "/jolokia/read/org.opendaylight.controller:Category=Shards,name=member-" + \
-        shardIndex + "-" + shardName + ", type=DistributedConfigDatastore"
+        shardIndex + "-" + shardName + ",type=DistributedConfigDatastore"
 
 
 # Template for Car resource payload
