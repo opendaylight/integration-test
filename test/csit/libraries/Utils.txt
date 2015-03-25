@@ -104,3 +104,22 @@ Strip Quotes
     [Documentation]    Will strip ALL quotes from given string and return the new string
     ${string_to_return}=    Replace String    ${string_to_strip}    "    \    count=-1
     [Return]    ${string_to_return}
+
+Run Command On Remote System
+    [Arguments]     ${remote_system}    ${cmd}  ${user}=${MININET_USER}    ${prompt}=${LINUX_PROMPT}   ${prompt_timeout}=30s
+    [Documentation]     Reduces the common work of running a command on a remote system to a single higher level robot keyword,
+    ...     taking care to log in with a public key and.  The command given is written and the output returned.  No test conditions
+    ...     are checked.
+    Log    Attempting to execute ${cmd} on ${remote_system}
+    ${conn_id}=     Open Connection    ${remote_system}    prompt=${prompt}    timeout=${prompt_timeout}
+    Login With Public Key    ${user}    ${USER_HOME}/.ssh/id_rsa    any
+    Write    ${cmd}
+    ${output}=  Read Until    ${linux_prompt}
+    [Return]    ${output}
+
+Verify File Exists On Remote System
+    [Arguments]  ${remote_system}    ${file}  ${user}=${MININET_USER}    ${prompt}=${LINUX_PROMPT}   ${prompt_timeout}=5s
+    [Documentation]     Will create connection with public key and will PASS if the given ${file} exists, otherwise will FAIL
+    ${conn_id}=     Open Connection    ${remote_system}    prompt=${prompt}    timeout=${prompt_timeout}
+    Login With Public Key    ${user}    ${USER_HOME}/.ssh/id_rsa    any
+    SSHLibrary.File Should Exist   ${file}

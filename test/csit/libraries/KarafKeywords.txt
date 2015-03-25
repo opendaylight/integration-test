@@ -1,0 +1,20 @@
+*** Settings ***
+Library           OperatingSystem
+
+*** Variables ***
+${karaf_shell_port}     8101
+
+*** Keywords ***
+Verify Feature Is Installed
+    [Documentation]     Will Succeed if the given ${feature_name} is found in the output of "feature:list -i" by
+    ...     ssh'ing to the karaf console running on ${CONTROLLER}
+    [arguments]     ${feature_name}     ${controller}=${CONTROLLER}     ${karaf_port}=${karaf_shell_port}       ${prompt}=${linux_prompt}   ${prompt_timeout}=5s
+    ${output}=  Run     sshpass -p karaf ssh -p ${karaf_port} karaf@${controller} feature:list -i
+    Should Contain  ${output}   ${feature_name}
+
+Verify Feature Is Not Installed
+    [Documentation]     Will Succeed if the given ${feature_name} is NOT found in the output of "feature:list -i" by
+    ...     ssh'ing to the karaf console running on ${CONTROLLER}
+    [arguments]     ${feature_name}     ${controller}=${CONTROLLER}     ${karaf_port}=${karaf_shell_port}       ${prompt}=${linux_prompt}   ${prompt_timeout}=5s
+    ${output}=  Run     sshpass -p karaf ssh -p ${karaf_port} karaf@${controller} feature:list -i
+    Should Not Contain  ${output}   ${feature_name}
