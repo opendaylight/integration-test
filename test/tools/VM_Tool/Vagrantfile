@@ -5,20 +5,6 @@
 $MEMORY = "2048"
 $CPU = "2"
 
-# Inline shell script for provisioning CentOS 7
-$centos_script = <<SCRIPT
-# Add EPEL repo for access to Puppet, git-review, etc.
-sudo yum install -y epel-release
-
-# Install other packages (must be done after EPEL repo add)
-sudo yum install -y \
-  puppet \
-  git \
-  git-review \
-  vim \
-  nano
-SCRIPT
-
 # Initial Vagrant configuration
 Vagrant.configure(2) do |config|
 
@@ -42,12 +28,8 @@ Vagrant.configure(2) do |config|
     centos.vm.hostname = "tools-centos"
     # Enable X11 SSH forwarding for GUI applications
     config.ssh.forward_x11 = "true"
-
     # Use shell provisioner to install additional packages
-    centos.vm.provision "shell" do |shell|
-      # Inline shell provisioning
-      shell.inline = $centos_script
-    end
+    centos.vm.provision "shell", path: "scripts/centos.sh"
 
     # Install OpenDaylight using its Puppet module
     centos.vm.provision "puppet" do |puppet|
@@ -71,7 +53,10 @@ Vagrant.configure(2) do |config|
     # Set hostname of box
     ubuntu.vm.hostname = "tools-ubuntu"
     # Enable X11 SSH forwarding for GUI applications
-    config.ssh.forward_x11 = "true"
+    ubuntu.ssh.forward_x11 = "true"
+    # Use shell provisioner to install additional packages
+    #ubuntu.vm.provision "shell", path: "scripts/ubuntu.sh"
+
     # VirtualBox configuration specific to this box
     ubuntu.vm.provider "virtualbox" do |vb|
       # Name of VirtualBox guest machine
