@@ -8,9 +8,14 @@ $CPU = "2"
 # Initial Vagrant configuration
 Vagrant.configure(2) do |config|
 
-  # --------------------------------
-  # Shared VirtualBox configuration
-  # --------------------------------
+  # ---------------------
+  # Shared configurations
+  # ---------------------
+
+  # Enables SSH X11 forwarding
+  config.ssh.forward_x11 = "true"
+
+  # VirtualBox configuration
   config.vm.provider "virtualbox" do |vb|
     # Set RAM in MB
     vb.memory = $MEMORY
@@ -18,49 +23,51 @@ Vagrant.configure(2) do |config|
     vb.cpus = $CPU
   end
 
-  # --------------------------
-  # Configuration for CentOS 7
-  # --------------------------
-  config.vm.define "centos" do |centos|
-    # Build Vagrant box based on CentOS 7
-    centos.vm.box = "chef/centos-7.0"
+  # ---------------------------
+  # Configuration for Fedora 20
+  # ---------------------------
+
+  # Multi-machine definition for Fedora
+  config.vm.define "fedora" do |fedora|
+    # Build Vagrant box based on Fedora 20
+    fedora.vm.box = "chef/fedora-20"
     # Set hostname of box
-    centos.vm.hostname = "tools-centos"
-    # Enable X11 SSH forwarding for GUI applications
-    config.ssh.forward_x11 = "true"
+    fedora.vm.hostname = "tools-fedora"
+    # Use PTY for provisionning
+    fedora.ssh.pty = "True"
     # Use shell provisioner to install additional packages
-    centos.vm.provision "shell", path: "scripts/centos.sh"
+    fedora.vm.provision "shell", path: "scripts/fedora.sh"
 
     # Install OpenDaylight using its Puppet module
-    centos.vm.provision "puppet" do |puppet|
+    fedora.vm.provision "puppet" do |puppet|
       puppet.module_path = ["modules"]
       puppet.manifest_file = "odl_install.pp"
     end
 
     # VirtualBox configuration specific to this box
-    centos.vm.provider "virtualbox" do |vb|
-      # Name of VirtualBox guest machine
-      vb.name = "Integration Tools: CentOS-7"
+    fedora.vm.provider "virtualbox" do |vb|
+      # Name for guest machine
+      vb.name = "Integration Tools: Fedora 20"
     end
   end
 
   # ----------------------------------
   # Configuration for Ubuntu 14.04 LTS
   # ----------------------------------
+
+  # Multi-machine definition for Ubuntu
   config.vm.define "ubuntu" do |ubuntu|
     # Build Vagrant box based on Ubuntu 14.04
     ubuntu.vm.box = "ubuntu/trusty64"
     # Set hostname of box
     ubuntu.vm.hostname = "tools-ubuntu"
-    # Enable X11 SSH forwarding for GUI applications
-    ubuntu.ssh.forward_x11 = "true"
     # Use shell provisioner to install additional packages
-    #ubuntu.vm.provision "shell", path: "scripts/ubuntu.sh"
+    ubuntu.vm.provision "shell", path: "scripts/ubuntu.sh"
 
     # VirtualBox configuration specific to this box
     ubuntu.vm.provider "virtualbox" do |vb|
-      # Name of VirtualBox guest machine
-      vb.name = "Integration Tools: Ubuntu-14.04"
+      # Name for guest machine
+      vb.name = "Integration Tools: Ubuntu 14.04"
     end
   end
 end

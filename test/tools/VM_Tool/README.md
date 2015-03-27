@@ -69,7 +69,7 @@ Use `vagrant status` to see the supported boxes and their current status.
 $ vagrant status
 Current machine states:
 
-centos                    not created (virtualbox)
+fedora                    not created (virtualbox)
 ubuntu                    not created (virtualbox)
 ```
 
@@ -81,10 +81,10 @@ To start a tools VM:
 $ vagrant up <name of box>
 ```
 
-For example, to start the CentOS tools VM:
+For example, to start the Fedora tools VM:
 
 ```ShellSession
-$ vagrant up centos
+$ vagrant up fedora
 ```
 
 #### Connecting to boxes
@@ -95,11 +95,11 @@ To get a shell on a tools VM:
 $ vagrant ssh <name of box>
 ```
 
-For example, to connect to the CentOS tools VM:
+For example, to connect to the Fedora tools VM:
 
 ```ShellSession
-$ vagrant ssh centos
-[vagrant@tools-centos ~]$
+$ vagrant ssh fedora
+[vagrant@tools-fedora ~]$
 ```
 
 #### Cleaning up boxes
