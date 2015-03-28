@@ -1,0 +1,28 @@
+*** Settings ***
+Documentation     Test suite for the OpenDaylight base edition with of13, aimed for statistics manager
+Suite Setup       Start Suite
+Suite Teardown    Stop Suite
+Library           SSHLibrary
+
+*** Variables ***
+${start}          sudo python mininetwork.py --controllers=${CONTROLLER1},${CONTROLLER2},${CONTROLLER3}
+
+*** Keywords ***
+Start Suite
+    Log    Start the test on the base edition
+    Open Connection    ${MININET}    prompt=>
+    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
+    Put File    ${CURDIR}/mininetwork.py   mininetwork.py
+    Write    sudo ovs-vsctl set-manager ptcp:6644
+    Write    sudo mn -c
+    Read Until   >
+    Write    ${start}
+    Read Until   mininet>
+
+Stop Suite
+    Log    Stop the test on the base edition
+    Read
+    Write    exit
+    Sleep    2
+    Read
+    Close Connection
