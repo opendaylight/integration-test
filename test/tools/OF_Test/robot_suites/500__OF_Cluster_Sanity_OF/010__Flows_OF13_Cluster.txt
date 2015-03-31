@@ -7,7 +7,7 @@ Library        ../../../../csit/libraries/XmlComparator.py
 Variables      ../../../../csit/variables/Variables.py
 Library        ../../../../csit/libraries/RequestsLibrary.py
 Library        ../../../../csit/libraries/Common.py
-Library        SanityLibrary
+Library        SanityLibrary.py
 Suite Setup       Create Controllers Sessions
 Suite Teardown    Delete All Sessions
 
