@@ -40,7 +40,7 @@ Get Cars And Verify
     [Arguments]    ${controller_ip}    ${num_cars}
     ${resp}     Getcars  ${controller_ip}   ${PORT}  ${0}
     Should Be Equal As Strings    ${resp.status_code}    200
-    :FOR    ${i}    IN RANGE    1    ${num_cars}
+    :FOR    ${i}    IN RANGE    1    ${num_cars}+1
     \    Should Contain     ${resp.content}   manufacturer${i}
 
 Add People And Verify
@@ -64,7 +64,7 @@ Get People And Verify
     [Arguments]    ${controller_ip}    ${num_people}
     ${resp}     GetPersons  ${controller_ip}    ${PORT}  ${0}
     Should Be Equal As Strings    ${resp.status_code}    200
-    :FOR    ${i}    IN RANGE    1    ${num_people}
+    :FOR    ${i}    IN RANGE    1    ${num_people}+1
     \    Should Contain     ${resp.content}   user${i}
 
 Add Car Person And Verify
@@ -85,7 +85,7 @@ Get Car-Person Mappings And Verify
     [Arguments]    ${controller_ip}    ${num_entries}
     ${resp}     GetCarPersonMappings    ${controller_ip}    ${PORT}  ${0}
     Should Be Equal As Strings    ${resp.status_code}    200
-    :FOR    ${i}    IN RANGE    1    ${num_entries}
+    :FOR    ${i}    IN RANGE    1    ${num_entries}+1
     \    Should Contain     ${resp.content}   user${i}
 
 Buy Cars And Verify
