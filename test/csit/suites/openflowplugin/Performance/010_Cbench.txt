@@ -67,7 +67,7 @@ Cbench Suite Setup
     ##Setting the test timeout dynamically in case larger values on command line override default
     ${test_timeout}             Evaluate    (${loops} * ${duration_in_secs}) * 1.5
     Set Suite Variable  ${test_timeout}
-    Verify File Exists On Remote System     ${cbench_system}    ${cbench_executable}
+    #Verify File Exists On Remote System     ${cbench_system}    ${cbench_executable}
     Should Be True  ${loops} >= 2   If number of loops is less than 2, cbench will not run
     Verify Feature Is Installed     odl-openflowplugin-drop-test
     Issue Command On Karaf Console  dropallpacketsrpc on
