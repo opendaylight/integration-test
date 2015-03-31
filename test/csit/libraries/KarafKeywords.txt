@@ -6,15 +6,20 @@ ${karaf_shell_port}     8101
 
 *** Keywords ***
 Verify Feature Is Installed
-    [Documentation]     Will Succeed if the given ${feature_name} is found in the output of "feature:list -i" by
-    ...     ssh'ing to the karaf console running on ${CONTROLLER}
-    [arguments]     ${feature_name}     ${controller}=${CONTROLLER}     ${karaf_port}=${karaf_shell_port}       ${prompt}=${linux_prompt}   ${prompt_timeout}=5s
-    ${output}=  Run     sshpass -p karaf ssh -p ${karaf_port} karaf@${controller} feature:list -i
+    [Documentation]     Will Succeed if the given ${feature_name} is found in the output of "feature:list -i"
+    [Arguments]     ${feature_name}     ${controller}=${CONTROLLER}     ${karaf_port}=${karaf_shell_port}
+    ${output}=  Issue Command On Karaf Console  feature:list -i     ${controller}   ${karaf_port}
     Should Contain  ${output}   ${feature_name}
 
 Verify Feature Is Not Installed
-    [Documentation]     Will Succeed if the given ${feature_name} is NOT found in the output of "feature:list -i" by
-    ...     ssh'ing to the karaf console running on ${CONTROLLER}
-    [arguments]     ${feature_name}     ${controller}=${CONTROLLER}     ${karaf_port}=${karaf_shell_port}       ${prompt}=${linux_prompt}   ${prompt_timeout}=5s
-    ${output}=  Run     sshpass -p karaf ssh -p ${karaf_port} karaf@${controller} feature:list -i
+    [Documentation]     Will Succeed if the given ${feature_name} is NOT found in the output of "feature:list -i"
+    [Arguments]     ${feature_name}     ${controller}=${CONTROLLER}     ${karaf_port}=${karaf_shell_port}
+    ${output}=  Issue Command On Karaf Console  feature:list -i     ${controller}   ${karaf_port}
     Should Not Contain  ${output}   ${feature_name}
+
+Issue Command On Karaf Console
+    [Documentation]     Will execute the given ${cmd} by ssh'ing to the karaf console running on ${CONTROLLER}
+    [Arguments]     ${cmd}     ${controller}=${CONTROLLER}     ${karaf_port}=${karaf_shell_port}
+    ${output}=  Run     sshpass -p karaf ssh -p ${karaf_port} -o StrictHostKeyChecking=no karaf@${controller} ${cmd}
+    Log     ${output}
+    [Return]    ${output}
