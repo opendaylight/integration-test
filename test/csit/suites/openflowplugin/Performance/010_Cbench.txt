@@ -70,3 +70,4 @@ Cbench Suite Setup
     Verify File Exists On Remote System     ${cbench_system}    ${cbench_executable}
     Should Be True  ${loops} >= 2   If number of loops is less than 2, cbench will not run
     Verify Feature Is Installed     odl-openflowplugin-drop-test
+    Issue Command On Karaf Console  dropallpacketsrpc on
