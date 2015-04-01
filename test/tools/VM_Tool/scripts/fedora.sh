@@ -4,14 +4,17 @@
 # External shell provisioner script for Fedora
 # --------------------------------------------
 
+# Set HOME variable for this script
+HOME="/home/vagrant"
+
 # Install initial packages
 sudo yum install -y \
-  puppet \
-  git
+  git \
+  puppet
 
-#-----------------
+# ----------------
 # Install netopeer
-#-----------------
+# ----------------
 
 # Install required system dependencies
 sudo yum install -y \
@@ -31,29 +34,26 @@ sudo yum install -y \
   libevent \
   libevent-devel \
   libssh-devel \
-  libtool
+  libtool \
+  doxygen
 
 # Install pyang (extensible YANG validator and converter in python)
-git clone https://github.com/mbj4668/pyang.git && \
-  cd pyang && \
-  sudo python setup.py install
+cd $HOME && git clone https://github.com/mbj4668/pyang.git
+sudo chown -R vagrant:vagrant $HOME/pyang/
+cd $HOME/pyang/ && sudo python setup.py install
 
 # Install libnetconf (NETCONF library in C)
-git clone https://code.google.com/p/libnetconf && \
-  cd libnetconf && \
-  ./configure  --with-nacm-recovery-uid=1000 && \
+cd $HOME && git clone https://code.google.com/p/libnetconf
+sudo chown -R vagrant:vagrant $HOME/libnetconf/
+  cd $HOME/libnetconf/ && \
+  sh configure --prefix=/usr --with-nacm-recovery-uid=1000 && \
   make && \
   sudo make install
-
-# Create softlink for libnetconf library in lib64
-sudo ln -s /usr/local/lib/libnetconf.so.0 /lib64
 
 # Install netopeer (set of NETCONF tools built on the libnetconf library)
-git clone https://code.google.com/p/netopeer && \
-  cd netopeer/server && \
-  ./configure && \
+cd $HOME && git clone https://code.google.com/p/netopeer
+sudo chown -R vagrant:vagrant $HOME/netopeer/
+  cd $HOME/netopeer/server/ && \
+  sh configure --prefix=/usr && \
   make && \
   sudo make install
-
-# Add path to python site-package directory
-echo "/usr/local/lib/python2.7/site-packages" | sudo tee /usr/lib/python2.7/site-packages/netopeer.pth
