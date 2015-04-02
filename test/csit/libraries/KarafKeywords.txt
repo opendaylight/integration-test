@@ -1,8 +1,12 @@
 *** Settings ***
+Library           SSHLibrary
 Library           OperatingSystem
 
 *** Variables ***
 ${karaf_shell_port}     8101
+${karaf_prompt}         opendaylight-user
+${karaf_user}           karaf
+${karaf_password}       karaf
 
 *** Keywords ***
 Verify Feature Is Installed
@@ -20,6 +24,9 @@ Verify Feature Is Not Installed
 Issue Command On Karaf Console
     [Documentation]     Will execute the given ${cmd} by ssh'ing to the karaf console running on ${CONTROLLER}
     [Arguments]     ${cmd}     ${controller}=${CONTROLLER}     ${karaf_port}=${karaf_shell_port}
-    ${output}=  Run     sshpass -p karaf ssh -p ${karaf_port} -o StrictHostKeyChecking=no karaf@${controller} ${cmd}
+    Open Connection    ${controller}    port=${karaf_port}  prompt=${karaf_prompt}
+    Login    ${karaf_user}    ${karaf_password}
+    ${output}=  Execute Command     ${cmd}
+    Close Connection
     Log     ${output}
     [Return]    ${output}

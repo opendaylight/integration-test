@@ -115,6 +115,7 @@ Run Command On Remote System
     Login With Public Key    ${user}    ${USER_HOME}/.ssh/id_rsa    any
     Write    ${cmd}
     ${output}=  Read Until    ${linux_prompt}
+    Close Connection
     [Return]    ${output}
 
 Verify File Exists On Remote System
@@ -123,3 +124,5 @@ Verify File Exists On Remote System
     ${conn_id}=     Open Connection    ${remote_system}    prompt=${prompt}    timeout=${prompt_timeout}
     Login With Public Key    ${user}    ${USER_HOME}/.ssh/id_rsa    any
     SSHLibrary.File Should Exist   ${file}
+    Close Connection
+
