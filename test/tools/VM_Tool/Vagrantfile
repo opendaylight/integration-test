@@ -36,7 +36,7 @@ Vagrant.configure(2) do |config|
     # Use PTY for provisionning
     fedora.ssh.pty = "True"
     # Use shell provisioner to install additional packages
-    fedora.vm.provision "shell", path: "scripts/fedora.sh"
+    fedora.vm.provision "shell", path: "scripts/fedora.sh", privileged: "false"
 
     # Install OpenDaylight using its Puppet module
     fedora.vm.provision "puppet" do |puppet|
