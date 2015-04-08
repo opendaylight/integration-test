@@ -28,7 +28,7 @@ Cbench Throughput Test
     [Tags]  throughput
     [Timeout]   ${test_timeout}
     Log    Cbench tests using ${loops} iterations of ${duration_in_secs} second tests. Switch Count: ${switch_count}. Unique MACS to cycle: ${num_of_unique_macs}
-    Run Cbench And Log Results  -t -m ${duration_in_ms} -M ${num_of_unique_macs} -s ${switch_count} -l ${loops}     ${throughput_threshold}
+    Run Cbench And Log Results  -t -m ${duration_in_ms} -M ${num_of_unique_macs} -s ${switch_count} -l ${loops}     ${throughput_threshold}     throughput.csv
 
 Cbench Latency Test
     [Documentation]     cbench executed in default latency mode.  Test parameters have defaults, but can be overridden
@@ -36,11 +36,11 @@ Cbench Latency Test
     [Tags]  latency
     [Timeout]   ${test_timeout}
     Log    Cbench tests using ${loops} iterations of ${duration_in_secs} second tests. Switch Count: ${switch_count}. Unique MACS to cycle: ${num_of_unique_macs}
-    Run Cbench And Log Results  -m ${duration_in_ms} -M ${num_of_unique_macs} -s ${switch_count} -l ${loops}     ${latency_threshold}
+    Run Cbench And Log Results  -m ${duration_in_ms} -M ${num_of_unique_macs} -s ${switch_count} -l ${loops}     ${latency_threshold}     latency.csv
 
 *** Keywords ***
 Run Cbench And Log Results
-    [Arguments]    ${cbench_args}    ${average_threshold}
+    [Arguments]    ${cbench_args}    ${average_threshold}   ${output_filename}=results.csv
     ${output}=  Run Command On Remote System    ${cbench_system}   ${cbench_executable} -c ${CONTROLLER} ${cbench_args}  prompt_timeout=${test_timeout}
     Log     ${output}
     Should Contain    ${output}    RESULT
@@ -59,7 +59,8 @@ Run Cbench And Log Results
     ${stdev}=    Set Variable    ${result_value_list[${3}]}
     ${date}=    Get Time    d,m,s
     Log    CBench Result: ${date},${cbench_args},${min},${max},${average},${stdev}
-    Should Be True    ${average} > ${average_threshold}     Flow mod per/sec threshold was not met
+    Append To File    ${output_filename}    ${average}
+    Should Be True    ${average} > ${average_threshold}     ${average} flow_mods per/sec did not exceed threshold of ${average_threshold}
 
 Cbench Suite Setup
     ${duration_in_ms}           Evaluate    ${duration_in_secs} * 1000
@@ -67,7 +68,7 @@ Cbench Suite Setup
     ##Setting the test timeout dynamically in case larger values on command line override default
     ${test_timeout}             Evaluate    (${loops} * ${duration_in_secs}) * 1.5
     Set Suite Variable  ${test_timeout}
-    #Verify File Exists On Remote System     ${cbench_system}    ${cbench_executable}
+    Verify File Exists On Remote System     ${cbench_system}    ${cbench_executable}
     Should Be True  ${loops} >= 2   If number of loops is less than 2, cbench will not run
     Verify Feature Is Installed     odl-openflowplugin-drop-test
     Issue Command On Karaf Console  dropallpacketsrpc on
