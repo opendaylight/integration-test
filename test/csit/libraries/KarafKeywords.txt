@@ -12,14 +12,16 @@ ${karaf_password}       karaf
 Verify Feature Is Installed
     [Documentation]     Will Succeed if the given ${feature_name} is found in the output of "feature:list -i"
     [Arguments]     ${feature_name}     ${controller}=${CONTROLLER}     ${karaf_port}=${karaf_shell_port}
-    ${output}=  Issue Command On Karaf Console  feature:list -i     ${controller}   ${karaf_port}
+    ${output}=  Issue Command On Karaf Console  feature:list -i | grep ${feature_name}     ${controller}   ${karaf_port}
     Should Contain  ${output}   ${feature_name}
+    [Return]    ${output}
 
 Verify Feature Is Not Installed
     [Documentation]     Will Succeed if the given ${feature_name} is NOT found in the output of "feature:list -i"
     [Arguments]     ${feature_name}     ${controller}=${CONTROLLER}     ${karaf_port}=${karaf_shell_port}
-    ${output}=  Issue Command On Karaf Console  feature:list -i     ${controller}   ${karaf_port}
+    ${output}=  Issue Command On Karaf Console  feature:list -i | grep ${feature_name}     ${controller}   ${karaf_port}
     Should Not Contain  ${output}   ${feature_name}
+    [Return]    ${output}
 
 Issue Command On Karaf Console
     [Documentation]     Will execute the given ${cmd} by ssh'ing to the karaf console running on ${CONTROLLER}
