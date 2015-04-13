@@ -115,3 +115,25 @@ To totally remove a VM:
 ```ShellSession
 $ vagrant destroy -f <name of box>
 ```
+
+#### Pre-installed software
+
+######OpenDaylight:  
+OpenDaylight software is a combination of components including a fully pluggable controller, interfaces, protocol plug-ins and applications.
+######Netopeer:  
+Netopeer is a set of NETCONF tools built on the libnetconf library.
+######Robot Famework:  
+Generic test automation framework for acceptance testing and ATDD
+######RIDE:  
+RIDE is a light-weight and intuitive editor for Robot Framework test case files
+
+#### Additionnal information
+
+The vagrantfile is configured to enable X fowarding through ssh.
+For example, to launch RIDE
+
+```ShellSession
+[vagrant@tools-fedora ~]$ ride
+```
+
+More pre-installed software will be added to provide necessary tools for the Opendaylight Integration Group
