@@ -10,13 +10,15 @@ HOME="/home/vagrant"
 # Install initial packages
 sudo yum install -y \
   git \
-  puppet
+  puppet \
+  python-pip \
+  python-devel
 
 # ----------------
 # Install netopeer
 # ----------------
 
-# Install required system dependencies
+# Install required dependencies
 sudo yum install -y \
   readline \
   readline-devel \
@@ -57,3 +59,31 @@ sudo chown -R vagrant:vagrant $HOME/netopeer/
   sh configure --prefix=/usr && \
   make && \
   sudo make install
+
+# --------------------------------
+# Install Robot Framework and RIDE
+# --------------------------------
+
+# Install required dependencies
+sudo yum install -y \
+  wxGTK-devel \
+  gcc-c++ \
+  xorg-x11-xauth
+
+# Install Robot Framework libraries
+sudo pip install \
+  robotframework-ride \
+  robotframework-sshlibrary \
+  robotframework-requests
+
+# Install wxPython, a blending of the wxWidgets C++ class library used for RIDE
+cd $HOME && \
+  wget http://sourceforge.net/projects/wxpython/files/wxPython/2.8.12.1/wxPython-src-2.8.12.1.tar.bz2 && \
+  tar -xjvf wxPython-src-2.8.12.1.tar.bz2 && \
+  rm wxPython-src-2.8.12.1.tar.bz2 && \
+  cd wxPython-src-2.8.12.1/wxPython && \
+  python setup.py build && \
+  sudo python setup.py install
+
+# Add 'ride' alias for quietly running RIDE gui
+echo "alias ride=\"nohup ride.py >/dev/null 2>&1 &\"" >> $HOME/.bashrc
