@@ -2,6 +2,32 @@
 
 This Vagrantfile provides VMs with many of the tools used by the OpenDaylight Integration Team pre-installed and configured. It's meant to serve as a known-working, reproducible, clearly defined environment for consuming them.
 
+### Pre-installed Software
+
+Note that the Vagrant environment is configure to support X forwarding, so GUI programs like RIDE will display correctly.
+
+#### OpenDaylight
+
+The latest OpenDaylight release is installed via the [OpenDaylight Puppet module](https://github.com/dfarrell07/puppet-opendaylight). Because we're using the Puppet mod, we get systemd config, user:group management, the correct Java package and any future maintenance/features for free.
+
+#### Netopeer
+
+[Netopeer](https://code.google.com/p/netopeer/) is an Open Source NETCONF server that can be used to explore the MD-SAL/RESTCONF.
+
+#### Robot Famework
+
+The [Robot Framework](http://robotframework.org/) is used by OpenDaylight to create system integration tests.
+
+#### RIDE
+
+[RIDE](https://github.com/robotframework/RIDE) is an editor for working with Robot Framework test cases.
+
+To access the RIDE GUI:
+
+```ShellSession
+[vagrant@tools-fedora ~]$ ride
+```
+
 ### Dependencies
 
 #### Installing Vagrant
@@ -115,25 +141,3 @@ To totally remove a VM:
 ```ShellSession
 $ vagrant destroy -f <name of box>
 ```
-
-#### Pre-installed software
-
-######OpenDaylight:  
-OpenDaylight software is a combination of components including a fully pluggable controller, interfaces, protocol plug-ins and applications.
-######Netopeer:  
-Netopeer is a set of NETCONF tools built on the libnetconf library.
-######Robot Famework:  
-Generic test automation framework for acceptance testing and ATDD
-######RIDE:  
-RIDE is a light-weight and intuitive editor for Robot Framework test case files
-
-#### Additionnal information
-
-The vagrantfile is configured to enable X fowarding through ssh.
-For example, to launch RIDE
-
-```ShellSession
-[vagrant@tools-fedora ~]$ ride
-```
-
-More pre-installed software will be added to provide necessary tools for the Opendaylight Integration Group
