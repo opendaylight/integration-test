@@ -11,8 +11,8 @@ Variables         ../../../variables/Variables.py
 
 *** Variables ***
 ${FILE}                 ${CURDIR}/../../../variables/xmls/netconf.xml
-${REST_CONT_CONF}       /restconf/config/opendaylight-inventory:nodes
-${REST_CONT_OPER}       /restconf/operational/opendaylight-inventory:nodes 
+${REST_CONT_CONF}       /restconf/config/network-topology:network-topology/topology/topology-netconf
+${REST_CONT_OPER}       /restconf/operational/network-topology:network-topology/topology/topology-netconf
 ${REST_NTPR_CONF}       node/controller-config/yang-ext:mount/config:modules
 ${REST_NTPR_MOUNT}      node/netopeer/yang-ext:mount/
 
@@ -31,7 +31,7 @@ Add NetConf device
 Get Controller Inventory
     [Documentation]    Get Controller operational inventory
     [Tags]    netconf
-    Wait Until Keyword Succeeds    10s    2s    Get Inventory 
+    Wait Until Keyword Succeeds    10s    2s    Get Inventory
 
 Pull External Device configuration
     [Documentation]    Pull Netopeer configuration
@@ -53,10 +53,10 @@ Verify Device Operational data
 
 *** Keywords ***
 Get Inventory
-    ${resp}   Get    session    ${REST_CONT_OPER}
+    ${resp}   Get    session    ${REST_CONT_OPER}/node/netopeer
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
-    Should Contain    ${resp.content}    "id":"netopeer"
-    Should Contain    ${resp.content}    "netconf-node-inventory:connected":true
-    Should Contain    ${resp.content}    "netconf-node-inventory:initial-capability"
+    Should Contain    ${resp.content}    "node-id":"netopeer"
+    Should Contain    ${resp.content}    "netconf-node-topology:connection-status":"connected"
+    Should Contain    ${resp.content}    "netconf-node-topology:available-capabilities"
 
