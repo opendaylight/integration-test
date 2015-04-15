@@ -4,9 +4,9 @@ Library        OperatingSystem
 Library        Collections
 Library        XML
 Library        Process
-Variables      ../../../../test/csit/variables/Variables.py
-Library        ../../../../test/csit/libraries/RequestsLibrary.py
-Library        ../../../../test/csit/libraries/Common.py
+Variables      ../../../variables/Variables.py
+Library        ../../../libraries/RequestsLibrary.py
+Library        ../../../libraries/Common.py
 Library        SSHLibrary
 Suite Setup       Start Suite
 Suite Teardown    Stop Suite
@@ -24,16 +24,18 @@ Are Switches Connected
 Configure And Deconfigure Flows
       ${result}=    Run Process    ${PERFSCRIPT}  --host  ${CONTROLLER}  --flows  ${flows}  --threads  ${threads}  --auth  shell=yes
       Log           ${result.stdout}
-      Create File    ${CURDIR}/out.log.txt  content=${result.stdout}
+      Create File   out.log.txt  content=${result.stdout}
       Log           ${result.stderr}
       Should Be Equal As Integers       ${result.rc}    0
+      ${result}=    Run Process    python  ${PARSESCRIPT}
 
 *** Variables ***
 ${switches}       10
-${flows}          1000
+${flows}          100
 ${threads}        5
 ${start}          sudo mn --controller=remote,ip=${CONTROLLER} --topo linear,${switches},1 --switch ovsk,protocols=OpenFlow13
-${PERFSCRIPT}     ${CURDIR}/flow_add_delete_test.py
+${PERFSCRIPT}     ${CURDIR}/../../../../tools/odl-mdsal-clustering-tests/clustering-performance-test/flow_add_delete_test.py
+${PARSESCRIPT}    ${CURDIR}/../../../../tools/odl-mdsal-clustering-tests/clustering-performance-test/create_plot_data_files.py
 
 *** Keywords ***
 Start Suite
