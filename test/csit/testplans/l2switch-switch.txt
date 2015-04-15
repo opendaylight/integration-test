@@ -3,5 +3,3 @@ integration/test/csit/suites/l2switch/Address_Tracking_OF13
 integration/test/csit/suites/l2switch/Flow_Programming_OF13
 integration/test/csit/suites/l2switch/Loop_Removal_OF13
 integration/test/csit/suites/l2switch/Host_Tracking_OF13
-integration/test/csit/suites/l2switch/Inventory_Scalability_OF13
-
