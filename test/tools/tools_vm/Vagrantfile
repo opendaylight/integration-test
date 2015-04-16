@@ -33,8 +33,6 @@ Vagrant.configure(2) do |config|
     fedora.vm.box = "chef/fedora-20"
     # Set hostname of box
     fedora.vm.hostname = "tools-fedora"
-    # Use PTY for provisionning
-    fedora.ssh.pty = "True"
     # Use shell provisioner to install additional packages
     fedora.vm.provision "shell", path: "scripts/fedora.sh", privileged: "false"
 
