@@ -1,6 +1,7 @@
 *** Settings ***
 Library           SSHLibrary
 Library           ./UtilLibrary.py
+Resource          KarafKeywords.txt
 
 *** Variables ***
 ${start}          sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,1 --switch ovsk,protocols=OpenFlow13
@@ -108,7 +109,7 @@ Strip Quotes
 Run Command On Remote System
     [Arguments]     ${remote_system}    ${cmd}  ${user}=${MININET_USER}    ${prompt}=${LINUX_PROMPT}   ${prompt_timeout}=30s
     [Documentation]     Reduces the common work of running a command on a remote system to a single higher level robot keyword,
-    ...     taking care to log in with a public key and.  The command given is written and the output returned.  No test conditions
+    ...     taking care to log in with a public key and. The command given is written and the output returned.  No test conditions
     ...     are checked.
     Log    Attempting to execute ${cmd} on ${remote_system}
     ${conn_id}=     Open Connection    ${remote_system}    prompt=${prompt}    timeout=${prompt_timeout}
@@ -126,3 +127,8 @@ Verify File Exists On Remote System
     SSHLibrary.File Should Exist   ${file}
     Close Connection
 
+Verify Controller Is Not Dead
+    [Arguments]     ${controller_ip}=${CONTROLLER}
+    [Documentation]     Will execute any tests to verify the controller is not dead. Some checks are
+    ...     Out Of Memory Execptions.
+    Check Karaf Log File Does Not Have Messages     ${controller_ip}  java.lang.OutOfMemoryError
