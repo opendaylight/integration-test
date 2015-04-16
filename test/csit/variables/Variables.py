@@ -10,6 +10,7 @@ PORT = '8080'
 RESTPORT = '8282'
 RESTCONFPORT = '8181'
 PREFIX = 'http://' + CONTROLLER + ':' + PORT
+PROMPT = '>'
 CONTAINER = 'default'
 USER = 'admin'
 PWD = 'admin'
