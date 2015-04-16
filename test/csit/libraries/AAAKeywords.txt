@@ -67,3 +67,23 @@ Validate Token Format
     [Arguments]    ${token}
     [Documentation]    Validates the given string is in the proper "token" format
     Should Match Regexp    ${token}    [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
+
+Get User From IDM DB
+    [Documentation]    Will return user information. If no user id is passed, it will retrieve all users in DB
+    [Arguments]    ${user_id}=${EMPTY}
+    Create Session    httpbin    http://${CONTROLLER}:${RESTPORT}
+    ${headers}=    Create Dictionary    Content-Type    application/x-www-form-urlencoded
+    ${resp}=    RequestsLibrary.GET    httpbin    ${idmurl}/users/${user_id}    headers=${headers}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Log    ${resp.content}
+    [Return]    ${resp}
+
+Create User
+    [Documentation]    Will return user information. If no user id is passed, it will retrieve all users in DB
+    [Arguments]    ${user_data}
+    Create Session    httpbin    http://${CONTROLLER}:${RESTPORT}
+    ${headers}=    Create Dictionary    Content-Type    application/json
+    ${resp}=    RequestsLibrary.POST    httpbin    ${idmurl}/users    headers=${headers}    data=${user_data}
+    Should Be Equal As Strings    ${resp.status_code}    201
+    Log    ${resp.content}
+    [Return]    ${resp}
