@@ -19,7 +19,7 @@ Add a ODL Controller
 Verify the Controller Status is up
     [Documentation]    Check Controller status
     [Tags]   vtnc
-    Check Controller Status    odc_test   up   20
+    Wait Until Keyword Succeeds   30s   2s  Check Controller Status    odc_test   up
 
 Add a Vtn Tenant1
     [Documentation]   Create Vtn Tenant1
@@ -39,7 +39,7 @@ Update controller ip invalid
 Verify the Controller State is down
     [Documentation]    Check Controller status
     [Tags]   vtnc
-    Check Controller Status    odc_test   down   45
+    Wait Until Keyword Succeeds   40s   2s   Check Controller Status    odc_test   down
 
 Create VBRIF in VBRIDGE Vbridge1 Interface1
     [Documentation]   Create an interface to Vbridge1
@@ -59,7 +59,7 @@ Update controller ip valid
 Verify the Controller State is up
     [Documentation]    Check Controller status
     [Tags]   vtnc
-    Check Controller Status    odc_test   up   45
+    Wait Until Keyword Succeeds   40s   2s   Check Controller Status    odc_test   up
 
 Define Portmap for Interface1
     [Documentation]   Map Interface1 to a logical port
@@ -74,7 +74,7 @@ Define Portmap for Interface2
 Test Ping for Configuration1
     [Documentation]   ping between hosts in mininet
     [Tags]   vtnc
-    Test Ping    h1    h2
+    Wait Until Keyword Succeeds   40s   2s    Test Ping    h1    h2
 
 Delete a VTN Tenant1
     [Documentation]   Delete Vtn Tenant1
@@ -114,9 +114,8 @@ Update Controller
 
 
 Check Controller Status
-   [Arguments]   ${ctrlname}   ${stat}   ${sec}
+   [Arguments]   ${ctrlname}   ${stat}
    [Documentation]    Get controller status
-   Sleep    ${sec}
    ${resp}    Get   session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}.json
    ${contents}    To JSON    ${resp.content}
    ${controllerblock}    Get From Dictionary    ${contents}   controller
@@ -169,8 +168,6 @@ Define Portmap for VBRIF
 Test Ping
    [Arguments]   ${host1}    ${host2}
    [Documentation]  Ping hosts to check connectivity
-   Sleep   5
    Write    ${host1} ping -w 10 ${host2}
-   Sleep    10
    ${result}    Read
    Should Contain    ${result}    64 bytes

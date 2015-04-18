@@ -20,31 +20,31 @@ Add a ODL Controller
 
 Verify the Controller Status is up
     [Documentation]    Check Controller status
-    [Tags]   vtnc 
-    Check Controller Status    odc_test
+    [Tags]   vtnc
+    Wait Until Keyword Succeeds    30s    2s    Check Controller Status    odc_test    up
 
 
 Add a Vtn Tenant1
     [Documentation]   Create Vtn Tenant1
-    [Tags]   vtnc 
+    [Tags]   vtnc
     Add a VTN  Tenant1  VTN_TEST
 
 
 Create VBR in VTN Tenant1
     [Documentation]   Create a VBR in Tenant1 as Vbridge1
-    [Tags]   vtnc 
+    [Tags]   vtnc
     Create VBR in VTN     Tenant1    Vbridge1    odc_test
 
 
 Create VBRIF in VBRIDGE Vbridge1 Interface1
     [Documentation]   Create an interface to Vbridge1
-    [Tags]   vtnc 
+    [Tags]   vtnc
     Create VBRIF in VBR   Tenant1    Vbridge1   Interface1  Interface1
 
 
 Create VBRIF in VBRIDGE Vbridge1 Interface2
     [Documentation]   Create an interface to Vbridge1
-    [Tags]   vtnc 
+    [Tags]   vtnc
     Create VBRIF in VBR   Tenant1    Vbridge1   Interface2  Interface2
 
 
@@ -56,14 +56,14 @@ Define Portmap for Interface1
 
 Define Portmap for Interface2
     [Documentation]   Map Interface2 to a logical port
-    [Tags]   vtnc 
+    [Tags]   vtnc
     Define Portmap for VBRIF    Tenant1    Vbridge1     Interface2    PP-OF:00:00:00:00:00:00:00:02-s2-eth1
 
 
 Test Ping for Configuration1
     [Documentation]   ping between hosts in mininet
-    [Tags]   vtnc 
-    Test Ping    h1    h3
+    [Tags]   vtnc
+    Wait Until Keyword Succeeds    30s    5s   Test Ping    h1    h3
 
 
 Delete a VTN Tenant1
@@ -97,14 +97,13 @@ Remove Controller
 
 
 Check Controller Status
-   [Arguments]   ${ctrlname}
+   [Arguments]   ${ctrlname}  ${stat}
    [Documentation]    Get controller status
-   Sleep    15
    ${resp}    Get   session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}.json
    ${contents}    To JSON    ${resp.content}
    ${controllerblock}    Get From Dictionary    ${contents}   controller
    ${status}    Get From Dictionary    ${controllerblock}     operstatus
-   Should Be Equal As Strings    ${status}    up
+   Should Be Equal As Strings    ${status}    ${stat}
 
 
 Add a VTN
@@ -152,8 +151,6 @@ Define Portmap for VBRIF
 Test Ping
    [Arguments]   ${host1}    ${host2}
    [Documentation]  Ping hosts to check connectivity
-   Sleep   5
    Write    ${host1} ping -w 10 ${host2}
-   Sleep    10
    ${result}    Read
    Should Contain    ${result}    64 bytes

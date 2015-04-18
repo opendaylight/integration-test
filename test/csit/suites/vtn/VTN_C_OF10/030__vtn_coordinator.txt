@@ -20,37 +20,37 @@ Add a ODL Controller
 Verify the Controller Status is up
     [Documentation]    Check Controller status
     [Tags]   vtnc
-    Check Controller Status    odc_test  up   20
+    Wait Until Keyword Succeeds   30s   2s   Check Controller Status   odc_test   up
 
 Verify switch1
     [Documentation]    Get switch1
     [Tags]   vtnc
-    Verify Switch    odc_test     00:00:00:00:00:00:00:01  30
+    Wait Until Keyword Succeeds   30s   2s   Verify Switch   odc_test   00:00:00:00:00:00:00:01
 
 Verify switch2
     [Documentation]    Get switch2
     [Tags]   vtnc
-    Verify Switch    odc_test     00:00:00:00:00:00:00:02  1
+    Wait Until Keyword Succeeds   30s   2s   Verify Switch   odc_test   00:00:00:00:00:00:00:02
 
 Verify switch3
     [Documentation]    Get switch3
     [Tags]   vtnc
-    Verify Switch    odc_test     00:00:00:00:00:00:00:03  1
+    Wait Until Keyword Succeeds   30s   2s   Verify Switch   odc_test   00:00:00:00:00:00:00:03
 
 Verify switchPort switch1
     [Documentation]   Get switchport/switch1
     [Tags]   vtnc
-    Verify SwitchPort    odc_test     00:00:00:00:00:00:00:01  15
+    Wait Until Keyword Succeeds   16s   2s   Verify SwitchPort   odc_test   00:00:00:00:00:00:00:01
 
 Verify switchPort switch2
     [Documentation]   Get switchport/switch2
     [Tags]   vtnc
-    Verify SwitchPort    odc_test     00:00:00:00:00:00:00:02  1
+    Wait Until Keyword Succeeds   16s   2s   Verify SwitchPort   odc_test   00:00:00:00:00:00:00:02
 
 Verify switchPort switch3
     [Documentation]   Get switchport/switch3
     [Tags]   vtnc
-    Verify SwitchPort    odc_test     00:00:00:00:00:00:00:03  1
+    Wait Until Keyword Succeeds   16s   2s   Verify SwitchPort   odc_test   00:00:00:00:00:00:00:03
 
 Delete a Controller
     [Documentation]   Delete Controller odc1
@@ -75,9 +75,8 @@ Remove Controller
    Should Be Equal As Strings    ${resp.status_code}    204
 
 Check Controller Status
-   [Arguments]   ${ctrlname}   ${stat}   ${sec}
+   [Arguments]   ${ctrlname}   ${stat}
    [Documentation]    Get controller status
-   Sleep    ${sec}
    ${resp}    Get   session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}.json
    ${contents}    To JSON    ${resp.content}
    ${controllerblock}    Get From Dictionary    ${contents}   controller
@@ -85,9 +84,8 @@ Check Controller Status
    Should Be Equal As Strings    ${status}    ${stat}
 
 Verify Switch
-   [Arguments]   ${ctrlname}  ${switch_id}  ${sec}
+   [Arguments]   ${ctrlname}  ${switch_id}
    [Documentation]    Get switch
-   Sleep    ${sec}
    ${resp}    Get   session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}/${SW}/${switch_id}.json
    ${contents}    To JSON    ${resp.content}
    ${switchblock}    Get From Dictionary    ${contents}   switch
@@ -95,8 +93,7 @@ Verify Switch
    Should Be Equal As Strings    ${status}     ${switch_id}
 
 Verify SwitchPort
-   [Arguments]   ${ctrlname}  ${switch_id}  ${sec}
+   [Arguments]   ${ctrlname}  ${switch_id}
    [Documentation]    Get switch
-   Sleep    ${sec}
    ${resp}    Get   session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}/${SW}/${switch_id}/${PORTS}
    Should Be Equal As Strings    ${resp.status_code}    200
