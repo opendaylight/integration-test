@@ -33,7 +33,8 @@ Issue Command On Karaf Console
     [Arguments]     ${cmd}     ${controller}=${CONTROLLER}     ${karaf_port}=${karaf_shell_port}
     Open Connection    ${controller}    port=${karaf_port}  prompt=${karaf_prompt}
     Login    ${karaf_user}    ${karaf_password}
-    ${output}=  Execute Command     ${cmd}
+    Write    ${cmd}
+    ${output}    Read Until    ${karaf_prompt}
     Close Connection
     Log     ${output}
     [Return]    ${output}
