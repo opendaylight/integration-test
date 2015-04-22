@@ -1,0 +1,4 @@
+# Place the suites in run order:
+integration/test/csit/suites/bgpcep/pcepuser
+integration/test/csit/suites/bgpcep/tcpmd5user
+# integration/test/csit/suites/bgpcep/bgpuser is not implemented yet
