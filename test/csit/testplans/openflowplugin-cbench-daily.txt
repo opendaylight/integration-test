@@ -1,2 +1,2 @@
 # Place the suites in run order:
-integration/test/csit/suites/openflowplugin/Performance/010_Cbench.txt
+integration/test/csit/suites/openflowplugin/Performance/010_Cbench.robot
