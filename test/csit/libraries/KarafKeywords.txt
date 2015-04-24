@@ -30,8 +30,8 @@ Verify Feature Is Not Installed
 
 Issue Command On Karaf Console
     [Documentation]     Will execute the given ${cmd} by ssh'ing to the karaf console running on ${CONTROLLER}
-    [Arguments]     ${cmd}     ${controller}=${CONTROLLER}     ${karaf_port}=${karaf_shell_port}
-    Open Connection    ${controller}    port=${karaf_port}  prompt=${karaf_prompt}
+    [Arguments]     ${cmd}     ${controller}=${CONTROLLER}     ${karaf_port}=${karaf_shell_port}    ${timeout}=5
+    Open Connection    ${controller}    port=${karaf_port}  prompt=${karaf_prompt}      timeout=${timeout}
     Login    ${karaf_user}    ${karaf_password}
     Write    ${cmd}
     ${output}    Read Until    ${karaf_prompt}
