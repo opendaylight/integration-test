@@ -1,0 +1,5 @@
+# Place the suites in run order:
+integration/test/csit/suites/openflowplugin/Performance_Flow_Config/020_Stats_Collection_Gauss.robot
+integration/test/csit/suites/openflowplugin/Performance_Flow_Config/030_Stats_Collection_Linear.robot
+integration/test/csit/suites/openflowplugin/Performance_Flow_Config/040_Stats_Collection_One.robot
+integration/test/csit/suites/openflowplugin/Performance_Flow_Config/050_Stats_Collection_FirstTable.robot
