@@ -30,8 +30,8 @@ Configure And Deconfigure Flows
       ${result}=    Run Process    python  ${PARSESCRIPT}
 
 *** Variables ***
-${switches}       10
-${flows}          100
+${switches}       25
+${flows}          2000
 ${threads}        5
 ${start}          sudo mn --controller=remote,ip=${CONTROLLER} --topo linear,${switches},1 --switch ovsk,protocols=OpenFlow13
 ${PERFSCRIPT}     ${CURDIR}/../../../../tools/odl-mdsal-clustering-tests/clustering-performance-test/flow_add_delete_test.py
