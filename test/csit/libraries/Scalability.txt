@@ -14,17 +14,17 @@ Find Max Switches
     ${step}    Convert to Integer    ${step}
     : FOR    ${switches}    IN RANGE    ${start}    ${stop+1}    ${step}
     \    Start Mininet Linear    ${switches}
-    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    2s
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    5s
     \    ...    Check Every Switch    ${switches}
     \    Return From Keyword If    '${status}' == 'FAIL'
-    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    2s
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    5s
     \    ...    Check Linear Topology    ${switches}
     \    Return From Keyword If    '${status}' == 'FAIL'
     \    Stop Mininet
-    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    2s
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    5s
     \    ...    Check No Switches    ${switches}
     \    Return From Keyword If    '${status}' == 'FAIL'
-    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    2s
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    5s
     \    ...    Check No Topology    ${switches}
     \    Return From Keyword If    '${status}' == 'FAIL'
     \    ${max-switches}    Convert To String    ${switches}
