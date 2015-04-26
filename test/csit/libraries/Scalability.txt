@@ -1,0 +1,96 @@
+*** Settings ***
+Library           SSHLibrary
+
+*** Variables ***
+${linux_prompt}    >
+
+*** Keywords ***
+Find Max Switches
+    [Arguments]    ${start}    ${stop}    ${step}
+    [Documentation]    Will find out max switches starting from ${start} till reaching ${stop} and in steps defined by ${step}
+    ${max-switches}    Set Variable    ${1}
+    ${start}    Convert to Integer    ${start}
+    ${stop}    Convert to Integer    ${stop}
+    ${step}    Convert to Integer    ${step}
+    : FOR    ${switches}    IN RANGE    ${start}    ${stop+1}    ${step}
+    \    Start Mininet Linear    ${switches}
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    2s
+    \    ...    Check Every Switch    ${switches}
+    \    Return From Keyword If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    2s
+    \    ...    Check Linear Topology    ${switches}
+    \    Return From Keyword If    '${status}' == 'FAIL'
+    \    Stop Mininet
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    2s
+    \    ...    Check No Switches    ${switches}
+    \    Return From Keyword If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    60s    2s
+    \    ...    Check No Topology    ${switches}
+    \    Return From Keyword If    '${status}' == 'FAIL'
+    \    ${max-switches}    Convert To String    ${switches}
+    [Return]    ${max-switches}
+
+Start Mininet Linear
+    [Arguments]    ${switches}
+    [Documentation]    Start mininet linear topology with ${switches} nodes
+    Log    Start mininet linear ${switches}
+    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${linux_prompt}    timeout=${switches*2}
+    Set Suite Variable    ${mininet_conn_id}
+    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
+    Write    sudo mn --controller=remote,ip=${CONTROLLER} --topo linear,${switches} --switch ovsk,protocols=OpenFlow13
+    Read Until    mininet>
+    Sleep    6
+
+Check Every Switch
+    [Arguments]    ${switches}
+    [Documentation]    Check all switches and stats in operational inventory
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    ${resp}    RequestsLibrary.Get    session    /restconf/operational/opendaylight-inventory:nodes/node/openflow:${switch}
+    \    Log    ${resp.content}
+    \    Should Be Equal As Strings    ${resp.status_code}    200
+    \    Should Contain    ${resp.content}    flow-capable-node-connector-statistics
+    \    Should Contain    ${resp.content}    flow-table-statistics
+
+Check Linear Topology
+    [Arguments]    ${switches}
+    [Documentation]    Check Linear topology given ${switches}
+    ${resp}    RequestsLibrary.Get    session    /restconf/operational/network-topology:network-topology/
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    Should Contain    ${resp.content}    "node-id":"openflow:${switch}"
+    \    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:1"
+    \    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:2"
+    \    Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:2"
+    \    Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:2"
+    \    ${edge}    Evaluate    ${switch}==1 or ${switch}==${switches}
+    \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:3"
+    \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:3"
+    \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:3"
+
+Check No Switches
+    [Arguments]    ${switches}
+    [Documentation]    Check no switch is in inventory
+    ${resp}    RequestsLibrary.Get    session    /restconf/operational/opendaylight-inventory:nodes
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    Should Not Contain    ${resp.content}    openflow:${switch}
+
+Check No Topology
+    [Arguments]    ${switches}
+    [Documentation]    Check no switch is in topology
+    ${resp}    RequestsLibrary.Get    session    /restconf/operational/network-topology:network-topology/
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    Should Not Contain    ${resp.content}    openflow:${switch}
+
+Stop Mininet
+    [Documentation]    Stop mininet
+    Log    Stop Mininet
+    Switch Connection    ${mininet_conn_id}
+    Read
+    Write    exit
+    Read Until    ${linux_prompt}
+    Close Connection
