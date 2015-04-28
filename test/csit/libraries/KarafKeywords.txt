@@ -3,6 +3,8 @@ Library           SSHLibrary
 Library           OperatingSystem
 
 *** Variables ***
+${WORKSPACE}            /tmp
+${BUNDLEFOLDER}         distribution-karaf-0.3.0-SNAPSHOT
 ${karaf_shell_port}     8101
 ${karaf_prompt}         opendaylight-user
 ${karaf_user}           karaf
