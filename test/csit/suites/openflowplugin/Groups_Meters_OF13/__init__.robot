@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite for the OpenDaylight base edition with of13
+Documentation     Test suite for OpenFlow Groups and Meters
 Suite Setup       Start Suite
 Suite Teardown    Stop Suite
 Library           SSHLibrary
