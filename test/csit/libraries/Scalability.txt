@@ -1,5 +1,6 @@
 *** Settings ***
 Library           SSHLibrary
+Resource          Utils.txt
 
 *** Variables ***
 ${linux_prompt}    >
@@ -8,25 +9,27 @@ ${linux_prompt}    >
 Find Max Switches
     [Arguments]    ${start}    ${stop}    ${step}
     [Documentation]    Will find out max switches starting from ${start} till reaching ${stop} and in steps defined by ${step}
-    ${max-switches}    Set Variable    ${1}
+    ${max-switches}    Set Variable    ${0}
     ${start}    Convert to Integer    ${start}
     ${stop}    Convert to Integer    ${stop}
     ${step}    Convert to Integer    ${step}
     : FOR    ${switches}    IN RANGE    ${start}    ${stop+1}    ${step}
     \    Start Mininet Linear    ${switches}
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Is Not Dead    ${CONTROLLER}
+    \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
     \    ...    Check Every Switch    ${switches}
-    \    Return From Keyword If    '${status}' == 'FAIL'
+    \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
     \    ...    Check Linear Topology    ${switches}
-    \    Return From Keyword If    '${status}' == 'FAIL'
+    \    Exit For Loop If    '${status}' == 'FAIL'
     \    Stop Mininet
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
     \    ...    Check No Switches    ${switches}
-    \    Return From Keyword If    '${status}' == 'FAIL'
+    \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
     \    ...    Check No Topology    ${switches}
-    \    Return From Keyword If    '${status}' == 'FAIL'
+    \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${max-switches}    Convert To String    ${switches}
     [Return]    ${max-switches}
 
