@@ -5,20 +5,18 @@ Resource          KarafKeywords.txt
 
 *** Variables ***
 ${start}          sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,1 --switch ovsk,protocols=OpenFlow13
-${linux_prompt}   >
+${linux_prompt}    >
 
 *** Keywords ***
 Start Suite
     [Documentation]    Basic setup/cleanup work that can be done safely before any system
     ...    is run.
     Log    Start the test on the base edition
-    ${mininet_conn_id}=     Open Connection    ${MININET}    prompt=${linux_prompt}    timeout=30s
-    Set Suite Variable  ${mininet_conn_id}
+    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${linux_prompt}    timeout=30s
+    Set Suite Variable    ${mininet_conn_id}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
-    Write    sudo ovs-vsctl set-manager ptcp:6644
-    Read Until    ${linux_prompt}
-    Write    sudo mn -c
-    Read Until    ${linux_prompt}
+    Execute Command    sudo ovs-vsctl set-manager ptcp:6644
+    Execute Command    sudo mn -c
     Write    ${start}
     Read Until    mininet>
     Sleep    6
@@ -27,7 +25,7 @@ Stop Suite
     [Documentation]    Cleanup/Shutdown work that should be done at the completion of all
     ...    tests
     Log    Stop the test on the base edition
-    Switch Connection   ${mininet_conn_id}
+    Switch Connection    ${mininet_conn_id}
     Read
     Write    exit
     Read Until    ${linux_prompt}
@@ -107,28 +105,28 @@ Strip Quotes
     [Return]    ${string_to_return}
 
 Run Command On Remote System
-    [Arguments]     ${remote_system}    ${cmd}  ${user}=${MININET_USER}    ${prompt}=${LINUX_PROMPT}   ${prompt_timeout}=30s
-    [Documentation]     Reduces the common work of running a command on a remote system to a single higher level robot keyword,
-    ...     taking care to log in with a public key and. The command given is written and the output returned.  No test conditions
-    ...     are checked.
+    [Arguments]    ${remote_system}    ${cmd}    ${user}=${MININET_USER}    ${prompt}=${LINUX_PROMPT}    ${prompt_timeout}=30s
+    [Documentation]    Reduces the common work of running a command on a remote system to a single higher level robot keyword,
+    ...    taking care to log in with a public key and. The command given is written and the output returned. No test conditions
+    ...    are checked.
     Log    Attempting to execute ${cmd} on ${remote_system}
-    ${conn_id}=     Open Connection    ${remote_system}    prompt=${prompt}    timeout=${prompt_timeout}
+    ${conn_id}=    Open Connection    ${remote_system}    prompt=${prompt}    timeout=${prompt_timeout}
     Login With Public Key    ${user}    ${USER_HOME}/.ssh/id_rsa    any
     Write    ${cmd}
-    ${output}=  Read Until    ${linux_prompt}
+    ${output}=    Read Until    ${linux_prompt}
     Close Connection
     [Return]    ${output}
 
 Verify File Exists On Remote System
-    [Arguments]  ${remote_system}    ${file}  ${user}=${MININET_USER}    ${prompt}=${LINUX_PROMPT}   ${prompt_timeout}=5s
-    [Documentation]     Will create connection with public key and will PASS if the given ${file} exists, otherwise will FAIL
-    ${conn_id}=     Open Connection    ${remote_system}    prompt=${prompt}    timeout=${prompt_timeout}
+    [Arguments]    ${remote_system}    ${file}    ${user}=${MININET_USER}    ${prompt}=${LINUX_PROMPT}    ${prompt_timeout}=5s
+    [Documentation]    Will create connection with public key and will PASS if the given ${file} exists, otherwise will FAIL
+    ${conn_id}=    Open Connection    ${remote_system}    prompt=${prompt}    timeout=${prompt_timeout}
     Login With Public Key    ${user}    ${USER_HOME}/.ssh/id_rsa    any
-    SSHLibrary.File Should Exist   ${file}
+    SSHLibrary.File Should Exist    ${file}
     Close Connection
 
 Verify Controller Is Not Dead
-    [Arguments]     ${controller_ip}=${CONTROLLER}
-    [Documentation]     Will execute any tests to verify the controller is not dead. Some checks are
-    ...     Out Of Memory Execptions.
-    Check Karaf Log File Does Not Have Messages     ${controller_ip}  java.lang.OutOfMemoryError
+    [Arguments]    ${controller_ip}=${CONTROLLER}
+    [Documentation]    Will execute any tests to verify the controller is not dead. Some checks are
+    ...    Out Of Memory Execptions.
+    Check Karaf Log File Does Not Have Messages    ${controller_ip}    java.lang.OutOfMemoryError

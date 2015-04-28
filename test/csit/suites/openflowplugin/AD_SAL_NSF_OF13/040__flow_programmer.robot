@@ -19,11 +19,10 @@ ${REST_CONTEXT_ST}    /controller/nb/v2/statistics
 Add a flow
     [Documentation]    Add a flow, list to validate the result.
     [Tags]    adsal
-    ${node}    Create Dictionary    type    OF    id    ${node_id}
+    ${node}    Create Dictionary    type=OF    id=${node_id}
     ${actions}    Create List    OUTPUT=1
-    ${body}    Create Dictionary    name    ${name}    installInHw    true    node
-    ...    ${node}    priority    1    etherType    0x800    nwDst
-    ...    10.0.0.1/32    actions    ${actions}
+    ${body}    Create Dictionary    name=${name}    installInHw=true    node=${node}
+    ...    priority=1    etherType=0x800    nwDst=10.0.0.1/32    actions=${actions}
     ${resp}    RequestsLibrary.Put    session    ${REST_CONTEXT}/${CONTAINER}/node/OF/${node_id}/staticFlow/${name}    data=${body}
     Should Be Equal As Strings    ${resp.status_code}    201
     ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}/${CONTAINER}
@@ -41,11 +40,10 @@ Check flow in flow stats
 Remove a flow
     [Documentation]    Remove a flow, list to validate the result.
     [Tags]    adsal
-    ${node}    Create Dictionary    type    OF    id    ${node_id}
+    ${node}    Create Dictionary    type=OF    id=${node_id}
     ${actions}    Create List    OUTPUT=1
-    ${body}    Create Dictionary    name    ${name}    installInHw    true    node
-    ...    ${node}    priority    1    etherType    0x800    nwDst
-    ...    10.0.0.1/32    actions    ${actions}
+    ${body}    Create Dictionary    name=${name}    installInHw=true    node=${node}
+    ...    priority=1    etherType=0x800    nwDst=10.0.0.1/32    actions=${actions}
     ${resp}    RequestsLibrary.Delete    session    ${REST_CONTEXT}/${CONTAINER}/node/OF/${node_id}/staticFlow/${name}
     Should Be Equal As Strings    ${resp.status_code}    204
     ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}/${CONTAINER}
