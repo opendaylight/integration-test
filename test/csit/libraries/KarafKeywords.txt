@@ -3,40 +3,62 @@ Library           SSHLibrary
 Library           OperatingSystem
 
 *** Variables ***
-${WORKSPACE}            /tmp
-${BUNDLEFOLDER}         distribution-karaf-0.3.0-SNAPSHOT
-${karaf_shell_port}     8101
-${karaf_prompt}         opendaylight-user
-${karaf_user}           karaf
-${karaf_password}       karaf
+${WORKSPACE}      /tmp
+${BUNDLEFOLDER}    distribution-karaf-0.3.0-SNAPSHOT
+${karaf_shell_port}    8101
+${karaf_prompt}    opendaylight-user
+${karaf_user}     karaf
+${karaf_password}    karaf
 
 *** Keywords ***
 Check Karaf Log File Does Not Have Messages
-    [Arguments]     ${ip}   ${message}  ${log_file}=${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log
-    ${output}=  Run Command On Remote System    ${ip}   grep ${message} ${log_file}
-    Should Not Contain  ${output}   ${message}
+    [Arguments]    ${ip}    ${message}    ${log_file}=${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log
+    ${output}=    Run Command On Remote System    ${ip}    grep ${message} ${log_file}
+    Should Not Contain    ${output}    ${message}
 
 Verify Feature Is Installed
-    [Documentation]     Will Succeed if the given ${feature_name} is found in the output of "feature:list -i"
-    [Arguments]     ${feature_name}     ${controller}=${CONTROLLER}     ${karaf_port}=${karaf_shell_port}
-    ${output}=  Issue Command On Karaf Console  feature:list -i | grep ${feature_name}     ${controller}   ${karaf_port}
-    Should Contain  ${output}   ${feature_name}
+    [Arguments]    ${feature_name}    ${controller}=${CONTROLLER}    ${karaf_port}=${karaf_shell_port}
+    [Documentation]    Will Succeed if the given ${feature_name} is found in the output of "feature:list -i"
+    ${output}=    Issue Command On Karaf Console    feature:list -i | grep ${feature_name}    ${controller}    ${karaf_port}
+    Should Contain    ${output}    ${feature_name}
     [Return]    ${output}
 
 Verify Feature Is Not Installed
-    [Documentation]     Will Succeed if the given ${feature_name} is NOT found in the output of "feature:list -i"
-    [Arguments]     ${feature_name}     ${controller}=${CONTROLLER}     ${karaf_port}=${karaf_shell_port}
-    ${output}=  Issue Command On Karaf Console  feature:list -i | grep ${feature_name}     ${controller}   ${karaf_port}
-    Should Not Contain  ${output}   ${feature_name}
+    [Arguments]    ${feature_name}    ${controller}=${CONTROLLER}    ${karaf_port}=${karaf_shell_port}
+    [Documentation]    Will Succeed if the given ${feature_name} is NOT found in the output of "feature:list -i"
+    ${output}=    Issue Command On Karaf Console    feature:list -i | grep ${feature_name}    ${controller}    ${karaf_port}
+    Should Not Contain    ${output}    ${feature_name}
     [Return]    ${output}
 
 Issue Command On Karaf Console
-    [Documentation]     Will execute the given ${cmd} by ssh'ing to the karaf console running on ${CONTROLLER}
-    [Arguments]     ${cmd}     ${controller}=${CONTROLLER}     ${karaf_port}=${karaf_shell_port}    ${timeout}=5
-    Open Connection    ${controller}    port=${karaf_port}  prompt=${karaf_prompt}      timeout=${timeout}
+    [Arguments]    ${cmd}    ${controller}=${CONTROLLER}    ${karaf_port}=${karaf_shell_port}    ${timeout}=5
+    [Documentation]    Will execute the given ${cmd} by ssh'ing to the karaf console running on ${CONTROLLER}
+    Open Connection    ${controller}    port=${karaf_port}    prompt=${karaf_prompt}    timeout=${timeout}
     Login    ${karaf_user}    ${karaf_password}
     Write    ${cmd}
     ${output}    Read Until    ${karaf_prompt}
     Close Connection
-    Log     ${output}
+    Log    ${output}
+    [Return]    ${output}
+
+Verify Bundle Is Installed
+    [Arguments]    ${bundle_name}    ${controller}=${CONTROLLER}    ${karaf_port}=${karaf_shell_port}
+    [Documentation]    Will succeed if the given ${bundle name} is present in the output of "bundle:list -s "
+    ${output}=    Issue Command On Karaf Console    bundle:list -s | grep ${bundle_name}    ${controller}    ${karaf_port}
+    Should Contain    ${output}    ${bundle_name}
+    [Return]    ${output}
+
+Verify Bundle Is Not Installed
+    [Arguments]    ${bundle_name}    ${controller}=${CONTROLLER}    ${karaf_port}=${karaf_shell_port}
+    [Documentation]    Will succeed if the given ${bundle_name} is NOT found in the output of "bundle:list -s"
+    ${output}=    Issue Command On Karaf Console    bundle:list -i | grep ${bundle_name}    ${controller}    ${karaf_port}
+    Should Not Contain    ${output}    ${bundle_name}
+    [Return]    ${output}
+
+Check Karaf Log Has Messages
+    [Arguments]    ${filter_string}    @{message_list}
+    [Documentation]    Will succeed if the @{messages} are found in \ the output of "log:display"
+    ${output}=    Issue Command On Karaf Console    log:display | grep ${filter_string}
+    : FOR    ${message}    IN    @{message_list}
+    \    Should Contain    ${output}    ${message}
     [Return]    ${output}
