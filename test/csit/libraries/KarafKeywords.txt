@@ -1,14 +1,11 @@
 *** Settings ***
 Library           SSHLibrary
 Library           OperatingSystem
+Variables         ../variables/Variables.py
 
 *** Variables ***
 ${WORKSPACE}      /tmp
 ${BUNDLEFOLDER}    distribution-karaf-0.3.0-SNAPSHOT
-${karaf_shell_port}    8101
-${karaf_prompt}    opendaylight-user
-${karaf_user}     karaf
-${karaf_password}    karaf
 
 *** Keywords ***
 Check Karaf Log File Does Not Have Messages
@@ -17,39 +14,39 @@ Check Karaf Log File Does Not Have Messages
     Should Not Contain    ${output}    ${message}
 
 Verify Feature Is Installed
-    [Arguments]    ${feature_name}    ${controller}=${CONTROLLER}    ${karaf_port}=${karaf_shell_port}
+    [Arguments]    ${feature_name}    ${controller}=${CONTROLLER}    ${karaf_port}=${KARAF_SHELL_PORT}
     [Documentation]    Will Succeed if the given ${feature_name} is found in the output of "feature:list -i"
     ${output}=    Issue Command On Karaf Console    feature:list -i | grep ${feature_name}    ${controller}    ${karaf_port}
     Should Contain    ${output}    ${feature_name}
     [Return]    ${output}
 
 Verify Feature Is Not Installed
-    [Arguments]    ${feature_name}    ${controller}=${CONTROLLER}    ${karaf_port}=${karaf_shell_port}
+    [Arguments]    ${feature_name}    ${controller}=${CONTROLLER}    ${karaf_port}=${KARAF_SHELL_PORT}
     [Documentation]    Will Succeed if the given ${feature_name} is NOT found in the output of "feature:list -i"
     ${output}=    Issue Command On Karaf Console    feature:list -i | grep ${feature_name}    ${controller}    ${karaf_port}
     Should Not Contain    ${output}    ${feature_name}
     [Return]    ${output}
 
 Issue Command On Karaf Console
-    [Arguments]    ${cmd}    ${controller}=${CONTROLLER}    ${karaf_port}=${karaf_shell_port}    ${timeout}=5
+    [Arguments]    ${cmd}    ${controller}=${CONTROLLER}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=5
     [Documentation]    Will execute the given ${cmd} by ssh'ing to the karaf console running on ${CONTROLLER}
-    Open Connection    ${controller}    port=${karaf_port}    prompt=${karaf_prompt}    timeout=${timeout}
-    Login    ${karaf_user}    ${karaf_password}
+    Open Connection    ${controller}    port=${karaf_port}    prompt=${KARAF_PROMPT}    timeout=${timeout}
+    Login    ${KARAF_USER}    ${KARAF_PASSWORD}
     Write    ${cmd}
-    ${output}    Read Until    ${karaf_prompt}
+    ${output}    Read Until    ${KARAF_PROMPT}
     Close Connection
     Log    ${output}
     [Return]    ${output}
 
 Verify Bundle Is Installed
-    [Arguments]    ${bundle_name}    ${controller}=${CONTROLLER}    ${karaf_port}=${karaf_shell_port}
+    [Arguments]    ${bundle_name}    ${controller}=${CONTROLLER}    ${karaf_port}=${KARAF_SHELL_PORT}
     [Documentation]    Will succeed if the given ${bundle name} is present in the output of "bundle:list -s "
     ${output}=    Issue Command On Karaf Console    bundle:list -s | grep ${bundle_name}    ${controller}    ${karaf_port}
     Should Contain    ${output}    ${bundle_name}
     [Return]    ${output}
 
 Verify Bundle Is Not Installed
-    [Arguments]    ${bundle_name}    ${controller}=${CONTROLLER}    ${karaf_port}=${karaf_shell_port}
+    [Arguments]    ${bundle_name}    ${controller}=${CONTROLLER}    ${karaf_port}=${KARAF_SHELL_PORT}
     [Documentation]    Will succeed if the given ${bundle_name} is NOT found in the output of "bundle:list -s"
     ${output}=    Issue Command On Karaf Console    bundle:list -i | grep ${bundle_name}    ${controller}    ${karaf_port}
     Should Not Contain    ${output}    ${bundle_name}
@@ -61,4 +58,19 @@ Check Karaf Log Has Messages
     ${output}=    Issue Command On Karaf Console    log:display | grep ${filter_string}
     : FOR    ${message}    IN    @{message_list}
     \    Should Contain    ${output}    ${message}
+    [Return]    ${output}
+
+Install a Feature
+    [Arguments]    ${feature_name}    ${controller}=${CONTROLLER}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=15
+    [Documentation]    Will Install the given ${feature_name}
+    Log    ${timeout}
+    ${output}=    Issue Command On Karaf Console    feature:install ${feature_name}    ${controller}    ${karaf_port}    ${timeout}
+    Log    ${output}
+    [Return]    ${output}
+
+Uninstall a Feature
+    [Arguments]    ${feature_name}    ${controller}=${CONTROLLER}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=15
+    [Documentation]    Will UnInstall the given ${feature_name}
+    ${output}=    Issue Command On Karaf Console    feature:uninstall ${feature_name}    ${controller}    ${karaf_port}    ${timeout}
+    Log    ${output}
     [Return]    ${output}
