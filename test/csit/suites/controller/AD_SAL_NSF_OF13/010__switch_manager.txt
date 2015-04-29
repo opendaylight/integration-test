@@ -79,7 +79,7 @@ Get node
     ${resp}    RequestsLibrary.Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/${CONTAINER}/nodes
     Should Be Equal As Strings    ${resp.status_code}    200    Response status code error
     ${result}    TO JSON    ${resp.content}
-    ${node}    Create Dictionary    id    ${node_id}    type    ${node_type}
+    ${node}    Create Dictionary    id=${node_id}    type={node_type}
     ${content}    Extract All Nodes    ${result}
     Log    ${content}
     List Should Contain Value    ${content}    ${node}
@@ -117,8 +117,8 @@ Node property should exist
     Log    ${result}
     ${nodes}    Extract All Nodes    ${result}
     ${property_values}    Extract Node Property Values    ${result}    ${property}
-    ${node}    Create Dictionary    id    ${node_id}    type    ${node_type}
-    ${property_value}    Create Dictionary    value    ${value}
+    ${node}    Create Dictionary    id=${node_id}    type=${node_type}
+    ${property_value}    Create Dictionary    value=${value}
     Log    ${property_value}
     List Should Contain Value    ${nodes}    ${node}
     List Should Contain Value    ${property_values}    ${property_value}
@@ -132,8 +132,8 @@ Node property should not exist
     Log    ${result}
     ${nodes}    Extract All Nodes    ${result}
     ${properties}    Extract Node Property Values    ${result}    ${property}
-    ${node}    Create Dictionary    id    ${node_id}    type    ${node_type}
-    ${property}    Create Dictionary    value    ${value}
+    ${node}    Create Dictionary    id=${node_id}    type=${node_type}
+    ${property}    Create Dictionary    value=${value}
     Log    ${property}
     List Should Contain Value    ${nodes}    ${node}
     List Should Not Contain Value    ${properties}    ${property}
@@ -147,7 +147,7 @@ Nodeconnector property should exist
     Log    ${result}
     ${property_values}    Extract Nodeconnector Property Values    ${result}    ${property}
     Log    ${property_values}
-    ${property_value}    Create Dictionary    value    ${value}
+    ${property_value}    Create Dictionary    value=${value}
     List Should Contain Value    ${property_values}    ${property_value}
 
 Nodeconnector property should not exist
@@ -159,7 +159,7 @@ Nodeconnector property should not exist
     Log    ${result}
     ${property_values}    Extract Nodeconnector Property Values    ${result}    ${property}
     Log    ${property_values}
-    ${property_value}    Create Dictionary    value    ${value}
+    ${property_value}    Create Dictionary    value=${value}
     List Should not Contain Value    ${property_values}    ${property_value}
 
 List all nodeconnectors of node

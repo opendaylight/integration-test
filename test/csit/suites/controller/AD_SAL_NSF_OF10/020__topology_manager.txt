@@ -27,8 +27,8 @@ Get Topology
 Add a userlink
     [Documentation]    Add a userlink, list to validate the result.
     [Tags]    adsal
-    ${body}    Create Dictionary    name    ${name}    status    Success    srcNodeConnector
-    ...    OF|1@OF|00:00:00:00:00:00:00:02    dstNodeConnector    OF|1@OF|00:00:00:00:00:00:00:03
+    ${body}    Create Dictionary    name=${name}    status=Success    srcNodeConnector=OF|1@OF|00:00:00:00:00:00:00:02
+    ...    dstNodeConnector=OF|1@OF|00:00:00:00:00:00:00:03
     ${resp}    RequestsLibrary.Put    session    ${REST_CONTEXT}/${CONTAINER}/userLink/${name}    data=${body}
     Should Be Equal As Strings    ${resp.status_code}    201
     ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}/${CONTAINER}/userLinks
@@ -40,8 +40,8 @@ Add a userlink
 Remove a userlink
     [Documentation]    Remove a userlink, list to validate the result.
     [Tags]    adsal
-    ${body}    Create Dictionary    name    ${name}    status    Success    srcNodeConnector
-    ...    OF|1@OF|00:00:00:00:00:00:00:02    dstNodeConnector    OF|1@OF|00:00:00:00:00:00:00:03
+    ${body}    Create Dictionary    name=${name}    status=Success    srcNodeConnector=OF|1@OF|00:00:00:00:00:00:00:02
+    ...    dstNodeConnector=OF|1@OF|00:00:00:00:00:00:00:03
     ${resp}    RequestsLibrary.Delete    session    ${REST_CONTEXT}/${CONTAINER}/userLink/${name}
     Should Be Equal As Strings    ${resp.status_code}    204
     ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}/${CONTAINER}/userLinks
