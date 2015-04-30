@@ -2,14 +2,11 @@
 Documentation     Test suite for Address in RESTCONF topology
 Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
 Suite Teardown    Delete All Sessions
-Library           SSHLibrary
-Library           Collections
-Library           ../../../libraries/RequestsLibrary.py
-Library           ../../../libraries/Common.py
+Library           RequestsLibrary
+Resource          ../../../libraries/Utils.txt
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${REST_TOPO}      /restconf/operational/network-topology:network-topology
 ${MAC_1}          00:00:00:00:00:01
 ${MAC_2}          00:00:00:00:00:02
 ${MAC_3}          00:00:00:00:00:03
@@ -18,42 +15,46 @@ ${IP_2}           10.0.0.2
 ${IP_3}           10.0.0.3
 
 *** Test Cases ***
-Get list of host from network topology
+Check Stats for node 1
+    [Documentation]    Get the stats for a node
+    Wait Until Keyword Succeeds    30s    2s    Check Nodes Stats    openflow:1
+
+Check Stats for node 2
+    [Documentation]    Get the stats for a node
+    Wait Until Keyword Succeeds    30s    2s    Check Nodes Stats    openflow:2
+
+Check Stats for node 3
+    [Documentation]    Get the stats for a node
+    Wait Until Keyword Succeeds    30s    2s    Check Nodes Stats    openflow:3
+
+Check Switch Links
+    [Documentation]    Get the topology and check links
+    Wait Until Keyword Succeeds    30s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_TOPO_API}    link-id    4
+
+Check No Host Is Present
     [Documentation]    Get the network topology, should not contain any host address
-    ${resp}    Get    session    ${REST_TOPO}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    Should Contain    ${resp.content}    openflow:1
-    Should Contain    ${resp.content}    openflow:2
-    Should Contain    ${resp.content}    openflow:3
-    Should Contain X Times    ${resp.content}    link-id    4
-    Should Not Contain    ${resp.content}    ${MAC_1}
-    Should Not Contain    ${resp.content}    ${MAC_2}
-    Should Not Contain    ${resp.content}    ${MAC_3}
+    @{list}    Create List    ${MAC_1}    ${MAC_2}    ${MAC_3}
+    Wait Until Keyword Succeeds    30s    2s    Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}    ${list}
+    Wait Until Keyword Succeeds    30s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_TOPO_API}    link-id    4
 
 Ping All
     [Documentation]    Pingall, verify no packet loss
     Write    pingall
     ${result}    Read Until    mininet>
-    Should Contain    ${result}    0% dropped
-    Should Not Contain    ${result}    X
-    Sleep    3
+    Should Contain    ${result}    Results: 0% dropped
 
-Host Tracker
+Check Host Links
+    [Documentation]    Get the topology and check links
+    Wait Until Keyword Succeeds    30s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_TOPO_API}    link-id    10
+
+Host Tracker host1
     [Documentation]    Get the network topology,
-    ${resp}    Get    session    ${REST_TOPO}/topology/flow:1
-    Should Be Equal As Strings    ${resp.status_code}    200
-    Log    ${resp.content}
-    Should Contain X Times    ${resp.content}    "node-id":"host:${MAC_1}"    1
-    Should Contain X Times    ${resp.content}    "node-id":"host:${MAC_2}"    1
-    Should Contain X Times    ${resp.content}    "node-id":"host:${MAC_3}"    1
+    Wait Until Keyword Succeeds    30s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_TOPO_API}    "node-id":"host:${MAC_1}"    1
 
-Check host are deleted
-    [Documentation]    Closing mininet this will remove the switch and the host should also be deleted
-    Log    closing mininet
-    write    exit
-    Read Until    >
-    sleep    5
-    ${resp}    Get    session    ${REST_TOPO}/topology/flow:1
-    Should Be Equal as Strings    ${resp.status_code}    200
-    Should not Contain    ${resp.content}    "node-id":"host
-    Log    ${resp.content}
+Host Tracker host2
+    [Documentation]    Get the network topology,
+    Wait Until Keyword Succeeds    30s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_TOPO_API}    "node-id":"host:${MAC_2}"    1
+
+Host Tracker host3
+    [Documentation]    Get the network topology,
+    Wait Until Keyword Succeeds    30s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_TOPO_API}    "node-id":"host:${MAC_3}"    1

@@ -46,7 +46,7 @@ Check Nodes Stats
     [Arguments]    ${node}
     [Documentation]    A GET on the /node/${node} API is made and specific flow stat
     ...    strings are checked for existence.
-    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}/node/${node}
+    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_API}/node/${node}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    flow-capable-node-connector-statistics
     Should Contain    ${resp.content}    flow-table-statistics
@@ -56,7 +56,7 @@ Check That Port Count Is Ok
     [Documentation]    A GET on the /port API is made and the specified port ${count} is
     ...    verified. A more generic Keyword "Check For Specific Number Of Elements At URI"
     ...    also does this work and further consolidation should be done.
-    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}/${CONTAINER}/port
+    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_API}/${CONTAINER}/port
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain X Times    ${resp.content}    ${node}    ${count}

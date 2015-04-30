@@ -1,70 +1,54 @@
 *** Settings ***
 Documentation     Test suite for AddressObservations in RESTCONF inventory
-Suite Setup       Create Session   session   http://${CONTROLLER}:${RESTCONFPORT}   auth=${AUTH}   headers=${HEADERS_XML}
+Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
 Suite Teardown    Delete All Sessions
-Library           SSHLibrary
-Library           Collections
-Library           ../../../libraries/RequestsLibrary.py
-Library           ../../../libraries/Common.py
+Library           RequestsLibrary
+Resource          ../../../libraries/Utils.txt
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${REST_CONTEXT}    /restconf/operational/opendaylight-inventory:nodes
 ${IP_1}           "10.0.0.1"
 ${IP_2}           "10.0.0.2"
 ${IP_3}           "10.0.0.3"
 
 *** Test Cases ***
-Get list of nodes
-    [Documentation]    Get the inventory, should not contain address observations
-        ${resp}    Get    session    ${REST_CONTEXT}
-        Should Be Equal As Strings    ${resp.status_code}    200
-        Should Contain     ${resp.content}	openflow:1
-        Should Contain     ${resp.content}	openflow:2
-        Should Contain     ${resp.content}	openflow:3
-        Should Contain X Times    ${resp.content}   forwarding  4
-        Should Not Contain    ${resp.content}    ${IP_1}
-        Should Not Contain    ${resp.content}    ${IP_2}
-        Should Not Contain    ${resp.content}    ${IP_3}
+Check Stats for node 1
+    [Documentation]    Get the stats for a node
+    Wait Until Keyword Succeeds    30s    2s    Check Nodes Stats    openflow:1
+
+Check Stats for node 2
+    [Documentation]    Get the stats for a node
+    Wait Until Keyword Succeeds    30s    2s    Check Nodes Stats    openflow:2
+
+Check Stats for node 3
+    [Documentation]    Get the stats for a node
+    Wait Until Keyword Succeeds    30s    2s    Check Nodes Stats    openflow:3
+
+Check No Host Is Present
+    [Documentation]    Get the invnetory, should not contain any host address
+    @{list}    Create List    ${IP_1}    ${IP_2}    ${IP_3}
+    Wait Until Keyword Succeeds    30s    2s    Check For Elements Not At URI    ${OPERATIONAL_NODES_API}    ${list}
 
 Ping All
     [Documentation]    Pingall, verify no packet loss
-        Write   pingall
-        ${result}    Read Until		mininet>
-        Should Contain   ${result}   0% dropped
-        Should Not Contain    ${result}    X
-        Sleep 	3 
+    Write    pingall
+    ${result}    Read Until    mininet>
+    Should Contain    ${result}    Results: 0% dropped
 
-Get node 1 addresses
+Check node 1 addresses
     [Documentation]    Get the address observations for node 1
-        ${resp}    Get    session    ${REST_CONTEXT}/node/openflow:1
-        Should Be Equal As Strings   ${resp.status_code}    200
-        Should Contain     ${resp.content}      openflow:1:1
-        Should Contain     ${resp.content}      openflow:1:2
-        Should Contain     ${resp.content}      addresses
-        Should Contain X Times    ${resp.content}   ${IP_1}  1
-        Should Not Contain    ${resp.content}    ${IP_2}
-        Should Not Contain    ${resp.content}    ${IP_3}
+    @{list}    Create List    ${IP_2}    ${IP_3}
+    Wait Until Keyword Succeeds    30s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}/node/openflow:1    ${IP_1}    1
+    Wait Until Keyword Succeeds    30s    2s    Check For Elements Not At URI    ${OPERATIONAL_NODES_API}/node/openflow:1    ${list}
 
-Get node 2 addresses
+Check node 2 addresses
     [Documentation]    Get the address observations for node 2
-        ${resp}    Get    session    ${REST_CONTEXT}/node/openflow:2
-        Should Be Equal As Strings   ${resp.status_code}    200
-        Should Contain     ${resp.content}      openflow:2:1
-        Should Contain     ${resp.content}      openflow:2:2
-        Should Contain     ${resp.content}      openflow:2:3
-        Should Contain     ${resp.content}      addresses
-        Should Not Contain    ${resp.content}    ${IP_1}
-        Should Contain X Times    ${resp.content}   ${IP_2}  1
-        Should Not Contain    ${resp.content}    ${IP_3}
+    @{list}    Create List    ${IP_1}    ${IP_3}
+    Wait Until Keyword Succeeds    30s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}/node/openflow:2    ${IP_2}    1
+    Wait Until Keyword Succeeds    30s    2s    Check For Elements Not At URI    ${OPERATIONAL_NODES_API}/node/openflow:2    ${list}
 
-Get node 3 addresses
+Check node 3 addresses
     [Documentation]    Get the address observations for node 3
-   	${resp}    Get    session    ${REST_CONTEXT}/node/openflow:3
-        Should Be Equal As Strings   ${resp.status_code}    200
-        Should Contain     ${resp.content}	openflow:3:1
-        Should Contain     ${resp.content}	openflow:3:2
-        Should Contain     ${resp.content}      addresses
-        Should Not Contain    ${resp.content}    ${IP_1}
-        Should Not Contain    ${resp.content}    ${IP_2}
-        Should Contain X Times    ${resp.content}   ${IP_3}  1
+    @{list}    Create List    ${IP_1}    ${IP_2}
+    Wait Until Keyword Succeeds    30s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}/node/openflow:3    ${IP_3}    1
+    Wait Until Keyword Succeeds    30s    2s    Check For Elements Not At URI    ${OPERATIONAL_NODES_API}/node/openflow:3    ${list}

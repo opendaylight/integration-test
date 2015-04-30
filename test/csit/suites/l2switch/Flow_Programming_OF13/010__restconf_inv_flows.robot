@@ -1,58 +1,33 @@
-** Settings ***
+*** Settings ***
 Documentation     Test suite for FlowProgramming in RESTCONF inventory
-Suite Setup       Create Session   session   http://${CONTROLLER}:${RESTCONFPORT}   auth=${AUTH}   headers=${HEADERS_XML}
+Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
 Suite Teardown    Delete All Sessions
-Library           SSHLibrary
 Library           Collections
-Library           ../../../libraries/RequestsLibrary.py
-Library           ../../../libraries/Common.py
+Library           RequestsLibrary
+Resource          ../../../libraries/Utils.txt
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${REST_CONTEXT}    /restconf/operational/opendaylight-inventory:nodes
 
 *** Test Cases ***
-Get flows before ping through console
-    [Documentation]    Dump flows should list initial flows (drop, arp, lldp, flood per port)
-        Write   sh ovs-ofctl dump-flows s1 -O OpenFlow13
-        ${result}    Read Until	    	mininet>
-        Should Contain X Times    ${result}    actions    4
-        Write   sh ovs-ofctl dump-flows s2 -O OpenFlow13
-        ${result}    Read Until    	mininet>
-        Should Contain X Times    ${result}    actions    5
-        Write   sh ovs-ofctl dump-flows s3 -O OpenFlow13
-        ${result}    Read Until    	mininet>
-        Should Contain X Times    ${result}    actions    4
+Check Stats for node 1
+    [Documentation]    Get the stats for a node
+    Wait Until Keyword Succeeds    30s    2s    Check Nodes Stats    openflow:1
 
-# Get flows before ping through restconf
-#    [Documentation]    Get the inventory, should not contain flows
-#        ${resp}    Get    session    ${REST_CONTEXT}/node/openflow:1/table/0
-#        Should Be Equal As Strings    ${resp.status_code}    200
-#        Should Not Contain    ${resp.content}    flow
+Check Stats for node 2
+    [Documentation]    Get the stats for a node
+    Wait Until Keyword Succeeds    30s    2s    Check Nodes Stats    openflow:2
 
-Ping All
-    [Documentation]    Pingall, verify no packet loss
-        Write   pingall
-        ${result}    Read Until		mininet>
-        Should Contain   ${result}   0% dropped
-        Should Not Contain    ${result}    X
+Check Stats for node 3
+    [Documentation]    Get the stats for a node
+    Wait Until Keyword Succeeds    30s    2s    Check Nodes Stats    openflow:3
 
-#Get flows after ping through console
-#    [Documentation]    Dump flows should list flows
-#        Write   sh ovs-ofctl dump-flows s1 -O OpenFlow13
-#        ${result}    Read Until	mininet>
-#        Should Contain X Times    ${result}    actions    4
-#        Write   sh ovs-ofctl dump-flows s2 -O OpenFlow13
-#        Sleep   5
-#        ${result}    Read Until	mininet>
-#        Should Contain X Times    ${result}    actions    6
-#        Write   sh ovs-ofctl dump-flows s3 -O OpenFlow13
-#        Sleep   5
-#        ${result}    Read Until	mininet>
-#        Should Contain X Times    ${result}    actions    4
+Check Flows
+    [Documentation]    Check all flows are present
+    Wait Until Keyword Succeeds    30s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    "output-node-connector"    21
 
-
-#Get flows after ping through restconf
-#    [Documentation]    Get the inventory, should not contain flows
-#        ${resp}    Get    session    ${REST_CONTEXT}/node/openflow:1/table/0
-#        Should Be Equal As Strings    ${resp.status_code}    200
+Ping All Test
+    [Documentation]    Ping all, verify no packet loss or duplicates
+    Write    pingall
+    ${result}    Read Until    mininet>
+    Should Contain    ${result}    Results: 0% dropped
