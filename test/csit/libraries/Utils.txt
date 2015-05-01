@@ -90,6 +90,11 @@ Check For Elements Not At URI
     : FOR    ${i}    IN    @{elements}
     \    Should Not Contain    ${resp.content}    ${i}
 
+Clean Mininet System
+    [Arguments]     ${mininet_system}=${MININET}
+    Run Command On Remote System    ${mininet_system}   sudo mn -c
+    Run Command On Remote System    ${mininet_system}   sudo ps -elf | egrep 'usr/local/bin/mn' | egrep python | awk '{print "sudo kill -9",$4}' | sh
+
 Extract Value From Content
     [Arguments]    ${content}    ${index}    ${strip}=nostrip
     [Documentation]    Will take the given response content and return the value at the given index as a string
