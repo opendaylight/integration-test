@@ -31,7 +31,7 @@ Add NetConf device
 Get Controller Inventory
     [Documentation]    Get Controller operational inventory
     [Tags]    netconf
-    Wait Until Keyword Succeeds    10s    2s    Get Inventory
+    Wait Until Keyword Succeeds    30s    2s    Get Inventory
 
 Pull External Device configuration
     [Documentation]    Pull Netopeer configuration
