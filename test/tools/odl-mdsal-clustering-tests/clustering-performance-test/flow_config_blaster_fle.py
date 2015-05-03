@@ -51,7 +51,7 @@ class FlowConfigBlasterFLE(FlowConfigBlaster):
 
         return nodes
 
-    def add_flow(self, session, node, flow_id, ipaddr):
+    def post_flows(self, session, node, flow_id, ipaddr):
         """
         Adds a flow. Overrides the add_flow method in FlowConfigBlaster.
         :param session:

@@ -1,0 +1,40 @@
+{
+    "flow": [
+        {
+            "id": "38",
+            "cookie": 38,
+            "instructions": {
+                "instruction": [
+                    {
+                        "order": 0,
+                        "apply-actions": {
+                            "action": [
+                                {
+                                    "order": 0,
+                                    "drop-action": { }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            },
+            "hard-timeout": 65000,
+            "match": {
+                "ethernet-match": {
+                    "ethernet-type": {
+                        "type": 2048
+                    }
+                },
+                "ipv4-destination": "10.0.0.38/32"
+            },
+            "flow-name": "TestFlow-8",
+            "strict": false,
+            "cookie_mask": 4294967295,
+            "priority": 2,
+            "table_id": 0,
+            "idle-timeout": 65000,
+            "installHw": false
+        }
+
+    ]
+}
