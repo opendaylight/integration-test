@@ -56,7 +56,7 @@ Check That Port Count Is Ok
     [Documentation]    A GET on the /port API is made and the specified port ${count} is
     ...    verified. A more generic Keyword "Check For Specific Number Of Elements At URI"
     ...    also does this work and further consolidation should be done.
-    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_API}/${CONTAINER}/port
+    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}/${CONTAINER}/port
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain X Times    ${resp.content}    ${node}    ${count}
