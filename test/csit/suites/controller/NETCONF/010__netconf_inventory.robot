@@ -10,6 +10,8 @@ Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
+${NETOPEER}             ${MININET}
+${NETOPEER_USER}        ${MININET_USER}
 ${FILE}                 ${CURDIR}/../../../variables/xmls/netconf.xml
 ${REST_CONT_CONF}       /restconf/config/network-topology:network-topology/topology/topology-netconf
 ${REST_CONT_OPER}       /restconf/operational/network-topology:network-topology/topology/topology-netconf
@@ -21,8 +23,8 @@ Add NetConf device
     [Documentation]    Add NetConf device using REST
     [Tags]     netconf
     ${XML1}    Get File    ${FILE}
-    ${XML2}    Replace String    ${XML1}    127.0.0.1    ${MININET}
-    ${body}    Replace String    ${XML2}    mininet      ${MININET_USER}
+    ${XML2}    Replace String    ${XML1}    127.0.0.1    ${NETOPEER}
+    ${body}    Replace String    ${XML2}    mininet    ${NETOPEER_USER}
     Log    ${body}
     ${resp}    Post    session    ${REST_CONT_CONF}/${REST_NTPR_CONF}    data=${body}
     Log    ${resp.content}
