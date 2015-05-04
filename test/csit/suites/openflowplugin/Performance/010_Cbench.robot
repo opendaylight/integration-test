@@ -5,6 +5,7 @@ Documentation     Cbench Latency and Throughput tests can be run from an externa
 ...                 the normal openflow operations seem to break.
 ...                 BUG:  https://bugs.opendaylight.org/show_bug.cgi?id=2897
 Suite Setup       Cbench Suite Setup
+Test Teardown     Log Results As Zero If Cbench Timed Out
 Force Tags        cbench
 Library           String
 Resource          ../../../libraries/Utils.txt
@@ -24,14 +25,6 @@ ${throughput_results_file}  throughput.csv
 ${latency_results_file}     latency.csv
 
 *** Testcases ***
-Cbench Throughput Test
-    [Documentation]     cbench executed in throughput mode (-t).  Test parameters have defaults, but can be overridden
-    ...     on the pybot command line
-    [Tags]  throughput
-    [Timeout]   ${test_timeout}
-    Log    Cbench tests using ${loops} iterations of ${duration_in_secs} second tests. Switch Count: ${switch_count}. Unique MACS to cycle: ${num_of_unique_macs}
-    Run Cbench And Log Results  -t -m ${duration_in_ms} -M ${num_of_unique_macs} -s ${switch_count} -l ${loops}     ${throughput_threshold}     ${throughput_results_file}
-
 Cbench Latency Test
     [Documentation]     cbench executed in default latency mode.  Test parameters have defaults, but can be overridden
     ...     on the pybot command line
@@ -40,10 +33,22 @@ Cbench Latency Test
     Log    Cbench tests using ${loops} iterations of ${duration_in_secs} second tests. Switch Count: ${switch_count}. Unique MACS to cycle: ${num_of_unique_macs}
     Run Cbench And Log Results  -m ${duration_in_ms} -M ${num_of_unique_macs} -s ${switch_count} -l ${loops}     ${latency_threshold}     ${latency_results_file}
 
+Cbench Throughput Test
+    [Documentation]     cbench executed in throughput mode (-t).  Test parameters have defaults, but can be overridden
+    ...     on the pybot command line
+    [Tags]  throughput
+    [Timeout]   ${test_timeout}
+    Log    Cbench tests using ${loops} iterations of ${duration_in_secs} second tests. Switch Count: ${switch_count}. Unique MACS to cycle: ${num_of_unique_macs}
+    Run Cbench And Log Results  -t -m ${duration_in_ms} -M ${num_of_unique_macs} -s ${switch_count} -l ${loops}     ${throughput_threshold}     ${throughput_results_file}
+
 *** Keywords ***
 Run Cbench And Log Results
     [Arguments]    ${cbench_args}    ${average_threshold}   ${output_filename}=results.csv
-    ${output}=  Run Command On Remote System    ${cbench_system}   ${cbench_executable} -c ${CONTROLLER} ${cbench_args}  prompt_timeout=${test_timeout}
+    ##If the cbench command fails to return, the keyword to run it will time out.  The test tear
+    ##down can catch this problem and log the results as zero.  However, we need to know which
+    ##file to log to, so setting it as a suite variable here.
+    Set Suite Variable    ${output_filename}
+    ${output}=    Run Command On Remote System    ${cbench_system}   ${cbench_executable} -c ${CONTROLLER} ${cbench_args}  prompt_timeout=${test_timeout}
     Log     ${output}
     Should Contain    ${output}    RESULT
     ${result_line}=    Get Lines Containing String    ${output}    RESULT
@@ -61,8 +66,7 @@ Run Cbench And Log Results
     ${stdev}=    Set Variable    ${result_value_list[${3}]}
     ${date}=    Get Time    d,m,s
     Log    CBench Result: ${date},${cbench_args},${min},${max},${average},${stdev}
-    Append To File    ${output_filename}    ${min},${max},${average}\n
-    Should Be True    ${average} > ${average_threshold}     ${average} flow_mods per/sec did not exceed threshold of ${average_threshold}
+    Log Results And Determine Status    ${min}    ${max}    ${average}    ${average_threshold}    ${output_filename}
 
 Cbench Suite Setup
     Append To File    ${latency_results_file}    LATENCY_MIN,LATENCY_MAX,LATENCY_AVERAGE\n
@@ -76,3 +80,11 @@ Cbench Suite Setup
     Should Be True  ${loops} >= 2   If number of loops is less than 2, cbench will not run
     Verify Feature Is Installed     odl-openflowplugin-drop-test
     Issue Command On Karaf Console  dropallpacketsrpc on
+
+Log Results And Determine Status
+    [Arguments]    ${min}    ${max}    ${average}   ${threshold}    ${output_file}
+    Append To File    ${output_file}    ${min},${max},${average}\n
+    Should Be True    ${average} > ${threshold}     ${average} flow_mods per/sec did not exceed threshold of ${threshold}
+
+Log Results As Zero If Cbench Timed Out
+    Run Keyword If Timeout Occurred    Log Results And Determine Status    0    0    0    0    ${output_filename}
