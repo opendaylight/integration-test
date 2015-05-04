@@ -20,19 +20,21 @@ auth=false
 threads=1
 flows=1000
 cycles=1
-odl_host=127.0.0.1
-odl_port=8181
+host=127.0.0.1
+port=8181
+fpr=1
 
 function usage {
     echo "usage: $program_name [-h?an] [-i instances] [-c cycles] [-f flows] [-t threads] [-o odl_host] [-p odl_port]"
     echo "	-h|?          print this message"
     echo "	-a            use default authentication ('admin/admin')"
+    echo "	-b batchsize  # offlows per RESTCONF add-flow request"
     echo "	-n            use the 'no-delete' flag in '$CMD'"
     echo "	-i instances  number of '$CMD' instances to spawn"
     echo "	-c cycles     number of cycles"
     echo "	-f flows      number of flows"
-    echo "	-o odl_host   IP Address of the ODL controller"
-    echo "	-p odl_port   RESTCONF port in the ODL controller"
+    echo "	-h host       IP Address of the ODL controller"
+    echo "	-p port       RESTCONF port in the ODL controller"
     echo "	-t threads    number of threads"
     echo "Optional flags/arguments [acfnopt] are passed to '$CMD'."
 }
@@ -40,13 +42,15 @@ function usage {
 # Initialize our own variables:
 
 
-while getopts "h?ac:f:i:no:p:t:" opt; do
+while getopts "h?ab:c:f:i:no:p:t:" opt; do
     case "$opt" in
     h|\?)
         usage
         exit 1
         ;;
     a)  auth=true
+        ;;
+    b)  fpr=$OPTARG
         ;;
     c)  cycles=$OPTARG
         ;;
@@ -56,9 +60,9 @@ while getopts "h?ac:f:i:no:p:t:" opt; do
         ;;
     n)  no_delete=true
         ;;
-    o)  odl_host=$OPTARG
+    h)  host=$OPTARG
         ;;
-    p)  odl_port=$OPTARG
+    p)  port=$OPTARG
         ;;
     t)  threads=$OPTARG
         ;;
@@ -76,7 +80,7 @@ while [  $i -lt $instances ]; do
     let "startflow=$flows_per_instance * $i"
 
     CMD_STRING=$(printf '%s --cycles %s --flows %s --threads %s ' $CMD $cycles $flows $threads)
-    CMD_STRING+=$(printf ' --host %s --port %s --startflow %s' $odl_host $odl_port $startflow)
+    CMD_STRING+=$(printf ' --host %s --port %s --startflow %s --fpr %s' $host $port $startflow $fpr)
     if [ "$auth" = true ] ; then
         CMD_STRING+=' --auth'
     fi
