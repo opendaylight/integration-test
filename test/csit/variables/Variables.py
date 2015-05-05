@@ -69,6 +69,8 @@ PORTS = 'ports/detail.json'
 # Common APIs
 OPERATIONAL_NODES_API = '/restconf/operational/opendaylight-inventory:nodes'
 OPERATIONAL_TOPO_API = '/restconf/operational/network-topology:network-topology'
+CONTROLLER_CONFIG_MOUNT = ('/restconf/config/network-topology:network-topology/topology'
+                           '/topology-netconf/node/controller-config/yang-ext:mount')
 
 # TOKEN
 AUTH_TOKEN_API = '/oauth2/token'

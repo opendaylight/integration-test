@@ -1,0 +1,8 @@
+<module xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
+ <type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:controller:tcpmd5:netty:cfg">prefix:md5-server-channel-factory-impl</type>
+ <name>md5-server-channel-factory</name>
+ <server-key-access-factory xmlns="urn:opendaylight:params:xml:ns:yang:controller:tcpmd5:netty:cfg">
+  <type xmlns:x="urn:opendaylight:params:xml:ns:yang:controller:tcpmd5:cfg">x:key-access-factory</type>
+  <name>global-key-access-factory</name>
+ </server-key-access-factory>
+</module>

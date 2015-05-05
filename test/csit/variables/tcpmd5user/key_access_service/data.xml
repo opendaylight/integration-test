@@ -1,0 +1,4 @@
+<instance xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
+ <name>global-key-access-factory</name>
+ <provider>/modules/module[type='native-key-access-factory'][name='global-key-access-factory']</provider>
+</instance>

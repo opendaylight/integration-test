@@ -1,0 +1,4 @@
+<md5-server-channel-factory xmlns="urn:opendaylight:params:xml:ns:yang:controller:pcep:impl">
+ <type xmlns:x="urn:opendaylight:params:xml:ns:yang:controller:tcpmd5:netty:cfg">x:md5-server-channel-factory</type>
+ <name>md5-server-channel-factory</name>
+</md5-server-channel-factory>

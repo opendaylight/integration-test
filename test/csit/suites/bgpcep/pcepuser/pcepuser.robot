@@ -10,7 +10,7 @@ Suite Setup       Set_It_Up
 Suite Teardown    Tear_It_Down
 Library           OperatingSystem
 Library           SSHLibrary    prompt=]>
-Library           ${CURDIR}/../../../libraries/RequestsLibrary.py
+Library           RequestsLibrary
 Library           ${CURDIR}/../../../libraries/HsfJson/hsf_json.py
 Resource          ${CURDIR}/../../../libraries/PcepOperations.robot
 Variables         ${CURDIR}/../../../variables/Variables.py

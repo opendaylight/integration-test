@@ -1,0 +1,4 @@
+<instance xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
+ <name>md5-server-channel-factory</name>
+ <provider>/modules/module[type='md5-server-channel-factory-impl'][name='md5-server-channel-factory']</provider>
+</instance>

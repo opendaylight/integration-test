@@ -1,0 +1,4 @@
+<module xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
+ <type xmlns:x="urn:opendaylight:params:xml:ns:yang:controller:tcpmd5:jni:cfg">x:native-key-access-factory</type>
+ <name>global-key-access-factory</name>
+</module>
