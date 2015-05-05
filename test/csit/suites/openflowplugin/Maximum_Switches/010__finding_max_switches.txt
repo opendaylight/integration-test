@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite for finding out max number of switches
 Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-Suite Teardown    Delete All Sessions
+Suite Teardown    Scalability Suite Teardown
 Library           OperatingSystem
 Library           ../../../libraries/RequestsLibrary.py
 Variables         ../../../variables/Variables.py
@@ -20,3 +20,8 @@ Find Max Switches
     ${max-switches}    Find Max Switches    ${MIN_SWITCHES}    ${MAX_SWITCHES}    ${STEP_SWITCHES}
     Log    ${max-switches}
     Append To File    ${SWITCHES_RESULT_FILE}    ${max-switches}\n
+
+*** Keywords ***
+Scalability Suite Teardown
+    Delete All Sessions
+    Clean Mininet System
