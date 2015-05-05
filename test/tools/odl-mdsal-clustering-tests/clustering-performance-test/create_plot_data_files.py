@@ -1,4 +1,5 @@
 #!/usr/bin/python
+import re
 
 text_file = open("out.log.txt", "r")
 log = text_file.read()
@@ -6,10 +7,12 @@ text_file.close()
 
 data = []
 
+pat = re.compile(r'Avg. requests/s: (?P<rate1>[0-9,\.]+) OK, (?P<rate2>[0-9,\.]+) Total')
+
 for line in log.splitlines():
-    if 'Total success rate: ' in line:
-        ll = line.split(',')
-        data.append(ll[0][24:])
+    res = pat.search(line)
+    if res is not None:
+        data.append(res.groups('rate1')[0])
 print data
 
 text_file = open("rates.csv", "w")
