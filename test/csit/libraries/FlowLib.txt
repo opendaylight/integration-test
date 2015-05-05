@@ -199,3 +199,167 @@ Remove Default Flows
     Should Not Contain    ${resp.content}    "output-node-connector": "CONTROLLER",
     ${strings_to_check_for}=    Create List    CONTROLLER
     Verify Flow Does Not Exist On Mininet Switch    ${strings_to_check_for}
+
+Create Flow Variables For Suite From XML File
+    [Arguments]    ${file}
+    [Documentation]    Given the flow XML ${file}, it will create several suite wide variables
+    ${data}=    OperatingSystem.Get File    ${file}
+    ${xmlroot}=    Parse Xml    ${file}
+    ${table_id}=    Get Element Text    ${xmlroot}    table_id
+    ${flow_id}=    Get Element Text    ${xmlroot}    id
+    ${flow_priority}=    Get Element Text    ${xmlroot}    priority
+    ${upddata}=    Get Data For Flow Put Update    ${data}
+    Set Suite Variable    ${table_id}
+    Set Suite Variable    ${flow_id}
+    Set Suite Variable    ${flow_priority}
+    Set Suite Variable    ${data}
+    Set Suite Variable    ${upddata}
+    Set Suite Variable    ${xmlroot}
+
+Check Datastore Presence
+    [Arguments]    ${fname}    ${reqconfpres}    ${reqoperpres}    ${upd}
+    [Documentation]    Checks if flow is properly existing or not existing in the config and operational
+    ...    datastores, based on the variables ${reqconfpres} and ${reqoperpres}
+    Create Flow Variables For Suite From XML File    ${XmlsDir}/${fname}
+    # Note:    ${upddata} and ${data} are suite variables set by the keyword above.
+    ${det}=    Set Variable If    ${upd}==${True}    ${upddata}    ${data}
+    Check Config Flow    ${reqconfpres}    ${det}
+    Check Operational Flow    ${reqoperpres}    ${det}
+
+Flow Presence In Config Store
+    [Arguments]    ${expvalue}
+    [Documentation]    Checks the config store for given flow. Returns True if present, otherwise returns False
+    ...    This keyword assumes that the global/suite variables are available (${table_id}, ${flow_id} and ${switch_idx}
+    ${headers}=    Create Dictionary    Accept    application/xml
+    ${resp}=    Get    session    ${CONFIG_NODES_API}/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}    headers=${headers}
+    Log    ${resp}
+    Log    ${resp.content}
+    Return From Keyword If    ${resp.status_code}!=200    ${False}    ${EMPTY}
+    ${pres}    ${msg}=    Is Flow Configured    ${expvalue}    ${resp.content}
+    Run Keyword If    '''${msg}'''!='${EMPTY}'    Log    ${msg}
+    Return From Keyword    ${pres}    ${msg}
+
+Flow Presence In Operational Store
+    [Arguments]    ${expvalue}
+    [Documentation]    Checks the operational store for given flow. Returns True if present, otherwise returns False
+    ...    This keyword assumes that the global/suite variables are available (${table_id}, ${flow_id} and ${switch_idx}
+    ${headers}=    Create Dictionary    Accept    application/xml
+    ${resp}=    Get    session    ${OPERATIONAL_NODES_API}/node/openflow:${switch_idx}/table/${table_id}    headers=${headers}
+    Log    ${resp}
+    Log    ${resp.content}
+    Return From Keyword If    ${resp.status_code}!=200    ${False}    ${EMPTY}
+    ${pres}    ${msg}=    Is Flow Operational2    ${expvalue}    ${resp.content}
+    Run Keyword If    '''${msg}'''!='${EMPTY}'    Log    ${msg}
+    Return From Keyword    ${pres}    ${msg}
+
+Get Presence Failure Message
+    [Arguments]    ${ds}    ${expected}    ${presence}    ${diffmsg}
+    [Documentation]    Utility keyword to help manipulate mesage strings that may be used later to PASS or FAIL with
+    Return From Keyword If    '''${diffmsg}'''!='${EMPTY}'    Flow found in ${ds} data store but: ${diffmsg}
+    ${msgf}=    Set Variable If    ${expected}==${True}    The flow is expected in ${ds} data store, but    The flow is not expected in ${ds} data store, but
+    ${msgp}=    Set Variable If    ${presence}==${True}    it is present.    it is not present.
+    Return From Keyword    ${msgf} ${msgp}
+
+Check Config Flow
+    [Arguments]    ${expected}    ${expvalue}
+    [Documentation]    Wrapper keyword that calls "Flow Presence In Config Store" and "Get Presence Failure Message" from this library
+    ...    to verify that the ${expvalue} flow is or is not found in the config store, depending on whether or not it was ${expected}
+    ${presence_flow}    ${msg}=    Flow Presence In Config Store    ${expvalue}
+    ${msgf}=    Get Presence Failure Message    config    ${expected}    ${presence_flow}    ${msg}
+    Should Be Equal    ${expected}    ${presence_flow}    msg=${msgf}
+
+Check Operational Flow
+    [Arguments]    ${expected}    ${expvalue}
+    [Documentation]    Wrapper keyword that calls "Flow Presence In Operational Store" and "Get Presence Failure Message" from this library
+    ...    to verify that the ${expvalue} flow is or is not found in the config store, depending on whether or not it was ${expected}
+    ${presence_table}    ${msg}=    Flow Presence In Operational Store    ${expvalue}
+    ${msgf}=    Get Presence Failure Message    operational    ${expected}    ${presence_table}    ${msg}
+    Should Be Equal    ${expected}    ${presence_table}    msg=${msgf}
+
+Add Flow Via RPC
+    [Arguments]    ${node_id}    ${xmlroot}
+    [Documentation]    Deploys a flow specified by given flow details (${node_id}, ${xmlroot}) using add-flow operation.
+    ...    ${xmlroot} is an xml object of parser xml flow details, usually created by Create Flow Variables For Suite From XML File
+    ...    keyword from this library.
+    ${req}=    Copy Element    ${xmlroot}
+    Remove Element    ${req}    id    clear_tail=True
+    Set Element Tag    ${req}    input
+    Set Element Attribute    ${req}    xmlns    urn:opendaylight:flow:service
+    Add Element    ${req}    <node>/inv:nodes/inv:node[inv:id="openflow:${node_id}"]</node>
+    ${nodeelm}=    Get Element    ${req}    node
+    Set Element Attribute    ${nodeelm}    xmlns:inv    urn:opendaylight:inventory
+    Log Element    ${req}
+    ${strxml}=    Element To String    ${req}
+    ${resp}=    Post    session    /restconf/operations/sal-flow:add-flow    data=${strxml}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+
+Add Flow Via Restconf
+    [Arguments]    ${node_id}    ${table_id}    ${flow_body}
+    [Documentation]    Configures a flow specified by given flow details (${node_id}, ${table_id}, ${flow_body}) using POST method
+    Log    ${flow_body}
+    ${resp}=    Post    session    ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id}    data=${flow_body}
+    Log    ${resp.content}
+    ${msg}=    Set Variable    Adding flow for ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id} failed, http response ${resp.status_code} received.
+    Should Be Equal As Strings    ${resp.status_code}    204    msg=${msg}
+
+Update Flow Via RPC
+    [Arguments]    ${node_id}    ${configured_flow_body}    ${updating_flow_body}
+    [Documentation]    Updates a flow by using update-flow operation. ${xmlroot} is usually a variable created by
+    ...    Create Flow Variables For Suite From XML File keyword from this library.
+    Log    ${configured_flow_body}
+    Log    ${updating_flow_body}
+    ${xml}    Parse Xml    <input xmlns="urn:opendaylight:flow:service"></input>
+    Log Element    ${xml}
+    ${origflow}=    Parse Xml    ${configured_flow_body}
+    ${updflow}=    Parse Xml    ${updating_flow_body}
+    Remove Element    ${origflow}    id    clear_tail=True
+    Remove Element    ${updflow}    id    clear_tail=True
+    Remove Element Attribute    ${origflow}    xmlns
+    Remove Element Attribute    ${updflow}    xmlns
+    Set Element Tag    ${origflow}    original-flow
+    Set Element Tag    ${updflow}    updated-flow
+    Add Element    ${xml}    ${origflow}
+    Add Element    ${xml}    ${updflow}
+    Add Element    ${xml}    <node>/inv:nodes/inv:node[inv:id="openflow:${node_id}"]</node>
+    ${nodeelm}=    Get Element    ${xml}    node
+    Set Element Attribute    ${nodeelm}    xmlns:inv    urn:opendaylight:inventory
+    Log Element    ${xml}
+    ${strxml}=    Element To String    ${xml}
+    ${resp}=    Post    session    /restconf/operations/sal-flow:update-flow    data=${strxml}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+
+Update Flow Via Restconf
+    [Arguments]    ${node_id}    ${table_id}    ${flow_id}    ${flow_body}
+    [Documentation]    Updates a flow configuration by given flow details (${node_id}, ${table_id}, ${flow_body}) using PUT method
+    Log    ${flow_body}
+    ${resp}=    Put    session    ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id}/flow/${flow_id}    data=${flow_body}
+    Log    ${resp.content}
+    ${msg}=    Set Variable    Updating flow for ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id}/flow/${flow_id} failed, http response ${resp.status_code} received.
+    Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}
+
+Delete Flow Via RPC
+    [Arguments]    ${node_id}    ${xmlroot}
+    [Documentation]    Deletes a flow by using remove-flow opearation. ${xmlroot} is usually a variable created by
+    ...    Create Flow Variables For Suite From XML File keyword from this library.
+    ${req}=    Copy Element    ${xmlroot}
+    Remove Element    ${req}    id    clear_tail=True
+    Set Element Tag    ${req}    input
+    Set Element Attribute    ${req}    xmlns    urn:opendaylight:flow:service
+    Add Element    ${req}    <node>/inv:nodes/inv:node[inv:id="openflow:${node_id}"]</node>
+    ${nodeelm}=    Get Element    ${req}    node
+    Set Element Attribute    ${nodeelm}    xmlns:inv    urn:opendaylight:inventory
+    Log Element    ${req}
+    ${strxml}=    Element To String    ${req}
+    ${resp}=    Post    session    /restconf/operations/sal-flow:remove-flow    data=${strxml}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+
+Delete Flow Via Restconf
+    [Arguments]    ${node_id}    ${table_id}    ${flow_id}
+    [Documentation]    Deletes a flow from configuration datastore specified by given flow details (${node_id}, ${table_id}, ${flow_body}) using DELETE method
+    ${resp}=    Delete    session    ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id}/flow/${flow_id}
+    Log    ${resp.content}
+    ${msg}=    Set Variable    Delete flow for ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id}/flow/${flow_id} failed, http response ${resp.status_code} received.
+    Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}

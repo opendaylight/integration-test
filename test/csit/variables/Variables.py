@@ -67,6 +67,7 @@ VLANMAP_CREATE = 'vlanmaps.json'
 PORTS = 'ports/detail.json'
 
 # Common APIs
+CONFIG_NODES_API = '/restconf/config/opendaylight-inventory:nodes'
 OPERATIONAL_NODES_API = '/restconf/operational/opendaylight-inventory:nodes'
 OPERATIONAL_TOPO_API = '/restconf/operational/network-topology:network-topology'
 CONTROLLER_CONFIG_MOUNT = ('/restconf/config/network-topology:network-topology/topology'
