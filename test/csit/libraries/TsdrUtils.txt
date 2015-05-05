@@ -1,0 +1,62 @@
+*** Variables ***
+${start}          sudo mn --controller=remote,ip=${CONTROLLER} --topo=linear,3 --switch ovsk,protocols=OpenFlow13
+${START_HBASE_CLIENT}    /tmp/Hbase/hbase-0.94.15/bin/hbase shell
+
+*** Keywords ***
+Start Tsdr Suite
+    [Documentation]    Basic setup/cleanup work that can be done safely before any system
+    ...    is run.
+    Log    Start the test on the base edition
+    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${LINUX_PROMPT}    timeout=30s
+    Set Suite Variable    ${mininet_conn_id}
+    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
+    Write    sudo ovs-vsctl set-manager ptcp:6644
+    Read Until    ${LINUX_PROMPT}
+    Write    sudo mn -c
+    Read Until    ${LINUX_PROMPT}
+    Write    ${start}
+    Read Until    mininet>
+    Sleep    6
+
+Initialize the REST Client Session
+    [Documentation]    Initialize the REST Client Session
+    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+
+Initialize the HBase for TSDR
+    [Documentation]    Install and initialize the tsdr tables on HBase Server
+    ${conn_id}=    Open Connection    ${CONTROLLER}    timeout=120s
+    Login With Public Key    ${user}    ${USER_HOME}/.ssh/id_rsa    any
+    Put File    integration/test/csit/suites/tsdr/HBase/create-tables
+    Put File    integration/test/csit/suites/tsdr/HBase/create-odl-hbasetable.sh
+    Put File    integration/test/csit/suites/tsdr/HBase/start-hbase-client.sh
+    ${hbase_server}=    Execute Command    ./start-hbase-client.sh
+    Log    ${hbase_server}
+    ${out}=    Execute Command    ./create-odl-hbasetable.sh
+    LOG    ${out}
+    Close Connection
+
+Stop the HBase Server
+    [Documentation]    Stop the HBase server
+    ${conn_id}=    Open Connection    ${CONTROLLER}    timeout=120s
+    Login With Public Key    ${user}    ${USER_HOME}/.ssh/id_rsa    any
+    Put File    integration/test/csit/suites/tsdr/HBase/stop-hbase-client.sh
+    ${hbase_server}=    Execute Command    ./stop-hbase-client.sh
+    Log    ${hbase_server}
+    Close Connection
+
+Query the Data from HBaseClient
+    [Arguments]    ${query}    ${remote}=${CONTROLLER}    ${user}=${MININET_USER}    ${prompt}=${LINUX_PROMPT}    ${prompt_timeout}=40s
+    [Documentation]    Execute the HBase Query and return the result
+    Log    Attempting to execute ${query} on ${remote} via HbaseClient
+    ${conn_id}=    Open Connection    ${remote}    prompt=${prompt}    timeout=${prompt_timeout}
+    Login With Public Key    ${user}    ${USER_HOME}/.ssh/id_rsa    any
+    Write    export JAVA_HOME=/usr
+    Write    ${START_HBASE_CLIENT}
+    Read Until    hbase(main):001:0>
+    Write    ${query}
+    ${output}=    Read Until    hbase(main):
+    Write    exit
+    LOG    ${output}
+    Comment    ${output}=    Read Until    ${prompt}
+    Close Connection
+    [Return]    ${output}

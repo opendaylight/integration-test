@@ -23,6 +23,16 @@ ODL_CONTROLLER_SESSION = None
 TOPO_TREE_LEVEL = 2
 TOPO_TREE_DEPTH = 3
 TOPO_TREE_FANOUT = 2
+
+# KARAF Varaiable
+KARAF_SHELL_PORT = '8101'
+KARAF_PROMPT = 'opendaylight-user'
+KARAF_USER = 'karaf'
+KARAF_PASSWORD = 'karaf'
+
+# VM Environment Variables
+LINUX_PROMPT = '>'
+
 # VTN Coordinator Variables
 VTNC = '127.0.0.1'
 VTNCPORT = '8083'
