@@ -32,10 +32,10 @@ Topology_Precondition
 Start_Secure_Pcc_Mock
     [Documentation]    Execute pcc-mock on Mininet with password set, fail if pcc-mock returns. Keep pcc-mock running for next test cases.
     [Tags]    critical
-    ${command}=    Set_Variable    java -jar ${filename} --password topsecret --local-address ${MININET} --remote-address ${CONTROLLER} 2>&1 | tee pccmock.log
+    ${command}=    Set_Variable    java -jar ${filename} --password topsecret --reconnect 1 --local-address ${MININET} --remote-address ${CONTROLLER} 2>&1 | tee pccmock.log
     Log    ${command}
     Write    ${command}
-    Run_Keyword_And_Expect_Error    *    Read_Until_Prompt
+    Run_Keyword_And_Expect_Error    No match found for '${prompt}' in *.    Read_Until_Prompt
 
 Topology_Unauthorized_1
     [Documentation]    Try to catch a glimpse of pcc-mock in pcep-topology. Pass if no change from Precondition is detected over 1 minute.
@@ -130,6 +130,10 @@ Set_It_Up
     ...    Also, delete and create directories for json diff handling.
     Open_Connection    ${MININET}
     Login_With_Public_Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
+    ${current_connection}=    Get_Connection
+    ${current_prompt}=    Set_Variable    ${current_connection.prompt}
+    Log    ${current_prompt}
+    Set_Suite_Variable    ${prompt}    ${current_prompt}
     Create_Session    ses    http://${CONTROLLER}:${RESTCONFPORT}/restconf/operational/network-topology:network-topology    auth=${AUTH}
     # TODO: Figure out a way how to share pcc-mock instance with pcepuser suite.
     ${urlbase}=    Set_Variable    ${NEXUSURL_PREFIX}/content/repositories/opendaylight.snapshot/org/opendaylight/bgpcep/pcep-pcc-mock
