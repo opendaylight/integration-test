@@ -26,7 +26,7 @@ OF1.3 Connection Between Switch and Controller
     ${datapath_id_from_switch}=    Get Switch Datapath ID    ${test_switch}
     Verify Switch In Operational Data Store    ${test_switch}
     Disable OpenFlow    ${test_switch}
-    Verify Switch Not In Operational Data Store    ${test_switch}
+    Wait Until Keyword Succeeds    3s    1s    Verify Switch Not In Operational Data Store    ${test_switch}
     ##MORE CHECKS TO ADD ON SWITCH AND OPERATIONAL DATA STORE
     ##- proper OF version
     ##- proper default flow rules
