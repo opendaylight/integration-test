@@ -2,15 +2,30 @@
 """
 Cluster Monitor Tool
 Author: Phillip Shea
-Updated: 2015-04-29
+Updated: 2015-May-07
 
-This tool provides real-time monitoring of the cluster member roles for all shards.
-It is assumed that all cluster members have the same shards.
+This tool provides real-time visualization of the cluster member roles for all
+shards in the config datastore. It is assumed that all cluster members have the
+same shards.
 
-Usage:python monitor.py [controller IP1] [controller IP2] ... [controller IPn]
+A file named 'cluster.json' contaning a list of the IP addresses of the
+controllers is required. This resides in the same directory as monitor.py.
+"user" and "pass" are not required for monitor.py, but they may be
+needed for other apps in this folder. The file should look like this:
 
-Before using, start and configure all controllers in the cluster.
-The cluster deployer script is recommended.
+    {
+        "cluster": {
+            "controllers": [
+                "172.17.10.93",
+                "172.17.10.94",
+                "172.17.10.95"
+            ],
+            "user": "username",
+            "pass": "password"
+        }
+    }
+
+Usage:python monitor.py
 """
 from io import BytesIO
 import time
@@ -79,14 +94,18 @@ def size_and_color(cluster_roles, field_length, ip_addr):
 
 
 field_len = 14
-controllers = sys.argv[1:]
-print ''
-print controllers
-if len(controllers) == 0:
-    print 'Error'
-    print 'You must specify at least one controller at the command line.'
-    print 'e.g.: $python monitor.py 172.17.10.93 172.17.10.94 172.17.10.95'
-    print ' '
+try:
+    with open('cluster.json') as cluster_file:
+        data = json.load(cluster_file)
+except:
+    print str(sys.exc_info())
+    print 'Unable to open the file cluster.json'
+    exit(1)
+try:
+    controllers = data["cluster"]["controllers"]
+except:
+    print str(sys.exc_info())
+    print 'Error reading the file cluster.json'
     exit(1)
 
 controller_names = []
@@ -97,8 +116,8 @@ for controller in controllers:
     try:
         data = rest_get(url)
     except:
-        print "Unable to retrieve shard names from " + controller
-        print "Are all controllers up?"
+        print 'Unable to retrieve shard names from ' + controller
+        print 'Are all controllers up?'
         print str(sys.exc_info()[1])
         exit(1)
     print 'shards from the first controller'

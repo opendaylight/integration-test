@@ -208,13 +208,13 @@ def isolate_controller(controllers, username, password, isolated):
     :return: If successful, returns "pass", otherwise returns the last failed IPTables text.
     """
     isolated_controller = controllers[isolated-1]
-    del controllers[isolated-1]
     for controller in controllers:
-        base_str = 'sudo iptables -I OUTPUT -p all --source '
-        cmd_str = base_str + isolated_controller + ' --destination ' + controller + ' -j DROP'
-        execute_ssh_command(isolated_controller, username, password, cmd_str)
-        cmd_str = base_str + controller + ' --destination ' + isolated_controller + ' -j DROP'
-        execute_ssh_command(isolated_controller, username, password, cmd_str)
+        if controller != isolated_controller:
+            base_str = 'sudo iptables -I OUTPUT -p all --source '
+            cmd_str = base_str + isolated_controller + ' --destination ' + controller + ' -j DROP'
+            execute_ssh_command(isolated_controller, username, password, cmd_str)
+            cmd_str = base_str + controller + ' --destination ' + isolated_controller + ' -j DROP'
+            execute_ssh_command(isolated_controller, username, password, cmd_str)
     ip_tables = execute_ssh_command(isolated_controller, username, password, 'sudo iptables -L')
     print ip_tables
     iso_result = 'pass'
@@ -240,13 +240,13 @@ def rejoin_controller(controllers, username, password, isolated):
     :return: If successful, returns "pass", otherwise returns the last failed IPTables text.
     """
     isolated_controller = controllers[isolated-1]
-    del controllers[isolated-1]
     for controller in controllers:
-        base_str = 'sudo iptables -D OUTPUT -p all --source '
-        cmd_str = base_str + isolated_controller + ' --destination ' + controller + ' -j DROP'
-        execute_ssh_command(isolated_controller, username, password, cmd_str)
-        cmd_str = base_str + controller + ' --destination ' + isolated_controller + ' -j DROP'
-        execute_ssh_command(isolated_controller, username, password, cmd_str)
+        if controller != isolated_controller:
+            base_str = 'sudo iptables -D OUTPUT -p all --source '
+            cmd_str = base_str + isolated_controller + ' --destination ' + controller + ' -j DROP'
+            execute_ssh_command(isolated_controller, username, password, cmd_str)
+            cmd_str = base_str + controller + ' --destination ' + isolated_controller + ' -j DROP'
+            execute_ssh_command(isolated_controller, username, password, cmd_str)
     ip_tables = execute_ssh_command(isolated_controller, username, password, 'sudo iptables -L')
     print ip_tables
     iso_result = 'pass'
@@ -272,6 +272,7 @@ def flush_iptables(controllers, username, password):
     """
     flush_result = 'pass'
     for controller in controllers:
+        print 'Flushing ' + controller
         cmd_str = 'sudo iptables -v -F'
         cmd_result = execute_ssh_command(controller, username, password, cmd_str)
         print cmd_result

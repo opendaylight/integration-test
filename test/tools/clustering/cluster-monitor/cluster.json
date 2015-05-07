@@ -1,0 +1,11 @@
+{
+    "cluster": {
+        "controllers": [
+            "172.17.10.93",
+            "172.17.10.94",
+            "172.17.10.95"
+        ],
+        "user": "username",
+        "pass": "password"
+    }
+}
