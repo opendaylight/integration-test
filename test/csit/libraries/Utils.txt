@@ -115,11 +115,11 @@ Run Command On Remote System
     ...    taking care to log in with a public key and. The command given is written and the output returned. No test conditions
     ...    are checked.
     Log    Attempting to execute ${cmd} on ${remote_system}
-    ${conn_id}=    Open Connection    ${remote_system}    prompt=${prompt}    timeout=${prompt_timeout}
+    ${conn_id}=    SSHLibrary.Open Connection    ${remote_system}    prompt=${prompt}    timeout=${prompt_timeout}
     Login With Public Key    ${user}    ${USER_HOME}/.ssh/id_rsa    any
-    Write    ${cmd}
-    ${output}=    Read Until    ${linux_prompt}
-    Close Connection
+    SSHLibrary.Write    ${cmd}
+    ${output}=    SSHLibrary.Read Until    ${linux_prompt}
+    SSHLibrary.Close Connection
     [Return]    ${output}
 
 Verify File Exists On Remote System

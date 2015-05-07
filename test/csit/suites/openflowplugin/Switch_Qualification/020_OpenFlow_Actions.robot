@@ -46,42 +46,42 @@ ${CONTROLLER_doc}    OF1.3 OFPP_CONTROLLER = 0xfffffffd, /* Send to controller. 
 ${LOCAL_doc}      OF1.3 OFPP_LOCAL = 0xfffffffe, /* Local openflow "port". */
 ${ANY_doc}        OF1.3 OFPP_ANY = 0xffffffff /* Wildcard port used only for flow mod (delete) and flow stats requests. Selects all flows regardless of output port (including flows with no output port). */
 
-*** Test Cases ***    output port        tableID              flowID
+*** Test Cases ***    output port        tableID              flowID      priority
 INPORT                [Documentation]    ${INPORT_doc}
                       [Tags]             inport
-                      ${TEST_NAME}       200                  161
+                      ${TEST_NAME}       200                  161         1
 
 TABLE                 [Documentation]    ${TABLE_doc}
                       [Tags]             table
-                      ${TEST_NAME}       200                  261
+                      ${TEST_NAME}       200                  261         65535
 
 NORMAL                [Documentation]    ${NORMAL_doc}
                       [Tags]             normal
-                      ${TEST_NAME}       200                  361
+                      ${TEST_NAME}       200                  361         9
 
 FLOOD                 [Documentation]    ${FLOOD_doc}
                       [Tags]             flood
-                      ${TEST_NAME}       200                  81
+                      ${TEST_NAME}       200                  81         255
 
 ALL                   [Documentation]    ${ALL_doc}
                       [Tags]             all
-                      ${TEST_NAME}       200                  88
+                      ${TEST_NAME}       200                  88         42
 
 CONTROLLER            [Documentation]    ${CONTROLLER_doc}
                       [Tags]             controller
-                      ${TEST_NAME}       200                  21
+                      ${TEST_NAME}       200                  21         21
 
 LOCAL                 [Documentation]    ${LOCAL_doc}
                       [Tags]             local
-                      ${TEST_NAME}       200                  32
+                      ${TEST_NAME}       200                  32         12345
 
 ANY                   [Documentation]    ${ANY_doc}
                       [Tags]             any
-                      ${TEST_NAME}       200                  111
+                      ${TEST_NAME}       200                  111         54321
 
 *** Keywords ***
 Create And Remove Flow
-    [Arguments]    ${output_port}    ${table_id}    ${flow_id}
+    [Arguments]    ${output_port}    ${table_id}    ${flow_id}    ${priority}
     ##The dictionaries here will be used to populate the match and action elements of the flow mod
     ${ethernet_match_dict}=    Create Dictionary    type=${eth_type}    destination=${eth_dst}    source=${eth_src}
     ${ipv4_match_dict}=    Create Dictionary    source=${ipv4_src}    destination=${ipv4_dst}
@@ -89,6 +89,7 @@ Create And Remove Flow
     ${flow}=    Create Inventory Flow
     Set "${flow}" "table_id" With "${table_id}"
     Set "${flow}" "id" With "${flow_id}"
+    Set "${flow}" "priority" With "${priority}"
     Clear Flow Actions    ${flow}
     Set Flow Output Action    ${flow}    0    0    ${output_port}
     Set Flow Ethernet Match    ${flow}    ${ethernet_match_dict}
