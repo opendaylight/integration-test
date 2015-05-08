@@ -10,7 +10,6 @@ Resource          ../../../libraries/Utils.txt
 
 *** Variables ***
 ${REST_CON}       /restconf/config/opendaylight-inventory:nodes
-${REST_OPR}       /restconf/operational/opendaylight-inventory:nodes
 ${BODY2}          <flow xmlns="urn:opendaylight:flow:inventory"><priority>2</priority><flow-name>Foo</flow-name><match><ethernet-match><ethernet-type><type>2048</type></ethernet-type></ethernet-match><ipv4-destination>10.0.20.1/32</ipv4-destination></match><id>152</id><table_id>0</table_id><instructions><instruction><order>0</order><apply-actions><action><order>0</order><output-action><output-node-connector>openflow:1:1</output-node-connector></output-action></action></apply-actions></instruction></instructions></flow>
 
 *** Test Cases ***
@@ -28,7 +27,7 @@ Verify after adding flow config - Output to physical port#
 Verify after adding flow operational - Output to physical port#
     [Documentation]    Verify the flow
     ${elements}=    Create List    10.0.20.1
-    Wait Until Keyword Succeeds    60s    2s    Check For Elements At URI    ${REST_OPR}/node/openflow:1/table/0    ${elements}
+    Wait Until Keyword Succeeds    60s    2s    Check For Elements At URI    ${OPERATIONAL_NODES_API}/node/openflow:1/table/0    ${elements}
 
 Remove a flow - Output to physical port#
     [Documentation]    Remove a flow
@@ -45,4 +44,4 @@ Verify after deleting flow config - Output to physical port#
 Verify after deleting flow operational - Output to physical port#
     [Documentation]    Verify the flow
     ${elements}=    Create List    10.0.20.1
-    Wait Until Keyword Succeeds    60s    2s    Check For Elements Not At URI    ${REST_OPR}/node/openflow:1/table/0    ${elements}
+    Wait Until Keyword Succeeds    60s    2s    Check For Elements Not At URI    ${OPERATIONAL_NODES_API}/node/openflow:1/table/0    ${elements}

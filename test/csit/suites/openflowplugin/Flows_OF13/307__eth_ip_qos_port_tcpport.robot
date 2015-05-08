@@ -11,7 +11,6 @@ Variables         ../../../variables/Variables.py
 
 *** Variables ***
 ${REST_CON}       /restconf/config/opendaylight-inventory:nodes
-${REST_OPR}       /restconf/operational/opendaylight-inventory:nodes
 ${FILE}           ${CURDIR}/../../../variables/xmls/f8.xml
 ${FLOW}           131
 ${TABLE}          2

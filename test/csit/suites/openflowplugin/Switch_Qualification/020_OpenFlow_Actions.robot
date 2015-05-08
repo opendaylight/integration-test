@@ -30,7 +30,6 @@ ${SWITCH_CLASS}    Ovs
 ${SWITCH_IP}      ${MININET}
 ${CONTROLLER}     null
 ${REST_CON}       /restconf/config/opendaylight-inventory:nodes
-${REST_OPR}       /restconf/operational/opendaylight-inventory:nodes
 ${ipv4_src}       11.3.0.0/16
 ${ipv4_dst}       99.0.0.0/8
 ${eth_type}       0x800
