@@ -31,7 +31,7 @@ class Ovs(BaseSwitch):
 
     @property
     def cleanup_cmds(self):
-        return ['/sbin/ifconfig | egrep \'^s\' | awk \'{print \"sudo ovs-vsctl del-br\",$1}\' | sh']
+        return ['/sbin/ifconfig -a | egrep \'^s\' | awk \'{print \"sudo ovs-vsctl del-br\",$1}\' | sh']
 
     @property
     def initialization_cmds(self):
@@ -41,7 +41,8 @@ class Ovs(BaseSwitch):
     def base_openflow_config(self):
         return ['sudo ovs-vsctl add-br s1',
                 'sudo ovs-vsctl set bridge s1 protocols=OpenFlow13',
-                'sudo ovs-vsctl set-controller s1 tcp:' + self.of_controller_ip]
+                'sudo ovs-vsctl set-controller s1 tcp:' + self.of_controller_ip,
+                'sudo ifconfig s1 up']
 
     @property
     def openflow_validation_cmd(self):
