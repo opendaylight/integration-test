@@ -1,5 +1,6 @@
 *** Settings ***
 Library           SSHLibrary
+Library           String
 Library           ./UtilLibrary.py
 Resource          KarafKeywords.txt
 
@@ -103,6 +104,25 @@ Extract Value From Content
     ${value}=    Run Keyword If    '${strip}' == 'strip'    Strip Quotes    ${value}
     [Return]    ${value}
 
+Get Process ID Based On Regex On Remote System
+    [Documentation]    Uses ps to find a process that matches the supplied regex.  Returns the PID of that process
+    ...    The ${regex_string_to_match_on} should produce a unique process otherwise the PID returned may not be
+    ...    the expected PID
+    [Arguments]    ${remote_system}    ${regex_string_to_match_on}
+    # doing the extra -v grep in this command to exclude the grep process itself from the output
+    ${output}=    Run Command On Remote System    ${remote_system}    ps -elf | grep -v grep | grep ${regex_string_to_match_on} | awk '{print $4}'
+    # ${output} contains the system prompt and all we want is the value of the number
+    ${pid}=    Fetch From Left    ${output}    \r
+    [Return]    ${pid}
+
+Get Process Thread Count On Remote System
+    [Documentation]    Executes the ps command to retrieve the lightweight process (aka thread) count.
+    [Arguments]     ${remote_system}    ${pid}
+    ${output}=    Run Command On Remote System    ${remote_system}    ps --no-headers -o nlwp ${pid}
+    # ${output} contains the system prompt and all we want is the value of the number
+    ${thread_count}=    Fetch From Left    ${output}    \r
+    [Return]    ${thread_count}
+
 Strip Quotes
     [Arguments]    ${string_to_strip}
     [Documentation]    Will strip ALL quotes from given string and return the new string
@@ -120,6 +140,7 @@ Run Command On Remote System
     SSHLibrary.Write    ${cmd}
     ${output}=    SSHLibrary.Read Until    ${linux_prompt}
     SSHLibrary.Close Connection
+    Log    ${output}
     [Return]    ${output}
 
 Verify File Exists On Remote System
