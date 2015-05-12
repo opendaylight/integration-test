@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for RESTCONF LACP inventory
-Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Setup       LACP Inventory Suite Setup
 Suite Teardown    Delete All Sessions
 Library           SSHLibrary
 Library           Collections
@@ -18,13 +18,6 @@ ${agg2-connector-id1}    3
 ${agg2-connector-id2}    4
 
 *** Test Cases ***
-Get list of nodes and LACP reference on Inventory
-    [Documentation]    Get the nodes data
-    ${resp}    Get    session    ${OPERATIONAL_NODES_API}
-    Verify LACP RESTAPI Response Code for node
-    Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    non-lag-groupid
-    Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    lacp-aggregators
-
 Get the Specific Node Inventory and Lacp aggregator details
     [Documentation]    Get the lacp-aggregator data for specific node
     ${resp}    Get    session    ${OPERATIONAL_NODES_API}/node/${node1}
@@ -80,3 +73,15 @@ Verify specific LACP node connector data for node
     [Arguments]    ${resp.content}    ${agg-id}    ${connector}
     [Documentation]    Will check for node connectory info for node
     Should Contain    ${resp.content}    ${connector}='${agg-id}'
+
+Verify LACP Tags Are Formed
+    [Documentation]    Fundamental Check That LACP is working
+    ${resp}    Get    session    ${OPERATIONAL_NODES_API}
+    Verify LACP RESTAPI Response Code for node
+    Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    non-lag-groupid
+    Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    lacp-aggregators
+
+LACP Inventory Suite Setup
+    [Documentation]    If these basic checks fail, there is no need to continue any of the other test cases
+    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    Wait Until Keyword Succeeds    10s    1s    Verify LACP Tags Are Formed
