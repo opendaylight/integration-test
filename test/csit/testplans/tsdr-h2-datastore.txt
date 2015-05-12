@@ -1,3 +1,2 @@
 # Place the suites in run order:
 integration/test/csit/suites/tsdr/H2
-integration/test/csit/suites/tsdr/HBase
