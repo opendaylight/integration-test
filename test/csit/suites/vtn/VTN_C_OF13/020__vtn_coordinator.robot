@@ -51,13 +51,13 @@ Create VBRIF in VBRIDGE Vbridge1 Interface2
 Define Portmap for Interface1
     [Documentation]   Map Interface1 to a logical port
     [Tags]   vtnc
-    Define Portmap for VBRIF    Tenant1    Vbridge1     Interface1    PP-OF:00:00:00:00:00:00:00:03-s3-eth1
+    Define Portmap for VBRIF    Tenant1    Vbridge1     Interface1    PP-OF:openflow:3-s3-eth1
 
 
 Define Portmap for Interface2
     [Documentation]   Map Interface2 to a logical port
     [Tags]   vtnc
-    Define Portmap for VBRIF    Tenant1    Vbridge1     Interface2    PP-OF:00:00:00:00:00:00:00:02-s2-eth1
+    Define Portmap for VBRIF    Tenant1    Vbridge1     Interface2    PP-OF:openflow:2-s2-eth1
 
 
 Test Ping for Configuration1
