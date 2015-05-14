@@ -4,7 +4,7 @@ Library           ../../../libraries/riotdm.py
 Library           Collections
 
 ***Variables***
-${httphost}    localhost
+${httphost}    ${CONTROLLER}
 ${httpuser}    admin
 ${httppass}    admin
 ${rt_ae}    2
