@@ -355,9 +355,9 @@ Init Flow Variables   [Arguments]   ${tableid}  ${flowid}  ${priority}
       Set Suite Variable   ${data}
       Set Suite Variable   ${xmlroot}
 Create Controllers Sessions
-    Create Session    session1    http://${CONTROLLER1}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    Create Session    session2    http://${CONTROLLER2}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    Create Session    session3    http://${CONTROLLER3}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+    Create Session    session1    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+    Create Session    session2    http://${CONTROLLER1}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+    Create Session    session3    http://${CONTROLLER2}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
 Get Controller Response  [Arguments]  ${session}  ${url}
     ${headers}=      Create Dictionary   Accept   application/xml
     ${resp}=   Get  ${session}  ${url}   headers=${headers}

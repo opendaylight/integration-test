@@ -16,7 +16,7 @@ a = 1
 
 def get_next_ip():
     global a, b, c, d
-    rip = "{}.{}.{}.{}".format(d, c, b, a)
+    rip = "{0}.{1}.{2}.{3}".format(d, c, b, a)
     a += 1
     if a == 255:
         a = 1
@@ -47,14 +47,14 @@ def get_next_sid():
 
 
 def get_switch(net, hosts):
-    sname = 's{}'.format(get_next_sid())
+    sname = 's{0}'.format(get_next_sid())
     s = net.addSwitch(sname)
     for i in range(hosts):
-        hname = 'h{}'.format(get_next_hid())
+        hname = 'h{0}'.format(get_next_hid())
         hip = get_next_ip()
         h = net.addHost(hname, ip=hip)
         s.linkTo(h)
-        print "switch {}: host {}-{} added".format(sname, hname, hip)
+        print "switch {0}: host {1}-{2} added".format(sname, hname, hip)
     return s
 
 
@@ -64,9 +64,9 @@ def get_net(switches, hostpswtich, controllers=['10.25.2.9']):
 
     cs = []
     for i, cip in enumerate(controllers):
-        c = net.addController('c{}'.format(i), controller=RemoteController, ip=cip, port=6633)
+        c = net.addController('c{0}'.format(i), controller=RemoteController, ip=cip, port=6633)
         cs.append(c)
-        print "contrller {} created".format(c)
+        print "contrller {0} created".format(c)
 
     ss = []
     for i in range(switches):
@@ -112,3 +112,4 @@ if __name__ == '__main__':
     net.staticArp()
     CLI(net)
     net.stop()
+

@@ -37,7 +37,7 @@ class SanityLibrary:
     <barrier>false</barrier>
 </flow>'''
 
-        flow_data = flow_template % (tid, fid, fid, 'TestFlow-{}'.format(fid), priority)
+        flow_data = flow_template % (tid, fid, fid, 'TestFlow-{0}'.format(fid), priority)
         return flow_data
 
     def is_cluter_set_up(self, rsp1, rsp2, rsp3):
@@ -59,3 +59,4 @@ class SanityLibrary:
             return rj['module'][0]['distributed-datastore-provider:config-properties']['persistent']
         except:
             pass
+

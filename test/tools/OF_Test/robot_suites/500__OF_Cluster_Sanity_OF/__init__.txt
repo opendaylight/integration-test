@@ -5,24 +5,23 @@ Suite Teardown    Stop Suite
 Library           SSHLibrary
 
 *** Variables ***
-${start}          sudo python mininetwork.py --controllers=${CONTROLLER1},${CONTROLLER2},${CONTROLLER3}
+${start}          sudo python mininetwork.py --controllers=${CONTROLLER},${CONTROLLER1},${CONTROLLER2}
+${linux_prompt}    >
 
 *** Keywords ***
 Start Suite
     Log    Start the test on the base edition
     Open Connection    ${MININET}    prompt=>
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
-    Put File    ${CURDIR}/mininetwork.py   mininetwork.py
-    Write    sudo ovs-vsctl set-manager ptcp:6644
-    Write    sudo mn -c
-    Read Until   >
+    Put File    ${CURDIR}/mininetwork.py    mininetwork.py
+    Execute Command    sudo ovs-vsctl set-manager ptcp:6644
+    Execute Command    sudo mn -c
     Write    ${start}
-    Read Until   mininet>
+    Read Until    mininet>
 
 Stop Suite
     Log    Stop the test on the base edition
     Read
     Write    exit
-    Sleep    2
-    Read
+    Read Until    ${linux_prompt}
     Close Connection
