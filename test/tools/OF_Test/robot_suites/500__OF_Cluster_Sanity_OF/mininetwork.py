@@ -112,4 +112,3 @@ if __name__ == '__main__':
     net.staticArp()
     CLI(net)
     net.stop()
-

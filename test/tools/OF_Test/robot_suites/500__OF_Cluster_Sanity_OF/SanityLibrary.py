@@ -59,4 +59,3 @@ class SanityLibrary:
             return rj['module'][0]['distributed-datastore-provider:config-properties']['persistent']
         except:
             pass
-
