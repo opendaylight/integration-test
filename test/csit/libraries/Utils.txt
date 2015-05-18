@@ -1,26 +1,25 @@
 *** Settings ***
 Library           SSHLibrary
 Library           String
+Library           DateTime
 Library           ./UtilLibrary.py
 Resource          KarafKeywords.txt
 
 *** Variables ***
 ${start}          sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,1 --switch ovsk,protocols=OpenFlow13
-${linux_prompt}    >
 
 *** Keywords ***
 Start Suite
     [Documentation]    Basic setup/cleanup work that can be done safely before any system
     ...    is run.
     Log    Start the test on the base edition
-    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${linux_prompt}    timeout=30s
+    Clean Mininet System
+    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${LINUX_PROMPT}    timeout=30s
     Set Suite Variable    ${mininet_conn_id}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
-    Execute Command    sudo mn -c
     Write    ${start}
     Read Until    mininet>
-    Sleep    6
 
 Stop Suite
     [Documentation]    Cleanup/Shutdown work that should be done at the completion of all
@@ -29,7 +28,7 @@ Stop Suite
     Switch Connection    ${mininet_conn_id}
     Read
     Write    exit
-    Read Until    ${linux_prompt}
+    Read Until    ${LINUX_PROMPT}
     Close Connection
 
 Ensure All Nodes Are In Response
@@ -138,7 +137,7 @@ Run Command On Remote System
     ${conn_id}=    SSHLibrary.Open Connection    ${remote_system}    prompt=${prompt}    timeout=${prompt_timeout}
     Login With Public Key    ${user}    ${USER_HOME}/.ssh/id_rsa    any
     SSHLibrary.Write    ${cmd}
-    ${output}=    SSHLibrary.Read Until    ${linux_prompt}
+    ${output}=    SSHLibrary.Read Until    ${LINUX_PROMPT}
     SSHLibrary.Close Connection
     Log    ${output}
     [Return]    ${output}
@@ -156,3 +155,32 @@ Verify Controller Is Not Dead
     [Documentation]    Will execute any tests to verify the controller is not dead. Some checks are
     ...    Out Of Memory Execptions.
     Check Karaf Log File Does Not Have Messages    ${controller_ip}    java.lang.OutOfMemoryError
+
+Get Epoch Time
+    [Arguments]    ${time}
+    [Documentation]    Get the Epoc time from MM/DD/YYYY HH:MM:SS
+    ${epoch_time}=    Convert Date    ${time}    epoch    exclude_milles=True    date_format=%m/%d/%Y %H:%M:%S
+    ${epoch_time}=    Convert To Integer    ${epoch_time}
+    [Return]    ${epoch_time}
+
+Remove Space on String
+    [Arguments]    ${str}    ${count}=-1
+    [Documentation]    Remove the empty space from given string.count is optional,if its given
+    ...    that many occurence of space will be removed from left
+    ${x}=    Convert To String    ${str}
+    ${x}=    Replace String    ${str}    ${SPACE}    ${EMPTY}    count=${count}
+    [Return]    ${x}
+
+Split Value from String
+    [Arguments]    ${str}    ${splitter}
+    [Documentation]    Split the String based on given splitter and return as list
+    @{x}=    Split String    ${str}    ${splitter}
+    [Return]    @{result}
+
+Concatenate the String
+    [Arguments]    ${str1}    ${str2}
+    [Documentation]    Catenate the two non-string objects and return as String
+    ${str1}=    Convert to String    ${str1}
+    ${str2}=    Convert to String    ${str2}
+    ${output}=    Catenate    ${str1}    ${str2}
+    [Return]    ${output}

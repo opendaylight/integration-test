@@ -1,51 +1,67 @@
+*** Settings ***
+Library           OperatingSystem
+Resource          Utils.txt
+
 *** Variables ***
 ${start}          sudo mn --controller=remote,ip=${CONTROLLER} --topo=linear,3 --switch ovsk,protocols=OpenFlow13
 ${START_HBASE_CLIENT}    /tmp/Hbase/hbase-0.94.15/bin/hbase shell
+${final}          ${EMPTY}
 
 *** Keywords ***
 Start Tsdr Suite
-    [Documentation]    Basic setup/cleanup work that can be done safely before any system
+    [Documentation]    TSDR specific setup/cleanup work that can be done safely before any system
     ...    is run.
-    Log    Start the test on the base edition
-    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${LINUX_PROMPT}    timeout=30s
-    Set Suite Variable    ${mininet_conn_id}
+    Clean Mininet System
+    ${mininet_conn_id1}=    Open Connection    ${MININET}    prompt=${LINUX_PROMPT}    timeout=30s
+    Set Suite Variable    ${mininet_conn_id1}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
-    Write    sudo ovs-vsctl set-manager ptcp:6644
-    Read Until    ${LINUX_PROMPT}
-    Write    sudo mn -c
-    Read Until    ${LINUX_PROMPT}
+    Execute Command    sudo ovs-vsctl set-manager ptcp:6644
     Write    ${start}
     Read Until    mininet>
-    Sleep    6
 
-Initialize the REST Client Session
-    [Documentation]    Initialize the REST Client Session
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+Stop Tsdr Suite
+    [Documentation]    Cleanup/Shutdown work that should be done at the completion of all
+    ...    tests
+    Switch Connection    ${mininet_conn_id1}
+    Read
+    Write    exit
+    Read Until    ${LINUX_PROMPT}
+    Close Connection
 
 Initialize the HBase for TSDR
     [Documentation]    Install and initialize the tsdr tables on HBase Server
     ${conn_id}=    Open Connection    ${CONTROLLER}    timeout=120s
-    Login With Public Key    ${user}    ${USER_HOME}/.ssh/id_rsa    any
-    Put File    integration/test/csit/suites/tsdr/HBase/create-tables
-    Put File    integration/test/csit/suites/tsdr/HBase/create-odl-hbasetable.sh
-    Put File    integration/test/csit/suites/tsdr/HBase/start-hbase-client.sh
+    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
+    Put File    ${USER_HOME}/workspace/tsdr-csit-verify-hbase-datastore-master/test/csit/suites/tsdr/HBase/start-hbase-client.sh
     ${hbase_server}=    Execute Command    ./start-hbase-client.sh
     Log    ${hbase_server}
-    ${out}=    Execute Command    ./create-odl-hbasetable.sh
-    LOG    ${out}
+    ${hbase_process}=    Execute Command      ps -ef | grep HMaster
+    Log    ${hbase_process}
     Close Connection
 
 Stop the HBase Server
     [Documentation]    Stop the HBase server
     ${conn_id}=    Open Connection    ${CONTROLLER}    timeout=120s
-    Login With Public Key    ${user}    ${USER_HOME}/.ssh/id_rsa    any
-    Put File    integration/test/csit/suites/tsdr/HBase/stop-hbase-client.sh
+    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
+    Put File    ${USER_HOME}/workspace/tsdr-csit-verify-hbase-datastore-master/test/csit/suites/tsdr/HBase/stop-hbase-client.sh
     ${hbase_server}=    Execute Command    ./stop-hbase-client.sh
     Log    ${hbase_server}
     Close Connection
 
+Configure the Queue on Switch
+    [Arguments]    ${queue_interface}    ${user}=${MININET_USER}    ${prompt}=${LINUX_PROMPT}    ${prompt_timeout}=120s
+    [Documentation]    Configure the 2 queues on specified openvswitch interface
+    Log    Configure the queue on ${queue_interface}
+    Open Connection    ${MININET}    prompt=${LINUX_PROMPT}    timeout=30s
+    Login With Public Key    ${user}    ${USER_HOME}/.ssh/id_rsa    any
+    ${output}=    Execute Command    sudo ovs-vsctl set port s2-eth3 qos=@newqos -- --id=@newqos create qos type=linux-htb other-config:max-rate=200000000 queues=0=@q0,1=@q1,2=@q2 -- --id=@q0 create queue other-config:min-rate=100000 other-config:max-rate=200000 -- --id=@q1 create queue other-config:min-rate=10001 other-config:max-rate=300000 -- --id=@q2 create queue other-config:min-rate=300001 other-config:max-rate=200000000
+    Log    ${output}
+    Switch Connection    ${mininet_conn_id1}
+    Write    pingall
+    Read Until    mininet>
+
 Query the Data from HBaseClient
-    [Arguments]    ${query}    ${remote}=${CONTROLLER}    ${user}=${MININET_USER}    ${prompt}=${LINUX_PROMPT}    ${prompt_timeout}=40s
+    [Arguments]    ${query}    ${remote}=${CONTROLLER}    ${user}=${MININET_USER}    ${prompt}=${LINUX_PROMPT}    ${prompt_timeout}=120s
     [Documentation]    Execute the HBase Query and return the result
     Log    Attempting to execute ${query} on ${remote} via HbaseClient
     ${conn_id}=    Open Connection    ${remote}    prompt=${prompt}    timeout=${prompt_timeout}
@@ -60,3 +76,69 @@ Query the Data from HBaseClient
     Comment    ${output}=    Read Until    ${prompt}
     Close Connection
     [Return]    ${output}
+
+Verify the Metric is Collected?
+    [Arguments]    ${tsdr_cmd}    ${metric}    ${remote}=${CONTROLLER}    ${user}=${MININET_USER}    ${prompt}=${LINUX_PROMPT}    ${prompt_timeout}=120s
+    [Documentation]    Verify the ${tsdr_cmd} output contains ${metric}
+    ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}    ${CONTROLLER}    ${KARAF_SHELL_PORT}    ${prompt_timeout}
+    Should Contain    ${output}    ${metric}
+
+Prepare HBase Filter
+    [Arguments]    ${left_str}    ${right_str}    ${connector}
+    [Documentation]    Prepare the Hbase Filter from Tsdr List output
+    ${left_str}=    Remove Space on String    ${left_str}
+    ${right_str}=    Remove Space on String    ${right_str}    1
+    ${x}=    Run Keyword If    '${left_str}' == 'MetricID'    Catenate    ${SPACE}    _    ELSE IF
+    ...    '${left_str}' == 'ObjectKeys'    Catenate    ${right_str}    _    ELSE IF    '${left_str}' == 'TimeStamp'
+    ...    Get Epoch Time    ${right_str}    ELSE    Catenate    ${SPACE}
+    [Return]    ${x}
+
+Create the Hbase table row
+    [Arguments]    ${tsdr_line}    ${metrics}
+    [Documentation]    Create the Hbase table row from tsdr:list
+    @{words}=    Split String    ${tsdr_line}    |
+    : FOR    ${li}    IN    @{words}
+    \    ${key}=    Fetch From Left    ${li}    =
+    \    ${value}=    Fetch From Right    ${li}    =
+    \    ${each_value}=    Prepare HBase Filter    ${key}    ${value}    _
+    \    ${final}=    Concatenate the String    ${final}    ${each_value}
+    ${query}=    Concatenate the String    ${metrics}    ${final}
+    ${query}=    Remove Space on String    ${query}
+    [Return]    ${query}
+
+Query Metrics on H2 Datastore
+    [Arguments]    ${category}    ${attribute}    ${nodeid}=openflow:1
+    [Documentation]    Generate the JDBC query for H2 Datastore
+    ${h2_query}=    Concatenate the String    jdbc:query metric "select * from Metric where MetricCategory=    '${category}' and
+    ${h2_query}=    Concatenate the String    ${h2_query}    MetricName = '${attribute}' and NODEID = '${nodeid}' order by ID desc limit 5"
+    ${output}=    Issue Command On Karaf Console    ${h2_query}    ${CONTROLLER}    ${KARAF_SHELL_PORT}    30
+    [Return]    ${output}
+
+Generate HBase Query
+    [Arguments]    ${table}    ${filter}
+    [Documentation]    Scan the Hbase Table with Filter
+    ${hbase_query}=    Concatenate the String    scan    '${table}'
+    ${hbase_query}=    Concatenate the String    ${hbase_query}    ,{ FILTER =>\"(RowFilter(=,
+    ${hbase_query}=    Concatenate the String    ${hbase_query}    'regexstring:${filter}*\'))\",LIMIT=>10}
+    [Return]    ${hbase_query}
+
+Get Metrics Value
+    [Arguments]    ${tsdr_line}
+    [Documentation]    Get Metric Value from tsdr:list
+    ${value}=    Fetch From Right    ${tsdr_line}    |
+    ${value}=    Replace String    ${value}    MetricValue    value
+    ${value}=    Replace String    ${value}    [m    ${EMPTY}
+    ${value}=    Replace String    ${value}    =    \=
+    ${value}=    Remove Space on String    ${value}
+    ${value}=    Convert to String    ${value}
+    [Return]    ${value}
+
+Verify the Metrics Attributes on Hbase Client
+    [Arguments]    ${attribute}    ${rowfilter}    ${table}=PortStats
+    [Documentation]    Verification on Metrics attributes on Hbase Client
+    ${pattern}=    Concatenate the String    ${attribute}    _
+    ${pattern}=    Concatenate the String    ${pattern}    ${rowfilter}
+    ${pattern}=    Remove Space on String    ${pattern}
+    ${query}=    Generate HBase Query    ${table}    ${pattern}
+    ${out}=    Query the Data from HBaseClient    ${query}
+    Should Match Regexp    ${out}    (?mui)${attribute}
