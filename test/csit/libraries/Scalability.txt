@@ -5,9 +5,10 @@ Library           String
 Library           Collections
 Variables           ../variables/Variables.py
 Library           RequestsLibrary
-
+Library           SwitchClasses/BaseSwitch.py
 *** Variables ***
 ${linux_prompt}    >
+
 
 *** Keywords ***
 Find Max Switches
@@ -36,6 +37,36 @@ Find Max Switches
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${max-switches}    Convert To String    ${switches}
     [Return]    ${max-switches}
+
+Find Max Links
+    [Arguments]    ${begin}    ${stop}    ${step}
+    [Documentation]    Will find out max switches in fully mesh topology starting from ${start} till reaching ${stop} and in steps defined by ${step}
+    ${max_switches}    Set Variable    ${0}
+    ${stop}    Convert to Integer    ${stop}
+    ${step}    Convert to Integer    ${step}
+    : FOR    ${switches}    IN RANGE    ${begin}    ${stop+1}    ${step}
+    \    Start Mininet With Custom Topology     ${CREATE_FULLYMESH_TOPOLOGY_FILE}   ${switches}  ${BASE_MAC_1}  ${BASE_IP_1}    ${0}   ${switches*20}
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Is Not Dead    ${CONTROLLER}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Has No Null Pointer Exceptions    ${CONTROLLER}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120    10s
+    \    ...    Check Every Switch    ${switches}    ${BASE_MAC_1}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${max-links}=      Evaluate  ${switches}*${switches-1}
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120    10s
+    \    ...    Check Number Of Links  ${max-links}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    Stop Mininet
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120    10s
+    \    ...    Check No Switches    ${switches}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120    10s
+    \    ...    Check No Topology    ${switches}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${max_switches}    Set Variable    ${switches}
+    ${max-links}=      Evaluate  ${max_switches}*${max_switches-1}
+    [Return]    ${max-links}
 
 Find Max Hosts
     [Arguments]    ${begin}    ${stop}    ${step}
@@ -97,12 +128,22 @@ Start Mininet With One Switch And ${hosts} hosts
 Check Number Of Hosts
     [Arguments]    ${hosts}
     [Documentation]    Check number of hosts in inventory
-    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_TOPO_API}
+    ${resp}=    RequestsLibrary.Get    session    ${OPERATIONAL_TOPO_API}
     Log     Check number of hosts in inventory
     Log To Console  Check number of hosts in inventory
     Should Be Equal As Strings    ${resp.status_code}    200
     ${count}=    Get Count       ${resp.content}    "node-id":"host:
     Should Be Equal As Integers  ${count}   ${hosts}
+
+Check Number Of Links
+    [Arguments]    ${links}
+    [Documentation]    Check number of links in inventory is ${links}
+    ${resp}=    RequestsLibrary.Get    session    ${OPERATIONAL_TOPO_API}
+    Log     Check number of links in inventory is ${links}
+    Log To Console  Check number of links in inventory is ${links}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${count}=    Get Count       ${resp.content}   "link-id":"openflow:
+    Should Be Equal As Integers  ${count}   ${links}
 
 Ping Two Hosts
     [Arguments]     ${host1}    ${host2}    ${pingcount}=2   ${connection_index}=${EMPTY}   ${connection_alias}=${EMPTY}
@@ -117,7 +158,7 @@ Ping Two Hosts
 
 Check No Hosts
     [Documentation]    Check if all hosts are deleted from inventory
-    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_TOPO_API}
+    ${resp}=    RequestsLibrary.Get    session    ${OPERATIONAL_TOPO_API}
     Log To Console    Checking no hosts are present in operational database
     Log    Checking no hosts are present in operational database
     Should Be Equal As Strings    ${resp.status_code}    200
@@ -134,20 +175,41 @@ Start Mininet Linear
     Read Until    mininet>
     Sleep    6
 
+Start Mininet With Custom Topology
+    [Arguments]  ${topology_file}  ${switches}   ${base_mac}=00:00:00:00:00:00  ${base_ip}=1.1.1.1  ${hosts}=0  ${mininet_start_time}=100
+    [Documentation]  Start a custom mininet topology.
+    Log To Console    Start a custom mininet topology with ${switches} nodes
+    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${linux_prompt}    timeout=${mininet_start_time}
+    Set Suite Variable    ${mininet_conn_id}
+    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
+    Write    python ${topology_file} ${switches} ${hosts} ${base_mac} ${base_ip}
+    Read Until    ${linux_prompt}
+    Write    sudo mn --controller=remote,ip=${CONTROLLER} --custom switch.py --topo demotopo --switch ovsk,protocols=OpenFlow13
+    Read Until    mininet>
+    Write   sh ovs-vsctl show
+    ${output}=  Read Until    mininet>
+    # Ovsdb connection is sometimes lost after mininet is started. Checking if the connection is alive before proceeding.
+    Should Not Contain  ${output}   database connection failed
+    Log To Console  Mininet Started with ${switches} nodes
+
 Check Every Switch
-    [Arguments]    ${switches}
+    [Arguments]    ${switches}  ${base_mac}=00:00:00:00:00:00
     [Documentation]    Check all switches and stats in operational inventory
+    ${mac}=     Replace String Using Regexp     ${base_mac}      :     ${EMPTY}
+    ${mac}=     Convert Hex To Decimal As String    ${mac}
+    ${mac}=     Convert To Integer  ${mac}
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    ${resp}    RequestsLibrary.Get    session    /restconf/operational/opendaylight-inventory:nodes/node/openflow:${switch}
-    \    Log To Console    Checking Switch ${switch}
+    \    ${dpid_decimal}=   Evaluate  ${mac}+${switch}
+    \    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_API}/node/openflow:${dpid_decimal}
     \    Should Be Equal As Strings    ${resp.status_code}    200
+    \    Log To Console    Checking Switch ${switch}
     \    Should Contain    ${resp.content}    flow-capable-node-connector-statistics
     \    Should Contain    ${resp.content}    flow-table-statistics
 
 Check Linear Topology
     [Arguments]    ${switches}
     [Documentation]    Check Linear topology given ${switches}
-    ${resp}    RequestsLibrary.Get    session    /restconf/operational/network-topology:network-topology/
+    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_TOPO_API}
     Log To Console    Checking Topology
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${switch}    IN RANGE    1    ${switches+1}

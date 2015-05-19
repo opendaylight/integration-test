@@ -156,6 +156,11 @@ Verify Controller Is Not Dead
     ...    Out Of Memory Execptions.
     Check Karaf Log File Does Not Have Messages    ${controller_ip}    java.lang.OutOfMemoryError
 
+Verify Controller Has No Null Pointer Exceptions
+    [Arguments]    ${controller_ip}=${CONTROLLER}
+    [Documentation]    Will execute any tests to verify the controller is not having any null pointer eceptions.
+    Check Karaf Log File Does Not Have Messages    ${controller_ip}    java.lang.NullPointerException
+
 Get Epoch Time
     [Arguments]    ${time}
     [Documentation]    Get the Epoc time from MM/DD/YYYY HH:MM:SS

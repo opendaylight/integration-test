@@ -37,7 +37,8 @@ LINUX_PROMPT = '>'
 VTNC = '127.0.0.1'
 VTNCPORT = '8083'
 VTNC_PREFIX = 'http://' + VTNC + ':' + VTNCPORT
-VTNC_HEADERS = {'Content-Type': 'application/json', 'username': 'admin', 'password': 'adminpass'}
+VTNC_HEADERS = {'Content-Type': 'application/json',
+                'username': 'admin', 'password': 'adminpass'}
 
 VTNWEBAPI = '/vtn-webapi'
 # controllers URL
@@ -69,11 +70,25 @@ PORTS = 'ports/detail.json'
 # Common APIs
 CONFIG_NODES_API = '/restconf/config/opendaylight-inventory:nodes'
 OPERATIONAL_NODES_API = '/restconf/operational/opendaylight-inventory:nodes'
-OPERATIONAL_TOPO_API = '/restconf/operational/network-topology:network-topology'
+OPERATIONAL_TOPO_API = '/restconf/operational/network-topology:' \
+                       'network-topology'
 CONFIG_TOPO_API = '/restconf/config/network-topology:network-topology'
-CONTROLLER_CONFIG_MOUNT = ('/restconf/config/network-topology:network-topology/topology'
-                           '/topology-netconf/node/controller-config/yang-ext:mount')
+CONTROLLER_CONFIG_MOUNT = ('/restconf/config/network-topology:'
+                           'network-topology/topology'
+                           '/topology-netconf/node/'
+                           'controller-config/yang-ext:mount')
 
 # TOKEN
 AUTH_TOKEN_API = '/oauth2/token'
 REVOKE_TOKEN_API = '/oauth2/revoke'
+
+# Base Mininet Mac address. DPID of mininet switches will be derived from this.
+BASE_MAC_1 = '00:4b:00:00:00:00'
+# Base IP of mininet hosts
+BASE_IP_1 = '75.75.0.0'
+
+# Mininet Custom Topology Path and File
+CREATE_FULLYMESH_TOPOLOGY_FILE = "create_fullymesh.py"
+CREATE_FULLYMESH_TOPOLOGY_FILE_PATH = "integration/test/csit/" +\
+                                      "libraries/MininetTopo/" +\
+                                      CREATE_FULLYMESH_TOPOLOGY_FILE
