@@ -3,7 +3,7 @@ Library           SSHLibrary
 Resource          Utils.txt
 Library           String
 Library           Collections
-Library           ../variables/Variables.py
+Variables           ../variables/Variables.py
 Library           RequestsLibrary
 
 *** Variables ***
@@ -64,7 +64,6 @@ Find Max Hosts
     \    ${max-hosts}    Convert To String    ${hosts}
     [Return]    ${max-hosts}
 
-
 Get Mininet Hosts
     [Documentation]  Get all the hosts from mininet
     ${host_list}=       Create List
@@ -76,7 +75,6 @@ Get Mininet Hosts
     \   Run Keyword If  '${h}' != '${EMPTY}'    Append To List     ${host_list}   ${h}
     [Return]  ${host_list}
 
-
 Ping All Hosts
     [Arguments]     @{host_list}
     [Documentation]  Do one round of ping from one host to all other hosts in mininet
@@ -85,8 +83,6 @@ Ping All Hosts
     \   ${status}=   Ping Two Hosts      ${source}   ${h}    1
     \   Exit For Loop If    ${status}!=${0}
     [Return]    ${status}
-
-
 
 Start Mininet With One Switch And ${hosts} hosts
     [Documentation]    Start mininet with one switch and ${hosts} hosts
@@ -98,7 +94,6 @@ Start Mininet With One Switch And ${hosts} hosts
     Write    sudo mn --controller=remote,ip=${CONTROLLER} --topo linear,1,${hosts} --switch ovsk,protocols=OpenFlow13
     Read Until    mininet>
 
-
 Check Number Of Hosts
     [Arguments]    ${hosts}
     [Documentation]    Check number of hosts in inventory
@@ -108,7 +103,6 @@ Check Number Of Hosts
     Should Be Equal As Strings    ${resp.status_code}    200
     ${count}=    Get Count       ${resp.content}    "node-id":"host:
     Should Be Equal As Integers  ${count}   ${hosts}
-
 
 Ping Two Hosts
     [Arguments]     ${host1}    ${host2}    ${pingcount}=2   ${connection_index}=${EMPTY}   ${connection_alias}=${EMPTY}
@@ -128,9 +122,6 @@ Check No Hosts
     Log    Checking no hosts are present in operational database
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Not Contain    ${resp.content}    "node-id":"host:
-
-
-
 
 Start Mininet Linear
     [Arguments]    ${switches}
@@ -173,7 +164,7 @@ Check Linear Topology
 Check No Switches
     [Arguments]    ${switches}
     [Documentation]    Check no switch is in inventory
-    ${resp}    RequestsLibrary.Get    session    /restconf/operational/opendaylight-inventory:nodes
+    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_API}
     Log To Console    Checking No Switches
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
@@ -182,7 +173,7 @@ Check No Switches
 Check No Topology
     [Arguments]    ${switches}
     [Documentation]    Check no switch is in topology
-    ${resp}    RequestsLibrary.Get    session    /restconf/operational/network-topology:network-topology/
+    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_TOPO_API}
     Log To Console    Checking No Topology
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${switch}    IN RANGE    1    ${switches+1}

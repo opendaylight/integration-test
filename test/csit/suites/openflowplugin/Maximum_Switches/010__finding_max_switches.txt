@@ -3,7 +3,7 @@ Documentation     Test suite for finding out max number of switches
 Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
 Suite Teardown    Scalability Suite Teardown
 Library           OperatingSystem
-Library           ../../../libraries/RequestsLibrary.py
+Library           RequestsLibrary
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Scalability.txt
 
