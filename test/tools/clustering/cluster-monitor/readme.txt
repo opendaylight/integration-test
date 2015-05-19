@@ -4,8 +4,7 @@ Updated: 2015-May-07
 
 This tool provides real-time visualization of the cluster member roles for all
 shards in the config datastore. It is useful for understanding cluster behavior
-in when controllers are isolated, downed, or rebooted. The tool assumes that all
-cluster members have the same shards.
+in when controllers are isolated, downed, or rebooted.
 
 A file named 'cluster.json' containg a list of the IP addresses of the
 controllers is required. This resides in the same directory as monitor.py.

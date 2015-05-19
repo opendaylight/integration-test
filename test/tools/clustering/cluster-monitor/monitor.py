@@ -5,8 +5,7 @@ Author: Phillip Shea
 Updated: 2015-May-07
 
 This tool provides real-time visualization of the cluster member roles for all
-shards in the config datastore. It is assumed that all cluster members have the
-same shards.
+shards in the config datastore.
 
 A file named 'cluster.json' contaning a list of the IP addresses of the
 controllers is required. This resides in the same directory as monitor.py.
@@ -109,6 +108,7 @@ except:
     exit(1)
 
 controller_names = []
+Shards = set()
 # Retrieve controller names and shard names.
 for controller in controllers:
     url = "http://" + controller + ":8181/jolokia/read/org.opendaylight.controller:"
@@ -129,14 +129,12 @@ for controller in controllers:
     print pos
     print name[:8]
     controller_names.append(name[:name.find('-shard-')])
+
+    # collect shards found in any controller; does not require all controllers to have the same shards
+    for localShard in data['value']['LocalShards']:
+        shardName = localShard[(localShard.find("-shard-")+7):localShard.find("-config")]
+        Shards.add(shardName)
 print controller_names
-# Putting shard names in a list, assuming all controllers have the same shards.
-Shards = data['value']['LocalShards']
-for i, shard in enumerate(Shards):
-    Shards[i] = Shards[i].replace('member-', '')
-    Shards[i] = Shards[i].replace('-shard-', '')
-    Shards[i] = Shards[i].replace('-config', '')
-    Shards[i] = Shards[i].replace(Shards[i][0], '')
 print Shards
 
 stdscr = curses.initscr()
