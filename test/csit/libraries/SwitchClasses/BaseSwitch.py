@@ -75,44 +75,54 @@ class BaseSwitch(object):
 
     def create_flow_match_elements(self, flow_xml):
         flow_tree = fromstring(flow_xml)
-
-        self.table_id = flow_tree.find('{urn:opendaylight:flow:inventory}table_id').text
-
-        instructions_element = flow_tree.find('{urn:opendaylight:flow:inventory}instructions')
-        instruction_element = instructions_element.find('{urn:opendaylight:flow:inventory}instruction')
-        apply_actions = instruction_element.find('{urn:opendaylight:flow:inventory}apply-actions')
-        action = apply_actions.find('{urn:opendaylight:flow:inventory}action')
-        output_action = action.find('{urn:opendaylight:flow:inventory}output-action')
-        output_node_connector = output_action.find('{urn:opendaylight:flow:inventory}output-node-connector')
+        self.table_id = flow_tree.\
+            find('{urn:opendaylight:flow:inventory}table_id').text
+        instructions_element = flow_tree.\
+            find('{urn:opendaylight:flow:inventory}instructions')
+        instruction_element = instructions_element.\
+            find('{urn:opendaylight:flow:inventory}instruction')
+        apply_actions = instruction_element.\
+            find('{urn:opendaylight:flow:inventory}apply-actions')
+        action = apply_actions.\
+            find('{urn:opendaylight:flow:inventory}action')
+        output_action = action.\
+            find('{urn:opendaylight:flow:inventory}output-action')
+        output_node_connector = \
+            output_action.find('{urn:opendaylight:'
+                               'flow:inventory}output-node-connector')
         self.action = output_node_connector.text
-
-        match_element = flow_tree.find('{urn:opendaylight:flow:inventory}match')
-        ethernet_match_element = match_element.find('{urn:opendaylight:flow:inventory}ethernet-match')
-
-        ethernet_source = ethernet_match_element.find('{urn:opendaylight:flow:inventory}ethernet-source')
-        ethernet_source_address = ethernet_source.find('{urn:opendaylight:flow:inventory}address')
+        match_element = flow_tree.\
+            find('{urn:opendaylight:flow:inventory}match')
+        ethernet_match_element = match_element.\
+            find('{urn:opendaylight:flow:inventory}ethernet-match')
+        ethernet_source = ethernet_match_element.\
+            find('{urn:opendaylight:flow:inventory}ethernet-source')
+        ethernet_source_address = ethernet_source.\
+            find('{urn:opendaylight:flow:inventory}address')
         self.src_mac = ethernet_source_address.text
-
-        ethernet_destination = ethernet_match_element.find('{urn:opendaylight:flow:inventory}ethernet-destination')
-        ethernet_destination_address = ethernet_destination.find('{urn:opendaylight:flow:inventory}address')
+        ethernet_destination = ethernet_match_element.\
+            find('{urn:opendaylight:flow:inventory}ethernet-destination')
+        ethernet_destination_address = ethernet_destination.\
+            find('{urn:opendaylight:flow:inventory}address')
         self.dst_mac = ethernet_destination_address.text
-
-        self.ip_src = match_element.find('{urn:opendaylight:flow:inventory}ipv4-source').text
-        self.ip_dst = match_element.find('{urn:opendaylight:flow:inventory}ipv4-destination').text
+        self.ip_src = match_element.\
+            find('{urn:opendaylight:flow:inventory}ipv4-source').text
+        self.ip_dst = match_element.\
+            find('{urn:opendaylight:flow:inventory}ipv4-destination').text
 
     def convert_hex_to_decimal_as_string(self, hex_string):
         # TODO: need to add error checking in case the hex_string is
-        #       not fully hex
+        # not fully hex
         return str(int(hex_string, 16))
 
     def get_switch(self, switch_type):
-        '''
+        """
         Generic method that will allow Robot Code to pass a string
         to this "keyword - Get Switch" and create an object of that
         type.  (EX: Get Switch  OVS)
-        '''
+        """
 
         # TODO: what if the module "switch_type" does not exist.  Need some
-        #       error checking for that.
+        # error checking for that.
         module = importlib.import_module(switch_type)
         return getattr(module, switch_type)()
