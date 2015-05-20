@@ -1,2 +1,4 @@
 # Place the suites in run order:
 integration/test/csit/suites/openflowplugin/Flows_Additional_TCs/Stat_Manager_extended
+integration/test/csit/suites/openflowplugin/Flows_Additional_TCs/010_Lithium_Rps_Calls_Ovs.robot
+integration/test/ csit/suites/openflowplugin/Flows_Additional_TCs/020_Lithium_Rps_Calls_Cpqd.robot
