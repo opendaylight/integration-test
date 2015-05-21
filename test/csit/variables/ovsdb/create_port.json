@@ -1,0 +1,25 @@
+{
+    "network-topology:termination-point": [
+        {
+            "ovsdb:options": [
+                      {
+                          "ovsdb:option": "remote_ip",
+                          "ovsdb:value" : "10.10.11.11"
+                      }
+                         ],
+                "ovsdb:name": "vxlanport",
+                "ovsdb:interface-type": "ovsdb:interface-type-vxlan",
+                         "tp-id": "vxlanport",
+                 "vlan-tag": "1",
+                 "trunks": [
+                {
+                    "trunk": "2"
+                },
+                {
+                    "trunk": "3"
+                }
+             ],
+             "vlan-mode":"access"
+                }
+    ]
+}

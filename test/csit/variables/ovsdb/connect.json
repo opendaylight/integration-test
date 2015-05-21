@@ -1,0 +1,11 @@
+{
+  "network-topology:node": [
+        {
+              "node-id": "ovsdb://127.0.0.1:61644",
+              "connection-info": {
+                  "ovsdb:remote-port": 61644,
+                  "ovsdb:remote-ip": "127.0.0.1"
+              }
+        }
+    ]
+}
