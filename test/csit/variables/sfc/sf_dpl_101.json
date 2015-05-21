@@ -1,0 +1,10 @@
+{
+    "sf-data-plane-locator": [
+        {
+            "name": "dpl-101",
+            "port": 10101,
+            "ip": "10.3.1.102",
+            "service-function-forwarder": "SFF-bootstrap"
+        }
+    ]
+}

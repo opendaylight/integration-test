@@ -1,0 +1,90 @@
+{
+  "service-function-forwarders": {
+    "service-function-forwarder": [
+      {
+        "name": "SFF-bootstrap",
+        "service-node": "OVSDB1",
+        "rest-uri": "http://localhost:5000",
+        "sff-data-plane-locator": [
+          {
+            "name": "eth0",
+            "data-plane-locator": {
+              "port": 5000,
+              "ip": "192.168.1.1",
+              "transport": "service-locator:vxlan-gpe"
+            }
+          }
+        ],
+        "service-function-dictionary": [
+          {
+            "sff-sf-data-plane-locator": {
+              "port": 5000,
+              "ip": "10.1.1.1"
+            },
+            "name": "SF1",
+            "type": "service-function-type:dpi"
+          },
+          {
+            "sff-sf-data-plane-locator": {
+              "port": 5000,
+              "ip": "10.1.1.2"
+            },
+            "name": "SF2",
+            "type": "service-function-type:firewall"
+          }
+        ],
+        "connected-sff-dictionary": [
+          {
+            "sff-sff-data-plane-locator": {
+              "port": 5000,
+              "ip": "192.168.1.2"
+            },
+            "name": "br-int-ovs-2"
+          }
+        ]
+      },
+      {
+        "name": "br-int-ovs-2",
+        "service-node": "OVSDB2",
+        "rest-uri": "http://localhost:5000",
+        "sff-data-plane-locator": [
+          {
+            "name": "eth0",
+            "data-plane-locator": {
+              "port": 5000,
+              "ip": "192.168.1.2",
+              "transport": "service-locator:vxlan-gpe"
+            }
+          }
+        ],
+        "service-function-dictionary": [
+          {
+            "sff-sf-data-plane-locator": {
+              "port": 5000,
+              "ip": "10.1.1.5"
+            },
+            "name": "SF5",
+            "type": "service-function-type:dpi"
+          },
+          {
+            "sff-sf-data-plane-locator": {
+              "port": 5000,
+              "ip": "10.1.1.6"
+            },
+            "name": "SF6",
+            "type": "service-function-type:napt44"
+          }
+        ],
+        "connected-sff-dictionary": [
+          {
+            "sff-sff-data-plane-locator": {
+              "port": 5000,
+              "ip": "10.1.1.2"
+            },
+            "name": "SFF-bootstrap"
+          }
+        ]
+      }
+    ]
+  }
+}

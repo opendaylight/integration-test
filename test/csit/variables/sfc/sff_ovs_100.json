@@ -1,0 +1,29 @@
+{
+    "service-function-forwarder": [
+      {
+        "name": "ovs-100",
+        "service-node": "OVSDB2",
+        "rest-uri": "http://localhost:6000",
+        "sff-data-plane-locator": [
+          {
+            "name": "eth0",
+            "data-plane-locator": {
+              "port": 6000,
+              "ip": "192.168.1.2",
+              "transport": "service-locator:vxlan-gpe"
+            }
+          }
+        ],
+        "service-function-dictionary": [
+          {
+            "sff-sf-data-plane-locator": {
+              "port": 6000,
+              "ip": "10.1.1.7"
+            },
+            "name": "SF7",
+            "type": "service-function-type:dpi"
+          }
+        ]
+      }
+    ]
+}

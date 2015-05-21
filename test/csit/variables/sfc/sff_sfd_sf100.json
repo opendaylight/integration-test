@@ -1,0 +1,12 @@
+{
+    "service-function-dictionary": [
+        {
+            "name": "SF100",
+            "sff-sf-data-plane-locator": {
+                "ip": "10.1.1.1",
+                "port": 5100
+            },
+            "type": "service-function-type:napt44"
+        }
+    ]
+}

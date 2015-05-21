@@ -1,0 +1,9 @@
+{
+    "sfc-service-function": [
+        {
+            "name": "ids-abstract100",
+            "order": 3,
+            "type": "service-function-type:ids"
+        }
+    ]
+}

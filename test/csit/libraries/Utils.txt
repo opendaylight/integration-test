@@ -184,3 +184,14 @@ Concatenate the String
     ${str2}=    Convert to String    ${str2}
     ${output}=    Catenate    ${str1}    ${str2}
     [Return]    ${output}
+
+Remove All Elements At URI
+    [Arguments]    ${uri}
+    ${resp}    RequestsLibrary.Delete    session    ${uri}
+    Should Be Equal As Strings    ${resp.status_code}    200
+
+Add Elements To URI From File
+    [Arguments]    ${dest_uri}    ${data_file}
+    ${body}    OperatingSystem.Get File    ${data_file}
+    ${resp}    RequestsLibrary.Put    session    ${dest_uri}    data=${body}    headers=${headers}
+    Should Be Equal As Strings    ${resp.status_code}    200

@@ -1,0 +1,26 @@
+{
+  "service-function-paths": {
+    "service-function-path": [
+      {
+        "name": "SFC1-100",
+        "service-chain-name": "SFC1"
+      },
+      {
+        "name": "SFC1-200",
+        "service-chain-name": "SFC1"
+      },
+      {
+        "name": "SFC1-300",
+        "service-chain-name": "SFC1"
+      },
+      {
+        "name": "SFC2-100",
+        "service-chain-name": "SFC2"
+      },
+      {
+        "name": "SFC2-200",
+        "service-chain-name": "SFC2"
+      }
+    ]
+  }
+}
