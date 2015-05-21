@@ -178,8 +178,8 @@ class FlowConfigBlaster(object):
         if flow_mod_template:
             self.flow_mode_template = flow_mod_template
 
-        self.post_url_template = 'http://' + self.host + ":" + self.port + '/' + self.TBLURL
-        self.del_url_template = 'http://' + self.host + ":" + self.port + '/' + self.FLWURL
+        self.post_url_template = 'http://%s:' + self.port + '/' + self.TBLURL
+        self.del_url_template = 'http://%s:' + self.port + '/' + self.FLWURL
 
         self.stats = self.FcbStats()
         self.total_ok_flows = 0
@@ -202,7 +202,9 @@ class FlowConfigBlaster(object):
                         for openflow nodes
         :return: None
         """
-        inventory_url = 'http://' + self.host + ":" + self.port + '/' + self.INVURL
+        hosts = self.host.split(",")
+        host = hosts[0]
+        inventory_url = 'http://' + host + ":" + self.port + '/' + self.INVURL
         nodes = self.nnodes
 
         if not self.auth:
@@ -241,7 +243,7 @@ class FlowConfigBlaster(object):
         flow['match']['ipv4-destination'] = '%s/32' % str(netaddr.IPAddress(ipaddr))
         return flow
 
-    def post_flows(self, session, node, flow_list):
+    def post_flows(self, session, node, flow_list, flow_count):
         """
         Performs a RESTCONF post of flows passed in the 'flow_list' parameters
         :param session: 'requests' session on which to perform the POST
@@ -253,7 +255,10 @@ class FlowConfigBlaster(object):
         fmod['flow'] = flow_list
         flow_data = json.dumps(fmod)
         # print flow_data
-        flow_url = self.post_url_template % node
+
+        hosts = self.host.split(",")
+        host = hosts[flow_count % len(hosts)]
+        flow_url = self.post_url_template % (host, node)
         # print flow_url
 
         if not self.auth:
@@ -298,7 +303,7 @@ class FlowConfigBlaster(object):
                     nflows += 1
                     if nflows >= self.nflows:
                         break
-                sts = self.post_flows(s, node_id, flow_list)
+                sts = self.post_flows(s, node_id, flow_list, nflows)
                 try:
                     rqst_stats[sts] += 1
                     flow_stats[sts] += len(flow_list)
@@ -323,7 +328,7 @@ class FlowConfigBlaster(object):
         with self.cond:
             self.cond.notifyAll()
 
-    def delete_flow(self, session, node, flow_id):
+    def delete_flow(self, session, node, flow_id, flow_count):
         """
         Deletes a single flow from the ODL config data store using RESTCONF
         :param session: 'requests' session on which to perform the POST
@@ -331,7 +336,11 @@ class FlowConfigBlaster(object):
         :param flow_id: ID of the to-be-deleted flow
         :return: status code from the DELETE operation
         """
-        flow_url = self.del_url_template % (node, flow_id)
+
+        hosts = self.host.split(",")
+        host = hosts[flow_count % len(hosts)]
+        flow_url = self.del_url_template % (host, node, flow_id)
+        # print flow_url
 
         if not self.auth:
             r = session.delete(flow_url, headers=self.getheaders)
@@ -363,7 +372,7 @@ class FlowConfigBlaster(object):
         with Timer() as t:
             for flow in range(self.nflows):
                 flow_id = tid * (self.ncycles * self.nflows) + flow + start_flow + self.startflow
-                sts = self.delete_flow(s, self.flows[tid][flow_id], flow_id)
+                sts = self.delete_flow(s, self.flows[tid][flow_id], flow_id, flow)
                 try:
                     rqst_stats[sts] += 1
                 except KeyError:
@@ -526,7 +535,8 @@ if __name__ == "__main__":
                                                  'into the config tree, as specified by optional parameters.')
 
     parser.add_argument('--host', default='127.0.0.1',
-                        help='Host where odl controller is running (default is 127.0.0.1)')
+                        help='Host where odl controller is running (default is 127.0.0.1).  '
+                             'Specify a comma-separated list of hosts to perform round-robin load-balancing.')
     parser.add_argument('--port', default='8181',
                         help='Port on which odl\'s RESTCONF is listening (default is 8181)')
     parser.add_argument('--cycles', type=int, default=1,
