@@ -17,8 +17,8 @@ ${TSDR_FLOWTABLE_STATS}    tsdr:list FlowTableStats
 *** Test Cases ***
 Verification of TSDR FlowTableStats
     [Documentation]    Verify the TSDR FlowiTableStats
-    Wait Until Keyword Succeeds    60s    1s    Verify the Metric is Collected?    ${TSDR_FLOWTABLE_STATS}| grep "openflow"    FLOWTABLESTATS
-    ${output}=    Issue Command On Karaf Console    ${TSDR_FLOWSTATS}    ${CONTROLLER}    ${KARAF_SHELL_PORT}    30
+    Wait Until Keyword Succeeds    60s    1s    Verify the Metric is Collected?    ${TSDR_FLOWTABLE_STATS}| grep ActiveFlow    FLOWTABLESTATS
+    ${output}=    Issue Command On Karaf Console    ${TSDR_FLOWTABLE_STATS}| grep openflow:1 | head    ${CONTROLLER}    ${KARAF_SHELL_PORT}    180
     : FOR    ${list}    IN    @{FLOWTABLE_METRICS}
     \    Should Contain    ${output}    ${list}
 

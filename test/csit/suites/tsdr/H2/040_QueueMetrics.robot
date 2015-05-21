@@ -33,25 +33,11 @@ Verify tsdr:purgeall command
     [Documentation]    Verify the tsdr:purgeall command
     Issue Command On Karaf Console    tsdr:purgeall    ${CONTROLLER}    ${KARAF_SHELL_PORT}
     : FOR    ${list}    IN    @{CMD_LIST}
-    \    ${out}=    Issue Command On Karaf Console    ${list}    ${CONTROLLER}    ${KARAF_SHELL_PORT}
+    \    ${out}=    Issue Command On Karaf Console    tsdr:list ${list}    ${CONTROLLER}    ${KARAF_SHELL_PORT}
     \    Should Contain    ${out}    no data of this category
     : FOR    ${list}    IN    @{QUEUE_METRICS}
     \    ${out}=    Query Metrics on H2 Datastore    QUEUESTATS    ${list}
     \    Should not Contain    ${out}    ${list}
-
-Uninstall all TSDR H2 Feature
-    [Documentation]    UnInstall all TSDR HBase Features
-    Uninstall a Feature    odl-tsdr-H2-persistence
-    Verify Feature Is Not Installed    odl-tsdr-H2-persistence
-    Uninstall a Feature    odl-tsdr-all
-    Verify Feature Is Not Installed    odl-tsdr-all
-    Uninstall a Feature    odl-tsdr-core
-    Verify Feature Is Not Installed    odl-tsdr-core
-
-Verification TSDR Command shouldnot exist in help
-    [Documentation]    Verify the TSDR List command on help
-    ${output}=    Issue Command On Karaf Console    tsdr\t    ${CONTROLLER}    ${KARAF_SHELL_PORT}
-    Should not Contain    ${output}    tsdr:list
 
 *** Keyword ***
 Configuration of Queue on Switch

@@ -1,10 +1,11 @@
 *** Settings ***
 Documentation     Test suite for Hbase DataStore PortStats Verification
-Suite Setup       Run Keywords    Start Tsdr Suite    Initialize the HBase for TSDR
+Suite Setup       Initialize the Tsdr Suite
 Suite Teardown    Stop Tsdr Suite
 Library           SSHLibrary
 Library           Collections
 Library           String
+Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Resource          ../../../libraries/KarafKeywords.txt
 Resource          ../../../libraries/TsdrUtils.txt
@@ -15,6 +16,8 @@ Variables         ../../../variables/Variables.py
 ...               ReceiveFrameError    ReceiveErrors    ReceiveDrops    ReceiveCrcError    CollisionCount
 @{CATEGORY}       FlowGroupStats    FlowMeterStats    FlowStats    FlowTableStats    PortStats    QueueStats
 ${TSDR_PORTSTATS}    tsdr:list PortStats
+${CONFIG_INTERVAL}    /restconf/config/TSDRDC:TSDRDCConfig
+${OPER_INTERVAL}    /restconf/operations/TSDRDC:setPollingInterval
 
 *** Test Cases ***
 Verification of TSDR HBase Feature Installation
@@ -31,7 +34,7 @@ Verification TSDR Command is exist in Help
     ${output}=    Issue Command On Karaf Console    tsdr:list\t\t
     : FOR    ${list}    IN    @{CATEGORY}
     \    Should Contain    ${output}    ${list}
-    Wait Until Keyword Succeeds    120s    1s    Verify the Metric is Collected?    ${TSDR_PORTSTATS}    openflow
+    Wait Until Keyword Succeeds    620s    1s    Verify the Metric is Collected?    ${TSDR_PORTSTATS}    openflow
 
 Verification of TSDR PortStats
     [Documentation]    Verify the TSDR InterfaceMetrics
@@ -44,3 +47,34 @@ Verification of InterfaceMetrics-Attributes on HBase Client
     [Documentation]    Verify the InterfaceMetrics has been updated on HBase Datastore
     : FOR    ${list}    IN    @{INTERFACE_METRICS}
     \    Verify the Metrics Attributes on Hbase Client    ${list}    openflow:1_1    InterfaceMetrics
+
+Verify Configuration Interval-change
+    [Documentation]    Verify the TSDR Collection configuration changes
+    Verify TSDR Configuration Interval    180
+    Post TSDR Configuration Interval    200
+    Verify TSDR Configuration Interval    200
+    Post TSDR Configuration Interval    180
+    Verify TSDR Configuration Interval    180
+
+*** Keywords ***
+Initialize the Tsdr Suite
+    Initialize the HBase for TSDR
+    Start Tsdr Suite
+    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+
+Verify TSDR Configuration Interval
+    [Arguments]    ${interval}
+    [Documentation]    Verify Configuration interval of TSDR Collection
+    ${resp}    RequestsLibrary.Get    session    ${CONFIG_INTERVAL}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${resp.content}    ${interval}
+
+Post TSDR Configuration Interval
+    [Arguments]    ${interval}
+    [Documentation]    Configuration TSDR collection interval ${interval}
+    ${p1}    Create Dictionary    interval    ${interval}
+    ${p2}    Create Dictionary    input    ${p1}
+    ${post_data}    Create Dictionary    setPollingInterval    ${p2}
+    Log    ${post_data}
+    ${resp}    RequestsLibrary.Post    session    ${OPER_INTERVAL}    ${post_data}
+    Should Be Equal As Strings    ${resp.status_code}    201

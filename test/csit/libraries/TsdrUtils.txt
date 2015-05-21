@@ -3,12 +3,12 @@ Library           OperatingSystem
 Resource          Utils.txt
 
 *** Variables ***
-${start}          sudo mn --controller=remote,ip=${CONTROLLER} --topo=linear,3 --switch ovsk,protocols=OpenFlow13
-${START_HBASE_CLIENT}    /tmp/Hbase/hbase-0.94.15/bin/hbase shell
+${HBASE_CLIENT}    /tmp/Hbase/hbase-0.94.15/bin
 ${final}          ${EMPTY}
 
 *** Keywords ***
 Start Tsdr Suite
+    [Arguments]    ${switch}=ovsk
     [Documentation]    TSDR specific setup/cleanup work that can be done safely before any system
     ...    is run.
     Clean Mininet System
@@ -16,6 +16,8 @@ Start Tsdr Suite
     Set Suite Variable    ${mininet_conn_id1}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
+    ${start}=    Set Variable    sudo mn --controller=remote,ip=${CONTROLLER} --topo=linear,3 --switch ${switch},protocols=OpenFlow13
+    Log    ${start}
     Write    ${start}
     Read Until    mininet>
 
@@ -30,35 +32,22 @@ Stop Tsdr Suite
 
 Initialize the HBase for TSDR
     [Documentation]    Install and initialize the tsdr tables on HBase Server
-    ${conn_id}=    Open Connection    ${CONTROLLER}    timeout=120s
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
-    Put File    ${USER_HOME}/workspace/tsdr-csit-verify-hbase-datastore-master/test/csit/suites/tsdr/HBase/start-hbase-client.sh
-    ${hbase_server}=    Execute Command    ./start-hbase-client.sh
+    ${hbase_server}=    Run Command On Remote System    ${CONTROLLER}    export JAVA_HOME=/usr && ${HBASE_CLIENT}/start-hbase.sh    ${MININET_USER}    ${LINUX_PROMPT}    120
     Log    ${hbase_server}
-    ${hbase_process}=    Execute Command      ps -ef | grep HMaster
+    ${hbase_process}=    Run Command On Remote System    ${CONTROLLER}    ps -ef | grep HMaster
     Log    ${hbase_process}
-    Close Connection
 
 Stop the HBase Server
     [Documentation]    Stop the HBase server
-    ${conn_id}=    Open Connection    ${CONTROLLER}    timeout=120s
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
-    Put File    ${USER_HOME}/workspace/tsdr-csit-verify-hbase-datastore-master/test/csit/suites/tsdr/HBase/stop-hbase-client.sh
-    ${hbase_server}=    Execute Command    ./stop-hbase-client.sh
+    ${hbase_server}=    Run Command On Remote System    ${CONTROLLER}    export JAVA_HOME=/usr && ${HBASE_CLIENT}/stop-hbase.sh    ${MININET_USER}    ${LINUX_PROMPT}    90
     Log    ${hbase_server}
-    Close Connection
 
 Configure the Queue on Switch
     [Arguments]    ${queue_interface}    ${user}=${MININET_USER}    ${prompt}=${LINUX_PROMPT}    ${prompt_timeout}=120s
     [Documentation]    Configure the 2 queues on specified openvswitch interface
     Log    Configure the queue on ${queue_interface}
-    Open Connection    ${MININET}    prompt=${LINUX_PROMPT}    timeout=30s
-    Login With Public Key    ${user}    ${USER_HOME}/.ssh/id_rsa    any
-    ${output}=    Execute Command    sudo ovs-vsctl set port s2-eth3 qos=@newqos -- --id=@newqos create qos type=linux-htb other-config:max-rate=200000000 queues=0=@q0,1=@q1,2=@q2 -- --id=@q0 create queue other-config:min-rate=100000 other-config:max-rate=200000 -- --id=@q1 create queue other-config:min-rate=10001 other-config:max-rate=300000 -- --id=@q2 create queue other-config:min-rate=300001 other-config:max-rate=200000000
+    ${output}=    Run Command On Remote System    ${MININET}    sudo ovs-vsctl set port ${queue_interface} qos=@newqos -- --id=@newqos create qos type=linux-htb other-config:max-rate=200000000 queues=0=@q0,1=@q1,2=@q2 -- --id=@q0 create queue other-config:min-rate=100000 other-config:max-rate=200000 -- --id=@q1 create queue other-config:min-rate=10001 other-config:max-rate=300000 -- --id=@q2 create queue other-config:min-rate=300001 other-config:max-rate=200000000    ${MININET_USER}    ${LINUX_PROMPT}    90
     Log    ${output}
-    Switch Connection    ${mininet_conn_id1}
-    Write    pingall
-    Read Until    mininet>
 
 Query the Data from HBaseClient
     [Arguments]    ${query}    ${remote}=${CONTROLLER}    ${user}=${MININET_USER}    ${prompt}=${LINUX_PROMPT}    ${prompt_timeout}=120s
@@ -67,7 +56,7 @@ Query the Data from HBaseClient
     ${conn_id}=    Open Connection    ${remote}    prompt=${prompt}    timeout=${prompt_timeout}
     Login With Public Key    ${user}    ${USER_HOME}/.ssh/id_rsa    any
     Write    export JAVA_HOME=/usr
-    Write    ${START_HBASE_CLIENT}
+    Write    ${HBASE_CLIENT}/hbase shell
     Read Until    hbase(main):001:0>
     Write    ${query}
     ${output}=    Read Until    hbase(main):

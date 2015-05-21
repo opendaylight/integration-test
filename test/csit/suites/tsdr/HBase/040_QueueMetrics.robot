@@ -46,22 +46,6 @@ Verification of QueueMetrics-TransmissionErrors on HBase Client
     ${out}=    Query the Data from HBaseClient    ${query}
     Should Match Regexp    ${out}    (?mui)TransmissionErrors
 
-Uninstall all TSDR HBase Feature
-    [Documentation]    UnInstall all TSDR HBase Features
-    Uninstall a Feature    odl-tsdr-hbase-persistence
-    Verify Feature Is Not Installed    odl-tsdr-hbase-persistence
-    Uninstall a Feature    odl-hbaseclient
-    Verify Feature Is Not Installed    odl-hbaseclient
-    Uninstall a Feature    odl-tsdr-core
-    Verify Feature Is Not Installed    odl-tsdr-core
-    Uninstall a Feature    odl-tsdr-hbase
-    Verify Feature Is Not Installed    odl-tsdr-hbase
-
-Verification TSDR Command shouldnot exist in help
-    [Documentation]    Verify the TSDR List command on help
-    ${output}=    Issue Command On Karaf Console    tsdr\t    ${CONTROLLER}    ${KARAF_SHELL_PORT}
-    Should not Contain    ${output}    tsdr:list
-
 *** Keyword ***
 Configuration of Queue on Switch
     [Documentation]    Queue configuration on openvswitch
