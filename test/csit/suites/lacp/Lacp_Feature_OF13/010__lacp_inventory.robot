@@ -4,7 +4,7 @@ Suite Setup       LACP Inventory Suite Setup
 Suite Teardown    Delete All Sessions
 Library           SSHLibrary
 Library           Collections
-Library           ../../../libraries/RequestsLibrary.py
+Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 
