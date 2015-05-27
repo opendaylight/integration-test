@@ -28,7 +28,7 @@ Verify after adding flow config - Sending IPv4 Dest Address and Eth type
 Verify after adding flow operational - Sending IPv4 Dest Address and Eth type
     [Documentation]    Verify the flow
     ${elements}=    Create List    10.0.10.1
-    Wait Until Keyword Succeeds    60s    2s    Check For Elements At URI    ${OPERATIONAL_NODES_API}/node/openflow:1/table/2    ${elements}
+    Wait Until Keyword Succeeds    60s    2s    Check For Elements At URI    ${OPERATIONAL_NODES_API}/node/openflow:1/table/2/flow/139    ${elements}
 
 Modify a flow - Output to physical port#
     [Documentation]    Push a flow through REST-API

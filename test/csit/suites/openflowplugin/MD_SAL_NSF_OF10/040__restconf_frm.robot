@@ -27,7 +27,7 @@ Verify after adding flow config - Output to physical port#
 Verify after adding flow operational - Output to physical port#
     [Documentation]    Verify the flow
     ${elements}=    Create List    10.0.20.1
-    Wait Until Keyword Succeeds    60s    2s    Check For Elements At URI    ${OPERATIONAL_NODES_API}/node/openflow:1/table/0    ${elements}
+    Wait Until Keyword Succeeds    60s    2s    Check For Elements At URI    ${OPERATIONAL_NODES_API}/node/openflow:1/table/0/flow/152    ${elements}
 
 Remove a flow - Output to physical port#
     [Documentation]    Remove a flow
