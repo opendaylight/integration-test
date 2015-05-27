@@ -44,7 +44,9 @@ Reconfigure_ODL_To_Accept_Connection
 
 Start_Talking_BGP_speaker
     [Documentation]    Start Python speaker to connect to ODL, verify that the tool does not promptly exit.
-    ${command}=    BuiltIn.Set_Variable    python play.py --gencount 2 --peerip=${CONTROLLER} --myip=${MININET}
+    ${command}=    BuiltIn.Set_Variable    python play.py --amount 2 --myip=${MININET} --myport=17900 --peerip=${CONTROLLER} --peerport=1790
+    # Myport value is needed for checking whether connection at precise port was established.
+    # TODO: Do we want to define ${BGP_PORT} in Variables.py?
     BuiltIn.Log    ${command}
     ${output}=    SSHLibrary.Write    ${command}
     Read_And_Fail_If_Prompt_Is_Seen
@@ -74,7 +76,8 @@ Check_For_Empty_Topology_After_Talking
 
 Start_Listening_BGP_Speaker
     [Documentation]    Start Python speaker in listening mode, verify that the tool does not exit quickly.
-    ${command}=    BuiltIn.Set_Variable    python play.py --gencount 2 --peerip=listen --myip=${MININET}
+    ${command}=    BuiltIn.Set_Variable    python play.py --amount 2 --listen --myip=${MININET} --myport=17900 --peerip=${CONTROLLER}
+    # TODO: ${BGP_TOOL_PORT} is probably not worth the trouble.
     Builtin.Log    ${command}
     ${output}=    SSHLibrary.Write    ${command}
     Read_And_Fail_If_Prompt_Is_Seen
@@ -117,7 +120,7 @@ Check_For_Empty_Topology_After_Listening
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    Delete_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer    ${template_as_string}
+    Delete_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer
     # TODO: Do we need to check something else?
 
 *** Keywords ***
@@ -189,7 +192,7 @@ Normalize_And_Save_Expected_Json
 Kill_BGP_Speaker
     [Documentation]    Interrupt play.py, fail if no prompt is seen within SSHLibrary timeout.
     ...    Also, check that TCP connection is no longer established.
-    Write_Ctrl_C
+    Write_Bare_Ctrl_C
     SSHLibrary.Read_Until_Prompt
     Check_Speaker_Is_Not_Connected
 
@@ -217,8 +220,8 @@ Read_Text_Before_Prompt
     ${text}=    SSHLibrary.Read_Until_Prompt
     BuiltIn.Log    ${text}
 
-Write_Ctrl_C
-    [Documentation]    Construct ctrl+c character and SSH-write it, followed by newline. Do not read anything yet.
+Write_Bare_Ctrl_C
+    [Documentation]    Construct ctrl+c character and SSH-write it (without endline). Do not read anything yet.
     # TODO: Place this keyword to some Resource so that it can be re-used in other suites.
     ${command}=    BuiltIn.Evaluate    chr(int(3))
-    SSHLibrary.Write    ${command}
+    SSHLibrary.Write_Bare    ${command}

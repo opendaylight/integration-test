@@ -13,7 +13,7 @@ Variables         ${CURDIR}/../variables/Variables.py
 
 *** Variables ***
 # TODO: Make the following list more narrow when Bug 2594 is fixed.
-@{allowed_status_codes}    ${200}    ${201}    ${204}    # List of integers, not strings.
+@{allowed_status_codes}    ${200}    ${201}    ${204}    # List of integers, not strings. Used by both PUT and DELETE.
 
 *** Keywords ***
 Setup_Config_Via_Restconf
@@ -94,7 +94,7 @@ Delete_Config_Via_Restconf
     ${response}=    RequestsLibrary.Delete_Request    cvr_session    ${uri_part}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Be_Empty    ${response.text}
-    BuiltIn.Should_Be_Equal_As_Strings    ${response.status_code}    204
+    BuiltIn.Should_Contain    ${allowed_status_codes}    ${response.status_code}
 
 Post_Xml_Config_Module_Via_Restconf
     [Arguments]    ${xml_data}
