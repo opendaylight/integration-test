@@ -22,10 +22,8 @@ ${FLOW_NAME}      forward
 *** Test Cases ***
 Get list of nodes
     [Documentation]    Get the inventory to make sure openflow:1 comes up
-    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    Should Contain    ${resp.content}    openflow:1
+    ${node_list}=    Create List    openflow:1
+    Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${REST_CONTEXT_OP}    ${node_list}
 
 Add a meter
     [Documentation]    Add a meter using RESTCONF
@@ -46,7 +44,7 @@ Verify after adding meter config
 Verify after adding meter operational
     [Documentation]    Get the meter stat in operational
     ${elements}=    Create List    meter-statistics    meter-config-stats
-    Wait Until Keyword Succeeds    60s    2s    Check For Elements At URI    ${REST_CONTEXT_OP}/meter/1    ${elements}
+    Wait Until Keyword Succeeds    6s    2s    Check For Elements At URI    ${REST_CONTEXT_OP}/meter/1    ${elements}
 
 Add a flow that includes a meter
     [Documentation]    Push a flow through RESTCONF
@@ -68,7 +66,7 @@ Verify after adding flow config
 Verify after adding flow operational
     [Documentation]    Verify the flow
     ${elements}=    Create List    meter-id    flow
-    Wait Until Keyword Succeeds    60s    2s    Check For Elements At URI    ${REST_CONTEXT_OP}/table/0/flow/2    ${elements}
+    Wait Until Keyword Succeeds    6s    2s    Check For Elements At URI    ${REST_CONTEXT_OP}/table/0/flow/2    ${elements}
 
 Remove the flow
     [Documentation]    Remove the flow
