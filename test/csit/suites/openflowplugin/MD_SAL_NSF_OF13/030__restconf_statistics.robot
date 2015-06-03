@@ -16,6 +16,7 @@ ${REST_CONTEXT}    /restconf/operational/opendaylight-inventory:nodes
 Get Stats for all nodes
     [Documentation]    Get the stats for all nodes
     Wait Until Keyword Succeeds    30s    2s    Ensure All Nodes Are In Response    ${REST_CONTEXT}    ${node_list}
+
 Get Stats for node 1
     [Documentation]    Get the stats for a node
     Wait Until Keyword Succeeds    60s    2s    Check Nodes Stats    openflow:1
