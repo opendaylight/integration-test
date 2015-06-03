@@ -8,9 +8,25 @@ import SettingsLibrary
 import time
 
 
+def initCar(hostname, port):
+    """Initiales the car shard"""
+    x = 0
+    strId = str(x)
+    payload = SettingsLibrary.add_car_init_payload_template.substitute(
+        id=strId, category="category" + strId, model="model" + strId,
+        manufacturer="manufacturer" + strId,
+        year=(2000 + x % 100))
+    print("Initialization payload=")
+    print(payload)
+    resp = UtilLibrary.post(SettingsLibrary.getAddCarInitUrl(hostname, port), "admin", "admin", payload)
+    print("the response of the POST to add car=")
+    print(resp)
+    return resp
+
+
 def addCar(hostname, port, numberOfCars):
     """Creates the specified number of cars based on Cars yang model using RESTCONF"""
-    for x in range(1, numberOfCars+1):
+    for x in range(1, numberOfCars + 1):
         strId = str(x)
         payload = SettingsLibrary.add_car_payload_template.substitute(
             id=strId, category="category" + strId, model="model" + strId,
@@ -23,8 +39,6 @@ def addCar(hostname, port, numberOfCars):
 
         print("the response of the POST to add car=")
         print(resp)
-
-    time.sleep(5)  # Let the add finish
     return resp
 
     # TBD: Detailed validation
@@ -118,6 +132,9 @@ def buyCar(hostname, port, numberOfCarBuyers, start=0):
         before invoking this method
     </note>
     """
+
+    print "Buying " + str(numberOfCarBuyers) + " Cars"
+    result = True
     for x in range(start, start+numberOfCarBuyers):
         strId = str(x+1)
 
@@ -129,10 +146,10 @@ def buyCar(hostname, port, numberOfCarBuyers, start=0):
         print(resp)
         print(resp.text)
 
-        if (resp.status_code != 204):
-            return False
+        if (resp.status_code != 200):
+            result = False
 
-    return True
+    return result
 
 
 def getCars(hostname, port, ignore):

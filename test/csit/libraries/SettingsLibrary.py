@@ -31,9 +31,14 @@ def getCarPersonUrl(hostname, port):
     return "http://" + hostname + ":" + port + "/restconf/config/car-people:car-people"
 
 
-def getAddCarUrl(hostname, port):
+def getAddCarInitUrl(hostname, port):
     """POST or DELETE URL"""
     return "http://" + hostname + ":" + port + "/restconf/config"
+
+
+def getAddCarUrl(hostname, port):
+    """POST or DELETE URL"""
+    return "http://" + hostname + ":" + port + "/restconf/config/car:cars"
 
 
 def getAddPersonUrl(hostname, port):
@@ -63,8 +68,8 @@ def getJolokiaURL(hostname, port, shardIndex, shardName):
         shardIndex + "-" + shardName + ",type=DistributedConfigDatastore"
 
 
-# Template for Car resource payload
-add_car_payload_template = Template(
+# Template for Car init resource payload
+add_car_init_payload_template = Template(
     """
     {"car:cars":{
         "car-entry": [
@@ -77,6 +82,21 @@ add_car_payload_template = Template(
             }
         ]
     }}
+    """)
+
+# Template for Car resource payload
+add_car_payload_template = Template(
+    """
+        {"car-entry": [
+            {
+                "id": "$id",
+                "category": "$category",
+                "model": "$model",
+                "manufacturer": "$manufacturer",
+                "year": "$year"
+            }
+        ]
+    }
     """)
 
 # Template for Person resource payload
