@@ -13,32 +13,77 @@ ${DISCARD}        "stp-status-aware-node-connector:status":"discarding"
 *** Test Cases ***
 Check Stats for node 1
     [Documentation]    Get the stats for a node
-    Wait Until Keyword Succeeds    30s    2s    Check Nodes Stats    openflow:1
+    Wait Until Keyword Succeeds    10s    2s    Check Nodes Stats    openflow:1
 
 Check Stats for node 2
     [Documentation]    Get the stats for a node
-    Wait Until Keyword Succeeds    30s    2s    Check Nodes Stats    openflow:2
+    Wait Until Keyword Succeeds    10s    2s    Check Nodes Stats    openflow:2
 
 Check Stats for node 3
     [Documentation]    Get the stats for a node
-    Wait Until Keyword Succeeds    30s    2s    Check Nodes Stats    openflow:3
+    Wait Until Keyword Succeeds    10s    2s    Check Nodes Stats    openflow:3
 
 Check Ports
     [Documentation]    Check all ports are present
     @{list}    Create List    openflow:1:1    openflow:1:2    openflow:1:3    openflow:2:1    openflow:2:2
     ...    openflow:2:3    openflow:3:1    openflow:3:2    openflow:3:3
-    Wait Until Keyword Succeeds    30s    2s    Check For Elements At URI    ${OPERATIONAL_NODES_API}    ${list}
+    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${OPERATIONAL_NODES_API}    ${list}
 
 Check Ports STP status
     [Documentation]    Check the stp status of the ports (forwarding/discarding)
-    Wait Until Keyword Succeeds    30s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    ${FORWARD}    4
-    Wait Until Keyword Succeeds    30s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    ${DISCARD}    2
+    Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    ${FORWARD}    4
+    Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    ${DISCARD}    2
 
 Ping Test
     [Documentation]    Ping h1 to h2, verify no packet loss or duplicates
     Write    h1 ping -w 1 h2
     ${result}    Read Until    mininet>
     Should Contain    ${result}    1 received, 0% packet loss
+    Should Not Contain    ${result}    duplicates
+
+Link Down
+    [Documentation]    Take link s1-s2 down and verify ping works
+    Write    link s1 s2 down
+    Read Until    mininet>
+    @{list}    Create List    ${DISCARD}
+    Wait Until Keyword Succeeds    10s    2s    Check For Elements Not At URI    ${OPERATIONAL_NODES_API}    ${list}
+    Write    h1 ping -w 1 h2
+    ${result}    Read Until    mininet>
+    Should Contain    ${result}    received, 0% packet loss
+    Should Not Contain    ${result}    duplicates
+
+Link Up
+    [Documentation]    Take link s1-s2 up and verify ping works
+    Write    link s1 s2 up
+    Read Until    mininet>
+    Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    ${FORWARD}    4
+    Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    ${DISCARD}    2
+    Write    h1 ping -w 1 h2
+    ${result}    Read Until    mininet>
+    Should Contain    ${result}    received, 0% packet loss
+    Should Not Contain    ${result}    duplicates
+
+Remove Port
+    [Documentation]    Remove port s1-eth2 and verify ping works
+    Write    sh ovs-vsctl del-port s1 s1-eth2
+    Read Until    mininet>
+    @{list}    Create List    ${DISCARD}
+    Wait Until Keyword Succeeds    10s    2s    Check For Elements Not At URI    ${OPERATIONAL_NODES_API}    ${list}
+    Write    h1 ping -w 1 h2
+    ${result}    Read Until    mininet>
+    Should Contain    ${result}    received, 0% packet loss
+    Should Not Contain    ${result}    duplicates
+
+Add Port
+    [Documentation]    Add port s1-eth2 and verify ping works
+    Write    sh ovs-vsctl add-port s1 s1-eth2 -- set interface s1-eth2 ofport=2
+    Read Until    mininet>
+    Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    ${FORWARD}    4
+    Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    ${DISCARD}    2
+    Sleep    1
+    Write    h1 ping -w 1 h2
+    ${result}    Read Until    mininet>
+    Should Contain    ${result}    received, 0% packet loss
     Should Not Contain    ${result}    duplicates
 
 *** Keywords ***
