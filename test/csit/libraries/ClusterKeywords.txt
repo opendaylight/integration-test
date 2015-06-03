@@ -32,6 +32,8 @@ Get All Followers
 
 Add Cars And Verify
     [Arguments]    ${controller_ip}    ${num_cars}  ${timeout}=60s
+    ${resp}   InitCar   ${controller_ip}   ${PORT}
+    Should Be Equal As Strings    ${resp.status_code}    204
     ${resp}   AddCar   ${controller_ip}   ${PORT}   ${num_cars}
     Should Be Equal As Strings    ${resp.status_code}    204
     Wait Until Keyword Succeeds   ${timeout}  2s  Get Cars And Verify   ${controller_ip}  ${num_cars}
