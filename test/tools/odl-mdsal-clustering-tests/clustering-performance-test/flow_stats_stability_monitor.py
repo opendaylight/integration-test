@@ -1,9 +1,10 @@
 #!/usr/bin/python
 
-__author__ = "Jan Medved"
-__copyright__ = "Copyright(c) 2014, Cisco Systems, Inc."
-__license__ = "New-style BSD"
-__email__ = "jmedved@cisco.com"
+"""
+The script is based on the flow_add_delete_test.py. The only difference is that
+it doesn't wait till stats are collected, but it triggers inventory data as
+long as specified and produces an output file it's name is given.
+"""
 
 import argparse
 import time
@@ -12,49 +13,42 @@ from inventory_crawler import InventoryCrawler
 from config_cleanup import cleanup_config_odl
 
 
-def wait_for_stats(crawler, exp_found, timeout, delay):
-    """
-    Waits for the ODL stats manager to catch up. Polls ODL inventory every
-    <delay> seconds and compares the retrieved stats to the expected values. If
-    stats collection has not finished within <timeout> seconds, the test is
-    aborted.
-    :param crawler: Inventory crawler object
-    :param exp_found: Expected value for flows found in the network
-    :param timeout: Max number of seconds to wait for stats collector to
-                    collect all stats
-    :param delay: poll interval for inventory
-    :return: None
-    """
-    total_delay = 0
-    print 'Waiting for stats to catch up:'
-    while True:
-        crawler.crawl_inventory()
-        print '   %d, %d' % (crawler.reported_flows, crawler.found_flows)
-        if crawler.found_flows == exp_found or total_delay > timeout:
-            break
-        total_delay += delay
-        time.sleep(delay)
+def get_time_delta(actualtime, basetime):
+    return actualtime - basetime
 
-    if total_delay < timeout:
-        print 'Stats collected in %d seconds.' % total_delay
-    else:
-        print 'Stats collection did not finish in %d seconds. Aborting...' % total_delay
+
+def monitor_stats(crawler, monitortime, period):
+    """
+    Check incentory and yields collected data.
+    """
+    basetime = time.time()
+    while True:
+        lastcrawl = time.time()
+        crawler.nodes = 0
+        crawler.crawl_inventory()
+        actualtime = time.time()
+        yield (actualtime, crawler.nodes, crawler.reported_flows, crawler.found_flows)
+        if actualtime > basetime + monitortime:
+            break
+        time.sleep(period-get_time_delta(actualtime, lastcrawl))
 
 
 if __name__ == "__main__":
     ############################################################################
-    # This program executes an ODL performance test. The test is executed in
-    # three steps:
+    # This program executes an ODL performance test. The task is executed in
+    # four steps:
     #
     # 1. The specified number of flows is added in the 'add cycle' (uses
     #    flow_config_blaster to blast flows)
     # 2. The network is polled for flow statistics from the network (using the
     #    inventory_crawler.py script) to make sure that all flows have been
     #    properly programmed into the network and the ODL statistics collector
-    #    can properly read them
+    #    can properly read them as long as specified
     # 3. The flows are deleted in the flow cycle. Deletion happens either in
     #    'bulk' (using the config_cleanup) script or one by one (using the
-    #     flow_config_blaster 'delete' method)
+    #    flow_config_blaster 'delete' method)
+    # 4. Same as 2. Monitoring and reporting the state of the inventory data
+    #    for a specified period of time.
     ############################################################################
 
     parser = argparse.ArgumentParser(description='Flow programming performance test: First adds and then deletes flows '
@@ -93,6 +87,13 @@ if __name__ == "__main__":
     parser.add_argument('--file', default='',
                         help='File from which to read the JSON flow template; default: no file, use a built in '
                              'template.')
+    parser.add_argument('--config_monitor', type=int, default=60,
+                        help='Time to monotir inventory after flows are configured in seconds; default=60')
+    parser.add_argument('--deconfig_monitor', type=int, default=60,
+                        help='Time to monitor inventory after flows are de configured in seconds; default=60')
+    parser.add_argument('--monitor_period', type=int, default=10,
+                        help='Monitor period of triggering inventory crawler in seconds; default=10')
+    parser.add_argument('--monitor_outfile', default=None, help='Output file(if specified)')
 
     in_args = parser.parse_args()
 
@@ -113,9 +114,11 @@ if __name__ == "__main__":
     found = ic.found_flows
 
     print 'Baseline:'
-    print '   Reported flows: %d' % reported
-    print '   Found flows:    %d' % found
+    print '   Reported nodes: %d' % reported
+    print '   Found nodes:    %d' % found
 
+    stats = []
+    stats.append((time.time(), ic.nodes, ic.reported_flows, ic.found_flows))
     # Run through <CYCLES> add cycles, where <THREADS> threads are started in
     # each cycle and <FLOWS> flows are added from each thread
     fct.add_blaster()
@@ -123,8 +126,10 @@ if __name__ == "__main__":
     print '\n*** Total flows added: %d' % fct.get_ok_flows()
     print '    HTTP[OK] results:  %d\n' % fct.get_ok_rqsts()
 
-    # Wait for stats to catch up
-    wait_for_stats(ic, found + fct.get_ok_flows(), in_args.timeout, in_args.delay)
+    # monitor stats and save results in the list
+    for stat_item in monitor_stats(ic, in_args.config_monitor, in_args.monitor_period):
+        print stat_item
+        stats.append(stat_item)
 
     # Run through <CYCLES> delete cycles, where <THREADS> threads  are started
     # in each cycle and <FLOWS> flows previously added in an add cycle are
@@ -142,5 +147,13 @@ if __name__ == "__main__":
         print '\n*** Total flows deleted: %d' % fct.get_ok_flows()
         print '    HTTP[OK] results:    %d\n' % fct.get_ok_rqsts()
 
-    # Wait for stats to catch up back to baseline
-    wait_for_stats(ic, found, in_args.timeout, in_args.delay)
+    # monitor stats and append to the list
+    for stat_item in monitor_stats(ic, in_args.deconfig_monitor, in_args.monitor_period):
+        print stat_item
+        stats.append(stat_item)
+
+    # if requested, write collected data into the file
+    if in_args.monitor_outfile is not None:
+        with open(in_args.monitor_outfile, 'wt') as fd:
+            for e in stats:
+                fd.write('{0} {1} {2} {3}\n'.format(e[0], e[1], e[2], e[3]))
