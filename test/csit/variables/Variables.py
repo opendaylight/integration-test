@@ -89,6 +89,5 @@ BASE_IP_1 = '75.75.0.0'
 
 # Mininet Custom Topology Path and File
 CREATE_FULLYMESH_TOPOLOGY_FILE = "create_fullymesh.py"
-CREATE_FULLYMESH_TOPOLOGY_FILE_PATH = "integration/test/csit/" +\
-                                      "libraries/MininetTopo/" +\
+CREATE_FULLYMESH_TOPOLOGY_FILE_PATH = "libraries/MininetTopo/" +\
                                       CREATE_FULLYMESH_TOPOLOGY_FILE
