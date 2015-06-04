@@ -107,6 +107,7 @@ class InventoryCrawler(object):
         """
         Collects and prints summary information about all openflow nodes in a data store (either operational or config)
         """
+        self.nodes = 0
         self.found_flows = 0
         self.reported_flows = 0
         self.table_stats_unavailable = 0
