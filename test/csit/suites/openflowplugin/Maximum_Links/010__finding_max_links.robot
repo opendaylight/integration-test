@@ -30,5 +30,5 @@ Link Scale Suite Setup
     ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${linux_prompt}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
     Log     Copying ${CREATE_FULLYMESH_TOPOLOGY_FILE_PATH} file to Mininet VM
-    Put File  ${CREATE_FULLYMESH_TOPOLOGY_FILE_PATH}
+    Put File  ${CURDIR}/../../../${CREATE_FULLYMESH_TOPOLOGY_FILE_PATH}
     Close Connection
