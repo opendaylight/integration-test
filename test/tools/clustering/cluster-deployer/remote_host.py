@@ -36,7 +36,7 @@ class RemoteHost:
         lib.close_connection()
 
     def kill_controller(self):
-        self.exec_cmd("ps axf | grep karaf | grep -v grep | awk '{print \"kill -9 \" $1}' | sh")
+        self.exec_cmd("sudo ps axf | grep karaf | grep -v grep | awk '{print \"kill -9 \" $1}' | sudo sh")
 
     def start_controller(self, dir_name):
         self.exec_cmd(dir_name + "/odl/bin/start")
