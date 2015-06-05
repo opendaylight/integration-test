@@ -118,9 +118,12 @@ class Deployer:
         self.rpc_seed_nodes = rpc_seed_nodes
         self.replicas = replicas
 
-    def kill_controller(self, remote):
-        remote.copy_file("kill_controller.sh",  self.rootdir + "/")
-        remote.exec_cmd(self.rootdir + "/kill_controller.sh")
+        # Connect to the remote host and start doing operations
+        self.remote = RemoteHost(self.host, self.user, self.password, self.rootdir)
+
+    def kill_controller(self):
+        self.remote.copy_file("kill_controller.sh",  self.rootdir + "/")
+        self.remote.exec_cmd(self.rootdir + "/kill_controller.sh")
 
     def deploy(self):
         # Determine distribution version
@@ -152,44 +155,38 @@ class Deployer:
                                          "org.apache.karaf.management.cfg",
                                          {"HOST": self.host})
 
-        # Connect to the remote host and start doing operations
-        remote = RemoteHost(self.host, self.user, self.password, self.rootdir)
-
         # Delete all the sub-directories under the deploy directory if the --clean flag is used
         if self.clean is True:
-            remote.exec_cmd("rm -rf " + self.rootdir + "/deploy/*")
+            self.remote.exec_cmd("rm -rf " + self.rootdir + "/deploy/*")
 
         # Create the deployment directory
-        remote.mkdir(self.dir_name)
+        self.remote.mkdir(self.dir_name)
 
         # Clean the m2 repository
-        remote.exec_cmd("rm -rf " + self.rootdir + "/.m2/repository")
-
-        # Kill the controller if it's running
-        self.kill_controller(remote)
+        self.remote.exec_cmd("rm -rf " + self.rootdir + "/.m2/repository")
 
         # Copy the distribution to the host and unzip it
         odl_file_path = self.dir_name + "/odl.zip"
-        remote.copy_file(self.distribution, odl_file_path)
-        remote.exec_cmd("unzip " + odl_file_path + " -d " + self.dir_name + "/")
+        self.remote.copy_file(self.distribution, odl_file_path)
+        self.remote.exec_cmd("unzip " + odl_file_path + " -d " + self.dir_name + "/")
 
         # Rename the distribution directory to odl
-        remote.exec_cmd("mv " + self.dir_name + "/" + distribution_name + " " + self.dir_name + "/odl")
+        self.remote.exec_cmd("mv " + self.dir_name + "/" + distribution_name + " " + self.dir_name + "/odl")
 
         # Copy all the generated files to the server
-        remote.mkdir(self.dir_name + "/odl/configuration/initial")
-        remote.copy_file(akka_conf, self.dir_name + "/odl/configuration/initial/")
-        remote.copy_file(module_shards_conf, self.dir_name + "/odl/configuration/initial/")
-        remote.copy_file(modules_conf, self.dir_name + "/odl/configuration/initial/")
-        remote.copy_file(features_cfg, self.dir_name + "/odl/etc/")
-        remote.copy_file(jolokia_xml, self.dir_name + "/odl/deploy/")
-        remote.copy_file(management_cfg, self.dir_name + "/odl/etc/")
+        self.remote.mkdir(self.dir_name + "/odl/configuration/initial")
+        self.remote.copy_file(akka_conf, self.dir_name + "/odl/configuration/initial/")
+        self.remote.copy_file(module_shards_conf, self.dir_name + "/odl/configuration/initial/")
+        self.remote.copy_file(modules_conf, self.dir_name + "/odl/configuration/initial/")
+        self.remote.copy_file(features_cfg, self.dir_name + "/odl/etc/")
+        self.remote.copy_file(jolokia_xml, self.dir_name + "/odl/deploy/")
+        self.remote.copy_file(management_cfg, self.dir_name + "/odl/etc/")
 
         # Add symlink
-        remote.exec_cmd("ln -sfn " + self.dir_name + " " + args.rootdir + "/deploy/current")
+        self.remote.exec_cmd("ln -sfn " + self.dir_name + " " + args.rootdir + "/deploy/current")
 
         # Run karaf
-        remote.start_controller(self.dir_name)
+        self.remote.start_controller(self.dir_name)
 
 
 def main():
@@ -222,10 +219,18 @@ def main():
         else:
             replicas["REPLICAS_" + str(x+1)] = array_str(all_replicas)
 
+    deployers = []
+
     for x in range(0, len(hosts)):
-        Deployer(hosts[x], x + 1, args.template, args.user, args.password,
-                 args.rootdir, args.distribution, dir_name, hosts, ds_seed_nodes,
-                 rpc_seed_nodes, replicas, args.clean).deploy()
+        deployers.append(Deployer(hosts[x], x + 1, args.template, args.user, args.password,
+                                  args.rootdir, args.distribution, dir_name, hosts, ds_seed_nodes,
+                                  rpc_seed_nodes, replicas, args.clean))
+
+    for x in range(0, len(hosts)):
+        deployers[x].kill_controller()
+
+    for x in range(0, len(hosts)):
+        deployers[x].deploy()
 
 # Run the script
 main()
