@@ -67,7 +67,10 @@ class TemplateRenderer:
         self.cwd = os.getcwd()
         self.template_root = self.cwd + "/templates/" + template + "/"
 
-    def render(self, template_path, output_path, variables={}):
+    def render(self, template_path, output_path, variables=None):
+        if variables is None:
+            variables = {}
+
         with open(self.template_root + template_path, "r") as myfile:
             data = myfile.read()
 
@@ -90,8 +93,8 @@ def array_str(arr):
     for x in range(0, len(arr)):
         s = s + '"' + arr[x] + '"'
         if x < (len(arr) - 1):
-            s = s + ","
-    s = s + "]"
+            s += ","
+    s += "]"
     return s
 
 
@@ -114,6 +117,10 @@ class Deployer:
         self.ds_seed_nodes = ds_seed_nodes
         self.rpc_seed_nodes = rpc_seed_nodes
         self.replicas = replicas
+
+    def kill_controller(self, remote):
+        remote.copy_file("kill_controller.sh",  self.rootdir + "/")
+        remote.exec_cmd(self.rootdir + "/kill_controller.sh")
 
     def deploy(self):
         # Determine distribution version
@@ -147,17 +154,19 @@ class Deployer:
 
         # Connect to the remote host and start doing operations
         remote = RemoteHost(self.host, self.user, self.password, self.rootdir)
-        remote.mkdir(self.dir_name)
 
         # Delete all the sub-directories under the deploy directory if the --clean flag is used
-        if(self.clean is True):
+        if self.clean is True:
             remote.exec_cmd("rm -rf " + self.rootdir + "/deploy/*")
+
+        # Create the deployment directory
+        remote.mkdir(self.dir_name)
 
         # Clean the m2 repository
         remote.exec_cmd("rm -rf " + self.rootdir + "/.m2/repository")
 
         # Kill the controller if it's running
-        remote.kill_controller()
+        self.kill_controller(remote)
 
         # Copy the distribution to the host and unzip it
         odl_file_path = self.dir_name + "/odl.zip"
@@ -196,7 +205,6 @@ def main():
     hosts = args.hosts.split(",")
     time_stamp = time.time()
     dir_name = args.rootdir + "/deploy/" + str(time_stamp)
-    distribution_name = os.path.splitext(os.path.basename(args.distribution))[0]  # noqa
 
     ds_seed_nodes = []
     rpc_seed_nodes = []
