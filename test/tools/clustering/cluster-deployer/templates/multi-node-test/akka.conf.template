@@ -73,6 +73,7 @@ odl-cluster-rpc {
   akka {
     loglevel = "INFO"
     loggers = ["akka.event.slf4j.Slf4jLogger"]
+    log-dead-letters = 10000
 
     actor {
       provider = "akka.cluster.ClusterActorRefProvider"
