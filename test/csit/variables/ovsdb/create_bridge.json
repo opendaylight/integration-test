@@ -2,19 +2,24 @@
   "network-topology:node": [
         {
             "node-id": "ovsdb://127.0.0.1:61644/bridge/br01",
-             "ovsdb:bridge-name": "br01",
-             "ovsdb:datapath-id": "00:00:b2:ff:ff:25:f2:4b",
-             "ovsdb:protocol-entry": [
+            "ovsdb:bridge-name": "br01",
+            "ovsdb:protocol-entry": [
                 {
-                  "protocol": "ovsdb:ovsdb-bridge-protocol-openflow-13"
+                    "protocol": "ovsdb:ovsdb-bridge-protocol-openflow-13"
                 }
-              ],
-              "ovsdb:controller-entry": [
+            ],
+            "ovsdb:controller-entry": [
                 {
-                  "target": "tcp:127.0.0.1:6630"
+                    "target": "tcp:127.0.0.1:6633"
                 }
-              ],
-             "ovsdb:managed-by": "/network-topology:network-topology/network-topology:topology[network-topology:topology-id='ovsdb:1']/network-topology:node[network-topology:node-id='ovsdb://127.0.0.1:61644']"
+            ],
+            "ovsdb:bridge-other-configs": [
+                {
+                    "bridge-other-config-key": "datapath-id",
+                    "bridge-other-config-value": "0000000000000001"
+                }
+            ],
+            "ovsdb:managed-by": "/network-topology:network-topology/network-topology:topology[network-topology:topology-id='ovsdb:1']/network-topology:node[network-topology:node-id='ovsdb://127.0.0.1:61644']"
         }
     ]
 }

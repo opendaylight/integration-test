@@ -10,14 +10,17 @@ Resource          ../../../libraries/Utils.txt
 
 *** Variables ***
 ${OVSDB_PORT}     6644
-${BRIDGE}         br01
+${BRIDGE}         br-s1
 ${SOUTHBOUND_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${MININET}:${OVSDB_PORT}
 ${OVSDB_CONFIG_DIR}    ${CURDIR}/../../../variables/ovsdb
+@{node_list}      ${BRIDGE}    vx1
 
 *** Test Cases ***
-Make the OVS instacne to listen for connection
+Create a Topology in OVSDB node
+    [Documentation]    Create topology in OVSDB and ready it for further tests
     [Tags]    Southbound
     Run Command On Remote System    ${MININET}    sudo ovs-vsctl del-manager
+    Run Command On Remote System    ${MININET}    sudo ovs-vsctl add-br ${BRIDGE}
     Run Command On Remote System    ${MININET}    sudo ovs-vsctl set-manager ptcp:6644
 
 Connect to OVSDB Node
@@ -31,8 +34,18 @@ Connect to OVSDB Node
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
-Create a Bridge
-    [Documentation]    This will create bridge on the specified OVSDB node.
+Get Operational Topology
+    [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes
+    [Tags]    Southbound
+    Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${node_list}
+
+Get Config Topology without Bridge
+    [Documentation]    This will fetch the configuration topology from configuration data store to verify the bridge is added to the data store
+    [Tags]    Southbound
+    Wait Until Keyword Succeeds    8s    2s    Check For Elements Not At URI    ${CONFIG_TOPO_API}    ${node_list}
+
+Create bridge of already added bridge
+    [Documentation]    This will add bridge to the config datastore
     [Tags]    Southbound
     ${sample}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_bridge.json
     ${sample1}    Replace String    ${sample}    tcp:127.0.0.1:6633    tcp:${CONTROLLER}:6633
@@ -44,19 +57,32 @@ Create a Bridge
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
+Create Port of already added port in OVSDB
+    [Documentation]    This will add port/interface to the config datastore
+    [Tags]    Southbound
+    ${sample}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_port.json
+    ${sample1}    Replace String    ${sample}    vxlanport    vx1
+    ${body}    Replace String    ${sample1}    192.168.0.21    192.168.1.10
+    Log    URL is ${SOUTHBOUND_CONFIG_API}%2Fbridge%2F${BRIDGE}/termination-point/vx1/
+    ${resp}    RequestsLibrary.Put    session    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2F${BRIDGE}/termination-point/vx1/    data=${body}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+
 Get Config Topology with Bridge
     [Documentation]    This will fetch the configuration topology from configuration data store to verify the bridge is added to the data store
     [Tags]    Southbound
-    ${resp}    RequestsLibrary.Get    session    ${CONFIG_TOPO_API}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
-    Should Contain    ${resp.content}    ${BRIDGE}
+    Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${CONFIG_TOPO_API}    ${node_list}
 
-Get Operational Topology with Bridge
-    [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes to verify the bridge is added to the data store
+Modify the destination IP of Port
+    [Documentation]    This will modify the dst ip of existing port
     [Tags]    Southbound
-    @{list}    Create List    ${BRIDGE}
-    Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${list}
+    ${sample}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_port.json
+    ${sample1}    Replace String    ${sample}    vxlanport    vx1
+    ${body}    Replace String    ${sample1}    192.168.0.21    10.0.0.19
+    Log    URL is ${SOUTHBOUND_CONFIG_API}%2Fbridge%2F${BRIDGE}/termination-point/vx1/
+    ${resp}    RequestsLibrary.Put    session    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2F${BRIDGE}/termination-point/vx1/    data=${body}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
 
 Create Port and attach to a Bridge
     [Documentation]    This request will creates port/interface and attach it to the specific bridge
@@ -70,10 +96,16 @@ Create Port and attach to a Bridge
 Get Operational Topology with Port
     [Documentation]    This request will fetch the operational topology after the Port is added to the bridge
     [Tags]    Southbound
-    @{list}    Create List    ${BRIDGE}    vxlanport
+    @{list}    Create List    ${BRIDGE}    vxlanport    vx1    10.0.0.19
     Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${list}
 
-Delete the Port
+Delete the Port1
+    [Documentation]    This request will delete the port node from the bridge node and data store.
+    [Tags]    Southbound
+    ${resp}    RequestsLibrary.Delete    session    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2F${BRIDGE}/termination-point/vx1/
+    Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
+
+Delete the Port2
     [Documentation]    This request will delete the port node from the bridge node and data store.
     [Tags]    Southbound
     ${resp}    RequestsLibrary.Delete    session    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2F${BRIDGE}/termination-point/vxlanport/
@@ -82,7 +114,7 @@ Delete the Port
 Get Operational Topology after Deletion of Port
     [Documentation]    This request will fetch the operational topology after the Port is deleted
     [Tags]    Southbound
-    @{list}    Create List    vxlanport
+    @{list}    Create List    vxlanport    vx1
     Wait Until Keyword Succeeds    8s    2s    Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}    ${list}
 
 Delete the Bridge
@@ -94,7 +126,7 @@ Delete the Bridge
 Get Operational Topology after Deletion of Bridge
     [Documentation]    This request will fetch the operational topology after the Bridge is deleted
     [Tags]    Southbound
-    @{list}    Create List    ${BRIDGE}    vxlanport
+    @{list}    Create List    ${BRIDGE}    vxlanport    vx1
     Wait Until Keyword Succeeds    8s    2s    Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}    ${list}
 
 Delete the OVSDB Node
@@ -106,5 +138,5 @@ Delete the OVSDB Node
 Get Operational Topology after Deletion of OVSDB Node
     [Documentation]    This request will fetch the operational topology after the OVSDB node is deleted
     [Tags]    Southbound
-    @{list}    Create List    ovsdb://${MININET}:${OVSDB_PORT}    ${BRIDGE}    vxlanport
+    @{list}    Create List    ovsdb://${MININET}:${OVSDB_PORT}    ${BRIDGE}    vxlanport    vx1
     Wait Until Keyword Succeeds    8s    2s    Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}    ${list}
