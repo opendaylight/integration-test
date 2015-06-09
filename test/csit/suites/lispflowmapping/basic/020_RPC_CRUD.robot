@@ -11,12 +11,12 @@ Resource          ../../../libraries/Utils.txt
 
 *** Variables ***
 ${RPC_URL_PREFIX}    /restconf/operations/lfm-mapping-database
-${IPV4_C_KEY}     ../../../variables/lispflowmapping/rpc_add-key_ipv4.json
-${IPV4_RD}        ../../../variables/lispflowmapping/rpc_get-remove_ipv4.json
-${MISS_RD}        ../../../variables/lispflowmapping/rpc_get-remove_missing.json
-${IPV4_U_KEY}     ../../../variables/lispflowmapping/rpc_update-key_ipv4.json
-${IPV4_C_MAP}     ../../../variables/lispflowmapping/rpc_add-mapping_ipv4_ipv4.json
-${IPV4_U_MAP}     ../../../variables/lispflowmapping/rpc_update-mapping_ipv4_ipv4.json
+${IPV4_C_KEY}     ${CURDIR}/../../../variables/lispflowmapping/rpc_add-key_ipv4.json
+${IPV4_RD}        ${CURDIR}/../../../variables/lispflowmapping/rpc_get-remove_ipv4.json
+${MISS_RD}        ${CURDIR}/../../../variables/lispflowmapping/rpc_get-remove_missing.json
+${IPV4_U_KEY}     ${CURDIR}/../../../variables/lispflowmapping/rpc_update-key_ipv4.json
+${IPV4_C_MAP}     ${CURDIR}/../../../variables/lispflowmapping/rpc_add-mapping_ipv4_ipv4.json
+${IPV4_U_MAP}     ${CURDIR}/../../../variables/lispflowmapping/rpc_update-mapping_ipv4_ipv4.json
 
 *** Test Cases ***
 Create Key
