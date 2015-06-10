@@ -1,0 +1,23 @@
+{
+    "input": {
+        "LispAddressContainer": {
+            "LcafKeyValueAddressAddr": {
+                "afi": 16387,
+                "lcafType": 15,
+                "key": {
+                    "Ipv4Address": {
+                        "Ipv4Address": "192.0.2.1",
+                        "afi": 1
+                    }
+                },
+                "value": {
+                    "Ipv4Address": {
+                        "Ipv4Address": "192.0.2.2",
+                        "afi": 1
+                    }
+                }
+            }
+        },
+        "mask-length": 0
+    }
+}

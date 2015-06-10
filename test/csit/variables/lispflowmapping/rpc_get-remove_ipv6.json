@@ -1,0 +1,11 @@
+{
+    "input": {
+        "LispAddressContainer": {
+            "Ipv6Address": {
+                "afi": 2,
+                "Ipv6Address": "2001:db8::1"
+            }
+        },
+        "mask-length": 128
+    }
+}

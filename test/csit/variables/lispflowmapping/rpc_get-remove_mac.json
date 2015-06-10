@@ -1,0 +1,11 @@
+{
+    "input": {
+        "LispAddressContainer": {
+            "MacAddress": {
+                "afi": 16389,
+                "MacAddress": "00:11:22:33:44:55"
+            }
+        },
+        "mask-length": 0
+    }
+}

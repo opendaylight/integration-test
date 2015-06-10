@@ -1,0 +1,11 @@
+{
+    "input": {
+        "LispAddressContainer": {
+            "AS": {
+                "afi": 18,
+                "AS": 64500
+            }
+        },
+        "mask-length": 0
+    }
+}

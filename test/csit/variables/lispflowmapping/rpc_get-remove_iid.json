@@ -1,0 +1,19 @@
+{
+    "input": {
+        "LispAddressContainer": {
+            "LcafSegmentAddr": {
+                "afi": 16387,
+                "lcafType": 2,
+                "instanceId": 1,
+                "iidMaskLength": 32,
+                "Address": {
+                    "Ipv4Address": {
+                        "Ipv4Address": "192.0.2.0",
+                        "afi": 1
+                    }
+                }
+            }
+        },
+        "mask-length": 24
+    }
+}

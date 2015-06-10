@@ -1,0 +1,31 @@
+{
+    "input": {
+        "recordTtl": 1440,
+        "maskLength": 0,
+        "authoritative": true,
+        "LispAddressContainer": {
+            "AS": {
+                "afi": 18,
+                "AS": 64500
+            }
+        },
+        "LocatorRecord": [
+            {
+                "name": "ISP1",
+                "priority": 1,
+                "weight": 1,
+                "multicastPriority": 255,
+                "multicastWeight": 0,
+                "localLocator": true,
+                "rlocProbed": false,
+                "routed": false,
+                "LispAddressContainer": {
+                    "Ipv4Address": {
+                        "afi": 1,
+                        "Ipv4Address": "10.10.10.10"
+                    }
+                }
+            }
+        ]
+    }
+}

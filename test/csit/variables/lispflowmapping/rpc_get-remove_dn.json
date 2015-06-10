@@ -1,0 +1,11 @@
+{
+    "input": {
+        "LispAddressContainer": {
+            "distinguishedName": {
+                "afi": 17,
+                "distinguishedName": "stringAsIs"
+            }
+        },
+        "mask-length": 0
+    }
+}
