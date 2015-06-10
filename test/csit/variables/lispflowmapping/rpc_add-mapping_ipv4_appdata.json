@@ -1,0 +1,43 @@
+{
+    "input": {
+        "recordTtl": 1440,
+        "maskLength": 32,
+        "authoritative": true,
+        "LispAddressContainer": {
+            "Ipv4Address": {
+                "afi": 1,
+                "Ipv4Address": "192.0.2.1"
+            }
+        },
+        "LocatorRecord": [
+            {
+                "name": "AppData",
+                "priority": 1,
+                "weight": 1,
+                "multicastPriority": 255,
+                "multicastWeight": 0,
+                "localLocator": true,
+                "rlocProbed": false,
+                "routed": false,
+                "LispAddressContainer": {
+                    "LcafApplicationDataAddr": {
+                        "afi": 16387,
+                        "lcafType": 4,
+                        "protocol": 17,
+                        "ipTos": 128,
+                        "localPortLow": 80,
+                        "localPortHigh": 81,
+                        "remotePortLow": 6667,
+                        "remotePortHigh": 7000,
+                        "Address": {
+                            "Ipv4Address": {
+                                "afi": 1,
+                                "Ipv4Address": "10.10.10.10"
+                            }
+                        }
+                    }
+                }
+            }
+        ]
+    }
+}

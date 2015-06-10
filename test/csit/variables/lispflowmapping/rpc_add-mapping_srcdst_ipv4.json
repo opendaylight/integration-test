@@ -1,0 +1,45 @@
+{
+    "input": {
+        "recordTtl": 1440,
+        "maskLength": 0,
+        "authoritative": true,
+        "LispAddressContainer": {
+            "LcafSourceDestAddr": {
+                "afi": 16387,
+                "lcafType": 12,
+                "srcAddress": {
+                    "Ipv4Address": {
+                        "Ipv4Address": "192.0.2.1",
+                        "afi": 1
+                    }
+                },
+                "srcMaskLength": 32,
+                "dstAddress": {
+                    "Ipv4Address": {
+                        "Ipv4Address": "192.0.2.2",
+                        "afi": 1
+                    }
+                },
+                "dstMaskLength": 32
+            }
+        },
+        "LocatorRecord": [
+            {
+                "name": "ISP1",
+                "priority": 1,
+                "weight": 1,
+                "multicastPriority": 255,
+                "multicastWeight": 0,
+                "localLocator": true,
+                "rlocProbed": false,
+                "routed": false,
+                "LispAddressContainer": {
+                    "Ipv4Address": {
+                        "afi": 1,
+                        "Ipv4Address": "10.10.10.10"
+                    }
+                }
+            }
+        ]
+    }
+}

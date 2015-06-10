@@ -1,0 +1,73 @@
+{
+    "input": {
+        "recordTtl": 1440,
+        "maskLength": 32,
+        "authoritative": true,
+        "LispAddressContainer": {
+            "Ipv4Address": {
+                "afi": 1,
+                "Ipv4Address": "192.0.2.1"
+            }
+        },
+        "LocatorRecord": [
+            {
+                "name": "IPv4",
+                "priority": 2,
+                "weight": 1,
+                "multicastPriority": 255,
+                "multicastWeight": 0,
+                "localLocator": true,
+                "rlocProbed": false,
+                "routed": false,
+                "LispAddressContainer": {
+                    "Ipv4Address": {
+                        "afi": 1,
+                        "Ipv4Address": "10.10.10.10"
+                    }
+                }
+            },
+            {
+                "name": "ELP",
+                "priority": 1,
+                "weight": 1,
+                "multicastPriority": 255,
+                "multicastWeight": 0,
+                "localLocator": true,
+                "rlocProbed": false,
+                "routed": false,
+                "LispAddressContainer": {
+                    "LcafTrafficEngineeringAddr": {
+                        "afi": 16387,
+                        "lcafType": 10,
+                        "Hops": [
+                            {
+                                "name": "Hop 1",
+                                "lookup": false,
+                                "RLOCProbe": false,
+                                "strict": true,
+                                "hop": {
+                                    "Ipv4Address": {
+                                        "afi": 1,
+                                        "Ipv4Address": "20.20.20.20"
+                                    }
+                                }
+                            },
+                            {
+                                "name": "Hop 2",
+                                "lookup": false,
+                                "RLOCProbe": false,
+                                "strict": true,
+                                "hop": {
+                                    "Ipv4Address": {
+                                        "afi": 1,
+                                        "Ipv4Address": "30.30.30.30"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
+    }
+}

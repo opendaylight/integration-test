@@ -1,0 +1,47 @@
+{
+    "input": {
+        "recordTtl": 1440,
+        "maskLength": 32,
+        "authoritative": true,
+        "LispAddressContainer": {
+            "Ipv4Address": {
+                "afi": 1,
+                "Ipv4Address": "192.0.2.1"
+            }
+        },
+        "LocatorRecord": [
+            {
+                "name": "List",
+                "priority": 1,
+                "weight": 1,
+                "multicastPriority": 255,
+                "multicastWeight": 0,
+                "localLocator": true,
+                "rlocProbed": false,
+                "routed": false,
+                "LispAddressContainer": {
+                    "LcafListAddr": {
+                        "afi": 16387,
+                        "lcafType": 1,
+                        "Addresses": [
+                            {
+                                "name": "IPv4",
+                                "Ipv4Address": {
+                                    "afi": 1,
+                                    "Ipv4Address": "10.10.10.10"
+                                }
+                            },
+                            {
+                                "name": "IPv6",
+                                "Ipv6Address": {
+                                    "afi": 2,
+                                    "Ipv6Address": "2001:db8::1"
+                                }
+                            }
+                        ]
+                    }
+                }
+            }
+        ]
+    }
+}

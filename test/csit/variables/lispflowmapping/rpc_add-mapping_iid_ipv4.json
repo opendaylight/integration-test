@@ -1,0 +1,39 @@
+{
+    "input": {
+        "recordTtl": 1440,
+        "maskLength": 24,
+        "authoritative": true,
+        "LispAddressContainer": {
+            "LcafSegmentAddr": {
+                "afi": 16387,
+                "lcafType": 2,
+                "instanceId": 1,
+                "iidMaskLength": 32,
+                "Address": {
+                    "Ipv4Address": {
+                        "Ipv4Address": "192.0.2.0",
+                        "afi": 1
+                    }
+                }
+            }
+        },
+        "LocatorRecord": [
+            {
+                "name": "ISP1",
+                "priority": 1,
+                "weight": 1,
+                "multicastPriority": 255,
+                "multicastWeight": 0,
+                "localLocator": true,
+                "rlocProbed": false,
+                "routed": false,
+                "LispAddressContainer": {
+                    "Ipv4Address": {
+                        "afi": 1,
+                        "Ipv4Address": "10.10.10.10"
+                    }
+                }
+            }
+        ]
+    }
+}
