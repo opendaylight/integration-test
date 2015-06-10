@@ -21,6 +21,7 @@ Create a Topology in OVSDB node
     [Tags]    Southbound
     Run Command On Remote System    ${MININET}    sudo ovs-vsctl del-manager
     Run Command On Remote System    ${MININET}    sudo ovs-vsctl add-br ${BRIDGE}
+    Run Command On Remote System    ${MININET}    sudo ovs-vsctl add-port ${BRIDGE} vx1 -- set Interface vx1 type=vxlan options:remote_ip=192.168.1.11
     Run Command On Remote System    ${MININET}    sudo ovs-vsctl set-manager ptcp:6644
 
 Connect to OVSDB Node
