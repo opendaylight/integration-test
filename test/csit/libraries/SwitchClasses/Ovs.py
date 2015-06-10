@@ -1,5 +1,5 @@
 """
-Provision 3800 Object Definition
+Open vSwitch Object Definition
 Authors: james.luhrsen@hp.com
 Created: 2014-10-02
 """
@@ -86,7 +86,8 @@ class Ovs(BaseSwitch):
 
     @property
     def datapath_id_output_command(self):
-        return '/sbin/ifconfig | egrep \'^s1\' | awk \'{print $5}\''
+        '''This regex will extract the macaddr of the ovs switch'''
+        return '/sbin/ifconfig s1 | grep -o -E "([[:xdigit:]]{1,2}:){5}[[:xdigit:]]{1,2}"'
 
     datapath_id_output_string = ''
     datapath_id = ''
