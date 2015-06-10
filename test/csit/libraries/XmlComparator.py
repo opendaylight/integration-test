@@ -176,7 +176,10 @@ class XMLtoDictParserTools():
                 diff[key] = (KEY_NOT_FOUND, key)
         return diff
 
-IGNORED_TAGS_FOR_OPERATIONAL_COMPARISON = ['id', 'flow-name', 'barrier', 'cookie_mask', 'installHw', 'flags', 'strict', 'byte-count', 'duration', 'packet-count', 'in-port', 'vlan-id-present', 'out_group', 'out_port', 'hard-timeout', 'idle-timeout', 'flow-statistics', 'cookie']  # noqa
+IGNORED_TAGS_FOR_OPERATIONAL_COMPARISON = ['id', 'flow-name', 'barrier', 'cookie_mask', 'installHw', 'flags',
+                                           'strict', 'byte-count', 'duration', 'packet-count', 'in-port',
+                                           'vlan-id-present', 'out_group', 'out_port', 'hard-timeout', 'idle-timeout',
+                                           'flow-statistics', 'cookie', 'clear-actions']  # noqa
 
 IGNORED_PATHS_FOR_OC = [(['flow', 'instructions', 'instruction', 'apply-actions', 'action', 'controller-action'], True),  # noqa
                         (['flow', 'instructions', 'instruction', 'clear-actions', 'action'], False),
