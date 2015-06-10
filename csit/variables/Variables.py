@@ -25,6 +25,9 @@ TOOLS_SYSTEM_USER = DEFAULT_USER
 TOOLS_SYSTEM_PASSWORD = ''  # empty means use public key authentication
 TOOLS_SYSTEM_PROMPT = DEFAULT_LINUX_PROMPT
 
+# Docker system variables
+DOCKER_DAEMON_PORT = '5555'
+
 # KARAF Variables
 KARAF_SHELL_PORT = '8101'
 ESCAPE_CHARACTER = '\x1B'
@@ -111,6 +114,7 @@ FLOWFILTERS_UPDATE = 'flowfilterentries'
 CONFIG_NODES_API = '/restconf/config/opendaylight-inventory:nodes'
 OPERATIONAL_NODES_API = '/restconf/operational/opendaylight-inventory:nodes'
 OPERATIONAL_NODES_NETVIRT = '/restconf/operational/network-topology:network-topology/topology/netvirt:1'
+OPERATIONAL_NODES_OVSDB = '/restconf/operational/network-topology:network-topology/topology/ovsdb:1'
 OPERATIONAL_TOPO_API = '/restconf/operational/network-topology:' \
                        'network-topology'
 CONFIG_TOPO_API = '/restconf/config/network-topology:network-topology'
