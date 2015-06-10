@@ -12,7 +12,7 @@ ${SOUTHBOUND_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2
 
 *** Keywords ***
 Connect To Ovsdb Node
-    [Arguments]    ${mininet_ip}
+    [Arguments]    ${mininet_ip}    ${OVSDB_PORT}=6634
     [Documentation]    This will Initiate the connection to OVSDB node from controller
     ${sample}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/connect.json
     ${sample1}    Replace String    ${sample}    127.0.0.1    ${mininet_ip}
