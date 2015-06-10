@@ -9,6 +9,7 @@ CONTROLLER = '127.0.0.1'
 PORT = '8080'
 RESTPORT = '8282'
 RESTCONFPORT = '8181'
+DOCKER_DAEMON_PORT = '5555'
 PREFIX = 'http://' + CONTROLLER + ':' + PORT
 PROMPT = '>'  # TODO: remove this as it's vague.  need to fix any occurances of it first.
 CONTAINER = 'default'
@@ -77,6 +78,7 @@ PORTS = 'ports/detail.json'
 CONFIG_NODES_API = '/restconf/config/opendaylight-inventory:nodes'
 OPERATIONAL_NODES_API = '/restconf/operational/opendaylight-inventory:nodes'
 OPERATIONAL_NODES_NETVIRT = '/restconf/operational/network-topology:network-topology/topology/netvirt:1'
+OPERATIONAL_NODES_OVSDB = '/restconf/operational/network-topology:network-topology/topology/ovsdb:1'
 OPERATIONAL_TOPO_API = '/restconf/operational/network-topology:' \
                        'network-topology'
 CONFIG_TOPO_API = '/restconf/config/network-topology:network-topology'
