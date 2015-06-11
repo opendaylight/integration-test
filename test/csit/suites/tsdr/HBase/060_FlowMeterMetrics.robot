@@ -18,7 +18,7 @@ ${TSDR_FLOWMETERSTATS}    tsdr:list FlowMeterStats
 *** Test Cases ***
 Verify the FlowMeter Stats attributes exist thru Karaf console
     [Documentation]    Verify the FlowMeterStats attributes exist on Karaf Console
-    Wait Until Keyword Succeeds    120s    1s    Verify the Metric is Collected?    ${TSDR_FLOWMETERSTATS}    ByteInCount
+    Wait Until Keyword Succeeds    180s    1s    Verify the Metric is Collected?    ${TSDR_FLOWMETERSTATS}    ByteInCount
     ${output}=    Issue Command On Karaf Console    ${TSDR_FLOWMETERSTATS}    ${CONTROLLER}    ${KARAF_SHELL_PORT}    30
     : FOR    ${list}    IN    @{FLOWMETER_METRICS}
     \    Should Contain    ${output}    ${list}

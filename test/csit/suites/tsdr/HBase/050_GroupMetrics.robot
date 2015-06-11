@@ -18,7 +18,7 @@ ${TSDR_FLOWGROUPSTATS}    tsdr:list FlowGroupStats
 *** Test Cases ***
 Verify the FlowGroup Stats attributes exist thru Karaf console
     [Documentation]    Verify the FlowGroupStats attributes exist on Karaf Console
-    Wait Until Keyword Succeeds    120s    1s    Verify the Metric is Collected?    ${TSDR_FLOWGROUPSTATS}    ByteCount
+    Wait Until Keyword Succeeds    180s    1s    Verify the Metric is Collected?    ${TSDR_FLOWGROUPSTATS}    ByteCount
     ${output}=    Issue Command On Karaf Console    ${TSDR_FLOWGROUPSTATS}    ${CONTROLLER}    ${KARAF_SHELL_PORT}    30
     : FOR    ${list}    IN    @{FLOWGROUP_METRICS}
     \    Should Contain    ${output}    ${list}
