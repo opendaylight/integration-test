@@ -1,0 +1,3 @@
+# Place the scripts in run order:
+integration/test/csit/suites/tsdr/HBase/scripts/hbase-startup.sh
+

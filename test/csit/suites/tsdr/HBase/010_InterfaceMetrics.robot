@@ -58,7 +58,7 @@ Verify Configuration Interval-change
 
 *** Keywords ***
 Initialize the Tsdr Suite
-    Initialize the HBase for TSDR
+    COMMENT    Initialize the HBase for TSDR
     Start Tsdr Suite
     Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 
