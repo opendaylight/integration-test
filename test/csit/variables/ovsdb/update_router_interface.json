@@ -1,0 +1,6 @@
+{
+  "subnet_id": "{subnetId}",
+  "tenant_id": "{tntId}",
+  "port_id": "{portId}",
+  "id": "{rtrId}"
+}

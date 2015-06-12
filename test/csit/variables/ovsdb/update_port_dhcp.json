@@ -1,0 +1,19 @@
+{
+"port": {
+    "binding:host_id": "{BIND_HOST_ID}",
+    "allowed_address_pairs": [],
+    "extra_dhcp_opts": [],
+    "device_owner": "network:dhcp",
+    "binding:profile": {},
+    "port_security_enabled": false,
+    "security_groups": [],
+    "device_id": "{dhcpDeviceId}",
+    "name": "",
+    "admin_state_up": true,
+    "binding:vif_details": {
+      "port_filter": true
+    },
+    "binding:vnic_type": "normal",
+    "binding:vif_type": "ovs"
+  }
+}

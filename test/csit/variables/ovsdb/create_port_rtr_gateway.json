@@ -1,0 +1,26 @@
+{
+  "port": {
+    "binding:host_id": "",
+    "allowed_address_pairs": [],
+    "device_owner": "network:router_gateway",
+    "port_security_enabled": false,
+    "binding:profile": {},
+    "fixed_ips": [
+      {
+        "subnet_id": "{subnetId}",
+        "ip_address": "192.168.111.21"
+      }
+    ],
+    "id": "{portId}",
+    "security_groups": [],
+    "device_id": "{rtrId}",
+    "name": "",
+    "admin_state_up": true,
+    "network_id": "{netId}",
+    "tenant_id": "",
+    "binding:vif_details": {},
+    "binding:vnic_type": "normal",
+    "binding:vif_type": "unbound",
+    "mac_address": "FA:16:3E:7E:A0:D8"
+  }
+}

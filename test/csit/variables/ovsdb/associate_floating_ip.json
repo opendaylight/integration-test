@@ -1,0 +1,12 @@
+{
+  "floatingip": {
+    "floating_network_id": "{netId}",
+    "router_id": "{rtrId}",
+    "fixed_ip_address": "10.1.0.3",
+    "floating_ip_address": "{floatIpAddress}",
+    "tenant_id": "{tntId}",
+    "status": "ACTIVE",
+    "port_id": "{vmPortId}",
+    "id": "{floatIpId}"
+  }
+}

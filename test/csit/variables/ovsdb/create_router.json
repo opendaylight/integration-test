@@ -1,0 +1,13 @@
+{
+  "router": {
+    "status": "ACTIVE",
+    "external_gateway_info": null,
+    "name": "rtr1",
+    "gw_port_id": null,
+    "admin_state_up": true,
+    "routes": [],
+    "tenant_id": "{tntId}",
+    "distributed": false,
+    "id": "{rtrId}"
+  }
+}
