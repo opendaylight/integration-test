@@ -6,6 +6,8 @@
 
 from SSHLibrary import SSHLibrary
 
+import os
+
 
 class RemoteHost:
     def __init__(self, host, user, password, rootdir):
@@ -22,12 +24,21 @@ class RemoteHost:
         rc = lib.execute_command(command, return_rc=True)
         lib.close_connection()
         if rc[1] != 0:
-            raise Exception('remote command failed [{0}] with exit code {1}'.format(command, rc))
+            raise Exception('remote command failed [{0}] with exit code {1}'
+                            .format(command, rc))
 
     def mkdir(self, dir_name):
         self.exec_cmd("mkdir -p " + dir_name)
 
     def copy_file(self, src, dest):
+        if src is None:
+            print "src is None not copy anything to " + dest
+            return
+
+        if os.path.exists(src) is False:
+            print "Src file " + src + " was not found"
+            return
+
         lib = SSHLibrary()
         lib.open_connection(self.host)
         lib.login(username=self.user, password=self.password)
@@ -36,7 +47,8 @@ class RemoteHost:
         lib.close_connection()
 
     def kill_controller(self):
-        self.exec_cmd("sudo ps axf | grep karaf | grep -v grep | awk '{print \"kill -9 \" $1}' | sudo sh")
+        self.exec_cmd("sudo ps axf | grep karaf | grep -v grep "
+                      "| awk '{print \"kill -9 \" $1}' | sudo sh")
 
     def start_controller(self, dir_name):
         self.exec_cmd(dir_name + "/odl/bin/start")
