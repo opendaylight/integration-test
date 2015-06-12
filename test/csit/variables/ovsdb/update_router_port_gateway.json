@@ -1,0 +1,19 @@
+{
+  "router": {
+    "external_gateway_info": {
+      "network_id": "{netId}",
+      "enable_snat": true,
+      "external_fixed_ips": [
+        {
+          "subnet_id": "{subnetId}",
+          "ip_address": "192.168.111.21"
+        }
+      ]
+    },
+    "name": "rtr1",
+    "gw_port_id": "{portId}",
+    "admin_state_up": true,
+    "distributed": false,
+    "routes": []
+  }
+}

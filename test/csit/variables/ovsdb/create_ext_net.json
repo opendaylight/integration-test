@@ -1,0 +1,16 @@
+{
+  "network": [
+    {
+      "provider:physical_network": "physnetext1",
+      "port_security_enabled": true,
+      "provider:network_type": "flat",
+      "id": "{netId}",
+      "provider:segmentation_id": null,
+      "router:external": true,
+      "name": "ext1",
+      "admin_state_up": true,
+      "tenant_id": "{tntId}",
+      "shared": false
+    }
+  ]
+}

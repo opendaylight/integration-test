@@ -1,0 +1,143 @@
+{
+  "port": {
+    "binding:host_id": "{BIND_HOST_ID}",
+    "allowed_address_pairs": [],
+    "device_owner": "compute:None",
+    "port_security_enabled": true,
+    "binding:profile": {},
+    "fixed_ips": [
+      {
+        "subnet_id": "{subnetId}",
+        "ip_address": "10.1.0.3"
+      }
+    ],
+    "id": "{portId}",
+    "security_groups": [
+      {
+        "tenant_id": "{tntId}",
+        "description": "Default security group",
+        "id": "970d6a6d-bebf-43a3-85cc-a860fc994333",
+        "security_group_rules": [
+          {
+            "remote_group_id": null,
+            "direction": "egress",
+            "remote_ip_prefix": null,
+            "protocol": null,
+            "ethertype": "IPv4",
+            "tenant_id": "{tntId}",
+            "port_range_max": null,
+            "port_range_min": null,
+            "id": "3f260b84-637a-4edc-8ba6-a5ff36b2ae79",
+            "security_group_id": "970d6a6d-bebf-43a3-85cc-a860fc994333"
+          },
+          {
+            "remote_group_id": null,
+            "direction": "egress",
+            "remote_ip_prefix": null,
+            "protocol": null,
+            "ethertype": "IPv6",
+            "tenant_id": "{tntId}",
+            "port_range_max": null,
+            "port_range_min": null,
+            "id": "9c3a324a-822d-4a60-b4d9-bc9fc8a890e9",
+            "security_group_id": "970d6a6d-bebf-43a3-85cc-a860fc994333"
+          },
+          {
+            "remote_group_id": "970d6a6d-bebf-43a3-85cc-a860fc994333",
+            "direction": "ingress",
+            "remote_ip_prefix": null,
+            "protocol": null,
+            "ethertype": "IPv6",
+            "tenant_id": "{tntId}",
+            "port_range_max": null,
+            "port_range_min": null,
+            "id": "a3dc2551-2939-4a0b-8113-bcbce704c0fd",
+            "security_group_id": "970d6a6d-bebf-43a3-85cc-a860fc994333"
+          },
+          {
+            "remote_group_id": "970d6a6d-bebf-43a3-85cc-a860fc994333",
+            "direction": "ingress",
+            "remote_ip_prefix": null,
+            "protocol": null,
+            "ethertype": "IPv4",
+            "tenant_id": "{tntId}",
+            "port_range_max": null,
+            "port_range_min": null,
+            "id": "efa8f393-1494-4370-87c2-693f1c109190",
+            "security_group_id": "970d6a6d-bebf-43a3-85cc-a860fc994333"
+          }
+        ],
+        "name": "default"
+      }
+    ],
+    "device_id": "{deviceId}",
+    "name": "",
+    "admin_state_up": true,
+    "network_id": "{netId}",
+    "tenant_id": "{tntId}",
+    "binding:vif_details": {},
+    "binding:vnic_type": "normal",
+    "binding:vif_type": "unbound",
+    "mac_address": "{macAddr}"
+  }
+}HTTP/1.1 201 Created
+Content-Type: application/json
+Transfer-Encoding: chunked
+Server: Jetty(8.1.15.v20140411)
+
+8CB
+{
+   "port" : {
+      "id" : "341ceaca-24bf-4017-9b08-c3180e86fd24",
+      "network_id" : "12809f83-ccdf-422c-a20a-4ddae0712655",
+      "name" : "",
+      "admin_state_up" : true,
+      "mac_address" : "FA:16:3E:8E:B8:05",
+      "fixed_ips" : [ {
+         "ip_address" : "10.1.0.3",
+         "subnet_id" : "6c496958-a787-4d8c-9465-f4c4176652e8"
+      } ],
+      "device_id" : "20e500c3-41e1-4be0-b854-55c710a1cfb2",
+      "device_owner" : "compute:None",
+      "tenant_id" : "cde2563ead464ffa97963c59e002c0cf",
+      "security_groups" : [ {
+         "id" : "970d6a6d-bebf-43a3-85cc-a860fc994333",
+         "name" : "default",
+         "description" : "Default security group",
+         "tenant_id" : "cde2563ead464ffa97963c59e002c0cf",
+         "security_group_rules" : [ {
+            "id" : "3f260b84-637a-4edc-8ba6-a5ff36b2ae79",
+            "direction" : "egress",
+            "ethertype" : "IPv4",
+            "security_group_id" : "970d6a6d-bebf-43a3-85cc-a860fc994333",
+            "tenant_id" : "cde2563ead464ffa97963c59e002c0cf"
+         }, {
+            "id" : "9c3a324a-822d-4a60-b4d9-bc9fc8a890e9",
+            "direction" : "egress",
+            "ethertype" : "IPv6",
+            "security_group_id" : "970d6a6d-bebf-43a3-85cc-a860fc994333",
+            "tenant_id" : "cde2563ead464ffa97963c59e002c0cf"
+         }, {
+            "id" : "a3dc2551-2939-4a0b-8113-bcbce704c0fd",
+            "direction" : "ingress",
+            "ethertype" : "IPv6",
+            "remote_group_id" : "970d6a6d-bebf-43a3-85cc-a860fc994333",
+            "security_group_id" : "970d6a6d-bebf-43a3-85cc-a860fc994333",
+            "tenant_id" : "cde2563ead464ffa97963c59e002c0cf"
+         }, {
+            "id" : "efa8f393-1494-4370-87c2-693f1c109190",
+            "direction" : "ingress",
+            "ethertype" : "IPv4",
+            "remote_group_id" : "970d6a6d-bebf-43a3-85cc-a860fc994333",
+            "security_group_id" : "970d6a6d-bebf-43a3-85cc-a860fc994333",
+            "tenant_id" : "cde2563ead464ffa97963c59e002c0cf"
+         } ]
+      } ],
+      "allowed_address_pairs" : [ ],
+      "binding:host_id" : "{BIND_HOST_ID}",
+      "binding:vnic_type" : "normal",
+      "binding:vif_type" : "unbound",
+      "binding:vif_details" : [ {
+      } ]
+   }
+}
