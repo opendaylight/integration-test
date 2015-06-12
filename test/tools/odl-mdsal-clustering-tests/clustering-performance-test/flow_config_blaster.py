@@ -228,7 +228,7 @@ class FlowConfigBlaster(object):
 
         return nodes
 
-    def create_flow_from_template(self, flow_id, ipaddr):
+    def create_flow_from_template(self, flow_id, ipaddr, node_id):
         """
         Create a new flow instance from the flow template specified during
         FlowConfigBlaster instantiation. Flow templates are json-compatible
@@ -253,14 +253,11 @@ class FlowConfigBlaster(object):
         :param flow_list: List of flows (in dictionary form) to POST
         :return: status code from the POST operation
         """
-        fmod = dict(self.flow_mode_template)
-        fmod['flow'] = flow_list
-        flow_data = json.dumps(fmod)
-        # print flow_data
+        flow_data = self.convert_to_json(flow_list, node)
 
         hosts = self.host.split(",")
         host = hosts[flow_count % len(hosts)]
-        flow_url = self.post_url_template % (host, node)
+        flow_url = self.assemble_post_url(host, node)
         # print flow_url
 
         if not self.auth:
@@ -270,6 +267,28 @@ class FlowConfigBlaster(object):
                              timeout=self.TIMEOUT)
 
         return r.status_code
+
+    def assemble_post_url(self, host, node):
+        """
+        Creates url pointing to config dataStore: /nodes/node/<node-id>/table/<table-id>
+        :param host: ip address or host name pointing to controller
+        :param node: id of node (without protocol prefix and colon)
+        :return: url suitable for sending a flow to controller via POST method
+        """
+        return self.post_url_template % (host, node)
+
+    def convert_to_json(self, flow_list, node_id=None):
+        """
+        Dumps flows to json form.
+        :param flow_list: list of flows in json friendly structure
+        :param node_id: node identifier of corresponding node
+        :return: string containing plain json
+        """
+        fmod = dict(self.flow_mode_template)
+        fmod['flow'] = flow_list
+        flow_data = json.dumps(fmod)
+        # print flow_data
+        return flow_data
 
     def add_flows(self, start_flow_id, tid):
         """
@@ -302,7 +321,7 @@ class FlowConfigBlaster(object):
                 for i in range(self.fpr):
                     flow_id = tid * (self.ncycles * self.nflows) + nflows + start_flow_id + self.startflow
                     self.flows[tid][flow_id] = node_id
-                    flow_list.append(self.create_flow_from_template(flow_id, self.ip_addr.increment()))
+                    flow_list.append(self.create_flow_from_template(flow_id, self.ip_addr.increment(), node_id))
                     nflows += 1
                     if nflows >= self.nflows:
                         break
@@ -356,14 +375,13 @@ class FlowConfigBlaster(object):
         """
         Deletes flow from the ODL config space that have been added using the
         'add_flows()' function. This function is executed by a worker thread
-        :param start_flow_id - the ID of the first flow. Each Blaster thread
+        :param start_flow - the ID of the first flow. Each Blaster thread
                                deletes a different set of flows
         :param tid: Thread ID - used to id the Blaster thread when statistics
                                 for the thread are printed out
         :return:
         """
-        """
-        """
+
         rqst_stats = {200: 0, 204: 0}
 
         s = requests.Session()
@@ -526,6 +544,56 @@ example_flow_mod_json = '''{
     ]
 }'''
 
+
+def create_arguments_parser():
+    """
+    Shorthand to arg parser on library level in order to access and eventually enhance in ancestors.
+    :return: argument parser supporting config blaster arguments and parameters
+    """
+    my_parser = argparse.ArgumentParser(description='Flow programming performance test: First adds and then'
+                                                    ' deletes flows into the config tree, as specified by'
+                                                    ' optional parameters.')
+
+    my_parser.add_argument('--host', default='127.0.0.1',
+                           help='Host where odl controller is running (default is 127.0.0.1).  '
+                                'Specify a comma-separated list of hosts to perform round-robin load-balancing.')
+    my_parser.add_argument('--port', default='8181',
+                           help='Port on which odl\'s RESTCONF is listening (default is 8181)')
+    my_parser.add_argument('--cycles', type=int, default=1,
+                           help='Number of flow add/delete cycles; default 1. Both Flow Adds and Flow Deletes are '
+                                'performed in cycles. <THREADS> worker threads are started in each cycle and the cycle '
+                                'ends when all threads finish. Another cycle is started when the previous cycle '
+                                'finished.')
+    my_parser.add_argument('--threads', type=int, default=1,
+                           help='Number of request worker threads to start in each cycle; default=1. '
+                                'Each thread will add/delete <FLOWS> flows.')
+    my_parser.add_argument('--flows', type=int, default=10,
+                           help='Number of flows that will be added/deleted by each worker thread in each cycle; '
+                                'default 10')
+    my_parser.add_argument('--fpr', type=int, default=1,
+                           help='Flows-per-Request - number of flows (batch size) sent in each HTTP request; '
+                                'default 1')
+    my_parser.add_argument('--nodes', type=int, default=16,
+                           help='Number of nodes if mininet is not connected; default=16. If mininet is connected, '
+                                'flows will be evenly distributed (programmed) into connected nodes.')
+    my_parser.add_argument('--delay', type=int, default=0,
+                           help='Time (in seconds) to wait between the add and delete cycles; default=0')
+    my_parser.add_argument('--delete', dest='delete', action='store_true', default=True,
+                           help='Delete all added flows one by one, benchmark delete '
+                                'performance.')
+    my_parser.add_argument('--no-delete', dest='delete', action='store_false',
+                           help='Do not perform the delete cycle.')
+    my_parser.add_argument('--auth', dest='auth', action='store_true', default=False,
+                           help="Use the ODL default username/password 'admin'/'admin' to authenticate access to REST; "
+                                'default: no authentication')
+    my_parser.add_argument('--startflow', type=int, default=0,
+                           help='The starting Flow ID; default=0')
+    my_parser.add_argument('--file', default='',
+                           help='File from which to read the JSON flow template; default: no file, use a built in '
+                                'template.')
+    return my_parser
+
+
 if __name__ == "__main__":
     ############################################################################
     # This program executes the base performance test. The test adds flows into
@@ -533,46 +601,8 @@ if __name__ == "__main__":
     # to the FlowConfigBlaster class and drives its main functions: adding and
     # deleting flows from the controller's config data store
     ############################################################################
-    parser = argparse.ArgumentParser(description='Flow programming performance test: First adds and then deletes flows '
-                                                 'into the config tree, as specified by optional parameters.')
 
-    parser.add_argument('--host', default='127.0.0.1',
-                        help='Host where odl controller is running (default is 127.0.0.1).  '
-                             'Specify a comma-separated list of hosts to perform round-robin load-balancing.')
-    parser.add_argument('--port', default='8181',
-                        help='Port on which odl\'s RESTCONF is listening (default is 8181)')
-    parser.add_argument('--cycles', type=int, default=1,
-                        help='Number of flow add/delete cycles; default 1. Both Flow Adds and Flow Deletes are '
-                             'performed in cycles. <THREADS> worker threads are started in each cycle and the cycle '
-                             'ends when all threads finish. Another cycle is started when the previous cycle finished.')
-    parser.add_argument('--threads', type=int, default=1,
-                        help='Number of request worker threads to start in each cycle; default=1. '
-                             'Each thread will add/delete <FLOWS> flows.')
-    parser.add_argument('--flows', type=int, default=10,
-                        help='Number of flows that will be added/deleted by each worker thread in each cycle; '
-                             'default 10')
-    parser.add_argument('--fpr', type=int, default=1,
-                        help='Flows-per-Request - number of flows (batch size) sent in each HTTP request; '
-                             'default 1')
-    parser.add_argument('--nodes', type=int, default=16,
-                        help='Number of nodes if mininet is not connected; default=16. If mininet is connected, '
-                             'flows will be evenly distributed (programmed) into connected nodes.')
-    parser.add_argument('--delay', type=int, default=0,
-                        help='Time (in seconds) to wait between the add and delete cycles; default=0')
-    parser.add_argument('--delete', dest='delete', action='store_true', default=True,
-                        help='Delete all added flows one by one, benchmark delete '
-                             'performance.')
-    parser.add_argument('--no-delete', dest='delete', action='store_false',
-                        help='Do not perform the delete cycle.')
-    parser.add_argument('--auth', dest='auth', action='store_true', default=False,
-                        help="Use the ODL default username/password 'admin'/'admin' to authenticate access to REST; "
-                             'default: no authentication')
-    parser.add_argument('--startflow', type=int, default=0,
-                        help='The starting Flow ID; default=0')
-    parser.add_argument('--file', default='',
-                        help='File from which to read the JSON flow template; default: no file, use a built in '
-                             'template.')
-
+    parser = create_arguments_parser()
     in_args = parser.parse_args()
 
     if in_args.file != '':
