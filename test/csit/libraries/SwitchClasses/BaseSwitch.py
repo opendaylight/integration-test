@@ -67,6 +67,9 @@ class BaseSwitch(object):
     def set_mgmt_user(self, user):
         self.mgmt_user = user
 
+    def set_mgmt_prompt(self, prompt):
+        self.mgmt_prompt = prompt
+
     def set_ssh_key(self, key):
         self.ssh_key = key
 

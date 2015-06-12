@@ -15,6 +15,7 @@ Variables         ../../../variables/Variables.py
 *** Variables ***
 ${SWITCH_CLASS}    Ovs
 ${SWITCH_IP}      ${MININET}
+${SWITCH_PROMPT}    ${LINUX_PROMPT}
 ${CONTROLLER}     null
 ${REST_CONTEXT}    /restconf/operational/opendaylight-inventory:nodes
 
@@ -38,6 +39,7 @@ Switch Qualification Suite Setup
     Set Suite Variable    ${test_switch}
     Call Method    ${test_switch}    set_mgmt_ip    ${SWITCH_IP}
     Call Method    ${test_switch}    set_controller_ip    ${CONTROLLER}
+    Call Method    ${test_switch}    set_mgmt_prompt    ${SWITCH_PROMPT}
     Log    MAKE: ${test_switch.make}\n MODEL: ${test_switch.model}\n IP: ${test_switch.mgmt_ip}\n PROMPT: ${test_switch.mgmt_prompt}\n CONTROLLER_IP: ${test_switch.of_controller_ip}\n MGMT_PROTOCOL: ${test_switch.mgmt_protocol}
     Ping    ${test_switch.mgmt_ip}
     Initialize Switch    ${test_switch}
