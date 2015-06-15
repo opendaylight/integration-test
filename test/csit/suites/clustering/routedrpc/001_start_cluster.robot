@@ -11,7 +11,7 @@ Variables         ../../../variables/Variables.py
 *** Variables ***
 ${REST_CONTEXT}    /restconf/config/
 
-*** Test Cases *** 
+*** Test Cases ***
 Stop All Controllers
     [Documentation]    Stop all the controllers in the cluster
     Stopcontroller    ${MEMBER1}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
@@ -21,7 +21,6 @@ Stop All Controllers
     KillController    ${MEMBER1}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
     KillController    ${MEMBER2}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
     KillController    ${MEMBER3}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
-
 
 Clean All Journals
     [Documentation]    Clean the journals of all the controllers in the cluster
