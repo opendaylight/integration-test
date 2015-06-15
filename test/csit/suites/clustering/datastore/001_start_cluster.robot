@@ -1,7 +1,6 @@
 *** Settings ***
 Documentation     Start the controllers
-Default Tags  3-node-cluster
-
+Default Tags      3-node-cluster
 Library           Collections
 Library           ../../../libraries/RequestsLibrary.py
 Library           ../../../libraries/Common.py
@@ -13,11 +12,10 @@ Variables         ../../../variables/Variables.py
 *** Variables ***
 ${REST_CONTEXT}    /restconf/config/
 
-*** Test Cases *** 
+*** Test Cases ***
 Stop All Controllers
     [Documentation]    Stop all the controllers in the cluster
     StopAllControllers    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${MEMBER1}    ${MEMBER2}    ${MEMBER3}
-
 
 Clean All Journals
     [Documentation]    Clean the journals of all the controllers in the cluster
@@ -28,6 +26,6 @@ Clean All Journals
 
 Start All Controllers
     [Documentation]    Start all the controllers in the cluster
-    ${rc}    StartAllControllers    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${RESTCONFPORT}
-    ...    ${MEMBER1}    ${MEMBER2}    ${MEMBER3}
+    ${rc}    StartAllControllers    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${RESTCONFPORT}    ${MEMBER1}
+    ...    ${MEMBER2}    ${MEMBER3}
     Should Be True    ${rc}
