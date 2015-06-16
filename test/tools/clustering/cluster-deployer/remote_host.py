@@ -26,7 +26,8 @@ class RemoteHost:
         print "Executing command " + command + " on host " + self.host
         rc = self.lib.execute_command(command, return_rc=True)
         if rc[1] != 0:
-            raise Exception('remote command failed [{0}] with exit code {1}'
+            raise Exception('remote command failed [{0}] with exit code {1}.'
+                            'For linux-based vms, Please make sure requiretty is disabled in the /etc/sudoers file'
                             .format(command, rc))
 
     def mkdir(self, dir_name):
