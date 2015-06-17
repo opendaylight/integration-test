@@ -35,6 +35,12 @@ Connect to OVSDB Node
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
+Delete the integration Bridge
+    [Documentation]    This request will delete the bridge node from the config data store.
+    [Tags]    Southbound
+    ${resp}    RequestsLibrary.Delete    session    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2Fbr-int
+    Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
+
 Get Operational Topology
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes
     [Tags]    Southbound
