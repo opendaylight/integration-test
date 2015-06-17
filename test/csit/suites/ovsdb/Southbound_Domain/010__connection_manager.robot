@@ -12,7 +12,7 @@ Resource          ../../../libraries/Utils.txt
 ${OVSDB_PORT}     6644
 ${SOUTHBOUND_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${MININET}:${OVSDB_PORT}
 ${OVSDB_CONFIG_DIR}    ${CURDIR}/../../../variables/ovsdb
-@{node_list}      ovsdb://${MININET}:${OVSDB_PORT}    ${MININET}    ${OVSDB_PORT}
+@{node_list}      ovsdb://${MININET}:${OVSDB_PORT}    ${MININET}    ${OVSDB_PORT}    true    br-int
 
 *** Test Cases ***
 Make the OVS instacne to listen for connection
@@ -31,18 +31,16 @@ Connect to OVSDB Node
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
-Get Config Topology
-    [Documentation]    This will fetch the configuration topology from configuration data store
-    [Tags]    Southbound
-    ${resp}    RequestsLibrary.Get    session    ${CONFIG_TOPO_API}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
-    Should Contain    ${resp.content}    ${MININET}:${OVSDB_PORT}
-
 Get Operational Topology
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes
     [Tags]    Southbound
     Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${node_list}
+
+Delete the integration Bridge
+    [Documentation]    This request will delete the bridge node from the config data store.
+    [Tags]    Southbound
+    ${resp}    RequestsLibrary.Delete    session    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2Fbr-int
+    Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
 
 Delete the OVSDB Node
     [Documentation]    This request will delete the OVSDB node
