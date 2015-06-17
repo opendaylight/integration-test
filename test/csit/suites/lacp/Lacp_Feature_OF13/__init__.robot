@@ -3,7 +3,6 @@ Documentation     Test suite for MD-SAL LACP  mininet OF13
 Suite Setup       Start Suite
 Suite Teardown    Stop Suite
 Library           SSHLibrary
-Resource          ../../../libraries/Utils.txt
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
@@ -24,7 +23,6 @@ Start Suite
     Put File    ${CURDIR}/m
     Put File    ${CURDIR}/bonding.conf
     Execute Command        sudo cp bonding.conf ${bond}
-    Execute Command        cat ${bond}
     Execute Command        sed -i -- 's/CONTROLLER/${CONTROLLER}/g' LACP_custom1.py
     Write    ${start}
     Read Until       mininet>
@@ -34,7 +32,6 @@ Stop Suite
     Switch Connection      ${mininet_session_id}
     Read
     Write    exit
-    Clean Mininet System
     Execute Command      sed -i -- 's/${CONTROLLER}/CONTROLLER/g' LACP_custom1.py
     Execute Command      sudo rm -rf ${bond}
     Close Connection
