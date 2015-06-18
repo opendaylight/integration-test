@@ -39,9 +39,9 @@ Verify flows after adding flow config on OVS
     sleep    1
     write    dpctl dump-flows -O OpenFlow13
     ${body}    OperatingSystem.Get File    ${FILE}
-    ${switchouput}    Read Until    >
+    ${switchoutput}    Read Until    >
     : FOR    ${flowElement}    IN    @{FLOWELMENTS}
-    \    should Contain    ${switchouput}    ${flowElement}
+    \    should Contain    ${switchoutput}    ${flowElement}
 
 Remove a flow - Output to physical port#
     [Documentation]    Remove a flow
@@ -61,6 +61,6 @@ Verify flows after deleting flow config on OVS
     sleep    1
     write    dpctl dump-flows -O OpenFlow13
     ${body}    OperatingSystem.Get File    ${FILE}
-    ${switchouput}    Read Until    >
+    ${switchoutput}    Read Until    >
     : FOR    ${flowElement}    IN    @{FLOWELMENTS}
-    \    should Not Contain    ${switchouput}    ${flowElement}
+    \    should Not Contain    ${switchoutput}    ${flowElement}
