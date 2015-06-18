@@ -188,7 +188,8 @@ def _wt_request_sender(thread_id, preparefnc, inqueue=None, exitevent=None, cont
                 break
             continue
         req = preparefnc(cntl, sw, tab, fl, ip, template=template)
-        prep = ses.prepare_request(req)
+        # prep = ses.prepare_request(req)
+        prep = req.prepare()
         try:
             rsp = ses.send(prep, timeout=5)
         except requests.exceptions.Timeout:
@@ -219,7 +220,8 @@ def _wt_bulk_request_sender(thread_id, preparefnc, inqueue=None, exitevent=None,
                 loop = False
             continue
         req = preparefnc(cntl, flowlist, template=template)
-        prep = ses.prepare_request(req)
+        # prep = ses.prepare_request(req)
+        prep = req.prepare()
         try:
             rsp = ses.send(prep, timeout=5)
         except requests.exceptions.Timeout:
