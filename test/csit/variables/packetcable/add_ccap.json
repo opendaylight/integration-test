@@ -1,0 +1,22 @@
+{
+    "ccaps": [{
+        "ccapId": "{ccapId-1}",
+        "amId": {
+            "am-tag": "0xcada",
+            "am-type": "1"
+        },
+        "connection": {
+            "ipAddress": "{ccapIp-1}",
+            "port": "6060"
+        },
+        "subscriber-subnets": [
+            "10.32.110.1/24"
+        ],
+        "downstream-scns": [
+            "extrm_dn"
+        ],
+        "upstream-scns": [
+            "extrm_up"
+        ]
+    }]
+}
