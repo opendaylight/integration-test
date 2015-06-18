@@ -1,0 +1,48 @@
+{ "ccap": {
+    "ccaps": [
+    {   "ccapId": "{ccapId-1}",
+        "amId": {
+            "am-tag": "0xcada",
+            "am-type": "1"
+        },
+        "connection": {
+            "ipAddress": "{ccapIp-1}",
+            "port": "6060"
+        },
+        "subscriber-subnets": [
+            "44.137.0.0/16",
+            "2001:4978:030d:1000:0:0:0:0/52"
+        ],
+        "downstream-scns": [
+            "ipvideo_dn",
+            "extrm_dn",
+            "SCNC"
+        ],
+        "upstream-scns": [
+            "SCNA",
+            "extrm_up"
+        ]
+    },
+    {   "ccapId": "{ccapId-2}",
+        "amId": {
+            "am-tag": "0xcada",
+            "am-type": "1"
+        },
+        "connection": {
+            "ipAddress": "{ccapIp-2}",
+            "port": "6060"
+        },
+        "subscriber-subnets": [
+            "44.133.0.0/19"
+        ],
+        "downstream-scns": [
+            "ipvideo_dn",
+            "extrm_dn",
+            "SCNC"
+        ],
+        "upstream-scns": [
+            "SCNA",
+            "extrm_up"
+        ]
+    }]
+}}
