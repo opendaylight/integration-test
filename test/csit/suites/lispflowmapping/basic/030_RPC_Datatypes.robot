@@ -87,6 +87,7 @@ Check Datatype
     ${get_mapping}=    OperatingSystem.Get File    ${get_mapping_json_file}
     Set Suite Variable    ${CURJSON}    ${get_mapping}
     Post Log Check    ${RPC_URL_PREFIX}:add-mapping    ${add_mapping}
+    Sleep    200ms    Avoid race conditions
     ${resp}=    Post Log Check    ${RPC_URL_PREFIX}:get-mapping    ${get_mapping}
     ${output}=    Get From Dictionary    ${resp.json()}    output
     ${eid_record}=    Get From Dictionary    ${output}    eidToLocatorRecord
@@ -96,6 +97,7 @@ Check Datatype
 Remove Datatype And Check Removal
     Variable Should Exist    ${CURJSON}
     Post Log Check    ${RPC_URL_PREFIX}:remove-mapping    ${CURJSON}
+    Sleep    200ms    Avoid race conditions
     ${resp}=    Post Log Check    ${RPC_URL_PREFIX}:get-mapping    ${CURJSON}
     ${output}=    Get From Dictionary    ${resp.json()}    output
     ${eid_record}=    Get From Dictionary    ${output}    eidToLocatorRecord
