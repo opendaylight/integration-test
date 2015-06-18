@@ -125,6 +125,7 @@ Delete Mapping
 
 Attempt To Read Deleted Mapping
     [Documentation]    Try to read the mapping deleted in the previous test
+    Sleep    200ms    Avoid race conditions
     ${get_mapping}=    OperatingSystem.Get File    ${IPV4_RD}
     ${resp}=    Post Log Check    ${RPC_URL_PREFIX}:get-mapping    ${get_mapping}
     ${output}=    Get From Dictionary    ${resp.json()}    output
