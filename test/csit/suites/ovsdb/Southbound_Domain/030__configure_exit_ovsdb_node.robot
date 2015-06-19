@@ -20,7 +20,6 @@ Create a Topology in OVSDB node
     [Documentation]    Create topology in OVSDB and ready it for further tests
     [Tags]    Southbound
     Run Command On Remote System    ${MININET}    sudo ovs-vsctl del-manager
-    Run Command On Remote System    ${MININET}    sudo ovs-vsctl del-br br-int
     Run Command On Remote System    ${MININET}    sudo ovs-vsctl add-br ${BRIDGE}
     Run Command On Remote System    ${MININET}    sudo ovs-vsctl add-port ${BRIDGE} vx1 -- set Interface vx1 type=vxlan options:remote_ip=192.168.1.11
     Run Command On Remote System    ${MININET}    sudo ovs-vsctl set-manager ptcp:6644
@@ -36,6 +35,12 @@ Connect to OVSDB Node
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
+Delete the integration Bridge
+    [Documentation]    This request will delete the bridge node from the config data store.
+    [Tags]    Southbound
+    ${resp}    RequestsLibrary.Delete    session    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2Fbr-int
+    Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
+
 Get Operational Topology
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes
     [Tags]    Southbound
@@ -45,12 +50,6 @@ Get Config Topology without Bridge
     [Documentation]    This will fetch the configuration topology from configuration data store to verify the bridge is added to the data store
     [Tags]    Southbound
     Wait Until Keyword Succeeds    8s    2s    Check For Elements Not At URI    ${CONFIG_TOPO_API}    ${node_list}
-
-Delete the integration Bridge
-    [Documentation]    This request will delete the bridge node from the config data store.
-    [Tags]    Southbound
-    ${resp}    RequestsLibrary.Delete    session    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2Fbr-int
-    Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
 
 Create bridge of already added bridge
     [Documentation]    This will add bridge to the config datastore
