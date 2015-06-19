@@ -14,7 +14,7 @@ ${REST_CON}       /restconf/config/opendaylight-inventory:nodes
 ${FILE}           ${CURDIR}/../../../variables/xmls/f16.xml
 ${FLOW}           139
 ${TABLE}          2
-@{FLOWELMENTS}    table=2    idle_timeout=300    hard_timeout=600    priority=16    dl_vlan=78    dl_vlan_pcp=3
+@{FLOWELMENTS}    table=2    priority=16    dl_vlan=78    dl_vlan_pcp=3
 ...               dl_src=00:00:00:11:23:ae    dl_dst=ff:ff:29:01:19:61    dec_ttl
 
 *** Test Cases ***
