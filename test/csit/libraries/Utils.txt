@@ -91,9 +91,9 @@ Check For Elements Not At URI
     \    Should Not Contain    ${resp.content}    ${i}
 
 Clean Mininet System
-    [Arguments]     ${mininet_system}=${MININET}
-    Run Command On Remote System    ${mininet_system}   sudo mn -c
-    Run Command On Remote System    ${mininet_system}   sudo ps -elf | egrep 'usr/local/bin/mn' | egrep python | awk '{print "sudo kill -9",$4}' | sh
+    [Arguments]    ${mininet_system}=${MININET}
+    Run Command On Remote System    ${mininet_system}    sudo mn -c
+    Run Command On Remote System    ${mininet_system}    sudo ps -elf | egrep 'usr/local/bin/mn' | egrep python | awk '{print "sudo kill -9",$4}' | sh
 
 Extract Value From Content
     [Arguments]    ${content}    ${index}    ${strip}=nostrip
@@ -104,10 +104,10 @@ Extract Value From Content
     [Return]    ${value}
 
 Get Process ID Based On Regex On Remote System
-    [Documentation]    Uses ps to find a process that matches the supplied regex.  Returns the PID of that process
+    [Arguments]    ${remote_system}    ${regex_string_to_match_on}
+    [Documentation]    Uses ps to find a process that matches the supplied regex. Returns the PID of that process
     ...    The ${regex_string_to_match_on} should produce a unique process otherwise the PID returned may not be
     ...    the expected PID
-    [Arguments]    ${remote_system}    ${regex_string_to_match_on}
     # doing the extra -v grep in this command to exclude the grep process itself from the output
     ${output}=    Run Command On Remote System    ${remote_system}    ps -elf | grep -v grep | grep ${regex_string_to_match_on} | awk '{print $4}'
     # ${output} contains the system prompt and all we want is the value of the number
@@ -115,8 +115,8 @@ Get Process ID Based On Regex On Remote System
     [Return]    ${pid}
 
 Get Process Thread Count On Remote System
+    [Arguments]    ${remote_system}    ${pid}
     [Documentation]    Executes the ps command to retrieve the lightweight process (aka thread) count.
-    [Arguments]     ${remote_system}    ${pid}
     ${output}=    Run Command On Remote System    ${remote_system}    ps --no-headers -o nlwp ${pid}
     # ${output} contains the system prompt and all we want is the value of the number
     ${thread_count}=    Fetch From Left    ${output}    \r
@@ -129,15 +129,15 @@ Strip Quotes
     [Return]    ${string_to_return}
 
 Run Command On Remote System
-    [Arguments]    ${remote_system}    ${cmd}    ${user}=${MININET_USER}    ${prompt}=${LINUX_PROMPT}    ${prompt_timeout}=30s
+    [Arguments]    ${remote_system}    ${cmd}    ${user}=${MININET_USER}    ${prompt}=${LINUX_PROMPT}    ${prompt_timeout}=30s    ${keyfile_pass}=all
     [Documentation]    Reduces the common work of running a command on a remote system to a single higher level robot keyword,
     ...    taking care to log in with a public key and. The command given is written and the output returned. No test conditions
     ...    are checked.
-    Log    Attempting to execute ${cmd} on ${remote_system}
+    Log    Attempting to execute ${cmd} on ${remote_system} by ${user} with ${keyfile_pass} and ${prompt}
     ${conn_id}=    SSHLibrary.Open Connection    ${remote_system}    prompt=${prompt}    timeout=${prompt_timeout}
-    Login With Public Key    ${user}    ${USER_HOME}/.ssh/id_rsa    any
+    Login With Public Key    ${user}    ${USER_HOME}/.ssh/id_rsa    ${keyfile_pass}
     SSHLibrary.Write    ${cmd}
-    ${output}=    SSHLibrary.Read Until    ${LINUX_PROMPT}
+    ${output}=    SSHLibrary.Read Until    ${prompt}
     SSHLibrary.Close Connection
     Log    ${output}
     [Return]    ${output}
@@ -200,3 +200,50 @@ Add Elements To URI From File
     ${body}    OperatingSystem.Get File    ${data_file}
     ${resp}    RequestsLibrary.Put    session    ${dest_uri}    data=${body}    headers=${headers}
     Should Be Equal As Strings    ${resp.status_code}    200
+
+Stop One Or More Controllers
+    [Arguments]    @{controllers}
+    [Documentation]    Give this keyword a scalar or list of controllers to be stopped.
+    ${cmd} =    Set Variable    ${KARAF_HOME}/bin/stop
+    : FOR    ${ip}    IN    @{controllers}
+    \    Run Command On Remote System    ${ip}    ${cmd}    ${USER}    ${LINUX_PROMPT}    30s
+    \    ...    ${keyfile_pass}
+    : FOR    ${ip}    IN    @{controllers}
+    \    Wait Until Keyword Succeeds    20 s    3 s    Controller Down Check    ${ip}
+
+Start One Or More Controllers
+    [Arguments]    @{controllers}
+    [Documentation]    Give this keyword a scalar or list of controllers to be started.
+    ${cmd} =    Set Variable    ${KARAF_HOME}/bin/start
+    : FOR    ${ip}    IN    @{controllers}
+    \    Run Command On Remote System    ${ip}    ${cmd}    ${USER}    ${LINUX_PROMPT}    30s
+    \    ...    ${keyfile_pass}
+    : FOR    ${ip}    IN    @{controllers}
+    \    UtilLibrary.Wait For Controller Up    ${ip}    ${PORT}
+
+Kill One Or More Controllers
+    [Arguments]    @{controllers}
+    [Documentation]    Give this keyword a scalar or list of controllers to be stopped.
+    ${cmd} =    Set Variable    ps axf | grep karaf | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
+    : FOR    ${ip}    IN    @{controllers}
+    \    Run Command On Remote System    ${ip}    ${cmd}    ${USER}    ${LINUX_PROMPT}    30s
+    \    ...    ${keyfile_pass}
+    : FOR    ${ip}    IN    @{controllers}
+    \    Wait Until Keyword Succeeds    20 s    3 s    Controller Down Check    ${ip}
+
+Controller Down Check
+    [Arguments]    ${ip}
+    [Documentation]    Checks to see if a controller is down by verifying that the karaf process isn't present.
+    ${cmd} =    Set Variable    ps axf | grep karaf | grep -v grep | wc -l
+    ${response}    Run Command On Remote System    ${ip}    ${cmd}    ${USER}    ${LINUX_PROMPT}    30s
+    ...    ${keyfile_pass}
+    Log    Number of controller instances running: ${response}
+    Should Start With    ${response}    0    There may be extra instances of karaf running on the host machine.
+
+Clean One Or More Journals
+    [Arguments]    @{controllers}
+    [Documentation]    Give this keyword a scalar or list of controllers on which to clean journals.
+    ${del_cmd} =    Set Variable    rm -rf ${KARAF_HOME}/journal
+    : FOR    ${ip}    IN    @{controllers}
+    \    Run Command On Remote System    ${ip}    ${del_cmd}    ${USER}    ${LINUX_PROMPT}    30s
+    \    ...    ${keyfile_pass}
