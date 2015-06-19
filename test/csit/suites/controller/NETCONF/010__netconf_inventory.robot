@@ -45,7 +45,7 @@ Pull External Device configuration
 
 Verify Device Operational data
     [Documentation]    Verify Netopeer operational data
-    [Tags]    netconf
+    [Tags]    exclude
     ${resp}   Get    session    ${REST_CONT_OPER}/${REST_NTPR_MOUNT}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
