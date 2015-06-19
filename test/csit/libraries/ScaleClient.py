@@ -117,7 +117,8 @@ def generate_new_flow_details(flows=10, switches=1, swspread='gauss', tables=250
     according to the spread rules between swithces and tables.
     It also returns a dictionary with statsistics."""
     swflows = [_randomize(swspread, switches) for f in range(int(flows))]
-    fltables = [(s, _randomize(tabspread, tables), idx) for idx, s in enumerate(swflows)]
+    # we have to increse the switch index because mininet start indexing switches from 1 (not 0)
+    fltables = [(s+1, _randomize(tabspread, tables), idx) for idx, s in enumerate(swflows)]
     notes = _get_notes(fltables)
     return fltables, notes
 
