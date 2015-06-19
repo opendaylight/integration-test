@@ -42,6 +42,17 @@ ${FLOAT_IP1_DEVICE_ID}    f013bef4-9468-494d-9417-c9d9e4abb97c
 ${FLOAT_IP1_ADDRESS}    192.168.111.22
 
 *** Test Cases ***
+Add variables to controller custom.properties
+    [Documentation]    Add variables to custom.properties
+    [Tags]    Enable l3 forwarding
+    Run Command On Remote System    ${CONTROLLER}    echo 'ovsdb.l3.fwd.enabled=yes' >> ${WORKSPACE}/${BUNDLEFOLDER}/etc/custom.properties
+    Run Command On Remote System    ${CONTROLLER}    echo 'ovsdb.l3gateway.mac=00:00:5E:00:02:01' >> ${WORKSPACE}/${BUNDLEFOLDER}/etc/custom.properties
+    ${controller_pid_1}=    Get Process ID Based On Regex On Remote System    ${CONTROLLER}    java.*distribution.*karaf
+    Run Command On Remote System    ${CONTROLLER}    kill -SIGTERM ${controller_pid_1}
+    Run Command On Remote System    ${CONTROLLER}    ${WORKSPACE}/${BUNDLEFOLDER}/bin/start
+    ${controller_pid_2}=    Get Process ID Based On Regex On Remote System    ${CONTROLLER}    java.*distribution.*karaf
+    Should Not be Equal As Numbers    ${controller_pid_1}    ${controller_pid_2}
+
 Check External Net for Tenant
     [Documentation]    Check External Net for Tenant
     [Tags]    OpenStack Call Flow
