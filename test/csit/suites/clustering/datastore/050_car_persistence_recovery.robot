@@ -20,27 +20,27 @@ Delete cars from leader
     Delete All Cars And Verify    ${CAR_LEADER}
 
 Stop all controllers after delete
-    StopAllControllers    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${MEMBER1}    ${MEMBER2}    ${MEMBER3}
+    @{controllers} =    Create List    ${CONTROLLER}    ${CONTROLLER1}    ${CONTROLLER2}
+    Stop One Or More Controllers    @{controllers}
 
 Start all controllers after delete
-    ${rc}    StartAllControllers    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${RESTCONFPORT}    ${MEMBER1}
-    ...    ${MEMBER2}    ${MEMBER3}
-    Should Be True    ${rc}
+    @{controllers} =    Create List    ${CONTROLLER}    ${CONTROLLER1}    ${CONTROLLER2}
+    Start One Or More Controllers    @{controllers}
 
 Verify no cars on leader after restart
-    ${resp}    Getcars    ${CAR_LEADER}    ${PORT}    ${0}
+    ${resp}    Getcars    ${CAR_LEADER}    ${RESTCONFPORT}    ${0}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Add cars on leader
     Add Cars And Verify    ${CAR_LEADER}    ${NUM_CARS}
 
 Stop all controllers after add
-    StopAllControllers    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${MEMBER1}    ${MEMBER2}    ${MEMBER3}
+    @{controllers} =    Create List    ${CONTROLLER}    ${CONTROLLER1}    ${CONTROLLER2}
+    Stop One Or More Controllers    @{controllers}
 
 Start all controllers after add
-    ${rc}    StartAllControllers    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${RESTCONFPORT}    ${MEMBER1}
-    ...    ${MEMBER2}    ${MEMBER3}
-    Should Be True    ${rc}
+    @{controllers} =    Create List    ${CONTROLLER}    ${CONTROLLER1}    ${CONTROLLER2}
+    Start One Or More Controllers    @{controllers}
 
 Get cars from leader after restart
     Wait Until Keyword Succeeds    60s    2s    Get Cars And Verify    ${CAR_LEADER}    ${NUM_CARS}

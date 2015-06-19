@@ -43,7 +43,7 @@ Get added people from new leader
     Wait Until Keyword Succeeds    60s    2s    Get People And Verify    ${NEW_PEOPLE_LEADER}    ${NUM_ENTRIES}
 
 Restart old People leader
-    StartController    ${OLD_PEOPLE_LEADER}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${PORT}
+    Start One Or More Controllers    ${OLD_PEOPLE_LEADER}
 
 Get added people from old leader
     Wait Until Keyword Succeeds    60s    2s    Get People And Verify    ${OLD_PEOPLE_LEADER}    ${NUM_ENTRIES}
