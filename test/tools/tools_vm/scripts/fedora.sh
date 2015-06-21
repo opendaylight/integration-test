@@ -53,7 +53,7 @@ cd $HOME && \
 
 # Install libnetconf (NETCONF library in C)
 cd $HOME && \
-  git clone https://code.google.com/p/libnetconf && \
+  git clone https://github.com/cesnet/libnetconf && \
   su -c "chown -R vagrant:vagrant $HOME/libnetconf/" && \
   cd $HOME/libnetconf/ && \
   sh configure --prefix=/usr --with-nacm-recovery-uid=1000 && \
@@ -62,7 +62,7 @@ cd $HOME && \
 
 # Install netopeer (set of NETCONF tools built on the libnetconf library)
 cd $HOME && \
-  git clone https://code.google.com/p/netopeer && \
+  git clone https://github.com/cesnet/netopeer && \
   su -c "chown -R vagrant:vagrant $HOME/netopeer/" && \
   cd $HOME/netopeer/server/ && \
   sh configure --prefix=/usr && \
