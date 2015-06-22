@@ -1,46 +1,64 @@
 *** Settings ***
+Resource          Utils.txt
 
 *** Variables ***
 
 *** Keywords ***
 Get Leader And Verify
     [Arguments]   ${shard_name}  ${old_leader}=${EMPTY}
-    ${leader}   GetLeader   ${shard_name}  ${3}  ${3}  ${1}  ${PORT}  ${MEMBER1}  ${MEMBER2}  ${MEMBER3}
+    [Documentation]  Returns the IP addr or hostname of the leader of the specified shard.
+    [Documentation]  Controllers are specifed in the pybot command line.
+    ${leader}   GetLeader   ${shard_name}  ${3}  ${3}  ${1}  ${PORT}  ${CONTROLLER}  ${CONTROLLER1}  ${CONTROLLER2}
     Should Not Be Equal As Strings   ${leader}   None
     Run Keyword If  '${old_leader}'!='${EMPTY}'  Should Not Be Equal  ${old_leader}  ${leader}
     [Return]   ${leader}
 
-Wait For Leader
+Wait For Leader To Be Found
     [Arguments]   ${shard_name}
+    [Documentation]  Waits until the leader of the specified shard is found.
     ${leader}   Wait Until Keyword Succeeds   60s  2s  Get Leader And Verify  ${shard_name}
     Log   ${leader}
     [Return]   ${leader}
 
 Switch Leader
     [Arguments]   ${shard_name}  ${current_leader}
-    StopController  ${current_leader}  ${USERNAME}  ${PASSWORD}  ${KARAFHOME}
+    [Documentation]  Forces a change of leadership by shutting down the current leader.
+    Stop One Or More Controllers  ${current_leader}
     ${new_leader}  Wait Until Keyword Succeeds   60s  2s  Get Leader And Verify  ${shard_name}  ${current_leader}
+    # TODO: Future enhanement: make sure the other controller is a follower and not a master or candidate.
     Log   ${new_leader}
     [Return]   ${new_leader}
 
 Get All Followers
     [Arguments]   ${shard_name}
-    ${followers}  GetFollowers  ${shard_name}  ${3}  ${3}  ${1}  ${PORT}  ${MEMBER1}  ${MEMBER2}  ${MEMBER3}
+    [Documentation]  Returns the IP addresses or hostnames of all followers of the specified shard.
+    ${followers}  GetFollowers  ${shard_name}  ${3}  ${3}  ${1}  ${PORT}  ${CONTROLLER}  ${CONTROLLER1}  ${CONTROLLER2}
     Log  ${followers}
     Should Not Be Empty  ${followers}
     [Return]  ${followers}
 
 Add Cars And Verify
+    [Documentation]  Initializes shard and then adds the specified number of cars and performs a GET as a check.
     [Arguments]    ${controller_ip}    ${num_cars}  ${timeout}=60s
     ${resp}   InitCar   ${controller_ip}   ${PORT}
     Should Be Equal As Strings    ${resp.status_code}    204
-    ${resp}   AddCar   ${controller_ip}   ${PORT}   ${num_cars}
+    ${resp}   AddCar   ${controller_ip}   ${RESTCONFPORT}   ${num_cars}
     Should Be Equal As Strings    ${resp.status_code}    204
     Wait Until Keyword Succeeds   ${timeout}  2s  Get Cars And Verify   ${controller_ip}  ${num_cars}
 
+Add Cars And Verify Without Init
+    [Documentation]  Adds cars to an initialized cars shard then performs a GET as a check.
+    [Arguments]    ${controller_ip}    ${num_cars}  ${timeout}=60s
+    ${resp}   AddCar   ${controller_ip}   ${RESTCONFPORT}   ${num_cars}
+    Should Be Equal As Strings    ${resp.status_code}    204
+    Wait Until Keyword Succeeds   ${timeout}  2s  Get Cars And Verify   ${controller_ip}  ${num_cars}
+
+
 Get Cars And Verify
     [Arguments]    ${controller_ip}    ${num_cars}
-    ${resp}     Getcars  ${controller_ip}   ${PORT}  ${0}
+    [Documentation]  Gets cars and verifies that the manufacturer is correct.
+    # TODO: Future enhanement: verify all fields.
+    ${resp}     Getcars  ${controller_ip}   ${RESTCONFPORT}  ${0}
     Should Be Equal As Strings    ${resp.status_code}    200
     :FOR    ${i}    IN RANGE    1    ${num_cars}+1
     \    Should Contain     ${resp.content}   manufacturer${i}
@@ -50,21 +68,25 @@ Add People And Verify
     [Documentation]  Note: The first AddPerson call passed with 0 posts directly to the data store to get
     [Documentation]  the people container created so the subsequent AddPerson RPC calls that put 
     [Documentation]  to the person list will succeed.
-    ${resp}  AddPerson  ${controller_ip}  ${PORT}  ${0}
+    ${resp}  AddPerson  ${controller_ip}  ${RESTCONFPORT}  ${0}
     Should Be Equal As Strings  ${resp.status_code}  204
     Wait Until Keyword Succeeds   60s  2s  Get One Person And Verify  ${controller_ip}  ${0}
-    ${resp}  AddPerson   ${controller_ip}    ${PORT}  ${num_people}
+    ${resp}  AddPerson   ${controller_ip}    ${RESTCONFPORT}  ${num_people}
     Wait Until Keyword Succeeds   60s  2s  Get People And Verify  ${controller_ip}  ${num_people}
 
 Get One Person And Verify
     [Arguments]    ${controller_ip}    ${number}
-    ${resp}     GetPersons  ${controller_ip}    ${PORT}  ${0}
+    [Documentation]  Gets a person and verifies that the user ID is correct.
+    # TODO: Future enhanement: verify all fields.
+    ${resp}     GetPersons  ${controller_ip}    ${RESTCONFPORT}  ${0}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain   ${resp.content}   user${number}
 
 Get People And Verify
     [Arguments]    ${controller_ip}    ${num_people}
-    ${resp}     GetPersons  ${controller_ip}    ${PORT}  ${0}
+    [Documentation]  Gets multiple people and verifies that the user IDs are correct.
+    # TODO: Future enhanement: verify all fields.
+    ${resp}     GetPersons  ${controller_ip}    ${RESTCONFPORT}  ${0}
     Should Be Equal As Strings    ${resp.status_code}    200
     :FOR    ${i}    IN RANGE    1    ${num_people}+1
     \    Should Contain     ${resp.content}   user${i}
@@ -74,52 +96,53 @@ Add Car Person And Verify
     [Documentation]  Add a car-person via the data store and get the car-person from Leader.
     [Documentation]  Note: This is done to get the car-people container created so subsequent BuyCar
     [Documentation]  RPC puts to the car-person list will succeed.
-    AddCarPerson    ${controller_ip}   ${PORT}     ${0}
+    AddCarPerson    ${controller_ip}   ${RESTCONFPORT}     ${0}
     Wait Until Keyword Succeeds   60s  2s  Get One Car-Person Mapping And Verify  ${controller_ip}   ${0}
 
 Get One Car-Person Mapping And Verify
     [Arguments]    ${controller_ip}    ${number}
-    ${resp}     GetCarPersonMappings    ${controller_ip}   ${PORT}     ${0}
+    [Documentation]  Gets a car person mapping and verifies that the user ID is correct.
+    ${resp}     GetCarPersonMappings    ${controller_ip}   ${RESTCONFPORT}     ${0}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain     ${resp.content}   user${number}
 
 Get Car-Person Mappings And Verify
     [Arguments]    ${controller_ip}    ${num_entries}
-    ${resp}     GetCarPersonMappings    ${controller_ip}    ${PORT}  ${0}
+    ${resp}     GetCarPersonMappings    ${controller_ip}    ${RESTCONFPORT}  ${0}
     Should Be Equal As Strings    ${resp.status_code}    200
     :FOR    ${i}    IN RANGE    1    ${num_entries}+1
     \    Should Contain     ${resp.content}   user${i}
 
 Buy Cars And Verify
     [Arguments]    ${controller_ip}    ${num_entries}   ${start}=${0}
-    Wait Until Keyword Succeeds   60s  2s  BuyCar  ${controller_ip}   ${PORT}    ${num_entries}   ${start}
+    Wait Until Keyword Succeeds   60s  2s  BuyCar  ${controller_ip}   ${RESTCONFPORT}    ${num_entries}   ${start}
 
 Check Cars Deleted
     [Arguments]    ${controller_ip}
-    ${resp}    Getcars    ${controller_ip}    ${PORT}    ${0}
+    ${resp}    Getcars    ${controller_ip}    ${RESTCONFPORT}    ${0}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete All Cars And Verify
     [Arguments]    ${controller_ip}
-    DeleteAllCars    ${controller_ip}    ${PORT}    ${0}
+    DeleteAllCars    ${controller_ip}    ${RESTCONFPORT}    ${0}
     Wait Until Keyword Succeeds   60s  2s  Check Cars Deleted  ${controller_ip}
 
 Check People Deleted
     [Arguments]    ${controller_ip}
-    ${resp}    GetPersons    ${controller_ip}    ${PORT}    ${0}
+    ${resp}    GetPersons    ${controller_ip}    ${RESTCONFPORT}    ${0}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete All People And Verify
     [Arguments]    ${controller_ip}
-    DeleteAllPersons    ${controller_ip}    ${PORT}    ${0}
+    DeleteAllPersons    ${controller_ip}    ${RESTCONFPORT}    ${0}
     Wait Until Keyword Succeeds   60s  2s  Check People Deleted  ${controller_ip}
 
 Check Cars-Persons Deleted
     [Arguments]    ${controller_ip}
-    ${resp}    GetCarPersonMappings    ${controller_ip}    ${PORT}    ${0}
+    ${resp}    GetCarPersonMappings    ${controller_ip}    ${RESTCONFPORT}    ${0}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete All Cars-Persons And Verify
     [Arguments]    ${controller_ip}
-    DeleteAllCarsPersons    ${controller_ip}    ${PORT}    ${0}
+    DeleteAllCarsPersons    ${controller_ip}    ${RESTCONFPORT}    ${0}
     Wait Until Keyword Succeeds   60s  2s  Check Cars-Persons Deleted  ${controller_ip}

@@ -113,10 +113,10 @@ Extract Value From Content
     [Return]    ${value}
 
 Get Process ID Based On Regex On Remote System
-    [Documentation]    Uses ps to find a process that matches the supplied regex.  Returns the PID of that process
+    [Arguments]    ${remote_system}    ${regex_string_to_match_on}
+    [Documentation]    Uses ps to find a process that matches the supplied regex. Returns the PID of that process
     ...    The ${regex_string_to_match_on} should produce a unique process otherwise the PID returned may not be
     ...    the expected PID
-    [Arguments]    ${remote_system}    ${regex_string_to_match_on}
     # doing the extra -v grep in this command to exclude the grep process itself from the output
     ${output}=    Run Command On Remote System    ${remote_system}    ps -elf | grep -v grep | grep ${regex_string_to_match_on} | awk '{print $4}'
     # ${output} contains the system prompt and all we want is the value of the number
@@ -124,8 +124,8 @@ Get Process ID Based On Regex On Remote System
     [Return]    ${pid}
 
 Get Process Thread Count On Remote System
+    [Arguments]    ${remote_system}    ${pid}
     [Documentation]    Executes the ps command to retrieve the lightweight process (aka thread) count.
-    [Arguments]     ${remote_system}    ${pid}
     ${output}=    Run Command On Remote System    ${remote_system}    ps --no-headers -o nlwp ${pid}
     # ${output} contains the system prompt and all we want is the value of the number
     ${thread_count}=    Fetch From Left    ${output}    \r
@@ -142,9 +142,9 @@ Run Command On Remote System
     [Documentation]    Reduces the common work of running a command on a remote system to a single higher level robot keyword,
     ...    taking care to log in with a public key and. The command given is written and the output returned. No test conditions
     ...    are checked.
-    Log    Attempting to execute ${cmd} on ${remote_system}
+    Log    Attempting to execute ${cmd} on ${remote_system} by ${user} with ${keyfile_pass} and ${prompt}
     ${conn_id}=    SSHLibrary.Open Connection    ${remote_system}    prompt=${prompt}    timeout=${prompt_timeout}
-    Login With Public Key    ${user}    ${USER_HOME}/.ssh/id_rsa    any
+    Login With Public Key    ${user}    ${USER_HOME}/.ssh/id_rsa    ${KEYFILE_PASS}
     SSHLibrary.Write    ${cmd}
     ${output}=    SSHLibrary.Read Until    ${prompt}
     SSHLibrary.Close Connection
@@ -215,3 +215,72 @@ Post Elements To URI From File
     ${body}    OperatingSystem.Get File    ${data_file}
     ${resp}    RequestsLibrary.Post    session    ${dest_uri}    data=${body}    headers=${headers}
     Should Be Equal As Strings    ${resp.status_code}    200
+
+Stop One Or More Controllers
+    [Arguments]    @{controllers}
+    [Documentation]    Give this keyword a scalar or list of controllers to be stopped.
+    ${cmd} =    Set Variable    ${KARAF_HOME}/bin/stop
+    : FOR    ${ip}    IN    @{controllers}
+    \    Run Command On Remote System    ${ip}    ${cmd}
+    : FOR    ${ip}    IN    @{controllers}
+    \    Wait Until Keyword Succeeds    60 s    3 s    Controller Down Check    ${ip}
+
+Start One Or More Controllers
+    [Arguments]    @{controllers}
+    [Documentation]    Give this keyword a scalar or list of controllers to be started.
+    ${cmd} =    Set Variable    ${KARAF_HOME}/bin/start
+    : FOR    ${ip}    IN    @{controllers}
+    \    Run Command On Remote System    ${ip}    ${cmd}
+    # TODO: This should throw an error if controller never comes up.
+    : FOR    ${ip}    IN    @{controllers}
+    \    UtilLibrary.Wait For Controller Up    ${ip}    ${RESTCONFPORT}
+
+Kill One Or More Controllers
+    [Arguments]    @{controllers}
+    [Documentation]    Give this keyword a scalar or list of controllers to be stopped.
+    ${cmd} =    Set Variable    ps axf | grep karaf | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
+    log     ${cmd}
+    ${controller_pid}=    Get Process ID Based On Regex On Remote System    ${CONTROLLER}    karaf
+    : FOR    ${ip}    IN    @{controllers}
+    \    Run Command On Remote System    ${ip}    ${cmd}
+    : FOR    ${ip}    IN    @{controllers}
+    \    Wait Until Keyword Succeeds    60 s    3 s    Controller Down Check    ${ip}
+
+Controller Down Check
+    [Arguments]    ${ip}
+    [Documentation]    Checks to see if a controller is down by verifying that the karaf process isn't present.
+    ${cmd} =    Set Variable    ps axf | grep karaf | grep -v grep | wc -l
+    ${response}    Run Command On Remote System    ${ip}    ${cmd}
+    Log    Number of controller instances running: ${response}
+    Should Start With    ${response}    0    Controller process found or there may be extra instances of
+    ...    karaf running on the host machine.
+
+Clean One Or More Journals
+    [Arguments]    @{controllers}
+    [Documentation]    Give this keyword a scalar or list of controllers on which to clean journals.
+    ${del_cmd} =    Set Variable    rm -rf ${KARAF_HOME}/journal
+    : FOR    ${ip}    IN    @{controllers}
+    \    Run Command On Remote System    ${ip}    ${del_cmd}
+
+Show Cluster Configuation Files
+    [Arguments]    @{controllers}
+    [Documentation]    Prints out the cluster configuration files for one or more controllers.
+    Log    controllers: @{controllers}
+    ${cmd} =    Set Variable    cat ${KARAF_HOME}/configuration/initial/akka.conf
+    : FOR    ${ip}    IN    @{controllers}
+    \    Run Command On Remote System    ${ip}    ${cmd}
+    ${cmd} =    Set Variable    cat ${KARAF_HOME}/configuration/initial/modules.conf
+    : FOR    ${ip}    IN    @{controllers}
+    \    Run Command On Remote System    ${ip}    ${cmd}
+    ${cmd} =    Set Variable    cat ${KARAF_HOME}/configuration/initial/module-shards.conf
+    : FOR    ${ip}    IN    @{controllers}
+    \    Run Command On Remote System    ${ip}    ${cmd}
+    ${cmd} =    Set Variable    cat ${KARAF_HOME}/configuration/initial/jolokia.xml
+    : FOR    ${ip}    IN    @{controllers}
+    \    Run Command On Remote System    ${ip}    ${cmd}
+    ${cmd} =    Set Variable    cat ${KARAF_HOME}/etc/initial/org.apache.karaf.management.cfg
+    : FOR    ${ip}    IN    @{controllers}
+    \    Run Command On Remote System    ${ip}    ${cmd}
+    ${cmd} =    Set Variable    cat ${KARAF_HOME}/etc/org.apache.karaf.features.cfg
+    : FOR    ${ip}    IN    @{controllers}
+    \    Run Command On Remote System    ${ip}    ${cmd}

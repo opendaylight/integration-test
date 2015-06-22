@@ -10,37 +10,35 @@ Variables         ../../../variables/Variables.py
 *** Variables ***
 ${CAR_SHARD}      shard-car-config
 ${NUM_CARS}       ${50}
+${KARAF_HOME}     ${WORKSPACE}/${BUNDLEFOLDER}
+@{controllers}    ${CONTROLLER}    ${CONTROLLER1}    ${CONTROLLER2}
 
 *** Test Cases ***
 Get car leader
-    ${CAR_LEADER}    Wait For Leader    ${CAR_SHARD}
+    ${CAR_LEADER}    Wait For Leader To Be Found    ${CAR_SHARD}
     Set Suite Variable    ${CAR_LEADER}
 
 Delete cars from leader
     Delete All Cars And Verify    ${CAR_LEADER}
 
 Stop all controllers after delete
-    StopAllControllers    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${MEMBER1}    ${MEMBER2}    ${MEMBER3}
+    Stop One Or More Controllers    @{controllers}
 
 Start all controllers after delete
-    ${rc}    StartAllControllers    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${RESTCONFPORT}    ${MEMBER1}
-    ...    ${MEMBER2}    ${MEMBER3}
-    Should Be True    ${rc}
+    Start One Or More Controllers    @{controllers}
 
 Verify no cars on leader after restart
-    ${resp}    Getcars    ${CAR_LEADER}    ${PORT}    ${0}
+    ${resp}    Getcars    ${CAR_LEADER}    ${RESTCONFPORT}    ${0}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Add cars on leader
     Add Cars And Verify    ${CAR_LEADER}    ${NUM_CARS}
 
 Stop all controllers after add
-    StopAllControllers    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${MEMBER1}    ${MEMBER2}    ${MEMBER3}
+    Stop One Or More Controllers    @{controllers}
 
 Start all controllers after add
-    ${rc}    StartAllControllers    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${RESTCONFPORT}    ${MEMBER1}
-    ...    ${MEMBER2}    ${MEMBER3}
-    Should Be True    ${rc}
+    Start One Or More Controllers    @{controllers}
 
 Get cars from leader after restart
     Wait Until Keyword Succeeds    60s    2s    Get Cars And Verify    ${CAR_LEADER}    ${NUM_CARS}

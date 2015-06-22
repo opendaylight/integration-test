@@ -2,7 +2,6 @@
 Documentation     This test finds the followers of certain shards in a 3-Node cluster and executes CRUD operations on any one follower
 Default Tags      3-node-cluster
 Library           Collections
-Library           ../../../libraries/RequestsLibrary.py
 Library           ../../../libraries/Common.py
 Library           ../../../libraries/CrudLibrary.py
 Library           ../../../libraries/SettingsLibrary.py
@@ -12,7 +11,6 @@ Resource          ../../../libraries/ClusterKeywords.txt
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${REST_CONTEXT}    /restconf/config/
 ${SHARD_CAR_NAME}    shard-car-config
 ${SHARD_PEOPLE_NAME}    shard-people-config
 ${SHARD_CAR_PERSON_NAME}    shard-car-people-config
@@ -69,7 +67,7 @@ Get car-person mappings from Follower1
 
 Get car-person mappings from Leader
     [Documentation]    Get car-person mappings from the Leader to see all entries
-    ${CURRENT_CAR_LEADER}    Wait For Leader    ${SHARD_CAR_PERSON_NAME}
+    ${CURRENT_CAR_LEADER}    Wait For Leader To Be Found    ${SHARD_CAR_PERSON_NAME}
     Wait Until Keyword Succeeds    60s    2s    Get Car-Person Mappings And Verify    ${CURRENT_CAR_LEADER}    ${NUM_ENTRIES}
 
 Get car-person mappings from Follower2
