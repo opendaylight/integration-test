@@ -2,7 +2,7 @@
 Documentation     This test finds the leader for shards in a 3-Node cluster and executes CRUD operations on them
 Default Tags      3-node-cluster
 Library           Collections
-Library           ../../../libraries/RequestsLibrary.py
+Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Library           ../../../libraries/CrudLibrary.py
 Library           ../../../libraries/SettingsLibrary.py
@@ -12,7 +12,6 @@ Resource          ../../../libraries/ClusterKeywords.txt
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${REST_CONTEXT}    /restconf/config/
 ${SHARD_CAR_NAME}    shard-car-config
 ${SHARD_PEOPLE_NAME}    shard-people-config
 ${SHARD_CAR_PERSON_NAME}    shard-car-people-config
@@ -20,7 +19,7 @@ ${NUM_ENTRIES}    ${30}
 
 *** Test Cases ***
 Get Car Leader And Followers
-    ${CURRENT_CAR_LEADER}    Wait For Leader    ${SHARD_CAR_NAME}
+    ${CURRENT_CAR_LEADER}    Wait For Leader To Be Found    ${SHARD_CAR_NAME}
     Set Suite Variable    ${CURRENT_CAR_LEADER}
     ${CAR_FOLLOWERS}    Get All Followers    ${SHARD_CAR_NAME}
     Set Suite Variable    ${CAR_FOLLOWERS}
@@ -38,7 +37,7 @@ Get added cars from Follower2
     Wait Until Keyword Succeeds    60s    2s    Get Cars And Verify    @{CAR_FOLLOWERS}[1]    ${NUM_ENTRIES}
 
 Get People Leader And Followers
-    ${CURRENT_PEOPLE_LEADER}    Wait For Leader    ${SHARD_PEOPLE_NAME}
+    ${CURRENT_PEOPLE_LEADER}    Wait For Leader To Be Found    ${SHARD_PEOPLE_NAME}
     Set Suite Variable    ${CURRENT_PEOPLE_LEADER}
     ${PEOPLE_FOLLOWERS}    Get All Followers    ${SHARD_PEOPLE_NAME}
     Set Suite Variable    ${PEOPLE_FOLLOWERS}
@@ -56,7 +55,7 @@ Get added people from Follower2
     Wait Until Keyword Succeeds    60s    2s    Get People And Verify    @{PEOPLE_FOLLOWERS}[1]    ${NUM_ENTRIES}
 
 Get Car-Person Leader And Followers
-    ${CURRENT_CAR_PERSON_LEADER}    Wait For Leader    ${SHARD_CAR_PERSON_NAME}
+    ${CURRENT_CAR_PERSON_LEADER}    Wait For Leader To Be Found    ${SHARD_CAR_PERSON_NAME}
     Set Suite Variable    ${CURRENT_CAR_PERSON_LEADER}
     ${CAR_PERSON_FOLLOWERS}    Get All Followers    ${SHARD_CAR_PERSON_NAME}
     Set Suite Variable    ${CAR_PERSON_FOLLOWERS}

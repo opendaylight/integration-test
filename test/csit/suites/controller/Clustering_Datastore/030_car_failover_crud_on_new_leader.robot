@@ -5,15 +5,17 @@ Library           ../../../libraries/CrudLibrary.py
 Library           ../../../libraries/UtilLibrary.py
 Library           ../../../libraries/ClusterStateLibrary.py
 Resource          ../../../libraries/ClusterKeywords.txt
+Resource          ../../../libraries/Utils.txt
 
 *** Variables ***
 ${CAR_SHARD}      shard-car-config
 ${NUM_CARS}       ${50}
 ${NUM_ORIG_CARS}    ${10}
+${KARAF_HOME}     ${WORKSPACE}/${BUNDLEFOLDER}
 
 *** Test Cases ***
 Get old car leader
-    ${OLD_CAR_LEADER}    Wait For Leader    ${CAR_SHARD}
+    ${OLD_CAR_LEADER}    Wait For Leader To Be Found    ${CAR_SHARD}
     Set Suite Variable    ${OLD_CAR_LEADER}
 
 Delete cars on old leader
@@ -57,7 +59,7 @@ Get added cars from new leader
     Wait Until Keyword Succeeds    60s    2s    Get Cars And Verify    ${NEW_CAR_LEADER}    ${NUM_CARS}
 
 Restart old Car leader
-    StartController    ${OLD_CAR_LEADER}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${PORT}
+    Start One Or More Controllers    ${OLD_CAR_LEADER}
 
 Get added cars from old leader
     [Documentation]    Get the added cars from the old leader

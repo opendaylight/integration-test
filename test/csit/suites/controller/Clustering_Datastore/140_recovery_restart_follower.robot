@@ -12,59 +12,56 @@ Resource          ../../../libraries/ClusterKeywords.txt
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${REST_CONTEXT}    /restconf/config/
 ${CAR_SHARD}      shard-car-config
 ${NUM_CARS}       ${60}
+@{controllers}    ${CONTROLLER}    ${CONTROLLER1}    ${CONTROLLER2}
+${KARAF_HOME}     ${WORKSPACE}/${BUNDLEFOLDER}
 
 *** Test Cases ***
 Stop All Controllers
     [Documentation]    Stop all the controllers in the cluster
-    StopAllControllers    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${MEMBER1}    ${MEMBER2}    ${MEMBER3}
+    Stop One Or More Controllers    @{controllers}
 
 Clean All Journals
     [Documentation]    Clean the journals of all the controllers in the cluster
-    CleanJournal    ${MEMBER1}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
-    CleanJournal    ${MEMBER2}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
-    CleanJournal    ${MEMBER3}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
+    Clean One Or More Journals    @{controllers}
 
 Start All Controllers
     [Documentation]    Start all the controllers in the cluster
-    ${rc}    StartAllControllers    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${RESTCONFPORT}    ${MEMBER1}
-    ...    ${MEMBER2}    ${MEMBER3}
-    Should Be True    ${rc}
+    Start One Or More Controllers    @{controllers}
 
 Get car leader and followers
-    ${CURRENT_CAR_LEADER}    Wait For Leader    ${CAR_SHARD}
+    ${CURRENT_CAR_LEADER}    Wait For Leader To Be Found    ${CAR_SHARD}
     Set Suite Variable    ${CURRENT_CAR_LEADER}
     ${CAR_FOLLOWERS}    Get All Followers    ${CAR_SHARD}
     Set Suite Variable    ${CAR_FOLLOWERS}
 
 Stop both of the followers
-    StopAllControllers    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    @{CAR_FOLLOWERS}[0]    @{CAR_FOLLOWERS}[1]
-    Wait Until Keyword Succeeds    30s    2s    Expect No Leader
+    @{followers} =    Create List    @{CAR_FOLLOWERS}[0]    @{CAR_FOLLOWERS}[1]
+    Stop One Or More Controllers    @{followers}
 
-Attempt to add a car from the leader
+Attempt to add a car to the leader
     [Documentation]    Should fail as both followers are down
-    AddCar    ${CURRENT_CAR_LEADER}    ${PORT}    ${1}
+    AddCar    ${CURRENT_CAR_LEADER}    ${RESTCONFPORT}    ${1}
     Sleep    2
-    ${resp}    Getcars    ${CURRENT_CAR_LEADER}    ${PORT}    ${1}
+    ${resp}    Getcars    ${CURRENT_CAR_LEADER}    ${RESTCONFPORT}    ${1}
     Should Not Be Equal As Strings    ${resp.status_code}    200
 
 Restart the first follower
-    StartController    @{CAR_FOLLOWERS}[0]    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${PORT}
-    Sleep    1
+    Start One Or More Controllers    @{CAR_FOLLOWERS}[0]
 
-Add cars from the first follower
-    Wait Until Keyword Succeeds    60s    2s    Add Cars And Verify    @{CAR_FOLLOWERS}[0]    ${NUM_CARS}    4s
+Add cars to the first follower
+    Log    Adding ${NUM_CARS} cars to @{CAR_FOLLOWERS}[0]
+    Add Cars And Verify Without Init    @{CAR_FOLLOWERS}[0]    ${NUM_CARS}    4s
 
 Restart the second follower
-    StartController    @{CAR_FOLLOWERS}[1]    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${PORT}
+    Start One Or More Controllers    @{CAR_FOLLOWERS}[1]
 
 Get all the cars from the second follower
-    Wait Until Keyword Succeeds    60s    2s    Get Cars And Verify    @{CAR_FOLLOWERS}[1]    ${NUM_CARS}
+    Get Cars And Verify    @{CAR_FOLLOWERS}[1]    ${NUM_CARS}
 
 *** Keywords ***
 Expect No Leader
-    ${leader}    GetLeader    ${CAR_SHARD}    ${3}    ${1}    ${1}    ${PORT}
+    ${leader}    GetLeader    ${CAR_SHARD}    ${3}    ${1}    ${1}    ${RESTCONFPORT}
     ...    ${CURRENT_CAR_LEADER}
     Should Be Equal As Strings    ${leader}    None

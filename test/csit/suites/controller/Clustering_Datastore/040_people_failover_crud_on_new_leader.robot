@@ -9,11 +9,12 @@ Resource          ../../../libraries/ClusterKeywords.txt
 *** Variables ***
 ${PEOPLE_SHARD}    shard-people-config
 ${NUM_ENTRIES}    ${50}
+${KARAF_HOME}     ${WORKSPACE}/${BUNDLEFOLDER}
 
 *** Test Cases ***
 Switch People Leader
     [Documentation]    Stop the leader to cause a new leader to be elected
-    ${OLD_PEOPLE_LEADER}    Wait For Leader    ${PEOPLE_SHARD}
+    ${OLD_PEOPLE_LEADER}    Wait For Leader To Be Found    ${PEOPLE_SHARD}
     ${NEW_PEOPLE_LEADER}    Switch Leader    ${PEOPLE_SHARD}    ${OLD_PEOPLE_LEADER}
     Set Suite Variable    ${OLD_PEOPLE_LEADER}
     Set Suite Variable    ${NEW_PEOPLE_LEADER}
@@ -43,7 +44,7 @@ Get added people from new leader
     Wait Until Keyword Succeeds    60s    2s    Get People And Verify    ${NEW_PEOPLE_LEADER}    ${NUM_ENTRIES}
 
 Restart old People leader
-    StartController    ${OLD_PEOPLE_LEADER}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${PORT}
+    Start One Or More Controllers    ${OLD_PEOPLE_LEADER}
 
 Get added people from old leader
     Wait Until Keyword Succeeds    60s    2s    Get People And Verify    ${OLD_PEOPLE_LEADER}    ${NUM_ENTRIES}
