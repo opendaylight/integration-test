@@ -1,12 +1,11 @@
 *** Settings ***
-Resource          Utils.txt
 
 *** Variables ***
 
 *** Keywords ***
 Get Leader And Verify
     [Arguments]   ${shard_name}  ${old_leader}=${EMPTY}
-    ${leader}   GetLeader   ${shard_name}  ${3}  ${3}  ${1}  ${PORT}  ${CONTROLLER}  ${CONTROLLER1}  ${CONTROLLER2}
+    ${leader}   GetLeader   ${shard_name}  ${3}  ${3}  ${1}  ${PORT}  ${MEMBER1}  ${MEMBER2}  ${MEMBER3}
     Should Not Be Equal As Strings   ${leader}   None
     Run Keyword If  '${old_leader}'!='${EMPTY}'  Should Not Be Equal  ${old_leader}  ${leader}
     [Return]   ${leader}
@@ -19,15 +18,14 @@ Wait For Leader
 
 Switch Leader
     [Arguments]   ${shard_name}  ${current_leader}
-    Stop One Or More Controllers  ${current_leader}
+    StopController  ${current_leader}  ${USERNAME}  ${PASSWORD}  ${KARAFHOME}
     ${new_leader}  Wait Until Keyword Succeeds   60s  2s  Get Leader And Verify  ${shard_name}  ${current_leader}
-    # TODO: Future enhanement: make sure the other controller is a follower and not a master or candidate.
     Log   ${new_leader}
     [Return]   ${new_leader}
 
 Get All Followers
     [Arguments]   ${shard_name}
-    ${followers}  GetFollowers  ${shard_name}  ${3}  ${3}  ${1}  ${PORT}  ${CONTROLLER}  ${CONTROLLER1}  ${CONTROLLER2}
+    ${followers}  GetFollowers  ${shard_name}  ${3}  ${3}  ${1}  ${PORT}  ${MEMBER1}  ${MEMBER2}  ${MEMBER3}
     Log  ${followers}
     Should Not Be Empty  ${followers}
     [Return]  ${followers}

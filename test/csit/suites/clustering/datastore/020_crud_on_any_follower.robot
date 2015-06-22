@@ -2,6 +2,7 @@
 Documentation     This test finds the followers of certain shards in a 3-Node cluster and executes CRUD operations on any one follower
 Default Tags      3-node-cluster
 Library           Collections
+Library           ../../../libraries/RequestsLibrary.py
 Library           ../../../libraries/Common.py
 Library           ../../../libraries/CrudLibrary.py
 Library           ../../../libraries/SettingsLibrary.py
@@ -11,6 +12,7 @@ Resource          ../../../libraries/ClusterKeywords.txt
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
+${REST_CONTEXT}    /restconf/config/
 ${SHARD_CAR_NAME}    shard-car-config
 ${SHARD_PEOPLE_NAME}    shard-people-config
 ${SHARD_CAR_PERSON_NAME}    shard-car-people-config
