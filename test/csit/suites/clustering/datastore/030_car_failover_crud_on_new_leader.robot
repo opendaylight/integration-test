@@ -5,7 +5,6 @@ Library           ../../../libraries/CrudLibrary.py
 Library           ../../../libraries/UtilLibrary.py
 Library           ../../../libraries/ClusterStateLibrary.py
 Resource          ../../../libraries/ClusterKeywords.txt
-Resource          ../../../libraries/Utils.txt
 
 *** Variables ***
 ${CAR_SHARD}      shard-car-config
@@ -58,7 +57,7 @@ Get added cars from new leader
     Wait Until Keyword Succeeds    60s    2s    Get Cars And Verify    ${NEW_CAR_LEADER}    ${NUM_CARS}
 
 Restart old Car leader
-    Start One Or More Controllers    ${OLD_CAR_LEADER}
+    StartController    ${OLD_CAR_LEADER}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}    ${PORT}
 
 Get added cars from old leader
     [Documentation]    Get the added cars from the old leader

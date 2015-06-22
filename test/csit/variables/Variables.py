@@ -14,7 +14,6 @@ PROMPT = '>'
 CONTAINER = 'default'
 USER = 'admin'
 PWD = 'admin'
-PASSWORD = 'EMPTY'
 AUTH = [u'admin', u'admin']
 SCOPE = 'sdn'
 HEADERS = {'Content-Type': 'application/json'}
@@ -24,14 +23,12 @@ ODL_CONTROLLER_SESSION = None
 TOPO_TREE_LEVEL = 2
 TOPO_TREE_DEPTH = 3
 TOPO_TREE_FANOUT = 2
-CONTROLLERS = ['CONTROLLER', 'CONTROLLER1', 'CONTROLLER2']
 
 # KARAF Varaiable
 KARAF_SHELL_PORT = '8101'
 KARAF_PROMPT = 'opendaylight-user'
 KARAF_USER = 'karaf'
 KARAF_PASSWORD = 'karaf'
-KARAF_HOME = '/tmp/${BUNDLEFOLDER}'
 
 # VM Environment Variables
 LINUX_PROMPT = '>'
@@ -80,7 +77,6 @@ CONTROLLER_CONFIG_MOUNT = ('/restconf/config/network-topology:'
                            'network-topology/topology'
                            '/topology-netconf/node/'
                            'controller-config/yang-ext:mount')
-CONFIG_API = '/restconf/config/'
 
 # TOKEN
 AUTH_TOKEN_API = '/oauth2/token'

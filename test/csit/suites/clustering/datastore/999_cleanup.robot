@@ -1,18 +1,16 @@
 *** Settings ***
 Documentation     Test cleanup
 Default Tags      3-node-cluster
-Resource          ../../../libraries/Utils.txt
 Library           ../../../libraries/UtilLibrary.py
 Variables         ../../../variables/Variables.py
 
-*** Variables ***
-@{controllers}    ${CONTROLLER}    ${CONTROLLER1}    ${CONTROLLER2}
-
 *** Test Cases ***
 Kill All Controllers
-    [Documentation]    Kill all the karaf processes in the cluster
-    Kill One Or More Controllers    @{controllers}
+    KillController    ${MEMBER1}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
+    KillController    ${MEMBER2}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
+    KillController    ${MEMBER3}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
 
 Clean All Journals
-    [Documentation]    Clean the journals of all the controllers in the cluster
-    Clean One Or More Journals    @{controllers}
+    CleanJournal    ${MEMBER1}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
+    CleanJournal    ${MEMBER2}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
+    CleanJournal    ${MEMBER3}    ${USER_NAME}    ${PASSWORD}    ${KARAF_HOME}
