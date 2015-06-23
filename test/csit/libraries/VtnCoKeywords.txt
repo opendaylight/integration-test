@@ -10,20 +10,18 @@ Library           XML
 Variables         ../variables/Variables.py
 Resource          ./Utils.txt
 
-*** Variables ***
-${VTNC_FILENAME}    'distribution.vtn-coordinator'
-
 *** Keywords ***
 Get VtnCo
     [Documentation]    Download the VTN Coordinator from Controller VM
     Log    Download the VTN Coordinator bz2 file
     SSHLibrary.Open_Connection    ${CONTROLLER}
     SSHLibrary.Login_With_Public_Key    ${CONTROLLER_USER}    ${USER_HOME}/.ssh/id_rsa    any
-    SSHLibrary.Get_File    ${WORKSPACE}/${BUNDLEFOLDER}/externalapps/*vtn-coordinator*-bin.tar.bz2    ${WORKSPACE}/${VTNC_FILENAME}-bin.tar.bz2
+    ${VTNC_FILENAME}=    Catenate    SEPARATOR=/    ${WORKSPACE}    vtn_coordinator.tar.bz2
+    SSHLibrary.Get_File    ${WORKSPACE}/${BUNDLEFOLDER}/externalapps/*vtn-coordinator*-bin.tar.bz2    ${VTNC_FILENAME}
     SSHLibrary.Close_Connection
     SSHLibrary.Open_Connection    ${MININET}
     SSHLibrary.Login_With_Public_Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
-    SSHLibrary.Put_File    ${WORKSPACE}/${VTNC_FILENAME}-bin.tar.bz2    ${WORKSPACE}
+    SSHLibrary.Put_File    ${VTNC_FILENAME}    /tmp
     SSHLibrary.Close_Connection
 
 Start SuiteVtnCo
@@ -33,7 +31,8 @@ Start SuiteVtnCo
     ${vtnc_conn_id}=    Open Connection    ${MININET}    prompt=${LINUX_PROMPT}    timeout=30s
     Set Suite Variable    ${vtnc_conn_id}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
-    Execute Command    tar -C/ -jxvf ${WORKSPACE}/${VTNC_FILENAME}-bin.tar.bz2
+    ${VTNC_FILENAME}=    Catenate    SEPARATOR=/    ${WORKSPACE}    vtn_coordinator.tar.bz2
+    Execute Command    tar -C/ -jxvf ${VTNC_FILENAME}
     Execute Command    /usr/local/vtn/sbin/db_setup
     Execute Command    /usr/local/vtn/bin/vtn_start
     Execute Command    /usr/local/vtn/bin/unc_dmctl status
@@ -48,7 +47,7 @@ Stop SuiteVtnCo
 
 Start SuiteVtnCoTest
     [Documentation]    Start the VTNCo Test
-    Create Session    session    http://${VTNC}:8083    headers=${VTNC_HEADERS}
+    Create Session    session    http://${MININET}:8083    headers=${VTNC_HEADERS}
 
 Stop SuiteVtnCoTest
     [Documentation]    Exit the VtnCo Test
@@ -137,7 +136,7 @@ Define Portmap for VBRIF
 Test Ping
     [Arguments]    ${host1}    ${host2}
     [Documentation]    Ping hosts to check connectivity
-    Write    ${host1} ping -c 5 ${host2}
+    Write    ${host1} ping -c 10 ${host2}
     ${result}    Read Until    mininet>
     Should Contain    ${result}    64 bytes
 
