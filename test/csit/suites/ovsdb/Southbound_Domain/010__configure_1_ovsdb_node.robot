@@ -148,6 +148,31 @@ Get Config Topology after reconnect
     Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
     Should Contain    ${resp.content}    br-int
 
+Create integration Bridge
+    [Documentation]    This will create bridge on the specified OVSDB node.
+    [Tags]    Southbound
+    ${sample}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_bridge.json
+    ${sample1}    Replace String    ${sample}    tcp:127.0.0.1:6633    tcp:${CONTROLLER}:6633
+    ${sample2}    Replace String    ${sample1}    127.0.0.1    ${MININET}
+    ${sample3}    Replace String    ${sample2}    br01    br-int
+    ${body}    Replace String    ${sample3}    61644    ${OVSDB_PORT}
+    Log    URL is ${SOUTHBOUND_CONFIG_API}%2Fbridge%2F${BRIDGE}
+    ${resp}    RequestsLibrary.Put    session    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2Fbr-int    data=${body}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+
+Delete the integration Bridge
+    [Documentation]    This request will delete the bridge node from the config data store.
+    [Tags]    Southbound
+    ${resp}    RequestsLibrary.Delete    session    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2Fbr-int
+    Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
+
+Get Operational Topology after Deletion of integration Bridge
+    [Documentation]    This request will fetch the operational topology after the Bridge is deleted
+    [Tags]    Southbound
+    @{list}    Create List    br-int
+    Wait Until Keyword Succeeds    8s    2s    Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}    ${list}
+
 Again Delete the OVSDB Node
     [Documentation]    This request will delete the OVSDB node
     [Tags]    Southbound

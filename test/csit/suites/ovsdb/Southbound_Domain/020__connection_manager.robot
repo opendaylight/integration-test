@@ -10,7 +10,7 @@ Resource          ../../../libraries/Utils.txt
 
 *** Variables ***
 ${OVSDB_PORT}     6634
-${SOUTHBOUND_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${MININET}:6634
+${SOUTHBOUND_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${MININET}:${OVSDB_PORT}
 ${OVSDB_CONFIG_DIR}    ${CURDIR}/../../../variables/ovsdb
 @{node_list}      ovsdb://${MININET}:${OVSDB_PORT}    ${MININET}    ${OVSDB_PORT}    br-int
 
@@ -18,7 +18,6 @@ ${OVSDB_CONFIG_DIR}    ${CURDIR}/../../../variables/ovsdb
 Connecting an OVS instance to the controller
     [Tags]    Southbound
     Run Command On Remote System    ${MININET}    sudo ovs-vsctl del-manager
-    Run Command On Remote System    ${MININET}    sudo ovs-vsctl del-br br-int
     Run Command On Remote System    ${MININET}    sudo ovs-vsctl set-manager tcp:${CONTROLLER}:6640
 
 Get Operational Topology to verify the ovs instance is connected to the controller
