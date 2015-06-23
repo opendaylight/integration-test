@@ -7,7 +7,6 @@ Resource          ../../../libraries/VtnCoKeywords.txt
 *** Test Cases ***
 Add a ODL Controller
     [Documentation]    Add a Controller odc1
-    [Tags]    exclude
     Add a Controller    odc_test    ${CONTROLLER}
 
 Verify the Controller Status is up
@@ -47,5 +46,4 @@ Verify switchPort switch3
 
 Delete a Controller
     [Documentation]    Delete Controller odc1
-    [Tags]    exclude
     Remove Controller    odc_test
