@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Suite checks if StatMngr is able to collect flows correctly
 Suite Setup       Create Http Session
-Suite Teardown    Delete Http Session
+Suite Teardown    Delete Http Session And Store Plot Data
 Library           OperatingSystem
 Library           Collections
 Library           XML
@@ -21,9 +21,12 @@ ${tabspread}      first
 @{cntls}          ${CONTROLLER}
 ${linux_prompt}    >
 ${start_cmd}      sudo mn --controller=remote,ip=${CONTROLLER} --topo linear,${swnr} --switch ovsk,protocols=OpenFlow13
-${iperiod}        30s
+${iperiod}        1s
 ${imonitor}       600s
-${ichange}        120s
+${ichange}        450s
+${outfile}        flows_setup_time.csv
+${inittime}       0
+${restarttime}    0
 
 *** Test Cases ***
 Connect Mininet
@@ -39,7 +42,7 @@ Configure Flows
 
 Wait Stats Collected
     [Documentation]    Waits till ${flnr} flows are initially collected
-    Inventory Change Reached    ${swnr}    ${flnr}
+    Measure Setup Time    ${swnr}    ${flnr}    inittime
 
 Stable State Monitoring
     [Documentation]    Inventory check if all ${flnr} flows are present for specified time frame
@@ -59,7 +62,7 @@ Connect Mininet Again
 
 Check Flows Are Operational Again
     [Documentation]    All ${flnr} slows should be present in the operational datastore after mininet reconnection
-    Inventory Change Reached    ${swnr}    ${flnr}
+    Measure Setup Time    ${swnr}    ${flnr}    restarttime
 
 Deconfigure Flows
     [Documentation]    Flows deconfiguration
@@ -96,8 +99,10 @@ Stop Switches
     Read Until    ${linux_prompt}
     Close Connection
 
-Delete Http Session
+Delete Http Session And Store Plot Data
     Delete All Sessions
+    Append To File    ${outfile}    InitCollectionTime,AfterMininetRestartCollectionTime\n
+    Append To File    ${outfile}    ${inittime},${restarttime}\n
 
 Are Switches Connected Topo
     [Documentation]    Checks wheather switches are connected to controller
@@ -112,6 +117,27 @@ Check Flows Inventory
     ${sw}    ${repf}    ${foundf}=    Flow Stats Collected    controller=${CONTROLLER}
     Should Be Equal As Numbers    ${rswitches}    ${sw}
     Should Be Equal As Numbers    ${rflows}    ${foundf}
+
+Measure Setup Time
+    [Arguments]    ${rswitches}    ${rflows}    ${note}
+    [Documentation]    This keyword is dedicated to save measured time for plotting
+    ${starttime}=    Get Time    epoch
+    Log    Starting stats collection at time ${starttime}
+    Set Suite Variable    ${starttime}
+    Inventory Change Reached    ${rswitches}    ${rflows}
+    [Teardown]    Save Setup Time    ${note}
+
+Save Setup Time
+    [Arguments]    ${note}
+    [Documentation]    Count the difference and stores it
+    ${endtime}=    Get Time    epoch
+    Log    Stats collection finished at time ${endtime}
+    ${res}=    Evaluate    int(${endtime})-int(${starttime})
+    ${inittime}=    Set Variable If    "${note}"=="inittime"    ${res}    ${inittime}
+    ${restarttime}=    Set Variable If    "${note}"=="restarttime"    ${res}    ${restarttime}
+    Set Suite Variable    ${inittime}
+    Set Suite Variable    ${restarttime}
+    Log To Console    ${inittime} ${restarttime} ${res}
 
 Inventory Change Reached
     [Arguments]    ${rswitches}    ${rflows}
