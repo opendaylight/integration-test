@@ -15,14 +15,16 @@ class RemoteHost:
         self.user = user
         self.password = password
         self.rootdir = rootdir
+        self.lib = SSHLibrary()
+        self.lib.open_connection(self.host)
+        self.lib.login(username=self.user, password=self.password)
+
+    def __del__(self):
+        self.lib.close_connection()
 
     def exec_cmd(self, command):
         print "Executing command " + command + " on host " + self.host
-        lib = SSHLibrary()
-        lib.open_connection(self.host)
-        lib.login(username=self.user, password=self.password)
-        rc = lib.execute_command(command, return_rc=True)
-        lib.close_connection()
+        rc = self.lib.execute_command(command, return_rc=True)
         if rc[1] != 0:
             raise Exception('remote command failed [{0}] with exit code {1}'
                             .format(command, rc))
@@ -39,12 +41,8 @@ class RemoteHost:
             print "Src file " + src + " was not found"
             return
 
-        lib = SSHLibrary()
-        lib.open_connection(self.host)
-        lib.login(username=self.user, password=self.password)
         print "Copying " + src + " to " + dest + " on " + self.host
-        lib.put_file(src, dest)
-        lib.close_connection()
+        self.lib.put_file(src, dest)
 
     def kill_controller(self):
         self.exec_cmd("sudo ps axf | grep karaf | grep -v grep "
