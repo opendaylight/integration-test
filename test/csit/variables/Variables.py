@@ -92,3 +92,8 @@ BASE_IP_1 = '75.75.0.0'
 CREATE_FULLYMESH_TOPOLOGY_FILE = "create_fullymesh.py"
 CREATE_FULLYMESH_TOPOLOGY_FILE_PATH = "libraries/MininetTopo/" +\
                                       CREATE_FULLYMESH_TOPOLOGY_FILE
+
+GBP_REGEP_API = "/restconf/operations/endpoint:register-endpoint"
+GBP_UNREGEP_API = "/restconf/operations/endpoint:unregister-endpoint"
+GBP_TENANTS_API = "/restconf/config/policy:tenants"
+GBP_TUNNELS_API = "/restconf/config/opendaylight-inventory:nodes"
