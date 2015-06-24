@@ -54,6 +54,7 @@ class FlowConfigBlaster(object):
     FLWURL = "restconf/config/opendaylight-inventory:nodes/node/openflow:%d/table/0/flow/%d"
     TBLURL = "restconf/config/opendaylight-inventory:nodes/node/openflow:%d/table/0"
     INVURL = 'restconf/operational/opendaylight-inventory:nodes'
+    TIMEOUT = 10
 
     flows = {}
 
@@ -208,9 +209,10 @@ class FlowConfigBlaster(object):
         nodes = self.nnodes
 
         if not self.auth:
-            r = session.get(inventory_url, headers=self.getheaders, stream=False)
+            r = session.get(inventory_url, headers=self.getheaders, stream=False, timeout=self.TIMEOUT)
         else:
-            r = session.get(inventory_url, headers=self.getheaders, stream=False, auth=('admin', 'admin'))
+            r = session.get(inventory_url, headers=self.getheaders, stream=False, auth=('admin', 'admin'),
+                            timeout=self.TIMEOUT)
 
         if r.status_code == 200:
             try:
@@ -262,9 +264,10 @@ class FlowConfigBlaster(object):
         # print flow_url
 
         if not self.auth:
-            r = session.post(flow_url, data=flow_data, headers=self.putheaders, stream=False)
+            r = session.post(flow_url, data=flow_data, headers=self.putheaders, stream=False, timeout=self.TIMEOUT)
         else:
-            r = session.post(flow_url, data=flow_data, headers=self.putheaders, stream=False, auth=('admin', 'admin'))
+            r = session.post(flow_url, data=flow_data, headers=self.putheaders, stream=False, auth=('admin', 'admin'),
+                             timeout=self.TIMEOUT)
 
         return r.status_code
 
@@ -343,9 +346,9 @@ class FlowConfigBlaster(object):
         # print flow_url
 
         if not self.auth:
-            r = session.delete(flow_url, headers=self.getheaders)
+            r = session.delete(flow_url, headers=self.getheaders, timeout=self.TIMEOUT)
         else:
-            r = session.delete(flow_url, headers=self.getheaders, auth=('admin', 'admin'))
+            r = session.delete(flow_url, headers=self.getheaders, auth=('admin', 'admin'), timeout=self.TIMEOUT)
 
         return r.status_code
 
@@ -419,9 +422,8 @@ class FlowConfigBlaster(object):
 
             # Wait for all threads to finish and measure the execution time
             with Timer() as t:
-                while self.threads_done < self.nthreads:
-                    with self.cond:
-                        self.cond.wait()
+                for thread in threads:
+                    thread.join()
 
             with self.print_lock:
                 print '\n*** Test summary:'
