@@ -1,0 +1,20 @@
+{
+    "node":
+      {
+        "id": "openflow:1",
+        "ofoverlay:tunnel": [
+          {
+            "tunnel-type": "overlay:tunnel-type-vxlan-gpe",
+            "node-connector-id": "openflow:1:1",
+            "ip": "192.168.50.70",
+            "port": 6633
+          },
+          {
+            "tunnel-type": "overlay:tunnel-type-vxlan",
+            "node-connector-id": "openflow:1:2",
+            "ip": "192.168.50.70",
+            "port": 4789
+          }
+        ]
+      }
+}

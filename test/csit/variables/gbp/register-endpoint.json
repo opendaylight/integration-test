@@ -1,0 +1,16 @@
+{
+    "input": {
+        "endpoint-group": "e593f05d-96be-47ad-acd5-ba81465680d5",
+        "l2-context": "70aeb9ea-4ca1-4fb9-9780-22b04b84a0d6",
+        "l3-address": [
+            {
+                "ip-address": "10.0.36.5",
+                "l3-context": "f2311f52-890f-4095-8b85-485ec8b92b3c"
+            }
+        ],
+        "mac-address": "00:00:00:00:36:05",
+        "ofoverlay:node-connector-id": "openflow:2:4",
+        "ofoverlay:node-id": "openflow:2",
+        "tenant": "f5c7d344-d1c7-4208-8531-2c2693657e12"
+    }
+}
