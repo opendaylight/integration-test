@@ -20,6 +20,8 @@ ${FLOW_DROP}      actions=drop
 Make the OVS instance to listen for connection
     [Documentation]    Connect OVS to ODL
     [Tags]    OVSDB netvirt
+    Run Command On Remote System    ${MININET}    sudo ovs-vsctl --if-exists del-port br-int
+    Run Command On Remote System    ${MININET}    sudo ovs-vsctl --if-exists del-br br-int
     Run Command On Remote System    ${MININET}    sudo ovs-vsctl del-manager
     Run Command On Remote System    ${MININET}    sudo ovs-vsctl set-manager tcp:${CONTROLLER}:6640
     ${output}    Run Command On Remote System    ${MININET}    sudo ovs-vsctl show
