@@ -15,6 +15,5 @@ apt-get install -y \
 wget -nv http://apache.sunsite.ualberta.ca/maven/maven-3/3.3.1/binaries/apache-maven-3.3.1-bin.tar.gz
 mkdir -p /usr/local/apache-maven
 tar -C /usr/local/apache-maven/ -xzf apache-maven-3.3.1-bin.tar.gz
-echo "export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64" >> /home/vagrant/.bash_profile
 echo "export PATH=$PATH:/usr/local/apache-maven/apache-maven-3.3.1/bin" >> /home/vagrant/.bash_profile
 echo "MAVEN_OPTS=\"-Xms256m -Xmx512m\"" >> /home/vagrant/.bash_profile
