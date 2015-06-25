@@ -1,5 +1,4 @@
 # Place the suites in run order:
-integration/test/csit/suites/vtn/VTN_C_LAUNCH
 integration/test/csit/suites/vtn/VTN_C_OF10
 integration/test/csit/suites/vtn/VTN_C_OF13
 
