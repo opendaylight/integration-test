@@ -1,8 +1,20 @@
 *** Settings ***
 Documentation     Test suite connecting ODL to Mininet
+Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Teardown    Delete All Sessions
+Library           SSHLibrary
+Library           Collections
+Library           OperatingSystem
+Library           String
+Library           DateTime
+Library           RequestsLibrary
+Library           ../../../libraries/Common.py
+Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.txt
 
 *** Variables ***
+${OVSDB_PORT}     6640
+${OF_PORT}    6653
 ${FLOWS_TABLE_20}    actions=goto_table:20
 ${FLOW_CONTROLLER}    actions=CONTROLLER:65535
 ${FLOWS_TABLE_30}    actions=goto_table:30
@@ -15,6 +27,8 @@ ${FLOWS_TABLE_90}    actions=goto_table:90
 ${FLOWS_TABLE_100}    actions=goto_table:100
 ${FLOWS_TABLE_110}    actions=goto_table:110
 ${FLOW_DROP}      actions=drop
+${PING_NOT_CONTAIN}    Destination Host Unreachable
+@{node_list}      ovsdb://uuid/
 
 *** Test Cases ***
 Make the OVS instance to listen for connection
@@ -23,21 +37,24 @@ Make the OVS instance to listen for connection
     Run Command On Remote System    ${MININET}    sudo ovs-vsctl --if-exists del-port br-int
     Run Command On Remote System    ${MININET}    sudo ovs-vsctl --if-exists del-br br-int
     Run Command On Remote System    ${MININET}    sudo ovs-vsctl del-manager
-    Run Command On Remote System    ${MININET}    sudo ovs-vsctl set-manager tcp:${CONTROLLER}:6640
+    Run Command On Remote System    ${MININET}    sudo ovs-vsctl set-manager tcp:${CONTROLLER}:${OVSDB_PORT}
     ${output}    Run Command On Remote System    ${MININET}    sudo ovs-vsctl show
+    ${pingresult}   Run Command On Remote System    ${MININET}    ping ${CONTROLLER} -c 4
+    Should Not Contain    ${pingresult}    ${PING_NOT_CONTAIN}
+    Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${node_list}
 
 Get controller connection
     [Documentation]    This will make sure the controller is correctly set up/connected
     [Tags]    OVSDB netvirt
     ${output}    Run Command On Remote System    ${MININET}    sudo ovs-vsctl show
-    Should Contain    ${output}    Manager "tcp:${CONTROLLER}:6640"
+    Should Contain    ${output}    Manager "tcp:${CONTROLLER}:${OVSDB_PORT}"
     Should Contain    ${output}    is_connected: true
 
 Get bridge setup
     [Documentation]    This request is verifying that the br-int bridge has been created
     [Tags]    OVSDB netvirt
     ${output}    Run Command On Remote System    ${MININET}    sudo ovs-vsctl show
-    Should Contain    ${output}    Controller "tcp:${CONTROLLER}:6653"
+    Should Contain    ${output}    Controller "tcp:${CONTROLLER}:${OF_PORT}"
     Should Contain    ${output}    Bridge br-int
 
 Get port setup
