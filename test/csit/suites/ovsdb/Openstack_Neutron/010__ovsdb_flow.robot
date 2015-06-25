@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Checking Network created in OVSDB are pushed to OpenDaylight
-Suite Setup       Create Session    ODLSession    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
 Library           SSHLibrary
 Library           Collections
@@ -40,6 +40,7 @@ ${FLOAT_IP1_PORT_ID}    01671703-695e-4497-8a11-b5da989d2dc3
 ${FLOAT_IP1_MAC}    FA:16:3E:3F:37:BB
 ${FLOAT_IP1_DEVICE_ID}    f013bef4-9468-494d-9417-c9d9e4abb97c
 ${FLOAT_IP1_ADDRESS}    192.168.111.22
+@{node_list}      ovsdb://uuid/
 
 *** Test Cases ***
 Add variables to controller custom.properties
@@ -53,12 +54,17 @@ Add variables to controller custom.properties
     ${controller_pid_2}=    Get Process ID Based On Regex On Remote System    ${CONTROLLER}    java.*distribution.*karaf
     Should Not be Equal As Numbers    ${controller_pid_1}    ${controller_pid_2}
 
+Ensure controller is running
+    [Documentation]    Check if the controller is running before sending restconf requests
+    [Tags]    Check controller reachability
+    Wait Until Keyword Succeeds    300s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${node_list}
+
 Check External Net for Tenant
     [Documentation]    Check External Net for Tenant
     [Tags]    OpenStack Call Flow
-    ${resp}    RequestsLibrary.Get    ODLSession    ${ODLREST}/networks
-    log    http://${CONTROLLER}:${RESTCONFPORT}${ODLREST}
-    Should be Equal As Strings    ${resp.status_code}    200
+    ${resp}    RequestsLibrary.Get    session    ${ODLREST}/networks
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
 
 Create External Net for Tenant
     [Documentation]    Create External Net for Tenant
@@ -66,10 +72,10 @@ Create External Net for Tenant
     ${Data}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_ext_net.json
     ${Data}    Replace String    ${Data}    {netId}    ${EXT_NET1_ID}
     ${Data}    Replace String    ${Data}    {tntId}    ${TNT1_ID}
-    log    ${Data}
-    ${resp}    RequestsLibrary.Post    ODLSession    ${ODLREST}/networks    data=${Data}    headers=${HEADERS}
-    log    ${resp.status_code}
-    Should be Equal As Strings    ${resp.status_code}    201
+    Log    ${Data}
+    ${resp}    RequestsLibrary.Post    session    ${ODLREST}/networks    data=${Data}    headers=${HEADERS}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    201
 
 Create External Subnet
     [Documentation]    Create External Subnet
@@ -78,9 +84,9 @@ Create External Subnet
     ${Data}    Replace String    ${Data}    {netId}    ${EXT_NET1_ID}
     ${Data}    Replace String    ${Data}    {tntId}    ${TNT1_ID}
     ${Data}    Replace String    ${Data}    {subnetId}    ${EXT_SUBNET1_ID}
-    log    ${Data}
-    ${resp}    RequestsLibrary.Post    ODLSession    ${ODLREST}/subnets    ${Data}
-    Should be Equal As Strings    ${resp.status_code}    201
+    Log    ${Data}
+    ${resp}    RequestsLibrary.Post    session    ${ODLREST}/subnets    ${Data}
+    Should Be Equal As Strings    ${resp.status_code}    201
 
 Create Tenant Router
     [Documentation]    Create Tenant Router
@@ -88,9 +94,9 @@ Create Tenant Router
     ${Data}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_router.json
     ${Data}    Replace String    ${Data}    {tntId}    ${TNT1_ID}
     ${Data}    Replace String    ${Data}    {rtrId}    ${TNT1_RTR_ID}
-    log    ${Data}
-    ${resp}    RequestsLibrary.Post    ODLSession    ${ODLREST}/routers    ${Data}
-    Should be Equal As Strings    ${resp.status_code}    201
+    Log    ${Data}
+    ${resp}    RequestsLibrary.Post    session    ${ODLREST}/routers    ${Data}
+    Should Be Equal As Strings    ${resp.status_code}    201
 
 Set Router Gateway
     [Documentation]    Set Router Gateway
@@ -101,9 +107,9 @@ Set Router Gateway
     ${Data}    Replace String    ${Data}    {netId}    ${EXT_NET1_ID}
     ${Data}    Replace String    ${Data}    {subnetId}    ${EXT_SUBNET1_ID}
     ${Data}    Replace String    ${Data}    {portId}    ${NEUTRON_PORT_TNT1_RTR_GW}
-    log    ${Data}
-    ${resp}    RequestsLibrary.Post    ODLSession    ${ODLREST}/ports    ${Data}
-    Should be Equal As Strings    ${resp.status_code}    201
+    Log    ${Data}
+    ${resp}    RequestsLibrary.Post    session    ${ODLREST}/ports    ${Data}
+    Should Be Equal As Strings    ${resp.status_code}    201
 
 Update Router Port Gateway
     [Documentation]    Update Router Port Gateway
@@ -113,9 +119,9 @@ Update Router Port Gateway
     ${Data}    Replace String    ${Data}    {netId}    ${EXT_NET1_ID}
     ${Data}    Replace String    ${Data}    {subnetId}    ${EXT_SUBNET1_ID}
     ${Data}    Replace String    ${Data}    {portId}    ${NEUTRON_PORT_TNT1_RTR_GW}
-    log    ${Data}
-    ${resp}    RequestsLibrary.Put    ODLSession    ${ODLREST}/routers/${TNT1_RTR_ID}    ${Data}
-    Should be Equal As Strings    ${resp.status_code}    200
+    Log    ${Data}
+    ${resp}    RequestsLibrary.Put    session    ${ODLREST}/routers/${TNT1_RTR_ID}    ${Data}
+    Should Be Equal As Strings    ${resp.status_code}    200
 
 Create Tenant Internal Net
     [Documentation]    Create Tenant Internal Net
@@ -125,9 +131,9 @@ Create Tenant Internal Net
     ${Data}    Replace String    ${Data}    {netId}    ${TNT1_NET1_ID}
     ${Data}    Replace String    ${Data}    {netName}    ${TNT1_NET1_NAME}
     ${Data}    Replace String    ${Data}    {netSegm}    ${TNT1_NET1_SEGM}
-    log    ${Data}
-    ${resp}    RequestsLibrary.Post    ODLSession    ${ODLREST}/networks    ${Data}
-    Should be Equal As Strings    ${resp.status_code}    201
+    Log    ${Data}
+    ${resp}    RequestsLibrary.Post    session    ${ODLREST}/networks    ${Data}
+    Should Be Equal As Strings    ${resp.status_code}    201
 
 Create Tenant Internal Subnet
     [Documentation]    Create Tenant Internal Subnet
@@ -137,9 +143,9 @@ Create Tenant Internal Subnet
     ${Data}    Replace String    ${Data}    {netId}    ${TNT1_NET1_ID}
     ${Data}    Replace String    ${Data}    {subnetId}    ${TNT1_SUBNET1_ID}
     ${Data}    Replace String    ${Data}    {subnetName}    ${TNT1_SUBNET1_NAME}
-    log    ${Data}
-    ${resp}    RequestsLibrary.Post    ODLSession    ${ODLREST}/subnets    ${Data}
-    Should be Equal As Strings    ${resp.status_code}    201
+    Log    ${Data}
+    ${resp}    RequestsLibrary.Post    session    ${ODLREST}/subnets    ${Data}
+    Should Be Equal As Strings    ${resp.status_code}    201
 
 Create Port DHCP
     [Documentation]    Create Port DHCP
@@ -152,9 +158,9 @@ Create Port DHCP
     ${Data}    Replace String    ${Data}    {tntId}    ${TNT1_ID}
     ${Data}    Replace String    ${Data}    {dhcpMac}    ${TNT1_NET1_DHCP_MAC}
     ${Data}    Replace String    ${Data}    {dhcpId}    ${TNT1_NET1_DHCP_PORT_ID}
-    log    ${Data}
-    ${resp}    RequestsLibrary.Post    ODLSession    ${ODLREST}/ports    ${Data}
-    Should be Equal As Strings    ${resp.status_code}    201
+    Log    ${Data}
+    ${resp}    RequestsLibrary.Post    session    ${ODLREST}/ports    ${Data}
+    Should Be Equal As Strings    ${resp.status_code}    201
 
 Update Port DHCP
     [Documentation]    Update Port DHCP
@@ -162,9 +168,9 @@ Update Port DHCP
     ${Data}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/update_port_dhcp.json
     ${Data}    Replace String    ${Data}    {BIND_HOST_ID}    ${CONTROLLER}
     ${Data}    Replace String    ${Data}    {dhcpDeviceId}    ${TNT1_NET1_DHCP_DEVICE_ID}
-    log    ${Data}
-    ${resp}    RequestsLibrary.Put    ODLSession    ${ODLREST}/ports/${TNT1_NET1_DHCP_PORT_ID}    ${Data}
-    Should be Equal As Strings    ${resp.status_code}    200
+    Log    ${Data}
+    ${resp}    RequestsLibrary.Put    session    ${ODLREST}/ports/${TNT1_NET1_DHCP_PORT_ID}    ${Data}
+    Should Be Equal As Strings    ${resp.status_code}    200
 
 Create Router Interface on Tenant Internal Subnet
     [Documentation]    Create Router Interface on Tenant Internal Subnet
@@ -175,9 +181,9 @@ Create Router Interface on Tenant Internal Subnet
     ${Data}    Replace String    ${Data}    {netId}    ${TNT1_NET1_ID}
     ${Data}    Replace String    ${Data}    {subnetId}    ${TNT1_SUBNET1_ID}
     ${Data}    Replace String    ${Data}    {portId}    ${NEUTRON_PORT_TNT1_RTR_NET1}
-    log    ${Data}
-    ${resp}    RequestsLibrary.Post    ODLSession    ${ODLREST}/ports    ${Data}
-    Should be Equal As Strings    ${resp.status_code}    201
+    Log    ${Data}
+    ${resp}    RequestsLibrary.Post    session    ${ODLREST}/ports    ${Data}
+    Should Be Equal As Strings    ${resp.status_code}    201
 
 Update Router Interface on Tenant Internal Subnet
     [Documentation]    Update Router Interface on Tenant Internal Subnet
@@ -187,9 +193,9 @@ Update Router Interface on Tenant Internal Subnet
     ${Data}    Replace String    ${Data}    {rtrId}    ${TNT1_RTR_ID}
     ${Data}    Replace String    ${Data}    {subnetId}    ${TNT1_SUBNET1_ID}
     ${Data}    Replace String    ${Data}    {portId}    ${NEUTRON_PORT_TNT1_RTR_NET1}
-    log    ${Data}
-    ${resp}    RequestsLibrary.Put    ODLSession    ${ODLREST}/routers/${TNT1_RTR_ID}/add_router_interface    ${Data}
-    Should be Equal As Strings    ${resp.status_code}    200
+    Log    ${Data}
+    ${resp}    RequestsLibrary.Put    session    ${ODLREST}/routers/${TNT1_RTR_ID}/add_router_interface    ${Data}
+    Should Be Equal As Strings    ${resp.status_code}    200
 
 Create Port VM
     [Documentation]    Create Port VM
@@ -202,9 +208,9 @@ Create Port VM
     ${Data}    Replace String    ${Data}    {portId}    ${TNT1_VM1_PORT_ID}
     ${Data}    Replace String    ${Data}    {macAddr}    ${TNT1_VM1_MAC}
     ${Data}    Replace String    ${Data}    {deviceId}    ${TNT1_VM1_DEVICE_ID}
-    log    ${Data}
-    ${resp}    RequestsLibrary.Post    ODLSession    ${ODLREST}/ports    ${Data}
-    Should be Equal As Strings    ${resp.status_code}    201
+    Log    ${Data}
+    ${resp}    RequestsLibrary.Post    session    ${ODLREST}/ports    ${Data}
+    Should Be Equal As Strings    ${resp.status_code}    201
 
 Create Port Floating IP
     [Documentation]    Create Port Floating IP
@@ -215,9 +221,9 @@ Create Port Floating IP
     ${Data}    Replace String    ${Data}    {portId}    ${FLOAT_IP1_PORT_ID}
     ${Data}    Replace String    ${Data}    {macAddress}    ${FLOAT_IP1_MAC}
     ${Data}    Replace String    ${Data}    {deviceId}    ${FLOAT_IP1_DEVICE_ID}
-    log    ${Data}
-    ${resp}    RequestsLibrary.Post    ODLSession    ${ODLREST}/ports    ${Data}
-    Should be Equal As Strings    ${resp.status_code}    201
+    Log    ${Data}
+    ${resp}    RequestsLibrary.Post    session    ${ODLREST}/ports    ${Data}
+    Should Be Equal As Strings    ${resp.status_code}    201
 
 Create Floating IP
     [Documentation]    Create Floating IP
@@ -227,9 +233,9 @@ Create Floating IP
     ${Data}    Replace String    ${Data}    {netId}    ${EXT_NET1_ID}
     ${Data}    Replace String    ${Data}    {floatIpId}    ${FLOAT_IP1_ID}
     ${Data}    Replace String    ${Data}    {floatIpAddress}    ${FLOAT_IP1_ADDRESS}
-    log    ${Data}
-    ${resp}    RequestsLibrary.Post    ODLSession    ${ODLREST}/floatingips    ${Data}
-    Should be Equal As Strings    ${resp.status_code}    201
+    Log    ${Data}
+    ${resp}    RequestsLibrary.Post    session    ${ODLREST}/floatingips    ${Data}
+    Should Be Equal As Strings    ${resp.status_code}    201
 
 Associate the Floating IP with Tenant VM
     [Documentation]    Associate the Floating IP with Tenant VM
@@ -241,6 +247,6 @@ Associate the Floating IP with Tenant VM
     ${Data}    Replace String    ${Data}    {floatIpId}    ${FLOAT_IP1_ID}
     ${Data}    Replace String    ${Data}    {floatIpAddress}    ${FLOAT_IP1_ADDRESS}
     ${Data}    Replace String    ${Data}    {vmPortId}    ${TNT1_VM1_PORT_ID}
-    log    ${Data}
-    ${resp}    RequestsLibrary.Put    ODLSession    ${ODLREST}/floatingips/${FLOAT_IP1_ID}    ${Data}
-    Should be Equal As Strings    ${resp.status_code}    201
+    Log    ${Data}
+    ${resp}    RequestsLibrary.Put    session    ${ODLREST}/floatingips/${FLOAT_IP1_ID}    ${Data}
+    Should Be Equal As Strings    ${resp.status_code}    201
