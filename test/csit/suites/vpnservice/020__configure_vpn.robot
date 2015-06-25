@@ -63,7 +63,7 @@ Verify VPN interface
 Verify FIB entry after create
     [Documentation]    Verifies the fib entry for the corresponding vpn interface
     [Tags]    Get
-    Wait Until Keyword Succeeds    10s    2s    Ensure The Fib Entry Is Present    vrfTables/${vpn_inst_values[1]}/vrfEntry/${vm_vpnint_values[2]}/    ${vm_vpnint_values[2]}
+    Wait Until Keyword Succeeds    5s    1s    Ensure The Fib Entry Is Present    ${vm_vpnint_values[2]}
 
 Delete vm vpn interface
     [Documentation]    Deletes the vpn interface
@@ -104,20 +104,21 @@ Verify after deleting vm ietf interface
 Verify FIB entry after delete
     [Documentation]    Verifies the fib entry is deleted for the corresponding vpn interface
     [Tags]    Get
-    Wait Until Keyword Succeeds    10s    2s    Ensure The Fib Entry Is Removed    vrfTables/${vpn_inst_values[1]}/vrfEntry/${vm_vpnint_values[2]}/
+    Wait Until Keyword Succeeds    5s    1s    Ensure The Fib Entry Is Removed    ${vm_vpnint_values[2]}
 
 *** Keywords ***
 Ensure The Fib Entry Is Present
-    [Arguments]    ${uri_part}    ${prefix}
+    [Arguments]    ${prefix}
     [Documentation]    Will succeed if the fib entry is present for the vpn
-    ${resp}    RequestsLibrary.get    session    ${REST_CON}odl-fib:fibEntries/${uri_part}    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.get    session    /restconf/operational/odl-fib:fibEntries/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
     Should Contain    ${resp.content}    ${prefix}
     Should Contain    ${resp.content}    label
 
 Ensure the Fib Entry Is Removed
-    [Arguments]    ${uri_part}
+    [Arguments]    ${prefix}
     [Documentation]    Will succeed if the fib entry is removed for the vpn
-    ${resp}    RequestsLibrary.get    session    ${REST_CON}odl-fib:fibEntries/${uri_part}    headers=${ACCEPT_XML}
-    Should Be Equal As Strings    ${resp.status_code}    404
+    ${resp}    RequestsLibrary.get    session    /restconf/operational/odl-fib:fibEntries/    headers=${ACCEPT_XML}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Not Contain    ${resp.content}    ${prefix}
