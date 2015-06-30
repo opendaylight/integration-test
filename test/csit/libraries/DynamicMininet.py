@@ -50,7 +50,7 @@ class DynamicMininet(cmd.Cmd):
         self._topo = mininet.topo.Topo()
         for _ in range(int(numsw)):
             self._lid += 1
-            self._topo.addSwitch('s{}'.format(self._lid))
+            self._topo.addSwitch('s{0}'.format(self._lid))
         controller = mininet.util.customConstructor({'remote': RemoteController}, 'remote,ip={0}'.format(cntl))
         switch = mininet.util.customConstructor({'ovsk': OVSKernelSwitch}, 'ovsk,protocols=OpenFlow13')
         self._net = mininet.net.Mininet(topo=self._topo, switch=switch, controller=controller)

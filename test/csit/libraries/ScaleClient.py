@@ -95,7 +95,7 @@ def _get_notes(fldet=[]):
 def _randomize(spread, maxn):
     '''Returns a randomized switch or table id'''
     if spread not in _spreads:
-        raise Exception('Spread method {} not available'.format(spread))
+        raise Exception('Spread method {0} not available'.format(spread))
     while True:
         if spread == 'gauss':
             ga = abs(random.gauss(0, 1))
