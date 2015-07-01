@@ -21,6 +21,27 @@ Start Suite
     Write    ${start}
     Read Until    mininet>
 
+Start Mininet
+    [Arguments]    ${MININET}    ${cmd}=${start}    ${custom}=${OVSDB_CONFIG_DIR}/ovsdb.py    ${user}=${MININET_USER}    ${prompt}=${LINUX_PROMPT}    ${prompt_timeout}=30s
+    [Documentation]    Basic setup to start mininet with custom topology
+    Log    Start the test on the base edition
+    Clean Mininet System
+    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${LINUX_PROMPT}    timeout=30s
+    Set Suite Variable    ${mininet_conn_id}
+    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
+    Put File    ${custom}
+    Write    ${cmd}
+    Read Until    mininet>
+    [Return]    ${mininet_conn_id}
+
+Stop Mininet
+    [Arguments]    ${mininet_conn_id}    ${prompt}=${LINUX_PROMPT}
+    [Documentation]    Basic setup to stop/clean mininet
+    Switch Connection    ${mininet_conn_id}
+    SSHLibrary.Write    exit
+    Read Until    ${LINUX_PROMPT}
+    Close Connection
+
 Stop Suite
     [Documentation]    Cleanup/Shutdown work that should be done at the completion of all
     ...    tests
@@ -91,9 +112,9 @@ Check For Elements Not At URI
     \    Should Not Contain    ${resp.content}    ${i}
 
 Clean Mininet System
-    [Arguments]     ${mininet_system}=${MININET}
-    Run Command On Remote System    ${mininet_system}   sudo mn -c
-    Run Command On Remote System    ${mininet_system}   sudo ps -elf | egrep 'usr/local/bin/mn' | egrep python | awk '{print "sudo kill -9",$4}' | sh
+    [Arguments]    ${mininet_system}=${MININET}
+    Run Command On Remote System    ${mininet_system}    sudo mn -c
+    Run Command On Remote System    ${mininet_system}    sudo ps -elf | egrep 'usr/local/bin/mn' | egrep python | awk '{print "sudo kill -9",$4}' | sh
 
 Clean Up Ovs
     [Arguments]     ${mininet_system}=${MININET}
