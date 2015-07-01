@@ -22,7 +22,7 @@ Find Max Switches
     ${max_sw}    Convert to Integer    ${max_sw}
     ${step_sw}    Convert to Integer    ${step_sw}
     : FOR    ${exp_sw}    IN RANGE    ${init_sw}    ${max_sw+1}    ${step_sw}
-    \    BuiltIn.Wait Until Keyword Succeeds    15s    5s    Verify Switches Connected
+    \    BuiltIn.Wait Until Keyword Succeeds    15s    5s    Verify Switches Connected    ${exp_sw}
     \    ${max_found}=    Set Variable    ${exp_sw}
     \    Set Suite variable    ${max_found}
     \    Add Switches    10
@@ -41,9 +41,7 @@ Start Suite
     Read Until    mininet>
     Write    start ${CONTROLLER} ${init_sw}
     Read Until    mininet>
-    Sleep    1s
-    ${sw}    ${rep}    ${found}=    Flow Stats Collected    controller=${CONTROLLER}
-    Should Be Equal As Numbers    ${sw}    ${init_sw}
+    Wait Until Keyword Succeeds    10s    1s    Verify Switches Connected    ${init_sw}
 
 Stop Suite
     [Documentation]    Stops mininet
@@ -60,9 +58,10 @@ Add Switches
     Read Until    mininet>
 
 Verify Switches Connected
+    [Arguments]    ${exp_switches}
     [Documentation]    Verifies if switches are connected/present in operational inventory
     ${sw}    ${rep}    ${found}=    Flow Stats Collected    controller=${CONTROLLER}
-    Should Be Equal As Numbers    ${sw}    ${exp_sw}
+    Should Be Equal As Numbers    ${sw}    ${exp_switches}
 
 Log Store Max Found
     [Documentation]    Logs the found number
