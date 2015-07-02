@@ -34,9 +34,7 @@ ${PING_NOT_CONTAIN}    Destination Host Unreachable
 Make the OVS instance to listen for connection
     [Documentation]    Connect OVS to ODL
     [Tags]    OVSDB netvirt
-    Run Command On Remote System    ${MININET}    sudo ovs-vsctl --if-exists del-port br-int
-    Run Command On Remote System    ${MININET}    sudo ovs-vsctl --if-exists del-br br-int
-    Run Command On Remote System    ${MININET}    sudo ovs-vsctl del-manager
+    Clean Up Ovs   ${MININET}
     Run Command On Remote System    ${MININET}    sudo ovs-vsctl set-manager tcp:${CONTROLLER}:${OVSDB_PORT}
     ${output}    Run Command On Remote System    ${MININET}    sudo ovs-vsctl show
     ${pingresult}   Run Command On Remote System    ${MININET}    ping ${CONTROLLER} -c 4

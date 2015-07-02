@@ -95,6 +95,15 @@ Clean Mininet System
     Run Command On Remote System    ${mininet_system}   sudo mn -c
     Run Command On Remote System    ${mininet_system}   sudo ps -elf | egrep 'usr/local/bin/mn' | egrep python | awk '{print "sudo kill -9",$4}' | sh
 
+Clean Up Ovs
+    [Arguments]     ${mininet_system}=${MININET}
+    [Documentation]    Cleans up the OVS instance and remove any existing common known bridges.
+    ${output}=    Run Command On Remote System    ${mininet_system}    sudo ovs-vsctl list-br
+    Log    ${output}
+    : FOR    ${i}    IN    ${output}
+    \    Run Command On Remote System    ${mininet_system}    sudo ovs-vsctl --if-exists del-br ${i}
+    Run Command On Remote System    ${mininet_system}    sudo ovs-vsctl del-manager
+
 Extract Value From Content
     [Arguments]    ${content}    ${index}    ${strip}=nostrip
     [Documentation]    Will take the given response content and return the value at the given index as a string
