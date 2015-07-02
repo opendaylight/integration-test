@@ -1,16 +1,14 @@
 *** Settings ***
-Documentation     Suite checks if StatMngr is able to collect flows correctly
+Documentation     Suite to measure setup reate using add-flows-rpc operation
 Suite Setup       Create Http Session
 Suite Teardown    Delete Http Session And Store Plot Data
 Library           OperatingSystem
-Library           Collections
 Library           XML
 Library           SSHLibrary
 Variables         ../../../variables/Variables.py
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Library           ../../../libraries/ScaleClient.py
-Resource          ../../../libraries/WaitForFailure.robot
 
 *** Variables ***
 ${swnr}           63
@@ -23,7 +21,7 @@ ${tabspread}      first
 ${linux_prompt}    >
 ${start_cmd}      sudo mn --controller=remote,ip=${CONTROLLER} --topo linear,${swnr} --switch ovsk,protocols=OpenFlow13
 ${iperiod}        1s
-${ichange}        60s
+${ichange}        450s
 ${outfile}        flows_setup_time.csv
 ${setuptime}      0
 
@@ -32,15 +30,17 @@ Connect Mininet
     Connect Switches
 
 Configure Flows
-    [Documentation]   Setup of ${flnr} flows using rpc calls
-    [Teardown]         SaveSetupTime
+    [Documentation]    Setup of ${flnr} flows using rpc calls
     ${flows}    ${notes}=    Generate New Flow Details    flows=${flnr}    switches=${swnr}    swspread=${swspread}    tabspread=${tabspread}
     Log    ${notes}
     ${starttime}=    Get Time    epoch
     ${res}=    Operations Add Flows Rpc    flow_details=${flows}    controllers=@{cntls}    nrthreads=${nrthreads}    fpr=${fpr}
     Log    ${res}
     Set Suite Variable    ${flows}
-    Log To Console    ${res}
+    ${http200ok}=    Create List   ${200}
+    ${validation}=    Validate Responses   ${res}    ${http200ok}
+    Should Be True    ${validation}
+    [Teardown]    Save Setup Time
 
 Wait Stats Collected
     [Documentation]    Waits till ${flnr} flows are initially collected
@@ -50,6 +50,9 @@ Deconfigure Flows
     [Documentation]    Flows deconfiguration
     ${res}=    Operations Remove Flows Rpc    flow_details=${flows}    controllers=@{cntls}    nrthreads=${nrthreads}    fpr=${fpr}
     Log    ${res}
+    ${http200ok}=    Create List   ${200}
+    ${validation}=    Validate Responses   ${res}    ${http200ok}
+    Should Be True    ${validation}
 
 Check No Flows In Operational After Remove
     [Documentation]    No flows should be found after their removeal
@@ -83,8 +86,9 @@ Stop Switches
 
 Delete Http Session And Store Plot Data
     Delete All Sessions
-    Append To File    ${outfile}    FlowsSetupTime\n
-    Append To File    ${outfile}    ${setuptime}\n
+    ${rate}=    Evaluate    (${flnr}/${setuptime})
+    Append To File    ${outfile}    FlowsSetupRate,FlowsSetupTime\n
+    Append To File    ${outfile}    ${rate},${setuptime}\n
 
 Are Switches Connected Topo
     [Documentation]    Checks wheather switches are connected to controller

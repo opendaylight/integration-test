@@ -137,7 +137,7 @@ def _get_notes(fldet=[]):
 def _randomize(spread, maxn):
     """Returns a randomized switch or table id"""
     if spread not in _spreads:
-        raise Exception('Spread method {0} not available'.format(spread))
+        raise Exception('Spread method {} not available'.format(spread))
     while True:
         if spread == 'gauss':
             ga = abs(random.gauss(0, 1))
@@ -676,3 +676,21 @@ def get_switches_count(controller=''):
     if switches is None:
         return 0
     return len(switches)
+
+
+def validate_responses(received, expected):
+    """Compares given response summary with expected results.
+
+    Args:
+        :param received: dictionary returned from operations_* and (de)configure_flows*
+                         of this library
+                         e.g. received = { 200:41 } - this means that we 41x receives response with status code 200
+
+        :param expected: list of expected http result codes
+                         e.g. expected=[200] - we expect only http status 200 to be present
+
+    Returns:
+        :returns True: if list of http statuses from received responses is the same as exxpected
+        :returns False: elseware
+    """
+    return True if received.keys() == expected else False
