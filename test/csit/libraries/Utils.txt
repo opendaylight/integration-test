@@ -137,7 +137,7 @@ Run Command On Remote System
     ${conn_id}=    SSHLibrary.Open Connection    ${remote_system}    prompt=${prompt}    timeout=${prompt_timeout}
     Login With Public Key    ${user}    ${USER_HOME}/.ssh/id_rsa    any
     SSHLibrary.Write    ${cmd}
-    ${output}=    SSHLibrary.Read Until    ${LINUX_PROMPT}
+    ${output}=    SSHLibrary.Read Until    ${prompt}
     SSHLibrary.Close Connection
     Log    ${output}
     [Return]    ${output}
