@@ -249,4 +249,4 @@ Associate the Floating IP with Tenant VM
     ${Data}    Replace String    ${Data}    {vmPortId}    ${TNT1_VM1_PORT_ID}
     Log    ${Data}
     ${resp}    RequestsLibrary.Put    session    ${ODLREST}/floatingips/${FLOAT_IP1_ID}    ${Data}
-    Should Be Equal As Strings    ${resp.status_code}    201
+    Should Be Equal As Strings    ${resp.status_code}    200
