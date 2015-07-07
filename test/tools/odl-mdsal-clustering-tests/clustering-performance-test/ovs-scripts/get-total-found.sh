@@ -9,14 +9,15 @@ ECHO=`which echo`
 
 TOTAL=0
 i=1
+dname=`dirname $0`
 
 while true;
 do
-    CUR=$((`./OVS-dump-flows.sh.13 s$i 2> /dev/null |  grep -v "flags=\[more\]" | wc -l` - 1))
+    CUR=$((`${dname}/OVS-dump-flows.sh.13 s$i 2> /dev/null |  grep -v "flags=\[more\]" | wc -l` - 1))
 
     if [ "$CUR" == "-1" ];
-    then 
-	break
+    then
+        break
     else
         printf "Switch s%d: %d flows\n" $i $CUR
         TOTAL=$(($TOTAL + $CUR))
@@ -25,3 +26,4 @@ do
 done
 
 printf "\nTotal: %d\n\n" $TOTAL
+
