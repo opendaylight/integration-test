@@ -50,11 +50,14 @@ Get manager connection
     Should Contain    ${manager}    true
 
 Get controller connection
-    [Documentation]    This will make sure the controller is correctly set up/connected
+    [Documentation]    This will verify if the OpenFlow controller is connected on all bridges
     [Tags]    OVSDB netvirt
     ${output}    Run Command On Remote System    ${MININET}    sudo ovs-vsctl show
-    Should Contain    ${output}    Manager "tcp:${CONTROLLER}:${OVSDB_PORT}"
-    Should Contain    ${output}    is_connected: true
+    ${lines}=    Get Lines Containing String    ${output}    is_connected
+    ${list}=    Split String    ${lines}    \n
+    Remove From List    ${list}    0
+    : FOR    ${controller}    IN    @{list}
+    \    Should Contain    ${controller}    true
 
 Get bridge setup
     [Documentation]    This request is verifying that the br-int bridge has been created
