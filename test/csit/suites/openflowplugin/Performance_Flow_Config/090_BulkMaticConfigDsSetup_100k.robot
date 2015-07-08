@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Suite to measure flow setup rate using operation add-flows-ds
-Suite Setup       Create Http Session
+Suite Setup       Create Http Session And Upload Files
 Suite Teardown    Delete Http Session And Store Plot Data
 Library           OperatingSystem
 Library           XML
@@ -20,6 +20,8 @@ ${tabspread}      first
 @{cntls}          ${CONTROLLER}
 ${linux_prompt}    >
 ${start_cmd}      sudo mn --controller=remote,ip=${CONTROLLER} --topo linear,${swnr} --switch ovsk,protocols=OpenFlow13
+${getf_cmd}       sh ./get-total-found.sh
+${getr_cmd}       sh ./get-total-reported.sh
 ${iperiod}        1s
 ${ichange}        450s
 ${outfile}        flows_setup_time.csv
@@ -37,26 +39,28 @@ Configure Flows
     ${res}=    Operations Add Flows Ds    flow_details=${flows}    controllers=@{cntls}    nrthreads=${nrthreads}    fpr=${fpr}
     Log    ${res}
     Set Suite Variable    ${flows}
-    ${http200ok}=    Create List   ${200}
-    ${validation}=    Validate Responses   ${res}    ${http200ok}
+    ${http200ok}=    Create List    ${200}
+    ${validation}=    Validate Responses    ${res}    ${http200ok}
     Should Be True    ${validation}
-    [Teardown]    SaveSetupTime
+    [Teardown]    Save Setup Time
 
 Wait Stats Collected
     [Documentation]    Waits till ${flnr} flows are initially collected
     Inventory Change Reached    ${swnr}    ${flnr}
+    [Teardown]    Log Switch Details
 
 Deconfigure Flows
     [Documentation]    Flows deconfiguration
     ${res}=    Operations Remove Flows Ds    flow_details=${flows}    controllers=@{cntls}    nrthreads=${nrthreads}    fpr=${fpr}
     Log    ${res}
-    ${http200ok}=    Create List   ${200}
-    ${validation}=    Validate Responses   ${res}    ${http200ok}
+    ${http200ok}=    Create List    ${200}
+    ${validation}=    Validate Responses    ${res}    ${http200ok}
     Should Be True    ${validation}
 
 Check No Flows In Operational After Remove
     [Documentation]    No flows should be found after their removeal
     Inventory Change Reached    ${swnr}    0
+    [Teardown]    Log Switch Details
 
 Stop Mininet End
     Stop Switches
@@ -73,8 +77,12 @@ Connect Switches
     Read Until    mininet>
     Wait Until Keyword Succeeds    10s    1s    Are Switches Connected Topo
 
-Create Http Session
+Create Http Session And Upload Files
     Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+    Open Connection    ${MININET}    prompt=${linux_prompt}    timeout=600
+    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
+    Put File    ${CURDIR}/../../../../tools/odl-mdsal-clustering-tests/clustering-performance-test/ovs-scripts/*    ./
+    Close Connection
 
 Stop Switches
     [Documentation]    Stops mininet
@@ -115,3 +123,11 @@ Inventory Change Reached
     [Arguments]    ${rswitches}    ${rflows}
     [Documentation]    This keywordwaits till inventory reaches required state
     Wait Until Keyword Succeeds    ${ichange}    ${iperiod}    Check Flows Inventory    ${rswitches}    ${rflows}
+
+Log Switch Details
+    Write    ${getf_cmd}
+    ${log}=    Read Until    mininet>
+    Log    ${log}
+    Write    ${getr_cmd}
+    ${log}=    Read Until    mininet>
+    Log    ${log}
