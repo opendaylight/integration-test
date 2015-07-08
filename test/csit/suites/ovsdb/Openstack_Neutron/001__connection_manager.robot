@@ -41,6 +41,14 @@ Make the OVS instance to listen for connection
     Should Not Contain    ${pingresult}    ${PING_NOT_CONTAIN}
     Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${node_list}
 
+Get manager connection
+    [Documentation]    This will verify if the OVS manager is connected
+    [Tags]    OVSDB netvirt
+    ${output}    Run Command On Remote System    ${MININET}    sudo ovs-vsctl show
+    ${lines}=    Get Lines Containing String    ${output}    is_connected
+    ${manager}=    Get Line    ${lines}    0
+    Should Contain    ${manager}    true
+
 Get controller connection
     [Documentation]    This will verify if the OpenFlow controller is connected on all bridges
     [Tags]    OVSDB netvirt
