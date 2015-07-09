@@ -1,13 +1,13 @@
 *** Settings ***
 Documentation     Beta Version of the Longevity Test.  Currently:
 ...               1.  runs one iteration of the switch scale test based on ${NUM_SWITCHES}
-...               2.  runs one iteration of the host scale test based on ${NUM_HOSTS}
+...               2.  runs one iteration of the link scale test based on ${NUM_LINKS}
 ...               Steps 1 and 2 are run in a psuedo infinite loop and before each loop is
 ...               run, a time check is made against the ${TEST_LENGTH}. If the test duration
 ...               has expired, the loop is exited and the test is marked PASS
 ...
 ...               If either of steps 1 or 2 fail to reach their configured value of ${NUM_SWITCHES}
-...               or ${NUM_HOSTS} the test will exit immediately and not continue.
+...               or ${NUM_LINKS} the test will exit immediately and not continue.
 Suite Setup       Longevity Suite Setup
 Suite Teardown    Longevity Suite Teardown
 Library           RequestsLibrary
@@ -16,21 +16,22 @@ Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Scalability.txt
 
 *** Variables ***
-${NUM_SWITCHES}           50
-${NUM_HOSTS}              200
+${NUM_SWITCHES}           200
+${NUM_LINKS}              20
 ${TEST_LENGTH}            2 hours
+
 
 *** Test Cases ***
 Longevity Test
-    [Documentation]    Uses switch and host scale test functionality in a loop for given period of time
+    [Documentation]    Uses switch and link scale test functionality in a loop for given period of time
     #  This loop is not infinite, so going "sufficiently large" for now.
     : FOR  ${i}  IN RANGE    1    65536
     \    ${expiration_flag}=    Check If There Is A Reason To Exit Test Or If Duration Has Expired
     \    Exit For Loop If    "${expiration_flag}" == "True"
     \    ${switch_count}=    Find Max Switches    ${NUM_SWITCHES}     ${NUM_SWITCHES}     ${NUM_SWITCHES}
     \    Check If There Is A Reason To Exit Test Or If Duration Has Expired    ${switch_count}    ${NUM_SWITCHES}    Switch count not correct
-    \    ${host_count}=    Find Max Hosts    ${NUM_HOSTS}    ${NUM_HOSTS}    ${NUM_HOSTS}
-    \    Check If There Is A Reason To Exit Test Or If Duration Has Expired    ${host_count}    ${NUM_HOSTS}    Host count not correct
+    \    ${link_count}=    Find Max Links    ${NUM_LINKS}    ${NUM_LINKS}    ${NUM_LINKS}
+    \    Check If There Is A Reason To Exit Test Or If Duration Has Expired    ${link_count}    ${NUM_LINKS}    Link count not correct
 
 *** Keywords ***
 Check If There Is A Reason To Exit Test Or If Duration Has Expired
@@ -57,6 +58,11 @@ Longevity Suite Setup
     [Documentation]    In addtion to opening the REST session to the controller, the ${end_time} that this
     ...    test should not exceed is calculated and made in to a suite wide variable.
     Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${linux_prompt}
+    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
+    Log     Copying ${CREATE_FULLYMESH_TOPOLOGY_FILE_PATH} file to Mininet VM
+    Put File  ${CURDIR}/../../../${CREATE_FULLYMESH_TOPOLOGY_FILE_PATH}
+    Close Connection
     ${start_time}=    Get Current Date
     ${end_time}=    Add Time To Date    ${start_time}    ${TEST_LENGTH}
     ${end_time}=    Convert Date    ${end_time}    epoch
