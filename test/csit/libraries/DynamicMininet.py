@@ -12,6 +12,7 @@ import mininet.net
 import mininet.util
 from mininet.node import RemoteController
 from mininet.node import OVSKernelSwitch
+from subprocess import call
 
 
 class DynamicMininet(cmd.Cmd):
@@ -19,11 +20,19 @@ class DynamicMininet(cmd.Cmd):
 
     - when starting this CLI the 'mininet> ' cli appears, but no switches are active
     - topology is very simple, just as many single switches without any hosts nor links
-    - how to use it:
+
+    How to use it:
+    - one possible scenario is for measuring max connected switches
        1) start cli
        2) start mininet using command 'start <controller> <num>'
        3) add another switches using 'add_switch' or 'add_switches <num>'
        4) stop mininet usinf 'exit'
+    - another scenario is connect one single switch to multiple controllers or clustered controller
+      for feature testing
+       1) start cli
+       2) start mininet with specified controllers using command 'start_with_cluster <cntl>[,<cntl>[...]]>'
+       3) stop mininet using 'exit'
+    Note: Do not mix scanarios
     """
 
     prompt = 'mininet> '
@@ -63,6 +72,73 @@ class DynamicMininet(cmd.Cmd):
         print 'Usage: start <controller_ip> <num>'
         print '\tcontroller_ip - controllers ip or host name'
         print '\tnum           - number of switches at start'
+
+    def do_start_with_cluster(self, line):
+        """Starts mininet network with initial number of switches
+
+        Args:
+            :param controller_ips: list of controller ip addresses or host names
+                                   e.g.  1.1.1.1,2.2.2.2,3.3.3.3 (no spaces)
+        """
+        if self._running:
+            print 'Mininet topology is already active'
+            return
+        cntls = line.split(',')
+
+        self._topo = mininet.topo.SingleSwitchTopo()
+        switch = mininet.util.customConstructor({'ovsk': OVSKernelSwitch}, 'ovsk,protocols=OpenFlow13')
+        self._net = mininet.net.Mininet(switch=switch)
+
+        controllers = []
+        for i, cntl_ip in enumerate(cntls):
+            cnt = self._net.addController('c{0}'.format(i), controller=RemoteController, ip=cntl_ip, port=6633)
+            controllers.append(cnt)
+            print "contrller {0} created".format(cnt)
+
+        self._net.buildFromTopo(topo=self._topo)
+        self._net.start()
+        self._running = True
+
+    def help_start_with_cluster(self):
+        """Provide help message for start_with_cluster command"""
+        print 'Starts mininet with one switch'
+        print 'Usage: start <controller_ips>'
+        print '\tcontroller_ips - comma separated list of controllers ip or host names'
+
+    def do_start_switches_with_cluster(self, line):
+        """Starts mininet network with initial number of switches
+
+        Args:
+            :param swnr: number of switchers in topology
+            :param controller_ips: list of controller ip addresses or host names
+                                   e.g.  1.1.1.1,2.2.2.2,3.3.3.3 (no spaces)
+        """
+        if self._running:
+            print 'Mininet topology is already active'
+            return
+        num, contls = line.split()
+        cntls = contls.split(',')
+
+        self._topo = mininet.topo.LinearTopo(int(num))
+        switch = mininet.util.customConstructor({'ovsk': OVSKernelSwitch}, 'ovsk,protocols=OpenFlow13')
+        self._net = mininet.net.Mininet(switch=switch)
+
+        controllers = []
+        for i, cntl_ip in enumerate(cntls):
+            cnt = self._net.addController('c{0}'.format(i), controller=RemoteController, ip=cntl_ip, port=6633)
+            controllers.append(cnt)
+            print "contrller {0} created".format(cnt)
+
+        self._net.buildFromTopo(topo=self._topo)
+        self._net.start()
+        self._running = True
+
+    def help_start_switches_with_cluster(self):
+        """Provide help message for start_with_cluster command"""
+        print 'Starts mininet with one switch'
+        print 'Usage: start <swnr> <controller_ips>'
+        print '\tswnt - number of switches in topology'
+        print '\tcontroller_ips - comma separated list of controllers ip or host names'
 
     def do_add_switch(self, line):
         """Adds one switch to the network
@@ -105,10 +181,23 @@ class DynamicMininet(cmd.Cmd):
             self._running = False
         return True
 
-    def help_exit(self, line):
+    def help_exit(self):
         """Provide help message for exit command"""
         print 'Exit mininet cli'
         print 'Usage: exit'
+
+    def do_sh(self, line):
+        """Run an external shell command
+        Args:
+            :param line: text/command to be executed
+        """
+        call(line, shell=True)
+
+    def help_sh(self, line):
+        """Provide help message for sh command"""
+        print 'Executes given commandAdds one sinle switch to the running topology'
+        print 'Usage: sh <line>'
+        print '\tline - command to be executed(e.g. ps -e'
 
     def emptyline(self):
         pass

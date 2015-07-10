@@ -324,3 +324,47 @@ class XmlComparator:
                             new_act.appendChild(ml)
                         child.parentNode.replaceChild(new_act, child)
         return xml_dom_input.toxml(encoding='utf-8')
+
+    def get_flow_content(self, tid=1, fid=1, priority=1):
+        """Returns an xml flow content identified by given details.
+
+        Args:
+            :param tid: table id
+            :param fid: flow id
+            :param priority: flow priority
+        """
+
+        flow_template = '''<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flow xmlns="urn:opendaylight:flow:inventory">
+    <strict>false</strict>
+    <instructions>
+        <instruction>
+            <order>0</order>
+            <apply-actions>
+                <action>
+                    <order>0</order>
+                    <drop-action/>
+                </action>
+            </apply-actions>
+        </instruction>
+    </instructions>
+    <table_id>%s</table_id>
+    <id>%s</id>
+    <cookie_mask>4294967295</cookie_mask>
+    <installHw>false</installHw>
+    <match>
+        <ethernet-match>
+            <ethernet-type>
+                <type>2048</type>
+            </ethernet-type>
+        </ethernet-match>
+        <ipv4-source>10.0.0.1/32</ipv4-source>
+    </match>
+    <cookie>%s</cookie>
+    <flow-name>%s</flow-name>
+    <priority>%s</priority>
+    <barrier>false</barrier>
+</flow>'''
+
+        flow_data = flow_template % (tid, fid, fid, 'TestFlow-{0}'.format(fid), priority)
+        return flow_data
