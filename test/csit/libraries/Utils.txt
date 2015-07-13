@@ -189,7 +189,7 @@ Split Value from String
     [Arguments]    ${str}    ${splitter}
     [Documentation]    Split the String based on given splitter and return as list
     @{x}=    Split String    ${str}    ${splitter}
-    [Return]    @{result}
+    [Return]    @{x}
 
 Concatenate the String
     [Arguments]    ${str1}    ${str2}
