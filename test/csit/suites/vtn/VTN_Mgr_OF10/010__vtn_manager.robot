@@ -75,11 +75,11 @@ Add a portmap for interface if4
 
 Ping h1 to h3
     [Documentation]    Ping h1 to h3, verify no packet loss
-    mininet ping     h1    h3
+    Mininet Ping Should Succeed     h1    h3
 
 Ping h2 to h4
     [Documentation]    Ping h2 to h4, verify no packet loss
-    mininet ping     h2    h4
+    Mininet Ping Should Succeed     h2    h4
 
 Delete a vtn Tenant1
     [Documentation]    Delete a vtn Tenant1
