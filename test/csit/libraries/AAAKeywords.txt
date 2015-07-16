@@ -33,7 +33,7 @@ Disable Authentication On Controller
     [Arguments]    ${controller_ip}
     [Documentation]    Will disable token based authentication. Currently, that is done with a config file change
     SSHLibrary.Open Connection    ${controller_ip}
-    Login With Public Key    ${CONTROLLER_USER}    ${USER_HOME}/.ssh/id_rsa    any
+    Login With Public Key    ${CONTROLLER_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     ${cmd}=    Set Variable    sed -i 's/^authEnabled=.*$/authEnabled=false/g' ${AUTHN_CFG_FILE}
     SSHLibrary.Execute Command    ${cmd}
     SSHLibrary.Close Connection
@@ -42,7 +42,7 @@ Enable Authentication On Controller
     [Arguments]    ${controller_ip}
     [Documentation]    Will enable token based authentication. Currently, that is done with a config file change
     SSHLibrary.Open Connection    ${controller_ip}
-    Login With Public Key    ${CONTROLLER_USER}    ${USER_HOME}/.ssh/id_rsa    any
+    Login With Public Key    ${CONTROLLER_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     ${cmd}=    Set Variable    sed -i 's/^authEnabled=.*$/authEnabled=true/g' ${AUTHN_CFG_FILE}
     SSHLibrary.Execute Command    ${cmd}
     SSHLibrary.Close Connection

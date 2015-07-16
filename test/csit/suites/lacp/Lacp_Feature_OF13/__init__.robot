@@ -14,7 +14,7 @@ Start Suite
     Log    Start mininet
     ${mininet_session_id}=     Open Connection   ${MININET}     prompt=${LINUX_PROMPT}     timeout=30s
     Set Suite Variable     ${mininet_session_id}
-    Login With Public Key    ${MININET_USER}   ${USER_HOME}/.ssh/id_rsa   any
+    Login With Public Key    ${MININET_USER}   ${USER_HOME}/.ssh/${SSH_KEY}   any
     Execute Command    sudo ovs-vsctl set-manager ptcp:6633
     Execute Command    sudo rm -rf ${bond}
     Put File    ${CURDIR}/LACP_custom1.py

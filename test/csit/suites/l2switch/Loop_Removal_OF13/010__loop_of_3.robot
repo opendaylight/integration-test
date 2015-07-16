@@ -93,7 +93,7 @@ Start Suite
     ${start}=    Set Variable    sudo mn --controller=remote,ip=${CONTROLLER} --custom customtopo.py --topo ring --switch ovsk,protocols=OpenFlow13
     ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${linux_prompt}    timeout=30s
     Set Suite Variable    ${mininet_conn_id}
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
+    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Put File    ${CURDIR}/../topologies/customtopo.py
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
     Execute Command    sudo mn -c
