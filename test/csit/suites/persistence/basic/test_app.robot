@@ -168,10 +168,17 @@ Find User State
 
 Setup Persistence Test App Environment
     [Documentation]    Installing Persistence Related features
+    Install a Feature    odl-persistence-all
     Install a Feature    odl-persistence-test-app
+    Verify Feature Is Installed    odl-persistence-api
+    Verify Feature Is Installed    odl-persistence-jpa-impl
     Verify Feature Is Installed    odl-persistence-test-app
 
 Cleanup Persistence Test Database
     [Documentation]    Clear the database and uninstall Persistence Test App
+    Uninstall a Feature    odl-persistence-api
+    Uninstall a Feature    odl-persistence-jpa-impl
     Uninstall a Feature    odl-persistence-test-app
+    Verify Feature Is Not Installed    odl-persistence-api
+    Verify Feature Is Not Installed    odl-persistence-jpa-impl
     Verify Feature Is Not Installed    odl-persistence-test-app
