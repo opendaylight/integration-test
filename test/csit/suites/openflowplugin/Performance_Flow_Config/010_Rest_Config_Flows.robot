@@ -44,7 +44,7 @@ Start Suite
     Log    Start the test on the base edition
     ${mininet_conn_id}=     Open Connection    ${MININET}    prompt=>    timeout=600s
     Set Suite Variable  ${mininet_conn_id}
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
+    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    sudo ovs-vsctl set-manager ptcp:6644
     Read Until    >
     Write    sudo mn -c

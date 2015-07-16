@@ -14,7 +14,7 @@ Start Tsdr Suite
     Clean Mininet System
     ${mininet_conn_id1}=    Open Connection    ${MININET}    prompt=${LINUX_PROMPT}    timeout=30s
     Set Suite Variable    ${mininet_conn_id1}
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
+    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
     ${start}=    Set Variable    sudo mn --controller=remote,ip=${CONTROLLER} --topo=linear,3 --switch ${switch},protocols=OpenFlow13
     Log    ${start}
@@ -54,7 +54,7 @@ Query the Data from HBaseClient
     [Documentation]    Execute the HBase Query and return the result
     Log    Attempting to execute ${query} on ${remote} via HbaseClient
     ${conn_id}=    Open Connection    ${remote}    prompt=${prompt}    timeout=${prompt_timeout}
-    Login With Public Key    ${user}    ${USER_HOME}/.ssh/id_rsa    any
+    Login With Public Key    ${user}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    export JAVA_HOME=/usr
     Write    ${HBASE_CLIENT}/hbase shell
     Read Until    hbase(main):001:0>

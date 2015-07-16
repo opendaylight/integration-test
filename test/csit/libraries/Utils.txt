@@ -16,7 +16,7 @@ Start Suite
     Clean Mininet System
     ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${LINUX_PROMPT}    timeout=30s
     Set Suite Variable    ${mininet_conn_id}
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
+    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
     Write    ${start}
     Read Until    mininet>
@@ -165,7 +165,7 @@ Run Command On Remote System
     ...    are checked.
     Log    Attempting to execute ${cmd} on ${remote_system} by ${user} with ${keyfile_pass} and ${prompt}
     ${conn_id}=    SSHLibrary.Open Connection    ${remote_system}    prompt=${prompt}    timeout=${prompt_timeout}
-    Login With Public Key    ${user}    ${USER_HOME}/.ssh/id_rsa    ${KEYFILE_PASS}
+    Login With Public Key    ${user}    ${USER_HOME}/.ssh/${SSH_KEY}    ${KEYFILE_PASS}
     SSHLibrary.Write    ${cmd}
     ${output}=    SSHLibrary.Read Until    ${prompt}
     SSHLibrary.Close Connection
@@ -176,7 +176,7 @@ Verify File Exists On Remote System
     [Arguments]    ${remote_system}    ${file}    ${user}=${MININET_USER}    ${prompt}=${LINUX_PROMPT}    ${prompt_timeout}=5s
     [Documentation]    Will create connection with public key and will PASS if the given ${file} exists, otherwise will FAIL
     ${conn_id}=    Open Connection    ${remote_system}    prompt=${prompt}    timeout=${prompt_timeout}
-    Login With Public Key    ${user}    ${USER_HOME}/.ssh/id_rsa    any
+    Login With Public Key    ${user}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     SSHLibrary.File Should Exist    ${file}
     Close Connection
 

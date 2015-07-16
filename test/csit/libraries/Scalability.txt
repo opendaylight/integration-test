@@ -121,7 +121,7 @@ Start Mininet With One Switch And ${hosts} hosts
     Log To Console   Starting mininet with one switch and ${hosts} hosts
     ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${linux_prompt}    timeout=${hosts*3}
     Set Suite Variable    ${mininet_conn_id}
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
+    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    sudo mn --controller=remote,ip=${CONTROLLER} --topo linear,1,${hosts} --switch ovsk,protocols=OpenFlow13
     Read Until    mininet>
 
@@ -170,7 +170,7 @@ Start Mininet Linear
     Log To Console    Starting mininet linear ${switches}
     ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${linux_prompt}    timeout=${switches*3}
     Set Suite Variable    ${mininet_conn_id}
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
+    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    sudo mn --controller=remote,ip=${CONTROLLER} --topo linear,${switches} --switch ovsk,protocols=OpenFlow13
     Read Until    mininet>
     Sleep    6
@@ -181,7 +181,7 @@ Start Mininet With Custom Topology
     Log To Console    Start a custom mininet topology with ${switches} nodes
     ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${linux_prompt}    timeout=${mininet_start_time}
     Set Suite Variable    ${mininet_conn_id}
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
+    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    python ${topology_file} ${switches} ${hosts} ${base_mac} ${base_ip}
     Read Until    ${linux_prompt}
     Write    sudo mn --controller=remote,ip=${CONTROLLER} --custom switch.py --topo demotopo --switch ovsk,protocols=OpenFlow13
