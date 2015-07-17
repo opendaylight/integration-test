@@ -134,7 +134,6 @@ def buyCar(hostname, port, numberOfCarBuyers, start=0):
     """
 
     print "Buying " + str(numberOfCarBuyers) + " Cars"
-    result = True
     for x in range(start, start+numberOfCarBuyers):
         strId = str(x+1)
 
@@ -147,9 +146,8 @@ def buyCar(hostname, port, numberOfCarBuyers, start=0):
         print(resp.text)
 
         if (resp.status_code != 200):
-            result = False
-
-    return result
+            raise RuntimeError('Buy car failed for {}:{} with status {}'.
+                               format(hostname, port, resp.status_code))
 
 
 def getCars(hostname, port, ignore):

@@ -1,14 +1,24 @@
 *** Settings ***
 Resource          Utils.txt
+Library           Collections
 
 *** Variables ***
 
 *** Keywords ***
+Get Controller List
+    [Arguments]    ${exclude_controller}=${EMPTY}
+    Log    ${exclude_controller}
+    @{searchlist}    Create List    ${CONTROLLER}  ${CONTROLLER1}  ${CONTROLLER2}
+    Remove Values From List    ${searchlist}    ${exclude_controller}
+    Log    ${searchlist}
+    [Return]    ${searchlist}
+
 Get Leader And Verify
     [Arguments]   ${shard_name}  ${old_leader}=${EMPTY}
     [Documentation]  Returns the IP addr or hostname of the leader of the specified shard.
     [Documentation]  Controllers are specifed in the pybot command line.
-    ${leader}   GetLeader   ${shard_name}  ${3}  ${3}  ${1}  ${PORT}  ${CONTROLLER}  ${CONTROLLER1}  ${CONTROLLER2}
+    ${searchlist}    Get Controller List    ${old_leader}
+    ${leader}   GetLeader   ${shard_name}  ${3}  ${3}  ${1}  ${PORT}  @{searchlist}
     Should Not Be Equal As Strings   ${leader}   None
     Run Keyword If  '${old_leader}'!='${EMPTY}'  Should Not Be Equal  ${old_leader}  ${leader}
     [Return]   ${leader}
@@ -30,9 +40,10 @@ Switch Leader
     [Return]   ${new_leader}
 
 Get All Followers
-    [Arguments]   ${shard_name}
+    [Arguments]   ${shard_name}    ${exclude_controller}=${EMPTY}
     [Documentation]  Returns the IP addresses or hostnames of all followers of the specified shard.
-    ${followers}  GetFollowers  ${shard_name}  ${3}  ${3}  ${1}  ${PORT}  ${CONTROLLER}  ${CONTROLLER1}  ${CONTROLLER2}
+    ${searchlist}    Get Controller List    ${exclude_controller}
+    ${followers}  GetFollowers  ${shard_name}  ${3}  ${3}  ${1}  ${PORT}  @{searchlist}
     Log  ${followers}
     Should Not Be Empty  ${followers}
     [Return]  ${followers}

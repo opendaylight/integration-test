@@ -2,7 +2,7 @@
 Documentation     This test finds the leader for shards in a 3-Node cluster and executes CRUD operations on them
 Default Tags      3-node-cluster
 Library           Collections
-Library           RequestsLibrary
+Library           ../../../libraries/RequestsLibrary.py
 Library           ../../../libraries/Common.py
 Library           ../../../libraries/CrudLibrary.py
 Library           ../../../libraries/SettingsLibrary.py
