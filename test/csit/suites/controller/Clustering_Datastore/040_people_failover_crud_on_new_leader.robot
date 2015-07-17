@@ -27,7 +27,7 @@ Add people and get from new leader
     Add People And Verify    ${NEW_PEOPLE_LEADER}    ${NUM_ENTRIES}
 
 Get People Followers
-    ${PEOPLE_FOLLOWERS}    Get All Followers    ${PEOPLE_SHARD}
+    ${PEOPLE_FOLLOWERS}    Get All Followers    ${PEOPLE_SHARD}    ${OLD_PEOPLE_LEADER}
     Set Suite Variable    ${PEOPLE_FOLLOWERS}
 
 Get added people from Follower

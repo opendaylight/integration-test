@@ -40,7 +40,7 @@ Add new cars and get cars from new leader
     Add Cars And Verify    ${NEW_CAR_LEADER}    ${NUM_CARS}
 
 Get Car Followers
-    ${CAR_FOLLOWERS}    Get All Followers    ${CAR_SHARD}
+    ${CAR_FOLLOWERS}    Get All Followers    ${CAR_SHARD}    ${OLD_CAR_LEADER}
     Set Suite Variable    ${CAR_FOLLOWERS}
 
 Get added cars from Follower
