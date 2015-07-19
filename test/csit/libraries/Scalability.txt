@@ -28,7 +28,7 @@ Find Max Switches
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
     \    ...    Check Linear Topology    ${switches}
     \    Exit For Loop If    '${status}' == 'FAIL'
-    \    Stop Mininet
+    \    Stop Mininet Simulation
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
     \    ...    Check No Switches    ${switches}
     \    Exit For Loop If    '${status}' == 'FAIL'
@@ -57,7 +57,7 @@ Find Max Links
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120    10s
     \    ...    Check Number Of Links  ${max-links}
     \    Exit For Loop If    '${status}' == 'FAIL'
-    \    Stop Mininet
+    \    Stop Mininet Simulation
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120    10s
     \    ...    Check No Switches    ${switches}
     \    Exit For Loop If    '${status}' == 'FAIL'
@@ -87,7 +87,7 @@ Find Max Hosts
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120s    30s
     \    ...    Check Number Of Hosts    ${hosts}
     \    Exit For Loop If    '${status}' == 'FAIL'
-    \    Stop Mininet
+    \    Stop Mininet Simulation
     \    ${status}    ${result}    Run Keyword And Ignore Error    Check No Switches    ${1}
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${status}    ${result}    Run Keyword And Ignore Error    Check No Hosts
@@ -241,7 +241,7 @@ Check No Topology
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
     \    Should Not Contain    ${resp.content}    openflow:${switch}
 
-Stop Mininet
+Stop Mininet Simulation
     [Documentation]    Stop mininet
     Log To Console    Stopping Mininet
     Switch Connection    ${mininet_conn_id}
