@@ -53,14 +53,15 @@ Add Cars And Verify
     [Arguments]    ${controller_ip}    ${num_cars}  ${timeout}=60s
     ${resp}   InitCar   ${controller_ip}   ${PORT}
     Should Be Equal As Strings    ${resp.status_code}    204
-    ${resp}   AddCar   ${controller_ip}   ${RESTCONFPORT}   ${num_cars}
+    ${resp}   AddCar   ${controller_ip}   ${RESTCONFPORT}   ${num_cars}    204
     Should Be Equal As Strings    ${resp.status_code}    204
     Wait Until Keyword Succeeds   ${timeout}  2s  Get Cars And Verify   ${controller_ip}  ${num_cars}
 
 Add Cars And Verify Without Init
     [Documentation]  Adds cars to an initialized cars shard then performs a GET as a check.
     [Arguments]    ${controller_ip}    ${num_cars}  ${timeout}=60s
-    ${resp}   AddCar   ${controller_ip}   ${RESTCONFPORT}   ${num_cars}
+    Comment    First car add may return 409, but subsequent should be 204
+    ${resp}   AddCar   ${controller_ip}   ${RESTCONFPORT}   ${num_cars}   204    409
     Should Be Equal As Strings    ${resp.status_code}    204
     Wait Until Keyword Succeeds   ${timeout}  2s  Get Cars And Verify   ${controller_ip}  ${num_cars}
 
@@ -79,10 +80,10 @@ Add People And Verify
     [Documentation]  Note: The first AddPerson call passed with 0 posts directly to the data store to get
     [Documentation]  the people container created so the subsequent AddPerson RPC calls that put 
     [Documentation]  to the person list will succeed.
-    ${resp}  AddPerson  ${controller_ip}  ${RESTCONFPORT}  ${0}
+    ${resp}  AddPerson  ${controller_ip}  ${RESTCONFPORT}  ${0}    204
     Should Be Equal As Strings  ${resp.status_code}  204
     Wait Until Keyword Succeeds   60s  2s  Get One Person And Verify  ${controller_ip}  ${0}
-    ${resp}  AddPerson   ${controller_ip}    ${RESTCONFPORT}  ${num_people}
+    ${resp}  AddPerson   ${controller_ip}    ${RESTCONFPORT}  ${num_people}    200
     Wait Until Keyword Succeeds   60s  2s  Get People And Verify  ${controller_ip}  ${num_people}
 
 Get One Person And Verify

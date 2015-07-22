@@ -42,7 +42,7 @@ Stop both of the followers
 
 Attempt to add a car to the leader
     [Documentation]    Should fail as both followers are down
-    AddCar    ${CURRENT_CAR_LEADER}    ${RESTCONFPORT}    ${1}
+    AddCar    ${CURRENT_CAR_LEADER}    ${RESTCONFPORT}    ${1}    500
     Sleep    2
     ${resp}    Getcars    ${CURRENT_CAR_LEADER}    ${RESTCONFPORT}    ${1}
     Should Not Be Equal As Strings    ${resp.status_code}    200
