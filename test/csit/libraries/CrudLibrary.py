@@ -24,7 +24,7 @@ def initCar(hostname, port):
     return resp
 
 
-def addCar(hostname, port, numberOfCars):
+def addCar(hostname, port, numberOfCars, *expected):
     """Creates the specified number of cars based on Cars yang model using RESTCONF"""
     for x in range(1, numberOfCars + 1):
         strId = str(x)
@@ -39,12 +39,16 @@ def addCar(hostname, port, numberOfCars):
 
         print("the response of the POST to add car=")
         print(resp)
+        if expected and str(resp.status_code) not in expected:
+            raise RuntimeError('Add car failed for {}:{} with status {}'.
+                               format(hostname, port, resp.status_code))
+
     return resp
 
     # TBD: Detailed validation
 
 
-def addPerson(hostname, port, numberOfPersons):
+def addPerson(hostname, port, numberOfPersons, *expected):
     """Creates the specified number of persons based on People yang model using main RPC
     <note>
         To enable RPC a non-user input person entry is created with personId=user0
@@ -81,6 +85,9 @@ def addPerson(hostname, port, numberOfPersons):
         print(payload)
         print("the response of the POST to add person=")
         print(resp)
+        if expected and str(resp.status_code) not in expected:
+            raise RuntimeError('Add person failed for {}:{} with status {}'.
+                               format(hostname, port, resp.status_code))
 
     return resp
 
