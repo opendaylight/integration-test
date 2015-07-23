@@ -3,6 +3,7 @@ Documentation     Test suite to find maximum switches which can be connected to 
 Suite Setup       Start Suite
 Suite Teardown    Stop Suite
 Library           SSHLibrary
+Variables         ../../../variables/Variables.py
 Library           ../../../libraries/ScaleClient.py
 Library           OperatingSystem
 
