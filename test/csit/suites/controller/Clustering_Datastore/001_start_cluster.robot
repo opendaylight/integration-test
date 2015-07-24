@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Start the controllers
 Default Tags      3-node-cluster
-Resource          ../../../libraries/Utils.txt
+Resource          ../../../libraries/ClusterKeywords.txt
 
 *** Variables ***
 @{controllers}    ${CONTROLLER}    ${CONTROLLER1}    ${CONTROLLER2}

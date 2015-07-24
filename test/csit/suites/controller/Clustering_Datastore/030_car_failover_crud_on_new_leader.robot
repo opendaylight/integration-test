@@ -1,11 +1,11 @@
 *** Settings ***
-Documentation     This test brings down the current leader of the "car" shard and then executes CRUD operations on the new leader
+Documentation     This test brings down the current leader of the "car" shard and then executes CRUD
+...               operations on the new leader
 Default Tags      3-node-cluster
 Library           ../../../libraries/CrudLibrary.py
 Library           ../../../libraries/UtilLibrary.py
 Library           ../../../libraries/ClusterStateLibrary.py
 Resource          ../../../libraries/ClusterKeywords.txt
-Resource          ../../../libraries/Utils.txt
 
 *** Variables ***
 ${CAR_SHARD}      shard-car-config
