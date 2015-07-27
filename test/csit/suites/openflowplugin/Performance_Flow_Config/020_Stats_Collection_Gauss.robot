@@ -51,9 +51,8 @@ Connect Switches
     Read Until    ${linux_prompt}
     Write    sudo mn --controller=remote,ip=${CONTROLLER} --topo linear,${swnr} --switch ovsk,protocols=OpenFlow13
     Read Until    mininet>
-    Sleep    10s
     Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    Are Switches Connected Topo
+    Wait Until Keyword Succeeds    10s    1s    Are Switches Connected Topo
 
 Stop Switches
     [Documentation]    Stops mininet
