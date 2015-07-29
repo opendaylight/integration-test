@@ -188,6 +188,7 @@ Normalize_And_Save_Expected_Json
     BuiltIn.Log    ${json_normalized}
     OperatingSystem.Create_File    ${directory}${/}${filename}    ${json_normalized}
     # TODO: Should we prepend .json to the filename? When we detect it is not already prepended?
+    [Return]    ${json_normalized}
 
 Kill_BGP_Speaker
     [Documentation]    Interrupt play.py, fail if no prompt is seen within SSHLibrary timeout.
