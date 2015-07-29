@@ -7,8 +7,11 @@ Library           json
 Library           RequestsLibrary
 Variables         ../variables/Variables.py
 Resource          ./Utils.robot
+Variables          ../libraries/vlan_vtn_test.py
 
 *** Variables ***
+${path}=    vlan_vtn_test.py
+${vlan_topo}=   sudo mn --controller=remote,ip=${CONTROLLER} --custom ${path} --topo mytopo
 ${REST_CONTEXT_VTNS}    controller/nb/v2/vtn/default/vtns
 ${REST_CONTEXT}    controller/nb/v2/vtn/default
 ${VERSION_VTN}          controller/nb/v2/vtn/version
@@ -16,6 +19,8 @@ ${VTN_INVENTORY}        restconf/operational/vtn-inventory:vtn-nodes
 ${DUMPFLOWS}    dpctl dump-flows -O OpenFlow13
 ${index}    7
 @{FLOWELMENTS}    nw_src=10.0.0.1    nw_dst=10.0.0.3    actions=drop
+${vlanmap_bridge1}    {"vlan": "200"}
+${vlanmap_bridge2}    {"vlan": "300"}
 
 *** Keywords ***
 Start SuiteVtnMa
@@ -104,6 +109,20 @@ Delete a interface
     ${resp}=    RequestsLibrary.Delete    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/interfaces/${interface_name}
     Should Be Equal As Strings    ${resp.status_code}    200
 
+Start vlan_topo
+    Write    ${vlan_topo}
+    ${result}    Read Until    *** Starting CLI:
+
+Clear Mininet
+    Write    exit
+    ${result}    Read Until    *** Done
+    Write    sudo mn -c
+
+Add a vlanmap
+    [Arguments]    ${vtn_name}    ${vBridge_name}    ${vlanmap_data}
+    [Documentation]    Create a vlanmap
+    ${resp}=    RequestsLibrary.Post    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/vlanmaps/    data=${vlanmap_data}    headers=${HEADERS}
+    Should Be Equal As Strings    ${resp.status_code}    201
 
 Get flow
     [Arguments]    ${vtn_name}
