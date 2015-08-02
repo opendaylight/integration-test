@@ -49,9 +49,9 @@ Delete Bridge From Ovsdb Node
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Add Vxlan To Bridge
-    [Arguments]    ${mininet_ip}    ${bridge_num}    ${vxlan_port}    ${remote_ip}
+    [Arguments]    ${mininet_ip}    ${bridge_num}    ${vxlan_port}    ${remote_ip}    ${custom_port}=create_port.json
     [Documentation]    This request will create vxlan port for vxlan tunnel and attach it to the specific bridge
-    ${sample}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_port.json
+    ${sample}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/${custom_port}
     ${body}    Replace String    ${sample}    192.168.0.21    ${remote_ip}
     Log    URL is ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}%2Fbridge%2F${bridge_num}/termination-point/${vxlan_port}/
     ${resp}    RequestsLibrary.Put    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}%2Fbridge%2F${bridge_num}/termination-point/${vxlan_port}/    data=${body}
