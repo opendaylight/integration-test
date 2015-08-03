@@ -1,0 +1,2 @@
+# Place the suites in run order:
+integration/test/csit/suites/groupbasedpolicy/Clustering_Datastore/020_simple_clustering.robot
