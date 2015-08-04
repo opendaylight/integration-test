@@ -21,10 +21,10 @@ Variables         ../../../variables/Variables.py
 @{intent3}        10.0.0.1,10.0.0.4    10.0.0.2    ALLOW
 @{all_intents}    ${intent1}    ${intent2}    ${intent3}
 @{all_intents_ids}
-${intent_validation1}    from [10.0.0.1, 10.0.0.4] to [10.0.0.2] apply [ALLOW]
-${intent_validation2}    from [10.0.0.5] to [10.0.0.2] apply [BLOCK]
-${intent_validation3}    from [10.0.0.5] to [10.0.0.3] apply [ALLOW]
-${intent_validation4}    from [10.0.0.5] to [10.0.0.10] apply [BLOCK]
+${intent_validation1}    from [10.0.0.1, 10.0.0.4] to [10.0.0.2] apply ALLOW
+${intent_validation2}    from [10.0.0.5] to [10.0.0.2] apply BLOCK
+${intent_validation3}    from [10.0.0.5] to [10.0.0.3] apply ALLOW
+${intent_validation4}    from [10.0.0.5] to [10.0.0.10] apply BLOCK
 @{all_intent_validations}    ${intent_validation1}    ${intent_validation2}    ${intent_validation3}    ${intent_validation4}
 
 *** Test Cases ***
