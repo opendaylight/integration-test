@@ -37,8 +37,12 @@ Start SuiteVtnCo
     Execute Command    /usr/local/vtn/bin/vtn_start
     Execute Command    /usr/local/vtn/bin/unc_dmctl status
     Execute Command    /usr/local/vtn/sbin/db_setup
+    Execute Command    sed -i 's/odcdrv_ping_interval = 30/odcdrv_ping_interval = 10/g' /usr/local/vtn/modules/odcdriver.conf
+    Execute Command    sed -i 's/physical_attributes_read_interval = 40/physical_attributes_read_interval = 15/g' /usr/local/vtn/modules/vtndrvintf.conf
     Execute Command    /usr/local/vtn/bin/vtn_start
     Execute Command    /usr/local/vtn/bin/unc_dmctl status
+    Execute Command    /usr/local/vtn/bin/drvodc_control loglevel trace
+    Execute Command    /usr/local/vtn/bin/lgcnw_control loglevel trace
     Execute Command    exit
 
 Stop SuiteVtnCo
@@ -61,7 +65,7 @@ Get Coordinator Version
 Add a Controller
     [Arguments]    ${ctrlname}    ${ctrlip}
     [Documentation]    Create a controller
-    ${controllerinfo}    Create Dictionary    controller_id=${ctrlname}    type=odc    ipaddr=${CONTROLLER}    version=1.0    auditstatus=enable
+    ${controllerinfo}    Create Dictionary    controller_id=${ctrlname}    type=odc    ipaddr=${CONTROLLER}    version=1.0
     ${controllercreate}    Create Dictionary    controller=${controllerinfo}
     ${controllercreate_json}=    json.dumps    ${controllercreate}
     ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${CTRLS_CREATE}    data=${controllercreate_json}
@@ -76,10 +80,19 @@ Remove Controller
 Update Controller
     [Arguments]    ${ctrlname}    ${ctrlip}    ${desc}
     [Documentation]    Update controller
-    ${controllerinfo}    Create Dictionary    description=${desc}    ipaddr=${ctrlip}    version=1.0    auditstatus=enable
+    ${controllerinfo}    Create Dictionary    description=${desc}    ipaddr=${ctrlip}    version=1.0
     ${controllerupdate}    Create Dictionary    controller=${controllerinfo}
     ${controllerupdate_json}=    json.dumps    ${controllerupdate}
     ${resp}    RequestsLibrary.Put    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}.json    data=${controllerupdate_json}
+    Should Be Equal As Strings    ${resp.status_code}    204
+
+Audit Controller
+    [Arguments]    ${ctrlname}
+    [Documentation]    Trigger Manual Audit
+    ${auditinfo}    Create Dictionary    force=false    real-network_audit=false
+    ${auditupdate}    Create Dictionary    audit=${auditinfo}
+    ${auditupdate_json}=    json.dumps    ${auditupdate}
+    ${resp}    RequestsLibrary.Put    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}/audit.json   data=${auditupdate_json}
     Should Be Equal As Strings    ${resp.status_code}    204
 
 Check Controller Status
@@ -121,7 +134,9 @@ Create VBRIF in VBR
     ${vbrifinfo}    Create Dictionary    if_name=${vbrifname}    description=${ifdescription}
     ${vbrifcreate}    Create Dictionary    interface=${vbrifinfo}
     ${vbrifcreate_json}=    json.dumps    ${vbrifcreate}
-    ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${VBRIFS_CREATE}    data=${vbrifcreate_json}
+    : For  ${i}  IN RANGE    1   5
+    \    ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${VBRIFS_CREATE}    data=${vbrifcreate_json}
+    \    Exit For Loop If    '${resp.status_code}' == '${retcode}'
     Should Be Equal As Strings    ${resp.status_code}    ${retcode}
 
 Define Portmap for VBRIF
@@ -136,14 +151,14 @@ Define Portmap for VBRIF
 Test Ping
     [Arguments]    ${host1}    ${host2}
     [Documentation]    Ping hosts to check connectivity
-    Write    ${host1} ping -c 10 ${host2}
+    Write    ${host1} ping -c 4 ${host2}
     ${result}    Read Until    mininet>
     Should Contain    ${result}    64 bytes
 
 Verify Switch
     [Arguments]    ${ctrlname}    ${switch_id}
     [Documentation]    Get switch
-    ${resp}    Get    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}/${SW}/${switch_id}.json
+    ${resp}    RequestsLibrary.Get    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}/${SW}/${switch_id}.json
     ${contents}    To JSON    ${resp.content}
     ${switchblock}    Get From Dictionary    ${contents}    switch
     ${status}    Get From Dictionary    ${switchblock}    switch_id
@@ -152,5 +167,5 @@ Verify Switch
 Verify SwitchPort
     [Arguments]    ${ctrlname}    ${switch_id}
     [Documentation]    Get switch
-    ${resp}    Get    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}/${SW}/${switch_id}/${PORTS}
+    ${resp}    RequestsLibrary.Get    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}/${SW}/${switch_id}/${PORTS}
     Should Be Equal As Strings    ${resp.status_code}    200

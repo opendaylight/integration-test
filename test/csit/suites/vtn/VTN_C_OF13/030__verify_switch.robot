@@ -9,40 +9,40 @@ Add a ODL Controller
     [Documentation]    Add a Controller odc1
     Add a Controller    odc_test    ${CONTROLLER}
 
-Verify the Controller Status is up
+Verify the Controller Status is waiting_audit
     [Documentation]    Check Controller status
-    [Tags]    exclude
-    Wait Until Keyword Succeeds    30s    2s    Check Controller Status    odc_test    up
+    Wait Until Keyword Succeeds    12s    2s   Check Controller Status    odc_test   waiting_audit
+
+Audit a controller
+    [Documentation]    Trigger update audit
+    Audit Controller    odc_test
 
 Verify switch1
     [Documentation]    Get switch1
     [Tags]    exclude
-    Wait Until Keyword Succeeds    30s    2s    Verify Switch    odc_test    openflow:1
+    Verify Switch    odc_test    openflow:1
 
 Verify switch2
     [Documentation]    Get switch2
     [Tags]    exclude
-    Wait Until Keyword Succeeds    30s    2s    Verify Switch    odc_test    openflow:2
+    Verify Switch    odc_test    openflow:2
 
 Verify switch3
     [Documentation]    Get switch3
     [Tags]    exclude
-    Wait Until Keyword Succeeds    30s    2s    Verify Switch    odc_test    openflow:3
+    Verify Switch    odc_test    openflow:3
 
 Verify switchPort switch1
     [Documentation]    Get switchport/switch1
-    [Tags]    exclude
-    Wait Until Keyword Succeeds    16s    2s    Verify SwitchPort    odc_test    openflow:1
+    Verify SwitchPort    odc_test    openflow:1
 
 Verify switchPort switch2
     [Documentation]    Get switchport/switch2
-    [Tags]    exclude
-    Wait Until Keyword Succeeds    16s    2s    Verify SwitchPort    odc_test    openflow:2
+    Verify SwitchPort    odc_test    openflow:2
 
 Verify switchPort switch3
     [Documentation]    Get switchport/switch3
-    [Tags]    exclude
-    Wait Until Keyword Succeeds    16s    2s    Verify SwitchPort    odc_test    openflow:3
+    Verify SwitchPort    odc_test    openflow:3
 
 Delete a Controller
     [Documentation]    Delete Controller odc1
