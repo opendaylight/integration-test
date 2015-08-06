@@ -9,19 +9,20 @@ Add a ODL Controller
     [Documentation]    Add a Controller
     Add a Controller    odc_test    ${CONTROLLER}
 
-Verify the Controller Status is up
+Verify the Controller Status is waiting_audit
     [Documentation]    Check Controller status
-    [Tags]    exclude
-    Wait Until Keyword Succeeds    32s    2s    Check Controller Status    odc_test    up
+    Wait Until Keyword Succeeds    12s    2s   Check Controller Status    odc_test   waiting_audit
+
+Audit a controller
+    [Documentation]    Trigger update audit
+    Audit Controller    odc_test
 
 Add a Vtn Tenant1
     [Documentation]    Create Vtn Tenant1
-    [Tags]    exclude
     Add a VTN    Tenant1    VTN_TEST
 
 Create VBR in VTN Tenant1
     [Documentation]    Create a VBR in Tenant1 as Vbridge1
-    [Tags]    exclude
     Create VBR in VTN    Tenant1    Vbridge1    odc_test
 
 Update controller ip invalid
@@ -32,7 +33,7 @@ Update controller ip invalid
 Verify the Controller State is down
     [Documentation]    Check Controller status
     [Tags]    exclude
-    Wait Until Keyword Succeeds    40s    5s    Check Controller Status    odc_test    down
+    Wait Until Keyword Succeeds    12s    2s   Check Controller Status    odc_test    down
 
 Create VBRIF in VBRIDGE Vbridge1 Interface1
     [Documentation]    Create an interface to Vbridge1
@@ -49,10 +50,15 @@ Update controller ip valid
     [Tags]    exclude
     Update Controller    odc_test    ${CONTROLLER}    valid_IP
 
-Verify the Controller State is up
+Verify the Controller State is in waiting_audit
     [Documentation]    Check Controller status
     [Tags]    exclude
-    Wait Until Keyword Succeeds    32s    2s    Check Controller Status    odc_test    up
+    Wait Until Keyword Succeeds    12s    2s   Check Controller Status    odc_test    waiting_audit
+
+Audit a controller manually
+    [Documentation]    Trigger update audit
+    [Tags]    exclude
+    Audit Controller    odc_test
 
 Define Portmap for Interface1
     [Documentation]    Map Interface1 to a logical port
@@ -67,11 +73,10 @@ Define Portmap for Interface2
 Test Ping for Configuration1
     [Documentation]    ping between hosts in mininet
     [Tags]    exclude
-    Wait Until Keyword Succeeds    30s    10s    Test Ping    h1    h2
+    Wait Until Keyword Succeeds    10s    2s    Test Ping    h1    h2
 
 Delete a VTN Tenant1
     [Documentation]    Delete Vtn Tenant1
-    [Tags]    exclude
     Delete a VTN    Tenant1
 
 Delete a Controller odc1
