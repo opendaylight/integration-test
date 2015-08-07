@@ -6,7 +6,7 @@ Library           Collections
 Library           ../../../libraries/RequestsLibrary.py
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.txt
+Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
 ${node1}          "00:00:00:00:00:00:00:01"

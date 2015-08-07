@@ -17,7 +17,7 @@ Library           Collections
 Library           OperatingSystem
 Library           String
 Library           XML
-Resource          ../../../libraries/Utils.txt
+Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/FlowLib.txt
 Resource          ../../../libraries/SwitchUtils.txt
 Library           ../../../libraries/RequestsLibrary.py

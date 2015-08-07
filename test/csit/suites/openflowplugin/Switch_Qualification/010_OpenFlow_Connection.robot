@@ -6,7 +6,7 @@ Test Timeout      5m
 Library           Collections
 Library           OperatingSystem
 Resource          ../../../libraries/SwitchUtils.txt
-Resource          ../../../libraries/Utils.txt
+Resource          ../../../libraries/Utils.robot
 Library           ../../../libraries/RequestsLibrary.py
 Library           ../../../libraries/Common.py
 Library           ../../../libraries/SwitchClasses/${SWITCH_CLASS}.py

@@ -16,7 +16,7 @@ Library           HttpLibrary.HTTP
 Library           DateTime
 Library           ../../../libraries/Common.py
 Library           ../../../libraries/AAAJsonUtils.py
-Resource          ../../../libraries/Utils.txt
+Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/AAAKeywords.txt
 

@@ -4,7 +4,7 @@ Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPO
 Suite Teardown    Delete All Sessions
 Library           Collections
 Library           RequestsLibrary
-Resource          ../../../libraries/Utils.txt
+Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***

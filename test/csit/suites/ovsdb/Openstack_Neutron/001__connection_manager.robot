@@ -10,7 +10,7 @@ Library           DateTime
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.txt
+Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
 ${OVSDB_PORT}     6640

@@ -10,7 +10,7 @@ Documentation     Robot keyword library (Resource) for killing possibly left-ove
 ...
 ...               This library assumes that a SSH connections exists (and is switched to)
 ...               to a Linux machine (usualy MININET) where the Python process should be killed.
-...               TODO: The Utils.txt library has a "Run Command On Remote System" if we didn't want to make the assumption that an SSH connection was already open.
+...               TODO: The Utils.robot library has a "Run Command On Remote System" if we didn't want to make the assumption that an SSH connection was already open.
 ...               alternative TODO: Explain that it is not worth to perform separate SSH logins.
 ...
 ...               The argument ${filter} should hold what you would type to grep command in bash:

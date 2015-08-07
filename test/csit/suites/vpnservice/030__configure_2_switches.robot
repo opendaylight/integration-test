@@ -5,7 +5,7 @@ Suite Teardown    Delete All Sessions
 Variables         ../../variables/vpnservice/configureSwitches.py    ${MININET}    ${MININET1}
 Library           SSHLibrary
 Variables         ../../variables/Variables.py
-Resource          ../../libraries/Utils.txt
+Resource          ../../libraries/Utils.robot
 Library           RequestsLibrary
 
 *** Variables ***

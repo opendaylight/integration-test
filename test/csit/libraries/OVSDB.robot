@@ -1,6 +1,6 @@
 *** Settings ***
 Library           SSHLibrary
-Resource          Utils.txt
+Resource          Utils.robot
 Library           String
 Library           Collections
 Variables         ../variables/Variables.py

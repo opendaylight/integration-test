@@ -7,7 +7,7 @@ Library           Collections
 Library           OperatingSystem
 Library           RequestsLibrary
 Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.txt
+Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
 ${SERVICE_FORWARDERS_URI}    /restconf/config/service-function-forwarder:service-function-forwarders/

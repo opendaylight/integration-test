@@ -7,7 +7,7 @@ Library           Collections
 Library           OperatingSystem
 Library           RequestsLibrary
 Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.txt
+Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
 ${REGISTER_ENDPOINT_FILE}  ../../../variables/gbp/register-endpoint.json

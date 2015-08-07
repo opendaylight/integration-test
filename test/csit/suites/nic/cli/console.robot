@@ -12,7 +12,7 @@ Library           Collections
 Library           OperatingSystem
 Library           ../../../libraries/Common.py
 Resource          ../../../libraries/KarafKeywords.txt
-Resource          ../../../libraries/Utils.txt
+Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***

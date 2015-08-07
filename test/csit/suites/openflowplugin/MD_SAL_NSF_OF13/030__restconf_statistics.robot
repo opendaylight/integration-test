@@ -6,7 +6,7 @@ Library           Collections
 Library           ../../../libraries/RequestsLibrary.py
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.txt
+Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
 ${REST_CONTEXT}    /restconf/operational/opendaylight-inventory:nodes

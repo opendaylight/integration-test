@@ -7,7 +7,7 @@ Library           Collections
 Library           XML
 Library           RequestsLibrary
 Library           SSHLibrary
-Resource          ../../../libraries/Utils.txt
+Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/FlowLib.txt
 Library           ../../../libraries/XmlComparator.py

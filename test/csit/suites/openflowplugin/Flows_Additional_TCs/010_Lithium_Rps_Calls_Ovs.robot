@@ -5,7 +5,7 @@ Suite Teardown    Final Phase
 Library           XML
 Library           RequestsLibrary
 Library           SSHLibrary
-Resource          ../../../libraries/Utils.txt
+Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/ofplugin/RpcVariables.py
 
 *** Variables ***

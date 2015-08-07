@@ -8,7 +8,7 @@ Library           SSHLibrary
 Library           Collections
 Library           ../../../libraries/UtilLibrary.py
 Resource          ../../../libraries/KarafKeywords.txt
-Resource          ../../../libraries/Utils.txt
+Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***

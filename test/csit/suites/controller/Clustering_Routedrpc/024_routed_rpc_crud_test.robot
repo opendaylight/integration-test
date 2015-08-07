@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for Routed RPC.
-Resource          ../../../libraries/Utils.txt
+Resource          ../../../libraries/Utils.robot
 Library           Collections
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py

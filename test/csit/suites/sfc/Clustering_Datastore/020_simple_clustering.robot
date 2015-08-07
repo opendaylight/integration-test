@@ -6,7 +6,7 @@ Library           SSHLibrary
 Library           Collections
 Library           OperatingSystem
 Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.txt
+Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
 ${SFC_API}    /restconf/config/service-function:service-functions

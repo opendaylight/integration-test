@@ -5,7 +5,7 @@ Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.txt
+Resource          ../../../libraries/Utils.robot
 Library           Collections
 Library           ../../../libraries/CapwapLibrary.py
 
