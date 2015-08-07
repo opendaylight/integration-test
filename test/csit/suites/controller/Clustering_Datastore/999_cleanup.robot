@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test cleanup
 Default Tags      3-node-cluster
-Resource          ../../../libraries/ClusterKeywords.txt
+Resource          ../../../libraries/ClusterKeywords.robot
 Library           ../../../libraries/UtilLibrary.py
 Variables         ../../../variables/Variables.py
 

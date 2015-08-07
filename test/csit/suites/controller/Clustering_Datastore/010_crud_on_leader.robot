@@ -8,7 +8,7 @@ Library           ../../../libraries/CrudLibrary.py
 Library           ../../../libraries/SettingsLibrary.py
 Library           ../../../libraries/UtilLibrary.py
 Library           ../../../libraries/ClusterStateLibrary.py
-Resource          ../../../libraries/ClusterKeywords.txt
+Resource          ../../../libraries/ClusterKeywords.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
