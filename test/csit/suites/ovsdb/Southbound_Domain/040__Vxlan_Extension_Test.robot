@@ -9,7 +9,7 @@ Library           SSHLibrary
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.txt
+Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/OVSDB.robot
 
 *** Variables ***

@@ -7,7 +7,7 @@ Library           Collections
 Library           String
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py
-Resource          ../../../libraries/Utils.txt
+Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***

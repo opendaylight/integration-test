@@ -6,7 +6,7 @@ Library           SSHLibrary
 Library           Collections
 Library           OperatingSystem
 Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.txt
+Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
 ${GBP_TENENT_ID}     f5c7d344-d1c7-4208-8531-2c2693657e12

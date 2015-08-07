@@ -8,7 +8,7 @@ Library           SSHLibrary
 Library           Collections
 Library           XML
 Variables         ../variables/Variables.py
-Resource          ./Utils.txt
+Resource          ./Utils.robot
 
 *** Keywords ***
 Get VtnCo

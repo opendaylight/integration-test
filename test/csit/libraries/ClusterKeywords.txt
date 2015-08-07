@@ -1,5 +1,5 @@
 *** Settings ***
-Resource          Utils.txt
+Resource          Utils.robot
 Library           Collections
 
 *** Variables ***

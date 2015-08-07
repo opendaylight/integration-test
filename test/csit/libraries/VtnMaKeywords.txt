@@ -6,7 +6,7 @@ Library           Collections
 Library           json
 Library           RequestsLibrary
 Variables         ../variables/Variables.py
-Resource          ./Utils.txt
+Resource          ./Utils.robot
 
 *** Variables ***
 ${REST_CONTEXT_VTNS}    controller/nb/v2/vtn/default/vtns

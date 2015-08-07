@@ -3,7 +3,7 @@ Documentation     Test suite for Ring/Loop topology of size 3
 Suite Setup       Start Suite
 Suite Teardown    Stop Suite
 Library           RequestsLibrary
-Resource          ../../../libraries/Utils.txt
+Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***

@@ -5,7 +5,7 @@ Suite Teardown    Stop Suite
 Library           SSHLibrary
 Library           ../../libraries/Common.py
 Variables         ../../variables/Variables.py
-Resource          ../../libraries/Utils.txt
+Resource          ../../libraries/Utils.robot
 
 *** Variables ***
 ${start1}         sudo mn \ --controller=remote,ip=${CONTROLLER} --custom custom.py --topo Switch1 --switch ovsk,protocols=OpenFlow13

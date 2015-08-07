@@ -8,7 +8,7 @@ Suite Setup       Cbench Suite Setup
 Test Teardown     Log Results As Zero If Cbench Timed Out
 Force Tags        cbench
 Library           String
-Resource          ../../../libraries/Utils.txt
+Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/KarafKeywords.txt
 
 

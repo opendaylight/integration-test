@@ -6,7 +6,7 @@ Library           OperatingSystem
 Library           String
 Library           RequestsLibrary
 Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.txt
+Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
 ${OVSDB_PORT}     6634

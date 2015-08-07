@@ -1,6 +1,6 @@
 *** Settings ***
 Library           OperatingSystem
-Resource          Utils.txt
+Resource          Utils.robot
 
 *** Variables ***
 ${HBASE_CLIENT}    /tmp/Hbase/hbase-0.94.15/bin

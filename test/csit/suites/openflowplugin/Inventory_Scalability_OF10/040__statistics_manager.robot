@@ -7,7 +7,7 @@ Library           ../../../libraries/RequestsLibrary.py
 Library           ../../../libraries/Common.py
 Library           ../../../libraries/Topologynew.py
 Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.txt
+Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
 ${nodeprefix}     openflow:

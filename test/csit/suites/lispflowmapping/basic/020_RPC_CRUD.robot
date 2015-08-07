@@ -7,7 +7,7 @@ Library           OperatingSystem
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.txt
+Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
 ${RPC_URL_PREFIX}    /restconf/operations/lfm-mapping-database

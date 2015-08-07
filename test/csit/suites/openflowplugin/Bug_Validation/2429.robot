@@ -7,7 +7,7 @@ Metadata:         https://bugs.opendaylight.org/show_bug.cgi?id=2429
 Library           OperatingSystem
 Library           SSHLibrary
 Library           Process
-Resource          ../../../libraries/Utils.txt
+Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
