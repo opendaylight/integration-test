@@ -5,7 +5,7 @@ Default Tags      3-node-cluster
 Library           ../../../libraries/CrudLibrary.py
 Library           ../../../libraries/UtilLibrary.py
 Library           ../../../libraries/ClusterStateLibrary.py
-Resource          ../../../libraries/ClusterKeywords.txt
+Resource          ../../../libraries/ClusterKeywords.robot
 
 *** Variables ***
 ${CAR_SHARD}      shard-car-config
