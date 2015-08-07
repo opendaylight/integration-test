@@ -12,7 +12,7 @@ Suite Teardown    Longevity Suite Teardown
 Library           RequestsLibrary
 Library           DateTime
 Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Scalability.txt
+Resource          ../../../libraries/Scalability.robot
 
 *** Variables ***
 ${NUM_SWITCHES}           200

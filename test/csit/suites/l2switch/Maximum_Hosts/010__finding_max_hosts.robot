@@ -5,7 +5,7 @@ Suite Teardown    Scalability Suite Teardown
 Library           OperatingSystem
 Library           RequestsLibrary
 Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Scalability.txt
+Resource          ../../../libraries/Scalability.robot
 
 *** Variables ***
 ${MIN_HOSTS}    100
