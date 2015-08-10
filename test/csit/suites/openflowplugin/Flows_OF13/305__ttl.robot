@@ -17,7 +17,7 @@ Library           OperatingSystem
 Library           String
 Library           RequestsLibrary
 Library           XML
-Resource          ../../../libraries/FlowLib.txt
+Resource          ../../../libraries/FlowLib.robot
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 
