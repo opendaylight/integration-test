@@ -10,7 +10,7 @@ Library           ../../../libraries/RequestsLibrary.py
 Library           ../../../libraries/Common.py
 Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/AAAKeywords.txt
+Resource          ../../../libraries/AAAKeywords.robot
 
 *** Variables ***
 ${idmurl}    /auth/v1
