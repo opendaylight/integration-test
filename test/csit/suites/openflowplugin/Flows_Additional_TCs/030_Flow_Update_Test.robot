@@ -9,7 +9,7 @@ Library           RequestsLibrary
 Library           SSHLibrary
 Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/FlowLib.txt
+Resource          ../../../libraries/FlowLib.robot
 Library           ../../../libraries/XmlComparator.py
 
 *** Variables ***

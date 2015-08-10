@@ -7,7 +7,7 @@ Library           OperatingSystem
 Library           Collections
 Library           XML
 Library           SSHLibrary
-Resource           ../../../../libraries/FlowLib.txt
+Resource           ../../../../libraries/FlowLib.robot
 Library           ../../../../libraries/XmlComparator.py
 Variables         ../../../../variables/Variables.py
 Library           RequestsLibrary
