@@ -5,7 +5,7 @@ Suite Teardown    Switch Qualification Suite Teardown
 Test Timeout      5m
 Library           Collections
 Library           OperatingSystem
-Resource          ../../../libraries/SwitchUtils.txt
+Resource          ../../../libraries/SwitchUtils.robot
 Resource          ../../../libraries/Utils.robot
 Library           ../../../libraries/RequestsLibrary.py
 Library           ../../../libraries/Common.py
