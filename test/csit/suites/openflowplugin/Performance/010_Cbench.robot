@@ -9,7 +9,7 @@ Test Teardown     Log Results As Zero If Cbench Timed Out
 Force Tags        cbench
 Library           String
 Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/KarafKeywords.txt
+Resource          ../../../libraries/KarafKeywords.robot
 
 
 *** Variables ***

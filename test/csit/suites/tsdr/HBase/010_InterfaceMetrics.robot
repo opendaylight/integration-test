@@ -7,7 +7,7 @@ Library           Collections
 Library           String
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py
-Resource          ../../../libraries/KarafKeywords.txt
+Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/TsdrUtils.txt
 Variables         ../../../variables/Variables.py
 

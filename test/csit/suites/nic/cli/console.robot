@@ -11,7 +11,7 @@ Library           SSHLibrary
 Library           Collections
 Library           OperatingSystem
 Library           ../../../libraries/Common.py
-Resource          ../../../libraries/KarafKeywords.txt
+Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
 
