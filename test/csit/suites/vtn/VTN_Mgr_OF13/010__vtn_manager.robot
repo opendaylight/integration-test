@@ -2,7 +2,7 @@
 Documentation     Test suite for VTN Manager using OF13
 Suite Setup       Start SuiteVtnMaTest
 Suite Teardown    Stop SuiteVtnMaTest
-Resource          ../../../libraries/VtnMaKeywords.txt
+Resource          ../../../libraries/VtnMaKeywords.robot
 
 *** Test Cases ***
 Check if switch1 detected
