@@ -1,13 +1,14 @@
 *** Settings ***
 Resource          Utils.robot
 Library           Collections
+Library           ClusterStateLibrary.py
 
 *** Variables ***
 
 *** Keywords ***
 Get Controller List
     [Arguments]    ${exclude_controller}=${EMPTY}
-    [Documentation]  Creates a list of all controllers minus any excluded controller.
+    [Documentation]    Creates a list of all controllers minus any excluded controller.
     Log    ${exclude_controller}
     @{searchlist}    Create List    ${CONTROLLER}    ${CONTROLLER1}    ${CONTROLLER2}
     Remove Values From List    ${searchlist}    ${exclude_controller}
@@ -169,7 +170,7 @@ Stop One Or More Controllers
     : FOR    ${ip}    IN    @{controllers}
     \    Run Command On Remote System    ${ip}    ${cmd}
     : FOR    ${ip}    IN    @{controllers}
-    \    Wait Until Keyword Succeeds    120 s   3 s    Controller Down Check    ${ip}
+    \    Wait Until Keyword Succeeds    120 s    3 s    Controller Down Check    ${ip}
 
 Start One Or More Controllers
     [Arguments]    @{controllers}
@@ -235,3 +236,33 @@ Show Cluster Configuation Files
     ${cmd} =    Set Variable    cat ${KARAF_HOME}/etc/org.apache.karaf.features.cfg
     : FOR    ${ip}    IN    @{controllers}
     \    Run Command On Remote System    ${ip}    ${cmd}
+
+Check Cars
+    [Arguments]    ${selected controller}    ${PORT}    ${nth car}
+    [Documentation]    Verifies that the first through nth car is present.
+    ${resp}    Getcars    ${selected controller}    ${PORT}    ${0}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${INDEX}    IN RANGE    1    ${nth car}
+    \    ${counter}=    Convert to String    ${INDEX}
+    \    Log    manufacturer${counter}
+    \    Should Contain    ${resp.content}    manufacturer${counter}
+
+Check People
+    [Arguments]    ${selected controller}    ${PORT}    ${nth person}
+    [Documentation]    Verifies that the first through nth person is present.
+    ${resp}    GetPersons    ${selected controller}    ${PORT}    ${0}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${INDEX}    IN RANGE    1    ${nth person}
+    \    ${counter}=    Convert to String    ${INDEX}
+    \    Log    user${counter}
+    \    Should Contain    ${resp.content}    user${counter}
+
+Check CarPeople
+    [Arguments]    ${selected controller}    ${PORT}    ${nth carperson}
+    [Documentation]    Verifies that the first through nth car-person is present.
+    ${resp}    GetCarPersonMappings    ${selected controller}    ${PORT}    ${0}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${INDEX}    IN RANGE    1    ${nth carperson}
+    \    ${counter}=    Convert to String    ${INDEX}
+    \    Log    user${counter}
+    \    Should Contain    ${resp.content}    user${counter}
