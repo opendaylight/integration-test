@@ -3,7 +3,7 @@ Library           SSHLibrary
 Library           String
 Library           DateTime
 Library           ./UtilLibrary.py
-Resource          KarafKeywords.txt
+Resource          KarafKeywords.robot
 
 *** Variables ***
 ${start}          sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,1 --switch ovsk,protocols=OpenFlow13

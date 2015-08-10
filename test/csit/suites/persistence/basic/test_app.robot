@@ -7,7 +7,7 @@ Suite Teardown    Cleanup Persistence Test Database
 Library           SSHLibrary
 Library           Collections
 Library           ../../../libraries/UtilLibrary.py
-Resource          ../../../libraries/KarafKeywords.txt
+Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
 

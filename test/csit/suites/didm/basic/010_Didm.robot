@@ -13,7 +13,7 @@ Library           Collections
 Library           OperatingSystem
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py
-Resource           ../../../libraries/KarafKeywords.txt
+Resource           ../../../libraries/KarafKeywords.robot
 Resource           ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
 

@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test Suite that, verifies the features and corresponding bundles are installed.
-Resource          ../../libraries/KarafKeywords.txt
+Resource          ../../libraries/KarafKeywords.robot
 
 *** Variables ***
 @{FEATURE_LIST}    odl-vpnservice-api    odl-vpnservice-impl    odl-vpnservice-impl-rest    odl-vpnservice-impl-ui    odl-vpnservice-core
