@@ -13,8 +13,9 @@ libdocoutputlocation: /tmp/RobotLibs
 """
 
 import os
-import subprocess
 from sys import argv
+import robot.testdoc
+import robot.libdoc
 
 if len(argv) != 5:
     suiteRoot = os.getenv("HOME")+'/integration/test/csit/suites'
@@ -49,19 +50,16 @@ def generate_docs(testDir, outputFolder, debug=False):
     """
 
     if testDir == suiteRoot:
-        doctype = 'testdoc'
+        docFunction = robot.testdoc.testdoc
     else:
-        doctype = 'libdoc'
+        docFunction = robot.libdoc.libdoc
 
     for root, dirs, files, in os.walk(testDir):
         for file in files:
             if file.endswith(".robot"):
-                cmd = 'python -m robot.' + doctype + ' ' + root + '/' + file + ' ' + outputFolder + file + '.html'
-                print cmd
-                p = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                output, errors = p.communicate()
-                if debug:
-                    print output, errors
+                inputFile = os.path.join(root, file)
+                outputFile = os.path.join(outputFolder, file + ".html")
+                docFunction(inputFile, outputFile)
 
 tmpDirs = [tmpSuite, tmpLib]
 for dirs in tmpDirs:
