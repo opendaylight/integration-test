@@ -8,7 +8,7 @@ Library           String
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../libraries/TsdrUtils.txt
+Resource          ../../../libraries/TsdrUtils.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
