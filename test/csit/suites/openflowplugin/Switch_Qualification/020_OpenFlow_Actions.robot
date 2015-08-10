@@ -19,7 +19,7 @@ Library           String
 Library           XML
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/FlowLib.txt
-Resource          ../../../libraries/SwitchUtils.txt
+Resource          ../../../libraries/SwitchUtils.robot
 Library           ../../../libraries/RequestsLibrary.py
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
