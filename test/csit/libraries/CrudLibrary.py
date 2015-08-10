@@ -109,7 +109,7 @@ def addCarPerson(hostname, port, numberOfCarPersons):
         # Send the POST request REST CONF
         resp = UtilLibrary.nonprintpost(SettingsLibrary.getAddCarPersonUrl(hostname, port), "admin", "admin", payload)
 
-        return
+        return resp
 
     for x in range(1, numberOfCarPersons+1):
         strId = str(x)
@@ -127,8 +127,8 @@ def addCarPerson(hostname, port, numberOfCarPersons):
 
     print("getting the car_persons for verification")
     resp = getCarPersonMappings(hostname, port, 0)
-
     # TBD detailed validation
+    return resp
 
 
 def buyCar(hostname, port, numberOfCarBuyers, start=0):
