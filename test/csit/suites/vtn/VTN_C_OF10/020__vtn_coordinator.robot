@@ -2,7 +2,7 @@
 Documentation     Test suite for VTN Coordinator
 Suite Setup       Start SuiteVtnCoTest
 Suite Teardown    Stop SuiteVtnCoTest
-Resource          ../../../libraries/VtnCoKeywords.txt
+Resource          ../../../libraries/VtnCoKeywords.robot
 
 *** Test Cases ***
 Add a ODL Controller
