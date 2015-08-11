@@ -5,4 +5,4 @@ integration/test/csit/suites/controller/Clustering_Datastore/030_car_failover_cr
 integration/test/csit/suites/controller/Clustering_Datastore/040_people_failover_crud_on_new_leader.robot
 integration/test/csit/suites/controller/Clustering_Datastore/050_car_persistence_recovery.robot
 integration/test/csit/suites/controller/Clustering_Datastore/140_recovery_restart_follower.robot
-
+integration/test/csit/suites/controller/Clustering_Routedrpc/023_routed_rpc_crud_test.robot
