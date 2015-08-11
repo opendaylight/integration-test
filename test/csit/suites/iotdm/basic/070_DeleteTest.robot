@@ -1,5 +1,5 @@
 *** Settings ***
-Suite Teardown    Kill The Tree    InCSE1    admin    admin
+Suite Teardown    Kill The Tree    ${CONTROLLER}    InCSE1    admin    admin
 Library           ../../../libraries/criotdm.py
 Library           Collections
 

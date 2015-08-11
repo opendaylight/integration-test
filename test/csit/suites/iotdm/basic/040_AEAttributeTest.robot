@@ -1,5 +1,5 @@
 *** Settings ***
-Suite Teardown    Kill The Tree    InCSE1    admin    admin
+Suite Teardown    Kill The Tree    ${CONTROLLER}    InCSE1    admin    admin
 Library           ../../../libraries/criotdm.py
 Library           Collections
 
@@ -255,6 +255,9 @@ Set Suite Variable
     ${lt1} =    LastModifiedTime    ${oldr}
     ${attr} =    Set Variable    "lbl":["aaa"]
     Sleep    1s
+    # We know Beryllium is going to be get rid of all sleep.
+    # But as lastModifiedTime has precision in seconds,
+    # we need to wait 1 second to see different value on update.
     ${r} =    update Resource    ${iserver}    InCSE1/AE1    ${rt_ae}    ${attr}
     ${text} =    Text    ${r}
     LOG    ${text}

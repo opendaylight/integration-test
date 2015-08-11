@@ -1,5 +1,5 @@
 *** Settings ***
-Suite Teardown    Kill The Tree    InCSE1    admin    admin
+Suite Teardown    Kill The Tree    ${CONTROLLER}    InCSE1    admin    admin
 Library           ../../../libraries/criotdm.py
 Library           Collections
 
@@ -325,6 +325,9 @@ Delete the Container2-2.3
     ${lt1} =    LastModifiedTime    ${oldr}
     ${attr} =    Set Variable    "lbl":["aaa"]
     Sleep    1s
+    # We know Beryllium is going to be get rid of all sleep.
+    # But as lastModifiedTime has precision in seconds,
+    # we need to wait 1 second to see different value on update.
     ${r} =    update Resource    ${iserver}    InCSE1/Container1    ${rt_container}    ${attr}
     ${lt2} =    LastModifiedTime    ${r}
     Should Not Be Equal    ${oldr.json()['lt']}    ${lt2}
@@ -336,6 +339,9 @@ Delete the Container2-2.3
     LOG    ${text}
     ${lt1} =    LastModifiedTime    ${oldr}
     Sleep    1s
+    # We know Beryllium is going to be get rid of all sleep.
+    # But as lastModifiedTime has precision in seconds,
+    # we need to wait 1 second to see different value on update.
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"102"
     ${r} =    Create Resource    ${iserver}    InCSE1/Container1    ${rt_contentInstance}    ${attr}    conIn1
     ${lt2} =    LastModifiedTime    ${r}
@@ -418,6 +424,9 @@ Delete the test AE-4.2
     ${oldst} =    Set Variable    ${oldr.json()['st']}
     ${attr} =    Set Variable    "lbl":["label1"]
     Sleep    1s
+    # We know Beryllium is going to be get rid of all sleep.
+    # But as lastModifiedTime has precision in seconds,
+    # we need to wait 1 second to see different value on update.
     Update Resource    ${iserver}    InCSE1/Container2    ${rt_container}    ${attr}
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/Container2
     Should Be Equal As Integers    ${oldst+1}    ${r.json()['st']}
@@ -431,6 +440,9 @@ Delete the test AE-4.2
     ${oldst} =    Set Variable    ${oldr.json()['st']}
     ${attr} =    Set Variable    "mni":5
     Sleep    1s
+    # We know Beryllium is going to be get rid of all sleep.
+    # But as lastModifiedTime has precision in seconds,
+    # we need to wait 1 second to see different value on update.
     Update Resource    ${iserver}    InCSE1/Container2    ${rt_container}    ${attr}
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/Container2
     Should Be Equal As Integers    ${oldst+1}    ${r.json()['st']}
@@ -442,6 +454,9 @@ Delete the test AE-4.2
     ${oldst} =    Set Variable    ${oldr.json()['st']}
     ${attr} =    Set Variable    "mbs":30
     Sleep    1s
+    # We know Beryllium is going to be get rid of all sleep.
+    # But as lastModifiedTime has precision in seconds,
+    # we need to wait 1 second to see different value on update.
     Update Resource    ${iserver}    InCSE1/Container2    ${rt_container}    ${attr}
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/Container2
     Should Be Equal As Integers    ${oldst+1}    ${r.json()['st']}
@@ -455,6 +470,9 @@ Delete the test AE-4.2
     ${oldst} =    Set Variable    ${oldr.json()['st']}
     ${attr} =    Set Variable    "or":"http://google.com"
     Sleep    1s
+    # We know Beryllium is going to be get rid of all sleep.
+    # But as lastModifiedTime has precision in seconds,
+    # we need to wait 1 second to see different value on update.
     Update Resource    ${iserver}    InCSE1/Container2    ${rt_container}    ${attr}
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/Container2
     Should Be Equal As Integers    ${oldst+1}    ${r.json()['st']}
@@ -469,6 +487,9 @@ Delete the test AE-4.2
     ${oldst} =    Set Variable    ${oldr.json()['st']}
     ${attr} =    Set Variable    "lbl":["label1"]
     Sleep    1s
+    # We know Beryllium is going to be get rid of all sleep.
+    # But as lastModifiedTime has precision in seconds,
+    # we need to wait 1 second to see different value on update.
     Create Resource    ${iserver}    InCSE1/Container2    ${rt_container}    ${attr}    Container3
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/Container2
     ${text} =    Text    ${r}
@@ -485,6 +506,9 @@ Delete the test AE-4.2
     ${oldst} =    Set Variable    ${oldr.json()['st']}
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"102"
     Sleep    1s
+    # We know Beryllium is going to be get rid of all sleep.
+    # But as lastModifiedTime has precision in seconds,
+    # we need to wait 1 second to see different value on update.
     Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}    ${attr}
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/Container2
     ${text} =    Text    ${r}
@@ -501,6 +525,9 @@ Delete the test AE-4.2
     ${oldst} =    Set Variable    ${oldr.json()['st']}
     ${attr} =    Set Variable    "lbl":["label45"]
     Sleep    1s
+    # We know Beryllium is going to be get rid of all sleep.
+    # But as lastModifiedTime has precision in seconds,
+    # we need to wait 1 second to see different value on update.
     Update Resource    ${iserver}    InCSE1/Container2/Container3    ${rt_container}    ${attr}
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/Container2
     ${text} =    Text    ${r}

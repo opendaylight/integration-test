@@ -1,6 +1,6 @@
 *** Settings ***
 Suite Setup       Connect And Create The Tree
-Suite Teardown    Kill The Tree    InCSE1    admin    admin
+Suite Teardown    Kill The Tree    ${CONTROLLER}    InCSE1    admin    admin
 Library           ../../../libraries/criotdm.py
 Library           Collections
 
@@ -80,7 +80,7 @@ Set Suite Variable
     \    Should Contain    ${error}    rcn
 
 Delete the tree
-    Kill The Tree    InCSE1    admin    admin
+    Kill The Tree    ${CONTROLLER}    InCSE1    admin    admin
     #==================================================
     #    FilterCriteria Test
     #==================================================

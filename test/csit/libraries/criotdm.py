@@ -117,9 +117,9 @@ def elapsed(response):
     return response.elapsed.total_seconds()
 
 
-def kill_the_tree(CSEID, username, password):
+def kill_the_tree(host, CSEID, username, password):
     """Delete the whole tree."""
-    connection = ciotdm.connect("localhost", base=CSEID,
+    connection = ciotdm.connect(host, base=CSEID,
                                 auth=(username, password), protocol="http")
     connection.kill()
 
