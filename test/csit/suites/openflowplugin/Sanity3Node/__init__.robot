@@ -1,12 +1,12 @@
 *** Settings ***
 Documentation     Test suite for the OpenDaylight base edition with of13, aimed for statistics manager
 Suite Setup       Start Suite
-Suite Teardown    Stop Suite
+Suite Teardown    Utils.Stop Suite
 Library           SSHLibrary
+Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
 ${start}          sudo python DynamicMininet.py
-${linux_prompt}    >
 
 *** Keywords ***
 Start Suite
@@ -20,10 +20,3 @@ Start Suite
     Read Until    mininet>
     Write    start_with_cluster ${CONTROLLER},${CONTROLLER1},${CONTROLLER2}
     Read Until    mininet>
-
-Stop Suite
-    Log    Stop the test on the base edition
-    Read
-    Write    exit
-    Read Until    ${linux_prompt}
-    Close Connection

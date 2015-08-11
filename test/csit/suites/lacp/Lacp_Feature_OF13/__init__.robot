@@ -12,7 +12,7 @@ ${bond}=     "/etc/modprobe.d/bonding.conf"
 *** Keywords ***
 Start Suite
     Log    Start mininet
-    ${mininet_session_id}=     Open Connection   ${MININET}     prompt=${LINUX_PROMPT}     timeout=30s
+    ${mininet_session_id}=     Open Connection   ${MININET}     prompt=${DEFAULT_LINUX_PROMPT}     timeout=30s
     Set Suite Variable     ${mininet_session_id}
     Login With Public Key    ${MININET_USER}   ${USER_HOME}/.ssh/${SSH_KEY}   any
     Execute Command    sudo ovs-vsctl set-manager ptcp:6633

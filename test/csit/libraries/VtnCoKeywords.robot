@@ -28,7 +28,7 @@ Start SuiteVtnCo
     [Documentation]    Download and startup the VTN Coordinator.
     Log    Start the VTN Coordinator
     Get VtnCo
-    ${vtnc_conn_id}=    Open Connection    ${MININET}    prompt=${LINUX_PROMPT}    timeout=30s
+    ${vtnc_conn_id}=    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Suite Variable    ${vtnc_conn_id}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     ${VTNC_FILENAME}=    Catenate    SEPARATOR=/    ${WORKSPACE}    vtn_coordinator.tar.bz2

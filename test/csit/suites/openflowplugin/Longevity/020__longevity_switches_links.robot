@@ -58,7 +58,7 @@ Longevity Suite Setup
     [Documentation]    In addtion to opening the REST session to the controller, the ${end_time} that this
     ...    test should not exceed is calculated and made in to a suite wide variable.
     Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${linux_prompt}
+    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Log     Copying ${CREATE_FULLYMESH_TOPOLOGY_FILE_PATH} file to Mininet VM
     Put File  ${CURDIR}/../../../${CREATE_FULLYMESH_TOPOLOGY_FILE_PATH}

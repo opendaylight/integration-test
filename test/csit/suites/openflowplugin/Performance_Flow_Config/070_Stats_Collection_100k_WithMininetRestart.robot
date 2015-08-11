@@ -20,7 +20,6 @@ ${nrthreads}      5
 ${swspread}       linear
 ${tabspread}      first
 @{cntls}          ${CONTROLLER}
-${linux_prompt}    >
 ${start_cmd}      sudo mn --controller=remote,ip=${CONTROLLER} --topo linear,${swnr} --switch ovsk,protocols=OpenFlow13
 ${getf_cmd}       sh ./get-total-found.sh
 ${getr_cmd}       sh ./get-total-reported.sh
@@ -94,7 +93,7 @@ Stop Mininet End
 Connect Switches
     [Documentation]    Starts mininet with requested number of switches (${swnr})
     Log    Starting mininet with ${swnr} switches
-    Open Connection    ${MININET}    prompt=${linux_prompt}    timeout=600
+    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=600
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
     Execute Command    sudo mn -c
@@ -104,7 +103,7 @@ Connect Switches
 
 Create Http Session And Upload Files
     Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    Open Connection    ${MININET}    prompt=${linux_prompt}    timeout=600
+    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=600
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Put File    ${CURDIR}/../../../../tools/odl-mdsal-clustering-tests/clustering-performance-test/ovs-scripts/*    ./
     Close Connection
@@ -114,7 +113,7 @@ Stop Switches
     Log    Stopping mininet
     Read
     Write    exit
-    Read Until    ${linux_prompt}
+    Read Until    ${DEFAULT_LINUX_PROMPT}
     Close Connection
 
 Delete Http Session And Store Plot Data
