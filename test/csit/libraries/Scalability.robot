@@ -6,9 +6,6 @@ Library           Collections
 Variables           ../variables/Variables.py
 Library           RequestsLibrary
 Library           SwitchClasses/BaseSwitch.py
-*** Variables ***
-${linux_prompt}    >
-
 
 *** Keywords ***
 Find Max Switches
@@ -119,7 +116,7 @@ Start Mininet With One Switch And ${hosts} hosts
     [Documentation]    Start mininet with one switch and ${hosts} hosts
     Log     Starting mininet with one switch and ${hosts} hosts
     Log To Console   Starting mininet with one switch and ${hosts} hosts
-    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${linux_prompt}    timeout=${hosts*3}
+    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${hosts*3}
     Set Suite Variable    ${mininet_conn_id}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    sudo mn --controller=remote,ip=${CONTROLLER} --topo linear,1,${hosts} --switch ovsk,protocols=OpenFlow13
@@ -168,7 +165,7 @@ Start Mininet Linear
     [Arguments]    ${switches}
     [Documentation]    Start mininet linear topology with ${switches} nodes
     Log To Console    Starting mininet linear ${switches}
-    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${linux_prompt}    timeout=${switches*3}
+    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${switches*3}
     Set Suite Variable    ${mininet_conn_id}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    sudo mn --controller=remote,ip=${CONTROLLER} --topo linear,${switches} --switch ovsk,protocols=OpenFlow13
@@ -179,11 +176,11 @@ Start Mininet With Custom Topology
     [Arguments]  ${topology_file}  ${switches}   ${base_mac}=00:00:00:00:00:00  ${base_ip}=1.1.1.1  ${hosts}=0  ${mininet_start_time}=100
     [Documentation]  Start a custom mininet topology.
     Log To Console    Start a custom mininet topology with ${switches} nodes
-    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${linux_prompt}    timeout=${mininet_start_time}
+    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${mininet_start_time}
     Set Suite Variable    ${mininet_conn_id}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    python ${topology_file} ${switches} ${hosts} ${base_mac} ${base_ip}
-    Read Until    ${linux_prompt}
+    Read Until    ${DEFAULT_LINUX_PROMPT}
     Write    sudo mn --controller=remote,ip=${CONTROLLER} --custom switch.py --topo demotopo --switch ovsk,protocols=OpenFlow13
     Read Until    mininet>
     Write   sh ovs-vsctl show
@@ -247,7 +244,7 @@ Stop Mininet Simulation
     Switch Connection    ${mininet_conn_id}
     Read
     Write    exit
-    Read Until    ${linux_prompt}
+    Read Until    ${DEFAULT_LINUX_PROMPT}
     Close Connection
 
 Scalability Suite Teardown

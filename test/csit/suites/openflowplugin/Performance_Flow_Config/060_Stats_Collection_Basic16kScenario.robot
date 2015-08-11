@@ -17,7 +17,6 @@ ${flnr}           16000
 ${swspread}       linear
 ${tabspread}      linear
 @{cntls}          ${CONTROLLER}
-${linux_prompt}    >
 ${start_cmd}      sudo mn --controller=remote,ip=${CONTROLLER} --topo linear,${swnr} --switch ovsk,protocols=OpenFlow13
 
 *** Test Cases ***
@@ -88,7 +87,7 @@ Stop Mininet End
 Connect Switches
     [Documentation]    Starts mininet with requested number of switches (${swnr})
     Log    Starting mininet with ${swnr} switches
-    Open Connection    ${MININET}    prompt=${linux_prompt}    timeout=600
+    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=600
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
     Execute Command    sudo mn -c
@@ -104,7 +103,7 @@ Stop Switches
     Log    Stopping mininet
     Read
     Write    exit
-    Read Until    ${linux_prompt}
+    Read Until    ${DEFAULT_LINUX_PROMPT}
     Close Connection
 
 Delete Http Session

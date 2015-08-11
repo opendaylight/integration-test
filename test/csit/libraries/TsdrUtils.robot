@@ -1,6 +1,8 @@
 *** Settings ***
 Library           OperatingSystem
 Resource          Utils.robot
+Variables           ../variables/Variables.py
+
 
 *** Variables ***
 ${HBASE_CLIENT}    /tmp/Hbase/hbase-0.94.15/bin
@@ -12,7 +14,7 @@ Start Tsdr Suite
     [Documentation]    TSDR specific setup/cleanup work that can be done safely before any system
     ...    is run.
     Clean Mininet System
-    ${mininet_conn_id1}=    Open Connection    ${MININET}    prompt=${LINUX_PROMPT}    timeout=30s
+    ${mininet_conn_id1}=    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Suite Variable    ${mininet_conn_id1}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
@@ -27,33 +29,33 @@ Stop Tsdr Suite
     Switch Connection    ${mininet_conn_id1}
     Read
     Write    exit
-    Read Until    ${LINUX_PROMPT}
+    Read Until    ${DEFAULT_LINUX_PROMPT}
     Close Connection
 
 Initialize the HBase for TSDR
     [Documentation]    Install and initialize the tsdr tables on HBase Server
-    ${hbase_server}=    Run Command On Remote System    ${CONTROLLER}    export JAVA_HOME=/usr && ${HBASE_CLIENT}/start-hbase.sh    ${MININET_USER}    ${LINUX_PROMPT}    120
+    ${hbase_server}=    Run Command On Remote System    ${CONTROLLER}    export JAVA_HOME=/usr && ${HBASE_CLIENT}/start-hbase.sh    ${MININET_USER}    ${prompt_timeout}=120
     Log    ${hbase_server}
     ${hbase_process}=    Run Command On Remote System    ${CONTROLLER}    ps -ef | grep HMaster
     Log    ${hbase_process}
 
 Stop the HBase Server
     [Documentation]    Stop the HBase server
-    ${hbase_server}=    Run Command On Remote System    ${CONTROLLER}    export JAVA_HOME=/usr && ${HBASE_CLIENT}/stop-hbase.sh    ${MININET_USER}    ${LINUX_PROMPT}    90
+    ${hbase_server}=    Run Command On Remote System    ${CONTROLLER}    export JAVA_HOME=/usr && ${HBASE_CLIENT}/stop-hbase.sh    ${MININET_USER}    ${prompt_timeout}=90
     Log    ${hbase_server}
 
 Configure the Queue on Switch
-    [Arguments]    ${queue_interface}    ${user}=${MININET_USER}    ${prompt}=${LINUX_PROMPT}    ${prompt_timeout}=120s
+    [Arguments]    ${queue_interface}    ${user}=${MININET_USER}    ${prompt_timeout}=120s
     [Documentation]    Configure the 2 queues on specified openvswitch interface
     Log    Configure the queue on ${queue_interface}
-    ${output}=    Run Command On Remote System    ${MININET}    sudo ovs-vsctl set port ${queue_interface} qos=@newqos -- --id=@newqos create qos type=linux-htb other-config:max-rate=200000000 queues=0=@q0,1=@q1,2=@q2 -- --id=@q0 create queue other-config:min-rate=100000 other-config:max-rate=200000 -- --id=@q1 create queue other-config:min-rate=10001 other-config:max-rate=300000 -- --id=@q2 create queue other-config:min-rate=300001 other-config:max-rate=200000000    ${MININET_USER}    ${LINUX_PROMPT}    90
+    ${output}=    Run Command On Remote System    ${MININET}    sudo ovs-vsctl set port ${queue_interface} qos=@newqos -- --id=@newqos create qos type=linux-htb other-config:max-rate=200000000 queues=0=@q0,1=@q1,2=@q2 -- --id=@q0 create queue other-config:min-rate=100000 other-config:max-rate=200000 -- --id=@q1 create queue other-config:min-rate=10001 other-config:max-rate=300000 -- --id=@q2 create queue other-config:min-rate=300001 other-config:max-rate=200000000    ${MININET_USER}    ${prompt_timeout}=90
     Log    ${output}
 
 Query the Data from HBaseClient
-    [Arguments]    ${query}    ${remote}=${CONTROLLER}    ${user}=${MININET_USER}    ${prompt}=${LINUX_PROMPT}    ${prompt_timeout}=120s
+    [Arguments]    ${query}    ${remote}=${CONTROLLER}    ${user}=${MININET_USER}    ${prompt_timeout}=120s
     [Documentation]    Execute the HBase Query and return the result
     Log    Attempting to execute ${query} on ${remote} via HbaseClient
-    ${conn_id}=    Open Connection    ${remote}    prompt=${prompt}    timeout=${prompt_timeout}
+    ${conn_id}=    Open Connection    ${remote}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${prompt_timeout}
     Login With Public Key    ${user}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    export JAVA_HOME=/usr
     Write    ${HBASE_CLIENT}/hbase shell
@@ -62,14 +64,14 @@ Query the Data from HBaseClient
     ${output}=    Read Until    hbase(main):
     Write    exit
     LOG    ${output}
-    Comment    ${output}=    Read Until    ${prompt}
+    Comment    ${output}=    Read Until    ${DEFAULT_LINUX_PROMPT}
     Close Connection
     [Return]    ${output}
 
 Verify the Metric is Collected?
-    [Arguments]    ${tsdr_cmd}    ${metric}    ${remote}=${CONTROLLER}    ${user}=${MININET_USER}    ${prompt}=${LINUX_PROMPT}    ${prompt_timeout}=120s
+    [Arguments]    ${tsdr_cmd}    ${metric}    ${remote}=${CONTROLLER}    ${user}=${MININET_USER}    ${prompt_timeout}=120s
     [Documentation]    Verify the ${tsdr_cmd} output contains ${metric}
-    ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}    ${CONTROLLER}    ${KARAF_SHELL_PORT}    ${prompt_timeout}
+    ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}    ${remote}    ${KARAF_SHELL_PORT}    ${prompt_timeout}
     Should Contain    ${output}    ${metric}
 
 Prepare HBase Filter

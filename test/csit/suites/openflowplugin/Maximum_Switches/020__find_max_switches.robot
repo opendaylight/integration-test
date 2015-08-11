@@ -1,15 +1,15 @@
 *** Settings ***
 Documentation     Test suite to find maximum switches which can be connected to the controller
 Suite Setup       Start Suite
-Suite Teardown    Stop Suite
+Suite Teardown    Utils.Stop Suite
 Library           SSHLibrary
+Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
 Library           ../../../libraries/ScaleClient.py
 Library           OperatingSystem
 
 *** Variables ***
 ${start}          sudo python DynamicMininet.py
-${linux_prompt}    >
 ${max_sw}         500
 ${step_sw}        10
 ${init_sw}        10
@@ -43,14 +43,6 @@ Start Suite
     Write    start ${CONTROLLER} ${init_sw}
     Read Until    mininet>
     Wait Until Keyword Succeeds    10s    1s    Verify Switches Connected    ${init_sw}
-
-Stop Suite
-    [Documentation]    Stops mininet
-    Log    Stop the test on the base edition
-    Read
-    Write    exit
-    Read Until    ${linux_prompt}
-    Close Connection
 
 Add Switches
     [Arguments]    ${nr_switches}

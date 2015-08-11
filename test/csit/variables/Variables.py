@@ -10,9 +10,9 @@ PORT = '8080'
 RESTPORT = '8282'
 RESTCONFPORT = '8181'
 PREFIX = 'http://' + CONTROLLER + ':' + PORT
-PROMPT = '>'
+PROMPT = '>'  # TODO: remove this as it's vague.  need to fix any occurances of it first.
 CONTAINER = 'default'
-USER = 'admin'
+USER = 'admin'  # TODO: who is using this?  Can we make it more specific? (e.g.  RESTCONF_USER)
 PWD = 'admin'
 PASSWORD = 'EMPTY'
 AUTH = [u'admin', u'admin']
@@ -35,7 +35,7 @@ KARAF_USER = 'karaf'
 KARAF_PASSWORD = 'karaf'
 
 # VM Environment Variables
-LINUX_PROMPT = '>'
+DEFAULT_LINUX_PROMPT = '>'
 
 # VTN Coordinator Variables
 VTNC = '127.0.0.1'

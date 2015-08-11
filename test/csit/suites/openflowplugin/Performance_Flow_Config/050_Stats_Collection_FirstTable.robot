@@ -19,7 +19,6 @@ ${tabspread}      first
 ${topourl}        /restconf/operational/network-topology:network-topology/topology/flow:1
 ${invurl}         /restconf/operational/opendaylight-inventory:nodes
 @{cntls}          ${CONTROLLER}
-${linux_prompt}   >
 
 *** Test Cases ***
 Configure Flows
@@ -44,11 +43,11 @@ Check No Flows In Operational
 Connect Switches
     [Documentation]    Starts mininet with requested number of switches (${swnr})
     Log    Starting mininet with ${swnr} switches
-    Open Connection    ${MININET}    prompt=${linux_prompt}    timeout=600
+    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=600
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    sudo ovs-vsctl set-manager ptcp:6644
     Write    sudo mn -c
-    Read Until    ${linux_prompt}
+    Read Until    ${DEFAULT_LINUX_PROMPT}
     Write    sudo mn --controller=remote,ip=${CONTROLLER} --topo linear,${swnr} --switch ovsk,protocols=OpenFlow13
     Read Until    mininet>
     Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
@@ -60,7 +59,7 @@ Stop Switches
     Delete All Sessions
     Read
     Write    exit
-    Read Until    ${linux_prompt}
+    Read Until    ${DEFAULT_LINUX_PROMPT}
     Close Connection
 
 Are Switches Connected Topo

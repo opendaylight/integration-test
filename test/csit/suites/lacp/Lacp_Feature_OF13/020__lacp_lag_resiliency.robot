@@ -96,7 +96,7 @@ LACP Inventory Suite Setup
 Set Host interface state
     [Arguments]    ${port-id}    ${port-state}
     [Documentation]    Will configure the port state of the Host to either up or down
-    Open Connection    ${MININET}    prompt=${LINUX_PROMPT}
+    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Execute Command    sudo ./m h2
     Execute Command    sudo ifconfig ${port-id} ${port-state}

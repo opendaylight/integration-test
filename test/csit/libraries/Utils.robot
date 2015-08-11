@@ -4,6 +4,7 @@ Library           String
 Library           DateTime
 Library           ./UtilLibrary.py
 Resource          KarafKeywords.robot
+Variables           ../variables/Variables.py
 
 *** Variables ***
 ${start}          sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,1 --switch ovsk,protocols=OpenFlow13
@@ -14,7 +15,7 @@ Start Suite
     ...    is run.
     Log    Start the test on the base edition
     Clean Mininet System
-    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${LINUX_PROMPT}    timeout=30s
+    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Suite Variable    ${mininet_conn_id}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
@@ -22,11 +23,11 @@ Start Suite
     Read Until    mininet>
 
 Start Mininet
-    [Arguments]    ${MININET}    ${cmd}=${start}    ${custom}=${OVSDB_CONFIG_DIR}/ovsdb.py    ${user}=${MININET_USER}    ${prompt}=${LINUX_PROMPT}    ${prompt_timeout}=30s
+    [Arguments]    ${MININET}    ${cmd}=${start}    ${custom}=${OVSDB_CONFIG_DIR}/ovsdb.py    ${user}=${MININET_USER}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
     [Documentation]    Basic setup to start mininet with custom topology
     Log    Start the test on the base edition
     Clean Mininet System
-    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${LINUX_PROMPT}    timeout=30s
+    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${prompt}    timeout=${prompt_timeout}
     Set Suite Variable    ${mininet_conn_id}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
     Put File    ${custom}
@@ -35,11 +36,11 @@ Start Mininet
     [Return]    ${mininet_conn_id}
 
 Stop Mininet
-    [Arguments]    ${mininet_conn_id}    ${prompt}=${LINUX_PROMPT}
+    [Arguments]    ${mininet_conn_id}    ${prompt}=${DEFAULT_LINUX_PROMPT}
     [Documentation]    Basic setup to stop/clean mininet
     Switch Connection    ${mininet_conn_id}
     SSHLibrary.Write    exit
-    Read Until    ${LINUX_PROMPT}
+    Read Until    ${prompt}
     Close Connection
 
 Stop Suite
@@ -49,7 +50,7 @@ Stop Suite
     Switch Connection    ${mininet_conn_id}
     Read
     Write    exit
-    Read Until    ${LINUX_PROMPT}
+    Read Until    ${DEFAULT_LINUX_PROMPT}
     Close Connection
 
 Ensure All Nodes Are In Response
@@ -159,7 +160,7 @@ Strip Quotes
     [Return]    ${string_to_return}
 
 Run Command On Remote System
-    [Arguments]    ${remote_system}    ${cmd}    ${user}=${MININET_USER}    ${prompt}=${LINUX_PROMPT}    ${prompt_timeout}=30s
+    [Arguments]    ${remote_system}    ${cmd}    ${user}=${MININET_USER}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
     [Documentation]    Reduces the common work of running a command on a remote system to a single higher level
     ...    robot keyword, taking care to log in with a public key and. The command given is written
     ...    and the output returned. No test conditions are checked.
@@ -173,7 +174,7 @@ Run Command On Remote System
     [Return]    ${output}
 
 Verify File Exists On Remote System
-    [Arguments]    ${remote_system}    ${file}    ${user}=${MININET_USER}    ${prompt}=${LINUX_PROMPT}    ${prompt_timeout}=5s
+    [Arguments]    ${remote_system}    ${file}    ${user}=${MININET_USER}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=5s
     [Documentation]    Will create connection with public key and will PASS if the given ${file} exists,
     ...    otherwise will FAIL
     ${conn_id}=    Open Connection    ${remote_system}    prompt=${prompt}    timeout=${prompt_timeout}
