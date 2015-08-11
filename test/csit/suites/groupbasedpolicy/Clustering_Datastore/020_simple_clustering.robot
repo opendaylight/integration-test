@@ -11,7 +11,7 @@ Resource          ../../../libraries/Utils.robot
 *** Variables ***
 ${GBP_TENENT_ID}     f5c7d344-d1c7-4208-8531-2c2693657e12
 ${GBP_TENANT1_API}    /restconf/config/policy:tenants/tenant/${GBP_TENENT_ID}
-${GBP_TENANT1_FILE}  ../../../variables/gbp/tenant1.json
+${GBP_TENANT1_FILE}    ${CURDIR}/../../../variables/gbp/tenant1.json
 
 
 *** Test Cases ***
