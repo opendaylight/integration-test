@@ -2,7 +2,7 @@
 Documentation     Test suite for do pingall test
 Library           SSHLibrary
 Library           Collections
-Library           ../../../libraries/RequestsLibrary.py
+Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 
