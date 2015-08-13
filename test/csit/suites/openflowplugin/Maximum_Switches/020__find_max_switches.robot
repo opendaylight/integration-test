@@ -33,7 +33,8 @@ Find Max Switches
 Start Suite
     [Documentation]    Starts mininet with requested number of switches
     Log    Start the test on the base edition
-    Open Connection    ${MININET}    prompt=>    timeout=1800
+    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=>    timeout=1800
+    Set Suite Variable    ${mininet_conn_id}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Put File    ${CURDIR}/../../../libraries/DynamicMininet.py    DynamicMininet.py
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644

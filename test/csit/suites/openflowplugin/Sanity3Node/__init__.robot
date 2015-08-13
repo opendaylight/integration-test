@@ -11,7 +11,8 @@ ${start}          sudo python DynamicMininet.py
 *** Keywords ***
 Start Suite
     Log    Start the test on the base edition
-    Open Connection    ${MININET}    prompt=>
+    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=>
+    Set Suite Variable    ${mininet_conn_id}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
     Put File    ${CURDIR}/../../../libraries/DynamicMininet.py    .
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
