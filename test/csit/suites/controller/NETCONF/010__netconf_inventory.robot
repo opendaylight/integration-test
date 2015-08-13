@@ -5,7 +5,7 @@ Suite Teardown    Delete All Sessions
 Library           Collections
 Library           OperatingSystem
 Library           String
-Library           ../../../libraries/RequestsLibrary.py
+Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 

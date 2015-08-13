@@ -5,7 +5,7 @@ Suite Teardown    Identity Management Suite Teardown
 Library           Collections
 Library           OperatingSystem
 Library           String
-Library           ../../../libraries/RequestsLibrary.py
+Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 

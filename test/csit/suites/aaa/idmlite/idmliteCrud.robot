@@ -6,7 +6,7 @@ Library           Collections
 Library           OperatingSystem
 Library           String
 Library           RequestsLibrary
-Library           ../../../libraries/RequestsLibrary.py
+Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py

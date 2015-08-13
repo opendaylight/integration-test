@@ -2,7 +2,7 @@
 Documentation     This test kills any of the followers and verifies that when that follower is restarted it can join the cluster
 Default Tags      3-node-cluster
 Library           Collections
-Library           ../../../libraries/RequestsLibrary.py
+Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Library           ../../../libraries/CrudLibrary.py
 Library           ../../../libraries/SettingsLibrary.py
