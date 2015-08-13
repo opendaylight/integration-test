@@ -4,7 +4,7 @@ Suite Setup       Create Session   session   http://${CONTROLLER}:${RESTCONFPORT
 Suite Teardown    Delete All Sessions
 Library           SSHLibrary
 Library           Collections
-Library           ../../../libraries/RequestsLibrary.py
+Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Library           ../../../libraries/Topology.py
 Variables         ../../../variables/Variables.py
