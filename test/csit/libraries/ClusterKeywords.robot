@@ -266,3 +266,63 @@ Check CarPeople
     \    ${counter}=    Convert to String    ${INDEX}
     \    Log    user${counter}
     \    Should Contain    ${resp.content}    user${counter}
+
+Isolate a Controller From Cluster
+    [Arguments]    ${isolated controller}    @{controllers}
+    [Documentation]    Use IPTables to isolate one controller from the cluster.
+    ...    On the isolated controller it blocks IP traffic to and from each of the other controllers.
+    : FOR    ${controller}    IN    @{controllers}
+    \    ${other controller}=    Evaluate    "${isolated controller}" != "${controller}"
+    \    Run Keyword If    ${other controller}    Isolate One Controller From Another    ${isolated controller}    ${controller}
+
+Rejoin a Controller To Cluster
+    [Arguments]    ${isolated controller}    @{controllers}
+    [Documentation]    Use IPTables to rejoin one controller to the cluster.
+    ...    On the isolated controller it unblocks IP traffic to and from each of the other controllers.
+    : FOR    ${controller}    IN    @{controllers}
+    \    ${other controller}=    Evaluate    "${isolated controller}" != "${controller}"
+    \    Run Keyword If    ${other controller}    Rejoin One Controller To Another    ${isolated controller}    ${controller}
+
+Isolate One Controller From Another
+    [Arguments]    ${isolated controller}    ${controller}
+    [Documentation]    Inserts an IPTable rule to disconnect one controller from another controller in the cluster.
+    Modify IPTables    ${isolated controller}    ${controller}    -I
+
+Rejoin One Controller To Another
+    [Arguments]    ${isolated controller}    ${controller}
+    [Documentation]    Deletes an IPTable rule, allowing one controller to reconnect to another controller in the cluster.
+    Modify IPTables    ${isolated controller}    ${controller}    -D
+
+Modify IPTables
+    [Arguments]    ${isolated controller}    ${controller}    ${rule type}
+    [Documentation]    Adds a rule, usually inserting or deleting an entry between two controllers.
+    ${base string}    Set Variable    sudo iptables ${rule type} OUTPUT -p all --source
+    ${cmd string}    Catenate    ${base string}    ${isolated controller} --destination ${controller} -j DROP
+    Run Command On Remote System    ${isolated controller}    ${cmd string}
+    ${cmd string}    Catenate    ${base string}    ${controller} --destination ${isolated controller} -j DROP
+    Run Command On Remote System    ${isolated controller}    ${cmd string}
+    ${cmd string}    Set Variable    sudo iptables -L -n
+    ${return string}=    Run Command On Remote System    ${isolated controller}    ${cmd string}
+    #If inserting rules:
+    Run Keyword If    "${rule type}" == '-I'    Should Match Regexp    ${return string}    [\s\S]*${isolated controller} *${controller}[\s\S]*
+    Run Keyword If    "${rule type}" == '-I'    Should Match Regexp    ${return string}    [\s\S]*${controller} *${isolated controller}[\s\S]*
+    #If deleting rules:
+    Run Keyword If    "${rule type}" == '-D'    Should Match Regexp    ${return string}    (?![\s\S]*${isolated controller} *${controller}[\s\S]*)
+    Run Keyword If    "${rule type}" == '-D'    Should Match Regexp    ${return string}    (?![\s\S]*${controller} *${isolated controller}[\s\S]*)
+
+Rejoin All Isolated Controllers
+    [Arguments]    @{controllers}
+    [Documentation]    Wipe all IPTables rules from all controllers, thus rejoining all controllers.
+    : FOR    ${isolated controller}    IN    @{controllers}
+    \    Flush IPTables    ${isolated controller}
+
+Flush IPTables
+    [Arguments]    ${isolated controller}
+    [Documentation]    This keyword is generally not called from a test case but supports a complete wipe of all rules on
+    ...    all contollers.
+    ${cmd string}    Set Variable    sudo iptables -v -F
+    ${return string}=    Run Command On Remote System    ${isolated controller}    ${cmd string}
+    Log    return: ${return string}
+    Should Contain    ${return string}    Flushing chain `INPUT'
+    Should Contain    ${return string}    Flushing chain `FORWARD'
+    Should Contain    ${return string}    Flushing chain `OUTPUT'
