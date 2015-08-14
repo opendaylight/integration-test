@@ -14,7 +14,7 @@ Resource          resource.txt
 Library           Selenium2Library
 Library           SSHLibrary
 Library           Collections
-Library           ../../libraries/RequestsLibrary.py
+Library           RequestsLibrary
 Library           ../../libraries/Common.py
 Variables         ../../variables/Variables.py
 Suite Teardown    Delete All Sessions
