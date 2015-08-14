@@ -2,7 +2,7 @@
 Documentation     Test suite for the arp handler module.
 Suite Teardown    Delete All Sessions
 Library           Collections
-Library           ../../libraries/RequestsLibrary.py
+Library           RequestsLibrary
 Library           ../../libraries/Common.py
 Variables         ../../variables/Variables.py
 
