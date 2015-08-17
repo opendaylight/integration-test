@@ -6,7 +6,7 @@ Documentation     Robot keyword library (Resource) for performing PCEP operation
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
-Library           ${CURDIR}/RequestsLibrary.py
+Library           RequestsLibrary
 Variables         ${CURDIR}/../variables/Variables.py
 
 *** Keywords ***

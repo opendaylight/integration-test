@@ -5,7 +5,7 @@ Library        Collections
 Library        XML
 Library        SSHLibrary
 Variables      ../../../../csit/variables/Variables.py
-Library        ../../../../csit/libraries/RequestsLibrary.py
+Library        RequestsLibrary
 Library        ../../../../csit/libraries/Common.py
 
 *** Test Cases ***
@@ -13,7 +13,7 @@ Are 256 Switches Connected
       [Setup]      Start Mininet   256
       [Teardown]   Stop Mininet
       [Documentation]   Checks wheather switches are connected to controller
-      ${resp}=   Get   session     /restconf/operational/network-topology:network-topology/topology/flow:1    headers=${ACCEPT_XML}
+      ${resp}=   RequestsLibrary.Get   session     /restconf/operational/network-topology:network-topology/topology/flow:1    headers=${ACCEPT_XML}
       Log    ${resp.content}
       ${count}=   Get Element Count   ${resp.content}   xpath=node
       Should Be Equal As Numbers    ${count}    256

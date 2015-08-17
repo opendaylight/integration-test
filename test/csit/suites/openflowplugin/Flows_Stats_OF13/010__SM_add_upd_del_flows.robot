@@ -7,7 +7,7 @@ Library           Collections
 Library           XML
 Library           ../../../libraries/XmlComparator.py
 Variables         ../../../variables/Variables.py
-Library           ../../../libraries/RequestsLibrary.py
+Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 
 *** Variables ***
@@ -269,12 +269,12 @@ Flow Presence Operational Table
 
 Add Flow
     Log    ${data}
-    ${resp}=    Putxml    session    /restconf/config/opendaylight-inventory:nodes/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}    data=${data}
+    ${resp}=    RequestsLibrary.Put    session    /restconf/config/opendaylight-inventory:nodes/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}    headers=${HEADERS_XML}    data=${data}
     ${msg}=    Set Variable    Adding flow for /restconf/config/opendaylight-inventory:nodes/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id} failed, http response ${resp.status_code} received.
     Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}
 
 Delete Flow
-    ${resp}=    Delete    session    /restconf/config/opendaylight-inventory:nodes/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}
+    ${resp}=    RequestsLibrary.Delete    session    /restconf/config/opendaylight-inventory:nodes/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}
     ${msg}=    Set Variable    Delete flow for /restconf/config/opendaylight-inventory:nodes/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id} failed, http response ${resp.status_code} received.
     Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}
 

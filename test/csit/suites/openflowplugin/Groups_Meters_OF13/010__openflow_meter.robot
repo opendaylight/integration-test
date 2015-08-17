@@ -5,7 +5,7 @@ Suite Teardown    Delete All Sessions
 Library           SSHLibrary
 Library           Collections
 Library           OperatingSystem
-Library           ../../../libraries/RequestsLibrary.py
+Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
@@ -30,7 +30,7 @@ Add a meter
     [Tags]    Push
     ${body}    OperatingSystem.Get File    ${METER}
     Set Suite Variable    ${body}
-    ${resp}    Putxml    session    ${REST_CONTEXT_CF}/meter/1    data=${body}
+    ${resp}    RequestsLibrary.Put    session    ${REST_CONTEXT_CF}/meter/1    headers=${HEADERS_XML}    data=${body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -51,7 +51,7 @@ Add a flow that includes a meter
     [Tags]    Push
     ${body}    OperatingSystem.Get File    ${FLOW}
     Set Suite Variable    ${body}
-    ${resp}    Putxml    session    ${REST_CONTEXT_CF}/table/0/flow/2    data=${body}
+    ${resp}    RequestsLibrary.Put    session    ${REST_CONTEXT_CF}/table/0/flow/2    headers=${HEADERS_XML}    data=${body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 

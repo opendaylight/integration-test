@@ -3,7 +3,7 @@ Documentation     Test suite for Statistics Manager
 Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTPORT}    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
 Library           Collections
-Library           ../../../libraries/RequestsLibrary.py
+Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Library           ../../../libraries/Topologynew.py
 Variables         ../../../variables/Variables.py

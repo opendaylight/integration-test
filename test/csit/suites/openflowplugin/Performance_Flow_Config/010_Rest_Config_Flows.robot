@@ -5,7 +5,7 @@ Library        Collections
 Library        XML
 Library        Process
 Variables      ../../../variables/Variables.py
-Library        ../../../libraries/RequestsLibrary.py
+Library        RequestsLibrary
 Library        ../../../libraries/Common.py
 Library        SSHLibrary
 Suite Setup       Start Suite

@@ -5,6 +5,7 @@ Documentation     Keywords used to create/modify flow objects. The object is def
 ...               controller)
 Library           ./FlowLib.py
 Library           XML
+Library           RequestsLibrary
 Variables         ../variables/Variables.py
 
 *** Variables ***
@@ -141,7 +142,7 @@ Remove Flow XML Element
 Add Flow To Controller And Verify
     [Arguments]    ${flow_body}    ${node_id}    ${table_id}    ${flow_id}
     [Documentation]    Push flow through REST-API and verify in data-store
-    ${resp}    Put Xml    session    ${REST_CON}/node/${node_id}/table/${table_id}/flow/${flow_id}    data=${flow_body}
+    ${resp}    RequestsLibrary.Put    session    ${REST_CON}/node/${node_id}/table/${table_id}/flow/${flow_id}    headers=${HEADERS_XML}    data=${flow_body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${resp}    RequestsLibrary.Get    session    ${REST_CON}/node/${node_id}/table/${table_id}/flow/${flow_id}    headers=${ACCEPT_XML}
