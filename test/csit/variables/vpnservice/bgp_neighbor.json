@@ -1,0 +1,8 @@
+{
+    "bgp-neighbor": [
+        {
+            "as-number": 105,
+            "ip-address": "169.144.42.168"
+        }
+    ]
+}
