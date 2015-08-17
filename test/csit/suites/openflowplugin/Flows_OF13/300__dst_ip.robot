@@ -5,7 +5,7 @@ Suite Teardown    Delete All Sessions
 Library           SSHLibrary
 Library           Collections
 Library           OperatingSystem
-Library           ../../../libraries/RequestsLibrary.py
+Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 
@@ -22,7 +22,7 @@ Add a flow - Output to physical port#
     [Tags]    Push
     ${body}    OperatingSystem.Get File    ${FILE}
     Set Suite Variable    ${body}
-    ${resp}    Putxml    session    ${REST_CON}/node/openflow:1/table/${TABLE}/flow/${FLOW}    data=${body}
+    ${resp}    RequestsLibrary.Put    session    ${REST_CON}/node/openflow:1/table/${TABLE}/flow/${FLOW}    headers=${HEADERS_XML}    data=${body}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after adding flow config - Output to physical port#

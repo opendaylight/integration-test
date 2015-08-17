@@ -20,7 +20,7 @@ Library           XML
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/FlowLib.robot
 Resource          ../../../libraries/SwitchUtils.robot
-Library           ../../../libraries/RequestsLibrary.py
+Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 Library           ../../../libraries/SwitchClasses/${SWITCH_CLASS}.py

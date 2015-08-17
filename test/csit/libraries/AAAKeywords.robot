@@ -1,5 +1,5 @@
 *** Settings ***
-Library           ./RequestsLibrary.py
+Library           RequestsLibrary
 Variables         ../variables/Variables.py
 
 *** Variables ***

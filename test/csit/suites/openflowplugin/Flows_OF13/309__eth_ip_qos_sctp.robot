@@ -5,7 +5,7 @@ Suite Teardown    Delete All Sessions
 Library           SSHLibrary
 Library           Collections
 Library           OperatingSystem
-Library           ../../../libraries/RequestsLibrary.py
+Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 
@@ -23,13 +23,13 @@ Add a flow - Output to physical port#
     [Tags]    Push
     ${body}    OperatingSystem.Get File    ${FILE}
     Set Suite Variable    ${body}
-    ${resp}    Putxml    session    ${REST_CON}/node/openflow:1/table/${TABLE}/flow/${FLOW}    data=${body}
+    ${resp}    RequestsLibrary.Put    session    ${REST_CON}/node/openflow:1/table/${TABLE}/flow/${FLOW}    data=${body}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after adding flow config - Output to physical port#
     [Documentation]    Verify the flow
     [Tags]    Get
-    ${resp}    get    session    ${REST_CON}/node/openflow:1/table/${TABLE}/flow/${FLOW}    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.Get    session    ${REST_CON}/node/openflow:1/table/${TABLE}/flow/${FLOW}    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     compare xml    ${body}    ${resp.content}
 
@@ -46,13 +46,13 @@ Verify flows after adding flow config on OVS
 Remove a flow - Output to physical port#
     [Documentation]    Remove a flow
     [Tags]    remove
-    ${resp}    Delete    session    ${REST_CON}/node/openflow:1/table/${TABLE}/flow/${FLOW}
+    ${resp}    RequestsLibrary.Delete    session    ${REST_CON}/node/openflow:1/table/${TABLE}/flow/${FLOW}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting flow config - Output to physical port#
     [Documentation]    Verify the flow
     [Tags]    Get
-    ${resp}    Get    session    ${REST_CON}/node/openflow:1/table/${TABLE}
+    ${resp}    RequestsLibrary.Get    session    ${REST_CON}/node/openflow:1/table/${TABLE}
     Should Not Contain    ${resp.content}    ${FLOW}
 
 Verify flows after deleting flow config on OVS

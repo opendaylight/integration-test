@@ -7,7 +7,7 @@ Library           Collections
 Library           OperatingSystem
 Resource          ../../../libraries/SwitchUtils.robot
 Resource          ../../../libraries/Utils.robot
-Library           ../../../libraries/RequestsLibrary.py
+Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Library           ../../../libraries/SwitchClasses/${SWITCH_CLASS}.py
 Variables         ../../../variables/Variables.py

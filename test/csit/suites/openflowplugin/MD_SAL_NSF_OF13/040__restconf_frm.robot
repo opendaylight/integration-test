@@ -3,7 +3,7 @@ Documentation     Test suite for RESTCONF FRM
 Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
 Suite Teardown    Delete All Sessions
 Library           Collections
-Library           ../../../libraries/RequestsLibrary.py
+Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
@@ -16,7 +16,7 @@ ${BODY2}          <flow xmlns="urn:opendaylight:flow:inventory"><priority>2</pri
 *** Test Cases ***
 Add a flow - Sending IPv4 Dest Address and Eth type
     [Documentation]    Push a flow through REST-API
-    ${resp}    Putxml    session    ${REST_CON}/node/openflow:1/table/2/flow/139    data=${BODY1}
+    ${resp}    RequestsLibrary.Put    session    ${REST_CON}/node/openflow:1/table/2/flow/139    headers=${HEADERS_XML}    data=${BODY1}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after adding flow config - Sending IPv4 Dest Address and Eth type
@@ -32,7 +32,7 @@ Verify after adding flow operational - Sending IPv4 Dest Address and Eth type
 
 Modify a flow - Output to physical port#
     [Documentation]    Push a flow through REST-API
-    ${resp}    Putxml    session    ${REST_CON}/node/openflow:1/table/2/flow/139    data=${BODY2}
+    ${resp}    RequestsLibrary.Put    session    ${REST_CON}/node/openflow:1/table/2/flow/139    headers=${HEADERS_XML}    data=${BODY2}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after modifying flow config - Output to physical port#

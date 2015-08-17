@@ -7,7 +7,7 @@ Library           Collections
 Library           XML
 Library           SSHLibrary
 Variables         ../../../../csit/variables/Variables.py
-Library           ../../../../csit/libraries/RequestsLibrary.py
+Library           RequestsLibrary
 Library           ../../../../csit/libraries/Common.py
 Library           ../../../../csit/libraries/ScaleClient.py
 
