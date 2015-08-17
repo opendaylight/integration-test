@@ -304,11 +304,11 @@ Modify IPTables
     ${cmd string}    Set Variable    sudo iptables -L -n
     ${return string}=    Run Command On Remote System    ${isolated controller}    ${cmd string}
     #If inserting rules:
-    Run Keyword If    "${rule type}" == '-I'    Should Match Regexp    ${return string}    [\s\S]*${isolated controller} *${controller}[\s\S]*
-    Run Keyword If    "${rule type}" == '-I'    Should Match Regexp    ${return string}    [\s\S]*${controller} *${isolated controller}[\s\S]*
+    Run Keyword If    "${rule type}" == '-I'    Should Match Regexp    ${return string}    [\s\S]*DROP *all *-- *${isolated controller} *${controller}[\s\S]*
+    Run Keyword If    "${rule type}" == '-I'    Should Match Regexp    ${return string}    [\s\S]*DROP *all *-- *${controller} *${isolated controller}[\s\S]*
     #If deleting rules:
-    Run Keyword If    "${rule type}" == '-D'    Should Match Regexp    ${return string}    (?![\s\S]*${isolated controller} *${controller}[\s\S]*)
-    Run Keyword If    "${rule type}" == '-D'    Should Match Regexp    ${return string}    (?![\s\S]*${controller} *${isolated controller}[\s\S]*)
+    Run Keyword If    "${rule type}" == '-D'    Should Match Regexp    ${return string}    (?![\s\S]*DROP *all *-- *${isolated controller} *${controller}[\s\S]*)
+    Run Keyword If    "${rule type}" == '-D'    Should Match Regexp    ${return string}    (?![\s\S]*DROP *all *-- *${controller} *${isolated controller}[\s\S]*)
 
 Rejoin All Isolated Controllers
     [Arguments]    @{controllers}
