@@ -1,0 +1,6 @@
+{
+    "bgp-router": {
+        "local-as-identifier": "10.10.10.10",
+        "local-as-number": 108
+    }
+}
