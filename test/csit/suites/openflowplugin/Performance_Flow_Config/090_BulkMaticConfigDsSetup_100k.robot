@@ -41,7 +41,7 @@ Configure Flows
     ${http200ok}=    Create List    ${200}
     ${validation}=    Validate Responses    ${res}    ${http200ok}
     Should Be True    ${validation}
-    [Teardown]    Save Setup Time
+    [Teardown]    Save Setup Time    ${starttime}
 
 Wait Stats Collected
     [Documentation]    Waits till ${flnr} flows are initially collected
@@ -112,6 +112,7 @@ Check Flows Inventory
     Should Be Equal As Numbers    ${rflows}    ${foundf}
 
 Save Setup Time
+    [Arguments]    ${starttime}
     [Documentation]    Count the difference and stores it
     ${endtime}=    Get Time    epoch
     Log    Stats collection finished at time ${endtime}
