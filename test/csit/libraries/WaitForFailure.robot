@@ -39,5 +39,5 @@ Verify_Keyword_Does_Not_Fail_Within_Timeout
     [Arguments]    ${timeout}    ${refresh}    @{cell_list}
     [Documentation]    Some checks report false success for a short time. This keyword verifies no failure does happen within timeout period.
     ...    This keyword does not report the return value of the cell list execution.
-    BuiltIn.Run_Keyword_And_Expect_Error    Keyword 'Keyword_Should_Fail_In_Any_Way' failed after retrying for *.    Confirm_Keyword_Fails_Within_Timeout    ${timeout}    ${refresh}    @{cell_list}
+    BuiltIn.Run_Keyword_And_Expect_Error    *    Confirm_Keyword_Fails_Within_Timeout    ${timeout}    ${refresh}    @{cell_list}
     # TODO: '*' means we are not sure about formatting of ${timeout}. Check whether Robot can print it for us.
