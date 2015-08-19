@@ -175,7 +175,7 @@ Compare_Topology
     [Arguments]    ${expected_normalized}    ${filename}
     [Documentation]    Get current example-ipv4-topology as json, normalize it, save to ${directory_for_actual_responses}.
     ...    Check that status code is 200, check that normalized jsons match exactly.
-    ${response}=    RequestsLibrary.Get_Request    ses    topology/example-ipv4-topology
+    ${response}=    RequestsLibrary.Get    ses    topology/example-ipv4-topology
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
     ${actual_normalized}=    Normalize_And_Save_Expected_Json    ${response.text}    ${filename}    ${directory_for_actual_responses}
