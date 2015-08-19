@@ -17,7 +17,7 @@
     }
    ],
    "server-provided": true,
-   "topology-id": "exapmle-ipv4-topology",
+   "topology-id": "example-ipv4-topology",
    "topology-types": {}
   }
  ]
