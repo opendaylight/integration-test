@@ -81,7 +81,7 @@ Put_Xml_Config_Via_Restconf
     [Documentation]    Put XML data to given controller-config URI, check reponse text is empty and status_code is one of allowed ones.
     BuiltIn.Log    ${uri_part}
     BuiltIn.Log    ${xml_data}
-    ${response}=    RequestsLibrary.Put_Request    cvr_session    ${uri_part}    data=${xml_data}
+    ${response}=    RequestsLibrary.Put    cvr_session    ${uri_part}    data=${xml_data}
     BuiltIn.Log    ${response.text}
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Should_Be_Empty    ${response.text}
@@ -91,7 +91,7 @@ Delete_Config_Via_Restconf
     [Arguments]    ${uri_part}
     [Documentation]    Delete resource at controller-config URI, check reponse text is empty and status_code is 204.
     BuiltIn.Log    ${uri_part}
-    ${response}=    RequestsLibrary.Delete_Request    cvr_session    ${uri_part}
+    ${response}=    RequestsLibrary.Delete    cvr_session    ${uri_part}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Be_Empty    ${response.text}
     BuiltIn.Should_Contain    ${allowed_status_codes}    ${response.status_code}
