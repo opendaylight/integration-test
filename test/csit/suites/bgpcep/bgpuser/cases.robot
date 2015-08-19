@@ -24,6 +24,7 @@ Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
 Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
+Resource          ${CURDIR}/../../../libraries/Utils.robot
 
 *** Variables ***
 ${directory_for_actual_responses}    ${TEMPDIR}/actual
@@ -128,7 +129,7 @@ Setup_Everything
     [Documentation]    SSH-login to mininet machine, save prompt to variable, create HTTP session,
     ...    prepare directories for responses, put Python tool to mininet machine, setup imported resources.
     SSHLibrary.Open_Connection    ${MININET}
-    SSHLibrary.Login_With_Public_Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    Flexible SSH Login     ${MININET_USER}    ${MININET_PASSWORD}
     ${current_connection}=    Get_Connection
     ${current_prompt}=    BuiltIn.Set_Variable    ${current_connection.prompt}
     BuiltIn.Log    ${current_prompt}
