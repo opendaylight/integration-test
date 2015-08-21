@@ -95,8 +95,17 @@ class MessageError(ValueError):
         super(MessageError, self).__init__(text, message, *args)
 
     def __str__(self):
-        """Concatenate text comment, space and hexlified message."""
-        return self.text + ' ' + binascii.hexlify(self.msg)
+        """
+        Generate human readable error message
+
+        Concatenate text comment, colon with space
+        and hexlified message. Use a placeholder string
+        if the message turns out to be empty.
+        """
+        message = binascii.hexlify(self.msg)
+        if message == "":
+            message = "(empty message)"
+        return self.text + ': ' + message
 
 
 def read_open_message(bgp_socket):
