@@ -47,7 +47,7 @@ Configure Flows
     ${http204ok}=    Create List    ${204}
     ${validation}=    Validate Responses    ${res}    ${http204ok}
     Should Be True    ${validation}
-    [Teardown]    Save Setup Time    setuptime    ${starttime}
+    [Teardown]    Save Setup Time    setuptime
 
 Wait Stats Collected
     [Documentation]    Waits till ${flnr} flows are initially collected
@@ -143,11 +143,12 @@ Measure Setup Time
     [Documentation]    This keyword is dedicated to save measured time for plotting
     ${starttime}=    Get Time    epoch
     Log    Starting stats collection at time ${starttime}
+    Set Suite Variable    ${starttime}
     Inventory Change Reached    ${rswitches}    ${rflows}
-    [Teardown]    Save Setup Time    ${note}    ${starttime}
+    [Teardown]    Save Setup Time    ${note}
 
 Save Setup Time
-    [Arguments]    ${note}    ${starttime}
+    [Arguments]    ${note}
     [Documentation]    Count the difference and stores it
     ${endtime}=    Get Time    epoch
     Log    Stats collection finished at time ${endtime}
