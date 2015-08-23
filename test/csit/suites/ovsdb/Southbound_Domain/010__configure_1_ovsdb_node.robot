@@ -123,12 +123,6 @@ Get Operational Topology to make sure the connection has been deleted
     @{list}    Create List    ovsdb://${MININET}:${OVSDB_PORT}
     Wait Until Keyword Succeeds    8s    2s    Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}    ${list}
 
-Get Configuration Topology to make sure the connection has been deleted
-    [Documentation]    This request will fetch the configuration topology from the connected OVSDB nodes
-    [Tags]    Southbound
-    @{list}    Create List    ovsdb://${MININET}:${OVSDB_PORT}
-    Wait Until Keyword Succeeds    8s    2s    Check For Elements Not At URI    ${CONFIG_TOPO_API}    ${node_list}
-
 Reconnect to OVSDB Node
     [Documentation]    Initiate the connection to OVSDB node from controller
     [Tags]    Southbound
