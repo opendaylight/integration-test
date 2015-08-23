@@ -7,31 +7,29 @@ Resource          KarafKeywords.robot
 Variables           ../variables/Variables.py
 
 *** Variables ***
-# TODO: Introduce ${tree_size} and use instead of 1 in the next line.
 ${start}          sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,1 --switch ovsk,protocols=OpenFlow13
 
 *** Keywords ***
 Start Suite
     [Documentation]    Basic setup/cleanup work that can be done safely before any system
     ...    is run.
-    [Arguments]    ${system}=${MININET}    ${user}=${MININET_USER}    ${password}=${MININET_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${timeout}=30s
     Log    Start the test on the base edition
     Clean Mininet System
-    ${mininet_conn_id}=    Open Connection    ${system}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${timeout}
+    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Suite Variable    ${mininet_conn_id}
-    Flexible Mininet Login    user=${user}    password=${password}
+    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
     Write    ${start}
     Read Until    mininet>
 
 Start Mininet
-    [Arguments]    ${system}=${MININET}    ${cmd}=${start}    ${custom}=${OVSDB_CONFIG_DIR}/ovsdb.py    ${user}=${MININET_USER}    ${password}=${MININET_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
+    [Arguments]    ${MININET}    ${cmd}=${start}    ${custom}=${OVSDB_CONFIG_DIR}/ovsdb.py    ${user}=${MININET_USER}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
     [Documentation]    Basic setup to start mininet with custom topology
     Log    Start the test on the base edition
     Clean Mininet System
-    ${mininet_conn_id}=    Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
+    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${prompt}    timeout=${prompt_timeout}
     Set Suite Variable    ${mininet_conn_id}
-    Flexible Mininet Login    user=${user}    password=${password}
+    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
     Put File    ${custom}
     Write    ${cmd}
     Read Until    mininet>
@@ -46,14 +44,13 @@ Stop Mininet
     Close Connection
 
 Stop Suite
-    [Arguments]    ${prompt}=${DEFAULT_LINUX_PROMPT}
     [Documentation]    Cleanup/Shutdown work that should be done at the completion of all
     ...    tests
     Log    Stop the test on the base edition
     Switch Connection    ${mininet_conn_id}
     Read
     Write    exit
-    Read Until    ${prompt}
+    Read Until    ${DEFAULT_LINUX_PROMPT}
     Close Connection
 
 Ensure All Nodes Are In Response
@@ -116,18 +113,18 @@ Check For Elements Not At URI
     \    Should Not Contain    ${resp.content}    ${i}
 
 Clean Mininet System
-    [Arguments]    ${system}=${MININET}
-    Run Command On Mininet    ${system}    sudo mn -c
-    Run Command On Mininet    ${system}    sudo ps -elf | egrep 'usr/local/bin/mn' | egrep python | awk '{print "sudo kill -9",$4}' | sh
+    [Arguments]    ${mininet_system}=${MININET}
+    Run Command On Remote System    ${mininet_system}    sudo mn -c
+    Run Command On Remote System    ${mininet_system}    sudo ps -elf | egrep 'usr/local/bin/mn' | egrep python | awk '{print "sudo kill -9",$4}' | sh
 
 Clean Up Ovs
-    [Arguments]    ${system}=${MININET}
+    [Arguments]    ${mininet_system}=${MININET}
     [Documentation]    Cleans up the OVS instance and remove any existing common known bridges.
-    ${output}=    Run Command On Mininet    ${system}    sudo ovs-vsctl list-br
+    ${output}=    Run Command On Remote System    ${mininet_system}    sudo ovs-vsctl list-br
     Log    ${output}
     : FOR    ${i}    IN    ${output}
-    \    Run Command On Mininet    ${system}    sudo ovs-vsctl --if-exists del-br ${i}
-    Run Command On Mininet    ${system}    sudo ovs-vsctl del-manager
+    \    Run Command On Remote System    ${mininet_system}    sudo ovs-vsctl --if-exists del-br ${i}
+    Run Command On Remote System    ${mininet_system}    sudo ovs-vsctl del-manager
 
 Extract Value From Content
     [Arguments]    ${content}    ${index}    ${strip}=nostrip
@@ -138,24 +135,20 @@ Extract Value From Content
     [Return]    ${value}
 
 Get Process ID Based On Regex On Remote System
-    [Arguments]    ${system}    ${regex_string_to_match_on}    ${user}=${MININET_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
+    [Arguments]    ${remote_system}    ${regex_string_to_match_on}
     [Documentation]    Uses ps to find a process that matches the supplied regex. Returns the PID of that process
     ...    The ${regex_string_to_match_on} should produce a unique process otherwise the PID returned may not be
     ...    the expected PID
     # doing the extra -v grep in this command to exclude the grep process itself from the output
-    ${cmd}=    Set Variable    ps -elf | grep -v grep | grep ${regex_string_to_match_on} | awk '{print $4}'
-    ${output}=    Run Command On Remote System    ${system}    ${cmd}    user=${user}    password=${password}    prompt=${prompt}    prompt_timeout=${prompt_timeout}
+    ${output}=    Run Command On Remote System    ${remote_system}    ps -elf | grep -v grep | grep ${regex_string_to_match_on} | awk '{print $4}'
     # ${output} contains the system prompt and all we want is the value of the number
     ${pid}=    Fetch From Left    ${output}    \r
     [Return]    ${pid}
-    # TODO: Get Process * keywords have perhaps non-standard default credentials.
-    # ...    Should there be * On Mininet and * On Controller specializations?
 
 Get Process Thread Count On Remote System
-    [Arguments]    ${system}    ${pid}    ${user}=${MININET_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
+    [Arguments]    ${remote_system}    ${pid}
     [Documentation]    Executes the ps command to retrieve the lightweight process (aka thread) count.
-    ${cmd}=    ps --no-headers -o nlwp ${pid}
-    ${output}=    Run Command On Remote System    ${system}    ${cmd}    user=${user}    password=${password}    prompt=${prompt}    prompt_timeout=${prompt_timeout}
+    ${output}=    Run Command On Remote System    ${remote_system}    ps --no-headers -o nlwp ${pid}
     # ${output} contains the system prompt and all we want is the value of the number
     ${thread_count}=    Fetch From Left    ${output}    \r
     [Return]    ${thread_count}
@@ -166,54 +159,26 @@ Strip Quotes
     ${string_to_return}=    Replace String    ${string_to_strip}    "    \    count=-1
     [Return]    ${string_to_return}
 
-Flexible SSH Login
-    [Arguments]    ${user}    ${password}=${EMPTY}    ${delay}=0.5s
-    [Documentation]    On active SSH session: if given non-empty password, do Login, else do Login With Public Key.
-    ${pwd_length} =    BuiltIn.Get Length    ${password}
-    # ${pwd_length} is guaranteed to be an integer, so we are safe to evaluate it as Python expression.
-    BuiltIn.Run Keyword And Return If    ${pwd_length} > 0    SSHLibrary.Login    ${user}    ${password}    delay=${delay}
-    BuiltIn.Run Keyword And Return    SSHLibrary.Login With Public Key    ${user}    ${USER_HOME}/.ssh/${SSH_KEY}    ${KEYFILE_PASS}   delay=${delay}
-
-Flexible Mininet Login
-    [Arguments]    ${user}=${MININET_USER}    ${password}=${MININET_PASSWORD}    ${delay}=0.5s
-    [Documentation]    Call Flexible SSH Login, but with default values suitable for Mininet machine.
-    BuiltIn.Run Keyword And Return    Flexible SSH Login    user=${user}    password=${password}    delay=${delay}
-
-Flexible Controller Login
-    [Arguments]    ${user}=${CONTROLLER_USER}    ${password}=${CONTROLLER_PASSWORD}    ${delay}=0.5s
-    [Documentation]    Call Flexible SSH Login, but with default values suitable for Controller machine.
-    BuiltIn.Run Keyword And Return    Flexible SSH Login    user=${user}    password=${password}    delay=${delay}
-
 Run Command On Remote System
-    [Arguments]    ${system}    ${cmd}    ${user}=${MININET_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
+    [Arguments]    ${remote_system}    ${cmd}    ${user}=${MININET_USER}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
     [Documentation]    Reduces the common work of running a command on a remote system to a single higher level
     ...    robot keyword, taking care to log in with a public key and. The command given is written
     ...    and the output returned. No test conditions are checked.
-    Log    Attempting to execute ${cmd} on ${system} by ${user} with ${keyfile_pass} and ${prompt}
-    ${conn_id}=    SSHLibrary.Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
-    Flexible SSH Login    ${user}    ${password}
+    Log    Attempting to execute ${cmd} on ${remote_system} by ${user} with ${keyfile_pass} and ${prompt}
+    ${conn_id}=    SSHLibrary.Open Connection    ${remote_system}    prompt=${prompt}    timeout=${prompt_timeout}
+    Login With Public Key    ${user}    ${USER_HOME}/.ssh/${SSH_KEY}    ${KEYFILE_PASS}
     SSHLibrary.Write    ${cmd}
     ${output}=    SSHLibrary.Read Until    ${prompt}
     SSHLibrary.Close Connection
     Log    ${output}
     [Return]    ${output}
 
-Run Command On Mininet
-    [Arguments]    ${system}=${MININET}    ${cmd}=echo    ${user}=${MININET_USER}    ${password}=${MININET_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
-    [Documentation]    Call Run Comand On Remote System, but with default values suitable for Mininet machine.
-    BuiltIn.Run Keyword And Return    Run Command On Remote System    ${system}    ${cmd}    user=${user}    password=${password}    prompt=${prompt}    prompt_timeout=${prompt_timeout}
-
-Run Command On Controller
-    [Arguments]    ${system}=${CONTROLLER}    ${cmd}=echo    ${user}=${CONTROLLER_USER}    ${password}=${CONTROLLER_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
-    [Documentation]    Call Run Comand On Remote System, but with default values suitable for Controller machine.
-    BuiltIn.Run Keyword And Return    Run Command On Remote System    ${system}    ${cmd}    user=${user}    password=${password}    prompt=${prompt}    prompt_timeout=${prompt_timeout}
-
 Verify File Exists On Remote System
-    [Arguments]    ${system}    ${file}    ${user}=${MININET_USER}    ${password}=${MININET_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=5s
+    [Arguments]    ${remote_system}    ${file}    ${user}=${MININET_USER}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=5s
     [Documentation]    Will create connection with public key and will PASS if the given ${file} exists,
     ...    otherwise will FAIL
-    ${conn_id}=    Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
-    Flexible SSH Login    ${user}    ${password}
+    ${conn_id}=    Open Connection    ${remote_system}    prompt=${prompt}    timeout=${prompt_timeout}
+    Login With Public Key    ${user}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     SSHLibrary.File Should Exist    ${file}
     Close Connection
 
@@ -222,7 +187,6 @@ Verify Controller Is Not Dead
     [Documentation]    Will execute any tests to verify the controller is not dead. Some checks are
     ...    Out Of Memory Execptions.
     Check Karaf Log File Does Not Have Messages    ${controller_ip}    java.lang.OutOfMemoryError
-    # TODO: Should Verify Controller * keywords also accept user, password, prompt and karaf_log arguments?
 
 Verify Controller Has No Null Pointer Exceptions
     [Arguments]    ${controller_ip}=${CONTROLLER}

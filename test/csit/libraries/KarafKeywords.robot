@@ -9,10 +9,10 @@ ${BUNDLEFOLDER}    distribution-karaf-0.3.0-SNAPSHOT
 
 *** Keywords ***
 Check Karaf Log File Does Not Have Messages
-    [Arguments]    ${ip}    ${message}    ${user}=${CONTROLLER_USER}    ${password}=${CONTROLLER_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${log_file}=${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log
+    [Arguments]    ${ip}    ${message}    ${user}=${CONTROLLER_USER}    ${log_file}=${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log
     [Documentation]    Fails if the provided ${message} is found in the karaf.log file.  Uses grep to search.  The
     ...    karaf.log file can be overridden with ${log_file} to be any file on the given system @ ${ip}
-    ${output}=    Run Command On Controller    ${ip}    grep ${message} ${log_file}    user=${user}    password=${password}    prompt=${prompt}
+    ${output}=    Run Command On Remote System    ${ip}    grep ${message} ${log_file}    ${user}
     Should Not Contain    ${output}    ${message}
 
 Verify Feature Is Installed
