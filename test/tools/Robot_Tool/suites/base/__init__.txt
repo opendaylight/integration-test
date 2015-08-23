@@ -6,7 +6,7 @@ Metadata          Version    0.1
 Metadata          More Info    For more information see https://wiki.opendaylight.org/view/CrossProject:Integration_Group:CSIT_Test_Tools:_Robot_Based
 Metadata          Executed At    ${HOST}
 Library           Collections
-Library           RequestsLibrary
+Library           ../../libraries/RequestsLibrary.py
 Library           ../../libraries/Common.py
 Variables         ../../variables/Variables.py
 
