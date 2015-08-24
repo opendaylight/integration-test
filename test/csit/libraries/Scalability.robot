@@ -12,11 +12,13 @@ Find Max Switches
     [Arguments]    ${start}    ${stop}    ${step}
     [Documentation]    Will find out max switches starting from ${start} till reaching ${stop} and in steps defined by ${step}
     ${max-switches}    Set Variable    ${0}
+    Set Suite Variable    ${max-switches}
     ${start}    Convert to Integer    ${start}
     ${stop}    Convert to Integer    ${stop}
     ${step}    Convert to Integer    ${step}
     : FOR    ${switches}    IN RANGE    ${start}    ${stop+1}    ${step}
-    \    Start Mininet Linear    ${switches}
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Start Mininet Linear    ${switches}
+    \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Is Not Dead    ${CONTROLLER}
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
@@ -25,7 +27,8 @@ Find Max Switches
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
     \    ...    Check Linear Topology    ${switches}
     \    Exit For Loop If    '${status}' == 'FAIL'
-    \    Stop Mininet Simulation
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Stop Mininet Simulation
+    \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
     \    ...    Check No Switches    ${switches}
     \    Exit For Loop If    '${status}' == 'FAIL'
