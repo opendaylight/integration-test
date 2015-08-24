@@ -10,7 +10,7 @@ Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
-${RPC_URL_PREFIX}    /restconf/operations/lfm-mapping-database
+${RPC_URL_PREFIX}    /restconf/operations/mappingservice
 ${IPV4_C_KEY}     ${CURDIR}/../../../variables/lispflowmapping/rpc_add-key_ipv4.json
 ${IPV4_RD}        ${CURDIR}/../../../variables/lispflowmapping/rpc_get-remove_ipv4.json
 ${MISS_RD}        ${CURDIR}/../../../variables/lispflowmapping/rpc_get-remove_missing.json
