@@ -228,8 +228,8 @@ class TimeTracker(object):
         peer_hold_timedelta = get_short_int_from_message(msg_in, offset=22)
         if hold_timedelta > peer_hold_timedelta:
             hold_timedelta = peer_hold_timedelta
-        if hold_timedelta < 3:
-            raise ValueError("FIXME: Zero (or invalid) hold timedelta is not supported: ", hold_timedelta)
+        if hold_timedelta != 0 and hold_timedelta < 3:
+            raise ValueError("Invalid hold timedelta value: ", hold_timedelta)
         self.hold_timedelta = hold_timedelta  # only now the final value is visible from outside
         """If we do not hear from peer this long, we assume it has died."""
         self.keepalive_timedelta = int(hold_timedelta / 3.0)
@@ -254,11 +254,22 @@ class TimeTracker(object):
         """Move KA timer to future based on given time from before sending."""
         self.my_keepalive_time = keepalive_time + self.keepalive_timedelta
 
+    def is_time_for_my_keepalive(self):
+        if self.hold_timedelta == 0:
+            return False
+        return self.snapshot_time >= self.my_keepalive_time
+
+    def get_next_event_time(self):
+        if self.hold_timedelta == 0:
+            return self.snapshot_time + 86400
+        return min(self.my_keepalive_time, self.peer_hold_time)
+
     def check_peer_hold_time(self, snapshot_time):
         """Raise error if nothing was read from peer until specified time."""
-        if snapshot_time > self.peer_hold_time:  # time.time() may be too strict
-            raise RuntimeError("Peer has overstepped the hold timer.")  # TODO: Include hold_timedelta?
-            # TODO: Add notification sending (attempt). That means move to write tracker.
+        if self.hold_timedelta != 0:  # Hold time = 0 means keepalive checking off.
+            if snapshot_time > self.peer_hold_time:  # time.time() may be too strict
+                raise RuntimeError("Peer has overstepped the hold timer.")  # TODO: Include hold_timedelta?
+                # TODO: Add notification sending (attempt). That means move to write tracker.
 
 
 class ReadTracker(object):
@@ -308,9 +319,17 @@ class ReadTracker(object):
     def wait_for_read(self):
         """When we know there are no more updates to send, we use this to avoid busy-wait."""
         # First, compute time to first predictable state change (or report event)
-        event_time = min(self.timer.my_keepalive_time, self.timer.peer_hold_time)
+        event_time = self.timer.get_next_event_time()
+        wait_timedelta = event_time - time.time()  # snapshot_time would be imprecise
+        if wait_timedelta < 0:
+            # The program got around to waiting to an event in "very near
+            # future" so late that it became a "past" event, thus tell
+            # "select" to not wait at all. Passing negative timedelta to
+            # select() would lead to either waiting forever (for -1) or
+            # select.error("Invalid parameter") (for everything else).
+            wait_timedelta = 0
         # And wait for event or something to read.
-        select.select([self.socket], [], [self.socket], event_time - time.time())  # snapshot_time would be imprecise
+        select.select([self.socket], [], [self.socket], wait_timedelta)
         # Not checking anything, that will be done in next iteration.
         return
 
@@ -381,7 +400,7 @@ class StateTracker(object):
         """Calculate priority, resolve all ifs, call appropriate method, return to caller to repeat."""
         self.timer.snapshot()
         if not self.prioritize_writing:
-            if self.timer.snapshot_time >= self.timer.my_keepalive_time:
+            if self.timer.is_time_for_my_keepalive():
                 if not self.writer.sending_message:
                     # We need to schedule a keepalive ASAP.
                     self.writer.enqueue_message_for_sending(self.generator.keepalive_message)
