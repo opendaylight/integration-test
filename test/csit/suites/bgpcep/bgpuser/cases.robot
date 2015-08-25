@@ -30,6 +30,7 @@ Resource          ${CURDIR}/../../../libraries/Utils.robot
 ${directory_for_actual_responses}    ${TEMPDIR}/actual
 ${directory_for_expected_responses}    ${TEMPDIR}/expected
 ${directory_with_template_folders}    ${CURDIR}/../../../variables/bgpuser/
+${HOLDTIME}    180
 
 *** Test Cases ***
 Check_For_Empty_Topology_Before_Talking
@@ -40,7 +41,7 @@ Check_For_Empty_Topology_Before_Talking
 
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'IP': '${MININET}', 'INITIATE': 'false'}
+    ${template_as_string}=    BuiltIn.Set_Variable    {'IP': '${MININET}', 'HOLDTIME': '${HOLDTIME}', 'INITIATE': 'false'}
     Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer    ${template_as_string}
 
 Start_Talking_BGP_speaker
@@ -94,7 +95,7 @@ Check_For_Empty_Topology_Before_Listening
 
 Reconfigure_ODL_To_Initiate_Connection
     [Documentation]    Replace BGP peer config module, now with initiate-connection set to true.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'IP': '${MININET}', 'INITIATE': 'true'}
+    ${template_as_string}=    BuiltIn.Set_Variable    {'IP': '${MININET}', 'HOLDTIME': '${HOLDTIME}', 'INITIATE': 'true'}
     Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer    ${template_as_string}
 
 Check_Listening_Connection_Is_Established
