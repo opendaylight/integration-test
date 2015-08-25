@@ -38,6 +38,7 @@ Check If There Is A Reason To Exit Test Or If Duration Has Expired
     [Arguments]    ${comparator1}=1    ${comparator2}=1    ${comparator_failure_message}=null
     Should Be Equal    ${comparator1}    ${comparator2}    ${comparator_failure_message}
     Verify Controller Is Not Dead    ${CONTROLLER}
+    Verify Controller Has No Null Pointer Exceptions    ${CONTROLLER}
     ${is_expired}=    Check If Test Duration Is Expired
     [Return]    ${is_expired}
 
