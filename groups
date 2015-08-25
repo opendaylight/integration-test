@@ -1,0 +1,3 @@
+# UUID                                  	Group Name
+#
+ldap:cn=gerrit-integration-test-committers,ou=Groups,dc=opendaylight,dc=org	ldap/gerrit-integration-test-committers
