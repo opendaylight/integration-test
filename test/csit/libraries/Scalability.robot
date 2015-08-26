@@ -45,7 +45,8 @@ Find Max Links
     ${stop}    Convert to Integer    ${stop}
     ${step}    Convert to Integer    ${step}
     : FOR    ${switches}    IN RANGE    ${begin}    ${stop+1}    ${step}
-    \    Start Mininet With Custom Topology     ${CREATE_FULLYMESH_TOPOLOGY_FILE}   ${switches}  ${BASE_MAC_1}  ${BASE_IP_1}    ${0}   ${switches*20}
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Start Mininet With Custom Topology     ${CREATE_FULLYMESH_TOPOLOGY_FILE}   ${switches}  ${BASE_MAC_1}  ${BASE_IP_1}    ${0}   ${switches*20}
+    \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Is Not Dead    ${CONTROLLER}
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Has No Null Pointer Exceptions    ${CONTROLLER}
@@ -57,7 +58,8 @@ Find Max Links
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120    10s
     \    ...    Check Number Of Links  ${max-links}
     \    Exit For Loop If    '${status}' == 'FAIL'
-    \    Stop Mininet Simulation
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Stop Mininet Simulation
+    \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120    10s
     \    ...    Check No Switches    ${switches}
     \    Exit For Loop If    '${status}' == 'FAIL'
@@ -75,7 +77,8 @@ Find Max Hosts
     ${stop}    Convert to Integer    ${stop}
     ${step}    Convert to Integer    ${step}
     : FOR    ${hosts}    IN RANGE    ${begin}    ${stop+1}    ${step}
-    \    Start Mininet With One Switch And ${hosts} hosts
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Start Mininet With One Switch And ${hosts} hosts
+    \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${status}    ${result}    Run Keyword And Ignore Error   Wait Until Keyword Succeeds    120s    30s
     \    ...    Check Every Switch  ${1}
     \    Exit For Loop If    '${status}' == 'FAIL'
@@ -87,7 +90,8 @@ Find Max Hosts
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120s    30s
     \    ...    Check Number Of Hosts    ${hosts}
     \    Exit For Loop If    '${status}' == 'FAIL'
-    \    Stop Mininet Simulation
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Stop Mininet Simulation
+    \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${status}    ${result}    Run Keyword And Ignore Error    Check No Switches    ${1}
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${status}    ${result}    Run Keyword And Ignore Error    Check No Hosts
