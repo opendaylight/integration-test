@@ -4,6 +4,12 @@ Authors: Baohua Yang@IBM, Denghui Huang@IBM
 Updated: 2013-11-14
 """
 
+# Required to bypass a problem in Robot: If you say ${argument}=None in
+# [Arguments], Robot will pass "None" in that argument instead of the None
+# object. To make it possible to set arguments to the None object, this
+# global constant will be used to hold one.
+NONE = None
+
 # Global variables
 CONTROLLER = '127.0.0.1'
 PORT = '8080'
