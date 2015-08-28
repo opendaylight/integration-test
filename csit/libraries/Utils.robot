@@ -40,7 +40,9 @@ Start Mininet
 
 Connect To Controller Karaf
     [Documentation]    Connect to the controller's karaf console.
-    ${connection}=    SSHLibrary.Open_Connection    ${CONTROLLER}    port=${KARAF_SHELL_PORT}    prompt=>
+    ${command}=    BuiltIn.Evaluate    chr(int(27))
+    ${prompt}=    @${esc}[0m${esc}[34mroot${esc}[0m>
+    ${connection}=    SSHLibrary.Open_Connection    ${CONTROLLER}    port=${KARAF_SHELL_PORT}    prompt=${prompt}
     Set Suite Variable    ${controller_index}    ${connection}
     SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}
 
