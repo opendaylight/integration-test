@@ -49,6 +49,7 @@ Attempt to add a car to the leader
 
 Restart the first follower
     Start One Or More Controllers    @{CAR_FOLLOWERS}[0]
+    Wait for Cluster Sync    90s    @{CAR_FOLLOWERS}[0]
 
 Add cars to the first follower
     Log    Adding ${NUM_CARS} cars to @{CAR_FOLLOWERS}[0]
@@ -56,6 +57,7 @@ Add cars to the first follower
 
 Restart the second follower
     Start One Or More Controllers    @{CAR_FOLLOWERS}[1]
+    Wait for Cluster Sync    90s    @{CAR_FOLLOWERS}[1]
 
 Get all the cars from the second follower
     Get Cars And Verify    @{CAR_FOLLOWERS}[1]    ${NUM_CARS}
