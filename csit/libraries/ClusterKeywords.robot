@@ -170,7 +170,7 @@ Stop One Or More Controllers
     : FOR    ${ip}    IN    @{controllers}
     \    Run Command On Remote System    ${ip}    ${cmd}
     : FOR    ${ip}    IN    @{controllers}
-    \    Wait Until Keyword Succeeds    120 s    3 s    Controller Down Check    ${ip}
+    \    Wait Until Keyword Succeeds    ${CONTROLLER_STOP_TIMEOUT} s    3 s    Controller Down Check    ${ip}
 
 Start One Or More Controllers
     [Arguments]    @{controllers}
