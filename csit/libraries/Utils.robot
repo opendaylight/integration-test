@@ -280,3 +280,19 @@ Post Elements To URI From File
     ${body}    OperatingSystem.Get File    ${data_file}
     ${resp}    RequestsLibrary.Post    session    ${dest_uri}    data=${body}    headers=${headers}
     Should Be Equal As Strings    ${resp.status_code}    200
+
+Store_Response_Code
+    [Arguments]    ${response}
+    [Documentation]    Store the response code for later checking. If the code is not
+    ...    200, stores also the response text (as it most likely contains further details
+    ...    about the error response code).
+    Builtin.Set_Suite_Variable    ${response_code}    ${response.status_code}
+    Builtin.Run_Keyword_If    ${response_code} <> 200    Builtin.Set_Suite_Variable    ${response_text}    ${response.text}
+    Builtin.Run_Keyword_If    ${response_code} <> 200    Builtin.Return_From_Keyword
+
+Fail_If_Status_Is_Wrong
+    [Documentation]   Check that the stored response code is 200. If not, log the
+    ...    stored response text and then fail.
+    Builtin.Return_From_Keyword_If    ${response_code} == 200
+    Builtin.Log    ${response_text}
+    Builtin.Fail    The request failed with code ${response_code}
