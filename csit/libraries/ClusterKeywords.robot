@@ -1,9 +1,11 @@
 *** Settings ***
 Resource          Utils.robot
+Library           RequestsLibrary
 Library           Collections
 Library           ClusterStateLibrary.py
 
 *** Variables ***
+${smc_node}       /org.opendaylight.controller:Category=ShardManager,name=shard-manager-config,type=DistributedConfigDatastore
 
 *** Keywords ***
 Get Controller List
@@ -326,3 +328,25 @@ Flush IPTables
     Should Contain    ${return string}    Flushing chain `INPUT'
     Should Contain    ${return string}    Flushing chain `FORWARD'
     Should Contain    ${return string}    Flushing chain `OUTPUT'
+
+Wait for Cluster Sync
+    [Arguments]    ${timeout}    @{controllers}
+    [Documentation]    Waits for one or more clustered controlers to report Sync Status as true.
+    : FOR    ${ip}    IN    @{controllers}
+    \    ${resp}=    Wait Until Keyword Succeeds    ${timeout}    2s    Check Controller Sync    ${ip}
+
+Verify Controller Sync
+    [Arguments]    ${controller_ip}
+    [Documentation]    Checks if Sync Status is true.
+    ${api}    Set Variable    /jolokia/read
+    Create_Session    session    http://${controller_ip}:${RESTCONFPORT}${api}    headers=${HEADERS}    auth=${AUTH}
+    ${resp}=    RequestsLibrary.Get    session    ${smc_node}
+    Log    ${resp.json()}
+    Log    ${resp.content}
+    ${json}=    Set Variable    ${resp.json()}
+    ${value}=    Get From Dictionary    ${json}    value
+    Log    value: ${value}
+    ${SyncStatus}=    Get From Dictionary    ${value}    SyncStatus
+    Log    SyncSatus: ${SyncStatus}
+    Should Be Equal    ${resp.status_code}    ${200}
+    Should Be Equal    ${SyncStatus}    ${True}
