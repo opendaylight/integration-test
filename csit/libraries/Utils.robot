@@ -280,3 +280,23 @@ Post Elements To URI From File
     ${body}    OperatingSystem.Get File    ${data_file}
     ${resp}    RequestsLibrary.Post    session    ${dest_uri}    data=${body}    headers=${headers}
     Should Be Equal As Strings    ${resp.status_code}    200
+
+Store_Response_Code
+    [Arguments]    ${response}
+    [Documentation]    Store the response code for later checking. If the code is not
+    ...    200, stores also the response text (as it most likely contains further details
+    ...    about the error response code). The response code is stored into the suite
+    ...    variable ${response_code} which can be read by the tests as necessary.
+    Builtin.Set_Suite_Variable    ${Utils__response_code}    ${response.status_code}
+    Builtin.Run_Keyword_If    ${Utils__response_code} <> 200    Builtin.Set_Suite_Variable    ${Utils__response_text}    ${response.text}
+
+Run_Keyword_If_Status_Is_Ok
+    [Arguments]    @{Keyword}
+    Builtin.Run_Keyword_If    ${Utils__response_code} == 200    Builtin.Run_Keyword    @{Keyword}
+
+Fail_If_Status_Is_Wrong
+    [Documentation]   Check that the stored response code is 200. If not, log the
+    ...    stored response text and then fail.
+    Builtin.Return_From_Keyword_If    ${Utils__response_code} == 200
+    Builtin.Log    ${Utils__response_text}
+    Builtin.Fail    The request failed with code ${Utils__response_code}
