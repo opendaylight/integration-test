@@ -1,5 +1,6 @@
 import requests
 import json
+import warnings
 
 from urllib import urlencode
 
@@ -95,7 +96,10 @@ class RequestsLibrary(object):
 
         `headers` a dictionary of headers to use with the request
         """
-
+        warnings.warn(
+            "Use the Robot RequestsLibrary rather than this. See DatastoreCRUD.robot for examples",
+            DeprecationWarning
+        )
         session = self._cache.switch(alias)
         resp = session.get(self._get_url(session, uri),
                            headers=headers,
@@ -121,6 +125,10 @@ class RequestsLibrary(object):
         `files` a dictionary of file names containing file data to POST to the server
         """
 
+        warnings.warn(
+            "Use the Robot RequestsLibrary rather than this. See DatastoreCRUD.robot for examples",
+            DeprecationWarning
+        )
         session = self._cache.switch(alias)
         data = self._utf8_urlencode(data)
 
@@ -150,6 +158,10 @@ class RequestsLibrary(object):
         `files` a dictionary of file names containing file data to POST to the server
         """
 
+        warnings.warn(
+            "Use the Robot RequestsLibrary rather than this. See DatastoreCRUD.robot for examples",
+            DeprecationWarning
+        )
         session = self._cache.switch(alias)
         data = json.dumps(data)
 
@@ -174,6 +186,10 @@ class RequestsLibrary(object):
 
         """
 
+        warnings.warn(
+            "Use the Robot RequestsLibrary rather than this. See DatastoreCRUD.robot for examples",
+            DeprecationWarning
+        )
         session = self._cache.switch(alias)
         # data = self._utf8_urlencode(data)
         data = json.dumps(data)
@@ -199,6 +215,10 @@ class RequestsLibrary(object):
 
         """
 
+        warnings.warn(
+            "Use the Robot RequestsLibrary rather than this. See DatastoreCRUD.robot for examples",
+            DeprecationWarning
+        )
         session = self._cache.switch(alias)
         data = self._utf8_urlencode(data)
         # data = json.dumps(data)
@@ -224,6 +244,10 @@ class RequestsLibrary(object):
 
         """
 
+        warnings.warn(
+            "Use the Robot RequestsLibrary rather than this. See DatastoreCRUD.robot for examples",
+            DeprecationWarning
+        )
         session = self._cache.switch(alias)
         args = "?%s" % urlencode(data) if data else ''
         resp = session.delete("%s%s" % (self._get_url(session, uri), args),
