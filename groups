@@ -1,5 +1,4 @@
 # UUID                                  	Group Name
 #
-2373512464abcee3eaf50f265c4a4e428dab634e	Administrators
 global:Anonymous-Users                  	Anonymous Users
 ldap:cn=gerrit-integration-test-committers,ou=Groups,dc=opendaylight,dc=org	ldap/gerrit-integration-test-committers
