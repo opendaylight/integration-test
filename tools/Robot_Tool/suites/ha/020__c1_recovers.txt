@@ -92,7 +92,7 @@ all switches are introduced to both controllers
 		
 
 the system is working with C1 and C2 
-    ${headers}    Create Dictionary    Content-Type    application/json
+    ${headers}    Create Dictionary    Content-Type=application/json
     Create Session    session    http://${Controller1_IP}:8080   headers=${headers}    auth=${auth}
     ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}
     Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
@@ -102,7 +102,7 @@ the system is working with C1 and C2
     Should Contain X Times  ${resp.content}   ${nodeconn3}   2
     Should Contain X Times  ${resp.content}   ${nodeconn4}   2
 
-    ${headers}    Create Dictionary    Content-Type    application/json
+    ${headers}    Create Dictionary    Content-Type=application/json
     Create Session    session    http://${Controller2_IP}:8080   headers=${headers}    auth=${auth}
     ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}
     Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error

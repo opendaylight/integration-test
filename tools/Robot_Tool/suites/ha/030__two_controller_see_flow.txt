@@ -53,12 +53,11 @@ C2 a controller in cluster of two controllers
 
 
 a flow is installed in a bridge
-    ${node}    Create Dictionary    type    OF    id    ${node_id}
+    ${node}    Create Dictionary    type=OF    id=${node_id}
     ${actions}    Create List    OUTPUT=1
-    ${body}    Create Dictionary    name    ${name}    installInHw    true    node
-    ...    ${node}    priority    995    etherType    0x800    nwDst
-    ...    10.0.0.1/32    actions    ${actions}
-    ${headers}    Create Dictionary    Content-Type    application/json
+    ${body}    Create Dictionary    name=${name}    installInHw=true    node=${node}
+    ...     priority=995    etherType=0x800    nwDst=10.0.0.1/32    actions=${actions}
+    ${headers}    Create Dictionary    Content-Type=application/json
     Create Session    session    http://${Controller1_IP}:8080    headers=${headers}    auth=${auth}
     ${resp}    Put    session    ${REST_CONTEXT}/${CONTAINER}/node/OF/${node_id}/staticFlow/${name}    data=${body}
     Should Be Equal As Strings    ${resp.status_code}    201    Response status code error
@@ -70,7 +69,7 @@ a flow is installed in a bridge
 
 
 C1 see the flow
-    ${headers}    Create Dictionary    Content-Type    application/json
+    ${headers}    Create Dictionary    Content-Type=application/json
     Create Session    session    http://${Controller1_IP}:8080   headers=${headers}    auth=${auth}
     ${resp}    Get    session    ${REST_CONTEXT_2}
     Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
@@ -80,7 +79,7 @@ C1 see the flow
  
 
 C2 see the flow
-    ${headers}    Create Dictionary    Content-Type    application/json
+    ${headers}    Create Dictionary    Content-Type=application/json
     Create Session    session    http://${Controller2_IP}:8080   headers=${headers}    auth=${auth}
     ${resp}    Get    session    ${REST_CONTEXT_2}
     Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error

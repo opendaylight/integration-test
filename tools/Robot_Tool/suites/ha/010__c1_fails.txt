@@ -92,7 +92,7 @@ all switches are introduced to both controllers
 		
 
 the system is working with C2
-    ${headers}    Create Dictionary    Content-Type    application/json
+    ${headers}    Create Dictionary    Content-Type=application/json
     Create Session    session    http://${Controller2_IP}:8080   headers=${headers}    auth=${auth}
     ${resp}    Get    session    ${REST_CONTEXT}/${CONTAINER}
     Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error

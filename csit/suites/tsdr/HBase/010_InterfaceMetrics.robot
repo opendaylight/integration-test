@@ -72,9 +72,9 @@ Verify TSDR Configuration Interval
 Post TSDR Configuration Interval
     [Arguments]    ${interval}
     [Documentation]    Configuration TSDR collection interval ${interval}
-    ${p1}    Create Dictionary    interval    ${interval}
-    ${p2}    Create Dictionary    input    ${p1}
-    ${post_data}    Create Dictionary    setPollingInterval    ${p2}
+    ${p1}    Create Dictionary    interval=${interval}
+    ${p2}    Create Dictionary    input=${p1}
+    ${post_data}    Create Dictionary    setPollingInterval=${p2}
     Log    ${post_data}
     ${resp}    RequestsLibrary.Post    session    ${OPER_INTERVAL}    ${post_data}
     Should Be Equal As Strings    ${resp.status_code}    201
