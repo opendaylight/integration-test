@@ -42,7 +42,7 @@ Check_For_Empty_Topology_Before_Talking
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
     ${template_as_string}=    BuiltIn.Set_Variable    {'IP': '${MININET}', 'HOLDTIME': '${HOLDTIME}', 'INITIATE': 'false'}
-    Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer    ${template_as_string}
+    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer    ${template_as_string}
 
 Start_Talking_BGP_speaker
     [Documentation]    Start Python speaker to connect to ODL, verify that the tool does not promptly exit.
@@ -96,7 +96,7 @@ Check_For_Empty_Topology_Before_Listening
 Reconfigure_ODL_To_Initiate_Connection
     [Documentation]    Replace BGP peer config module, now with initiate-connection set to true.
     ${template_as_string}=    BuiltIn.Set_Variable    {'IP': '${MININET}', 'HOLDTIME': '${HOLDTIME}', 'INITIATE': 'true'}
-    Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer    ${template_as_string}
+    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer    ${template_as_string}
 
 Check_Listening_Connection_Is_Established
     [Documentation]    See TCP (BGP) connection in established state.
@@ -122,7 +122,7 @@ Check_For_Empty_Topology_After_Listening
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    Delete_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer
+    ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer
     # TODO: Do we need to check something else?
 
 *** Keywords ***
@@ -130,7 +130,7 @@ Setup_Everything
     [Documentation]    SSH-login to mininet machine, save prompt to variable, create HTTP session,
     ...    prepare directories for responses, put Python tool to mininet machine, setup imported resources.
     SSHLibrary.Open_Connection    ${MININET}
-    Flexible SSH Login     ${MININET_USER}    ${MININET_PASSWORD}
+    Utils.Flexible_SSH_Login     ${MININET_USER}    ${MININET_PASSWORD}
     ${current_connection}=    Get_Connection
     ${current_prompt}=    BuiltIn.Set_Variable    ${current_connection.prompt}
     BuiltIn.Log    ${current_prompt}
