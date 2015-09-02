@@ -1,4 +1,5 @@
 # UUID                                  	Group Name
 #
+c9025ab9ddc1e3171919e085449f22c54f8f7b54	GitHub Replication
 global:Anonymous-Users                  	Anonymous Users
 ldap:cn=gerrit-integration-test-committers,ou=Groups,dc=opendaylight,dc=org	ldap/gerrit-integration-test-committers
