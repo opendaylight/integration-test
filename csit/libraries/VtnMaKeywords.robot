@@ -16,6 +16,7 @@ ${VTN_INVENTORY}        restconf/operational/vtn-inventory:vtn-nodes
 ${DUMPFLOWS}    dpctl dump-flows -O OpenFlow13
 ${index}    7
 @{FLOWELMENTS}    nw_src=10.0.0.1    nw_dst=10.0.0.3    actions=drop
+${pathpolicy_topo}    sudo mn --controller=remote,ip=${CONTROLLER} --custom topo-3sw-2host_multipath.py --topo pathpolicytopo --switch ovsk,protocols=OpenFlow13
 
 *** Keywords ***
 Start SuiteVtnMa
@@ -77,6 +78,75 @@ Add a portmap
     [Documentation]    Create a portmap for a interface of a vbridge
     ${json_data}=   json.dumps    ${portmap_data}
     ${resp}=    RequestsLibrary.Put    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/interfaces/${interface_name}/portmap    data=${json_data}    headers=${HEADERS}
+    Should Be Equal As Strings    ${resp.status_code}    200
+
+Add a pathmap
+    [Arguments]    ${pathmap_data}
+    [Documentation]    Create a pathmap for a vtn
+    ${json_data}=   json.dumps    ${pathmap_data}
+    ${resp}=    RequestsLibrary.Put    session    ${REST_CONTEXT}/pathmaps/1    data=${pathmap_data}    headers=${HEADERS}
+    Should Be Equal As Strings    ${resp.status_code}    201
+
+Get a pathmap
+    [Documentation]    Get a pathmap for a vtn.
+    ${resp}=    RequestsLibrary.Get   session    ${REST_CONTEXT}/pathmaps
+    Should Be Equal As Strings    ${resp.status_code}    200
+
+Add a pathpolicy
+    [Arguments]    ${pathpolicy_data}
+    [Documentation]    Create a pathpolicy for a vtn
+    ${json_data}=   json.dumps    ${pathpolicy_data}
+    ${resp}=    RequestsLibrary.Put    session    ${REST_CONTEXT}/pathpolicies/1    data=${pathpolicy_data}    headers=${HEADERS}
+    Should Be Equal As Strings    ${resp.status_code}    201
+
+Get a pathpolicy
+    [Documentation]    Get a pathpolicy for a vtn.
+    ${resp}=    RequestsLibrary.Get   session    ${REST_CONTEXT}/pathpolicies/1
+    Should Be Equal As Strings    ${resp.status_code}    200
+
+Verify flowEntryBeforePathPolicy
+    [Documentation]    Checking Flows on switch S1
+    write    ${DUMPFLOWS}
+    ${result}    Read Until    mininet>
+    Should Contain    ${result}    in_port=1
+    Should Contain    ${result}    actions=output:2
+    [Documentation]    Checking Flows on switch S3
+    write    ${DUMPFLOWS}
+    ${result}    Read Until    mininet>
+    Should Contain    ${result}    in_port=1
+    Should Contain    ${result}    actions=output:3
+
+Verify flowEntryAfterPathPolicy
+    [Documentation]    Checking Flows on switch S1
+    write    ${DUMPFLOWS}
+    ${result}    Read Until    mininet>
+    Should Contain    ${result}    in_port=1
+    Should Contain    ${result}    actions=output:3
+    [Documentation]    Checking Flows on switch S3
+    write    ${DUMPFLOWS}
+    ${result}    Read Until    mininet>
+    Should Contain    ${result}    in_port=2
+    Should Contain    ${result}    actions=output:3
+
+Mininet Execute Custom Topology
+    Clean Mininet System
+    ${mininet_conn_id2}=    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    Set Suite Variable    ${mininet_conn_id2}
+    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    Execute Command    sudo ovs-vsctl set-manager ptcp:6644
+    Put File    ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
+    Write    ${pathpolicy_topo}
+    ${result}    Read Until    mininet>
+    Should Contain    ${result}    h1 h2
+
+Delete a pathmap
+    [Documentation]    Delete a pathmap for a vtn
+    ${resp}=    RequestsLibrary.Delete    session    ${REST_CONTEXT}/pathmaps/1
+    Should Be Equal As Strings    ${resp.status_code}    200
+
+Delete a pathpolicy
+    [Documentation]    Delete a pathpolicy for a vtn
+    ${resp}=    RequestsLibrary.Delete    session    ${REST_CONTEXT}/pathpolicies/1
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Add a macmap
