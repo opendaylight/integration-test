@@ -6,6 +6,9 @@ Resource          MininetKeywords.robot
 Resource          Utils.robot
 Variables         ../variables/Variables.py
 
+*** Variables ***
+${operational_port}    ${OPERATIONAL_NODES_API}/node/ovsdb:1/node-connector/ovsdb:1:1
+
 *** Keywords ***
 Check Ovsdb Shards Status
     [Arguments]    ${controller_index_list}
@@ -62,11 +65,11 @@ Create Bridge And Verify
     [Documentation]    Create bridge in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
     ${sample}=    OperatingSystem.Get File    ${CURDIR}/../variables/ovsdb/create_bridge_3node.json
     Log    ${sample}
-    ${sample1}    Replace String    ${sample}    tcp:controller1:6633    tcp:${ODL_SYSTEM_1_IP}:6640
+    ${sample1}    Replace String    ${sample}    tcp:controller1:6633    tcp:${ODL_SYSTEM_1_IP}:6653
     Log    ${sample1}
-    ${sample2}    Replace String    ${sample1}    tcp:controller2:6633    tcp:${ODL_SYSTEM_2_IP}:6640
+    ${sample2}    Replace String    ${sample1}    tcp:controller2:6633    tcp:${ODL_SYSTEM_2_IP}:6653
     Log    ${sample2}
-    ${sample3}    Replace String    ${sample2}    tcp:controller3:6633    tcp:${ODL_SYSTEM_3_IP}:6640
+    ${sample3}    Replace String    ${sample2}    tcp:controller3:6633    tcp:${ODL_SYSTEM_3_IP}:6653
     Log    ${sample3}
     ${sample4}    Replace String    ${sample3}    127.0.0.1    ${MININET}
     Log    ${sample4}
@@ -74,7 +77,7 @@ Create Bridge And Verify
     Log    ${sample5}
     ${body}    Replace String    ${sample5}    61644    ${OVSDB_PORT}
     Log    ${body}
-    ${dictionary}=    Create Dictionary    ${MININET}=1    ${OVSDBPORT}=4    ${BRIDGE}=1
+    ${dictionary}=    Create Dictionary    ${MININET}=1    ${OVSDBPORT}=1    ${BRIDGE}=1
     Put And Check At URI In Cluster Ovsdb    ${controller_index_list}    ${controller_index}    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2F${BRIDGE}    ${body}    ${HEADERS}
     Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
 
@@ -119,3 +122,26 @@ Check Expected And Received Body
     Log    ${received_target_ips}
     Should Be Equal As Strings    ${received_bridge_name}    ${expected_bridge_name}
     Lists Should be Equal    ${received_target_ips}    ${expected_target_ips}
+
+Take Ovsdb Device Link Down and Verify
+    [Arguments]    ${controller_index_list}
+    [Documentation]    Take a link down and verify port status in all instances in ${controller_index_list}.
+    ${dictionary}=    Create Dictionary    "link-down":true=1
+    ${ouput}=    Send Mininet Command    ${mininet_conn_id}    link s1 h1 down
+    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${operational_port}
+
+Take Ovsdb Device Link Up and Verify
+    [Arguments]    ${controller_index_list}
+    [Documentation]    Take the link up and verify port status in all instances in ${controller_index_list}.
+    ${dictionary}=    Create Dictionary    "link-down":true=0
+    ${ouput}=    Send Mininet Command    ${mininet_conn_id}    link s1 h1 up
+    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${operational_port}
+
+Check Ovsdb Network Operational Information For One Device
+    [Arguments]    ${controller_index_list}
+    [Documentation]    Check device ovsdb:1 is in operational inventory and topology in all instances in ${controller_index_list}.
+    ...    Inventory should show 1x node_id per device 1x node_id per connector. Topology should show 2x node_id per device + 3x node_id per connector.
+    ${dictionary}    Create Dictionary    ovsdb:1=4
+    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_NODES_API}
+    ${dictionary}    Create Dictionary    ovsdb:1=11
+    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
