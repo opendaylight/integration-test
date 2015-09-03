@@ -63,17 +63,44 @@ Get Cluster Entity Owner For Ovsdb
 Create Bridge And Verify
     [Arguments]    ${controller_index_list}    ${controller_index}
     [Documentation]    Create bridge in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
-    # need to get UUID which should be the same on all controllers in cluster, so asking controller1
+     # need to get UUID which should be the same on all controllers in cluster, so asking controller1
     ${ovsdb_uuid}=    Get OVSDB UUID    controller_http_session=controller1
     ${body}=    OperatingSystem.Get File    ${CURDIR}/../variables/ovsdb/create_bridge_3node.json
     ${body}    Replace String    ${body}     ovsdb://127.0.0.1:61644    ovsdb://uuid/${ovsdb_uuid}
-    ${body}    Replace String    ${body}    tcp:controller1:6633    tcp:${ODL_SYSTEM_1_IP}:6640
-    ${body}    Replace String    ${body}    tcp:controller2:6633    tcp:${ODL_SYSTEM_2_IP}:6640
-    ${body}    Replace String    ${body}    tcp:controller3:6633    tcp:${ODL_SYSTEM_3_IP}:6640
+    ${body}    Replace String    ${body}    tcp:controller1:6633    tcp:${ODL_SYSTEM_1_IP}:6633
+    ${body}    Replace String    ${body}    tcp:controller2:6633    tcp:${ODL_SYSTEM_2_IP}:6633
+    ${body}    Replace String    ${body}    tcp:controller3:6633    tcp:${ODL_SYSTEM_3_IP}:6633
     ${body}    Replace String    ${body}    127.0.0.1    ${MININET}
     ${body}    Replace String    ${body}    br01    ${BRIDGE}
     ${body}    Replace String    ${body}    61644    ${OVSDB_PORT}
     Log    ${body}
-    ${dictionary}=    Create Dictionary    ${MININET}=1    ${OVSDBPORT}=4    ${BRIDGE}=1
+    ${TOOLS_SYSTEM_IP1}    Replace String    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_IP}    "${TOOLS_SYSTEM_IP}"
+    ${dictionary}=    Create Dictionary    ${TOOLS_SYSTEM_IP1}=1    ${OVSDBPORT}=4    ${BRIDGE}=1
     Put And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE}    ${body}    ${HEADERS}
     Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
+
+Create Bridge Manually And Verify
+    [Arguments]    ${controller_index_list}    ${controller_index}
+    [Documentation]    Create bridge in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-br br-s1
+    ${dictionary_operational}=    Create Dictionary    br-s1=5
+    ${dictionary_config}=    Create Dictionary    br-s1=0
+    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_config}    ${CONFIG_TOPO_API}
+    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_operational}    ${OPERATIONAL_TOPO_API}
+
+Delete Bridge And Verify
+    [Arguments]    ${controller_index_list}    ${controller_index}
+    [Documentation]    Delete bridge in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-br br-s1
+    ${dictionary}=    Create Dictionary    ${BRIDGE}=0
+    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${CONFIG_TOPO_API}
+    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
+
+Add Port To The Manual Bridge And Verify
+    [Arguments]    ${controller_index_list}    ${controller_index}
+    [Documentation]    Add Port in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-port br-s1 vx1 -- set Interface vx1 type=vxlan
+    ${dictionary_operational}=    Create Dictionary    vx1=2
+    ${dictionary_config}=    Create Dictionary    vx1=0
+    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_config}    ${CONFIG_TOPO_API}
+    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_operational}    ${OPERATIONAL_TOPO_API}
