@@ -9,7 +9,7 @@ Resource          ../../../libraries/MininetKeywords.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${SOUTHBOUND_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${MININET}:${OVSDBPORT}
+${SOUTHBOUND_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:${OVSDBPORT}
 ${OVSDB_CONFIG_DIR}    ${CURDIR}/../../../variables/ovsdb
 ${BRIDGE}         br01
 
@@ -36,7 +36,92 @@ Check Entity Owner Status And Find Owner and Candidate Before Fail
     Set Suite Variable    ${original_owner}
     Set Suite Variable    ${original_candidate}
 
-Create Bridge In Owner and Verify Before Fail
+Create Bridge Manually In Owner and Verify Before Fail
+    [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
+    Create Bridge Manually And Verify    ${original_cluster_list}    ${original_owner}
+
+Add Port Manually In Owner and Verify Before Fail
+    [Documentation]    Add Port in Owner and verify it gets applied from all instances.
+    Add Port To The Manual Bridge And Verify    ${original_cluster_list}    ${original_owner}
+
+Create Bridge Via Controller In Owner and Verify Before Fail
     [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
     Create Bridge And Verify    ${original_cluster_list}    ${original_owner}
+
+Delete the Bridge In Owner and Verify Before Fail
+    [Documentation]    This request will delete the bridge node from the config data store and operational data store.
+    Delete Bridge And Verify    ${original_cluster_list}    ${original_owner}
+
+Kill Owner Instance
+    [Documentation]    Kill Owner Instance and verify it is dead
+    Kill Multiple Controllers    ${original_owner}
+    ${new_cluster_list}    Create Controller Index List
+    Remove Values From List    ${new_cluster_list}    ${original_owner}
+    Set Suite Variable    ${new_cluster_list}
+
+Check Shards Status After Fail
+    [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
+    Check Ovsdb Shards Status    ${new_cluster_list}
+
+Check Entity Owner Status And Find Owner and Candidate After Fail
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    ${new_owner}    ${new_candidates_list}    Get Ovsdb Entity Owner Status For One Device    ${new_cluster_list}
+    ${new_candidate}=    Get From List    ${new_candidates_list}    0
+    Set Suite Variable    ${new_owner}
+    Set Suite Variable    ${new_candidate}
+
+Create Bridge Manually In Owner and Verify After Fail
+    [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
+    Create Bridge Manually And Verify    ${new_cluster_list}    ${new_owner}
+
+Add Port Manually In Owner and Verify After Fail
+    [Documentation]    Add Port in Owner and verify it gets applied from all instances.
+    Add Port To The Manual Bridge And Verify    ${original_cluster_list}    ${original_owner}
+
+Create Bridge Via Controller In Owner and Verify After Fail
+    [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
+    Create Bridge And Verify    ${new_cluster_list}    ${new_owner}
+
+Delete the Bridge In Owner and Verify After Fail
+    [Documentation]    This request will delete the bridge node from the config data store and operational data store.
+    Delete Bridge And Verify    ${original_cluster_list}    ${original_owner}
+
+Start Old Owner Instance
+    [Documentation]    Start Owner Instance and verify it is active
+    Start Multiple Controllers    300s    ${original_owner}
+
+Check Shards Status After Recover
+    [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
+    Wait Until Keyword Succeeds    5s    1s    Check Ovsdb Shards Status    ${original_cluster_list}
+
+Check Entity Owner Status After Recover
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    ${new_owner}    ${new_candidates_list}    Wait Until Keyword Succeeds    5s    1s    Get Ovsdb Entity Owner Status For One Device    ${original_cluster_list}
+    Set Suite Variable    ${new_owner}
+
+Create Bridge Manually In Owner and Verify After Recover
+    [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
+    Create Bridge Manually And Verify    ${original_cluster_list}    ${new_owner}
+
+Add Port Manually In Owner and Verify After Recover
+    [Documentation]    Add Port in Owner and verify it gets applied from all instances.
+    Add Port To The Manual Bridge And Verify    ${original_cluster_list}    ${original_owner}
+
+Create Bridge Via Controller In Owner and Verify After Recover
+    [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
+    Create Bridge And Verify    ${original_cluster_list}    ${new_owner}
+
+Delete the Bridge In Owner and Verify After Recover
+    [Documentation]    This request will delete the bridge node from the config data store and operational data store.
+    Delete Bridge And Verify    ${original_cluster_list}    ${new_owner}
+
+Create Bridge In Old Owner and Verify After Recover
+    [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
+    Create Bridge And Verify    ${original_cluster_list}    ${original_owner}
+    
+Stop Mininet and Exit
+    [Documentation]    Stop mininet and exit connection.
+    Stop Mininet And Exit    ${mininet_conn_id}
+    Clean Mininet System
     [Teardown]    Report_Failure_Due_To_Bug    4908
+
