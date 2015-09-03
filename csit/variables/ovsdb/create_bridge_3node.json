@@ -1,5 +1,5 @@
 {
-  "node": [
+  "network-topology:node": [
         {
             "node-id": "ovsdb://127.0.0.1:61644/bridge/br01",
             "ovsdb:bridge-name": "br01",
