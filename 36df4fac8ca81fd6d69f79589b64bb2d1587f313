@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a79b1b5_1cee12b5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-03T10:18:24Z",
+      "side": 1,
+      "message": "s?",
+      "range": {
+        "startLine": 7,
+        "startChar": 36,
+        "endLine": 7,
+        "endChar": 37
+      },
+      "revId": "36df4fac8ca81fd6d69f79589b64bb2d1587f313",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_dc2f3af5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-03T10:18:24Z",
+      "side": 1,
+      "message": "up?",
+      "range": {
+        "startLine": 13,
+        "startChar": 23,
+        "endLine": 13,
+        "endChar": 25
+      },
+      "revId": "36df4fac8ca81fd6d69f79589b64bb2d1587f313",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_3c274e14",
+        "filename": "csit/suites/controller/OneNode_Datastore/010_crud_mdsal_perf.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-03T10:18:24Z",
+      "side": 1,
+      "message": "What is base edition?",
+      "range": {
+        "startLine": 71,
+        "startChar": 33,
+        "endLine": 71,
+        "endChar": 45
+      },
+      "revId": "36df4fac8ca81fd6d69f79589b64bb2d1587f313",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_5c69ea23",
+        "filename": "csit/suites/controller/OneNode_Datastore/010_crud_mdsal_perf.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-03T10:18:24Z",
+      "side": 1,
+      "message": "Do not hardcode prompt value here.\nUse DEFAULT_LINUX_PROMPT from Variables.py either directly, or as a default value for suite variable (for example MININET_PROMPT) that can be specified by -v in pybot invocation.",
+      "range": {
+        "startLine": 72,
+        "startChar": 78,
+        "endLine": 72,
+        "endChar": 79
+      },
+      "revId": "36df4fac8ca81fd6d69f79589b64bb2d1587f313",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_1c737216",
+        "filename": "csit/suites/controller/OneNode_Datastore/010_crud_mdsal_perf.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-03T10:18:24Z",
+      "side": 1,
+      "message": "I recommend to use Utils.Flexible Mininet Login",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 36
+      },
+      "revId": "36df4fac8ca81fd6d69f79589b64bb2d1587f313",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_9c5ea275",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-03T10:18:24Z",
+      "side": 1,
+      "message": "This is the only key in carlist dictionary, so what was the point of previous deepcopy?",
+      "range": {
+        "startLine": 69,
+        "startChar": 12,
+        "endLine": 69,
+        "endChar": 23
+      },
+      "revId": "36df4fac8ca81fd6d69f79589b64bb2d1587f313",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_9cd542bb",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-03T10:18:24Z",
+      "side": 1,
+      "message": "Module docstrig should mention this method of authentication is hardcoded.",
+      "range": {
+        "startLine": 77,
+        "startChar": 27,
+        "endLine": 77,
+        "endChar": 50
+      },
+      "revId": "36df4fac8ca81fd6d69f79589b64bb2d1587f313",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_bcefde86",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-03T10:18:24Z",
+      "side": 1,
+      "message": "Once again, single key forgets value from deepcopy.",
+      "range": {
+        "startLine": 97,
+        "startChar": 15,
+        "endLine": 97,
+        "endChar": 23
+      },
+      "revId": "36df4fac8ca81fd6d69f79589b64bb2d1587f313",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_3c8aeebf",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-03T10:18:24Z",
+      "side": 1,
+      "message": "In similar situation, I opted for copying collections.Counter to libraries/\nhttps://git.opendaylight.org/gerrit/#/c/26152/4/csit/libraries/Counter.py\nI guess the best thing would be to start discussion on integration-dev [test].",
+      "range": {
+        "startLine": 163,
+        "startChar": 4,
+        "endLine": 163,
+        "endChar": 37
+      },
+      "revId": "36df4fac8ca81fd6d69f79589b64bb2d1587f313",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_5cac8a35",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-03T10:18:24Z",
+      "side": 1,
+      "message": "Let me guess. This was moved out from _prepare_* functions, without changing function names.",
+      "range": {
+        "startLine": 175,
+        "startChar": 15,
+        "endLine": 175,
+        "endChar": 28
+      },
+      "revId": "36df4fac8ca81fd6d69f79589b64bb2d1587f313",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
