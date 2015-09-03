@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<snapshot>
+    <required-capabilities>
+        <capability>urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding?module=opendaylight-md-sal-binding&amp;revision=2013-10-28</capability>
+        <capability>urn:opendaylight:params:xml:ns:yang:controller:sxp:controller:conf?module=sxp-controller-conf&amp;revision=2014-10-02</capability>
+    </required-capabilities>
+    <configuration>
+        <data xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+            <modules xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
+                <module>
+                    <type xmlns:binding="urn:opendaylight:params:xml:ns:yang:controller:sxp:controller:conf">
+                        binding:sxp-controller
+                    </type>
+                    <name>sxp-controller</name>
+
+                    <binding-broker>
+                        <type xmlns:binding="urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding">
+                            binding:binding-broker-osgi-registry
+                        </type>
+                        <name>binding-osgi-broker</name>
+                    </binding-broker>
+
+                    <rpc-registry>
+                        <type xmlns:binding="urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding">
+                            binding:binding-rpc-registry
+                        </type>
+                        <name>binding-rpc-broker</name>
+                    </rpc-registry>
+
+                    <data-broker>
+                        <type xmlns:binding="urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding">
+                            binding:binding-async-data-broker
+                        </type>
+                        <name>binding-data-broker</name>
+                    </data-broker>
+
+                    <notification-service>
+                        <type xmlns:binding="urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding">
+                            binding:binding-notification-service
+                        </type>
+                        <name>binding-notification-broker</name>
+                    </notification-service>
+
+                    <sxp-controller>
+                        <sxp-node>
+                            <enabled>true</enabled>
+                            <node-id>127.0.0.1</node-id>
+                            <source-ip>127.0.0.1</source-ip>
+                            <tcp-port>64999</tcp-port>
+                            <version>version4</version>
+                            <security>
+                                <password>cisco123</password>
+                            </security>
+                            <mapping-expanded>5</mapping-expanded>
+                            <description>ODL SXP Controller</description>
+                            <master-database></master-database>
+                            <timers>
+                                <retry-open-time>5</retry-open-time>
+                                <hold-time-min-acceptable>120</hold-time-min-acceptable>
+                                <keep-alive-time>30</keep-alive-time>
+                                <hold-time>90</hold-time>
+                                <hold-time-min>90</hold-time-min>
+                                <hold-time-max>180</hold-time-max>
+                            </timers>
+                        </sxp-node>
+                        <sxp-node>
+                            <enabled>true</enabled>
+                            <node-id>127.0.0.2</node-id>
+                            <source-ip>127.0.0.2</source-ip>
+                            <tcp-port>64999</tcp-port>
+                            <version>version4</version>
+                            <security>
+                                <password>cisco123</password>
+                            </security>
+                            <mapping-expanded>5</mapping-expanded>
+                            <description>ODL SXP Controller</description>
+                            <master-database></master-database>
+                            <timers>
+                                <retry-open-time>5</retry-open-time>
+                                <hold-time-min-acceptable>120</hold-time-min-acceptable>
+                                <keep-alive-time>30</keep-alive-time>
+                                <hold-time>90</hold-time>
+                                <hold-time-min>90</hold-time-min>
+                                <hold-time-max>180</hold-time-max>
+                            </timers>
+                        </sxp-node>
+                        <sxp-node>
+                            <enabled>true</enabled>
+                            <node-id>127.0.0.3</node-id>
+                            <source-ip>127.0.0.3</source-ip>
+                            <tcp-port>64999</tcp-port>
+                            <version>version4</version>
+                            <security>
+                                <password>cisco123</password>
+                            </security>
+                            <mapping-expanded>5</mapping-expanded>
+                            <description>ODL SXP Controller</description>
+                            <master-database></master-database>
+                            <timers>
+                                <retry-open-time>5</retry-open-time>
+                                <hold-time-min-acceptable>120</hold-time-min-acceptable>
+                                <keep-alive-time>30</keep-alive-time>
+                                <hold-time>90</hold-time>
+                                <hold-time-min>90</hold-time-min>
+                                <hold-time-max>180</hold-time-max>
+                            </timers>
+                        </sxp-node>
+                    </sxp-controller>
+                </module>
+            </modules>
+        </data>
+    </configuration>
+</snapshot>
