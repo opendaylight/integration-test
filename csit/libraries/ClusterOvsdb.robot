@@ -57,23 +57,53 @@ Get Cluster Entity Owner For Ovsdb
     \    Run Keyword If    '${candidate}' != '${owner}'    Append To List    ${candidates_list}    ${candidate}
     [Return]    ${owner}    ${candidates_list}
 
+Get Dynamic Datapath id
+    [Documentation]     Retrieve the datapath id attribute for the bridge.
+    Log    Check OVS bridge configuration
+    ${output}=    Run Command On Mininet    ${mininet}    sudo ovs-vsctl list bridge br-int
+    Log    ${output}
+    ${output_splitted}=    Split String    ${output}    :
+    Log    ${output_splitted}
+    ${datapath_id}=    Get from List    ${output_splitted}    4
+    Set Suite Variable    ${datapath_id}
+    Log    ${datapath_id}
+    [Return]    ${datapath_id}
+
 Create Bridge And Verify
     [Arguments]    ${controller_index_list}    ${controller_index}
     [Documentation]    Create bridge in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
     ${sample}=    OperatingSystem.Get File    ${CURDIR}/../variables/ovsdb/create_bridge_3node.json
     Log    ${sample}
-    ${sample1}    Replace String    ${sample}    tcp:controller1:6633    tcp:${ODL_SYSTEM_1_IP}:6640
+    ${sample1}    Replace String    ${sample}    tcp:controller1:6633    tcp:${ODL_SYSTEM_1_IP}:6633
     Log    ${sample1}
-    ${sample2}    Replace String    ${sample1}    tcp:controller2:6633    tcp:${ODL_SYSTEM_2_IP}:6640
+    ${sample2}    Replace String    ${sample1}    tcp:controller2:6633    tcp:${ODL_SYSTEM_2_IP}:6633
     Log    ${sample2}
-    ${sample3}    Replace String    ${sample2}    tcp:controller3:6633    tcp:${ODL_SYSTEM_3_IP}:6640
+    ${sample3}    Replace String    ${sample2}    tcp:controller3:6633    tcp:${ODL_SYSTEM_3_IP}:6633
     Log    ${sample3}
-    ${sample4}    Replace String    ${sample3}    127.0.0.1    ${MININET}
+    ${sample4}    Replace String    ${sample3}    127.0.0.1    ${TOOLS_SYSTEM_IP}
     Log    ${sample4}
     ${sample5}    Replace String    ${sample4}    br01    ${BRIDGE}
     Log    ${sample5}
-    ${body}    Replace String    ${sample5}    61644    ${OVSDB_PORT}
+    ${sample6}    Replace String    ${sample5}    61644    ${OVSDB_PORT}
+    Log    ${sample6}
+    Get Dynamic Datapath id
+    ${body}    Replace String    ${sample6}    00:00:00:00:00:00:00:01    ${datapath_id}
     Log    ${body}
-    ${dictionary}=    Create Dictionary    ${MININET}=1    ${OVSDBPORT}=4    ${BRIDGE}=1
+    ${TOOLS_SYSTEM_IP1}    Replace String    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_IP}    "${TOOLS_SYSTEM_IP}"
+    ${dictionary}=    Create Dictionary    ${TOOLS_SYSTEM_IP1}=1    ${OVSDBPORT}=4    ${BRIDGE}=1
     Put And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2F${BRIDGE}    ${body}    ${HEADERS}
+    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
+
+Create Bridge Manually And Verify
+    [Arguments]    ${controller_index_list}    ${controller_index}
+    [Documentation]    Create bridge in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-br br-s1
+    ${dictionary}=    Create Dictionary    br-s1=0
+    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
+
+Delete Bridge And Verify
+    [Arguments]    ${controller_index_list}    ${controller_index}
+    [Documentation]    Delete bridge in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
+    ${dictionary}=    Create Dictionary    ${BRIDGE}=0
+    Delete And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2F${BRIDGE}    ${HEADERS}
     Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
