@@ -26,7 +26,7 @@ Start Suite
     Read Until    mininet>
 
 Start Mininet
-    [Arguments]    ${system}=${MININET}    ${cmd}=${start}    ${custom}=${OVSDB_CONFIG_DIR}/ovsdb.py    ${user}=${MININET_USER}    ${password}=${MININET_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
+    [Arguments]    ${system}=${MININET}    ${cmd}=${start}    ${custom}=ovsdb.py    ${user}=${MININET_USER}    ${password}=${MININET_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
     [Documentation]    Basic setup to start mininet with custom topology
     Log    Start the test on the base edition
     Clean Mininet System
