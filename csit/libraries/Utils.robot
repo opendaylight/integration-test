@@ -22,6 +22,7 @@ Start Suite
     Set Suite Variable    ${mininet_conn_id}
     Flexible Mininet Login    user=${user}    password=${password}
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
+    Put File    ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
     Write    ${start}
     Read Until    mininet>
 
