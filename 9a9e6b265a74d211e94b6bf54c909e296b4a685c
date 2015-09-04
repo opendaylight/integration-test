@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a79b1b5_4e136d0d",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T16:40:05Z",
+      "side": 1,
+      "message": "Could this variable have different name in each suite?\n(also applies to the next 2 variable names)",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 34,
+        "endChar": 11
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_6e2d0946",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T16:40:05Z",
+      "side": 1,
+      "message": "This part makes sense in functional test suite, but is it really necessary in this performance suite?",
+      "range": {
+        "startLine": 40,
+        "startChar": 29,
+        "endLine": 40,
+        "endChar": 79
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_8e30a59f",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T16:40:05Z",
+      "side": 1,
+      "message": "I recommend unifying on names_with_underscores, as that is closer to Python PEP 8.",
+      "range": {
+        "startLine": 47,
+        "startChar": 59,
+        "endLine": 47,
+        "endChar": 61
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_2e271166",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T16:40:05Z",
+      "side": 1,
+      "message": "instead of",
+      "range": {
+        "startLine": 57,
+        "startChar": 107,
+        "endLine": 57,
+        "endChar": 114
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_0e1c9512",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T16:40:05Z",
+      "side": 1,
+      "message": "In Sandbox (million prefixes) it took 0:01:36.186 so this hardcoded value is reasonable.",
+      "range": {
+        "startLine": 103,
+        "startChar": 49,
+        "endLine": 103,
+        "endChar": 53
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
