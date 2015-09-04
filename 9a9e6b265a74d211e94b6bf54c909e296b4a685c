@@ -94,6 +94,29 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_6ebbc9e5",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T17:37:49Z",
+      "side": 1,
+      "message": "Now that I think about it, this part should be skipped. Functional suite already verifies this, and potential scale dependent bugs will be detected (albeit with less information) by the following test case.\n\nFocus of this suite should be measurement of performance when nothing fails, and the highlighted block takes some time (which is then missing from duration of the following test case).",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 30
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_0e1c9512",
         "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
         "patchSetId": 7
@@ -110,6 +133,466 @@
         "startChar": 49,
         "endLine": 103,
         "endChar": 53
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_8ebe65d3",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T17:37:49Z",
+      "side": 1,
+      "message": "S",
+      "range": {
+        "startLine": 159,
+        "startChar": 23,
+        "endLine": 159,
+        "endChar": 24
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_2eb5d1ed",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T17:37:49Z",
+      "side": 1,
+      "message": "Flexible_Mininet_Login would be even more readable.",
+      "range": {
+        "startLine": 165,
+        "startChar": 10,
+        "endLine": 165,
+        "endChar": 70
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_0eca556e",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T17:37:49Z",
+      "side": 1,
+      "message": "This is not really needed. Just use \"operational\" coupled with longer URI.",
+      "range": {
+        "startLine": 166,
+        "startChar": 38,
+        "endLine": 166,
+        "endChar": 41
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_ae9fa15e",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T17:37:49Z",
+      "side": 1,
+      "message": "Perhaps include explicit ${stop_at_http_error}\u003dTrue argument (to line 195), and document the caller test case if it wants to tolerate non-200.",
+      "range": {
+        "startLine": 198,
+        "startChar": 70,
+        "endLine": 198,
+        "endChar": 98
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_6e898925",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T17:37:49Z",
+      "side": 1,
+      "message": "This order (with line 200) takes longer, but gives more information if fails; so I agree.",
+      "range": {
+        "startLine": 199,
+        "startChar": 4,
+        "endLine": 199,
+        "endChar": 27
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_4e860d15",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T17:37:49Z",
+      "side": 1,
+      "message": "The following assertion would be more strict, but yours is good enough.\nShould_Be_Equal    ${count}    ${0}",
+      "range": {
+        "startLine": 207,
+        "startChar": 65,
+        "endLine": 207,
+        "endChar": 108
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_ee7cb922",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T17:37:49Z",
+      "side": 1,
+      "message": "Another named argument has \"stop\" there, which is dangerous. Is it possible to unify on single prefix, for example \"ignore\"?",
+      "range": {
+        "startLine": 216,
+        "startChar": 40,
+        "endLine": 216,
+        "endChar": 44
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_0e78152a",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T17:37:49Z",
+      "side": 1,
+      "message": "${expectstable}\u003dTrue",
+      "range": {
+        "startLine": 218,
+        "startChar": 31,
+        "endLine": 218,
+        "endChar": 52
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_ae76c13c",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T17:37:49Z",
+      "side": 1,
+      "message": "Depends on value of the second argument.",
+      "range": {
+        "startLine": 219,
+        "startChar": 78,
+        "endLine": 219,
+        "endChar": 84
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_ce71bd45",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T17:37:49Z",
+      "side": 1,
+      "message": "Another possibility for non-200 is \"not ready yet\" if too soon after ODL started.",
+      "range": {
+        "startLine": 220,
+        "startChar": 25,
+        "endLine": 220,
+        "endChar": 33
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_6e90a943",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T17:37:49Z",
+      "side": 1,
+      "message": "and above.\nYou should order Keywords by who calls who.",
+      "range": {
+        "startLine": 221,
+        "startChar": 57,
+        "endLine": 221,
+        "endChar": 58
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_8e93c54e",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T17:37:49Z",
+      "side": 1,
+      "message": "Grammatically this sound to be the exact opposite. Fix or comment.",
+      "range": {
+        "startLine": 224,
+        "startChar": 34,
+        "endLine": 224,
+        "endChar": 79
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_2e9ab163",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T17:37:49Z",
+      "side": 1,
+      "message": "Text or content? Pick one.",
+      "range": {
+        "startLine": 225,
+        "startChar": 87,
+        "endLine": 225,
+        "endChar": 126
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_0e9fb551",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 226,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T17:37:49Z",
+      "side": 1,
+      "message": "Hmm, perhaps hide this magic value in a nicely named constant, such as ${NON_200}.",
+      "range": {
+        "startLine": 226,
+        "startChar": 88,
+        "endLine": 226,
+        "endChar": 90
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_aead618a",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T17:37:49Z",
+      "side": 1,
+      "message": "Convert_To_Integer?",
+      "range": {
+        "startLine": 228,
+        "startChar": 32,
+        "endLine": 228,
+        "endChar": 44
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_cea8dd79",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T17:37:49Z",
+      "side": 1,
+      "message": "The reason (to avoid false positives when ODL is slower to get going) should be carefully explained in [Documentation], as Sleep is considered to be generally bad practice.",
+      "range": {
+        "startLine": 243,
+        "startChar": 12,
+        "endLine": 243,
+        "endChar": 17
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_6eb749d9",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T17:37:49Z",
+      "side": 1,
+      "message": "afterwards",
+      "range": {
+        "startLine": 256,
+        "startChar": 92,
+        "endLine": 256,
+        "endChar": 93
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_8ebae5be",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 263,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T17:37:49Z",
+      "side": 1,
+      "message": "Hmm. Usually I consider [Return] to be more readable, but this does not look that bad either.",
+      "range": {
+        "startLine": 263,
+        "startChar": 4,
+        "endLine": 263,
+        "endChar": 31
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_0ec6d549",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T17:37:49Z",
+      "side": 1,
+      "message": "I do not think implementation details need to be repeated here, we have just read that in previous Keyword..",
+      "range": {
+        "startLine": 266,
+        "startChar": 62,
+        "endLine": 266,
+        "endChar": 72
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_cebf7da9",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T17:37:49Z",
+      "side": 1,
+      "message": "This block can perhaps also be removed from this performance suite.",
+      "range": {
+        "startLine": 285,
+        "startChar": 0,
+        "endLine": 299,
+        "endChar": 65
       },
       "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
