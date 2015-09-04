@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "3a79b1b5_2ee871b3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-04T17:44:29Z",
+      "side": 1,
+      "message": "I would reword this. It is able to give performance data, just not for the \"pure ingestion\" workflow. In the real world, users would be interested in content of ipv4-topology (otherwise they would not need to enable it), so restconf polling is a reasonable secondary load.",
+      "range": {
+        "startLine": 11,
+        "startChar": 29,
+        "endLine": 12,
+        "endChar": 34
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_4e136d0d",
         "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
         "patchSetId": 7
