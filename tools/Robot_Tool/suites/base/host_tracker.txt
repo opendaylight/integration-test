@@ -15,10 +15,10 @@ ${REST_CONTEXT}    /controller/nb/v2/hosttracker
 Add a host
     [Documentation]    Add a host, list to validate the result.
     [Tags]    add
-    ${body}    Create Dictionary    nodeType    OF    dataLayerAddress    5e:bf:79:84:10:a6    vlan
-    ...    1    nodeId    00:00:00:00:00:00:00:03    nodeConnectorId    9    networkAddress
-    ...    10.0.1.4    staticHost    ${True}    nodeConnectorType    OF
-    ${headers}    Create Dictionary    Content-Type    application/json
+    ${body}    Create Dictionary    nodeType=OF    dataLayerAddress=5e:bf:79:84:10:a6
+    ...     vlan=1      nodeId=00:00:00:00:00:00:00:03    nodeConnectorId=9
+    ...     networkAddress=10.0.1.4     staticHost=${True}    nodeConnectorType=OF
+    ${headers}    Create Dictionary    Content-Type=application/json
     Create Session    session    http://${CONTROLLER}:8080    headers=${headers}    auth=${auth}
     ${resp}    Put    session    ${REST_CONTEXT}/${CONTAINER}/address/${name}    data=${body}
     Should Be Equal As Strings    ${resp.status_code}    201    Response status code error
@@ -31,10 +31,10 @@ Add a host
 Remove a host
     [Documentation]    Remove a host, list to validate the result.
     [Tags]    remove
-    ${body}    Create Dictionary    nodeType    OF    dataLayerAddress    5e:bf:79:84:10:a6    vlan
-    ...    1    nodeId    00:00:00:00:00:00:00:03    nodeConnectorId    9    networkAddress
-    ...    10.0.1.4    staticHost    ${True}    nodeConnectorType    OF
-    ${headers}    Create Dictionary    Content-Type    application/json
+    ${body}    Create Dictionary    nodeType=OF    dataLayerAddress=5e:bf:79:84:10:a6
+    ...     vlan=1    nodeId=00:00:00:00:00:00:00:03    nodeConnectorId=9
+    ...     networkAddress=10.0.1.4    staticHost=${True}    nodeConnectorType=OF
+    ${headers}    Create Dictionary    Content-Type=application/json
     Create Session    session    http://${CONTROLLER}:8080    headers=${headers}    auth=${auth}
     ${resp}    Delete    session    ${REST_CONTEXT}/${CONTAINER}/address/${name}
     Should Be Equal As Strings    ${resp.status_code}    204    Response status code error

@@ -17,9 +17,9 @@ Add a container
     [Documentation]    Add a container, list to validate the result.
     [Tags]    add
     ${flowspecs}    Convert To List    ${EMPTY}
-    ${body}    Create Dictionary    container    ${name}    flowSpecs    ${flowspecs}    staticVlan
-    ...    10    nodeConnectors    ${nodeconnectors}
-    ${headers}    Create Dictionary    Content-Type    application/json
+    ${body}    Create Dictionary    container=${name}    flowSpecs=${flowspecs}    staticVlan=10
+    ...     nodeConnectors=${nodeconnectors}
+    ${headers}    Create Dictionary    Content-Type=application/json
     Create Session    session    http://${CONTROLLER}:8080    headers=${headers}    auth=${auth}
     ${resp}    Put    session    ${REST_CONTEXT}/container/${name}    data=${body}
     Should Be Equal As Strings    ${resp.status_code}    201    Response status code error
@@ -33,9 +33,9 @@ Remove a container
     [Documentation]    Remove a container, list to validate the result.
     [Tags]    remove
     ${flowspecs}    Convert To List    ${EMPTY}
-    ${body}    Create Dictionary    container    ${name}    flowSpecs    ${flowspecs}    staticVlan
-    ...    10    nodeConnectors    ${nodeconnectors}
-    ${headers}    Create Dictionary    Content-Type    application/json
+    ${body}    Create Dictionary    container=${name}    flowSpecs=${flowspecs}    staticVlan=10
+    ...     nodeConnectors=${nodeconnectors}
+    ${headers}    Create Dictionary    Content-Type=application/json
     Create Session    session    http://${CONTROLLER}:8080    headers=${headers}    auth=${auth}
     ${resp}    Delete    session    ${REST_CONTEXT}/container/${name}
     Should Be Equal As Strings    ${resp.status_code}    204    Response status code error

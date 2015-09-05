@@ -27,11 +27,10 @@ ${FLOW}           "10.0.0.1"
 Add a flow in C1
     [Documentation]    	Adding a flow, list to validate the result in C1
     [Tags]    add
-    ${node}    Create Dictionary    type    OF    id    ${node_id}
+    ${node}    Create Dictionary    type=OF    id=${node_id}
     ${actions}    Create List    OUTPUT=1
-    ${body}    Create Dictionary    name    ${name}    installInHw    true    node
-    ...    ${node}    priority    1    etherType    0x800    nwDst
-    ...    10.0.0.1/32    actions    ${actions}
+    ${body}    Create Dictionary    name=${name}    installInHw=true    node=${node}
+    ...     priority=1    etherType=0x800    nwDst=10.0.0.1/32    actions=${actions}
     Create Session    session    http://${Controller1_IP}:8080   auth=${AUTH}   headers=${HEADERS}
     ${resp}    Put    session    ${REST_CONTEXT_P}/${CONTAINER}/node/OF/${node_id}/staticFlow/${name}    data=${body}
     Should Be Equal As Strings    ${resp.status_code}    201

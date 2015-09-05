@@ -402,6 +402,6 @@ Create Controllers Sessions
 
 Get Controller Response
     [Arguments]    ${session}    ${url}
-    ${headers}=    Create Dictionary    Accept    application/xml
+    ${headers}=    Create Dictionary    Accept=application/xml
     ${resp}=    Get    ${session}    ${url}    headers=${headers}
     Return From Keyword    ${resp}

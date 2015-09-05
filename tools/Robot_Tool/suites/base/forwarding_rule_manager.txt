@@ -16,11 +16,10 @@ ${REST_CONTEXT}    /controller/nb/v2/flowprogrammer
 Add a flow
     [Documentation]    Add a flow, list to validate the result.
     [Tags]    add
-    ${node}    Create Dictionary    type    OF    id    ${node_id}
+    ${node}    Create Dictionary    type=OF    id=${node_id}
     ${actions}    Create List    OUTPUT=1
-    ${body}    Create Dictionary    name    ${name}    installInHw    true    node
-    ...    ${node}    priority    1    etherType    0x800    nwDst
-    ...    10.0.0.1/32    actions    ${actions}
+    ${body}    Create Dictionary    name=${name}    installInHw=true    node=${node}
+    ...     priority=1    etherType=0x800    nwDst=10.0.0.1/32    actions=${actions}
     ${headers}    Create Dictionary    Content-Type    application/json
     Create Session    session    http://${CONTROLLER}:8080    headers=${headers}    auth=${auth}
     ${resp}    Put    session    ${REST_CONTEXT}/${CONTAINER}/node/OF/${node_id}/staticFlow/${name}    data=${body}
@@ -34,12 +33,11 @@ Add a flow
 Remove a flow
     [Documentation]    Remove a flow, list to validate the result.
     [Tags]    remove
-    ${node}    Create Dictionary    type    OF    id    ${node_id}
+    ${node}    Create Dictionary    type=OF    id=${node_id}
     ${actions}    Create List    OUTPUT=1
-    ${body}    Create Dictionary    name    ${name}    installInHw    true    node
-    ...    ${node}    priority    1    etherType    0x800    nwDst
-    ...    10.0.0.1/32    actions    ${actions}
-    ${headers}    Create Dictionary    Content-Type    application/json
+    ${body}    Create Dictionary    name=${name}    installInHw=true    node=${node}
+    ...    priority=1    etherType=0x800    nwDst=10.0.0.1/32    actions=${actions}
+    ${headers}    Create Dictionary    Content-Type=application/json
     Create Session    session    http://${CONTROLLER}:8080    headers=${headers}    auth=${auth}
     ${resp}    Delete    session    ${REST_CONTEXT}/${CONTAINER}/node/OF/${node_id}/staticFlow/${name}
     Should Be Equal As Strings    ${resp.status_code}    204    Response status code error

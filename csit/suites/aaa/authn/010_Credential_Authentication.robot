@@ -68,7 +68,7 @@ Validate That Authentication Fails With Wrong Token
 Make REST Transaction
     [Arguments]    ${expected_status_code}    ${auth_data}=${EMPTY}
     Create Session    ODL_SESSION    http://${CONTROLLER}:8181
-    ${headers}=    Create Dictionary    Content-Type    application/x-www-form-urlencoded
+    ${headers}=    Create Dictionary    Content-Type=application/x-www-form-urlencoded
     Run Keyword If    "${auth_data}" != "${EMPTY}"    Set To Dictionary    ${headers}    Authorization    Bearer ${auth_data}
     ${resp}=    RequestsLibrary.GET    ODL_SESSION    ${OPERATIONAL_NODES_API}    headers=${headers}
     Log    STATUS_CODE: ${resp.status_code} CONTENT: ${resp.content}

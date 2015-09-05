@@ -191,7 +191,7 @@ Remove Default Flows
     Log    Flow XML is ${flow.xml}
     write    dpctl dump-flows -O OpenFlow13
     ${switchoutput}    Read Until    >
-    ${headers}=    Create Dictionary    Content-Type    application/yang.data+xml
+    ${headers}=    Create Dictionary    Content-Type=application/yang.data+xml
     ${resp}    RequestsLibrary.Post    session    restconf/operations/sal-flow:remove-flow    data=${flow.xml}    headers=${headers}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
@@ -231,7 +231,7 @@ Flow Presence In Config Store
     [Arguments]    ${expvalue}
     [Documentation]    Checks the config store for given flow. Returns True if present, otherwise returns False
     ...    This keyword assumes that the global/suite variables are available (${table_id}, ${flow_id} and ${switch_idx}
-    ${headers}=    Create Dictionary    Accept    application/xml
+    ${headers}=    Create Dictionary    Accept=application/xml
     ${resp}=    RequestsLibrary.Get    session    ${CONFIG_NODES_API}/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}    headers=${headers}
     Log    ${resp}
     Log    ${resp.content}
@@ -244,7 +244,7 @@ Flow Presence In Operational Store
     [Arguments]    ${expvalue}
     [Documentation]    Checks the operational store for given flow. Returns True if present, otherwise returns False
     ...    This keyword assumes that the global/suite variables are available (${table_id}, ${flow_id} and ${switch_idx}
-    ${headers}=    Create Dictionary    Accept    application/xml
+    ${headers}=    Create Dictionary    Accept=application/xml
     ${resp}=    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_API}/node/openflow:${switch_idx}/table/${table_id}    headers=${headers}
     Log    ${resp}
     Log    ${resp.content}

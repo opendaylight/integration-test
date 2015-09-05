@@ -238,7 +238,7 @@ Check Config Flow Presence
     Should Be Equal    ${expected}    ${presence_flow}    msg=${msgf}
 
 Flow Presence Config Flow
-    ${headers}=    Create Dictionary    Accept    application/xml
+    ${headers}=    Create Dictionary    Accept=application/xml
     ${resp}=    RequestsLibrary.Get    session    /restconf/config/opendaylight-inventory:nodes/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}    headers=${headers}
     Log    ${resp}
     Log    ${resp.content}
@@ -258,7 +258,7 @@ Check Operational Table Presence
     Should Be Equal    ${expected}    ${presence_table}    msg=${msgf}
 
 Flow Presence Operational Table
-    ${headers}=    Create Dictionary    Accept    application/xml
+    ${headers}=    Create Dictionary    Accept=application/xml
     ${resp}=    RequestsLibrary.Get    session    /restconf/operational/opendaylight-inventory:nodes/node/openflow:${switch_idx}/table/${table_id}    headers=${headers}
     Log    ${resp}
     Log    ${resp.content}
