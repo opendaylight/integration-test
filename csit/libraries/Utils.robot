@@ -178,7 +178,7 @@ Get Process ID Based On Regex On Remote System
 Get Process Thread Count On Remote System
     [Arguments]    ${system}    ${pid}    ${user}=${MININET_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
     [Documentation]    Executes the ps command to retrieve the lightweight process (aka thread) count.
-    ${cmd}=    ps --no-headers -o nlwp ${pid}
+    ${cmd}=    Set Variable    ps --no-headers -o nlwp ${pid}
     ${output}=    Run Command On Remote System    ${system}    ${cmd}    user=${user}    password=${password}    prompt=${prompt}    prompt_timeout=${prompt_timeout}
     # ${output} contains the system prompt and all we want is the value of the number
     ${thread_count}=    Fetch From Left    ${output}    \r
