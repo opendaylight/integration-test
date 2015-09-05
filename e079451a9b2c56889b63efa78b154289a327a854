@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_9164444a",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-05T23:08:20Z",
+      "side": 1,
+      "message": "I think the sentence is describing a WUKS (Wait Until Keyword Succeeds) which is basically what the tests are doing below",
+      "parentUuid": "3a79b1b5_31421011",
+      "range": {
+        "startLine": 11,
+        "startChar": 63,
+        "endLine": 13,
+        "endChar": 28
+      },
+      "revId": "e079451a9b2c56889b63efa78b154289a327a854",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_713888a0",
         "filename": "csit/suites/netconf/ready/netconfready.robot",
         "patchSetId": 1
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_71616838",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-05T23:08:20Z",
+      "side": 1,
+      "message": "someone had an explanation for when/why this is needed sometimes.  I can\u0027t remember, but I don\u0027t think it\u0027s needed here.",
+      "parentUuid": "3a79b1b5_713888a0",
+      "range": {
+        "startLine": 17,
+        "startChar": 17,
+        "endLine": 17,
+        "endChar": 28
+      },
+      "revId": "e079451a9b2c56889b63efa78b154289a327a854",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_913be49b",
         "filename": "csit/suites/netconf/ready/netconfready.robot",
         "patchSetId": 1
@@ -59,6 +107,30 @@
       "writtenOn": "2015-09-05T00:20:02Z",
       "side": 1,
       "message": "Should we standardize on a keyword style? Spaces or Underscores?",
+      "range": {
+        "startLine": 28,
+        "startChar": 16,
+        "endLine": 28,
+        "endChar": 17
+      },
+      "revId": "e079451a9b2c56889b63efa78b154289a327a854",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_d172bc10",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-05T23:08:20Z",
+      "side": 1,
+      "message": "I vote to standardize on spaces, since that is the common format we have in this repo.",
+      "parentUuid": "3a79b1b5_913be49b",
       "range": {
         "startLine": 28,
         "startChar": 16,
