@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a79b1b5_31421011",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 3594
+      },
+      "writtenOn": "2015-09-05T00:20:02Z",
+      "side": 1,
+      "message": "Maybe there\u0027s something I\u0027m not understanding here. Whether or not netconf-connector works it still starts repeating the query...",
+      "range": {
+        "startLine": 11,
+        "startChar": 63,
+        "endLine": 13,
+        "endChar": 28
+      },
+      "revId": "e079451a9b2c56889b63efa78b154289a327a854",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_713888a0",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 3594
+      },
+      "writtenOn": "2015-09-05T00:20:02Z",
+      "side": 1,
+      "message": "Is this necessary? All the other tests I\u0027ve seen assume we\u0027re in the current directory.",
+      "range": {
+        "startLine": 17,
+        "startChar": 17,
+        "endLine": 17,
+        "endChar": 28
+      },
+      "revId": "e079451a9b2c56889b63efa78b154289a327a854",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_913be49b",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 3594
+      },
+      "writtenOn": "2015-09-05T00:20:02Z",
+      "side": 1,
+      "message": "Should we standardize on a keyword style? Spaces or Underscores?",
+      "range": {
+        "startLine": 28,
+        "startChar": 16,
+        "endLine": 28,
+        "endChar": 17
+      },
+      "revId": "e079451a9b2c56889b63efa78b154289a327a854",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
