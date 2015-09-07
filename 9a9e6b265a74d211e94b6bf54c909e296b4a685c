@@ -301,6 +301,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_4287bcd7",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-07T16:19:55Z",
+      "side": 1,
+      "message": "This assertion would not work because ${count} is a string, not an integer so you will get \"FAIL: 0 (string) !\u003d 0 (integer)\". To make it work I would have to add this somewhat ugly piece of code:\n\n${count_int}\u003d Convert_To_Integer    ${count}\nShould_Be_Equal    ${0}\n\nAnd because a Should_Be_Equal_As_Strings was just a couple of lines away it was faster to simply copy it. Additionally I consider it more readable than the 2-liner with the integer cast above.",
+      "parentUuid": "3a79b1b5_4e860d15",
+      "range": {
+        "startLine": 207,
+        "startChar": 65,
+        "endLine": 207,
+        "endChar": 108
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_ee7cb922",
         "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
         "patchSetId": 7
@@ -508,6 +532,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_8264f449",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-07T16:19:55Z",
+      "side": 1,
+      "message": "No, the result turns out to be a \"freely formatted text\" (well, actually it is a JSON fragment so it is not as \"freely formatted\" as e.g. text document but it can have an arbitrary structure in it with various arbitrary names and stuff like this) that has the count embedded in it somewhere. To extract the value I would have to implement complex parser prone to errors and out-of-date-ness problems. Additionally its value does not matter, all that matters is whether it changed since the last call or not. So I am going to just rename the three variables involved here to include a \"_text\" suffix to make it clearer that the variable may contain an arbitrary text.",
+      "parentUuid": "3a79b1b5_aead618a",
+      "range": {
+        "startLine": 228,
+        "startChar": 32,
+        "endLine": 228,
+        "endChar": 44
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_cea8dd79",
         "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
         "patchSetId": 7
@@ -519,6 +567,30 @@
       "writtenOn": "2015-09-04T17:37:49Z",
       "side": 1,
       "message": "The reason (to avoid false positives when ODL is slower to get going) should be carefully explained in [Documentation], as Sleep is considered to be generally bad practice.",
+      "range": {
+        "startLine": 243,
+        "startChar": 12,
+        "endLine": 243,
+        "endChar": 17
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_62ef5888",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-07T16:19:55Z",
+      "side": 1,
+      "message": "Unfortunately this type of \"bad practice\" is impossible to avoid when testing an asynchronous process which is unable to report whether it is still working or not. I mean the process of making the topology up-to-date. But I can at least add a comment explaining why the sleep is needed here.",
+      "parentUuid": "3a79b1b5_cea8dd79",
       "range": {
         "startLine": 243,
         "startChar": 12,
@@ -588,6 +660,30 @@
       "writtenOn": "2015-09-04T17:37:49Z",
       "side": 1,
       "message": "I do not think implementation details need to be repeated here, we have just read that in previous Keyword..",
+      "range": {
+        "startLine": 266,
+        "startChar": 62,
+        "endLine": 266,
+        "endChar": 72
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_e202883d",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-07T16:19:55Z",
+      "side": 1,
+      "message": "... and the implementation changed when I deleted the regex so this part of the comment is now outdated. Deleted :)",
+      "parentUuid": "3a79b1b5_0ec6d549",
       "range": {
         "startLine": 266,
         "startChar": 62,
