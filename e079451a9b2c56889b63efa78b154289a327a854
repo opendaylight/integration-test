@@ -49,6 +49,54 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_62643822",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-07T16:11:01Z",
+      "side": 1,
+      "message": "Exactly.",
+      "parentUuid": "3a79b1b5_9164444a",
+      "range": {
+        "startLine": 11,
+        "startChar": 63,
+        "endLine": 13,
+        "endChar": 28
+      },
+      "revId": "e079451a9b2c56889b63efa78b154289a327a854",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_c2a50c48",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-07T16:11:01Z",
+      "side": 1,
+      "message": "... and terminates immediately after the first repetition when it realizes again the netconf-connector is working. I updated the documentation of this suite to make this point clear.",
+      "parentUuid": "3a79b1b5_31421011",
+      "range": {
+        "startLine": 11,
+        "startChar": 63,
+        "endLine": 13,
+        "endChar": 28
+      },
+      "revId": "e079451a9b2c56889b63efa78b154289a327a854",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_713888a0",
         "filename": "csit/suites/netconf/ready/netconfready.robot",
         "patchSetId": 1
@@ -84,6 +132,30 @@
       "side": 1,
       "message": "someone had an explanation for when/why this is needed sometimes.  I can\u0027t remember, but I don\u0027t think it\u0027s needed here.",
       "parentUuid": "3a79b1b5_713888a0",
+      "range": {
+        "startLine": 17,
+        "startChar": 17,
+        "endLine": 17,
+        "endChar": 28
+      },
+      "revId": "e079451a9b2c56889b63efa78b154289a327a854",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_e277e8d2",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-07T16:11:01Z",
+      "side": 1,
+      "message": "Vratko said he has a link ... somewhere. After he digs it out we need to think about how to document that stuff so reviewers stop keeping asking this question for each and every new test case having lines like this one ...",
+      "parentUuid": "3a79b1b5_71616838",
       "range": {
         "startLine": 17,
         "startChar": 17,
