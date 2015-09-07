@@ -20,6 +20,12 @@ Make the OVS instance to listen for connection
     [Tags]    Southbound
     Run Command On Remote System    ${MININET}    sudo ovs-vsctl del-manager
     Run Command On Remote System    ${MININET}    sudo ovs-vsctl set-manager ptcp:6634
+    ${resp}    Run Command On Remote System    ${MININET}    sudo lsof -i :6634
+    Log    ${resp}
+    ${resp}    Run Command On Remote System    ${CONTROLLER}    sudo lsof -i :6633
+    Log    ${resp}
+    ${resp}    Run Command On Remote System    ${CONTROLLER}    sudo lsof -i :6653
+    Log    ${resp}
 
 Connect to OVSDB Node
     [Documentation]    Initiate the connection to OVSDB node from controller
