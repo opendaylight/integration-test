@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a79b1b5_a24ed0bf",
+        "filename": "tools/coretutorials/dsbenchmark.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-07T15:35:32Z",
+      "side": 1,
+      "message": "Perhaps we should fix the issue of this line being over 120 characters, rather than just suppressing the error.",
+      "range": {
+        "startLine": 16,
+        "startChar": 180,
+        "endLine": 16,
+        "endChar": 188
+      },
+      "revId": "3d66019584465926b80a4bad04e9713eda417cb5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
