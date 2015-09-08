@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_eb010007",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-08T23:51:15Z",
+      "side": 1,
+      "message": "Looking closer, I could not find any other places that are merged now that use this keyword from Utils.  I wonder if you missed the karafKeywords library [0] altogether.  I think a good thing to do would be to add this keyword to that library, and that library already has a keyword called \"Issue Command On Karaf Console\" that you can probably use.  Please feel free to make things better if you have problems.\n\n[0]  https://github.com/opendaylight/integration-test/blob/master/csit/libraries/KarafKeywords.robot",
+      "parentUuid": "3a79b1b5_ebb90016",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 35
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_eb5020d6",
         "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
         "patchSetId": 8
@@ -94,6 +118,29 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_ee182e77",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-08T23:51:15Z",
+      "side": 1,
+      "message": "I\u0027m not sure what\u0027s really going on under the hood here, but is this PUT XML via restconf keyword doing some heavy lifting such that it might take up to 60s to complete?",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 198
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_8b064ccd",
         "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
         "patchSetId": 8
@@ -117,6 +164,52 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_8e273ab6",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-08T23:51:15Z",
+      "side": 1,
+      "message": "one thing I notice here is that this \"test case\" does not appear to have any \"test\".  Meaning there is nothing for it to fail on, is there?  That being the case, I would think it makes more sense to collapse this work in to the next test case.",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 48
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_2e3626e8",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-08T23:51:15Z",
+      "side": 1,
+      "message": "is this a question to still determine?",
+      "range": {
+        "startLine": 100,
+        "startChar": 4,
+        "endLine": 100,
+        "endChar": 100
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_b503650c",
         "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
         "patchSetId": 8
@@ -133,6 +226,75 @@
         "startChar": 52,
         "endLine": 106,
         "endChar": 56
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_ce3452e0",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-08T23:51:15Z",
+      "side": 1,
+      "message": "not following this comment?",
+      "range": {
+        "startLine": 113,
+        "startChar": 4,
+        "endLine": 113,
+        "endChar": 63
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_2e3dc6bb",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-08T23:51:15Z",
+      "side": 1,
+      "message": "I always like to ask the question when I see large polling times; is there something meaningful about 180s?  is it possible that things could still be working and happily finishing after 179s.  A lot of people just pick something that\u0027s sufficiently large, but too large and then when there is truly a bug, our tests would spin for 360s in this test case before giving up.  If we can narrow it down to knowing that trouble is there (e.g. bug found) after some shorter time, it\u0027s well worth it.",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 53
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_ce4bf257",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-08T23:51:15Z",
+      "side": 1,
+      "message": "it would be great to find what to check here.  some tests are relying on a happy 200 back from a DELETE rest call, but I lobby for a double check with a follow up GET if possible",
+      "range": {
+        "startLine": 156,
+        "startChar": 4,
+        "endLine": 156,
+        "endChar": 47
       },
       "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
