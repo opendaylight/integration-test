@@ -417,6 +417,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_e8c4a993",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-08T09:06:20Z",
+      "side": 1,
+      "message": "We shall have a Robot library which collects keywords of type Wait_For_XXX_To_Become_Ready where XXX is name of an ODL feature. Then in the suite setup we would list these keywords for each feature we want to test. This way I don\u0027t have to concern myself with these \"not ready yet\" states here. And if this \"not ready yet\" error condition happens after I used the corresponding Wait_For_XXX_To_Become_Ready (and I did not do anything which might require another Wait_For_XXX_To_Become_Ready), then it is an ODL bug and the test shall treat it like any other unexpected error condition.\n\nRight now I am considering this \"not ready yet\" condition as \"wedged topology\" as well. To document this correctly I would like to have Wait_For_BGPCEP_Topology_To_Become_Ready and I would use it in the suite setup.",
+      "parentUuid": "3a79b1b5_ce71bd45",
+      "range": {
+        "startLine": 220,
+        "startChar": 25,
+        "endLine": 220,
+        "endChar": 33
+      },
+      "revId": "9a9e6b265a74d211e94b6bf54c909e296b4a685c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_6e90a943",
         "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
         "patchSetId": 7
