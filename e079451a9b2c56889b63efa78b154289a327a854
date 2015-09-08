@@ -236,6 +236,30 @@
       "revId": "e079451a9b2c56889b63efa78b154289a327a854",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_780dc436",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-08T17:56:48Z",
+      "side": 1,
+      "message": "I vote for tolerating both ways, as long as the file in question uses only one way exclusively.\nPerhaps tomorrow I will write to integration-dev on why I consider underscores to be better (although not that popular) overall.",
+      "parentUuid": "3a79b1b5_d172bc10",
+      "range": {
+        "startLine": 28,
+        "startChar": 16,
+        "endLine": 28,
+        "endChar": 17
+      },
+      "revId": "e079451a9b2c56889b63efa78b154289a327a854",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
