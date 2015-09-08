@@ -60,8 +60,12 @@ Enable_Tcpmd5_No_Password_Yet
     ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}md5_client_channel_service
     ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}md5_server_channel_module
     ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}md5_server_channel_service
+    ConfigViaRestconf.Get_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}pcep_dispatcher_module
     ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}pcep_client_channel_module
     ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}pcep_server_channel_module
+    ConfigViaRestconf.Get_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}pcep_dispatcher_module
+    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}pcep_dispatcher_module
+    ConfigViaRestconf.Get_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}pcep_dispatcher_module
     # TODO: Is it worth changing ConfigViaRestconf to read ${directory_with_template_folders} variable by default?
 
 Topology_Unauthorized_2
