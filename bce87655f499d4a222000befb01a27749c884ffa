@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a79b1b5_1814d042",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-08T17:57:07Z",
+      "side": 1,
+      "message": "What about extending URI to point at the controller-config module itself. Json of modules as a whole is quite large.",
+      "range": {
+        "startLine": 61,
+        "startChar": 164,
+        "endLine": 61,
+        "endChar": 178
+      },
+      "revId": "bce87655f499d4a222000befb01a27749c884ffa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
