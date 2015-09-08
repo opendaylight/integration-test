@@ -1,0 +1,29 @@
+<module xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
+ <type xmlns:x="urn:opendaylight:params:xml:ns:yang:controller:pcep:impl">x:pcep-dispatcher-impl</type>
+ <name>global-pcep-dispatcher</name>
+ <pcep-extensions xmlns="urn:opendaylight:params:xml:ns:yang:controller:pcep:impl">
+  <type xmlns:x="urn:opendaylight:params:xml:ns:yang:controller:pcep:spi">x:extensions</type>
+  <name>global-pcep-extensions</name>
+ </pcep-extensions>
+ <pcep-session-proposal-factory xmlns="urn:opendaylight:params:xml:ns:yang:controller:pcep:impl">
+  <type xmlns:x="urn:opendaylight:params:xml:ns:yang:controller:pcep">x:pcep-session-proposal-factory</type>
+  <name>stateful07-proposal</name>
+ </pcep-session-proposal-factory>
+ <boss-group xmlns="urn:opendaylight:params:xml:ns:yang:controller:pcep:impl">
+  <type xmlns:x="urn:opendaylight:params:xml:ns:yang:controller:netty">x:netty-threadgroup</type>
+  <name>global-boss-group</name>
+ </boss-group>
+ <worker-group xmlns="urn:opendaylight:params:xml:ns:yang:controller:pcep:impl">
+  <type xmlns:x="urn:opendaylight:params:xml:ns:yang:controller:netty">x:netty-threadgroup</type>
+  <name>global-worker-group</name>
+ </worker-group>
+ <max-unknown-messages xmlns="urn:opendaylight:params:xml:ns:yang:controller:pcep:impl">5</max-unknown-messages>
+ <md5-channel-factory xmlns="urn:opendaylight:params:xml:ns:yang:controller:pcep:impl">
+  <type xmlns:x="urn:opendaylight:params:xml:ns:yang:controller:tcpmd5:netty:cfg">x:md5-channel-factory</type>
+  <name>md5-client-channel-factory</name>
+ </md5-channel-factory>
+ <md5-server-channel-factory xmlns="urn:opendaylight:params:xml:ns:yang:controller:pcep:impl">
+  <type xmlns:x="urn:opendaylight:params:xml:ns:yang:controller:tcpmd5:netty:cfg">x:md5-server-channel-factory</type>
+  <name>md5-server-channel-factory</name>
+ </md5-server-channel-factory>
+</module>

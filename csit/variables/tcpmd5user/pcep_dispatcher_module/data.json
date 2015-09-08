@@ -1,0 +1,25 @@
+{
+ "module": [
+  {
+   "type": "odl-pcep-impl-cfg:pcep-dispatcher-impl",
+   "name": "global-pcep-dispatcher",
+   "odl-pcep-impl-cfg:boss-group": {
+    "type": "netty:netty-threadgroup",
+    "name": "global-boss-group"
+   },
+   "odl-pcep-impl-cfg:max-unknown-messages": 5,
+   "odl-pcep-impl-cfg:pcep-extensions": {
+    "type": "odl-pcep-spi-cfg:extensions",
+    "name": "global-pcep-extensions"
+   },
+   "odl-pcep-impl-cfg:pcep-session-proposal-factory": {
+    "type": "odl-pcep-api-cfg:pcep-session-proposal-factory",
+    "name": "stateful07-proposal"
+   },
+   "odl-pcep-impl-cfg:worker-group": {
+    "type": "netty:netty-threadgroup",
+    "name": "global-worker-group"
+   }
+  }
+ ]
+}
