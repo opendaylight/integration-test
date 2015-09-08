@@ -168,6 +168,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_b535a5f8",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-08T17:45:21Z",
+      "side": 1,
+      "message": "\u003e All the other tests I\u0027ve seen assume we\u0027re in the current directory.\n\nThis is the catch. Current Linux directory is NOT set to where this file is. It is just courtesy of Robot Framework to assume your relative path starts at ${CURDIR}, but only in Settings table imports.\n\nBasically, adding ${CURDIR} does not hurt here, and it is useful to put it everywhere just to avoid issues with accessing relative linux paths in keywords such as SSHLibrary.Put_File.\n\nAs for links, example of usefulness is in my comment for patch set 1: https://git.opendaylight.org/gerrit/#/c/22170/\n\nAnd original debate is in comments for line 14 in boths patch sets here: https://git.opendaylight.org/gerrit/#/c/19651/2..3/test/csit/suites/bgpcep/bgpuser/cases.robot",
+      "parentUuid": "3a79b1b5_e277e8d2",
+      "range": {
+        "startLine": 17,
+        "startChar": 17,
+        "endLine": 17,
+        "endChar": 28
+      },
+      "revId": "e079451a9b2c56889b63efa78b154289a327a854",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_913be49b",
         "filename": "csit/suites/netconf/ready/netconfready.robot",
         "patchSetId": 1
