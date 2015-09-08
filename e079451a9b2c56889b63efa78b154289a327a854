@@ -192,6 +192,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_58d248d3",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-08T20:37:20Z",
+      "side": 1,
+      "message": "so this is very confusing to me (sorry).  If ${CURDIR} will help us avoid problems in certain cases we should be enforcing it to always be used, right?  I\u0027ve never come in to any trouble without it, and better to not include extraneous variables if they provide no value.\n\nbut, I know Vratko has some experience in the past with trouble here.\n\nVratko, can you outline the problems that come from not using ${CURDIR} and then we can start enforcing that people always use it?  it would apply to the *** Variables *** section to.",
+      "parentUuid": "3a79b1b5_b535a5f8",
+      "range": {
+        "startLine": 17,
+        "startChar": 17,
+        "endLine": 17,
+        "endChar": 28
+      },
+      "revId": "e079451a9b2c56889b63efa78b154289a327a854",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_913be49b",
         "filename": "csit/suites/netconf/ready/netconfready.robot",
         "patchSetId": 1
@@ -251,6 +275,30 @@
       "side": 1,
       "message": "I vote for tolerating both ways, as long as the file in question uses only one way exclusively.\nPerhaps tomorrow I will write to integration-dev on why I consider underscores to be better (although not that popular) overall.",
       "parentUuid": "3a79b1b5_d172bc10",
+      "range": {
+        "startLine": 28,
+        "startChar": 16,
+        "endLine": 28,
+        "endChar": 17
+      },
+      "revId": "e079451a9b2c56889b63efa78b154289a327a854",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_788704d8",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-08T20:37:20Z",
+      "side": 1,
+      "message": "this is not a big issue, so no need to have a religious war.  I feel that standardizing on the same format will prevent confusion for new contributors down the road, but for issues like this I don\u0027t think it\u0027s worth pushing.",
+      "parentUuid": "3a79b1b5_780dc436",
       "range": {
         "startLine": 28,
         "startChar": 16,
