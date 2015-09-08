@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "3a79b1b5_8b83ac55",
+        "filename": "csit/suites/controller/OneNode_Datastore/010_crud_mdsal_perf.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 3594
+      },
+      "writtenOn": "2015-09-08T21:36:14Z",
+      "side": 1,
+      "message": "Rather than benchmarking cars and people, you might want to benchmark just cars - since people are no different than cars. Then it might be interesting to individually benchmark Creating (adding), Updating, Reading, and Deleting cars. Then do a benchmark for using RPCs. Unfortunately we only have RPC creates - no read, update, or delete. However the Purchase car RPC would be an interesting benchmark because it access two data objects.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 18
+      },
+      "revId": "2c8d3ebf8883a74b7c304c760a118aa5f4cc127c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_f801d406",
         "filename": "csit/suites/controller/OneNode_Datastore/010_crud_mdsal_perf.robot",
         "patchSetId": 4
