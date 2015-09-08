@@ -33,6 +33,28 @@ Put_Xml_Template_Folder_Config_Via_Restconf
     ${xml_data}=    Resolve_Xml_Data_From_Template_Folder    ${folder}    ${mapping_as_string}
     Put_Xml_Config_Via_Restconf    ${uri_part}    ${xml_data}
 
+Get_Xml_Template_Folder_Config_Via_Restconf
+    [Arguments]    ${folder}    ${mapping_as_string}={}
+    [Documentation]    Resolve URI from folder, GET from controller config in XML form.
+    ${uri_part}=    Resolve_URI_From_Template_Folder    ${folder}    ${mapping_as_string}
+    ${xml_data}=    Get_Xml_Config_Via_Restconf    ${uri_part}
+    [Return]    ${xml_data}
+
+Get_Json_Template_Folder_Config_Via_Restconf
+    [Arguments]    ${folder}    ${mapping_as_string}={}
+    [Documentation]    Resolve URI from folder, GET from controller config in JSON form.
+    ${uri_part}=    Resolve_URI_From_Template_Folder    ${folder}    ${mapping_as_string}
+    ${json_string}=    Get_Json_Config_Via_Restconf    ${uri_part}
+    [Return]    ${json_string}
+
+Verify_Xml_Template_Folder_Config_Via_Restconf
+    # FIXME: This is subject to pseudorandom field ordering issue, use with care.
+    [Arguments]    ${folder}    ${mapping_as_string}={}
+    [Documentation]    Resolve URI from folder, GET from controller config, compare to expected data.
+    ${expected_data}=    Resolve_Xml_Data_From_Template_Folder    ${folder}    ${mapping_as_string}
+    ${actual_data}=    Get_Xml_Template_Folder_Config_Via_Restconf    ${folder}    ${mapping_as_string}
+    BuiltIn.Should_Be_Equal    ${actual_data}    ${expected_data}
+
 Delete_Xml_Template_Folder_Config_Via_Restconf
     [Arguments]    ${folder}    ${mapping_as_string}={}
     [Documentation]    Resolve URI from folder, DELETE from controller config.
@@ -86,6 +108,26 @@ Put_Xml_Config_Via_Restconf
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Should_Be_Empty    ${response.text}
     BuiltIn.Should_Contain    ${allowed_status_codes}    ${response.status_code}
+
+Get_Xml_Config_Via_Restconf
+    [Arguments]    ${uri_part}
+    [Documentation]    Get XML data from given controller-config URI, check status_code is one of allowed ones, return response text.
+    BuiltIn.Log    ${uri_part}
+    ${response}=    RequestsLibrary.Get    cvr_session    ${uri_part}    headers=${ACCEPT_XML}
+    BuiltIn.Log    ${response.text}
+    BuiltIn.Log    ${response.status_code}
+    BuiltIn.Should_Contain    ${allowed_status_codes}    ${response.status_code}
+    [Return]    ${response.text}
+
+Get_Json_Config_Via_Restconf
+    [Arguments]    ${uri_part}
+    [Documentation]    Get XML data from given controller-config URI, check status_code is one of allowed ones, return response text.
+    BuiltIn.Log    ${uri_part}
+    ${response}=    RequestsLibrary.Get    cvr_session    ${uri_part}    headers=${ACCEPT_JSON}
+    BuiltIn.Log    ${response.text}
+    BuiltIn.Log    ${response.status_code}
+    BuiltIn.Should_Contain    ${allowed_status_codes}    ${response.status_code}
+    [Return]    ${response.text}
 
 Delete_Config_Via_Restconf
     [Arguments]    ${uri_part}

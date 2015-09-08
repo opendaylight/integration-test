@@ -64,6 +64,16 @@ Enable_Tcpmd5_No_Password_Yet
     ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}pcep_server_channel_module
     # TODO: Is it worth changing ConfigViaRestconf to read ${directory_with_template_folders} variable by default?
 
+Debug_See_Json
+    ${json_string} =    ConfigViaRestconf.Get_Json_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}pcep_dispatcher_module
+    BuiltIn.Log    ${json_string}
+
+Check_For_Bug_4267
+    [Documentation]    Check state of disptcher configuration module, apply workaround if needed.
+    ${xml_data} =    ConfigViaRestconf.Get_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}pcep_dispatcher_module
+    BuiltIn.Should_Contain
+    [Teardown]    BuiltIn.Run_Keyword_If_Test_Failed    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}pcep_dispatcher_module
+
 Topology_Unauthorized_2
     [Documentation]    The same logic as Topology_Unauthorized_1 as no password was provided to ODL.
     [Tags]    critical
