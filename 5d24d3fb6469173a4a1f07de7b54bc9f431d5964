@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a79b1b5_ae08f691",
+        "filename": "csit/libraries/ConfigViaRestconf.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-09T05:57:42Z",
+      "side": 1,
+      "message": "noticed this while reviewing.  Looks like these keywords using cvr_session are all expecting it to be available, globally?  It\u0027s created in Setup_Config_Via_Restconf.  Is it available in these keywords because of the leaking variable problem that\u0027s now fixed in the new RF version?",
+      "range": {
+        "startLine": 150,
+        "startChar": 43,
+        "endLine": 150,
+        "endChar": 54
+      },
+      "revId": "5d24d3fb6469173a4a1f07de7b54bc9f431d5964",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_4effe267",
+        "filename": "csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-09T05:57:42Z",
+      "side": 1,
+      "message": "this bug is marked as resolved/invalid.  is there more to it?\n\nis this test supposed to fail?  if so, ideally we\u0027d like to provide a msg to the failing keyword so that it\u0027s message will be shown in the robot report.",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 18
+      },
+      "revId": "5d24d3fb6469173a4a1f07de7b54bc9f431d5964",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
