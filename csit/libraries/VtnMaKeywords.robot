@@ -89,6 +89,23 @@ Add a macmap
     ${resp}=    RequestsLibrary.Post    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/macmap/allow    data=${macmap_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    201
 
+
+Get DynamicMacAddress
+    [Arguments]    ${h}
+    write    ${h} ifconfig -a | grep HWaddr
+    ${source}    Read Until    mininet>
+    ${HWaddress}=    Split String    ${source}    ${SPACE}
+    ${sourceHWaddr}=    Get from List    ${HWaddress}    ${index}
+    ${sourceHWaddress}=    Convert To Lowercase    ${sourceHWaddr}
+    Return From Keyword    ${sourceHWaddress}    # Also [Return] would work here.
+
+Add a vBridgeMacMapping
+    [Arguments]    ${tenant_name}    ${Bridge_name}    ${bridge_macmap_data}
+    [Documentation]    Create a vbridge macmap for a bridge
+    ${json_data}=   json.dumps    ${bridge_macmap_data}
+    ${resp}=    RequestsLibrary.Post    session    ${REST_CONTEXT_VTNS}/${tenant_name}/vbridges/${Bridge_name}/macmap/allow    data=${json_data}    headers=${HEADERS}
+    Should Be Equal As Strings    ${resp.status_code}    201
+
 Mininet Ping Should Succeed
     [Arguments]    ${host1}    ${host2}
     Write    ${host1} ping -c 10 ${host2}
