@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite for VTN Manager Data Flows using OF13
+Documentation     Test suite for VTN Manager using OF10
 Suite Setup       Start SuiteVtnMaTest
 Suite Teardown    Stop SuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
@@ -7,7 +7,7 @@ Resource          ../../../libraries/VtnMaKeywords.robot
 *** Test Cases ***
 Start topology
     [Documentation]    Add a vlan topology
-    Start vlan_topo    OF13
+    Start vlan_topo    OF10
 
 Check if switch1 detected
     [Documentation]    Check if openflow:1 is detected
@@ -25,21 +25,21 @@ Add a vtn Tenant1
     [Documentation]    Add a vtn Tenant1
     Add a vtn    Tenant1    {}
 
-Add a vBridge vBridge1_vlan
-    [Documentation]    Add a vBridge vBridge1_vlan in vtn Tenant1
-    Add a vBridge    Tenant1    vBridge1_vlan    {}
+Add a vBridge vBridge1
+    [Documentation]    Add a vBridge vBridge1 in vtn Tenant1
+    Add a vBridge    Tenant1    vBridge1    {}
 
-Add a vlanmap for vBridge1_vlan
-    [Documentation]    Add a Vlanmap for vBridge1_vlan in vtn Tenant1
-    Add a vlanmap    Tenant1    vBridge1_vlan    ${vlanmap_bridge1}
+Add a vlanmap for bridge1
+    [Documentation]    Add a Vlanmap for bridge1 in vtn Tenant1
+    Add a vlanmap    Tenant1    vBridge1    ${vlanmap_bridge1}
 
-Add a vBridge vBridge2_vlan
-    [Documentation]    Add a vBridge vBridge2_vlan in vtn Tenant1
-    Add a vBridge    Tenant1    vBridge2_vlan    {}
+Add a vBridge vBridge2
+    [Documentation]    Add a vBridge vBridge2 in vtn Tenant1
+    Add a vBridge    Tenant1    vBridge2    {}
 
-Add a vlanmap for vBridge2_vlan
-    [Documentation]    Add a Vlanmap for vBridge2_vlan in vtn Tenant1
-    Add a vlanmap    Tenant1    vBridge2_vlan    ${vlanmap_bridge2}
+Add a vlanmap for bridge2
+    [Documentation]    Add a Vlanmap for bridge1 in vtn Tenant1
+    Add a vlanmap    Tenant1    vBridge2    ${vlanmap_bridge2}
 
 Get vlanflow h1 h3
     [Documentation]    ping h1 to h3
@@ -49,10 +49,6 @@ Get vlanflow h1 h5
     [Documentation]    ping h1 to h5
     Wait Until Keyword Succeeds    10s    2s    Mininet Ping Should Succeed    h1    h5
 
-Verify data flow details for vlanmap vBridge1_vlan
-    [Documentation]    Verify the data flows for the specified tenant and vBridge1_vlan
-    Verify Data Flows    Tenant1    vBridge1_vlan
-
 Get vlanflow h2 h4
     [Documentation]    ping h2 to h4
     Wait Until Keyword Succeeds    10s    2s    Mininet Ping Should Succeed    h2    h4
@@ -60,10 +56,6 @@ Get vlanflow h2 h4
 Get vlanflow h2 h6
     [Documentation]    ping h2 to h6
     Wait Until Keyword Succeeds    10s    2s    Mininet Ping Should Succeed    h2    h6
-
-Verify data flow details for vlanmap vBridge2_vlan
-    [Documentation]    Verify the data flows for the specified tenant and vBridge2_vlan
-    Verify Data Flows    Tenant1    vBridge2_vlan
 
 Get vlanflow h2 h5
     [Documentation]    ping h2 to h5

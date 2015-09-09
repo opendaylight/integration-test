@@ -7,7 +7,7 @@ Resource          ../../../libraries/VtnMaKeywords.robot
 *** Test Cases ***
 Start topology
     [Documentation]    Add a vlan topology
-    Start vlan_topo
+    Start vlan_topo    OF13
 
 Check if switch1 detected
     [Documentation]    Check if openflow:1 is detected
