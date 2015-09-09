@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_c44e71c1",
+        "filename": "csit/libraries/BGPSpeaker.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-09T14:59:06Z",
+      "side": 1,
+      "message": "The long line was copied from \"KillPythonTool.robot\", so it also will need some fixing. I am not going to fix that in this change as it is solely for the BGP speaker tool library.",
+      "parentUuid": "3a79b1b5_04146942",
+      "range": {
+        "startLine": 13,
+        "startChar": 18,
+        "endLine": 13,
+        "endChar": 23
+      },
+      "revId": "853793eeca59ecdfdc0cb5c0f0256d98c13291f7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_640d1d37",
         "filename": "csit/libraries/BGPSpeaker.robot",
         "patchSetId": 1
