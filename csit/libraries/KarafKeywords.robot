@@ -6,6 +6,7 @@ Variables         ../variables/Variables.py
 *** Variables ***
 ${WORKSPACE}      /tmp
 ${BUNDLEFOLDER}    distribution-karaf-0.3.0-SNAPSHOT
+${controller_index}    -1
 
 *** Keywords ***
 Check Karaf Log File Does Not Have Messages
@@ -76,3 +77,34 @@ Uninstall a Feature
     ${output}=    Issue Command On Karaf Console    feature:uninstall ${feature_name}    ${controller}    ${karaf_port}    ${timeout}
     Log    ${output}
     [Return]    ${output}
+
+Store Current SSH Connection
+    ${current}=    Get_Connection
+    Set Suite Variable    ${current_SSH_connection}    ${current.index}
+
+Restore Current SSH Connection
+    Switch Connection    ${current_SSH_connection}
+
+Open Controller Karaf Console
+    [Documentation]    Connect to the controller's karaf console.
+    Store Current SSH Connection
+    ${esc}=    BuiltIn.Evaluate    chr(int(27))
+    ${prompt}=    Builtin.Set Variable    @${esc}[0m${esc}[34mroot${esc}[0m>
+    ${connection}=    SSHLibrary.Open_Connection    ${CONTROLLER}    port=${KARAF_SHELL_PORT}    prompt=${prompt}
+    Set Suite Variable    ${controller_index}    ${connection}
+    SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}
+    Restore Current SSH Connection
+
+Log Message To Controller Karaf
+    [Arguments]    ${message}
+    [Documentation]    Send a message into the controller's karaf log file.
+    # Background info: If there was no previous SSH connection, the "Get
+    # Connection" returns an information structure whose "index" field
+    # resolves to "None", and the "Switch Connection" below does not
+    # complain.
+    BuiltIn.Run Keyword If    ${controller_index} == -1    Fail    Need to connect to a Karaf Console first
+    Store Current SSH Connection
+    BuiltIn.Run Keyword If    ${controller_index} <> -1    Switch Connection    ${controller_index}
+    SSHLibrary.Write    log:log "ROBOT MESSAGE: ${message}"
+    SSHLibrary.Read_Until_Prompt
+    Restore Current SSH Connection
