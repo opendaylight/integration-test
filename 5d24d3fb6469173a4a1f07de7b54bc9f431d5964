@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_da8ba866",
+        "filename": "csit/libraries/ConfigViaRestconf.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-09T23:29:09Z",
+      "side": 1,
+      "message": "I didn\u0027t explain that right.  My point is that cvr_session will not exist until it\u0027s created.  The only place I see that done is in the \"Setup_Config_Via_Restconf\" keyword.  So, in other words, not until that keyword is executed will any of these keywords work.  Is that the expectation of this library?  Would other suites wanting this library like to use these other keywords without doing the work that\u0027s done in \"Setup...\"",
+      "parentUuid": "3a79b1b5_4e45a26e",
+      "range": {
+        "startLine": 150,
+        "startChar": 43,
+        "endLine": 150,
+        "endChar": 54
+      },
+      "revId": "5d24d3fb6469173a4a1f07de7b54bc9f431d5964",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_4effe267",
         "filename": "csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot",
         "patchSetId": 12
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "There is a real Bug 3753 which can have many consequences. Bug 4267 documents one consequence, but it needs a non-standard (as in different from wiki) workflow to hit 3753.\n\nThis suite was using the Bug 4267 workflow, and it looked as Tcpmd5 is unusable because of it. Resolved/invalid is there to inform it is not a blocker, and the wiki way works without issues.\n\nI was thinking about naming this case Check_For_Bug_3753_via_Bug_4267 but it seemed too long. This test case should not be failing, failure indicates Bug 3753 was not fixed enough yet.\n\nI do not want to name it Check_For_Bug_3753 as I suspect current failures from Unset_Password on are also caused by Bug 3753. Strangely, Set_*_Password cases could have also been affected by Bug 3753, but they are not for some reason.\n\nI should probably paste this long explanation to a comment on Bug 4267 and include a short comment to Robot code as well.",
       "parentUuid": "3a79b1b5_4effe267",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 18
+      },
+      "revId": "5d24d3fb6469173a4a1f07de7b54bc9f431d5964",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_7aea9410",
+        "filename": "csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-09T23:29:09Z",
+      "side": 1,
+      "message": "I think something like you have just written about could go in the robot documentation.  Just so that someone vaguely familiar with this project that comes across this test and needs to understand it can do so easily.  in case Vratko has gone missing :)",
+      "parentUuid": "3a79b1b5_2e5aa650",
       "range": {
         "startLine": 67,
         "startChar": 0,
