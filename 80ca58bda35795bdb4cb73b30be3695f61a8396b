@@ -22,6 +22,52 @@
       "revId": "80ca58bda35795bdb4cb73b30be3695f61a8396b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_3af41cf1",
+        "filename": "csit/libraries/BGPSpeaker.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-09T23:36:45Z",
+      "side": 1,
+      "message": "do we want a \"read until\" here?   or, probably this script runs without output and is forcefully stopped with the CTRL-C keyword I see below.\n\nmore thinking out loud here just to be on the same page, in case I\u0027m wrong.",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 48
+      },
+      "revId": "80ca58bda35795bdb4cb73b30be3695f61a8396b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_5af798f5",
+        "filename": "csit/libraries/BGPSpeaker.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-09T23:36:45Z",
+      "side": 1,
+      "message": "so, is this TODO stale, or do you still want it in a more common library.  if it\u0027s the later, I think the Utils.robot library works, but since only BGP speaker is using it, keeping here is fine to me for now.",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 89
+      },
+      "revId": "80ca58bda35795bdb4cb73b30be3695f61a8396b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
