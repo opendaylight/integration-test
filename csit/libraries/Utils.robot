@@ -10,7 +10,6 @@ Variables         ../variables/Variables.py
 *** Variables ***
 # TODO: Introduce ${tree_size} and use instead of 1 in the next line.
 ${start}          sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,1 --switch ovsk,protocols=OpenFlow13
-${controller_index}    -1
 
 *** Keywords ***
 Start Suite
@@ -39,29 +38,6 @@ Start Mininet
     Write    ${cmd}
     Read Until    mininet>
     [Return]    ${mininet_conn_id}
-
-Connect To Controller Karaf
-    [Documentation]    Connect to the controller's karaf console.
-    ${esc}=    BuiltIn.Evaluate    chr(int(27))
-    ${prompt}=    Builtin.Set Variable    @${esc}[0m${esc}[34mroot${esc}[0m>
-    ${connection}=    SSHLibrary.Open_Connection    ${CONTROLLER}    port=${KARAF_SHELL_PORT}    prompt=${prompt}
-    Set Suite Variable    ${controller_index}    ${connection}
-    SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}
-
-Log Message To Controller Karaf
-    [Arguments]    ${message}
-    [Documentation]    Send a message into the controller's karaf log file.
-    # Background info: If there was no previous SSH connection, the "Get
-    # Connection" returns an information structure whose "index" field
-    # resolves to "None", and the "Switch Connection" below does not
-    # complain.
-    ${current}=    Get_Connection
-    ${connection}=    Set Variable    ${current.index}
-    BuiltIn.Run Keyword If    ${controller_index} <> -1    Switch Connection    ${controller_index}
-    BuiltIn.Run Keyword If    ${controller_index} == -1    Connect to Controller Karaf
-    SSHLibrary.Write    log:log "ROBOT MESSAGE: ${message}"
-    SSHLibrary.Read_Until_Prompt
-    Switch Connection    ${connection}
 
 Stop Mininet
     [Arguments]    ${mininet_conn_id}    ${prompt}=${DEFAULT_LINUX_PROMPT}
