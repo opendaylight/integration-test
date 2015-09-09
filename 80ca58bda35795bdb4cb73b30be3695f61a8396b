@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a79b1b5_7f5fe6e5",
+        "filename": "csit/libraries/BGPSpeaker.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-09T17:35:32Z",
+      "side": 1,
+      "message": "Perhaps a space in between no make it slightly more readable?",
+      "range": {
+        "startLine": 28,
+        "startChar": 72,
+        "endLine": 28,
+        "endChar": 74
+      },
+      "revId": "80ca58bda35795bdb4cb73b30be3695f61a8396b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
