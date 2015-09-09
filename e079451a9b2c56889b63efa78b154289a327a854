@@ -216,6 +216,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_69e178fd",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-09T10:57:10Z",
+      "side": 1,
+      "message": "\u003e Vratko, can you outline the problems that come from not using ${CURDIR}\n\nProblems only come in form of users who \"assume we\u0027re in the current directory\", which works in Settings, but not in Variables nor Testcases tables.\nThe 22170 link above is fix for such a problem, it adds ${CURDIR} to Variables table.\n\n\u003e better to not include extraneous variables if they provide no value\n\nThis is the flip side. ${CURDIR} in Settings has no value for users familiar with importing rules.\n\n\u003e we can start enforcing that people always use it?\n\nI would say \"recommend\". I consider ${CURDIR} in Settings to be a slight readability improvement, similar to using \u003cLibrary\u003e.\u003cKeyword\u003e form for Keyword not defined in file under review.\nBut I personally would not refuse to merge otherwise good change just because of ${CURDIR}-less Settings.",
+      "parentUuid": "3a79b1b5_58d248d3",
+      "range": {
+        "startLine": 17,
+        "startChar": 17,
+        "endLine": 17,
+        "endChar": 28
+      },
+      "revId": "e079451a9b2c56889b63efa78b154289a327a854",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_913be49b",
         "filename": "csit/suites/netconf/ready/netconfready.robot",
         "patchSetId": 1
@@ -299,6 +323,30 @@
       "side": 1,
       "message": "this is not a big issue, so no need to have a religious war.  I feel that standardizing on the same format will prevent confusion for new contributors down the road, but for issues like this I don\u0027t think it\u0027s worth pushing.",
       "parentUuid": "3a79b1b5_780dc436",
+      "range": {
+        "startLine": 28,
+        "startChar": 16,
+        "endLine": 28,
+        "endChar": 17
+      },
+      "revId": "e079451a9b2c56889b63efa78b154289a327a854",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_29914052",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-09T10:57:10Z",
+      "side": 1,
+      "message": "\u003e I don\u0027t think it\u0027s worth pushing\n\n+1",
+      "parentUuid": "3a79b1b5_788704d8",
       "range": {
         "startLine": 28,
         "startChar": 16,
