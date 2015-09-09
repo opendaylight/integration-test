@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a79b1b5_c92f6ca0",
+        "filename": "csit/libraries/BGPSpeaker.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-09T13:09:32Z",
+      "side": 1,
+      "message": "It also assumes that working directory has been \"cd\"-ed into already, as neither play.py nor log files contain any path.",
+      "range": {
+        "startLine": 12,
+        "startChar": 53,
+        "endLine": 12,
+        "endChar": 59
+      },
+      "revId": "853793eeca59ecdfdc0cb5c0f0256d98c13291f7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_04146942",
+        "filename": "csit/libraries/BGPSpeaker.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-09T13:09:32Z",
+      "side": 1,
+      "message": "Has tidy tool accepted this long line?",
+      "range": {
+        "startLine": 13,
+        "startChar": 18,
+        "endLine": 13,
+        "endChar": 23
+      },
+      "revId": "853793eeca59ecdfdc0cb5c0f0256d98c13291f7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_640d1d37",
+        "filename": "csit/libraries/BGPSpeaker.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-09T13:09:32Z",
+      "side": 1,
+      "message": "Using \u0026\u003e to a single file would have the lines sorted in nearly-correct way. Is there a benefit for keeping the two outputs separated?",
+      "range": {
+        "startLine": 25,
+        "startChar": 71,
+        "endLine": 25,
+        "endChar": 73
+      },
+      "revId": "853793eeca59ecdfdc0cb5c0f0256d98c13291f7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_a403350c",
+        "filename": "csit/libraries/BGPSpeaker.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-09T13:09:32Z",
+      "side": 1,
+      "message": "Wrap this in something like BuiltIn.Run_And_Ignore_Error to make sure the following lines are executed. We are interested in logs also (and especially) if play.py is slow to stop.",
+      "range": {
+        "startLine": 39,
+        "startChar": 15,
+        "endLine": 39,
+        "endChar": 32
+      },
+      "revId": "853793eeca59ecdfdc0cb5c0f0256d98c13291f7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
