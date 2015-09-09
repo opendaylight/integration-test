@@ -120,6 +120,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_24c6454a",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-09T14:48:35Z",
+      "side": 1,
+      "message": "The problem with \"Issue Command On Karaf Console\" is that it will clobber the current SSH connection, asking for elaborate saving and restoring. The second problem with \"Issue Command On Karaf Console\" is that it open and closes a SSH connection each time it is used (huge time hog) and I don\u0027t want that in performance tests. Refactoring the stuff to play nice with performance testing would take several weeks of work if done properly and I also would be unable to make sure I did not break anything which translates to a need for a lengthy review from the community. Take a peek at this change: https://git.opendaylight.org/gerrit/26734. I am thus forced to go by \"the easy way\" by simply moving the stuff into the KarafKeywords library but leaving the keywords as they are, see https://git.opendaylight.org/gerrit/26718.",
+      "parentUuid": "3a79b1b5_eb010007",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 35
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_eb5020d6",
         "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
         "patchSetId": 8
