@@ -18,14 +18,18 @@ ${TSDR_QUEUESTATS}    tsdr:list QueueStats
 Verify the Queue Metrics attributes exist thru Karaf console
     [Documentation]    Verify the QueueMetrics attributes exist on Karaf Console
     Wait Until Keyword Succeeds    180s    1s    Verify the Metric is Collected?    ${TSDR_QUEUESTATS}    Transmitted
-    ${output}=    Issue Command On Karaf Console    ${TSDR_QUEUESTATS}    ${CONTROLLER}    ${KARAF_SHELL_PORT}    30
+    Open Karaf Console    ${CONTROLLER}    ${KARAF_SHELL_PORT}    30
+    ${output}=    Issue Command On Karaf Console    ${TSDR_QUEUESTATS}
+    Close Karaf Console
     : FOR    ${list}    IN    @{QUEUE_METRICS}
     \    Should Contain    ${output}    ${list}
 
 Verification of QueueMetrics-TransmittedPackets on Karaf Console
     [Documentation]    Verify the QueueMetrics has been updated thru tsdr:list command on karaf console
     ${tsdr_cmd}=    Concatenate the String    ${TSDR_QUEUESTATS}    | grep TransmittedPackets | head
-    ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}    ${CONTROLLER}    ${KARAF_SHELL_PORT}    90
+    Open Karaf Console    ${CONTROLLER}    ${KARAF_SHELL_PORT}    90
+    ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}
+    Close Karaf Console
     Should Contain    ${output}    TransmittedPackets
 
 Verification of QueueMetrics-TransmittedPackets on HBase Client

@@ -40,7 +40,9 @@ Verification of TSDR PortStats
     [Documentation]    Verify the TSDR InterfaceMetrics
     : FOR    ${list}    IN    @{INTERFACE_METRICS}
     \    ${tsdr_cmd}=    Concatenate the String    ${TSDR_PORTSTATS}    | grep ${list} | head
-    \    ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}    ${CONTROLLER}    ${KARAF_SHELL_PORT}    30
+    \    Open Karaf Console    ${CONTROLLER}    ${KARAF_SHELL_PORT}    30
+    \    ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}
+    \    Close Karaf Console
     \    Should Contain    ${output}    ${list}
 
 Verification of InterfaceMetrics-Attributes on HBase Client

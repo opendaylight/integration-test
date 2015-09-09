@@ -41,7 +41,9 @@ Verify PortStats On Karaf console
     [Documentation]    Verify the InterfaceMetrics(PortStats),attributes using ${TSDR_PORTSTATS}
     : FOR    ${list}    IN    @{INTERFACE_METRICS}
     \    ${tsdr_cmd}=    Concatenate the String    ${TSDR_PORTSTATS}    | grep ${list} | head
-    \    ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}    ${CONTROLLER}    ${KARAF_SHELL_PORT}    30
+    \    Open Karaf Console    ${CONTROLLER}    ${KARAF_SHELL_PORT}    30
+    \    ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}
+    \    Close Karaf Console
     \    Should Contain    ${output}    ${list}
 
 Verify PortStats-Attributes on H2 Datastore using JDBC Client

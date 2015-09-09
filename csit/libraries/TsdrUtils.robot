@@ -71,7 +71,9 @@ Query the Data from HBaseClient
 Verify the Metric is Collected?
     [Arguments]    ${tsdr_cmd}    ${metric}    ${remote}=${CONTROLLER}    ${user}=${MININET_USER}    ${prompt_timeout}=120s
     [Documentation]    Verify the ${tsdr_cmd} output contains ${metric}
+    Open Karaf Console    ${remote}    ${KARAF_SHELL_PORT}    ${prompt_timeout}
     ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}    ${remote}    ${KARAF_SHELL_PORT}    ${prompt_timeout}
+    Close Karaf Console
     Should Contain    ${output}    ${metric}
 
 Prepare HBase Filter
@@ -102,7 +104,9 @@ Query Metrics on H2 Datastore
     [Documentation]    Generate the JDBC query for H2 Datastore
     ${h2_query}=    Concatenate the String    jdbc:query metric "select * from Metric where MetricCategory=    '${category}' and
     ${h2_query}=    Concatenate the String    ${h2_query}    MetricName = '${attribute}' and NODEID = '${nodeid}' order by ID desc limit 5"
-    ${output}=    Issue Command On Karaf Console    ${h2_query}    ${CONTROLLER}    ${KARAF_SHELL_PORT}    30
+    Open Karaf Console    ${CONTROLLER}    ${KARAF_SHELL_PORT}    timeout=30
+    ${output}=    Issue Command On Karaf Console    ${h2_query}
+    Close Karaf Console
     [Return]    ${output}
 
 Generate HBase Query

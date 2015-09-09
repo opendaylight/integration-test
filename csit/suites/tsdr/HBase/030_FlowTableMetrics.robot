@@ -17,13 +17,17 @@ ${TSDR_FLOWTABLE_STATS}    tsdr:list FlowTableStats
 Verification of TSDR FlowTableMetrics
     [Documentation]    Verify the TSDR FlowTableMetrics
     Wait Until Keyword Succeeds    120s    1s    Verify the Metric is Collected?    ${TSDR_FLOWTABLE_STATS}    MetricName
-    ${output}=    Issue Command On Karaf Console    ${TSDR_FLOWTABLE_STATS}    ${CONTROLLER}    ${KARAF_SHELL_PORT}    30
+    Open Karaf Console    ${CONTROLLER}    ${KARAF_SHELL_PORT}    30
+    ${output}=    Issue Command On Karaf Console    ${TSDR_FLOWTABLE_STATS}
+    Close Karaf Console
     Should Contain    ${output}    MetricName
 
 Verification of FlowTableMetrics on Karaf Console
     [Documentation]    Verify the FlowTableMetrics has been updated thru tsdr:list command on karaf console
     ${tsdr_cmd}=    Concatenate the String    ${TSDR_FLOWTABLE_STATS}    | grep ActiveFlows | head
-    ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}    ${CONTROLLER}    ${KARAF_SHELL_PORT}    90
+    Open Karaf Console    ${CONTROLLER}    ${KARAF_SHELL_PORT}    90
+    ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}
+    Close Karaf Console
     Should Contain    ${output}    ActiveFlows
 
 Verification of FlowTableMetrics-ActiveFlows on HBase Client
