@@ -222,6 +222,12 @@ Run Command On Remote System
     Log    ${output}
     [Return]    ${output}
 
+Write_Bare_Ctrl_C
+    [Documentation]    Construct ctrl+c character and SSH-write it (without endline) to the current SSH connection.
+    ...    Do not read anything yet.
+    ${ctrl_c}=    BuiltIn.Evaluate    chr(int(3))
+    SSHLibrary.Write_Bare    ${ctrl_c}
+
 Run Command On Mininet
     [Arguments]    ${system}=${MININET}    ${cmd}=echo    ${user}=${MININET_USER}    ${password}=${MININET_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
     [Documentation]    Call Run Comand On Remote System, but with default values suitable for Mininet machine.
