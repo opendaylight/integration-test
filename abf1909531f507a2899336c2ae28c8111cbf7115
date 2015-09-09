@@ -72,6 +72,54 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_892df448",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-09T11:58:06Z",
+      "side": 1,
+      "message": "I suspect the reason why this \"fell through the cracks\" is that the code went merged before the community had a chance to take a look at it. The problem was timing pressure. And the fact that you cannot do reviews without using a mouse and without a network connection is definitely not helping these matters.",
+      "parentUuid": "3a79b1b5_ebb90016",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 35
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_a930f09e",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-09T11:58:06Z",
+      "side": 1,
+      "message": "Yes, I missed it. Only after it got merged, I realized this library exists. The reason was time pressure (caused by an inefficient administration/review/whatever process).",
+      "parentUuid": "3a79b1b5_eb010007",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 35
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_eb5020d6",
         "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
         "patchSetId": 8
@@ -141,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_097d641c",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-09T11:58:06Z",
+      "side": 1,
+      "message": "This is another example of poor code design. This command is doing 2 things at once, the first one is to wait for the change counter feature to become ready and the second one is to do the reconfiguration of the feature.",
+      "parentUuid": "3a79b1b5_ee182e77",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 198
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_8b064ccd",
         "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
         "patchSetId": 8
@@ -175,6 +247,30 @@
       "writtenOn": "2015-09-08T23:51:15Z",
       "side": 1,
       "message": "one thing I notice here is that this \"test case\" does not appear to have any \"test\".  Meaning there is nothing for it to fail on, is there?  That being the case, I would think it makes more sense to collapse this work in to the next test case.",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 48
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_09a484a4",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-09T11:58:06Z",
+      "side": 1,
+      "message": "1. \"SSHLibrary.Write\" can fail (when the connection to the machine crashes for example).\n2. This would take time in the following test case (which is doing the performance measurements) and it does not logically fit into the previous \"test case\" (which also technically is not a test case at all).\n\nThe reason for this is that Robot does not have an easy way (or I don\u0027t know about an easy way) to tell it \"now I need to adjust the setup of the environment but I don\u0027t want the time needed to do so to be billed to the next test case\". Or, maybe this could be done by some smart tagging. Tag these as \"setup\" or \"configuration\" and somehow explain to Robot that these \"setup\" cases are not real tests and should not be included in the results tally.",
+      "parentUuid": "3a79b1b5_8e273ab6",
       "range": {
         "startLine": 74,
         "startChar": 0,
@@ -233,6 +329,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_c9ad2c8a",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-09T11:58:06Z",
+      "side": 1,
+      "message": "I have seen ODL needing 60 seconds or even more to start the cleanup when it ingested massive amounts of routes (several M) and then the connection to the peer was dropped. This leads me to conclusion that performance bugs in ODL could cause significant delays here. Thus the large timeout here.\n\nI suspect the problem here is a performance bug in ODL. You know, the ODL must find the routes from the dead peer and remove them while keeping other routes intact. It occurs to me that it is traversing the whole RIB+Topology, hunting them down. I can easily imagine a situation when there are several peers with 500k-1M routes and then one 10k routed one disconnects. It might take a long while for ODL wading through the routes from the 500k+ route servers before it finds some of the 10k routes from the disconnected peer.",
+      "parentUuid": "3a79b1b5_b503650c",
+      "range": {
+        "startLine": 106,
+        "startChar": 52,
+        "endLine": 106,
+        "endChar": 56
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_ce3452e0",
         "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
         "patchSetId": 8
@@ -279,6 +399,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_69ebb8b0",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-09T11:58:06Z",
+      "side": 1,
+      "message": "It takes about 40 seconds to drop 1M routes on our private lab. The sandbox/releng performance is about 3 times worse which translates to 120 seconds. The remaining 60 seconds is a \"safety margin\". That explains the 180s in the \"..._To_Become_Empty\" line. The other 180s is due to a performance bug in ODL where it may take so much time for it to start cleaning up when there is a large amount of routes in RIB/Topology. And I already designed these keywords to bail out of the loop early if the change counter spits out an error message instead of a result but it is not easy to see that. Namely, Robot does not have support for keywords which tri-state results (PASS, FAIL_NOT_BUT_MAY_PASS_LATER and FAIL_WITH_NO_HOPE_TO_PASS) so a bunch of tricks must be employed to make it work. See \"Check_Topology_Stability\" keyword and note that it is designed to PASS when the response code returned from the request is an error - this is exactly the tricky part used to bail out of the Wait_Until_Keyword_Succeeds keyword.",
+      "parentUuid": "3a79b1b5_2e3dc6bb",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 53
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_ce4bf257",
         "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
         "patchSetId": 8
@@ -302,6 +446,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_69397840",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-09T11:58:06Z",
+      "side": 1,
+      "message": "This is actually part of the suite teardown but it is in the form of a testcase because it can fail and when teardown fails, bad things start to happen. My opinion is that the additional checks belong to the functional test suite.",
+      "parentUuid": "3a79b1b5_ce4bf257",
+      "range": {
+        "startLine": 156,
+        "startChar": 4,
+        "endLine": 156,
+        "endChar": 47
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_f549ddb7",
         "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
         "patchSetId": 8
@@ -313,6 +481,30 @@
       "writtenOn": "2015-09-08T17:11:42Z",
       "side": 1,
       "message": "Replace space with dot.",
+      "range": {
+        "startLine": 235,
+        "startChar": 25,
+        "endLine": 235,
+        "endChar": 26
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_6902d870",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-09T11:58:06Z",
+      "side": 1,
+      "message": "This is an unfinished sentence that \"fell through the cracks\". Fixed.",
+      "parentUuid": "3a79b1b5_f549ddb7",
       "range": {
         "startLine": 235,
         "startChar": 25,
