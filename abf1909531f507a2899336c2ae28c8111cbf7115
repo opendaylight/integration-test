@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_23463824",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-10T15:20:05Z",
+      "side": 1,
+      "message": "\u003e I think the assumption we are making with all of our suites is that ODL is up and running and stable before the suites are started\n\nSee my comment in Reconfigure_Data_Change_Counter.",
+      "parentUuid": "3a79b1b5_eb5020d6",
+      "range": {
+        "startLine": 59,
+        "startChar": 4,
+        "endLine": 59,
+        "endChar": 108
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_cb6c449f",
         "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
         "patchSetId": 8
@@ -225,6 +249,30 @@
       "side": 1,
       "message": "This is another example of poor code design. This command is doing 2 things at once, the first one is to wait for the change counter feature to become ready and the second one is to do the reconfiguration of the feature.",
       "parentUuid": "3a79b1b5_ee182e77",
+      "range": {
+        "startLine": 72,
+        "startChar": 4,
+        "endLine": 72,
+        "endChar": 198
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_a3ba4808",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-10T15:20:05Z",
+      "side": 1,
+      "message": "Oh, I have not noticed this ugly construct.\nI recommend to deal with readiness issues in a way similar to netconf-connector case: https://git.opendaylight.org/gerrit/#/c/26446\nOrder of readiness expected: bgp_topology, netconf_connector, change_counter_config_module.",
+      "parentUuid": "3a79b1b5_097d641c",
       "range": {
         "startLine": 72,
         "startChar": 4,
@@ -307,6 +355,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_a316c8ef",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-10T15:20:05Z",
+      "side": 1,
+      "message": "\u003e these \"setup\" cases are not real tests\n\nThey do not test the focus component (BGP), but they test the environment by changing its state. They are not expected to fail at all, but if they do, we definitely want to have that in the results tally, in a way visibly different from failure of subsequent \"real\" test case. But we can use a tag for \"real\" tests so that we can filter the test results.",
+      "parentUuid": "3a79b1b5_09a484a4",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 48
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_2e3626e8",
         "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
         "patchSetId": 8
@@ -318,6 +390,30 @@
       "writtenOn": "2015-09-08T23:51:15Z",
       "side": 1,
       "message": "is this a question to still determine?",
+      "range": {
+        "startLine": 100,
+        "startChar": 4,
+        "endLine": 100,
+        "endChar": 100
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_a3ed68f1",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-10T15:20:05Z",
+      "side": 1,
+      "message": "It is not a question, it is an answer.\nIt is there for readers, to tell them about a somewhat non-obvious scenario.\nTo be frank, I did not test that answer.",
+      "parentUuid": "3a79b1b5_2e3626e8",
       "range": {
         "startLine": 100,
         "startChar": 4,
@@ -377,6 +473,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_63bf50d1",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-10T15:20:05Z",
+      "side": 1,
+      "message": "Ok, but how long does it take in Sandbox?",
+      "parentUuid": "3a79b1b5_c9ad2c8a",
+      "range": {
+        "startLine": 106,
+        "startChar": 52,
+        "endLine": 106,
+        "endChar": 56
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_ce3452e0",
         "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
         "patchSetId": 8
@@ -388,6 +508,30 @@
       "writtenOn": "2015-09-08T23:51:15Z",
       "side": 1,
       "message": "not following this comment?",
+      "range": {
+        "startLine": 113,
+        "startChar": 4,
+        "endLine": 113,
+        "endChar": 63
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_03b69cfa",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-10T15:20:05Z",
+      "side": 1,
+      "message": "It refers to value present in --myport\u003d17900\nWhen the TODO was written in bgpuser, there was only one occurrence. Now there are two suites more, so perhaps now it is worth to put that value into Variables.py",
+      "parentUuid": "3a79b1b5_ce3452e0",
       "range": {
         "startLine": 113,
         "startChar": 4,
@@ -482,6 +626,30 @@
       "side": 1,
       "message": "This is actually part of the suite teardown but it is in the form of a testcase because it can fail and when teardown fails, bad things start to happen. My opinion is that the additional checks belong to the functional test suite.",
       "parentUuid": "3a79b1b5_ce4bf257",
+      "range": {
+        "startLine": 156,
+        "startChar": 4,
+        "endLine": 156,
+        "endChar": 47
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_638d1031",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-10T15:20:05Z",
+      "side": 1,
+      "message": "It is part of suite cleanup, but it does not have consequences of Suite Teardown yet.\n\nLibrary ConfigViaRestconf got Verify_* keywords in https://git.opendaylight.org/gerrit/#/c/26643 (not merged yet), but that needs expected config data after deletion.\n\nI also agree that such check is mostly needed in functional suite, so perhaps adding check after delete is a task for separate change (affecting all suites which delete configuration).",
+      "parentUuid": "3a79b1b5_69397840",
       "range": {
         "startLine": 156,
         "startChar": 4,
