@@ -72,6 +72,54 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_805622d1",
+        "filename": "csit/libraries/BGPSpeaker.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-10T13:04:36Z",
+      "side": 1,
+      "message": "In the functional suite the invocation of this keyword is followed by \"Read_And_Fail_If_Prompt_Is_Seen\" which reads until prompt and then fails if it sees the prompt. In the performance/scaling tests this is not desired. However now it comes to my mind that this \"Read_And_Fail_If_Prompt_Is_Seen\" also might need some fixing as it fails to dump the logs when it sees the prompt.",
+      "parentUuid": "3a79b1b5_c0de5a6d",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 48
+      },
+      "revId": "80ca58bda35795bdb4cb73b30be3695f61a8396b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_603c2694",
+        "filename": "csit/libraries/BGPSpeaker.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-10T13:04:36Z",
+      "side": 1,
+      "message": "It should be obvious from the \"${command}\u003d\" line above that the command started by this keyword produces no output that could be readable with \"read until\". On the other side the line might be pretty confusing due to a missing space, that\u0027s the probable reason why you missed this point. The first time \"read until\" starts to make sense is after the CTRL-C is sent to see if the tool really stopped (the prompt appears if yes).",
+      "parentUuid": "3a79b1b5_3af41cf1",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 48
+      },
+      "revId": "80ca58bda35795bdb4cb73b30be3695f61a8396b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_5af798f5",
         "filename": "csit/libraries/BGPSpeaker.robot",
         "patchSetId": 2
@@ -107,6 +155,30 @@
       "side": 1,
       "message": "There are PCEP suites having this TODO too, they use pcc-mock tool in similar fashion. So fixing this TODO is probably a work for separate change.",
       "parentUuid": "3a79b1b5_5af798f5",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 89
+      },
+      "revId": "80ca58bda35795bdb4cb73b30be3695f61a8396b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_8082a292",
+        "filename": "csit/libraries/BGPSpeaker.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-10T13:04:36Z",
+      "side": 1,
+      "message": "This TODO gets fixed in this change as it was determined that the suitable place for this is in Utils.",
+      "parentUuid": "3a79b1b5_40d24a5d",
       "range": {
         "startLine": 34,
         "startChar": 4,
