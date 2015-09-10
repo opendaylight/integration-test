@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_0011b204",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-10T09:28:47Z",
+      "side": 1,
+      "message": "\u003e Is there value in failing the first case\n\nYes, there is. There are three possible netconf-connector behaviors with respect to suites relying on it: It is up quickly (suites always pass), it is very slow or it even does not start at all (suites always fail), or it has medium slowness of start (suites pass or fail depending on order and duration).\n\nWe want to detect any of the three behaviors, especially the third one. (I am not sure 60 second is the correct boundary between third and second behavior, but that can be tweaked later if we see a bug hitting that.)",
+      "parentUuid": "3a79b1b5_9861c03b",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 79
+      },
+      "revId": "bce87655f499d4a222000befb01a27749c884ffa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_1814d042",
         "filename": "csit/suites/netconf/ready/netconfready.robot",
         "patchSetId": 2
