@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a79b1b5_a3724847",
+        "filename": "csit/libraries/BGPSpeaker.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-10T15:29:49Z",
+      "side": 1,
+      "message": "I would prefer Run_Keyword_And_Ignore_Error. To see possible non-prompt text. Helps with debugging if user sets prompt sub-string incorrectly.",
+      "range": {
+        "startLine": 47,
+        "startChar": 26,
+        "endLine": 47,
+        "endChar": 55
+      },
+      "revId": "f39b851deb3be343f9b873aed259ab32a5c53327",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
