@@ -7,19 +7,24 @@ Documentation     Basic tests for odl-bgpcep-bgp-all feature.
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
+...               Test suite performs basic BGP functional test cases:
+...               - BGP peer initiated coonection
+...                 - introduce and check 2 prefixes in one update message
+...               - ODL controller initiated coonection
+...                 - introduce and check 2 prefixes in one update message
 ...
-...               Brief description of what this suite should do:
+...               Brief description how to perform BGP functional test:
 ...               https://wiki.opendaylight.org/view/BGP_LS_PCEP:Lithium_Feature_Tests#How_to_test_2
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
 Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
 Library           OperatingSystem
-Library           SSHLibrary    prompt=]>    timeout=10s    # FIXME: The prompt should have default value from a common resource, and should be overwritable by pybot -v in scripts.
+Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
 Library           ${CURDIR}/../../../libraries/HsfJson/hsf_json.py
 Variables         ${CURDIR}/../../../variables/Variables.py
-Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${MININET}
+Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
@@ -31,10 +36,14 @@ Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 
 *** Variables ***
-${directory_for_actual_responses}    ${TEMPDIR}/actual
-${directory_for_expected_responses}    ${TEMPDIR}/expected
-${directory_with_template_folders}    ${CURDIR}/../../../variables/bgpuser/
+${ACTUAL_RESPONSES_FOLDER}    ${TEMPDIR}/actual
+${EXPECTED_RESPONSES_FOLDER}    ${TEMPDIR}/expected
+${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
+${TOOLS_SYSTEM_PROMPT}    ${DEFAULT_LINUX_PROMPT}
 ${HOLDTIME}       180
+${BGP_TOOL_LOG_LEVEL}    info
+${CONTROLLER_LOG_LEVEL}    INFO
+${CONTROLLER_BGP_LOG_LEVEL}    DEFAULT
 
 *** Test Cases ***
 Check_For_Empty_Topology_Before_Talking
@@ -45,13 +54,13 @@ Check_For_Empty_Topology_Before_Talking
 
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${MININET}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'false'}
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer    ${template_as_string}
+    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${TOOLS_SYSTEM_IP}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'false'}
+    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
 
 Start_Talking_BGP_speaker
     [Documentation]    Start Python speaker to connect to ODL, verify that the tool does not promptly exit.
     # Myport value is needed for checking whether connection at precise port was established.
-    BGPSpeaker.Start_BGP_Speaker    --amount 2 --myip=${MININET} --myport=${BGP_TOOL_PORT} --peerip=${CONTROLLER} --peerport=${ODL_BGP_PORT}
+    BGPSpeaker.Start_BGP_Speaker    --amount 2 --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --${BGP_TOOL_LOG_LEVEL}
     Read_And_Fail_If_Prompt_Is_Seen
 
 Check_Talking_Connection_Is_Established
@@ -66,6 +75,7 @@ Check_Talking_Topology_Is_Filled
 
 Kill_Talking_BGP_Speaker
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
+    [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     BGPSpeaker.Kill_BGP_Speaker
     FailFast.Do_Not_Fail_Fast_From_Now_On
@@ -79,7 +89,7 @@ Check_For_Empty_Topology_After_Talking
 
 Start_Listening_BGP_Speaker
     [Documentation]    Start Python speaker in listening mode, verify that the tool does not exit quickly.
-    BGPSpeaker.Start_BGP_Speaker    --amount 2 --listen --myip=${MININET} --myport=${BGP_TOOL_PORT} --peerip=${CONTROLLER}
+    BGPSpeaker.Start_BGP_Speaker    --amount 2 --listen --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --${BGP_TOOL_LOG_LEVEL}
     Read_And_Fail_If_Prompt_Is_Seen
 
 Check_Listening_Connection_Is_Not_Established_Yet
@@ -93,8 +103,8 @@ Check_For_Empty_Topology_Before_Listening
 
 Reconfigure_ODL_To_Initiate_Connection
     [Documentation]    Replace BGP peer config module, now with initiate-connection set to true.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${MININET}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'true'}
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer    ${template_as_string}
+    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${TOOLS_SYSTEM_IP}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'true'}
+    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
 
 Check_Listening_Connection_Is_Established
     [Documentation]    See TCP (BGP) connection in established state.
@@ -107,10 +117,11 @@ Check_Listening_Topology_Is_Filled
 
 Kill_Listening_BGP_Speaker
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
+    [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     BGPSpeaker.Kill_BGP_Speaker
     FailFast.Do_Not_Fail_Fast_From_Now_On
-    # NOTE: It is still possible to remain failing, if both previous and this test failed.
+    # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
     [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
 
 Check_For_Empty_Topology_After_Listening
@@ -121,36 +132,36 @@ Check_For_Empty_Topology_After_Listening
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
     ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer'}
-    ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer    ${template_as_string}
+    ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
     # TODO: Do we need to check something else?
 
 *** Keywords ***
 Setup_Everything
-    [Documentation]    SSH-login to mininet machine, save prompt to variable, create HTTP session,
+    [Documentation]    SSH-login to mininet machine, create HTTP session,
     ...    prepare directories for responses, put Python tool to mininet machine, setup imported resources.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    SSHLibrary.Open_Connection    ${MININET}
-    Utils.Flexible_SSH_Login    ${MININET_USER}    ${MININET_PASSWORD}
-    ${current_connection}=    Get_Connection
-    ${current_prompt}=    BuiltIn.Set_Variable    ${current_connection.prompt}
-    BuiltIn.Log    ${current_prompt}
-    Builtin.Set_Suite_Variable    ${prompt}    ${current_prompt}
-    RequestsLibrary.Create_Session    ses    http://${CONTROLLER}:${RESTCONFPORT}${OPERATIONAL_TOPO_API}    auth=${AUTH}
+    SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
+    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
+    Utils.Flexible_Mininet_Login
+    RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_TOPO_API}    auth=${AUTH}
     # TODO: Do not include slash in ${OPERATIONAL_TOPO_API}, having it typed here is more readable.
     # TODO: Alternatively, create variable in Variables which starts with http.
     # Both TODOs would probably need to update every suite relying on current Variables.
-    OperatingSystem.Remove_Directory    ${directory_for_expected_responses}    recursive=True
-    OperatingSystem.Remove_Directory    ${directory_for_actual_responses}    recursive=True
+    OperatingSystem.Remove_Directory    ${EXPECTED_RESPONSES_FOLDER}    recursive=True
+    OperatingSystem.Remove_Directory    ${ACTUAL_RESPONSES_FOLDER}    recursive=True
     # The previous suite may have been using the same directories.
-    OperatingSystem.Create_Directory    ${directory_for_expected_responses}
-    OperatingSystem.Create_Directory    ${directory_for_actual_responses}
+    OperatingSystem.Create_Directory    ${EXPECTED_RESPONSES_FOLDER}
+    OperatingSystem.Create_Directory    ${ACTUAL_RESPONSES_FOLDER}
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
     ConfigViaRestconf.Setup_Config_Via_Restconf
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.bgpcep
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.protocol
 
 Teardown_Everything
     [Documentation]    Create and Log the diff between expected and actual responses, make sure Python tool was killed.
     ...    Tear down imported Resources.
-    ${diff}=    OperatingSystem.Run    diff -dur ${directory_for_expected_responses} ${directory_for_actual_responses}
+    ${diff}=    OperatingSystem.Run    diff -dur ${EXPECTED_RESPONSES_FOLDER} ${ACTUAL_RESPONSES_FOLDER}
     BuiltIn.Log    ${diff}
     KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
     ConfigViaRestconf.Teardown_Config_Via_Restconf
@@ -159,26 +170,26 @@ Teardown_Everything
 
 Wait_For_Topology_To_Change_To
     [Arguments]    ${json_topology}    ${filename}    ${timeout}=10s    ${refresh}=1s
-    [Documentation]    Normalize the expected json topology and save it to ${directory_for_expected_responses}.
-    ...    Wait until Compare_Topology matches. ${directory_for_actual_responses} will hold its last result.
-    ${topology_normalized}=    Normalize_And_Save_Expected_Json    ${json_topology}    ${filename}    ${directory_for_expected_responses}
+    [Documentation]    Normalize the expected json topology and save it to ${EXPECTED_RESPONSES_FOLDER}.
+    ...    Wait until Compare_Topology matches. ${ACTUAL_RESPONSES_FOLDER} will hold its last result.
+    ${topology_normalized}=    Normalize_And_Save_Expected_Json    ${json_topology}    ${filename}    ${EXPECTED_RESPONSES_FOLDER}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    ${refresh}    Compare_Topology    ${topology_normalized}    ${filename}
 
 Verify_That_Topology_Does_Not_Change_From
     [Arguments]    ${json_topology}    ${filename}    ${timeout}=10s    ${refresh}=1s
-    [Documentation]    Normalize the expected json topology and save it to ${directory_for_expected_responses}.
-    ...    Verify that Compare_Topology keeps passing. ${directory_for_actual_responses} will hold its last result.
-    ${topology_normalized}=    Normalize_And_Save_Expected_Json    ${json_topology}    ${filename}    ${directory_for_expected_responses}
+    [Documentation]    Normalize the expected json topology and save it to ${EXPECTED_RESPONSES_FOLDER}.
+    ...    Verify that Compare_Topology keeps passing. ${ACTUAL_RESPONSES_FOLDER} will hold its last result.
+    ${topology_normalized}=    Normalize_And_Save_Expected_Json    ${json_topology}    ${filename}    ${EXPECTED_RESPONSES_FOLDER}
     WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${timeout}    ${refresh}    Compare_Topology    ${topology_normalized}    ${filename}
 
 Compare_Topology
     [Arguments]    ${expected_normalized}    ${filename}
-    [Documentation]    Get current example-ipv4-topology as json, normalize it, save to ${directory_for_actual_responses}.
+    [Documentation]    Get current example-ipv4-topology as json, normalize it, save to ${ACTUAL_RESPONSES_FOLDER}.
     ...    Check that status code is 200, check that normalized jsons match exactly.
-    ${response}=    RequestsLibrary.Get    ses    topology/example-ipv4-topology
+    ${response}=    RequestsLibrary.Get Request    operational    topology/example-ipv4-topology
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
-    ${actual_normalized}=    Normalize_And_Save_Expected_Json    ${response.text}    ${filename}    ${directory_for_actual_responses}
+    ${actual_normalized}=    Normalize_And_Save_Expected_Json    ${response.text}    ${filename}    ${ACTUAL_RESPONSES_FOLDER}
     BuiltIn.Should_Be_Equal_As_Strings    ${response.status_code}    200
     BuiltIn.Should_Be_Equal    ${actual_normalized}    ${expected_normalized}
 
@@ -207,7 +218,7 @@ Check_Number_Of_Speaker_Connections
 
 Read_And_Fail_If_Prompt_Is_Seen
     [Documentation]    Try to read SSH to see prompt, but expect to see no prompt within SSHLibrary's timeout.
-    ${passed}=    BuiltIn.Run_Keyword_And_Return_Status    BuiltIn.Run_Keyword_And_Expect_Error    No match found for '${prompt}' in *.    Read_Text_Before_Prompt
+    ${passed}=    BuiltIn.Run_Keyword_And_Return_Status    BuiltIn.Run_Keyword_And_Expect_Error    No match found for '${TOOLS_SYSTEM_PROMPT}' in *.    Read_Text_Before_Prompt
     BuiltIn.Return_From_Keyword_If    ${passed}
     BGPSpeaker.Dump_BGP_Speaker_Logs
     Builtin.Fail    The prompt was seen but it was not expected yet
