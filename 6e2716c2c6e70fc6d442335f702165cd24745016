@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a79b1b5_83f2acd0",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-11T09:15:03Z",
+      "side": 1,
+      "message": "This may take significant amount of time (the SSH key exchange part of the connection might be pretty slow on slower networks; may be problematic for performance tests if they need to issue commands to the karaf console in the middle of their timed test case runs) and has an unobvious effect of clobbering the active SSH connection (this may be unexpected and lead to bugs in tests and cumbersome workarounds). Additionally talking to more than one controller is pretty cumbersome as the callers need to repeat the ${controller}, and possibly also ${karaf_port} and ${timeout} in each invocation that needs to talk with the non-default controller.\n\nA better design would separate this action from the actual command sending, allowing for making the time consuming login action in the test suite setup and having only the fairly fast write command here. Also the \"more controllers\" scenario becomes less cluttered as the connection ID is the only thing needed in the \"issue command\" invocation.\n\nSomething is in the works (https://git.opendaylight.org/gerrit/26734) but it is pretty involved (lots of test suites need updating) and my time is right now needed elsewhere. A quickfix could be inspired by that change though: Save the index of the active connection before these 2 lines and do a Switch Connection to the saved index after the \"Close Connection\" line below.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 47
+      },
+      "revId": "6e2716c2c6e70fc6d442335f702165cd24745016",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
