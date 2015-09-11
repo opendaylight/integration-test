@@ -15,7 +15,7 @@ Suite Teardown    Teardown_Everything
 Test Setup        FailFast.Fail_This_Fast_On_Previous_Error
 Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
 Library           OperatingSystem
-Library           SSHLibrary    prompt=]>    timeout=10s    # FIXME: The prompt should have default value from a common resource, and should be overwritable by pybot -v in scripts.
+Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
 Library           ${CURDIR}/../../../libraries/HsfJson/hsf_json.py
 Variables         ${CURDIR}/../../../variables/Variables.py
@@ -26,27 +26,32 @@ Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
 Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 
 *** Variables ***
 ${directory_for_actual_responses}    ${TEMPDIR}/actual
 ${directory_for_expected_responses}    ${TEMPDIR}/expected
 ${directory_with_template_folders}    ${CURDIR}/../../../variables/bgpuser/
+${CONTROLLER_PROMPT}    ${DEFAULT_LINUX_PROMPT}
 ${HOLDTIME}    180
 
 *** Test Cases ***
 Check_For_Empty_Topology_Before_Talking
     [Documentation]    Sanity check example-ipv4-topology is up but empty.
     [Tags]    critical
+    KarafKeywords.Log_Message_To_Controller_Karaf    Checking for empty topology
     Wait_For_Topology_To_Change_To    ${empty_json}    010_Empty.json    timeout=120s
     # TODO: Verify that 120 seconds is not too short if this suite is run immediatelly after ODL is started.
 
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
+    KarafKeywords.Log_Message_To_Controller_Karaf    Reconfiguring ODL to accept a connection
     ${template_as_string}=    BuiltIn.Set_Variable    {'IP': '${MININET}', 'HOLDTIME': '${HOLDTIME}', 'INITIATE': 'false'}
     ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer    ${template_as_string}
 
 Start_Talking_BGP_speaker
     [Documentation]    Start Python speaker to connect to ODL, verify that the tool does not promptly exit.
+    KarafKeywords.Log_Message_To_Controller_Karaf    Starting talking BGP speaker
     # Myport value is needed for checking whether connection at precise port was established.
     # TODO: Do we want to define ${BGP_PORT} in Variables.py?
     BGPSpeaker.Start_BGP_Speaker    --amount 2 --myip=${MININET} --myport=17900 --peerip=${CONTROLLER} --peerport=1790
@@ -60,11 +65,13 @@ Check_Talking_Connection_Is_Established
 Check_Talking_Topology_Is_Filled
     [Documentation]    See new routes in example-ipv4-topology as a proof that synchronization was correct.
     [Tags]    critical
+    KarafKeywords.Log_Message_To_Controller_Karaf    Checking that all routes are in the topology
     Wait_For_Topology_To_Change_To    ${filled_json}    020_Filled.json
 
 Kill_Talking_BGP_Speaker
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
     [Setup]    FailFast.Run_Even_When_Failing_Fast
+    KarafKeywords.Log_Message_To_Controller_Karaf    Stopping the BGP speaker
     BGPSpeaker.Kill_BGP_Speaker
     FailFast.Do_Not_Fail_Fast_From_Now_On
     # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
@@ -73,10 +80,12 @@ Kill_Talking_BGP_Speaker
 Check_For_Empty_Topology_After_Talking
     [Documentation]    See example-ipv4-topology empty again.
     [Tags]    critical
-    Wait_For_Topology_To_Change_To    ${empty_json}    030_Empty.json
+    KarafKeywords.Log_Message_To_Controller_Karaf    Waiting for topology to become empty
+    Wait_For_Topology_To_Become_Empty    timeout=180s
 
 Start_Listening_BGP_Speaker
     [Documentation]    Start Python speaker in listening mode, verify that the tool does not exit quickly.
+    KarafKeywords.Log_Message_To_Controller_Karaf    Starting listening BGP speaker
     # TODO: ${BGP_TOOL_PORT} is probably not worth the trouble.
     BGPSpeaker.Start_BGP_Speaker    --amount 2 --listen --myip=${MININET} --myport=17900 --peerip=${CONTROLLER}
     Read_And_Fail_If_Prompt_Is_Seen
@@ -92,6 +101,7 @@ Check_For_Empty_Topology_Before_Listening
 
 Reconfigure_ODL_To_Initiate_Connection
     [Documentation]    Replace BGP peer config module, now with initiate-connection set to true.
+    KarafKeywords.Log_Message_To_Controller_Karaf    Reconfiguring ODL to initiate the connection
     ${template_as_string}=    BuiltIn.Set_Variable    {'IP': '${MININET}', 'HOLDTIME': '${HOLDTIME}', 'INITIATE': 'true'}
     ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer    ${template_as_string}
 
@@ -102,11 +112,13 @@ Check_Listening_Connection_Is_Established
 Check_Listening_Topology_Is_Filled
     [Documentation]    See new routes in example-ipv4-topology as a proof that synchronization was correct.
     [Tags]    critical
+    KarafKeywords.Log_Message_To_Controller_Karaf    Checking that all the routes are in the topology
     Wait_For_Topology_To_Change_To    ${filled_json}    050_Filled.json
 
 Kill_Listening_BGP_Speaker
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
     [Setup]    FailFast.Run_Even_When_Failing_Fast
+    KarafKeywords.Log_Message_To_Controller_Karaf    Stopping the BGP speaker
     BGPSpeaker.Kill_BGP_Speaker
     FailFast.Do_Not_Fail_Fast_From_Now_On
     # NOTE: It is still possible to remain failing, if both previous and this test failed.
@@ -115,23 +127,22 @@ Kill_Listening_BGP_Speaker
 Check_For_Empty_Topology_After_Listening
     [Documentation]    Post-condition: Check example-ipv4-topology is empty again.
     [Tags]    critical
+    KarafKeywords.Log_Message_To_Controller_Karaf    Waiting for topology to become empty
     Wait_For_Topology_To_Change_To    ${empty_json}    060_Empty.json
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
+    KarafKeywords.Log_Message_To_Controller_Karaf    Deleting the BGP speaker configuration from ODL
     ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer
     # TODO: Do we need to check something else?
 
 *** Keywords ***
 Setup_Everything
-    [Documentation]    SSH-login to mininet machine, save prompt to variable, create HTTP session,
+    [Documentation]    SSH-login to mininet machine, create HTTP session,
     ...    prepare directories for responses, put Python tool to mininet machine, setup imported resources.
+    SSHLibrary.Set_Default_Configuration    prompt=${CONTROLLER_PROMPT}
     SSHLibrary.Open_Connection    ${MININET}
     Utils.Flexible_SSH_Login     ${MININET_USER}    ${MININET_PASSWORD}
-    ${current_connection}=    Get_Connection
-    ${current_prompt}=    BuiltIn.Set_Variable    ${current_connection.prompt}
-    BuiltIn.Log    ${current_prompt}
-    Builtin.Set_Suite_Variable    ${prompt}    ${current_prompt}
     RequestsLibrary.Create_Session    ses    http://${CONTROLLER}:${RESTCONFPORT}${OPERATIONAL_TOPO_API}    auth=${AUTH}
     # TODO: Do not include slash in ${OPERATIONAL_TOPO_API}, having it typed here is more readable.
     # TODO: Alternatively, create variable in Variables which starts with http.
@@ -144,6 +155,7 @@ Setup_Everything
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
     ConfigViaRestconf.Setup_Config_Via_Restconf
     FailFast.Do_Not_Fail_Fast_From_Now_On
+    KarafKeywords.Log_Message_To_Controller_Karaf    Starting the BGP functional test
 
 Teardown_Everything
     [Documentation]    Create and Log the diff between expected and actual responses, make sure Python tool was killed.
@@ -205,7 +217,7 @@ Check_Number_Of_Speaker_Connections
 
 Read_And_Fail_If_Prompt_Is_Seen
     [Documentation]    Try to read SSH to see prompt, but expect to see no prompt within SSHLibrary's timeout.
-    ${passed}=    BuiltIn.Run_Keyword_And_Return_Status    BuiltIn.Run_Keyword_And_Expect_Error    No match found for '${prompt}' in *.    Read_Text_Before_Prompt
+    ${passed}=    BuiltIn.Run_Keyword_And_Return_Status    BuiltIn.Run_Keyword_And_Expect_Error    No match found for '${CONTROLLER_PROMPT}' in *.    Read_Text_Before_Prompt
     BuiltIn.Return_From_Keyword_If    ${passed}
     Dump_BGP_Speaker_Logs
     Fail    The prompt was seen but it was not expected yet
