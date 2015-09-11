@@ -22,6 +22,76 @@
       "revId": "6e2716c2c6e70fc6d442335f702165cd24745016",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_3a73b5b2",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-11T17:14:28Z",
+      "side": 1,
+      "message": "I get your point.  This is a nice keyword to issue a basic command on the karaf console.  It is atomic as far as ssh goes, in that it will open and close the ssh connection.  Other ssh connections outside of this should be tracked with their connection index that is returned when you do an Open Connection.\n\nSo, to make this better, and I can do the work sometime next week if needed, I suggest:\n\nadd an additional argument called \"connection_index\" and default it to \"None\".  Then if no index it passed to this keyword, it should work as is.  However, if someone has already opened an ssh connection to the karaf console (see the \"Connect To Controller Karaf\" keyword below) they can pass that connection index to this keyword and skip the \"open connection\"   This will keep this keyword backward compatible and should address the concerns you have brought up.\n\nwhat do you think?\n\n\noh, also if we pass a connection index to this keyword we should skip the \"Close Connection\" step as well.",
+      "parentUuid": "3a79b1b5_83f2acd0",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 47
+      },
+      "revId": "6e2716c2c6e70fc6d442335f702165cd24745016",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_da6961bf",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-11T17:14:28Z",
+      "side": 1,
+      "message": "per my comment above, we should [Return]    ${connection} in this keyword.",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 58
+      },
+      "revId": "6e2716c2c6e70fc6d442335f702165cd24745016",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_ba5ee510",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-11T17:14:28Z",
+      "side": 1,
+      "message": "if the above ideas are acceptable, I think this keyword can be simplified.  I would say this should also accept a connection_index argument as well defaulted to \"None\" and skip the \"Get_Connection\" step.  I see that step as dangerous because someone using this library may not have their \"current\" ssh connection opened to the controller VM anyway.  could be opened to another system.  So if an index is passed in, it can then pass that index to \"Issue Command On Karaf Console\".  If index is None, it can \"Connnect to Controller Karaf\" which now returns an index and then use that index in the same \"Issue Command On Karaf Console\".\n\nIf you want to let this patch sit for a while, I\u0027ll do the work and ammend it here.  I just can\u0027t do it in the next few days.",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 38
+      },
+      "revId": "6e2716c2c6e70fc6d442335f702165cd24745016",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
