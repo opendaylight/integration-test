@@ -134,9 +134,7 @@ Create VBRIF in VBR
     ${vbrifinfo}    Create Dictionary    if_name=${vbrifname}    description=${ifdescription}
     ${vbrifcreate}    Create Dictionary    interface=${vbrifinfo}
     ${vbrifcreate_json}=    json.dumps    ${vbrifcreate}
-    : For  ${i}  IN RANGE    1   5
-    \    ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${VBRIFS_CREATE}    data=${vbrifcreate_json}
-    \    Exit For Loop If    '${resp.status_code}' == '${retcode}'
+    ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${VBRIFS_CREATE}    data=${vbrifcreate_json}
     Should Be Equal As Strings    ${resp.status_code}    ${retcode}
 
 Define Portmap for VBRIF
