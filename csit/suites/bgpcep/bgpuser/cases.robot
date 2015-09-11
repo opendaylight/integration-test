@@ -15,7 +15,7 @@ Suite Teardown    Teardown_Everything
 Test Setup        FailFast.Fail_This_Fast_On_Previous_Error
 Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
 Library           OperatingSystem
-Library           SSHLibrary    prompt=]>    timeout=10s    # FIXME: The prompt should have default value from a common resource, and should be overwritable by pybot -v in scripts.
+Library           SSHLibrary    timeout=10s    # The default prompt is now assigned in Setup_Everything KEYWORD to ${CONTROLLER_PROMPT} value.
 Library           RequestsLibrary
 Library           ${CURDIR}/../../../libraries/HsfJson/hsf_json.py
 Variables         ${CURDIR}/../../../variables/Variables.py
@@ -31,6 +31,7 @@ Resource          ${CURDIR}/../../../libraries/Utils.robot
 ${directory_for_actual_responses}    ${TEMPDIR}/actual
 ${directory_for_expected_responses}    ${TEMPDIR}/expected
 ${directory_with_template_folders}    ${CURDIR}/../../../variables/bgpuser/
+${CONTROLLER_PROMPT}    ${DEFAULT_LINUX_PROMPT}
 ${HOLDTIME}    180
 
 *** Test Cases ***
@@ -126,6 +127,7 @@ Delete_Bgp_Peer_Configuration
 Setup_Everything
     [Documentation]    SSH-login to mininet machine, save prompt to variable, create HTTP session,
     ...    prepare directories for responses, put Python tool to mininet machine, setup imported resources.
+    SSHLibrary.Set_Default_Configuration    prompt=${CONTROLLER_PROMPT}
     SSHLibrary.Open_Connection    ${MININET}
     Utils.Flexible_SSH_Login     ${MININET_USER}    ${MININET_PASSWORD}
     ${current_connection}=    Get_Connection
