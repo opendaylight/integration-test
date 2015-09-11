@@ -27,52 +27,42 @@ Create VBR in VTN Tenant1
 
 Update controller ip invalid
     [Documentation]    Update Controller ip to invalid
-    [Tags]    exclude
     Update Controller    odc_test    10.0.0.1    invalid_IP
 
 Verify the Controller State is down
     [Documentation]    Check Controller status
-    [Tags]    exclude
     Wait Until Keyword Succeeds    12s    2s   Check Controller Status    odc_test    down
 
 Create VBRIF in VBRIDGE Vbridge1 Interface1
     [Documentation]    Create an interface to Vbridge1
-    [Tags]    exclude
     Create VBRIF in VBR    Tenant1    Vbridge1    Interface1    Interface1    202
 
 Create VBRIF in VBRIDGE Vbridge1 Interface2
     [Documentation]    Create an interface to Vbridge1
-    [Tags]    exclude
     Create VBRIF in VBR    Tenant1    Vbridge1    Interface2    Interface2    202
 
 Update controller ip valid
     [Documentation]    Update Controller ip to valid
-    [Tags]    exclude
     Update Controller    odc_test    ${CONTROLLER}    valid_IP
 
-Verify the Controller State is in waiting_audit
+Verify the Controller State is in down state
     [Documentation]    Check Controller status
-    [Tags]    exclude
-    Wait Until Keyword Succeeds    12s    2s   Check Controller Status    odc_test    waiting_audit
+    Wait Until Keyword Succeeds    12s    2s   Check Controller Status    odc_test   down
 
 Audit a controller manually
     [Documentation]    Trigger update audit
-    [Tags]    exclude
     Audit Controller    odc_test
 
 Define Portmap for Interface1
     [Documentation]    Map Interface1 to a logical port
-    [Tags]    exclude
     Define Portmap for VBRIF    Tenant1    Vbridge1    Interface1     PP-OF:openflow:2-s2-eth1
 
 Define Portmap for Interface2
     [Documentation]    Map Interface2 to a logical port
-    [Tags]    exclude
     Define Portmap for VBRIF    Tenant1    Vbridge1    Interface2    PP-OF:openflow:2-s2-eth2
 
 Test Ping for Configuration1
     [Documentation]    ping between hosts in mininet
-    [Tags]    exclude
     Wait Until Keyword Succeeds    10s    2s    Test Ping    h1    h2
 
 Delete a VTN Tenant1
