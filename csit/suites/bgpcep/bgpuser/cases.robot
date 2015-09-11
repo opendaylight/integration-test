@@ -15,7 +15,7 @@ Suite Teardown    Teardown_Everything
 Test Setup        FailFast.Fail_This_Fast_On_Previous_Error
 Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
 Library           OperatingSystem
-Library           SSHLibrary    prompt=]>    timeout=10s    # FIXME: The prompt should have default value from a common resource, and should be overwritable by pybot -v in scripts.
+Library           SSHLibrary    timeout=10s    # The default prompt is now assigned in Setup_Everything KEYWORD to ${CONTROLLER_PROMPT} value.
 Library           RequestsLibrary
 Library           ${CURDIR}/../../../libraries/HsfJson/hsf_json.py
 Variables         ${CURDIR}/../../../variables/Variables.py
@@ -31,6 +31,7 @@ Resource          ${CURDIR}/../../../libraries/Utils.robot
 ${directory_for_actual_responses}    ${TEMPDIR}/actual
 ${directory_for_expected_responses}    ${TEMPDIR}/expected
 ${directory_with_template_folders}    ${CURDIR}/../../../variables/bgpuser/
+${CONTROLLER_PROMPT}    ${DEFAULT_LINUX_PROMPT}
 ${HOLDTIME}    180
 
 *** Test Cases ***
@@ -126,12 +127,13 @@ Delete_Bgp_Peer_Configuration
 Setup_Everything
     [Documentation]    SSH-login to mininet machine, save prompt to variable, create HTTP session,
     ...    prepare directories for responses, put Python tool to mininet machine, setup imported resources.
+    SSHLibrary.Set_Default_Configuration    prompt=${CONTROLLER_PROMPT}
     SSHLibrary.Open_Connection    ${MININET}
     Utils.Flexible_SSH_Login     ${MININET_USER}    ${MININET_PASSWORD}
-    ${current_connection}=    Get_Connection
-    ${current_prompt}=    BuiltIn.Set_Variable    ${current_connection.prompt}
-    BuiltIn.Log    ${current_prompt}
-    Builtin.Set_Suite_Variable    ${prompt}    ${current_prompt}
+#    ${current_connection}=    Get_Connection
+#    ${current_prompt}=    BuiltIn.Set_Variable    ${current_connection.prompt}
+#    BuiltIn.Log    ${current_prompt}
+#    Builtin.Set_Suite_Variable    ${prompt}    ${current_prompt}
     RequestsLibrary.Create_Session    ses    http://${CONTROLLER}:${RESTCONFPORT}${OPERATIONAL_TOPO_API}    auth=${AUTH}
     # TODO: Do not include slash in ${OPERATIONAL_TOPO_API}, having it typed here is more readable.
     # TODO: Alternatively, create variable in Variables which starts with http.
@@ -205,7 +207,7 @@ Check_Number_Of_Speaker_Connections
 
 Read_And_Fail_If_Prompt_Is_Seen
     [Documentation]    Try to read SSH to see prompt, but expect to see no prompt within SSHLibrary's timeout.
-    ${passed}=    BuiltIn.Run_Keyword_And_Return_Status    BuiltIn.Run_Keyword_And_Expect_Error    No match found for '${prompt}' in *.    Read_Text_Before_Prompt
+    ${passed}=    BuiltIn.Run_Keyword_And_Return_Status    BuiltIn.Run_Keyword_And_Expect_Error    No match found for '${CONTROLLER_PROMPT}' in *.    Read_Text_Before_Prompt
     BuiltIn.Return_From_Keyword_If    ${passed}
     Dump_BGP_Speaker_Logs
     Fail    The prompt was seen but it was not expected yet
