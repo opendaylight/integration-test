@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite for VTN Manager using OF13
+Documentation     Test suite for VTN Manager using OF10
 Suite Setup       Start SuiteVtnMaTest
 Suite Teardown    Stop SuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
@@ -7,7 +7,7 @@ Resource          ../../../libraries/VtnMaKeywords.robot
 *** Test Cases ***
 Start topology
     [Documentation]    Add a vlan topology
-    Start vlan_topo    OF13
+    Start vlan_topo    OF10
 
 Check if switch1 detected
     [Documentation]    Check if openflow:1 is detected
