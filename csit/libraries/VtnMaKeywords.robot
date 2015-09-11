@@ -9,7 +9,8 @@ Variables         ../variables/Variables.py
 Resource          ./Utils.robot
 
 *** Variables ***
-${vlan_topo}      sudo mn --controller=remote,ip=${CONTROLLER} --custom vlan_vtn_test.py --topo vlantopo
+${vlan_topo_10}      sudo mn --controller=remote,ip=${CONTROLLER} --custom vlan_vtn_test.py --topo vlantopo
+${vlan_topo_13}      sudo mn --controller=remote,ip=${CONTROLLER} --custom vlan_vtn_test.py --topo vlantopo --switch ovsk,protocols=OpenFlow13
 ${REST_CONTEXT_VTNS}    controller/nb/v2/vtn/default/vtns
 ${REST_CONTEXT}    controller/nb/v2/vtn/default
 ${VERSION_VTN}    controller/nb/v2/vtn/version
@@ -206,13 +207,16 @@ Delete a interface
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Start vlan_topo
+    [Arguments]    ${OF}
+    [Documentation]    Add vlan custom topology.
     Clean Mininet System
     ${mininet_conn_id1}=    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Suite Variable    ${mininet_conn_id1}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
     Put File    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
-    Write    ${vlan_topo}
+    Run Keyword If    '${OF}' == 'OF13'    Write    ${vlan_topo_13}
+    ...    ELSE IF    '${OF}' == 'OF10'    Write    ${vlan_topo_10}
     ${result}    Read Until    mininet>
 
 Add a vlanmap
