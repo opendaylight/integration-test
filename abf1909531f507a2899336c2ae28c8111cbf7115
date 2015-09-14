@@ -379,6 +379,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_404f9f92",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-14T23:43:38Z",
+      "side": 1,
+      "message": "Is there something wrong with billing the setup time to the real work  of the test case?  Ideally, each test case here would have some valid checks to pass/fail against specifically for the BGP functionality.\n\nwhat about a [Setup] that calls a local keyword that will do the setup work.  The time spent would be billed to the actual test case, but it would end up in the \"Setup\" section.  just an idea.",
+      "parentUuid": "3a79b1b5_a316c8ef",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 48
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_2e3626e8",
         "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
         "patchSetId": 8
@@ -497,6 +521,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_e0458b70",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-14T23:43:38Z",
+      "side": 1,
+      "message": "These are good questions to bring up with the BGP dev community.  We don\u0027t need to increase our WUKS timeouts if we think 60s is too long because of performance bugs.  Let\u0027s keep it to what we know is reasonable (have to learn that first) and let it fail with a test case log message pointing to the bugzilla.\n\nopenflowplugin tests had similar issues back in the Lithium time frame where people noticed the operational store wasn\u0027t always accurate so they added a sleep (60s) or WUKS.  We learned that openflowplugin has a 3s polling timer to collect stats.  So, if the\nstats are not there after 4s we should be failing the test case.  If they got there afterward, and it was using a 60s sleep then the test would have passed and we would not have noticed that stats collection is having an issue.",
+      "parentUuid": "3a79b1b5_63bf50d1",
+      "range": {
+        "startLine": 106,
+        "startChar": 52,
+        "endLine": 106,
+        "endChar": 56
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_ce3452e0",
         "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
         "patchSetId": 8
@@ -544,6 +592,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_0049a78a",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-14T23:43:38Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "3a79b1b5_03b69cfa",
+      "range": {
+        "startLine": 113,
+        "startChar": 4,
+        "endLine": 113,
+        "endChar": 63
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_2e3dc6bb",
         "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
         "patchSetId": 8
@@ -579,6 +651,30 @@
       "side": 1,
       "message": "It takes about 40 seconds to drop 1M routes on our private lab. The sandbox/releng performance is about 3 times worse which translates to 120 seconds. The remaining 60 seconds is a \"safety margin\". That explains the 180s in the \"..._To_Become_Empty\" line. The other 180s is due to a performance bug in ODL where it may take so much time for it to start cleaning up when there is a large amount of routes in RIB/Topology. And I already designed these keywords to bail out of the loop early if the change counter spits out an error message instead of a result but it is not easy to see that. Namely, Robot does not have support for keywords which tri-state results (PASS, FAIL_NOT_BUT_MAY_PASS_LATER and FAIL_WITH_NO_HOPE_TO_PASS) so a bunch of tricks must be employed to make it work. See \"Check_Topology_Stability\" keyword and note that it is designed to PASS when the response code returned from the request is an error - this is exactly the tricky part used to bail out of the Wait_Until_Keyword_Succeeds keyword.",
       "parentUuid": "3a79b1b5_2e3dc6bb",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 53
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_a05f9340",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-14T23:43:38Z",
+      "side": 1,
+      "message": "I\u0027m getting the sense that you are doing a lot of tricks just to get the tests to pass, instead of letting things fail because there are\nreal issues?\n\nwhat\u0027s the difference in setups between the sandbox and your internal lab? the sandbox VMs should be 4core and 8G RAM.  Maybe your lab has much beefier setups?",
+      "parentUuid": "3a79b1b5_69ebb8b0",
       "range": {
         "startLine": 149,
         "startChar": 0,
@@ -650,6 +746,30 @@
       "side": 1,
       "message": "It is part of suite cleanup, but it does not have consequences of Suite Teardown yet.\n\nLibrary ConfigViaRestconf got Verify_* keywords in https://git.opendaylight.org/gerrit/#/c/26643 (not merged yet), but that needs expected config data after deletion.\n\nI also agree that such check is mostly needed in functional suite, so perhaps adding check after delete is a task for separate change (affecting all suites which delete configuration).",
       "parentUuid": "3a79b1b5_69397840",
+      "range": {
+        "startLine": 156,
+        "startChar": 4,
+        "endLine": 156,
+        "endChar": 47
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_c05acf4f",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-14T23:43:38Z",
+      "side": 1,
+      "message": "can you re-explain this part?  If this is part of suite teardown, why not just put the work in \"Teardown_Everything\"?",
+      "parentUuid": "3a79b1b5_638d1031",
       "range": {
         "startLine": 156,
         "startChar": 4,
