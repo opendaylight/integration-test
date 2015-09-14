@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "3a79b1b5_1d3910a4",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-14T13:39:53Z",
+      "side": 1,
+      "message": "Robot machine has ipaddr Python module installed, use it to make this block more readable.",
+      "range": {
+        "startLine": 10,
+        "startChar": 4,
+        "endLine": 11,
+        "endChar": 75
+      },
+      "revId": "9c1823249aeea0b3bf681b527786705e8e0b55d9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_3d52cc13",
         "filename": "csit/libraries/Sxp.py",
         "patchSetId": 2
@@ -133,6 +156,52 @@
         "startChar": 15,
         "endLine": 1,
         "endChar": 16
+      },
+      "revId": "9c1823249aeea0b3bf681b527786705e8e0b55d9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_dd7dd86f",
+        "filename": "csit/suites/sxp/basic/010_Restconf_OK.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-14T13:39:53Z",
+      "side": 1,
+      "message": "Not needed in this .robot file.",
+      "range": {
+        "startLine": 7,
+        "startChar": 37,
+        "endLine": 7,
+        "endChar": 48
+      },
+      "revId": "9c1823249aeea0b3bf681b527786705e8e0b55d9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_9dc52090",
+        "filename": "csit/suites/sxp/basic/22-sxp-controller-one-node.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-14T13:39:53Z",
+      "side": 1,
+      "message": "Would the suite work with a more vendor-neutral password?",
+      "range": {
+        "startLine": 52,
+        "startChar": 42,
+        "endLine": 52,
+        "endChar": 50
       },
       "revId": "9c1823249aeea0b3bf681b527786705e8e0b55d9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
