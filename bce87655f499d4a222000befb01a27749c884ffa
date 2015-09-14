@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_9aba0922",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-14T23:29:51Z",
+      "side": 1,
+      "message": "I don\u0027t follow this logic.  If netconf-connector responds in 60s or less the #2 test case will always pass.  If it responds immediately #1 and #2 will always pass.  What are we learning by throwing a failure in the #1 test case because the netconf-connector took 2s to come up.  that gives us a failure and then a passing case.  Are we going to file a bug on that?\n\nI can see this sounding false alarms and we want to get to a point where we expect 100% passing for all stable tests/features.",
+      "parentUuid": "3a79b1b5_0011b204",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 79
+      },
+      "revId": "bce87655f499d4a222000befb01a27749c884ffa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_1814d042",
         "filename": "csit/suites/netconf/ready/netconfready.robot",
         "patchSetId": 2
