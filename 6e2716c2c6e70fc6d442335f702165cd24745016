@@ -49,6 +49,53 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_dd9ab862",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-14T15:34:08Z",
+      "side": 1,
+      "message": "This idea is pretty good in that there will be no need to refactor 20+ tests I don\u0027t have the know-how to correctly check that they were refactored properly.\n\nThis is something I could do myself in 2-3 days. As it has pretty high priority, I guess it is better I will handle it, freeing you for whatever needs your attention more urgently.\n\nOne point is that I will add a pair of Get_Connection/Switch_Connection calls bracketing the body of the method so the \"SSH connection clobbering problem\" will go away.\n\nAnther point is that I want to introduce the concept of \"default connection\" so that a testsuite issuing many commands to just one console does not have to pass a plethora of arguments to the keyword.\n\nOtherwise the \"connection_index\" (well, a better name here would be \"console_index\" to avoid confusion with raw SSH connections) will be passed around.",
+      "parentUuid": "3a79b1b5_3a73b5b2",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 47
+      },
+      "revId": "6e2716c2c6e70fc6d442335f702165cd24745016",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_5d21c8f9",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-14T15:34:08Z",
+      "side": 1,
+      "message": "I am going to rename this to \"Open Controller Karaf Console\" to make it less likely to be confused with some SSH connection.",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 27
+      },
+      "revId": "6e2716c2c6e70fc6d442335f702165cd24745016",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_da6961bf",
         "filename": "csit/libraries/KarafKeywords.robot",
         "patchSetId": 3
@@ -83,6 +130,30 @@
       "writtenOn": "2015-09-11T17:14:28Z",
       "side": 1,
       "message": "if the above ideas are acceptable, I think this keyword can be simplified.  I would say this should also accept a connection_index argument as well defaulted to \"None\" and skip the \"Get_Connection\" step.  I see that step as dangerous because someone using this library may not have their \"current\" ssh connection opened to the controller VM anyway.  could be opened to another system.  So if an index is passed in, it can then pass that index to \"Issue Command On Karaf Console\".  If index is None, it can \"Connnect to Controller Karaf\" which now returns an index and then use that index in the same \"Issue Command On Karaf Console\".\n\nIf you want to let this patch sit for a while, I\u0027ll do the work and ammend it here.  I just can\u0027t do it in the next few days.",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 38
+      },
+      "revId": "6e2716c2c6e70fc6d442335f702165cd24745016",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_7d1cc4c1",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-14T15:34:08Z",
+      "side": 1,
+      "message": "When your ideas are implemented, only two lines and a part of third from this keyword are going to survive. The first line will be the [Arguments] (which will get some more arguments added but its current content will survive), the second one is [Documentation] and the part is the one cell that contains \"ROBOT MESSAGE\". :)",
+      "parentUuid": "3a79b1b5_ba5ee510",
       "range": {
         "startLine": 88,
         "startChar": 0,
