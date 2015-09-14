@@ -6,7 +6,7 @@ Variables         ../variables/Variables.py
 *** Variables ***
 ${WORKSPACE}      /tmp
 ${BUNDLEFOLDER}    distribution-karaf-0.3.0-SNAPSHOT
-${controller_index}    -1
+${current_console}    None
 
 *** Keywords ***
 Check Karaf Log File Does Not Have Messages
@@ -15,6 +15,60 @@ Check Karaf Log File Does Not Have Messages
     ...    karaf.log file can be overridden with ${log_file} to be any file on the given system @ ${ip}
     ${output}=    Run Command On Controller    ${ip}    grep ${message} ${log_file}    user=${user}    password=${password}    prompt=${prompt}
     Should Not Contain    ${output}    ${message}
+
+Store Current SSH Connection
+    [Documentation]    DO NOT USE THIS DIRECTLY !
+    # Background info: If there was no previous SSH connection, the "Get
+    # Connection" returns an information structure whose "index" field
+    # resolves to "None", and the "Switch Connection" in the next keyword
+    # does not complain.
+    ${current}=    Get_Connection
+    Set Suite Variable    ${current_SSH_connection}    ${current.index}
+
+Restore Current SSH Connection
+    [Documentation]    DO NOT USE THIS DIRECTLY !
+    Switch Connection    ${current_SSH_connection}
+
+Open Controller Karaf Console
+    [Arguments]    ${controller}=${CONTROLLER}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=5
+    [Documentation]    Connect to the controller's karaf console.
+    Store Current SSH Connection
+    ${esc}=    BuiltIn.Evaluate    chr(int(27))
+    ${prompt}=    Builtin.Set Variable    @${esc}[0m${esc}[34mroot${esc}[0m>
+    ${connection}=    SSHLibrary.Open_Connection    ${controller}    port=${karaf_port}    prompt=${prompt}    timeout=${timeout}
+    Set Suite Variable    ${current_console}    ${connection}
+    SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}
+    Restore Current SSH Connection
+
+Get Controller Name Or Index
+    [Arguments]    ${addr}=None    ${console_index}=None
+    [Documentation]    DO NOT USE THIS DIRECTLY !
+    Return From Keyword If    ${console_index} <> None    ${console_index}    None
+    Return From Keyword If    ${addr} <> None    None    ${addr}
+    Return From Keyword If    ${current_console} <> None    ${current_console}    None
+    Log To Console    ${CONTROLLER}
+    Return From Keyword    None    ${CONTROLLER}
+
+Issue Command On Karaf Console
+    [Arguments]    ${cmd}    ${addr}=None    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=5    ${console_index}=None
+    [Documentation]    Will execute the given ${cmd} by ssh'ing to the karaf console. If {console_index} is
+    ...    given, then the command is sent to that console. Otherwise if ${controller} is given, then a connection
+    ...    is opened to that controller, the command is sent there and then the connection is closed. If a cosole
+    ...    was opened using "Open Controller Karaf Console", then the command is sent to that console. Otherwise
+    ...    the command is sent to ${CONTROLLER} using a temporary connection that will be closed after the command
+    ...    is sent. The arguments ${karaf_port} and ${timeout} are ignored if a console index is being used (in
+    ...    that case the values specified in the 
+    Store Current SSH Connection
+    ${index}    ${console}=    Get Controller Name Or Index    ${addr}    ${console_index}
+    Run Keyword If    ${index} <> None    Switch Connection    ${index}
+    Run Keyword If    ${index} == None    Open Connection    ${console}    port=${karaf_port}    prompt=${KARAF_PROMPT}    timeout=${timeout}
+    Run Keyword If    ${index} == None    Login    ${KARAF_USER}    ${KARAF_PASSWORD}
+    Write    ${cmd}
+    ${output}    Read Until    ${KARAF_PROMPT}
+    Run Keyword If    ${index} == None    Close Connection
+    Log    ${output}
+    Restore Current SSH Connection
+    [Return]    ${output}
 
 Verify Feature Is Installed
     [Arguments]    ${feature_name}    ${controller}=${CONTROLLER}    ${karaf_port}=${KARAF_SHELL_PORT}
@@ -28,17 +82,6 @@ Verify Feature Is Not Installed
     [Documentation]    Will Succeed if the given ${feature_name} is NOT found in the output of "feature:list -i"
     ${output}=    Issue Command On Karaf Console    feature:list -i | grep ${feature_name}    ${controller}    ${karaf_port}
     Should Not Contain    ${output}    ${feature_name}
-    [Return]    ${output}
-
-Issue Command On Karaf Console
-    [Arguments]    ${cmd}    ${controller}=${CONTROLLER}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=5
-    [Documentation]    Will execute the given ${cmd} by ssh'ing to the karaf console running on ${CONTROLLER}
-    Open Connection    ${controller}    port=${karaf_port}    prompt=${KARAF_PROMPT}    timeout=${timeout}
-    Login    ${KARAF_USER}    ${KARAF_PASSWORD}
-    Write    ${cmd}
-    ${output}    Read Until    ${KARAF_PROMPT}
-    Close Connection
-    Log    ${output}
     [Return]    ${output}
 
 Verify Bundle Is Installed
@@ -64,47 +107,21 @@ Check Karaf Log Has Messages
     [Return]    ${output}
 
 Install a Feature
-    [Arguments]    ${feature_name}    ${controller}=${CONTROLLER}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=15
+    [Arguments]    ${feature_name}    ${controller}=${CONTROLLER}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=15    ${console_index}=None
     [Documentation]    Will Install the given ${feature_name}
     Log    ${timeout}
-    ${output}=    Issue Command On Karaf Console    feature:install ${feature_name}    ${controller}    ${karaf_port}    ${timeout}
+    ${output}=    Issue Command On Karaf Console    feature:install ${feature_name}    ${controller}    ${karaf_port}    ${timeout}    ${console_index}
     Log    ${output}
     [Return]    ${output}
 
 Uninstall a Feature
-    [Arguments]    ${feature_name}    ${controller}=${CONTROLLER}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=15
+    [Arguments]    ${feature_name}    ${controller}=${CONTROLLER}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=15    ${console_index}=None
     [Documentation]    Will UnInstall the given ${feature_name}
-    ${output}=    Issue Command On Karaf Console    feature:uninstall ${feature_name}    ${controller}    ${karaf_port}    ${timeout}
+    ${output}=    Issue Command On Karaf Console    feature:uninstall ${feature_name}    ${controller}    ${karaf_port}    ${timeout}    ${console_index}
     Log    ${output}
     [Return]    ${output}
 
-Store Current SSH Connection
-    ${current}=    Get_Connection
-    Set Suite Variable    ${current_SSH_connection}    ${current.index}
-
-Restore Current SSH Connection
-    Switch Connection    ${current_SSH_connection}
-
-Open Controller Karaf Console
-    [Documentation]    Connect to the controller's karaf console.
-    Store Current SSH Connection
-    ${esc}=    BuiltIn.Evaluate    chr(int(27))
-    ${prompt}=    Builtin.Set Variable    @${esc}[0m${esc}[34mroot${esc}[0m>
-    ${connection}=    SSHLibrary.Open_Connection    ${CONTROLLER}    port=${KARAF_SHELL_PORT}    prompt=${prompt}
-    Set Suite Variable    ${controller_index}    ${connection}
-    SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}
-    Restore Current SSH Connection
-
 Log Message To Controller Karaf
-    [Arguments]    ${message}
+    [Arguments]    ${message}    ${controller}=None    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=5    ${console_index}=None
     [Documentation]    Send a message into the controller's karaf log file.
-    # Background info: If there was no previous SSH connection, the "Get
-    # Connection" returns an information structure whose "index" field
-    # resolves to "None", and the "Switch Connection" below does not
-    # complain.
-    BuiltIn.Run Keyword If    ${controller_index} == -1    Fail    Need to connect to a Karaf Console first
-    Store Current SSH Connection
-    BuiltIn.Run Keyword If    ${controller_index} <> -1    Switch Connection    ${controller_index}
-    SSHLibrary.Write    log:log "ROBOT MESSAGE: ${message}"
-    SSHLibrary.Read_Until_Prompt
-    Restore Current SSH Connection
+    Issue Command On Karaf Console    log:log "ROBOT MESSAGE: ${message}"    ${controller}    ${karaf_port}    ${timeout}    ${console_index}
