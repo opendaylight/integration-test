@@ -24,18 +24,58 @@ cse_payload = '''
 
 resourcepayload = '''
 {
-  any:
-  [
-    {%s}
-  ]
+    %s
+}
+'''
+
+ae_payload = '''
+{
+    "ae":{%s}
+}
+'''
+
+con_payload = '''
+{
+    "cnt":{%s}
+}
+'''
+
+cin_payload = '''
+{
+   "cin":{%s}
+}
+'''
+
+subs_payload = '''
+{
+    "sub":{%s}
 }
 '''
 
 
+def which_payload(restype):
+    """Choose the correct payload header for each resource."""
+    print restype
+    if restype == 2:
+        print ae_payload
+        return ae_payload
+    elif restype == 3:
+        return con_payload
+    elif restype == 4:
+        return cin_payload
+    elif restype == 23:
+        return subs_payload
+    else:
+        return resourcepayload
+
+
 def find_key(response, key):
     """Deserialize response, return value for key or None."""
-    val = response.json()
-    return val.get(key, None)
+    dic = response.json()
+    key1 = list(dic.keys())
+    key1 = sorted(key1, reverse=True)
+    print (key1[0])
+    return dic.get(key1[0], None).get(key, None)
 
 
 def name(response):
@@ -116,7 +156,7 @@ class connect:
             # Admittedly these are "magic values" but are required
             # and until a proper defaulting initializer is in place
             # are hard-coded.
-            'content-type': 'application/json',
+            'content-type': 'application/vnd.onem2m-res+json',
             'X-M2M-Origin': '//localhost:10000',
             'X-M2M-RI': '12345',
             'X-M2M-OT': 'NOW'
@@ -132,12 +172,15 @@ class connect:
         """Create resource."""
         if parent is None:
             return None
-        payload = resourcepayload % (attr)
+        payload = which_payload(restype)
+        payload = payload % (attr)
         print payload
         self.headers['X-M2M-NM'] = name
+        self.headers['content-type'] = 'application/\
+            vnd.onem2m-res+json;ty=%s' % (restype)
         parent = normalize(parent)
-        self.url = self.server + ":8282/%s?ty=%s&rcn=1" % (
-            parent, restype)
+        self.url = self.server + ":8282/%s?&rcn=1" % (
+            parent)
         self.response = self.session.post(
             self.url, payload, timeout=self.timeout, headers=self.headers)
         return self.response
@@ -147,15 +190,18 @@ class connect:
         """Create resource."""
         if parent is None:
             return None
-        payload = resourcepayload % (attr)
+        payload = which_payload(restype)
+        payload = payload % (attr)
         print payload
         if name is None:
             self.headers['X-M2M-NM'] = None
         else:
             self.headers['X-M2M-NM'] = name
+        self.headers['content-type'] = 'application/\
+            vnd.onem2m-res+json;ty=%s' % (restype)
         parent = normalize(parent)
-        self.url = self.server + ":8282/%s?ty=%s&%s" % (
-            parent, restype, command)
+        self.url = self.server + ":8282/%s?%s" % (
+            parent, command)
         self.response = self.session.post(
             self.url, payload, timeout=self.timeout, headers=self.headers)
         return self.response
@@ -165,8 +211,9 @@ class connect:
         if resourceURI is None:
             return None
         resourceURI = normalize(resourceURI)
-        self.url = self.server + ":8282/%s?rcn=5&drt=2" % (resourceURI)
+        self.url = self.server + ":8282/%s?rcn=5" % (resourceURI)
         self.headers['X-M2M-NM'] = None
+        self.headers['content-type'] = 'application/vnd.onem2m-res+json'
         self.response = self.session.get(
             self.url, timeout=self.timeout, headers=self.headers
         )
@@ -181,6 +228,7 @@ class connect:
         resourceURI = normalize(resourceURI)
         self.url = self.server + ":8282/%s?%s" % (resourceURI, command)
         self.headers['X-M2M-NM'] = None
+        self.headers['content-type'] = 'application/vnd.onem2m-res+json'
         self.response = self.session.get(
             self.url, timeout=self.timeout, headers=self.headers
         )
@@ -191,13 +239,14 @@ class connect:
         if resourceURI is None:
             return None
         resourceURI = normalize(resourceURI)
-        # print(payload)
-        payload = resourcepayload % (attr)
+        payload = which_payload(restype)
+        payload = payload % (attr)
         print payload
         if name is None:
             self.headers['X-M2M-NM'] = None
         else:
             self.headers['X-M2M-NM'] = name
+        self.headers['content-type'] = 'application/vnd.onem2m-res+json'
         self.url = self.server + ":8282/%s" % (resourceURI)
         self.response = self.session.put(
             self.url, payload, timeout=self.timeout, headers=self.headers)
@@ -209,13 +258,14 @@ class connect:
         if resourceURI is None:
             return None
         resourceURI = normalize(resourceURI)
-        # print(payload)
-        payload = resourcepayload % (attr)
+        payload = which_payload(restype)
+        payload = payload % (attr)
         print payload
         if name is None:
             self.headers['X-M2M-NM'] = None
         else:
             self.headers['X-M2M-NM'] = name
+        self.headers['content-type'] = 'application/vnd.onem2m-res+json'
         self.url = self.server + ":8282/%s?%s" % (resourceURI, command)
         self.response = self.session.put(
             self.url, payload, timeout=self.timeout, headers=self.headers)
@@ -228,6 +278,7 @@ class connect:
         resourceURI = normalize(resourceURI)
         self.url = self.server + ":8282/%s" % (resourceURI)
         self.headers['X-M2M-NM'] = None
+        self.headers['content-type'] = 'application/vnd.onem2m-res+json'
         self.response = self.session.delete(self.url, timeout=self.timeout,
                                             headers=self.headers)
         return self.response
@@ -239,6 +290,7 @@ class connect:
         resourceURI = normalize(resourceURI)
         self.url = self.server + ":8282/%s?%s" % (resourceURI, command)
         self.headers['X-M2M-NM'] = None
+        self.headers['content-type'] = 'application/vnd.onem2m-res+json'
         self.response = self.session.delete(self.url, timeout=self.timeout,
                                             headers=self.headers)
         return self.response

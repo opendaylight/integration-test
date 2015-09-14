@@ -23,25 +23,25 @@ Set Suite Variable
 
 1.11 Valid Input for AE without name
     [Documentation]    Valid Input for AE without name
-    ${attr} =    Set Variable    "aei":"ODL","api":"jb","apn":"jb2","or":"http://hey/you"
+    ${attr} =    Set Variable    "api":"jb","apn":"jb2","or":"http://hey/you","rr":true
     ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_ae}    ${attr}
     Response Is Correct    ${r}
 
 1.12 Valid Input for AE with name
-    ${attr} =    Set Variable    "aei":"ODL","api":"jb","apn":"jb2","or":"http://hey/you"
+    ${attr} =    Set Variable    "api":"jb","apn":"jb2","or":"http://hey/you","rr":true
     ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_ae}    ${attr}    ODL3
     Response Is Correct    ${r}
 
 1.13 Invalid Input for AE with name Already Exist, should return error
     [Documentation]    Invalid Input for AE with name Already Exist, should return error
-    ${attr} =    Set Variable    "aei":"ODL","api":"jb","apn":"jb2","or":"http://hey/you"
+    ${attr} =    Set Variable    "api":"jb","apn":"jb2","or":"http://hey/you","rr":true
     ${error} =    Run Keyword And Expect Error    *    Create Resource    ${iserver}    InCSE1    ${rt_ae}
     ...    ${attr}    ODL3
     Should Start with    ${error}    Cannot create this resource [409]
 
 1.14 Invalid Input for AE (AE cannot be created under AE)
     [Documentation]    Invalid Input for AE (AE cannot be created under AE), expect error
-    ${attr} =    Set Variable    "aei":"ODL","api":"jb","apn":"jb2","or":"http://hey/you"
+    ${attr} =    Set Variable    "api":"jb","apn":"jb2","or":"http://hey/you","rr":true
     ${error} =    Run Keyword And Expect Error    *    Create Resource    ${iserver}    InCSE1/ODL3    ${rt_ae}
     ...    ${attr}    ODL4
     Should Start with    ${error}    Cannot create this resource [405]
@@ -50,14 +50,13 @@ Set Suite Variable
 1.15 Valid Update AE's label
     [Documentation]    Valid Update AE's label
     ${attr} =    Set Variable    "lbl":["aaa","bbb","ccc"]
-    ${r} =    Update Resource    ${iserver}    InCSE1/ODL3    2    ${attr}
-    ${ae} =    Name    ${r}
+    ${r} =    Update Resource    ${iserver}    InCSE1/ODL3    ${rt_ae}    ${attr}
     Response Is Correct    ${r}
     # Retrieve and test the lbl
-    ${r} =    Retrieve Resource    ${iserver}    ${ae}
+    ${r} =    Retrieve Resource    ${iserver}    InCSE1/ODL3
     ${Json} =    Text    ${r}
     Should Contain    ${Json}    "aaa"    "bbb"    "ccc"
-    Should Contain    ${r.json()['lbl']}    aaa    bbb    ccc
+    Should Contain    ${r.json()['m2m:ae']['lbl']}    aaa    bbb    ccc
     #==================================================
     #    Container Test
     #==================================================
@@ -71,12 +70,12 @@ Set Suite Variable
     [Documentation]    Invalid Input for Container Under AE with name (Already exist)
     ${attr} =    Set Variable    "cr":null,"mni":1,"mbs":15,"or":"http://hey/you"
     ${r} =    Create Resource    ${iserver}    InCSE1/ODL3    ${rt_container}    ${attr}    containerUnderAE
-    ${container} =    Name    ${r}
+    ${container} =    Location    ${r}
     Response Is Correct    ${r}
     # retrieve it
     ${result} =    Retrieve Resource    ${iserver}    ${container}
     ${text} =    Text    ${result}
-    Should Contain    ${text}    "containerUnderAE"
+    Should Contain    ${text}    containerUnderAE
 
 2.13 Invalid Input for Container Under AE with name (Already exist)
     [Documentation]    Invalid Input for Container Under AE with name (Already exist)
@@ -89,13 +88,12 @@ Set Suite Variable
     [Documentation]    Update Label to ["aaa","bbb","ccc"]
     ${attr} =    Set Variable    "lbl":["aaa","bbb","ccc"]
     ${r} =    Update Resource    ${iserver}    InCSE1/ODL3/containerUnderAE    ${rt_container}    ${attr}
-    ${container} =    Name    ${r}
     Response Is Correct    ${r}
     # Retrieve and test the lbl
-    ${r} =    Retrieve Resource    ${iserver}    ${container}
+    ${r} =    Retrieve Resource    ${iserver}    InCSE1/ODL3/containerUnderAE
     ${Json} =    Text    ${r}
     Should Contain    ${Json}    "aaa"    "bbb"    "ccc"
-    Should Contain    ${r.json()['lbl']}    aaa    bbb    ccc
+    Should Contain    ${r.json()['m2m:cnt']['lbl']}    aaa    bbb    ccc
     #----------------------------------------------------------------------
 
 2.21 Create Container under InCSE1 without name
@@ -112,7 +110,7 @@ Set Suite Variable
     # retrieve it
     ${result} =    Retrieve Resource    ${iserver}    InCSE1/containerUnderCSE
     ${text} =    Text    ${result}
-    Should Contain    ${text}    "contaienrUnderCSE"
+    Should Contain    ${text}    containerUnderCSE
 
 2.23 Invalid Input for Container Under CSE with name (Already exist)
     [Documentation]    Invalid Input for Container Under CSE with name (Already exist)
@@ -125,13 +123,12 @@ Set Suite Variable
     [Documentation]    Update Container Label
     ${attr} =    Set Variable    "lbl":["aaa","bbb","ccc"]
     ${r} =    Update Resource    ${iserver}    InCSE1/containerUnderCSE    ${rt_container}    ${attr}
-    ${container} =    Name    ${r}
     Response Is Correct    ${r}
     # Retrieve and test the lbl
-    ${r} =    Retrieve Resource    ${iserver}    ${container}
+    ${r} =    Retrieve Resource    ${iserver}    InCSE1/containerUnderCSE
     ${Json} =    Text    ${r}
     Should Contain    ${Json}    "aaa"    "bbb"    "ccc"
-    Should Contain    ${r.json()['lbl']}    aaa    bbb    ccc
+    Should Contain    ${r.json()['m2m:cnt']['lbl']}    aaa    bbb    ccc
     #----------------------------------------------------------------------
 
 2.31 Create Container under Container without name
@@ -144,12 +141,12 @@ Set Suite Variable
     [Documentation]    Create Container under Container with name
     ${attr} =    Set Variable    "cr":null,"mni":1,"mbs":15,"or":"http://hey/you"
     ${r} =    Create Resource    ${iserver}    InCSE1/containerUnderCSE    ${rt_container}    ${attr}    containerUnderContainer
-    ${container} =    Name    ${r}
+    ${container} =    Location    ${r}
     Response Is Correct    ${r}
     # retrieve it
     ${result} =    Retrieve Resource    ${iserver}    ${container}
     ${text} =    Text    ${result}
-    Should Contain    ${text}    "containerUnderContainer"
+    Should Contain    ${text}    containerUnderContainer
 
 2.33 Invalid Input for Container Under Container with name (Already exist)
     [Documentation]    Invalid Input for Container Under Container with name (Already exist)
@@ -167,11 +164,11 @@ Set Suite Variable
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/containerUnderCSE/containerUnderContainer
     ${Json} =    Text    ${r}
     Should Contain    ${Json}    "aaa"    "bbb"    "ccc"
-    Should Contain    ${r.json()['lbl']}    aaa    bbb    ccc
+    Should Contain    ${r.json()['m2m:cnt']['lbl']}    aaa    bbb    ccc
 
 2.41 Invalid Input for AE under container withoutname(mess up layer)
     [Documentation]    Invalid Input for AE under container withoutname(mess up layer)
-    ${attr} =    Set Variable    "aei":"ODL","api":"jb","apn":"jb2","or":"http://hey/you"
+    ${attr} =    Set Variable    "api":"jb","apn":"jb2","or":"http://hey/you","rr":true
     ${error} =    Run Keyword And Expect Error    *    Create Resource    ${iserver}    InCSE1/containerUnderCSE    ${rt_ae}
     ...    ${attr}    ODL4
     Should Start with    ${error}    Cannot create this resource [405]
@@ -218,7 +215,7 @@ Set Suite Variable
 
 3.16 Invalid AE under contentInstance
     [Documentation]    Invalid AE under contentInstance
-    ${attr} =    Set Variable    "aei":"ODL","api":"jb","apn":"jb2","or":"http://hey/you"
+    ${attr} =    Set Variable    "api":"jb","apn":"jb2","or":"http://hey/you","rr":true
     ${error} =    Run Keyword And Expect Error    *    Create Resource    ${iserver}    InCSE1/containerUnderCSE/conIn1    ${rt_ae}
     ...    ${attr}
     Should Start with    ${error}    Cannot create this resource [405]
@@ -237,9 +234,9 @@ Set Suite Variable
 
 4.11 Delete AE without child resource
     [Documentation]    Delete AE without child resource
-    ${attr} =    Set Variable    "aei":"ODL","api":"jb","apn":"jb2","or":"http://hey/you"
+    ${attr} =    Set Variable    "api":"jb","apn":"jb2","or":"http://hey/you","rr":true
     ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_ae}    ${attr}
-    ${ae} =    Name    ${r}
+    ${ae} =    Location    ${r}
     Response Is Correct    ${r}
     ${deleteRes} =    Delete Resource    ${iserver}    ${ae}
     ${status_code} =    Status Code    ${deleteRes}
@@ -252,7 +249,7 @@ Set Suite Variable
     [Documentation]    Delete Container without child resource
     ${attr} =    Set Variable    "cr":null,"mni":1,"mbs":15,"or":"http://hey/you"
     ${r} =    Create Resource    ${iserver}    InCSE1/ODL3    ${rt_container}    ${attr}
-    ${container} =    Name    ${r}
+    ${container} =    Location    ${r}
     Response Is Correct    ${r}
     ${deleteRes} =    Delete Resource    ${iserver}    ${container}
     ${status_code} =    Status Code    ${deleteRes}
@@ -271,7 +268,7 @@ Connect And Create Resource
     [Arguments]    ${targetURI}    ${resoutceType}    ${attr}    ${resourceName}=${EMPTY}
     ${iserver} =    Connect To Iotdm    ${httphost}    ${httpuser}    ${httppass}    http
     ${r} =    Create Resource    ${iserver}    ${targetURI}    ${resoutceType}    ${attr}    ${resourceName}
-    ${container} =    Name    ${r}
+    ${container} =    Resid    ${r}
     ${status_code} =    Status Code    ${r}
     Should Be Equal As Integers    ${status_code}    201
 

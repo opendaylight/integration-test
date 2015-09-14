@@ -21,31 +21,31 @@ Set Suite Variable
     #==================================================
     # For Creation, there are only 2 mandatory attribute: App-ID(api), AE-ID(aei)
 
-1.11 Missing App-ID should return error
+1.11 If include AE-ID should return error
     [Documentation]    when create AE, Missing App-ID should return error
     ${attr} =    Set Variable    "aei":"ODL"
     ${error} =    Run Keyword And Expect Error    *    Create Resource    ${iserver}    InCSE1    ${rt_ae}
     ...    ${attr}
     Should Start with    ${error}    Cannot create this resource [400]
-    Should Contain    ${error}    APP_ID missing parameter
+    Should Contain    ${error}    AE_ID
 
-1.21 Missing AE-ID should return error
+1.21 Missing App-ID should return error
     [Documentation]    when creete AE, Missing AE-ID should return error
-    ${attr} =    Set Variable    "api":"ODL"
+    ${attr} =    Set Variable    "apn":"ODL"
     ${error} =    Run Keyword And Expect Error    *    Create Resource    ${iserver}    InCSE1    ${rt_ae}
     ...    ${attr}
     Should Start with    ${error}    Cannot create this resource [400]
-    Should Contain    ${error}    AE_ID missing parameter
+    Should Contain    ${error}    APP_ID
 
 1.3 After Created, test whether all the mandatory attribtues are exist.
     [Documentation]    mandatory attributes should be there after created
-    ${attr} =    Set Variable    "api":"ODL","aei":"ODL"
+    ${attr} =    Set Variable    "api":"ODL","rr":true
     ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_ae}    ${attr}    AE1
     ${status_code} =    Status Code    ${r}
     Should Be Equal As Integers    ${status_code}    201
     ${text} =    Text    ${r}
     Should Contain    ${text}    "ri":    "rn":    "api":"ODL"
-    Should Contain    ${text}    "aei":"ODL"    "lt":    "pi":
+    Should Contain    ${text}    "aei":    "lt":    "pi":
     Should Contain    ${text}    "ct":    "rty":2
     Should Not Contain    S{text}    "lbl"    "apn"    "or"
     # 1.13    if Child Container updated, parent Last Modified time will be updated?
@@ -152,31 +152,30 @@ Set Suite Variable
 
 3.11 Mulitiple App-ID should return error
     [Documentation]    Mulitiple App-ID should return error
-    ${attr} =    Set Variable    "aei":"ODL","api":"ODL","api":"ODL2"
+    ${attr} =    Set Variable    "api":"ODL","api":"ODL2"
     ${error} =    Cannot Update AE Error    ${attr}
     Should Contain    ${error}    Duplicate key    api
 
 3.12 Mulitiple AE-ID should return error
     [Documentation]    Mulitiple AE-ID should return error
-    ${attr} =    Set Variable    "aei":"ODL","api":"ODL","aei":"ODL1"
+    ${attr} =    Set Variable    "api":"ODL","aei":"ODL1"
     ${error} =    Cannot Update AE Error    ${attr}
-    Should Contain    ${error}    Duplicate key    aei
 
 3.13 Multiple app-name should return error
     [Documentation]    Multiple app-name should return error
-    ${attr} =    Set Variable    "aei":"ODL","api":"ODL","apn":"ODL1","apn":"ODL1"
+    ${attr} =    Set Variable    "api":"ODL","apn":"ODL1","apn":"ODL1"
     ${error} =    Cannot Update AE Error    ${attr}
     Should Contain    ${error}    Duplicate key    apn
 
 3.14 Multiple label attribute should return error(multiple array)
     [Documentation]    Multiple label attribute should return error(multiple array)
-    ${attr} =    Set Variable    "aei":"ODL","api":"ODL","lbl":["ODL1"], "lbl":["dsdsd"]
+    ${attr} =    Set Variable    "api":"ODL","lbl":["ODL1"], "lbl":["dsdsd"]
     ${error} =    Cannot Update AE Error    ${attr}
     Should Contain    ${error}    Duplicate key    lbl
 
 3.15 Multiple ontologyRef attribute should return error
     [Documentation]    Multiple ontologyRef attribute should return error
-    ${attr} =    Set Variable    "aei":"ODL","api":"ODL","or":"http://hey/you", "or":"http://hey/you"
+    ${attr} =    Set Variable    "api":"ODL","or":"http://hey/you", "or":"http://hey/you"
     ${error} =    Cannot Update AE Error    ${attr}
     Should Contain    ${error}    Duplicate key    or
 
@@ -262,14 +261,14 @@ Set Suite Variable
     ${text} =    Text    ${r}
     LOG    ${text}
     ${lt2} =    LastModifiedTime    ${r}
-    Should Not Be Equal    ${oldr.json()['lt']}    ${lt2}
+    Should Not Be Equal    ${oldr.json()['m2m:ae']['lt']}    ${lt2}
 
 4.2 Check parentID
     [Documentation]    check parentID whether it is correct
     ${oldr} =    Retrieve Resource    ${iserver}    InCSE1
-    ${CSEID} =    Set Variable    ${oldr.json()['ri']}
+    ${CSEID} =    Set Variable    ${oldr.json()['m2m:csb']['ri']}
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/AE1
-    Should Be Equal    ${oldr.json()['ri']}    ${r.json()['pi']}
+    Should Be Equal    /InCSE1/${oldr.json()['m2m:csb']['ri']}    ${r.json()['m2m:ae']['pi']}
     #==================================================
     #    Finish
     #==================================================

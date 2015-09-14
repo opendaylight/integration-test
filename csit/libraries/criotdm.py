@@ -52,6 +52,7 @@ def retrieve_resource_with_command(connection, resid, command):
 
 def update_resource(connection, resid, restype, attr, nm=None):
     """According to resourceID, update resource."""
+    restype = int(restype)
     response = connection.update(resid, restype, attr, nm)
     Check_Response(response, "update")
     return response
@@ -60,6 +61,7 @@ def update_resource(connection, resid, restype, attr, nm=None):
 def update_resource_with_command(connection, resid,
                                  restype, command, attr, nm=None):
     """According to command, update resource with resourceID."""
+    restype = int(restype)
     response = connection.updateWithCommand(resid, restype, command, attr, nm)
     Check_Response(response, "update")
     return response
@@ -115,6 +117,11 @@ def json(response):
 def elapsed(response):
     """Return resource elapsed."""
     return response.elapsed.total_seconds()
+
+
+def location(response):
+    """Return response content-location."""
+    return response.headers['Content-Location']
 
 
 def kill_the_tree(host, CSEID, username, password):
