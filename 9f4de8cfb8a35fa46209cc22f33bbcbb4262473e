@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a79b1b5_7dd7e4ed",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-14T15:00:47Z",
+      "side": 1,
+      "message": "Minus is a binary operator, do not use it as part of variable name (especially when you mean control AND c).",
+      "range": {
+        "startLine": 204,
+        "startChar": 13,
+        "endLine": 204,
+        "endChar": 14
+      },
+      "revId": "9f4de8cfb8a35fa46209cc22f33bbcbb4262473e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_3de2ccd5",
+        "filename": "csit/suites/bgpcep/bgpuser/cases.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-14T15:00:47Z",
+      "side": 1,
+      "message": "BGPSpeaker.*",
+      "range": {
+        "startLine": 210,
+        "startChar": 4,
+        "endLine": 210,
+        "endChar": 5
+      },
+      "revId": "9f4de8cfb8a35fa46209cc22f33bbcbb4262473e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_dde878b6",
+        "filename": "csit/suites/bgpcep/bgpuser/cases.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-14T15:00:47Z",
+      "side": 1,
+      "message": "BuiltIn.*",
+      "range": {
+        "startLine": 211,
+        "startChar": 4,
+        "endLine": 211,
+        "endChar": 5
+      },
+      "revId": "9f4de8cfb8a35fa46209cc22f33bbcbb4262473e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
