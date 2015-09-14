@@ -24,10 +24,7 @@ cse_payload = '''
 
 resourcepayload = '''
 {
-  any:
-  [
-    {%s}
-  ]
+    %s
 }
 '''
 
@@ -116,7 +113,7 @@ class connect:
             # Admittedly these are "magic values" but are required
             # and until a proper defaulting initializer is in place
             # are hard-coded.
-            'content-type': 'application/json',
+            'content-type': 'application/vnd.onem2m-res+json',
             'X-M2M-Origin': '//localhost:10000',
             'X-M2M-RI': '12345',
             'X-M2M-OT': 'NOW'
@@ -135,9 +132,11 @@ class connect:
         payload = resourcepayload % (attr)
         print payload
         self.headers['X-M2M-NM'] = name
+        self.headers['content-type'] = 'application/\
+            vnd.onem2m-res+json;ty=%s' % (restype)
         parent = normalize(parent)
-        self.url = self.server + ":8282/%s?ty=%s&rcn=1" % (
-            parent, restype)
+        self.url = self.server + ":8282/%s?&rcn=1" % (
+            parent)
         self.response = self.session.post(
             self.url, payload, timeout=self.timeout, headers=self.headers)
         return self.response
@@ -153,9 +152,11 @@ class connect:
             self.headers['X-M2M-NM'] = None
         else:
             self.headers['X-M2M-NM'] = name
+        self.headers['content-type'] = 'application/\
+            vnd.onem2m-res+json;ty=%s' % (restype)
         parent = normalize(parent)
-        self.url = self.server + ":8282/%s?ty=%s&%s" % (
-            parent, restype, command)
+        self.url = self.server + ":8282/%s?%s" % (
+            parent, command)
         self.response = self.session.post(
             self.url, payload, timeout=self.timeout, headers=self.headers)
         return self.response
@@ -165,8 +166,9 @@ class connect:
         if resourceURI is None:
             return None
         resourceURI = normalize(resourceURI)
-        self.url = self.server + ":8282/%s?rcn=5&drt=2" % (resourceURI)
+        self.url = self.server + ":8282/%s?rcn=5" % (resourceURI)
         self.headers['X-M2M-NM'] = None
+        self.headers['content-type'] = 'application/vnd.onem2m-res+json'
         self.response = self.session.get(
             self.url, timeout=self.timeout, headers=self.headers
         )
@@ -181,6 +183,7 @@ class connect:
         resourceURI = normalize(resourceURI)
         self.url = self.server + ":8282/%s?%s" % (resourceURI, command)
         self.headers['X-M2M-NM'] = None
+        self.headers['content-type'] = 'application/vnd.onem2m-res+json'
         self.response = self.session.get(
             self.url, timeout=self.timeout, headers=self.headers
         )
@@ -198,6 +201,7 @@ class connect:
             self.headers['X-M2M-NM'] = None
         else:
             self.headers['X-M2M-NM'] = name
+        self.headers['content-type'] = 'application/vnd.onem2m-res+json'
         self.url = self.server + ":8282/%s" % (resourceURI)
         self.response = self.session.put(
             self.url, payload, timeout=self.timeout, headers=self.headers)
@@ -216,6 +220,7 @@ class connect:
             self.headers['X-M2M-NM'] = None
         else:
             self.headers['X-M2M-NM'] = name
+        self.headers['content-type'] = 'application/vnd.onem2m-res+json'
         self.url = self.server + ":8282/%s?%s" % (resourceURI, command)
         self.response = self.session.put(
             self.url, payload, timeout=self.timeout, headers=self.headers)
@@ -228,6 +233,7 @@ class connect:
         resourceURI = normalize(resourceURI)
         self.url = self.server + ":8282/%s" % (resourceURI)
         self.headers['X-M2M-NM'] = None
+        self.headers['content-type'] = 'application/vnd.onem2m-res+json'
         self.response = self.session.delete(self.url, timeout=self.timeout,
                                             headers=self.headers)
         return self.response
@@ -239,6 +245,7 @@ class connect:
         resourceURI = normalize(resourceURI)
         self.url = self.server + ":8282/%s?%s" % (resourceURI, command)
         self.headers['X-M2M-NM'] = None
+        self.headers['content-type'] = 'application/vnd.onem2m-res+json'
         self.response = self.session.delete(self.url, timeout=self.timeout,
                                             headers=self.headers)
         return self.response

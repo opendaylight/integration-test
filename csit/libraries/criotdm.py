@@ -117,6 +117,11 @@ def elapsed(response):
     return response.elapsed.total_seconds()
 
 
+def location(response):
+    """Return response content-location."""
+    return response.headers['Content-Location']
+
+
 def kill_the_tree(host, CSEID, username, password):
     """Delete the whole tree."""
     connection = ciotdm.connect(host, base=CSEID,

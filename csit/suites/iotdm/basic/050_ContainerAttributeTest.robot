@@ -25,7 +25,7 @@ Set Suite Variable
     [Documentation]    After Created, test whether all the mandatory attribtues are exist.
     ${attr} =    Set Variable
     ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}    Container1
-    ${container} =    Name    ${r}
+    ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
     Should Be Equal As Integers    ${status_code}    201
     ${text} =    Text    ${r}
@@ -53,14 +53,14 @@ Delete the Container2-2.1
     [Documentation]    maxNumberofInstance (mni) can be added through update (0-1)
     ${attr} =    Set Variable    "mni":3
     ${r} =    update Resource    ${iserver}    InCSE1/Container1    ${rt_container}    ${attr}
-    ${text} =    Check Response and Retrieve Resource    ${r}
+    ${text} =    Check Response and Retrieve Resource For Update    ${r}    InCSE1/Container1
     Should Contain    ${text}    "mni"
 
 2.13 maxNumberofInstance (mni) can be modified through update (1-1)
     [Documentation]    maxNumberofInstance (mni) can be modified through update (1-1)
     ${attr} =    Set Variable    "mni":5
     ${r} =    update Resource    ${iserver}    InCSE1/Container1    ${rt_container}    ${attr}
-    ${text} =    Check Response and Retrieve Resource    ${r}
+    ${text} =    Check Response and Retrieve Resource For Update    ${r}    InCSE1/Container1
     Should Contain    ${text}    "mni":5
     Should Not Contain    ${text}    "mni":3
 
@@ -68,7 +68,7 @@ Delete the Container2-2.1
     [Documentation]    if set to null, maxnumberofInstance (mni) can be deleted through delete(1-0)
     ${attr} =    Set Variable    "mni":null
     ${r} =    update Resource    ${iserver}    InCSE1/Container1    ${rt_container}    ${attr}
-    ${text} =    Check Response and Retrieve Resource    ${r}
+    ${text} =    Check Response and Retrieve Resource For Update    ${r}    InCSE1/Container1
     Should Not Contain    ${text}    "mni"
 
 2.21 maxByteSize (mbs) can be added when create
@@ -85,14 +85,14 @@ Delete the Container2-2.2
     [Documentation]    maxByteSize (mbs) can be added through update (0-1)
     ${attr} =    Set Variable    "mbs":20
     ${r} =    update Resource    ${iserver}    InCSE1/Container1    ${rt_container}    ${attr}
-    ${text} =    Check Response and Retrieve Resource    ${r}
+    ${text} =    Check Response and Retrieve Resource For Update    ${r}    InCSE1/Container1
     Should Contain    ${text}    "mbs"
 
 2.23 maxByteSize (mbs) can be modified through update (1-1)
     [Documentation]    maxByteSize (mbs) can be modified through update (1-1)
     ${attr} =    Set Variable    "mbs":25
     ${r} =    update Resource    ${iserver}    InCSE1/Container1    ${rt_container}    ${attr}
-    ${text} =    Check Response and Retrieve Resource    ${r}
+    ${text} =    Check Response and Retrieve Resource For Update    ${r}    InCSE1/Container1
     Should Contain    ${text}    "mbs":25
     Should Not Contain    ${text}    "mbs":20
 
@@ -100,14 +100,14 @@ Delete the Container2-2.2
     [Documentation]    if set to null, maxByteSize (mbs) can be deleted through delete(1-0)
     ${attr} =    Set Variable    "mbs":null
     ${r} =    update Resource    ${iserver}    InCSE1/Container1    ${rt_container}    ${attr}
-    ${text} =    Check Response and Retrieve Resource    ${r}
+    ${text} =    Check Response and Retrieve Resource For Update    ${r}    InCSE1/Container1
     Should Not Contain    ${text}    "mbs"
 
 2.31 ontologyRef(or) can be added when create
     [Documentation]    ontologyRef(or) can be added when create
     ${attr} =    Set Variable    "or":"http://cisco.com"
     ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}    Container2
-    ${text} =    Check Response and Retrieve Resource    ${r}
+    ${text} =    Check Response and Retrieve Resource For Update    ${r}    InCSE1/Container2
     Should Contain    ${text}    "or"
 
 Delete the Container2-2.3
@@ -117,14 +117,14 @@ Delete the Container2-2.3
     [Documentation]    ontologyRef(or) can be added through update (0-1)
     ${attr} =    Set Variable    "or":"http://cisco.com"
     ${r} =    update Resource    ${iserver}    InCSE1/Container1    ${rt_container}    ${attr}
-    ${text} =    Check Response and Retrieve Resource    ${r}
+    ${text} =    Check Response and Retrieve Resource For Update    ${r}    InCSE1/Container1
     Should Contain    ${text}    "or"
 
 2.33 ontologyRef(or) can be modified through update (1-1)
     [Documentation]    ontologyRef(or) can be modified through update (1-1)
     ${attr} =    Set Variable    "or":"http://iotdm.com"
     ${r} =    update Resource    ${iserver}    InCSE1/Container1    ${rt_container}    ${attr}
-    ${text} =    Check Response and Retrieve Resource    ${r}
+    ${text} =    Check Response and Retrieve Resource For Update    ${r}    InCSE1/Container1
     Should Contain    ${text}    "or":"http://iotdm.com"
     Should Not Contain    ${text}    "or":"http://cisco.com"
 
@@ -132,21 +132,21 @@ Delete the Container2-2.3
     [Documentation]    if set to null, ontologyRef(or) can be deleted through delete(1-0)
     ${attr} =    Set Variable    "or":null
     ${r} =    update Resource    ${iserver}    InCSE1/Container1    ${rt_container}    ${attr}
-    ${text} =    Check Response and Retrieve Resource    ${r}
+    ${text} =    Check Response and Retrieve Resource For Update    ${r}    InCSE1/Container1
     Should Not Contain    ${text}    "or"
 
 2.41 labels can be created through update (0-1)
     [Documentation]    labels can be created through update (0-1)
     ${attr} =    Set Variable    "lbl":["label1"]
     ${r} =    update Resource    ${iserver}    InCSE1/Container1    ${rt_container}    ${attr}
-    ${text} =    Check Response and Retrieve Resource    ${r}
+    ${text} =    Check Response and Retrieve Resource For Update    ${r}    InCSE1/Container1
     Should Contain    ${text}    lbl    label1
 
 2.42 labels can be modified (1-1)
     [Documentation]    labels can be modified (1-1)
     ${attr} =    Set Variable    "lbl":["label2"]
     ${r} =    update Resource    ${iserver}    InCSE1/Container1    ${rt_container}    ${attr}
-    ${text} =    Check Response and Retrieve Resource    ${r}
+    ${text} =    Check Response and Retrieve Resource For Update    ${r}    InCSE1/Container1
     Should Not Contain    ${text}    label1
     Should Contain    ${text}    lbl    label2
 
@@ -154,14 +154,14 @@ Delete the Container2-2.3
     [Documentation]    if set to null, labels should be deleted(1-0)
     ${attr} =    Set Variable    "lbl":null
     ${r} =    update Resource    ${iserver}    InCSE1/Container1    ${rt_container}    ${attr}
-    ${text} =    Check Response and Retrieve Resource    ${r}
+    ${text} =    Check Response and Retrieve Resource For Update    ${r}    InCSE1/Container1
     Should Not Contain    ${text}    lbl    label1    label2
 
 2.44 labels can be created through update (0-n)
     [Documentation]    labels can be created through update (0-n)
     ${attr} =    Set Variable    "lbl":["label3","label4","label5"]
     ${r} =    update Resource    ${iserver}    InCSE1/Container1    ${rt_container}    ${attr}
-    ${text} =    Check Response and Retrieve Resource    ${r}
+    ${text} =    Check Response and Retrieve Resource For Update    ${r}    InCSE1/Container1
     Should Contain    ${text}    lbl    label3    label4
     Should Contain    ${text}    label5
 
@@ -169,7 +169,7 @@ Delete the Container2-2.3
     [Documentation]    labels can be modified (n-n)(across)
     ${attr} =    Set Variable    "lbl":["label4","label5","label6"]
     ${r} =    update Resource    ${iserver}    InCSE1/Container1    ${rt_container}    ${attr}
-    ${text} =    Check Response and Retrieve Resource    ${r}
+    ${text} =    Check Response and Retrieve Resource For Update    ${r}    InCSE1/Container1
     Should Not Contain    ${text}    label1    label2    label3
     Should Contain    ${text}    lbl    label4    label5
     Should Contain    ${text}    label6
@@ -178,7 +178,7 @@ Delete the Container2-2.3
     [Documentation]    labels can be modified (n-n)(not across)
     ${attr} =    Set Variable    "lbl":["label7","label8","label9"]
     ${r} =    update Resource    ${iserver}    InCSE1/Container1    ${rt_container}    ${attr}
-    ${text} =    Check Response and Retrieve Resource    ${r}
+    ${text} =    Check Response and Retrieve Resource For Update    ${r}    InCSE1/Container1
     Should Not Contain    ${text}    label1    label2    label3
     Should Not Contain    ${text}    label6    label4    label5
     Should Contain    ${text}    lbl    label7    label8
@@ -188,7 +188,7 @@ Delete the Container2-2.3
     [Documentation]    if set to null, labels should be deleted(n-0)
     ${attr} =    Set Variable    "lbl":null
     ${r} =    update Resource    ${iserver}    InCSE1/Container1    ${rt_container}    ${attr}
-    ${text} =    Check Response and Retrieve Resource    ${r}
+    ${text} =    Check Response and Retrieve Resource For Update    ${r}    InCSE1/Container1
     Should Not Contain    ${text}    label1    label2    label3
     Should Not Contain    ${text}    label6    label4    label5
     Should Not Contain    ${text}    label7    label8    label9
@@ -353,7 +353,7 @@ Delete the Container2-2.3
     ${oldr} =    Retrieve Resource    ${iserver}    InCSE1
     ${CSEID} =    Set Variable    ${oldr.json()['ri']}
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/Container1
-    Should Be Equal    ${oldr.json()['ri']}    ${r.json()['pi']}
+    Should Be Equal    /InCSE1/${oldr.json()['ri']}    ${r.json()['pi']}
 
 4.22 Check parentID(cse-container-container)
     [Documentation]    parentID should be correct
@@ -362,28 +362,26 @@ Delete the Container2-2.3
     #    |--Container2
     ${attr} =    Set Variable
     ${r}=    Create Resource    ${iserver}    InCSE1/Container1    ${rt_container}    ${attr}    Container2
-    ${container} =    Name    ${r}
     ${status_code} =    Status Code    ${r}
     ${oldr} =    Retrieve Resource    ${iserver}    InCSE1/Container1
     ${CSEID} =    Set Variable    ${oldr.json()['ri']}
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/Container1/Container2
-    Should Be Equal    ${oldr.json()['ri']}    ${r.json()['pi']}
+    Should Be Equal    /InCSE1/${oldr.json()['ri']}    ${r.json()['pi']}
 
 4.23 Check parentID(cse-AE-container)
     [Documentation]    parentID should be correct
     # CSE
     #    |--AE1
     #    |--Container2
-    ${attr} =    Set Variable    "api":"ODL","aei":"ODL"
+    ${attr} =    Set Variable    "api":"ODL","apn":"ODL"
     ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_ae}    ${attr}    AE1
     ${attr} =    Set Variable
     ${r}=    Create Resource    ${iserver}    InCSE1/AE1    ${rt_container}    ${attr}    Container2
-    ${container} =    Name    ${r}
     ${status_code} =    Status Code    ${r}
     ${oldr} =    Retrieve Resource    ${iserver}    InCSE1/AE1
     ${CSEID} =    Set Variable    ${oldr.json()['ri']}
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/AE1/Container2
-    Should Be Equal    ${oldr.json()['ri']}    ${r.json()['pi']}
+    Should Be Equal    /InCSE1/${oldr.json()['ri']}    ${r.json()['pi']}
 
 4.24 Check parentID(cse-AE-container-container)
     [Documentation]    parentID should be correct
@@ -393,12 +391,11 @@ Delete the Container2-2.3
     #    |--- Container3
     ${attr} =    Set Variable
     ${r}=    Create Resource    ${iserver}    InCSE1/AE1/Container2    ${rt_container}    ${attr}    Container3
-    ${container} =    Name    ${r}
     ${status_code} =    Status Code    ${r}
     ${oldr} =    Retrieve Resource    ${iserver}    InCSE1/AE1/Container2
     ${CSEID} =    Set Variable    ${oldr.json()['ri']}
     ${r} =    Retrieve Resource    ${iserver}    InCSE1/AE1/Container2/Container3
-    Should Be Equal    ${oldr.json()['ri']}    ${r.json()['pi']}
+    Should Be Equal    /InCSE1/${oldr.json()['ri']}    ${r.json()['pi']}
 
 Delete the test AE-4.2
     ${deleteRes} =    Delete Resource    ${iserver}    InCSE1/AE1
@@ -410,9 +407,9 @@ Delete the test AE-4.2
     #    |--Container2
     ${attr} =    Set Variable
     ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}    Container2
-    ${container} =    Name    ${r}
+    ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
-    ${oldr} =    Retrieve Resource    ${iserver}    InCSE1/Container2
+    ${oldr} =    Retrieve Resource    ${iserver}    ${container}
     ${st} =    Set Variable    ${oldr.json()['st']}
     Should Be Equal As Integers    0    ${st}
     # 4.32 stateTag (when update expirationTime)
@@ -544,9 +541,9 @@ Delete the Container2-4.3
     [Documentation]    when container create, cni should be 0
     ${attr} =    Set Variable
     ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}    Container2
-    ${container} =    Name    ${r}
+    ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
-    ${oldr} =    Retrieve Resource    ${iserver}    InCSE1/Container2
+    ${oldr} =    Retrieve Resource    ${iserver}    ${container}
     ${cni} =    Set Variable    ${oldr.json()['cni']}
     Should Be Equal As Integers    0    ${cni}
 
@@ -589,9 +586,9 @@ Delete the Container2-4.4
     [Documentation]    when container create, cbs should be 0
     ${attr} =    Set Variable
     ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}    Container2
-    ${container} =    Name    ${r}
+    ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
-    ${oldr} =    Retrieve Resource    ${iserver}    InCSE1/Container2
+    ${oldr} =    Retrieve Resource    ${iserver}    ${container}
     ${cbs} =    Set Variable    ${oldr.json()['cbs']}
     Should Be Equal As Integers    0    ${cbs}
 
@@ -634,23 +631,28 @@ Delete the Container2-4.5
     [Documentation]    if maxNrOfInstance = 1 , can create 1 contentInstance
     ${attr} =    Set Variable    "mni":1
     ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}    Container2
-    ${container} =    Name    ${r}
+    ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
-    ${oldr} =    Retrieve Resource    ${iserver}    InCSE1/Container2
+    ${oldr} =    Retrieve Resource    ${iserver}    ${container}
     ${mni} =    Set Variable    ${oldr.json()['mni']}
     Should Be Equal As Integers    1    ${mni}
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"102CSS"
     Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}    ${attr}
 
-4.62 if maxNrOfInstance = 1 , cannot create 2 contentInstance
+4.62 if maxNrOfInstance = 1 , when create 2 contentInstance, the first one should be deleted
     [Documentation]    if maxNrOfInstance = 1 , cannot create 2 contentInstance
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"102CSS"
     # cannot create 2
-    ${error} =    Run Keyword And Expect Error    *    Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}
-    ...    ${attr}
-    Should Start with    ${error}    Cannot create this resource [400]
+    ${rr} =    Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}    ${attr}
+    Check Response and Retrieve Resource    ${rr}
+    ${rr} =    Retrieve resource    ${iserver}    InCSE1/Container2
+    ${chr} =    Set Variable    ${rr.json()['ch']}
+    ${cbs} =    Set Variable    ${rr.json()['cbs']}
+    Should Be Equal As Integers    ${rr.json()['cni']}    1
+    ${childNumber} =    Get Length    ${chr}
+    Should Be Equal As Integers    ${childNumber}    1
 
-4.63 if update to 3 , cannot create 4 contentInstance
+4.63 if update to 3 , when create 4 or more contentInstance, the current number instance should be 3
     [Documentation]    if update to 3 , cannot create 4 contentInstance
     ${attr} =    Set Variable    "mni":3
     ${r}=    Update Resource    ${iserver}    InCSE1/Container2    ${rt_container}    ${attr}
@@ -660,17 +662,14 @@ Delete the Container2-4.5
     Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}    ${attr}    cin2
     #Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}    ${attr}
     ${rr}=    Retrieve resource    ${iserver}    InCSE1/Container2
+    Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}    ${attr}
     ${mni} =    Set Variable    ${rr.json()['mni']}
     ${chr} =    Set Variable    ${rr.json()['ch']}
     ${text} =    Text    ${rr}
-    LOG    ${text}
-    # cannot create 4
-    ${error} =    Run Keyword And Expect Error    *    Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}
-    ...    ${attr}
-    Should Start with    ${error}    Cannot create this resource [400]
+    Should Be Equal As Integers    ${mni}    3
 
-4.64 what if alread have 4, then set mni to 1 ?
-    [Documentation]    what if alread have 4, then set mni to 1 ?
+4.64 what if alread have 4, then set mni to 1
+    [Documentation]    if alread have 4, then set mni to 1, will delete 3 children
     ${attr} =    Set Variable    "mni":1
     ${r}=    Update Resource    ${iserver}    InCSE1/Container2    ${rt_container}    ${attr}
     ${rr}=    Retrieve resource    ${iserver}    InCSE1/Container2
@@ -686,17 +685,15 @@ Delete the Container2-4.6
     [Documentation]    if maxByteSize = 5 , can create contentInstance with contentSize 5
     ${attr} =    Set Variable    "mbs":5
     ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}    Container2
-    ${container} =    Name    ${r}
+    ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
-    ${oldr} =    Retrieve Resource    ${iserver}    InCSE1/Container2
+    ${oldr} =    Retrieve Resource    ${iserver}    ${container}
     ${mbs} =    Set Variable    ${oldr.json()['mbs']}
     Should Be Equal As Integers    5    ${mbs}
 
 4.72 if maxByteSize = 5 , cannot create contentInstance with contenSize 8
     [Documentation]    if maxByteSize = 5 , cannot create contentInstance with contenSize 8
-    ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"102C"
-    # create 1 (6 bytes)
-    Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}    ${attr}
+    ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"102C120c"
     # cannot create 2
     ${error} =    Run Keyword And Expect Error    *    Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}
     ...    ${attr}
@@ -715,21 +712,20 @@ Delete the Container2-4.6
     ${rr}=    Retrieve resource    ${iserver}    InCSE1/Container2
     ${cbs} =    Set Variable    ${rr.json()['cbs']}
     ${chr} =    Set Variable    ${rr.json()['ch']}
-    ${text} =    Text    ${rr}
-    LOG    ${text}
-    # cannot create 4
-    ${error} =    Run Keyword And Expect Error    *    Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}
-    ...    ${attr}
-    Should Start with    ${error}    Cannot create this resource [400]
+    Should Be Equal As Integers    ${rr.json()['cni']}    4
+    ${childNumber} =    Get Length    ${chr}
+    Should Be Equal As Integers    ${childNumber}    4
 
-4.74 what if alread have 20, then set mbs to 5 ?
-    [Documentation]    what if alread have 20, then set mbs to 5 ?
+4.74 if alread have 20, then set mbs to 5，will delete contentInstance until mbs less than 5.
+    [Documentation]    what if alread have 20, then set mbs to 5, will delete contentInstance until mbs less than 5.
     ${attr} =    Set Variable    "mbs":5
     ${r}=    Update Resource    ${iserver}    InCSE1/Container2    ${rt_container}    ${attr}
     ${rr}=    Retrieve resource    ${iserver}    InCSE1/Container2
     ${chr} =    Set Variable    ${rr.json()['ch']}
     ${cbs} =    Set Variable    ${rr.json()['cbs']}
     Should Be Equal As Integers    ${rr.json()['cni']}    1
+    ${childNumber} =    Get Length    ${chr}
+    Should Be Equal As Integers    ${childNumber}    1
 
 Delete the Container2-4.7
     ${deleteRes} =    Delete Resource    ${iserver}    InCSE1/Container2
@@ -752,10 +748,18 @@ Delete the test Container1
 *** Keywords ***
 Check Response and Retrieve Resource
     [Arguments]    ${r}
-    ${con} =    Name    ${r}
+    ${con} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
     Should Be True    199 < ${status_code} < 299
     ${rr} =    Retrieve Resource    ${iserver}    ${con}
+    ${text} =    Text    ${rr}
+    [Return]    ${text}
+
+Check Response and Retrieve Resource For Update
+    [Arguments]    ${r}    ${location}
+    ${status_code} =    Status Code    ${r}
+    Should Be True    199 < ${status_code} < 299
+    ${rr} =    Retrieve Resource    ${iserver}    ${location}
     ${text} =    Text    ${rr}
     [Return]    ${text}
 

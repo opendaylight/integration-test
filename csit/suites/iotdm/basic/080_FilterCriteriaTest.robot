@@ -22,7 +22,7 @@ Set Suite Variable
 
 1.1 rcn is legal in create
     [Documentation]    rcn=1, 2, 3, 0 is legal
-    ${attr} =    Set Variable    "aei":"ODL","api":"jb","apn":"jb2","or":"http://hey/you"
+    ${attr} =    Set Variable    "api":"jb","apn":"jb2","or":"http://hey/you"
     : FOR    ${rcn}    IN    \    1    2    3
     ...    0
     \    ${r} =    Create Resource With Command    ${iserver}    InCSE1    ${rt_ae}    rcn=${rcn}
@@ -31,7 +31,7 @@ Set Suite Variable
 
 1.2 rcn is illegal in create
     [Documentation]    rcn=4, 5, 6, 7 is illegal
-    ${attr} =    Set Variable    "aei":"ODL","api":"jb","apn":"jb2","or":"http://hey/you"
+    ${attr} =    Set Variable    "api":"jb","apn":"jb2","or":"http://hey/you"
     : FOR    ${rcn}    IN    4    5    6    7
     \    ${error} =    Run Keyword And Expect Error    *    Create Resource With Command    ${iserver}    InCSE1
     \    ...    ${rt_ae}    rcn=${rcn}    ${attr}
@@ -39,14 +39,15 @@ Set Suite Variable
     \    Should Contain    ${error}    rcn
 
 2.1 rcn is legal in update
-    [Documentation]    rcn=1, 4, 0/ null is legal
+    [Documentation]    rcn=1, 0/ null is legal
     ${attr} =    Set Variable    "or":"http://hey/you"
-    : FOR    ${rcn}    IN    \    0    1    4
+    : FOR    ${rcn}    IN    \    0    1    5
+    ...    6
     \    ${r} =    Update Resource With Command    ${iserver}    InCSE1/AE1    ${rt_ae}    rcn=${rcn}
     \    ...    ${attr}
 
 2.2 rcn is illegal in update
-    [Documentation]    rcn=2, 3, 5, 6, 7 is illegal
+    [Documentation]    rcn=2, 3, 7 is illegal
     ${attr} =    Set Variable    "or":"http://hey/you"
     : FOR    ${rcn}    IN    2    3    4    7
     \    ${error} =    Run Keyword And Expect Error    *    Update Resource With Command    ${iserver}    InCSE1/AE1
@@ -70,10 +71,9 @@ Set Suite Variable
     \    Should Contain    ${error}    rcn
 
 4.2 rcn is illegal in delete
-    [Documentation]    rcn=4, 5, 6, 7 is illegal
+    [Documentation]    rcn=2, 3, 4, 5, 6, 7 is illegal
     ${attr} =    Set Variable    "or":"http://hey/you"
-    : FOR    ${rcn}    IN    2    3    4    5
-    ...    6    7
+    : FOR    ${rcn}    IN    2    3    4    7
     \    ${error} =    Run Keyword And Expect Error    *    Delete Resource With Command    ${iserver}    InCSE1/AE1
     \    ...    rcn=${rcn}
     \    Should Start with    ${error}    Cannot delete this resource [400]
@@ -155,7 +155,7 @@ Create the tree
 Connect And Create The Tree
     [Documentation]    Create a tree that contain AE/ container / contentInstance in different layers
     ${iserver} =    Connect To Iotdm    ${httphost}    ${httpuser}    ${httppass}    http
-    ${attr} =    Set Variable    "aei":"ODL","api":"jb","apn":"jb2","or":"http://hey/you"
+    ${attr} =    Set Variable    "api":"jb","apn":"jb2","or":"http://hey/you"
     Create Resource    ${iserver}    InCSE1    ${rt_ae}    ${attr}    AE1
     Create Resource    ${iserver}    InCSE1    ${rt_ae}    ${attr}    AE2
     Create Resource    ${iserver}    InCSE1    ${rt_ae}    ${attr}    AE3
