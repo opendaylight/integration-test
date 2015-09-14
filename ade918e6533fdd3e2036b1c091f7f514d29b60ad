@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a79b1b5_60abbb1d",
+        "filename": "csit/suites/controller/OneNode_Datastore/010_crud_mdsal_perf.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-14T23:09:07Z",
+      "side": 1,
+      "message": "interesting.  I thought that once the \"node\" was created (so car:cars) that you\u0027d get an empty list so you\u0027d be checking that \"Get Element Count\" returned 0.  But, it looks like the entire node is deleted, so we expect a 404 Not Found response.",
+      "range": {
+        "startLine": 58,
+        "startChar": 7,
+        "endLine": 59,
+        "endChar": 59
+      },
+      "revId": "ade918e6533fdd3e2036b1c091f7f514d29b60ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
