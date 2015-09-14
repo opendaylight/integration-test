@@ -1,10 +1,10 @@
 *** Settings ***
-Suite Teardown    Kill The Tree    ${CONTROLLER}    InCSE1    admin    admin
+Suite Teardown    Kill The Tree    ${ODL_SYSTEM_IP}    InCSE1    admin    admin
 Library           ../../../libraries/criotdm.py
 Library           Collections
 
 *** Variables ***
-${httphost}       ${CONTROLLER}
+${httphost}       ${ODL_SYSTEM_IP}
 ${httpuser}       admin
 ${httppass}       admin
 ${rt_ae}          2
@@ -30,7 +30,7 @@ Set Suite Variable
     [Documentation]    create 1 conIn test whether all the mandatory attribtues are exist
     ${attr} =    Set Variable
     ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}    Container1
-    ${container} =    Name    ${r}
+    ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
     Should Be Equal As Integers    ${status_code}    201
     ${attr} =    Set Variable    "con":"102CSS"
@@ -204,17 +204,25 @@ Delete the ContenInstance 2.33
     ${attr} =    Set Variable    "con": "1"
     ${error} =    Cannot Update ContentInstance Error    ${attr}
     Should Contain    ${error}    Not permitted to update content
-    #==================================================
-    #    Functional Attribute Test
-    #==================================================
-    # Next step:
-    # creator
-    # contentSzie
-    # contentInfo
-    # content
-    #==================================================
-    #    Finish
-    #==================================================
+
+4.11 GetLatest Test
+    [Documentation]    Set mni to 1 when creating a container, then continue creating <cin> "get latest" should always return the last created <cin>'s "con" value.
+    ${attr} =    Set Variable    "mni":1
+    ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}    Container2
+    ${container} =    Location    ${r}
+    ${random} =    Evaluate    random.randint(0,50)    modules=random
+    ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"${random}"
+    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr}
+    ${latestCon} =    Get Latest     ${container}
+    Should Be Equal As Strings    ${random}    ${latestCon}
+
+4.12 GetLatest Loop 50 times Test
+    [Documentation]    Just like 4.11, but do 50 times.
+    ${attr} =    Set Variable    "mni":1
+    ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}    Container3
+    ${container} =    Location    ${r}
+    : FOR    ${INDEX}    IN RANGE    1    100
+    \    Latest Con Test    ${container}
 
 Delete the test Container1
     [Documentation]    Delete the test Container1
@@ -237,9 +245,22 @@ Cannot Craete ContentInstance Error
 
 Check Create and Retrieve ContentInstance
     [Arguments]    ${r}
-    ${con} =    Name    ${r}
+    ${con} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
     Should Be Equal As Integers    ${status_code}    201
     ${rr} =    Retrieve Resource    ${iserver}    ${con}
     ${text} =    Text    ${rr}
     [Return]    ${text}
+
+Get Latest
+    [Arguments]    ${resourceURI}
+    ${latest} =    Retrieve Resource    ${iserver}    ${resourceURI}/latest
+    [Return]    ${latest.json()['m2m:cin']['con']}
+
+Latest Con Test
+    [Arguments]    ${resourceURI}
+    ${random} =    Evaluate    random.randint(0,50)    modules=random
+    ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"${random}"
+    Create Resource    ${iserver}    ${resourceURI}    ${rt_contentInstance}    ${attr}
+    ${latestCon} =    Get Latest     ${resourceURI}
+    Should Be Equal As Strings    ${random}    ${latestCon}
