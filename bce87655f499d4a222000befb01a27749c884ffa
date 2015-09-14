@@ -116,6 +116,30 @@
       "revId": "bce87655f499d4a222000befb01a27749c884ffa",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_aab0d443",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-14T09:51:22Z",
+      "side": 1,
+      "message": "\u003e I need help determining the exact URL to be used?\n\nHave you seen line 143 of opendaylight/config/config-api/src/main/yang/config.yang in controller repository?\nURI has to specify both keys (type first, with prefix of course).",
+      "parentUuid": "3a79b1b5_14d330d7",
+      "range": {
+        "startLine": 61,
+        "startChar": 164,
+        "endLine": 61,
+        "endChar": 178
+      },
+      "revId": "bce87655f499d4a222000befb01a27749c884ffa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
