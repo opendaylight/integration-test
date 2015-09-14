@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a79b1b5_4031dfa0",
+        "filename": "csit/libraries/Counter.py",
+        "patchSetId": 22
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-14T18:40:04Z",
+      "side": 1,
+      "message": "+1, well done",
+      "range": {
+        "startLine": 189,
+        "startChar": 4,
+        "endLine": 190,
+        "endChar": 27
+      },
+      "revId": "cb1c4b4071d289a5fd68d34297988844f6fd5eaa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
