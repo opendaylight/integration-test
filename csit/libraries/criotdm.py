@@ -7,10 +7,12 @@ def connect_to_iotdm(host, user, password, prot):
     return ciotdm.connect(host, base="InCSE1", auth=(
         user, password), protocol=prot)
 
+def modify_headers_origin(connection, neworigin):
+    """Replace the headers origin with the neworigin to test ACP."""
+    return connection.modifyheadersOrigin(neworigin)
 
 def create_resource(connection, parent, restype, attribute=None, name=None):
     """Create resource without command."""
-    restype = int(restype)
     response = connection.create(parent, restype, attribute, name=name)
     Check_Response(response, "create")
     return response
@@ -19,7 +21,6 @@ def create_resource(connection, parent, restype, attribute=None, name=None):
 def create_resource_with_command(connection, parent, restype,
                                  command, attribute=None, name=None):
     """According to command in the header, create the resource."""
-    restype = int(restype)
     response = connection.createWithCommand(parent, restype,
                                             command, attribute, name=name)
     Check_Response(response, "create")
@@ -115,6 +116,11 @@ def json(response):
 def elapsed(response):
     """Return resource elapsed."""
     return response.elapsed.total_seconds()
+
+
+def location(response):
+    """Return response content-location."""
+    return response.headers['Content-Location']
 
 
 def kill_the_tree(host, CSEID, username, password):
