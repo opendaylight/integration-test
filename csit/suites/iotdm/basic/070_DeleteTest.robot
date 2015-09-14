@@ -22,9 +22,9 @@ Set Suite Variable
 
 4.11 Delete AE without child resource
     [Documentation]    Create AE then delete it
-    ${attr} =    Set Variable    "aei":"ODL","api":"jb","apn":"jb2","or":"http://hey/you"
+    ${attr} =    Set Variable    "api":"jb","apn":"jb2","or":"http://hey/you","rr":true
     ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_ae}    ${attr}
-    ${ae} =    Name    ${r}
+    ${ae} =    Location    ${r}
     Response Is Correct    ${r}
     #------------- Delete -----------------------------
     ${deleteRes} =    Delete Resource    ${iserver}    ${ae}
@@ -38,7 +38,7 @@ Set Suite Variable
     [Documentation]    create container then delete it
     ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you"
     ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
-    ${container} =    Name    ${r}
+    ${container} =    Location    ${r}
     Response Is Correct    ${r}
     #------------- Delete -----------------------------
     ${deleteRes} =    Delete Resource    ${iserver}    ${container}
@@ -50,17 +50,17 @@ Set Suite Variable
 
 4.13 Delete contentInstance under InCSE1/AE/container/
     [Documentation]    Delete contentInstance under InCSE1/AE/container/
-    ${attr} =    Set Variable    "aei":"ODL","api":"jb","apn":"jb2","or":"http://hey/you"
-    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_ae}    ${attr}    AE1
-    ${ae} =    Name    ${r}
+    ${attr} =    Set Variable    "api":"jb","apn":"jb2","or":"http://hey/you","rr":true,"rn":"AE1"
+    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_ae}    ${attr}
+    ${ae} =    Location    ${r}
     Response Is Correct    ${r}
-    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you"
-    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}    Con1
-    ${container} =    Name    ${r}
+    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you","rn":"Con1"
+    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}
+    ${container} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101"
     ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr}
-    ${conIn} =    Name    ${r}
+    ${conIn} =    Location    ${r}
     Response Is Correct    ${r}
     #------------- Delete -----------------------------
     ${deleteRes} =    Delete Resource    ${iserver}    ${conIn}
@@ -72,13 +72,13 @@ Set Suite Variable
 
 4.14 Delete contentInstance under InCSE1/Container/
     [Documentation]    Delete contentInstance under InCSE1/Container/
-    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you"
-    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}    Con2
-    ${container} =    Name    ${r}
+    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you","rn":"Con2"
+    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
+    ${container} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101"
     ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr}
-    ${conIn} =    Name    ${r}
+    ${conIn} =    Location    ${r}
     Response Is Correct    ${r}
     #------------- Delete -----------------------------
     ${deleteRes} =    Delete Resource    ${iserver}    ${conIn}
@@ -90,13 +90,13 @@ Set Suite Variable
 
 4.15 Delete contentIsntance under InCSE1/Container/container/
     [Documentation]    Delete contentIsntance under InCSE1/Container/container/
-    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you"
-    ${r} =    Create Resource    ${iserver}    InCSE1/Con2    ${rt_container}    ${attr}    Con3
-    ${container} =    Name    ${r}
+    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you","rn":"Con3"
+    ${r} =    Create Resource    ${iserver}    InCSE1/Con2    ${rt_container}    ${attr}
+    ${container} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101"
     ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr}
-    ${conIn} =    Name    ${r}
+    ${conIn} =    Location    ${r}
     Response Is Correct    ${r}
     #------------- Delete -----------------------------
     ${deleteRes} =    Delete Resource    ${iserver}    ${conIn}
@@ -120,21 +120,21 @@ Set Suite Variable
 
 4.22 Delete AE with 3 child Container
     [Documentation]    Delete AE with 3 child Container
-    ${attr} =    Set Variable    "aei":"ODL","api":"jb","apn":"jb2","or":"http://hey/you"
-    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_ae}    ${attr}    AE1
-    ${ae} =    Name    ${r}
+    ${attr} =    Set Variable    "api":"jb","apn":"jb2","or":"http://hey/you","rr":true,"rn":"AE1"
+    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_ae}    ${attr}
+    ${ae} =    Location    ${r}
     Response Is Correct    ${r}
-    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you"
-    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}    Con2
-    ${container} =    Name    ${r}
+    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you","rn":"Con2"
+    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}
+    ${container} =    Location    ${r}
     Response Is Correct    ${r}
-    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you"
-    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}    Con3
-    ${container} =    Name    ${r}
+    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you","rn":"Con3"
+    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}
+    ${container} =    Location    ${r}
     Response Is Correct    ${r}
-    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you"
-    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}    Con4
-    ${container} =    Name    ${r}
+    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you","rn":"Con4"
+    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}
+    ${container} =    Location    ${r}
     Response Is Correct    ${r}
     # ----------- Delete the parent AE --------------
     ${r} =    Delete Resource    ${iserver}    InCSE1/AE1
@@ -155,17 +155,17 @@ Set Suite Variable
 
 4.23 Delete AE with 1 child Container/1 contentInstance
     [Documentation]    Delete AE with 1 child Container/1 contentInstance
-    ${attr} =    Set Variable    "aei":"ODL","api":"jb","apn":"jb2","or":"http://hey/you"
-    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_ae}    ${attr}    AE1
-    ${ae} =    Name    ${r}
+    ${attr} =    Set Variable    "api":"jb","apn":"jb2","or":"http://hey/you","rr":true,"rn":"AE1"
+    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_ae}    ${attr}
+    ${ae} =    Location    ${r}
     Response Is Correct    ${r}
-    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you"
-    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}    Con2
-    ${container} =    Name    ${r}
+    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you","rn":"Con2"
+    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}
+    ${container} =    Location    ${r}
     Response Is Correct    ${r}
-    ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101"
-    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr}    conIn1
-    ${name} =    Name    ${r}
+    ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101","rn":"conIn1"
+    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr}
+    ${name} =    Location    ${r}
     Response Is Correct    ${r}
     # ----------- Delete the parent AE --------------
     ${r} =    Delete Resource    ${iserver}    InCSE1/AE1
@@ -180,20 +180,22 @@ Set Suite Variable
 
 4.24 Delete AE with 1 child Container/3 contentInsntace
     [Documentation]    Delete AE with 1 child Container/3 contentInsntace
-    ${attr} =    Set Variable    "aei":"ODL","api":"jb","apn":"jb2","or":"http://hey/you"
-    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_ae}    ${attr}    AE1
-    ${ae} =    Name    ${r}
+    ${attr} =    Set Variable    "api":"jb","apn":"jb2","or":"http://hey/you","rr":true,"rn":"AE1"
+    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_ae}    ${attr}
+    ${ae} =    Location    ${r}
     Response Is Correct    ${r}
-    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you"
-    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}    Con2
-    ${container} =    Name    ${r}
+    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you","rn":"Con2"
+    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}
+    ${container} =    Location    ${r}
     Response Is Correct    ${r}
-    ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101"
-    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr}    conIn1
+    ${attr1} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101","rn":"conIn1"
+    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr1}
     Response Is Correct    ${r}
-    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr}    conIn2
+    ${attr2} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101","rn":"conIn2"
+    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr2}
     Response Is Correct    ${r}
-    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr}    conIn3
+    ${attr3} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101","rn":"conIn3"
+    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr3}
     Response Is Correct    ${r}
     # ----------- Delete the parent AE --------------
     ${r} =    Delete Resource    ${iserver}    InCSE1/AE1
@@ -210,34 +212,31 @@ Set Suite Variable
 
 4.25 Delete AE with 3 child Container/9 contentInstance
     [Documentation]    Delete AE with 3 child Container/9 contentInstance
-    ${attr} =    Set Variable    "aei":"ODL","api":"jb","apn":"jb2","or":"http://hey/you"
-    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_ae}    ${attr}    AE1
-    ${ae} =    Name    ${r}
+    ${attr} =    Set Variable    "api":"jb","apn":"jb2","or":"http://hey/you","rr":true,"rn":"AE1"
+    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_ae}    ${attr}
+    ${ae} =    Location    ${r}
     Response Is Correct    ${r}
-    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you"
-    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}    Con1
-    ${container1} =    Name    ${r}
+    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you","rn":"Con1"
+    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}
+    ${container1} =    Location    ${r}
     Response Is Correct    ${r}
-    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you"
-    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}    Con2
-    ${container2} =    Name    ${r}
+    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you","rn":"Con2"
+    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}
+    ${container2} =    Location    ${r}
     Response Is Correct    ${r}
-    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you"
-    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}    Con3
-    ${container3} =    Name    ${r}
+    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you","rn":"Con3"
+    ${r} =    Create Resource    ${iserver}    ${ae}    ${rt_container}    ${attr}
+    ${container3} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101"
     : FOR    ${conName}    IN    conIn1    conIn2    conIn3
-    \    ${r} =    Create Resource    ${iserver}    ${container1}    ${rt_contentInstance}    ${attr}
-    \    ...    ${conName}
+    \    ${r} =    Create Resource    ${iserver}    ${container1}    ${rt_contentInstance}    ${attr},"rn":${conName}
     \    Response Is Correct    ${r}
     : FOR    ${conName}    IN    conIn1    conIn2    conIn3
-    \    ${r} =    Create Resource    ${iserver}    ${container2}    ${rt_contentInstance}    ${attr}
-    \    ...    ${conName}
+    \    ${r} =    Create Resource    ${iserver}    ${container2}    ${rt_contentInstance}    ${attr},"rn":${conName}
     \    Response Is Correct    ${r}
     : FOR    ${conName}    IN    conIn1    conIn2    conIn3
-    \    ${r} =    Create Resource    ${iserver}    ${container3}    ${rt_contentInstance}    ${attr}
-    \    ...    ${conName}
+    \    ${r} =    Create Resource    ${iserver}    ${container3}    ${rt_contentInstance}    ${attr},"rn":${conName}
     \    Response Is Correct    ${r}
     # ----------- Delete the parent AE --------------
     ${r} =    Delete Resource    ${iserver}    InCSE1/AE1
@@ -275,17 +274,17 @@ Set Suite Variable
 4.32 Delete Container with 3 child Container
     [Documentation]    Delete Container with 3 child Container
     ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you"
-    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}    ConTop1
-    ${container} =    Name    ${r}
+    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr},"rn":"ConTop1"
+    ${container} =    Location    ${r}
     Response Is Correct    ${r}
-    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_container}    ${attr}    Con1
-    ${container1} =    Name    ${r}
+    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_container}    ${attr},"rn":"Con1"
+    ${container1} =    Location    ${r}
     Response Is Correct    ${r}
-    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_container}    ${attr}    Con2
-    ${container2} =    Name    ${r}
+    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_container}    ${attr},"rn":"Con2"
+    ${container2} =    Location    ${r}
     Response Is Correct    ${r}
-    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_container}    ${attr}    Con3
-    ${container3} =    Name    ${r}
+    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_container}    ${attr},"rn":"Con3"
+    ${container3} =    Location    ${r}
     Response Is Correct    ${r}
     # ----------- Delete the parent Container --------------
     ${r} =    Delete Resource    ${iserver}    InCSE1/ConTop1
@@ -301,17 +300,17 @@ Set Suite Variable
 
 4.33 Delete Container with 1 child Container/1 contentInstance
     [Documentation]    Delete Container with 1 child Container/1 contentInstance
-    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you"
-    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}    Con1
-    ${con} =    Name    ${r}
+    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you","rn":"Con1"
+    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
+    ${con} =    Location    ${r}
     Response Is Correct    ${r}
-    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you"
-    ${r} =    Create Resource    ${iserver}    ${con}    ${rt_container}    ${attr}    Con2
-    ${container} =    Name    ${r}
+    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you","rn":"Con2"
+    ${r} =    Create Resource    ${iserver}    ${con}    ${rt_container}    ${attr}
+    ${container} =    Location    ${r}
     Response Is Correct    ${r}
-    ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101"
-    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr}    conIn1
-    ${name} =    Name    ${r}
+    ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101","rn":"conIn1"
+    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr}
+    ${name} =    Location    ${r}
     Response Is Correct    ${r}
     # ----------- Delete the parent Container --------------
     ${r} =    Delete Resource    ${iserver}    InCSE1/Con1
@@ -326,20 +325,20 @@ Set Suite Variable
 
 4.34 Delete Container with 1 child Container/3 contentInsntace
     [Documentation]    Delete Container with 1 child Container/3 contentInsntace
-    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you"
-    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}    Con1
-    ${con} =    Name    ${r}
+    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you","rn":"Con1"
+    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
+    ${con} =    Location    ${r}
     Response Is Correct    ${r}
-    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you"
-    ${r} =    Create Resource    ${iserver}    ${con}    ${rt_container}    ${attr}    Con2
-    ${container} =    Name    ${r}
+    ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you","rn":"Con2"
+    ${r} =    Create Resource    ${iserver}    ${con}    ${rt_container}    ${attr}
+    ${container} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101"
-    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr}    conIn1
+    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr},"rn":"conIn1"
     Response Is Correct    ${r}
-    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr}    conIn2
+    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr},"rn":"conIn2"
     Response Is Correct    ${r}
-    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr}    conIn3
+    ${r} =    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr},"rn":"conIn3"
     Response Is Correct    ${r}
     # ----------- Delete the parent Container --------------
     ${r} =    Delete Resource    ${iserver}    InCSE1/Con1
@@ -357,30 +356,27 @@ Set Suite Variable
 4.35 Delete Container with 3 child Container/9 contentInstance
     [Documentation]    Delete Container with 3 child Container/9 contentInstance
     ${attr} =    Set Variable    "cr":null,"mni":5,"mbs":15,"or":"http://hey/you"
-    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}    Con1
-    ${con} =    Name    ${r}
+    ${r} =    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr},"rn":"Con1"
+    ${con} =    Location    ${r}
     Response Is Correct    ${r}
-    ${r} =    Create Resource    ${iserver}    ${con}    ${rt_container}    ${attr}    Con2
-    ${container1} =    Name    ${r}
+    ${r} =    Create Resource    ${iserver}    ${con}    ${rt_container}    ${attr},"rn":"Con2"
+    ${container1} =    Location    ${r}
     Response Is Correct    ${r}
-    ${r} =    Create Resource    ${iserver}    ${con}    ${rt_container}    ${attr}    Con3
-    ${container2} =    Name    ${r}
+    ${r} =    Create Resource    ${iserver}    ${con}    ${rt_container}    ${attr},"rn":"Con3"
+    ${container2} =    Location    ${r}
     Response Is Correct    ${r}
-    ${r} =    Create Resource    ${iserver}    ${con}    ${rt_container}    ${attr}    Con4
-    ${container3} =    Name    ${r}
+    ${r} =    Create Resource    ${iserver}    ${con}    ${rt_container}    ${attr},"rn":"Con4"
+    ${container3} =    Location    ${r}
     Response Is Correct    ${r}
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"101"
     : FOR    ${conName}    IN    conIn1    conIn2    conIn3
-    \    ${r} =    Create Resource    ${iserver}    ${container1}    ${rt_contentInstance}    ${attr}
-    \    ...    ${conName}
+    \    ${r} =    Create Resource    ${iserver}    ${container1}    ${rt_contentInstance}    ${attr},"rn":${conName}
     \    Response Is Correct    ${r}
     : FOR    ${conName}    IN    conIn1    conIn2    conIn3
-    \    ${r} =    Create Resource    ${iserver}    ${container2}    ${rt_contentInstance}    ${attr}
-    \    ...    ${conName}
+    \    ${r} =    Create Resource    ${iserver}    ${container2}    ${rt_contentInstance}    ${attr},"rn":${conName}
     \    Response Is Correct    ${r}
     : FOR    ${conName}    IN    conIn1    conIn2    conIn3
-    \    ${r} =    Create Resource    ${iserver}    ${container3}    ${rt_contentInstance}    ${attr}
-    \    ...    ${conName}
+    \    ${r} =    Create Resource    ${iserver}    ${container3}    ${rt_contentInstance}    ${attr},"rn":${conName}
     \    Response Is Correct    ${r}
     # ----------- Delete the parent Container --------------
     ${r} =    Delete Resource    ${iserver}    InCSE1/Con1
@@ -406,12 +402,13 @@ Set Suite Variable
 *** Keywords ***
 Response Is Correct
     [Arguments]    ${r}
-    ${status_code} =    Status Code    ${r}
-    Should Be True    199 < ${status_code} < 299
     ${text} =    Text    ${r}
     LOG    ${text}
     ${json} =    Json    ${r}
     LOG    ${json}
+    ${status_code} =    Status Code    ${r}
+    Should Be True    199 < ${status_code} < 299
+
 
 Cannot Retrieve Error
     [Arguments]    ${uri}
