@@ -28,13 +28,13 @@ Set Suite Variable
 
 1.1 After Created, test whether all the mandatory attribtues are exist.
     [Documentation]    create 1 conIn test whether all the mandatory attribtues are exist
-    ${attr} =    Set Variable
-    ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}    Container1
-    ${container} =    Name    ${r}
+    ${attr} =    Set Variable    "rn":"Container1"
+    ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
+    ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
     Should Be Equal As Integers    ${status_code}    201
-    ${attr} =    Set Variable    "con":"102CSS"
-    Create Resource    ${iserver}    InCSE1/Container1    ${rt_contentInstance}    ${attr}    conIn1
+    ${attr} =    Set Variable    "con":"102CSS","rn":"conIn1"
+    Create Resource    ${iserver}    InCSE1/Container1    ${rt_contentInstance}    ${attr}
     ${text} =    Text    ${r}
     Should Contain    ${text}    "ri":    "rn":    "cs":
     Should Contain    ${text}    "lt":    "pi":    "con":
@@ -57,9 +57,9 @@ Set Suite Variable
 
 2.11 ContentInfo (cnf) can be added when create
     [Documentation]    ContentInfo (cnf) can be added when create
-    ${attr} =    Set Variable    "cnf": "1","con":"102CSS"
+    ${attr} =    Set Variable    "cnf": "1","con":"102CSS","rn":"conIn2"
     # create conIn under Container1
-    ${r}=    Create Resource    ${iserver}    InCSE1/Container1    ${rt_contentInstance}    ${attr}    conIn2
+    ${r}=    Create Resource    ${iserver}    InCSE1/Container1    ${rt_contentInstance}    ${attr}
     ${text} =    Check Create and Retrieve ContentInstance    ${r}
     Should Contain    ${text}    cnf
 
@@ -74,9 +74,9 @@ Delete the ContenInstance 2.1
 
 2.21 OntologyRef (or) can be added when create
     [Documentation]    OntologyRef (or) can be added when create
-    ${attr} =    Set Variable    "or": "http://cisco.com","con":"102CSS"
+    ${attr} =    Set Variable    "or": "http://cisco.com","con":"102CSS","rn":"conIn2"
     # create conIn under Container1
-    ${r}=    Create Resource    ${iserver}    InCSE1/Container1    ${rt_contentInstance}    ${attr}    conIn2
+    ${r}=    Create Resource    ${iserver}    InCSE1/Container1    ${rt_contentInstance}    ${attr}
     ${text} =    Check Create and Retrieve ContentInstance    ${r}
     Should Contain    ${text}    or
 
@@ -91,8 +91,8 @@ Delete the ContenInstance 2.2
 
 2.31 labels[single] can be added when create
     [Documentation]    create conIn under Container1, labels[single] can be added when create
-    ${attr} =    Set Variable    "lbl":["ds"],"con":"102CSS"
-    ${r}=    Create Resource    ${iserver}    InCSE1/Container1    ${rt_contentInstance}    ${attr}    conIn2
+    ${attr} =    Set Variable    "lbl":["ds"],"con":"102CSS","rn":"conIn2"
+    ${r}=    Create Resource    ${iserver}    InCSE1/Container1    ${rt_contentInstance}    ${attr}
     ${text} =    Check Create and Retrieve ContentInstance    ${r}
     Should Contain    ${text}    lbl
 
@@ -107,9 +107,9 @@ Delete the ContenInstance 2.31
 
 2.33 labels (multiple) can be added when create
     [Documentation]    labels (multiple) can be added when create
-    ${attr} =    Set Variable    "lbl":["http://cisco.com","dsds"],"con":"102CSS"
+    ${attr} =    Set Variable    "lbl":["http://cisco.com","dsds"],"con":"102CSS","rn":"conIn2"
     # create conIn under Container1
-    ${r}=    Create Resource    ${iserver}    InCSE1/Container1    ${rt_contentInstance}    ${attr}    conIn2
+    ${r}=    Create Resource    ${iserver}    InCSE1/Container1    ${rt_contentInstance}    ${attr}
     ${text} =    Check Create and Retrieve ContentInstance    ${r}
     Should Contain    ${text}    lbl
 
@@ -204,17 +204,25 @@ Delete the ContenInstance 2.33
     ${attr} =    Set Variable    "con": "1"
     ${error} =    Cannot Update ContentInstance Error    ${attr}
     Should Contain    ${error}    Not permitted to update content
-    #==================================================
-    #    Functional Attribute Test
-    #==================================================
-    # Next step:
-    # creator
-    # contentSzie
-    # contentInfo
-    # content
-    #==================================================
-    #    Finish
-    #==================================================
+
+4.11 GetLatest Test
+    [Documentation]    Set mni to 1 when creating a container, then continue creating <cin> "get latest" should always return the last created <cin>'s "con" value.
+    ${attr} =    Set Variable    "mni":1,"rn":"Container2"
+    ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
+    ${container} =    Location    ${r}
+    ${random} =    Evaluate    random.randint(0,50)    modules=random
+    ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"${random}"
+    Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr}
+    ${latestCon} =    Get Latest     ${container}
+    Should Be Equal As Strings    ${random}    ${latestCon}
+
+4.12 GetLatest Loop 50 times Test
+    [Documentation]    Just like 4.11, but do 50 times.
+    ${attr} =    Set Variable    "mni":1,"rn":"Container3"
+    ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}
+    ${container} =    Location    ${r}
+    : FOR    ${INDEX}    IN RANGE    1    100
+    \    Latest Con Test    ${container}
 
 Delete the test Container1
     [Documentation]    Delete the test Container1
@@ -237,9 +245,22 @@ Cannot Craete ContentInstance Error
 
 Check Create and Retrieve ContentInstance
     [Arguments]    ${r}
-    ${con} =    Name    ${r}
+    ${con} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
     Should Be Equal As Integers    ${status_code}    201
     ${rr} =    Retrieve Resource    ${iserver}    ${con}
     ${text} =    Text    ${rr}
     [Return]    ${text}
+
+Get Latest
+    [Arguments]    ${resourceURI}
+    ${latest} =    Retrieve Resource    ${iserver}    ${resourceURI}/latest
+    [Return]    ${latest.json()['m2m:cin']['con']}
+
+Latest Con Test
+    [Arguments]    ${resourceURI}
+    ${random} =    Evaluate    random.randint(0,50)    modules=random
+    ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"${random}"
+    Create Resource    ${iserver}    ${resourceURI}    ${rt_contentInstance}    ${attr}
+    ${latestCon} =    Get Latest     ${resourceURI}
+    Should Be Equal As Strings    ${random}    ${latestCon}
