@@ -30,7 +30,7 @@ Set Suite Variable
     [Documentation]    create 1 conIn test whether all the mandatory attribtues are exist
     ${attr} =    Set Variable
     ${r}=    Create Resource    ${iserver}    InCSE1    ${rt_container}    ${attr}    Container1
-    ${container} =    Name    ${r}
+    ${container} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
     Should Be Equal As Integers    ${status_code}    201
     ${attr} =    Set Variable    "con":"102CSS"
@@ -237,7 +237,7 @@ Cannot Craete ContentInstance Error
 
 Check Create and Retrieve ContentInstance
     [Arguments]    ${r}
-    ${con} =    Name    ${r}
+    ${con} =    Location    ${r}
     ${status_code} =    Status Code    ${r}
     Should Be Equal As Integers    ${status_code}    201
     ${rr} =    Retrieve Resource    ${iserver}    ${con}
