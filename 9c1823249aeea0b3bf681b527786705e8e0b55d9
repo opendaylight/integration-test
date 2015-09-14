@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a79b1b5_3d52cc13",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-14T12:59:37Z",
+      "side": 1,
+      "message": "Do not bind to reserved keywords.",
+      "range": {
+        "startLine": 47,
+        "startChar": 8,
+        "endLine": 47,
+        "endChar": 12
+      },
+      "revId": "9c1823249aeea0b3bf681b527786705e8e0b55d9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_dd587834",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-14T12:59:37Z",
+      "side": 1,
+      "message": "Why is the argument not called binding_source then?",
+      "range": {
+        "startLine": 49,
+        "startChar": 43,
+        "endLine": 49,
+        "endChar": 51
+      },
+      "revId": "9c1823249aeea0b3bf681b527786705e8e0b55d9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_3d796c93",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-14T12:59:37Z",
+      "side": 1,
+      "message": "Why is this not called node_id?",
+      "range": {
+        "startLine": 73,
+        "startChar": 79,
+        "endLine": 73,
+        "endChar": 91
+      },
+      "revId": "9c1823249aeea0b3bf681b527786705e8e0b55d9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_5d6308dc",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-14T12:59:37Z",
+      "side": 1,
+      "message": "node?",
+      "range": {
+        "startLine": 118,
+        "startChar": 60,
+        "endLine": 118,
+        "endChar": 63
+      },
+      "revId": "9c1823249aeea0b3bf681b527786705e8e0b55d9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_7d5e0414",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-14T12:59:37Z",
+      "side": 1,
+      "message": "address?",
+      "range": {
+        "startLine": 119,
+        "startChar": 58,
+        "endLine": 119,
+        "endChar": 60
+      },
+      "revId": "9c1823249aeea0b3bf681b527786705e8e0b55d9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_9db0c044",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-14T12:59:37Z",
+      "side": 1,
+      "message": "Also specify all libraries used.",
+      "range": {
+        "startLine": 1,
+        "startChar": 15,
+        "endLine": 1,
+        "endChar": 16
+      },
+      "revId": "9c1823249aeea0b3bf681b527786705e8e0b55d9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
