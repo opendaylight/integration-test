@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "3a79b1b5_f2af9a92",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-15T21:40:38Z",
+      "side": 1,
+      "message": "btw, when/if this patch works with the new logic in the \"Issue Command On Karaf Console\" we wont need this keyword any more right?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 34
+      },
+      "revId": "2f8bc90800ddc3104a11173685968b5aaeff427b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_9d552052",
         "filename": "csit/libraries/KarafKeywords.robot",
         "patchSetId": 2
@@ -13,6 +36,30 @@
       "writtenOn": "2015-09-14T16:17:49Z",
       "side": 1,
       "message": "I don\u0027t understand why the value of this variable at this place is \"None\" when it is defined to be \"127.0.0.1\".",
+      "range": {
+        "startLine": 50,
+        "startChar": 35,
+        "endLine": 50,
+        "endChar": 48
+      },
+      "revId": "2f8bc90800ddc3104a11173685968b5aaeff427b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_32a672c2",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-15T21:40:38Z",
+      "side": 1,
+      "message": "1.  are you seeing that line 49 will print 172.0.0.1 to the console, but then the caller of this keyword will get a \"None\" in it\u0027s return value?\n\n2.  why not just use [Return] instead of this \"Return From Keyword\"?  maybe that helps?",
+      "parentUuid": "3a79b1b5_9d552052",
       "range": {
         "startLine": 50,
         "startChar": 35,
