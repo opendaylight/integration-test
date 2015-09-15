@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "3a79b1b5_72162af3",
+        "filename": "csit/suites/lispflowmapping/performance/010_Southbound_MapRequest.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-15T21:21:33Z",
+      "side": 1,
+      "message": "did you mean for this to be commented out?",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 53
+      },
+      "revId": "4185957bee31150550de7a8978e4b0e597e0af9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_ac4c6c43",
         "filename": "tools/odl-lispflowmapping-performance-tests/encapsulated-map-requests-random.pcap",
         "patchSetId": 1
@@ -13,6 +36,24 @@
       "writtenOn": "2015-09-15T14:54:19Z",
       "side": 1,
       "message": "We typically try to find ways to avoid binary files, but a PCap seems reasonable to me, mostly because I don\u0027t see another good option to get the same functionality without drastically more work.",
+      "revId": "4185957bee31150550de7a8978e4b0e597e0af9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_f2e1dafe",
+        "filename": "tools/odl-lispflowmapping-performance-tests/encapsulated-map-requests-random.pcap",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-15T21:21:33Z",
+      "side": 1,
+      "message": "unless there is a simple robot/python way to generate this .pcap file on the fly each time so we can kind of understand what is the contents of the file.  Otherwise, what do we do to read the file (\"tcpdump -r\", I guess)",
+      "parentUuid": "3a79b1b5_ac4c6c43",
       "revId": "4185957bee31150550de7a8978e4b0e597e0af9d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
