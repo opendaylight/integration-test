@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a79b1b5_ac4c6c43",
+        "filename": "tools/odl-lispflowmapping-performance-tests/encapsulated-map-requests-random.pcap",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-15T14:54:19Z",
+      "side": 1,
+      "message": "We typically try to find ways to avoid binary files, but a PCap seems reasonable to me, mostly because I don\u0027t see another good option to get the same functionality without drastically more work.",
+      "revId": "4185957bee31150550de7a8978e4b0e597e0af9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_8c5170da",
+        "filename": "tools/odl-lispflowmapping-performance-tests/mapping_blaster.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-15T14:54:19Z",
+      "side": 1,
+      "message": "This is submitted to run against Beryllium, so we should either include that here or not include the ODL version at all. I typically prefer not including the version, as it tends not to be maintained.",
+      "range": {
+        "startLine": 3,
+        "startChar": 31,
+        "endLine": 3,
+        "endChar": 42
+      },
+      "revId": "4185957bee31150550de7a8978e4b0e597e0af9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_2c605ca4",
+        "filename": "tools/odl-lispflowmapping-performance-tests/mapping_blaster.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-15T14:54:19Z",
+      "side": 1,
+      "message": "I like the consistency of `*_blaster` scripts we\u0027re developing :)",
+      "range": {
+        "startLine": 6,
+        "startChar": 7,
+        "endLine": 6,
+        "endChar": 22
+      },
+      "revId": "4185957bee31150550de7a8978e4b0e597e0af9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_4c6358b1",
+        "filename": "tools/odl-lispflowmapping-performance-tests/mapping_blaster.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-15T14:54:19Z",
+      "side": 1,
+      "message": "It would be nice to document these params in a docstring for this (and maybe other) methods. Not a blocker in this case imho, as they are pretty well documented in the parser help messages (which is nice and user-facing).\n\nHere are some good examples of the styles of docstrings we frequently use:\n\nhttps://git.opendaylight.org/gerrit/#/c/22384/11/test/csit/libraries/Docker.py\nhttps://github.com/IEEERobotics/bot/blob/master/bot/server/ctrl_server.py",
+      "range": {
+        "startLine": 79,
+        "startChar": 23,
+        "endLine": 79,
+        "endChar": 73
+      },
+      "revId": "4185957bee31150550de7a8978e4b0e597e0af9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
