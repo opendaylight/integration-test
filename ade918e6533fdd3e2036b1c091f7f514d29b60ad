@@ -22,6 +22,282 @@
       "revId": "ade918e6533fdd3e2036b1c091f7f514d29b60ad",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_414c7a70",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-16T17:20:18Z",
+      "side": 1,
+      "message": "FYI, it seems like it would be pretty easy to make them not-hard-coded if that\u0027s a feature you care about. Just accept them as additional optional args.",
+      "range": {
+        "startLine": 3,
+        "startChar": 12,
+        "endLine": 3,
+        "endChar": 59
+      },
+      "revId": "ade918e6533fdd3e2036b1c091f7f514d29b60ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_0101a204",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-16T17:20:18Z",
+      "side": 1,
+      "message": "Thanks for the good docs! (applies elsewhere)",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 7
+      },
+      "revId": "ade918e6533fdd3e2036b1c091f7f514d29b60ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_a608042e",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-16T17:20:18Z",
+      "side": 1,
+      "message": "Any reason you\u0027re not using snake_case for some of these?",
+      "range": {
+        "startLine": 136,
+        "startChar": 66,
+        "endLine": 136,
+        "endChar": 75
+      },
+      "revId": "ade918e6533fdd3e2036b1c091f7f514d29b60ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_c613c064",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-16T17:20:18Z",
+      "side": 1,
+      "message": "I\u0027d avoid words like \"lets\" (applies elsewhere), but non-blocking imho",
+      "range": {
+        "startLine": 220,
+        "startChar": 6,
+        "endLine": 220,
+        "endChar": 10
+      },
+      "revId": "ade918e6533fdd3e2036b1c091f7f514d29b60ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_3bcc0d35",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-16T17:20:18Z",
+      "side": 1,
+      "message": "bit of a strange comment, nbd",
+      "range": {
+        "startLine": 225,
+        "startChar": 4,
+        "endLine": 225,
+        "endChar": 18
+      },
+      "revId": "ade918e6533fdd3e2036b1c091f7f514d29b60ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_061a187d",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 227,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-16T17:20:18Z",
+      "side": 1,
+      "message": "s/creaet/create",
+      "range": {
+        "startLine": 227,
+        "startChar": 6,
+        "endLine": 227,
+        "endChar": 12
+      },
+      "revId": "ade918e6533fdd3e2036b1c091f7f514d29b60ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_e616fc54",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-16T17:20:18Z",
+      "side": 1,
+      "message": "\"wait\"",
+      "range": {
+        "startLine": 243,
+        "startChar": 6,
+        "endLine": 243,
+        "endChar": 13
+      },
+      "revId": "ade918e6533fdd3e2036b1c091f7f514d29b60ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_e10d8638",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-16T17:20:18Z",
+      "side": 1,
+      "message": "This is actually returning True or False based on the comparison result. Applies elsewhere.",
+      "range": {
+        "startLine": 346,
+        "startChar": 8,
+        "endLine": 346,
+        "endChar": 15
+      },
+      "revId": "ade918e6533fdd3e2036b1c091f7f514d29b60ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_e124a6b0",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-16T17:20:18Z",
+      "side": 1,
+      "message": "Returning \"nothing\" in Python implies actually returning `None`. That\u0027s how I\u0027d document it too. Applies elsewhere.",
+      "range": {
+        "startLine": 420,
+        "startChar": 8,
+        "endLine": 420,
+        "endChar": 15
+      },
+      "revId": "ade918e6533fdd3e2036b1c091f7f514d29b60ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_613096e8",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 504,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-16T17:20:18Z",
+      "side": 1,
+      "message": "I\u0027d capitalize this, highlighting because it\u0027s user-facing.",
+      "range": {
+        "startLine": 504,
+        "startChar": 44,
+        "endLine": 504,
+        "endChar": 47
+      },
+      "revId": "ade918e6533fdd3e2036b1c091f7f514d29b60ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_c1588a34",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 506,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-16T17:20:18Z",
+      "side": 1,
+      "message": "May want to make the default docs consistent (parens above, semicolons here)",
+      "range": {
+        "startLine": 506,
+        "startChar": 85,
+        "endLine": 506,
+        "endChar": 96
+      },
+      "revId": "ade918e6533fdd3e2036b1c091f7f514d29b60ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_e15b462c",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 517,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-16T17:20:18Z",
+      "side": 1,
+      "message": "Better to remove commented out code in most situations",
+      "range": {
+        "startLine": 517,
+        "startChar": 4,
+        "endLine": 517,
+        "endChar": 28
+      },
+      "revId": "ade918e6533fdd3e2036b1c091f7f514d29b60ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
