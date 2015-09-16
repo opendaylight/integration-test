@@ -114,6 +114,24 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_ccde813f",
+        "filename": "tools/odl-lispflowmapping-performance-tests/encapsulated-map-requests-random.pcap",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-16T21:51:41Z",
+      "side": 1,
+      "message": "one policy we tend to adhere to is the run-on-every-merge tests should be as fast as possible, so spinning for minutes to generate a binary for a tool to use is not ideal.  However, if this is a longer (perf-ish) test that we\u0027d run daily or weekly, then it\u0027s ok to spin for a while.",
+      "parentUuid": "3a79b1b5_7be36533",
+      "revId": "4185957bee31150550de7a8978e4b0e597e0af9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_8c5170da",
         "filename": "tools/odl-lispflowmapping-performance-tests/mapping_blaster.py",
         "patchSetId": 1
