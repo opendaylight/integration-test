@@ -71,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_0c0799cb",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-16T21:22:26Z",
+      "side": 1,
+      "message": "I think suite variables should be more special and when we use them I think the consensus was to try and use ALLCAPS.  What about just doing [Return] with your variables and letting the code that\u0027s calling this handle the return values as needed?",
+      "range": {
+        "startLine": 290,
+        "startChar": 57,
+        "endLine": 290,
+        "endChar": 123
+      },
+      "revId": "d3e6437759ae13caf6bd864b550a4bd4aac278d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_069d38bc",
         "filename": "csit/libraries/Utils.robot",
         "patchSetId": 10
