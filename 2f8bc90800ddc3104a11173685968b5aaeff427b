@@ -49,6 +49,53 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_2cee1523",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-16T21:03:52Z",
+      "side": 1,
+      "message": "I understand the logic, but I thought that was why we ended up enhancing the \"Issue Command On Karaf Console\".  so in place of all this work, I\u0027m seeing this as a simpler solution:\n\n${karaf_system_console_index}\u003d    SSHLibrary.Open Connection    ${controller}    8101\nIssue Command On Karaf Console    feature:list    ${console_index}\u003d${karaf_system_console_index}\n\n\ndoesn\u0027t that achieve what you want in perf situations and you can remove this extraneous keyword.\n\nI may be missing something here, so sorry if I\u0027m being dense.",
+      "parentUuid": "3a79b1b5_9873e77f",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 34
+      },
+      "revId": "2f8bc90800ddc3104a11173685968b5aaeff427b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_2cd5b542",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-16T21:03:52Z",
+      "side": 1,
+      "message": "can you be a little more verbose about what this does and why we shouldn\u0027t use it directly?  This may someday end up in an html libdoc that end users would see and this docstring would confuse them.",
+      "range": {
+        "startLine": 44,
+        "startChar": 56,
+        "endLine": 45,
+        "endChar": 4
+      },
+      "revId": "2f8bc90800ddc3104a11173685968b5aaeff427b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_9d552052",
         "filename": "csit/libraries/KarafKeywords.robot",
         "patchSetId": 2
