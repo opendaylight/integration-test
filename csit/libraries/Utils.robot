@@ -22,6 +22,26 @@ Start Suite
     Set Suite Variable    ${mininet_conn_id}
     Flexible Mininet Login    user=${user}    password=${password}
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
+
+
+    Write    ${start}
+    Read Until    mininet>
+
+Start Suite SCF
+    [Documentation]    Basic setup/cleanup work that can be done safely before any system
+    ...    is run.
+    [Arguments]    ${system}=${MININET}    ${user}=${MININET_USER}    ${password}=${MININET_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${timeout}=30s
+    Log    Start the test on the base edition
+    Clean Mininet System
+    ${mininet_conn_id}=    Open Connection    ${system}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${timeout}
+    Set Suite Variable    ${mininet_conn_id}
+    Flexible Mininet Login    user=${user}    password=${password}
+    Execute Command    sudo ovs-vsctl set-manager ptcp:6644
+    Put File    ${CURDIR}/${CREATE_SCF_TOPOLOGY_FILE_PATH}
+    Execute Command    sudo ovs-ofctl add-flow s1 priority=0,actions=output:CONTROLLER
+    Execute Command    sudo ovs-ofctl add-flow s2 priority=0,actions=output:CONTROLLER
+    Execute Command    sudo ovs-ofctl add-flow s3 priority=0,actions=output:CONTROLLER
+    Execute Command    sudo ovs-ofctl add-flow s4 priority=0,actions=output:CONTROLLER
     Write    ${start}
     Read Until    mininet>
 
