@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a79b1b5_062e9843",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-16T16:18:49Z",
+      "side": 1,
+      "message": "There are more. For example Verify Feature Is Installed comes from KarafKeywords.robot (\"library\" can mean either \"Library\" or \"Resource\").",
+      "range": {
+        "startLine": 1,
+        "startChar": 15,
+        "endLine": 1,
+        "endChar": 16
+      },
+      "revId": "3c380bc14b352c787b4d81b8ad8695531311df3d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
