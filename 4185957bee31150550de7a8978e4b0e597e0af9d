@@ -25,6 +25,24 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_1bd2715c",
+        "filename": "csit/suites/lispflowmapping/performance/010_Southbound_MapRequest.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2015-09-16T11:12:09Z",
+      "side": 1,
+      "message": "Yeap, sorry about that.",
+      "parentUuid": "3a79b1b5_72162af3",
+      "revId": "4185957bee31150550de7a8978e4b0e597e0af9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_ac4c6c43",
         "filename": "tools/odl-lispflowmapping-performance-tests/encapsulated-map-requests-random.pcap",
         "patchSetId": 1
@@ -60,6 +78,24 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_7be36533",
+        "filename": "tools/odl-lispflowmapping-performance-tests/encapsulated-map-requests-random.pcap",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2015-09-16T11:12:09Z",
+      "side": 1,
+      "message": "I actually generate this .pcap with a Python script, BUT I need scapy installed AND this file \u0027https://github.com/intouch/py-lispnetworking/blob/master/lisp.py\u0027 to generate it, and it takes 1.5 minutes using up 600MB of RAM on my Mac. I don\u0027t mind switching to that, in fact it would help me use tcpreplay instead of udpreplay (will send an email about why that\u0027s a good thing), but I thought conserving resources takes priority. Up to you guys.",
+      "parentUuid": "3a79b1b5_f2e1dafe",
+      "revId": "4185957bee31150550de7a8978e4b0e597e0af9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_8c5170da",
         "filename": "tools/odl-lispflowmapping-performance-tests/mapping_blaster.py",
         "patchSetId": 1
@@ -77,6 +113,24 @@
         "endLine": 3,
         "endChar": 42
       },
+      "revId": "4185957bee31150550de7a8978e4b0e597e0af9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_9b69a1c0",
+        "filename": "tools/odl-lispflowmapping-performance-tests/mapping_blaster.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2015-09-16T11:12:09Z",
+      "side": 1,
+      "message": "Actually, this is the wrong version of the script, thanks for noticing. The RPCURL changed for Beryllium, so I will update this.",
+      "parentUuid": "3a79b1b5_8c5170da",
       "revId": "4185957bee31150550de7a8978e4b0e597e0af9d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -106,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_bb649de5",
+        "filename": "tools/odl-lispflowmapping-performance-tests/mapping_blaster.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2015-09-16T11:12:09Z",
+      "side": 1,
+      "message": "Yeah, I really liked Jan\u0027s scrips, so I decided to keep the naming convention :)",
+      "parentUuid": "3a79b1b5_2c605ca4",
+      "revId": "4185957bee31150550de7a8978e4b0e597e0af9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_4c6358b1",
         "filename": "tools/odl-lispflowmapping-performance-tests/mapping_blaster.py",
         "patchSetId": 1
@@ -123,6 +195,24 @@
         "endLine": 79,
         "endChar": 73
       },
+      "revId": "4185957bee31150550de7a8978e4b0e597e0af9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_3ba08df3",
+        "filename": "tools/odl-lispflowmapping-performance-tests/mapping_blaster.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2015-09-16T11:12:09Z",
+      "side": 1,
+      "message": "Sure, I will add the docstrings, it will make it easier on the eye reading it here.",
+      "parentUuid": "3a79b1b5_4c6358b1",
       "revId": "4185957bee31150550de7a8978e4b0e597e0af9d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
