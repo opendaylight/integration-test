@@ -403,6 +403,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_3b8ded31",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-16T13:33:51Z",
+      "side": 1,
+      "message": "Well, I don\u0027t know about anyone else but in my case when I see [Setup] do_some_setup_work_keyword, I would also expect [Teardown] undo_some_setup_work_keyword, i.e. stuff that is being set up using [Setup] in the testcase is torn down using [Teardown] in the same testcase. This particular setup is town down 2 testcases later so I don\u0027t consider adding it as [Setup] to be readable. Yes, it is probably true that I could add [Setup] to the following test case and its corresponding [Teardown] to the case immediately following it but I would find such code rather confusing.\n\nAnd, additionally, billing this setup time to the following testcase might make the results harder to read as they would be confusing as well.\n\nAdditionally, this code is, strictly speaking, not a setup at all. It simulates an event \"a BGP peer has connected to ODL\". Also the \"Kill_XXX_BGP_Speaker\" simulates the \"a BGP peer has disconnected from ODL\" event. I want to make it obvious where in the test suite these events are happening (and how: at one time the peer connects, at the other time the ODL connects) and therefore I don\u0027t want to have them hiding in some [Setup]/[Teardown] section somewhere in an unrelated piece of the suite.\n\nI wish Robot had support for this type of \"suite action that is not a test and is not a part of another test\" but it doesn\u0027t (or at least I am not aware of anything). That\u0027s why I am using a \"setup case\" here instead of a [Setup] section.",
+      "parentUuid": "3a79b1b5_404f9f92",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 48
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_2e3626e8",
         "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
         "patchSetId": 8
@@ -545,6 +569,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_1bdfd10e",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-16T13:33:51Z",
+      "side": 1,
+      "message": "Maybe add 2 cases. The first one will use WUKS with some small timeout and \"fail with a test case log message pointing to the bugzilla\" if the timeout is missed. Then this testcase would continue the WUKS with much larger timeout to make sure this test passes unless something is really wrong (like dead MDSAL or something). This way we will know there is a problem (manifested by a test failure) but will still be able to see some performance numbers.",
+      "parentUuid": "3a79b1b5_e0458b70",
+      "range": {
+        "startLine": 106,
+        "startChar": 52,
+        "endLine": 106,
+        "endChar": 56
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_ce3452e0",
         "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
         "patchSetId": 8
@@ -675,6 +723,30 @@
       "side": 1,
       "message": "I\u0027m getting the sense that you are doing a lot of tricks just to get the tests to pass, instead of letting things fail because there are\nreal issues?\n\nwhat\u0027s the difference in setups between the sandbox and your internal lab? the sandbox VMs should be 4core and 8G RAM.  Maybe your lab has much beefier setups?",
       "parentUuid": "3a79b1b5_69ebb8b0",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 53
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_3be2cdd5",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-16T13:33:51Z",
+      "side": 1,
+      "message": "\u003e I\u0027m getting the sense that you are doing a lot of tricks just to get the tests to pass\n\nThis is not a functional suite. The purpose of this test is to determine the time it takes to dump 1M routes from a dead peer out of the topology. It shall not fail because there is some performance issue, it shall show the performance issue in the performance timing instead (but still succeed in capturing the time measurement).\n\nThere is nothing specified regarding what should be happening in ODL while it is cleaning that dead routes up. Therefore I can\u0027t proclaim this type of latency to be some sort of issue and fail the test. Additionally, the ODL eventually succeeds in completing the cleanup so I don\u0027t consider it fair to FAIL the test here.\n\nThe real reason for \"tricks to make this test pass\" is that this topology stuff does not provide any way of determining whether it is up-to-date or not. And based on discussions with the developers, with the current design of the code it is completely impossible to provide such a feature. So what I am doing here is to force some sort of internal performance counter (called \"data change counter\") into the task of determining whether the topology is up-to-date. That performance counter was not meant to be used this way according to my understanding. This is inherently tricky and this is why you see it as \"tricks to make the test pass\". This is also one of the reasons why I have 2 test suites here. The other one is simply repeatedly downloading the topology to see if it is already empty or not. That testcase does not have \"any tricks to make it pass\" but its accuracy in determining the performance numbers is abysmal.\n\nI agree that there could (and maybe even should) be another testcase that examines the structure of the timings measures here and fails if it sees something odd. But I definitely don\u0027t want to mess this performance measurement testcase with code that detects oddities that should not be there.\n\n\u003e the sandbox VMs should be 4core and 8G RAM.\n\nWhat speed are these 4 sandbox cores? In our lab there are also 4 cores and 8G RAM. The cores run at 3GHz.\n\nThe lab\u0027s VMs are using QEMU and KVM. Maybe that\u0027s what makes them \"beefier\" as I heard sandbox/integration uses VmWare. KVM is integrated directly with the Linux kernel and QEMU has a bunch of \"virtual I/O\" based devices that speed things up a lot while VmWare tries to emulate some real devices, slowing it down quite a lot (my own experience: I witnessed QEMU/KVM and then VmWare running on the same hardware with VmWare being much slower than QEMU/KVM).",
+      "parentUuid": "3a79b1b5_a05f9340",
       "range": {
         "startLine": 149,
         "startChar": 0,
