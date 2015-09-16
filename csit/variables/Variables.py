@@ -103,6 +103,11 @@ CREATE_FULLYMESH_TOPOLOGY_FILE = "create_fullymesh.py"
 CREATE_FULLYMESH_TOPOLOGY_FILE_PATH = "libraries/MininetTopo/" +\
                                       CREATE_FULLYMESH_TOPOLOGY_FILE
 
+# Mininet Custom Topology Path and File for Service Chain Functioning
+CREATE_SCF_TOPOLOGY_FILE = "topo_handson.py"
+CREATE_SCF_TOPOLOGY_FILE_PATH = "MininetTopo/" +\
+                                CREATE_SCF_TOPOLOGY_FILE
+
 GBP_REGEP_API = "/restconf/operations/endpoint:register-endpoint"
 GBP_UNREGEP_API = "/restconf/operations/endpoint:unregister-endpoint"
 GBP_TENANTS_API = "/restconf/config/policy:tenants"
