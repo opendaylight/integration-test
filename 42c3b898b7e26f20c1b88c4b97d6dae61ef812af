@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a79b1b5_d8f4fff3",
+        "filename": "csit/suites/iotdm/basic/040_AEAttributeTest.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-16T08:09:05Z",
+      "side": 1,
+      "message": "Is there any way to check we got the expected error?",
+      "range": {
+        "startLine": 162,
+        "startChar": 4,
+        "endLine": 162,
+        "endChar": 12
+      },
+      "revId": "42c3b898b7e26f20c1b88c4b97d6dae61ef812af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
