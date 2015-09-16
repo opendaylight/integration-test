@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a79b1b5_3b1ded73",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 204,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-16T14:54:10Z",
+      "side": 1,
+      "message": "I prefer snake_case over CamelCase, but good enough.",
+      "range": {
+        "startLine": 204,
+        "startChar": 6,
+        "endLine": 204,
+        "endChar": 11
+      },
+      "revId": "3e9a0434d43961e5be073fa87df759f02d6f98e4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
