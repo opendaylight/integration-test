@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a79b1b5_866948c0",
+        "filename": "csit/libraries/BGPKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-16T15:56:50Z",
+      "side": 1,
+      "message": "I recommend to add ${CURDIR}/ just to be consistent with the way suites import libraries.",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 19
+      },
+      "revId": "d3e6437759ae13caf6bd864b550a4bd4aac278d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_e6a91ce0",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-16T15:56:50Z",
+      "side": 1,
+      "message": "Either replace with spaces, or introduce underscores everywhere else in this file.",
+      "range": {
+        "startLine": 284,
+        "startChar": 5,
+        "endLine": 284,
+        "endChar": 6
+      },
+      "revId": "d3e6437759ae13caf6bd864b550a4bd4aac278d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_c6a66010",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-16T15:56:50Z",
+      "side": 1,
+      "message": "I think that inserting the following line and continuing without further Ifs would be more readable:\nBuiltIn.Return_From_Keyword_If    ${response_code} \u003d\u003d 200",
+      "range": {
+        "startLine": 290,
+        "startChar": 4,
+        "endLine": 290,
+        "endChar": 53
+      },
+      "revId": "d3e6437759ae13caf6bd864b550a4bd4aac278d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_069d38bc",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-16T15:56:50Z",
+      "side": 1,
+      "message": "At the end of the keyword? No-op.",
+      "range": {
+        "startLine": 291,
+        "startChar": 57,
+        "endLine": 291,
+        "endChar": 84
+      },
+      "revId": "d3e6437759ae13caf6bd864b550a4bd4aac278d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_a6ab24d5",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-16T15:56:50Z",
+      "side": 1,
+      "message": "Still ugly, see patch set 8 comments.",
+      "range": {
+        "startLine": 73,
+        "startChar": 4,
+        "endLine": 73,
+        "endChar": 52
+      },
+      "revId": "d3e6437759ae13caf6bd864b550a4bd4aac278d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_46ba5024",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-16T15:56:50Z",
+      "side": 1,
+      "message": "Comment from patch set 8 applies. Now we have several suites using 1790 value.",
+      "range": {
+        "startLine": 79,
+        "startChar": 33,
+        "endLine": 79,
+        "endChar": 44
+      },
+      "revId": "d3e6437759ae13caf6bd864b550a4bd4aac278d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_86de286c",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-16T15:56:50Z",
+      "side": 1,
+      "message": "Patch set 8 comment applies.",
+      "range": {
+        "startLine": 112,
+        "startChar": 12,
+        "endLine": 112,
+        "endChar": 28
+      },
+      "revId": "d3e6437759ae13caf6bd864b550a4bd4aac278d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_a6c0047d",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-16T15:56:50Z",
+      "side": 1,
+      "message": "Ugly.",
+      "range": {
+        "startLine": 155,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 52
+      },
+      "revId": "d3e6437759ae13caf6bd864b550a4bd4aac278d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
