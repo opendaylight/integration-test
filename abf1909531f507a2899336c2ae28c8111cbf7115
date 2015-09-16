@@ -427,6 +427,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_c6f420f4",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-16T15:56:29Z",
+      "side": 1,
+      "message": "\u003e what about a [Setup] that calls a local keyword that will do the setup work\n\nPersonally, I like each \"setup step\" to contribute to passrate, so that one sees \"how broken the build is\" just by looking at graphs, without the need to expand details in log.html\n\nIt is not much of an added value, but I do not see value of using [Setup] either; especially since FailFast.robot is used.\n\nIn my earlier times, I was using \"[Tag] auxiliary\" to mark such \"not real test casess\". But I never needed to filter them out, so I got lazy.\nHowever, it would be good to mark those cases somehow, just to avoid recommendations to eliminate them. :)",
+      "parentUuid": "3a79b1b5_3b8ded31",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 81,
+        "endChar": 48
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_2e3626e8",
         "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
         "patchSetId": 8
@@ -581,6 +605,30 @@
       "side": 1,
       "message": "Maybe add 2 cases. The first one will use WUKS with some small timeout and \"fail with a test case log message pointing to the bugzilla\" if the timeout is missed. Then this testcase would continue the WUKS with much larger timeout to make sure this test passes unless something is really wrong (like dead MDSAL or something). This way we will know there is a problem (manifested by a test failure) but will still be able to see some performance numbers.",
       "parentUuid": "3a79b1b5_e0458b70",
+      "range": {
+        "startLine": 106,
+        "startChar": 52,
+        "endLine": 106,
+        "endChar": 56
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_e6f7dcf3",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-16T15:56:29Z",
+      "side": 1,
+      "message": "\u003e Maybe add 2 cases.\n\nThat would be a good idea if there is such a performance bug currently, or if you want to implement it anyway.\n\nI am just asking because I suspect the first \"small timeout\" case is sufficient right now.",
+      "parentUuid": "3a79b1b5_1bdfd10e",
       "range": {
         "startLine": 106,
         "startChar": 52,
@@ -759,6 +807,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_26d5d442",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-16T15:56:29Z",
+      "side": 1,
+      "message": "\u003e The cores run at 3GHz.\n\nNot saying much in current times. Perhaps mentioning Xeon(R) says more.",
+      "parentUuid": "3a79b1b5_3be2cdd5",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 53
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_ce4bf257",
         "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
         "patchSetId": 8
@@ -842,6 +914,30 @@
       "side": 1,
       "message": "can you re-explain this part?  If this is part of suite teardown, why not just put the work in \"Teardown_Everything\"?",
       "parentUuid": "3a79b1b5_638d1031",
+      "range": {
+        "startLine": 156,
+        "startChar": 4,
+        "endLine": 156,
+        "endChar": 47
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_c642e00f",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-16T15:56:29Z",
+      "side": 1,
+      "message": "Because failure in suite teardown sets all previous testcase results to failed.\nAnd even if this particular step is told to not cause failure, we still would not see its effect on passrate (making us blind to potential Bugs until someone actually looks deeply enough to log.html).",
+      "parentUuid": "3a79b1b5_c05acf4f",
       "range": {
         "startLine": 156,
         "startChar": 4,
