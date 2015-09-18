@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a79b1b5_0d947035",
+        "filename": "csit/suites/netconf/CRUD/CRUD.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-18T13:31:10Z",
+      "side": 1,
+      "message": "Copy\u0026paste disease?",
+      "range": {
+        "startLine": 11,
+        "startChar": 17,
+        "endLine": 13,
+        "endChar": 28
+      },
+      "revId": "0c312196c650aa6c75c1f76b7bee483991a67c2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_ad9a1c61",
+        "filename": "csit/suites/netconf/CRUD/CRUD.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-18T13:31:10Z",
+      "side": 1,
+      "message": "Do not override, assume MININET_PROMPT.",
+      "range": {
+        "startLine": 20,
+        "startChar": 32,
+        "endLine": 20,
+        "endChar": 41
+      },
+      "revId": "0c312196c650aa6c75c1f76b7bee483991a67c2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_cd9d185b",
+        "filename": "csit/suites/netconf/CRUD/CRUD.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-18T13:31:10Z",
+      "side": 1,
+      "message": "Do not override.",
+      "range": {
+        "startLine": 27,
+        "startChar": 21,
+        "endLine": 27,
+        "endChar": 44
+      },
+      "revId": "0c312196c650aa6c75c1f76b7bee483991a67c2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_0dbb10c5",
+        "filename": "csit/suites/netconf/CRUD/CRUD.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-18T13:31:10Z",
+      "side": 1,
+      "message": "If Put is used, you would not need a separate folder for delete.",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 8
+      },
+      "revId": "0c312196c650aa6c75c1f76b7bee483991a67c2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_8dc64048",
+        "filename": "csit/suites/netconf/CRUD/CRUD.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-18T13:31:10Z",
+      "side": 1,
+      "message": "Documentation needed for explaining why.\nAlso, the previous case checks for a Bug, right? Give a link.",
+      "range": {
+        "startLine": 95,
+        "startChar": 31,
+        "endLine": 95,
+        "endChar": 42
+      },
+      "revId": "0c312196c650aa6c75c1f76b7bee483991a67c2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_2dc5ac3b",
+        "filename": "csit/suites/netconf/CRUD/CRUD.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-18T13:31:10Z",
+      "side": 1,
+      "message": "1s?",
+      "range": {
+        "startLine": 96,
+        "startChar": 49,
+        "endLine": 96,
+        "endChar": 54
+      },
+      "revId": "0c312196c650aa6c75c1f76b7bee483991a67c2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_4dc0282a",
+        "filename": "csit/suites/netconf/CRUD/CRUD.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-18T13:31:10Z",
+      "side": 1,
+      "message": "Flexible_Mininet_Login",
+      "range": {
+        "startLine": 105,
+        "startChar": 10,
+        "endLine": 105,
+        "endChar": 70
+      },
+      "revId": "0c312196c650aa6c75c1f76b7bee483991a67c2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_0de230d5",
+        "filename": "csit/suites/netconf/CRUD/CRUD.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-18T13:31:10Z",
+      "side": 1,
+      "message": "Sleeps are bad. Use some \"WUKS cat|grep\" construct instead.",
+      "range": {
+        "startLine": 125,
+        "startChar": 12,
+        "endLine": 125,
+        "endChar": 17
+      },
+      "revId": "0c312196c650aa6c75c1f76b7bee483991a67c2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_ade8dcb4",
+        "filename": "csit/suites/netconf/CRUD/CRUD.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-18T13:31:10Z",
+      "side": 1,
+      "message": "Would the testtool react reliably to Utils.Send_Ctrl_C?\nIf not, there is KillPythonTool.robot you may want to enhance and use.\n\nPerhaps an analogue to BGPSpeaker.robot is worth creating, as there will be other suites interested in using testtool.",
+      "range": {
+        "startLine": 140,
+        "startChar": 71,
+        "endLine": 140,
+        "endChar": 79
+      },
+      "revId": "0c312196c650aa6c75c1f76b7bee483991a67c2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_cdebd8ae",
+        "filename": "csit/suites/netconf/CRUD/CRUD.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-18T13:31:10Z",
+      "side": 1,
+      "message": "The SSH session from setup is still up, right? You can SSHLibrary.Get_File.",
+      "range": {
+        "startLine": 144,
+        "startChar": 36,
+        "endLine": 144,
+        "endChar": 39
+      },
+      "revId": "0c312196c650aa6c75c1f76b7bee483991a67c2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
