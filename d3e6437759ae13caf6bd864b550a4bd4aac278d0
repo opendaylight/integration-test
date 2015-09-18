@@ -94,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_f219cf88",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-18T10:48:13Z",
+      "side": 1,
+      "message": "\u003e I think the consensus was to try and use ALLCAPS.\n\nMy bash and Python personas are screaming that ALLCAPS is only for constants. They may be specified by -v, but they should not change value during suite execution.\n\n\u003e What about just doing [Return] with your variables and letting the code that\u0027s calling this handle the return values as needed?\n\n+1\nSuite variables are useful when different test cases need to share state, but that is not case in this suite.\nPassing values explicitly takes more code space, but maintainer is less likely to introduce an error.",
+      "parentUuid": "3a79b1b5_0c0799cb",
+      "range": {
+        "startLine": 290,
+        "startChar": 57,
+        "endLine": 290,
+        "endChar": 123
+      },
+      "revId": "d3e6437759ae13caf6bd864b550a4bd4aac278d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_069d38bc",
         "filename": "csit/libraries/Utils.robot",
         "patchSetId": 10
