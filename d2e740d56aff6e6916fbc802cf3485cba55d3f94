@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a79b1b5_8dd96085",
+        "filename": "tools/odl-lispflowmapping-performance-tests/mapping_blaster.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-18T11:54:18Z",
+      "side": 1,
+      "message": "Some time ago I have decided ipaddr is better, but I no longer remember why.\nBoth are present, so it does not matter.",
+      "range": {
+        "startLine": 15,
+        "startChar": 7,
+        "endLine": 15,
+        "endChar": 14
+      },
+      "revId": "d2e740d56aff6e6916fbc802cf3485cba55d3f94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_4db5882f",
+        "filename": "tools/odl-lispflowmapping-performance-tests/mapping_blaster.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-18T11:54:18Z",
+      "side": 1,
+      "message": "Underscore here?",
+      "range": {
+        "startLine": 103,
+        "startChar": 29,
+        "endLine": 103,
+        "endChar": 31
+      },
+      "revId": "d2e740d56aff6e6916fbc802cf3485cba55d3f94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_adf45cf2",
+        "filename": "tools/odl-lispflowmapping-performance-tests/mapping_blaster.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-18T11:54:18Z",
+      "side": 1,
+      "message": "An alternative would be to create input string. \n\nadd_mapping_template then could be a string.Template with few $placeholders, and instead of lines 120-128, a .substitute() call would be more readable (and maintainable in case input layout ever changes).\n\nAlso, later json.dumps call would no longer be needed.",
+      "range": {
+        "startLine": 112,
+        "startChar": 37,
+        "endLine": 112,
+        "endChar": 53
+      },
+      "revId": "d2e740d56aff6e6916fbc802cf3485cba55d3f94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
