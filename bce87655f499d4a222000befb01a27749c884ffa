@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_b2a03744",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-18T10:10:07Z",
+      "side": 1,
+      "message": "\u003e What are we learning by throwing a failure in the #1 test case because the netconf-connector took 2s to come up. that gives us a failure and then a passing case. Are we going to file a bug on that?\n\n2s is not a netconf-connector bug. But it is a releng/builder or integration/test bug, because it could cause mysterious testcase failures if this suite is not used.\n\nPerhaps this suite can be split into two. One would be a tolerant \"see if netconf-connector finishes booting up in few minutes\" and the other would be strict \"verify netconf-connector is already fully up\".\nIn testplans, only one of them would be present, depending on what the contract with releng/builder part of CSIT jobs ends up to be.\n\nYou know, the current contract is \"60 seconds after restconf got 200\", which we should try to eliminate, as part of our ongoing \"get rid of all sleeps\" initiative.",
+      "parentUuid": "3a79b1b5_9aba0922",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 45,
+        "endChar": 79
+      },
+      "revId": "bce87655f499d4a222000befb01a27749c884ffa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_1814d042",
         "filename": "csit/suites/netconf/ready/netconfready.robot",
         "patchSetId": 2
