@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a79b1b5_e8a242ad",
+        "filename": "csit/libraries/MininetTopo/vlan_vtn_test.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-18T18:12:21Z",
+      "side": 1,
+      "message": "`#!/usr/bin/env python`",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 18
+      },
+      "revId": "b49fa612d0a9dcd6ea4144001dbdb86c406b435b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_c8b8a6e7",
+        "filename": "csit/libraries/MininetTopo/vlan_vtn_test.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-18T18:12:21Z",
+      "side": 1,
+      "message": "Please remove commented out code",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 12
+      },
+      "revId": "b49fa612d0a9dcd6ea4144001dbdb86c406b435b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_68cf1280",
+        "filename": "csit/libraries/MininetTopo/vlan_vtn_test.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-18T18:12:21Z",
+      "side": 1,
+      "message": "Our Ubuntu CI images are very new, basically \"beta\", FYI",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 47
+      },
+      "revId": "b49fa612d0a9dcd6ea4144001dbdb86c406b435b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_88caae6c",
+        "filename": "csit/libraries/MininetTopo/vlan_vtn_test.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-18T18:12:21Z",
+      "side": 1,
+      "message": "Remove commented out code",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 19
+      },
+      "revId": "b49fa612d0a9dcd6ea4144001dbdb86c406b435b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_28c91a78",
+        "filename": "csit/libraries/MininetTopo/vlan_vtn_test.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-18T18:12:21Z",
+      "side": 1,
+      "message": "Class-level docstring please",
+      "range": {
+        "startLine": 20,
+        "startChar": 6,
+        "endLine": 20,
+        "endChar": 14
+      },
+      "revId": "b49fa612d0a9dcd6ea4144001dbdb86c406b435b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_08bf7ed1",
+        "filename": "csit/libraries/MininetTopo/vlan_vtn_test.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-18T18:12:21Z",
+      "side": 1,
+      "message": "Please avoid one-letter names and use something descriptive",
+      "range": {
+        "startLine": 24,
+        "startChar": 16,
+        "endLine": 24,
+        "endChar": 17
+      },
+      "revId": "b49fa612d0a9dcd6ea4144001dbdb86c406b435b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_48c4965e",
+        "filename": "csit/libraries/MininetTopo/vlan_vtn_test.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-18T18:12:21Z",
+      "side": 1,
+      "message": "snake_case is typically used for Python var names",
+      "range": {
+        "startLine": 33,
+        "startChar": 16,
+        "endLine": 33,
+        "endChar": 23
+      },
+      "revId": "b49fa612d0a9dcd6ea4144001dbdb86c406b435b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_28f27ad2",
+        "filename": "csit/libraries/MininetTopo/vlan_vtn_test.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-18T18:12:21Z",
+      "side": 1,
+      "message": "This indentation is very strange. I\u0027m surprised the Python PEP8 verify checks don\u0027t fail it. Please use normal Python indentation, check nearly any Python file for examples.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 24
+      },
+      "revId": "b49fa612d0a9dcd6ea4144001dbdb86c406b435b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_48ed76ee",
+        "filename": "csit/libraries/MininetTopo/vlan_vtn_test.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-18T18:12:21Z",
+      "side": 1,
+      "message": "Maybe a more descriptive name for this? Not typically a fan of \"my*\"-style names.",
+      "range": {
+        "startLine": 41,
+        "startChar": 6,
+        "endLine": 41,
+        "endChar": 12
+      },
+      "revId": "b49fa612d0a9dcd6ea4144001dbdb86c406b435b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_e8bb22e3",
+        "filename": "csit/libraries/MininetTopo/vlan_vtn_test.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-18T18:12:21Z",
+      "side": 1,
+      "message": "This is a string, not a docstring. Needs triple quotes. Applies elsewhere.",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 30
+      },
+      "revId": "b49fa612d0a9dcd6ea4144001dbdb86c406b435b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
