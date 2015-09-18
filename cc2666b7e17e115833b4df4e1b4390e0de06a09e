@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a79b1b5_ed06d4cd",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-18T12:17:06Z",
+      "side": 1,
+      "message": "You mean with other keywords in KarafKeywords, right?\n\nBecause I see you have changed bgpuser suite to use the new keywords, even if that suite had not used karaf logging up to now.\nEither leave that for Change 26823, or document why are you doing it in this Change.",
+      "range": {
+        "startLine": 16,
+        "startChar": 24,
+        "endLine": 17,
+        "endChar": 17
+      },
+      "revId": "cc2666b7e17e115833b4df4e1b4390e0de06a09e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_2d6dac98",
+        "filename": "csit/suites/bgpcep/bgpuser/cases.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-18T12:17:06Z",
+      "side": 1,
+      "message": "More descriptive name please.",
+      "range": {
+        "startLine": 15,
+        "startChar": 18,
+        "endLine": 15,
+        "endChar": 28
+      },
+      "revId": "cc2666b7e17e115833b4df4e1b4390e0de06a09e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_8d6e4095",
+        "filename": "csit/suites/bgpcep/bgpuser/cases.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-18T12:17:06Z",
+      "side": 1,
+      "message": "Already done by the previous line.",
+      "range": {
+        "startLine": 109,
+        "startChar": 18,
+        "endLine": 109,
+        "endChar": 56
+      },
+      "revId": "cc2666b7e17e115833b4df4e1b4390e0de06a09e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
