@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_527d23b0",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-18T10:29:24Z",
+      "side": 1,
+      "message": "Illustration of a solution I would prefer, from caller suite point of view:\n\nSimple_Slow_Case\n    ${out_list} \u003d    KarafKeywords.Issue_Command_On_Karaf_Console    feature:list\n\nComplex_Quick_Case\n    ${console} \u003d    KarafKeywords.Open_Karaf_Console    ${CONTROLLER}\n    ${out_install} \u003d    KarafKeywords.Issue_Command_On_Karaf_Console    feature:install myfeature    console\u003d${console}\n    ${out_uninstall} \u003d    KarafKeywords.Issue_Command_On_Karaf_Console    feature:uninstall myfeature    console\u003d${console}\n    ${out_install} \u003d    KarafKeywords.Close_Karaf_Console    console\u003d${console}",
+      "parentUuid": "3a79b1b5_2cee1523",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 34
+      },
+      "revId": "2f8bc90800ddc3104a11173685968b5aaeff427b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_2cd5b542",
         "filename": "csit/libraries/KarafKeywords.robot",
         "patchSetId": 2
