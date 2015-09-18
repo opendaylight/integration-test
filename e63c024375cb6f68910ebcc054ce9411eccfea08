@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_cd399842",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2015-09-18T14:01:24Z",
+      "side": 1,
+      "message": "OneM2M short name:\ncontainer:cnt\ncontentInstance:cin\nsubscription: subs\n\nSo, it is not a plural :)",
+      "parentUuid": "3a79b1b5_2d1e0c64",
+      "range": {
+        "startLine": 49,
+        "startChar": 3,
+        "endLine": 49,
+        "endChar": 4
+      },
+      "revId": "e63c024375cb6f68910ebcc054ce9411eccfea08",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_6d42c43f",
         "filename": "csit/libraries/ciotdm.py",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2015-09-18T11:13:19Z",
       "side": 1,
       "message": "Libraries for robot should not print.",
+      "range": {
+        "startLine": 58,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 9
+      },
+      "revId": "e63c024375cb6f68910ebcc054ce9411eccfea08",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_6d4084a5",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2015-09-18T14:01:24Z",
+      "side": 1,
+      "message": "will remove that",
+      "parentUuid": "3a79b1b5_6d42c43f",
       "range": {
         "startLine": 58,
         "startChar": 4,
@@ -117,6 +165,30 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_4d1ca8c1",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2015-09-18T14:01:24Z",
+      "side": 1,
+      "message": "the response is like :\n\n{\n    \"xxx\": {key-value pair I want to get}\n}\n\nthe \"xxx\" can be several options. \n\nDo you have better ideas?",
+      "parentUuid": "3a79b1b5_4d3028e8",
+      "range": {
+        "startLine": 78,
+        "startChar": 19,
+        "endLine": 78,
+        "endChar": 26
+      },
+      "revId": "e63c024375cb6f68910ebcc054ce9411eccfea08",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_0d79d092",
         "filename": "csit/libraries/criotdm.py",
         "patchSetId": 2
@@ -128,6 +200,30 @@
       "writtenOn": "2015-09-18T11:13:19Z",
       "side": 1,
       "message": "Make which_payload to accept string?",
+      "range": {
+        "startLine": 55,
+        "startChar": 14,
+        "endLine": 55,
+        "endChar": 17
+      },
+      "revId": "e63c024375cb6f68910ebcc054ce9411eccfea08",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_ad845cd4",
+        "filename": "csit/libraries/criotdm.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2015-09-18T14:01:24Z",
+      "side": 1,
+      "message": "good idea!",
+      "parentUuid": "3a79b1b5_0d79d092",
       "range": {
         "startLine": 55,
         "startChar": 14,
