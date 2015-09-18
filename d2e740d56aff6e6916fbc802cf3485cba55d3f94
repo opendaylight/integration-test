@@ -66,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "3a79b1b5_8de3a004",
+        "filename": "tools/odl-lispflowmapping-performance-tests/mapping_blaster.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-18T12:31:26Z",
+      "side": 1,
+      "message": "Yeah, sometimes I overestimate the power of context one gets by seeing scope of character highlight in Gerrit WebUI.\nThis is what the line should look after my proposed edit:\nrpc_url \u003d self.RPC_URL_LI",
+      "parentUuid": "3a79b1b5_ad277c63",
+      "revId": "d2e740d56aff6e6916fbc802cf3485cba55d3f94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_adf45cf2",
         "filename": "tools/odl-lispflowmapping-performance-tests/mapping_blaster.py",
         "patchSetId": 3
