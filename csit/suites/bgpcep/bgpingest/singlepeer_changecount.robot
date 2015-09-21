@@ -53,10 +53,25 @@ ${COUNT_CHANGE_COUNT}    ${COUNT}
 ${CHECK_PERIOD}    1
 ${CHECK_PERIOD_CHANGE_COUNT}    ${CHECK_PERIOD}
 ${REPETITIONS_CHANGE_COUNT}    1
+${INSERT}    1
+${WITHDRAW}    0
+${PREFILL}    0
+${UPDATE}    single
+${BGP_TOOL_LOG_LEVEL}    info
+${CONTROLLER_LOG_LEVEL}    INFO
+${CONTROLLER_BGP_LOG_LEVEL}    DEFAULT
+${RESULTS_FILE_NAME}    bgp.csv
+
 # TODO: Option names can be better.
 ${last_change_count}    -1
 
 *** Test Cases ***
+Set Karaf Log Levels
+    [Documentation]    Set Karaf log level
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.bgpcep
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.protocol
+
 Check_For_Empty_Ipv4_Topology_Before_Talking
     [Documentation]    Wait for example-ipv4-topology to come up and empty. Give large timeout for case when BGP boots slower than restconf.
     [Tags]    critical
@@ -80,7 +95,7 @@ Start_Talking_BGP_Speaker
     [Documentation]    Start Python speaker to connect to ODL.
     Store_Change_Count
     # Myport value is needed for checking whether connection at precise port was established.
-    BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT_CHANGE_COUNT} --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT}
+    BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT_CHANGE_COUNT} --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --update ${UPDATE} --${BGP_TOOL_LOG_LEVEL} --results ${RESULTS_FILE_NAME}
 
 Wait_For_Stable_Talking_Ipv4_Topology
     [Documentation]    Wait until example-ipv4-topology becomes stable. This is done by checking the change counter.
@@ -100,6 +115,14 @@ Kill_Talking_BGP_Speaker
     # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
     [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
 
+Store_Results_For_Talking_BGP_Speaker
+    [Documentation]    Store results for plotting
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    Store_File_To_Workspace    totals-${RESULTS_FILE_NAME}    totals-${RESULTS_FILE_NAME}
+    Store_File_To_Workspace    performance-${RESULTS_FILE_NAME}    performance-${RESULTS_FILE_NAME}
+    Store_File_To_Workspace    totals-${RESULTS_FILE_NAME}    changecount-talking-totals-${RESULTS_FILE_NAME}
+    Store_File_To_Workspace    performance-${RESULTS_FILE_NAME}    changecount-talking-performance-${RESULTS_FILE_NAME}
+
 Wait_For_Stable_Ipv4_Topology_After_Talking
     [Documentation]    Wait until example-ipv4-topology becomes stable again.
     [Tags]    critical
@@ -112,7 +135,7 @@ Check_For_Empty_Ipv4_Topology_After_Talking
 
 Start_Listening_BGP_Speaker
     [Documentation]    Start Python speaker in listening mode.
-    BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT_CHANGE_COUNT} --listen --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP}
+    BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT_CHANGE_COUNT} --listen --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --update ${UPDATE} --${BGP_TOOL_LOG_LEVEL} --results ${RESULTS_FILE_NAME}
 
 Reconfigure_ODL_To_Initiate_Connection
     [Documentation]    Replace BGP peer config module, now with initiate-connection set to true.
@@ -137,6 +160,14 @@ Kill_Listening_BGP_Speaker
     FailFast.Do_Not_Fail_Fast_From_Now_On
     # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
     [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
+
+Store_Results_For_Listening_BGP_Speaker
+    [Documentation]    Store results for plotting
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    Store_File_To_Workspace    totals-${RESULTS_FILE_NAME}    totals-${RESULTS_FILE_NAME}
+    Store_File_To_Workspace    performance-${RESULTS_FILE_NAME}    performance-${RESULTS_FILE_NAME}
+    Store_File_To_Workspace    totals-${RESULTS_FILE_NAME}    changecount-listening-totals-${RESULTS_FILE_NAME}
+    Store_File_To_Workspace    performance-${RESULTS_FILE_NAME}    changecount-listening-performance-${RESULTS_FILE_NAME}
 
 Wait_For_Stable_Ipv4_Topology_After_Listening
     [Documentation]    Wait until example-ipv4-topology becomes stable again.
@@ -180,6 +211,7 @@ Setup_Everything
     # TODO: Replace 20 with some formula from period and repetitions.
     Builtin.Set_Suite_Variable    ${bgp_filling_timeout}    ${count*3/10000+20}
     Builtin.Set_Suite_Variable    ${bgp_emptying_timeout}    ${bgp_filling_timeout*3/4}
+    Builtin.Run_Keyword_If    '${UPDATE}' == 'mixed'    Builtin.Set_Suite_Variable    ${bgp_filling_timeout}    ${count*6/10000+20}
 
 Teardown_Everything
     [Documentation]    Make sure Python tool was killed and tear down imported Resources.
@@ -192,3 +224,11 @@ Store_Change_Count
     [Documentation]    Get the count of changes from BGP change counter. Ignore error or store the value.
     ${status}    ${count} =    BuiltIn.Run_Keyword_And_Ignore_Error    ChangeCounter.Get_Change_Count
     BuiltIn.Run_Keyword_If    '${status}' == 'PASS'    BuiltIn.Set_Suite_Variable    ${last_change_count}    ${count}
+
+Store_File_To_Workspace
+    [Arguments]    ${src_file_name}    ${dst_file_name}
+    [Documentation]    Store the provided file from the SSH client to workspace.
+    ${files}=    SSHLibrary.List Files In Directory    .
+    ${output_log}=    SSHLibrary.Execute_Command    cat ${src_file_name}
+    BuiltIn.Log    ${output_log}
+    Create File    ${dst_file_name}    ${output_log}
