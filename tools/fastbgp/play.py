@@ -11,6 +11,8 @@ EXABGP in this type of scenario."""
 # terms of the Eclipse Public License v1.0 which accompanies this distribution,
 # and is available at http://www.eclipse.org/legal/epl-v10.html
 
+# TODO To add support for route deletions
+
 __author__ = "Vratko Polak"
 __copyright__ = "Copyright(c) 2015, Cisco Systems, Inc."
 __license__ = "Eclipse Public License v1.0"
@@ -48,6 +50,10 @@ def parse_arguments():
     parser.add_argument('--peerip', default='127.0.0.2', type=ipaddr.IPv4Address, help=str_help)
     str_help = 'TCP port to try to connect to. No effect in listening mode.'
     parser.add_argument('--peerport', default='179', type=int, help=str_help)
+    str_help = 'Finally performs withdrawal for all prefixes'
+    parser.add_argument('--withdrawal', default=False, type=bool, help=str_help)
+    str_help = 'Maximal idle time when waiting for an input'
+    parser.add_argument('--idle', default='86400', type=int, help=str_help)
     # TODO: The step between IP previxes is currently hardcoded to 16. Should we make it configurable?
     # Yes, the argument list above is sorted alphabetically.
     arguments = parser.parse_args()
@@ -157,7 +163,7 @@ class MessageGenerator(object):
             "\x00\x00"  # Total Path Attributes Length (0)
         )
         """End-of-RIB marker, see rfc4724#section-2"""
-        self.update_message_without_prefix = self.bgp_marker + (
+        self.update_message_without_prefix_add_routes = self.bgp_marker + (
             "\x00\x30"  # Size
             "\x02"  # Type (UPDATE)
             "\x00\x00"  # Withdrawn routes length (0)
@@ -178,6 +184,15 @@ class MessageGenerator(object):
             + args.nexthop.packed +  # IP address of the next hop (4 bytes)
             "\x1c"  # IPv4 prefix length, see RFC 4271, page 20. This tool uses Network Mask: 255.255.255.240
         )
+        """The IP address prefix (4 bytes) has to be appended to complete Update message, see rfc4271#section-4.3."""
+        self.update_message_without_prefix_del_routes = self.bgp_marker + (
+            "\x00\x1c"  # Size 28 = MSG_MAR(16)+MSG_L(2)+MSG_T(1)+WDR_L(2)+IP_PREFIX_L(1)+IP_PREFIX(4)+TotalPA(2)
+            "\x02"  # Type (UPDATE)
+            "\x00\x05"  # Withdrawn routes length (5)
+            "\x1c"  # IPv4 prefix length, see RFC 4271, page 15. This tool uses Network Mask: 255.255.255.240
+        )
+        """The Update Message Suffix - in case of prefix withdrawal only"""
+        self.update_no_path_attributes = '\x00\x00'  # Total Path Attribute Length = 0
         """The IP address prefix (4 bytes) has to be appended to complete Update message, see rfc4271#section-4.3."""
         self.open_message = self.bgp_marker + (
             "\x00\x2d"  # Size
@@ -204,20 +219,28 @@ class MessageGenerator(object):
         """Open message, see rfc4271#section-4.2"""
         # __init__ ends
 
-    def compose_update_message(self):
+    def compose_update_message(self, withdrawal):
         """Return update message, prepare next prefix, decrease amount without checking it."""
         prefix_packed = ipaddr.v4_int_to_packed(self.int_nextprefix)
         # print "DEBUG: prefix", self.int_nextprefix, "packed to", binascii.hexlify(prefix_packed)
-        msg_out = self.update_message_without_prefix + prefix_packed
+        if not withdrawal:
+            msg_out = self.update_message_without_prefix_add_routes + prefix_packed
+            print 'DEBUG', time.time(), ': Update message (without Withdrawn Routes):', binascii.b2a_hex(msg_out)
+        else:
+            msg_out = self.update_message_without_prefix_del_routes + prefix_packed + self.update_no_path_attributes
+            print 'DEBUG', time.time(), ': Update message (with Withdrawn Routes):', binascii.b2a_hex(msg_out)
         self.int_nextprefix += 16  # Hardcoded, as open message specifies such netmask.
         self.updates_to_send -= 1
+        print 'DEBUG: Updates to send:', self.updates_to_send
         return msg_out
 
 
 class TimeTracker(object):
     """Class for tracking timers, both for my keepalives and peer's hold time."""
 
-    def __init__(self, msg_in):
+    def __init__(self, msg_in, args):
+        self.idle_timedelta = args.idle
+        """Maximal idle time in one loop - when nothing to send."""
         """Initialize config, based on hardcoded defaults and open message from peer."""
         # Note: Relative time is always named timedelta, to stress that (non-delta) time is absolute.
         self.report_timedelta = 1.0  # In seconds. TODO: Configurable?
@@ -261,7 +284,7 @@ class TimeTracker(object):
 
     def get_next_event_time(self):
         if self.hold_timedelta == 0:
-            return self.snapshot_time + 86400
+            return self.snapshot_time + self.idle_timedelta
         return min(self.my_keepalive_time, self.peer_hold_time)
 
     def check_peer_hold_time(self, snapshot_time):
@@ -396,7 +419,7 @@ class StateTracker(object):
         # TODO: Alternative is to switch fairly between reading and writing (called round robin from now on).
         # Message counting is done in generator.
 
-    def perform_one_loop_iteration(self):
+    def perform_one_loop_iteration(self, withdrawal):
         """Calculate priority, resolve all ifs, call appropriate method, return to caller to repeat."""
         self.timer.snapshot()
         if not self.prioritize_writing:
@@ -420,7 +443,7 @@ class StateTracker(object):
             if read_list:  # there is something to read indeed
                 # In this case we want to read chunk of message and repeat the select,
                 self.reader.read_message_chunk()
-                return
+                return True
             # We were focusing on reading, but nothing to read was there.
             # Good time to check peer for hold timer.
             self.timer.check_peer_hold_time(self.timer.snapshot_time)
@@ -431,33 +454,34 @@ class StateTracker(object):
                 whole = self.writer.send_message_chunk_is_whole()  # Was it the end of a message?
                 if self.prioritize_writing and whole:  # We were pressed to send something and we did it.
                     self.prioritize_writing = False  # We prioritize reading again.
-                return
+                return True
             # Finally, we can look if there is some update message for us to generate.
             if self.generator.updates_to_send:
-                msg_out = self.generator.compose_update_message()
+                msg_out = self.generator.compose_update_message(withdrawal)
                 if not self.generator.updates_to_send:  # We have just finished update generation, end-of-rib is due.
                     msg_out += self.generator.eor_message
                 self.writer.enqueue_message_for_sending(msg_out)
-                return  # Attempt for the actual sending will be done in next iteration.
+                return True  # Attempt for the actual sending will be done in next iteration.
             # Nothing to write anymore, except occasional keepalives.
             # To avoid busy loop, we do idle waiting here.
             self.reader.wait_for_read()
-            return
+            return False
         # We can neither read nor write.
         print 'Input and output both blocked for', self.timer.report_timedelta, 'seconds.'
         # FIXME: Are we sure select has been really waiting the whole period?
-        return
+        return False
 
 
 def main():
     """Establish BGP connection and enter main loop for sending updates."""
     arguments = parse_arguments()
+    withdrawal = arguments.withdrawal
     bgp_socket = establish_connection(arguments)
     # Initial handshake phase. TODO: Can it be also moved to StateTracker?
     # Receive open message before sending anything.
     # FIXME: Add parameter to send default open message first, to work with "you first" peers.
     msg_in = read_open_message(bgp_socket)
-    timer = TimeTracker(msg_in)
+    timer = TimeTracker(msg_in, arguments)
     generator = MessageGenerator(arguments)
     msg_out = generator.open_message
     # print "DEBUG: going to send open:", binascii.hexlify(msg_out)
@@ -475,8 +499,14 @@ def main():
     timer.reset_my_keepalive_time(timer.snapshot_time)  # Use the remembered time.
     # End of initial handshake phase.
     state = StateTracker(bgp_socket, generator, timer)
-    while True:  # main reactor loop
-        state.perform_one_loop_iteration()
+    while state.perform_one_loop_iteration(False):  # main reactor loop while generating updates (no withdrawal)
+        pass
+    if withdrawal:
+        generator.int_nextprefix = int(arguments.firstprefix)
+        generator.updates_to_send = arguments.amount
+        time.sleep(60)
+    while True:  # main infinite reactor loop optionally with prefix withdrawals
+        state.perform_one_loop_iteration(withdrawal)
 
 if __name__ == "__main__":
     main()
