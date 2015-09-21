@@ -54,11 +54,13 @@ Start_Talking_BGP_speaker
     [Documentation]    Start Python speaker to connect to ODL, verify that the tool does not promptly exit.
     KarafKeywords.Log_Message_To_Controller_Karaf    Starting talking BGP speaker
     # Myport value is needed for checking whether connection at precise port was established.
-    BGPSpeaker.Start_BGP_speaker    --amount ${COUNT_PREFIX_COUNT} --myip=${MININET} --myport=${BGP_TOOL_PORT} --peerip=${CONTROLLER} --peerport=${ODL_BGP_PORT}
+    KarafKeywords.Log_Message_To_Controller_Karaf    BGP Speaker is going to speek
+    BGPSpeaker.Start_BGP_speaker    --amount ${COUNT_PREFIX_COUNT} --myip=${MININET} --myport=${BGP_TOOL_PORT} --peerip=${CONTROLLER} --peerport=${ODL_BGP_PORT} --withdrawal yes --idle=5
 
 Wait_For_Talking_Topology
     [Documentation]    Wait until example-ipv4-topology becomes stable. This is done by checking the change counter.
     KarafKeywords.Log_Message_To_Controller_Karaf    Waiting for BGP topology to become filled
+    KarafKeywords.Log_Message_To_Controller_Karaf    Waiting for stable topology
     Wait_For_Topology_To_Become_Stable    ${timeout}    ${CHECK_PERIOD_PREFIX_COUNT}
 
 Check_Talking_Topology_Count
@@ -66,6 +68,14 @@ Check_Talking_Topology_Count
     [Tags]    critical
     KarafKeywords.Log_Message_To_Controller_Karaf    Checking that all routes are in the topology
     BGPKeywords.Check_Topology_Count    ${COUNT_PREFIX_COUNT}
+
+Wait_For_Topology_Count_0
+    [Arguments]    ${timeout}    ${check_period}
+    [Documentation]    Wait until all prefixes are withdrawn.
+    Builtin.Sleep    ${check_period}
+    KarafKeywords.Log_Message_To_Controller_Karaf    Checking that all routes are withdrawn
+    ${actual}=    Builtin.Wait_Until_Keyword_Succeeds    ${timeout}    ${check_period}    BGPKeywords.Check_Topology_Count    0
+    Utils.Fail_If_Status_Is_Wrong
 
 Kill_Talking_BGP_Speaker
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
