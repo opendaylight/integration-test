@@ -45,6 +45,52 @@
       "revId": "8b8f53e851b369a8bab81997a8b6818f9b468215",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_1cfe596c",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-21T23:03:25Z",
+      "side": 1,
+      "message": "why don\u0027t you try using the \"Start Mininet\" keyword that will take your custom topo file and do all the work for you.\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/Utils.robot#L28",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 59
+      },
+      "revId": "8b8f53e851b369a8bab81997a8b6818f9b468215",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_7c098d94",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-21T23:03:25Z",
+      "side": 1,
+      "message": "we already have a \"Clean Mininet System\" keyword that you should use.\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/Utils.robot#L142",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 118,
+        "endChar": 23
+      },
+      "revId": "8b8f53e851b369a8bab81997a8b6818f9b468215",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
