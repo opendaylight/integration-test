@@ -855,6 +855,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_dc3ea129",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-21T23:16:19Z",
+      "side": 1,
+      "message": "Thanks Jozef.  I wasn\u0027t implying anything negative with my \"tricks to make the test pass\" comment :)  I just want to make sure we are as mean as we can be to ODL and it\u0027s projects so we limit the bugs that might sneak through.\n\nI follow your logic here.  We have openflow tests looking for scale numbers that do similar things.",
+      "parentUuid": "3a79b1b5_3be2cdd5",
+      "range": {
+        "startLine": 149,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 53
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_ce4bf257",
         "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
         "patchSetId": 8
@@ -962,6 +986,30 @@
       "side": 1,
       "message": "Because failure in suite teardown sets all previous testcase results to failed.\nAnd even if this particular step is told to not cause failure, we still would not see its effect on passrate (making us blind to potential Bugs until someone actually looks deeply enough to log.html).",
       "parentUuid": "3a79b1b5_c05acf4f",
+      "range": {
+        "startLine": 156,
+        "startChar": 4,
+        "endLine": 156,
+        "endChar": 47
+      },
+      "revId": "abf1909531f507a2899336c2ae28c8111cbf7115",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_3c3a3537",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-21T23:16:19Z",
+      "side": 1,
+      "message": "got it.  thanks.",
+      "parentUuid": "3a79b1b5_c642e00f",
       "range": {
         "startLine": 156,
         "startChar": 4,
