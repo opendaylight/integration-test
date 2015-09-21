@@ -230,6 +230,30 @@
       "revId": "d3e6437759ae13caf6bd864b550a4bd4aac278d0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a79b1b5_72dcdfe4",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-21T13:23:05Z",
+      "side": 1,
+      "message": "Copy \u0026 Paste disease :D This WUKS is not needed as a previous testcase already accessed the data change counter (hopefully successfully).",
+      "parentUuid": "3a79b1b5_a6c0047d",
+      "range": {
+        "startLine": 155,
+        "startChar": 4,
+        "endLine": 155,
+        "endChar": 52
+      },
+      "revId": "d3e6437759ae13caf6bd864b550a4bd4aac278d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
