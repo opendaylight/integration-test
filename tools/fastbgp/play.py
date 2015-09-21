@@ -16,6 +16,7 @@ __copyright__ = "Copyright(c) 2015, Cisco Systems, Inc."
 __license__ = "Eclipse Public License v1.0"
 __email__ = "vrpolak@cisco.com"
 
+# to add support for prefix withdrawn
 
 import argparse
 import binascii
