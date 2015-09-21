@@ -16,6 +16,9 @@ __copyright__ = "Copyright(c) 2015, Cisco Systems, Inc."
 __license__ = "Eclipse Public License v1.0"
 __email__ = "vrpolak@cisco.com"
 
+# TODO: Introduce support for different update scenarios (prefix withdrawn, preudo-random updates, ...)
+# - introduced logging and new command-line parameters (testing non-regression)
+# - new parameters initialisation & new functions of MessageGenerator class introduced (testing non-regression)
 
 import argparse
 import binascii
@@ -23,6 +26,8 @@ import ipaddr
 import select
 import socket
 import time
+import logging
+import struct
 
 
 def parse_arguments():
@@ -34,8 +39,14 @@ def parse_arguments():
     # FIXME: We are acting as iBGP peer, we should mirror AS number from peer's open message.
     str_help = 'Amount of IP prefixes to generate. Negative number means "practically infinite".'
     parser.add_argument('--amount', default='1', type=int, help=str_help)
+    str_help = 'Number of IP prefixes to add in an UPDATE message".'
+    parser.add_argument('--up', default='1', type=int, help=str_help)
+    str_help = 'Number of IP prefixes to withdraw in an UPDATE message".'
+    parser.add_argument('--down', default='0', type=int, help=str_help)
     str_help = 'The first IPv4 prefix to announce, given as numeric IPv4 address.'
     parser.add_argument('--firstprefix', default='8.0.1.0', type=ipaddr.IPv4Address, help=str_help)
+    str_help = 'The prefix length.'
+    parser.add_argument('--prefixlen', default=28, type=int, help=str_help)
     str_help = 'If present, this tool will be listening for connection, instead of initiating it.'
     parser.add_argument('--listen', action='store_true', help=str_help)
     str_help = 'Numeric IP Address to bind to and derive BGP ID from. Default value only suitable for listening.'
@@ -48,8 +59,13 @@ def parse_arguments():
     parser.add_argument('--peerip', default='127.0.0.2', type=ipaddr.IPv4Address, help=str_help)
     str_help = 'TCP port to try to connect to. No effect in listening mode.'
     parser.add_argument('--peerport', default='179', type=int, help=str_help)
-    # TODO: The step between IP previxes is currently hardcoded to 16. Should we make it configurable?
-    # Yes, the argument list above is sorted alphabetically.
+    str_help = 'Local hold time.'
+    parser.add_argument('--holdtime', default='180', type=int, help=str_help)
+    str_help = 'Maximal idle time when waiting for an input'
+    parser.add_argument('--idle', default='86400', type=int, help=str_help)
+    str_help = 'Log level'
+#    parser.add_argument('--debug', dest='loglevel', action='store_const', const=logging.DEBUG, default=logging.INFO, help=str_help)
+    parser.add_argument('--debug', dest='loglevel', action='store_const', const=logging.DEBUG, default=logging.DEBUG, help=str_help)
     arguments = parser.parse_args()
     # TODO: Are sanity checks (such as asnumber>=0) required?
     return arguments
@@ -58,7 +74,9 @@ def parse_arguments():
 def establish_connection(arguments):
     """Establish connection according to arguments, return socket."""
     if arguments.listen:
-        # print "DEBUG: connecting in the listening case."
+        logging.info('Connecting in the listening mode.')
+        logging.debug('Local IP address: ' + str(arguments.myip))
+        logging.debug('Local port: ' + str(arguments.myport))
         listening_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         listening_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         listening_socket.bind((str(arguments.myip), arguments.myport))  # bind need single tuple as argument
@@ -67,13 +85,17 @@ def establish_connection(arguments):
         # TODO: Verify client IP is cotroller IP.
         listening_socket.close()
     else:
-        # print "DEBUG: connecting in the talking case."
+        logging.info('Connecting in the talking mode.')
+        logging.debug('Local IP address: ' + str(arguments.myip))
+        logging.debug('Local port: ' + str(arguments.myport))
+        logging.debug('Remote IP address: ' + str(arguments.peerip))
+        logging.debug('Remote port: ' + str(arguments.peerport))
         talking_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         talking_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         talking_socket.bind((str(arguments.myip), arguments.myport))  # bind to force specified address and port
         talking_socket.connect((str(arguments.peerip), arguments.peerport))  # socket does not spead ipaddr, hence str()
         bgp_socket = talking_socket
-    print 'Connected to ODL.'
+    logging.info('Connected to ODL.')
     return bgp_socket
 
 
@@ -119,7 +141,7 @@ def read_open_message(bgp_socket):
     reported_length = get_short_int_from_message(msg_in)
     if len(msg_in) != reported_length:
         raise MessageError("Message length is not " + reported_length + " in message", msg_in)
-    print "Open message received"
+    logging.info('Open message received.')
     return msg_in
 
 
@@ -140,6 +162,21 @@ class MessageGenerator(object):
         """Prefix IP address for next update message, as integer."""
         self.updates_to_send = args.amount
         """Number of update messages left to be sent."""
+
+        """New parameters initialisation"""
+        self.Iteration = 1
+        self.Prefix_Base = args.firstprefix
+        self.Prefix_Length_Default = args.prefixlen
+        self.WR_Prefixes_Default = []
+        self.NLRI_Prefixes_Default = []
+        self.Version_Default = 4
+        self.My_Autonomous_System_Default = args.asnumber
+        self.Hold_Time_Default = args.holdtime  # Local hold time.
+        self.BGP_Identifier_Default = int(args.myip)
+        self.Next_Hop_Default = args.nexthop
+        self.Step_Up = args.up
+        self.Step_Down = args.down
+
         # All information ready, so we can define messages. Mostly copied from play.py by Jozef Behran.
         # The following attributes are constant.
         self.bgp_marker = "\xFF" * 16
@@ -212,6 +249,291 @@ class MessageGenerator(object):
         self.int_nextprefix += 16  # Hardcoded, as open message specifies such netmask.
         self.updates_to_send -= 1
         return msg_out
+
+
+    """New functions for BGP messages encoding introduced"""
+
+    # Get list of prefixes
+    def get_prefix_list (self, index, size=1, prefix_base=None, prefix_len=None):
+        if prefix_base == None:
+            prefix_base = self.Prefix_Base
+        if prefix_len == None:
+            prefix_len = self.Prefix_Length_Default
+
+        prefixes = []
+        increment = 2 ** (32 - prefix_len)
+        for i in range (size):
+            prefixes.append(prefix_base + (index * size + i)  * increment)
+        logging.debug('Prefix list generator')
+        logging.debug('  Prefix base=' + str(prefix_base))
+        logging.debug('  Prefix length=' + str(prefix_len) + ' (increment=' + str(increment) + ')')
+        logging.debug('  Index=' + str(index))
+        logging.debug('  Number of prefixes=' + str(size))
+        logging.debug('Generated prefix list=' + str(prefixes) + '\n')
+        return prefixes 
+        
+
+    """ OPEN Message (rfc4271#section-4.2) """
+    def OPEN (self, Version=None, My_Autonomous_System=None, Hold_Time=None, BGP_Identifier=None):
+
+        # Default values handling
+        if Version == None:
+            Version = self.Version_Default
+        if My_Autonomous_System == None:
+            My_Autonomous_System = self.My_Autonomous_System_Default
+        if Hold_Time == None:
+            Hold_Time= self.Hold_Time_Default
+        if BGP_Identifier == None:
+            BGP_Identifier = self.BGP_Identifier_Default
+
+        # Marker
+        Marker_HEX = "\xFF" * 16
+
+        # Type
+        Type = 1
+        Type_HEX = struct.pack('B', Type)
+
+        # Version
+        Version_HEX = struct.pack('B', Version)
+
+        # My_Autonomous_System
+        My_Autonomous_System_2B = 23456  # AS_TRANS value, 23456 decadic.
+        if My_Autonomous_System < 65536:  # AS number is mappable to 2 bytes
+            My_Autonomous_System_2B = My_Autonomous_System
+        My_Autonomous_System_HEX_2B = struct.pack('>H', My_Autonomous_System)
+        
+        # Hold Time
+        Hold_Time_HEX = struct.pack('>H', Hold_Time)
+
+        # BGP Identifier
+        BGP_Identifier_HEX = struct.pack('>I', BGP_Identifier)
+
+        # Optional Parameters
+        Optional_Parameters_HEX = (
+            "\x02"  # Param type ("Capability Ad")
+            "\x06"  # Length (6 bytes)
+            "\x01"  # Capability type (NLRI Unicast), see RFC 4760, secton 8
+            "\x04"  # Capability value length
+            "\x00\x01"  # AFI (Ipv4)
+            "\x00"  # (reserved)
+            "\x01"  # SAFI (Unicast)
+
+            "\x02"  # Param type ("Capability Ad")
+            "\x06"  # Length (6 bytes)
+            "\x41"  # "32 bit AS Numbers Support" (see RFC 6793, section 3)
+            "\x04"  # Capability value length
+            + struct.pack('>I', My_Autonomous_System)  # My AS in 32 bit format
+        )
+
+        # Optional Parameters Length
+        Optional_Parameters_Length = len(Optional_Parameters_HEX)
+        Optional_Parameters_Length_HEX = struct.pack('B', Optional_Parameters_Length)
+
+        # Length (big-endian)
+        Length = (
+            len(Marker_HEX) + 2 + len(Type_HEX) + len(Version_HEX) + len(My_Autonomous_System_HEX_2B) + len(Hold_Time_HEX) +
+            len(BGP_Identifier_HEX) + len(Optional_Parameters_Length_HEX) + len(Optional_Parameters_HEX)
+        )
+        Length_HEX = struct.pack('>H', Length)  
+
+        # OPEN Message
+        Message_HEX = (
+            Marker_HEX +
+            Length_HEX +
+            Type_HEX +
+            Version_HEX +
+            My_Autonomous_System_HEX_2B +
+            Hold_Time_HEX +
+            BGP_Identifier_HEX +
+            Optional_Parameters_Length_HEX +
+            Optional_Parameters_HEX
+        )            
+
+        logging.debug('OPEN Message encoding')
+        logging.debug('  Marker=0x' + binascii.hexlify(Marker_HEX))
+        logging.debug('  Length=' + str(Length) + ' (0x' + binascii.hexlify(Length_HEX) + ')')
+        logging.debug('  Type=' + str(Type) + ' (0x' + binascii.hexlify(Type_HEX) + ')')
+        logging.debug('  Version=' + str(Version) + ' (0x' + binascii.hexlify(Version_HEX) + ')')
+        logging.debug('  My Autonomous System=' + str(My_Autonomous_System_2B) + ' (0x' + binascii.hexlify(My_Autonomous_System_HEX_2B) + ')')
+        logging.debug('  Hold Time=' + str(Hold_Time) + ' (0x' + binascii.hexlify(Hold_Time_HEX) + ')')
+        logging.debug('  BGP Identifier=' + str(BGP_Identifier) + ' (0x' + binascii.hexlify(BGP_Identifier_HEX) + ')')
+        logging.debug('  Optional Parameters Length=' + str(Optional_Parameters_Length) + ' (0x' + binascii.hexlify(Optional_Parameters_Length_HEX) + ')')
+        logging.debug('  Optional Parameters=0x' + binascii.hexlify(Optional_Parameters_HEX))
+        logging.debug('OPEN Message encoded: 0x' + binascii.b2a_hex(Message_HEX) + '\n')
+
+        return Message_HEX
+
+
+    """ UPDATE Message (rfc4271#section-4.3) """
+    def UPDATE (self, WR_Prefixes=None, NLRI_Prefixes=None, WR_Prefix_Length=None, NLRI_Prefix_Length=None, My_Autonomous_System=None, Next_Hop=None):
+
+        # Default values handling
+        if WR_Prefixes == None:
+            WR_Prefixes = self.WR_Prefixes_Default  # no need to create a copy of the list
+        if NLRI_Prefixes == None:
+            NLRI_Prefixes = self.NLRI_Prefixes_Default  # no need to create a copy of the list
+        if WR_Prefix_Length == None:
+            WR_Prefix_Length = self.Prefix_Length_Default
+        if NLRI_Prefix_Length == None:
+            NLRI_Prefix_Length = self.Prefix_Length_Default
+        if My_Autonomous_System == None:
+            My_Autonomous_System = self.My_Autonomous_System_Default
+        if Next_Hop == None:
+            Next_Hop = self.Next_Hop_Default
+
+        # Marker
+        Marker_HEX = "\xFF" * 16
+
+        # Type
+        Type = 2
+        Type_HEX = struct.pack('B', Type)
+
+        # Withdrawn Routes
+        Bytes = ((WR_Prefix_Length - 1) / 8) + 1
+        Withdrawn_Routes_HEX = ''
+        for prefix in WR_Prefixes: 
+            Withdrawn_Route_HEX = (struct.pack('B', WR_Prefix_Length) + struct.pack('>I', int(prefix))[:Bytes])
+            Withdrawn_Routes_HEX += Withdrawn_Route_HEX
+
+        # Withdrawn Routes Length
+        Withdrawn_Routes_Length = len(Withdrawn_Routes_HEX)
+        Withdrawn_Routes_Length_HEX = struct.pack('>H', Withdrawn_Routes_Length)
+
+        # TODO: to replace hardcoded string by encoding? 
+        # Path Attributes
+        if NLRI_Prefixes != []:
+            Path_Attributes_HEX = (
+                "\x40"  # Flags ("Well-Known")
+                "\x01"  # Type (ORIGIN)
+                "\x01"  # Length (1)
+                "\x00"  # Origin: IGP
+                "\x40"  # Flags ("Well-Known")
+                "\x02"  # Type (AS_PATH)
+                "\x06"  # Length (6)
+                "\x02"  # AS segment type (AS_SEQUENCE)
+                "\x01"  # AS segment length (1)
+                + struct.pack('>I', My_Autonomous_System) +  # AS segment (4 bytes)
+                "\x40"  # Flags ("Well-Known")
+                "\x03"  # Type (NEXT_HOP)
+                "\x04"  # Length (4)
+                + struct.pack('>I', Next_Hop)  # IP address of the next hop (4 bytes)
+            )
+        else:
+            Path_Attributes_HEX = ""
+
+        # Total Path Attributes Length
+        Total_Path_Attributes_Length = len(Path_Attributes_HEX)
+        Total_Path_Attributes_Length_HEX = struct.pack('>H', Total_Path_Attributes_Length)
+
+        # Network Layer Reachability Information
+        Bytes = ((NLRI_Prefix_Length - 1) / 8) + 1
+        NLRI_HEX = ''
+        for Prefix in NLRI_Prefixes: 
+            NLRI_Prefix_HEX = (struct.pack('B', NLRI_Prefix_Length) + struct.pack('>I', int(Prefix))[:Bytes])
+            NLRI_HEX += NLRI_Prefix_HEX
+
+        # Length (big-endian)
+        Length = (
+            len(Marker_HEX) + 2 + len(Type_HEX) + len(Withdrawn_Routes_Length_HEX) + len(Withdrawn_Routes_HEX) + 
+            len(Total_Path_Attributes_Length_HEX) + len(Path_Attributes_HEX) + len(NLRI_HEX)
+        )
+        Length_HEX = struct.pack('>H', Length)  
+
+        # UPDATE Message
+        Message_HEX = (
+            Marker_HEX +
+            Length_HEX +
+            Type_HEX +
+            Withdrawn_Routes_Length_HEX +
+            Withdrawn_Routes_HEX +
+            Total_Path_Attributes_Length_HEX +
+            Path_Attributes_HEX +
+            NLRI_HEX
+        )
+
+        logging.debug('UPDATE Message encoding')
+        logging.debug('  Marker=0x' + binascii.hexlify(Marker_HEX))
+        logging.debug('  Length=' + str(Length) + ' (0x' + binascii.hexlify(Length_HEX) + ')')
+        logging.debug('  Type=' + str(Type) + ' (0x' + binascii.hexlify(Type_HEX) + ')')
+        logging.debug('  Withdrawn_Routes_Length=' + str(Withdrawn_Routes_Length) + ' (0x' + binascii.hexlify(Withdrawn_Routes_Length_HEX) + ')')
+        logging.debug('  Withdrawn_Routes=' + str(WR_Prefixes) + '/' + str(WR_Prefix_Length) + ' (0x' + binascii.hexlify(Withdrawn_Routes_HEX) + ')')
+        logging.debug('  Total Path Attributes Length=' + str(Total_Path_Attributes_Length) + ' (0x' + binascii.hexlify(Total_Path_Attributes_Length_HEX) + ')')
+        logging.debug('  Path Attributes='  + '(0x' + binascii.hexlify(Path_Attributes_HEX) + ')')
+        logging.debug('  Network Layer Reachability Information=' + str(NLRI_Prefixes) + '/' + str(NLRI_Prefix_Length) + ' (0x' + binascii.hexlify(NLRI_HEX) + ')')
+        logging.debug('UPDATE Message encoded: 0x' + binascii.b2a_hex(Message_HEX) + '\n')
+
+        return Message_HEX
+ 
+     
+    """ NOTIFICATION Message (rfc4271#section-4.5) """
+    def NOTIFICATION (self, Error_Code, Error_Subcode, Data_HEX=''):
+        # Marker
+        Marker_HEX = "\xFF" * 16
+
+        # Type
+        Type = 3
+        Type_HEX = struct.pack('B', Type)
+
+        # Error Code
+        Error_Code_HEX = struct.pack('B', Error_Code)
+
+        # Error Subode
+        Error_Subcode_HEX = struct.pack('B', Error_Subcode)
+
+        # Length (big-endian)
+        Length = len(Marker_HEX) + 2 + len(Type_HEX) + len(Error_Code_HEX) + len(Error_Subcode_HEX) + len(Data_HEX)
+        Length_HEX = struct.pack('>H', Length)  
+
+        # NOTIFICATION Message
+        Message_HEX = (
+            Marker_HEX +
+            Length_HEX +
+            Type_HEX +
+            Error_Code_HEX +
+            Error_Subcode_HEX +
+            Data_HEX
+        )
+
+        logging.debug('NOTIFICATION Message encoding')
+        logging.debug('  Marker=0x' + binascii.hexlify(Marker_HEX))
+        logging.debug('  Length=' + str(Length) + ' (0x' + binascii.hexlify(Length_HEX) + ')')
+        logging.debug('  Type=' + str(Type) + ' (0x' + binascii.hexlify(Type_HEX) + ')')
+        logging.debug('  Error Code=' + str(Error_Code) + ' (0x' + binascii.hexlify(Error_Code_HEX) + ')')
+        logging.debug('  Error Subode=' + str(Error_Subcode) + ' (0x' + binascii.hexlify(Error_Subcode_HEX) + ')')
+        logging.debug('  Data=' + ' (0x' + binascii.hexlify(Data_HEX) + ')')
+        logging.debug('NOTIFICATION Message encoded: 0x' + binascii.b2a_hex(Message_HEX) + '\n')
+
+        return Message_HEX
+
+
+    """ KEEP ALIVE Message (rfc4271#section-4.4) """
+    def KEEPALIVE (self):
+
+        # Marker
+        Marker_HEX = "\xFF" * 16
+
+        # Type
+        Type = 4
+        Type_HEX = struct.pack('B', Type)
+
+        # Length (big-endian)
+        Length = len(Marker_HEX) + 2 + len(Type_HEX)
+        Length_HEX = struct.pack('>H', Length)  
+
+        # KEEP ALIVE Message
+        Message_HEX = (
+            Marker_HEX +
+            Length_HEX +
+            Type_HEX
+        )
+
+        logging.debug('KEEP ALIVE Message encoding')
+        logging.debug('  Marker=0x' + binascii.hexlify(Marker_HEX))
+        logging.debug('  Length=' + str(Length) + ' (0x' + binascii.hexlify(Length_HEX) + ')')
+        logging.debug('  Type=' + str(Type) + ' (0x' + binascii.hexlify(Type_HEX) + ')')
+        logging.debug('KEEP ALIVE Message encoded: 0x' + binascii.b2a_hex(Message_HEX) + '\n')
+
+        return Message_HEX
 
 
 class TimeTracker(object):
@@ -444,7 +766,7 @@ class StateTracker(object):
             self.reader.wait_for_read()
             return
         # We can neither read nor write.
-        print 'Input and output both blocked for', self.timer.report_timedelta, 'seconds.'
+        logging.warning('Input and output both blocked for ' + str(self.timer.report_timedelta) + ' seconds.')
         # FIXME: Are we sure select has been really waiting the whole period?
         return
 
@@ -452,6 +774,8 @@ class StateTracker(object):
 def main():
     """Establish BGP connection and enter main loop for sending updates."""
     arguments = parse_arguments()
+    logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', level=arguments.loglevel)
+    logging.basicConfig(level=arguments.loglevel)
     bgp_socket = establish_connection(arguments)
     # Initial handshake phase. TODO: Can it be also moved to StateTracker?
     # Receive open message before sending anything.
