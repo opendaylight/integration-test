@@ -53,10 +53,24 @@ ${COUNT_CHANGE_COUNT}    ${COUNT}
 ${CHECK_PERIOD}    1
 ${CHECK_PERIOD_CHANGE_COUNT}    ${CHECK_PERIOD}
 ${REPETITIONS_CHANGE_COUNT}    1
+${INSERT}    1
+${WITHDRAW}    0
+${PREFILL}    0
+${SCENARIO}    separate
+${BGP_TOOL_LOG_LEVEL}    INFO
+${CONTROLLER_LOG_LEVEL}    DEFAULT
+${CONTROLLER_BGP_LOG_LEVEL}    DEFAULT
+
 # TODO: Option names can be better.
 ${last_change_count}    -1
 
 *** Test Cases ***
+Set Karaf Log Levels
+    [Documentation]    Set Karaf log level
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.bgpcep
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.protocol
+
 Check_For_Empty_Ipv4_Topology_Before_Talking
     [Documentation]    Wait for example-ipv4-topology to come up and empty. Give large timeout for case when BGP boots slower than restconf.
     [Tags]    critical
@@ -80,7 +94,7 @@ Start_Talking_BGP_speaker
     [Documentation]    Start Python speaker to connect to ODL.
     Store_Change_Count
     # Myport value is needed for checking whether connection at precise port was established.
-    BGPSpeaker.Start_BGP_speaker    --amount ${COUNT_CHANGE_COUNT} --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT}
+    BGPSpeaker.Start_BGP_speaker    --amount ${COUNT_CHANGE_COUNT} --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --${SCENARIO} --${BGP_TOOL_LOG_LEVEL}
 
 Wait_For_Stable_Talking_Ipv4_Topology
     [Documentation]    Wait until example-ipv4-topology becomes stable. This is done by checking the change counter.
@@ -112,7 +126,7 @@ Check_For_Empty_Ipv4_Topology_After_Talking
 
 Start_Listening_BGP_Speaker
     [Documentation]    Start Python speaker in listening mode.
-    BGPSpeaker.Start_BGP_speaker    --amount ${COUNT_CHANGE_COUNT} --listen --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP}
+    BGPSpeaker.Start_BGP_speaker    --amount ${COUNT_CHANGE_COUNT} --listen --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --${SCENARIO} --${BGP_TOOL_LOG_LEVEL}
 
 Reconfigure_ODL_To_Initiate_Connection
     [Documentation]    Replace BGP peer config module, now with initiate-connection set to true.
