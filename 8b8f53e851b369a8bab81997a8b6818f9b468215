@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_dcf7818b",
+        "filename": "csit/libraries/MininetTopo/vlan_vtn_test.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2015-09-21T23:08:49Z",
+      "side": 1,
+      "message": "It seems there is some issue importing mininet.node: https://jenkins.opendaylight.org/releng/job/vtn-csit-verify-1node-manager-beryllium/196/robot/report/log.html#s1-s2-s2",
+      "revId": "8b8f53e851b369a8bab81997a8b6818f9b468215",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_d91f9308",
         "filename": "csit/libraries/MininetTopo/vlan_vtn_test.py",
         "patchSetId": 16
@@ -71,6 +88,23 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_dcd0e1f9",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2015-09-21T23:08:49Z",
+      "side": 1,
+      "message": "This keyword is used by many people, can you move this file copy line into the vtn test suite or use the other keyword Jamo is pointing out?",
+      "revId": "8b8f53e851b369a8bab81997a8b6818f9b468215",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_7c098d94",
         "filename": "csit/libraries/VtnMaKeywords.robot",
         "patchSetId": 16
@@ -88,6 +122,23 @@
         "endLine": 118,
         "endChar": 23
       },
+      "revId": "8b8f53e851b369a8bab81997a8b6818f9b468215",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_5c04d17d",
+        "filename": "csit/suites/vtn/VTN_Mgr_OF13/010__vtn_vlanmap.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2015-09-21T23:08:49Z",
+      "side": 1,
+      "message": "Maybe I miss something but I do not see how this suite clears the test environment: shutdown mininet, clear mininet, delete all sessions, etc...",
       "revId": "8b8f53e851b369a8bab81997a8b6818f9b468215",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
