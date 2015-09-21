@@ -16,6 +16,8 @@ __copyright__ = "Copyright(c) 2015, Cisco Systems, Inc."
 __license__ = "Eclipse Public License v1.0"
 __email__ = "vrpolak@cisco.com"
 
+# TODO: Introduce support for different update scenarios (prefix withdrawn, preudo-random updates, ...)
+# - introduced logging and new command-line parameters (testing non-regression)
 
 import argparse
 import binascii
@@ -23,19 +25,25 @@ import ipaddr
 import select
 import socket
 import time
+import logging
+import struct
 
 
 def parse_arguments():
     """Use argparse to get arguments, return args object."""
     parser = argparse.ArgumentParser()
-    # TODO: Should we use --argument-names-with-spaces?
     str_help = 'Autonomous System number use in the stream (current default as in ODL: 64496).'
     parser.add_argument('--asnumber', default=64496, type=int, help=str_help)
-    # FIXME: We are acting as iBGP peer, we should mirror AS number from peer's open message.
     str_help = 'Amount of IP prefixes to generate. Negative number means "practically infinite".'
     parser.add_argument('--amount', default='1', type=int, help=str_help)
+    str_help = 'Number of IP prefixes to add in an UPDATE message".'
+    parser.add_argument('--up', default='1', type=int, help=str_help)
+    str_help = 'Number of IP prefixes to withdraw in an UPDATE message".'
+    parser.add_argument('--down', default='0', type=int, help=str_help)
     str_help = 'The first IPv4 prefix to announce, given as numeric IPv4 address.'
     parser.add_argument('--firstprefix', default='8.0.1.0', type=ipaddr.IPv4Address, help=str_help)
+    str_help = 'The prefix length.'
+    parser.add_argument('--prefixlen', default=28, type=int, help=str_help)
     str_help = 'If present, this tool will be listening for connection, instead of initiating it.'
     parser.add_argument('--listen', action='store_true', help=str_help)
     str_help = 'Numeric IP Address to bind to and derive BGP ID from. Default value only suitable for listening.'
@@ -48,17 +56,21 @@ def parse_arguments():
     parser.add_argument('--peerip', default='127.0.0.2', type=ipaddr.IPv4Address, help=str_help)
     str_help = 'TCP port to try to connect to. No effect in listening mode.'
     parser.add_argument('--peerport', default='179', type=int, help=str_help)
-    # TODO: The step between IP previxes is currently hardcoded to 16. Should we make it configurable?
-    # Yes, the argument list above is sorted alphabetically.
+    str_help = 'Local hold time.'
+    parser.add_argument('--holdtime', default='180', type=int, help=str_help)
+    str_help = 'Maximal idle time when waiting for an input'
+    parser.add_argument('--idle', default='86400', type=int, help=str_help)
+    str_help = 'Log level'
+#    parser.add_argument('--debug', dest='loglevel', action='store_const', const=logging.DEBUG, default=logging.INFO, help=str_help)
+    parser.add_argument('--debug', dest='loglevel', action='store_const', const=logging.DEBUG, default=logging.DEBUG, help=str_help)
     arguments = parser.parse_args()
-    # TODO: Are sanity checks (such as asnumber>=0) required?
     return arguments
 
 
 def establish_connection(arguments):
     """Establish connection according to arguments, return socket."""
     if arguments.listen:
-        # print "DEBUG: connecting in the listening case."
+        logging.info('Connecting in the listening mode.')
         listening_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         listening_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         listening_socket.bind((str(arguments.myip), arguments.myport))  # bind need single tuple as argument
@@ -67,13 +79,13 @@ def establish_connection(arguments):
         # TODO: Verify client IP is cotroller IP.
         listening_socket.close()
     else:
-        # print "DEBUG: connecting in the talking case."
+        logging.info('Connecting in the talking mode.')
         talking_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         talking_socket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         talking_socket.bind((str(arguments.myip), arguments.myport))  # bind to force specified address and port
         talking_socket.connect((str(arguments.peerip), arguments.peerport))  # socket does not spead ipaddr, hence str()
         bgp_socket = talking_socket
-    print 'Connected to ODL.'
+    logging.info('Connected to ODL.')
     return bgp_socket
 
 
@@ -119,7 +131,7 @@ def read_open_message(bgp_socket):
     reported_length = get_short_int_from_message(msg_in)
     if len(msg_in) != reported_length:
         raise MessageError("Message length is not " + reported_length + " in message", msg_in)
-    print "Open message received"
+    logging.info('Open message received.')
     return msg_in
 
 
@@ -444,7 +456,7 @@ class StateTracker(object):
             self.reader.wait_for_read()
             return
         # We can neither read nor write.
-        print 'Input and output both blocked for', self.timer.report_timedelta, 'seconds.'
+        logging.warning('Input and output both blocked for ' + str(self.timer.report_timedelta) + ' seconds.')
         # FIXME: Are we sure select has been really waiting the whole period?
         return
 
@@ -452,6 +464,8 @@ class StateTracker(object):
 def main():
     """Establish BGP connection and enter main loop for sending updates."""
     arguments = parse_arguments()
+    logging.basicConfig(format='%(asctime)s %(levelname)s: %(message)s', level=arguments.loglevel)
+    logging.basicConfig(level=arguments.loglevel)
     bgp_socket = establish_connection(arguments)
     # Initial handshake phase. TODO: Can it be also moved to StateTracker?
     # Receive open message before sending anything.
