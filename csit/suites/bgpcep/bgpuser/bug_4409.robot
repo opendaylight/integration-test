@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Basic tests for odl-bgpcep-bgp-all feature.
+Documentation     Test to cover the bgpcep bug_4409 correction (https://bugs.opendaylight.org).
 ...
 ...               Copyright (c) 2015 Cisco Systems, Inc. and others. All rights reserved.
 ...
@@ -29,17 +29,17 @@ ${directory_with_template_folders}    ${CURDIR}/../../../variables/bgpuser/
 ${CONTROLLER_PROMPT}    ${DEFAULT_LINUX_PROMPT}
 ${HOLDTIME}       180
 ${HOLDTIME_PREFIX_COUNT}       ${HOLDTIME}
-${COUNT}          100000
+${COUNT}          3
 ${COUNT_PREFIX_COUNT}   ${COUNT}
 ${CHECK_PERIOD}    5
 ${CHECK_PERIOD_PREFIX_COUNT}    ${CHECK_PERIOD}
 ${current_count}    -1
 ${player_error_log}    play.py.err
-${BGP_IPADD}    1
-${BGP_IPDEL}    0
+${BGP_IPADD}    2
+${BGP_IPDEL}    1
 ${BGP_RANDOMIZE}    0
 ${BGP_LOG_LEVEL}    error
-${BGP_OPTION}    --single 0
+${BGP_OPTION}    --combined 2
 ${ODL_LOG_LEVEL}    DEFAULT
 
 *** Test Cases ***
@@ -85,38 +85,6 @@ Kill_Talking_BGP_Speaker
 
 Check_For_Empty_Topology_After_Talking
     [Documentation]    See example-ipv4-topology empty again.
-    [Tags]    critical
-    Wait_For_Topology_To_Become_Empty    timeout=180s
-    BGPKeywords.Check_Topology_Count    0
-
-Start_Listening_BGP_Speaker
-    [Documentation]    Start Python speaker in listening mode, verify that the tool does not exit quickly.
-    BGPSpeaker.Start_BGP_speaker    --amount ${COUNT_PREFIX_COUNT} --listen --myip=${MININET} --myport=${BGP_TOOL_PORT} --peerip=${CONTROLLER} --peerport=${ODL_BGP_PORT} --ipadd=${BGP_IPADD} --ipdel=${BGP_IPDEL} --${BGP_LOG_LEVEL} ${BGP_OPTION}
-
-Reconfigure_ODL_To_Initiate_Connection
-    [Documentation]    Replace BGP peer config module, now with initiate-connection set to true.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'IP': '${MININET}', 'HOLDTIME': '${HOLDTIME_PREFIX_COUNT}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'true'}
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer    ${template_as_string}
-
-Wait_For_Listening_Topology
-    [Documentation]    Wait until example-ipv4-topology becomes stable.
-    Wait_For_Topology_To_Become_Stable    ${timeout}    ${CHECK_PERIOD_PREFIX_COUNT}
-
-Check_Listening_Topology_Count
-    [Documentation]    Count the routes in example-ipv4-topology and fail if the count is not correct.
-    [Tags]    critical
-    BGPKeywords.Check_Topology_Count    ${COUNT_PREFIX_COUNT}
-
-Kill_Listening_BGP_Speaker
-    [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    BGPSpeaker.Kill_BGP_Speaker
-    FailFast.Do_Not_Fail_Fast_From_Now_On
-    # NOTE: It is still possible to remain failing, if both previous and this test failed.
-    [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
-
-Check_For_Empty_Topology_After_Listening
-    [Documentation]    Post-condition: Check example-ipv4-topology is empty again.
     [Tags]    critical
     Wait_For_Topology_To_Become_Empty    timeout=180s
     BGPKeywords.Check_Topology_Count    0
