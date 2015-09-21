@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Basic tests for odl-bgpcep-bgp-all feature.
+Documentation     Test to cover the bgpcep bug_4409 correction (https://bugs.opendaylight.org).
 ...
 ...               Copyright (c) 2015 Cisco Systems, Inc. and others. All rights reserved.
 ...
@@ -28,19 +28,17 @@ Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 ${directory_with_template_folders}    ${CURDIR}/../../../variables/bgpuser/
 ${CONTROLLER_PROMPT}    ${DEFAULT_LINUX_PROMPT}
 ${HOLDTIME}       180
-${HOLDTIME_PREFIX_COUNT}    ${HOLDTIME}
-${COUNT}          100000
-${COUNT_PREFIX_COUNT}    ${COUNT}
+${HOLDTIME_PREFIX_COUNT}       ${HOLDTIME}
+${COUNT}          3
+${COUNT_PREFIX_COUNT}   ${COUNT}
 ${CHECK_PERIOD}    5
 ${CHECK_PERIOD_PREFIX_COUNT}    ${CHECK_PERIOD}
-${PASS_COUNT_PREFIX_COUNT}    1
 ${current_count}    -1
 ${player_error_log}    play.py.err
-${BGP_IPADD}    1
-${BGP_IPDEL}    0
+${BGP_IPADD}    2
+${BGP_IPDEL}    1
 ${BGP_RANDOMIZE}    0
 ${BGP_LOG_LEVEL}    error
-${BGP_OPTION}    --single 0
 ${ODL_LOG_LEVEL}    DEFAULT
 
 *** Test Cases ***
@@ -63,13 +61,13 @@ Reconfigure_ODL_To_Accept_Connection
     ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer    ${template_as_string}
 
 Start_Talking_BGP_speaker
-    [Documentation]    Start Python speaker to connect to ODL, verify that the tool does not promptly exit.
+    [Documentation]    Start Python speaker. Update messages with standalone Withdrawn Routes variable only in case of route withdrawal.
     # Myport value is needed for checking whether connection at precise port was established.
-    BGPSpeaker.Start_BGP_speaker    --amount ${COUNT_PREFIX_COUNT} --myip=${MININET} --myport=${BGP_TOOL_PORT} --peerip=${CONTROLLER} --peerport=${ODL_BGP_PORT} --ipadd=${BGP_IPADD} --ipdel=${BGP_IPDEL} --${BGP_LOG_LEVEL} ${BGP_OPTION}
+    BGPSpeaker.Start_BGP_speaker    --amount ${COUNT_PREFIX_COUNT} --myip=${MININET} --myport=${BGP_TOOL_PORT} --peerip=${CONTROLLER} --peerport=${ODL_BGP_PORT} --ipadd=${BGP_IPADD} --ipdel=${BGP_IPDEL} --${BGP_LOG_LEVEL} --single 2
 
 Wait_For_Talking_Topology
     [Documentation]    Wait until example-ipv4-topology becomes stable. This is done by checking the change counter.
-    Wait_For_Topology_To_Become_Stable    ${timeout_for_topology_filling}
+    Wait_For_Topology_To_Become_Stable    ${timeout}    ${CHECK_PERIOD_PREFIX_COUNT}
 
 Check_Talking_Topology_Count
     [Documentation]    Count the routes in example-ipv4-topology and fail if the count is not correct.
@@ -90,34 +88,30 @@ Check_For_Empty_Topology_After_Talking
     Wait_For_Topology_To_Become_Empty    timeout=180s
     BGPKeywords.Check_Topology_Count    0
 
-Start_Listening_BGP_Speaker
-    [Documentation]    Start Python speaker in listening mode, verify that the tool does not exit quickly.
-    BGPSpeaker.Start_BGP_speaker    --amount ${COUNT_PREFIX_COUNT} --listen --myip=${MININET} --myport=${BGP_TOOL_PORT} --peerip=${CONTROLLER} --peerport=${ODL_BGP_PORT} --ipadd=${BGP_IPADD} --ipdel=${BGP_IPDEL} --${BGP_LOG_LEVEL} ${BGP_OPTION}
+Start_Talking_BGP_speaker_2
+    [Documentation]    Start Python speaker. Update messages with both Withdrawn Routes & NLRI variables in case of route withdrawal.
+    # Myport value is needed for checking whether connection at precise port was established.
+    BGPSpeaker.Start_BGP_speaker    --amount ${COUNT_PREFIX_COUNT} --myip=${MININET} --myport=${BGP_TOOL_PORT} --peerip=${CONTROLLER} --peerport=${ODL_BGP_PORT} --ipadd=${BGP_IPADD} --ipdel=${BGP_IPDEL} --${BGP_LOG_LEVEL} --combined 2
 
-Reconfigure_ODL_To_Initiate_Connection
-    [Documentation]    Replace BGP peer config module, now with initiate-connection set to true.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'IP': '${MININET}', 'HOLDTIME': '${HOLDTIME_PREFIX_COUNT}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'true'}
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer    ${template_as_string}
+Wait_For_Talking_Topology_2
+    [Documentation]    Wait until example-ipv4-topology becomes stable. This is done by checking the change counter.
+    Wait_For_Topology_To_Become_Stable    ${timeout}    ${CHECK_PERIOD_PREFIX_COUNT}
 
-Wait_For_Listening_Topology
-    [Documentation]    Wait until example-ipv4-topology becomes stable.
-    Wait_For_Topology_To_Become_Stable    ${timeout_for_topology_filling}
-
-Check_Listening_Topology_Count
-    [Documentation]    Count the routes in example-ipv4-topology and fail if the count is not correct.
+Check_Talking_Topology_Count_2
+    [Documentation]    Count the routes in example-ipv4-topology and fail if the count is not correct. Check for bug_4409 correction.
     [Tags]    critical
     BGPKeywords.Check_Topology_Count    ${COUNT_PREFIX_COUNT}
 
-Kill_Listening_BGP_Speaker
+Kill_Talking_BGP_Speaker_2
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     BGPSpeaker.Kill_BGP_Speaker
     FailFast.Do_Not_Fail_Fast_From_Now_On
-    # NOTE: It is still possible to remain failing, if both previous and this test failed.
+    # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
     [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
 
-Check_For_Empty_Topology_After_Listening
-    [Documentation]    Post-condition: Check example-ipv4-topology is empty again.
+Check_For_Empty_Topology_After_Talking_2
+    [Documentation]    See example-ipv4-topology empty again.
     [Tags]    critical
     Wait_For_Topology_To_Become_Empty    timeout=180s
     BGPKeywords.Check_Topology_Count    0
@@ -133,7 +127,7 @@ Setup_Everything
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     ConfigViaRestconf.Setup_Config_Via_Restconf
     FailFast.Do_Not_Fail_Fast_From_Now_On
-    SSHLibrary.Set_Default_Configuration    prompt=${MININET_PROMPT}
+    SSHLibrary.Set_Default_Configuration    prompt=${CONTROLLER_PROMPT}
     SSHLibrary.Open_Connection    ${MININET}
     Utils.Flexible_Mininet_Login
     RequestsLibrary.Create_Session    operational    http://${CONTROLLER}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
@@ -143,7 +137,7 @@ Setup_Everything
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
     # Calculate the timeout value based on how many routes are going to be pushed
     ${count}=    Builtin.Convert_To_Integer    ${COUNT_PREFIX_COUNT}
-    Builtin.Set_Suite_Variable    ${timeout_for_topology_filling}    ${count/25+60} s
+    Builtin.Set_Suite_Variable    ${timeout}    ${count/25+60} s
 
 Teardown_Everything
     [Documentation]    Make sure Python tool was killed and tear down imported Resources.
@@ -153,9 +147,9 @@ Teardown_Everything
     SSHLibrary.Close_All_Connections
 
 Wait_For_Topology_To_Become_Empty
-    [Arguments]    ${timeout}=10s    ${refresh}=${CHECK_PERIOD_PREFIX_COUNT} s    ${count}=${PASS_COUNT_PREFIX_COUNT}    ${stop_at_http_error}=True
+    [Arguments]    ${timeout}=10s    ${refresh}=${CHECK_PERIOD_PREFIX_COUNT} s    ${stop_at_http_error}=True
     [Documentation]    Wait until topology becomes empty.
-    Utils.Wait_For_Data_To_Satisfy_Keyword    ${timeout}    ${refresh}    ${count}    Check_Topology_Is_Empty
+    Utils.Wait_For_Data_To_Satisfy_Keyword    ${timeout}    ${refresh}    Check_Topology_Is_Empty
 
 Check_Topology_Is_Stable
     [Arguments]    ${actual_count}
@@ -167,5 +161,5 @@ Check_Topology_Is_Stable
     Builtin.Should_Be_Equal    ${expected_count}    ${actual_count}
 
 Wait_For_Topology_To_Become_Stable
-    [Arguments]    ${timeout}    ${refresh}=${CHECK_PERIOD_PREFIX_COUNT}    ${count}=${PASS_COUNT_PREFIX_COUNT}
-    Utils.Wait_For_Data_To_Satisfy_Keyword    ${timeout}    ${refresh}    ${count}    Get_Topology_Count    Check_Topology_Is_Stable
+    [Arguments]    ${timeout}    ${refresh}
+    Utils.Wait_For_Data_To_Satisfy_Keyword    ${timeout}    ${refresh}    Get_Topology_Count    Check_Topology_Is_Stable
