@@ -45,10 +45,25 @@ ${COUNT_PREFIX_COUNT}    ${COUNT}
 ${CHECK_PERIOD}    1
 ${CHECK_PERIOD_PREFIX_COUNT}    ${CHECK_PERIOD}
 ${REPETITIONS_PREFIX_COUNT}    1
+${INSERT}    1
+${WITHDRAW}    0
+${PREFILL}    0
+${SCENARIO}    separate
+${BGP_TOOL_LOG_LEVEL}    info
+${CONTROLLER_LOG_LEVEL}    INFO
+${CONTROLLER_BGP_LOG_LEVEL}    DEFAULT
+${RESULTS_FILE_NAME}    bgp-performance-prefixcount.csv
+
 # TODO: Option names can be better.
 ${last_prefix_count}    -1
 
 *** Test Cases ***
+Set Karaf Log Levels
+    [Documentation]    Set Karaf log level
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.bgpcep
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.protocol
+
 Check_For_Empty_Ipv4_Topology_Before_Talking
     [Documentation]    Wait for example-ipv4-topology to come up and empty. Give large timeout for case when BGP boots slower than restconf.
     [Tags]    critical
@@ -63,7 +78,7 @@ Reconfigure_ODL_To_Accept_Connection
 Start_Talking_BGP_speaker
     [Documentation]    Start Python speaker to connect to ODL.
     # Myport value is needed for checking whether connection at precise port was established.
-    BGPSpeaker.Start_BGP_speaker    --amount ${COUNT_PREFIX_COUNT} --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT}
+    BGPSpeaker.Start_BGP_speaker    --amount ${COUNT_PREFIX_COUNT} --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --${SCENARIO} --${BGP_TOOL_LOG_LEVEL} --results ${RESULTS_FILE_NAME}
 
 Wait_For_Stable_Talking_Ipv4_Topology
     [Documentation]    Wait until example-ipv4-topology becomes stable. This is done by checking stability of prefix count.
@@ -82,6 +97,9 @@ Kill_Talking_BGP_Speaker
     # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
     [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
 
+Store_Results
+    Store_File_To_Robot    ${RESULTS_FILE_NAME}
+
 Wait_For_Stable_Ipv4_Topology_After_Talking
     [Documentation]    Wait until example-ipv4-topology becomes stable again.
     [Tags]    critical
@@ -97,7 +115,7 @@ Check_For_Empty_Ipv4_Topology_After_Talking
 
 Start_Listening_BGP_Speaker
     [Documentation]    Start Python speaker in listening mode.
-    BGPSpeaker.Start_BGP_speaker    --amount ${COUNT_PREFIX_COUNT} --listen --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP}
+    BGPSpeaker.Start_BGP_speaker    --amount ${COUNT_PREFIX_COUNT} --listen --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --${SCENARIO} --${BGP_TOOL_LOG_LEVEL}  --results ${RESULTS_FILE_NAME}
 
 Reconfigure_ODL_To_Initiate_Connection
     [Documentation]    Replace BGP peer config module, now with initiate-connection set to true.
@@ -163,3 +181,10 @@ Teardown_Everything
     ConfigViaRestconf.Teardown_Config_Via_Restconf
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
+
+Store_File_To_Robot
+    [Arguments]    ${file_name}
+    [Documentation]    Store the provided file from the MININET to the ROBOT machine.
+    ${output_log}=    SSHLibrary.Execute_Command    cat ${file_name}
+    BuiltIn.Log    ${output_log}
+    Create File    ${file_name}    ${output_log}
