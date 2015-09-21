@@ -50,7 +50,8 @@ Reconfigure_ODL_To_Accept_Connection
 Start_Talking_BGP_speaker
     [Documentation]    Start Python speaker to connect to ODL, verify that the tool does not promptly exit.
     # Myport value is needed for checking whether connection at precise port was established.
-    BGPSpeaker.Start_BGP_speaker    --amount ${COUNT_PREFIX_COUNT} --myip=${MININET} --myport=${BGP_TOOL_PORT} --peerip=${CONTROLLER} --peerport=${ODL_BGP_PORT}
+    KarafKeywords.Log_Message_To_Controller_Karaf    BGP Speaker is going to speek
+    BGPSpeaker.Start_BGP_speaker    --amount ${COUNT_PREFIX_COUNT} --myip=${MININET} --myport=${BGP_TOOL_PORT} --peerip=${CONTROLLER} --peerport=${ODL_BGP_PORT} --withdrawal yes --idle=5
 
 Wait_For_Talking_Topology
     [Documentation]    Wait until example-ipv4-topology becomes stable. This is done by checking the change counter.
@@ -60,6 +61,11 @@ Check_Talking_Topology_Count
     [Documentation]    Count the routes in example-ipv4-topology and fail if the count is not correct.
     [Tags]    critical
     BGPKeywords.Check_Topology_Count    ${COUNT_PREFIX_COUNT}
+
+Check_For_Empty_Topology_After_Withdrawal
+    [Documentation]    See example-ipv4-topology empty again.
+    [Tags]    critical
+    Wait_For_Topology_To_Become_Empty    timeout=180s
 
 Kill_Talking_BGP_Speaker
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
