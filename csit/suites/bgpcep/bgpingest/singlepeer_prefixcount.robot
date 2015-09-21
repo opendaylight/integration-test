@@ -35,6 +35,7 @@ ${CHECK_PERIOD}    5
 ${CHECK_PERIOD_PREFIX_COUNT}    ${CHECK_PERIOD}
 ${current_count}    -1
 ${player_error_log}    play.py.err
+${LOG_LEVEL}    ERROR
 
 *** Test Cases ***
 Check_For_Empty_Topology_Before_Talking
@@ -51,7 +52,7 @@ Reconfigure_ODL_To_Accept_Connection
 Start_Talking_BGP_speaker
     [Documentation]    Start Python speaker to connect to ODL, verify that the tool does not promptly exit.
     # Myport value is needed for checking whether connection at precise port was established.
-    BGPSpeaker.Start_BGP_speaker    --amount ${COUNT_PREFIX_COUNT} --myip=${MININET} --myport=${BGP_TOOL_PORT} --peerip=${CONTROLLER} --peerport=${ODL_BGP_PORT}
+    BGPSpeaker.Start_BGP_speaker    --amount ${COUNT_PREFIX_COUNT} --myip=${MININET} --myport=${BGP_TOOL_PORT} --peerip=${CONTROLLER} --peerport=${ODL_BGP_PORT} --${LOG_LEVEL}
 
 Wait_For_Talking_Topology
     [Documentation]    Wait until example-ipv4-topology becomes stable. This is done by checking the change counter.
@@ -78,7 +79,7 @@ Check_For_Empty_Topology_After_Talking
 
 Start_Listening_BGP_Speaker
     [Documentation]    Start Python speaker in listening mode, verify that the tool does not exit quickly.
-    BGPSpeaker.Start_BGP_speaker    --amount ${COUNT_PREFIX_COUNT} --listen --myip=${MININET} --myport=${BGP_TOOL_PORT} --peerip=${CONTROLLER}
+    BGPSpeaker.Start_BGP_speaker    --amount ${COUNT_PREFIX_COUNT} --listen --myip=${MININET} --myport=${BGP_TOOL_PORT} --peerip=${CONTROLLER} --${LOG_LEVEL}
 
 Reconfigure_ODL_To_Initiate_Connection
     [Documentation]    Replace BGP peer config module, now with initiate-connection set to true.
