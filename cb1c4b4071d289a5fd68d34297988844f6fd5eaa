@@ -25,6 +25,69 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_1c5ad983",
+        "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-21T23:41:47Z",
+      "side": 1,
+      "message": "thanks for this good detailed suite documentation.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 13
+      },
+      "revId": "cb1c4b4071d289a5fd68d34297988844f6fd5eaa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_7c7e6de6",
+        "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-21T23:41:47Z",
+      "side": 1,
+      "message": "some of these variables are already available and coming from Variables.py (e.g. ${CONTROLLER}).  Some are commented out.  I would suggest removing those for better clarity and maintainability",
+      "revId": "cb1c4b4071d289a5fd68d34297988844f6fd5eaa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_1c83b9cd",
+        "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-21T23:41:47Z",
+      "side": 1,
+      "message": "curious why you are doing this here and not just using ${PCDOWNLOAD_URLBASE} directly in link 174",
+      "range": {
+        "startLine": 172,
+        "startChar": 4,
+        "endLine": 172,
+        "endChar": 14
+      },
+      "revId": "cb1c4b4071d289a5fd68d34297988844f6fd5eaa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_5ca131a8",
         "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
         "patchSetId": 22
@@ -36,6 +99,98 @@
       "writtenOn": "2015-09-21T22:02:40Z",
       "side": 1,
       "message": "Trailing space",
+      "revId": "cb1c4b4071d289a5fd68d34297988844f6fd5eaa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_fc691d26",
+        "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-21T23:41:47Z",
+      "side": 1,
+      "message": "thanks for the explanation.  I would prefer if these suites made the assumption that ODL is up and healthy when the suite starts.  So, assuming that, what is a better value instead of 300s.  you could make that a Suite Variable (e.g.  ${CONTROLLER_VERIFY_TIMEOUT}) that users can override on the command line with 300s in cases where they can\u0027t make this assumption.\n\nbut, for upstream ODL tests we will expect the controller up and happy.  If there is truly a bug where this Pcep_Off would fail, we don\u0027t want to spin for 5m letting it fail when we would safely know after say 30s.\n\nI hope I\u0027m making sense.",
+      "range": {
+        "startLine": 219,
+        "startChar": 65,
+        "endLine": 220,
+        "endChar": 4
+      },
+      "revId": "cb1c4b4071d289a5fd68d34297988844f6fd5eaa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_9c76e905",
+        "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-21T23:41:47Z",
+      "side": 1,
+      "message": "good comment.",
+      "range": {
+        "startLine": 228,
+        "startChar": 0,
+        "endLine": 230,
+        "endChar": 56
+      },
+      "revId": "cb1c4b4071d289a5fd68d34297988844f6fd5eaa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_7c650d44",
+        "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-21T23:41:47Z",
+      "side": 1,
+      "message": "we do this in an openflow scale suite.  where we have a multiplier based on the number of switches we are using.  just fyi:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/Scalability.robot#L24",
+      "range": {
+        "startLine": 239,
+        "startChar": 4,
+        "endLine": 239,
+        "endChar": 50
+      },
+      "revId": "cb1c4b4071d289a5fd68d34297988844f6fd5eaa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_3c5f9574",
+        "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-21T23:41:47Z",
+      "side": 1,
+      "message": "there is another patch that will create a CTRL-C keyword:\nhttps://git.opendaylight.org/gerrit/#/c/26719/10/csit/libraries/Utils.robot\n\njust fyi, in case you want to refactor down the road when that patch is merged.",
+      "range": {
+        "startLine": 352,
+        "startChar": 0,
+        "endLine": 360,
+        "endChar": 30
+      },
       "revId": "cb1c4b4071d289a5fd68d34297988844f6fd5eaa",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
