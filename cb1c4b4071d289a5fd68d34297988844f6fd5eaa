@@ -22,6 +22,23 @@
       "revId": "cb1c4b4071d289a5fd68d34297988844f6fd5eaa",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_5ca131a8",
+        "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2015-09-21T22:02:40Z",
+      "side": 1,
+      "message": "Trailing space",
+      "revId": "cb1c4b4071d289a5fd68d34297988844f6fd5eaa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
