@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_19dd0b43",
+        "filename": "csit/libraries/MininetTopo/vlan_vtn_test.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-21T16:20:07Z",
+      "side": 1,
+      "message": "Again, I recommend using `env` to resolve the path to the `python` binary. More portable, think venvs for example.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 17
+      },
+      "revId": "8b8f53e851b369a8bab81997a8b6818f9b468215",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_d91f9308",
+        "filename": "csit/libraries/MininetTopo/vlan_vtn_test.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-21T16:20:07Z",
+      "side": 1,
+      "message": "Should have a blank line between these I think, but nbd.",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 34
+      },
+      "revId": "8b8f53e851b369a8bab81997a8b6818f9b468215",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
