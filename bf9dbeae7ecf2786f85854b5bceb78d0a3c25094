@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_1c0c1994",
+        "filename": "csit/suites/vtn/VTN_C_OF10/070__vtn_flowfilter.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-21T23:25:35Z",
+      "side": 1,
+      "message": "why are all these test cases marked exclude?  is there some bug that causes them to fail, or maybe the feature isn\u0027t implemented yet?",
+      "revId": "bf9dbeae7ecf2786f85854b5bceb78d0a3c25094",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_3c11d5ac",
+        "filename": "csit/suites/vtn/VTN_C_OF13/070__vtn_flowfilter.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-21T23:25:35Z",
+      "side": 1,
+      "message": "same question about these cases being tagged \"exclude\"",
+      "revId": "bf9dbeae7ecf2786f85854b5bceb78d0a3c25094",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
