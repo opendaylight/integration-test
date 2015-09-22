@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_a8a91f26",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-22T15:04:24Z",
+      "side": 1,
+      "message": "Now when I have seen usage in suite, I agree it is useful to not keep the karaf console connection \"switched to\".\nSo perhaps just changing the keyword name would be sufficient to communicate that the previous SSH connection is still on.",
+      "parentUuid": "1a76adc5_a8acbf8d",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 34
+      },
+      "revId": "3aa33c06b91f1c743fcc1ff2121f920daa626787",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_28fe6f6c",
         "filename": "csit/libraries/KarafKeywords.robot",
         "patchSetId": 4
