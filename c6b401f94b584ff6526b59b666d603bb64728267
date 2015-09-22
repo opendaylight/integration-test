@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_9fd81655",
+        "filename": "tools/jbench/pom.xml",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-22T20:17:57Z",
+      "side": 1,
+      "message": "Replace :)\n\nDitto for other lines.",
+      "range": {
+        "startLine": 9,
+        "startChar": 2,
+        "endLine": 9,
+        "endChar": 3
+      },
+      "revId": "c6b401f94b584ff6526b59b666d603bb64728267",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_5fe27e04",
+        "filename": "tools/jbench/src/main/java/jbench/Jbench.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-22T20:17:57Z",
+      "side": 1,
+      "message": "Please remove extraneous spaces. :)\n\nDitto tabs and spaces below.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 1
+      },
+      "revId": "c6b401f94b584ff6526b59b666d603bb64728267",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_ffe6ea15",
+        "filename": "tools/jbench/src/main/java/jbench/OperationMode.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-22T20:17:57Z",
+      "side": 1,
+      "message": "Please remove spaces and tabs.",
+      "revId": "c6b401f94b584ff6526b59b666d603bb64728267",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
