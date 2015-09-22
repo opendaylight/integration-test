@@ -43,7 +43,7 @@ Verify after adding meter config
 
 Verify after adding meter operational
     [Documentation]    Get the meter stat in operational
-    ${elements}=    Create List    meter-statistics    meter-config-stats
+    ${elements}=    Create List    meter-statistics    meter-kbps    flow-count    packet-in-count    byte-in-count    meter-band-stats    meter-band-headers
     Wait Until Keyword Succeeds    6s    2s    Check For Elements At URI    ${REST_CONTEXT_OP}/meter/1    ${elements}
 
 Add a flow that includes a meter
