@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_8d09d597",
+        "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-22T12:56:32Z",
+      "side": 1,
+      "message": "Tidy tool sets single space here.",
+      "range": {
+        "startLine": 209,
+        "startChar": 127,
+        "endLine": 209,
+        "endChar": 128
+      },
+      "revId": "f39e59d6afb846e1f495cad275f9e5a9267af37f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
