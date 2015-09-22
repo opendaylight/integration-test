@@ -68,6 +68,30 @@
       "revId": "911458e235ac2566f2b44e414cf4b554f3b34311",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_a29e2062",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-22T09:08:02Z",
+      "side": 1,
+      "message": "Other keywords are expected to open their own Karaf Console as needed so they would not be able to make much use of these three lines packaged in the other keyword. Additionally, when optimizing this, only the first line will stay here, the rest will be moved into \"Issue Command on Karaf Console\" and all keywords that need a Karaf console will use that keyword so extracting these 3 lines to their keyword does not make much sense to me.",
+      "parentUuid": "3a79b1b5_3b4f2d94",
+      "range": {
+        "startLine": 107,
+        "startChar": 59,
+        "endLine": 107,
+        "endChar": 76
+      },
+      "revId": "911458e235ac2566f2b44e414cf4b554f3b34311",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
