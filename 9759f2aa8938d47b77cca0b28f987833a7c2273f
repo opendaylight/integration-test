@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_48408b56",
+        "filename": "csit/suites/bgpcep/bgpuser/cases.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-22T15:29:56Z",
+      "side": 1,
+      "message": "Why is there no message (here and in the next case)?",
+      "revId": "9759f2aa8938d47b77cca0b28f987833a7c2273f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
