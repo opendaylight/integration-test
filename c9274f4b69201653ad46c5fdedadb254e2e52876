@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_684a2785",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-22T15:12:26Z",
+      "side": 1,
+      "message": "What about ODL_BGP_PORT?\nThe standard BGP port number is 179, and we may need that value if we start testing with less flexible peers.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 8
+      },
+      "revId": "c9274f4b69201653ad46c5fdedadb254e2e52876",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
