@@ -213,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_5c812c49",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-22T15:46:01Z",
+      "side": 1,
+      "message": "You can turn it into a test. Assert there is only one key. Assert the key is from set of expected options (I assume \"several\" fits to a reasonably large set). Then return the value.",
+      "parentUuid": "3a79b1b5_4d1ca8c1",
+      "range": {
+        "startLine": 78,
+        "startChar": 19,
+        "endLine": 78,
+        "endChar": 26
+      },
+      "revId": "e63c024375cb6f68910ebcc054ce9411eccfea08",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_0d79d092",
         "filename": "csit/libraries/criotdm.py",
         "patchSetId": 2
