@@ -128,6 +128,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_8da6b5c0",
+        "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-22T12:24:23Z",
+      "side": 1,
+      "message": "\u003e for upstream ODL tests we will expect the controller up and happy\n\nODL does not have a single status response which would mean _everything_ is ready. In my experience, netconf-connector success at mounting controller-config is usually the last important state change in karaf.log, but not every suite uses netconf-connector, and some suite may want to wait for something even slower than netconf-connector.\n\nIdeally, each testplan would start with its own readiness suite. Until then, it is safer for each suite to expect that it was run at the same time as ODL started booting up.\n\nBut making the timeout configurable is a good idea, I will add it to next patch set.",
+      "parentUuid": "1a76adc5_fc691d26",
+      "range": {
+        "startLine": 219,
+        "startChar": 65,
+        "endLine": 220,
+        "endChar": 4
+      },
+      "revId": "cb1c4b4071d289a5fd68d34297988844f6fd5eaa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_9c76e905",
         "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
         "patchSetId": 22
@@ -174,6 +198,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_2dabe18a",
+        "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-22T12:24:23Z",
+      "side": 1,
+      "message": "Yes, but I do not have enough runs at different scales to figure out scaling constants. So I will leave it as TODO for now.",
+      "parentUuid": "1a76adc5_7c650d44",
+      "range": {
+        "startLine": 239,
+        "startChar": 4,
+        "endLine": 239,
+        "endChar": 50
+      },
+      "revId": "cb1c4b4071d289a5fd68d34297988844f6fd5eaa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_3c5f9574",
         "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
         "patchSetId": 22
@@ -185,6 +233,30 @@
       "writtenOn": "2015-09-21T23:41:47Z",
       "side": 1,
       "message": "there is another patch that will create a CTRL-C keyword:\nhttps://git.opendaylight.org/gerrit/#/c/26719/10/csit/libraries/Utils.robot\n\njust fyi, in case you want to refactor down the road when that patch is merged.",
+      "range": {
+        "startLine": 352,
+        "startChar": 0,
+        "endLine": 360,
+        "endChar": 30
+      },
+      "revId": "cb1c4b4071d289a5fd68d34297988844f6fd5eaa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_4db09df4",
+        "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 360,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-22T12:24:23Z",
+      "side": 1,
+      "message": "I will probably generalize BGPSpeaker.robot (when it is merged) to support also pcc-mock, netconf testtool and similar long-running utilities.",
+      "parentUuid": "1a76adc5_3c5f9574",
       "range": {
         "startLine": 352,
         "startChar": 0,
