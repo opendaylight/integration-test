@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_7fff3a02",
+        "filename": "csit/suites/vtn/VTN_Mgr_OF13/010__vtn_vlanmap.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-22T18:24:26Z",
+      "side": 1,
+      "message": "you could put this in your suite setup, since it doesn\u0027t really have \nany value as a test case for VTN.  not a blocker, just my advice.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 24
+      },
+      "revId": "89a6aaa5525e71d98ee9de4f01dd1fe759dd98f8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
