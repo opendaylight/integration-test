@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a76adc5_bc2e40a4",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-22T18:10:37Z",
+      "side": 1,
+      "message": "If we are going to be having a suite variable (GLOBAL), I think we\nshould keep with the convention of ALLCAPS.",
+      "range": {
+        "startLine": 83,
+        "startChar": 28,
+        "endLine": 83,
+        "endChar": 50
+      },
+      "revId": "911458e235ac2566f2b44e414cf4b554f3b34311",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_7be12599",
         "filename": "csit/libraries/KarafKeywords.robot",
         "patchSetId": 4
