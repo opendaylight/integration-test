@@ -60,6 +60,24 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_9ca6e4c0",
+        "filename": "tools/odl-lispflowmapping-performance-tests/create_map_request_pcap.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-22T16:47:16Z",
+      "side": 1,
+      "message": "\u003e I\u0027d also discourage blanket imports\n\n+1",
+      "parentUuid": "1a76adc5_7ccc2d36",
+      "revId": "3cfa227176733170a6476968bae91768f9e55064",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_9cfb4947",
         "filename": "tools/odl-lispflowmapping-performance-tests/create_map_request_pcap.py",
         "patchSetId": 5
@@ -71,6 +89,24 @@
       "writtenOn": "2015-09-22T01:00:22Z",
       "side": 1,
       "message": "It would be helpful if you considered adding code documentation like: \n        \"\"\"Generates random EIDs\n\n        Parameters:\n            :param base: A string used as\n                EID base\n            :param n: An integer, number of\n                EIDs to generate\n        Returns:\n            :returns : returns list containing string EIDs\n        \"\"\"\n\nDocumentation helps new contributors get up to speed faster and makes our code more maintainable.",
+      "revId": "3cfa227176733170a6476968bae91768f9e55064",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_fc7b5827",
+        "filename": "tools/odl-lispflowmapping-performance-tests/create_map_request_pcap.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-22T16:47:16Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "1a76adc5_9cfb4947",
       "revId": "3cfa227176733170a6476968bae91768f9e55064",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -239,6 +275,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_9cbfc4d0",
+        "filename": "tools/odl-lispflowmapping-performance-tests/mapping_blaster.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-22T16:47:16Z",
+      "side": 1,
+      "message": "There\u0027s also `\"str here: {}\".format(some_var)`, which I get the impression is recommended for Python 3. \nI don\u0027t have a strong preference.\n\nhttps://docs.python.org/3.6/library/string.html",
+      "parentUuid": "1a76adc5_1c6f3494",
+      "range": {
+        "startLine": 108,
+        "startChar": 33,
+        "endLine": 109,
+        "endChar": 39
+      },
+      "revId": "3cfa227176733170a6476968bae91768f9e55064",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_7c0508c1",
         "filename": "tools/odl-lispflowmapping-performance-tests/mapping_blaster.py",
         "patchSetId": 5
@@ -250,6 +310,30 @@
       "writtenOn": "2015-09-22T16:08:23Z",
       "side": 1,
       "message": "The closing quotes are on the same line as the opening quotes. This looks better for one-liners.\n\nSource: https://www.python.org/dev/peps/pep-0257/#one-line-docstrings",
+      "range": {
+        "startLine": 148,
+        "startChar": 8,
+        "endLine": 148,
+        "endChar": 11
+      },
+      "revId": "3cfa227176733170a6476968bae91768f9e55064",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_1ce4140c",
+        "filename": "tools/odl-lispflowmapping-performance-tests/mapping_blaster.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-22T16:47:16Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "1a76adc5_7c0508c1",
       "range": {
         "startLine": 148,
         "startChar": 8,
@@ -296,6 +380,30 @@
       "writtenOn": "2015-09-22T01:00:22Z",
       "side": 1,
       "message": "Little nit, but s is not very descriptive. I\u0027d prefer more clarity here (though admittedly it is only used in the next few lines).",
+      "range": {
+        "startLine": 164,
+        "startChar": 8,
+        "endLine": 164,
+        "endChar": 30
+      },
+      "revId": "3cfa227176733170a6476968bae91768f9e55064",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_5ce28c04",
+        "filename": "tools/odl-lispflowmapping-performance-tests/mapping_blaster.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-22T16:47:16Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "1a76adc5_1c3bb9ec",
       "range": {
         "startLine": 164,
         "startChar": 8,
