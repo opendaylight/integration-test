@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a76adc5_3cca30a2",
+        "filename": "csit/suites/lispflowmapping/performance/010_Southbound_MapRequest.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-22T16:08:23Z",
+      "side": 1,
+      "message": "Always use 4 spaces to separate cells.\nAlternatively, use http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#test-data-clean-up-tool-tidy",
+      "range": {
+        "startLine": 75,
+        "startChar": 53,
+        "endLine": 75,
+        "endChar": 55
+      },
+      "revId": "3cfa227176733170a6476968bae91768f9e55064",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_7ccc2d36",
         "filename": "tools/odl-lispflowmapping-performance-tests/create_map_request_pcap.py",
         "patchSetId": 5
@@ -13,6 +36,24 @@
       "writtenOn": "2015-09-22T01:00:22Z",
       "side": 1,
       "message": "pep8 from jenkins cannot resolve lisp module:\n\"create_map_request_pcap.py:12:1: F403 \u0027from lisp import *\u0027 used; unable to detect undefined names\nfrom lisp import *\"\n\nIs lisp a standard python library? If not you might have to use venv in your jenkins job and install needed dependencies as such: \nbuilders:\n        - shell: |\n             virtualenv $WORKSPACE/venv-docker-py\n             source $WORKSPACE/venv-docker-py/bin/activate\n             \u003csteps to install lisp.py\u003e\n\nOn second look... It looks like you do the above install in 010_Southbound_MapRequest.robot. It seems others don\u0027t have a problem with this, so feel free to ignore above. IMHO your robot test would be cleaner and less complex if you did the tools setup before starting robot.\n\nI\u0027d also discourage blanket imports here unless you use the majority of lisp module functionality. Pulling in only necessary imports would be preferable.",
+      "revId": "3cfa227176733170a6476968bae91768f9e55064",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_bcbde004",
+        "filename": "tools/odl-lispflowmapping-performance-tests/create_map_request_pcap.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-22T16:08:23Z",
+      "side": 1,
+      "message": "\u003e IMHO your robot test would be cleaner and less complex if you did the tools setup before starting robot.\n\nActually, tools setup in robot has its advantages, usually the bash/python ways of tools setup are faster to write, but harder to debug.\nThe tools setup portion can be moved to Robot Resource file to keep the main suite cleaner.\n\n\u003e Pulling in only necessary imports would be preferable.\n\nPersonally, I even recommend importing the whole module and using \"lisp.\" prefix everywhere.",
+      "parentUuid": "1a76adc5_7ccc2d36",
       "revId": "3cfa227176733170a6476968bae91768f9e55064",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -167,6 +208,53 @@
         "startChar": 33,
         "endLine": 109,
         "endChar": 39
+      },
+      "revId": "3cfa227176733170a6476968bae91768f9e55064",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_1c6f3494",
+        "filename": "tools/odl-lispflowmapping-performance-tests/mapping_blaster.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-22T16:08:23Z",
+      "side": 1,
+      "message": "\u003e pythonic way to do the following\n\nI have heard that one, but I am not sure what the reason is. Ensured conversion to string? It certainly does not look more readable.",
+      "parentUuid": "1a76adc5_2709c22c",
+      "range": {
+        "startLine": 108,
+        "startChar": 33,
+        "endLine": 109,
+        "endChar": 39
+      },
+      "revId": "3cfa227176733170a6476968bae91768f9e55064",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_7c0508c1",
+        "filename": "tools/odl-lispflowmapping-performance-tests/mapping_blaster.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-22T16:08:23Z",
+      "side": 1,
+      "message": "The closing quotes are on the same line as the opening quotes. This looks better for one-liners.\n\nSource: https://www.python.org/dev/peps/pep-0257/#one-line-docstrings",
+      "range": {
+        "startLine": 148,
+        "startChar": 8,
+        "endLine": 148,
+        "endChar": 11
       },
       "revId": "3cfa227176733170a6476968bae91768f9e55064",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
