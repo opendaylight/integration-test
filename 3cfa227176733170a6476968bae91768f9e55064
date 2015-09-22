@@ -299,6 +299,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_fcd038f9",
+        "filename": "tools/odl-lispflowmapping-performance-tests/mapping_blaster.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-22T17:05:06Z",
+      "side": 1,
+      "message": "That still looks too Java-like to me. I think it is useful mostly for displaying real numbers and such.\n\nEven the underlying PEP 3101 did not compare format() to \"plus and str\".",
+      "parentUuid": "1a76adc5_9cbfc4d0",
+      "range": {
+        "startLine": 108,
+        "startChar": 33,
+        "endLine": 109,
+        "endChar": 39
+      },
+      "revId": "3cfa227176733170a6476968bae91768f9e55064",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_7c0508c1",
         "filename": "tools/odl-lispflowmapping-performance-tests/mapping_blaster.py",
         "patchSetId": 5
