@@ -25,6 +25,29 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_9c1d8476",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-22T18:16:59Z",
+      "side": 1,
+      "message": "instead of setting suite variables, can we just [Return] the ${connection} in this keyword and let the caller use it as needed?",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 61
+      },
+      "revId": "3aa33c06b91f1c743fcc1ff2121f920daa626787",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_a8acbf8d",
         "filename": "csit/libraries/KarafKeywords.robot",
         "patchSetId": 4
