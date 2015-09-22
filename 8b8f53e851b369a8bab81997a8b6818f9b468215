@@ -42,6 +42,24 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_e7398ad9",
+        "filename": "csit/libraries/MininetTopo/vlan_vtn_test.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-22T01:52:20Z",
+      "side": 1,
+      "message": "As Luis suggested, you are getting import error on mininet module. There is likely a design issue with your test. You are attempting to import mininet module from dynamic_robot environment, the VM robot tests run on. As you can see mininet is not in PATH (https://jenkins.opendaylight.org/sandbox/job/vtn-csit-1node-manager-only-beryllium/5/console):\n \n[ ERROR ] Error in file \u0027/opt/jenkins/workspace/vtn-csit-1node-manager-only-beryllium/test/csit/libraries/VtnMaKeywords.robot\u0027: Importing variable file \u0027/opt/jenkins/workspace/vtn-csit-1node-manager-only-beryllium/test/csit/libraries/MininetTopo/vlan_vtn_test.py\u0027 failed: ImportError: No module named mininet.node\nTraceback (most recent call last):\n  File \"/opt/jenkins/workspace/vtn-csit-1node-manager-only-beryllium/test/csit/libraries/MininetTopo/vlan_vtn_test.py\", line 3, in \u003cmodule\u003e\n    from mininet.node import Host\nPYTHONPATH:\n  /usr/lib/python2.6/site-packages\n  /usr/bin\n  /usr/lib/python2.6/site-packages/robotframework_sshlibrary-2.1.1-py2.6.egg\n  /usr/lib/python2.6/site-packages/paramiko-1.15.2-py2.6.egg\n  /usr/lib/python2.6/site-packages/ecdsa-0.13-py2.6.egg\n  /usr/lib/python2.6/site-packages/pycrypto-2.6.1-py2.6-linux-x86_64.egg\n  /usr/lib/python2.6/site-packages/robotframework_selenium2library-1.7.1-py2.6.egg\n  /usr/lib/python2.6/site-packages/docutils-0.12-py2.6.egg\n  /usr/lib/python2.6/site-packages/selenium-2.47.3-py2.6.egg\n  /usr/lib/python2.6/site-packages/decorator-4.0.2-py2.6.egg\n  /usr/lib/python2.6/site-packages/WebOb-1.2.3-py2.6.egg\n\nMininet is installed on the mininet slave, but it is remote from where the robot code is running. You need to do something like one of the following:\n\n1. Redesign to use start mininet keyword as JamO suggested, substituting your custom topology: https://github.com/opendaylight/integration-test/blob/master/csit/libraries/Utils.robot#L28 \n\n2. Setup a virtual env using jenkins job, in your jjb template and then work through your topology setup remotely (not recommended, as the first suggestion is better option):\n\nbuilders:\n        - shell: |\n             virtualenv $WORKSPACE/venv-docker-py\n             source $WORKSPACE/venv-docker-py/bin/activate\n             pip install mininet\n\nEither of the above options require some re-factoring of code, as it seems clear you want to use vlan_vtn_test.py both on dynamic_robot and on mininet_slave.",
+      "parentUuid": "1a76adc5_dcf7818b",
+      "revId": "8b8f53e851b369a8bab81997a8b6818f9b468215",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_d91f9308",
         "filename": "csit/libraries/MininetTopo/vlan_vtn_test.py",
         "patchSetId": 16
@@ -58,6 +76,29 @@
         "startChar": 0,
         "endLine": 33,
         "endChar": 34
+      },
+      "revId": "8b8f53e851b369a8bab81997a8b6818f9b468215",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_6726dabc",
+        "filename": "csit/libraries/MininetTopo/vlan_vtn_test.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-22T01:52:20Z",
+      "side": 1,
+      "message": "I assume this should not be generic either, possibly \u0027vtn-topo\u0027 or something more descriptive would be better.",
+      "range": {
+        "startLine": 62,
+        "startChar": 10,
+        "endLine": 62,
+        "endChar": 16
       },
       "revId": "8b8f53e851b369a8bab81997a8b6818f9b468215",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
