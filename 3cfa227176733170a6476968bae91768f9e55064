@@ -1,0 +1,222 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_7ccc2d36",
+        "filename": "tools/odl-lispflowmapping-performance-tests/create_map_request_pcap.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-22T01:00:22Z",
+      "side": 1,
+      "message": "pep8 from jenkins cannot resolve lisp module:\n\"create_map_request_pcap.py:12:1: F403 \u0027from lisp import *\u0027 used; unable to detect undefined names\nfrom lisp import *\"\n\nIs lisp a standard python library? If not you might have to use venv in your jenkins job and install needed dependencies as such: \nbuilders:\n        - shell: |\n             virtualenv $WORKSPACE/venv-docker-py\n             source $WORKSPACE/venv-docker-py/bin/activate\n             \u003csteps to install lisp.py\u003e\n\nOn second look... It looks like you do the above install in 010_Southbound_MapRequest.robot. It seems others don\u0027t have a problem with this, so feel free to ignore above. IMHO your robot test would be cleaner and less complex if you did the tools setup before starting robot.\n\nI\u0027d also discourage blanket imports here unless you use the majority of lisp module functionality. Pulling in only necessary imports would be preferable.",
+      "revId": "3cfa227176733170a6476968bae91768f9e55064",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_9cfb4947",
+        "filename": "tools/odl-lispflowmapping-performance-tests/create_map_request_pcap.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-22T01:00:22Z",
+      "side": 1,
+      "message": "It would be helpful if you considered adding code documentation like: \n        \"\"\"Generates random EIDs\n\n        Parameters:\n            :param base: A string used as\n                EID base\n            :param n: An integer, number of\n                EIDs to generate\n        Returns:\n            :returns : returns list containing string EIDs\n        \"\"\"\n\nDocumentation helps new contributors get up to speed faster and makes our code more maintainable.",
+      "revId": "3cfa227176733170a6476968bae91768f9e55064",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_bcf8854a",
+        "filename": "tools/odl-lispflowmapping-performance-tests/create_map_request_pcap.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-22T01:00:22Z",
+      "side": 1,
+      "message": "Ditto documentation comment above.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 38
+      },
+      "revId": "3cfa227176733170a6476968bae91768f9e55064",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_7c9aed15",
+        "filename": "tools/odl-lispflowmapping-performance-tests/create_map_request_pcap.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-22T01:00:22Z",
+      "side": 1,
+      "message": "Ditto documentation comment above.",
+      "range": {
+        "startLine": 36,
+        "startChar": 0,
+        "endLine": 36,
+        "endChar": 29
+      },
+      "revId": "3cfa227176733170a6476968bae91768f9e55064",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_fcd7ddbd",
+        "filename": "tools/odl-lispflowmapping-performance-tests/create_map_request_pcap.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-22T01:00:22Z",
+      "side": 1,
+      "message": "Please remove commented out code",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 91,
+        "endChar": 72
+      },
+      "revId": "3cfa227176733170a6476968bae91768f9e55064",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_9ce4a9ad",
+        "filename": "tools/odl-lispflowmapping-performance-tests/create_map_request_pcap.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-22T01:00:22Z",
+      "side": 1,
+      "message": "Please remove commented out code",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 47
+      },
+      "revId": "3cfa227176733170a6476968bae91768f9e55064",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_bce1659c",
+        "filename": "tools/odl-lispflowmapping-performance-tests/create_map_request_pcap.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-22T01:00:22Z",
+      "side": 1,
+      "message": "Please remove commented out code",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 62
+      },
+      "revId": "3cfa227176733170a6476968bae91768f9e55064",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_2709c22c",
+        "filename": "tools/odl-lispflowmapping-performance-tests/mapping_blaster.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-22T01:00:22Z",
+      "side": 1,
+      "message": "Another small nit, but imho pythonic way to do the following would be \"\u0027http://%s:%s/%s\u0027 % (self.host, self.port, rpc_url)\"",
+      "range": {
+        "startLine": 108,
+        "startChar": 33,
+        "endLine": 109,
+        "endChar": 39
+      },
+      "revId": "3cfa227176733170a6476968bae91768f9e55064",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_fc211db5",
+        "filename": "tools/odl-lispflowmapping-performance-tests/mapping_blaster.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-22T01:00:22Z",
+      "side": 1,
+      "message": "See below on descriptive name. I\u0027d add that this seems like a good candidate to pull in as instance variable (reduce lines of code) initialized in __init__, unless there is a need for each method to have it\u0027s own session.",
+      "range": {
+        "startLine": 150,
+        "startChar": 8,
+        "endLine": 150,
+        "endChar": 30
+      },
+      "revId": "3cfa227176733170a6476968bae91768f9e55064",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_1c3bb9ec",
+        "filename": "tools/odl-lispflowmapping-performance-tests/mapping_blaster.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-22T01:00:22Z",
+      "side": 1,
+      "message": "Little nit, but s is not very descriptive. I\u0027d prefer more clarity here (though admittedly it is only used in the next few lines).",
+      "range": {
+        "startLine": 164,
+        "startChar": 8,
+        "endLine": 164,
+        "endChar": 30
+      },
+      "revId": "3cfa227176733170a6476968bae91768f9e55064",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
