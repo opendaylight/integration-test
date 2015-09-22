@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a76adc5_7fb65ade",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-22T21:36:33Z",
+      "side": 1,
+      "message": "Please reformat commit message using the following guidelines:\n\n Provide a brief description of the change in the first line.\n \n Insert a single blank line after the first line.\n \n Provide a detailed description of the change in the following lines, breaking paragraphs where needed.\n \n The first line should be limited to 50 characters and should not end with a period (commit messages over 72 characters will be rejected by the gate).\n \n Subsequent lines should be wrapped at 72 characters.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 91
+      },
+      "revId": "c6b401f94b584ff6526b59b666d603bb64728267",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_9fd81655",
         "filename": "tools/jbench/pom.xml",
         "patchSetId": 1
@@ -18,6 +41,46 @@
         "startChar": 2,
         "endLine": 9,
         "endChar": 3
+      },
+      "revId": "c6b401f94b584ff6526b59b666d603bb64728267",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_3fe782e6",
+        "filename": "tools/jbench/src/main/java/jbench/Jbench.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-22T21:36:33Z",
+      "side": 1,
+      "message": "Please add copyright info:\n\n /*\n * Copyright (c) 2015 Intel Corp. and others.  All rights reserved.\n *\n * This program and the accompanying materials are made available under the\n * terms of the Eclipse Public License v1.0 which accompanies this distribution,\n * and is available at http://www.eclipse.org/legal/epl-v10.html\n *\n * Authors : Raksha Madhava Bangera\n */",
+      "revId": "c6b401f94b584ff6526b59b666d603bb64728267",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_5fecbec7",
+        "filename": "tools/jbench/src/main/java/jbench/Jbench.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-22T21:36:33Z",
+      "side": 1,
+      "message": "Please reorder imports based on guidelines (static imports, blank line, all other imports alphabetical):\n\nhttps://wiki.opendaylight.org/view/GettingStarted:_Eclipse_Setup#Import_ordering",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 47
       },
       "revId": "c6b401f94b584ff6526b59b666d603bb64728267",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
