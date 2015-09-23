@@ -4,7 +4,7 @@
     <flow-name>set-field-ipv6-source-addr</flow-name>
     <id>330</id>
     <cookie_mask>255</cookie_mask>
-    <cookie>101</cookie>
+    <cookie>207</cookie>
     <table_id>2</table_id>
     <priority>207</priority>
     <installHw>false</installHw>

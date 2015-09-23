@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite for the OpenDaylight base edition with of13, aimed for statistics manager
+Documentation     Test suite for the OpenDaylight OpenFlow statistics 
 Suite Setup       Start Suite
 Suite Teardown    Stop Suite
 Library           SSHLibrary

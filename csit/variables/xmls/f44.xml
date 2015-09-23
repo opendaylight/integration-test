@@ -14,7 +14,7 @@
     </instructions>
     <table_id>2</table_id>
     <id>167</id>
-    <cookie_mask>10</cookie_mask>
+    <cookie_mask>255</cookie_mask>
     <out_port>0xffffffff</out_port>
     <installHw>false</installHw>
     <out_group>0xffffffff</out_group>
@@ -22,7 +22,7 @@
         <in-port>202</in-port>
         <in-phy-port>10122</in-phy-port>
     </match>
-    <cookie>10</cookie>
+    <cookie>44</cookie>
     <flow-name>FooXf44</flow-name>
     <priority>44</priority>
     <barrier>false</barrier>

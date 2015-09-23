@@ -4,7 +4,7 @@
     <flow-name>set-field-ipv4-dst</flow-name>
     <id>333</id>
     <cookie_mask>255</cookie_mask>
-    <cookie>101</cookie>
+    <cookie>210</cookie>
     <table_id>2</table_id>
     <priority>210</priority>
     <installHw>false</installHw>

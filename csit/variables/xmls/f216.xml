@@ -15,7 +15,7 @@
     </instructions>
     <table_id>2</table_id>
     <id>339</id>
-    <cookie_mask>10</cookie_mask>
+    <cookie_mask>255</cookie_mask>
     <out_port>0xffffffff</out_port>
     <installHw>false</installHw>
     <out_group>0xffffffff</out_group>
@@ -28,7 +28,7 @@
             <vlan-pcp>3</vlan-pcp>
         </vlan-match>
     </match>
-    <cookie>10</cookie>
+    <cookie>216</cookie>
     <flow-name>flow-instruction-apply-actions-pop-pbb</flow-name>
     <priority>216</priority>
     <barrier>false</barrier>

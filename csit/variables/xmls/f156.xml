@@ -35,7 +35,7 @@
             <vlan-pcp>3</vlan-pcp>
       </vlan-match>
     </match>
-    <cookie>15</cookie>
+    <cookie>156</cookie>
     <flow-name>FooXf156</flow-name>
     <priority>156</priority>
     <barrier>false</barrier>

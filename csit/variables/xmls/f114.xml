@@ -4,7 +4,7 @@
     <flow-name>pop-mpls-action</flow-name>
     <id>237</id>
     <cookie_mask>255</cookie_mask>
-    <cookie>889</cookie>
+    <cookie>114</cookie>
     <table_id>2</table_id>
     <priority>114</priority>
     <installHw>false</installHw>

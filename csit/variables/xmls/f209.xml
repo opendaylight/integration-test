@@ -4,7 +4,7 @@
     <flow-name>set-field-tunnel-id</flow-name>
     <id>332</id>
     <cookie_mask>255</cookie_mask>
-    <cookie>101</cookie>
+    <cookie>209</cookie>
     <table_id>2</table_id>
     <priority>209</priority>
     <installHw>false</installHw>
