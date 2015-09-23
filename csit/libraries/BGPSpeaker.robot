@@ -16,6 +16,7 @@ Documentation     Robot keyword library (Resource) for handling the BGP speaker 
 ...               TODO: The Utils.robot library has a "Run Command On Remote System" if we didn't
 ...               want to make the assumption that an SSH connection was already open.
 ...               alternative TODO: Explain that it is not worth to perform separate SSH logins.
+Library           SSHLibrary
 Resource          ${CURDIR}/Utils.robot
 
 *** Variables ***
