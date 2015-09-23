@@ -37,7 +37,7 @@
         </protocol-match-fields>
     </match>
     <cookie_mask>255</cookie_mask>
-    <cookie>401</cookie>
+    <cookie>160</cookie>
     <priority>160</priority>
     <installHw>false</installHw>
     <table_id>2</table_id>

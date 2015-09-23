@@ -4,7 +4,7 @@
     <flow-name>set-field-ip-ecn</flow-name>
     <id>337</id>
     <cookie_mask>255</cookie_mask>
-    <cookie>101</cookie>
+    <cookie>214</cookie>
     <table_id>2</table_id>
     <priority>214</priority>
     <installHw>false</installHw>

@@ -16,7 +16,7 @@
     </instructions>
     <table_id>2</table_id>
     <id>170</id>
-    <cookie_mask>10</cookie_mask>
+    <cookie_mask>255</cookie_mask>
     <out_port>0xffffffff</out_port>
     <installHw>false</installHw>
     <out_group>0xffffffff</out_group>
@@ -32,7 +32,7 @@
             <ip-protocol>132</ip-protocol>
         </ip-match>
     </match>
-    <cookie>10</cookie>
+    <cookie>47</cookie>
     <flow-name>FooXf47</flow-name>
     <priority>47</priority>
     <barrier>false</barrier>

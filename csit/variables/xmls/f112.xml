@@ -4,7 +4,7 @@
     <flow-name>set-mpls-ttl-action</flow-name>
     <id>235</id>
     <cookie_mask>255</cookie_mask>
-    <cookie>101</cookie>
+    <cookie>112</cookie>
     <table_id>2</table_id>
     <priority>112</priority>
     <installHw>false</installHw>

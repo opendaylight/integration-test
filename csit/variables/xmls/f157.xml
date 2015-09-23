@@ -31,7 +31,7 @@
         <ipv4-destination>20.4.5.6/16</ipv4-destination>
         <in-port>0</in-port>
     </match>
-    <cookie>5</cookie>
+    <cookie>157</cookie>
     <flow-name>FooXf157</flow-name>
     <priority>157</priority>
     <barrier>false</barrier>

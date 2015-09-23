@@ -17,7 +17,7 @@
     </instructions>
     <table_id>2</table_id>
     <id>342</id>
-    <cookie_mask>10</cookie_mask>
+    <cookie_mask>255</cookie_mask>
     <out_port>0xffffffff</out_port>
     <installHw>false</installHw>
     <out_group>0xffffffff</out_group>
@@ -30,7 +30,7 @@
             <vlan-pcp>3</vlan-pcp>
         </vlan-match>
     </match>
-    <cookie>10</cookie>
+    <cookie>219</cookie>
     <flow-name>flow-instruction-clear-actions</flow-name>
     <priority>219</priority>
     <barrier>false</barrier>

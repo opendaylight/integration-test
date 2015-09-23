@@ -4,7 +4,7 @@
     <flow-name>set-field-udp-dst</flow-name>
     <id>327</id>
     <cookie_mask>255</cookie_mask>
-    <cookie>101</cookie>
+    <cookie>204</cookie>
     <table_id>2</table_id>
     <priority>204</priority>
     <installHw>false</installHw>

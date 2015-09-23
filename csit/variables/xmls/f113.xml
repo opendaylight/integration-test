@@ -4,7 +4,7 @@
     <flow-name>push-mpls-action</flow-name>
     <id>236</id>
     <cookie_mask>255</cookie_mask>
-    <cookie>401</cookie>
+    <cookie>113</cookie>
     <table_id>2</table_id>
     <priority>113</priority>
     <installHw>false</installHw>

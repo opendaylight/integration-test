@@ -41,7 +41,7 @@
         <ipv4-destination>10.0.0.4/32</ipv4-destination>
     </match>
     <cookie_mask>255</cookie_mask>
-    <cookie>401</cookie>
+    <cookie>158</cookie>
     <priority>158</priority>
     <installHw>false</installHw>
     <table_id>2</table_id>

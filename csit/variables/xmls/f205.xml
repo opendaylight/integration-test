@@ -40,7 +40,7 @@
         <sctp-destination-port>384</sctp-destination-port>
         <in-port>0</in-port>
     </match>
-    <cookie>10</cookie>
+    <cookie>205</cookie>
     <flow-name>sctp-source-port-action</flow-name>
     <priority>205</priority>
     <barrier>false</barrier>

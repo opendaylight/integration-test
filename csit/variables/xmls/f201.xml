@@ -4,7 +4,7 @@
     <flow-name>set-field-tcp-src</flow-name>
     <id>324</id>
     <cookie_mask>255</cookie_mask>
-    <cookie>101</cookie>
+    <cookie>201</cookie>
     <table_id>2</table_id>
     <priority>201</priority>
     <installHw>false</installHw>
