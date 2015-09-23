@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_2b93c4a4",
+        "filename": "csit/suites/lispflowmapping/performance/010_Southbound_MapRequest.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-23T22:07:11Z",
+      "side": 1,
+      "message": "this isn\u0027t used is it?",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 96
+      },
+      "revId": "14f8b26ea2611ee4e2f7851e98e778fb808e9539",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_cb8fb074",
+        "filename": "csit/suites/lispflowmapping/performance/010_Southbound_MapRequest.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-23T22:07:11Z",
+      "side": 1,
+      "message": "this isn\u0027t used anywhere else (other Lisp suites) that I know of, but when/if more suites will use the same URIs we are trying to consolidate them in Variables.py.  just fyi at this point.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 62
+      },
+      "revId": "14f8b26ea2611ee4e2f7851e98e778fb808e9539",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_8be9b81c",
+        "filename": "csit/suites/lispflowmapping/performance/010_Southbound_MapRequest.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-23T22:07:11Z",
+      "side": 1,
+      "message": "I love this keyword.  Wanna put it in Utils.robot so others will see and use it?  Of course, you\u0027d then have to source Utils.robot in the *** Settings *** section, but that\u0027s nbd.",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 25
+      },
+      "revId": "14f8b26ea2611ee4e2f7851e98e778fb808e9539",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
