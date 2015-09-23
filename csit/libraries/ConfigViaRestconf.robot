@@ -37,7 +37,7 @@ Variables         ${CURDIR}/../variables/Variables.py
 *** Variables ***
 # TODO: Make the following list more narrow when Bug 2594 is fixed.
 @{allowed_status_codes}    ${200}    ${201}    ${204}    # List of integers, not strings. Used by both PUT and DELETE.
-cvr_workspace     /tmp
+${cvr_workspace}    /tmp
 
 *** Keywords ***
 Setup_Config_Via_Restconf
