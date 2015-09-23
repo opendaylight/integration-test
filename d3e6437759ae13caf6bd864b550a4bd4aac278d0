@@ -118,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_15f627d8",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 290,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-23T14:43:27Z",
+      "side": 1,
+      "message": "\u003e What about just doing [Return] with your variables and letting the code that\u0027s calling this handle the return values as needed?\n\nThe problem is that \"the handling of the return values\" is *ALWAYS* the same: Pass them to Fail_If_Status_Is_Wrong if FAIL is desired on HTTP error or simply discard them if PASS in that case is desired. Ocassionally \n\nMoreover that Fail_If_Status_Is_Wrong where that return values need to be delivered may not even be in the keyword that invokes the one where the Store_Result.\n\nA much better solution that I found while discussing with Vratko is to create a wrapper which takes an URI and a keyowrd with arguments. It obtains the data from the provided URI, calls the provided keyword with the provided arguments to postprocess the data and returns the postprocessed data if the response status is OK and fails immediately if the response status is not OK. A second wrapper also has URI and keyword as arguments but it runs a WUKS on the provided keyword (which must PASS if the data it gets are OK and FAIL if they are not OK) along with all the stuff that ensures early exit with a FAIL if the request returns an error. This allows me to encapsulate all the ugly details with the value returning in the request maker and values handling in the request maker\u0027s caller so in the test suites themselves there will be just only the URL and the keyword which does the data crunching.",
+      "parentUuid": "3a79b1b5_f219cf88",
+      "range": {
+        "startLine": 290,
+        "startChar": 57,
+        "endLine": 290,
+        "endChar": 123
+      },
+      "revId": "d3e6437759ae13caf6bd864b550a4bd4aac278d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_069d38bc",
         "filename": "csit/libraries/Utils.robot",
         "patchSetId": 10
