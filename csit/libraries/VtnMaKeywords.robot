@@ -109,8 +109,14 @@ Delete a interface
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Start vlan_topo
+    Clean Mininet System
+    ${mininet_conn_id1}=    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    Set Suite Variable    ${mininet_conn_id1}
+    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    Execute Command    sudo ovs-vsctl set-manager ptcp:6644
+    Put File    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
     Write    ${vlan_topo}
-    ${result}    Read Until    *** Starting CLI:
+    ${result}    Read Until    mininet>
 
 Add a vlanmap
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${vlanmap_data}
