@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_f2c9415b",
+        "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-23T08:32:11Z",
+      "side": 1,
+      "message": "The Sandbox verified PCEP under 1 second, so I have set timeout to 5 seconds in https://git.opendaylight.org/gerrit/#/c/27273/2",
+      "parentUuid": "1a76adc5_1c8654ba",
+      "range": {
+        "startLine": 152,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 36
+      },
+      "revId": "f39e59d6afb846e1f495cad275f9e5a9267af37f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_8d09d597",
         "filename": "csit/suites/bgpcep/throughpcep/cases.robot",
         "patchSetId": 23
