@@ -128,6 +128,24 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_0b4b682c",
+        "filename": "tools/jbench/src/main/java/jbench/Jbench.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-23T22:27:49Z",
+      "side": 1,
+      "message": "agreed.\n\nalso I see it hard-coded above as well.  \n\nmaybe an additional idea is to turn it in to a class variable and allow it be a command line option?",
+      "parentUuid": "1a76adc5_7f797afb",
+      "revId": "c6b401f94b584ff6526b59b666d603bb64728267",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_ffe6ea15",
         "filename": "tools/jbench/src/main/java/jbench/OperationMode.java",
         "patchSetId": 1
