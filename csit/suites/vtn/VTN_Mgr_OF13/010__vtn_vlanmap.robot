@@ -5,10 +5,6 @@ Suite Teardown    Stop SuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
 
 *** Test Cases ***
-Clear Mininet
-    [Documentation]   Clear the old mininet session.
-    Clean Mininet System
-
 Start topology
     [Documentation]    Add a vlan topology
      Start vlan_topo
