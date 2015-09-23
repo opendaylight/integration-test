@@ -14,7 +14,7 @@
     </instructions>
     <table_id>2</table_id>
     <id>154</id>
-    <cookie_mask>10</cookie_mask>
+    <cookie_mask>255</cookie_mask>
     <out_port>0xffffffff</out_port>
     <installHw>false</installHw>
     <out_group>0xffffffff</out_group>
@@ -26,7 +26,7 @@
         </ethernet-match>
         <ipv4-destination>10.0.0.0/24</ipv4-destination>
     </match>
-    <cookie>10</cookie>
+    <cookie>31</cookie>
     <flow-name>FooXf31</flow-name>
     <priority>31</priority>
     <barrier>false</barrier>

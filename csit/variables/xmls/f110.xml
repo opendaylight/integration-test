@@ -4,7 +4,7 @@
     <flow-name>push-vlan-action</flow-name>
     <id>233</id>
     <cookie_mask>255</cookie_mask>
-    <cookie>201</cookie>
+    <cookie>110</cookie>
     <table_id>2</table_id>
     <priority>110</priority>
     <installHw>false</installHw>

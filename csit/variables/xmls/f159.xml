@@ -35,7 +35,7 @@
             <mpls-label>37</mpls-label>
         </protocol-match-fields>
     </match>
-    <cookie>889</cookie>
+    <cookie>159</cookie>
     <cookie_mask>255</cookie_mask>
     <installHw>false</installHw>
     <priority>159</priority>

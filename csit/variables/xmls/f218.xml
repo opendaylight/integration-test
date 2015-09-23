@@ -11,7 +11,7 @@
     </instructions>
     <table_id>2</table_id>
     <id>341</id>
-    <cookie_mask>10</cookie_mask>
+    <cookie_mask>255</cookie_mask>
     <out_port>0xffffffff</out_port>
     <installHw>false</installHw>
     <out_group>0xffffffff</out_group>
@@ -21,7 +21,7 @@
             <tunnel-id>10668</tunnel-id>
         </tunnel>
     </match>
-    <cookie>10</cookie>
+    <cookie>218</cookie>
     <flow-name>flow-instruction-go-to-table</flow-name>
     <priority>218</priority>
     <barrier>false</barrier>

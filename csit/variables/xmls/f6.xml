@@ -30,7 +30,7 @@
         <ipv4-source>10.1.2.0/24</ipv4-source>
         <ipv4-destination>40.4.0.0/16</ipv4-destination>
     </match>
-    <cookie>5</cookie>
+    <cookie>6</cookie>
     <flow-name>FooXf5</flow-name>
     <priority>6</priority>
     <barrier>false</barrier>

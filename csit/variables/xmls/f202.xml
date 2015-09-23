@@ -4,7 +4,7 @@
     <flow-name>set-field-tcp-dst</flow-name>
     <id>325</id>
     <cookie_mask>255</cookie_mask>
-    <cookie>101</cookie>
+    <cookie>202</cookie>
     <table_id>2</table_id>
     <priority>202</priority>
     <installHw>false</installHw>
