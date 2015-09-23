@@ -23,7 +23,7 @@ Find Max Switches
     ${max_sw}    Convert to Integer    ${max_sw}
     ${step_sw}    Convert to Integer    ${step_sw}
     : FOR    ${exp_sw}    IN RANGE    ${init_sw}    ${max_sw+1}    ${step_sw}
-    \    BuiltIn.Wait Until Keyword Succeeds    35s    1s    Verify Switches Connected    ${exp_sw}
+    \    BuiltIn.Wait Until Keyword Succeeds    120s    1s    Verify Switches Connected    ${exp_sw}
     \    ${max_found}=    Set Variable    ${exp_sw}
     \    Set Suite variable    ${max_found}
     \    Add Switches    10
