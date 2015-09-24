@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_45aceced",
+        "filename": "csit/suites/lispflowmapping/basic/020_RPC_CRUD.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-24T18:36:10Z",
+      "side": 1,
+      "message": "Is this defined in LISPFlowMapping Resource (which did not make it to patch set 1)?",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 25
+      },
+      "revId": "8e1359fd3352862d34feff3d6e8f33f3d17999f0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
