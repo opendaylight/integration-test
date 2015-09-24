@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_e6d743ec",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/commons/README.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-24T11:48:04Z",
+      "side": 1,
+      "message": "Both Robot test case files and Robot resource files have .robot extension.\nResource files contain reusable keyword definitions, they should be somewhere under csit/libraries/.\nTestcase files (aka suites) are not reusable directly, but they can be included in multiple testplan files (which help define which tests will be part of which scit jobs).\nSpecific suites should be in their corresponding \"demo\" directory.\nSuites to run in multiple csit jobs can be either placed directly in csit/suites/groupbasedpolicy/GBPSFC/; or there should be subdirectory named by what they test, for example\ncsit/suites/groupbasedpolicy/GBPSFC/readiness/.\nNothing has a reason to be in csit/suites/groupbasedpolicy/GBPSFC/commons/",
+      "range": {
+        "startLine": 1,
+        "startChar": 15,
+        "endLine": 1,
+        "endChar": 30
+      },
+      "revId": "788b4bfd4f3d3274b2c5d8cce88eb28b46381782",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
