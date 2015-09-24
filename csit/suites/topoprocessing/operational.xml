@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Copyright (c) 2015 Pantheon Technologies s.r.o. and others. All rights reserved. 
+
+    This program and the accompanying materials are made available under the 
+    terms of the Eclipse Public License v1.0 which accompanies this distribution, 
+    and is available at http://www.eclipse.org/legal/epl-v10.html-->
+<snapshot>
+    <required-capabilities>
+        <!-- topoprocessing -->
+        <capability>urn:opendaylight:params:xml:ns:yang:topoprocessing:provider?module=topoprocessing-provider&amp;revision=2015-02-09</capability>
+        <capability>urn:opendaylight:params:xml:ns:yang:topoprocessing:provider:impl?module=topoprocessing-provider-impl&amp;revision=2015-02-09</capability>
+        <capability>urn:opendaylight:params:xml:ns:yang:controller:md:sal:dom?module=opendaylight-md-sal-dom&amp;revision=2013-10-28</capability>
+    </required-capabilities>
+    <configuration>
+
+        <data xmlns="urn:ietf:params:xml:ns:netconf:base:1.0">
+            <modules xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
+                <module>
+                    <type xmlns:topo="urn:opendaylight:params:xml:ns:yang:topoprocessing:provider:impl">topo:topoprocessing-provider-impl</type>
+                    <name>topoprocessing-provider-module</name>
+                    <datastore-type>OPERATIONAL</datastore-type>
+                    <schema-service>
+                        <type xmlns:dom="urn:opendaylight:params:xml:ns:yang:controller:md:sal:dom">dom:schema-service</type>
+                        <name>yang-schema-service</name>
+                    </schema-service>
+                    <dom-data-broker>
+                        <type xmlns:dom="urn:opendaylight:params:xml:ns:yang:controller:md:sal:dom">dom:dom-async-data-broker</type>
+                        <name>pingpong-broker</name>
+                        <!-- <name>inmemory-data-broker</name> -->
+                    </dom-data-broker>
+                    <binding-normalized-node-serializer>
+                        <type xmlns:binding="urn:opendaylight:params:xml:ns:yang:controller:md:sal:binding">binding:binding-normalized-node-serializer</type>
+                        <name>runtime-mapping-singleton</name>
+                    </binding-normalized-node-serializer>
+                    <broker>
+                        <type xmlns:dom="urn:opendaylight:params:xml:ns:yang:controller:md:sal:dom">dom:dom-broker-osgi-registry</type>
+                        <name>dom-broker</name>
+                    </broker>
+                </module>
+            </modules>
+
+            <services xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
+                <service>
+                    <type xmlns:topo="urn:opendaylight:params:xml:ns:yang:topoprocessing:provider">topo:topoprocessing-provider</type>
+                    <instance>
+                        <name>topoprocessing-provider</name>
+                        <provider>/modules/module[type='topoprocessing-provider-impl'][name='topoprocessing-provider-module']</provider>
+                    </instance>
+                </service>
+            </services>
+        </data>
+
+    </configuration>
+</snapshot>
