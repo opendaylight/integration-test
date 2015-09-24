@@ -1,0 +1,1 @@
+Please, submit your *.robot files for asymmetric demo into this directory.
