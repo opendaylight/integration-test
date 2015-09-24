@@ -25,6 +25,24 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_661493f5",
+        "filename": "csit/suites/lispflowmapping/performance/010_Southbound_MapRequest.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2015-09-24T10:59:17Z",
+      "side": 1,
+      "message": "Used on line 75.",
+      "parentUuid": "1a76adc5_2b93c4a4",
+      "revId": "14f8b26ea2611ee4e2f7851e98e778fb808e9539",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_cb8fb074",
         "filename": "csit/suites/lispflowmapping/performance/010_Southbound_MapRequest.robot",
         "patchSetId": 6
@@ -48,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_26f69bd8",
+        "filename": "csit/suites/lispflowmapping/performance/010_Southbound_MapRequest.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2015-09-24T10:59:17Z",
+      "side": 1,
+      "message": "Good idea. I submitted a new gerrit for fixing the non-performance LISP tests (many are failing due to an implementation change), where I already moved some common API variables to Variables.py. When that gets in, I will update this patch too (to avoid merge conflicts).",
+      "parentUuid": "1a76adc5_cb8fb074",
+      "revId": "14f8b26ea2611ee4e2f7851e98e778fb808e9539",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_8be9b81c",
         "filename": "csit/suites/lispflowmapping/performance/010_Southbound_MapRequest.robot",
         "patchSetId": 6
@@ -65,6 +101,24 @@
         "endLine": 71,
         "endChar": 25
       },
+      "revId": "14f8b26ea2611ee4e2f7851e98e778fb808e9539",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_e6ff43a9",
+        "filename": "csit/suites/lispflowmapping/performance/010_Southbound_MapRequest.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2015-09-24T10:59:17Z",
+      "side": 1,
+      "message": "Absolutely. That\u0027s what open source is about ;)",
+      "parentUuid": "1a76adc5_8be9b81c",
       "revId": "14f8b26ea2611ee4e2f7851e98e778fb808e9539",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
