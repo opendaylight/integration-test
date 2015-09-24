@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_01afc9e4",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-24T15:01:45Z",
+      "side": 1,
+      "message": "Copy from https://git.opendaylight.org/gerrit/#/c/26167/10/csit/libraries/Utils.robot@290\n\nMy bash and Python personas are screaming that ALLCAPS is only for constants. They may be specified by -v, but they should not change value during suite execution.\n\nSuite variables that change value dynamically and perhaps are undefined at the start of the suite, those should not be ALL_CAPS, I believe.\n\nOn the other hand, such suite variable should be there only to communicate state between test cases, which is not needed here.",
+      "parentUuid": "1a76adc5_bc2e40a4",
+      "range": {
+        "startLine": 83,
+        "startChar": 28,
+        "endLine": 83,
+        "endChar": 50
+      },
+      "revId": "911458e235ac2566f2b44e414cf4b554f3b34311",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_7be12599",
         "filename": "csit/libraries/KarafKeywords.robot",
         "patchSetId": 4
