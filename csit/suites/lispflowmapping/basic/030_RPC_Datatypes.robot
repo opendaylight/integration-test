@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite to verify data types using RPCs
-Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Setup       Create Session And Set External Variables
 Suite Teardown    Delete All Sessions
 Test Setup        Set Suite Variable    ${CURJSON}    ${EMPTY}
 Test Template     Check Datatype
@@ -10,10 +10,10 @@ Library           OperatingSystem
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
+Resource          ../../../libraries/LISPFlowMapping.robot
 Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
-${RPC_URL_PREFIX}    /restconf/operations/mappingservice
 ${IPV4_C_MAP}     ${CURDIR}/../../../variables/lispflowmapping/rpc_add-mapping_ipv4_ipv4.json
 ${IPV4_RD}        ${CURDIR}/../../../variables/lispflowmapping/rpc_get-remove_ipv4.json
 ${IPV6_C_MAP}     ${CURDIR}/../../../variables/lispflowmapping/rpc_add-mapping_ipv6_ipv4.json
@@ -86,9 +86,9 @@ Check Datatype
     ${add_mapping}=    OperatingSystem.Get File    ${add_mapping_json_file}
     ${get_mapping}=    OperatingSystem.Get File    ${get_mapping_json_file}
     Set Suite Variable    ${CURJSON}    ${get_mapping}
-    Post Log Check    ${RPC_URL_PREFIX}:add-mapping    ${add_mapping}
+    Post Log Check    ${LFM_RPC_API}:add-mapping    ${add_mapping}
     Sleep    200ms    Avoid race conditions
-    ${resp}=    Post Log Check    ${RPC_URL_PREFIX}:get-mapping    ${get_mapping}
+    ${resp}=    Post Log Check    ${LFM_RPC_API}:get-mapping    ${get_mapping}
     ${output}=    Get From Dictionary    ${resp.json()}    output
     ${eid_record}=    Get From Dictionary    ${output}    eidToLocatorRecord
     ${eid_record_0}=    Get From List    ${eid_record}    0
@@ -96,19 +96,7 @@ Check Datatype
 
 Remove Datatype And Check Removal
     Variable Should Exist    ${CURJSON}
-    Post Log Check    ${RPC_URL_PREFIX}:remove-mapping    ${CURJSON}
+    Post Log Check    ${LFM_RPC_API}:remove-mapping    ${CURJSON}
     Sleep    200ms    Avoid race conditions
-    ${resp}=    Post Log Check    ${RPC_URL_PREFIX}:get-mapping    ${CURJSON}
-    ${output}=    Get From Dictionary    ${resp.json()}    output
-    ${eid_record}=    Get From Dictionary    ${output}    eidToLocatorRecord
-    ${eid_record_0}=    Get From List    ${eid_record}    0
-    Dictionary Should Not Contain Key    ${eid_record_0}    LocatorRecord
+    Check Mapping Removal    ${CURJSON}
     Set Suite Variable    ${CURJSON}    ${EMPTY}
-
-Post Log Check
-    [Arguments]    ${uri}    ${body}    ${status_code}=200
-    [Documentation]    Post body to uri, log response content, and check status
-    ${resp}=    RequestsLibrary.Post    session    ${uri}    ${body}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    ${status_code}
-    [Return]    ${resp}
