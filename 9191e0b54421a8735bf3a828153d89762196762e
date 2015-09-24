@@ -22,6 +22,30 @@
       "revId": "9191e0b54421a8735bf3a828153d89762196762e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_e65183d9",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/demo-asymmetric-chain/README.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-09-24T10:41:44Z",
+      "side": 1,
+      "message": "They should, I made it more clear in readme files.",
+      "parentUuid": "1a76adc5_26c1bb80",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 5
+      },
+      "revId": "9191e0b54421a8735bf3a828153d89762196762e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
