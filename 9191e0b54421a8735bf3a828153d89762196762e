@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_26c1bb80",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/demo-asymmetric-chain/README.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-24T10:29:54Z",
+      "side": 1,
+      "message": "Will contributors understand this is for robot suite files only? Will they know where to place other file types?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 5
+      },
+      "revId": "9191e0b54421a8735bf3a828153d89762196762e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
