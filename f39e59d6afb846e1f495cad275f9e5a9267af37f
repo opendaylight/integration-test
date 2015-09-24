@@ -93,6 +93,29 @@
       "revId": "f39e59d6afb846e1f495cad275f9e5a9267af37f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_013fc926",
+        "filename": "tools/pcep_updater/updater.py",
+        "patchSetId": 23
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-09-24T17:00:20Z",
+      "side": 1,
+      "message": "As Jamo pointed out in a comment, and as Vratko knows, we typically recommend removing commented out code. Non-blocking imho, but noted.",
+      "range": {
+        "startLine": 197,
+        "startChar": 0,
+        "endLine": 202,
+        "endChar": 36
+      },
+      "revId": "f39e59d6afb846e1f495cad275f9e5a9267af37f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
