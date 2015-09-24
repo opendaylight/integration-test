@@ -22,6 +22,30 @@
       "revId": "788b4bfd4f3d3274b2c5d8cce88eb28b46381782",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_4635d744",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/commons/README.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-09-24T12:07:33Z",
+      "side": 1,
+      "message": "Ok, let\u0027s put it away for now.",
+      "parentUuid": "1a76adc5_e6d743ec",
+      "range": {
+        "startLine": 1,
+        "startChar": 15,
+        "endLine": 1,
+        "endChar": 30
+      },
+      "revId": "788b4bfd4f3d3274b2c5d8cce88eb28b46381782",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
