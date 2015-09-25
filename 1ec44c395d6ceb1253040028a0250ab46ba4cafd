@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_aeffdd00",
+        "filename": "csit/variables/gbp/demo-asymmetric-chain/tenants.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-25T13:40:48Z",
+      "side": 1,
+      "message": "IP addresses like this are example values, no traffic will be send there; or at least it will be encapsulated and it will never leave CSIT VMs, right?",
+      "range": {
+        "startLine": 30,
+        "startChar": 42,
+        "endLine": 30,
+        "endChar": 51
+      },
+      "revId": "1ec44c395d6ceb1253040028a0250ab46ba4cafd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
