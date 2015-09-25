@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_8eed418e",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-25T16:36:18Z",
+      "side": 1,
+      "message": "It might be better to extract changes in this file into their own change. That would free https://git.opendaylight.org/gerrit/#/c/26505/ from depending on this suite change.",
+      "revId": "feb1c5547a543fe64fd22bd1138ffe87bbf269ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
