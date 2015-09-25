@@ -1,0 +1,211 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_280c2542",
+        "filename": "csit/suites/topoprocessing/configuration.xml",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-25T09:07:43Z",
+      "side": 1,
+      "message": "I imagine this is just a modified version of what the default config looks like. But still, trailing whitespace looks ugly and can be removed.",
+      "range": {
+        "startLine": 2,
+        "startChar": 84,
+        "endLine": 2,
+        "endChar": 85
+      },
+      "revId": "1c4a11b50e5e079e075920d2d87ffe82116fd10d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_e805cd14",
+        "filename": "csit/suites/topoprocessing/topology-operations/010_Unifications_Tests.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-25T09:07:43Z",
+      "side": 1,
+      "message": "I know I have written this in e-mail, but since then I recalled that pybot gets ${WORKSPACE} variable defined, so it should be used instead of /tmp (to allow easier usage at labs outside RelEng).",
+      "range": {
+        "startLine": 16,
+        "startChar": 18,
+        "endLine": 16,
+        "endChar": 22
+      },
+      "revId": "1c4a11b50e5e079e075920d2d87ffe82116fd10d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_48096130",
+        "filename": "csit/suites/topoprocessing/topology-operations/010_Unifications_Tests.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-25T09:07:43Z",
+      "side": 1,
+      "message": "Look at csit/variables/Variables.py\nWe recommend putting such reusable strings there.",
+      "range": {
+        "startLine": 19,
+        "startChar": 19,
+        "endLine": 19,
+        "endChar": 62
+      },
+      "revId": "1c4a11b50e5e079e075920d2d87ffe82116fd10d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_ab4d8f74",
+        "filename": "csit/suites/topoprocessing/topology-operations/010_Unifications_Tests.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-25T09:07:43Z",
+      "side": 1,
+      "message": "Does ODL know which Yang model defines structure of data in this topology? I do not see anything like this defined in the rest of this patch set.\nIf it does work, I recommend to explain how in Documentation (either in test case or in Settings table).",
+      "range": {
+        "startLine": 31,
+        "startChar": 81,
+        "endLine": 31,
+        "endChar": 91
+      },
+      "revId": "1c4a11b50e5e079e075920d2d87ffe82116fd10d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_6b577703",
+        "filename": "csit/suites/topoprocessing/topology-operations/010_Unifications_Tests.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-25T09:07:43Z",
+      "side": 1,
+      "message": "I would expect a check for some data from underlay to be visible in unif too.",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 18
+      },
+      "revId": "1c4a11b50e5e079e075920d2d87ffe82116fd10d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_6b20d79b",
+        "filename": "csit/suites/topoprocessing/topology-operations/010_Unifications_Tests.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-25T09:07:43Z",
+      "side": 1,
+      "message": "I recommend to expand Documentation (in Settings table) with readme-style text explaining that due to config file editing, the main feature under test has to be installed here, not in by adding to featuresBoot (as is usual for other test jobs).",
+      "range": {
+        "startLine": 46,
+        "startChar": 25,
+        "endLine": 46,
+        "endChar": 53
+      },
+      "revId": "1c4a11b50e5e079e075920d2d87ffe82116fd10d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_8b5c5327",
+        "filename": "csit/suites/topoprocessing/topology-operations/010_Unifications_Tests.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-25T09:07:43Z",
+      "side": 1,
+      "message": "This does not work if public keys are the allowed method of authentication. You can use Utils.Flexible_Controller_Login instead.",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 53,
+        "endChar": 9
+      },
+      "revId": "1c4a11b50e5e079e075920d2d87ffe82116fd10d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_cb79eb94",
+        "filename": "csit/suites/topoprocessing/topology-operations/010_Unifications_Tests.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-25T09:07:43Z",
+      "side": 1,
+      "message": "Once again, Utils.robot has keywords for that.",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 47
+      },
+      "revId": "1c4a11b50e5e079e075920d2d87ffe82116fd10d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_cba00bf7",
+        "filename": "csit/suites/topoprocessing/topology-operations/010_Unifications_Tests.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-25T09:07:43Z",
+      "side": 1,
+      "message": "This may fail if ODL is quicker than Robot. The TRACE should be probably set in separate keyword before the triggering Put.\nAlso, after success, log level should be set back to what it was before.",
+      "range": {
+        "startLine": 65,
+        "startChar": 4,
+        "endLine": 65,
+        "endChar": 28
+      },
+      "revId": "1c4a11b50e5e079e075920d2d87ffe82116fd10d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
