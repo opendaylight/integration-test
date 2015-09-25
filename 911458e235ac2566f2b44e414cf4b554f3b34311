@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_68b69d8c",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-25T08:00:41Z",
+      "side": 1,
+      "message": "This is modeled after SSHLibrary which has also the \"active connection\" shared state. I implemented this because I want the Karaf keywords \"active connection\" to be independent from the SSHLibrary\u0027s one to avoid proliferation of SSHLibrary.Switch_Connection invocations in the tests that use the logging.",
+      "parentUuid": "1a76adc5_e1688d89",
+      "range": {
+        "startLine": 83,
+        "startChar": 28,
+        "endLine": 83,
+        "endChar": 50
+      },
+      "revId": "911458e235ac2566f2b44e414cf4b554f3b34311",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a79b1b5_7be12599",
         "filename": "csit/libraries/KarafKeywords.robot",
         "patchSetId": 4
@@ -84,6 +108,30 @@
       "writtenOn": "2015-09-16T14:41:45Z",
       "side": 1,
       "message": "This mentions implementation details now present in the new keywords, without mentioning the keywords themselves.",
+      "range": {
+        "startLine": 101,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 15
+      },
+      "revId": "911458e235ac2566f2b44e414cf4b554f3b34311",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_28b0a58a",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-25T08:00:41Z",
+      "side": 1,
+      "message": "This text had to be removed because it turned out that SSHLibrary has a bug that causes it to mishandle attempts to restore the \"No active connection\" state.",
+      "parentUuid": "3a79b1b5_7be12599",
       "range": {
         "startLine": 101,
         "startChar": 4,
