@@ -5,6 +5,8 @@ integration/test/csit/suites/openflowplugin/MD_SAL_NSF_OF13
 integration/test/csit/suites/openflowplugin/AD_SAL_NSF_OF13
 integration/test/csit/suites/openflowplugin/Flows_OF13
 integration/test/csit/suites/openflowplugin/Switch_Qualification
-integration/test/csit/suites/openflowplugin/Flows_Stats_OF13
+integration/test/csit/suites/openflowplugin/Flows_Additional_TCs/Stat_Manager_extended
+integration/test/csit/suites/openflowplugin/Flows_Additional_TCs/010_Lithium_Rps_Calls_Ovs.robot
+integration/test/csit/suites/openflowplugin/Flows_Additional_TCs/020_Lithium_Rps_Calls_Cpqd.robot
 integration/test/csit/suites/openflowplugin/Groups_Meters_OF13
 integration/test/csit/suites/openflowplugin/Bug_Validation
