@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_b965e546",
+        "filename": "csit/libraries/MininetTopo/topo-3sw-2host_multipath.py",
+        "patchSetId": 10
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-25T23:20:02Z",
+      "side": 1,
+      "message": "this seems to conflict with what you are doing, I think.  you mean\n*three* directly connected switches with a single host on two end\nswitches.\n\nright?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 3
+      },
+      "revId": "80ce34ee72306ae8b7f2a31851ca48e9e34ed85f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_595a9184",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-25T23:20:02Z",
+      "side": 1,
+      "message": "as an enhancement for the future, you should [Return]     ${resp.content}\n\nthat way suites/libraries that use this keyword can do extra verifications on the output returned from the GET\n\n\nsame comment for the \"Get a pathpolicy\" keyword below.",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 60
+      },
+      "revId": "80ce34ee72306ae8b7f2a31851ca48e9e34ed85f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_795f4d73",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-25T23:20:02Z",
+      "side": 1,
+      "message": "is this \u00271\u0027 significant?  would it ever need to be different?  if so, you can make that an argument to the keyword.  default it to 1 (${policy_id}\u003d1) if you are worried about breaking other suites.\n\nI see it below as well, so same question there.",
+      "range": {
+        "startLine": 102,
+        "startChar": 79,
+        "endLine": 102,
+        "endChar": 81
+      },
+      "revId": "80ce34ee72306ae8b7f2a31851ca48e9e34ed85f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_59d131cc",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-25T23:20:02Z",
+      "side": 1,
+      "message": "this keyword is assuming mininet is up and running and that the current SSH connection index is set to that mininet system.  that could be dangerous.  at a minimum, make it clear in the documentation.  a middle ground approach would be to pass in the mininet system connection index as an argument and \"switch\" to it.\n\nalso, there is a FlowLib.robot that you might find useful:\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/FlowLib.robot#L153\n\nthat keyword is also assuming that the current ssh connection index is set to mininet (I think I wrote it, so shame on me :)\n\nbut you would pass in all the flow elements you want as a list, so your above code would look like this:\n\nVerify flowEntryBeforePathPolicy\n    ${things_to_check}\u003d    Create List    in_port\u003d1    actions\u003doutput:2    actions\u003doutput:3\n    Verify Flow On Mininet Switch    ${things_to_check}\n\nthat\u0027s a little cleaner, and re-uses other work that\u0027s already \ndone.\n\nBTW, lines 114 and 119 look to be redundant.",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 120,
+        "endChar": 51
+      },
+      "revId": "80ce34ee72306ae8b7f2a31851ca48e9e34ed85f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_79d66dc7",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-25T23:20:02Z",
+      "side": 1,
+      "message": "my comments above also apply here.",
+      "range": {
+        "startLine": 121,
+        "startChar": 0,
+        "endLine": 132,
+        "endChar": 51
+      },
+      "revId": "80ce34ee72306ae8b7f2a31851ca48e9e34ed85f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_19dbb9ee",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-25T23:20:02Z",
+      "side": 1,
+      "message": "we already have a keyword to start mininet with a custom topology:\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/Utils.robot#L28-L39\n\nyou look to have a few extra things you want to do (lines 139 and 143) so you\u0027ll need to get those introduced outside of that keyword.",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 143,
+        "endChar": 40
+      },
+      "revId": "80ce34ee72306ae8b7f2a31851ca48e9e34ed85f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_39d8f5ee",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-25T23:20:02Z",
+      "side": 1,
+      "message": "one thing I always ask people to do, is make an additional GET at the end of *Delete* keywords to truly verify the delete is done.  if you have a good reason not to, its fine, otherwise I think you can add two more lines:\n\n${resp}\u003d    Get a pathmap\nShould Not Contain    ${resp.content}    ${pathmap_stuff_that_should_be_gone}",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 153,
+        "endChar": 60
+      },
+      "revId": "80ce34ee72306ae8b7f2a31851ca48e9e34ed85f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
