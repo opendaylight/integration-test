@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_79a42d57",
+        "filename": "csit/testplans/openflowplugin-flow-services-lithium-redesign.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-25T23:33:25Z",
+      "side": 1,
+      "message": "time to boot these?",
+      "range": {
+        "startLine": 3,
+        "startChar": 44,
+        "endLine": 3,
+        "endChar": 59
+      },
+      "revId": "73c716e6d38ddec9db5a9f5044cbc70858034beb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
