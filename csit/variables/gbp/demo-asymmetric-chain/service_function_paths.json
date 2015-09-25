@@ -1,0 +1,12 @@
+{
+    "service-function-paths": {
+        "service-function-path": [
+            {
+                "name": "SFCGBP-Path",
+                "service-chain-name": "SFCGBP",
+                "starting-index": 255,
+                "symmetric": "false"
+            }
+        ]
+    }
+}

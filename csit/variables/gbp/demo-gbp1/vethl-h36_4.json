@@ -1,0 +1,16 @@
+{
+    "input": {
+        "endpoint-group": "e593f05d-96be-47ad-acd5-ba81465680d5",
+        "network-containment": "2c71d675-693e-406f-899f-12a026eb55f1",
+        "l2-context": "7b796915-adf4-4356-b5ca-de005ac410c1",
+        "mac-address": "00:00:00:00:36:04",
+        "l3-address": [
+            {
+                "ip-address": "10.0.36.4",
+                "l3-context": "cbe0cc07-b8ff-451d-8171-9eef002a8e80"
+            }
+        ],
+        "port-name": "vethl-h36_4",
+        "tenant": "f5c7d344-d1c7-4208-8531-2c2693657e12"
+    }
+}

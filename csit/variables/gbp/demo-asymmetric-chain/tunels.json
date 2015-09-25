@@ -1,0 +1,40 @@
+{
+    "opendaylight-inventory:nodes": {
+        "node": [
+            {
+                "id": "openflow:1",
+                "ofoverlay:tunnel": [
+                    {
+                        "tunnel-type": "overlay:tunnel-type-vxlan-gpe",
+                        "node-connector-id": "openflow:1:1",
+                        "ip": "CLASSIFIER1",
+                        "port": 6633
+                    },
+                    {
+                        "tunnel-type": "overlay:tunnel-type-vxlan",
+                        "node-connector-id": "openflow:1:2",
+                        "ip": "CLASSIFIER1",
+                        "port": 4789
+                    }
+                ]
+            },
+            {
+                "id": "openflow:6",
+                "ofoverlay:tunnel": [
+                    {
+                        "tunnel-type": "overlay:tunnel-type-vxlan-gpe",
+                        "node-connector-id": "openflow:6:1",
+                        "ip": "CLASSIFIER2",
+                        "port": 6633
+                    },
+                    {
+                        "tunnel-type": "overlay:tunnel-type-vxlan",
+                        "node-connector-id": "openflow:6:2",
+                        "ip": "CLASSIFIER2",
+                        "port": 4789
+                    }
+                ]
+            }
+        ]
+    }
+}
