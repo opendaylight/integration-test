@@ -12,7 +12,7 @@ Documentation     Basic tests for odl-bgpcep-bgp-all feature.
 ...               https://wiki.opendaylight.org/view/BGP_LS_PCEP:Lithium_Feature_Tests#How_to_test_2
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
+Test Setup        Setup_Test_With_Fast_Failing
 Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
 Library           OperatingSystem
 Library           SSHLibrary    prompt=]>    timeout=10s    # FIXME: The prompt should have default value from a common resource, and should be overwritable by pybot -v in scripts.
@@ -20,14 +20,13 @@ Library           RequestsLibrary
 Library           ${CURDIR}/../../../libraries/HsfJson/hsf_json.py
 Variables         ${CURDIR}/../../../variables/Variables.py
 Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${MININET}
-Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
-Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
+Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
+Resource          ${CURDIR}/../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 
 *** Variables ***
 ${directory_for_actual_responses}    ${TEMPDIR}/actual
@@ -44,7 +43,7 @@ Check_For_Empty_Topology_Before_Talking
 
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'IP': '${MININET}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'false'}
+    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${MININET}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'false'}
     ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer    ${template_as_string}
 
 Start_Talking_BGP_speaker
@@ -65,7 +64,7 @@ Check_Talking_Topology_Is_Filled
 
 Kill_Talking_BGP_Speaker
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    [Setup]    Setup_Test_Without_Fast_Failing
     BGPSpeaker.Kill_BGP_Speaker
     FailFast.Do_Not_Fail_Fast_From_Now_On
     # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
@@ -92,7 +91,7 @@ Check_For_Empty_Topology_Before_Listening
 
 Reconfigure_ODL_To_Initiate_Connection
     [Documentation]    Replace BGP peer config module, now with initiate-connection set to true.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'IP': '${MININET}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'true'}
+    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${MININET}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'true'}
     ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer    ${template_as_string}
 
 Check_Listening_Connection_Is_Established
@@ -106,7 +105,7 @@ Check_Listening_Topology_Is_Filled
 
 Kill_Listening_BGP_Speaker
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    [Setup]    Setup_Test_Without_Fast_Failing
     BGPSpeaker.Kill_BGP_Speaker
     FailFast.Do_Not_Fail_Fast_From_Now_On
     # NOTE: It is still possible to remain failing, if both previous and this test failed.
@@ -119,14 +118,14 @@ Check_For_Empty_Topology_After_Listening
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer
+    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer'}
+    ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer    ${template_as_string}
     # TODO: Do we need to check something else?
 
 *** Keywords ***
 Setup_Everything
     [Documentation]    SSH-login to mininet machine, save prompt to variable, create HTTP session,
     ...    prepare directories for responses, put Python tool to mininet machine, setup imported resources.
-    SetupUtils.Setup_Utils_For_Setup_And_Teardown
     SSHLibrary.Open_Connection    ${MININET}
     Utils.Flexible_SSH_Login     ${MININET_USER}    ${MININET_PASSWORD}
     ${current_connection}=    Get_Connection
@@ -144,6 +143,16 @@ Setup_Everything
     OperatingSystem.Create_Directory    ${directory_for_actual_responses}
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
     ConfigViaRestconf.Setup_Config_Via_Restconf
+    FailFast.Do_Not_Fail_Fast_From_Now_On
+    KarafKeywords.Open_Controller_Karaf_Console
+
+Setup_Test_With_Fast_Failing
+    FailFast.Fail_This_Fast_On_Previous_Error
+    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
+
+Setup_Test_Without_Fast_Failing
+    FailFast.Run_Even_When_Failing_Fast
+    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
 
 Teardown_Everything
     [Documentation]    Create and Log the diff between expected and actual responses, make sure Python tool was killed.
