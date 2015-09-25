@@ -22,6 +22,53 @@
       "revId": "1ec44c395d6ceb1253040028a0250ab46ba4cafd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_4e3729e4",
+        "filename": "csit/variables/gbp/demo-asymmetric-chain/tenants.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-09-25T13:52:41Z",
+      "side": 1,
+      "message": "These IPs will be encapsulated whenever they leave VM.",
+      "parentUuid": "1a76adc5_aeffdd00",
+      "range": {
+        "startLine": 30,
+        "startChar": 42,
+        "endLine": 30,
+        "endChar": 51
+      },
+      "revId": "1ec44c395d6ceb1253040028a0250ab46ba4cafd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_ce525913",
+        "filename": "csit/variables/gbp/demo-symmetric-chain/service_function_forwarders.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-09-25T13:52:41Z",
+      "side": 1,
+      "message": "This should also be IP of VM but since we don\u0027t know addresses of MININET VMs, it will be replaced dynamically by robot with the proper IP of specific VM (e.g. ${MININET2}). So this is OK as it is.",
+      "range": {
+        "startLine": 6,
+        "startChar": 33,
+        "endLine": 6,
+        "endChar": 39
+      },
+      "revId": "1ec44c395d6ceb1253040028a0250ab46ba4cafd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
