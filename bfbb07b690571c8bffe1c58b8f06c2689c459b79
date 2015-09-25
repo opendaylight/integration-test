@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_68445d74",
+        "filename": "csit/suites/netconf/CRUD/CRUD.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-25T13:00:44Z",
+      "side": 1,
+      "message": "Debug debris left behind :) This \"comment\" is going to replace the last word of the previous line.",
+      "parentUuid": "1a76adc5_5cd37138",
+      "range": {
+        "startLine": 28,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 21
+      },
+      "revId": "bfbb07b690571c8bffe1c58b8f06c2689c459b79",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_3ce23504",
         "filename": "csit/suites/netconf/CRUD/CRUD.robot",
         "patchSetId": 8
@@ -59,6 +83,30 @@
       "writtenOn": "2015-09-21T22:55:20Z",
       "side": 1,
       "message": "please find a way to print the info (just a link to the bug is fine) for this in the \"message\" section of the robot report.\n\nsome keywords accept a msg\u003d\"\" optional variable that can be used here.  I don\u0027t know if your Delete_Xml... keyword will do that,\nbut I assume that\u0027s the keyword that will see the failure.\n\nmy best idea so far would be to have a [Teardown]    Log Bug Details that does this:\n\nLog Bug Details\n  Run Keyword If    \"${TEST_STATUS}\" \u003d\u003d \"FAIL\"    Set Test Message    This test fails because of https://bugs.opendaylight.org/show_bug.cgi?id\u003d4267\n\n\nthe above would only print the message if the test fails.  Obviously, the bug number is wrong.",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 116
+      },
+      "revId": "bfbb07b690571c8bffe1c58b8f06c2689c459b79",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_4822c1ba",
+        "filename": "csit/suites/netconf/CRUD/CRUD.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-25T13:00:44Z",
+      "side": 1,
+      "message": "It turns out the problem is that this is \"expected behavior\". I thus am going to merge the following 2 testcases to one that uses a name from the first but the body from the second test. And add a documentation to that testcase about this ODL quirk.",
+      "parentUuid": "1a76adc5_5cddb113",
       "range": {
         "startLine": 81,
         "startChar": 0,
@@ -151,6 +199,30 @@
       "writtenOn": "2015-09-21T22:55:20Z",
       "side": 1,
       "message": "this all seems like a good next project, especially if more netconf tests are on the way.",
+      "range": {
+        "startLine": 179,
+        "startChar": 0,
+        "endLine": 205,
+        "endChar": 52
+      },
+      "revId": "bfbb07b690571c8bffe1c58b8f06c2689c459b79",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_ab26efb8",
+        "filename": "csit/suites/netconf/CRUD/CRUD.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-25T13:00:44Z",
+      "side": 1,
+      "message": "Yes they are. The next one is \"MDSAL Northbound CRUD suite\".\n\nAdditionally, there might be a bunch of other non-netconf test suites that could make a good use of this stuff.",
+      "parentUuid": "1a76adc5_fccd9d5e",
       "range": {
         "startLine": 179,
         "startChar": 0,
