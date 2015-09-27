@@ -1,5 +1,5 @@
 {
-    "policy: tenant": {
+    "tenant": {
         "contract": [
             {
                 "clause": [
