@@ -5,5 +5,4 @@
 # and is available at http://www.eclipse.org/legal/epl-v10.html
 
 # Place the suites in run order:
-integration/test/csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot
-integration/test/csit/suites/bgpcep/bgpingest/singlepeer_prefixcount.robot
+integration/test/csit/scripts/controllermem_6g.sh
