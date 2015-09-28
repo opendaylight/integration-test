@@ -33,6 +33,13 @@ Start_BGP_Speaker
     BuiltIn.Log    ${command}
     ${output}=    SSHLibrary.Write    ${command}
 
+Start_BGP_Manager
+    [Arguments]    ${arguments}
+    [Documentation]    Start the BGP manager python utility. Redirect its error output to a log file.
+    ${command}=    BuiltIn.Set_Variable    python manage_play.py ${arguments} &> ${player_output_log}
+    BuiltIn.Log    ${command}
+    ${output}=    SSHLibrary.Write    ${command}
+
 Dump_BGP_Speaker_Logs
     [Documentation]    Send all output produced by the play.py utility to Robot logs.
     ...    This needs to be called if your suite detects play.py crashing and bypasses
@@ -44,6 +51,7 @@ Dump_BGP_Speaker_Logs
 Kill_BGP_Speaker
     [Documentation]    Interrupt play.py, fail if no prompt is seen within SSHLibrary timeout.
     ...    Also dump the logs with the output the program produced.
+    ...    This keyword is also suitable for stopping BGP manager.
     Utils.Write_Bare_Ctrl_C
     ${status}    ${message}=    BuiltIn.Run_Keyword_And_Ignore_Error    SSHLibrary.Read_Until_Prompt
     Dump_BGP_Speaker_Logs
