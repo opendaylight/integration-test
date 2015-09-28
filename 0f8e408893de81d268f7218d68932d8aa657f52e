@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_7151a161",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-28T20:47:00Z",
+      "side": 1,
+      "message": "do you want to make this [Documentation] or are you hiding the explanations because you want these keywords to only be locally used in this library.\n\nIn any case, can you add documentation for all of these internal keywords specifically calling out the fact that these should only be locally used within this library and not called externally.  At some point we are hoping to have pretty-print documentation of our robot test cases and libraries.  This keyword is going to show up there and we need to make sure it\u0027s described properly.",
+      "range": {
+        "startLine": 302,
+        "startChar": 0,
+        "endLine": 306,
+        "endChar": 76
+      },
+      "revId": "0f8e408893de81d268f7218d68932d8aa657f52e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_114e2dc2",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-28T20:47:00Z",
+      "side": 1,
+      "message": "to me, \"status is wrong\" does not imply that it\u0027s only checking for a 200.  do you want to name it better?  \"Utils__Fail_If_Status_Is_Not_200\"",
+      "range": {
+        "startLine": 314,
+        "startChar": 0,
+        "endLine": 314,
+        "endChar": 30
+      },
+      "revId": "0f8e408893de81d268f7218d68932d8aa657f52e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_314b29b2",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-28T20:47:00Z",
+      "side": 1,
+      "message": "don\u0027t see the utility of this?",
+      "range": {
+        "startLine": 321,
+        "startChar": 0,
+        "endLine": 323,
+        "endChar": 23
+      },
+      "revId": "0f8e408893de81d268f7218d68932d8aa657f52e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_f1ccd137",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 358,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-28T20:47:00Z",
+      "side": 1,
+      "message": "very cool.  nice explanation and I can see it\u0027s use in scale/stress environments",
+      "range": {
+        "startLine": 335,
+        "startChar": 0,
+        "endLine": 358,
+        "endChar": 25
+      },
+      "revId": "0f8e408893de81d268f7218d68932d8aa657f52e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_b1d659c4",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-28T20:47:00Z",
+      "side": 1,
+      "message": "can you convince me better?  I didn\u0027t totally follow your comments\nabout why this is needed, and it really just looks like a way to hide\na sleep command.  If a sleep has a truly valid reason, they we can \nput them.  I can only remember one valid reason so far though.\n\nif a wuks fails the first try, then the ${period} can be wait on\nand the 2nd try would work right???",
+      "range": {
+        "startLine": 360,
+        "startChar": 0,
+        "endLine": 370,
+        "endChar": 179
+      },
+      "revId": "0f8e408893de81d268f7218d68932d8aa657f52e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_51db45ed",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 374,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-28T20:47:00Z",
+      "side": 1,
+      "message": "are you sure all the \\ (escape) characters are needed?  makes it hard\nto read, so if they are not needed I\u0027d suggest to remove them.",
+      "range": {
+        "startLine": 374,
+        "startChar": 4,
+        "endLine": 374,
+        "endChar": 20
+      },
+      "revId": "0f8e408893de81d268f7218d68932d8aa657f52e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
