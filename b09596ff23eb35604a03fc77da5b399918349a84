@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_b1f899e6",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/__init__.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 612
+      },
+      "writtenOn": "2015-09-28T16:48:36Z",
+      "side": 1,
+      "message": "this should be inside each test suite folder",
+      "revId": "b09596ff23eb35604a03fc77da5b399918349a84",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
