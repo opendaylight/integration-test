@@ -252,6 +252,52 @@
       "revId": "353edd756f04fd87a695c74862cbe81e873e5494",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_9a37b7b0",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/demo-symmetric-chain/spinup/sf-config.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-09-28T08:49:11Z",
+      "side": 1,
+      "message": "We can\u0027t have static reference to IP here.",
+      "range": {
+        "startLine": 8,
+        "startChar": 11,
+        "endLine": 8,
+        "endChar": 21
+      },
+      "revId": "353edd756f04fd87a695c74862cbe81e873e5494",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_ba3cf394",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/demo-symmetric-chain/spinup/sf-config.sh",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-09-28T08:49:11Z",
+      "side": 1,
+      "message": "We can\u0027t have static reference to IP here.",
+      "range": {
+        "startLine": 10,
+        "startChar": 11,
+        "endLine": 10,
+        "endChar": 21
+      },
+      "revId": "353edd756f04fd87a695c74862cbe81e873e5494",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
