@@ -308,3 +308,14 @@ Run Process With Logging And Status Check
     Log    ${result.stderr}
     Should Be Equal As Integers    ${result.rc}    0
     [Return]    ${result}
+
+Get Data From URI
+    [Arguments]    ${session}    ${uri}    ${headers}=${NONE}
+    [Documentation]    Issue a GET request and return the data obtained or on error log the error and fail.
+    ...    Issues a GET request for ${uri} in ${session} using headers from
+    ...    ${headers}. If the request returns a HTTP error, fails. Otherwise
+    ...    returns the data obtained by the request.
+    ${response}=    RequestsLibrary.Get    ${session}    ${uri}    ${headers}
+    Builtin.Return_From_Keyword_If    ${response.status_code} == 200    ${response.text}
+    Builtin.Log    ${response.text}
+    Builtin.Fail    The request failed with code ${response.status_code}
