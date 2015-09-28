@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_3ad8e3ee",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/docker_utils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 612
+      },
+      "writtenOn": "2015-09-28T10:26:05Z",
+      "side": 1,
+      "message": "Ping should be as atomic as can be - it means we want to ping only one address not multiple addresses. \n\nwhat would be the result if ping failed on 3rd IP of 5 IPs?",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 43
+      },
+      "revId": "8cf6eca94d4c2ebae3182a4c727510a2f66bc575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_dae44fae",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/docker_utils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 612
+      },
+      "writtenOn": "2015-09-28T10:26:05Z",
+      "side": 1,
+      "message": "this expect to read HTML but what in case that HTML is not returned?\n\nit should use \"execute\" instead of \"write/read\" and check presence of HTML in output",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 35
+      },
+      "revId": "8cf6eca94d4c2ebae3182a4c727510a2f66bc575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_9aeed78a",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/docker_utils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 612
+      },
+      "writtenOn": "2015-09-28T10:26:05Z",
+      "side": 1,
+      "message": "do we need this?",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 20
+      },
+      "revId": "8cf6eca94d4c2ebae3182a4c727510a2f66bc575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
