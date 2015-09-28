@@ -285,3 +285,148 @@ Post Elements To URI From File
     ${body}    OperatingSystem.Get File    ${data_file}
     ${resp}    RequestsLibrary.Post    session    ${dest_uri}    data=${body}    headers=${headers}
     Should Be Equal As Strings    ${resp.status_code}    200
+
+FIXME__REFACTOR_THE_CODE_BELOW_AND_EXTRACT_TO_ITS_OWN_MODULE
+    #
+    # Refactoring of the code below to satisfy "best Robot coding pracitces"
+    # needs to be postponed because it is long and involved work and the
+    # unavailability of this API blocks many important tasks from being
+    # merged and also slows people down. The following problems were
+    # identified:
+    #
+    # - Using global variables to store state. This is frowned upon.
+    #
+    # Right now the priority is to have the API working. Refactoring the code
+    # to look good can wait.
+    #
+    # The ugly "Utils__XXX_YYY_ZZZ" names of the keywords are intentional.
+    # These are internal keywords that are not supposed to be called from the
+    # outside of this resource. We need to create a naming convention for
+    # such keywords. The only keywords that are part of the API are those
+    # with names that comply to the conventions of this file.
+    #
+    # Additionally, this piece of code shall be in its own keyword resource
+    # to reduce the "Utils resource bloat" problem. Unfortunately that is
+    # nearly impossible to be done now until some sort of "Robot automatic
+    # review system" is created before because Robot is not exactly helpful
+    # when it comes to reporting where an undefined keyword was used. The
+    # first problem is that it only says that an undefined keyword was used
+    # but it fails to reveal where, and second problem is that the failure
+    # can get pretty hidden if the offending code happens to run under "Run
+    # Keyword And Ignore Error" or similar (in that case one needs to dig
+    # the error report out of the logs).
+
+Utils__Store_Response_Code
+    [Arguments]    ${response}
+    # Store the response code for later checking. If the code is not
+    # 200, stores also the response text (as it most likely contains further details
+    # about the error response code). The response code is stored into the suite
+    # variable ${response_code} which can be read by the tests as necessary.
+    Builtin.Set_Suite_Variable    ${Utils__response_code}    ${response.status_code}
+    Builtin.Run_Keyword_If    ${Utils__response_code} <> 200    Builtin.Set_Suite_Variable    ${Utils__response_text}    ${response.text}
+
+Utils__Run_Keyword_If_Status_Is_Ok
+    [Arguments]    @{Keyword}
+    Builtin.Run_Keyword_If    ${Utils__response_code} == 200    Builtin.Run_Keyword    @{Keyword}
+
+Utils__Fail_If_Status_Is_Wrong
+    # Check that the stored response code is 200. If not, log the
+    # stored response text and then fail.
+    Builtin.Return_From_Keyword_If    ${Utils__response_code} == 200
+    Builtin.Log    ${Utils__response_text}
+    Builtin.Fail    The request failed with code ${Utils__response_code}
+
+Utils__Identity
+    [Arguments]    ${data}
+    [Return]    ${data}
+
+Get Data From URI
+    [Arguments]    ${session}    ${uri}    ${headers}=${NONE}
+    [Documentation]    Issue a GET request and return the data obtained or on error log the error and fail.
+    ...    Issues a GET request for ${uri} in ${session} using headers from
+    ...    ${headers}. If the request returns a HTTP error, fails. Otherwise
+    ...    returns the data obtained by the request.
+    ${response}=    RequestsLibrary.Get    ${session}    ${uri}    ${headers}
+    Utils__Store_Response_Code    ${response}
+    Utils__Fail_If_Status_Is_Wrong
+    [Return]    ${response.text}
+
+Utils__Request_And_Check_Data
+    [Arguments]    ${getter}    ${pass_on_http_errors}    @{keyword}
+    # Some of the getters may generates a LOT of garbage, especially when
+    # they download massive datasets and then passage them all the way down
+    # to just one integer or something similarly small (an example can be
+    # getting count of routes in topology which can generate several tens of
+    # MB of garbage if the topology contains several million routes). This
+    # garbage is not immediately reclaimed by Python once it is no longer in
+    # use because Robot creates cycled structures that hold references to
+    # this multi-megabyte garbage. Allowing this garbage to build could cause
+    # "sudden death syndrome" (OOM killer invocation) of the Robot process
+    # before Python decides to collect the multi-megabyte pieces of the
+    # garbage on its own so make sure to tell Python to do this collection
+    # after the getter is invoked (and before anything else is done). This
+    # must be done here because only here we can be sure that the
+    # multi-mega-byte value used internally by the getter is really turned
+    # into a piece of garbage waiting for collection. Additionally I don't
+    # want the getters to be concerned with this piece of low level
+    # housekeeping.
+    ${status}    ${data}=    BuiltIn.Run Keyword And Ignore Error    ${getter}
+    Builtin.Evaluate    gc.collect()    modules=gc
+    BuiltIn.Run Keyword Unless    ${pass_on_http_errors}    BuiltIn.Run Keyword If    '${status}' <> 'PASS'    BuiltIn.Fail    Data getter error encountered
+    BuiltIn.Run Keyword If    '${status}' == 'PASS'    BuiltIn.Run Keyword    @{keyword}    ${data}
+    [Return]    ${status}
+
+Utils__Wait_For_Data_To_Satisfy_Keyword_Core
+    [Arguments]    ${timeout}    ${period}    ${getter}    ${stop_at_http_errors}    @{keyword}
+    # The WUKS executes the first test immediately. This may cause the data
+    # check to generate a "false positive", terminating the WUKS prematurely
+    # if the data being checked is some sort of performance counter that
+    # reacts on changes being made elsewhere and which are initiated by the
+    # keywords immediately preceeding this WUKS. An example is BGP scaling
+    # test which is using "data-change-counter" for job completion detection.
+    # The test fitst tells a mockup BGP peer to start sending updates and
+    # then executes this keyword with a getter that consults the data change
+    # counter to determine if work is still being done in the system or not.
+    # The work is considered incomplete when the checker keyword sees changes
+    # in the data change counter since it was invoked last time, telling the
+    # WUKS to continue looping. But if a bare WUKS would be used here, the
+    # first invocation of the check would occur immediately, producing a
+    # false positive (the checker would think the work is completed though
+    # it is not) because the MDSAL and the data change counter get no time
+    # to obtain and complete any work that would affect the data change
+    # counter and thus signal the checker that some work is being done and
+    # thus it is necessary to wait. Avoiding this pitfall with bare WUKS
+    # would require quite complicated design of the checker that would
+    # require seeing "lack of changes" during several invocations before
+    # "being convicted" to pass but that is long and involved work which is
+    # better left for another commit. Currently a quickfix is implemented
+    # here to use a Sleep to emulate a WUKS which inserts the "refresh
+    # period" before every invocation of the check. In future another API for
+    # this type of checkers will be added that allows the test described in
+    # the example above to become robust against behavior of the WUKS. That
+    # will allow us to get rid of this Sleep (and this comment as well).
+    BuiltIn.Sleep    ${period}
+    ${status}=    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    ${period}    Utils__Request_And_Check_Data    ${getter}    ${stop_at_http_errors}
+    ...    @{keyword}
+    BuiltIn.Run_Keyword_If    ${stop_at_http_errors}    BuiltIn.Run Keyword If    '${status}' <> 'PASS'    BuiltIn.Fail    Wait aborted because a data getter error was encountered
+
+Wait For Data To Satisfy Keyword
+    [Arguments]    ${timeout}    ${period}    ${getter}    ${keyword}=Utils__Identity    @{arguments}
+    [Documentation]    Repeate a data request and check the data from the response until either the check passes or the request fails.
+    ...    This runs ${getter} to obtain data repeatedly with ${period} time
+    ...    between the attempts to obtain data. It passes if the data
+    ...    obtained from ${getter} satisfies @{keyword}, which is composed of
+    ...    ${keyword} and @{arguments}). Fails immediately if ${getter} fails
+    ...    or ${timeout} ellapses. If @{keyword} is not specified, this
+    ...    passes as soon as ${getter} returns any data successfully.
+    Utils__Wait_For_Data_To_Satisfy_Keyword_Core    ${timeout}    ${period}    ${getter}    False    ${keyword}    @{arguments}
+
+Wait For Data To Satisfy Keyword And Ignore Errors
+    [Arguments]    ${timeout}    ${period}    ${getter}    ${keyword}=Utils__Identity    @{arguments}
+    [Documentation]    Repeate a data request and check the data from the response until the check passes. Ignore any request failures.
+    ...    Repeatedly uses ${getter} to obtain data with ${period} time
+    ...    between the attempts until either the data obtained satisfies
+    ...    @{keyword} or ${timeout} period ellapses. Any ${getter} failures
+    ...    are ignored and waiting continues. If @{keyword} is not specified,
+    ...    this passes as soon as ${getter} returns any data successfully.
+    Utils__Wait_For_Data_To_Satisfy_Keyword_Core    ${timeout}    ${period}    ${getter}    True    ${keyword}    @{arguments}
