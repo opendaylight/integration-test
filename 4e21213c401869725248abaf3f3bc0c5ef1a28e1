@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_d160b537",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-28T20:31:06Z",
+      "side": 1,
+      "message": "good addition",
+      "range": {
+        "startLine": 99,
+        "startChar": 4,
+        "endLine": 100,
+        "endChar": 60
+      },
+      "revId": "4e21213c401869725248abaf3f3bc0c5ef1a28e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
