@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_fa16ebf0",
+        "filename": "csit/suites/netconf/CRUD/CRUD.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-09-28T09:11:36Z",
+      "side": 1,
+      "message": "It turns out that the absolute path of this file is not as easy to derive as I was thinking. I have no idea what it is on Sandbox but it is definitely not \"/home/$MININET_USER/testtool.log.",
+      "range": {
+        "startLine": 153,
+        "startChar": 27,
+        "endLine": 153,
+        "endChar": 39
+      },
+      "revId": "77fdbb3af5d2d526dcc430e0b7f6f7283a322b61",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
