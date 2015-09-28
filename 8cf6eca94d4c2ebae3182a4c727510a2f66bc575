@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_2eee68ed",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/docker_utils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-09-28T13:40:02Z",
+      "side": 1,
+      "message": "In log we would see that \u0027Should Contain\u0027 failed - what was expected and what was the output. We could find more in result log and see which ping was executed as last. I though that it would be more efficient to ping multiple addresses when we are logged into a docker container. So should I go ahead and split pings into a single test-cases or execute each ping on separate line within a test-case?",
+      "parentUuid": "1a76adc5_3ad8e3ee",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 43
+      },
+      "revId": "8cf6eca94d4c2ebae3182a4c727510a2f66bc575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_dae44fae",
         "filename": "csit/suites/groupbasedpolicy/GBPSFC/docker_utils.robot",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_0ec84c73",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/docker_utils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-09-28T13:40:02Z",
+      "side": 1,
+      "message": "ok, but i\u0027m not sure if I wouldn\u0027t have to check the output against sthg. I\u0027m not sure if it might happen hat empty output will be returned without an error.",
+      "parentUuid": "1a76adc5_dae44fae",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 38,
+        "endChar": 35
+      },
+      "revId": "8cf6eca94d4c2ebae3182a4c727510a2f66bc575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_9aeed78a",
         "filename": "csit/suites/groupbasedpolicy/GBPSFC/docker_utils.robot",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2015-09-28T10:26:05Z",
       "side": 1,
       "message": "do we need this?",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 20
+      },
+      "revId": "8cf6eca94d4c2ebae3182a4c727510a2f66bc575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_eed87055",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/docker_utils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-09-28T13:40:02Z",
+      "side": 1,
+      "message": "Not really. I\u0027ll remove it.",
+      "parentUuid": "1a76adc5_9aeed78a",
       "range": {
         "startLine": 39,
         "startChar": 4,
