@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_dd044417",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/__init__.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-09-29T16:33:07Z",
+      "side": 1,
+      "message": "Default prompt is \u0027\u003e\u0027 which does not appear on Ubuntu VM, leaving out this parameter worked for me.",
+      "range": {
+        "startLine": 18,
+        "startChar": 48,
+        "endLine": 18,
+        "endChar": 78
+      },
+      "revId": "713c3328c17d240181df9cbbb9754539604df7b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
