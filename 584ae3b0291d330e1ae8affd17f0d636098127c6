@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_3d0c5842",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-29T19:00:50Z",
+      "side": 1,
+      "message": "this might break ovsdb if they are assuming the default value is used.  It will still work fine, like you call it in the suite, if you leave the ovsdb.py file there.  you are overriding the argument when you pass it in.  only if it\u0027s not specified will it use ovsdb.py",
+      "range": {
+        "startLine": 29,
+        "startChar": 62,
+        "endLine": 29,
+        "endChar": 72
+      },
+      "revId": "584ae3b0291d330e1ae8affd17f0d636098127c6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_78097e2b",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-09-29T19:00:50Z",
+      "side": 1,
+      "message": "this should work fine.\n\nif you want to be explicit, you can call it like this:\n\nStart Mininet    ${MININET}    ${cmd}\u003d${pathpolicy_topo}    ${custom}\u003d${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}",
+      "range": {
+        "startLine": 133,
+        "startChar": 4,
+        "endLine": 133,
+        "endChar": 106
+      },
+      "revId": "584ae3b0291d330e1ae8affd17f0d636098127c6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
