@@ -1,0 +1,31 @@
+#!/usr/bin/perl
+
+# waits until flows are created on switch
+use strict;
+use warnings;
+
+$ARGV[0] or die "Usage: wait_flows <switch_name>";
+my $sw = $ARGV[0];
+
+my $TIMEOUT_SEC = 120;
+my $SLEEP = 5;
+
+# get output from bash command (counting number of flows + 1 line for header)
+# return number of
+sub get_result{
+    my $r = qx(sudo ovs-ofctl dump-flows $sw -OOpenFlow13 | wc -l);
+    chomp $r; # remove last newline char (if any)
+    $r--;     # don't count header line
+    return $r;
+}
+
+my $res = get_result();
+
+for (my $elapsed = 0; $elapsed < $TIMEOUT_SEC; $elapsed += $SLEEP){
+    if ($res > 0){ exit 0;} # success, exit
+    print "Flow count is $res, waiting; ", $elapsed, "s passed\n";
+    sleep $SLEEP;
+    $res = get_result();
+}
+# timeout loop ended, fail
+exit 1;
