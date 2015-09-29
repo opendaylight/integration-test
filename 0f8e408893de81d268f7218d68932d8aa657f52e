@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_67d803f0",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 314,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-29T11:30:48Z",
+      "side": 1,
+      "message": "One possible extension is to allow more status codes (201 and 204), subsequent extension is to allow caller to specify set of allowed codes (404 for example).\n\nKeyword name would be OK if Documentation said current implementation compares to 200 only.",
+      "parentUuid": "1a76adc5_114e2dc2",
+      "range": {
+        "startLine": 314,
+        "startChar": 0,
+        "endLine": 314,
+        "endChar": 30
+      },
+      "revId": "0f8e408893de81d268f7218d68932d8aa657f52e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_314b29b2",
         "filename": "csit/libraries/Utils.robot",
         "patchSetId": 2
@@ -105,6 +129,30 @@
       "writtenOn": "2015-09-28T20:47:00Z",
       "side": 1,
       "message": "can you convince me better?  I didn\u0027t totally follow your comments\nabout why this is needed, and it really just looks like a way to hide\na sleep command.  If a sleep has a truly valid reason, they we can \nput them.  I can only remember one valid reason so far though.\n\nif a wuks fails the first try, then the ${period} can be wait on\nand the 2nd try would work right???",
+      "range": {
+        "startLine": 360,
+        "startChar": 0,
+        "endLine": 370,
+        "endChar": 179
+      },
+      "revId": "0f8e408893de81d268f7218d68932d8aa657f52e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_e79ad313",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-29T11:30:48Z",
+      "side": 1,
+      "message": "The issue is with false positives. For example in Wait_For_Talking_Topology case at https://git.opendaylight.org/gerrit/#/c/26167/16/csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot\nit may take data change counter several seconds to start changing its value.\n\nBut for such cases there are workarounds. Either require data change counter value to get strictly higher than previously established value, or construct a WUKS-like cycle that requires several passes in the row. The second one is my favorite, as it would increase precision of duration measurement.\n\nI recommend to consider those alternatives before committing to this patch set API.",
+      "parentUuid": "1a76adc5_b1d659c4",
       "range": {
         "startLine": 360,
         "startChar": 0,
