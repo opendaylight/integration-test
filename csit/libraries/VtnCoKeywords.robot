@@ -10,6 +10,8 @@ Library           XML
 Variables         ../variables/Variables.py
 Resource          ./Utils.robot
 
+*** variable ***
+${vlan_topo}=   sudo mn --controller=remote,ip=${CONTROLLER} --custom vlan_vtn_test.py --topo vlantopo
 
 *** Keywords ***
 Get VtnCo
@@ -249,6 +251,10 @@ Create VLANMAP in VBRIDGE
     ${vlancreate_json}=    json.dumps    ${vlancreate}
     ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${VLANMAP_CREATE }    data=${vlancreate_json}
     Should Be Equal As Strings    ${resp.status_code}    201
+
+Start vlan_topo
+    [Documentation]    This will start mininet with custom topology on both the Virtual Machines
+    Start Mininet    ${MININET}    ${vlan_topo}   ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
 
 
 Delete a FLOWLIST
