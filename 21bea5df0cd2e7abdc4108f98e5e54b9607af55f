@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_67924359",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-29T10:45:42Z",
+      "side": 1,
+      "message": "Where should this quote close? At the end of line 92?\nParts of this comment block should be rewritten.",
+      "range": {
+        "startLine": 90,
+        "startChar": 6,
+        "endLine": 90,
+        "endChar": 7
+      },
+      "revId": "21bea5df0cd2e7abdc4108f98e5e54b9607af55f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_8782fffe",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-29T10:45:42Z",
+      "side": 1,
+      "message": "This keyword misses a Documentation (as opposed to comment block) describing what are we trying to achieve.\nLines 101 and 102 make sure current connection index returns to None, as (in principle) there may be convoluted suites relying on SSH connection going down and staying that way irrespective of Karaf logging.",
+      "range": {
+        "startLine": 95,
+        "startChar": 32,
+        "endLine": 95,
+        "endChar": 44
+      },
+      "revId": "21bea5df0cd2e7abdc4108f98e5e54b9607af55f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_079fcf60",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-29T10:45:42Z",
+      "side": 1,
+      "message": "If it is a connection index, why do not we call it ${connection_index}? Also applies to line 110.",
+      "range": {
+        "startLine": 114,
+        "startChar": 6,
+        "endLine": 114,
+        "endChar": 16
+      },
+      "revId": "21bea5df0cd2e7abdc4108f98e5e54b9607af55f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
