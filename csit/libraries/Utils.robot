@@ -4,7 +4,7 @@ Library           String
 Library           DateTime
 Library           ./UtilLibrary.py
 Resource          KarafKeywords.robot
-Variables           ../variables/Variables.py
+Variables         ../variables/Variables.py
 
 *** Variables ***
 # TODO: Introduce ${tree_size} and use instead of 1 in the next line.
@@ -13,9 +13,9 @@ ${controller_index}    -1
 
 *** Keywords ***
 Start Suite
+    [Arguments]    ${system}=${MININET}    ${user}=${MININET_USER}    ${password}=${MININET_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${timeout}=30s
     [Documentation]    Basic setup/cleanup work that can be done safely before any system
     ...    is run.
-    [Arguments]    ${system}=${MININET}    ${user}=${MININET_USER}    ${password}=${MININET_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${timeout}=30s
     Log    Start the test on the base edition
     Clean Mininet System
     ${mininet_conn_id}=    Open Connection    ${system}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${timeout}
@@ -26,7 +26,8 @@ Start Suite
     Read Until    mininet>
 
 Start Mininet
-    [Arguments]    ${system}=${MININET}    ${cmd}=${start}    ${custom}=${OVSDB_CONFIG_DIR}/ovsdb.py    ${user}=${MININET_USER}    ${password}=${MININET_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
+    [Arguments]    ${system}=${MININET}    ${cmd}=${start}    ${custom}=${OVSDB_CONFIG_DIR}/ovsdb.py    ${user}=${MININET_USER}    ${password}=${MININET_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}
+    ...    ${prompt_timeout}=30s
     [Documentation]    Basic setup to start mininet with custom topology
     Log    Start the test on the base edition
     Clean Mininet System
@@ -168,18 +169,20 @@ Get Process ID Based On Regex On Remote System
     ...    the expected PID
     # doing the extra -v grep in this command to exclude the grep process itself from the output
     ${cmd}=    Set Variable    ps -elf | grep -v grep | grep ${regex_string_to_match_on} | awk '{print $4}'
-    ${output}=    Run Command On Remote System    ${system}    ${cmd}    user=${user}    password=${password}    prompt=${prompt}    prompt_timeout=${prompt_timeout}
+    ${output}=    Run Command On Remote System    ${system}    ${cmd}    user=${user}    password=${password}    prompt=${prompt}
+    ...    prompt_timeout=${prompt_timeout}
     # ${output} contains the system prompt and all we want is the value of the number
     ${pid}=    Fetch From Left    ${output}    \r
-    [Return]    ${pid}
     # TODO: Get Process * keywords have perhaps non-standard default credentials.
     # ...    Should there be * On Mininet and * On Controller specializations?
+    [Return]    ${pid}
 
 Get Process Thread Count On Remote System
     [Arguments]    ${system}    ${pid}    ${user}=${MININET_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
     [Documentation]    Executes the ps command to retrieve the lightweight process (aka thread) count.
     ${cmd}=    Set Variable    ps --no-headers -o nlwp ${pid}
-    ${output}=    Run Command On Remote System    ${system}    ${cmd}    user=${user}    password=${password}    prompt=${prompt}    prompt_timeout=${prompt_timeout}
+    ${output}=    Run Command On Remote System    ${system}    ${cmd}    user=${user}    password=${password}    prompt=${prompt}
+    ...    prompt_timeout=${prompt_timeout}
     # ${output} contains the system prompt and all we want is the value of the number
     ${thread_count}=    Fetch From Left    ${output}    \r
     [Return]    ${thread_count}
@@ -196,7 +199,7 @@ Flexible SSH Login
     ${pwd_length} =    BuiltIn.Get Length    ${password}
     # ${pwd_length} is guaranteed to be an integer, so we are safe to evaluate it as Python expression.
     BuiltIn.Run Keyword And Return If    ${pwd_length} > 0    SSHLibrary.Login    ${user}    ${password}    delay=${delay}
-    BuiltIn.Run Keyword And Return    SSHLibrary.Login With Public Key    ${user}    ${USER_HOME}/.ssh/${SSH_KEY}    ${KEYFILE_PASS}   delay=${delay}
+    BuiltIn.Run Keyword And Return    SSHLibrary.Login With Public Key    ${user}    ${USER_HOME}/.ssh/${SSH_KEY}    ${KEYFILE_PASS}    delay=${delay}
 
 Flexible Mininet Login
     [Arguments]    ${user}=${MININET_USER}    ${password}=${MININET_PASSWORD}    ${delay}=0.5s
@@ -231,12 +234,14 @@ Write_Bare_Ctrl_C
 Run Command On Mininet
     [Arguments]    ${system}=${MININET}    ${cmd}=echo    ${user}=${MININET_USER}    ${password}=${MININET_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
     [Documentation]    Call Run Comand On Remote System, but with default values suitable for Mininet machine.
-    BuiltIn.Run Keyword And Return    Run Command On Remote System    ${system}    ${cmd}    user=${user}    password=${password}    prompt=${prompt}    prompt_timeout=${prompt_timeout}
+    BuiltIn.Run Keyword And Return    Run Command On Remote System    ${system}    ${cmd}    user=${user}    password=${password}    prompt=${prompt}
+    ...    prompt_timeout=${prompt_timeout}
 
 Run Command On Controller
     [Arguments]    ${system}=${CONTROLLER}    ${cmd}=echo    ${user}=${CONTROLLER_USER}    ${password}=${CONTROLLER_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
     [Documentation]    Call Run Comand On Remote System, but with default values suitable for Controller machine.
-    BuiltIn.Run Keyword And Return    Run Command On Remote System    ${system}    ${cmd}    user=${user}    password=${password}    prompt=${prompt}    prompt_timeout=${prompt_timeout}
+    BuiltIn.Run Keyword And Return    Run Command On Remote System    ${system}    ${cmd}    user=${user}    password=${password}    prompt=${prompt}
+    ...    prompt_timeout=${prompt_timeout}
 
 Verify File Exists On Remote System
     [Arguments]    ${system}    ${file}    ${user}=${MININET_USER}    ${password}=${MININET_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=5s

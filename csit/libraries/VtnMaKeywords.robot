@@ -9,35 +9,35 @@ Variables         ../variables/Variables.py
 Resource          ./Utils.robot
 
 *** Variables ***
-${vlan_topo}=   sudo mn --controller=remote,ip=${CONTROLLER} --custom vlan_vtn_test.py --topo vlantopo
+${vlan_topo}      sudo mn --controller=remote,ip=${CONTROLLER} --custom vlan_vtn_test.py --topo vlantopo
 ${REST_CONTEXT_VTNS}    controller/nb/v2/vtn/default/vtns
 ${REST_CONTEXT}    controller/nb/v2/vtn/default
-${VERSION_VTN}          controller/nb/v2/vtn/version
-${VTN_INVENTORY}        restconf/operational/vtn-inventory:vtn-nodes
-${DUMPFLOWS}    dpctl dump-flows -O OpenFlow13
-${index}    7
+${VERSION_VTN}    controller/nb/v2/vtn/version
+${VTN_INVENTORY}    restconf/operational/vtn-inventory:vtn-nodes
+${DUMPFLOWS}      dpctl dump-flows -O OpenFlow13
+${index}          7
 @{FLOWELMENTS}    nw_src=10.0.0.1    nw_dst=10.0.0.3    actions=drop
 ${vlanmap_bridge1}    {"vlan": "200"}
 ${vlanmap_bridge2}    {"vlan": "300"}
 
 *** Keywords ***
 Start SuiteVtnMa
-    [Documentation]  Start VTN Manager Init Test Suite
+    [Documentation]    Start VTN Manager Init Test Suite
     Create Session    session    http://${CONTROLLER}:${RESTPORT}    auth=${AUTH}    headers=${HEADERS}
-    BuiltIn.Wait_Until_Keyword_Succeeds    30    3     Fetch vtn list
+    BuiltIn.Wait_Until_Keyword_Succeeds    30    3    Fetch vtn list
     Start Suite
 
 Stop SuiteVtnMa
-    [Documentation]  Stop VTN Manager Test Suite
+    [Documentation]    Stop VTN Manager Test Suite
     Delete All Sessions
     Stop Suite
 
 Start SuiteVtnMaTest
-    [Documentation]  Start VTN Manager Test Suite
+    [Documentation]    Start VTN Manager Test Suite
     Create Session    session    http://${CONTROLLER}:${RESTPORT}    auth=${AUTH}    headers=${HEADERS}
 
 Stop SuiteVtnMaTest
-    [Documentation]  Stop VTN Manager Test Suite
+    [Documentation]    Stop VTN Manager Test Suite
     Delete All Sessions
 
 Fetch vtn list
@@ -78,19 +78,19 @@ Add a interface
 Add a portmap
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${interface_name}    ${portmap_data}
     [Documentation]    Create a portmap for a interface of a vbridge
-    ${json_data}=   json.dumps    ${portmap_data}
+    ${json_data}=    json.dumps    ${portmap_data}
     ${resp}=    RequestsLibrary.Put    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/interfaces/${interface_name}/portmap    data=${json_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Add a macmap
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${macmap_data}
     [Documentation]    Create a macmap for a vbridge
-    ${json_data}=   json.dumps    ${macmap_data}
+    ${json_data}=    json.dumps    ${macmap_data}
     ${resp}=    RequestsLibrary.Post    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/macmap/allow    data=${macmap_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Mininet Ping Should Succeed
-    [Arguments]     ${host1}     ${host2}
+    [Arguments]    ${host1}    ${host2}
     Write    ${host1} ping -c 10 ${host2}
     ${result}    Read Until    mininet>
     Should Contain    ${result}    64 bytes
@@ -126,13 +126,13 @@ Add a vlanmap
 Get flow
     [Arguments]    ${vtn_name}
     [Documentation]    Get data flow.
-    ${resp}=    RequestsLibrary.Get   session    ${REST_CONTEXT_VTNS}/${vtn_name}/flows/detail
+    ${resp}=    RequestsLibrary.Get    session    ${REST_CONTEXT_VTNS}/${vtn_name}/flows/detail
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Remove a portmap
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${interface_name}    ${portmap_data}
     [Documentation]    Remove a portmap for a interface of a vbridge
-    ${json_data}=   json.dumps    ${portmap_data}
+    ${json_data}=    json.dumps    ${portmap_data}
     ${resp}=    RequestsLibrary.Delete    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/interfaces/${interface_name}/portmap    data=${json_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -150,20 +150,14 @@ Verify macaddress
     [Arguments]    ${host1}    ${host2}
     write    ${host1} ifconfig -a | grep HWaddr
     ${sourcemacaddr}    Read Until    mininet>
-
     ${macaddress}=    Split String    ${sourcemacaddr}    ${SPACE}
-
     ${sourcemacaddr}=    Get from List    ${macaddress}    ${index}
     ${sourcemacaddress}=    Convert To Lowercase    ${sourcemacaddr}
-
     write    ${host2} ifconfig -a | grep HWaddr
     ${destmacaddr}    Read Until    mininet>
-
     ${macaddress}=    Split String    ${destmacaddr}    ${SPACE}
     ${destmacaddr}=    Get from List    ${macaddress}    ${index}
-
     ${destmacaddress}=    Convert To Lowercase    ${destmacaddr}
-
     write    ${DUMPFLOWS}
     ${result}    Read Until    mininet>
     Should Contain    ${result}    ${sourcemacaddress}
@@ -172,7 +166,7 @@ Verify macaddress
 Add a flowcondition
     [Arguments]    ${cond_name}    ${flowcond_data}
     [Documentation]    Create a flowcondition for a interface of a vbridge
-    ${json_data}=   json.dumps    ${flowcond_data}
+    ${json_data}=    json.dumps    ${flowcond_data}
     ${resp}=    RequestsLibrary.Put    session    ${REST_CONTEXT}/flowconditions/${cond_name}    data=${json_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    201
 
