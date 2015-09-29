@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_e265e145",
+        "filename": "csit/suites/topoprocessing/topology-operations/010_Unifications_Tests.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-29T15:35:30Z",
+      "side": 1,
+      "message": "${CONFIG_TOPO_API}?",
+      "range": {
+        "startLine": 29,
+        "startChar": 49,
+        "endLine": 29,
+        "endChar": 81
+      },
+      "revId": "d3d9a41ae9dbacbb657470618b8b869d95683add",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
