@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_27d8cb1c",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/demo-asymmetric-chain/010_set_odl.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 4233
+      },
+      "writtenOn": "2015-09-29T10:45:19Z",
+      "side": 1,
+      "message": "Change this to the correct VM.",
+      "range": {
+        "startLine": 50,
+        "startChar": 76,
+        "endLine": 50,
+        "endChar": 84
+      },
+      "revId": "4114493b49a0185d79ae08eba797077905841032",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_c7047780",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/demo-asymmetric-chain/010_set_odl.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 4233
+      },
+      "writtenOn": "2015-09-29T10:45:19Z",
+      "side": 1,
+      "message": "SF1 and SF2 needs to be replaced with the corresponding Ip. Need to edit the JSON file before PUT operation",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 61
+      },
+      "revId": "4114493b49a0185d79ae08eba797077905841032",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_e7097396",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/demo-asymmetric-chain/010_set_odl.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 4233
+      },
+      "writtenOn": "2015-09-29T10:45:19Z",
+      "side": 1,
+      "message": "Same goes here for SFF1 and SFF2",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 63
+      },
+      "revId": "4114493b49a0185d79ae08eba797077905841032",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
