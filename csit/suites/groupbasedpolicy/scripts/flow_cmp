@@ -1,0 +1,64 @@
+#!/usr/bin/perl
+
+use strict;
+use warnings;
+
+sub create_row {
+    return {
+    'table' => '',
+    'end' => '',        # rest of string from "priority=" (including) to the end
+    'n_packets1' => -1,
+    'n_packets2' => -1,
+    'fulltext1' => '',
+    'fulltext2' => ''
+    }
+}
+
+my $sw = shift @ARGV;
+
+my @res1 = qx(sudo ovs-ofctl dump-flows $sw -OOpenFlow13 | grep -v n_packets=0);
+sleep 5;
+my @res2 = qx(sudo ovs-ofctl dump-flows $sw -OOpenFlow13 | grep -v n_packets=0);
+
+my %flowdata = ();
+my $row_ref;
+# removing headers
+shift @res1;
+shift @res2;
+
+foreach my $s (@res1) {
+    $row_ref = create_row();
+    $s =~ s/^ cookie=0x0, duration=[\d\.]+s, //;
+    $row_ref->{'fulltext1'} = $s;
+    $s =~ /^table=(\d+), n_packets=(\d+), n_bytes=(\d+), (priority=.*)$/;
+    $row_ref->{'table'} = $1;
+    $row_ref->{'n_packets1'} = $2;
+    $row_ref->{'end'} = $4;
+    
+    my $key = 'table='.$1.' '.$4;
+    $flowdata{$key} = $row_ref;
+}
+
+foreach my $s (@res2) {
+    $s =~ s/^ cookie=0x0, duration=[\d\.]+s, //;
+    my $full = $s;
+    $s =~ /table=(\d+), n_packets=(\d+), n_bytes=(\d+), (priority=.*)$/;
+    my $table = $1;
+    my $n_packets = $2;
+    my $end = $4;
+    
+    my $key = "table=$table $end";
+    if (exists $flowdata{$key}) {
+        if ($flowdata{$key}{'n_packets1'} < $n_packets) {
+            $flowdata{$key}{'n_packets2'} = $n_packets;
+            $row_ref->{'fulltext2'} = $full;
+        }
+        else {
+            delete $flowdata{$key};
+        }
+    }
+}
+
+foreach my $key (keys %flowdata){
+    print $flowdata{$key};
+}
