@@ -1,0 +1,373 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_44ddc56f",
+        "filename": "tools/jbench/parent/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 451,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-29T18:08:31Z",
+      "side": 1,
+      "message": "Please delete this and the rest of parent folder. It is not necessary.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 451,
+        "endChar": 10
+      },
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_64da417a",
+        "filename": "tools/jbench/pom.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-29T18:08:31Z",
+      "side": 1,
+      "message": "Please change this to \u00270.0.1\u0027. We can increment it after we have a working version and do some updates.",
+      "range": {
+        "startLine": 13,
+        "startChar": 11,
+        "endLine": 13,
+        "endChar": 25
+      },
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_04558dc5",
+        "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-29T18:08:31Z",
+      "side": 1,
+      "message": "Any public class or method should have javadoc. An example from openJDK http://www.docjar.net/html/api/java/util/Collections.java.html (it is very thorough but a basic version would work here):\n\n/**\n   33    * This class consists exclusively of static methods that operate on or return\n   34    * collections.  It contains polymorphic algorithms that operate on\n   35    * collections, \"wrappers\", which return a new collection backed by a\n   36    * specified collection, and a few other odds and ends.\n   37    *\n   38    * \u003cp\u003eThe methods of this class all throw a \u003ctt\u003eNullPointerException\u003c/tt\u003e\n   39    * if the collections or class objects provided to them are null.\n   40    *\n   41    * \u003cp\u003eThe documentation for the polymorphic algorithms contained in this class\n   42    * generally includes a brief description of the \u003ci\u003eimplementation\u003c/i\u003e.  Such\n   43    * descriptions should be regarded as \u003ci\u003eimplementation notes\u003c/i\u003e, rather than\n   44    * parts of the \u003ci\u003especification\u003c/i\u003e.  Implementors should feel free to\n   45    * substitute other algorithms, so long as the specification itself is adhered\n   46    * to.  (For example, the algorithm used by \u003ctt\u003esort\u003c/tt\u003e does not have to be\n   47    * a mergesort, but it does have to be \u003ci\u003estable\u003c/i\u003e.)\n   48    *\n   49    * \u003cp\u003eThe \"destructive\" algorithms contained in this class, that is, the\n   50    * algorithms that modify the collection on which they operate, are specified\n   51    * to throw \u003ctt\u003eUnsupportedOperationException\u003c/tt\u003e if the collection does not\n   52    * support the appropriate mutation primitive(s), such as the \u003ctt\u003eset\u003c/tt\u003e\n   53    * method.  These algorithms may, but are not required to, throw this\n   54    * exception if an invocation would have no effect on the collection.  For\n   55    * example, invoking the \u003ctt\u003esort\u003c/tt\u003e method on an unmodifiable list that is\n   56    * already sorted may or may not throw \u003ctt\u003eUnsupportedOperationException\u003c/tt\u003e.\n   57    *\n   58    * \u003cp\u003eThis class is a member of the\n   59    * \u003ca href\u003d\"{@docRoot}/../technotes/guides/collections/index.html\"\u003e\n   60    * Java Collections Framework\u003c/a\u003e.\n   61    *\n   62    * @author  Josh Bloch\n   63    * @author  Neal Gafter\n   64    * @see     Collection\n   65    * @see     Set\n   66    * @see     List\n   67    * @see     Map\n   68    * @since   1.2\n   69    */\n   70   \n   71   public class Collections {...}",
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_2400c9a9",
+        "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-29T18:08:31Z",
+      "side": 1,
+      "message": "The name \u0027options\u0027 here is confusing, as this is an instance of JBench class and not of an options class, despite it\u0027s use to fill out options for jcommander. It would be much better to call it jbench or something more descriptive.",
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_c42c754d",
+        "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-29T18:08:31Z",
+      "side": 1,
+      "message": "cmd is not very descriptive, please rename.",
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_44c4e591",
+        "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-29T18:08:31Z",
+      "side": 1,
+      "message": "You should:\n\n1. Add a README.md to explain how to use the tool from cmd line (markdown file - see https://help.github.com/articles/github-flavored-markdown/ )\n2. change program name used by jcommander to something like cmd.setProgramName(\"java -jar Jbench\"). It is not intuitive to see help where actual usage is different from displayed usage:\n\n\"[main] INFO org.opendaylight.jbench.Jbench - help message\nUsage: Jbench [options]\n  Options:\n    -c, --controller       controller ip and port number\"\n\nWhen you run the code differently.",
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_64c1e17f",
+        "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-29T18:08:31Z",
+      "side": 1,
+      "message": "I\u0027m confused as to why you\u0027d need to log help message.",
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_e43171a3",
+        "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-29T18:08:31Z",
+      "side": 1,
+      "message": "As below controller here should be something like controllerArray.",
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_04beedff",
+        "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-29T18:08:31Z",
+      "side": 1,
+      "message": "Shouldn\u0027t we add \u0027{}\u0027  where 1000 is and add options.numSwitches as an argument?",
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_64f6c1d9",
+        "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-29T18:08:31Z",
+      "side": 1,
+      "message": "Should probably insert \u0027seconds\u0027 or whatever measurement is used before \u0027warmup\u0027 and \u0027cooldown\u0027",
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_245209de",
+        "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-29T18:08:31Z",
+      "side": 1,
+      "message": "This should probably be called something like \u0027returnControllerArray\u0027 as methods should be named after their return values (conversely void methods should be named after what they do).\n\njavadoc should be used for public methods for documentation, understanding and maintainability, an example from oracle http://www.oracle.com/technetwork/java/javase/documentation/index-137868.html#format here:\n\n/**\n * Returns an Image object that can then be painted on the screen. \n * The url argument must specify an absolute {@link URL}. The name\n * argument is a specifier that is relative to the url argument. \n * \u003cp\u003e\n * This method always returns immediately, whether or not the \n * image exists. When this applet attempts to draw the image on\n * the screen, the data will be loaded. The graphics primitives \n * that draw the image will incrementally paint on the screen. \n *\n * @param  url  an absolute URL giving the base location of the image\n * @param  name the location of the image, relative to the url argument\n * @return      the image at the specified URL\n */\n public Image getImage(URL url, String name) {...}",
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_24bbe90f",
+        "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-29T18:08:31Z",
+      "side": 1,
+      "message": "This should be something more descriptive like DEFAULT_OF_PORT, or DEFAULT_OPENFLOW_PORT.",
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_a4461922",
+        "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-29T18:08:31Z",
+      "side": 1,
+      "message": "controller here should be renamed to controllerArray, as controller is not descriptive enough- this is an array of controllerInfo instances.",
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_2469a98b",
+        "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-29T18:08:31Z",
+      "side": 1,
+      "message": "Shouldn \u0027t this be numDefaultControllers?",
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_c40555c3",
+        "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-29T18:08:31Z",
+      "side": 1,
+      "message": "Here you are trying to say that if there are more controllers than IPs you can capture the leftover as numDefaultControllers? See Below line 113.",
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_840f5de1",
+        "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-29T18:08:31Z",
+      "side": 1,
+      "message": "Here you have a for loop that loops through each controller specified in numControllers but that does not have an IP address. You then set instance variables for each one to host\u003dlocalhost and port\u003ddefaultport. However you can only have one local controller running listening on the default port.\n\nI\u0027m not sure we need an option for \u0027defaultControllers\u0027 - it seems to complicate design and as written will not work with more than one controller as \u0027default\u0027. It would be better to require that the number of controller listed must match the number of ip:port tuples or we give an error.",
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_44f945c7",
+        "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-29T18:08:31Z",
+      "side": 1,
+      "message": "I see where this is going but if you followed the comment from line 113 this can be simplified.\n\nAs it is, what happens when controllerCount (numDefaultController) is 1 and numControllers is 3? Then you get this:\ncontrollerIp.get(-2).split(\":\");\n\nAlso, there should likely be a method in controllerInfo that processes the string into IP and Port and sets those values in controller instance. Processing it here is not ideal as it complicates this method unnecessarily.",
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_c43795af",
+        "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-29T18:08:31Z",
+      "side": 1,
+      "message": "Per code guidelines, each top level class should reside in it\u0027s own file. Need to move this to it\u0027s own file or make nested class (I prefer it\u0027s own file):\nhttps://google.github.io/styleguide/javaguide.html#s3.4-class-declaration\n\nI\u0027d also prefer this be named SdnController or OfController or even Controller as opposed to ControllerInfo as the whole reasoning behind OOP is to model real world objects. In this case a controller would have a hostname, a port etc. but a \u0027ControllerInfo\u0027 is just a description of the information describing the real world object, in other words an abstraction of an abstraction rather than a model of an object.",
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_84419d0d",
+        "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-29T18:08:31Z",
+      "side": 1,
+      "message": "If left this should be hostName as it is more descriptive. But I think this should be ipAddress instead.\n\nI\u0027d assume this class should have ipAddress. If you also want hostname you might need to accept hostname or ip adrress at cmd line and then process the contents to populate the appropriate fields. If IP is available I\u0027d use that. In fact I\u0027d prefer that over hostname, but don\u0027t see any reason you couldn\u0027t do both.",
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_a45db9eb",
+        "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-29T18:08:31Z",
+      "side": 1,
+      "message": "more specific \u0027openFlowPort\u0027 would be better here.",
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_a42b792f",
+        "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/OperationMode.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-29T18:08:31Z",
+      "side": 1,
+      "message": "Public class should have javadoc, please see other comments.",
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
