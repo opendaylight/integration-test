@@ -11,7 +11,7 @@ Add a ODL Controller
 
 Verify the Controller Status is waiting_audit
     [Documentation]    Check Controller status
-    Wait Until Keyword Succeeds    12s    2s   Check Controller Status    odc_test   waiting_audit
+    Wait Until Keyword Succeeds    12s    2s    Check Controller Status    odc_test    waiting_audit
 
 Audit a controller
     [Documentation]    Trigger update audit

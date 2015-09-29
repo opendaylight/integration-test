@@ -10,7 +10,6 @@ Library           XML
 Variables         ../variables/Variables.py
 Resource          ./Utils.robot
 
-
 *** Keywords ***
 Get VtnCo
     [Documentation]    Download the VTN Coordinator from Controller VM
@@ -93,7 +92,7 @@ Audit Controller
     ${auditinfo}    Create Dictionary    force=false    real-network_audit=false
     ${auditupdate}    Create Dictionary    audit=${auditinfo}
     ${auditupdate_json}=    json.dumps    ${auditupdate}
-    ${resp}    RequestsLibrary.Put    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}/audit.json   data=${auditupdate_json}
+    ${resp}    RequestsLibrary.Put    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}/audit.json    data=${auditupdate_json}
     Should Be Equal As Strings    ${resp.status_code}    204
 
 Check Controller Status
@@ -150,31 +149,30 @@ Define Portmap for VBRIF
 Add a FLOWLIST
     [Arguments]    ${flowlistname}    ${ipversion}
     [Documentation]    Create FLOWLIST in Coordinator
-    ${flowlistinfo}    Create Dictionary   fl_name=${flowlistname}    ip_version=${ipversion}
+    ${flowlistinfo}    Create Dictionary    fl_name=${flowlistname}    ip_version=${ipversion}
     ${flowlistcreate}    Create Dictionary    flowlist=${flowlistinfo}
     ${flowlistcreate_json}=    json.dumps    ${flowlistcreate}
     ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${FLOWLISTS_CREATE}    data=${flowlistcreate_json}
     Should Be Equal As Strings    ${resp.status_code}    201
 
-
 Create FLOWLISTENTRY
-    [Arguments]   ${flowlistname}
-    [Documentation]    Create Flowlistentry for  Coordinator
-    ${flowlistentryinfo}    Create Dictionary   seqnum=233    macethertype=0x800    ipdstaddr=10.0.0.1   ipdstaddrprefix=32   ipsrcaddr=10.0.0.3   ipsrcaddrprefix=32   ipproto=1
+    [Arguments]    ${flowlistname}
+    [Documentation]    Create Flowlistentry for Coordinator
+    ${flowlistentryinfo}    Create Dictionary    seqnum=233    macethertype=0x800    ipdstaddr=10.0.0.1    ipdstaddrprefix=32    ipsrcaddr=10.0.0.3
+    ...    ipsrcaddrprefix=32    ipproto=1
     ${flowlistentrycreate}    Create Dictionary    flowlistentry=${flowlistentryinfo}
     ${flowlistentrycreate_json}=    json.dumps    ${flowlistentrycreate}
     ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${FLOWLISTS}/${flowlistname}/${FLOWLISTENTRIES_CREATE}    data=${flowlistentrycreate_json}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Create FLOWLISTENTRY_ANY in FLOWLIST
-    [Arguments]   ${flowlistname}
-    [Documentation]    Create Flowlistentry_any for  Coordinator
-    ${flowlistentryinfo}    Create Dictionary   seqnum=1
+    [Arguments]    ${flowlistname}
+    [Documentation]    Create Flowlistentry_any for Coordinator
+    ${flowlistentryinfo}    Create Dictionary    seqnum=1
     ${flowlistentrycreate}    Create Dictionary    flowlistentry=${flowlistentryinfo}
     ${flowlistentrycreate_json}=    json.dumps    ${flowlistentrycreate}
     ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${FLOWLISTS}/${flowlistname}/${FLOWLISTENTRIES_CREATE}    data=${flowlistentrycreate_json}
     Should Be Equal As Strings    ${resp.status_code}    201
-
 
 Create VBRIF in FLOWFILTER
     [Arguments]    ${vtnname}    ${vbrname}    ${vbrifname}    ${ff_type}
@@ -186,18 +184,18 @@ Create VBRIF in FLOWFILTER
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Create FLOWFILTERENTRY DROP In VBRIFFLOWFILTER
-    [Arguments]   ${vtnname}  ${vbrname}    ${vbrifname}   ${actiontype}
-    [Documentation]   create domonstration with pass actiontype
-    ${flowfilterentryinfo}     Create Dictionary    seqnum=233   fl_name=Flowlist1  action_type=${actiontype}  priority=3   dscp=55
+    [Arguments]    ${vtnname}    ${vbrname}    ${vbrifname}    ${actiontype}
+    [Documentation]    create domonstration with pass actiontype
+    ${flowfilterentryinfo}    Create Dictionary    seqnum=233    fl_name=Flowlist1    action_type=${actiontype}    priority=3    dscp=55
     ${flowfilterentrycreate}    Create Dictionary    flowfilterentry=${flowfilterentryinfo}
     ${flowfilterentrycreate_json}=    json.dumps    ${flowfilterentrycreate}
     ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${VBRIFS}/${vbrifname}/${FLOWFILTERS}/${FLOWFILTERENTRIES_CREATE}    data=${flowfilterentrycreate_json}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Create FLOWFILTERENTRY PASS In VBRIFFLOWFILTER
-    [Arguments]   ${vtnname}   ${vbrname}    ${vbrifname}    ${actiontype}   ${seqnum}
-    [Documentation]   create domonstration with pass actiontype
-    ${flowfilterentryinfo}     Create Dictionary    fl_name=Flowlist1  action_type=${actiontype}  priority=3   dscp=55
+    [Arguments]    ${vtnname}    ${vbrname}    ${vbrifname}    ${actiontype}    ${seqnum}
+    [Documentation]    create domonstration with pass actiontype
+    ${flowfilterentryinfo}    Create Dictionary    fl_name=Flowlist1    action_type=${actiontype}    priority=3    dscp=55
     ${flowfilterentrycreate}    Create Dictionary    flowfilterentry=${flowfilterentryinfo}
     ${flowfilterentrycreate_json}=    json.dumps    ${flowfilterentrycreate}
     ${resp}    RequestsLibrary.Put    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${VBRIFS}/${vbrifname}/${FLOWFILTERS}/${FLOWFILTERS_UPDATE}/${seqnum}    data=${flowfilterentrycreate_json}
@@ -207,16 +205,16 @@ Create FLOWFILTER in VBR
     [Arguments]    ${vtnname}    ${vbrname}    ${ff_type}
     [Documentation]    create vtn flowfilter
     ${flowfilters_info}    Create Dictionary    ff_type=${ff_type}
-    ${flowfiltersdefine}    Create Dictionary   flowfilter=${flowfilters_info}
+    ${flowfiltersdefine}    Create Dictionary    flowfilter=${flowfilters_info}
     ${flowfiltersdefine_json}=    json.dumps    ${flowfiltersdefine}
     ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${FLOWFILTERS_CREATE}    data=${flowfiltersdefine_json}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Create FLOWFILTERENTRY PASS in VBRFLOWFILTER
-    [Arguments]   ${vtnname}   ${vbrname}   ${actiontype}
-    [Documentation]   create domonstration with pass actiontype
-    ${flowfilterentryinfo}     Create Dictionary    seqnum=233   fl_name=Flowlist1  action_type=${actiontype}  priority=3   dscp=55
-    ${flowfilterentryinfo_1}    Create Dictionary   vnode_name=${vbrname}    fl_name=Flowlist1    direction=in
+    [Arguments]    ${vtnname}    ${vbrname}    ${actiontype}
+    [Documentation]    create domonstration with pass actiontype
+    ${flowfilterentryinfo}    Create Dictionary    seqnum=233    fl_name=Flowlist1    action_type=${actiontype}    priority=3    dscp=55
+    ${flowfilterentryinfo_1}    Create Dictionary    vnode_name=${vbrname}    fl_name=Flowlist1    direction=in
     ${flowfilterentrycreate}    Create Dictionary    flowfilterentry=${flowfilterentryinfo}
     ${flowfilterentrycreate_json}=    json.dumps    ${flowfilterentrycreate}
     ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${FLOWFILTERS}/${FLOWFILTERENTRIES_CREATE}    data=${flowfilterentrycreate_json}
@@ -226,30 +224,28 @@ Create FLOWFILTER in VTN
     [Arguments]    ${vtnname}    ${ff_type}
     [Documentation]    create vtn flowfilter
     ${flowfilters_info}    Create Dictionary    ff_type=${ff_type}
-    ${flowfiltersdefine}    Create Dictionary   flowfilter=${flowfilters_info}
+    ${flowfiltersdefine}    Create Dictionary    flowfilter=${flowfilters_info}
     ${flowfiltersdefine_json}=    json.dumps    ${flowfiltersdefine}
     ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${FLOWFILTERS_CREATE}    data=${flowfiltersdefine_json}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Create FLOWFILTERENTRY PASS in VTNFLOWFILTER
-    [Arguments]   ${vtnname}  ${actiontype}
-    [Documentation]   create domonstration with pass actiontype
-    ${flowfilterentryinfo}     Create Dictionary    seqnum=233   fl_name=Flowlist1  action_type=${actiontype}  priority=3   dscp=55
+    [Arguments]    ${vtnname}    ${actiontype}
+    [Documentation]    create domonstration with pass actiontype
+    ${flowfilterentryinfo}    Create Dictionary    seqnum=233    fl_name=Flowlist1    action_type=${actiontype}    priority=3    dscp=55
     ${flowfilterentrycreate}    Create Dictionary    flowfilterentry=${flowfilterentryinfo}
     ${flowfilterentrycreate_json}=    json.dumps    ${flowfilterentrycreate}
     ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${FLOWFILTERS}/${FLOWFILTERENTRIES_CREATE}    data=${flowfilterentrycreate_json}
     Should Be Equal As Strings    ${resp.status_code}    201
 
-
 Create VLANMAP in VBRIDGE
     [Arguments]    ${vtnname}    ${vbrname}    ${vlanid}
     [Documentation]    Create VLANMAP for VBRIDGE in Coordinator
-    ${vlaninfo}    Create Dictionary      vlan_id=${vlanid}
+    ${vlaninfo}    Create Dictionary    vlan_id=${vlanid}
     ${vlancreate}    Create Dictionary    vlanmap=${vlaninfo}
     ${vlancreate_json}=    json.dumps    ${vlancreate}
     ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${VLANMAP_CREATE }    data=${vlancreate_json}
     Should Be Equal As Strings    ${resp.status_code}    201
-
 
 Delete a FLOWLIST
     [Arguments]    ${flowlistname}
@@ -278,4 +274,3 @@ Verify SwitchPort
     [Documentation]    Get switch
     ${resp}    RequestsLibrary.Get    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}/${SW}/${switch_id}/${PORTS}
     Should Be Equal As Strings    ${resp.status_code}    200
-

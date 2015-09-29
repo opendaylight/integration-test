@@ -8,9 +8,9 @@ Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Scalability.robot
 
 *** Variables ***
-${MIN_HOSTS}    100
-${MAX_HOSTS}    2000
-${STEP_HOSTS}    100
+${MIN_HOSTS}      100
+${MAX_HOSTS}      2000
+${STEP_HOSTS}     100
 ${HOSTS_RESULT_FILE}    hosts.csv
 
 *** Test Cases ***
@@ -20,4 +20,3 @@ Find Max Supported Hosts
     ${max-hosts}    Find Max Hosts    ${MIN_HOSTS}    ${MAX_HOSTS}    ${STEP_HOSTS}
     Log    ${max-hosts}
     Append To File    ${HOSTS_RESULT_FILE}    ${max-hosts}\n
-

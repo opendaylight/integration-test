@@ -11,7 +11,7 @@ Add a ODL Controller
 
 Verify the Controller Status is waiting_audit
     [Documentation]    Check Controller status
-    Wait Until Keyword Succeeds    12s    2s   Check Controller Status    odc_test   waiting_audit
+    Wait Until Keyword Succeeds    12s    2s    Check Controller Status    odc_test    waiting_audit
 
 Audit a controller
     [Documentation]    Trigger update audit
@@ -43,31 +43,31 @@ Define Portmap for Interface2
 
 Add a Flowlist Flowlist1
     [Documentation]    Create Flowlist Tenant1
-    Add a FLOWLIST    Flowlist1   IP
+    Add a FLOWLIST    Flowlist1    IP
 
 Create Flowlistentry in Flowlist1
-    [Documentation]   Create an Flowlistentry to Flowlist1
+    [Documentation]    Create an Flowlistentry to Flowlist1
     Create FLOWLISTENTRY    Flowlist1
 
 Create FlowFilter in VBR vBridge1
-    [Documentation]  Create an vbridge to Flowfilter
-    Create FLOWFILTER in VBR    Tenant1    Vbridge1   in
+    [Documentation]    Create an vbridge to Flowfilter
+    Create FLOWFILTER in VBR    Tenant1    Vbridge1    in
 
 Create FlowfilterEntry in VBRFlowFilter
-    [Documentation]   Create an vBridge FlowfilterEntry
-    Create FLOWFILTERENTRY PASS in VBRFLOWFILTER   Tenant1    Vbridge1  pass
+    [Documentation]    Create an vBridge FlowfilterEntry
+    Create FLOWFILTERENTRY PASS in VBRFLOWFILTER    Tenant1    Vbridge1    pass
 
 Test Ping for Configuration
     [Documentation]    ping between hosts in mininet
-    Wait Until Keyword Succeeds   10s    2s    Test Ping    h1    h3
+    Wait Until Keyword Succeeds    10s    2s    Test Ping    h1    h3
 
 Delete a VTN Tenant1
     [Documentation]    Delete Vtn Tenant1
     Delete a VTN    Tenant1
 
 Delete a FLOWLIST Flowlist1
-    [Documentation]   Delete Flowlist
-    Delete a FLOWLIST   Flowlist1
+    [Documentation]    Delete Flowlist
+    Delete a FLOWLIST    Flowlist1
 
 Delete a Controller odc1
     [Documentation]    Delete Controller odc1

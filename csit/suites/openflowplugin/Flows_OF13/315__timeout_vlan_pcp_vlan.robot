@@ -14,8 +14,7 @@ ${REST_CON}       /restconf/config/opendaylight-inventory:nodes
 ${FILE}           ${CURDIR}/../../../variables/xmls/f16.xml
 ${FLOW}           139
 ${TABLE}          2
-@{FLOWELMENTS}    table=2    priority=16    dl_vlan=78    dl_vlan_pcp=3
-...               dl_src=00:00:00:11:23:ae    dl_dst=ff:ff:29:01:19:61    dec_ttl
+@{FLOWELMENTS}    table=2    priority=16    dl_vlan=78    dl_vlan_pcp=3    dl_src=00:00:00:11:23:ae    dl_dst=ff:ff:29:01:19:61    dec_ttl
 
 *** Test Cases ***
 Add a flow - Output to physical port#
@@ -38,7 +37,7 @@ Verify flows after adding flow config on OVS
     [Tags]    Switch
     sleep    1
     write    dpctl dump-flows -O OpenFlow13
-    ${switchoutput}    Read Until     mininet>
+    ${switchoutput}    Read Until    mininet>
     : FOR    ${flowElement}    IN    @{FLOWELMENTS}
     \    should Contain    ${switchoutput}    ${flowElement}
 
@@ -59,6 +58,6 @@ Verify flows after deleting flow config on OVS
     [Tags]    Switch
     Sleep    1
     write    dpctl dump-flows -O OpenFlow13
-    ${switchoutput}    Read Until     mininet>
+    ${switchoutput}    Read Until    mininet>
     : FOR    ${flowElement}    IN    @{FLOWELMENTS}
     \    should Not Contain    ${switchoutput}    ${flowElement}

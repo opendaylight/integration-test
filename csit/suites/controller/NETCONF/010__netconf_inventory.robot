@@ -10,18 +10,18 @@ Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${NETOPEER}             ${MININET}
-${NETOPEER_USER}        ${MININET_USER}
-${FILE}                 ${CURDIR}/../../../variables/xmls/netconf.xml
-${REST_CONT_CONF}       /restconf/config/network-topology:network-topology/topology/topology-netconf
-${REST_CONT_OPER}       /restconf/operational/network-topology:network-topology/topology/topology-netconf
-${REST_NTPR_CONF}       node/controller-config/yang-ext:mount/config:modules
-${REST_NTPR_MOUNT}      node/netopeer/yang-ext:mount/
+${NETOPEER}       ${MININET}
+${NETOPEER_USER}    ${MININET_USER}
+${FILE}           ${CURDIR}/../../../variables/xmls/netconf.xml
+${REST_CONT_CONF}    /restconf/config/network-topology:network-topology/topology/topology-netconf
+${REST_CONT_OPER}    /restconf/operational/network-topology:network-topology/topology/topology-netconf
+${REST_NTPR_CONF}    node/controller-config/yang-ext:mount/config:modules
+${REST_NTPR_MOUNT}    node/netopeer/yang-ext:mount/
 
 *** Test Cases ***
 Add NetConf device
     [Documentation]    Add NetConf device using REST
-    [Tags]     netconf
+    [Tags]    netconf
     ${XML1}    Get File    ${FILE}
     ${XML2}    Replace String    ${XML1}    127.0.0.1    ${NETOPEER}
     ${body}    Replace String    ${XML2}    mininet    ${NETOPEER_USER}
@@ -38,7 +38,7 @@ Get Controller Inventory
 Pull External Device configuration
     [Documentation]    Pull Netopeer configuration
     [Tags]    netconf
-    ${resp}   Get    session    ${REST_CONT_CONF}/${REST_NTPR_MOUNT}
+    ${resp}    Get    session    ${REST_CONT_CONF}/${REST_NTPR_MOUNT}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    {}
@@ -46,7 +46,7 @@ Pull External Device configuration
 Verify Device Operational data
     [Documentation]    Verify Netopeer operational data
     [Tags]    exclude
-    ${resp}   Get    session    ${REST_CONT_OPER}/${REST_NTPR_MOUNT}
+    ${resp}    Get    session    ${REST_CONT_OPER}/${REST_NTPR_MOUNT}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    schema
@@ -55,10 +55,9 @@ Verify Device Operational data
 
 *** Keywords ***
 Get Inventory
-    ${resp}   Get    session    ${REST_CONT_OPER}/node/netopeer
+    ${resp}    Get    session    ${REST_CONT_OPER}/node/netopeer
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    "node-id":"netopeer"
     Should Contain    ${resp.content}    "netconf-node-topology:connection-status":"connected"
     Should Contain    ${resp.content}    "netconf-node-topology:available-capabilities"
-

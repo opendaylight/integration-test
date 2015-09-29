@@ -6,7 +6,7 @@ Variables         ../variables/Variables.py
 ${WORKSPACE}      /tmp
 ${BUNDLEFOLDER}    distribution-karaf-0.3.0-SNAPSHOT
 ${AUTHN_CFG_FILE}    ${WORKSPACE}/${BUNDLEFOLDER}/etc/org.opendaylight.aaa.authn.cfg
-${CONTROLLER_USER}  ${MININET_USER}
+${CONTROLLER_USER}    ${MININET_USER}
 
 *** Keywords ***
 AAA Login
@@ -23,10 +23,10 @@ Create Auth Data
     [Documentation]    returns a string in the direct authentacation format (e.g., grant_type=password&username=admin&password=admin).
     ...    It can also be passed scope, client_id and client_secret arguments for the case of client specific authorization
     ${data}=    Set Variable    grant_type=password&username=${user}&password=${password}&scope=${scope}
-    ${data}=    Run Keyword If    "${client_id}" != "${EMPTY}"    Set Variable    ${data}&client_id=${client_id}    ELSE    Set Variable
-    ...    ${data}
-    ${data}=    Run Keyword If    "${client_secret}" != "${EMPTY}"    Set Variable    ${data}&client_secret=${client_secret}    ELSE    Set Variable
-    ...    ${data}
+    ${data}=    Run Keyword If    "${client_id}" != "${EMPTY}"    Set Variable    ${data}&client_id=${client_id}
+    ...    ELSE    Set Variable    ${data}
+    ${data}=    Run Keyword If    "${client_secret}" != "${EMPTY}"    Set Variable    ${data}&client_secret=${client_secret}
+    ...    ELSE    Set Variable    ${data}
     [Return]    ${data}
 
 Disable Authentication On Controller
@@ -69,8 +69,8 @@ Validate Token Format
     Should Match Regexp    ${token}    [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
 
 Get User From IDM DB
-    [Documentation]    Will return user information. If no user id is passed, it will retrieve all users in DB
     [Arguments]    ${user_id}=${EMPTY}
+    [Documentation]    Will return user information. If no user id is passed, it will retrieve all users in DB
     Create Session    httpbin    http://${CONTROLLER}:${RESTPORT}
     ${headers}=    Create Dictionary    Content-Type=application/x-www-form-urlencoded
     ${resp}=    RequestsLibrary.GET    httpbin    ${idmurl}/users/${user_id}    headers=${headers}
@@ -79,8 +79,8 @@ Get User From IDM DB
     [Return]    ${resp}
 
 Create User
-    [Documentation]    Will return user information. If no user id is passed, it will retrieve all users in DB
     [Arguments]    ${user_data}
+    [Documentation]    Will return user information. If no user id is passed, it will retrieve all users in DB
     Create Session    httpbin    http://${CONTROLLER}:${RESTPORT}
     ${headers}=    Create Dictionary    Content-Type=application/json
     ${resp}=    RequestsLibrary.POST    httpbin    ${idmurl}/users    headers=${headers}    data=${user_data}
