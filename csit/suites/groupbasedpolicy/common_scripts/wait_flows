@@ -1,0 +1,27 @@
+#!/usr/bin/perl
+
+# waits until count of flows are created on switch
+use strict;
+use warnings;
+
+$ARGV[0] or die "Usage: wait_flows <switch_name>";
+my $sw = $ARGV[0];
+
+# get output from bash command
+# return without last newline char (if any)
+sub get_result{
+    my $r = qx(sudo ovs-ofctl dump-flows $sw -OOpenFlow13 | wc -l);
+    chomp $r;
+    $r--;
+    return $r;
+}
+
+my $res = get_result();
+
+for (my $i = 0; $i < 48; $i++){
+    if ($res > 0){ exit 0;}
+    print "Flow count is $res, waiting; ", $i*5, "s passed\n";
+    sleep 5;
+    $res = get_result();
+}
+exit 1;
