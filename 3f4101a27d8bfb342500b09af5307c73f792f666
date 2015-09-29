@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_e763b3af",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/demo-gbp1/010_set_odl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 4233
+      },
+      "writtenOn": "2015-09-29T08:21:08Z",
+      "side": 1,
+      "message": "The json file doesn\u0027t correspond to the actual docker container.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 83
+      },
+      "revId": "3f4101a27d8bfb342500b09af5307c73f792f666",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
