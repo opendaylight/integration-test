@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_02201df6",
+        "filename": "csit/libraries/LISPFlowMapping.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-29T15:25:05Z",
+      "side": 1,
+      "message": "Resource file can have Settings table. You can put Readme-like description to [Documentation], and refer to Variables.py so that people know where the values like LFM_RPC_API_LI come from.\n\nResource file can also have Variables table, where you can specify default value for ODL_VERSION to be used if someone starts pybot without specifying it.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 1
+      },
+      "revId": "a0cd7cec47db5e743f268574d358706c7c9f6988",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_e2308158",
+        "filename": "csit/suites/lispflowmapping/basic/030_RPC_Datatypes.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-29T15:25:05Z",
+      "side": 1,
+      "message": "Suite variables should have different naming than local variables, but all caps sounds like immutable variable.\n\nCurrently I prefer the style Jozef Behran uses: ${RPC_Datatypes__curjson} (or perhaps *__current_json).",
+      "range": {
+        "startLine": 88,
+        "startChar": 26,
+        "endLine": 88,
+        "endChar": 36
+      },
+      "revId": "a0cd7cec47db5e743f268574d358706c7c9f6988",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
