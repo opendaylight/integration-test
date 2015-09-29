@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_026c9d9b",
+        "filename": "csit/suites/netconf/CRUD/CRUD.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-09-29T14:07:03Z",
+      "side": 1,
+      "message": "Already addressed, can be removed.\nOr: https://bugs.opendaylight.org/show_bug.cgi?id\u003d4356",
+      "range": {
+        "startLine": 91,
+        "startChar": 6,
+        "endLine": 91,
+        "endChar": 10
+      },
+      "revId": "23d18d29957ba931f2657eee9a57a85f7717fc0c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
