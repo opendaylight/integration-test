@@ -7,7 +7,7 @@ Library           OperatingSystem
 Library           Collections
 Library           XML
 Library           SSHLibrary
-Resource           ../../../../libraries/FlowLib.robot
+Resource          ../../../../libraries/FlowLib.robot
 Library           ../../../../libraries/XmlComparator.py
 Variables         ../../../../variables/Variables.py
 Library           RequestsLibrary
@@ -205,7 +205,7 @@ Test Update Flows Group 0
     : FOR    ${flowfile}    IN    @{flowlist0}
     \    Log    ${flowfile}
     \    Create Flow Variables For Suite From XML File    ${XmlsDir}/${flowfile}
-    \    Run Keyword And Continue On Failure    Update Flow Via RPC  ${switch_idx}    ${data}    ${upddata}
+    \    Run Keyword And Continue On Failure    Update Flow Via RPC    ${switch_idx}    ${data}    ${upddata}
     # Lets wait for ofp to collect stats
     Sleep    3s
     # Show switch content (for debug purposes if needed)
@@ -377,7 +377,7 @@ Test Delete Flows Group 0
     : FOR    ${flowfile}    IN    @{flowlist0}
     \    Log    ${flowfile}
     \    Create Flow Variables For Suite From XML File    ${XmlsDir}/${flowfile}
-    \    Run Keyword And Continue On Failure    Delete Flow Via RPC  ${switch_idx}   ${xmlroot} 
+    \    Run Keyword And Continue On Failure    Delete Flow Via RPC    ${switch_idx}    ${xmlroot}
     # Lets wait for ofp to collect stats
     Sleep    3s
     # Show switch content (for debug purposes if needed)
@@ -549,5 +549,3 @@ Initialization Phase
     Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
     Write    dpctl dump-flows -O OpenFlow13
     Read Until    mininet>
-
-

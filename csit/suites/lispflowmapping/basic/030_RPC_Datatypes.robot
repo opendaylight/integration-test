@@ -3,8 +3,8 @@ Documentation     Test suite to verify data types using RPCs
 Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
 Test Setup        Set Suite Variable    ${CURJSON}    ${EMPTY}
-Test Template     Check Datatype
 Test Teardown     Remove Datatype And Check Removal
+Test Template     Check Datatype
 Library           Collections
 Library           OperatingSystem
 Library           RequestsLibrary

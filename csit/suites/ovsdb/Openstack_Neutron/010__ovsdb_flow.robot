@@ -40,8 +40,8 @@ ${FLOAT_IP1_PORT_ID}    01671703-695e-4497-8a11-b5da989d2dc3
 ${FLOAT_IP1_MAC}    FA:16:3E:3F:37:BB
 ${FLOAT_IP1_DEVICE_ID}    f013bef4-9468-494d-9417-c9d9e4abb97c
 ${FLOAT_IP1_ADDRESS}    192.168.111.22
-@{node_list}    ovsdb://uuid/
-@{netvirt}    1
+@{node_list}      ovsdb://uuid/
+@{netvirt}        1
 
 *** Test Cases ***
 Add variables to controller custom.properties

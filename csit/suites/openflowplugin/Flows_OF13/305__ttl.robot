@@ -44,19 +44,19 @@ Set_IP_TTL            [Documentation]        ${set_ip_ttl_doc}
 
 Dec_TTL               [Documentation]        ${dec_ttl_doc}
                       [Tags]                 ttl                    dec
-                      dec-nw-ttl             none                   none            3          305       311          yes            dec_ttl
+                      dec-nw-ttl             none                   none            3          305       311         yes            dec_ttl
 
 Copy_TTL_In           [Documentation]        ${copy_ttl_in_doc}
                       [Tags]                 ttl                    copyin
-                      copy-ttl-in            none                   none            9          202       9          no             copy_ttl_in
+                      copy-ttl-in            none                   none            9          202       9           no             copy_ttl_in
 
 Copy_TTL_Out          [Documentation]        ${copy_ttl_out_doc}
                       [Tags]                 ttl                    copyout
-                      copy-ttl-out           none                   none            8          909       4242          no             copy_ttl_out
+                      copy-ttl-out           none                   none            8          909       4242        no             copy_ttl_out
 
 Set_MPLS_TTL          [Documentation]        ${set_mpls_ttl_doc}
                       [Tags]                 ttl                    setmpls
-                      set-mpls-ttl-action    mpls-ttl               1               4          505       9021          yes            set_mpls_ttl
+                      set-mpls-ttl-action    mpls-ttl               1               4          505       9021        yes            set_mpls_ttl
 
 Dec_MPLS_TTL          [Documentation]        ${dec_mpls_ttl_doc}
                       [Tags]                 ttl                    decmpls

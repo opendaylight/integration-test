@@ -12,7 +12,7 @@ Add a ODL Controller
 Verify the Controller Status is waiting_audit
     [Documentation]    Check Controller status
     # Ping starts after 12sec of completing audit and controller status become "UP"
-    Wait Until Keyword Succeeds    12s    2s   Check Controller Status    odc_test   waiting_audit
+    Wait Until Keyword Succeeds    12s    2s    Check Controller Status    odc_test    waiting_audit
 
 Audit a controller
     [Documentation]    Trigger update audit
@@ -44,36 +44,36 @@ Define Portmap for Interface2
 
 Add a Flowlist Flowlist1
     [Documentation]    Create Flowlist Tenant1
-    Add a FLOWLIST    Flowlist1   IP
+    Add a FLOWLIST    Flowlist1    IP
 
 Create Flowlistentry in Flowlist1
     [Documentation]    Create an Flowlistentry to Flowlist1
     Create FLOWLISTENTRY    Flowlist1
 
 Create Flowfilter1 in VBRIF
-    [Documentation]  Create an Vbrif to Flowfilter
-    Create VBRIF in FLOWFILTER   Tenant1   Vbridge1   Interface1   in
+    [Documentation]    Create an Vbrif to Flowfilter
+    Create VBRIF in FLOWFILTER    Tenant1    Vbridge1    Interface1    in
 
 Create Flowfilterentry with Drop Action in VBRIF
-     [Documentation]   Create an Flowfilter Drop Action
-     Create FLOWFILTERENTRY DROP In VBRIFFLOWFILTER  Tenant1   Vbridge1   Interface1  drop
+    [Documentation]    Create an Flowfilter Drop Action
+    Create FLOWFILTERENTRY DROP In VBRIFFLOWFILTER    Tenant1    Vbridge1    Interface1    drop
 
 Create Flowfilterentry With Pass Action in VBRIF
-     [Documentation]   Update an Flowfilter Pass Action
-     Create FLOWFILTERENTRY PASS In VBRIFFLOWFILTER   Tenant1   Vbridge1   Interface1   pass    233
+    [Documentation]    Update an Flowfilter Pass Action
+    Create FLOWFILTERENTRY PASS In VBRIFFLOWFILTER    Tenant1    Vbridge1    Interface1    pass    233
 
 Test Ping for Configuration
     [Documentation]    ping between hosts in mininet
-    Wait Until Keyword Succeeds   10s    2s    Test Ping    h1   h3
+    Wait Until Keyword Succeeds    10s    2s    Test Ping    h1    h3
 
 Delete a VTN Tenant1
     [Documentation]    Delete Vtn Tenant1
     Delete a VTN    Tenant1
 
 Delete a FLOWLIST Flowlist1
-    [Documentation]   Delete Flowlist
-    Delete a FLOWLIST   Flowlist1
+    [Documentation]    Delete Flowlist
+    Delete a FLOWLIST    Flowlist1
 
 Delete a Controller odc1
     [Documentation]    Delete Controller odc1
-    Remove Controller   odc_test
+    Remove Controller    odc_test

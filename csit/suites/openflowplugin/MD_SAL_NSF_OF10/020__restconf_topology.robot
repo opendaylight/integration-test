@@ -48,7 +48,7 @@ Link Down
     # increasing the WUKS timeout to 60s to see if the CI environment might just be taking
     # longer for this test with the lithium redesign plugin
     Wait Until Keyword Succeeds    60s    2s    Verify Links    ${links}
-    # shot in the dark.  maybe the "link s1 s2 down" really didn't take the link(s) down?
+    # shot in the dark.    maybe the "link s1 s2 down" really didn't take the link(s) down?
     # hopefully this output below will show that.
     Write    sh ovs-vsctl find Interface name="s1-eth1"
     ${output}=    Read Until    mininet>

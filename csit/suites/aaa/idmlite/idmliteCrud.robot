@@ -13,7 +13,7 @@ Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/AAAKeywords.robot
 
 *** Variables ***
-${idmurl}    /auth/v1
+${idmurl}         /auth/v1
 
 *** Test Cases ***
 Get Users
@@ -28,7 +28,7 @@ Create User and Verify
     ${resp}=    Get User From IDM DB    ${userId}
     ${name}=    Get Json Value    ${resp.content}    /name
     ${email}=    Get Json Value    ${resp.content}    /email
-    ${description}=    Get Json Value    ${resp.content}   /description
+    ${description}=    Get Json Value    ${resp.content}    /description
     Should Be Equal As Strings    ${name}    "testuser"
     Should Be Equal As Strings    ${email}    "user1@gmail.com"
     Should Be Equal As Strings    ${description}    "robot test user"

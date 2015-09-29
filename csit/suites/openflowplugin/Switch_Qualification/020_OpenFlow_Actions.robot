@@ -46,38 +46,38 @@ ${CONTROLLER_doc}    OF1.3 OFPP_CONTROLLER = 0xfffffffd, /* Send to controller. 
 ${LOCAL_doc}      OF1.3 OFPP_LOCAL = 0xfffffffe, /* Local openflow "port". */
 ${ANY_doc}        OF1.3 OFPP_ANY = 0xffffffff /* Wildcard port used only for flow mod (delete) and flow stats requests. Selects all flows regardless of output port (including flows with no output port). */
 
-*** Test Cases ***    output port        tableID              flowID      priority
+*** Test Cases ***    output port        tableID              flowID    priority
 INPORT                [Documentation]    ${INPORT_doc}
                       [Tags]             inport
-                      ${TEST_NAME}       200                  161         1
+                      ${TEST_NAME}       200                  161       1
 
 TABLE                 [Documentation]    ${TABLE_doc}
                       [Tags]             table
-                      ${TEST_NAME}       200                  261         65535
+                      ${TEST_NAME}       200                  261       65535
 
 NORMAL                [Documentation]    ${NORMAL_doc}
                       [Tags]             normal
-                      ${TEST_NAME}       200                  361         9
+                      ${TEST_NAME}       200                  361       9
 
 FLOOD                 [Documentation]    ${FLOOD_doc}
                       [Tags]             flood
-                      ${TEST_NAME}       200                  81         255
+                      ${TEST_NAME}       200                  81        255
 
 ALL                   [Documentation]    ${ALL_doc}
                       [Tags]             all
-                      ${TEST_NAME}       200                  88         42
+                      ${TEST_NAME}       200                  88        42
 
 CONTROLLER            [Documentation]    ${CONTROLLER_doc}
                       [Tags]             controller
-                      ${TEST_NAME}       200                  21         21
+                      ${TEST_NAME}       200                  21        21
 
 LOCAL                 [Documentation]    ${LOCAL_doc}
                       [Tags]             local
-                      ${TEST_NAME}       200                  32         12345
+                      ${TEST_NAME}       200                  32        12345
 
 ANY                   [Documentation]    ${ANY_doc}
                       [Tags]             any
-                      ${TEST_NAME}       200                  111         54321
+                      ${TEST_NAME}       200                  111       54321
 
 *** Keywords ***
 Create And Remove Flow
@@ -109,7 +109,7 @@ OpenFlow Actions Suite Setup
     Call Method    ${test_switch}    set_mgmt_ip    ${SWITCH_IP}
     Call Method    ${test_switch}    set_controller_ip    ${CONTROLLER}
     Call Method    ${test_switch}    set_mgmt_prompt    ${SWITCH_PROMPT}
-    Run Command On Remote System    ${CONTROLLER}   ps -elf | grep java
+    Run Command On Remote System    ${CONTROLLER}    ps -elf | grep java
     Log    MAKE: ${test_switch.make}\n MODEL: ${test_switch.model}\n IP: ${test_switch.mgmt_ip}\n PROMPT: ${test_switch.mgmt_prompt}\n CONTROLLER_IP: ${test_switch.of_controller_ip}\n MGMT_PROTOCOL: ${test_switch.mgmt_protocol}
     Ping    ${test_switch.mgmt_ip}
     Initialize Switch    ${test_switch}

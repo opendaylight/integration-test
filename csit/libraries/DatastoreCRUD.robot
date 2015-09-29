@@ -5,7 +5,8 @@ Variables         ../variables/Variables.py
 
 *** Keywords ***
 Create Records
-    [Arguments]    ${controller_ip}    ${node}    ${first}    ${last}    ${prefix}    ${field bases}    ${postfix}
+    [Arguments]    ${controller_ip}    ${node}    ${first}    ${last}    ${prefix}    ${field bases}
+    ...    ${postfix}
     [Documentation]    POSTs records to a controller's data store. First and last index numbers are specified
     ...    as is a dictionary called field_bases containing the base name for the field contents
     ...    onto which will be appended the index number. Prefix and postfix are used to complete
@@ -27,7 +28,8 @@ Read Records
     [Return]    ${resp.json()}
 
 Update Records
-    [Arguments]    ${controller_ip}    ${node}    ${first}    ${last}    ${prefix}    ${field bases}    ${postfix}
+    [Arguments]    ${controller_ip}    ${node}    ${first}    ${last}    ${prefix}    ${field bases}
+    ...    ${postfix}
     [Documentation]    PUTs records to shard on a controller's data store. First and last index numbers are specified
     ...    as is a dictionary called field_bases containing the base name for the field contents
     ...    onto which will be appended the index number. Prefix and postfix are used to complete

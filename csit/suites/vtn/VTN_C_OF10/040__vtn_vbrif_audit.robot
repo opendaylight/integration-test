@@ -11,7 +11,7 @@ Add a ODL Controller
 
 Verify the Controller Status is waiting_audit
     [Documentation]    Check Controller status
-    Wait Until Keyword Succeeds    12s    2s   Check Controller Status    odc_test   waiting_audit
+    Wait Until Keyword Succeeds    12s    2s    Check Controller Status    odc_test    waiting_audit
 
 Audit a controller
     [Documentation]    Trigger update audit
@@ -31,7 +31,7 @@ Update controller ip invalid
 
 Verify the Controller State is down
     [Documentation]    Check Controller status
-    Wait Until Keyword Succeeds    12s    2s   Check Controller Status    odc_test    down
+    Wait Until Keyword Succeeds    12s    2s    Check Controller Status    odc_test    down
 
 Create VBRIF in VBRIDGE Vbridge1 Interface1
     [Documentation]    Create an interface to Vbridge1
@@ -47,7 +47,7 @@ Update controller ip valid
 
 Verify the Controller State is in down state
     [Documentation]    Check Controller status
-    Wait Until Keyword Succeeds    12s    2s   Check Controller Status    odc_test    down
+    Wait Until Keyword Succeeds    12s    2s    Check Controller Status    odc_test    down
 
 Audit a controller manually
     [Documentation]    Trigger update audit
@@ -55,7 +55,7 @@ Audit a controller manually
 
 Define Portmap for Interface1
     [Documentation]    Map Interface1 to a logical port
-    Define Portmap for VBRIF    Tenant1    Vbridge1    Interface1     PP-OF:openflow:2-s2-eth1
+    Define Portmap for VBRIF    Tenant1    Vbridge1    Interface1    PP-OF:openflow:2-s2-eth1
 
 Define Portmap for Interface2
     [Documentation]    Map Interface2 to a logical port

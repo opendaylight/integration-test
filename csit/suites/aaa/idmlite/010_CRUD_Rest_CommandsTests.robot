@@ -39,17 +39,14 @@ Test Post New Domain
     # Create the new domain, initialize some values to test against
     ${domaindesc}=    Set Variable    "testdomain other"
     ${domainstatus}=    Set Variable    "true"
-
     # Have to escape the quotes, need quotes to make the POST work properly
     ${data}=    Set Variable    {"description":${domaindesc},"domainid":"7","name":\"${domainName}\","enabled":${domainstatus}}
     Log    ${data}
     # now post it
     ${domain}=    Post New Domain    ${domainName}    ${data}
     Log    ${domain}
-
     ${domainid}=    Parse Item From Blob By Offset    ${domain}    0
     Log    ${domainid}
-
     # get the domain to verify
     ${fetched_domain}=    Get Specific Domain    ${domainid}
     # add new domain json string to the cleanup list for later cleanup
@@ -69,25 +66,19 @@ Test Get Domains
     Log    ${cleanup_domain_list}
     ${domain_item}=    Get From List    ${cleanup_domain_list}    -1
     Log    ${domain_item}
-
     # parse out the domainid from the domain info we just grabbed
     ${domainid}=    Parse Item From Blob By Offset    ${domain_item}    0
     Log    ${domainid}
-
     # parse out the name from the same info
     ${domainname}=    Parse Item From Blob By Offset    ${domain_item}    1
     Log    ${domainname}
-
     # get the entire dump of created domains
     ${content}=    Get Domains
-
     # parse through that massive blob and get the individual name created in Setup
     ${node_count}=    Nodecount    ${content}    domains    domainid
     ${domainid}=    Convert To Integer    ${domainid}
-
     # Get the domain name from the database, looking it up by its domainid
     ${domainentry}=    Get Domain Name By Domainid    ${content}    ${domainid}    ${node_count}
-
     Log    ${domainentry}
     # compare to see if the parsed user id matches the one we grabbed from list
     Should Be Equal    ${domainentry}    ${domainname}
@@ -121,15 +112,12 @@ Test Update Specific Domain
     Log    ${cleanup_domain_list}
     ${domain_item}=    Get From List    ${cleanup_domain_list}    -1
     Log    ${domain_item}
-
     # parse out the domain id from the domain info we just grabbed
     ${domid}=    Parse Item From Blob By Offset    ${domain_item}    0
     Log    ${domid}
-
     # parse out the name from the same info
     ${domname}=    Parse Item From Blob By Offset    ${domain_item}    1
     Log    ${domname}
-
     ${data}=    Set Variable    {"name":"MasterTest Domain"}
     Update Specific Domain    ${data}    ${domid}
     ${domname}=    Get Specific Domain Name    ${domid}
@@ -154,7 +142,6 @@ Test Delete Domain
     # parse out the domain-id from the domain info we just created
     ${domainid}=    Parse Item From Blob By Offset    ${newdomain}    0
     Log    ${domainid}
-
     # now wipe if off the map
     Delete Domain    ${domainid}
     # we should not be able to fetch this domain from the database of domains...should fail...
@@ -168,15 +155,12 @@ Test Get Users
     Log    ${cleanup_user_list}
     ${user_item}=    Get From List    ${cleanup_user_list}    -1
     Log    ${user_item}
-
     # parse out the userid from the user info we just grabbed
     ${userid}=    Parse Item From Blob By Offset    ${user_item}    0
     Log    ${userid}
-
     # parse out the name from the same info
     ${username}=    Parse Item From Blob By Offset    ${user_item}    1
     Log    ${username}
-
     # get the entire blob of users
     ${content}=    Get Users
     # parse through that massive blob and get the individual name
@@ -198,22 +182,17 @@ Test Get Specific User
     # convert this to unicode
     # ${item}=    Convert To String    ${item}
     Log    ${item}
-
     # parse out the userid from the user info we just grabbed
     ${userid}=    Parse Item From Blob By Offset    ${user_item}    0
     Log    ${userid}
-
     # parse out the name from the same info
     ${username}=    Parse Item From Blob By Offset    ${user_item}    1
     Log    ${username}
-
     # make a GET call to find the material we want
     ${content}=    Get Specific User    ${userid}
-
     # parse out the user name from the content we just fetched
     ${fetched_username}=    Parse Item From Blob By Offset    ${content}    1
     Log    ${fetched_username}
-
     # compare to see if the parsed user name matches the one we grabbed from list
     Should Contain    ${fetched_username}    ${username}
 
@@ -223,11 +202,9 @@ Test Update User
     Log    ${cleanup_user_list}
     ${user_item}=    Get From List    ${cleanup_user_list}    -1
     Log    ${user_item}
-
     # parse out the user-id from the user info we just created
     ${userid}=    Parse Item From Blob By Offset    ${user_item}    0
     Log    ${userid}
-
     # update the information for the userid
     ${testusername}=    Create Random Name    force-accomplish
     ${data}=    Set Variable    {"description":"sample test description", "name":"${testusername}"}
@@ -235,11 +212,9 @@ Test Update User
     Log    ${testusername}
     # now, make a GET call to find the material we modified
     ${existing_useritem}=    Get Specific User    ${userid}
-
     # parse out the name from the existing userinfo
     ${expected_username}=    Parse Item From Blob By Offset    ${existing_useritem}    1
     Log    ${expected_username}
-
     # compare to see if the GOTTEN user id matches the one we grabbed from list
     Should Be Equal    ${expected_username}    ${testusername}
 
@@ -249,19 +224,15 @@ Test Post New User
     ${testusername}=    Create Random Name    Darth-Maul
     ${data}=    Set Variable    {"description":"sample user description", "name":"${testusername}", "userid":1}
     Log    ${testusername}
-
     # Post this puppy
     ${content}=    Post New User    ${testusername}    ${data}
     # parse out the userid from the content we just created
     ${userid}=    Parse Item From Blob By Offset    ${content}    0
     Log    ${userid}
-
     # now go GET the userid info and compare to the name we fabricated
     ${existing_useritem}=    Get Specific User    ${userid}
-
     ${expected_username}=    Parse Item From Blob By Offset    ${existing_useritem}    1
     Log    ${expected_username}
-
     # compare to see if the GOTTEN role id matches the one we grabbed from list
     Should Be Equal    ${expected_username}    ${testusername}
 
@@ -277,7 +248,6 @@ Test Delete User
     # parse out the user-id from the content we just created
     ${userid}=    Parse Item From Blob By Offset    ${content}    0
     Log    ${userid}
-
     # now delete it...
     ${content2}=    Delete User    ${userid}
     # should fail...
@@ -295,10 +265,8 @@ Test Get Specific Role
     # parse out the role-id from the role info we just created
     ${roleid}=    Parse Item From Blob By Offset    ${roleitem}    0
     Log    ${roleid}
-
     # make a GET call to find the material we want
     ${existing_roleitem}=    Get Specific Role    ${roleid}
-
     # parse out the expected role-id from the content we just created
     ${eroleid}=    Parse Item From Blob By Offset    ${existing_roleitem}    0
     Log    ${eroleid}
@@ -312,14 +280,12 @@ Test Get Roles
     Log    ${cleanup_role_list}
     ${role_item}=    Get From List    ${cleanup_role_list}    -1
     Log    ${role_item}
-
     # parse out the role-id from the info we just grabbed
     ${roleid}=    Parse Item From Blob By Offset    ${role_item}    0
     Log    ${roleid}
     # parse out the name from the same info
     ${rolename}=    Parse Item From Blob By Offset    ${role_item}    1
     Log    ${rolename}
-
     # get the entire blob of roles
     ${content}=    Get Roles
     # parse through that massive blob and get the individual name
@@ -339,7 +305,6 @@ Test Update Role
     # parse out the role-id from the role info we just created
     ${roleid}=    Parse Item From Blob By Offset    ${role_item}    0
     Log    ${roleid}
-
     # update the information for the roleid
     ${testrolename}=    Create Random Name    force-accomplish
     ${data}=    Set Variable    {"description":"sample test description", "name":"${testrolename}"}
@@ -347,11 +312,9 @@ Test Update Role
     Log    ${testrolename}
     # now, make a GET call to find the material we modified
     ${existing_roleitem}=    Get Specific Role    ${roleid}
-
     # parse out the name from the same info
     ${expected_rolename}=    Parse Item From Blob By Offset    ${existing_roleitem}    1
     Log    ${expected_rolename}
-
     # compare to see if the GOTTEN role id matches the one we grabbed from list
     Should Be Equal    ${expected_rolename}    ${testrolename}
 
@@ -366,13 +329,11 @@ Test Post New Role
     # parse out the role-id from the content we just created
     ${roleid}=    Parse Item From Blob By Offset    ${content}    0
     Log    ${roleid}
-
     # now got GET the roleid info and compare to the name we fabricated
     # and parse out role name
     ${existing_roleitem}=    Get Specific Role    ${roleid}
     ${expected_rolename}=    Parse Item From Blob By Offset    ${content}    1
     Log    ${expected_rolename}
-
     # compare to see if the GOTTEN role id matches the one we grabbed from list
     Should Be Equal    ${expected_rolename}    ${testrolename}
 
@@ -388,7 +349,6 @@ Test Delete Role
     # parse out the role-id from the content we just created
     ${roleid}=    Parse Item From Blob By Offset    ${content}    0
     Log    ${roleid}
-
     # now delete it...
     ${content2}=    Delete Role    ${roleid}
     # should fail...
@@ -397,7 +357,6 @@ Test Delete Role
 
 Test Grant Role To Domain And User
     [Documentation]    Test the POST of a Role to Domain and User
-
     # rely on the creation of a test role, user and domain in the Setup routine
     # pop item off of end of the list, for use (does not alter list)
     ${role_item}=    Get From List    ${cleanup_role_list}    -1
@@ -406,31 +365,24 @@ Test Grant Role To Domain And User
     Log    ${user_item}
     ${domain_item}=    Get From List    ${cleanup_domain_list}    -1
     Log    ${domain_item}
-
     # parse out the roleid from the role info we just grabbed
     ${roleid}=    Parse Item From Blob By Offset    ${role_item}    0
     Log    ${roleid}
-
     # parse out the name from the same info
-    ${rolename}=    Parse Item From Blob By Offset   ${role_item}    1
+    ${rolename}=    Parse Item From Blob By Offset    ${role_item}    1
     Log    ${rolename}
-
     # parse out the userid from the user info we just grabbed
     ${userid}=    Parse Item From Blob By Offset    ${user_item}    0
     Log    ${userid}
-
     # parse out the name from the same info
     ${username}=    Parse Item From Blob By Offset    ${user_item}    1
     Log    ${username}
-
     # parse out the domain-id from the domain info we just grabbed
     ${domainid}=    Parse Item From Blob By Offset    ${domain_item}    0
     Log    ${domainid}
-
     # parse out the name from the same info
     ${domainname}=    Parse Item From Blob By Offset    ${domain_item}    1
     Log    ${domainname}
-
     # generate the data payload that we wish to post
     ${data}=    Set Variable    {"roleid":"${roleid}", "description":"fabricated test roleid"}
     # post this monster
@@ -440,7 +392,6 @@ Test Grant Role To Domain And User
     Should Contain    ${content}    ${domainid}
     Should Contain    ${content}    ${roleid}
     Should Contain    ${content}    ${userid}
-
 
 *** Keywords ***
 IdMLight Suite Setup
@@ -457,7 +408,6 @@ IdMLight Suite Setup
     ${testrole}=    Create Random Name    Force-User
     Log    ${testrole}
     # now create the domain, role and userid
-
     # create the test domain
     Create Session    httpbin    ${URI}
     ${domaindata}=    Set Variable    {"description":"planetary domain","domainid":"7","name":"${testdomain}","enabled":"true"}
@@ -523,7 +473,6 @@ IdMLight Suite Teardown
     \    Log    ${userid}
     \    Delete User    ${userid}
     Log    ${cleanup_user_list}
-    
     Delete All Sessions
 
 Check Specific Id Does Not Exist
@@ -714,12 +663,11 @@ Delete Specific Grant
     [Return]    ${resp.content}
 
 Parse Item From Blob By Offset
-    [Documentation]    Parse out a field from JSON structure
     [Arguments]    ${item}    ${offset}
+    [Documentation]    Parse out a field from JSON structure
     ${x}=    Split String    ${item}    ,
     ${y}=    Get From List    ${x}    ${offset}
     ${z}=    Split String    ${y}    :
-
     # offset is one in next line because you are looking at a key:value pair
     ${return_item_}=    Get From List    ${z}    1
     ${return_item}=    Replace String    ${return_item_}    "    ${EMPTY}
