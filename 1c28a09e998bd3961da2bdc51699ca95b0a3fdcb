@@ -320,6 +320,24 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_ddc1a4e5",
+        "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2015-09-29T18:35:34Z",
+      "side": 1,
+      "message": "This class should probably have a constructor:\n\npublic ControllerInfo (String host, Integer port){\nthis.host \u003d host;\nthis.port \u003d port;\n}\n\nthat sets important values when it is instantiated.\n\nAs far as IP or host and port go these should probably be immutable. Are they likely to change during code run?",
+      "parentUuid": "1a76adc5_c43795af",
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_84419d0d",
         "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
         "patchSetId": 2
