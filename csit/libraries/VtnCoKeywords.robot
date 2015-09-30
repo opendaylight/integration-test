@@ -21,32 +21,62 @@ Get VtnCo
     SSHLibrary.Login_With_Public_Key    ${CONTROLLER_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     ${VTNC_FILENAME}=    Catenate    SEPARATOR=/    ${WORKSPACE}    vtn_coordinator.tar.bz2
     SSHLibrary.Get_File    ${WORKSPACE}/${BUNDLEFOLDER}/externalapps/*vtn-coordinator*-bin.tar.bz2    ${VTNC_FILENAME}
+    SSHLibrary.Execute Command    tar -C/ -jxvf ${WORKSPACE}/${BUNDLEFOLDER}/externalapps/distribution.vtn-coordinator-6.2.0-SNAPSHOT-bin.tar.bz2
     SSHLibrary.Close_Connection
-    SSHLibrary.Open_Connection    ${MININET}
-    SSHLibrary.Login_With_Public_Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    SSHLibrary.Open_Connection    ${CONTROLLER}
+    SSHLibrary.Login_With_Public_Key    ${CONTROLLER_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     SSHLibrary.Put_File    ${VTNC_FILENAME}    /tmp
+    SSHLibrary.Execute Command    tar -C/ -jxvf ${VTNC_FILENAME}
     SSHLibrary.Close_Connection
 
 Start SuiteVtnCo
     [Documentation]    Download and startup the VTN Coordinator.
     Log    Start the VTN Coordinator
-    Get VtnCo
-    ${vtnc_conn_id}=    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
-    Set Suite Variable    ${vtnc_conn_id}
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    #Get VtnCo
+    #${vtnc_conn_id}=    SSHLibrary.Open Connection    ${MININET1}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    #${vtnc_conn_id}=    SSHLibrary.Open Connection    ${CONTROLLER}
+    #Set Suite Variable    ${vtnc_conn_id}
+    #SSHLibrary.Login_With_Public_Key    ${CONTROLLER_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    #${VTNC_FILENAME}=    Catenate    SEPARATOR=/    ${WORKSPACE}    vtn_coordinator.tar.bz2
+    #SSHLibrary.Execute Command    tar -C/ -jxvf ${VTNC_FILENAME}
+
+    SSHLibrary.Open_Connection    ${CONTROLLER}
+    SSHLibrary.Login_With_Public_Key    ${CONTROLLER_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     ${VTNC_FILENAME}=    Catenate    SEPARATOR=/    ${WORKSPACE}    vtn_coordinator.tar.bz2
-    Execute Command    tar -C/ -jxvf ${VTNC_FILENAME}
-    Execute Command    /usr/local/vtn/sbin/db_setup
-    Execute Command    /usr/local/vtn/bin/vtn_start
-    Execute Command    /usr/local/vtn/bin/unc_dmctl status
-    Execute Command    /usr/local/vtn/sbin/db_setup
-    Execute Command    sed -i 's/odcdrv_ping_interval = 30/odcdrv_ping_interval = 10/g' /usr/local/vtn/modules/odcdriver.conf
-    Execute Command    sed -i 's/physical_attributes_read_interval = 40/physical_attributes_read_interval = 15/g' /usr/local/vtn/modules/vtndrvintf.conf
-    Execute Command    /usr/local/vtn/bin/vtn_start
-    Execute Command    /usr/local/vtn/bin/unc_dmctl status
-    Execute Command    /usr/local/vtn/bin/drvodc_control loglevel trace
-    Execute Command    /usr/local/vtn/bin/lgcnw_control loglevel trace
-    Execute Command    exit
+    SSHLibrary.Get_File    ${WORKSPACE}/${BUNDLEFOLDER}/externalapps/*vtn-coordinator*-bin.tar.bz2    ${VTNC_FILENAME}
+    SSHLibrary.Execute Command    tar -C/ -jxvf ${WORKSPACE}/${BUNDLEFOLDER}/externalapps/*vtn-coordinator*-bin.tar.bz2
+    SSHLibrary.Execute Command    cat /etc/redhat-release
+    SSHLibrary.Execute Command    ls -lrt /usr/
+    SSHLibrary.Execute Command    ls -lrt /usr/local/
+    SSHLibrary.Execute Command    ls -lrt /usr/local/vtn
+    SSHLibrary.Execute Command    ls -lrt /usr/local/vtn/sbin
+    SSHLibrary.Execute Command    ls -lrt /usr/local/vtn/bin
+    SSHLibrary.Execute Command    ls -lrt /usr/local/vtn/modules/
+    SSHLibrary.Execute Command    ls -lrt /usr/local/vtn/var/
+    SSHLibrary.Execute Command    /usr/local/vtn/sbin/db_setup
+    SSHLibrary.Execute Command    rpm -q perl-Digest-SHA uuid libxslt libcurl unixODBC json-c
+    SSHLibrary.Execute Command    rpm -qa | grep glibc
+    SSHLibrary.Execute Command    /usr/local/vtn/bin/vtn_stop
+    SSHLibrary.Execute Command    df -k
+    SSHLibrary.Execute Command    /usr/local/vtn/bin/vtn_start
+    SSHLibrary.Execute Command    ps -ef
+    SSHLibrary.Execute Command    ls -lrt /usr/
+    SSHLibrary.Execute Command    ls -lrt /usr/local/
+    SSHLibrary.Execute Command    ls -lrt /usr/local/vtn
+    SSHLibrary.Execute Command    ls -lrt /usr/local/vtn/modules/
+    SSHLibrary. Execute Command    ls -lrt /usr/local/vtn/var/
+    SSHLibrary. Execute Command    cat /usr/local/vtn/var/uncd/uncd_start.err
+    SSHLibrary.Execute Command    /usr/local/vtn/bin/unc_dmctl status
+    SSHLibrary.Execute Command    /usr/local/vtn/sbin/db_setup
+    SSHLibrary.Execute Command    sed -i 's/odcdrv_ping_interval = 30/odcdrv_ping_interval = 10/g' /usr/local/vtn/modules/odcdriver.conf
+    SSHLibrary.Execute Command    sed -i 's/physical_attributes_read_interval = 40/physical_attributes_read_interval = 15/g' /usr/local/vtn/modules/vtndrvintf.conf
+    SSHLibrary.Execute Command    /usr/local/vtn/bin/vtn_stop
+    SSHLibrary.Execute Command    /usr/local/vtn/bin/vtn_start
+    SSHLibrary.Execute Command    /usr/local/vtn/bin/unc_dmctl status
+    SSHLibrary.Execute Command    /usr/local/vtn/bin/drvodc_control loglevel trace
+    SSHLibrary.Execute Command    /usr/local/vtn/bin/lgcnw_control loglevel trace
+    SSHLibrary.Execute Command    cat /usr/local/vtn/var/drvodcd/log/pfcd_message.log
+    SSHLibrary.Execute Command    exit
 
 Stop SuiteVtnCo
     [Documentation]    Exit the Launch Test
@@ -54,7 +84,7 @@ Stop SuiteVtnCo
 
 Start SuiteVtnCoTest
     [Documentation]    Start the VTNCo Test
-    Create Session    session    http://${MININET}:8083    headers=${VTNC_HEADERS}
+    Create Session    session    http://${CONTROLLER}:8083    headers=${VTNC_HEADERS}
 
 Stop SuiteVtnCoTest
     [Documentation]    Exit the VtnCo Test
