@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_777c2c21",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/__init__.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-09-30T12:30:53Z",
+      "side": 1,
+      "message": "common_scripts?",
+      "range": {
+        "startLine": 22,
+        "startChar": 53,
+        "endLine": 22,
+        "endChar": 71
+      },
+      "revId": "cdcb5596adea1f852719959351a452ab5166b767",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
