@@ -43,6 +43,7 @@
 *.cfg text
 *.launch text
 *.target text
+*.msg text
 
 # In this section individual file names and other weird file patterns are
 # declared.
