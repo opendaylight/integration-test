@@ -42,6 +42,11 @@ KARAF_PASSWORD = 'karaf'
 ODL_BGP_PORT = '1790'
 BGP_TOOL_PORT = '17900'
 
+# Netconf variables
+ODL_NETCONF_PORT = '2830'
+ODL_NETCONF_USER = 'admin'
+ODL_NETCONF_PASSWORD = 'admin'
+
 # VM Environment Variables
 DEFAULT_LINUX_PROMPT = '>'
 
