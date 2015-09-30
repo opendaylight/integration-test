@@ -35,7 +35,9 @@ Start SuiteVtnCo
     ${VTNC_FILENAME}=    Catenate    SEPARATOR=/    ${WORKSPACE}    vtn_coordinator.tar.bz2
     Execute Command    tar -C/ -jxvf ${VTNC_FILENAME}
     Execute Command    /usr/local/vtn/sbin/db_setup
+    Execute Command    rpm -q perl-Digest-SHA uuid libxslt libcurl unixODBC json-c
     Execute Command    /usr/local/vtn/bin/vtn_start
+    Execute Command    cat /usr/local/vtn/var/uncd/uncd_start.err
     Execute Command    /usr/local/vtn/bin/unc_dmctl status
     Execute Command    /usr/local/vtn/sbin/db_setup
     Execute Command    sed -i 's/odcdrv_ping_interval = 30/odcdrv_ping_interval = 10/g' /usr/local/vtn/modules/odcdriver.conf
@@ -44,6 +46,7 @@ Start SuiteVtnCo
     Execute Command    /usr/local/vtn/bin/unc_dmctl status
     Execute Command    /usr/local/vtn/bin/drvodc_control loglevel trace
     Execute Command    /usr/local/vtn/bin/lgcnw_control loglevel trace
+    Execute Command    cat /usr/local/vtn/var/drvodcd/log/pfcd_message.log
     Execute Command    exit
 
 Stop SuiteVtnCo
