@@ -84,6 +84,24 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_0606e8ce",
+        "filename": "csit/suites/lispflowmapping/performance/010_Southbound_MapRequest.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2015-10-01T14:11:41Z",
+      "side": 1,
+      "message": "The fix I mention above was just merged, I\u0027ll submit an updated patch shortly.",
+      "parentUuid": "1a76adc5_26f69bd8",
+      "revId": "14f8b26ea2611ee4e2f7851e98e778fb808e9539",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_8be9b81c",
         "filename": "csit/suites/lispflowmapping/performance/010_Southbound_MapRequest.robot",
         "patchSetId": 6
@@ -119,6 +137,24 @@
       "side": 1,
       "message": "Absolutely. That\u0027s what open source is about ;)",
       "parentUuid": "1a76adc5_8be9b81c",
+      "revId": "14f8b26ea2611ee4e2f7851e98e778fb808e9539",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_260be4d7",
+        "filename": "csit/suites/lispflowmapping/performance/010_Southbound_MapRequest.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2015-10-01T14:11:41Z",
+      "side": 1,
+      "message": "The updated patch will include this too.",
+      "parentUuid": "1a76adc5_e6ff43a9",
       "revId": "14f8b26ea2611ee4e2f7851e98e778fb808e9539",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
