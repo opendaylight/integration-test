@@ -2,6 +2,7 @@
 Library           SSHLibrary
 Library           String
 Library           DateTime
+Library           Process
 Library           ./UtilLibrary.py
 Resource          KarafKeywords.robot
 Variables           ../variables/Variables.py
@@ -304,3 +305,12 @@ Post Elements To URI From File
     ${body}    OperatingSystem.Get File    ${data_file}
     ${resp}    RequestsLibrary.Post    session    ${dest_uri}    data=${body}    headers=${headers}
     Should Be Equal As Strings    ${resp.status_code}    200
+
+Run Process With Logging And Status Check
+    [Arguments]    @{proc_args}
+    [Documentation]    Execute an OS command, log STDOUT and STDERR output and check exit code to be 0
+    ${result}=    Run Process    @{proc_args}
+    Log    ${result.stdout}
+    Log    ${result.stderr}
+    Should Be Equal As Integers    ${result.rc}    0
+    [Return]    ${result}
