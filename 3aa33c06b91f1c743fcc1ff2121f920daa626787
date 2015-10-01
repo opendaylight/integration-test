@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a76adc5_66731c4e",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-01T14:48:43Z",
+      "side": 1,
+      "message": "KarafKeywords__current_console?",
+      "range": {
+        "startLine": 9,
+        "startChar": 2,
+        "endLine": 9,
+        "endChar": 17
+      },
+      "revId": "3aa33c06b91f1c743fcc1ff2121f920daa626787",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_06902842",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-01T14:48:43Z",
+      "side": 1,
+      "message": "Documentation should be better, especially if this is to be the final implementation.",
+      "range": {
+        "startLine": 20,
+        "startChar": 23,
+        "endLine": 20,
+        "endChar": 49
+      },
+      "revId": "3aa33c06b91f1c743fcc1ff2121f920daa626787",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_e8a2b799",
         "filename": "csit/libraries/KarafKeywords.robot",
         "patchSetId": 4
@@ -83,6 +129,30 @@
       "side": 1,
       "message": "Now when I have seen usage in suite, I agree it is useful to not keep the karaf console connection \"switched to\".\nSo perhaps just changing the keyword name would be sufficient to communicate that the previous SSH connection is still on.",
       "parentUuid": "1a76adc5_a8acbf8d",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 34
+      },
+      "revId": "3aa33c06b91f1c743fcc1ff2121f920daa626787",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_a6793431",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-01T14:48:43Z",
+      "side": 1,
+      "message": "In other words, I propose line 32 to be like this:\nOpen Controller Karaf Console On Background",
+      "parentUuid": "1a76adc5_a8a91f26",
       "range": {
         "startLine": 41,
         "startChar": 4,
