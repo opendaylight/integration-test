@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_b1108c4f",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-asymmetric-chain/010_set_odl.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 4233
+      },
+      "writtenOn": "2015-10-01T16:44:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_0bd11157",
+      "range": {
+        "startLine": 11,
+        "startChar": 6,
+        "endLine": 11,
+        "endChar": 12
+      },
+      "revId": "5ed7144b72b1b89a1e7c743fb13647c18855af6f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_2bd64d50",
         "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-asymmetric-chain/010_set_odl.robot",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2015-10-01T11:14:47Z",
       "side": 1,
       "message": "TENANT",
+      "range": {
+        "startLine": 12,
+        "startChar": 66,
+        "endLine": 12,
+        "endChar": 72
+      },
+      "revId": "5ed7144b72b1b89a1e7c743fb13647c18855af6f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_511d7865",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-asymmetric-chain/010_set_odl.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 4233
+      },
+      "writtenOn": "2015-10-01T16:44:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a76adc5_2bd64d50",
       "range": {
         "startLine": 12,
         "startChar": 66,
