@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_06890826",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-01T14:41:19Z",
+      "side": 1,
+      "message": "The second half of my comment from patch set 2, line 370 still applies.",
+      "revId": "8cc7936325935f0fe664394ce53f56523b7ed98f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
