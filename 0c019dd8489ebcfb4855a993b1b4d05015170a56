@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_06b7c8d9",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-01T14:52:28Z",
+      "side": 1,
+      "message": "As I commented on Change 26734, this is better named as Open Controller Karaf Console On Background.\n\nIn SSHLibrary, Open also switches to the new connection, so \"On Background\" should alert user that this Keyword does the opposite.",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 29
+      },
+      "revId": "0c019dd8489ebcfb4855a993b1b4d05015170a56",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
