@@ -22,7 +22,7 @@
    },
    "odl-pcep-impl-cfg:pcep-session-proposal-factory": {
     "type": "odl-pcep-api-cfg:pcep-session-proposal-factory",
-    "name": "global-pcep-session-proposal-factory"
+    "name": "pcep-session-proposal-factory-sr"
    },
    "odl-pcep-impl-cfg:worker-group": {
     "type": "netty:netty-threadgroup",
