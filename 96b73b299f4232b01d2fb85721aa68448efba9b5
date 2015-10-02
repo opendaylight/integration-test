@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_43484d5b",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-asymmetric-chain/010_set_odl.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-10-02T10:34:15Z",
+      "side": 1,
+      "message": "Would you please \u0027cd ..\u0027 once more here in Settings and in Variables as well -\u003e ../../../../../\nIf you could also do the same for symmetric chain demo please.",
+      "range": {
+        "startLine": 7,
+        "startChar": 18,
+        "endLine": 7,
+        "endChar": 30
+      },
+      "revId": "96b73b299f4232b01d2fb85721aa68448efba9b5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
