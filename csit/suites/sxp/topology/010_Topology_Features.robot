@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite to verify Bahaviour in different topologies
+Documentation     Test suite to verify Behaviour in different topologies
 Suite Setup       Setup SXP Environment
 Suite Teardown    Clean SXP Environment
 Test Setup        Clean Nodes
