@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite to verify Bahaviour in different topologies
+Documentation     Test suite to verify Behaviour in different topologies
 Suite Setup       Setup SXP Environment
 Suite Teardown    Clean SXP Environment
 Test Setup        Clean Nodes
@@ -180,6 +180,22 @@ Setup Topology Fork
     Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.3
     Add Connection    ${version}    listener    127.0.0.1    64999    127.0.0.4
     Sleep    3s
+
+Setup Topology Complex
+    [Arguments]     ${version}=version4     ${PASSWORD}=none
+    : FOR    ${node}    IN RANGE    2    6
+    \   Add Connection    ${version}    both    127.0.0.1    64999    127.0.0.${node}    ${PASSWORD}
+    \   Add Connection    ${version}    both    127.0.0.${node}    64999    127.0.0.1    ${PASSWORD}
+    \   Wait Until Keyword Succeeds    15    4    Verify Connection    ${version}    both    127.0.0.${node}
+    \   Add Binding    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
+    \   Add Binding    ${node}0    10.10.${node}0.0/24     127.0.0.${node}
+    \   Add Binding    ${node}0   10.${node}0.0.0/16      127.0.0.${node}
+    \   Add Binding    ${node}0    ${node}0.0.0.0/8        127.0.0.${node}
+
+    Add Binding    10    10.10.10.10/32    127.0.0.1
+    Add Binding    10    10.10.10.0/24     127.0.0.1
+    Add Binding    10    10.10.0.0/16      127.0.0.1
+    Add Binding    10    10.0.0.0/8        127.0.0.1
 
 Clean Nodes
     Clean Connections    127.0.0.1
