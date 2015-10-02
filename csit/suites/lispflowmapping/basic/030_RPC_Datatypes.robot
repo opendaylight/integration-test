@@ -3,8 +3,8 @@ Documentation     Test suite to verify data types using RPCs
 Suite Setup       Create Session And Set External Variables
 Suite Teardown    Delete All Sessions
 Test Setup        Set Suite Variable    ${RPC_Datatype__current_json}    ${EMPTY}
-Test Template     Check Datatype
 Test Teardown     Remove Datatype And Check Removal
+Test Template     Check Datatype
 Library           Collections
 Library           OperatingSystem
 Library           RequestsLibrary

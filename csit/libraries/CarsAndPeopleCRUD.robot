@@ -13,7 +13,8 @@ Initialize Cars
     ${node}=    Set Variable    ${EMPTY}
     ${prefix}=    Set Variable    {"car:cars":{"car-entry":[{
     ${postfix}=    Set Variable    }]}}
-    Create Records    ${controller_ip}    ${node}    ${0}    ${0}    ${prefix}    ${field bases}    ${postfix}
+    Create Records    ${controller_ip}    ${node}    ${0}    ${0}    ${prefix}    ${field bases}
+    ...    ${postfix}
     ${node}=    Set Variable    car:cars/car-entry
     Delete Records    ${controller_ip}    ${node}    ${0}    ${0}
 
@@ -28,7 +29,8 @@ Create Cars
     ${node}=    Set Variable    car:cars
     ${prefix}=    Set Variable    {"car-entry":[{
     ${postfix}=    Set Variable    }]}
-    Create Records    ${controller_ip}    ${node}    ${first}    ${last}    ${prefix}    ${field bases}    ${postfix}
+    Create Records    ${controller_ip}    ${node}    ${first}    ${last}    ${prefix}    ${field bases}
+    ...    ${postfix}
 
 Update Cars
     [Arguments]    ${controller_ip}    ${first}    ${last}    ${field bases}
@@ -41,7 +43,8 @@ Update Cars
     ${node}=    Set Variable    car:cars/car-entry
     ${prefix}=    Set Variable    {"car-entry":[{
     ${postfix}=    Set Variable    }]}
-    Update Records    ${controller_ip}    ${node}    ${first}    ${last}    ${prefix}    ${field bases}    ${postfix}
+    Update Records    ${controller_ip}    ${node}    ${first}    ${last}    ${prefix}    ${field bases}
+    ...    ${postfix}
 
 Read All Cars
     [Arguments]    ${controller_ip}

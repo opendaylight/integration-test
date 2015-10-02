@@ -43,7 +43,8 @@ Verify after adding group config
 
 Verify after adding group operational
     [Documentation]    Get the group stat in operational
-    ${elements}=    Create List    group-statistics    ref-count    packet-count    byte-count    buckets    weight    group-select
+    ${elements}=    Create List    group-statistics    ref-count    packet-count    byte-count    buckets
+    ...    weight    group-select
     Wait Until Keyword Succeeds    6s    2s    Check For Elements At URI    ${REST_CONTEXT_OP}/group/1    ${elements}
 
 Add a flow that includes a group

@@ -105,11 +105,11 @@ Set Host interface state
 Verify Switch S1 Group Table
     [Arguments]    ${group-type}    ${port-id1}    ${port-id2}    ${port-id2-state}
     [Documentation]    Functionality to verify the presence of LACP group entries on the OVS Switch(S1) Group table
-    ${group_output}=    Run Command on Remote System    ${MININET}    sudo ovs-ofctl dump-groups s1 -O OpenFlow13   ${MININET_USER}   #
+    ${group_output}=    Run Command on Remote System    ${MININET}    sudo ovs-ofctl dump-groups s1 -O OpenFlow13    ${MININET_USER}    #
     Log    ${group_output}
     Comment    ${group_output}    Read Until    mininet>
     ${result}=    Get Lines Containing String    ${group_output}    output:${port-id1}
     Should Contain    ${result}    type=${group-type}
     Should Contain    ${result}    output:${port-id1}
-    Run Keyword If    "${port-id2-state}" == "up"    Should Contain    ${result}    output:${port-id2}    ELSE    Should not Contain
-    ...    ${result}    output:${port-id2}
+    Run Keyword If    "${port-id2-state}" == "up"    Should Contain    ${result}    output:${port-id2}
+    ...    ELSE    Should not Contain    ${result}    output:${port-id2}

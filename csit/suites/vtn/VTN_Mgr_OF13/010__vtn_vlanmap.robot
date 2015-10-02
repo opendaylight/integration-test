@@ -7,19 +7,19 @@ Resource          ../../../libraries/VtnMaKeywords.robot
 *** Test Cases ***
 Start topology
     [Documentation]    Add a vlan topology
-     Start vlan_topo
+    Start vlan_topo
 
 Check if switch1 detected
     [Documentation]    Check if openflow:1 is detected
-    BuiltIn.Wait_Until_Keyword_Succeeds    12     3    Fetch vtn switch inventory     openflow:1
+    BuiltIn.Wait_Until_Keyword_Succeeds    12    3    Fetch vtn switch inventory    openflow:1
 
 Check if switch2 detected
     [Documentation]    Check if openflow:2 is detected
-    BuiltIn.Wait_Until_Keyword_Succeeds    3     1    Fetch vtn switch inventory     openflow:2
+    BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch inventory    openflow:2
 
 Check if switch3 detected
     [Documentation]    Check if openflow:3 is detected
-    BuiltIn.Wait_Until_Keyword_Succeeds    3     1    Fetch vtn switch inventory     openflow:3
+    BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch inventory    openflow:3
 
 Add a vtn Tenant1
     [Documentation]    Add a vtn Tenant1
@@ -58,7 +58,7 @@ Get vlanflow h2 h6
     Wait Until Keyword Succeeds    10s    2s    Mininet Ping Should Succeed    h2    h6
 
 Get vlanflow h2 h5
-   [Documentation]    ping h2 to h5
+    [Documentation]    ping h2 to h5
     Mininet Ping Should Not Succeed    h2    h5
 
 Delete a vtn Tenant1

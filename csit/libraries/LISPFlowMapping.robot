@@ -1,8 +1,8 @@
 *** Settings ***
-Documentation    This resource file defines keywords that are used in more
-...              than one lispflowmapping test suite.  Those suites include
-...              ../variables/Variables.py, which is where some of the
-...              variables are coming from.
+Documentation     This resource file defines keywords that are used in more
+...               than one lispflowmapping test suite. Those suites include
+...               ../variables/Variables.py, which is where some of the
+...               variables are coming from.
 
 *** Variables ***
 ${ODL_VERSION}    Be
@@ -10,8 +10,8 @@ ${ODL_VERSION}    Be
 *** Keywords ***
 Check Mapping Removal
     [Arguments]    ${json}
-    Run Keyword If    "${ODL_VERSION}" == "Li"    Check Mapping Removal Lithium    ${json}    ELSE
-    ...    Post Log Check    ${LFM_RPC_API}:get-mapping    ${json}    404
+    Run Keyword If    "${ODL_VERSION}" == "Li"    Check Mapping Removal Lithium    ${json}
+    ...    ELSE    Post Log Check    ${LFM_RPC_API}:get-mapping    ${json}    404
 
 Check Mapping Removal Lithium
     [Arguments]    ${json}
