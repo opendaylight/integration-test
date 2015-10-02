@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite to verify Bahaviour in different topologies
+Documentation     Test suite to verify Behaviour in different topologies
 Suite Setup       Setup SXP Environment
 Suite Teardown    Clean SXP Environment
 Test Setup        Clean Nodes
@@ -138,6 +138,58 @@ Shorthest Path Test
     Should Contain Binding With Peer Sequence    ${resp}    9954    105.15.125.15/32    127.0.0.5    2    sxp
     Should Contain Binding With Peer Sequence    ${resp}    99    15.15.15.15/32    127.0.0.2    1    sxp
 
+Complex Export Test
+    [Documentation]     Complex Export test that checks all bindings in each connected node
+    Setup Topology Complex
+    Sleep   2s
+    ${resp}    Get Bindings Master Database    127.0.0.4
+    Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
+    Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
+    Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
+    Should Contain Binding    ${resp}    10    10.0.0.0/8    sxp
+    Should Contain Binding    ${resp}    20    10.10.10.20/32    sxp
+    Should Contain Binding    ${resp}    20    10.10.20.0/24    sxp
+    Should Contain Binding    ${resp}    20    10.20.0.0/16    sxp
+    Should Contain Binding    ${resp}    20    20.0.0.0/8    sxp
+    Should Contain Binding    ${resp}    30    10.10.10.30/32    sxp
+    Should Contain Binding    ${resp}    30    10.10.30.0/24    sxp
+    Should Contain Binding    ${resp}    30    10.30.0.0/16    sxp
+    Should Contain Binding    ${resp}    30    30.0.0.0/8    sxp
+    Should Contain Binding    ${resp}    50    10.10.10.50/32    sxp
+    Should Contain Binding    ${resp}    50    10.10.50.0/24    sxp
+    Should Contain Binding    ${resp}    50    10.50.0.0/16    sxp
+    Should Contain Binding    ${resp}    50    50.0.0.0/8    sxp
+
+    ${resp}    Get Bindings Master Database    127.0.0.2
+    Should Contain Binding    ${resp}    40    10.10.10.40/32    sxp
+    Should Contain Binding    ${resp}    40    10.10.40.0/24    sxp
+    Should Contain Binding    ${resp}    40    10.40.0.0/16    sxp
+    Should Contain Binding    ${resp}    40    40.0.0.0/8    sxp
+
+    ${resp}    Get Bindings Master Database    127.0.0.4
+    Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
+    Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
+    Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
+    Should Contain Binding    ${resp}    10    10.0.0.0/8    sxp
+    Should Contain Binding    ${resp}    20    10.10.10.20/32    sxp
+    Should Contain Binding    ${resp}    20    10.10.20.0/24    sxp
+    Should Contain Binding    ${resp}    20    10.20.0.0/16    sxp
+    Should Contain Binding    ${resp}    20    20.0.0.0/8    sxp
+    Should Contain Binding    ${resp}    30    10.10.10.30/32    sxp
+    Should Contain Binding    ${resp}    30    10.10.30.0/24    sxp
+    Should Contain Binding    ${resp}    30    10.30.0.0/16    sxp
+    Should Contain Binding    ${resp}    30    30.0.0.0/8    sxp
+    Should Contain Binding    ${resp}    50    10.10.10.50/32    sxp
+    Should Contain Binding    ${resp}    50    10.10.50.0/24    sxp
+    Should Contain Binding    ${resp}    50    10.50.0.0/16    sxp
+    Should Contain Binding    ${resp}    50    50.0.0.0/8    sxp
+
+    ${resp}    Get Bindings Master Database    127.0.0.2
+    Should Contain Binding    ${resp}    40    10.10.10.40/32    sxp
+    Should Contain Binding    ${resp}    40    10.10.40.0/24    sxp
+    Should Contain Binding    ${resp}    40    10.40.0.0/16    sxp
+    Should Contain Binding    ${resp}    40    40.0.0.0/8    sxp
+
 *** Keywords ***
 Setup Topology Triangel
     [Arguments]    ${version}
@@ -180,6 +232,22 @@ Setup Topology Fork
     Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.3
     Add Connection    ${version}    listener    127.0.0.1    64999    127.0.0.4
     Sleep    3s
+
+Setup Topology Complex
+    [Arguments]     ${version}=version4     ${PASSWORD}=none
+    : FOR    ${node}    IN RANGE    2    6
+    \   Add Connection    ${version}    both    127.0.0.1    64999    127.0.0.${node}    ${PASSWORD}
+    \   Add Connection    ${version}    both    127.0.0.${node}    64999    127.0.0.1    ${PASSWORD}
+    \   Wait Until Keyword Succeeds    15    4    Verify Connection    ${version}    both    127.0.0.${node}
+    \   Add Binding    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
+    \   Add Binding    ${node}0    10.10.${node}0.0/24     127.0.0.${node}
+    \   Add Binding    ${node}0   10.${node}0.0.0/16      127.0.0.${node}
+    \   Add Binding    ${node}0    ${node}0.0.0.0/8        127.0.0.${node}
+
+    Add Binding    10    10.10.10.10/32    127.0.0.1
+    Add Binding    10    10.10.10.0/24     127.0.0.1
+    Add Binding    10    10.10.0.0/16      127.0.0.1
+    Add Binding    10    10.0.0.0/8        127.0.0.1
 
 Clean Nodes
     Clean Connections    127.0.0.1
