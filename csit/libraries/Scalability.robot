@@ -3,7 +3,7 @@ Library           SSHLibrary
 Resource          Utils.robot
 Library           String
 Library           Collections
-Variables           ../variables/Variables.py
+Variables         ../variables/Variables.py
 Library           RequestsLibrary
 Library           SwitchClasses/BaseSwitch.py
 
@@ -45,7 +45,8 @@ Find Max Links
     ${stop}    Convert to Integer    ${stop}
     ${step}    Convert to Integer    ${step}
     : FOR    ${switches}    IN RANGE    ${begin}    ${stop+1}    ${step}
-    \    ${status}    ${result}    Run Keyword And Ignore Error    Start Mininet With Custom Topology     ${CREATE_FULLYMESH_TOPOLOGY_FILE}   ${switches}  ${BASE_MAC_1}  ${BASE_IP_1}    ${0}   ${switches*20}
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Start Mininet With Custom Topology    ${CREATE_FULLYMESH_TOPOLOGY_FILE}    ${switches}
+    \    ...    ${BASE_MAC_1}    ${BASE_IP_1}    ${0}    ${switches*20}
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Is Not Dead    ${CONTROLLER}
     \    Exit For Loop If    '${status}' == 'FAIL'
@@ -54,9 +55,9 @@ Find Max Links
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120    10s
     \    ...    Check Every Switch    ${switches}    ${BASE_MAC_1}
     \    Exit For Loop If    '${status}' == 'FAIL'
-    \    ${max-links}=      Evaluate  ${switches}*${switches-1}
+    \    ${max-links}=    Evaluate    ${switches}*${switches-1}
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120    10s
-    \    ...    Check Number Of Links  ${max-links}
+    \    ...    Check Number Of Links    ${max-links}
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${status}    ${result}    Run Keyword And Ignore Error    Stop Mininet Simulation
     \    Exit For Loop If    '${status}' == 'FAIL'
@@ -67,7 +68,7 @@ Find Max Links
     \    ...    Check No Topology    ${switches}
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${max_switches}    Set Variable    ${switches}
-    ${max-links}=      Evaluate  ${max_switches}*${max_switches-1}
+    ${max-links}=    Evaluate    ${max_switches}*${max_switches-1}
     [Return]    ${max-links}
 
 Find Max Hosts
@@ -79,11 +80,11 @@ Find Max Hosts
     : FOR    ${hosts}    IN RANGE    ${begin}    ${stop+1}    ${step}
     \    ${status}    ${result}    Run Keyword And Ignore Error    Start Mininet With One Switch And ${hosts} hosts
     \    Exit For Loop If    '${status}' == 'FAIL'
-    \    ${status}    ${result}    Run Keyword And Ignore Error   Wait Until Keyword Succeeds    120s    30s
-    \    ...    Check Every Switch  ${1}
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120s    30s
+    \    ...    Check Every Switch    ${1}
     \    Exit For Loop If    '${status}' == 'FAIL'
-    \    @{host_list}=      Get Mininet Hosts
-    \    ${status}=     Ping All Hosts     @{host_list}
+    \    @{host_list}=    Get Mininet Hosts
+    \    ${status}=    Ping All Hosts    @{host_list}
     \    Exit For Loop If    ${status} != ${0}
     \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Is Not Dead    ${CONTROLLER}
     \    Exit For Loop If    '${status}' == 'FAIL'
@@ -100,29 +101,29 @@ Find Max Hosts
     [Return]    ${max-hosts}
 
 Get Mininet Hosts
-    [Documentation]  Get all the hosts from mininet
-    ${host_list}=       Create List
-    Write       nodes
-    ${out}=     Read Until      mininet>
-    @{words}=       Split String    ${out}  ${SPACE}
-    :FOR  ${item}   IN  @{words}
-    \   ${h}=   Get Lines Matching Regexp       ${item.rstrip()}     .*h[0-9]*s.
-    \   Run Keyword If  '${h}' != '${EMPTY}'    Append To List     ${host_list}   ${h}
-    [Return]  ${host_list}
+    [Documentation]    Get all the hosts from mininet
+    ${host_list}=    Create List
+    Write    nodes
+    ${out}=    Read Until    mininet>
+    @{words}=    Split String    ${out}    ${SPACE}
+    : FOR    ${item}    IN    @{words}
+    \    ${h}=    Get Lines Matching Regexp    ${item.rstrip()}    .*h[0-9]*s.
+    \    Run Keyword If    '${h}' != '${EMPTY}'    Append To List    ${host_list}    ${h}
+    [Return]    ${host_list}
 
 Ping All Hosts
-    [Arguments]     @{host_list}
-    [Documentation]  Do one round of ping from one host to all other hosts in mininet
-    ${source}=      Get From List   ${host_list}  ${0}
-    : FOR    ${h}   IN  @{host_list}
-    \   ${status}=   Ping Two Hosts      ${source}   ${h}    1
-    \   Exit For Loop If    ${status}!=${0}
+    [Arguments]    @{host_list}
+    [Documentation]    Do one round of ping from one host to all other hosts in mininet
+    ${source}=    Get From List    ${host_list}    ${0}
+    : FOR    ${h}    IN    @{host_list}
+    \    ${status}=    Ping Two Hosts    ${source}    ${h}    1
+    \    Exit For Loop If    ${status}!=${0}
     [Return]    ${status}
 
 Start Mininet With One Switch And ${hosts} hosts
     [Documentation]    Start mininet with one switch and ${hosts} hosts
-    Log     Starting mininet with one switch and ${hosts} hosts
-    Log To Console   Starting mininet with one switch and ${hosts} hosts
+    Log    Starting mininet with one switch and ${hosts} hosts
+    Log To Console    Starting mininet with one switch and ${hosts} hosts
     ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${hosts*3}
     Set Suite Variable    ${mininet_conn_id}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
@@ -133,31 +134,31 @@ Check Number Of Hosts
     [Arguments]    ${hosts}
     [Documentation]    Check number of hosts in inventory
     ${resp}=    RequestsLibrary.Get    session    ${OPERATIONAL_TOPO_API}
-    Log     Check number of hosts in inventory
-    Log To Console  Check number of hosts in inventory
+    Log    Check number of hosts in inventory
+    Log To Console    Check number of hosts in inventory
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${count}=    Get Count       ${resp.content}    "node-id":"host:
-    Should Be Equal As Integers  ${count}   ${hosts}
+    ${count}=    Get Count    ${resp.content}    "node-id":"host:
+    Should Be Equal As Integers    ${count}    ${hosts}
 
 Check Number Of Links
     [Arguments]    ${links}
     [Documentation]    Check number of links in inventory is ${links}
     ${resp}=    RequestsLibrary.Get    session    ${OPERATIONAL_TOPO_API}
-    Log     Check number of links in inventory is ${links}
-    Log To Console  Check number of links in inventory is ${links}
+    Log    Check number of links in inventory is ${links}
+    Log To Console    Check number of links in inventory is ${links}
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${count}=    Get Count       ${resp.content}   "link-id":"openflow:
-    Should Be Equal As Integers  ${count}   ${links}
+    ${count}=    Get Count    ${resp.content}    "link-id":"openflow:
+    Should Be Equal As Integers    ${count}    ${links}
 
 Ping Two Hosts
-    [Arguments]     ${host1}    ${host2}    ${pingcount}=2   ${connection_index}=${EMPTY}   ${connection_alias}=${EMPTY}
-    [Documentation]  Ping between mininet hosts. Must be used only after a mininet session is in place.Returns non zero value if there is 100% packet loss.
-    Run Keyword If       '${connection_index}'  !=   '${EMPTY}'        Switch Connection   ${connection_index}
-    Run Keyword If       '${connection_alias}'  !=   '${EMPTY}'        Switch Connection   ${connection_alias}
-    Write     ${host1} ping -c ${pingcount} ${host2}
-    ${out}=     Read Until  mininet>
-    ${ret}=     Get Lines Matching Regexp   ${out}  .*100% packet loss.*
-    ${len}=     Get Length      ${ret}
+    [Arguments]    ${host1}    ${host2}    ${pingcount}=2    ${connection_index}=${EMPTY}    ${connection_alias}=${EMPTY}
+    [Documentation]    Ping between mininet hosts. Must be used only after a mininet session is in place.Returns non zero value if there is 100% packet loss.
+    Run Keyword If    '${connection_index}'    !=    '${EMPTY}'    Switch Connection    ${connection_index}
+    Run Keyword If    '${connection_alias}'    !=    '${EMPTY}'    Switch Connection    ${connection_alias}
+    Write    ${host1} ping -c ${pingcount} ${host2}
+    ${out}=    Read Until    mininet>
+    ${ret}=    Get Lines Matching Regexp    ${out}    .*100% packet loss.*
+    ${len}=    Get Length    ${ret}
     [Return]    ${len}
 
 Check No Hosts
@@ -180,8 +181,8 @@ Start Mininet Linear
     Sleep    6
 
 Start Mininet With Custom Topology
-    [Arguments]  ${topology_file}  ${switches}   ${base_mac}=00:00:00:00:00:00  ${base_ip}=1.1.1.1  ${hosts}=0  ${mininet_start_time}=100
-    [Documentation]  Start a custom mininet topology.
+    [Arguments]    ${topology_file}    ${switches}    ${base_mac}=00:00:00:00:00:00    ${base_ip}=1.1.1.1    ${hosts}=0    ${mininet_start_time}=100
+    [Documentation]    Start a custom mininet topology.
     Log To Console    Start a custom mininet topology with ${switches} nodes
     ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${mininet_start_time}
     Set Suite Variable    ${mininet_conn_id}
@@ -190,20 +191,20 @@ Start Mininet With Custom Topology
     Read Until    ${DEFAULT_LINUX_PROMPT}
     Write    sudo mn --controller=remote,ip=${CONTROLLER} --custom switch.py --topo demotopo --switch ovsk,protocols=OpenFlow13
     Read Until    mininet>
-    Write   sh ovs-vsctl show
-    ${output}=  Read Until    mininet>
+    Write    sh ovs-vsctl show
+    ${output}=    Read Until    mininet>
     # Ovsdb connection is sometimes lost after mininet is started. Checking if the connection is alive before proceeding.
-    Should Not Contain  ${output}   database connection failed
-    Log To Console  Mininet Started with ${switches} nodes
+    Should Not Contain    ${output}    database connection failed
+    Log To Console    Mininet Started with ${switches} nodes
 
 Check Every Switch
-    [Arguments]    ${switches}  ${base_mac}=00:00:00:00:00:00
+    [Arguments]    ${switches}    ${base_mac}=00:00:00:00:00:00
     [Documentation]    Check all switches and stats in operational inventory
-    ${mac}=     Replace String Using Regexp     ${base_mac}      :     ${EMPTY}
-    ${mac}=     Convert Hex To Decimal As String    ${mac}
-    ${mac}=     Convert To Integer  ${mac}
+    ${mac}=    Replace String Using Regexp    ${base_mac}    :    ${EMPTY}
+    ${mac}=    Convert Hex To Decimal As String    ${mac}
+    ${mac}=    Convert To Integer    ${mac}
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    ${dpid_decimal}=   Evaluate  ${mac}+${switch}
+    \    ${dpid_decimal}=    Evaluate    ${mac}+${switch}
     \    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_API}/node/openflow:${dpid_decimal}
     \    Should Be Equal As Strings    ${resp.status_code}    200
     \    Log To Console    Checking Switch ${switch}

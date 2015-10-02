@@ -20,7 +20,6 @@ ${SERVICE_CHAINS_URI}    /restconf/config/service-function-chain:service-functio
 ${SERVICE_CHAINS_FILE}    ../../../variables/sfc/service-function-chains.json
 ${SERVICE_FUNCTION_PATHS_URI}    /restconf/config/service-function-path:service-function-paths/
 ${SERVICE_FUNCTION_PATHS_FILE}    ../../../variables/sfc/service-function-paths.json
-
 ${SERVICE_SCHED_TYPES_URI}    /restconf/config/service-function-scheduler-type:service-function-scheduler-types/
 ${SERVICE_SCHED_TYPE_URI_BASE}    ${SERVICE_SCHED_TYPES_URI}service-function-scheduler-type/service-function-scheduler-type:
 ${SERVICE_RANDOM_SCHED_TYPE_URI}    ${SERVICE_SCHED_TYPE_URI_BASE}random
@@ -31,11 +30,10 @@ ${SERVICE_LOADBALANCE_SCHED_TYPE_URI}    ${SERVICE_SCHED_TYPE_URI_BASE}load-bala
 ${SERVICE_LOADBALANCE_SCHED_TYPE_FILE}    ../../../variables/sfc/service-loadbalance-schedule-type.json
 ${SERVICE_SHORTESTPATH_SCHED_TYPE_URI}    ${SERVICE_SCHED_TYPE_URI_BASE}shortest-path
 ${SERVICE_SHORTESTPATH_SCHED_TYPE_FILE}    ../../../variables/sfc/service-loadbalance-schedule-type.json
-
 ${RENDERED_SERVICE_PATHS_URI}    /restconf/config/rendered-service-path:rendered-service-paths/
 ${OPERATIONAL_RSPS_URI}    /restconf/operational/rendered-service-path:rendered-service-paths/
-${OPERATIONS_CREATE_RSP_URI}     /restconf/operations/rendered-service-path:create-rendered-path/
-${OPERATIONS_DELETE_RSP_URI}     /restconf/operations/rendered-service-path:delete-rendered-path
+${OPERATIONS_CREATE_RSP_URI}    /restconf/operations/rendered-service-path:create-rendered-path/
+${OPERATIONS_DELETE_RSP_URI}    /restconf/operations/rendered-service-path:delete-rendered-path
 ${CREATE_RSP1_INPUT}    {"input":{"parent-service-function-path":"SFC1-100","name":"SFC1-100-Path-1"}}
 ${CREATE_RSP2_INPUT}    {"input":{"parent-service-function-path":"SFC1-100","name":"SFC1-100-Path-2"}}
 ${CREATE_RSP3_INPUT}    {"input":{"parent-service-function-path":"SFC1-100","name":"SFC1-100-Path-3"}}
@@ -64,7 +62,8 @@ Create and Get Rendered Service Path
     Post Elements To URI As JSON    ${OPERATIONS_CREATE_RSP_URI}    ${CREATE_RSP1_INPUT}
     ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_RSPS_URI}
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${elements}=    Create List    SFC1-100-Path-1    "parent-service-function-path":"SFC1-100"    "hop-number":0    "service-index":255    "hop-number":1    "service-index":254    "hop-number":2    "service-index":253
+    ${elements}=    Create List    SFC1-100-Path-1    "parent-service-function-path":"SFC1-100"    "hop-number":0    "service-index":255    "hop-number":1
+    ...    "service-index":254    "hop-number":2    "service-index":253
     Check For Elements At URI    ${OPERATIONAL_RSPS_URI}    ${elements}
 
 Create Get Rendered Service Path Failure
@@ -77,7 +76,8 @@ Get Rendered Service Path By Name
     Post Elements To URI As JSON    ${OPERATIONS_CREATE_RSP_URI}    ${CREATE_RSP1_INPUT}
     ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-1
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${elements}=    Create List    SFC1-100-Path-1    "parent-service-function-path":"SFC1-100"    "hop-number":0    "service-index":255    "hop-number":1    "service-index":254    "hop-number":2    "service-index":253
+    ${elements}=    Create List    SFC1-100-Path-1    "parent-service-function-path":"SFC1-100"    "hop-number":0    "service-index":255    "hop-number":1
+    ...    "service-index":254    "hop-number":2    "service-index":253
     Check For Elements At URI    ${OPERATIONAL_RSPS_URI}    ${elements}
 
 Get Non Existing Rendered Service Path
@@ -159,42 +159,42 @@ Generate RSPs with Round Robin Schedule Algorithm type
     Post Elements To URI As JSON    ${OPERATIONS_CREATE_RSP_URI}    ${CREATE_RSP4_INPUT}
     Post Elements To URI As JSON    ${OPERATIONS_CREATE_RSP_URI}    ${CREATE_RSP5_INPUT}
     Post Elements To URI As JSON    ${OPERATIONS_CREATE_RSP_URI}    ${CREATE_RSP6_INPUT}
-    ${path1_hop0}   Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-1/rendered-service-path-hop/0/
-    ${path1_hop1}   Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-1/rendered-service-path-hop/1/
-    ${path1_hop2}   Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-1/rendered-service-path-hop/2/
-    ${path2_hop0}   Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-2/rendered-service-path-hop/0/
-    ${path2_hop1}   Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-2/rendered-service-path-hop/1/
-    ${path2_hop2}   Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-2/rendered-service-path-hop/2/
-    ${path3_hop0}   Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-3/rendered-service-path-hop/0/
-    ${path3_hop1}   Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-3/rendered-service-path-hop/1/
-    ${path3_hop2}   Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-3/rendered-service-path-hop/2/
-    ${path4_hop0}   Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-4/rendered-service-path-hop/0/
-    ${path4_hop1}   Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-4/rendered-service-path-hop/1/
-    ${path4_hop2}   Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-4/rendered-service-path-hop/2/
-    ${path5_hop0}   Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-5/rendered-service-path-hop/0/
-    ${path5_hop1}   Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-5/rendered-service-path-hop/1/
-    ${path5_hop2}   Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-5/rendered-service-path-hop/2/
-    ${path6_hop0}   Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-6/rendered-service-path-hop/0/
-    ${path6_hop1}   Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-6/rendered-service-path-hop/1/
-    ${path6_hop2}   Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-6/rendered-service-path-hop/2/
-    Should Be Equal     ${path1_hop0}    ${path4_hop0}
-    Should Not Be Equal     ${path1_hop0}    ${path2_hop0}
-    Should Be Equal     ${path1_hop1}    ${path4_hop1}
-    Should Not Be Equal     ${path1_hop1}    ${path2_hop1}
-    Should Be Equal     ${path1_hop2}    ${path4_hop2}
-    Should Not Be Equal     ${path1_hop2}    ${path2_hop2}
-    Should Be Equal     ${path2_hop0}    ${path5_hop0}
-    Should Not Be Equal     ${path2_hop0}    ${path3_hop0}
-    Should Be Equal     ${path2_hop1}    ${path5_hop1}
-    Should Not Be Equal     ${path2_hop1}    ${path3_hop1}
-    Should Be Equal     ${path2_hop2}    ${path5_hop2}
-    Should Not Be Equal     ${path2_hop2}    ${path3_hop2}
-    Should Be Equal     ${path3_hop0}    ${path6_hop0}
-    Should Not Be Equal     ${path3_hop0}    ${path1_hop0}
-    Should Be Equal     ${path3_hop1}    ${path6_hop1}
-    Should Not Be Equal     ${path3_hop1}    ${path1_hop1}
-    Should Be Equal     ${path3_hop2}    ${path6_hop2}
-    Should Not Be Equal     ${path3_hop2}    ${path1_hop2}
+    ${path1_hop0}    Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-1/rendered-service-path-hop/0/
+    ${path1_hop1}    Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-1/rendered-service-path-hop/1/
+    ${path1_hop2}    Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-1/rendered-service-path-hop/2/
+    ${path2_hop0}    Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-2/rendered-service-path-hop/0/
+    ${path2_hop1}    Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-2/rendered-service-path-hop/1/
+    ${path2_hop2}    Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-2/rendered-service-path-hop/2/
+    ${path3_hop0}    Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-3/rendered-service-path-hop/0/
+    ${path3_hop1}    Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-3/rendered-service-path-hop/1/
+    ${path3_hop2}    Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-3/rendered-service-path-hop/2/
+    ${path4_hop0}    Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-4/rendered-service-path-hop/0/
+    ${path4_hop1}    Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-4/rendered-service-path-hop/1/
+    ${path4_hop2}    Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-4/rendered-service-path-hop/2/
+    ${path5_hop0}    Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-5/rendered-service-path-hop/0/
+    ${path5_hop1}    Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-5/rendered-service-path-hop/1/
+    ${path5_hop2}    Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-5/rendered-service-path-hop/2/
+    ${path6_hop0}    Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-6/rendered-service-path-hop/0/
+    ${path6_hop1}    Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-6/rendered-service-path-hop/1/
+    ${path6_hop2}    Get JSON Elements From URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-6/rendered-service-path-hop/2/
+    Should Be Equal    ${path1_hop0}    ${path4_hop0}
+    Should Not Be Equal    ${path1_hop0}    ${path2_hop0}
+    Should Be Equal    ${path1_hop1}    ${path4_hop1}
+    Should Not Be Equal    ${path1_hop1}    ${path2_hop1}
+    Should Be Equal    ${path1_hop2}    ${path4_hop2}
+    Should Not Be Equal    ${path1_hop2}    ${path2_hop2}
+    Should Be Equal    ${path2_hop0}    ${path5_hop0}
+    Should Not Be Equal    ${path2_hop0}    ${path3_hop0}
+    Should Be Equal    ${path2_hop1}    ${path5_hop1}
+    Should Not Be Equal    ${path2_hop1}    ${path3_hop1}
+    Should Be Equal    ${path2_hop2}    ${path5_hop2}
+    Should Not Be Equal    ${path2_hop2}    ${path3_hop2}
+    Should Be Equal    ${path3_hop0}    ${path6_hop0}
+    Should Not Be Equal    ${path3_hop0}    ${path1_hop0}
+    Should Be Equal    ${path3_hop1}    ${path6_hop1}
+    Should Not Be Equal    ${path3_hop1}    ${path1_hop1}
+    Should Be Equal    ${path3_hop2}    ${path6_hop2}
+    Should Not Be Equal    ${path3_hop2}    ${path1_hop2}
     Post Elements To URI As JSON    ${OPERATIONS_DELETE_RSP_URI}    ${DELETE_RSP1_INPUT}
     Post Elements To URI As JSON    ${OPERATIONS_DELETE_RSP_URI}    ${DELETE_RSP2_INPUT}
     Post Elements To URI As JSON    ${OPERATIONS_DELETE_RSP_URI}    ${DELETE_RSP3_INPUT}
@@ -250,12 +250,12 @@ Clean Datastore After Tests
 
 *** Keywords ***
 Post Elements To URI As JSON
-    [Arguments]   ${uri}   ${data}
+    [Arguments]    ${uri}    ${data}
     ${resp}    RequestsLibrary.Post    session    ${uri}    data=${data}    headers=${headers}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Get JSON Elements From URI
     [Arguments]    ${uri}
     ${resp}    RequestsLibrary.Get    session    ${uri}
-    ${value}   To Json    ${resp.content}
+    ${value}    To Json    ${resp.content}
     [Return]    ${value}

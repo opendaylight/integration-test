@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite for GBP Tenants, Operates functions from Restconf APIs.
-Library           RequestsLibrary
 Suite Teardown    Delete All Sessions
+Library           RequestsLibrary
 Library           SSHLibrary
 Library           Collections
 Library           OperatingSystem
@@ -9,9 +9,8 @@ Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
-${SFC_API}    /restconf/config/service-function:service-functions
+${SFC_API}        /restconf/config/service-function:service-functions
 ${SFC_FUNCTIONS_FILE}    ${CURDIR}/../../../variables/sfc/service-functions.json
-
 
 *** Test Cases ***
 Add Service Functions To One Node
@@ -28,7 +27,7 @@ Read Service Functions From Other Node
     Create Session    session    http://${CONTROLLER1}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     ${jsonbody}    Read JSON From File    ${SFC_FUNCTIONS_FILE}
     ${resp}    RequestsLibrary.Get    session    ${SFC_API}
-    Should Be Equal As Strings    ${resp.status_code}   200
+    Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     Lists Should be Equal    ${result}    ${jsonbody}
 

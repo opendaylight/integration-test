@@ -20,4 +20,3 @@ Find Max Switches
     ${max-switches}    Find Max Switches    ${MIN_SWITCHES}    ${MAX_SWITCHES}    ${STEP_SWITCHES}
     Log    ${max-switches}
     Append To File    ${SWITCHES_RESULT_FILE}    ${max-switches}\n
-

@@ -10,10 +10,10 @@ Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
-${GBP_TUNNELS_FILE}  ../../../variables/gbp/tunnels.json
-${GBP_TUNNEL_ID}     openflow:1
+${GBP_TUNNELS_FILE}    ../../../variables/gbp/tunnels.json
+${GBP_TUNNEL_ID}    openflow:1
 ${GBP_TUNNEL1_URL}    /restconf/config/opendaylight-inventory:nodes/opendaylight-inventory:node/${GBP_TUNNEL_ID}
-${GBP_TUNNEL1_FILE}  ../../../variables/gbp/tunnel1.json
+${GBP_TUNNEL1_FILE}    ../../../variables/gbp/tunnel1.json
 
 *** Test Cases ***
 Add Tunnels

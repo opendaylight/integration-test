@@ -31,7 +31,7 @@ Resource          ${CURDIR}/../../../libraries/Utils.robot
 ${directory_for_actual_responses}    ${TEMPDIR}/actual
 ${directory_for_expected_responses}    ${TEMPDIR}/expected
 ${directory_with_template_folders}    ${CURDIR}/../../../variables/bgpuser/
-${HOLDTIME}    180
+${HOLDTIME}       180
 
 *** Test Cases ***
 Check_For_Empty_Topology_Before_Talking
@@ -125,7 +125,7 @@ Setup_Everything
     [Documentation]    SSH-login to mininet machine, save prompt to variable, create HTTP session,
     ...    prepare directories for responses, put Python tool to mininet machine, setup imported resources.
     SSHLibrary.Open_Connection    ${MININET}
-    Utils.Flexible_SSH_Login     ${MININET_USER}    ${MININET_PASSWORD}
+    Utils.Flexible_SSH_Login    ${MININET_USER}    ${MININET_PASSWORD}
     ${current_connection}=    Get_Connection
     ${current_prompt}=    BuiltIn.Set_Variable    ${current_connection.prompt}
     BuiltIn.Log    ${current_prompt}
