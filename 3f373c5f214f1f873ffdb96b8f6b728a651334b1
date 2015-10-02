@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_d120a89d",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp1/005_set_odl.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 4233
+      },
+      "writtenOn": "2015-10-02T03:00:37Z",
+      "side": 1,
+      "message": "Change TENENT to TENANT",
+      "range": {
+        "startLine": 11,
+        "startChar": 2,
+        "endLine": 11,
+        "endChar": 15
+      },
+      "revId": "3f373c5f214f1f873ffdb96b8f6b728a651334b1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_f125a4ab",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp1/005_set_odl.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 4233
+      },
+      "writtenOn": "2015-10-02T03:00:37Z",
+      "side": 1,
+      "message": "Change TENENT to TENANT",
+      "range": {
+        "startLine": 12,
+        "startChar": 62,
+        "endLine": 12,
+        "endChar": 75
+      },
+      "revId": "3f373c5f214f1f873ffdb96b8f6b728a651334b1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_20b9872e",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp1/005_set_odl.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 4233
+      },
+      "writtenOn": "2015-10-02T03:00:37Z",
+      "side": 1,
+      "message": "Fix typo tunels.json to tunnels.json\nRename the file also.",
+      "range": {
+        "startLine": 16,
+        "startChar": 70,
+        "endLine": 16,
+        "endChar": 81
+      },
+      "revId": "3f373c5f214f1f873ffdb96b8f6b728a651334b1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
