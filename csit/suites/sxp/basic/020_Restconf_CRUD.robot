@@ -65,7 +65,22 @@ Test Update Binding
     Should Not Contain Binding    ${resp}    3230    1.1.1.10/32
     Should Contain Binding    ${resp}    623    10.10.10.10/32
 
+Test Loop
+    : FOR    ${num}    IN RANGE    1    500
+    \   Test Update
+    \   Delete Binding      623    10.10.10.10/32
+
 *** Keywords ***
+Test Update
+    [Documentation]    Test if bindings can be updated to different values
+    Add Binding    3230    1.1.1.10/32
+    ${resp}    Get Bindings Master Database
+    Should Contain Binding    ${resp}    3230    1.1.1.10/32
+    Update Binding    3230    1.1.1.10/32    623    10.10.10.10/32
+    ${resp}    Get Bindings Master Database
+    Should Not Contain Binding    ${resp}    3230    1.1.1.10/32
+    Should Contain Binding    ${resp}    623    10.10.10.10/32
+
 Clean Node
     Clean Connections    127.0.0.1
     Clean Bindings    127.0.0.1
