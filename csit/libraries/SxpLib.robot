@@ -1,5 +1,6 @@
 *** Settings ***
 Documentation     Library containing Keywords used for SXP testing
+Library           Collections
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           String
@@ -14,15 +15,16 @@ ${REST_CONTEXT}    /restconf/operations/sxp-controller
 Add Connection
     [Arguments]    ${version}    ${mode}    ${ip}    ${port}    ${node}=127.0.0.1    ${password}=none
     ...    ${session}=session
-    [Documentation]    Add connection via RCP to node
+    [Documentation]    Add connection via RPC to node
     ${DATA}    Add Connection Xml    ${version}    ${mode}    ${ip}    ${port}    ${node}
     ...    ${password}
     ${resp}    RequestsLibrary.Post    ${session}    ${REST_CONTEXT}:add-connection    data=${DATA}    headers=${HEADERS_XML}
+    LOG     ${resp}
     Should be Equal As Strings    ${resp.status_code}    200
 
 Get Connections
     [Arguments]    ${node}=127.0.0.1    ${session}=session
-    [Documentation]    Gets all connections vie RPC from node
+    [Documentation]    Gets all connections via RPC from node
     ${DATA}    Get Connections From Node Xml    ${node}
     ${resp}    RequestsLibrary.Post    ${session}    ${REST_CONTEXT}:get-connections    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
@@ -42,6 +44,12 @@ Clean Connections
     @{connections}    Parse Connections    ${resp}
     : FOR    ${connection}    IN    @{connections}
     \    delete connections    ${connection['peer-address']}    ${connection['tcp-port']}    ${node}    ${session}
+
+Verify Connection
+    [Arguments]    ${version}    ${mode}    ${ip}    ${port}=64999    ${node}=127.0.0.1    ${state}=on
+    [Documentation]    Verify that connection is ON
+    ${resp}    Get Connections    ${node}
+    Should Contain Connection    ${resp}    ${ip}    ${port}    ${mode}    ${version}    ${state}
 
 Add Binding
     [Arguments]    ${sgt}    ${prefix}    ${node}=127.0.0.1    ${session}=session
@@ -91,6 +99,51 @@ Delete Binding
     [Documentation]    Delete binding via RPC from Master DB of node
     ${DATA}    Delete Binding Xml    ${sgt}    ${prefix}    ${node}
     ${resp}    RequestsLibrary.Post    ${session}    ${REST_CONTEXT}:delete-entry    data=${DATA}    headers=${HEADERS_XML}
+    Should be Equal As Strings    ${resp.status_code}    200
+
+Add PeerGroup
+    [Documentation]    Adds new PeerGroup via RPC to Node
+    [Arguments]     ${name}     ${peers}=    ${node}=127.0.0.1       ${session}=session
+    ${DATA}    Add Peer Group Xml        ${name}        ${peers}         ${node}
+    LOG     ${DATA}
+    ${resp}    RequestsLibrary.Post    ${session}    ${REST_CONTEXT}:add-peer-group    data=${DATA}    headers=${HEADERS_XML}
+    Should be Equal As Strings    ${resp.status_code}    200
+
+Delete Peer Group
+    [Arguments]    ${name}    ${node}=127.0.0.1       ${session}=session
+    [Documentation]    Delete PeerGroup via RPC from Node
+    ${DATA}    Delete Peer Group Xml        ${name}    ${node}
+    ${resp}    RequestsLibrary.Post    ${session}    ${REST_CONTEXT}:delete-peer-group    data=${DATA}    headers=${HEADERS_XML}
+    Should be Equal As Strings    ${resp.status_code}    200
+
+Get Peer Groups
+    [Arguments]    ${node}=127.0.0.1    ${session}=session
+    [Documentation]    Gets all PeerGroups via RPC from node
+    ${DATA}    Get Peer Groups From Node Xml    ${node}
+    ${resp}    RequestsLibrary.Post    ${session}    ${REST_CONTEXT}:get-peer-groups    data=${DATA}    headers=${HEADERS_XML}
+    Should be Equal As Strings    ${resp.status_code}    200
+    [Return]    ${resp.content}
+
+Clean Peer Groups
+    [Arguments]    ${node}=127.0.0.1       ${session}=session
+    [Documentation]    Delete all PeerGroups vie RPC from node
+    ${resp}    Get Peer Groups    ${node}   ${session}
+    @{prefixes}    Parse Peer Groups    ${resp}
+    : FOR    ${group}    IN    @{prefixes}
+    \    Delete Peer Group      ${group['name']}    ${node}     ${session}
+
+Add Filter
+    [Arguments]    ${name}    ${type}      ${entries}       ${node}=127.0.0.1       ${session}=session
+    [Documentation]    Add Filter via RPC from Node
+    ${DATA}    Add Filter Xml        ${name}    ${type}    ${entries}   ${node}
+    ${resp}    RequestsLibrary.Post    ${session}    ${REST_CONTEXT}:add-filter    data=${DATA}    headers=${HEADERS_XML}
+    Should be Equal As Strings    ${resp.status_code}    200
+
+Delete Filter
+    [Arguments]    ${name}    ${type}      ${node}=127.0.0.1       ${session}=session
+    [Documentation]    Delete Filter via RPC from Node
+    ${DATA}    Delete Filter Xml        ${name}    ${type}    ${node}
+    ${resp}    RequestsLibrary.Post    ${session}    ${REST_CONTEXT}:delete-filter    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
 
 Should Contain Binding

@@ -1,6 +1,7 @@
 import json
-from ipaddr import IPAddress
 from string import Template
+
+from ipaddr import IPAddress
 
 
 def mod(num, base):
@@ -21,6 +22,134 @@ def lower_version(ver1, ver2):
         return ver2
 
 
+def get_filter_entry(seq, type, **kwargs):
+    typeofentry = "PL"
+    entries = ""
+    for name, value in kwargs.items():
+        entry = ""
+        if name == "SGT":
+            args = value.split(',')
+            entry = add_sgt_matches_xml(args)
+        elif name == "ESGT":
+            args = value.split(',')
+            entry = add_sgt_range_xml(args[0], args[1])
+        elif name == "ACL":
+            typeofentry = "ACL"
+            args = value.split(',')
+            entry = add_acl_entry_xml(args[0], args[1])
+        elif name == "EACL":
+            typeofentry = "ACL"
+            args = value.split(',')
+            entry = add_eacl_entry_xml(args[0], args[1], args[2], args[3])
+        elif name == "PL":
+            entry = add_pl_entry_xml(value)
+        elif name == "EPL":
+            args = value.split(',')
+            entry = add_epl_entry_xml(args[0], args[1], args[2])
+        entries = entries + entry
+    if typeofentry == "PL":
+        return add_pl_entry_default_xml(seq, type, entries)
+    return add_acl_entry_default_xml(seq, type, entries)
+
+
+def add_peers(*args):
+    templ = Template('''
+        <sxp-peer>
+            <peer-address>$ip</peer-address>
+        </sxp-peer>''')
+    peers = ""
+    for count, value in enumerate(args):
+        peers = peers + templ.substitute({'ip': value})
+    return peers
+
+
+def add_sgt_matches_xml(input):
+    templ = Template('''
+        <matches>$sgt</matches>''')
+    matches = ""
+    for sgt in input:
+        matches = matches + templ.substitute({'sgt': sgt})
+    return matches
+
+
+def add_sgt_range_xml(start, end):
+    templ = Template('''
+        <sgt-start>$start</sgt-start>
+        <sgt-end>$end</sgt-end>''')
+    match = templ.substitute({'start': start, 'end': end})
+    return match
+
+
+def add_acl_entry_default_xml(seq, type, input):
+    templ = Template('''
+        <acl-entry>
+            <entry-type>$type</entry-type>
+            <entry-seq>$seq</entry-seq>$input
+        </acl-entry>''')
+    matches = templ.substitute({'seq': seq, 'type': type, 'input': input})
+    return matches
+
+
+def add_acl_entry_xml(ip, mask):
+    templ = Template('''
+        <acl-match>
+            <ip-address>$ip</ip-address>
+            <wildcard-mask>$mask</wildcard-mask>
+        </acl-match>''')
+    return templ.substitute({'ip': ip, 'mask': mask})
+
+
+def add_eacl_entry_xml(ip, mask, amask, wmask):
+    templ = Template('''
+        <acl-match>
+            <ip-address>$ip</ip-address>
+            <wildcard-mask>$mask</wildcard-mask>
+            <mask>
+              <address-mask>$amask</address-mask>
+              <wildcard-mask>$wmask</wildcard-mask>
+            </mask>
+        </acl-match>''')
+    return templ.substitute({'ip': ip, 'mask': mask, 'amask': amask, 'wmask': wmask})
+
+
+def add_pl_entry_default_xml(seq, type, input):
+    templ = Template('''
+    <prefix-list-entry xmlns="urn:opendaylight:sxp:controller">
+          <entry-type>$type</entry-type>
+          <entry-seq>$seq</entry-seq>$input
+    </prefix-list-entry>''')
+    return templ.substitute({'seq': seq, 'type': type, 'input': input})
+
+
+def add_pl_entry_xml(prefix):
+    templ = Template('''
+        <prefix-list-match>
+            <ip-prefix>$prefix</ip-prefix>
+        </prefix-list-match>''')
+    return templ.substitute({'prefix': prefix})
+
+
+def add_epl_entry_xml(prefix, op, mask):
+    templ = Template('''
+        <prefix-list-match>
+            <ip-prefix>$prefix</ip-prefix>
+            <mask>
+                <mask-range>$op</mask-range>
+                <mask-value>$mask</mask-value>
+            </mask>
+        </prefix-list-match>''')
+    return templ.substitute({'prefix': prefix, 'mask': mask, 'op': op})
+
+
+def parse_peer_groups(input):
+    data = json.loads(input)
+    groups = data['output']
+    output = []
+    for list in groups.values():
+        output = output + list
+    return output
+
+
 def parse_connections(input):
     data = json.loads(input)
     connections = data['output']['connections']
@@ -33,7 +162,7 @@ def parse_connections(input):
 def find_connection(input, version, mode, ip, port, state):
     for connection in parse_connections(input):
         if (connection['peer-address'] == ip and connection['tcp-port'] == int(port) and connection['mode'] == mode and
-                connection['version'] == version):
+                    connection['version'] == version):
             if state == 'none':
                 return True
             elif connection['state'] == state:
@@ -148,6 +277,57 @@ def delete_binding_xml(sgt, prefix, ip):
   <ip-prefix xmlns="urn:opendaylight:sxp:controller">$prefix</ip-prefix>
 </input>''')
     data = templ.substitute({'sgt': sgt, 'prefix': prefix, 'ip': ip})
+    return data
+
+
+def add_peer_group_xml(name, peers, ip):
+    templ = Template('''<input>
+  <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
+  <sxp-peer-group xmlns="urn:opendaylight:sxp:controller">
+    <name xmlns="urn:opendaylight:sxp:controller">$name</name>
+    <sxp-peers xmlns="urn:opendaylight:sxp:controller">$peers</sxp-peers>
+    </sxp-peer-group>
+</input>''')
+    data = templ.substitute({'name': name, 'peers': peers, 'ip': ip})
+    return data
+
+
+def delete_peer_group_xml(name, ip):
+    templ = Template('''<input>
+  <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
+  <peer-group-name xmlns="urn:opendaylight:sxp:controller">$name</peer-group-name>
+</input>''')
+    data = templ.substitute({'name': name, 'ip': ip})
+    return data
+
+
+def get_peer_groups_from_node_xml(ip):
+    templ = Template('''<input>
+   <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
+</input>''')
+    data = templ.substitute({'ip': ip})
+    return data
+
+
+def add_filter_xml(group, type, entries, ip):
+    templ = Template('''<input>
+  <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
+  <peer-group-name xmlns="urn:opendaylight:sxp:controller">$group</peer-group-name>
+  <sxp-filter xmlns="urn:opendaylight:sxp:controller">
+    <filter-type>$type</filter-type>$entries
+  </sxp-filter>
+</input>''')
+    data = templ.substitute({'group': group, 'type': type, 'ip': ip, 'entries': entries})
+    return data
+
+
+def delete_filter_xml(group, type, ip):
+    templ = Template('''<input>
+  <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
+  <peer-group-name xmlns="urn:opendaylight:sxp:controller">$group</peer-group-name>
+  <filter-type xmlns="urn:opendaylight:sxp:controller">$type</filter-type>
+</input>''')
+    data = templ.substitute({'group': group, 'type': type, 'ip': ip})
     return data
 
 

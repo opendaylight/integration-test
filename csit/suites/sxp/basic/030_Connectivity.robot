@@ -98,12 +98,6 @@ Test Both
     ...    64999    127.0.0.3
     Log    OK ${r_version}:both ${version}:both
 
-Verify Connection
-    [Arguments]    ${version}    ${mode}    ${ip}    ${port}    ${node}    ${state}=on
-    [Documentation]    Verify that connection is ON
-    ${resp}    Get Connections    ${node}
-    Should Contain Connection    ${resp}    ${ip}    ${port}    ${mode}    ${version}    ${state}
-
 Clean Nodes
     Clean Connections    127.0.0.1
     Clean Connections    127.0.0.2
