@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_f426edb9",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-02T23:48:22Z",
+      "side": 1,
+      "message": "this is not clear to me, why you are doing it.  I\u0027m sure you have a good reason, but I didn\u0027t see why in the comments.",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 31
+      },
+      "revId": "a6c5d073bde36dd0355576e1d805487ba9193f1a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_142cc998",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-02T23:48:22Z",
+      "side": 1,
+      "message": "we have ${KARAF_PROMPT} in variables.py which is nothing like this, but I remember it being just \"good enough\" when I wrote it.  Is this more dialed in with all the ctrl characters and such?  If so, should this just be what we define KARAF_PROMPT as in Variables.py?",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 111,
+        "endChar": 95
+      },
+      "revId": "a6c5d073bde36dd0355576e1d805487ba9193f1a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_b420759c",
+        "filename": "csit/libraries/SetupUtils.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-02T23:48:22Z",
+      "side": 1,
+      "message": "docs please.  even just brief, so we\u0027ll have data to look at when we eventually get html versions of these keywords.",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 56
+      },
+      "revId": "a6c5d073bde36dd0355576e1d805487ba9193f1a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
