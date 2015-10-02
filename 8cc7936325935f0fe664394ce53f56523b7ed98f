@@ -16,6 +16,24 @@
       "revId": "8cc7936325935f0fe664394ce53f56523b7ed98f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_030a558a",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 411,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-10-02T11:48:58Z",
+      "side": 1,
+      "message": "Regarding the second half of the comment from patch set 2, line 370, I also like the idea to require the data change counter to be stable for several tests in a row before we proclaim it to be stable. However implementing that idea is quite involved work so I would like to have it in a separate change which is reviewed independently. Namely I prefer to have \"less perfect\" test now and make it \"perfect\" later than to have no test until \"later\". Additionally I feel this \"separate change\" to be of a lesser priority.",
+      "parentUuid": "1a76adc5_06890826",
+      "revId": "8cc7936325935f0fe664394ce53f56523b7ed98f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
