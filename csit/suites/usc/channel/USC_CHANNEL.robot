@@ -17,4 +17,3 @@ Get Controller Modules
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ietf-restconf
-

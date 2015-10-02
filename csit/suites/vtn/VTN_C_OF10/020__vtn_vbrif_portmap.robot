@@ -12,7 +12,7 @@ Add a ODL Controller
 Verify the Controller Status is waiting_audit
     [Documentation]    Check Controller status
     # Ping starts after 12sec of completing audit and controller status become "UP"
-    Wait Until Keyword Succeeds    12s    2s   Check Controller Status    odc_test   waiting_audit
+    Wait Until Keyword Succeeds    12s    2s    Check Controller Status    odc_test    waiting_audit
 
 Audit a controller
     [Documentation]    Trigger update audit
@@ -44,7 +44,7 @@ Define Portmap for Interface2
 
 Test Ping for Configuration1
     [Documentation]    ping between hosts in mininet
-    Wait Until Keyword Succeeds   10s    2s    Test Ping    h1    h3
+    Wait Until Keyword Succeeds    10s    2s    Test Ping    h1    h3
 
 Delete a VTN Tenant1
     [Documentation]    Delete Vtn Tenant1

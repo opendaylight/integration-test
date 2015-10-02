@@ -24,7 +24,7 @@ Export Test
     Sleep    2s
     ${resp}    Get Bindings Master Database
     Should Contain Binding With Peer Sequence    ${resp}    542    5.5.5.5/32    127.0.0.2    0    sxp
-    Should Contain Binding With Peer Sequence    ${resp}    99     15.15.15.15/32    127.0.0.3    1    sxp
+    Should Contain Binding With Peer Sequence    ${resp}    99    15.15.15.15/32    127.0.0.3    1    sxp
     Delete Connections    127.0.0.1    64999    127.0.0.2
     Sleep    2s
     ${resp}    Get Bindings Master Database
@@ -34,21 +34,21 @@ Export Test
 Export Test Legacy
     [Documentation]    Test behaviour after shutting down connections in Legacy versions
     @{list} =    Create List    version1
-    :FOR    ${version}    IN    @{list}
+    : FOR    ${version}    IN    @{list}
     \    Setup Topology Triangel    ${version}
     \    ${resp}    Get Bindings Master Database
-    \    Should Contain Binding    ${resp}    542    5.5.5.5/32     sxp
-    \    Should Contain Binding    ${resp}    99    15.15.15.15/32     sxp
+    \    Should Contain Binding    ${resp}    542    5.5.5.5/32    sxp
+    \    Should Contain Binding    ${resp}    99    15.15.15.15/32    sxp
     \    Delete Connections    127.0.0.1    64999    127.0.0.3
     \    Sleep    2s
     \    ${resp}    Get Bindings Master Database
-    \    Should Contain Binding    ${resp}    542    5.5.5.5/32     sxp
-    \    Should Contain Binding    ${resp}    99    15.15.15.15/32     sxp
+    \    Should Contain Binding    ${resp}    542    5.5.5.5/32    sxp
+    \    Should Contain Binding    ${resp}    99    15.15.15.15/32    sxp
     \    Delete Connections    127.0.0.1    64999    127.0.0.2
     \    Sleep    2s
     \    ${resp}    Get Bindings Master Database
-    \    Should Not Contain Binding    ${resp}    542    5.5.5.5/32     sxp
-    \    Should Not Contain Binding    ${resp}    99    15.15.15.15/32     sxp
+    \    Should Not Contain Binding    ${resp}    542    5.5.5.5/32    sxp
+    \    Should Not Contain Binding    ${resp}    99    15.15.15.15/32    sxp
     \    Log    ${version} OK
     \    Clean Nodes
 
@@ -140,8 +140,8 @@ Shorthest Path Test
 
 *** Keywords ***
 Setup Topology Triangel
-    [Documentation]     Setup 3 nodes connected to each other
     [Arguments]    ${version}
+    [Documentation]    Setup 3 nodes connected to each other
     Add Binding    542    5.5.5.5/32    127.0.0.2
     Add Binding    542    5.5.5.5/32    127.0.0.3
     Add Binding    99    15.15.15.15/32    127.0.0.3
@@ -156,8 +156,8 @@ Setup Topology Triangel
     Sleep    3s
 
 Setup Topology Linear
-    [Documentation]     Setup 3 nodes connected linearly
     [Arguments]    ${version}    ${r_version}
+    [Documentation]    Setup 3 nodes connected linearly
     Add Binding    6    56.56.56.0/24    127.0.0.2
     Add Binding    66    9.9.9.9/32    127.0.0.2
     Add Binding    666    2001:db8:0:0:0:0:1428:57ab/128    127.0.0.2
@@ -170,8 +170,8 @@ Setup Topology Linear
     Sleep    2s
 
 Setup Topology Fork
-    [Documentation]     Setup 4 nodes in to T topology
     [Arguments]    ${version}
+    [Documentation]    Setup 4 nodes in to T topology
     Add Connection    ${version}    listener    127.0.0.2    64999    127.0.0.1
     Add Connection    ${version}    listener    127.0.0.3    64999    127.0.0.1
     Add Connection    ${version}    speaker    127.0.0.4    64999    127.0.0.1

@@ -14,7 +14,7 @@ Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
 ${OVSDB_PORT}     6640
-${OF_PORT}    6653
+${OF_PORT}        6653
 ${FLOWS_TABLE_20}    actions=goto_table:20
 ${FLOW_CONTROLLER}    actions=CONTROLLER:65535
 ${FLOWS_TABLE_30}    actions=goto_table:30
@@ -34,10 +34,10 @@ ${PING_NOT_CONTAIN}    Destination Host Unreachable
 Make the OVS instance to listen for connection
     [Documentation]    Connect OVS to ODL
     [Tags]    OVSDB netvirt
-    Clean Up Ovs   ${MININET}
+    Clean Up Ovs    ${MININET}
     Run Command On Remote System    ${MININET}    sudo ovs-vsctl set-manager tcp:${CONTROLLER}:${OVSDB_PORT}
     ${output}    Run Command On Remote System    ${MININET}    sudo ovs-vsctl show
-    ${pingresult}   Run Command On Remote System    ${MININET}    ping ${CONTROLLER} -c 4
+    ${pingresult}    Run Command On Remote System    ${MININET}    ping ${CONTROLLER} -c 4
     Should Not Contain    ${pingresult}    ${PING_NOT_CONTAIN}
     Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${node_list}
 

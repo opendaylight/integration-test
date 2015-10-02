@@ -11,7 +11,7 @@ Add a ODL Controller
 
 Verify the Controller Status is waiting_audit
     [Documentation]    Check Controller status
-    Wait Until Keyword Succeeds    12s    2s   Check Controller Status    odc_test   waiting_audit
+    Wait Until Keyword Succeeds    12s    2s    Check Controller Status    odc_test    waiting_audit
 
 Audit a controller
     [Documentation]    Trigger update audit
@@ -30,35 +30,35 @@ Create VBR in VTN Tenant1
     Create VBR in VTN    Tenant1    Vbridge1    odc_test
 
 Create VLANMAP in VBRIDGE1
-    [Documentation]    Create a Vlanmap in  Vbridge1
-    Create VLANMAP in VBRIDGE    Tenant1   Vbridge1   200
+    [Documentation]    Create a Vlanmap in Vbridge1
+    Create VLANMAP in VBRIDGE    Tenant1    Vbridge1    200
 
 Create VBR2 in VTN Tenant1
     [Documentation]    Create a VBR in Tenant1 as Vbridge1
     Create VBR in VTN    Tenant1    Vbridge2    odc_test
 
 Create VLANMAP in VBRIDGE2
-    [Documentation]    Create a Vlanmap in  Vbridge1
-    Create VLANMAP in VBRIDGE    Tenant1   Vbridge2   300
+    [Documentation]    Create a Vlanmap in Vbridge1
+    Create VLANMAP in VBRIDGE    Tenant1    Vbridge2    300
 
 Test Ping for Configuration1
     [Documentation]    ping between hosts in mininet
-    Wait Until Keyword Succeeds    10s    2s    Test Ping    h1   h3
+    Wait Until Keyword Succeeds    10s    2s    Test Ping    h1    h3
 
 Test Ping for Configuration2
     [Documentation]    ping between hosts in mininet
-    Wait Until Keyword Succeeds    10s    2s    Test Ping    h1   h5
+    Wait Until Keyword Succeeds    10s    2s    Test Ping    h1    h5
 
 Test Ping for Configuration3
     [Documentation]    ping between hosts in mininet
-    Wait Until Keyword Succeeds    10s    2s    Test Ping    h2   h4
+    Wait Until Keyword Succeeds    10s    2s    Test Ping    h2    h4
 
 Test Ping for Configuration4
     [Documentation]    ping between hosts in mininet
-    Wait Until Keyword Succeeds    10s    2s    Test Ping    h2   h6
+    Wait Until Keyword Succeeds    10s    2s    Test Ping    h2    h6
 
 Delete a VTN Tenant1
-    [Documentation]   Delete Vtn Tenant1
+    [Documentation]    Delete Vtn Tenant1
     Delete a VTN    Tenant1
 
 Delete a Controller odc1

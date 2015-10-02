@@ -10,11 +10,11 @@ Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
-${REGISTER_ENDPOINT_FILE}  ../../../variables/gbp/register-endpoint.json
-${UNREGISTER_ENDPOINT_FILE}  ../../../variables/gbp/unregister-endpoint.json
+${REGISTER_ENDPOINT_FILE}    ../../../variables/gbp/register-endpoint.json
+${UNREGISTER_ENDPOINT_FILE}    ../../../variables/gbp/unregister-endpoint.json
 
 *** Test Cases ***
 Register and Unregister Endpoint
     [Documentation]    Register and Unregister Endpoint from JSON file
-    Post Elements To URI From File    ${GBP_REGEP_API}  ${REGISTER_ENDPOINT_FILE}
-    Post Elements To URI From File  ${GBP_UNREGEP_API}  ${UNREGISTER_ENDPOINT_FILE}
+    Post Elements To URI From File    ${GBP_REGEP_API}    ${REGISTER_ENDPOINT_FILE}
+    Post Elements To URI From File    ${GBP_UNREGEP_API}    ${UNREGISTER_ENDPOINT_FILE}
