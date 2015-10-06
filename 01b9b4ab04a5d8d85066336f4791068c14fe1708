@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_efadb332",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/__init__.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-10-06T09:56:38Z",
+      "side": 1,
+      "message": "I\u0027m not quite sure about this..",
+      "range": {
+        "startLine": 43,
+        "startChar": 68,
+        "endLine": 43,
+        "endChar": 92
+      },
+      "revId": "01b9b4ab04a5d8d85066336f4791068c14fe1708",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
