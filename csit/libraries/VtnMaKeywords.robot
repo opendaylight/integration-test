@@ -17,8 +17,12 @@ ${VTN_INVENTORY}        restconf/operational/vtn-inventory:vtn-nodes
 ${DUMPFLOWS}    dpctl dump-flows -O OpenFlow13
 ${index}    7
 @{FLOWELMENTS}    nw_src=10.0.0.1    nw_dst=10.0.0.3    actions=drop
+@{BRIDGE1_DATAFLOW}    "reason":"PORTMAPPED"    "path":{"tenant":"Tenant1","bridge":"vBridge1","interface":"if2"}
+@{BRIDGE2_DATAFLOW}    "reason":"PORTMAPPED"    "path":{"tenant":"Tenant1","bridge":"vBridge2","interface":"if3"}
 ${vlanmap_bridge1}    {"vlan": "200"}
 ${vlanmap_bridge2}    {"vlan": "300"}
+@{VLANMAP_BRIDGE1_DATAFLOW}    "reason":"VLANMAPPED"    "path":{"tenant":"Tenant1","bridge":"vBridge1"}
+@{VLANMAP_BRIDGE2_DATAFLOW}    "reason":"VLANMAPPED"    "path":{"tenant":"Tenant1","bridge":"vBridge2"}
 
 *** Keywords ***
 Start SuiteVtnMa
@@ -82,6 +86,13 @@ Add a portmap
     ${resp}=    RequestsLibrary.Put    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/interfaces/${interface_name}/portmap    data=${json_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    200
 
+Verify Data Flows For Bridge1
+    [Arguments]    ${vtn_name}
+    [Documentation]    Verify the reason and physical data flows for the specified vtn and vbridge1
+    ${resp}=    RequestsLibrary.Get   session    ${REST_CONTEXT_VTNS}/${vtn_name}/flows/detail
+    : FOR    ${dataflowElement}    IN    @{BRIDGE1_DATAFLOW}
+    \    should Contain    ${resp.content}    ${dataflowElement}
+
 Add a macmap
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${macmap_data}
     [Documentation]    Create a macmap for a vbridge
@@ -123,6 +134,13 @@ Add a vlanmap
     ${resp}=    RequestsLibrary.Post    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/vlanmaps/    data=${vlanmap_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    201
 
+Verify Data Flows For Vlanmap Bridge1
+    [Arguments]    ${vtn_name}
+    [Documentation]    Verify the reason and physical data flows for the specified vtn and vbridge1
+    ${resp}=    RequestsLibrary.Get   session    ${REST_CONTEXT_VTNS}/${vtn_name}/flows/detail
+    : FOR    ${dataflowElement}    IN    @{VLANMAP_BRIDGE1_DATAFLOW}
+    \    should Contain    ${resp.content}    ${dataflowElement}
+
 Get flow
     [Arguments]    ${vtn_name}
     [Documentation]    Get data flow.
@@ -135,6 +153,13 @@ Remove a portmap
     ${json_data}=   json.dumps    ${portmap_data}
     ${resp}=    RequestsLibrary.Delete    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/interfaces/${interface_name}/portmap    data=${json_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    200
+
+Verify Data Flows For Bridge2
+    [Arguments]    ${vtn_name}
+    [Documentation]    Verify the reason and physical data flows for the specified vtn and vbridge2
+    ${resp}=    RequestsLibrary.Get   session    ${REST_CONTEXT_VTNS}/${vtn_name}/flows/detail
+    : FOR    ${dataflowElement}    IN    @{BRIDGE2_DATAFLOW}
+    \    should Contain    ${resp.content}    ${dataflowElement}
 
 Verify FlowMacAddress
     [Arguments]    ${host1}    ${host2}
@@ -168,6 +193,13 @@ Verify macaddress
     ${result}    Read Until    mininet>
     Should Contain    ${result}    ${sourcemacaddress}
     Should Contain    ${result}    ${destmacaddress}
+
+Verify Data Flows For Vlanmap Bridge2
+    [Arguments]    ${vtn_name}
+    [Documentation]    Verify the reason and physical data flows for the specified vtn and vbridge2
+    ${resp}=    RequestsLibrary.Get   session    ${REST_CONTEXT_VTNS}/${vtn_name}/flows/detail
+    : FOR    ${dataflowElement}    IN    @{VLANMAP_BRIDGE2_DATAFLOW}
+    \    should Contain    ${resp.content}    ${dataflowElement}
 
 Add a flowcondition
     [Arguments]    ${cond_name}    ${flowcond_data}
