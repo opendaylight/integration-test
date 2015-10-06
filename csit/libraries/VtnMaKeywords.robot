@@ -82,6 +82,14 @@ Add a portmap
     ${resp}=    RequestsLibrary.Put    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/interfaces/${interface_name}/portmap    data=${json_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    200
 
+Verify Data Flows
+    [Arguments]    ${vtn_name}    ${vBridge_name}    ${iface}=None
+    [Documentation]    Verify the reason and physical data flows for the specified vtn and vbridge
+    ${resp}=    RequestsLibrary.Get   session    ${REST_CONTEXT_VTNS}/${vtn_name}/flows/detail
+    ${expected_output}=    Set Variable If    ${iface}!=${None}        "reason":"PORTMAPPED"\ \ \ \ "path":{"tenant":"${vtn_name}","bridge":"${vBridge_name}","interface":"${iface}"}
+    ...    "reason":"VLANMAPPED"\ \ \ \ "path":{"tenant":"${vtn_name}","bridge":"${vBridge_name}"}
+    Should Contain    ${resp.content}    ${expected_output}
+
 Add a macmap
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${macmap_data}
     [Documentation]    Create a macmap for a vbridge
