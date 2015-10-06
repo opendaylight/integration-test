@@ -34,6 +34,7 @@ ${custom}         ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
 ${in_port}    1
 ${out_before_pathpolicy}    output:2
 ${out_after_pathpolicy}    output:3
+${flowcond_restconfigdata}    {"input":{"operation":"SET","present":"false","name":"cond_1","vtn-flow-match":[{"vtn-ether-match":{"destination-address":"ba:bd:0f:e3:a8:c8","ether-type":"2048","source-address":"ca:9e:58:0c:1e:f0","vlan-id": "1"},"vtn-inet-match":{"source-network":"10.0.0.1/32","protocol":1,"destination-network":"10.0.0.2/32"},"index":"1"}]}}
 
 *** Keywords ***
 Start SuiteVtnMa
@@ -50,6 +51,10 @@ Stop SuiteVtnMa
 Start SuiteVtnMaTest
     [Documentation]    Start VTN Manager Test Suite
     Create Session    session    http://${CONTROLLER}:${RESTPORT}    auth=${AUTH}    headers=${HEADERS}
+
+Start SuiteVtnMaRestConfTest
+    [Documentation]    Start VTN Manager Rest Config Api Test Suite
+    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 
 Stop SuiteVtnMaTest
     [Documentation]    Stop VTN Manager Test Suite
@@ -356,3 +361,26 @@ Verify Actions on Flow Entry
     ${result}    Read Until    mininet>
     : FOR    ${flowElement}    IN    @{FLOWELMENTS}
     \    should Contain    ${result}    ${flowElement}
+
+Add a flowcondition In Restconfig
+    [Documentation]    Create a flowcondition using Restconfig Api
+    ${resp}=    RequestsLibrary.Post    session    restconf/operations/vtn-flow-condition:set-flow-condition    data=${flowcond_restconfigdata}
+    Should Be Equal As Strings    ${resp.status_code}    200
+
+Get flowconditions In Restconfig
+    [Documentation]    Retrieve the list of flowconditions created
+    ${resp}=    RequestsLibrary.Get    session    restconf/operational/vtn-flow-condition:vtn-flow-conditions
+    Should Be Equal As Strings    ${resp.status_code}    200
+
+Get flowcondition In Restconfig
+    [Arguments]    ${flowcond_name}    ${retrieve}
+    [Documentation]    Retrieve the flowcondition by name
+    ${resp}=    RequestsLibrary.Get    session    restconf/operational/vtn-flow-condition:vtn-flow-conditions/vtn-flow-condition/${flowcond_name}
+    Run Keyword If    '${retrieve}' == 'retrieve'    Should Be Equal As Strings    ${resp.status_code}    200
+    ...    ELSE    Should Not Be Equal As Strings    ${resp.status_code}    200
+
+Remove flowcondition In Restconfig
+    [Arguments]    ${flowcond_name}
+    [Documentation]    Remove the flowcondition by name
+    ${resp}=    RequestsLibrary.Post    session    restconf/operations/vtn-flow-condition:remove-flow-condition    {"input": {"name": "${flowcond_name}"}}
+    Should Be Equal As Strings    ${resp.status_code}    200
