@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
 
 set -e
+
 SFF_IP=$1
 SFF_HEX=$(printf '%02X' ${SFF_IP//./ })
+SFF_HEX=0x$SFF_HEX
 sw=$(sudo ovs-vsctl show | egrep -E 'Bridge.*sw' | awk '{print $2}' | sed -e 's/^"//'  -e 's/"$//')
 
 if [ $sw = "sw3" ] || [ $sw = "sw5" ] ; then
