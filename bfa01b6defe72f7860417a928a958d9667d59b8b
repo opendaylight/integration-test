@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_125934fe",
+        "filename": "csit/libraries/GBP/ConnUtils.robot",
+        "patchSetId": 34
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-06T16:32:09Z",
+      "side": 1,
+      "message": "Do not depend on this variable to leak from caller suite. Refer to specific Resource in Settings table of this file.",
+      "range": {
+        "startLine": 16,
+        "startChar": 50,
+        "endLine": 16,
+        "endChar": 65
+      },
+      "revId": "bfa01b6defe72f7860417a928a958d9667d59b8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_12105400",
+        "filename": "csit/libraries/GBP/ConnUtils.robot",
+        "patchSetId": 34
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-06T16:32:09Z",
+      "side": 1,
+      "message": "Is this guaranteed to be the prompt on docker system?\nEven if yes, I recommend to define DOCKER_PROMPT variable with this value, so that external labs can override it.",
+      "range": {
+        "startLine": 18,
+        "startChar": 43,
+        "endLine": 18,
+        "endChar": 59
+      },
+      "revId": "bfa01b6defe72f7860417a928a958d9667d59b8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_5d0b3dd6",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/__init__.robot",
+        "patchSetId": 34
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-06T16:32:09Z",
+      "side": 1,
+      "message": "Does that mean there will be another patch set, and I can stop reviewing this?",
+      "range": {
+        "startLine": 26,
+        "startChar": 6,
+        "endLine": 26,
+        "endChar": 41
+      },
+      "revId": "bfa01b6defe72f7860417a928a958d9667d59b8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_d2cadc4e",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/infrastructure_launch.py",
+        "patchSetId": 34
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-06T16:32:09Z",
+      "side": 1,
+      "message": "Lines line this should not be needed.\n\nIf this file is an installation/configuration utility which is part of a larger system ODL should be tested with, it should have cleanly defined usage and be hosted somewhere outside integration/test.\n\nIf this file is just means to initialize a smaller system ODL should be tested with, it should be integrated with Robot more closely, possibly re-implemented as pure Robot code.\n\nIn current state, this is neither maintainable enough to be a test control code, nor usable enough to be official standalone utility.",
+      "range": {
+        "startLine": 154,
+        "startChar": 8,
+        "endLine": 154,
+        "endChar": 42
+      },
+      "revId": "bfa01b6defe72f7860417a928a958d9667d59b8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
