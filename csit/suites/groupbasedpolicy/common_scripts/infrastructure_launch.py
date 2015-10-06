@@ -12,17 +12,17 @@ from infrastructure_config import defaultContainerImage
 
 
 def addController(sw, ip):
-    call(['ovs-vsctl', 'set-controller', sw, 'tcp:%s:6653' % ip])
+    call(['sudo', 'ovs-vsctl', 'set-controller', sw, 'tcp:%s:6653' % ip])
 
 
 def addManager(ip):
-    cmd = "ovs-vsctl set-manager tcp:%s:6640" % ip
+    cmd = "sudo ovs-vsctl set-manager tcp:%s:6640" % ip
     listcmd = cmd.split()
     print check_output(listcmd)
 
 
 def addSwitch(name, dpid=None):
-    call(['ovs-vsctl', 'add-br', name])  # Add bridge
+    call(['sudo', 'ovs-vsctl', 'add-br', name])  # Add bridge
     if dpid:
         if len(dpid) < 16:  # DPID must be 16-bytes in later versions of OVS
             filler = '0000000000000000'
@@ -30,7 +30,7 @@ def addSwitch(name, dpid=None):
         elif len(dpid) > 16:
             print 'DPID: %s is too long' % dpid
             sys.exit(3)
-        call(['ovs-vsctl', 'set', 'bridge', name,
+        call(['sudo', 'ovs-vsctl', 'set', 'bridge', name,
               'other-config:datapath-id=%s' % dpid])
 
 
@@ -40,12 +40,12 @@ def addHost(net, switch, name, ip, mac):
 
 
 def setOFVersion(sw, version='OpenFlow13,OpenFlow12,OpenFlow10'):
-    call(['ovs-vsctl', 'set', 'bridge', sw, 'protocols={}'.format(version)])
+    call(['sudo', 'ovs-vsctl', 'set', 'bridge', sw, 'protocols={}'.format(version)])
 
 
 def addTunnel(sw, sourceIp=None):
     ifaceName = '{}-vxlan-0'.format(sw)
-    cmd = ['ovs-vsctl', 'add-port', sw, ifaceName,
+    cmd = ['sudo', 'ovs-vsctl', 'add-port', sw, ifaceName,
            '--', 'set', 'Interface', ifaceName,
            'type=vxlan',
            'options:remote_ip=flow',
@@ -57,7 +57,7 @@ def addTunnel(sw, sourceIp=None):
 
 def addGpeTunnel(sw, sourceIp=None):
     ifaceName = '{}-vxlangpe-0'.format(sw)
-    cmd = ['ovs-vsctl', 'add-port', sw, ifaceName,
+    cmd = ['sudo', 'ovs-vsctl', 'add-port', sw, ifaceName,
            '--', 'set', 'Interface', ifaceName,
            'type=vxlan',
            'options:remote_ip=flow',
@@ -98,16 +98,18 @@ def connectContainerToSwitch(sw, host, containerID, of_port):
     nw = ipaddr.IPv4Network(hostIP)
     broadcast = "{}".format(nw.broadcast)
     router = "{}".format(nw.network + 1)
-    cmd = [
-        '/vagrant/ovswork.sh',
-        sw,
-        containerID,
-        hostIP,
-        broadcast,
-        router,
-        mac,
-        of_port,
-        host['name']]
+    ovswork_path = os.path.dirname(os.path.realpath(__file__)) + '/ovswork.sh'
+    # TODO remove 'sudo' from the command below
+    cmd = ['sudo',
+           ovswork_path,
+           sw,
+           containerID,
+           hostIP,
+           broadcast,
+           router,
+           mac,
+           of_port,
+           host['name']]
     if ('vlan') in host:
         cmd.append(host['vlan'])
     call(cmd)
@@ -164,7 +166,7 @@ if __name__ == "__main__":
             print "OVS status:"
             print "-----------"
             print
-            doCmd('ovs-vsctl show')
+            doCmd('sudo ovs-vsctl show')
             print
             print "Docker containers:"
             print "------------------"
