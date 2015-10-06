@@ -9,7 +9,7 @@ Documentation     Basic tests for odl-bgpcep-pcep-all feature.
 Suite Setup       Set_It_Up
 Suite Teardown    Tear_It_Down
 Library           OperatingSystem
-Library           SSHLibrary    prompt=]>
+Library           SSHLibrary
 Library           RequestsLibrary
 Library           ${CURDIR}/../../../libraries/HsfJson/hsf_json.py
 Resource          ${CURDIR}/../../../libraries/PcepOperations.robot
@@ -17,6 +17,9 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 Variables         ${CURDIR}/../../../variables/pcepuser/variables.py    ${MININET}
 
 *** Variables ***
+${MININET_PROMPT}    ${DEFAULT_LINUX_PROMPT}
+${OUTPUT_TIMEOUT}    10
+# FIXME: Unify parameter naming and case.
 ${ExpDir}         ${CURDIR}/expected
 ${ActDir}         ${CURDIR}/actual
 
@@ -113,8 +116,9 @@ Set_It_Up
     [Documentation]    Create SSH session to Mininet machine, prepare HTTP client session to Controller.
     ...    Figure out latest pcc-mock version and download it from Nexus to Mininet.
     ...    Also, delete and create directories for json diff handling.
-    Open_Connection    ${MININET}
-    Login_With_Public_Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    SSHLibrary.Open_Connection    ${MININET}    prompt=${MININET_PROMPT}    timeout=${OUTPUT_TIMEOUT}
+    Utils.Flexible_Mininet_Login
+    # FIXME: Unify Module prefix usage across whole file.
     Create_Session    ses    http://${CONTROLLER}:${RESTCONFPORT}/restconf/operational/network-topology:network-topology    auth=${AUTH}
     ${urlbase}=    Set_Variable    ${NEXUSURL_PREFIX}/content/repositories/opendaylight.snapshot/org/opendaylight/bgpcep/pcep-pcc-mock
     ${version}=    Execute_Command    curl ${urlbase}/maven-metadata.xml | grep latest | cut -d '>' -f 2 | cut -d '<' -f 1
