@@ -17,8 +17,12 @@ ${VTN_INVENTORY}    restconf/operational/vtn-inventory:vtn-nodes
 ${DUMPFLOWS}      dpctl dump-flows -O OpenFlow13
 ${index}          7
 @{FLOWELMENTS}    nw_src=10.0.0.1    nw_dst=10.0.0.3    actions=drop
+@{BRIDGE1_DATAFLOW}    "reason":"PORTMAPPED"    "path":{"tenant":"Tenant1","bridge":"vBridge1","interface":"if2"}
+@{BRIDGE2_DATAFLOW}    "reason":"PORTMAPPED"    "path":{"tenant":"Tenant1","bridge":"vBridge2","interface":"if3"}
 ${vlanmap_bridge1}    {"vlan": "200"}
 ${vlanmap_bridge2}    {"vlan": "300"}
+@{VLANMAP_BRIDGE1_DATAFLOW}    "reason":"VLANMAPPED"    "path":{"tenant":"Tenant1","bridge":"vBridge1_vlan"}
+@{VLANMAP_BRIDGE2_DATAFLOW}    "reason":"VLANMAPPED"    "path":{"tenant":"Tenant1","bridge":"vBridge2_vlan"}
 ${pathpolicy_topo}    sudo mn --controller=remote,ip=${CONTROLLER} --custom topo-3sw-2host_multipath.py --topo pathpolicytopo --switch ovsk,protocols=OpenFlow13
 @{PATHMAP_ATTR}    "index":"1"    "condition":"flowcond_path"    "policy":"1"
 ${policy_id}      1
@@ -86,6 +90,21 @@ Add a portmap
     ${json_data}=    json.dumps    ${portmap_data}
     ${resp}=    RequestsLibrary.Put    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/interfaces/${interface_name}/portmap    data=${json_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    200
+
+Verify Data Flows
+    [Arguments]    ${vtn_name}    ${vBridge_name}
+    [Documentation]    Verify the reason and physical data flows for the specified vtn and vbridge
+    ${resp}=    RequestsLibrary.Get   session    ${REST_CONTEXT_VTNS}/${vtn_name}/flows/detail
+    Run Keyword If    '${vBridge_name}' == 'vBridge1'    DataFlowsForBridge    ${resp}    @{BRIDGE1_DATAFLOW}
+    ...    ELSE IF    '${vBridge_name}' == 'vBridge2'    DataFlowsForBridge    ${resp}    @{BRIDGE2_DATAFLOW}
+    ...    ELSE IF    '${vBridge_name}' == 'vBridge1_vlan'    DataFlowsForBridge    ${resp}    @{VLANMAP_BRIDGE1_DATAFLOW}
+    ...    ELSE    DataFlowsForBridge    ${resp}    @{VLANMAP_BRIDGE2_DATAFLOW}
+
+DataFlowsForBridge
+    [Documentation]    Verify whether the required attributes exists.
+    [Arguments]   ${resp}    @{BRIDGE_DATAFLOW}
+    : FOR    ${dataflowElement}    IN    @{BRIDGE_DATAFLOW}
+    \    should Contain    ${resp.content}    ${dataflowElement}
 
 Add a pathmap
     [Arguments]    ${pathmap_data}
