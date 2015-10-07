@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_f2ab5387",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-07T21:49:55Z",
+      "side": 1,
+      "message": "This keyword is not needed, is my main point.  You should be able to get rid of it entirely.  Wherever you are calling it, you can just call \"Start Mininet    ${MININET}    ${pathpolicy_topo}    ${custom}\"",
+      "range": {
+        "startLine": 132,
+        "startChar": 0,
+        "endLine": 134,
+        "endChar": 66
+      },
+      "revId": "820925dbafdbcb47b67824711c3d2652a3c3268a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_b295db41",
+        "filename": "csit/suites/vtn/VTN_Mgr_OF13/010__vtn_manager_pathpolicy.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-07T21:49:55Z",
+      "side": 1,
+      "message": "you should remove this and make it part of your suite setup.  it has nothing to do with VTN and if mininet fails to start robot will abort all the test cases and not waste time on them which is a good thing.  Also, I commented in the library already.  there is no need to write a keyword called \"Mininet Execute Custom Topology\" which just executes another already existing keyword.  just remove that keyword and call it directly from Utils.robot.\n\nIf the library keyword \"Start VtnMaTest\" is not the right place to put the mininet call (probably not) then just make a local keyword section here in this file and make a new custom suite setup keyword there.  Inside that keyword you can still call \"Start SuiteVtnMaTest\", then your \"Start Mininet\" keyword and anything else that might be needed that is specific to this suite.\n\nAlso, are you ever stopping mininet in the suite teardown here?  you should be.  The next suite that runs might not want/need that.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 35
+      },
+      "revId": "820925dbafdbcb47b67824711c3d2652a3c3268a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
