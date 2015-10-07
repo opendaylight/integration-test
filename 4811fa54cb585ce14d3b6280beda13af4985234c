@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_52956731",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-07T22:06:59Z",
+      "side": 1,
+      "message": "btw, I saw some other patch today that was already using ${Karafkeywords__controller_index}.  this change will break that, but I you guys must be sharing code pre-merge in order for that to happen so assuming you are in sync.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 40
+      },
+      "revId": "4811fa54cb585ce14d3b6280beda13af4985234c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_92aa1f6f",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-07T22:06:59Z",
+      "side": 1,
+      "message": "this reads like there was a lot of hard work and debugging to figure out.  good job.",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 31
+      },
+      "revId": "4811fa54cb585ce14d3b6280beda13af4985234c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
