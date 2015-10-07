@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_7ebe2f01",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-asymmetric-chain/010_set_odl.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-10-07T13:53:09Z",
+      "side": 1,
+      "message": "Tenant is written to operational DS if chain exists in conf DS.",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 10
+      },
+      "revId": "fb6de16e4ccdc8072c388f702e15c3025568e1f3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
