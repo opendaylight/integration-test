@@ -3,14 +3,14 @@
         "service-function": [
             {
                 "name": "firewall-72",
-                "ip-mgmt-address": "SF1",
+                "ip-mgmt-address": "_SF1",
                 "type": "service-function-type:firewall",
                 "nsh-aware": "true",
                 "sf-data-plane-locator": [
                     {
                         "name": "2",
                         "port": 6633,
-                        "ip": "SF1",
+                        "ip": "_SF1",
                         "transport": "service-locator:vxlan-gpe",
                         "service-function-forwarder": "SFF1"
                     }
@@ -18,14 +18,14 @@
             },
             {
                 "name": "dpi-74",
-                "ip-mgmt-address": "SF2",
+                "ip-mgmt-address": "_SF2",
                 "type": "service-function-type:dpi",
                 "nsh-aware": "true",
                 "sf-data-plane-locator": [
                     {
                         "name": "3",
                         "port": 6633,
-                        "ip": "SF2",
+                        "ip": "_SF2",
                         "transport": "service-locator:vxlan-gpe",
                         "service-function-forwarder": "SFF2"
                     }

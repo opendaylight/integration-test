@@ -7,13 +7,13 @@
                     {
                         "tunnel-type": "overlay: tunnel-type-vxlan-gpe",
                         "node-connector-id": "openflow: 1: 1",
-                        "ip": "CLASSIFIER1",
+                        "ip": "_CLASSIFIER1",
                         "port": 6633
                     },
                     {
                         "tunnel-type": "overlay: tunnel-type-vxlan",
                         "node-connector-id": "openflow: 1: 2",
-                        "ip": "CLASSIFIER1",
+                        "ip": "_CLASSIFIER1",
                         "port": 4789
                     }
                 ]
@@ -24,13 +24,13 @@
                     {
                         "tunnel-type": "overlay: tunnel-type-vxlan-gpe",
                         "node-connector-id": "openflow: 2: 1",
-                        "ip": "CLASSIFIER2",
+                        "ip": "_CLASSIFIER2",
                         "port": 6633
                     },
                     {
                         "tunnel-type": "overlay: tunnel-type-vxlan",
                         "node-connector-id": "openflow: 2: 2",
-                        "ip": "CLASSIFIER2",
+                        "ip": "_CLASSIFIER2",
                         "port": 4789
                     }
                 ]
@@ -41,13 +41,13 @@
                     {
                         "tunnel-type": "overlay: tunnel-type-vxlan-gpe",
                         "node-connector-id": "openflow: 3: 1",
-                        "ip": "CLASSIFIER3",
+                        "ip": "_CLASSIFIER3",
                         "port": 6633
                     },
                     {
                         "tunnel-type": "overlay: tunnel-type-vxlan",
                         "node-connector-id": "openflow: 3: 2",
-                        "ip": "CLASSIFIER3",
+                        "ip": "_CLASSIFIER3",
                         "port": 4789
                     }
                 ]
