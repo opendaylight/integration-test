@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_7ee70f41",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/010_set_odl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-10-07T13:48:58Z",
+      "side": 1,
+      "message": "Moved to the bottom. Haven\u0027t known that SFC chain has to be in data store first. (tested)",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 10
+      },
+      "revId": "d5f1b600dbde94d9b540f8b11086db825e2cb5b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
