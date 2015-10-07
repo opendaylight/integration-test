@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_c37c5023",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-asymmetric-chain/010_set_odl.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-10-07T10:19:38Z",
+      "side": 1,
+      "message": "Adaptation to https://git.opendaylight.org/gerrit/#/c/28006/",
+      "range": {
+        "startLine": 75,
+        "startChar": 59,
+        "endLine": 75,
+        "endChar": 64
+      },
+      "revId": "ca76b682c9920df93afabf48c76dcd7d375d320c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
