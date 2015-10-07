@@ -23,10 +23,10 @@ Create Auth Data
     [Documentation]    returns a string in the direct authentacation format (e.g., grant_type=password&username=admin&password=admin).
     ...    It can also be passed scope, client_id and client_secret arguments for the case of client specific authorization
     ${data}=    Set Variable    grant_type=password&username=${user}&password=${password}&scope=${scope}
-    ${data}=    Run Keyword If    "${client_id}" != "${EMPTY}"    Set Variable    ${data}&client_id=${client_id}
-    ...    ELSE    Set Variable    ${data}
-    ${data}=    Run Keyword If    "${client_secret}" != "${EMPTY}"    Set Variable    ${data}&client_secret=${client_secret}
-    ...    ELSE    Set Variable    ${data}
+    ${data}=    Run Keyword If    "${client_id}" != "${EMPTY}"    Set Variable    ${data}&client_id=${client_id}    ELSE    Set Variable
+    ...    ${data}
+    ${data}=    Run Keyword If    "${client_secret}" != "${EMPTY}"    Set Variable    ${data}&client_secret=${client_secret}    ELSE    Set Variable
+    ...    ${data}
     [Return]    ${data}
 
 Disable Authentication On Controller

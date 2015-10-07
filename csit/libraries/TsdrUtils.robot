@@ -78,10 +78,9 @@ Prepare HBase Filter
     [Documentation]    Prepare the Hbase Filter from Tsdr List output
     ${left_str}=    Remove Space on String    ${left_str}
     ${right_str}=    Remove Space on String    ${right_str}    1
-    ${x}=    Run Keyword If    '${left_str}' == 'MetricID'    Catenate    ${SPACE}    _
-    ...    ELSE IF    '${left_str}' == 'ObjectKeys'    Catenate    ${right_str}    _
-    ...    ELSE IF    '${left_str}' == 'TimeStamp'    Get Epoch Time    ${right_str}
-    ...    ELSE    Catenate    ${SPACE}
+    ${x}=    Run Keyword If    '${left_str}' == 'MetricID'    Catenate    ${SPACE}    _    ELSE IF
+    ...    '${left_str}' == 'ObjectKeys'    Catenate    ${right_str}    _    ELSE IF    '${left_str}' == 'TimeStamp'
+    ...    Get Epoch Time    ${right_str}    ELSE    Catenate    ${SPACE}
     [Return]    ${x}
 
 Create the Hbase table row

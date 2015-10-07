@@ -10,8 +10,8 @@ ${ODL_VERSION}    Be
 *** Keywords ***
 Check Mapping Removal
     [Arguments]    ${json}
-    Run Keyword If    "${ODL_VERSION}" == "Li"    Check Mapping Removal Lithium    ${json}
-    ...    ELSE    Post Log Check    ${LFM_RPC_API}:get-mapping    ${json}    404
+    Run Keyword If    "${ODL_VERSION}" == "Li"    Check Mapping Removal Lithium    ${json}    ELSE    Post Log Check    ${LFM_RPC_API}:get-mapping
+    ...    ${json}    404
 
 Check Mapping Removal Lithium
     [Arguments]    ${json}

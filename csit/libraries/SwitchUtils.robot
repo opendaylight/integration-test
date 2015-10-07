@@ -92,8 +92,8 @@ Open Connection Wrapper
     Run Keyword If    "${switch.mgmt_protocol}" == "ssh"    Call Method    ${switch}    set_mgmt_user    ${MININET_USER}
     ${connection_index}=    Run Keyword If    "${switch.mgmt_protocol}" == "ssh"    SSHLibrary.Open Connection    ${switch.mgmt_ip}    prompt=${switch.mgmt_prompt}    timeout=30s
     Run Keyword If    "${switch.mgmt_protocol}" == "ssh"    Login With Public Key    ${switch.mgmt_user}    ${switch.ssh_key}    any
-    ${connection_index}=    Run Keyword If    "${switch.mgmt_protocol}" == "telnet"    Telnet.Open Connection    ${switch.mgmt_ip}
-    ...    ELSE    Set Variable    ${connection_index}
+    ${connection_index}=    Run Keyword If    "${switch.mgmt_protocol}" == "telnet"    Telnet.Open Connection    ${switch.mgmt_ip}    ELSE    Set Variable
+    ...    ${connection_index}
     [Return]    ${connection_index}
 
 Configure Connection Index And Prompt Wrapper
@@ -124,8 +124,8 @@ Execute Command Wrapper
     [Documentation]    Wraps the Execute Command keyword so that depending on the switch.mgmt_protocol the right
     ...    library (Telnet or SSHLibrary) is used.
     ${output}=    Run Keyword If    "${switch.mgmt_protocol}" == "ssh"    SSHLibrary.Execute Command    ${cmd}
-    ${output}=    Run Keyword If    "${switch.mgmt_protocol}" == "telnet"    Telnet.Execute Command    ${cmd}
-    ...    ELSE    Set Variable    ${output}
+    ${output}=    Run Keyword If    "${switch.mgmt_protocol}" == "telnet"    Telnet.Execute Command    ${cmd}    ELSE    Set Variable
+    ...    ${output}
     [Return]    ${output}
 
 Connect To Switch

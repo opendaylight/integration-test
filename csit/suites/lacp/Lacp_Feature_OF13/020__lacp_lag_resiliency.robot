@@ -111,5 +111,5 @@ Verify Switch S1 Group Table
     ${result}=    Get Lines Containing String    ${group_output}    output:${port-id1}
     Should Contain    ${result}    type=${group-type}
     Should Contain    ${result}    output:${port-id1}
-    Run Keyword If    "${port-id2-state}" == "up"    Should Contain    ${result}    output:${port-id2}
-    ...    ELSE    Should not Contain    ${result}    output:${port-id2}
+    Run Keyword If    "${port-id2-state}" == "up"    Should Contain    ${result}    output:${port-id2}    ELSE    Should not Contain
+    ...    ${result}    output:${port-id2}
