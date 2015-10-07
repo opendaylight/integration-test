@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_fde7a9e2",
+        "filename": "csit/libraries/Scalability.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-07T09:51:40Z",
+      "side": 1,
+      "message": "This is an actual bug present in original file, so not a blocker for this Change.\nBut this should be fixed in separate change.",
+      "range": {
+        "startLine": 156,
+        "startChar": 43,
+        "endLine": 156,
+        "endChar": 53
+      },
+      "revId": "49f558e0acb602958eae46b4c9c600fd58d0da12",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_83b97830",
+        "filename": "csit/suites/openflowplugin/MD_SAL_NSF_OF10/020__restconf_topology.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-07T09:51:40Z",
+      "side": 1,
+      "message": "This should be single space, but no big deal.",
+      "range": {
+        "startLine": 51,
+        "startChar": 23,
+        "endLine": 51,
+        "endChar": 27
+      },
+      "revId": "49f558e0acb602958eae46b4c9c600fd58d0da12",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
