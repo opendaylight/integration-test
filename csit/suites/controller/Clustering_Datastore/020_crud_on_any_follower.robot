@@ -15,6 +15,8 @@ ${SHARD_CAR_NAME}    shard-car-config
 ${SHARD_PEOPLE_NAME}    shard-people-config
 ${SHARD_CAR_PERSON_NAME}    shard-car-people-config
 ${NUM_ENTRIES}    ${40}
+${START_TIMEOUT}    300s
+${STOP_TIMEOUT}    300s
 
 *** Test Cases ***
 Get Car Followers
@@ -44,7 +46,7 @@ Add cars and get cars from Follower1
 
 Get added cars from Follower2
     [Documentation]    Get added cars from Follower2
-    Wait Until Keyword Succeeds    60s    2s    Get Cars And Verify    @{CAR_FOLLOWERS}[1]    ${NUM_ENTRIES}
+    Get Cars And Verify    @{CAR_FOLLOWERS}[1]    ${NUM_ENTRIES}
 
 Add people and get people from Follower1
     [Documentation]    Add people and get people from Follower1
@@ -52,7 +54,7 @@ Add people and get people from Follower1
 
 Get added people from Follower2
     [Documentation]    Get added people from Follower2
-    Wait Until Keyword Succeeds    60s    2s    Get People And Verify    @{PEOPLE_FOLLOWERS}[1]    ${NUM_ENTRIES}
+    Get People And Verify    @{PEOPLE_FOLLOWERS}[1]    ${NUM_ENTRIES}
 
 Add car-person mapping and get car-person mapping from Follower1
     Add Car Person And Verify    @{CAR_PERSON_FOLLOWERS}[0]
@@ -63,13 +65,13 @@ Purchase cars on Follower1
 
 Get car-person mappings from Follower1
     [Documentation]    Get car-person mappings from Follower1 to see all entries
-    Wait Until Keyword Succeeds    60s    2s    Get Car-Person Mappings And Verify    @{CAR_PERSON_FOLLOWERS}[0]    ${NUM_ENTRIES}
+    Get Car-Person Mappings And Verify    @{CAR_PERSON_FOLLOWERS}[0]    ${NUM_ENTRIES}
 
 Get car-person mappings from Leader
     [Documentation]    Get car-person mappings from the Leader to see all entries
     ${CURRENT_CAR_LEADER}    Wait For Leader To Be Found    ${SHARD_CAR_PERSON_NAME}
-    Wait Until Keyword Succeeds    60s    2s    Get Car-Person Mappings And Verify    ${CURRENT_CAR_LEADER}    ${NUM_ENTRIES}
+    Get Car-Person Mappings And Verify    ${CURRENT_CAR_LEADER}    ${NUM_ENTRIES}
 
 Get car-person mappings from Follower2
     [Documentation]    Get car-person mappings from Follower2 to see all entries
-    Wait Until Keyword Succeeds    60s    2s    Get Car-Person Mappings And Verify    @{CAR_PERSON_FOLLOWERS}[1]    ${NUM_ENTRIES}
+    Get Car-Person Mappings And Verify    @{CAR_PERSON_FOLLOWERS}[1]    ${NUM_ENTRIES}

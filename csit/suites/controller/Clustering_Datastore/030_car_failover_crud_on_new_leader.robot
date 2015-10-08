@@ -12,10 +12,12 @@ ${CAR_SHARD}      shard-car-config
 ${NUM_CARS}       ${50}
 ${NUM_ORIG_CARS}    ${10}
 ${KARAF_HOME}     ${WORKSPACE}/${BUNDLEFOLDER}
+${START_TIMEOUT}    300s
+${STOP_TIMEOUT}    300s
 
 *** Test Cases ***
 Get old car leader
-    ${OLD_CAR_LEADER}    Wait For Leader To Be Found    ${CAR_SHARD}
+    ${OLD_CAR_LEADER}    Get Leader And Verify    ${CAR_SHARD}
     Set Suite Variable    ${OLD_CAR_LEADER}
 
 Delete cars on old leader
@@ -26,11 +28,13 @@ Add original cars on old leader
 
 Switch car leader
     [Documentation]    Stop the leader to cause a new leader to be elected
-    ${NEW_CAR_LEADER}    Switch Leader    ${CAR_SHARD}    ${OLD_CAR_LEADER}
+    Stop One Or More Controllers    ${OLD_CAR_LEADER}
+    Wait For Controller Down    ${OLD_CAR_LEADER}    ${STOP_TIMEOUT}
+    ${NEW_CAR_LEADER}    Get Leader And Verify    ${CAR_SHARD}    ${OLD_CAR_LEADER}
     Set Suite Variable    ${NEW_CAR_LEADER}
 
 Get original cars on new leader
-    Wait Until Keyword Succeeds    60s    2s    Get Cars And Verify    ${NEW_CAR_LEADER}    ${NUM_ORIG_CARS}
+    Get Cars And Verify    ${NEW_CAR_LEADER}    ${NUM_ORIG_CARS}
 
 Delete cars on new leader
     Delete All Cars And Verify    ${NEW_CAR_LEADER}
@@ -45,7 +49,7 @@ Get Car Followers
 
 Get added cars from Follower
     [Documentation]    Get the added cars from the Follower
-    Wait Until Keyword Succeeds    60s    2s    Get Cars And Verify    @{CAR_FOLLOWERS}[0]    ${NUM_CARS}
+    Get Cars And Verify    @{CAR_FOLLOWERS}[0]    ${NUM_CARS}
 
 Delete cars on Follower
     Delete All Cars And Verify    @{CAR_FOLLOWERS}[0]
@@ -56,10 +60,11 @@ Add cars from Follower
 
 Get added cars from new leader
     [Documentation]    Get added cars from the new leader
-    Wait Until Keyword Succeeds    60s    2s    Get Cars And Verify    ${NEW_CAR_LEADER}    ${NUM_CARS}
+    Get Cars And Verify    ${NEW_CAR_LEADER}    ${NUM_CARS}
 
 Restart old Car leader
     Start One Or More Controllers    ${OLD_CAR_LEADER}
+    Wait For Controller Sync    ${OLD_CAR_LEADER}    ${START_TIMEOUT}
 
 Get added cars from old leader
     [Documentation]    Get the added cars from the old leader

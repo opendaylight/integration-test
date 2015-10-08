@@ -12,10 +12,12 @@ ${CAR_SHARD}      shard-car-config
 ${NUM_CARS}       ${50}
 ${KARAF_HOME}     ${WORKSPACE}/${BUNDLEFOLDER}
 @{controllers}    ${CONTROLLER}    ${CONTROLLER1}    ${CONTROLLER2}
+${START_TIMEOUT}    300s
+${STOP_TIMEOUT}    300s
 
 *** Test Cases ***
 Get car leader
-    ${CAR_LEADER}    Wait For Leader To Be Found    ${CAR_SHARD}
+    ${CAR_LEADER}    Get Leader And Verify    ${CAR_SHARD}
     Set Suite Variable    ${CAR_LEADER}
 
 Delete cars from leader
@@ -23,9 +25,11 @@ Delete cars from leader
 
 Stop all controllers after delete
     Stop One Or More Controllers    @{controllers}
+    Wait For Cluster Down    @{controllers}    ${STOP_TIMEOUT}
 
 Start all controllers after delete
     Start One Or More Controllers    @{controllers}
+    Wait For Cluster Sync    @{controllers}    ${START_TIMEOUT}
 
 Verify no cars on leader after restart
     ${resp}    Getcars    ${CAR_LEADER}    ${RESTCONFPORT}    ${0}
@@ -36,9 +40,11 @@ Add cars on leader
 
 Stop all controllers after add
     Stop One Or More Controllers    @{controllers}
+    Wait For Cluster Down    @{controllers}    ${STOP_TIMEOUT}
 
 Start all controllers after add
     Start One Or More Controllers    @{controllers}
+    Wait For Cluster Sync    @{controllers}    ${START_TIMEOUT}
 
 Get cars from leader after restart
     Wait Until Keyword Succeeds    60s    2s    Get Cars And Verify    ${CAR_LEADER}    ${NUM_CARS}
@@ -48,7 +54,7 @@ Get car followers
     Set Suite Variable    ${CAR_FOLLOWERS}
 
 Get cars from Follower1 after restart
-    Wait Until Keyword Succeeds    60s    2s    Get Cars And Verify    @{CAR_FOLLOWERS}[0]    ${NUM_CARS}
+    Get Cars And Verify    @{CAR_FOLLOWERS}[0]    ${NUM_CARS}
 
 Get cars from Follower2 after restart
-    Wait Until Keyword Succeeds    60s    2s    Get Cars And Verify    @{CAR_FOLLOWERS}[1]    ${NUM_CARS}
+    Get Cars And Verify    @{CAR_FOLLOWERS}[1]    ${NUM_CARS}

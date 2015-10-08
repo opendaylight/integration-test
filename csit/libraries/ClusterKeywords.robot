@@ -55,21 +55,21 @@ Get All Followers
     [Return]    ${followers}
 
 Add Cars And Verify
-    [Arguments]    ${controller_ip}    ${num_cars}    ${timeout}=12s
+    [Arguments]    ${controller_ip}    ${num_cars}    ${timeout}=3s
     [Documentation]    Initializes shard and then adds the specified number of cars and performs a GET as a check.
     ${resp}    InitCar    ${controller_ip}    ${PORT}
     Should Be Equal As Strings    ${resp.status_code}    204
     ${resp}    AddCar    ${controller_ip}    ${RESTCONFPORT}    ${num_cars}    204
     Should Be Equal As Strings    ${resp.status_code}    204
-    Wait Until Keyword Succeeds    ${timeout}    2s    Get Cars And Verify    ${controller_ip}    ${num_cars}
+    Wait Until Keyword Succeeds    ${timeout}    1s    Get Cars And Verify    ${controller_ip}    ${num_cars}
 
 Add Cars And Verify Without Init
-    [Arguments]    ${controller_ip}    ${num_cars}    ${timeout}=12s
-    [Documentation]    Adds cars to an initialized cars shard then performs a GET as a check.
+    [Arguments]    ${controller_ip}    ${num_cars}    ${timeout}=3s
+    [Documentation]    Adds cars to a not initialized cars shard then performs a GET as a check.
     Comment    First car add may return 409, but subsequent should be 204
     ${resp}    AddCar    ${controller_ip}    ${RESTCONFPORT}    ${num_cars}    204    409
     Should Be Equal As Strings    ${resp.status_code}    204
-    Wait Until Keyword Succeeds    ${timeout}    2s    Get Cars And Verify    ${controller_ip}    ${num_cars}
+    Wait Until Keyword Succeeds    ${timeout}    1s    Get Cars And Verify    ${controller_ip}    ${num_cars}
 
 Get Cars And Verify
     [Arguments]    ${controller_ip}    ${num_cars}
@@ -81,15 +81,15 @@ Get Cars And Verify
     \    Should Contain    ${resp.content}    manufacturer${i}
 
 Add People And Verify
-    [Arguments]    ${controller_ip}    ${num_people}
+    [Arguments]    ${controller_ip}    ${num_people}    ${timeout}=3s
     [Documentation]    Note: The first AddPerson call passed with 0 posts directly to the data store to get
     ...    the people container created so the subsequent AddPerson RPC calls that put to the
     ...    person list will succeed.
     ${resp}    AddPerson    ${controller_ip}    ${RESTCONFPORT}    ${0}    204
     Should Be Equal As Strings    ${resp.status_code}    204
-    Wait Until Keyword Succeeds    12s    2s    Get One Person And Verify    ${controller_ip}    ${0}
+    Wait Until Keyword Succeeds    ${timeout}    1s    Get One Person And Verify    ${controller_ip}    ${0}
     ${resp}    AddPerson    ${controller_ip}    ${RESTCONFPORT}    ${num_people}    200
-    Wait Until Keyword Succeeds    12s    2s    Get People And Verify    ${controller_ip}    ${num_people}
+    Wait Until Keyword Succeeds    ${timeout}    1s    Get People And Verify    ${controller_ip}    ${num_people}
 
 Get One Person And Verify
     [Arguments]    ${controller_ip}    ${number}
@@ -109,12 +109,12 @@ Get People And Verify
     \    Should Contain    ${resp.content}    user${i}
 
 Add Car Person And Verify
-    [Arguments]    ${controller_ip}
+    [Arguments]    ${controller_ip}    ${timeout}=3s
     [Documentation]    Add a car-person via the data store and get the car-person from Leader.
     ...    Note: This is done to get the car-people container created so subsequent
     ...    BuyCar RPC puts to the car-person list will succeed.
     AddCarPerson    ${controller_ip}    ${RESTCONFPORT}    ${0}
-    Wait Until Keyword Succeeds    60s    2s    Get One Car-Person Mapping And Verify    ${controller_ip}    ${0}
+    Wait Until Keyword Succeeds    ${timeout}    1s    Get One Car-Person Mapping And Verify    ${controller_ip}    ${0}
 
 Get One Car-Person Mapping And Verify
     [Arguments]    ${controller_ip}    ${number}
@@ -131,9 +131,10 @@ Get Car-Person Mappings And Verify
     \    Should Contain    ${resp.content}    user${i}
 
 Buy Cars And Verify
-    [Arguments]    ${controller_ip}    ${num_entries}    ${start}=${0}
-    Wait Until Keyword Succeeds    60s    2s    BuyCar    ${controller_ip}    ${RESTCONFPORT}    ${num_entries}
-    ...    ${start}
+    [Arguments]    ${controller_ip}    ${num_entries}    ${start}=${0}    ${timeout}=3s
+    BuyCar    ${controller_ip}    ${RESTCONFPORT}    ${num_entries}    ${start}
+    ${total_entries}    Evaluate    ${start}+${num_entries}
+    Wait Until Keyword Succeeds    ${timeout}    1s    Get Car-Person Mappings And Verify    ${controller_ip}    ${total_entries}
 
 Check Cars Deleted
     [Arguments]    ${controller_ip}
@@ -141,9 +142,9 @@ Check Cars Deleted
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete All Cars And Verify
-    [Arguments]    ${controller_ip}
+    [Arguments]    ${controller_ip}   ${timeout}=3s
     DeleteAllCars    ${controller_ip}    ${RESTCONFPORT}    ${0}
-    Wait Until Keyword Succeeds    60s    2s    Check Cars Deleted    ${controller_ip}
+    Wait Until Keyword Succeeds    ${timeout}    1s    Check Cars Deleted    ${controller_ip}
 
 Check People Deleted
     [Arguments]    ${controller_ip}
@@ -151,9 +152,9 @@ Check People Deleted
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete All People And Verify
-    [Arguments]    ${controller_ip}
+    [Arguments]    ${controller_ip}    ${timeout}=3s
     DeleteAllPersons    ${controller_ip}    ${RESTCONFPORT}    ${0}
-    Wait Until Keyword Succeeds    60s    2s    Check People Deleted    ${controller_ip}
+    Wait Until Keyword Succeeds    ${timeout}    1s    Check People Deleted    ${controller_ip}
 
 Check Cars-Persons Deleted
     [Arguments]    ${controller_ip}
@@ -161,9 +162,9 @@ Check Cars-Persons Deleted
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete All Cars-Persons And Verify
-    [Arguments]    ${controller_ip}
+    [Arguments]    ${controller_ip}    ${timeout}=3s
     DeleteAllCarsPersons    ${controller_ip}    ${RESTCONFPORT}    ${0}
-    Wait Until Keyword Succeeds    60s    2s    Check Cars-Persons Deleted    ${controller_ip}
+    Wait Until Keyword Succeeds    ${timeout}    1s    Check Cars-Persons Deleted    ${controller_ip}
 
 Stop One Or More Controllers
     [Arguments]    @{controllers}
@@ -171,18 +172,6 @@ Stop One Or More Controllers
     ${cmd} =    Set Variable    ${KARAF_HOME}/bin/stop
     : FOR    ${ip}    IN    @{controllers}
     \    Run Command On Remote System    ${ip}    ${cmd}
-    : FOR    ${ip}    IN    @{controllers}
-    \    Wait Until Keyword Succeeds    ${CONTROLLER_STOP_TIMEOUT} s    3 s    Controller Down Check    ${ip}
-
-Start One Or More Controllers
-    [Arguments]    @{controllers}
-    [Documentation]    Give this keyword a scalar or list of controllers to be started.
-    ${cmd} =    Set Variable    ${KARAF_HOME}/bin/start
-    : FOR    ${ip}    IN    @{controllers}
-    \    Run Command On Remote System    ${ip}    ${cmd}
-    # TODO: This should throw an error if controller never comes up.
-    : FOR    ${ip}    IN    @{controllers}
-    \    UtilLibrary.Wait For Controller Up    ${ip}    ${RESTCONFPORT}
 
 Kill One Or More Controllers
     [Arguments]    @{controllers}
@@ -191,8 +180,18 @@ Kill One Or More Controllers
     log    ${cmd}
     : FOR    ${ip}    IN    @{controllers}
     \    Run Command On Remote System    ${ip}    ${cmd}
+
+Wait For Cluster Down
+    [Arguments]    @{controllers}    ${timeout}
+    [Documentation]    Waits for one or more clustered controllers to be down.
     : FOR    ${ip}    IN    @{controllers}
-    \    Wait Until Keyword Succeeds    12 s    3 s    Controller Down Check    ${ip}
+    \    ${status}=    Run Keyword And Return Status    Wait For Controller Down    ${ip}    ${timeout}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+
+Wait For Controller Down
+    [Arguments]    ${ip}    ${timeout}
+    [Documentation]    Waits for one controllers to be down.
+    Wait Until Keyword Succeeds    ${timeout}    2s    Controller Down Check    ${ip}
 
 Controller Down Check
     [Arguments]    ${ip}
@@ -201,6 +200,52 @@ Controller Down Check
     ${response}    Run Command On Remote System    ${ip}    ${cmd}
     Log    Number of controller instances running: ${response}
     Should Start With    ${response}    0    Controller process found or there may be extra instances of karaf running on the host machine.
+
+Start One Or More Controllers
+    [Arguments]    @{controllers}
+    [Documentation]    Give this keyword a scalar or list of controllers to be started.
+    ${cmd} =    Set Variable    ${KARAF_HOME}/bin/start
+    : FOR    ${ip}    IN    @{controllers}
+    \    Run Command On Remote System    ${ip}    ${cmd}
+
+Wait For Cluster Sync
+    [Arguments]    @{controllers}    ${timeout}
+    [Documentation]    Waits for one or more clustered controllers to report Sync Status as true.
+    : FOR    ${ip}    IN    @{controllers}
+    \    ${status}=    Run Keyword And Return Status    Wait For Controller Sync    ${ip}    ${timeout}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+
+Wait For Controller Sync
+    [Arguments]    ${ip}    ${timeout}
+    [Documentation]    Waits for one controllers to report Sync Status as true.
+    Wait Until Keyword Succeeds    ${timeout}    2s    Controller Sync Status Should Be True    ${ip}
+
+Controller Sync Status Should Be True
+    [Arguments]    ${ip}
+    [Documentation]    Checks if Sync Status is true.
+    ${SyncStatus}=    Get Controller Sync Status    ${ip}
+    Should Be Equal    ${SyncStatus}    ${True}
+
+Controller Sync Status Should Be False
+    [Arguments]    ${ip}
+    [Documentation]    Checks if Sync Status is false.
+    ${SyncStatus}=    Get Controller Sync Status    ${ip}
+    Should Be Equal    ${SyncStatus}    ${False}
+
+Get Controller Sync Status
+    [Arguments]    ${controller_ip}
+    [Documentation]    Return Sync Status.
+    ${api}    Set Variable    /jolokia/read
+    Create_Session    session    http://${controller_ip}:${RESTCONFPORT}${api}    headers=${HEADERS}    auth=${AUTH}
+    ${resp}=    RequestsLibrary.Get    session    ${smc_node}
+    Log    ${resp.json()}
+    Log    ${resp.content}
+    ${json}=    Set Variable    ${resp.json()}
+    ${value}=    Get From Dictionary    ${json}    value
+    Log    value: ${value}
+    ${SyncStatus}=    Get From Dictionary    ${value}    SyncStatus
+    Log    SyncSatus: ${SyncStatus}
+    [Return]    ${SyncStatus}
 
 Clean One Or More Journals
     [Arguments]    @{controllers}
@@ -329,35 +374,3 @@ Flush IPTables
     Should Contain    ${return string}    Flushing chain `FORWARD'
     Should Contain    ${return string}    Flushing chain `OUTPUT'
 
-Wait for Cluster Sync
-    [Arguments]    ${timeout}    @{controllers}
-    [Documentation]    Waits for one or more clustered controllers to report Sync Status as true.
-    : FOR    ${ip}    IN    @{controllers}
-    \    ${resp}=    Wait Until Keyword Succeeds    ${timeout}    2s    Controller Sync Status Should Be True    ${ip}
-
-Controller Sync Status Should Be True
-    [Arguments]    ${ip}
-    [Documentation]    Checks if Sync Status is true.
-    ${SyncStatus}=    Get Controller Sync Status    ${ip}
-    Should Be Equal    ${SyncStatus}    ${True}
-
-Controller Sync Status Should Be False
-    [Arguments]    ${ip}
-    [Documentation]    Checks if Sync Status is false.
-    ${SyncStatus}=    Get Controller Sync Status    ${ip}
-    Should Be Equal    ${SyncStatus}    ${False}
-
-Get Controller Sync Status
-    [Arguments]    ${controller_ip}
-    [Documentation]    Return Sync Status.
-    ${api}    Set Variable    /jolokia/read
-    Create_Session    session    http://${controller_ip}:${RESTCONFPORT}${api}    headers=${HEADERS}    auth=${AUTH}
-    ${resp}=    RequestsLibrary.Get    session    ${smc_node}
-    Log    ${resp.json()}
-    Log    ${resp.content}
-    ${json}=    Set Variable    ${resp.json()}
-    ${value}=    Get From Dictionary    ${json}    value
-    Log    value: ${value}
-    ${SyncStatus}=    Get From Dictionary    ${value}    SyncStatus
-    Log    SyncSatus: ${SyncStatus}
-    [Return]    ${SyncStatus}
