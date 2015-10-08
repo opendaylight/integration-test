@@ -29,6 +29,7 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 
 *** Variables ***
 ${first_case_ok}    False
+${NETCONFREADY_WAIT}    60s
 
 *** Test Cases ***
 Check_Whether_Netconf_Connector_Works
@@ -38,9 +39,9 @@ Check_Whether_Netconf_Connector_Works
     BuiltIn.Set_Suite_Variable    ${first_case_ok}    True
 
 Wait_For_Netconf_Connector
-    [Documentation]    Attempt to wait for the netconf-connector for 1 minute.
+    [Documentation]    Attempt to wait for the netconf-connector for configurable time.
     [Tags]    critical
-    BuiltIn.Run_Keyword_Unless    ${first_case_ok}    BuiltIn.Wait_Until_Keyword_Succeeds    60s    1s    Check_Netconf_Connector
+    BuiltIn.Run_Keyword_Unless    ${first_case_ok}    BuiltIn.Wait_Until_Keyword_Succeeds    ${NETCONFREADY_WAIT}    1s    Check_Netconf_Connector
 
 *** Keywords ***
 Setup_Everything
