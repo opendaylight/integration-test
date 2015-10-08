@@ -12,55 +12,68 @@ ${CAR_SHARD}      shard-car-config
 ${NUM_CARS}       ${50}
 ${NUM_ORIG_CARS}    ${10}
 ${KARAF_HOME}     ${WORKSPACE}/${BUNDLEFOLDER}
+${START_TIMEOUT}    300s
+${STOP_TIMEOUT}    180s
 
 *** Test Cases ***
-Get old car leader
-    ${OLD_CAR_LEADER}    Wait For Leader To Be Found    ${CAR_SHARD}
+Get Old Car Leader
+    [Documentation]    Find leader in the car shard
+    ${OLD_CAR_LEADER}    Get Leader And Verify    ${CAR_SHARD}
     Set Suite Variable    ${OLD_CAR_LEADER}
 
-Delete cars on old leader
+Delete Cars On Old Leader
+    [Documentation]    Delete cars in Leader
     Delete All Cars And Verify    ${OLD_CAR_LEADER}
 
-Add original cars on old leader
+Add Original Cars On Old Leader
+    [Documentation]    Add new cars in Leader and verify
     Add Cars And Verify    ${OLD_CAR_LEADER}    ${NUM_ORIG_CARS}
 
-Switch car leader
+Switch Car Leader
     [Documentation]    Stop the leader to cause a new leader to be elected
-    ${NEW_CAR_LEADER}    Switch Leader    ${CAR_SHARD}    ${OLD_CAR_LEADER}
+    Stop One Or More Controllers    ${OLD_CAR_LEADER}
+    Wait For Controller Down    ${STOP_TIMEOUT}    ${OLD_CAR_LEADER}
+    ${NEW_CAR_LEADER}    Wait Until Keyword Succeeds    30s    2s    Get Leader And Verify    ${CAR_SHARD}    ${OLD_CAR_LEADER}
     Set Suite Variable    ${NEW_CAR_LEADER}
 
-Get original cars on new leader
-    Wait Until Keyword Succeeds    60s    2s    Get Cars And Verify    ${NEW_CAR_LEADER}    ${NUM_ORIG_CARS}
+Get Original Cars On New Leader
+    [Documentation]    Get cars in new Leader
+    Get Cars And Verify    ${NEW_CAR_LEADER}    ${NUM_ORIG_CARS}
 
-Delete cars on new leader
+Delete Cars On New Leader
+    [Documentation]    Delete cars in new Leader
     Delete All Cars And Verify    ${NEW_CAR_LEADER}
 
-Add new cars and get cars from new leader
+Add New Cars And Get Cars From New Leader
     [Documentation]    Add cars and get added cars from the Leader
     Add Cars And Verify    ${NEW_CAR_LEADER}    ${NUM_CARS}
 
 Get Car Followers
+    [Documentation]    Find followers in the car shard
     ${CAR_FOLLOWERS}    Get All Followers    ${CAR_SHARD}    ${OLD_CAR_LEADER}
     Set Suite Variable    ${CAR_FOLLOWERS}
 
-Get added cars from Follower
+Get Added Cars From Follower
     [Documentation]    Get the added cars from the Follower
-    Wait Until Keyword Succeeds    60s    2s    Get Cars And Verify    @{CAR_FOLLOWERS}[0]    ${NUM_CARS}
+    Get Cars And Verify    @{CAR_FOLLOWERS}[0]    ${NUM_CARS}
 
-Delete cars on Follower
+Delete Cars On Follower
+    [Documentation]    Delete cars in follower
     Delete All Cars And Verify    @{CAR_FOLLOWERS}[0]
 
-Add cars from Follower
+Add Cars From Follower
     [Documentation]    Add more cars from the Follower
     Add Cars And Verify    @{CAR_FOLLOWERS}[0]    ${NUM_CARS}
 
-Get added cars from new leader
+Get Added Cars From New Leader
     [Documentation]    Get added cars from the new leader
-    Wait Until Keyword Succeeds    60s    2s    Get Cars And Verify    ${NEW_CAR_LEADER}    ${NUM_CARS}
+    Get Cars And Verify    ${NEW_CAR_LEADER}    ${NUM_CARS}
 
-Restart old Car leader
+Restart Old Car Leader
+    [Documentation]    Start old car Leader
     Start One Or More Controllers    ${OLD_CAR_LEADER}
+    Wait For Controller Sync    ${START_TIMEOUT}    ${OLD_CAR_LEADER}
 
-Get added cars from old leader
+Get Added Cars From Old Leader
     [Documentation]    Get the added cars from the old leader
-    Wait Until Keyword Succeeds    60s    2s    Get Cars And Verify    ${OLD_CAR_LEADER}    ${NUM_CARS}
+    Wait Until Keyword Succeeds    ${START_TIMEOUT}    2s    Get Cars And Verify    ${OLD_CAR_LEADER}    ${NUM_CARS}
