@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_88aaf06e",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-10-08T11:34:05Z",
+      "side": 1,
+      "message": "NETCONFREADY_TIMEOUT might be a better name as this actually specifies how much time the suite spends waiting for the NETCONF to become ready before it is proclaimed dead.",
+      "range": {
+        "startLine": 32,
+        "startChar": 2,
+        "endLine": 32,
+        "endChar": 19
+      },
+      "revId": "2c5419c00f6d2be4f4f3b219e4fc03890172e4fa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_48bcd8bb",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-10-08T11:34:05Z",
+      "side": 1,
+      "message": "... configurable time (default 1 minute).",
+      "range": {
+        "startLine": 42,
+        "startChar": 69,
+        "endLine": 42,
+        "endChar": 86
+      },
+      "revId": "2c5419c00f6d2be4f4f3b219e4fc03890172e4fa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
