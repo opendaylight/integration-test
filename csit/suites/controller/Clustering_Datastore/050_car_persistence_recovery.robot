@@ -12,43 +12,61 @@ ${CAR_SHARD}      shard-car-config
 ${NUM_CARS}       ${50}
 ${KARAF_HOME}     ${WORKSPACE}/${BUNDLEFOLDER}
 @{controllers}    ${CONTROLLER}    ${CONTROLLER1}    ${CONTROLLER2}
+${START_TIMEOUT}    120s
+${STOP_TIMEOUT}    120s
 
 *** Test Cases ***
-Get car leader
-    ${CAR_LEADER}    Wait For Leader To Be Found    ${CAR_SHARD}
+Get Car Leader
+    [Documentation]    Find leader in the car shard
+    ${CAR_LEADER}    Get Leader And Verify    ${CAR_SHARD}
     Set Suite Variable    ${CAR_LEADER}
 
-Delete cars from leader
+Delete Cars From Leader
+    [Documentation]    Delete cars in Leader
     Delete All Cars And Verify    ${CAR_LEADER}
 
-Stop all controllers after delete
+Stop All Controllers After Delete
+    [Documentation]    Stop all controllers
     Stop One Or More Controllers    @{controllers}
+    Wait For Cluster Down    ${STOP_TIMEOUT}    @{controllers}
 
-Start all controllers after delete
+Start All Controllers After Delete
+    [Documentation]    Start all controller
     Start One Or More Controllers    @{controllers}
+    Wait For Cluster Sync    ${START_TIMEOUT}    @{controllers}
 
-Verify no cars on leader after restart
-    ${resp}    Getcars    ${CAR_LEADER}    ${RESTCONFPORT}    ${0}
-    Should Be Equal As Strings    ${resp.status_code}    404
+Verify No Cars On Leader After Restart
+    [Documentation]    Verify no cars after restart
+    Wait Until Keyword Succeeds    ${START_TIMEOUT}    2s    Check Cars Deleted    ${CAR_LEADER}
 
-Add cars on leader
+Add Cars On Leader
+    [Documentation]    Add cars in Leader
     Add Cars And Verify    ${CAR_LEADER}    ${NUM_CARS}
 
-Stop all controllers after add
+Stop All Controllers After Add
+    [Documentation]    Stop all controllers
     Stop One Or More Controllers    @{controllers}
+    Wait For Cluster Down    ${STOP_TIMEOUT}    @{controllers}
 
-Start all controllers after add
+Start All Controllers After Add
+    [Documentation]    Start all controllers
     Start One Or More Controllers    @{controllers}
+    Wait For Cluster Sync    ${START_TIMEOUT}    @{controllers}
 
-Get cars from leader after restart
-    Wait Until Keyword Succeeds    60s    2s    Get Cars And Verify    ${CAR_LEADER}    ${NUM_CARS}
+Get Cars From Leader After Restart
+    [Documentation]    Get cars from Leader and verify
+    Wait Until Keyword Succeeds    ${START_TIMEOUT}    2s    Get Cars And Verify    ${CAR_LEADER}    ${NUM_CARS}
 
-Get car followers
+Get Car Followers
+    [Documentation]    Find followers in the car shard
     ${CAR_FOLLOWERS}    Get All Followers    ${CAR_SHARD}
     Set Suite Variable    ${CAR_FOLLOWERS}
 
-Get cars from Follower1 after restart
-    Wait Until Keyword Succeeds    60s    2s    Get Cars And Verify    @{CAR_FOLLOWERS}[0]    ${NUM_CARS}
+Get Cars From Follower1 After Restart
+    [Documentation]    Get cars in follower and verify
+    Get Cars And Verify    @{CAR_FOLLOWERS}[0]    ${NUM_CARS}
 
-Get cars from Follower2 after restart
-    Wait Until Keyword Succeeds    60s    2s    Get Cars And Verify    @{CAR_FOLLOWERS}[1]    ${NUM_CARS}
+Get Cars From Follower2 After Restart
+    [Documentation]    Get cars in follower and verify
+    Get Cars And Verify    @{CAR_FOLLOWERS}[1]    ${NUM_CARS}
+
