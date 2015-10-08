@@ -1,50 +1,68 @@
 *** Settings ***
 Documentation     This test brings down the current leader of the "car" shard and then executes CRUD operations on the new leader
 Default Tags      3-node-cluster
-Library           ../../../libraries/CrudLibrary.py
-Library           ../../../libraries/UtilLibrary.py
-Library           ../../../libraries/ClusterStateLibrary.py
 Resource          ../../../libraries/ClusterKeywords.robot
+Resource          ../../../libraries/CarsAndPeople.robot
+Variables         ../../../variables/Variables.py
 
 *** Variables ***
 ${PEOPLE_SHARD}    shard-people-config
 ${NUM_ENTRIES}    ${50}
 ${KARAF_HOME}     ${WORKSPACE}/${BUNDLEFOLDER}
+${START_TIMEOUT}    300s
+${STOP_TIMEOUT}    180s
 
 *** Test Cases ***
+Get Old People Leader
+    [Documentation]    Find leader in the people shard
+    ${OLD_PEOPLE_LEADER}    Get Leader And Verify    ${PEOPLE_SHARD}
+    Set Suite Variable    ${OLD_PEOPLE_LEADER}
+
 Switch People Leader
     [Documentation]    Stop the leader to cause a new leader to be elected
-    ${OLD_PEOPLE_LEADER}    Wait For Leader To Be Found    ${PEOPLE_SHARD}
-    ${NEW_PEOPLE_LEADER}    Switch Leader    ${PEOPLE_SHARD}    ${OLD_PEOPLE_LEADER}
-    Set Suite Variable    ${OLD_PEOPLE_LEADER}
+    Stop One Or More Controllers    ${OLD_PEOPLE_LEADER}
+    Wait For Controller Down    ${STOP_TIMEOUT}    ${OLD_PEOPLE_LEADER}
+    ${NEW_PEOPLE_LEADER}    Wait Until Keyword Succeeds    30s    2s    Get Leader And Verify    ${PEOPLE_SHARD}    ${OLD_PEOPLE_LEADER}
     Set Suite Variable    ${NEW_PEOPLE_LEADER}
 
-Delete people from new leader
+Delete People From New Leader
+    [Documentation]    Delete people in new Leader
     Delete All People And Verify    ${NEW_PEOPLE_LEADER}
 
-Add people and get from new leader
+Add People And Get From New Leader
     [Documentation]    Add people and get people from new leader
     Add People And Verify    ${NEW_PEOPLE_LEADER}    ${NUM_ENTRIES}
 
 Get People Followers
+    [Documentation]    Find followers in the people shard
     ${PEOPLE_FOLLOWERS}    Get All Followers    ${PEOPLE_SHARD}    ${OLD_PEOPLE_LEADER}
     Set Suite Variable    ${PEOPLE_FOLLOWERS}
 
-Get added people from Follower
-    Wait Until Keyword Succeeds    60s    2s    Get People And Verify    @{PEOPLE_FOLLOWERS}[0]    ${NUM_ENTRIES}
+Get Added People From Follower
+    [Documentation]    Get people in follower and verify
+    Get People And Verify    @{PEOPLE_FOLLOWERS}[0]    ${NUM_ENTRIES}
 
-Delete people from new Follower
+Delete People From New Follower
+    [Documentation]    Delete people in follower and verify
     Delete All People And Verify    @{PEOPLE_FOLLOWERS}[0]
 
-Add people from new Follower
-    [Documentation]    Add people and get people from follower
+Add People From New Follower
+    [Documentation]    Add people in follower and verify
     Add People And Verify    @{PEOPLE_FOLLOWERS}[0]    ${NUM_ENTRIES}
 
-Get added people from new leader
-    Wait Until Keyword Succeeds    60s    2s    Get People And Verify    ${NEW_PEOPLE_LEADER}    ${NUM_ENTRIES}
+Get Added People From New Leader
+    [Documentation]    Get people in Leader and verify
+    Get People And Verify    ${NEW_PEOPLE_LEADER}    ${NUM_ENTRIES}
 
-Restart old People leader
+Restart Old People Leader
+    [Documentation]    Start old people Leader
     Start One Or More Controllers    ${OLD_PEOPLE_LEADER}
+    Wait For Controller Sync    ${START_TIMEOUT}    ${OLD_PEOPLE_LEADER}
 
-Get added people from old leader
-    Wait Until Keyword Succeeds    60s    2s    Get People And Verify    ${OLD_PEOPLE_LEADER}    ${NUM_ENTRIES}
+Check Cars In Old People Leader
+    [Documentation]    Check cars in new Leader. This is to avoid delay when RPC does not work.
+    Wait Until Keyword Succeeds    ${START_TIMEOUT}    2s    Check Cars    ${OLD_PEOPLE_LEADER}    ${NUM_ENTRIES}
+
+Get Added People From Old Leader
+    [Documentation]    Get people in old Leader and verify
+    Get People And Verify    ${OLD_PEOPLE_LEADER}    ${NUM_ENTRIES}
