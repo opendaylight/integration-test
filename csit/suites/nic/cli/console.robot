@@ -21,10 +21,10 @@ Variables         ../../../variables/Variables.py
 @{intent3}        10.0.0.1,10.0.0.4    10.0.0.2    ALLOW
 @{all_intents}    ${intent1}    ${intent2}    ${intent3}
 @{all_intents_ids}
-${intent_validation1}    from [10.0.0.1, 10.0.0.4] to [10.0.0.2] apply ALLOW
-${intent_validation2}    from [10.0.0.5] to [10.0.0.2] apply BLOCK
-${intent_validation3}    from [10.0.0.5] to [10.0.0.3] apply ALLOW
-${intent_validation4}    from [10.0.0.5] to [10.0.0.10] apply BLOCK
+${intent_validation1}    from [10.0.0.1, 10.0.0.4] to [10.0.0.2] apply [ALLOW]
+${intent_validation2}    from [10.0.0.5] to [10.0.0.2] apply [BLOCK]
+${intent_validation3}    from [10.0.0.5] to [10.0.0.3] apply [ALLOW]
+${intent_validation4}    from [10.0.0.5] to [10.0.0.10] apply [BLOCK]
 @{all_intent_validations}    ${intent_validation1}    ${intent_validation2}    ${intent_validation3}    ${intent_validation4}
 
 *** Test Cases ***
@@ -62,7 +62,7 @@ Setup NIC Console Environment
 Add Intent
     [Arguments]    ${intent_from}    ${intent_to}    ${intent_permission}
     [Documentation]    Adds an intent to the controller, and returns the id of the intent created.
-    ${output}=    Issue Command On Karaf Console    intent:add -f ${intent_from} -t ${intent_to} -a ${intent_permission}
+    ${output}=    Issue Command On Karaf Console    intent:add -f ${intent_from} -t ${intent_to} -a ${intent_permission}    timeout=20
     Should Contain    ${output}    Intent created
     ${output}=    Fetch From Left    ${output}    )
     ${output_split}=    Split String    ${output}    ${SPACE}
