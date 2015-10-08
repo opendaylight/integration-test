@@ -24,9 +24,9 @@ parser.add_argument("--port", type=int, default=8181, help="the port number of t
 parser.add_argument("--txtype", choices=["TX-CHAINING", "SIMPLE-TX"], nargs='+', default=["TX-CHAINING", "SIMPLE-TX"],
                     help="list of the transaction types to execute.")
 parser.add_argument("--total", type=int, default=100000, help="total number of elements to process.")
-parser.add_argument("--inner", type=int, default=[1, 10, 100, 1000, 10000, 100000],
+parser.add_argument("--inner", type=int, default=[1, 10, 100, 1000, 10000, 100000], nargs='+',
                     help="number of inner elements to process.")
-parser.add_argument("--ops", type=int, default=[1, 10, 100, 1000, 10000, 100000],
+parser.add_argument("--ops", type=int, default=[1, 10, 100, 1000, 10000, 100000], nargs='+',
                     help="number of operations per transaction.")
 parser.add_argument("--optype", choices=["PUT", "MERGE", "DELETE", "READ"], nargs='+',
                     default=["PUT", "MERGE", "DELETE", "READ"], help="list of the types operations to execute.")
