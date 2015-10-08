@@ -62,7 +62,7 @@ Setup NIC Console Environment
 Add Intent
     [Arguments]    ${intent_from}    ${intent_to}    ${intent_permission}
     [Documentation]    Adds an intent to the controller, and returns the id of the intent created.
-    ${output}=    Issue Command On Karaf Console    intent:add -f ${intent_from} -t ${intent_to} -a ${intent_permission}
+    ${output}=    Issue Command On Karaf Console    intent:add -f ${intent_from} -t ${intent_to} -a ${intent_permission}    ${timeout}=20
     Should Contain    ${output}    Intent created
     ${output}=    Fetch From Left    ${output}    )
     ${output_split}=    Split String    ${output}    ${SPACE}
