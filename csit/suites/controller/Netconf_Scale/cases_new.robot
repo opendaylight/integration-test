@@ -8,7 +8,7 @@ Library           SSHLibrary    timeout=120s
 Library           Collections
 Library           ${CURDIR}/../../../libraries/netconf_library.py
 Variables         ${CURDIR}/../../../variables/Variables.py
-Resource          ../../../variables/netconf-scale/NetScale_variables.robot
+Resource          ../../../variables/netconf_scale/NetScale_variables.robot
 
 *** Variables ***
 
