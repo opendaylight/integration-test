@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_e42068f9",
+        "filename": "csit/suites/controller/Clustering_Datastore/030_car_failover_crud_on_new_leader.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-09T17:16:38Z",
+      "side": 1,
+      "message": "this might not be what we want.  in the PASSING case the test case above will pass when things are up and working, and this timeout wont matter (it will probably work on the first try).  But in the FAILING case, the above test case will poll for 5m and say the controller is dead.  now this test case will poll for another 5m, but we already know it\u0027s going to fail.\n\nwe can either add this step to the above test case so that it\u0027s not executed if Controller Sync step fails.  Or we can reduce this timeout to just a few seconds (whatever is reasonable)",
+      "range": {
+        "startLine": 79,
+        "startChar": 35,
+        "endLine": 79,
+        "endChar": 52
+      },
+      "revId": "90403d2390af5eb83083d5a744a9f9311eae506b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_a47a70ef",
+        "filename": "csit/suites/controller/Clustering_Datastore/040_people_failover_crud_on_new_leader.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-09T17:16:38Z",
+      "side": 1,
+      "message": "same comment I made on other file",
+      "range": {
+        "startLine": 65,
+        "startChar": 34,
+        "endLine": 65,
+        "endChar": 52
+      },
+      "revId": "90403d2390af5eb83083d5a744a9f9311eae506b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_c47d2ce9",
+        "filename": "csit/suites/controller/Clustering_Datastore/050_car_persistence_recovery.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-09T17:16:38Z",
+      "side": 1,
+      "message": "same comment as other file.",
+      "range": {
+        "startLine": 81,
+        "startChar": 35,
+        "endLine": 81,
+        "endChar": 52
+      },
+      "revId": "90403d2390af5eb83083d5a744a9f9311eae506b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_246e6030",
+        "filename": "csit/suites/controller/Clustering_Datastore/140_recovery_restart_follower.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-09T17:16:38Z",
+      "side": 1,
+      "message": "boo!",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 14
+      },
+      "revId": "90403d2390af5eb83083d5a744a9f9311eae506b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_848734d7",
+        "filename": "csit/suites/controller/Clustering_Datastore/140_recovery_restart_follower.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-09T17:16:38Z",
+      "side": 1,
+      "message": "same commment as other file.",
+      "range": {
+        "startLine": 78,
+        "startChar": 34,
+        "endLine": 78,
+        "endChar": 52
+      },
+      "revId": "90403d2390af5eb83083d5a744a9f9311eae506b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_648458d4",
+        "filename": "csit/suites/controller/Clustering_Datastore/140_recovery_restart_follower.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-09T17:16:38Z",
+      "side": 1,
+      "message": "is this useful in the clusterkeywords library?",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 51
+      },
+      "revId": "90403d2390af5eb83083d5a744a9f9311eae506b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
