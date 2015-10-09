@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_ef76013e",
+        "filename": "csit/suites/controller/Clustering_Datastore/030_car_failover_crud_on_new_leader.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2015-10-09T21:54:01Z",
+      "side": 1,
+      "message": "There is explanation for this if you see the -only- and -all- test results: when you have few features in controller the controller cluster sync is very quick (less than minute) however application readiness can take almost a minute. In the case of many features it is actually the other way around, the cluster sync takes so long that by the time it is in sync the app is fully up. I really want to monitor both events: cluster ready and app ready, I should have probably created 2 different start timeouts but for simplicity I just started with 1.",
+      "parentUuid": "1a76adc5_e42068f9",
+      "range": {
+        "startLine": 79,
+        "startChar": 35,
+        "endLine": 79,
+        "endChar": 52
+      },
+      "revId": "90403d2390af5eb83083d5a744a9f9311eae506b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_a47a70ef",
         "filename": "csit/suites/controller/Clustering_Datastore/040_people_failover_crud_on_new_leader.robot",
         "patchSetId": 8
@@ -128,6 +152,30 @@
       "writtenOn": "2015-10-09T17:16:38Z",
       "side": 1,
       "message": "is this useful in the clusterkeywords library?",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 85,
+        "endChar": 51
+      },
+      "revId": "90403d2390af5eb83083d5a744a9f9311eae506b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_0f725d49",
+        "filename": "csit/suites/controller/Clustering_Datastore/140_recovery_restart_follower.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2015-10-09T21:54:01Z",
+      "side": 1,
+      "message": "I am not sure whether this is useful for anything but I can move it there for now.",
+      "parentUuid": "1a76adc5_648458d4",
       "range": {
         "startLine": 81,
         "startChar": 0,
