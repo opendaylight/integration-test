@@ -116,6 +116,24 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_fb5d6716",
+        "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 4329
+      },
+      "writtenOn": "2015-10-09T17:10:10Z",
+      "side": 1,
+      "message": "cmd.setProgramName(\"Jbench\") sets the name in this line:\nUsage: Jbench [options] not the log line.",
+      "parentUuid": "1a76adc5_44c4e591",
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_64c1e17f",
         "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
         "patchSetId": 2
@@ -127,6 +145,24 @@
       "writtenOn": "2015-09-29T18:08:31Z",
       "side": 1,
       "message": "I\u0027m confused as to why you\u0027d need to log help message.",
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_1bb06342",
+        "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 4329
+      },
+      "writtenOn": "2015-10-09T17:10:10Z",
+      "side": 1,
+      "message": "This was to be consistent with cbench program that prints \"help message\" as a sub-heading on console when the program is called as \"cbench -h\".\nI will be dropping off the long file name \"[main] INFO org.opendaylight.jbench.Jbench\" from the log lines. When that\u0027s completed, help message heading looks more appropriate.",
+      "parentUuid": "1a76adc5_64c1e17f",
       "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -178,6 +214,24 @@
       "writtenOn": "2015-09-29T18:08:31Z",
       "side": 1,
       "message": "Should probably insert \u0027seconds\u0027 or whatever measurement is used before \u0027warmup\u0027 and \u0027cooldown\u0027",
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_3b0f5f30",
+        "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 4329
+      },
+      "writtenOn": "2015-10-09T17:10:10Z",
+      "side": 1,
+      "message": "warmup and cooldown refers to the loops that are ignored while computing the overall flow-mods/second. The measurement is loops as logged and is not in seconds.",
+      "parentUuid": "1a76adc5_64f6c1d9",
       "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -303,6 +357,24 @@
     },
     {
       "key": {
+        "uuid": "1a76adc5_db4bcb57",
+        "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 4329
+      },
+      "writtenOn": "2015-10-09T17:10:10Z",
+      "side": 1,
+      "message": "when controllerCount(numDefaultController) is 1 and numControllers is 3, then we get.controllerIp.get(0).split(\":\");\nThe boundary case is handled, but as this is lot more complex, changed so that the program makes it necessary for user to supply as many IP:port tuples as the number of controllers.",
+      "parentUuid": "1a76adc5_44f945c7",
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a76adc5_c43795af",
         "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
         "patchSetId": 2
@@ -349,6 +421,24 @@
       "writtenOn": "2015-09-29T18:08:31Z",
       "side": 1,
       "message": "If left this should be hostName as it is more descriptive. But I think this should be ipAddress instead.\n\nI\u0027d assume this class should have ipAddress. If you also want hostname you might need to accept hostname or ip adrress at cmd line and then process the contents to populate the appropriate fields. If IP is available I\u0027d use that. In fact I\u0027d prefer that over hostname, but don\u0027t see any reason you couldn\u0027t do both.",
+      "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_3b643fe4",
+        "filename": "tools/jbench/src/main/java/org/opendaylight/jbench/Jbench.java",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 4329
+      },
+      "writtenOn": "2015-10-09T17:10:10Z",
+      "side": 1,
+      "message": "IPAddress field will be added in the next patch, when fakeSwitches connect to COntroller.",
+      "parentUuid": "1a76adc5_84419d0d",
       "revId": "1c28a09e998bd3961da2bdc51699ca95b0a3fdcb",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
