@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite for NETCONF
+Documentation     Test suite for NETCONF client
 Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
 Suite Teardown    Delete All Sessions
 Library           Collections

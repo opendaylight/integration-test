@@ -1,3 +1,4 @@
 # Place the suites in run order:
+integration/test/csit/suites/netconf/ready
 integration/test/csit/suites/controller/NETCONF
 
