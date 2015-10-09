@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_c4cbec1c",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-09T17:22:35Z",
+      "side": 1,
+      "message": "suggesting this be more dynamic and the arguments passed in are bridge and interface names, so you would call it like this:\n\nVerify Data Flows For Bridge    ${vtn_name}    ${bridge_name}    ${iface_name}\n\nyou can then remove the mostly duplicate keywords",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 64
+      },
+      "revId": "ad74c500b5ea87ef1aa6c2e001e1e8e51f7681c9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_24dc20e4",
+        "filename": "csit/suites/vtn/VTN_Mgr_OF13/010__vtn_manager_dataflow.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-09T17:22:35Z",
+      "side": 1,
+      "message": "see my comments in the library changes.  but, to illustrate my point, you can see above that \"Add a portmap\" is flexible in that way where it takes the tenant, bridge and iface names.",
+      "range": {
+        "startLine": 90,
+        "startChar": 4,
+        "endLine": 90,
+        "endChar": 43
+      },
+      "revId": "ad74c500b5ea87ef1aa6c2e001e1e8e51f7681c9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
