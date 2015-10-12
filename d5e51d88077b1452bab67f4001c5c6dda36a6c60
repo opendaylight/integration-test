@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_84a08f44",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/010_set_odl.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 4233
+      },
+      "writtenOn": "2015-10-12T18:55:37Z",
+      "side": 1,
+      "message": "Fix Indentation for this method",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 4
+      },
+      "revId": "d5e51d88077b1452bab67f4001c5c6dda36a6c60",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_a4a34b4e",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/010_set_odl.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 4233
+      },
+      "writtenOn": "2015-10-12T18:55:37Z",
+      "side": 1,
+      "message": "Fix Indentation for this method",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 4
+      },
+      "revId": "d5e51d88077b1452bab67f4001c5c6dda36a6c60",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
