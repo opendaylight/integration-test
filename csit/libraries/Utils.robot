@@ -300,6 +300,13 @@ Remove All Elements At URI
     ${resp}    RequestsLibrary.Delete Request    session    ${uri}
     Should Be Equal As Strings    ${resp.status_code}    200
 
+Remove All Elements At URI And Verify
+    [Arguments]    ${uri}
+    ${resp}    RequestsLibrary.Delete Request    session    ${uri}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp}    RequestsLibrary.Get    session    ${uri}
+    Should Be Equal As Strings    ${resp.status_code}    404
+
 Add Elements To URI From File
     [Arguments]    ${dest_uri}    ${data_file}
     ${body}    OperatingSystem.Get File    ${data_file}
