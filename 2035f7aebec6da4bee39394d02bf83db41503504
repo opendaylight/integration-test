@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_a416eb53",
+        "filename": "csit/suites/controller/Clustering_Datastore/001_start_cluster.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-12T21:13:55Z",
+      "side": 1,
+      "message": "I wonder if snapshots are something we should be cleaning here too?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 48
+      },
+      "revId": "2035f7aebec6da4bee39394d02bf83db41503504",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
