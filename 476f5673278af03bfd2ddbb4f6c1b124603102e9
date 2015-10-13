@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_fd5552c6",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/flowcount.sh",
+        "patchSetId": 53
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-13T15:20:17Z",
+      "side": 1,
+      "message": "Trailing space.",
+      "range": {
+        "startLine": 9,
+        "startChar": 47,
+        "endLine": 9,
+        "endChar": 48
+      },
+      "revId": "476f5673278af03bfd2ddbb4f6c1b124603102e9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_5d6ec697",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/infrastructure_launch.py",
+        "patchSetId": 53
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-13T15:20:17Z",
+      "side": 1,
+      "message": "This kind of quotes is usually reserved for docstrings.",
+      "range": {
+        "startLine": 147,
+        "startChar": 22,
+        "endLine": 147,
+        "endChar": 25
+      },
+      "revId": "476f5673278af03bfd2ddbb4f6c1b124603102e9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_bd06facc",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/infrastructure_launch.py",
+        "patchSetId": 53
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-13T15:20:17Z",
+      "side": 1,
+      "message": "Remove commented-out code.",
+      "range": {
+        "startLine": 151,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 34
+      },
+      "revId": "476f5673278af03bfd2ddbb4f6c1b124603102e9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_dd0976de",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/infrastructure_launch.py",
+        "patchSetId": 53
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-13T15:20:17Z",
+      "side": 1,
+      "message": "Remove.",
+      "range": {
+        "startLine": 200,
+        "startChar": 8,
+        "endLine": 200,
+        "endChar": 52
+      },
+      "revId": "476f5673278af03bfd2ddbb4f6c1b124603102e9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_9d13fe0c",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/ovswork.sh",
+        "patchSetId": 53
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-13T15:20:17Z",
+      "side": 1,
+      "message": "networking",
+      "range": {
+        "startLine": 76,
+        "startChar": 20,
+        "endLine": 76,
+        "endChar": 30
+      },
+      "revId": "476f5673278af03bfd2ddbb4f6c1b124603102e9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
