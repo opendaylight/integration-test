@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_9a5c64ef",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_prefixcount.robot",
+        "patchSetId": 50
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-13T11:34:42Z",
+      "side": 1,
+      "message": "BGPCEP_LOG_LEVEL?",
+      "range": {
+        "startLine": 50,
+        "startChar": 62,
+        "endLine": 50,
+        "endChar": 75
+      },
+      "revId": "781d67f1b37ca9bdad738eb480c39ebabe5c50ba",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a76adc5_5a6ecc97",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_prefixcount.robot",
+        "patchSetId": 50
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-13T11:34:42Z",
+      "side": 1,
+      "message": "BGP_PEER_LOG_LEVEL?",
+      "range": {
+        "startLine": 68,
+        "startChar": 207,
+        "endLine": 68,
+        "endChar": 220
+      },
+      "revId": "781d67f1b37ca9bdad738eb480c39ebabe5c50ba",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
