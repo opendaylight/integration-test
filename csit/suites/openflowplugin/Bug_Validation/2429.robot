@@ -29,6 +29,7 @@ Bug_2429
     ${starting_thread_count}=    Get Process Thread Count On Remote System    ${CONTROLLER}    ${controller_pid}    ${CONTROLLER_USER}
     Repeat Keyword    ${number_ofconnections_to_fail}    Start Process    nc    -w    1    ${CONTROLLER}
     ...    ${openflow_port}
+    Run    pkill -f 'nc -w'
     Log Environment Details
     ${ending_thread_count}=    Get Process Thread Count On Remote System    ${CONTROLLER}    ${controller_pid}    ${CONTROLLER_USER}
     Log Environment Details
