@@ -1,6 +1,6 @@
 *** Settings ***
-Documentation     Test suite for VTN Manager PathPolicy using OF13
-Suite Setup       Start PathSuiteVtnMaTest
+Documentation     Test suite for VTN Manager using OF10
+Suite Setup       Start PathSuiteVtnMaTestOF10
 Suite Teardown    Stop PathSuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
 
@@ -11,19 +11,19 @@ ${pathpolicydata}    {"id": 1,"default": 100000,"cost": [{"location": {"node": {
 *** Test Cases ***
 Check if switch1 detected
     [Documentation]    Check if openflow:1 is detected
-    BuiltIn.Wait_Until_Keyword_Succeeds    12    3    Fetch vtn switch inventory    openflow:1
+    BuiltIn.Wait_Until_Keyword_Succeeds    12    3    Fetch vtn switch inventory     openflow:1
 
 Check if switch2 detected
     [Documentation]    Check if openflow:2 is detected
-    BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch inventory    openflow:2
+    BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch inventory     openflow:2
 
 Check if switch3 detected
     [Documentation]    Check if openflow:3 is detected
-    BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch inventory    openflow:3
+    BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch inventory     openflow:3
 
 Check if switch4 detected
     [Documentation]    Check if openflow:4 is detected
-    BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch inventory    openflow:4
+    BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch inventory     openflow:4
 
 Add a vtn Tenant_path
     [Documentation]    Add a vtn Tenant_path
@@ -62,7 +62,7 @@ Ping h1 to h2 before path policy
 Verify flowEntryBeforePathPolicy
     [Documentation]    Checking Flows on switch s1 and s3
     [Tags]    exclude
-    Verify flowEntryBeforePathPolicy    OF13
+    Verify flowEntryBeforePathPolicy    OF10
 
 Add a flowcondition flowcond_path
     [Documentation]    Create a flowcondition flowcond_path
@@ -97,7 +97,7 @@ Ping h1 to h2 after path policy
 Verify flowEntryAfterPathPolicy
     [Documentation]    Checking Flows on switch s1 and s3
     [Tags]    exclude
-    Verify flowEntryAfterPathPolicy    OF13
+    Verify flowEntryAfterPathPolicy    OF10
 
 Delete a pathmap
     [Documentation]    Delete a pathmap
@@ -122,3 +122,7 @@ Delete a flowcondition
 Delete a vtn Tenant_path
     [Documentation]    Delete a vtn Tenant_path
     Delete a vtn    Tenant_path
+
+
+
+

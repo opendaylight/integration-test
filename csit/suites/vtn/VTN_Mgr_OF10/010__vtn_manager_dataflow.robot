@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite for VTN Manager Data Flow using OF13
+Documentation     Test suite for VTN Manager Data Flow using OF10
 Suite Setup       Start SuiteVtnMaTest
 Suite Teardown    Stop SuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
@@ -92,7 +92,7 @@ Verify data flow details for vBridge2
 Verify FlowMacAddress
     [Documentation]    Checking Flows on switch
     [Tags]    Switch
-    Verify FlowMacAddress    h2    h4    OF13
+    Verify FlowMacAddress    h2    h4    OF10
 
 Remove Portmap for If1
     [Documentation]    Remove portmap for the interface If1
@@ -103,7 +103,7 @@ Remove Portmap for If1
 
 Verify RemovedFlowMacAddress
     [Documentation]    flows will be deleted after the port map is removed
-    Verify RemovedFlowMacAddress    h1    h3    OF13
+    Verify RemovedFlowMacAddress    h1    h3    OF10
 
 Delete a vtn Tenant1
     [Documentation]    Delete a vtn Tenant1
