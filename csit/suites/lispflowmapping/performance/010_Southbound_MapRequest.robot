@@ -17,7 +17,7 @@ ${PCAP_CREATOR}    ${TOOLS_DIR}/create_map_request_pcap.py
 ${MAPPING_BLASTER}    ${TOOLS_DIR}/mapping_blaster.py
 ${REPLAY_PPS}     100000
 ${REPLAY_CNT}     1000
-${REPLAY_FILE}    ${CURDIR}/encapsulated-map-requests-sequential.pcap
+${REPLAY_FILE}    encapsulated-map-requests-sequential.pcap
 ${RESULTS_FILE}    pps.csv
 
 *** Test Cases ***
