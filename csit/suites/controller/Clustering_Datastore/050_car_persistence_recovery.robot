@@ -77,4 +77,3 @@ Get Cars From Follower1 After Restart
 Get Cars From Follower2 After Restart
     [Documentation]    Get cars in follower and verify
     Wait Until Keyword Succeeds    ${START_TIMEOUT}    2s    Get Cars And Verify    @{CAR_FOLLOWERS}[1]    ${NUM_CARS}
-

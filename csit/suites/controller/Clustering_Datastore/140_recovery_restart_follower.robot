@@ -73,4 +73,3 @@ Restart The Second Follower
 Get All The Cars From The Second Follower
     [Documentation]    Add cars to the follower and verify
     Wait Until Keyword Succeeds    ${START_TIMEOUT}    2s    Get Cars And Verify    @{CAR_FOLLOWERS}[1]    ${NUM_CARS}
-

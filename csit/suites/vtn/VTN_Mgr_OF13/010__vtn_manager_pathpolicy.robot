@@ -11,19 +11,19 @@ ${pathpolicydata}    {"id": 1,"default": 100000,"cost": [{"location": {"node": {
 *** Test Cases ***
 Check if switch1 detected
     [Documentation]    Check if openflow:1 is detected
-    BuiltIn.Wait_Until_Keyword_Succeeds    12     3    Fetch vtn switch inventory     openflow:1
+    BuiltIn.Wait_Until_Keyword_Succeeds    12    3    Fetch vtn switch inventory    openflow:1
 
 Check if switch2 detected
     [Documentation]    Check if openflow:2 is detected
-    BuiltIn.Wait_Until_Keyword_Succeeds    3     1    Fetch vtn switch inventory     openflow:2
+    BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch inventory    openflow:2
 
 Check if switch3 detected
     [Documentation]    Check if openflow:3 is detected
-    BuiltIn.Wait_Until_Keyword_Succeeds    3     1    Fetch vtn switch inventory     openflow:3
+    BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch inventory    openflow:3
 
 Check if switch4 detected
     [Documentation]    Check if openflow:4 is detected
-    BuiltIn.Wait_Until_Keyword_Succeeds    3     1    Fetch vtn switch inventory     openflow:4
+    BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch inventory    openflow:4
 
 Add a vtn Tenant_path
     [Documentation]    Add a vtn Tenant_path
@@ -46,7 +46,7 @@ Add a portmap for interface if1_path
 
 Add a interface If2_path
     [Documentation]    Add a interface if2_path into vBrdige vBridge1
-    Add a interface    Tenant_path    vBridge1    if2_path   {}
+    Add a interface    Tenant_path    vBridge1    if2_path    {}
 
 Add a portmap for interface if2_path
     [Documentation]    Create a portmap on Interface if2_path of vBridge1
@@ -72,7 +72,7 @@ Add a flowcondition flowcond_path
     ${matchElement}=    Create Dictionary    index=1    ethernet=${ethernet}    inetMatch=${inetMatch}
     @{matchlist}    Create List    ${matchElement}
     ${flowcond_data}=    Create Dictionary    name=flowcond_path    match=${matchlist}
-    Add a flowcondition  flowcond_path    ${flowcond_data}
+    Add a flowcondition    flowcond_path    ${flowcond_data}
 
 Add a pathmap
     [Documentation]    Create a pathmap in the vtn
@@ -122,7 +122,3 @@ Delete a flowcondition
 Delete a vtn Tenant_path
     [Documentation]    Delete a vtn Tenant_path
     Delete a vtn    Tenant_path
-
-
-
-

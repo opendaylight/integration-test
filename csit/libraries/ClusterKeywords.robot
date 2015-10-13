@@ -30,8 +30,8 @@ Get Leader And Verify
     [Return]    ${leader}
 
 Expect No Leader
-    [Documentation]    No leader is elected in the car shard
     [Arguments]    ${shard_name}
+    [Documentation]    No leader is elected in the car shard
     ${leader}    GetLeader    ${shard_name}    ${3}    ${1}    ${1}    ${RESTCONFPORT}
     ...    ${CURRENT_CAR_LEADER}
     Should Be Equal As Strings    ${leader}    None
@@ -223,4 +223,3 @@ Flush IPTables
     Should Contain    ${return string}    Flushing chain `INPUT'
     Should Contain    ${return string}    Flushing chain `FORWARD'
     Should Contain    ${return string}    Flushing chain `OUTPUT'
-
