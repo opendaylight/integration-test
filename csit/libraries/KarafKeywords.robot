@@ -33,7 +33,7 @@ Verify Feature Is Not Installed
 Issue Command On Karaf Console
     [Arguments]    ${cmd}    ${controller}=${CONTROLLER}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=5
     [Documentation]    Will execute the given ${cmd} by ssh'ing to the karaf console running on ${CONTROLLER}
-    ...   Note that this keyword will open&close new SSH connection, without switching back to previously current session.
+    ...    Note that this keyword will open&close new SSH connection, without switching back to previously current session.
     Open Connection    ${controller}    port=${karaf_port}    prompt=${KARAF_PROMPT}    timeout=${timeout}
     Login    ${KARAF_USER}    ${KARAF_PASSWORD}
     Write    ${cmd}

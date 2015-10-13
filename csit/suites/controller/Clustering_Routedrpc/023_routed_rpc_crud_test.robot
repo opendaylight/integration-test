@@ -20,7 +20,7 @@ ${STOP_TIMEOUT}    180s
 *** Test Cases ***
 Delete All Entries
     [Documentation]    Make sure the shards are cleared for testing.
-    Delete All Entries From Shards     @{controllers}
+    Delete All Entries From Shards    @{controllers}
 
 Get Car Leader And Followers
     [Documentation]    Find leader and followers in the car shard
@@ -47,15 +47,15 @@ Purchase 100 Cars Using Car Follower1
 
 Check Contents Of Car Leader Shards
     [Documentation]    Check all content using Leader
-    Check Elements In Shards  ${CURRENT_CAR_LEADER}    ${NUM_ENTRIES}
+    Check Elements In Shards    ${CURRENT_CAR_LEADER}    ${NUM_ENTRIES}
 
 Check Contents Of Car Follower1 Shards
     [Documentation]    Check all content using first follower
-    Check Elements In Shards  @{CAR_FOLLOWERS}[0]    ${NUM_ENTRIES}
+    Check Elements In Shards    @{CAR_FOLLOWERS}[0]    ${NUM_ENTRIES}
 
 Check Contents Of Car Follower2 Shards
     [Documentation]    Check all content using second follower
-    Check Elements In Shards  @{CAR_FOLLOWERS}[1]    ${NUM_ENTRIES}
+    Check Elements In Shards    @{CAR_FOLLOWERS}[1]    ${NUM_ENTRIES}
 
 Get Old Car Leader
     [Documentation]    Find leader in the car shard
@@ -85,11 +85,11 @@ Check Contents Of New Car Leader Shards
 
 Check Contents Of New Car Follower1 Shards
     [Documentation]    Check all content using first follower
-    Check Elements In Shards  @{CAR_FOLLOWERS}[0]    ${NUM_ENTRIES}
+    Check Elements In Shards    @{CAR_FOLLOWERS}[0]    ${NUM_ENTRIES}
 
 Readd People From New Car Leader
     [Documentation]    Add 100 persons and get persons from Leader
-    Add People And Verify Without Init   ${NEW_CAR_LEADER}    ${NUM_ENTRIES}
+    Add People And Verify Without Init    ${NEW_CAR_LEADER}    ${NUM_ENTRIES}
 
 Repurchase 100 Cars Using New Car Follower1
     [Documentation]    Repurchase 100 cars using Follower1
@@ -97,11 +97,11 @@ Repurchase 100 Cars Using New Car Follower1
 
 Check Contents Of New Car Leader Shards After Repurchase
     [Documentation]    Check all content using new Leader
-    Check Elements In Shards  ${NEW_CAR_LEADER}    ${NUM_ENTRIES}
+    Check Elements In Shards    ${NEW_CAR_LEADER}    ${NUM_ENTRIES}
 
 Check Contents Of New Car First Follower Shards After Repurchase
     [Documentation]    Check all content using first follower
-    Check Elements In Shards  @{CAR_FOLLOWERS}[0]    ${NUM_ENTRIES}
+    Check Elements In Shards    @{CAR_FOLLOWERS}[0]    ${NUM_ENTRIES}
 
 Start Old Car Leader
     [Documentation]    Start Leader controller
@@ -114,11 +114,11 @@ Check Cars In Old Car Leader
 
 Check Contents Of Old Leader Shards
     [Documentation]    Check all content using old Leader
-    Check Elements In Shards  ${OLD_CAR_LEADER}    ${NUM_ENTRIES}
+    Check Elements In Shards    ${OLD_CAR_LEADER}    ${NUM_ENTRIES}
 
 Readd People From Old Leader
     [Documentation]    Add 100 persons and get persons from Leader
-    Wait Until Keyword Succeeds    30    2s    Add People And Verify Without Init   ${OLD_CAR_LEADER}    ${NUM_ENTRIES}
+    Wait Until Keyword Succeeds    30    2s    Add People And Verify Without Init    ${OLD_CAR_LEADER}    ${NUM_ENTRIES}
 
 Repurchase 100 Cars Using Old Leader
     [Documentation]    Repurchase 100 cars using Follower1
@@ -126,5 +126,4 @@ Repurchase 100 Cars Using Old Leader
 
 Check Contents Of Old Leader Shards After Repurchase
     [Documentation]    Check all content using Leader
-    Check Elements In Shards  ${OLD_CAR_LEADER}    ${NUM_ENTRIES}
-
+    Check Elements In Shards    ${OLD_CAR_LEADER}    ${NUM_ENTRIES}

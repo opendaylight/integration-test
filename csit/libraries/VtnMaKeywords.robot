@@ -21,9 +21,9 @@ ${vlanmap_bridge1}    {"vlan": "200"}
 ${vlanmap_bridge2}    {"vlan": "300"}
 ${pathpolicy_topo}    sudo mn --controller=remote,ip=${CONTROLLER} --custom topo-3sw-2host_multipath.py --topo pathpolicytopo --switch ovsk,protocols=OpenFlow13
 @{PATHMAP_ATTR}    "index":"1"    "condition":"flowcond_path"    "policy":"1"
-${policy_id}    1
+${policy_id}      1
 @{PATHPOLICY_ATTR}    "id":"1"    "type":"OF"    "name":"s4-eth2"
-${custom}    ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
+${custom}         ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
 
 *** Keywords ***
 Start SuiteVtnMa
@@ -90,26 +90,26 @@ Add a portmap
 Add a pathmap
     [Arguments]    ${pathmap_data}
     [Documentation]    Create a pathmap for a vtn
-    ${json_data}=   json.dumps    ${pathmap_data}
+    ${json_data}=    json.dumps    ${pathmap_data}
     ${resp}=    RequestsLibrary.Put    session    ${REST_CONTEXT}/pathmaps/${policy_id}    data=${pathmap_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Get a pathmap
     [Documentation]    Get a pathmap for a vtn.
-    ${resp}=    RequestsLibrary.Get   session    ${REST_CONTEXT}/pathmaps
+    ${resp}=    RequestsLibrary.Get    session    ${REST_CONTEXT}/pathmaps
     : FOR    ${pathElement}    IN    @{PATHMAP_ATTR}
     \    should Contain    ${resp.content}    ${pathElement}
 
 Add a pathpolicy
     [Arguments]    ${pathpolicy_data}
     [Documentation]    Create a pathpolicy for a vtn
-    ${json_data}=   json.dumps    ${pathpolicy_data}
+    ${json_data}=    json.dumps    ${pathpolicy_data}
     ${resp}=    RequestsLibrary.Put    session    ${REST_CONTEXT}/pathpolicies/${policy_id}    data=${pathpolicy_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Get a pathpolicy
     [Documentation]    Get a pathpolicy for a vtn.
-    ${resp}=    RequestsLibrary.Get   session    ${REST_CONTEXT}/pathpolicies/${policy_id}
+    ${resp}=    RequestsLibrary.Get    session    ${REST_CONTEXT}/pathpolicies/${policy_id}
     : FOR    ${pathpolicyElement}    IN    @{PATHPOLICY_ATTR}
     \    should Contain    ${resp.content}    ${pathpolicyElement}
 
@@ -146,7 +146,7 @@ Delete a pathmap
 
 Get a pathmap after delete
     [Documentation]    Get a pathmap for a vtn.
-    ${resp}=    RequestsLibrary.Get   session    ${REST_CONTEXT}/pathmaps
+    ${resp}=    RequestsLibrary.Get    session    ${REST_CONTEXT}/pathmaps
     : FOR    ${pathElement}    IN    @{PATHMAP_ATTR}
     \    should Not Contain    ${resp.content}    ${pathElement}
 
@@ -157,7 +157,7 @@ Delete a pathpolicy
 
 Get a pathpolicy after delete
     [Documentation]    Get a pathpolicy for a vtn after delete.
-    ${resp}=    RequestsLibrary.Get   session    ${REST_CONTEXT}/pathpolicies/${policy_id}
+    ${resp}=    RequestsLibrary.Get    session    ${REST_CONTEXT}/pathpolicies/${policy_id}
     : FOR    ${pathpolicyElement}    IN    @{PATHPOLICY_ATTR}
     \    should Not Contain    ${resp.content}    ${pathpolicyElement}
 

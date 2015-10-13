@@ -100,7 +100,7 @@ Check Cars Deleted
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete All Cars And Verify
-    [Arguments]    ${controller_ip}   ${timeout}=3s
+    [Arguments]    ${controller_ip}    ${timeout}=3s
     DeleteAllCars    ${controller_ip}    ${RESTCONFPORT}    ${0}
     Wait Until Keyword Succeeds    ${timeout}    1s    Check Cars Deleted    ${controller_ip}
 
@@ -125,8 +125,8 @@ Delete All Cars-Persons And Verify
     Wait Until Keyword Succeeds    ${timeout}    1s    Check Cars-Persons Deleted    ${controller_ip}
 
 Delete All Entries From Shards
-    [Documentation]    Delete All Shards.
     [Arguments]    @{controllers}
+    [Documentation]    Delete All Shards.
     : FOR    ${ip}    IN    @{controllers}
     \    Delete All Cars And Verify    ${ip}
     : FOR    ${ip}    IN    @{controllers}
