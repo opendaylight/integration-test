@@ -92,7 +92,7 @@ Verify data flow details for vBridge2
 Verify FlowMacAddress
     [Documentation]    Checking Flows on switch
     [Tags]    Switch
-    Verify FlowMacAddress    h2    h4
+    Verify FlowMacAddress    h2    h4    OF13
 
 Remove Portmap for If1
     [Documentation]    Remove portmap for the interface If1
@@ -103,7 +103,7 @@ Remove Portmap for If1
 
 Verify RemovedFlowMacAddress
     [Documentation]    flows will be deleted after the port map is removed
-    Verify RemovedFlowMacAddress    h1    h3
+    Verify RemovedFlowMacAddress    h1    h3    OF13
 
 Delete a vtn Tenant1
     [Documentation]    Delete a vtn Tenant1
