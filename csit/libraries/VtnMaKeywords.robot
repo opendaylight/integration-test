@@ -14,7 +14,8 @@ ${REST_CONTEXT_VTNS}    controller/nb/v2/vtn/default/vtns
 ${REST_CONTEXT}    controller/nb/v2/vtn/default
 ${VERSION_VTN}    controller/nb/v2/vtn/version
 ${VTN_INVENTORY}    restconf/operational/vtn-inventory:vtn-nodes
-${DUMPFLOWS}      dpctl dump-flows -O OpenFlow13
+${DUMPFLOWS_OF10}      dpctl dump-flows -O OpenFlow10
+${DUMPFLOWS_OF13}      dpctl dump-flows -O OpenFlow13
 ${index}          7
 @{FLOWELMENTS}    nw_src=10.0.0.1    nw_dst=10.0.0.3    actions=drop
 @{BRIDGE1_DATAFLOW}    "reason":"PORTMAPPED"    "path":{"tenant":"Tenant1","bridge":"vBridge1","interface":"if2"}
@@ -23,7 +24,8 @@ ${vlanmap_bridge1}    {"vlan": "200"}
 ${vlanmap_bridge2}    {"vlan": "300"}
 @{VLANMAP_BRIDGE1_DATAFLOW}    "reason":"VLANMAPPED"    "path":{"tenant":"Tenant1","bridge":"vBridge1_vlan"}
 @{VLANMAP_BRIDGE2_DATAFLOW}    "reason":"VLANMAPPED"    "path":{"tenant":"Tenant1","bridge":"vBridge2_vlan"}
-${pathpolicy_topo}    sudo mn --controller=remote,ip=${CONTROLLER} --custom topo-3sw-2host_multipath.py --topo pathpolicytopo --switch ovsk,protocols=OpenFlow13
+${pathpolicy_topo_13}    sudo mn --controller=remote,ip=${CONTROLLER} --custom topo-3sw-2host_multipath.py --topo pathpolicytopo --switch ovsk,protocols=OpenFlow13
+${pathpolicy_topo_10}    sudo mn --controller=remote,ip=${CONTROLLER} --custom topo-3sw-2host_multipath.py --topo pathpolicytopo --switch ovsk,protocols=OpenFlow10
 @{PATHMAP_ATTR}    "index":"1"    "condition":"flowcond_path"    "policy":"1"
 ${policy_id}      1
 @{PATHPOLICY_ATTR}    "id":"1"    "type":"OF"    "name":"s4-eth2"
@@ -133,7 +135,9 @@ Get a pathpolicy
     \    should Contain    ${resp.content}    ${pathpolicyElement}
 
 Verify flowEntryBeforePathPolicy
+    [Arguments]    ${OF_VERSION}
     [Documentation]    Checking Flows on switch S1 and switch S3 before applying path policy
+    ${DUMPFLOWS}=     Set Variable If    "${OF_VERSION}"=="OF10"    ${DUMPFLOWS_OF10}    ${DUMPFLOWS_OF13}
     write    ${DUMPFLOWS}
     ${result}    Read Until    mininet>
     @{list_to_verify}    Create List    in_port=1    actions=output:2    actions=output:3
@@ -141,7 +145,9 @@ Verify flowEntryBeforePathPolicy
     \    should Contain    ${result}    ${flowverifyElement}
 
 Verify flowEntryAfterPathPolicy
+    [Arguments]    ${OF_VERSION}
     [Documentation]    Checking Flows on switch S1 and switch S3 after applying path policy
+    ${DUMPFLOWS}=     Set Variable If    "${OF_VERSION}"=="OF10"    ${DUMPFLOWS_OF10}    ${DUMPFLOWS_OF13}
     write    ${DUMPFLOWS}
     ${result}    Read Until    mininet>
     @{list_to_verify}    Create List    in_port=1    actions=output:3    in_port=2
@@ -151,7 +157,12 @@ Verify flowEntryAfterPathPolicy
 Start PathSuiteVtnMaTest
     [Documentation]    Start VTN Manager Test Suite and Mininet
     Start SuiteVtnMaTest
-    Start Mininet    ${MININET}    ${pathpolicy_topo}    ${custom}
+    Start Mininet    ${MININET}    ${pathpolicy_topo_13}    ${custom}
+
+Start PathSuiteVtnMaTestOF10
+    [Documentation]    Start VTN Manager Test Suite and Mininet in Open Flow 10 Specification
+    Start SuiteVtnMaTest
+    Start Mininet    ${MININET}    ${pathpolicy_topo_10}    ${custom}
 
 Stop PathSuiteVtnMaTest
     [Documentation]    Cleanup/Shutdown work at the completion of all tests.
@@ -235,17 +246,27 @@ Remove a portmap
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify FlowMacAddress
-    [Arguments]    ${host1}    ${host2}
-    ${booleanValue}=    Run Keyword And Return Status    Verify macaddress    ${host1}    ${host2}
+    [Arguments]    ${host1}    ${host2}    ${OF_VERSION}
+    Run Keyword If    '${OF_VERSION}' == 'OF10'    VerifyFlowsOnOpenFlow    ${host1}    ${host2}    ${DUMPFLOWS_OF10}
+    ...    ELSE    VerifyFlowsOnOpenFlow    ${host1}    ${host2}    ${DUMPFLOWS_OF13}
+
+VerifyFlowsOnOpenFlow
+    [Arguments]    ${host1}    ${host2}    ${DUMPFLOWS}
+    ${booleanValue}=    Run Keyword And Return Status    Verify macaddress    ${host1}    ${host2}    ${DUMPFLOWS}
     Should Be Equal As Strings    ${booleanValue}    True
 
 Verify RemovedFlowMacAddress
-    [Arguments]    ${host1}    ${host2}
-    ${booleanValue}=    Run Keyword And Return Status    Verify macaddress    ${host1}    ${host2}
+    [Arguments]    ${host1}    ${host2}    ${OF_VERSION}
+    Run Keyword If    '${OF_VERSION}' == 'OF10'    VerifyRemovedFlowsOnOpenFlow    ${host1}    ${host2}    ${DUMPFLOWS_OF10}
+    ...    ELSE    VerifyRemovedFlowsOnOpenFlow    ${host1}    ${host2}    ${DUMPFLOWS_OF13}
+
+VerifyRemovedFlowsOnOpenFlow
+    [Arguments]    ${host1}    ${host2}    ${DUMPFLOWS}
+    ${booleanValue}=    Run Keyword And Return Status    Verify macaddress    ${host1}    ${host2}    ${DUMPFLOWS}
     Should Not Be Equal As Strings    ${booleanValue}    True
 
 Verify macaddress
-    [Arguments]    ${host1}    ${host2}
+    [Arguments]    ${host1}    ${host2}    ${DUMPFLOWS}
     write    ${host1} ifconfig -a | grep HWaddr
     ${sourcemacaddr}    Read Until    mininet>
     ${macaddress}=    Split String    ${sourcemacaddr}    ${SPACE}
@@ -315,7 +336,7 @@ Verify Removed Flow Entry for Inet Drop Flowfilter
     Should Be Equal As Strings    ${booleanValue}    True
 
 Verify Actions on Flow Entry
-    write    ${DUMPFLOWS}
+    write    ${DUMPFLOWS_OF13}
     ${result}    Read Until    mininet>
     : FOR    ${flowElement}    IN    @{FLOWELMENTS}
     \    should Contain    ${result}    ${flowElement}
