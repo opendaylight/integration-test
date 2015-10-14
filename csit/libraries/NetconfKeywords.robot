@@ -13,12 +13,16 @@ Documentation     Perform complex operations on netconf.
 ...               test suites easier.
 Library           Collections
 Library           RequestsLibrary
+Resource          MemoryWatch.robot
 Resource          NetconfViaRestconf.robot
 Resource          SSHKeywords.robot
+Resource          Timer.robot
 
 *** Variables ***
 ${DIRECTORY_WITH_DEVICE_TEMPLATES}    ${CURDIR}/../variables/netconf/device
 ${FIRST_TESTTOOL_PORT}    17830
+${BASE_NETCONF_DEVICE_PORT}      17830
+${DEVICE_NAME_BASE}    netconf-scaling-device
 
 *** Keywords ***
 Setup_NetconfKeywords
@@ -160,3 +164,22 @@ Stop_Testtool
     # "Interrupt_Program_And_Download_Its_Log" which will get an argument stating the name of
     # the log file to get.
     SSHLibrary.Get_File    testtool.log
+
+NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device
+    [Arguments]    ${operation}
+    ${number}=    BuiltIn.Evaluate    ${current_port}-${BASE_NETCONF_DEVICE_PORT}+1
+    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    NetconfKeywords.Check_Device_Up_And_Running    ${number}
+    ${current_name}=    BuiltIn.Set_Suite_Variable    ${current_name}    ${DEVICE_NAME_BASE}-${number}
+    Timer.Start_Timer
+    BuiltIn.Run_Keyword    ${operation}
+    ${ellapsed}=    Timer.Get_Time_From_Start
+    ${number}=    BuiltIn.Evaluate    "%5d"%${number}
+    ${memory}=    MemoryWatch.Get_Current_Memory_Usage
+    ConsoleReporting.Report_To_Console    ${number} | ${ellapsed} ${memory}
+    ${next}=    BuiltIn.Evaluate    ${current_port}+1
+    BuiltIn.Set_Suite_Variable    ${current_port}    ${next}
+
+Perform_Operation_On_Each_Device
+    [Arguments]    ${operation}    ${count}=${DEVICE_COUNT}
+    BuiltIn.Set_Suite_Variable    ${current_port}    ${BASE_NETCONF_DEVICE_PORT}
+    BuiltIn.Repeat_Keyword    ${count} times    NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device    ${operation}
