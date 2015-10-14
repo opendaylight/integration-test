@@ -36,6 +36,7 @@ Bug_2429
     Log    starting count: ${starting_thread_count}\nending count: ${ending_thread_count}
     ${acceptable_thread_count}=    Evaluate    ${starting_thread_count} + (${number_of_connections_to_fail} * ${margin_of_error})
     Should Be True    ${ending_thread_count} <= ${acceptable_thread_count}    Final thread count of ${ending_thread_count} exceeds acceptable count: ${acceptable_thread_count}
+    [Teardown]    Report_Failure_Due_To_Bug    2429
 
 *** Keywords ***
 Log Environment Details
