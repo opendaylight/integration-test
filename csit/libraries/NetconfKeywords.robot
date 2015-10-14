@@ -19,6 +19,8 @@ Resource          SSHKeywords.robot
 *** Variables ***
 ${DIRECTORY_WITH_DEVICE_TEMPLATES}    ${CURDIR}/../variables/netconf/device
 ${FIRST_TESTTOOL_PORT}    17830
+${BASE_NETCONF_DEVICE_PORT}    17830
+${DEVICE_NAME_BASE}    netconf-scaling-device
 
 *** Keywords ***
 Setup_NetconfKeywords
@@ -160,3 +162,17 @@ Stop_Testtool
     # "Interrupt_Program_And_Download_Its_Log" which will get an argument stating the name of
     # the log file to get.
     SSHLibrary.Get_File    testtool.log
+
+NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device
+    [Arguments]    ${operation}
+    ${number}=    BuiltIn.Evaluate    ${current_port}-${BASE_NETCONF_DEVICE_PORT}+1
+    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    NetconfKeywords.Check_Device_Up_And_Running    ${number}
+    ${current_name}=    BuiltIn.Set_Suite_Variable    ${current_name}    ${DEVICE_NAME_BASE}-${number}
+    BuiltIn.Run_Keyword    ${operation}
+    ${next}=    BuiltIn.Evaluate    ${current_port}+1
+    BuiltIn.Set_Suite_Variable    ${current_port}    ${next}
+
+Perform_Operation_On_Each_Device
+    [Arguments]    ${operation}    ${count}=${DEVICE_COUNT}
+    BuiltIn.Set_Suite_Variable    ${current_port}    ${BASE_NETCONF_DEVICE_PORT}
+    BuiltIn.Repeat_Keyword    ${count} times    NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device    ${operation}
