@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a76adc5_4edccee4",
+        "filename": "csit/libraries/GBP/DockerUtils.robot",
+        "patchSetId": 57
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-10-14T13:36:29Z",
+      "side": 1,
+      "message": "I wish i could split this bash into two lines but haven\u0027t figured out how.",
+      "range": {
+        "startLine": 55,
+        "startChar": 64,
+        "endLine": 55,
+        "endChar": 225
+      },
+      "revId": "e6feb868d9844e39970193e0aeb004717cc31ca1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
