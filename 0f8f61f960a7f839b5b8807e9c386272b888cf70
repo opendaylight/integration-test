@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad0f9df_b2c42060",
+        "filename": "csit/suites/unimgr/basic/010_Restconf_OK.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-14T20:57:16Z",
+      "side": 1,
+      "message": "this is fine, but if you have the time could I request that you move this to Variables.py and call it ${MODULES_API}, like we do with config and operational?\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/variables/Variables.py#L109-L110\n\nthis is something I know others have used and will use going forward so it will be better for all of us.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 36
+      },
+      "revId": "0f8f61f960a7f839b5b8807e9c386272b888cf70",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
