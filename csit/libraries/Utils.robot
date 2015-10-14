@@ -58,6 +58,19 @@ Stop Suite
     Read Until    ${prompt}
     Close Connection
 
+Report_Failure_Due_To_Bug
+    [Arguments]    ${number}
+    [Documentation]    Report that a test failed due to a known Bugzilla bug whose number is provided as an argument.
+    ...    This must be used in the [Teardown] setting of the affected test
+    ...    or as the first line of the test if FastFail module is not being
+    ...    used. It reports the URL of the bug on console and also puts it
+    ...    into the Robot log file. The keyword also tries to avoid the
+    ...    console output to look broken.
+    ${message}=    BuiltIn.Set_Variable    This test fails due to https://bugs.opendaylight.org/show_bug.cgi?id=${number}
+    BuiltIn.Log    ${message}
+    ${newline}=    BuiltIn.Evaluate    chr(10)
+    BuiltIn.Log_To_Console    |XFAIL |${newline}${newline}${message}${newline}
+
 Ensure All Nodes Are In Response
     [Arguments]    ${URI}    ${node_list}
     [Documentation]    A GET is made to the supplied ${URI} and every item in the ${node_list}
