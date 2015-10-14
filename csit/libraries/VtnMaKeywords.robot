@@ -94,15 +94,15 @@ Add a portmap
 Verify Data Flows
     [Arguments]    ${vtn_name}    ${vBridge_name}
     [Documentation]    Verify the reason and physical data flows for the specified vtn and vbridge
-    ${resp}=    RequestsLibrary.Get   session    ${REST_CONTEXT_VTNS}/${vtn_name}/flows/detail
+    ${resp}=    RequestsLibrary.Get    session    ${REST_CONTEXT_VTNS}/${vtn_name}/flows/detail
     Run Keyword If    '${vBridge_name}' == 'vBridge1'    DataFlowsForBridge    ${resp}    @{BRIDGE1_DATAFLOW}
     ...    ELSE IF    '${vBridge_name}' == 'vBridge2'    DataFlowsForBridge    ${resp}    @{BRIDGE2_DATAFLOW}
     ...    ELSE IF    '${vBridge_name}' == 'vBridge1_vlan'    DataFlowsForBridge    ${resp}    @{VLANMAP_BRIDGE1_DATAFLOW}
     ...    ELSE    DataFlowsForBridge    ${resp}    @{VLANMAP_BRIDGE2_DATAFLOW}
 
 DataFlowsForBridge
+    [Arguments]    ${resp}    @{BRIDGE_DATAFLOW}
     [Documentation]    Verify whether the required attributes exists.
-    [Arguments]   ${resp}    @{BRIDGE_DATAFLOW}
     : FOR    ${dataflowElement}    IN    @{BRIDGE_DATAFLOW}
     \    should Contain    ${resp.content}    ${dataflowElement}
 

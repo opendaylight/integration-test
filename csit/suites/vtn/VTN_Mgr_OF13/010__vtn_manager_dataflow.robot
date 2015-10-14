@@ -7,15 +7,15 @@ Resource          ../../../libraries/VtnMaKeywords.robot
 *** Test Cases ***
 Check if switch1 detected
     [Documentation]    Check if openflow:1 is detected
-    BuiltIn.Wait_Until_Keyword_Succeeds    12     3    Fetch vtn switch inventory     openflow:1
+    BuiltIn.Wait_Until_Keyword_Succeeds    12    3    Fetch vtn switch inventory    openflow:1
 
 Check if switch2 detected
     [Documentation]    Check if openflow:2 is detected
-    BuiltIn.Wait_Until_Keyword_Succeeds    3     1    Fetch vtn switch inventory     openflow:2
+    BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch inventory    openflow:2
 
 Check if switch3 detected
     [Documentation]    Check if openflow:3 is detected
-    BuiltIn.Wait_Until_Keyword_Succeeds    3     1    Fetch vtn switch inventory     openflow:3
+    BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch inventory    openflow:3
 
 Add a vtn Tenant1
     [Documentation]    Add a vtn Tenant1
@@ -49,7 +49,7 @@ Add a portmap for interface if2
 
 Ping h1 to h3
     [Documentation]    Ping h1 to h3, verify no packet loss
-    Mininet Ping Should Succeed     h1     h3
+    Mininet Ping Should Succeed    h1    h3
 
 Verify data flow details For vBridge1
     [Documentation]    Verify the data flows for the specified tenant and bridge
@@ -83,7 +83,7 @@ Add a portmap for interface if4
 
 Ping h2 to h4
     [Documentation]    Ping h2 to h4, verify no packet loss
-    Mininet Ping Should Succeed     h2     h4
+    Mininet Ping Should Succeed    h2    h4
 
 Verify data flow details for vBridge2
     [Documentation]    Verify the data flows for the specified tenant and bridge
