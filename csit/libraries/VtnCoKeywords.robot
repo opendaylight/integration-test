@@ -30,23 +30,26 @@ Get VtnCo
 Start SuiteVtnCo
     [Documentation]    Download and startup the VTN Coordinator.
     Log    Start the VTN Coordinator
-    Get VtnCo
-    ${vtnc_conn_id}=    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    #Get VtnCo
+    ${vtnc_conn_id}=    SSHLibrary.Open Connection    ${CONTROLLER}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Suite Variable    ${vtnc_conn_id}
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
-    ${VTNC_FILENAME}=    Catenate    SEPARATOR=/    ${WORKSPACE}    vtn_coordinator.tar.bz2
-    Execute Command    tar -C/ -jxvf ${VTNC_FILENAME}
-    Execute Command    /usr/local/vtn/sbin/db_setup
-    Execute Command    /usr/local/vtn/bin/vtn_start
-    Execute Command    /usr/local/vtn/bin/unc_dmctl status
-    Execute Command    /usr/local/vtn/sbin/db_setup
-    Execute Command    sed -i 's/odcdrv_ping_interval = 30/odcdrv_ping_interval = 10/g' /usr/local/vtn/modules/odcdriver.conf
-    Execute Command    sed -i 's/physical_attributes_read_interval = 40/physical_attributes_read_interval = 15/g' /usr/local/vtn/modules/vtndrvintf.conf
-    Execute Command    /usr/local/vtn/bin/vtn_start
-    Execute Command    /usr/local/vtn/bin/unc_dmctl status
-    Execute Command    /usr/local/vtn/bin/drvodc_control loglevel trace
-    Execute Command    /usr/local/vtn/bin/lgcnw_control loglevel trace
-    Execute Command    exit
+    SSHLibrary.Login_With_Public_Key    ${CONTROLLER_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    SSHLibrary.Execute Command    sudo mkdir -p /usr/local/vtn
+    SSHLibrary.Execute Command    sudo chown jenkins /usr/local/vtn
+    SSHLibrary.Execute Command    sudo yum install -q -y http://yum.postgresql.org/9.3/redhat/rhel-7-x86_64/pgdg-centos93-9.3-1.noarch.rpm
+    SSHLibrary.Execute Command    sudo yum install -q -y postgresql93-libs postgresql93 postgresql93-server postgresql93-contrib postgresql93-odbc
+    SSHLibrary.Execute Command    tar -C/ -jxvf ${WORKSPACE}/${BUNDLEFOLDER}/externalapps/*vtn-coordinator*-bin.tar.bz2
+    SSHLibrary.Execute Command    /usr/local/vtn/sbin/db_setup
+    SSHLibrary.Execute Command    /usr/local/vtn/bin/vtn_start
+    SSHLibrary.Execute Command    /usr/local/vtn/bin/unc_dmctl status
+    SSHLibrary.Execute Command    /usr/local/vtn/sbin/db_setup
+    SSHLibrary.Execute Command    sed -i 's/odcdrv_ping_interval = 30/odcdrv_ping_interval = 10/g' /usr/local/vtn/modules/odcdriver.conf
+    SSHLibrary.Execute Command    sed -i 's/physical_attributes_read_interval = 40/physical_attributes_read_interval = 15/g' /usr/local/vtn/modules/vtndrvintf.conf
+    SSHLibrary.Execute Command    /usr/local/vtn/bin/vtn_start
+    SSHLibrary.Execute Command    /usr/local/vtn/bin/unc_dmctl status
+    SSHLibrary.Execute Command    /usr/local/vtn/bin/drvodc_control loglevel trace
+    SSHLibrary.Execute Command    /usr/local/vtn/bin/lgcnw_control loglevel trace
+    SSHLibrary.Execute Command    exit
 
 Stop SuiteVtnCo
     [Documentation]    Exit the Launch Test
@@ -54,7 +57,7 @@ Stop SuiteVtnCo
 
 Start SuiteVtnCoTest
     [Documentation]    Start the VTNCo Test
-    Create Session    session    http://${MININET}:8083    headers=${VTNC_HEADERS}
+    Create Session    session    http://${CONTROLLER}:8083    headers=${VTNC_HEADERS}
 
 Stop SuiteVtnCoTest
     [Documentation]    Exit the VtnCo Test
