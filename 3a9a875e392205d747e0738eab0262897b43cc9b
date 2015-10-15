@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad0f9df_d81f8508",
+        "filename": "csit/libraries/netconf_library.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-15T14:37:42Z",
+      "side": 1,
+      "message": "Function-level docstrings, especially to provide info about complex return values as seen this fn, would be nice. Applies elsewhere",
+      "range": {
+        "startLine": 91,
+        "startChar": 4,
+        "endLine": 91,
+        "endChar": 24
+      },
+      "revId": "3a9a875e392205d747e0738eab0262897b43cc9b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_7831b9a1",
+        "filename": "csit/libraries/netconf_library.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-15T14:37:42Z",
+      "side": 1,
+      "message": "Some docs about the meaning of these values would be useful",
+      "range": {
+        "startLine": 117,
+        "startChar": 8,
+        "endLine": 117,
+        "endChar": 29
+      },
+      "revId": "3a9a875e392205d747e0738eab0262897b43cc9b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_b8ede1f1",
+        "filename": "csit/libraries/netconf_library.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-15T14:37:42Z",
+      "side": 1,
+      "message": "I believe it\u0027s recommended (Pythonic) to use `with` statements when opening files, to be sure they care closed properly. See the very bottom of this section:\n\nhttps://docs.python.org/3.3/tutorial/inputoutput.html#methods-of-file-objects\n\nApplies elsewhere, non-blocking imho",
+      "range": {
+        "startLine": 120,
+        "startChar": 4,
+        "endLine": 120,
+        "endChar": 47
+      },
+      "revId": "3a9a875e392205d747e0738eab0262897b43cc9b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_f8ca896d",
+        "filename": "csit/libraries/netconf_library.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-15T14:37:42Z",
+      "side": 1,
+      "message": "You could create a helper fn, something like `log`, that accepts messages to log, knows the path to the file and properly `with/open/close` it to write the message.",
+      "range": {
+        "startLine": 133,
+        "startChar": 4,
+        "endLine": 140,
+        "endChar": 21
+      },
+      "revId": "3a9a875e392205d747e0738eab0262897b43cc9b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
