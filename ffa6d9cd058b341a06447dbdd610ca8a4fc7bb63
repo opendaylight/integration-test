@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad0f9df_f8acc937",
+        "filename": "tools/mdsal_benchmark/dsbenchmark.py",
+        "patchSetId": 46
+      },
+      "lineNbr": 145,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-15T16:49:59Z",
+      "side": 1,
+      "message": "\"Stores\"",
+      "range": {
+        "startLine": 145,
+        "startChar": 4,
+        "endLine": 145,
+        "endChar": 9
+      },
+      "revId": "ffa6d9cd058b341a06447dbdd610ca8a4fc7bb63",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_b8a64152",
+        "filename": "tools/mdsal_benchmark/dsbenchmark.py",
+        "patchSetId": 46
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-15T16:49:59Z",
+      "side": 1,
+      "message": "Good docs, thanks",
+      "range": {
+        "startLine": 146,
+        "startChar": 5,
+        "endLine": 153,
+        "endChar": 38
+      },
+      "revId": "ffa6d9cd058b341a06447dbdd610ca8a4fc7bb63",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
