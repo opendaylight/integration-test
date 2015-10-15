@@ -28,9 +28,9 @@ Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 ${directory_with_template_folders}    ${CURDIR}/../../../variables/bgpuser/
 ${CONTROLLER_PROMPT}    ${DEFAULT_LINUX_PROMPT}
 ${HOLDTIME}       180
-${HOLDTIME_PREFIX_COUNT}       ${HOLDTIME}
+${HOLDTIME_PREFIX_COUNT}    ${HOLDTIME}
 ${COUNT}          100000
-${COUNT_PREFIX_COUNT}   ${COUNT}
+${COUNT_PREFIX_COUNT}    ${COUNT}
 ${CHECK_PERIOD}    5
 ${CHECK_PERIOD_PREFIX_COUNT}    ${CHECK_PERIOD}
 ${current_count}    -1
@@ -45,13 +45,13 @@ Check_For_Empty_Topology_Before_Talking
 
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'IP': '${MININET}', 'HOLDTIME': '${HOLDTIME_PREFIX_COUNT}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'false'}
+    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${MININET}', 'HOLDTIME': '${HOLDTIME_PREFIX_COUNT}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'false'}
     ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer    ${template_as_string}
 
-Start_Talking_BGP_speaker
+Start_Talking_BGP_Speaker
     [Documentation]    Start Python speaker to connect to ODL, verify that the tool does not promptly exit.
     # Myport value is needed for checking whether connection at precise port was established.
-    BGPSpeaker.Start_BGP_speaker    --amount ${COUNT_PREFIX_COUNT} --myip=${MININET} --myport=${BGP_TOOL_PORT} --peerip=${CONTROLLER} --peerport=${ODL_BGP_PORT}
+    BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT_PREFIX_COUNT} --myip=${MININET} --myport=${BGP_TOOL_PORT} --peerip=${CONTROLLER} --peerport=${ODL_BGP_PORT}
 
 Wait_For_Talking_Topology
     [Documentation]    Wait until example-ipv4-topology becomes stable. This is done by checking the change counter.
@@ -78,11 +78,11 @@ Check_For_Empty_Topology_After_Talking
 
 Start_Listening_BGP_Speaker
     [Documentation]    Start Python speaker in listening mode, verify that the tool does not exit quickly.
-    BGPSpeaker.Start_BGP_speaker    --amount ${COUNT_PREFIX_COUNT} --listen --myip=${MININET} --myport=${BGP_TOOL_PORT} --peerip=${CONTROLLER}
+    BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT_PREFIX_COUNT} --listen --myip=${MININET} --myport=${BGP_TOOL_PORT} --peerip=${CONTROLLER}
 
 Reconfigure_ODL_To_Initiate_Connection
     [Documentation]    Replace BGP peer config module, now with initiate-connection set to true.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'IP': '${MININET}', 'HOLDTIME': '${HOLDTIME_PREFIX_COUNT}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'true'}
+    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${MININET}', 'HOLDTIME': '${HOLDTIME_PREFIX_COUNT}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'true'}
     ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer    ${template_as_string}
 
 Wait_For_Listening_Topology
@@ -110,7 +110,8 @@ Check_For_Empty_Topology_After_Listening
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer
+    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer'}
+    ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer    ${template_as_string}
 
 *** Keywords ***
 Setup_Everything
