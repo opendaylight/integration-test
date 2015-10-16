@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad0f9df_590e3436",
+        "filename": "csit/suites/mdsal/dsbenchmark/dsbenchmark.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-16T15:38:35Z",
+      "side": 1,
+      "message": "There should be a readme-style documentation text added here. What is this suite doing, which features it needs, why user has to specify time units, and so on.",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 3
+      },
+      "revId": "46470218db71de2de0f52439e38668eaba5fbd4a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_e72420c8",
+        "filename": "csit/suites/mdsal/dsbenchmark/dsbenchmark.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-16T15:38:35Z",
+      "side": 1,
+      "message": "Already performed by the previous line.",
+      "range": {
+        "startLine": 89,
+        "startChar": 4,
+        "endLine": 89,
+        "endChar": 41
+      },
+      "revId": "46470218db71de2de0f52439e38668eaba5fbd4a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_072284b9",
+        "filename": "csit/suites/mdsal/dsbenchmark/dsbenchmark.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-16T15:38:35Z",
+      "side": 1,
+      "message": "Also already done by SetupUtils setup.",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 61
+      },
+      "revId": "46470218db71de2de0f52439e38668eaba5fbd4a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_c72b1c93",
+        "filename": "csit/suites/mdsal/dsbenchmark/dsbenchmark.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-16T15:38:35Z",
+      "side": 1,
+      "message": "I would specify timeout configurable from pybot, as the default value may lead to false failure if user specifies small scale parameters.\nNo big deal, though.",
+      "range": {
+        "startLine": 105,
+        "startChar": 72,
+        "endLine": 105,
+        "endChar": 89
+      },
+      "revId": "46470218db71de2de0f52439e38668eaba5fbd4a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_c7023c0b",
+        "filename": "csit/suites/mdsal/dsbenchmark/dsbenchmark.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-16T15:38:35Z",
+      "side": 1,
+      "message": "The previous line did not send endline, but I see on Sandbox that the prompt arrived nevertheless (in happy path where the tool exited earlier, also printing triggering prompt).\n\nI tried on my linux console, and ^C really leads to prompt, so this comment is just about my previous ignorance.\n\nSo, this keyword does not test whether the tool is still running. I have to check (somewhere in unspecified future) my suites to see whether I am not susceptible to false pass due to this.",
+      "range": {
+        "startLine": 116,
+        "startChar": 15,
+        "endLine": 116,
+        "endChar": 32
+      },
+      "revId": "46470218db71de2de0f52439e38668eaba5fbd4a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
