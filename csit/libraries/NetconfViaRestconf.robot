@@ -8,6 +8,7 @@ Documentation     Access Netconf via Restconf.
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
 Library           RequestsLibrary
 Library           OperatingSystem
+Resource          RequestKeywords.robot
 
 *** Variables ***
 @{allowed_status_codes}    ${200}    ${201}    ${204}    # List of integers, not strings. Used by both PUT and DELETE.
