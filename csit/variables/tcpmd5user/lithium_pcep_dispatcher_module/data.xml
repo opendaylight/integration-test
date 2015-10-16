@@ -7,7 +7,7 @@
  </pcep-extensions>
  <pcep-session-proposal-factory xmlns="urn:opendaylight:params:xml:ns:yang:controller:pcep:impl">
   <type xmlns:x="urn:opendaylight:params:xml:ns:yang:controller:pcep">x:pcep-session-proposal-factory</type>
-  <name>global-pcep-session-proposal-factory</name>
+  <name>pcep-session-proposal-factory-sr</name>
  </pcep-session-proposal-factory>
  <boss-group xmlns="urn:opendaylight:params:xml:ns:yang:controller:pcep:impl">
   <type xmlns:x="urn:opendaylight:params:xml:ns:yang:controller:netty">x:netty-threadgroup</type>
