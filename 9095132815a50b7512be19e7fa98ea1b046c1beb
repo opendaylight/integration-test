@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad0f9df_d930e4ea",
+        "filename": "csit/suites/alto/setup/010_Setup_Server.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-16T15:56:10Z",
+      "side": 1,
+      "message": "I do not see this Keyword be defined anywhere.\n\nThe only occurrence is csit/suites/aaa/authn/020_Identity_Management.robot\nwhich is a suite file identical to this one.",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 49
+      },
+      "revId": "9095132815a50b7512be19e7fa98ea1b046c1beb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_19374ce5",
+        "filename": "csit/suites/alto/setup/__init__.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-16T15:56:10Z",
+      "side": 1,
+      "message": "Does alto really need mininet application to be started?",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 29
+      },
+      "revId": "9095132815a50b7512be19e7fa98ea1b046c1beb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
