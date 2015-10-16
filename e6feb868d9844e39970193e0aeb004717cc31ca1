@@ -22,6 +22,30 @@
       "revId": "e6feb868d9844e39970193e0aeb004717cc31ca1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_87ee7421",
+        "filename": "csit/libraries/GBP/DockerUtils.robot",
+        "patchSetId": 57
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-16T12:11:40Z",
+      "side": 1,
+      "message": "Well, you could do the loop in Robot.\nUse Wait_Unti_Keyword_Succeeds on some helper keyword which will Execute_Command the curl and assert the returned status code.",
+      "parentUuid": "1a76adc5_4edccee4",
+      "range": {
+        "startLine": 55,
+        "startChar": 64,
+        "endLine": 55,
+        "endChar": 225
+      },
+      "revId": "e6feb868d9844e39970193e0aeb004717cc31ca1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
