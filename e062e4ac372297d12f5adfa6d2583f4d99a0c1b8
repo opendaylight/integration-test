@@ -1,0 +1,8 @@
+Verified+1: jenkins-releng <jenkins-releng@opendaylight.org>
+Code-Review+1: Vratko Polák <vrpolak@cisco.com>
+Code-Review+2: Luis Gomez <ecelgp@gmail.com>
+Submitted-by: Luis Gomez <ecelgp@gmail.com>
+Submitted-at: Sat, 17 Oct 2015 02:34:57 +0000
+Reviewed-on: https://git.opendaylight.org/gerrit/27743
+Project: integration/test
+Branch: refs/heads/master
