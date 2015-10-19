@@ -1,0 +1,383 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad0f9df_2de4460c",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 59
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-19T14:44:23Z",
+      "side": 1,
+      "message": "1500 line change, I think you can do better on the commit message ;)\n\nhttp://chris.beams.io/posts/git-commit/",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 24
+      },
+      "revId": "f07c5fdfa94b26242c5020f63f946e618552fab0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_add83654",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/flowcount.sh",
+        "patchSetId": 59
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-19T14:44:23Z",
+      "side": 1,
+      "message": "For all shell scripts, it\u0027d be nice to have at least line or two of docs at the top of the file describing what it does\n\nhttps://github.com/opendaylight/integration-packaging/blob/master/packer/config_virtualbox.sh#L2-L3",
+      "revId": "f07c5fdfa94b26242c5020f63f946e618552fab0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_ed687e89",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/infrastructure_launch.py",
+        "patchSetId": 59
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-19T14:44:23Z",
+      "side": 1,
+      "message": "It\u0027d be nice to have docstrings for all of these Python lib fns, at least to doc the params. Good examples (others in the repo): https://git.opendaylight.org/gerrit/#/c/22384/11/test/csit/libraries/Docker.py\nhttps://github.com/IEEERobotics/bot/blob/master/bot/server/ctrl_server.py",
+      "range": {
+        "startLine": 14,
+        "startChar": 4,
+        "endLine": 14,
+        "endChar": 17
+      },
+      "revId": "f07c5fdfa94b26242c5020f63f946e618552fab0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_ad3116a4",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/infrastructure_launch.py",
+        "patchSetId": 59
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-19T14:44:23Z",
+      "side": 1,
+      "message": "imho it\u0027d be more clear if you either used `call`s spread out like this or stuck with your `doCmd` helper.",
+      "range": {
+        "startLine": 15,
+        "startChar": 4,
+        "endLine": 15,
+        "endChar": 73
+      },
+      "revId": "f07c5fdfa94b26242c5020f63f946e618552fab0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_cdf01acc",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/infrastructure_launch.py",
+        "patchSetId": 59
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-19T14:44:23Z",
+      "side": 1,
+      "message": "I think for the most part we use snake_case for fn names in int/test. Sticking with that would be better, imho. https://www.python.org/dev/peps/pep-0008/#function-names",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 14
+      },
+      "revId": "f07c5fdfa94b26242c5020f63f946e618552fab0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_8d2c524c",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/infrastructure_launch.py",
+        "patchSetId": 59
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-19T14:44:23Z",
+      "side": 1,
+      "message": "Seems like if you\u0027re going to have the `doCmd` helper, you\u0027d want to use that here and remove the duplicated logic.",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 31
+      },
+      "revId": "f07c5fdfa94b26242c5020f63f946e618552fab0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_4d266a6a",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/infrastructure_launch.py",
+        "patchSetId": 59
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-19T14:44:23Z",
+      "side": 1,
+      "message": "Not obvious to me what\u0027s going on here, inline docs would be nice",
+      "range": {
+        "startLine": 29,
+        "startChar": 12,
+        "endLine": 29,
+        "endChar": 58
+      },
+      "revId": "f07c5fdfa94b26242c5020f63f946e618552fab0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_6d2b2e31",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/infrastructure_launch.py",
+        "patchSetId": 59
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-19T14:44:23Z",
+      "side": 1,
+      "message": "You\u0027re not using any of these",
+      "range": {
+        "startLine": 37,
+        "startChar": 12,
+        "endLine": 37,
+        "endChar": 38
+      },
+      "revId": "f07c5fdfa94b26242c5020f63f946e618552fab0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_0d206248",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/infrastructure_launch.py",
+        "patchSetId": 59
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-19T14:44:23Z",
+      "side": 1,
+      "message": "Not using this (commented out)",
+      "range": {
+        "startLine": 46,
+        "startChar": 18,
+        "endLine": 46,
+        "endChar": 31
+      },
+      "revId": "f07c5fdfa94b26242c5020f63f946e618552fab0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_2d1d2610",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/infrastructure_launch.py",
+        "patchSetId": 59
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-19T14:44:23Z",
+      "side": 1,
+      "message": "If you\u0027re planning on adding this back, maybe add some inline docs explaining. Else removing it would be more clear imho.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 60
+      },
+      "revId": "f07c5fdfa94b26242c5020f63f946e618552fab0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_cd6b3a84",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/infrastructure_launch.py",
+        "patchSetId": 59
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-19T14:44:23Z",
+      "side": 1,
+      "message": "We typically recommend removing commented out code. Applies elsewhere.",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 60
+      },
+      "revId": "f07c5fdfa94b26242c5020f63f946e618552fab0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_8dd3f237",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/infrastructure_launch.py",
+        "patchSetId": 59
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-19T14:44:23Z",
+      "side": 1,
+      "message": "Note that there are a bunch of docker lib fns in csit/libraries/Docker.py",
+      "range": {
+        "startLine": 77,
+        "startChar": 4,
+        "endLine": 77,
+        "endChar": 19
+      },
+      "revId": "f07c5fdfa94b26242c5020f63f946e618552fab0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_ed163ef1",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/infrastructure_launch.py",
+        "patchSetId": 59
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-19T14:44:23Z",
+      "side": 1,
+      "message": "Good use of inline docs",
+      "range": {
+        "startLine": 92,
+        "startChar": 29,
+        "endLine": 92,
+        "endChar": 72
+      },
+      "revId": "f07c5fdfa94b26242c5020f63f946e618552fab0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_8d0532c4",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/infrastructure_launch.py",
+        "patchSetId": 59
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-19T14:44:23Z",
+      "side": 1,
+      "message": "May want to give a return code, like 2, for these exit calls. Applies to exits elsewhere.\n\nhttps://docs.python.org/2/library/sys.html#sys.exit",
+      "range": {
+        "startLine": 153,
+        "startChar": 8,
+        "endLine": 153,
+        "endChar": 18
+      },
+      "revId": "f07c5fdfa94b26242c5020f63f946e618552fab0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_2df686d8",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/infrastructure_launch.py",
+        "patchSetId": 59
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-19T14:44:23Z",
+      "side": 1,
+      "message": "It\u0027s not obvious to me what\u0027s going on here, some inline docs would be nice",
+      "range": {
+        "startLine": 158,
+        "startChar": 15,
+        "endLine": 158,
+        "endChar": 66
+      },
+      "revId": "f07c5fdfa94b26242c5020f63f946e618552fab0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_2d6f6694",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/ovswork.sh",
+        "patchSetId": 59
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-19T14:44:23Z",
+      "side": 1,
+      "message": "These don\u0027t seem to be consistent with the actual argument accepted above. The number is wrong, for one.",
+      "range": {
+        "startLine": 16,
+        "startChar": 19,
+        "endLine": 16,
+        "endChar": 93
+      },
+      "revId": "f07c5fdfa94b26242c5020f63f946e618552fab0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_0de70214",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/wait_flows",
+        "patchSetId": 59
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-19T14:44:23Z",
+      "side": 1,
+      "message": "I think this is the first Perl in int/test",
+      "revId": "f07c5fdfa94b26242c5020f63f946e618552fab0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
