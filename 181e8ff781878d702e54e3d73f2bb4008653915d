@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad0f9df_637c9a73",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-20T22:49:07Z",
+      "side": 1,
+      "message": "perfect for refactor.  this could just be a single keyword to check path policy.  arguments are of_version, in_port and out_port.  So instead of two different keywords that have the same lines of code only differing by two characters (output and in_port numbers) you can have one keyword that would also be flexible for checking different port numbers besides 2 and 3 down the road.",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 155,
+        "endChar": 60
+      },
+      "revId": "181e8ff781878d702e54e3d73f2bb4008653915d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_23969295",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-20T22:49:07Z",
+      "side": 1,
+      "message": "just pointing it out the lack of consistency in the library keywords.  some are CamelCase, some \"use spaces\", etc.",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 21
+      },
+      "revId": "181e8ff781878d702e54e3d73f2bb4008653915d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_439396a3",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-20T22:49:07Z",
+      "side": 1,
+      "message": "add basic docs please.",
+      "range": {
+        "startLine": 248,
+        "startChar": 0,
+        "endLine": 269,
+        "endChar": 55
+      },
+      "revId": "181e8ff781878d702e54e3d73f2bb4008653915d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
