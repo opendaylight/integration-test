@@ -22,6 +22,30 @@
       "revId": "6a43196170ce20dcd6dbd18e4c7d980bdce23b29",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_e35e4d12",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-10-20T08:42:14Z",
+      "side": 1,
+      "message": "Expanded the commit message to include an answer to this question.",
+      "parentUuid": "fad0f9df_f91fe807",
+      "range": {
+        "startLine": 9,
+        "startChar": 27,
+        "endLine": 9,
+        "endChar": 38
+      },
+      "revId": "6a43196170ce20dcd6dbd18e4c7d980bdce23b29",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
