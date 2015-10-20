@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad0f9df_9eeeba21",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-10-20T14:02:56Z",
+      "side": 1,
+      "message": "References to Gerrit changes don\u0027t belong to a Git commit message. Users who use a bare Git won\u0027t know what \"Change 27525\" means. Additionally, this change replaces only a part of the \"Change 27525\" (actually the uglier part) so this sentence is kind of false (the main motivation is to replace the ugly part which I actually pretty happily deleted).",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 63
+      },
+      "revId": "ca46e7392d59b8bc3838fae398b71be5173edf5b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_deb52232",
+        "filename": "csit/libraries/ScalarClosures.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-10-20T14:02:56Z",
+      "side": 1,
+      "message": "The \"Resource__\" prefix ...\n\n(The original form looks like there is a superfluous space between the \"Resource__\" and \"prefix\" words, confusing the reader)",
+      "range": {
+        "startLine": 117,
+        "startChar": 11,
+        "endLine": 117,
+        "endChar": 28
+      },
+      "revId": "ca46e7392d59b8bc3838fae398b71be5173edf5b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
