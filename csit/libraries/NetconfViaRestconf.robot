@@ -11,6 +11,7 @@ Library           OperatingSystem
 
 *** Variables ***
 @{allowed_status_codes}    ${200}    ${201}    ${204}    # List of integers, not strings. Used by both PUT and DELETE.
+${NetconfViaRestconf__active_session}    nvr_session
 
 *** Keywords ***
 FIXME__POLISH_THIS
@@ -40,7 +41,7 @@ FIXME__POLISH_THIS
 Setup_Netconf_Via_Restconf
     [Documentation]    Creates Requests session to be used by subsequent keywords.
     # Do not append slash at the end uf URL, Requests would add another, resulting in error.
-    RequestsLibrary.Create_Session    nvr_session    http://${CONTROLLER}:${RESTCONFPORT}${CONFIG_API}    headers=${HEADERS_XML}    auth=${AUTH}
+    Create_NVR_Session    nvr_session    ${CONTROLLER}
 
 Teardown_Netconf_Via_Restconf
     [Documentation]    Teardown to pair with Setup (otherwise no-op).
@@ -81,7 +82,7 @@ Post_Xml_Via_Restconf
     # As seen in previous two Keywords, Post does not need long specific URI.
     # But during Lithium development, Post ceased to do merge, so those Keywords do not work anymore.
     # This Keyword can still be used with specific URI to create a new container and fail if a container was already present.
-    ${response}=    RequestsLibrary.Post    nvr_session    ${uri_part}    data=${xml_data}
+    ${response}=    RequestsLibrary.Post    ${NetconfViaRestconf__active_session}    ${uri_part}    data=${xml_data}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Be_Empty    ${response.text}
     BuiltIn.Should_Be_Equal_As_Strings    ${response.status_code}    204
@@ -98,7 +99,7 @@ Put_Xml_Via_Restconf
     [Documentation]    Put XML data to given controller-config URI, check reponse text is empty and status_code is one of allowed ones.
     BuiltIn.Log    ${uri_part}
     BuiltIn.Log    ${xml_data}
-    ${response}=    RequestsLibrary.Put    nvr_session    ${uri_part}    data=${xml_data}
+    ${response}=    RequestsLibrary.Put    ${NetconfViaRestconf__active_session}    ${uri_part}    data=${xml_data}
     BuiltIn.Log    ${response.text}
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Should_Be_Empty    ${response.text}
@@ -115,7 +116,7 @@ Delete_Via_Restconf
     [Arguments]    ${uri_part}
     [Documentation]    Delete resource at controller-config URI, check reponse text is empty and status_code is 204.
     BuiltIn.Log    ${uri_part}
-    ${response}=    RequestsLibrary.Delete    nvr_session    ${uri_part}
+    ${response}=    RequestsLibrary.Delete    ${NetconfViaRestconf__active_session}    ${uri_part}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Be_Empty    ${response.text}
     BuiltIn.Should_Contain    ${allowed_status_codes}    ${response.status_code}
@@ -125,3 +126,15 @@ Delete_Xml_Template_Folder_Via_Restconf
     [Documentation]    Resolve URI from folder, DELETE from controller config.
     ${uri_part}=    Resolve_URI_From_Template_Folder    ${folder}    ${mapping_as_string}
     Delete_Via_Restconf    ${uri_part}
+
+Create_NVR_Session
+    [Arguments]    ${name}    ${host}
+    [Documentation]    Create a Netconf Via Restconf session pointing to the given host with the given name. The new session is NOT made active.
+    RequestsLibrary.Create_Session    ${name}    http://${host}:${RESTCONFPORT}${CONFIG_API}    headers=${HEADERS_XML}    auth=${AUTH}
+
+Activate_NVR_Session
+    [Arguments]    ${name}
+    [Documentation]    Activate the given session and return the name of the previously active session.
+    ${result}=    BuiltIn.Set_Variable    ${NetconfViaRestconf__active_session}
+    BuiltIn.Set_Suite_Variable    ${NetconfViaRestconf__active_session}    ${name}
+    [Return]    ${result}
