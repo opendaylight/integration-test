@@ -19,3 +19,9 @@ Ulimit_On_Controller
     Utils.Flexible_Controller_Login
     ${limits} =    SSHLibrary.Execute_Command    bash -c "ulimit -a"
     BuiltIn.Log    ${limits}
+
+Ulimit_On_Mininet
+    SSHLibrary.Open_Connection    ${MININET}
+    Utils.Flexible_Mininet_Login
+    ${limits} =    SSHLibrary.Execute_Command    bash -c "ulimit -a"
+    BuiltIn.Log    ${limits}
