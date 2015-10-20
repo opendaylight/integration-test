@@ -115,6 +115,7 @@ SC_Setup
     ...
     ...    As scalar closures are values (as opposed to Keywords), lowercase is used.
     ...    Resource__ prefix is added to avoid possible name clashes with other libraries.
+    # No need to detect multiple Setup calls.
     ${sc_fail} =    Closure_From_Keyword_And_Arguments    BuiltIn.Fail
     BuiltIn.Set_Suite_Variable    ${ScalarClosures__fail}    ${sc_fail}
     ${sc_identity} =    Closure_From_Keyword_And_Arguments    BuiltIn.Set_Variable    placeholder
