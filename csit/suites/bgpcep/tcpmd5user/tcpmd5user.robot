@@ -97,7 +97,6 @@ Set_Correct_Password
 
 Topology_Intercondition
     [Documentation]    Compare pcep-topology to filled one, which includes a tunnel from pcc-mock.
-    [Tags]    xfail
     BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    Compare_Topology    ${default_json}    050_Intercondition.json
 
 Update_Delegated

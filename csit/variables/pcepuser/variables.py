@@ -101,7 +101,7 @@ def get_variables(mininet_ip):
            "administrative": true,
            "delegate": true,
            "ignore": false,
-           "odl-pcep-ietf-initiated00:create": false,
+           "odl-pcep-ietf-initiated00:create": $CREATED,
            "operational": "up",
            "plsp-id": $ID,
            "processing-rule": false,
@@ -152,10 +152,10 @@ def get_variables(mininet_ip):
     # Lsps:
     default_lsp_templ = Template(lsp_templ.safe_substitute({'HOPS': final_hop}))
     updated_lsp_templ = Template(lsp_templ.safe_substitute({'HOPS': both_hops}))
-    repl_dict = {'NAME': delegated_name, 'ID': '1', 'CODE': delegated_code}
+    repl_dict = {'NAME': delegated_name, 'ID': '1', 'CODE': delegated_code, 'CREATED': 'false'}
     delegated_default_lsp = default_lsp_templ.safe_substitute(repl_dict)
     delegated_updated_lsp = updated_lsp_templ.safe_substitute(repl_dict)
-    repl_dict = {'NAME': instantiated_name, 'ID': '2', 'CODE': instantiated_code}
+    repl_dict = {'NAME': instantiated_name, 'ID': '2', 'CODE': instantiated_code, 'CREATED': 'true'}
     instantiated_default_lsp = default_lsp_templ.safe_substitute(repl_dict)
     instantiated_updated_lsp = updated_lsp_templ.safe_substitute(repl_dict)
     # Json templates (without IP set).
