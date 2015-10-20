@@ -4,8 +4,15 @@ Authors: Baohua Yang@IBM, Denghui Huang@IBM
 Updated: 2013-11-14
 """
 
+# Required to bypass a problem in Robot: If you say ${argument}=None in
+# [Arguments], Robot will pass "None" in that argument instead of the None
+# object. To make it possible to set arguments to the None object, this
+# global constant will be used to hold one.
+NONE = None
+
 # Global variables
-CONTROLLER = '127.0.0.1'
+ODL_SYSTEM_IP = '127.0.0.1'
+CONTROLLER = ODL_SYSTEM_IP
 PORT = '8080'
 RESTPORT = '8282'
 RESTCONFPORT = '8181'
@@ -25,9 +32,12 @@ ODL_CONTROLLER_SESSION = None
 TOPO_TREE_LEVEL = 2
 TOPO_TREE_DEPTH = 3
 TOPO_TREE_FANOUT = 2
+ODL_SYSTEM_IP_LIST = ['ODL_SYSTEM_1_IP', 'ODL_SYSTEM_2_IP', 'ODL_SYSTEM_3_IP']
 CONTROLLERS = ['CONTROLLER', 'CONTROLLER1', 'CONTROLLER2']
-CONTROLLER_PASSWORD = ''  # empty means use keys
-MININET_PASSWORD = ''  # empty means use keys
+ODL_SYSTEM_PASSWORD = ''  # empty means use keys
+CONTROLLER_PASSWORD = ODL_SYSTEM_PASSWORD
+TOOLS_SYSTEM_PASSWORD = ''  # empty means use keys
+MININET_PASSWORD = TOOLS_SYSTEM_PASSWORD
 KEYFILE_PASS = 'any'
 SSH_KEY = 'id_rsa'
 CONTROLLER_STOP_TIMEOUT = 120  # Max number of seconds test will wait for a controller to stop
@@ -46,6 +56,10 @@ BGP_TOOL_PORT = '17900'
 
 # VM Environment Variables
 DEFAULT_LINUX_PROMPT = '>'
+ODL_SYSTEM_PROMPT = DEFAULT_LINUX_PROMPT
+CONTROLLER_PROMPT = ODL_SYSTEM_PROMPT
+TOOLS_SYSTEM_PROMPT = DEFAULT_LINUX_PROMPT
+MININET_PROMPT = TOOLS_SYSTEM_PROMPT
 
 # VTN Coordinator Variables
 VTNC = '127.0.0.1'
