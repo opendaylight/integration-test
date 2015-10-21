@@ -45,19 +45,19 @@ Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 *** Variables ***
 ${MININET_PROMPT}    ${DEFAULT_LINUX_PROMPT}
 ${ODL_LOG_LEVEL}    DEFAULT
-${TX_TYPE}    {TX-CHAINING,SIMPLE-TX}
-${OP_TYPE}    {PUT,MERGE,DELETE}
-${TOTAL_OPS}    100000
-${OPS_PER_TX}    100000
-${INNER_OPS}    100000
-${WARMUPS}    10
-${RUNS}    10
-${TIMEOUT}    30 min
-${FILTER}    EXEC
-${UNITS}    microseconds
-${tool}    dsbenchmark.py
-${tool_args}     ${EMPTY}
-${tool_startup_timeout}     10s
+${TX_TYPE}        {TX-CHAINING,SIMPLE-TX}
+${OP_TYPE}        {PUT,MERGE,DELETE}
+${TOTAL_OPS}      100000
+${OPS_PER_TX}     100000
+${INNER_OPS}      100000
+${WARMUPS}        10
+${RUNS}           10
+${TIMEOUT}        30 min
+${FILTER}         EXEC
+${UNITS}          microseconds
+${tool}           dsbenchmark.py
+${tool_args}      ${EMPTY}
+${tool_startup_timeout}    10s
 ${tool_log_name}    dsbenchmark.log
 ${tool_output_name}    test.csv
 ${tool_results1_name}    perf_per_struct.csv
@@ -122,7 +122,8 @@ Start_Benchmark_Tool
     ${command}=    BuiltIn.Set_Variable    python ${tool} --host ${CONTROLLER} --port ${RESTCONFPORT} --warmup ${WARMUPS} --runs ${RUNS} --total ${TOTAL_OPS} --inner ${INNER_OPS} --txtype ${TX_TYPE} --ops ${OPS_PER_TX} --optype ${OP_TYPE} --plot ${FILTER} --units ${UNITS} ${tool_args} &> ${tool_log_name}
     BuiltIn.Log    ${command}
     ${output}=    SSHLibrary.Write    ${command}
-    ${status}    ${message}=    BuiltIn.Run Keyword And Ignore Error    Write Until Expected Output    ${EMPTY}    ${MININET_PROMPT}    ${tool_startup_timeout}    1s    
+    ${status}    ${message}=    BuiltIn.Run Keyword And Ignore Error    Write Until Expected Output    ${EMPTY}    ${MININET_PROMPT}    ${tool_startup_timeout}
+    ...    1s
     BuiltIn.Log    ${status}
     BuiltIn.Log    ${message}
     BuiltIn.Run Keyword If    '${status}' == 'PASS'    BuiltIn.Fail    Benchmark tool is not running

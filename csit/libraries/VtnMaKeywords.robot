@@ -9,8 +9,8 @@ Variables         ../variables/Variables.py
 Resource          ./Utils.robot
 
 *** Variables ***
-${vlan_topo_10}      sudo mn --controller=remote,ip=${CONTROLLER} --custom vlan_vtn_test.py --topo vlantopo
-${vlan_topo_13}      sudo mn --controller=remote,ip=${CONTROLLER} --custom vlan_vtn_test.py --topo vlantopo --switch ovsk,protocols=OpenFlow13
+${vlan_topo_10}    sudo mn --controller=remote,ip=${CONTROLLER} --custom vlan_vtn_test.py --topo vlantopo
+${vlan_topo_13}    sudo mn --controller=remote,ip=${CONTROLLER} --custom vlan_vtn_test.py --topo vlantopo --switch ovsk,protocols=OpenFlow13
 ${REST_CONTEXT_VTNS}    controller/nb/v2/vtn/default/vtns
 ${REST_CONTEXT}    controller/nb/v2/vtn/default
 ${VERSION_VTN}    controller/nb/v2/vtn/version
@@ -199,7 +199,6 @@ Add a macmap
     ${resp}=    RequestsLibrary.Post    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/macmap/allow    data=${macmap_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    201
 
-
 Get DynamicMacAddress
     [Arguments]    ${h}
     [Documentation]    Get Dynamic mac address of Host
@@ -213,7 +212,7 @@ Get DynamicMacAddress
 Add a vBridgeMacMapping
     [Arguments]    ${tenant_name}    ${Bridge_name}    ${bridge_macmap_data}
     [Documentation]    Create a vbridge macmap for a bridge
-    ${json_data}=   json.dumps    ${bridge_macmap_data}
+    ${json_data}=    json.dumps    ${bridge_macmap_data}
     ${resp}=    RequestsLibrary.Post    session    ${REST_CONTEXT_VTNS}/${tenant_name}/vbridges/${Bridge_name}/macmap/allow    data=${json_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    201
 
