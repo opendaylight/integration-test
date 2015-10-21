@@ -5,13 +5,12 @@ Updated: 2013-11-14
 """
 
 # Global variables
-CONTROLLER = '127.0.0.1'
 PORT = '8080'
 RESTPORT = '8282'
 RESTCONFPORT = '8181'
 PREFIX = 'http://' + CONTROLLER + ':' + PORT
-PROMPT = '>'  # TODO: remove this as it's vague.  need to fix any occurances of it first.
 CONTAINER = 'default'
+PROMPT = '>'  # TODO: remove this as it's vague.  need to fix any occurances of it first.
 USER = 'admin'  # TODO: who is using this?  Can we make it more specific? (e.g.  RESTCONF_USER)
 PWD = 'admin'
 PASSWORD = 'EMPTY'
@@ -25,12 +24,26 @@ ODL_CONTROLLER_SESSION = None
 TOPO_TREE_LEVEL = 2
 TOPO_TREE_DEPTH = 3
 TOPO_TREE_FANOUT = 2
-CONTROLLERS = ['CONTROLLER', 'CONTROLLER1', 'CONTROLLER2']
-CONTROLLER_PASSWORD = ''  # empty means use keys
-MININET_PASSWORD = ''  # empty means use keys
 KEYFILE_PASS = 'any'
 SSH_KEY = 'id_rsa'
 CONTROLLER_STOP_TIMEOUT = 120  # Max number of seconds test will wait for a controller to stop
+
+# VM Environment defaults
+DEFAULT_LINUX_PROMPT = '>'
+
+# ODL system variables
+ODL_SYSTEM_IP = '127.0.0.1'  # Override if ODL is not running locally to pybot
+ODL_SYSTEM_IP_LIST = ['ODL_SYSTEM_1_IP', 'ODL_SYSTEM_2_IP', 'ODL_SYSTEM_3_IP']
+ODL_SYSTEM_USER = 'odl'
+ODL_SYSTEM_PASSWORD = ''  # empty means use public key authentication
+ODL_SYSTEM_PROMPT = DEFAULT_LINUX_PROMPT
+
+# "Tools" system variables (mininet etc).
+TOOLS_SYSTEM_IP = '127.0.0.1'  # Override if tools are not run locally to pybot
+TOOLS_SYSTEM_PASSWORD = ''  # empty means use keys
+TOOLS_SYSTEM_PROMPT = DEFAULT_LINUX_PROMPT
+TOOLS_SYSTEM_USER = 'jenkins'
+TOOLS_SYSTEM_PASSWORD = ''  # empty means use public key authentication
 
 # KARAF Variaable
 KARAF_SHELL_PORT = '8101'
@@ -43,9 +56,6 @@ KARAF_PASSWORD = 'karaf'
 # BGP variables
 ODL_BGP_PORT = '1790'
 BGP_TOOL_PORT = '17900'
-
-# VM Environment Variables
-DEFAULT_LINUX_PROMPT = '>'
 
 # VTN Coordinator Variables
 VTNC = '127.0.0.1'
@@ -143,3 +153,12 @@ GBP_TUNNELS_API = "/restconf/config/opendaylight-inventory:nodes"
 LFM_RPC_API = "/restconf/operations/mappingservice"
 LFM_RPC_API_LI = "/restconf/operations/lfm-mapping-database"
 LFM_SB_RPC_API = "/restconf/operations/lisp-sb"
+
+# Deprecated old variables, to be removed once all tests that need them are
+# updated to use the new names.
+CONTROLLER = ODL_SYSTEM_IP
+CONTROLLERS = ['CONTROLLER', 'CONTROLLER1', 'CONTROLLER2']
+CONTROLLER_PASSWORD = ODL_SYSTEM_PASSWORD
+CONTROLLER_PROMPT = ODL_SYSTEM_PROMPT
+MININET_PASSWORD = TOOLS_SYSTEM_PASSWORD
+MININET_PROMPT = TOOLS_SYSTEM_PROMPT
