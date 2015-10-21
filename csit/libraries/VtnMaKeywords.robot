@@ -31,6 +31,9 @@ ${pathpolicy_topo_10}    sudo mn --controller=remote,ip=${CONTROLLER} --custom t
 ${policy_id}      1
 @{PATHPOLICY_ATTR}    "id":"1"    "type":"OF"    "name":"s4-eth2"
 ${custom}         ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
+${in_port}    1
+${out_before_pathpolicy}    output:2
+${out_after_pathpolicy}    output:3
 
 *** Keywords ***
 Start SuiteVtnMa
@@ -135,25 +138,13 @@ Get a pathpolicy
     : FOR    ${pathpolicyElement}    IN    @{PATHPOLICY_ATTR}
     \    should Contain    ${resp.content}    ${pathpolicyElement}
 
-Verify flowEntryBeforePathPolicy
-    [Arguments]    ${OF_VERSION}
-    [Documentation]    Checking Flows on switch S1 and switch S3 before applying path policy
-    ${DUMPFLOWS}=    Set Variable If    "${OF_VERSION}"=="OF10"    ${DUMPFLOWS_OF10}    ${DUMPFLOWS_OF13}
-    write    ${DUMPFLOWS}
-    ${result}    Read Until    mininet>
-    @{list_to_verify}    Create List    in_port=1    actions=output:2    actions=output:3
-    : FOR    ${flowverifyElement}    IN    @{list_to_verify}
-    \    should Contain    ${result}    ${flowverifyElement}
-
-Verify flowEntryAfterPathPolicy
-    [Arguments]    ${OF_VERSION}
+Verify flowEntryPathPolicy
+    [Arguments]    ${of_version}    ${port}    ${output}
     [Documentation]    Checking Flows on switch S1 and switch S3 after applying path policy
-    ${DUMPFLOWS}=    Set Variable If    "${OF_VERSION}"=="OF10"    ${DUMPFLOWS_OF10}    ${DUMPFLOWS_OF13}
+    ${DUMPFLOWS}=    Set Variable If    "${of_version}"=="OF10"    ${DUMPFLOWS_OF10}    ${DUMPFLOWS_OF13}
     write    ${DUMPFLOWS}
     ${result}    Read Until    mininet>
-    @{list_to_verify}    Create List    in_port=1    actions=output:3    in_port=2
-    : FOR    ${flowverifyElement}    IN    @{list_to_verify}
-    \    should Contain    ${result}    ${flowverifyElement}
+    Should Contain    ${result}    in_port=${port}    actions=${output}
 
 Start PathSuiteVtnMaTest
     [Documentation]    Start VTN Manager Test Suite and Mininet
@@ -267,26 +258,31 @@ Remove a portmap
 
 Verify FlowMacAddress
     [Arguments]    ${host1}    ${host2}    ${OF_VERSION}
-    Run Keyword If    '${OF_VERSION}' == 'OF10'    VerifyFlowsOnOpenFlow    ${host1}    ${host2}    ${DUMPFLOWS_OF10}
+    [Documentation]    Verify the source and destination mac address.
+    Run Keyword If    '${OF_VERSION}' == 'OF10'    Verify Flows On OpenFlow    ${host1}    ${host2}    ${DUMPFLOWS_OF10}
     ...    ELSE    VerifyFlowsOnOpenFlow    ${host1}    ${host2}    ${DUMPFLOWS_OF13}
 
-VerifyFlowsOnOpenFlow
+Verify Flows On OpenFlow
     [Arguments]    ${host1}    ${host2}    ${DUMPFLOWS}
+    [Documentation]    Verify the mac addresses on the specified open flow.
     ${booleanValue}=    Run Keyword And Return Status    Verify macaddress    ${host1}    ${host2}    ${DUMPFLOWS}
     Should Be Equal As Strings    ${booleanValue}    True
 
 Verify RemovedFlowMacAddress
     [Arguments]    ${host1}    ${host2}    ${OF_VERSION}
-    Run Keyword If    '${OF_VERSION}' == 'OF10'    VerifyRemovedFlowsOnOpenFlow    ${host1}    ${host2}    ${DUMPFLOWS_OF10}
+    [Documentation]    Verify the removed source and destination mac address.
+    Run Keyword If    '${OF_VERSION}' == 'OF10'    Verify Removed Flows On OpenFlow    ${host1}    ${host2}    ${DUMPFLOWS_OF10}
     ...    ELSE    VerifyRemovedFlowsOnOpenFlow    ${host1}    ${host2}    ${DUMPFLOWS_OF13}
 
-VerifyRemovedFlowsOnOpenFlow
+Verify Removed Flows On OpenFlow
     [Arguments]    ${host1}    ${host2}    ${DUMPFLOWS}
+    [Documentation]    Verify the removed mac addresses on the specified open flow.
     ${booleanValue}=    Run Keyword And Return Status    Verify macaddress    ${host1}    ${host2}    ${DUMPFLOWS}
     Should Not Be Equal As Strings    ${booleanValue}    True
 
 Verify macaddress
     [Arguments]    ${host1}    ${host2}    ${DUMPFLOWS}
+    [Documentation]    Verify the source and destination mac address after ping in the dumpflows
     write    ${host1} ifconfig -a | grep HWaddr
     ${sourcemacaddr}    Read Until    mininet>
     ${macaddress}=    Split String    ${sourcemacaddr}    ${SPACE}
