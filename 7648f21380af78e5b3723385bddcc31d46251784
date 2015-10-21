@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad0f9df_94821651",
+        "filename": "csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-21T20:47:45Z",
+      "side": 1,
+      "message": "maybe you want to add a local keyword that would call this \"Do_Not_Start_Failing_If_This_Failed\" keyword in addition to the \"Report_Failure_Due_To_Bug\" keyword that\u0027s available now which will make things even more clear in the robot logs when the bug is seen.\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/Utils.robot#L61",
+      "range": {
+        "startLine": 81,
+        "startChar": 4,
+        "endLine": 81,
+        "endChar": 62
+      },
+      "revId": "7648f21380af78e5b3723385bddcc31d46251784",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
