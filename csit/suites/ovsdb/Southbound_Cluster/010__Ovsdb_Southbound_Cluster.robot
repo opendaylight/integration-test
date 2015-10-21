@@ -49,4 +49,3 @@ Create a Bridge In Config DataStore
     ${resp}    RequestsLibrary.Put    session    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2F${BRIDGE}    data=${body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
-
