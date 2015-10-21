@@ -35,6 +35,21 @@ WU_Setup
     [Documentation]    Call dependency setup. Perhaps needed.
     ScalarClosures.SC_Setup
 
+Limiting_Stability_Safe_Stateful_Validator_As_Keyword
+    [Arguments]    ${old_state}    ${data}    ${valid_minimum}=-1
+    [Documentation]    Report failure if minimum not reached or data value changed from last time. Useful to become validator.
+    ${new_state} =    BuiltIn.Set_Variable    ${data}
+    BuiltIn.Return_From_Keyword_If    ${data} < ${valid_minimum}    ${new_state}    FAIL    Minimum not reached.
+    BuiltIn.Return_From_Keyword_If    ${data} != ${old_state}    ${new_state}    FAIL    Data value has changed.
+    [Return]    ${new_state}    PASS    Validated stable: ${data}
+
+Create_Limiting_Stability_Safe_Stateful_Validator_From_Value_To_Overcome
+    [Arguments]    ${maximum_invalid}=-1
+    [Documentation]    Helper function to use if maximum invalid value is known.
+    ${valid_minimum} =    BuiltIn.Evaluate    str(int(${maximum_invalid}) + 1)
+    ${validator} =    ScalarClosures.Closure_From_Keyword_And_Arguments    WaitUtils.Limiting_Stability_Safe_Stateful_Validator_As_Keyword    state_holder    data_holder    valid_minimum=${valid_minimum}
+    [Return]    ${validator}
+
 WaitUtils__Check_Sanity_And_Compute_Derived_Times
     [Arguments]    ${timeout}=60s    ${period}=1s    ${count}=1
     [Documentation]    Common checks for argument values. Return deadline date implied by timeout time.

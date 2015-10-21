@@ -167,13 +167,12 @@ WFGEOSSVCS_Early_exit
 *** Keywords ***
 WUT_Setup
     [Documentation]    Call Setup keywords of libraries, define reusable variables.
-    ScalarClosures.SC_Setup
-    WaitUtils.WU_Setup
+    WaitUtils.WU_Setup    # includes ScalarClosures.SC_Setup
     ${countdown} =    ScalarClosures.Closure_From_Keyword_And_Arguments    Stateful_Countdown    0
     BuiltIn.Set_Suite_Variable    ${countdown_quick}    ${countdown}
     ${countdown} =    ScalarClosures.Closure_From_Keyword_And_Arguments    Stateful_Countdown    0    delay=0.3s
     BuiltIn.Set_Suite_Variable    ${countdown_slow}    ${countdown}
-    ${lsssv} =    ScalarClosures.Closure_From_Keyword_And_Arguments    Limiting_Stability_Safe_Stateful_Validator_As_Keyword    state_holder    data_holder
+    ${lsssv} =    ScalarClosures.Closure_From_Keyword_And_Arguments    WaitUtils.Limiting_Stability_Safe_Stateful_Validator_As_Keyword    state_holder    data_holder    valid_minimum=1
     BuiltIn.Set_Suite_Variable    ${standard_validator}    ${lsssv}
 
 Stateful_Countdown
@@ -200,11 +199,3 @@ Create_Scenario_Getter_Closure
     # Sentinel is there to postpone "Expected list-like value, got string." failure when setting @{other_values}.
     ${getter} =    ScalarClosures.Closure_From_Keyword_And_Arguments    Scenario_Getter_As_Keyword    delay=${delay}    fail_on_negative=${fail_on_negative}
     [Return]    ${getter}
-
-Limiting_Stability_Safe_Stateful_Validator_As_Keyword
-    [Arguments]    ${old_state}    ${data}    ${valid_minimum}=1
-    [Documentation]    Report failure if minimum not reached or data value changed from last time.
-    ${new_state} =    BuiltIn.Set_Variable    ${data}
-    BuiltIn.Return_From_Keyword_If    ${data} < ${valid_minimum}    ${new_state}    FAIL    Minimum not reached.
-    BuiltIn.Return_From_Keyword_If    ${data} != ${old_state}    ${new_state}    FAIL    Data value has changed.
-    [Return]    ${new_state}    PASS    Validated stable: ${data}
