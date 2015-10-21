@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad0f9df_46516461",
+        "filename": "csit/suites/topoprocessing/topology-operations/010_Unifications_Tests.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-21T11:54:15Z",
+      "side": 1,
+      "message": "This is what I have missed of previous reads. und-topo are generic topologies, unif has namespace with topoprocessing augmentation.",
+      "range": {
+        "startLine": 6,
+        "startChar": 87,
+        "endLine": 6,
+        "endChar": 145
+      },
+      "revId": "7e3a0f56e8d55e9a81556ade76425dde0523e9cd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_e6765806",
+        "filename": "csit/suites/topoprocessing/topology-operations/010_Unifications_Tests.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-21T11:54:15Z",
+      "side": 1,
+      "message": "slash here?",
+      "range": {
+        "startLine": 30,
+        "startChar": 27,
+        "endLine": 30,
+        "endChar": 28
+      },
+      "revId": "7e3a0f56e8d55e9a81556ade76425dde0523e9cd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_466ac41b",
+        "filename": "csit/suites/topoprocessing/topology-operations/010_Unifications_Tests.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-21T11:54:15Z",
+      "side": 1,
+      "message": "DEBUG seem to be enough for Wait For Karaf Log to work correctly. Add a comment line explaining why TRACE is useful.",
+      "range": {
+        "startLine": 55,
+        "startChar": 46,
+        "endLine": 55,
+        "endChar": 51
+      },
+      "revId": "7e3a0f56e8d55e9a81556ade76425dde0523e9cd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
