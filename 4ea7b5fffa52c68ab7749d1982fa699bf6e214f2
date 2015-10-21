@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad0f9df_c6cc7438",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-21T12:06:25Z",
+      "side": 1,
+      "message": "Perhaps this whole docstring should be updated?",
+      "range": {
+        "startLine": 4,
+        "startChar": 9,
+        "endLine": 4,
+        "endChar": 19
+      },
+      "revId": "4ea7b5fffa52c68ab7749d1982fa699bf6e214f2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_e6e418ae",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-21T12:06:25Z",
+      "side": 1,
+      "message": "Already present 3 lines above. Perhaps alphabetical sorting is a good idea?",
+      "range": {
+        "startLine": 22,
+        "startChar": 12,
+        "endLine": 22,
+        "endChar": 21
+      },
+      "revId": "4ea7b5fffa52c68ab7749d1982fa699bf6e214f2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
