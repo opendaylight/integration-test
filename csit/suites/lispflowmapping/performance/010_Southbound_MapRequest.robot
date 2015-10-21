@@ -27,7 +27,7 @@ Add Simple IPv4 Mappings
 Generate Test Traffic
     Reset Stats
     ${result}=    Run Process With Logging And Status Check    /usr/local/bin/udpreplay    --pps    ${REPLAY_PPS}    --repeat    ${REPLAY_CNT}
-    ...    --port    4342    ${REPLAY_FILE}
+    ...    --host    ${CONTROLLER}    --port    4342    ${REPLAY_FILE}
     ${partial}=    Fetch From Left    ${result.stdout}    s =
     Log    ${partial}
     ${seconds}=    Fetch From Right    ${partial}    ${SPACE}
