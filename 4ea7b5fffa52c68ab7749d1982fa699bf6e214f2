@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fad0f9df_4f573703",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-22T05:10:26Z",
+      "side": 1,
+      "message": "I don\u0027t know the policy of this?  can we just remove it entirely?  Maybe it was done before all this infra (maybe even LF git repo\u0027s) was in place?",
+      "parentUuid": "fad0f9df_c6cc7438",
+      "range": {
+        "startLine": 4,
+        "startChar": 9,
+        "endLine": 4,
+        "endChar": 19
+      },
+      "revId": "4ea7b5fffa52c68ab7749d1982fa699bf6e214f2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fad0f9df_e6e418ae",
         "filename": "csit/variables/Variables.py",
         "patchSetId": 6
