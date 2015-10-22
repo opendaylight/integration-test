@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad0f9df_f57d9cb2",
+        "filename": "csit/libraries/ScalarClosures.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-22T23:44:43Z",
+      "side": 1,
+      "message": "when the closure passed in here involves a \"Create Dictionary\" it looks like the old deprecated version is used and we end up with :\n\n[ WARN ] Giving keys and values separately to \u0027Create Dictionary\u0027 keyword is deprecated. Use \u0027key\u003dvalue\u0027 syntax instead.\n\nany way around this?",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 25
+      },
+      "revId": "210550cd4f95d16aadef00287cca777e3fc84bd9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
