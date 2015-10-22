@@ -18,11 +18,14 @@ ${MAPPING_BLASTER}    ${TOOLS_DIR}/mapping_blaster.py
 ${REPLAY_PPS}     100000
 ${REPLAY_CNT}     1000
 ${REPLAY_FILE}    encapsulated-map-requests-sequential.pcap
-${RESULTS_FILE}    pps.csv
+${RESULTS_FILE}    results.csv
 
 *** Test Cases ***
 Add Simple IPv4 Mappings
-    Run Process With Logging And Status Check    ${MAPPING_BLASTER}    --host    ${CONTROLLER}    --mappings    ${MAPPINGS}
+    ${result}=    Run Process With Logging And Status Check    /usr/bin/time    --format=%e    ${MAPPING_BLASTER}    --host    ${CONTROLLER}    --mappings    ${MAPPINGS}
+    ${add_seconds}=    Convert To Number    ${result.stderr}
+    Log    ${add_seconds}
+    Set Suite Variable    ${add_seconds}
 
 Generate Test Traffic
     Reset Stats
@@ -30,17 +33,18 @@ Generate Test Traffic
     ...    --host    ${CONTROLLER}    --port    4342    ${REPLAY_FILE}
     ${partial}=    Fetch From Left    ${result.stdout}    s =
     Log    ${partial}
-    ${seconds}=    Fetch From Right    ${partial}    ${SPACE}
-    ${seconds}=    Convert To Number    ${seconds}
-    Log    ${seconds}
-    Set Suite Variable    ${seconds}
+    ${get_seconds}=    Fetch From Right    ${partial}    ${SPACE}
+    ${get_seconds}=    Convert To Number    ${get_seconds}
+    Log    ${get_seconds}
+    Set Suite Variable    ${get_seconds}
 
 Compute And Export MapReply Rate
+    ${rpcs}=    Evaluate    ${MAPPINGS}/${add_seconds}
     ${txmrep}=    Get Transmitted Map-Requests Stats
-    ${pps}=    Evaluate    ${txmrep}/${seconds}
+    ${pps}=    Evaluate    ${txmrep}/${get_seconds}
     Log    ${pps}
-    Create File    ${RESULTS_FILE}    replies/s\n
-    Append To File    ${RESULTS_FILE}    ${pps}\n
+    Create File    ${RESULTS_FILE}    store/s,replies/s\n
+    Append To File    ${RESULTS_FILE}    ${rpcs},${pps}\n
 
 *** Keywords ***
 Reset Stats
