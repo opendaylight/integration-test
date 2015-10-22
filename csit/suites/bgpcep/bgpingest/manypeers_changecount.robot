@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     BGP performance of ingesting from 1 iBGP peer, data change counter is used.
+Documentation     BGP performance of ingesting from many iBGP peers, data change counter is used.
 ...
 ...               Copyright (c) 2015 Cisco Systems, Inc. and others. All rights reserved.
 ...
@@ -8,12 +8,15 @@ Documentation     BGP performance of ingesting from 1 iBGP peer, data change cou
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
 ...
-...               This suite uses play.py as single iBGP peer.
+...               This suite uses play.py processes as iBGP peers.
+...               This is analogue of single peer performance suite, which uses many peers.
+...               Each peer is of ibgp type, and they contribute to the same example-bgp-rib,
+...               and thus to the same single example-ipv4-topology.
 ...               The suite only looks at example-ipv4-topology, so RIB is not examined.
 ...
 ...               This suite requires odl-bgpcep-data-change-counter to be installed so
-...               make sure it is added to "install-features" of any jobs that are going
-...               to invoke it.
+...               make sure it is added to "install-features" of any jobs that are going to invoke it.
+...               Use the other version of the suite (manypeers_prefixcount.robot) if the feature does not work.
 ...
 ...               The suite consists of two halves, differing on which side initiates BGP connection.
 ...               Data change counter is a lightweight way to detect "work is being done".
@@ -26,9 +29,18 @@ Documentation     BGP performance of ingesting from 1 iBGP peer, data change cou
 ...               affected test cases will wait for max time. Reconsider.
 ...               If zero increase is allowed as stable, higher number of repetitions should be required.
 ...
-...               Additionally this test suite is not compatible with Helium and Hydrogen
-...               releases as they don't include data change counter feature.
-...               Use the other version of the suite (singlepeer_prefixcount.robot) to test them.
+...               ODL distinguishes peers by their IP addresses.
+...               Currently, this suite requires python utils to be started on ODL System,
+...               to guarantee IP address block is available for them to bind to.
+...               TODO: Figure out how to use Docker and docker IP pool available in RelEng.
+...
+...               Currently, 127.0.0.1 is hardcoded as the first peer address to use.
+...               TODO: Figure out how to make it configurable.
+...               As peer IP adresses are set incrementally, we need ipaddr to be used in Robot somehow.
+...
+...               TODO: Is there a need for version of this suite where ODL connects to pers?
+...               Note that configuring ODL is slow, which may affect measured performance singificantly.
+...               Advanced TODO: Give manager ability to start pushing on trigger long after connections are established.
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
@@ -50,9 +62,13 @@ ${HOLDTIME}       180
 ${HOLDTIME_CHANGE_COUNT}    ${HOLDTIME}
 ${COUNT}          1000000
 ${COUNT_CHANGE_COUNT}    ${COUNT}
+${FIRST_PEER_IP}    127.0.0.1
+${MULTIPLICITY}    10
+${MULTIPLICITY_CHANGE_COUNT}    ${MULTIPLICITY}
 ${CHECK_PERIOD}    1
 ${CHECK_PERIOD_CHANGE_COUNT}    ${CHECK_PERIOD}
 ${REPETITIONS_CHANGE_COUNT}    1
+${BGPCEP_LOG_LEVEL}    INFO
 # TODO: Option names can be better.
 ${last_change_count}    -1
 
@@ -63,10 +79,14 @@ Check_For_Empty_Ipv4_Topology_Before_Talking
     # TODO: Choose which tags to assign and make sure they are assigned correctly.
     BuiltIn.Wait_Until_Keyword_Succeeds    120s    1s    PrefixCounting.Check_Ipv4_Topology_Is_Empty
 
-Reconfigure_ODL_To_Accept_Connection
-    [Documentation]    Configure BGP peer module with initiate-connection set to false.
-    ${template_as_string} =    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${TOOLS_SYSTEM_IP}', 'HOLDTIME': '${HOLDTIME_CHANGE_COUNT}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'false'}
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
+Reconfigure_ODL_To_Accept_Connections
+    [Documentation]    Configure BGP peer modules with initiate-connection set to false.
+    : FOR    ${index}    IN RANGE    1    ${MULTIPLICITY}+1
+    \    ${peer_name} =    BuiltIn.Set_Variable    example-bgp-peer-${index}
+    \    ${peer_ip} =    BuiltIn.Evaluate    str(ipaddr.IP('${FIRST_PEER_IP}') + ${index} - 1)    modules=ipaddr
+    \    ${template_as_string} =    BuiltIn.Set_Variable    {'NAME': '${peer_name}', 'IP': '${peer_ip}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'HOLDTIME': '${HOLDTIME_CHANGE_COUNT}', 'INITIATE': 'false'}
+    \    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
+    # FIXME: Add testcase to change bgpcep and protocol log levels, when a Keyword that does it without messing with current connection is ready.
 
 Wait_For_Data_Change_Counter_Ready
     [Documentation]    Data change counter might have been slower to start than ipv4 topology, wait for it.
@@ -76,23 +96,23 @@ Reconfigure_Data_Change_Counter
     [Documentation]    Configure data change counter to count transactions in example-ipv4-topology instead of example-linkstate-topology.
     ChangeCounter.Reconfigure_Topology_Name    example-ipv4-topology
 
-Start_Talking_BGP_Speaker
-    [Documentation]    Start Python speaker to connect to ODL.
+Start_Talking_BGP_Manager
+    [Documentation]    Start Python manager to connect speakers to ODL.
     Store_Change_Count
     # Myport value is needed for checking whether connection at precise port was established.
-    BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT_CHANGE_COUNT} --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT}
+    BGPSpeaker.Start_BGP_Manager    --amount=${COUNT_CHANGE_COUNT} --multiplicity=${MULTIPLICITY} --myip=${FIRST_PEER_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT}
 
 Wait_For_Stable_Talking_Ipv4_Topology
-    [Documentation]    Wait until example-ipv4-topology becomes stable. This is done by checking the change counter.
-    ChangeCounter.Wait_For_Change_Count_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_CHANGE_COUNT}    repetitions=${REPETITIONS_CHANGE_COUNT}    count_to_overcome=${last_change_count}
+    [Documentation]    Wait until example-ipv4-topology becomes stable. This is done by checking stability of the change counter.
+    ChangeCounter.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_CHANGE_COUNT}    repetitions=${REPETITIONS_CHANGE_COUNT}    count_to_overcome=${last_change_count}
 
 Check_Talking_Ipv4_Topology_Count
     [Documentation]    Count the routes in example-ipv4-topology and fail if the count is not correct.
     [Tags]    critical
     PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT_CHANGE_COUNT}
 
-Kill_Talking_BGP_Speaker
-    [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
+Kill_Talking_BGP_Speakers
+    [Documentation]    Abort the Python speakers. Also, attempt to stop failing fast.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     Store_Change_Count
     BGPSpeaker.Kill_BGP_Speaker
@@ -103,47 +123,9 @@ Kill_Talking_BGP_Speaker
 Wait_For_Stable_Ipv4_Topology_After_Talking
     [Documentation]    Wait until example-ipv4-topology becomes stable again.
     [Tags]    critical
-    ChangeCounter.Wait_For_Change_Count_To_Become_Stable    timeout=${bgp_emptying_timeout}    period=${CHECK_PERIOD_CHANGE_COUNT}    repetitions=${REPETITIONS_CHANGE_COUNT}    count_to_overcome=${last_change_count}
+    ChangeCounter.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_CHANGE_COUNT}    repetitions=${REPETITIONS_CHANGE_COUNT}    count_to_overcome=${last_change_count}
 
 Check_For_Empty_Ipv4_Topology_After_Talking
-    [Documentation]    Example-ipv4-topology should be empty now.
-    [Tags]    critical
-    PrefixCounting.Check_Ipv4_Topology_Is_Empty
-
-Start_Listening_BGP_Speaker
-    [Documentation]    Start Python speaker in listening mode.
-    BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT_CHANGE_COUNT} --listen --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP}
-
-Reconfigure_ODL_To_Initiate_Connection
-    [Documentation]    Replace BGP peer config module, now with initiate-connection set to true.
-    Store_Change_Count
-    ${template_as_string} =    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${TOOLS_SYSTEM_IP}', 'HOLDTIME': '${HOLDTIME_CHANGE_COUNT}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'true'}
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
-
-Wait_For_Stable_Listening_Ipv4_Topology
-    [Documentation]    Wait until example-ipv4-topology becomes stable.
-    ChangeCounter.Wait_For_Change_Count_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_CHANGE_COUNT}    repetitions=${REPETITIONS_CHANGE_COUNT}    count_to_overcome=${last_change_count}
-
-Check_Listening_Ipv4_Topology_Count
-    [Documentation]    Count the routes in example-ipv4-topology and fail if the count is not correct.
-    [Tags]    critical
-    PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT_CHANGE_COUNT}
-
-Kill_Listening_BGP_Speaker
-    [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    Store_Change_Count
-    BGPSpeaker.Kill_BGP_Speaker
-    FailFast.Do_Not_Fail_Fast_From_Now_On
-    # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
-    [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
-
-Wait_For_Stable_Ipv4_Topology_After_Listening
-    [Documentation]    Wait until example-ipv4-topology becomes stable again.
-    [Tags]    critical
-    ChangeCounter.Wait_For_Change_Count_To_Become_Stable    timeout=${bgp_emptying_timeout}    period=${CHECK_PERIOD_CHANGE_COUNT}    repetitions=${REPETITIONS_CHANGE_COUNT}    count_to_overcome=${last_change_count}
-
-Check_For_Empty_Ipv4_Topology_After_Listening
     [Documentation]    Example-ipv4-topology should be empty now.
     [Tags]    critical
     PrefixCounting.Check_Ipv4_Topology_Is_Empty
@@ -156,25 +138,30 @@ Restore_Data_Change_Counter_Configuration
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    ${template_as_string} =    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer'}
-    ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
+    # TODO: Is it useful to extract peer naming logic to separate Keyword?
+    : FOR    ${index}    IN RANGE    1    ${MULTIPLICITY}+1
+    \    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer-${index}'}
+    \    ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLESFOLDER}${/}bgp_peer    ${template_as_string}
 
 *** Keywords ***
 Setup_Everything
-    [Documentation]    Setup imported resources, SSH-login to tools system,
-    ...    create HTTP session, put Python tool to tools system.
+    [Documentation]    Setup imported resources, SSH-login to ODL system,
+    ...    create HTTP session, put Python tool to ODL system.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     ConfigViaRestconf.Setup_Config_Via_Restconf
     ChangeCounter.CC_Setup
     PrefixCounting.PC_Setup
-    SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
-    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
-    Utils.Flexible_Mininet_Login
+    SSHLibrary.Set_Default_Configuration    prompt=${ODL_SYSTEM_PROMPT}
+    SSHLibrary.Open_Connection    ${ODL_SYSTEM_IP}
+    Utils.Flexible_Controller_Login
     RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
     # TODO: Do not include slash in ${OPERATIONAL_TOPO_API}, having it typed here is more readable.
     # TODO: Alternatively, create variable in Variables which starts with http.
     # Both TODOs would probably need to update every suite relying on current Variables.
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
+    SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/manage_play.py
+    Require_Python
+    Assure_Library_Ipaddr    target_dir=.
     # Calculate the timeout value based on how many routes are going to be pushed
     ${count} =    Builtin.Convert_To_Integer    ${COUNT_CHANGE_COUNT}
     # TODO: Replace 20 with some formula from period and repetitions.
@@ -192,3 +179,27 @@ Store_Change_Count
     [Documentation]    Get the count of changes from BGP change counter. Ignore error or store the value.
     ${status}    ${count} =    BuiltIn.Run_Keyword_And_Ignore_Error    ChangeCounter.Get_Change_Count
     BuiltIn.Run_Keyword_If    '${status}' == 'PASS'    BuiltIn.Set_Suite_Variable    ${last_change_count}    ${count}
+
+Require_Python
+    [Documentation]    Verify current SSH connection leads to machine with python working. Fatal fail otherwise.
+    # FIXME: These three Keywords come from throughpcep suite. Extract to separate library.
+    ${passed} =    Execute_Command_Passes    python --help
+    BuiltIn.Return_From_Keyword_If    ${passed}
+    BuiltIn.Fatal_Error    Python is not installed!
+
+Assure_Library_Ipaddr
+    [Arguments]    ${target_dir}=/tmp
+    [Documentation]    Tests whether ipaddr module is present on ssh-connected machine, Puts ipaddr.py to target_dir if not.
+    ${passed} =    Execute_Command_Passes    bash -c 'cd "${target_dir}" && python -c "import ipaddr"'
+    BuiltIn.Return_From_Keyword_If    ${passed}
+    SSHLibrary.Put_File    ${CURDIR}/../../../libraries/ipaddr.py    ${target_dir}/
+
+Execute_Command_Passes
+    [Arguments]    ${command}
+    [Documentation]    Execute command via SSH. If RC is nonzero, log everything. Retrun bool of command success.
+    ${stdout}    ${stderr}    ${rc} =    SSHLibrary.Execute_Command    ${command}    return_stderr=True    return_rc=True
+    BuiltIn.Return_From_Keyword_If    ${rc} == 0    True
+    BuiltIn.Log    ${stdout}
+    BuiltIn.Log    ${stderr}
+    BuiltIn.Log    ${rc}
+    [Return]    False
