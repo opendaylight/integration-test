@@ -53,6 +53,14 @@ Create_Limiting_Stability_Safe_Stateful_Validator_From_Value_To_Overcome
     ${validator} =    ScalarClosures.Closure_From_Keyword_And_Arguments    WaitUtils.Limiting_Stability_Safe_Stateful_Validator_As_Keyword    state_holder    data_holder    valid_minimum=${valid_minimum}
     [Return]    ${validator}
 
+Excluding_Stability_Safe_Stateful_Validator_As_Keyword
+    [Arguments]    ${old_state}    ${data}    ${excluded_value}=-1
+    [Documentation]    Report failure if got the excluded value or if data value changed from last time. Useful to become validator.
+    ${new_state} =    BuiltIn.Set_Variable    ${data}
+    BuiltIn.Return_From_Keyword_If    ${data} == ${excluded_value}    ${new_state}    FAIL    Got the excluded value.
+    BuiltIn.Return_From_Keyword_If    ${data} != ${old_state}    ${new_state}    FAIL    Data value has changed.
+    [Return]    ${new_state}    PASS    Validated stable: ${data}
+
 WaitUtils__Check_Sanity_And_Compute_Derived_Times
     [Arguments]    ${timeout}=60s    ${period}=1s    ${count}=1
     [Documentation]    Common checks for argument values. Return times in seconds and deadline date implied by timeout time.
