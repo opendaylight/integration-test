@@ -14,6 +14,9 @@ Documentation     Robot keyword library (Resource) for handling the BGP speaker 
 ...               directory where the speaker tool was deployed as there are no paths to neither
 ...               the play.py nor the log files in the commands.
 ...
+...               Aside BGP Speaker utility, there is also BGP Manager starting utilities in parallel.
+...               For purpose of dumping logs and killing, Manager behaves the same as Speaker.
+...
 ...               TODO: The Utils.robot library has a "Run Command On Remote System" if we didn't
 ...               want to make the assumption that an SSH connection was already open.
 ...               alternative TODO: Explain that it is not worth to perform separate SSH logins.
@@ -34,6 +37,13 @@ Start_BGP_Speaker
     BuiltIn.Log    ${command}
     ${output} =    SSHLibrary.Write    ${command}
 
+Start_BGP_Manager
+    [Arguments]    ${arguments}
+    [Documentation]    Start the BGP manager python utility. Redirect its error output to a log file.
+    ${command}=    BuiltIn.Set_Variable    python manage_play.py ${arguments} &> ${BGPSpeaker__OUTPUT_LOG}
+    BuiltIn.Log    ${command}
+    ${output}=    SSHLibrary.Write    ${command}
+
 Dump_BGP_Speaker_Logs
     [Documentation]    Send all output produced by the play.py utility to Robot logs.
     ...    This needs to be called if your suite detects play.py crashing and bypasses
@@ -45,6 +55,7 @@ Dump_BGP_Speaker_Logs
 Kill_BGP_Speaker
     [Documentation]    Interrupt play.py, fail if no prompt is seen within SSHLibrary timeout.
     ...    Also dump the logs with the output the program produced.
+    ...    This keyword is also suitable for stopping BGP manager.
     Utils.Write_Bare_Ctrl_C
     ${status}    ${message} =    BuiltIn.Run_Keyword_And_Ignore_Error    SSHLibrary.Read_Until_Prompt
     Dump_BGP_Speaker_Logs
@@ -52,3 +63,27 @@ Kill_BGP_Speaker
     BuiltIn.Return_From_Keyword_If    '${status}' == 'PASS'
     BuiltIn.Log    ${message}
     BuiltIn.Fail    The prompt was not seen within timeout period.
+
+Require_Python
+    [Documentation]    Verify current SSH connection leads to machine with python working. Fatal fail otherwise.
+    # FIXME: Move these three Keywords to a morwe appropriate Resource.
+    ${passed} =    Execute_Command_Passes    python --help
+    BuiltIn.Return_From_Keyword_If    ${passed}
+    BuiltIn.Fatal_Error    Python is not installed!
+
+Assure_Library_Ipaddr
+    [Arguments]    ${target_dir}=.
+    [Documentation]    Tests whether ipaddr module is present on ssh-connected machine, Puts ipaddr.py to target_dir if not.
+    ${passed} =    Execute_Command_Passes    bash -c 'cd "${target_dir}" && python -c "import ipaddr"'
+    BuiltIn.Return_From_Keyword_If    ${passed}
+    SSHLibrary.Put_File    ${CURDIR}/../../../libraries/ipaddr.py    ${target_dir}/
+
+Execute_Command_Passes
+    [Arguments]    ${command}
+    [Documentation]    Execute command via SSH. If RC is nonzero, log everything. Retrun bool of command success.
+    ${stdout}    ${stderr}    ${rc} =    SSHLibrary.Execute_Command    ${command}    return_stderr=True    return_rc=True
+    BuiltIn.Return_From_Keyword_If    ${rc} == 0    True
+    BuiltIn.Log    ${stdout}
+    BuiltIn.Log    ${stderr}
+    BuiltIn.Log    ${rc}
+    [Return]    False
