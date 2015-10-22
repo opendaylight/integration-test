@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "fad0f9df_efa94b7c",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-10-22T10:15:46Z",
+      "side": 1,
+      "message": "Docstring removed as it did not contain very useful information (and some of the information was quite incorrect, e.g. the first line states that the file is \"library\" but it actually is not a library but a configuration file of sorts). If you have any idea what to put in it, comment and I can add it there with more relevant and useful information.",
+      "parentUuid": "fad0f9df_4f573703",
+      "range": {
+        "startLine": 4,
+        "startChar": 9,
+        "endLine": 4,
+        "endChar": 19
+      },
+      "revId": "4ea7b5fffa52c68ab7749d1982fa699bf6e214f2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fad0f9df_e6e418ae",
         "filename": "csit/variables/Variables.py",
         "patchSetId": 6
