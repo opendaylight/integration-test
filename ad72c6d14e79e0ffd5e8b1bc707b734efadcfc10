@@ -1,0 +1,78 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad0f9df_8f267fb9",
+        "filename": "csit/libraries/GBP/DockerUtils.robot",
+        "patchSetId": 60
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-22T04:50:49Z",
+      "side": 1,
+      "message": "Please add documentation to these keywords.",
+      "revId": "ad72c6d14e79e0ffd5e8b1bc707b734efadcfc10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_af2b4381",
+        "filename": "csit/libraries/GBP/DockerUtils.robot",
+        "patchSetId": 60
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-22T04:50:49Z",
+      "side": 1,
+      "message": "what is GBP about this library?  Seems like it belongs in the root of the libraries directory, or even in libraries/docker/\n\nI\u0027m guessing this might be useful to others (non-GBP) down the road.",
+      "revId": "ad72c6d14e79e0ffd5e8b1bc707b734efadcfc10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_4f20979b",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/GBP_3node.robot",
+        "patchSetId": 60
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-22T04:50:49Z",
+      "side": 1,
+      "message": "so what is this file all about ?  is it a library?  what does it do?  I can\u0027t really tell.  if it\u0027s a library then probably in the wrong location.",
+      "revId": "ad72c6d14e79e0ffd5e8b1bc707b734efadcfc10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_6f255baa",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/Variables.robot",
+        "patchSetId": 60
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-22T04:50:49Z",
+      "side": 1,
+      "message": "we\u0027ve since changed these variable names to ${TOOLS_SYSTEM_1_IP}, ${TOOLS_SYSTEM_2_IP}, etc.\n\nsee this patch.  might as well get that updated in this patch as I think the goal moving forward is to convert it everywhere.\n\nhttps://git.opendaylight.org/gerrit/#/c/26788/",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 23
+      },
+      "revId": "ad72c6d14e79e0ffd5e8b1bc707b734efadcfc10",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
