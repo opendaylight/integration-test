@@ -11,7 +11,7 @@
                         "port": 6633
                     },
                     {
-                        "tunnel-type": "overlay: tunnel-type-vxlan",
+                        "tunnel-type": "overlay:tunnel-type-vxlan",
                         "node-connector-id": "openflow:1:2",
                         "ip": "_CLASSIFIER1",
                         "port": 4789

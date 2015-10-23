@@ -7,11 +7,11 @@
                 "sfc-service-function": [
                     {
                         "name": "firewall-abstract1",
-                        "type": "service-function-type: firewall"
+                        "type": "service-function-type:firewall"
                     },
                     {
                         "name": "dpi-abstract1",
-                        "type": "service-function-type: dpi"
+                        "type": "service-function-type:dpi"
                     }
                 ]
             }
