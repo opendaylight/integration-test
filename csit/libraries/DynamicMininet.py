@@ -45,6 +45,31 @@ class DynamicMininet(cmd.Cmd):
         # last used switch id
         self._lid = 0
 
+    def do_start_with_idx(self, line):
+        """Starts mininet network with initial number of switches
+        and start indexing from the given number
+
+        Args:
+            :param controller_ip: controller's ip address or host name
+            :param num: initial number of switches in the topology
+            :param num: the first used index
+        """
+        if self._running:
+            print 'Mininet topology is already active'
+            return
+        cntl, numsw, iidx = line.split()
+        self._lid = int(iidx) - 1
+        nline = line[:-(len(iidx)+1)]
+        self.do_start(nline)
+
+    def help_start_with_idx(self):
+        """Provide help message for start command"""
+        print 'Starts mininet'
+        print 'Usage: start <controller_ip> <num>'
+        print '\tcontroller_ip - controllers ip or host name'
+        print '\tnum           - number of switches at start'
+        print '\tnum           - initial switch index'
+
     def do_start(self, line):
         """Starts mininet network with initial number of switches
 
