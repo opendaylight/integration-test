@@ -35,3 +35,7 @@ ${Partialtimestamps}    ${EMPTY}
 ${Mountpoints}    0
 ${Maxdevices}     0
 ${Replycodes}     ${EMPTY}
+${CONTROLLER_USER}    ${EMPTY}
+${SSH_KEY}        ${EMPTY}
+${KEYFILE_PASS}    ${EMPTY}
+${USER_HOME}      ${EMPTY}
