@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad0f9df_6779ff2e",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-asymmetric-chain/998_clean_odl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-10-23T11:22:34Z",
+      "side": 1,
+      "message": "Please, consider reducing logging.",
+      "revId": "337ceab3b4e5bd786db0646aa2c6af9457f171d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_0776f33e",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/998_clean_odl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-10-23T11:22:34Z",
+      "side": 1,
+      "message": "Please, consider reducing logging.",
+      "revId": "337ceab3b4e5bd786db0646aa2c6af9457f171d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
