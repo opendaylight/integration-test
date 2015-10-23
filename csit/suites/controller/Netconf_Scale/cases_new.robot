@@ -157,7 +157,7 @@ Log Timestamps
 Create Plot Data
     [Documentation]    Creates Data necessary to plot performance results
     [Tags]    auxiliary
-    Should Not Be True    ${missing}>${DevicesTolerance}
+    Should Not Be True    ${missing}>${devicesTolerance}
     Run    echo ODL Start,Connecting Devices,ODL+Connect,Mountpoints Check>plot_data.txt
     ${sum}=    Evaluate    ${Timestamps[1][1]}+${Timestamps[2][1]}
     Run    echo ${Timestamps[1][1]},${Timestamps[2][1]},${sum},${Timestamps[3][1]}>>plot_data.txt
