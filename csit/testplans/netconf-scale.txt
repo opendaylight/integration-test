@@ -6,4 +6,5 @@
 
 # Place the suites in run order:
 integration/test/csit/suites/netconf/ready
+integration/test/csit/suites/netconf/scale/getmulti.robot
 integration/test/csit/suites/netconf/scale/getsingle.robot
