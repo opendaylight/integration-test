@@ -38,13 +38,20 @@ CONTROLLER_STOP_TIMEOUT = 120  # Max number of seconds test will wait for a cont
 TOPOLOGY_URL = 'network-topology:network-topology/topology'
 SEND_ACCEPT_XML_HEADERS = {'Content-Type': 'application/xml', 'Accept': 'application/xml'}
 
-# KARAF Variaable
+# KARAF Variables
 KARAF_SHELL_PORT = '8101'
 ESCAPE_CHARACTER = chr(int(27))
 KARAF_DETAILED_PROMPT = '@' + ESCAPE_CHARACTER + '[0m' + ESCAPE_CHARACTER + '[34mroot' + ESCAPE_CHARACTER + '[0m>'
 KARAF_PROMPT = 'opendaylight-user'
 KARAF_USER = 'karaf'
 KARAF_PASSWORD = 'karaf'
+
+# Logging levels
+DEFAULT_ODL_LOG_LEVEL = 'INFO'
+DEFAULT_BGPCEP_LOG_LEVEL = DEFAULT_ODL_LOG_LEVEL
+DEFAULT_PROTOCOL_LOG_LEVEL = DEFAULT_BGPCEP_LOG_LEVEL
+BGPCEP_LOG_LEVEL = DEFAULT_BGPCEP_LOG_LEVEL
+PROTOCOL_LOG_LEVEL = BGPCEP_LOG_LEVEL
 
 # BGP variables
 ODL_BGP_PORT = '1790'

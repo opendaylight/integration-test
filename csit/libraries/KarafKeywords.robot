@@ -142,3 +142,10 @@ Log Test Suite Start To Controller Karaf
 Log Testcase Start To Controller Karaf
     [Documentation]    Log test case name to karaf log, useful in test case setup.
     Log Message To Controller Karaf    Starting test ${TEST_NAME}
+
+Set Bgpcep Log Levels
+    [Arguments]    ${bgpcep_level}=${DEFAULT_BGPCEP_LOG_LEVEL}    ${protocol_level}=${DEFAULT_PROTOCOL_LOG_LEVEL}
+    [Documentation]    Assuming OCKCOB was used, set logging level on bgpcep and protocol loggers without affecting current SSH session.
+    # FIXME: Move to appropriate Resource
+    Execute Controller Karaf Command On Background    log:set ${bgpcep_level} org.opendaylight.bgpcep
+    Execute Controller Karaf Command On Background    log:set ${protocol_level} org.opendaylight.protocol
