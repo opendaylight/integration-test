@@ -34,6 +34,13 @@ KARAF_PROMPT = 'opendaylight-user'
 ODL_BGP_PORT = '1790'
 BGP_TOOL_PORT = '17900'
 
+# Netconf variables
+ODL_NETCONF_PORT = '2830'
+ODL_NETCONF_USER = 'admin'
+ODL_NETCONF_PASSWORD = 'admin'
+ODL_NETCONF_PROMPT = ']]>]]>'
+ODL_NETCONF_NAMESPACE = 'urn:ietf:params:xml:ns:netconf:base:1.0'
+
 # VTN Coordinator Variables
 VTNC = '127.0.0.1'
 VTNCPORT = '8083'
