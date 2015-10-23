@@ -22,6 +22,30 @@
       "revId": "210550cd4f95d16aadef00287cca777e3fc84bd9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_47a39b9e",
+        "filename": "csit/libraries/ScalarClosures.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-23T11:58:13Z",
+      "side": 1,
+      "message": "It is a consequence of Current Limitation stated in line 31.\nI have added comment into test suite code in change I am currently working on (to avoid doing rebase):\nhttps://git.opendaylight.org/gerrit/#/c/27365/42/csit/suites/test/libraries/ScalarClosuresTest.robot",
+      "parentUuid": "fad0f9df_f57d9cb2",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 25
+      },
+      "revId": "210550cd4f95d16aadef00287cca777e3fc84bd9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
