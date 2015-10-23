@@ -31,7 +31,7 @@ ${pathpolicy_topo_10}    sudo mn --controller=remote,ip=${CONTROLLER} --custom t
 ${policy_id}      1
 @{PATHPOLICY_ATTR}    "id":"1"    "type":"OF"    "name":"s4-eth2"
 ${custom}         ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
-${in_port}    1
+${in_port}        1
 ${out_before_pathpolicy}    output:2
 ${out_after_pathpolicy}    output:3
 
