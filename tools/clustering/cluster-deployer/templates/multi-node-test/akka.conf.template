@@ -51,7 +51,7 @@ odl-cluster-data {
     cluster {
       seed-nodes = {{{DS_SEED_NODES}}}
 
-      auto-down-unreachable-after = 300s
+      auto-down-unreachable-after = 30s
 
       roles = [
         "{{MEMBER_NAME}}"
@@ -93,7 +93,7 @@ odl-cluster-rpc {
     cluster {
       seed-nodes = {{{RPC_SEED_NODES}}}
 
-      auto-down-unreachable-after = 300s
+      auto-down-unreachable-after = 30s
     }
   }
 }
