@@ -8,6 +8,8 @@ Documentation     netconf-connector scaling test suite.
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
+Library           Collections
+Library           String
 Library           SSHLibrary    timeout=10s
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
@@ -18,41 +20,45 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 
 *** Variables ***
 ${DEVICE_COUNT}    500
-${WATCH_MEMORY}    False
+${WORKER_COUNT}    10
 ${device_name_base}    netconf-scaling-device
 ${base_port}      17830
 ${memory_usage_leeway}    16    # in MB
 
 *** Test Cases ***
-Wait_For_Heap_Size_To_Stabilize
-    [Documentation]    Wait for the heap size to become stable.
-    [Setup]    Start_Verbose_Test
-    BuiltIn.Set_Suite_Variable    ${odl_base_memory}    0
-    BuiltIn.Wait_Until_Keyword_Succeeds    5m    10s    Check_Heap_Size_Stable
-    [Teardown]    End_Verbose_Test
-
 Mount_Devices_Onto_Netconf
     [Documentation]    Make request to mount the testtool devices and measure time and memory usage.
-    [Tags]    critical
     [Setup]    Start_Verbose_Test
     BuiltIn.Set_Suite_Variable    ${current_port}    ${base_port}
     BuiltIn.Repeat_Keyword    ${DEVICE_COUNT} times    Perform_Operation_With_Checking_On_Next_Device    Mount_Device
     [Teardown]    End_Verbose_Test
 
-Unmount_Devices_Fron_Netconf
-    [Documentation]    Make request to unmount the testtool devices and measure time and memory usage.
-    [Tags]    critical
+Wait_For_Devices_To_Connect
+    [Setup]    Start_Verbose_Test
+    BuiltIn.Set_Suite_Variable    ${current_port}    ${base_port}
+    BuiltIn.Repeat_Keyword    ${DEVICE_COUNT} times    Perform_Operation_With_Checking_On_Next_Device    Wait_Connected
+    [Teardown]    End_Verbose_Test
+
+Issue_Requests_On_Devices
+    [Setup]    Start_Verbose_Test
+#    Verbose_Line    Test skipped due to debugging
+#    Pass_Execution    Switch this off
+    ${current_ssh_connection}=    SSHLibrary.Get Connection
+    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
+    Utils.Flexible_Mininet_Login
+    SSHLibrary.Write    python getter.py --odladdress=${ODL_SYSTEM_IP} --count=${DEVICE_COUNT} --name=${device_name_base}
+    : FOR    ${number}    IN RANGE    1    ${DEVICE_COUNT}+1
+    \    Read_Python_Tool_Operation_Result    ${number}
+    SSHLibrary.Read_Until_Prompt
+    SSHLibrary.Close_Connection
+    Restore Current SSH Connection From Index    ${current_ssh_connection.index}
+    [Teardown]    End_Verbose_Test
+
+Unmount_Devices
     [Setup]    Start_Verbose_Test
     BuiltIn.Set_Suite_Variable    ${current_port}    ${base_port}
     BuiltIn.Repeat_Keyword    ${DEVICE_COUNT} times    Perform_Operation_With_Checking_On_Next_Device    Unmount_Device
-    [Teardown]    End_Verbose_Test
-
-Check_Memory_Usage_Netconf
-    [Documentation]    Check whether all the memory used by the devices is gone along with the devices themselves.
-    ${memory}=    Get_ODL_Heap_Size
-    ${limit}=    BuiltIn.Evaluate    ${odl_base_memory}+${memory_usage_leeway}*1048576
-    BuiltIn.Should_Be_True    ${memory} <= ${limit}
-    [Teardown]    Report_Failure_Due_To_Bug    4514
+    [Teardown]    Teardown__Unmount_Devices
 
 *** Keywords ***
 Setup_Everything
@@ -61,22 +67,23 @@ Setup_Everything
     SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     NetconfKeywords.Setup_Netconf_Keywords
-    # Initialize ODL memory watching if requested. This must be done before
-    # the testtool is started because if both are running at the same machine
-    # then the initialization will get confused by the presence of two "java"
-    # processes (one for ODL, the other for testtool).
-    Initialize_Memory_Watching
     # Connect to the tools machine
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
     Utils.Flexible_Mininet_Login
     # Deploy testtool on it
     NetconfKeywords.Install_And_Start_Testtool    device-count=${DEVICE_COUNT}
+    SSHLibrary.Put_File    ${CURDIR}/../../../../tools/netconf_tools/getter.py
+    SSHLibrary.Put_File    ${CURDIR}/../../../libraries/AuthStandalone.py
 
 Teardown_Everything
     [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.
     Teardown_Netconf_Via_Restconf
     RequestsLibrary.Delete_All_Sessions
     NetconfKeywords.Stop_Testtool
+
+Teardown__Unmount_Devices
+    Report_Failure_Due_To_Bug    4547
+    End_Verbose_Test
 
 Start_Timer
     ${start}=    BuiltIn.Evaluate    str(int(time.time()*1000))    modules=time
@@ -87,55 +94,6 @@ Get_Time_From_Start
     ${ellapsed}=    BuiltIn.Evaluate    "%04d"%(${end}-${timer_start})
     ${ellapsed}=    BuiltIn.Evaluate    "%4s"%('${ellapsed}'[:-3])+"."+'${ellapsed}'[-3:]+" s"
     [Return]    ${ellapsed}
-
-Read_Result
-    ${data}=    SSHLibrary.Read_Until_Prompt
-    ${data}=    BuiltIn.Evaluate    "\\n".join("""${data}""".split("\\n")[:-1])
-    [Return]    ${data}
-
-Initialize_Memory_Watching
-    ${odl}=    SSHLibrary.Open_Connection    ${ODL_SYSTEM_IP}    prompt=${ODL_SYSTEM_PROMPT}
-    SSHLibrary.Set_Client_Configuration    timeout=5m
-    BuiltIn.Set_Suite_Variable    ${odl_index}    ${odl}
-    Utils.Flexible_Controller_Login
-    SSHLibrary.Write    ps -A | grep java | cut -b1-5
-    ${pid}=    Read_Result
-    BuiltIn.Set_Suite_Variable    ${odl_pid}    ${pid}
-
-Format_Memory_Amount
-    [Arguments]    ${amount}    ${base}=0    ${places}=4
-    ${amount}=    BuiltIn.Evaluate    ${amount}-${base}
-    ${decimal}=    BuiltIn.Evaluate    4+int(${amount}<0)
-    ${memory}=    BuiltIn.Evaluate    "%0${decimal}d"%((${amount}*1000)//1048576)
-    ${memory}=    BuiltIn.Evaluate    "%${places}s"%('${memory}'[:-3])+"."+'${memory}'[-3:]+" MB"
-    [Return]    ${memory}
-
-Check_Heap_Size_Stable
-    ${memory}=    Get_ODL_Heap_Size
-    ${heap}=    Format_Memory_Amount    ${memory}
-    ${delta}=    BuiltIn.Evaluate    ${memory}-${odl_base_memory}
-    ${heapdelta}=    Format_Memory_Amount    ${delta}
-    Verbose_Line    ${heap} | ${heapdelta}
-    BuiltIn.Set_Suite_Variable    ${odl_base_memory}    ${memory}
-    BuiltIn.Set_Suite_Variable    ${odl_memory}    ${memory}
-    BuiltIn.Run_Keyword_If    ${delta}<0 or ${delta}>65536    BuiltIn.Fail    Heap size changed too much since last check
-
-Get_ODL_Heap_Size
-    ${tools_index}=    SSHLibrary.Switch_Connection    ${odl_index}
-    SSHLibrary.Write    jmap -histo:live ${odl_pid} | tail -1 | cut -b 20-34
-    ${memory}=    Read_Result
-    SSHLibrary.Switch_Connection    ${tools_index}
-    [Return]    ${memory}
-
-Get_Current_Memory_Usage
-    BuiltIn.Return_From_Keyword_If    not ${WATCH_MEMORY}    ${empty}
-    Start_Timer
-    ${memory}=    Get_ODL_Heap_Size
-    ${gctime}=    Get_Time_From_Start
-    ${devmem}=    Format_Memory_Amount    ${memory}    ${odl_memory}
-    ${totmem}=    Format_Memory_Amount    ${memory}    ${odl_base_memory}    places=5
-    BuiltIn.Set_Suite_Variable    ${odl_memory}    ${memory}
-    [Return]    | ${devmem} | ${totmem} | ${gctime}
 
 Delimiter
     ${line}=    BuiltIn.Evaluate    '-- '*23+'-+'+' '*6+'|'
@@ -161,15 +119,16 @@ End_Verbose_Test
 Mount_Device
     KarafKeywords.Log_Message_To_Controller_Karaf    Mounting device ${current_name}
     NetconfKeywords.Mount_Device_Onto_Netconf    ${current_name}    device_port=${current_port}
+    KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} mounted
+
+Wait_Connected
     KarafKeywords.Log_Message_To_Controller_Karaf    Waiting for device ${current_name} to connect
     NetconfKeywords.Wait_Device_Mounted    ${current_name}    period=0.5s
-    KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} mounted and connected
+    KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} connected
 
 Unmount_Device
     KarafKeywords.Log_Message_To_Controller_Karaf    Unmounting device ${current_name}
     NetconfKeywords.Unmount_Device_From_Netconf    ${current_name}
-    KarafKeywords.Log_Message_To_Controller_Karaf    Waiting for device ${current_name} to disappear
-    NetconfKeywords.Wait_Device_Unmounted    ${current_name}    period=0.5s
     KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} unmounted
 
 Perform_Operation_With_Checking_On_Next_Device
@@ -181,7 +140,20 @@ Perform_Operation_With_Checking_On_Next_Device
     BuiltIn.Run_Keyword    ${operation}
     ${ellapsed}=    Get_Time_From_Start
     ${number}=    BuiltIn.Evaluate    "%5d"%${number}
-    ${memory}=    Get_Current_Memory_Usage
-    Verbose_Line    ${number} | ${ellapsed} ${memory}
+    Verbose_Line    ${number} | ${ellapsed}
     ${next}=    BuiltIn.Evaluate    ${current_port}+1
     BuiltIn.Set_Suite_Variable    ${current_port}    ${next}
+
+Read_Python_Tool_Operation_Result
+    [Arguments]    ${number}
+    ${test}=    SSHLibrary.Read_Until_Regexp    \\n
+    ${test}=    String.Split_String    ${test}    |
+    ${response}=    Collections.Get_From_List    ${test}    0
+    ${message}=    Collections.Get_From_List    ${test}    1
+    BuiltIn.Run_Keyword_If    '${response}' == 'ERROR'    Fail    Error getting data: ${message}
+    ${ellapsed}=    Collections.Get_From_List    ${test}    1
+    ${data}=    Collections.Get_From_List    ${test}    2
+    ${expected}=    BuiltIn.Set_Variable    '<data xmlns="${ODL_NETCONF_NAMESPACE}"></data>'
+    BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${expected}
+    ${number}=    BuiltIn.Evaluate    "%5d"%${number}
+    Verbose_Line    ${number} | ${ellapsed} | OK
