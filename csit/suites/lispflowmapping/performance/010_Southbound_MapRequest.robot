@@ -19,7 +19,8 @@ ${MAPPING_BLASTER}    ${TOOLS_DIR}/mapping_blaster.py
 ${REPLAY_PPS}     100000
 ${REPLAY_CNT}     1000
 ${REPLAY_FILE}    encapsulated-map-requests-sequential.pcap
-${RESULTS_FILE}    results.csv
+${RPCS_RESULTS_FILE}    rpcs.csv
+${PPS_RESULTS_FILE}    pps.csv
 
 *** Test Cases ***
 Add Simple IPv4 Mappings
@@ -41,13 +42,16 @@ Generate Test Traffic
     Log    ${get_seconds}
     Set Suite Variable    ${get_seconds}
 
-Compute And Export MapReply Rate
+Compute And Export Results
     ${rpcs}=    Evaluate    ${MAPPINGS}/${add_seconds}
+    Log    ${rpcs}
+    Create File    ${RPCS_RESULTS_FILE}    store/s\n
+    Append To File    ${RPCS_RESULTS_FILE}    ${rpcs}\n
     ${txmrep}=    Get Transmitted Map-Requests Stats
     ${pps}=    Evaluate    ${txmrep}/${get_seconds}
     Log    ${pps}
-    Create File    ${RESULTS_FILE}    store/s,replies/s\n
-    Append To File    ${RESULTS_FILE}    ${rpcs},${pps}\n
+    Create File    ${PPS_RESULTS_FILE}    replies/s\n
+    Append To File    ${PPS_RESULTS_FILE}    ${pps}\n
 
 *** Keywords ***
 Reset Stats
