@@ -53,6 +53,14 @@ Create_Limiting_Stability_Safe_Stateful_Validator_From_Value_To_Overcome
     ${validator} =    ScalarClosures.Closure_From_Keyword_And_Arguments    WaitUtils.Limiting_Stability_Safe_Stateful_Validator_As_Keyword    state_holder    data_holder    valid_minimum=${valid_minimum}
     [Return]    ${validator}
 
+Excluding_Stability_Safe_Stateful_Validator_As_Keyword
+    [Arguments]    ${old_state}    ${data}    ${excluded_value}=-1
+    [Documentation]    Report failure if got the excluded value or if data value changed from last time. Useful to become validator.
+    ${new_state} =    BuiltIn.Set_Variable    ${data}
+    BuiltIn.Return_From_Keyword_If    ${data} == ${excluded_value}    ${new_state}    FAIL    Got the excluded value.
+    BuiltIn.Return_From_Keyword_If    ${data} != ${old_state}    ${new_state}    FAIL    Data value has changed.
+    [Return]    ${new_state}    PASS    Validated stable: ${data}
+
 WaitUtils__Check_Sanity_And_Compute_Derived_Times
     [Arguments]    ${timeout}=60s    ${period}=1s    ${count}=1
     [Documentation]    Common checks for argument values. Return times in seconds and deadline date implied by timeout time.
@@ -147,7 +155,10 @@ Getter_And_Safe_Stateful_Validator_Have_To_Succeed_Consecutively_By_Deadline
     \    # Getter may fail, but this Keyword should return state, so we need RKAIE.
     \    ${status}    ${data} =    BuiltIn.Run_Keyword_And_Ignore_Error    ScalarClosures.Run_Keyword_And_Collect_Garbage    ScalarClosures.Run_Closure_As_Is    ${getter}
     \    BuiltIn.Return_From_Keyword_If    '''${status}''' != '''PASS'''    ${state}    ${status}    Getter failed: ${data}
-    \    # TODO: Do we want to check time here?
+    \    # Is there enough time left?
+    \    ${status}    ${message} =    BuiltIn.Run_Keyword_And_Ignore_Error    WaitUtils__Is_Deadline_Reachable    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}
+    \    ...    sleeps_left=${sleeps_left}    message=Last result: ${result}
+    \    BuiltIn.Return_From_Keyword_If    '''${status}''' != '''PASS'''    ${state}    ${status}    ${message}
     \    ${state}    ${status}    ${result} =    ScalarClosures.Run_Keyword_And_Collect_Garbage    ScalarClosures.Run_Closure_After_Replacing_First_Two_Arguments    ${safe_validator}
     \    ...    ${state}    ${data}
     \    # Validator may have reported failure.
