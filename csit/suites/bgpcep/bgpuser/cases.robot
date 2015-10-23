@@ -33,7 +33,7 @@ Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 ${directory_for_actual_responses}    ${TEMPDIR}/actual
 ${directory_for_expected_responses}    ${TEMPDIR}/expected
 ${directory_with_template_folders}    ${CURDIR}/../../../variables/bgpuser/
-${HOLDTIME}       180
+${HOLDTIME}    180
 
 *** Test Cases ***
 Check_For_Empty_Topology_Before_Talking
@@ -44,7 +44,7 @@ Check_For_Empty_Topology_Before_Talking
 
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'IP': '${MININET}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'false'}
+    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${MININET}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'false'}
     ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer    ${template_as_string}
 
 Start_Talking_BGP_speaker
@@ -92,7 +92,7 @@ Check_For_Empty_Topology_Before_Listening
 
 Reconfigure_ODL_To_Initiate_Connection
     [Documentation]    Replace BGP peer config module, now with initiate-connection set to true.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'IP': '${MININET}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'true'}
+    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${MININET}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'true'}
     ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer    ${template_as_string}
 
 Check_Listening_Connection_Is_Established
@@ -119,7 +119,8 @@ Check_For_Empty_Topology_After_Listening
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer
+    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer'}
+    ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}bgp_peer    ${template_as_string}
     # TODO: Do we need to check something else?
 
 *** Keywords ***
@@ -128,7 +129,7 @@ Setup_Everything
     ...    prepare directories for responses, put Python tool to mininet machine, setup imported resources.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     SSHLibrary.Open_Connection    ${MININET}
-    Utils.Flexible_SSH_Login    ${MININET_USER}    ${MININET_PASSWORD}
+    Utils.Flexible_SSH_Login     ${MININET_USER}    ${MININET_PASSWORD}
     ${current_connection}=    Get_Connection
     ${current_prompt}=    BuiltIn.Set_Variable    ${current_connection.prompt}
     BuiltIn.Log    ${current_prompt}
