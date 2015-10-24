@@ -1,0 +1,1 @@
+integration/test/csit/suites/controller/NETCONF/configured_connection_performance.robot
