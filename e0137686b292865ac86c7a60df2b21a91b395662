@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad0f9df_4a02c23f",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/010_set_odl.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-10-24T00:56:01Z",
+      "side": 1,
+      "message": "Please add here Resource    ../Variables.robot",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 16
+      },
+      "revId": "e0137686b292865ac86c7a60df2b21a91b395662",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_e02b9580",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/010_set_odl.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-10-24T00:56:01Z",
+      "side": 1,
+      "message": "they have changed variable names to ${TOOLS_SYSTEM_1_IP}, ${TOOLS_SYSTEM_2_IP}, etc.\nIn this patch https://git.opendaylight.org/gerrit/#/c/26788/\nInstead, if you import Variables.robot, you can use GBPSFC1-6 and ODL instead of CONTROLLER in suite setup.\nCan be applied to asymm demo as well.\nNote: I\u0027m not sure for how long are MININET* and CONTROLLER names going to be supported.",
+      "range": {
+        "startLine": 45,
+        "startChar": 68,
+        "endLine": 45,
+        "endChar": 79
+      },
+      "revId": "e0137686b292865ac86c7a60df2b21a91b395662",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
