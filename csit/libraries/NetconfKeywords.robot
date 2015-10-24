@@ -190,16 +190,29 @@ NetconfKeywords__Check_Netconf_Test_Timeout_Not_Expired
     BuiltIn.Run_Keyword_If    ${ellapsed_seconds}<0    Fail    The global time out period expired
 
 NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device
-    [Arguments]    ${operation}    ${deadline_Date}
+    [Documentation]    Private function of Perform_Operation_On_Each_Device
+    ...    If device name is not supplied, a default is calculated for backwards compatibility.
+    ...    Otherwise ${device_name} is used instead.
+    [Arguments]    ${operation}    ${deadline_Date}    ${device_name}=${EMPTY}
     NetconfKeywords__Check_Netconf_Test_Timeout_Not_Expired    ${deadline_Date}
     ${number}=    BuiltIn.Evaluate    ${current_port}-${BASE_NETCONF_DEVICE_PORT}+1
-    BuiltIn.Run_Keyword    ${operation}    ${DEVICE_NAME_BASE}-${number}
+    ${device_name}=    Builtin.Set Variable If    '${device_name}' == '${EMPTY}'    ${DEVICE_NAME_BASE}-${number}    ${device_name}
+    BuiltIn.Run_Keyword    ${operation}    ${device_name}
     ${next}=    BuiltIn.Evaluate    ${current_port}+1
     BuiltIn.Set_Suite_Variable    ${current_port}    ${next}
 
 Perform_Operation_On_Each_Device
-    [Arguments]    ${operation}    ${count}=${NetconfKeywords__testtool_device_count}    ${timeout}=30m
+    [Documentation]    Perform a keyword operation on each device until timeout. Default timeout is 30 minutes.
+    [Arguments]    ${operation}    ${count}=${NetconfKeywords__testtool_device_count}    ${timeout}=30m    ${device_name}=${EMPTY}
     ${current_Date}=    DateTime.Get_Current_Date
     ${deadline_Date}=    DateTime.Add_Time_To_Date    ${current_Date}    ${timeout}
     BuiltIn.Set_Suite_Variable    ${current_port}    ${BASE_NETCONF_DEVICE_PORT}
-    BuiltIn.Repeat_Keyword    ${count} times    NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device    ${operation}    ${deadline_Date}
+    BuiltIn.Repeat_Keyword    ${count} times    NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device    ${operation}    ${deadline_Date}    device_name=${device_name}
+
+Check_If_Data_Present_On_Device
+    [Documentation]    Verify if there is data present at the device with the given device number ${device_number}
+    [Arguments]    ${device_name}    ${expected_data}=${EMPTY}
+    ${url}=    BuiltIn.Set Variable    ${CONFIG_API}/network-topology:network-topology/topology/topology-netconf/node/${device_name}/yang-ext:mount
+    RequestsLibrary.Create_Session    node${device_number}    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}    headers=${HEADERS_XML}    auth=${AUTH}
+    ${data}=    TemplatedRequests.Get_As_Xml_From_Uri    ${url}
+    BuiltIn.Run_Keyword_If    "${expected_data}" != "${EMPTY}"    BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${expected_data}
