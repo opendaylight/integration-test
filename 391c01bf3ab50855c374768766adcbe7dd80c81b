@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad0f9df_fb8fca73",
+        "filename": "csit/libraries/GBP/PathCheckUtils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 612
+      },
+      "writtenOn": "2015-10-25T20:39:35Z",
+      "side": 1,
+      "message": "please, address TODO in this file",
+      "revId": "391c01bf3ab50855c374768766adcbe7dd80c81b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_1b8dee7b",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-asymmetric-chain/010_odl_setup.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 612
+      },
+      "writtenOn": "2015-10-25T20:39:35Z",
+      "side": 1,
+      "message": "this looks the same as https://git.opendaylight.org/gerrit/#/c/27572/13",
+      "revId": "391c01bf3ab50855c374768766adcbe7dd80c81b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_dbee8622",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-asymmetric-chain/011_wait_for_flows.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 612
+      },
+      "writtenOn": "2015-10-25T20:39:35Z",
+      "side": 1,
+      "message": "it is not used anywhere. what happen if GBP had a bug and no flows would be created?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 10
+      },
+      "revId": "391c01bf3ab50855c374768766adcbe7dd80c81b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_9bf8fee6",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-asymmetric-chain/025_start_path_tracking.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 612
+      },
+      "writtenOn": "2015-10-25T20:39:35Z",
+      "side": 1,
+      "message": "this does not line up to content of this file",
+      "range": {
+        "startLine": 2,
+        "startChar": 17,
+        "endLine": 2,
+        "endChar": 46
+      },
+      "revId": "391c01bf3ab50855c374768766adcbe7dd80c81b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_7bf3da0a",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-asymmetric-chain/025_start_path_tracking.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 612
+      },
+      "writtenOn": "2015-10-25T20:39:35Z",
+      "side": 1,
+      "message": "typo?",
+      "range": {
+        "startLine": 19,
+        "startChar": 17,
+        "endLine": 19,
+        "endChar": 20
+      },
+      "revId": "391c01bf3ab50855c374768766adcbe7dd80c81b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_fbe6ea43",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-asymmetric-chain/035_track_curl_h35_2_h36_2.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 612
+      },
+      "writtenOn": "2015-10-25T20:39:35Z",
+      "side": 1,
+      "message": "this is more \"Outer IPs Check\"",
+      "range": {
+        "startLine": 42,
+        "startChar": 11,
+        "endLine": 42,
+        "endChar": 29
+      },
+      "revId": "391c01bf3ab50855c374768766adcbe7dd80c81b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_1be40e3a",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-asymmetric-chain/035_track_curl_h35_2_h36_2.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 612
+      },
+      "writtenOn": "2015-10-25T20:39:35Z",
+      "side": 1,
+      "message": "this could be \"Inner IPs Check\"",
+      "range": {
+        "startLine": 45,
+        "startChar": 11,
+        "endLine": 45,
+        "endChar": 33
+      },
+      "revId": "391c01bf3ab50855c374768766adcbe7dd80c81b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
