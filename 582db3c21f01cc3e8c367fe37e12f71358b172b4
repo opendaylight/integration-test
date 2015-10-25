@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad0f9df_3b96b295",
+        "filename": "csit/libraries/GBP/ConnUtils.robot",
+        "patchSetId": 66
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 612
+      },
+      "writtenOn": "2015-10-25T20:41:56Z",
+      "side": 1,
+      "message": "where is this variable? I was not able to find it. Thanks",
+      "range": {
+        "startLine": 15,
+        "startChar": 46,
+        "endLine": 15,
+        "endChar": 55
+      },
+      "revId": "582db3c21f01cc3e8c367fe37e12f71358b172b4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_7b7c3a73",
+        "filename": "csit/libraries/GBP/ConnUtils.robot",
+        "patchSetId": 66
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 612
+      },
+      "writtenOn": "2015-10-25T20:41:56Z",
+      "side": 1,
+      "message": "TODO can be removed",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 83
+      },
+      "revId": "582db3c21f01cc3e8c367fe37e12f71358b172b4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_5b9376a3",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/__init__.robot",
+        "patchSetId": 66
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 612
+      },
+      "writtenOn": "2015-10-25T20:41:56Z",
+      "side": 1,
+      "message": "TODO can be removed",
+      "range": {
+        "startLine": 21,
+        "startChar": 4,
+        "endLine": 21,
+        "endChar": 77
+      },
+      "revId": "582db3c21f01cc3e8c367fe37e12f71358b172b4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_bbe9421c",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/wait_flows",
+        "patchSetId": 66
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 612
+      },
+      "writtenOn": "2015-10-25T20:41:56Z",
+      "side": 1,
+      "message": "it would be great to see this written in robot",
+      "revId": "582db3c21f01cc3e8c367fe37e12f71358b172b4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
