@@ -26,6 +26,7 @@ Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 
@@ -201,7 +202,7 @@ Check_Speaker_Is_Connected
 Check_Number_Of_Speaker_Connections
     [Arguments]    ${howmany}
     [Documentation]    Run netstat in mininet machine and parse it for number of established connections. Check it is ${howmany}.
-    ${output}=    SSHLibrary.Execute_Command    netstat -npt 2> /dev/null | grep -E ":17900 .+ ESTABLISHED .+python" | wc -l
+    ${output}=    SSHKeywords.Count_Port_Occurences    17900    ESTABLISHED    python
     BuiltIn.Should_Be_Equal_As_Strings    ${output}    ${howmany}
 
 Read_And_Fail_If_Prompt_Is_Seen

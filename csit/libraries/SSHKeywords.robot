@@ -1,4 +1,3 @@
-*** Settings ***
 Documentation     Resource enhancing SSHLibrary with Keywords used in multiple suites.
 ...
 ...               Copyright (c) 2015 Cisco Systems, Inc. and others. All rights reserved.
@@ -45,3 +44,9 @@ Assure_Library_Counter
     # TODO: Move the bash-cd wrapper to separate keyword?
     BuiltIn.Return_From_Keyword_If    ${passed}
     SSHLibrary.Put_File    ${CURDIR}/Counter.py    ${target_dir}/
+
+Count_Port_Occurences
+    [Arguments]    ${port}    ${state}    ${name}
+    [Documentation]    Run 'netstat' on the remote machine and count occurences of given port in the given state connected to process with the given name.
+    ${output}=    SSHLibrary.Execute_Command    netstat -natp 2> /dev/null | grep -E ":${port} .+ ${state} .+${name}" | wc -l
+    [Return]    ${output}
