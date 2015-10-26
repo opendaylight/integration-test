@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad0f9df_6e72337e",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 47
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-26T22:47:47Z",
+      "side": 1,
+      "message": "will this be taken care of?  my first thought about these keywords is what they have to do with SSH sessions.  so it\u0027s just a library that assumes an SSH session is already open?",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 79
+      },
+      "revId": "5c6ec029207b101c5dac8768d1cf45bac638459d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
