@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fad0f9df_96b533cf",
+        "filename": "csit/libraries/GBP/ConnUtils.robot",
+        "patchSetId": 66
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-10-26T12:10:51Z",
+      "side": 1,
+      "message": "It\u0027s on line 6. The default value is here in libraries so it does not leak from suites (it was proposed by commiters)",
+      "parentUuid": "fad0f9df_3b96b295",
+      "range": {
+        "startLine": 15,
+        "startChar": 46,
+        "endLine": 15,
+        "endChar": 55
+      },
+      "revId": "582db3c21f01cc3e8c367fe37e12f71358b172b4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fad0f9df_7b7c3a73",
         "filename": "csit/libraries/GBP/ConnUtils.robot",
         "patchSetId": 66
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "fad0f9df_36ca4750",
+        "filename": "csit/libraries/GBP/ConnUtils.robot",
+        "patchSetId": 66
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-10-26T12:10:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad0f9df_7b7c3a73",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 83
+      },
+      "revId": "582db3c21f01cc3e8c367fe37e12f71358b172b4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fad0f9df_5b9376a3",
         "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/__init__.robot",
         "patchSetId": 66
@@ -59,6 +107,30 @@
       "writtenOn": "2015-10-25T20:41:56Z",
       "side": 1,
       "message": "TODO can be removed",
+      "range": {
+        "startLine": 21,
+        "startChar": 4,
+        "endLine": 21,
+        "endChar": 77
+      },
+      "revId": "582db3c21f01cc3e8c367fe37e12f71358b172b4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_56c7cb45",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/__init__.robot",
+        "patchSetId": 66
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-10-26T12:10:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fad0f9df_5b9376a3",
       "range": {
         "startLine": 21,
         "startChar": 4,
