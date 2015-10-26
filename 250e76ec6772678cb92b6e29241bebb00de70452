@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad0f9df_51ffd534",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/infrastructure_launch.py",
+        "patchSetId": 70
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-26T15:09:05Z",
+      "side": 1,
+      "message": "Nice docs (throughout), thanks!",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 7
+      },
+      "revId": "250e76ec6772678cb92b6e29241bebb00de70452",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_f1fb6945",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/infrastructure_launch.py",
+        "patchSetId": 70
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-26T15:09:05Z",
+      "side": 1,
+      "message": "Very clear, thanks",
+      "range": {
+        "startLine": 85,
+        "startChar": 12,
+        "endLine": 85,
+        "endChar": 83
+      },
+      "revId": "250e76ec6772678cb92b6e29241bebb00de70452",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_91ed3d8e",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/infrastructure_launch.py",
+        "patchSetId": 70
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-26T15:09:05Z",
+      "side": 1,
+      "message": "Good for now, thanks",
+      "range": {
+        "startLine": 153,
+        "startChar": 4,
+        "endLine": 153,
+        "endChar": 24
+      },
+      "revId": "250e76ec6772678cb92b6e29241bebb00de70452",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fad0f9df_11f94d4d",
+        "filename": "csit/suites/groupbasedpolicy/common_scripts/wait_flows",
+        "patchSetId": 70
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-26T15:09:05Z",
+      "side": 1,
+      "message": "Are you all still using this? I thought I saw a comment about it being replaced by Robot or something. If not using, it please remove.",
+      "revId": "250e76ec6772678cb92b6e29241bebb00de70452",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
