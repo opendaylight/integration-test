@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_11264c69",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 78
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-27T11:51:30Z",
+      "side": 1,
+      "message": "Just a debug command that can be deleted?",
+      "range": {
+        "startLine": 229,
+        "startChar": 4,
+        "endLine": 229,
+        "endChar": 12
+      },
+      "revId": "fe3a2cc553fe6f11626d7892f80fc3fcdca5d32a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_d11f6408",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 78
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-27T11:51:30Z",
+      "side": 1,
+      "message": "And this command can fail if source file does not exist. Return code should be checked.",
+      "range": {
+        "startLine": 230,
+        "startChar": 52,
+        "endLine": 230,
+        "endChar": 72
+      },
+      "revId": "fe3a2cc553fe6f11626d7892f80fc3fcdca5d32a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_f11ce815",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 78
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-27T11:51:30Z",
+      "side": 1,
+      "message": "Mention this logging in keyword name, or at least in Documentation. Otherwise it sounds just like SSHLibrary.Get_File.",
+      "range": {
+        "startLine": 231,
+        "startChar": 4,
+        "endLine": 231,
+        "endChar": 15
+      },
+      "revId": "fe3a2cc553fe6f11626d7892f80fc3fcdca5d32a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_1182cc00",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 78
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-27T11:51:30Z",
+      "side": 1,
+      "message": "Was this supposed to make it into line 813?",
+      "range": {
+        "startLine": 65,
+        "startChar": 25,
+        "endLine": 65,
+        "endChar": 31
+      },
+      "revId": "fe3a2cc553fe6f11626d7892f80fc3fcdca5d32a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_b1ed00f2",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 78
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-27T11:51:30Z",
+      "side": 1,
+      "message": "threshold",
+      "range": {
+        "startLine": 78,
+        "startChar": 27,
+        "endLine": 78,
+        "endChar": 35
+      },
+      "revId": "fe3a2cc553fe6f11626d7892f80fc3fcdca5d32a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_31b910ea",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 78
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-27T11:51:30Z",
+      "side": 1,
+      "message": "Instance variables are traditionally in snake_case.",
+      "range": {
+        "startLine": 166,
+        "startChar": 13,
+        "endLine": 166,
+        "endChar": 32
+      },
+      "revId": "fe3a2cc553fe6f11626d7892f80fc3fcdca5d32a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_51a134a8",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 78
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-27T11:51:30Z",
+      "side": 1,
+      "message": "Also method names are traditionally in snake_case.",
+      "range": {
+        "startLine": 463,
+        "startChar": 8,
+        "endLine": 463,
+        "endChar": 12
+      },
+      "revId": "fe3a2cc553fe6f11626d7892f80fc3fcdca5d32a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_31b030f4",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 78
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-27T11:51:30Z",
+      "side": 1,
+      "message": "Aside from default argument values, these methods do not depend on instance or even class. They can be moved to a separate file as Python library.",
+      "range": {
+        "startLine": 463,
+        "startChar": 4,
+        "endLine": 463,
+        "endChar": 7
+      },
+      "revId": "fe3a2cc553fe6f11626d7892f80fc3fcdca5d32a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
