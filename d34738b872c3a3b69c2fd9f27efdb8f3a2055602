@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fad0f9df_91bbfd71",
+        "filename": "csit/suites/netconf/CRUD/CRUD.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-27T10:55:42Z",
+      "side": 1,
+      "message": "all caps?",
+      "range": {
+        "startLine": 31,
+        "startChar": 2,
+        "endLine": 31,
+        "endChar": 33
+      },
+      "revId": "d34738b872c3a3b69c2fd9f27efdb8f3a2055602",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
