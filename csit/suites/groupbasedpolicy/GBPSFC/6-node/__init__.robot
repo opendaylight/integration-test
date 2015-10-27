@@ -18,7 +18,11 @@ Setup Everything
     Log    start_suite_in_6_node
     :FOR    ${GBPSFC}    IN    @{GBPSFCs}
     \    ConnUtils.Connect and Login    ${GBPSFC}    timeout=${timeout}
-    # TODO if something extra needs to be installed, please do it in virt-env
+    \    ${stdout}    ${stderr}    ${rc}    SSHLibrary.Execute Command    curl 127.0.0.1    return_stdout=True    return_stderr=True    return_rc=True
+    \    Should Be Empty    ${stderr}
+    \    Log    ${stdout}
+    \    Log    ${stderr}
+    \    Log    ${rc}
     \    ${stderr}    SSHLibrary.Execute Command    virtualenv --system-site-packages ${VE_DIR}    return_stdout=False    return_stderr=True    return_rc=False
     \    Should Be Empty    ${stderr}
     \    SSHLibrary.Put File    ${CURDIR}/../../common_scripts/*    ${VM_HOME_FOLDER}${/}${VM_SCRIPTS_FOLDER}/    mode=0755
