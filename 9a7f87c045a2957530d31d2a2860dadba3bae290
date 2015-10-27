@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_34ed7e8c",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 49
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-27T15:59:37Z",
+      "side": 1,
+      "message": "+1",
+      "range": {
+        "startLine": 32,
+        "startChar": 15,
+        "endLine": 32,
+        "endChar": 16
+      },
+      "revId": "9a7f87c045a2957530d31d2a2860dadba3bae290",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
