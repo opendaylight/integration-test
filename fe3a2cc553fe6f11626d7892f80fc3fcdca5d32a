@@ -71,6 +71,29 @@
     },
     {
       "key": {
+        "uuid": "dad5f5cf_94e6aa43",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 78
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-27T15:38:49Z",
+      "side": 1,
+      "message": "\"Maximum\" would be more standard, imho. Applies to other \"Maximal\"s below.",
+      "range": {
+        "startLine": 38,
+        "startChar": 16,
+        "endLine": 38,
+        "endChar": 23
+      },
+      "revId": "fe3a2cc553fe6f11626d7892f80fc3fcdca5d32a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dad5f5cf_1182cc00",
         "filename": "tools/fastbgp/play.py",
         "patchSetId": 78
@@ -117,6 +140,52 @@
     },
     {
       "key": {
+        "uuid": "dad5f5cf_d4719278",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 78
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-27T15:38:49Z",
+      "side": 1,
+      "message": "It\u0027d be nice to add docs for arguments to your docstrings. Recent good example: https://git.opendaylight.org/gerrit/#/c/27543/70/csit/suites/groupbasedpolicy/common_scripts/infrastructure_launch.py\n\nAnother example:\nhttps://git.opendaylight.org/gerrit/#/c/22384/",
+      "range": {
+        "startLine": 84,
+        "startChar": 25,
+        "endLine": 84,
+        "endChar": 34
+      },
+      "revId": "fe3a2cc553fe6f11626d7892f80fc3fcdca5d32a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_94f0eaca",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 78
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-27T15:38:49Z",
+      "side": 1,
+      "message": "We have a flake8 (PEP8 checker run by tox as the python-verify job) exception that allows line lengths up to 120 chars. However, docstrings and comments are still supposed to follow the stricter \u003c80 char limit[0].\n\n\u003e \"Some teams strongly prefer a longer line length. For code maintained exclusively or primarily by a team that can reach agreement on this issue, it is okay to increase the nominal line length from 80 to 100 characters (effectively increasing the maximum length to 99 characters), provided that comments and docstrings are still wrapped at 72 characters.\"\n\nThere may be a way to do clever things with flake8 rules to enforce this, I haven\u0027t looked into it.\n\n[0]: https://www.python.org/dev/peps/pep-0008/#maximum-line-length",
+      "range": {
+        "startLine": 161,
+        "startChar": 5,
+        "endLine": 161,
+        "endChar": 112
+      },
+      "revId": "fe3a2cc553fe6f11626d7892f80fc3fcdca5d32a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dad5f5cf_31b910ea",
         "filename": "tools/fastbgp/play.py",
         "patchSetId": 78
@@ -133,6 +202,191 @@
         "startChar": 13,
         "endLine": 166,
         "endChar": 32
+      },
+      "revId": "fe3a2cc553fe6f11626d7892f80fc3fcdca5d32a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_14cabaa1",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 78
+      },
+      "lineNbr": 166,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-27T15:38:49Z",
+      "side": 1,
+      "message": "+1, and to be clear this applies to many others below",
+      "parentUuid": "dad5f5cf_31b910ea",
+      "range": {
+        "startLine": 166,
+        "startChar": 13,
+        "endLine": 166,
+        "endChar": 32
+      },
+      "revId": "fe3a2cc553fe6f11626d7892f80fc3fcdca5d32a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_14b4faf0",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 78
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-27T15:38:49Z",
+      "side": 1,
+      "message": "I believe only the first string literal would be read as __doc__, so unaware of a reason to use \"\"\" here vs the normal inline #. \n\nhttps://www.python.org/dev/peps/pep-0257/#what-is-a-docstring",
+      "range": {
+        "startLine": 168,
+        "startChar": 8,
+        "endLine": 168,
+        "endChar": 56
+      },
+      "revId": "fe3a2cc553fe6f11626d7892f80fc3fcdca5d32a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_74946637",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 78
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-27T15:38:49Z",
+      "side": 1,
+      "message": "These seem to be used to condition out logging statements entirely (in some places, but not all - see lines 383-388). I believe the normal way to do that is to set the logging level for your Logger object[0] (per the arg, which you could change your store_true parsers to a choice parser to collect), then just make your debug/info/warn/... calls throughout without conditionals, allowing the Python logging module to handle the logic of doing anything with the message or not. \n\nIf you\u0027re worried about the performance impact of generating the strings to be logged in cases where they in fact will be dropped, you can let the logging module handle the string generation only when necessary instead of building them yourself before giving the result to the logger[1].\n\nIf there\u0027s some subtle reason this doesn\u0027t work for your use-case, please document it clearly.\n\nYou can also set the log level written out by different log handlers, like a file and stream handler[2].\n\n\n[0]: https://docs.python.org/3/library/logging.html#logging.Logger.setLevel\n[1]: http://stackoverflow.com/a/4149231/1011749\n[2]: https://docs.python.org/3/library/logging.html#logging.Handler.setLevel",
+      "range": {
+        "startLine": 218,
+        "startChar": 8,
+        "endLine": 218,
+        "endChar": 55
+      },
+      "revId": "fe3a2cc553fe6f11626d7892f80fc3fcdca5d32a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_14995a6e",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 78
+      },
+      "lineNbr": 256,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-27T15:38:49Z",
+      "side": 1,
+      "message": "Check out the multi-line docstring formatting docs (blank line after first summery line and such). Applies elsewhere. Thanks for the existence of these docs. :)\n\nhttps://www.python.org/dev/peps/pep-0257/#multi-line-docstrings",
+      "range": {
+        "startLine": 250,
+        "startChar": 7,
+        "endLine": 256,
+        "endChar": 11
+      },
+      "revId": "fe3a2cc553fe6f11626d7892f80fc3fcdca5d32a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_f4f4d688",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 78
+      },
+      "lineNbr": 383,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-27T15:38:49Z",
+      "side": 1,
+      "message": "This is an example of what I\u0027m suggesting replacing (above) by using the logging modules\u0027 log level features.",
+      "range": {
+        "startLine": 383,
+        "startChar": 7,
+        "endLine": 383,
+        "endChar": 25
+      },
+      "revId": "fe3a2cc553fe6f11626d7892f80fc3fcdca5d32a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_f4c61649",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 78
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-27T15:38:49Z",
+      "side": 1,
+      "message": "I doubt this works well (readability) in the log output?",
+      "range": {
+        "startLine": 384,
+        "startChar": 27,
+        "endLine": 384,
+        "endChar": 31
+      },
+      "revId": "fe3a2cc553fe6f11626d7892f80fc3fcdca5d32a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_b4c08e2b",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 78
+      },
+      "lineNbr": 391,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-27T15:38:49Z",
+      "side": 1,
+      "message": "snake_case, applies elsewhere",
+      "range": {
+        "startLine": 391,
+        "startChar": 37,
+        "endLine": 391,
+        "endChar": 53
+      },
+      "revId": "fe3a2cc553fe6f11626d7892f80fc3fcdca5d32a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_74e226d7",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 78
+      },
+      "lineNbr": 461,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-27T15:38:49Z",
+      "side": 1,
+      "message": "idk of a good reason to use \"\"\" vs # here",
+      "range": {
+        "startLine": 461,
+        "startChar": 4,
+        "endLine": 461,
+        "endChar": 39
       },
       "revId": "fe3a2cc553fe6f11626d7892f80fc3fcdca5d32a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
@@ -179,6 +433,30 @@
         "startChar": 4,
         "endLine": 463,
         "endChar": 7
+      },
+      "revId": "fe3a2cc553fe6f11626d7892f80fc3fcdca5d32a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_7409c694",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 78
+      },
+      "lineNbr": 463,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-27T15:38:49Z",
+      "side": 1,
+      "message": "+1, applies elsewhere",
+      "parentUuid": "dad5f5cf_51a134a8",
+      "range": {
+        "startLine": 463,
+        "startChar": 8,
+        "endLine": 463,
+        "endChar": 12
       },
       "revId": "fe3a2cc553fe6f11626d7892f80fc3fcdca5d32a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
