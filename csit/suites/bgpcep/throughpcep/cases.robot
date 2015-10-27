@@ -117,8 +117,9 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
 Library           ${CURDIR}/../../../libraries/AuthStandalone.py
-Resource          ${CURDIR}/../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
+Resource          ${CURDIR}/../../../libraries/Utils.robot
 
 *** Variables ***
 # This table acts as an exhaustive list of variables users can modify on pybot invocation.
@@ -194,11 +195,11 @@ Put_Updater
     SSHLibrary.Set_Client_Configuration    timeout=20s
     SSHLibrary.Set_Client_Configuration    prompt=${UPDATERVM_PROMPT}
     Utils.Flexible_SSH_Login    ${UPDATERVM_USER}    ${UPDATERVM_PASSWORD}    delay=4s
-    Require_Python
+    SSHKeywords.Require_Python
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/pcep_updater/updater.py    ${UPDATERVM_WORKSPACE}/
     SSHLibrary.Put_File    ${CURDIR}/../../../libraries/AuthStandalone.py    ${UPDATERVM_WORKSPACE}/
-    Assure_Library_Counter    workspace=${UPDATERVM_WORKSPACE}
-    Assure_Library_Ipaddr    workspace=${UPDATERVM_WORKSPACE}
+    SSHKeywords.Assure_Library_Counter    target_dir=${UPDATERVM_WORKSPACE}
+    SSHKeywords.Assure_Library_Ipaddr    terget_dir=${UPDATERVM_WORKSPACE}
     # Done preparation of Updater VM, now use AuthStandalone to create session from robot VM too.
     BuiltIn.Log_Many    ${RESTCONF_USER}    ${RESTCONF_PASSWORD}    ${RESTCONF_SCOPE}    ${CONTROLLER}
     ${session} =    AuthStandalone.Init_Session    ${CONTROLLER}    ${RESTCONF_USER}    ${RESTCONF_PASSWORD}    ${RESTCONF_SCOPE}
@@ -399,37 +400,6 @@ Updater_From_Controller
     BuiltIn.Set_Suite_Variable    ${UPDATERVM_PASSWORD}    ${CONTROLLER_PASSWORD}
     BuiltIn.Set_Suite_Variable    ${UPDATERVM_PROMPT}    ${CONTROLLER_PROMPT}
     BuiltIn.Set_Suite_Variable    ${UPDATERVM_WORKSPACE}    ${CONTROLLER_WORKSPACE}
-
-Require_Python
-    [Documentation]    Verify current SSH connection leads to machine with python working. Fatal fail otherwise.
-    ${passed} =    Execute_Command_Passes    python --help
-    BuiltIn.Return_From_Keyword_If    ${passed}
-    BuiltIn.Fatal_Error    Python is not installed!
-
-Assure_Library_Counter
-    [Arguments]    ${workspace}=/tmp
-    [Documentation]    Tests whether Counter is present in collections on ssh-connected machine, Puts Counter.py to workspace if not.
-    ${passed} =    Execute_Command_Passes    bash -c 'cd "${workspace}" && python -c "from collections import Counter"'
-    # TODO: Move the bash-cd wrapper to separate keyword?
-    BuiltIn.Return_From_Keyword_If    ${passed}
-    SSHLibrary.Put_File    ${CURDIR}/../../../libraries/Counter.py    ${workspace}/
-
-Assure_Library_Ipaddr
-    [Arguments]    ${workspace}=/tmp
-    [Documentation]    Tests whether ipaddr module is present on ssh-connected machine, Puts ipaddr.py to workspace if not.
-    ${passed} =    Execute_Command_Passes    bash -c 'cd "${workspace}" && python -c "import ipaddr"'
-    BuiltIn.Return_From_Keyword_If    ${passed}
-    SSHLibrary.Put_File    ${CURDIR}/../../../libraries/ipaddr.py    ${workspace}/
-
-Execute_Command_Passes
-    [Arguments]    ${command}
-    [Documentation]    Execute command via SSH. If RC is nonzero, log everything. Retrun bool of command success.
-    ${stdout}    ${stderr}    ${rc} =    SSHLibrary.Execute_Command    ${command}    return_stderr=True    return_rc=True
-    BuiltIn.Return_From_Keyword_If    ${rc} == 0    True
-    BuiltIn.Log    ${stdout}
-    BuiltIn.Log    ${stderr}
-    BuiltIn.Log    ${rc}
-    [Return]    False
 
 Disconnect
     [Documentation]    Explicitly close all SSH connections.
