@@ -1,0 +1,1 @@
+integration/test/csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/010_set_odl.robot
