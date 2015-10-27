@@ -117,6 +117,30 @@
     },
     {
       "key": {
+        "uuid": "dad5f5cf_97b8ec2b",
+        "filename": "csit/suites/netconf/scale/mountunmount.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-10-27T18:04:43Z",
+      "side": 1,
+      "message": "I will have to move them as there is another suite that needs this exact same code. I was undecided how to name the resource but I now strongly suspect the best name will be simply \"ODLKeywords\" as these keywords deal with ODL in a general way.",
+      "parentUuid": "dad5f5cf_34401e56",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 26
+      },
+      "revId": "c172fc862b3162ac0fbabea4e9464d3badc8b0b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dad5f5cf_94054a16",
         "filename": "csit/suites/netconf/scale/mountunmount.robot",
         "patchSetId": 13
@@ -163,6 +187,30 @@
     },
     {
       "key": {
+        "uuid": "dad5f5cf_f7ab78d4",
+        "filename": "csit/suites/netconf/scale/mountunmount.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-10-27T18:04:43Z",
+      "side": 1,
+      "message": "I am strongly leaning towards moving all this stuff into a resource as there is another test that needs it and I suspect the BGP performance suite also could make user of this.\n\nHowever to make this perfect it will also need to develop another \"atexit\" set of keywords which will allow you to establish your \"test case teardown\" keyword during the test suite run. The robot\u0027s [Teardown] is pretty limited, especially when you need to do multiple teardown actions and I don\u0027t like to require the users of the keywords to remember to put [Teardown] End_Verbose_Test into each suite that uses this facility.\n\nDisabling this stuff using a variable was considered but not implemented yet.",
+      "parentUuid": "dad5f5cf_3417be53",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 9
+      },
+      "revId": "c172fc862b3162ac0fbabea4e9464d3badc8b0b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dad5f5cf_d40bd229",
         "filename": "csit/suites/netconf/scale/mountunmount.robot",
         "patchSetId": 13
@@ -174,6 +222,30 @@
       "writtenOn": "2015-10-27T17:02:58Z",
       "side": 1,
       "message": "Was this supposed to be (also) a performance suite? All this logging and waiting does not help. Write the answer to Documentation in Settings table.",
+      "range": {
+        "startLine": 165,
+        "startChar": 69,
+        "endLine": 165,
+        "endChar": 73
+      },
+      "revId": "c172fc862b3162ac0fbabea4e9464d3badc8b0b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_97e6ac43",
+        "filename": "csit/suites/netconf/scale/mountunmount.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-10-27T18:04:43Z",
+      "side": 1,
+      "message": "The logging is to be able to track down interesting log messages in karaf.log when a mounting failure occurs and to see in which part of the mounting process (issuing the mount command or waiting for the device to become accessible on the mount point) the failure occured (that is not possible without these Log_Messages_To_Controller_Karaf keyword invocations).",
+      "parentUuid": "dad5f5cf_d40bd229",
       "range": {
         "startLine": 165,
         "startChar": 69,
