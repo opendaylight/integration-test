@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_544a8284",
+        "filename": "csit/suites/netconf/scale/mountunmount.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-27T17:02:58Z",
+      "side": 1,
+      "message": "Run-time immutables look better in ALL_CAPS.",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 22,
+        "endChar": 18
+      },
+      "revId": "c172fc862b3162ac0fbabea4e9464d3badc8b0b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_b47deeb3",
+        "filename": "csit/suites/netconf/scale/mountunmount.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-27T17:02:58Z",
+      "side": 1,
+      "message": "Tidy to 4 spaces.",
+      "range": {
+        "startLine": 24,
+        "startChar": 28,
+        "endLine": 24,
+        "endChar": 30
+      },
+      "revId": "c172fc862b3162ac0fbabea4e9464d3badc8b0b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_d45d124a",
+        "filename": "csit/suites/netconf/scale/mountunmount.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-27T17:02:58Z",
+      "side": 1,
+      "message": "DateTime Robot Library makes things more readable than relying on Python code.",
+      "range": {
+        "startLine": 82,
+        "startChar": 45,
+        "endLine": 82,
+        "endChar": 54
+      },
+      "revId": "c172fc862b3162ac0fbabea4e9464d3badc8b0b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_94578a26",
+        "filename": "csit/suites/netconf/scale/mountunmount.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-27T17:02:58Z",
+      "side": 1,
+      "message": "Oh, this removes the line with prompt fragment.\nDocument thoroughly and move to SSHKeywords.",
+      "range": {
+        "startLine": 93,
+        "startChar": 73,
+        "endLine": 93,
+        "endChar": 78
+      },
+      "revId": "c172fc862b3162ac0fbabea4e9464d3badc8b0b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_34401e56",
+        "filename": "csit/suites/netconf/scale/mountunmount.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-27T17:02:58Z",
+      "side": 1,
+      "message": "These few Keywords fit into a separate Resource.\nWill they be moved, or will you keep them in this suite to reduce scenarios they should handle?",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 26
+      },
+      "revId": "c172fc862b3162ac0fbabea4e9464d3badc8b0b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_94054a16",
+        "filename": "csit/suites/netconf/scale/mountunmount.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-27T17:02:58Z",
+      "side": 1,
+      "message": "Make sure previous lines do not fail out of this Keyword without executing this.",
+      "range": {
+        "startLine": 127,
+        "startChar": 15,
+        "endLine": 127,
+        "endChar": 50
+      },
+      "revId": "c172fc862b3162ac0fbabea4e9464d3badc8b0b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_3417be53",
+        "filename": "csit/suites/netconf/scale/mountunmount.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-27T17:02:58Z",
+      "side": 1,
+      "message": "Another Resourcable block, which begs for its own variables file.\n\nSuch pretty-printing to Robot console may be useful when one is debugging a long-running suite (ability to abort and not care about log.html or karaf.log).\n\nIdeally, all of this will be hidden in a resource, which itself would react to option variables; so that people not liking it could keep it disabled.\n\nOverall a nice functionality, but current implementation without Documentation is not helping with review times.",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 9
+      },
+      "revId": "c172fc862b3162ac0fbabea4e9464d3badc8b0b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_d40bd229",
+        "filename": "csit/suites/netconf/scale/mountunmount.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-27T17:02:58Z",
+      "side": 1,
+      "message": "Was this supposed to be (also) a performance suite? All this logging and waiting does not help. Write the answer to Documentation in Settings table.",
+      "range": {
+        "startLine": 165,
+        "startChar": 69,
+        "endLine": 165,
+        "endChar": 73
+      },
+      "revId": "c172fc862b3162ac0fbabea4e9464d3badc8b0b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
