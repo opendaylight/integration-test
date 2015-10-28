@@ -211,6 +211,30 @@
     },
     {
       "key": {
+        "uuid": "dad5f5cf_20dd3443",
+        "filename": "csit/suites/netconf/scale/mountunmount.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-28T16:15:44Z",
+      "side": 1,
+      "message": "\u003e \"atexit\" set of keywords\n\nHow would specifying what to do in test case teardown using \"atexit\" keyword be easier than just defining the aggregate teardown keyword in the suite?",
+      "parentUuid": "dad5f5cf_f7ab78d4",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 9
+      },
+      "revId": "c172fc862b3162ac0fbabea4e9464d3badc8b0b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dad5f5cf_d40bd229",
         "filename": "csit/suites/netconf/scale/mountunmount.robot",
         "patchSetId": 13
@@ -246,6 +270,30 @@
       "side": 1,
       "message": "The logging is to be able to track down interesting log messages in karaf.log when a mounting failure occurs and to see in which part of the mounting process (issuing the mount command or waiting for the device to become accessible on the mount point) the failure occured (that is not possible without these Log_Messages_To_Controller_Karaf keyword invocations).",
       "parentUuid": "dad5f5cf_d40bd229",
+      "range": {
+        "startLine": 165,
+        "startChar": 69,
+        "endLine": 165,
+        "endChar": 73
+      },
+      "revId": "c172fc862b3162ac0fbabea4e9464d3badc8b0b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_40e2b804",
+        "filename": "csit/suites/netconf/scale/mountunmount.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-28T16:15:44Z",
+      "side": 1,
+      "message": "So this is not a performance suite, this is suite for reproducing a known Bug?",
+      "parentUuid": "dad5f5cf_97e6ac43",
       "range": {
         "startLine": 165,
         "startChar": 69,
