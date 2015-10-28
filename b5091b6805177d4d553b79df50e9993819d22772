@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_203bf4ec",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-asymmetric-chain/998_clean_odl.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-28T20:01:14Z",
+      "side": 1,
+      "message": "I made comments on a similar file in patch 27543 if you could please see those.",
+      "revId": "b5091b6805177d4d553b79df50e9993819d22772",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_40407856",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/998_clean_odl.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-28T20:01:14Z",
+      "side": 1,
+      "message": "this file is the same as the other file in this patch?",
+      "revId": "b5091b6805177d4d553b79df50e9993819d22772",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
