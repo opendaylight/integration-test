@@ -8,6 +8,12 @@ Documentation     Robot keyword library (Resource) for implementing fail fast be
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
 ...
+...               DEPRECATED: The recoomended usage (see below) creates
+...               tricky code that is hard to read by those who are not
+...               already familiar with this module and all its
+...               peculiarities. Additionally, this is not compatible with
+...               the new style setup and teardown.
+...
 ...               This Resource uses suite variable SuiteFastFail, beware of possible conflicts.
 ...
 ...               Recommended usage:
@@ -22,19 +28,20 @@ Documentation     Robot keyword library (Resource) for implementing fail fast be
 ...               If success of such "run even when failing" test case can return the system under test
 ...               back to corret state, call at the end of such test case this:
 ...               Do_Not_Fail_Fast_From_Now_On
+Resource          FastFailing.robot
 
 *** Keywords ***
 Do_Not_Fail_Fast_From_Now_On
     [Documentation]    Set suite to not fail fast.
-    BuiltIn.Set_Suite_Variable    ${SuiteFastFail}    False
+    FastFailing.FastFailing__Stop_Failing_Fast
 
 Fail_This_Fast_On_Previous_Error
     [Documentation]    Mark (immediately) this test case as failed when fast-fail is enabled in suite.
-    BuiltIn.Run_Keyword_If    '''${SuiteFastFail}'''=='True'    BuiltIn.Fail    SKIPPED due to a failure in a previous fundamental test case.
+    FastFailing.FastFailing__Check_Previous_Suite_Status
 
 Start_Failing_Fast_If_This_Failed
     [Documentation]    Set suite fail fast behavior on, if current test case has failed.
-    BuiltIn.Run_Keyword_If_Test_Failed    BuiltIn.Set_Suite_Variable    ${SuiteFastFail}    True
+    FastFailing.FastFailing__Start_Failing_Fast_On_Failure
 
 Run_Even_When_Failing_Fast
     [Documentation]    This is just a more readable 'None' to override [Setup].
