@@ -1,0 +1,349 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_85ee7221",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-28T13:22:32Z",
+      "side": 1,
+      "message": "Expand to distinguish from ConfigViaRestconf.",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 46
+      },
+      "revId": "889742e1e2e4e19dbc1cb525fe640bc2dbb2a57f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_652cae4b",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-28T13:22:32Z",
+      "side": 1,
+      "message": "NetconfKeywords__*",
+      "range": {
+        "startLine": 21,
+        "startChar": 36,
+        "endLine": 21,
+        "endChar": 56
+      },
+      "revId": "889742e1e2e4e19dbc1cb525fe640bc2dbb2a57f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_45140af5",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-28T13:22:32Z",
+      "side": 1,
+      "message": "Some Resources require this to be already defined.\nDoes Create_Session tolerate multiple calls for the same alias? If not, this Resource too should only require the calling suite to have this session created.",
+      "range": {
+        "startLine": 27,
+        "startChar": 20,
+        "endLine": 27,
+        "endChar": 49
+      },
+      "revId": "889742e1e2e4e19dbc1cb525fe640bc2dbb2a57f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_a50296b2",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-28T13:22:32Z",
+      "side": 1,
+      "message": "I think I have suggested to make this default value for new argument already in a past patch set.",
+      "range": {
+        "startLine": 32,
+        "startChar": 71,
+        "endLine": 32,
+        "endChar": 78
+      },
+      "revId": "889742e1e2e4e19dbc1cb525fe640bc2dbb2a57f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_65dd8e14",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-28T13:22:32Z",
+      "side": 1,
+      "message": "Perhaps \"Connected\" is better description for this check, mounted implies something will be there under yang-ext:mount.\nBut I am not sure there will be \"real mount\" check, so no big deal right now.",
+      "range": {
+        "startLine": 50,
+        "startChar": 13,
+        "endLine": 50,
+        "endChar": 20
+      },
+      "revId": "889742e1e2e4e19dbc1cb525fe640bc2dbb2a57f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_2526a669",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-28T13:22:32Z",
+      "side": 1,
+      "message": "space",
+      "range": {
+        "startLine": 52,
+        "startChar": 32,
+        "endLine": 52,
+        "endChar": 34
+      },
+      "revId": "889742e1e2e4e19dbc1cb525fe640bc2dbb2a57f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_e5d09ef9",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-28T13:22:32Z",
+      "side": 1,
+      "message": "This may happen before Check_Device_Mounted starts failing, as described in https://bugs.opendaylight.org/show_bug.cgi?id\u003d4356\nUsers may assume this Keyword waits for the very last visible state change before returning.\nIn either case, Documentation should mention some of this.",
+      "range": {
+        "startLine": 69,
+        "startChar": 70,
+        "endLine": 69,
+        "endChar": 107
+      },
+      "revId": "889742e1e2e4e19dbc1cb525fe640bc2dbb2a57f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_a5da9615",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-28T13:22:32Z",
+      "side": 1,
+      "message": "http://robotframework.org/robotframework/latest/libraries/BuiltIn.html#Set%20Variable%20If",
+      "range": {
+        "startLine": 75,
+        "startChar": 19,
+        "endLine": 75,
+        "endChar": 62
+      },
+      "revId": "889742e1e2e4e19dbc1cb525fe640bc2dbb2a57f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_8530b257",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-28T13:22:32Z",
+      "side": 1,
+      "message": "The previous line gets stdout, but useful text would be in stderr.",
+      "range": {
+        "startLine": 85,
+        "startChar": 21,
+        "endLine": 85,
+        "endChar": 29
+      },
+      "revId": "889742e1e2e4e19dbc1cb525fe640bc2dbb2a57f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_250c6694",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-28T13:22:32Z",
+      "side": 1,
+      "message": "Explain this special value in Documentation.",
+      "range": {
+        "startLine": 88,
+        "startChar": 55,
+        "endLine": 88,
+        "endChar": 59
+      },
+      "revId": "889742e1e2e4e19dbc1cb525fe640bc2dbb2a57f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_45116aab",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-28T13:22:32Z",
+      "side": 1,
+      "message": "This prohibits users from using absolute paths when specifying DIRECTORY_FOR_SCHEMAS option.",
+      "range": {
+        "startLine": 93,
+        "startChar": 58,
+        "endLine": 93,
+        "endChar": 60
+      },
+      "revId": "889742e1e2e4e19dbc1cb525fe640bc2dbb2a57f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_e525fe0a",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-28T13:22:32Z",
+      "side": 1,
+      "message": "How do we know this ends up equivalent to what line 93 does? I recommend to call readlink -e on remote machine to get absolute patch.\nOr, if there is no time to develop yet another Resource, just write current limitations into Documentation (both keyword- and file- level).",
+      "range": {
+        "startLine": 94,
+        "startChar": 30,
+        "endLine": 94,
+        "endChar": 36
+      },
+      "revId": "889742e1e2e4e19dbc1cb525fe640bc2dbb2a57f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_857e72e3",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-28T13:22:32Z",
+      "side": 1,
+      "message": "Very similar to what pcep suites do. Add a TODO towards reducing code duplication.",
+      "range": {
+        "startLine": 105,
+        "startChar": 6,
+        "endLine": 105,
+        "endChar": 13
+      },
+      "revId": "889742e1e2e4e19dbc1cb525fe640bc2dbb2a57f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_258306ce",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-28T13:22:32Z",
+      "side": 1,
+      "message": "Write one.",
+      "range": {
+        "startLine": 123,
+        "startChar": 18,
+        "endLine": 123,
+        "endChar": 19
+      },
+      "revId": "889742e1e2e4e19dbc1cb525fe640bc2dbb2a57f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_65602e36",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-28T13:22:32Z",
+      "side": 1,
+      "message": "TODO to unify with play.py and pcc-mock handling.",
+      "range": {
+        "startLine": 131,
+        "startChar": 27,
+        "endLine": 131,
+        "endChar": 39
+      },
+      "revId": "889742e1e2e4e19dbc1cb525fe640bc2dbb2a57f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
