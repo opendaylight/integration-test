@@ -10,10 +10,10 @@ Documentation     Basic tests for odl-bgpcep-bgp-all feature.
 ...
 ...               Brief description of what this suite should do:
 ...               https://wiki.opendaylight.org/view/BGP_LS_PCEP:Lithium_Feature_Tests#How_to_test_2
-Suite Setup       Setup_Everything
-Suite Teardown    Teardown_Everything
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
-Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
+Suite Setup       SetupAndTeardown.Generic_Suite_Setup
+Suite Teardown    SetupAndTeardown.Generic_Suite_Teardown
+Test Setup        SetupAndTeardown.Generic_Test_Setup
+Test Teardown     SetupAndTeardown.Generic_Test_Teardown
 Library           OperatingSystem
 Library           SSHLibrary    prompt=]>    timeout=10s    # FIXME: The prompt should have default value from a common resource, and should be overwritable by pybot -v in scripts.
 Library           RequestsLibrary
@@ -22,10 +22,10 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${MININET}
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
-Resource          ${CURDIR}/../../../libraries/FailFast.robot
+Resource          ${CURDIR}/../../../libraries/FastFailing.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource          ${CURDIR}/../../../libraries/SetupAndTeardown.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
@@ -40,6 +40,7 @@ ${HOLDTIME}       180
 Check_For_Empty_Topology_Before_Talking
     [Documentation]    Sanity check example-ipv4-topology is up but empty.
     [Tags]    critical
+    [Setup]    FastFailing.Enable
     Wait_For_Topology_To_Change_To    ${empty_json}    010_Empty.json    timeout=120s
     # TODO: Verify that 120 seconds is not too short if this suite is run immediatelly after ODL is started.
 
@@ -63,14 +64,12 @@ Check_Talking_Topology_Is_Filled
     [Documentation]    See new routes in example-ipv4-topology as a proof that synchronization was correct.
     [Tags]    critical
     Wait_For_Topology_To_Change_To    ${filled_json}    020_Filled.json
+    [Teardown]    FastFailing.Disable
 
 Kill_Talking_BGP_Speaker
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    [Setup]    FastFailing.Enable
     BGPSpeaker.Kill_BGP_Speaker
-    FailFast.Do_Not_Fail_Fast_From_Now_On
-    # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
-    [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
 
 Check_For_Empty_Topology_After_Talking
     [Documentation]    See example-ipv4-topology empty again.
@@ -104,19 +103,18 @@ Check_Listening_Topology_Is_Filled
     [Documentation]    See new routes in example-ipv4-topology as a proof that synchronization was correct.
     [Tags]    critical
     Wait_For_Topology_To_Change_To    ${filled_json}    050_Filled.json
+    [Teardown]    FastFailing.Disable
 
 Kill_Listening_BGP_Speaker
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    [Setup]    FastFailing.Enable
     BGPSpeaker.Kill_BGP_Speaker
-    FailFast.Do_Not_Fail_Fast_From_Now_On
-    # NOTE: It is still possible to remain failing, if both previous and this test failed.
-    [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
 
 Check_For_Empty_Topology_After_Listening
     [Documentation]    Post-condition: Check example-ipv4-topology is empty again.
     [Tags]    critical
     Wait_For_Topology_To_Change_To    ${empty_json}    060_Empty.json
+    [Teardown]    FastFailing.Disable
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
@@ -128,7 +126,6 @@ Delete_Bgp_Peer_Configuration
 Setup_Everything
     [Documentation]    SSH-login to mininet machine, save prompt to variable, create HTTP session,
     ...    prepare directories for responses, put Python tool to mininet machine, setup imported resources.
-    SetupUtils.Setup_Utils_For_Setup_And_Teardown
     SSHLibrary.Open_Connection    ${MININET}
     Utils.Flexible_SSH_Login    ${MININET_USER}    ${MININET_PASSWORD}
     ${current_connection}=    Get_Connection
