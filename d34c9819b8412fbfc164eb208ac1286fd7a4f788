@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_2b20b59a",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 82
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-28T20:39:23Z",
+      "side": 1,
+      "message": "since this is more \"setup\" than a test it would fit better in your Setup_Everything keyword.\n\nnot a blocker from me though.",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 129
+      },
+      "revId": "d34c9819b8412fbfc164eb208ac1286fd7a4f788",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
