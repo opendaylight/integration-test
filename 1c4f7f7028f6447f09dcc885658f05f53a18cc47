@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_6031fc0a",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/010_set_odl.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-28T19:58:47Z",
+      "side": 1,
+      "message": "I saw something similar (if not identical) in patch 27543) where I suggested doing this in a FOR loop and making a list of files up in the *** Variables *** section.  This would make it scale easier down the road.",
+      "range": {
+        "startLine": 80,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 72
+      },
+      "revId": "1c4f7f7028f6447f09dcc885658f05f53a18cc47",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
