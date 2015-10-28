@@ -6,12 +6,9 @@ Documentation     Robot keyword library (Resource) for common handling of data c
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
-...
-...
-...               This resource assumes that RequestsLibrary has open a connection named "operational"
-...               which points to (an analogue of) http://${ODL_SYSTEM_IP}:${RESTCONFPORT}/${OPERATIONAL_API}
 Library           RequestsLibrary
 Resource          ${CURDIR}/ConfigViaRestconf.robot
+Resource          ${CURDIR}/RequestKeywords.robot
 Resource          ${CURDIR}/ScalarClosures.robot
 Resource          ${CURDIR}/WaitUtils.robot
 
@@ -21,6 +18,7 @@ ${CHANGE_COUNTER_TEMPLATE_FOLDER}    ${CURDIR}/../variables/bgpuser
 *** Keywords ***
 CC_Setup
     [Documentation]    Initialize dependency libraries.
+    RequestKeywords.Create_Operational_Requests_Session
     ConfigViaRestconf.Setup_Config_Via_Restconf
     WaitUtils.WU_Setup    # includes ScalarClosures.SC_Setup
     ${counter} =    ScalarClosures.Closure_From_Keyword_And_Arguments    Get_Change_Count

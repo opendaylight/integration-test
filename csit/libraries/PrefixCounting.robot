@@ -10,15 +10,14 @@ Documentation     Robot keyword library (Resource) for common BGP actions concer
 ...
 ...               Currently, all keywords count prefixes only in example-ipv4-topology.
 ...               Prefix is identified by simplistic regular expression on JSON data.
-...
-...               This resource assumes that RequestsLibrary has open a connection named "operational"
-...               which points to (an analogue of) http://${ODL_SYSTEM_IP}:${RESTCONFPORT}/${OPERATIONAL_API}
 Library           RequestsLibrary
+Resource          ${CURDIR}/RequestKeywords.robot
 Resource          ${CURDIR}/WaitUtils.robot
 
 *** Keywords ***
 PC_Setup
     [Documentation]    Call dependency setups and construct suite variables.
+    RequestKeywords.Create_Operational_Requests_Session
     WaitUtils.WU_Setup    # includes ScalarClosures.SC_Setup
     ${getter} =    ScalarClosures.Closure_From_Keyword_And_Arguments    Get_Ipv4_Topology_Count
     BuiltIn.Set_Suite_Variable    ${PrefixCounting__getter}    ${getter}
