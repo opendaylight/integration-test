@@ -1,0 +1,193 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_6bba3de3",
+        "filename": "csit/suites/didm/HP3800/device_discovery.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-28T23:52:33Z",
+      "side": 1,
+      "message": "we already have this defined in Variables.py so no need to redefine it here.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 69
+      },
+      "revId": "cb75ede40ef119dd7e9f470cb641a8f124d978dc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_8bbf61d0",
+        "filename": "csit/suites/didm/HP3800/device_discovery.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-28T23:52:33Z",
+      "side": 1,
+      "message": "so, all of these Variables should have generic names that we will expect to override on the pybot command line.  you can default them to whatever (I suggest defaulting to OVS values though so upstream runs as-is, and downstream overrides for their specific platforms)\n\nexamples:\n\n${DEVICE_IP}    ${TOOLS_SYSTEM_IP}  # this is the mininet system ip where you\u0027ll likely get your OVS switch from\n\n${DEVICE_TYPE}    ovs:ovs-device-type\n\netc.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 27
+      },
+      "revId": "cb75ede40ef119dd7e9f470cb641a8f124d978dc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_4bb979e8",
+        "filename": "csit/suites/didm/HP3800/device_discovery.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-28T23:52:33Z",
+      "side": 1,
+      "message": "this line wont work, as upstream wont have that ip available.",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 57
+      },
+      "revId": "cb75ede40ef119dd7e9f470cb641a8f124d978dc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_ebcdcd87",
+        "filename": "csit/suites/didm/HP3800/device_discovery.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-28T23:52:33Z",
+      "side": 1,
+      "message": "so, in all the test cases below, you can remove HP3800 from the test case name.",
+      "revId": "cb75ede40ef119dd7e9f470cb641a8f124d978dc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_0bcb7173",
+        "filename": "csit/suites/didm/HP3800/device_discovery.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-28T23:52:33Z",
+      "side": 1,
+      "message": "this would change to ${DEVICE_IP}",
+      "range": {
+        "startLine": 50,
+        "startChar": 65,
+        "endLine": 50,
+        "endChar": 77
+      },
+      "revId": "cb75ede40ef119dd7e9f470cb641a8f124d978dc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_6ba1dda8",
+        "filename": "csit/suites/didm/HP3800/device_discovery.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-28T23:52:33Z",
+      "side": 1,
+      "message": "you can skip the \"should contain\" line below by replacing this with \"Pass Execution\" instead of \"Exit For Loop\"",
+      "range": {
+        "startLine": 54,
+        "startChar": 67,
+        "endLine": 54,
+        "endChar": 79
+      },
+      "revId": "cb75ede40ef119dd7e9f470cb641a8f124d978dc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_abc7c563",
+        "filename": "csit/suites/didm/HP3800/device_discovery.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-28T23:52:33Z",
+      "side": 1,
+      "message": "this goes to ${DEVICE_TYPE}",
+      "range": {
+        "startLine": 54,
+        "startChar": 30,
+        "endLine": 54,
+        "endChar": 48
+      },
+      "revId": "cb75ede40ef119dd7e9f470cb641a8f124d978dc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_8ba681c0",
+        "filename": "csit/suites/didm/HP3800/device_discovery.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-28T23:52:33Z",
+      "side": 1,
+      "message": "so, same logic as what I commented on in the above test case would apply to the next test cases.",
+      "revId": "cb75ede40ef119dd7e9f470cb641a8f124d978dc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_cbed69f1",
+        "filename": "csit/suites/didm/HP3800/device_discovery.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-28T23:52:33Z",
+      "side": 1,
+      "message": "I think all of these keywords should go in a libraries/DIDMKeywords.robot library as I\u0027m sure more DIDM suites will be forthcoming.",
+      "revId": "cb75ede40ef119dd7e9f470cb641a8f124d978dc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
