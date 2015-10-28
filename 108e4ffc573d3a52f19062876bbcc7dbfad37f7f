@@ -1,0 +1,222 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_a09284f4",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp1/999_teardown.robot",
+        "patchSetId": 80
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-28T19:40:42Z",
+      "side": 1,
+      "message": "so, unless I missed it your library file in this directory is only defining two keywords and those keywords are only used in one file each.  So instead of moving it to the libraries file you can think about just making those keywords local to each file that uses them.",
+      "range": {
+        "startLine": 19,
+        "startChar": 9,
+        "endLine": 19,
+        "endChar": 32
+      },
+      "revId": "108e4ffc573d3a52f19062876bbcc7dbfad37f7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_c08f88cb",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp2-multitenant/000_setup.robot",
+        "patchSetId": 80
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-28T19:40:42Z",
+      "side": 1,
+      "message": "ignore my other comment about these keywords only being used in a single file.  Looks like you\u0027ll want to take them to the libraries folder, probably in libraries/GBPKeywords.robot",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 24
+      },
+      "revId": "108e4ffc573d3a52f19062876bbcc7dbfad37f7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_60bc9c6d",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp2-multitenant/001_set_odl.robot",
+        "patchSetId": 80
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-28T19:40:42Z",
+      "side": 1,
+      "message": "this is common to another suite file, IIRC.  I suggest placing in a single place test/csit/variables/GBP/",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 93
+      },
+      "revId": "108e4ffc573d3a52f19062876bbcc7dbfad37f7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_80c180e6",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp2-multitenant/001_set_odl.robot",
+        "patchSetId": 80
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-28T19:40:42Z",
+      "side": 1,
+      "message": "see my other comment about how to make this scale easier.\n\nAlso, this is grouped as a \"test case\", but the only thing that will be checked is that response code is 200.  did you want to add a check to GET some URI to verify what you have created is actually there?",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 72
+      },
+      "revId": "108e4ffc573d3a52f19062876bbcc7dbfad37f7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_20b6948b",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp2-multitenant/998_clean_odl.robot",
+        "patchSetId": 80
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-28T19:40:42Z",
+      "side": 1,
+      "message": "these things should be there in Utils.robot, and if not you can add them there",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 60
+      },
+      "revId": "108e4ffc573d3a52f19062876bbcc7dbfad37f7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_40bb9872",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp2-multitenant/998_clean_odl.robot",
+        "patchSetId": 80
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-28T19:40:42Z",
+      "side": 1,
+      "message": "when, if you move this to Utils.robot, you can use a default argument like \"${type}\u003dyang.data+json\" so that it can be used by others that might want to use a different type (e.g. json)",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 29
+      },
+      "revId": "108e4ffc573d3a52f19062876bbcc7dbfad37f7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_e0af2c2a",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/Variables.robot",
+        "patchSetId": 80
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-28T19:40:42Z",
+      "side": 1,
+      "message": "same comment on this file, as the other variables file.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 54
+      },
+      "revId": "108e4ffc573d3a52f19062876bbcc7dbfad37f7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_00ad9031",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/__init__.robot",
+        "patchSetId": 80
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-28T19:40:42Z",
+      "side": 1,
+      "message": "this is exact same work as the other __init__ file?",
+      "revId": "108e4ffc573d3a52f19062876bbcc7dbfad37f7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_c0a6a853",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-asymmetric-chain/031_track_icmp_h35_2_h36_2.robot",
+        "patchSetId": 80
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-28T19:40:42Z",
+      "side": 1,
+      "message": "writing this one comment here, but it applies to a lot of these suites (especially the xxx_track* suites).  the test cases look so similar that making a larger single keyword to handle all the work seems to make sense and you just pass the things that are different to that keyword.\n\nIt would be a big re-work, but improving and maintaining a single keyword that is used in so many places seems worth it.",
+      "revId": "108e4ffc573d3a52f19062876bbcc7dbfad37f7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_60633c1b",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/000_setup.robot",
+        "patchSetId": 80
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-28T19:40:42Z",
+      "side": 1,
+      "message": "I feel like I\u0027ve seen this before?  looks like a good candidate for a keyword in libraries/GBPKeywords.robot",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 51
+      },
+      "revId": "108e4ffc573d3a52f19062876bbcc7dbfad37f7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
