@@ -22,19 +22,19 @@ Documentation     BGP performance of ingesting from 1 iBGP peer, data change cou
 ...
 ...               The prefix counting is quite heavyweight and may induce large variation in time.
 ...               Try the other version of the suite (singlepeer_changecount.robot) to get better precision.
-Suite Setup       Setup_Everything
-Suite Teardown    Teardown_Everything
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
-Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
+Suite Setup       SetupAndTeardown.Generic_Suite_Setup
+Suite Teardown    SetupAndTeardown.Generic_Suite_Teardown
+Test Setup        SetupAndTeardown.Generic_Test_Setup
+Test Teardown     SetupAndTeardown.Generic_Test_Teardown
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
 Variables         ${CURDIR}/../../../variables/Variables.py
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
-Resource          ${CURDIR}/../../../libraries/FailFast.robot
+Resource          ${CURDIR}/../../../libraries/FastFailing.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
 Resource          ${CURDIR}/../../../libraries/PrefixCounting.robot
-Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource          ${CURDIR}/../../../libraries/SetupAndTeardown.robot
 
 *** Variables ***
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
@@ -51,6 +51,7 @@ ${last_prefix_count}    -1
 *** Test Cases ***
 Check_For_Empty_Ipv4_Topology_Before_Talking
     [Documentation]    Wait for example-ipv4-topology to come up and empty. Give large timeout for case when BGP boots slower than restconf.
+    [Setup]    FastFailing.Enable
     [Tags]    critical
     # TODO: Choose which tags to assign and make sure they are assigned correctly.
     BuiltIn.Wait_Until_Keyword_Succeeds    120s    1s    PrefixCounting.Check_Ipv4_Topology_Is_Empty
@@ -73,21 +74,19 @@ Check_Talking_Ipv4_Topology_Count
     [Documentation]    Count the routes in example-ipv4-topology and fail if the count is not correct.
     [Tags]    critical
     PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT_PREFIX_COUNT}
+    [Teardown]    FastFailing.Disable
 
 Kill_Talking_BGP_Speaker
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    [Setup]    FastFailing.Enable
     BGPSpeaker.Kill_BGP_Speaker
-    FailFast.Do_Not_Fail_Fast_From_Now_On
-    # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
-    [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
 
 Wait_For_Stable_Ipv4_Topology_After_Talking
     [Documentation]    Wait until example-ipv4-topology becomes stable again.
     [Tags]    critical
     # TODO: Is is possible to have failed at Check_Talking_Ipv4_Topology_Count and still have initial period of constant count?
     # FIXME: If yes, do count here to get the initial value and use it (if nonzero).
-    # TODO: If yes, decide whether access to the FailFast state should have keyword or just variable name.
+    # TODO: If yes, decide whether access to the FastFailing state should have keyword or just variable name.
     PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_PREFIX_COUNT}    repetitions=${REPETITIONS_PREFIX_COUNT}    excluded_count=${COUNT_PREFIX_COUNT}
 
 Check_For_Empty_Ipv4_Topology_After_Talking
@@ -112,14 +111,12 @@ Check_Listening_Ipv4_Topology_Count
     [Documentation]    Count the routes in example-ipv4-topology and fail if the count is not correct.
     [Tags]    critical
     PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT_PREFIX_COUNT}
+    [Teardown]    FastFailing.Disable
 
 Kill_Listening_BGP_Speaker
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    [Setup]    FastFailing.Enable
     BGPSpeaker.Kill_BGP_Speaker
-    FailFast.Do_Not_Fail_Fast_From_Now_On
-    # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
-    [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
 
 Wait_For_Stable_Ipv4_Topology_After_Listening
     [Documentation]    Wait until example-ipv4-topology becomes stable again.
@@ -130,10 +127,10 @@ Check_For_Empty_Ipv4_Topology_After_Listening
     [Documentation]    Example-ipv4-topology should be empty now.
     [Tags]    critical
     PrefixCounting.Check_Ipv4_Topology_Is_Empty
+    [Teardown]    FastFailing.Disable
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     ${template_as_string} =    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer'}
     ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
 
@@ -141,7 +138,6 @@ Delete_Bgp_Peer_Configuration
 Setup_Everything
     [Documentation]    Setup imported resources, SSH-login to tools system,
     ...    create HTTP session, put Python tool to tools system.
-    SetupUtils.Setup_Utils_For_Setup_And_Teardown
     ConfigViaRestconf.Setup_Config_Via_Restconf
     PrefixCounting.PC_Setup
     SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
