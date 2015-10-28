@@ -1,0 +1,107 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_60825c54",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 80
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-28T15:13:00Z",
+      "side": 1,
+      "message": "Do not revert this case.",
+      "range": {
+        "startLine": 98,
+        "startChar": 25,
+        "endLine": 98,
+        "endChar": 26
+      },
+      "revId": "0ae0deeafe69598c0d15281543b7d88239d6e60f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_e0672ce9",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 80
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-28T15:13:00Z",
+      "side": 1,
+      "message": "What is the reason for this increase?",
+      "range": {
+        "startLine": 212,
+        "startChar": 68,
+        "endLine": 212,
+        "endChar": 69
+      },
+      "revId": "0ae0deeafe69598c0d15281543b7d88239d6e60f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_40815849",
+        "filename": "csit/testplans/bgpcep-bgp-ingest-mixed.txt",
+        "patchSetId": 80
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-28T15:13:00Z",
+      "side": 1,
+      "message": "Is there a plan to run separate performance job different from the one that uses bgpcep-bgp-ingest.txt?",
+      "revId": "0ae0deeafe69598c0d15281543b7d88239d6e60f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_207c5472",
+        "filename": "csit/testplans/bgpcep-bgp-ingest-straightforward.txt",
+        "patchSetId": 80
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-28T15:13:00Z",
+      "side": 1,
+      "message": "What is the point of this file? It is identical to the *-mixed one.",
+      "revId": "0ae0deeafe69598c0d15281543b7d88239d6e60f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_407398b1",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 80
+      },
+      "lineNbr": 599,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-28T15:13:00Z",
+      "side": 1,
+      "message": "These lines take more space than just putting the values into arguments in call site, I see no reason to support default values this way.",
+      "range": {
+        "startLine": 599,
+        "startChar": 29,
+        "endLine": 599,
+        "endChar": 56
+      },
+      "revId": "0ae0deeafe69598c0d15281543b7d88239d6e60f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
