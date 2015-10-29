@@ -1,15 +1,24 @@
 *** Settings ***
-Documentation     Karaf library. This library is useful to deal with controller Karaf console.
+Documentation     Karaf library. This library is useful to deal with controller Karaf console for ssh sessions in cluster.
+...               Running Setup Karaf Keywords is necessary.
 Library           SSHLibrary
 Library           OperatingSystem
+Resource          ${CURDIR}/ClusterManagement.robot
 Resource          ${CURDIR}/SSHKeywords.robot
 Variables         ${CURDIR}/../variables/Variables.py
 
 *** Variables ***
 ${WORKSPACE}      /tmp
-${KarafKeywords__karaf_connection_index}    -1
+${connection_index_dict}    &{EMPTY}
 
 *** Keywords ***
+Setup Karaf Keywords
+    [Documentation]    Initialize ClusterManagement. Open ssh karaf connections to each ODL.
+    ClusterManagement.ClusterManagement_Setup
+    BuiltIn.Comment    First connections to Karaf console may fail, so WUKS is used. TODO: Track as a Bug.
+    : FOR    ${index}    IN    @{ClusterManagement__member_index_list}
+    \    BuiltIn.Wait_Until_Keyword_Succeeds    3x    0.2s    Open Controller Karaf Console On Background    member_index=${index}
+
 Verify Feature Is Installed
     [Arguments]    ${feature_name}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}
     [Documentation]    Will Succeed if the given ${feature_name} is found in the output of "feature:list -i"
@@ -86,77 +95,3 @@ Uninstall a Feature
     ${output}=    Issue Command On Karaf Console    feature:uninstall ${feature_name}    ${controller}    ${karaf_port}    ${timeout}
     Log    ${output}
     [Return]    ${output}
-
-Open Controller Karaf Console On Background
-    [Documentation]    Connect to the controller's karaf console, but do not switch to it.
-    ${current_ssh_connection}=    SSHLibrary.Get Connection
-    SSHLibrary.Open Connection    ${ODL_SYSTEM_IP}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_DETAILED_PROMPT}
-    ${karaf_connection}=    SSHLibrary.Get Connection
-    SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}
-    BuiltIn.Set Suite Variable    ${KarafKeywords__karaf_connection_index}    ${karaf_connection.index}
-    [Teardown]    SSHKeywords.Restore Current SSH Connection From Index    ${current_ssh_connection.index}
-
-Configure Timeout For Karaf Console
-    [Arguments]    ${timeout}
-    [Documentation]    Configure a different timeout for the Karaf console
-    BuiltIn.Run Keyword If    ${KarafKeywords__karaf_connection_index} == -1    Fail    Need to connect to a Karaf Console first
-    ${current_connection_index}=    SSHLibrary.Switch Connection    ${KarafKeywords__karaf_connection_index}
-    SSHLibrary.Set_Client_Configuration    timeout=${timeout}
-    [Teardown]    SshKeywords.Restore Current SSH Connection From Index    ${current_connection_index}
-
-Execute Controller Karaf Command On Background
-    [Arguments]    ${command}
-    [Documentation]    Send command to karaf without affecting current SSH connection. Read, log and return response.
-    ...    This assumes Karaf connection has index saved and correct prompt set.
-    BuiltIn.Run Keyword If    ${KarafKeywords__karaf_connection_index} == -1    Fail    Need to connect to a Karaf Console first
-    ${current_connection_index}=    SSHLibrary.Switch Connection    ${KarafKeywords__karaf_connection_index}
-    ${status_write}    ${message_write}=    BuiltIn.Run Keyword And Ignore Error    SSHLibrary.Write    ${command}
-    ${status_wait}    ${message_wait}=    BuiltIn.Run Keyword And Ignore Error    SSHLibrary.Read Until Prompt
-    BuiltIn.Run Keyword If    '${status_write}' != 'PASS'    BuiltIn.Fail    Failed to send the command: ${command}
-    BuiltIn.Log    ${message_wait}
-    BuiltIn.Run Keyword If    '${status_wait}' != 'PASS'    BuiltIn.Fail    Failed to see prompt after sending the command: ${command}
-    [Teardown]    SshKeywords.Restore Current SSH Connection From Index    ${current_connection_index}
-    [Return]    ${message_wait}
-
-Execute Controller Karaf Command With Retry On Background
-    [Arguments]    ${command}
-    [Documentation]    Attemp to send command to karaf, if fail then open connection and try again.
-    # As an attempt to debug intermittent SSH failures in the karaf logging command, we want to know the avail entropy on the controller system
-    Run Command On Controller    cmd=cat /proc/sys/kernel/random/entropy_avail
-    ${status}    ${message}=    BuiltIn.Run Keyword And Ignore Error    Execute Controller Karaf Command On Background    ${command}
-    BuiltIn.Return_From_Keyword_If    '${status}' == 'PASS'    ${message}
-    # TODO: Verify this does not leak connections indices.
-    Open Controller Karaf Console On Background
-    ${message}=    Execute Controller Karaf Command On Background    ${command}
-    [Return]    ${message}
-
-Log Message To Controller Karaf
-    [Arguments]    ${message}
-    [Documentation]    Send a message into the controller's karaf log file. Do not change current SSH connection.
-    ${reply}=    Execute Controller Karaf Command With Retry On Background    log:log "ROBOT MESSAGE: ${message}"
-    [Return]    ${reply}
-
-Log Test Suite Start To Controller Karaf
-    [Documentation]    Log suite name to karaf log, useful in suite setup.
-    Log Message To Controller Karaf    Starting suite ${SUITE_SOURCE}
-
-Log Testcase Start To Controller Karaf
-    [Documentation]    Log test case name to karaf log, useful in test case setup.
-    Log Message To Controller Karaf    Starting test ${TEST_NAME}
-
-Set Bgpcep Log Levels
-    [Arguments]    ${bgpcep_level}=${DEFAULT_BGPCEP_LOG_LEVEL}    ${protocol_level}=${DEFAULT_PROTOCOL_LOG_LEVEL}
-    [Documentation]    Assuming OCKCOB was used, set logging level on bgpcep and protocol loggers without affecting current SSH session.
-    # FIXME: Move to appropriate Resource
-    Execute Controller Karaf Command On Background    log:set ${bgpcep_level} org.opendaylight.bgpcep
-    Execute Controller Karaf Command On Background    log:set ${protocol_level} org.opendaylight.protocol
-
-Wait For Karaf Log
-    [Arguments]    ${message}    ${timeout}=60
-    [Documentation]    Read karaf logs until message appear
-    Log    Waiting for '${message}' in karaf log
-    Open Connection    ${ODL_SYSTEM_IP}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_PROMPT}    timeout=${timeout}
-    Flexible SSH Login    ${KARAF_USER}    ${KARAF_PASSWORD}
-    Write    log:tail
-    Read Until    ${message}
-    Close Connection
