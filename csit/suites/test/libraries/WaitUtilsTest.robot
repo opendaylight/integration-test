@@ -164,6 +164,11 @@ WFGEOSSVCS_Early_exit
     BuiltIn.Should_Be_Equal    ${status}    FAIL
     BuiltIn.Should_Be_Equal    ${message}    Getter failed: Got negative -1
 
+WFGEOSSVCS_Sleeps_Too_Long
+    [Documentation]    Use getter, standard validator, timeout with a reserve and checks that the expected error=timeout occurred.
+    ${getter} =    Create_Scenario_Getter_Closure    ${stability_scenario}    delay=0s    fail_on_negative=False
+    BuiltIn.Run_Keyword_And_Expect_Error    Not possible to succeed within the deadline. Last result: No result yet.    Wait_For_Getter_Error_Or_Safe_Stateful_Validator_Consecutive_Success    timeout=9.15s    period=2s    count=1    getter=${getter}    safe_validator=${standard_validator}
+
 *** Keywords ***
 WUT_Setup
     [Documentation]    Call Setup keywords of libraries, define reusable variables.
