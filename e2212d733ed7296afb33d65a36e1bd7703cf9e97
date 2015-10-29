@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_dded2ef1",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-asymmetric-chain/998_clean_odl.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-29T15:52:17Z",
+      "side": 1,
+      "message": "Do not convert just to .dumps immediately after. Return and use the string.",
+      "range": {
+        "startLine": 99,
+        "startChar": 15,
+        "endLine": 99,
+        "endChar": 22
+      },
+      "revId": "e2212d733ed7296afb33d65a36e1bd7703cf9e97",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
