@@ -2,7 +2,7 @@
 Documentation     Test suite for Connection Manager
 Suite Setup       Vxlan Extension Test Suite Setup
 Suite Teardown    Vxlan Extension Test Suite Teardown
-Test Setup        Log Testcase Start To Controller Karaf
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Force Tags        Southbound
 Library           OperatingSystem
 Library           String
@@ -11,6 +11,7 @@ Library           SSHLibrary
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
+Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/OVSDB.robot
 
@@ -55,7 +56,7 @@ Get Operational Topology with custom topology
 Add the bridge s1 in the config datastore of OVSDB Node1
     [Documentation]    This request will add already operational bridge to the config data store of the OVSDB node.
     Add Bridge To Ovsdb Node    ${TOOLS_SYSTEM_2_IP}    s1    0000000000000001
-
+[Documentation]
 Add the bridge s2 in the config datastore of OVSDB Node2
     [Documentation]    This request will add already operational bridge to the config data store of the OVSDB node.
     Add Bridge To Ovsdb Node    ${TOOLS_SYSTEM_IP}    s2    0000000000000002
@@ -110,7 +111,9 @@ Check For Bug 4794
 
 *** Keywords ***
 Vxlan Extension Test Suite Setup
-    Open Controller Karaf Console On Background
+    [Documentation]    Initialize SetupUtils, open controller karaf console, create session.
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    KarafKeywords.Open Controller Karaf Console On Background
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 
 Vxlan Extension Test Suite Teardown
