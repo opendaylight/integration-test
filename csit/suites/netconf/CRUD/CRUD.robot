@@ -16,7 +16,8 @@ Documentation     netconf-connector CRUD test suite.
 ...               aimed at getting interesting pieces of data from the XML files and checking
 ...               them against expected data sets. See MDSAL/northbound.robot suite for
 ...               additional information.
-Suite Setup       Setup_Everything
+Suite Setup       BuiltIn.Run Keywords    KarafKeywords.Setup Karaf Keywords
+...               AND    Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           Collections
