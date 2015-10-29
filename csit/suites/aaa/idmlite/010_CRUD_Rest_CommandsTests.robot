@@ -6,7 +6,9 @@ Documentation     Basic REST AAA Tests for IdMLight
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/ep1-v10.html
-Suite Setup       IdMLight Suite Setup
+Suite Setup       BuiltIn.Run Keywords    KarafKeywords.Setup Karaf Keywords
+...               AND    IdMLight Suite Setup
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Suite Teardown    IdMLight Suite Teardown
 Library           Collections
 Library           RequestsLibrary
@@ -16,6 +18,8 @@ Library           HttpLibrary.HTTP
 Library           DateTime
 Library           ../../../libraries/Common.py
 Library           ../../../libraries/AAAJsonUtils.py
+Resource          ../../../libraries/KarafKeywords.robot
+Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/AAAKeywords.robot
