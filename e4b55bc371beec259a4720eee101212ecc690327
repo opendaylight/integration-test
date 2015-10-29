@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "dad5f5cf_9df32673",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 83
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-29T17:18:16Z",
+      "side": 1,
+      "message": "Ah, just found your explanation. \n\n```\nComments related to loging\n--------------------------\n- usage of lazing logging instead of conditional log method calling\n  - measured total generation time for next 3 options (dry run for 1M updates, error level)\n    - based on basic logger features: 36,2s\n    - based on logger features (lazy logging): 21,2s\n    - enclosed methods calling inside condition: 8,6s\nConslusion: I propose to keep the currently implemented logging approach ...\n```\n\nSurprising, but good to know. Maybe just drop this in as inline docs?",
+      "parentUuid": "dad5f5cf_fdda72e8",
+      "range": {
+        "startLine": 290,
+        "startChar": 8,
+        "endLine": 292,
+        "endChar": 55
+      },
+      "revId": "e4b55bc371beec259a4720eee101212ecc690327",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dad5f5cf_dde1ae9b",
         "filename": "tools/fastbgp/play.py",
         "patchSetId": 83
