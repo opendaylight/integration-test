@@ -2,12 +2,13 @@
 Documentation     Test suite for Connection Manager
 Suite Setup       Configure 1 OVSDB Node Suite Setup
 Suite Teardown    Configure 1 OVSDB Node Suite Teardown
-Test Setup        Log Testcase Start To Controller Karaf
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Force Tags        Southbound
 Library           OperatingSystem
 Library           String
 Library           RequestsLibrary
 Variables         ../../../variables/Variables.py
+Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/OVSDB.robot
 
@@ -156,6 +157,7 @@ Check For Bug 4794
 
 *** Keywords ***
 Configure 1 OVSDB Node Suite Setup
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown
     Open Controller Karaf Console On Background
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 
