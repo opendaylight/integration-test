@@ -222,7 +222,7 @@ Wait_For_Getter_Error_Or_Safe_Stateful_Validator_Consecutive_Success
     ${result} =    BuiltIn.Set_Variable    No result yet.
     ${state} =    BuiltIn.Set_Variable    ${initial_state}
     # The loop for failures.
-    : FOR    ${try}    IN RANGE    1    ${maximum_tries}
+    : FOR    ${try}    IN RANGE    1    ${maximum_tries} + 2
     \    ${state}    ${status}    ${result} =    Getter_And_Safe_Stateful_Validator_Have_To_Succeed_Consecutively_By_Deadline    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}
     \    ...    count=${count}    getter=${getter}    safe_validator=${safe_validator}    initial_state=${state}
     \    # Have we passed?

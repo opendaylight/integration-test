@@ -21,6 +21,10 @@ ${suite_scenario}    ${EMPTY}    # Used to store state for fake stateless getter
 @{stability_scenario}    -1    -1    0    0    1    2    2
 
 *** Test Cases ***
+Timeout_Hits_Off_By_One_Bug
+    ${getter} =    Create_Scenario_Getter_Closure    ${stability_scenario}    delay=0s    fail_on_negative=False
+    BuiltIn.Run_Keyword_And_Expect_Error    Not possible to succeed within the deadline. Last result: No result yet.    Wait_For_Getter_Error_Or_Safe_Stateful_Validator_Consecutive_Success    timeout=9.15s    period=2s    count=1    getter=${getter}    safe_validator=${standard_validator}
+
 SlACHTSC_Happy
     [Documentation]    Assertor always passes, we see its value returned.
     ${result} =    WaitUtils.Stateless_Assert_Closure_Has_To_Succeed_Consecutively    timeout=1.4s    period=0.5s    count=3    assertor=${ScalarClosures__identity}
