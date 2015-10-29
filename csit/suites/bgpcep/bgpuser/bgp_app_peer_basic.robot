@@ -47,7 +47,8 @@ Documentation     Basic tests for BGP application peer.
 ...               https://wiki.opendaylight.org/view/BGP_LS_PCEP:Programmer_Guide#BGP
 ...               Covered bugs:
 ...               Bug 4714 - No routes from loc-rib are advertised to newly connected peer
-Suite Setup       Setup_Everything
+Suite Setup       BuiltIn.Run Keywords    KarafKeywords.Setup Karaf Keywords
+...               AND    Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
