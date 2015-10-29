@@ -13,6 +13,7 @@ Documentation     Functional test suite for bgp - l3vpn-ipv4
 ...               statically configured in exabgp config file.
 Suite Setup       Start_Suite
 Suite Teardown    Stop_Suite
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           RequestsLibrary
 Library           SSHLibrary
 Variables         ${CURDIR}/../../../variables/Variables.py
@@ -46,13 +47,11 @@ ${DEFAULT_BGPCEP_LOG_LEVEL}    INFO
 *** Test Cases ***
 Configure_App_Peer
     [Documentation]    Configures bgp application peer
-    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    APP_PEER_NAME=${APP_PEER_NAME}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    APP_PEER_ID=${ODL_SYSTEM_IP}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VAR_FOLDER}/app_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configures BGP peer module with initiate-connection set to false.
-    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
     ...    INITIATE=false    RIB_INSTANCE_NAME=${RIB_INSTANCE}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
@@ -74,13 +73,11 @@ L3vpn_Ipv4_From_Odl
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}
     TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Deconfigure_App_Peer
     [Documentation]    Revert the BGP configuration to the original state: without application peer
-    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    APP_PEER_NAME=${APP_PEER_NAME}
     TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/app_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
@@ -143,7 +140,6 @@ Verify_Tools_Connection
 Start_Tool_And_Verify_Connected
     [Arguments]    ${cfg_file}
     [Documentation]    Start the tool and verify its connection
-    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     Start_Tool    ${cfg_file}
     BuiltIn.Wait_Until_Keyword_Succeeds    3x    3s    Verify_Tools_Connection    connected=${True}
 
