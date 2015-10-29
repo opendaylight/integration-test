@@ -24,7 +24,8 @@ Documentation     Basic tests for iBGP peers.
 ...               Covered bugs:
 ...               Bug 4791 - BGPSessionImpl: Failed to send message Update logged even all UPDATE mesages received by iBGP peer
 ...               Bug 4819 - No routes advertised to one of newly configured iBGP RR-client peer
-Suite Setup       Setup_Everything
+Suite Setup       BuiltIn.Run Keywords    KarafKeywords.Setup Karaf Keywords
+...               AND    Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
