@@ -1,8 +1,9 @@
 *** Settings ***
 Documentation     Example Robot suite used for the CSIT tutorial at the 2016 OpenDaylight Summit
-Suite Setup       Local Suite Setup
+Suite Setup       BuiltIn.Run Keywords    Local Suite Setup
+...               AND    KarafKeywords.Setup Karaf Keywords
 Suite Teardown    Local Suite Teardown
-Test Setup        Log Testcase Start To Controller Karaf
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           RequestsLibrary
 Variables         ../../variables/Variables.py
 Resource          ../../libraries/KarafKeywords.robot

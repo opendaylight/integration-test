@@ -10,7 +10,8 @@ Documentation     Basic tests for iBGP peers.
 ...               Test suite performs basic iBGP functional test case for
 ...               carrying LSP State Information in BGP as described in
 ...               http://tools.ietf.org/html/draft-ietf-idr-te-lsp-distribution-03
-Suite Setup       Setup_Everything
+Suite Setup       BuiltIn.Run Keywords    KarafKeywords.Setup Karaf Keywords
+...               AND    Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
@@ -85,13 +86,11 @@ TC1_Disconnect_BGP_Peer
 
 TC1_Deconfigure_iBGP_Peer
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}
     TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 TC2_Configure_iBGP_Peer
     [Documentation]    Configures BGP peer module with initiate-connection set to false.
-    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
     ...    INITIATE=false    RIB_INSTANCE_NAME=${RIB_INSTANCE}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
@@ -105,7 +104,6 @@ TC2_Check_Example_Bgp_Rib_Is_Empty
 TC2_Connect_BGP_Peer
     [Documentation]    Connect BGP peer
     [Tags]    critical
-    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     SSHLibrary.Switch Connection    bgp_peer_console
     BGPcliKeywords.Start_Console_Tool    ${BGP_PEER_COMMAND}    ${BGP_PEER_OPTIONS}
     BGPcliKeywords.Read_And_Fail_If_Prompt_Is_Seen
@@ -113,21 +111,18 @@ TC2_Connect_BGP_Peer
 TC2_Check_Example_Bgp_Rib
     [Documentation]    Check RIB for linkstate-route(s)
     [Tags]    critical
-    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     SSHLibrary.Switch Connection    bgp_peer_console
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_RIB_CHECK_TIMEOUT}    ${DEFAULT_RIB_CHECK_PERIOD}    Check_Example_Bgp_Rib_Content    ${JSONKEYSTR}
 
 TC2_Disconnect_BGP_Peer
     [Documentation]    Stop BGP peer & store logs
     [Tags]    critical
-    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     SSHLibrary.Switch Connection    bgp_peer_console
     BGPcliKeywords.Stop_Console_Tool
     BGPcliKeywords.Store_File_To_Workspace    ${BGP_PEER_LOG_FILE}    tc2_${BGP_PEER_LOG_FILE}
 
 TC2_Deconfigure_iBGP_Peer
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}
     TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
