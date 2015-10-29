@@ -78,7 +78,7 @@ Ensure All Nodes Are In Response
     ...    specific but any list of strings can be given in ${node_list}. Refactoring of this
     ...    to make it more generic should be done. (see keyword "Check For Elements At URI")
     : FOR    ${node}    IN    @{node_list}
-    \    ${resp}    RequestsLibrary.Get    session    ${URI}
+    \    ${resp}    RequestsLibrary.Get Request   session    ${URI}
     \    Should Be Equal As Strings    ${resp.status_code}    200
     \    Should Contain    ${resp.content}    ${node}
 
@@ -86,7 +86,7 @@ Check Nodes Stats
     [Arguments]    ${node}
     [Documentation]    A GET on the /node/${node} API is made and specific flow stat
     ...    strings are checked for existence.
-    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_API}/node/${node}
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}/node/${node}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    flow-capable-node-connector-statistics
     Should Contain    ${resp.content}    flow-table-statistics
@@ -96,7 +96,7 @@ Check That Port Count Is Ok
     [Documentation]    A GET on the /port API is made and the specified port ${count} is
     ...    verified. A more generic Keyword "Check For Specific Number Of Elements At URI"
     ...    also does this work and further consolidation should be done.
-    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}/${CONTAINER}/port
+    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/${CONTAINER}/port
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain X Times    ${resp.content}    ${node}    ${count}
@@ -105,7 +105,7 @@ Check For Specific Number Of Elements At URI
     [Arguments]    ${uri}    ${element}    ${expected_count}
     [Documentation]    A GET is made to the specified ${URI} and the specific count of a
     ...    given element is done (as supplied by ${element} and ${expected_count})
-    ${resp}    RequestsLibrary.Get    session    ${uri}
+    ${resp}    RequestsLibrary.Get Request    session    ${uri}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain X Times    ${resp.content}    ${element}    ${expected_count}
@@ -114,7 +114,7 @@ Check For Elements At URI
     [Arguments]    ${uri}    ${elements}
     [Documentation]    A GET is made at the supplied ${URI} and every item in the list of
     ...    ${elements} is verified to exist in the response
-    ${resp}    RequestsLibrary.Get    session    ${uri}
+    ${resp}    RequestsLibrary.Get Request    session    ${uri}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${i}    IN    @{elements}
@@ -124,7 +124,7 @@ Check For Elements Not At URI
     [Arguments]    ${uri}    ${elements}
     [Documentation]    A GET is made at the supplied ${URI} and every item in the list of
     ...    ${elements} is verified to NOT exist in the response
-    ${resp}    RequestsLibrary.Get    session    ${uri}
+    ${resp}    RequestsLibrary.Get Request    session    ${uri}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${i}    IN    @{elements}
@@ -285,19 +285,19 @@ Concatenate the String
 
 Remove All Elements At URI
     [Arguments]    ${uri}
-    ${resp}    RequestsLibrary.Delete    session    ${uri}
+    ${resp}    RequestsLibrary.Delete Request    session    ${uri}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Add Elements To URI From File
     [Arguments]    ${dest_uri}    ${data_file}
     ${body}    OperatingSystem.Get File    ${data_file}
-    ${resp}    RequestsLibrary.Put    session    ${dest_uri}    data=${body}    headers=${headers}
+    ${resp}    RequestsLibrary.Put Request    session    ${dest_uri}    data=${body}    headers=${headers}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Post Elements To URI From File
     [Arguments]    ${dest_uri}    ${data_file}
     ${body}    OperatingSystem.Get File    ${data_file}
-    ${resp}    RequestsLibrary.Post    session    ${dest_uri}    data=${body}    headers=${headers}
+    ${resp}    RequestsLibrary.Post Request    session    ${dest_uri}    data=${body}    headers=${headers}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Run Process With Logging And Status Check
@@ -315,7 +315,7 @@ Get Data From URI
     ...    Issues a GET request for ${uri} in ${session} using headers from
     ...    ${headers}. If the request returns a HTTP error, fails. Otherwise
     ...    returns the data obtained by the request.
-    ${response}=    RequestsLibrary.Get    ${session}    ${uri}    ${headers}
+    ${response}=    RequestsLibrary.Get Request    ${session}    ${uri}    ${headers}
     Builtin.Return_From_Keyword_If    ${response.status_code} == 200    ${response.text}
     Builtin.Log    ${response.text}
     Builtin.Fail    The request failed with code ${response.status_code}
