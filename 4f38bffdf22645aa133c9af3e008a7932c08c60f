@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_10e4fd0b",
+        "filename": "csit/libraries/DynamicMininet.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-29T19:57:21Z",
+      "side": 1,
+      "message": "It\u0027d be ideal to get this on one line.\n\n\"Multi-line docstrings consist of a summary line just like a one-line docstring, followed by a blank line, followed by a more elaborate description.\"\n\nhttps://www.python.org/dev/peps/pep-0257/#multi-line-docstrings",
+      "range": {
+        "startLine": 49,
+        "startChar": 8,
+        "endLine": 50,
+        "endChar": 48
+      },
+      "revId": "4f38bffdf22645aa133c9af3e008a7932c08c60f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_b0f091ca",
+        "filename": "csit/libraries/DynamicMininet.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-29T19:57:21Z",
+      "side": 1,
+      "message": "Copy/Paste error",
+      "range": {
+        "startLine": 55,
+        "startChar": 19,
+        "endLine": 55,
+        "endChar": 22
+      },
+      "revId": "4f38bffdf22645aa133c9af3e008a7932c08c60f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_70ba29e3",
+        "filename": "csit/libraries/DynamicMininet.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-29T19:57:21Z",
+      "side": 1,
+      "message": "I would favor longer and more descriptive var names, but just imho",
+      "range": {
+        "startLine": 60,
+        "startChar": 8,
+        "endLine": 60,
+        "endChar": 25
+      },
+      "revId": "4f38bffdf22645aa133c9af3e008a7932c08c60f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_90bf8dd0",
+        "filename": "csit/libraries/DynamicMininet.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-29T19:57:21Z",
+      "side": 1,
+      "message": "Some quick inline docs to explain this would be nice",
+      "range": {
+        "startLine": 62,
+        "startChar": 16,
+        "endLine": 62,
+        "endChar": 37
+      },
+      "revId": "4f38bffdf22645aa133c9af3e008a7932c08c60f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_10cb9d73",
+        "filename": "csit/libraries/DynamicMininet.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-29T19:57:21Z",
+      "side": 1,
+      "message": "This is more than just starting MN (that\u0027s do_start). Differentiation b/t the two would be nice",
+      "range": {
+        "startLine": 67,
+        "startChar": 15,
+        "endLine": 67,
+        "endChar": 28
+      },
+      "revId": "4f38bffdf22645aa133c9af3e008a7932c08c60f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_50b925e8",
+        "filename": "csit/libraries/DynamicMininet.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-29T19:57:21Z",
+      "side": 1,
+      "message": "You don\u0027t have the index param doc\u0027d here",
+      "range": {
+        "startLine": 68,
+        "startChar": 49,
+        "endLine": 68,
+        "endChar": 50
+      },
+      "revId": "4f38bffdf22645aa133c9af3e008a7932c08c60f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_f0cdb987",
+        "filename": "csit/libraries/DynamicMininet.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-29T19:57:21Z",
+      "side": 1,
+      "message": "Copy/Paste error",
+      "range": {
+        "startLine": 71,
+        "startChar": 16,
+        "endLine": 71,
+        "endChar": 20
+      },
+      "revId": "4f38bffdf22645aa133c9af3e008a7932c08c60f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
