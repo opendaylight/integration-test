@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "dad5f5cf_60957ce3",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-10-29T07:08:18Z",
+      "side": 1,
+      "message": "You are most likely mistaking this with \"NetconfViaRestconf.robot\", most likely because this was originally part of \"NetconfViaRestconf.robot\" and was copied from there and then ... you know, copy \u0026 paste disease. :)",
+      "parentUuid": "dad5f5cf_85ee7221",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 46
+      },
+      "revId": "889742e1e2e4e19dbc1cb525fe640bc2dbb2a57f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dad5f5cf_652cae4b",
         "filename": "csit/libraries/NetconfKeywords.robot",
         "patchSetId": 12
@@ -59,6 +83,30 @@
       "writtenOn": "2015-10-28T13:22:32Z",
       "side": 1,
       "message": "Some Resources require this to be already defined.\nDoes Create_Session tolerate multiple calls for the same alias? If not, this Resource too should only require the calling suite to have this session created.",
+      "range": {
+        "startLine": 27,
+        "startChar": 20,
+        "endLine": 27,
+        "endChar": 49
+      },
+      "revId": "889742e1e2e4e19dbc1cb525fe640bc2dbb2a57f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_c6c0002d",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-10-29T07:08:18Z",
+      "side": 1,
+      "message": "When the Resources require this to be already defined, they are buggy. Resources shall never have any requirements beyond \"you must add a line for it into *** Settings *** and call this initialization function\" (and I am not very satisfied by the latter one but it is needed because of Robot limitations; fortunately I have a way in my mind about how to check for both of them automatically). The buggy resources were fixed in https://git.opendaylight.org/gerrit/#/c/28924/ and so this line will stay (albeit not in this form as here).",
+      "parentUuid": "dad5f5cf_45140af5",
       "range": {
         "startLine": 27,
         "startChar": 20,
@@ -174,6 +222,30 @@
       "writtenOn": "2015-10-28T13:22:32Z",
       "side": 1,
       "message": "http://robotframework.org/robotframework/latest/libraries/BuiltIn.html#Set%20Variable%20If",
+      "range": {
+        "startLine": 75,
+        "startChar": 19,
+        "endLine": 75,
+        "endChar": 62
+      },
+      "revId": "889742e1e2e4e19dbc1cb525fe640bc2dbb2a57f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_80f3c072",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-10-29T07:08:18Z",
+      "side": 1,
+      "message": "Good to know. Sometimes things are hard to find when you don\u0027t know what to ask Google for :D",
+      "parentUuid": "dad5f5cf_a5da9615",
       "range": {
         "startLine": 75,
         "startChar": 19,
@@ -312,6 +384,30 @@
       "writtenOn": "2015-10-28T13:22:32Z",
       "side": 1,
       "message": "Write one.",
+      "range": {
+        "startLine": 123,
+        "startChar": 18,
+        "endLine": 123,
+        "endChar": 19
+      },
+      "revId": "889742e1e2e4e19dbc1cb525fe640bc2dbb2a57f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_60eedc8d",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-10-29T07:08:18Z",
+      "side": 1,
+      "message": "Aha, some data from my brain buffer did not make it to (my computer\u0027s) harddisk before I hit that \"Publish\" button :D",
+      "parentUuid": "dad5f5cf_258306ce",
       "range": {
         "startLine": 123,
         "startChar": 18,
