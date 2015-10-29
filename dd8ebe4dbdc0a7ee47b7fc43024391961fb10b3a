@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_3a8320ce",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/998_clean_odl.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-29T13:08:01Z",
+      "side": 1,
+      "message": "This way of constructing Python object to dumps later is less readable than using string template and substitution, as is done in Put Service Functions test case in 010_set_odl.robot.",
+      "range": {
+        "startLine": 97,
+        "startChar": 18,
+        "endLine": 97,
+        "endChar": 35
+      },
+      "revId": "dd8ebe4dbdc0a7ee47b7fc43024391961fb10b3a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
