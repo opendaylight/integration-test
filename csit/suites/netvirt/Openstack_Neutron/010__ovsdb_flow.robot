@@ -2,7 +2,7 @@
 Documentation     Checking Network created in OVSDB are pushed to OpenDaylight
 Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
-Test Setup        Log Testcase Start To Controller Karaf
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Collect OVSDB Debugs
 Library           SSHLibrary
 Library           Collections
@@ -12,6 +12,8 @@ Library           DateTime
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
+Resource          ../../../libraries/KarafKeywords.robot
+Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/OVSDB.robot
 
