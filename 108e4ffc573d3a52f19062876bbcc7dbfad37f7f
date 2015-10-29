@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "dad5f5cf_5a0e2436",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp2-multitenant/000_setup.robot",
+        "patchSetId": 80
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 1987
+      },
+      "writtenOn": "2015-10-29T09:43:28Z",
+      "side": 1,
+      "message": "I doubt there\u0027s a good reason to put this to libraries, as this file contains things specific for tests of GBP (without SFC), which currently use 3-nodes topology. So they have quite narrow use-case. When we find out something is common for every GBP/SFC test suite, we do put them to libaries/GBP folder, trying to keep different topics separated to maximize maintainability in future.",
+      "parentUuid": "dad5f5cf_c08f88cb",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 18,
+        "endChar": 24
+      },
+      "revId": "108e4ffc573d3a52f19062876bbcc7dbfad37f7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dad5f5cf_60bc9c6d",
         "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp2-multitenant/001_set_odl.robot",
         "patchSetId": 80
@@ -59,6 +83,30 @@
       "writtenOn": "2015-10-28T19:40:42Z",
       "side": 1,
       "message": "this is common to another suite file, IIRC.  I suggest placing in a single place test/csit/variables/GBP/",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 93
+      },
+      "revId": "108e4ffc573d3a52f19062876bbcc7dbfad37f7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_da19b47a",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp2-multitenant/001_set_odl.robot",
+        "patchSetId": 80
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1987
+      },
+      "writtenOn": "2015-10-29T09:43:28Z",
+      "side": 1,
+      "message": "These are unique data set fora specific test suite, namely gbp2-multitenant. So far, a half of files is the same as in gbp1 data, but this is not written in stone, and by keeping data separated from the very beginning, we try to minimize impact on other testcases in case of future changes.",
+      "parentUuid": "dad5f5cf_60bc9c6d",
       "range": {
         "startLine": 13,
         "startChar": 0,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "dad5f5cf_3a20009b",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp2-multitenant/001_set_odl.robot",
+        "patchSetId": 80
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 1987
+      },
+      "writtenOn": "2015-10-29T09:43:28Z",
+      "side": 1,
+      "message": "No, we don\u0027t aim to test the datastore. We assume that the datastore is OK, and in case of problems, there are other Jenkins jobs testing datastore, that will fail. So, 200 is well enough for us.\nI copied these lines right from one of Dileep/Tomas\u0027 drafts; I will add (hope today) a loop here to make the code better.",
+      "parentUuid": "dad5f5cf_80c180e6",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 72
+      },
+      "revId": "108e4ffc573d3a52f19062876bbcc7dbfad37f7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dad5f5cf_20b6948b",
         "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp2-multitenant/998_clean_odl.robot",
         "patchSetId": 80
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "dad5f5cf_1a373ce5",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp2-multitenant/998_clean_odl.robot",
+        "patchSetId": 80
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1987
+      },
+      "writtenOn": "2015-10-29T09:43:28Z",
+      "side": 1,
+      "message": "I will look for it in Utils, but I think Dileep had a good reason to make it like this. I will double check.\n\nGenerally, we are not adding things to common libraries before our commit is merged, in order to be less dependent from possible changes to those libraries. However, we consider \"elevation\" to common libraries after merge of our commit.",
+      "parentUuid": "dad5f5cf_20b6948b",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 77,
+        "endChar": 60
+      },
+      "revId": "108e4ffc573d3a52f19062876bbcc7dbfad37f7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dad5f5cf_40bb9872",
         "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp2-multitenant/998_clean_odl.robot",
         "patchSetId": 80
@@ -128,6 +224,30 @@
       "writtenOn": "2015-10-28T19:40:42Z",
       "side": 1,
       "message": "when, if you move this to Utils.robot, you can use a default argument like \"${type}\u003dyang.data+json\" so that it can be used by others that might want to use a different type (e.g. json)",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 29
+      },
+      "revId": "108e4ffc573d3a52f19062876bbcc7dbfad37f7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_ba3390f5",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp2-multitenant/998_clean_odl.robot",
+        "patchSetId": 80
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 1987
+      },
+      "writtenOn": "2015-10-29T09:43:28Z",
+      "side": 1,
+      "message": "See my first comment here; after merge, we shall move what can be moved painlessly.",
+      "parentUuid": "dad5f5cf_40bb9872",
       "range": {
         "startLine": 105,
         "startChar": 0,
