@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_26dd4c43",
+        "filename": "csit/libraries/ChangeCounter.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-10-29T06:39:43Z",
+      "side": 0,
+      "message": "Any steps beyond basic \"add \u0027Resource [...]/SomeResource.robot\u0027 line into your suite and initialize it\" needed to use a Robot resource is a serious drain of developer\u0027s and tester\u0027s time. Especially when Robot\u0027s error reporting is lacking easily accessible information about where exactly the problem is and sometimes Robot can even swallow errors up (think \"Run Keyword And Ignore Error\").",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 109
+      },
+      "revId": "3f4d09efa02696183408d8b22b8987746ed4744a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_e6e66416",
+        "filename": "csit/libraries/PrefixCounting.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-10-29T06:39:43Z",
+      "side": 0,
+      "message": "Same problem as in https://git.opendaylight.org/gerrit/#/c/28924/1/csit/libraries/ChangeCounter.robot@a12.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 109
+      },
+      "revId": "3f4d09efa02696183408d8b22b8987746ed4744a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
