@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_d08f55cb",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-asymmetric-chain/998_clean_odl.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-29T21:23:30Z",
+      "side": 1,
+      "message": "these are common keywords from at least both files in this patch, and maybe common with other files?  Probably time to move them to a GBPSFC library instead.",
+      "range": {
+        "startLine": 76,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 23
+      },
+      "revId": "06e46da771f12a76e9202341ecb634cb0d79a5a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
