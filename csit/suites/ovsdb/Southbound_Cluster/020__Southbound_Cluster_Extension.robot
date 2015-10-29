@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation     Test suite for Ovsdb Southbound Cluster - Candidate failover and recover
-Suite Setup       ClusterManagement Setup
+Suite Setup       BuiltIn.Run Keywords    ClusterManagement Setup    AND    KarafKeywords.Setup Karaf Keywords
 Suite Teardown    Delete All Sessions
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           RequestsLibrary
 Resource          ../../../libraries/ClusterOvsdb.robot
 Resource          ../../../libraries/ClusterManagement.robot

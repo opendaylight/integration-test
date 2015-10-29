@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for Ovsdb Southbound Cluster - Owner failover and recover
-Suite Setup       ClusterManagement Setup
+Suite Setup       BuiltIn.Run Keywords    ClusterManagement Setup    AND    KarafKeywords.Setup Karaf Keywords
 Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
 Resource          ../../../libraries/ClusterOvsdb.robot
