@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_9dcc8637",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 83
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-29T17:16:11Z",
+      "side": 1,
+      "message": "Thanks! (applies elsewhere)",
+      "range": {
+        "startLine": 100,
+        "startChar": 4,
+        "endLine": 110,
+        "endChar": 7
+      },
+      "revId": "e4b55bc371beec259a4720eee101212ecc690327",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_7dc76213",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 83
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-29T17:16:11Z",
+      "side": 1,
+      "message": "\"The closing quotes are on the same line as the opening quotes. This looks better for one-liners.\"\n\nhttps://www.python.org/dev/peps/pep-0257/#one-line-docstrings",
+      "range": {
+        "startLine": 217,
+        "startChar": 4,
+        "endLine": 218,
+        "endChar": 7
+      },
+      "revId": "e4b55bc371beec259a4720eee101212ecc690327",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_fdda72e8",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 83
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-29T17:16:11Z",
+      "side": 1,
+      "message": "So I guess you\u0027re keeping these, vs the design I described on patch set 78. Non-blocking I guess, but docs explaining the reasoning (or a TODO to make the change later) would be nice.",
+      "range": {
+        "startLine": 290,
+        "startChar": 8,
+        "endLine": 292,
+        "endChar": 55
+      },
+      "revId": "e4b55bc371beec259a4720eee101212ecc690327",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_dde1ae9b",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 83
+      },
+      "lineNbr": 1111,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-29T17:16:11Z",
+      "side": 1,
+      "message": "\"The closing quotes are on the same line as the opening quotes. This looks better for one-liners.\"\n\nhttps://www.python.org/dev/peps/pep-0257/#one-line-docstrings",
+      "range": {
+        "startLine": 1110,
+        "startChar": 4,
+        "endLine": 1111,
+        "endChar": 7
+      },
+      "revId": "e4b55bc371beec259a4720eee101212ecc690327",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
