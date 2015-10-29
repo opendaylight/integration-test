@@ -2,7 +2,7 @@
 Documentation     Test suite to check connectivity in L3 using routers.
 Suite Setup       Devstack Suite Setup Tests
 Suite Teardown    Close All Connections
-Test Setup        Log Testcase Start To Controller Karaf
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Run Keywords    Show Debugs    ${NET_1_VM_INSTANCES}
 ...               AND    Show Debugs    ${NET_2_VM_INSTANCES}
 ...               AND    Get OvsDebugInfo

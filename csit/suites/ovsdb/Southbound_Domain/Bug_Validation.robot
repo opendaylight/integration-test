@@ -5,7 +5,7 @@ Documentation     Collection of test cases to validate OVSDB projects bugs.
 ...               - https://bugs.opendaylight.org/show_bug.cgi?id=4794
 Suite Setup       OVSDB Connection Manager Suite Setup
 Suite Teardown    OVSDB Connection Manager Suite Teardown
-Test Setup        Log Testcase Start To Controller Karaf
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Force Tags        Southbound
 Library           OperatingSystem
 Library           String
