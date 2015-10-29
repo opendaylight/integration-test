@@ -31,6 +31,7 @@ Documentation     Robot keyword library (Resource) with several Keywords for mon
 ...               so that callers do not need to refresh state explicitly.
 Library           DateTime
 Library           String
+
 Resource          ${CURDIR}/ScalarClosures.robot
 
 *** Keywords ***
@@ -101,7 +102,7 @@ Stateless_Assert_Closure_Has_To_Succeed_Consecutively_By_Deadline
     \    # Is there enough time left?
     \    WaitUtils__Is_Deadline_Reachable    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}    sleeps_left=${sleeps_left}    message=Last result: ${result}
     \    # We will do next try, byt we have to sleep before.
-    \    BuiltIn.Sleep    ${period_in_seconds} s
+    \    Environment.Sleep    ${period_in_seconds} s
     BuiltIn.Fail    Logic error, we should have returned before.
 
 Stateless_Assert_Closure_Has_To_Succeed_Consecutively
@@ -129,7 +130,7 @@ Stateful_Assert_Closure_Has_To_Succeed_Consecutively_By_Deadline
     \    # Is there enough time left?
     \    WaitUtils__Is_Deadline_Reachable    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}    sleeps_left=${sleeps_left}    message=Last result: ${result}
     \    # We will do next try, byt we have to sleep before.
-    \    BuiltIn.Sleep    ${period_in_seconds} s
+    \    Environment.Sleep    ${period_in_seconds} s
     BuiltIn.Fail    Logic error, we should have returned before.
 
 Stateful_Assert_Closure_Has_To_Succeed_Consecutively
@@ -170,7 +171,7 @@ Getter_And_Safe_Stateful_Validator_Have_To_Succeed_Consecutively_By_Deadline
     \    ...    sleeps_left=${sleeps_left}    message=Last result: ${result}
     \    BuiltIn.Return_From_Keyword_If    '''${status}''' != '''PASS'''    ${state}    ${status}    ${message}
     \    # We will do next try, byt we have to sleep before.
-    \    BuiltIn.Sleep    ${period_in_seconds} s
+    \    Environment.Sleep    ${period_in_seconds} s
     BuiltIn.Fail    Logic error, we should have returned before.
 
 Propagate_Fail_If_Message_Starts_With_Prefix
@@ -206,7 +207,7 @@ Wait_For_Getter_And_Safe_Stateful_Validator_Consecutive_Success
     \    # Are we out of time?
     \    Propagate_Fail_If_Message_Starts_With_Prefix    ${result}    Not possible to succeed within the deadline.
     \    # We will do next try, but we have to sleep before.
-    \    BuiltIn.Sleep    ${period_in_seconds} s
+    \    Environment.Sleep    ${period_in_seconds} s
     BuiltIn.Fail    Logic error, we should have returned before.
 
 Wait_For_Getter_Error_Or_Safe_Stateful_Validator_Consecutive_Success
@@ -214,14 +215,16 @@ Wait_For_Getter_Error_Or_Safe_Stateful_Validator_Consecutive_Success
     [Documentation]    Analogue of Wait Until Keyword Succeeds, but it passes state of validator around and exits early on getter failure. Calls GASSVHTSCBD to verify data is "stable".
     # If this ever fails, we want to know the exact inputs passed to it.
     ${tmp}=    BuiltIn.Evaluate    int(${count})
-    BuiltIn.Log    count=${tmp}
+    BuiltIn.Log    count=${count}
+    BuiltIn.Log    getter=${getter}
+    BuiltIn.Log    safe_validator=${safe_validator}
     ${timeout_in_seconds}    ${period_in_seconds}    ${date_deadline} =    WaitUtils__Check_Sanity_And_Compute_Derived_Times    timeout=${timeout}    period=${period}    count=${count}
     # Maximum number of tries. TODO: Move to separate Keyword or add into CSACDT?
     ${maximum_tries} =    BuiltIn.Evaluate    math.ceil(${timeout_in_seconds} / ${period_in_seconds})    modules=math
     ${result} =    BuiltIn.Set_Variable    No result yet.
     ${state} =    BuiltIn.Set_Variable    ${initial_state}
     # The loop for failures.
-    : FOR    ${try}    IN RANGE    1    ${maximum_tries}+1    # If maximum_tries is 3, for will go through 1, 2, and 3.
+    : FOR    ${try}    IN RANGE    1    ${maximum_tries} + 1
     \    ${state}    ${status}    ${result} =    Getter_And_Safe_Stateful_Validator_Have_To_Succeed_Consecutively_By_Deadline    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}
     \    ...    count=${count}    getter=${getter}    safe_validator=${safe_validator}    initial_state=${state}
     \    # Have we passed?
@@ -231,5 +234,5 @@ Wait_For_Getter_Error_Or_Safe_Stateful_Validator_Consecutive_Success
     \    # Now check for getter error, by analysing ${result}.
     \    Propagate_Fail_If_Message_Starts_With_Prefix    ${result}    Getter failed
     \    # We can do the next try, byt we have to sleep before.
-    \    BuiltIn.Sleep    ${period_in_seconds} s
+    \    Environment.Sleep    ${period_in_seconds} s
     BuiltIn.Fail    Logic error, we should have returned before.
