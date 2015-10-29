@@ -212,6 +212,9 @@ Wait_For_Getter_And_Safe_Stateful_Validator_Consecutive_Success
 Wait_For_Getter_Error_Or_Safe_Stateful_Validator_Consecutive_Success
     [Arguments]    ${timeout}=60s    ${period}=1s    ${count}=1    ${getter}=${ScalarClosures__fail}    ${safe_validator}=${ScalarClosures__fail}    ${initial_state}=${NONE}
     [Documentation]    Analogue of Wait Until Keyword Succeeds, but it passes state of validator around and exits early on getter failure. Calls GASSVHTSCBD to verify data is "stable".
+    # If this ever fails, we want to know the exact inputs passed to it.
+    ${tmp}=    BuiltIn.Evaluate    int(${count})
+    BuiltIn.Log    count=${tmp}
     ${timeout_in_seconds}    ${period_in_seconds}    ${date_deadline} =    WaitUtils__Check_Sanity_And_Compute_Derived_Times    timeout=${timeout}    period=${period}    count=${count}
     # Maximum number of tries. TODO: Move to separate Keyword or add into CSACDT?
     ${maximum_tries} =    BuiltIn.Evaluate    math.ceil(${timeout_in_seconds} / ${period_in_seconds})    modules=math
