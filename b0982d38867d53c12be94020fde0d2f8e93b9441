@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_e67bc427",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-10-29T06:58:03Z",
+      "side": 0,
+      "message": "If you need to explain your code, the code itself is badly designed and has to be refactored. Especially if it is a test code piece. There are three more instances of this code.",
+      "range": {
+        "startLine": 100,
+        "startChar": 4,
+        "endLine": 100,
+        "endChar": 100
+      },
+      "revId": "b0982d38867d53c12be94020fde0d2f8e93b9441",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_2699cc6e",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-10-29T06:58:03Z",
+      "side": 0,
+      "message": "This is too fragile. If I put only one of these 2 lines into a test case and forget the other, the functionality fails in a subtle way that only manifests when the test catches a bug. This is not an acceptable behavior for me.",
+      "range": {
+        "startLine": 99,
+        "startChar": 4,
+        "endLine": 101,
+        "endChar": 62
+      },
+      "revId": "b0982d38867d53c12be94020fde0d2f8e93b9441",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_469e5058",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-10-29T06:58:03Z",
+      "side": 0,
+      "message": "See comments at https://git.opendaylight.org/gerrit/#/c/28903/2/csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot@a100.",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 62
+      },
+      "revId": "b0982d38867d53c12be94020fde0d2f8e93b9441",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_e6a2e499",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_prefixcount.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-10-29T06:58:03Z",
+      "side": 0,
+      "message": "See comments at https://git.opendaylight.org/gerrit/#/c/28903/2/csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot@a100.",
+      "range": {
+        "startLine": 81,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 62
+      },
+      "revId": "b0982d38867d53c12be94020fde0d2f8e93b9441",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_06a0488f",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_prefixcount.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-10-29T06:58:03Z",
+      "side": 0,
+      "message": "See comments at https://git.opendaylight.org/gerrit/#/c/28903/2/csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot@a100.",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 62
+      },
+      "revId": "b0982d38867d53c12be94020fde0d2f8e93b9441",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
