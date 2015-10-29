@@ -1,10 +1,11 @@
 *** Settings ***
 Documentation     Test suite for Ovsdb Southbound Cluster - Owner failover and recover
-Suite Setup       ClusterManagement Setup
+Suite Setup       SetupUtils.Setup_Utils_For_Setup_And_Teardown
 Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
 Resource          ../../../libraries/ClusterOvsdb.robot
 Resource          ../../../libraries/ClusterManagement.robot
+Resource          ../../../libraries/SetupUtils.robot
 Variables         ../../../variables/Variables.py
 
 *** Test Cases ***

@@ -2,12 +2,13 @@
 Documentation     Test suite for Connection Manager
 Suite Setup       OVSDB Connection Manager Suite Setup
 Suite Teardown    OVSDB Connection Manager Suite Teardown
-Test Setup        Log Testcase Start To Controller Karaf
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Force Tags        Southbound
 Library           OperatingSystem
 Library           String
 Library           RequestsLibrary
 Variables         ../../../variables/Variables.py
+Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/OVSDB.robot
 
@@ -81,7 +82,7 @@ Create bridge of already added bridge
     [Documentation]    This will add bridge to the config datastore
     ${body}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_bridge.json
     ${body}    Replace String    ${body}    ovsdb://127.0.0.1:61644    ovsdb://uuid/${ovsdb_uuid}
-    ${body}    Replace String    ${body}    tcp:127.0.0.1:6633    tcp:${ODL_SYSTEM_IP}:6633
+    ${body}    Replace String    ${body}    tcp:127.0.0.1:6633    tcp:${ODL_SYSTEM_IP}:6633SetupUtils.Setup_Utils_For_Setup_And_Teardown
     ${body}    Replace String    ${body}    127.0.0.1    ${TOOLS_SYSTEM_IP}
     ${body}    Replace String    ${body}    br01    ${BRIDGE1}
     ${body}    Replace String    ${body}    61644    ${OVSDB_PORT}
@@ -137,7 +138,8 @@ Check For Bug 4794
 
 *** Keywords ***
 OVSDB Connection Manager Suite Setup
-    Open Controller Karaf Console On Background
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    KarafKeywords.Open Controller Karaf Console On Background
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 
 OVSDB Connection Manager Suite Teardown
