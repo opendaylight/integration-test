@@ -31,6 +31,7 @@ Documentation     Robot keyword library (Resource) with several Keywords for mon
 ...               so that callers do not need to refresh state explicitly.
 Library           DateTime
 Library           String
+Resource          ${CURDIR}/Environment.robot
 Resource          ${CURDIR}/ScalarClosures.robot
 
 *** Keywords ***
@@ -70,7 +71,7 @@ WaitUtils__Check_Sanity_And_Compute_Derived_Times
     ${period_in_seconds} =    DateTime.Convert_Time    ${period}    result_format=number
     BuiltIn.Run_Keyword_If    ${period_in_seconds} <= 0.0    BuiltIn.Fail    \${period} ${period} has to be positive.
     # Figure out deadline.
-    ${date_now} =    DateTime.Get_Current_Date
+    ${date_now} =    Environment.Get_Current_Date
     ${timeout_in_seconds} =    DateTime.Convert_Time    ${timeout}    result_format=number
     # In the following line, arguments have to be in order which is opposite to what name suggests.
     ${date_deadline} =    DateTime.Add_Time_To_Date    ${date_now}    ${timeout_in_seconds}
@@ -80,7 +81,7 @@ WaitUtils__Is_Deadline_Reachable
     [Arguments]    ${date_deadline}=0    ${period_in_seconds}=1    ${sleeps_left}=1    ${message}=No attempt made.
     [Documentation]    Compute time to be wasted in sleeps, compare to deadline. Fail with message when needed.
     # FIXME: Sensible default for deadline?
-    ${date_now} =    DateTime.Get_Current_Date
+    ${date_now} =    Environment.Get_Current_Date
     ${time_deadline} =    DateTime.Subtract_Date_From_Date    ${date_deadline}    ${date_now}    result_format=number
     ${time_minimal} =    BuiltIn.Evaluate    int(${sleeps_left}) * ${period_in_seconds}
     BuiltIn.Run_Keyword_If    ${time_minimal} >= ${time_deadline}    BuiltIn.Fail    Not possible to succeed within the deadline. ${message}
@@ -101,7 +102,7 @@ Stateless_Assert_Closure_Has_To_Succeed_Consecutively_By_Deadline
     \    # Is there enough time left?
     \    WaitUtils__Is_Deadline_Reachable    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}    sleeps_left=${sleeps_left}    message=Last result: ${result}
     \    # We will do next try, byt we have to sleep before.
-    \    BuiltIn.Sleep    ${period_in_seconds} s
+    \    Environment.Sleep    ${period_in_seconds} s
     BuiltIn.Fail    Logic error, we should have returned before.
 
 Stateless_Assert_Closure_Has_To_Succeed_Consecutively
@@ -129,7 +130,7 @@ Stateful_Assert_Closure_Has_To_Succeed_Consecutively_By_Deadline
     \    # Is there enough time left?
     \    WaitUtils__Is_Deadline_Reachable    date_deadline=${date_deadline}    period_in_seconds=${period_in_seconds}    sleeps_left=${sleeps_left}    message=Last result: ${result}
     \    # We will do next try, byt we have to sleep before.
-    \    BuiltIn.Sleep    ${period_in_seconds} s
+    \    Environment.Sleep    ${period_in_seconds} s
     BuiltIn.Fail    Logic error, we should have returned before.
 
 Stateful_Assert_Closure_Has_To_Succeed_Consecutively
@@ -170,7 +171,7 @@ Getter_And_Safe_Stateful_Validator_Have_To_Succeed_Consecutively_By_Deadline
     \    ...    sleeps_left=${sleeps_left}    message=Last result: ${result}
     \    BuiltIn.Return_From_Keyword_If    '''${status}''' != '''PASS'''    ${state}    ${status}    ${message}
     \    # We will do next try, byt we have to sleep before.
-    \    BuiltIn.Sleep    ${period_in_seconds} s
+    \    Environment.Sleep    ${period_in_seconds} s
     BuiltIn.Fail    Logic error, we should have returned before.
 
 Propagate_Fail_If_Message_Starts_With_Prefix
@@ -206,7 +207,7 @@ Wait_For_Getter_And_Safe_Stateful_Validator_Consecutive_Success
     \    # Are we out of time?
     \    Propagate_Fail_If_Message_Starts_With_Prefix    ${result}    Not possible to succeed within the deadline.
     \    # We will do next try, but we have to sleep before.
-    \    BuiltIn.Sleep    ${period_in_seconds} s
+    \    Environment.Sleep    ${period_in_seconds} s
     BuiltIn.Fail    Logic error, we should have returned before.
 
 Wait_For_Getter_Error_Or_Safe_Stateful_Validator_Consecutive_Success
@@ -231,5 +232,5 @@ Wait_For_Getter_Error_Or_Safe_Stateful_Validator_Consecutive_Success
     \    # Now check for getter error, by analysing ${result}.
     \    Propagate_Fail_If_Message_Starts_With_Prefix    ${result}    Getter failed
     \    # We can do the next try, byt we have to sleep before.
-    \    BuiltIn.Sleep    ${period_in_seconds} s
+    \    Environment.Sleep    ${period_in_seconds} s
     BuiltIn.Fail    Logic error, we should have returned before.

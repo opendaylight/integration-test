@@ -14,6 +14,7 @@ Suite Setup       WUT_Setup
 Library           Collections
 Resource          ${CURDIR}/../../../libraries/ScalarClosures.robot
 Resource          ${CURDIR}/../../../libraries/WaitUtils.robot
+Resource          ${CURDIR}/../../../libraries/Environment.robot
 
 *** Variables ***
 ${suite_scenario}    ${EMPTY}    # Used to store state for fake stateless getter.
@@ -32,7 +33,7 @@ SlACHTSC_Too_Many_Sleeps
 
 SlACHTSC_Slow_Assertor
     [Documentation]    Assertor takes additional time, deadline is encountered.
-    ${assertor} =    ScalarClosures.Closure_From_Keyword_And_Arguments    BuiltIn.Sleep    0.3s
+    ${assertor} =    ScalarClosures.Closure_From_Keyword_And_Arguments    Environment.Sleep    0.3s
     BuiltIn.Run_Keyword_And_Expect_Error    Not possible to succeed within the deadline. Last result: None    WaitUtils.Stateless_Assert_Closure_Has_To_Succeed_Consecutively    timeout=1.4s    period=0.5s    count=3    assertor=${assertor}
 
 SfACHTSC_Happy
@@ -79,7 +80,7 @@ GASSVHTSCBD_Happy
     [Documentation]    Set getter to report stable data and validator to see them as such.
     ${value_list} =    BuiltIn.Set_Variable    1    1    1
     ${getter} =    Create_Scenario_Getter_Closure    ${value_list}    delay=0s    fail_on_negative=True
-    ${date_now} =    DateTime.Get_Current_Date
+    ${date_now} =    Environment.Get_Current_Date
     ${date_deadline} =    DateTime.Add_Time_To_Date    ${date_now}    1.35
     ${state}    ${status}    ${result} =    Getter_And_Safe_Stateful_Validator_Have_To_Succeed_Consecutively_By_Deadline    date_deadline=${date_deadline}    period_in_seconds=0.4    count=3
     ...    getter=${getter}    safe_validator=${standard_validator}    initial_state=1
@@ -91,7 +92,7 @@ GASSVHTSCBD_Sleeps_Too_Long
     [Documentation]    There are too many sleeps to meet deadline.
     ${value_list} =    BuiltIn.Set_Variable    1    1    1
     ${getter} =    Create_Scenario_Getter_Closure    ${value_list}    delay=0s    fail_on_negative=True
-    ${date_now} =    DateTime.Get_Current_Date
+    ${date_now} =    Environment.Get_Current_Date
     ${date_deadline} =    DateTime.Add_Time_To_Date    ${date_now}    1.05
     ${state}    ${status}    ${result} =    Getter_And_Safe_Stateful_Validator_Have_To_Succeed_Consecutively_By_Deadline    date_deadline=${date_deadline}    period_in_seconds=0.55    count=3
     ...    getter=${getter}    safe_validator=${standard_validator}    initial_state=1
@@ -103,7 +104,7 @@ GASSVHTSCBD_Slow_Getter
     [Documentation]    Getter takes additional time, deadline is encountered.
     ${value_list} =    BuiltIn.Set_Variable    1    1    1
     ${getter} =    Create_Scenario_Getter_Closure    ${value_list}    delay=0.21s    fail_on_negative=True
-    ${date_now} =    DateTime.Get_Current_Date
+    ${date_now} =    Environment.Get_Current_Date
     ${date_deadline} =    DateTime.Add_Time_To_Date    ${date_now}    1.2
     ${state}    ${status}    ${result} =    Getter_And_Safe_Stateful_Validator_Have_To_Succeed_Consecutively_By_Deadline    date_deadline=${date_deadline}    period_in_seconds=0.4    count=3
     ...    getter=${getter}    safe_validator=${standard_validator}    initial_state=1
@@ -115,7 +116,7 @@ GASSVHTSCBD_Data_Become_Invalid
     [Documentation]    Validator fails at the last try.
     ${value_list} =    BuiltIn.Set_Variable    1    1    2
     ${getter} =    Create_Scenario_Getter_Closure    ${value_list}    delay=0s    fail_on_negative=True
-    ${date_now} =    DateTime.Get_Current_Date
+    ${date_now} =    Environment.Get_Current_Date
     ${date_deadline} =    DateTime.Add_Time_To_Date    ${date_now}    1.35
     ${state}    ${status}    ${result} =    Getter_And_Safe_Stateful_Validator_Have_To_Succeed_Consecutively_By_Deadline    date_deadline=${date_deadline}    period_in_seconds=0.4    count=3
     ...    getter=${getter}    safe_validator=${standard_validator}    initial_state=1
@@ -127,7 +128,7 @@ GASSVHTSCBD_Getter_Error
     [Documentation]    Getter fails at the last try.
     ${value_list} =    BuiltIn.Set_Variable    1    1    -1
     ${getter} =    Create_Scenario_Getter_Closure    ${value_list}    delay=0s    fail_on_negative=True
-    ${date_now} =    DateTime.Get_Current_Date
+    ${date_now} =    Environment.Get_Current_Date
     ${date_deadline} =    DateTime.Add_Time_To_Date    ${date_now}    1.35
     ${state}    ${status}    ${result} =    Getter_And_Safe_Stateful_Validator_Have_To_Succeed_Consecutively_By_Deadline    date_deadline=${date_deadline}    period_in_seconds=0.4    count=3
     ...    getter=${getter}    safe_validator=${standard_validator}    initial_state=1
@@ -167,6 +168,7 @@ WFGEOSSVCS_Early_exit
 *** Keywords ***
 WUT_Setup
     [Documentation]    Call Setup keywords of libraries, define reusable variables.
+    Environment.Switch_To_Mockups
     WaitUtils.WU_Setup    # includes ScalarClosures.SC_Setup
     ${countdown} =    ScalarClosures.Closure_From_Keyword_And_Arguments    Stateful_Countdown    0
     BuiltIn.Set_Suite_Variable    ${countdown_quick}    ${countdown}
@@ -178,7 +180,7 @@ WUT_Setup
 Stateful_Countdown
     [Arguments]    ${how_many_before_fail}    ${delay}=0s
     [Documentation]    Simple stateful keyword, counting down successes.
-    BuiltIn.Sleep    ${delay}
+    Environment.Sleep    ${delay}
     BuiltIn.Run_Keyword_If    ${how_many_before_fail} < 1    BuiltIn.Fail    Count is down.
     ${new_count} =    BuiltIn.Evaluate    ${how_many_before_fail} - 1
     [Return]    ${new_count}    still_alive
@@ -186,7 +188,7 @@ Stateful_Countdown
 Scenario_Getter_As_Keyword
     [Arguments]    ${delay}=0s    ${fail_on_negative}=False
     [Documentation]    Keyword to make getter closure from. Relies on suite variable to track private state.
-    BuiltIn.Sleep    ${delay}
+    Environment.Sleep    ${delay}
     ${next_value} =    Collections.Remove_From_List    ${suite_scenario}    0
     BuiltIn.Return_From_Keyword_If    not ${fail_on_negative} or ${next_value} >= 0    ${next_value}
     BuiltIn.Fail    Got negative ${next_value}
