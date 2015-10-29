@@ -126,8 +126,8 @@ Execute Controller Karaf Command With Retry On Background
     ${status}    ${message}=    BuiltIn.Run Keyword And Ignore Error    Execute Controller Karaf Command On Background    ${command}
     BuiltIn.Return_From_Keyword_If    '${status}' == 'PASS'    ${message}
     # TODO: Verify this does not leak connections indices.
-    Open Controller Karaf Console On Background
-    ${message}=    Execute Controller Karaf Command On Background    ${command}
+    Open Controller Karaf Console On Background    ${member_index}
+    ${message}=    Execute Controller Karaf Command On Background    ${command}    ${member_index}
     [Return]    ${message}
 
 Log Message To Controller Karaf
