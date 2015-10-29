@@ -41,6 +41,10 @@ Documentation     BGP performance of ingesting from many iBGP peers, data change
 ...               TODO: Is there a need for version of this suite where ODL connects to pers?
 ...               Note that configuring ODL is slow, which may affect measured performance singificantly.
 ...               Advanced TODO: Give manager ability to start pushing on trigger long after connections are established.
+...
+...               TODO: May generate spurious failures for small count of routes and large count of
+...               peers (e.g. 1000 routes and 1000 peers). Need to define a performance target for this
+...               situation and work it into the timeout formulas.
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
@@ -177,9 +181,9 @@ Setup_Everything
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
     # Calculate the timeout value based on how many routes are going to be pushed
     ${period} =    DateTime.Convert_Time    ${CHECK_PERIOD_CHANGE_COUNT}    result_format=number
-    ${timeout} =    BuiltIn.Evaluate    ${COUNT_CHANGE_COUNT} * 3 / 10000 + ${period} * (${REPETITIONS_CHANGE_COUNT} + 1)
+    ${timeout} =    BuiltIn.Evaluate    ${COUNT_CHANGE_COUNT} * 3.0 / 10000 + ${period} * (${REPETITIONS_CHANGE_COUNT} + 1) + 10
     Builtin.Set_Suite_Variable    ${bgp_filling_timeout}    ${timeout}
-    ${timeout} =    BuiltIn.Evaluate    ${COUNT_CHANGE_COUNT} * 2 / 10000 + ${period} * (${REPETITIONS_CHANGE_COUNT} + 1)
+    ${timeout} =    BuiltIn.Evaluate    ${COUNT_CHANGE_COUNT} * 2.0 / 10000 + ${period} * (${REPETITIONS_CHANGE_COUNT} + 1) + 10
     Builtin.Set_Suite_Variable    ${bgp_emptying_timeout}    ${timeout}
 
 Teardown_Everything
