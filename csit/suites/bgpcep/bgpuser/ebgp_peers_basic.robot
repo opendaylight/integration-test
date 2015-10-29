@@ -16,7 +16,8 @@ Documentation     Basic tests for eBGP application peers.
 ...
 ...               TODO: Extend testsuite by tests dedicated to path selection algorithm
 ...               TODO: Choose keywords used by more than one test suite to be placed in a common place.
-Suite Setup       Setup_Everything
+Suite Setup       BuiltIn.Run Keywords    KarafKeywords.Setup Karaf Keywords
+...               AND    Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed

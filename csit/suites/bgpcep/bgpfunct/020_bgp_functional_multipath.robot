@@ -10,8 +10,10 @@ Documentation     Functional test suite for bgp - n-path and all-path selection
 ...               This suite tests n-path and all-path selection policy.
 ...               It uses odl and exabgp as bgp peers. Routes advertized from odl
 ...               are configured via application peer.
-Suite Setup       Start_Suite
+Suite Setup       BuiltIn.Run Keywords    KarafKeywords.Setup Karaf Keywords
+...               AND    Start_Suite
 Suite Teardown    Stop_Suite
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           RequestsLibrary
 Library           SSHLibrary
 Variables         ${CURDIR}/../../../variables/Variables.py
@@ -53,7 +55,6 @@ ${ADDPATHCAP_D}    disable
 *** Test Cases ***
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
-    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
     ...    INITIATE=false    RIB_INSTANCE_NAME=${RIB_INSTANCE}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
@@ -76,7 +77,6 @@ Odl Npaths Exa SendReceived
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}
     TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
@@ -119,7 +119,6 @@ Configure_Path_Selection_And_App_Peer_And_Connect_Peer
     [Documentation]    Setup test case keyword. Early after the path selection config the incomming connection
     ...    from exabgp towards odl may be rejected by odl due to config process not finished yet. Because of that
     ...    we try to start the tool 3 times in case early attempts fail.
-    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     Configure_Path_Selection_Mode    ${odl_path_sel_mode}
     Configure_App_Peer_With_Routes
     Upload_Config_Files    addpath=${exa_add_path_value}

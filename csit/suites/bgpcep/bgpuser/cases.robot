@@ -25,7 +25,8 @@ Documentation     Basic tests for odl-bgpcep-bgp-all feature.
 ...               Reported bugs:
 ...               https://bugs.opendaylight.org/show_bug.cgi?id=4409
 ...               https://bugs.opendaylight.org/show_bug.cgi?id=4634
-Suite Setup       Setup_Everything
+Suite Setup       BuiltIn.Run Keywords    KarafKeywords.Setup Karaf Keywords
+...               AND    Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
 Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed

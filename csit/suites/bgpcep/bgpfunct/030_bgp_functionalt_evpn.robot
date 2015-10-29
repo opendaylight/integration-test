@@ -12,7 +12,8 @@ Documentation     Functional test for bgp - evpn
 ...               are configured via application peer. Routes advertised from play.py are
 ...               stored in *.hex files. These files are used also as expected data which
 ...               is recevied from odl.
-Suite Setup       Start_Suite
+Suite Setup       BuiltIn.Run Keywords    KarafKeywords.Setup Karaf Keywords
+...               AND    Start_Suite
 Suite Teardown    Stop_Suite
 Test Setup        Verify Test Preconditions
 Library           RequestsLibrary
@@ -48,20 +49,17 @@ ${LOC_RIB_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/loc-
 *** Test Cases ***
 Configure_App_Peer
     [Documentation]    Configures bgp application peer
-    [Setup]    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    APP_PEER_NAME=${APP_PEER_NAME}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    APP_PEER_ID=${ODL_SYSTEM_IP}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}/app_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configures BGP peer module with initiate-connection set to false.
-    [Setup]    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
     ...    INITIATE=false    RIB_INSTANCE_NAME=${RIB_INSTANCE}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Start_Bgp_Peer
     [Documentation]    Start Python speaker to connect to ODL. We need to do WUKS until odl really starts to accept incomming bgp connection. The failure happens if the incomming connection comes too quickly after configuring the peer in the previous test case.
-    [Setup]    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     BuiltIn.Wait_Until_Keyword_Succeeds    3x    1s    Start Bgp Peer
 
 Odl_To_Play_route_es_arb
@@ -298,18 +296,15 @@ Play_To_Odl_route_mac_rou
 
 Kill_Talking_BGP_Speaker
     [Documentation]    Abort the Python speaker
-    [Setup]    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     BGPSpeaker.Kill_BGP_Speaker
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    [Setup]    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Deconfigure_App_Peer
     [Documentation]    Revert the BGP configuration to the original state: without application peer
-    [Setup]    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    APP_PEER_NAME=${APP_PEER_NAME}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}/app_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
@@ -336,7 +331,6 @@ Start_Bgp_Peer
 
 Odl_To_Play_Template
     [Arguments]    ${totest}
-    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     ${data_xml}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/${totest}.xml
     ${data_json}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/${totest}.json
     ${announce_hex}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/announce_${totest}.hex
@@ -362,7 +356,6 @@ Odl_To_Play_Template
 
 Play_To_Odl_Template
     [Arguments]    ${totest}
-    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     ${data_xml}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/${totest}.xml
     ${data_json}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/${totest}.json
     ${announce_hex}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/announce_${totest}.hex
@@ -383,6 +376,7 @@ Play_To_Odl_Template
     [Teardown]    Withdraw_Route_And_Verify    ${withdraw_hex}
 
 Verify_Test_Preconditions
+    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     ${resp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}
     BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    404
     ${empty_routes}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/empty_routes.json
