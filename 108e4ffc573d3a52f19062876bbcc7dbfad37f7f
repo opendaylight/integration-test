@@ -317,6 +317,24 @@
     },
     {
       "key": {
+        "uuid": "dad5f5cf_bdfb8a46",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-asymmetric-chain/031_track_icmp_h35_2_h36_2.robot",
+        "patchSetId": 80
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-10-29T17:29:03Z",
+      "side": 1,
+      "message": "It would take enormous time of rewriting testing and troubleshooting. However it\u0027s operational, it would be great if we can do the optimization later.",
+      "parentUuid": "dad5f5cf_c0a6a853",
+      "revId": "108e4ffc573d3a52f19062876bbcc7dbfad37f7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dad5f5cf_60633c1b",
         "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/000_setup.robot",
         "patchSetId": 80
@@ -328,6 +346,30 @@
       "writtenOn": "2015-10-28T19:40:42Z",
       "side": 1,
       "message": "I feel like I\u0027ve seen this before?  looks like a good candidate for a keyword in libraries/GBPKeywords.robot",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 51
+      },
+      "revId": "108e4ffc573d3a52f19062876bbcc7dbfad37f7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_1dff3636",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/000_setup.robot",
+        "patchSetId": 80
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-10-29T17:29:03Z",
+      "side": 1,
+      "message": "It\u0027s not as universal for putting it into libraries because we call GBPSFC_6node.Setup Node. So it\u0027s very specific to certain (two) demo scenarios where 6 nodes are employed. I guess we can put it one directory level above, that would work.",
+      "parentUuid": "dad5f5cf_60633c1b",
       "range": {
         "startLine": 15,
         "startChar": 0,
