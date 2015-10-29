@@ -19,6 +19,98 @@
     },
     {
       "key": {
+        "uuid": "dad5f5cf_7ae9a819",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-asymmetric-chain/998_clean_odl.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-10-29T10:49:50Z",
+      "side": 1,
+      "message": "Dileep, I removed this b/c header is also specified in Variables.py",
+      "range": {
+        "startLine": 97,
+        "startChar": 4,
+        "endLine": 97,
+        "endChar": 41
+      },
+      "revId": "b5091b6805177d4d553b79df50e9993819d22772",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_ba54f0ca",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-asymmetric-chain/998_clean_odl.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-10-29T10:49:50Z",
+      "side": 1,
+      "message": "Jamo, we will add this to Utils.robot after this patch gets merged. I think it would be better if we put it there in a standalone patch for all the files which need it. Moreover, 27543 uses this methods as well and it would be even more difficult to address these changes in unmerged patches.",
+      "range": {
+        "startLine": 101,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 20
+      },
+      "revId": "b5091b6805177d4d553b79df50e9993819d22772",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_9aeecc21",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-asymmetric-chain/998_clean_odl.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-10-29T10:49:50Z",
+      "side": 1,
+      "message": "and this too",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 41
+      },
+      "revId": "b5091b6805177d4d553b79df50e9993819d22772",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_5af864e5",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-asymmetric-chain/998_clean_odl.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-10-29T10:49:50Z",
+      "side": 1,
+      "message": "Nice method, but as mentioned above, header is already in Variables.py",
+      "range": {
+        "startLine": 134,
+        "startChar": 0,
+        "endLine": 138,
+        "endChar": 29
+      },
+      "revId": "b5091b6805177d4d553b79df50e9993819d22772",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dad5f5cf_40407856",
         "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/998_clean_odl.robot",
         "patchSetId": 4
