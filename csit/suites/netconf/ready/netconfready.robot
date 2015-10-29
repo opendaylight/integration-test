@@ -37,9 +37,10 @@ Documentation     netconf-connector readiness test suite.
 ...               data. This sometimes makes problems, most likely due to too
 ...               new Robot Requests library with an interface incompatible with
 ...               this test suite.
-Suite Setup       Setup_Everything
+Suite Setup       BuiltIn.Run Keywords    KarafKeywords.Setup Karaf Keywords
+...               AND    Setup_Everything
 Suite Teardown    Teardown_Everything
-Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           RequestsLibrary
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
