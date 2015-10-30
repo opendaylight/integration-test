@@ -24,6 +24,7 @@ ${SFF_PATH}                /restconf/config/service-function-forwarder:service-f
 ${SFC_PATH}                /restconf/config/service-function-chain:service-function-chains
 ${SFP_PATH}                /restconf/config/service-function-path:service-function-paths
 
+${TOPOLOGY_PATH}           /restconf/config/network-topology:network-topology/topology/ovsdb:1
 ${OPER_NODES}              /restconf/operational/opendaylight-inventory:nodes/
 
 *** Test Cases ***
@@ -64,3 +65,9 @@ Unregister Endpoints
     [Tags]    GBPSFCTEAR
     Unregister Endpoints    ${OPER_ENDPOINTS_PATH}
 
+Delete OVSDB Topology If Present
+    [Documentation]    Delete Tenant from ODL
+    [Tags]    GBPSFCTEAR
+    ${resp}    RequestsLibrary.Get    session    ${TOPOLOGY_PATH}
+    Run Keyword If    ${resp.status_code} == 200
+    ...    Remove All Elements At URI And Verify    ${TOPOLOGY_PATH}
