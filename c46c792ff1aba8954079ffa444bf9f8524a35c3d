@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_bfe61a43",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-10-30T17:42:25Z",
+      "side": 1,
+      "message": "imho, commit messages should describe the change as a whole and not attempt to document changes between patchsets. The Gerrit history will track that info.\n\nhttp://chris.beams.io/posts/git-commit/",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 34
+      },
+      "revId": "c46c792ff1aba8954079ffa444bf9f8524a35c3d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
