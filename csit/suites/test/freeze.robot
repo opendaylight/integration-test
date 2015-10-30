@@ -4,6 +4,7 @@ Documentation     Not a test, it just logs versions of installed Python modules.
 Library           OperatingSystem
 Library           SSHLibrary
 Resource          ${CURDIR}/../../libraries/Utils.robot
+Resource          ${CURDIR}/../../libraries/KarafKeywords.robot
 
 *** Test Cases ***
 Freeze
@@ -25,3 +26,7 @@ Ulimit_On_Mininet
     Utils.Flexible_Mininet_Login
     ${limits} =    SSHLibrary.Execute_Command    bash -c "ulimit -a"
     BuiltIn.Log    ${limits}
+
+List_Installed_Features
+    ${output} =    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    feature:list -i
+    BuiltIn.Log    ${output}
