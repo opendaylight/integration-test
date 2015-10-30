@@ -39,9 +39,6 @@ Two_Args_No_Kwargs_Execution_Test
 One_Kwarg_Nested_In_Zero_Args_Execution_Test
     [Documentation]    Inner closure takes kwarg, outer closure runs it as is. Result shows execution chain went well and kwarg was processed.
     ${inner_closure} =    ScalarClosures.Closure_From_Keyword_And_Arguments    BuiltIn.Create_Dictionary    foo=bar
-    # As stated in Documentation of ScalarClosures in Current limitation,
-    # BuiltIn.Create_Directory will get empty list in @{args}, which will trigger deprecation warning.
-    # TODO: Investigate whether it is a genuine bug in Robot.
     ${outer_closure} =    ScalarClosures.Closure_From_Keyword_And_Arguments    ScalarClosures.Run_Closure_As_Is    ${inner_closure}
     ${actual} =    ScalarClosures.Run_Closure_As_Is    ${outer_closure}
     ${expected} =    BuiltIn.Create_Dictionary    foo=bar

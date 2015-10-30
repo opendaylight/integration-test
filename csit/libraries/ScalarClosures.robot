@@ -28,17 +28,37 @@ Documentation     Robot keyword library (Resource) for supporting functional pro
 ...               their arguments are usually positional.
 ...               TODO: Look once again if adding/substituting named arguments is doable.
 ...
-...               Current limitation: Keywords inside closures may detect there were given @{args} list, even if it is empty.
+...               Current limitations:
+...
+...               1. Keywords inside closures may think they got some positional arguments even when they
+...               got none. An example is BuiltIn.Create_Dictionary which will trigger a deprecation warning
+...               if a closure pointing directly to it is created. The closure constructor tries to avoid
+...               that warning by checking whether th exact name "BuiltIn.Create_Dictionary" occurs as the
+...               keyword but if the keyword is referred by other equivalent name, you will get the buggy
+...               behavior.
+...               TODO: Investigate whether this "BuiltIn.Create_Dictionary" behavior is a genuine bug in Robot.
 ...
 ...               There are convenience closures defined, but SC_Setup has to be called to make them available.
 Library           Collections
 
 *** Keywords ***
+Create_Dictionary
+    [Arguments]    @{args}    &{kwargs}
+    [Documentation]    A patched version of BuiltIn.Create_Dictionary that does not trigger deprecation warnings
+    ...    When the Closure_From_Keyword_And_Arguments gets BuiltIn.Create_Dictionary
+    ...    as the keyword name, it will create a closure pointing to this keyword
+    ...    instead.
+    ${args_count} =    BuiltIn.Get_Length    ${args}
+    BuiltIn.Run_Keyword_And_Return_If    ${args_count} > 0    BuiltIn.Create_Dictionary    @{args}    &{kwargs}
+    ${result}=    BuiltIn.Create_Dictionary    &{kwargs}
+    [Return]    ${result}
+
 Closure_From_Keyword_And_Arguments
     [Arguments]    ${keyword}    @{args}    &{kwargs}
     [Documentation]    Turn keyword with given arguments into a scalar closure.
     ...
     ...    Implemented as triple of keyword name, args as scalar and kwargs as scalar.
+    ${keyword}=    BuiltIn.Set_Variable_If    '${keyword}' == 'BuiltIn.Create_Dictionary'    ScalarClosures.Create_Dictionary    ${keyword}
     [Return]    ${keyword}    ${args}    ${kwargs}
 
 Run_Closure_As_Is
