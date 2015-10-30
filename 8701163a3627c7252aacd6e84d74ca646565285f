@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_c49eb363",
+        "filename": "csit/libraries/WaitUtils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-30T15:27:17Z",
+      "side": 1,
+      "message": "Add a code comment on why +1 is not enough.",
+      "range": {
+        "startLine": 225,
+        "startChar": 57,
+        "endLine": 225,
+        "endChar": 60
+      },
+      "revId": "8701163a3627c7252aacd6e84d74ca646565285f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
