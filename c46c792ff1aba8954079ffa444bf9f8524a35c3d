@@ -22,6 +22,52 @@
       "revId": "c46c792ff1aba8954079ffa444bf9f8524a35c3d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_1f79662f",
+        "filename": "csit/suites/netide/basic/010_netide_endpoint.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-30T20:24:49Z",
+      "side": 1,
+      "message": "as this suite grows, you\u0027ll undoubtably need this library, but going by what I see below you aren\u0027t using Utils.robot yet so you can remove it.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 48
+      },
+      "revId": "c46c792ff1aba8954079ffa444bf9f8524a35c3d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_5f87ee0f",
+        "filename": "csit/suites/netide/basic/010_netide_endpoint.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-10-30T20:24:49Z",
+      "side": 1,
+      "message": "this is there in Variables.py already.  just use ${MODULES_API} below\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/variables/Variables.py#L112",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 36
+      },
+      "revId": "c46c792ff1aba8954079ffa444bf9f8524a35c3d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
