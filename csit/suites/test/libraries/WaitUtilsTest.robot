@@ -13,6 +13,7 @@ Documentation     Unit test suite to WaitUtils library.
 Suite Setup       WUT_Setup
 Library           Collections
 Resource          ${CURDIR}/../../../libraries/ScalarClosures.robot
+Resource          ${CURDIR}/../../../libraries/SysTest.robot
 Resource          ${CURDIR}/../../../libraries/WaitUtils.robot
 
 *** Variables ***
@@ -167,6 +168,7 @@ WFGEOSSVCS_Early_exit
 *** Keywords ***
 WUT_Setup
     [Documentation]    Call Setup keywords of libraries, define reusable variables.
+    SysTest.Initialize
     WaitUtils.WU_Setup    # includes ScalarClosures.SC_Setup
     ${countdown} =    ScalarClosures.Closure_From_Keyword_And_Arguments    Stateful_Countdown    0
     BuiltIn.Set_Suite_Variable    ${countdown_quick}    ${countdown}
