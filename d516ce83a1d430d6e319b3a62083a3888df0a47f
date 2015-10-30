@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_8ee9aa1c",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-30T08:38:36Z",
+      "side": 1,
+      "message": "Once again, this only verifies netconf connector is deconfigured. Tearing down the connection and removing node from topology-netconf are operational consequences. That is why there may be a time window when this Wait_Device_Unmounted passes, but Check_Device_Mounted also still passes.",
+      "range": {
+        "startLine": 69,
+        "startChar": 12,
+        "endLine": 69,
+        "endChar": 21
+      },
+      "revId": "d516ce83a1d430d6e319b3a62083a3888df0a47f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_2e93dea4",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-30T08:38:36Z",
+      "side": 1,
+      "message": "Nothing in quotes can ever be None.",
+      "range": {
+        "startLine": 96,
+        "startChar": 54,
+        "endLine": 96,
+        "endChar": 58
+      },
+      "revId": "d516ce83a1d430d6e319b3a62083a3888df0a47f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_6ef806e6",
+        "filename": "csit/libraries/NetconfViaRestconf.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-30T08:38:36Z",
+      "side": 1,
+      "message": "I would expect \u0027s\u0027 there.",
+      "range": {
+        "startLine": 11,
+        "startChar": 24,
+        "endLine": 11,
+        "endChar": 26
+      },
+      "revId": "d516ce83a1d430d6e319b3a62083a3888df0a47f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "dad5f5cf_0eddba70",
+        "filename": "csit/libraries/NetconfViaRestconf.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-30T08:38:36Z",
+      "side": 1,
+      "message": "Where is this Resource used?",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 8
+      },
+      "revId": "d516ce83a1d430d6e319b3a62083a3888df0a47f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
