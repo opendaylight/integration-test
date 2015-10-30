@@ -167,4 +167,9 @@ Wait For Flows On Switch
 Count Flows On Switch
     [Arguments]  ${switch_name}
     ${out}  SSHLibrary.Execute Command  printf "%d" $(($(sudo ovs-ofctl dump-flows ${switch_name} -OOpenFlow13 | wc -l)-1))
+    Log  ${out}
+    ${dbg_out}  ${stderr}  SSHLibrary.Execute Command  sudo ovs-ofctl dump-flows ${switch_name} -OOpenFlow13
+    ...  return_stderr=True
+    Log  ${dbg_out}
     Should Not Be Equal As Integers  ${out}  0
+
