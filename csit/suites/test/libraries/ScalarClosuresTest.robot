@@ -44,6 +44,13 @@ One_Kwarg_Nested_In_Zero_Args_Execution_Test
     ${expected} =    BuiltIn.Create_Dictionary    foo=bar
     BuiltIn.Should_Be_Equal    ${actual}    ${expected}
 
+Scalar_Closure_Setting_A_Suite_Variable
+    [Documentation]    Closure containing a Set_Suite_Variable setting a variable to some value
+    ${closure} =    ScalarClosures.Closure_From_Keyword_And_Arguments    BuiltIn.Set_Suite_Variable    flag    False
+    BuiltIn.Set_Suite_Variable    ${flag}    True
+    ScalarClosures.Run_Closure_As_Is    ${closure}
+    Run_Keyword_If    ${flag}    Fail    The scalar closure failed to clear the flag.
+
 *** Keywords ***
 SCT_Setup
     [Documentation]    Call ScalarClosures setup.

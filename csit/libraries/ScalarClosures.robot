@@ -38,6 +38,17 @@ Documentation     Robot keyword library (Resource) for supporting functional pro
 ...               behavior.
 ...               TODO: Investigate whether this "BuiltIn.Create_Dictionary" behavior is a genuine bug in Robot.
 ...
+...               2. It is not possible to create a closure pointing to BuiltIn.Set_Suite_Variable keyword
+...               by passing the BuiltIn.Set_Suite_Variable keyword call directly to
+...               Closure_From_Keyword_And_Arguments. You will either get a syntax error or the variable won't
+...               get set at all (and some other suite variable might get clobbered instead). This is caused
+...               by the fact that the Robot tries to expand "${variable}" to its value before calling the
+...               Closure_From_Keyword_And_Arguments keyword. To overcome this problem, state the variable
+...               without the "${" and "}" syntactic sugar around it if you want to pass its literal name
+...               in the closure and always use "BuiltIn.Set_Suite_Variable" as the name of the keyword (other
+...               equivalent name forms won't work).
+...
+...
 ...               There are convenience closures defined, but SC_Setup has to be called to make them available.
 Library           Collections
 
@@ -53,12 +64,19 @@ Create_Dictionary
     ${result}=    BuiltIn.Create_Dictionary    &{kwargs}
     [Return]    ${result}
 
+Set_Suite_Variable
+    [Arguments]    ${name}    ${value}
+    [Documentation]    A version of BuiltIn.Set_Suite_Variable that does not require the syntactic sugar around the variable name.
+    ...    This keyword is used by Closure_From_Keyword_And_Arguments to construct closures that set a suite variable.
+    BuiltIn.Run_Keyword    BuiltIn.Set_Suite_Variable    \${${name}}    ${value}
+
 Closure_From_Keyword_And_Arguments
     [Arguments]    ${keyword}    @{args}    &{kwargs}
     [Documentation]    Turn keyword with given arguments into a scalar closure.
     ...
     ...    Implemented as triple of keyword name, args as scalar and kwargs as scalar.
     ${keyword}=    BuiltIn.Set_Variable_If    '${keyword}' == 'BuiltIn.Create_Dictionary'    ScalarClosures.Create_Dictionary    ${keyword}
+    ${keyword}=    BuiltIn.Set_Variable_If    '${keyword}' == 'BuiltIn.Set_Suite_Variable'    ScalarClosures.Set_Suite_Variable    ${keyword}
     [Return]    ${keyword}    ${args}    ${kwargs}
 
 Run_Closure_As_Is
