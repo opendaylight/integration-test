@@ -162,7 +162,6 @@ Wait For Flows On Switch
     [Documentation]  Counts flows on switch, fails if 0
     ConnUtils.Connect and Login  ${switch_ip}
     Wait Until Keyword Succeeds  2 min  20 sec  Count Flows On Switch  ${switch_name}
-    SSHLibrary.Close Connection
 
 Count Flows On Switch
     [Arguments]  ${switch_name}
