@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "dad5f5cf_eeb5d631",
+        "filename": "csit/libraries/RequestKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-10-30T08:26:27Z",
+      "side": 1,
+      "message": "This is \"ask for permission\" approach which only works if \"operational\" was created here. If it was already created in suite (by oversight), this would set the private flag correctly, but Create_Session will fail.\n\nDo it the \"ask for forgiveness\" way. Create the session while catching potential failure. That way you do not need private flag. Verb for that is not Create but Ensure (or something similar).",
+      "revId": "d575a127dbcbc02bbbc8c72fd7088bdfd0aae404",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
