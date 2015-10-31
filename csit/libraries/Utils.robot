@@ -78,7 +78,7 @@ Ensure All Nodes Are In Response
     ...    specific but any list of strings can be given in ${node_list}. Refactoring of this
     ...    to make it more generic should be done. (see keyword "Check For Elements At URI")
     : FOR    ${node}    IN    @{node_list}
-    \    ${resp}    RequestsLibrary.Get Request   session    ${URI}
+    \    ${resp}    RequestsLibrary.Get Request    session    ${URI}
     \    Should Be Equal As Strings    ${resp.status_code}    200
     \    Should Contain    ${resp.content}    ${node}
 
