@@ -45,15 +45,14 @@ ${COUNT_PREFIX_COUNT}    ${COUNT}
 ${CHECK_PERIOD}    1
 ${CHECK_PERIOD_PREFIX_COUNT}    ${CHECK_PERIOD}
 ${REPETITIONS_PREFIX_COUNT}    1
-${INSERT}    1
-${WITHDRAW}    0
-${PREFILL}    0
-${UPDATE}    single
+${INSERT}         1
+${WITHDRAW}       0
+${PREFILL}        0
+${UPDATE}         single
 ${BGP_TOOL_LOG_LEVEL}    info
 ${CONTROLLER_LOG_LEVEL}    INFO
 ${CONTROLLER_BGP_LOG_LEVEL}    DEFAULT
 ${RESULTS_FILE_NAME}    bgp.csv
-
 # TODO: Option names can be better.
 ${last_prefix_count}    -1
 

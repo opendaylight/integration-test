@@ -53,15 +53,14 @@ ${COUNT_CHANGE_COUNT}    ${COUNT}
 ${CHECK_PERIOD}    1
 ${CHECK_PERIOD_CHANGE_COUNT}    ${CHECK_PERIOD}
 ${REPETITIONS_CHANGE_COUNT}    1
-${INSERT}    1
-${WITHDRAW}    0
-${PREFILL}    0
-${UPDATE}    single
+${INSERT}         1
+${WITHDRAW}       0
+${PREFILL}        0
+${UPDATE}         single
 ${BGP_TOOL_LOG_LEVEL}    info
 ${CONTROLLER_LOG_LEVEL}    INFO
 ${CONTROLLER_BGP_LOG_LEVEL}    DEFAULT
 ${RESULTS_FILE_NAME}    bgp.csv
-
 # TODO: Option names can be better.
 ${last_change_count}    -1
 
@@ -210,7 +209,6 @@ Setup_Everything
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.bgpcep
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.protocol
-
 
 Teardown_Everything
     [Documentation]    Make sure Python tool was killed and tear down imported Resources.
