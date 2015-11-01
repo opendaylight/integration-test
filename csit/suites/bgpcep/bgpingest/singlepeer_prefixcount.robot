@@ -53,6 +53,7 @@ ${BGP_TOOL_LOG_LEVEL}    info
 ${CONTROLLER_LOG_LEVEL}    INFO
 ${CONTROLLER_BGP_LOG_LEVEL}    DEFAULT
 ${RESULTS_FILE_NAME}    bgp.csv
+${TEST_DURATION_INDEX}    1
 
 # TODO: Option names can be better.
 ${last_prefix_count}    -1
@@ -85,6 +86,7 @@ Check_Talking_Ipv4_Topology_Count
 
 Kill_Talking_BGP_Speaker
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
+    [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     BGPSpeaker.Kill_BGP_Speaker
     FailFast.Do_Not_Fail_Fast_From_Now_On
@@ -132,6 +134,7 @@ Check_Listening_Ipv4_Topology_Count
 
 Kill_Listening_BGP_Speaker
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
+    [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     BGPSpeaker.Kill_BGP_Speaker
     FailFast.Do_Not_Fail_Fast_From_Now_On
@@ -179,11 +182,10 @@ Setup_Everything
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
     # Calculate the timeout value based on how many routes are going to be pushed
     ${count} =    Builtin.Convert_To_Integer    ${COUNT_PREFIX_COUNT}
+    ${duration} =    Builtin.Convert_To_Integer    ${TEST_DURATION_INDEX}
     # TODO: Replace 20 with some formula from period and repetitions.
-    Builtin.Set_Suite_Variable    ${bgp_filling_timeout}    ${count*3/10000+20}
+    Builtin.Set_Suite_Variable    ${bgp_filling_timeout}    ${duration*count*3/10000+20}
     Builtin.Set_Suite_Variable    ${bgp_emptying_timeout}    ${bgp_filling_timeout*3/4}
-    # Timeout in case of doubled number of updates per iteration (per prefix count increase in the simplest mixed scenario)
-    Builtin.Run_Keyword_If    '${UPDATE}' == 'mixed'    Builtin.Set_Suite_Variable    ${bgp_filling_timeout}    ${count*6/10000+20}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.bgpcep
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.protocol
