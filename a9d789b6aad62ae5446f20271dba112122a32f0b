@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bada0100_59e95719",
+        "filename": "csit/suites/netconf/MDSAL/northbound.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-02T15:11:27Z",
+      "side": 1,
+      "message": "Uncomment or delete whole lines.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 1
+      },
+      "revId": "a9d789b6aad62ae5446f20271dba112122a32f0b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
