@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bada0100_7979bb92",
+        "filename": "csit/suites/netconf/MDSAL/northbound.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-02T15:05:26Z",
+      "side": 1,
+      "message": "Mention in Documentation that this is the flag SSHLibrary does not support, which is why we need to use ssh from Linux.",
+      "range": {
+        "startLine": 238,
+        "startChar": 141,
+        "endLine": 238,
+        "endChar": 151
+      },
+      "revId": "4eadafee00650f79bdab34bb407625a830aae8b1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
