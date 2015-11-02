@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bada0100_d93ea729",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-02T16:24:07Z",
+      "side": 1,
+      "message": "Completely_Gone",
+      "range": {
+        "startLine": 85,
+        "startChar": 83,
+        "endLine": 85,
+        "endChar": 107
+      },
+      "revId": "348e622178d85dafe09d267bf241f8d3d20ed724",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
