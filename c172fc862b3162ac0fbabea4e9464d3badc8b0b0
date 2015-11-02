@@ -235,6 +235,30 @@
     },
     {
       "key": {
+        "uuid": "bada0100_9380fe8c",
+        "filename": "csit/suites/netconf/scale/mountunmount.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-11-02T11:39:46Z",
+      "side": 1,
+      "message": "When extracting this stuff into a resource, \"atexit\" keyword will allow the resource to completely encapsulate the setup and teardown stuff, leading to the API having exactly 1 keyword (Verbose_Line here but will most likely be renamed) which will automatically do the right thing. The test using the keyword won\u0027t need to care about anything.\n\nWith the \"define aggregate teardown\" approach every test that wants to use Verbose_Line must solve the setup and teardown of the keyword or the screen will messed up. This means doing this work over and over again. And messing up around if the test also needs to use other that needs to use other stuff from other resources that mucks around with setup and teardown, like FailFast. This will quickly lead to incomprehensible suites where the tests and their steps get drowned in a flood of boilerplate crapola because the support infrastructure is missing the configuration and deconfiguration part of supporting the tests. In my opinion the test suites shall contain the tests with their test steps and only a very little else. Stuff like setup and teardown shall be put out of view into the testing infrastructure in libraries, especially if it is specific to these libraries.\n\nThe problem here is that my time as a testcase writer is very expensive. I don\u0027t want to waste it on 2-6 hours long debugging section ending with that \"I forgot to call that initialization of this resources ... again\" sort of shout. Nor I want to waste energy on remembering to call a plethora of setups and teardowns for each and every resource I want to use. Especially when they aren\u0027t going to work unless they are placed there in the correct order.\n\nAnd the reason for all of this infrastructure refactoring is that the complexity of using the current resources had risen to the point where I am experiencing exponential reduction of productivity with every additional piece of complexity overhead of using an additional resource. You might have this threshold much higher and therefore can\u0027t see these problems at all cause they won\u0027t hurt you for quite a while. Actually, now I reached the point where refactoring the infrastructure is the fastest way to get all of this merged.",
+      "parentUuid": "dad5f5cf_20dd3443",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 9
+      },
+      "revId": "c172fc862b3162ac0fbabea4e9464d3badc8b0b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dad5f5cf_d40bd229",
         "filename": "csit/suites/netconf/scale/mountunmount.robot",
         "patchSetId": 13
@@ -294,6 +318,30 @@
       "side": 1,
       "message": "So this is not a performance suite, this is suite for reproducing a known Bug?",
       "parentUuid": "dad5f5cf_97e6ac43",
+      "range": {
+        "startLine": 165,
+        "startChar": 69,
+        "endLine": 165,
+        "endChar": 73
+      },
+      "revId": "c172fc862b3162ac0fbabea4e9464d3badc8b0b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_7336ba05",
+        "filename": "csit/suites/netconf/scale/mountunmount.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-11-02T11:39:46Z",
+      "side": 1,
+      "message": "This is a performace and scaling suite that may hit unknown bugs. When it does, we want to be able to see what went wrong, when and why. The logging is a part of the infrastructure to help figure out that \"when\" in the above sentence. Creating and running a specialized test suite to hit the bug is not going to be possible if we can\u0027t figure out what to do in order for the bug to occur.\n\nThe second point here is that this suite is testing the performance of \"doing a single mount operation when N devices are already mounted\". The \"issue a batch of single mount operations\" performance number is a part of the other test suite (\"performance of multithreaded GET requests\") which is all about \"bulking the requests together. Another interesting idea would be \"N threads doing the mounts\" but that is \"nice to have\".",
+      "parentUuid": "dad5f5cf_40e2b804",
       "range": {
         "startLine": 165,
         "startChar": 69,
