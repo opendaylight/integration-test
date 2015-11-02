@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bada0100_7679c892",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-02T12:00:33Z",
+      "side": 1,
+      "message": "3.0 to avoid subsequent rounding down.",
+      "range": {
+        "startLine": 208,
+        "startChar": 89,
+        "endLine": 208,
+        "endChar": 90
+      },
+      "revId": "00626a42540e854443e7dcf9d47d7e56911b53a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_367340b3",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-02T12:00:33Z",
+      "side": 1,
+      "message": "3.0",
+      "range": {
+        "startLine": 210,
+        "startChar": 83,
+        "endLine": 210,
+        "endChar": 84
+      },
+      "revId": "00626a42540e854443e7dcf9d47d7e56911b53a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_9661ccd5",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-02T12:00:33Z",
+      "side": 1,
+      "message": "Attribute docstrings should go _after_ the assignment they are documenting.",
+      "range": {
+        "startLine": 288,
+        "startChar": 8,
+        "endLine": 288,
+        "endChar": 11
+      },
+      "revId": "00626a42540e854443e7dcf9d47d7e56911b53a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
