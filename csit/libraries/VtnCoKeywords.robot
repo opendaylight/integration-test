@@ -141,7 +141,8 @@ Create VBRIF in VBR
     ${vbrifcreate}    Create Dictionary    interface=${vbrifinfo}
     ${vbrifcreate_json}=    json.dumps    ${vbrifcreate}
     ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${VBRIFS_CREATE}    data=${vbrifcreate_json}
-    Should Be Equal As Strings    ${resp.status_code}    ${retcode}
+    Run Keyword If    '${vbrname}' == 'Vbr_audit'    Should Be Equal As Strings    ${resp.status_code}    202
+    ...    ELSE     Should Be Equal As Strings    ${resp.status_code}    201
 
 Define Portmap for VBRIF
     [Arguments]    ${vtnname}    ${vbrname}    ${vbrifname}    ${logical_port_id}
