@@ -43,7 +43,7 @@ Add a vlanmap for bridge2
 
 Get vlanflow h1 h3
     [Documentation]    ping h1 to h3
-    Wait Until Keyword Succeeds    10s    2s    Mininet Ping Should Succeed    h1    h3
+    Wait Until Keyword Succeeds    12s    2s    Mininet Ping Should Succeed    h1    h3
 
 Get vlanflow h1 h5
     [Documentation]    ping h1 to h5

@@ -215,7 +215,7 @@ Mininet Ping Should Succeed
 
 Mininet Ping Should Not Succeed
     [Arguments]    ${host1}    ${host2}
-    Write    ${host1} ping -c 10 ${host2}
+    Write    ${host1} ping -c 3 ${host2}
     ${result}    Read Until    mininet>
     Should Not Contain    ${result}    64 bytes
 
