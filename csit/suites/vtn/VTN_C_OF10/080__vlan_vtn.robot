@@ -43,19 +43,19 @@ Create VLANMAP in VBRIDGE2
 
 Test Ping for Configuration1
     [Documentation]    ping between hosts in mininet
-    Wait Until Keyword Succeeds    10s    2s    Test Ping    h1    h3
+    Wait Until Keyword Succeeds    12s    2s    Test Ping    h1    h3
 
 Test Ping for Configuration2
     [Documentation]    ping between hosts in mininet
-    Wait Until Keyword Succeeds    10s    2s    Test Ping    h1    h5
+    Wait Until Keyword Succeeds    12s    2s    Test Ping    h1    h5
 
 Test Ping for Configuration3
     [Documentation]    ping between hosts in mininet
-    Wait Until Keyword Succeeds    10s    2s    Test Ping    h2    h4
+    Wait Until Keyword Succeeds    12s    2s    Test Ping    h2    h4
 
 Test Ping for Configuration4
     [Documentation]    ping between hosts in mininet
-    Wait Until Keyword Succeeds    10s    2s    Test Ping    h2    h6
+    Wait Until Keyword Succeeds    12s    2s    Test Ping    h2    h6
 
 Delete a VTN Tenant1
     [Documentation]    Delete Vtn Tenant1
