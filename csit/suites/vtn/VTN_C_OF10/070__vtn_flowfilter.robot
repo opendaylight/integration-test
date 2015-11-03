@@ -59,7 +59,7 @@ Create FlowfilterEntry in VTNFlowfilter
 
 Test Ping for Configuration
     [Documentation]    ping between hosts in mininet
-    Wait Until Keyword Succeeds    10s    2s    Test Ping    h1    h3
+    Wait Until Keyword Succeeds    20s    1s    Test Ping    h1    h3
 
 Delete a VTN Tenant1
     [Documentation]    Delete Vtn Tenant1
