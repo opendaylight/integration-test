@@ -31,7 +31,7 @@ Update controller ip invalid
 
 Verify the Controller State is down
     [Documentation]    Check Controller status
-    Wait Until Keyword Succeeds    12s    2s    Check Controller Status    odc_test    down
+    Wait Until Keyword Succeeds    40s    2s    Check Controller Status    odc_test    down
 
 Create VBRIF in VBRIDGE Vbridge1 Interface1
     [Documentation]    Create an interface to Vbridge1
