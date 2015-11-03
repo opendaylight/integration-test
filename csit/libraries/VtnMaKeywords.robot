@@ -215,9 +215,11 @@ Mininet Ping Should Succeed
 
 Mininet Ping Should Not Succeed
     [Arguments]    ${host1}    ${host2}
-    Write    ${host1} ping -c 10 ${host2}
-    ${result}    Read Until    mininet>
-    Should Not Contain    ${result}    64 bytes
+    Write    ${host1} ping -c 5 ${host2}
+    ${result1}    Read Until    mininet>
+    Write    ${host1} ping -c 5 ${host2}
+    ${result2}    Read Until    mininet>
+    Should Not Contain    ${result2}    64 bytes
 
 Delete a interface
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${interface_name}
