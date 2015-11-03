@@ -37,6 +37,7 @@ ${h36_5_FILE}     ${CURDIR}/../../../../../variables/gbp/demo-symmetric-chain/ve
 *** Test Cases ***
 Put Service Functions
     [Documentation]    Register Service Functions to ODL
+    Sleep    30s    # to give SFC enough time to converge. timing issues not resolved yet.
     ${json_to_edit}    OperatingSystem.Get File    ${SF_FILE}
     ${edited_json}    Replace String    ${json_to_edit}    _SF1    ${GBPSFC3}
     ${edited_json}    Replace String    ${edited_json}    _SF2    ${GBPSFC5}
