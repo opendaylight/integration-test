@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bada0100_dff7678b",
+        "filename": "csit/suites/didm/discovery/device_discovery.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-03T12:28:56Z",
+      "side": 1,
+      "message": "Does OpenDaylight have a license to merge this into integration/test repository then?",
+      "range": {
+        "startLine": 4,
+        "startChar": 91,
+        "endLine": 4,
+        "endChar": 111
+      },
+      "revId": "8e704e0d723a12eaed5c2821e3fdede860efca1d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_1f9f2f05",
+        "filename": "csit/suites/didm/discovery/device_discovery.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-03T12:28:56Z",
+      "side": 1,
+      "message": "It is RequestsLibrary.Get, so maybe we should call it just \"request\".\nApplies elsewhere too.",
+      "range": {
+        "startLine": 18,
+        "startChar": 30,
+        "endLine": 18,
+        "endChar": 42
+      },
+      "revId": "8e704e0d723a12eaed5c2821e3fdede860efca1d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_1f6def04",
+        "filename": "csit/suites/didm/discovery/device_discovery.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-03T12:28:56Z",
+      "side": 1,
+      "message": "No. It verifies 10.1.1.8 is present and 1.1.1.1 is not its substring.",
+      "range": {
+        "startLine": 19,
+        "startChar": 21,
+        "endLine": 19,
+        "endChar": 71
+      },
+      "revId": "8e704e0d723a12eaed5c2821e3fdede860efca1d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
