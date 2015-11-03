@@ -151,7 +151,7 @@ Add a flowfilter_vbr with inet4src and inet4dst
 Add a flowfilter with inet4 for drop
     [Documentation]    Create a flowfilter with inet4 for drop action and Verify no pinging
     Add a flowfilter for drop    Tenant1    vBridge1    if1    ${flowfilterInetdropdata}    ${index}
-    Mininet Ping Should Not Succeed    h1    h3
+    BuiltIn.Wait_Until_Keyword_Succeeds    10    1    Mininet Ping Should Not Succeed    h1    h3
 
 Verify Removed Flow Entry For Inet After Drop Action
     [Documentation]    Verify no flows between the hosts after drop
