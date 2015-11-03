@@ -209,13 +209,15 @@ Add a vBridgeMacMapping
 
 Mininet Ping Should Succeed
     [Arguments]    ${host1}    ${host2}
-    Write    ${host1} ping -c 10 ${host2}
+    [Documentation]     Ping between hosts should be success
+    Write    ${host1} ping -c 1 ${host2}
     ${result}    Read Until    mininet>
     Should Contain    ${result}    64 bytes
 
 Mininet Ping Should Not Succeed
     [Arguments]    ${host1}    ${host2}
-    Write    ${host1} ping -c 10 ${host2}
+    [Documentation]     Ping should not succeed between hosts
+    Write    ${host1} ping -c 3 ${host2}
     ${result}    Read Until    mininet>
     Should Not Contain    ${result}    64 bytes
 

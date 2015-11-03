@@ -49,7 +49,7 @@ Add a portmap for interface if2
 
 Ping h1 to h3
     [Documentation]    Ping h1 to h3, verify no packet loss
-    Mininet Ping Should Succeed    h1    h3
+    BuiltIn.Wait_Until_Keyword_Succeeds    12    1    Mininet Ping Should Succeed    h1    h3
 
 Add a vBridge vBridge2
     [Documentation]    Add a vBridge vBridge2 in vtn Tenant1
@@ -79,7 +79,7 @@ Add a portmap for interface if4
 
 Ping h2 to h4
     [Documentation]    Ping h2 to h4, verify no packet loss
-    Mininet Ping Should Succeed    h2    h4
+    BuiltIn.Wait_Until_Keyword_Succeeds    12    1    Mininet Ping Should Succeed    h2    h4
 
 Get flow
     [Documentation]    Get flow of a vtn Tenant1
