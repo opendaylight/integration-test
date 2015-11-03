@@ -6,4 +6,6 @@
 
 # Place the suites in run order:
 integration/test/csit/suites/netconf/ready
+integration/test/csit/suites/controller/NETCONF
+integration/test/csit/suites/netconf/MDSAL
 integration/test/csit/suites/netconf/CRUD
