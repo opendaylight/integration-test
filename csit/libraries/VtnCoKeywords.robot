@@ -71,7 +71,7 @@ Get Coordinator Version
 Add a Controller
     [Arguments]    ${ctrlname}    ${ctrlip}
     [Documentation]    Create a controller
-    ${controllerinfo}    Create Dictionary    controller_id=${ctrlname}    type=odc    ipaddr=${CONTROLLER}    version=1.0
+    ${controllerinfo}    Create Dictionary    controller_id=${ctrlname}    type=odc    ipaddr=${ctrlip}    version=1.0
     ${controllercreate}    Create Dictionary    controller=${controllerinfo}
     ${controllercreate_json}=    json.dumps    ${controllercreate}
     ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${CTRLS_CREATE}    data=${controllercreate_json}
@@ -132,7 +132,8 @@ Create VBR in VTN
     ${vbrcreate}    Create Dictionary    vbridge=${vbrinfo}
     ${vbrcreate_json}=    json.dumps    ${vbrcreate}
     ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS_CREATE}    data=${vbrcreate_json}
-    Should Be Equal As Strings    ${resp.status_code}    201
+    Run Keyword If    '${vbrname}' == 'Vbr_audit'    Should Be Equal As Strings    ${resp.status_code}    202
+    ...    ELSE     Should Be Equal As Strings    ${resp.status_code}    201
 
 Create VBRIF in VBR
     [Arguments]    ${vtnname}    ${vbrname}    ${vbrifname}    ${ifdescription}    ${retcode}
@@ -266,7 +267,7 @@ Delete a FLOWLIST
 Test Ping
     [Arguments]    ${host1}    ${host2}
     [Documentation]    Ping hosts to check connectivity
-    Write    ${host1} ping -c 4 ${host2}
+    Write    ${host1} ping -c 8 ${host2}
     ${result}    Read Until    mininet>
     Should Contain    ${result}    64 bytes
 
