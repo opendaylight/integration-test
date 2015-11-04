@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bada0100_f724cfc7",
+        "filename": "csit/suites/netide/basic/010_netide_endpoint.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-04T00:54:29Z",
+      "side": 1,
+      "message": "you don\u0027t need this here.  it\u0027s being pulled in from your Variables.py in line 6.  you can safely remove.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 35
+      },
+      "revId": "172e585f7216142c55f2fc5c7a26f9ae05b8c022",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
