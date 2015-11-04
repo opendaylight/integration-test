@@ -18,7 +18,7 @@ Library           Collections
 Library           RequestsLibrary
 Library           OperatingSystem
 Library           String
-Library           SSHLibrary    prompt=${MININET_PROMPT}    timeout=10s
+Library           SSHLibrary    timeout=10s
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
@@ -109,7 +109,7 @@ Setup_Everything
     RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
     NetconfKeywords.Setup_Netconf_Keywords
     # Connect to the Mininet machine
-    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
+    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    prompt=${TOOLS_SYSTEM_PROMPT}
     Utils.Flexible_Mininet_Login
     NetconfKeywords.Install_And_Start_Testtool    device-count=10    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas
 
