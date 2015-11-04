@@ -1,14 +1,15 @@
 *** Settings ***
-Suite Setup       Create Controllers Sessions
+Suite Setup       Create Controller Sessions
 Suite Teardown    Delete All Sessions
 Library           OperatingSystem
 Library           Collections
 Library           XML
 Library           SSHLibrary
-Library           ../../../libraries/XmlComparator.py
-Variables         ../../../variables/Variables.py
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py
+Library           ../../../libraries/XmlComparator.py
+Resource          ../../../libraries/ClusterKeywords.robot
+Variables         ../../../variables/Variables.py
 
 *** Variables ***
 ${switch_idx}     1
@@ -19,31 +20,13 @@ ${url_m3_shard}    /jolokia/read/org.opendaylight.controller:Category=Shards,nam
 ${get_pers_url}    /restconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/distributed-datastore-provider:distributed-config-datastore-provider/distributed-config-store-module
 
 *** Test Cases ***
-Logging Initial Cluster Information
-    ${resp}=    Get Controller Response    session1    /jolokia/read/org.opendaylight.controller:Category=Shards,name=member-1-shard-inventory-config,type=DistributedConfigDatastore
-    Log    ${resp.content}
-    ${resp}=    Get Controller Response    session1    /jolokia/read/org.opendaylight.controller:Category=Shards,name=member-1-shard-inventory-operational,type=DistributedOperationalDatastore
-    Log    ${resp.content}
-    ${resp}=    Get Controller Response    session1    /restconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/distributed-datastore-provider:distributed-config-datastore-provider/distributed-config-store-module
-    Log    ${resp.content}
-    ${resp}=    Get Controller Response    session1    /restconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/distributed-datastore-provider:distributed-operational-datastore-provider/distributed-operational-store-module
-    Log    ${resp.content}
-    ${resp}=    Get Controller Response    session2    /jolokia/read/org.opendaylight.controller:Category=Shards,name=member-2-shard-inventory-config,type=DistributedConfigDatastore
-    Log    ${resp.content}
-    ${resp}=    Get Controller Response    session2    /jolokia/read/org.opendaylight.controller:Category=Shards,name=member-2-shard-inventory-operational,type=DistributedOperationalDatastore
-    Log    ${resp.content}
-    ${resp}=    Get Controller Response    session2    /restconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/distributed-datastore-provider:distributed-config-datastore-provider/distributed-config-store-module
-    Log    ${resp.content}
-    ${resp}=    Get Controller Response    session2    /restconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/distributed-datastore-provider:distributed-operational-datastore-provider/distributed-operational-store-module
-    Log    ${resp.content}
-    ${resp}=    Get Controller Response    session3    /jolokia/read/org.opendaylight.controller:Category=Shards,name=member-3-shard-inventory-config,type=DistributedConfigDatastore
-    Log    ${resp.content}
-    ${resp}=    Get Controller Response    session3    /jolokia/read/org.opendaylight.controller:Category=Shards,name=member-3-shard-inventory-operational,type=DistributedOperationalDatastore
-    Log    ${resp.content}
-    ${resp}=    Get Controller Response    session3    /restconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/distributed-datastore-provider:distributed-config-datastore-provider/distributed-config-store-module
-    Log    ${resp.content}
-    ${resp}=    Get Controller Response    session3    /restconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/distributed-datastore-provider:distributed-operational-datastore-provider/distributed-operational-store-module
-    Log    ${resp.content}
+Find Leader and Select Follower For Inventory
+    @{cluster_list}    Create Original Cluster List
+    ${leader}    @{followers}    Get Shard Status    inventory    @{cluster_list}
+    ${follower}=    Get From List    ${followers}    0
+    Set Suite Variable    @{original_cluster_list}    @{cluster_list}
+    Set Suite Variable    ${original_leader}    ${leader}
+    Set Suite Variable    ${original_follower}    ${follower}
 
 Add Flow 1 To Controller1
     Init Flow Variables    1    1    1
@@ -394,11 +377,6 @@ Init Flow Variables
     Set Suite Variable    ${flow_priority}
     Set Suite Variable    ${data}
     Set Suite Variable    ${xmlroot}
-
-Create Controllers Sessions
-    Create Session    session1    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    Create Session    session2    http://${CONTROLLER1}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    Create Session    session3    http://${CONTROLLER2}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
 
 Get Controller Response
     [Arguments]    ${session}    ${url}
