@@ -58,18 +58,25 @@ Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
 ${HOLDTIME}       180
 ${HOLDTIME_PREFIX_COUNT}    ${HOLDTIME}
+${HOLDTIME_PREFIX_COUNT_MANY}    ${HOLDTIME_PREFIX_COUNT}
 ${COUNT}          1000000
 ${COUNT_PREFIX_COUNT}    ${COUNT}
+${COUNT_PREFIX_COUNT_MANY}    ${COUNT_PREFIX_COUNT}
 ${FIRST_PEER_IP}    127.0.0.1
 ${MULTIPLICITY}    2    # May be increased after Bug 4488 is fixed.
 ${MULTIPLICITY_PREFIX_COUNT}    ${MULTIPLICITY}
-${CHECK_PERIOD}    4    # ${MULTIPLICITY*2}
+${MULTIPLICITY_PREFIX_COUNT_MANY}    ${MULTIPLICITY_PREFIX_COUNT}
+${CHECK_PERIOD}    1    # ${MULTIPLICITY*2} recommended for this suite, but keeping the common default.
 ${CHECK_PERIOD_PREFIX_COUNT}    ${CHECK_PERIOD}
+${CHECK_PERIOD_PREFIX_COUNT_MANY}    ${CHECK_PERIOD_PREFIX_COUNT}
 ${REPETITIONS}    1
 ${REPETITIONS_PREFIX_COUNT}    ${REPETITIONS}
+${REPETITIONS_PREFIX_COUNT_MANY}    ${REPETITIONS_PREFIX_COUNT}
 ${BGPCEP_LOG_LEVEL}    INFO
+${TEST_DURATION_MULTIPLIER}    1
+${TEST_DURATION_MULTIPLIER_PREFIX_COUNT}    ${TEST_DURATION_MULTIPLIER}
+${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_MANY}    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT}
 # TODO: Option names can be better.
-${last_prefix_count}    -1
 
 *** Test Cases ***
 Check_For_Empty_Ipv4_Topology_Before_Talking
@@ -83,7 +90,7 @@ Reconfigure_ODL_To_Accept_Connections
     : FOR    ${index}    IN RANGE    1    ${MULTIPLICITY}+1
     \    ${peer_name} =    BuiltIn.Set_Variable    example-bgp-peer-${index}
     \    ${peer_ip} =    BuiltIn.Evaluate    str(ipaddr.IPAddress('${FIRST_PEER_IP}') + ${index} - 1)    modules=ipaddr
-    \    ${template_as_string} =    BuiltIn.Set_Variable    {'NAME': '${peer_name}', 'IP': '${peer_ip}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'HOLDTIME': '${HOLDTIME_PREFIX_COUNT}', 'INITIATE': 'false'}
+    \    ${template_as_string} =    BuiltIn.Set_Variable    {'NAME': '${peer_name}', 'IP': '${peer_ip}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'HOLDTIME': '${HOLDTIME_PREFIX_COUNT_MANY}', 'INITIATE': 'false'}
     \    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
     # FIXME: Add testcase to change bgpcep and protocol log levels, when a Keyword that does it without messing with current connection is ready.
 
@@ -94,16 +101,16 @@ Set_Logging_Levels
 Start_Talking_BGP_Manager
     [Documentation]    Start Python manager to connect speakers to ODL.
     # Myport value is needed for checking whether connection at precise port was established.
-    BGPSpeaker.Start_BGP_Manager    --amount=${COUNT_PREFIX_COUNT} --multiplicity=${MULTIPLICITY} --myip=${FIRST_PEER_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT}
+    BGPSpeaker.Start_BGP_Manager    --amount=${COUNT_PREFIX_COUNT_MANY} --multiplicity=${MULTIPLICITY_PREFIX_COUNT_MANY} --myip=${FIRST_PEER_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT}
 
 Wait_For_Stable_Talking_Ipv4_Topology
     [Documentation]    Wait until example-ipv4-topology becomes stable. This is done by checking stability of prefix count.
-    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_PREFIX_COUNT}    repetitions=${REPETITIONS_PREFIX_COUNT}    excluded_count=0
+    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_PREFIX_COUNT_MANY}    repetitions=${REPETITIONS_PREFIX_COUNT_MANY}    excluded_count=0
 
 Check_Talking_Ipv4_Topology_Count
     [Documentation]    Count the routes in example-ipv4-topology and fail if the count is not correct.
     [Tags]    critical
-    PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT_PREFIX_COUNT}
+    PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT_PREFIX_COUNT_MANY}
 
 Kill_Talking_BGP_Speakers
     [Documentation]    Abort the Python speakers. Also, attempt to stop failing fast.
@@ -119,7 +126,7 @@ Wait_For_Stable_Ipv4_Topology_After_Talking
     # TODO: Is is possible to have failed at Check_Talking_Ipv4_Topology_Count and still have initial period of constant count?
     # FIXME: If yes, do count here to get the initial value and use it (if nonzero).
     # TODO: If yes, decide whether access to the FailFast state should have keyword or just variable name.
-    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_PREFIX_COUNT}    repetitions=${REPETITIONS_PREFIX_COUNT}    excluded_count=${COUNT_PREFIX_COUNT}
+    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_PREFIX_COUNT_MANY}    repetitions=${REPETITIONS_PREFIX_COUNT_MANY}    excluded_count=${COUNT_PREFIX_COUNT_MANY}
 
 Check_For_Empty_Ipv4_Topology_After_Talking
     [Documentation]    Example-ipv4-topology should be empty now.
@@ -157,10 +164,10 @@ Setup_Everything
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/manage_play.py
     # Calculate the timeout value based on how many routes are going to be pushed.
-    ${period} =    DateTime.Convert_Time    ${CHECK_PERIOD_PREFIX_COUNT}    result_format=number
-    ${timeout} =    BuiltIn.Evaluate    ${COUNT_PREFIX_COUNT} * 3 / 10000 + ${period} * (${REPETITIONS_PREFIX_COUNT} + 1)
+    ${period} =    DateTime.Convert_Time    ${CHECK_PERIOD_PREFIX_COUNT_MANY}    result_format=number
+    ${timeout} =    BuiltIn.Evaluate    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_MANY} * (${COUNT_PREFIX_COUNT_MANY} * 3.0 / 10000 + ${period} * (${REPETITIONS_PREFIX_COUNT_MANY} + 1))
     Builtin.Set_Suite_Variable    ${bgp_filling_timeout}    ${timeout}
-    ${timeout} =    BuiltIn.Evaluate    ${COUNT_PREFIX_COUNT} * 2 / 10000 + ${period} * (${REPETITIONS_PREFIX_COUNT} + 1)
+    ${timeout} =    BuiltIn.Evaluate    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_MANY} * (${COUNT_PREFIX_COUNT_MANY} * 2.0 / 10000 + ${period} * (${REPETITIONS_PREFIX_COUNT_MANY} + 1))
     Builtin.Set_Suite_Variable    ${bgp_emptying_timeout}    ${timeout}
 
 Teardown_Everything
