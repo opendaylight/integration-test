@@ -7,8 +7,80 @@ Resource          Utils.robot
 
 *** Variables ***
 ${smc_node}       /org.opendaylight.controller:Category=ShardManager,name=shard-manager-config,type=DistributedConfigDatastore
+${jolokia_read}    /jolokia/read/org.opendaylight.controller
 
 *** Keywords ***
+Create Original Cluster List
+    [Documentation]    Returns original cluster list with all controllers indexes.
+    ${cluster_index_list}    Create List
+    ${NUM_ODL_SYSTEM}=    Convert to Integer    ${NUM_ODL_SYSTEM}
+    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    Append To List    ${cluster_index_list}    ${i+1}
+    [Return]    ${cluster_index_list}
+
+Create Controller Sessions
+    [Documentation]    Creates session to all controller instances.
+    ${NUM_ODL_SYSTEM}=    Convert to Integer    ${NUM_ODL_SYSTEM}
+    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    Log    Create Session ${ODL_SYSTEM_${i+1}_IP}
+    \    Create Session    controller${i+1}    http://${ODL_SYSTEM_${i+1}_IP}:${RESTCONFPORT}    auth=${AUTH}
+
+Get Cluster Shard Status
+    [Arguments]    ${cluster_index_list}    ${shard}
+    [Documentation]    Checks shard status and returns Leader index and list of Followers.
+    ${lenght}=    Get Length    ${cluster_index_list}
+    ${leader}=    Set Variable    0
+    ${follower_list}=    Create List
+    : FOR    ${i}    IN    @{cluster_index_list}
+    \    ${data}=    Get Data From URI    controller${i}    ${jolokia_read}:Category=Shards,name=member-${i}-shard-${shard}-config,type=DistributedConfigDatastore
+    \    Log    ${data}
+    \    ${json}=    To Json    ${data}
+    \    ${value}=    Get From Dictionary    ${json}    value
+    \    ${status}=    Get From Dictionary    ${value}    RaftState
+    \    Log    Controller ${ODL_SYSTEM_${i}_IP} is ${status} for shard ${shard}
+    \    Run Keyword If    '${status}' == 'Leader'    Set Test Variable    ${leader}    ${i}
+    \    Run Keyword If    '${status}' == 'Follower'    Append To List    ${follower_list}    ${i}
+    Should Not Be Equal    ${leader}    0    No Leader elected
+    Length Should Be    ${follower_list}    ${lenght-1}    Not enough or too many Followers
+    [Return]    ${leader}    ${follower_list}
+
+Get Cluster Entity Owner Status
+    [Arguments]    ${cluster_index_list}    ${device_type}    ${device}
+    [Documentation]    Checks Entity Owner status for a given device and returns owner index and list of candidates.
+    ${length}=    Get Length    ${cluster_index_list}
+    ${controller_index}    Get From List    ${cluster_index_list}    0
+    ${candidates_list}=    Create List
+    ${data}=    Get Data From URI    controller${controller_index}    /restconf/operational/entity-owners:entity-owners
+    Log    ${data}
+    ${data}=    Replace String    ${data}    /general-entity:entity[general-entity:name='    ${EMPTY}
+    ${clear_data}=    Replace String    ${data}    ']    ${EMPTY}
+    Log    ${clear_data}
+    ${json}=    To Json    ${clear_data}
+    ${entity_owners}=    Get From Dictionary    ${json}    entity-owners
+    ${entity_type_list}=    Get From Dictionary    ${entity_owners}    entity-type
+    ${entity_type_index}=    Get Index From List Of Dictionaries    ${entity_type_list}    type    ${device_type}
+    Should Not Be Equal    ${entity_type_index}    -1    No Entity Owner found for this device type
+    ${entity_type}=    Get From List    ${entity_type_list}    ${entity_type_index}
+    ${entity_list}=    Get From Dictionary    ${entity_type}    entity
+    ${entity_index}=    Get Index From List Of Dictionaries    ${entity_list}    id    ${device}
+    Should Not Be Equal    ${entity_index}    -1    Device not found in Entity Owner
+    ${entity}=    Get From List    ${entity_list}    ${entity_index}
+    ${entity_owner}=    Get From Dictionary    ${entity}    owner
+    Should Not Be Empty    ${entity_owner}    No owner found for this device
+    ${owner}=    Replace String    ${entity_owner}    member-    ${EMPTY}
+    ${owner}=    Convert To Integer    ${owner}
+    ${entity_candidates_list}=    Get From Dictionary    ${entity}    candidate
+    ${list_length}=    Get Length    ${entity_candidates_list}
+    Should Be Equal    ${list_length}    ${length}    Not enough or too many candidates candidates
+    ${list_length}=    Convert To Integer    ${list_length}
+    : FOR    ${i}    IN RANGE    ${list_length}
+    \    ${candidate_member}=    Get From List    ${entity_candidates_list}    ${i}
+    \    ${candidate_name}=    Get From Dictionary    ${candidate_member}    name
+    \    ${candidate}=    Replace String    ${candidate_name}    member-    ${EMPTY}
+    \    ${candidate}=    Convert To Integer    ${candidate}
+    \    Run Keyword If    '${candidate}' != '${owner}'    Append To List    ${candidates_list}    ${candidate}
+    [Return]    ${owner}    ${candidates_list}
+
 Get Controller List
     [Arguments]    ${exclude_controller}=${EMPTY}
     [Documentation]    Creates a list of all controllers minus any excluded controller.
