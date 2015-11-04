@@ -1,0 +1,18 @@
+{
+    "input": {
+      "opendaylight-flow-service:node":"/opendaylight-inventory:nodes/opendaylight-inventory:node[opendaylight-inventory:id='openflow:1']",
+      "priority": 2,
+      "flow-name": "flow1",
+      "table_id": 0,
+      "hard-timeout": 0,
+      "idle-timeout": 0,
+      "match": {
+        "ipv4-destination": "10.0.1.0/24",
+        "ethernet-match": {
+          "ethernet-type": {
+            "type": 2048
+          }
+        }
+      }
+    }
+}

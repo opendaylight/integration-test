@@ -131,7 +131,7 @@ Check For Elements Not At URI
     \    Should Not Contain    ${resp.content}    ${i}
 
 Clean Mininet System
-    [Arguments]    ${system}=${MININET}
+    [Arguments]    ${system}=${TOOLS_SYSTEM_IP}
     Run Command On Mininet    ${system}    sudo mn -c
     Run Command On Mininet    ${system}    sudo ps -elf | egrep 'usr/local/bin/mn' | egrep python | awk '{print "sudo kill -9",$4}' | sh
 
@@ -192,28 +192,27 @@ Flexible SSH Login
     BuiltIn.Run Keyword And Return    SSHLibrary.Login With Public Key    ${user}    ${USER_HOME}/.ssh/${SSH_KEY}    ${KEYFILE_PASS}    delay=${delay}
 
 Flexible Mininet Login
-    [Arguments]    ${user}=${MININET_USER}    ${password}=${MININET_PASSWORD}    ${delay}=0.5s
+    [Arguments]    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${TOOLS_SYSTEM_PASSWORD}    ${delay}=0.5s
     [Documentation]    Call Flexible SSH Login, but with default values suitable for Mininet machine.
     BuiltIn.Run Keyword And Return    Flexible SSH Login    user=${user}    password=${password}    delay=${delay}
 
 Flexible Controller Login
-    [Arguments]    ${user}=${CONTROLLER_USER}    ${password}=${CONTROLLER_PASSWORD}    ${delay}=0.5s
+    [Arguments]    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${delay}=0.5s
     [Documentation]    Call Flexible SSH Login, but with default values suitable for Controller machine.
     BuiltIn.Run Keyword And Return    Flexible SSH Login    user=${user}    password=${password}    delay=${delay}
 
 Run Command On Remote System
-    [Arguments]    ${system}    ${cmd}    ${user}=${MININET_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
+    [Arguments]    ${system}    ${cmd}    ${user}=${DEFAULT_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=${DEFAULT_TIMEOUT}
     [Documentation]    Reduces the common work of running a command on a remote system to a single higher level
     ...    robot keyword, taking care to log in with a public key and. The command given is written
     ...    and the output returned. No test conditions are checked.
     Log    Attempting to execute ${cmd} on ${system} by ${user} with ${keyfile_pass} and ${prompt}
     ${conn_id}=    SSHLibrary.Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
     Flexible SSH Login    ${user}    ${password}
-    SSHLibrary.Write    ${cmd}
-    ${output}=    SSHLibrary.Read Until    ${prompt}
+    ${stdout}    ${stderr}    SSHLibrary.Execute Command    ${cmd}    return_stderr=True
     SSHLibrary.Close Connection
-    Log    ${output}
-    [Return]    ${output}
+    Log    ${stderr}
+    [Return]    ${stdout}
 
 Write_Bare_Ctrl_C
     [Documentation]    Construct ctrl+c character and SSH-write it (without endline) to the current SSH connection.
@@ -228,16 +227,14 @@ Write Bare Ctrl D
     SSHLibrary.Write Bare    ${ctrl_d}
 
 Run Command On Mininet
-    [Arguments]    ${system}=${MININET}    ${cmd}=echo    ${user}=${MININET_USER}    ${password}=${MININET_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
+    [Arguments]    ${system}=${TOOLS_SYSTEM_IP}    ${cmd}=echo    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${TOOLS_SYSTEM_PASSWORD}    ${prompt}=${TOOLS_SYSTEM_PROMPT}
     [Documentation]    Call Run Comand On Remote System, but with default values suitable for Mininet machine.
-    BuiltIn.Run Keyword And Return    Run Command On Remote System    ${system}    ${cmd}    user=${user}    password=${password}    prompt=${prompt}
-    ...    prompt_timeout=${prompt_timeout}
+    BuiltIn.Run Keyword And Return    Run Command On Remote System    ${system}    ${cmd}    ${user}    ${password}    prompt=${prompt}
 
 Run Command On Controller
-    [Arguments]    ${system}=${CONTROLLER}    ${cmd}=echo    ${user}=${CONTROLLER_USER}    ${password}=${CONTROLLER_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
+    [Arguments]    ${system}=${ODL_SYSTEM_IP}    ${cmd}=echo    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
     [Documentation]    Call Run Comand On Remote System, but with default values suitable for Controller machine.
-    BuiltIn.Run Keyword And Return    Run Command On Remote System    ${system}    ${cmd}    user=${user}    password=${password}    prompt=${prompt}
-    ...    prompt_timeout=${prompt_timeout}
+    BuiltIn.Run Keyword And Return    Run Command On Remote System    ${system}    ${cmd}    ${user}    ${password}    prompt=${prompt}
 
 Verify File Exists On Remote System
     [Arguments]    ${system}    ${file}    ${user}=${MININET_USER}    ${password}=${MININET_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=5s
@@ -338,3 +335,30 @@ Get Data From URI
     Builtin.Return_From_Keyword_If    ${response.status_code} == 200    ${response.text}
     Builtin.Log    ${response.text}
     Builtin.Fail    The request failed with code ${response.status_code}
+
+No Content From URI
+    [Arguments]    ${session}    ${uri}    ${headers}=${NONE}
+    [Documentation]    Issue a GET request and return on error 404 (No content) or will fail and log the content.
+    ...    Issues a GET request for ${uri} in ${session} using headers from
+    ...    ${headers}. If the request returns a HTTP error, fails. Otherwise
+    ...    returns the data obtained by the request.
+    ${response}=    RequestsLibrary.Get Request    ${session}    ${uri}    ${headers}
+    Builtin.Return_From_Keyword_If    ${response.status_code} == 404
+    Builtin.Log    ${response.text}
+    Builtin.Fail    The request failed with code ${response.status_code}
+
+Get Index From List Of Dictionaries
+    [Arguments]    ${dictionary_list}    ${key}    ${value}
+    [Documentation]    Extract index for the dictionary in a list that contains a key-value pair. Returns -1 if key-value is not found.
+    ${length}=    Get Length    ${dictionary_list}
+    ${index}=    Set Variable    -1
+    : FOR    ${i}    IN RANGE    ${length}
+    \    ${dictionary}=    Get From List    ${dictionary_list}    ${i}
+    \    Run Keyword If    '&{dictionary}[${key}]' == '${value}'    Set Test Variable    ${index}    ${i}
+    [Return]    ${index}
+
+Check Item Occurrence
+    [Arguments]    ${string}    ${dictionary_item_occurrence}
+    [Documentation]    Check string for occurrences of items expressed in a list of dictionaries {item=occurrences}. 0 occurences means item is not present.
+    : FOR    ${item}    IN    @{dictionary_item_occurrence}
+    \    Should Contain X Times    ${string}    ${item}    &{dictionary_item_occurrence}[${item}]
