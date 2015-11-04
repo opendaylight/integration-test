@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bada0100_8d7e96e3",
+        "filename": "csit/libraries/NetconfViaRestconf.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-04T14:54:08Z",
+      "side": 1,
+      "message": "Delete the whole line. This value has to be set in setup.",
+      "range": {
+        "startLine": 14,
+        "startChar": 41,
+        "endLine": 14,
+        "endChar": 52
+      },
+      "revId": "929fac30eeaeb687ca3983b7855d3a7f004eef2e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
