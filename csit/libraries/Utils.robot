@@ -209,11 +209,10 @@ Run Command On Remote System
     Log    Attempting to execute ${cmd} on ${system} by ${user} with ${keyfile_pass} and ${prompt}
     ${conn_id}=    SSHLibrary.Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
     Flexible SSH Login    ${user}    ${password}
-    SSHLibrary.Write    ${cmd}
-    ${output}=    SSHLibrary.Read Until    ${prompt}
+    ${stdout}    ${stderr}    SSHLibrary.Execute Command    ${cmd}    return_stderr=True
     SSHLibrary.Close Connection
-    Log    ${output}
-    [Return]    ${output}
+    Log    ${stderr}
+    [Return]    ${stdout}
 
 Write_Bare_Ctrl_C
     [Documentation]    Construct ctrl+c character and SSH-write it (without endline) to the current SSH connection.
@@ -325,3 +324,32 @@ Get Data From URI
     Builtin.Return_From_Keyword_If    ${response.status_code} == 200    ${response.text}
     Builtin.Log    ${response.text}
     Builtin.Fail    The request failed with code ${response.status_code}
+
+No Content From URI
+    [Arguments]    ${session}    ${uri}    ${headers}=${NONE}
+    [Documentation]    Issue a GET request and return on error 404 (No content) or will fail and log the content.
+    ...    Issues a GET request for ${uri} in ${session} using headers from
+    ...    ${headers}. If the request returns a HTTP error, fails. Otherwise
+    ...    returns the data obtained by the request.
+    ${response}=    RequestsLibrary.Get Request    ${session}    ${uri}    ${headers}
+    Builtin.Return_From_Keyword_If    ${response.status_code} == 404
+    Builtin.Log    ${response.text}
+    Builtin.Fail    The request failed with code ${response.status_code}
+
+Get Index From List Of Dictionaries
+    [Arguments]    ${dictionary_list}    ${key}    ${value}
+    [Documentation]    Extract index for the dictionary in a list that contains a key-value pair. Returns -1 if key-value is not found.
+    ${length}=    Get Length    ${dictionary_list}
+    ${lenght}=    Convert to Integer    ${length}
+    ${index}=    Set Variable    -1
+    : FOR    ${i}    IN RANGE    ${length}
+    \    ${dictionary}=    Get From List    ${dictionary_list}    ${i}
+    \    ${dict_value}=    Get From Dictionary    ${dictionary}    ${key}
+    \    Run Keyword If    '${dict_value}' == '${value}'    Set Test Variable    ${index}    ${i}
+    [Return]    ${index}
+
+Check Item Occurrence
+    [Arguments]    ${string}    ${dictionary_item_occurrence}
+    [Documentation]    Check string for occurrences of items expressed in a list of dictionaries {item=occurrences}. 0 occurences means item is not present.
+    : FOR    ${item}    IN    @{dictionary_item_occurrence}
+    \    Should Contain X Times    ${string}    ${item}    &{dictionary_item_occurrence}[${item}]
