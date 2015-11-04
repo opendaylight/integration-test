@@ -209,8 +209,7 @@ Run Command On Remote System
     Log    Attempting to execute ${cmd} on ${system} by ${user} with ${keyfile_pass} and ${prompt}
     ${conn_id}=    SSHLibrary.Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
     Flexible SSH Login    ${user}    ${password}
-    SSHLibrary.Write    ${cmd}
-    ${output}=    SSHLibrary.Read Until    ${prompt}
+    ${output}=    SSHLibrary.Execute Command    ${cmd}
     SSHLibrary.Close Connection
     Log    ${output}
     [Return]    ${output}
