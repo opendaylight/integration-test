@@ -25,6 +25,7 @@ Documentation     netconf-connector readiness test suite.
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Library           RequestsLibrary
+Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
 
 *** Variables ***
@@ -46,6 +47,8 @@ Wait_For_Netconf_Connector
 *** Keywords ***
 Setup_Everything
     [Documentation]    Setup requests library.
+    KarafKeywords.Open_Controller_Karaf_Console_On_Background
+    KarafKeywords.Log_Message_To_Controller_Karaf    Starting Netconf readiness test suite
     RequestsLibrary.Create_Session    ses    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}
     # TODO: Do not include slash in ${OPERATIONAL_TOPO_API}, having it typed here is more readable.
     # TODO: Alternatively, create variable in Variables which starts with http.
@@ -53,6 +56,8 @@ Setup_Everything
 
 Teardown_Everything
     [Documentation]    Destroy all sessions in the requests library.
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set INFO
+    KarafKeywords.Log_Message_To_Controller_Karaf    Ending Netconf readiness test suite
     RequestsLibrary.Delete_All_Sessions
 
 Check_Netconf_Connector
