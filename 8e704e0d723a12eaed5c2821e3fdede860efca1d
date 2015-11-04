@@ -68,6 +68,29 @@
       "revId": "8e704e0d723a12eaed5c2821e3fdede860efca1d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_57727be6",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 185,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-04T00:17:06Z",
+      "side": 1,
+      "message": "you want to assign DEVICE_IP to TOOLS_SYSTEM_IP which is passed to pybot on the command line.",
+      "range": {
+        "startLine": 185,
+        "startChar": 0,
+        "endLine": 185,
+        "endChar": 22
+      },
+      "revId": "8e704e0d723a12eaed5c2821e3fdede860efca1d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
