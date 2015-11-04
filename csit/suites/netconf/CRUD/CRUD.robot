@@ -18,7 +18,7 @@ Library           Collections
 Library           RequestsLibrary
 Library           OperatingSystem
 Library           String
-Library           SSHLibrary    prompt=${MININET_PROMPT}    timeout=10s
+Library           SSHLibrary    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=10s
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
