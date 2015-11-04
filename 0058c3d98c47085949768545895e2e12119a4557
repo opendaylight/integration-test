@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bada0100_0da0668f",
+        "filename": "csit/libraries/ScalarClosures.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-04T13:58:30Z",
+      "side": 1,
+      "message": "ScalarClosures.Set_Suite_Variable_Without_Expanding_Variable_Name.",
+      "range": {
+        "startLine": 48,
+        "startChar": 49,
+        "endLine": 48,
+        "endChar": 75
+      },
+      "revId": "0058c3d98c47085949768545895e2e12119a4557",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
