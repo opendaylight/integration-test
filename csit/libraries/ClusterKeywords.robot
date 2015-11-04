@@ -7,8 +7,42 @@ Resource          Utils.robot
 
 *** Variables ***
 ${smc_node}       /org.opendaylight.controller:Category=ShardManager,name=shard-manager-config,type=DistributedConfigDatastore
+${jolokia_read}    /jolokia/read/org.opendaylight.controller
 
 *** Keywords ***
+Create Original Cluster List
+    [Documentation]    Returns original cluster list with all controllers indexes.
+    @{cluster_index_list}    Create List
+    ${NUM_ODL_SYSTEM}=    Convert to Integer    ${NUM_ODL_SYSTEM}
+    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    Append To List    ${cluster_index_list}    ${i+1}
+    [Return]    @{cluster_index_list}
+
+Create Controller Sessions
+    [Documentation]    Creates session to all controller instances.
+    ${NUM_ODL_SYSTEM}=    Convert to Integer    ${NUM_ODL_SYSTEM}
+    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
+    \    Log    Create Session ${ODL_SYSTEM_${i+1}_IP}
+    \    Create Session    session${i+1}    http://${ODL_SYSTEM_${i+1}_IP}:${RESTCONFPORT}    auth=${AUTH}
+
+Get Shard Status
+    [Arguments]    ${shard}    @{cluster_index_list}
+    [Documentation]    Checks shard and returns Leader index and list of Followers.
+    ${lenght}=    Get Length    ${cluster_index_list}
+    @{follower_list}=    Create List
+    : FOR    ${i}    IN    @{cluster_index_list}
+    \    ${data}=    Get Data From URI    session${i}    ${jolokia_read}:Category=Shards,name=member-${i}-shard-${shard}-config,type=DistributedConfigDatastore
+    \    Log    ${data}
+    \    ${json}=    To Json    ${data}
+    \    ${value}=    Get From Dictionary    ${json}    value
+    \    ${status}=    Get From Dictionary    ${value}    RaftState
+    \    Log    Controller ${ODL_SYSTEM_${i}_IP} is ${status} for shard ${shard}
+    \    ${leader}=    Set Variable If    '${status}' == 'Leader'    ${i}    none
+    \    Run Keyword If    '${status}' == 'Follower'    Append To List    @{follower_list}    ${i}
+    Run Keyword If    '${leader}' == 'none'    Fail    No Leader elected    ELSE    Length Should Be    ${follower_list}
+    ...    ${lenght-1}    Not enough Followers
+    [Return]    ${leader}    @{follower_list}
+
 Get Controller List
     [Arguments]    ${exclude_controller}=${EMPTY}
     [Documentation]    Creates a list of all controllers minus any excluded controller.
