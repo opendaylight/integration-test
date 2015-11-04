@@ -62,17 +62,23 @@ Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
 ${HOLDTIME}       180
 ${HOLDTIME_CHANGE_COUNT}    ${HOLDTIME}
+${HOLDTIME_CHANGE_COUNT_MANY}    ${HOLDTIME_CHANGE_COUNT}
 ${COUNT}          1000000
 ${COUNT_CHANGE_COUNT}    ${COUNT}
+${COUNT_CHANGE_COUNT_MANY}    ${COUNT_CHANGE_COUNT}
 ${FIRST_PEER_IP}    127.0.0.1
 ${MULTIPLICITY}    2    # May be increased after Bug 4488 is fixed.
 ${MULTIPLICITY_CHANGE_COUNT}    ${MULTIPLICITY}
+${MULTIPLICITY_CHANGE_COUNT_MANY}    ${MULTIPLICITY_CHANGE_COUNT}
 ${CHECK_PERIOD}    1
 ${CHECK_PERIOD_CHANGE_COUNT}    ${CHECK_PERIOD}
-${REPETITIONS}    5
-# TODO: Figure out reliable value. Even without Bug 4488 hitting, something
-# (OperationLimiter or garbage collection) is causing failures when low value is used.
+${CHECK_PERIOD_CHANGE_COUNT_MANY}    ${CHECK_PERIOD_CHANGE_COUNT}
+${REPETITIONS}    1    # Should be increased depending on multiplicity.
 ${REPETITIONS_CHANGE_COUNT}    ${REPETITIONS}
+${REPETITIONS_CHANGE_COUNT_MANY}    ${REPETITIONS_CHANGE_COUNT}
+${TEST_DURATION_MULTIPLIER}    1
+${TEST_DURATION_MULTIPLIER_CHANGE_COUNT}    ${TEST_DURATION_MULTIPLIER}
+${TEST_DURATION_MULTIPLIER_CHANGE_COUNT_MANY}    ${TEST_DURATION_MULTIPLIER_CHANGE_COUNT}
 # TODO: Option names can be better.
 ${last_change_count}    -1
 
@@ -88,7 +94,7 @@ Reconfigure_ODL_To_Accept_Connections
     : FOR    ${index}    IN RANGE    1    ${MULTIPLICITY}+1
     \    ${peer_name} =    BuiltIn.Set_Variable    example-bgp-peer-${index}
     \    ${peer_ip} =    BuiltIn.Evaluate    str(ipaddr.IPAddress('${FIRST_PEER_IP}') + ${index} - 1)    modules=ipaddr
-    \    ${template_as_string} =    BuiltIn.Set_Variable    {'NAME': '${peer_name}', 'IP': '${peer_ip}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'HOLDTIME': '${HOLDTIME_CHANGE_COUNT}', 'INITIATE': 'false'}
+    \    ${template_as_string} =    BuiltIn.Set_Variable    {'NAME': '${peer_name}', 'IP': '${peer_ip}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'HOLDTIME': '${HOLDTIME_CHANGE_COUNT_MANY}', 'INITIATE': 'false'}
     \    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
     # FIXME: Add testcase to change bgpcep and protocol log levels, when a Keyword that does it without messing with current connection is ready.
 
@@ -108,16 +114,16 @@ Start_Talking_BGP_Manager
     [Documentation]    Start Python manager to connect speakers to ODL.
     Store_Change_Count
     # Myport value is needed for checking whether connection at precise port was established.
-    BGPSpeaker.Start_BGP_Manager    --amount=${COUNT_CHANGE_COUNT} --multiplicity=${MULTIPLICITY} --myip=${FIRST_PEER_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT}
+    BGPSpeaker.Start_BGP_Manager    --amount=${COUNT_CHANGE_COUNT_MANY} --multiplicity=${MULTIPLICITY} --myip=${FIRST_PEER_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT}
 
 Wait_For_Stable_Talking_Ipv4_Topology
     [Documentation]    Wait until example-ipv4-topology becomes stable. This is done by checking stability of the change counter.
-    ChangeCounter.Wait_For_Change_Count_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_CHANGE_COUNT}    repetitions=${REPETITIONS_CHANGE_COUNT}    count_to_overcome=${last_change_count}
+    ChangeCounter.Wait_For_Change_Count_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_CHANGE_COUNT_MANY}    repetitions=${REPETITIONS_CHANGE_COUNT_MANY}    count_to_overcome=${last_change_count_many}
 
 Check_Talking_Ipv4_Topology_Count
     [Documentation]    Count the routes in example-ipv4-topology and fail if the count is not correct.
     [Tags]    critical
-    PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT_CHANGE_COUNT}
+    PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT_CHANGE_COUNT_MANY}
 
 Kill_Talking_BGP_Speakers
     [Documentation]    Abort the Python speakers. Also, attempt to stop failing fast.
@@ -131,7 +137,7 @@ Kill_Talking_BGP_Speakers
 Wait_For_Stable_Ipv4_Topology_After_Talking
     [Documentation]    Wait until example-ipv4-topology becomes stable again.
     [Tags]    critical
-    ChangeCounter.Wait_For_Change_Count_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_CHANGE_COUNT}    repetitions=${REPETITIONS_CHANGE_COUNT}    count_to_overcome=${last_change_count}
+    ChangeCounter.Wait_For_Change_Count_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_CHANGE_COUNT_MANY}    repetitions=${REPETITIONS_CHANGE_COUNT_MANY}    count_to_overcome=${last_change_count_many}
 
 Check_For_Empty_Ipv4_Topology_After_Talking
     [Documentation]    Example-ipv4-topology should be empty now.
@@ -176,10 +182,10 @@ Setup_Everything
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/manage_play.py
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
     # Calculate the timeout value based on how many routes are going to be pushed
-    ${period} =    DateTime.Convert_Time    ${CHECK_PERIOD_CHANGE_COUNT}    result_format=number
-    ${timeout} =    BuiltIn.Evaluate    ${COUNT_CHANGE_COUNT} * 3 / 10000 + ${period} * (${REPETITIONS_CHANGE_COUNT} + 1)
+    ${period} =    DateTime.Convert_Time    ${CHECK_PERIOD_CHANGE_COUNT_MANY}    result_format=number
+    ${timeout} =    BuiltIn.Evaluate    ${TEST_DURATION_MULTIPLIER_CHANGE_COUNT_MANY} * (${COUNT_CHANGE_COUNT_MANY} * 3.0 / 10000 + ${period} * (${REPETITIONS_CHANGE_COUNT_MANY} + 1))
     Builtin.Set_Suite_Variable    ${bgp_filling_timeout}    ${timeout}
-    ${timeout} =    BuiltIn.Evaluate    ${COUNT_CHANGE_COUNT} * 2 / 10000 + ${period} * (${REPETITIONS_CHANGE_COUNT} + 1)
+    ${timeout} =    BuiltIn.Evaluate    ${TEST_DURATION_MULTIPLIER_CHANGE_COUNT_MANY} * (${COUNT_CHANGE_COUNT_MANY} * 2.0 / 10000 + ${period} * (${REPETITIONS_CHANGE_COUNT_MANY} + 1))
     Builtin.Set_Suite_Variable    ${bgp_emptying_timeout}    ${timeout}
 
 Teardown_Everything
@@ -192,4 +198,4 @@ Teardown_Everything
 Store_Change_Count
     [Documentation]    Get the count of changes from BGP change counter. Ignore error or store the value.
     ${status}    ${count} =    BuiltIn.Run_Keyword_And_Ignore_Error    ChangeCounter.Get_Change_Count
-    BuiltIn.Run_Keyword_If    '${status}' == 'PASS'    BuiltIn.Set_Suite_Variable    ${last_change_count}    ${count}
+    BuiltIn.Run_Keyword_If    '${status}' == 'PASS'    BuiltIn.Set_Suite_Variable    ${last_change_count_many}    ${count}
