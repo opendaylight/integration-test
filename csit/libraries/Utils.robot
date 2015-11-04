@@ -209,11 +209,10 @@ Run Command On Remote System
     Log    Attempting to execute ${cmd} on ${system} by ${user} with ${keyfile_pass} and ${prompt}
     ${conn_id}=    SSHLibrary.Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
     Flexible SSH Login    ${user}    ${password}
-    SSHLibrary.Write    ${cmd}
-    ${output}=    SSHLibrary.Read Until    ${prompt}
+    ${stdout}    ${stderr}    SSHLibrary.Execute Command    ${cmd}    return_stderr=True
     SSHLibrary.Close Connection
-    Log    ${output}
-    [Return]    ${output}
+    Log    ${stderr}
+    [Return]    ${stdout}
 
 Write_Bare_Ctrl_C
     [Documentation]    Construct ctrl+c character and SSH-write it (without endline) to the current SSH connection.
