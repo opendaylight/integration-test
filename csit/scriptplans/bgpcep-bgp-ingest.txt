@@ -5,4 +5,4 @@
 # and is available at http://www.eclipse.org/legal/epl-v10.html
 
 # Place the suites in run order:
-integration/test/csit/scripts/controllermem_6g.sh
+integration/test/csit/scripts/controllermem_5g.sh
