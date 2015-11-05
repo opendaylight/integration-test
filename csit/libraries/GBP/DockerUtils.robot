@@ -42,12 +42,13 @@ Stop HTTP Service on Docker
     ...    return_stdout=True    return_stderr=False    return_rc=False
 
 Curl from Docker
-    [Arguments]    ${docker_name}    ${dest_address}    ${service_port}=80    ${connect_timeout}=2    ${retry}=3x    ${retry_after}=1s
+    [Arguments]    ${docker_name}    ${dest_address}    ${service_port}=80    ${connect_timeout}=30s    ${retry}=5s
     [Documentation]    Sends HTTP request to remote server. Endless curl should not be running.
-    ${output}    SSHLibrary.Execute Command    docker exec ${docker_name} ls | grep curl_running
-    ...    return_stdout=True    return_stderr=False    return_rc=False
-    Should Be Empty    ${output}
-    Wait Until Keyword Succeeds    ${retry}    ${retry_after}    Execute Curl    ${docker_name}    ${dest_address}    ${service_port}
+    ${stdout}    ${stderr}    SSHLibrary.Execute Command    docker exec ${docker_name} ls | grep curl_running
+    ...    return_stdout=True    return_stderr=True    return_rc=False
+    Should Be Empty   ${stdout}
+    Should Be Empty   ${stderr}
+    Wait Until Keyword Succeeds  ${connect_timeout}  ${retry}    Execute Curl    ${docker_name}    ${dest_address}    ${service_port}
 
 Start Endless Curl from Docker
     [Arguments]    ${docker_name}    ${dest_address}    ${service_port}    ${retry_after}=1s    ${retry}=5    ${timeout}=20s    ${sleep}=1
