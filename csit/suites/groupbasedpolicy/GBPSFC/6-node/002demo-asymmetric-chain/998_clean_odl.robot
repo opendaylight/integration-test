@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite for cleaning up / unregister infrastructure constructs like endpoints for demo-symmetric-chain
+Documentation     Test suite for cleaning up / unregister infrastructure constructs like endpoints for demo-asymmetric-chain
 Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
@@ -27,6 +27,8 @@ ${SFP_PATH}                /restconf/config/service-function-path:service-functi
 ${TOPOLOGY_PATH}           /restconf/config/network-topology:network-topology/topology/ovsdb:1
 ${OPER_NODES}              /restconf/operational/opendaylight-inventory:nodes/
 
+${NODES_GBPSFC1}         /restconf/config/opendaylight-inventory:nodes/node/openflow:1
+${NODES_GBPSFC2}         /restconf/config/opendaylight-inventory:nodes/node/openflow:2
 
 *** Test Cases ***
 
@@ -34,6 +36,7 @@ Delete Service Function Paths
     [Documentation]    Delete Service Function Paths from ODL
     [Tags]    GBPSFCTEAR
     Remove All Elements At URI And Verify    ${SFP_PATH}
+
 
 Delete Service Function Chains
     [Documentation]    Delete Service Function Chains from ODL
@@ -51,9 +54,10 @@ Delete Service Function Forwarders
     Remove All Elements At URI And Verify    ${SFF_PATH}
 
 Delete Tunnels
-    [Documentation]    Delete Tenant from ODL
+    [Documentation]    Delete Tunnels from ODL
     [Tags]    GBPSFCTEAR
-    Remove All Elements At URI And Verify    ${TUNNELS_PATH}
+    Remove All Elements At URI And Verify    ${NODES_GBPSFC1}
+    Remove All Elements At URI And Verify    ${NODES_GBPSFC2}
 
 Delete Tenant
     [Documentation]    Delete Tenant from ODL
