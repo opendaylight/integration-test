@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bada0100_66b90fe9",
+        "filename": "csit/suites/netconf/clustering/CRUD.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-05T12:23:44Z",
+      "side": 1,
+      "message": "Why not node1? It is probable, but not sure that this node will end up being Leader for appropriate Shard.",
+      "range": {
+        "startLine": 123,
+        "startChar": 45,
+        "endLine": 123,
+        "endChar": 51
+      },
+      "revId": "efb6335a7dd7d9429188993e5844af390dfe02b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
