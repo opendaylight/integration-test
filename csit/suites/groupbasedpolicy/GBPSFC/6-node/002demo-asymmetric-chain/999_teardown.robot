@@ -13,6 +13,7 @@ ${timeout} =     10s
 
 *** Test Cases ***
 Teardown Suite
-    Log    Teardown suite in symetric-chain
+    Log    Teardown suite in asymetric-chain
     :FOR    ${GBPSFC}    IN    @{GBPSFCs}
     \    GBPSFC_6node.Teardown Node    ${GBPSFC}    ${CURDIR}    timeout=${timeout}
+    Sleep    45s
