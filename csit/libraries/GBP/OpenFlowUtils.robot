@@ -273,14 +273,11 @@ Manager and Switch Connected
 Wait For Flows On Switch
     [Arguments]  ${switch_ip}  ${switch_name}
     [Documentation]  Counts flows on switch, fails if 0
-    ConnUtils.Connect and Login  ${switch_ip}
-    # check for OVS errors first
     ${stdout}  ${stderr}  SSHLibrary.Execute Command  sudo ovs-ofctl dump-flows ${switch_name} -OOpenFlow13
     ...  return_stderr=True
     Run Keyword If  "${stderr}" != "${EMPTY}"    Fatal Error    ${stderr}
 
     Wait Until Keyword Succeeds  120s  20s  Count Flows On Switch  ${switch_name}
-    SSHLibrary.Close Connection
 
 Count Flows On Switch
     [Arguments]  ${switch_name}
