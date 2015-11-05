@@ -180,3 +180,12 @@ CONTROLLER_PROMPT = ODL_SYSTEM_PROMPT
 MININET_PASSWORD = TOOLS_SYSTEM_PASSWORD
 MININET_PROMPT = TOOLS_SYSTEM_PROMPT
 PROMPT = '>'  # TODO: remove this as it's vague.  need to fix any occurances of it first.
+
+# Switch device information
+DEVICE_IP = TOOLS_SYSTEM_IP
+DEVICE_TYPE = 'mininet-didm:mininet-device-type'
+DEVICE_DESCRIPTION = 'None'
+DEVICE_HW_INFO = 'Open vSwitch'
+DEVICE_SW_INFO = '2.0.2'
+DEVICE_MANUFACTURE = 'Nicira, Inc.'
+DEVICE_SERIAL_NUMBER = 'None'
