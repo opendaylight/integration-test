@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite for cleaning up / unregister infrastructure constructs like endpoints for demo-symmetric-chain
+Documentation     Test suite for cleaning up / unregister infrastructure constructs like endpoints for demo-asymmetric-chain
 Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
@@ -37,12 +37,12 @@ Delete Service Function Paths
     [Tags]    GBPSFCTEAR
     Remove All Elements At URI And Verify    ${SFP_PATH}
     Sleep    30s
+
 Delete Service Function Chains
     [Documentation]    Delete Service Function Chains from ODL
     [Tags]    GBPSFCTEAR
     Remove All Elements At URI And Verify    ${SFC_PATH}
     Sleep    30s
-
 Delete Service Functions
     [Documentation]    Delete Service Function from ODL
     [Tags]    GBPSFCTEAR
@@ -54,12 +54,11 @@ Delete Service Function Forwarders
     Remove All Elements At URI And Verify    ${SFF_PATH}
     Sleep    30s
 Delete Tunnels
-    [Documentation]    Delete Tenant from ODL
+    [Documentation]    Delete Tunnels from ODL
     [Tags]    GBPSFCTEAR
     Remove All Elements At URI And Verify    ${NODES_GBPSFC1}
     Remove All Elements At URI And Verify    ${NODES_GBPSFC2}
     Sleep    30s
-
 Delete Tenant
     [Documentation]    Delete Tenant from ODL
     [Tags]    GBPSFCTEAR
