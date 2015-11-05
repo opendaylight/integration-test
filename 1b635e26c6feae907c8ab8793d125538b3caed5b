@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bada0100_26f6a7d8",
+        "filename": "csit/suites/netconf/scale/get.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-05T12:20:00Z",
+      "side": 1,
+      "message": "Expand to distinguish from Change 28588.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 13
+      },
+      "revId": "1b635e26c6feae907c8ab8793d125538b3caed5b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_c6023bb4",
+        "filename": "csit/suites/netconf/scale/get.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-05T12:20:00Z",
+      "side": 1,
+      "message": "Do these options have to be un-override-ably the same as what mountunmount.robot uses?",
+      "range": {
+        "startLine": 22,
+        "startChar": 2,
+        "endLine": 22,
+        "endChar": 14
+      },
+      "revId": "1b635e26c6feae907c8ab8793d125538b3caed5b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_e6ff3fa9",
+        "filename": "csit/suites/netconf/scale/get.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-05T12:20:00Z",
+      "side": 1,
+      "message": "From which Resource?",
+      "range": {
+        "startLine": 54,
+        "startChar": 4,
+        "endLine": 54,
+        "endChar": 11
+      },
+      "revId": "1b635e26c6feae907c8ab8793d125538b3caed5b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_862c334c",
+        "filename": "csit/suites/netconf/scale/get.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-05T12:20:00Z",
+      "side": 1,
+      "message": "Add a comment explaining where was this variable set.",
+      "range": {
+        "startLine": 54,
+        "startChar": 49,
+        "endLine": 54,
+        "endChar": 80
+      },
+      "revId": "1b635e26c6feae907c8ab8793d125538b3caed5b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_a63137a4",
+        "filename": "csit/suites/netconf/scale/get.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-05T12:20:00Z",
+      "side": 1,
+      "message": "Library DateTime leads to more readable code.",
+      "range": {
+        "startLine": 89,
+        "startChar": 17,
+        "endLine": 89,
+        "endChar": 33
+      },
+      "revId": "1b635e26c6feae907c8ab8793d125538b3caed5b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bada0100_a6d85754",
+        "filename": "tools/netconf_tools/getter.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-05T12:20:00Z",
+      "side": 1,
+      "message": "The first failed (non-200 or interrupted) request would cause this to wait indefinitely, no?",
+      "range": {
+        "startLine": 115,
+        "startChar": 16,
+        "endLine": 115,
+        "endChar": 35
+      },
+      "revId": "1b635e26c6feae907c8ab8793d125538b3caed5b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
