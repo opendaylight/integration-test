@@ -1069,7 +1069,8 @@ class ReadTracker(object):
                 # The logical block was a BGP header.
                 # Now we know the size of the message.
                 self.reading_header = False
-                self.bytes_to_read = get_short_int_from_message(self.msg_in)
+                self.bytes_to_read = (get_short_int_from_message(self.msg_in) -
+                                      self.header_length)
             else:  # We have finished reading the body of the message.
                 # Peer has just proven it is still alive.
                 self.timer.reset_peer_hold_time()
@@ -1078,7 +1079,19 @@ class ReadTracker(object):
                 # TODO: Should we do validation and exit on anything
                 # besides update or keepalive?
                 # Prepare state for reading another message.
-                logging.debug("Message received: 0x%s", binascii.b2a_hex(self.msg_in))
+                message_type_hex = self.msg_in[self.header_length]
+                if message_type_hex == "\x01":
+                    logging.info("OPEN message received: 0x%s",
+                                 binascii.b2a_hex(self.msg_in))
+                if message_type_hex == "\x02":
+                    logging.debug("UPDATE message received: 0x%s",
+                                  binascii.b2a_hex(self.msg_in))
+                if message_type_hex == "\x03":
+                    logging.info("NOTIFICATION message received: 0x%s",
+                                 binascii.b2a_hex(self.msg_in))
+                if message_type_hex == "\x04":
+                    logging.info("KEEP ALIVE message received: 0x%s",
+                                 binascii.b2a_hex(self.msg_in))
                 self.msg_in = ""
                 self.reading_header = True
                 self.bytes_to_read = self.header_length
