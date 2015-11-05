@@ -14,7 +14,8 @@ Resource          ../../../../../libraries/GBP/RestconfUtils.robot
 
 ${GBP_TENENT_ID}           f5c7d344-d1c7-4208-8531-2c2693657e12
 ${TENANT_PATH}             /restconf/config/policy:tenants/tenant/${GBP_TENENT_ID}
-${TUNNELS_PATH}            /restconf/config/opendaylight-inventory:nodes
+${TUNNELS_PATH_CONF}            /restconf/config/opendaylight-inventory:nodes
+${TUNNELS_PATH_OPER}            /restconf/operational/opendaylight-inventory:nodes
 
 ${OPER_ENDPOINTS_PATH}     /restconf/operational/endpoint:endpoints
 ${UNREG_ENDPOINTS_PATH}    /restconf/operations/endpoint:unregister-endpoint
@@ -27,47 +28,23 @@ ${SFP_PATH}                /restconf/config/service-function-path:service-functi
 ${TOPOLOGY_PATH}           /restconf/config/network-topology:network-topology/topology/ovsdb:1
 ${OPER_NODES}              /restconf/operational/opendaylight-inventory:nodes/
 
+${NODES_GBPSFC1}         /restconf/config/opendaylight-inventory:nodes/node/openflow:1
+${NODES_GBPSFC2}         /restconf/config/opendaylight-inventory:nodes/node/openflow:2
+
 *** Test Cases ***
-
-Delete Service Function Paths
-    [Documentation]    Delete Service Function Paths from ODL
-    [Tags]    GBPSFCTEAR
-    Remove All Elements At URI And Verify    ${SFP_PATH}
-
-
-Delete Service Function Chains
-    [Documentation]    Delete Service Function Chains from ODL
-    [Tags]    GBPSFCTEAR
-    Remove All Elements At URI And Verify    ${SFC_PATH}
-
-Delete Service Functions
-    [Documentation]    Delete Service Function from ODL
-    [Tags]    GBPSFCTEAR
-    Remove All Elements At URI And Verify    ${SF_PATH}
-
-Delete Service Function Forwarders
-    [Documentation]    Delete Service Function Forwarders from ODL
-    [Tags]    GBPSFCTEAR
-    Remove All Elements At URI And Verify    ${SFF_PATH}
-
-Delete Tunnels
-    [Documentation]    Delete Tunnels from ODL
-    [Tags]    GBPSFCTEAR
-    Remove All Elements At URI And Verify    ${TUNNELS_PATH}
-
-Delete Tenant
-    [Documentation]    Delete Tenant from ODL
-    [Tags]    GBPSFCTEAR
-    Remove All Elements At URI And Verify    ${TENANT_PATH}
-
-Unregister Endpoints
-    [Documentation]    Unregister Endpoints Endpoints from ODL
-    [Tags]    GBPSFCTEAR
-    Unregister Endpoints    ${OPER_ENDPOINTS_PATH}
 
 Delete OVSDB Topology If Present
     [Documentation]    Delete Tenant from ODL
     [Tags]    GBPSFCTEAR
-    ${resp}    RequestsLibrary.Get    session    ${TOPOLOGY_PATH}
+    Sleep    30s
+    ${resp}    RequestsLibrary.Get Request    session    ${TUNNELS_PATH_CONF}
+    Log    ${resp.content}
+    ${resp2}    RequestsLibrary.Get Request   session    ${TUNNELS_PATH_OPER}
+    Log    ${resp2.content}
     Run Keyword If    ${resp.status_code} == 200
-    ...    Remove All Elements At URI And Verify    ${TOPOLOGY_PATH}
+    ...    Remove All Elements At URI And Verify    ${TUNNELS_PATH_CONF}
+    Sleep    30s
+    ${resp}    RequestsLibrary.Get Request    session    ${TUNNELS_PATH_CONF}
+    Log    ${resp.content}
+    ${resp2}    RequestsLibrary.Get Request    session    ${TUNNELS_PATH_OPER}
+    Log    ${resp2.content}
