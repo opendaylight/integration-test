@@ -1078,7 +1078,7 @@ class ReadTracker(object):
                 # TODO: Should we do validation and exit on anything
                 # besides update or keepalive?
                 # Prepare state for reading another message.
-                logging.debug("Message received: 0x%s", binascii.b2a_hex(self.msg_in))
+                logging.info("Message received: 0x%s", binascii.b2a_hex(self.msg_in))
                 self.msg_in = ""
                 self.reading_header = True
                 self.bytes_to_read = self.header_length
