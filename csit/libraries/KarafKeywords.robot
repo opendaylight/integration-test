@@ -129,10 +129,20 @@ Execute Controller Karaf Command On Background
     BuiltIn.Run Keyword If    '${status_wait}' != 'PASS'    BuiltIn.Fail    Failed to see prompt after sending the command: ${command}
     [Return]    ${message_wait}
 
+Execute Controller Karaf Command With Retry On Background
+    [Arguments]    ${command}
+    [Documentation]    Attemp to send command to karaf, if fail then open connection and try again.
+    ${status}    ${message}=    Execute Controller Karaf Command On Background    ${command}
+    BuiltIn.Return_From_Keyword_If    '${status}' == 'PASS'    ${message}
+    # TODO: Verify this does not leak connections indices.
+    Open Controller Karaf Console On Background
+    ${message}=    Execute Controller Karaf Command On Background    ${command}
+    [Return]    ${message}
+
 Log Message To Controller Karaf
     [Arguments]    ${message}
     [Documentation]    Send a message into the controller's karaf log file. Do not change current SSH connection.
-    ${reply}=    Execute Controller Karaf Command On Background    log:log "ROBOT MESSAGE: ${message}"
+    ${reply}=    Execute Controller Karaf Command With Retry On Background    log:log "ROBOT MESSAGE: ${message}"
     [Return]    ${reply}
 
 Log Test Suite Start To Controller Karaf
