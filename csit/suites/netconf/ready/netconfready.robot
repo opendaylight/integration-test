@@ -42,6 +42,7 @@ Wait_For_Netconf_Connector
     [Documentation]    Attempt to wait for the netconf-connector for configurable time.
     [Tags]    critical
     BuiltIn.Run_Keyword_Unless    ${first_case_ok}    BuiltIn.Wait_Until_Keyword_Succeeds    ${NETCONFREADY_WAIT}    1s    Check_Netconf_Connector
+    [Teardown]    Utils.Report_Failure_Due_To_Bug    4583
 
 *** Keywords ***
 Setup_Everything
