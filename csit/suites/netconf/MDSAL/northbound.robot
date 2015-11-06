@@ -6,6 +6,21 @@ Documentation     Metconf MDSAL Northbound test suite.
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
+...
+...
+...               The request produced by test cases "Get Config Running", "Get Config Running
+...               To Confirm No_Edit Before Commit", "Get Config Running To Confirm Delete
+...               After Commit" and "Get Config Candidate To Confirm Discard" all use the same
+...               message id ("empty") for their requests. This is possible because the
+...               requests produced by this suite are strictly serialized. The RFC 6241 does
+...               not state that these IDs are unique, it only requires that each ID used is
+...               "XML attribute normalized" if the client wants it to be returned unmodified.
+...               The RFC specifically says that "the content of this attribute is not
+...               interpreted in any way, it only is stored to be returned with the reply to
+...               the request. The reuse of the "empty" string for the 4 test cases was chosen
+...               for simplicity.
+...
+...               TODO: Change the 4 testcases to use unique message IDs.
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
@@ -30,7 +45,13 @@ Connect_To_ODL_Netconf
 
 Get_Config_Running
     [Documentation]    Make sure the configuration has only the default elements in it.
-    Perform_Test    get-config
+    ${reply}=    Load_And_Send_Message    get-config
+    BuiltIn.Should_Not_Contain    ${reply}    <name>name0</name>
+    BuiltIn.Should_Not_Contain    ${reply}    <name>name1</name>
+    BuiltIn.Should_Not_Contain    ${reply}    <name>name2</name>
+    BuiltIn.Should_Not_Contain    ${reply}    <name>name3</name>
+    BuiltIn.Should_Not_Contain    ${reply}    <name>name4</name>
+    BuiltIn.Set_Suite_Variable    ${empty_config}    ${reply}
 
 Missing_Message_ID_Attribute
     [Documentation]    Check that messages with missing "message-ID" attribute are rejected with the correct error (RFC 6241, section 4.1).
@@ -51,7 +72,7 @@ Edit_Config_Modules_Merge
 
 Get_Config_Running_To_Confirm_No_Edit_Before_Commit
     [Documentation]    Make sure the running configuration is still unchanged as the change was not commited yet.
-    Perform_Test    get-config-no-edit-before-commit
+    Send_And_Check    get-config-no-edit-before-commit    ${empty_config}
 
 Commit_Edit
     [Documentation]    Commit the change and check the reply.
@@ -86,7 +107,7 @@ Commit_Delete
 
 Get_Config_Running_To_Confirm_Delete_After_Commit
     [Documentation]    Check that the element is gone.
-    Perform_Test    get-config-delete-after-commit
+    Send_And_Check    get-config-delete-after-commit    ${empty_config}
 
 Restconf_Get_Modules_Shall_Return_404
     [Documentation]    Check that "Not Found" is returned when Restconf is asked for the deleted element.
@@ -113,7 +134,7 @@ Discard_Changes
 
 Get_Config_Candidate_To_Confirm_Discard
     [Documentation]    Check that the element was really discarded.
-    Perform_Test    get-config-candidate-discard
+    Send_And_Check    get-config-candidate-discard    ${empty_config}
 
 Edit_Config_Modules_Multiple_Modules_Merge_1
     [Documentation]    Create the element with "name2" subelement again and check the reply.
@@ -307,6 +328,11 @@ Perform_Test
     ${newline}=    BuiltIn.Evaluate    "\\r\\n"
     BuiltIn.Should_Be_Equal    ${actual}    ${newline}${expected}${ODL_NETCONF_PROMPT}
     [Return]    ${actual}
+
+Send_And_Check
+    [Arguments]    ${name}    ${expected}
+    ${actual}=    Load_And_Send_Message    ${name}
+    BuiltIn.Should_Be_Equal    ${actual}    ${expected}
 
 Test_Commit_With_No_Transactions
     [Documentation]    Issue a "commit" RPC request and check that it fails with "No current transactions" error.
