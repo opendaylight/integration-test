@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ac40928_0eab8b8a",
+        "filename": "csit/suites/netconf/MDSAL/northbound.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 330,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-06T14:06:19Z",
+      "side": 1,
+      "message": "Implementation of this part is missing.",
+      "range": {
+        "startLine": 330,
+        "startChar": 5,
+        "endLine": 330,
+        "endChar": 14
+      },
+      "revId": "6772d0ddb28880299cb63adbe54bb35e229ded96",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
