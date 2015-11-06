@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7ac40928_aeba7708",
+        "filename": "csit/libraries/DIDMKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-06T13:18:51Z",
+      "side": 1,
+      "message": "So description in line 15 is wrong, and we are returning IP address only if it was NOT fount in the response.",
+      "range": {
+        "startLine": 19,
+        "startChar": 11,
+        "endLine": 19,
+        "endChar": 14
+      },
+      "revId": "b2dfd1e8913f095a93b6eabedc993bb0a662728e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
