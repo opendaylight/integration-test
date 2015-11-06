@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3ace114c_2c73f3b2",
+        "filename": "csit/libraries/ClusterKeywords.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 795
+      },
+      "writtenOn": "2015-11-06T22:26:19Z",
+      "side": 1,
+      "message": "Is there a way in Robot to describe more precisely the inputs and outputs of a keyword - kind of like javadoc? \n\nAlso what exactly does the word Original in the keyword name imply?",
+      "range": {
+        "startLine": 13,
+        "startChar": 7,
+        "endLine": 13,
+        "endChar": 15
+      },
+      "revId": "9d778b2e189b45a7e768707808643cee5e080cc0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ace114c_6ca01bf5",
+        "filename": "csit/libraries/ClusterKeywords.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 795
+      },
+      "writtenOn": "2015-11-06T22:26:19Z",
+      "side": 1,
+      "message": "this keyword should probably also take the datastore type as argument. Possible arguments are config/operational. Currently it appears that this keyword can only provide the status of a config Shard.",
+      "range": {
+        "startLine": 29,
+        "startChar": 51,
+        "endLine": 29,
+        "endChar": 52
+      },
+      "revId": "9d778b2e189b45a7e768707808643cee5e080cc0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ace114c_cc67cfe9",
+        "filename": "csit/libraries/ClusterKeywords.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 795
+      },
+      "writtenOn": "2015-11-06T22:26:19Z",
+      "side": 1,
+      "message": "This is a very complicated keyword. What is the guideline on when one should use python and when one should use a Robot keyword to define a reusable procedure? To me it seems like having everything as a keyword is not optimal.",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 31
+      },
+      "revId": "9d778b2e189b45a7e768707808643cee5e080cc0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3ace114c_2caa13d5",
+        "filename": "csit/suites/openflowplugin/Clustering/010__HA_Owner_Is_Follower_Failover.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 795
+      },
+      "writtenOn": "2015-11-06T22:26:19Z",
+      "side": 1,
+      "message": "Could you add a few lines describing what this test case tests. I\u0027m sorry but it\u0027s not clear to me what exactly is happening here.",
+      "revId": "9d778b2e189b45a7e768707808643cee5e080cc0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
