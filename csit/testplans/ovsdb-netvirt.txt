@@ -1,2 +1,3 @@
 # Place the suites in run order:
 integration/test/csit/suites/ovsdb/Openstack_Neutron
+integration/test/csit/suites/ovsdb/Ovsdb_Net-virt/
