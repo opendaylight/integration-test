@@ -19,7 +19,7 @@ Create Controller Index List
     \    Append To List    ${controller_index_list}    ${i+1}
     [Return]    ${controller_index_list}
 
-Create Controller Sessions
+Create Controller Session
     [Documentation]    Creates REST session to all controller instances.
     ${NUM_ODL_SYSTEM}=    Convert to Integer    ${NUM_ODL_SYSTEM}
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
