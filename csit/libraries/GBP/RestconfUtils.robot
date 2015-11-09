@@ -7,9 +7,8 @@ Variables         ../../variables/Variables.py
 Resource          ../Utils.robot
 
 *** Keywords ***
-
 Unregister Endpoints
-    [Arguments]        ${OPER_ENDPOINTS_PATH}
+    [Arguments]    ${OPER_ENDPOINTS_PATH}
     [Documentation]    Unregister Endpoints Endpoints from ODL
     ${result} =    RequestsLibrary.Get    session    ${OPER_ENDPOINTS_PATH}
     ${json_result} =    json.loads    ${result.text}
@@ -25,14 +24,14 @@ Unregister Endpoints
     Should Be Empty    ${json_result['endpoints']}
 
 Unregister L2Endpoints
-    [Arguments]        ${l2_eps}
+    [Arguments]    ${l2_eps}
     [Documentation]    Unregister Endpoints L2Endpoints from ODL
     : FOR    ${endpoint}    IN    @{l2_eps}
     \    ${l2_data} =    Create L2 Endpoint JSON Data    ${endpoint}
     \    Post Elements To URI    ${UNREG_ENDPOINTS_PATH}    ${l2_data}
 
 Unregister L3Endpoints
-    [Arguments]        ${l3_eps}
+    [Arguments]    ${l3_eps}
     [Documentation]    Unregister Endpoints L3Endpoints from ODL
     : FOR    ${endpoint}    IN    @{l3_eps}
     \    ${l3_data} =    Create L3 Endpoint JSON Data    ${endpoint}
@@ -41,14 +40,11 @@ Unregister L3Endpoints
 Create L2 Endpoint JSON Data
     [Arguments]    ${endpoint}
     [Documentation]    Generate the JSON data required for unregistering L2 Endpoints
-    ${data}    Set Variable
-    ...    {"input": {"l2": [{"mac-address": "${endpoint['mac-address']}", "l2-context": "${endpoint['l2-context']}"}]}}
+    ${data}    Set Variable    {"input": {"l2": [{"mac-address": "${endpoint['mac-address']}", "l2-context": "${endpoint['l2-context']}"}]}}
     [Return]    ${data}
 
 Create L3 Endpoint JSON Data
     [Arguments]    ${endpoint}
     [Documentation]    Generate the JSON data required for unregistering L3 Endpoints
-    ${data}    Set Variable
-    ...    {"input": {"l3": [{"l3-context": "${endpoint['l3-context']}", "ip-address": "${endpoint['ip-address']}"}]}}
+    ${data}    Set Variable    {"input": {"l3": [{"l3-context": "${endpoint['l3-context']}", "ip-address": "${endpoint['ip-address']}"}]}}
     [Return]    ${data}
-
