@@ -21,7 +21,23 @@ Ulimit_On_Controller
     BuiltIn.Log    ${limits}
 
 Ulimit_On_Mininet
-    SSHLibrary.Open_Connection    ${MININET}
+    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
     Utils.Flexible_Mininet_Login
     ${limits} =    SSHLibrary.Execute_Command    bash -c "ulimit -a"
     BuiltIn.Log    ${limits}
+
+DiskFree_On_Robot
+    ${sizes} =    OperatingSystem.Run    bash -c "df -h"
+    BuiltIn.Log    ${sizes}
+
+DiskFree_On_Controller
+    SSHLibrary.Open_Connection    ${ODL_SYSTEM_IP}
+    Utils.Flexible_Controller_Login
+    ${sizes} =    SSHLibrary.Execute_Command    bash -c "df -h"
+    BuiltIn.Log    ${sizes}
+
+DiskFree_On_Mininet
+    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
+    Utils.Flexible_Mininet_Login
+    ${sizes} =    SSHLibrary.Execute_Command    bash -c "df -h"
+    BuiltIn.Log    ${sizes}
