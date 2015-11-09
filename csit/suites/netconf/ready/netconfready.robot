@@ -25,6 +25,7 @@ Documentation     netconf-connector readiness test suite.
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Library           RequestsLibrary
+Resource          ${CURDIR}/../../../libraries/Utils.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
 
 *** Variables ***
