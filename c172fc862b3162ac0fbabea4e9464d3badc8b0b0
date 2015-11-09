@@ -306,6 +306,30 @@
     },
     {
       "key": {
+        "uuid": "fab9d9a7_8ac3eb37",
+        "filename": "csit/suites/netconf/scale/mountunmount.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-11-09T17:38:17Z",
+      "side": 1,
+      "message": "Something like this. I don\u0027t have the details nailed down yet but the idea here is to either get rid of the resource setups and teardowns completely (and to have them called automatically based on the usage of the resources) or to design a coding standard and a tool to check that coding standard and give -1 for verification if violated and then construct the \"atexit\" so that the setups and teardowns of the used resources are always called all and in the correct order whenever the coding standard is met. Or a mixed approach (some resources that are independent and don\u0027t care when exactly their setup and teardown is called would have them encapsulated, the others which depend on other resources would have their setups and teardowns called at the correct time and in correct order by the coding standard approach).\n\nTo see an example of a keyword that would be greatly simplified by these \"atexit\" keywords, see here: https://git.opendaylight.org/gerrit/#/c/29456/1/csit/libraries/MemoryWatch.robot@82. From the 5 lines that are in the keyword only 1 and a half are implementing the functionality of the keyword, the rest is needed to accommodate the setup and teardown of the resource used.",
+      "parentUuid": "bada0100_26922758",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 9
+      },
+      "revId": "c172fc862b3162ac0fbabea4e9464d3badc8b0b0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "dad5f5cf_d40bd229",
         "filename": "csit/suites/netconf/scale/mountunmount.robot",
         "patchSetId": 13
