@@ -48,6 +48,52 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_8a920bf5",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-11-10T19:54:52Z",
+      "side": 1,
+      "message": "Isn\u0027t this equivalent to \"break\"?",
+      "range": {
+        "startLine": 202,
+        "startChar": 0,
+        "endLine": 203,
+        "endChar": 20
+      },
+      "revId": "38fd94de79bd1a6262b1678fd625179322d398a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_0a9ffb04",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 222,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-11-10T19:54:52Z",
+      "side": 1,
+      "message": "More descriptive var names would be better imho",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 222,
+        "endChar": 22
+      },
+      "revId": "38fd94de79bd1a6262b1678fd625179322d398a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "bab3e1c7_48041f7e",
         "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
         "patchSetId": 9
@@ -65,6 +111,218 @@
         "endLine": 228,
         "endChar": 85
       },
+      "revId": "38fd94de79bd1a6262b1678fd625179322d398a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_8afbeb46",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 261,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-11-10T19:54:52Z",
+      "side": 1,
+      "message": "I\u0027d remove, docs not conversation",
+      "range": {
+        "startLine": 261,
+        "startChar": 6,
+        "endLine": 261,
+        "endChar": 11
+      },
+      "revId": "38fd94de79bd1a6262b1678fd625179322d398a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_aae10f9c",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 266,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-11-10T19:54:52Z",
+      "side": 1,
+      "message": "Not-useful docs",
+      "revId": "38fd94de79bd1a6262b1678fd625179322d398a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_aaf82f4a",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-11-10T19:54:52Z",
+      "side": 1,
+      "message": "I\u0027d remove, docs not conversation",
+      "range": {
+        "startLine": 271,
+        "startChar": 6,
+        "endLine": 271,
+        "endChar": 10
+      },
+      "revId": "38fd94de79bd1a6262b1678fd625179322d398a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_ca01e33a",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-11-10T19:54:52Z",
+      "side": 1,
+      "message": "sp",
+      "range": {
+        "startLine": 284,
+        "startChar": 17,
+        "endLine": 284,
+        "endChar": 24
+      },
+      "revId": "38fd94de79bd1a6262b1678fd625179322d398a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_eafe2738",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-11-10T19:54:52Z",
+      "side": 1,
+      "message": "sp",
+      "range": {
+        "startLine": 287,
+        "startChar": 26,
+        "endLine": 287,
+        "endChar": 33
+      },
+      "revId": "38fd94de79bd1a6262b1678fd625179322d398a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_8ae44bad",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-11-10T19:54:52Z",
+      "side": 1,
+      "message": "We typically recommend removing commented out code",
+      "revId": "38fd94de79bd1a6262b1678fd625179322d398a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_2ad67fc6",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 518,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-11-10T19:54:52Z",
+      "side": 1,
+      "message": "Thanks for the docs :)",
+      "range": {
+        "startLine": 501,
+        "startChar": 4,
+        "endLine": 518,
+        "endChar": 7
+      },
+      "revId": "38fd94de79bd1a6262b1678fd625179322d398a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_2a119fac",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 574,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-11-10T19:54:52Z",
+      "side": 1,
+      "message": "Python fns can\u0027t actually return nothing, they return the object None in that case. Applies elsewhere.",
+      "range": {
+        "startLine": 574,
+        "startChar": 8,
+        "endLine": 574,
+        "endChar": 15
+      },
+      "revId": "38fd94de79bd1a6262b1678fd625179322d398a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_2a5f5f74",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 634,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-11-10T19:54:52Z",
+      "side": 1,
+      "message": "Most Python I\u0027ve seen that uses argparse calls the args \"args\". nbd of course",
+      "range": {
+        "startLine": 634,
+        "startChar": 4,
+        "endLine": 634,
+        "endChar": 11
+      },
+      "revId": "38fd94de79bd1a6262b1678fd625179322d398a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_4a7973fb",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 643,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-11-10T19:54:52Z",
+      "side": 1,
+      "message": "This is a bit misleading, imho. Your \"stdout_logger\" object doesn\u0027t just output to stdout, it also outputs to a log file. I\u0027d just call it \"logger\".",
       "revId": "38fd94de79bd1a6262b1678fd625179322d398a9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
