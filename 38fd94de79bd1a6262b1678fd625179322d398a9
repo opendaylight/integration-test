@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "bab3e1c7_08b067dc",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-11-10T01:28:33Z",
+      "side": 1,
+      "message": "I\u0027m not a fan of the \"help_*\" naming convention you\u0027re using for helpers. The Python cmd.Cmd uses \"help_*\" by convention for generating help messages for CLI commands. I think most Python folks would expect something similar for any \"help_*\" fn they run into. In this particular case (building a string) I\u0027d use \"build_*\" or similar. Applies to other places.\n\nhttps://wiki.python.org/moin/CmdModule#Help",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 13
+      },
+      "revId": "38fd94de79bd1a6262b1678fd625179322d398a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bab3e1c7_a8d7dbec",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-11-10T01:28:33Z",
+      "side": 1,
+      "message": "Not a fan of encoding types in var names",
+      "range": {
+        "startLine": 90,
+        "startChar": 50,
+        "endLine": 90,
+        "endChar": 56
+      },
+      "revId": "38fd94de79bd1a6262b1678fd625179322d398a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "bab3e1c7_48041f7e",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-11-10T01:28:33Z",
+      "side": 1,
+      "message": "Even less of a fan of encoding a type in a var name and when the var isn\u0027t of that type",
+      "range": {
+        "startLine": 228,
+        "startChar": 70,
+        "endLine": 228,
+        "endChar": 85
+      },
+      "revId": "38fd94de79bd1a6262b1678fd625179322d398a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
