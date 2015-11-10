@@ -48,15 +48,16 @@ Stop Mininet
     Close Connection
 
 Stop Suite
-    [Arguments]    ${prompt}=${DEFAULT_LINUX_PROMPT}
+    [Arguments]    ${prompt}=${DEFAULT_LINUX_PROMPT} ${mininet_conn_list}=Create List   ${mininet_conn_id}
     [Documentation]    Cleanup/Shutdown work that should be done at the completion of all
     ...    tests
     Log    Stop the test on the base edition
-    Switch Connection    ${mininet_conn_id}
-    Read
-    Write    exit
-    Read Until    ${prompt}
-    Close Connection
+    : FOR   ${mininet_conn_id_var}  IN RANGE    ${mininet_conn_list}
+    \   Switch Connection    ${mininet_conn_id_var}
+    \   Read
+    \   Write    exit
+    \   Read Until    ${prompt}
+    \   Close Connection
 
 Report_Failure_Due_To_Bug
     [Arguments]    ${number}
