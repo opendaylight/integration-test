@@ -7,6 +7,9 @@ Variables         ../variables/Variables.py
 Library           RequestsLibrary
 Library           SwitchClasses/BaseSwitch.py
 
+*** Variables ***
+${mininet_conn_ids_list}    Create List
+
 *** Keywords ***
 Find Max Switches
     [Arguments]    ${start}    ${stop}    ${step}
@@ -19,7 +22,7 @@ Find Max Switches
     : FOR    ${switches}    IN RANGE    ${start}    ${stop+1}    ${step}
     \    ${status}    ${result}    Run Keyword And Ignore Error    Start Mininet Linear    ${switches}
     \    Exit For Loop If    '${status}' == 'FAIL'
-    \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Is Not Dead    ${CONTROLLER}
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Is Not Dead    ${ODL_SYSTEM_IP}
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
     \    ...    Check Every Switch    ${switches}
@@ -48,9 +51,9 @@ Find Max Links
     \    ${status}    ${result}    Run Keyword And Ignore Error    Start Mininet With Custom Topology    ${CREATE_FULLYMESH_TOPOLOGY_FILE}    ${switches}
     \    ...    ${BASE_MAC_1}    ${BASE_IP_1}    ${0}    ${switches*20}
     \    Exit For Loop If    '${status}' == 'FAIL'
-    \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Is Not Dead    ${CONTROLLER}
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Is Not Dead    ${ODL_SYSTEM_IP}
     \    Exit For Loop If    '${status}' == 'FAIL'
-    \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Has No Null Pointer Exceptions    ${CONTROLLER}
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Has No Null Pointer Exceptions    ${ODL_SYSTEM_IP}
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120    10s
     \    ...    Check Every Switch    ${switches}    ${BASE_MAC_1}
@@ -86,7 +89,7 @@ Find Max Hosts
     \    @{host_list}=    Get Mininet Hosts
     \    ${status}=    Ping All Hosts    @{host_list}
     \    Exit For Loop If    ${status} != ${0}
-    \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Is Not Dead    ${CONTROLLER}
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Is Not Dead    ${ODL_SYSTEM_IP}
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120s    30s
     \    ...    Check Number Of Hosts    ${hosts}
@@ -124,10 +127,10 @@ Start Mininet With One Switch And ${hosts} hosts
     [Documentation]    Start mininet with one switch and ${hosts} hosts
     Log    Starting mininet with one switch and ${hosts} hosts
     Log To Console    Starting mininet with one switch and ${hosts} hosts
-    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${hosts*3}
-    Set Suite Variable    ${mininet_conn_id}
+    Append To List    ${mininet_conn_ids_list}    Open Connection    ${TOOLS_SYSTEM_1_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${hosts*3}
+    Set Suite Variable    ${mininet_conn_ids_list}}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
-    Write    sudo mn --controller=remote,ip=${CONTROLLER} --topo linear,1,${hosts} --switch ovsk,protocols=OpenFlow13
+    Write    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo linear,1,${hosts} --switch ovsk,protocols=OpenFlow13
     Read Until    mininet>
 
 Check Number Of Hosts
@@ -173,29 +176,34 @@ Start Mininet Linear
     [Arguments]    ${switches}
     [Documentation]    Start mininet linear topology with ${switches} nodes
     Log To Console    Starting mininet linear ${switches}
-    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${switches*3}
-    Set Suite Variable    ${mininet_conn_id}
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
-    Write    sudo mn --controller=remote,ip=${CONTROLLER} --topo linear,${switches} --switch ovsk,protocols=OpenFlow13
-    Read Until    mininet>
-    Sleep    6
+    ${num_ovs_per_mininet}  Evaluate    ${switches}/${NUM_TOOLS_SYSTEM}
+    : FOR    ${mininet_system_num}    IN RANGE    ${NUM_TOOLS_SYSTEM}
+    \   ${temp_mininet_ip_var}= TOOLS_SYSTEM_${mininet_system}_IP
+    \   Append To List    ${mininet_conn_ids_list}    Open Connection    ${!temp_mininet_ip_var}    prompt${DEFAULT_LINUX_PROMPT}    timeout=${switches*3}
+    \   Set Suite Variable  ${mininet_conn_ids_list}
+    \   Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    \   Write    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo linear,${num_ovs_per_mininet} --switch ovsk,protocols=OpenFlow13
+    \   Read Until    mininet>
+    \   Sleep    6
 
 Start Mininet With Custom Topology
     [Arguments]    ${topology_file}    ${switches}    ${base_mac}=00:00:00:00:00:00    ${base_ip}=1.1.1.1    ${hosts}=0    ${mininet_start_time}=100
     [Documentation]    Start a custom mininet topology.
     Log To Console    Start a custom mininet topology with ${switches} nodes
-    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${mininet_start_time}
-    Set Suite Variable    ${mininet_conn_id}
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
-    Write    python ${topology_file} ${switches} ${hosts} ${base_mac} ${base_ip}
-    Read Until    ${DEFAULT_LINUX_PROMPT}
-    Write    sudo mn --controller=remote,ip=${CONTROLLER} --custom switch.py --topo demotopo --switch ovsk,protocols=OpenFlow13
-    Read Until    mininet>
-    Write    sh ovs-vsctl show
-    ${output}=    Read Until    mininet>
-    # Ovsdb connection is sometimes lost after mininet is started. Checking if the connection is alive before proceeding.
-    Should Not Contain    ${output}    database connection failed
-    Log To Console    Mininet Started with ${switches} nodes
+    ${num_ovs_per_mininet}  Evaluate    ${switches}/${NUM_TOOLS_SYSTEM}
+    : FOR    ${mininet_system_num}    IN RANGE    ${NUM_TOOLS_SYSTEM}
+    \   ${temp_mininet_ip_var}= TOOLS_SYSTEM_${mininet_system}_IP
+    \   Append To List    ${mininet_conn_ids_list}    Open Connection    ${!temp_mininet_ip_var}    prompt${DEFAULT_LINUX_PROMPT}    timeout=${switches*3}
+    \   Set Suite Variable  ${mininet_conn_ids_list}
+    \   Write    python ${topology_file} ${switches} ${hosts} ${base_mac} ${base_ip}
+    \   Read Until    ${DEFAULT_LINUX_PROMPT}
+    \   Write    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom switch.py --topo demotopo --switch ovsk,protocols=OpenFlow13
+    \   Read Until    mininet>
+    \   Write    sh ovs-vsctl show
+    \   ${output}=    Read Until    mininet>
+    \   # Ovsdb connection is sometimes lost after mininet is started. Checking if the connection is alive before proceeding.
+    \   Should Not Contain    ${output}    database connection failed
+    \   Log To Console    Mininet ${!temp_mininet_ip_var} Started with ${num_ovs_per_mininet} nodes
 
 Check Every Switch
     [Arguments]    ${switches}    ${base_mac}=00:00:00:00:00:00
@@ -249,11 +257,7 @@ Check No Topology
 Stop Mininet Simulation
     [Documentation]    Stop mininet
     Log To Console    Stopping Mininet
-    Switch Connection    ${mininet_conn_id}
-    Read
-    Write    exit
-    Read Until    ${DEFAULT_LINUX_PROMPT}
-    Close Connection
+    Stop Multiple Suite  ${mininet_conn_ids_list}
 
 Scalability Suite Teardown
     Delete All Sessions
