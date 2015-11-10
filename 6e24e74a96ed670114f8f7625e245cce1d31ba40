@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_c7c31e89",
+        "filename": "csit/libraries/ConsoleReporting.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-10T13:26:56Z",
+      "side": 1,
+      "message": "This is a constant string. It should be taken from constant, not built everytime.\nIf the constant is whitespace sensitive, it can be defined in Pthon library.",
+      "range": {
+        "startLine": 32,
+        "startChar": 36,
+        "endLine": 32,
+        "endChar": 59
+      },
+      "revId": "6e24e74a96ed670114f8f7625e245cce1d31ba40",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_e7c0a27e",
+        "filename": "csit/libraries/ConsoleReporting.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-10T13:26:56Z",
+      "side": 1,
+      "message": "Constant string again.",
+      "range": {
+        "startLine": 43,
+        "startChar": 30,
+        "endLine": 43,
+        "endChar": 63
+      },
+      "revId": "6e24e74a96ed670114f8f7625e245cce1d31ba40",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_a7baaa08",
+        "filename": "csit/libraries/ConsoleReporting.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-10T13:26:56Z",
+      "side": 1,
+      "message": "Make it more explicit that this does not work with multi-line or long strings.",
+      "range": {
+        "startLine": 46,
+        "startChar": 6,
+        "endLine": 46,
+        "endChar": 7
+      },
+      "revId": "6e24e74a96ed670114f8f7625e245cce1d31ba40",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_673cb294",
+        "filename": "csit/libraries/ConsoleReporting.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-10T13:26:56Z",
+      "side": 1,
+      "message": "Get_Length and do the subtraction in the next line.",
+      "range": {
+        "startLine": 52,
+        "startChar": 26,
+        "endLine": 52,
+        "endChar": 46
+      },
+      "revId": "6e24e74a96ed670114f8f7625e245cce1d31ba40",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_0741360b",
+        "filename": "csit/libraries/ConsoleReporting.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-10T13:26:56Z",
+      "side": 1,
+      "message": "Known constant string.",
+      "range": {
+        "startLine": 54,
+        "startChar": 37,
+        "endLine": 54,
+        "endChar": 42
+      },
+      "revId": "6e24e74a96ed670114f8f7625e245cce1d31ba40",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_c74a3e27",
+        "filename": "csit/libraries/ConsoleReporting.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-10T13:26:56Z",
+      "side": 1,
+      "message": "Another constant string.",
+      "range": {
+        "startLine": 64,
+        "startChar": 36,
+        "endLine": 64,
+        "endChar": 42
+      },
+      "revId": "6e24e74a96ed670114f8f7625e245cce1d31ba40",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
