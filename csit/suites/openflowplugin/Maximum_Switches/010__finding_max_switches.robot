@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for finding out max number of switches
-Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
 Suite Teardown    Scalability Suite Teardown
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -9,7 +9,7 @@ Resource          ../../../libraries/Scalability.robot
 
 *** Variables ***
 ${MIN_SWITCHES}    100
-${MAX_SWITCHES}    500
+${MAX_SWITCHES}    2000
 ${STEP_SWITCHES}    100
 ${SWITCHES_RESULT_FILE}    switches.csv
 
