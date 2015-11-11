@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_7b044715",
+        "filename": "csit/suites/vtn/VTN_Mgr_OF13/010__vtn_manager_flowfilter.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-11T12:42:21Z",
+      "side": 1,
+      "message": "Wait Until Keyword Succeeds would give information how much faster the following line passes in practice.",
+      "range": {
+        "startLine": 154,
+        "startChar": 4,
+        "endLine": 154,
+        "endChar": 22
+      },
+      "revId": "2fb5fdec02fc7471d386cd746331b97b3f91dfa0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
