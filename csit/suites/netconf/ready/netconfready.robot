@@ -32,6 +32,7 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 *** Variables ***
 ${first_case_ok}    False
 ${NETCONFREADY_WAIT}    60s
+${DEBUG_LOGGING_FOR_EVERYTHING}    False
 
 *** Test Cases ***
 Check_Whether_Netconf_Connector_Works
@@ -51,6 +52,7 @@ Setup_Everything
     [Documentation]    Setup requests library and log into karaf.log that the netconf readiness wait starts.
     KarafKeywords.Open_Controller_Karaf_Console_On_Background
     KarafKeywords.Log_Message_To_Controller_Karaf    Starting Netconf readiness test suite
+    BuiltIn.Run_Keyword_If    ${DEBUG_LOGGING_FOR_EVERYTHING}    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set DEBUG
     RequestsLibrary.Create_Session    ses    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}
     # TODO: Do not include slash in ${OPERATIONAL_TOPO_API}, having it typed here is more readable.
     # TODO: Alternatively, create variable in Variables which starts with http.
