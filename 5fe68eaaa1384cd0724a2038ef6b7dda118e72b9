@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_7b944737",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-11T15:17:51Z",
+      "side": 1,
+      "message": "uri",
+      "range": {
+        "startLine": 66,
+        "startChar": 21,
+        "endLine": 66,
+        "endChar": 24
+      },
+      "revId": "5fe68eaaa1384cd0724a2038ef6b7dda118e72b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_dba2139a",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-11T15:17:51Z",
+      "side": 1,
+      "message": "This can be defined as self.urlprefix in __init__, but no big deal.",
+      "range": {
+        "startLine": 95,
+        "startChar": 8,
+        "endLine": 95,
+        "endChar": 17
+      },
+      "revId": "5fe68eaaa1384cd0724a2038ef6b7dda118e72b9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
