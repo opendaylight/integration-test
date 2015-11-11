@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_10416a0b",
+        "filename": "csit/libraries/DevStackKeywords.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-11T08:48:33Z",
+      "side": 1,
+      "message": "Many of these are not used, so no point importing them.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 7
+      },
+      "revId": "06509f6dbf47a2c4439ec288b55166a0c1fe80f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_f0c0567e",
+        "filename": "csit/libraries/DevStackKeywords.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-11T08:48:33Z",
+      "side": 1,
+      "message": "I recommend Flexible_Controller_Login.",
+      "range": {
+        "startLine": 21,
+        "startChar": 10,
+        "endLine": 21,
+        "endChar": 28
+      },
+      "revId": "06509f6dbf47a2c4439ec288b55166a0c1fe80f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_90bd5a05",
+        "filename": "csit/libraries/DevStackKeywords.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-11T08:48:33Z",
+      "side": 1,
+      "message": "This is set already in line 22.",
+      "range": {
+        "startLine": 25,
+        "startChar": 42,
+        "endLine": 25,
+        "endChar": 53
+      },
+      "revId": "06509f6dbf47a2c4439ec288b55166a0c1fe80f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_b0bade08",
+        "filename": "csit/libraries/DevStackKeywords.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-11T08:48:33Z",
+      "side": 1,
+      "message": "Quotes will make bash think you want to run an argument-less command with a space in its name.",
+      "range": {
+        "startLine": 29,
+        "startChar": 13,
+        "endLine": 29,
+        "endChar": 14
+      },
+      "revId": "06509f6dbf47a2c4439ec288b55166a0c1fe80f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_703c6694",
+        "filename": "csit/libraries/DevStackKeywords.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-11T08:48:33Z",
+      "side": 1,
+      "message": "Flexible_Controller_Login",
+      "range": {
+        "startLine": 43,
+        "startChar": 15,
+        "endLine": 43,
+        "endChar": 36
+      },
+      "revId": "06509f6dbf47a2c4439ec288b55166a0c1fe80f4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
