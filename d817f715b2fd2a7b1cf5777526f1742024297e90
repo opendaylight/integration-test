@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_8152ee11",
+        "filename": "csit/libraries/MininetKeywords.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-11T23:24:31Z",
+      "side": 1,
+      "message": "we have the \"clean mininet system\" keyword that does this already if you want to use that.  from Utils.robot, but that keyword eventually belongs in this library.",
+      "range": {
+        "startLine": 16,
+        "startChar": 4,
+        "endLine": 19,
+        "endChar": 20
+      },
+      "revId": "d817f715b2fd2a7b1cf5777526f1742024297e90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_417396b1",
+        "filename": "csit/libraries/MininetKeywords.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-11T23:24:31Z",
+      "side": 1,
+      "message": "why not replace this with a single call to the \"Start Mininet Single Controller\" using the first controller in the list and then add the rest of the controllers with your ovs-vsctl set-controller stuff below.  It will make things a little easier to maintain down the road when/if we need to make changes to how we start mininet.",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 26
+      },
+      "revId": "d817f715b2fd2a7b1cf5777526f1742024297e90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_01659ee0",
+        "filename": "csit/libraries/MininetKeywords.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-11T23:24:31Z",
+      "side": 1,
+      "message": "it wouldn\u0027t hurt to add \"Clean Mininet System to the end of these two keywords as well.  just to be safe.",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 65
+      },
+      "revId": "d817f715b2fd2a7b1cf5777526f1742024297e90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_81a0aef5",
+        "filename": "csit/suites/openflowplugin/Clustering/010__Cluster_HA_Owner_Failover.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-11T23:24:31Z",
+      "side": 1,
+      "message": "we have ${OPERATIONAL_NODES_API} which might be better to use.  applies elsewhere too.  and ${CONFIG_NODES_API}",
+      "range": {
+        "startLine": 46,
+        "startChar": 38,
+        "endLine": 46,
+        "endChar": 83
+      },
+      "revId": "d817f715b2fd2a7b1cf5777526f1742024297e90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
