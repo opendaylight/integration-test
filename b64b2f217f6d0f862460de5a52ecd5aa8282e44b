@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9ab8dda7_db25330b",
+        "filename": "csit/libraries/VtnCoKeywords.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-11T15:34:54Z",
+      "side": 1,
+      "message": "${ctrlip}?",
+      "range": {
+        "startLine": 74,
+        "startChar": 94,
+        "endLine": 74,
+        "endChar": 107
+      },
+      "revId": "b64b2f217f6d0f862460de5a52ecd5aa8282e44b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_1b83cbcd",
+        "filename": "csit/suites/vtn/VTN_C_OF10/040__vtn_vbrif_audit.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-11T15:34:54Z",
+      "side": 1,
+      "message": "This IP is not used by the keyword, so Controller with valid IP is added.",
+      "range": {
+        "startLine": 10,
+        "startChar": 36,
+        "endLine": 10,
+        "endChar": 44
+      },
+      "revId": "b64b2f217f6d0f862460de5a52ecd5aa8282e44b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
