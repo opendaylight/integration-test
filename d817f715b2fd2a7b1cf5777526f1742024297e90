@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_41b076f4",
+        "filename": "csit/libraries/MininetKeywords.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2015-11-12T04:41:36Z",
+      "side": 1,
+      "message": "Right, new patch will fix this.",
+      "parentUuid": "9ab8dda7_8152ee11",
+      "range": {
+        "startLine": 16,
+        "startChar": 4,
+        "endLine": 19,
+        "endChar": 20
+      },
+      "revId": "d817f715b2fd2a7b1cf5777526f1742024297e90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_417396b1",
         "filename": "csit/libraries/MininetKeywords.robot",
         "patchSetId": 25
@@ -36,6 +60,30 @@
       "writtenOn": "2015-11-11T23:24:31Z",
       "side": 1,
       "message": "why not replace this with a single call to the \"Start Mininet Single Controller\" using the first controller in the list and then add the rest of the controllers with your ovs-vsctl set-controller stuff below.  It will make things a little easier to maintain down the road when/if we need to make changes to how we start mininet.",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 26
+      },
+      "revId": "d817f715b2fd2a7b1cf5777526f1742024297e90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_419e3658",
+        "filename": "csit/libraries/MininetKeywords.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2015-11-12T04:41:36Z",
+      "side": 1,
+      "message": "I also thought about this but there is a difference between single and multiple when you call mn: 1) single: sudo mn --controller \u0027remote,ip\u003d${controller},port\u003d${ofport}\u0027 ${options} and 2) multiple: sudo mn ${options} and in a later step you connect to multiple controllers.",
+      "parentUuid": "9ab8dda7_417396b1",
       "range": {
         "startLine": 34,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_61dd7a14",
+        "filename": "csit/libraries/MininetKeywords.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2015-11-12T04:41:36Z",
+      "side": 1,
+      "message": "Right, next patch will address this at suite level since this keyword is not intended for connecting to a mininet system but to an existing session.",
+      "parentUuid": "9ab8dda7_01659ee0",
+      "range": {
+        "startLine": 89,
+        "startChar": 0,
+        "endLine": 101,
+        "endChar": 65
+      },
+      "revId": "d817f715b2fd2a7b1cf5777526f1742024297e90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_81a0aef5",
         "filename": "csit/suites/openflowplugin/Clustering/010__Cluster_HA_Owner_Failover.robot",
         "patchSetId": 25
@@ -82,6 +154,30 @@
       "writtenOn": "2015-11-11T23:24:31Z",
       "side": 1,
       "message": "we have ${OPERATIONAL_NODES_API} which might be better to use.  applies elsewhere too.  and ${CONFIG_NODES_API}",
+      "range": {
+        "startLine": 46,
+        "startChar": 38,
+        "endLine": 46,
+        "endChar": 83
+      },
+      "revId": "d817f715b2fd2a7b1cf5777526f1742024297e90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9ab8dda7_215a2284",
+        "filename": "csit/suites/openflowplugin/Clustering/010__Cluster_HA_Owner_Failover.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2015-11-12T04:41:36Z",
+      "side": 1,
+      "message": "New patch will address this.",
+      "parentUuid": "9ab8dda7_81a0aef5",
       "range": {
         "startLine": 46,
         "startChar": 38,
