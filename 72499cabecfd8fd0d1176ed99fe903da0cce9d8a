@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_2c5d37ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 9
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-12T19:01:58Z",
+      "side": 1,
+      "message": "No longer relevant with respect to Base.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 64
+      },
+      "revId": "72499cabecfd8fd0d1176ed99fe903da0cce9d8a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_2c1457f4",
+        "filename": "csit/suites/bgpcep/bgpuser/cases.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-12T19:01:58Z",
+      "side": 1,
+      "message": "Runtime constants should be in all caps.",
+      "range": {
+        "startLine": 34,
+        "startChar": 2,
+        "endLine": 34,
+        "endChar": 32
+      },
+      "revId": "72499cabecfd8fd0d1176ed99fe903da0cce9d8a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_6c0a4fd4",
+        "filename": "csit/suites/bgpcep/bgpuser/cases.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-12T19:01:58Z",
+      "side": 1,
+      "message": "This should be set in Variables.py but last time I checked it did not work. Having this here does not hurt, so no problem (unless we want to call it ODL_SYSTEM_PROMPT).",
+      "range": {
+        "startLine": 37,
+        "startChar": 0,
+        "endLine": 37,
+        "endChar": 47
+      },
+      "revId": "72499cabecfd8fd0d1176ed99fe903da0cce9d8a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
