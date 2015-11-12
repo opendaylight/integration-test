@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_2ccf77b2",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-12T18:35:46Z",
+      "side": 1,
+      "message": "I think this will only read until output from the first ping. Output of the second ping will stay in the buffer and it may mess with subsequent tests.",
+      "range": {
+        "startLine": 220,
+        "startChar": 17,
+        "endLine": 220,
+        "endChar": 39
+      },
+      "revId": "90921a3c77150048e131e84f747644bd75584854",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
