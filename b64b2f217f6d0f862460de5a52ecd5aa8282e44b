@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9ab8dda7_e1c3aa88",
+        "filename": "csit/libraries/VtnCoKeywords.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-12T00:03:34Z",
+      "side": 1,
+      "message": "good catch, Vratko.\n\nthis is not code that was changed in this patch, but it is a keyword that\u0027s being used by a test case added in this patch so it should be fixed.",
+      "parentUuid": "9ab8dda7_db25330b",
+      "range": {
+        "startLine": 74,
+        "startChar": 94,
+        "endLine": 74,
+        "endChar": 107
+      },
+      "revId": "b64b2f217f6d0f862460de5a52ecd5aa8282e44b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9ab8dda7_1b83cbcd",
         "filename": "csit/suites/vtn/VTN_C_OF10/040__vtn_vbrif_audit.robot",
         "patchSetId": 8
