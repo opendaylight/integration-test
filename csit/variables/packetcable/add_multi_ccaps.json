@@ -1,5 +1,5 @@
-{ "ccap": {
-    "ccaps": [
+{ "ccaps": {
+    "ccap": [
     {   "ccapId": "{ccapId-1}",
         "amId": {
             "am-tag": "0xcada",
