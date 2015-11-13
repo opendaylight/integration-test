@@ -1,4 +1,5 @@
 *** Settings ***
+Documentation     Karaf library. This library is useful to deal with controller Karaf console.
 Library           SSHLibrary
 Library           OperatingSystem
 Variables         ../variables/Variables.py

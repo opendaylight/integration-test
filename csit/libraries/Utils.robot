@@ -1,4 +1,5 @@
 *** Settings ***
+Documentation     General Utils library. This library has broad scope, it can be used by any robot system tests.
 Library           SSHLibrary
 Library           String
 Library           DateTime
