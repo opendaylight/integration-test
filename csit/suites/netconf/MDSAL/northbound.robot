@@ -41,9 +41,8 @@ ${ssh_netconf_pid}    -1
 *** Test Cases ***
 Connect_To_ODL_Netconf
     [Documentation]    Connect to ODL Netconf and fail if that is not possible.
+    Create_ODL_Netconf_Connection
     Open_ODL_Netconf_Connection
-    ${hello_message}=    Get_Data    hello
-    Transmit_Message    ${hello_message}
 
 Get_Config_Running
     [Documentation]    Make sure the configuration has only the default elements in it.
@@ -84,6 +83,29 @@ name0_In_Config_Modules_Via_Restconf
     ${data}=    Utils.Get_Data_From_URI    config    config:modules    headers=${ACCEPT_XML}
     BuiltIn.Should_Contain    ${data}    <name>name0</name>
 
+Terminate_Connection_Gracefully
+    [Documentation]    Close the session and disconnect.
+    Close_ODL_Netconf_Connection_Gracefully
+
+name0_In_Config_Modules_Via_Restconf_After_Disconnect
+    [Documentation]    Check that the change is still visible through Restconf after Netconf disconnect.
+    ${data}=    Utils.Get_Data_From_URI    config    config:modules    headers=${ACCEPT_XML}
+    BuiltIn.Should_Contain    ${data}    <name>name0</name>
+
+Reconnect_To_ODL_Netconf_After_Graceful_Session_End
+    [Documentation]    Reconnect to ODL Netconf and fail if that is not possible.
+    Open_ODL_Netconf_Connection
+
+name0_In_Config_Running_After_Reconnect
+    [Documentation]    Check that the change is now in the configuration.
+    ${reply}=    Load_And_Send_Message    get-config-edit-after-commit
+    BuiltIn.Should_Contain    ${reply}    <name>name0</name>
+
+name0_In_Config_Modules_Via_Restconf_After_Reconnect
+    [Documentation]    Check that the change is still visible through Restconf after Netconf reconnect.
+    ${data}=    Utils.Get_Data_From_URI    config    config:modules    headers=${ACCEPT_XML}
+    BuiltIn.Should_Contain    ${data}    <name>name0</name>
+
 Edit_Config_Modules_Create_Shall_Fail_Now
     [Documentation]    Request a "create" operation of an element that already exists and check that it fails with the correct error (RFC 6241, section 7.2, operation "create").
     Perform_Test    config-modules-create
@@ -114,21 +136,21 @@ Commit_No_Transaction
     [Documentation]    Attempt to perform "commit" when there are no changes in the candidate configuration and check that it fails with the correct error.
     Test_Commit_With_No_Transactions
 
-Edit_Config_Another_Modules_Merge
-    [Documentation]    Create the element in the candidate configuration again and check the reply.
+Edit_Config_Another_Modules_Merge_For_Discard
+    [Documentation]    Create an element to be discarded and check the reply.
     Perform_Test    config-modules-merge-2
 
-Get_Config_Candidate
-    [Documentation]    Check that the element is present in the candidate configuration.
+Get_And_Check_Config_Candidate_For_Discard
+    [Documentation]    Check that the element to be discarded is present in the candidate configuration.
     ${reply}=    Load_And_Send_Message    get-config-candidate
     BuiltIn.Should_Contain    ${reply}    <name>name1</name>
     BuiltIn.Should_Not_Contain    ${reply}    name0
 
-Discard_Changes
+Discard_Changes_Using_Discard_Request
     [Documentation]    Ask the server to discard the candidate and check the reply.
     Perform_Test    commit-discard
 
-Get_Config_Candidate_To_Confirm_Discard
+Get_And_Check_Config_Candidate_To_Confirm_Discard
     [Documentation]    Check that the element was really discarded.
     Check_Test_Objects_Not_Present_In_Config    get-config-candidate-discard
 
@@ -161,6 +183,28 @@ name2_name3_name4_In_Config_Modules_Via_Restconf
     BuiltIn.Should_Contain    ${data}    <name>name2</name>
     BuiltIn.Should_Contain    ${data}    <name>name3</name>
     BuiltIn.Should_Contain    ${data}    <name>name4</name>
+
+Abort_Connection_To_Simulate_Session_Failure
+    [Documentation]    Simulate session failure by disconnecting without terminating the session.
+    Abort_ODL_Netconf_Connection
+
+name2_name3_name4_In_Config_Modules_Via_Restconf_After_Session_Fail
+    [Documentation]    Check that the 3 subelements are visible via Restconf.
+    ${data}=    Utils.Get_Data_From_URI    config    config:modules    headers=${ACCEPT_XML}
+    BuiltIn.Should_Contain    ${data}    <name>name2</name>
+    BuiltIn.Should_Contain    ${data}    <name>name3</name>
+    BuiltIn.Should_Contain    ${data}    <name>name4</name>
+
+Reconnect_To_ODL_Netconf_After_Session_Failure
+    [Documentation]    Reconnect to ODL Netconf and fail if that is not possible.
+    Open_ODL_Netconf_Connection
+
+name2_name3_name4_In_Running_Config_After_Session_Failure
+    [Documentation]    Check that the 3 subelements are now present in the running configuration.
+    ${reply}=    Load_And_Send_Message    merge-multiple-check
+    BuiltIn.Should_Contain    ${reply}    <name>name2</name>
+    BuiltIn.Should_Contain    ${reply}    <name>name3</name>
+    BuiltIn.Should_Contain    ${reply}    <name>name4</name>
 
 Edit_Multiple_Modules_Merge
     [Documentation]    Add another subelement named "test" to the element and check the reply.
@@ -247,7 +291,7 @@ Get_Data
     ${data}=    OperatingSystem.Get_File    ${datadir}${/}${name}.${dataext}
     [Return]    ${data}
 
-Open_ODL_Netconf_Connection
+Create_ODL_Netconf_Connection
     [Arguments]    ${host}=${CONTROLLER}    ${port}=${ODL_NETCONF_PORT}    ${user}=${ODL_NETCONF_USER}    ${password}=${ODL_NETCONF_PASSWORD}
     [Documentation]    Open a netconf connecion to the given machine.
     # The "-s netconf" flag (see the "SSHLibrary.Write" line below)    is not
@@ -257,18 +301,37 @@ Open_ODL_Netconf_Connection
     #    going to need to use this operation (Netconf Performance and Scaling
     #    comes to my mind now as one of the things tested is the performance
     #    of the direct netconf connection.
+    # TODO: Make this keyword return a dictionary object with all the
+    #    data about the prepared connection neatly packaged. Make all
+    #    the other keywords handling the connection accept such an
+    #    object and pull the data out of it rather than relying on
+    #    global variables. This will allow for tracking more Netconf
+    #    connections, increasing utility.
     ${control}=    SSHLibrary.Open_Connection    ${host}    prompt=${ODL_SYSTEM_PROMPT}    timeout=10s
     Utils.Flexible_Controller_Login
     BuiltIn.Set_Suite_Variable    ${ssh_control}    ${control}
     ${netconf}=    SSHLibrary.Open_Connection    ${host}    prompt=${ODL_SYSTEM_PROMPT}    timeout=10s
     Utils.Flexible_Controller_Login
     BuiltIn.Set_Suite_Variable    ${ssh_netconf}    ${netconf}
-    SSHLibrary.Write    sshpass -p ${password} ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ${user}\@127.0.0.1 -p ${port} -s netconf
+    BuiltIn.Set_Suite_Variable    ${ssh_port}    ${port}
+    BuiltIn.Set_Suite_Variable    ${ssh_user}    ${user}
+    BuiltIn.Set_Suite_Variable    ${ssh_password}    ${password}
+
+Reopen_ODL_Netconf_Connection
+    [Documentation]    Reopen a closed netconf connection.
+    SSHLibrary.Write    sshpass -p ${ssh_password} ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ${ssh_user}\@127.0.0.1 -p ${ssh_port} -s netconf
     ${hello}=    SSHLibrary.Read_Until    ${ODL_NETCONF_PROMPT}
     SSHLibrary.Switch_Connection    ${ssh_control}
     ${pid}=    SSHLibrary.Execute_Command    ps -A | grep sshpass | cut -b 1-6
     BuiltIn.Set_Suite_Variable    ${ssh_netconf_pid}    ${pid}
     SSHLibrary.Switch_Connection    ${ssh_netconf}
+    [Return]    ${hello}
+
+Open_ODL_Netconf_Connection
+    [Documentation]    Open a prepared netconf connecion.
+    ${hello}=    Reopen_ODL_Netconf_Connection
+    ${hello_message}=    Get_Data    hello
+    Transmit_Message    ${hello_message}
     [Return]    ${hello}
 
 Transmit_Message
@@ -309,7 +372,7 @@ Load_Expected_Reply
     ${expected}=    Prepare_For_Search    ${expected_reply}
     [Return]    ${expected}
 
-Close_ODL_Netconf_Connection
+Abort_ODL_Netconf_Connection
     [Documentation]    Correctly close the Netconf connection and make sure it is really dead.
     BuiltIn.Return_From_Keyword_If    ${ssh_netconf_pid} == -1
     ${kill_command}=    BuiltIn.Set_Variable    kill ${ssh_netconf_pid}
@@ -320,6 +383,10 @@ Close_ODL_Netconf_Connection
     SSHLibrary.Switch_Connection    ${ssh_netconf}
     SSHLibrary.Read_Until_Prompt
 
+Close_ODL_Netconf_Connection_Gracefully
+    Perform_Test    close-session
+    Abort_ODL_Netconf_Connection
+
 Setup_Everything
     [Documentation]    Setup resources and create session for Restconf checking.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
@@ -327,7 +394,7 @@ Setup_Everything
 
 Teardown_Everything
     [Documentation]    Close the Netconf connection and destroy all sessions in the requests library.
-    Close_ODL_Netconf_Connection
+    Abort_ODL_Netconf_Connection
     RequestsLibrary.Delete_All_Sessions
 
 Check_Test_Objects_Not_Present_In_Config
