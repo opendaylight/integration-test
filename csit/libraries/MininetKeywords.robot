@@ -1,4 +1,5 @@
 *** Settings ***
+Documentation     Mininet library. This library is useful for tests using mininet tool to simulate devices.
 Library           SSHLibrary
 Resource          Utils.robot
 Variables         ../variables/Variables.py

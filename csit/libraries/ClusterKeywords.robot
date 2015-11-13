@@ -6,7 +6,8 @@ Library           ClusterStateLibrary.py
 Resource          Utils.robot
 
 *** Variables ***
-${smc_node}       /org.opendaylight.controller:Category=ShardManager,name=shard-manager-config,type=DistributedConfigDatastore
+${jolokia_conf}    /jolokia/read/org.opendaylight.controller:Category=ShardManager,name=shard-manager-config,type=DistributedConfigDatastore
+${jolokia_oper}    /jolokia/read/org.opendaylight.controller:Category=ShardManager,name=shard-manager-operational,type=DistributedOperationalDatastore
 ${jolokia_read}    /jolokia/read/org.opendaylight.controller
 
 *** Keywords ***
@@ -69,12 +70,13 @@ Get Cluster Entity Owner Status
     Should Not Be Empty    ${entity_owner}    No owner found for ${device}
     ${owner}=    Replace String    ${entity_owner}    member-    ${EMPTY}
     ${owner}=    Convert To Integer    ${owner}
+    List Should Contain Value    ${controller_index_list}    ${owner}    Owner ${owner} not exisiting in ${controller_index_list}
     ${entity_candidates_list}=    Get From Dictionary    @{entity_list}[${entity_index}]    candidate
     ${list_length}=    Get Length    ${entity_candidates_list}
-    Should Be Equal    ${list_length}    ${length}    Not enough or too many candidates for ${device}
     : FOR    ${entity_candidate}    IN    @{entity_candidates_list}
     \    ${candidate}=    Replace String    &{entity_candidate}[name]    member-    ${EMPTY}
     \    ${candidate}=    Convert To Integer    ${candidate}
+    \    List Should Contain Value    ${controller_index_list}    ${candidate}    Candidate ${candidate} not exisiting in ${controller_index_list}
     \    Run Keyword If    '${candidate}' != '${owner}'    Append To List    ${candidates_list}    ${candidate}
     [Return]    ${owner}    ${candidates_list}
 
@@ -110,6 +112,20 @@ Delete And Check At URI In Cluster
     : FOR    ${i}    IN    @{controller_index_list}
     \    Wait Until Keyword Succeeds    5s    1s    No Content From URI    controller${i}    ${uri}
     \    ...    ${headers}
+
+Kill Multiple Controllers
+    [Arguments]    @{controller_index_list}
+    [Documentation]    Give this keyword a scalar or list of controllers to be stopped.
+    : FOR    ${i}    IN    @{controller_index_list}
+    \    ${output}=    Run Command On Controller    ${ODL_SYSTEM_${i}_IP}    ps axf | grep karaf | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
+    \    Controller Down Check    ${ODL_SYSTEM_${i}_IP}
+
+Start Multiple Controllers
+    [Arguments]    ${timeout}    @{controller_index_list}
+    [Documentation]    Give this keyword a scalar or list of controllers to be started.
+    : FOR    ${i}    IN    @{controller_index_list}
+    \    ${output}=    Run Command On Controller    ${ODL_SYSTEM_${i}_IP}    ${WORKSPACE}/${BUNDLEFOLDER}/bin/start
+    \    Wait For Controller Sync    ${timeout}    ${ODL_SYSTEM_${i}_IP}
 
 Get Controller List
     [Arguments]    ${exclude_controller}=${EMPTY}
@@ -179,7 +195,7 @@ Controller Down Check
     [Arguments]    ${ip}
     [Documentation]    Checks to see if a controller is down by verifying that the karaf process isn't present.
     ${cmd} =    Set Variable    ps axf | grep karaf | grep -v grep | wc -l
-    ${response}    Run Command On Remote System    ${ip}    ${cmd}
+    ${response}    Run Command On COntroller    ${ip}    ${cmd}
     Log    Number of controller instances running: ${response}
     Should Start With    ${response}    0    Controller process found or there may be extra instances of karaf running on the host machine.
 
@@ -206,27 +222,32 @@ Controller Sync Status Should Be True
     [Arguments]    ${ip}
     [Documentation]    Checks if Sync Status is true.
     ${SyncStatus}=    Get Controller Sync Status    ${ip}
-    Should Be Equal    ${SyncStatus}    ${True}
+    Should Be Equal    ${SyncStatus}    ${TRUE}
 
 Controller Sync Status Should Be False
     [Arguments]    ${ip}
     [Documentation]    Checks if Sync Status is false.
     ${SyncStatus}=    Get Controller Sync Status    ${ip}
-    Should Be Equal    ${SyncStatus}    ${False}
+    Should Be Equal    ${SyncStatus}    ${FALSE}
 
 Get Controller Sync Status
     [Arguments]    ${controller_ip}
     [Documentation]    Return Sync Status.
-    ${api}    Set Variable    /jolokia/read
-    Create_Session    session    http://${controller_ip}:${RESTCONFPORT}${api}    headers=${HEADERS}    auth=${AUTH}
-    ${resp}=    RequestsLibrary.Get    session    ${smc_node}
-    Log    ${resp.json()}
-    Log    ${resp.content}
-    ${json}=    Set Variable    ${resp.json()}
+    Create_Session    session    http://${controller_ip}:${RESTCONFPORT}    headers=${HEADERS}    auth=${AUTH}
+    ${data}=    Get Data From URI    session    ${jolokia_conf}
+    Log    ${data}
+    ${json}=    To Json    ${data}
     ${value}=    Get From Dictionary    ${json}    value
-    Log    value: ${value}
-    ${SyncStatus}=    Get From Dictionary    ${value}    SyncStatus
-    Log    SyncSatus: ${SyncStatus}
+    ${ConfSyncStatus}=    Get From Dictionary    ${value}    SyncStatus
+    Log    Configuration Sync Status: ${ConfSyncStatus}
+    ${data}=    Get Data From URI    session    ${jolokia_oper}
+    Log    ${data}
+    ${json}=    To Json    ${data}
+    ${value}=    Get From Dictionary    ${json}    value
+    ${OperSyncStatus}=    Get From Dictionary    ${value}    SyncStatus
+    Log    Operational Sync Status: ${OperSyncStatus}
+    Run Keyword If    ${OperSyncStatus} and ${ConfSyncStatus}    Set Test Variable    ${SyncStatus}    ${TRUE}
+    ...    ELSE    Set Test Variable    ${SyncStatus}    ${FALSE}
     [Return]    ${SyncStatus}
 
 Clean One Or More Journals
