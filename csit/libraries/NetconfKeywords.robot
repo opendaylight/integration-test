@@ -140,7 +140,7 @@ Install_And_Start_Testtool
     BuiltIn.Log    ${response}
     ${schemas_option}=    NetconfKeywords__Deploy_Additional_Schemas    ${schemas}
     # Start the testtool
-    ${command}    BuiltIn.Set_Variable    java -Xmx1G -XX:MaxPermSize=256M -jar ${filename} ${options} --device-count ${device-count} --debug ${debug} ${schemas_option}
+    ${command}    BuiltIn.Set_Variable    java -Xmx1G -XX:MaxPermSize=256M -jar ${filename} --device-count ${device-count} --debug ${debug} ${schemas_option} ${options}
     BuiltIn.Log    Running testtool: ${command}
     SSHLibrary.Write    ${command} >testtool.log 2>&1
     # Wait for the testtool to boot up.
