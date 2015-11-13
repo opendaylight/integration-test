@@ -135,7 +135,7 @@ Get_Config_Running_To_Confirm_Delete_After_Commit
 Restconf_Get_Modules_Shall_Return_404
     [Documentation]    Check that "Not Found" is returned when Restconf is asked for the deleted element.
     ${response}=    RequestsLibrary.Get    config    config:modules    ${ACCEPT_XML}
-    BuiltIn.Should_Be_Equal_As_Strings    ${response.status_code}    404
+    BuiltIn.Should_Be_Equal_As_Strings    404    ${response.status_code}
 
 Commit_No_Transaction
     [Documentation]    Attempt to perform "commit" when there are no changes in the candidate configuration and check that it fails with the correct error.
@@ -406,13 +406,13 @@ Perform_Test
     ${actual}=    Load_And_Send_Message    ${name}
     ${expected}=    Load_Expected_Reply    ${name}
     ${newline}=    BuiltIn.Evaluate    "\\r\\n"
-    BuiltIn.Should_Be_Equal    ${actual}    ${newline}${expected}${ODL_NETCONF_PROMPT}
+    BuiltIn.Should_Be_Equal    ${newline}${expected}${ODL_NETCONF_PROMPT}    ${actual}
     [Return]    ${actual}
 
 Send_And_Check
     [Arguments]    ${name}    ${expected}
     ${actual}=    Load_And_Send_Message    ${name}
-    BuiltIn.Should_Be_Equal    ${actual}    ${expected}
+    BuiltIn.Should_Be_Equal    ${expected}    ${actual}
 
 Test_Commit_With_No_Transactions
     [Documentation]    Issue a "commit" RPC request and check that it fails with "No current transactions" error.
