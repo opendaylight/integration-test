@@ -2,135 +2,219 @@
 Suite Setup       Create Controller Sessions
 Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
+Resource          ../../../libraries/ClusterOpenFlow.robot
 Resource          ../../../libraries/ClusterKeywords.robot
 Resource          ../../../libraries/MininetKeywords.robot
 Variables         ../../../variables/Variables.py
 
-*** Variables ***
-${config_table_0}    ${CONFIG_NODES_API}/node/openflow:1/table/0
-${operational_table_0}    ${OPERATIONAL_NODES_API}/node/openflow:1/table/0
-${operational_port_1}    ${OPERATIONAL_NODES_API}/node/openflow:1/node-connector/openflow:1:1
-
 *** Test Cases ***
-Check OpenFlow Shards Status
-    [Documentation]    Create original cluster list and Check Status for all shards in OpenFlow application.
+Create Original Cluster List
+    [Documentation]    Create original cluster list.
     ${original_cluster_list}    Create Controller Index List
     Set Suite Variable    ${original_cluster_list}
-    ${inv_conf_leader}    ${inv_conf_followers_list}    Get Cluster Shard Status    ${original_cluster_list}    config    inventory
-    ${inv_oper_leader}    ${inv_oper_followers_list}    Get Cluster Shard Status    ${original_cluster_list}    operational    inventory
-    ${topo_oper_leader}    ${topo_oper_followers_list}    Get Cluster Shard Status    ${original_cluster_list}    operational    topology
-    Log    config inventory Leader is ${inv_conf_leader} and followers are ${inv_conf_followers_list}
-    Log    operational inventory Leader is ${inv_oper_leader} and followers are ${inv_oper_followers_list}
-    Log    operational topology Leader is ${topo_oper_leader} and followers are ${topo_oper_followers_list}
+
+Check Shards Status Before Fail
+    [Documentation]    Check Status for all shards in OpenFlow application.
+    Check OpenFlow Shards Status    ${original_cluster_list}
 
 Start Mininet Multiple Connections
     [Documentation]    Start mininet with connection to all cluster instances.
     ${mininet_conn_id}=    Start Mininet Multiple Controllers    ${TOOLS_SYSTEM_IP}    ${original_cluster_list}
     Set Suite Variable    ${mininet_conn_id}
 
-Check Entity Owner Status And Find Owner and Candidate
+Check Entity Owner Status And Find Owner and Candidate Before Fail
     [Documentation]    Check Entity Owner Status and identify owner and candidate.
-    ${original_owner}    ${original_candidates_list}    Wait Until Keyword Succeeds    5s    1s    Get Cluster Entity Owner Status    ${original_cluster_list}
-    ...    openflow    openflow:1
+    ${original_owner}    ${original_candidates_list}    Get OpenFlow Entity Owner Status For One Device    ${original_cluster_list}
     ${original_candidate}=    Get From List    ${original_candidates_list}    0
     Set Suite Variable    ${original_owner}
     Set Suite Variable    ${original_candidate}
 
-Check Network Operational Information
+Check Network Operational Information Before Fail
     [Documentation]    Check device is in operational inventory and topology in all cluster instances.
-    ...    Inventory should show 1x node_id per device 1x node_id per connector. Topology should show 2x node_id per device + 3x node_id per connector.
-    ${dictionary}    Create Dictionary    openflow:1=4
-    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${dictionary}    ${OPERATIONAL_NODES_API}
-    ${dictionary}    Create Dictionary    openflow:1=11
-    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
+    Check OpenFlow Network Operational Information For One Device    ${original_cluster_list}
 
-Add Flow In Owner and Verify
+Add Configuration In Owner and Verify Before Fail
     [Documentation]    Add Flow in Owner and verify it gets applied from all instances.
-    ${body}=    OperatingSystem.Get File    ${CURDIR}/../../../variables/openflowplugin/sample_flow_1.json
-    ${dictionary}=    Create Dictionary    10.0.1.0/24=1
-    Put And Check At URI In Cluster    ${original_cluster_list}    ${original_owner}    ${config_table_0}/flow/1    ${body}    ${HEADERS}
-    Wait Until Keyword Succeeds    10s    1s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${dictionary}    ${operational_table_0}
+    Add Sample Flow and Verify    ${original_cluster_list}    ${original_owner}
 
-Modify Flow In Owner and Verify
+Modify Configuration In Owner and Verify Before Fail
     [Documentation]    Modify Flow in Owner and verify it gets applied from all instances.
-    ${body}=    OperatingSystem.Get File    ${CURDIR}/../../../variables/openflowplugin/sample_flow_2.json
-    ${dictionary}=    Create Dictionary    10.0.2.0/24=1
-    Put And Check At URI In Cluster    ${original_cluster_list}    ${original_owner}    ${config_table_0}/flow/1    ${body}    ${HEADERS}
-    Wait Until Keyword Succeeds    10s    1s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${dictionary}    ${operational_table_0}
+    Modify Sample Flow and Verify    ${original_cluster_list}    ${original_owner}
 
-Delete Flow In Owner and Verify
+Delete Configuration In Owner and Verify Before Fail
     [Documentation]    Delete Flow in Owner and verify it gets applied from all instances.
-    ${dictionary}=    Create Dictionary    10.0.2.0/24=0
-    Delete And Check At URI In Cluster    ${original_cluster_list}    ${original_owner}    ${config_table_0}/flow/1
-    Wait Until Keyword Succeeds    10s    1s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${dictionary}    ${operational_table_0}
+    Delete Sample Flow and Verify    ${original_cluster_list}    ${original_owner}
 
-Add Flow In Candidate and Verify
+Add Configuration In Candidate and Verify Before Fail
     [Documentation]    Add Flow in Owner and verify it gets applied from all instances.
-    ${body}=    OperatingSystem.Get File    ${CURDIR}/../../../variables/openflowplugin/sample_flow_1.json
-    ${dictionary}=    Create Dictionary    10.0.1.0/24=1
-    Put And Check At URI In Cluster    ${original_cluster_list}    ${original_candidate}    ${config_table_0}/flow/1    ${body}    ${HEADERS}
-    Wait Until Keyword Succeeds    10s    1s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${dictionary}    ${operational_table_0}
+    Add Sample Flow and Verify    ${original_cluster_list}    ${original_candidate}
 
-Modify Flow In Candidate and Verify
+Modify Configuration In Candidate and Verify Before Fail
     [Documentation]    Modify Flow in Owner and verify it gets applied from all instances.
-    ${body}=    OperatingSystem.Get File    ${CURDIR}/../../../variables/openflowplugin/sample_flow_2.json
-    ${dictionary}=    Create Dictionary    10.0.2.0/24=1
-    Put And Check At URI In Cluster    ${original_cluster_list}    ${original_candidate}    ${config_table_0}/flow/1    ${body}    ${HEADERS}
-    Wait Until Keyword Succeeds    10s    1s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${dictionary}    ${operational_table_0}
+    Modify Sample Flow and Verify    ${original_cluster_list}    ${original_candidate}
 
-Delete Flow In Candidate and Verify
+Delete Configuration In Candidate and Verify Before Fail
     [Documentation]    Delete Flow in Owner and verify it gets removed from all instances.
-    ${dictionary}=    Create Dictionary    10.0.2.0/24=0
-    Delete And Check At URI In Cluster    ${original_cluster_list}    ${original_candidate}    ${config_table_0}/flow/1
-    Wait Until Keyword Succeeds    10s    1s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${dictionary}    ${operational_table_0}
+    Delete Sample Flow and Verify    ${original_cluster_list}    ${original_candidate}
 
-Send RPC Add Flow to Owner and Verify
+Send RPC Add to Owner and Verify Before Fail
     [Documentation]    Add Flow in Owner and verify it gets applied from all instances.
-    ${body}=    OperatingSystem.Get File    ${CURDIR}/../../../variables/openflowplugin/add_flow_rpc.json
-    ${dictionary}=    Create Dictionary    10.0.1.0/24=1
-    ${resp}    RequestsLibrary.Post Request    controller${original_owner}    /restconf/operations/sal-flow:add-flow    ${body}    ${HEADERS}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    Wait Until Keyword Succeeds    10s    1s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${dictionary}    ${operational_table_0}
+    Send RPC Add Sample Flow and Verify    ${original_cluster_list}    ${original_owner}
 
-Send RPC Delete Flow to Owner and Verify
+Send RPC Delete to Owner and Verify Before Fail
     [Documentation]    Delete Flow in Owner and verify it gets removed from all instances.
-    ${body}=    OperatingSystem.Get File    ${CURDIR}/../../../variables/openflowplugin/delete_flow_rpc.json
-    ${dictionary}=    Create Dictionary    10.0.1.0/24=0
-    ${resp}    RequestsLibrary.Post Request    controller${original_owner}    /restconf/operations/sal-flow:remove-flow    ${body}    ${HEADERS}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    Wait Until Keyword Succeeds    10s    1s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${dictionary}    ${operational_table_0}
+    Send RPC Delete Sample Flow and Verify    ${original_cluster_list}    ${original_owner}
 
-Send RPC Add Flow to Candidate and Verify
+Send RPC Add to Candidate and Verify Before Fail
     [Documentation]    Add Flow in Candidate and verify it gets applied from all instances.
-    ${body}=    OperatingSystem.Get File    ${CURDIR}/../../../variables/openflowplugin/add_flow_rpc.json
-    ${dictionary}=    Create Dictionary    10.0.1.0/24=1
-    ${resp}    RequestsLibrary.Post Request    controller${original_candidate}    /restconf/operations/sal-flow:add-flow    ${body}    ${HEADERS}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    Wait Until Keyword Succeeds    10s    1s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${dictionary}    ${operational_table_0}
+    Send RPC Add Sample Flow and Verify    ${original_cluster_list}    ${original_candidate}
 
-Send RPC Delete Flow to Candidate and Verify
+Send RPC Delete to Candidate and Verify Before Fail
     [Documentation]    Delete Flow in Candidate and verify it gets removed from all instances.
-    ${body}=    OperatingSystem.Get File    ${CURDIR}/../../../variables/openflowplugin/delete_flow_rpc.json
-    ${dictionary}=    Create Dictionary    10.0.1.0/24=0
-    ${resp}    RequestsLibrary.Post Request    controller${original_candidate}    /restconf/operations/sal-flow:remove-flow    ${body}    ${HEADERS}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    Wait Until Keyword Succeeds    10s    1s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${dictionary}    ${operational_table_0}
+    Send RPC Delete Sample Flow and Verify    ${original_cluster_list}    ${original_candidate}
 
-Take a Link Down and Verify
+Modify Network And Verify Before Fail
     [Documentation]    Take a link down and verify port status in all instances.
-    ${dictionary}=    Create Dictionary    "link-down":true=1
-    ${ouput}=    Send Mininet Command    ${mininet_conn_id}    link s1 h1 down
-    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${dictionary}    ${operational_port_1}
+    Take OpenFlow Device Link Down and Verify    ${original_cluster_list}
 
-Take a Link Up and Verify
+Restore Network And Verify Before Fail
     [Documentation]    Take the link up and verify port status in all instances.
-    ${dictionary}=    Create Dictionary    "link-down":true=0
-    ${ouput}=    Send Mininet Command    ${mininet_conn_id}    link s1 h1 up
-    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${dictionary}    ${operational_port_1}
+    Take OpenFlow Device Link Up and Verify    ${original_cluster_list}
+
+Kill Owner Instance
+    [Documentation]    Kill Owner Instance and verify it is dead
+    Kill Multiple Controllers    ${original_owner}
+    ${new_cluster_list}    Create Controller Index List
+    Remove Values From List    ${new_cluster_list}    ${original_owner}
+    Set Suite Variable    ${new_cluster_list}
+
+Check Shards Status After Fail
+    [Documentation]    Create original cluster list and check Status for all shards in OpenFlow application.
+    Check OpenFlow Shards Status    ${new_cluster_list}
+
+Check Entity Owner Status And Find Owner and Candidate After Fail
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    ${new_owner}    ${new_candidates_list}    Get OpenFlow Entity Owner Status For One Device    ${new_cluster_list}
+    ${new_candidate}=    Get From List    ${new_candidates_list}    0
+    Set Suite Variable    ${new_owner}
+    Set Suite Variable    ${new_candidate}
+
+Check Network Operational Information After Fail
+    [Documentation]    Check device is in operational inventory and topology in all cluster instances.
+    Check OpenFlow Network Operational Information For One Device    ${new_cluster_list}
+
+Add Configuration In Owner and Verify After Fail
+    [Documentation]    Add Flow in Owner and verify it gets applied from all instances.
+    Add Sample Flow and Verify    ${new_cluster_list}    ${new_owner}
+
+Modify Configuration In Owner and Verify After Fail
+    [Documentation]    Modify Flow in Owner and verify it gets applied from all instances.
+    Modify Sample Flow and Verify    ${new_cluster_list}    ${new_owner}
+
+Delete Configuration In Owner and Verify After Fail
+    [Documentation]    Delete Flow in Owner and verify it gets applied from all instances.
+    Delete Sample Flow and Verify    ${new_cluster_list}    ${new_owner}
+
+Add Configuration In Candidate and Verify After Fail
+    [Documentation]    Add Flow in Owner and verify it gets applied from all instances.
+    Add Sample Flow and Verify    ${new_cluster_list}    ${new_candidate}
+
+Modify Configuration In Candidate and Verify After Fail
+    [Documentation]    Modify Flow in Owner and verify it gets applied from all instances.
+    Modify Sample Flow and Verify    ${new_cluster_list}    ${new_candidate}
+
+Delete Configuration In Candidate and Verify After Fail
+    [Documentation]    Delete Flow in Owner and verify it gets applied from all instances.
+    Delete Sample Flow and Verify    ${new_cluster_list}    ${new_candidate}
+
+Send RPC Add to Owner and Verify After Fail
+    [Documentation]    Add Flow in Owner and verify it gets applied from all instances.
+    Send RPC Add Flow and Verify    ${new_cluster_list}    ${new_owner}
+
+Send RPC Delete to Owner and Verify After Fail
+    [Documentation]    Delete Flow in Owner and verify it gets removed from all instances.
+    Send RPC Delete Sample Flow and Verify    ${new_cluster_list}    ${new_owner}
+
+Send RPC Add to Candidate and Verify After Fail
+    [Documentation]    Add Flow in Owner and verify it gets applied from all instances.
+    Send RPC Add Sample Flow and Verify    ${new_cluster_list}    ${new_candidate}
+
+Send RPC Delete to Candidate and Verify After Fail
+    [Documentation]    Delete Flow in Owner and verify it gets removed from all instances.
+    Send RPC Delete Flow and Verify    ${new_cluster_list}    ${new_candidate}
+
+Modify Network and Verify After Fail
+    [Documentation]    Take a link down and verify port status in all instances.
+    Take OpenFlow Device Link Down and Verify    ${new_cluster_list}
+
+Restore Network and Verify After Fail
+    [Documentation]    Take the link up and verify port status in all instances.
+    Take OpenFlow Device Link Up and Verify    ${new_cluster_list}
+
+Start Old Owner Instance
+    [Documentation]    Kill Owner Instance and verify it is dead
+    Start Multiple Controllers    300s    ${original_owner}
+
+Check Shards Status After Recover
+    [Documentation]    Create original cluster list and check Status for all shards in OpenFlow application.
+    Wait Until Keyword Succeeds    5s    1s    Check OpenFlow Shards Status    ${original_cluster_list}
+
+Check Entity Owner Status After Recover
+    [Documentation]    Check Entity Owner Status and identify owner and candidate.
+    ${new_owner}    ${new_candidates_list}    Wait Until Keyword Succeeds    5s    1s    Get OpenFlow Entity Owner Status For One Device    ${original_cluster_list}
+    Set Suite Variable    ${new_owner}
+
+Check Network Operational Information After Recover
+    [Documentation]    Check device is in operational inventory and topology in all cluster instances.
+    Check OpenFlow Network Operational Information For One Device    ${original_cluster_list}
+
+Add Configuration In Owner and Verify After Recover
+    [Documentation]    Add Flow in Owner and verify it gets applied from all instances.
+    Add Sample Flow and Verify    ${original_cluster_list}    ${new_owner}
+
+Modify Configuration In Owner and Verify After Recover
+    [Documentation]    Modify Flow in Owner and verify it gets applied from all instances.
+    Modify Sample Flow and Verify    ${original_cluster_list}    ${new_owner}
+
+Delete Configuration In Owner and Verify After Recover
+    [Documentation]    Delete Flow in Owner and verify it gets applied from all instances.
+    Delete Sample Flow and Verify    ${original_cluster_list}    ${new_owner}
+
+Add Configuration In Old Owner and Verify After Recover
+    [Documentation]    Add Flow in Owner and verify it gets applied from all instances.
+    Add Sample Flow and Verify    ${originalcluster_list}    ${original_owner}
+
+Modify Configuration In Old Owner and Verify After Recover
+    [Documentation]    Modify Flow in Owner and verify it gets applied from all instances.
+    Modify Sample Flow and Verify    ${original_cluster_list}    ${original_owner}
+
+Delete Configuration In Old Owner and Verify After Recover
+    [Documentation]    Delete Flow in Owner and verify it gets applied from all instances.
+    Delete Sample Flow and Verify    ${original_cluster_list}    ${original_owner}
+
+Send RPC Add to Owner and Verify After Recover
+    [Documentation]    Add Flow in Owner and verify it gets applied from all instances.
+    Send RPC Add Flow and Verify    ${original_cluster_list}    ${new_owner}
+
+Send RPC Delete to Owner and Verify After Recover
+    [Documentation]    Delete Flow in Owner and verify it gets removed from all instances.
+    Send RPC Delete Sample Flow and Verify    ${original_cluster_list}    ${new_owner}
+
+Send RPC Add to Old Owner and Verify After Recover
+    [Documentation]    Add Flow in Owner and verify it gets applied from all instances.
+    Send RPC Add Sample Flow and Verify    ${original_cluster_list}    ${original_owner}
+
+Send RPC Delete to Old Owner and Verify After Recover
+    [Documentation]    Delete Flow in Owner and verify it gets removed from all instances.
+    Send RPC Delete Flow and Verify    ${original_cluster_list}    ${original_owner}
+
+Modify Network and Verify After Recover
+    [Documentation]    Take a link down and verify port status in all instances.
+    Take OpenFlow Device Link Down and Verify    ${original_cluster_list}
+
+Restore Network and Verify After Recover
+    [Documentation]    Take the link up and verify port status in all instances.
+    Take OpenFlow Device Link Up and Verify    ${original_cluster_list}
 
 Stop Mininet and Exit
     [Documentation]    Stop mininet and exit connection.
@@ -139,7 +223,4 @@ Stop Mininet and Exit
 
 Check No Network Operational Information
     [Documentation]    Check device is not in operational inventory or topology in all cluster instances.
-    ${dictionary}    Create Dictionary    openflow:1=0
-    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${dictionary}    ${OPERATIONAL_NODES_API}
-    ${dictionary}    Create Dictionary    openflow:1=0
-    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
+    Check No OpenFlow Network Operational Information    ${original_cluster_list}
