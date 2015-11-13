@@ -74,6 +74,43 @@ Check_Device_Data_Is_Modified
     [Documentation]    Get the device data and make sure it contains the created content.
     Check_Config_Data    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud" xmlns:a="${ODL_NETCONF_NAMESPACE}" a:operation="replace"><l>Modified Content</l></cont></data>
 
+Deconfigure_Device_From_Netconf_Temporarily
+    [Documentation]    Make request to deconfigure the testtool device on Netconf connector.
+    ...    This is the first part of the "configure/deconfigure" cycle of the device
+    ...    The purpose of cycling the device like this is to see that the configuration
+    ...    data was really stored in the device.
+    [Tags]    critical
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    NetconfKeywords.Remove_Device_From_Netconf    ${device_name}
+
+Wait_For_Device_To_Be_Gone
+    [Documentation]    Wait for the device to completely disappear.
+    NetconfKeywords.Wait_Device_Fully_Removed    ${device_name}
+
+Configure_The_Device_Back
+    [Documentation]    Configure the device again.
+    ...    This is the second step of the device configuration.
+    [Tags]    critical
+    NetconfKeywords.Configure_Device_In_Netconf    ${device_name}
+
+Wait_For_Device_To_Reconnect
+    [Documentation]    Wait until the device becomes available through Netconf.
+    NetconfKeywords.Wait_Device_Connected    ${device_name}
+
+Check_Modified_Device_Data_Is_Still_There
+    [Documentation]    Get the device data and make sure it contains the created content.
+    Sleep    60
+    Check_Config_Data    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud" xmlns:a="${ODL_NETCONF_NAMESPACE}" a:operation="replace"><l>Modified Content</l></cont></data>
+
+Modify_Device_Data_Again
+    [Documentation]    Send a request to change the sample test data and check that the request went OK.
+    ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${device_name}'}
+    NetconfViaRestconf.Put_Xml_Template_Folder_Via_Restconf    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}datamod2    ${template_as_string}
+
+Check_Device_Data_Is_Modified_Again
+    [Documentation]    Get the device data and make sure it contains the created content.
+    Check_Config_Data    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud" xmlns:a="${ODL_NETCONF_NAMESPACE}" a:operation="replace"><l>Another Modified Content</l></cont></data>
+
 Delete_Device_Data
     [Documentation]    Send a request to delete the sample test data on the device and check that the request went OK.
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${device_name}'}
@@ -111,7 +148,7 @@ Setup_Everything
     # Connect to the Mininet machine
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    prompt=${TOOLS_SYSTEM_PROMPT}
     Utils.Flexible_Mininet_Login
-    NetconfKeywords.Install_And_Start_Testtool    device-count=10    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas
+    NetconfKeywords.Install_And_Start_Testtool    device-count=10    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas    options=--md-sal test
 
 Teardown_Everything
     [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.
