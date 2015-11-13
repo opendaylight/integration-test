@@ -9,6 +9,11 @@ ${pathmapdata}    {"index": 1,"condition":"flowcond_path","policy":1,"idleTimeou
 ${pathpolicydata}    {"id": 1,"default": 100000,"cost": [{"location": {"node": {"type": "OF","id": "00:00:00:00:00:00:00:01"},"port": {"type": "OF","id": "3","name": "s1-eth3"}},"cost": 1000},{"location": {"node": {"type": "OF","id": "00:00:00:00:00:00:00:04"},"port": {"type": "OF","id": "2","name": "s4-eth2"}},"cost": 1000},{"location": {"node": {"type": "OF", "id": "00:00:00:00:00:00:00:03"},"port": {"type": "OF","id": "3","name": "s3-eth3"}},"cost": 100000}]}
 
 *** Test Cases ***
+Start Log Message to controller Karaf
+    [Documentation]    Invoke to show the start of Robot tests in controller karaf log
+    Open Controller Karaf Console On Background
+    Log Message To Controller Karaf      Start of VTN Manager Pathpolicy Robot test file
+
 Check if switch1 detected
     [Documentation]    Check if openflow:1 is detected
     BuiltIn.Wait_Until_Keyword_Succeeds    12    3    Fetch vtn switch inventory    openflow:1
@@ -20,7 +25,7 @@ Check if switch2 detected
 Check if switch3 detected
     [Documentation]    Check if openflow:3 is detected
     BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch inventory    openflow:3
-
+u
 Check if switch4 detected
     [Documentation]    Check if openflow:4 is detected
     BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch inventory    openflow:4
@@ -122,3 +127,8 @@ Delete a flowcondition
 Delete a vtn Tenant_path
     [Documentation]    Delete a vtn Tenant_path
     Delete a vtn    Tenant_path
+
+Stop Log Message to controller Karaf
+    [Documentation]    Invoke this to show the End of Robot tests in controller karaf log
+    Log Message To Controller Karaf     End of VTN Manager Pathpolicy Robot test file
+
