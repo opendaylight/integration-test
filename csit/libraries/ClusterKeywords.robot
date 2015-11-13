@@ -111,6 +111,13 @@ Delete And Check At URI In Cluster
     \    Wait Until Keyword Succeeds    5s    1s    No Content From URI    controller${i}    ${uri}
     \    ...    ${headers}
 
+Kill Multiple Controllers
+    [Arguments]    @{controller_index_list}
+    [Documentation]    Give this keyword a scalar or list of controllers to be stopped.
+    : FOR    ${i}    IN    @{controller_index_list}
+    \    ${output}=    Run Command On Controller    ${ODL_SYSTEM_${i}_IP}    ps axf | grep karaf | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
+    \    Controller Down Check    ${ODL_SYSTEM_${i}_IP}
+
 Get Controller List
     [Arguments]    ${exclude_controller}=${EMPTY}
     [Documentation]    Creates a list of all controllers minus any excluded controller.
@@ -179,7 +186,7 @@ Controller Down Check
     [Arguments]    ${ip}
     [Documentation]    Checks to see if a controller is down by verifying that the karaf process isn't present.
     ${cmd} =    Set Variable    ps axf | grep karaf | grep -v grep | wc -l
-    ${response}    Run Command On Remote System    ${ip}    ${cmd}
+    ${response}    Run Command On COntroller    ${ip}    ${cmd}
     Log    Number of controller instances running: ${response}
     Should Start With    ${response}    0    Controller process found or there may be extra instances of karaf running on the host machine.
 
