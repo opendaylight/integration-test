@@ -29,6 +29,7 @@ Library           RequestsLibrary
 Library           SSHLibrary
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
 
@@ -261,10 +262,19 @@ Open_ODL_Netconf_Connection
     #    going to need to use this operation (Netconf Performance and Scaling
     #    comes to my mind now as one of the things tested is the performance
     #    of the direct netconf connection.
-    SSHLibrary.Open_Connection    ${host}    prompt=${ODL_SYSTEM_PROMPT}    timeout=10s
+    ${control}=    SSHLibrary.Open_Connection    ${host}    prompt=${ODL_SYSTEM_PROMPT}    timeout=10s
     Utils.Flexible_Controller_Login
+    BuiltIn.Set_Suite_Variable    ${ssh_control}    ${control}
+    ${netconf}=    SSHLibrary.Open_Connection    ${host}    prompt=${ODL_SYSTEM_PROMPT}    timeout=10s
+    Utils.Flexible_Controller_Login
+    BuiltIn.Set_Suite_Variable    ${ssh_netconf}    ${netconf}
     SSHLibrary.Write    sshpass -p ${password} ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ${user}\@127.0.0.1 -p ${port} -s netconf
     ${hello}=    SSHLibrary.Read_Until    ${ODL_NETCONF_PROMPT}
+    SSHLibrary.Switch_Connection    ${ssh_control}
+    SSHLibrary.Write    ps -A | grep sshpass | cut -b 1-6
+    ${pid}=    SSHKeywords.Read_Command_Response
+    BuiltIn.Set_Suite_Variable    ${ssh_netconf_pid}    ${pid}
+    SSHLibrary.Switch_Connection    ${ssh_netconf}
     [Return]    ${hello}
 
 Transmit_Message
@@ -307,7 +317,10 @@ Load_Expected_Reply
 
 Close_ODL_Netconf_Connection
     [Documentation]    Correctly close the Netconf connection and make sure it is really dead.
-    Utils.Write_Bare_Ctrl_D
+    SSHLibrary.Switch_Connection    ${ssh_control}
+    SSHLibrary.Write    kill ${ssh_netconf_pid}
+    SSHLibrary.Read_Until_Prompt
+    SSHLibrary.Switch_Connection    ${ssh_netconf}
     SSHLibrary.Read_Until_Prompt
 
 Setup_Everything
