@@ -5,6 +5,11 @@ Suite Teardown    Stop SuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
 
 *** Test Cases ***
+Start Log Message to controller Karaf
+    [Documentation]    Invoke to show the start of Robot tests in controller karaf log
+    Open Controller Karaf Console On Background
+    Log Message To Controller Karaf      Start of OF13 VTN vlanmap dataflow Robot test file
+
 Start topology
     [Documentation]    Add a vlan topology
     Start vlan_topo    OF13
@@ -72,3 +77,8 @@ Get vlanflow h2 h5
 Delete a vtn Tenant1
     [Documentation]    Delete a vtn Tenant1
     Delete a vtn    Tenant1
+
+Start Log Message to controller Karaf
+    [Documentation]    Invoke to show the start of Robot tests in controller karaf log
+    Log Message To Controller Karaf      End of OF13 VTN vlanmap dataflow Robot test file
+
