@@ -121,7 +121,7 @@ NetconfKeywords__Check_Device_Is_Up
     BuiltIn.Should_Be_Equal_As_Integers    ${count}    1
 
 Install_And_Start_Testtool
-    [Arguments]    ${device-count}=10    ${debug}=true    ${schemas}=none
+    [Arguments]    ${device-count}=10    ${debug}=true    ${schemas}=none    ${options}=${EMPTY}
     [Documentation]    Install and run testtool. Also arrange to collect its output into a log file.
     ...    When the ${schemas} argument is set to 'none', it signifies that
     ...    there are no additional schemas to be deployed, so the directory
@@ -140,7 +140,9 @@ Install_And_Start_Testtool
     BuiltIn.Log    ${response}
     ${schemas_option}=    NetconfKeywords__Deploy_Additional_Schemas    ${schemas}
     # Start the testtool
-    SSHLibrary.Write    java -Xmx1G -XX:MaxPermSize=256M -jar ${filename} --device-count ${device-count} --debug ${debug} ${schemas_option} >testtool.log 2>&1
+    ${command}    BuiltIn.Set_Variable    java -Xmx1G -XX:MaxPermSize=256M -jar ${filename} ${options} --device-count ${device-count} --debug ${debug} ${schemas_option}
+    BuiltIn.Log    Running testtool: ${command}
+    SSHLibrary.Write    ${command} >testtool.log 2>&1
     # Wait for the testtool to boot up.
     ${timeout}=    BuiltIn.Evaluate    (${device-count}/3)+5
     BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}s    1s    NetconfKeywords__Check_Device_Is_Up    ${FIRST_TESTTOOL_PORT}
