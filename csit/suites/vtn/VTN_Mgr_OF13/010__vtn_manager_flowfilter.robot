@@ -16,6 +16,11 @@ ${vtn_flowfilterInetdata}    {"index":8,"condition":"cond1","filterType":{"pass"
 ${vbr_flowfilterInetdata}    {"index":9,"condition":"cond1","filterType":{"pass":{}},"actions":[{"inet4src":{"address":"10.0.0.1"}},{"inet4dst":{"address":"10.0.0.3"}}]}
 
 *** Test Cases ***
+Start Log Message to controller Karaf
+    [Documentation]    Invoke to show the start of Robot tests in controller karaf log
+    Open Controller Karaf Console On Background
+    Log Message To Controller Karaf      Start of OF13 VTN Manager Flowfilter Robot test file
+
 Check if switch1 detected
     [Documentation]    Check if openflow:1 is detected
     BuiltIn.Wait_Until_Keyword_Succeeds    12    3    Fetch vtn switch inventory    openflow:1
@@ -164,3 +169,7 @@ Delete a flowcondition
 Delete a vtn Tenant1
     [Documentation]    Delete a vtn Tenant1
     Delete a vtn    Tenant1
+
+Stop Log Message to controller Karaf
+    [Documentation]    Invoke this to show the End of Robot tests in controller karaf log
+    Log Message To Controller Karaf     End of OF13 VTN Manager Flowfilter Robot test file

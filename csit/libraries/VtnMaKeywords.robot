@@ -38,6 +38,8 @@ ${out_after_pathpolicy}    output:3
 *** Keywords ***
 Start SuiteVtnMa
     [Documentation]    Start VTN Manager Init Test Suite
+    Open Controller Karaf Console On Background
+    Set Vtn Trace Log Level
     Create Session    session    http://${CONTROLLER}:${RESTPORT}    auth=${AUTH}    headers=${HEADERS}
     BuiltIn.Wait_Until_Keyword_Succeeds    30    3    Fetch vtn list
     Start Suite

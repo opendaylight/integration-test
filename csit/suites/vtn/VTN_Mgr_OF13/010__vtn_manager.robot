@@ -5,6 +5,11 @@ Suite Teardown    Stop SuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
 
 *** Test Cases ***
+Start Log Message to controller Karaf
+    [Documentation]    Invoke to show the start of Robot tests in controller karaf log
+    Open Controller Karaf Console On Background
+    Log Message To Controller Karaf      Start of OF13 Robot test file to test get flows and entries
+
 Check if switch1 detected
     [Documentation]    Check if openflow:1 is detected
     BuiltIn.Wait_Until_Keyword_Succeeds    12    3    Fetch vtn switch inventory    openflow:1
@@ -104,3 +109,7 @@ Verify RemovedFlowMacAddress
 Delete a vtn Tenant1
     [Documentation]    Delete a vtn Tenant1
     Delete a vtn    Tenant1
+
+Stop Log Message to controller Karaf
+    [Documentation]    Invoke to show the End of Robot tests in controller karaf log
+    Log Message To Controller Karaf      End of OF13 Robot test file to test get flows and entries
