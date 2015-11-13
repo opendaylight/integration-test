@@ -32,23 +32,23 @@ ${DIRECTORY_WITH_TEMPLATE_FOLDERS}    ${CURDIR}/../../../variables/netconf/CRUD
 ${device_name}    netconf-test-device
 
 *** Test Cases ***
-Check_Device_Is_Not_Mounted_At_Beginning
+Check_Device_Is_Not_Configured_At_Beginning
     [Documentation]    Sanity check making sure our device is not there. Fail if found.
     [Tags]    critical
     NetconfKeywords.Check_Device_Has_No_Netconf_Connector    ${device_name}
 
-Mount_Device_On_Netconf
-    [Documentation]    Make request to mount a testtool device on Netconf connector
+Configure_Device_On_Netconf
+    [Documentation]    Make request to configure a testtool device on Netconf connector.
     [Tags]    critical
     NetconfKeywords.Configure_Device_In_Netconf    ${device_name}
 
 Check_ODL_Has_Netconf_Connector_For_Device
-    [Documentation]    Get the list of mounts and search for our device there. Fail if not found.
+    [Documentation]    Get the list of configured devices and search for our device there. Fail if not found.
     [Tags]    critical
     ${count}    NetconfKeywords.Count_Netconf_Connectors_For_Device    ${device_name}
     Builtin.Should_Be_Equal_As_Strings    ${count}    1
 
-Wait_For_Device_To_Become_Mounted
+Wait_For_Device_To_Become_Connected
     [Documentation]    Wait until the device becomes available through Netconf.
     NetconfKeywords.Wait_Device_Connected    ${device_name}
 
@@ -83,13 +83,13 @@ Check_Device_Data_Is_Deleted
     [Documentation]    Get the device data and make sure it is empty again.
     Check_Config_Data    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
 
-Remove_Device_From_Netconf
-    [Documentation]    Make request to unmount a testtool device on Netconf connector.
+Deconfigure_Device_From_Netconf
+    [Documentation]    Make request to deconfigure the testtool device on Netconf connector.
     [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     NetconfKeywords.Remove_Device_From_Netconf    ${device_name}
 
-Check_Device_Going_To_Be_Gone_After_Delete
+Check_Device_Going_To_Be_Gone_After_Deconfiguring
     [Documentation]    Check that the device is really going to be gone. Fail
     ...    if found after one minute. This is an expected behavior as the
     ...    delete request is sent to the config subsystem which then triggers
