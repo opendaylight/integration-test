@@ -22,6 +22,30 @@
       "revId": "90921a3c77150048e131e84f747644bd75584854",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_0ddab278",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T01:40:51Z",
+      "side": 1,
+      "message": "how about this:\n\nWrite    ${host1} ping -c 5 ${host2}\n${result}    Read Until    mininet\u003e\nShould Not Contain    ${result}    64 bytes\nWrite    ${host1} ping -c 5 ${host2}\n${result}    Read Until    mininet\u003e\nShould Not Contain    ${result}    64 bytes\n\nif either ping has a \"64 bytes\" string the keyword will FAIL\nwhich is what you want.  \n\nno sleeps please :)",
+      "parentUuid": "7aade967_2ccf77b2",
+      "range": {
+        "startLine": 220,
+        "startChar": 17,
+        "endLine": 220,
+        "endChar": 39
+      },
+      "revId": "90921a3c77150048e131e84f747644bd75584854",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
