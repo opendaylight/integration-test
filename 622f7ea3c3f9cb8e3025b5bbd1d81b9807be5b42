@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_2d09ae2c",
+        "filename": "csit/libraries/DIDMKeywords.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T00:26:32Z",
+      "side": 1,
+      "message": "re-word to say \"to fetch the operational inventory of all nodes\"   --same applies to keyword below",
+      "range": {
+        "startLine": 14,
+        "startChar": 39,
+        "endLine": 14,
+        "endChar": 96
+      },
+      "revId": "622f7ea3c3f9cb8e3025b5bbd1d81b9807be5b42",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_0d10724d",
+        "filename": "csit/libraries/DIDMKeywords.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T00:26:32Z",
+      "side": 1,
+      "message": "i\u0027m not sure the point of this keyword?\n\nif the device ip is *not* in the resp.content, then it will return.  otherwise it will move to the next line (which is an implicit \"return\") so this keyword will just return happily if the IP is or is not in the output.",
+      "range": {
+        "startLine": 19,
+        "startChar": 3,
+        "endLine": 19,
+        "endChar": 85
+      },
+      "revId": "622f7ea3c3f9cb8e3025b5bbd1d81b9807be5b42",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_ad1cbe6b",
+        "filename": "csit/suites/didm/discovery/device_discovery.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T00:26:32Z",
+      "side": 1,
+      "message": "you have some trailing whitespace you can fix up on your next revision.  just use gerrit to show you these in red.",
+      "range": {
+        "startLine": 12,
+        "startChar": 33,
+        "endLine": 12,
+        "endChar": 37
+      },
+      "revId": "622f7ea3c3f9cb8e3025b5bbd1d81b9807be5b42",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_6d26c6bc",
+        "filename": "csit/suites/didm/discovery/device_discovery.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T00:26:32Z",
+      "side": 1,
+      "message": "ok, I\u0027m starting to understand this \"Find Unknown Device\" keyword now.  I think it\u0027s more complicated than it needs to be, right?  what are you really doing, just a GET on ${OPERATIONAL_NODES_API} and then making sure 1.1.1.1 is not there right?",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 57
+      },
+      "revId": "622f7ea3c3f9cb8e3025b5bbd1d81b9807be5b42",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
