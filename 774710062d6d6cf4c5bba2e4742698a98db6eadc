@@ -65,6 +65,30 @@
     },
     {
       "key": {
+        "uuid": "7aade967_ed3e3629",
+        "filename": "csit/libraries/ClusterOpenFlow.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2015-11-14T06:17:04Z",
+      "side": 1,
+      "message": "So I think this library is wrong interpreted. The point of this library is not to provide useful keywords people can use, for that I have the ClusterLibrary. The goal of this library is to avoid duplicating test case definition during the main suite. That is why you see few arguments (only those nessary to run the parent suite) and that is why you do not see returned values, this is basically a collection of test cases templates that only makes sense in the context of a parent test suite. I can explain this better in this file or I can try something different but so far I could not figure out a better way to group test case definitions.",
+      "parentUuid": "7aade967_edd076f9",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 5
+      },
+      "revId": "774710062d6d6cf4c5bba2e4742698a98db6eadc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7aade967_adda7e15",
         "filename": "csit/libraries/ClusterOpenFlow.robot",
         "patchSetId": 2
@@ -76,6 +100,30 @@
       "writtenOn": "2015-11-14T05:50:35Z",
       "side": 1,
       "message": "this feels hardcoded, but I know this is a static test environment right now.  is it best way for now?  I feel like for a library we should be giving these values as arguments some how so other tests aren\u0027t stuck looking for openflow:1 4 times.  maybe they want to see it 14 times? same question applies in other places as well.",
+      "range": {
+        "startLine": 31,
+        "startChar": 42,
+        "endLine": 31,
+        "endChar": 54
+      },
+      "revId": "774710062d6d6cf4c5bba2e4742698a98db6eadc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_0d3cf22e",
+        "filename": "csit/libraries/ClusterOpenFlow.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2015-11-14T06:17:04Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7aade967_adda7e15",
       "range": {
         "startLine": 31,
         "startChar": 42,
