@@ -1,0 +1,376 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_7b0a03d4",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/Variables.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T00:07:31Z",
+      "side": 1,
+      "message": "we are requesting to use ODL_SYSTEM* and TOOLS_SYSTEM* variables going forward and to move away from CONTROLLER and MININET.  I think if you remove lines 11-14 and uncomment 7-10 you should be good.",
+      "range": {
+        "startLine": 6,
+        "startChar": 31,
+        "endLine": 15,
+        "endChar": 42
+      },
+      "revId": "70cee56b6b5a824c6e96fa6d403bf0a1ed3fa7f8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_1b0f4fe3",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp1/000_setup.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T00:07:31Z",
+      "side": 1,
+      "message": "fyi, it looks like you want this to always run first.  you could also put this in a __init__.robot file to accomplish the same.",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 69
+      },
+      "revId": "70cee56b6b5a824c6e96fa6d403bf0a1ed3fa7f8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_3b148bf4",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp1/001_set_odl.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T00:07:31Z",
+      "side": 1,
+      "message": "you are using some URIs that are probably common (or will be common) among different test suites.  You can put them in Variables.py to have a common location if you like.  We do it for some others already, and makes for a good location for others to look going forward.\n\nI also saw this URI in another file, that might be a good candidate:\n/restconf/config/ofoverlay:of-overlay-config",
+      "revId": "70cee56b6b5a824c6e96fa6d403bf0a1ed3fa7f8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_7b4f6393",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp1/010_icmp.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T00:07:31Z",
+      "side": 1,
+      "message": "some of these variables are shared in other suites.  is there a better/common place for them?  a single variable file for this group of tests?  easier to maintain that way.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 47
+      },
+      "revId": "70cee56b6b5a824c6e96fa6d403bf0a1ed3fa7f8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_fb7353e5",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp1/010_icmp.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T00:07:31Z",
+      "side": 1,
+      "message": "missing documentation",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 50
+      },
+      "revId": "70cee56b6b5a824c6e96fa6d403bf0a1ed3fa7f8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_9b801f8d",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp1/010_icmp.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T00:07:31Z",
+      "side": 1,
+      "message": "missing documentation",
+      "range": {
+        "startLine": 99,
+        "startChar": 0,
+        "endLine": 99,
+        "endChar": 58
+      },
+      "revId": "70cee56b6b5a824c6e96fa6d403bf0a1ed3fa7f8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_bb7ddbb3",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp1/010_icmp.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T00:07:31Z",
+      "side": 1,
+      "message": "missing documentation",
+      "range": {
+        "startLine": 194,
+        "startChar": 0,
+        "endLine": 194,
+        "endChar": 57
+      },
+      "revId": "70cee56b6b5a824c6e96fa6d403bf0a1ed3fa7f8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_1b442f73",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp1/020_http.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T00:07:31Z",
+      "side": 1,
+      "message": "some test cases below with missing docs.",
+      "revId": "70cee56b6b5a824c6e96fa6d403bf0a1ed3fa7f8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_3b49eb8b",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp1/998_clean_odl.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T00:07:31Z",
+      "side": 1,
+      "message": "i made a comment in a different file, but restating here that these look like good variables to move to a GBP section of Variables.py and will be the central place to maintain and consume.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 76
+      },
+      "revId": "70cee56b6b5a824c6e96fa6d403bf0a1ed3fa7f8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_9b57bf26",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp1/998_clean_odl.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T00:07:31Z",
+      "side": 1,
+      "message": "add a short doc here please.",
+      "revId": "70cee56b6b5a824c6e96fa6d403bf0a1ed3fa7f8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_5b31470a",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp1/998_clean_odl.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T00:07:31Z",
+      "side": 1,
+      "message": "another short doc please",
+      "revId": "70cee56b6b5a824c6e96fa6d403bf0a1ed3fa7f8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_3b400b56",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp1/999_teardown.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T00:07:31Z",
+      "side": 1,
+      "message": "again, *if* you want.  you can do this work in the __init__.robot file inside this same dir.  check this folder [0] for an example.  just an fyi, in case it appeals to you.\n\n[0] https://github.com/opendaylight/integration-test/tree/master/csit/suites/openflowplugin/AD_SAL_NSF_OF13",
+      "revId": "70cee56b6b5a824c6e96fa6d403bf0a1ed3fa7f8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_fb2113b5",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp2-multitenant/000_setup.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T00:07:31Z",
+      "side": 1,
+      "message": "so is the same work done in the other 000_setup.robot file?  wondering if you want to put this keyword in a single GBP library and not have it duplicated?",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 69
+      },
+      "revId": "70cee56b6b5a824c6e96fa6d403bf0a1ed3fa7f8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_9b2edfa4",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp2-multitenant/001_set_odl.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T00:07:31Z",
+      "side": 1,
+      "message": "in Variables.py, we have ${CONFIG_NODES_API} already that you can use.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 66
+      },
+      "revId": "70cee56b6b5a824c6e96fa6d403bf0a1ed3fa7f8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_bb2b9b93",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp2-multitenant/010_icmp.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T00:07:31Z",
+      "side": 1,
+      "message": "some cases with missing docs",
+      "revId": "70cee56b6b5a824c6e96fa6d403bf0a1ed3fa7f8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_3b17ab53",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp2-multitenant/020_http.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T00:07:31Z",
+      "side": 1,
+      "message": "same comment from another file.  better to put these common vars in to a single GBP variables file",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 47
+      },
+      "revId": "70cee56b6b5a824c6e96fa6d403bf0a1ed3fa7f8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_db0bf729",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp2-multitenant/020_http.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T00:07:31Z",
+      "side": 1,
+      "message": "some cases missing docs",
+      "revId": "70cee56b6b5a824c6e96fa6d403bf0a1ed3fa7f8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_fb08332f",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp2-multitenant/998_clean_odl.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T00:07:31Z",
+      "side": 1,
+      "message": "see other files for my comments on these kinds of variables.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 76
+      },
+      "revId": "70cee56b6b5a824c6e96fa6d403bf0a1ed3fa7f8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
