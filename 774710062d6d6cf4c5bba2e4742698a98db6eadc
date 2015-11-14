@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_2de76ee6",
+        "filename": "csit/libraries/ClusterKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T05:50:35Z",
+      "side": 1,
+      "message": "little \u0027o\u0027  :)",
+      "range": {
+        "startLine": 189,
+        "startChar": 34,
+        "endLine": 189,
+        "endChar": 36
+      },
+      "revId": "774710062d6d6cf4c5bba2e4742698a98db6eadc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_cdd7baec",
+        "filename": "csit/libraries/ClusterOpenFlow.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T05:50:35Z",
+      "side": 1,
+      "message": "so my biggest criticism for this library is that a lot of the variable items in the keywords are hardcoded (e.g. taking a specific .json file, or using a specific ip address).  If you could move those things up to [Arguments] and then default them to those values you want it would be more extendable and not break what you already have working.\n\nso, for example:\n\nSend RPC Add Flow And Verify\n    [Arguments]    ${controller_index_list}    ${controller_index}  ${flow_json_file}\u003d ${CURDIR}/../variables/openflowplugin/add_flow_rpc.json    ${verify_key}\u003d10.0.1.0/24    ${verify_count}\u003d1\n    [Documentation]    Add Flow in ${controller_index} and verify it gets applied from all instances in ${controller_index_list}.\n    ${body}\u003d    OperatingSystem.Get File    ${flow_json_file}\n    ${dictionary}\u003d    Create Dictionary    ${verify_key}\u003d${verify_count}",
+      "revId": "774710062d6d6cf4c5bba2e4742698a98db6eadc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_edd076f9",
+        "filename": "csit/libraries/ClusterOpenFlow.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T05:50:35Z",
+      "side": 1,
+      "message": "there is no \"check\"ing in this keyword?  it\u0027s just logging the collected info?\n\ndo you want to return something?",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 5
+      },
+      "revId": "774710062d6d6cf4c5bba2e4742698a98db6eadc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_adda7e15",
+        "filename": "csit/libraries/ClusterOpenFlow.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T05:50:35Z",
+      "side": 1,
+      "message": "this feels hardcoded, but I know this is a static test environment right now.  is it best way for now?  I feel like for a library we should be giving these values as arguments some how so other tests aren\u0027t stuck looking for openflow:1 4 times.  maybe they want to see it 14 times? same question applies in other places as well.",
+      "range": {
+        "startLine": 31,
+        "startChar": 42,
+        "endLine": 31,
+        "endChar": 54
+      },
+      "revId": "774710062d6d6cf4c5bba2e4742698a98db6eadc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
