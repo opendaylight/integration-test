@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_adacbe8d",
+        "filename": "csit/libraries/GBP/DockerUtils.robot",
+        "patchSetId": 100
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-14T05:22:20Z",
+      "side": 1,
+      "message": "cool strategy for endless curl and how you stop it :)",
+      "revId": "a2527e515cbe0f6652149d43b8fb69032fd87841",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
