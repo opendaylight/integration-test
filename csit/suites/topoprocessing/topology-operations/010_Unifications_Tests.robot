@@ -25,7 +25,7 @@ Unification on Network Topology
     [Documentation]    Test unification operation on Network Topology model
     Prepare New Feature Installation
     Install a Feature    odl-topoprocessing-network-topology odl-bgpcep-pcep-all    timeout=30
-    Wait For Karaf Log    Registering Topology Request Listener
+    Wait For Karaf Log    Registering Topology Request Listener    300
     ${resp}    RequestsLibrary.Put    session    ${CONFIGURATION}/${TOPOLOGY_URL}/unif:1    data=${UNIFICATION_NT}
     Log    ${CONFIGURATION}/${TOPOLOGY_URL}/unif:1
     Should Be Equal As Strings    ${resp.status_code}    200
@@ -65,9 +65,9 @@ Test Teardown
     Delete All Sessions
 
 Wait For Karaf Log
-    [Arguments]    ${message}
+    [Arguments]    ${message}    ${timeout}=60
     [Documentation]    Read karaf logs until message appear
-    Open Connection    ${CONTROLLER}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_PROMPT}    timeout=60
+    Open Connection    ${CONTROLLER}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_PROMPT}    timeout=${timeout}
     Flexible SSH Login    ${KARAF_USER}    ${KARAF_PASSWORD}
     Write    log:tail
     Read Until    ${message}
