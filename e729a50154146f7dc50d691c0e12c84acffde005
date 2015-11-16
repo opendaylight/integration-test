@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_dc73ea13",
+        "filename": "csit/suites/dlux/core/010_DLUX_auth.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-16T11:33:34Z",
+      "side": 1,
+      "message": "I find it more readable to include dependencies (Selenium2Library) directly and not to rely on transitivity, but no big deal.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 8
+      },
+      "revId": "e729a50154146f7dc50d691c0e12c84acffde005",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_7c12f6b5",
+        "filename": "csit/suites/dlux/core/010_DLUX_auth.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-16T11:33:34Z",
+      "side": 1,
+      "message": "You could use Utils.Report_Failure_Due_To_Bug, but you would have to create a combined Keyword to use as Teardown.",
+      "range": {
+        "startLine": 26,
+        "startChar": 2,
+        "endLine": 26,
+        "endChar": 11
+      },
+      "revId": "e729a50154146f7dc50d691c0e12c84acffde005",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_dc452ab4",
+        "filename": "csit/suites/dlux/core/010_DLUX_auth.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-16T11:33:34Z",
+      "side": 1,
+      "message": "four spaces",
+      "range": {
+        "startLine": 32,
+        "startChar": 59,
+        "endLine": 32,
+        "endChar": 60
+      },
+      "revId": "e729a50154146f7dc50d691c0e12c84acffde005",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
