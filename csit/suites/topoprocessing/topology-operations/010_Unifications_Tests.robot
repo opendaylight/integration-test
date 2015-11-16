@@ -67,7 +67,7 @@ Test Teardown
 Wait For Karaf Log
     [Arguments]    ${message}
     [Documentation]    Read karaf logs until message appear
-    Open Connection    ${CONTROLLER}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_PROMPT}    timeout=60
+    Open Connection    ${CONTROLLER}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_PROMPT}    timeout=300
     Flexible SSH Login    ${KARAF_USER}    ${KARAF_PASSWORD}
     Write    log:tail
     Read Until    ${message}
