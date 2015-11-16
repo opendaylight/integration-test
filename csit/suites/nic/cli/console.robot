@@ -21,11 +21,16 @@ Variables         ../../../variables/Variables.py
 @{intent3}        10.0.0.1,10.0.0.4    10.0.0.2    ALLOW
 @{all_intents}    ${intent1}    ${intent2}    ${intent3}
 @{all_intents_ids}
-${intent_validation1}    from [10.0.0.1, 10.0.0.4] to [10.0.0.2] apply [ALLOW]
-${intent_validation2}    from [10.0.0.5] to [10.0.0.2] apply [BLOCK]
-${intent_validation3}    from [10.0.0.5] to [10.0.0.3] apply [ALLOW]
-${intent_validation4}    from [10.0.0.5] to [10.0.0.10] apply [BLOCK]
+${intent_validation1}    from [10.0.0.1, 10.0.0.4] to [10.0.0.2]
+${intent_validation2}    from [10.0.0.5] to [10.0.0.2]
+${intent_validation3}    from [10.0.0.5] to [10.0.0.3]
+${intent_validation4}    from [10.0.0.5] to [10.0.0.10]
+${intent_validation_policy1}    ALLOW
+${intent_validation_policy2}    BLOCK
+${intent_validation_policy3}    ALLOW
+${intent_validation_policy4}    BLOCK
 @{all_intent_validations}    ${intent_validation1}    ${intent_validation2}    ${intent_validation3}    ${intent_validation4}
+@{all_intent_validations_policies}    ${intent_validation_policy1}    ${intent_validation_policy2}    ${intent_validation_policy3}    ${intent_validation_policy4}
 
 *** Test Cases ***
 Verify NIC Command Add and Remove
@@ -42,8 +47,12 @@ Verify NIC Command Add and Remove
     \    ${intent_id}=    Get From List    ${all_intents_ids}    ${index}
     \    Verify Intent Added    ${intent_id}    ${intent}
     ${output}=    Issue Command On Karaf Console    intent:compile
-    : FOR    ${valid_intent}    IN    @{all_intent_validations}
-    \    Should Contain    ${output}    ${valid_intent}
+    ${size}=    Get Length    ${all_intent_validations}
+    : FOR    ${index}    IN RANGE    ${size}
+    \    ${compiled_intent_validation}=    Get From List    ${all_intent_validations}    ${index}
+    \    ${intent_validation_line}=    Get Lines Containing String    ${output}    ${compiled_intent_validation}
+    \    ${policy}=    Get From List    ${all_intent_validations_policies}    ${index}
+    \    Should Contain    ${intent_validation_line}    ${policy}
     : FOR    ${intent_id}    IN    @{all_intents_ids}
     \    Remove Intent    ${intent_id}
     ${output}=    Issue Command On Karaf Console    intent:list -c
@@ -62,7 +71,7 @@ Setup NIC Console Environment
 Add Intent
     [Arguments]    ${intent_from}    ${intent_to}    ${intent_permission}
     [Documentation]    Adds an intent to the controller, and returns the id of the intent created.
-    ${output}=    Issue Command On Karaf Console    intent:add -f ${intent_from} -t ${intent_to} -a ${intent_permission}    timeout=20
+    ${output}=    Issue Command On Karaf Console    intent:add -f ${intent_from} -t ${intent_to} -a ${intent_permission}    timeout=60
     Should Contain    ${output}    Intent created
     ${output}=    Fetch From Left    ${output}    )
     ${output_split}=    Split String    ${output}    ${SPACE}
