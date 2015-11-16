@@ -15,6 +15,7 @@ ${start2}         sudo mn \ --controller=remote,ip=${CONTROLLER} --custom custom
 Start Suite
     [Documentation]    Test suit for vpn service using mininet OF13 and OVS 2.3.1
     Log    Start the tests
+    BuiltIn.Sleep    600
     Clean Mininet System
     ${mininet1_conn_id_1}=    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Global Variable    ${mininet1_conn_id_1}
