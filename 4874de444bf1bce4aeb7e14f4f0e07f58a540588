@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_373b37ed",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-16T16:26:24Z",
+      "side": 1,
+      "message": "The why all occurrences in the Robotframework User Guide [0] have the order reversed?\n\n[0] http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#providing-arguments-to-test-libraries",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 49
+      },
+      "revId": "4874de444bf1bce4aeb7e14f4f0e07f58a540588",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_57403356",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-16T16:26:24Z",
+      "side": 1,
+      "message": "Yes, but BuiltIn.Should_Be_Equal does not show difference, just non-equality, so order does no matter much there.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 18
+      },
+      "revId": "4874de444bf1bce4aeb7e14f4f0e07f58a540588",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
