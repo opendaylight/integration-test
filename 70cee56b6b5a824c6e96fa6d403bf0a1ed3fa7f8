@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "7aade967_f24a8d26",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp1/000_setup.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-11-16T17:10:13Z",
+      "side": 1,
+      "message": "We actually don\u0027t want to run this code in __init__.robot because we would like to keep partial demo specific initialization within a folder of the demo (notice tear-down scripts in the same folder). We want to have both demos, gbp1 and gbp2, running within one build on Jenkins. If we put this into __init__ in directory above, we won\u0027t be able to handle transition from gbp1 to gbp2. As far as I\u0027ve tested, __init__.robot file in subfolder is ignored if I point the path (testplan) to the directory above containing init file.",
+      "parentUuid": "7aade967_1b0f4fe3",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 69
+      },
+      "revId": "70cee56b6b5a824c6e96fa6d403bf0a1ed3fa7f8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7aade967_3b148bf4",
         "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp1/001_set_odl.robot",
         "patchSetId": 14
