@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_9463061a",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp2-multitenant/010_icmp.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-17T01:37:06Z",
+      "side": 1,
+      "message": "I noticed one file you did this work in the *** Settings *** section as part of Suite Setup.   Makes more sense to do it that way as this is technically a \"test case\" that does no testing.  not blocking patch on this, but you may want to clean that up for consistency with a new patch.",
+      "range": {
+        "startLine": 19,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 47
+      },
+      "revId": "5db76a72fffacc5810099c7c1e006f22ac4a7810",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_145e3646",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/gbp2-multitenant/010_icmp.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-17T01:37:06Z",
+      "side": 1,
+      "message": "ah, ok, now I see why you wanted to set your variables as a test step.  This works as you have it, so no need to complicate things.",
+      "range": {
+        "startLine": 206,
+        "startChar": 0,
+        "endLine": 211,
+        "endChar": 47
+      },
+      "revId": "5db76a72fffacc5810099c7c1e006f22ac4a7810",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
