@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_74176a52",
+        "filename": "csit/testplans/openflowplugin-clustering.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-17T01:51:25Z",
+      "side": 1,
+      "message": "why is this here twice?",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 54
+      },
+      "revId": "b678d44850caa59de518a1a24e500e9f3edce992",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
