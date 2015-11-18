@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_0e413d39",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-18T13:06:35Z",
+      "side": 1,
+      "message": "There was a recommendation for commit messages. The first line should not be long (~60 characters), then empty line, then the rest in paragraphs.\nI always forget the HTTP link to that recommendation.",
+      "range": {
+        "startLine": 7,
+        "startChar": 20,
+        "endLine": 7,
+        "endChar": 22
+      },
+      "revId": "5e8dc22ec3bbdb5716fb63bda033749469a0981f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_6e5c7126",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-18T13:06:35Z",
+      "side": 1,
+      "message": "I have a vague feeling that this would set DEVICE_IP to value defined in this file (127.0.0.1) as opposed to what pybot gets via -v argument.\nOne more reason to see how this Change behaves on Sandbox.",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 27
+      },
+      "revId": "5e8dc22ec3bbdb5716fb63bda033749469a0981f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
