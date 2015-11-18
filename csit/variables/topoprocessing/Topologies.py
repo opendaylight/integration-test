@@ -1,6 +1,7 @@
 NETWORK_UNDERLAY_TOPOLOGY_1 = '''<topology
                                 xmlns="urn:TBD:params:xml:ns:yang:network-topology"
-                                xmlns:pcep="urn:opendaylight:params:xml:ns:yang:topology:pcep">
+                                xmlns:pcep="urn:opendaylight:params:xml:ns:yang:topology:pcep"
+                                xmlns:igp="urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology">
                             <topology-id>network-topo:1</topology-id>
                             <topology-types>
                                 <pcep:topology-pcep></pcep:topology-pcep>
@@ -10,12 +11,36 @@ NETWORK_UNDERLAY_TOPOLOGY_1 = '''<topology
                                 <pcep:path-computation-client>
                                     <pcep:ip-address>192.168.1.1</pcep:ip-address>
                                 </pcep:path-computation-client>
+                               <termination-point>
+                                    <tp-id>tp:1:1</tp-id>
+                                   <igp:igp-termination-point-attributes>
+                                       <igp:ip-address>192.168.1.5</igp:ip-address>
+                                   </igp:igp-termination-point-attributes>
+                                </termination-point>
+                                <termination-point>
+                                    <tp-id>tp:1:2</tp-id>
+                                   <igp:igp-termination-point-attributes>
+                                       <igp:ip-address>192.168.1.6</igp:ip-address>
+                                   </igp:igp-termination-point-attributes>
+                                </termination-point>
                             </node>
                             <node>
                                 <node-id>pcep:2</node-id>
                                 <pcep:path-computation-client>
                                     <pcep:ip-address>192.168.1.2</pcep:ip-address>
                                 </pcep:path-computation-client>
+                               <termination-point>
+                                    <tp-id>tp:2:1</tp-id>
+                                   <igp:igp-termination-point-attributes>
+                                       <igp:ip-address>192.168.1.5</igp:ip-address>
+                                   </igp:igp-termination-point-attributes>
+                                </termination-point>
+                                <termination-point>
+                                    <tp-id>tp:2:2</tp-id>
+                                   <igp:igp-termination-point-attributes>
+                                       <igp:ip-address>192.168.1.6</igp:ip-address>
+                                   </igp:igp-termination-point-attributes>
+                                </termination-point>
                             </node>
                             <node>
                                 <node-id>pcep:3</node-id>
@@ -28,18 +53,90 @@ NETWORK_UNDERLAY_TOPOLOGY_1 = '''<topology
                                 <pcep:path-computation-client>
                                     <pcep:ip-address>192.168.2.2</pcep:ip-address>
                                 </pcep:path-computation-client>
+                               <termination-point>
+                                    <tp-id>tp:4:1</tp-id>
+                                   <igp:igp-termination-point-attributes>
+                                       <igp:ip-address>192.168.2.6</igp:ip-address>
+                                   </igp:igp-termination-point-attributes>
+                                </termination-point>
+                                <termination-point>
+                                    <tp-id>tp:4:2</tp-id>
+                                   <igp:igp-termination-point-attributes>
+                                       <igp:ip-address>192.168.2.7</igp:ip-address>
+                                   </igp:igp-termination-point-attributes>
+                                </termination-point>
                             </node>
                             <node>
                                 <node-id>pcep:5</node-id>
                                 <pcep:path-computation-client>
                                     <pcep:ip-address>192.168.2.3</pcep:ip-address>
                                 </pcep:path-computation-client>
+                               <termination-point>
+                                    <tp-id>tp:5:1</tp-id>
+                                   <igp:igp-termination-point-attributes>
+                                       <igp:ip-address>192.168.2.8</igp:ip-address>
+                                   </igp:igp-termination-point-attributes>
+                                </termination-point>
                             </node>
+                            <link>
+                                <link-id>link:1:4</link-id>
+                                <source>
+                                  <source-node>pcep:1</source-node>
+                                </source>
+                                <destination>
+                                  <dest-node>pcep:4</dest-node>
+                                </destination>
+                                <igp:igp-link-attributes>
+                                     <igp:name>linkA</igp:name>
+                                     <igp:metric>12</igp:metric>
+                                </igp:igp-link-attributes>
+                            </link>
+                            <link>
+                                <link-id>link:1:3</link-id>
+                                <source>
+                                  <source-node>pcep:1</source-node>
+                                </source>
+                                <destination>
+                                  <dest-node>pcep:3</dest-node>
+                                </destination>
+                                <igp:igp-link-attributes>
+                                     <igp:name>linkB</igp:name>
+                                     <igp:metric>11</igp:metric>
+                                </igp:igp-link-attributes>
+                            </link>
+                            <link>
+                                <link-id>link:1:2-1</link-id>
+                                <source>
+                                  <source-node>pcep:1</source-node>
+                                </source>
+                                <destination>
+                                  <dest-node>pcep:2</dest-node>
+                                </destination>
+                                <igp:igp-link-attributes>
+                                     <igp:name>linkA</igp:name>
+                                     <igp:metric>12</igp:metric>
+                                </igp:igp-link-attributes>
+                            </link>
+                            <link>
+                                <link-id>link:1:2-2</link-id>
+                                <source>
+                                  <source-node>pcep:1</source-node>
+                                </source>
+                                <destination>
+                                  <dest-node>pcep:2</dest-node>
+                                </destination>
+                                <igp:igp-link-attributes>
+                                     <igp:name>linkC</igp:name>
+                                     <igp:metric>14</igp:metric>
+                                </igp:igp-link-attributes>
+                            </link>
                         </topology>'''
 
 NETWORK_UNDERLAY_TOPOLOGY_2 = '''<topology
                                 xmlns="urn:TBD:params:xml:ns:yang:network-topology"
-                                xmlns:pcep="urn:opendaylight:params:xml:ns:yang:topology:pcep">
+                                xmlns:pcep="urn:opendaylight:params:xml:ns:yang:topology:pcep"
+                                xmlns:ovsdb="urn:opendaylight:params:xml:ns:yang:ovsdb"
+                                xmlns:igp="urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology">
                             <topology-id>network-topo:2</topology-id>
                             <topology-types>
                                 <pcep:topology-pcep></pcep:topology-pcep>
@@ -49,31 +146,345 @@ NETWORK_UNDERLAY_TOPOLOGY_2 = '''<topology
                                 <pcep:path-computation-client>
                                     <pcep:ip-address>192.168.1.3</pcep:ip-address>
                                 </pcep:path-computation-client>
+                                <ovsdb:ovs-version>10</ovsdb:ovs-version>
+                               <termination-point>
+                                    <tp-id>tp:6:1</tp-id>
+                                    <ovsdb:ofport>1110</ovsdb:ofport>
+                                    <ovsdb:name>portA</ovsdb:name>
+                                   <igp:igp-termination-point-attributes>
+                                       <igp:ip-address>192.168.1.7</igp:ip-address>
+                                   </igp:igp-termination-point-attributes>
+                                </termination-point>
                             </node>
                             <node>
                                 <node-id>pcep:7</node-id>
                                 <pcep:path-computation-client>
                                     <pcep:ip-address>192.168.1.4</pcep:ip-address>
                                 </pcep:path-computation-client>
+                                <ovsdb:ovs-version>20</ovsdb:ovs-version>
+                               <termination-point>
+                                    <tp-id>tp:7:1</tp-id>
+                                    <ovsdb:ofport>1119</ovsdb:ofport>
+                                    <ovsdb:name>portD</ovsdb:name>
+                                   <igp:igp-termination-point-attributes>
+                                       <igp:ip-address>192.168.1.8</igp:ip-address>
+                                   </igp:igp-termination-point-attributes>
+                                </termination-point>
+                               <termination-point>
+                                    <tp-id>tp:7:2</tp-id>
+                                    <ovsdb:ofport>1117</ovsdb:ofport>
+                                    <ovsdb:name>portC</ovsdb:name>
+                                   <igp:igp-termination-point-attributes>
+                                       <igp:ip-address>192.168.1.9</igp:ip-address>
+                                   </igp:igp-termination-point-attributes>
+                                </termination-point>
                             </node>
                             <node>
                                 <node-id>pcep:8</node-id>
                                 <pcep:path-computation-client>
                                     <pcep:ip-address>192.168.2.4</pcep:ip-address>
                                 </pcep:path-computation-client>
+                                <ovsdb:ovs-version>21</ovsdb:ovs-version>
                             </node>
                             <node>
                                 <node-id>pcep:9</node-id>
                                 <pcep:path-computation-client>
                                     <pcep:ip-address>192.168.2.5</pcep:ip-address>
                                 </pcep:path-computation-client>
+                                <ovsdb:ovs-version>25</ovsdb:ovs-version>
                             </node>
                             <node>
                                 <node-id>pcep:10</node-id>
                                 <pcep:path-computation-client>
                                     <pcep:ip-address>192.168.2.3</pcep:ip-address>
                                 </pcep:path-computation-client>
+                                <ovsdb:ovs-version>25</ovsdb:ovs-version>
+                               <termination-point>
+                                    <tp-id>tp:10:1</tp-id>
+                                    <ovsdb:ofport>1119</ovsdb:ofport>
+                                    <ovsdb:name>portB</ovsdb:name>
+                                   <igp:igp-termination-point-attributes>
+                                       <igp:ip-address>192.168.2.9</igp:ip-address>
+                                   </igp:igp-termination-point-attributes>
+                                </termination-point>
                             </node>
+                        </topology>'''
+
+NETWORK_UNDERLAY_TOPOLOGY_3 = '''<topology
+                                xmlns="urn:TBD:params:xml:ns:yang:network-topology"
+                                xmlns:pcep="urn:opendaylight:params:xml:ns:yang:topology:pcep"
+                                xmlns:igp="urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology">
+                            <topology-id>network-topo:3</topology-id>
+                            <topology-types>
+                                <pcep:topology-pcep></pcep:topology-pcep>
+                            </topology-types>
+                            <node>
+                                <node-id>pcep:11</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>fe80:0:0:0:0:0:c0a8:103</pcep:ip-address>
+                                </pcep:path-computation-client>
+                               <termination-point>
+                                    <tp-id>tp:11:1</tp-id>
+                                   <igp:igp-termination-point-attributes>
+                                       <igp:ip-address>fe80:0:0:0:0:0:c0a8:107</igp:ip-address>
+                                   </igp:igp-termination-point-attributes>
+                                </termination-point>
+                            </node>
+                            <node>
+                                <node-id>pcep:12</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>fe80:0:0:0:0:0:c0a8:104</pcep:ip-address>
+                                </pcep:path-computation-client>
+                            </node>
+                            <node>
+                                <node-id>pcep:13</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>fe80:0:0:0:0:0:c0a8:204</pcep:ip-address>
+                                </pcep:path-computation-client>
+                            </node>
+                            <node>
+                                <node-id>pcep:14</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>fe80:0:0:0:0:0:c0a8:205</pcep:ip-address>
+                                </pcep:path-computation-client>
+                               <termination-point>
+                                    <tp-id>tp:14:1</tp-id>
+                                   <igp:igp-termination-point-attributes>
+                                       <igp:ip-address>fe80:0:0:0:0:0:c0a8:207</igp:ip-address>
+                                   </igp:igp-termination-point-attributes>
+                                </termination-point>
+                               <termination-point>
+                                    <tp-id>tp:14:2</tp-id>
+                                   <igp:igp-termination-point-attributes>
+                                       <igp:ip-address>fe80:0:0:0:0:0:c0a8:209</igp:ip-address>
+                                   </igp:igp-termination-point-attributes>
+                                </termination-point>
+                            </node>
+                            <node>
+                                <node-id>pcep:15</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>fe80:0:0:0:0:0:c0a8:203</pcep:ip-address>
+                                </pcep:path-computation-client>
+                            </node>
+                        </topology>'''
+
+NETWORK_UNDERLAY_TOPOLOGY_4 = '''<topology
+                                xmlns="urn:TBD:params:xml:ns:yang:network-topology"
+                                xmlns:pcep="urn:opendaylight:params:xml:ns:yang:topology:pcep">
+                            <topology-id>network-topo:4</topology-id>
+                            <topology-types>
+                                <pcep:topology-pcep></pcep:topology-pcep>
+                            </topology-types>
+                            <node>
+                                <node-id>pcep:16</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>192.168.1.1</pcep:ip-address>
+                                </pcep:path-computation-client>
+                            </node>
+                            <node>
+                                <node-id>pcep:17</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>192.168.1.2</pcep:ip-address>
+                                </pcep:path-computation-client>
+                            </node>
+                            <node>
+                                <node-id>pcep:18</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>192.168.2.1</pcep:ip-address>
+                                </pcep:path-computation-client>
+                            </node>
+                            <node>
+                                <node-id>pcep:19</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>192.168.2.2</pcep:ip-address>
+                                </pcep:path-computation-client>
+                            </node>
+                            <node>
+                                <node-id>pcep:20</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>192.168.2.1</pcep:ip-address>
+                                </pcep:path-computation-client>
+                            </node>
+                        </topology>'''
+
+NETWORK_UNDERLAY_TOPOLOGY_5 = '''<topology
+                                xmlns="urn:TBD:params:xml:ns:yang:network-topology"
+                                xmlns:pcep="urn:opendaylight:params:xml:ns:yang:topology:pcep"
+                                xmlns:igp="urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology">
+                            <topology-id>network-topo:5</topology-id>
+                            <topology-types>
+                                <pcep:topology-pcep></pcep:topology-pcep>
+                            </topology-types>
+                            <node>
+                                <node-id>pcep:21</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>192.168.1.1</pcep:ip-address>
+                                </pcep:path-computation-client>
+                                <termination-point>
+                                    <tp-id>tp:21:1</tp-id>
+                                   <igp:igp-termination-point-attributes>
+                                       <igp:ip-address>192.168.1.9</igp:ip-address>
+                                   </igp:igp-termination-point-attributes>
+                                 </termination-point>
+                                <termination-point>
+                                    <tp-id>tp:21:2</tp-id>
+                                   <igp:igp-termination-point-attributes>
+                                       <igp:ip-address>192.168.1.8</igp:ip-address>
+                                   </igp:igp-termination-point-attributes>
+                                 </termination-point>
+                                <termination-point>
+                                    <tp-id>tp:21:3</tp-id>
+                                   <igp:igp-termination-point-attributes>
+                                       <igp:ip-address>192.168.1.8</igp:ip-address>
+                                   </igp:igp-termination-point-attributes>
+                                 </termination-point>
+                            </node>
+                            <node>
+                                <node-id>pcep:22</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>192.168.1.2</pcep:ip-address>
+                                </pcep:path-computation-client>
+                                <termination-point>
+                                    <tp-id>tp:22:1</tp-id>
+                                   <igp:igp-termination-point-attributes>
+                                       <igp:ip-address>192.168.2.9</igp:ip-address>
+                                   </igp:igp-termination-point-attributes>
+                                 </termination-point>
+                                <termination-point>
+                                    <tp-id>tp:22:2</tp-id>
+                                   <igp:igp-termination-point-attributes>
+                                       <igp:ip-address>192.168.1.7</igp:ip-address>
+                                   </igp:igp-termination-point-attributes>
+                                 </termination-point>
+                            </node>
+                            <node>
+                                <node-id>pcep:23</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>192.168.2.1</pcep:ip-address>
+                                </pcep:path-computation-client>
+                            </node>
+                            <node>
+                                <node-id>pcep:24</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>192.168.2.2</pcep:ip-address>
+                                </pcep:path-computation-client>
+                                <termination-point>
+                                    <tp-id>tp:24:1</tp-id>
+                                   <igp:igp-termination-point-attributes>
+                                       <igp:ip-address>192.168.1.7</igp:ip-address>
+                                   </igp:igp-termination-point-attributes>
+                                 </termination-point>
+                                <termination-point>
+                                    <tp-id>tp:24:2</tp-id>
+                                   <igp:igp-termination-point-attributes>
+                                       <igp:ip-address>192.168.1.7</igp:ip-address>
+                                   </igp:igp-termination-point-attributes>
+                                 </termination-point>
+                                <termination-point>
+                                    <tp-id>tp:24:3</tp-id>
+                                   <igp:igp-termination-point-attributes>
+                                       <igp:ip-address>192.168.1.7</igp:ip-address>
+                                   </igp:igp-termination-point-attributes>
+                                 </termination-point>
+                            </node>
+                            <node>
+                                <node-id>pcep:25</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>192.168.2.1</pcep:ip-address>
+                                </pcep:path-computation-client>
+                            </node>
+                        </topology>'''
+
+NETWORK_UNDERLAY_TOPOLOGY_6 = '''<topology
+                                xmlns="urn:TBD:params:xml:ns:yang:network-topology"
+                                xmlns:pcep="urn:opendaylight:params:xml:ns:yang:topology:pcep"
+                                xmlns:igp="urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology">
+                            <topology-id>network-topo:6</topology-id>
+                            <topology-types>
+                                <pcep:topology-pcep></pcep:topology-pcep>
+                            </topology-types>
+                            <node>
+                                <node-id>pcep:26</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>192.168.1.1</pcep:ip-address>
+                                </pcep:path-computation-client>
+                            </node>
+                            <node>
+                                <node-id>pcep:27</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>192.168.1.2</pcep:ip-address>
+                                </pcep:path-computation-client>
+                            </node>
+                            <node>
+                                <node-id>pcep:28</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>192.168.2.1</pcep:ip-address>
+                                </pcep:path-computation-client>
+                            </node>
+                            <node>
+                                <node-id>pcep:29</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>192.168.2.1</pcep:ip-address>
+                                </pcep:path-computation-client>
+                            </node>
+                            <node>
+                                <node-id>pcep:30</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>192.168.2.3</pcep:ip-address>
+                                </pcep:path-computation-client>
+                            </node>
+                            <link>
+                                <link-id>link:26:28</link-id>
+                                <source>
+                                  <source-node>pcep:26</source-node>
+                                </source>
+                                <destination>
+                                  <dest-node>pcep:28</dest-node>
+                                </destination>
+                                <igp:igp-link-attributes>
+                                     <igp:name>linkA</igp:name>
+                                     <igp:metric>17</igp:metric>
+                                </igp:igp-link-attributes>
+                            </link>
+                            <link>
+                                <link-id>link:28:29</link-id>
+                                <source>
+                                  <source-node>pcep:28</source-node>
+                                </source>
+                                <destination>
+                                  <dest-node>pcep:29</dest-node>
+                                </destination>
+                                <igp:igp-link-attributes>
+                                     <igp:name>linkB</igp:name>
+                                     <igp:metric>11</igp:metric>
+                                </igp:igp-link-attributes>
+                            </link>
+                            <link>
+                                <link-id>link:29:30-1</link-id>
+                                <source>
+                                  <source-node>pcep:29</source-node>
+                                </source>
+                                <destination>
+                                  <dest-node>pcep:30</dest-node>
+                                </destination>
+                                <igp:igp-link-attributes>
+                                     <igp:name>linkA</igp:name>
+                                     <igp:metric>12</igp:metric>
+                                </igp:igp-link-attributes>
+                            </link>
+                            <link>
+                                <link-id>link:29:30-2</link-id>
+                                <source>
+                                  <source-node>pcep:29</source-node>
+                                </source>
+                                <destination>
+                                  <dest-node>pcep:30</dest-node>
+                                </destination>
+                                <igp:igp-link-attributes>
+                                     <igp:name>linkC</igp:name>
+                                     <igp:metric>12</igp:metric>
+                                </igp:igp-link-attributes>
+                            </link>
                         </topology>'''
 
 OPENFLOW_UNDERLAY_NODES = '''
@@ -84,51 +495,201 @@ OPENFLOW_UNDERLAY_NODES = '''
         <id>openflow:1</id>
         <flov-inv:manufacturer>Pantheon Technologies</flov-inv:manufacturer>
         <flov-inv:ip-address>192.168.1.1</flov-inv:ip-address>
+        <flov-inv:serial-number>19</flov-inv:serial-number>
+        <node-connector>
+           <id>openflow:1:1</id>
+           <flov-inv:port-number>1</flov-inv:port-number>
+           <flov-inv:name>portC</flov-inv:name>
+        </node-connector>
     </node>
     <node>
         <id>openflow:2</id>
         <flov-inv:manufacturer>Pantheon Technologies</flov-inv:manufacturer>
         <flov-inv:ip-address>192.168.1.2</flov-inv:ip-address>
+        <flov-inv:serial-number>20</flov-inv:serial-number>
+        <node-connector>
+           <id>openflow:2:1</id>
+           <flov-inv:port-number>2</flov-inv:port-number>
+           <flov-inv:name>portB</flov-inv:name>
+        </node-connector>
+        <node-connector>
+           <id>openflow:2:2</id>
+           <flov-inv:port-number>3</flov-inv:port-number>
+           <flov-inv:name>portD</flov-inv:name>
+        </node-connector>
+        <node-connector>
+           <id>openflow:2:3</id>
+           <flov-inv:port-number>1</flov-inv:port-number>
+           <flov-inv:name>portA</flov-inv:name>
+        </node-connector>
     </node>
     <node>
         <id>openflow:3</id>
         <flov-inv:manufacturer>Pantheon Technologies</flov-inv:manufacturer>
         <flov-inv:ip-address>192.168.1.3</flov-inv:ip-address>
+        <flov-inv:serial-number>8</flov-inv:serial-number>
     </node>
     <node>
         <id>openflow:4</id>
         <flov-inv:manufacturer>Cisco</flov-inv:manufacturer>
         <flov-inv:ip-address>192.168.2.1</flov-inv:ip-address>
+        <flov-inv:serial-number>21</flov-inv:serial-number>
     </node>
     <node>
         <id>openflow:5</id>
         <flov-inv:manufacturer>Cisco</flov-inv:manufacturer>
         <flov-inv:ip-address>192.168.2.2</flov-inv:ip-address>
+        <flov-inv:serial-number>25</flov-inv:serial-number>
+        <node-connector>
+           <id>openflow:5:1</id>
+           <flov-inv:port-number>4</flov-inv:port-number>
+           <flov-inv:name>portB</flov-inv:name>
+        </node-connector>
     </node>
     <node>
         <id>openflow:6</id>
         <flov-inv:manufacturer>Pantheon Technologies</flov-inv:manufacturer>
         <flov-inv:ip-address>192.168.1.1</flov-inv:ip-address>
+        <flov-inv:serial-number>26</flov-inv:serial-number>
     </node>
     <node>
         <id>openflow:7</id>
         <flov-inv:manufacturer>Pantheon Technologies</flov-inv:manufacturer>
         <flov-inv:ip-address>192.168.2.3</flov-inv:ip-address>
+        <flov-inv:serial-number>19</flov-inv:serial-number>
     </node>
     <node>
         <id>openflow:8</id>
         <flov-inv:manufacturer>Cisco</flov-inv:manufacturer>
         <flov-inv:ip-address>192.168.1.4</flov-inv:ip-address>
+        <flov-inv:serial-number>21</flov-inv:serial-number>
     </node>
     <node>
         <id>openflow:9</id>
         <flov-inv:manufacturer>Cisco</flov-inv:manufacturer>
         <flov-inv:ip-address>192.168.1.5</flov-inv:ip-address>
+        <flov-inv:serial-number>21</flov-inv:serial-number>
     </node>
     <node>
         <id>openflow:10</id>
         <flov-inv:manufacturer>Cisco</flov-inv:manufacturer>
         <flov-inv:ip-address>192.168.2.1</flov-inv:ip-address>
+        <flov-inv:serial-number>25</flov-inv:serial-number>
+    </node>
+    <node>
+        <id>openflow:11</id>
+        <flov-inv:manufacturer>Pantheon Technologies</flov-inv:manufacturer>
+        <flov-inv:ip-address>fe80:0:0:0:0:0:c0a8:103</flov-inv:ip-address>
+        <flov-inv:serial-number>29</flov-inv:serial-number>
+    </node>
+    <node>
+        <id>openflow:12</id>
+        <flov-inv:manufacturer>Pantheon Technologies</flov-inv:manufacturer>
+        <flov-inv:ip-address>fe80:0:0:0:0:0:c0a8:201</flov-inv:ip-address>
+        <flov-inv:serial-number>19</flov-inv:serial-number>
+    </node>
+    <node>
+        <id>openflow:13</id>
+        <flov-inv:manufacturer>Cisco</flov-inv:manufacturer>
+        <flov-inv:ip-address>fe80:0:0:0:0:0:c0a8:104</flov-inv:ip-address>
+        <flov-inv:serial-number>21</flov-inv:serial-number>
+    </node>
+    <node>
+        <id>openflow:14</id>
+        <flov-inv:manufacturer>Cisco</flov-inv:manufacturer>
+        <flov-inv:ip-address>fe80:0:0:0:0:0:c0a8:205</flov-inv:ip-address>
+        <flov-inv:serial-number>21</flov-inv:serial-number>
+    </node>
+    <node>
+        <id>openflow:15</id>
+        <flov-inv:manufacturer>Cisco</flov-inv:manufacturer>
+        <flov-inv:ip-address>fe80:0:0:0:0:0:c0a8:203</flov-inv:ip-address>
+        <flov-inv:serial-number>12</flov-inv:serial-number>
+    </node>
+    <node>
+        <id>openflow:16</id>
+        <flov-inv:manufacturer>Pantheon Technologies</flov-inv:manufacturer>
+        <flov-inv:ip-address>192.168.1.1</flov-inv:ip-address>
+        <flov-inv:serial-number>26</flov-inv:serial-number>
+    </node>
+    <node>
+        <id>openflow:17</id>
+        <flov-inv:manufacturer>Pantheon Technologies</flov-inv:manufacturer>
+        <flov-inv:ip-address>192.168.2.3</flov-inv:ip-address>
+        <flov-inv:serial-number>19</flov-inv:serial-number>
+    </node>
+    <node>
+        <id>openflow:18</id>
+        <flov-inv:manufacturer>Cisco</flov-inv:manufacturer>
+        <flov-inv:ip-address>192.168.2.4</flov-inv:ip-address>
+        <flov-inv:serial-number>21</flov-inv:serial-number>
+    </node>
+    <node>
+        <id>openflow:19</id>
+        <flov-inv:manufacturer>Cisco</flov-inv:manufacturer>
+        <flov-inv:ip-address>192.168.2.3</flov-inv:ip-address>
+        <flov-inv:serial-number>21</flov-inv:serial-number>
+    </node>
+    <node>
+        <id>openflow:20</id>
+        <flov-inv:manufacturer>Cisco</flov-inv:manufacturer>
+        <flov-inv:ip-address>192.168.2.3</flov-inv:ip-address>
+        <flov-inv:serial-number>25</flov-inv:serial-number>
+    </node>
+    <node>
+        <id>openflow:21</id>
+        <flov-inv:manufacturer>Pantheon Technologies</flov-inv:manufacturer>
+        <flov-inv:ip-address>192.168.1.1</flov-inv:ip-address>
+        <flov-inv:serial-number>19</flov-inv:serial-number>
+        <node-connector>
+           <id>openflow:21:1</id>
+           <flov-inv:port-number>1</flov-inv:port-number>
+           <flov-inv:name>portC</flov-inv:name>
+        </node-connector>
+    </node>
+    <node>
+        <id>openflow:22</id>
+        <flov-inv:manufacturer>Pantheon Technologies</flov-inv:manufacturer>
+        <flov-inv:ip-address>192.168.1.2</flov-inv:ip-address>
+        <flov-inv:serial-number>20</flov-inv:serial-number>
+        <node-connector>
+           <id>openflow:22:1</id>
+           <flov-inv:port-number>2</flov-inv:port-number>
+           <flov-inv:name>portB</flov-inv:name>
+        </node-connector>
+        <node-connector>
+           <id>openflow:22:2</id>
+           <flov-inv:port-number>3</flov-inv:port-number>
+           <flov-inv:name>portD</flov-inv:name>
+        </node-connector>
+        <node-connector>
+           <id>openflow:22:3</id>
+           <flov-inv:port-number>1</flov-inv:port-number>
+           <flov-inv:name>portA</flov-inv:name>
+        </node-connector>
+    </node>
+    <node>
+        <id>openflow:23</id>
+        <flov-inv:manufacturer>Pantheon Technologies</flov-inv:manufacturer>
+        <flov-inv:ip-address>192.168.1.3</flov-inv:ip-address>
+        <flov-inv:serial-number>8</flov-inv:serial-number>
+    </node>
+    <node>
+        <id>openflow:24</id>
+        <flov-inv:manufacturer>Cisco</flov-inv:manufacturer>
+        <flov-inv:ip-address>192.168.2.1</flov-inv:ip-address>
+        <flov-inv:serial-number>21</flov-inv:serial-number>
+    </node>
+    <node>
+        <id>openflow:25</id>
+        <flov-inv:manufacturer>Cisco</flov-inv:manufacturer>
+        <flov-inv:ip-address>192.168.2.2</flov-inv:ip-address>
+        <flov-inv:serial-number>25</flov-inv:serial-number>
+        <node-connector>
+           <id>openflow:25:1</id>
+           <flov-inv:port-number>4</flov-inv:port-number>
+           <flov-inv:name>portB</flov-inv:name>
+        </node-connector>
     </node>
 </nodes>
 '''
@@ -137,15 +698,48 @@ OPENFLOW_UNDERLAY_TOPOLOGY_1 = '''
 <topology
         xmlns="urn:TBD:params:xml:ns:yang:network-topology"
         xmlns:inventory="urn:opendaylight:inventory"
-        xmlns:inventory-topo="urn:opendaylight:model:topology:inventory">
+        xmlns:inventory-topo="urn:opendaylight:model:topology:inventory"
+        xmlns:igp="urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology">
     <topology-id>openflow-topo:1</topology-id>
     <node>
         <node-id>of-node:1</node-id>
         <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:1"]</inventory-topo:inventory-node-ref>
+        <termination-point>
+            <tp-id>tp:1</tp-id>
+            <inventory-topo:inventory-node-connector-ref>/inventory:nodes/inventory:node[inventory:id="openflow:1"]/inventory:node-connector[inventory:id="openflow:1:1"]
+            </inventory-topo:inventory-node-connector-ref>
+            <igp:igp-termination-point-attributes>
+                <igp:ip-address>192.168.2.1</igp:ip-address>
+            </igp:igp-termination-point-attributes>
+        </termination-point>
     </node>
     <node>
         <node-id>of-node:2</node-id>
         <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:2"]</inventory-topo:inventory-node-ref>
+        <termination-point>
+            <tp-id>tp:1</tp-id>
+            <inventory-topo:inventory-node-connector-ref>/inventory:nodes/inventory:node[inventory:id="openflow:2"]/inventory:node-connector[inventory:id="openflow:2:1"]
+            </inventory-topo:inventory-node-connector-ref>
+            <igp:igp-termination-point-attributes>
+                <igp:ip-address>192.168.1.2</igp:ip-address>
+            </igp:igp-termination-point-attributes>
+        </termination-point>
+        <termination-point>
+            <tp-id>tp:2</tp-id>
+            <inventory-topo:inventory-node-connector-ref>/inventory:nodes/inventory:node[inventory:id="openflow:2"]/inventory:node-connector[inventory:id="openflow:2:2"]
+            </inventory-topo:inventory-node-connector-ref>
+            <igp:igp-termination-point-attributes>
+                <igp:ip-address>192.168.1.3</igp:ip-address>
+            </igp:igp-termination-point-attributes>
+        </termination-point>
+        <termination-point>
+            <tp-id>tp:3</tp-id>
+            <inventory-topo:inventory-node-connector-ref>/inventory:nodes/inventory:node[inventory:id="openflow:2"]/inventory:node-connector[inventory:id="openflow:2:3"]
+            </inventory-topo:inventory-node-connector-ref>
+            <igp:igp-termination-point-attributes>
+                <igp:ip-address>192.168.2.2</igp:ip-address>
+            </igp:igp-termination-point-attributes>
+        </termination-point>
     </node>
     <node>
         <node-id>of-node:3</node-id>
@@ -158,6 +752,14 @@ OPENFLOW_UNDERLAY_TOPOLOGY_1 = '''
     <node>
         <node-id>of-node:5</node-id>
         <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:5"]</inventory-topo:inventory-node-ref>
+        <termination-point>
+            <tp-id>tp:1</tp-id>
+            <inventory-topo:inventory-node-connector-ref>/inventory:nodes/inventory:node[inventory:id="openflow:5"]/inventory:node-connector[inventory:id="openflow:5:1"]
+            </inventory-topo:inventory-node-connector-ref>
+            <igp:igp-termination-point-attributes>
+                <igp:ip-address>192.168.2.4</igp:ip-address>
+            </igp:igp-termination-point-attributes>
+        </termination-point>
     </node>
 </topology>
 '''
@@ -166,19 +768,44 @@ OPENFLOW_UNDERLAY_TOPOLOGY_2 = '''
 <topology
         xmlns="urn:TBD:params:xml:ns:yang:network-topology"
         xmlns:inventory="urn:opendaylight:inventory"
-        xmlns:inventory-topo="urn:opendaylight:model:topology:inventory">
+        xmlns:inventory-topo="urn:opendaylight:model:topology:inventory"
+        xmlns:igp="urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology">
     <topology-id>openflow-topo:2</topology-id>
     <node>
         <node-id>of-node:6</node-id>
         <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:6"]</inventory-topo:inventory-node-ref>
+        <termination-point>
+            <tp-id>tp:1</tp-id>
+            <igp:igp-termination-point-attributes>
+                <igp:ip-address>fe80:0:0:0:0:0:c0a8:104</igp:ip-address>
+            </igp:igp-termination-point-attributes>
+        </termination-point>
     </node>
     <node>
         <node-id>of-node:7</node-id>
         <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:7"]</inventory-topo:inventory-node-ref>
+        <termination-point>
+            <tp-id>tp:2</tp-id>
+            <igp:igp-termination-point-attributes>
+                <igp:ip-address>fe80:0:0:0:0:0:c0a8:103</igp:ip-address>
+            </igp:igp-termination-point-attributes>
+        </termination-point>
+        <termination-point>
+            <tp-id>tp:3</tp-id>
+            <igp:igp-termination-point-attributes>
+                <igp:ip-address>fe80:0:0:0:0:0:c0a8:207</igp:ip-address>
+            </igp:igp-termination-point-attributes>
+        </termination-point>
     </node>
     <node>
         <node-id>of-node:8</node-id>
         <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:8"]</inventory-topo:inventory-node-ref>
+        <termination-point>
+            <tp-id>tp:4</tp-id>
+            <igp:igp-termination-point-attributes>
+                <igp:ip-address>fe80:0:0:0:0:0:c0a8:102</igp:ip-address>
+            </igp:igp-termination-point-attributes>
+        </termination-point>
     </node>
     <node>
         <node-id>of-node:9</node-id>
@@ -186,6 +813,221 @@ OPENFLOW_UNDERLAY_TOPOLOGY_2 = '''
     </node>
     <node>
         <node-id>of-node:10</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:10"]</inventory-topo:inventory-node-ref>
+        <termination-point>
+            <tp-id>tp:5</tp-id>
+            <igp:igp-termination-point-attributes>
+                <igp:ip-address>fe80:0:0:0:0:0:c0a8:204</igp:ip-address>
+            </igp:igp-termination-point-attributes>
+        </termination-point>
+    </node>
+</topology>
+'''
+
+OPENFLOW_UNDERLAY_TOPOLOGY_3 = '''
+<topology
+        xmlns="urn:TBD:params:xml:ns:yang:network-topology"
+        xmlns:inventory="urn:opendaylight:inventory"
+        xmlns:inventory-topo="urn:opendaylight:model:topology:inventory"
+        xmlns:igp="urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology">
+    <topology-id>openflow-topo:3</topology-id>
+    <node>
+        <node-id>of-node:11</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:11"]</inventory-topo:inventory-node-ref>
+    </node>
+    <node>
+        <node-id>of-node:12</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:12"]</inventory-topo:inventory-node-ref>
+    </node>
+    <node>
+        <node-id>of-node:13</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:13"]</inventory-topo:inventory-node-ref>
+    </node>
+    <node>
+        <node-id>of-node:14</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:14"]</inventory-topo:inventory-node-ref>
+    </node>
+    <node>
+        <node-id>of-node:15</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:15"]</inventory-topo:inventory-node-ref>
+    </node>
+    <link>
+       <link-id>link:11:12</link-id>
+       <source>
+          <source-node>pcep:11</source-node>
+       </source>
+       <destination>
+          <dest-node>pcep:12</dest-node>
+       </destination>
+          <igp:igp-link-attributes>
+             <igp:name>linkB</igp:name>
+             <igp:metric>16</igp:metric>
+          </igp:igp-link-attributes>
+      </link>
+    <link>
+       <link-id>link:14:12</link-id>
+       <source>
+          <source-node>pcep:14</source-node>
+       </source>
+       <destination>
+          <dest-node>pcep:12</dest-node>
+       </destination>
+          <igp:igp-link-attributes>
+             <igp:name>linkC</igp:name>
+             <igp:metric>14</igp:metric>
+          </igp:igp-link-attributes>
+      </link>
+    <link>
+       <link-id>link:15:13</link-id>
+       <source>
+          <source-node>pcep:15</source-node>
+       </source>
+       <destination>
+          <dest-node>pcep:13</dest-node>
+       </destination>
+          <igp:igp-link-attributes>
+             <igp:name>linkD</igp:name>
+             <igp:metric>15</igp:metric>
+          </igp:igp-link-attributes>
+      </link>
+    <link>
+       <link-id>link:11:13</link-id>
+       <source>
+          <source-node>pcep:11</source-node>
+       </source>
+       <destination>
+          <dest-node>pcep:13</dest-node>
+       </destination>
+          <igp:igp-link-attributes>
+             <igp:name>linkA</igp:name>
+             <igp:metric>13</igp:metric>
+          </igp:igp-link-attributes>
+      </link>
+</topology>
+'''
+OPENFLOW_UNDERLAY_TOPOLOGY_4 = '''
+<topology
+        xmlns="urn:TBD:params:xml:ns:yang:network-topology"
+        xmlns:inventory="urn:opendaylight:inventory"
+        xmlns:inventory-topo="urn:opendaylight:model:topology:inventory">
+    <topology-id>openflow-topo:4</topology-id>
+    <node>
+        <node-id>of-node:16</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:16"]</inventory-topo:inventory-node-ref>
+    </node>
+    <node>
+        <node-id>of-node:17</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:17"]</inventory-topo:inventory-node-ref>
+    </node>
+    <node>
+        <node-id>of-node:18</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:18"]</inventory-topo:inventory-node-ref>
+    </node>
+    <node>
+        <node-id>of-node:19</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:19"]</inventory-topo:inventory-node-ref>
+    </node>
+    <node>
+        <node-id>of-node:20</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:20"]</inventory-topo:inventory-node-ref>
+    </node>
+</topology>
+'''
+
+OPENFLOW_UNDERLAY_TOPOLOGY_5 = '''
+<topology
+        xmlns="urn:TBD:params:xml:ns:yang:network-topology"
+        xmlns:inventory="urn:opendaylight:inventory"
+        xmlns:inventory-topo="urn:opendaylight:model:topology:inventory"
+        xmlns:igp="urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology">
+    <topology-id>openflow-topo:5</topology-id>
+    <node>
+        <node-id>of-node:21</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:21"]</inventory-topo:inventory-node-ref>
+        <termination-point>
+            <tp-id>tp:1</tp-id>
+            <inventory-topo:inventory-node-connector-ref>/inventory:nodes/inventory:node[inventory:id="openflow:21"]/inventory:node-connector[inventory:id="openflow:21:1"]
+            </inventory-topo:inventory-node-connector-ref>
+            <igp:igp-termination-point-attributes>
+                <igp:ip-address>192.168.1.1</igp:ip-address>
+            </igp:igp-termination-point-attributes>
+        </termination-point>
+    </node>
+    <node>
+        <node-id>of-node:22</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:22"]</inventory-topo:inventory-node-ref>
+        <termination-point>
+            <tp-id>tp:1</tp-id>
+            <inventory-topo:inventory-node-connector-ref>/inventory:nodes/inventory:node[inventory:id="openflow:22"]/inventory:node-connector[inventory:id="openflow:22:1"]
+            </inventory-topo:inventory-node-connector-ref>
+            <igp:igp-termination-point-attributes>
+                <igp:ip-address>192.168.1.2</igp:ip-address>
+            </igp:igp-termination-point-attributes>
+        </termination-point>
+        <termination-point>
+            <tp-id>tp:2</tp-id>
+            <inventory-topo:inventory-node-connector-ref>/inventory:nodes/inventory:node[inventory:id="openflow:22"]/inventory:node-connector[inventory:id="openflow:22:2"]
+            </inventory-topo:inventory-node-connector-ref>
+            <igp:igp-termination-point-attributes>
+                <igp:ip-address>192.168.1.3</igp:ip-address>
+            </igp:igp-termination-point-attributes>
+        </termination-point>
+        <termination-point>
+            <tp-id>tp:3</tp-id>
+            <inventory-topo:inventory-node-connector-ref>/inventory:nodes/inventory:node[inventory:id="openflow:22"]/inventory:node-connector[inventory:id="openflow:22:3"]
+            </inventory-topo:inventory-node-connector-ref>
+            <igp:igp-termination-point-attributes>
+                <igp:ip-address>192.168.1.2</igp:ip-address>
+            </igp:igp-termination-point-attributes>
+        </termination-point>
+    </node>
+    <node>
+        <node-id>of-node:23</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:23"]</inventory-topo:inventory-node-ref>
+    </node>
+    <node>
+        <node-id>of-node:24</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:24"]</inventory-topo:inventory-node-ref>
+    </node>
+    <node>
+        <node-id>of-node:25</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:25"]</inventory-topo:inventory-node-ref>
+        <termination-point>
+            <tp-id>tp:1</tp-id>
+            <inventory-topo:inventory-node-connector-ref>/inventory:nodes/inventory:node[inventory:id="openflow:25"]/inventory:node-connector[inventory:id="openflow:25:1"]
+            </inventory-topo:inventory-node-connector-ref>
+            <igp:igp-termination-point-attributes>
+                <igp:ip-address>192.168.2.4</igp:ip-address>
+            </igp:igp-termination-point-attributes>
+        </termination-point>
+    </node>
+</topology>
+'''
+
+OPENFLOW_UNDERLAY_TOPOLOGY_6 = '''
+<topology
+        xmlns="urn:TBD:params:xml:ns:yang:network-topology"
+        xmlns:inventory="urn:opendaylight:inventory"
+        xmlns:inventory-topo="urn:opendaylight:model:topology:inventory">
+    <topology-id>openflow-topo:6</topology-id>
+    <node>
+        <node-id>of-node:26</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:6"]</inventory-topo:inventory-node-ref>
+    </node>
+    <node>
+        <node-id>of-node:27</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:7"]</inventory-topo:inventory-node-ref>
+    </node>
+    <node>
+        <node-id>of-node:28</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:8"]</inventory-topo:inventory-node-ref>
+    </node>
+    <node>
+        <node-id>of-node:29</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:9"]</inventory-topo:inventory-node-ref>
+    </node>
+    <node>
+        <node-id>of-node:30</node-id>
         <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:10"]</inventory-topo:inventory-node-ref>
     </node>
 </topology>
