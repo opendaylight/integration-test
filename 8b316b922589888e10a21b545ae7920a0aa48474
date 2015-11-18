@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_c31f7eb6",
+        "filename": "csit/suites/sxp/scripts/basic_node_setup.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-18T12:04:41Z",
+      "side": 1,
+      "message": "Historically, raw data is usually placed in csit/variables/.\nI am not sure if that sill applies to this file, as neither filename nor content is ever placed into a (Robot) variable.\n\nBut I still think \"variables\" is better match than \"suites\".\nNo big deal though, there are other suites placing their data into scit/suites, so it is too late to enforce traditional ways.",
+      "range": {
+        "startLine": 7,
+        "startChar": 26,
+        "endLine": 7,
+        "endChar": 37
+      },
+      "revId": "8b316b922589888e10a21b545ae7920a0aa48474",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_8312e6b2",
+        "filename": "csit/suites/sxp/scripts/topology_node_setup.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-18T12:04:41Z",
+      "side": 1,
+      "message": "topology?",
+      "range": {
+        "startLine": 7,
+        "startChar": 42,
+        "endLine": 7,
+        "endChar": 47
+      },
+      "revId": "8b316b922589888e10a21b545ae7920a0aa48474",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
