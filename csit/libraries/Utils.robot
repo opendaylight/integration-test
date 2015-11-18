@@ -302,7 +302,7 @@ Remove All Elements At URI And Verify
     [Arguments]    ${uri}
     ${resp}    RequestsLibrary.Delete Request    session    ${uri}
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${resp}    RequestsLibrary.Get    session    ${uri}
+    ${resp}    RequestsLibrary.Get Request    session    ${uri}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Add Elements To URI From File
@@ -310,6 +310,21 @@ Add Elements To URI From File
     ${body}    OperatingSystem.Get File    ${data_file}
     ${resp}    RequestsLibrary.Put Request    session    ${dest_uri}    data=${body}    headers=${headers}
     Should Be Equal As Strings    ${resp.status_code}    200
+
+Add Elements To URI From File And Verify
+    [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}
+    ${body}    OperatingSystem.Get File    ${data_file}
+    ${resp}    RequestsLibrary.Put Request    session    ${dest_uri}    data=${body}    headers=${headers}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp}    RequestsLibrary.Get Request    session    ${dest_uri}
+    Should Not Be Equal    ${resp.status_code}    404
+
+Add Elements To URI And Verify
+    [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}
+    ${resp}    RequestsLibrary.Put Request    session    ${dest_uri}    ${data_file}    headers=${headers}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp}    RequestsLibrary.Get Request    session    ${dest_uri}
+    Should Not Be Equal    ${resp.status_code}    404
 
 Post Elements To URI From File
     [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}
