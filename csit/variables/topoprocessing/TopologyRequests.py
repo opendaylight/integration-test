@@ -56,7 +56,6 @@ FILTRATION_NT = '''<topology xmlns="urn:opendaylight:topology:correlation" xmlns
                             <correlation-item>{correlation-item}</correlation-item>
                             <filtration>
                                 <underlay-topology>{underlay-topology-id}</underlay-topology>
-                                <!-- Filter -->
                             </filtration>
                         </correlation>
                     </correlations>
@@ -70,4 +69,15 @@ FILTER_IPV4 = '''<filter>
                         <ipv4-address-filter>
                              <ipv4-address>{ipv4}</ipv4-address>
                         </ipv4-address-filter>
+                 </filter>'''
+
+FILTER_RANGE_NUMBER = '''<filter>
+                        <input-model>{input-model}</input-model>
+                        <filter-id>1</filter-id>
+                        <target-field>{target-field}</target-field>
+                        <filter-type>range-number</filter-type>
+                        <range-number-filter>
+                             <min-number-value>{min}</min-number-value>
+                             <max-number-value>{max}</max-number-value>
+                        </range-number-filter>
                  </filter>'''

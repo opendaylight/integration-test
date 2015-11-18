@@ -49,30 +49,35 @@ NETWORK_UNDERLAY_TOPOLOGY_2 = '''<topology
                                 <pcep:path-computation-client>
                                     <pcep:ip-address>192.168.1.3</pcep:ip-address>
                                 </pcep:path-computation-client>
+				<!--<ovsdb:ovs-version>10</ovsdb:ovs-version>-->
                             </node>
                             <node>
                                 <node-id>pcep:7</node-id>
                                 <pcep:path-computation-client>
                                     <pcep:ip-address>192.168.1.4</pcep:ip-address>
                                 </pcep:path-computation-client>
+				<!--<ovsdb:ovs-version>20</ovsdb:ovs-version>-->
                             </node>
                             <node>
                                 <node-id>pcep:8</node-id>
                                 <pcep:path-computation-client>
                                     <pcep:ip-address>192.168.2.4</pcep:ip-address>
                                 </pcep:path-computation-client>
+				<!--<ovsdb:ovs-version>21</ovsdb:ovs-version>-->
                             </node>
                             <node>
                                 <node-id>pcep:9</node-id>
                                 <pcep:path-computation-client>
                                     <pcep:ip-address>192.168.2.5</pcep:ip-address>
                                 </pcep:path-computation-client>
+				<!--<ovsdb:ovs-version>25</ovsdb:ovs-version>-->
                             </node>
                             <node>
                                 <node-id>pcep:10</node-id>
                                 <pcep:path-computation-client>
                                     <pcep:ip-address>192.168.2.3</pcep:ip-address>
                                 </pcep:path-computation-client>
+				<!--<ovsdb:ovs-version>26</ovsdb:ovs-version>-->
                             </node>
                         </topology>'''
 
