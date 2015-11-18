@@ -19,8 +19,9 @@ Resource          ../../../libraries/TopoprocessingKeywords.robot
 *** Test Cases ***
 Unification Node
     [Documentation]    Test unification operation on Network Topology model
-    ${request}    Prepare Unification Topology Request    ${UNIFICATION_NT}    network-topology-model    node    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    network-topo:1
-    ...    network-topo:2
+    ${request}    Prepare Unification Topology Request    ${UNIFICATION_NT}    network-topology-model    node    network-topo:1    network-topo:2
+    ${request}    Insert Target Field    ${request}    0    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    0
+    ${request}    Insert Target Field    ${request}    1    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    0
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    9
@@ -33,8 +34,9 @@ Unification Node
 
 Unification Node Inventory
     [Documentation]    Test unification operation on inventory model
-    ${request}    Prepare Unification Topology Request    ${UNIFICATION_NT}    opendaylight-inventory-model    node    flow-node-inventory:ip-address    openflow-topo:1
-    ...    openflow-topo:2
+    ${request}    Prepare Unification Topology Request    ${UNIFICATION_NT}    opendaylight-inventory-model    node    openflow-topo:1    openflow-topo:2
+    ${request}    Insert Target Field    ${request}    0    flow-node-inventory:ip-address    0
+    ${request}    Insert Target Field    ${request}    1    flow-node-inventory:ip-address    0
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    8
@@ -51,9 +53,10 @@ Unification Node Inventory
 
 Unification Scripting Node
     [Documentation]    Test unification operation on Network Topology model using scripting
-    ${request}    Prepare Unification Topology Request    ${UNIFICATION_NT}    network-topology-model    node    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    network-topo:1
-    ...    network-topo:2
-    ${request}    Insert Scripting into Request    ${request}    javascript    if (originalItem.getLeafNode().getValue().indexOf("192.168.1.1") > -1 && newItem.getLeafNode().getValue().indexOf("192.168.1.3") > -1 || originalItem.getLeafNode().getValue().indexOf("192.168.1.3") > -1 && newItem.getLeafNode().getValue().indexOf("192.168.1.1") > -1) {aggregable.setResult(true);} else { aggregable.setResult(false);}
+    ${request}    Prepare Unification Topology Request    ${UNIFICATION_NT}    network-topology-model    node    network-topo:1    network-topo:2
+    ${request}    Insert Target Field    ${request}    0    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    0
+    ${request}    Insert Target Field    ${request}    1    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    0
+    ${request}    Insert Scripting into Request    ${request}    javascript    if (originalItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.1") > -1 && newItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.3") > -1 || originalItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.3") > -1 && newItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.1") > -1) {aggregable.setResult(true);} else { aggregable.setResult(false);}
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    9
@@ -66,9 +69,10 @@ Unification Scripting Node
 
 Unification Scripting Node Inventory
     [Documentation]    Test unification operation on inventory model using scripting
-    ${request}    Prepare Unification Topology Request    ${UNIFICATION_NT}    opendaylight-inventory-model    node    flow-node-inventory:ip-address    openflow-topo:1
-    ...    openflow-topo:2
-    ${request}    Insert Scripting into Request    ${request}    javascript    if (originalItem.getLeafNode().getValue().indexOf("192.168.1.2") > -1 && newItem.getLeafNode().getValue().indexOf("192.168.1.4") > -1 || originalItem.getLeafNode().getValue().indexOf("192.168.1.4") > -1 && newItem.getLeafNode().getValue().indexOf("192.168.1.2") > -1) {aggregable.setResult(true);} else { aggregable.setResult(false);}
+    ${request}    Prepare Unification Topology Request    ${UNIFICATION_NT}    opendaylight-inventory-model    node    openflow-topo:1    openflow-topo:2
+    ${request}    Insert Target Field    ${request}    0    flow-node-inventory:ip-address    0
+    ${request}    Insert Target Field    ${request}    1    flow-node-inventory:ip-address    0
+    ${request}    Insert Scripting into Request    ${request}    javascript    if (originalItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.2") > -1 && newItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.4") > -1 || originalItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.4") > -1 && newItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.2") > -1) {aggregable.setResult(true);} else { aggregable.setResult(false);}
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    9
@@ -81,7 +85,8 @@ Unification Scripting Node Inventory
 
 Unification Node Inside
     [Documentation]    Test of unification type of aggregation inside on nodes on Network Topology model
-    ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    network-topology-model    node    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    network-topo:1
+    ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    network-topology-model    node    network-topo:1
+    ${request}    Insert Target Field    ${request}    0    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    0
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    4
@@ -94,7 +99,8 @@ Unification Node Inside
 
 Unification Node Inside Inventory
     [Documentation]    Test of unification type of aggregation inside on nodes on Inventory model
-    ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    opendaylight-inventory-model    node    flow-node-inventory:ip-address    openflow-topo:2
+    ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    opendaylight-inventory-model    node    openflow-topo:2
+    ${request}    Insert Target Field    ${request}    0    flow-node-inventory:ip-address    0
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    4
@@ -107,50 +113,46 @@ Unification Node Inside Inventory
 
 Unification Termination Point Inside
     [Documentation]    Test aggregate inside operation on termination points
-    ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    network-topology-model    termination-point    ovsdb:ofport    network-topo:1
+    ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    network-topology-model    termination-point    network-topo:1
+    ${request}    Insert Target Field    ${request}    0    ovsdb:ofport    0
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    ${response_xml}    Get Element    ${resp.content}    xpath=.//topology[topology-id='topo:1']
-    ${response_xml}    Element to String    ${response_xml}
     Should Contain X Times    ${resp.content}    <node-id>node:    5
-    Should Contain X Times    ${response_xml}    <termination-point>    6
-    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='bgp:1']/..
+    Should Contain X Times    ${resp.content}    <termination-point>    6
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:1']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    2
-    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='bgp:3']/..
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:3']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    2
-    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='bgp:4']/..
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:4']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='bgp:5']/..
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:5']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    [Teardown]    Run Keywords    Aggregation Test Teardown
-    ...    AND    Report_Failure_Due_To_Bug    4750
 
 Unification Termination Point Inside Inventory
     [Documentation]    Test aggregate inside operation on termination points
-    ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    opendaylight-inventory-model    termination-point    flow-node-inventory:port-number    openflow-topo:1
+    ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    opendaylight-inventory-model    termination-point    openflow-topo:1
+    ${request}    Insert Target Field    ${request}    0    flow-node-inventory:port-number    0
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    ${response_xml}    Get Element    ${resp.content}    xpath=.//topology[topology-id='topo:1']
-    ${response_xml}    Element to String    ${response_xml}
     Should Contain X Times    ${resp.content}    <node-id>node:    5
-    Should Contain X Times    ${response_xml}    <termination-point>    7
-    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='of-node:1']/..
+    Should Contain X Times    ${resp.content}    <termination-point>    8
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:1']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <termination-point>    3
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:3']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    2
-    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='of-node:3']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    2
-    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='of-node:4']/..
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:4']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='of-node:5']/..
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:5']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
     [Teardown]    Run Keywords    Aggregation Test Teardown
@@ -159,4 +161,4 @@ Unification Termination Point Inside Inventory
 *** Keywords ***
 Aggregation Test Teardown
     Test Teardown    network-topology:network-topology/topology/topo:1
-    Report_Failure_Due_To_Bug    4673
+    Report_Failure_Due_To_Bug    5157
