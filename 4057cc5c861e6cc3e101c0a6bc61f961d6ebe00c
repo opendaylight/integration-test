@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_69178b52",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-18T17:13:50Z",
+      "side": 1,
+      "message": "Any reason why this is never checked?",
+      "range": {
+        "startLine": 219,
+        "startChar": 4,
+        "endLine": 219,
+        "endChar": 14
+      },
+      "revId": "4057cc5c861e6cc3e101c0a6bc61f961d6ebe00c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
