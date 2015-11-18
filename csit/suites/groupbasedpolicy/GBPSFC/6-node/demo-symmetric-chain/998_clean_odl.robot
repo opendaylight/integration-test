@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite for cleaning up / unregister infrastructure constructs like endpoints for demo-asymmetric-chain
+Documentation     Test suite for cleaning up / unregister infrastructure constructs like endpoints for demo-symmetric-chain
 Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
@@ -12,6 +12,7 @@ Resource          ../../../../../libraries/GBP/RestconfUtils.robot
 Resource          ../Variables.robot
 
 *** Test Cases ***
+
 Delete Service Function Paths
     [Documentation]    Delete Service Function Paths from ODL
     [Tags]    GBPSFCTEAR
@@ -33,7 +34,7 @@ Delete Service Function Forwarders
     Remove All Elements At URI And Verify    ${SFF_PATH}
 
 Delete Tunnels
-    [Documentation]    Delete Tunnels from ODL
+    [Documentation]    Delete Tenant from ODL
     [Tags]    GBPSFCTEAR
     Remove All Elements At URI And Verify    ${TUNNELS_PATH}
 
@@ -51,4 +52,5 @@ Delete OVSDB Topology If Present
     [Documentation]    Delete OVSDB topology from ODL
     [Tags]    GBPSFCTEAR
     ${resp}    RequestsLibrary.Get Request    session    ${TOPOLOGY_PATH}
-    Run Keyword If    ${resp.status_code} == 200    Remove All Elements At URI And Verify    ${TOPOLOGY_PATH}
+    Run Keyword If    ${resp.status_code} == 200
+    ...    Remove All Elements At URI And Verify    ${TOPOLOGY_PATH}
