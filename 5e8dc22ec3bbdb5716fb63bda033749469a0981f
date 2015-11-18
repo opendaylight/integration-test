@@ -69,6 +69,30 @@
       "revId": "5e8dc22ec3bbdb5716fb63bda033749469a0981f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_7be8b27c",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-18T18:45:47Z",
+      "side": 1,
+      "message": "I believe this only affects variables defined in (Python) variable file.\nDefining such chained variables in suite\u0027s Variables table (or in Variables table of some .robot file Resource used by several suites) works.",
+      "parentUuid": "7aade967_5bf5b681",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 189,
+        "endChar": 27
+      },
+      "revId": "5e8dc22ec3bbdb5716fb63bda033749469a0981f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
