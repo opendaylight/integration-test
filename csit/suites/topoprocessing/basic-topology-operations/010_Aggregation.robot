@@ -110,20 +110,18 @@ Unification Termination Point Inside
     ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    network-topology-model    termination-point    ovsdb:ofport    network-topo:1
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    ${response_xml}    Get Element    ${resp.content}    xpath=.//topology[topology-id='topo:1']
-    ${response_xml}    Element to String    ${response_xml}
     Should Contain X Times    ${resp.content}    <node-id>node:    5
-    Should Contain X Times    ${response_xml}    <termination-point>    6
-    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='bgp:1']/..
+    Should Contain X Times    ${resp.content}    <termination-point>    6
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:1']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    2
-    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='bgp:3']/..
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:3']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    2
-    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='bgp:4']/..
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:4']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='bgp:5']/..
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:5']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
     [Teardown]    Run Keywords    Aggregation Test Teardown
@@ -134,16 +132,14 @@ Unification Termination Point Inside Inventory
     ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    opendaylight-inventory-model    termination-point    flow-node-inventory:port-number    openflow-topo:1
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    ${response_xml}    Get Element    ${resp.content}    xpath=.//topology[topology-id='topo:1']
-    ${response_xml}    Element to String    ${response_xml}
     Should Contain X Times    ${resp.content}    <node-id>node:    5
-    Should Contain X Times    ${response_xml}    <termination-point>    7
+    Should Contain X Times    ${response_xml}    <termination-point>    8
     ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='of-node:1']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
     ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
     ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    2
+    Should Contain X Times    ${node}    <termination-point>    3
     ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='of-node:3']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    2
