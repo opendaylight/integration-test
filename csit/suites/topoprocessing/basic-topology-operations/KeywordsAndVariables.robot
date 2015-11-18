@@ -20,6 +20,20 @@ Basic Aggregation
     Log    ${resp.content}
     [Return]    ${resp}
 
+Basic Filtration
+    [Arguments]    ${request}    ${overlay_topology_url}
+    [Documentation]    Test basic filtration
+    ${resp}    RequestsLibrary.Put    session    ${CONFIGURATION}/${overlay_topology_url}    data=${request}
+    Log    ${CONFIGURATION}/${overlay_topology_url}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Wait For Karaf Log    Correlation configuration successfully read
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Wait For Karaf Log    Transaction successfully written
+    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL}/${overlay_topology_url}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Log    ${resp.content}
+    [Return]    ${resp}
+
 Setup Environment
     [Documentation]    Setup karaf enviroment for following tests
     Log    ---- Setup Environment ----
@@ -31,8 +45,8 @@ Setup Environment
     Install a Feature    odl-restconf-noauth    timeout=30
     Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${SEND_ACCEPT_XML_HEADERS}
     Prepare New Feature Installation
-    Install a Feature    odl-topoprocessing-framework odl-topoprocessing-network-topology odl-topoprocessing-inventory odl-bgpcep-pcep-all odl-openflowplugin-nsf-model-li    timeout=30
-    Wait For Karaf Log    Registering Topology Request Listener    300
+    Install a Feature    odl-topoprocessing-framework odl-topoprocessing-network-topology odl-topoprocessing-inventory odl-bgpcep-pcep-all odl-openflowplugin-nsf-model-li odl-ovsdb-all    timeout=30
+    #Wait For Karaf Log    Registering Topology Request Listener    300
     Insert Underlay topologies
 
 Clean Environment
@@ -41,7 +55,7 @@ Clean Environment
     Uninstall a Feature    odl-topoprocessing-framework odl-topoprocessing-network-topology odl-topoprocessing-inventory    timeout=30
     Open Connection    ${CONTROLLER}
     Flexible Controller Login
-    Put File    ${OPERATIONAL_XML}    ${REMOTE_FILE}
+    #Put File    ${OPERATIONAL_XML}    ${REMOTE_FILE}
     Close Connection
     Delete All Sessions
 
@@ -114,5 +128,37 @@ Prepare Unification Topology Request
     ${request_template}    Set Element Text    ${request_template}    ${underlay_topo2}    xpath=.//correlation/aggregation/mapping[2]/underlay-topology
     ${request_template}    Set Element Text    ${request_template}    ${target-field}    xpath=.//correlation/aggregation/mapping[2]/target-field
     ${request_template}    Set Element Text    ${request_template}    ${model}    xpath=.//correlation/aggregation/mapping[2]/input-model
+    ${request_template}    Element to String    ${request_template}
+    [Return]    ${request_template}
+
+Prepare Filtration Topology Request
+    [Arguments]    ${request_template}    ${model}    ${correlation_item}    ${underlay_topo}
+    [Documentation]    Prepare topology request for filtration from template
+    ${request_template}    Set Element Text    ${request_template}    ${model}    xpath=.//correlations/output-model
+    ${request_template}    Set Element Text    ${request_template}    ${correlation_item}    xpath=.//correlation/correlation-item
+    ${request_template}    Set Element Text    ${request_template}    ${underlay_topo}    xpath=.//correlation/filtration/underlay-topology
+    [Return]    ${request_template}
+
+Insert Filter
+    [Arguments]    ${request_template}    ${filter_template}    ${target_field}
+    [Documentation]    Add filter to filtration
+    ${request_template}    Add Element    ${request_template}    ${filter_template}    xpath=.//correlation/filtration
+    ${model}    Get Element Text    ${request_template}    xpath=.//correlations/output-model
+    ${request_template}    Set Element Text    ${request_template}    ${model}    xpath=.//correlation/filtration/filter/input-model
+    ${request_template}    Set Element Text    ${request_template}    ${target_field}    xpath=.//correlation/filtration/filter/target-field
+    [Return]    ${request_template}
+
+Set IPV4 Filter
+    [Arguments]    ${request_template}    ${ip_address}
+    [Documentation]    Set filter ipv4 address
+    ${request_template}    Set Element Text    ${request_template}    ${ip_address}    xpath=.//correlation/filtration/filter/ipv4-address-filter/ipv4-address
+    ${request_template}    Element to String    ${request_template}
+    [Return]    ${request_template}
+
+Set Range Number Filter
+    [Arguments]    ${request_template}    ${min_number}    ${max_number}
+    [Documentation]    Set filter minimum and maximum number values
+    ${request_template}    Set Element Text    ${request_template}    ${min_number}    xpath=.//correlation/filtration/filter/range-number-filter/min-number-value
+    ${request_template}    Set Element Text    ${request_template}    ${max_number}    xpath=.//correlation/filtration/filter/range-number-filter/max-number-value
     ${request_template}    Element to String    ${request_template}
     [Return]    ${request_template}
