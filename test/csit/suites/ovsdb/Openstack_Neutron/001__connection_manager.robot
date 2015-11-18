@@ -39,7 +39,7 @@ Make the OVS instance to listen for connection
     ${output}    Run Command On Remote System    ${MININET}    sudo ovs-vsctl show
     ${pingresult}   Run Command On Remote System    ${MININET}    ping ${CONTROLLER} -c 4
     Should Not Contain    ${pingresult}    ${PING_NOT_CONTAIN}
-    Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${node_list}
+    Wait Until Keyword Succeeds    30s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${node_list}
 
 Get manager connection
     [Documentation]    This will verify if the OVS manager is connected
