@@ -10,7 +10,7 @@ Variables         ../variables/Variables.py
 
 *** Variables ***
 # TODO: Introduce ${tree_size} and use instead of 1 in the next line.
-${start}          sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,1 --switch ovsk,protocols=OpenFlow13
+${start}          sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo tree,1 --switch ovsk,protocols=OpenFlow13
 
 *** Keywords ***
 Start Suite
@@ -247,14 +247,14 @@ Verify File Exists On Remote System
     Close Connection
 
 Verify Controller Is Not Dead
-    [Arguments]    ${controller_ip}=${CONTROLLER}
+    [Arguments]    ${controller_ip}=${ODL_SYSTEM_IP}
     [Documentation]    Will execute any tests to verify the controller is not dead. Some checks are
     ...    Out Of Memory Execptions.
     Check Karaf Log File Does Not Have Messages    ${controller_ip}    java.lang.OutOfMemoryError
     # TODO: Should Verify Controller * keywords also accept user, password, prompt and karaf_log arguments?
 
 Verify Controller Has No Null Pointer Exceptions
-    [Arguments]    ${controller_ip}=${CONTROLLER}
+    [Arguments]    ${controller_ip}=${ODL_SYSTEM_IP}
     [Documentation]    Will execute any tests to verify the controller is not having any null pointer eceptions.
     Check Karaf Log File Does Not Have Messages    ${controller_ip}    java.lang.NullPointerException
 
