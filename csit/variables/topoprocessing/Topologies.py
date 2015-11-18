@@ -1,0 +1,192 @@
+NETWORK_UNDERLAY_TOPOLOGY_1 = '''<topology
+                                xmlns="urn:TBD:params:xml:ns:yang:network-topology"
+                                xmlns:pcep="urn:opendaylight:params:xml:ns:yang:topology:pcep">
+                            <topology-id>network-topo:1</topology-id>
+                            <topology-types>
+                                <pcep:topology-pcep></pcep:topology-pcep>
+                            </topology-types>
+                            <node>
+                                <node-id>pcep:1</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>192.168.1.1</pcep:ip-address>
+                                </pcep:path-computation-client>
+                            </node>
+                            <node>
+                                <node-id>pcep:2</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>192.168.1.2</pcep:ip-address>
+                                </pcep:path-computation-client>
+                            </node>
+                            <node>
+                                <node-id>pcep:3</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>192.168.2.1</pcep:ip-address>
+                                </pcep:path-computation-client>
+                            </node>
+                            <node>
+                                <node-id>pcep:4</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>192.168.2.2</pcep:ip-address>
+                                </pcep:path-computation-client>
+                            </node>
+                            <node>
+                                <node-id>pcep:5</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>192.168.2.3</pcep:ip-address>
+                                </pcep:path-computation-client>
+                            </node>
+                        </topology>'''
+
+NETWORK_UNDERLAY_TOPOLOGY_2 = '''<topology
+                                xmlns="urn:TBD:params:xml:ns:yang:network-topology"
+                                xmlns:pcep="urn:opendaylight:params:xml:ns:yang:topology:pcep">
+                            <topology-id>network-topo:2</topology-id>
+                            <topology-types>
+                                <pcep:topology-pcep></pcep:topology-pcep>
+                            </topology-types>
+                            <node>
+                                <node-id>pcep:6</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>192.168.1.3</pcep:ip-address>
+                                </pcep:path-computation-client>
+                            </node>
+                            <node>
+                                <node-id>pcep:7</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>192.168.1.4</pcep:ip-address>
+                                </pcep:path-computation-client>
+                            </node>
+                            <node>
+                                <node-id>pcep:8</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>192.168.2.4</pcep:ip-address>
+                                </pcep:path-computation-client>
+                            </node>
+                            <node>
+                                <node-id>pcep:9</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>192.168.2.5</pcep:ip-address>
+                                </pcep:path-computation-client>
+                            </node>
+                            <node>
+                                <node-id>pcep:10</node-id>
+                                <pcep:path-computation-client>
+                                    <pcep:ip-address>192.168.2.3</pcep:ip-address>
+                                </pcep:path-computation-client>
+                            </node>
+                        </topology>'''
+
+OPENFLOW_UNDERLAY_NODES = '''
+<nodes 
+    xmlns="urn:opendaylight:inventory"
+    xmlns:flov-inv="urn:opendaylight:flow:inventory">
+    <node>
+        <id>openflow:1</id>
+        <flov-inv:manufacturer>Pantheon Technologies</flov-inv:manufacturer>
+        <flov-inv:ip-address>192.168.1.1</flov-inv:ip-address>
+    </node>
+    <node>
+        <id>openflow:2</id>
+        <flov-inv:manufacturer>Pantheon Technologies</flov-inv:manufacturer>
+        <flov-inv:ip-address>192.168.1.2</flov-inv:ip-address>
+    </node>
+    <node>
+        <id>openflow:3</id>
+        <flov-inv:manufacturer>Pantheon Technologies</flov-inv:manufacturer>
+        <flov-inv:ip-address>192.168.1.3</flov-inv:ip-address>
+    </node>
+    <node>
+        <id>openflow:4</id>
+        <flov-inv:manufacturer>Cisco</flov-inv:manufacturer>
+        <flov-inv:ip-address>192.168.2.1</flov-inv:ip-address>
+    </node>
+    <node>
+        <id>openflow:5</id>
+        <flov-inv:manufacturer>Cisco</flov-inv:manufacturer>
+        <flov-inv:ip-address>192.168.2.2</flov-inv:ip-address>
+    </node>
+    <node>
+        <id>openflow:6</id>
+        <flov-inv:manufacturer>Pantheon Technologies</flov-inv:manufacturer>
+        <flov-inv:ip-address>192.168.1.1</flov-inv:ip-address>
+    </node>
+    <node>
+        <id>openflow:7</id>
+        <flov-inv:manufacturer>Pantheon Technologies</flov-inv:manufacturer>
+        <flov-inv:ip-address>192.168.2.3</flov-inv:ip-address>
+    </node>
+    <node>
+        <id>openflow:8</id>
+        <flov-inv:manufacturer>Cisco</flov-inv:manufacturer>
+        <flov-inv:ip-address>192.168.1.4</flov-inv:ip-address>
+    </node>
+    <node>
+        <id>openflow:9</id>
+        <flov-inv:manufacturer>Cisco</flov-inv:manufacturer>
+        <flov-inv:ip-address>192.168.1.5</flov-inv:ip-address>
+    </node>
+    <node>
+        <id>openflow:10</id>
+        <flov-inv:manufacturer>Cisco</flov-inv:manufacturer>
+        <flov-inv:ip-address>192.168.2.1</flov-inv:ip-address>
+    </node>
+</nodes>
+'''
+
+OPENFLOW_UNDERLAY_TOPOLOGY_1 = '''
+<topology
+        xmlns="urn:TBD:params:xml:ns:yang:network-topology"
+        xmlns:inventory="urn:opendaylight:inventory"
+        xmlns:inventory-topo="urn:opendaylight:model:topology:inventory">
+    <topology-id>openflow-topo:1</topology-id>
+    <node>
+        <node-id>of-node:1</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:1"]</inventory-topo:inventory-node-ref>
+    </node>
+    <node>
+        <node-id>of-node:2</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:2"]</inventory-topo:inventory-node-ref>
+    </node>
+    <node>
+        <node-id>of-node:3</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:3"]</inventory-topo:inventory-node-ref>
+    </node>
+    <node>
+        <node-id>of-node:4</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:4"]</inventory-topo:inventory-node-ref>
+    </node>
+    <node>
+        <node-id>of-node:5</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:5"]</inventory-topo:inventory-node-ref>
+    </node>
+</topology>
+'''
+
+OPENFLOW_UNDERLAY_TOPOLOGY_2 = '''
+<topology
+        xmlns="urn:TBD:params:xml:ns:yang:network-topology"
+        xmlns:inventory="urn:opendaylight:inventory"
+        xmlns:inventory-topo="urn:opendaylight:model:topology:inventory">
+    <topology-id>openflow-topo:2</topology-id>
+    <node>
+        <node-id>of-node:6</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:6"]</inventory-topo:inventory-node-ref>
+    </node>
+    <node>
+        <node-id>of-node:7</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:7"]</inventory-topo:inventory-node-ref>
+    </node>
+    <node>
+        <node-id>of-node:8</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:8"]</inventory-topo:inventory-node-ref>
+    </node>
+    <node>
+        <node-id>of-node:9</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:9"]</inventory-topo:inventory-node-ref>
+    </node>
+    <node>
+        <node-id>of-node:10</node-id>
+        <inventory-topo:inventory-node-ref>/inventory:nodes/inventory:node[inventory:id="openflow:10"]</inventory-topo:inventory-node-ref>
+    </node>
+</topology>
+'''
