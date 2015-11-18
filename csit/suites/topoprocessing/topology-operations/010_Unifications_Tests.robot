@@ -48,17 +48,17 @@ Unification on Network Topology
 *** Keywords ***
 Setup Enviroment
     [Documentation]    Setup karaf enviroment for following tests
-    Open Connection    ${CONTROLLER}
+    Open Connection    ${ODL_SYSTEM_IP}
     Flexible Controller Login
     Put File    ${CONFIGURATION_XML}    ${REMOTE_FILE}
     Close Connection
     Issue Command On Karaf Console    log:set DEBUG org.opendaylight.topoprocessing
     Install a Feature    odl-topoprocessing-framework odl-restconf-noauth    timeout=30
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${SEND_ACCEPT_XML_HEADERS}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${SEND_ACCEPT_XML_HEADERS}
 
 Test Teardown
     [Documentation]    Revert startup changes
-    Open Connection    ${CONTROLLER}
+    Open Connection    ${ODL_SYSTEM_IP}
     Flexible Controller Login
     Put File    ${OPERATIONAL_XML}    ${REMOTE_FILE}
     Close Connection
@@ -67,7 +67,7 @@ Test Teardown
 Wait For Karaf Log
     [Arguments]    ${message}    ${timeout}=60
     [Documentation]    Read karaf logs until message appear
-    Open Connection    ${CONTROLLER}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_PROMPT}    timeout=${timeout}
+    Open Connection    ${ODL_SYSTEM_IP}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_PROMPT}    timeout=${timeout}
     Flexible SSH Login    ${KARAF_USER}    ${KARAF_PASSWORD}
     Write    log:tail
     Read Until    ${message}
