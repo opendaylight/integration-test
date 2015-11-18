@@ -168,3 +168,13 @@ Set Bgpcep Log Levels
     # FIXME: Move to appropriate Resource
     Execute Controller Karaf Command On Background    log:set ${bgpcep_level} org.opendaylight.bgpcep
     Execute Controller Karaf Command On Background    log:set ${protocol_level} org.opendaylight.protocol
+
+Wait For Karaf Log
+    [Arguments]    ${message}    ${timeout}=60
+    [Documentation]    Read karaf logs until message appear
+    Log    Waiting for '${message}' in karaf log
+    Open Connection    ${CONTROLLER}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_PROMPT}    timeout=${timeout}
+    Flexible SSH Login    ${KARAF_USER}    ${KARAF_PASSWORD}
+    Write    log:tail
+    Read Until    ${message}
+    Close Connection
