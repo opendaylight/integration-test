@@ -65,3 +65,26 @@ Unification Node Inventory
     Should Contain X Times    ${node}    <node-ref>of-node:10</node-ref>    1
     Should Contain X Times    ${node}    <node-ref>of-node:4</node-ref>    1
     [Teardown]    Test Teardown    network-topology:network-topology/topology/topo:1
+
+Unification Termination Point Inside
+    [Documentation]    Test aggregate inside operation on termination points
+    ${request}    KeywordsAndVariables.Prepare Unification Inside Topology Request    ${UNIFICATION_NT}    network-topology-model    node    ovsdb:ofport    network-topo:1
+    ${resp}    Basic Aggregation    ${request}    network-topology:network-topology/topology/topo:1
+    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
+    Should Contain X Times    ${resp.content}    <node-id>node:    5
+    ${response_xml}    Get Element    ${resp.content}    xpath=.//topology[topology-id='topo:1']
+    ${response_xml}    Element to String    ${response_xml}
+    Should Contain X Times    ${response_xml}    <termination-point>    6
+    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='pcep:1']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <termination-point>    2
+    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='pcep:3']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <termination-point>    2
+    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='pcep:4']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <termination-point>    1
+    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='pcep:5']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <termination-point>    1
+    [Teardown]    Test Teardown    network-topology:network-topology/topology/topo:1

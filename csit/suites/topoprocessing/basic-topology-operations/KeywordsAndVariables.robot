@@ -31,8 +31,9 @@ Setup Environment
     Install a Feature    odl-restconf-noauth    timeout=30
     Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${SEND_ACCEPT_XML_HEADERS}
     Prepare New Feature Installation
-    Install a Feature    odl-topoprocessing-framework odl-topoprocessing-network-topology odl-topoprocessing-inventory odl-bgpcep-pcep-all odl-openflowplugin-nsf-model-li    timeout=30
-    Wait For Karaf Log    Registering Topology Request Listener    300
+    Install a Feature    odl-bgpcep-pcep-all odl-ovsdb-southbound-api odl-openflowplugin-nsf-model-li    timeout=30
+    Install a Feature    odl-topoprocessing-network-topology odl-topoprocessing-inventory    timeout=30
+    #Wait For Karaf Log    Registering Topology Request Listener    300
     Insert Underlay topologies
 
 Clean Environment
