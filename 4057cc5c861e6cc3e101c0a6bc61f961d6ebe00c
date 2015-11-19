@@ -22,6 +22,30 @@
       "revId": "4057cc5c861e6cc3e101c0a6bc61f961d6ebe00c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_1155dd1c",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 1479
+      },
+      "writtenOn": "2015-11-19T05:13:21Z",
+      "side": 1,
+      "message": "We need some delay between pass -\u003e drop, in this case when we create pass action immediatley we creating drop action then start pining, so some packets are sending betwenn hosts but it should not happen for drop action, so we have to add some delay, as jamo suggest no need to add sleep, we came with the method split ping, for first cycle(result1) is as delay then we are checking (result2) and getting the result",
+      "parentUuid": "7aade967_69178b52",
+      "range": {
+        "startLine": 219,
+        "startChar": 4,
+        "endLine": 219,
+        "endChar": 14
+      },
+      "revId": "4057cc5c861e6cc3e101c0a6bc61f961d6ebe00c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
