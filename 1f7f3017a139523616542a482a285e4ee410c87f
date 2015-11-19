@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7aade967_54090330",
+        "filename": "csit/suites/bgpcep/bgpingest/manypeers_prefixcount.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-19T13:07:47Z",
+      "side": 1,
+      "message": "I have left this for a separate change (if ever).\nBasically manage_play forwards values, so it would be easier if play.py tool \u0027--loglevel error\u0027 instead of just \u0027--error\u0027.",
+      "parentUuid": "7aade967_14bb8b0f",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 223
+      },
+      "revId": "1f7f3017a139523616542a482a285e4ee410c87f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7aade967_f4bd8f03",
         "filename": "csit/suites/bgpcep/bgpingest/manypeers_prefixcount.robot",
         "patchSetId": 13
@@ -36,6 +60,30 @@
       "writtenOn": "2015-11-19T09:00:08Z",
       "side": 1,
       "message": "I would appreciate to have a chance to set karaf log level as in the singlepeer suites",
+      "range": {
+        "startLine": 150,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 16
+      },
+      "revId": "1f7f3017a139523616542a482a285e4ee410c87f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_b431570d",
+        "filename": "csit/suites/bgpcep/bgpingest/manypeers_prefixcount.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-19T13:07:47Z",
+      "side": 1,
+      "message": "I have unified log level settings. Logic is somewhere in between, option names are new.",
+      "parentUuid": "7aade967_f4bd8f03",
       "range": {
         "startLine": 150,
         "startChar": 0,
