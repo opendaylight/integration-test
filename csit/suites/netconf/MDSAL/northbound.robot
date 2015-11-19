@@ -272,8 +272,7 @@ Open_ODL_Netconf_Connection
     SSHLibrary.Write    sshpass -p ${password} ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ${user}\@127.0.0.1 -p ${port} -s netconf
     ${hello}=    SSHLibrary.Read_Until    ${ODL_NETCONF_PROMPT}
     SSHLibrary.Switch_Connection    ${ssh_control}
-    SSHLibrary.Write    ps -A | grep sshpass | cut -b 1-6
-    ${pid}=    SSHKeywords.Read_Command_Response
+    ${pid}=    SSHLibrary.Execute_Command    ps -A | grep sshpass | cut -b 1-6
     BuiltIn.Set_Suite_Variable    ${ssh_netconf_pid}    ${pid}
     SSHLibrary.Switch_Connection    ${ssh_netconf}
     [Return]    ${hello}
