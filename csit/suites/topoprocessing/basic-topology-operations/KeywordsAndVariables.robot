@@ -31,8 +31,8 @@ Setup Environment
     Install a Feature    odl-restconf-noauth    timeout=30
     Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${SEND_ACCEPT_XML_HEADERS}
     Prepare New Feature Installation
-    Install a Feature    odl-topoprocessing-network-topology odl-topoprocessing-inventory odl-bgpcep-pcep-all    timeout=30
-    Wait For Karaf Log    Registering Topology Request Listener    300
+    Install a Feature    odl-topoprocessing-network-topology odl-topoprocessing-inventory odl-bgpcep-pcep-all odl-ovsdb-southbound-api    timeout=30
+    #Wait For Karaf Log    Registering Topology Request Listener    300
     Insert Underlay topologies
 
 Clean Environment
@@ -41,7 +41,7 @@ Clean Environment
     Uninstall a Feature    odl-topoprocessing-framework odl-topoprocessing-network-topology odl-topoprocessing-inventory    timeout=30
     Open Connection    ${CONTROLLER}
     Flexible Controller Login
-    Put File    ${OPERATIONAL_XML}    ${REMOTE_FILE}
+    #Put File    ${OPERATIONAL_XML}    ${REMOTE_FILE}
     Close Connection
     Delete All Sessions
 
