@@ -14,7 +14,7 @@ Variables         ../../../variables/topoprocessing/Topologies.py
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/KarafKeywords.robot
-Resource          ./KeywordsAndVariables.robot
+Resource          ./KeywordsAndVariables.robotŘ
 
 *** Test Cases ***
 Unification node
@@ -44,4 +44,33 @@ Unification node
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <node-ref>pcep:10</node-ref>    1
     Should Contain X Times    ${node}    <node-ref>pcep:5</node-ref>    1
+    [Teardown]    Test Teardown    network-topology:network-topology/topology/topo:1
+
+Unification Termination Point Inside
+    [Documentation]    Test aggregate inside operation on termination points
+    ${UNIFICATION_NT_AGGREGATE_INSIDE}    Set Element Text    ${UNIFICATION_NT_AGGREGATE_INSIDE}    network-topology-model    xpath=.//correlations/output-model
+    ${UNIFICATION_NT_AGGREGATE_INSIDE}    Set Element Text    ${UNIFICATION_NT_AGGREGATE_INSIDE}    aggregation-only    xpath=.//correlations/correlation/type
+    ${UNIFICATION_NT_AGGREGATE_INSIDE}    Set Element Text    ${UNIFICATION_NT_AGGREGATE_INSIDE}    termination-point    xpath=.//correlation/correlation-item
+    ${UNIFICATION_NT_AGGREGATE_INSIDE}    Set Element Text    ${UNIFICATION_NT_AGGREGATE_INSIDE}    unification    xpath=.//correlation/aggregation/aggregation-type
+    ${UNIFICATION_NT_AGGREGATE_INSIDE}    Set Element Text    ${UNIFICATION_NT_AGGREGATE_INSIDE}    network-topology-model    xpath=.//correlation/aggregation/mapping[underlay-topology='und-topo:1']/input-model
+    ${UNIFICATION_NT_AGGREGATE_INSIDE}    Set Element Text    ${UNIFICATION_NT_AGGREGATE_INSIDE}    ovsdb:ofport    xpath=.//correlation/aggregation/mapping[underlay-topology='und-topo:1']/target-field
+    ${UNIFICATION_NT_AGGREGATE_INSIDE}    Element to String    ${UNIFICATION_NT_AGGREGATE_INSIDE}
+    ${resp}    Basic Aggregation    ${UNIFICATION_NT_AGGREGATE_INSIDE}    network-topology:network-topology/topology/topo:1
+    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
+    Should Contain X Times    ${resp.content}    <node-id>node:    5
+    ${response_xml}    Get Element    ${resp.content}    xpath=.//topology[topology-id='topo:1']
+    ${response_xml}    Element to String    ${response_xml}
+    Should Contain X Times    ${response_xml}    <termination-point>    6
+    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='pcep:1']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <termination-point>    2
+    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='pcep:3']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <termination-point>    2
+    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='pcep:4']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <termination-point>    1
+    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='pcep:5']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <termination-point>    1
     [Teardown]    Test Teardown    network-topology:network-topology/topology/topo:1
