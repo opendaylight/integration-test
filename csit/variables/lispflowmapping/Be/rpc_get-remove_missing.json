@@ -1,0 +1,8 @@
+{
+    "input": {
+        "eid": {
+            "address-type": "ietf-lisp-address-types:ipv4-prefix-afi",
+            "ipv4-prefix": "192.0.2.255/32"
+        }
+    }
+}
