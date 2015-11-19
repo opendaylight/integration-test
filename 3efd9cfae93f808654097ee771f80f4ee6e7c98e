@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_0fe4d439",
+        "filename": "csit/suites/vtn/VTN_Mgr_OF10/010__vtn_manager_flowfilter.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-19T14:43:39Z",
+      "side": 1,
+      "message": "1\n-c already issues 1 ping per second, there is no need for additional 2 second pause between tries.",
+      "range": {
+        "startLine": 154,
+        "startChar": 49,
+        "endLine": 154,
+        "endChar": 50
+      },
+      "revId": "3efd9cfae93f808654097ee771f80f4ee6e7c98e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
