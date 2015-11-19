@@ -39,7 +39,7 @@ Setup Environment
     ${features}    Get Installed Features
     ${lines}    Get Lines Containing String    ${features}    odl-topoprocessing-framework
     ${length}    Get Length    ${lines}
-    Install a Feature    odl-openflowplugin-nsf-model-li odl-topoprocessing-framework odl-topoprocessing-network-topology odl-topoprocessing-inventory odl-bgpcep-pcep-all    timeout=100
+    Install a Feature    odl-openflowplugin-nsf-model-li odl-topoprocessing-framework odl-topoprocessing-network-topology odl-topoprocessing-inventory odl-bgpcep-pcep-all odl-ovsdb-southbound-impl    timeout=100
     Run Keyword If    ${length} == 0    Wait For Karaf Log    Registering Topology Request Listener    60
     Prepare New Feature Installation
     Insert Underlay topologies
