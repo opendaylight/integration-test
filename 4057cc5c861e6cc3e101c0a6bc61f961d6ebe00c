@@ -46,6 +46,30 @@
       "revId": "4057cc5c861e6cc3e101c0a6bc61f961d6ebe00c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_14aaab70",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-19T10:50:56Z",
+      "side": 1,
+      "message": "\u003e We need some delay\n\nSleeps are bad because Wait Until Keyword Succeeds constructs (WUKS) are better. But obfuscated code equivalent to sleep is worse than plain sleep.\n\nSo I would recommend to rework current 2 keywords Mininet Ping Should Succeed and Mininet Ping Should Not Succeed to use as small -c value as you need (1 if there are no packet drops expected, 2 they are possible but rare).\nThen introduce and use keywords named something like Wait Until Mininet Ping Stops Succeeding and Wait Until Mininet Ping Starts Succeeding (or write corresponding WUKS directly to suite code). This way person reading the suite code would have a better idea about behavior to expect.",
+      "parentUuid": "7aade967_1155dd1c",
+      "range": {
+        "startLine": 219,
+        "startChar": 4,
+        "endLine": 219,
+        "endChar": 14
+      },
+      "revId": "4057cc5c861e6cc3e101c0a6bc61f961d6ebe00c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
