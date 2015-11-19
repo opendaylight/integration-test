@@ -47,13 +47,7 @@ Connect_To_ODL_Netconf
 
 Get_Config_Running
     [Documentation]    Make sure the configuration has only the default elements in it.
-    ${reply}=    Load_And_Send_Message    get-config
-    BuiltIn.Should_Not_Contain    ${reply}    <name>name0</name>
-    BuiltIn.Should_Not_Contain    ${reply}    <name>name1</name>
-    BuiltIn.Should_Not_Contain    ${reply}    <name>name2</name>
-    BuiltIn.Should_Not_Contain    ${reply}    <name>name3</name>
-    BuiltIn.Should_Not_Contain    ${reply}    <name>name4</name>
-    BuiltIn.Set_Suite_Variable    ${empty_config}    ${reply}
+    Check_Test_Objects_Not_Present_In_Config    get-config
 
 Missing_Message_ID_Attribute
     [Documentation]    Check that messages with missing "message-ID" attribute are rejected with the correct error (RFC 6241, section 4.1).
@@ -74,7 +68,7 @@ Edit_Config_Modules_Merge
 
 Get_Config_Running_To_Confirm_No_Edit_Before_Commit
     [Documentation]    Make sure the running configuration is still unchanged as the change was not commited yet.
-    Send_And_Check    get-config-no-edit-before-commit    ${empty_config}
+    Check_Test_Objects_Not_Present_In_Config    get-config-no-edit-before-commit
 
 Commit_Edit
     [Documentation]    Commit the change and check the reply.
@@ -109,7 +103,7 @@ Commit_Delete
 
 Get_Config_Running_To_Confirm_Delete_After_Commit
     [Documentation]    Check that the element is gone.
-    Send_And_Check    get-config-delete-after-commit    ${empty_config}
+    Check_Test_Objects_Not_Present_In_Config    get-config-delete-after-commit
 
 Restconf_Get_Modules_Shall_Return_404
     [Documentation]    Check that "Not Found" is returned when Restconf is asked for the deleted element.
@@ -136,7 +130,7 @@ Discard_Changes
 
 Get_Config_Candidate_To_Confirm_Discard
     [Documentation]    Check that the element was really discarded.
-    Send_And_Check    get-config-candidate-discard    ${empty_config}
+    Check_Test_Objects_Not_Present_In_Config    get-config-candidate-discard
 
 Edit_Config_Modules_Multiple_Modules_Merge_1
     [Documentation]    Create the element with "name2" subelement again and check the reply.
@@ -335,6 +329,16 @@ Teardown_Everything
     [Documentation]    Close the Netconf connection and destroy all sessions in the requests library.
     Close_ODL_Netconf_Connection
     RequestsLibrary.Delete_All_Sessions
+
+Check_Test_Objects_Not_Present_In_Config
+    [Arguments]    ${name}
+    [Documentation]    Use dataset with the specified name to get the configuration and check that none of our test objects are there.
+    ${reply}=    Load_And_Send_Message    ${name}
+    BuiltIn.Should_Not_Contain    ${reply}    <name>name0</name>
+    BuiltIn.Should_Not_Contain    ${reply}    <name>name1</name>
+    BuiltIn.Should_Not_Contain    ${reply}    <name>name2</name>
+    BuiltIn.Should_Not_Contain    ${reply}    <name>name3</name>
+    BuiltIn.Should_Not_Contain    ${reply}    <name>name4</name>
 
 Perform_Test
     [Arguments]    ${name}
