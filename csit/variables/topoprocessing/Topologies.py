@@ -1,6 +1,7 @@
 UNDERLAY_TOPOLOGY_1 = '''<topology
                                 xmlns="urn:TBD:params:xml:ns:yang:network-topology"
-                                xmlns:pcep="urn:opendaylight:params:xml:ns:yang:topology:pcep">
+                                xmlns:pcep="urn:opendaylight:params:xml:ns:yang:topology:pcep"
+                                xmlns:ovsdb="urn:opendaylight:params:xml:ns:yang:ovsdb">
                             <topology-id>und-topo:1</topology-id>
                             <topology-types>
                                 <pcep:topology-pcep></pcep:topology-pcep>
@@ -10,6 +11,18 @@ UNDERLAY_TOPOLOGY_1 = '''<topology
                                 <pcep:path-computation-client>
                                     <pcep:ip-address>192.168.1.1</pcep:ip-address>
                                 </pcep:path-computation-client>
+                                <termination-point>
+                                    <tp-id>tp:1:1</tp-id>
+                                    <ovsdb:ofport>1119</ovsdb:ofport>
+                                </termination-point>
+                                <termination-point>
+                                    <tp-id>tp:1:2</tp-id>
+                                    <ovsdb:ofport>1119</ovsdb:ofport>
+                                </termination-point>
+                                <termination-point>
+                                    <tp-id>tp:1:3</tp-id>
+                                    <ovsdb:ofport>2119</ovsdb:ofport>
+                                </termination-point>
                             </node>
                             <node>
                                 <node-id>pcep:2</node-id>
@@ -22,24 +35,45 @@ UNDERLAY_TOPOLOGY_1 = '''<topology
                                 <pcep:path-computation-client>
                                     <pcep:ip-address>192.168.2.1</pcep:ip-address>
                                 </pcep:path-computation-client>
+                                <termination-point>
+                                    <tp-id>tp:3:1</tp-id>
+                                    <ovsdb:ofport>1118</ovsdb:ofport>
+                                </termination-point>
+                                <termination-point>
+                                    <tp-id>tp:3:2</tp-id>
+                                    <ovsdb:ofport>2118</ovsdb:ofport>
+                                </termination-point>
                             </node>
                             <node>
                                 <node-id>pcep:4</node-id>
                                 <pcep:path-computation-client>
                                     <pcep:ip-address>192.168.2.2</pcep:ip-address>
                                 </pcep:path-computation-client>
+                                <termination-point>
+                                    <tp-id>tp:4:1</tp-id>
+                                    <ovsdb:ofport>1117</ovsdb:ofport>
+                                </termination-point>
+                                <termination-point>
+                                    <tp-id>tp:4:2</tp-id>
+                                    <ovsdb:ofport>1117</ovsdb:ofport>
+                                </termination-point>
                             </node>
                             <node>
                                 <node-id>pcep:5</node-id>
                                 <pcep:path-computation-client>
                                     <pcep:ip-address>192.168.2.3</pcep:ip-address>
                                 </pcep:path-computation-client>
+                                <termination-point>
+                                    <tp-id>tp:5:1</tp-id>
+                                    <ovsdb:ofport>1116</ovsdb:ofport>
+                                </termination-point>
                             </node>
                         </topology>'''
 
 UNDERLAY_TOPOLOGY_2 = '''<topology
                                 xmlns="urn:TBD:params:xml:ns:yang:network-topology"
-                                xmlns:pcep="urn:opendaylight:params:xml:ns:yang:topology:pcep">
+                                xmlns:pcep="urn:opendaylight:params:xml:ns:yang:topology:pcep"
+                                xmlns:ovsdb="urn:opendaylight:params:xml:ns:yang:ovsdb">
                             <topology-id>und-topo:2</topology-id>
                             <topology-types>
                                 <pcep:topology-pcep></pcep:topology-pcep>
@@ -49,29 +83,49 @@ UNDERLAY_TOPOLOGY_2 = '''<topology
                                 <pcep:path-computation-client>
                                     <pcep:ip-address>192.168.1.3</pcep:ip-address>
                                 </pcep:path-computation-client>
+                                <termination-point>
+                                    <tp-id>tp:6:1</tp-id>
+                                    <ovsdb:ofport>1116</ovsdb:ofport>
+                                </termination-point>
                             </node>
                             <node>
                                 <node-id>pcep:7</node-id>
                                 <pcep:path-computation-client>
                                     <pcep:ip-address>192.168.1.4</pcep:ip-address>
                                 </pcep:path-computation-client>
+                                <termination-point>
+                                    <tp-id>tp:7:1</tp-id>
+                                    <ovsdb:ofport>1117</ovsdb:ofport>
+                                </termination-point>
                             </node>
                             <node>
                                 <node-id>pcep:8</node-id>
                                 <pcep:path-computation-client>
                                     <pcep:ip-address>192.168.2.4</pcep:ip-address>
                                 </pcep:path-computation-client>
+                                <termination-point>
+                                    <tp-id>tp:8:1</tp-id>
+                                    <ovsdb:ofport>11120</ovsdb:ofport>
+                                </termination-point>
                             </node>
                             <node>
                                 <node-id>pcep:9</node-id>
                                 <pcep:path-computation-client>
                                     <pcep:ip-address>192.168.2.5</pcep:ip-address>
                                 </pcep:path-computation-client>
+                                <termination-point>
+                                    <tp-id>tp:9:1</tp-id>
+                                    <ovsdb:ofport>1121</ovsdb:ofport>
+                                </termination-point>
                             </node>
                             <node>
                                 <node-id>pcep:10</node-id>
                                 <pcep:path-computation-client>
                                     <pcep:ip-address>192.168.2.3</pcep:ip-address>
                                 </pcep:path-computation-client>
+                                <termination-point>
+                                    <tp-id>tp:10:1</tp-id>
+                                    <ovsdb:ofport>1122</ovsdb:ofport>
+                                </termination-point>
                             </node>
                         </topology>'''
