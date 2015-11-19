@@ -37,25 +37,32 @@ Resource          ${CURDIR}/../../../libraries/PrefixCounting.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 
 *** Variables ***
+${BGP_TOOL_LOG_LEVEL}    info
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
-${HOLDTIME}       180
-${HOLDTIME_PREFIX_COUNT}    ${HOLDTIME}
-${COUNT}          1000000
-${COUNT_PREFIX_COUNT}    ${COUNT}
 ${CHECK_PERIOD}    1
 ${CHECK_PERIOD_PREFIX_COUNT}    ${CHECK_PERIOD}
-${REPETITIONS_PREFIX_COUNT}    1
+${CHECK_PERIOD_PREFIX_COUNT_SINGLE}    ${CHECK_PERIOD_PREFIX_COUNT}
+${COUNT}          1000000
+${COUNT_PREFIX_COUNT}    ${COUNT}
+${COUNT_PREFIX_COUNT_SINGLE}    ${COUNT_PREFIX_COUNT}
+${HOLDTIME}       180
+${HOLDTIME_PREFIX_COUNT}    ${HOLDTIME}
+${HOLDTIME_PREFIX_COUNT_SINGLE}    ${HOLDTIME_PREFIX_COUNT}
 ${INSERT}         1
-${WITHDRAW}       0
+${KARAF_LOG_LEVEL}    INFO
+${KARAF_BGPCEP_LOG_LEVEL}    ${KARAF_LOG_LEVEL}
+${KARAF_PROTOCOL_LOG_LEVEL}    ${KARAF_BGPCEP_LOG_LEVEL}
 ${PREFILL}        0
-${UPDATE}         single
-${BGP_TOOL_LOG_LEVEL}    info
-${CONTROLLER_LOG_LEVEL}    INFO
-${CONTROLLER_BGP_LOG_LEVEL}    DEFAULT
+${REPETITIONS}    1
+${REPETITIONS_PREFIX_COUNT}    ${REPETITIONS}
+${REPETITIONS_PREFIX_COUNT_SINGLE}    ${REPETITIONS_PREFIX_COUNT}
 ${RESULTS_FILE_NAME}    bgp.csv
 ${TEST_DURATION_MULTIPLIER}    1
+${TEST_DURATION_MULTIPLIER_PREFIX_COUNT}    ${TEST_DURATION_MULTIPLIER}
+${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_SINGLE}    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT}
+${UPDATE}         single
+${WITHDRAW}       0
 # TODO: Option names can be better.
-${last_prefix_count}    -1
 
 *** Test Cases ***
 Check_For_Empty_Ipv4_Topology_Before_Talking
@@ -66,22 +73,26 @@ Check_For_Empty_Ipv4_Topology_Before_Talking
 
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
-    ${template_as_string} =    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${TOOLS_SYSTEM_IP}', 'HOLDTIME': '${HOLDTIME_PREFIX_COUNT}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'false'}
+    ${template_as_string} =    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${TOOLS_SYSTEM_IP}', 'HOLDTIME': '${HOLDTIME_PREFIX_COUNT_SINGLE}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'false'}
     ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
+
+Change_Karaf_Logging_Levels
+    [Documentation]    We may want to set more verbose logging here after configuration is done.
+    KarafKeywords.Set_Bgpcep_Log_Levels    bgpcep_level=${KARAF_BGPCEP_LOG_LEVEL}    protocol_level=${KARAF_PROTOCOL_LOG_LEVEL}
 
 Start_Talking_BGP_Speaker
     [Documentation]    Start Python speaker to connect to ODL.
     # Myport value is needed for checking whether connection at precise port was established.
-    BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT_PREFIX_COUNT} --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --update ${UPDATE} --${BGP_TOOL_LOG_LEVEL} --results ${RESULTS_FILE_NAME}
+    BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT_PREFIX_COUNT_SINGLE} --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --update ${UPDATE} --${BGP_TOOL_LOG_LEVEL} --results ${RESULTS_FILE_NAME}
 
 Wait_For_Stable_Talking_Ipv4_Topology
     [Documentation]    Wait until example-ipv4-topology becomes stable. This is done by checking stability of prefix count.
-    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_PREFIX_COUNT}    repetitions=${REPETITIONS_PREFIX_COUNT}    excluded_count=0
+    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_PREFIX_COUNT_SINGLE}    repetitions=${REPETITIONS_PREFIX_COUNT_SINGLE}    excluded_count=0
 
 Check_Talking_Ipv4_Topology_Count
     [Documentation]    Count the routes in example-ipv4-topology and fail if the count is not correct.
     [Tags]    critical
-    PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT_PREFIX_COUNT}
+    PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT_PREFIX_COUNT_SINGLE}
 
 Kill_Talking_BGP_Speaker
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
@@ -106,7 +117,7 @@ Wait_For_Stable_Ipv4_Topology_After_Talking
     # TODO: Is is possible to have failed at Check_Talking_Ipv4_Topology_Count and still have initial period of constant count?
     # FIXME: If yes, do count here to get the initial value and use it (if nonzero).
     # TODO: If yes, decide whether access to the FailFast state should have keyword or just variable name.
-    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_PREFIX_COUNT}    repetitions=${REPETITIONS_PREFIX_COUNT}    excluded_count=${COUNT_PREFIX_COUNT}
+    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_PREFIX_COUNT_SINGLE}    repetitions=${REPETITIONS_PREFIX_COUNT_SINGLE}    excluded_count=${COUNT_PREFIX_COUNT_SINGLE}
 
 Check_For_Empty_Ipv4_Topology_After_Talking
     [Documentation]    Example-ipv4-topology should be empty now.
@@ -115,21 +126,21 @@ Check_For_Empty_Ipv4_Topology_After_Talking
 
 Start_Listening_BGP_Speaker
     [Documentation]    Start Python speaker in listening mode.
-    BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT_PREFIX_COUNT} --listen --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --update ${UPDATE} --${BGP_TOOL_LOG_LEVEL} --results ${RESULTS_FILE_NAME}
+    BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT_PREFIX_COUNT_SINGLE} --listen --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --update ${UPDATE} --${BGP_TOOL_LOG_LEVEL} --results ${RESULTS_FILE_NAME}
 
 Reconfigure_ODL_To_Initiate_Connection
     [Documentation]    Replace BGP peer config module, now with initiate-connection set to true.
-    ${template_as_string} =    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${TOOLS_SYSTEM_IP}', 'HOLDTIME': '${HOLDTIME_PREFIX_COUNT}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'true'}
+    ${template_as_string} =    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${TOOLS_SYSTEM_IP}', 'HOLDTIME': '${HOLDTIME_PREFIX_COUNT_SINGLE}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'true'}
     ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
 
 Wait_For_Stable_Listening_Ipv4_Topology
     [Documentation]    Wait until example-ipv4-topology becomes stable.
-    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_PREFIX_COUNT}    repetitions=${REPETITIONS_PREFIX_COUNT}    excluded_count=0
+    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_PREFIX_COUNT_SINGLE}    repetitions=${REPETITIONS_PREFIX_COUNT_SINGLE}    excluded_count=0
 
 Check_Listening_Ipv4_Topology_Count
     [Documentation]    Count the routes in example-ipv4-topology and fail if the count is not correct.
     [Tags]    critical
-    PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT_PREFIX_COUNT}
+    PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT_PREFIX_COUNT_SINGLE}
 
 Kill_Listening_BGP_Speaker
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
@@ -151,12 +162,16 @@ Store_Results_For_Listening_BGP_Speaker
 Wait_For_Stable_Ipv4_Topology_After_Listening
     [Documentation]    Wait until example-ipv4-topology becomes stable again.
     [Tags]    critical
-    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_PREFIX_COUNT}    repetitions=${REPETITIONS_PREFIX_COUNT}    excluded_count=${COUNT_PREFIX_COUNT}
+    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_PREFIX_COUNT_SINGLE}    repetitions=${REPETITIONS_PREFIX_COUNT_SINGLE}    excluded_count=${COUNT_PREFIX_COUNT_SINGLE}
 
 Check_For_Empty_Ipv4_Topology_After_Listening
     [Documentation]    Example-ipv4-topology should be empty now.
     [Tags]    critical
     PrefixCounting.Check_Ipv4_Topology_Is_Empty
+
+Restore_Karaf_Logging_Levels
+    [Documentation]    Set logging on bgpcep and protocol to the global value.
+    KarafKeywords.Set_Bgpcep_Log_Levels    bgpcep_level=${KARAF_LOG_LEVEL}    protocol_level=${KARAF_LOG_LEVEL}
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
@@ -181,16 +196,15 @@ Setup_Everything
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
     # Calculate the timeout value based on how many routes are going to be pushed
     # TODO: Replace 20 with some formula from period and repetitions.
-    ${timeout} =    BuiltIn.Evaluate    ${TEST_DURATION_MULTIPLIER} * ${COUNT_PREFIX_COUNT} * 3.0 / 10000 + 20
+    ${timeout} =    BuiltIn.Evaluate    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_SINGLE} * (${COUNT_PREFIX_COUNT_SINGLE} * 3.0 / 10000 + 20)
     Builtin.Set_Suite_Variable    ${bgp_filling_timeout}    ${timeout}
     Builtin.Set_Suite_Variable    ${bgp_emptying_timeout}    ${bgp_filling_timeout*3.0/4}
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.bgpcep
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.protocol
+    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${KARAF_LOG_LEVEL}
 
 Teardown_Everything
     [Documentation]    Make sure Python tool was killed and tear down imported Resources.
-    KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
+    # Environment issue may have dropped the SSH connection, but we do not want Teardown to fail.
+    BuiltIn.Run_Keyword_And_Ignore_Error    KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
     ConfigViaRestconf.Teardown_Config_Via_Restconf
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
