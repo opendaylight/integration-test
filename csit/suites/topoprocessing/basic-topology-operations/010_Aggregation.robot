@@ -48,7 +48,6 @@ Unification Node Inventory
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <node-ref>of-node:10</node-ref>    1
     Should Contain X Times    ${node}    <node-ref>of-node:4</node-ref>    1
-
 Unification Scripting Node
     [Documentation]    Test unification operation on Network Topology model using scripting
     ${request}    Prepare Unification Topology Request    ${UNIFICATION_NT}    network-topology-model    node    network-topology-pcep:path-computation-client/network-topology-pcep:ip-address    network-topo:1
@@ -104,3 +103,50 @@ Unification Node Inside Inventory
     Should Contain X Times    ${node}    <supporting-node>    2
     Should Contain    ${node}    <supporting-node><node-ref>of-node:7</node-ref>
     Should Contain    ${node}    <supporting-node><node-ref>of-node:9</node-ref>
+
+Unification Termination Point Inside
+    [Documentation]    Test aggregate inside operation on termination points
+    ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    network-topology-model    termination-point    ovsdb:ofport    network-topo:1
+    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
+    ${response_xml}    Get Element    ${resp.content}    xpath=.//topology[topology-id='topo:1']
+    ${response_xml}    Element to String    ${response_xml}
+    Should Contain X Times    ${resp.content}    <node-id>node:    5
+    Should Contain X Times    ${response_xml}    <termination-point>    6
+    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='pcep:1']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <termination-point>    2
+    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='pcep:3']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <termination-point>    2
+    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='pcep:4']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <termination-point>    1
+    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='pcep:5']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <termination-point>    1
+
+Unification Termination Point Inside Inventory
+    [Documentation]    Test aggregate inside operation on termination points
+    ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    opendaylight-inventory-model    termination-point    flow-node-inventory:port-number    openflow-topo:1
+    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
+    ${response_xml}    Get Element    ${resp.content}    xpath=.//topology[topology-id='topo:1']
+    ${response_xml}    Element to String    ${response_xml}
+    Should Contain X Times    ${resp.content}    <node-id>node:    5
+    Should Contain X Times    ${response_xml}    <termination-point>    7
+    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='of-node:1']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <termination-point>    1
+    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <termination-point>    2
+    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='of-node:3']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <termination-point>    2
+    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='of-node:4']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <termination-point>    1
+    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='of-node:5']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <termination-point>    1
