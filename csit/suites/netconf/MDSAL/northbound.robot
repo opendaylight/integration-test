@@ -36,6 +36,7 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 *** Variables ***
 ${datadir}        ${CURDIR}/../../../variables/netconf/MDSAL
 ${dataext}        msg
+${ssh_netconf_pid}    -1
 
 *** Test Cases ***
 Connect_To_ODL_Netconf
@@ -317,8 +318,11 @@ Load_Expected_Reply
 
 Close_ODL_Netconf_Connection
     [Documentation]    Correctly close the Netconf connection and make sure it is really dead.
+    BuiltIn.Return_From_Keyword_If    ${ssh_netconf_pid} == -1
+    ${kill_command}=    BuiltIn.Set_Variable    kill ${ssh_netconf_pid}
+    BuiltIn.Set_Suite_Variable    ${ssh_netconf_pid}    -1
     SSHLibrary.Switch_Connection    ${ssh_control}
-    SSHLibrary.Write    kill ${ssh_netconf_pid}
+    SSHLibrary.Write    ${kill_command}
     SSHLibrary.Read_Until_Prompt
     SSHLibrary.Switch_Connection    ${ssh_netconf}
     SSHLibrary.Read_Until_Prompt
