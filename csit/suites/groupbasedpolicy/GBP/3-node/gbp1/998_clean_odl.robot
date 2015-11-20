@@ -1,8 +1,8 @@
 *** Settings ***
 Documentation     Test suite for cleaning up / unregister infrastructure constructs like endpoints for demo-asymmetric-chain
-Default Tags      single-tenant    teardown    single-tenant-teardown
 Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
+Default Tags      single-tenant    teardown    single-tenant-teardown
 Library           RequestsLibrary
 Library           OperatingSystem
 Library           json
@@ -11,11 +11,9 @@ Resource          ../../../../../libraries/Utils.robot
 Resource          ../../../../../libraries/GBP/RestconfUtils.robot
 Resource          ../Variables.robot
 
-
 *** Variables ***
 
 *** Test Cases ***
-
 Delete Tenant
     [Documentation]    Delete Tenants from ODL
     Remove All Elements At URI    ${TENANT1_PATH}

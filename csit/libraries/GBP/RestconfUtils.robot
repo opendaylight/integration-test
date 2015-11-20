@@ -7,8 +7,8 @@ Variables         ../../variables/Variables.py
 Resource          ../Utils.robot
 
 *** Variables ***
-${ENDPOINT_UNREG_PATH}     ${GBP_UNREGEP_API}
-${ENDPOINTS_OPER_PATH}     /restconf/operational/endpoint:endpoints
+${ENDPOINT_UNREG_PATH}    ${GBP_UNREGEP_API}
+${ENDPOINTS_OPER_PATH}    /restconf/operational/endpoint:endpoints
 
 *** Keywords ***
 Unregister Endpoints
@@ -31,14 +31,14 @@ Unregister L2Endpoints
     [Documentation]    Unregister Endpoints L2Endpoints from ODL
     : FOR    ${endpoint}    IN    @{l2_eps}
     \    ${l2_data} =    Create L2 Endpoint JSON Data    ${endpoint}
-    \    Post Elements To URI    ${ENDPOINT_UNREG_PATH}     ${l2_data}
+    \    Post Elements To URI    ${ENDPOINT_UNREG_PATH}    ${l2_data}
 
 Unregister L3Endpoints
     [Arguments]    ${l3_eps}
     [Documentation]    Unregister Endpoints L3Endpoints from ODL
     : FOR    ${endpoint}    IN    @{l3_eps}
     \    ${l3_data} =    Create L3 Endpoint JSON Data    ${endpoint}
-    \    Post Elements To URI    ${ENDPOINT_UNREG_PATH}     ${l3_data}
+    \    Post Elements To URI    ${ENDPOINT_UNREG_PATH}    ${l3_data}
 
 Create L2 Endpoint JSON Data
     [Arguments]    ${endpoint}

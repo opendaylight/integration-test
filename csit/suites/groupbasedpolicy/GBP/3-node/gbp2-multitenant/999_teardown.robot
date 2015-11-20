@@ -7,13 +7,11 @@ Variables         ../../../../../variables/Variables.py
 Resource          ../Variables.robot
 Resource          ../GBP_3node.robot
 
-
 *** Variables ***
-${timeout} =     10s
-
+${timeout}        10s
 
 *** Test Cases ***
 Teardown Suite
     Log    Teardown suite in gbp1
-    :FOR    ${GBP}    IN    @{GBPs}
+    : FOR    ${GBP}    IN    @{GBPs}
     \    GBP_3node.Teardown Node    ${GBP}    ${CURDIR}    timeout=${timeout}
