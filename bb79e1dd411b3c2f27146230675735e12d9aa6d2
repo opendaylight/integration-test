@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_c068c9f7",
+        "filename": "csit/libraries/LISPFlowMapping.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-20T12:52:04Z",
+      "side": 1,
+      "message": "4 spaces.\n\nI was not sure about the ellipsis, as tidy tool [0] behavior can depend on Robot Framework version (earlier versions would allow longer line 20).\nPip installs robotframework\u003d\u003d2.9.2 which agrees with the ellipsis, but it has spotted the 3 spaces.\n\n[0] http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#test-data-clean-up-tool-tidy",
+      "range": {
+        "startLine": 21,
+        "startChar": 51,
+        "endLine": 21,
+        "endChar": 54
+      },
+      "revId": "bb79e1dd411b3c2f27146230675735e12d9aa6d2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
