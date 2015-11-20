@@ -58,23 +58,24 @@ def get_variables(mininet1_ip, mininet2_ip):
             },
             {
                 "enabled": "true",
-                "odl-interface:of-port-id": "openflow:1:3",
-                "description": "VM Port mpls",
+                "odl-interface:datapath-node-identifier": "1",
+                "description": "gre port",
                 "name": "s1-gre1",
-                "type": "odl-interface:l3tunnel",
-                "odl-interface:tunnel-type": "odl-interface:tunnel-type-gre",
-                "odl-interface:local-ip": mininet1_ip,
-                "odl-interface:remote-ip": mininet2_ip
+                "type": "iana-if-type:tunnel",
+                "odl-interface:tunnel-interface-type": "odl-interface:tunnel-type-gre",                
+                "odl-interface:tunnel-source": mininet1_ip,
+                "odl-interface:tunnel-destination": mininet2_ip
+
             },
             {
                 "enabled": "true",
-                "odl-interface:of-port-id": "openflow:2:3",
-                "description": "VM Port mpls",
+                "odl-interface:datapath-node-identifier": "2",
+                "description": "gre port",
                 "name": "s2-gre1",
-                "type": "odl-interface:l3tunnel",
-                "odl-interface:tunnel-type": "odl-interface:tunnel-type-gre",
-                "odl-interface:local-ip": mininet2_ip,
-                "odl-interface:remote-ip": mininet1_ip
+                "type": "iana-if-type:tunnel",
+                "odl-interface:tunnel-interface-type": "odl-interface:tunnel-type-gre",
+                "odl-interface:tunnel-source": mininet2_ip,
+                "odl-interface:tunnel-destination": mininet1_ip
             }
         ]
     }
