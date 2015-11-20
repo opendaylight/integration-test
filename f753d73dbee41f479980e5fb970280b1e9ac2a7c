@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_203f5d27",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-20T11:55:58Z",
+      "side": 1,
+      "message": "Mininet Ping Should Succeed keyword (MPSS) is called by suites like this:\nWait Until Keyword Succeeds    12s    2s    Mininet Ping Should Succeed    ...\n\nCurrently MPSS takes 9 seconds. If the first MPSS fails, WUKS will start another one 11 seconds in, and it will take another 9 seconds. So 20 seconds instead of 12. I do not like that.\nWhat is your minimum (in term of time taken) condition to consider MPSS passed? I do not really think 1 out of 10 pings is that minimum, considering you apply WUKS on top of that.",
+      "range": {
+        "startLine": 212,
+        "startChar": 30,
+        "endLine": 212,
+        "endChar": 32
+      },
+      "revId": "f753d73dbee41f479980e5fb970280b1e9ac2a7c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
