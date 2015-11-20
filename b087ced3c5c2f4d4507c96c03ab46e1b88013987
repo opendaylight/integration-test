@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_e5a95725",
+        "filename": "csit/libraries/LISPFlowMapping.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-20T09:40:31Z",
+      "side": 1,
+      "message": "This test variable is just a way to obtain \"return value\" from previously run Keyword, and it is not used anywhere else, right?\n\nBut BuiltIn.Run_Keyword_If already results in value returned by the run Keyword (or None, which will not happen with your ELSE), so you can return values directly instead of relying on test variables.",
+      "range": {
+        "startLine": 22,
+        "startChar": 16,
+        "endLine": 22,
+        "endChar": 35
+      },
+      "revId": "b087ced3c5c2f4d4507c96c03ab46e1b88013987",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
