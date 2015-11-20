@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_805f3172",
+        "filename": "csit/libraries/VtnCoKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 270,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-20T12:17:46Z",
+      "side": 1,
+      "message": "My comment to the other Resource also applies here.\nhttps://git.opendaylight.org/gerrit/#/c/29187/13/csit/libraries/VtnMaKeywords.robot@212",
+      "range": {
+        "startLine": 270,
+        "startChar": 30,
+        "endLine": 270,
+        "endChar": 31
+      },
+      "revId": "684a052702838b3acef82dc667c41cbc47bb9c9c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
