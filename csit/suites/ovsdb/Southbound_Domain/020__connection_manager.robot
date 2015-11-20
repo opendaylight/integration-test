@@ -2,6 +2,8 @@
 Documentation     Test suite for Connection Manager
 Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
+Test Setup        Mark Test Case Start In Karaf Log
+Test Teardown     Mark Test Case Stop In Karaf Log
 Library           OperatingSystem
 Library           String
 Library           RequestsLibrary
@@ -23,7 +25,7 @@ Connecting an OVS instance to the controller
 Get Operational Topology to verify the ovs instance is connected to the controller
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes
     [Tags]    Southbound
-    Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${node_list}
+    Wait Until Keyword Succeeds    180s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${node_list}
 
 Get Config Topology
     [Documentation]    This request will fetch the configuration topology from configuration data store
@@ -140,3 +142,12 @@ Get Operational Topology after Deletion of integration Bridge
     [Tags]    Southbound
     @{list}    Create List    br-int    br-s1
     Wait Until Keyword Succeeds    8s    2s    Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}    ${list}
+
+*** Keywords ***
+Mark Test Case Start In Karaf Log
+    Open Controller Karaf Console On Background
+    Log Message To Controller Karaf    JAMO ADDED THIS DEBUG FOR TEST CASE START
+
+Mark Test Case Stop In Karaf Log
+    Open Controller Karaf Console On Background
+    Log Message To Controller Karaf    JAMO ADDED THIS DEBUG FOR TEST CASE STOP
