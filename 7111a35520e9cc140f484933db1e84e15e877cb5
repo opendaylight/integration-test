@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_2a1adb17",
+        "filename": "csit/suites/vpnservice/030__configure_2_switches.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2015-11-20T15:10:57Z",
+      "side": 1,
+      "message": "Reason for increase in delay?",
+      "revId": "7111a35520e9cc140f484933db1e84e15e877cb5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
