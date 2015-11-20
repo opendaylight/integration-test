@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_6a41b338",
+        "filename": "csit/suites/netconf/clustering/CRUD.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-20T14:01:40Z",
+      "side": 1,
+      "message": "Why not try Configurer first? perhaps that will not get 404 yet, only after remote check is attempted.",
+      "range": {
+        "startLine": 71,
+        "startChar": 38,
+        "endLine": 71,
+        "endChar": 45
+      },
+      "revId": "944b3f2752817fd5c1c60f1bd83d1e1e995cb555",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_2a4bbb5a",
+        "filename": "csit/suites/netconf/clustering/CRUD.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-20T14:01:40Z",
+      "side": 1,
+      "message": "Once again, I think the case with maximal change of success should be tried first. In this case, Setter.",
+      "range": {
+        "startLine": 96,
+        "startChar": 36,
+        "endLine": 96,
+        "endChar": 43
+      },
+      "revId": "944b3f2752817fd5c1c60f1bd83d1e1e995cb555",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_4a48775b",
+        "filename": "csit/suites/netconf/clustering/CRUD.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-20T14:01:40Z",
+      "side": 1,
+      "message": "Any reason why this is not wrapped in WUKS as in the nearby test cases?",
+      "range": {
+        "startLine": 105,
+        "startChar": 4,
+        "endLine": 105,
+        "endChar": 21
+      },
+      "revId": "944b3f2752817fd5c1c60f1bd83d1e1e995cb555",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_6a68d3ba",
+        "filename": "csit/suites/netconf/clustering/CRUD.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-20T14:01:40Z",
+      "side": 1,
+      "message": "Only now I have realized this checks for */yang-ext:mount URI. That only means no data is mounted, but topology-netconf may still contain a node, perhaps with status other than \"connected\". We want to make sure 404 is returned even on\nnetwork-topology:network-topology/topology/topology-netconf/node/netconf-test-device",
+      "range": {
+        "startLine": 135,
+        "startChar": 20,
+        "endLine": 135,
+        "endChar": 45
+      },
+      "revId": "944b3f2752817fd5c1c60f1bd83d1e1e995cb555",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
