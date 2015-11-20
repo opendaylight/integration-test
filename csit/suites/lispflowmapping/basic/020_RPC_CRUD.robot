@@ -11,12 +11,12 @@ Resource          ../../../libraries/LISPFlowMapping.robot
 Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
-${IPV4_C_KEY}     ${CURDIR}/../../../variables/lispflowmapping/rpc_add-key_ipv4.json
-${IPV4_RD}        ${CURDIR}/../../../variables/lispflowmapping/rpc_get-remove_ipv4.json
-${MISS_RD}        ${CURDIR}/../../../variables/lispflowmapping/rpc_get-remove_missing.json
-${IPV4_U_KEY}     ${CURDIR}/../../../variables/lispflowmapping/rpc_update-key_ipv4.json
-${IPV4_C_MAP}     ${CURDIR}/../../../variables/lispflowmapping/rpc_add-mapping_ipv4_ipv4.json
-${IPV4_U_MAP}     ${CURDIR}/../../../variables/lispflowmapping/rpc_update-mapping_ipv4_ipv4.json
+${IPV4_C_KEY}     ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_add-key_ipv4.json
+${IPV4_RD}        ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_get-remove_ipv4.json
+${MISS_RD}        ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_get-remove_missing.json
+${IPV4_U_KEY}     ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_update-key_ipv4.json
+${IPV4_C_MAP}     ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_add-mapping_ipv4_ipv4.json
+${IPV4_U_MAP}     ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_update-mapping_ipv4_ipv4.json
 
 *** Test Cases ***
 Create Key
@@ -38,9 +38,7 @@ Read Key
     [Documentation]    Read an existing key for an IPv4 EID
     ${get_key}=    OperatingSystem.Get File    ${IPV4_RD}
     ${resp}=    Post Log Check    ${LFM_RPC_API}:get-key    ${get_key}
-    ${output}=    Get From Dictionary    ${resp.json()}    output
-    ${password}=    Get From Dictionary    ${output}    authkey
-    Should Be Equal As Strings    ${password}    password
+    Authentication Key Should Be    ${resp}    password
 
 Update Key
     [Documentation]    Update an existing key for an IPv4 EID
@@ -51,9 +49,7 @@ Read Updated Key
     [Documentation]    Read the key updated in the previous test
     ${get_key}=    OperatingSystem.Get File    ${IPV4_RD}
     ${resp}=    Post Log Check    ${LFM_RPC_API}:get-key    ${get_key}
-    ${output}=    Get From Dictionary    ${resp.json()}    output
-    ${password}=    Get From Dictionary    ${output}    authkey
-    Should Be Equal As Strings    ${password}    updated-password
+    Authentication Key Should Be    ${resp}    updated-password
 
 Delete Key
     [Documentation]    Delete an existing key for an IPv4 EID
@@ -84,15 +80,7 @@ Read Mapping
     [Documentation]    Read an existing mapping for an IPv4 EID
     ${get_mapping}=    OperatingSystem.Get File    ${IPV4_RD}
     ${resp}=    Post Log Check    ${LFM_RPC_API}:get-mapping    ${get_mapping}
-    ${output}=    Get From Dictionary    ${resp.json()}    output
-    ${eid_record}=    Get From Dictionary    ${output}    eidToLocatorRecord
-    ${eid_record_0}=    Get From List    ${eid_record}    0
-    ${loc_record}=    Get From Dictionary    ${eid_record_0}    LocatorRecord
-    ${loc_record_0}=    Get From List    ${loc_record}    0
-    ${loc}=    Get From Dictionary    ${loc_record_0}    LispAddressContainer
-    ${address}=    Get From Dictionary    ${loc}    Ipv4Address
-    ${ipv4}=    Get From Dictionary    ${address}    Ipv4Address
-    Should Be Equal As Strings    ${ipv4}    10.10.10.10
+    Ipv4 Rloc Should Be    ${resp}    10.10.10.10
 
 Update Mapping
     [Documentation]    Update an existing mapping for an IPv4 EID
@@ -103,15 +91,7 @@ Read Updated Mapping
     [Documentation]    Read the mapping updated in the previous test
     ${get_mapping}=    OperatingSystem.Get File    ${IPV4_RD}
     ${resp}=    Post Log Check    ${LFM_RPC_API}:get-mapping    ${get_mapping}
-    ${output}=    Get From Dictionary    ${resp.json()}    output
-    ${eid_record}=    Get From Dictionary    ${output}    eidToLocatorRecord
-    ${eid_record_0}=    Get From List    ${eid_record}    0
-    ${loc_record}=    Get From Dictionary    ${eid_record_0}    LocatorRecord
-    ${loc_record_0}=    Get From List    ${loc_record}    0
-    ${loc}=    Get From Dictionary    ${loc_record_0}    LispAddressContainer
-    ${address}=    Get From Dictionary    ${loc}    Ipv4Address
-    ${ipv4}=    Get From Dictionary    ${address}    Ipv4Address
-    Should Be Equal As Strings    ${ipv4}    20.20.20.20
+    Ipv4 Rloc Should Be    ${resp}    20.20.20.20
 
 Delete Mapping
     [Documentation]    Delete an existing mapping for an IPv4 EID
