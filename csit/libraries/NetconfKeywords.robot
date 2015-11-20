@@ -52,7 +52,7 @@ Check_Device_Completely_Gone
     [Arguments]    ${device_name}
     [Documentation]    Check that the specified device has no Netconf connectors nor associated data.
     Check_Device_Has_No_Netconf_Connector    ${device_name}
-    ${uri}=    Builtin.Set_Variable    network-topology:network-topology/topology/topology-netconf/node/${device_name}/yang-ext:mount
+    ${uri}=    Builtin.Set_Variable    network-topology:network-topology/topology/topology-netconf/node/${device_name}
     ${response}=    RequestsLibrary.Get Request    nvr_session    ${uri}    ${ACCEPT_XML}
     BuiltIn.Should_Be_Equal_As_Integers    ${response.status_code}    404
 
