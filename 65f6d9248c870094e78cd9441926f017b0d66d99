@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7aade967_8ace6f59",
+        "filename": "csit/suites/packetcable/PCMM/010__pcmm_rest_call.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 4770
+      },
+      "writtenOn": "2015-11-20T20:08:29Z",
+      "side": 1,
+      "message": "Thank you, I completely missed that... of course it is making it a list, I told it to be a list.  /me sighs",
+      "parentUuid": "7aade967_6ace9385",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 14
+      },
+      "revId": "65f6d9248c870094e78cd9441926f017b0d66d99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7aade967_2ac89b73",
         "filename": "csit/variables/packetcable/PacketcableVars.py",
         "patchSetId": 5
