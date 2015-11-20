@@ -67,7 +67,14 @@ Add Multiple Managers to OVS
     Log    Check OVS configuratiom
     ${output}=    Run Command On Mininet    ${mininet}    sudo ovs-vsctl show
     Log    ${output}
-    [Return]    ${mininet_conn_id}
+    ${output1}=    Split String    ${output}    :
+    Log    ${output1}
+    ${controller1}=    Get from List    ${output1}    1
+    ${controller2}=    Get from List    ${output1}    4
+    ${controller3}=    Get from List    ${output1}    7
+    ${controller_list}    Create List    ${controller1}    ${controller2}    ${controller3}
+    Log    ${controller_list}
+    [Return]    ${mininet_conn_id}    ${controller_list}
 
 Send Mininet Command
     [Arguments]    ${mininet_conn_id}    ${cmd}=help
