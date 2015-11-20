@@ -50,6 +50,25 @@ Start Mininet Multiple Controllers
     Log    ${output}
     [Return]    ${mininet_conn_id}
 
+Add Multiple Managers to OVS
+    [Arguments]    ${mininet}    ${controller_index_list}  ${ovs_mgr_port}=6640
+    [Documentation]    Start Mininet with custom topology and connect to all controllers in the ${controller_index_list}.
+    Log    Clear any existing mininet
+    Clean Mininet System    ${mininet}
+    ${mininet_conn_id}=    Open Connection    ${mininet}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=${DEFAULT_TIMEOUT}
+    Set Suite Variable    ${mininet_conn_id}
+    Flexible Mininet Login
+    ${ovs_opt}=    Set Variable
+    : FOR    ${index}    IN    @{controller_index_list}
+    \    ${ovs_opt}=    Catenate    ${ovs_opt}    ${SPACE}tcp:${ODL_SYSTEM_${index}_IP}:${ovs_mgr_port}
+    \    Log    ${ovs_opt}
+    Log    Configure OVS Managers in the OVS
+    Run Command On Mininet    ${mininet}    sudo ovs-vsctl set-manager ${ovs_opt}
+    Log    Check OVS configuratiom
+    ${output}=    Run Command On Mininet    ${mininet}    sudo ovs-vsctl show
+    Log    ${output}
+    [Return]    ${mininet_conn_id}
+
 Send Mininet Command
     [Arguments]    ${mininet_conn_id}    ${cmd}=help
     [Documentation]    Sends Command ${cmd} to Mininet session ${mininet_conn_id} and returns read buffer response.
