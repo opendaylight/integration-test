@@ -47,9 +47,9 @@ Verify ietf interfaces
     [Documentation]    Verifies ietf interfaces created in datastores
     [Tags]    Get
     Wait Until Keyword Succeeds    5s    1s    Check For Elements At URI    ${REST_CON}/ietf-interfaces:interfaces/    ${ietf_int_values}
-    Wait Until Keyword Succeeds    5s    1s    Check For Elements At URI    ${REST_OPER}/ietf-interfaces:interfaces-state/    ${ietf_int_values}
+    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${REST_OPER}/ietf-interfaces:interfaces-state/    ${ietf_int_values}
     @{state}=    Create List    down
-    Wait Until Keyword Succeeds    2s    1s    Check For Elements Not At URI    ${REST_OPER}/ietf-interfaces:interfaces-state/    ${state}
+    Wait Until Keyword Succeeds    10s    2s    Check For Elements Not At URI    ${REST_OPER}/ietf-interfaces:interfaces-state/    ${state}
 
 Create VPN interfaces
     [Documentation]    Creates vpn interface for the corresponding ietf interface
