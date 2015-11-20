@@ -14,25 +14,25 @@ Resource          ../../../libraries/LISPFlowMapping.robot
 Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
-${IPV4_C_MAP}     ${CURDIR}/../../../variables/lispflowmapping/rpc_add-mapping_ipv4_ipv4.json
-${IPV4_RD}        ${CURDIR}/../../../variables/lispflowmapping/rpc_get-remove_ipv4.json
-${IPV6_C_MAP}     ${CURDIR}/../../../variables/lispflowmapping/rpc_add-mapping_ipv6_ipv4.json
-${IPV6_RD}        ${CURDIR}/../../../variables/lispflowmapping/rpc_get-remove_ipv6.json
-${MAC_C_MAP}      ${CURDIR}/../../../variables/lispflowmapping/rpc_add-mapping_mac_ipv4.json
-${MAC_RD}         ${CURDIR}/../../../variables/lispflowmapping/rpc_get-remove_mac.json
-${DN_C_MAP}       ${CURDIR}/../../../variables/lispflowmapping/rpc_add-mapping_dn_ipv4.json
-${DN_RD}          ${CURDIR}/../../../variables/lispflowmapping/rpc_get-remove_dn.json
-${AS_C_MAP}       ${CURDIR}/../../../variables/lispflowmapping/rpc_add-mapping_as_ipv4.json
-${AS_RD}          ${CURDIR}/../../../variables/lispflowmapping/rpc_get-remove_as.json
-${IID_C_MAP}      ${CURDIR}/../../../variables/lispflowmapping/rpc_add-mapping_iid_ipv4.json
-${IID_RD}         ${CURDIR}/../../../variables/lispflowmapping/rpc_get-remove_iid.json
-${SD_C_MAP}       ${CURDIR}/../../../variables/lispflowmapping/rpc_add-mapping_srcdst_ipv4.json
-${SD_RD}          ${CURDIR}/../../../variables/lispflowmapping/rpc_get-remove_srcdst.json
-${KV_C_MAP}       ${CURDIR}/../../../variables/lispflowmapping/rpc_add-mapping_kv_ipv4.json
-${KV_RD}          ${CURDIR}/../../../variables/lispflowmapping/rpc_get-remove_kv.json
-${LST_C_MAP}      ${CURDIR}/../../../variables/lispflowmapping/rpc_add-mapping_ipv4_list.json
-${APP_C_MAP}      ${CURDIR}/../../../variables/lispflowmapping/rpc_add-mapping_ipv4_appdata.json
-${ELP_C_MAP}      ${CURDIR}/../../../variables/lispflowmapping/rpc_add-mapping_ipv4_elp.json
+${IPV4_C_MAP}     ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_add-mapping_ipv4_ipv4.json
+${IPV4_RD}        ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_get-remove_ipv4.json
+${IPV6_C_MAP}     ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_add-mapping_ipv6_ipv4.json
+${IPV6_RD}        ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_get-remove_ipv6.json
+${MAC_C_MAP}      ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_add-mapping_mac_ipv4.json
+${MAC_RD}         ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_get-remove_mac.json
+${DN_C_MAP}       ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_add-mapping_dn_ipv4.json
+${DN_RD}          ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_get-remove_dn.json
+${AS_C_MAP}       ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_add-mapping_as_ipv4.json
+${AS_RD}          ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_get-remove_as.json
+${IID_C_MAP}      ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_add-mapping_iid_ipv4.json
+${IID_RD}         ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_get-remove_iid.json
+${SD_C_MAP}       ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_add-mapping_srcdst_ipv4.json
+${SD_RD}          ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_get-remove_srcdst.json
+${KV_C_MAP}       ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_add-mapping_kv_ipv4.json
+${KV_RD}          ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_get-remove_kv.json
+${LST_C_MAP}      ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_add-mapping_ipv4_list.json
+${APP_C_MAP}      ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_add-mapping_ipv4_appdata.json
+${ELP_C_MAP}      ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_add-mapping_ipv4_elp.json
 
 *** Test Cases ***
 IPv4 Prefix
@@ -89,10 +89,8 @@ Check Datatype
     Post Log Check    ${LFM_RPC_API}:add-mapping    ${add_mapping}
     Sleep    200ms    Avoid race conditions
     ${resp}=    Post Log Check    ${LFM_RPC_API}:get-mapping    ${get_mapping}
-    ${output}=    Get From Dictionary    ${resp.json()}    output
-    ${eid_record}=    Get From Dictionary    ${output}    eidToLocatorRecord
-    ${eid_record_0}=    Get From List    ${eid_record}    0
-    Dictionary Should Contain Key    ${eid_record_0}    LocatorRecord
+    ${eid_record}=    Get Eid Record    ${resp}
+    Dictionary Should Contain Key    ${eid_record}    LocatorRecord
 
 Remove Datatype And Check Removal
     Variable Should Exist    ${RPC_Datatype__current_json}

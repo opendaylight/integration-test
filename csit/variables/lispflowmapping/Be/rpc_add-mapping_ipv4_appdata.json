@@ -1,0 +1,37 @@
+{
+    "input": {
+        "mapping-record": {
+            "recordTtl": 1440,
+            "action": "NoAction",
+            "authoritative": true,
+            "eid": {
+                "address-type": "ietf-lisp-address-types:ipv4-prefix-afi",
+                "ipv4-prefix": "192.0.2.1/32"
+            },
+            "LocatorRecord": [
+                {
+                    "locator-id": "ISP1",
+                    "priority": 1,
+                    "weight": 1,
+                    "multicastPriority": 255,
+                    "multicastWeight": 0,
+                    "localLocator": true,
+                    "rlocProbed": false,
+                    "routed": false,
+                    "rloc": {
+                        "address-type": "ietf-lisp-address-types:application-data-lcaf",
+                        "application-data": {
+                            "address": "10.10.10.10",
+                            "protocol": 17,
+                            "ip-tos": 128,
+                            "local-port-low": 80,
+                            "local-port-high": 81,
+                            "remote-port-low": 6667,
+                            "remote-port-high": 7000
+                        }
+                    }
+                }
+            ]
+        }
+    }
+}

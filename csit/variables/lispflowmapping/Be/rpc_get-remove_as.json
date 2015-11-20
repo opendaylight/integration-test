@@ -1,0 +1,8 @@
+{
+    "input": {
+        "eid": {
+            "address-type": "ietf-lisp-address-types:as-number-afi",
+            "as-number": 64500
+        }
+    }
+}
