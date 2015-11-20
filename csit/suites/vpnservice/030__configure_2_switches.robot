@@ -16,8 +16,7 @@ ${REST_CON}       /restconf/config
 @{vpn_int_values}    s1-eth1    testVpn1    10.0.0.1    00:00:00:00:00:01    s1-eth2    10.0.0.2    00:00:00:00:00:02
 ...               s2-eth1    10.0.0.3    00:00:00:00:00:03    testVpn2    s2-eth2    10.0.0.4    00:00:00:00:00:04
 ${REST_OPER}      /restconf/operational
-@{NODE_ELEMENTS}    openflow:1    openflow:1:1    openflow:1:2    openflow:1:3    openflow:2    openflow:2:1    openflow:2:2
-...               openflow:2:3
+@{NODE_ELEMENTS}    openflow:1    openflow:1:1    openflow:1:2    openflow:2    openflow:2:1    openflow:2:2
 
 *** Test Cases ***
 Veirfy The Switches
@@ -47,9 +46,9 @@ Verify ietf interfaces
     [Documentation]    Verifies ietf interfaces created in datastores
     [Tags]    Get
     Wait Until Keyword Succeeds    5s    1s    Check For Elements At URI    ${REST_CON}/ietf-interfaces:interfaces/    ${ietf_int_values}
-    Wait Until Keyword Succeeds    5s    1s    Check For Elements At URI    ${REST_OPER}/ietf-interfaces:interfaces-state/    ${ietf_int_values}
+    Wait Until Keyword Succeeds    20s    5s    Check For Elements At URI    ${REST_OPER}/ietf-interfaces:interfaces-state/    ${ietf_int_values}
     @{state}=    Create List    down
-    Wait Until Keyword Succeeds    2s    1s    Check For Elements Not At URI    ${REST_OPER}/ietf-interfaces:interfaces-state/    ${state}
+    Wait Until Keyword Succeeds    20s    5s    Check For Elements Not At URI    ${REST_OPER}/ietf-interfaces:interfaces-state/    ${state}
 
 Create VPN interfaces
     [Documentation]    Creates vpn interface for the corresponding ietf interface
