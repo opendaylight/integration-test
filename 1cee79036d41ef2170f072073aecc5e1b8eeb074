@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_ea9b63c7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-20T14:19:22Z",
+      "side": 1,
+      "message": "Not anymore (at least in patch set 19).",
+      "range": {
+        "startLine": 9,
+        "startChar": 9,
+        "endLine": 9,
+        "endChar": 32
+      },
+      "revId": "1cee79036d41ef2170f072073aecc5e1b8eeb074",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_6a969396",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-20T14:19:22Z",
+      "side": 1,
+      "message": "What does this do? Looks like a leftover that luckily has no effect on test execution.\nApparently SSV detects ${current_name} is not defined, so it does not create a 2-tuple it otherwise should.",
+      "range": {
+        "startLine": 170,
+        "startChar": 54,
+        "endLine": 170,
+        "endChar": 69
+      },
+      "revId": "1cee79036d41ef2170f072073aecc5e1b8eeb074",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_8aac2fef",
+        "filename": "csit/suites/netconf/scale/getsingle.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-20T14:19:22Z",
+      "side": 1,
+      "message": "Not explicitly as far as I see (only by implicit Keyword duration Robot tracks automatically).",
+      "range": {
+        "startLine": 12,
+        "startChar": 55,
+        "endLine": 12,
+        "endChar": 79
+      },
+      "revId": "1cee79036d41ef2170f072073aecc5e1b8eeb074",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_0aa11ff8",
+        "filename": "csit/suites/netconf/scale/getsingle.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-20T14:19:22Z",
+      "side": 1,
+      "message": "Also not anymore (ANA).",
+      "range": {
+        "startLine": 16,
+        "startChar": 35,
+        "endLine": 16,
+        "endChar": 63
+      },
+      "revId": "1cee79036d41ef2170f072073aecc5e1b8eeb074",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_aaa56b05",
+        "filename": "csit/suites/netconf/scale/getsingle.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-20T14:19:22Z",
+      "side": 1,
+      "message": "ANA",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 21
+      },
+      "revId": "1cee79036d41ef2170f072073aecc5e1b8eeb074",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
