@@ -22,6 +22,24 @@
       "revId": "b087ced3c5c2f4d4507c96c03ab46e1b88013987",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_c0d8c955",
+        "filename": "csit/libraries/LISPFlowMapping.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2015-11-20T11:08:01Z",
+      "side": 1,
+      "message": "Right, I tried to get a return value from Run_Keyword_If in a different way which didn\u0027t work. Updated the patch.",
+      "parentUuid": "7aade967_e5a95725",
+      "revId": "b087ced3c5c2f4d4507c96c03ab46e1b88013987",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
