@@ -1,7 +1,8 @@
 *** Settings ***
 Documentation     Test suite for Connection Manager
-Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Setup       OVSDB Connection Manager Suite Setup
 Suite Teardown    Delete All Sessions
+Test Setup        Log Testcase Start To Controller Karaf
 Library           OperatingSystem
 Library           String
 Library           RequestsLibrary
@@ -140,3 +141,8 @@ Get Operational Topology after Deletion of integration Bridge
     [Tags]    Southbound
     @{list}    Create List    br-int    br-s1
     Wait Until Keyword Succeeds    8s    2s    Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}    ${list}
+
+*** Keywords ***
+OVSDB Connection Manager Suite Setup
+    Open Controller Karaf Console On Background
+    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
