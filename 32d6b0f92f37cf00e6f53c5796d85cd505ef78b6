@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_33b9f62e",
+        "filename": "csit/suites/dlux/core/010_DLUX_auth.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-22T06:35:28Z",
+      "side": 1,
+      "message": "you could just do \"WUKS    2s     1s\" if you want to avoid the \"sleep\" which I always lobby for.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 39
+      },
+      "revId": "32d6b0f92f37cf00e6f53c5796d85cd505ef78b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_d3aae2d3",
+        "filename": "csit/suites/dlux/resources.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-22T06:35:28Z",
+      "side": 1,
+      "message": "Launch?  instead of Lauch.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 5
+      },
+      "revId": "32d6b0f92f37cf00e6f53c5796d85cd505ef78b6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
