@@ -16,6 +16,40 @@
       "revId": "7111a35520e9cc140f484933db1e84e15e877cb5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_be836dcb",
+        "filename": "csit/variables/vpnservice/configureSwitches.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2015-11-23T10:39:52Z",
+      "side": 1,
+      "message": "Trailing space, remove it.",
+      "revId": "7111a35520e9cc140f484933db1e84e15e877cb5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_de88a9e9",
+        "filename": "csit/variables/vpnservice/configureSwitches.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2015-11-23T10:39:52Z",
+      "side": 1,
+      "message": "remove this blank line.",
+      "revId": "7111a35520e9cc140f484933db1e84e15e877cb5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
