@@ -72,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7aade967_aaca4b9f",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-11-23T15:18:06Z",
+      "side": 1,
+      "message": "The \"${current_name}\u003d\" cell is a mistake.\n\nThis was supposed to export the name of the node being handled in ${current_name} but I got an idea how to implement that in a cleaner way: pass the device name to the operation as an argument.",
+      "parentUuid": "7aade967_6a969396",
+      "range": {
+        "startLine": 170,
+        "startChar": 54,
+        "endLine": 170,
+        "endChar": 69
+      },
+      "revId": "1cee79036d41ef2170f072073aecc5e1b8eeb074",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7aade967_8aac2fef",
         "filename": "csit/suites/netconf/scale/getsingle.robot",
         "patchSetId": 19
