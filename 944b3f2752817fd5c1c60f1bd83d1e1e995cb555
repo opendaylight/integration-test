@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "7aade967_8a93cfa2",
+        "filename": "csit/suites/netconf/clustering/CRUD.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-11-23T16:14:02Z",
+      "side": 1,
+      "message": "It was supposed to pass on first try but WUKS won\u0027t hurt here too much so I added it. For \"passing on first try\" sort of tests we have the unclustered CRUD version.",
+      "parentUuid": "7aade967_4a48775b",
+      "range": {
+        "startLine": 105,
+        "startChar": 4,
+        "endLine": 105,
+        "endChar": 21
+      },
+      "revId": "944b3f2752817fd5c1c60f1bd83d1e1e995cb555",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7aade967_6a68d3ba",
         "filename": "csit/suites/netconf/clustering/CRUD.robot",
         "patchSetId": 9
@@ -82,6 +106,30 @@
       "writtenOn": "2015-11-20T14:01:40Z",
       "side": 1,
       "message": "Only now I have realized this checks for */yang-ext:mount URI. That only means no data is mounted, but topology-netconf may still contain a node, perhaps with status other than \"connected\". We want to make sure 404 is returned even on\nnetwork-topology:network-topology/topology/topology-netconf/node/netconf-test-device",
+      "range": {
+        "startLine": 135,
+        "startChar": 20,
+        "endLine": 135,
+        "endChar": 45
+      },
+      "revId": "944b3f2752817fd5c1c60f1bd83d1e1e995cb555",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_ca81c74b",
+        "filename": "csit/suites/netconf/clustering/CRUD.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-11-23T16:14:02Z",
+      "side": 1,
+      "message": "You found a bug, here is fix: https://git.opendaylight.org/gerrit/#/c/29991/. (UPDATE: already merged).",
+      "parentUuid": "7aade967_6a68d3ba",
       "range": {
         "startLine": 135,
         "startChar": 20,
