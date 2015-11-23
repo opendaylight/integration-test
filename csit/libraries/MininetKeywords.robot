@@ -51,7 +51,7 @@ Start Mininet Multiple Controllers
     [Return]    ${mininet_conn_id}
 
 Add Multiple Managers to OVS
-    [Arguments]    ${mininet}    ${controller_index_list}  ${ovs_mgr_port}=6640
+    [Arguments]    ${mininet}    ${controller_index_list}    ${ovs_mgr_port}=6640
     [Documentation]    Start Mininet with custom topology and connect to all controllers in the ${controller_index_list}.
     Log    Clear any existing mininet
     Clean Mininet System    ${mininet}
