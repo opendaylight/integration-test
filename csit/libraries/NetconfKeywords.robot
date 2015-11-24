@@ -14,6 +14,7 @@ Documentation     Perform complex operations on netconf.
 Library           Collections
 Library           RequestsLibrary
 Resource          NetconfViaRestconf.robot
+Resource          NexusKeywords.robot
 Resource          SSHKeywords.robot
 
 *** Variables ***
@@ -130,16 +131,7 @@ Install_And_Start_Testtool
     ...    for the additional schemas is deleted on the remote machine and
     ...    the additional schemas argument is left out.
     # Install test tool on the machine.
-    # TODO: The "urlbase" line is very similar to what pcep suites do. Reduce this code duplication.
-    ${urlbase}=    BuiltIn.Set_Variable    ${NEXUSURL_PREFIX}/content/repositories/opendaylight.snapshot/org/opendaylight/netconf/netconf-testtool
-    ${version}=    SSHLibrary.Execute_Command    curl ${urlbase}/maven-metadata.xml | grep '<version>' | cut -d '>' -f 2 | cut -d '<' -f 1
-    BuiltIn.Log    ${version}
-    ${namepart}=    SSHLibrary.Execute_Command    curl ${urlbase}/${version}/maven-metadata.xml | grep value | head -n 1 | cut -d '>' -f 2 | cut -d '<' -f 1
-    BuiltIn.Log    ${namepart}
-    BuiltIn.Set_Suite_Variable    ${filename}    netconf-testtool-${namepart}-executable.jar
-    BuiltIn.Log    ${filename}
-    ${response}=    SSHLibrary.Execute_Command    curl ${urlbase}/${version}/${filename} >${filename}
-    BuiltIn.Log    ${response}
+    ${filename}=    NexusKeywords.Deploy_Artifact    netconf/netconf-testtool    netconf-testtool
     ${schemas_option}=    NetconfKeywords__Deploy_Additional_Schemas    ${schemas}
     # Start the testtool
     ${command}    BuiltIn.Set_Variable    java -Xmx1G -XX:MaxPermSize=256M -jar ${filename} ${options} --device-count ${device-count} --debug ${debug} ${schemas_option}
