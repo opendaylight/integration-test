@@ -37,6 +37,8 @@ Verify NIC Command Add and Remove
     [Documentation]    Verification of NIC Console command add and remove. It first creates the intents
     ...    and stores the intent ids, then verifies that the intents were added. Finally, it compiles the intents
     ...    to verify that intents were properly merged and also validates intents were removed at the end per the cleanup procedure.
+    ...    The command "Wait Until Keyword Succeeds" is used to poll for 10 minutes 
+    ...    until the intent:add command is availible for the test case to be run.
     [Tags]    NIC
     Wait Until Keyword Succeeds    10 min    5 sec    Verify Intent:Add Command is Availible
     : FOR    ${intent}    IN    @{all_intents}
