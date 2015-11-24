@@ -12,6 +12,7 @@ Library           OperatingSystem
 Library           SSHLibrary
 Library           RequestsLibrary
 Library           ${CURDIR}/../../../libraries/HsfJson/hsf_json.py
+Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
 Resource          ${CURDIR}/../../../libraries/PcepOperations.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
@@ -121,15 +122,8 @@ Set_It_Up
     Utils.Flexible_Mininet_Login
     # FIXME: Unify Module prefix usage across whole file.
     Create_Session    ses    http://${CONTROLLER}:${RESTCONFPORT}/restconf/operational/network-topology:network-topology    auth=${AUTH}
-    ${urlbase}=    Set_Variable    ${NEXUSURL_PREFIX}/content/repositories/opendaylight.snapshot/org/opendaylight/bgpcep/pcep-pcc-mock
-    ${version}=    Execute_Command    curl ${urlbase}/maven-metadata.xml | grep latest | cut -d '>' -f 2 | cut -d '<' -f 1
-    Log    ${version}
-    ${namepart}=    Execute_Command    curl ${urlbase}/${version}/maven-metadata.xml | grep value | head -n 1 | cut -d '>' -f 2 | cut -d '<' -f 1
-    Log    ${namepart}
-    Set_Suite_Variable    ${filename}    pcep-pcc-mock-${namepart}-executable.jar
-    Log    ${filename}
-    ${response}=    Execute_Command    wget -q -N ${urlbase}/${version}/${filename} 2>&1
-    Log    ${response}
+    ${name}=    NexusKeywords.Deploy_Artifact    bgpcep/pcep-pcc-mock    pcep-pcc-mock
+    BuiltIn.Set_Suite_Variable    ${filename}    ${name}
     Remove_Directory    ${ExpDir}
     Remove_Directory    ${ActDir}
     Create_Directory    ${ExpDir}

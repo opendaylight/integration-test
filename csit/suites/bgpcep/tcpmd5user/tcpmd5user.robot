@@ -21,6 +21,7 @@ Library           String
 Library           ${CURDIR}/../../../libraries/HsfJson/hsf_json.py
 Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
+Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
 Resource          ${CURDIR}/../../../libraries/PcepOperations.robot
 Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
@@ -162,17 +163,8 @@ Set_It_Up
     BuiltIn.Log    ${current_prompt}
     BuiltIn.Set_Suite_Variable    ${prompt}    ${current_prompt}
     RequestsLibrary.Create_Session    ses    http://${CONTROLLER}:${RESTCONFPORT}${OPERATIONAL_TOPO_API}    auth=${AUTH}
-    # TODO: See corresponding bgpuser TODO.
-    ${urlbase}=    BuiltIn.Set_Variable    ${NEXUSURL_PREFIX}/content/repositories/opendaylight.snapshot/org/opendaylight/bgpcep/pcep-pcc-mock
-    ${version}=    SSHLibrary.Execute_Command    curl ${urlbase}/maven-metadata.xml | grep latest | cut -d '>' -f 2 | cut -d '<' -f 1
-    # TODO: Use RequestsLibrary and String instead of curl and bash utilities?
-    BuiltIn.Log    ${version}
-    ${namepart}=    SSHLibrary.Execute_Command    curl ${urlbase}/${version}/maven-metadata.xml | grep value | head -n 1 | cut -d '>' -f 2 | cut -d '<' -f 1
-    BuiltIn.Log    ${namepart}
-    BuiltIn.Set_Suite_Variable    ${filename}    pcep-pcc-mock-${namepart}-executable.jar
-    BuiltIn.Log    ${filename}
-    ${response}=    SSHLibrary.Execute_Command    wget -q -N ${urlbase}/${version}/${filename} 2>&1
-    BuiltIn.Log    ${response}
+    ${name}=    NexusKeywords.Deploy_Artifact    bgpcep/pcep-pcc-mock    pcep-pcc-mock
+    BuiltIn.Set_Suite_Variable    ${filename}    ${name}
     OperatingSystem.Remove_Directory    ${directory_for_expected_responses}    recursive=True
     OperatingSystem.Remove_Directory    ${directory_for_actual_responses}    recursive=True
     # The previous suite may have been using the same directories.
