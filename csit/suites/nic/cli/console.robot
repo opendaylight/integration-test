@@ -65,9 +65,11 @@ Verify NIC Command Add and Remove
 *** Keywords ***
 Setup NIC Console Environment
     [Documentation]    Installing NIC Console related features (odl-nic-core, odl-nic-console)
+    Install a Feature    odl-nic-core-service-mdsal
     Install a Feature    odl-nic-core
     Install a Feature    odl-nic-console
     Start Suite
+    Verify Feature Is Installed    odl-nic-core-service-mdsal
     Verify Feature Is Installed    odl-nic-core
     Verify Feature Is Installed    odl-nic-console
 
