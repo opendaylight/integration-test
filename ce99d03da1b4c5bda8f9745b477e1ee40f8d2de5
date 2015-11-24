@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_5172677d",
+        "filename": "csit/libraries/PacketcableVersion.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-24T09:34:04Z",
+      "side": 1,
+      "message": "Does this work on Sandbox?\nI was expecting BuiltIn.Set_Suite_Variable (with appropriate argument ordering) to be used here.",
+      "range": {
+        "startLine": 18,
+        "startChar": 24,
+        "endLine": 18,
+        "endChar": 36
+      },
+      "revId": "ce99d03da1b4c5bda8f9745b477e1ee40f8d2de5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
