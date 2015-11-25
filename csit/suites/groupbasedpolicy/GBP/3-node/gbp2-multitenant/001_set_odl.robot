@@ -25,7 +25,7 @@ Register Endpoints
     [Documentation]    Endpoints registration
     @{endpoint_files} =    OperatingSystem.List Files In Directory    ${ENDPOINTS_GBP2_DIR}    vethl*.*json    absolute
     : FOR    ${endpoint_file}    IN    @{endpoint_files}
-    \    Post Elements To URI From File    ${ENDPOINT_REG_PATH}    ${endpoint_file}
+    \    Post Elements To URI From File    ${ENDPOINT_REG_PATH}    ${endpoint_file}    ${HEADERS_YANG_JSON}
 
 Put Tenants
     [Documentation]    Send GBP policy to ODL
