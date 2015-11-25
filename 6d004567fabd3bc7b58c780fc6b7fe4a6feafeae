@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_65ceb985",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-25T11:12:28Z",
+      "side": 1,
+      "message": "I do not see where this value is defined.\nBut, the base version of this library also uses that and it works, so it may be unwise to specify the value more explicitly without sufficient testing.\nFor future work, I have created https://trello.com/c/5zAYViz7/248-utils-robot-uses-headers-value-make-its-definition-explicit-and-visible",
+      "range": {
+        "startLine": 291,
+        "startChar": 56,
+        "endLine": 291,
+        "endChar": 66
+      },
+      "revId": "6d004567fabd3bc7b58c780fc6b7fe4a6feafeae",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
