@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7aade967_60af87e4",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-25T14:18:14Z",
+      "side": 1,
+      "message": "Update to current goal of deploying from Nexus..",
+      "range": {
+        "startLine": 12,
+        "startChar": 68,
+        "endLine": 13,
+        "endChar": 36
+      },
+      "revId": "7d1befeeb4bce4fb8558c8e19026955376cfd85f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
