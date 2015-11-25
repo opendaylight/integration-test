@@ -49,6 +49,7 @@ Unification Node Inventory
     Should Contain X Times    ${node}    <node-ref>of-node:10</node-ref>    1
     Should Contain X Times    ${node}    <node-ref>of-node:4</node-ref>    1
 
+<<<<<<< 37ed7d2d58727f843e257bb1883222e412042482
 Unification Scripting Node
     [Documentation]    Test unification operation on Network Topology model using scripting
     ${request}    Prepare Unification Topology Request    ${UNIFICATION_NT}    network-topology-model    node    network-topology-pcep:path-computation-client/network-topology-pcep:ip-address    network-topo:1
@@ -78,7 +79,7 @@ Unification Scripting Node Inventory
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <node-ref>of-node:2</node-ref>    1
     Should Contain X Times    ${node}    <node-ref>of-node:8</node-ref>    1
-
+=======
 Unification Node Inside
     [Documentation]    Test of unification type of aggregation inside on nodes on Network Topology model
     ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    network-topology-model    node    network-topology-pcep:path-computation-client/network-topology-pcep:ip-address    network-topo:1
@@ -104,3 +105,4 @@ Unification Node Inside Inventory
     Should Contain X Times    ${node}    <supporting-node>    2
     Should Contain    ${node}    <supporting-node><node-ref>of-node:7</node-ref>
     Should Contain    ${node}    <supporting-node><node-ref>of-node:9</node-ref>
+>>>>>>> Basic tests - Unification node inside
