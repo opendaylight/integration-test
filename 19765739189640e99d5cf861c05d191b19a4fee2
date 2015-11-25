@@ -16,6 +16,24 @@
       "revId": "19765739189640e99d5cf861c05d191b19a4fee2",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_aae24001",
+        "filename": "csit/suites/vpnservice/030__configure_2_switches.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-11-25T00:45:39Z",
+      "side": 1,
+      "message": "As long as it\u0027s reasonable for your project, the max and interval times for these WUKS will be different.  I like to keep them as small as possible, such that if the WUKS fails then we have a real issue to track down and fix.  If the max timeout is very large then we\u0027ll miss some bugs.  \n\nso, the question is to the VPN team.  Is it ever reasonable that it will\ntake up to 20 seconds for these network configs to take place and end up in operational store?  That seems like a long time to me, but there may be a good reason for it.",
+      "parentUuid": "7aade967_f9049f7f",
+      "revId": "19765739189640e99d5cf861c05d191b19a4fee2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
