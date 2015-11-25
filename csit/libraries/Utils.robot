@@ -314,7 +314,8 @@ Add Elements To URI From File
 Post Elements To URI From File
     [Arguments]    ${dest_uri}    ${data_file}
     ${body}    OperatingSystem.Get File    ${data_file}
-    ${resp}    RequestsLibrary.Post Request    session    ${dest_uri}    data=${body}    headers=${headers}
+    ${resp}    RequestsLibrary.Post Request    session    ${dest_uri}    data=${body}    headers=${HEADERS_YANG_JSON}
+    Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Run Process With Logging And Status Check
