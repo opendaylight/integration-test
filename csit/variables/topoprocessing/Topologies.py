@@ -26,7 +26,7 @@ NETWORK_UNDERLAY_TOPOLOGY_1 = '''<topology
                             <node>
                                 <node-id>pcep:4</node-id>
                                 <pcep:path-computation-client>
-                                    <pcep:ip-address>192.168.2.2</pcep:ip-address>
+                                    <pcep:ip-address>192.168.2.1</pcep:ip-address>
                                 </pcep:path-computation-client>
                             </node>
                             <node>
@@ -123,7 +123,7 @@ OPENFLOW_UNDERLAY_NODES = '''
     <node>
         <id>openflow:9</id>
         <flov-inv:manufacturer>Cisco</flov-inv:manufacturer>
-        <flov-inv:ip-address>192.168.1.5</flov-inv:ip-address>
+        <flov-inv:ip-address>192.168.2.3</flov-inv:ip-address>
     </node>
     <node>
         <id>openflow:10</id>
