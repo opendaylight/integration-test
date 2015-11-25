@@ -25,7 +25,7 @@ UNIFICATION_NT = '''<topology xmlns="urn:opendaylight:topology:correlation" xmln
                         </correlations>
                     </topology>'''
 
-UNIFICATION_NT_AGREGATE_INSIDE = '''<topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
+UNIFICATION_NT_AGGREGATE_INSIDE = '''<topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
                         <n:topology-id>topo:1</n:topology-id>
                         <correlations>
                             <output-model>{output-model}</output-model>
