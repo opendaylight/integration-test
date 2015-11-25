@@ -137,6 +137,30 @@
       "revId": "1b635e26c6feae907c8ab8793d125538b3caed5b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_80f5e384",
+        "filename": "tools/netconf_tools/getter.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-11-25T16:20:57Z",
+      "side": 1,
+      "message": "Yes but the suite will see the failed request and abort and the tool will then get killed. I thus considered adding timeout logic into the tool as too much work for fixing a problem that is already handled elsewhere.",
+      "parentUuid": "bada0100_a6d85754",
+      "range": {
+        "startLine": 115,
+        "startChar": 16,
+        "endLine": 115,
+        "endChar": 35
+      },
+      "revId": "1b635e26c6feae907c8ab8793d125538b3caed5b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
