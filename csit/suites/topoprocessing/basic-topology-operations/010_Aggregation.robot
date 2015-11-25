@@ -65,3 +65,33 @@ Unification Node Inventory
     Should Contain X Times    ${node}    <node-ref>of-node:10</node-ref>    1
     Should Contain X Times    ${node}    <node-ref>of-node:4</node-ref>    1
     [Teardown]    Test Teardown    network-topology:network-topology/topology/topo:1
+
+
+Unification Node Inside
+    [Documentation]    Test of unification type of aggregation inside on nodes on Network Topology model
+    ${request}    KeywordsAndVariables.Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    network-topology-model    node    network-topology-pcep:path-computation-client/network-topology-pcep:ip-address    network-topo:1
+    ${resp}    Basic Aggregation    ${request}    network-topology:network-topology/topology/topo:1
+    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
+    Should Contain X Times    ${resp.content}    <node-id>node:    4
+    ${response_xml}    Parse XML    ${resp.content}
+    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='pcep:1']/..
+    ${node}    Element To String    ${node}
+    Should Contain X Times    ${node}    <supporting-node>    2
+    Should Contain X Times    ${node}    <termination-point>    3
+    Should Contain    ${node}    <supporting-node><node-ref>pcep:1</node-ref>
+    Should Contain    ${node}    <supporting-node><node-ref>pcep:2</node-ref>
+    [Teardown]    Test Teardown    network-topology:network-topology/topology/topo:1
+
+Unification Node Inside Inventory
+    [Documentation]    Test of unification type of aggregation inside on nodes on Inventory model
+    ${request}    KeywordsAndVariables.Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    opendaylight-inventory-model    node    flow-node-inventory:ip-address    openflow-topo:1
+    ${resp}    Basic Aggregation    ${request}    network-topology:network-topology/topology/topo:1
+    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
+    Should Contain X Times    ${resp.content}    <node-id>node:    4
+    ${response_xml}    Parse XML    ${resp.content}
+    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
+    ${node}    Element To String    ${node}
+    Should Contain X Times    ${node}    <supporting-node>    2
+    Should Contain    ${node}    <supporting-node><node-ref>of-node:2</node-ref>
+    Should Contain    ${node}    <supporting-node><node-ref>of-node:3</node-ref>
+    [Teardown]    Test Teardown    network-topology:network-topology/topology/topo:1
