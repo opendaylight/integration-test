@@ -24,7 +24,6 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 
 *** Variables ***
 ${DEVICE_COUNT}    500
-${memory_usage_leeway}    16    # in MB
 
 *** Test Cases ***
 Configure_Devices_Onto_Netconf
