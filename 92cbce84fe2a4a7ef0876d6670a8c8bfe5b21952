@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "7aade967_c0119bad",
+        "filename": "csit/suites/netconf/scale/getmulti.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-11-26T08:18:37Z",
+      "side": 1,
+      "message": "Mmmmm. Missing ... I fixed that now.",
+      "parentUuid": "7aade967_6a72137e",
+      "range": {
+        "startLine": 41,
+        "startChar": 24,
+        "endLine": 41,
+        "endChar": 40
+      },
+      "revId": "92cbce84fe2a4a7ef0876d6670a8c8bfe5b21952",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7aade967_4a69578a",
         "filename": "csit/suites/netconf/scale/getmulti.robot",
         "patchSetId": 8
@@ -59,6 +83,30 @@
       "writtenOn": "2015-11-20T14:47:15Z",
       "side": 1,
       "message": "I suspect this may be slower than actual GET requests. Should getter.py print a summary instead?",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 9
+      },
+      "revId": "92cbce84fe2a4a7ef0876d6670a8c8bfe5b21952",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7aade967_a00c9f95",
+        "filename": "csit/suites/netconf/scale/getmulti.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-11-26T08:18:37Z",
+      "side": 1,
+      "message": "That does not matter as the getter.py also measures and reports time needed for the request to get through (and the Read_Python_Tool_Operation_Result then puts this time into the Robot logs). Additionally, the threads in getter.py that send the requests and then create the results don\u0027t depend on the thread that picks up these results and sends them down the pipe to Robot, so no matter how slow Robot is here, the time measurements obtained from getter.py will be accurate.",
+      "parentUuid": "7aade967_4a69578a",
       "range": {
         "startLine": 42,
         "startChar": 4,
