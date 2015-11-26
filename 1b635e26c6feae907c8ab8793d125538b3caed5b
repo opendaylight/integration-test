@@ -161,6 +161,30 @@
       "revId": "1b635e26c6feae907c8ab8793d125538b3caed5b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_28b0c3f3",
+        "filename": "tools/netconf_tools/getter.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-26T13:26:30Z",
+      "side": 1,
+      "message": "Alright, watch_for_timeout should suffice for now.",
+      "parentUuid": "7aade967_80f5e384",
+      "range": {
+        "startLine": 115,
+        "startChar": 16,
+        "endLine": 115,
+        "endChar": 35
+      },
+      "revId": "1b635e26c6feae907c8ab8793d125538b3caed5b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
