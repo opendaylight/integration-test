@@ -36,7 +36,7 @@ def _build_url(odl_ip, port, uri):
     return url
 
 
-def _build_data(xml_template, prefix_base, prefix_len, count):
+def _build_data(xml_template, prefix_base, prefix_len, count, element="ipv4-routes"):
     """Generate list of routes based on xml templates.
 
     Args:
@@ -48,34 +48,44 @@ def _build_data(xml_template, prefix_base, prefix_len, count):
 
         :count: number of routes to be generated
 
+        :element: element to be returned
+
     Returns:
-        :returns xml_data: list of routes in as xml data
+        :returns xml_data: requested element as xml data
     """
 
     routes = md.parse(xml_template)
 
     routes_node = routes.getElementsByTagName("ipv4-routes")[0]
     route_node = routes.getElementsByTagName("ipv4-route")[0]
-    routes_node.removeChild(route_node)
-    if count:
-        prefix_gap = 2 ** (32 - prefix_len)
+    if element == routes_node.tagName:
+        routes_node.removeChild(route_node)
+        if count:
+            prefix_gap = 2 ** (32 - prefix_len)
 
-    for prefix_index in range(count):
-        new_route_node = route_node.cloneNode(True)
-        new_route_prefix = new_route_node.getElementsByTagName("prefix")[0]
+        for prefix_index in range(count):
+            new_route_node = route_node.cloneNode(True)
+            new_route_prefix = new_route_node.getElementsByTagName("prefix")[0]
 
-        prefix = prefix_base + prefix_index * prefix_gap
-        new_route_prefix.childNodes[0].nodeValue = str(prefix) + "/" + str(prefix_len)
+            prefix = prefix_base + prefix_index * prefix_gap
+            new_route_prefix.childNodes[0].nodeValue = str(prefix) + "/" + str(prefix_len)
 
-        routes_node.appendChild(new_route_node)
+            routes_node.appendChild(new_route_node)
 
-    xml_data = routes_node.toxml()
+            xml_data = routes_node.toxml()
+    elif element == route_node.tagName:
+        route_node.setAttribute("xmlns", routes_node.namespaceURI)
+        route_prefix = route_node.getElementsByTagName("prefix")[0]
+        route_prefix.childNodes[0].nodeValue = str(prefix_base) + "/" + str(prefix_len)
+        xml_data = route_node.toxml()
+    else:
+        xml_data = ""
     routes.unlink()
     logger.debug("xml data generated:\n%s", xml_data)
     return xml_data
 
 
-def send_request(operation, odl_ip, port, uri, auth, xml_data=None):
+def send_request(operation, odl_ip, port, uri, auth, xml_data=None, expect_status_code=200):
     """Send a http request.
 
     Args:
@@ -110,7 +120,18 @@ def send_request(operation, odl_ip, port, uri, auth, xml_data=None):
         logger.debug("Request headers: %s:", rsp.request.headers)
         logger.debug("Request body: %s", rsp.request.body)
         logger.debug("Response: %s", rsp.text)
-        logger.info("%s %s", rsp, rsp.reason)
+        if rsp.status_code == expect_status_code:
+            logger.debug("%s %s", rsp.request, rsp.request.url)
+            logger.debug("Request headers: %s:", rsp.request.headers)
+            logger.debug("Request body: %s", rsp.request.body)
+            logger.debug("Response: %s", rsp.text)
+            logger.debug("%s %s", rsp, rsp.reason)
+        else:
+            logger.error("%s %s", rsp.request, rsp.request.url)
+            logger.error("Request headers: %s:", rsp.request.headers)
+            logger.error("Request body: %s", rsp.request.body)
+            logger.error("Response: %s", rsp.text)
+            logger.error("%s %s", rsp, rsp.reason)
     return rsp
 
 
@@ -184,10 +205,10 @@ def post_prefixes(odl_ip, port, uri, auth, prefix_base=None, prefix_len=None,
     Returns:
         :returns None
     """
-    logger.info("Create %s prefixes (starting from %s/%s) into %s:%s/restconf/%s",
+    logger.info("Post %s prefixes (starting from %s/%s) into %s:%s/restconf/%s",
                 count, prefix_base, prefix_len, odl_ip, port, uri)
     xml_data = _build_data(xml_template, prefix_base, prefix_len, count)
-    send_request("POST", odl_ip, port, uri, auth, xml_data)
+    send_request("POST", odl_ip, port, uri, auth, xml_data=xml_data, expect_status_code=204)
 
 
 def put_prefixes(odl_ip, port, uri, auth, prefix_base, prefix_len, count,
@@ -222,11 +243,48 @@ def put_prefixes(odl_ip, port, uri, auth, prefix_base, prefix_len, count,
         actual_count = min(batch_size, count - batch * batch_size)
         prefix_gap = 2 ** (32 - prefix_len)
         prefix = prefix_base + batch * batch_size * prefix_gap
-        logger.info("Add %s prefixes (starting from %s/%s) to %s:%s/restconf/%s",
+        logger.info("Put %s prefixes (starting from %s/%s) to %s:%s/restconf/%s",
                     actual_count, prefix, prefix_len, odl_ip, port, uri)
         uri_add_prefix = uri + _uri_suffix_ipv4_routes
         xml_data = _build_data(xml_template, prefix, prefix_len, actual_count)
-        send_request("PUT", odl_ip, port, uri_add_prefix, auth, xml_data)
+        send_request("PUT", odl_ip, port, uri_add_prefix, auth, xml_data=xml_data)
+
+
+def add_prefixes(odl_ip, port, uri, auth, prefix_base, prefix_len, count,
+                 xml_template=None, batch_size=1):
+    """Send a consequent http POST request for adding prefixes.
+
+    Args:
+        :param odl_ip: controller's ip address or hostname
+
+        :param port: controller's restconf port
+
+        :param uri: URI without /restconf/ to complete URL
+
+        :param auth: authentication tupple as (user, password)
+
+        :param prefix_base: IP address of the first prefix
+
+        :prefix_len: length of the prefix in bites (specifies the increment as well)
+
+        :param count: number of prefixes to be processed
+
+        :param xml_template: xml template for building the xml data (not used)
+
+        :batch_size: number of prefixes processed in one request
+
+    Returns:
+        :returns None
+    """
+    logger.info("Add %s prefixes (starting from %s/%s) into %s:%s/restconf/%s",
+                count, prefix_base, prefix_len, odl_ip, port, uri)
+    uri_add_prefix = uri + _uri_suffix_ipv4_routes
+    prefix_gap = 2 ** (32 - prefix_len)
+    for prefix_index in range(count):
+        prefix = prefix_base + prefix_index * prefix_gap
+        xml_data = _build_data(xml_template, prefix, prefix_len, 1, "ipv4-route")
+        send_request("POST", odl_ip, port, uri_add_prefix, auth,
+                     xml_data=xml_data, expect_status_code=204)
 
 
 def delete_prefixes(odl_ip, port, uri, auth, prefix_base, prefix_len, count,
@@ -296,7 +354,7 @@ def delete_all_prefixes(odl_ip, port, uri, auth, prefix_base=None,
     send_request("DELETE", odl_ip, port, uri_del_all_prefixes, auth)
 
 
-_commands = ["post", "put", "delete", "delete-all", "get"]
+_commands = ["post", "put", "add", "delete", "delete-all", "get"]
 _uri_suffix_ipv4_routes = "bgp-inet:ipv4-routes/"
 _uri_suffix_ipv4_route = "bgp-inet:ipv4-route/"   # followed by IP address like 1.1.1.1%2F32
 
@@ -307,7 +365,8 @@ if __name__ == "__main__":
     parser.add_argument("--port", default="8181",
                         help="ODL RESTCONF port")
     parser.add_argument("--command", choices=_commands, metavar="command",
-                        help="Command to be performed.")
+                        help="Command to be performed."
+                        "post, put, add, delete, delete-all, get")
     parser.add_argument("--prefix", type=ipaddr.IPv4Address, default="8.0.1.0",
                         help="First prefix IP address")
     parser.add_argument("--prefixlen", type=int, help="Prefix length in bites",
@@ -324,6 +383,15 @@ if __name__ == "__main__":
                                 "bgp-types:unicast-subsequent-address-family/")
     parser.add_argument("--xml", help="File name of the xml data template",
                         default="ipv4-routes-template.xml")
+    parser.add_argument("--error", dest="loglevel", action="store_const",
+                        const=logging.ERROR, default=logging.INFO,
+                        help="Set log level to error (default is info)")
+    parser.add_argument("--warning", dest="loglevel", action="store_const",
+                        const=logging.WARNING, default=logging.INFO,
+                        help="Set log level to warning (default is info)")
+    parser.add_argument("--info", dest="loglevel", action="store_const",
+                        const=logging.INFO, default=logging.INFO,
+                        help="Set log level to info (default is info)")
     parser.add_argument("--debug", dest="loglevel", action="store_const",
                         const=logging.DEBUG, default=logging.INFO,
                         help="Set log level to debug (default is info)")
@@ -359,6 +427,9 @@ if __name__ == "__main__":
                       xml_template, batch_size)
     if command == "put":
         put_prefixes(odl_ip, port, uri, auth, prefix_base, prefix_len, count,
+                     xml_template, batch_size)
+    if command == "add":
+        add_prefixes(odl_ip, port, uri, auth, prefix_base, prefix_len, count,
                      xml_template, batch_size)
     elif command == "delete":
         delete_prefixes(odl_ip, port, uri, auth, prefix_base, prefix_len, count)
