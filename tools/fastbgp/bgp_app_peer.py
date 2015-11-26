@@ -324,6 +324,15 @@ if __name__ == "__main__":
                                 "bgp-types:unicast-subsequent-address-family/")
     parser.add_argument("--xml", help="File name of the xml data template",
                         default="ipv4-routes-template.xml")
+    parser.add_argument("--error", dest="loglevel", action="store_const",
+                        const=logging.ERROR, default=logging.INFO,
+                        help="Set log level to error (default is info)")
+    parser.add_argument("--warning", dest="loglevel", action="store_const",
+                        const=logging.WARNING, default=logging.INFO,
+                        help="Set log level to warning (default is info)")
+    parser.add_argument("--info", dest="loglevel", action="store_const",
+                        const=logging.INFO, default=logging.INFO,
+                        help="Set log level to info (default is info)")
     parser.add_argument("--debug", dest="loglevel", action="store_const",
                         const=logging.DEBUG, default=logging.INFO,
                         help="Set log level to debug (default is info)")
