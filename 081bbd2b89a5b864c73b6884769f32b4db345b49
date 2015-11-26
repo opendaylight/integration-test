@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_889e9762",
+        "filename": "csit/suites/netconf/scale/getmulti.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-26T13:29:36Z",
+      "side": 1,
+      "message": "Not used.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 22
+      },
+      "revId": "081bbd2b89a5b864c73b6884769f32b4db345b49",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
