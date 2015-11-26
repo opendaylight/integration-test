@@ -14,8 +14,8 @@ Check Karaf Log File Does Not Have Messages
     [Arguments]    ${ip}    ${message}    ${user}=${CONTROLLER_USER}    ${password}=${CONTROLLER_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${log_file}=${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log
     [Documentation]    Fails if the provided ${message} is found in the karaf.log file. Uses grep to search. The
     ...    karaf.log file can be overridden with ${log_file} to be any file on the given system @ ${ip}
-    ${output}=    Run Command On Controller    ${ip}    grep ${message} ${log_file}    user=${user}    password=${password}    prompt=${prompt}
-    Should Not Contain    ${output}    ${message}
+    ${output}=    Run Command On Controller    ${ip}    grep -c ${message} ${log_file}    user=${user}    password=${password}    prompt=${prompt}
+    Should_Be_Equal_As_Strings    ${output}    0
 
 Verify Feature Is Installed
     [Arguments]    ${feature_name}    ${controller}=${CONTROLLER}    ${karaf_port}=${KARAF_SHELL_PORT}
