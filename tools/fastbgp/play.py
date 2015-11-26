@@ -1076,6 +1076,7 @@ class ReadTracker(object):
         self.updates_received = 0
         self.prefixes_introduced = 0
         self.prefixes_withdrawn = 0
+        self.idle_time = 0
 
     def read_message_chunk(self):
         """Read up to one message
@@ -1217,7 +1218,9 @@ class ReadTracker(object):
         # And wait for event or something to read.
         start_time = time.time()
         result = select.select([self.socket], [], [self.socket], wait_timedelta)
-        busy = (time.time() - start_time) < 1
+        timedelta = time.time() - start_time
+        self.idle_time += timedelta
+        busy = timedelta < 1
         # Not checking anything, that will be done in next iteration.
         if not busy:
             if result[0] == []:
@@ -1228,6 +1231,7 @@ class ReadTracker(object):
                         self.prefixes_introduced)
             logger.info("total_received_withdrawn_prefix_counter: %s",
                         self.prefixes_withdrawn)
+            logger.info("total_idle_time_counter: %.3fs", self.idle_time)
         return
 
 
