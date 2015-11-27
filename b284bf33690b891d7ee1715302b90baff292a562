@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_7463f6b1",
+        "filename": "csit/suites/vtn/VTN_C_OF13/020__vtn_vbrif_portmap.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-27T14:47:04Z",
+      "side": 1,
+      "message": "If there is a ping behind, why not \"20s  1s\" also here?",
+      "range": {
+        "startLine": 15,
+        "startChar": 35,
+        "endLine": 15,
+        "endChar": 44
+      },
+      "revId": "b284bf33690b891d7ee1715302b90baff292a562",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
