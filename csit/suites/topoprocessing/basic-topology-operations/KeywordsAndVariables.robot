@@ -31,7 +31,7 @@ Setup Environment
     Install a Feature    odl-restconf-noauth    timeout=30
     Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${SEND_ACCEPT_XML_HEADERS}
     Prepare New Feature Installation
-    Install a Feature    odl-topoprocessing-framework odl-topoprocessing-network-topology odl-topoprocessing-inventory odl-bgpcep-pcep-all odl-openflowplugin-nsf-model-li    timeout=30
+    Install a Feature    odl-topoprocessing-framework odl-topoprocessing-network-topology odl-topoprocessing-inventory odl-bgpcep-pcep-all odl-openflowplugin-nsf-model-li    timeout=60
     Wait For Karaf Log    Registering Topology Request Listener    300
     Insert Underlay topologies
 
@@ -116,3 +116,12 @@ Prepare Unification Topology Request
     ${request_template}    Set Element Text    ${request_template}    ${model}    xpath=.//correlation/aggregation/mapping[2]/input-model
     ${request_template}    Element to String    ${request_template}
     [Return]    ${request_template}
+
+Insert Scripting into Request
+    [Arguments]    ${request}    ${language}    ${script}
+    [Documentation]    Insert Scripting into Request under aggregation node
+    ${request}    Add Element    ${request}    ${SCRIPTING}    xpath=.//correlation/aggregation
+    ${request}    Set Element Text    ${request}    ${script}    xpath=.//correlation/aggregation/scripting/script
+    ${request}    Set Element Text    ${request}    ${language}    xpath=.//correlation/aggregation/scripting/language
+    ${request}    Element to String    ${request}
+    [Return]    ${request}
