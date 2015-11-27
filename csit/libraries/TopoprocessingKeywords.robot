@@ -126,3 +126,12 @@ Get Installed Features
     Log    Installed features:
     Log    ${features}
     [Return]    ${features}
+
+Insert Scripting into Request
+    [Arguments]    ${request}    ${language}    ${script}
+    [Documentation]    Insert Scripting into Request under aggregation node
+    ${request}    Add Element    ${request}    ${SCRIPTING}    xpath=.//correlation/aggregation
+    ${request}    Set Element Text    ${request}    ${script}    xpath=.//correlation/aggregation/scripting/script
+    ${request}    Set Element Text    ${request}    ${language}    xpath=.//correlation/aggregation/scripting/language
+    ${request}    Element to String    ${request}
+    [Return]    ${request}

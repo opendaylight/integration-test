@@ -62,6 +62,15 @@ FILTRATION_NT = '''<topology xmlns="urn:opendaylight:topology:correlation" xmlns
                     </correlations>
                 </topology>'''
 
+SCRIPTING = '''
+<scripting>
+    <language>{language}</language>
+    <script>
+        {script}
+    </script>
+</scripting>
+'''
+
 FILTER_IPV4 = '''<filter>
                         <input-model>{input-model}</input-model>
                         <filter-id>1</filter-id>
