@@ -48,3 +48,33 @@ Unification Node Inventory
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <node-ref>of-node:10</node-ref>    1
     Should Contain X Times    ${node}    <node-ref>of-node:4</node-ref>    1
+
+Unification Scripting Node
+    [Documentation]    Test unification operation on Network Topology model using scripting
+    ${request}    Prepare Unification Topology Request    ${UNIFICATION_NT}    network-topology-model    node    network-topology-pcep:path-computation-client/network-topology-pcep:ip-address    network-topo:1
+    ...    network-topo:2
+    ${request}    Insert Scripting into Request    ${request}    javascript    if (originalItem.getLeafNode().getValue().indexOf("192.168.1.1") > -1 && newItem.getLeafNode().getValue().indexOf("192.168.1.3") > -1 || originalItem.getLeafNode().getValue().indexOf("192.168.1.3") > -1 && newItem.getLeafNode().getValue().indexOf("192.168.1.1") > -1) {aggregable.setResult(true);} else { aggregable.setResult(false);}
+    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
+    Should Contain X Times    ${resp.content}    <node-id>node:    9
+    : FOR    ${index}    IN RANGE    1    10
+    \    Should Contain X Times    ${resp.content}    <node-ref>pcep:${index}</node-ref>    1
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='pcep:1']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <node-ref>pcep:1</node-ref>    1
+    Should Contain X Times    ${node}    <node-ref>pcep:6</node-ref>    1
+
+Unification Scripting Node Inventory
+    [Documentation]    Test unification operation on inventory model using scripting
+    ${request}    Prepare Unification Topology Request    ${UNIFICATION_NT}    opendaylight-inventory-model    node    flow-node-inventory:ip-address    openflow-topo:1
+    ...    openflow-topo:2
+    ${request}    Insert Scripting into Request    ${request}    javascript    if (originalItem.getLeafNode().getValue().indexOf("192.168.1.2") > -1 && newItem.getLeafNode().getValue().indexOf("192.168.1.4") > -1 || originalItem.getLeafNode().getValue().indexOf("192.168.1.4") > -1 && newItem.getLeafNode().getValue().indexOf("192.168.1.2") > -1) {aggregable.setResult(true);} else { aggregable.setResult(false);}
+    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
+    Should Contain X Times    ${resp.content}    <node-id>node:    9
+    : FOR    ${index}    IN RANGE    1    10
+    \    Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <node-ref>of-node:2</node-ref>    1
+    Should Contain X Times    ${node}    <node-ref>of-node:8</node-ref>    1
