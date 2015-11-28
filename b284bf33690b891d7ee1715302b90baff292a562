@@ -22,6 +22,30 @@
       "revId": "b284bf33690b891d7ee1715302b90baff292a562",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_1f573b04",
+        "filename": "csit/suites/vtn/VTN_C_OF13/020__vtn_vbrif_portmap.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1479
+      },
+      "writtenOn": "2015-11-28T11:25:44Z",
+      "side": 1,
+      "message": "It is not mininet ping which send packet between hosts. Ping here is communication to the controller.",
+      "parentUuid": "5aaae553_7463f6b1",
+      "range": {
+        "startLine": 15,
+        "startChar": 35,
+        "endLine": 15,
+        "endChar": 44
+      },
+      "revId": "b284bf33690b891d7ee1715302b90baff292a562",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
