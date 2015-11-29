@@ -1,0 +1,157 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_3f46b724",
+        "filename": "csit/libraries/ClusterOvsdb.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2015-11-29T00:08:09Z",
+      "side": 1,
+      "message": "I think ovsdb SB only uses 2 shards: topology operational and topology config (no inventory afaik)",
+      "revId": "35e6143ebcbd321d561bb44177fd41b2a16a998b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_bf5147da",
+        "filename": "csit/libraries/ClusterOvsdb.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2015-11-29T00:08:09Z",
+      "side": 1,
+      "message": "I guess this is needed because devices do not display the same way in OpenFlow and OVSDB, I will need to move the OpenFlow entity owner to its own library. This keyword is good here.",
+      "revId": "35e6143ebcbd321d561bb44177fd41b2a16a998b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_1f417b0b",
+        "filename": "csit/libraries/MininetKeywords.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2015-11-29T00:08:09Z",
+      "side": 1,
+      "message": "I am not sure why you need this list of IP addresses given you already have this info in global variables: ${ODL_SYSTEM_${i}_IP} where ${i} is the controller index (1,2,3 in this case)",
+      "revId": "35e6143ebcbd321d561bb44177fd41b2a16a998b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_3fcf97b2",
+        "filename": "csit/suites/ovsdb/Southbound_Cluster/010__Ovsdb_Southbound_Cluster.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2015-11-29T00:08:09Z",
+      "side": 1,
+      "message": "I am not sure why you need to generate a list of controller IPs, you normal have these in the global variables ${ODL_SYSTEM_${i}_IP}.",
+      "revId": "35e6143ebcbd321d561bb44177fd41b2a16a998b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_5f37f3b0",
+        "filename": "csit/suites/ovsdb/Southbound_Cluster/010__Ovsdb_Southbound_Cluster.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2015-11-29T00:08:09Z",
+      "side": 1,
+      "message": "You could consolidate create bridge + verify bridge in config + verify bridge in operational in a single test case called: \"Create Bridge And Verify\". See and example of this in \"Add Sample Flow And Verify\" in test/csit/libraries/ClusterOpenFlow.robot",
+      "revId": "35e6143ebcbd321d561bb44177fd41b2a16a998b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_ffc01f7e",
+        "filename": "csit/suites/ovsdb/Southbound_Cluster/010__Ovsdb_Southbound_Cluster.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2015-11-29T00:08:09Z",
+      "side": 1,
+      "message": "You do not need this if you use \"Create Controller Sessions\" keyword from ClusterKeywords library. See example of usage at the beginning of the file:  test/csit/suites/openflowplugin/Clustering/010__Cluster_HA_Owner_Failover.robot",
+      "revId": "35e6143ebcbd321d561bb44177fd41b2a16a998b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_dfc3e388",
+        "filename": "csit/suites/ovsdb/Southbound_Cluster/010__Ovsdb_Southbound_Cluster.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2015-11-29T00:08:09Z",
+      "side": 1,
+      "message": "I would recommend to use the \"Put And Check At URI In Cluster\" in ClusterKeywords library, this will verify the configuration goes to all instances.",
+      "revId": "35e6143ebcbd321d561bb44177fd41b2a16a998b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_9fbd6b05",
+        "filename": "csit/suites/ovsdb/Southbound_Cluster/010__Ovsdb_Southbound_Cluster.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2015-11-29T00:08:09Z",
+      "side": 1,
+      "message": "This check is implicit in \"Put And Check At URI In Cluster\"",
+      "revId": "35e6143ebcbd321d561bb44177fd41b2a16a998b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_bfbaa708",
+        "filename": "csit/suites/ovsdb/Southbound_Cluster/010__Ovsdb_Southbound_Cluster.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2015-11-29T00:08:09Z",
+      "side": 1,
+      "message": "I would recommend to use \"Check Item Occurrence At URI In Cluster\" in ClusterKeywords library, this will verify operational info in all instances.",
+      "revId": "35e6143ebcbd321d561bb44177fd41b2a16a998b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
