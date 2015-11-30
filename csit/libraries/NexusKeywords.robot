@@ -15,6 +15,7 @@ Library           SSHLibrary
 
 *** Keywords ***
 NexusKeywords__Get_Version_From_Metadata
+    BuiltIn.Return_From_Keyword    1.0.0-SNAPSHOT
     ${version}=    SSHLibrary.Execute_Command    cat metadata.xml | grep latest | cut -d '>' -f 2 | cut -d '<' -f 1
     BuiltIn.Log    ${version}
     BuiltIn.Return_From_Keyword_If    '${version}' != ''    ${version}

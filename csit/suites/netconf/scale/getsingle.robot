@@ -14,8 +14,11 @@ Documentation     netconf-connector scaling test suite (single-threaded GET requ
 ...               - Deconfiguring devices one by one.
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
+Test Setup        ConsoleReporting.Start_Verbose_Test
+Test Teardown     ConsoleReporting.End_Verbose_Test
 Library           RequestsLibrary
 Library           SSHLibrary    timeout=10s
+Resource          ${CURDIR}/../../../libraries/ConsoleReporting.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
@@ -26,6 +29,10 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 ${DEVICE_COUNT}    500
 
 *** Test Cases ***
+Stabilize_Heap
+    [Documentation]    Wait until the heap size stabilizes.
+    MemoryWatch.Wait_Heap_Size_Stable
+
 Start_Test_Tool
     [Documentation]    Deploy and start test tool, then wait for all its devices to become online.
     NetconfKeywords.Install_And_Start_Testtool    device-count=${DEVICE_COUNT}    mdsal=false
@@ -46,12 +53,13 @@ Deconfigure_Devices_From_Netconf
     [Tags]    critical
     ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*10
     NetconfKeywords.Perform_Operation_On_Each_Device    Deconfigure_Device    timeout=${timeout}
-    [Teardown]    Report_Failure_Due_To_Bug    4547
+    [Teardown]    Teardown__Deconfigure_Devices_From_Netconf
 
 *** Keywords ***
 Setup_Everything
     [Documentation]    Setup everything needed for the test cases.
     # Setup resources used by the suite.
+    MemoryWatch.Initialize
     RequestsLibrary.Create_Session    config    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${CONFIG_API}    auth=${AUTH}
     RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
     SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
@@ -67,6 +75,10 @@ Teardown_Everything
     Teardown_Netconf_Via_Restconf
     RequestsLibrary.Delete_All_Sessions
     NetconfKeywords.Stop_Testtool
+
+Teardown__Deconfigure_Devices_From_Netconf
+    Report_Failure_Due_To_Bug    4547
+    ConsoleReporting.End_Verbose_Test
 
 Configure_Device
     [Arguments]    ${current_name}
