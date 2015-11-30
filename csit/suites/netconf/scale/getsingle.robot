@@ -14,8 +14,11 @@ Documentation     netconf-connector scaling test suite (single-threaded GET requ
 ...               - Deconfiguring devices one by one.
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
+Test Setup        ConsoleReporting.Start_Verbose_Test
+Test Teardown     ConsoleReporting.End_Verbose_Test
 Library           RequestsLibrary
 Library           SSHLibrary    timeout=10s
+Resource          ${CURDIR}/../../../libraries/ConsoleReporting.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
@@ -42,7 +45,7 @@ Deconfigure_Devices_From_Netconf
     [Tags]    critical
     ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*10
     NetconfKeywords.Perform_Operation_On_Each_Device    Deconfigure_Device    timeout=${timeout}
-    [Teardown]    Report_Failure_Due_To_Bug    4547
+    [Teardown]    Teardown__Deconfigure_Devices_From_Netconf
 
 *** Keywords ***
 Setup_Everything
@@ -54,6 +57,7 @@ Setup_Everything
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     NetconfKeywords.Setup_Netconf_Keywords
     KarafKeywords.Configure_Timeout_For_Karaf_Console    120s
+    MemoryWatch.Initialize
     # Connect to the tools machine
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
     Utils.Flexible_Mininet_Login
@@ -65,6 +69,10 @@ Teardown_Everything
     Teardown_Netconf_Via_Restconf
     RequestsLibrary.Delete_All_Sessions
     NetconfKeywords.Stop_Testtool
+
+Teardown__Deconfigure_Devices_From_Netconf
+    Report_Failure_Due_To_Bug    4547
+    ConsoleReporting.End_Verbose_Test
 
 Configure_Device
     [Arguments]    ${current_name}
