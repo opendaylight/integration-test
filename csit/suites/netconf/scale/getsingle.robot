@@ -30,16 +30,19 @@ ${memory_usage_leeway}    16    # in MB
 Configure_Devices_Onto_Netconf
     [Documentation]    Make requests to configure the testtool devices.
     [Tags]    critical
-    NetconfKeywords.Perform_Operation_On_Each_Device    Configure_Device
+    ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*10
+    NetconfKeywords.Perform_Operation_On_Each_Device    Configure_Device    timeout=${timeout}
 
 Get_Data_From_Devices
     [Documentation]    Ask testtool devices for data.
-    NetconfKeywords.Perform_Operation_On_Each_Device    Check_Device_Data
+    ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*2
+    NetconfKeywords.Perform_Operation_On_Each_Device    Check_Device_Data    timeout=${timeout}
 
 Deconfigure_Devices_From_Netconf
     [Documentation]    Make requests to deconfigure the testtool devices.
     [Tags]    critical
-    NetconfKeywords.Perform_Operation_On_Each_Device    Deconfigure_Device
+    ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*10
+    NetconfKeywords.Perform_Operation_On_Each_Device    Deconfigure_Device    timeout=${timeout}
     [Teardown]    Report_Failure_Due_To_Bug    4547
 
 *** Keywords ***
@@ -51,6 +54,7 @@ Setup_Everything
     SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     NetconfKeywords.Setup_Netconf_Keywords
+    KarafKeywords.Configure_Timeout_For_Karaf_Console    120s
     # Connect to the tools machine
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
     Utils.Flexible_Mininet_Login
@@ -86,5 +90,5 @@ Deconfigure_Device
     KarafKeywords.Log_Message_To_Controller_Karaf    Removing device ${current_name}
     NetconfKeywords.Remove_Device_From_Netconf    ${current_name}
     KarafKeywords.Log_Message_To_Controller_Karaf    Waiting for device ${current_name} to disappear
-    NetconfKeywords.Wait_Device_Fully_Removed    ${current_name}    period=0.5s
+    NetconfKeywords.Wait_Device_Fully_Removed    ${current_name}    period=0.5s    timeout=120s
     KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} removed
