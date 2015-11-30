@@ -7,6 +7,7 @@ Variables         ../variables/Variables.py
 *** Variables ***
 ${WORKSPACE}      /tmp
 ${BUNDLEFOLDER}    distribution-karaf-0.3.0-SNAPSHOT
+${DEFAULT_KARAF_CONSOLE_TIMEOUT}    120s
 ${KarafKeywords__karaf_connection_index}    -1
 
 *** Keywords ***
@@ -111,6 +112,7 @@ Open Controller Karaf Console On Background
     [Documentation]    Connect to the controller's karaf console, but do not switch to it.
     ${current_ssh_connection}=    SSHLibrary.Get Connection
     SSHLibrary.Open Connection    ${CONTROLLER}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_DETAILED_PROMPT}
+    SSHLibrary.Set_Client_Configuration    timeout=${DEFAULT_KARAF_CONSOLE_TIMEOUT}
     ${karaf_connection}=    SSHLibrary.Get Connection
     SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}
     BuiltIn.Set Suite Variable    ${KarafKeywords__karaf_connection_index}    ${karaf_connection.index}
