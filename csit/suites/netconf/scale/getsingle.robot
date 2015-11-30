@@ -86,5 +86,5 @@ Deconfigure_Device
     KarafKeywords.Log_Message_To_Controller_Karaf    Removing device ${current_name}
     NetconfKeywords.Remove_Device_From_Netconf    ${current_name}
     KarafKeywords.Log_Message_To_Controller_Karaf    Waiting for device ${current_name} to disappear
-    NetconfKeywords.Wait_Device_Fully_Removed    ${current_name}    period=0.5s
+    NetconfKeywords.Wait_Device_Fully_Removed    ${current_name}    period=0.5s    timeout=120s
     KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} removed
