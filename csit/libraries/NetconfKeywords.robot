@@ -14,8 +14,11 @@ Documentation     Perform complex operations on netconf.
 Library           Collections
 Library           DateTime
 Library           RequestsLibrary
+Resource          ConsoleReporting.robot
+Resource          MemoryWatch.robot
 Resource          NetconfViaRestconf.robot
 Resource          SSHKeywords.robot
+Resource          Timer.robot
 
 *** Variables ***
 ${DIRECTORY_WITH_DEVICE_TEMPLATES}    ${CURDIR}/../variables/netconf/device
@@ -173,7 +176,12 @@ NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device
     BuiltIn.Run_Keyword_If    ${time}<0    Fail    The global time out period expired
     ${number}=    BuiltIn.Evaluate    ${current_port}-${BASE_NETCONF_DEVICE_PORT}+1
     BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    NetconfKeywords.Check_Device_Up_And_Running    ${number}
+    Timer.Start_Timer
     BuiltIn.Run_Keyword    ${operation}    ${DEVICE_NAME_BASE}-${number}
+    ${ellapsed}=    Timer.Get_Time_From_Start
+    ${number}=    BuiltIn.Evaluate    "%5d"%${number}
+    ${memory}=    MemoryWatch.Get_Current_Memory_Usage
+    ConsoleReporting.Report_To_Console    ${number} | ${ellapsed} ${memory}
     ${next}=    BuiltIn.Evaluate    ${current_port}+1
     BuiltIn.Set_Suite_Variable    ${current_port}    ${next}
 
