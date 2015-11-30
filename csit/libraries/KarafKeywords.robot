@@ -116,6 +116,14 @@ Open Controller Karaf Console On Background
     BuiltIn.Set Suite Variable    ${KarafKeywords__karaf_connection_index}    ${karaf_connection.index}
     Restore Current SSH Connection From Index    ${current_ssh_connection.index}
 
+Configure Timeout For Karaf Console
+    [Arguments]    ${timeout}
+    [Documentation]    Configure a different timeout for the Karaf console
+    BuiltIn.Run Keyword If    ${KarafKeywords__karaf_connection_index} == -1    Fail    Need to connect to a Karaf Console first
+    ${current_connection_index}=    SSHLibrary.Switch Connection    ${KarafKeywords__karaf_connection_index}
+    SSHLibrary.Set_Client_Configuration    timeout=${timeout}
+    Restore Current SSH Connection From Index    ${current_connection_index}
+
 Execute Controller Karaf Command On Background
     [Arguments]    ${command}
     [Documentation]    Send command to karaf without affecting current SSH connection. Read, log and return response.
