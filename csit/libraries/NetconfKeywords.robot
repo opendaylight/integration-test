@@ -14,9 +14,12 @@ Documentation     Perform complex operations on netconf.
 Library           Collections
 Library           DateTime
 Library           RequestsLibrary
+Resource          ConsoleReporting.robot
+Resource          MemoryWatch.robot
 Resource          NetconfViaRestconf.robot
 Resource          NexusKeywords.robot
 Resource          SSHKeywords.robot
+Resource          Timer.robot
 
 *** Variables ***
 ${TESTTOOL_DEFAULT_JAVA_OPTIONS}    -Xmx1G -XX:MaxPermSize=256M -Dorg.apache.sshd.registerBouncyCastle=false
@@ -149,7 +152,7 @@ Install_And_Start_Testtool
     # Store information needed by other keywords.
     BuiltIn.Set_Suite_Variable    ${NetconfKeywords__testtool_device_count}    ${device-count}
     # Wait for the testtool to boot up.
-    Perform_Operation_On_Each_Device    NetconfKeywords__Wait_Device_Is_Up_And_Running
+    Perform_Operation_On_Each_Device    NetconfKeywords__Wait_Device_Is_Up_And_Running    skipmemorycheck=True
 
 Check_Device_Up_And_Running
     [Arguments]    ${device-number}
@@ -167,6 +170,12 @@ Stop_Testtool
     # the log file to get.
     SSHLibrary.Get_File    testtool.log
 
+Check_Memory_Usage
+    [Arguments]    ${skipmemorycheck}
+    Return_From_Keyword_If    ${skipmemorycheck}    ${EMPTY}
+    ${memory}=    MemoryWatch.Get_Current_Memory_Usage
+    [Return]    ${memory}
+
 NetconfKeywords__Check_Global_Timeout
     [Arguments]    ${deadline_Date}
     ${current_Date}=    DateTime.Get_Current_Date
@@ -174,16 +183,21 @@ NetconfKeywords__Check_Global_Timeout
     BuiltIn.Run_Keyword_If    ${ellapsed_seconds}<0    Fail    The global time out period expired
 
 NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device
-    [Arguments]    ${operation}    ${deadline_Date}
+    [Arguments]    ${operation}    ${deadline_Date}    ${skipmemorycheck}
     BuiltIn.Run_Keyword_If    ${ENABLE_NETCONF_TEST_TIMEOUT}    NetconfKeywords__Check_Global_Timeout    ${deadline_Date}
     ${number}=    BuiltIn.Evaluate    ${current_port}-${BASE_NETCONF_DEVICE_PORT}+1
+    Timer.Start_Timer
     BuiltIn.Run_Keyword    ${operation}    ${DEVICE_NAME_BASE}-${number}
+    ${ellapsed}=    Timer.Get_Time_From_Start
+    ${number}=    BuiltIn.Evaluate    "%5d"%${number}
+    ${memory}=    Check_Memory_Usage    ${skipmemorycheck}
+    ConsoleReporting.Report_To_Console    ${number} | ${ellapsed} ${memory}
     ${next}=    BuiltIn.Evaluate    ${current_port}+1
     BuiltIn.Set_Suite_Variable    ${current_port}    ${next}
 
 Perform_Operation_On_Each_Device
-    [Arguments]    ${operation}    ${count}=${NetconfKeywords__testtool_device_count}    ${timeout}=30m
+    [Arguments]    ${operation}    ${count}=${NetconfKeywords__testtool_device_count}    ${timeout}=30m    ${skipmemorycheck}=False
     ${current_Date}=    DateTime.Get_Current_Date
     ${deadline_Date}=    DateTime.Add_Time_To_Date    ${current_Date}    ${timeout}
     BuiltIn.Set_Suite_Variable    ${current_port}    ${BASE_NETCONF_DEVICE_PORT}
-    BuiltIn.Repeat_Keyword    ${count} times    NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device    ${operation}    ${deadline_Date}
+    BuiltIn.Repeat_Keyword    ${count} times    NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device    ${operation}    ${deadline_Date}    ${skipmemorycheck}
