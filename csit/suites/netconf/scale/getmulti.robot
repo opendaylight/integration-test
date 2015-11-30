@@ -16,9 +16,12 @@ Documentation     netconf-connector scaling test suite (multi-threaded GET reque
 ...               - Deconfigure the devices one by one.
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
+Test Setup        ConsoleReporting.Start_Verbose_Test
+Test Teardown     ConsoleReporting.End_Verbose_Test
 Library           Collections
 Library           String
 Library           SSHLibrary    timeout=10s
+Resource          ${CURDIR}/../../../libraries/ConsoleReporting.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
@@ -32,6 +35,10 @@ ${device_name_base}    netconf-scaling-device
 ${base_port}      17830
 
 *** Test Cases ***
+Stabilize_Heap
+    [Documentation]    Wait until the heap size stabilizes.
+    MemoryWatch.Wait_Heap_Size_Stable
+
 Configure_Devices_On_Netconf
     [Documentation]    Make requests to configure the testtool devices.
     ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*10
@@ -40,7 +47,7 @@ Configure_Devices_On_Netconf
 Wait_For_Devices_To_Connect
     [Documentation]    Wait for the devices to become connected.
     ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*10
-    NetconfKeywords.Perform_Operation_On_Each_Device    Wait_Connected    timeout=${timeout}
+    NetconfKeywords.Perform_Operation_On_Each_Device    Wait_Connected    timeout=${timeout}    skipmemorycheck=True
 
 Issue_Requests_On_Devices
     [Documentation]    Spawn the specified count of worker threads to issue a GET request to each of the devices.
@@ -58,12 +65,12 @@ Deconfigure_Devices
     [Documentation]    Make requests to deconfigure the testtool devices.
     ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*10
     NetconfKeywords.Perform_Operation_On_Each_Device    Deconfigure_Device    timeout=${timeout}
-    [Teardown]    Report_Failure_Due_To_Bug    4547
+    [Teardown]    Teardown__Deconfigure_Devices
 
 Check_Devices_Are_Deconfigured
     [Documentation]    Check there are no netconf connectors or other stuff related to the testtool devices.
     ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*10
-    NetconfKeywords.Perform_Operation_On_Each_Device    Check_Device_Deconfigured    timeout=${timeout}
+    NetconfKeywords.Perform_Operation_On_Each_Device    Check_Device_Deconfigured    timeout=${timeout}    skipmemorycheck=True
 
 *** Keywords ***
 Setup_Everything
@@ -86,6 +93,10 @@ Teardown_Everything
     Teardown_Netconf_Via_Restconf
     RequestsLibrary.Delete_All_Sessions
     NetconfKeywords.Stop_Testtool
+
+Teardown__Deconfigure_Devices
+    Report_Failure_Due_To_Bug    4547
+    ConsoleReporting.End_Verbose_Test
 
 Configure_Device
     [Arguments]    ${current_name}
@@ -116,6 +127,9 @@ Read_Python_Tool_Operation_Result
     ${data}=    Collections.Get_From_List    ${test}    4
     ${expected}=    BuiltIn.Set_Variable    '<data xmlns="${ODL_NETCONF_NAMESPACE}"></data>'
     BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${expected}
+    ${ellapsed}=    BuiltIn.Evaluate    "%6.3f"%${ellapsed}
+    ${number}=    BuiltIn.Evaluate    "%5d"%${number}
+    ConsoleReporting.Report_To_Console    ${number} | ${ellapsed} | OK
 
 Deconfigure_Device
     [Arguments]    ${current_name}
