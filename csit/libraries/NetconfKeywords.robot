@@ -14,9 +14,12 @@ Documentation     Perform complex operations on netconf.
 Library           Collections
 Library           DateTime
 Library           RequestsLibrary
+Resource          ConsoleReporting.robot
+Resource          MemoryWatch.robot
 Resource          NetconfViaRestconf.robot
 Resource          NexusKeywords.robot
 Resource          SSHKeywords.robot
+Resource          Timer.robot
 
 *** Variables ***
 ${DIRECTORY_WITH_DEVICE_TEMPLATES}    ${CURDIR}/../variables/netconf/device
@@ -158,22 +161,33 @@ Stop_Testtool
     # the log file to get.
     SSHLibrary.Get_File    testtool.log
 
+Check_Memory_Usage
+    [Arguments]    ${skipmemorycheck}
+    Return_From_Keyword_If    ${skipmemorycheck}    ${EMPTY}
+    ${memory}=    MemoryWatch.Get_Current_Memory_Usage
+    [Return]    ${memory}
+
 NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device
-    [Arguments]    ${operation}    ${deadline_Date}
+    [Arguments]    ${operation}    ${deadline_Date}    ${skipmemorycheck}
     ${current_Date}=    DateTime.Get_Current_Date
     ${ellapsed_seconds}=    DateTime.Subtract_Date_From_Date    ${deadline_Date}    ${current_Date}
     BuiltIn.Run_Keyword_If    ${ellapsed_seconds}<0    Fail    The global time out period expired
     ${number}=    BuiltIn.Evaluate    ${current_port}-${BASE_NETCONF_DEVICE_PORT}+1
+    Timer.Start_Timer
     BuiltIn.Run_Keyword    ${operation}    ${DEVICE_NAME_BASE}-${number}
+    ${ellapsed}=    Timer.Get_Time_From_Start
+    ${number}=    BuiltIn.Evaluate    "%5d"%${number}
+    ${memory}=    Check_Memory_Usage    ${skipmemorycheck}
+    ConsoleReporting.Report_To_Console    ${number} | ${ellapsed} ${memory}
     ${next}=    BuiltIn.Evaluate    ${current_port}+1
     BuiltIn.Set_Suite_Variable    ${current_port}    ${next}
 
 Perform_Operation_On_Each_Device
-    [Arguments]    ${operation}    ${count}=${DEVICE_COUNT}    ${timeout}=30m
+    [Arguments]    ${operation}    ${count}=${DEVICE_COUNT}    ${timeout}=30m    ${skipmemorycheck}=False
     ${current_Date}=    DateTime.Get_Current_Date
     ${deadline_Date}=    DateTime.Add_Time_To_Date    ${current_Date}    ${timeout}
     BuiltIn.Set_Suite_Variable    ${current_port}    ${BASE_NETCONF_DEVICE_PORT}
-    BuiltIn.Repeat_Keyword    ${count} times    NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device    ${operation}    ${deadline_Date}
+    BuiltIn.Repeat_Keyword    ${count} times    NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device    ${operation}    ${deadline_Date}    ${skipmemorycheck}
 
 NetconfKeywords__Wait_Device_Is_Up_And_Running
     [Arguments]    ${device_name}
@@ -181,4 +195,4 @@ NetconfKeywords__Wait_Device_Is_Up_And_Running
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    1s    Check_Device_Up_And_Running    ${number}
 
 Wait_For_All_TestTool_Devices
-    Perform_Operation_On_Each_Device    NetconfKeywords__Wait_Device_Is_Up_And_Running
+    Perform_Operation_On_Each_Device    NetconfKeywords__Wait_Device_Is_Up_And_Running    skipmemorycheck=True
