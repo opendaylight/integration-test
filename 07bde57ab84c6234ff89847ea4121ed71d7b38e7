@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_11108f4d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-11-30T12:45:09Z",
+      "side": 1,
+      "message": "The massive pauses only affect only one suite. For every other suite, if Karaf prompt does not appear, it is an emergency state and we do not want to wait on further Karaf operations any more.\nThe default should stay at 3 or 10 seconds, your suite can set higher value when needed.",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 11
+      },
+      "revId": "07bde57ab84c6234ff89847ea4121ed71d7b38e7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
