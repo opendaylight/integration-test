@@ -12,6 +12,7 @@ Documentation     Perform complex operations on netconf.
 ...               netconf operations into reusable keywords to make writing netconf
 ...               test suites easier.
 Library           Collections
+Library           DateTime
 Library           RequestsLibrary
 Resource          NetconfViaRestconf.robot
 Resource          SSHKeywords.robot
@@ -166,7 +167,10 @@ Stop_Testtool
     SSHLibrary.Get_File    testtool.log
 
 NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device
-    [Arguments]    ${operation}
+    [Arguments]    ${operation}    ${deadline}
+    ${time}=    DateTime.Get_Current_Date
+    ${time}=    DateTime.Subtract_Date_From_Date    ${deadline}    ${time}
+    BuiltIn.Run_Keyword_If    ${time}<0    Fail    The global time out period expired
     ${number}=    BuiltIn.Evaluate    ${current_port}-${BASE_NETCONF_DEVICE_PORT}+1
     BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    NetconfKeywords.Check_Device_Up_And_Running    ${number}
     BuiltIn.Run_Keyword    ${operation}    ${DEVICE_NAME_BASE}-${number}
@@ -174,6 +178,8 @@ NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device
     BuiltIn.Set_Suite_Variable    ${current_port}    ${next}
 
 Perform_Operation_On_Each_Device
-    [Arguments]    ${operation}    ${count}=${DEVICE_COUNT}
+    [Arguments]    ${operation}    ${count}=${DEVICE_COUNT}    ${timeout}=6h
+    ${deadline}=    DateTime.Get_Current_Date
+    ${deadline}=    DateTime.Add_Time_To_Date    ${deadline}    ${timeout}
     BuiltIn.Set_Suite_Variable    ${current_port}    ${BASE_NETCONF_DEVICE_PORT}
-    BuiltIn.Repeat_Keyword    ${count} times    NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device    ${operation}
+    BuiltIn.Repeat_Keyword    ${count} times    NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device    ${operation}    ${deadline}
