@@ -11,6 +11,8 @@ Resource          ${CURDIR}/KarafKeywords.robot
 Resource          ${CURDIR}/SSHKeywords.robot
 
 *** Variables ***
+${WATCH_MEMORY}    False
+${MemoryWatch__Initialization_Needed}    True
 ${HEAP_SIZE_CHANGE_MIN}    0
 ${HEAP_SIZE_CHANGE_MAX}    65536
 
@@ -43,6 +45,9 @@ Initialize
     SSHLibrary.Write    ps -A | grep java | cut -b1-5
     ${pid}=    SSHKeywords.Read_Command_Response
     BuiltIn.Set_Suite_Variable    ${odl_pid}    ${pid}
+    BuiltIn.Set_Suite_Variable    ${MemoryWatch__Initialization_Needed}    False
+    BuiltIn.Set_Suite_Variable    ${odl_base_memory}    0
+    BuiltIn.Run_Keyword_If    ${WATCH_MEMORY}    BuiltIn.Run_Keyword_And_Ignore_Error    MemoryWatch__Check_Heap_Size_Stable
     KarafKeywords.Restore_Current_SSH_Connection_From_Index    ${current_ssh_connection.index}
 
 Get_ODL_Heap_Size
@@ -62,6 +67,29 @@ MemoryWatch__Check_Heap_Size_Stable
 
 Wait_Heap_Size_Stable
     [Documentation]    Repeatedly query used ODL heap size until the heap size change falls into the toleration interval.
-    BuiltIn.Set_Suite_Variable    ${odl_base_memory}    0
     ${status}    ${message}=    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    5m    10s    MemoryWatch__Check_Heap_Size_Stable
     BuiltIn.Run_Keyword_If    '${status}' != 'PASS'    BuiltIn.Fail    ${message}
+
+MemoryWatch__Format_Memory_Amount
+    [Arguments]    ${amount}    ${base}=0    ${places}=4
+    ${amount}=    BuiltIn.Evaluate    ${amount}-${base}
+    ${decimal}=    BuiltIn.Evaluate    4+int(${amount}<0)
+    ${memory}=    BuiltIn.Evaluate    "%0${decimal}d"%((${amount}*1000)//1048576)
+    ${memory}=    BuiltIn.Evaluate    "%${places}s"%('${memory}'[:-3])+"."+'${memory}'[-3:]+" MB"
+    [Return]    ${memory}
+
+Get_Current_Memory_Usage
+    [Documentation]    Get the memory usage report
+    ...    Returns an empty string when the Initialize keyword was not called
+    ...    (this is used to provide ability to bypass the memory usage
+    ...    reporting if that feature is not desired in a particular test
+    ...    suite) or when the memory usage reporting is not enabled.
+    BuiltIn.Return_From_Keyword_If    not ${WATCH_MEMORY}    ${empty}
+    BuiltIn.Return_From_Keyword_If    ${MemoryWatch__Initialization_Needed}    ${empty}
+    Timer.Start_Timer
+    ${memory}=    Get_ODL_Heap_Size
+    ${gctime}=    Timer.Get_Time_From_Start
+    ${devmem}=    MemoryWatch__Format_Memory_Amount    ${memory}    ${odl_memory}
+    ${totmem}=    MemoryWatch__Format_Memory_Amount    ${memory}    ${odl_base_memory}    places=5
+    BuiltIn.Set_Suite_Variable    ${odl_memory}    ${memory}
+    [Return]    | ${devmem} | ${totmem} | ${gctime}
