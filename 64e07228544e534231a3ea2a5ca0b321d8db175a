@@ -22,6 +22,30 @@
       "revId": "64e07228544e534231a3ea2a5ca0b321d8db175a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_737302b2",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-01T15:08:06Z",
+      "side": 1,
+      "message": "In one particular BGP scaling suite setting, there is a simple fact that as soon as Karaf console is inactive for 30 minutes, ODL will disconnect the client (standard Karaf behavior, I have not googled on how to disable it).\n\nI have added this edit to retry unconditionally, as any suite may encounter performance regression.\n\nAs previous state usually led to wrong connection to be active, failing to kill tools, and Failing in Teardown; I decided to be extra sure.\nLooking at this code I was not as thorough as I could, but I will only submit improvement when I see this fail.",
+      "parentUuid": "5aaae553_d88c5482",
+      "range": {
+        "startLine": 133,
+        "startChar": 0,
+        "endLine": 141,
+        "endChar": 26
+      },
+      "revId": "64e07228544e534231a3ea2a5ca0b321d8db175a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
