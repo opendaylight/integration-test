@@ -28,53 +28,48 @@ class MappingRPCBlaster(object):
     getheaders = {'Accept': 'application/json'}
 
     RPC_URL_LI = 'restconf/operations/lfm-mapping-database:'
-    RPC_URL_BE = 'restconf/operations/mappingservice:'
+    RPC_URL_BE = 'restconf/operations/odl-mappingservice:'
     TIMEOUT = 10
 
     # Template for adding mappings
     add_mapping_template = {
         u'input': {
-            u'recordTtl': 60,
-            u'maskLength': 32,
-            u'authoritative': True,
-            u'action': u'NoAction',
-            u'LispAddressContainer': {
-                u'Ipv4Address': {
-                    u'afi': 1,
-                    u'Ipv4Address': u'10.0.0.0'
-                }
-            },
-            u'LocatorRecord': [
-                {
-                    u'name': u'ipv4:172.16.0.0',
-                    u'priority': 1,
-                    u'weight': 1,
-                    u'multicastPriority': 255,
-                    u'multicastWeight': 0,
-                    u'localLocator': True,
-                    u'rlocProbed': False,
-                    u'routed': True,
-                    u'LispAddressContainer': {
-                        u'Ipv4Address': {
-                            u'afi': 1,
-                            u'Ipv4Address': u'172.16.0.0'
+            u'mapping-record': {
+                u'recordTtl': 60,
+                u'action': u'NoAction',
+                u'authoritative': True,
+                u'eid': {
+                    u'address-type':
+                        u'ietf-lisp-address-types:ipv4-prefix-afi',
+                    u'ipv4-prefix': u'10.0.0.0/32'
+                },
+                u'LocatorRecord': [
+                    {
+                        u'locator-id': u'ipv4:172.16.0.0',
+                        u'priority': 1,
+                        u'weight': 1,
+                        u'multicastPriority': 255,
+                        u'multicastWeight': 0,
+                        u'localLocator': True,
+                        u'rlocProbed': False,
+                        u'routed': True,
+                        u'rloc': {
+                            u'address-type':
+                                u'ietf-lisp-address-types:ipv4-afi',
+                            u'ipv4': u'172.16.0.0'
                         }
                     }
-                }
-            ]
+                ]
+            }
         }
     }
 
     # Template for getting mappings
     get_mapping_template = {
         u'input': {
-            u'LispAddressContainer': {
-                u'Ipv4Address': {
-                    u'afi': 1,
-                    u'Ipv4Address': u'10.0.0.0'
-                }
-            },
-            u'mask-length': 32
+            u'eid': {
+                u'ipv4-prefix': u'10.0.0.0'
+            }
         }
     }
 
@@ -118,14 +113,13 @@ class MappingRPCBlaster(object):
         Returns:
             :return dict: mapping - template modified with the arguments
         """
-        mapping = copy.deepcopy(self.add_mapping_template['input'])
-        mapping['maskLength'] = mask
-        mapping['LispAddressContainer']['Ipv4Address']['Ipv4Address'] \
-            = str(netaddr.IPAddress(eid))
-        mapping['LocatorRecord'][0]['name'] = 'ipv4:' \
+        mapping = copy.deepcopy(
+            self.add_mapping_template['input']['mapping-record'])
+        mapping['eid']['ipv4-prefix'] = str(netaddr.IPAddress(eid)) \
+            + '/' + mask
+        mapping['LocatorRecord'][0]['locator-id'] = 'ipv4:' \
             + str(netaddr.IPAddress(rloc))
-        address_container = mapping['LocatorRecord'][0]['LispAddressContainer']
-        address_container['Ipv4Address']['Ipv4Address'] \
+        mapping['LocatorRecord'][0]['rloc']['ipv4'] \
             = str(netaddr.IPAddress(rloc))
         return mapping
 
@@ -149,9 +143,9 @@ class MappingRPCBlaster(object):
         rpc = dict(self.add_mapping_template)
         increment = pow(2, 32 - int(self.mask))
         for i in range(self.nmappings):
-            rpc['input'] = self.mapping_from_tpl(self.start_eid + i *
-                                                 increment, self.mask,
-                                                 self.start_rloc + i)
+            rpc['input']['mapping-record'] = self.mapping_from_tpl(
+                self.start_eid + i * increment, self.mask,
+                self.start_rloc + i)
             rpc_json = json.dumps(rpc)
             self.send_rpc(self.session, 'add-mapping', rpc_json)
         self.session.close()
@@ -163,9 +157,8 @@ class MappingRPCBlaster(object):
         increment = pow(2, 32 - int(self.mask))
         for i in range(self.nmappings):
             eid = self.start_eid + i * increment
-            rpc['input']['LispAddressContainer']['Ipv4Address']['Ipv4Address']\
-                = str(netaddr.IPAddress(eid))
-            rpc['input']['mask-length'] = self.mask
+            rpc['input']['eid']['ipv4-prefix'] = str(netaddr.IPAddress(eid)) \
+                + '/' + self.mask
             rpc_json = json.dumps(rpc)
             self.send_rpc(self.session, 'get-mapping', rpc_json)
         self.session.close()

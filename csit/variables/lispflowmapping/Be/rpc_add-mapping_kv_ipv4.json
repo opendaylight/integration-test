@@ -1,0 +1,32 @@
+{
+    "input": {
+        "mapping-record": {
+            "recordTtl": 1440,
+            "action": "NoAction",
+            "authoritative": true,
+            "eid": {
+                "address-type": "ietf-lisp-address-types:key-value-address-lcaf",
+                "key-value-address": {
+                    "key": "192.0.2.1",
+                    "value": "192.0.2.2"
+                }
+            },
+            "LocatorRecord": [
+                {
+                    "locator-id": "ISP1",
+                    "priority": 1,
+                    "weight": 1,
+                    "multicastPriority": 255,
+                    "multicastWeight": 0,
+                    "localLocator": true,
+                    "rlocProbed": false,
+                    "routed": false,
+                    "rloc": {
+                        "address-type": "ietf-lisp-address-types:ipv4-afi",
+                        "ipv4": "10.10.10.10"
+                    }
+                }
+            ]
+        }
+    }
+}
