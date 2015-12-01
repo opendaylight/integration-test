@@ -1,0 +1,11 @@
+{
+    "input": {
+        "eid": {
+            "address-type": "ietf-lisp-address-types:source-dest-key-lcaf",
+            "source-dest-key": {
+                "source": "192.0.2.1/32",
+                "dest": "192.0.2.2/32"
+            }
+        }
+    }
+}
