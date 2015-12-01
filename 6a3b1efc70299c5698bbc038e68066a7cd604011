@@ -1,0 +1,412 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_782680bc",
+        "filename": "csit/libraries/TsdrUtils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-01T07:21:08Z",
+      "side": 1,
+      "message": "global comments for this file:\n\ncan you please convert ${CONTROLLER} to ${ODL_SYSTEM_IP} as well as converting ${MININET} to ${TOOLS_SYSTEP_IP}\n\nsame applies to USER variables, so ODL_SYSTEM_USER and TOOLS_SYSTEM_USER.\n\nwe are in the process of making this conversion and we\u0027re trying to get help when new contributions are coming in.\n\nAlso, I see lots of extraneous whitespace to clean up (marked in red in this gerrit web-view)",
+      "revId": "6a3b1efc70299c5698bbc038e68066a7cd604011",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_18374ce5",
+        "filename": "csit/suites/tsdr/Cassandra/010_InterfaceMetrics.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-01T07:21:08Z",
+      "side": 1,
+      "message": "looks like a good candidate to put this logic in to it\u0027s own local keyword and consolidate the three lines you repeat 10 times.  no big deal, but stood out to me.  just need two variables for the new keyword.",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 90
+      },
+      "revId": "6a3b1efc70299c5698bbc038e68066a7cd604011",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_b83398f5",
+        "filename": "csit/suites/tsdr/Cassandra/020_FlowMetrics.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-01T07:21:08Z",
+      "side": 1,
+      "message": "use this:\nhttps://github.com/opendaylight/integration-test/blob/master/csit/variables/Variables.py#L103",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 73
+      },
+      "revId": "6a3b1efc70299c5698bbc038e68066a7cd604011",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_784d2072",
+        "filename": "csit/suites/tsdr/Cassandra/020_FlowMetrics.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-01T07:21:08Z",
+      "side": 1,
+      "message": "ODL_SYSTEM_IP please.",
+      "range": {
+        "startLine": 35,
+        "startChar": 53,
+        "endLine": 35,
+        "endChar": 63
+      },
+      "revId": "6a3b1efc70299c5698bbc038e68066a7cd604011",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_3857a804",
+        "filename": "csit/suites/tsdr/Cassandra/020_FlowMetrics.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-01T07:21:08Z",
+      "side": 1,
+      "message": "documentation",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 46,
+        "endChar": 39
+      },
+      "revId": "6a3b1efc70299c5698bbc038e68066a7cd604011",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_98525c12",
+        "filename": "csit/suites/tsdr/Cassandra/020_FlowMetrics.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-01T07:21:08Z",
+      "side": 1,
+      "message": "tab",
+      "range": {
+        "startLine": 52,
+        "startChar": 22,
+        "endLine": 52,
+        "endChar": 24
+      },
+      "revId": "6a3b1efc70299c5698bbc038e68066a7cd604011",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_f8403037",
+        "filename": "csit/suites/tsdr/Cassandra/020_FlowMetrics.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-01T07:21:08Z",
+      "side": 1,
+      "message": "documentation.",
+      "range": {
+        "startLine": 109,
+        "startChar": 0,
+        "endLine": 109,
+        "endChar": 30
+      },
+      "revId": "6a3b1efc70299c5698bbc038e68066a7cd604011",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_183e6cb9",
+        "filename": "csit/suites/tsdr/Cassandra/020_FlowMetrics.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-01T07:21:08Z",
+      "side": 1,
+      "message": "documentation",
+      "range": {
+        "startLine": 122,
+        "startChar": 0,
+        "endLine": 122,
+        "endChar": 28
+      },
+      "revId": "6a3b1efc70299c5698bbc038e68066a7cd604011",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_789be0c9",
+        "filename": "csit/suites/tsdr/Cassandra/020_FlowMetrics.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-01T07:21:08Z",
+      "side": 1,
+      "message": "this is in multiple files.  maybe move it to the csit/library file and only have to maintain it in one location",
+      "range": {
+        "startLine": 137,
+        "startChar": 0,
+        "endLine": 139,
+        "endChar": 41
+      },
+      "revId": "6a3b1efc70299c5698bbc038e68066a7cd604011",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_b84ab853",
+        "filename": "csit/suites/tsdr/Cassandra/030_FlowTableMetrics.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-01T07:21:08Z",
+      "side": 1,
+      "message": "https://github.com/opendaylight/integration-test/blob/master/csit/variables/Variables.py#L103",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 73
+      },
+      "revId": "6a3b1efc70299c5698bbc038e68066a7cd604011",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_d847744a",
+        "filename": "csit/suites/tsdr/Cassandra/030_FlowTableMetrics.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-01T07:21:08Z",
+      "side": 1,
+      "message": "documentation",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 39
+      },
+      "revId": "6a3b1efc70299c5698bbc038e68066a7cd604011",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_386ec8ca",
+        "filename": "csit/suites/tsdr/Cassandra/040_QueueMetrics.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-01T07:21:08Z",
+      "side": 1,
+      "message": "https://github.com/opendaylight/integration-test/blob/master/csit/variables/Variables.py#L103",
+      "range": {
+        "startLine": 16,
+        "startChar": 16,
+        "endLine": 16,
+        "endChar": 68
+      },
+      "revId": "6a3b1efc70299c5698bbc038e68066a7cd604011",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_9879fc95",
+        "filename": "csit/suites/tsdr/Cassandra/040_QueueMetrics.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-01T07:21:08Z",
+      "side": 1,
+      "message": "docs",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 39
+      },
+      "revId": "6a3b1efc70299c5698bbc038e68066a7cd604011",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_7874409c",
+        "filename": "csit/suites/tsdr/Cassandra/040_QueueMetrics.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-01T07:21:08Z",
+      "side": 1,
+      "message": "docs",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 28
+      },
+      "revId": "6a3b1efc70299c5698bbc038e68066a7cd604011",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_b86158d5",
+        "filename": "csit/suites/tsdr/Cassandra/050_SyslogTable.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-01T07:21:08Z",
+      "side": 1,
+      "message": "where is this being used?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 114
+      },
+      "revId": "6a3b1efc70299c5698bbc038e68066a7cd604011",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_d85e9412",
+        "filename": "csit/suites/tsdr/Cassandra/050_SyslogTable.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-01T07:21:08Z",
+      "side": 1,
+      "message": "ODL_SYSTEM_IP please",
+      "range": {
+        "startLine": 24,
+        "startChar": 53,
+        "endLine": 24,
+        "endChar": 63
+      },
+      "revId": "6a3b1efc70299c5698bbc038e68066a7cd604011",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_587384b1",
+        "filename": "csit/suites/tsdr/Cassandra/050_SyslogTable.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-01T07:21:08Z",
+      "side": 1,
+      "message": "docs",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 59
+      },
+      "revId": "6a3b1efc70299c5698bbc038e68066a7cd604011",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_f867d0e8",
+        "filename": "csit/suites/tsdr/Cassandra/050_SyslogTable.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-01T07:21:08Z",
+      "side": 1,
+      "message": "docs",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 44
+      },
+      "revId": "6a3b1efc70299c5698bbc038e68066a7cd604011",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
