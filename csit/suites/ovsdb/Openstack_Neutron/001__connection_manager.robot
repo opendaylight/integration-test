@@ -2,6 +2,7 @@
 Documentation     Test suite connecting ODL to Mininet
 Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
+Test Teardown     Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int | cut -d',' -f3-
 Library           SSHLibrary
 Library           Collections
 Library           OperatingSystem
