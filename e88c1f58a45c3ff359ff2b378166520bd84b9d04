@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_b8a95826",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-01T10:45:53Z",
+      "side": 1,
+      "message": "That is configured on Jenkins (as opposed to Robot) level, and only for non-periodic job. The scale suite is periodic, so it needs this Robot-level timeout.\nBut no big deal.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 26
+      },
+      "revId": "e88c1f58a45c3ff359ff2b378166520bd84b9d04",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
