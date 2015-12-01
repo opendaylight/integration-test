@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_565a7484",
+        "filename": "csit/suites/ovsdb/Openstack_Neutron/010__ovsdb_flow.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 1450
+      },
+      "writtenOn": "2015-12-01T23:02:53Z",
+      "side": 1,
+      "message": "maybe make bridge name a param? for net-virt br-int is the one that matters, but if other bridges are created, this may be used as well. Here is a cheat way of dumping all bridges/flows, etc:\n\nfor proto in OpenFlow13 ; do\n    for i in `sudo ovs-vsctl list-br | sort`; do\n        echo \"sudo ovs-ofctl -O ${proto} show $i\"\n        sudo ovs-ofctl -O ${proto} show $i\n        echo \u0027------------------\u0027 ; echo\n        echo \"sudo ovs-ofctl -O ${proto} dump-flows $i\"\n        sudo ovs-ofctl -O ${proto} dump-flows $i\n        echo \u0027-+-+-+-+-+-+-+-+-+-+-+-+-+\u0027 ; echo\n        echo \"sudo ovs-appctl fdb/show $i\"\n        sudo ovs-appctl fdb/show $i\n        echo \u0027\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u003d\u0027 ; echo\n    done\ndone",
+      "range": {
+        "startLine": 5,
+        "startChar": 112,
+        "endLine": 5,
+        "endChar": 118
+      },
+      "revId": "21f44c34bd6c24aed8de83ef7b05012d3d01b63a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
