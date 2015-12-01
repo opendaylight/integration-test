@@ -2,6 +2,7 @@
 Documentation     Test suite connecting ODL to Mininet
 Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
+Test Teardown     Collect OVSDB Debugs
 Library           SSHLibrary
 Library           Collections
 Library           OperatingSystem
@@ -11,6 +12,7 @@ Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
+Resource          ../../../libraries/OVSDB.robot
 
 *** Variables ***
 ${OVSDB_PORT}     6640
