@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_13d88fee",
+        "filename": "csit/suites/ovsdb/Devstack_Tempest_Tests/01__single_node_devstack_tempest_tests.robot",
+        "patchSetId": 37
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 1450
+      },
+      "writtenOn": "2015-12-01T13:51:38Z",
+      "side": 1,
+      "message": "are these java_mem params needed?\n\nODL_JAVA_MIN_MEM\u003d512m;ODL_JAVA_MAX_MEM\u003d784m;ODL_JAVA_MAX_PERM_MEM\u003d784m\n\nthe plugin already has them and we can change their default if they are not good for running odl:\n\nhttps://github.com/openstack/networking-odl/blob/master/devstack/settings.odl#L62",
+      "range": {
+        "startLine": 15,
+        "startChar": 57,
+        "endLine": 15,
+        "endChar": 127
+      },
+      "revId": "430d7c6d90cbd34d1e04b4132dc4dc63ca52890a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_93cc7f37",
+        "filename": "csit/suites/ovsdb/Devstack_Tempest_Tests/01__single_node_devstack_tempest_tests.robot",
+        "patchSetId": 37
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1450
+      },
+      "writtenOn": "2015-12-01T13:51:38Z",
+      "side": 1,
+      "message": "use same branch as in the branch for devstack:\n${OPENSTACK_BRANCH}\nor maybe use a different variable to allow \u0027combo\u0027?\nby not providing branch, master is used.",
+      "range": {
+        "startLine": 51,
+        "startChar": 145,
+        "endLine": 51,
+        "endChar": 146
+      },
+      "revId": "430d7c6d90cbd34d1e04b4132dc4dc63ca52890a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_13516f62",
+        "filename": "csit/suites/ovsdb/Devstack_Tempest_Tests/01__single_node_devstack_tempest_tests.robot",
+        "patchSetId": 37
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 1450
+      },
+      "writtenOn": "2015-12-01T13:51:38Z",
+      "side": 1,
+      "message": "use latest lithium? 0.3.3",
+      "range": {
+        "startLine": 91,
+        "startChar": 80,
+        "endLine": 91,
+        "endChar": 81
+      },
+      "revId": "430d7c6d90cbd34d1e04b4132dc4dc63ca52890a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
