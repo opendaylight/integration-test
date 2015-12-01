@@ -57,3 +57,11 @@ Add Vxlan To Bridge
     ${resp}    RequestsLibrary.Put    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}%2Fbridge%2F${bridge_num}/termination-point/${vxlan_port}/    data=${body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
+
+Collect OVSDB Debugs
+    [Arguments]    ${switch}=br-int
+    [Documentation]    Used to log useful test debugs for OVSDB related system tests.
+    ${output}=    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
+    Log    ${output}
+    ${output}=    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${switch} | cut -d',' -f3-
+    Log    ${output}
