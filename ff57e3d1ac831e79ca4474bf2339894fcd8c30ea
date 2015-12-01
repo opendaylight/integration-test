@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_738f8324",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/020__connection_manager.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-01T12:50:02Z",
+      "side": 1,
+      "message": "It is sufficient to place this in Suite Setup.",
+      "range": {
+        "startLine": 148,
+        "startChar": 4,
+        "endLine": 148,
+        "endChar": 47
+      },
+      "revId": "ff57e3d1ac831e79ca4474bf2339894fcd8c30ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_b3ac1b8e",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/020__connection_manager.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-01T12:50:02Z",
+      "side": 1,
+      "message": "Are you expecting something bad to happen between one test case stops and another starts? If no, you do not need this,\nand you can even use KarafKeywords.Log Testcase Start To Controller Karaf (which included test case name).",
+      "range": {
+        "startLine": 151,
+        "startChar": 5,
+        "endLine": 151,
+        "endChar": 19
+      },
+      "revId": "ff57e3d1ac831e79ca4474bf2339894fcd8c30ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
