@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_5d405656",
+        "filename": "csit/suites/topoprocessing/basic-topology-operations/010_Aggregation.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-01T07:03:06Z",
+      "side": 1,
+      "message": "s/Suit/Suite",
+      "range": {
+        "startLine": 5,
+        "startChar": 18,
+        "endLine": 5,
+        "endChar": 22
+      },
+      "revId": "c2c384ffcdfce3879a9ecea66a67cae0bd79b39a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_1d22deb9",
+        "filename": "csit/suites/topoprocessing/basic-topology-operations/010_Aggregation.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-01T07:03:06Z",
+      "side": 1,
+      "message": "nbd, but if you use the same test teardown in all test cases you can just define it globally in the *** Settings *** section above and not have to put it in each test case.",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 84
+      },
+      "revId": "c2c384ffcdfce3879a9ecea66a67cae0bd79b39a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_bd2e2aa4",
+        "filename": "csit/suites/topoprocessing/basic-topology-operations/010_Aggregation.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-01T07:03:06Z",
+      "side": 1,
+      "message": "a FOR loop makes these blocks tighter.",
+      "range": {
+        "startLine": 49,
+        "startChar": 4,
+        "endLine": 58,
+        "endChar": 85
+      },
+      "revId": "c2c384ffcdfce3879a9ecea66a67cae0bd79b39a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_dd2be692",
+        "filename": "csit/suites/topoprocessing/basic-topology-operations/KeywordsAndVariables.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-01T07:03:06Z",
+      "side": 1,
+      "message": "these are already available in Variables.py, so don\u0027t need them here:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/variables/Variables.py#L112-L113",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 36
+      },
+      "revId": "c2c384ffcdfce3879a9ecea66a67cae0bd79b39a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_7d18b284",
+        "filename": "csit/suites/topoprocessing/basic-topology-operations/KeywordsAndVariables.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-01T07:03:06Z",
+      "side": 1,
+      "message": "not needed as the check was done in line 14",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 60
+      },
+      "revId": "c2c384ffcdfce3879a9ecea66a67cae0bd79b39a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_3d123a63",
+        "filename": "csit/suites/topoprocessing/basic-topology-operations/KeywordsAndVariables.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-01T07:03:06Z",
+      "side": 1,
+      "message": "can you move this to KarafKeywords please?  it\u0027s a great and useful keyword that others should benefit from:\n\ncsit/libraries/KarafKeywords.robot",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 63,
+        "endChar": 20
+      },
+      "revId": "c2c384ffcdfce3879a9ecea66a67cae0bd79b39a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_78ff6002",
+        "filename": "csit/suites/topoprocessing/basic-topology-operations/KeywordsAndVariables.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-01T07:03:06Z",
+      "side": 1,
+      "message": "this is coming from your variables file(s), but those files are not sourced from this .robot file itself. it\u0027s working because the test suite sources those files along with this as well.  However, if a different test suite wanted to use this library and did not also source the variable files it would break.  just import the variable file here in this library file.  you may get to remove that import from your test suite if there is no need for it.",
+      "range": {
+        "startLine": 75,
+        "startChar": 107,
+        "endLine": 75,
+        "endChar": 134
+      },
+      "revId": "c2c384ffcdfce3879a9ecea66a67cae0bd79b39a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
