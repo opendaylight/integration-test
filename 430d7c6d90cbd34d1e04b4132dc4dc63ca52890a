@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5aaae553_7949a18a",
+        "filename": "csit/suites/ovsdb/Devstack_Tempest_Tests/01__single_node_devstack_tempest_tests.robot",
+        "patchSetId": 37
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-02T07:07:53Z",
+      "side": 1,
+      "message": "ok, latest patch doesn\u0027t include these any more.  they were taken from the shell script used in the existing broken job.\n\nhttps://github.com/opendaylight/releng-builder/blob/master/jjb/ovsdb/include-raw-openstack-ci.sh#L70-L72\n\nbut, the defaults are larger and should be fine.",
+      "parentUuid": "5aaae553_13d88fee",
+      "range": {
+        "startLine": 15,
+        "startChar": 57,
+        "endLine": 15,
+        "endChar": 127
+      },
+      "revId": "430d7c6d90cbd34d1e04b4132dc4dc63ca52890a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aaae553_5349278a",
         "filename": "csit/suites/ovsdb/Devstack_Tempest_Tests/01__single_node_devstack_tempest_tests.robot",
         "patchSetId": 37
@@ -36,6 +60,30 @@
       "writtenOn": "2015-12-01T14:44:32Z",
       "side": 1,
       "message": "What about introducing ${DEVSTACK_SYSTEM_PASSWORD} (empty by default)?",
+      "range": {
+        "startLine": 40,
+        "startChar": 54,
+        "endLine": 40,
+        "endChar": 55
+      },
+      "revId": "430d7c6d90cbd34d1e04b4132dc4dc63ca52890a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_d9577525",
+        "filename": "csit/suites/ovsdb/Devstack_Tempest_Tests/01__single_node_devstack_tempest_tests.robot",
+        "patchSetId": 37
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-02T07:07:53Z",
+      "side": 1,
+      "message": "yep.  put it there in a newer patch.",
+      "parentUuid": "5aaae553_5349278a",
       "range": {
         "startLine": 40,
         "startChar": 54,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5aaae553_f954b122",
+        "filename": "csit/suites/ovsdb/Devstack_Tempest_Tests/01__single_node_devstack_tempest_tests.robot",
+        "patchSetId": 37
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-02T07:07:53Z",
+      "side": 1,
+      "message": "ok, having troubles in this area.  See my new patch which is starting to have this in mind, but it does not work.\n\nI think the troubles are coming from the fact that I\u0027m using this devstack-gate-wrap script to start devstack.  It\u0027s requiring that I pass \"openstack/networking-odl\" on the $PROJECTS variable in order to clone it.  It will clone it only from the openstack repo (not the github fork we wanted \nto try).  I think devstack might be trying to get the github\nfork, but it\u0027s not showing up.  Maybe since it\u0027s already \ncloned from the gate-wrap script?\n\nSo, the current state of this is that we are still only using\nopenstack/networking-odl and that means the stable/liberty\nbranch of that project will only allow Lithium SR1 as the \nlatest Lithium release.",
+      "parentUuid": "5aaae553_93cc7f37",
+      "range": {
+        "startLine": 51,
+        "startChar": 145,
+        "endLine": 51,
+        "endChar": 146
+      },
+      "revId": "430d7c6d90cbd34d1e04b4132dc4dc63ca52890a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aaae553_13516f62",
         "filename": "csit/suites/ovsdb/Devstack_Tempest_Tests/01__single_node_devstack_tempest_tests.robot",
         "patchSetId": 37
@@ -82,6 +154,30 @@
       "writtenOn": "2015-12-01T13:51:38Z",
       "side": 1,
       "message": "use latest lithium? 0.3.3",
+      "range": {
+        "startLine": 91,
+        "startChar": 80,
+        "endLine": 91,
+        "endChar": 81
+      },
+      "revId": "430d7c6d90cbd34d1e04b4132dc4dc63ca52890a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_9931fd0d",
+        "filename": "csit/suites/ovsdb/Devstack_Tempest_Tests/01__single_node_devstack_tempest_tests.robot",
+        "patchSetId": 37
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-02T07:07:53Z",
+      "side": 1,
+      "message": "see above.",
+      "parentUuid": "5aaae553_13516f62",
       "range": {
         "startLine": 91,
         "startChar": 80,
