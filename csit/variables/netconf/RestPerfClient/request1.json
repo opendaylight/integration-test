@@ -1,0 +1,9 @@
+{
+  "car:car-entry": {
+    "car:id":"{PEERID}-{INTLEAF}",
+    "car:model":"TestCar",
+    "car:manufacturer":"{PEERID}",
+    "car:year":"2016",
+    "car:category":"test"
+  }
+}
