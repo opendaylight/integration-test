@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Global variables for GBPSFC 6-node topology
+Documentation     Global variables for GBPSFC 3-node topology
 Variables         ../../../../variables/Variables.py
 
 *** Variables ***
@@ -19,8 +19,6 @@ ${ENDPOINT_REG_PATH}    ${GBP_REGEP_API}
 ${ENDPOINT_UNREG_PATH}    ${GBP_UNREGEP_API}
 ${ENDPOINTS_OPER_PATH}    /restconf/operational/endpoint:endpoints
 ${OF_OVERLAY_CONFIG_PATH}    /restconf/config/ofoverlay:of-overlay-config
-${TENANT1_FILE}    ${CURDIR}/../../../../variables/gbp/3node/tenant1.json
-${TENANT2_FILE}    ${CURDIR}/../../../../variables/gbp/3node/tenant2.json
 ${TUNNELS_FILE}    ${CURDIR}/../../../../variables/gbp/3node/tunnels.json
 ${ENDPOINTS_GBP1_DIR}    ${CURDIR}/../../../../variables/gbp/3node/demo-gbp1
 ${ENDPOINTS_GBP2_DIR}    ${CURDIR}/../../../../variables/gbp/3node/demo-gbp2
@@ -41,3 +39,19 @@ Set Test Variables
     Set Global Variable    ${DIFF_WEBSERVER_DOCKER}    ${diff_webserver_docker}
     Set Global Variable    ${DIFF_WEBSERVER_IP}    ${diff_webserver_ip}
     Set Global Variable    ${DIFF_WEBSERVER_MAC}    ${diff_webserver_mac}
+
+Init Variables
+    [Documentation]    Initialize ODL version specific variables
+    log    ${ODL_VERSION}
+    Run Keyword If    "${ODL_VERSION}" == "stable-lithium"    OR    "${ODL_VERSION}" == "lithium"    Init Variables Lithium
+    ...    ELSE    Init Variables Master
+
+Init Variables Master
+    [Documentation]    Sets variables specific to latest(master) version
+    Set Global Variable    ${TENANT1_FILE}    ${CURDIR}/../../../../variables/gbp/3node/master/tenant1.json
+    Set Global Variable    ${TENANT2_FILE}    ${CURDIR}/../../../../variables/gbp/3node/master/tenant2.json
+
+Init Variables Lithium
+    [Documentation]    Sets variables specific to Lithium version
+    Set Global Variable    ${TENANT1_FILE}    ${CURDIR}/../../../../variables/gbp/3node/lithium/tenant1.json
+    Set Global Variable    ${TENANT2_FILE}    ${CURDIR}/../../../../variables/gbp/3node/lithium/tenant2.json

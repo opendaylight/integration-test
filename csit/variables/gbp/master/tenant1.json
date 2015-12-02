@@ -27,13 +27,12 @@
                                         "name": "http-src"
                                     }
                                 ],
-                                                    "action-ref": [
-                      {
-                        "name": "allow1",
-                        "order": 0
-                      }
-                    ],
-
+                                "action-ref": [
+                                    {
+                                        "name": "allow1",
+                                        "order": 0
+                                    }
+                                ],
                                 "name": "allow-http-rule"
                             }
                         ]
@@ -47,13 +46,12 @@
                                         "name": "icmp"
                                     }
                                 ],
-                                                    "action-ref": [
-                      {
-                        "name": "allow1",
-                        "order": 0
-                      }
-                    ],
-
+                                "action-ref": [
+                                    {
+                                        "name": "allow1",
+                                        "order": 0
+                                    }
+                                ],
                                 "name": "allow-icmp-rule"
                             }
                         ]
@@ -153,12 +151,12 @@
                     ]
                 }
             ],
-          "action-instance": [
-            {
-              "name": "allow1",
-              "action-definition-id": "Action-Allow"
-            }
-          ]
+            "action-instance": [
+                {
+                    "name": "allow1",
+                    "action-definition-id": "Action-Allow"
+                }
+            ]
         },
         "subnet": [
             {
@@ -176,3 +174,4 @@
         ]
     }
 }
+
