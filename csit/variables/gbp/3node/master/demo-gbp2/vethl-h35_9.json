@@ -1,0 +1,16 @@
+{
+    "input": {
+        "endpoint-group": "clients",
+        "network-containment": "subnet-10.0.35.0/24",
+        "l2-context": "bridge-domain1",
+        "mac-address": "00:00:00:00:35:09",
+        "l3-address": [
+            {
+                "ip-address": "10.0.35.9",
+                "l3-context": "l3-context-vrf-red"
+            }
+        ],
+        "port-name": "vethl-h35_9",
+        "tenant": "tenant-blue"
+    }
+}

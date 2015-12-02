@@ -1,0 +1,183 @@
+{
+    "policy:tenants": {
+        "policy:tenant": [
+            {
+                "contract": [
+                    {
+                        "clause": [
+                            {
+                                "name": "allow-http-clause",
+                                "subject-refs": [
+                                    "allow-http-subject",
+                                    "allow-icmp-subject"
+                                ]
+                            }
+                        ],
+                        "id": "icmp-http-contract",
+                        "subject": [
+                            {
+                                "name": "allow-http-subject",
+                                "rule": [
+                                    {
+                                        "classifier-ref": [
+                                            {
+                                                "direction": "in",
+                                                "name": "http-dest",
+                                                "instance-name": "http-dest"
+                                            },
+                                            {
+                                                "direction": "out",
+                                                "name": "http-src",
+                                                "instance-name": "http-src"
+                                            }
+                                        ],
+                                        "action-ref": [
+                                            {
+                                                "name": "allow1",
+                                                "order": 0
+                                            }
+                                        ],
+                                        "name": "allow-http-rule"
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "allow-icmp-subject",
+                                "rule": [
+                                    {
+                                        "classifier-ref": [
+                                            {
+                                                "name": "icmp",
+                                                "instance-name": "icmp"
+                                            }
+                                        ],
+                                        "action-ref": [
+                                            {
+                                                "name": "allow1",
+                                                "order": 0
+                                            }
+                                        ],
+                                        "name": "allow-icmp-rule"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "endpoint-group": [
+                    {
+                        "consumer-named-selector": [
+                            {
+                                "contract": [
+                                    "icmp-http-contract"
+                                ],
+                                "name": "webservers-clients-icmp-http-contract"
+                            }
+                        ],
+                        "id": "clients",
+                        "provider-named-selector": []
+                    },
+                    {
+                        "consumer-named-selector": [],
+                        "id": "webservers",
+                        "provider-named-selector": [
+                            {
+                                "contract": [
+                                    "icmp-http-contract"
+                                ],
+                                "name": "webservers-clients-icmp-http-contract"
+                            }
+                        ]
+                    }
+                ],
+                "id": "tenant-red",
+                "l2-bridge-domain": [
+                    {
+                        "id": "bridge-domain1",
+                        "parent": "l3-context-vrf-red"
+                    }
+                ],
+                "l2-flood-domain": [
+                    {
+                        "id": "flood-domain-1",
+                        "parent": "bridge-domain1"
+                    },
+                    {
+                        "id": "flood-domain1",
+                        "parent": "bridge-domain1"
+                    }
+                ],
+                "l3-context": [
+                    {
+                        "id": "l3-context-vrf-red"
+                    }
+                ],
+                "name": "GBPPOC",
+                "subject-feature-instances": {
+                    "classifier-instance": [
+                        {
+                            "classifier-definition-id": "Classifier-L4",
+                            "name": "http-dest",
+                            "parameter-value": [
+                                {
+                                    "int-value": "6",
+                                    "name": "proto"
+                                },
+                                {
+                                    "int-value": "80",
+                                    "name": "destport"
+                                }
+                            ]
+                        },
+                        {
+                            "classifier-definition-id": "Classifier-L4",
+                            "name": "http-src",
+                            "parameter-value": [
+                                {
+                                    "int-value": "6",
+                                    "name": "proto"
+                                },
+                                {
+                                    "int-value": "80",
+                                    "name": "sourceport"
+                                }
+                            ]
+                        },
+                        {
+                            "classifier-definition-id": "Classifier-IP-Protocol",
+                            "name": "icmp",
+                            "parameter-value": [
+                                {
+                                    "int-value": "1",
+                                    "name": "proto"
+                                }
+                            ]
+                        }
+                    ],
+                    "action-instance": [
+                        {
+                            "name": "allow1",
+                            "action-definition-id": "Action-Allow"
+                        }
+                    ]
+                },
+                "subnet": [
+                    {
+                        "id": "subnet-10.0.35.0/24",
+                        "ip-prefix": "10.0.35.1/24",
+                        "parent": "flood-domain-1",
+                        "virtual-router-ip": "10.0.35.1"
+                    },
+                    {
+                        "id": "subnet-10.0.36.0/24",
+                        "ip-prefix": "10.0.36.1/24",
+                        "parent": "flood-domain1",
+                        "virtual-router-ip": "10.0.36.1"
+                    }
+                ]
+            }
+        ]
+    }
+}
+
+
