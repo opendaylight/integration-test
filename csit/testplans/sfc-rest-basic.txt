@@ -1,0 +1,8 @@
+# Place the suites in run order:
+integration/test/csit/suites/sfc/SFC_Basic/010__sfc_service_functions.robot
+integration/test/csit/suites/sfc/SFC_Basic/020__sfc_service_forwarders.robot
+integration/test/csit/suites/sfc/SFC_Basic/030__sfc_service_nodes.robot
+integration/test/csit/suites/sfc/SFC_Basic/040__sfc_service_chains.robot
+integration/test/csit/suites/sfc/SFC_Basic/050__sfc_service_schedule_types.robot
+integration/test/csit/suites/sfc/SFC_Basic/060__sfc_service_paths.robot
+integration/test/csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot
