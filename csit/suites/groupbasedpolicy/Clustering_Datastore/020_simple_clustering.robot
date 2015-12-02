@@ -9,11 +9,16 @@ Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
-${GBP_TENENT_ID}    f5c7d344-d1c7-4208-8531-2c2693657e12
+${GBP_TENENT_ID}    tenant-dobre
 ${GBP_TENANT1_API}    /restconf/config/policy:tenants/tenant/${GBP_TENENT_ID}
-${GBP_TENANT1_FILE}    ${CURDIR}/../../../variables/gbp/tenant1.json
 
 *** Test Cases ***
+Init Variables
+    [Documentation]    Initialize ODL version specific variables
+    log    ${ODL_VERSION}
+    Run Keyword If    '${ODL_VERSION}' == 'stable-lithium'    Init Variables Lithium
+    ...    ELSE    Init Variables Master
+
 Add Tenant to one node
     [Documentation]    Add one Tenant from JSON file
     Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
@@ -38,3 +43,11 @@ Read JSON From File
     ${body}    OperatingSystem.Get File    ${filepath}
     ${jsonbody}    To Json    ${body}
     [Return]    ${jsonbody}
+
+Init Variables Master
+    [Documentation]    Sets variables specific to latest(master) version
+    Set Suite Variable    ${GBP_TENANT1_FILE}    ${CURDIR}/../../../variables/gbp/master/tenant1.json
+
+Init Variables Lithium
+    [Documentation]    Sets variables specific to Lithium version
+    Set Suite Variable    ${GBP_TENANT1_FILE}    ${CURDIR}/../../../variables/gbp/lithium/tenant1.json
