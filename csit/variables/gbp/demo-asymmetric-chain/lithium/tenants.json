@@ -70,7 +70,7 @@
                 "classifier-instance": [
                     {
                         "name": "icmp",
-                        "classifier-definition-id": "Classifier-IP-Protocol",
+                        "classifier-definition-id": "79c6fdb2-1e1a-4832-af57-c65baf5c2335",
                         "parameter-value": [
                             {
                                 "name": "proto",
@@ -80,7 +80,7 @@
                     },
                     {
                         "name": "http-dest",
-                        "classifier-definition-id": "Classifier-L4",
+                        "classifier-definition-id": "4250ab32-e8b8-445a-aebb-e1bd2cdd291f",
                         "parameter-value": [
                             {
                                 "int-value": "6",
@@ -94,7 +94,7 @@
                     },
                     {
                         "name": "http-src",
-                        "classifier-definition-id": "Classifier-L4",
+                        "classifier-definition-id": "4250ab32-e8b8-445a-aebb-e1bd2cdd291f",
                         "parameter-value": [
                             {
                                 "int-value": "6",
@@ -110,7 +110,7 @@
                 "action-instance": [
                     {
                         "name": "chain1",
-                        "action-definition-id": "Action-Chain",
+                        "action-definition-id": "3d886be7-059f-4c4f-bbef-0356bea40933",
                         "parameter-value": [
                             {
                                 "name": "sfc-chain-name",
@@ -120,7 +120,7 @@
                     },
                     {
                         "name": "allow1",
-                        "action-definition-id": "Action-Allow"
+                        "action-definition-id": "f942e8fd-e957-42b7-bd18-f73d11266d17"
                     }
                 ]
             },
@@ -153,7 +153,7 @@
                             "name": "http-subject",
                             "rule": [
                                 {
-                                    "name": "http-chain-rule-in",
+                                    "name": "http-chain-rule",
                                     "classifier-ref": [
                                         {
                                             "name": "http-dest",
@@ -169,7 +169,7 @@
                                     ]
                                 },
                                 {
-                                    "name": "http-chain-rule-out",
+                                    "name": "http-out-rule",
                                     "classifier-ref": [
                                         {
                                             "name": "http-src",
@@ -179,7 +179,7 @@
                                     ],
                                     "action-ref": [
                                         {
-                                            "name": "chain1",
+                                            "name": "allow1",
                                             "order": 0
                                         }
                                     ]
@@ -201,3 +201,4 @@
         }
     ]
 }
+

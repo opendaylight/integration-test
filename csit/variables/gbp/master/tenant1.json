@@ -1,5 +1,5 @@
 {
-    "tenant": {
+    "policy:tenant": {
         "contract": [
             {
                 "clause": [
@@ -11,7 +11,7 @@
                         ]
                     }
                 ],
-                "id": "22282cca-9a13-4d0c-a67e-a933ebb0b0ae",
+                "id": "icmp-http-contract",
                 "subject": [
                     {
                         "name": "allow-http-subject",
@@ -67,49 +67,47 @@
                 "consumer-named-selector": [
                     {
                         "contract": [
-                            "22282cca-9a13-4d0c-a67e-a933ebb0b0ae"
+                            "icmp-http-contract"
                         ],
-                        "name": "e593f05d-96be-47ad-acd5-ba81465680d5-1eaf9a67-a171-42a8-9282-71cf702f61dd-22282cca-9a13-4d0c-a67e-a933ebb0b0ae"
+                        "name": "webservers-clients-icmp-http-contract"
                     }
                 ],
-                "id": "1eaf9a67-a171-42a8-9282-71cf702f61dd",
-                "network-domain": "d2779562-ebf1-45e6-93a4-78e2362bc418",
+                "id": "clients",
                 "provider-named-selector": []
             },
             {
                 "consumer-named-selector": [],
-                "id": "e593f05d-96be-47ad-acd5-ba81465680d5",
-                "network-domain": "2c71d675-693e-406f-899f-12a026eb55f1",
+                "id": "webservers",
                 "provider-named-selector": [
                     {
                         "contract": [
-                            "22282cca-9a13-4d0c-a67e-a933ebb0b0ae"
+                            "icmp-http-contract"
                         ],
-                        "name": "e593f05d-96be-47ad-acd5-ba81465680d5-1eaf9a67-a171-42a8-9282-71cf702f61dd-22282cca-9a13-4d0c-a67e-a933ebb0b0ae"
+                        "name": "webservers-clients-icmp-http-contract"
                     }
                 ]
             }
         ],
-        "id": "f5c7d344-d1c7-4208-8531-2c2693657e12",
+        "id": "tenant-red",
         "l2-bridge-domain": [
             {
-                "id": "7b796915-adf4-4356-b5ca-de005ac410c1",
-                "parent": "cbe0cc07-b8ff-451d-8171-9eef002a8e80"
+                "id": "bridge-domain1",
+                "parent": "l3-context-vrf-red"
             }
         ],
         "l2-flood-domain": [
             {
-                "id": "1ddde8d8-c2bc-48d7-8ce0-d78eb6ed4b5b",
-                "parent": "7b796915-adf4-4356-b5ca-de005ac410c1"
+                "id": "flood-domain-1",
+                "parent": "bridge-domain1"
             },
             {
-                "id": "03f69af2-481c-4554-97d6-c4fedca5d126",
-                "parent": "7b796915-adf4-4356-b5ca-de005ac410c1"
+                "id": "flood-domain1",
+                "parent": "bridge-domain1"
             }
         ],
         "l3-context": [
             {
-                "id": "cbe0cc07-b8ff-451d-8171-9eef002a8e80"
+                "id": "l3-context-vrf-red"
             }
         ],
         "name": "GBPPOC",
@@ -163,15 +161,15 @@
         },
         "subnet": [
             {
-                "id": "d2779562-ebf1-45e6-93a4-78e2362bc418",
+                "id": "subnet-10.0.35.0/24",
                 "ip-prefix": "10.0.35.1/24",
-                "parent": "1ddde8d8-c2bc-48d7-8ce0-d78eb6ed4b5b",
+                "parent": "flood-domain-1",
                 "virtual-router-ip": "10.0.35.1"
             },
             {
-                "id": "2c71d675-693e-406f-899f-12a026eb55f1",
+                "id": "subnet-10.0.36.0/24",
                 "ip-prefix": "10.0.36.1/24",
-                "parent": "03f69af2-481c-4554-97d6-c4fedca5d126",
+                "parent": "flood-domain1",
                 "virtual-router-ip": "10.0.36.1"
             }
         ]
