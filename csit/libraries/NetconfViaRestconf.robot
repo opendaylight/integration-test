@@ -40,7 +40,7 @@ FIXME__POLISH_THIS
 Setup_Netconf_Via_Restconf
     [Documentation]    Creates Requests session to be used by subsequent keywords.
     # Do not append slash at the end uf URL, Requests would add another, resulting in error.
-    Create_NVR_Session    nvr_session    ${CONTROLLER}
+    Create_NVR_Session    nvr_session    ${ODL_SYSTEM_IP}
     BuiltIn.Set_Suite_Variable    ${NetconfViaRestconf__active_session}    nvr_session
 
 Teardown_Netconf_Via_Restconf
