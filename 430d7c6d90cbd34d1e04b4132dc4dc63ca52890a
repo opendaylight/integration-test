@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "5aaae553_42994a6d",
+        "filename": "csit/suites/ovsdb/Devstack_Tempest_Tests/01__single_node_devstack_tempest_tests.robot",
+        "patchSetId": 37
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 1450
+      },
+      "writtenOn": "2015-12-02T20:58:20Z",
+      "side": 1,
+      "message": "ack. got gerrit to update networking-odl [1], but maybe\nthe idea of not using the wrap is better as it will give us\nmore control.\n\n[1]: https://review.openstack.org/#/c/252030/",
+      "parentUuid": "5aaae553_f954b122",
+      "range": {
+        "startLine": 51,
+        "startChar": 145,
+        "endLine": 51,
+        "endChar": 146
+      },
+      "revId": "430d7c6d90cbd34d1e04b4132dc4dc63ca52890a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aaae553_13516f62",
         "filename": "csit/suites/ovsdb/Devstack_Tempest_Tests/01__single_node_devstack_tempest_tests.robot",
         "patchSetId": 37
