@@ -26,6 +26,7 @@ Setup Everything
     \    ${stdout}    ${stderr}    ${rc}    ConnUtils.Execute in VE    pip freeze | grep ipaddr -q || pip install ipaddr    timeout=${timeout}
     \    Should Be Equal As Numbers    ${rc}    0
     \    SSHLibrary.Close Connection
+    Init Variables
 
 Teardown Everything
     Log    stop_suite_in_3_node

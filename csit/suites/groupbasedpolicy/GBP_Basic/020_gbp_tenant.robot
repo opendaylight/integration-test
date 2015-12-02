@@ -10,12 +10,15 @@ Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
-${GBP_TENANTS_FILE}    ../../../variables/gbp/tenants.json
-${GBP_TENENT_ID}    f5c7d344-d1c7-4208-8531-2c2693657e12
-${GBP_TENANT1_API}    /restconf/config/policy:tenants/policy:tenant/${GBP_TENENT_ID}
-${GBP_TENANT1_FILE}    ../../../variables/gbp/tenant1.json
+${GBP_TENANT1_API}    /restconf/config/policy:tenants/policy:tenant/${GBP_TENANT_ID}
 
 *** Test Cases ***
+Init Variables
+    [Documentation]    Initialize ODL version specific variables
+    log    ${ODL_VERSION}
+    Run Keyword If    '${ODL_VERSION}' == 'stable-lithium'    Init Variables Lithium
+    ...    ELSE    Init Variables Master
+
 Add Tenants
     [Documentation]    Add Tenants from JSON file
     Add Elements To URI From File    ${GBP_TENANTS_API}    ${GBP_TENANTS_FILE}
@@ -60,8 +63,22 @@ Delete one Tenant
     Remove All Elements At URI    ${GBP_TENANT1_API}
     ${resp}    RequestsLibrary.Get    session    ${GBP_TENANTS_API}
     Should Be Equal As Strings    ${resp.status_code}    200
-    Should Not Contain    ${resp.content}    ${GBP_TENENT_ID}
+    Should Not Contain    ${resp.content}    ${GBP_TENANT_ID}
 
 Clean Datastore After Tests
     [Documentation]    Clean All Tenants In Datastore After Tests
     Remove All Elements At URI    ${GBP_TENANTS_API}
+
+
+*** Keywords ***
+Init Variables Master
+    [Documentation]    Sets variables specific to latest(master) version
+    Set Suite Variable    ${GBP_TENANT_ID}    tenant-dobre
+    Set Suite Variable    ${GBP_TENANTS_FILE}    ${CURDIR}../../../variables/gbp/master/tenants.json
+    Set Suite Variable    ${GBP_TENANT1_FILE}    ${CURDIR}../../../variables/gbp/master/tenant1.json
+
+Init Variables Lithium
+    [Documentation]    Sets variables specific to Lithium version
+    Set Suite Variable    ${GBP_TENANT_ID}    f5c7d344-d1c7-4208-8531-2c2693657e12
+    Set Suite Variable    ${GBP_TENANTS_FILE}    ${CURDIR}../../../variables/gbp/lithium/tenants.json
+    Set Suite Variable    ${GBP_TENANT1_FILE}    ${CURDIR}../../../variables/gbp/lithium/tenant1.json

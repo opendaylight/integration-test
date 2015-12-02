@@ -1,0 +1,179 @@
+{
+    "tenant": {
+        "id": "25c7d344-d1c7-4208-8531-2c2693657e12",
+        "contract": [
+            {
+                "id": "22282cca-9a13-4d0c-a67e-a933ebb0b0ae",
+                "clause": [
+                    {
+                        "name": "allow-http-clause",
+                        "subject-refs": [
+                            "allow-http-subject",
+                            "allow-icmp-subject"
+                        ]
+                    }
+                ],
+                "subject": [
+                    {
+                        "name": "allow-http-subject",
+                        "rule": [
+                            {
+                                "name": "allow-http-rule",
+                                "classifier-ref": [
+                                    {
+                                        "direction": "in",
+                                        "name": "http-dest",
+                                        "instance-name": "http-dest"
+                                    },
+                                    {
+                                        "direction": "out",
+                                        "name": "http-src",
+                                        "instance-name": "http-src"
+                                    }
+                                ],
+                                "action-ref": [
+                                    {
+                                        "name": "allow1",
+                                        "order": 0
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "allow-icmp-subject",
+                        "rule": [
+                            {
+                                "name": "allow-icmp-rule",
+                                "classifier-ref": [
+                                    {
+                                        "name": "icmp",
+                                        "instance-name": "icmp"
+                                    }
+                                ],
+                                "action-ref": [
+                                    {
+                                        "name": "allow1",
+                                        "order": 0
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        ],
+        "endpoint-group": [
+            {
+                "id": "1eaf9a67-a171-42a8-9282-71cf702f61dd",
+                "network-domain": "e2779562-ebf1-45e6-93a4-78e2362bc418",
+                "provider-named-selector": [],
+                "consumer-named-selector": [
+                    {
+                        "contract": [
+                            "22282cca-9a13-4d0c-a67e-a933ebb0b0ae"
+                        ],
+                        "name": "e593f05d-96be-47ad-acd5-ba81465680d5-1eaf9a67-a171-42a8-9282-71cf702f61dd-22282cca-9a13-4d0c-a67e-a933ebb0b0ae"
+                    }
+                ]
+            },
+            {
+                "consumer-named-selector": [],
+                "id": "e593f05d-96be-47ad-acd5-ba81465680d5",
+                "network-domain": "3c71d675-693e-406f-899f-12a026eb55f1",
+                "provider-named-selector": [
+                    {
+                        "contract": [
+                            "22282cca-9a13-4d0c-a67e-a933ebb0b0ae"
+                        ],
+                        "name": "e593f05d-96be-47ad-acd5-ba81465680d5-1eaf9a67-a171-42a8-9282-71cf702f61dd-22282cca-9a13-4d0c-a67e-a933ebb0b0ae"
+                    }
+                ]
+            }
+        ],
+        "l2-bridge-domain": [
+            {
+                "id": "2b796915-adf4-4356-b5ca-de005ac410c1",
+                "parent": "2be0cc07-b8ff-451d-8171-9eef002a8e80"
+            }
+        ],
+        "l2-flood-domain": [
+            {
+                "id": "2ddde8d8-c2bc-48d7-8ce0-d78eb6ed4b5b",
+                "parent": "2b796915-adf4-4356-b5ca-de005ac410c1"
+            },
+            {
+                "id": "23f69af2-481c-4554-97d6-c4fedca5d126",
+                "parent": "2b796915-adf4-4356-b5ca-de005ac410c1"
+            }
+        ],
+        "l3-context": [
+            {
+                "id": "2be0cc07-b8ff-451d-8171-9eef002a8e80"
+            }
+        ],
+        "name": "GBPPOC2",
+        "subnet": [
+            {
+                "id": "e2779562-ebf1-45e6-93a4-78e2362bc418",
+                "ip-prefix": "10.0.35.1/24",
+                "parent": "2ddde8d8-c2bc-48d7-8ce0-d78eb6ed4b5b",
+                "virtual-router-ip": "10.0.35.1"
+            },
+            {
+                "id": "3c71d675-693e-406f-899f-12a026eb55f1",
+                "ip-prefix": "10.0.36.1/24",
+                "parent": "23f69af2-481c-4554-97d6-c4fedca5d126",
+                "virtual-router-ip": "10.0.36.1"
+            }
+        ],
+        "subject-feature-instances": {
+            "classifier-instance": [
+                {
+                    "name": "icmp",
+                    "classifier-definition-id": "79c6fdb2-1e1a-4832-af57-c65baf5c2335",
+                    "parameter-value": [
+                        {
+                            "name": "proto",
+                            "int-value": 1
+                        }
+                    ]
+                },
+                {
+                    "name": "http-dest",
+                    "classifier-definition-id": "4250ab32-e8b8-445a-aebb-e1bd2cdd291f",
+                    "parameter-value": [
+                        {
+                            "int-value": "6",
+                            "name": "proto"
+                        },
+                        {
+                            "int-value": "80",
+                            "name": "destport"
+                        }
+                    ]
+                },
+                {
+                    "name": "http-src",
+                    "classifier-definition-id": "4250ab32-e8b8-445a-aebb-e1bd2cdd291f",
+                    "parameter-value": [
+                        {
+                            "int-value": "6",
+                            "name": "proto"
+                        },
+                        {
+                            "int-value": "80",
+                            "name": "sourceport"
+                        }
+                    ]
+                }
+            ],
+            "action-instance": [
+                {
+                    "name": "allow1",
+                    "action-definition-id": "f942e8fd-e957-42b7-bd18-f73d11266d17"
+                }
+            ]
+        }
+    }
+}
