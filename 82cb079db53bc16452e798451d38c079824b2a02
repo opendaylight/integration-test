@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_bca142ab",
+        "filename": "csit/suites/bgpcep/bgpuser/bgp_app_peer_basic.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-03T15:20:17Z",
+      "side": 1,
+      "message": "Mention \"application peer\" to distinguish from \"bgpuser\" suite.",
+      "range": {
+        "startLine": 2,
+        "startChar": 34,
+        "endLine": 2,
+        "endChar": 60
+      },
+      "revId": "82cb079db53bc16452e798451d38c079824b2a02",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_dca67ec1",
+        "filename": "csit/suites/bgpcep/bgpuser/bgp_app_peer_basic.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-03T15:20:17Z",
+      "side": 1,
+      "message": "That describes \"bgpuser\" suite, not this one.",
+      "range": {
+        "startLine": 14,
+        "startChar": 87,
+        "endLine": 14,
+        "endChar": 100
+      },
+      "revId": "82cb079db53bc16452e798451d38c079824b2a02",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_7cabca89",
+        "filename": "csit/suites/bgpcep/bgpuser/bgp_app_peer_basic.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-03T15:20:17Z",
+      "side": 1,
+      "message": "Do not report invalid bugs.",
+      "range": {
+        "startLine": 21,
+        "startChar": 18,
+        "endLine": 21,
+        "endChar": 31
+      },
+      "revId": "82cb079db53bc16452e798451d38c079824b2a02",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_3c955240",
+        "filename": "csit/suites/bgpcep/bgpuser/bgp_app_peer_basic.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-03T15:20:17Z",
+      "side": 1,
+      "message": "SetupUtils.*",
+      "range": {
+        "startLine": 26,
+        "startChar": 17,
+        "endLine": 26,
+        "endChar": 18
+      },
+      "revId": "82cb079db53bc16452e798451d38c079824b2a02",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_3c7c7220",
+        "filename": "csit/suites/bgpcep/bgpuser/bgp_app_peer_basic.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-03T15:20:17Z",
+      "side": 1,
+      "message": "Why is this needed? You do not Log the result, nor verify if it is correct.",
+      "range": {
+        "startLine": 80,
+        "startChar": 22,
+        "endLine": 80,
+        "endChar": 25
+      },
+      "revId": "82cb079db53bc16452e798451d38c079824b2a02",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_1c73b64e",
+        "filename": "csit/suites/bgpcep/bgpuser/bgp_app_peer_basic.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-03T15:20:17Z",
+      "side": 1,
+      "message": "Would not a simple RequestsLibrary.Get and check be more simple?",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 61
+      },
+      "revId": "82cb079db53bc16452e798451d38c079824b2a02",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_bc8f0223",
+        "filename": "csit/suites/bgpcep/bgpuser/bgp_app_peer_basic.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-03T15:20:17Z",
+      "side": 1,
+      "message": "And this is plain ugly.",
+      "range": {
+        "startLine": 93,
+        "startChar": 0,
+        "endLine": 95,
+        "endChar": 72
+      },
+      "revId": "82cb079db53bc16452e798451d38c079824b2a02",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_dc943e39",
+        "filename": "csit/suites/bgpcep/bgpuser/bgp_app_peer_basic.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-03T15:20:17Z",
+      "side": 1,
+      "message": "WUKS instead.",
+      "range": {
+        "startLine": 103,
+        "startChar": 4,
+        "endLine": 103,
+        "endChar": 23
+      },
+      "revId": "82cb079db53bc16452e798451d38c079824b2a02",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_7c998a6d",
+        "filename": "csit/suites/bgpcep/bgpuser/bgp_app_peer_basic.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-03T15:20:17Z",
+      "side": 1,
+      "message": "it",
+      "range": {
+        "startLine": 108,
+        "startChar": 64,
+        "endLine": 108,
+        "endChar": 67
+      },
+      "revId": "82cb079db53bc16452e798451d38c079824b2a02",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_9c9ec655",
+        "filename": "csit/suites/bgpcep/bgpuser/bgp_app_peer_basic.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-03T15:20:17Z",
+      "side": 1,
+      "message": "WUKS",
+      "range": {
+        "startLine": 124,
+        "startChar": 4,
+        "endLine": 124,
+        "endChar": 23
+      },
+      "revId": "82cb079db53bc16452e798451d38c079824b2a02",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_3ca312a0",
+        "filename": "csit/suites/bgpcep/bgpuser/bgp_app_peer_basic.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-03T15:20:17Z",
+      "side": 1,
+      "message": "There was no Stop_BGP_Application_Peer, so perhaps a verb other than Start should be used.",
+      "range": {
+        "startLine": 174,
+        "startChar": 4,
+        "endLine": 174,
+        "endChar": 9
+      },
+      "revId": "82cb079db53bc16452e798451d38c079824b2a02",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_9cb566cf",
+        "filename": "csit/suites/bgpcep/bgpuser/bgp_app_peer_basic.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-03T15:20:17Z",
+      "side": 1,
+      "message": "Is deletion method the only difference between TC1 and TC2? Possibly suite Documentation should give high-level description.",
+      "range": {
+        "startLine": 199,
+        "startChar": 41,
+        "endLine": 199,
+        "endChar": 52
+      },
+      "revId": "82cb079db53bc16452e798451d38c079824b2a02",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_3c3f9227",
+        "filename": "csit/suites/bgpcep/bgpuser/bgp_app_peer_basic.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 366,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-03T15:20:17Z",
+      "side": 1,
+      "message": "Usually we want to confirm that prompt has appeared, otherwise (parts of) the tool may still be running.",
+      "range": {
+        "startLine": 366,
+        "startChar": 29,
+        "endLine": 366,
+        "endChar": 33
+      },
+      "revId": "82cb079db53bc16452e798451d38c079824b2a02",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
