@@ -1,6 +1,6 @@
 {
     "sff-sf-data-plane-locator": {
-        "ip": "10.1.1.1",
-        "port": 6000
+        "sf-dpl-name": "5",
+        "sff-dpl-name": "eth5"
     }
 }

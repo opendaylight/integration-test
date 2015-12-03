@@ -3,10 +3,9 @@
         {
             "name": "SF100",
             "sff-sf-data-plane-locator": {
-                "ip": "10.1.1.1",
-                "port": 5100
-            },
-            "type": "service-function-type:napt44"
+              "sf-dpl-name": "5",
+              "sff-dpl-name": "eth1"
+            }
         }
     ]
 }

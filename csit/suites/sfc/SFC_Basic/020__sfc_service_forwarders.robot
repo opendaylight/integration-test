@@ -169,7 +169,7 @@ Get Service Function Dictionary From SFF
     [Documentation]    Get Service Function Dictionary From SFF
     Remove All Elements At URI    ${SERVICE_FORWARDERS_URI}
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
-    ${elements}=    Create List    service-function-dictionary    service-function-type:dpi    SF1
+    ${elements}=    Create List    service-function-dictionary    SF1
     Check For Elements At URI    ${SERVICE_FORWARDERS_URI}service-function-forwarder/SFF-bootstrap/service-function-dictionary/SF1    ${elements}
 
 Delete Service Function Dictionary From SFF
@@ -191,16 +191,16 @@ Put Service Function Dictionary to SFF
     Remove All Elements At URI    ${SERVICE_FORWARDERS_URI}
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}service-function-forwarder/SFF-bootstrap/service-function-dictionary/SF100    ${SFF_SFD_SF100_FILE}
-    ${elements}=    Create List    service-function-type:napt44    SF100
+    ${elements}=    Create List    SF100    eth1
     Check For Elements At URI    ${SERVICE_FORWARDERS_URI}service-function-forwarder/SFF-bootstrap/service-function-dictionary/SF100    ${elements}
-    ${elements}=    create list    service-function-dictionary    service-function-type:napt44    SF100
+    ${elements}=    create list    service-function-dictionary    SF100
     Check For Elements At URI    ${SERVICE_FORWARDERS_URI}service-function-forwarder/SFF-bootstrap/    ${elements}
 
 Get Service Function Dictionary's DPL From SFF
     [Documentation]    Get Service Function Dictionary From SFF
     Remove All Elements At URI    ${SERVICE_FORWARDERS_URI}
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
-    ${elements}=    create list    sff-sf-data-plane-locator    5000    10.1.1.1
+    ${elements}=    create list    sff-sf-data-plane-locator    eth1    1
     Check For Elements At URI    ${SERVICE_FORWARDERS_URI}service-function-forwarder/SFF-bootstrap/service-function-dictionary/SF1/sff-sf-data-plane-locator/    ${elements}
 
 Delete Service Function Dictionary's DPL From SFF
@@ -218,7 +218,7 @@ Put DPL of Service Function Dictionary to SFF
     Remove All Elements At URI    ${SERVICE_FORWARDERS_URI}
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}service-function-forwarder/SFF-bootstrap/service-function-dictionary/SF1/sff-sf-data-plane-locator/    ${SFF_SFD_LOCATOR_FILE}
-    ${elements}=    create list    sff-sf-data-plane-locator    6000    10.1.1.1
+    ${elements}=    create list    sff-sf-data-plane-locator    5    eth5    sf-dpl-name    sff-dpl-name
     Check For Elements At URI    ${SERVICE_FORWARDERS_URI}service-function-forwarder/SFF-bootstrap/service-function-dictionary/SF1/sff-sf-data-plane-locator/    ${elements}
     Check For Elements At URI    ${SERVICE_FORWARDERS_URI}service-function-forwarder/SFF-bootstrap/service-function-dictionary/SF1/    ${elements}
 

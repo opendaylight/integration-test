@@ -12,16 +12,23 @@
               "ip": "192.168.1.2",
               "transport": "service-locator:vxlan-gpe"
             }
+          },
+          {
+            "name": "eth7",
+            "data-plane-locator": {
+              "port": 5000,
+              "ip": "192.168.1.7",
+              "transport": "service-locator:ip"
+            }
           }
         ],
         "service-function-dictionary": [
           {
             "sff-sf-data-plane-locator": {
-              "port": 6000,
-              "ip": "10.1.1.7"
+              "sf-dpl-name": "7",
+              "sff-dpl-name": "eth7"
             },
-            "name": "SF7",
-            "type": "service-function-type:dpi"
+            "name": "SF7"
           }
         ]
       }

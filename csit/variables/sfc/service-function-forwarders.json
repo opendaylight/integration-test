@@ -7,30 +7,44 @@
         "rest-uri": "http://localhost:5000",
         "sff-data-plane-locator": [
           {
-            "name": "eth0",
+            "name": "SFF-bootstrap-tun",
             "data-plane-locator": {
               "port": 5000,
               "ip": "192.168.1.1",
               "transport": "service-locator:vxlan-gpe"
+            }
+          },
+          {
+            "name": "eth1",
+            "data-plane-locator": {
+              "port": 5000,
+              "ip": "192.168.1.1",
+              "transport": "service-locator:ip"
+            }
+          },
+          {
+            "name": "eth2",
+            "data-plane-locator": {
+              "port": 5000,
+              "ip": "192.168.1.2",
+              "transport": "service-locator:ip"
             }
           }
         ],
         "service-function-dictionary": [
           {
             "sff-sf-data-plane-locator": {
-              "port": 5000,
-              "ip": "10.1.1.1"
+              "sf-dpl-name": "1",
+              "sff-dpl-name": "eth1"
             },
-            "name": "SF1",
-            "type": "service-function-type:dpi"
+            "name": "SF1"
           },
           {
             "sff-sf-data-plane-locator": {
-              "port": 5000,
-              "ip": "10.1.1.2"
+              "sf-dpl-name": "2",
+              "sff-dpl-name": "eth2"
             },
-            "name": "SF2",
-            "type": "service-function-type:firewall"
+            "name": "SF2"
           }
         ],
         "connected-sff-dictionary": [
@@ -49,30 +63,44 @@
         "rest-uri": "http://localhost:5000",
         "sff-data-plane-locator": [
           {
-            "name": "eth0",
+            "name": "br-int-ovs2-tun",
             "data-plane-locator": {
               "port": 5000,
               "ip": "192.168.1.2",
               "transport": "service-locator:vxlan-gpe"
+            }
+          },
+          {
+            "name": "eth5",
+            "data-plane-locator": {
+              "port": 5000,
+              "ip": "192.168.1.5",
+              "transport": "service-locator:ip"
+            }
+          },
+          {
+            "name": "eth6",
+            "data-plane-locator": {
+              "port": 5000,
+              "ip": "192.168.1.6",
+              "transport": "service-locator:ip"
             }
           }
         ],
         "service-function-dictionary": [
           {
             "sff-sf-data-plane-locator": {
-              "port": 5000,
-              "ip": "10.1.1.5"
+              "sf-dpl-name": "5",
+              "sff-dpl-name": "eth5"
             },
-            "name": "SF5",
-            "type": "service-function-type:dpi"
+            "name": "SF5"
           },
           {
             "sff-sf-data-plane-locator": {
-              "port": 5000,
-              "ip": "10.1.1.6"
+              "sf-dpl-name": "6",
+              "sff-dpl-name": "eth6"
             },
-            "name": "SF6",
-            "type": "service-function-type:napt44"
+            "name": "SF6"
           }
         ],
         "connected-sff-dictionary": [
