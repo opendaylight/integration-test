@@ -45,6 +45,30 @@
       "revId": "0a5e2714154cd9327da2140202dcbe15499b4770",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_08f8517b",
+        "filename": "csit/suites/groupbasedpolicy/GBP/3-node/Variables.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-12-03T11:39:39Z",
+      "side": 1,
+      "message": "btw you don\u0027t have to check if ${ODL_VERSION} is \"lithium\", it should always be either \"beryllium\" or \"stable-lithium\"",
+      "parentUuid": "5aaae553_888f6123",
+      "range": {
+        "startLine": 46,
+        "startChar": 22,
+        "endLine": 46,
+        "endChar": 97
+      },
+      "revId": "0a5e2714154cd9327da2140202dcbe15499b4770",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
