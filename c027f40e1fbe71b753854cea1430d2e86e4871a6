@@ -22,6 +22,30 @@
       "revId": "c027f40e1fbe71b753854cea1430d2e86e4871a6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_bc606236",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-12-03T15:31:59Z",
+      "side": 1,
+      "message": "Do we have such tools already? And tests that use them? I made a fix to make the code not requiring the dash there when ${type_suffix} is set to ${EMPTY} (but require it if it is not ${EMPTY}) but I can\u0027t test whether the fix is correct without such tools. Well, I could make a dummy test deploying some artifact but I am not sure whether that would get merged.",
+      "parentUuid": "5aaae553_c780ec8d",
+      "range": {
+        "startLine": 26,
+        "startChar": 50,
+        "endLine": 26,
+        "endChar": 60
+      },
+      "revId": "c027f40e1fbe71b753854cea1430d2e86e4871a6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
