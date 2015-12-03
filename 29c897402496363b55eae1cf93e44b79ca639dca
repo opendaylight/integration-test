@@ -1,0 +1,8 @@
+Code-Review+1: Alexis de Talhouët <adetalhouet@inocybe.com>
+Code-Review+2: Vratko Polák <vrpolak@cisco.com>
+Verified+1: Vratko Polák <vrpolak@cisco.com>
+Submitted-by: Vratko Polák <vrpolak@cisco.com>
+Submitted-at: Thu, 03 Dec 2015 16:05:14 +0000
+Reviewed-on: https://git.opendaylight.org/gerrit/30556
+Project: integration/test
+Branch: refs/heads/master
