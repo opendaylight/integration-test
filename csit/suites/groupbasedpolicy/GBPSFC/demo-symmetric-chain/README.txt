@@ -1,1 +1,0 @@
-Please, submit your *.robot files for symmetric demo into this directory.
