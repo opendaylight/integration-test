@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_8cda0b77",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/Variables.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 4233
+      },
+      "writtenOn": "2015-12-04T21:56:21Z",
+      "side": 1,
+      "message": "TENANT_PATH will get initialized before GBP_TENANT_ID. Should be moved to Set ODL Variables.",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 69
+      },
+      "revId": "d95ba2a6d081ff01aa6c3a6dbd817fcaa14dc48d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_cc5d63eb",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/Variables.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 4233
+      },
+      "writtenOn": "2015-12-04T21:56:21Z",
+      "side": 1,
+      "message": "Changed as per suggestion from Vratko, modify Slovak word to English. Used tenant-red and tenant-blue for various tenants respectively in demo-gbp1 and demo-gbp2\nf5c7d344-d1c7-4208-8531-2c2693657e12 -\u003e tenant-red\n25c7d344-d1c7-4208-8531-2c2693657e12 -\u003e tenant-blue",
+      "range": {
+        "startLine": 59,
+        "startChar": 50,
+        "endLine": 59,
+        "endChar": 62
+      },
+      "revId": "d95ba2a6d081ff01aa6c3a6dbd817fcaa14dc48d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_4cbbb30e",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/Variables.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 4233
+      },
+      "writtenOn": "2015-12-04T21:56:21Z",
+      "side": 1,
+      "message": "Does this need to be version specific?",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 38
+      },
+      "revId": "d95ba2a6d081ff01aa6c3a6dbd817fcaa14dc48d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_ec37ffae",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/Variables.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 4233
+      },
+      "writtenOn": "2015-12-04T21:56:21Z",
+      "side": 1,
+      "message": "Does this need to be version specific?",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 39
+      },
+      "revId": "d95ba2a6d081ff01aa6c3a6dbd817fcaa14dc48d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
