@@ -22,6 +22,30 @@
       "revId": "62167810391eb8e74a4bd9b6fce56be7eb56e499",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_cbe22ed5",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-12-04T09:34:28Z",
+      "side": 1,
+      "message": "I don\u0027t want the invocations of this keyword to have cryptic arguments as in \"Deploy_Artifact | bgpcep/pcep-pcc-mock | -pcep-pcc-mock.jar\", I prefer the simpler \"Deploy_Artifact | bgpcep/pcep-pcc-mock | pcep-pcc-mock\" (and, to be honest, I even think about simplifying it to \"Deploy_Artifact | bgpcep/pcep-pcc-mock\", making the \"$(type_suffix)\" default to the part of the value \"${artifact}\" from the last \"/\" to its end. The complexity in the code is to account for tools that break the convention of having their jars in the form some/directory/somewhere/${name-of-the-tool}-${version-tag}-${name-of-the-tool}.jar where the \"some/directory/somewhere/\" and \"${name-of-the-tool}\" are supplied as arguments to this keyword and \"${version-tag}\" is digged out of the maven metadata.\n\nRight now I am inclined towards removing the \"${type_suffix}\" completely and require that all test tools adhere to the naming convention. This way all the test tools could be deployed with a simple keyword invocation without any cryptic \"executable line noise\" around it.\n\nOr I might do better: Simplify this keyword according to your comment and create another called \"Deploy_Test_Tool\" which will take only the name of the test tool, calculate the \"${artifact}\" and \"${type_suffix}\" arguments according to the convention and then call \"Deploy_Artifact\" with these arguments. This way \"Deploy_Artifact\" does not have to deal with various conventions of the different types of artifacts, keeping it nicely simple and readable and I still get my \"simple keyword invocation\" part of this work.",
+      "parentUuid": "5aaae553_7c12ea63",
+      "range": {
+        "startLine": 26,
+        "startChar": 50,
+        "endLine": 26,
+        "endChar": 75
+      },
+      "revId": "62167810391eb8e74a4bd9b6fce56be7eb56e499",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
