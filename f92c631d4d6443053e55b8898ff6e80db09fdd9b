@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_e64ac154",
+        "filename": "csit/suites/groupbasedpolicy/Clustering_Datastore/020_simple_clustering.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-04T10:35:32Z",
+      "side": 1,
+      "message": "I think tidy tool [0] would wrap the line in different place.\nIf you prefer the logic to be split in two lines anyway, you can use different Keyword [1] in line 18.\n\n[0] http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#test-data-clean-up-tool-tidy\n[1] http://robotframework.org/robotframework/latest/libraries/BuiltIn.html#Run%20Keyword%20And%20Return%20If",
+      "range": {
+        "startLine": 19,
+        "startChar": 4,
+        "endLine": 19,
+        "endChar": 7
+      },
+      "revId": "f92c631d4d6443053e55b8898ff6e80db09fdd9b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_a674c99c",
+        "filename": "csit/suites/groupbasedpolicy/Clustering_Datastore/020_simple_clustering.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-04T10:35:32Z",
+      "side": 1,
+      "message": "This is in Slovak, right? English would be more readable.",
+      "range": {
+        "startLine": 48,
+        "startChar": 53,
+        "endLine": 48,
+        "endChar": 58
+      },
+      "revId": "f92c631d4d6443053e55b8898ff6e80db09fdd9b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
