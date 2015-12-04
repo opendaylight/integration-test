@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_863aed34",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 11
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-04T12:49:53Z",
+      "side": 1,
+      "message": "Commit message should describe the difference between the patch set and its parent (also called Base in Gerrit view). Differences between patch sets should be pointed out only as Gerrit comments (or even better, they should be obvious when looking at Gerrit diff page such as [0]).\n\n[0] https://git.opendaylight.org/gerrit/#/c/29164/10..11//COMMIT_MSG",
+      "revId": "43f3226471eaa4abd1361e078ec5544003679c90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
