@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_69db01ee",
+        "filename": "csit/suites/messaging4transport/basic/010_Restconf_OK.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-04T18:20:47Z",
+      "side": 1,
+      "message": "in Variables.py this is made available via ${MODULES_API} if you want to change at a later time and remove line #10 above.",
+      "range": {
+        "startLine": 15,
+        "startChar": 49,
+        "endLine": 15,
+        "endChar": 64
+      },
+      "revId": "e3a507c87d7bc60463271103a0db9849598dba00",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
