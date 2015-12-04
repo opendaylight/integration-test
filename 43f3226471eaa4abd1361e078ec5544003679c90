@@ -16,6 +16,29 @@
       "revId": "43f3226471eaa4abd1361e078ec5544003679c90",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_a95819fb",
+        "filename": "csit/suites/didm/discovery/device_discovery.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-04T16:48:36Z",
+      "side": 1,
+      "message": "we have a \"Start Mininet\" keyword you should take advantage of.\n\nWe also have a \"Clean Mininet System\" keyword.  no need to figure this stuff out new.\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/Utils.robot#L29\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/Utils.robot#L29",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 135,
+        "endChar": 94
+      },
+      "revId": "43f3226471eaa4abd1361e078ec5544003679c90",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
