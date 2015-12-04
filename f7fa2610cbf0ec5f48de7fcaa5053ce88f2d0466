@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5aaae553_a19b53c8",
+        "filename": "csit/suites/bgpcep/bgpuser/bgp_app_peer_basic.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-04T14:19:37Z",
+      "side": 1,
+      "message": "I think this is quite permissive.",
+      "range": {
+        "startLine": 102,
+        "startChar": 43,
+        "endLine": 102,
+        "endChar": 46
+      },
+      "revId": "f7fa2610cbf0ec5f48de7fcaa5053ce88f2d0466",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
