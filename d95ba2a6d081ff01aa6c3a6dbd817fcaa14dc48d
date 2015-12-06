@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3aa7f18b_647eeae6",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/Variables.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-12-06T19:15:28Z",
+      "side": 1,
+      "message": "It actually worked somehow, it looks better now in next patch sets.",
+      "parentUuid": "5aaae553_8cda0b77",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 69
+      },
+      "revId": "d95ba2a6d081ff01aa6c3a6dbd817fcaa14dc48d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5aaae553_cc5d63eb",
         "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/Variables.robot",
         "patchSetId": 18
@@ -59,6 +83,30 @@
       "writtenOn": "2015-12-04T21:56:21Z",
       "side": 1,
       "message": "Does this need to be version specific?",
+      "range": {
+        "startLine": 62,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 38
+      },
+      "revId": "d95ba2a6d081ff01aa6c3a6dbd817fcaa14dc48d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3aa7f18b_048376cd",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/Variables.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2015-12-06T19:15:28Z",
+      "side": 1,
+      "message": "Yes, because of changes in yang.",
+      "parentUuid": "5aaae553_4cbbb30e",
       "range": {
         "startLine": 62,
         "startChar": 0,
