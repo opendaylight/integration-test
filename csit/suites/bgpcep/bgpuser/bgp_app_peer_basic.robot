@@ -14,6 +14,8 @@ Documentation     Basic tests for BGP application peer.
 ...               how to use restconf application peer interface:
 ...               https://wiki.opendaylight.org/view/BGP_LS_PCEP:User_Guide#BGP_Application_Peer
 ...               https://wiki.opendaylight.org/view/BGP_LS_PCEP:Programmer_Guide#BGP
+...               Covered bugs:
+...               Bug 4714 - No routes from loc-rib are advertised to newly connected peer
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
@@ -73,15 +75,6 @@ Check_For_Empty_Example-IPv4-Topology
     [Tags]    critical
     Wait_For_Topology_To_Change_To    ${empty_json}    000_Empty.json    timeout=120s
 
-TC1_Connect_BGP_Peer
-    [Documentation]    Start BGP peer tool
-    [Tags]    critical
-    Switch_To_BGP_Peer_Console
-    Start_Console_Tool    ${BGP_PEER_COMMAND}    ${BGP_PEER_OPTIONS}
-    Read_And_Fail_If_Prompt_Is_Seen
-    Check_File_For_Word_Count    bgp_peer.log    nlri_prefix_received:    0
-    Check_File_For_Word_Count    bgp_peer.log    withdrawn_prefix_received:    0
-
 TC1_BGP_Application_Peer_Post_3_Initial_Routes
     [Documentation]    Start BGP application peer tool and give it ${BGP_APP_PEER_TIMEOUT}
     [Tags]    critical
@@ -95,6 +88,13 @@ TC1_Check_Example-IPv4-Topology_Is_Filled_With_3_Routes
     [Tags]    critical
     Wait_For_Topology_To_Change_To    ${filled_json}    010_Filled.json
 
+TC1_Connect_BGP_Peer
+    [Documentation]    Start BGP peer tool
+    [Tags]    critical
+    Switch_To_BGP_Peer_Console
+    Start_Console_Tool    ${BGP_PEER_COMMAND}    ${BGP_PEER_OPTIONS}
+    Read_And_Fail_If_Prompt_Is_Seen
+
 TC1_BGP_Peer_Check_Incomming_Updates_For_3_Introduced_Prefixes
     [Documentation]    Check incomming updates for new routes
     [Tags]    critical
@@ -104,6 +104,7 @@ TC1_BGP_Peer_Check_Incomming_Updates_For_3_Introduced_Prefixes
     Check_File_For_Word_Count    bgp_peer.log    nlri_prefix_received: 8.0.1.16/28    1
     Check_File_For_Word_Count    bgp_peer.log    nlri_prefix_received: 8.0.1.32/28    1
     Check_File_For_Word_Count    bgp_peer.log    withdrawn_prefix_received:    0
+    [Teardown]    Report_Failure_Due_To_Bug    4714
 
 TC1_BGP_Application_Peer_Delete_3_Initial_Routes
     [Documentation]    Start BGP application peer tool and give him ${BGP_APP_PEER_TIMEOUT}
@@ -127,6 +128,7 @@ TC1_Peer_Check_Incomming_Updates_For_3_Withdrawn_Prefixes
     Check_File_For_Word_Count    bgp_peer.log    withdrawn_prefix_received: 8.0.1.16/28    1
     Check_File_For_Word_Count    bgp_peer.log    withdrawn_prefix_received: 8.0.1.32/28    1
     Check_File_For_Word_Count    bgp_peer.log    nlri_prefix_received:    3
+    [Teardown]    Report_Failure_Due_To_Bug    4714
 
 TC1_Stop_BGP_Peer
     [Documentation]    Stop BGP peer tool
