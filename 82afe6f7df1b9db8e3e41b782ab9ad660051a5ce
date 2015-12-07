@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3aa7f18b_874d28c7",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-07T09:45:33Z",
+      "side": 1,
+      "message": "Nexus? Possibly the whole paragraph should be rewritten to be less \"boilerplatey\".",
+      "range": {
+        "startLine": 12,
+        "startChar": 18,
+        "endLine": 12,
+        "endChar": 25
+      },
+      "revId": "82afe6f7df1b9db8e3e41b782ab9ad660051a5ce",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
