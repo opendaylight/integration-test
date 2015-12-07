@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3aa7f18b_2d5c5525",
+        "filename": "tools/fastbgp/manage_play.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-07T15:40:16Z",
+      "side": 1,
+      "message": "Add lines 1-23 from Base back (with appropriate edits).",
+      "revId": "7935cc1d0550ee96602b07e6ab57b45d627092a3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3aa7f18b_0d20799a",
+        "filename": "tools/fastbgp/manage_play.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-07T15:40:16Z",
+      "side": 1,
+      "message": "Use 4 spaces instead of tab.",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 1
+      },
+      "revId": "7935cc1d0550ee96602b07e6ab57b45d627092a3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
