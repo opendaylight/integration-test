@@ -133,7 +133,7 @@ Install_And_Start_Testtool
     # Install test tool on the machine.
     # TODO: The "urlbase" line is very similar to what pcep suites do. Reduce this code duplication.
     ${urlbase}=    BuiltIn.Set_Variable    ${NEXUSURL_PREFIX}/content/repositories/opendaylight.snapshot/org/opendaylight/netconf/netconf-testtool
-    ${version}=    SSHLibrary.Execute_Command    curl ${urlbase}/maven-metadata.xml | grep '<version>' | cut -d '>' -f 2 | cut -d '<' -f 1
+    ${version}=    SSHLibrary.Execute_Command    curl ${urlbase}/maven-metadata.xml | grep '<latest>' | cut -d '>' -f 2 | cut -d '<' -f 1
     BuiltIn.Log    ${version}
     ${namepart}=    SSHLibrary.Execute_Command    curl ${urlbase}/${version}/maven-metadata.xml | grep value | head -n 1 | cut -d '>' -f 2 | cut -d '<' -f 1
     BuiltIn.Log    ${namepart}
