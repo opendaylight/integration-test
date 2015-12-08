@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_a619487b",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/GBPSFC_6node.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-08T00:16:27Z",
+      "side": 1,
+      "message": "what is this line for? unless I\u0027m misunderstanding this is a reference to this same file.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 36
+      },
+      "revId": "69d6e4b308dadfd8c45f672c33debd57d5604098",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_66791093",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/GBPSFC_6node.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-08T00:16:27Z",
+      "side": 1,
+      "message": "it\u0027s not clear from code alone what the purpose of this is (e.g. why when the arg passed in is SFC3 are we writing SFC2,\netc).\n\nnot a big deal but, if there is an update to this patch probably would be good to add a comment to explain.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 32
+      },
+      "revId": "69d6e4b308dadfd8c45f672c33debd57d5604098",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_066e1cca",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/Variables.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-08T00:16:27Z",
+      "side": 1,
+      "message": "you should also add in this doc string that this file contains the keywords needed to dynamically change the \nvariables based on ODL_VERSION.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 13
+      },
+      "revId": "69d6e4b308dadfd8c45f672c33debd57d5604098",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_e66420e7",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/Variables.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-08T00:16:27Z",
+      "side": 1,
+      "message": "add another line that also checks for stable/lithium (slash instead of hyphen) so you can handle both down the road.  it can\u0027t hurt, and I get the feeling that we\u0027ll be introducing this as a pybot command line overrirde and people may agree to use the slash version over the dash version.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 43
+      },
+      "revId": "69d6e4b308dadfd8c45f672c33debd57d5604098",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_469bb4c9",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/__init__.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-08T00:16:27Z",
+      "side": 1,
+      "message": "nit pick, but could you move this down in to line 8-10 so it\u0027s listed with the other Resource lines?",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 33
+      },
+      "revId": "69d6e4b308dadfd8c45f672c33debd57d5604098",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_e6abc0d4",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-asymmetric-chain/036_track_curl_h35_3_h36_4.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-08T00:16:27Z",
+      "side": 1,
+      "message": "I tend to deny patches that use sleep.  can you comment on why you need to sleep for 2 secs?  being only 2 secs it may not be worth the work you would do to poll on whatever you are waiting on, so not a -2 from me.",
+      "range": {
+        "startLine": 98,
+        "startChar": 4,
+        "endLine": 98,
+        "endChar": 22
+      },
+      "revId": "69d6e4b308dadfd8c45f672c33debd57d5604098",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
