@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_8c6b0b85",
+        "filename": "csit/suites/didm/discovery/device_discovery.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-08T15:11:01Z",
+      "side": 1,
+      "message": "Sleeps are discouraged. Preferred way is to use Wait Until Keyword Succeeds on a check that only passes when everything needed is ready. In this case, it can be a check whether openflow data has appeared in operation topology.",
+      "range": {
+        "startLine": 143,
+        "startChar": 4,
+        "endLine": 143,
+        "endChar": 15
+      },
+      "revId": "7594d4a86be5ffe07131588c31100be3c2ecb26d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
