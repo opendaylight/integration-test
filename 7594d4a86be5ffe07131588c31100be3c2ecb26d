@@ -22,6 +22,30 @@
       "revId": "7594d4a86be5ffe07131588c31100be3c2ecb26d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_d253da6a",
+        "filename": "csit/suites/didm/discovery/device_discovery.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-08T22:01:44Z",
+      "side": 1,
+      "message": "the other idea we have is to poll on karaf.log to wait for didm listeners to be registered.\n\nlike:\norg.opendaylight.didm.ovs - 0.2.0.SNAPSHOT | Device-type Listener registered\n\nor this:\norg.opendaylight.didm.hp - 0.2.0.SNAPSHOT | Device-type Listener registered",
+      "parentUuid": "1aa4ed85_8c6b0b85",
+      "range": {
+        "startLine": 143,
+        "startChar": 4,
+        "endLine": 143,
+        "endChar": 15
+      },
+      "revId": "7594d4a86be5ffe07131588c31100be3c2ecb26d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
