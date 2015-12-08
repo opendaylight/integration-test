@@ -1523,6 +1523,21 @@ class StateTracker(object):
         return
 
 
+def create_logger(loglevel, logfile):
+    logger = logging.getLogger("logger")
+    log_formatter = logging.Formatter("%(asctime)s %(levelname)s: %(message)s")
+    console_handler = logging.StreamHandler()
+    file_handler = logging.FileHandler(logfile, mode="w")
+    console_handler.setFormatter(log_formatter)
+    file_handler.setFormatter(log_formatter)
+    logger.addHandler(console_handler)
+    logger.addHandler(file_handler)
+    logger.setLevel(loglevel)
+    return logger
+
+
+logger = create_logger(1, 'manage_play.log')
+
 if __name__ == "__main__":
     """ One time initialisation and iterations looping.
 
@@ -1530,15 +1545,7 @@ if __name__ == "__main__":
         Establish BGP connection and run iterations.
     """
     arguments = parse_arguments()
-    logger = logging.getLogger("logger")
-    log_formatter = logging.Formatter("%(asctime)s %(levelname)s: %(message)s")
-    console_handler = logging.StreamHandler()
-    file_handler = logging.FileHandler(arguments.logfile, mode="w")
-    console_handler.setFormatter(log_formatter)
-    file_handler.setFormatter(log_formatter)
-    logger.addHandler(console_handler)
-    logger.addHandler(file_handler)
-    logger.setLevel(arguments.loglevel)
+    logger = create_logger(arguments.loglevel, arguments.logfile)
     bgp_socket = establish_connection(arguments)
     # Initial handshake phase. TODO: Can it be also moved to StateTracker?
     # Receive open message before sending anything.
