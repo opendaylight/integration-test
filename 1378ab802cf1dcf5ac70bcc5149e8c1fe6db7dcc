@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_8c2eaba4",
+        "filename": "tools/fastbgp/manage_play.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-08T17:06:40Z",
+      "side": 1,
+      "message": "Give a long sleep here, we do not want to busy-wait.",
+      "range": {
+        "startLine": 144,
+        "startChar": 8,
+        "endLine": 144,
+        "endChar": 12
+      },
+      "revId": "1378ab802cf1dcf5ac70bcc5149e8c1fe6db7dcc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
