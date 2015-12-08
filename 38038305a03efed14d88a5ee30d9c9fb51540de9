@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_17f3a40b",
+        "filename": "csit/suites/lispflowmapping/basic/030_RPC_Datatypes.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-08T17:52:45Z",
+      "side": 1,
+      "message": "This can be added in a single line in Check_Datatype (perhaps together with \"rpc_\" and \".json\").\nI see no need to have this long list here.",
+      "range": {
+        "startLine": 17,
+        "startChar": 18,
+        "endLine": 17,
+        "endChar": 78
+      },
+      "revId": "38038305a03efed14d88a5ee30d9c9fb51540de9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
