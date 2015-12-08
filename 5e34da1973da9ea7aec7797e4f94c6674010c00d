@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_d26c3a39",
+        "filename": "csit/libraries/ClusterOvsdb.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-08T22:00:18Z",
+      "side": 1,
+      "message": "this doesn\u0027t look like it\u0027s doing what the doc and keyword name imply.  it\u0027s just pulling the bridge_name from received body and comparing it to br01.  it\u0027s not using ${expected_body) at all.",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 56
+      },
+      "revId": "5e34da1973da9ea7aec7797e4f94c6674010c00d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_b273be14",
+        "filename": "csit/suites/ovsdb/Southbound_Cluster/010__Ovsdb_Southbound_Cluster.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-08T22:00:18Z",
+      "side": 1,
+      "message": "at least this variable should probably go in a common location like Variables.py.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 22
+      },
+      "revId": "5e34da1973da9ea7aec7797e4f94c6674010c00d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
