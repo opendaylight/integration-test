@@ -22,6 +22,30 @@
       "revId": "5d7253d8200875ffc0fcb3af3ad2efa27e7b158e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_77d53842",
+        "filename": "csit/suites/ovsdb/Devstack_Tempest_Tests/01__single_node_devstack_tempest_tests.robot",
+        "patchSetId": 42
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-08T17:54:38Z",
+      "side": 1,
+      "message": "added it just now.\n\nBUT, notice the default for ${ODL_VERSION} (line 10 above) is only SR1.  this is because the openstack side of things\nis not updated yet.  Flavio gave us a patch to get 0.3.3 to work (not merged yet), but now we\u0027ll need to update it to 0.3.4\n\nhttps://review.openstack.org/#/c/252030/",
+      "parentUuid": "1aa4ed85_ac5127da",
+      "range": {
+        "startLine": 123,
+        "startChar": 83,
+        "endLine": 123,
+        "endChar": 88
+      },
+      "revId": "5d7253d8200875ffc0fcb3af3ad2efa27e7b158e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
