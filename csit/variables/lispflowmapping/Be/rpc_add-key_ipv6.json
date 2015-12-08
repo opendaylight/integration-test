@@ -1,0 +1,12 @@
+{
+    "input": {
+        "eid": {
+            "address-type": "ietf-lisp-address-types:ipv6-prefix-afi",
+            "ipv6-prefix": "2001:db8::1/128"
+        },
+        "mapping-authkey": {
+            "key-string": "password",
+            "key-type": 1
+        }
+    }
+}
