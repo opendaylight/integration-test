@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_2c0e9735",
+        "filename": "csit/suites/dlux/core/010_DLUX_auth.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 1951
+      },
+      "writtenOn": "2015-12-08T13:45:31Z",
+      "side": 1,
+      "message": "A patch was pushed to install selenium somewhere else, should I delete it ?\n\nhttps://github.com/opendaylight/releng-builder/blob/master/jjb/integration/include-raw-integration-install-robotframework.sh#L21",
+      "parentUuid": "1aa4ed85_c6c32489",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 34
+      },
+      "revId": "08d2ac135b1151e211f443a51a3e5ab33e808fd5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_e6c0a07e",
         "filename": "csit/suites/dlux/core/010_DLUX_auth.robot",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2015-12-08T01:19:56Z",
       "side": 1,
       "message": "what does LOGGEG mean?  or is it a typo for LOGIN or LOGGED?",
+      "range": {
+        "startLine": 9,
+        "startChar": 2,
+        "endLine": 9,
+        "endChar": 8
+      },
+      "revId": "08d2ac135b1151e211f443a51a3e5ab33e808fd5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_4c2673bc",
+        "filename": "csit/suites/dlux/core/010_DLUX_auth.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1951
+      },
+      "writtenOn": "2015-12-08T13:45:31Z",
+      "side": 1,
+      "message": "typo, my bad",
+      "parentUuid": "1aa4ed85_e6c0a07e",
       "range": {
         "startLine": 9,
         "startChar": 2,
@@ -82,6 +130,30 @@
       "writtenOn": "2015-12-08T01:19:56Z",
       "side": 1,
       "message": "we could open an enhancement bug with DLUX to add the identifier, if you think it will make testing any easier.",
+      "range": {
+        "startLine": 32,
+        "startChar": 62,
+        "endLine": 32,
+        "endChar": 112
+      },
+      "revId": "08d2ac135b1151e211f443a51a3e5ab33e808fd5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_0c207b9a",
+        "filename": "csit/suites/dlux/core/010_DLUX_auth.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1951
+      },
+      "writtenOn": "2015-12-08T13:45:31Z",
+      "side": 1,
+      "message": "Bug 4739 , i will update the comment in the next patchset",
+      "parentUuid": "1aa4ed85_86bd2c05",
       "range": {
         "startLine": 32,
         "startChar": 62,
