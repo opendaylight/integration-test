@@ -1,0 +1,12 @@
+{
+    "input": {
+        "eid": {
+            "address-type": "ietf-lisp-address-types:mac-afi",
+            "mac": "00:11:22:33:44:55"
+        },
+        "mapping-authkey": {
+            "key-string": "password",
+            "key-type": 1
+        }
+    }
+}

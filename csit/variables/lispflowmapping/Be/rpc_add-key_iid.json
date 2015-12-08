@@ -1,0 +1,16 @@
+{
+    "input": {
+        "eid": {
+            "address-type": "ietf-lisp-address-types:instance-id-lcaf",
+            "instance-id": {
+                "iid": 1,
+                "mask-length": 32,
+                "address": "192.0.2.0/32"
+            }
+        },
+        "mapping-authkey": {
+            "key-string": "password",
+            "key-type": 1
+        }
+    }
+}

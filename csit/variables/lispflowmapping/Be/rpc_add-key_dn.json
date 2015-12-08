@@ -1,0 +1,12 @@
+{
+    "input": {
+        "eid": {
+            "address-type": "ietf-lisp-address-types:distinguished-name-afi",
+            "distinguished-name": "stringAsIs"
+        },
+        "mapping-authkey": {
+            "key-string": "password",
+            "key-type": 1
+        }
+    }
+}
