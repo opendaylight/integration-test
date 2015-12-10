@@ -8,7 +8,11 @@ Documentation     Basic tests for BGP application peer.
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
 ...               Test suite performs basic BGP functional test cases for
-...               BGP application peer.
+...               BGP application peer operations and checks for IP4 topology updates
+...               and updates towards BGP peer:
+...               TC1: POST request for 3 routes, BGP peer connected 1st time, delete routes one by one, disconnect the BGP peer.
+...               TC2: BGP peer re-connect, PUT request for 3 routes and consequent deletion by one request, disconnect the BGP peer.
+...               TC3: toploogy is prefilled, check updates & withdrawals towards BGP peer after re-connection, disconnect the BGP peer.
 ...
 ...               Brief description how to configure BGP application peer and
 ...               how to use restconf application peer interface:
