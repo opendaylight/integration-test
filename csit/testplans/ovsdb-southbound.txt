@@ -1,3 +1,3 @@
 # Place the suites in run order:
-integration/test/csit/suites/ovsdb/Southbound_Domain
-
+integration/test/csit/suites/ovsdb/Southbound_Domain/040__Vxlan_Extension_Test.robot
+integration/test/csit/suites/ovsdb/Southbound_Domain/050__Vxlan_Extension_Tunnel_Test.robot
