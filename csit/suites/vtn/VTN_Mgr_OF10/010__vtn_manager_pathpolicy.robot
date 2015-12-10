@@ -2,6 +2,7 @@
 Documentation     Test suite for VTN Manager using OF10
 Suite Setup       Start PathSuiteVtnMaTestOF10
 Suite Teardown    Stop PathSuiteVtnMaTest
+Force Tags        exclude
 Resource          ../../../libraries/VtnMaKeywords.robot
 
 *** Variables ***
@@ -61,7 +62,6 @@ Ping h1 to h2 before path policy
 
 Verify flowEntryBeforePathPolicy
     [Documentation]    Checking Flows on switch s1 and s3
-    [Tags]    exclude
     Verify flowEntryPathPolicy    OF10    ${in_port}    ${out_before_pathpolicy}
 
 Add a flowcondition flowcond_path
@@ -96,7 +96,6 @@ Ping h1 to h2 after path policy
 
 Verify flowEntryAfterPathPolicy
     [Documentation]    Checking Flows on switch s1 and s3
-    [Tags]    exclude
     Verify flowEntryPathPolicy    OF10    ${in_port}    ${out_after_pathpolicy}
 
 Delete a pathmap

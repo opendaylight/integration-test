@@ -2,6 +2,7 @@
 Documentation     Test suite for VTN Manager using OF10
 Suite Setup       Start SuiteVtnMaTest
 Suite Teardown    Stop SuiteVtnMaTest
+Force Tags        exclude
 Resource          ../../../libraries/VtnMaKeywords.robot
 
 *** Variables ***
@@ -152,6 +153,10 @@ Add a flowfilter with inet4 for drop
     [Documentation]    Create a flowfilter with inet4 for drop action and Verify no pinging
     Add a flowfilter for drop    Tenant1    vBridge1    if1    ${flowfilterInetdropdata}    ${index}
     Mininet Ping Should Not Succeed    h1    h3
+
+Verify Removed Flow Entry For Inet After Drop Action
+    [Documentation]    Verify no flows between the hosts after drop
+    Verify Removed Flow Entry for Inet Drop Flowfilter
 
 Delete a flowcondition
     [Documentation]    Delete a flowcondition

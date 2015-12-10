@@ -2,6 +2,7 @@
 Documentation     Test suite for VTN Manager Data Flow using OF13
 Suite Setup       Start SuiteVtnMaTest
 Suite Teardown    Stop SuiteVtnMaTest
+Force Tags        exclude
 Resource          ../../../libraries/VtnMaKeywords.robot
 
 *** Test Cases ***
@@ -91,7 +92,6 @@ Verify data flow details for vBridge2
 
 Verify FlowMacAddress
     [Documentation]    Checking Flows on switch
-    [Tags]    Switch
     Verify FlowMacAddress    h2    h4    OF13
 
 Remove Portmap for If1
