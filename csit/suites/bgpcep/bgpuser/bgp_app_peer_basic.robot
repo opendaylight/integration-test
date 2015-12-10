@@ -8,7 +8,37 @@ Documentation     Basic tests for BGP application peer.
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
 ...               Test suite performs basic BGP functional test cases for
-...               BGP application peer.
+...               BGP application peer operations and checks for IP4 topology updates
+...               and updates towards BGP peer as follows:
+...
+...               Test case 1
+...               BGP_Application_Peer_Post_3_Initial_Routes,
+...               Check_Example-IPv4-Topology_Is_Filled_With_3_Routes,
+...               Connect_BGP_Peer,
+...               BGP_Peer_Check_Incomming_Updates_For_3_Introduced_Prefixes,
+...               BGP_Application_Peer_Delete_3_Initial_Routes,
+...               Check_Example-IPv4-Topology_Is_Empty,
+...               Peer_Check_Incomming_Updates_For_3_Withdrawn_Prefixes,
+...               Stop_BGP_Peer.
+...
+...               Test case 2
+...               Connect_BGP_Peer,
+...               BGP_Application_Peer_Put_3_Routes,
+...               Check_Example-IPv4-Topology_Is_Filled_With_3_Routes,
+...               BGP_Peer_Check_Incomming_Updates_For_3_Introduced_Prefixes,
+...               BGP_Application_Peer_Delete_All_Routes,
+...               Check_Example-IPv4-Topology_Is_Empty,
+...               BGP_Peer_Check_Incomming_Updates_For_3_Withdrawn_Prefixes,
+...               Stop_BGP_Peer.
+...
+...               Test case 3
+...               BGP_Application_Peer_Put_3_Routes,
+...               Check_Example-IPv4-Topology_Is_Filled_With_3_Routes,
+...               Reconnect_BGP_Peer_And_Check_Incomming_Updates_For_3_Introduced_Prefixes,
+...               BGP_Application_Peer_Delete_All_Routes,
+...               Check_Example-IPv4-Topology_Is_Empty,
+...               BGP_Peer_Check_Incomming_Updates_For_3_Withdrawn_Prefixes,
+...               Stop_BGP_Peer.
 ...
 ...               Brief description how to configure BGP application peer and
 ...               how to use restconf application peer interface:
