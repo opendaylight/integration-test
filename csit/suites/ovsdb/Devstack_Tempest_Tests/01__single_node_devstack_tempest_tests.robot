@@ -16,8 +16,19 @@ ${default_devstack_prompt_timeout}    10s
 ${devstack_workspace}    ~/ds_workspace
 ${DEVSTACK_SYSTEM_PASSWORD}    \    # set to empty, but provide for others to override if desired
 ${CLEAN_DEVSTACK_HOST}    False
+${HEADERS_YANG_JSON}    {'Content-Type': 'application/yang.data+json'}
+${NETWORK1_NAME}    debuggingIsFun_network
+${NETWORK2_NAME}    net2_network
+${NETWORK3_NAME}    net3_network
+${NETWORK4_NAME}    net4_network
 
 *** Test Cases ***
+Check Firewall Things Before Devstacky stuff
+    ${output}=    Write Commands Until Prompt    sudo iptables --list
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    sudo systemctl status firewalld
+    Log    ${output}
+
 Run Devstack Gate Wrapper
     Write Commands Until Prompt    unset GIT_BASE
     Write Commands Until Prompt    env
@@ -35,12 +46,176 @@ Validate Neutron and Networking-ODL Versions
     ${output}=    Write Commands Until Prompt    cd /opt/stack/new/networking-odl; git branch;
     Should Contain    ${output}    * ${NETWORKING-ODL_BRANCH}
 
+Basic Rest Check Local To OpenDaylight VM With 8181
+    Write Commands Until Prompt    curl -u "admin:admin" http://localhost:8181/restconf/modules
+
 tempest.api.network
+    [Tags]    exclude
     Run Tempest Tests    ${TEST_NAME}
 
 tempest
     [Tags]    exclude
     Run Tempest Tests    ${TEST_NAME}    900s
+
+Trying to hit ODL with curl command before mucking with firewall stuff
+    Run    curl -u "admin:admin" http://${DEVSTACK_SYSTEM_IP}:8181/restconf/modules
+
+Check Firewall Things After Devstacky stuff
+    ${output}=    Write Commands Until Prompt    sudo iptables --list
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    sudo systemctl status firewalld
+    Log    ${output}
+
+Poke Holes In Iptables
+    # these two lines didn't work.  I was hoping to be more surgical instead of flushing all rules, but can't figure it out
+    # ${output}=    Write Commands Until Prompt    sudo iptables -A INPUT -j ACCEPT
+    # ${output}=    Write Commands Until Prompt    sudo iptables -A FORWARD -j ACCEPT
+    ${output}=    Write Commands Until Prompt    sudo iptables -F
+    Log    ${output}
+
+Check Firewall Things After Trying To Turn Them Off
+    ${output}=    Write Commands Until Prompt    sudo iptables --list
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    sudo systemctl status firewalld
+    Log    ${output}
+
+Trying to hit ODL with curl command after mucking with firewall stuff
+    Run    curl -u "admin:admin" http://${DEVSTACK_SYSTEM_IP}:8181/restconf/modules
+
+Testing ODL restconf port 8181 with standard headers
+    Create Session    session    http://${DEVSTACK_SYSTEM_IP}:8181    auth=${AUTH}    headers=${headers}
+    Wait Until Keyword Succeeds    3x    5 s    Get Data From URI    session    ${ODL_BOOT_WAIT_URL}    headers=${headers}
+    Delete All Sessions
+
+Check Something More Meaningful
+    Create Session    session    http://${DEVSTACK_SYSTEM_IP}:${8181}    auth=${AUTH}    headers=${headers}
+    Wait Until Keyword Succeeds    3x    5 s    Get Data From URI    session    ${ODL_BOOT_WAIT_URL}    headers=${headers}
+    Delete All Sessions
+
+Test neutron
+    ${output}=    Write Commands Until Prompt    cd /opt/stack/new/devstack && cat localrc
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    source openrc admin admin
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    neutron -v net-create ${NETWORK1_NAME}
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    neutron -v net-create ${NETWORK2_NAME}
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    neutron -v net-create ${NETWORK3_NAME}
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    neutron -v net-create ${NETWORK4_NAME}
+    Log    ${output}
+
+Test subnet
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${NETWORK1_NAME} 10.0.0.0/24 --name subnet1
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${NETWORK2_NAME} 20.0.0.0/24 --name subnet2
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${NETWORK3_NAME} 30.0.0.0/24 --name subnet3
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${NETWORK4_NAME} 40.0.0.0/24 --name subnet4
+    Log    ${output}
+
+Test List Ports
+    ${output}=   Write Commands Until Prompt     neutron -v port-list
+    Log    ${output}
+
+Test List Available Networks
+    ${output}=   Write Commands Until Prompt     neutron -v net-list
+    Log    ${output}
+    ${output}=   Write Commands Until Prompt    neutron net-list -F id -F name -f json
+    Log    ${output}
+
+Test Tenant list
+    ${output}=   Write Commands Until Prompt     keystone tenant-list
+    Log    ${output}
+
+Test novalist
+    ${output}=   Write Commands Until Prompt     nova list
+    Log    ${output}
+
+Test imagelist
+    ${output}=   Write Commands Until Prompt     nova image-list
+    Log    ${output}
+
+Test flavor list
+    ${output}=   Write Commands Until Prompt     nova flavor-list
+    Log    ${output}
+
+Test instance using flavor and image names
+    ${net_id1}=    Get Net Id    ${NETWORK1_NAME}
+    ${output}=   Write Commands Until Prompt     nova boot --image cirros-0.3.4-x86_64-uec --flavor m1.tiny --nic net-id=${net_id1} MyFirstInstance
+    Log    ${output}
+    ${net_id2}=    Get Net Id    ${NETWORK2_NAME}
+    ${output}=   Write Commands Until Prompt     nova boot --image cirros-0.3.4-x86_64-uec --flavor m1.tiny --nic net-id=${net_id2} MySecondInstance
+    Log    ${output}
+    ${net_id3}=    Get Net Id    ${NETWORK3_NAME}
+    ${output}=   Write Commands Until Prompt     nova boot --image cirros-0.3.4-x86_64-uec --flavor m1.tiny --nic net-id=${net_id3} MyThirdInstance
+    Log    ${output}
+    ${net_id4}=    Get Net Id    ${NETWORK4_NAME}
+    ${output}=   Write Commands Until Prompt     nova boot --image cirros-0.3.4-x86_64-uec --flavor m1.tiny --nic net-id=${net_id4} MyFourthInstance
+    Log    ${output}
+
+Test Show details of instance
+    ${output}=   Write Commands Until Prompt     nova show MyFirstInstance
+    Log    ${output}
+    ${output}=   Write Commands Until Prompt     nova show MySecondInstance
+    Log    ${output}
+    ${output}=   Write Commands Until Prompt     nova show MyThirdInstance
+    Log    ${output}
+    ${output}=   Write Commands Until Prompt     nova show MyFourthInstance
+    Log    ${output}
+
+Verify Created Vm Instance In Dump Flow
+    ${output}=   Write Commands Until Prompt     sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+    Should Contain    ${output}    10.0.0.3    20.0.0.3    30.0.0.3    40.0.0.3
+
+Delete Vm Instances
+    ${output}=   Write Commands Until Prompt     nova delete MyFirstInstance
+    Log    ${output}
+    ${output}=   Write Commands Until Prompt     nova delete MySecondInstance
+    Log    ${output}
+    ${output}=   Write Commands Until Prompt     nova delete MyThirdInstance
+    Log    ${output}
+    ${output}=   Write Commands Until Prompt     nova delete MyFourthInstance
+    Log    ${output}
+
+
+Delete Sub Networks
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-delete subnet3
+    Log    ${output}
+
+Delete Networks
+    ${output}=    Write Commands Until Prompt    neutron -v net-delete ${NETWORK3_NAME}
+    Log    ${output}
+
+Verify No Presence Of Removed Network In Dump Flow
+    ${output}=   Write Commands Until Prompt     sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+    Should Not Contain    ${output}    30.0.0.3
+
+Verify Presence Of Not Deleted Network In Dump Flow
+    ${output}=   Write Commands Until Prompt     sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+    Should Contain    ${output}    10.0.0.3    20.0.0.3    40.0.0.3
+
+Test Create the Router
+    ${output}=   Write Commands Until Prompt     neutron -v router-create router1
+    Log    ${output}
+
+Check if Docker is installed
+    ${output}=    Write Commands Until Prompt    docker --version
+    Log    ${output}
+
+Testing ODL restconf port 8181 with different headers
+    Create Session    session    http://${DEVSTACK_SYSTEM_IP}:${8181}    auth=${AUTH}    headers=${headers}
+    Wait Until Keyword Succeeds    5x    5 s    Get Data From URI    session    /controller/nb/v2/neutron/networks    headers=${headers}
+    Delete All Sessions
+
+Put GBP Goodness In To The Mix
+    Install a Feature    odl-groupbasedpolicy-base    ${DEVSTACK_SYSTEM_IP}
+    Install a Feature    odl-groupbasedpolicy-neutronmapper    ${DEVSTACK_SYSTEM_IP}
 
 *** Keywords ***
 Run Tempest Tests
@@ -64,7 +239,9 @@ Devstack Suite Setup
     Write Commands Until Prompt    export ODL_BOOT_WAIT_URL=${ODL_BOOT_WAIT_URL}
     ${odl_version_to_install}=    Get Networking ODL Version Of Release    ${ODL_VERSION}
     Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG="enable_plugin networking-odl https://git.openstack.org/openstack/networking-odl ${NETWORKING-ODL_BRANCH};"
-    Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG+=ODL_NETVIRT_DEBUG_LOGS=True;ODL_RELEASE="${odl_version_to_install};"
+    Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG+="ODL_NETVIRT_DEBUG_LOGS=True;ODL_RELEASE=${odl_version_to_install};"
+#    Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG+=ODL_RELEASE="${odl_version_to_install};"
+#    Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG+=ODL_NETVIRT_KARAF_FEATURE=odl-groupbasedpolicy-base;
     Write Commands Until Prompt    echo $DEVSTACK_LOCAL_CONFIG
     Write Commands Until Prompt    export OVERRIDE_ZUUL_BRANCH=${OPENSTACK_BRANCH}
     Write Commands Until Prompt    export PYTHONUNBUFFERED=true
@@ -127,4 +304,15 @@ Get Networking ODL Version Of Release
 
 Show Devstack Debugs
     Write Commands Until Prompt    gunzip /opt/stack/logs/devstacklog.txt.gz
-    Write Commands Until Prompt    tail -n1000 /opt/stack/logs/devstacklog.txt    timeout=600s
+    Write Commands Until Prompt    tail -n2000 /opt/stack/logs/devstacklog.txt    timeout=600s
+    Write Commands Until Prompt    grep 'distribution-karaf.*zip' /opt/stack/logs/devstacklog.txt
+
+Get Net Id
+    [Arguments]    ${network_name}
+    [Documentation]    Retrieve the net id for the given network name to create specific vm instance
+    ${output}=   Write Commands Until Prompt    neutron net-list | grep "${network_name}" | get_field 1
+    Log    ${output}
+    ${splitted_output}=    Split String    ${output}    \
+    ${net_id}=    Get from List    ${splitted_output}    0
+    Log    ${net_id}
+    [Return]    ${net_id}
