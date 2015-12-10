@@ -1,0 +1,2 @@
+# Plane the suite in run order:
+integration/test/csit/suites/devstack/VTN_DEV_SETUP
