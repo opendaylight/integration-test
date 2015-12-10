@@ -5,8 +5,6 @@ Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
 Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/NetvirtKeywords.robot
-Resource          ../../../libraries/DevstackUtils.robot
 
 *** Variables ***
 @{NETWORKS_NAME}    net1_network    net2_network    net3_network    net4_network
@@ -14,7 +12,6 @@ Resource          ../../../libraries/DevstackUtils.robot
 @{VM_INSTANCES_NAME}    MyFirstInstance    MySecondInstance    MyThirdInstance    MyFourthInstance
 @{VM_IPS}    10.0.0.3    20.0.0.3    30.0.0.3    40.0.0.3
 @{GATEWAY_IPS}    10.0.0.1    20.0.0.1
-@{DHCP_IPS}       10.0.0.2    20.0.0.2
 
 
 *** Test Cases ***
@@ -40,18 +37,15 @@ Create Networks
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
     \    Create Network    ${NetworkElement}
 
-Create Subnets
-    [Documentation]    Create Sub Nets for the Networks with neutron request.
-    : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
-    \    Create SubNet    ${NetworkElement}
-
-Verify Created Subnets
-    [Documentation]    Verify Created SubNets for the Networks with dump flow.
-    Verify Gateway Ip
-
-Verify Dhcp Flow Entries
-    [Documentation]    Verify Created SubNets for the Networks with dump flow.
-    Verify Dhcp Ips
+Test subnet
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${NETWORK1_NAME} 10.0.0.0/24 --name subnet1
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${NETWORK2_NAME} 20.0.0.0/24 --name subnet2
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${NETWORK3_NAME} 30.0.0.0/24 --name subnet3
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${NETWORK4_NAME} 40.0.0.0/24 --name subnet4
+    Log    ${output}
 
 Test List Ports
     ${output}=   Write Commands Until Prompt     neutron -v port-list
@@ -79,7 +73,7 @@ Test flavor list
     ${output}=   Write Commands Until Prompt     nova flavor-list
     Log    ${output}
 
-Create Vm Instances
+Create Vm Instances 
     [Documentation]    Create Vm instances using flavor and image names.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
     \    ${net_id}=    Get Net Id    ${NetworkElement}
@@ -88,7 +82,7 @@ Create Vm Instances
 Test Details of Created Vm Instance
     [Documentation]    View Details of the created vm instances using nova show.
     : FOR    ${VmElement}    IN    @{VM_INSTANCES_NAME}
-    \    ${output}=     Show Details Of Instance   ${VmElement}
+    \    ${output}=     Show Details of Created Vm Instance   ${VmElement}
     Log    ${output}
 
 Verify Created Vm Instance In Dump Flow
@@ -101,7 +95,7 @@ Verify Created Vm Instance In Dump Flow
 Delete Vm Instances Using Ids
     [Documentation]    Delete Vm instances using instance names.
     : FOR    ${VmElement}    IN    @{VM_INSTANCES_NAME}
-    \    ${instance_id}=    Get Instance Id    ${VmElement}
+    \    ${instance_id}=    Get Instance Id    ${VmElement}   
     \    Delete Vm Instances Using NetId    ${instance_id}
 
 Verify Instance Removed For The Deleted Network
@@ -114,19 +108,8 @@ Delete Sub Networks
     Log    ${output}
 
 Delete Networks
-    [Documentation]    Delete Networks with neutron request.
-    ${output}=    Write Commands Until Prompt    neutron -v net-delete net3_network
+    ${output}=    Write Commands Until Prompt    neutron -v net-delete ${NETWORK3_NAME}
     Log    ${output}
-    ${net_output}=   Write Commands Until Prompt     neutron -v net-list
-    Log    ${net_output}
-
-Verify Deleted Subnets
-    [Documentation]    Verify Deleted SubNets for the Networks with dump flow.
-    Verify No Gateway Ips
-
-Verify No Dhcp Flow Entries
-    [Documentation]    Verify Non Existence of Dhcp Ips in the Dump Flow.
-    Verify No Dhcp Ips
 
 Verify Dhcp Removed For The Deleted Network
     ${output}=   Write Commands Until Prompt     sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
@@ -146,36 +129,6 @@ Verify No Presence Of Removed Network In Dump Flow
 Create Routers
     [Documentation]    Create Router and Add Interface to the subnets.
     Create Router
-
-Test the Advance createNetwork
-    [Documentation]    Creates a network that all tenants can use.
-    Advanced Creates a networks
-
-Test the subnet with a specified gateway IP address
-    [Documentation]    Creates a subnet with a specified gateway IP address.
-    : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
-    \    Creates a subnet with a specified gateway IPS    ${NetworkElement}
-
-Test the subnet that has no gateway IP address
-    [Documentation]    Creates a subnet that has no gateway IP address.
-    : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
-    \    Creates a subnet that has no gateway IPS    ${NetworkElement}
-
-Test the subnet with DHCP disabled
-    [Documentation]    Creates a subnet with DHCP disabled.
-    : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
-    \    Creates a subnet with DHCP disabled    ${NetworkElement}
-
-Test the host routes
-    [Documentation]    Specifies a set of host routes.
-    : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
-    \    Set of host routes    ${NetworkElement}
-
-Test the subnet with a specified set of dns name servers
-    [Documentation]    Creates a subnet with a specified set of dns name servers.
-    : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
-    \    Creates a subnet with a specified set of dns name servers    ${NetworkElement}
-
 
 
 
