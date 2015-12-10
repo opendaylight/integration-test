@@ -65,3 +65,15 @@ Collect OVSDB Debugs
     Log    ${output}
     ${output}=    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${switch} | cut -d',' -f3-
     Log    ${output}
+
+Clean OVSDB Test Environment
+    [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
+    [Documentation]    General Use Keyword attempting to sanitize test environment for OVSDB related
+    ...    tests.
+    Clean Mininet System    ${tools_system}
+    Run Command On Remote System    ${tools_system}    sudo ovs-vsctl del-manager
+    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_CONFIG_API}
+    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    Log    ${resp.content}
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
+    Log    ${resp.content}
