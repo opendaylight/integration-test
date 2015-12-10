@@ -1,0 +1,46 @@
+*** Settings ***
+Library           SSHLibrary
+Library           String
+Library           DateTime
+Library           RequestsLibrary
+Library           json
+Library           SSHLibrary
+Library           Collections
+Library           XML
+Variables         ../variables/Variables.py
+Resource          ./Utils.robot
+
+*** Keywords ***
+
+Devstacksetup
+    [Documentation]    stack up the devstack
+    Log    Clone Devstack
+    SSHLibrary.Open_Connection    ${CONTROLLER}
+    Log    Controller
+    SSHLibrary.Login_With_Public_Key    ${CONTROLLER_USER}    ${USER_HOME}/.ssh/${SSH_KEY}
+    Log    userkey
+    SSHLibrary.Execute Command    git clone https://git.openstack.org/openstack-dev/devstack
+    Log    Clone
+    ${result}    Read Until    mininet>
+    Should Contain    ${result}    "Resolving deltas: 100%"
+    SSHLibrary.Execute Command    cd devstack
+    SSHLibrary.Execute Command    ./tools/create-stack-user.sh
+    SSHLibrary.Execute Command    su - stack
+    SSHLibrary.Execute Command    git clone https://git.openstack.org/openstack-dev/devstack
+    ${result}    Read Until    mininet>
+    Should Contain    ${result}    "Resolving deltas: 100%"
+    SSHLibrary.Execute Command    cd devstack;git checkout stable/liberty
+    Log    liberty
+    SSHLibrary.Put_File    ${CURDIR}/${CREATE_LOCALCONF_FILE}
+    Log    conffile
+    Write      "./stack.sh"
+    ${source}    Read Until    mininet>
+    Should Contain    ${source}    "Horizon is now available"
+    SSHLibrary.Close_Connection
+
+Stop Devstack
+   [Documentation]    Unstack the devstack
+   SSHLibrary.Open_Connection    ${CONTROLLER}
+   SSHLibrary.Login_With_Public_Key    ${CONTROLLER_USER}    ${USER_HOME}/.ssh/${SSH_KEY
+   SSHLibrary.Execute Command    cd devstack; ./unstack.sh
+   SSHLibrary.Close_Connection
