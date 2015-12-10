@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_1192c757",
+        "filename": "csit/suites/didm/discovery/device_discovery.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-10T12:04:53Z",
+      "side": 1,
+      "message": "I recommend: Do this only once, apply RequestsLibrary.To_Json, store resulting object to a suite variable. Perhaps extract only the node with \"didm\" in it.\n\nIn the following cases, use Collections.Get_From_Dictionary to get exactly the field you are interested in.",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 35
+      },
+      "revId": "ff0f491186f7cb76a8df4a8c379bb7566f200379",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_d1baef09",
+        "filename": "csit/suites/didm/discovery/device_discovery.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-10T12:04:53Z",
+      "side": 1,
+      "message": "${resp.content}",
+      "range": {
+        "startLine": 30,
+        "startChar": 24,
+        "endLine": 30,
+        "endChar": 48
+      },
+      "revId": "ff0f491186f7cb76a8df4a8c379bb7566f200379",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_b1f093ca",
+        "filename": "csit/suites/didm/discovery/device_discovery.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-10T12:04:53Z",
+      "side": 1,
+      "message": "This is currently \u0027None\u0027, and that will match line with Description instead.",
+      "range": {
+        "startLine": 81,
+        "startChar": 27,
+        "endLine": 81,
+        "endChar": 52
+      },
+      "revId": "ff0f491186f7cb76a8df4a8c379bb7566f200379",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
