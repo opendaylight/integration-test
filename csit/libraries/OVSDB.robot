@@ -18,14 +18,15 @@ Connect To Ovsdb Node
     ${sample1}    Replace String    ${sample}    127.0.0.1    ${mininet_ip}
     ${body}    Replace String    ${sample1}    61644    ${OVSDB_PORT}
     Log    URL is ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}
-    ${resp}    RequestsLibrary.Put    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}    data=${body}
+    Log    data: ${body}
+    ${resp}    RequestsLibrary.Put Request    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}    data=${body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Disconnect From Ovsdb Node
     [Arguments]    ${mininet_ip}
     [Documentation]    This request will disconnect the OVSDB node from the controller
-    ${resp}    RequestsLibrary.Delete    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}
+    ${resp}    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Add Bridge To Ovsdb Node
@@ -38,14 +39,15 @@ Add Bridge To Ovsdb Node
     ${sample4}    Replace String    ${sample3}    61644    ${OVSDB_PORT}
     ${body}    Replace String    ${sample4}    0000000000000001    ${datapath_id}
     Log    URL is ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}%2Fbridge%2F${bridge_num}
-    ${resp}    RequestsLibrary.Put    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}%2Fbridge%2F${bridge_num}    data=${body}
+    Log    data: ${body}
+    ${resp}    RequestsLibrary.Put Request    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}%2Fbridge%2F${bridge_num}    data=${body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Delete Bridge From Ovsdb Node
     [Arguments]    ${mininet_ip}    ${bridge_num}
     [Documentation]    This request will delete the bridge node from the OVSDB
-    ${resp}    RequestsLibrary.Delete    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}%2Fbridge%2F${bridge_num}
+    ${resp}    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}%2Fbridge%2F${bridge_num}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Add Vxlan To Bridge
@@ -54,9 +56,39 @@ Add Vxlan To Bridge
     ${sample}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/${custom_port}
     ${body}    Replace String    ${sample}    192.168.0.21    ${remote_ip}
     Log    URL is ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}%2Fbridge%2F${bridge_num}/termination-point/${vxlan_port}/
-    ${resp}    RequestsLibrary.Put    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}%2Fbridge%2F${bridge_num}/termination-point/${vxlan_port}/    data=${body}
+    Log    data: ${body}
+    ${resp}    RequestsLibrary.Put Request    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}%2Fbridge%2F${bridge_num}/termination-point/${vxlan_port}/    data=${body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
+
+Verify OVS Reports Connected
+    [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
+    [Documentation]    Uses "vsctl show" to check for string "is_connected"
+    ${output}=    Run Command On Remote System    ${tools_system}    sudo ovs-vsctl show
+    Should Contain    ${output}    is_connected
+
+Get OVSDB UUID
+    [Arguments]    ${ovs_system_ip}=${TOOLS_SYSTEM_IP}    ${controller_ip}=${ODL_SYSTEM_IP}
+    [Documentation]  Queries the topology in the operational datastore and searches for the node that has
+    ...  the ${ovs_system_ip} argument as the "remote-ip".  If found, the value returned will be the value of
+    ...  node-id stripped of "ovsdb://uuid/".  If not found, ${EMPTY} will be returned.
+    ${uuid}=    Set Variable    ${EMPTY}
+    ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp_json}=    To Json    ${resp.content}
+    ${topology}=    Get From List    &{resp_json}[topology]    0
+    ${node_list}=    Get From Dictionary    ${topology}    node
+    Log    ${node_list}
+    : FOR    ${node}    IN    @{node_list}
+    \    ${node_id}=    Get From Dictionary    ${node}    node-id
+    \    ${node_uuid}=    Replace String    ${node_id}    ovsdb://uuid/    ${EMPTY}
+    # Since  bridges are also listed as nodes, but will not have the extra "ovsdb:connection-info data, we need to
+    # use "Run Keyword And Ignore Error" below.
+    \    ${status}    ${connection_info}    Run Keyword And Ignore Error    Get From Dictionary    ${node}    ovsdb:connection-info
+    \    ${status}    ${remote_ip}    Run Keyword And Ignore Error    Get From Dictionary    ${connection_info}    remote-ip
+    \    ${uuid}=    Set Variable If    '${remote_ip}' == '${ovs_system_ip}'    ${node_uuid}    ${uuid}
+    [Return]    ${uuid}
+
 
 Collect OVSDB Debugs
     [Arguments]    ${switch}=br-int
@@ -65,3 +97,14 @@ Collect OVSDB Debugs
     Log    ${output}
     ${output}=    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${switch} | cut -d',' -f3-
     Log    ${output}
+
+Clean OVSDB Test Environment
+    [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
+    [Documentation]    General Use Keyword attempting to sanitize test environment for OVSDB related
+    ...    tests.  Not every step will always be neccessary, but should not cause any problems for
+    ...    any new ovsdb test suites.
+    Clean Mininet System    ${tools_system}
+    Run Command On Remote System    ${tools_system}    sudo ovs-vsctl del-manager
+    Run Command On Remote System    ${tools_system}    sudo /usr/share/openvswitch/scripts/ovs-ctl stop
+    Run Command On Remote System    ${tools_system}    sudo rm -rf /etc/openvswitch/conf.db
+    Run Command On Remote System    ${tools_system}    sudo /usr/share/openvswitch/scripts/ovs-ctl start
