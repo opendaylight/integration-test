@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_310ca394",
+        "filename": "csit/suites/bgpcep/bgpuser/bgp_app_peer_basic.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-10T12:45:42Z",
+      "side": 1,
+      "message": "List in chronological order.",
+      "range": {
+        "startLine": 15,
+        "startChar": 91,
+        "endLine": 15,
+        "endChar": 110
+      },
+      "revId": "44e539712c5b16224a5b8aa182bc964c7d532c8f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_911797a3",
+        "filename": "csit/suites/bgpcep/bgpuser/bgp_app_peer_basic.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-10T12:45:42Z",
+      "side": 1,
+      "message": "Is this PUT.",
+      "range": {
+        "startLine": 15,
+        "startChar": 23,
+        "endLine": 15,
+        "endChar": 45
+      },
+      "revId": "44e539712c5b16224a5b8aa182bc964c7d532c8f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_51111fab",
+        "filename": "csit/suites/bgpcep/bgpuser/bgp_app_peer_basic.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-10T12:45:42Z",
+      "side": 1,
+      "message": "Delete happens here.",
+      "range": {
+        "startLine": 15,
+        "startChar": 111,
+        "endLine": 15,
+        "endChar": 112
+      },
+      "revId": "44e539712c5b16224a5b8aa182bc964c7d532c8f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
