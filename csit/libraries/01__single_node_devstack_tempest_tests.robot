@@ -5,8 +5,6 @@ Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
 Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/NetvirtKeywords.robot
-Resource          ../../../libraries/DevstackUtils.robot
 
 *** Variables ***
 @{NETWORKS_NAME}    net1_network    net2_network    net3_network    net4_network
