@@ -1,2 +1,7 @@
 # Place the suites in run order:
-integration/test/csit/suites/ovsdb/Openstack_Neutron
+#integration/test/csit/suites/ovsdb/Openstack_Neutron
+
+# Place the devstak up in run order
+
+integration/test/csit/suites/devstack/VTN_DEV_SETUP
+
