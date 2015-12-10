@@ -8,7 +8,38 @@ Documentation     Basic tests for BGP application peer.
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
 ...               Test suite performs basic BGP functional test cases for
-...               BGP application peer.
+...               BGP application peer operations and checks for IP4 topology updates
+...               and updates towards BGP peer as follows:
+...
+...               Test case 1: Initial BGP peer connection with pre-filled topology (Bug 4714),
+...               POST and simple DELETE requests used. 
+...               BGP_Application_Peer_Post_3_Initial_Routes,
+...               Check_Example-IPv4-Topology_Is_Filled_With_3_Routes,
+...               Connect_BGP_Peer,
+...               BGP_Peer_Check_Incomming_Updates_For_3_Introduced_Prefixes,
+...               BGP_Application_Peer_Delete_3_Initial_Routes,
+...               Check_Example-IPv4-Topology_Is_Empty,
+...               Peer_Check_Incomming_Updates_For_3_Withdrawn_Prefixes,
+...               Stop_BGP_Peer.
+...
+...               Test case 2: PUT and DELETE all routes requests while BGP peer is connected.
+...               Reconnect_BGP_Peer,
+...               BGP_Application_Peer_Put_3_Routes,
+...               Check_Example-IPv4-Topology_Is_Filled_With_3_Routes,
+...               BGP_Peer_Check_Incomming_Updates_For_3_Introduced_Prefixes,
+...               BGP_Application_Peer_Delete_All_Routes,
+...               Check_Example-IPv4-Topology_Is_Empty,
+...               BGP_Peer_Check_Incomming_Updates_For_3_Withdrawn_Prefixes,
+...               Stop_BGP_Peer.
+...
+...               Test case 3: Repeated BGP peer re-connection with pre-filled topology.
+...               BGP_Application_Peer_Put_3_Routes,
+...               Check_Example-IPv4-Topology_Is_Filled_With_3_Routes,
+...               Reconnect_BGP_Peer_And_Check_Incomming_Updates_For_3_Introduced_Prefixes,
+...               BGP_Application_Peer_Delete_All_Routes,
+...               Check_Example-IPv4-Topology_Is_Empty,
+...               BGP_Peer_Check_Incomming_Updates_For_3_Withdrawn_Prefixes,
+...               Stop_BGP_Peer.
 ...
 ...               Brief description how to configure BGP application peer and
 ...               how to use restconf application peer interface:
@@ -137,7 +168,7 @@ TC1_Stop_BGP_Peer
     Stop_Console_Tool
     Store_File_To_Workspace    bgp_peer.log    bgp_peer_tc1.log
 
-TC2_Connect_BGP_Peer
+TC2_Reconnect_BGP_Peer
     [Documentation]    Start BGP peer tool
     [Tags]    critical
     Switch_To_BGP_Peer_Console
