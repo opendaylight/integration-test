@@ -10,13 +10,6 @@ ${BUNDLEFOLDER}    distribution-karaf-0.3.0-SNAPSHOT
 ${KarafKeywords__karaf_connection_index}    -1
 
 *** Keywords ***
-Check Karaf Log File Does Not Have Messages
-    [Arguments]    ${ip}    ${message}    ${user}=${CONTROLLER_USER}    ${password}=${CONTROLLER_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${log_file}=${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log
-    [Documentation]    Fails if the provided ${message} is found in the karaf.log file. Uses grep to search. The
-    ...    karaf.log file can be overridden with ${log_file} to be any file on the given system @ ${ip}
-    ${output}=    Run Command On Controller    ${ip}    grep ${message} ${log_file}    user=${user}    password=${password}    prompt=${prompt}
-    Should Not Contain    ${output}    ${message}
-
 Verify Feature Is Installed
     [Arguments]    ${feature_name}    ${controller}=${CONTROLLER}    ${karaf_port}=${KARAF_SHELL_PORT}
     [Documentation]    Will Succeed if the given ${feature_name} is found in the output of "feature:list -i"
@@ -63,6 +56,14 @@ Check Karaf Log Has Messages
     ${output}=    Issue Command On Karaf Console    log:display | grep ${filter_string}
     : FOR    ${message}    IN    @{message_list}
     \    Should Contain    ${output}    ${message}
+    [Return]    ${output}
+
+Check Karaf Log File Does Not Have Messages
+    [Arguments]    ${ip}    ${message}    ${user}=${CONTROLLER_USER}    ${password}=${CONTROLLER_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${log_file}=${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log
+    [Documentation]    Fails if the provided ${message} is found in the karaf.log file. Uses grep to search. The
+    ...    karaf.log file can be overridden with ${log_file} to be any file on the given system @ ${ip}
+    ${output}=    Run Command On Controller    ${ip}    grep '${message}' ${log_file}    user=${user}    password=${password}    prompt=${prompt}
+    Should Not Match Regexp    ${output}    ${message}
     [Return]    ${output}
 
 Install a Feature
