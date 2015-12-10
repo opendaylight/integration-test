@@ -1,0 +1,45 @@
+*** Settings ***
+Library           SSHLibrary
+Library           String
+Library           DateTime
+Library           RequestsLibrary
+Library           json
+Library           SSHLibrary
+Library           Collections
+Library           XML
+Variables         ../variables/Variables.py
+Resource          ./Utils.robot
+
+*** Keywords ***
+Start Devstack setup
+    [Documentation]    stack up the devstack
+    Log    Clone Devstack
+    SSHLibrary.Open_Connection    ${CONTROLLER}
+    Log    Controller
+    SSHLibrary.Login_With_Public_Key    ${CONTROLLER_USER}    ${USER_HOME}/.ssh/${SSH_KEY}
+    Log    userkey
+    SSHLibrary.Execute Command    git clone https://git.openstack.org/openstack-dev/devstack
+    Log    Clone
+    SSHLibrary.Execute Command    cd devstack
+    SSHLibrary.Execute Command    ./tools/create-stack-user.sh
+    SSHLibrary.Execute Command    su - stack
+    SSHLibrary.Execute Command    git clone https://git.openstack.org/openstack-dev/devstack
+    SSHLibrary.Execute Command    cd devstack;git checkout stable/liberty
+    Log    liberty
+    SSHLibrary.Put_File    ${CURDIR}/${CREATE_LOCALCONF_FILE}   ~/devstack/
+    Log    conffile
+    SSHLibrary.Set Timeout      15 minutes
+    Write      "./stack.sh"
+    Log    create the stack setup
+    ${source}    Read Until    mininet>
+    Log    create the stack setup pending
+    Should Contain    ${source}    "Horizon is now available"
+    Log    create the stack setup final output
+    SSHLibrary.Close_Connection
+
+Stop Devstack
+   [Documentation]    Unstack the devstack
+   SSHLibrary.Open_Connection    ${CONTROLLER}
+   SSHLibrary.Login_With_Public_Key    ${CONTROLLER_USER}    ${USER_HOME}/.ssh/${SSH_KEY
+   SSHLibrary.Execute Command    cd devstack; ./unstack.sh
+   SSHLibrary.Close_Connection
