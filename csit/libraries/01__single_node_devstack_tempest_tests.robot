@@ -5,8 +5,6 @@ Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
 Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/NetvirtKeywords.robot
-Resource          ../../../libraries/DevstackUtils.robot
 
 *** Variables ***
 @{NETWORKS_NAME}    net1_network    net2_network    net3_network    net4_network
@@ -40,13 +38,13 @@ Create Networks
     \    Create Network    ${NetworkElement}
 
 Test subnet
-    ${output}=    Write Commands Until Prompt    neutron -v subnet-create net1_network 10.0.0.0/24 --name subnet1
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${NETWORK1_NAME} 10.0.0.0/24 --name subnet1
     Log    ${output}
-    ${output}=    Write Commands Until Prompt    neutron -v subnet-create net2_network 20.0.0.0/24 --name subnet2
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${NETWORK2_NAME} 20.0.0.0/24 --name subnet2
     Log    ${output}
-    ${output}=    Write Commands Until Prompt    neutron -v subnet-create net3_network 30.0.0.0/24 --name subnet3
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${NETWORK3_NAME} 30.0.0.0/24 --name subnet3
     Log    ${output}
-    ${output}=    Write Commands Until Prompt    neutron -v subnet-create net4_network 40.0.0.0/24 --name subnet4
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${NETWORK4_NAME} 40.0.0.0/24 --name subnet4
     Log    ${output}
 
 Test List Ports
@@ -75,7 +73,7 @@ Test flavor list
     ${output}=   Write Commands Until Prompt     nova flavor-list
     Log    ${output}
 
-Create Vm Instances
+Create Vm Instances 
     [Documentation]    Create Vm instances using flavor and image names.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
     \    ${net_id}=    Get Net Id    ${NetworkElement}
@@ -84,7 +82,7 @@ Create Vm Instances
 Test Details of Created Vm Instance
     [Documentation]    View Details of the created vm instances using nova show.
     : FOR    ${VmElement}    IN    @{VM_INSTANCES_NAME}
-    \    ${output}=     Show Details Of Instance   ${VmElement}
+    \    ${output}=     Show Details of Created Vm Instance   ${VmElement}
     Log    ${output}
 
 Verify Created Vm Instance In Dump Flow
@@ -97,7 +95,7 @@ Verify Created Vm Instance In Dump Flow
 Delete Vm Instances Using Ids
     [Documentation]    Delete Vm instances using instance names.
     : FOR    ${VmElement}    IN    @{VM_INSTANCES_NAME}
-    \    ${instance_id}=    Get Instance Id    ${VmElement}
+    \    ${instance_id}=    Get Instance Id    ${VmElement}   
     \    Delete Vm Instances Using NetId    ${instance_id}
 
 Verify Instance Removed For The Deleted Network
@@ -110,7 +108,7 @@ Delete Sub Networks
     Log    ${output}
 
 Delete Networks
-    ${output}=    Write Commands Until Prompt    neutron -v net-delete net3_network
+    ${output}=    Write Commands Until Prompt    neutron -v net-delete ${NETWORK3_NAME}
     Log    ${output}
 
 Verify Dhcp Removed For The Deleted Network
