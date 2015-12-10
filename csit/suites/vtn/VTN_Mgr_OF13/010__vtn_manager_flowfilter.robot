@@ -18,30 +18,37 @@ ${vbr_flowfilterInetdata}    {"index":9,"condition":"cond1","filterType":{"pass"
 *** Test Cases ***
 Check if switch1 detected
     [Documentation]    Check if openflow:1 is detected
+    [Tags]   exclude
     BuiltIn.Wait_Until_Keyword_Succeeds    12    3    Fetch vtn switch inventory    openflow:1
 
 Check if switch2 detected
     [Documentation]    Check if openflow:2 is detected
+    [Tags]   exclude
     BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch inventory    openflow:2
 
 Check if switch3 detected
     [Documentation]    Check if openflow:3 is detected
+    [Tags]   exclude
     BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch inventory    openflow:3
 
 Add a vtn Tenant1
     [Documentation]    Add a vtn Tenant1
+    [Tags]   exclude
     Add a vtn    Tenant1    {"idleTimeout": "200","hardTimeout": "600","description": "Virtual Tenant1 for Hackfest network"}
 
 Add a vBridge vBridge1
     [Documentation]    Add a vBridge vBridge1 in vtn Tenant1
+    [Tags]   exclude
     Add a vBridge    Tenant1    vBridge1    {"ageInterval": "300","description": "vBridge1 for Tenant1"}
 
 Add a interface If1
     [Documentation]    Add a interface if1 into vBridge vBridge1
+    [Tags]   exclude
     Add a interface    Tenant1    vBridge1    if1    {"enabled": "true","description": "Interface1 for vBridge1 for Tenant1"}
 
 Add a interface if2
     [Documentation]    Add a interface if2 into vBridge vBridge1
+    [Tags]   exclude
     Add a interface    Tenant1    vBridge1    if2    {"enabled": "true","description": "Interface2 for vBridge1 for Tenant1"}
 
 Add a portmap for interface if1
@@ -49,6 +56,7 @@ Add a portmap for interface if1
     ${node}    Create Dictionary    type=OF    id=00:00:00:00:00:00:00:02
     ${port}    Create Dictionary    name=s2-eth1
     ${portmap_data}    Create Dictionary    node=${node}    port=${port}
+    [Tags]   exclude
     Add a portmap    Tenant1    vBridge1    if1    ${portmap_data}
 
 Add a portmap for interface if2
@@ -56,22 +64,27 @@ Add a portmap for interface if2
     ${node}    Create Dictionary    type=OF    id=00:00:00:00:00:00:00:03
     ${port}    Create Dictionary    name=s3-eth1
     ${portmap_data}    Create Dictionary    node=${node}    port=${port}
+    [Tags]   exclude
     Add a portmap    Tenant1    vBridge1    if2    ${portmap_data}
 
 Ping h1 to h3
     [Documentation]    Ping h1 to h3, verify no packet loss
+    [Tags]   exclude
     Mininet Ping Should Succeed    h1    h3
 
 Add a vBridge vBridge2
     [Documentation]    Add a vBridge vBridge2 in vtn Tenant1
+    [Tags]   exclude
     Add a vBridge    Tenant1    vBridge2    {}
 
 Add a interface If3
     [Documentation]    Add a interface if3 into vBrdige vBridge1
+    [Tags]   exclude
     Add a interface    Tenant1    vBridge1    if3    {}
 
 Add a interface if4
     [Documentation]    Add a interface if4 into vBrdige vBridge1
+    [Tags]   exclude
     Add a interface    Tenant1    vBridge1    if4    {}
 
 Add a portmap for interface if3
@@ -79,6 +92,7 @@ Add a portmap for interface if3
     ${node}    Create Dictionary    type=OF    id=00:00:00:00:00:00:00:02
     ${port}    Create Dictionary    name=s2-eth2
     ${portmap_data}    Create Dictionary    node=${node}    port=${port}
+    [Tags]   exclude
     Add a portmap    Tenant1    vBridge1    if3    ${portmap_data}
 
 Add a portmap for interface if4
@@ -86,18 +100,22 @@ Add a portmap for interface if4
     ${node}    Create Dictionary    type=OF    id=00:00:00:00:00:00:00:03
     ${port}    Create Dictionary    name=s3-eth2
     ${portmap_data}    Create Dictionary    node=${node}    port=${port}
+    [Tags]   exclude
     Add a portmap    Tenant1    vBridge1    if4    ${portmap_data}
 
 Ping h2 to h4
     [Documentation]    Ping h2 to h4, verify no packet loss
+    [Tags]   exclude
     Mininet Ping Should Succeed    h2    h4
 
 Add a macmap
     [Documentation]    Create a macmap on vBridge vBridge1
+    [Tags]   exclude
     Add a macmap    Tenant1    vBridge1    ${macmap_data}
 
 Get flow
     [Documentation]    Get flow of a vtn Tenant1
+    [Tags]   exclude
     Get flow    Tenant1
 
 Add a flowcondition cond1
@@ -107,60 +125,73 @@ Add a flowcondition cond1
     ${matchElement}=    Create Dictionary    index=1    inetMatch=${inetMatch}
     @{matchlist}    Create List    ${matchElement}
     ${flowcond_data}=    Create Dictionary    name=cond1    match=${matchlist}
+    [Tags]   exclude
     Add a flowcondition    cond1    ${flowcond_data}
 
 Add a flowfilter with inet4src and inet4dst
     [Documentation]    Create a flowfilter with inet4 and Verify ping
+    [Tags]   exclude
     Add a flowfilter    Tenant1    vBridge1    if1    ${flowfilterInetdata}    ${index}
     Mininet Ping Should Succeed    h1    h3
 
 Add a flowfilter with Icmp code
     [Documentation]    Create a flowfilter with icmp code and Verify ping
+    [Tags]   exclude
     Update a flowfilter    Tenant1    vBridge1    if1    ${flowfilterIcmpCodedata}    ${index}
     Mininet Ping Should Succeed    h1    h3
 
 Add a flowfilter with tpsrc and tpdst
     [Documentation]    Create a flowfilter with tpsrc and tpdst and Verify ping
+    [Tags]   exclude
     Update a flowfilter    Tenant1    vBridge1    if1    ${flowfilterTpsrcTpdstdata}    ${index}
     Mininet Ping Should Succeed    h1    h3
 
 Add a flowfilter with dscp
     [Documentation]    Create a flowfilter with dscp and Verify ping
+    [Tags]   exclude
     Update a flowfilter    Tenant1    vBridge1    if1    ${flowfilterDscpdata}    ${index}
     Mininet Ping Should Succeed    h1    h3
 
 Verify Flow Entry for Inet Flowfilter
     [Documentation]    Verify Flow Entry for Inet Flowfilter
+    [Tags]   exclude
     Verify Flow Entry for Inet Flowfilter
 
 Add a flowfilter with vlanpcp
     [Documentation]    Create a flowfilter with vlanpcp and Verify ping
+    [Tags]   exclude
     Update a flowfilter    Tenant1    vBridge1    if1    ${flowfiltervlanpcp}    ${index}
     Mininet Ping Should Succeed    h1    h3
 
 Add a flowfilter_vtn with inet4src and inet4dst
     [Documentation]    Create a vtn_flowfilter with inet4 and Verify ping
+    [Tags]   exclude
     Add a flowfilter_vtn    Tenant1    ${vtn_flowfilterInetdata}    ${index}
     Mininet Ping Should Succeed    h1    h3
 
 Add a flowfilter_vbr with inet4src and inet4dst
     [Documentation]    Create a vbr_flowfilter with inet4 and Verify ping
+    [Tags]   exclude
     Add a flowfilter_vbr    Tenant1    vBridge1    ${vbr_flowfilterInetdata}    ${index}
     Mininet Ping Should Succeed    h1    h3
 
 Add a flowfilter with inet4 for drop
     [Documentation]    Create a flowfilter with inet4 for drop action and Verify no pinging
+    [Tags]   exclude
     Add a flowfilter for drop    Tenant1    vBridge1    if1    ${flowfilterInetdropdata}    ${index}
     Mininet Ping Should Not Succeed    h1    h3
 
 Verify Removed Flow Entry For Inet After Drop Action
     [Documentation]    Verify no flows between the hosts after drop
+    [Tags]   exclude
     Verify Removed Flow Entry for Inet Drop Flowfilter
 
 Delete a flowcondition
     [Documentation]    Delete a flowcondition
+    [Tags]   exclude
     Delete a flowcondition    cond1
 
 Delete a vtn Tenant1
     [Documentation]    Delete a vtn Tenant1
+    [Tags]   exclude
     Delete a vtn    Tenant1
