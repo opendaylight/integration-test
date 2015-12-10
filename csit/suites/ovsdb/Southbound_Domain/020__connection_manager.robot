@@ -13,7 +13,7 @@ Resource          ../../../libraries/Utils.robot
 ${OVSDB_PORT}     6634
 ${SOUTHBOUND_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${MININET}:${OVSDB_PORT}
 ${OVSDB_CONFIG_DIR}    ${CURDIR}/../../../variables/ovsdb
-@{node_list}      ovsdb://${MININET}:${OVSDB_PORT}    ${MININET}    ${OVSDB_PORT}    br-int
+@{node_list}      ovsdb://${MININET}:${OVSDB_PORT}    ${MININET}    ${OVSDB_PORT}
 
 *** Test Cases ***
 Connecting an OVS instance to the controller
@@ -32,7 +32,7 @@ Get Config Topology
     ${resp}    RequestsLibrary.Get    session    ${CONFIG_TOPO_API}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
-    Should Contain    ${resp.content}    ovsdb://${MININET}:${OVSDB_PORT}/bridge/br-int
+    Should Contain    ${resp.content}    ovsdb:1
 
 Create bridge manually
     [Tags]    Southbound
