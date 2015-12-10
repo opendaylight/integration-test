@@ -2,6 +2,8 @@
 Documentation     Test suite for Connection Manager
 Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
+Test Setup        Log Testcase Start To Controller Karaf
+Force Tags        Southbound
 Library           OperatingSystem
 Library           String
 Library           Collections
@@ -15,7 +17,7 @@ Resource          ../../../libraries/OVSDB.robot
 *** Variables ***
 ${OVSDB_PORT}     6634
 ${OVSDB_CONFIG_DIR}    ${CURDIR}/../../../variables/ovsdb
-@{node_list1}     ovsdb://${MININET1}:${OVSDB_PORT}    ${MININET1}    ${OVSDB_PORT}    ovsdb://${MININET}:${OVSDB_PORT}    ${MININET}    ${OVSDB_PORT}    br-int
+@{node_list1}     ovsdb://${MININET1}:${OVSDB_PORT}    ${MININET1}    ${OVSDB_PORT}    ovsdb://${MININET}:${OVSDB_PORT}    ${MININET}    ${OVSDB_PORT}
 ${start1}         sudo mn --controller=remote,ip=${CONTROLLER} --switch=ovsk,protocols=OpenFlow13 --custom ovsdb.py --topo host,1
 ${start2}         sudo mn --controller=remote,ip=${CONTROLLER} --switch=ovsk,protocols=OpenFlow13 --custom ovsdb.py --topo host,2
 
