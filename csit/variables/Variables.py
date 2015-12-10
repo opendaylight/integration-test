@@ -186,3 +186,7 @@ MININET_USER = TOOLS_SYSTEM_USER
 MININET_PASSWORD = TOOLS_SYSTEM_PASSWORD
 MININET_PROMPT = TOOLS_SYSTEM_PROMPT
 PROMPT = '>'  # TODO: remove this as it's vague.  need to fix any occurances of it first.
+
+# Testing local configfile 
+CREATE_LOCALCONF_FILE = "local.conf"
+CREATE_STACK_FILE = "stack.sh"
