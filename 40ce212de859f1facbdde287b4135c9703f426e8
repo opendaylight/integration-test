@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_04ce0284",
+        "filename": "tools/fastbgp/bgp_app_peer.py",
+        "patchSetId": 30
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-12-11T21:51:30Z",
+      "side": 1,
+      "message": "I suspect this has better pref? May want to document. +1 to generators overall. :)",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 16
+      },
+      "revId": "40ce212de859f1facbdde287b4135c9703f426e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_84baf2df",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 30
+      },
+      "lineNbr": 1345,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2015-12-11T21:51:30Z",
+      "side": 1,
+      "message": "What\u0027s the reasoning for conditioning out these logger calls? Not saying it\u0027s wrong (idk), but maybe it\u0027d be nice to explain inline (applies below).",
+      "range": {
+        "startLine": 1345,
+        "startChar": 8,
+        "endLine": 1345,
+        "endChar": 78
+      },
+      "revId": "40ce212de859f1facbdde287b4135c9703f426e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
