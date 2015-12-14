@@ -32,6 +32,9 @@ ${DIRECTORY_WITH_TEMPLATE_FOLDERS}    ${CURDIR}/../../../variables/netconf/CRUD
 ${device_name}    netconf-test-device
 
 *** Test Cases ***
+Start_Testtool
+    NetconfKeywords.Install_And_Start_Testtool    device-count=1    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas
+
 Check_Device_Is_Not_Configured_At_Beginning
     [Documentation]    Sanity check making sure our device is not there. Fail if found.
     [Tags]    critical
@@ -111,7 +114,6 @@ Setup_Everything
     # Connect to the Mininet machine
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    prompt=${TOOLS_SYSTEM_PROMPT}
     Utils.Flexible_Mininet_Login
-    NetconfKeywords.Install_And_Start_Testtool    device-count=10    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas
 
 Teardown_Everything
     [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.
