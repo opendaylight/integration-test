@@ -32,6 +32,11 @@ ${device_name_base}    netconf-scaling-device
 ${base_port}      17830
 
 *** Test Cases ***
+Start_Test_Tool
+    [Documentation]    Deploy and start test tool, then wait for all its devices to become online.
+    NetconfKeywords.Install_And_Start_Testtool    device-count=${DEVICE_COUNT}
+    NetconfKeywords.Wait_For_All_TestTool_Devices
+
 Configure_Devices_On_Netconf
     [Documentation]    Make requests to configure the testtool devices.
     ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*10
@@ -76,8 +81,7 @@ Setup_Everything
     # Connect to the tools machine
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
     Utils.Flexible_Mininet_Login
-    # Deploy testtool on it
-    NetconfKeywords.Install_And_Start_Testtool    device-count=${DEVICE_COUNT}
+    # Deploy testing tools on it.
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/netconf_tools/getter.py
     SSHLibrary.Put_File    ${CURDIR}/../../../libraries/AuthStandalone.py
 

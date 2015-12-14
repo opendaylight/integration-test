@@ -175,3 +175,11 @@ Perform_Operation_On_Each_Device
     ${deadline_Date}=    DateTime.Add_Time_To_Date    ${current_Date}    ${timeout}
     BuiltIn.Set_Suite_Variable    ${current_port}    ${BASE_NETCONF_DEVICE_PORT}
     BuiltIn.Repeat_Keyword    ${count} times    NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device    ${operation}    ${deadline_Date}
+
+NetconfKeywords__Test_Device_Is_Up
+    [Arguments]    ${device_name}
+    ${number}=    BuiltIn.Evaluate    '${device_name}'.split('-').pop()
+    Check_Device_Up_And_Running    ${number}
+
+Wait_For_All_TestTool_Devices
+    Perform_Operation_On_Each_Device    NetconfKeywords__Test_Device_Is_Up
