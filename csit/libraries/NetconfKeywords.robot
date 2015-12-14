@@ -23,6 +23,7 @@ ${DIRECTORY_WITH_DEVICE_TEMPLATES}    ${CURDIR}/../variables/netconf/device
 ${FIRST_TESTTOOL_PORT}    17830
 ${BASE_NETCONF_DEVICE_PORT}    17830
 ${DEVICE_NAME_BASE}    netconf-scaling-device
+${TESTTOOL_DEVICE_TIMEOUT}    60s
 
 *** Keywords ***
 Setup_NetconfKeywords
@@ -124,6 +125,11 @@ NetconfKeywords__Check_Device_Is_Up
     ${count}=    SSHKeywords.Count_Port_Occurences    ${last-port}    LISTEN    java
     BuiltIn.Should_Be_Equal_As_Integers    ${count}    1
 
+NetconfKeywords__Wait_Device_Is_Up_And_Running
+    [Arguments]    ${device_name}
+    ${number}=    BuiltIn.Evaluate    '${device_name}'.split('-').pop()
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${TESTTOOL_DEVICE_TIMEOUT}    1s    Check_Device_Up_And_Running    ${number}
+
 Install_And_Start_Testtool
     [Arguments]    ${device-count}=10    ${debug}=true    ${schemas}=none    ${options}=${EMPTY}
     [Documentation]    Install and run testtool. Also arrange to collect its output into a log file.
@@ -138,11 +144,10 @@ Install_And_Start_Testtool
     ${command}    BuiltIn.Set_Variable    java -Xmx1G -XX:MaxPermSize=256M -jar ${filename} ${options} --device-count ${device-count} --debug ${debug} ${schemas_option}
     BuiltIn.Log    Running testtool: ${command}
     SSHLibrary.Write    ${command} >testtool.log 2>&1
-    # Wait for the testtool to boot up.
-    ${timeout}=    BuiltIn.Evaluate    (${device-count}/3)+5
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}s    1s    NetconfKeywords__Check_Device_Is_Up    ${FIRST_TESTTOOL_PORT}
     # Store information needed by other keywords.
     BuiltIn.Set_Suite_Variable    ${NetconfKeywords__testtool_device_count}    ${device-count}
+    # Wait for the testtool to boot up.
+    Perform_Operation_On_Each_Device    NetconfKeywords__Wait_Device_Is_Up_And_Running
 
 Check_Device_Up_And_Running
     [Arguments]    ${device-number}
@@ -166,7 +171,6 @@ NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device
     ${ellapsed_seconds}=    DateTime.Subtract_Date_From_Date    ${deadline_Date}    ${current_Date}
     BuiltIn.Run_Keyword_If    ${ellapsed_seconds}<0    Fail    The global time out period expired
     ${number}=    BuiltIn.Evaluate    ${current_port}-${BASE_NETCONF_DEVICE_PORT}+1
-    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    NetconfKeywords.Check_Device_Up_And_Running    ${number}
     BuiltIn.Run_Keyword    ${operation}    ${DEVICE_NAME_BASE}-${number}
     ${next}=    BuiltIn.Evaluate    ${current_port}+1
     BuiltIn.Set_Suite_Variable    ${current_port}    ${next}
