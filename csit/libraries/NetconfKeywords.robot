@@ -141,6 +141,8 @@ Install_And_Start_Testtool
     # Wait for the testtool to boot up.
     ${timeout}=    BuiltIn.Evaluate    (${device-count}/3)+5
     BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}s    1s    NetconfKeywords__Check_Device_Is_Up    ${FIRST_TESTTOOL_PORT}
+    # Store information needed by other keywords.
+    BuiltIn.Set_Suite_Variable    ${NetconfKeywords__testtool_device_count}    ${device-count}
 
 Check_Device_Up_And_Running
     [Arguments]    ${device-number}
@@ -170,7 +172,7 @@ NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device
     BuiltIn.Set_Suite_Variable    ${current_port}    ${next}
 
 Perform_Operation_On_Each_Device
-    [Arguments]    ${operation}    ${count}=${DEVICE_COUNT}    ${timeout}=30m
+    [Arguments]    ${operation}    ${count}=${NetconfKeywords__testtool_device_count}    ${timeout}=30m
     ${current_Date}=    DateTime.Get_Current_Date
     ${deadline_Date}=    DateTime.Add_Time_To_Date    ${current_Date}    ${timeout}
     BuiltIn.Set_Suite_Variable    ${current_port}    ${BASE_NETCONF_DEVICE_PORT}
