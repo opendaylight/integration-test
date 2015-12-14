@@ -10,7 +10,7 @@ Library           OperatingSystem
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/LISPFlowMapping__Lithium.robot
+Resource          ../../../libraries/LISPFlowMapping.robot
 Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
@@ -86,15 +86,15 @@ Check Datatype
     ${add_mapping}=    OperatingSystem.Get File    ${add_mapping_json_file}
     ${get_mapping}=    OperatingSystem.Get File    ${get_mapping_json_file}
     Set Suite Variable    ${RPC_Datatype__current_json}    ${get_mapping}
-    Post Log Check    ${LFM_RPC_API_LI}:add-mapping    ${add_mapping}
+    Post Log Check    ${LFM_RPC_API}:add-mapping    ${add_mapping}
     Sleep    200ms    Avoid race conditions
-    ${resp}=    Post Log Check    ${LFM_RPC_API_LI}:get-mapping    ${get_mapping}
+    ${resp}=    Post Log Check    ${LFM_RPC_API}:get-mapping    ${get_mapping}
     ${eid_record}=    Get Eid Record    ${resp}
     Dictionary Should Contain Key    ${eid_record}    LocatorRecord
 
 Remove Datatype And Check Removal
     Variable Should Exist    ${RPC_Datatype__current_json}
-    Post Log Check    ${LFM_RPC_API_LI}:remove-mapping    ${RPC_Datatype__current_json}
+    Post Log Check    ${LFM_RPC_API}:remove-mapping    ${RPC_Datatype__current_json}
     Sleep    200ms    Avoid race conditions
     Check Mapping Removal    ${RPC_Datatype__current_json}
     Set Suite Variable    ${RPC_Datatype__current_json}    ${EMPTY}
