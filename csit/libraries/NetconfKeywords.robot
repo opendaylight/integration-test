@@ -25,6 +25,7 @@ ${FIRST_TESTTOOL_PORT}    17830
 ${BASE_NETCONF_DEVICE_PORT}    17830
 ${DEVICE_NAME_BASE}    netconf-scaling-device
 ${TESTTOOL_DEVICE_TIMEOUT}    60s
+${ENABLE_NETCONF_TEST_TIMEOUT}    ${ENABLE_GLOBAL_TEST_DEADLINES}    True
 
 *** Keywords ***
 Setup_NetconfKeywords
@@ -166,11 +167,15 @@ Stop_Testtool
     # the log file to get.
     SSHLibrary.Get_File    testtool.log
 
-NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device
-    [Arguments]    ${operation}    ${deadline_Date}
+NetconfKeywords__Check_Global_Timeout
+    [Arguments]    ${deadline_Date}
     ${current_Date}=    DateTime.Get_Current_Date
     ${ellapsed_seconds}=    DateTime.Subtract_Date_From_Date    ${deadline_Date}    ${current_Date}
     BuiltIn.Run_Keyword_If    ${ellapsed_seconds}<0    Fail    The global time out period expired
+
+NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device
+    [Arguments]    ${operation}    ${deadline_Date}
+    BuiltIn.Run_Keyword_If    ${ENABLE_NETCONF_TEST_TIMEOUT}    NetconfKeywords__Check_Global_Timeout    ${deadline_Date}
     ${number}=    BuiltIn.Evaluate    ${current_port}-${BASE_NETCONF_DEVICE_PORT}+1
     BuiltIn.Run_Keyword    ${operation}    ${DEVICE_NAME_BASE}-${number}
     ${next}=    BuiltIn.Evaluate    ${current_port}+1
