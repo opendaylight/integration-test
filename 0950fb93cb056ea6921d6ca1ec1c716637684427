@@ -69,6 +69,30 @@
       "revId": "0950fb93cb056ea6921d6ca1ec1c716637684427",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_019fcf60",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-12-14T14:11:34Z",
+      "side": 1,
+      "message": "\u003e Maybe the first simulated device can take some time, but subsequent devices should become ready much more quickly.\n\nWell, ironically, the first few (1 to 4, usually 2) devices take almost no time to set up. It is the later devices that start to experience the excessive delays.",
+      "parentUuid": "1aa4ed85_c1e9b71b",
+      "range": {
+        "startLine": 181,
+        "startChar": 43,
+        "endLine": 181,
+        "endChar": 46
+      },
+      "revId": "0950fb93cb056ea6921d6ca1ec1c716637684427",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
