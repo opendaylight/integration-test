@@ -164,7 +164,6 @@ NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device
     ${ellapsed_seconds}=    DateTime.Subtract_Date_From_Date    ${deadline_Date}    ${current_Date}
     BuiltIn.Run_Keyword_If    ${ellapsed_seconds}<0    Fail    The global time out period expired
     ${number}=    BuiltIn.Evaluate    ${current_port}-${BASE_NETCONF_DEVICE_PORT}+1
-    BuiltIn.Wait_Until_Keyword_Succeeds    10s    1s    NetconfKeywords.Check_Device_Up_And_Running    ${number}
     BuiltIn.Run_Keyword    ${operation}    ${DEVICE_NAME_BASE}-${number}
     ${next}=    BuiltIn.Evaluate    ${current_port}+1
     BuiltIn.Set_Suite_Variable    ${current_port}    ${next}
@@ -175,3 +174,11 @@ Perform_Operation_On_Each_Device
     ${deadline_Date}=    DateTime.Add_Time_To_Date    ${current_Date}    ${timeout}
     BuiltIn.Set_Suite_Variable    ${current_port}    ${BASE_NETCONF_DEVICE_PORT}
     BuiltIn.Repeat_Keyword    ${count} times    NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device    ${operation}    ${deadline_Date}
+
+NetconfKeywords__Wait_Device_Is_Up_And_Running
+    [Arguments]    ${device_name}
+    ${number}=    BuiltIn.Evaluate    '${device_name}'.split('-').pop()
+    BuiltIn.Wait_Until_Keyword_Succeeds    60s    1s    Check_Device_Up_And_Running    ${number}
+
+Wait_For_All_TestTool_Devices
+    Perform_Operation_On_Each_Device    NetconfKeywords__Wait_Device_Is_Up_And_Running

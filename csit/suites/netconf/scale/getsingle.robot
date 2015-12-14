@@ -26,6 +26,11 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 ${DEVICE_COUNT}    500
 
 *** Test Cases ***
+Start_Test_Tool
+    [Documentation]    Deploy and start test tool, then wait for all its devices to become online.
+    NetconfKeywords.Install_And_Start_Testtool    device-count=${DEVICE_COUNT}
+    NetconfKeywords.Wait_For_All_TestTool_Devices
+
 Configure_Devices_Onto_Netconf
     [Documentation]    Make requests to configure the testtool devices.
     [Tags]    critical
