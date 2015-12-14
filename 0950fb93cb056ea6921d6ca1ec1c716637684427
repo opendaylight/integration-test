@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_c1ff7700",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-14T11:44:09Z",
+      "side": 1,
+      "message": "A minute per device is too long. Maybe the first simulated device can take some time, but subsequent devices should become ready much more quickly.\nPerhaps adding configurable timeout on Perform_Operation_On_Each_Device would be a better approach.",
+      "range": {
+        "startLine": 181,
+        "startChar": 43,
+        "endLine": 181,
+        "endChar": 46
+      },
+      "revId": "0950fb93cb056ea6921d6ca1ec1c716637684427",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
