@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1aa4ed85_41ddc76f",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-12-14T12:56:00Z",
+      "side": 1,
+      "message": "I noticed this problem now: This variable is not defined locally and as such shall not be used here.",
+      "range": {
+        "startLine": 172,
+        "startChar": 44,
+        "endLine": 172,
+        "endChar": 59
+      },
+      "revId": "0950fb93cb056ea6921d6ca1ec1c716637684427",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_c1ff7700",
         "filename": "csit/libraries/NetconfKeywords.robot",
         "patchSetId": 2
@@ -13,6 +36,30 @@
       "writtenOn": "2015-12-14T11:44:09Z",
       "side": 1,
       "message": "A minute per device is too long. Maybe the first simulated device can take some time, but subsequent devices should become ready much more quickly.\nPerhaps adding configurable timeout on Perform_Operation_On_Each_Device would be a better approach.",
+      "range": {
+        "startLine": 181,
+        "startChar": 43,
+        "endLine": 181,
+        "endChar": 46
+      },
+      "revId": "0950fb93cb056ea6921d6ca1ec1c716637684427",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_c1e9b71b",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-12-14T12:56:00Z",
+      "side": 1,
+      "message": "\u003e Maybe the first simulated device can take some time, but subsequent devices should become ready much more quickly.\n\n... if there is no bug. But I had seen device startup times in the 20s-30s range so there probably is a bug somewhere (or \"feature\" instead). The minute is rounded double of that worst case (which was happening way too often to be just ignored).\n\nRegarding the configurability, a quick and not-so-dirty way is to add a ROBOT variable.",
+      "parentUuid": "1aa4ed85_c1ff7700",
       "range": {
         "startLine": 181,
         "startChar": 43,
