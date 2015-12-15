@@ -26,7 +26,7 @@ Check Ovsdb Shards Status After Cluster Event
 Get Ovsdb Entity Owner Status For One Device
     [Arguments]    ${controller_index_list}
     [Documentation]    Check Entity Owner Status and identify owner and candidate.
-    ${owner}    ${candidates_list}    Wait Until Keyword Succeeds    10s    1s    Get Cluster Entity Owner For Ovsdb    ${controller_index_list}
+    ${owner}    ${candidates_list}    Wait Until Keyword Succeeds    20s    1s    Get Cluster Entity Owner For Ovsdb    ${controller_index_list}
     ...    ovsdb    ovsdb:1
     [Return]    ${owner}    ${candidates_list}
 
@@ -69,6 +69,7 @@ Create Bridge And Verify
     [Documentation]    Create bridge in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
     # need to get UUID which should be the same on all controllers in cluster, so asking controller1
     ${ovsdb_uuid}=    Get OVSDB UUID    controller_http_session=controller${controller_index}
+    Set Suite Variable    ${ovsdb_uuid}
     ${body}=    OperatingSystem.Get File    ${CURDIR}/../variables/ovsdb/create_bridge_3node.json
     ${body}    Replace String    ${body}    ovsdb://127.0.0.1:61644    ovsdb://uuid/${ovsdb_uuid}
     ${body}    Replace String    ${body}    tcp:controller1:6633    tcp:${ODL_SYSTEM_1_IP}:6640
@@ -105,8 +106,35 @@ Delete Bridge Via Rest Call And Verify
     # need to get UUID which should be the same on all controllers in cluster, so asking controller1
     ${ovsdb_uuid}=    Get OVSDB UUID    controller_http_session=controller1
     ${dictionary}=    Create Dictionary    ${BRIDGE}=0
-    Delete And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE}
+    Delete And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE}    ${HEADERS}
     Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}
+
+Create Port Via Controller
+    [Arguments]    ${controller_index_list}    ${controller_index}
+    [Documentation]    This will add port/interface to the config datastore
+    ${body}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_port_3node.json
+    Log    URL is ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE}/termination-point/vx2/
+    Log    ${body}
+    ${port_dictionary}=    Create Dictionary    ${BRIDGE}=1    vx2=1
+    Put And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE}/termination-point/vx2/    ${body}
+    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${port_dictionary}    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}
+
+Modify the destination IP of Port
+    [Arguments]    ${controller_index_list}    ${controller_index}
+    [Documentation]    This will modify the dst ip of existing port
+    ${sample}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_port_3node.json
+    ${sample1}    Replace String    ${sample}    vxlanport    vx1
+    ${body}    Replace String    ${sample1}    192.168.0.21    10.0.0.19
+    Log    URL is ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE}/termination-point/vx1/
+    Log    data: ${body}
+    Put And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE}/termination-point/vx1/    data=${body}
+
+Delete Port And Verify
+    [Arguments]    ${controller_index_list}    ${controller_index}
+    [Documentation]    Delete port in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
+    ${dictionary}=    Create Dictionary    vx1=0
+    Delete And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE}/termination-point/vx1/    ${HEADERS}
+    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
 
 Add Port To The Manual Bridge And Verify
     [Arguments]    ${controller_index_list}    ${controller_index}
@@ -116,3 +144,9 @@ Add Port To The Manual Bridge And Verify
     ${dictionary_config}=    Create Dictionary    vx1=0
     Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_config}    ${CONFIG_TOPO_API}
     Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_operational}    ${OPERATIONAL_TOPO_API}
+
+Configure Exit OVSDB Node Suite Teardown For Cluster
+    [Documentation]    Cleans up test environment, close existing sessions in all the 3 controllers.
+    Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
+    Delete And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:${OVSDB_PORT}
+    Delete All Sessions
