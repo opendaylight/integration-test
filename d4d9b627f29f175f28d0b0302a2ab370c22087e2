@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1aa4ed85_c8879460",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-12-15T11:41:11Z",
+      "side": 1,
+      "message": "1. A better name for this variable is due (ENABLE_NETCONF_TEST_TIMEOUT looks as the best name for me as it says the timeout is being configured specifically for Netconf tests).\n\n2. Move this ENABLE_GLOBAL_TIMEOUT variable to Variables.py (or .robot once that gets merged), create a variable with more specific name here, make its default to be ENABLE_GLOBAL_TIMEOUT and use that specific variable here.",
+      "range": {
+        "startLine": 27,
+        "startChar": 2,
+        "endLine": 27,
+        "endChar": 23
+      },
+      "revId": "d4d9b627f29f175f28d0b0302a2ab370c22087e2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_085fec0f",
         "filename": "csit/libraries/NetconfKeywords.robot",
         "patchSetId": 1
@@ -13,6 +36,30 @@
       "writtenOn": "2015-12-15T11:34:22Z",
       "side": 1,
       "message": "More specific please.",
+      "range": {
+        "startLine": 177,
+        "startChar": 32,
+        "endLine": 177,
+        "endChar": 53
+      },
+      "revId": "d4d9b627f29f175f28d0b0302a2ab370c22087e2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_687c6073",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-12-15T11:41:11Z",
+      "side": 1,
+      "message": "See comment at line 27.",
+      "parentUuid": "1aa4ed85_085fec0f",
       "range": {
         "startLine": 177,
         "startChar": 32,
