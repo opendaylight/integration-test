@@ -109,7 +109,7 @@ Put And Check At URI In Cluster
     \    Should Be Equal    ${expected_body}    ${received_body}
 
 Delete And Check At URI In Cluster
-    [Arguments]    ${controller_index_list}    ${controller_index}    ${uri}
+    [Arguments]    ${controller_index_list}    ${controller_index}    ${uri}    ${headers}=${HEADERS_YANG_JSON}
     [Documentation]    Send a DELETE with the supplied ${uri} to a ${controller_index}
     ...    and check the data is removed from all instances in ${controller_index_list}.
     ${resp}    RequestsLibrary.Delete Request    controller${controller_index}    ${uri}
