@@ -66,6 +66,12 @@ def parse_arguments():
     str_help = "The IP of the next hop to be placed into the update messages."
     parser.add_argument("--nexthop", default="192.0.2.1",
                         type=ipaddr.IPv4Address, dest="nexthop", help=str_help)
+    str_help = "Identifier of the route originator."
+    parser.add_argument("--originator", default=None,
+                        type=ipaddr.IPv4Address, dest="originator", help=str_help)
+    str_help = "Cluster list item identifier."
+    parser.add_argument("--cluster", default=None,
+                        type=ipaddr.IPv4Address, dest="cluster", help=str_help)
     str_help = ("Numeric IP Address to try to connect to." +
                 "Currently no effect in listening mode.")
     parser.add_argument("--peerip", default="127.0.0.2",
@@ -265,6 +271,8 @@ class MessageGenerator(object):
         self.hold_time_default = args.holdtime  # Local hold time.
         self.bgp_identifier_default = int(args.myip)
         self.next_hop_default = args.nexthop
+        self.originator_id_default = args.originator
+        self.cluster_list_item_default = args.cluster
         self.single_update_default = args.updates == "single"
         self.randomize_updates_default = args.updates == "random"
         self.prefix_count_to_add_default = args.insert
@@ -329,6 +337,8 @@ class MessageGenerator(object):
         logger.info("  My Hold Time: " + str(self.hold_time_default))
         logger.info("  My BGP Identifier: " + str(self.bgp_identifier_default))
         logger.info("  Next Hop: " + str(self.next_hop_default))
+        logger.info("  Originator ID: " + str(self.originator_id_default))
+        logger.info("  Cluster list: " + str(self.cluster_list_item_default))
         logger.info("  Prefix count to be inserted at once: " +
                     str(self.prefix_count_to_add_default))
         logger.info("  Prefix count to be withdrawn at once: " +
@@ -744,7 +754,8 @@ class MessageGenerator(object):
 
     def update_message(self, wr_prefixes=None, nlri_prefixes=None,
                        wr_prefix_length=None, nlri_prefix_length=None,
-                       my_autonomous_system=None, next_hop=None):
+                       my_autonomous_system=None, next_hop=None,
+                       originator_id=None, cluster_list_item=None):
         """Generates an UPDATE Message (rfc4271#section-4.3)
 
         Arguments:
@@ -771,6 +782,10 @@ class MessageGenerator(object):
             my_autonomous_system = self.my_autonomous_system_default
         if next_hop is None:
             next_hop = self.next_hop_default
+        if originator_id is None:
+            originator_id = self.originator_id_default
+        if cluster_list_item is None:
+            cluster_list_item = self.cluster_list_item_default
 
         # Marker
         marker_hex = "\xFF" * 16
@@ -793,27 +808,46 @@ class MessageGenerator(object):
 
         # TODO: to replace hardcoded string by encoding?
         # Path Attributes
+        path_attributes_hex = ""
         if nlri_prefixes != []:
-            path_attributes_hex = (
+            path_attributes_hex += (
                 "\x40"  # Flags ("Well-Known")
                 "\x01"  # Type (ORIGIN)
                 "\x01"  # Length (1)
                 "\x00"  # Origin: IGP
+            )
+            path_attributes_hex += (
                 "\x40"  # Flags ("Well-Known")
                 "\x02"  # Type (AS_PATH)
                 "\x06"  # Length (6)
                 "\x02"  # AS segment type (AS_SEQUENCE)
                 "\x01"  # AS segment length (1)
                         # AS segment (4 bytes)
-                + struct.pack(">I", my_autonomous_system) +
+                + struct.pack(">I", my_autonomous_system)
+            )
+            path_attributes_hex += (
                 "\x40"  # Flags ("Well-Known")
                 "\x03"  # Type (NEXT_HOP)
                 "\x04"  # Length (4)
                         # IP address of the next hop (4 bytes)
                 + struct.pack(">I", int(next_hop))
             )
-        else:
-            path_attributes_hex = ""
+            if originator_id is not None:
+                path_attributes_hex += (
+                    "\x80"  # Flags ("Optional, non-transitive")
+                    "\x09"  # Type (ORIGINATOR_ID)
+                    "\x04"  # Length (4)
+                            # ORIGINATOR_ID (4 bytes)
+                    + struct.pack(">I", int(originator_id))
+                )
+            if cluster_list_item is not None:
+                path_attributes_hex += (
+                    "\x80"  # Flags ("Optional, non-transitive")
+                    "\x09"  # Type (CLUSTER_LIST)
+                    "\x04"  # Length (4)
+                            # one CLUSTER_LIST item (4 bytes)
+                    + struct.pack(">I", int(cluster_list_item))
+                )
 
         # Total Path Attributes Length
         total_path_attributes_length = len(path_attributes_hex)
@@ -860,12 +894,19 @@ class MessageGenerator(object):
             logger.debug("  Withdrawn_Routes=" + str(wr_prefixes) + "/" +
                          str(wr_prefix_length) + " (0x" +
                          binascii.hexlify(withdrawn_routes_hex) + ")")
-            logger.debug("  Total Path Attributes Length=" +
-                         str(total_path_attributes_length) + " (0x" +
-                         binascii.hexlify(total_path_attributes_length_hex) +
-                         ")")
-            logger.debug("  Path Attributes=" + "(0x" +
-                         binascii.hexlify(path_attributes_hex) + ")")
+            if total_path_attributes_length:
+                logger.debug("  Total Path Attributes Length=" +
+                             str(total_path_attributes_length) + " (0x" +
+                             binascii.hexlify(total_path_attributes_length_hex) + ")")
+                logger.debug("  Path Attributes=" + "(0x" +
+                             binascii.hexlify(path_attributes_hex) + ")")
+                logger.debug("    Origin=IGP")
+                logger.debug("    AS path=" + str(my_autonomous_system))
+                logger.debug("    Next hop=" + str(next_hop))
+                if originator_id is not None:
+                    logger.debug("    Originator id=" + str(originator_id))
+                if cluster_list_item is not None:
+                    logger.debug("    Cluster list=" + str(cluster_list_item))
             logger.debug("  Network Layer Reachability Information=" +
                          str(nlri_prefixes) + "/" + str(nlri_prefix_length) +
                          " (0x" + binascii.hexlify(nlri_hex) + ")")
@@ -1086,6 +1127,7 @@ class ReadTracker(object):
         self.prefixes_introduced = 0
         self.prefixes_withdrawn = 0
         self.rx_idle_time = 0
+        self.rx_activity_detected = True
 
     def read_message_chunk(self):
         """Read up to one message
@@ -1197,6 +1239,14 @@ class ReadTracker(object):
                 logger.debug("Attribute value = 0x%s", binascii.b2a_hex(attr_value_hex))
             elif attr_type_code == 7:
                 logger.debug("Attribute type = 7 (AGGREGATOR, flags:0x%s)",
+                             binascii.b2a_hex(attr_flags_hex))
+                logger.debug("Attribute value = 0x%s", binascii.b2a_hex(attr_value_hex))
+            elif attr_type_code == 9:  # rfc4456#section-8
+                logger.debug("Attribute type = 9 (ORIGINATOR_ID, flags:0x%s)",
+                             binascii.b2a_hex(attr_flags_hex))
+                logger.debug("Attribute value = 0x%s", binascii.b2a_hex(attr_value_hex))
+            elif attr_type_code == 10:  # rfc4456#section-8
+                logger.debug("Attribute type = 10 (CLUSTER_LIST, flags:0x%s)",
                              binascii.b2a_hex(attr_flags_hex))
                 logger.debug("Attribute value = 0x%s", binascii.b2a_hex(attr_value_hex))
             elif attr_type_code == 14:  # rfc4760#section-3
@@ -1341,20 +1391,25 @@ class ReadTracker(object):
             wait_timedelta = 0
         # And wait for event or something to read.
 
-        logger.info("total_received_update_message_counter: %s",
-                    self.updates_received)
-        logger.info("total_received_nlri_prefix_counter: %s",
-                    self.prefixes_introduced)
-        logger.info("total_received_withdrawn_prefix_counter: %s",
-                    self.prefixes_withdrawn)
+        if not self.rx_activity_detected or not (self.updates_received % 100):
+            # time to report
+            logger.info("total_received_update_message_counter: %s",
+                        self.updates_received)
+            logger.info("total_received_nlri_prefix_counter: %s",
+                        self.prefixes_introduced)
+            logger.info("total_received_withdrawn_prefix_counter: %s",
+                        self.prefixes_withdrawn)
 
         start_time = time.time()
         select.select([self.socket], [], [self.socket], wait_timedelta)
         timedelta = time.time() - start_time
         self.rx_idle_time += timedelta
+        self.rx_activity_detected = timedelta < 1
 
-        logger.info("... idle for %.3fs", timedelta)
-        logger.info("total_rx_idle_time_counter: %.3fs", self.rx_idle_time)
+        if not self.rx_activity_detected or not (self.updates_received % 100):
+            # time to report
+            logger.info("... idle for %.3fs", timedelta)
+            logger.info("total_rx_idle_time_counter: %.3fs", self.rx_idle_time)
         return
 
 
