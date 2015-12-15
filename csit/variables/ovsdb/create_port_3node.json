@@ -1,0 +1,10 @@
+{
+   "termination-point": [
+      {
+             "ovsdb:interface-type": "ovsdb:interface-type-vxlan",
+             "ovsdb:name": "br01",
+             "tp-id": "vx1",
+             "ovsdb:ofport": 65534
+             }
+     ]
+}
