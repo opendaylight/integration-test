@@ -15,6 +15,16 @@ import warnings
 global _cache
 
 
+def sort_lists(item):
+    """Sort lists in json item"""
+    if isinstance(item, list):
+        return sorted(sort_lists(i) for i in item)
+    elif isinstance(item, dict):
+        return {k: sort_lists(v) for k, v in item.items()}
+    else:
+        return item
+
+
 def get(url, userId='admin', password='admin'):
     """Helps in making GET REST calls"""
     warnings.warn(
