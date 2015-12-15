@@ -9,7 +9,7 @@ Resource          ../../../libraries/MininetKeywords.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${SOUTHBOUND_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${MININET}:${OVSDBPORT}
+${SOUTHBOUND_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:${OVSDBPORT}
 ${OVSDB_CONFIG_DIR}    ${CURDIR}/../../../variables/ovsdb
 ${BRIDGE}         br01
 
