@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_03d82f1c",
+        "filename": "csit/libraries/ClusterKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-15T16:11:42Z",
+      "side": 1,
+      "message": "hsf_json.hsf_json    ${data}",
+      "range": {
+        "startLine": 105,
+        "startChar": 29,
+        "endLine": 105,
+        "endChar": 50
+      },
+      "revId": "46f3346a785abbe79907528b7240784327a24d3b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
