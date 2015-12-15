@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_a1883be8",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-12-15T11:59:54Z",
+      "side": 1,
+      "message": "As said in the previous changeset, there are cases when a testtool device took 30 seconds to start up. This is the double of this worst case.",
+      "range": {
+        "startLine": 26,
+        "startChar": 30,
+        "endLine": 26,
+        "endChar": 33
+      },
+      "revId": "5594d65bf2d52af00d0d4cc1ecd0a29474278d72",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
