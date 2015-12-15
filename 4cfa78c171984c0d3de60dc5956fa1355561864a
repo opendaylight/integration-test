@@ -22,6 +22,30 @@
       "revId": "4cfa78c171984c0d3de60dc5956fa1355561864a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_08692c8b",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2015-12-15T11:57:59Z",
+      "side": 1,
+      "message": "It turned out to be \"python disease\". You cannot put \"a\u003db\" into an argument list of a function definition in Python and expect it to do the right thing. However it turns out Robot will do the right thing so let\u0027s clean this up.",
+      "parentUuid": "1aa4ed85_a117db50",
+      "range": {
+        "startLine": 176,
+        "startChar": 4,
+        "endLine": 176,
+        "endChar": 62
+      },
+      "revId": "4cfa78c171984c0d3de60dc5956fa1355561864a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
