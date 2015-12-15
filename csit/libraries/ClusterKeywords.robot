@@ -3,6 +3,7 @@ Library           RequestsLibrary
 Library           Collections
 Library           UtilLibrary.py
 Library           ClusterStateLibrary.py
+Library           ./HsfJson/hsf_json.py
 Resource          Utils.robot
 
 *** Variables ***
@@ -93,14 +94,14 @@ Put And Check At URI In Cluster
     [Arguments]    ${controller_index_list}    ${controller_index}    ${uri}    ${body}    ${headers}=${HEADERS}
     [Documentation]    Send a PUT with the supplied ${uri} and ${body} to a ${controller_index}
     ...    and check the data is replicated in all instances in ${controller_index_list}.
-    ${expected_body}=    To Json    ${body}
+    ${expected_body}=    Hsf Json    ${body}
     ${resp}    RequestsLibrary.Put Request    controller${controller_index}    ${uri}    ${body}    ${headers}
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${i}    IN    @{controller_index_list}
     \    ${data}    Wait Until Keyword Succeeds    5s    1s    Get Data From URI    controller${i}
     \    ...    ${uri}    ${headers}
     \    Log    ${data}
-    \    ${received_body}    To Json    ${data}
+    \    ${received_body}    Hsf Json    ${data}
     \    Should Be Equal    ${received_body}    ${expected_body}
 
 Delete And Check At URI In Cluster
