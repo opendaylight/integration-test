@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_c781c24b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-15T17:21:20Z",
+      "side": 1,
+      "message": "A workaround was pointed out by Tomas Cere:\nhttps://wiki.opendaylight.org/view/OpenDaylight_Controller:Netconf:Testtool#Slow_creation_of_devices_on_virtual_machines",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 27
+      },
+      "revId": "a57ba26180f9bca926b904d04486d6b8773cf975",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
