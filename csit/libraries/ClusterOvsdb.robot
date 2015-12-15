@@ -77,3 +77,67 @@ Create Bridge And Verify
     ${dictionary}=    Create Dictionary    ${MININET}=1    ${OVSDBPORT}=4    ${BRIDGE}=1
     Put And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE}    ${body}    ${HEADERS}
     Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}
+
+Create Bridge Manually And Verify
+    [Arguments]    ${controller_index_list}    ${controller_index}
+    [Documentation]    Create bridge in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-br br-s1
+    ${dictionary_operational}=    Create Dictionary    br-s1=5
+    ${dictionary_config}=    Create Dictionary    br-s1=0
+    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_config}    ${CONFIG_TOPO_API}
+    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_operational}    ${OPERATIONAL_TOPO_API}
+
+Create Port Via Controller
+    [Arguments]    ${controller_index_list}    ${controller_index}
+    [Documentation]    This will add port/interface to the config datastore
+    ${sample}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_port.json
+    ${sample1}    Replace String    ${sample}    vxlanport    vx1
+    ${body}    Replace String    ${sample1}    192.168.0.21    192.168.1.10
+    Log    URL is ${SOUTHBOUND_CONFIG_API}%2Fbridge%2F${BRIDGE}/termination-point/vx1/
+    Log    data: ${body}
+    Put And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2F${BRIDGE}/termination-point/vx1/    data=${body}
+
+Modify the destination IP of Port
+    [Documentation]    This will modify the dst ip of existing port
+    ${sample}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_port.json
+    ${sample1}    Replace String    ${sample}    vxlanport    vx1
+    ${body}    Replace String    ${sample1}    192.168.0.21    10.0.0.19
+    Log    URL is ${SOUTHBOUND_CONFIG_API}%2Fbridge%2F${BRIDGE}/termination-point/vx1/
+    Log    data: ${body}
+    Put And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2F${BRIDGE}/termination-point/vx1/    data=${body}
+
+Delete Bridge And Verify
+    [Arguments]    ${controller_index_list}    ${controller_index}
+    [Documentation]    Delete bridge in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-br br-s1
+    ${dictionary}=    Create Dictionary    ${BRIDGE}=0
+    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
+
+Delete Bridge Via Rest Call And Verify
+    [Arguments]    ${controller_index_list}    ${controller_index}
+    [Documentation]    Delete bridge in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
+    # need to get UUID which should be the same on all controllers in cluster, so asking controller1
+    ${ovsdb_uuid}=    Get OVSDB UUID    controller_http_session=controller1
+    ${dictionary}=    Create Dictionary    ${BRIDGE}=0
+    Delete And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE}    ${HEADERS}
+    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}
+
+Delete Port And Verify
+    [Arguments]    ${controller_index_list}    ${controller_index}
+    [Documentation]    Delete port in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
+    ${dictionary}=    Create Dictionary    vx1=0
+    Delete And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2F${BRIDGE}/termination-point/vx1/    ${HEADERS}
+    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
+
+Add Port To The Manual Bridge And Verify
+    [Arguments]    ${controller_index_list}    ${controller_index}
+    [Documentation]    Add Port in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-port br-s1 vx1 -- set Interface vx1 type=vxlan
+    ${dictionary_operational}=    Create Dictionary    vx1=2
+    ${dictionary_config}=    Create Dictionary    vx1=0
+    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_config}    ${CONFIG_TOPO_API}
+    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_operational}    ${OPERATIONAL_TOPO_API}
+
+Configure Exit OVSDB
+    [Arguments]    ${controller_index_list}    ${controller_index}
+    Delete And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:${OVSDB_PORT}
