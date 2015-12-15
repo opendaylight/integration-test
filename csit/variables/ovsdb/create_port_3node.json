@@ -1,0 +1,15 @@
+{
+   "termination-point": [
+      {
+         "ovsdb:options": [
+                  {
+                "option": "remote_ip",
+                "value" : "192.168.1.10"
+                      }
+                      ],
+                "ovsdb:interface-type": "ovsdb:interface-type-vxlan",
+                     "ovsdb:name": "vx2",
+                     "tp-id": "vx2"
+           }
+      ]
+}
