@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_4aef17b1",
+        "filename": "csit/suites/vtn/VTN_Mgr_OF10/010__restconfig_vtn_manager.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2015-12-16T02:21:10Z",
+      "side": 1,
+      "message": "These above 3 tests are not needed here as no ping operation is tested in this file.",
+      "revId": "6b1e1d34dfd6795aaf0b35af0472eece3c66830a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_2af2db9a",
+        "filename": "csit/suites/vtn/VTN_Mgr_OF10/010__restconfig_vtn_manager.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2015-12-16T02:21:10Z",
+      "side": 1,
+      "message": "File has a confusing name, Please name as flowcondition test",
+      "revId": "6b1e1d34dfd6795aaf0b35af0472eece3c66830a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
