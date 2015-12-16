@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_c1f3ea08",
+        "filename": "csit/suites/lispflowmapping/msmr/010_Restconf_OK.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-16T19:46:59Z",
+      "side": 1,
+      "message": "These placeholder suites are not needed anymore when there are actual test suites to run.",
+      "revId": "09151b429c21bcae09d8c33acd610f65ea1a31e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_618d567b",
+        "filename": "csit/suites/lispflowmapping/msmr/030_RPC_Datatypes.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-16T19:46:59Z",
+      "side": 1,
+      "message": "I still dislike this variable list. The highlighted value is arguably better identifier than ELP_C_MAP, and all it takes to get rid of this list is one more line in Check_Datatype (and replacing the identifiers throughout the suite, or course).",
+      "range": {
+        "startLine": 35,
+        "startChar": 34,
+        "endLine": 35,
+        "endChar": 54
+      },
+      "revId": "09151b429c21bcae09d8c33acd610f65ea1a31e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
