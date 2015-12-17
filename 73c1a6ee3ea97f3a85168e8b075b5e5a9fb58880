@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_905a1982",
+        "filename": "tools/fastbgp/manage_play.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-17T10:34:35Z",
+      "side": 1,
+      "message": "This does not create copies of current values (such as myip_current and prefix_current), it only adds references to their initial values, so at the end all threads will get the same arguments.",
+      "range": {
+        "startLine": 147,
+        "startChar": 20,
+        "endLine": 147,
+        "endChar": 26
+      },
+      "revId": "73c1a6ee3ea97f3a85168e8b075b5e5a9fb58880",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
