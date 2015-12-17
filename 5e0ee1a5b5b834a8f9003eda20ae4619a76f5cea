@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_332c8fab",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-17T17:13:48Z",
+      "side": 1,
+      "message": "Name \"testtool\" is not unique enough, other projects may also have a tool with the same name. Put \"netconf\" to non-local variable names.",
+      "range": {
+        "startLine": 30,
+        "startChar": 2,
+        "endLine": 30,
+        "endChar": 10
+      },
+      "revId": "5e0ee1a5b5b834a8f9003eda20ae4619a76f5cea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
