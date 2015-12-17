@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_062033f6",
+        "filename": "csit/libraries/ClusterKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-17T16:10:32Z",
+      "side": 1,
+      "message": "It happened already [0], I just recalled it wrong. It only happens on POST [1], not PUT. But that \"feature\" may spread to PUT in future, so it would be good to prepare ahead.\n\n[0] https://git.opendaylight.org/gerrit/#/c/30176\n[1] https://lists.opendaylight.org/pipermail/integration-dev/2015-November/005255.html",
+      "parentUuid": "1aa4ed85_a6b03ff5",
+      "range": {
+        "startLine": 94,
+        "startChar": 102,
+        "endLine": 94,
+        "endChar": 112
+      },
+      "revId": "ec48ce348b590be540a4f8e9f56cf838c06c39a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_161866d2",
         "filename": "csit/libraries/ClusterKeywords.robot",
         "patchSetId": 2
