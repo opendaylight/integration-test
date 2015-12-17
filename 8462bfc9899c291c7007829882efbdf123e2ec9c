@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_d03731af",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 4094
+      },
+      "writtenOn": "2015-12-17T06:13:48Z",
+      "side": 1,
+      "message": "Request is missing from this Request Syntax. Isn\u0027t it be like this:\n    ${resp}    RequestsLibrary.Put Request    session    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2F${BRIDGE}    data\u003d${body}\n\nSame for rest of the calls in this file.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 116
+      },
+      "revId": "8462bfc9899c291c7007829882efbdf123e2ec9c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_504b412b",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/010__configure_1_ovsdb_node.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 4094
+      },
+      "writtenOn": "2015-12-17T06:13:48Z",
+      "side": 1,
+      "message": "Redundant test",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 115
+      },
+      "revId": "8462bfc9899c291c7007829882efbdf123e2ec9c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_f03cad95",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/020__connection_manager.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 4094
+      },
+      "writtenOn": "2015-12-17T06:13:48Z",
+      "side": 1,
+      "message": "Isn\u0027t this variable (MININET) be replaced by ${TOOLS_SYSTEM_IP}\nSame for rest of this file",
+      "range": {
+        "startLine": 18,
+        "startChar": 82,
+        "endLine": 18,
+        "endChar": 91
+      },
+      "revId": "8462bfc9899c291c7007829882efbdf123e2ec9c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_9041b90d",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/030__configure_exit_ovsdb_node.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 4094
+      },
+      "writtenOn": "2015-12-17T06:13:48Z",
+      "side": 1,
+      "message": "\"Request\" keyword is missing from this request.",
+      "range": {
+        "startLine": 35,
+        "startChar": 34,
+        "endLine": 35,
+        "endChar": 38
+      },
+      "revId": "8462bfc9899c291c7007829882efbdf123e2ec9c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_b0463522",
+        "filename": "csit/testplans/ovsdb-southbound.txt",
+        "patchSetId": 26
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 4094
+      },
+      "writtenOn": "2015-12-17T06:13:48Z",
+      "side": 1,
+      "message": "There is no need for this test suite. As the only difference between this and 040 is of flow which are installed.",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 91
+      },
+      "revId": "8462bfc9899c291c7007829882efbdf123e2ec9c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
