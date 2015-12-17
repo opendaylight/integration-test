@@ -147,6 +147,24 @@
       "revId": "09151b429c21bcae09d8c33acd610f65ea1a31e3",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_93b463f3",
+        "filename": "csit/suites/lispflowmapping/msmr/030_RPC_Datatypes.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-17T12:59:43Z",
+      "side": 1,
+      "message": "\u003e I removed file 010_Restconf_OK.robot\n\nThat is a different Done.\nThe Done I was asking about follows my \"dislike this variable list\" comment.",
+      "parentUuid": "1aa4ed85_f01d8d74",
+      "revId": "09151b429c21bcae09d8c33acd610f65ea1a31e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
