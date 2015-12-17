@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_b0f875e6",
+        "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-17T05:36:33Z",
+      "side": 1,
+      "message": "why don\u0027t you have the \"--command add\" version here to use\ndown in line 108?",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 1
+      },
+      "revId": "bc8f7fa84e780d5687b507426a4785e277125aa3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_7093dda3",
+        "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-17T05:36:33Z",
+      "side": 1,
+      "message": "already have force tags above, so don\u0027t need this.",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 22
+      },
+      "revId": "bc8f7fa84e780d5687b507426a4785e277125aa3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_f0eeed21",
+        "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-17T05:36:33Z",
+      "side": 1,
+      "message": "curious on this line.  Is polling here needed?  If line 97 above passes,\nthen would this line be expected to pass on the first try?  or sometimes\nit takes longer for word_count check vs ipv4_topo_check?\n\nif it\u0027s the former, you can remove polling and save time in those cases when\nthings are failing.\n\nquestion applies below as well, line 119.  I think these polling times could\nbe quite large so if there is trouble in the system (e.g. bug) and all cases\nare going to fail, these polling cycles will really eat up bandwidth in the\ntest system.  Only asking for now.  if it\u0027s needed, no problem.",
+      "range": {
+        "startLine": 102,
+        "startChar": 12,
+        "endLine": 102,
+        "endChar": 100
+      },
+      "revId": "bc8f7fa84e780d5687b507426a4785e277125aa3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_50dd816f",
+        "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-17T05:36:33Z",
+      "side": 1,
+      "message": "you could do SSHLibrary.Put Directory to condense all the Put\nFile lines in to one.  Looks like you are using all but one\nof the files in that dir.\n\njust a thought, although explicit is better than implicit :)",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 87
+      },
+      "revId": "bc8f7fa84e780d5687b507426a4785e277125aa3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_70dafd79",
+        "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-17T05:36:33Z",
+      "side": 1,
+      "message": "yeah, the 20 stands out to me as well.",
+      "range": {
+        "startLine": 192,
+        "startChar": 20,
+        "endLine": 192,
+        "endChar": 22
+      },
+      "revId": "bc8f7fa84e780d5687b507426a4785e277125aa3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_10e70942",
+        "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-17T05:36:33Z",
+      "side": 1,
+      "message": "to me, a keyword that only wraps another single keyword seems a little bloated.  you could just use the Switch Connection keyword up in your test cases and remove these.  unless you want them for some reason, or plan to enhance\nthem over time.  If so, maybe add some [doc] so we know.",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 56
+      },
+      "revId": "bc8f7fa84e780d5687b507426a4785e277125aa3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_f0d58d43",
+        "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-17T05:36:33Z",
+      "side": 1,
+      "message": "it doesn\u0027t save anything, but there is the OperatingSystem\nkeyword to \"Grep File\".\n\nsomething like this would work:\n\n    ${output}\u003d    Grep File    ${file_name}    ${word}\n    ${found}\u003d    Get Count    ${output}    \\n\n    Should Be Equal As Strings    ${found} + 1    ${expected_count}\n    # have to +1 above since ${found} will be 1 less than actual count \n    # since no newline on last line of returned output.\n\njust fyi, since I knew about it.  your way works too.",
+      "range": {
+        "startLine": 267,
+        "startChar": 4,
+        "endLine": 269,
+        "endChar": 76
+      },
+      "revId": "bc8f7fa84e780d5687b507426a4785e277125aa3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
