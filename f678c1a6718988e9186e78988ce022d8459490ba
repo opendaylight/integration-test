@@ -22,6 +22,24 @@
       "revId": "f678c1a6718988e9186e78988ce022d8459490ba",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_c9d0ec55",
+        "filename": "csit/suites/lispflowmapping/all/030_RPC_Datatypes.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2015-12-17T17:20:45Z",
+      "side": 1,
+      "message": "Yeap, I missed that. Fixed in patch set 5.",
+      "parentUuid": "1aa4ed85_062fd3a2",
+      "revId": "f678c1a6718988e9186e78988ce022d8459490ba",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
