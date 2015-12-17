@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_dc498d8c",
+        "filename": "csit/suites/lispflowmapping/msmr/010_Restconf_OK.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-17T01:54:15Z",
+      "side": 1,
+      "message": "agreed.  can safely be removed",
+      "parentUuid": "1aa4ed85_c1f3ea08",
+      "revId": "09151b429c21bcae09d8c33acd610f65ea1a31e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_618d567b",
         "filename": "csit/suites/lispflowmapping/msmr/030_RPC_Datatypes.robot",
         "patchSetId": 1
