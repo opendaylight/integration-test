@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_70cbdd72",
+        "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 4792
+      },
+      "writtenOn": "2015-12-17T16:15:32Z",
+      "side": 1,
+      "message": "the --count ${remaining_prefixes} option calculation didn\u0027t work for me if declared in variables section. If I keep the BGP performance suites approach that COUNT is the total count of introduced prefixes I should keep it. Anther option is to have two partial numbers and calculate the sum of them for checking purposes. I would keep it as it is but no problem to change to option 2 if needed ...",
+      "parentUuid": "1aa4ed85_b0f875e6",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 1
+      },
+      "revId": "bc8f7fa84e780d5687b507426a4785e277125aa3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_7093dda3",
         "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
         "patchSetId": 31
@@ -36,6 +60,30 @@
       "writtenOn": "2015-12-17T05:36:33Z",
       "side": 1,
       "message": "already have force tags above, so don\u0027t need this.",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 22
+      },
+      "revId": "bc8f7fa84e780d5687b507426a4785e277125aa3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_10c86973",
+        "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 4792
+      },
+      "writtenOn": "2015-12-17T16:15:32Z",
+      "side": 1,
+      "message": "sure ...",
+      "parentUuid": "1aa4ed85_7093dda3",
       "range": {
         "startLine": 69,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_109f0961",
+        "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 4792
+      },
+      "writtenOn": "2015-12-17T16:15:32Z",
+      "side": 1,
+      "message": "Yes, I would expect the same behavior but in reality it takes time. A general bug_4689 is raised mainly for system test targets and performance results clarification. If possible I would keep the approach that this check allows to measure performance and does not fail just because of short timeout. But I can save time by adding fast failing for such kind of consequent checks ... hopefully ...",
+      "parentUuid": "1aa4ed85_f0eeed21",
+      "range": {
+        "startLine": 102,
+        "startChar": 12,
+        "endLine": 102,
+        "endChar": 100
+      },
+      "revId": "bc8f7fa84e780d5687b507426a4785e277125aa3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_50dd816f",
         "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
         "patchSetId": 31
@@ -82,6 +154,30 @@
       "writtenOn": "2015-12-17T05:36:33Z",
       "side": 1,
       "message": "you could do SSHLibrary.Put Directory to condense all the Put\nFile lines in to one.  Looks like you are using all but one\nof the files in that dir.\n\njust a thought, although explicit is better than implicit :)",
+      "range": {
+        "startLine": 187,
+        "startChar": 0,
+        "endLine": 190,
+        "endChar": 87
+      },
+      "revId": "bc8f7fa84e780d5687b507426a4785e277125aa3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_d0b651dc",
+        "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 4792
+      },
+      "writtenOn": "2015-12-17T16:15:32Z",
+      "side": 1,
+      "message": "nearly did .. it would be simpler  ... but there can be added new (possibly large) files in the future(?) ... For now I have just reshuffled lines for a bit better readability ... OK?",
+      "parentUuid": "1aa4ed85_50dd816f",
       "range": {
         "startLine": 187,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_507ca120",
+        "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 192,
+      "author": {
+        "id": 4792
+      },
+      "writtenOn": "2015-12-17T16:15:32Z",
+      "side": 1,
+      "message": "Sorry, I forgot to delete this inherited TODO ;)... For me the timeout calculation is a kind of alchemy ;) - based on measured performance ... this \"offset\" value (20) solved - as I know - troubles for low COUNT numbers like 100 prefixes ... it works and does not impact too much the calculation for the 1M target \n\nanother option is to set a minimal timeout as a new parameter and to take the maximum ... TODO for all BGP preformance suites ...\n\n... If it is just up to me I would not play with this number ...\n\nPlease let me know if acceptable or do you propose to improve it somehow ...",
+      "parentUuid": "1aa4ed85_70dafd79",
+      "range": {
+        "startLine": 192,
+        "startChar": 20,
+        "endLine": 192,
+        "endChar": 22
+      },
+      "revId": "bc8f7fa84e780d5687b507426a4785e277125aa3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_10e70942",
         "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
         "patchSetId": 31
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_d08f3122",
+        "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 4792
+      },
+      "writtenOn": "2015-12-17T16:15:32Z",
+      "side": 1,
+      "message": "It looks like no additional command is needed there ... keyword removed according to your suggestion ...",
+      "parentUuid": "1aa4ed85_10e70942",
+      "range": {
+        "startLine": 220,
+        "startChar": 0,
+        "endLine": 224,
+        "endChar": 56
+      },
+      "revId": "bc8f7fa84e780d5687b507426a4785e277125aa3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_f0d58d43",
         "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
         "patchSetId": 31
@@ -151,6 +295,30 @@
       "writtenOn": "2015-12-17T05:36:33Z",
       "side": 1,
       "message": "it doesn\u0027t save anything, but there is the OperatingSystem\nkeyword to \"Grep File\".\n\nsomething like this would work:\n\n    ${output}\u003d    Grep File    ${file_name}    ${word}\n    ${found}\u003d    Get Count    ${output}    \\n\n    Should Be Equal As Strings    ${found} + 1    ${expected_count}\n    # have to +1 above since ${found} will be 1 less than actual count \n    # since no newline on last line of returned output.\n\njust fyi, since I knew about it.  your way works too.",
+      "range": {
+        "startLine": 267,
+        "startChar": 4,
+        "endLine": 269,
+        "endChar": 76
+      },
+      "revId": "bc8f7fa84e780d5687b507426a4785e277125aa3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_f0090d96",
+        "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
+        "patchSetId": 31
+      },
+      "lineNbr": 269,
+      "author": {
+        "id": 4792
+      },
+      "writtenOn": "2015-12-17T16:15:32Z",
+      "side": 1,
+      "message": "Thank you ... Yes it could be for local files, I guess ... or together with SSHLibrary.Get_File ... for remotes. ... but I am not sure about multiple word occurrences in the same line ... ${found}\u003d    Get Count    ${output}    ${word}  probably would do it ...\nCurrent implementation works on remote machines without file transfers ...",
+      "parentUuid": "1aa4ed85_f0d58d43",
       "range": {
         "startLine": 267,
         "startChar": 4,
