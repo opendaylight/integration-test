@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_33b6cf3e",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-17T12:57:02Z",
+      "side": 1,
+      "message": "Why this reorder? It was sorted alphabetically before.",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 4
+      },
+      "revId": "7ec2011b11738ee4fdb883247b47e03f6fbd6a79",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_d3e97b1b",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-17T12:57:02Z",
+      "side": 1,
+      "message": "Do not overload reserved identifiers.",
+      "range": {
+        "startLine": 25,
+        "startChar": 26,
+        "endLine": 25,
+        "endChar": 30
+      },
+      "revId": "7ec2011b11738ee4fdb883247b47e03f6fbd6a79",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_d3373baf",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-17T12:57:02Z",
+      "side": 1,
+      "message": "This will emit items in pseudorandom order.\nI think not using **kwargs and using sgt\u003d\"\", esgt\u003d\"\" would allow you to get rid of for loop and emit entries in predefined order.",
+      "range": {
+        "startLine": 28,
+        "startChar": 23,
+        "endLine": 28,
+        "endChar": 37
+      },
+      "revId": "7ec2011b11738ee4fdb883247b47e03f6fbd6a79",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_136cf39b",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-17T12:57:02Z",
+      "side": 1,
+      "message": "If esgt\u003d\"\" is the argument definition, this can be replaced with:\nargs \u003d esgt.split(\u0027,\u0027)\nif args:\n    entries +\u003d add_sgt_range_xml(args[0], args[1])",
+      "range": {
+        "startLine": 33,
+        "startChar": 8,
+        "endLine": 35,
+        "endChar": 55
+      },
+      "revId": "7ec2011b11738ee4fdb883247b47e03f6fbd6a79",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_f387d75f",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-17T12:57:02Z",
+      "side": 1,
+      "message": "+\u003d",
+      "range": {
+        "startLine": 71,
+        "startChar": 16,
+        "endLine": 71,
+        "endChar": 27
+      },
+      "revId": "7ec2011b11738ee4fdb883247b47e03f6fbd6a79",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_93dd4345",
+        "filename": "csit/suites/sxp/filtering/020_Outbound_Filtering.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-17T12:57:02Z",
+      "side": 1,
+      "message": "Okay for this Change. But before working on next Change, I would recommend to rework these tests to check bindings master database as a whole, not just via Should (Not) Contain. That would eliminate need for parsing in Sxp.py\n\nIf element ordering is an issue, I recommend getting Json responses and using hsf_json.py to normalize them.",
+      "revId": "7ec2011b11738ee4fdb883247b47e03f6fbd6a79",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
