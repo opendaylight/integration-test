@@ -1,18 +1,14 @@
 *** Settings ***
-Documentation     Test suite to verify Restconf is OK
-Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-Suite Teardown    Delete All Sessions
+Documentation     Test suite to verify Restconf is OK.
+Suite Setup       RequestsLibrary.Create_Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Teardown    RequestsLibrary.Delete_All_Sessions
 Library           RequestsLibrary
-Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.robot
-
-*** Variables ***
-${REST_CONTEXT}    /restconf/modules
+Variables         ${CURDIR}/../../../variables/Variables.py
 
 *** Test Cases ***
 Get Controller Modules
-    [Documentation]    Get the controller modules via Restconf
-    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    Should Contain    ${resp.content}    ietf-restconf
+    [Documentation]    Get the restconf modules, check 200 status and ietf-restconf presence.
+    ${resp} =    RequestsLibrary.Get_Request    session    ${MODULES_API}
+    BuiltIn.Log    ${resp.content}
+    BuiltIn.Should_Be_Equal    ${resp.status_code}    ${200}
+    BuiltIn.Should_Contain    ${resp.content}    ietf-restconf
