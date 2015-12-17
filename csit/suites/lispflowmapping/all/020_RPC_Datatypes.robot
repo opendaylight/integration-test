@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite to verify data types using RPCs
-Suite Setup       Create Session And Set External Variables
+Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
 Test Setup        Set Suite Variable    ${RPC_Datatype__current_json}    ${EMPTY}
 Test Teardown     Remove Datatype And Check Removal
@@ -10,29 +10,29 @@ Library           OperatingSystem
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/LISPFlowMapping.robot
+Resource          ../../../libraries/LISPFlowMapping__Lithium.robot
 Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
-${IPV4_C_MAP}     ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_add-mapping_ipv4_ipv4.json
-${IPV4_RD}        ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_get-remove_ipv4.json
-${IPV6_C_MAP}     ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_add-mapping_ipv6_ipv4.json
-${IPV6_RD}        ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_get-remove_ipv6.json
-${MAC_C_MAP}      ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_add-mapping_mac_ipv4.json
-${MAC_RD}         ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_get-remove_mac.json
-${DN_C_MAP}       ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_add-mapping_dn_ipv4.json
-${DN_RD}          ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_get-remove_dn.json
-${AS_C_MAP}       ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_add-mapping_as_ipv4.json
-${AS_RD}          ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_get-remove_as.json
-${IID_C_MAP}      ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_add-mapping_iid_ipv4.json
-${IID_RD}         ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_get-remove_iid.json
-${SD_C_MAP}       ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_add-mapping_srcdst_ipv4.json
-${SD_RD}          ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_get-remove_srcdst.json
-${KV_C_MAP}       ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_add-mapping_kv_ipv4.json
-${KV_RD}          ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_get-remove_kv.json
-${LST_C_MAP}      ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_add-mapping_ipv4_list.json
-${APP_C_MAP}      ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_add-mapping_ipv4_appdata.json
-${ELP_C_MAP}      ${CURDIR}/../../../variables/lispflowmapping/${ODL_VERSION}/rpc_add-mapping_ipv4_elp.json
+${IPV4_C_MAP}     ${JSON_DIR}/rpc_add-mapping_ipv4_ipv4.json
+${IPV4_RD}        ${JSON_DIR}/rpc_get-remove_ipv4.json
+${IPV6_C_MAP}     ${JSON_DIR}/rpc_add-mapping_ipv6_ipv4.json
+${IPV6_RD}        ${JSON_DIR}/rpc_get-remove_ipv6.json
+${MAC_C_MAP}      ${JSON_DIR}/rpc_add-mapping_mac_ipv4.json
+${MAC_RD}         ${JSON_DIR}/rpc_get-remove_mac.json
+${DN_C_MAP}       ${JSON_DIR}/rpc_add-mapping_dn_ipv4.json
+${DN_RD}          ${JSON_DIR}/rpc_get-remove_dn.json
+${AS_C_MAP}       ${JSON_DIR}/rpc_add-mapping_as_ipv4.json
+${AS_RD}          ${JSON_DIR}/rpc_get-remove_as.json
+${IID_C_MAP}      ${JSON_DIR}/rpc_add-mapping_iid_ipv4.json
+${IID_RD}         ${JSON_DIR}/rpc_get-remove_iid.json
+${SD_C_MAP}       ${JSON_DIR}/rpc_add-mapping_srcdst_ipv4.json
+${SD_RD}          ${JSON_DIR}/rpc_get-remove_srcdst.json
+${KV_C_MAP}       ${JSON_DIR}/rpc_add-mapping_kv_ipv4.json
+${KV_RD}          ${JSON_DIR}/rpc_get-remove_kv.json
+${LST_C_MAP}      ${JSON_DIR}/rpc_add-mapping_ipv4_list.json
+${APP_C_MAP}      ${JSON_DIR}/rpc_add-mapping_ipv4_appdata.json
+${ELP_C_MAP}      ${JSON_DIR}/rpc_add-mapping_ipv4_elp.json
 
 *** Test Cases ***
 IPv4 Prefix
@@ -86,15 +86,15 @@ Check Datatype
     ${add_mapping}=    OperatingSystem.Get File    ${add_mapping_json_file}
     ${get_mapping}=    OperatingSystem.Get File    ${get_mapping_json_file}
     Set Suite Variable    ${RPC_Datatype__current_json}    ${get_mapping}
-    Post Log Check    ${LFM_RPC_API}:add-mapping    ${add_mapping}
+    Post Log Check    ${LFM_RPC_API_LI}:add-mapping    ${add_mapping}
     Sleep    200ms    Avoid race conditions
-    ${resp}=    Post Log Check    ${LFM_RPC_API}:get-mapping    ${get_mapping}
+    ${resp}=    Post Log Check    ${LFM_RPC_API_LI}:get-mapping    ${get_mapping}
     ${eid_record}=    Get Eid Record    ${resp}
     Dictionary Should Contain Key    ${eid_record}    LocatorRecord
 
 Remove Datatype And Check Removal
     Variable Should Exist    ${RPC_Datatype__current_json}
-    Post Log Check    ${LFM_RPC_API}:remove-mapping    ${RPC_Datatype__current_json}
+    Post Log Check    ${LFM_RPC_API_LI}:remove-mapping    ${RPC_Datatype__current_json}
     Sleep    200ms    Avoid race conditions
     Check Mapping Removal    ${RPC_Datatype__current_json}
     Set Suite Variable    ${RPC_Datatype__current_json}    ${EMPTY}
