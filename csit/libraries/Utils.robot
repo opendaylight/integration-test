@@ -363,3 +363,11 @@ Check Item Occurrence
     [Documentation]    Check string for occurrences of items expressed in a list of dictionaries {item=occurrences}. 0 occurences means item is not present.
     : FOR    ${item}    IN    @{dictionary_item_occurrence}
     \    Should Contain X Times    ${string}    ${item}    &{dictionary_item_occurrence}[${item}]
+
+Post Log Check
+    [Arguments]    ${uri}    ${body}    ${status_code}=200
+    [Documentation]    Post body to ${uri}, log response content, and check status
+    ${resp}=    RequestsLibrary.Post    session    ${uri}    ${body}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    ${status_code}
+    [Return]    ${resp}
