@@ -165,6 +165,24 @@
       "revId": "09151b429c21bcae09d8c33acd610f65ea1a31e3",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_b3b5dfce",
+        "filename": "csit/suites/lispflowmapping/msmr/030_RPC_Datatypes.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2015-12-17T13:14:51Z",
+      "side": 1,
+      "message": "That\u0027s what I was referring to. In patch set 3 the variable list is removed. The diffs are not very helpful, because of the rename, so here\u0027s the direct link https://git.opendaylight.org/gerrit/#/c/31304/3/csit/suites/lispflowmapping/msmr/020_RPC_Datatypes.robot",
+      "parentUuid": "1aa4ed85_93b463f3",
+      "revId": "09151b429c21bcae09d8c33acd610f65ea1a31e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
