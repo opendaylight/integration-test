@@ -183,6 +183,24 @@
       "revId": "09151b429c21bcae09d8c33acd610f65ea1a31e3",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_c62c5b4d",
+        "filename": "csit/suites/lispflowmapping/msmr/030_RPC_Datatypes.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-17T15:13:32Z",
+      "side": 1,
+      "message": "Yeah, sorry, I did not notice the rename (even after being told) and Gerrit displays it in a strange way. So I just made up a rule and added it as the last paragraph to https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Source_files\n\nStill, there is a list to dislike in all/020_RPC_Datatypes.robot\n\nThere is also a smaller list in msmr/010_RPC_CRUD.robot\nbut I am not sure yet if it is long enough to require a rewrite of Get_File plus Post_Log_Check pattern in test cases.",
+      "parentUuid": "1aa4ed85_b3b5dfce",
+      "revId": "09151b429c21bcae09d8c33acd610f65ea1a31e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
