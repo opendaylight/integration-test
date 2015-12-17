@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_5f410a38",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-17T23:46:18Z",
+      "side": 1,
+      "message": "Since I think there will be a new upload, could you take advantage of that to refactor a few things here?\n\n1) convert all the RequestLibrary calls to use the new name?\nhttp://bulkan.github.io/robotframework-requests/\nso, instead of \"RequestsLibrary.Put\" it would be \"RequestsLibrary.Put Request\"\n\n2) can you add docs where missing?  I think it\u0027s just the two mininet ping keywords\n\n3) can you use same case formatting, so Post instead of POST?  line 90 is just one example",
+      "revId": "f8a72ecf2709f1e6bd4a614dd4ff65a44d01c444",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_9f6ea2c8",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-17T23:46:18Z",
+      "side": 1,
+      "message": "adding the purpose of the ${retrieve} argument here in [Documentation] would be helpful.",
+      "range": {
+        "startLine": 301,
+        "startChar": 4,
+        "endLine": 301,
+        "endChar": 57
+      },
+      "revId": "f8a72ecf2709f1e6bd4a614dd4ff65a44d01c444",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_5f3a6ace",
+        "filename": "csit/suites/vtn/VTN_Mgr_OF10/010__vtn_macmap.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-17T23:46:18Z",
+      "side": 1,
+      "message": "instead of tagging each test case, use \"Force Tags\" up here in *** Settings *** section to apply a tag to every test case\nwhich is what you are doing with \"exclude\" below.",
+      "revId": "f8a72ecf2709f1e6bd4a614dd4ff65a44d01c444",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_7f3726e4",
+        "filename": "csit/suites/vtn/VTN_Mgr_OF10/010__vtn_macmap.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-17T23:46:18Z",
+      "side": 1,
+      "message": "Force Tags will remove this line, but [Tags] are usually listed at the top of the work, not below.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 20
+      },
+      "revId": "f8a72ecf2709f1e6bd4a614dd4ff65a44d01c444",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_1f4b925a",
+        "filename": "csit/suites/vtn/VTN_Mgr_OF10/010__vtn_manager_dataflow.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-17T23:46:18Z",
+      "side": 1,
+      "message": "Force Tags is cleaner. applies in other files.",
+      "revId": "f8a72ecf2709f1e6bd4a614dd4ff65a44d01c444",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
