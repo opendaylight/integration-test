@@ -5,7 +5,7 @@ Documentation     This resource file defines keywords that are used in more
 ...               variables are coming from.
 
 *** Variables ***
-${JSON_DIR}      ${CURDIR}/../variables/lispflowmapping/Be
+${JSON_DIR}       ${CURDIR}/../variables/lispflowmapping/Li
 
 *** Keywords ***
 Authentication Key Should Be
@@ -17,8 +17,7 @@ Authentication Key Should Be
 Get Authentication Key
     [Arguments]    ${resp}
     ${output}=    Get From Dictionary    ${resp.json()}    output
-    ${mapping_authkey}=    Get From Dictionary    ${output}    mapping-authkey
-    ${authkey}=    Get From Dictionary    ${mapping_authkey}    key-string
+    ${authkey}=    Get From Dictionary    ${output}    authkey
     [Return]    ${authkey}
 
 Ipv4 Rloc Should Be
@@ -33,15 +32,22 @@ Ipv4 Rloc Should Be
 Get Eid Record
     [Arguments]    ${resp}
     ${output}=    Get From Dictionary    ${resp.json()}    output
-    ${eid_record}=    Get From Dictionary    ${output}    mapping-record
+    ${eid_record}=    Get From Dictionary    ${output}    eidToLocatorRecord
+    ${eid_record}=    Get From List    ${eid_record}    0
     [Return]    ${eid_record}
 
 Get Ipv4 Rloc
     [Arguments]    ${loc_record}
-    ${loc}=    Get From Dictionary    ${loc_record}    rloc
-    ${ipv4}=    Get From Dictionary    ${loc}    ipv4
+    ${loc}=    Get From Dictionary    ${loc_record}    LispAddressContainer
+    ${address}=    Get From Dictionary    ${loc}    Ipv4Address
+    ${ipv4}=    Get From Dictionary    ${address}    Ipv4Address
     [Return]    ${ipv4}
 
 Check Mapping Removal
     [Arguments]    ${json}
-    Post Log Check    ${LFM_RPC_API}:get-mapping    ${json}    404
+    ${resp}=    Post Log Check    ${LFM_RPC_API_LI}:get-mapping    ${json}
+    ${output}=    Get From Dictionary    ${resp.json()}    output
+    ${eid_record}=    Get From Dictionary    ${output}    eidToLocatorRecord
+    ${eid_record_0}=    Get From List    ${eid_record}    0
+    ${action}=    Get From Dictionary    ${eid_record_0}    action
+    Should Be Equal As Strings    ${action}    NativelyForward
