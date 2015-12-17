@@ -27,6 +27,7 @@ ${FIRST_TESTTOOL_PORT}    17830
 ${BASE_NETCONF_DEVICE_PORT}    17830
 ${DEVICE_NAME_BASE}    netconf-scaling-device
 ${TESTTOOL_DEVICE_TIMEOUT}    60s
+${TESTTOOL_DEFAULT_OPTIONS}    -Dorg.apache.sshd.registerBouncyCastle=false
 ${ENABLE_NETCONF_TEST_TIMEOUT}    True
 
 *** Keywords ***
@@ -135,7 +136,7 @@ NetconfKeywords__Wait_Device_Is_Up_And_Running
     BuiltIn.Wait_Until_Keyword_Succeeds    ${TESTTOOL_DEVICE_TIMEOUT}    1s    Check_Device_Up_And_Running    ${number}
 
 Install_And_Start_Testtool
-    [Arguments]    ${device-count}=10    ${debug}=true    ${schemas}=none    ${options}=${EMPTY}
+    [Arguments]    ${device-count}=10    ${debug}=true    ${schemas}=none    ${options}=${TESTTOOL_DEFAULT_OPTIONS}
     [Documentation]    Install and run testtool. Also arrange to collect its output into a log file.
     ...    When the ${schemas} argument is set to 'none', it signifies that
     ...    there are no additional schemas to be deployed, so the directory
