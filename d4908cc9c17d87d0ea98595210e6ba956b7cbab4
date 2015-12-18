@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_15adb388",
+        "filename": "csit/libraries/Tcpdump.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-18T13:32:32Z",
+      "side": 1,
+      "message": "Have you seen this working for both cases (whether or not was there a previous connection active)?\nI remember from reviewing KarafKeywords.Restore_Current_SSH Connection_From_Index that things can be tricky.",
+      "range": {
+        "startLine": 36,
+        "startChar": 22,
+        "endLine": 36,
+        "endChar": 40
+      },
+      "revId": "d4908cc9c17d87d0ea98595210e6ba956b7cbab4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
