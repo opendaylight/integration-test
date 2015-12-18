@@ -101,6 +101,24 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_75ac27ee",
+        "filename": "csit/suites/vtn/VTN_Mgr_OF10/010__vtn_macmap.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1479
+      },
+      "writtenOn": "2015-12-18T12:34:30Z",
+      "side": 1,
+      "message": "Applied Force tags in ***Setting *** section in files were it is applicable and also removed tags inside test cases",
+      "parentUuid": "1aa4ed85_5f3a6ace",
+      "revId": "f8a72ecf2709f1e6bd4a614dd4ff65a44d01c444",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_7f3726e4",
         "filename": "csit/suites/vtn/VTN_Mgr_OF10/010__vtn_macmap.robot",
         "patchSetId": 18
@@ -135,6 +153,24 @@
       "writtenOn": "2015-12-17T23:46:18Z",
       "side": 1,
       "message": "Force Tags is cleaner. applies in other files.",
+      "revId": "f8a72ecf2709f1e6bd4a614dd4ff65a44d01c444",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_95f3e309",
+        "filename": "csit/suites/vtn/VTN_Mgr_OF10/010__vtn_manager_dataflow.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 1479
+      },
+      "writtenOn": "2015-12-18T12:34:30Z",
+      "side": 1,
+      "message": "Added Fore Tags in all files wherever it is applicable",
+      "parentUuid": "1aa4ed85_1f4b925a",
       "revId": "f8a72ecf2709f1e6bd4a614dd4ff65a44d01c444",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
