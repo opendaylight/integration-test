@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_9a99d070",
+        "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-18T09:39:13Z",
+      "side": 1,
+      "message": "Everything from this Keyword on can be put to a Resource, but that would include rewriting other suites so it can be better reviewed in a separate change. Jozef has a similar Resource under review if I recall correctly.\n\nFor now, here is a Trello card for this debt: https://trello.com/c/OteFdQXz/263-int-test-create-a-common-resource-for-handling-interactive-command-line-tools",
+      "range": {
+        "startLine": 229,
+        "startChar": 0,
+        "endLine": 229,
+        "endChar": 18
+      },
+      "revId": "256bef4223cb883050719081ebf6e442ef7601d6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
