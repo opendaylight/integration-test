@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_39bd4969",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-18T21:00:17Z",
+      "side": 1,
+      "message": "The original impetus for this keyword was to disconnect the manager from ODL so that operational data didn\u0027t stick around in MD-SAL and give other test cases an indication that something was there.\n\none case was passing, because there was a connection left over from a previous\ntest case (del-manager not done).  The test was trying to connect FROM ODL (IIRC) and verify in operational.  The connection failed, but the test saw\nstuff from the previous test case and didn\u0027t FAIL.\n\nBut, this keyword can do any other kinds of cleanup.  What are the right steps\nfor cleaning the conf.db?  Anything else to add?",
+      "parentUuid": "1aa4ed85_5f77cad4",
+      "range": {
+        "startLine": 72,
+        "startChar": 17,
+        "endLine": 72,
+        "endChar": 28
+      },
+      "revId": "8462bfc9899c291c7007829882efbdf123e2ec9c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_504b412b",
         "filename": "csit/suites/ovsdb/Southbound_Domain/010__configure_1_ovsdb_node.robot",
         "patchSetId": 26
