@@ -53,7 +53,6 @@ Get interface setup
     Log    ${output}
     Should Contain    ${output}    Interface br-int
 
-
 Get the bridge flows
     [Documentation]    This request fetch the OF13 flow tables to verify the flows are correctly added
     [Tags]    OVSDB netvirt
