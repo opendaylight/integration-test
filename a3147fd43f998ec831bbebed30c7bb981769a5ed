@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_9c2c6bad",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 4094
+      },
+      "writtenOn": "2015-12-19T09:31:04Z",
+      "side": 1,
+      "message": "Jamo, You miss this one",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 103
+      },
+      "revId": "a3147fd43f998ec831bbebed30c7bb981769a5ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_bc0cc743",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/020__connection_manager.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 4094
+      },
+      "writtenOn": "2015-12-19T09:31:04Z",
+      "side": 1,
+      "message": "From what I remembered.\nThis will always failed. Because the Request will be to ovsdb://IP:port but the OVSDB node config will be ovsdb://uuid:port Because the OVS initiated the call and the database of OVS was fresh. (Sam can correct me)\n\nP.S: It will passed if we run any other test suite (which initiate connection from to controller to the OVS) before running this test suite.",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 110
+      },
+      "revId": "a3147fd43f998ec831bbebed30c7bb981769a5ed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
