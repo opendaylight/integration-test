@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_bc7cc721",
+        "filename": "csit/libraries/DIDMKeywords.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-19T00:51:22Z",
+      "side": 1,
+      "message": "This got merged in karafkeywords now.  you don\u0027t need it here in this library now.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 20
+      },
+      "revId": "8fe3075bd4e813e03d34d2954747f22b3704ca33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_7c764f40",
+        "filename": "csit/suites/didm/discovery/device_discovery.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2015-12-19T00:51:22Z",
+      "side": 1,
+      "message": "just source karafkeywords in your *** Settings *** section now and like I commented in the DIDM library, you can remove that keyword.  it belongs in karafkeywords anyway.\n\nI know you put it there because it was not yet merged when you were wanting to use it.",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 88,
+        "endChar": 49
+      },
+      "revId": "8fe3075bd4e813e03d34d2954747f22b3704ca33",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
