@@ -17,12 +17,12 @@ ${DUMPFLOWS_OF10}    dpctl dump-flows -O OpenFlow10
 ${DUMPFLOWS_OF13}    dpctl dump-flows -O OpenFlow13
 ${index}          7
 @{FLOWELMENTS}    nw_src=10.0.0.1    nw_dst=10.0.0.3    actions=drop
-@{BRIDGE1_DATAFLOW}    "reason":"PORTMAPPED"    "path":{"tenant":"Tenant1","bridge":"vBridge1","interface":"if2"}
-@{BRIDGE2_DATAFLOW}    "reason":"PORTMAPPED"    "path":{"tenant":"Tenant1","bridge":"vBridge2","interface":"if3"}
-${vlanmap_bridge1}    {"vlan": "200"}
-${vlanmap_bridge2}    {"vlan": "300"}
-@{VLANMAP_BRIDGE1_DATAFLOW}    "reason":"VLANMAPPED"    "path":{"tenant":"Tenant1","bridge":"vBridge1_vlan"}
-@{VLANMAP_BRIDGE2_DATAFLOW}    "reason":"VLANMAPPED"    "path":{"tenant":"Tenant1","bridge":"vBridge2_vlan"}
+@{BRIDGE1_DATAFLOW}    "reason":"PORTMAPPED"    "virtual-node-path":{"bridge-name":"vBridge1","tenant-name":"Tenant1","interface-name":"if2"}
+@{BRIDGE2_DATAFLOW}    "reason":"PORTMAPPED"    "virtual-node-path":{"bridge-name":"vBridge2","tenant-name":"Tenant1","interface-name":"if3"}
+${vlanmap_bridge1}    200
+${vlanmap_bridge2}    300
+@{VLANMAP_BRIDGE1_DATAFLOW}    "reason":"VLANMAPPED"    "virtual-node-path":{"bridge-name":"vBridge1_vlan","tenant-name":"Tenant1","vlan-map-id":"ANY.200"}
+@{VLANMAP_BRIDGE2_DATAFLOW}    "reason":"VLANMAPPED"    "virtual-node-path":{"bridge-name":"vBridge2_vlan","tenant-name":"Tenant1","vlan-map-id":"ANY.300"}
 ${in_port}        1
 ${out_before_pathpolicy}    output:2
 ${out_after_pathpolicy}    output:3
