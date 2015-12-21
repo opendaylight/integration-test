@@ -1,0 +1,10 @@
+*** Settings ***
+Documentation     Flow test suite for the OpenDaylight karaf-compatible feature set
+Suite Setup       Start Multiple_Sessions_TCP
+Suite Teardown    Stop One_Agent_Multiple_Echo
+Force Tags        Multiple Sessions TCP
+Resource          ../../UscUtils.txt
+
+*** Variables ***
+
+*** Keywords ***
