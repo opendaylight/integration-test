@@ -1,0 +1,62 @@
+*** Settings ***
+Documentation     Test suite for sending messages multiple times and check value of bytes in and bytes out
+Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Teardown    Delete All Sessions
+Force Tags
+Test Timeout      1min
+Library           Collections
+Library           OperatingSystem
+Library           ../../../../libraries/RequestsLibrary.py
+Library           ../../../../libraries/Common.py
+Variables         ../../../../variables/Variables.py
+Resource          ../../UscUtils.txt
+
+*** Test Cases ***
+Add Channel
+    ${content}    Create Dictionary    hostname=${USC_AGENT_IP}    tcp=false    port=${ECHO_SERVER_PORT}    remote=false
+    ${channel}    Create Dictionary    channel=${content}
+    ${input}    Create Dictionary    input=${channel}
+    ${resp}    postjson    session    ${REST_ADD_CHANNEL}    data=${input}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${resp.content}    Succeed to connect
+
+Check added Channel
+    ${topo}    Create Dictionary    topology-id=usc
+    ${input}    Create Dictionary    input=${topo}
+    ${resp}    postjson    session    ${REST_VIEW_CHANNEL}    data=${input}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${resp.content}    "topology"
+    Should Contain    ${resp.content}    "sessions":1
+    Should Contain    ${resp.content}    "channel-type":"DTLS"
+
+Send Messages
+    ${content}    Create Dictionary    hostname=${USC_AGENT_IP}    port=${ECHO_SERVER_PORT}    tcp=false    content=${TEST_MESSAGE}
+    ${channel}    Create Dictionary    channel=${content}
+    ${input}    Create Dictionary    input=${channel}
+    : FOR    ${index}    IN RANGE    0    ${NUM_OF_MESSAGES}
+    \    ${resp}    postjson    session    ${REST_SEND_MESSAGE}    data=${input}
+    \    Should Be Equal As Strings    ${resp.status_code}    200
+    \    Should Contain    ${resp.content}    Succeed to send request
+
+View Bytes In and Bytes Out
+    ${topo}    Create Dictionary    topology-id=usc
+    ${input}    Create Dictionary    input=${topo}
+    ${resp}    postjson    session    ${REST_VIEW_CHANNEL}    data=${input}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${resp.content}    "topology"
+    ${len}    Get Length    ${TEST_MESSAGE}
+    ${totalLen}    Evaluate    ${len} * ${NUM_OF_MESSAGES}
+    Should Contain    ${resp.content}    "bytes-out":${totalLen}
+    Should Contain    ${resp.content}    "bytes-in":${totalLen}
+
+Remove Channel
+    ${content}    Create Dictionary    hostname=${USC_AGENT_IP}    port=${ECHO_SERVER_PORT}    tcp=false
+    ${channel}    Create Dictionary    channel=${content}
+    ${input}    Create Dictionary    input=${channel}
+    ${resp}    postjson    session    ${REST_REMOVE_CHANNEL}    data=${input}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${resp.content}    Succeed to remove
