@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_e2229ab8",
+        "filename": "csit/suites/sxp/filtering/010_Inbound_Filtering.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2015-12-21T07:37:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1aa4ed85_5c7a7389",
+      "range": {
+        "startLine": 28,
+        "startChar": 4,
+        "endLine": 28,
+        "endChar": 18
+      },
+      "revId": "0df7fac545846de41a5511e5a74dde80e626eb58",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_3c753798",
         "filename": "csit/suites/sxp/filtering/010_Inbound_Filtering.robot",
         "patchSetId": 14
@@ -36,6 +60,30 @@
       "writtenOn": "2015-12-18T22:21:55Z",
       "side": 1,
       "message": "this looks rough to maintain.  with each keyword so similar\nlooking, I wonder if there is a better way to write a single keyword that you can pass arguments to instead. \n\nalso, add [Documentation] to the keyword to briefly explain\nwhat it\u0027s doing, especially why it\u0027s looking for some bindings and not others.",
+      "range": {
+        "startLine": 115,
+        "startChar": 0,
+        "endLine": 233,
+        "endChar": 66
+      },
+      "revId": "0df7fac545846de41a5511e5a74dde80e626eb58",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_8d1af76c",
+        "filename": "csit/suites/sxp/filtering/010_Inbound_Filtering.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2015-12-21T07:37:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1aa4ed85_3c753798",
       "range": {
         "startLine": 115,
         "startChar": 0,
@@ -65,6 +113,24 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_ad3a53cb",
+        "filename": "csit/suites/sxp/filtering/020_Outbound_Filtering.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2015-12-21T07:37:37Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1aa4ed85_bc6847bb",
+      "revId": "0df7fac545846de41a5511e5a74dde80e626eb58",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_1cab9bd9",
         "filename": "csit/suites/sxp/scripts/filtering_node_setup.sh",
         "patchSetId": 14
@@ -76,6 +142,24 @@
       "writtenOn": "2015-12-18T22:21:55Z",
       "side": 1,
       "message": "where is this script being used?  looks like the basic steps being done can easily be done in robot:\n\ncan be done in one line of robot, but three lines below for clarity:\n\n${sxp_xml_file}\u003d    Set Variable    ${WORKSPACE}/test/csit/suites/sxp/filtering/22-sxp-controller-one-node.xml\n\n${karaf_folder}\u003d    Set Variable    /tmp/${BUNDLEFOLDER}/etc/opendaylight/karaf/\n\nSSHLibrary.Put File ${sxp_xml_file} ${karaf_folder}",
+      "revId": "0df7fac545846de41a5511e5a74dde80e626eb58",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_822f26a1",
+        "filename": "csit/suites/sxp/scripts/filtering_node_setup.sh",
+        "patchSetId": 14
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2015-12-21T07:37:37Z",
+      "side": 1,
+      "message": "This step is needed to be done before controller is Up, thats why it is not done in robot.",
+      "parentUuid": "1aa4ed85_1cab9bd9",
       "revId": "0df7fac545846de41a5511e5a74dde80e626eb58",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
