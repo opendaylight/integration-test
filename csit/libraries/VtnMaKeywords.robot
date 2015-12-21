@@ -23,10 +23,15 @@ ${vlanmap_bridge1}    200
 ${vlanmap_bridge2}    300
 @{VLANMAP_BRIDGE1_DATAFLOW}    "reason":"VLANMAPPED"    "virtual-node-path":{"bridge-name":"vBridge1_vlan","tenant-name":"Tenant1","vlan-map-id":"ANY.200"}
 @{VLANMAP_BRIDGE2_DATAFLOW}    "reason":"VLANMAPPED"    "virtual-node-path":{"bridge-name":"vBridge2_vlan","tenant-name":"Tenant1","vlan-map-id":"ANY.300"}
-${in_port}        1
 ${out_before_pathpolicy}    output:2
 ${out_after_pathpolicy}    output:3
-${flowcond_restconfigdata}    {"input":{"operation":"SET","present":"false","name":"cond_1","vtn-flow-match":[{"vtn-ether-match":{"destination-address":"ba:bd:0f:e3:a8:c8","ether-type":"2048","source-address":"ca:9e:58:0c:1e:f0","vlan-id": "1"},"vtn-inet-match":{"source-network":"10.0.0.1/32","protocol":1,"destination-network":"10.0.0.2/32"},"index":"1"}]}}
+${pathpolicy_topo_13}    sudo mn --controller=remote,ip=${CONTROLLER} --custom topo-3sw-2host_multipath.py --topo pathpolicytopo --switch ovsk,protocols=OpenFlow13
+${pathpolicy_topo_10}    sudo mn --controller=remote,ip=${CONTROLLER} --custom topo-3sw-2host_multipath.py --topo pathpolicytopo --switch ovsk,protocols=OpenFlow10
+@{PATHMAP_ATTR}    "index":"1"    "condition":"flowcond_path"    "policy":"1"
+${policy_id}      1
+${in_port}        1
+@{PATHPOLICY_ATTR}    "id":1    "port-desc":"openflow:4,2,s4-eth2"
+${custom}         ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
 
 *** Keywords ***
 Start SuiteVtnMa
@@ -104,6 +109,21 @@ Verify Data Flows
     ...    ELSE IF    '${vBridge_name}' == 'vBridge1_vlan'    DataFlowsForBridge    ${resp}    @{VLANMAP_BRIDGE1_DATAFLOW}
     ...    ELSE    DataFlowsForBridge    ${resp}    @{VLANMAP_BRIDGE2_DATAFLOW}
 
+Start PathSuiteVtnMaTest
+    [Documentation]    Start VTN Manager Test Suite and Mininet
+    Start SuiteVtnMaTest
+    Start Mininet    ${MININET}    ${pathpolicy_topo_13}    ${custom}
+
+Start PathSuiteVtnMaTestOF10
+    [Documentation]    Start VTN Manager Test Suite and Mininet in Open Flow 10 Specification
+    Start SuiteVtnMaTest
+    Start Mininet    ${MININET}    ${pathpolicy_topo_10}    ${custom}
+
+Stop PathSuiteVtnMaTest
+    [Documentation]    Cleanup/Shutdown work at the completion of all tests.
+    Delete All Sessions
+    Stop Mininet    ${mininet_conn_id}
+
 DataFlowsForBridge
     [Arguments]    ${resp}    @{BRIDGE_DATAFLOW}
     [Documentation]    Verify whether the required attributes exists.
@@ -135,10 +155,16 @@ Get a pathpolicy
     : FOR    ${pathpolicyElement}    IN    @{PATHPOLICY_ATTR}
     \    should Contain    ${resp.content}    ${pathpolicyElement}
 
+Delete a pathmap
+    [Arguments]    ${tenant_path}
+    [Documentation]    Remove a pathmap for a vtn
+    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-path-map:remove-path-map    data={"input":{"tenant-name":"${tenant_path}","map-index":["${policy_id}"]}}
+    Should Be Equal As Strings    ${resp.status_code}    200
+
 Delete a pathpolicy
-    [Arguments]    ${path_id}
+    [Arguments]   ${policy_id}
     [Documentation]    Delete a pathpolicy for a vtn
-    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-path-policy:remove-path-policy    data={"input": {"id": "${path_id}"}}
+    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-path-policy:remove-path-policy    data={"input":{"id":"${policy_id}"}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify flowEntryPathPolicy
@@ -249,19 +275,19 @@ Verify macaddress
 Add a vtn flowfilter
     [Arguments]    ${vtn_name}    ${vtnflowfilter_data}
     [Documentation]    Create a flowfilter for a vtn
-    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-filter:set-flow-filter    data=${vtnflowfilter_data}
+    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-filter:set-flow-filter   data={"input": {"tenant-name": "${vtn_name}",${vtnflowfilter_data}}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Add a vbr flowfilter
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${vbrflowfilter_data}
     [Documentation]    Create a flowfilter for a vbr
-    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-filter:set-flow-filter    data=${vbrflowfilter_data}
+    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-filter:set-flow-filter    data={"input": {"tenant-name": "${vtn_name}", "bridge-name": "${vBridge_name}", ${vbrflowfilter_data}}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Add a vbrif flowfilter
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${interface_name}    ${vbrif_flowfilter_data}
     [Documentation]    Create a flowfilter for a vbrif
-    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-filter:set-flow-filter    data=${vbrif_flowfilter_data}
+    ${resp}=    RequestsLibrary.Post Request    session     restconf/operations/vtn-flow-filter:set-flow-filter    data={"input": {"tenant-name": ${vtn_name}, "bridge-name": "${vBridge_name}","interface-name":"${interface_name}",${vbrif_flowfilter_data}}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify Flow Entry for Inet Flowfilter
@@ -294,8 +320,8 @@ Get flowconditions
 
 Get flowcondition
     [Arguments]    ${flowcond_name}    ${retrieve}
-    [Documentation]    Retrieve the flowcondition by name and to check the removed flowcondition added "retrieve" argument to differentiate the status code, since
-    ...    after removing flowcondition name the status will be different compare to status code when the flowcondition name is present.
+    [Documentation]    Retrieve the flowcondition by name and to check the removed flowcondition we added "retrieve" argument to differentiate the status code,
+    ...    since after removing flowcondition name the status will be different compare to status code when the flowcondition name is present.
     ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-flow-condition:vtn-flow-conditions/vtn-flow-condition/${flowcond_name}
     Run Keyword If    '${retrieve}' == 'retrieve'    Should Be Equal As Strings    ${resp.status_code}    200
     ...    ELSE    Should Not Be Equal As Strings    ${resp.status_code}    200
@@ -303,5 +329,5 @@ Get flowcondition
 Remove flowcondition
     [Arguments]    ${flowcond_name}
     [Documentation]    Remove the flowcondition by name
-    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-condition:remove-flow-condition    {"input": {"name": "${flowcond_name}"}}
+    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-condition:remove-flow-condition    data={"input":{"name":"${flowcond_name}"}}
     Should Be Equal As Strings    ${resp.status_code}    200
