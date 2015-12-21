@@ -19,17 +19,17 @@ Resource          ../../../libraries/TopoprocessingKeywords.robot
 *** Test Cases ***
 Unification Node
     [Documentation]    Test unification operation on Network Topology model
-    ${request}    Prepare Unification Topology Request    ${UNIFICATION_NT}    network-topology-model    node    network-topology-pcep:path-computation-client/network-topology-pcep:ip-address    network-topo:1
+    ${request}    Prepare Unification Topology Request    ${UNIFICATION_NT}    network-topology-model    node    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    network-topo:1
     ...    network-topo:2
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    9
     : FOR    ${index}    IN RANGE    1    9
-    \    Should Contain X Times    ${resp.content}    <node-ref>pcep:${index}</node-ref>    1
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='pcep:10']/..
+    \    Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:10']/..
     ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <node-ref>pcep:10</node-ref>    1
-    Should Contain X Times    ${node}    <node-ref>pcep:5</node-ref>    1
+    Should Contain X Times    ${node}    <node-ref>bgp:10</node-ref>    1
+    Should Contain X Times    ${node}    <node-ref>bgp:5</node-ref>    1
 
 Unification Node Inventory
     [Documentation]    Test unification operation on inventory model
@@ -48,20 +48,21 @@ Unification Node Inventory
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <node-ref>of-node:10</node-ref>    1
     Should Contain X Times    ${node}    <node-ref>of-node:4</node-ref>    1
+
 Unification Scripting Node
     [Documentation]    Test unification operation on Network Topology model using scripting
-    ${request}    Prepare Unification Topology Request    ${UNIFICATION_NT}    network-topology-model    node    network-topology-pcep:path-computation-client/network-topology-pcep:ip-address    network-topo:1
+    ${request}    Prepare Unification Topology Request    ${UNIFICATION_NT}    network-topology-model    node    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    network-topo:1
     ...    network-topo:2
     ${request}    Insert Scripting into Request    ${request}    javascript    if (originalItem.getLeafNode().getValue().indexOf("192.168.1.1") > -1 && newItem.getLeafNode().getValue().indexOf("192.168.1.3") > -1 || originalItem.getLeafNode().getValue().indexOf("192.168.1.3") > -1 && newItem.getLeafNode().getValue().indexOf("192.168.1.1") > -1) {aggregable.setResult(true);} else { aggregable.setResult(false);}
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    9
     : FOR    ${index}    IN RANGE    1    10
-    \    Should Contain X Times    ${resp.content}    <node-ref>pcep:${index}</node-ref>    1
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='pcep:1']/..
+    \    Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:1']/..
     ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <node-ref>pcep:1</node-ref>    1
-    Should Contain X Times    ${node}    <node-ref>pcep:6</node-ref>    1
+    Should Contain X Times    ${node}    <node-ref>bgp:1</node-ref>    1
+    Should Contain X Times    ${node}    <node-ref>bgp:6</node-ref>    1
 
 Unification Scripting Node Inventory
     [Documentation]    Test unification operation on inventory model using scripting
@@ -80,16 +81,16 @@ Unification Scripting Node Inventory
 
 Unification Node Inside
     [Documentation]    Test of unification type of aggregation inside on nodes on Network Topology model
-    ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    network-topology-model    node    network-topology-pcep:path-computation-client/network-topology-pcep:ip-address    network-topo:1
+    ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    network-topology-model    node    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    network-topo:1
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    4
     ${response_xml}    Parse XML    ${resp.content}
-    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='pcep:3']/..
+    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='bgp:3']/..
     ${node}    Element To String    ${node}
     Should Contain X Times    ${node}    <supporting-node>    2
-    Should Contain    ${node}    <supporting-node><node-ref>pcep:3</node-ref>
-    Should Contain    ${node}    <supporting-node><node-ref>pcep:4</node-ref>
+    Should Contain    ${node}    <supporting-node><node-ref>bgp:3</node-ref>
+    Should Contain    ${node}    <supporting-node><node-ref>bgp:4</node-ref>
 
 Unification Node Inside Inventory
     [Documentation]    Test of unification type of aggregation inside on nodes on Inventory model
@@ -113,16 +114,16 @@ Unification Termination Point Inside
     ${response_xml}    Element to String    ${response_xml}
     Should Contain X Times    ${resp.content}    <node-id>node:    5
     Should Contain X Times    ${response_xml}    <termination-point>    6
-    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='pcep:1']/..
+    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='bgp:1']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    2
-    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='pcep:3']/..
+    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='bgp:3']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    2
-    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='pcep:4']/..
+    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='bgp:4']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='pcep:5']/..
+    ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='bgp:5']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
 
