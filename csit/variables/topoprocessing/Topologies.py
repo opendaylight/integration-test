@@ -1,16 +1,18 @@
 NETWORK_UNDERLAY_TOPOLOGY_1 = '''<topology
                                 xmlns="urn:TBD:params:xml:ns:yang:network-topology"
-                                xmlns:pcep="urn:opendaylight:params:xml:ns:yang:topology:pcep"
+                                xmlns:igp="urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology"
+                                xmlns:isis="urn:TBD:params:xml:ns:yang:network:isis-topology"
                                 xmlns:ovsdb="urn:opendaylight:params:xml:ns:yang:ovsdb">
                             <topology-id>network-topo:1</topology-id>
-                            <topology-types>
-                                <pcep:topology-pcep></pcep:topology-pcep>
-                            </topology-types>
                             <node>
-                                <node-id>pcep:1</node-id>
-                                <pcep:path-computation-client>
-                                    <pcep:ip-address>192.168.1.1</pcep:ip-address>
-                                </pcep:path-computation-client>
+                                <node-id>bgp:1</node-id>
+                                <igp:igp-node-attributes>
+                                    <isis:isis-node-attributes>
+                                        <isis:ted>
+                                            <isis:te-router-id-ipv4>192.168.1.1</isis:te-router-id-ipv4>
+                                        </isis:ted>
+                                    </isis:isis-node-attributes>
+                                </igp:igp-node-attributes>
                                 <termination-point>
                                     <tp-id>tp:1:1</tp-id>
                                     <ovsdb:ofport>1119</ovsdb:ofport>
@@ -25,16 +27,24 @@ NETWORK_UNDERLAY_TOPOLOGY_1 = '''<topology
                                 </termination-point>
                             </node>
                             <node>
-                                <node-id>pcep:2</node-id>
-                                <pcep:path-computation-client>
-                                    <pcep:ip-address>192.168.1.2</pcep:ip-address>
-                                </pcep:path-computation-client>
+                                <node-id>bgp:2</node-id>
+                                <igp:igp-node-attributes>
+                                    <isis:isis-node-attributes>
+                                        <isis:ted>
+                                            <isis:te-router-id-ipv4>192.168.1.2</isis:te-router-id-ipv4>
+                                        </isis:ted>
+                                    </isis:isis-node-attributes>
+                                </igp:igp-node-attributes>
                             </node>
                             <node>
-                                <node-id>pcep:3</node-id>
-                                <pcep:path-computation-client>
-                                    <pcep:ip-address>192.168.2.1</pcep:ip-address>
-                                </pcep:path-computation-client>
+                                <node-id>bgp:3</node-id>
+                                <igp:igp-node-attributes>
+                                    <isis:isis-node-attributes>
+                                        <isis:ted>
+                                            <isis:te-router-id-ipv4>192.168.2.1</isis:te-router-id-ipv4>
+                                        </isis:ted>
+                                    </isis:isis-node-attributes>
+                                </igp:igp-node-attributes>
                                 <termination-point>
                                     <tp-id>tp:3:1</tp-id>
                                     <ovsdb:ofport>1118</ovsdb:ofport>
@@ -45,10 +55,14 @@ NETWORK_UNDERLAY_TOPOLOGY_1 = '''<topology
                                 </termination-point>
                             </node>
                             <node>
-                                <node-id>pcep:4</node-id>
-                                <pcep:path-computation-client>
-                                    <pcep:ip-address>192.168.2.1</pcep:ip-address>
-                                </pcep:path-computation-client>
+                                <node-id>bgp:4</node-id>
+                                <igp:igp-node-attributes>
+                                    <isis:isis-node-attributes>
+                                        <isis:ted>
+                                            <isis:te-router-id-ipv4>192.168.2.1</isis:te-router-id-ipv4>
+                                        </isis:ted>
+                                    </isis:isis-node-attributes>
+                                </igp:igp-node-attributes>
                                 <termination-point>
                                     <tp-id>tp:4:1</tp-id>
                                     <ovsdb:ofport>1117</ovsdb:ofport>
@@ -59,10 +73,14 @@ NETWORK_UNDERLAY_TOPOLOGY_1 = '''<topology
                                 </termination-point>
                             </node>
                             <node>
-                                <node-id>pcep:5</node-id>
-                                <pcep:path-computation-client>
-                                    <pcep:ip-address>192.168.2.3</pcep:ip-address>
-                                </pcep:path-computation-client>
+                                <node-id>bgp:5</node-id>
+                                <igp:igp-node-attributes>
+                                    <isis:isis-node-attributes>
+                                        <isis:ted>
+                                            <isis:te-router-id-ipv4>192.168.2.3</isis:te-router-id-ipv4>
+                                        </isis:ted>
+                                    </isis:isis-node-attributes>
+                                </igp:igp-node-attributes>
                                 <termination-point>
                                     <tp-id>tp:5:1</tp-id>
                                     <ovsdb:ofport>1116</ovsdb:ofport>
@@ -72,57 +90,75 @@ NETWORK_UNDERLAY_TOPOLOGY_1 = '''<topology
 
 NETWORK_UNDERLAY_TOPOLOGY_2 = '''<topology
                                 xmlns="urn:TBD:params:xml:ns:yang:network-topology"
-                                xmlns:pcep="urn:opendaylight:params:xml:ns:yang:topology:pcep"
+                                xmlns:igp="urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology"
+                                xmlns:isis="urn:TBD:params:xml:ns:yang:network:isis-topology"
                                 xmlns:ovsdb="urn:opendaylight:params:xml:ns:yang:ovsdb">
                             <topology-id>network-topo:2</topology-id>
-                            <topology-types>
-                                <pcep:topology-pcep></pcep:topology-pcep>
-                            </topology-types>
                             <node>
-                                <node-id>pcep:6</node-id>
-                                <pcep:path-computation-client>
-                                    <pcep:ip-address>192.168.1.3</pcep:ip-address>
-                                </pcep:path-computation-client>
+                                <node-id>bgp:6</node-id>
+                                <igp:igp-node-attributes>
+                                    <isis:isis-node-attributes>
+                                        <isis:ted>
+                                            <isis:te-router-id-ipv4>192.168.1.3</isis:te-router-id-ipv4>
+                                        </isis:ted>
+                                    </isis:isis-node-attributes>
+                                </igp:igp-node-attributes>
                                 <termination-point>
                                     <tp-id>tp:6:1</tp-id>
                                     <ovsdb:ofport>1116</ovsdb:ofport>
                                 </termination-point>
                             </node>
                             <node>
-                                <node-id>pcep:7</node-id>
-                                <pcep:path-computation-client>
-                                    <pcep:ip-address>192.168.1.4</pcep:ip-address>
-                                </pcep:path-computation-client>
+                                <node-id>bgp:7</node-id>
+                                <igp:igp-node-attributes>
+                                    <isis:isis-node-attributes>
+                                        <isis:ted>
+                                            <isis:te-router-id-ipv4>192.168.1.4</isis:te-router-id-ipv4>
+                                        </isis:ted>
+                                    </isis:isis-node-attributes>
+                                </igp:igp-node-attributes>
                                 <termination-point>
                                     <tp-id>tp:7:1</tp-id>
                                     <ovsdb:ofport>1117</ovsdb:ofport>
                                 </termination-point>
                             </node>
                             <node>
-                                <node-id>pcep:8</node-id>
-                                <pcep:path-computation-client>
-                                    <pcep:ip-address>192.168.2.4</pcep:ip-address>
-                                </pcep:path-computation-client>
+                                <node-id>bgp:8</node-id>
+                                <igp:igp-node-attributes>
+                                    <isis:isis-node-attributes>
+                                        <isis:ted>
+                                            <isis:te-router-id-ipv4>192.168.2.4</isis:te-router-id-ipv4>
+                                        </isis:ted>
+                                    </isis:isis-node-attributes>
+                                </igp:igp-node-attributes>
                                 <termination-point>
                                     <tp-id>tp:8:1</tp-id>
                                     <ovsdb:ofport>11120</ovsdb:ofport>
                                 </termination-point>
                             </node>
                             <node>
-                                <node-id>pcep:9</node-id>
-                                <pcep:path-computation-client>
-                                    <pcep:ip-address>192.168.2.5</pcep:ip-address>
-                                </pcep:path-computation-client>
+                                <node-id>bgp:9</node-id>
+                                <igp:igp-node-attributes>
+                                    <isis:isis-node-attributes>
+                                        <isis:ted>
+                                            <isis:te-router-id-ipv4>192.168.2.5</isis:te-router-id-ipv4>
+                                        </isis:ted>
+                                    </isis:isis-node-attributes>
+                                </igp:igp-node-attributes>
                                 <termination-point>
                                     <tp-id>tp:9:1</tp-id>
                                     <ovsdb:ofport>1121</ovsdb:ofport>
                                 </termination-point>
                             </node>
                             <node>
-                                <node-id>pcep:10</node-id>
-                                <pcep:path-computation-client>
-                                    <pcep:ip-address>192.168.2.3</pcep:ip-address>
-                                </pcep:path-computation-client>
+                                <node-id>bgp:10</node-id>
+                                <igp:igp-node-attributes>
+                                    <isis:isis-node-attributes>
+                                        <isis:ted>
+                                            <isis:te-router-id-ipv4>192.168.2.3</isis:te-router-id-ipv4>
+                                        </isis:ted>
+                                    </isis:isis-node-attributes>
+                                </igp:igp-node-attributes>
                                 <termination-point>
                                     <tp-id>tp:10:1</tp-id>
                                     <ovsdb:ofport>1122</ovsdb:ofport>
