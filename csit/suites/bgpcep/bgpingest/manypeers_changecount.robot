@@ -183,7 +183,6 @@ Setup_Everything
     # Both TODOs would probably need to update every suite relying on current Variables.
     SSHKeywords.Require_Python
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
-    SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/manage_play.py
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
     # Calculate the timeout value based on how many routes are going to be pushed
     ${period} =    DateTime.Convert_Time    ${CHECK_PERIOD_CHANGE_COUNT_MANY}    result_format=number
