@@ -1,0 +1,11 @@
+{
+    "input": {
+        "eid": {
+            "address-type": "ietf-lisp-address-types:service-path-lcaf",
+            "service-path": {
+                "service-path-id": 42,
+                "service-index": 3
+            }
+        }
+    }
+}
