@@ -27,6 +27,7 @@ ${FIRST_TESTTOOL_PORT}    17830
 ${BASE_NETCONF_DEVICE_PORT}    17830
 ${DEVICE_NAME_BASE}    netconf-scaling-device
 ${TESTTOOL_DEVICE_TIMEOUT}    60s
+${TESTTOOL_DEFAULT_JAVA_OPTIONS}    -Xmx1G -XX:MaxPermSize=256M -Dorg.apache.sshd.registerBouncyCastle=false
 ${ENABLE_NETCONF_TEST_TIMEOUT}    True
 
 *** Keywords ***
@@ -135,7 +136,7 @@ NetconfKeywords__Wait_Device_Is_Up_And_Running
     BuiltIn.Wait_Until_Keyword_Succeeds    ${TESTTOOL_DEVICE_TIMEOUT}    1s    Check_Device_Up_And_Running    ${number}
 
 Install_And_Start_Testtool
-    [Arguments]    ${device-count}=10    ${debug}=true    ${schemas}=none    ${options}=${EMPTY}
+    [Arguments]    ${device-count}=10    ${debug}=true    ${schemas}=none    ${tool_options}=${EMPTY}    ${java_options}=${TESTTOOL_DEFAULT_JAVA_OPTIONS}
     [Documentation]    Install and run testtool. Also arrange to collect its output into a log file.
     ...    When the ${schemas} argument is set to 'none', it signifies that
     ...    there are no additional schemas to be deployed, so the directory
@@ -145,7 +146,7 @@ Install_And_Start_Testtool
     ${filename}=    NexusKeywords.Deploy_Test_Tool    netconf/netconf-testtool
     ${schemas_option}=    NetconfKeywords__Deploy_Additional_Schemas    ${schemas}
     # Start the testtool
-    ${command}    BuiltIn.Set_Variable    java -Xmx1G -XX:MaxPermSize=256M -jar ${filename} ${options} --device-count ${device-count} --debug ${debug} ${schemas_option}
+    ${command}    BuiltIn.Set_Variable    java ${java_options} -jar ${filename} ${tool_options} --device-count ${device-count} --debug ${debug} ${schemas_option}
     BuiltIn.Log    Running testtool: ${command}
     SSHLibrary.Write    ${command} >testtool.log 2>&1
     # Store information needed by other keywords.
