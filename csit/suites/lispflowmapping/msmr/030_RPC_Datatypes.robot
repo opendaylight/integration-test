@@ -46,6 +46,10 @@ Key/Value
     [Documentation]    Perform mapping operations with a Key/Value EID
     rpc_add-mapping_kv_ipv4.json    rpc_get-remove_kv.json
 
+Service Path
+    [Documentation]    Perform mapping operations with a Service Path EID
+    rpc_add-mapping_sp_ipv4.json    rpc_get-remove_sp.json
+
 AFI List
     [Documentation]    Perform mapping operations with an IPv4 EID mapped to an AFI List RLOC
     rpc_add-mapping_ipv4_list.json    rpc_get-remove_ipv4.json
