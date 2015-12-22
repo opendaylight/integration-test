@@ -1,0 +1,182 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_a52587c3",
+        "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-22T15:08:22Z",
+      "side": 1,
+      "message": "This does not do anything. Is the name too short just because it delimits a scenario? In that case, perhaps splitting to three sub-suites is better.\n\nSee this section (and the two before): https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Scenarios_and_structuring",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 3
+      },
+      "revId": "6fcbf5e61a1fb1d9cd202596a497bba6b56d70ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_852c0bad",
+        "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-22T15:08:22Z",
+      "side": 1,
+      "message": "Is there a Bugzilla item on why this wait is needed?",
+      "range": {
+        "startLine": 159,
+        "startChar": 21,
+        "endLine": 159,
+        "endChar": 23
+      },
+      "revId": "6fcbf5e61a1fb1d9cd202596a497bba6b56d70ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_e5129f61",
+        "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-22T15:08:22Z",
+      "side": 1,
+      "message": "Perhaps something from WaitForFailure.robot is needed to avoid false pass.",
+      "range": {
+        "startLine": 278,
+        "startChar": 4,
+        "endLine": 278,
+        "endChar": 39
+      },
+      "revId": "6fcbf5e61a1fb1d9cd202596a497bba6b56d70ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_18007e00",
+        "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-22T15:08:22Z",
+      "side": 1,
+      "message": "These two are called only once as far as I see. Are separate keywords needed?",
+      "range": {
+        "startLine": 343,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 22
+      },
+      "revId": "6fcbf5e61a1fb1d9cd202596a497bba6b56d70ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_c509a332",
+        "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-22T15:08:22Z",
+      "side": 1,
+      "message": "In the other suite, you got rid of this shorthand.",
+      "range": {
+        "startLine": 353,
+        "startChar": 0,
+        "endLine": 353,
+        "endChar": 27
+      },
+      "revId": "6fcbf5e61a1fb1d9cd202596a497bba6b56d70ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_b8104a4f",
+        "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-22T15:08:22Z",
+      "side": 1,
+      "message": "Starting from here, I see keywords already present in other suites. Think about moving them to separate resources.\n\nI have already created https://trello.com/c/OteFdQXz/263-int-test-create-a-common-resource-for-handling-interactive-command-line-tools\nbut the Keywords related to ipv4 topology should be in different Resource, PrefixCounting.robot or similar.",
+      "range": {
+        "startLine": 359,
+        "startChar": 0,
+        "endLine": 359,
+        "endChar": 18
+      },
+      "revId": "6fcbf5e61a1fb1d9cd202596a497bba6b56d70ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_9896ae93",
+        "filename": "csit/variables/bgpuser/ebgp_peers/data.xml",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-22T15:08:22Z",
+      "side": 1,
+      "message": "Is this just a more configurable version of csit/variables/bgpuser/bgp_peer?\nPerhaps a Resource should be created which would containg default values and which would allow suites to override only the fields they want.",
+      "revId": "6fcbf5e61a1fb1d9cd202596a497bba6b56d70ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_b8c12a82",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2015-12-22T15:08:22Z",
+      "side": 1,
+      "message": "Alright, what about the method definition to have **kwargs, constructor preparing a dict of default values and then do\n\n  dict_actual \u003d dict(dict_default).update(var(kwargs))\n\n(and then access dict_actual values where needed).\nPerhaps there is a way to do it on Namespace objects themselves.\nsee https://docs.python.org/2/library/argparse.html#the-namespace-object",
+      "range": {
+        "startLine": 772,
+        "startChar": 10,
+        "endLine": 772,
+        "endChar": 33
+      },
+      "revId": "6fcbf5e61a1fb1d9cd202596a497bba6b56d70ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
