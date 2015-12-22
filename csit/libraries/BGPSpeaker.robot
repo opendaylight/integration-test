@@ -40,7 +40,7 @@ Start_BGP_Speaker
 Start_BGP_Manager
     [Arguments]    ${arguments}
     [Documentation]    Start the BGP manager python utility. Redirect its error output to a log file.
-    ${command}=    BuiltIn.Set_Variable    python manage_play.py ${arguments} &> ${BGPSpeaker__OUTPUT_LOG}
+    ${command}=    BuiltIn.Set_Variable    python play.py ${arguments} &> ${BGPSpeaker__OUTPUT_LOG}
     BuiltIn.Log    ${command}
     ${output}=    SSHLibrary.Write    ${command}
 
