@@ -176,9 +176,9 @@ Verify flowEntryPathPolicy
     Should Contain    ${result}    in_port=${port}    actions=${output}
 
 Add a macmap
-    [Arguments]    ${vtn_name}    ${vBridge_name}    ${macmap_data}
+    [Arguments]    ${vtn_name}    ${vBridge_name}    ${src_add}    ${dst_add}
     [Documentation]    Create a macmap for a vbridge
-    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-mac-map:set-mac-map    data={"input": { "allowed-hosts": ["${macmap_data}"], "tenant-name":${vtn_name}, "bridge-name": ${vBridge_name}}}    }
+    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-mac-map:set-mac-map    data={"input":{"operation":"SET","allowed-hosts":["${dst_add}@0","${src_add}@0"],"tenant-name":"${vtn_name}","bridge-name":"${vBridge_name}"}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Get DynamicMacAddress
