@@ -12,6 +12,11 @@ Variables         ../../../variables/Variables.py
 ${SOUTHBOUND_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:${OVSDBPORT}
 ${OVSDB_CONFIG_DIR}    ${CURDIR}/../../../variables/ovsdb
 ${BRIDGE}         br01
+${OVSDB_PORT}     6634
+${BRIDGE1}         ovsdb-csit-test-bridge1
+${BRIDGE2}         ovsdb-csit-test-bridge2
+@{node_list}      ovsdb://${TOOLS_SYSTEM_IP}:${OVSDB_PORT}    ${TOOLS_SYSTEM_IP}    ${OVSDB_PORT}
+
 
 *** Test Cases ***
 Create Original Cluster List
@@ -36,61 +41,29 @@ Check Entity Owner Status And Find Owner and Candidate Before Fail
     Set Suite Variable    ${original_owner}
     Set Suite Variable    ${original_candidate}
 
-Create Bridge In Owner and Verify Before Fail
-    [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
-    Create Bridge And Verify    ${original_cluster_list}    ${original_owner}
+Connecting an OVS instance to the controller
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected
 
-Kill Owner Instance
-    [Documentation]    Kill Owner Instance and verify it is dead
-    Kill Multiple Controllers    ${original_owner}
-    ${new_cluster_list}    Create Controller Index List
-    Remove Values From List    ${new_cluster_list}    ${original_owner}
-    Set Suite Variable    ${new_cluster_list}
+Get Operational Topology to verify the ovs instance is connected to the controller
+    [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes
+    @{list}    Create List    ovsdb://uuid    "remote-ip":"${TOOLS_SYSTEM_IP}"    "local-port":6640
+    Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}
+    ${ovsdb_uuid}=    Get OVSDB UUID    ${TOOLS_SYSTEM_IP}
+    Set Suite Variable    ${ovsdb_uuid}
 
-Check Shards Status After Fail
-    [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
-    Check Ovsdb Shards Status    ${new_cluster_list}
+Create bridge manually
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-br ${BRIDGE1}
 
-Check Entity Owner Status And Find Owner and Candidate After Fail
-    [Documentation]    Check Entity Owner Status and identify owner and candidate.
-    ${new_owner}    ${new_candidates_list}    Get Ovsdb Entity Owner Status For One Device    ${new_cluster_list}
-    ${new_candidate}=    Get From List    ${new_candidates_list}    0
-    Set Suite Variable    ${new_owner}
-    Set Suite Variable    ${new_candidate}
+Get Operational Topology to verify the bridge has been added
+    [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes
+    @{list}    Create List    ${BRIDGE1}
+    Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}
 
-Create Bridge In Owner and Verify After Fail
-    [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
-    Create Bridge And Verify    ${new_cluster_list}    ${new_owner}
-
-Modify Network and Verify After Fail
-    [Documentation]    Take a link down and verify port status in all instances.
-    Take Ovsdb Device Link Down and Verify    ${new_cluster_list}
-
-Restore Network and Verify After Fail
-    [Documentation]    Take the link up and verify port status in all instances.
-    Take Ovsdb Device Link Up and Verify    ${new_cluster_list}
-
-Start Old Owner Instance
-    [Documentation]    Start Owner Instance and verify it is active
-    Start Multiple Controllers    300s    ${original_owner}
-
-Check Shards Status After Recover
-    [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
-    Wait Until Keyword Succeeds    5s    1s    Check Ovsdb Shards Status    ${original_cluster_list}
-
-Check Entity Owner Status After Recover
-    [Documentation]    Check Entity Owner Status and identify owner and candidate.
-    ${new_owner}    ${new_candidates_list}    Wait Until Keyword Succeeds    5s    1s    Get Ovsdb Entity Owner Status For One Device    ${original_cluster_list}
-    Set Suite Variable    ${new_owner}
-
-Check Network Operational Information After Recover
-    [Documentation]    Check device is in operational inventory and topology in all cluster instances.
-    Check Ovsdb Network Operational Information For One Device    ${original_cluster_list}
-
-Create Bridge In Owner and Verify After Recover
-    [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
-    Create Bridge And Verify    ${original_cluster_list}    ${new_owner}
-
-Create Bridge In Old Owner and Verify After Recover
-    [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
-    Create Bridge And Verify    ${original_cluster_list}    ${original_owner}
+*** Keywords ***
+Verify OVS Reports Connected
+    [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
+    [Documentation]    Uses "vsctl show" to check for string "is_connected"
+    ${output}=    Run Command On Remote System    ${tools_system}    sudo ovs-vsctl show
+    Should Contain    ${output}    is_connected
