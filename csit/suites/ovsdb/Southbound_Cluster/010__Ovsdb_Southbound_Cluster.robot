@@ -13,6 +13,9 @@ ${SOUTHBOUND_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2
 ${OVSDB_CONFIG_DIR}    ${CURDIR}/../../../variables/ovsdb
 ${BRIDGE}         br01
 
+${OVSDB_PORT}     6634
+@{node_list}      ${BRIDGE}    vx1
+
 *** Test Cases ***
 Create Original Cluster List
     [Documentation]    Create original cluster list.
@@ -36,9 +39,30 @@ Check Entity Owner Status And Find Owner and Candidate Before Fail
     Set Suite Variable    ${original_owner}
     Set Suite Variable    ${original_candidate}
 
-Create Bridge In Owner and Verify Before Fail
+Create Bridge Manually In Owner and Verify Before Fail
+    [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
+    Create Bridge Manually And Verify    ${original_cluster_list}    ${original_owner}
+
+Create Bridge Via Controller In Owner and Verify Before Fail
     [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
     Create Bridge And Verify    ${original_cluster_list}    ${original_owner}
+
+Create a Topology in OVSDB node
+    [Documentation]    Create topology in OVSDB and ready it for further tests.
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl service openvswitch start
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-br ${BRIDGE}
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-port ${BRIDGE} vx1 -- set Interface vx1 type=vxlan
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager ptcp:6634
+
+Get Config Topology with Bridge
+    [Documentation]    This will fetch the configuration topology from configuration data store to verify the bridge is added to the data store
+    @{list}    Create List    ${BRIDGE}
+    Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${CONFIG_TOPO_API}    ${list}
+
+Delete the Bridge In Owner and Verify Before Fail
+    [Documentation]    This request will delete the bridge node from the config data store and operational data store.
+    Delete Bridge And Verify    ${original_cluster_list}    ${original_owner}
 
 Kill Owner Instance
     [Documentation]    Kill Owner Instance and verify it is dead
@@ -58,17 +82,17 @@ Check Entity Owner Status And Find Owner and Candidate After Fail
     Set Suite Variable    ${new_owner}
     Set Suite Variable    ${new_candidate}
 
-Create Bridge In Owner and Verify After Fail
+Create Bridge Manually In Owner and Verify After Fail
+    [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
+    Create Bridge Manually And Verify    ${new_cluster_list}    ${new_owner}
+
+Create Bridge Via Controller In Owner and Verify After Fail
     [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
     Create Bridge And Verify    ${new_cluster_list}    ${new_owner}
 
-Modify Network and Verify After Fail
-    [Documentation]    Take a link down and verify port status in all instances.
-    Take Ovsdb Device Link Down and Verify    ${new_cluster_list}
-
-Restore Network and Verify After Fail
-    [Documentation]    Take the link up and verify port status in all instances.
-    Take Ovsdb Device Link Up and Verify    ${new_cluster_list}
+Delete the Bridge In Owner and Verify After Fail
+    [Documentation]    This request will delete the bridge node from the config data store and operational data store.
+    Delete Bridge And Verify    ${original_cluster_list}    ${original_owner}
 
 Start Old Owner Instance
     [Documentation]    Start Owner Instance and verify it is active
@@ -83,14 +107,6 @@ Check Entity Owner Status After Recover
     ${new_owner}    ${new_candidates_list}    Wait Until Keyword Succeeds    5s    1s    Get Ovsdb Entity Owner Status For One Device    ${original_cluster_list}
     Set Suite Variable    ${new_owner}
 
-Check Network Operational Information After Recover
-    [Documentation]    Check device is in operational inventory and topology in all cluster instances.
-    Check Ovsdb Network Operational Information For One Device    ${original_cluster_list}
-
-Create Bridge In Owner and Verify After Recover
+Create Bridge Manually In Owner and Verify After Recover
     [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
-    Create Bridge And Verify    ${original_cluster_list}    ${new_owner}
-
-Create Bridge In Old Owner and Verify After Recover
-    [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
-    Create Bridge And Verify    ${original_cluster_list}    ${original_owner}
+    Create Bridge Manually And Verify    ${original_cluster_list}    ${new_owner}
