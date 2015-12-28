@@ -94,3 +94,12 @@ Create Bridge In Owner and Verify After Recover
 Create Bridge In Old Owner and Verify After Recover
     [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
     Create Bridge And Verify    ${original_cluster_list}    ${original_owner}
+
+Check Onenode Up And Recover All Nodes
+    [Documentation]    Create Bridge and verify the owner node and gets applied from all instances.
+    Create Bridge And Verify   ${original_owner}   ${new_owner}
+
+Check Onenode Up And Down two Nodes
+    [Documentation]    Create New Bridge and Up the one node and down the reaming nodes.
+    Create Bridge And Verify   ${original_owner}   ${new_cluster_list}
+
