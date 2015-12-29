@@ -19,6 +19,8 @@ class OvsdbConfigBlaster (object):
                    'Accept': 'application/json'}
     GET_HEADERS = {'Accept': 'application/json',
                    'Authorization': 'Basic YWRtaW46YWRtaW4='}
+    DELETE_HEADERS = {'Accept': 'application/json',
+                   'Authorization': 'Basic YWRtaW46YWRtaW4='}
     TIMEOUT = 10
 
     def __init__(self,
@@ -29,6 +31,7 @@ class OvsdbConfigBlaster (object):
                  vswitch_remote_ip,
                  vswitch_remote_ovsdb_port,
                  vswitch_port_type,
+                 delete_bridges,
                  num_instances):
         """
         Args:
@@ -39,6 +42,7 @@ class OvsdbConfigBlaster (object):
             :param vswitch_remote_ip: The ip of remote Open vSwitch to use
             :param vswitch_remote_ovsdb_port: The ovsdb port of remote Open vSwitch to use
             :param vswitch_port_type: Port type to create
+            :param delete_bridge: delete all bridges of remote Open vSwitch OVSDB server
             :param num_instances: The number of instances (bridges, ports etc) to be added
         """
         logging.basicConfig(level=logging.DEBUG)
@@ -56,8 +60,8 @@ class OvsdbConfigBlaster (object):
                 vswitch_ip,
                 vswitch_remote_ovsdb_port, 'ovs-2')
         self.vswitch_port_type = vswitch_port_type
+        self.delete_bridges = delete_bridges
         self.num_instances = num_instances
-
         self.connect_vswitch(self.vswitch_dict['ovs-1'])
         if self.vswitch_dict.get('ovs-2'):
             self.connect_vswitch(self.vswitch_dict['ovs-2'])
@@ -244,6 +248,45 @@ class OvsdbConfigBlaster (object):
 
         self.session.close()
 
+    def delete_bridge(self, num_instances, vswitch_name='ovs-1'):
+        """Add num_instances of bridge to ODL config
+        Args:
+            :param num_instances: Number of bridges to delete
+            :param vswitch_name: A name describing
+                                 an instance of Open vSwitch
+        """
+
+        for i in range(num_instances):
+            bridge_name = unicode('br-' + str(i) + '-test')
+
+            self.send_rest_del(self.session,
+                           self.vswitch_dict[vswitch_name]
+                           .get('post-url')
+                           + '%2Fbridge%2F'
+                           + bridge_name)
+        self.session.close()
+
+
+    def send_rest_del(self, session, rest_url):
+        """Send an HTTP DELETE to the Rest URL and return the status code
+        Args:
+            :param session: The HTTP session handle
+            :param json_body: the JSON body to be sent
+        Returns:
+            :return int: status_code - HTTP status code
+        """
+        ret = session.delete(rest_url,
+                             headers=self.DELETE_HEADERS,
+                             stream=False,
+                             timeout=self.TIMEOUT)
+
+        if ret.status_code is not 200:
+                raise ValueError(ret.text,
+                                 ret.status_code,
+                                 rest_url)
+        return ret.status_code
+
+
     def send_rest(self, session, rest_url, json_body):
         """Send an HTTP PUT to the Rest URL and return the status code
         Args:
@@ -269,9 +312,9 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Add bridge/port/term-points'
                                                  ' to OpenDaylight')
 
-    parser.add_argument('--mode', default='bridge',
+    parser.add_argument('--mode', default=None,
                         help='Operating mode, can be "bridge", "port" or "term" \
-                            (default is "bridge")')
+                            (default is none)')
     parser.add_argument('--controller', default='127.0.0.1',
                         help='IP of running ODL controller (default \
                             is 127.0.0.1)')
@@ -291,8 +334,11 @@ if __name__ == "__main__":
                         help='Port of remote Open vSwitch OVSDB server \
                             (default is none)')
     parser.add_argument('--vswitchporttype', default=None,
-                        help='Port of remote Open vSwitch OVSDB server \
+                        help='Porttype of remote Open vSwitch OVSDB server \
                             (default is none)')
+    parser.add_argument('--deletebridges', default="delete",
+                        help='delete all bridges of remote Open vSwitch OVSDB server \
+                            (default is delete one instance)')
     parser.add_argument('--instances', type=int, default=1,
                         help='Number of instances to add/get (default 1)')
 
@@ -305,6 +351,7 @@ if __name__ == "__main__":
                                               args.vswitchremote,
                                               args.vswitchremoteport,
                                               args.vswitchporttype,
+                                              args.deletebridges,
                                               args.instances)
 
     if args.mode == "bridge":
@@ -313,5 +360,7 @@ if __name__ == "__main__":
         ovsdb_config_blaster.add_port()
     elif args.mode == "port" and args.vswitchporttype is not None:
         ovsdb_config_blaster.add_port(args.vswitchporttype)
+    elif args.deletebridges == "delete":
+        ovsdb_config_blaster.delete_bridge(ovsdb_config_blaster.num_instances)
     else:
         print "Unsupported mode:", args.mode
