@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "1aa4ed85_0a4a56ac",
+        "filename": "csit/suites/sxp/filtering/010_Inbound_Filtering.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-03T16:50:14Z",
+      "side": 1,
+      "message": "Why not 1?",
+      "range": {
+        "startLine": 28,
+        "startChar": 37,
+        "endLine": 28,
+        "endChar": 38
+      },
+      "revId": "5f24e3dc4971636e2cf109a7cc573eb54e2506da",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_4a504e5e",
+        "filename": "csit/suites/sxp/filtering/010_Inbound_Filtering.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-03T16:50:14Z",
+      "side": 1,
+      "message": "https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Argument_naming",
+      "range": {
+        "startLine": 89,
+        "startChar": 44,
+        "endLine": 89,
+        "endChar": 55
+      },
+      "revId": "5f24e3dc4971636e2cf109a7cc573eb54e2506da",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_aa61c23a",
+        "filename": "csit/suites/sxp/filtering/010_Inbound_Filtering.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-03T16:50:14Z",
+      "side": 1,
+      "message": "https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#String_values",
+      "range": {
+        "startLine": 89,
+        "startChar": 56,
+        "endLine": 89,
+        "endChar": 60
+      },
+      "revId": "5f24e3dc4971636e2cf109a7cc573eb54e2506da",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_1b2dd846",
         "filename": "csit/suites/sxp/filtering/010_Inbound_Filtering.robot",
         "patchSetId": 15
@@ -13,6 +82,24 @@
       "writtenOn": "2015-12-22T18:17:02Z",
       "side": 1,
       "message": "These keywords and what they are checking are way too confusing to me.  Let\u0027s ask others, but I know for myself if these things were to show some failures I would have little chance of trying to understand what\u0027s going on.  Maybe an\nexpert in the SXP project would be ok though.",
+      "revId": "5f24e3dc4971636e2cf109a7cc573eb54e2506da",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_aac8e222",
+        "filename": "csit/suites/sxp/filtering/010_Inbound_Filtering.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-03T16:50:14Z",
+      "side": 1,
+      "message": "Yeah. This is not a basic scenario.\n\nSuite documentation should contain links to SXP wiki pages explaining what filtration actually does.\n\nThis scenario in particular should also be described in suite documentation, to explain which bindings are expected to be there.",
+      "parentUuid": "1aa4ed85_1b2dd846",
       "revId": "5f24e3dc4971636e2cf109a7cc573eb54e2506da",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
