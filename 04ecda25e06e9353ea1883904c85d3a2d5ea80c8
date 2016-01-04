@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_3e6990be",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-01-04T14:06:48Z",
+      "side": 1,
+      "message": "Note to myself: Use \"[0]\" at a suitable place here and put the link between the commit message and the footer, in the format \"[0] link\". This way the link can be placed into the commit message even when it is much longer than the 60 or so characters enforced by gerrit.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 47
+      },
+      "revId": "04ecda25e06e9353ea1883904c85d3a2d5ea80c8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
