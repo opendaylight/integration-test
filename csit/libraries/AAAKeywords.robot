@@ -71,7 +71,7 @@ Validate Token Format
 Get User From IDM DB
     [Arguments]    ${user_id}=${EMPTY}
     [Documentation]    Will return user information. If no user id is passed, it will retrieve all users in DB
-    Create Session    httpbin    http://${CONTROLLER}:${RESTPORT}
+    Create Session    httpbin    http://${CONTROLLER}:${RESTPORTAAA}
     ${headers}=    Create Dictionary    Content-Type=application/x-www-form-urlencoded
     ${resp}=    RequestsLibrary.GET    httpbin    ${idmurl}/users/${user_id}    headers=${headers}
     Should Be Equal As Strings    ${resp.status_code}    200
@@ -81,7 +81,7 @@ Get User From IDM DB
 Create User
     [Arguments]    ${user_data}
     [Documentation]    Will return user information. If no user id is passed, it will retrieve all users in DB
-    Create Session    httpbin    http://${CONTROLLER}:${RESTPORT}
+    Create Session    httpbin    http://${CONTROLLER}:${RESTPORTAAA}
     ${headers}=    Create Dictionary    Content-Type=application/json
     ${resp}=    RequestsLibrary.POST    httpbin    ${idmurl}/users    headers=${headers}    data=${user_data}
     Should Be Equal As Strings    ${resp.status_code}    201
