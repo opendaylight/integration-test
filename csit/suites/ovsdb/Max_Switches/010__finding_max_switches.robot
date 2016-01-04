@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for finding out max number of switches
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_JSON}
 Suite Teardown    Scalability Suite Teardown
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -17,6 +17,6 @@ ${SWITCHES_RESULT_FILE}    switches.csv
 Find Max Switches
     [Documentation]    Find max number of switches starting from ${MIN_SWITCHES} till reaching ${MAX_SWITCHES} in steps of ${STEP_SWITCHES}
     Append To File    ${SWITCHES_RESULT_FILE}    Max Switches Linear Topo\n
-    ${max-switches}    Find Max Switches    ${MIN_SWITCHES}    ${MAX_SWITCHES}    ${STEP_SWITCHES}
+    ${max-switches}    Find Max Ovsdb Switches    ${MIN_SWITCHES}    ${MAX_SWITCHES}    ${STEP_SWITCHES}
     Log    ${max-switches}
     Append To File    ${SWITCHES_RESULT_FILE}    ${max-switches}\n
