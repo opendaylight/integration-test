@@ -38,6 +38,46 @@ Find Max Switches
     \    ${max-switches}    Convert To String    ${switches}
     [Return]    ${max-switches}
 
+Find Max Ovsdb Switches
+    [Arguments]    ${start}    ${stop}    ${step}
+    [Documentation]    Will find out max switches starting from ${start} till reaching ${stop} and in steps defined by ${step}
+    ${max-switches}    Set Variable    ${0}
+    ${start}    Convert to Integer    ${start}
+    ${stop}    Convert to Integer    ${stop}
+    ${step}    Convert to Integer    ${step}
+    : FOR    ${switches}    IN RANGE    ${start}    ${stop+1}    ${step}
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Start Mininet Linear    ${switches}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Is Not Dead    ${CONTROLLER}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+#    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
+#    \    ...    Check Every Switch    ${switches}
+#    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
+    \    ...    Check Linear Topology    ${switches}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
+    \    ...    Check Ovsdb Topology    ${switches}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
+    \    ...    Check Netvirt Topology    ${switches}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Stop Mininet Simulation
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*10}    10s
+    \    ...    Check No Ovsdb Topology    ${switches}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*10}    10s
+    \    ...    Check No Netvirt Topology    ${switches}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
+    \    ...    Check No Topology    ${switches}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${max-switches}    Convert To String    ${switches}
+    \    ${ip_start} = ${ip_start} + ${step}
+    [Return]    ${max-switches}
+
+
 Find Max Links
     [Arguments]    ${begin}    ${stop}    ${step}
     [Documentation]    Will find out max switches in fully mesh topology starting from ${start} till reaching ${stop} and in steps defined by ${step}
@@ -220,19 +260,30 @@ Check Every Switch
     \    Should Contain    ${resp.content}    flow-capable-node-connector-statistics
     \    Should Contain    ${resp.content}    flow-table-statistics
 
+Return Edge Switches
+    [Arguments]    ${switches}
+    [Documentation]    Return Edge Switches - helper function for Check Linear Topology
+     ${num_ovs_per_mininet}  Evaluate    ${switches}/${NUM_TOOLS_SYSTEM}
+    @{edge_list}=   Create List
+    @{edge_list}=   Append To List 1
+    : FOR    ${switch}    IN RANGE    ${num_ovs_per_mininet}    ${switches+1}   ${num_ovs_per_mininet}
+    \   @{edge_list}=    Append To List ${switch}
+    [Return]    @{edge_list}
+
 Check Linear Topology
     [Arguments]    ${switches}
-    [Documentation]    Check Linear topology given ${switches}
+    [Documentation]    Check Linear topology given ${switches/}
     ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_TOPO_API}
     Log To Console    Checking Topology
     Should Be Equal As Strings    ${resp.status_code}    200
+    @{edge_list}=   Return Edge Switches  ${switches+1}
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
     \    Should Contain    ${resp.content}    "node-id":"openflow:${switch}"
     \    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:1"
     \    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:2"
     \    Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:2"
     \    Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:2"
-    \    ${edge}    Evaluate    ${switch}==1 or ${switch}==${switches}
+    \    ${edge}    List Should Contain Value   @{edge_list}    ${switch}
     \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:3"
     \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:3"
     \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:3"
@@ -254,6 +305,42 @@ Check No Topology
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
     \    Should Not Contain    ${resp.content}    openflow:${switch}
+
+Check Ovsdb Topology
+    [Arguments]    ${switches}
+    [Documentation]    Check Ovsdb topology given ${switches}
+    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_OVSDB}
+    Log To Console    Checking Topology
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    Should Contain    ${resp.content}    ovsdb://${switch}:6640
+
+Check Netvirt Topology
+    [Arguments]    ${switches}
+    [Documentation]    Check Ovsdb topology given ${switches}
+    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_NETVIRT}
+    Log To Console    Checking Topology
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    Should Contain    ${resp.content}    netvirt://${switch}:6640
+
+Check No Ovsdb Topology
+    [Arguments]    ${switches}
+    [Documentation]    Check no switch is in ovsdb topo
+    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_OVSDB}
+    Log To Console    Checking No Switches
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    Should Not Contain    ${resp.content}    ovsdb://${switch}:6640
+
+Check No Netvirt Topology
+    [Arguments]    ${switches}
+    [Documentation]    Check no switch is in ovsdb topo
+    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_OVSDB}
+    Log To Console    Checking No Switches
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    \    Should Not Contain    ${resp.content}    netvirt://${switch}:6640
 
 Stop Mininet Simulation
     [Documentation]    Stop mininet
