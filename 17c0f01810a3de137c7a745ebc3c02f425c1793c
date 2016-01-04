@@ -1,0 +1,174 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_3d8755d9",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-01-04T22:44:39Z",
+      "side": 1,
+      "message": "What kind of variable is this? The description doesn\u0027t describe clearly what this variable is or does.\n\n No matter, if suggestions below are followed it can be changed to explain that it is a string containing a list of ovs switches on which BR\u0027s should be deleted.",
+      "revId": "17c0f01810a3de137c7a745ebc3c02f425c1793c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_7d162da9",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-01-04T22:44:39Z",
+      "side": 1,
+      "message": "\u0027self.delete_bridges\u0027 should be changed to something like \u0027self.vswitch_lst_del_br\u0027\n\nAfter change to \u0027add_arguement(--deletebridge)\u0027 at the bottom of the file, \u0027delete_bridges\u0027 here will need to be split into a list.\n\n\u0027self.vswitch_lst_del_br \u003d delete_bridges.split(\",\")\u0027",
+      "revId": "17c0f01810a3de137c7a745ebc3c02f425c1793c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_9d76893d",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 251,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-01-04T22:44:39Z",
+      "side": 1,
+      "message": "num_instances here should be something like num_bridges. Just because input is num_instances, doesn\u0027t mean we have to use same name. num_bridges would be clearer for this function.\n\nIt looks like this function was copied from add_bridge. In which case the above comment can be applied to my own code in that function. I should update to match use in function rather than input name.\n\n\u0027vswitch_name\u0027 should become \u0027vswitch_names\u0027 because we will now be passing in a list of names.",
+      "revId": "17c0f01810a3de137c7a745ebc3c02f425c1793c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_7dbaadc1",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-01-04T22:44:39Z",
+      "side": 1,
+      "message": "Update to match function.",
+      "revId": "17c0f01810a3de137c7a745ebc3c02f425c1793c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_1de859b3",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 259,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-01-04T22:44:39Z",
+      "side": 1,
+      "message": "I\u0027d prefer this \u0027i\u0027 variable to be \u0027bridge_num\u0027 or \u0027br_num\u0027 and num_instances to be \u0027num_bridges\u0027.\n\nAs mentioned above. This looks like it is the same in add_bridges, which I should update with same intention.",
+      "revId": "17c0f01810a3de137c7a745ebc3c02f425c1793c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_9d776902",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 274,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-01-04T22:44:39Z",
+      "side": 1,
+      "message": "Remove this. There is not a json_body param.",
+      "revId": "17c0f01810a3de137c7a745ebc3c02f425c1793c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_1d837905",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 315,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-01-04T22:44:39Z",
+      "side": 1,
+      "message": "Why the change here to None?",
+      "revId": "17c0f01810a3de137c7a745ebc3c02f425c1793c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_dd6de133",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 337,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-01-04T22:44:39Z",
+      "side": 1,
+      "message": "I like this change. As it is clearer what this argument does.",
+      "revId": "17c0f01810a3de137c7a745ebc3c02f425c1793c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_fd68dd22",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-01-04T22:44:39Z",
+      "side": 1,
+      "message": "default should be \u0027None\u0027\n\n\u0027help\u003d\u0027 should be something like:\n\n\u0027A comma separated list of switches on which to delete bridges, uses instances for number of bridges\u0027",
+      "revId": "17c0f01810a3de137c7a745ebc3c02f425c1793c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_ddf8817e",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-01-04T22:44:39Z",
+      "side": 1,
+      "message": "This \u0027if\u0027 should be placed under \u0027if args.mode \u003d\u003d \"bridge\":\u0027\nwhere there should be an \u0027if\u0027 that asks if deletebridges is not none, which triggers call to del_bridge passing contents of deletebriges (which should be a comma separated list of switch names), else a call to add_bridge happens\n\nThe default for deletebridges should be \u0027None\u0027.",
+      "revId": "17c0f01810a3de137c7a745ebc3c02f425c1793c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
