@@ -70,6 +70,23 @@
     },
     {
       "key": {
+        "uuid": "1aa4ed85_7d64ed48",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 258,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-01-04T22:48:32Z",
+      "side": 1,
+      "message": "Another set of \u0027for vswitch_name in range(vswitch_names):\u0027 is needed here to handle list of vswitch_names",
+      "revId": "17c0f01810a3de137c7a745ebc3c02f425c1793c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_1de859b3",
         "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
         "patchSetId": 1
