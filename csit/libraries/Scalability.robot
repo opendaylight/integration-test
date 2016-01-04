@@ -6,6 +6,7 @@ Library           Collections
 Variables         ../variables/Variables.py
 Library           RequestsLibrary
 Library           SwitchClasses/BaseSwitch.py
+Resource          OVSDB.robot
 
 *** Keywords ***
 Find Max Switches
@@ -37,6 +38,51 @@ Find Max Switches
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${max-switches}    Convert To String    ${switches}
     [Return]    ${max-switches}
+
+#    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
+#    \    ...    Check Every Switch    ${switches}
+#    \    Exit For Loop If    '${status}' == 'FAIL'
+#    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
+#    \    ...    Check Linear Topology    ${switches}
+#    \    Exit For Loop If    '${status}' == 'FAIL'
+
+#    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
+#    \    ...    Check No Topology    ${switches}
+#    \    Exit For Loop If    '${status}' == 'FAIL'
+
+Find Max Ovsdb Switches
+    [Arguments]    ${start}    ${stop}    ${step}
+    [Documentation]    Will find out max switches starting from ${start} till reaching ${stop} and in steps defined by ${step}
+    ${max-switches}    Set Variable    ${0}
+    ${start}    Convert to Integer    ${start}
+    ${stop}    Convert to Integer    ${stop}
+    ${step}    Convert to Integer    ${step}
+    : FOR    ${switches}    IN RANGE    ${start}    ${stop+1}    ${step}
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Start Mininet Linear    ${switches}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Is Not Dead    ${CONTROLLER}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
+    \    ...    Connect All Ovsdb Nodes
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
+    \    ...    Check Ovsdb Topology    ${mininet_ip_list}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
+    \    ...    Check Netvirt Topology    ${mininet_ip_list}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Stop Mininet Simulation
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*10}    10s
+    \    ...    Check No Ovsdb Topology    ${mininet_ip_list}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*10}    10s
+    \    ...    Check No Netvirt Topology    ${mininet_ip_list}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${max-switches}    Convert To String    ${switches}
+    \    ${ip_start} = ${ip_start} + ${step}
+    [Return]    ${max-switches}
+
 
 Find Max Links
     [Arguments]    ${begin}    ${stop}    ${step}
@@ -175,9 +221,10 @@ Start Mininet Linear
     Log To Console    Starting mininet linear ${switches}
     ${num_ovs_per_mininet}  Evaluate    ${switches}/${NUM_TOOLS_SYSTEM}
     @{mininet_conn_ids_list}=    Create List
-    : FOR    ${mininet_system_num}    IN RANGE    1     ${NUM_TOOLS_SYSTEM}
+    ${num_tools_system}    Convert to Integer    ${NUM_TOOLS_SYSTEM}
+    : FOR    ${mininet_system_num}    IN RANGE    1     ${num_tools_system+1}
     \   ${temp_mininet_ip_var}  Set Variable    ${TOOLS_SYSTEM_${mininet_system_num}_IP}
-    \   ${temp_mininet_conn_id}=    Open Connection    ${temp_mininet_ip_var}    prompt${DEFAULT_LINUX_PROMPT}    timeout=${switches*3}
+    \   ${temp_mininet_conn_id}=    Open Connection    ${temp_mininet_ip_var}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${switches*3}
     \   Append To List    ${mininet_conn_ids_list}  ${temp_mininet_conn_id}
     \   Set Suite Variable  ${mininet_conn_ids_list}
     \   Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
@@ -191,9 +238,13 @@ Start Mininet With Custom Topology
     Log To Console    Start a custom mininet topology with ${switches} nodes
     ${num_ovs_per_mininet}  Evaluate    ${switches}/${NUM_TOOLS_SYSTEM}
     @{mininet_conn_ids_list}=    Create List
-    : FOR    ${mininet_system_num}    IN RANGE    1     ${NUM_TOOLS_SYSTEM}
+    @{mininet_ip_list}=    Create List
+    ${num_tools_system}    Convert to Integer    ${NUM_TOOLS_SYSTEM}
+    : FOR    ${mininet_system_num}    IN RANGE    1     ${num_tools_system+1}
     \   ${temp_mininet_ip_var}  Set Variable    ${TOOLS_SYSTEM_${mininet_system_num}_IP}
-    \   ${temp_mininet_conn_id}=    Open Connection    ${temp_mininet_ip_var}    prompt${DEFAULT_LINUX_PROMPT}    timeout=${switches*3}
+    \   ${temp_mininet_conn_id}=    Open Connection    ${temp_mininet_ip_var}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${switches*3}
+    \   Append To List    ${mininet_ip_list}  ${temp_mininet_ip_var}
+    \   Set Suite Variable  ${mininet_ip_list}
     \   Append To List    ${mininet_conn_ids_list}  ${temp_mininet_conn_id}
     \   Set Suite Variable  ${mininet_conn_ids_list}
     \   Write    python ${topology_file} ${switches} ${hosts} ${base_mac} ${base_ip}
@@ -220,19 +271,31 @@ Check Every Switch
     \    Should Contain    ${resp.content}    flow-capable-node-connector-statistics
     \    Should Contain    ${resp.content}    flow-table-statistics
 
+Return Edge Switches
+    [Arguments]    ${switches}
+    [Documentation]    Return Edge Switches - helper function for Check Linear Topology
+    ${num_ovs_per_mininet}  Evaluate    ${switches}/${NUM_TOOLS_SYSTEM}
+    ${edge_list}=   Create List
+    Append To List  ${edge_list}    1
+    : FOR    ${switch}    IN RANGE    ${num_ovs_per_mininet}    ${switches+1}   ${num_ovs_per_mininet}
+    \   Append To List  ${edge_list}    ${switch}
+    \   Append To List  ${edge_list}    ${switch+1}
+    [Return]    ${edge_list}
+
 Check Linear Topology
     [Arguments]    ${switches}
-    [Documentation]    Check Linear topology given ${switches}
+    [Documentation]    Check Linear topology given ${switches/}
     ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_TOPO_API}
     Log To Console    Checking Topology
     Should Be Equal As Strings    ${resp.status_code}    200
+    ${edge_list}=   Return Edge Switches    ${switches+1}
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
     \    Should Contain    ${resp.content}    "node-id":"openflow:${switch}"
     \    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:1"
     \    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:2"
     \    Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:2"
     \    Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:2"
-    \    ${edge}    Evaluate    ${switch}==1 or ${switch}==${switches}
+    \    ${edge}    List Should Contain Value   ${edge_list}    ${switch}
     \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:3"
     \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:3"
     \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:3"
@@ -254,6 +317,56 @@ Check No Topology
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
     \    Should Not Contain    ${resp.content}    openflow:${switch}
+
+Connect All Ovsdb Nodes
+    [Documentation]    Initiate connection to OVSDB node from controller for each mininet system
+    Log To Console    Connecting all OVSDB nodes to controller
+    ${num_tools_system}    Convert to Integer    ${NUM_TOOLS_SYSTEM}
+    : FOR    ${mininet_system_num}    IN RANGE    1     ${num_tools_system+1}
+    \   ${temp_mininet_ip_var}  Set Variable    ${TOOLS_SYSTEM_${mininet_system_num}_IP}
+    \   ${temp_mininet_conn_id}=    Open Connection    ${temp_mininet_ip_var}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${num_tools_system*3}
+    \   Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    \   Write    ovs-vsctl del-manager
+    \   Read Until    ${DEFAULT_LINUX_PROMPT}
+    \   Write    ovs-vsctl set-manager ptcp:6640
+    \   Read Until    ${DEFAULT_LINUX_PROMPT}
+    \   Connect To Ovsdb Node    ${temp_mininet_ip_var}
+
+Check Ovsdb Topology
+    [Arguments]    ${switch_ip_list}
+    [Documentation]    Check Ovsdb topology given ${switches}
+    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_OVSDB}
+    Log To Console    Checking Topology
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${switch_ip}    IN    ${switch_ip_list}
+    \    Should Contain    ${resp.content}    ovsdb://${switch_ip}:6640
+
+Check Netvirt Topology
+    [Arguments]    ${switches}
+    [Documentation]    Check Ovsdb topology given ${switches}
+    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_NETVIRT}
+    Log To Console    Checking Topology
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${switch}    IN    ${switch_ip_list}
+    \    Should Contain    ${resp.content}    netvirt://${switch}:6640
+
+Check No Ovsdb Topology
+    [Arguments]    ${switches}
+    [Documentation]    Check no switch is in ovsdb topo
+    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_OVSDB}
+    Log To Console    Checking No Switches
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${switch}    IN    ${switch_ip_list}
+    \    Should Not Contain    ${resp.content}    ovsdb://${switch}:6640
+
+Check No Netvirt Topology
+    [Arguments]    ${switches}
+    [Documentation]    Check no switch is in ovsdb topo
+    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_OVSDB}
+    Log To Console    Checking No Switches
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${switch}    IN    ${switch_ip_list}
+    \    Should Not Contain    ${resp.content}    netvirt://${switch}:6640
 
 Stop Mininet Simulation
     [Documentation]    Stop mininet
