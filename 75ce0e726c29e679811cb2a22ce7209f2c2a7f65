@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_bdd6e5ef",
+        "filename": "csit/libraries/ClusterOvsdb.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-01-04T22:19:45Z",
+      "side": 1,
+      "message": "This and next keyword seem to apply more to OpenFlow plugin. The equivalent test (receive network event) in OVSDB plugin cluld be something like add/remove a bridge or a port using ovs commands and verify all controller instances get the updated change.",
+      "revId": "75ce0e726c29e679811cb2a22ce7209f2c2a7f65",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
