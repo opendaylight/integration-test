@@ -165,7 +165,6 @@ Setup_Everything
     SSHKeywords.Require_Python
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
-    SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/manage_play.py
     # Calculate the timeout value based on how many routes are going to be pushed.
     ${period} =    DateTime.Convert_Time    ${CHECK_PERIOD_PREFIX_COUNT_MANY}    result_format=number
     ${timeout} =    BuiltIn.Evaluate    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_MANY} * (${COUNT_PREFIX_COUNT_MANY} * 3.0 / 10000 + ${period} * (${REPETITIONS_PREFIX_COUNT_MANY} + 1))
