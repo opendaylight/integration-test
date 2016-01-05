@@ -151,6 +151,7 @@ LFM_SB_RPC_API = "/restconf/operations/odl-lisp-sb"
 # TODO: Move these to more apropriate sections.
 PORT = '8080'
 RESTPORT = '8282'
+RESTPORTAAA = '8181'
 RESTCONFPORT = '8181'
 OVSDBPORT = '6640'
 CONTAINER = 'default'

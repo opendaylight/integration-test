@@ -7,7 +7,14 @@ Author: Carmen Kelling - HP Enterprise
 """
 
 import json
-import jsonpath
+import jsonpath_rw
+
+
+def jsonpath(obj, expr):
+    """Implementation of simple jsonpath.jsonpath() using jsonpath_rw."""
+    expr_parsed = jsonpath_rw.parse(expr)
+    ret_list = expr_parsed.find(obj)
+    return ret_list[0]
 
 
 def countnodes(args):
@@ -199,9 +206,9 @@ def get_id_by_name(args):
             bkey2 = '$.' + blobkey + '[' + str(i) + '].' + typename
 
             # find records with same name
-            name_record = jsonpath.jsonpath(jsonobj, bkey1)
+            name_record = jsonpath(jsonobj, bkey1)
             # find corresponding node info, for that name
-            node_record = jsonpath.jsonpath(jsonobj, bkey2)
+            node_record = jsonpath(jsonobj, bkey2)
 
             # build up an alternative set of keys.  This lets you deal with
             # other format of json
@@ -210,9 +217,9 @@ def get_id_by_name(args):
             bkey4 = '$.' + blobkey + '.' + typename2
 
             # find records with same name
-            altname_record = jsonpath.jsonpath(jsonobj, bkey3)
+            altname_record = jsonpath(jsonobj, bkey3)
             # find corresponding record node info, for that name
-            altnode_record = jsonpath.jsonpath(jsonobj, bkey4)
+            altnode_record = jsonpath(jsonobj, bkey4)
             try:
                 if name in list(name_record):
                     nodelist.append(node_record.pop())
@@ -302,10 +309,10 @@ def get_attribute_by_id(args):
             bkey3 = '$.' + blobkey + '.' + attr
             bkey4 = '$.' + blobkey + '.' + datatype + 'id'
 
-            name_record = jsonpath.jsonpath(jsonobj, bkey1)
-            node_record = jsonpath.jsonpath(jsonobj, bkey2)
-            altname_record = jsonpath.jsonpath(jsonobj, bkey3)
-            altnode_record = jsonpath.jsonpath(jsonobj, bkey4)
+            name_record = jsonpath(jsonobj, bkey1)
+            node_record = jsonpath(jsonobj, bkey2)
+            altname_record = jsonpath(jsonobj, bkey3)
+            altnode_record = jsonpath(jsonobj, bkey4)
 
             if type(node_record) is list:
                 if nodeid in list(node_record):
