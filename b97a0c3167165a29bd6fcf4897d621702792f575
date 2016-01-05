@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_c0189a77",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-01-05T01:10:12Z",
+      "side": 1,
+      "message": "Cool, I was really looking at this keyword.",
+      "revId": "b97a0c3167165a29bd6fcf4897d621702792f575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_802aa27c",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-01-05T01:10:12Z",
+      "side": 1,
+      "message": "Do you really need this and also the bridge parameter if you clear the ovsdb db?",
+      "revId": "b97a0c3167165a29bd6fcf4897d621702792f575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_0036b2e7",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-01-05T01:10:12Z",
+      "side": 1,
+      "message": "I would probably skip these checks as they require a REST session already established with a very specific name \"session\". If anyone is interested they can be easily added in a later step.",
+      "revId": "b97a0c3167165a29bd6fcf4897d621702792f575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_604e8671",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/010__configure_1_ovsdb_node.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-01-05T01:10:12Z",
+      "side": 1,
+      "message": "Cool stuff, we should add this to robot good practices if not there yet.",
+      "revId": "b97a0c3167165a29bd6fcf4897d621702792f575",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
