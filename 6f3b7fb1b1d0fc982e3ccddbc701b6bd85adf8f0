@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_71d41647",
+        "filename": "csit/libraries/AAAKeywords.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-05T18:12:12Z",
+      "side": 1,
+      "message": "why not just delete the line?",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 43
+      },
+      "revId": "6f3b7fb1b1d0fc982e3ccddbc701b6bd85adf8f0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_b1b92e17",
+        "filename": "csit/suites/aaa/idmlite/010_CRUD_Rest_CommandsTests.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-05T18:12:12Z",
+      "side": 1,
+      "message": "RESTPORT_AAA is more readable to me, but not a blocker.\n\nalso, I noticed you are changing from 8282 to ${RESTPORTAAA}\nhere, but in Variables.py I see ${RESTPORTAAA} as 8181",
+      "range": {
+        "startLine": 25,
+        "startChar": 41,
+        "endLine": 25,
+        "endChar": 52
+      },
+      "revId": "6f3b7fb1b1d0fc982e3ccddbc701b6bd85adf8f0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_31ce9eb5",
+        "filename": "csit/suites/aaa/idmlite/010_CRUD_Rest_CommandsTests.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-05T18:12:12Z",
+      "side": 1,
+      "message": "delete?",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 32,
+        "endChar": 48
+      },
+      "revId": "6f3b7fb1b1d0fc982e3ccddbc701b6bd85adf8f0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
