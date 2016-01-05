@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_837dcce9",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-05T11:07:56Z",
+      "side": 1,
+      "message": "This is a typo in original, this Change does not make it any worse.",
+      "range": {
+        "startLine": 155,
+        "startChar": 219,
+        "endLine": 155,
+        "endChar": 224
+      },
+      "revId": "dd942881d4014c5e5b68cad168f11d610fc9ae39",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
