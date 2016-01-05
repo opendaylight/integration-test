@@ -48,6 +48,12 @@ Wait_For_Netconf_Connector
     BuiltIn.Run_Keyword_Unless    ${first_case_ok}    BuiltIn.Wait_Until_Keyword_Succeeds    ${NETCONFREADY_WAIT}    1s    Check_Netconf_Connector
     [Teardown]    Utils.Report_Failure_Due_To_Bug    4583
 
+Check_Whether_Netconf_Connector_Can_Pretty_Print
+    [Documentation]    Make one request to netconf-connector and see if it works.
+    [Tags]    exclude
+    Check_Netconf_Connector    ?prettyPrint=true
+    BuiltIn.Set_Suite_Variable    ${first_case_ok}    True
+
 *** Keywords ***
 Setup_Everything
     [Documentation]    Setup requests library and log into karaf.log that the netconf readiness wait starts.
@@ -65,7 +71,8 @@ Teardown_Everything
     RequestsLibrary.Delete_All_Sessions
 
 Check_Netconf_Connector
+    [Arguments]    ${pretty_print}=${EMPTY}
     [Documentation]    Make a request to netconf connector's list of mounted devices and check that the request was successful.
-    ${response}=    RequestsLibrary.Get    ses    restconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/odl-sal-netconf-connector-cfg:sal-netconf-connector/controller-config/?prettyPrint=true
+    ${response}=    RequestsLibrary.Get    ses    restconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/odl-sal-netconf-connector-cfg:sal-netconf-connector/controller-config/${pretty_print}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Be_Equal_As_Strings    ${response.status_code}    200
