@@ -22,14 +22,14 @@ Resource          ../../../libraries/AAAKeywords.robot
 
 *** Variables ***
 # port is fixed in Jetty configuration, as well
-${URI}            http://${CONTROLLER}:8282
+${URI}            http://${CONTROLLER}:${RESTPORTAAA}
 # create lists for Domains, Roles and Users - that can be cleaned up upon Teardown
 @{cleanup_domain_list}
 @{cleanup_role_list}
 @{cleanup_user_list}
 @{cleanup_grant_list}
-# will modify value in Setup and use throughout the code
-${HEADERS}        ${EMPTY}
+# ${HEADERS}        comes from from Variables.py
+# ${AUTH}           comes from from Variables.py
 
 *** Test Cases ***
 Test Post New Domain
@@ -397,9 +397,6 @@ Test Grant Role To Domain And User
 IdMLight Suite Setup
     Log    Suite Setup
     # create a domain, role and user for testing.
-    ${HEADERS}=    Create Dictionary    Content-Type=application/json
-    Log    ${HEADERS}
-    Set Global Variable    ${HEADERS}
     # create a name to use in each case
     ${testdomain}=    Create Random Name    Alderaan
     Log    ${testdomain}
@@ -409,7 +406,7 @@ IdMLight Suite Setup
     Log    ${testrole}
     # now create the domain, role and userid
     # create the test domain
-    Create Session    httpbin    ${URI}
+    Create Session    httpbin    ${URI}    auth=${AUTH}
     ${domaindata}=    Set Variable    {"description":"planetary domain","domainid":"7","name":"${testdomain}","enabled":"true"}
     ${newdomain}=    Post New Domain    ${testdomain}    ${domaindata}
     Log    ${newdomain}
@@ -481,7 +478,7 @@ Check Specific Id Does Not Exist
     # the ITEM is the area to look under...    users, domains, roles, etc
     ${n1}=    Set Variable    auth/v1/${area_to_look}/${id}
     # do the actual get
-    ${resp}    RequestsLibrary.Get    httpbin    ${n1}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Get Request    httpbin    ${n1}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    404
     ${id_string}=    Convert To String    ${id}
     Should Contain    ${resp.content}    ${id_string}
@@ -491,7 +488,7 @@ Get Specific Domain
     [Arguments]    ${domainid}
     [Documentation]    Execute GET command on specified single domain
     ${n1}=    Set Variable    auth/v1/domains/${domainid}
-    ${resp}    RequestsLibrary.Get    httpbin    ${n1}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Get Request    httpbin    ${n1}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${domainid_string}=    Convert To String    ${domainid}
     Should Contain    ${resp.content}    ${domainid_string}
@@ -501,7 +498,7 @@ Get Specific Domain Name
     [Arguments]    ${domainid}
     [Documentation]    Execute GET command on specified single domain
     ${n1}=    Set Variable    auth/v1/domains/${domainid}
-    ${resp}    RequestsLibrary.Get    httpbin    ${n1}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Get Request    httpbin    ${n1}    headers=${HEADERS}
     Should Contain    ${resp.content}    ${domainid}
     Log    ${resp.content}
     [Return]    ${resp.content}
@@ -510,7 +507,7 @@ Get Specific Role
     [Arguments]    ${roleid}
     [Documentation]    Exercise REST command to GET a specific role, based on role-id
     ${n1}=    Set Variable    auth/v1/roles/${roleid}
-    ${resp}    RequestsLibrary.Get    httpbin    ${n1}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Get Request    httpbin    ${n1}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${roleid}
     [Return]    ${resp.content}
@@ -518,7 +515,7 @@ Get Specific Role
 Get Domains
     [Documentation]    Execute getdomains GET command.
     ${n1}=    Set Variable    auth/v1/domains
-    ${resp}    RequestsLibrary.Get    httpbin    ${n1}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Get Request    httpbin    ${n1}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    "domains"
     [Return]    ${resp.content}
@@ -526,7 +523,7 @@ Get Domains
 Get Roles
     [Documentation]    Execute GET command to obtain list of roles.
     ${n1}=    Set Variable    auth/v1/roles
-    ${resp}    RequestsLibrary.Get    httpbin    ${n1}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Get Request    httpbin    ${n1}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    "roles"
     [Return]    ${resp.content}
@@ -535,7 +532,7 @@ Get Specific User
     [Arguments]    ${user}
     [Documentation]    Exercise REST command for users GET command.
     ${n1}=    Set Variable    auth/v1/users/${user}
-    ${resp}    RequestsLibrary.Get    httpbin    ${n1}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Get Request    httpbin    ${n1}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${user}
     [Return]    ${resp.content}
@@ -543,7 +540,7 @@ Get Specific User
 Get Users
     [Documentation]    GET the complete set of users.
     ${n1}=    Set Variable    auth/v1/users
-    ${resp}    RequestsLibrary.Get    httpbin    ${n1}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Get Request    httpbin    ${n1}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${user}
     [Return]    ${resp.content}
@@ -552,7 +549,8 @@ Post New Domain
     [Arguments]    ${domain}    ${data}
     [Documentation]    Exercise REST command for domains POST command.
     ${n1}=    Set Variable    auth/v1/domains
-    ${resp}    RequestsLibrary.Post    httpbin    ${n1}    headers=${HEADERS}    data=${data}
+    ${data_object}=    RequestsLibrary.To Json    ${data}
+    ${resp}    RequestsLibrary.Post Request    httpbin    ${n1}    headers=${HEADERS}    data=${data_object}
     Should Be Equal As Strings    ${resp.status_code}    201
     Should Contain    ${resp.content}    ${domain}
     [Return]    ${resp.content}
@@ -561,7 +559,8 @@ Post New Role
     [Arguments]    ${data}
     [Documentation]    Use POST REST command to create specified Role.
     ${n1}=    Set Variable    auth/v1/roles
-    ${resp}    RequestsLibrary.Post    httpbin    ${n1}    headers=${HEADERS}    data=${data}
+    ${data_object}=    RequestsLibrary.To Json    ${data}
+    ${resp}    RequestsLibrary.Post Request    httpbin    ${n1}    headers=${HEADERS}    data=${data_object}
     #    HTTP/1.1 201 Created
     Should Be Equal As Strings    ${resp.status_code}    201
     [Return]    ${resp.content}
@@ -570,7 +569,8 @@ Post New User
     [Arguments]    ${username}    ${data}
     [Documentation]    Exercise REST command for users POST command.
     ${n1}=    Set Variable    auth/v1/users
-    ${resp}    RequestsLibrary.Post    httpbin    ${n1}    headers=${HEADERS}    data=${data}
+    ${data_object}=    RequestsLibrary.To Json    ${data}
+    ${resp}    RequestsLibrary.Post Request    httpbin    ${n1}    headers=${HEADERS}    data=${data_object}
     # grab the list of users, count the list, and then search the list for the specific user id
     ${users}=    Get Users
     ${depth}=    Nodecount    ${users}    users    userid
@@ -589,7 +589,7 @@ Update Specific Domain
     [Arguments]    ${data}    ${domainid}
     [Documentation]    Update the specified domainid with a new name specified in domain-name
     ${n1}=    Set Variable    auth/v1/domains/${domainid}
-    ${resp}    RequestsLibrary.Put    httpbin    ${n1}    headers=${HEADERS}    data=${data}
+    ${resp}    RequestsLibrary.Put Request    httpbin    ${n1}    headers=${HEADERS}    data=${data}
     # Should Be Equal As Strings    ${resp.status_code}    201
     Log    ${resp.content}
 
@@ -597,7 +597,7 @@ Update Specific Role
     [Arguments]    ${data}    ${roleid}
     [Documentation]    Update the specified roleid with a new information name specified
     ${n1}=    Set Variable    auth/v1/roles/${roleid}
-    ${resp}    RequestsLibrary.Put    httpbin    ${n1}    headers=${HEADERS}    data=${data}
+    ${resp}    RequestsLibrary.Put Request    httpbin    ${n1}    headers=${HEADERS}    data=${data}
     # Should Be Equal As Strings    ${resp.status_code}    201
     Log    ${resp.content}
 
@@ -605,7 +605,7 @@ Update Specific User
     [Arguments]    ${data}    ${userid}
     [Documentation]    Update the specified userid with a new information name specified
     ${n1}=    Set Variable    auth/v1/users/${userid}
-    ${resp}    RequestsLibrary.Put    httpbin    ${n1}    headers=${HEADERS}    data=${data}
+    ${resp}    RequestsLibrary.Put Request    httpbin    ${n1}    headers=${HEADERS}    data=${data}
     # Should Be Equal As Strings    ${resp.status_code}    201
     Log    ${resp.content}
 
@@ -614,7 +614,7 @@ Delete Domain
     [Documentation]    Delete the specified domain, by id
     ${n1}=    Set Variable    auth/v1/domains/${domainid}
     Log    ${n1}
-    ${resp}    RequestsLibrary.Delete    httpbin    ${n1}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Delete Request    httpbin    ${n1}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    204
     Log    ${resp.content}
 
@@ -622,7 +622,7 @@ Delete User
     [Arguments]    ${userid}
     [Documentation]    Delete the specified user, by id
     ${n1}=    Set Variable    auth/v1/users/${userid}
-    ${resp}    RequestsLibrary.Delete    httpbin    ${n1}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Delete Request    httpbin    ${n1}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    204
     Log    ${resp.content}
 
@@ -630,7 +630,7 @@ Delete Role
     [Arguments]    ${roleid}
     [Documentation]    Use DELETE REST command to wipe out a Role created for testing.
     ${n1}=    Set Variable    auth/v1/roles/${roleid}
-    ${resp}    RequestsLibrary.Delete    httpbin    ${n1}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Delete Request    httpbin    ${n1}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    204
     #Should NOT Contain    ${resp.content}    ${roleid}
     [Return]    ${resp.content}
@@ -639,8 +639,9 @@ Post Role To Domain And User
     [Arguments]    ${data}    ${domainid}    ${userid}
     [Documentation]    Exercise REST POST command for posting a role to particular domain and user
     ${n1}=    Set Variable    auth/v1/domains/${domainid}/users/${userid}/roles
+    ${data_object}=    RequestsLibrary.To Json    ${data}
     # now post it
-    ${resp}    RequestsLibrary.Post    httpbin    ${n1}    headers=${HEADERS}    data=${data}
+    ${resp}    RequestsLibrary.Post Request    httpbin    ${n1}    headers=${HEADERS}    data=${data_object}
     Should Be Equal As Strings    ${resp.status_code}    201
     [Return]    ${resp.content}
 
@@ -649,7 +650,7 @@ Get Roles For Specific Domain And User
     [Documentation]    Exercise REST GET command for roles in a specific domain and user
     ${n1}=    Set Variable    auth/v1/domains/${domainid}/users/${userid}/roles
     # now get it
-    ${resp}    RequestsLibrary.Get    httpbin    ${n1}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Get Request    httpbin    ${n1}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.content}
 
@@ -658,7 +659,7 @@ Delete Specific Grant
     [Documentation]    Exercise REST DELETE command for a grant by roleid
     ${n1}=    Set Variable    auth/v1/domains/${domainid}/users/${userid}/roles/${roleid}
     # now delete it
-    ${resp}    RequestsLibrary.Delete    httpbin    ${n1}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Delete Request    httpbin    ${n1}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    204
     [Return]    ${resp.content}
 
