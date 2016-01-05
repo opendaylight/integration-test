@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_03923c9f",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-05T10:40:43Z",
+      "side": 1,
+      "message": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot searches for symptoms of Bug 4791. That is still not marked as fixed, and here you can see how many lines may end up in ${output}: https://jenkins.opendaylight.org/releng/view/bgpcep/job/bgpcep-csit-1node-periodic-bgp-ingest-only-stable-lithium/56/robot/report/log.html#s1-s4-t21-k2-k2\n\nI strongly suggest going back to \"grep -c\".",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 27
+      },
+      "revId": "053fe152ac459ecbd84952b99772c443fa27adc3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_a3900896",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-05T10:40:43Z",
+      "side": 1,
+      "message": "Can this be non-empty if Should_Not_Match_Regexp passed?",
+      "range": {
+        "startLine": 67,
+        "startChar": 16,
+        "endLine": 67,
+        "endChar": 25
+      },
+      "revId": "053fe152ac459ecbd84952b99772c443fa27adc3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_c38bc466",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-05T10:40:43Z",
+      "side": 1,
+      "message": "One line (and local variable) more with Get_From_Dictionary would be more readable.",
+      "range": {
+        "startLine": 79,
+        "startChar": 37,
+        "endLine": 79,
+        "endChar": 59
+      },
+      "revId": "053fe152ac459ecbd84952b99772c443fa27adc3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
