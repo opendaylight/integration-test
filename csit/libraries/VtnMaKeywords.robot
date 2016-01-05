@@ -29,7 +29,6 @@ ${out_after_pathpolicy}    output:3
 ${flowcond_restconfigdata}    {"input":{"operation":"SET","present":"false","name":"cond_1","vtn-flow-match":[{"vtn-ether-match":{"destination-address":"ba:bd:0f:e3:a8:c8","ether-type":"2048","source-address":"ca:9e:58:0c:1e:f0","vlan-id": "1"},"vtn-inet-match":{"source-network":"10.0.0.1/32","protocol":1,"destination-network":"10.0.0.2/32"},"index":"1"}]}}
 
 *** Keywords ***
-
 Start SuiteVtnMa
     [Documentation]    Start VTN Manager Rest Config Api Test Suite
     Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
@@ -63,7 +62,7 @@ Fetch vtn switch inventory
 Add a Vtn
     [Arguments]    ${vtn_name}
     [Documentation]    Create a vtn with specified parameters.
-    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn:update-vtn   data={"input": {"tenant-name":${vtn_name}, "update-mode": "CREATE","operation": "SET", "description": "creating vtn", "idle-timeout":300, "hard-timeout":0}}
+    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn:update-vtn    data={"input": {"tenant-name":${vtn_name}, "update-mode": "CREATE","operation": "SET", "description": "creating vtn", "idle-timeout":300, "hard-timeout":0}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Add a vBridge
@@ -75,13 +74,13 @@ Add a vBridge
 Add a interface
     [Arguments]    ${vtn_name}    ${vbr_name}    ${interface_name}
     [Documentation]    Create a interface into a vBridge of a VTN
-    ${resp}=    RequestsLibrary.Post Request    session       restconf/operations/vtn-vinterface:update-vinterface    data={"input": {"update-mode":"CREATE","operation":"SET", "tenant-name":${vtn_name}, "bridge-name":${vbr_name}, "description": "vbrdige interfacecreated", "enabled":"true", "interface-name": ${interface_name}}}
+    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-vinterface:update-vinterface    data={"input": {"update-mode":"CREATE","operation":"SET", "tenant-name":${vtn_name}, "bridge-name":${vbr_name}, "description": "vbrdige interfacecreated", "enabled":"true", "interface-name": ${interface_name}}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Add a portmap
-    [Arguments]    ${vtn_name}    ${vbr_name}    ${interface_name}   ${node_id}   ${port_id}
+    [Arguments]    ${vtn_name}    ${vbr_name}    ${interface_name}    ${node_id}    ${port_id}
     [Documentation]    Create a portmap for a interface of a vbridge
-    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-port-map:set-port-map     data={"input": { "tenant-name":${vtn_name}, "bridge-name":${vbr_name}, "interface-name": ${interface_name}, "node":"${node_id}", "port-name":"${port_id}"}}    
+    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-port-map:set-port-map    data={"input": { "tenant-name":${vtn_name}, "bridge-name":${vbr_name}, "interface-name": ${interface_name}, "node":"${node_id}", "port-name":"${port_id}"}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Delete a Vtn
@@ -93,7 +92,7 @@ Delete a Vtn
 Add a vlanmap
     [Arguments]    ${vtn_name}    ${vbr_name}    ${vlan_id}
     [Documentation]    Create a vlanmap
-    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-vlan-map:add-vlan-map     data={"input": {"tenant-name":${vtn_name},"bridge-name":${vbr_name},"vlan-id":${vlan_id}}}
+    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-vlan-map:add-vlan-map    data={"input": {"tenant-name":${vtn_name},"bridge-name":${vbr_name},"vlan-id":${vlan_id}}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify Data Flows
@@ -153,7 +152,7 @@ Verify flowEntryPathPolicy
 Add a macmap
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${macmap_data}
     [Documentation]    Create a macmap for a vbridge
-    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-mac-map:set-mac-map    data={"input": { "allowed-hosts": ["${macmap_data}"], "tenant-name":${vtn_name}, "bridge-name": ${vBridge_name}}}                                                        }
+    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-mac-map:set-mac-map    data={"input": { "allowed-hosts": ["${macmap_data}"], "tenant-name":${vtn_name}, "bridge-name": ${vBridge_name}}}    }
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Get DynamicMacAddress
@@ -250,7 +249,7 @@ Verify macaddress
 Add a vtn flowfilter
     [Arguments]    ${vtn_name}    ${vtnflowfilter_data}
     [Documentation]    Create a flowfilter for a vtn
-    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-filter:set-flow-filter   data=${vtnflowfilter_data}
+    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-filter:set-flow-filter    data=${vtnflowfilter_data}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Add a vbr flowfilter
@@ -262,7 +261,7 @@ Add a vbr flowfilter
 Add a vbrif flowfilter
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${interface_name}    ${vbrif_flowfilter_data}
     [Documentation]    Create a flowfilter for a vbrif
-    ${resp}=    RequestsLibrary.Post Request    session     restconf/operations/vtn-flow-filter:set-flow-filter    data=${vbrif_flowfilter_data}
+    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-filter:set-flow-filter    data=${vbrif_flowfilter_data}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify Flow Entry for Inet Flowfilter
@@ -295,7 +294,7 @@ Get flowconditions
 
 Get flowcondition
     [Arguments]    ${flowcond_name}    ${retrieve}
-    [Documentation]    Retrieve the flowcondition by name and to check the removed flowcondition added "retrieve" argument to differentiate the status code, since 
+    [Documentation]    Retrieve the flowcondition by name and to check the removed flowcondition added "retrieve" argument to differentiate the status code, since
     ...    after removing flowcondition name the status will be different compare to status code when the flowcondition name is present.
     ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-flow-condition:vtn-flow-conditions/vtn-flow-condition/${flowcond_name}
     Run Keyword If    '${retrieve}' == 'retrieve'    Should Be Equal As Strings    ${resp.status_code}    200

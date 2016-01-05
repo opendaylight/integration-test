@@ -66,7 +66,6 @@ Clean Datastore After Tests
     [Documentation]    Clean All Tenants In Datastore After Tests
     Remove All Elements At URI    ${GBP_TENANTS_API}
 
-
 *** Keywords ***
 Init Variables Master
     [Documentation]    Sets variables specific to latest(master) version

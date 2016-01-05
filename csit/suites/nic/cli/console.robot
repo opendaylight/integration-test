@@ -83,11 +83,10 @@ Add Intent
     [Return]    ${id}
 
 Verify Intent:Add Command is Availible
-    [Documentation]    Verifies that odl-nic-console is up and intent:add command is available to be used. 
-    ...    Should be used with the command "Wait Until Keyword Succeeds" to poll until command is availible. 
+    [Documentation]    Verifies that odl-nic-console is up and intent:add command is available to be used.
+    ...    Should be used with the command "Wait Until Keyword Succeeds" to poll until command is availible.
     ${output}=    Issue Command On Karaf Console    intent:add
     Should Not Contain    ${output}    Command not found
-
 
 Verify Intent Added
     [Arguments]    ${id}    ${intent}

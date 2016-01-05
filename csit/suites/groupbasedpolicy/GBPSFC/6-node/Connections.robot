@@ -6,7 +6,6 @@ Variables         ../../../../variables/Variables.py
 Resource          Variables.robot
 
 *** Keywords ***
-
 Start Connections
     [Documentation]    Establishes connections to remote VMs.
     SSHLibrary.Open Connection    ${GBPSFC1}    alias=GPSFC1_CONNECTION

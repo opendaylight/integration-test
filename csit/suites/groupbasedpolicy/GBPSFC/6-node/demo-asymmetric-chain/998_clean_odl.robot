@@ -12,12 +12,10 @@ Resource          ../../../../../libraries/GBP/RestconfUtils.robot
 Resource          ../Variables.robot
 
 *** Test Cases ***
-
 Delete Service Function Paths
     [Documentation]    Delete Service Function Paths from ODL
     [Tags]    GBPSFCTEAR
     Remove All Elements At URI And Verify    ${SFP_PATH}
-
 
 Delete Service Function Chains
     [Documentation]    Delete Service Function Chains from ODL
@@ -53,5 +51,4 @@ Delete OVSDB Topology If Present
     [Documentation]    Delete OVSDB topology from ODL
     [Tags]    GBPSFCTEAR
     ${resp}    RequestsLibrary.Get    session    ${TOPOLOGY_PATH}
-    Run Keyword If    ${resp.status_code} == 200
-    ...    Remove All Elements At URI And Verify    ${TOPOLOGY_PATH}
+    Run Keyword If    ${resp.status_code} == 200    Remove All Elements At URI And Verify    ${TOPOLOGY_PATH}

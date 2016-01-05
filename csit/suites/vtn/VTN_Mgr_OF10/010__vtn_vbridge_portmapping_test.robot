@@ -39,11 +39,11 @@ Add a portmap for interface if1
 
 Add a portmap for interface if2
     [Documentation]    Create a portmap on Interface if2 of vBridge1
-    Add a portmap    Tenant1    vBridge1    if2    openflow:3     s3-eth1
+    Add a portmap    Tenant1    vBridge1    if2    openflow:3    s3-eth1
 
 Ping h1 to h3
     [Documentation]    Ping h1 to h3, verify no packet loss
-    BuiltIn.Wait_Until_Keyword_Succeeds    20   1    Mininet Ping Should Succeed    h1    h3
+    BuiltIn.Wait_Until_Keyword_Succeeds    20    1    Mininet Ping Should Succeed    h1    h3
 
 Add a vBridge vBridge2
     [Documentation]    Add a vBridge vBridge2 in vtn Tenant1
@@ -59,11 +59,11 @@ Add a interface if4
 
 Add a portmap for interface if3
     [Documentation]    Create a portmap on Interface if3 of vBridge1
-    Add a portmap    Tenant1    vBridge2    if3   openflow:2    s2-eth2
+    Add a portmap    Tenant1    vBridge2    if3    openflow:2    s2-eth2
 
 Add a portmap for interface if4
     [Documentation]    Create a portmap on Interface if4 of vBridge1
-    Add a portmap    Tenant1    vBridge2    if4    openflow:3     s3-eth2
+    Add a portmap    Tenant1    vBridge2    if4    openflow:3    s3-eth2
 
 Ping h2 to h4
     [Documentation]    Ping h2 to h4, verify no packet loss

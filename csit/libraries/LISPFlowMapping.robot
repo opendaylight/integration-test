@@ -5,7 +5,7 @@ Documentation     This resource file defines keywords that are used in more
 ...               variables are coming from.
 
 *** Variables ***
-${JSON_DIR}      ${CURDIR}/../variables/lispflowmapping/Be
+${JSON_DIR}       ${CURDIR}/../variables/lispflowmapping/Be
 
 *** Keywords ***
 Authentication Key Should Be

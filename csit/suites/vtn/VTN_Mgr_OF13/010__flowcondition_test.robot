@@ -5,7 +5,6 @@ Suite Teardown    Stop SuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
 
 *** Test Cases ***
-
 Add a flowcondition in restconfig
     [Documentation]    Create a flowcondition cond_1 using restconfig api
     Add a flowcondition    cond_1

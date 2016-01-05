@@ -7,15 +7,15 @@ Library           RequestsLibrary
 Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
-${ODL_VERSION}                        lithium-SR3
-${OPENSTACK_BRANCH}                   stable/liberty
-${NETWORKING-ODL_BRANCH}              ${OPENSTACK_BRANCH}
-${TEMPEST_REGEX}                      tempest.api.network
-${ODL_BOOT_WAIT_URL}                  restconf/operational/network-topology:network-topology/topology/netvirt:1
+${ODL_VERSION}    lithium-SR3
+${OPENSTACK_BRANCH}    stable/liberty
+${NETWORKING-ODL_BRANCH}    ${OPENSTACK_BRANCH}
+${TEMPEST_REGEX}    tempest.api.network
+${ODL_BOOT_WAIT_URL}    restconf/operational/network-topology:network-topology/topology/netvirt:1
 ${default_devstack_prompt_timeout}    10s
-${devstack_workspace}                 ~/ds_workspace
-${DEVSTACK_SYSTEM_PASSWORD}           # set to empty, but provide for others to override if desired
-${CLEAN_DEVSTACK_HOST}                False
+${devstack_workspace}    ~/ds_workspace
+${DEVSTACK_SYSTEM_PASSWORD}    \    # set to empty, but provide for others to override if desired
+${CLEAN_DEVSTACK_HOST}    False
 
 *** Test Cases ***
 Run Devstack Gate Wrapper
@@ -89,7 +89,6 @@ Devstack Suite Setup
     Write Commands Until Prompt    rm -rf devstack-gate
     Write Commands Until Prompt    git clone https://git.openstack.org/openstack-infra/devstack-gate    timeout=30s
 
-
 Clean DevStack Host In Case It Is Not Sterile
     [Documentation]    In upstream CI, the expectation is that the devstack VM is fresh, sterile and ready
     ...    for any version of devstack, networking-odl, and OpenDaylight. During local test development,
@@ -107,7 +106,6 @@ Clean DevStack Host In Case It Is Not Sterile
     Write Commands Until Prompt    sudo ovs-vsctl del-br br-ex
     Write Commands Until Prompt    sudo ovs-vsctl del-br br-int
     Write Commands Until Prompt    sudo ovs-vsctl del-manager
-
 
 Write Commands Until Prompt
     [Arguments]    ${cmd}    ${timeout}=${default_devstack_prompt_timeout}
@@ -130,4 +128,3 @@ Get Networking ODL Version Of Release
 Show Devstack Debugs
     Write Commands Until Prompt    gunzip /opt/stack/logs/devstacklog.txt.gz
     Write Commands Until Prompt    tail -n1000 /opt/stack/logs/devstacklog.txt    timeout=600s
-

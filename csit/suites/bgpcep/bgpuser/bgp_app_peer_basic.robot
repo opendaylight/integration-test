@@ -12,7 +12,7 @@ Documentation     Basic tests for BGP application peer.
 ...               and updates towards BGP peer as follows:
 ...
 ...               Test case 1: Initial BGP peer connection with pre-filled topology (Bug 4714),
-...               POST and simple DELETE requests used. 
+...               POST and simple DELETE requests used.
 ...               BGP_Application_Peer_Post_3_Initial_Routes,
 ...               Check_Example-IPv4-Topology_Is_Filled_With_3_Routes,
 ...               Connect_BGP_Peer,
