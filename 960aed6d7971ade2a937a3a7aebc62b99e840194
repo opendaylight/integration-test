@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1aa4ed85_d220684b",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-01-06T21:36:42Z",
+      "side": 1,
+      "message": "It\u0027s pretty hard to understand why this is doing what it\u0027s doing. imho, a fn-level docstring with an explanation of the params and inline explanations of each condition would be great.",
+      "revId": "960aed6d7971ade2a937a3a7aebc62b99e840194",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_921af015",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-01-06T21:36:42Z",
+      "side": 1,
+      "message": "Docstrings would be awesome. Examples:\n\nhttps://git.opendaylight.org/gerrit/#/c/22384/11/test/csit/libraries/Docker.py\nhttps://github.com/IEEERobotics/bot/blob/master/bot/server/ctrl_server.py",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 13
+      },
+      "revId": "960aed6d7971ade2a937a3a7aebc62b99e840194",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_f21b241a",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-01-06T21:36:42Z",
+      "side": 1,
+      "message": "`input` is a Python built-in fn, I suggest using something else (applies elsewhere)",
+      "range": {
+        "startLine": 59,
+        "startChar": 24,
+        "endLine": 59,
+        "endChar": 29
+      },
+      "revId": "960aed6d7971ade2a937a3a7aebc62b99e840194",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_b215ace6",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-01-06T21:36:42Z",
+      "side": 1,
+      "message": "Good use of Template, imho",
+      "range": {
+        "startLine": 77,
+        "startChar": 12,
+        "endLine": 77,
+        "endChar": 20
+      },
+      "revId": "960aed6d7971ade2a937a3a7aebc62b99e840194",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1aa4ed85_52d4781f",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-01-06T21:36:42Z",
+      "side": 1,
+      "message": "`list` is a Python built-in fn, I suggest using something else",
+      "range": {
+        "startLine": 141,
+        "startChar": 8,
+        "endLine": 141,
+        "endChar": 12
+      },
+      "revId": "960aed6d7971ade2a937a3a7aebc62b99e840194",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
