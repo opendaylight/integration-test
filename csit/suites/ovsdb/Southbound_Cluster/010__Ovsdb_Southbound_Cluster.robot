@@ -129,4 +129,55 @@ Check Shards Status After Recover
     [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
     Wait Until Keyword Succeeds    5s    1s    Check Ovsdb Shards Status    ${new_cluster_list}
 
+Check the fistnode Up and Scond and Third Restart Instance
+    [Documentation]    Down the 3 node and check the remaing status.
+    Remove Values From List    ${new_cluster_list}    ${original_owner}
+    Kill Multiple Controllers    ${new_cluster_list}
+    ${new_cluster_list}    Create Controller Index List
+    Set Suite Variable    ${new_cluster_list}
+    Take Ovsdb Device Link Up and Verify     ${original_owner}
+    Take Ovsdb Device Link  Down and Verify  ${new_cluster_list}
+    Take Ovsdb Device Link Up and Verify     ${original_owner}
+
+Create Bridge In Up Owner and Verify After Recover
+    [Documentation]    Create Bridge in up Owner and verify it gets applied from all down instances.
+    Create Bridge And Verify    ${new_cluster_list}    ${original_owner}
+
+Check Shards Status After Recover
+    [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
+    Wait Until Keyword Succeeds    5s    1s    Check Ovsdb Shards Status    ${new_cluster_list}
+
+Check the fistnode Down and Scond and Third Restart  Instance
+    [Documentation]    Down the 3 node and check the remaing status.
+    Remove Values From List    ${new_cluster_list}    ${original_owner}
+    Kill Multiple Controllers    ${new_cluster_list}
+    ${new_cluster_list}    Create Controller Index List
+    Set Suite Variable    ${new_cluster_list}
+    Take Ovsdb Device Link Down and Verify     ${original_owner}
+    Take Ovsdb Device Link  Up and Verify  ${new_cluster_list}
+    Take Ovsdb Device Link Down and Verify     ${original_owner}
+
+Create Bridge In Up Owner and Verify After Recover
+    [Documentation]    Create Bridge in up Owner and verify it gets applied from all down instances.
+    Create Bridge And Verify    ${new_cluster_list}    ${original_owner}
+
+Check Shards Status After Recover
+    [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
+    Wait Until Keyword Succeeds    5s    1s    Check Ovsdb Shards Status    ${new_cluster_list}
+
+To check the 3 nodes Restart Instance
+    [Documentation]    Tovirify the status about all nodes restart.
+    ${original_owner}    ${original_candidates_list}    Get Ovsdb Entity Owner Status For One Device    ${original_cluster_list}
+    ${original_candidate}=    Get From List    ${original_candidates_list}    0
+    Take Ovsdb Device Link Down and Verify     ${original_candidate}
+    Take Ovsdb Device Link Up and Verify     ${original_candidate}
+
+Create Bridge  Restart and Verify After Recover
+    [Documentation]    Create Bridge in up Owner and verify it gets applied from all down instances.
+    Create Bridge And Verify    ${new_cluster_list}    ${original_candidate}
+
+Check Shards Status After Recover
+    [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
+    Wait Until Keyword Succeeds    5s    1s    Check Ovsdb Shards Status    ${original_candidate}
+
 
