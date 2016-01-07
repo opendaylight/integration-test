@@ -45,6 +45,7 @@ Configure_Device_On_Netconf
     [Documentation]    Make request to configure a testtool device on Netconf connector.
     [Tags]    critical
     NetconfKeywords.Configure_Device_In_Netconf    ${device_name}
+    NetconfKeywords.Wait_Device_Connected    ${device_name}
 
 Check_ODL_Has_Netconf_Connector_For_Device
     [Documentation]    Get the list of configured devices and search for our device there. Fail if not found.
