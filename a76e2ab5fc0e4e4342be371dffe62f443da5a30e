@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_a7f40e88",
+        "filename": "csit/libraries/ClusterOvsdb.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-08T11:43:29Z",
+      "side": 1,
+      "message": "4 spaces",
+      "range": {
+        "startLine": 37,
+        "startChar": 43,
+        "endLine": 37,
+        "endChar": 45
+      },
+      "revId": "a76e2ab5fc0e4e4342be371dffe62f443da5a30e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
