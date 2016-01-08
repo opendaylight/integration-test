@@ -8,10 +8,13 @@ Documentation     netconf-connector readiness test suite.
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
 ...
-...               Query netconf-connector and see if it works. Some testsuites
-...               expect netconf-connector to be ready as soon as possible and
-...               will fail if it is not. We want to see a failure if this is
-...               the cause of the failure.
+...               Try to detect whether Netconf is up and running and wait for
+...               it for a configurable time if it is not yet up and running.
+...
+...               By default this is done by querying netconf-connector and
+...               seeing whether it works. Some testsuites expect netconf-connector
+...               to be ready as soon as possible and will fail if it is not. We
+...               want to see a failure if this is the cause of the failure.
 ...
 ...               If the netconf-connector is not ready upon startup (as seen by
 ...               the first test case failing), the second case starts to repeat
@@ -20,8 +23,20 @@ Documentation     netconf-connector readiness test suite.
 ...               indicates that the "ODL cooldown" of 1 minute is not long enough
 ...               to allow for netconf-connector to initialize properly.
 ...
+...               If the USE_NETCONF_CONNECTOR is forced to be False by the Robot
+...               invocation argument, then the suite does not use netconf
+...               connector for the readiness detection but merely waits for the
+...               Netconf topology to appear. This is a weaker condition when
+...               Netconf connector is about to be used but is necessary if the
+...               suite in question does not use the Netconf connector.
+...
 ...               If the first test case passed, then the second test case does
 ...               nothing.
+...
+...               The third test case then checks whether Netconf can pretty print
+...               data. This sometimes makes problems, most likely due to too
+...               new Robot Requests library with an interface incompatible with
+...               this test suite.
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Library           RequestsLibrary
@@ -32,31 +47,34 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 *** Variables ***
 ${netconf_is_ready}    False
 ${NETCONFREADY_WAIT}    60s
+${USE_NETCONF_CONNECTOR}    True
 ${DEBUG_LOGGING_FOR_EVERYTHING}    False
 
 *** Test Cases ***
-Check_Whether_Netconf_Connector_Works
-    [Documentation]    Make one request to netconf-connector and see if it works.
+Check_Whether_Netconf_Is_Up_And_Running
+    [Documentation]    Make one request to Netconf topology to see whether Netconf is up and running.
     [Tags]    exclude
-    Check_Netconf_Connector
+    Check_Netconf_Up_And_Running
     BuiltIn.Set_Suite_Variable    ${netconf_is_ready}    True
     [Teardown]    Utils.Report_Failure_Due_To_Bug    4708
 
-Wait_For_Netconf_Connector
-    [Documentation]    Attempt to wait for the netconf-connector for configurable time.
+Wait_For_Netconf
+    [Documentation]    Wait for the Netconf to go up for configurable time.
     [Tags]    critical
-    BuiltIn.Run_Keyword_Unless    ${netconf_is_ready}    BuiltIn.Wait_Until_Keyword_Succeeds    ${NETCONFREADY_WAIT}    1s    Check_Netconf_Connector
+    BuiltIn.Run_Keyword_Unless    ${netconf_is_ready}    BuiltIn.Wait_Until_Keyword_Succeeds    ${NETCONFREADY_WAIT}    1s    Check_Netconf_Up_And_Running
     BuiltIn.Set_Suite_Variable    ${netconf_is_ready}    True
     [Teardown]    Utils.Report_Failure_Due_To_Bug    4583
 
-Check_Whether_Netconf_Connector_Can_Pretty_Print
+Check_Whether_Netconf_Can_Pretty_Print
     [Documentation]    Make one request to netconf-connector and see if it works.
     [Tags]    critical
-    Check_Netconf_Connector    ?prettyPrint=true
+    Check_Netconf_Up_And_Running    ?prettyPrint=true
 
 *** Keywords ***
 Setup_Everything
     [Documentation]    Setup requests library and log into karaf.log that the netconf readiness wait starts.
+    ${connector}=    BuiltIn.Set_Variable_If    ${USE_NETCONF_CONNECTOR}    /node/controller-config/yang-ext:mount/config:modules/module/odl-sal-netconf-connector-cfg:sal-netconf-connector/controller-config    ${EMPTY}
+    BuiltIn.Set_Suite_Variable    ${netconf_connector}    ${connector}
     KarafKeywords.Open_Controller_Karaf_Console_On_Background
     KarafKeywords.Log_Message_To_Controller_Karaf    Starting Netconf readiness test suite
     BuiltIn.Run_Keyword_If    ${DEBUG_LOGGING_FOR_EVERYTHING}    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set DEBUG
@@ -67,9 +85,9 @@ Teardown_Everything
     KarafKeywords.Log_Message_To_Controller_Karaf    Ending Netconf readiness test suite
     RequestsLibrary.Delete_All_Sessions
 
-Check_Netconf_Connector
+Check_Netconf_Up_And_Running
     [Arguments]    ${pretty_print}=${EMPTY}
     [Documentation]    Make a request to netconf connector's list of mounted devices and check that the request was successful.
-    ${response}=    RequestsLibrary.Get    ses    restconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/odl-sal-netconf-connector-cfg:sal-netconf-connector/controller-config${pretty_print}
+    ${response}=    RequestsLibrary.Get    ses    restconf/config/network-topology:network-topology/topology/topology-netconf${netconf_connector}${pretty_print}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Be_Equal_As_Strings    ${response.status_code}    200
