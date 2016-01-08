@@ -33,7 +33,9 @@ Get Cluster Entity Owner For Ovsdb
     ${data}=    Get Data From URI    controller@{controller_index_list}[0]    /restconf/operational/entity-owners:entity-owners
     Log    ${data}
     ${data}=    Replace String    ${data}    /network-topology:network-topology/network-topology:topology[network-topology:topology-id='    ${EMPTY}
-    ${data}=    Replace String    ${data}    /network-topology:node[network-topology:node-id='ovsdb://uuid/a96ec4e2-c457-4a2c-963c-1e6300210032    ${EMPTY}
+    # the UUID will not always be the same so need to use regexp to remove this string
+    ${data}=    Replace String Using Regexp    ${data}    \/network-topology:node\\[network-topology:node-id='ovsdb://uuid/........-....-....-....-............    ${EMPTY}
+    Log    ${data}
     ${clear_data}=    Replace String    ${data}    ']    ${EMPTY}
     Log    ${clear_data}
     ${json}=    To Json    ${clear_data}
