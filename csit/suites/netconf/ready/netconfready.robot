@@ -41,6 +41,7 @@ Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Library           RequestsLibrary
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
+Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
 
@@ -70,6 +71,20 @@ Check_Whether_Netconf_Can_Pretty_Print
     [Tags]    critical
     Check_Netconf_Up_And_Running    ?prettyPrint=true
 
+Check_For_Bug_5014
+    [Documentation]    If Netconf appears to be down, it may be due to bug 5014. Check if it is so and fail if yes.
+    ...    Bug 5014 is about Netconf playing dead on boot until a device
+    ...    configuration request is sent to it. To uncover this attempt to
+    ...    configure and then deconfigure a device and then check if Netconf
+    ...    is now up and running. If that turns out to be true, fail the case
+    ...    as this signifies the bug 5014 to be present. Skip this testcase
+    ...    if Netconf is detected to be up and running.
+    [Tags]    critical
+    BuiltIn.Pass_Execution_If    ${netconf_is_ready}    Netconf was detected to be up and running so bug 5014 did not show up.
+    ${status}    ${error}=    BuiltIn.Run_Keyword_And_Ignore_Error    Check_Netconf_Usable
+    BuiltIn.Should_Be_Equal    '${status}'    'FAIL'
+    [Teardown]    Utils.Report_Failure_Due_To_Bug    5014
+
 *** Keywords ***
 Setup_Everything
     [Documentation]    Setup requests library and log into karaf.log that the netconf readiness wait starts.
@@ -79,6 +94,7 @@ Setup_Everything
     KarafKeywords.Log_Message_To_Controller_Karaf    Starting Netconf readiness test suite
     BuiltIn.Run_Keyword_If    ${DEBUG_LOGGING_FOR_EVERYTHING}    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set DEBUG
     RequestsLibrary.Create_Session    ses    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}
+    NetconfKeywords.Setup_Netconf_Keywords
     # TODO: Do not include slash in ${OPERATIONAL_TOPO_API}, having it typed here is more readable.
     # TODO: Alternatively, create variable in Variables which starts with http.
     # Both TODOs would probably need to update every suite relying on current Variables.
@@ -94,3 +110,8 @@ Check_Netconf_Up_And_Running
     ${response}=    RequestsLibrary.Get    ses    restconf/config/network-topology:network-topology/topology/topology-netconf${NETCONF_CONNECTOR}${pretty_print}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Be_Equal_As_Strings    ${response.status_code}    200
+
+Check_Netconf_Usable
+    NetconfKeywords.Configure_Device_In_Netconf    test-device    device_type=configure-via-topology
+    NetconfKeywords.Remove_Device_From_Netconf    test-device
+    Check_Netconf_Up_And_Running
