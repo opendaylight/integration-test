@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_f5c40061",
+        "filename": "csit/suites/lacp/Lacp_Feature_OF13/020__lacp_lag_resiliency.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-08T18:28:54Z",
+      "side": 1,
+      "message": "https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Commented-out_code",
+      "range": {
+        "startLine": 104,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 1
+      },
+      "revId": "e6cde974e76cd0dc452c538e405cc06766efebb1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
