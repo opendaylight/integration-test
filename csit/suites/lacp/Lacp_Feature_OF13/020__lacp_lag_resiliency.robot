@@ -51,6 +51,7 @@ Verify Switch(S1) Flow and Group tables data after H2 link up scenario
 
 *** Keywords ***
 Verify LACP RESTAPI Response Code for node
+    [Arguments]    ${resp}
     [Documentation]    Will check for the response code of the REST query
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${node1}
@@ -68,7 +69,7 @@ Verify LACP RESTAPI connector associated for aggregator
 Verify LACP aggregator data is updated post link down scenario
     [Documentation]    Functionality will verify the node conenctor data on the lacp-agg api after link down scenario
     ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_API}/node/${node1}/lacp-aggregators/${agg-id2}
-    Verify LACP RESTAPI Response Code for node
+    Verify LACP RESTAPI Response Code for node    ${resp}
     Verify LACP RESTAPI connector associated for aggregator    ${resp.content}    ${node1}    ${agg2-connector-id1}
     Should not Contain    ${resp.content}    ${node1}:${agg2-connector-id2}
     Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    lag-groupid
@@ -76,7 +77,7 @@ Verify LACP aggregator data is updated post link down scenario
 Verify LACP aggregator data is updated post link up scenario
     [Documentation]    Functionality will verify the node connector data on the lacp-agg api after link up scenario
     ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_API}/node/${node1}/lacp-aggregators/${agg-id2}
-    Verify LACP RESTAPI Response Code for node
+    Verify LACP RESTAPI Response Code for node    ${resp}
     Verify LACP RESTAPI connector associated for aggregator    ${resp.content}    ${node1}    ${agg2-connector-id1}
     Verify LACP RESTAPI connector associated for aggregator    ${resp.content}    ${node1}    ${agg2-connector-id2}
     Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    lag-groupid
@@ -84,7 +85,7 @@ Verify LACP aggregator data is updated post link up scenario
 Verify LACP Tags Are Formed
     [Documentation]    Fundamental Check That LACP is working
     ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_API}
-    Verify LACP RESTAPI Response Code for node
+    Verify LACP RESTAPI Response Code for node    ${resp}
     Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    non-lag-groupid
     Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    lacp-aggregators
 
@@ -98,9 +99,9 @@ Set Host interface state
     [Documentation]    Will configure the port state of the Host to either up or down
     Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
-    Execute Command    sudo ./m h2
-    Execute Command    sudo ifconfig ${port-id} ${port-state}
-    Execute Command    sudo ifconfig ${port-id}
+    Write      sudo ./m h2
+    Write      sudo ifconfig ${port-id}
+    Write      sudo ifconfig ${port-id} ${port-state}
 
 Verify Switch S1 Group Table
     [Arguments]    ${group-type}    ${port-id1}    ${port-id2}    ${port-id2-state}
