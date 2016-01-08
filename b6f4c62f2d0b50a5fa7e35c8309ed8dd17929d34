@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_4704227e",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-08T11:32:14Z",
+      "side": 1,
+      "message": "Perhaps define something like GLOBAL_TEST_DEADLINES in Variables.py so that testers can use the same variable no matter which component are they testing.",
+      "range": {
+        "startLine": 28,
+        "startChar": 34,
+        "endLine": 28,
+        "endChar": 38
+      },
+      "revId": "b6f4c62f2d0b50a5fa7e35c8309ed8dd17929d34",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
