@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_a769ae27",
+        "filename": "csit/suites/netconf/CRUD/CRUD.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-08T12:09:39Z",
+      "side": 1,
+      "message": "For scale suites, I recommend to first do a block of Configure and only then block of Wait. Waiting after each device would be unnecessarily slow.",
+      "range": {
+        "startLine": 48,
+        "startChar": 20,
+        "endLine": 48,
+        "endChar": 41
+      },
+      "revId": "f69dd7b11ce664ee6d6eb54040fa1f23e5c31265",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
