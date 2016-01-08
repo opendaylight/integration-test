@@ -19,7 +19,7 @@ Start Suite
     ...    is run.
     Log    Start the test on the base edition
     Clean Mininet System
-    ${mininet_conn_id}=    Open Connection    ${system}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${timeout}
+    ${mininet_conn_id}=    Open Connection    ${system}    prompt=${prompt}    timeout=${timeout}
     Set Suite Variable    ${mininet_conn_id}
     Flexible Mininet Login    user=${user}    password=${password}
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644

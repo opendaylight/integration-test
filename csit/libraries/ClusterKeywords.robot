@@ -96,7 +96,7 @@ Put And Check At URI In Cluster
     ...    and check the data is replicated in all instances in ${controller_index_list}.
     ${expected_body}=    Hsf Json    ${body}
     ${resp}    RequestsLibrary.Put Request    controller${controller_index}    ${uri}    ${body}    ${headers}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be Equal As Strings    ${resp.status_code}    201
     : FOR    ${i}    IN    @{controller_index_list}
     \    ${data}    Wait Until Keyword Succeeds    5s    1s    Get Data From URI    controller${i}
     \    ...    ${uri}    ${headers}
