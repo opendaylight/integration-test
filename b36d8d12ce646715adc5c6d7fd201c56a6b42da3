@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_67ecc6c8",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-08T11:23:14Z",
+      "side": 1,
+      "message": "This still uses the default global timeout of 30 minutes right?\nLooking at scales used in current jobs, that is quite reasonable. So even if computing the global timeout from device count would be an improvement, it is not needed to be implemented immediately in this Change.",
+      "range": {
+        "startLine": 151,
+        "startChar": 4,
+        "endLine": 151,
+        "endChar": 36
+      },
+      "revId": "b36d8d12ce646715adc5c6d7fd201c56a6b42da3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
