@@ -35,17 +35,17 @@ ${NETCONFREADY_WAIT}    60s
 ${DEBUG_LOGGING_FOR_EVERYTHING}    False
 
 *** Test Cases ***
-Check_Whether_Netconf_Connector_Works
-    [Documentation]    Make one request to netconf-connector and see if it works.
+Check_Whether_Netconf_Is_Up_And_Running
+    [Documentation]    Make one request to Netconf topology to see whether Netconf is up and running.
     [Tags]    exclude
-    Check_Netconf_Connector
+    Check_Netconf_Up_And_Running
     BuiltIn.Set_Suite_Variable    ${first_case_ok}    True
     [Teardown]    Utils.Report_Failure_Due_To_Bug    4708
 
-Wait_For_Netconf_Connector
-    [Documentation]    Attempt to wait for the netconf-connector for configurable time.
+Wait_For_Netconf
+    [Documentation]    Wait for the Netconf to go up for configurable time.
     [Tags]    critical
-    BuiltIn.Run_Keyword_Unless    ${first_case_ok}    BuiltIn.Wait_Until_Keyword_Succeeds    ${NETCONFREADY_WAIT}    1s    Check_Netconf_Connector
+    BuiltIn.Run_Keyword_Unless    ${first_case_ok}    BuiltIn.Wait_Until_Keyword_Succeeds    ${NETCONFREADY_WAIT}    1s    Check_Netconf_Up_And_Running
     [Teardown]    Utils.Report_Failure_Due_To_Bug    4583
 
 *** Keywords ***
@@ -64,8 +64,8 @@ Teardown_Everything
     KarafKeywords.Log_Message_To_Controller_Karaf    Ending Netconf readiness test suite
     RequestsLibrary.Delete_All_Sessions
 
-Check_Netconf_Connector
+Check_Netconf_Up_And_Running
     [Documentation]    Make a request to netconf connector's list of mounted devices and check that the request was successful.
-    ${response}=    RequestsLibrary.Get    ses    restconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/odl-sal-netconf-connector-cfg:sal-netconf-connector/controller-config/
+    ${response}=    RequestsLibrary.Get    ses    restconf/config/network-topology:network-topology/topology/topology-netconf
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Be_Equal_As_Strings    ${response.status_code}    200
