@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_d0f8eac6",
+        "filename": "csit/suites/ovsdb/Ovsdb_Net-virt/010_Ovsdb_Net_virt_flow.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-09T02:00:59Z",
+      "side": 1,
+      "message": "do you need this?",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 15,
+        "endChar": 43
+      },
+      "revId": "772cda9e7af34655e5470ee83b4ad34c9fda9914",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_f0ffeea8",
+        "filename": "csit/suites/ovsdb/Ovsdb_Net-virt/010_Ovsdb_Net_virt_flow.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-09T02:00:59Z",
+      "side": 1,
+      "message": "this seems like a really long time.  is it ever reasonable for it to take 5m?",
+      "range": {
+        "startLine": 40,
+        "startChar": 35,
+        "endLine": 40,
+        "endChar": 39
+      },
+      "revId": "772cda9e7af34655e5470ee83b4ad34c9fda9914",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_502cda4a",
+        "filename": "csit/suites/ovsdb/Ovsdb_Net-virt/020_Ovsdb_Southbound_Net-Virt.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-09T02:00:59Z",
+      "side": 1,
+      "message": "is this needed?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 11
+      },
+      "revId": "772cda9e7af34655e5470ee83b4ad34c9fda9914",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_303156a3",
+        "filename": "csit/suites/ovsdb/Ovsdb_Net-virt/020_Ovsdb_Southbound_Net-Virt.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-09T02:00:59Z",
+      "side": 1,
+      "message": "this is already in Variables.py",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 22
+      },
+      "revId": "772cda9e7af34655e5470ee83b4ad34c9fda9914",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_702bde30",
+        "filename": "csit/suites/ovsdb/Ovsdb_Net-virt/020_Ovsdb_Southbound_Net-Virt.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-09T02:00:59Z",
+      "side": 1,
+      "message": "do you want to move this to Variables.py as well?",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 22
+      },
+      "revId": "772cda9e7af34655e5470ee83b4ad34c9fda9914",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_d01f4a08",
+        "filename": "csit/suites/ovsdb/Ovsdb_Net-virt/020_Ovsdb_Southbound_Net-Virt.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-09T02:00:59Z",
+      "side": 1,
+      "message": "this looks like it was done for debugging purposes.  if you want it to be there in all future logs, it\u0027s fine.  just caught my eye",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 25
+      },
+      "revId": "772cda9e7af34655e5470ee83b4ad34c9fda9914",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_b01c4615",
+        "filename": "csit/suites/ovsdb/Ovsdb_Net-virt/020_Ovsdb_Southbound_Net-Virt.robot",
+        "patchSetId": 56
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-09T02:00:59Z",
+      "side": 1,
+      "message": "I don\u0027t think it\u0027s the case, but if there is potential for this list of checks to grow, you should write this like:\n\nfor ${element} in ${FLOW_TABLE_LIST}\n  Should Contain    ${output}    ${element}\n\n^^^\nsyntax might not be right.\n\nanyway, then in your *** Variables *** section above you create a ${FLOW_TABLE_LIST} variable that contains all of\nthose elements.  Makes it a little easier to maintain.\n\nonly a suggestion.",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 47
+      },
+      "revId": "772cda9e7af34655e5470ee83b4ad34c9fda9914",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
