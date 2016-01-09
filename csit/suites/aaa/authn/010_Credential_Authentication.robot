@@ -30,7 +30,7 @@ Fail To Get Token With Invalid Username And Password
     Should Be Equal As Strings    ${resp.status_code}    401
     Log    ${resp.content}
     ${error_msg}=    Extract Value From Content    ${resp.content}    /error    strip
-    Should Be Equal As Strings    ${error_msg}    User :${bad_user} does not exist
+    Should Contain    ${error_msg}    User :${bad_user} does not exist
 
 Create Token with Client Authorization
     [Documentation]    Get a token using client domain
@@ -43,6 +43,7 @@ Token Authentication In REST Request
     [Documentation]    Use a token to make a successful REST transaction
     ${auth_token}=    Get Auth Token
     Make REST Transaction    200    ${auth_token}
+
 
 Revoke Token And Verify Transaction Fails
     [Documentation]    negative test to revoke valid token and check that REST transaction fails
@@ -73,7 +74,6 @@ Make REST Transaction
     ${resp}=    RequestsLibrary.GET    ODL_SESSION    ${OPERATIONAL_NODES_API}    headers=${headers}
     Log    STATUS_CODE: ${resp.status_code} CONTENT: ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    ${expected_status_code}
-    Should Contain    ${resp.content}    nodes
 
 Credential Authentication Suite Setup
     Log    Suite Setup
