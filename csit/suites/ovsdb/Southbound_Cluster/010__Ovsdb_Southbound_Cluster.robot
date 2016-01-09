@@ -39,3 +39,4 @@ Check Entity Owner Status And Find Owner and Candidate Before Fail
 Create Bridge In Owner and Verify Before Fail
     [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
     Create Bridge And Verify    ${original_cluster_list}    ${original_owner}
+    [Teardown]    Report_Failure_Due_To_Bug    4908
