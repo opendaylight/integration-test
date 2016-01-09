@@ -68,12 +68,12 @@ Verify OVS Reports Connected
     Should Contain    ${output}    is_connected
 
 Get OVSDB UUID
-    [Arguments]    ${ovs_system_ip}=${TOOLS_SYSTEM_IP}    ${controller_ip}=${ODL_SYSTEM_IP}
+    [Arguments]    ${ovs_system_ip}=${TOOLS_SYSTEM_IP}    ${controller_ip}=${ODL_SYSTEM_IP}     ${controller_http_session}=session
     [Documentation]  Queries the topology in the operational datastore and searches for the node that has
     ...  the ${ovs_system_ip} argument as the "remote-ip".  If found, the value returned will be the value of
     ...  node-id stripped of "ovsdb://uuid/".  If not found, ${EMPTY} will be returned.
     ${uuid}=    Set Variable    ${EMPTY}
-    ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1
+    ${resp}=    RequestsLibrary.Get Request    ${controller_http_session}    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1
     Should Be Equal As Strings    ${resp.status_code}    200
     ${resp_json}=    To Json    ${resp.content}
     ${topologies}=    Get From Dictionary   ${resp_json}    topology

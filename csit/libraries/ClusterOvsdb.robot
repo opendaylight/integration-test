@@ -4,6 +4,7 @@ Library           RequestsLibrary
 Resource          ClusterKeywords.robot
 Resource          MininetKeywords.robot
 Resource          Utils.robot
+Resource          OVSDB.robot
 Variables         ../variables/Variables.py
 
 *** Keywords ***
@@ -62,20 +63,17 @@ Get Cluster Entity Owner For Ovsdb
 Create Bridge And Verify
     [Arguments]    ${controller_index_list}    ${controller_index}
     [Documentation]    Create bridge in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
-    ${sample}=    OperatingSystem.Get File    ${CURDIR}/../variables/ovsdb/create_bridge_3node.json
-    Log    ${sample}
-    ${sample1}    Replace String    ${sample}    tcp:controller1:6633    tcp:${ODL_SYSTEM_1_IP}:6640
-    Log    ${sample1}
-    ${sample2}    Replace String    ${sample1}    tcp:controller2:6633    tcp:${ODL_SYSTEM_2_IP}:6640
-    Log    ${sample2}
-    ${sample3}    Replace String    ${sample2}    tcp:controller3:6633    tcp:${ODL_SYSTEM_3_IP}:6640
-    Log    ${sample3}
-    ${sample4}    Replace String    ${sample3}    127.0.0.1    ${MININET}
-    Log    ${sample4}
-    ${sample5}    Replace String    ${sample4}    br01    ${BRIDGE}
-    Log    ${sample5}
-    ${body}    Replace String    ${sample5}    61644    ${OVSDB_PORT}
+    # need to get UUID which should be the same on all controllers in cluster, so asking controller1
+    ${ovsdb_uuid}=    Get OVSDB UUID    controller_http_session=controller1
+    ${body}=    OperatingSystem.Get File    ${CURDIR}/../variables/ovsdb/create_bridge_3node.json
+    ${body}    Replace String    ${body}     ovsdb://127.0.0.1:61644    ovsdb://uuid/${ovsdb_uuid}
+    ${body}    Replace String    ${body}    tcp:controller1:6633    tcp:${ODL_SYSTEM_1_IP}:6640
+    ${body}    Replace String    ${body}    tcp:controller2:6633    tcp:${ODL_SYSTEM_2_IP}:6640
+    ${body}    Replace String    ${body}    tcp:controller3:6633    tcp:${ODL_SYSTEM_3_IP}:6640
+    ${body}    Replace String    ${body}    127.0.0.1    ${MININET}
+    ${body}    Replace String    ${body}    br01    ${BRIDGE}
+    ${body}    Replace String    ${body}    61644    ${OVSDB_PORT}
     Log    ${body}
     ${dictionary}=    Create Dictionary    ${MININET}=1    ${OVSDBPORT}=4    ${BRIDGE}=1
-    Put And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2F${BRIDGE}    ${body}    ${HEADERS}
+    Put And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE}    ${body}    ${HEADERS}
     Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
