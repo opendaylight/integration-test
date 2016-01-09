@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_10909294",
+        "filename": "csit/libraries/ClusterKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-09T00:45:39Z",
+      "side": 1,
+      "message": "not sure if this will fly with others, but it seems that we will be having status code 200 OR 201 happening in the near term and maybe long term if it stays that way in Li/Be and only goes to proper 201 in Boron.",
+      "range": {
+        "startLine": 100,
+        "startChar": 4,
+        "endLine": 100,
+        "endChar": 52
+      },
+      "revId": "96fc48fc32415b461f7c1666d4bd0e6c75b662b1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
