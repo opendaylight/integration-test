@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_e0c39788",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-11T18:06:38Z",
+      "side": 1,
+      "message": "The commit message should describe difference between the latest patch set and its parent, shown as Base in Gerrit view (for example [0]).\nIt should not describe difference from previous patch sets, such comments are to be Posted as Gerrit Reply only.\n\n[0] https://git.opendaylight.org/gerrit/#/c/32255/5//COMMIT_MSG",
+      "revId": "d0cc7a1ae43d5324931a88c26cd48895a3c04ca7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
