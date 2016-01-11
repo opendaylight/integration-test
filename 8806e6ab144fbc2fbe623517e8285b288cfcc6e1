@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_607947fc",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-11T19:27:08Z",
+      "side": 1,
+      "message": "This does a wrong thing.\nSee next-to-last paragraph in \"Create scalar valiable\" of http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#variable-table",
+      "range": {
+        "startLine": 28,
+        "startChar": 65,
+        "endLine": 28,
+        "endChar": 73
+      },
+      "revId": "8806e6ab144fbc2fbe623517e8285b288cfcc6e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
