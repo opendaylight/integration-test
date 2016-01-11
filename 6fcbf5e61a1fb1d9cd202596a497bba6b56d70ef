@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_4a8d4231",
+        "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 4792
+      },
+      "writtenOn": "2016-01-11T15:29:48Z",
+      "side": 1,
+      "message": "These test are the basic ones .. I would keep it in the same test suite but I can remove these \"delimiters\" ...",
+      "parentUuid": "1aa4ed85_a52587c3",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 3
+      },
+      "revId": "6fcbf5e61a1fb1d9cd202596a497bba6b56d70ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_852c0bad",
         "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
         "patchSetId": 13
@@ -36,6 +60,30 @@
       "writtenOn": "2015-12-22T15:08:22Z",
       "side": 1,
       "message": "Is there a Bugzilla item on why this wait is needed?",
+      "range": {
+        "startLine": 159,
+        "startChar": 21,
+        "endLine": 159,
+        "endChar": 23
+      },
+      "revId": "6fcbf5e61a1fb1d9cd202596a497bba6b56d70ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_2ac43e3f",
+        "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 4792
+      },
+      "writtenOn": "2016-01-11T15:29:48Z",
+      "side": 1,
+      "message": "inserted just for being sure when debugging ... not needed ... to be removed",
+      "parentUuid": "1aa4ed85_852c0bad",
       "range": {
         "startLine": 159,
         "startChar": 21,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_edd0b0f9",
+        "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 4792
+      },
+      "writtenOn": "2016-01-11T15:29:48Z",
+      "side": 1,
+      "message": "I will add topology checks to avoid possible false passing in case of unsuccessful iBGP updates towards controller ...",
+      "parentUuid": "1aa4ed85_e5129f61",
+      "range": {
+        "startLine": 278,
+        "startChar": 4,
+        "endLine": 278,
+        "endChar": 39
+      },
+      "revId": "6fcbf5e61a1fb1d9cd202596a497bba6b56d70ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_18007e00",
         "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
         "patchSetId": 13
@@ -82,6 +154,30 @@
       "writtenOn": "2015-12-22T15:08:22Z",
       "side": 1,
       "message": "These two are called only once as far as I see. Are separate keywords needed?",
+      "range": {
+        "startLine": 343,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 22
+      },
+      "revId": "6fcbf5e61a1fb1d9cd202596a497bba6b56d70ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_4a09c294",
+        "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 4792
+      },
+      "writtenOn": "2016-01-11T15:29:48Z",
+      "side": 1,
+      "message": "... better readable? I would keep it ...",
+      "parentUuid": "1aa4ed85_18007e00",
       "range": {
         "startLine": 343,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_6a04867e",
+        "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 353,
+      "author": {
+        "id": 4792
+      },
+      "writtenOn": "2016-01-11T15:29:48Z",
+      "side": 1,
+      "message": "I will do it the same way ... keyword to be deleted",
+      "parentUuid": "1aa4ed85_c509a332",
+      "range": {
+        "startLine": 353,
+        "startChar": 0,
+        "endLine": 353,
+        "endChar": 27
+      },
+      "revId": "6fcbf5e61a1fb1d9cd202596a497bba6b56d70ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_b8104a4f",
         "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
         "patchSetId": 13
@@ -140,6 +260,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_2af27e9a",
+        "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 4792
+      },
+      "writtenOn": "2016-01-11T15:29:48Z",
+      "side": 1,
+      "message": "Creating such kind of resource files creates test suite dependencies. This keyword is not as useful as to have it generally available. I have defined it just for having the robot file more readable ... I would keep it just here, if possible",
+      "parentUuid": "1aa4ed85_b8104a4f",
+      "range": {
+        "startLine": 359,
+        "startChar": 0,
+        "endLine": 359,
+        "endChar": 18
+      },
+      "revId": "6fcbf5e61a1fb1d9cd202596a497bba6b56d70ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_9896ae93",
         "filename": "csit/variables/bgpuser/ebgp_peers/data.xml",
         "patchSetId": 13
@@ -151,6 +295,24 @@
       "writtenOn": "2015-12-22T15:08:22Z",
       "side": 1,
       "message": "Is this just a more configurable version of csit/variables/bgpuser/bgp_peer?\nPerhaps a Resource should be created which would containg default values and which would allow suites to override only the fields they want.",
+      "revId": "6fcbf5e61a1fb1d9cd202596a497bba6b56d70ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_6ad3e638",
+        "filename": "csit/variables/bgpuser/ebgp_peers/data.xml",
+        "patchSetId": 13
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 4792
+      },
+      "writtenOn": "2016-01-11T15:29:48Z",
+      "side": 1,
+      "message": "... it is about parameters presence as well + this ebgp_peers xml part shall be moved to https://git.opendaylight.org/gerrit/#/c/31778/11\n\nI will do it ...",
+      "parentUuid": "1aa4ed85_9896ae93",
       "revId": "6fcbf5e61a1fb1d9cd202596a497bba6b56d70ef",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -191,6 +353,30 @@
       "writtenOn": "2016-01-06T22:37:35Z",
       "side": 1,
       "message": "Not opposed, but the current method isn\u0027t bad enough for a -1 from me",
+      "parentUuid": "1aa4ed85_b8c12a82",
+      "range": {
+        "startLine": 772,
+        "startChar": 10,
+        "endLine": 772,
+        "endChar": 33
+      },
+      "revId": "6fcbf5e61a1fb1d9cd202596a497bba6b56d70ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_ca915254",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 772,
+      "author": {
+        "id": 4792
+      },
+      "writtenOn": "2016-01-11T15:29:48Z",
+      "side": 1,
+      "message": "The same for me ... If you find it as a blocking point I can re-work default parameter values handling (I would use the proposed dictionary.update approach). Anyway I would prefer to have this test running in releng (as there is no functional impact) ... please let me know ...",
       "parentUuid": "1aa4ed85_b8c12a82",
       "range": {
         "startLine": 772,
