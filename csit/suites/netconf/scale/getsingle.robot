@@ -28,7 +28,7 @@ ${DEVICE_COUNT}    500
 *** Test Cases ***
 Start_Test_Tool
     [Documentation]    Deploy and start test tool, then wait for all its devices to become online.
-    NetconfKeywords.Install_And_Start_Testtool    device-count=${DEVICE_COUNT}
+    NetconfKeywords.Install_And_Start_Testtool    device-count=${DEVICE_COUNT}    mdsal=false
 
 Configure_Devices_Onto_Netconf
     [Documentation]    Make requests to configure the testtool devices.
@@ -61,8 +61,6 @@ Setup_Everything
     # Connect to the tools machine
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
     Utils.Flexible_Mininet_Login
-    # Deploy testtool on it
-    NetconfKeywords.Install_And_Start_Testtool    device-count=${DEVICE_COUNT}
 
 Teardown_Everything
     [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.

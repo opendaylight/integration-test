@@ -67,7 +67,7 @@ Create_Device_Data
 
 Check_Device_Data_Is_Created
     [Documentation]    Get the device data and make sure it contains the created content.
-    Check_Config_Data    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud" xmlns:a="${ODL_NETCONF_NAMESPACE}" a:operation="replace"><l>Content</l></cont></data>
+    Check_Config_Data    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud"><l>Content</l></cont></data>
 
 Modify_Device_Data
     [Documentation]    Send a request to change the sample test data and check that the request went OK.
@@ -76,7 +76,7 @@ Modify_Device_Data
 
 Check_Device_Data_Is_Modified
     [Documentation]    Get the device data and make sure it contains the created content.
-    Check_Config_Data    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud" xmlns:a="${ODL_NETCONF_NAMESPACE}" a:operation="replace"><l>Modified Content</l></cont></data>
+    Check_Config_Data    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud"><l>Modified Content</l></cont></data>
 
 Delete_Device_Data
     [Documentation]    Send a request to delete the sample test data on the device and check that the request went OK.
