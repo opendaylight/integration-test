@@ -91,11 +91,15 @@ Check Item Occurrence At URI In Cluster
     \    Check Item Occurrence    ${data}    ${dictionary_item_occurrence}
 
 Put And Check At URI In Cluster
-    [Arguments]    ${controller_index_list}    ${controller_index}    ${uri}    ${body}    ${headers}=${HEADERS}
+    [Arguments]    ${controller_index_list}    ${controller_index}    ${uri}    ${body}    ${headers}=${HEADERS_YANG_JSON}
     [Documentation]    Send a PUT with the supplied ${uri} and ${body} to a ${controller_index}
     ...    and check the data is replicated in all instances in ${controller_index_list}.
     ${expected_body}=    Hsf Json    ${body}
-    ${resp}    RequestsLibrary.Put Request    controller${controller_index}    ${uri}    ${body}    ${headers}
+    Log    ${body}
+    ${json_body}=    To Json    ${body}
+    ${resp}    RequestsLibrary.Put Request    controller${controller_index}    ${uri}    ${json_body}    ${headers}
+    Log    ${resp.content}
+    Log    ${resp.status_code}
     ${status_code}=    Convert To String    ${resp.status_code}
     Should Match Regexp    ${status_code}    20(0|1)
     : FOR    ${i}    IN    @{controller_index_list}
