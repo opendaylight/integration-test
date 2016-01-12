@@ -191,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_7463c91a",
+        "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-12T15:48:53Z",
+      "side": 1,
+      "message": "\u003e checks for IPv4topology\n\nRight, I missed that.\n\n\u003e if there are some updates received\n\nIssue is not with updates\u003e0 but with no line in console. I agree that the current way is quite resilient against false passes, because it needs two updates\u003d0 lines which has 10 second delay (I missed that too).\nBut 60 seconds is still too much, something around 20 seconds should suffice.",
+      "parentUuid": "da33351e_54304556",
+      "range": {
+        "startLine": 278,
+        "startChar": 4,
+        "endLine": 278,
+        "endChar": 39
+      },
+      "revId": "6fcbf5e61a1fb1d9cd202596a497bba6b56d70ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_18007e00",
         "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
         "patchSetId": 13
