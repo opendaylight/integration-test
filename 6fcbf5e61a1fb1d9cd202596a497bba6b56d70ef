@@ -167,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_54304556",
+        "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 4792
+      },
+      "writtenOn": "2016-01-12T15:14:51Z",
+      "side": 1,
+      "message": "- please see the two added - simalar - checks for IPv4topology like\nCheck_Example_IPv4_Topology_Content    {\"prefix\":\"${BGP_PEER1_FIRST_PREFIX_IP}/${PREFIX_LEN}\"}\nCheck_Example_IPv4_Topology_Content    {\"prefix\":\"${BGP_PEER2_FIRST_PREFIX_IP}/${PREFIX_LEN}\"}\n\nIPv4Topology is - that way - checked for the first introduced prefix for each iBGP and play.py (as iBGP) log is finally checked for no received updates - as expected\n\n- the counter is cumulative ... if there are some updates received the counter cannot be 0 anymore independently of the timeout value ...",
+      "parentUuid": "da33351e_b441d10d",
+      "range": {
+        "startLine": 278,
+        "startChar": 4,
+        "endLine": 278,
+        "endChar": 39
+      },
+      "revId": "6fcbf5e61a1fb1d9cd202596a497bba6b56d70ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_18007e00",
         "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
         "patchSetId": 13
@@ -473,6 +497,30 @@
       "writtenOn": "2016-01-12T14:58:08Z",
       "side": 1,
       "message": "I have seen the following construction, it is shorter and nicer.\nI agree that this kind of handling is not really worth -1, but please add a TODO to improve that later.\n\nwr_prefixes \u003d wr_prefixes or self.wr_prefixes_default",
+      "range": {
+        "startLine": 773,
+        "startChar": 8,
+        "endLine": 774,
+        "endChar": 50
+      },
+      "revId": "6fcbf5e61a1fb1d9cd202596a497bba6b56d70ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_f43eb928",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 4792
+      },
+      "writtenOn": "2016-01-12T15:14:51Z",
+      "side": 1,
+      "message": "OK I will add an TODO item and create a new patch",
+      "parentUuid": "da33351e_349f8161",
       "range": {
         "startLine": 773,
         "startChar": 8,
