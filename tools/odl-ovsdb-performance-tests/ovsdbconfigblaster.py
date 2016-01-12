@@ -19,6 +19,8 @@ class OvsdbConfigBlaster (object):
                    'Accept': 'application/json'}
     GET_HEADERS = {'Accept': 'application/json',
                    'Authorization': 'Basic YWRtaW46YWRtaW4='}
+    DELETE_HEADERS = {'Accept': 'application/json',
+                      'Authorization': 'Basic YWRtaW46YWRtaW4='}
     TIMEOUT = 10
 
     def __init__(self,
@@ -29,7 +31,9 @@ class OvsdbConfigBlaster (object):
                  vswitch_remote_ip,
                  vswitch_remote_ovsdb_port,
                  vswitch_port_type,
-                 num_instances):
+                 delete_bridges,
+                 num_instances, ):
+
         """
         Args:
             :param controller_ip: The ODL host ip used to send RPCs
@@ -39,6 +43,7 @@ class OvsdbConfigBlaster (object):
             :param vswitch_remote_ip: The ip of remote Open vSwitch to use
             :param vswitch_remote_ovsdb_port: The ovsdb port of remote Open vSwitch to use
             :param vswitch_port_type: Port type to create
+            :param vswitch_lst_del_br: string containing a list of ovs switches on which BR'S should be deleted.
             :param num_instances: The number of instances (bridges, ports etc) to be added
         """
         logging.basicConfig(level=logging.DEBUG)
@@ -56,8 +61,8 @@ class OvsdbConfigBlaster (object):
                 vswitch_ip,
                 vswitch_remote_ovsdb_port, 'ovs-2')
         self.vswitch_port_type = vswitch_port_type
+        self.vswitch_lst_del_br = delete_bridges
         self.num_instances = num_instances
-
         self.connect_vswitch(self.vswitch_dict['ovs-1'])
         if self.vswitch_dict.get('ovs-2'):
             self.connect_vswitch(self.vswitch_dict['ovs-2'])
@@ -195,7 +200,7 @@ class OvsdbConfigBlaster (object):
         """
         bridge_name = 'br-0-test'
         self.add_bridge(1, 'ovs-1')
-        self.add_bridge(1, 'ovs-2')
+#        self.add_bridge(1, 'ovs-2')
 
         for instance in range(self.num_instances):
             for vswitch in self.vswitch_dict.itervalues():
@@ -244,6 +249,39 @@ class OvsdbConfigBlaster (object):
 
         self.session.close()
 
+    def delete_bridge(self,vswitch_lst_del_br, num_bridges):
+        """Add num_instances of bridge to ODL config
+        Args:
+            :param num_bridges: Number of bridges to delete
+            :param vswitch_lst_del_br: A list containing
+                                 an instances of Open vSwitch
+        """
+        for vswitch_names in vswitch_lst_del_br:
+            for br_num in range(num_bridges):
+                bridge_name = unicode('br-' + str(br_num) + '-test')
+                self.send_rest_del(self.session,
+                               self.vswitch_dict[vswitch_names]
+                               .get('post-url')
+                               + '%2Fbridge%2F'+ bridge_name)
+            self.session.close()
+
+    def send_rest_del(self, session, rest_url):
+        """Send an HTTP DELETE to the Rest URL and return the status code
+        Args:
+            :param session: The HTTP session handle
+            :return int: status_code - HTTP status code
+        """
+        ret = session.delete(rest_url,
+                             headers=self.DELETE_HEADERS,
+                             stream=False,
+                             timeout=self.TIMEOUT)
+
+        if ret.status_code is not 200:
+                raise ValueError(ret.text,
+                                 ret.status_code,
+                                 rest_url)
+        return ret.status_code
+
     def send_rest(self, session, rest_url, json_body):
         """Send an HTTP PUT to the Rest URL and return the status code
         Args:
@@ -266,10 +304,10 @@ class OvsdbConfigBlaster (object):
         return ret.status_code
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='Add bridge/port/term-points'
+    parser = argparse.ArgumentParser(description='Add:delete bridge/port/term-points'
                                                  ' to OpenDaylight')
 
-    parser.add_argument('--mode', default='bridge',
+    parser.add_argument('--mode', default='None',
                         help='Operating mode, can be "bridge", "port" or "term" \
                             (default is "bridge")')
     parser.add_argument('--controller', default='127.0.0.1',
@@ -293,6 +331,10 @@ if __name__ == "__main__":
     parser.add_argument('--vswitchporttype', default=None,
                         help='Port of remote Open vSwitch OVSDB server \
                             (default is none)')
+    parser.add_argument('--deletebridges',nargs='*',type=str, default=None,
+                        help='A list of switches on which to delete bridges, '
+                             'uses instances for number of bridges \
+                            (default is none)')
     parser.add_argument('--instances', type=int, default=1,
                         help='Number of instances to add/get (default 1)')
 
@@ -305,13 +347,16 @@ if __name__ == "__main__":
                                               args.vswitchremote,
                                               args.vswitchremoteport,
                                               args.vswitchporttype,
+                                              args.deletebridges,
                                               args.instances)
-
     if args.mode == "bridge":
-        ovsdb_config_blaster.add_bridge(ovsdb_config_blaster.num_instances)
+        if args.deletebridges !=None:
+            ovsdb_config_blaster.delete_bridge(ovsdb_config_blaster.vswitch_lst_del_br,ovsdb_config_blaster.num_instances)
+        else:
+            ovsdb_config_blaster.add_bridge(ovsdb_config_blaster.num_instances)
     elif args.mode == "term":
         ovsdb_config_blaster.add_port()
     elif args.mode == "port" and args.vswitchporttype is not None:
         ovsdb_config_blaster.add_port(args.vswitchporttype)
     else:
-        print "Unsupported mode:", args.mode
+        print "please use: python ovsdbconfigblaster.py --help \nUnsupported mode: ", args.mode
