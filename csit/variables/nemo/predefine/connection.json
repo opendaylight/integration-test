@@ -1,0 +1,42 @@
+{
+     "connection-definitions": {
+          "connection-definition":[
+                    {
+                         "connection-type": "p2p",
+                         "property-definition": [
+                                   {
+                                        "property-name": "bandwidth",
+                                        "property-value-type": "int"
+                                   }
+                              ]
+                    },
+                    {
+                         "connection-type": "p2mp",
+                         "property-definition": [
+                                   {
+                                        "property-name": "bandwidth",
+                                        "property-value-type": "int"
+                                   }
+                              ]
+                    },
+                    {
+                         "connection-type": "mesh",
+                         "property-definition": [
+                                   {
+                                        "property-name": "bandwidth",
+                                        "property-value-type": "int"
+                                   }
+                              ]
+                    },
+                    {
+                         "connection-type": "chain",
+                         "property-definition": [
+                                   {
+                                        "property-name": "bandwidth",
+                                        "property-value-type": "int"
+                                   }
+                              ]
+                    }
+               ]
+          }
+}
