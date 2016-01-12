@@ -95,7 +95,8 @@ Put And Check At URI In Cluster
     [Documentation]    Send a PUT with the supplied ${uri} and ${body} to a ${controller_index}
     ...    and check the data is replicated in all instances in ${controller_index_list}.
     ${expected_body}=    Hsf Json    ${body}
-    ${resp}    RequestsLibrary.Put Request    controller${controller_index}    ${uri}    ${body}    ${headers}
+    ${json_body}=    To Json    ${body}
+    ${resp}    RequestsLibrary.Put Request    controller${controller_index}    ${uri}    ${json_body}    ${headers}
     ${status_code}=    Convert To String    ${resp.status_code}
     Should Match Regexp    ${status_code}    20(0|1)
     : FOR    ${i}    IN    @{controller_index_list}
