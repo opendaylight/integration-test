@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_efd0a0f9",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-12T17:31:09Z",
+      "side": 1,
+      "message": "I am slightly in favor of using tag \"critical\", even if this tests Restconf functionality not related to Netconf.",
+      "range": {
+        "startLine": 53,
+        "startChar": 14,
+        "endLine": 53,
+        "endChar": 21
+      },
+      "revId": "effecce01e91bd22ed9e325c61c3a5a6eee5209a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_0fd8641c",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-12T17:31:09Z",
+      "side": 1,
+      "message": "Failure in this test case points points to a Bug in integration/test or releng/builder.\nUtils.Report_Failure_Due_To_Bug could be used, but no big deal if not, as those project do not really have crubbibg internal Bugzilla bugs in their workflow.",
+      "range": {
+        "startLine": 55,
+        "startChar": 58,
+        "endLine": 55,
+        "endChar": 58
+      },
+      "revId": "effecce01e91bd22ed9e325c61c3a5a6eee5209a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_cfcddc5f",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-12T17:31:09Z",
+      "side": 1,
+      "message": "Why? Just delete this line.",
+      "range": {
+        "startLine": 55,
+        "startChar": 54,
+        "endLine": 55,
+        "endChar": 58
+      },
+      "revId": "effecce01e91bd22ed9e325c61c3a5a6eee5209a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_6fddb014",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-12T17:31:09Z",
+      "side": 1,
+      "message": "I believe URI parameters are usually used without this slash (although I think both ODL and Robot libraries do not care either way).",
+      "range": {
+        "startLine": 76,
+        "startChar": 255,
+        "endLine": 76,
+        "endChar": 256
+      },
+      "revId": "effecce01e91bd22ed9e325c61c3a5a6eee5209a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
