@@ -143,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "da33351e_b441d10d",
+        "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-12T14:58:08Z",
+      "side": 1,
+      "message": "Ok, but I still see no such check in patch set 15.\nAlso, 60 seconds may be too much time to see zero total once.",
+      "parentUuid": "da33351e_edd0b0f9",
+      "range": {
+        "startLine": 278,
+        "startChar": 4,
+        "endLine": 278,
+        "endChar": 39
+      },
+      "revId": "6fcbf5e61a1fb1d9cd202596a497bba6b56d70ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_18007e00",
         "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
         "patchSetId": 13
@@ -178,6 +202,30 @@
       "side": 1,
       "message": "... better readable? I would keep it ...",
       "parentUuid": "1aa4ed85_18007e00",
+      "range": {
+        "startLine": 343,
+        "startChar": 0,
+        "endLine": 343,
+        "endChar": 22
+      },
+      "revId": "6fcbf5e61a1fb1d9cd202596a497bba6b56d70ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_94464d22",
+        "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 343,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-12T14:58:08Z",
+      "side": 1,
+      "message": "Alright, no big deal.",
+      "parentUuid": "da33351e_4a09c294",
       "range": {
         "startLine": 343,
         "startChar": 0,
@@ -272,6 +320,30 @@
       "side": 1,
       "message": "Creating such kind of resource files creates test suite dependencies. This keyword is not as useful as to have it generally available. I have defined it just for having the robot file more readable ... I would keep it just here, if possible",
       "parentUuid": "1aa4ed85_b8104a4f",
+      "range": {
+        "startLine": 359,
+        "startChar": 0,
+        "endLine": 359,
+        "endChar": 18
+      },
+      "revId": "6fcbf5e61a1fb1d9cd202596a497bba6b56d70ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_d4ca956d",
+        "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-12T14:58:08Z",
+      "side": 1,
+      "message": "Yes, it is a trade-off between readability and maintainability. Personally, I prefer maintainability.\n\nI have expanded [0] and added TODO to signify it is open to discussion.\n\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Code_reuse",
+      "parentUuid": "da33351e_2af27e9a",
       "range": {
         "startLine": 359,
         "startChar": 0,
@@ -383,6 +455,29 @@
         "startChar": 10,
         "endLine": 772,
         "endChar": 33
+      },
+      "revId": "6fcbf5e61a1fb1d9cd202596a497bba6b56d70ef",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_349f8161",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 774,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-12T14:58:08Z",
+      "side": 1,
+      "message": "I have seen the following construction, it is shorter and nicer.\nI agree that this kind of handling is not really worth -1, but please add a TODO to improve that later.\n\nwr_prefixes \u003d wr_prefixes or self.wr_prefixes_default",
+      "range": {
+        "startLine": 773,
+        "startChar": 8,
+        "endLine": 774,
+        "endChar": 50
       },
       "revId": "6fcbf5e61a1fb1d9cd202596a497bba6b56d70ef",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
