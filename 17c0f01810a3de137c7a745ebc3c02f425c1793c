@@ -36,6 +36,24 @@
     },
     {
       "key": {
+        "uuid": "da33351e_03f9654d",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 3496
+      },
+      "writtenOn": "2016-01-12T23:23:00Z",
+      "side": 1,
+      "message": "delete_bridges is list object it has no atrribute split(), and its not required to split . vswitch_lst_del_br can be iterated in the delete_bridge function for each ovs.",
+      "parentUuid": "1aa4ed85_7d162da9",
+      "revId": "17c0f01810a3de137c7a745ebc3c02f425c1793c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1aa4ed85_9d76893d",
         "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
         "patchSetId": 1
