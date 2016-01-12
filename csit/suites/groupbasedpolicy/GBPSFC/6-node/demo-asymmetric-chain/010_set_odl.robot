@@ -42,11 +42,11 @@ Wait For Manager and Switch Connected on GBPSFC4
 
 Put Service Function Chains
     [Documentation]    Register Service Function Chains to ODL
-    Add Elements To URI From File    ${SFC_PATH}    ${SFC_ASYMM_FILE}
+    Add Elements To URI From File    ${SFC_PATH}    ${SFC_ASYMM_FILE}   ${HEADERS}
 
 Put Service Function Paths
     [Documentation]    Register Service Function Paths to ODL
-    Add Elements To URI From File    ${SFP_PATH}    ${SFP_ASYMM_FILE}
+    Add Elements To URI From File    ${SFP_PATH}    ${SFP_ASYMM_FILE}   ${HEADERS}
 
 Put Tunnels
     [Documentation]    Send tunnel augmentation to ODL
@@ -58,7 +58,7 @@ Put Tunnels
 
 Put Tenant
     [Documentation]    Send Tenant Data to ODL
-    Add Elements To URI From File    ${TENANT_PATH}    ${TENANT_ASYMM_FILE}
+    Add Elements To URI From File    ${TENANT_PATH}    ${TENANT_ASYMM_FILE}    ${HEADERS}
 
 Register Endpoints
     [Documentation]    Endpoints registration
