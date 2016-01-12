@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for setting up infrastructure for demo-asymmetric-chain
-Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_YANG_JSON}
 Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
 Library           OperatingSystem
@@ -15,7 +15,7 @@ Put Service Functions
     ${json_to_edit}    OperatingSystem.Get File    ${SF_FILE}
     ${edited_json}    Replace String    ${json_to_edit}    _SF1    ${GBPSFC3}
     ${edited_json}    Replace String    ${edited_json}    _SF2    ${GBPSFC5}
-    ${resp}    RequestsLibrary.Put    session    ${SF_PATH}    ${edited_json}    ${HEADERS}
+    ${resp}    RequestsLibrary.Put    session    ${SF_PATH}    ${edited_json}    ${HEADERS_YANG_JSON}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Put Service Function Forwarders
@@ -23,7 +23,7 @@ Put Service Function Forwarders
     ${json_to_edit}    OperatingSystem.Get File    ${SFF_FILE}
     ${edited_json}    Replace String    ${json_to_edit}    _SFF1    ${GBPSFC2}
     ${edited_json}    Replace String    ${edited_json}    _SFF2    ${GBPSFC4}
-    ${resp}    RequestsLibrary.Put    session    ${SFF_PATH}    ${edited_json}    ${HEADERS}
+    ${resp}    RequestsLibrary.Put    session    ${SFF_PATH}    ${edited_json}    ${HEADERS_YANG_JSON}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Wait For Manager and Switch Connected on GBPSFC2
@@ -42,23 +42,23 @@ Wait For Manager and Switch Connected on GBPSFC4
 
 Put Service Function Chains
     [Documentation]    Register Service Function Chains to ODL
-    Add Elements To URI From File    ${SFC_PATH}    ${SFC_ASYMM_FILE}
+    Add Elements To URI From File    ${SFC_PATH}    ${SFC_ASYMM_FILE}   ${HEADERS_YANG_JSON}
 
 Put Service Function Paths
     [Documentation]    Register Service Function Paths to ODL
-    Add Elements To URI From File    ${SFP_PATH}    ${SFP_ASYMM_FILE}
+    Add Elements To URI From File    ${SFP_PATH}    ${SFP_ASYMM_FILE}   ${HEADERS_YANG_JSON}
 
 Put Tunnels
     [Documentation]    Send tunnel augmentation to ODL
     ${json_to_edit}    OperatingSystem.Get File    ${TUNNELS_FILE}
     ${edited_json}    Replace String    ${json_to_edit}    _CLASSIFIER1    ${GBPSFC1}
     ${edited_json}    Replace String    ${edited_json}    _CLASSIFIER2    ${GBPSFC6}
-    ${resp}    RequestsLibrary.Put    session    ${TUNNELS_PATH}    ${edited_json}    ${HEADERS}
+    ${resp}    RequestsLibrary.Put    session    ${TUNNELS_PATH}    ${edited_json}    ${HEADERS_YANG_JSON}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Put Tenant
     [Documentation]    Send Tenant Data to ODL
-    Add Elements To URI From File    ${TENANT_PATH}    ${TENANT_ASYMM_FILE}
+    Add Elements To URI From File    ${TENANT_PATH}    ${TENANT_ASYMM_FILE}    ${HEADERS_YANG_JSON}
 
 Register Endpoints
     [Documentation]    Endpoints registration
