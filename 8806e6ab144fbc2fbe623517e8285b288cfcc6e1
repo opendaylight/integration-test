@@ -22,6 +22,30 @@
       "revId": "8806e6ab144fbc2fbe623517e8285b288cfcc6e1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_54796592",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-01-12T14:09:00Z",
+      "side": 1,
+      "message": "That turns out to be cruft from the old statement left behind by a mistake. Good you caught that. Fixed.",
+      "parentUuid": "da33351e_607947fc",
+      "range": {
+        "startLine": 28,
+        "startChar": 65,
+        "endLine": 28,
+        "endChar": 73
+      },
+      "revId": "8806e6ab144fbc2fbe623517e8285b288cfcc6e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
