@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_ef25400b",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-12T17:55:45Z",
+      "side": 1,
+      "message": "This check is specific to Netconf, specifically Perform_Operation_On_Each_Device, so it is not job-global, suite-global, not even testcase-global (there may be more than one invocation of Perform_Operation_On_Each_Device).\n\nAs GLOBAL is included in the Variables variable, this may need another name. What about Check_Bulk_Timeout?",
+      "range": {
+        "startLine": 170,
+        "startChar": 17,
+        "endLine": 170,
+        "endChar": 37
+      },
+      "revId": "a4f241042832170225b6c1e75e960c93253967b8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_8f88f4e8",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-12T17:55:45Z",
+      "side": 1,
+      "message": "My first guess was there would be no If here, but Return_From_Keyword_If in line 172 instead.\nI am not sure how to summarize my feelings into the guide [0], so no big deal.\n\n[0] https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines",
+      "range": {
+        "startLine": 178,
+        "startChar": 4,
+        "endLine": 178,
+        "endChar": 26
+      },
+      "revId": "a4f241042832170225b6c1e75e960c93253967b8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
