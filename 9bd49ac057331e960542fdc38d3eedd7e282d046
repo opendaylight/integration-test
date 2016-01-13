@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_78f3b773",
+        "filename": "csit/libraries/ClusterKeywords.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-13T11:46:59Z",
+      "side": 1,
+      "message": "Looking at [0] line 870 (now relevant also for Put_Request due to line 481), this is only needed for application/json so if content type is not given, or it is given as ${HEADERS_YANG_JSON}, this will fail.\n\nI am seriously considering creating contributions to robotframework-requests to make recent \"features\" (this json.dumps or retry decorator from line 29) configurable, so we may disable them.\n\n[0] https://github.com/bulkan/robotframework-requests/blob/db9b21ccf827d35ac30005d322e8eea3528d8af3/src/RequestsLibrary/RequestsKeywords.py",
+      "range": {
+        "startLine": 99,
+        "startChar": 21,
+        "endLine": 99,
+        "endChar": 28
+      },
+      "revId": "9bd49ac057331e960542fdc38d3eedd7e282d046",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
