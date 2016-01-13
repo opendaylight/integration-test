@@ -31,9 +31,17 @@ Usage:python isolate.py [controller to be isolated]
 """
 
 import sys
-sys.path.append('../../../csit/libraries')
-import UtilLibrary
-import json
+
+
+def import_utility_modules():
+    global UtilLibrary,json
+    import sys
+    sys.path.append('../../../csit/libraries')
+    import UtilLibrary
+    import json
+
+
+import_utility_modules()
 
 try:
     with open('cluster.json') as cluster_file:

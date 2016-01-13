@@ -28,9 +28,17 @@ Usage:python rejoin.py
  """
 
 import sys
-sys.path.append('../../../csit/libraries')
-import UtilLibrary
-import json
+
+
+def import_utility_modules():
+    global UtilLibrary,json
+    import sys
+    sys.path.append('../../../csit/libraries')
+    import UtilLibrary
+    import json
+
+
+import_utility_modules()
 
 try:
     with open('cluster.json') as cluster_file:
