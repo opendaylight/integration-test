@@ -25,7 +25,7 @@ Create Controller Sessions
     ${NUM_ODL_SYSTEM}=    Convert to Integer    ${NUM_ODL_SYSTEM}
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    Log    Create Session ${ODL_SYSTEM_${i+1}_IP}
-    \    Create Session    controller${i+1}    http://${ODL_SYSTEM_${i+1}_IP}:${RESTCONFPORT}    auth=${AUTH}
+    \    Create Session    controller${i+1}    http://${ODL_SYSTEM_${i+1}_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 
 Get Cluster Shard Status
     [Arguments]    ${controller_index_list}    ${shard_type}    ${shard}
