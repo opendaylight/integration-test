@@ -30,6 +30,8 @@ ${pathpolicy_topo_10}    sudo mn --controller=remote,ip=${CONTROLLER} --custom t
 @{PATHMAP_ATTR}    "index":"1"    "condition":"flowcond_path"    "policy":"1"
 ${policy_id}      1
 ${in_port}        1
+${dscp_action}    set_field:32->nw_tos_shifted
+@{inet_actions}    nw_src=10.0.0.1   nw_dst=10.0.0.3
 @{PATHPOLICY_ATTR}    "id":1    "port-desc":"openflow:4,2,s4-eth2"
 ${custom}         ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
 
@@ -272,6 +274,13 @@ Verify macaddress
     Should Contain    ${result}    ${sourcemacaddress}
     Should Contain    ${result}    ${destmacaddress}
 
+Verify flowactions
+    [Arguments]    ${actions}    ${DUMPFLOWS}
+    [Documentation]    Verify the flowfilter actions after ping in the dumpflows
+    write    ${DUMPFLOWS}
+    ${result}    Read Until    mininet>
+    Should Contain    ${result}    ${actions}
+
 Add a vtn flowfilter
     [Arguments]    ${vtn_name}    ${vtnflowfilter_data}
     [Documentation]    Create a flowfilter for a vtn
@@ -290,10 +299,11 @@ Add a vbrif flowfilter
     ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-filter:set-flow-filter    data={"input": {"tenant-name": ${vtn_name}, "bridge-name": "${vBridge_name}","interface-name":"${interface_name}",${vbrif_flowfilter_data}}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
-Verify Flow Entry for Inet Flowfilter
+Verify Flow Entries for Flowfilter
+    [Arguments]    @{flowfilter_actions}
     [Documentation]    Verify switch flow entry using flowfilter for a vtn
-    ${booleanValue}=    Run Keyword And Return Status    Verify Actions on Flow Entry
-    Should Not Be Equal As Strings    ${booleanValue}    True
+    ${booleanValue}=    Run Keyword And Return Status    Verify Actions on Flow Entry    @{flowfilter_actions}
+    Should Be Equal As Strings    ${booleanValue}    True
 
 Verify Removed Flow Entry for Inet Drop Flowfilter
     [Documentation]    Verify removed switch flow entry using flowfilter drop for a vtn
@@ -301,16 +311,17 @@ Verify Removed Flow Entry for Inet Drop Flowfilter
     Should Be Equal As Strings    ${booleanValue}    True
 
 Verify Actions on Flow Entry
+    [Arguments]    @{flowfilter_actions}
     [Documentation]    check flow action elements by giving dumpflows in mininet
     write    ${DUMPFLOWS_OF13}
     ${result}    Read Until    mininet>
-    : FOR    ${flowElement}    IN    @{FLOWELMENTS}
+    : FOR    ${flowElement}    IN    @{flowfilter_actions}
     \    should Contain    ${result}    ${flowElement}
 
 Add a flowcondition
-    [Arguments]    ${flowcond_name}
+    [Arguments]    ${flowcond_name}    ${flowconditiondata}
     [Documentation]    Create a flowcondition using Restconfig Api
-    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-condition:set-flow-condition    data={"input":{"operation":"SET","present":"false","name":"${flowcond_name}", "vtn-flow-match":[{"vtn-ether-match":{"destination-address":"ba:bd:0f:e3:a8:c8","ether-type":"2048","source-address":"ca:9e:58:0c:1e:f0","vlan-id": "1"},"vtn-inet-match":{"source-network":"10.0.0.1/32","protocol":1,"destination-network":"10.0.0.2/32"},"index":"1"}]}}
+    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-condition:set-flow-condition    data={"input":{"operation":"SET","present":"false","name":"${flowcond_name}",${flowconditiondata}}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Get flowconditions
