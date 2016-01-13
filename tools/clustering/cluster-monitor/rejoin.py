@@ -28,7 +28,7 @@ Usage:python rejoin.py
  """
 
 import sys
-sys.path.append('../../../csit/libraries')
+import addlibdir
 import UtilLibrary
 import json
 

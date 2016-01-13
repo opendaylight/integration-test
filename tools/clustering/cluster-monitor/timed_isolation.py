@@ -32,7 +32,7 @@ Usage:python timed_isolation.py [controller to be isolated]  [duration of isolat
 """
 
 import sys
-sys.path.append('../../../csit/libraries')
+import addlibdir
 import UtilLibrary
 import json
 import time

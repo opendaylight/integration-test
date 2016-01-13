@@ -31,7 +31,7 @@ Usage:python isolate.py [controller to be isolated]
 """
 
 import sys
-sys.path.append('../../../csit/libraries')
+import addlibdir
 import UtilLibrary
 import json
 
