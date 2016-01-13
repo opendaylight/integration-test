@@ -1,16 +1,17 @@
 """
 Script to add bridges/ports/termination points to ovsdb config
 """
+import argparse
+import logging
+import requests
+
+
 __author__ = 'Marcus Williams'
 __copyright__ = "Copyright (c) 2015, Intel Corp Inc., Cisco Systems Inc. and others"
 __credits__ = ["Jan Medved, Lori Jakab"]
 __license__ = "New-style BSD"
 __email__ = "marcus.williams@intel.com"
 __version__ = "0.0.1"
-
-import argparse
-import logging
-import requests
 
 
 class OvsdbConfigBlaster (object):
@@ -102,19 +103,18 @@ class OvsdbConfigBlaster (object):
             'ip': vswitch_ip,
             'remote-ip':  vswitch_remote_ip,
             'ovsdb-port': vswitch_ovsdb_port,
-            'node-id': 'ovsdb://%s:%s'
-            % (vswitch_ip,
-               vswitch_ovsdb_port),
-            'post-url': urlprefix
-            + OvsdbConfigBlaster.return_ovsdb_url(
+            'node-id': 'ovsdb://%s:%s' %
+            (vswitch_ip, vswitch_ovsdb_port),
+            'post-url': urlprefix +
+            OvsdbConfigBlaster.return_ovsdb_url(
                 vswitch_ip,
                 vswitch_ovsdb_port),
-            'get-config-url': urlprefix
-            + OvsdbConfigBlaster.return_ovsdb_url(
+            'get-config-url': urlprefix +
+            OvsdbConfigBlaster.return_ovsdb_url(
                 vswitch_ip,
                 vswitch_ovsdb_port),
-            'get-oper-url': urlprefix
-            + OvsdbConfigBlaster.return_ovsdb_url(
+            'get-oper-url': urlprefix +
+            OvsdbConfigBlaster.return_ovsdb_url(
                 vswitch_ip,
                 vswitch_ovsdb_port)}})
 
@@ -181,9 +181,9 @@ class OvsdbConfigBlaster (object):
             }
             self.send_rest(self.session,
                            self.vswitch_dict[vswitch_name]
-                           .get('post-url')
-                           + '%2Fbridge%2F'
-                           + bridge_name,
+                           .get('post-url') +
+                           '%2Fbridge%2F' +
+                           bridge_name,
                            add_bridge_body)
         self.session.close()
 

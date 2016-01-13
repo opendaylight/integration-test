@@ -1,9 +1,5 @@
 #!/usr/bin/python
 
-__author__ = "Gary Wu"
-__email__ = "gary.wu1@huawei.com"
-
-
 import requests
 import argparse
 import time
@@ -13,6 +9,11 @@ import operator
 import collections
 
 from Queue import Queue
+
+
+__author__ = "Gary Wu"
+__email__ = "gary.wu1@huawei.com"
+
 
 GET_HEADERS = {'Accept': 'application/json'}
 

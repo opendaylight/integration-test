@@ -22,9 +22,11 @@ and networks.
 
 """
 
+import struct
+
+
 __version__ = '2.1.11'
 
-import struct
 
 IPV4LENGTH = 32
 IPV6LENGTH = 128
@@ -455,8 +457,8 @@ class _BaseIP(_IPAddrBase):
 
     def __eq__(self, other):
         try:
-            return (self._ip == other._ip
-                    and self._version == other._version)
+            return (self._ip == other._ip and
+                    self._version == other._version)
         except AttributeError:
             return NotImplemented
 
@@ -617,13 +619,13 @@ class _BaseNet(_IPAddrBase):
 
     def __eq__(self, other):
         try:
-            return (self._version == other._version
-                    and self.network == other.network
-                    and int(self.netmask) == int(other.netmask))
+            return (self._version == other._version and
+                    self.network == other.network and
+                    int(self.netmask) == int(other.netmask))
         except AttributeError:
             if isinstance(other, _BaseIP):
-                return (self._version == other._version
-                        and self._ip == other._ip)
+                return (self._version == other._version and
+                        self._ip == other._ip)
 
     def __ne__(self, other):
         eq = self.__eq__(other)
@@ -1362,10 +1364,17 @@ class IPv4Network(_BaseV4, _BaseNet):
             self.iterhosts = self.__iter__
 
     # backwards compatibility
-    IsRFC1918 = lambda self: self.is_private
-    IsMulticast = lambda self: self.is_multicast
-    IsLoopback = lambda self: self.is_loopback
-    IsLinkLocal = lambda self: self.is_link_local
+    def IsRFC1918(self):
+        return self.is_private
+
+    def IsMulticast(self):
+        return self.is_multicast
+
+    def IsLoopback(self):
+        return self.is_loopback
+
+    def IsLinkLocal(self):
+        return self.is_link_local
 
 
 class _BaseV6(object):

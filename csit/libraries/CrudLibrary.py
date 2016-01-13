@@ -1,11 +1,13 @@
-__author__ = "Basheeruddin Ahmed"
-__copyright__ = "Copyright(c) 2014, Cisco Systems, Inc."
-__license__ = "New-style BSD"
-__email__ = "syedbahm@cisco.com"
 import sys
 import UtilLibrary
 import SettingsLibrary
 import time
+
+
+__author__ = "Basheeruddin Ahmed"
+__copyright__ = "Copyright(c) 2014, Cisco Systems, Inc."
+__license__ = "New-style BSD"
+__email__ = "syedbahm@cisco.com"
 
 
 def initCar(hostname, port):
@@ -77,7 +79,7 @@ def addPerson(hostname, port, numberOfPersons, *expected):
         payload = SettingsLibrary.add_person_rpc_payload_template.substitute(
             personId="user" + strId, gender=genderToggle, age=(20 + x % 100),
             address=strId + "Way, Some Country, Some Zip  " + str(x % 1000),
-            contactNo= "some number" + strId)
+            contactNo="some number" + strId)
         # Send the POST request using RPC
         resp = UtilLibrary.post(SettingsLibrary.getAddPersonRpcUrl(hostname, port), "admin", "admin", payload)
 
