@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_decd8b5f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-13T17:03:01Z",
+      "side": 1,
+      "message": "please use a more descriptive message here.  Even just using\n\"nemo\" in the message would be helpful when someone is viewing git history.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 16
+      },
+      "revId": "9d5c15cfe6dea98c94e3465fc4d9bff666bcf24c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_1ed8931c",
+        "filename": "csit/suites/nemo/engine/NEMO_ENGINE.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-13T17:03:01Z",
+      "side": 1,
+      "message": "we have ${MODULES_API} in Variables.py already, so you don\u0027t need this.  I also suggest seeing what variables below are going to be common for nemo suites and moving those to a variables file so you aren\u0027t duplicating.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 36
+      },
+      "revId": "9d5c15cfe6dea98c94e3465fc4d9bff666bcf24c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_3edbd71c",
+        "filename": "csit/suites/nemo/engine/NEMO_ENGINE.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-13T17:03:01Z",
+      "side": 1,
+      "message": "you should probably be using ${CURDIR} for these variables.  see here:\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Importing",
+      "revId": "9d5c15cfe6dea98c94e3465fc4d9bff666bcf24c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_9e030373",
+        "filename": "csit/suites/nemo/engine/NEMO_ENGINE.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-13T17:03:01Z",
+      "side": 1,
+      "message": "missing t",
+      "revId": "9d5c15cfe6dea98c94e3465fc4d9bff666bcf24c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_befec769",
+        "filename": "csit/suites/nemo/engine/NEMO_ENGINE.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-13T17:03:01Z",
+      "side": 1,
+      "message": "add empty line here",
+      "revId": "9d5c15cfe6dea98c94e3465fc4d9bff666bcf24c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
