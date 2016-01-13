@@ -5,17 +5,18 @@
 # terms of the Eclipse Public License v1.0 which accompanies this distribution,
 # and is available at http://www.eclipse.org/legal/epl-v10.html
 
-__author__ = "Vratko Polak"
-__copyright__ = "Copyright(c) 2015, Cisco Systems, Inc."
-__license__ = "Eclipse Public License v1.0"
-__email__ = "vrpolak@cisco.com"
-
 try:
     import simplejson as _json
 except ImportError:  # Python2.7 calls it json.
     import json as _json
 from hsfl import Hsfl as _Hsfl
 from hsfod import Hsfod as _Hsfod
+
+
+__author__ = "Vratko Polak"
+__copyright__ = "Copyright(c) 2015, Cisco Systems, Inc."
+__license__ = "Eclipse Public License v1.0"
+__email__ = "vrpolak@cisco.com"
 
 
 def _hsfl_array(s_and_end, scan_once, **kwargs):

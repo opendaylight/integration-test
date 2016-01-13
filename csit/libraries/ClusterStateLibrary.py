@@ -1,13 +1,14 @@
-__author__ = "Basheeruddin Ahmed"
-__copyright__ = "Copyright(c) 2014, Cisco Systems, Inc."
-__license__ = "New-style BSD"
-__email__ = "syedbahm@cisco.com"
-
 import SettingsLibrary
 from time import sleep
 import UtilLibrary
 import json
 import sys
+
+
+__author__ = "Basheeruddin Ahmed"
+__copyright__ = "Copyright(c) 2014, Cisco Systems, Inc."
+__license__ = "New-style BSD"
+__email__ = "syedbahm@cisco.com"
 
 
 def getClusterRoles(shardName, numOfShards=3, numOfTries=3, sleepBetweenRetriesInSecs=3, port=8181, *ips):
