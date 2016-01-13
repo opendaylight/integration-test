@@ -129,11 +129,9 @@ def run_thread(thread_target, *thread_args):
 args = parse_arguments()
 
 # Construct the work for the workers.
-url_start = (
-    'config/'
-    "network-topology:network-topology/topology/topology-netconf/node/"
-    + args.name + "-"
-)
+url_start = 'config/network-topology:network-topology/'
+url_start += "topology/topology-netconf/node/"
+url_start += args.name + "-"
 url_end = "/yang-ext:mount"
 headers = {'Content-Type': 'application/xml', "Accept": "application/xml"}
 kwargs = {"headers": headers}
