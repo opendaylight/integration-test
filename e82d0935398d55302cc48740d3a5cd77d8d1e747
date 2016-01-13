@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_03f95cc8",
+        "filename": "tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-13T13:15:42Z",
+      "side": 1,
+      "message": "msg\nflake8 does not require snake_case yet, but it may in future",
+      "range": {
+        "startLine": 669,
+        "startChar": 12,
+        "endLine": 669,
+        "endChar": 15
+      },
+      "revId": "e82d0935398d55302cc48740d3a5cd77d8d1e747",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
