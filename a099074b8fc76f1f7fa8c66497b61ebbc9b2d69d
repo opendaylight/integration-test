@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da33351e_34db011d",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-13T09:03:32Z",
+      "side": 1,
+      "message": "without T",
+      "range": {
+        "startLine": 9,
+        "startChar": 2,
+        "endLine": 9,
+        "endChar": 7
+      },
+      "revId": "a099074b8fc76f1f7fa8c66497b61ebbc9b2d69d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_7404697e",
+        "filename": "csit/suites/bgpcep/bgpuser/ebgp_peers_basic.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-13T09:03:32Z",
+      "side": 1,
+      "message": "Mention 2 eBGP peers (instead \"application\").",
+      "range": {
+        "startLine": 2,
+        "startChar": 54,
+        "endLine": 2,
+        "endChar": 55
+      },
+      "revId": "a099074b8fc76f1f7fa8c66497b61ebbc9b2d69d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_54096594",
+        "filename": "csit/suites/bgpcep/bgpuser/ebgp_peers_basic.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-13T09:03:32Z",
+      "side": 1,
+      "message": "2016? Or perhaps 2015-2016.",
+      "range": {
+        "startLine": 4,
+        "startChar": 32,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "a099074b8fc76f1f7fa8c66497b61ebbc9b2d69d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_b4fef169",
+        "filename": "csit/suites/bgpcep/bgpuser/ebgp_peers_basic.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-13T09:03:32Z",
+      "side": 1,
+      "message": "${eBGP_PEER1_FIRST_PREFIX_IP}?",
+      "range": {
+        "startLine": 48,
+        "startChar": 33,
+        "endLine": 48,
+        "endChar": 40
+      },
+      "revId": "a099074b8fc76f1f7fa8c66497b61ebbc9b2d69d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_742bc9eb",
+        "filename": "csit/suites/bgpcep/bgpuser/ebgp_peers_basic.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-13T09:03:32Z",
+      "side": 1,
+      "message": "I am not sure about finer points of BGP specification, but I think it would be safer to use different AS number.\n\nBut the same AS number is an interesting case for finding possible bugs. So if BGP protocol is OK with two different border routers in the same AS specifying different next hops, we may keep this.",
+      "range": {
+        "startLine": 61,
+        "startChar": 20,
+        "endLine": 61,
+        "endChar": 35
+      },
+      "revId": "a099074b8fc76f1f7fa8c66497b61ebbc9b2d69d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_74c74913",
+        "filename": "csit/suites/bgpcep/bgpuser/ebgp_peers_basic.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-13T09:03:32Z",
+      "side": 1,
+      "message": "Just before this, it would be nice to check iBGP peer sees the prefixes removed.",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 21
+      },
+      "revId": "a099074b8fc76f1f7fa8c66497b61ebbc9b2d69d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_344e61c2",
+        "filename": "csit/suites/bgpcep/bgpuser/ebgp_peers_basic.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-13T09:03:32Z",
+      "side": 1,
+      "message": "BGP as one of them is iBGP.",
+      "range": {
+        "startLine": 165,
+        "startChar": 7,
+        "endLine": 165,
+        "endChar": 11
+      },
+      "revId": "a099074b8fc76f1f7fa8c66497b61ebbc9b2d69d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_94d64dc4",
+        "filename": "csit/suites/bgpcep/bgpuser/ebgp_peers_basic.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-13T09:03:32Z",
+      "side": 1,
+      "message": "This is 4 lines (plus one empty line) for 2 lines of real code. I doubt the increased readability is worth it, especially comparing to other lines in Setup_Everything.\n\nPerhaps make it a single Keyword with configurable alias value?",
+      "range": {
+        "startLine": 208,
+        "startChar": 0,
+        "endLine": 208,
+        "endChar": 23
+      },
+      "revId": "a099074b8fc76f1f7fa8c66497b61ebbc9b2d69d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_34e5c1a8",
+        "filename": "csit/suites/bgpcep/bgpuser/ebgp_peers_basic.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-13T09:03:32Z",
+      "side": 1,
+      "message": "You got rid of these in Change 31356.",
+      "range": {
+        "startLine": 223,
+        "startChar": 0,
+        "endLine": 223,
+        "endChar": 28
+      },
+      "revId": "a099074b8fc76f1f7fa8c66497b61ebbc9b2d69d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_54f32573",
+        "filename": "csit/suites/bgpcep/bgpuser/ebgp_peers_basic.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-13T09:03:32Z",
+      "side": 1,
+      "message": "This is additional argument for https://git.opendaylight.org/gerrit/#/c/31356/13/csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot@359",
+      "range": {
+        "startLine": 232,
+        "startChar": 0,
+        "endLine": 232,
+        "endChar": 18
+      },
+      "revId": "a099074b8fc76f1f7fa8c66497b61ebbc9b2d69d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da33351e_549a0515",
+        "filename": "csit/variables/bgpuser/ebgp_peers/data.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-13T09:03:32Z",
+      "side": 1,
+      "message": "Probably https://git.opendaylight.org/gerrit/32410 will be merged before this, so you may want to change the data too.",
+      "range": {
+        "startLine": 11,
+        "startChar": 83,
+        "endLine": 11,
+        "endChar": 98
+      },
+      "revId": "a099074b8fc76f1f7fa8c66497b61ebbc9b2d69d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
