@@ -1,8 +1,4 @@
 #!/usr/bin/python
-__author__ = "Jan Medved"
-__copyright__ = "Copyright(c) 2015, Cisco Systems, Inc."
-__license__ = "New-style BSD"
-__email__ = "jmedved@cisco.com"
 
 import argparse
 import requests
@@ -10,6 +6,13 @@ import json
 import csv
 import time
 import re
+
+
+__author__ = "Jan Medved"
+__copyright__ = "Copyright(c) 2015, Cisco Systems, Inc."
+__license__ = "New-style BSD"
+__email__ = "jmedved@cisco.com"
+
 
 parser = argparse.ArgumentParser(description='Datastore Benchmarking'
                                              ''

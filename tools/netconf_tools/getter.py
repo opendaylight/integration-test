@@ -23,17 +23,17 @@ overhead of context switching remains).
 # terms of the Eclipse Public License v1.0 which accompanies this distribution,
 # and is available at http://www.eclipse.org/legal/epl-v10.html
 
-__author__ = "Vratko Polak"
-__copyright__ = "Copyright(c) 2015, Cisco Systems, Inc."
-__license__ = "Eclipse Public License v1.0"
-__email__ = "vrpolak@cisco.com"
-
-
 import argparse
 import collections  # For deque and Counter.
 import threading
 import time
 import AuthStandalone
+
+
+__author__ = "Vratko Polak"
+__copyright__ = "Copyright(c) 2015, Cisco Systems, Inc."
+__license__ = "Eclipse Public License v1.0"
+__email__ = "vrpolak@cisco.com"
 
 
 def str2bool(text):
