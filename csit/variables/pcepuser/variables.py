@@ -180,8 +180,8 @@ def get_variables(mininet_ip):
     add_xml_templ = Template('''<input xmlns="urn:opendaylight:params:xml:ns:yang:topology:pcep">
  <node>pcc://$IP</node>
  <name>$NAME</name>
- <network-topology-ref xmlns:topo="urn:TBD:params:xml:ns:yang:network-topology">/topo:network-topology/topo:topology'''
-                             + '''[topo:topology-id="pcep-topology"]</network-topology-ref>
+ <network-topology-ref xmlns:topo="urn:TBD:params:xml:ns:yang:network-topology">/topo:network-topology/topo:topology''' +
+                             '''[topo:topology-id="pcep-topology"]</network-topology-ref>
  <arguments>
   <lsp xmlns="urn:opendaylight:params:xml:ns:yang:pcep:ietf:stateful">
    <delegate>true</delegate>
@@ -204,8 +204,9 @@ def get_variables(mininet_ip):
     update_xml_templ = Template('''<input xmlns="urn:opendaylight:params:xml:ns:yang:topology:pcep">
  <node>pcc://$IP</node>
  <name>$NAME</name>
- <network-topology-ref xmlns:topo="urn:TBD:params:xml:ns:yang:network-topology">/topo:network-topology/topo:topology'''
-                                + '''[topo:topology-id="pcep-topology"]</network-topology-ref>
+ <network-topology-ref ''' +
+ '''xmlns:topo="urn:TBD:params:xml:ns:yang:network-topology">/topo:network-topology/topo:topology''' +
+                                '''[topo:topology-id="pcep-topology"]</network-topology-ref>
  <arguments>
   <lsp xmlns="urn:opendaylight:params:xml:ns:yang:pcep:ietf:stateful">
    <delegate>true</delegate>
@@ -226,8 +227,9 @@ def get_variables(mininet_ip):
     remove_xml_templ = Template('''<input xmlns="urn:opendaylight:params:xml:ns:yang:topology:pcep">
  <node>pcc://$IP</node>
  <name>$NAME</name>
- <network-topology-ref xmlns:topo="urn:TBD:params:xml:ns:yang:network-topology">/topo:network-topology/topo:topology'''
-                                + '''[topo:topology-id="pcep-topology"]</network-topology-ref>
+ <network-topology-ref ''' +
+ '''xmlns:topo="urn:TBD:params:xml:ns:yang:network-topology">/topo:network-topology/topo:topology''' +
+                                '''[topo:topology-id="pcep-topology"]</network-topology-ref>
 </input>''')
     # The operations can be applied to either delegated or instantiated tunnel, NAME is the only distinguishing value.
     # Also, the final IP substitution can be done here.

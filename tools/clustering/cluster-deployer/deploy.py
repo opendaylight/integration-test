@@ -212,27 +212,27 @@ class Deployer:
                              distribution_name + " " + self.dir_name + "/odl")
 
         # Copy all the generated files to the server
-        self.remote.mkdir(self.dir_name
-                          + "/odl/configuration/initial")
-        self.remote.copy_file(akka_conf, self.dir_name
-                              + "/odl/configuration/initial/")
-        self.remote.copy_file(module_shards_conf, self.dir_name
-                              + "/odl/configuration/initial/")
-        self.remote.copy_file(modules_conf, self.dir_name
-                              + "/odl/configuration/initial/")
-        self.remote.copy_file(features_cfg, self.dir_name
-                              + "/odl/etc/")
-        self.remote.copy_file(jolokia_xml, self.dir_name
-                              + "/odl/deploy/")
-        self.remote.copy_file(management_cfg, self.dir_name
-                              + "/odl/etc/")
+        self.remote.mkdir(self.dir_name +
+                          "/odl/configuration/initial")
+        self.remote.copy_file(akka_conf, self.dir_name +
+                              "/odl/configuration/initial/")
+        self.remote.copy_file(module_shards_conf, self.dir_name +
+                              "/odl/configuration/initial/")
+        self.remote.copy_file(modules_conf, self.dir_name +
+                              "/odl/configuration/initial/")
+        self.remote.copy_file(features_cfg, self.dir_name +
+                              "/odl/etc/")
+        self.remote.copy_file(jolokia_xml, self.dir_name +
+                              "/odl/deploy/")
+        self.remote.copy_file(management_cfg, self.dir_name +
+                              "/odl/etc/")
 
         if datastore_cfg is not None:
             self.remote.copy_file(datastore_cfg, self.dir_name + "/odl/etc/")
 
         # Add symlink
-        self.remote.exec_cmd("ln -sfn " + self.dir_name + " "
-                             + args.rootdir + "/deploy/current")
+        self.remote.exec_cmd("ln -sfn " + self.dir_name + " " +
+                             args.rootdir + "/deploy/current")
 
         # Run karaf
         self.remote.start_controller(self.dir_name)
@@ -258,10 +258,10 @@ def main():
     replicas = {}
 
     for x in range(0, len(hosts)):
-        ds_seed_nodes.append("akka.tcp://opendaylight-cluster-data@"
-                             + hosts[x] + ":2550")
-        rpc_seed_nodes.append("akka.tcp://odl-cluster-rpc@"
-                              + hosts[x] + ":2551")
+        ds_seed_nodes.append("akka.tcp://opendaylight-cluster-data@" +
+                             hosts[x] + ":2550")
+        rpc_seed_nodes.append("akka.tcp://odl-cluster-rpc@" +
+                              hosts[x] + ":2551")
         all_replicas.append("member-" + str(x + 1))
 
     for x in range(0, 10):
