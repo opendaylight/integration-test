@@ -30,6 +30,7 @@ ${pathpolicy_topo_10}    sudo mn --controller=remote,ip=${CONTROLLER} --custom t
 @{PATHMAP_ATTR}    "index":"1"    "condition":"flowcond_path"    "policy":"1"
 ${policy_id}      1
 ${in_port}        1
+${dscp_action}    mod_nw_tos:128
 @{PATHPOLICY_ATTR}    "id":1    "port-desc":"openflow:4,2,s4-eth2"
 ${custom}         ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
 
@@ -272,6 +273,13 @@ Verify macaddress
     Should Contain    ${result}    ${sourcemacaddress}
     Should Contain    ${result}    ${destmacaddress}
 
+Verify flowactions
+    [Arguments]    ${actions}    ${DUMPFLOWS}
+    [Documentation]    Verify the flowfilter actions after ping in the dumpflows
+    write    ${DUMPFLOWS}
+    ${result}    Read Until    mininet>
+    Should Contain    ${result}    ${actions}
+
 Add a vtn flowfilter
     [Arguments]    ${vtn_name}    ${vtnflowfilter_data}
     [Documentation]    Create a flowfilter for a vtn
@@ -308,9 +316,9 @@ Verify Actions on Flow Entry
     \    should Contain    ${result}    ${flowElement}
 
 Add a flowcondition
-    [Arguments]    ${flowcond_name}
+    [Arguments]    ${flowcond_name}    ${flowconditiondata}
     [Documentation]    Create a flowcondition using Restconfig Api
-    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-condition:set-flow-condition    data={"input":{"operation":"SET","present":"false","name":"${flowcond_name}", "vtn-flow-match":[{"vtn-ether-match":{"destination-address":"ba:bd:0f:e3:a8:c8","ether-type":"2048","source-address":"ca:9e:58:0c:1e:f0","vlan-id": "1"},"vtn-inet-match":{"source-network":"10.0.0.1/32","protocol":1,"destination-network":"10.0.0.2/32"},"index":"1"}]}}
+    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-condition:set-flow-condition    data={"input":{"operation":"SET","present":"false","name":"${flowcond_name}",${flowconditiondata}}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Get flowconditions
