@@ -4,10 +4,14 @@ Suite Setup       Start SuiteVtnMaTest
 Suite Teardown    Stop SuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
 
+*** Variables ***
+${flowconditiondata}    "vtn-flow-match":[{"vtn-inet-match":{"source-network":"10.0.0.1/32","protocol":1,"destination-network":"10.0.0.3/32"},"index":"1"}]
+
 *** Test Cases ***
+
 Add a flowcondition in restconfig
     [Documentation]    Create a flowcondition cond_1 using restconfig api
-    Add a flowcondition    cond_1
+    Add a flowcondition    cond_1    ${flowconditiondata}
 
 Get flowcondition
     [Documentation]    Retrieve the flowcondition by name
