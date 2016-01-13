@@ -5,6 +5,7 @@ Suite Teardown    Stop PathSuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
 
 *** Variables ***
+${flowconditiondata}     "vtn-flow-match":[{"vtn-ether-match":{"destination-address":"ba:bd:0f:e3:a8:c8","ether-type":"2048","source-address":"ca:9e:58:0c:1e:f0","vlan-id": "1"},"vtn-inet-match":{"source-network":"10.0.0.1/32","protocol":1,"destination-network":"10.0.0.2/32"},"index":"1"}]
 ${pathmapdata}    {"input":{"tenant-name":"Tenant_path","path-map-list":[{"condition":"flowcond_path","policy":"1","index": "1","idle-timeout":"300","hard-timeout":"0"}]}}
 ${pathpolicydata}    {"input":{"operation":"SET","id": "1","default-cost": "10000","vtn-path-cost": [{"port-desc":"openflow:1,3,s1-eth3","cost":"1000"},{"port-desc":"openflow:4,2,s4-eth2","cost":"1000"},{"port-desc":"openflow:3,3,s3-eth3","cost":"100000"}]}}
 
@@ -59,7 +60,7 @@ Verify flowEntryBeforePathPolicy
 
 Add a flowcondition flowcond_path
     [Documentation]    Create a flowcondition flowcond_path
-    Add a flowcondition    flowcond_path
+    Add a flowcondition    flowcond_path    ${flowconditiondata}
 
 Add a pathmap
     [Documentation]    Create a pathmap in the vtn
