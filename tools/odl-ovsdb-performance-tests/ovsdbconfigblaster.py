@@ -102,19 +102,19 @@ class OvsdbConfigBlaster (object):
             'ip': vswitch_ip,
             'remote-ip':  vswitch_remote_ip,
             'ovsdb-port': vswitch_ovsdb_port,
-            'node-id': 'ovsdb://%s:%s'
-            % (vswitch_ip,
+            'node-id': 'ovsdb://%s:%s' %
+            (vswitch_ip,
                vswitch_ovsdb_port),
-            'post-url': urlprefix
-            + OvsdbConfigBlaster.return_ovsdb_url(
+            'post-url': urlprefix +
+            OvsdbConfigBlaster.return_ovsdb_url(
                 vswitch_ip,
                 vswitch_ovsdb_port),
-            'get-config-url': urlprefix
-            + OvsdbConfigBlaster.return_ovsdb_url(
+            'get-config-url': urlprefix +
+            OvsdbConfigBlaster.return_ovsdb_url(
                 vswitch_ip,
                 vswitch_ovsdb_port),
-            'get-oper-url': urlprefix
-            + OvsdbConfigBlaster.return_ovsdb_url(
+            'get-oper-url': urlprefix +
+            OvsdbConfigBlaster.return_ovsdb_url(
                 vswitch_ip,
                 vswitch_ovsdb_port)}})
 
@@ -181,9 +181,9 @@ class OvsdbConfigBlaster (object):
             }
             self.send_rest(self.session,
                            self.vswitch_dict[vswitch_name]
-                           .get('post-url')
-                           + '%2Fbridge%2F'
-                           + bridge_name,
+                           .get('post-url') +
+                           '%2Fbridge%2F' +
+                           bridge_name,
                            add_bridge_body)
         self.session.close()
 

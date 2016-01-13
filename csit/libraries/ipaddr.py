@@ -455,8 +455,8 @@ class _BaseIP(_IPAddrBase):
 
     def __eq__(self, other):
         try:
-            return (self._ip == other._ip
-                    and self._version == other._version)
+            return (self._ip == other._ip and
+                    self._version == other._version)
         except AttributeError:
             return NotImplemented
 
@@ -617,13 +617,13 @@ class _BaseNet(_IPAddrBase):
 
     def __eq__(self, other):
         try:
-            return (self._version == other._version
-                    and self.network == other.network
-                    and int(self.netmask) == int(other.netmask))
+            return (self._version == other._version and
+                    self.network == other.network and
+                    int(self.netmask) == int(other.netmask))
         except AttributeError:
             if isinstance(other, _BaseIP):
-                return (self._version == other._version
-                        and self._ip == other._ip)
+                return (self._version == other._version and
+                        self._ip == other._ip)
 
     def __ne__(self, other):
         eq = self.__eq__(other)
