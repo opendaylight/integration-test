@@ -31,17 +31,19 @@ But that may not be true for more mature implementation.
 # terms of the Eclipse Public License v1.0 which accompanies this distribution,
 # and is available at http://www.eclipse.org/legal/epl-v10.html
 
+import argparse
+import collections  # For deque and Counter.
+import ipaddr
+import threading
+import time
+
+
 __author__ = "Vratko Polak"
 __copyright__ = "Copyright(c) 2015, Cisco Systems, Inc."
 __license__ = "Eclipse Public License v1.0"
 __email__ = "vrpolak@cisco.com"
 
 
-import argparse
-import collections  # For deque and Counter.
-import ipaddr
-import threading
-import time
 try:
     from collections import Counter
 except ImportError:  # Python 2.6 does not have Counter in collections.

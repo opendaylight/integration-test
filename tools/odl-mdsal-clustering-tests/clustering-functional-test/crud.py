@@ -1,10 +1,12 @@
+import sys
+import util
+import settings
+
+
 __author__ = "Basheeruddin Ahmed"
 __copyright__ = "Copyright(c) 2014, Cisco Systems, Inc."
 __license__ = "New-style BSD"
 __email__ = "syedbahm@cisco.com"
-import sys
-import util
-import settings
 
 
 def addCar(numberOfCars):

@@ -7,15 +7,17 @@
 # and is available at http://www.eclipse.org/legal/epl-v10.html
 ##############################################################################
 
+import argparse
+import requests
+import json
+import csv
+
+
 __author__ = "Jan Medved"
 __copyright__ = "Copyright(c) 2015, Cisco Systems, Inc."
 __license__ = "Eclipse Public License v1.0"
 __email__ = "jmedved@cisco.com"
 
-import argparse
-import requests
-import json
-import csv
 
 global BASE_URL
 

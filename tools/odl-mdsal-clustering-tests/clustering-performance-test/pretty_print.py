@@ -1,11 +1,13 @@
 #!/usr/bin/python
+import json
+import sys
+
+
 __author__ = "Jan Medved"
 __copyright__ = "Copyright(c) 2014, Cisco Systems, Inc."
 __license__ = "New-style BSD"
 __email__ = "jmedved@cisco.com"
 
-import json
-import sys
 
 if __name__ == "__main__":
 

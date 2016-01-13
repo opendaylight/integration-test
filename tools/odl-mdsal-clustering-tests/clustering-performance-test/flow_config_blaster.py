@@ -1,8 +1,4 @@
 #!/usr/bin/python
-__author__ = "Jan Medved"
-__copyright__ = "Copyright(c) 2014, Cisco Systems, Inc."
-__license__ = "New-style BSD"
-__email__ = "jmedved@cisco.com"
 
 from random import randrange
 import json
@@ -14,6 +10,12 @@ import copy
 
 import requests
 import netaddr
+
+
+__author__ = "Jan Medved"
+__copyright__ = "Copyright(c) 2014, Cisco Systems, Inc."
+__license__ = "New-style BSD"
+__email__ = "jmedved@cisco.com"
 
 
 class Counter(object):
