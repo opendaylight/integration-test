@@ -1362,10 +1362,17 @@ class IPv4Network(_BaseV4, _BaseNet):
             self.iterhosts = self.__iter__
 
     # backwards compatibility
-    IsRFC1918 = lambda self: self.is_private
-    IsMulticast = lambda self: self.is_multicast
-    IsLoopback = lambda self: self.is_loopback
-    IsLinkLocal = lambda self: self.is_link_local
+    def IsRFC1918(self):
+        return self.is_private
+
+    def IsMulticast(self):
+        return self.is_multicast
+
+    def IsLoopback(self):
+        return self.is_loopback
+
+    def IsLinkLocal(self):
+        return self.is_link_local
 
 
 class _BaseV6(object):
