@@ -54,7 +54,7 @@ Add Sample Flow And Verify
     [Documentation]    Add sample flow in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
     ${body}=    OperatingSystem.Get File    ${CURDIR}/../variables/openflowplugin/sample_flow_1.json
     ${dictionary}=    Create Dictionary    10.0.1.0/24=1
-    Put And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${config_table_0}/flow/1    ${body}    ${HEADERS}
+    Put And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${config_table_0}/flow/1    ${body}    ${NONE}
     Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${operational_table_0}
 
 Modify Sample Flow And Verify
@@ -62,7 +62,7 @@ Modify Sample Flow And Verify
     [Documentation]    Modify sample flow in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
     ${body}=    OperatingSystem.Get File    ${CURDIR}/../variables/openflowplugin/sample_flow_2.json
     ${dictionary}=    Create Dictionary    10.0.2.0/24=1
-    Put And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${config_table_0}/flow/1    ${body}    ${HEADERS}
+    Put And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${config_table_0}/flow/1    ${body}    ${NONE}
     Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${operational_table_0}
 
 Delete Sample Flow And Verify
@@ -77,7 +77,7 @@ Send RPC Add Sample Flow And Verify
     [Documentation]    Add sample flow in ${controller_index} and verify it gets applied from all instances in ${controller_index_list}.
     ${body}=    OperatingSystem.Get File    ${CURDIR}/../variables/openflowplugin/add_flow_rpc.json
     ${dictionary}=    Create Dictionary    10.0.1.0/24=1
-    ${resp}    RequestsLibrary.Post Request    controller${controller_index}    /restconf/operations/sal-flow:add-flow    ${body}    ${HEADERS}
+    ${resp}    RequestsLibrary.Post Request    controller${controller_index}    /restconf/operations/sal-flow:add-flow    ${body}    ${HEADERS_YANG_JSON}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${operational_table_0}
@@ -87,7 +87,7 @@ Send RPC Delete Sample Flow And Verify
     [Documentation]    Delete sample flow in ${controller_index} and verify it gets removed from all instances in ${controller_index_list}.
     ${body}=    OperatingSystem.Get File    ${CURDIR}/../variables/openflowplugin/delete_flow_rpc.json
     ${dictionary}=    Create Dictionary    10.0.1.0/24=0
-    ${resp}    RequestsLibrary.Post Request    controller${controller_index}    /restconf/operations/sal-flow:remove-flow    ${body}    ${HEADERS}
+    ${resp}    RequestsLibrary.Post Request    controller${controller_index}    /restconf/operations/sal-flow:remove-flow    ${body}    ${HEADERS_YANG_JSON}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${operational_table_0}

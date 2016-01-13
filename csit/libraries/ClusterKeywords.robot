@@ -25,7 +25,7 @@ Create Controller Sessions
     ${NUM_ODL_SYSTEM}=    Convert to Integer    ${NUM_ODL_SYSTEM}
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    Log    Create Session ${ODL_SYSTEM_${i+1}_IP}
-    \    Create Session    controller${i+1}    http://${ODL_SYSTEM_${i+1}_IP}:${RESTCONFPORT}    auth=${AUTH}
+    \    Create Session    controller${i+1}    http://${ODL_SYSTEM_${i+1}_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 
 Get Cluster Shard Status
     [Arguments]    ${controller_index_list}    ${shard_type}    ${shard}
@@ -91,13 +91,12 @@ Check Item Occurrence At URI In Cluster
     \    Check Item Occurrence    ${data}    ${dictionary_item_occurrence}
 
 Put And Check At URI In Cluster
-    [Arguments]    ${controller_index_list}    ${controller_index}    ${uri}    ${body}    ${headers}=${HEADERS_YANG_JSON}
+    [Arguments]    ${controller_index_list}    ${controller_index}    ${uri}    ${body}    ${headers}
     [Documentation]    Send a PUT with the supplied ${uri} and ${body} to a ${controller_index}
     ...    and check the data is replicated in all instances in ${controller_index_list}.
     ${expected_body}=    Hsf Json    ${body}
     Log    ${body}
-    ${json_body}=    To Json    ${body}
-    ${resp}    RequestsLibrary.Put Request    controller${controller_index}    ${uri}    ${json_body}    ${headers}
+    ${resp}    RequestsLibrary.Put Request    controller${controller_index}    ${uri}    ${body}    ${headers}
     Log    ${resp.content}
     Log    ${resp.status_code}
     ${status_code}=    Convert To String    ${resp.status_code}
