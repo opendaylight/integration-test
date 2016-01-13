@@ -1,10 +1,10 @@
+import requests
+
+
 __author__ = "Basheeruddin Ahmed"
 __copyright__ = "Copyright(c) 2014, Cisco Systems, Inc."
 __license__ = "New-style BSD"
 __email__ = "syedbahm@cisco.com"
-
-
-import requests
 
 
 def get(url, userId, password):

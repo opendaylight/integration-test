@@ -1,11 +1,13 @@
-__author__ = "Basheeruddin Ahmed"
-__copyright__ = "Copyright(c) 2014, Cisco Systems, Inc."
-__license__ = "New-style BSD"
-__email__ = "syedbahm@cisco.com"
 import sys
 import UtilLibrary
 import SettingsLibrary
 import time
+
+
+__author__ = "Basheeruddin Ahmed"
+__copyright__ = "Copyright(c) 2014, Cisco Systems, Inc."
+__license__ = "New-style BSD"
+__email__ = "syedbahm@cisco.com"
 
 
 def initCar(hostname, port):

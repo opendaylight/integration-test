@@ -1,13 +1,14 @@
 #!/usr/bin/python
-__author__ = "Jan Medved"
-__copyright__ = "Copyright(c) 2014, Cisco Systems, Inc."
-__license__ = "New-style BSD"
-__email__ = "jmedved@cisco.com"
-
 import argparse
 import requests
 import re
 import json
+
+
+__author__ = "Jan Medved"
+__copyright__ = "Copyright(c) 2014, Cisco Systems, Inc."
+__license__ = "New-style BSD"
+__email__ = "jmedved@cisco.com"
 
 
 class InventoryCrawler(object):

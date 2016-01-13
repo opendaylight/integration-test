@@ -12,13 +12,14 @@ than do manipulation in Robot file."""
 # terms of the Eclipse Public License v1.0 which accompanies this distribution,
 # and is available at http://www.eclipse.org/legal/epl-v10.html
 
+import binascii
+from string import Template
+
+
 __author__ = "Vratko Polak"
 __copyright__ = "Copyright(c) 2015, Cisco Systems, Inc."
 __license__ = "Eclipse Public License v1.0"
 __email__ = "vrpolak@cisco.com"
-
-import binascii
-from string import Template
 
 
 def get_variables(mininet_ip):

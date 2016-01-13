@@ -22,9 +22,11 @@ and networks.
 
 """
 
+import struct
+
+
 __version__ = '2.1.11'
 
-import struct
 
 IPV4LENGTH = 32
 IPV6LENGTH = 128
