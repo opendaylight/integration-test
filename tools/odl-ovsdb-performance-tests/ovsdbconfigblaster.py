@@ -1,16 +1,17 @@
 """
 Script to add bridges/ports/termination points to ovsdb config
 """
+import argparse
+import logging
+import requests
+
+
 __author__ = 'Marcus Williams'
 __copyright__ = "Copyright (c) 2015, Intel Corp Inc., Cisco Systems Inc. and others"
 __credits__ = ["Jan Medved, Lori Jakab"]
 __license__ = "New-style BSD"
 __email__ = "marcus.williams@intel.com"
 __version__ = "0.0.1"
-
-import argparse
-import logging
-import requests
 
 
 class OvsdbConfigBlaster (object):

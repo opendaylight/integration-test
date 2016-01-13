@@ -1,14 +1,15 @@
 #!/usr/bin/python
-__author__ = "Jan Medved"
-__copyright__ = "Copyright(c) 2014, Cisco Systems, Inc."
-__license__ = "New-style BSD"
-__email__ = "jmedved@cisco.com"
-
 from flow_config_blaster import FlowConfigBlaster
 import argparse
 import netaddr
 import time
 import json
+
+
+__author__ = "Jan Medved"
+__copyright__ = "Copyright(c) 2014, Cisco Systems, Inc."
+__license__ = "New-style BSD"
+__email__ = "jmedved@cisco.com"
 
 
 class FlowConfigBlasterFLE(FlowConfigBlaster):

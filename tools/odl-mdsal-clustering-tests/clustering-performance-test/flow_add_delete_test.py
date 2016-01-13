@@ -1,15 +1,16 @@
 #!/usr/bin/python
 
-__author__ = "Jan Medved"
-__copyright__ = "Copyright(c) 2014, Cisco Systems, Inc."
-__license__ = "New-style BSD"
-__email__ = "jmedved@cisco.com"
-
 import argparse
 import time
 from flow_config_blaster import FlowConfigBlaster, get_json_from_file
 from inventory_crawler import InventoryCrawler
 from config_cleanup import cleanup_config_odl
+
+
+__author__ = "Jan Medved"
+__copyright__ = "Copyright(c) 2014, Cisco Systems, Inc."
+__license__ = "New-style BSD"
+__email__ = "jmedved@cisco.com"
 
 
 def wait_for_stats(crawler, exp_found, timeout, delay):
