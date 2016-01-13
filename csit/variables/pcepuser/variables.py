@@ -177,58 +177,67 @@ def get_variables(mininet_ip):
     # There are three operations, so let us just write templates from information at
     # https://wiki.opendaylight.org/view/BGP_LS_PCEP:Programmer_Guide#Tunnel_Management_for_draft-ietf-pce-stateful-pce-07_and_draft-ietf-pce-pce-initiated-lsp-00
     # _xml describes content type and also distinguishes from similarly named _json strings.
-    add_xml_templ = Template('''<input xmlns="urn:opendaylight:params:xml:ns:yang:topology:pcep">
- <node>pcc://$IP</node>
- <name>$NAME</name>
- <network-topology-ref xmlns:topo="urn:TBD:params:xml:ns:yang:network-topology">/topo:network-topology/topo:topology'''
-                             + '''[topo:topology-id="pcep-topology"]</network-topology-ref>
- <arguments>
-  <lsp xmlns="urn:opendaylight:params:xml:ns:yang:pcep:ietf:stateful">
-   <delegate>true</delegate>
-   <administrative>true</administrative>
-  </lsp>
-  <endpoints-obj>
-   <ipv4>
-    <source-ipv4-address>$IP</source-ipv4-address>
-    <destination-ipv4-address>1.1.1.1</destination-ipv4-address>
-   </ipv4>
-  </endpoints-obj>
-  <ero>
-   <subobject>
-    <loose>false</loose>
-    <ip-prefix><ip-prefix>1.1.1.1/32</ip-prefix></ip-prefix>
-   </subobject>
-  </ero>
- </arguments>
-</input>''')
-    update_xml_templ = Template('''<input xmlns="urn:opendaylight:params:xml:ns:yang:topology:pcep">
- <node>pcc://$IP</node>
- <name>$NAME</name>
- <network-topology-ref xmlns:topo="urn:TBD:params:xml:ns:yang:network-topology">/topo:network-topology/topo:topology'''
-                                + '''[topo:topology-id="pcep-topology"]</network-topology-ref>
- <arguments>
-  <lsp xmlns="urn:opendaylight:params:xml:ns:yang:pcep:ietf:stateful">
-   <delegate>true</delegate>
-   <administrative>true</administrative>
-  </lsp>
-  <ero>
-   <subobject>
-    <loose>false</loose>
-    <ip-prefix><ip-prefix>2.2.2.2/32</ip-prefix></ip-prefix>
-   </subobject>
-   <subobject>
-    <loose>false</loose>
-    <ip-prefix><ip-prefix>1.1.1.1/32</ip-prefix></ip-prefix>
-   </subobject>
-  </ero>
- </arguments>
-</input>''')
-    remove_xml_templ = Template('''<input xmlns="urn:opendaylight:params:xml:ns:yang:topology:pcep">
- <node>pcc://$IP</node>
- <name>$NAME</name>
- <network-topology-ref xmlns:topo="urn:TBD:params:xml:ns:yang:network-topology">/topo:network-topology/topo:topology'''
-                                + '''[topo:topology-id="pcep-topology"]</network-topology-ref>
-</input>''')
+    add_xml_templ = Template(
+       '<input xmlns="urn:opendaylight:params:xml:ns:yang:topology:pcep">\n'
+       ' <node>pcc://$IP</node>\n'
+       ' <name>$NAME</name>\n'
+       ' <network-topology-ref xmlns:topo="urn:TBD:params:xml:ns:yang:network-topology">'
+       '/topo:network-topology/topo:topology[topo:topology-id="pcep-topology"]'
+       '</network-topology-ref>\n'
+       ' <arguments>\n'
+       '  <lsp xmlns="urn:opendaylight:params:xml:ns:yang:pcep:ietf:stateful">\n'
+       '   <delegate>true</delegate>\n'
+       '   <administrative>true</administrative>\n'
+       '  </lsp>\n'
+       '  <endpoints-obj>\n'
+       '   <ipv4>\n'
+       '    <source-ipv4-address>$IP</source-ipv4-address>\n'
+       '    <destination-ipv4-address>1.1.1.1</destination-ipv4-address>\n'
+       '   </ipv4>\n'
+       '  </endpoints-obj>\n'
+       '  <ero>\n'
+       '   <subobject>\n'
+       '    <loose>false</loose>\n'
+       '    <ip-prefix><ip-prefix>1.1.1.1/32</ip-prefix></ip-prefix>\n'
+       '   </subobject>\n'
+       '  </ero>\n'
+       ' </arguments>\n'
+       '</input>\n'
+    )
+    update_xml_templ = Template(
+        '<input xmlns="urn:opendaylight:params:xml:ns:yang:topology:pcep">\n'
+        ' <node>pcc://$IP</node>\n'
+        ' <name>$NAME</name>\n'
+        ' <network-topology-ref xmlns:topo="urn:TBD:params:xml:ns:yang:network-topology">'
+        '/topo:network-topology/topo:topology[topo:topology-id="pcep-topology"]'
+        '</network-topology-ref>\n'
+        ' <arguments>\n'
+        '  <lsp xmlns="urn:opendaylight:params:xml:ns:yang:pcep:ietf:stateful">\n'
+        '   <delegate>true</delegate>\n'
+        '   <administrative>true</administrative>\n'
+        '  </lsp>\n'
+        '  <ero>\n'
+        '   <subobject>\n'
+        '    <loose>false</loose>\n'
+        '    <ip-prefix><ip-prefix>2.2.2.2/32</ip-prefix></ip-prefix>\n'
+        '   </subobject>\n'
+        '   <subobject>\n'
+        '    <loose>false</loose>\n'
+        '    <ip-prefix><ip-prefix>1.1.1.1/32</ip-prefix></ip-prefix>\n'
+        '   </subobject>\n'
+        '  </ero>\n'
+        ' </arguments>\n'
+        '</input>\n'
+    )
+    remove_xml_templ = Template(
+        '<input xmlns="urn:opendaylight:params:xml:ns:yang:topology:pcep">\n'
+        ' <node>pcc://$IP</node>\n'
+        ' <name>$NAME</name>\n'
+        ' <network-topology-ref xmlns:topo="urn:TBD:params:xml:ns:yang:network-topology">'
+        '/topo:network-topology/topo:topology[topo:topology-id="pcep-topology"]'
+        '</network-topology-ref>\n'
+        '</input>\n'
+    )
     # The operations can be applied to either delegated or instantiated tunnel, NAME is the only distinguishing value.
     # Also, the final IP substitution can be done here.
     repl_dict = {'IP': mininet_ip}
