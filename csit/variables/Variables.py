@@ -113,6 +113,14 @@ CONFIG_API = '/restconf/config'
 OPERATIONAL_API = '/restconf/operational'
 MODULES_API = '/restconf/modules'
 
+# NEMO Variables
+PREDEFINE_ROLE_URI = '/restconf/config/nemo-user:user-roles'
+PREDEFINE_NODE_URI = '/restconf/config/nemo-object:node-definitions'
+PREDEFINE_CONNECTION_URI = '/restconf/config/nemo-object:connection-definitions'
+REGISTER_TENANT_URI = '/restconf/operations/nemo-intent:register-user'
+STRUCTURE_INTENT_URI = '/restconf/operations/nemo-intent:structure-style-nemo-update'
+GET_INTENTS_URI = '/retconf/config/intent:intents'
+
 # TOKEN
 AUTH_TOKEN_API = '/oauth2/token'
 REVOKE_TOKEN_API = '/oauth2/revoke'
