@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_e273a813",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-14T11:21:02Z",
+      "side": 1,
+      "message": "Move the verbose description to suite Documentation, (commit message then can have shorter summary, but this long summary is also ok).",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 10
+      },
+      "revId": "684dd69cb4c3ba579921423303befc60746f7a0f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a250805f",
+        "filename": "csit/suites/netconf/clustering/CRUD.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-14T11:21:02Z",
+      "side": 1,
+      "message": "I see those test cases included in this patch set, so update this FIXME.",
+      "range": {
+        "startLine": 14,
+        "startChar": 25,
+        "endLine": 14,
+        "endChar": 53
+      },
+      "revId": "684dd69cb4c3ba579921423303befc60746f7a0f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
