@@ -1,0 +1,158 @@
+{
+    "input":{
+            "user-id": "14ce424a-3e50-4a2a-ad5c-b29845158c8b",
+            "objects":{
+            "node":[
+                    {
+                        "node-name": "dmz",
+                        "node-type": "l2-group",
+                        "sub-node": [
+                                        {
+                                          "node-id":"7b796915-adf4-4356-b5ca-de005ac410c1",
+                                          "order":"0"
+                                        }
+                                ],
+                        "property": [
+                                        {
+                                            "property-name": "location",
+                                            "property-values": {
+                                                    "string-value": [
+                                                            {
+                                                              "order": "0",
+                                                              "value": "openflow:3"
+                                                            }
+                                                           ]
+                                                   }
+                                        },
+                                        {
+                                            "property-name": "ip-prefix",
+                                            "property-values": {
+                                                    "string-value": [
+                                                            {
+                                                              "order": "0",
+                                                              "value": "192.168.11.0/24"
+                                                            }
+                                                        ]
+                                                    }
+                                        },
+                                        {
+                                            "property-name": "gateway-ip",
+                                            "property-values": {
+                                                      "string-value": [
+                                                            {
+                                                              "order": "0",
+                                                              "value": "192.168.11.1"
+                                                            }
+                                                        ]
+                                                    }
+                                              }
+                                            ],
+                            "node-id": "b46cfa7f-93a3-43f4-ac20-09307c75feca"
+                    },
+                    {
+                        "node-name": "interior",
+                        "node-type": "l2-group",
+                        "sub-node": [
+                                        {
+                                          "node-id":"22282cca-9a13-4d0c-a67e-a933ebb0b0ae",
+                                          "order":"0"
+                                        },
+                                        {
+                                          "node-id":"1eaf9a67-a171-42a8-9282-71cf702f61dd",
+                                          "order":"0"
+                                        }
+                                ],
+                        "property": [
+                                        {
+                                            "property-name": "location",
+                                            "property-values": {
+                                                    "string-value": [
+                                                            {
+                                                              "order": "0",
+                                                              "value": "openflow:3"
+                                                            }
+                                                           ]
+                                                   }
+                                        },
+                                        {
+                                            "property-name": "ip-prefix",
+                                            "property-values": {
+                                                    "string-value": [
+                                                            {
+                                                              "order": "0",
+                                                              "value": "192.168.12.0/24"
+                                                            }
+                                                        ]
+                                                    }
+                                        },
+                                        {
+                                            "property-name": "gateway-ip",
+                                            "property-values": {
+                                                      "string-value": [
+                                                            {
+                                                              "order": "0",
+                                                              "value": "192.168.12.1"
+                                                            }
+                                                        ]
+                                                    }
+                                              }
+                                            ],
+                            "node-id": "175425f7-c9c9-474a-962c-70cb6c180d4d"
+                    }
+            ],
+            "connection":[
+                        {
+                            "connection-name": "c1",
+                            "connection-id": "e0d56fee-7235-4748-a2a1-eb5e3733d866",
+                            "end-node": [
+                              {
+                                "order": "0",
+                                "node-id": "b46cfa7f-93a3-43f4-ac20-09307c75feca"
+                              },
+                              {
+                                "order": "0",
+                                "node-id": "175425f7-c9c9-474a-962c-70cb6c180d4d"
+                              }
+                            ],
+                            "connection-type": "p2p"
+                        }
+            ],
+            "flow":[
+                        {
+                            "match-item": [
+                                {
+                                    "match-item-value": {
+                                        "string-value": "192.168.12.0/24"
+                                    },
+                                    "match-item-name": "src-ip"
+                                },
+                                {
+                                    "match-item-value": {
+                                        "string-value": "192.168.11.0/24"
+                                    },
+                                    "match-item-name": "dst-ip"
+                                }
+                            ],
+                            "flow-id": "cf48eeee-882e-435a-adf4-ea22ba88331f",
+                            "flow-name": "f1"
+                        }
+            ]
+            },
+            "operations":{
+            "operation":[
+                       {
+                            "operation-name": "o1",
+                            "target-object": "cf48eeee-882e-435a-adf4-ea22ba88331f",
+                            "priority":"0",
+                            "operation-id": "619ee3bb-1e40-480f-b0fa-a331820a5518",
+                            "action":[
+                                        {
+                                            "action-name":"allow",
+                                            "order":"0"
+                                        }
+                                   ]
+                        }
+                ]
+            }
+   }
+}
