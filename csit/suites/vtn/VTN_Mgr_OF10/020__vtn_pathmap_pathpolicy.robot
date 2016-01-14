@@ -6,9 +6,7 @@ Resource          ../../../libraries/VtnMaKeywords.robot
 
 *** Variables ***
 ${pathmapdata}    {"input":{"tenant-name":"Tenant_path","path-map-list":[{"condition":"flowcond_path","policy":"1","index": "1","idle-timeout":"300","hard-timeout":"0"}]}}
-
-${pathpolicydata}    {"input":{"operation":"SET","id": "1","default-cost": "10000","vtn-path-cost": [{"port-desc":"openflow:1,3,s1-eth3","cost":"1000"},{"port-desc":"openflow:4,2,s4-eth2","cost":"1000"},{"port-desc":"openflow:3,3,s3-eth3","cost":"100000"}]}} 
-
+${pathpolicydata}    {"input":{"operation":"SET","id": "1","default-cost": "10000","vtn-path-cost": [{"port-desc":"openflow:1,3,s1-eth3","cost":"1000"},{"port-desc":"openflow:4,2,s4-eth2","cost":"1000"},{"port-desc":"openflow:3,3,s3-eth3","cost":"100000"}]}}
 
 *** Test Cases ***
 Check if switch1 detected
@@ -90,8 +88,8 @@ Delete a pathmap
     Delete a pathmap    Tenant_path
 
 Delete a pathpolicy
-   [Documentation]    Delete a pathpolicy
-   Delete a pathpolicy    ${policy_id}
+    [Documentation]    Delete a pathpolicy
+    Delete a pathpolicy    ${policy_id}
 
 Delete a flowcondition
     [Documentation]    Delete a flowcondition

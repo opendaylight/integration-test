@@ -68,28 +68,27 @@ Verify OVS Reports Connected
     Should Contain    ${output}    is_connected
 
 Get OVSDB UUID
-    [Arguments]    ${ovs_system_ip}=${TOOLS_SYSTEM_IP}    ${controller_ip}=${ODL_SYSTEM_IP}     ${controller_http_session}=session
-    [Documentation]  Queries the topology in the operational datastore and searches for the node that has
-    ...  the ${ovs_system_ip} argument as the "remote-ip".  If found, the value returned will be the value of
-    ...  node-id stripped of "ovsdb://uuid/".  If not found, ${EMPTY} will be returned.
+    [Arguments]    ${ovs_system_ip}=${TOOLS_SYSTEM_IP}    ${controller_ip}=${ODL_SYSTEM_IP}    ${controller_http_session}=session
+    [Documentation]    Queries the topology in the operational datastore and searches for the node that has
+    ...    the ${ovs_system_ip} argument as the "remote-ip". If found, the value returned will be the value of
+    ...    node-id stripped of "ovsdb://uuid/". If not found, ${EMPTY} will be returned.
     ${uuid}=    Set Variable    ${EMPTY}
     ${resp}=    RequestsLibrary.Get Request    ${controller_http_session}    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1
     Should Be Equal As Strings    ${resp.status_code}    200
     ${resp_json}=    To Json    ${resp.content}
-    ${topologies}=    Get From Dictionary   ${resp_json}    topology
+    ${topologies}=    Get From Dictionary    ${resp_json}    topology
     ${topology}=    Get From List    ${topologies}    0
     ${node_list}=    Get From Dictionary    ${topology}    node
     Log    ${node_list}
     : FOR    ${node}    IN    @{node_list}
     \    ${node_id}=    Get From Dictionary    ${node}    node-id
     \    ${node_uuid}=    Replace String    ${node_id}    ovsdb://uuid/    ${EMPTY}
-    # Since  bridges are also listed as nodes, but will not have the extra "ovsdb:connection-info data, we need to
-    # use "Run Keyword And Ignore Error" below.
+    \    # Since    bridges are also listed as nodes, but will not have the extra "ovsdb:connection-info data, we need to
+    \    # use "Run Keyword And Ignore Error" below.
     \    ${status}    ${connection_info}    Run Keyword And Ignore Error    Get From Dictionary    ${node}    ovsdb:connection-info
     \    ${status}    ${remote_ip}    Run Keyword And Ignore Error    Get From Dictionary    ${connection_info}    remote-ip
     \    ${uuid}=    Set Variable If    '${remote_ip}' == '${ovs_system_ip}'    ${node_uuid}    ${uuid}
     [Return]    ${uuid}
-
 
 Collect OVSDB Debugs
     [Arguments]    ${switch}=br-int
@@ -102,7 +101,7 @@ Collect OVSDB Debugs
 Clean OVSDB Test Environment
     [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
     [Documentation]    General Use Keyword attempting to sanitize test environment for OVSDB related
-    ...    tests.  Not every step will always be neccessary, but should not cause any problems for
+    ...    tests. Not every step will always be neccessary, but should not cause any problems for
     ...    any new ovsdb test suites.
     Clean Mininet System    ${tools_system}
     Run Command On Remote System    ${tools_system}    sudo ovs-vsctl del-manager

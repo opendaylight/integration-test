@@ -162,7 +162,7 @@ Delete a pathmap
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Delete a pathpolicy
-    [Arguments]   ${policy_id}
+    [Arguments]    ${policy_id}
     [Documentation]    Delete a pathpolicy for a vtn
     ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-path-policy:remove-path-policy    data={"input":{"id":"${policy_id}"}}
     Should Be Equal As Strings    ${resp.status_code}    200
@@ -275,7 +275,7 @@ Verify macaddress
 Add a vtn flowfilter
     [Arguments]    ${vtn_name}    ${vtnflowfilter_data}
     [Documentation]    Create a flowfilter for a vtn
-    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-filter:set-flow-filter   data={"input": {"tenant-name": "${vtn_name}",${vtnflowfilter_data}}}
+    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-filter:set-flow-filter    data={"input": {"tenant-name": "${vtn_name}",${vtnflowfilter_data}}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Add a vbr flowfilter
@@ -287,7 +287,7 @@ Add a vbr flowfilter
 Add a vbrif flowfilter
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${interface_name}    ${vbrif_flowfilter_data}
     [Documentation]    Create a flowfilter for a vbrif
-    ${resp}=    RequestsLibrary.Post Request    session     restconf/operations/vtn-flow-filter:set-flow-filter    data={"input": {"tenant-name": ${vtn_name}, "bridge-name": "${vBridge_name}","interface-name":"${interface_name}",${vbrif_flowfilter_data}}}
+    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-filter:set-flow-filter    data={"input": {"tenant-name": ${vtn_name}, "bridge-name": "${vBridge_name}","interface-name":"${interface_name}",${vbrif_flowfilter_data}}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify Flow Entry for Inet Flowfilter

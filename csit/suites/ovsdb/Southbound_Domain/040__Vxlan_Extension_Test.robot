@@ -91,13 +91,13 @@ Verify that the operational topology is clean
     Wait Until Keyword Succeeds    8s    2s    Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}    ${list}
 
 Check For Bug 4756
-    [Documentation]  bug 4756 has been seen in the OVSDB Southbound suites.  This test case should be one of the last test
+    [Documentation]    bug 4756 has been seen in the OVSDB Southbound suites. This test case should be one of the last test
     ...    case executed.
     Check Karaf Log File Does Not Have Messages    ${ODL_SYSTEM_IP}    SimpleShardDataTreeCohort.*Unexpected failure in validation phase
     [Teardown]    Report_Failure_Due_To_Bug    4756
 
 Check For Bug 4794
-    [Documentation]  bug 4794 has been seen in the OVSDB Southbound suites.  This test case should be one of the last test
+    [Documentation]    bug 4794 has been seen in the OVSDB Southbound suites. This test case should be one of the last test
     ...    case executed.
     Check Karaf Log File Does Not Have Messages    ${ODL_SYSTEM_IP}    Shard.*shard-topology-operational An exception occurred while preCommitting transaction
     [Teardown]    Report_Failure_Due_To_Bug    4794
@@ -108,7 +108,7 @@ Vxlan Extension Test Suite Setup
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 
 Vxlan Extension Test Suite Teardown
-    [Documentation]  Cleans up test environment, close existing sessions.
+    [Documentation]    Cleans up test environment, close existing sessions.
     Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
     Clean OVSDB Test Environment    ${TOOLS_SYSTEM_2_IP}
     RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:${OVSDB_PORT}
