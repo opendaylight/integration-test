@@ -48,7 +48,7 @@ Count_Netconf_Connectors_For_Device
     # Count_Device_Instances_In_Netconf_Topology
     [Arguments]    ${device_name}
     [Documentation]    Count all instances of the specified device in the Netconf topology (usually 0 or 1).
-    ${mounts}=    Utils.Get_Data_From_URI    operational    network-topology:network-topology/topology/topology-netconf
+    ${mounts}=    NetconfViaRestconf.Get_Operational_Data_From_URI    network-topology:network-topology/topology/topology-netconf
     Builtin.Log    ${mounts}
     ${actual_count}=    Builtin.Evaluate    len('''${mounts}'''.split('"node-id":"${device_name}"'))-1
     Builtin.Return_From_Keyword    ${actual_count}
@@ -73,7 +73,7 @@ Check_Device_Completely_Gone
 Check_Device_Connected
     [Arguments]    ${device_name}
     [Documentation]    Check that the specified device is accessible from Netconf.
-    ${device_status}=    Utils.Get_Data_From_URI    operational    network-topology:network-topology/topology/topology-netconf/node/${device_name}
+    ${device_status}=    NetconfViaRestconf.Get_Operational_Data_From_URI        network-topology:network-topology/topology/topology-netconf/node/${device_name}
     Builtin.Should_Contain    ${device_status}    "netconf-node-topology:connection-status":"connected"
 
 Wait_Device_Connected
