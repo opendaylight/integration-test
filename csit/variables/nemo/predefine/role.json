@@ -1,0 +1,10 @@
+{
+    "user-roles": {
+            "user-role": [
+                {
+                    "role-name": "tenant",
+                    "role-description": "It's a non-administor user"
+                }
+            ]
+    }
+}
