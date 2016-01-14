@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a3d3df0_730e4836",
+        "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-14T14:49:14Z",
+      "side": 1,
+      "message": "I think Robot can read this from variable, which would allow to save some lines by creating a Keyword.\nBut the current state is not very bad so no big deal.",
+      "range": {
+        "startLine": 80,
+        "startChar": 101,
+        "endLine": 80,
+        "endChar": 102
+      },
+      "revId": "9f36eb1c2003a83cc9e3ab7801497a17713e6eb1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_08c86b73",
         "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
         "patchSetId": 22
@@ -18,6 +41,29 @@
         "startChar": 32,
         "endLine": 95,
         "endChar": 39
+      },
+      "revId": "9f36eb1c2003a83cc9e3ab7801497a17713e6eb1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7325a8aa",
+        "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-14T14:49:14Z",
+      "side": 1,
+      "message": "If you think it is too much work to move the following Keywords into a new resource within this Change, at least add a TODO to do it later.",
+      "range": {
+        "startLine": 352,
+        "startChar": 0,
+        "endLine": 352,
+        "endChar": 30
       },
       "revId": "9f36eb1c2003a83cc9e3ab7801497a17713e6eb1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
