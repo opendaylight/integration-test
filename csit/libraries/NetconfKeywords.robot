@@ -42,16 +42,23 @@ Configure_Device_In_Netconf
     Collections.Set_To_Dictionary    ${NetconfKeywords__mounted_device_types}    ${device_name}    ${device_type}
 
 Count_Netconf_Connectors_For_Device
+    # FIXME: This no longer counts netconf connectors, it counts "device instances in Netconf topology".
+    # This keyword should be renamed but without an automatic keyword naming standards checker this is
+    # potentially destabilizing change so right now it is as FIXME. Proposed new name:
+    # Count_Device_Instances_In_Netconf_Topology
     [Arguments]    ${device_name}
-    [Documentation]    Count all Netconf connectors referring to the specified device (usually 0 or 1).
+    [Documentation]    Count all instances of the specified device in the Netconf topology (usually 0 or 1).
     ${mounts}=    Utils.Get_Data_From_URI    operational    network-topology:network-topology/topology/topology-netconf
     Builtin.Log    ${mounts}
     ${actual_count}=    Builtin.Evaluate    len('''${mounts}'''.split('"node-id":"${device_name}"'))-1
     Builtin.Return_From_Keyword    ${actual_count}
 
 Check_Device_Has_No_Netconf_Connector
+    # FIXME: Similarlt to "Count_Netconf_Connectors_For_Device", this does not check whether the device has
+    # no netconf connector but whether the device is present in the netconf topology or not. Rename, proposed
+    # new name: Check_Device_Not_Present_In_Netconf_Topology
     [Arguments]    ${device_name}
-    [Documentation]    Check that there are no Netconf connectors referring to the specified device.
+    [Documentation]    Check that there are no instances of the specified device in the Netconf topology.
     ${count}    Count_Netconf_Connectors_For_Device    ${device_name}
     Builtin.Should_Be_Equal_As_Strings    ${count}    0
 
