@@ -1,0 +1,125 @@
+{
+          "node-definitions": {
+                    "node-definition": [
+                              {
+                                   "node-type": "host",
+                                   "property-definition": [
+                                             {
+                                                  "property-name": "name",
+                                                  "property-value-type": "string"
+                                             },
+                                             {
+                                                  "property-name": "location",
+                                                  "property-value-type": "string"
+                                             },
+                                             {
+                                                  "property-name": "mac-address",
+                                                  "property-value-type": "string"
+                                             },
+                                             {
+                                                  "property-name": "ip-address",
+                                                  "property-value-type": "string"
+                                             }
+                                        ]
+                              },
+                              {
+                                   "node-type": "l2-group",
+                                   "property-definition": [
+                                             {
+                                                  "property-name": "ip-prefix",
+                                                  "property-value-type": "string"
+                                             },
+                                             {
+                                                  "property-name": "gateway-ip",
+                                                  "property-value-type": "string"
+                                             },
+                                             {
+                                                  "property-name": "location",
+                                                  "property-value-type": "string"
+                                             }
+                                        ]
+                              },
+                              {
+                                   "node-type": "l3-group",
+                                   "property-definition": [
+                                             {
+                                                  "property-name": "ip-prefix",
+                                                  "property-value-type": "string"
+                                             }
+                                        ]
+                              },
+                              {
+                                   "node-type": "ext-group",
+                                   "property-definition": [
+                                             {
+                                                  "property-name": "location",
+                                                  "property-value-type": "string",
+                                                  "is-required": "required"
+                                             },
+                                             {
+                                                  "property-name": "ac-info-network",
+                                                  "property-value-type": "string",
+                                                  "is-required": "required"
+                                             },
+                                             {
+                                                  "property-name": "ac-info-protocol",
+                                                  "property-value-type": "string",
+                                                  "is-required": "required"
+                                              },
+                                             {
+                                                  "property-name": "ip-prefix",
+                                                  "property-value-type": "string"
+                                              }
+                                        ]
+                              },
+                              {
+                                   "node-type": "chain-group"
+                              },
+                              {
+                                   "node-type": "fw",
+                                   "property-definition": [
+                                             {
+                                                  "property-name": "location",
+                                                  "property-value-type": "string",
+                                                  "is-required": "required"
+                                             },
+                                             {
+                                                  "property-name": "operating-mode",
+                                                  "property-value-type": "string",
+                                                  "is-required": "required"
+                                             }
+                                        ]
+                              },
+                              {
+                                   "node-type": "lb",
+                                   "property-definition": [
+                                             {
+                                                  "property-name": "location",
+                                                  "property-value-type": "string",
+                                                  "is-required": "required"
+                                             },
+                                             {
+                                                  "property-name": "operating-mode",
+                                                  "property-value-type": "string",
+                                                  "is-required": "required"
+                                             }
+                                        ]
+                              },
+                              {
+                                   "node-type": "cache",
+                                   "property-definition": [
+                                             {
+                                                  "property-name": "location",
+                                                  "property-value-type": "string",
+                                                  "is-required": "required"
+                                             },
+                                             {
+                                                  "property-name": "operating-mode",
+                                                  "property-value-type": "string",
+                                                  "is-required": "required"
+                                             }
+                                        ]
+                              }
+                         ]
+                    }
+}
