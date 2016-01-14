@@ -18,7 +18,7 @@ Put Tunnels
     ${edited_json}    Replace String    ${json_to_edit}    _CLASSIFIER1    ${GBP1}
     ${edited_json}    Replace String    ${edited_json}    _CLASSIFIER2    ${GBP2}
     ${edited_json}    Replace String    ${edited_json}    _CLASSIFIER3    ${GBP3}
-    ${resp}    RequestsLibrary.Put Request    session    ${TUNNELS_PATH}    ${edited_json}    ${HEADERS}
+    ${resp}    RequestsLibrary.Put Request    session    ${TUNNELS_PATH}    ${edited_json}    ${HEADERS_YANG_JSON}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Register Endpoints
@@ -29,5 +29,5 @@ Register Endpoints
 
 Put Tenants
     [Documentation]    Send GBP policy to ODL
-    Add Elements To URI From File    ${TENANT1_PATH}    ${TENANT1_FILE}
-    Add Elements To URI From File    ${TENANT2_PATH}    ${TENANT2_FILE}
+    Add Elements To URI From File    ${TENANT1_PATH}    ${TENANT1_FILE}    ${HEADERS_YANG_JSON}
+    Add Elements To URI From File    ${TENANT2_PATH}    ${TENANT2_FILE}    ${HEADERS_YANG_JSON}
