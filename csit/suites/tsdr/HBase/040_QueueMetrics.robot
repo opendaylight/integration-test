@@ -12,39 +12,34 @@ Variables         ../../../variables/Variables.py
 
 *** Variables ***
 @{QUEUE_METRICS}    TransmittedPackets    TransmittedBytes    TransmissionErrors
-${TSDR_QUEUESTATS}    tsdr:list QueueStats
+${TSDR_QUEUESTATS}    tsdr:list QUEUESTATS
 
 *** Test Cases ***
 Verify the Queue Metrics attributes exist thru Karaf console
     [Documentation]    Verify the QueueMetrics attributes exist on Karaf Console
     Wait Until Keyword Succeeds    180s    1s    Verify the Metric is Collected?    ${TSDR_QUEUESTATS}    Transmitted
-    ${output}=    Issue Command On Karaf Console    ${TSDR_QUEUESTATS}    ${CONTROLLER}    ${KARAF_SHELL_PORT}    30
+    ${output}=    Issue Command On Karaf Console    ${TSDR_QUEUESTATS}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    90
     : FOR    ${list}    IN    @{QUEUE_METRICS}
     \    Should Contain    ${output}    ${list}
 
 Verification of QueueMetrics-TransmittedPackets on Karaf Console
     [Documentation]    Verify the QueueMetrics has been updated thru tsdr:list command on karaf console
     ${tsdr_cmd}=    Concatenate the String    ${TSDR_QUEUESTATS}    | grep TransmittedPackets | head
-    ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}    ${CONTROLLER}    ${KARAF_SHELL_PORT}    90
+    ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    90
     Should Contain    ${output}    TransmittedPackets
 
 Verification of QueueMetrics-TransmittedPackets on HBase Client
     [Documentation]    Verify the QueueMetrics has been updated on HBase Datastore
-    ${query}=    Generate HBase Query    QueueMetrics    TransmittedPackets_openflow:1
-    ${out}=    Query the Data from HBaseClient    ${query}
-    Should Match Regexp    ${out}    (?mui)TransmittedPackets
+    Verify the Metrics Attributes on Hbase Client    TransmittedPackets    Node:openflow:2    QUEUESTATS
 
 Verification of QueueMetrics-TransmittedBytes on HBase Client
     [Documentation]    Verify the QueueMetrics has been updated on HBase Datastore
-    ${query}=    Generate HBase Query    QueueMetrics    TransmittedBytes_openflow:1
-    ${out}=    Query the Data from HBaseClient    ${query}
-    Should Match Regexp    ${out}    (?mui)TransmittedBytes
+    Verify the Metrics Attributes on Hbase Client    TransmittedBytes    Node:openflow:2    QUEUESTATS
 
 Verification of QueueMetrics-TransmissionErrors on HBase Client
     [Documentation]    Verify the QueueMetrics has been updated on HBase Datastore
-    ${query}=    Generate HBase Query    QueueMetrics    TransmissionErrors_openflow:1
-    ${out}=    Query the Data from HBaseClient    ${query}
-    Should Match Regexp    ${out}    (?mui)TransmissionErrors
+    Verify the Metrics Attributes on Hbase Client    TransmissionErrors    Node:openflow:2    QUEUESTATS
+
 
 *** Keyword ***
 Configuration of Queue on Switch
