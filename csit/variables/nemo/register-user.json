@@ -1,0 +1,8 @@
+{
+    "input":{
+                "user-id":"14ce424a-3e50-4a2a-ad5c-b29845158c8b",
+                "user-name":"user2",
+                "user-password":"abc",
+                "user-role":"tenant"
+            }
+}
