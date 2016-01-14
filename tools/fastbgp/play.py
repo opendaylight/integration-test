@@ -822,9 +822,9 @@ class MessageGenerator(object):
                 "\x03"  # Type (NEXT_HOP)
                 "\x04"  # Length (4)
             )
-            next_hop = struct.pack(">I", int(next_hop))
+            next_hop_hex = struct.pack(">I", int(next_hop))
             path_attributes_hex += (
-                next_hop  # IP address of the next hop (4 bytes)
+                next_hop_hex  # IP address of the next hop (4 bytes)
             )
         else:
             path_attributes_hex = ""
