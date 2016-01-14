@@ -22,6 +22,29 @@
       "revId": "9f36eb1c2003a83cc9e3ab7801497a17713e6eb1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8882bbfe",
+        "filename": "csit/variables/bgpuser/ibgp_peers/data.xml",
+        "patchSetId": 22
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-14T14:06:57Z",
+      "side": 1,
+      "message": "https://git.opendaylight.org/gerrit/#/c/32410/",
+      "range": {
+        "startLine": 10,
+        "startChar": 83,
+        "endLine": 10,
+        "endChar": 98
+      },
+      "revId": "9f36eb1c2003a83cc9e3ab7801497a17713e6eb1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
