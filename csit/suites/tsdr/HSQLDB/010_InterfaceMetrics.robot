@@ -1,0 +1,43 @@
+*** Settings ***
+Documentation     Test suite for HSQLDB DataStore InterfaceMetrics Verification
+Suite Setup       Start Tsdr Suite
+Suite Teardown    Stop Tsdr Suite
+Library           SSHLibrary
+Library           Collections
+Library           String
+Library           ../../../libraries/Common.py
+Resource          ../../../libraries/KarafKeywords.robot
+Resource          ../../../libraries/TsdrUtils.robot
+Variables         ../../../variables/Variables.py
+
+*** Variables ***
+@{INTERFACE_METRICS}    TransmittedPackets    TransmittedBytes    TransmitErrors    TransmitDrops    ReceivedPackets    ReceivedBytes    ReceiveOverRunError
+...               ReceiveFrameError    ReceiveErrors    ReceiveDrops    ReceiveCrcError    CollisionCount
+@{CATEGORY}       FLOWGROUPSTATS    FLOWMETERSTATS    FLOWSTATS    FLOWTABLESTATS    PORTSTATS    QUEUESTATS
+${TSDR_PORTSTATS}    tsdr:list PORTSTATS
+
+*** Test Cases ***
+Verification of TSDR HSQLDB Feature Installation
+    [Documentation]    Install and Verify the TSDR HSQLDB Datastore and JDBC
+    COMMENT    Install a Feature    odl-tsdr-hsqldb    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    60
+    COMMENT    Install a Feature    odl-tsdr-openflow-statistics-collector    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    60
+    Wait Until Keyword Succeeds    120s    1s    Verify the Metric is Collected?    log:display | grep "Connecting to HSQLDB"    HSQLDB
+    Verify Feature Is Installed    odl-tsdr-hsqldb
+    Verify Feature Is Installed    odl-tsdr-core
+    Verify Feature Is Installed    odl-tsdr-openflow-statistics-collector
+
+Verification TSDR Command is exist in Help
+    [Documentation]    Verify the TSDR List command on Help
+    ${output}=    Issue Command On Karaf Console    tsdr\t
+    Should Contain    ${output}    tsdr:list
+    ${output}=    Issue Command On Karaf Console    tsdr:list\t\t
+    : FOR    ${list}    IN    @{CATEGORY}
+    \    Should Contain    ${output}    ${list}
+    Wait Until Keyword Succeeds    60s    1s    Verify the Metric is Collected?    ${TSDR_PORTSTATS}    openflow
+
+Verify PortStats On Karaf console
+    [Documentation]    Verify the InterfaceMetrics(PortStats),attributes using ${TSDR_PORTSTATS}
+    : FOR    ${list}    IN    @{INTERFACE_METRICS}
+    \    ${tsdr_cmd}=    Concatenate the String    ${TSDR_PORTSTATS}    | grep ${list} | head
+    \    ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    30
+    \    Should Contain    ${output}    ${list}
