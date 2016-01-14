@@ -41,7 +41,7 @@ Setup_Netconf_Via_Restconf
     [Documentation]    Creates Requests session to be used by subsequent keywords.
     # Do not append slash at the end uf URL, Requests would add another, resulting in error.
     Create_NVR_Session    nvr_session    ${ODL_SYSTEM_IP}
-    BuiltIn.Set_Suite_Variable    ${NetconfViaRestconf__active_session}    nvr_session
+    Activate_NVR_Session    nvr_session
 
 Teardown_Netconf_Via_Restconf
     [Documentation]    Teardown to pair with Setup (otherwise no-op).
@@ -132,9 +132,11 @@ Create_NVR_Session
     [Documentation]    Create a Netconf Via Restconf session pointing to the given host with the given name. The new session is NOT made active.
     RequestsLibrary.Create_Session    ${name}    http://${host}:${RESTCONFPORT}${CONFIG_API}    headers=${HEADERS_XML}    auth=${AUTH}
 
+Get_Active_NVR_Session
+    [Documentation]    Get the name of the currently active NVR session.
+    [Return]    ${NetconfViaRestconf__active_session}
+
 Activate_NVR_Session
     [Arguments]    ${name}
-    [Documentation]    Activate the given session and return the name of the previously active session.
-    ${result}=    BuiltIn.Set_Variable    ${NetconfViaRestconf__active_session}
+    [Documentation]    Activate the given NVR session.
     BuiltIn.Set_Suite_Variable    ${NetconfViaRestconf__active_session}    ${name}
-    [Return]    ${result}
