@@ -14,17 +14,16 @@ Variables         ../../../variables/Variables.py
 *** Variables ***
 @{INTERFACE_METRICS}    TransmittedPackets    TransmittedBytes    TransmitErrors    TransmitDrops    ReceivedPackets    ReceivedBytes    ReceiveOverRunError
 ...               ReceiveFrameError    ReceiveErrors    ReceiveDrops    ReceiveCrcError    CollisionCount
-@{CATEGORY}       FlowGroupStats    FlowMeterStats    FlowStats    FlowTableStats    PortStats    QueueStats
-${TSDR_PORTSTATS}    tsdr:list PortStats
+@{CATEGORY}       FLOWGROUPSTATS    FLOWMETERSTATS    FLOWSTATS    FLOWTABLESTATS    PORTSTATS    QUEUESTATS
+${TSDR_PORTSTATS}    tsdr:list PORTSTATS
 ${CONFIG_INTERVAL}    /restconf/config/TSDRDC:TSDRDCConfig
 ${OPER_INTERVAL}    /restconf/operations/TSDRDC:setPollingInterval
 
 *** Test Cases ***
 Verification of TSDR HBase Feature Installation
     [Documentation]    Install and Verify the TSDR HBase Features
-    COMMENT    Install a Feature    odl-tsdr-hbase    ${CONTROLLER}    ${KARAF_SHELL_PORT}    60
+    COMMENT    Install a Feature    odl-tsdr-hbase    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    60
     Verify Feature Is Installed    odl-tsdr-hbase
-    Verify Feature Is Installed    odl-tsdr-hbase-persistence
     Verify Feature Is Installed    odl-hbaseclient
 
 Verification TSDR Command is exist in Help
@@ -40,13 +39,13 @@ Verification of TSDR PortStats
     [Documentation]    Verify the TSDR InterfaceMetrics
     : FOR    ${list}    IN    @{INTERFACE_METRICS}
     \    ${tsdr_cmd}=    Concatenate the String    ${TSDR_PORTSTATS}    | grep ${list} | head
-    \    ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}    ${CONTROLLER}    ${KARAF_SHELL_PORT}    30
+    \    ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    30
     \    Should Contain    ${output}    ${list}
 
 Verification of InterfaceMetrics-Attributes on HBase Client
     [Documentation]    Verify the InterfaceMetrics has been updated on HBase Datastore
     : FOR    ${list}    IN    @{INTERFACE_METRICS}
-    \    Verify the Metrics Attributes on Hbase Client    ${list}    openflow:1_1    InterfaceMetrics
+    \    Verify the Metrics Attributes on Hbase Client    ${list}    Node:openflow:1,NodeConnector:1    PORTSTATS
 
 Verify Configuration Interval-change
     [Documentation]    Verify the TSDR Collection configuration changes
@@ -60,7 +59,7 @@ Verify Configuration Interval-change
 Initialize the Tsdr Suite
     COMMENT    Initialize the HBase for TSDR
     Start Tsdr Suite
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 
 Verify TSDR Configuration Interval
     [Arguments]    ${interval}
@@ -72,9 +71,9 @@ Verify TSDR Configuration Interval
 Post TSDR Configuration Interval
     [Arguments]    ${interval}
     [Documentation]    Configuration TSDR collection interval ${interval}
-    ${p1}    Create Dictionary    interval=${interval}
-    ${p2}    Create Dictionary    input=${p1}
-    ${post_data}    Create Dictionary    setPollingInterval=${p2}
+    ${p1}    Create Dictionary    interval    ${interval}
+    ${p2}    Create Dictionary    input    ${p1}
+    ${post_data}    Create Dictionary    setPollingInterval    ${p2}
     Log    ${post_data}
     ${resp}    RequestsLibrary.Post    session    ${OPER_INTERVAL}    ${post_data}
     Should Be Equal As Strings    ${resp.status_code}    201
