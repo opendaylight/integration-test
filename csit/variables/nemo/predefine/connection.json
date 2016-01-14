@@ -1,0 +1,46 @@
+{
+     "connection-definitions": {
+          "connection-definition":[
+                    {
+                         "connection-type": "p2p",
+                         "property-definition": [
+                                   {
+                                        #the unit of bandwidth is mbps.
+                                        "property-name": "bandwidth",
+                                        "property-value-type": "int"
+                                   }
+                              ]
+                    },
+                    {
+                         "connection-type": "p2mp",
+                         "property-definition": [
+                                   {
+                                        #the unit of bandwidth is mbps.
+                                        "property-name": "bandwidth",
+                                        "property-value-type": "int"
+                                   }
+                              ]
+                    },
+                    {
+                         "connection-type": "mesh",
+                         "property-definition": [
+                                   {
+                                        #the unit of bandwidth is mbps.
+                                        "property-name": "bandwidth",
+                                        "property-value-type": "int"
+                                   }
+                              ]
+                    },
+                    {
+                         "connection-type": "chain",
+                         "property-definition": [
+                                   {
+                                        #the unit of bandwidth is mbps.
+                                        "property-name": "bandwidth",
+                                        "property-value-type": "int"
+                                   }
+                              ]
+                    }
+               ]
+          }
+}
