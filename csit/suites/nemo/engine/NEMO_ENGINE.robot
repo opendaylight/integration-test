@@ -3,12 +3,19 @@ Documentation     Test suite for nemo engine functionality
 Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
 Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
+Library           OperatingSystem
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
 ${REST_CONTEXT}    /restconf/modules
+${REGISTER_TENANT_FILE}     ${CURDIR}/../../../variables/nemo/register-user.json
+${STRUCTURE_HOST_FILE}      ${CURDIR}/../../../variables/nemo/intent-node-host.json
+${STRUCTURE_INTENT_FILE}      ${CURDIR}/../../../variables/nemo/structure-intent.json
+${PREDEFINE_ROLE_FILE}        ${CURDIR}/../../../variables/nemo/predefine/role.json
+${PREDEFINE_NODE_FILE}        ${CURDIR}/../../../variables/nemo/predefine/node.json
+${PREDEFINE_CONNECTION_FILE}        ${CURDIR}/../../../variables/nemo/predefine/connection.json
 
 *** Test Cases ***
 Get Controller Modules
@@ -17,3 +24,41 @@ Get Controller Modules
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ietf-restconf
+
+Add Pre-define Role
+    [Documentation]    Add Pre-define Role
+    Add Elements To URI From File    ${PREDEFINE_ROLE_URI}     ${PREDEFINE_ROLE_FILE}
+    ${body}    OperatingSystem.Get File    ${PREDEFINE_ROLE_FILE}
+    ${resp}    RequestsLibrary.Put Request    session    ${PREDEFINE_ROLE_URI}    data=${body}    headers=${headers}
+
+Add Pre-define Node
+    [Documentation]    Add Pre-define Node
+    [Tags]    Put
+    ${body}    OperatingSystem.Get File   ${PREDEFINE_NODE_FILE}
+    ${resp}    RequestsLibrary.Put    session    ${PREDEFINE_NODE_URI}     data=${body}
+
+Add Pre-define Connection
+    [Documentation]    Add Pre-define Connection
+    [Tags]    Put
+    ${body}    OperatingSystem.Get File    ${PREDEFINE_CONNECTION_FILE}
+    ${resp}    RequestsLibrary.Put    session    ${PREDEFINE_CONNECTION_URI}    data=${body}
+
+Register Tenant
+    [Documentation]    Register Tenant
+    [Tags]    Post
+    ${body}    OperatingSystem.Get File   ${REGISTER_TENANT_FILE}
+    ${resp}    RequestsLibrary.Post    session    ${REGISTER_TENANT_URI}    data=${body}
+    Log    ${resp.content}
+
+Add Host Intent
+    [Documentation]   Add Host Intent
+    [Tags]    Post
+    ${body}    OperatingSystem.Get File    ${STRUCTURE_HOST_FILE}
+    ${resp}    RequestsLibrary.Post Request    session    ${STRUCTURE_INTENT_URI}    data=${body}
+    Log    ${resp.content}
+
+Add Structure Intent
+    [Documentation]   Add Structure Intent
+    [Tags]    Post
+    ${body}    OperatingSystem.Get File    ${STRUCTURE_INTENT_FILE}
+    ${resp}    RequestsLibrary.Post Request    session    ${STRUCTURE_INTENT_URI}    data=${body}
