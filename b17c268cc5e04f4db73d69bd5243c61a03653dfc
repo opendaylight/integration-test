@@ -1,0 +1,8 @@
+Code-Review+1: Tomas Cechvala <tcechval@cisco.com>
+Code-Review+2: Vratko Polák <vrpolak@cisco.com>
+Verified+1: Vratko Polák <vrpolak@cisco.com>
+Submitted-by: Vratko Polák <vrpolak@cisco.com>
+Submitted-at: Thu, 14 Jan 2016 15:31:39 +0000
+Reviewed-on: https://git.opendaylight.org/gerrit/32582
+Project: integration/test
+Branch: refs/heads/master
