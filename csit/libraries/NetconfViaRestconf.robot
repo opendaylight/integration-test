@@ -8,6 +8,7 @@ Documentation     Access Netconf via Restconf.
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
 Library           RequestsLibrary
 Library           OperatingSystem
+Resource          Utils.robot
 
 *** Variables ***
 @{allowed_status_codes}    ${200}    ${201}    ${204}    # List of integers, not strings. Used by both PUT and DELETE.
@@ -38,7 +39,7 @@ FIXME__POLISH_THIS
     #    strange name clashes when using both in a suite.
 
 Setup_Netconf_Via_Restconf
-    [Documentation]    Creates Requests session to be used by subsequent keywords.
+    [Documentation]    Creates a default requests session to be used by subsequent keywords.
     # Do not append slash at the end uf URL, Requests would add another, resulting in error.
     Create_NVR_Session    nvr_session    ${ODL_SYSTEM_IP}
     Activate_NVR_Session    nvr_session
@@ -82,7 +83,7 @@ Post_Xml_Via_Restconf
     # As seen in previous two Keywords, Post does not need long specific URI.
     # But during Lithium development, Post ceased to do merge, so those Keywords do not work anymore.
     # This Keyword can still be used with specific URI to create a new container and fail if a container was already present.
-    ${response}=    RequestsLibrary.Post    ${NetconfViaRestconf__active_session}    ${uri_part}    data=${xml_data}
+    ${response}=    RequestsLibrary.Post    ${NetconfViaRestconf__active_config_session}    ${uri_part}    data=${xml_data}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Be_Empty    ${response.text}
     BuiltIn.Should_Be_Equal_As_Strings    ${response.status_code}    204
@@ -99,7 +100,7 @@ Put_Xml_Via_Restconf
     [Documentation]    Put XML data to given controller-config URI, check reponse text is empty and status_code is one of allowed ones.
     BuiltIn.Log    ${uri_part}
     BuiltIn.Log    ${xml_data}
-    ${response}=    RequestsLibrary.Put    ${NetconfViaRestconf__active_session}    ${uri_part}    data=${xml_data}
+    ${response}=    RequestsLibrary.Put    ${NetconfViaRestconf__active_config_session}    ${uri_part}    data=${xml_data}
     BuiltIn.Log    ${response.text}
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Should_Be_Empty    ${response.text}
@@ -116,7 +117,7 @@ Delete_Via_Restconf
     [Arguments]    ${uri_part}
     [Documentation]    Delete resource at controller-config URI, check reponse text is empty and status_code is 204.
     BuiltIn.Log    ${uri_part}
-    ${response}=    RequestsLibrary.Delete    ${NetconfViaRestconf__active_session}    ${uri_part}
+    ${response}=    RequestsLibrary.Delete    ${NetconfViaRestconf__active_config_session}    ${uri_part}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Be_Empty    ${response.text}
     BuiltIn.Should_Contain    ${allowed_status_codes}    ${response.status_code}
@@ -131,12 +132,24 @@ Create_NVR_Session
     [Arguments]    ${name}    ${host}
     [Documentation]    Create a Netconf Via Restconf session pointing to the given host with the given name. The new session is NOT made active.
     RequestsLibrary.Create_Session    ${name}    http://${host}:${RESTCONFPORT}${CONFIG_API}    headers=${HEADERS_XML}    auth=${AUTH}
+    RequestsLibrary.Create_Session    ${name}_operational    http://${host}:${RESTCONFPORT}${OPERATIONAL_API}    headers=${HEADERS_XML}    auth=${AUTH}
 
 Get_Active_NVR_Session
     [Documentation]    Get the name of the currently active NVR session.
-    [Return]    ${NetconfViaRestconf__active_session}
+    [Return]    ${NetconfViaRestconf__active_config_session}
 
 Activate_NVR_Session
     [Arguments]    ${name}
     [Documentation]    Activate the given NVR session.
-    BuiltIn.Set_Suite_Variable    ${NetconfViaRestconf__active_session}    ${name}
+    BuiltIn.Set_Suite_Variable    ${NetconfViaRestconf__active_config_session}    ${name}
+    BuiltIn.Set_Suite_Variable    ${NetconfViaRestconf__active_operational_session}    ${name}_operational
+
+Get_Config_Data_From_URI
+    [Arguments]    ${uri}    ${headers}=${NONE}
+    ${data}=    Utils.Get_Data_From_URI    ${NetconfViaRestconf__active_config_session}    ${uri}    ${headers}
+    [Return]    ${data}
+
+Get_Operational_Data_From_URI
+    [Arguments]    ${uri}    ${headers}=${NONE}
+    ${data}=    Utils.Get_Data_From_URI    ${NetconfViaRestconf__active_operational_session}    ${uri}    ${headers}
+    [Return]    ${data}
