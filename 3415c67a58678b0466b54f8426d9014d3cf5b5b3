@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_c5dcae77",
+        "filename": "csit/suites/netconf/clustering/CRUD.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-01-14T12:13:44Z",
+      "side": 1,
+      "message": "2016 as it is officially published by merging.",
+      "parentUuid": "9a3d3df0_a2fec036",
+      "range": {
+        "startLine": 4,
+        "startChar": 32,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "3415c67a58678b0466b54f8426d9014d3cf5b5b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_823bbcea",
         "filename": "csit/suites/netconf/clustering/CRUD.robot",
         "patchSetId": 20
@@ -117,6 +141,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_8541060e",
+        "filename": "csit/suites/netconf/clustering/CRUD.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-01-14T12:13:44Z",
+      "side": 1,
+      "message": "Found and added the change that switches this to the cluster functionality which got lost due to having the WIP: tag.",
+      "parentUuid": "9a3d3df0_e530d2ea",
+      "range": {
+        "startLine": 52,
+        "startChar": 20,
+        "endLine": 52,
+        "endChar": 47
+      },
+      "revId": "3415c67a58678b0466b54f8426d9014d3cf5b5b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_229ab014",
         "filename": "csit/suites/netconf/clustering/CRUD.robot",
         "patchSetId": 20
@@ -128,6 +176,30 @@
       "writtenOn": "2016-01-14T11:55:20Z",
       "side": 1,
       "message": "Looks like this is not needed when you have node* sessions.",
+      "range": {
+        "startLine": 186,
+        "startChar": 38,
+        "endLine": 186,
+        "endChar": 49
+      },
+      "revId": "3415c67a58678b0466b54f8426d9014d3cf5b5b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_45ba5ee2",
+        "filename": "csit/suites/netconf/clustering/CRUD.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 186,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-01-14T12:13:44Z",
+      "side": 1,
+      "message": "Need to take a look into why this is needed (and how to get rid of this).",
+      "parentUuid": "9a3d3df0_229ab014",
       "range": {
         "startLine": 186,
         "startChar": 38,
