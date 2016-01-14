@@ -1,0 +1,29 @@
+{
+    "input":{
+            "user-id": "14ce424a-3e50-4a2a-ad5c-b29845158c8b",
+            "objects":{
+            "node":[
+                    {
+                        "node-name": "server1",
+                        "node-type": "host",
+                        "node-id":"7b796915-adf4-4356-b5ca-de005ac410c1"
+                    },
+                    {
+                        "node-name": "server2",
+                        "node-type": "host",
+                        "node-id":"22282cca-9a13-4d0c-a67e-a933ebb0b0ae"
+                    },
+                    {
+                        "node-name": "vm1",
+                        "node-type": "host",
+                        "node-id":"1eaf9a67-a171-42a8-9282-71cf702f61dd"
+                    },
+                    {
+                        "node-name": "vm2",
+                        "node-type": "host",
+                        "node-id":"6c787caa-156a-49ed-8546-547bdccf283c"
+                    }
+            ]
+        }
+   }
+}
