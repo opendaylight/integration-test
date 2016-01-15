@@ -1,0 +1,3 @@
+# Place the suites in run order:
+integration/test/csit/suites/ovsdb/Netvirt_Cluster/030_Ovsdb_Southbound_NetVirt.robot
+integration/test/csit/suites/ovsdb/Netvirt_Cluster/010_Ovsdb_Netvirt_flow.robot
