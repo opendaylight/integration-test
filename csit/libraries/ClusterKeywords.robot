@@ -82,42 +82,40 @@ Get Cluster Entity Owner Status
     [Return]    ${owner}    ${candidates_list}
 
 Check Item Occurrence At URI In Cluster
-    [Arguments]    ${controller_index_list}    ${dictionary_item_occurrence}    ${uri}    ${headers}=${HEADERS}
+    [Arguments]    ${controller_index_list}    ${dictionary_item_occurrence}    ${uri}
     [Documentation]    Send a GET with the supplied ${uri} to all cluster instances in ${controller_index_list}
     ...    and check for occurrences of items expressed in a dictionary ${dictionary_item_occurrence}.
     : FOR    ${i}    IN    @{controller_index_list}
-    \    ${data}    Get Data From URI    controller${i}    ${uri}    ${headers}
+    \    ${data}    Get Data From URI    controller${i}    ${uri}
     \    Log    ${data}
     \    Check Item Occurrence    ${data}    ${dictionary_item_occurrence}
 
 Put And Check At URI In Cluster
-    [Arguments]    ${controller_index_list}    ${controller_index}    ${uri}    ${body}    ${headers}=${HEADERS_YANG_JSON}
-    [Documentation]    Send a PUT with the supplied ${uri} and ${body} to a ${controller_index}
+    [Arguments]    ${controller_index_list}    ${controller_index}    ${uri}    ${body}
+    [Documentation]    Send a PUT with the supplied ${uri} and ${body} (json string) to a ${controller_index}
     ...    and check the data is replicated in all instances in ${controller_index_list}.
     ${expected_body}=    Hsf Json    ${body}
     Log    ${body}
-    ${json_body}=    To Json    ${body}
-    ${resp}    RequestsLibrary.Put Request    controller${controller_index}    ${uri}    ${json_body}    ${headers}
+    ${resp}    RequestsLibrary.Put Request    controller${controller_index}    ${uri}    ${body}    ${HEADERS_YANG_JSON}
     Log    ${resp.content}
     Log    ${resp.status_code}
     ${status_code}=    Convert To String    ${resp.status_code}
     Should Match Regexp    ${status_code}    20(0|1)
     : FOR    ${i}    IN    @{controller_index_list}
     \    ${data}    Wait Until Keyword Succeeds    5s    1s    Get Data From URI    controller${i}
-    \    ...    ${uri}    ${headers}
+    \    ...    ${uri}
     \    Log    ${data}
     \    ${received_body}    Hsf Json    ${data}
     \    Should Be Equal    ${expected_body}    ${received_body}
 
 Delete And Check At URI In Cluster
-    [Arguments]    ${controller_index_list}    ${controller_index}    ${uri}    ${headers}=${HEADERS_YANG_JSON}
+    [Arguments]    ${controller_index_list}    ${controller_index}    ${uri}
     [Documentation]    Send a DELETE with the supplied ${uri} to a ${controller_index}
     ...    and check the data is removed from all instances in ${controller_index_list}.
-    ${resp}    RequestsLibrary.Delete Request    controller${controller_index}    ${uri}    ${headers}
+    ${resp}    RequestsLibrary.Delete Request    controller${controller_index}    ${uri}
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${i}    IN    @{controller_index_list}
     \    Wait Until Keyword Succeeds    5s    1s    No Content From URI    controller${i}    ${uri}
-    \    ...    ${headers}
 
 Kill Multiple Controllers
     [Arguments]    @{controller_index_list}
