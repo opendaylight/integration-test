@@ -13,8 +13,11 @@ Resource          ../../../libraries/OVSDB.robot
 
 *** Variables ***
 ${OVSDB_CONFIG_DIR}    ${CURDIR}/../../../variables/ovsdb
+${ODLREST}        /controller/nb/v2/neutron
 @{node_list}      ovsdb://uuid/
 @{netvirt}        1
+${EXT_NET1_ID}    7da709ff-397f-4778-a0e8-994811272fdb
+${EXT_SUBNET1_ID}    00289199-e288-464a-ab2f-837ca67101a7
 
 *** Test Cases ***
 Create Cluster List
@@ -37,3 +40,22 @@ Check netvirt is loaded
     [Documentation]    Check if the netvirt piece has been loaded into the karaf instance
     [Tags]    Check netvirt is loaded
     Wait Until Keyword Succeeds    4s    4s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${netvirt}    ${OPERATIONAL_NODES_NETVIRT}
+
+Check External Net for Tenant
+    [Documentation]    Check External Net for Tenant
+    [Tags]    OpenStack Call Flow
+    ${resp}    RequestsLibrary.Get    session    ${ODLREST}/networks
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+
+Create External Net for Tenant
+    [Documentation]    Create External Net for Tenant
+    [Tags]    OpenStack Call Flow
+    ${Data}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_ext_net.json
+    ${Data}    Replace String    ${Data}    {netId}    ${EXT_NET1_ID}
+    ${Data}    Replace String    ${Data}    {tntId}    ${TNT1_ID}
+    Log    ${Data}
+    ${resp}    RequestsLibrary.Post    session    ${ODLREST}/networks    data=${Data}    headers=${HEADERS}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    201
+
