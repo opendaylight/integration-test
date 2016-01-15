@@ -17,3 +17,4 @@ Kill All Controllers
 Clean All Journals
     [Documentation]    Clean the journals of all the controllers in the cluster
     Clean One Or More Journals    @{controllers}
+    Clean One Or More Snapshots    @{controllers}
