@@ -94,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_b758b3fb",
+        "filename": "csit/suites/netconf/clustering/CRUD.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-01-15T11:27:21Z",
+      "side": 1,
+      "message": "They are not supposed to do so after https://git.opendaylight.org/gerrit/#/c/32586. This (and the next line) is a remnant of the \"old ways\" that was supposed to go away but somehow mysteriously survived. Deleted.",
+      "parentUuid": "9a3d3df0_5c04ec14",
+      "range": {
+        "startLine": 196,
+        "startChar": 38,
+        "endLine": 196,
+        "endChar": 41
+      },
+      "revId": "f8b789d2df4a4980d58d2319a065ce22160c326e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_1c1a646e",
         "filename": "csit/suites/netconf/clustering/CRUD.robot",
         "patchSetId": 26
@@ -105,6 +129,30 @@
       "writtenOn": "2016-01-15T09:46:33Z",
       "side": 1,
       "message": "Is this activation needed when line 223 specifies session directly?",
+      "range": {
+        "startLine": 221,
+        "startChar": 47,
+        "endLine": 221,
+        "endChar": 54
+      },
+      "revId": "f8b789d2df4a4980d58d2319a065ce22160c326e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_972bef2f",
+        "filename": "csit/suites/netconf/clustering/CRUD.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-01-15T11:27:21Z",
+      "side": 1,
+      "message": "Because line 223 was supposed to use a keyword from NetconfViaRestconf whose name stated what type of data it is trying to get and that keyword was supposed to use the session activated here. The line 223 as seen here is bad because it leaks internal implementation details of the NVR sessions. Fixed.",
+      "parentUuid": "9a3d3df0_1c1a646e",
       "range": {
         "startLine": 221,
         "startChar": 47,
