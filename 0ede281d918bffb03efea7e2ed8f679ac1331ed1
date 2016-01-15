@@ -1,0 +1,297 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_eb39bcd9",
+        "filename": "csit/libraries/TsdrUtils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T01:52:47Z",
+      "side": 1,
+      "message": "you can use ${HEADERS_XML} and ${ACCEPT_XML} from our Variables.py file?  same question for line 26 below",
+      "range": {
+        "startLine": 22,
+        "startChar": 18,
+        "endLine": 22,
+        "endChar": 72
+      },
+      "revId": "0ede281d918bffb03efea7e2ed8f679ac1331ed1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_cb3678e7",
+        "filename": "csit/libraries/TsdrUtils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T01:52:47Z",
+      "side": 1,
+      "message": "we pass this info on the pybot command line.  it would be\n${WORKSPACE}/${BUNDLEFOLDER}\n\nthis as it stands would not work upstream.",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 57
+      },
+      "revId": "0ede281d918bffb03efea7e2ed8f679ac1331ed1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8b5c7027",
+        "filename": "csit/libraries/TsdrUtils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T01:52:47Z",
+      "side": 1,
+      "message": "curious why you added the 1 here?",
+      "range": {
+        "startLine": 34,
+        "startChar": 21,
+        "endLine": 34,
+        "endChar": 22
+      },
+      "revId": "0ede281d918bffb03efea7e2ed8f679ac1331ed1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6b4dac72",
+        "filename": "csit/libraries/TsdrUtils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T01:52:47Z",
+      "side": 1,
+      "message": "why not use the \"Start Mininet Keyword\"?",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 26
+      },
+      "revId": "0ede281d918bffb03efea7e2ed8f679ac1331ed1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0b48605a",
+        "filename": "csit/libraries/TsdrUtils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T01:52:47Z",
+      "side": 1,
+      "message": "my first thoughts:\n\nseems like these two keywords could be broken out so that you only have one keyword doing the \"iperf h1 h2\"  Maybe \"Run Iperf\" with args being ${src} and ${dst}.  that allows\nit to be used h2 to h1 or even h99 to h132 if ever needed.\n\nthen your checks (count cassandra and data match) can be \ntheir own keywords.",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 56
+      },
+      "revId": "0ede281d918bffb03efea7e2ed8f679ac1331ed1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_eb67fce8",
+        "filename": "csit/libraries/TsdrUtils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T01:52:47Z",
+      "side": 1,
+      "message": "we have this now:\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/Utils.robot#L187\n\nif you want...",
+      "range": {
+        "startLine": 172,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 75
+      },
+      "revId": "0ede281d918bffb03efea7e2ed8f679ac1331ed1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_cb64b8e7",
+        "filename": "csit/libraries/TsdrUtils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 410,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T01:52:47Z",
+      "side": 1,
+      "message": "don\u0027t need this.  this should work and lets you leverage any\nimprovements going forward:\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/KarafKeywords.robot#L53",
+      "range": {
+        "startLine": 410,
+        "startChar": 0,
+        "endLine": 410,
+        "endChar": 10
+      },
+      "revId": "0ede281d918bffb03efea7e2ed8f679ac1331ed1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0b5fc00f",
+        "filename": "csit/libraries/TsdrUtils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T01:52:47Z",
+      "side": 1,
+      "message": "where is ${level} coming from?  it\u0027s not an arg and not created local to this keyword.",
+      "range": {
+        "startLine": 443,
+        "startChar": 15,
+        "endLine": 443,
+        "endChar": 20
+      },
+      "revId": "0ede281d918bffb03efea7e2ed8f679ac1331ed1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4ba0a8f4",
+        "filename": "csit/libraries/TsdrUtils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 443,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T01:52:47Z",
+      "side": 1,
+      "message": "same with syslog_severity.\n\nlooks like this applies below as well.",
+      "range": {
+        "startLine": 443,
+        "startChar": 37,
+        "endLine": 443,
+        "endChar": 52
+      },
+      "revId": "0ede281d918bffb03efea7e2ed8f679ac1331ed1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2bb9e42e",
+        "filename": "csit/libraries/TsdrUtils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 473,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T01:52:47Z",
+      "side": 1,
+      "message": "this doesn\u0027t look like how the documentation reads.  Are you assuming the user is passing in the \"tsdr:list | grep xyz\" command in full?  if so, then this keyword is not doing anything more than what you can do with \"Issue Command On Karaf Console\". \n\nMaybe the intention was to just pass the \"xyz\" string as the ${query}?",
+      "range": {
+        "startLine": 469,
+        "startChar": 0,
+        "endLine": 473,
+        "endChar": 25
+      },
+      "revId": "0ede281d918bffb03efea7e2ed8f679ac1331ed1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ab7cd473",
+        "filename": "csit/libraries/TsdrUtils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T01:52:47Z",
+      "side": 1,
+      "message": "add a close connection here, for the case that someone throws this keyword in a loop, it could end up leaking file descriptors.\n\napplies below as well.",
+      "revId": "0ede281d918bffb03efea7e2ed8f679ac1331ed1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6be92c1a",
+        "filename": "csit/libraries/TsdrUtils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T01:52:47Z",
+      "side": 1,
+      "message": "I\u0027m not totally sure of what these keywords are doing, but I did notice that you are passing in ${OID} as an argument, but I don\u0027t see it being used.\n\nmaybe a better keyword name?  Get IfIndex From Record and Get IfDescription From Record, since you\u0027ve specifically given those OIDs in the keywords",
+      "range": {
+        "startLine": 583,
+        "startChar": 0,
+        "endLine": 607,
+        "endChar": 47
+      },
+      "revId": "0ede281d918bffb03efea7e2ed8f679ac1331ed1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4beee823",
+        "filename": "csit/suites/tsdr/HSQLDB/010_InterfaceMetrics.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T01:52:47Z",
+      "side": 1,
+      "message": "exists",
+      "range": {
+        "startLine": 29,
+        "startChar": 26,
+        "endLine": 29,
+        "endChar": 34
+      },
+      "revId": "0ede281d918bffb03efea7e2ed8f679ac1331ed1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
