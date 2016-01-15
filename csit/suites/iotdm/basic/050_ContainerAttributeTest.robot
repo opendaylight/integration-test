@@ -324,7 +324,6 @@ Delete the Container2-2.3
     LOG    ${text}
     ${lt1} =    LastModifiedTime    ${oldr}
     ${attr} =    Set Variable    "lbl":["aaa"]
-    Sleep    1s
     # We know Beryllium is going to be get rid of all sleep.
     # But as lastModifiedTime has precision in seconds,
     # we need to wait 1 second to see different value on update.
@@ -338,7 +337,6 @@ Delete the Container2-2.3
     ${text} =    Text    ${oldr}
     LOG    ${text}
     ${lt1} =    LastModifiedTime    ${oldr}
-    Sleep    1s
     # We know Beryllium is going to be get rid of all sleep.
     # But as lastModifiedTime has precision in seconds,
     # we need to wait 1 second to see different value on update.
@@ -423,7 +421,6 @@ Delete the test AE-4.2
     ${oldr} =    Retrieve Resource    ${iserver}    InCSE1/Container2
     ${oldst} =    Set Variable    ${oldr.json()['st']}
     ${attr} =    Set Variable    "lbl":["label1"]
-    Sleep    1s
     # We know Beryllium is going to be get rid of all sleep.
     # But as lastModifiedTime has precision in seconds,
     # we need to wait 1 second to see different value on update.
@@ -439,7 +436,6 @@ Delete the test AE-4.2
     ${oldr} =    Retrieve Resource    ${iserver}    InCSE1/Container2
     ${oldst} =    Set Variable    ${oldr.json()['st']}
     ${attr} =    Set Variable    "mni":5
-    Sleep    1s
     # We know Beryllium is going to be get rid of all sleep.
     # But as lastModifiedTime has precision in seconds,
     # we need to wait 1 second to see different value on update.
@@ -453,7 +449,6 @@ Delete the test AE-4.2
     ${oldr} =    Retrieve Resource    ${iserver}    InCSE1/Container2
     ${oldst} =    Set Variable    ${oldr.json()['st']}
     ${attr} =    Set Variable    "mbs":30
-    Sleep    1s
     # We know Beryllium is going to be get rid of all sleep.
     # But as lastModifiedTime has precision in seconds,
     # we need to wait 1 second to see different value on update.
@@ -469,7 +464,6 @@ Delete the test AE-4.2
     ${oldr} =    Retrieve Resource    ${iserver}    InCSE1/Container2
     ${oldst} =    Set Variable    ${oldr.json()['st']}
     ${attr} =    Set Variable    "or":"http://google.com"
-    Sleep    1s
     # We know Beryllium is going to be get rid of all sleep.
     # But as lastModifiedTime has precision in seconds,
     # we need to wait 1 second to see different value on update.
@@ -486,7 +480,6 @@ Delete the test AE-4.2
     ${oldr} =    Retrieve Resource    ${iserver}    InCSE1/Container2
     ${oldst} =    Set Variable    ${oldr.json()['st']}
     ${attr} =    Set Variable    "lbl":["label1"]
-    Sleep    1s
     # We know Beryllium is going to be get rid of all sleep.
     # But as lastModifiedTime has precision in seconds,
     # we need to wait 1 second to see different value on update.
@@ -505,7 +498,6 @@ Delete the test AE-4.2
     ${oldr} =    Retrieve Resource    ${iserver}    InCSE1/Container2
     ${oldst} =    Set Variable    ${oldr.json()['st']}
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"102"
-    Sleep    1s
     # We know Beryllium is going to be get rid of all sleep.
     # But as lastModifiedTime has precision in seconds,
     # we need to wait 1 second to see different value on update.
@@ -524,7 +516,6 @@ Delete the test AE-4.2
     ${oldr} =    Retrieve Resource    ${iserver}    InCSE1/Container2
     ${oldst} =    Set Variable    ${oldr.json()['st']}
     ${attr} =    Set Variable    "lbl":["label45"]
-    Sleep    1s
     # We know Beryllium is going to be get rid of all sleep.
     # But as lastModifiedTime has precision in seconds,
     # we need to wait 1 second to see different value on update.

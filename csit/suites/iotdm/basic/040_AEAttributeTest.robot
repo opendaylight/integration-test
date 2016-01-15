@@ -254,7 +254,6 @@ Set Suite Variable
     LOG    ${text}
     ${lt1} =    LastModifiedTime    ${oldr}
     ${attr} =    Set Variable    "lbl":["aaa"]
-    Sleep    1s
     # We know Beryllium is going to be get rid of all sleep.
     # But as lastModifiedTime has precision in seconds,
     # we need to wait 1 second to see different value on update.

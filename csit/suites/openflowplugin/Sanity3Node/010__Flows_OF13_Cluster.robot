@@ -70,7 +70,6 @@ Add Flow 3 To Controller3
     Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}
 
 Show Switch Content After Add
-    Sleep    5s
     Write    sh ovs-vsctl show
     Read Until    mininet>
     Write    sh ovs-ofctl dump-flows s1 -O OpenFlow13
@@ -260,7 +259,6 @@ Delete Flow 3 On Controller3
     Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}
 
 Show Switch Content After Delete
-    Sleep    5s
     Write    sh ovs-ofctl dump-flows s1 -O OpenFlow13
     Read Until    mininet>
 
