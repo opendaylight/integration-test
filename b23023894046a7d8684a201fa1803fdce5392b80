@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_8849168e",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T01:06:21Z",
+      "side": 1,
+      "message": "can you change this to the new keyword which is \"Post Request\".  applies elsewhere.",
+      "range": {
+        "startLine": 21,
+        "startChar": 31,
+        "endLine": 21,
+        "endChar": 35
+      },
+      "revId": "b23023894046a7d8684a201fa1803fdce5392b80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e85d424a",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T01:06:21Z",
+      "side": 1,
+      "message": "not if I pass state\u003d\"off\" when I call \"Verify Connection\"",
+      "range": {
+        "startLine": 50,
+        "startChar": 49,
+        "endLine": 50,
+        "endChar": 51
+      },
+      "revId": "b23023894046a7d8684a201fa1803fdce5392b80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_88175651",
+        "filename": "csit/suites/sxp/topology/010_Topology_Features.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T01:06:21Z",
+      "side": 1,
+      "message": "isn\u0027t this the same work being done in 010_Inbound_Filtering.robot?  time to move it as a library keyword?",
+      "range": {
+        "startLine": 184,
+        "startChar": 0,
+        "endLine": 198,
+        "endChar": 52
+      },
+      "revId": "b23023894046a7d8684a201fa1803fdce5392b80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
