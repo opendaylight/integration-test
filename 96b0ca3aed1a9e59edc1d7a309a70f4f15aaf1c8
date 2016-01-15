@@ -16,6 +16,24 @@
       "revId": "96b0ca3aed1a9e59edc1d7a309a70f4f15aaf1c8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_37adc389",
+        "filename": "csit/variables/lispflowmapping/Be/rpc_add-mapping_sp_ipv4.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-01-15T11:58:56Z",
+      "side": 1,
+      "message": "Thanks, fixed in the next patch set.",
+      "parentUuid": "9a3d3df0_dc78fc2d",
+      "revId": "96b0ca3aed1a9e59edc1d7a309a70f4f15aaf1c8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
