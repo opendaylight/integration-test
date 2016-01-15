@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_61882d23",
+        "filename": "csit/suites/bgpcep/bgpuser/ebgp_peers_basic.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 4792
+      },
+      "writtenOn": "2016-01-15T08:02:30Z",
+      "side": 1,
+      "message": "OK. This TC was not intended to check the path selection algorithm itself. Anyway I will add a general TODO for new test cases related to this topic ...",
+      "parentUuid": "9a3d3df0_f9723748",
+      "range": {
+        "startLine": 131,
+        "startChar": 31,
+        "endLine": 131,
+        "endChar": 35
+      },
+      "revId": "49e555906ee07a20a53f8956da64c9176117c5ad",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_199f1b61",
         "filename": "csit/variables/bgpuser/ebgp_peers/data.xml",
         "patchSetId": 17
