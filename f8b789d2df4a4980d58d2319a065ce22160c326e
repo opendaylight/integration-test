@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_414fe992",
+        "filename": "csit/suites/netconf/clustering/CRUD.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-15T09:46:33Z",
+      "side": 1,
+      "message": "ALL_CAPS",
+      "range": {
+        "startLine": 49,
+        "startChar": 2,
+        "endLine": 49,
+        "endChar": 33
+      },
+      "revId": "f8b789d2df4a4980d58d2319a065ce22160c326e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a144f574",
+        "filename": "csit/suites/netconf/clustering/CRUD.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-15T09:46:33Z",
+      "side": 1,
+      "message": "Perhaps CONFIGURER is more approrpiate.",
+      "range": {
+        "startLine": 59,
+        "startChar": 54,
+        "endLine": 59,
+        "endChar": 61
+      },
+      "revId": "f8b789d2df4a4980d58d2319a065ce22160c326e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8149f18d",
+        "filename": "csit/suites/netconf/clustering/CRUD.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-15T09:46:33Z",
+      "side": 1,
+      "message": "One \u0027g\u0027 less.",
+      "range": {
+        "startLine": 75,
+        "startChar": 64,
+        "endLine": 75,
+        "endChar": 75
+      },
+      "revId": "f8b789d2df4a4980d58d2319a065ce22160c326e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5c04ec14",
+        "filename": "csit/suites/netconf/clustering/CRUD.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-15T09:46:33Z",
+      "side": 1,
+      "message": "Two Keywords in NetconfKeywords are using it.\nYou should probably clean that up (also with nvr_session) to that only the intended http sessions are used 9instead of those default ones).",
+      "range": {
+        "startLine": 196,
+        "startChar": 38,
+        "endLine": 196,
+        "endChar": 41
+      },
+      "revId": "f8b789d2df4a4980d58d2319a065ce22160c326e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1c1a646e",
+        "filename": "csit/suites/netconf/clustering/CRUD.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-15T09:46:33Z",
+      "side": 1,
+      "message": "Is this activation needed when line 223 specifies session directly?",
+      "range": {
+        "startLine": 221,
+        "startChar": 47,
+        "endLine": 221,
+        "endChar": 54
+      },
+      "revId": "f8b789d2df4a4980d58d2319a065ce22160c326e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
