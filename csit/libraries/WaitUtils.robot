@@ -194,7 +194,7 @@ Wait_For_Getter_And_Safe_Stateful_Validator_Consecutive_Success
     # FIXME: Document that Safe Stateful Validator has to return state, status and message (and never fail)
     ${timeout_in_seconds}    ${period_in_seconds}    ${date_deadline} =    WaitUtils__Check_Sanity_And_Compute_Derived_Times    timeout=${timeout}    period=${period}    count=${count}
     # Maximum number of tries. TODO: Move to separate Keyword?
-    ${maximum_tries} =    BuiltIn.Evaluate    math.ceil(${timeout_in_seconds} / ${period_in_seconds})    modules=math
+    ${maximum_tries} =    BuiltIn.Evaluate    math.ceil(${timeout_in_seconds} / ${period_in_seconds}) + 1    modules=math
     ${result} =    BuiltIn.Set_Variable    No result yet.
     ${state} =    BuiltIn.Set_Variable    ${initial_state}
     # The loop for failures.
