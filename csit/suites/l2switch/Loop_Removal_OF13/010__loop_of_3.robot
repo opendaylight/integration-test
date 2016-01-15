@@ -80,7 +80,6 @@ Add Port
     Read Until    mininet>
     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    ${FORWARD}    4
     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    ${DISCARD}    2
-    Sleep    1
     Write    h1 ping -w 1 h2
     ${result}    Read Until    mininet>
     Should Contain    ${result}    received, 0% packet loss
