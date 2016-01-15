@@ -57,7 +57,6 @@ Verify after deleting flow config - Output to physical port#
 Verify flows after deleting flow config on OVS
     [Documentation]    Checking Flows on switch
     [Tags]    Switch
-    Sleep    1
     write    dpctl dump-flows -O OpenFlow13
     ${body}    OperatingSystem.Get File    ${FILE}
     ${switchoutput}    Read Until    >

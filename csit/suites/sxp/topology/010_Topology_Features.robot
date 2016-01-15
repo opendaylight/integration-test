@@ -21,12 +21,10 @@ Export Test
     Should Contain Binding With Peer Sequence    ${resp}    542    5.5.5.5/32    127.0.0.3    0    sxp
     Should Contain Binding With Peer Sequence    ${resp}    99    15.15.15.15/32    127.0.0.3    0    sxp
     Delete Connections    127.0.0.1    64999    127.0.0.3
-    Sleep    2s
     ${resp}    Get Bindings Master Database
     Should Contain Binding With Peer Sequence    ${resp}    542    5.5.5.5/32    127.0.0.2    0    sxp
     Should Contain Binding With Peer Sequence    ${resp}    99    15.15.15.15/32    127.0.0.3    1    sxp
     Delete Connections    127.0.0.1    64999    127.0.0.2
-    Sleep    2s
     ${resp}    Get Bindings Master Database
     Should Not Contain Binding With Peer Sequence    ${resp}    542    5.5.5.5/32    127.0.0.2    0    sxp
     Should Not Contain Binding With Peer Sequence    ${resp}    99    15.15.15.15/32    127.0.0.3    1    sxp
@@ -40,12 +38,10 @@ Export Test Legacy
     \    Should Contain Binding    ${resp}    542    5.5.5.5/32    sxp
     \    Should Contain Binding    ${resp}    99    15.15.15.15/32    sxp
     \    Delete Connections    127.0.0.1    64999    127.0.0.3
-    \    Sleep    2s
     \    ${resp}    Get Bindings Master Database
     \    Should Contain Binding    ${resp}    542    5.5.5.5/32    sxp
     \    Should Contain Binding    ${resp}    99    15.15.15.15/32    sxp
     \    Delete Connections    127.0.0.1    64999    127.0.0.2
-    \    Sleep    2s
     \    ${resp}    Get Bindings Master Database
     \    Should Not Contain Binding    ${resp}    542    5.5.5.5/32    sxp
     \    Should Not Contain Binding    ${resp}    99    15.15.15.15/32    sxp
@@ -104,12 +100,9 @@ Most Recent Rule Test
     [Documentation]    Most Recent Rule
     Setup Topology Fork    version4
     Add Binding    542    5.5.5.5/32    127.0.0.2
-    Sleep    2s
     Add Binding    542    5.5.5.5/32    127.0.0.3
     Add Binding    99    15.15.15.15/32    127.0.0.3
-    Sleep    2s
     Add Binding    99    15.15.15.15/32    127.0.0.2
-    Sleep    1s
     ${resp}    Get Bindings Master Database
     Should Contain Binding With Peer Sequence    ${resp}    542    5.5.5.5/32    127.0.0.3    0    sxp
     Should Contain Binding With Peer Sequence    ${resp}    99    15.15.15.15/32    127.0.0.2    0    sxp
@@ -123,11 +116,9 @@ Shorthest Path Test
     Add Connection    version4    speaker    127.0.0.3    64999    127.0.0.5
     Setup Topology Fork    version4
     Add Binding    542    5.5.5.5/32    127.0.0.2
-    Sleep    2s
     Add Binding    542    5.5.5.5/32    127.0.0.5
     Add Binding    99    15.15.15.15/32    127.0.0.2
     Add Binding    9954    105.15.125.15/32    127.0.0.5
-    Sleep    2s
     Add Binding    99    15.15.15.15/32    127.0.0.5
     ${resp}    Get Bindings Master Database
     Should Contain Binding With Peer Sequence    ${resp}    542    5.5.5.5/32    127.0.0.2    0    sxp
@@ -147,13 +138,10 @@ Setup Topology Triangel
     Add Binding    99    15.15.15.15/32    127.0.0.3
     Add Connection    ${version}    listener    127.0.0.2    64999    127.0.0.1
     Add Connection    ${version}    listener    127.0.0.3    64999    127.0.0.1
-    Sleep    1s
     Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.2
     Add Connection    ${version}    listener    127.0.0.3    64999    127.0.0.2
-    Sleep    2s
     Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.3
     Add Connection    ${version}    speaker    127.0.0.2    64999    127.0.0.3
-    Sleep    3s
 
 Setup Topology Linear
     [Arguments]    ${version}    ${r_version}
@@ -164,10 +152,8 @@ Setup Topology Linear
     Add Binding    555    2001:db8:85a3:8d3:0:0:0:0/64    127.0.0.2
     Add Connection    ${version}    listener    127.0.0.2    64999    127.0.0.1
     Add Connection    ${r_version}    speaker    127.0.0.3    64999    127.0.0.1
-    Sleep    1s
     Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.2
     Add Connection    ${r_version}    listener    127.0.0.1    64999    127.0.0.3
-    Sleep    2s
 
 Setup Topology Fork
     [Arguments]    ${version}
@@ -175,11 +161,9 @@ Setup Topology Fork
     Add Connection    ${version}    listener    127.0.0.2    64999    127.0.0.1
     Add Connection    ${version}    listener    127.0.0.3    64999    127.0.0.1
     Add Connection    ${version}    speaker    127.0.0.4    64999    127.0.0.1
-    Sleep    2s
     Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.2
     Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.3
     Add Connection    ${version}    listener    127.0.0.1    64999    127.0.0.4
-    Sleep    3s
 
 Clean Nodes
     Clean Connections    127.0.0.1
@@ -187,10 +171,8 @@ Clean Nodes
     Clean Connections    127.0.0.3
     Clean Connections    127.0.0.4
     Clean Connections    127.0.0.5
-    Sleep    5s
     Clean Bindings    127.0.0.1
     Clean Bindings    127.0.0.2
     Clean Bindings    127.0.0.3
     Clean Bindings    127.0.0.4
     Clean Bindings    127.0.0.5
-    Sleep    5s

@@ -54,7 +54,6 @@ Start Suite
     Read Until    >
     Write    ${start}
     Read Until    mininet>
-    Sleep    6
 
 Stop Suite
     [Documentation]    Cleanup/Shutdown work that should be done at the completion of all
