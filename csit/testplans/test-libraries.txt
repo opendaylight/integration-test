@@ -17,3 +17,5 @@ integration/test/csit/suites/openflowplugin/Bug_Validation
 integration/test/csit/suites/bgpcep/pcepuser
 integration/test/csit/suites/bgpcep/tcpmd5user
 integration/test/csit/suites/bgpcep/bgpuser
+# NETCONF CRUD
+integration/test/csit/suites/netconf/CRUD/CRUD.robot
