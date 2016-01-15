@@ -35,7 +35,6 @@ Test Add Flows Group 0
     \    Create Flow Variables For Suite From XML File    ${XmlsDir}/${flowfile}
     \    Run Keyword And Continue On Failure    Add Flow Via Restconf    ${switch_idx}    ${table_id}    ${data}
     # Lets wait for ofp to collect stats
-    Sleep    3s
     # Show switch content (for debug purposes if needed)
     Write    dpctl dump-flows -O OpenFlow13
     Read Until    mininet>
@@ -210,7 +209,6 @@ Test Update Flows Group 0
     \    Create Flow Variables For Suite From XML File    ${XmlsDir}/${flowfile}
     \    Run Keyword And Continue On Failure    Update Flow Via Restconf    ${switch_idx}    ${table_id}    ${flow_id}    ${upddata}
     # Lets wait for ofp to collect stats
-    Sleep    3s
     # Show switch content (for debug purposes if needed)
     Write    dpctl dump-flows -O OpenFlow13
     Read Until    mininet>
@@ -385,7 +383,6 @@ Test Delete Flows Group 0
     \    Create Flow Variables For Suite From XML File    ${XmlsDir}/${flowfile}
     \    Run Keyword And Continue On Failure    Delete Flow Via Restconf    ${switch_idx}    ${table_id}    ${flow_id}
     # Lets wait for ofp to collect stats
-    Sleep    3s
     # Show switch content (for debug purposes if needed)
     Write    dpctl dump-flows -O OpenFlow13
     Read Until    mininet>
