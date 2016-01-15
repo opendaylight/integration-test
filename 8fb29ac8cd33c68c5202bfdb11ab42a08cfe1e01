@@ -22,6 +22,30 @@
       "revId": "8fb29ac8cd33c68c5202bfdb11ab42a08cfe1e01",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f71fdb07",
+        "filename": "csit/suites/netconf/CRUD/CRUD.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-01-15T11:27:12Z",
+      "side": 1,
+      "message": "This change was not supposed to be here. Deleted.",
+      "parentUuid": "9a3d3df0_61630d1b",
+      "range": {
+        "startLine": 48,
+        "startChar": 20,
+        "endLine": 48,
+        "endChar": 41
+      },
+      "revId": "8fb29ac8cd33c68c5202bfdb11ab42a08cfe1e01",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
