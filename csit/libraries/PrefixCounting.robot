@@ -8,15 +8,24 @@ Documentation     Robot keyword library (Resource) for common BGP actions concer
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
 ...
-...               Currently, all keywords count prefixes only in example-ipv4-topology.
+...               Currently, all keywords count prefixes only in ${topology-id}.
 ...               Prefix is identified by simplistic regular expression on JSON data.
 ...
-...               This resource assumes that RequestsLibrary has open a connection named "operational"
+...               This resource assumes that RequestsLibrary has open a connection named ${connection-id}
 ...               which points to (an analogue of) http://${ODL_SYSTEM_IP}:${RESTCONFPORT}/${OPERATIONAL_API}
 Library           RequestsLibrary
 Resource          ${CURDIR}/WaitUtils.robot
 
+*** Variables ***
+${topology-id}    example-ipv4-topology
+${connection-id}    operational
+
 *** Keywords ***
+Select_Topology
+    [Arguments]    ${connection}    ${topology}
+    [Documentation]    Select the ${connection-id} and ${topology-id} to be used for counting.
+    ${topology-id} =    ScalarClosures.Run_Keyword_And_Collect_Garbage    Get_Ipv4_Topology_Count
+
 PC_Setup
     [Documentation]    Call dependency setups and construct suite variables.
     WaitUtils.WU_Setup    # includes ScalarClosures.SC_Setup
@@ -24,11 +33,11 @@ PC_Setup
     BuiltIn.Set_Suite_Variable    ${PrefixCounting__getter}    ${getter}
 
 Get_Ipv4_Topology
-    [Documentation]    GET the example-ipv4-topology data, check status is 200, return the topology data.
+    [Documentation]    GET the ${topology-id} data, check status is 200, return the topology data.
     ...
     ...    Contrary to Utils.Get_Data_From_URI, this does not Log the (potentially huge) content.
-    ${response} =    RequestsLibrary.Get_Request    operational    network-topology:network-topology/topology/example-ipv4-topology
-    Run_Keyword_If    ${response.status_code} != 200    Fail    Get on example-ipv4-topology returned status code ${response.status_code} with message: ${response.text}
+    ${response} =    RequestsLibrary.Get_Request    ${connection-id}    network-topology:network-topology/topology/${topology-id}
+    Run_Keyword_If    ${response.status_code} != 200    Fail    Get on ${topology-id} returned status code ${response.status_code} with message: ${response.text}
     [Return]    ${response.text}
 
 Get_Ipv4_Topology_Count
