@@ -1,0 +1,291 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_08e2269f",
+        "filename": "csit/suites/usc/UscUtils.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T00:48:10Z",
+      "side": 1,
+      "message": "this is a library file so please place it in the libraries dir.",
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_48654e44",
+        "filename": "csit/suites/usc/UscUtils.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T00:48:10Z",
+      "side": 1,
+      "message": "this variable reads like a \"location\" but the value of it reads like a \"command\".\n\nI think you can refactor this to do something like:\n\n${TcpAgentCommand}    $HOME/usc-tools/java -jar UscAgent.jar -t true\n\nthen, in your test case...  well, I\u0027ll comment there.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 35
+      },
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_88d636c4",
+        "filename": "csit/suites/usc/UscUtils.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T00:48:10Z",
+      "side": 1,
+      "message": "use the new variable naming please : ${OLD_TOOLS_SYSTEM}",
+      "range": {
+        "startLine": 32,
+        "startChar": 46,
+        "endLine": 32,
+        "endChar": 53
+      },
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_48cc2e36",
+        "filename": "csit/suites/usc/UscUtils.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T00:48:10Z",
+      "side": 1,
+      "message": "all of this logic (lines 32-37) could be collapsed in to a single line using one of our library keywords.  see if this one helps:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/Utils.robot#L205\n\nexample here:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/suites/openflowplugin/Performance/010_Cbench.robot#L50",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 14
+      },
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a85a1a81",
+        "filename": "csit/suites/usc/UscUtils.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T00:48:10Z",
+      "side": 1,
+      "message": "please remove all sleeps.  If there is no workaround to adding logic to avoid sleeps, make a detailed comment in the test code.",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 14
+      },
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e8da62e8",
+        "filename": "csit/suites/usc/tcp/100__basic.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T00:48:10Z",
+      "side": 1,
+      "message": "please use just \"RequestsLibrary\", not this older modified version which is now deprecated.",
+      "range": {
+        "startLine": 7,
+        "startChar": 18,
+        "endLine": 7,
+        "endChar": 55
+      },
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_48f38e73",
+        "filename": "csit/suites/usc/tcp/100__basic.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T00:48:10Z",
+      "side": 1,
+      "message": "you\u0027ll want to use RequestsLibrary.Post Request here.",
+      "range": {
+        "startLine": 16,
+        "startChar": 15,
+        "endLine": 16,
+        "endChar": 23
+      },
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_28fc4a3e",
+        "filename": "csit/suites/usc/tcp/110_TCP/Test.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T00:48:10Z",
+      "side": 1,
+      "message": "please add documentation to each test case.",
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a8e85a7d",
+        "filename": "csit/suites/usc/tcp/110_TCP/Test.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T00:48:10Z",
+      "side": 1,
+      "message": "to be consistent, do you want to have Force Tags in each suite file, or in your __init__.robot file, like I\u0027ve also seen in this patch?",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 21
+      },
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_88ed968e",
+        "filename": "csit/suites/usc/tcp/110_TCP/Test.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T00:48:10Z",
+      "side": 1,
+      "message": "RequestsLibrary",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 58
+      },
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_08f9864d",
+        "filename": "csit/suites/usc/tcp/110_TCP/Test.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T00:48:10Z",
+      "side": 1,
+      "message": "please no sleeps",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 14
+      },
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6895b2e3",
+        "filename": "csit/suites/usc/tcp/200_Multiple_Sessions_TCP/Test.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T00:48:10Z",
+      "side": 1,
+      "message": "RequestsLibrary",
+      "range": {
+        "startLine": 9,
+        "startChar": 40,
+        "endLine": 9,
+        "endChar": 55
+      },
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e888a2c8",
+        "filename": "csit/suites/usc/udp/300_Callhome_UDP/Test.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-15T00:48:10Z",
+      "side": 1,
+      "message": "please remove",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 14
+      },
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
