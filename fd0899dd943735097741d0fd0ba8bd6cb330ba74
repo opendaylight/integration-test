@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_91793aff",
+        "filename": "csit/suites/usc/UscUtils.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2706
+      },
+      "writtenOn": "2016-01-16T02:04:48Z",
+      "side": 1,
+      "message": "This is an internal utility file for USC only. So probably it is a good idea to keep it inside of USC folder.",
+      "parentUuid": "9a3d3df0_08e2269f",
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_48654e44",
         "filename": "csit/suites/usc/UscUtils.txt",
         "patchSetId": 2
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_311dcebe",
+        "filename": "csit/suites/usc/UscUtils.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2706
+      },
+      "writtenOn": "2016-01-16T02:04:48Z",
+      "side": 1,
+      "message": "I changed the name to NAV_USC_TOOLS but I didn\u0027t follow with you for the rest. The folder is used for UscAgent.jar not for java. Otherwise the command won\u0027t work.",
+      "parentUuid": "9a3d3df0_48654e44",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 35
+      },
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_88d636c4",
         "filename": "csit/suites/usc/UscUtils.txt",
         "patchSetId": 2
@@ -53,6 +95,30 @@
       "writtenOn": "2016-01-15T00:48:10Z",
       "side": 1,
       "message": "use the new variable naming please : ${OLD_TOOLS_SYSTEM}",
+      "range": {
+        "startLine": 32,
+        "startChar": 46,
+        "endLine": 32,
+        "endChar": 53
+      },
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_512052f7",
+        "filename": "csit/suites/usc/UscUtils.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2706
+      },
+      "writtenOn": "2016-01-16T02:04:48Z",
+      "side": 1,
+      "message": "I think MININET is still widely used like in Utils.robot. I\u0027ll remain this unchanged.",
+      "parentUuid": "9a3d3df0_88d636c4",
       "range": {
         "startLine": 32,
         "startChar": 46,
@@ -111,6 +177,54 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_717e36e6",
+        "filename": "csit/suites/usc/UscUtils.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2706
+      },
+      "writtenOn": "2016-01-16T02:04:48Z",
+      "side": 1,
+      "message": "That command can\u0027t meet my requirement since I need the command keep running all the time. Your command runs,returns and exit the SSH connection.",
+      "parentUuid": "9a3d3df0_48cc2e36",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 14
+      },
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d183c2ca",
+        "filename": "csit/suites/usc/UscUtils.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2706
+      },
+      "writtenOn": "2016-01-16T02:04:48Z",
+      "side": 1,
+      "message": "I removed all sleeps with read until and it works.",
+      "parentUuid": "9a3d3df0_a85a1a81",
+      "range": {
+        "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 14
+      },
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_e8da62e8",
         "filename": "csit/suites/usc/tcp/100__basic.txt",
         "patchSetId": 2
@@ -122,6 +236,30 @@
       "writtenOn": "2016-01-15T00:48:10Z",
       "side": 1,
       "message": "please use just \"RequestsLibrary\", not this older modified version which is now deprecated.",
+      "range": {
+        "startLine": 7,
+        "startChar": 18,
+        "endLine": 7,
+        "endChar": 55
+      },
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b188bee8",
+        "filename": "csit/suites/usc/tcp/100__basic.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2706
+      },
+      "writtenOn": "2016-01-16T02:04:48Z",
+      "side": 1,
+      "message": "Replaced.",
+      "parentUuid": "9a3d3df0_e8da62e8",
       "range": {
         "startLine": 7,
         "startChar": 18,
@@ -157,6 +295,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_116d2a33",
+        "filename": "csit/suites/usc/tcp/100__basic.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2706
+      },
+      "writtenOn": "2016-01-16T02:04:48Z",
+      "side": 1,
+      "message": "Replaced.",
+      "parentUuid": "9a3d3df0_48f38e73",
+      "range": {
+        "startLine": 16,
+        "startChar": 15,
+        "endLine": 16,
+        "endChar": 23
+      },
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_28fc4a3e",
         "filename": "csit/suites/usc/tcp/110_TCP/Test.txt",
         "patchSetId": 2
@@ -174,6 +336,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_f169a626",
+        "filename": "csit/suites/usc/tcp/110_TCP/Test.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2706
+      },
+      "writtenOn": "2016-01-16T02:04:48Z",
+      "side": 1,
+      "message": "I did.",
+      "parentUuid": "9a3d3df0_28fc4a3e",
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_a8e85a7d",
         "filename": "csit/suites/usc/tcp/110_TCP/Test.txt",
         "patchSetId": 2
@@ -185,6 +365,30 @@
       "writtenOn": "2016-01-15T00:48:10Z",
       "side": 1,
       "message": "to be consistent, do you want to have Force Tags in each suite file, or in your __init__.robot file, like I\u0027ve also seen in this patch?",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 21
+      },
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5177b202",
+        "filename": "csit/suites/usc/tcp/110_TCP/Test.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2706
+      },
+      "writtenOn": "2016-01-16T02:04:48Z",
+      "side": 1,
+      "message": "I removed this.",
+      "parentUuid": "9a3d3df0_a8e85a7d",
       "range": {
         "startLine": 5,
         "startChar": 0,
@@ -220,6 +424,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_3174aefc",
+        "filename": "csit/suites/usc/tcp/110_TCP/Test.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2706
+      },
+      "writtenOn": "2016-01-16T02:04:48Z",
+      "side": 1,
+      "message": "Replaced.",
+      "parentUuid": "9a3d3df0_88ed968e",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 58
+      },
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_08f9864d",
         "filename": "csit/suites/usc/tcp/110_TCP/Test.txt",
         "patchSetId": 2
@@ -243,6 +471,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_d15aa282",
+        "filename": "csit/suites/usc/tcp/110_TCP/Test.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2706
+      },
+      "writtenOn": "2016-01-16T02:04:48Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "9a3d3df0_08f9864d",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 14
+      },
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_6895b2e3",
         "filename": "csit/suites/usc/tcp/200_Multiple_Sessions_TCP/Test.txt",
         "patchSetId": 2
@@ -254,6 +506,30 @@
       "writtenOn": "2016-01-15T00:48:10Z",
       "side": 1,
       "message": "RequestsLibrary",
+      "range": {
+        "startLine": 9,
+        "startChar": 40,
+        "endLine": 9,
+        "endChar": 55
+      },
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_11540a53",
+        "filename": "csit/suites/usc/tcp/200_Multiple_Sessions_TCP/Test.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2706
+      },
+      "writtenOn": "2016-01-16T02:04:48Z",
+      "side": 1,
+      "message": "Replaced this in all test suites.",
+      "parentUuid": "9a3d3df0_6895b2e3",
       "range": {
         "startLine": 9,
         "startChar": 40,
