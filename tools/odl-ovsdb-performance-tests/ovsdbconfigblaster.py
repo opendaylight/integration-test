@@ -5,7 +5,6 @@ import argparse
 import logging
 import requests
 
-
 __author__ = 'Marcus Williams'
 __copyright__ = "Copyright (c) 2015, Intel Corp Inc., Cisco Systems Inc. and others"
 __credits__ = ["Jan Medved, Lori Jakab"]
@@ -33,6 +32,7 @@ class OvsdbConfigBlaster (object):
                  vswitch_remote_ovsdb_port,
                  vswitch_port_type,
                  vswitch_lst_del_br,
+                 delete_ports,
                  num_instances):
         """
         Args:
@@ -203,7 +203,7 @@ class OvsdbConfigBlaster (object):
         self.add_bridge(1, 'ovs-1')
 #        self.add_bridge(1, 'ovs-2')
 
-        for instance in range(self.num_instances):
+        for instance in range(num_ports):
             for vswitch in self.vswitch_dict.itervalues():
                 if port_type == "ovsdb:interface-type-vxlan":
                     port_prefix = "tp-"
@@ -265,6 +265,24 @@ class OvsdbConfigBlaster (object):
                                    '%2Fbridge%2F' +
                                    bridge_name)
             self.session.close()
+
+    def delete_port(self, num_ports):
+        """Delete num_instances of port in ODL config
+         Args:
+            :param num_ports: Number of ports to delete
+        """
+        for instance in range(num_ports):
+            bridge_name = unicode('br-' + str(instance) + '-test')
+            for vswitch in self.vswitch_dict.itervalues():
+                port_prefix = "tp-"
+                ovsdb_rest_url = vswitch.get('post-url') \
+                    + '%2Fbridge%2F' \
+                    + bridge_name \
+                    + '/termination-point/'
+                port_name = port_prefix + str(instance) + '-test-' + vswitch.get('ip')
+                self.send_rest_del(self.session,
+                                   ovsdb_rest_url + port_name)
+                self.session.close()
 
     def send_rest_del(self, session, rest_url):
         """Send an HTTP DELETE to the Rest URL and return the status code
@@ -336,6 +354,10 @@ if __name__ == "__main__":
                              'uses instances for number of bridges. \
                               Example: "ovs-1 ovs2" \
                             (default is none)')
+    parser.add_argument('--deleteports', default=None,
+                        help='delete ports of remote open vswitch ovsdb server \
+                            (default is none should specify the instances: '
+                             'usage --deleteports delete )')
     parser.add_argument('--instances', type=int, default=1,
                         help='Number of instances to add/get (default 1)')
 
@@ -349,8 +371,8 @@ if __name__ == "__main__":
                                               args.vswitchremoteport,
                                               args.vswitchporttype,
                                               args.deletebridges,
+                                              args.deleteports,
                                               args.instances)
-
     if args.mode == "bridge":
         if args.deletebridges is not None:
             ovsdb_config_blaster.delete_bridge(ovsdb_config_blaster.
@@ -361,8 +383,11 @@ if __name__ == "__main__":
             ovsdb_config_blaster.add_bridge(ovsdb_config_blaster.num_instances)
     elif args.mode == "term":
         ovsdb_config_blaster.add_port()
-    elif args.mode == "port" and args.vswitchporttype is not None:
-        ovsdb_config_blaster.add_port(args.vswitchporttype)
+    elif args.mode == "port":
+        if args.deleteports is not None:
+            ovsdb_config_blaster.delete_port(ovsdb_config_blaster.num_instances)
+        else:
+            ovsdb_config_blaster.add_port()
     else:
         print "please use: python ovsdbconfigblaster.py --help " \
               "\nUnsupported mode: ", args.mode
