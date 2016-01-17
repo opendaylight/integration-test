@@ -134,7 +134,7 @@ ${FIRST_PCC_IP}    ${PCCMOCKVM_IP}
 # ${LOG_FILE} is reserved for location of pybot-created log.html
 ${LOG_NAME}       throughpcep.log
 ${LOG_PATH}       ${PCCMOCKVM_WORKSPACE}
-${LSPS}           65535
+${LSPS}           1
 ${MININET}        127.0.0.1
 # ${MININET_PASSWORD} is inherited from Variables.py
 ${MININET_PROMPT}    ${DEFAULT_LINUX_PROMPT}    # from Variables.py
