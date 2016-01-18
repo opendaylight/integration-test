@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_65bf90d1",
+        "filename": "csit/suites/tsdr/HBase/010_InterfaceMetrics.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-18T11:04:29Z",
+      "side": 1,
+      "message": "\"Deprecated old syntax to give keys and values separately.\"\n\nhttp://robotframework.org/robotframework/latest/libraries/BuiltIn.html#Create%20Dictionary",
+      "range": {
+        "startLine": 74,
+        "startChar": 42,
+        "endLine": 74,
+        "endChar": 46
+      },
+      "revId": "faa0d023f82f15bf2e4eff7de1bb40212464fd0e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
