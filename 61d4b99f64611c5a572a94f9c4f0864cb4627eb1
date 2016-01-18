@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_9a2b0feb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2016-01-18T02:26:10Z",
+      "side": 1,
+      "message": "I\u0027m still not happy about this first summary line. You actually wrote a really good summary line below so I\u0027d move it up so it looks like this:\n\n Add system test for northboud API in NEMO project\n \n The main test includes:\n - Add predefined role of users\n - Add predefined node type and connection type\n - Register a user whose role is tenant (create a vn space)\n - In vn space, issue an intent, create two nodes and one connection between them.\n \n Change-Id: I185447428fe6c5e78176a210687e6f1f48008cb3\n Signed-off-by: Zhang Yali \u003czhangyali369@huawei.com\u003e",
+      "revId": "61d4b99f64611c5a572a94f9c4f0864cb4627eb1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
