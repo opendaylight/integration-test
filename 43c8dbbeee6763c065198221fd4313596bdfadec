@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_cb582bfd",
+        "filename": "csit/variables/nemo/predefine/connection.json",
+        "patchSetId": 21
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-18T18:13:07Z",
+      "side": 1,
+      "message": "JSON does not support such bash-style comments. But your Sandbox job has passed.\n\nI did a test with a specific change [0] and the corresponding test case in Sandbox passed [1] as well, so it looks like ODL (incorrectly) supports such comments.\n\nAnyway, I recommend to remove all such comments from JSON data.\n\n[0] https://git.opendaylight.org/gerrit/32890/1\n[1] https://jenkins.opendaylight.org/sandbox/job/bgpcep-csit-1node-periodic-throughpcep-only-stable-lithium/1/robot/report/log.html#s1-s1-t7-k2-k8",
+      "range": {
+        "startLine": 8,
+        "startChar": 40,
+        "endLine": 8,
+        "endChar": 71
+      },
+      "revId": "43c8dbbeee6763c065198221fd4313596bdfadec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
