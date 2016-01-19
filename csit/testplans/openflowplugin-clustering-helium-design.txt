@@ -1,0 +1,4 @@
+# Place the suites in run order:
+integration/test/csit/suites/openflowplugin/Clustering
+integration/test/csit/suites/openflowplugin/Clustering
+integration/test/csit/suites/openflowplugin/Sanity3Node
