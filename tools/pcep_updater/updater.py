@@ -111,7 +111,7 @@ def iterable_msg(pccs, lsps, workers, hop):
         '"arguments":{"lsp":{"delegate":true,"administrative":true},',
         '"ero":{"subobject":[{"loose":false,"ip-prefix":{"ip-prefix":',
         '"', hop, '"}},{"loose":false,"ip-prefix":{"ip-prefix":',
-        '"1.1.1.1/32"}}]}}}}'
+        '\n#comment_line_before_simple_value\n"1.1.1.1/32"}}]}}}}'
     ]
     for lsp in range(1, lsps + 1):
         str_lsp = str(lsp)
