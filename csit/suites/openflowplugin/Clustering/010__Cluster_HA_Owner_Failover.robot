@@ -91,11 +91,13 @@ Kill Owner Instance
 
 Check Shards Status After Fail
     [Documentation]    Create original cluster list and check Status for all shards in OpenFlow application.
-    Check OpenFlow Shards Status    ${new_cluster_list}
+    Check OpenFlow Shards Status After Cluster Event    ${new_cluster_list}
 
 Check Entity Owner Status And Find Owner and Candidate After Fail
     [Documentation]    Check Entity Owner Status and identify owner and candidate.
     ${new_owner}    ${new_candidates_list}    Get OpenFlow Entity Owner Status For One Device    ${new_cluster_list}
+    Run Keyword And Continue On Failure    List Should Not Contain Value    ${new_candidates_list}    ${original_owner}    Original owner ${original_owner} still in candidate list.
+    Remove Values From List    ${new_candidates_list}    ${original_owner}
     ${new_candidate}=    Get From List    ${new_candidates_list}    0
     Set Suite Variable    ${new_owner}
     Set Suite Variable    ${new_candidate}
@@ -153,16 +155,16 @@ Restore Network and Verify After Fail
     Take OpenFlow Device Link Up and Verify    ${new_cluster_list}
 
 Start Old Owner Instance
-    [Documentation]    Kill Owner Instance and verify it is dead
+    [Documentation]    Start old Owner Instance and verify it is up
     Start Multiple Controllers    300s    ${original_owner}
 
 Check Shards Status After Recover
     [Documentation]    Create original cluster list and check Status for all shards in OpenFlow application.
-    Wait Until Keyword Succeeds    5s    1s    Check OpenFlow Shards Status    ${original_cluster_list}
+    Check OpenFlow Shards Status After Cluster Event    ${original_cluster_list}
 
 Check Entity Owner Status After Recover
     [Documentation]    Check Entity Owner Status and identify owner and candidate.
-    ${new_owner}    ${new_candidates_list}    Wait Until Keyword Succeeds    5s    1s    Get OpenFlow Entity Owner Status For One Device    ${original_cluster_list}
+    ${new_owner}    ${new_candidates_list}    Get OpenFlow Entity Owner Status For One Device    ${original_cluster_list}
     Set Suite Variable    ${new_owner}
 
 Check Network Operational Information After Recover
