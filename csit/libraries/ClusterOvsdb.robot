@@ -11,12 +11,17 @@ Variables         ../variables/Variables.py
 Check Ovsdb Shards Status
     [Arguments]    ${controller_index_list}
     [Documentation]    Check Status for all shards in Ovsdb application.
-    ${topo_conf_leader}    ${topo_conf_followers_list}    Wait Until Keyword Succeeds    10s    1s    Get Cluster Shard Status    ${controller_index_list}
-    ...    config    topology
-    ${topo_oper_leader}    ${topo_oper_followers_list}    Wait Until Keyword Succeeds    10s    1s    Get Cluster Shard Status    ${controller_index_list}
-    ...    operational    topology
+    ${topo_conf_leader}    ${topo_conf_followers_list}    Get Cluster Shard Status    ${controller_index_list}    config    topology
+    ${topo_oper_leader}    ${topo_oper_followers_list}    Get Cluster Shard Status    ${controller_index_list}    operational    topology
+    ${owner_oper_leader}    ${owner_oper_followers_list}    Get Cluster Shard Status    ${controller_index_list}    operational    entity-ownership
     Log    config topology Leader is ${topo_conf_leader} and followers are ${topo_conf_followers_list}
     Log    operational topology Leader is ${topo_oper_leader} and followers are ${topo_oper_followers_list}
+    Log    operational entity-ownership Leader is ${owner_oper_leader} and followers are ${owner_oper_followers_list}
+
+Check Ovsdb Shards Status After Cluster Event
+    [Arguments]    ${controller_index_list}
+    [Documentation]    Check Shard Status after some cluster event.
+    Wait Until Keyword Succeeds    90s    1s    Check Ovsdb Shards Status    ${controller_index_list}
 
 Get Ovsdb Entity Owner Status For One Device
     [Arguments]    ${controller_index_list}
