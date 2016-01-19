@@ -30,7 +30,7 @@ Resource          ${CURDIR}/../../../libraries/Utils.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
 
 *** Variables ***
-${first_case_ok}    False
+${netconf_is_ready}    False
 ${NETCONFREADY_WAIT}    60s
 ${DEBUG_LOGGING_FOR_EVERYTHING}    False
 
@@ -39,13 +39,13 @@ Check_Whether_Netconf_Connector_Works
     [Documentation]    Make one request to netconf-connector and see if it works.
     [Tags]    exclude
     Check_Netconf_Connector
-    BuiltIn.Set_Suite_Variable    ${first_case_ok}    True
+    BuiltIn.Set_Suite_Variable    ${netconf_is_ready}    True
     [Teardown]    Utils.Report_Failure_Due_To_Bug    4708
 
 Wait_For_Netconf_Connector
     [Documentation]    Attempt to wait for the netconf-connector for configurable time.
     [Tags]    critical
-    BuiltIn.Run_Keyword_Unless    ${first_case_ok}    BuiltIn.Wait_Until_Keyword_Succeeds    ${NETCONFREADY_WAIT}    1s    Check_Netconf_Connector
+    BuiltIn.Run_Keyword_Unless    ${netconf_is_ready}    BuiltIn.Wait_Until_Keyword_Succeeds    ${NETCONFREADY_WAIT}    1s    Check_Netconf_Connector
     [Teardown]    Utils.Report_Failure_Due_To_Bug    4583
 
 Check_Whether_Netconf_Connector_Can_Pretty_Print
