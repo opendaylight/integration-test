@@ -40,7 +40,7 @@ tempest.api.network
 
 tempest
     [Tags]    exclude
-    Run Tempest Tests    ${TEST_NAME}    1800s
+    Run Tempest Tests    ${TEST_NAME}    900s
 
 *** Keywords ***
 Run Tempest Tests
@@ -48,7 +48,7 @@ Run Tempest Tests
     Write Commands Until Prompt    cd /opt/stack/new/tempest
     Write Commands Until Prompt    sudo rm -rf /opt/stack/new/tempest/.testrepository
     Write Commands Until Prompt    sudo testr init
-    ${results}=    Write Commands Until Prompt    sudo -E testr run ${tempest_regex} --subunit | subunit-trace --no-failure-debug -f    timeout=600s
+    ${results}=    Write Commands Until Prompt    sudo -E testr run ${tempest_regex} --subunit | subunit-trace --no-failure-debug -f    timeout=${timeout}
     Should Contain    ${results}    Failed: 0
     # TODO: also need to verify some non-zero pass count as well as other results are ok (e.g. skipped, etc)
 
