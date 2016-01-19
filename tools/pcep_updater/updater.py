@@ -108,7 +108,7 @@ def iterable_msg(pccs, lsps, workers, hop):
         '"name":"pcc_', '', '_tunnel_', '', '","network-topology-ref":',
         '"/network-topology:network-topology/network-topology:topology',
         '[network-topology:topology-id=\\\"pcep-topology\\\"]",',
-        '"arguments":{"lsp":{"delegate":true,"administrative":true},',
+        '"arguments":\n#comment_line_before_container_value\n{"lsp":{"delegate":true,"administrative":true},',
         '"ero":{"subobject":[{"loose":false,"ip-prefix":{"ip-prefix":',
         '"', hop, '"}},{"loose":false,"ip-prefix":{"ip-prefix":',
         '"1.1.1.1/32"}}]}}}}'
