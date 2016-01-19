@@ -64,11 +64,13 @@ Kill Owner Instance
 
 Check Shards Status After Fail
     [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
-    Wait Until Keyword Succeeds    10s    1s    Check Ovsdb Shards Status    ${new_cluster_list}
+    Check Ovsdb Shards Status After Cluster Event    ${new_cluster_list}
 
 Check Entity Owner Status And Find Owner and Candidate After Fail
     [Documentation]    Check Entity Owner Status and identify owner and candidate.
-    ${new_owner}    ${new_candidates_list}    Wait Until Keyword Succeeds    10s    1s    Get Ovsdb Entity Owner Status For One Device    ${new_cluster_list}
+    ${new_owner}    ${new_candidates_list}    Get Ovsdb Entity Owner Status For One Device    ${new_cluster_list}
+    Run Keyword And Continue On Failure    List Should Not Contain Value    ${new_candidates_list}    ${original_owner}    Original owner ${original_owner} still in candidate list.
+    Remove Values From List    ${new_candidates_list}    ${original_owner}
     ${new_candidate}=    Get From List    ${new_candidates_list}    0
     Set Suite Variable    ${new_owner}
     Set Suite Variable    ${new_candidate}
@@ -79,7 +81,7 @@ Create Bridge Manually In Owner and Verify After Fail
 
 Add Port Manually In Owner and Verify After Fail
     [Documentation]    Add Port in Owner and verify it gets applied from all instances.
-    Add Port To The Manual Bridge And Verify    ${original_cluster_list}    ${original_owner}
+    Add Port To The Manual Bridge And Verify    ${new_cluster_list}    ${new_owner}
 
 Create Bridge Via Controller In Owner and Verify After Fail
     [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
@@ -99,11 +101,11 @@ Start Old Owner Instance
 
 Check Shards Status After Recover
     [Documentation]    Create original cluster list and check Status for all shards in Ovsdb application.
-    Wait Until Keyword Succeeds    10s    1s    Check Ovsdb Shards Status    ${original_cluster_list}
+    Check Ovsdb Shards Status After Cluster Event    ${original_cluster_list}
 
 Check Entity Owner Status After Recover
     [Documentation]    Check Entity Owner Status and identify owner and candidate.
-    ${new_owner}    ${new_candidates_list}    Wait Until Keyword Succeeds    10s    1s    Get Ovsdb Entity Owner Status For One Device    ${original_cluster_list}
+    ${new_owner}    ${new_candidates_list}    Get Ovsdb Entity Owner Status For One Device    ${original_cluster_list}
     Set Suite Variable    ${new_owner}
 
 Create Bridge Manually In Owner and Verify After Recover
@@ -112,7 +114,7 @@ Create Bridge Manually In Owner and Verify After Recover
 
 Add Port Manually In Owner and Verify After Recover
     [Documentation]    Add Port in Owner and verify it gets applied from all instances.
-    Add Port To The Manual Bridge And Verify    ${original_cluster_list}    ${original_owner}
+    Add Port To The Manual Bridge And Verify    ${original_cluster_list}    ${new_owner}
 
 Create Bridge Via Controller In Owner and Verify After Recover
     [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
