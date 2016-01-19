@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_ee26d867",
+        "filename": "csit/libraries/ClusterOpenFlow.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-01-19T23:00:06Z",
+      "side": 1,
+      "message": "Yes, it is very conservative value but I have seen situations (with Li pugin) where cluster sync takes more than 1 minute.",
+      "parentUuid": "9a3d3df0_101d1b10",
+      "range": {
+        "startLine": 30,
+        "startChar": 35,
+        "endLine": 30,
+        "endChar": 38
+      },
+      "revId": "730a955af902943599d0b5405aa0b7e2e653af99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_90312ba5",
         "filename": "csit/suites/openflowplugin/Clustering/010__Cluster_HA_Owner_Failover.robot",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_ce2b142f",
+        "filename": "csit/suites/openflowplugin/Clustering/010__Cluster_HA_Owner_Failover.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-01-19T23:00:06Z",
+      "side": 1,
+      "message": "Yes, kind of intermitent bug 5004. I should probably add the info here.",
+      "parentUuid": "9a3d3df0_90312ba5",
+      "range": {
+        "startLine": 99,
+        "startChar": 156,
+        "endLine": 99,
+        "endChar": 161
+      },
+      "revId": "730a955af902943599d0b5405aa0b7e2e653af99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_b02c2f4c",
         "filename": "csit/variables/Variables.py",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2016-01-19T16:26:42Z",
       "side": 1,
       "message": "Perhaps \u0027helium\u0027 is a \"more default\" value?",
+      "range": {
+        "startLine": 54,
+        "startChar": 16,
+        "endLine": 54,
+        "endChar": 25
+      },
+      "revId": "730a955af902943599d0b5405aa0b7e2e653af99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2e20c048",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-01-19T23:00:06Z",
+      "side": 1,
+      "message": "right but if i do not want current cluster test, it is better to set this and change later, unless i fix jjb first, let me look at that possibility too.",
+      "parentUuid": "9a3d3df0_b02c2f4c",
       "range": {
         "startLine": 54,
         "startChar": 16,
