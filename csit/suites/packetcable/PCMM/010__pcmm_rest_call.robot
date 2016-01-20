@@ -24,7 +24,7 @@ Add CCAP
     ${Data}    Replace String    ${Data}    {ccapIp-1}    ${CCAP_IP1}
     log    ${Data}
     log    ${ODLREST_CCAPS}/${CCAP_TOKEN}/${CCAP_ID1}
-    ${resp}    RequestsLibrary.Put Request    ODLSession    ${ODLREST_CCAPS}/${CCAP_TOKEN}/${CCAP_ID1}    data=${Data}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Put Request    ODLSession    ${ODLREST_CCAPS}/${CCAP_TOKEN}/${CCAP_ID1}    data=${Data}
     Should be Equal As Strings    ${resp.status_code}    200
 
 Get CCAP
@@ -50,7 +50,7 @@ Add Multiple.CCAPs
     ${Data}    Replace String    ${Data}    {ccapId-2}    ${CCAP_ID2}
     ${Data}    Replace String    ${Data}    {ccapIp-2}    ${CCAP_IP2}
     log    ${Data}
-    ${resp}    RequestsLibrary.Put Request    ODLSession    ${ODLREST_CCAPS}    data=${Data}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Put Request    ODLSession    ${ODLREST_CCAPS}    data=${Data}
     Should be Equal As Strings    ${resp.status_code}    200
 
 Get ALL.CCAPs
