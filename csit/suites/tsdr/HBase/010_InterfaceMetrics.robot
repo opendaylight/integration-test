@@ -14,7 +14,7 @@ Variables         ../../../variables/Variables.py
 *** Variables ***
 @{INTERFACE_METRICS}    TransmittedPackets    TransmittedBytes    TransmitErrors    TransmitDrops    ReceivedPackets    ReceivedBytes    ReceiveOverRunError
 ...               ReceiveFrameError    ReceiveErrors    ReceiveDrops    ReceiveCrcError    CollisionCount
-@{CATEGORY}       FlowGroupStats    FlowMeterStats    FlowStats    FlowTableStats    PortStats    QueueStats
+@{CATEGORY}       EXTERNAL         FLOWGROUPSTATS   FLOWMETERSTATS   FLOWSTATS        FLOWTABLESTATS   LOGRECORDS       NETFLOW          PORTSTATS        QUEUESTATS       SNMPINTERFACES   SYSLOG
 ${TSDR_PORTSTATS}    tsdr:list PortStats
 ${CONFIG_INTERVAL}    /restconf/config/TSDRDC:TSDRDCConfig
 ${OPER_INTERVAL}    /restconf/operations/TSDRDC:setPollingInterval
@@ -24,7 +24,7 @@ Verification of TSDR HBase Feature Installation
     [Documentation]    Install and Verify the TSDR HBase Features
     COMMENT    Install a Feature    odl-tsdr-hbase    ${CONTROLLER}    ${KARAF_SHELL_PORT}    60
     Verify Feature Is Installed    odl-tsdr-hbase
-    Verify Feature Is Installed    odl-tsdr-hbase-persistence
+    # Verify Feature Is Installed    odl-tsdr-cassandra
     Verify Feature Is Installed    odl-hbaseclient
 
 Verification TSDR Command is exist in Help
