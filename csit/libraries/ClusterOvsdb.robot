@@ -67,7 +67,7 @@ Get Cluster Entity Owner For Ovsdb
 Create Bridge And Verify
     [Arguments]    ${controller_index_list}    ${controller_index}
     [Documentation]    Create bridge in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
-     # need to get UUID which should be the same on all controllers in cluster, so asking controller1
+    # need to get UUID which should be the same on all controllers in cluster, so asking controller1
     ${ovsdb_uuid}=    Get OVSDB UUID    controller_http_session=controller${controller_index}
     ${body}=    OperatingSystem.Get File    ${CURDIR}/../variables/ovsdb/create_bridge_3node.json
     ${body}    Replace String    ${body}    ovsdb://127.0.0.1:61644    ovsdb://uuid/${ovsdb_uuid}
