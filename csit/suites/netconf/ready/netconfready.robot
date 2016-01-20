@@ -37,7 +37,6 @@ ${DEBUG_LOGGING_FOR_EVERYTHING}    False
 *** Test Cases ***
 Check_Whether_Netconf_Connector_Works
     [Documentation]    Make one request to netconf-connector and see if it works.
-    [Tags]    exclude
     Check_Netconf_Connector
     BuiltIn.Set_Suite_Variable    ${netconf_is_ready}    True
     [Teardown]    Utils.Report_Failure_Due_To_Bug    4708
