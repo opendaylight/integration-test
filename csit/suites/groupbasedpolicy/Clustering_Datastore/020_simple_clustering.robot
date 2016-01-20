@@ -19,7 +19,7 @@ Add Tenant to one node
     [Documentation]    Add one Tenant from JSON file
     Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     ${jsonbody}    Read JSON From File    ${GBP_TENANT1_FILE}
-    Add Elements To URI From File    ${GBP_TENANT1_API}    ${GBP_TENANT1_FILE}
+    Add Elements To URI From File    ${GBP_TENANT1_API}    ${GBP_TENANT1_FILE}    headers=${HEADERS_YANG_JSON}
     ${resp}    RequestsLibrary.Get    session    ${GBP_TENANT1_API}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
