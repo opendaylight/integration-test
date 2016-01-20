@@ -24,7 +24,7 @@ Verification of TSDR HBase Feature Installation
     [Documentation]    Install and Verify the TSDR HBase Features
     COMMENT    Install a Feature    odl-tsdr-hbase    ${CONTROLLER}    ${KARAF_SHELL_PORT}    60
     Verify Feature Is Installed    odl-tsdr-hbase
-    Verify Feature Is Installed    odl-tsdr-hbase-persistence
+    # Verify Feature Is Installed    odl-tsdr-cassandra
     Verify Feature Is Installed    odl-hbaseclient
 
 Verification TSDR Command is exist in Help
