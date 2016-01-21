@@ -30,24 +30,47 @@ Check Shards Status Before Fail
     [Documentation]    Check Status for all shards in Ovsdb application.
     Check Ovsdb Shards Status    ${original_cluster_list}
 
+Verify Net-virt Features
+    [Documentation]    Installing Net-virt Console related features (odl-ovsdb-openstack)
+    Verify Feature Is Installed    odl-ovsdb-openstack
+
+Check Shards Status Before Fail
+    [Documentation]    Check Status for all shards in Ovsdb application.
+    Check Ovsdb Shards Status    ${original_cluster_list}
+
+Start Mininet Multiple Connections
+    [Documentation]    Start mininet with connection to all cluster instances.
+    ${mininet_conn_id}    Add Multiple Managers to OVS  ${TOOLS_SYSTEM_IP}    ${original_cluster_list}
+    Set Suite Variable    ${mininet_conn_id}
+    Log    ${mininet_conn_id}
+
+Get manager connection
+    [Documentation]    This will verify if the OVS manager is connected
+    [Tags]    OVSDB netvirt
+    Verify OVS Reports Connected
+
+Check Operational topology
+    [Documentation]    Check Operational topology
+    ${dictionary}=    Create Dictionary    ovsdb://uuid/=5
+    Wait Until Keyword Succeeds    20s    2s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
+
 Ensure controller is running
     [Documentation]    Check if the controller is running before sending restconf requests
     [Tags]    Check controller reachability
-    ${dictionary}=    Create Dictionary    ovsdb://uuid/=5
-    Wait Until Keyword Succeeds    4s    4s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
+    ${ovsdb}=    Create Dictionary    ovsdb:1=1
+    Wait Until Keyword Succeeds    4s    4s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${ovsdb}    ${OPERATIONAL_TOPO_API}
 
 Check netvirt is loaded
     [Documentation]    Check if the netvirt piece has been loaded into the karaf instance
     [Tags]    Check netvirt is loaded
-    ${operational}=    Create Dictionary    netvirt=1
-    Wait Until Keyword Succeeds    4s    4s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${operational}    ${OPERATIONAL_NODES_NETVIRT}
+    ${netvirt}=    Create Dictionary    netvirt:1=1
+    Wait Until Keyword Succeeds    4s    4s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${netvirt}    ${OPERATIONAL_TOPO_API}
 
 Check External Net for Tenant
     [Documentation]    Check External Net for Tenant
     [Tags]    OpenStack Call Flow
-    ${resp}    RequestsLibrary.Get    session    ${ODLREST}/networks
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp}=    Create Dictionary    "networks" : [ ]=1
+    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${resp}    ${ODLREST}/networks
 
 Create External Net for Tenant
     [Documentation]    Create External Net for Tenant
@@ -56,6 +79,4 @@ Create External Net for Tenant
     ${Data}    Replace String    ${Data}    {netId}    ${EXT_NET1_ID}
     ${Data}    Replace String    ${Data}    {tntId}    ${TNT1_ID}
     Log    ${Data}
-    ${resp}    RequestsLibrary.Post    session    ${ODLREST}/networks    data=${Data}    headers=${HEADERS}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    201
+    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    1    ${ODLREST}/networks    ${Data}
