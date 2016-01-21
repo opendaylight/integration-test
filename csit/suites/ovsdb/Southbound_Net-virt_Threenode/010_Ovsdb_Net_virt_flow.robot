@@ -30,24 +30,27 @@ Check Shards Status Before Fail
     [Documentation]    Check Status for all shards in Ovsdb application.
     Check Ovsdb Shards Status    ${original_cluster_list}
 
+Verify Net-virt Features
+    [Documentation]    Installing Net-virt Console related features (odl-ovsdb-openstack)
+    Verify Feature Is Installed    odl-ovsdb-openstack
+
 Ensure controller is running
     [Documentation]    Check if the controller is running before sending restconf requests
     [Tags]    Check controller reachability
-    ${dictionary}=    Create Dictionary    ovsdb://uuid/=5
+    ${dictionary}=    Create Dictionary    ovsdb://uuid/=1
     Wait Until Keyword Succeeds    4s    4s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
 
 Check netvirt is loaded
     [Documentation]    Check if the netvirt piece has been loaded into the karaf instance
     [Tags]    Check netvirt is loaded
-    ${operational}=    Create Dictionary    netvirt=1
-    Wait Until Keyword Succeeds    4s    4s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${operational}    ${OPERATIONAL_NODES_NETVIRT}
+    ${operational}=    Create Dictionary    netvirt:1=1
+    Wait Until Keyword Succeeds    4s    4s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${operational}    ${OPERATIONAL_TOPO_API}
 
 Check External Net for Tenant
     [Documentation]    Check External Net for Tenant
     [Tags]    OpenStack Call Flow
-    ${resp}    RequestsLibrary.Get    session    ${ODLREST}/networks
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp}=    Create Dictionary    200=1
+    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${resp}    ${ODLREST}/networks
 
 Create External Net for Tenant
     [Documentation]    Create External Net for Tenant
@@ -56,6 +59,5 @@ Create External Net for Tenant
     ${Data}    Replace String    ${Data}    {netId}    ${EXT_NET1_ID}
     ${Data}    Replace String    ${Data}    {tntId}    ${TNT1_ID}
     Log    ${Data}
-    ${resp}    RequestsLibrary.Post    session    ${ODLREST}/networks    data=${Data}    headers=${HEADERS}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    201
+    ${index}    1
+    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${index}    ${ODLREST}/networks    ${Data}
