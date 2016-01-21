@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_b51a5415",
+        "filename": "csit/libraries/ClusterOpenFlow.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-21T19:51:37Z",
+      "side": 1,
+      "message": "shouldn\u0027t this be \"topo\"",
+      "range": {
+        "startLine": 21,
+        "startChar": 6,
+        "endLine": 21,
+        "endChar": 11
+      },
+      "revId": "8e4e1320a1b5413df4096f0c1bdca79e49129de4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_35de4440",
+        "filename": "csit/libraries/ClusterOpenFlow.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-21T19:51:37Z",
+      "side": 1,
+      "message": "if you are going to add a new update, could you put a comment here (maybe in below two cases too) why this logic\nis needed.  Even I\u0027m not understanding why it\u0027s \u003d1 or \u003d2 based on the plugin type.",
+      "range": {
+        "startLine": 91,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 108
+      },
+      "revId": "8e4e1320a1b5413df4096f0c1bdca79e49129de4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_15e34008",
+        "filename": "csit/suites/openflowplugin/Clustering/010__Cluster_HA_Owner_Failover.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-21T19:51:37Z",
+      "side": 1,
+      "message": "just checking.  does this work, if you do a \"Run Keyword And Continue On Failure\" ?",
+      "range": {
+        "startLine": 104,
+        "startChar": 4,
+        "endLine": 104,
+        "endChar": 51
+      },
+      "revId": "8e4e1320a1b5413df4096f0c1bdca79e49129de4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
