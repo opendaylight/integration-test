@@ -1,61 +1,133 @@
 *** Settings ***
-Documentation     Test suite for Ovsdb Southbound Cluster
-Suite Setup       Create Controller Sessions
-Suite Teardown    Delete All Sessions
+Documentation     Test suite to deploy devstack with networking-odl
+Suite Setup       Devstack Suite Setup
+Library           SSHLibrary
+Library           OperatingSystem
 Library           RequestsLibrary
-Resource          ../../../libraries/ClusterOvsdb.robot
-Resource          ../../../libraries/ClusterKeywords.robot
-Resource          ../../../libraries/MininetKeywords.robot
-Variables         ../../../variables/Variables.py
-Library           ../../../libraries/Common.py
 Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/OVSDB.robot
+Resource          ../../../libraries/NetvirtKeywords.robot
+Resource          ../../../libraries/DevstackUtils.robot
 
 *** Variables ***
-${OVSDB_CONFIG_DIR}    ${CURDIR}/../../../variables/ovsdb
-${ODLREST}        /controller/nb/v2/neutron
-@{node_list}      ovsdb://uuid/
-${EXT_NET1_ID}    7da709ff-397f-4778-a0e8-994811272fdb
-${EXT_SUBNET1_ID}    00289199-e288-464a-ab2f-837ca67101a7
-${TNT1_ID}        cde2563ead464ffa97963c59e002c0cf
+@{NETWORKS_NAME}    net1_network    net2_network    net3_network    net4_network
+@{SUBNETS_NAME}    subnet1    subnet2    subnet3    subnet4
+@{VM_INSTANCES_NAME}    MyFirstInstance    MySecondInstance    MyThirdInstance    MyFourthInstance
+@{VM_IPS}    10.0.0.3    20.0.0.3    30.0.0.3    40.0.0.3
+@{GATEWAY_IPS}    10.0.0.1    20.0.0.1
+
 
 *** Test Cases ***
-Create Cluster List
-    [Documentation]    Create original cluster list.
-    ${original_cluster_list}    Create Controller Index List
-    Set Suite Variable    ${original_cluster_list}
-    Log    ${original_cluster_list}
+Run Devstack Gate Wrapper
+    Write Commands Until Prompt    unset GIT_BASE
+    Write Commands Until Prompt    env
+    ${output}=    Write Commands Until Prompt    ./devstack-gate/devstack-vm-gate-wrap.sh    timeout=3600s    #60min
+    Log    ${output}
+    Should Not Contain    ${output}    ERROR: the main setup script run by this job failed
+    # workaround for https://bugs.launchpad.net/networking-odl/+bug/1512418
+    Write Commands Until Prompt    cd /opt/stack/new/tempest-lib
+    Write Commands Until Prompt    sudo python setup.py install
+    [Teardown]    Show Devstack Debugs
 
-Check Shards Status Before Fail
-    [Documentation]    Check Status for all shards in Ovsdb application.
-    Check Ovsdb Shards Status    ${original_cluster_list}
+Validate Neutron and Networking-ODL Versions
+    ${output}=    Write Commands Until Prompt    cd /opt/stack/new/neutron; git branch;
+    Should Contain    ${output}    * ${OPENSTACK_BRANCH}
+    ${output}=    Write Commands Until Prompt    cd /opt/stack/new/networking-odl; git branch;
+    Should Contain    ${output}    * ${NETWORKING-ODL_BRANCH}
 
-Ensure controller is running
-    [Documentation]    Check if the controller is running before sending restconf requests
-    [Tags]    Check controller reachability
-    ${dictionary}=    Create Dictionary    ovsdb://uuid/=5
-    Wait Until Keyword Succeeds    4s    4s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
+Create Networks
+    [Documentation]    Create Network with neutron request.
+    : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
+    \    Create Network    ${NetworkElement}
 
-Check netvirt is loaded
-    [Documentation]    Check if the netvirt piece has been loaded into the karaf instance
-    [Tags]    Check netvirt is loaded
-    ${operational}=    Create Dictionary    netvirt=1
-    Wait Until Keyword Succeeds    4s    4s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${operational}    ${OPERATIONAL_NODES_NETVIRT}
+Test subnet
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-create net1_network 10.0.0.0/24 --name subnet1
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-create net2_network 20.0.0.0/24 --name subnet2
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-create net3_network 30.0.0.0/24 --name subnet3
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-create net4_network 40.0.0.0/24 --name subnet4
+    Log    ${output}
 
-Check External Net for Tenant
-    [Documentation]    Check External Net for Tenant
-    [Tags]    OpenStack Call Flow
-    ${resp}    RequestsLibrary.Get    session    ${ODLREST}/networks
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
+Test List Ports
+    ${output}=   Write Commands Until Prompt     neutron -v port-list
+    Log    ${output}
 
-Create External Net for Tenant
-    [Documentation]    Create External Net for Tenant
-    [Tags]    OpenStack Call Flow
-    ${Data}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_ext_net.json
-    ${Data}    Replace String    ${Data}    {netId}    ${EXT_NET1_ID}
-    ${Data}    Replace String    ${Data}    {tntId}    ${TNT1_ID}
-    Log    ${Data}
-    ${resp}    RequestsLibrary.Post    session    ${ODLREST}/networks    data=${Data}    headers=${HEADERS}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    201
+Test List Available Networks
+    ${output}=   Write Commands Until Prompt     neutron -v net-list
+    Log    ${output}
+    ${output}=   Write Commands Until Prompt    neutron net-list -F id -F name -f json
+    Log    ${output}
+
+Test Tenant list
+    ${output}=   Write Commands Until Prompt     keystone tenant-list
+    Log    ${output}
+
+Test novalist
+    ${output}=   Write Commands Until Prompt     nova list
+    Log    ${output}
+
+Test imagelist
+    ${output}=   Write Commands Until Prompt     nova image-list
+    Log    ${output}
+
+Test flavor list
+    ${output}=   Write Commands Until Prompt     nova flavor-list
+    Log    ${output}
+
+Create Vm Instances
+    [Documentation]    Create Vm instances using flavor and image names.
+    : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
+    \    ${net_id}=    Get Net Id    ${NetworkElement}
+    Create Vm Instance    ${net_id}
+
+Test Details of Created Vm Instance
+    [Documentation]    View Details of the created vm instances using nova show.
+    : FOR    ${VmElement}    IN    @{VM_INSTANCES_NAME}
+    \    ${output}=     Show Details Of Instance   ${VmElement}
+    Log    ${output}
+
+Verify Created Vm Instance In Dump Flow
+    [Documentation]    Verify the existence of the created vm instance ips in the dump flow.
+    ${output}=   Write Commands Until Prompt     sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+    : FOR    ${VmIpElement}    IN    @{VM_IPS}
+    \    Should Contain    ${output}    ${VmIpElement}
+
+Delete Vm Instances Using Ids
+    [Documentation]    Delete Vm instances using instance names.
+    : FOR    ${VmElement}    IN    @{VM_INSTANCES_NAME}
+    \    ${instance_id}=    Get Instance Id    ${VmElement}
+    \    Delete Vm Instances Using NetId    ${instance_id}
+
+Verify Instance Removed For The Deleted Network
+    ${output}=   Write Commands Until Prompt     sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+    Should Not Contain    ${output}    30.0.0.3
+
+Delete Sub Networks
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-delete subnet3
+    Log    ${output}
+
+Delete Networks
+    ${output}=    Write Commands Until Prompt    neutron -v net-delete net3_network
+    Log    ${output}
+
+Verify Dhcp Removed For The Deleted Network
+    ${output}=   Write Commands Until Prompt     sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+    Should Not Contain    ${output}    30.0.0.2
+
+Verify Gateway Ip Removed For The Deleted Network
+    ${output}=   Write Commands Until Prompt     sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+    Should Not Contain    ${output}    30.0.0.1
+
+Verify No Presence Of Removed Network In Dump Flow
+    ${output}=   Write Commands Until Prompt     sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+    Should Not Contain    ${output}    30.0.0.3
+
+Create Routers
+    [Documentation]    Create Router and Add Interface to the subnets.
+    Create Router

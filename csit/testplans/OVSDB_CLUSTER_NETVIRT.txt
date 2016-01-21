@@ -1,3 +1,2 @@
 # Place the suites in run order:
-integration/test/csit/suites/ovsdb/Southbound_Net-virt_Threenode/030_Ovsdb_Southbound_Net-Virt.robot
 integration/test/csit/suites/ovsdb/Southbound_Net-virt_Threenode/010_Ovsdb_Net_virt_flow.robot
