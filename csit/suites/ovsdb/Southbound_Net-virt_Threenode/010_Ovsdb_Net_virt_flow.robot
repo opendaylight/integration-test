@@ -39,8 +39,8 @@ Ensure controller is running
 Check netvirt is loaded
     [Documentation]    Check if the netvirt piece has been loaded into the karaf instance
     [Tags]    Check netvirt is loaded
-    ${operational}=    Create Dictionary    netvirt=1
-    Wait Until Keyword Succeeds    4s    4s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${operational}    ${OPERATIONAL_NODES_NETVIRT}
+    ${operational}=    Create Dictionary    netvirt:1=1
+    Wait Until Keyword Succeeds    4s    4s    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${operational}    ${OPERATIONAL_TOPO_API}
 
 Check External Net for Tenant
     [Documentation]    Check External Net for Tenant
