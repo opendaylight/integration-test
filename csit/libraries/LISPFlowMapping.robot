@@ -45,3 +45,19 @@ Get Ipv4 Rloc
 Check Mapping Removal
     [Arguments]    ${json}
     Post Log Check    ${LFM_RPC_API}:get-mapping    ${json}    404
+
+Get ELP Hop                                                                
+        [Arguments]   ${loc_record}   ${hop_index}                             
+        [Documentation]    Returns the RLOC object pointed to by ${hop_index} (where indexes start at 1) the Explicit Locator Path in the ${loc_record}
+        ${RLOC_OBJ}=   OperatingSystem.Get File  ${loc_record}
+        ${RLOC_JSON_OBJ}=    Evaluate   json.loads('''${RLOC_OBJ}''')   json
+        ${H_INDEX}=   Evaluate   ${hop_index}-1
+        ${INPUT}=   Get From Dictionary   ${RLOC_JSON_OBJ}   input
+        ${MAPPING_RECORD}=   Get From Dictionary   ${INPUT}    mapping-record
+        ${LOCATOR_RECORD}=   Get From Dictionary   ${MAPPING_RECORD}   LocatorRecord
+        ${LOCATOR_RECORD_ITEM}=   Get From List   ${LOCATOR_RECORD}   0
+        ${RLOC}=   Get From Dictionary   ${LOCATOR_RECORD_ITEM}   rloc
+        ${ELP}=   Get From Dictionary   ${RLOC}   explicit-locator-path
+        ${HOPS}=   Get From Dictionary  ${ELP}   hop
+        ${HOP_ITEM}=   Get From List   ${HOPS}   ${H_INDEX}
+        [return]   ${HOP_ITEM}
