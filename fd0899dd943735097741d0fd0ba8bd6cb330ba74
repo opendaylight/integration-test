@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_c7b64ddc",
+        "filename": "csit/suites/usc/UscUtils.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-22T19:21:42Z",
+      "side": 1,
+      "message": "right, but the place people go to look for common utils and libraries is in our library folder.  you can see other project\u0027s examples there.  you can make an \"USC\" subdir in the libraries dir like GBP did, or keep it flat like TSDR did.",
+      "parentUuid": "9a3d3df0_91793aff",
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_48654e44",
         "filename": "csit/suites/usc/UscUtils.txt",
         "patchSetId": 2
@@ -119,6 +137,30 @@
       "side": 1,
       "message": "I think MININET is still widely used like in Utils.robot. I\u0027ll remain this unchanged.",
       "parentUuid": "9a3d3df0_88d636c4",
+      "range": {
+        "startLine": 32,
+        "startChar": 46,
+        "endLine": 32,
+        "endChar": 53
+      },
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_07b155e1",
+        "filename": "csit/suites/usc/UscUtils.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-22T19:21:42Z",
+      "side": 1,
+      "message": "I know we still have MININET widely used, but we want to get away from that.  It\u0027s one of the overarching tasks, and one way to help is for new code to use the new format.  here is\nour trello card tracking this work:\n\nhttps://trello.com/c/XaoJw1tx/241-need-to-deprecate-old-system-ip-prompt-variables-like-controller-and-mininet",
+      "parentUuid": "9a3d3df0_512052f7",
       "range": {
         "startLine": 32,
         "startChar": 46,
@@ -215,6 +257,30 @@
       "parentUuid": "9a3d3df0_a85a1a81",
       "range": {
         "startLine": 37,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 14
+      },
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_07ff9568",
+        "filename": "csit/suites/usc/UscUtils.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-22T19:21:42Z",
+      "side": 1,
+      "message": "Ok, I understand the need.\n\nGoing back to my other comment about the ${USC_TOOLS_HOME} that you changed to ${NAV_USC_TOOLS}; what I meant to suggest would look like this.\n\nvariables:\n${USC_TOOLS_DIR}    $HOME/usc-tools\n${AgentTcpCallHomeCommand}    java -jar ${USC_TOOLS_DIR}/EchoServer.jar -t true -p 2007\n\nThen it\u0027s only one Write command:\n\nWrite    ${AgentTcpCallHomeCommand}\n\nyou might be able to use that ${USC_TOOLS_DIR} in other paths as well (fetching agent output logs, etc).\n\nanyway, that\u0027s what I was trying to get at, but failed :)",
+      "parentUuid": "9a3d3df0_717e36e6",
+      "range": {
+        "startLine": 32,
         "startChar": 4,
         "endLine": 37,
         "endChar": 14
