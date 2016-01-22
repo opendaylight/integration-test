@@ -42,7 +42,7 @@ Add a portmap for interface if2
     Add a portmap    Tenant1    vBridge1    if2    openflow:3    s3-eth1
 
 Ping h1 to h3
-    [Documentation]    Ping h1 to h3, verify no packet loss
+    [Documentation]    Verify Ping between hosts h1 and h3. To check mininet ping here added wait until time as '20s'. Since, sometimes it takes maximum '20sec' to send packet b/w hosts.
     BuiltIn.Wait_Until_Keyword_Succeeds    20    1    Mininet Ping Should Succeed    h1    h3
 
 Add a vBridge vBridge2
@@ -66,7 +66,7 @@ Add a portmap for interface if4
     Add a portmap    Tenant1    vBridge1    if4    openflow:3    s3-eth2
 
 Ping h2 to h4
-    [Documentation]    Ping h2 to h4, verify no packet loss
+    [Documentation]    Verify Ping between hosts h2 and h4. To check mininet ping here added wait until time as '20s'. Since, sometimes it takes maximum '20sec' to send packet b/w hosts.
     BuiltIn.Wait_Until_Keyword_Succeeds    20    1    Mininet Ping Should Succeed    h2    h4
 
 Get flow
@@ -76,7 +76,7 @@ Get flow
 Verify FlowMacAddress
     [Documentation]    Checking Flows on switch
     [Tags]    Switch
-    Verify FlowMacAddress    h2    h4    OF13
+    BuiltIn.Wait_Until_Keyword_Succeeds    20    1    Verify FlowMacAddress    h2    h4    OF13
 
 Remove Portmap for If1
     [Documentation]    Remove portmap for the interface If1
