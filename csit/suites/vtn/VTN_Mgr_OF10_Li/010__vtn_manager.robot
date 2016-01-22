@@ -49,7 +49,7 @@ Add a portmap for interface if2
 
 Ping h1 to h3
     [Documentation]    Ping h1 to h3, verify no packet loss
-    Mininet Ping Should Succeed    h1    h3
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
 
 Add a vBridge vBridge2
     [Documentation]    Add a vBridge vBridge2 in vtn Tenant1
@@ -79,7 +79,7 @@ Add a portmap for interface if4
 
 Ping h2 to h4
     [Documentation]    Ping h2 to h4, verify no packet loss
-    Mininet Ping Should Succeed    h2    h4
+    Wait Until Keyword Succeeds    20s    1s   Mininet Ping Should Succeed    h2    h4
 
 Get flow
     [Documentation]    Get flow of a vtn Tenant1
@@ -88,7 +88,7 @@ Get flow
 Verify FlowMacAddress
     [Documentation]    Checking Flows on switch
     [Tags]    Switch
-    Verify FlowMacAddress    h2    h4    OF10
+    Wait Until Keyword Succeeds    20s    1s   Verify FlowMacAddress    h2    h4    OF10
 
 Remove Portmap for If1
     [Documentation]    Remove portmap for the interface If1
@@ -99,7 +99,7 @@ Remove Portmap for If1
 
 Verify RemovedFlowMacAddress
     [Documentation]    flows will be deleted after the port map is removed
-    Verify RemovedFlowMacAddress    h1    h3    OF10
+    Wait Until Keyword Succeeds    20s    1s   Verify RemovedFlowMacAddress    h1    h3    OF10
 
 Delete a vtn Tenant1
     [Documentation]    Delete a vtn Tenant1
