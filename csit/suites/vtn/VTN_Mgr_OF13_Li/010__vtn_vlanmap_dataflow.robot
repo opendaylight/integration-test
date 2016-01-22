@@ -43,11 +43,11 @@ Add a vlanmap for vBridge2_vlan
 
 Get vlanflow h1 h3
     [Documentation]    ping h1 to h3
-    Wait Until Keyword Succeeds    10s    2s    Mininet Ping Should Succeed    h1    h3
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
 
 Get vlanflow h1 h5
     [Documentation]    ping h1 to h5
-    Wait Until Keyword Succeeds    10s    2s    Mininet Ping Should Succeed    h1    h5
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h5
 
 Verify data flow details for vlanmap vBridge1_vlan
     [Documentation]    Verify the data flows for the specified tenant and vBridge1_vlan
@@ -55,19 +55,19 @@ Verify data flow details for vlanmap vBridge1_vlan
 
 Get vlanflow h2 h4
     [Documentation]    ping h2 to h4
-    Wait Until Keyword Succeeds    10s    2s    Mininet Ping Should Succeed    h2    h4
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h2    h4
 
 Get vlanflow h2 h6
     [Documentation]    ping h2 to h6
-    Wait Until Keyword Succeeds    10s    2s    Mininet Ping Should Succeed    h2    h6
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h2    h6
 
 Verify data flow details for vlanmap vBridge2_vlan
     [Documentation]    Verify the data flows for the specified tenant and vBridge2_vlan
-    Verify Data Flows    Tenant1    vBridge2_vlan
+    Wait Until Keyword Succeeds    20s    1s   Verify Data Flows    Tenant1    vBridge2_vlan
 
 Get vlanflow h2 h5
     [Documentation]    ping h2 to h5
-    Mininet Ping Should Not Succeed    h2    h5
+    Wait Until Keyword Succeeds    20s    1s   Mininet Ping Should Not Succeed    h2    h5
 
 Delete a vtn Tenant1
     [Documentation]    Delete a vtn Tenant1

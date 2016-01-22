@@ -56,8 +56,8 @@ Add a portmap for interface if2_path
     Add a portmap    Tenant_path    vBridge1    if2_path    ${portmap_data}
 
 Ping h1 to h2 before path policy
-    [Documentation]    Ping h1 to h2, verify no packet loss
-    Mininet Ping Should Succeed    h1    h2
+    [Documentation]    Verify Ping between hosts h1 and h2. To check mininet ping here added wait until time as '20s'. Since, sometimes it takes maximum '20sec' to send packet b/w hosts.
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h2
 
 Verify flowEntryBeforePathPolicy
     [Documentation]    Checking Flows on switch s1 and s3
@@ -91,8 +91,8 @@ Get a pathpolicy
     Get a pathpolicy
 
 Ping h1 to h2 after path policy
-    [Documentation]    Ping h1 to h2, verify no packet loss
-    Mininet Ping Should Succeed    h1    h2
+    [Documentation]    Verify Ping between hosts h1 and h2.
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h2
 
 Verify flowEntryAfterPathPolicy
     [Documentation]    Checking Flows on switch s1 and s3
