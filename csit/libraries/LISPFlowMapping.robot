@@ -42,6 +42,15 @@ Get Ipv4 Rloc
     ${ipv4}=    Get From Dictionary    ${loc}    ipv4
     [Return]    ${ipv4}
 
+Get Elp Hop
+    [Arguments]    ${loc_record}    ${hop_index}
+    [Documentation]    Returns the Rloc object pointed to by ${hop_index}
+    ${rloc}=    Get From Dictionary    ${loc_record}    rloc
+    ${exp_loc_path}=    Get From Dictionary    ${rloc}    explicit-locator-path
+    ${actual_hop_index}=    Evaluate    ${hop_index} - 1
+    ${hop}=    Get From List    ${exp_loc_path}     ${actual_hop_index}
+    [Return]    ${hop}
+
 Check Mapping Removal
     [Arguments]    ${json}
     Post Log Check    ${LFM_RPC_API}:get-mapping    ${json}    404
