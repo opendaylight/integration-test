@@ -50,12 +50,12 @@ Add a portmap for interface if2_path
     Add a portmap    Tenant_path    vBridge1    if2_path    openflow:3    s3-eth3
 
 Ping h1 to h2 before path policy
-    [Documentation]    Ping h1 to h2, verify no packet loss
+    [Documentation]    Verify Ping between hosts h1 and h2. To check mininet ping here added wait until time as '20s'. Since, sometimes it takes maximum '20sec' to send packet b/w hosts.
     Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h2
 
 Verify flowEntryBeforePathPolicy
     [Documentation]    Checking Flows on switch s1 and s3
-    Verify flowEntryPathPolicy    OF13    ${in_port}    ${out_before_pathpolicy}
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify flowEntryPathPolicy    OF13    ${in_port}    ${out_before_pathpolicy}
 
 Add a flowcondition flowcond_path
     [Documentation]    Create a flowcondition flowcond_path
@@ -74,12 +74,12 @@ Get a pathpolicy
     Get a pathpolicy    ${policy_id}
 
 Ping h1 to h2 after path policy
-    [Documentation]    Ping h1 to h2, verify no packet loss
+    [Documentation]    Verify Ping between hosts h1 and h2.
     Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h2
 
 Verify flowEntryAfterPathPolicy
     [Documentation]    Checking Flows on switch s1 and s3
-    Verify flowEntryPathPolicy    OF13    ${in_port}    ${out_after_pathpolicy}
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify flowEntryPathPolicy    OF13    ${in_port}    ${out_after_pathpolicy}
 
 Delete a pathmap
     [Documentation]    Delete a pathmap

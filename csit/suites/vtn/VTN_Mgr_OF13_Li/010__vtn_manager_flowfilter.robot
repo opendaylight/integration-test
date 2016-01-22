@@ -59,8 +59,8 @@ Add a portmap for interface if2
     Add a portmap    Tenant1    vBridge1    if2    ${portmap_data}
 
 Ping h1 to h3
-    [Documentation]    Ping h1 to h3, verify no packet loss
-    Mininet Ping Should Succeed    h1    h3
+    [Documentation]    Verify Ping between hosts h1 and h3. To check mininet ping here added wait until time as '20s'. Since, sometimes it takes maximum '20sec' to send packet b/w hosts.
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
 
 Add a vBridge vBridge2
     [Documentation]    Add a vBridge vBridge2 in vtn Tenant1
@@ -89,8 +89,8 @@ Add a portmap for interface if4
     Add a portmap    Tenant1    vBridge1    if4    ${portmap_data}
 
 Ping h2 to h4
-    [Documentation]    Ping h2 to h4, verify no packet loss
-    Mininet Ping Should Succeed    h2    h4
+    [Documentation]    Verify Ping between hosts h2 and h4.
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h2    h4
 
 Add a macmap
     [Documentation]    Create a macmap on vBridge vBridge1
@@ -98,7 +98,7 @@ Add a macmap
 
 Get flow
     [Documentation]    Get flow of a vtn Tenant1
-    Get flow    Tenant1
+    Wait Until Keyword Succeeds    12s    1s    Get flow    Tenant1
 
 Add a flowcondition cond1
     [Documentation]    Create a flowcondition cond1
@@ -112,50 +112,46 @@ Add a flowcondition cond1
 Add a flowfilter with inet4src and inet4dst
     [Documentation]    Create a flowfilter with inet4 and Verify ping
     Add a flowfilter    Tenant1    vBridge1    if1    ${flowfilterInetdata}    ${index}
-    Mininet Ping Should Succeed    h1    h3
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
 
 Add a flowfilter with Icmp code
     [Documentation]    Create a flowfilter with icmp code and Verify ping
     Update a flowfilter    Tenant1    vBridge1    if1    ${flowfilterIcmpCodedata}    ${index}
-    Mininet Ping Should Succeed    h1    h3
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
 
 Add a flowfilter with tpsrc and tpdst
     [Documentation]    Create a flowfilter with tpsrc and tpdst and Verify ping
     Update a flowfilter    Tenant1    vBridge1    if1    ${flowfilterTpsrcTpdstdata}    ${index}
-    Mininet Ping Should Succeed    h1    h3
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
 
 Add a flowfilter with dscp
     [Documentation]    Create a flowfilter with dscp and Verify ping
     Update a flowfilter    Tenant1    vBridge1    if1    ${flowfilterDscpdata}    ${index}
-    Mininet Ping Should Succeed    h1    h3
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
 
 Verify Flow Entry for Inet Flowfilter
     [Documentation]    Verify Flow Entry for Inet Flowfilter
-    Verify Flow Entry for Inet Flowfilter
+    Wait Until Keyword Succeeds    20s    1s    Verify Flow Entry for Inet Flowfilter
 
 Add a flowfilter with vlanpcp
     [Documentation]    Create a flowfilter with vlanpcp and Verify ping
     Update a flowfilter    Tenant1    vBridge1    if1    ${flowfiltervlanpcp}    ${index}
-    Mininet Ping Should Succeed    h1    h3
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
 
 Add a flowfilter_vtn with inet4src and inet4dst
     [Documentation]    Create a vtn_flowfilter with inet4 and Verify ping
     Add a flowfilter_vtn    Tenant1    ${vtn_flowfilterInetdata}    ${index}
-    Mininet Ping Should Succeed    h1    h3
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
 
 Add a flowfilter_vbr with inet4src and inet4dst
     [Documentation]    Create a vbr_flowfilter with inet4 and Verify ping
     Add a flowfilter_vbr    Tenant1    vBridge1    ${vbr_flowfilterInetdata}    ${index}
-    Mininet Ping Should Succeed    h1    h3
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
 
 Add a flowfilter with inet4 for drop
     [Documentation]    Create a flowfilter with inet4 for drop action and Verify no pinging
     Add a flowfilter for drop    Tenant1    vBridge1    if1    ${flowfilterInetdropdata}    ${index}
-    Mininet Ping Should Not Succeed    h1    h3
-
-Verify Removed Flow Entry For Inet After Drop Action
-    [Documentation]    Verify no flows between the hosts after drop
-    Verify Removed Flow Entry for Inet Drop Flowfilter
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Not Succeed    h1    h3
 
 Delete a flowcondition
     [Documentation]    Delete a flowcondition
