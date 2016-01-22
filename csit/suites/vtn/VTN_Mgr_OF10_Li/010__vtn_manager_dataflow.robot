@@ -48,8 +48,8 @@ Add a portmap for interface if2
     Add a portmap    Tenant1    vBridge1    if2    ${portmap_data}
 
 Ping h1 to h3
-    [Documentation]    Ping h1 to h3, verify no packet loss
-    Mininet Ping Should Succeed    h1    h3
+    [Documentation]    Verify Ping between hosts h1 and h3. To check mininet ping here added wait until time as '20s'. Since, sometimes it takes maximum '20sec' to send packet b/w hosts.
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
 
 Verify data flow details For vBridge1
     [Documentation]    Verify the data flows for the specified tenant and bridge
@@ -82,17 +82,17 @@ Add a portmap for interface if4
     Add a portmap    Tenant1    vBridge2    if4    ${portmap_data}
 
 Ping h2 to h4
-    [Documentation]    Ping h2 to h4, verify no packet loss
-    Mininet Ping Should Succeed    h2    h4
+    [Documentation]    Verify Ping between hosts h1 and h3. To check mininet ping here added wait until time as '20s'. Since, sometimes it takes maximum '20sec' to send packet b/w hosts.
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h2    h4
 
 Verify data flow details for vBridge2
     [Documentation]    Verify the data flows for the specified tenant and bridge
-    Verify Data Flows    Tenant1    vBridge2
+    Wait Until Keyword Succeeds    20s    1s    Verify Data Flows    Tenant1    vBridge2
 
 Verify FlowMacAddress
     [Documentation]    Checking Flows on switch
     [Tags]    Switch
-    Verify FlowMacAddress    h2    h4    OF10
+    Wait Until Keyword Succeeds    20s    1s    Verify FlowMacAddress    h2    h4    OF10
 
 Remove Portmap for If1
     [Documentation]    Remove portmap for the interface If1
@@ -103,7 +103,7 @@ Remove Portmap for If1
 
 Verify RemovedFlowMacAddress
     [Documentation]    flows will be deleted after the port map is removed
-    Verify RemovedFlowMacAddress    h1    h3    OF10
+    Wait Until Keyword Succeeds    20s    1s    Verify RemovedFlowMacAddress    h1    h3    OF10
 
 Delete a vtn Tenant1
     [Documentation]    Delete a vtn Tenant1

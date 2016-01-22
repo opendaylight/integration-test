@@ -209,13 +209,15 @@ Add a vBridgeMacMapping
 
 Mininet Ping Should Succeed
     [Arguments]    ${host1}    ${host2}
-    Write    ${host1} ping -c 10 ${host2}
+    [Documentation]    Ping hosts to check connectivity
+    Write    ${host1} ping -c 1 ${host2}
     ${result}    Read Until    mininet>
     Should Contain    ${result}    64 bytes
 
 Mininet Ping Should Not Succeed
     [Arguments]    ${host1}    ${host2}
-    Write    ${host1} ping -c 10 ${host2}
+    [Documentation]    Ping hosts when there is no connectivity and check hosts is unreachable
+    Write    ${host1} ping -c 3 ${host2}
     ${result}    Read Until    mininet>
     Should Not Contain    ${result}    64 bytes
 
