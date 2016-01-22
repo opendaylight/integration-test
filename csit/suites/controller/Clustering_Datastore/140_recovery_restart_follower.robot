@@ -51,7 +51,7 @@ Stop Both Of The Followers
 
 Attempt To Add A Car To The Leader
     [Documentation]    Add car should fail as both followers are down
-    AddCar    ${CURRENT_CAR_LEADER}    ${RESTCONFPORT}    ${1}    500
+    AddCar    ${CURRENT_CAR_LEADER}    ${RESTCONFPORT}    ${1}    500    503
     Sleep    2
     ${resp}    Getcars    ${CURRENT_CAR_LEADER}    ${RESTCONFPORT}    ${1}
     Should Not Be Equal As Strings    ${resp.status_code}    200
