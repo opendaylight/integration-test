@@ -57,12 +57,12 @@ Add a portmap for interface if2_path
 
 Ping h1 to h2 before path policy
     [Documentation]    Ping h1 to h2, verify no packet loss
-    Mininet Ping Should Succeed    h1    h2
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h2
 
 Verify flowEntryBeforePathPolicy
     [Documentation]    Checking Flows on switch s1 and s3
     [Tags]    exclude
-    Verify flowEntryPathPolicy    OF10    ${in_port}    ${out_before_pathpolicy}
+    Wait Until Keyword Succeeds    20s    1s    Verify flowEntryPathPolicy    OF10    ${in_port}    ${out_before_pathpolicy}
 
 Add a flowcondition flowcond_path
     [Documentation]    Create a flowcondition flowcond_path
@@ -92,12 +92,12 @@ Get a pathpolicy
 
 Ping h1 to h2 after path policy
     [Documentation]    Ping h1 to h2, verify no packet loss
-    Mininet Ping Should Succeed    h1    h2
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h2
 
 Verify flowEntryAfterPathPolicy
     [Documentation]    Checking Flows on switch s1 and s3
     [Tags]    exclude
-    Verify flowEntryPathPolicy    OF10    ${in_port}    ${out_after_pathpolicy}
+    Wait Until Keyword Succeeds    20s    1s    Verify flowEntryPathPolicy    OF10    ${in_port}    ${out_after_pathpolicy}
 
 Delete a pathmap
     [Documentation]    Delete a pathmap

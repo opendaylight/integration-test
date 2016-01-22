@@ -57,7 +57,7 @@ Add a portmap for interface if2_path
 
 Ping h1 to h2 before path policy
     [Documentation]    Ping h1 to h2, verify no packet loss
-    Mininet Ping Should Succeed    h1    h2
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h2
 
 Verify flowEntryBeforePathPolicy
     [Documentation]    Checking Flows on switch s1 and s3
@@ -92,7 +92,7 @@ Get a pathpolicy
 
 Ping h1 to h2 after path policy
     [Documentation]    Ping h1 to h2, verify no packet loss
-    Mininet Ping Should Succeed    h1    h2
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h2
 
 Verify flowEntryAfterPathPolicy
     [Documentation]    Checking Flows on switch s1 and s3

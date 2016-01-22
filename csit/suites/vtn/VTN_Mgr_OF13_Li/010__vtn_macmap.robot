@@ -37,7 +37,7 @@ Add a macmap for bridge1
 
 Get macmapflow h3 h1
     [Documentation]    ping h3 to h1
-    Wait Until Keyword Succeeds    10s    2s    Mininet Ping Should Succeed    h3    h1
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h3    h1
 
 Delete a vtn Tenant1
     [Documentation]    Delete a vtn Tenant1

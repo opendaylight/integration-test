@@ -76,7 +76,7 @@ Get flow
 Verify FlowMacAddress
     [Documentation]    Checking Flows on switch
     [Tags]    Switch
-    Verify FlowMacAddress    h2    h4    OF13
+    BuiltIn.Wait_Until_Keyword_Succeeds    20    1    Verify FlowMacAddress    h2    h4    OF13
 
 Remove Portmap for If1
     [Documentation]    Remove portmap for the interface If1
