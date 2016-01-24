@@ -138,7 +138,7 @@ Compare_Topology
     ${normexp}=    Hsf_Json    ${expected}
     Log    ${normexp}
     Create_File    ${ExpDir}${/}${name}    ${normexp}
-    ${resp}=    RequestsLibrary.Get    ses    topology/pcep-topology
+    ${resp}=    RequestsLibrary.Get Request    ses    topology/pcep-topology
     Log    ${resp}
     Log    ${resp.text}
     ${normresp}=    Hsf_Json    ${resp.text}

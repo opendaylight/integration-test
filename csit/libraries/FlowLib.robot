@@ -142,10 +142,10 @@ Remove Flow XML Element
 Add Flow To Controller And Verify
     [Arguments]    ${flow_body}    ${node_id}    ${table_id}    ${flow_id}
     [Documentation]    Push flow through REST-API and verify in data-store
-    ${resp}    RequestsLibrary.Put    session    ${REST_CON}/node/${node_id}/table/${table_id}/flow/${flow_id}    headers=${HEADERS_XML}    data=${flow_body}
+    ${resp}    RequestsLibrary.Put Request    session    ${REST_CON}/node/${node_id}/table/${table_id}/flow/${flow_id}    headers=${HEADERS_XML}    data=${flow_body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${resp}    RequestsLibrary.Get    session    ${REST_CON}/node/${node_id}/table/${table_id}/flow/${flow_id}    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.Get Request    session    ${REST_CON}/node/${node_id}/table/${table_id}/flow/${flow_id}    headers=${ACCEPT_XML}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     compare xml    ${flow_body}    ${resp.content}
@@ -162,10 +162,10 @@ Verify Flow On Mininet Switch
 Remove Flow From Controller And Verify
     [Arguments]    ${flow_body}    ${node_id}    ${table_id}    ${flow_id}
     [Documentation]    Remove flow
-    ${resp}    RequestsLibrary.Delete    session    ${REST_CON}/node/${node_id}/table/${table_id}/flow/${flow_id}
+    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CON}/node/${node_id}/table/${table_id}/flow/${flow_id}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${resp}    RequestsLibrary.Get    session    ${REST_CON}/node/${node_id}/table/${table_id}
+    ${resp}    RequestsLibrary.Get Request    session    ${REST_CON}/node/${node_id}/table/${table_id}
     Log    ${resp.content}
     Should Not Contain    ${resp.content}    ${flow_id}
 
@@ -192,10 +192,10 @@ Remove Default Flows
     write    dpctl dump-flows -O OpenFlow13
     ${switchoutput}    Read Until    >
     ${headers}=    Create Dictionary    Content-Type=application/yang.data+xml
-    ${resp}    RequestsLibrary.Post    session    restconf/operations/sal-flow:remove-flow    data=${flow.xml}    headers=${headers}
+    ${resp}    RequestsLibrary.Post Request    session    restconf/operations/sal-flow:remove-flow    data=${flow.xml}    headers=${headers}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${resp}=    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_API}
+    ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
     Log    ${resp.content}
     Should Not Contain    ${resp.content}    "output-node-connector": "CONTROLLER",
     ${strings_to_check_for}=    Create List    CONTROLLER
@@ -232,7 +232,7 @@ Flow Presence In Config Store
     [Documentation]    Checks the config store for given flow. Returns True if present, otherwise returns False
     ...    This keyword assumes that the global/suite variables are available (${table_id}, ${flow_id} and ${switch_idx}
     ${headers}=    Create Dictionary    Accept=application/xml
-    ${resp}=    RequestsLibrary.Get    session    ${CONFIG_NODES_API}/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}    headers=${headers}
+    ${resp}=    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}    headers=${headers}
     Log    ${resp}
     Log    ${resp.content}
     Return From Keyword If    ${resp.status_code}!=200    ${False}    ${EMPTY}
@@ -245,7 +245,7 @@ Flow Presence In Operational Store
     [Documentation]    Checks the operational store for given flow. Returns True if present, otherwise returns False
     ...    This keyword assumes that the global/suite variables are available (${table_id}, ${flow_id} and ${switch_idx}
     ${headers}=    Create Dictionary    Accept=application/xml
-    ${resp}=    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_API}/node/openflow:${switch_idx}/table/${table_id}    headers=${headers}
+    ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}/node/openflow:${switch_idx}/table/${table_id}    headers=${headers}
     Log    ${resp}
     Log    ${resp.content}
     Return From Keyword If    ${resp.status_code}!=200    ${False}    ${EMPTY}
@@ -291,7 +291,7 @@ Add Flow Via RPC
     Set Element Attribute    ${nodeelm}    xmlns:inv    urn:opendaylight:inventory
     Log Element    ${req}
     ${strxml}=    Element To String    ${req}
-    ${resp}=    RequestsLibrary.Post    session    /restconf/operations/sal-flow:add-flow    data=${strxml}
+    ${resp}=    RequestsLibrary.Post Request    session    /restconf/operations/sal-flow:add-flow    data=${strxml}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -299,7 +299,7 @@ Add Flow Via Restconf
     [Arguments]    ${node_id}    ${table_id}    ${flow_body}
     [Documentation]    Configures a flow specified by given flow details (${node_id}, ${table_id}, ${flow_body}) using POST method
     Log    ${flow_body}
-    ${resp}=    RequestsLibrary.Post    session    ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id}    data=${flow_body}
+    ${resp}=    RequestsLibrary.Post Request    session    ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id}    data=${flow_body}
     Log    ${resp.content}
     ${msg}=    Set Variable    Adding flow for ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id} failed, http response ${resp.status_code} received.
     Should Be Equal As Strings    ${resp.status_code}    204    msg=${msg}
@@ -327,7 +327,7 @@ Update Flow Via RPC
     Set Element Attribute    ${nodeelm}    xmlns:inv    urn:opendaylight:inventory
     Log Element    ${xml}
     ${strxml}=    Element To String    ${xml}
-    ${resp}=    RequestsLibrary.Post    session    /restconf/operations/sal-flow:update-flow    data=${strxml}
+    ${resp}=    RequestsLibrary.Post Request    session    /restconf/operations/sal-flow:update-flow    data=${strxml}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -335,7 +335,7 @@ Update Flow Via Restconf
     [Arguments]    ${node_id}    ${table_id}    ${flow_id}    ${flow_body}
     [Documentation]    Updates a flow configuration by given flow details (${node_id}, ${table_id}, ${flow_body}) using PUT method
     Log    ${flow_body}
-    ${resp}=    RequestsLibrary.Put    session    ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id}/flow/${flow_id}    data=${flow_body}
+    ${resp}=    RequestsLibrary.Put Request    session    ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id}/flow/${flow_id}    data=${flow_body}
     Log    ${resp.content}
     ${msg}=    Set Variable    Updating flow for ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id}/flow/${flow_id} failed, http response ${resp.status_code} received.
     Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}
@@ -353,14 +353,14 @@ Delete Flow Via RPC
     Set Element Attribute    ${nodeelm}    xmlns:inv    urn:opendaylight:inventory
     Log Element    ${req}
     ${strxml}=    Element To String    ${req}
-    ${resp}=    RequestsLibrary.Post    session    /restconf/operations/sal-flow:remove-flow    data=${strxml}
+    ${resp}=    RequestsLibrary.Post Request    session    /restconf/operations/sal-flow:remove-flow    data=${strxml}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Delete Flow Via Restconf
     [Arguments]    ${node_id}    ${table_id}    ${flow_id}
     [Documentation]    Deletes a flow from configuration datastore specified by given flow details (${node_id}, ${table_id}, ${flow_body}) using DELETE method
-    ${resp}=    RequestsLibrary.Delete    session    ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id}/flow/${flow_id}
+    ${resp}=    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id}/flow/${flow_id}
     Log    ${resp.content}
     ${msg}=    Set Variable    Delete flow for ${CONFIG_NODES_API}/node/openflow:${node_id}/table/${table_id}/flow/${flow_id} failed, http response ${resp.status_code} received.
     Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}
