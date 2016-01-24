@@ -71,6 +71,6 @@ Make REST Transaction
     Create Session    ODL_SESSION    http://${ODL_SYSTEM_IP}:8181
     ${headers}=    Create Dictionary    Content-Type=application/x-www-form-urlencoded
     Run Keyword If    "${auth_data}" != "${EMPTY}"    Set To Dictionary    ${headers}    Authorization    Bearer ${auth_data}
-    ${resp}=    RequestsLibrary.GET    ODL_SESSION    ${MODULES_API}    headers=${headers}
+    ${resp}=    RequestsLibrary.GET Request    ODL_SESSION    ${MODULES_API}    headers=${headers}
     Log    STATUS_CODE: ${resp.status_code} CONTENT: ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    ${expected_status_code}

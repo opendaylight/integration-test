@@ -80,21 +80,21 @@ Verify Purchases
 
 Delete Cars
     [Documentation]    Remove cars from the datastore
-    ${rsp}=    RequestsLibrary.Delete    session    ${carurl}
+    ${rsp}=    RequestsLibrary.Delete Request    session    ${carurl}
     Should Be Equal As Numbers    200    ${rsp.status_code}
     ${rsp}=    RequestsLibrary.Get Request    session    ${carurl}
     Should Be Equal As Numbers    404    ${rsp.status_code}
 
 Delete People
     [Documentation]    Remove people from the datastore
-    ${rsp}=    RequestsLibrary.Delete    session    ${peopleurl}
+    ${rsp}=    RequestsLibrary.Delete Request    session    ${peopleurl}
     Should Be Equal As Numbers    200    ${rsp.status_code}
     ${rsp}=    RequestsLibrary.Get Request    session    ${peopleurl}
     Should Be Equal As Numbers    404    ${rsp.status_code}
 
 Delete CarPeople
     [Documentation]    Remove car-people entries from the datastore
-    ${rsp}=    RequestsLibrary.Delete    session    ${carpeopleurl}
+    ${rsp}=    RequestsLibrary.Delete Request    session    ${carpeopleurl}
     Should Be Equal As Numbers    200    ${rsp.status_code}
     ${rsp}=    RequestsLibrary.Get Request    session    ${carpeopleurl}
     Should Be Equal As Numbers    404    ${rsp.status_code}
@@ -110,7 +110,7 @@ Start Suite
     SSHLibrary.Put File    ${CURDIR}/../../../../tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py    .
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    ls    return_stdout=True    return_stderr=True
     ...    return_rc=True
-    RequestsLibrary.Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}
+    RequestsLibrary.Create_Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}
 
 Stop Suite
     [Documentation]    Suite teardown keyword

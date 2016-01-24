@@ -24,7 +24,7 @@ ${INTENT_CONTEXT}    /restconf/config/intent:intents
 *** Test Cases ***
 Get Controller Modules
     [Documentation]    Get the controller modules via Restconf
-    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}
+    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ietf-restconf
@@ -55,7 +55,7 @@ Verify REST Command Add, Update and Remove
 *** Keywords ***
 REST Get List of Intents
     [Documentation]    Get the list of intents configured
-    ${resp}    RequestsLibrary.Get    session    ${INTENT_CONTEXT}
+    ${resp}    RequestsLibrary.Get Request    session    ${INTENT_CONTEXT}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    "intents"
     [Return]    ${resp.content}
@@ -63,7 +63,7 @@ REST Get List of Intents
 REST Get Intent From Id
     [Arguments]    ${id}
     [Documentation]    Get the intent detail from id
-    ${resp}    RequestsLibrary.Get    session    ${INTENT_CONTEXT}/intent/${id}
+    ${resp}    RequestsLibrary.Get Request    session    ${INTENT_CONTEXT}/intent/${id}
     Log Json    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${id}
@@ -87,7 +87,7 @@ REST Add Intent
     ${headers}=    Create Dictionary    Content-Type=application/json
     ${id}=    Generate Random UUID
     ${data}=    Catenate    {"intent":{"id": "${id}","subjects":[{"order": 1,"end-point-group": {"name": "${intent_from}"}},{"order": 2,"end-point-group": { "name": "${intent_to}"}}],"actions": [{"order": 1,"${intent_permission}": {}}]}}
-    ${resp}    RequestsLibrary.Post    session    ${INTENT_CONTEXT}    headers=${headers}    data=${data}
+    ${resp}    RequestsLibrary.Post Request    session    ${INTENT_CONTEXT}    headers=${headers}    data=${data}
     Should Be Equal As Strings    ${resp.status_code}    204
     [Return]    ${id}
 
@@ -96,14 +96,14 @@ REST Update Intent By Id
     [Documentation]    Make an Intent and return the id of the new intent
     ${headers}=    Create Dictionary    Content-Type=application/json
     ${data}=    Catenate    {"intent":{"id": "${id}","subjects":[{"order": 1,"end-point-group": {"name": "${intent_from}"}},{"order": 2,"end-point-group": { "name": "${intent_to}"}}],"actions": [{"order": 1,"${intent_permission}": {}}]}}
-    ${resp}    RequestsLibrary.Put    session    ${INTENT_CONTEXT}/intent/${id}    headers=${headers}    data=${data}
+    ${resp}    RequestsLibrary.Put Request    session    ${INTENT_CONTEXT}/intent/${id}    headers=${headers}    data=${data}
     Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp}
 
 REST Delete All Intents
     [Documentation]    Delete all of the Intents
     ${headers}=    Create Dictionary    Content-Type=application/json
-    ${resp}    RequestsLibrary.Delete    session    ${INTENT_CONTEXT}    headers=${headers}
+    ${resp}    RequestsLibrary.Delete Request    session    ${INTENT_CONTEXT}    headers=${headers}
     Log    ${resp}
     Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.content}
@@ -112,7 +112,7 @@ REST Delete Intent By Id
     [Arguments]    ${id}
     [Documentation]    Delete Intent by Id
     ${headers}=    Create Dictionary    Content-Type=application/json
-    ${resp}    RequestsLibrary.Delete    session    ${INTENT_CONTEXT}/intent/${id}    headers=${headers}
+    ${resp}    RequestsLibrary.Delete Request    session    ${INTENT_CONTEXT}/intent/${id}    headers=${headers}
     Log    ${resp}
     Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.content}

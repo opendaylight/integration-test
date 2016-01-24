@@ -9,7 +9,7 @@ Resource          ./Utils.robot
 *** Keywords ***
 Check DIDM Registered With Device
     [Documentation]    Check for DIDM registered with the device
-    ${resp}=    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_API}
+    ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
     Should Contain    ${resp.content}    didm

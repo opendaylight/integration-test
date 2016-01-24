@@ -21,7 +21,7 @@ Add Tenants
     Add Elements To URI From File    ${GBP_TENANTS_API}    ${GBP_TENANTS_FILE}
     ${body}    OperatingSystem.Get File    ${GBP_TENANTS_FILE}
     ${jsonbody}    To Json    ${body}
-    ${resp}    RequestsLibrary.Get    session    ${GBP_TENANTS_API}
+    ${resp}    RequestsLibrary.Get Request    session    ${GBP_TENANTS_API}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     Lists Should be Equal    ${jsonbody}    ${result}
@@ -31,10 +31,10 @@ Delete All Tenants
     Add Elements To URI From File    ${GBP_TENANTS_API}    ${GBP_TENANTS_FILE}
     ${body}    OperatingSystem.Get File    ${GBP_TENANTS_FILE}
     ${jsonbody}    To Json    ${body}
-    ${resp}    RequestsLibrary.Get    session    ${GBP_TENANTS_API}
+    ${resp}    RequestsLibrary.Get Request    session    ${GBP_TENANTS_API}
     Should Be Equal As Strings    ${resp.status_code}    200
     Remove All Elements At URI    ${GBP_TENANTS_API}
-    ${resp}    RequestsLibrary.Get    session    ${GBP_TENANTS_API}
+    ${resp}    RequestsLibrary.Get Request    session    ${GBP_TENANTS_API}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Add one Tenant
@@ -42,7 +42,7 @@ Add one Tenant
     Add Elements To URI From File    ${GBP_TENANT1_API}    ${GBP_TENANT1_FILE}
     ${body}    OperatingSystem.Get File    ${GBP_TENANT1_FILE}
     ${jsonbody}    To Json    ${body}
-    ${resp}    RequestsLibrary.Get    session    ${GBP_TENANT1_API}
+    ${resp}    RequestsLibrary.Get Request    session    ${GBP_TENANT1_API}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     Lists Should be Equal    ${result}    ${jsonbody}
@@ -50,7 +50,7 @@ Add one Tenant
 Get A Non-existing Tenant
     [Documentation]    Get A Non-existing Tenant
     Remove All Elements At URI    ${GBP_TENANTS_API}
-    ${resp}    RequestsLibrary.Get    session    ${GBP_TENANT1_API}
+    ${resp}    RequestsLibrary.Get Request    session    ${GBP_TENANT1_API}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete one Tenant
@@ -58,7 +58,7 @@ Delete one Tenant
     Remove All Elements At URI    ${GBP_TENANTS_API}
     Add Elements To URI From File    ${GBP_TENANT1_API}    ${GBP_TENANT1_FILE}
     Remove All Elements At URI    ${GBP_TENANT1_API}
-    ${resp}    RequestsLibrary.Get    session    ${GBP_TENANTS_API}
+    ${resp}    RequestsLibrary.Get Request    session    ${GBP_TENANTS_API}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Not Contain    ${resp.content}    ${GBP_TENANT_ID}
 
