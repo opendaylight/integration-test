@@ -129,7 +129,7 @@ Get_Config_Running_To_Confirm_Delete_After_Commit
 
 Restconf_Get_Modules_Shall_Return_404
     [Documentation]    Check that "Not Found" is returned when Restconf is asked for the deleted element.
-    ${response}=    RequestsLibrary.Get    config    config:modules    ${ACCEPT_XML}
+    ${response}=    RequestsLibrary.Get request    config    config:modules    ${ACCEPT_XML}
     BuiltIn.Should_Be_Equal_As_Strings    404    ${response.status_code}
 
 Commit_No_Transaction
@@ -390,7 +390,7 @@ Close_ODL_Netconf_Connection_Gracefully
 Setup_Everything
     [Documentation]    Setup resources and create session for Restconf checking.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    RequestsLibrary.Create_Session    config    http://${CONTROLLER}:${RESTCONFPORT}${CONFIG_API}    auth=${AUTH}
+    RequestsLibrary.Create_Session request    config    http://${CONTROLLER}:${RESTCONFPORT}${CONFIG_API}    auth=${AUTH}
 
 Teardown_Everything
     [Documentation]    Close the Netconf connection and destroy all sessions in the requests library.

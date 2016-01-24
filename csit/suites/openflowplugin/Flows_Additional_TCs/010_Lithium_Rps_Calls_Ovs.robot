@@ -15,13 +15,13 @@ ${send_echo_url}    /restconf/operations/sal-echo:send-echo
 *** Test Cases ***
 Sending Barrier
     [Documentation]    Test to send barrier
-    ${resp}=    RequestsLibrary.Post    session    ${send_barrier_url}    data=${RPC_SEND_BARRIER_DATA}    headers=${HEADERS_XML}
+    ${resp}=    RequestsLibrary.Post request    session    ${send_barrier_url}    data=${RPC_SEND_BARRIER_DATA}    headers=${HEADERS_XML}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Sending Echo
     [Documentation]    Test to send echo
-    ${resp}=    RequestsLibrary.Post    session    ${send_echo_url}    data=${RPC_SEND_ECHO_DATA}    headers=${HEADERS_XML}
+    ${resp}=    RequestsLibrary.Post request    session    ${send_echo_url}    data=${RPC_SEND_ECHO_DATA}    headers=${HEADERS_XML}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -39,7 +39,7 @@ Final Phase
 
 Are Switches Connected Topo
     [Documentation]    Checks wheather switches are connected to controller
-    ${resp}=    RequestsLibrary.Get    session    ${OPERATIONAL_TOPO_API}/topology/flow:1    headers=${ACCEPT_XML}
+    ${resp}=    RequestsLibrary.Get request    session    ${OPERATIONAL_TOPO_API}/topology/flow:1    headers=${ACCEPT_XML}
     Log    ${resp.content}
     ${count}=    Get Element Count    ${resp.content}    xpath=node
     Should Be Equal As Numbers    ${count}    1

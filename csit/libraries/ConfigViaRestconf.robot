@@ -47,7 +47,7 @@ Setup_Config_Via_Restconf
     ${variable_was_set}=    BuiltIn.Get_Variable_Value    ${cvr_actfile}    NEVER
     BuiltIn.Return_From_Keyword_If    '''${variable_was_set}''' != '''NEVER'''
     # Do not append slash at the end uf URL, Requests would add another, resulting in error.
-    RequestsLibrary.Create_Session    cvr_session    http://${CONTROLLER}:${RESTCONFPORT}${CONTROLLER_CONFIG_MOUNT}    headers=${HEADERS_XML}    auth=${AUTH}
+    RequestsLibrary.Create_Session request    cvr_session    http://${CONTROLLER}:${RESTCONFPORT}${CONTROLLER_CONFIG_MOUNT}    headers=${HEADERS_XML}    auth=${AUTH}
     ${workspace_defined}=    BuiltIn.Run_Keyword_And_return_Status    BuiltIn.Variable_Should_Exist    ${WORKSPACE}
     BuiltIn.Run_Keyword_If    ${workspace_defined}    BuiltIn.Set_Suite_Variable    ${cvr_workspace}    ${WORKSPACE}
     BuiltIn.Set_Suite_Variable    ${cvr_actfile}    ${cvr_workspace}${/}actual.json
@@ -162,7 +162,7 @@ Put_Xml_Config_Via_Restconf
     [Documentation]    Put XML data to given controller-config URI, check reponse text is empty and status_code is one of allowed ones.
     BuiltIn.Log    ${uri_part}
     BuiltIn.Log    ${xml_data}
-    ${response}=    RequestsLibrary.Put    cvr_session    ${uri_part}    data=${xml_data}
+    ${response}=    RequestsLibrary.Put request    cvr_session    ${uri_part}    data=${xml_data}
     BuiltIn.Log    ${response.text}
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Should_Be_Empty    ${response.text}
@@ -172,7 +172,7 @@ Get_Xml_Config_Via_Restconf
     [Arguments]    ${uri_part}
     [Documentation]    Get XML data from given controller-config URI, check status_code is one of allowed ones, return response text.
     BuiltIn.Log    ${uri_part}
-    ${response}=    RequestsLibrary.Get    cvr_session    ${uri_part}    headers=${ACCEPT_XML}
+    ${response}=    RequestsLibrary.Get request    cvr_session    ${uri_part}    headers=${ACCEPT_XML}
     BuiltIn.Log    ${response.text}
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Should_Contain    ${allowed_status_codes}    ${response.status_code}
@@ -182,7 +182,7 @@ Get_Json_Config_Via_Restconf
     [Arguments]    ${uri_part}
     [Documentation]    Get XML data from given controller-config URI, check status_code is one of allowed ones, return response text.
     BuiltIn.Log    ${uri_part}
-    ${response}=    RequestsLibrary.Get    cvr_session    ${uri_part}    headers=${ACCEPT_JSON}
+    ${response}=    RequestsLibrary.Get request    cvr_session    ${uri_part}    headers=${ACCEPT_JSON}
     BuiltIn.Log    ${response.text}
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Should_Contain    ${allowed_status_codes}    ${response.status_code}
@@ -192,7 +192,7 @@ Delete_Config_Via_Restconf
     [Arguments]    ${uri_part}
     [Documentation]    Delete resource at controller-config URI, check reponse text is empty and status_code is 204.
     BuiltIn.Log    ${uri_part}
-    ${response}=    RequestsLibrary.Delete    cvr_session    ${uri_part}
+    ${response}=    RequestsLibrary.Delete request    cvr_session    ${uri_part}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Be_Empty    ${response.text}
     BuiltIn.Should_Contain    ${allowed_status_codes}    ${response.status_code}
@@ -214,7 +214,7 @@ Post_Xml_Config_Via_Restconf
     # As seen in previous two Keywords, Post does not need long specific URI.
     # But during Lithium development, Post ceased to do merge, so those Keywords do not work anymore.
     # This Keyword can still be used with specific URI to create a new container and fail if a container was already present.
-    ${response}=    RequestsLibrary.Post_Request    cvr_session    ${uri_part}    data=${xml_data}
+    ${response}=    RequestsLibrary.Post_Request request    cvr_session    ${uri_part}    data=${xml_data}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Be_Empty    ${response.text}
     # TODO: status_code is integrer, so compare to ${204}. Also, there is a Improvement for 201 to be a better code.

@@ -28,7 +28,7 @@ CC_Setup
 
 Get_Change_Count
     [Documentation]    GET data change request, assert status 200, return the value.
-    ${response} =    RequestsLibrary.Get_Request    operational    data-change-counter:data-change-counter
+    ${response} =    RequestsLibrary.Get_Request request    operational    data-change-counter:data-change-counter
     BuiltIn.Should_Be_Equal    ${response.status_code}    ${200}    Got status: ${response.status_code} and message: ${response.text}
     # TODO: The following line can be insecure. Should we use regexp instead?
     ${count} =    BuiltIn.Evaluate    ${response.text}["data-change-counter"]["count"]

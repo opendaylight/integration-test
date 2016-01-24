@@ -67,7 +67,7 @@ Verify LACP RESTAPI connector associated for aggregator
 
 Verify LACP aggregator data is updated post link down scenario
     [Documentation]    Functionality will verify the node conenctor data on the lacp-agg api after link down scenario
-    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_API}/node/${node1}/lacp-aggregators/${agg-id2}
+    ${resp}    RequestsLibrary.Get request    session    ${OPERATIONAL_NODES_API}/node/${node1}/lacp-aggregators/${agg-id2}
     Verify LACP RESTAPI Response Code for node
     Verify LACP RESTAPI connector associated for aggregator    ${resp.content}    ${node1}    ${agg2-connector-id1}
     Should not Contain    ${resp.content}    ${node1}:${agg2-connector-id2}
@@ -75,7 +75,7 @@ Verify LACP aggregator data is updated post link down scenario
 
 Verify LACP aggregator data is updated post link up scenario
     [Documentation]    Functionality will verify the node connector data on the lacp-agg api after link up scenario
-    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_API}/node/${node1}/lacp-aggregators/${agg-id2}
+    ${resp}    RequestsLibrary.Get request    session    ${OPERATIONAL_NODES_API}/node/${node1}/lacp-aggregators/${agg-id2}
     Verify LACP RESTAPI Response Code for node
     Verify LACP RESTAPI connector associated for aggregator    ${resp.content}    ${node1}    ${agg2-connector-id1}
     Verify LACP RESTAPI connector associated for aggregator    ${resp.content}    ${node1}    ${agg2-connector-id2}
@@ -83,7 +83,7 @@ Verify LACP aggregator data is updated post link up scenario
 
 Verify LACP Tags Are Formed
     [Documentation]    Fundamental Check That LACP is working
-    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_API}
+    ${resp}    RequestsLibrary.Get request    session    ${OPERATIONAL_NODES_API}
     Verify LACP RESTAPI Response Code for node
     Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    non-lag-groupid
     Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    lacp-aggregators

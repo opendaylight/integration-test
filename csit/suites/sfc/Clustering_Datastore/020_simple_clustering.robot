@@ -18,7 +18,7 @@ Add Service Functions To One Node
     Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     ${jsonbody}    Read JSON From File    ${SFC_FUNCTIONS_FILE}
     Add Elements To URI From File    ${SFC__API}    ${SFC_FUNCTIONS_FILE}
-    ${resp}    RequestsLibrary.Get    session    ${SFC_API}
+    ${resp}    RequestsLibrary.Get request    session    ${SFC_API}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     Lists Should be Equal    ${result}    ${jsonbody}
@@ -26,7 +26,7 @@ Add Service Functions To One Node
 Read Service Functions From Other Node
     Create Session    session    http://${CONTROLLER1}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     ${jsonbody}    Read JSON From File    ${SFC_FUNCTIONS_FILE}
-    ${resp}    RequestsLibrary.Get    session    ${SFC_API}
+    ${resp}    RequestsLibrary.Get request    session    ${SFC_API}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     Lists Should be Equal    ${result}    ${jsonbody}

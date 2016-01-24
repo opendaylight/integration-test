@@ -27,7 +27,7 @@ Get_Ipv4_Topology
     [Documentation]    GET the example-ipv4-topology data, check status is 200, return the topology data.
     ...
     ...    Contrary to Utils.Get_Data_From_URI, this does not Log the (potentially huge) content.
-    ${response} =    RequestsLibrary.Get_Request    operational    network-topology:network-topology/topology/example-ipv4-topology
+    ${response} =    RequestsLibrary.Get_Request request    operational    network-topology:network-topology/topology/example-ipv4-topology
     Run_Keyword_If    ${response.status_code} != 200    Fail    Get on example-ipv4-topology returned status code ${response.status_code} with message: ${response.text}
     [Return]    ${response.text}
 

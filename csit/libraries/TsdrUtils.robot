@@ -350,7 +350,7 @@ Read File and Return Split Lines
 Get Stats XML
     [Arguments]    ${query}    ${xpath}
     [Documentation]    Parse the xml output and returns it.
-    ${sid}=    RequestsLibrary.Create_Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    headers=${SEND_ACCEPT_XML_HEADERS}    auth=${AUTH}
+    ${sid}=    RequestsLibrary.Create_Session request    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    headers=${SEND_ACCEPT_XML_HEADERS}    auth=${AUTH}
     ${resp}=    RequestsLibrary.Get Request    session    ${query}    headers=${SEND_ACCEPT_XML_HEADERS}
     ${resp_xml}=    Parse XML    ${resp.content}
     ${id1}=    Get Element Text    ${resp_xml}    ${xpath}
@@ -360,7 +360,7 @@ Get Stats XML
 Return all XML matches
     [Arguments]    ${query}    ${xpath}
     [Documentation]    Returns all the values from xpath
-    ${sid}=    RequestsLibrary.Create_Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    headers=${SEND_ACCEPT_XML_HEADERS}    auth=${AUTH}
+    ${sid}=    RequestsLibrary.Create_Session request    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    headers=${SEND_ACCEPT_XML_HEADERS}    auth=${AUTH}
     ${resp}=    RequestsLibrary.Get Request    session    ${query}    headers=${SEND_ACCEPT_XML_HEADERS}
     ${resp_xml}=    Parse XML    ${resp.content}
     @{id1}=    Get Elements Texts    ${resp_xml}    ${xpath}

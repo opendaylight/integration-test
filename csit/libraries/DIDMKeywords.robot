@@ -9,7 +9,7 @@ Resource          ./Utils.robot
 *** Keywords ***
 Check DIDM Registered With Device
     [Documentation]    Check for DIDM registered with the device
-    ${resp}=    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_API}
+    ${resp}=    RequestsLibrary.Get request    session    ${OPERATIONAL_NODES_API}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
     Should Contain    ${resp.content}    didm
@@ -18,7 +18,7 @@ Check DIDM Registered With Device
 Find Device Data
     [Documentation]    Extract device information
     ${resp.content}=    Check DIDM Registered With Device
-    ${json_resp}=    RequestsLibrary.To_Json    ${resp.content}
+    ${json_resp}=    RequestsLibrary.To_Json request    ${resp.content}
     ${nodes_resp}=    Get From Dictionary    ${json_resp}    nodes
     ${node_resp}=    Get From Dictionary    ${nodes_resp}    node
     ${node_data}=    Get From List    ${node_resp}    0

@@ -32,7 +32,7 @@ Connect to OVSDB Node
     ${sample1}    Replace String    ${sample}    127.0.0.1    ${TOOLS_SYSTEM_IP}
     ${body}    Replace String    ${sample1}    61644    ${OVSDB_PORT}
     Log    URL is ${SOUTHBOUND_CONFIG_API}
-    ${resp}    RequestsLibrary.Put    session    ${SOUTHBOUND_CONFIG_API}    data=${body}
+    ${resp}    RequestsLibrary.Put request    session    ${SOUTHBOUND_CONFIG_API}    data=${body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -111,7 +111,7 @@ Get Operational Topology with Port
 
 Delete the Port1
     [Documentation]    This request will delete the port node from the bridge node and data store.
-    ${resp}    RequestsLibrary.Delete    session    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2F${BRIDGE}/termination-point/vx1/
+    ${resp}    RequestsLibrary.Delete request    session    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2F${BRIDGE}/termination-point/vx1/
     Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
 
 Get Operational Topology after deletion of Port1

@@ -20,14 +20,14 @@ Create VPN Instance
     [Documentation]    Creates VPN Instance through restconf
     [Tags]    Post
     ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/vpn_instance.json
-    ${resp}    RequestsLibrary.Post    session    ${REST_CON}l3vpn:vpn-instances/    data=${body}
+    ${resp}    RequestsLibrary.Post request    session    ${REST_CON}l3vpn:vpn-instances/    data=${body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    204
 
 Verify VPN instance
     [Documentation]    Verifies the vpn instance is created
     [Tags]    Get
-    ${resp}    RequestsLibrary.Get    session    ${REST_CON}l3vpn:vpn-instances/vpn-instance/${vpn_inst_values[0]}/    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.Get request    session    ${REST_CON}l3vpn:vpn-instances/vpn-instance/${vpn_inst_values[0]}/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
     : FOR    ${value}    IN    @{vpn_inst_values}
@@ -37,13 +37,13 @@ Create ietf vm interface
     [Documentation]    Creates ietf interface through the restconf
     [Tags]    Post
     ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/vm_interface.json
-    ${resp}    RequestsLibrary.Post    session    ${REST_CON}ietf-interfaces:interfaces/    data=${body}
+    ${resp}    RequestsLibrary.Post request    session    ${REST_CON}ietf-interfaces:interfaces/    data=${body}
     Should Be Equal As Strings    ${resp.status_code}    204
 
 Verify ietf vm interface
     [Documentation]    Verifies ietf interface created
     [Tags]    Get
-    ${resp}    RequestsLibrary.Get    session    ${REST_CON}ietf-interfaces:interfaces/interface/${vm_int_values[0]}/    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.Get request    session    ${REST_CON}ietf-interfaces:interfaces/interface/${vm_int_values[0]}/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
     : FOR    ${value}    IN    @{vm_int_values}
@@ -53,13 +53,13 @@ Create VPN interface
     [Documentation]    Creates vpn interface for the corresponding ietf interface
     [Tags]    Post
     ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/vm_vpninterface.json
-    ${resp}    RequestsLibrary.Post    session    ${REST_CON}l3vpn:vpn-interfaces/    data=${body}
+    ${resp}    RequestsLibrary.Post request    session    ${REST_CON}l3vpn:vpn-interfaces/    data=${body}
     Should Be Equal As Strings    ${resp.status_code}    204
 
 Verify VPN interface
     [Documentation]    Verifies the vpn interface created
     [Tags]    Get
-    ${resp}    RequestsLibrary.Get    session    ${REST_CON}l3vpn:vpn-interfaces/    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.Get request    session    ${REST_CON}l3vpn:vpn-interfaces/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
     : FOR    ${value}    IN    @{vm_vpnint_values}
@@ -73,37 +73,37 @@ Verify FIB entry after create
 Delete vm vpn interface
     [Documentation]    Deletes the vpn interface
     [Tags]    Delete
-    ${resp}    RequestsLibrary.Delete    session    ${REST_CON}l3vpn:vpn-interfaces/
+    ${resp}    RequestsLibrary.Delete request    session    ${REST_CON}l3vpn:vpn-interfaces/
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleteing vm vpn interface
     [Documentation]    Verifies vpn interface after delete
     [Tags]    Verify after delete
-    ${resp}    RequestsLibrary.Get    session    ${REST_CON}l3vpn:vpn-interfaces/    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.Get request    session    ${REST_CON}l3vpn:vpn-interfaces/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete VPN Instance
     [Documentation]    Deletes the VPN Instance
     [Tags]    Delete
-    ${resp}    RequestsLibrary.Delete    session    ${REST_CON}l3vpn:vpn-instances/vpn-instance/${vpn_inst_values[0]}/
+    ${resp}    RequestsLibrary.Delete request    session    ${REST_CON}l3vpn:vpn-instances/vpn-instance/${vpn_inst_values[0]}/
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting the vpn instance
     [Documentation]    Verifies after deleting the vpn instance
     [Tags]    Verfiy after delete
-    ${resp}    RequestsLibrary.Get    session    ${REST_CON}l3vpn:vpn-instances/vpn-instance/${vpn_inst_values[0]}/    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.Get request    session    ${REST_CON}l3vpn:vpn-instances/vpn-instance/${vpn_inst_values[0]}/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete vm ietf interface
     [Documentation]    Deletes the ietf interface
     [Tags]    Delete
-    ${resp}    RequestsLibrary.Delete    session    ${REST_CON}ietf-interfaces:interfaces/interface/${vm_int_values[0]}
+    ${resp}    RequestsLibrary.Delete request    session    ${REST_CON}ietf-interfaces:interfaces/interface/${vm_int_values[0]}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting vm ietf interface
     [Documentation]    Verifies ietf interface after delete
     [Tags]    Verify after delete
-    ${resp}    RequestsLibrary.Get    session    ${REST_CON}ietf-interfaces:interfaces/interface/${vm_int_values[0]}    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.Get request    session    ${REST_CON}ietf-interfaces:interfaces/interface/${vm_int_values[0]}    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Verify FIB entry after delete
@@ -115,7 +115,7 @@ Verify FIB entry after delete
 Ensure The Fib Entry Is Present
     [Arguments]    ${prefix}
     [Documentation]    Will succeed if the fib entry is present for the vpn
-    ${resp}    RequestsLibrary.Get    session    /restconf/operational/odl-fib:fibEntries/    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.Get request    session    /restconf/operational/odl-fib:fibEntries/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
     Should Contain    ${resp.content}    ${prefix}
@@ -124,6 +124,6 @@ Ensure The Fib Entry Is Present
 Ensure the Fib Entry Is Removed
     [Arguments]    ${prefix}
     [Documentation]    Will succeed if the fib entry is removed for the vpn
-    ${resp}    RequestsLibrary.Get    session    /restconf/operational/odl-fib:fibEntries/    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.Get request    session    /restconf/operational/odl-fib:fibEntries/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Not Contain    ${resp.content}    ${prefix}

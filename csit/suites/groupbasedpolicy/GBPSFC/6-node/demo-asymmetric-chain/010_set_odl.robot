@@ -15,7 +15,7 @@ Put Service Functions
     ${json_to_edit}    OperatingSystem.Get File    ${SF_FILE}
     ${edited_json}    Replace String    ${json_to_edit}    _SF1    ${GBPSFC3}
     ${edited_json}    Replace String    ${edited_json}    _SF2    ${GBPSFC5}
-    ${resp}    RequestsLibrary.Put    session    ${SF_PATH}    ${edited_json}    ${HEADERS_YANG_JSON}
+    ${resp}    RequestsLibrary.Put request    session    ${SF_PATH}    ${edited_json}    ${HEADERS_YANG_JSON}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Put Service Function Forwarders
@@ -23,7 +23,7 @@ Put Service Function Forwarders
     ${json_to_edit}    OperatingSystem.Get File    ${SFF_FILE}
     ${edited_json}    Replace String    ${json_to_edit}    _SFF1    ${GBPSFC2}
     ${edited_json}    Replace String    ${edited_json}    _SFF2    ${GBPSFC4}
-    ${resp}    RequestsLibrary.Put    session    ${SFF_PATH}    ${edited_json}    ${HEADERS_YANG_JSON}
+    ${resp}    RequestsLibrary.Put request    session    ${SFF_PATH}    ${edited_json}    ${HEADERS_YANG_JSON}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Wait For Manager and Switch Connected on GBPSFC2
@@ -53,7 +53,7 @@ Put Tunnels
     ${json_to_edit}    OperatingSystem.Get File    ${TUNNELS_FILE}
     ${edited_json}    Replace String    ${json_to_edit}    _CLASSIFIER1    ${GBPSFC1}
     ${edited_json}    Replace String    ${edited_json}    _CLASSIFIER2    ${GBPSFC6}
-    ${resp}    RequestsLibrary.Put    session    ${TUNNELS_PATH}    ${edited_json}    ${HEADERS_YANG_JSON}
+    ${resp}    RequestsLibrary.Put request    session    ${TUNNELS_PATH}    ${edited_json}    ${HEADERS_YANG_JSON}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Put Tenant

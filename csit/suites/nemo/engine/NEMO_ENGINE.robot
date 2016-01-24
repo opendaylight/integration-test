@@ -13,7 +13,7 @@ ${REST_CONTEXT}    /restconf/modules
 *** Test Cases ***
 Get Controller Modules
     [Documentation]    Get the controller modules via Restconf
-    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}
+    ${resp}    RequestsLibrary.Get request    session    ${REST_CONTEXT}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ietf-restconf

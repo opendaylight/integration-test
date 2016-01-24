@@ -30,13 +30,13 @@ Add a group
     [Tags]    Push
     ${body}    OperatingSystem.Get File    ${GROUP}
     Set Suite Variable    ${body}
-    ${resp}    RequestsLibrary.Put    session    ${REST_CONTEXT_CF}/group/1    headers=${HEADERS_XML}    data=${body}
+    ${resp}    RequestsLibrary.Put request    session    ${REST_CONTEXT_CF}/group/1    headers=${HEADERS_XML}    data=${body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after adding group config
     [Documentation]    Get the group stat in config
-    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT_CF}/group/1
+    ${resp}    RequestsLibrary.Get request    session    ${REST_CONTEXT_CF}/group/1
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${GROUP_NAME}
@@ -52,14 +52,14 @@ Add a flow that includes a group
     [Tags]    Push
     ${body}    OperatingSystem.Get File    ${FLOW}
     Set Suite Variable    ${body}
-    ${resp}    RequestsLibrary.Put    session    ${REST_CONTEXT_CF}/table/0/flow/1    headers=${HEADERS_XML}    data=${body}
+    ${resp}    RequestsLibrary.Put request    session    ${REST_CONTEXT_CF}/table/0/flow/1    headers=${HEADERS_XML}    data=${body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after adding flow config
     [Documentation]    Verify the flow
     [Tags]    Get
-    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT_CF}/table/0/flow/1
+    ${resp}    RequestsLibrary.Get request    session    ${REST_CONTEXT_CF}/table/0/flow/1
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${FLOW_NAME}
@@ -71,24 +71,24 @@ Verify after adding flow operational
 
 Remove the flow
     [Documentation]    Remove the flow
-    ${resp}    RequestsLibrary.Delete    session    ${REST_CONTEXT_CF}/table/0/flow/1
+    ${resp}    RequestsLibrary.Delete request    session    ${REST_CONTEXT_CF}/table/0/flow/1
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting flow
     [Documentation]    Verify the flow removal
     [Tags]    Get
-    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT_CF}/table/0/flow/1
+    ${resp}    RequestsLibrary.Get request    session    ${REST_CONTEXT_CF}/table/0/flow/1
     Should Not Contain    ${resp.content}    ${FLOW_NAME}
 
 Delete the group
     [Documentation]    Remove the group
     [Tags]    Delete
-    ${resp}    RequestsLibrary.Delete    session    ${REST_CONTEXT_CF}/group/1
+    ${resp}    RequestsLibrary.Delete request    session    ${REST_CONTEXT_CF}/group/1
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting group
     [Documentation]    Verify the flow removal
     [Tags]    Get
-    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT_CF}/group/1
+    ${resp}    RequestsLibrary.Get request    session    ${REST_CONTEXT_CF}/group/1
     Should Not Contain    ${resp.content}    ${GROUP_NAME}

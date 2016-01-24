@@ -15,7 +15,7 @@ ${start}          sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,1 --s
 *** Test Cases ***
 Sending Update Table
     [Documentation]    Test to send table update request
-    ${resp}=    RequestsLibrary.Post    session    ${send_update_table_url}    data=${RPC_SEND_UPDATE_TABLE_DATA}    headers=${HEADERS_XML}
+    ${resp}=    RequestsLibrary.Post request    session    ${send_update_table_url}    data=${RPC_SEND_UPDATE_TABLE_DATA}    headers=${HEADERS_XML}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -33,7 +33,7 @@ Final Phase
 
 Are Switches Connected Topo
     [Documentation]    Checks wheather switches are connected to controller
-    ${resp}=    RequestsLibrary.Get    session    ${OPERATIONAL_TOPO_API}/topology/flow:1    headers=${ACCEPT_XML}
+    ${resp}=    RequestsLibrary.Get request    session    ${OPERATIONAL_TOPO_API}/topology/flow:1    headers=${ACCEPT_XML}
     Log    ${resp.content}
     ${count}=    Get Element Count    ${resp.content}    xpath=node
     Should Be Equal As Numbers    ${count}    1

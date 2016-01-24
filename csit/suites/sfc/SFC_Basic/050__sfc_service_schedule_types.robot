@@ -22,7 +22,7 @@ Add Service Function Schedule Algorithm Types
     ${body}    OperatingSystem.Get File    ${SERVICE_SCHED_TYPES_FILE}
     ${jsonbody}    To Json    ${body}
     ${types}    Get From Dictionary    ${jsonbody}    service-function-scheduler-types
-    ${resp}    RequestsLibrary.Get    session    ${SERVICE_SCHED_TYPES_URI}
+    ${resp}    RequestsLibrary.Get request    session    ${SERVICE_SCHED_TYPES_URI}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     ${type}    Get From Dictionary    ${result}    service-function-scheduler-types
@@ -30,10 +30,10 @@ Add Service Function Schedule Algorithm Types
 
 Delete All Service Function Schedule Algorithm Types
     [Documentation]    Delete Service Function Schedule Algorithm Types
-    ${resp}    RequestsLibrary.Get    session    ${SERVICE_SCHED_TYPES_URI}
+    ${resp}    RequestsLibrary.Get request    session    ${SERVICE_SCHED_TYPES_URI}
     Should Be Equal As Strings    ${resp.status_code}    200
     Remove All Elements At URI    ${SERVICE_SCHED_TYPES_URI}
-    ${resp}    RequestsLibrary.Get    session    ${SERVICE_SCHED_TYPES_URI}
+    ${resp}    RequestsLibrary.Get request    session    ${SERVICE_SCHED_TYPES_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Get Ramdom Schedule Algorithm Type
@@ -42,13 +42,13 @@ Get Ramdom Schedule Algorithm Type
     Add Elements To URI From File    ${SERVICE_SCHED_TYPES_URI}    ${SERVICE_SCHED_TYPES_FILE}
     ${elements}=    Create List    random    "enabled":false    service-function-scheduler-type:random
     Check For Elements At URI    ${SERVICE_SCHED_TYPES_URI}service-function-scheduler-type/service-function-scheduler-type:random    ${elements}
-    ${resp}    RequestsLibrary.Get    session    ${SERVICE_SCHED_TYPES_URI}service-function-scheduler-type/service-function-scheduler-type:random
+    ${resp}    RequestsLibrary.Get request    session    ${SERVICE_SCHED_TYPES_URI}service-function-scheduler-type/service-function-scheduler-type:random
 
 Get A Non-existing Service Function Schedule Algorithm Type
     [Documentation]    Get A Non-existing Service Function Schedule Algorithm Type
     Remove All Elements At URI    ${SERVICE_SCHED_TYPES_URI}
     Add Elements To URI From File    ${SERVICE_SCHED_TYPES_URI}    ${SERVICE_SCHED_TYPES_FILE}
-    ${resp}    RequestsLibrary.Get    session    ${SERVICE_SCHED_TYPES_URI}service-function-scheduler-type/service-function-scheduler-type:user-defined
+    ${resp}    RequestsLibrary.Get request    session    ${SERVICE_SCHED_TYPES_URI}service-function-scheduler-type/service-function-scheduler-type:user-defined
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete Ramdom Schedule Algorithm Type
@@ -67,7 +67,7 @@ Delete A Non-existing Service Function Schedule Algorithm Type
     ${jsonbody}    To Json    ${body}
     ${types}    Get From Dictionary    ${jsonbody}    service-function-scheduler-types
     Remove All Elements At URI    ${SERVICE_SCHED_TYPES_URI}service-function-scheduler-type/service-function-scheduler-type:user-defined
-    ${resp}    RequestsLibrary.Get    session    ${SERVICE_SCHED_TYPES_URI}
+    ${resp}    RequestsLibrary.Get request    session    ${SERVICE_SCHED_TYPES_URI}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     ${type}    Get From Dictionary    ${result}    service-function-scheduler-types

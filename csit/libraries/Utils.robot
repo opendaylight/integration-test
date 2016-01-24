@@ -302,7 +302,7 @@ Remove All Elements At URI And Verify
     [Arguments]    ${uri}
     ${resp}    RequestsLibrary.Delete Request    session    ${uri}
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${resp}    RequestsLibrary.Get    session    ${uri}
+    ${resp}    RequestsLibrary.Get request    session    ${uri}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Add Elements To URI From File
@@ -367,7 +367,7 @@ Check Item Occurrence
 Post Log Check
     [Arguments]    ${uri}    ${body}    ${status_code}=200
     [Documentation]    Post body to ${uri}, log response content, and check status
-    ${resp}=    RequestsLibrary.Post    session    ${uri}    ${body}
+    ${resp}=    RequestsLibrary.Post request    session    ${uri}    ${body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    ${status_code}
     [Return]    ${resp}

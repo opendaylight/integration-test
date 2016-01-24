@@ -51,7 +51,7 @@ Verify LACP RESTAPI Aggregator and Tag Contents
 
 Verify LACP Tags Are Formed
     [Documentation]    Fundamental Check That LACP is working
-    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_API}
+    ${resp}    RequestsLibrary.Get request    session    ${OPERATIONAL_NODES_API}
     Verify LACP RESTAPI Response Code for node
     Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    non-lag-groupid
     Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    lacp-aggregators

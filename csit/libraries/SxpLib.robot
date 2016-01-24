@@ -17,14 +17,14 @@ Add Connection
     [Documentation]    Add connection via RCP to node
     ${DATA}    Add Connection Xml    ${version}    ${mode}    ${ip}    ${port}    ${node}
     ...    ${password}
-    ${resp}    RequestsLibrary.Post    ${session}    ${REST_CONTEXT}:add-connection    data=${DATA}    headers=${HEADERS_XML}
+    ${resp}    RequestsLibrary.Post request    ${session}    ${REST_CONTEXT}:add-connection    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
 
 Get Connections
     [Arguments]    ${node}=127.0.0.1    ${session}=session
     [Documentation]    Gets all connections vie RPC from node
     ${DATA}    Get Connections From Node Xml    ${node}
-    ${resp}    RequestsLibrary.Post    ${session}    ${REST_CONTEXT}:get-connections    data=${DATA}    headers=${HEADERS_XML}
+    ${resp}    RequestsLibrary.Post request    ${session}    ${REST_CONTEXT}:get-connections    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.content}
 
@@ -32,7 +32,7 @@ Delete Connections
     [Arguments]    ${ip}    ${port}    ${node}=127.0.0.1    ${session}=session
     [Documentation]    Delete connection via RPC from node
     ${DATA}    Delete Connections Xml    ${ip}    ${port}    ${node}
-    ${resp}    RequestsLibrary.Post    ${session}    ${REST_CONTEXT}:delete-connection    data=${DATA}    headers=${HEADERS_XML}
+    ${resp}    RequestsLibrary.Post request    ${session}    ${REST_CONTEXT}:delete-connection    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
 
 Clean Connections
@@ -47,14 +47,14 @@ Add Binding
     [Arguments]    ${sgt}    ${prefix}    ${node}=127.0.0.1    ${session}=session
     [Documentation]    Add binding via RPC to Master DB of node
     ${DATA}    Add Entry Xml    ${sgt}    ${prefix}    ${node}
-    ${resp}    RequestsLibrary.Post    ${session}    ${REST_CONTEXT}:add-entry    data=${DATA}    headers=${HEADERS_XML}
+    ${resp}    RequestsLibrary.Post request    ${session}    ${REST_CONTEXT}:add-entry    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
 
 Get Bindings
     [Arguments]    ${node}=127.0.0.1    ${session}=session
     [Documentation]    Gets all binding via RPC from Master DB of node
     ${DATA}    Get Bindings From Node Xml    ${node}
-    ${resp}    RequestsLibrary.Post    ${session}    ${REST_CONTEXT}:get-node-bindings    data=${DATA}    headers=${HEADERS_XML}
+    ${resp}    RequestsLibrary.Post request    ${session}    ${REST_CONTEXT}:get-node-bindings    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.content}
 
@@ -75,7 +75,7 @@ Clean Binding
 Get Bindings Master Database
     [Arguments]    ${node}=127.0.0.1    ${session}=session
     [Documentation]    Gets content of Master DB from node
-    ${resp}    RequestsLibrary.Get    ${session}    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/master-database/    headers=${HEADERS_XML}
+    ${resp}    RequestsLibrary.Get request    ${session}    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/master-database/    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.content}
 
@@ -83,14 +83,14 @@ Update Binding
     [Arguments]    ${sgtOld}    ${prefixOld}    ${sgtNew}    ${prefixNew}    ${node}=127.0.0.1    ${session}=session
     [Documentation]    Updates value of binding via RPC in Master DB of node
     ${DATA}    Update Binding Xml    ${sgtOld}    ${prefixOld}    ${sgtNew}    ${prefixNew}    ${node}
-    ${resp}    RequestsLibrary.Post    ${session}    ${REST_CONTEXT}:update-entry    data=${DATA}    headers=${HEADERS_XML}
+    ${resp}    RequestsLibrary.Post request    ${session}    ${REST_CONTEXT}:update-entry    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
 
 Delete Binding
     [Arguments]    ${sgt}    ${prefix}    ${node}=127.0.0.1    ${session}=session
     [Documentation]    Delete binding via RPC from Master DB of node
     ${DATA}    Delete Binding Xml    ${sgt}    ${prefix}    ${node}
-    ${resp}    RequestsLibrary.Post    ${session}    ${REST_CONTEXT}:delete-entry    data=${DATA}    headers=${HEADERS_XML}
+    ${resp}    RequestsLibrary.Post request    ${session}    ${REST_CONTEXT}:delete-entry    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
 
 Should Contain Binding

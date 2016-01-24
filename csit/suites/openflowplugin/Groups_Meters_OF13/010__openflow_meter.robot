@@ -30,13 +30,13 @@ Add a meter
     [Tags]    Push
     ${body}    OperatingSystem.Get File    ${METER}
     Set Suite Variable    ${body}
-    ${resp}    RequestsLibrary.Put    session    ${REST_CONTEXT_CF}/meter/1    headers=${HEADERS_XML}    data=${body}
+    ${resp}    RequestsLibrary.Put request    session    ${REST_CONTEXT_CF}/meter/1    headers=${HEADERS_XML}    data=${body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after adding meter config
     [Documentation]    Get the meter stat in config
-    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT_CF}/meter/1
+    ${resp}    RequestsLibrary.Get request    session    ${REST_CONTEXT_CF}/meter/1
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${METER_NAME}
@@ -52,14 +52,14 @@ Add a flow that includes a meter
     [Tags]    Push
     ${body}    OperatingSystem.Get File    ${FLOW}
     Set Suite Variable    ${body}
-    ${resp}    RequestsLibrary.Put    session    ${REST_CONTEXT_CF}/table/0/flow/2    headers=${HEADERS_XML}    data=${body}
+    ${resp}    RequestsLibrary.Put request    session    ${REST_CONTEXT_CF}/table/0/flow/2    headers=${HEADERS_XML}    data=${body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after adding flow config
     [Documentation]    Verify the flow
     [Tags]    Get
-    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT_CF}/table/0/flow/2
+    ${resp}    RequestsLibrary.Get request    session    ${REST_CONTEXT_CF}/table/0/flow/2
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${FLOW_NAME}
@@ -71,24 +71,24 @@ Verify after adding flow operational
 
 Remove the flow
     [Documentation]    Remove the flow
-    ${resp}    RequestsLibrary.Delete    session    ${REST_CONTEXT_CF}/table/0/flow/2
+    ${resp}    RequestsLibrary.Delete request    session    ${REST_CONTEXT_CF}/table/0/flow/2
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting flow
     [Documentation]    Verify the flow removal
     [Tags]    Get
-    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT_CF}/table/0/flow/2
+    ${resp}    RequestsLibrary.Get request    session    ${REST_CONTEXT_CF}/table/0/flow/2
     Should Not Contain    ${resp.content}    ${FLOW_NAME}
 
 Delete the meter
     [Documentation]    Remove the meter
     [Tags]    Delete
-    ${resp}    RequestsLibrary.Delete    session    ${REST_CONTEXT_CF}/meter/1
+    ${resp}    RequestsLibrary.Delete request    session    ${REST_CONTEXT_CF}/meter/1
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting meter
     [Documentation]    Verify the flow removal
     [Tags]    Get
-    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT_CF}/meter/1
+    ${resp}    RequestsLibrary.Get request    session    ${REST_CONTEXT_CF}/meter/1
     Should Not Contain    ${resp.content}    ${METER_NAME}

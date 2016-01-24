@@ -18,7 +18,7 @@ List all nodes
     [Tags]    adsal
     Log    ${TOPO_TREE_LEVEL}
     ${topo_nodes}    Get Nodes From Topology    ${TOPO_TREE_LEVEL}
-    ${resp}    RequestsLibrary.Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/nodes
+    ${resp}    RequestsLibrary.Get request    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/nodes
     Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
     ${jsondata}=    To JSON    ${resp.content}
     ${nodes}    Extract All Nodes    ${jsondata}
@@ -27,7 +27,7 @@ List all nodes
 Check node 1 connectors
     [Documentation]    List node connectors and verify all connectors are there
     [Tags]    adsal
-    ${resp}    RequestsLibrary.Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/node/OF/00:00:00:00:00:00:00:01
+    ${resp}    RequestsLibrary.Get request    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/node/OF/00:00:00:00:00:00:00:01
     Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
     Should Contain    ${resp.content}    s1-eth1
     Should Contain    ${resp.content}    s1-eth2
@@ -35,7 +35,7 @@ Check node 1 connectors
 Check node 2 connectors
     [Documentation]    List node connectors and verify all connectors are there
     [Tags]    adsal
-    ${resp}    RequestsLibrary.Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/node/OF/00:00:00:00:00:00:00:02
+    ${resp}    RequestsLibrary.Get request    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/node/OF/00:00:00:00:00:00:00:02
     Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
     Should Contain    ${resp.content}    s2-eth1
     Should Contain    ${resp.content}    s2-eth2
@@ -44,7 +44,7 @@ Check node 2 connectors
 Check node 3 connectors
     [Documentation]    List node connectors and verify all connectors are there
     [Tags]    adsal
-    ${resp}    RequestsLibrary.Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/node/OF/00:00:00:00:00:00:00:03
+    ${resp}    RequestsLibrary.Get request    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/default/node/OF/00:00:00:00:00:00:00:03
     Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
     Should Contain    ${resp.content}    s3-eth1
     Should Contain    ${resp.content}    s3-eth2
@@ -76,7 +76,7 @@ Remove property from nodeconnector
 Get node
     [Arguments]    ${node_id}    ${node_type}
     [Documentation]    Get a specific node
-    ${resp}    RequestsLibrary.Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/${CONTAINER}/nodes
+    ${resp}    RequestsLibrary.Get request    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/${CONTAINER}/nodes
     Should Be Equal As Strings    ${resp.status_code}    200    Response status code error
     ${result}    TO JSON    ${resp.content}
     ${node}    Create Dictionary    id=${node_id}    type={node_type}
@@ -87,31 +87,31 @@ Get node
 Add property to node
     [Arguments]    ${node_type}    ${node_id}    ${property}    ${value}
     [Documentation]    Add property to node
-    ${resp}    RequestsLibrary.Put    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/${CONTAINER}/node/${node_type}/${node_id}/property/${property}/${value}
+    ${resp}    RequestsLibrary.Put request    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/${CONTAINER}/node/${node_type}/${node_id}/property/${property}/${value}
     Should Be Equal As Strings    ${resp.status_code}    201    Response status code error
 
 Remove property from node
     [Arguments]    ${node_type}    ${node_id}    ${property}
     [Documentation]    Remove property from node
-    ${resp}    RequestsLibrary.Delete    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/${CONTAINER}/node/${node_type}/${node_id}/property/${property}
+    ${resp}    RequestsLibrary.Delete request    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/${CONTAINER}/node/${node_type}/${node_id}/property/${property}
     Should Be Equal As Strings    ${resp.status_code}    204    Response status code error
 
 Add property to nodeconnector
     [Arguments]    ${node_type}    ${node_id}    ${nc_type}    ${nc_id}    ${property}    ${value}
     [Documentation]    Add property to nodeconnector
-    ${resp}    RequestsLibrary.Put    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/${CONTAINER}/nodeconnector/${node_type}/${node_id}/${nc_type}/${nc_id}/property/${property}/${value}
+    ${resp}    RequestsLibrary.Put request    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/${CONTAINER}/nodeconnector/${node_type}/${node_id}/${nc_type}/${nc_id}/property/${property}/${value}
     Should Be Equal As Strings    ${resp.status_code}    201    Response status code error
 
 Remove property from nodeconnector
     [Arguments]    ${node_type}    ${node_id}    ${nc_type}    ${nc_id}    ${property}
     [Documentation]    Remove property from nodeconnector
-    ${resp}    RequestsLibrary.Delete    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/${CONTAINER}/nodeconnector/${node_type}/${node_id}/${nc_type}/${nc_id}/property/${property}
+    ${resp}    RequestsLibrary.Delete request    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/${CONTAINER}/nodeconnector/${node_type}/${node_id}/${nc_type}/${nc_id}/property/${property}
     Should Be Equal As Strings    ${resp.status_code}    204    Response status code error
 
 Node property should exist
     [Arguments]    ${node_type}    ${node_id}    ${property}    ${value}
     [Documentation]    Property of node should exist
-    ${resp}    RequestsLibrary.Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/${CONTAINER}/nodes
+    ${resp}    RequestsLibrary.Get request    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/${CONTAINER}/nodes
     Should Be Equal As Strings    ${resp.status_code}    200    Response status code error
     ${result}    TO JSON    ${resp.content}
     Log    ${result}
@@ -126,7 +126,7 @@ Node property should exist
 Node property should not exist
     [Arguments]    ${node_type}    ${node_id}    ${property}    ${value}
     [Documentation]    Property of node should not exist
-    ${resp}    RequestsLibrary.Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/${CONTAINER}/nodes
+    ${resp}    RequestsLibrary.Get request    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/${CONTAINER}/nodes
     Should Be Equal As Strings    ${resp.status_code}    200    Response status code error
     ${result}    TO JSON    ${resp.content}
     Log    ${result}
@@ -141,7 +141,7 @@ Node property should not exist
 Nodeconnector property should exist
     [Arguments]    ${node_type}    ${node_id}    ${nc_type}    ${nc_id}    ${property}    ${value}
     [Documentation]    Property of nodeconnector should exist
-    ${resp}    RequestsLibrary.Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/${CONTAINER}/node/${node_type}/${node_id}
+    ${resp}    RequestsLibrary.Get request    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/${CONTAINER}/node/${node_type}/${node_id}
     Should Be Equal As Strings    ${resp.status_code}    200    Response status code error
     ${result}    TO JSON    ${resp.content}
     Log    ${result}
@@ -153,7 +153,7 @@ Nodeconnector property should exist
 Nodeconnector property should not exist
     [Arguments]    ${node_type}    ${node_id}    ${nc_type}    ${nc_id}    ${property}    ${value}
     [Documentation]    Property of nodeconnector should not exist
-    ${resp}    RequestsLibrary.Get    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/${CONTAINER}/node/${node_type}/${node_id}
+    ${resp}    RequestsLibrary.Get request    ${ODL_CONTROLLER_SESSION}    ${REST_CONTEXT}/${CONTAINER}/node/${node_type}/${node_id}
     Should Be Equal As Strings    ${resp.status_code}    200    Response status code error
     ${result}    TO JSON    ${resp.content}
     Log    ${result}

@@ -27,7 +27,7 @@ Veirfy The Switches
 Create VPN Instances
     [Documentation]    Creates VPN Instances through restconf
     [Tags]    Post
-    ${resp}    RequestsLibrary.Post    session    ${REST_CON}/l3vpn:vpn-instances/    data=${vpn_instances}
+    ${resp}    RequestsLibrary.Post request    session    ${REST_CON}/l3vpn:vpn-instances/    data=${vpn_instances}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    204
 
@@ -40,7 +40,7 @@ Verify VPN instances
 Create ietf interfaces
     [Documentation]    Creates ietf interfaces through the restconf
     [Tags]    Post
-    ${resp}    RequestsLibrary.Post    session    ${REST_CON}/ietf-interfaces:interfaces/    data=${ietf_interfaces}
+    ${resp}    RequestsLibrary.Post request    session    ${REST_CON}/ietf-interfaces:interfaces/    data=${ietf_interfaces}
     Should Be Equal As Strings    ${resp.status_code}    204
 
 Verify ietf interfaces
@@ -54,7 +54,7 @@ Verify ietf interfaces
 Create VPN interfaces
     [Documentation]    Creates vpn interface for the corresponding ietf interface
     [Tags]    Post
-    ${resp}    RequestsLibrary.Post    session    ${REST_CON}/l3vpn:vpn-interfaces/    data=${vpn_interfaces}
+    ${resp}    RequestsLibrary.Post request    session    ${REST_CON}/l3vpn:vpn-interfaces/    data=${vpn_interfaces}
     Should Be Equal As Strings    ${resp.status_code}    204
 
 Verify VPN interfaces
@@ -98,37 +98,37 @@ Verify ping
 Delete vpn interfaces
     [Documentation]    Deletes the vpn interfaces
     [Tags]    Delete
-    ${resp}    RequestsLibrary.Delete    session    ${REST_CON}/l3vpn:vpn-interfaces/
+    ${resp}    RequestsLibrary.Delete request    session    ${REST_CON}/l3vpn:vpn-interfaces/
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting vpn interfaces
     [Documentation]    Verifies if vpn interfaces are deleted
     [Tags]    Verify after delete
-    ${resp}    RequestsLibrary.get    session    ${REST_CON}/l3vpn:vpn-interfaces/    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.get request    session    ${REST_CON}/l3vpn:vpn-interfaces/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete ietf interfaces
     [Documentation]    Deletes the ietf interfaces
     [Tags]    Delete
-    ${resp}    RequestsLibrary.Delete    session    ${REST_CON}/ietf-interfaces:interfaces/
+    ${resp}    RequestsLibrary.Delete request    session    ${REST_CON}/ietf-interfaces:interfaces/
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting ietf interfaces
     [Documentation]    Verifies if ietf interfaces are deleted
     [Tags]    Verify after delete
-    ${resp}    RequestsLibrary.get    session    ${REST_CON}/ietf-interfaces:interfaces/    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.get request    session    ${REST_CON}/ietf-interfaces:interfaces/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete VPN Instances
     [Documentation]    Deletes the VPN Instances
     [Tags]    Delete
-    ${resp}    RequestsLibrary.Delete    session    ${REST_CON}/l3vpn:vpn-instances/
+    ${resp}    RequestsLibrary.Delete request    session    ${REST_CON}/l3vpn:vpn-instances/
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting the vpn instances
     [Documentation]    Verifies after deleting the vpn instances
     [Tags]    Verfiy after delete
-    ${resp}    RequestsLibrary.get    session    ${REST_CON}/l3vpn:vpn-instances/    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.get request    session    ${REST_CON}/l3vpn:vpn-instances/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Verify FIB entries after delete

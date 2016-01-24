@@ -16,7 +16,7 @@ Create Records
     \    ${payload}=    Assemble Payload    ${INDEX}    ${prefix}    ${field bases}    ${postfix}
     \    Log    ${payload}
     \    Create_Session    session    http://${controller_ip}:${RESTCONFPORT}${CONFIG_API}    headers=${HEADERS}    auth=${AUTH}
-    \    ${resp}    RequestsLibrary.Post    session    ${node}    ${payload}
+    \    ${resp}    RequestsLibrary.Post request    session    ${node}    ${payload}
     \    Log    ${resp}
     \    Should Be Equal As Strings    ${resp}    <Response [204]>
 
@@ -24,7 +24,7 @@ Read Records
     [Arguments]    ${controller_ip}    ${node}
     [Documentation]    GETs records from a shard on a controller's data store.
     Create_Session    session    http://${controller_ip}:${RESTCONFPORT}${CONFIG_API}    headers=${HEADERS}    auth=${AUTH}
-    ${resp}=    RequestsLibrary.Get    session    ${node}
+    ${resp}=    RequestsLibrary.Get request    session    ${node}
     [Return]    ${resp.json()}
 
 Update Records
@@ -39,7 +39,7 @@ Update Records
     \    ${payload}=    Assemble Payload    ${INDEX}    ${prefix}    ${field bases}    ${postfix}
     \    Log    ${payload}
     \    Create_Session    session    http://${controller_ip}:${RESTCONFPORT}${CONFIG_API}    headers=${HEADERS}    auth=${AUTH}
-    \    ${resp}=    RequestsLibrary.Put    session    ${node}/${INDEX}    ${payload}
+    \    ${resp}=    RequestsLibrary.Put request    session    ${node}/${INDEX}    ${payload}
     \    Log    ${resp}
     \    Should Be Equal As Strings    ${resp}    <Response [200]>
 
@@ -49,14 +49,14 @@ Delete Records
     ${last}    Convert to Integer    ${last}
     : FOR    ${INDEX}    IN RANGE    ${first}    ${last+1}
     \    Create_Session    session    http://${controller_ip}:${RESTCONFPORT}${CONFIG_API}    headers=${HEADERS}    auth=${AUTH}
-    \    ${resp}=    RequestsLibrary.Delete    session    ${node}/${INDEX}
+    \    ${resp}=    RequestsLibrary.Delete request    session    ${node}/${INDEX}
     \    Should Be Equal As Strings    ${resp}    <Response [200]>
 
 Delete All Records
     [Arguments]    ${controller_ip}    ${node}
     [Documentation]    DELETEs all records from a shard on a controller's data store.
     Create_Session    session    http://${controller_ip}:${RESTCONFPORT}${CONFIG_API}    headers=${HEADERS}    auth=${AUTH}
-    ${resp}=    RequestsLibrary.Delete    session    ${node}
+    ${resp}=    RequestsLibrary.Delete request    session    ${node}
     Should Be Equal As Strings    ${resp}    <Response [200]>
 
 Assemble Payload

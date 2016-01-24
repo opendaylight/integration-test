@@ -162,7 +162,7 @@ Set_It_Up
     ${current_prompt}=    BuiltIn.Set_Variable    ${current_connection.prompt}
     BuiltIn.Log    ${current_prompt}
     BuiltIn.Set_Suite_Variable    ${prompt}    ${current_prompt}
-    RequestsLibrary.Create_Session    ses    http://${CONTROLLER}:${RESTCONFPORT}${OPERATIONAL_TOPO_API}    auth=${AUTH}
+    RequestsLibrary.Create_Session request    ses    http://${CONTROLLER}:${RESTCONFPORT}${OPERATIONAL_TOPO_API}    auth=${AUTH}
     ${name}=    NexusKeywords.Deploy_Test_Tool    bgpcep/pcep-pcc-mock
     BuiltIn.Set_Suite_Variable    ${filename}    ${name}
     OperatingSystem.Remove_Directory    ${directory_for_expected_responses}    recursive=True
@@ -207,7 +207,7 @@ Compare_Topology
     ${normexp}=    hsf_json.Hsf_Json    ${expected}
     BuiltIn.Log    ${normexp}
     OperatingSystem.Create_File    ${directory_for_expected_responses}${/}${name}    ${normexp}
-    ${resp}=    RequestsLibrary.Get_Request    ses    topology/pcep-topology
+    ${resp}=    RequestsLibrary.Get_Request request    ses    topology/pcep-topology
     BuiltIn.Log    ${resp}
     BuiltIn.Log    ${resp.text}
     ${normresp}=    hsf_json.Hsf_Json    ${resp.text}

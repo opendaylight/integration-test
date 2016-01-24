@@ -314,7 +314,7 @@ Setup_Everything
     # The previous suite may have been using the same directories.
     OperatingSystem.Create_Directory    ${EXPECTED_RESPONSES_FOLDER}
     OperatingSystem.Create_Directory    ${ACTUAL_RESPONSES_FOLDER}
-    RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_TOPO_API}    auth=${AUTH}
+    RequestsLibrary.Create_Session request    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_TOPO_API}    auth=${AUTH}
     ConfigViaRestconf.Setup_Config_Via_Restconf
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.bgpcep

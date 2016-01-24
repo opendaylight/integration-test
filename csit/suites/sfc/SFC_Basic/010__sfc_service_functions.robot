@@ -23,7 +23,7 @@ Add Service Functions
     ${body}    OperatingSystem.Get File    ${SERVICE_FUNCTIONS_FILE}
     ${jsonbody}    To Json    ${body}
     ${functions}    Get From Dictionary    ${jsonbody}    service-functions
-    ${resp}    RequestsLibrary.Get    session    ${SERVICE_FUNCTIONS_URI}
+    ${resp}    RequestsLibrary.Get request    session    ${SERVICE_FUNCTIONS_URI}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     ${function}    Get From Dictionary    ${result}    service-functions
@@ -33,10 +33,10 @@ Delete All Service Functions
     [Documentation]    Delete all Service Functions
     ${body}    OperatingSystem.Get File    ${SERVICE_FUNCTIONS_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
-    ${resp}    RequestsLibrary.Get    session    ${SERVICE_FUNCTIONS_URI}
+    ${resp}    RequestsLibrary.Get request    session    ${SERVICE_FUNCTIONS_URI}
     Should Be Equal As Strings    ${resp.status_code}    200
     Remove All Elements At URI    ${SERVICE_FUNCTIONS_URI}
-    ${resp}    RequestsLibrary.Get    session    ${SERVICE_FUNCTIONS_URI}
+    ${resp}    RequestsLibrary.Get request    session    ${SERVICE_FUNCTIONS_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Get one Service Function
@@ -50,7 +50,7 @@ Get A Non-existing Service Function
     [Documentation]    Get A Non-existing Service Function
     Remove All Elements At URI    ${SERVICE_FUNCTIONS_URI}
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
-    ${resp}    RequestsLibrary.Get    session    ${SERVICE_FUNCTIONS_URI}service-function/non-existing-sf
+    ${resp}    RequestsLibrary.Get request    session    ${SERVICE_FUNCTIONS_URI}service-function/non-existing-sf
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete A Service Function
@@ -58,7 +58,7 @@ Delete A Service Function
     Remove All Elements At URI    ${SERVICE_FUNCTIONS_URI}
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
     Remove All Elements At URI    ${SERVICE_FUNCTIONS_URI}service-function/dpi-102-1
-    ${resp}    RequestsLibrary.Get    session    ${SERVICE_FUNCTIONS_URI}
+    ${resp}    RequestsLibrary.Get request    session    ${SERVICE_FUNCTIONS_URI}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Not Contain    ${resp.content}    dpi-102-1
 
@@ -70,7 +70,7 @@ Delete A Non-existing Empty Service Function
     ${jsonbody}    To Json    ${body}
     ${functions}    Get From Dictionary    ${jsonbody}    service-functions
     Remove All Elements At URI    ${SERVICE_FUNCTIONS_URI}service-function/non-existing-sf
-    ${resp}    RequestsLibrary.Get    session    ${SERVICE_FUNCTIONS_URI}
+    ${resp}    RequestsLibrary.Get request    session    ${SERVICE_FUNCTIONS_URI}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     ${function}    Get From Dictionary    ${result}    service-functions
@@ -104,7 +104,7 @@ Put Service Function DPL to a Non-existing Service Function
     [Documentation]    Put Service Function DPL to a Non-existing Service Function
     Remove All Elements At URI    ${SERVICE_FUNCTIONS_URI}
     Add Elements To URI From File    ${SF_DPI102100_URI}sf-data-plane-locator/dpl-101    ${SF_DPL101_FILE}
-    ${resp}    RequestsLibrary.Get    session    ${SERVICE_FUNCTIONS_URI}
+    ${resp}    RequestsLibrary.Get request    session    ${SERVICE_FUNCTIONS_URI}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    dpi-102-100
     ${elements}=    Create List    dpl-101    10101
@@ -116,7 +116,7 @@ Delete Service Function DPL
     Remove All Elements At URI    ${SERVICE_FUNCTIONS_URI}
     Add Elements To URI From File    ${SF_DPI102100_URI}    ${SF_DPI102100_FILE}
     Remove All Elements At URI    ${SF_DPI102100_URI}sf-data-plane-locator/dpl-100
-    ${resp}    RequestsLibrary.Get    session    ${SF_DPI102100_URI}
+    ${resp}    RequestsLibrary.Get request    session    ${SF_DPI102100_URI}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Not Contain    ${resp.content}    dpl-100
 

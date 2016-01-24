@@ -20,7 +20,7 @@ Add Tenant to one node
     Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     ${jsonbody}    Read JSON From File    ${GBP_TENANT1_FILE}
     Add Elements To URI From File    ${GBP_TENANT1_API}    ${GBP_TENANT1_FILE}
-    ${resp}    RequestsLibrary.Get    session    ${GBP_TENANT1_API}
+    ${resp}    RequestsLibrary.Get request    session    ${GBP_TENANT1_API}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     Lists Should be Equal    ${result}    ${jsonbody}
@@ -28,7 +28,7 @@ Add Tenant to one node
 Read Tenant from other node
     Create Session    session    http://${CONTROLLER1}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     ${jsonbody}    Read JSON From File    ${GBP_TENANT1_FILE}
-    ${resp}    RequestsLibrary.Get    session    ${GBP_TENANT1_API}
+    ${resp}    RequestsLibrary.Get request    session    ${GBP_TENANT1_API}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     Lists Should be Equal    ${result}    ${jsonbody}
