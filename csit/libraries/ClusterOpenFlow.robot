@@ -88,6 +88,8 @@ Add Sample Flow And Verify
     [Arguments]    ${controller_index_list}    ${controller_index}
     [Documentation]    Add sample flow in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
     ${body}=    OperatingSystem.Get File    ${CURDIR}/../variables/openflowplugin/sample_flow_1.json
+    # There are slight differences on the way He and Li plugin display table information. He plugin has an additional Hashmap field
+    # replicating some of the matches in the flows section. Same comment applies for further keywords.
     Run Keyword If    '${ODL_OF_PLUGIN}' == 'helium'    Set Test Variable    &{dictionary}    10.0.1.0/24=2
     Run Keyword If    '${ODL_OF_PLUGIN}' == 'lithium'    Set Test Variable    &{dictionary}    10.0.1.0/24=1
     Put And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${config_table_0}/flow/1    ${body}
@@ -97,10 +99,8 @@ Modify Sample Flow And Verify
     [Arguments]    ${controller_index_list}    ${controller_index}
     [Documentation]    Modify sample flow in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
     ${body}=    OperatingSystem.Get File    ${CURDIR}/../variables/openflowplugin/sample_flow_2.json
-    ##There are slight differences on the way He and Li plugin display table information. He plugin has an additional Hashmap field
-    ##replicating some of the matches in the flows section.
-    Run Keyword If    '${ODL_OF_PLUGIN}' == 'helium'    Set Test Variable    &{dictionary}    10.0.2.0/24=2
-    Run Keyword If    '${ODL_OF_PLUGIN}' == 'lithium'    Set Test Variable    &{dictionary}    10.0.2.0/24=1
+    Run Keyword If    '${ODL_OF_PLUGIN}' == 'helium'    Set Test Variable    &{dictionary}    10.0.2.0/24=2    10.0.1.0/24=0
+    Run Keyword If    '${ODL_OF_PLUGIN}' == 'lithium'    Set Test Variable    &{dictionary}    10.0.2.0/24=1    10.0.1.0/24=0
     Put And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${config_table_0}/flow/1    ${body}
     Wait Until Keyword Succeeds    15s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${operational_table_0}
 
