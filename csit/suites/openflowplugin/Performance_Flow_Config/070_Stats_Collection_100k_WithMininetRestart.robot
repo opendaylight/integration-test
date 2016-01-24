@@ -19,8 +19,8 @@ ${fpr}            25
 ${nrthreads}      5
 ${swspread}       linear
 ${tabspread}      first
-@{cntls}          ${CONTROLLER}
-${start_cmd}      sudo mn --controller=remote,ip=${CONTROLLER} --topo linear,${swnr} --switch ovsk,protocols=OpenFlow13
+@{cntls}          ${ODL_SYSTEM_IP}
+${start_cmd}      sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo linear,${swnr} --switch ovsk,protocols=OpenFlow13
 ${getf_cmd}       sh ./get-total-found.sh
 ${getr_cmd}       sh ./get-total-reported.sh
 ${iperiod}        1s
@@ -93,7 +93,7 @@ Stop Mininet End
 Connect Switches
     [Documentation]    Starts mininet with requested number of switches (${swnr})
     Log    Starting mininet with ${swnr} switches
-    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=600
+    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=600
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
     Execute Command    sudo mn -c
@@ -102,8 +102,8 @@ Connect Switches
     Wait Until Keyword Succeeds    10s    1s    Are Switches Connected Topo
 
 Create Http Session And Upload Files
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=600
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=600
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Put File    ${CURDIR}/../../../../tools/odl-mdsal-clustering-tests/clustering-performance-test/ovs-scripts/*    ./
     Close Connection
@@ -134,7 +134,7 @@ Are Switches Connected Topo
 Check Flows Inventory
     [Arguments]    ${rswitches}    ${rflows}
     [Documentation]    Checks in inventory has required state
-    ${sw}    ${repf}    ${foundf}=    Flow Stats Collected    controller=${CONTROLLER}
+    ${sw}    ${repf}    ${foundf}=    Flow Stats Collected    controller=${ODL_SYSTEM_IP}
     Should Be Equal As Numbers    ${rswitches}    ${sw}
     Should Be Equal As Numbers    ${rflows}    ${foundf}
 

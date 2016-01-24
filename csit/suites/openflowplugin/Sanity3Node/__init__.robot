@@ -11,7 +11,7 @@ ${start}          sudo python DynamicMininet.py
 *** Keywords ***
 Start Suite
     Log    Start the test on the base edition
-    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=>
+    ${mininet_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=>
     Set Suite Variable    ${mininet_conn_id}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/id_rsa    any
     Put File    ${CURDIR}/../../../libraries/DynamicMininet.py    .
@@ -19,5 +19,5 @@ Start Suite
     Execute Command    sudo mn -c
     Write    ${start}
     Read Until    mininet>
-    Write    start_with_cluster ${CONTROLLER},${CONTROLLER1},${CONTROLLER2}
+    Write    start_with_cluster ${ODL_SYSTEM_1_IP},${ODL_SYSTEM_2_IP},${ODL_SYSTEM_3_IP}
     Read Until    mininet>

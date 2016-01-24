@@ -25,7 +25,7 @@ Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
 Resource          ${CURDIR}/../../../libraries/PcepOperations.robot
 Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
-Variables         ${CURDIR}/../../../variables/pcepuser/variables.py    ${MININET}
+Variables         ${CURDIR}/../../../variables/pcepuser/variables.py    ${TOOLS_SYSTEM_IP}
 
 *** Variables ***
 ${directory_for_actual_responses}    ${TEMPDIR}${/}actual
@@ -41,7 +41,7 @@ Topology_Precondition
 
 Start_Secure_Pcc_Mock
     [Documentation]    Execute pcc-mock on Mininet with password set, fail if pcc-mock promptly exits. Keep pcc-mock running for next test cases.
-    ${command}=    BuiltIn.Set_Variable    java -jar ${filename} --password topsecret --reconnect 1 --local-address ${MININET} --remote-address ${CONTROLLER} 2>&1 | tee pccmock.log
+    ${command}=    BuiltIn.Set_Variable    java -jar ${filename} --password topsecret --reconnect 1 --local-address ${TOOLS_SYSTEM_IP} --remote-address ${ODL_SYSTEM_IP} 2>&1 | tee pccmock.log
     BuiltIn.Log    ${command}
     SSHLibrary.Write    ${command}
     Read_And_Fail_If_Prompt_Is_Seen
@@ -156,13 +156,13 @@ Set_It_Up
     [Documentation]    Create SSH session to Mininet machine, prepare HTTP client session to Controller.
     ...    Figure out latest pcc-mock version and download it from Nexus to Mininet.
     ...    Also, delete and create directories for json diff handling.
-    SSHLibrary.Open_Connection    ${MININET}
+    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
     SSHLibrary.Login_With_Public_Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     ${current_connection}=    SSHLibrary.Get_Connection
     ${current_prompt}=    BuiltIn.Set_Variable    ${current_connection.prompt}
     BuiltIn.Log    ${current_prompt}
     BuiltIn.Set_Suite_Variable    ${prompt}    ${current_prompt}
-    RequestsLibrary.Create_Session    ses    http://${CONTROLLER}:${RESTCONFPORT}${OPERATIONAL_TOPO_API}    auth=${AUTH}
+    RequestsLibrary.Create_Session    ses    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_TOPO_API}    auth=${AUTH}
     ${name}=    NexusKeywords.Deploy_Test_Tool    bgpcep/pcep-pcc-mock
     BuiltIn.Set_Suite_Variable    ${filename}    ${name}
     OperatingSystem.Remove_Directory    ${directory_for_expected_responses}    recursive=True
@@ -226,6 +226,6 @@ Construct_Password_Element_Line_Using_Password
 Replace_Password_Xml_Element_In_Pcep_Client_Module
     [Arguments]    ${password_element}
     [Documentation]    Send restconf PUT to replace the config module specifying PCEP password element (may me empty=missing).
-    ${mapping_as_string}=    BuiltIn.Set_Variable    {'IP': '${MININET}', 'PASSWD': '''${password_element}'''}
+    ${mapping_as_string}=    BuiltIn.Set_Variable    {'IP': '${TOOLS_SYSTEM_IP}', 'PASSWD': '''${password_element}'''}
     BuiltIn.Log    ${mapping_as_string}
     ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}pcep_topology_client_module    ${mapping_as_string}

@@ -1,7 +1,7 @@
 *** Variables ***
 # DIDM suite variables
 ${DEVICE_IP}      ${TOOLS_SYSTEM_IP}
-${MININET}        ${DEVICE_IP}
+${TOOLS_SYSTEM_IP}        ${DEVICE_IP}
 ${DEVICE_USER}    ${TOOLS_SYSTEM_USER}
 ${MININET_USER}    ${DEVICE_USER}
 ${DEVICE_PASSWORD}    ${TOOLS_SYSTEM_PASSWORD}

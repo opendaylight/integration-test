@@ -33,7 +33,7 @@ Find Max Switches
 Start Suite
     [Documentation]    Starts mininet with requested number of switches
     Log    Start the test on the base edition
-    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=>    timeout=1800
+    ${mininet_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=>    timeout=1800
     Set Suite Variable    ${mininet_conn_id}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Put File    ${CURDIR}/../../../libraries/DynamicMininet.py    DynamicMininet.py
@@ -41,7 +41,7 @@ Start Suite
     Execute Command    sudo mn -c
     Write    ${start}
     Read Until    mininet>
-    Write    start ${CONTROLLER} ${init_sw}
+    Write    start ${ODL_SYSTEM_IP} ${init_sw}
     Read Until    mininet>
     Wait Until Keyword Succeeds    10s    1s    Verify Switches Connected    ${init_sw}
 
@@ -54,7 +54,7 @@ Add Switches
 Verify Switches Connected
     [Arguments]    ${exp_switches}
     [Documentation]    Verifies if switches are connected/present in operational inventory
-    ${sw}    ${rep}    ${found}=    Flow Stats Collected    controller=${CONTROLLER}
+    ${sw}    ${rep}    ${found}=    Flow Stats Collected    controller=${ODL_SYSTEM_IP}
     Should Be Equal As Numbers    ${sw}    ${exp_switches}
 
 Log Store Max Found

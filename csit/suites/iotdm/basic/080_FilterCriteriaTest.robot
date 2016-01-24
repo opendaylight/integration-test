@@ -1,11 +1,11 @@
 *** Settings ***
 Suite Setup       Connect And Create The Tree
-Suite Teardown    Kill The Tree    ${CONTROLLER}    InCSE1    admin    admin
+Suite Teardown    Kill The Tree    ${ODL_SYSTEM_IP}    InCSE1    admin    admin
 Library           ../../../libraries/criotdm.py
 Library           Collections
 
 *** Variables ***
-${httphost}       ${CONTROLLER}
+${httphost}       ${ODL_SYSTEM_IP}
 ${httpuser}       admin
 ${httppass}       admin
 ${rt_ae}          2
@@ -80,7 +80,7 @@ Set Suite Variable
     \    Should Contain    ${error}    rcn
 
 Delete the tree
-    Kill The Tree    ${CONTROLLER}    InCSE1    admin    admin
+    Kill The Tree    ${ODL_SYSTEM_IP}    InCSE1    admin    admin
     #==================================================
     #    FilterCriteria Test
     #==================================================

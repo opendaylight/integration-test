@@ -14,7 +14,7 @@ Variables         ${CURDIR}/../variables/Variables.py
 Setup_Pcep_Operations
     [Documentation]    Creates Requests session to be used by subsequent keywords.
     # Do not append slash at the end uf URL, Requests would add another, resulting in error.
-    Create_Session    pcep_session    http://${CONTROLLER}:${RESTCONFPORT}/restconf/operations    headers=${HEADERS_XML}    auth=${AUTH}
+    Create_Session    pcep_session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}/restconf/operations    headers=${HEADERS_XML}    auth=${AUTH}
 
 Teardown_Pcep_Operations
     [Documentation]    Teardown to pair with Setup (otherwise no-op).

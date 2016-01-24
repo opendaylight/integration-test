@@ -18,7 +18,7 @@ ${swspread}       linear
 ${tabspread}      first
 ${topourl}        /restconf/operational/network-topology:network-topology/topology/flow:1
 ${invurl}         /restconf/operational/opendaylight-inventory:nodes
-@{cntls}          ${CONTROLLER}
+@{cntls}          ${ODL_SYSTEM_IP}
 
 *** Test Cases ***
 Configure Flows
@@ -29,7 +29,7 @@ Configure Flows
     Set Suite Variable    ${flows}
 
 Check Configured Are Operational
-    Wait Until Keyword Succeeds    110s    20s    Check Flows Inventory    ${flows}    ${CONTROLLER}
+    Wait Until Keyword Succeeds    110s    20s    Check Flows Inventory    ${flows}    ${ODL_SYSTEM_IP}
 
 Deconfigure Flows
     ${res}=    Deconfigure Flows    flow_details=${flows}    controllers=@{cntls}    nrthreads=5
@@ -37,20 +37,20 @@ Deconfigure Flows
 
 Check No Flows In Operational
     ${noflows}=    Create List
-    Wait Until Keyword Succeeds    110s    20s    Check Flows Inventory    ${noflows}    ${CONTROLLER}
+    Wait Until Keyword Succeeds    110s    20s    Check Flows Inventory    ${noflows}    ${ODL_SYSTEM_IP}
 
 *** Keywords ***
 Connect Switches
     [Documentation]    Starts mininet with requested number of switches (${swnr})
     Log    Starting mininet with ${swnr} switches
-    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=600
+    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=600
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    sudo ovs-vsctl set-manager ptcp:6644
     Write    sudo mn -c
     Read Until    ${DEFAULT_LINUX_PROMPT}
-    Write    sudo mn --controller=remote,ip=${CONTROLLER} --topo linear,${swnr} --switch ovsk,protocols=OpenFlow13
+    Write    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo linear,${swnr} --switch ovsk,protocols=OpenFlow13
     Read Until    mininet>
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
     Wait Until Keyword Succeeds    10s    1s    Are Switches Connected Topo
 
 Stop Switches

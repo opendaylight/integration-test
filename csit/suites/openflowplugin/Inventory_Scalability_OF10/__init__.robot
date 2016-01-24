@@ -7,7 +7,7 @@ Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${start}          sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,${TOPO_TREE_DEPTH},${TOPO_TREE_FANOUT}
+${start}          sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo tree,${TOPO_TREE_DEPTH},${TOPO_TREE_FANOUT}
 
 *** Keywords ***
 Start Suite
@@ -15,7 +15,7 @@ Start Suite
     ${TOPO_TREE_DEPTH}    Convert To Integer    ${TOPO_TREE_DEPTH}
     ${TOPO_TREE_FANOUT}    Convert To Integer    ${TOPO_TREE_FANOUT}
     ${numnodes}    Num Of Nodes    ${TOPO_TREE_DEPTH}    ${TOPO_TREE_FANOUT}
-    Open Connection    ${MININET}    prompt=>    timeout=${numnodes*2}
+    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=>    timeout=${numnodes*2}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    sudo ovs-vsctl set-manager ptcp:6644
     Read Until    >

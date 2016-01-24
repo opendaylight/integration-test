@@ -17,7 +17,7 @@ Resource          ../../../libraries/OVSDB.robot
 *** Variables ***
 ${OVSDB_PORT}     6634
 ${OVSDB_CONFIG_DIR}    ${CURDIR}/../../../variables/ovsdb
-@{node_list1}     ovsdb://${TOOLS_SYSTEM_2_IP}:${OVSDB_PORT}    ${TOOLS_SYSTEM_2_IP}    ${OVSDB_PORT}    ovsdb://${TOOLS_SYSTEM_IP}:${OVSDB_PORT}    ${TOOLS_SYSTEM_IP}    ${OVSDB_PORT}
+@{node_list1}     ovsdb://${TOOLS_SYSTEM_2_IP}:${OVSDB_PORT}    ${TOOLS_SYSTEM_2_IP}    ${OVSDB_PORT}    ovsdb://${TOOLS_SYSTEM_1_IP}:${OVSDB_PORT}    ${TOOLS_SYSTEM_1_IP}    ${OVSDB_PORT}
 ${start1}         sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --switch=ovsk,protocols=OpenFlow13 --custom ovsdb.py --topo host,1
 ${start2}         sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --switch=ovsk,protocols=OpenFlow13 --custom ovsdb.py --topo host,2
 
@@ -25,8 +25,8 @@ ${start2}         sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --switch=ovsk,
 Make the OVS instance to listen for connection
     Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl del-manager
     Run Command On Remote System    ${TOOLS_SYSTEM_2_IP}    sudo ovs-vsctl set-manager ptcp:${OVSDB_PORT}
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager ptcp:${OVSDB_PORT}
+    Run Command On Remote System    ${TOOLS_SYSTEM_1_IP}    sudo ovs-vsctl del-manager
+    Run Command On Remote System    ${TOOLS_SYSTEM_1_IP}    sudo ovs-vsctl set-manager ptcp:${OVSDB_PORT}
 
 Connect controller to OVSDB Node1
     [Documentation]    Initiate the connection to OVSDB node from controller
@@ -34,7 +34,7 @@ Connect controller to OVSDB Node1
 
 Connect controller to OVSDB Node2
     [Documentation]    Initiate the connection to OVSDB node from controller
-    Connect To Ovsdb Node    ${TOOLS_SYSTEM_IP}
+    Connect To Ovsdb Node    ${TOOLS_SYSTEM_1_IP}
 
 Get Operational Topology from OVSDB Node1 and OVSDB Node2
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes
@@ -44,7 +44,7 @@ Start the Mininet and create custom topology
     [Documentation]    This will start mininet with custom topology on both the Virtual Machines
     ${conn_id1}    Start Mininet    ${TOOLS_SYSTEM_2_IP}    ${start1}    ${OVSDB_CONFIG_DIR}/ovsdb.py
     Set Global Variable    ${conn_id1}
-    ${conn_id2}    Start Mininet    ${TOOLS_SYSTEM_IP}    ${start2}    ${OVSDB_CONFIG_DIR}/ovsdb.py
+    ${conn_id2}    Start Mininet    ${TOOLS_SYSTEM_1_IP}    ${start2}    ${OVSDB_CONFIG_DIR}/ovsdb.py
     Set Global Variable    ${conn_id2}
 
 Get Operational Topology with custom topology
@@ -58,7 +58,7 @@ Add the bridge s1 in the config datastore of OVSDB Node1
 
 Add the bridge s2 in the config datastore of OVSDB Node2
     [Documentation]    This request will add already operational bridge to the config data store of the OVSDB node.
-    Add Bridge To Ovsdb Node    ${TOOLS_SYSTEM_IP}    s2    0000000000000002
+    Add Bridge To Ovsdb Node    ${TOOLS_SYSTEM_1_IP}    s2    0000000000000002
 
 Get Config Topology with s1 and s2 Bridges
     [Documentation]    This will fetch the configuration topology from configuration data store to verify the bridge is added to the config data store
@@ -67,27 +67,27 @@ Get Config Topology with s1 and s2 Bridges
 
 Create Vxlan Port and attach to s1 Bridge
     [Documentation]    This request will create vxlan port/interface for vxlan tunnel and attach it to the specific bridge s1 of OVSDB node 1
-    Add Vxlan To Bridge    ${TOOLS_SYSTEM_IP}    s2    vxlanport    ${TOOLS_SYSTEM_2_IP}
+    Add Vxlan To Bridge    ${TOOLS_SYSTEM_1_IP}    s2    vxlanport    ${TOOLS_SYSTEM_2_IP}
 
 Create Vxlan Port and attach to s2 Bridge
     [Documentation]    This request will create vxlan port/interface for vxlan tunnel and attach it to the specific bridge s2 of OVSDB node 2
-    Add Vxlan To Bridge    ${TOOLS_SYSTEM_2_IP}    s1    vxlanport    ${TOOLS_SYSTEM_IP}
+    Add Vxlan To Bridge    ${TOOLS_SYSTEM_2_IP}    s1    vxlanport    ${TOOLS_SYSTEM_1_IP}
 
 Get Operational Topology with vxlan tunnel
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes to verify that the vxlan tunnel is created
-    @{list}    Create List    vxlanport    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_IP}
+    @{list}    Create List    vxlanport    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_1_IP}
     Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${list}
 
 Disconnect controller connection from the connected OVSDBs nodes
     [Documentation]    This request will disconnect the controller from the connected OVSDB node for clean startup for next suite.
     [Tags]    Southbound
-    Disconnect From Ovsdb Node    ${TOOLS_SYSTEM_IP}
+    Disconnect From Ovsdb Node    ${TOOLS_SYSTEM_1_IP}
     Disconnect From Ovsdb Node    ${TOOLS_SYSTEM_2_IP}
 
 Verify that the operational topology is clean
     [Documentation]    This request will verify the operational toplogy after the mininet is cleaned.
     [Tags]    Southbound
-    @{list}    Create List    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_2_IP}    s1    s2
+    @{list}    Create List    ${TOOLS_SYSTEM_1_IP}    ${TOOLS_SYSTEM_2_IP}    s1    s2
     Wait Until Keyword Succeeds    8s    2s    Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}    ${list}
 
 Check For Bug 4756
@@ -109,9 +109,9 @@ Vxlan Extension Test Suite Setup
 
 Vxlan Extension Test Suite Teardown
     [Documentation]    Cleans up test environment, close existing sessions.
-    Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
+    Clean OVSDB Test Environment    ${TOOLS_SYSTEM_1_IP}
     Clean OVSDB Test Environment    ${TOOLS_SYSTEM_2_IP}
-    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:${OVSDB_PORT}
+    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_1_IP}:${OVSDB_PORT}
     RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_2_IP}:${OVSDB_PORT}
     ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
     Log    ${resp.content}

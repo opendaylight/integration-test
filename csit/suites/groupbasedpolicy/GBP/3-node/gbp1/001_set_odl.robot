@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for GBP Tenants, Operates functions from Restconf APIs.
-Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
 Default Tags      single-tenant    setup    single-tenant-setup
 Library           RequestsLibrary

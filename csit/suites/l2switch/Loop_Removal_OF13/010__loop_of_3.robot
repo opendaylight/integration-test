@@ -89,9 +89,9 @@ Add Port
 *** Keywords ***
 Start Suite
     [Documentation]    Open controller session & mininet connection and start mininet custom topo
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    ${start}=    Set Variable    sudo mn --controller=remote,ip=${CONTROLLER} --custom customtopo.py --topo ring --switch ovsk,protocols=OpenFlow13
-    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+    ${start}=    Set Variable    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom customtopo.py --topo ring --switch ovsk,protocols=OpenFlow13
+    ${mininet_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Suite Variable    ${mininet_conn_id}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Put File    ${CURDIR}/../topologies/customtopo.py

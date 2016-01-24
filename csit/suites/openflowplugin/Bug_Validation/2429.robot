@@ -24,14 +24,14 @@ Bug_2429
     ...    a larger number of failed connections will be used and a small margin of error will
     ...    determine if the test is a PASS or FAIL
     Log Environment Details
-    ${controller_pid}=    Get Process ID Based On Regex On Remote System    ${CONTROLLER}    java.*distribution.*karaf    ${CONTROLLER_USER}
+    ${controller_pid}=    Get Process ID Based On Regex On Remote System    ${ODL_SYSTEM_IP}    java.*distribution.*karaf    ${CONTROLLER_USER}
     Should Match Regexp    ${controller_pid}    [0-9]+    PID was not discovered
-    ${starting_thread_count}=    Get Process Thread Count On Remote System    ${CONTROLLER}    ${controller_pid}    ${CONTROLLER_USER}
-    Repeat Keyword    ${number_ofconnections_to_fail}    Start Process    nc    -w    1    ${CONTROLLER}
+    ${starting_thread_count}=    Get Process Thread Count On Remote System    ${ODL_SYSTEM_IP}    ${controller_pid}    ${CONTROLLER_USER}
+    Repeat Keyword    ${number_ofconnections_to_fail}    Start Process    nc    -w    1    ${ODL_SYSTEM_IP}
     ...    ${openflow_port}
     Run    pkill -f 'nc -w'
     Log Environment Details
-    ${ending_thread_count}=    Get Process Thread Count On Remote System    ${CONTROLLER}    ${controller_pid}    ${CONTROLLER_USER}
+    ${ending_thread_count}=    Get Process Thread Count On Remote System    ${ODL_SYSTEM_IP}    ${controller_pid}    ${CONTROLLER_USER}
     Log Environment Details
     Log    starting count: ${starting_thread_count}\nending count: ${ending_thread_count}
     ${acceptable_thread_count}=    Evaluate    ${starting_thread_count} + (${number_of_connections_to_fail} * ${margin_of_error})
@@ -42,7 +42,7 @@ Bug_2429
 Log Environment Details
     [Documentation]    Will display relevant details of the test environement to help aid debugging efforts if
     ...    needed in the future.
-    ${output}=    Get Process ID Based On Regex On Remote System    ${CONTROLLER}    java.*distribution.*karaf    ${CONTROLLER_USER}
+    ${output}=    Get Process ID Based On Regex On Remote System    ${ODL_SYSTEM_IP}    java.*distribution.*karaf    ${CONTROLLER_USER}
     Log    ${output}
-    ${output}=    Run Command On Remote System    ${CONTROLLER}    netstat -na | grep 6633    ${CONTROLLER_USER}
+    ${output}=    Run Command On Remote System    ${ODL_SYSTEM_IP}    netstat -na | grep 6633    ${CONTROLLER_USER}
     Log    ${output}

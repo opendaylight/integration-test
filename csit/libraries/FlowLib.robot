@@ -181,7 +181,7 @@ Verify Flow Does Not Exist On Mininet Switch
 Remove Default Flows
     [Arguments]    ${node_id}
     [Documentation]    Removes any flows considered "default". one such flow is
-    ...    to forward all traffic to the CONTROLLER with priority 0 at flow-table 0
+    ...    to forward all traffic to the ODL_SYSTEM_IP with priority 0 at flow-table 0
     ...    If/When others are implemented this keyword can be updated to include those.
     ${flow}=    Make Service Flow
     Set "${flow}" "priority" With "0"
@@ -197,8 +197,8 @@ Remove Default Flows
     Should Be Equal As Strings    ${resp.status_code}    200
     ${resp}=    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_API}
     Log    ${resp.content}
-    Should Not Contain    ${resp.content}    "output-node-connector": "CONTROLLER",
-    ${strings_to_check_for}=    Create List    CONTROLLER
+    Should Not Contain    ${resp.content}    "output-node-connector": "ODL_SYSTEM_IP",
+    ${strings_to_check_for}=    Create List    ODL_SYSTEM_IP
     Verify Flow Does Not Exist On Mininet Switch    ${strings_to_check_for}
 
 Create Flow Variables For Suite From XML File

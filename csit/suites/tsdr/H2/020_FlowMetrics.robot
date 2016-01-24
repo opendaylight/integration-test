@@ -18,7 +18,7 @@ ${TSDR_FLOWSTATS}    tsdr:list FlowStats
 Verification of TSDR FlowMetrics
     [Documentation]    Verify the TSDR FlowStats
     Wait Until Keyword Succeeds    60s    1s    Verify the Metric is Collected?    ${TSDR_FLOWSTATS}    PacketCount
-    ${output}=    Issue Command On Karaf Console    ${TSDR_FLOWSTATS}    ${CONTROLLER}    ${KARAF_SHELL_PORT}    30
+    ${output}=    Issue Command On Karaf Console    ${TSDR_FLOWSTATS}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    30
     : FOR    ${list}    IN    @{FLOW_METRICS}
     \    Should Contain    ${output}    ${list}
 

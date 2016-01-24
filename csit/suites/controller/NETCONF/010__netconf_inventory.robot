@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for NETCONF client
-Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
 Suite Teardown    Delete All Sessions
 Library           Collections
 Library           OperatingSystem
@@ -10,7 +10,7 @@ Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${NETOPEER}       ${MININET}
+${NETOPEER}       ${TOOLS_SYSTEM_IP}
 ${NETOPEER_USER}    ${MININET_USER}
 ${FILE}           ${CURDIR}/../../../variables/xmls/netconf.xml
 ${REST_CONT_CONF}    /restconf/config/network-topology:network-topology/topology/topology-netconf

@@ -109,7 +109,7 @@ Setup_Everything
     ...    create HTTP session, put Python tool to mininet machine.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     SSHLibrary.Set_Default_Configuration    prompt=${MININET_PROMPT}
-    SSHLibrary.Open_Connection    ${MININET}
+    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
     Utils.Flexible_Mininet_Login
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/mdsal_benchmark/${tool}
 
@@ -119,7 +119,7 @@ Teardown_Everything
 
 Start_Benchmark_Tool
     [Documentation]    Start the benchmark tool. Check that it has been running at least for ${tool_startup_timeout} period.
-    ${command}=    BuiltIn.Set_Variable    python ${tool} --host ${CONTROLLER} --port ${RESTCONFPORT} --warmup ${WARMUPS} --runs ${RUNS} --total ${TOTAL_OPS} --inner ${INNER_OPS} --txtype ${TX_TYPE} --ops ${OPS_PER_TX} --optype ${OP_TYPE} --plot ${FILTER} --units ${UNITS} ${tool_args} &> ${tool_log_name}
+    ${command}=    BuiltIn.Set_Variable    python ${tool} --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --warmup ${WARMUPS} --runs ${RUNS} --total ${TOTAL_OPS} --inner ${INNER_OPS} --txtype ${TX_TYPE} --ops ${OPS_PER_TX} --optype ${OP_TYPE} --plot ${FILTER} --units ${UNITS} ${tool_args} &> ${tool_log_name}
     BuiltIn.Log    ${command}
     ${output}=    SSHLibrary.Write    ${command}
     ${status}    ${message}=    BuiltIn.Run Keyword And Ignore Error    Write Until Expected Output    ${EMPTY}    ${MININET_PROMPT}    ${tool_startup_timeout}
@@ -147,7 +147,7 @@ Get_Log_File
 
 Store_File_To_Robot
     [Arguments]    ${file_name}
-    [Documentation]    Store the provided file from the MININET to the ROBOT machine.
+    [Documentation]    Store the provided file from the TOOLS_SYSTEM_IP to the ROBOT machine.
     ${output_log}=    SSHLibrary.Execute_Command    cat ${file_name}
     BuiltIn.Log    ${output_log}
     Create File    ${file_name}    ${output_log}

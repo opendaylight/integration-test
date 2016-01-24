@@ -16,8 +16,8 @@ ${swnr}           16
 ${flnr}           16000
 ${swspread}       linear
 ${tabspread}      linear
-@{cntls}          ${CONTROLLER}
-${start_cmd}      sudo mn --controller=remote,ip=${CONTROLLER} --topo linear,${swnr} --switch ovsk,protocols=OpenFlow13
+@{cntls}          ${ODL_SYSTEM_IP}
+${start_cmd}      sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo linear,${swnr} --switch ovsk,protocols=OpenFlow13
 
 *** Test Cases ***
 Connect Mininet
@@ -33,7 +33,7 @@ Configure Flows
 
 Are Flows Operational
     [Documentation]    Operational datastore check if all flows are present there
-    Wait Until Keyword Succeeds    110s    5s    Check Flows Inventory    ${flows}    ${CONTROLLER}
+    Wait Until Keyword Succeeds    110s    5s    Check Flows Inventory    ${flows}    ${ODL_SYSTEM_IP}
 
 Deconfigure Flows
     [Documentation]    Removal of 16k flows from config datastore
@@ -43,7 +43,7 @@ Deconfigure Flows
 Check No Flows In Operational
     [Documentation]    Operational datastore to be without any flows
     ${noflows}=    Create List
-    Wait Until Keyword Succeeds    110s    5s    Check Flows Inventory    ${noflows}    ${CONTROLLER}
+    Wait Until Keyword Succeeds    110s    5s    Check Flows Inventory    ${noflows}    ${ODL_SYSTEM_IP}
 
 Configure Flows Again
     [Documentation]    Configuration of 16k flows into config datastore again
@@ -52,7 +52,7 @@ Configure Flows Again
 
 Are Flows Operational Again
     [Documentation]    Operational datastore check if all flows are present there
-    Wait Until Keyword Succeeds    110s    5s    Check Flows Inventory    ${flows}    ${CONTROLLER}
+    Wait Until Keyword Succeeds    110s    5s    Check Flows Inventory    ${flows}    ${ODL_SYSTEM_IP}
 
 Stop Mininet
     [Documentation]    Disconnect/Stop mininet
@@ -68,7 +68,7 @@ Connect Mininet Again
 
 Check Flows Are Operational Again
     [Documentation]    All 16k switches should be present in the operational datastore after mininet reconnection
-    Wait Until Keyword Succeeds    110s    5s    Check Flows Inventory    ${flows}    ${CONTROLLER}
+    Wait Until Keyword Succeeds    110s    5s    Check Flows Inventory    ${flows}    ${ODL_SYSTEM_IP}
 
 Deconfigure Flows End
     [Documentation]    Flows deconfiguration
@@ -78,7 +78,7 @@ Deconfigure Flows End
 Check No Flows In Operational Last
     [Documentation]    Operational datastore to be without any flows
     ${noflows}=    Create List
-    Wait Until Keyword Succeeds    110s    5s    Check Flows Inventory    ${noflows}    ${CONTROLLER}
+    Wait Until Keyword Succeeds    110s    5s    Check Flows Inventory    ${noflows}    ${ODL_SYSTEM_IP}
 
 Stop Mininet End
     Stop Switches
@@ -87,7 +87,7 @@ Stop Mininet End
 Connect Switches
     [Documentation]    Starts mininet with requested number of switches (${swnr})
     Log    Starting mininet with ${swnr} switches
-    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=600
+    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=600
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
     Execute Command    sudo mn -c
@@ -96,7 +96,7 @@ Connect Switches
     Wait Until Keyword Succeeds    10s    1s    Are Switches Connected Topo
 
 Create Http Session
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
 
 Stop Switches
     [Documentation]    Stops mininet

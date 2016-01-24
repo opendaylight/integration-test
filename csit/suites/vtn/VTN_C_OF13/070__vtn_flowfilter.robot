@@ -8,7 +8,7 @@ Resource          ../../../libraries/VtnCoKeywords.robot
 Add a ODL Controller
     [Documentation]    Add a Controller
     [Tags]    exclude
-    Add a Controller    odc_test    ${CONTROLLER}
+    Add a Controller    odc_test    ${ODL_SYSTEM_IP}
 
 Verify the Controller Status is waiting_audit
     [Documentation]    Check Controller status

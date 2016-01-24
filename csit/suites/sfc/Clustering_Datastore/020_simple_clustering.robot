@@ -15,7 +15,7 @@ ${SFC_FUNCTIONS_FILE}    ${CURDIR}/../../../variables/sfc/service-functions.json
 *** Test Cases ***
 Add Service Functions To One Node
     [Documentation]    Add service functions from JSON file
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    Create Session    session    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     ${jsonbody}    Read JSON From File    ${SFC_FUNCTIONS_FILE}
     Add Elements To URI From File    ${SFC__API}    ${SFC_FUNCTIONS_FILE}
     ${resp}    RequestsLibrary.Get    session    ${SFC_API}
@@ -24,7 +24,7 @@ Add Service Functions To One Node
     Lists Should be Equal    ${result}    ${jsonbody}
 
 Read Service Functions From Other Node
-    Create Session    session    http://${CONTROLLER1}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    Create Session    session    http://${ODL_SYSTEM_2_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     ${jsonbody}    Read JSON From File    ${SFC_FUNCTIONS_FILE}
     ${resp}    RequestsLibrary.Get    session    ${SFC_API}
     Should Be Equal As Strings    ${resp.status_code}    200

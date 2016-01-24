@@ -6,7 +6,7 @@ Variables         ../../../../variables/Variables.py
 ${VM_HOME_FOLDER}    ${WORKSPACE}
 ${VM_SCRIPTS_FOLDER}    scripts
 ${ODL}            ${ODL_SYSTEM_IP}
-${GBP1}           ${TOOLS_SYSTEM_IP}
+${GBP1}           ${TOOLS_SYSTEM_1_IP}
 ${GBP2}           ${TOOLS_SYSTEM_2_IP}
 ${GBP3}           ${TOOLS_SYSTEM_3_IP}
 @{GBPs}           ${GBP1}    ${GBP2}    ${GBP3}

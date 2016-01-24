@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Checking Network created in OVSDB are pushed to OpenDaylight
-Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
 Test Teardown     Collect OVSDB Debugs
 Library           SSHLibrary
@@ -49,12 +49,12 @@ ${FLOAT_IP1_ADDRESS}    192.168.111.22
 Add variables to controller custom.properties
     [Documentation]    Add variables to custom.properties
     [Tags]    Enable l3 forwarding
-    Run Command On Remote System    ${CONTROLLER}    echo 'ovsdb.l3.fwd.enabled=yes' >> ${WORKSPACE}/${BUNDLEFOLDER}/etc/custom.properties
-    Run Command On Remote System    ${CONTROLLER}    echo 'ovsdb.l3gateway.mac=00:00:5E:00:02:01' >> ${WORKSPACE}/${BUNDLEFOLDER}/etc/custom.properties
-    ${controller_pid_1}=    Get Process ID Based On Regex On Remote System    ${CONTROLLER}    java.*distribution.*karaf
-    Run Command On Remote System    ${CONTROLLER}    kill -SIGTERM ${controller_pid_1}
-    Run Command On Remote System    ${CONTROLLER}    ${WORKSPACE}/${BUNDLEFOLDER}/bin/start
-    ${controller_pid_2}=    Get Process ID Based On Regex On Remote System    ${CONTROLLER}    java.*distribution.*karaf
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    echo 'ovsdb.l3.fwd.enabled=yes' >> ${WORKSPACE}/${BUNDLEFOLDER}/etc/custom.properties
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    echo 'ovsdb.l3gateway.mac=00:00:5E:00:02:01' >> ${WORKSPACE}/${BUNDLEFOLDER}/etc/custom.properties
+    ${controller_pid_1}=    Get Process ID Based On Regex On Remote System    ${ODL_SYSTEM_IP}    java.*distribution.*karaf
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    kill -SIGTERM ${controller_pid_1}
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    ${WORKSPACE}/${BUNDLEFOLDER}/bin/start
+    ${controller_pid_2}=    Get Process ID Based On Regex On Remote System    ${ODL_SYSTEM_IP}    java.*distribution.*karaf
     Should Not be Equal As Numbers    ${controller_pid_1}    ${controller_pid_2}
 
 Ensure controller is running
@@ -159,7 +159,7 @@ Create Port DHCP
     [Documentation]    Create Port DHCP
     [Tags]    OpenStack Call Flow
     ${Data}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_port_dhcp.json
-    ${Data}    Replace String    ${Data}    {BIND_HOST_ID}    ${CONTROLLER}
+    ${Data}    Replace String    ${Data}    {BIND_HOST_ID}    ${ODL_SYSTEM_IP}
     ${Data}    Replace String    ${Data}    {subnetId}    ${TNT1_SUBNET1_ID}
     ${Data}    Replace String    ${Data}    {dhcpDeviceId}    ${TNT1_NET1_DHCP_DEVICE_ID}
     ${Data}    Replace String    ${Data}    {netId}    ${TNT1_NET1_ID}
@@ -174,7 +174,7 @@ Update Port DHCP
     [Documentation]    Update Port DHCP
     [Tags]    OpenStack Call Flow
     ${Data}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/update_port_dhcp.json
-    ${Data}    Replace String    ${Data}    {BIND_HOST_ID}    ${CONTROLLER}
+    ${Data}    Replace String    ${Data}    {BIND_HOST_ID}    ${ODL_SYSTEM_IP}
     ${Data}    Replace String    ${Data}    {dhcpDeviceId}    ${TNT1_NET1_DHCP_DEVICE_ID}
     Log    ${Data}
     ${resp}    RequestsLibrary.Put    session    ${ODLREST}/ports/${TNT1_NET1_DHCP_PORT_ID}    ${Data}
@@ -209,7 +209,7 @@ Create Port VM
     [Documentation]    Create Port VM
     [Tags]    OpenStack Call Flow
     ${Data}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_port_vm.json
-    ${Data}    Replace String    ${Data}    {BIND_HOST_ID}    ${CONTROLLER}
+    ${Data}    Replace String    ${Data}    {BIND_HOST_ID}    ${ODL_SYSTEM_IP}
     ${Data}    Replace String    ${Data}    {tntId}    ${TNT1_ID}
     ${Data}    Replace String    ${Data}    {netId}    ${TNT1_NET1_ID}
     ${Data}    Replace String    ${Data}    {subnetId}    ${TNT1_SUBNET1_ID}

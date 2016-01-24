@@ -29,13 +29,13 @@ Send Basic Request
 Setup Environment
     [Documentation]    Setup karaf enviroment for following tests
     Log    ---- Setup Environment ----
-    Open Connection    ${CONTROLLER}
+    Open Connection    ${ODL_SYSTEM_IP}
     Flexible Controller Login
     Put File    ${CONFIGURATION_XML}    ${REMOTE_FILE}
     Close Connection
     Issue Command On Karaf Console    log:set DEBUG org.opendaylight.topoprocessing
     Install a Feature    odl-restconf-noauth    timeout=30
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${SEND_ACCEPT_XML_HEADERS}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${SEND_ACCEPT_XML_HEADERS}
     ${features}    Get Installed Features
     ${lines}    Get Lines Containing String    ${features}    odl-topoprocessing-framework
     ${length}    Get Length    ${lines}
@@ -47,7 +47,7 @@ Setup Environment
 Clean Environment
     [Documentation]    Revert startup changes
     Log    ---- Clean Environment ----
-    Open Connection    ${CONTROLLER}
+    Open Connection    ${ODL_SYSTEM_IP}
     Flexible Controller Login
     Put File    ${OPERATIONAL_XML}    ${REMOTE_FILE}
     Close Connection
@@ -118,7 +118,7 @@ Prepare Unification Topology Request
 
 Get Installed Features
     [Documentation]    Returns list of installed features as String
-    Open Connection    ${CONTROLLER}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_PROMPT}    timeout=5
+    Open Connection    ${ODL_SYSTEM_IP}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_PROMPT}    timeout=5
     Flexible SSH Login    ${KARAF_USER}    ${KARAF_PASSWORD}
     Write    feature:list -i
     ${features}    Read until prompt

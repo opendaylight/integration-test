@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for Ethernet,QoS, ARP and Action drop
-Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
 Suite Teardown    Delete All Sessions
 Library           SSHLibrary
 Library           Collections
@@ -14,7 +14,7 @@ ${REST_CON}       /restconf/config/opendaylight-inventory:nodes
 ${FILE}           ${CURDIR}/../../../variables/xmls/f14.xml
 ${FLOW}           137
 ${TABLE}          2
-@{FLOWELMENTS}    dl_dst=ff:ff:ff:ff:ff:ff    table=2    dl_src=00:00:fc:01:23:ae    CONTROLLER:60    arp    arp_op=1    arp_spa=192.168.4.1
+@{FLOWELMENTS}    dl_dst=ff:ff:ff:ff:ff:ff    table=2    dl_src=00:00:fc:01:23:ae    ODL_SYSTEM_IP:60    arp    arp_op=1    arp_spa=192.168.4.1
 ...               arp_tpa=10.21.22.23    arp_tha=fe:dc:ba:98:76:54    arp_sha=12:34:56:78:98:ab
 
 *** Test Cases ***

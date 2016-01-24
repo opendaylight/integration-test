@@ -7,7 +7,7 @@ Resource          ../../../libraries/VtnCoKeywords.robot
 *** Test Cases ***
 Add a ODL Controller
     [Documentation]    Add a Controller
-    Add a Controller    odc_test    ${CONTROLLER}
+    Add a Controller    odc_test    ${ODL_SYSTEM_IP}
 
 Verify the Controller Status is waiting_audit
     [Documentation]    Check Controller status
@@ -43,7 +43,7 @@ Create VBRIF in VBRIDGE Vbridge1 Interface2
 
 Update controller ip valid
     [Documentation]    Update Controller ip to valid
-    Update Controller    odc_test    ${CONTROLLER}    valid_IP
+    Update Controller    odc_test    ${ODL_SYSTEM_IP}    valid_IP
 
 Verify the Controller State is in down state
     [Documentation]    Check Controller status

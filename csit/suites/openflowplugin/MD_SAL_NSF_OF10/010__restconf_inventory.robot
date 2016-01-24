@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for RESTCONF inventory
-Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
 Suite Teardown    Delete All Sessions
 Library           Collections
 Library           RequestsLibrary
@@ -17,7 +17,7 @@ ${HARDWARE}       Open vSwitch
 *** Test Cases ***
 Get list of nodes
     [Documentation]    Get the inventory
-    Set Suite Variable    ${SW_IPADDRESS}    "flow-node-inventory:ip-address":"${MININET}"
+    Set Suite Variable    ${SW_IPADDRESS}    "flow-node-inventory:ip-address":"${TOOLS_SYSTEM_IP}"
     Set Suite Variable    ${SW_VENDOR}    "flow-node-inventory:manufacturer":"${VENDOR}"
     Set Suite Variable    ${SW_HARDWARE}    "flow-node-inventory:manufacturer":"${HARDWARE}"
     Set Suite Variable    @{SW_CAPABILITIES}    "flow-node-inventory:flow-feature-capability-flow-stats"    "flow-node-inventory:flow-feature-capability-table-stats"    "flow-node-inventory:flow-feature-capability-port-stats"    "flow-node-inventory:flow-feature-capability-queue-stats"

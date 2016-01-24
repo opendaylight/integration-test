@@ -76,7 +76,7 @@ Documentation     PCEP performance suite, uses restconf with configurable authen
 ...               Variables to override (only if needed) in pybot command:
 ...               (Look into Variables table to see the default values.)
 ...
-...               CONTROLLER: Numeric IP address of VM where ODL runs.
+...               ODL_SYSTEM_IP: Numeric IP address of VM where ODL runs.
 ...               CONTROLLER_USER: Username for ssh login to ODL VM.
 ...               CONTROLLER_PASSWORD: Ssh password, empty means public keys are used instead.
 ...               CONTROLLER_PROMPT: Substring to identify Linux prompt on ODL VM.
@@ -85,7 +85,7 @@ Documentation     PCEP performance suite, uses restconf with configurable authen
 ...               LOG_NAME: Filename (without path) to save pcc-mock output into.
 ...               LOG_PATH: Override if not the same as pccmock VM workspace.
 ...               LSPS: Number of LSPs per PCC to simulate and test.
-...               MININET: Numeric IP address of VM to run pcc-mock and updater from by default.
+...               TOOLS_SYSTEM_IP: Numeric IP address of VM to run pcc-mock and updater from by default.
 ...               MININET_PASSWORD: Linux password to go with the username (empty means keys).
 ...               MININET_PROMPT: Substring to identify Linux prompt on Mininet VM.
 ...               MININET_USER: Linux username to SSH to on Mininet VM.
@@ -93,21 +93,21 @@ Documentation     PCEP performance suite, uses restconf with configurable authen
 ...               MOCK_FILE: Filename to use for mock-pcc executable instead of the timestamped one.
 ...               PCCDOWNLOAD_HOSTHEADER: Download server may check checks this header before showing content.
 ...               PCCDOWNLOAD_URLBASE: URL to pcep-pcc-mock folder in Nexus (use numberic IP if DNS has problems).
-...               PCCMOCK_COLOCATED: If True, set PCCMOCKVM* to mirror CONTROLLER*
-...               PCCMOCKVM_IP: Override MININET for pcc-mock usage.
+...               PCCMOCK_COLOCATED: If True, set PCCMOCKVM* to mirror ODL_SYSTEM_IP*
+...               PCCMOCKVM_IP: Override TOOLS_SYSTEM_IP for pcc-mock usage.
 ...               PCCMOCKVM_*: Override corresponding MININET_* for pcc-mock usage.
 ...               PCCS: Number of PCCs to simulate and test.
 ...               PCEP_READY_VERIFY_TIMEOUT: Grace period for pcep-topology to appear. Lower if ODL is ready.
 ...               RESTCONF_*: USER, PASSWORD and SCOPE to authenticate with, REUSE session.
 ...               (Note: If SCOPE is not empty, token-based authentication is used.)
 ...               UPDATER_COLOCATED: If True, overrides UPDATERVM_* parameters to point at Controller
-...               (The purpose is to provide an option without ability to unpack CONTROLLER value.)
-...               UPDATER_ODLADDRESS: Override if public CONTROLLER address is not best fit.
+...               (The purpose is to provide an option without ability to unpack ODL_SYSTEM_IP value.)
+...               UPDATER_ODLADDRESS: Override if public ODL_SYSTEM_IP address is not best fit.
 ...               UPDATER_REFRESH: Main updater thread may sleep this long. Balance precision with overhead.
 ...               UPDATER_TIMEOUT: If updater stops itself if running more than this time.
 ...               (Set this limit according to your performance target.)
 ...               UPDATERVM_ENABLE_TCP_RW_REUSE: Set to false if changing Linux configuration is not desired.
-...               UPDATERVM_IP: Override MININET for updater.py usage.
+...               UPDATERVM_IP: Override TOOLS_SYSTEM_IP for updater.py usage.
 ...               UPDATERVM_*: Override corresponding MININET_* for updater.py usage.
 Suite Setup       FailFast.Do_Not_Fail_Fast_From_Now_On
 Suite Teardown    Disconnect
@@ -125,7 +125,7 @@ Resource          ${CURDIR}/../../../libraries/Utils.robot
 # This table acts as an exhaustive list of variables users can modify on pybot invocation.
 # It also contains commented-out lines for variables defined elswhere.
 # Keep this list in alphabetical order.
-# ${CONTROLLER} is inherited from Variables.py
+# ${ODL_SYSTEM_IP} is inherited from Variables.py
 # ${CONTROLLER_USER} is inherited from Variables.py
 # ${CONTROLLER_PASSWORD} is inherited from Variables.py
 ${CONTROLLER_PROMPT}    ${DEFAULT_LINUX_PROMPT}    # from Variables.py
@@ -135,7 +135,7 @@ ${FIRST_PCC_IP}    ${PCCMOCKVM_IP}
 ${LOG_NAME}       throughpcep.log
 ${LOG_PATH}       ${PCCMOCKVM_WORKSPACE}
 ${LSPS}           65535
-${MININET}        127.0.0.1
+${TOOLS_SYSTEM_IP}        127.0.0.1
 # ${MININET_PASSWORD} is inherited from Variables.py
 ${MININET_PROMPT}    ${DEFAULT_LINUX_PROMPT}    # from Variables.py
 ${MININET_USER}    mininet
@@ -144,7 +144,7 @@ ${MOCK_FILE}      pcc-mock-ecexutable.jar
 ${PCCDOWNLOAD_HOSTHEADER}    nexus.opendaylight.org
 ${PCCDOWNLOAD_URLBASE}    http://${PCCDOWNLOAD_HOSTHEADER}/content/repositories/opendaylight.snapshot/org/opendaylight/bgpcep/pcep-pcc-mock/
 ${PCCMOCK_COLOCATED}    False
-${PCCMOCKVM_IP}    ${MININET}
+${PCCMOCKVM_IP}    ${TOOLS_SYSTEM_IP}
 ${PCCMOCKVM_PASSWORD}    ${MININET_PASSWORD}
 ${PCCMOCKVM_PROMPT}    ${MININET_PROMPT}
 ${PCCMOCKVM_USER}    ${MININET_USER}
@@ -157,11 +157,11 @@ ${RESTCONF_REUSE}    True
 ${RESTCONF_SCOPE}    ${EMPTY}
 ${RESTCONF_USER}    ${USER}    # from Variables.py
 ${UPDATER_COLOCATED}    False
-${UPDATER_ODLADDRESS}    ${CONTROLLER}
+${UPDATER_ODLADDRESS}    ${ODL_SYSTEM_IP}
 ${UPDATER_REFRESH}    0.1
 ${UPDATER_TIMEOUT}    300
 ${UPDATERVM_ENABLE_TCP_RW_REUSE}    True
-${UPDATERVM_IP}    ${MININET}
+${UPDATERVM_IP}    ${TOOLS_SYSTEM_IP}
 ${UPDATERVM_PASSWORD}    ${MININET_PASSWORD}
 ${UPDATERVM_PROMPT}    ${MININET_PROMPT}
 ${UPDATERVM_USER}    ${MININET_USER}
@@ -201,8 +201,8 @@ Put_Updater
     SSHKeywords.Assure_Library_Counter    target_dir=${UPDATERVM_WORKSPACE}
     SSHKeywords.Assure_Library_Ipaddr    terget_dir=${UPDATERVM_WORKSPACE}
     # Done preparation of Updater VM, now use AuthStandalone to create session from robot VM too.
-    BuiltIn.Log_Many    ${RESTCONF_USER}    ${RESTCONF_PASSWORD}    ${RESTCONF_SCOPE}    ${CONTROLLER}
-    ${session} =    AuthStandalone.Init_Session    ${CONTROLLER}    ${RESTCONF_USER}    ${RESTCONF_PASSWORD}    ${RESTCONF_SCOPE}
+    BuiltIn.Log_Many    ${RESTCONF_USER}    ${RESTCONF_PASSWORD}    ${RESTCONF_SCOPE}    ${ODL_SYSTEM_IP}
+    ${session} =    AuthStandalone.Init_Session    ${ODL_SYSTEM_IP}    ${RESTCONF_USER}    ${RESTCONF_PASSWORD}    ${RESTCONF_SCOPE}
     BuiltIn.Set_Suite_Variable    ${rest_session}    ${session}
     # TODO: Define http timeouts.
 
@@ -227,7 +227,7 @@ Topology_Precondition
 Start_Pcc_Mock
     [Documentation]    Launch pcc-mock on background so simulated PCCs start connecting to controller.
     SSHLibrary.Switch_Connection    pccmock
-    ${command} =    BuiltIn.Set_Variable    java -jar ${mocklocation} --local-address ${FIRST_PCC_IP} --remote-address ${CONTROLLER} --pcc ${PCCS} --lsp ${LSPS} &> ${LOG_PATH}/${LOG_NAME}
+    ${command} =    BuiltIn.Set_Variable    java -jar ${mocklocation} --local-address ${FIRST_PCC_IP} --remote-address ${ODL_SYSTEM_IP} --pcc ${PCCS} --lsp ${LSPS} &> ${LOG_PATH}/${LOG_NAME}
     BuiltIn.Log    ${command}
     SSHLibrary.Write    ${command}
     # The pccmock SSH session is left alive, but no data will be exchanged for a while.
@@ -388,7 +388,7 @@ Restore_Tcp_Rw_Reuse
 *** Keywords ***
 Pccmock_From_Controller
     [Documentation]    Copy Controller values to Pccmock VM variables.
-    BuiltIn.Set_Suite_Variable    ${PCCMOCKVM_IP}    ${CONTROLLER}
+    BuiltIn.Set_Suite_Variable    ${PCCMOCKVM_IP}    ${ODL_SYSTEM_IP}
     BuiltIn.Set_Suite_Variable    ${PCCMOCKVM_PASSWORD}    ${CONTROLLER_PASSWORD}
     BuiltIn.Set_Suite_Variable    ${PCCMOCKVM_PROMPT}    ${CONTROLLER_PROMPT}
     BuiltIn.Set_Suite_Variable    ${PCCMOCKVM_WORKSPACE}    ${CONTROLLER_WORKSPACE}
@@ -396,7 +396,7 @@ Pccmock_From_Controller
 
 Updater_From_Controller
     [Documentation]    Copy Controller values to Uprater VM variables.
-    BuiltIn.Set_Suite_Variable    ${UPDATERVM_IP}    ${CONTROLLER}
+    BuiltIn.Set_Suite_Variable    ${UPDATERVM_IP}    ${ODL_SYSTEM_IP}
     BuiltIn.Set_Suite_Variable    ${UPDATERVM_PASSWORD}    ${CONTROLLER_PASSWORD}
     BuiltIn.Set_Suite_Variable    ${UPDATERVM_PROMPT}    ${CONTROLLER_PROMPT}
     BuiltIn.Set_Suite_Variable    ${UPDATERVM_WORKSPACE}    ${CONTROLLER_WORKSPACE}

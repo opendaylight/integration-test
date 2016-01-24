@@ -10,11 +10,11 @@ Variables         ../variables/Variables.py
 
 *** Variables ***
 # TODO: Introduce ${tree_size} and use instead of 1 in the next line.
-${start}          sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,1 --switch ovsk,protocols=OpenFlow13
+${start}          sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo tree,1 --switch ovsk,protocols=OpenFlow13
 
 *** Keywords ***
 Start Suite
-    [Arguments]    ${system}=${MININET}    ${user}=${MININET_USER}    ${password}=${MININET_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${timeout}=30s
+    [Arguments]    ${system}=${TOOLS_SYSTEM_IP}    ${user}=${MININET_USER}    ${password}=${MININET_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${timeout}=30s
     [Documentation]    Basic setup/cleanup work that can be done safely before any system
     ...    is run.
     Log    Start the test on the base edition
@@ -27,7 +27,7 @@ Start Suite
     Read Until    mininet>
 
 Start Mininet
-    [Arguments]    ${system}=${MININET}    ${cmd}=${start}    ${custom}=    ${user}=${MININET_USER}    ${password}=${MININET_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}
+    [Arguments]    ${system}=${TOOLS_SYSTEM_IP}    ${cmd}=${start}    ${custom}=    ${user}=${MININET_USER}    ${password}=${MININET_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}
     ...    ${prompt_timeout}=30s
     [Documentation]    Basic setup to start mininet with custom topology
     Log    Start the test on the base edition
@@ -137,7 +137,7 @@ Clean Mininet System
     Run Command On Mininet    ${system}    sudo ps -elf | egrep 'usr/local/bin/mn' | egrep python | awk '{print "sudo kill -9",$4}' | sh
 
 Clean Up Ovs
-    [Arguments]    ${system}=${MININET}
+    [Arguments]    ${system}=${TOOLS_SYSTEM_IP}
     [Documentation]    Cleans up the OVS instance and remove any existing common known bridges.
     ${output}=    Run Command On Mininet    ${system}    sudo ovs-vsctl list-br
     Log    ${output}
@@ -247,14 +247,14 @@ Verify File Exists On Remote System
     Close Connection
 
 Verify Controller Is Not Dead
-    [Arguments]    ${controller_ip}=${CONTROLLER}
+    [Arguments]    ${controller_ip}=${ODL_SYSTEM_IP}
     [Documentation]    Will execute any tests to verify the controller is not dead. Some checks are
     ...    Out Of Memory Execptions.
     Check Karaf Log File Does Not Have Messages    ${controller_ip}    java.lang.OutOfMemoryError
     # TODO: Should Verify Controller * keywords also accept user, password, prompt and karaf_log arguments?
 
 Verify Controller Has No Null Pointer Exceptions
-    [Arguments]    ${controller_ip}=${CONTROLLER}
+    [Arguments]    ${controller_ip}=${ODL_SYSTEM_IP}
     [Documentation]    Will execute any tests to verify the controller is not having any null pointer eceptions.
     Check Karaf Log File Does Not Have Messages    ${controller_ip}    java.lang.NullPointerException
 

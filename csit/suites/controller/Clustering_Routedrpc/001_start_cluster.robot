@@ -4,7 +4,7 @@ Default Tags      3-node-cluster
 Resource          ../../../libraries/ClusterKeywords.robot
 
 *** Variables ***
-@{controllers}    ${CONTROLLER}    ${CONTROLLER1}    ${CONTROLLER2}
+@{controllers}    ${ODL_SYSTEM_1_IP}    ${ODL_SYSTEM_2_IP}    ${ODL_SYSTEM_3_IP}
 ${KARAF_HOME}     ${WORKSPACE}/${BUNDLEFOLDER}
 
 *** Test Cases ***
