@@ -20,9 +20,9 @@ Add a flow
     [Tags]    adsal
     ${body}    Set Variable    {"installInHw":"true","name":"flow1","node":{"id":"00:00:00:00:00:00:00:02","type":"OF"},"priority":"1","etherType":"0x800","nwDst":"10.0.0.1/32","actions":["OUTPUT=1"]}
     ${expected_content}    To JSON    ${body}
-    ${resp}    RequestsLibrary.Put    session    ${REST_CONTEXT}/${CONTAINER}/node/OF/${node_id}/staticFlow/${name}    data=${body}
+    ${resp}    RequestsLibrary.Put Request    session    ${REST_CONTEXT}/${CONTAINER}/node/OF/${node_id}/staticFlow/${name}    data=${body}
     Should Be Equal As Strings    ${resp.status_code}    201
-    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}/${CONTAINER}
+    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/${CONTAINER}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     ${resp_content}    Get From Dictionary    ${result}    flowConfig
@@ -41,9 +41,9 @@ Remove a flow
     ${actions}    Create List    OUTPUT=1
     ${expected_content}    Create Dictionary    name=${name}    installInHw=true    node=${node}    priority=1    etherType=0x800
     ...    nwDst=10.0.0.1/32    actions=${actions}
-    ${resp}    RequestsLibrary.Delete    session    ${REST_CONTEXT}/${CONTAINER}/node/OF/${node_id}/staticFlow/${name}
+    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CONTEXT}/${CONTAINER}/node/OF/${node_id}/staticFlow/${name}
     Should Be Equal As Strings    ${resp.status_code}    204
-    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}/${CONTAINER}
+    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/${CONTAINER}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     ${resp_content}    Get From Dictionary    ${result}    flowConfig

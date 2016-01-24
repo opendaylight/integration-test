@@ -16,12 +16,12 @@ ${BODY2}          <flow xmlns="urn:opendaylight:flow:inventory"><priority>2</pri
 *** Test Cases ***
 Add a flow - Sending IPv4 Dest Address and Eth type
     [Documentation]    Push a flow through REST-API
-    ${resp}    RequestsLibrary.Put    session    ${REST_CON}/node/openflow:1/table/2/flow/139    headers=${HEADERS_XML}    data=${BODY1}
+    ${resp}    RequestsLibrary.Put Request    session    ${REST_CON}/node/openflow:1/table/2/flow/139    headers=${HEADERS_XML}    data=${BODY1}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after adding flow config - Sending IPv4 Dest Address and Eth type
     [Documentation]    Verify the flow
-    ${resp}    RequestsLibrary.Get    session    ${REST_CON}/node/openflow:1/table/2
+    ${resp}    RequestsLibrary.Get Request    session    ${REST_CON}/node/openflow:1/table/2
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    139
 
@@ -32,12 +32,12 @@ Verify after adding flow operational - Sending IPv4 Dest Address and Eth type
 
 Modify a flow - Output to physical port#
     [Documentation]    Push a flow through REST-API
-    ${resp}    RequestsLibrary.Put    session    ${REST_CON}/node/openflow:1/table/2/flow/139    headers=${HEADERS_XML}    data=${BODY2}
+    ${resp}    RequestsLibrary.Put Request    session    ${REST_CON}/node/openflow:1/table/2/flow/139    headers=${HEADERS_XML}    data=${BODY2}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after modifying flow config - Output to physical port#
     [Documentation]    Verify the flow
-    ${resp}    RequestsLibrary.Get    session    ${REST_CON}/node/openflow:1/table/2
+    ${resp}    RequestsLibrary.Get Request    session    ${REST_CON}/node/openflow:1/table/2
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    10.0.20.1
 
@@ -48,12 +48,12 @@ Verify after modifying flow operational - Output to physical port#
 
 Remove a flow - Output to physical port#
     [Documentation]    Remove a flow
-    ${resp}    RequestsLibrary.Delete    session    ${REST_CON}/node/openflow:1/table/2/flow/139
+    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CON}/node/openflow:1/table/2/flow/139
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify after deleting flow config - Output to physical port#
     [Documentation]    Verify the flow
-    ${resp}    RequestsLibrary.Get    session    ${REST_CON}/node/openflow:1/table/2
+    ${resp}    RequestsLibrary.Get Request    session    ${REST_CON}/node/openflow:1/table/2
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Not Contain    ${resp.content}    139
 

@@ -128,7 +128,7 @@ Get_Config_Running_To_Confirm_Delete_After_Commit
 
 Restconf_Get_Modules_Shall_Return_404
     [Documentation]    Check that "Not Found" is returned when Restconf is asked for the deleted element.
-    ${response}=    RequestsLibrary.Get    config    config:modules    ${ACCEPT_XML}
+    ${response}=    RequestsLibrary.Get Request    config    config:modules    ${ACCEPT_XML}
     BuiltIn.Should_Be_Equal_As_Strings    404    ${response.status_code}
 
 Commit_No_Transaction
