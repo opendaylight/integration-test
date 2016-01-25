@@ -11,7 +11,7 @@ Library           json
 Library           HttpLibrary.HTTP
 
 *** Variables ***
-${HBASE_CLIENT}    /tmp/Hbase/hbase-0.94.15/bin
+${HBASE_CLIENT}    /usr/lib/hbase/hbase-0.94.15/bin
 ${CASSANDRA_CLIENT}    /tmp/cassandra/apache-cassandra-2.1.12/bin
 ${final}          ${EMPTY}
 ${prompt_timeout}    ${EMPTY}
@@ -57,21 +57,32 @@ Ping All Hosts
     Read Until    mininet>
 
 Iperf All Hosts
+    [Arguments]    ${host1}    ${host2}   
+    [Documentation]    Iperf between ${host1} and ${host2} 
+    Switch Connection    ${mininet_conn_id1}
+    Write    iperf ${host1} ${host2}
+    Read Until    mininet>
+
+
+Iperf All Hosts Hbase
     [Arguments]    ${pattern}
     [Documentation]    Iperf between h1 and h2 and check Hbase
-    Switch Connection    ${mininet_conn_id1}
-    Write    iperf h1 h2
-    Read Until    mininet>
+    Iperf All Hosts    h1    h2
     ${query_output}=    Query the Data from HBaseClient    count 'NETFLOW'
     Should Match Regexp    ${query_output}    ${pattern}
 
 Iperf All Hosts Cassandra
     [Arguments]    ${pattern}
     [Documentation]    Iperf between h1 and h2 and check Cassandra
-    Switch Connection    ${mininet_conn_id1}
-    Write    iperf h1 h2
-    Read Until    mininet>
+    Iperf All Hosts    h1    h2
     ${query_output}=    Count Cassandra rows    select count(*) from tsdr.metriclog;
+    Should Match Regexp    ${query_output}    ${pattern}
+
+Iperf All Hosts HSQLDB
+    [Arguments]    ${pattern}
+    [Documentation]    Iperf between h1 and h2 and check Cassandra
+    Iperf All Hosts    h1    h2
+    ${query_output}=   Issue Command On Karaf Console    tsdr:list NETFLOW | wc -l
     Should Match Regexp    ${query_output}    ${pattern}
 
 Stop Tsdr Suite
@@ -277,19 +288,30 @@ Verify Metric Val File
     ${found_line}=    Get From List    ${metricval}    ${mv_len}
     @{split_line}=    Split String    ${found_line}    ${SPACE}
     ${metric_count}=    Get From List    ${split_line}    3
+    LOG    ${metric_count}    WARN
     [Return]    ${metric_count}
 
 Verify Metric log File
     [Arguments]    ${pattern}
     [Documentation]    Returns Value for lines in Metriclog file matching the pattern
-    ${contents}=    Grep File    ${CASSANDRA_DB_PATH}${temp_metric_val}    ${pattern}
+    ${contents}=    Grep From File    ${CASSANDRA_DB_PATH}${temp_metric_val}    ${pattern}
     [Return]    ${contents}
 
+Grep From File
+
+    [Arguments]    ${file}    ${pattern}
+    [Documentation]    Use cat to grep from the file and return the output
+    LOG    ${file}    WARN
+    LOG    ${pattern}    WARN
+    ${output}=    Run Command On Remote System    ${ODL_SYSTEM_IP}    cat ${file} | ${pattern}
+    LOG    ${output}    WARN
+    [Return]    ${output}
+ 
 Find Metricval Keys
     [Arguments]    ${pattern}    ${file}
     [Documentation]    Return list element which has the particular pattern.
-    ${db_grep}=    Grep File    ${CASSANDRA_DB_PATH}${file}    ${pattern}
-    ${metric_grep}=    Grep File    ${TSDR_PATH}/tsdrKeyCache.txt    ${pattern}
+    ${db_grep}=    Grep From File    ${CASSANDRA_DB_PATH}${file}    ${pattern}
+    ${metric_grep}=    Grep From File    ${TSDR_PATH}/tsdrKeyCache.txt    ${pattern}
     @{split_line}=    Split String    ${metric_grep}    |
     ${keypath}=    Get From List    ${split_line}    0
     Should Contain    ${db_grep}    ${keypath}
@@ -309,6 +331,9 @@ Copy TSDR tables
     Write    COPY tsdr.${val_table} TO '${CASSANDRA_DB_PATH}${val_table}' WITH DELIMITER = ' ';
     Read Until    cqlsh>
     Write    exit
+    Write    sudo chmod 755 ${CASSANDRA_DB_PATH}
+    ${wr}=    Execute Command    ls -l ${CASSANDRA_DB_PATH}
+    ${output1}=    Execute Command    cat ${CASSANDRA_DB_PATH}${key_table} | head
     Close Connection
 
 Issue Cassandra Query
@@ -343,7 +368,8 @@ Count Cassandra rows
 Read File and Return Split Lines
     [Arguments]    ${filename}
     [Documentation]    Reads the file and returns each line as list
-    ${contents}=    OperatingSystem.Get File    ${filename}
+    ${contents}=    Run Command On Remote System    ${ODL_SYSTEM_IP}    cat ${filename}
+    LOG    ${contents}    WARN
     @{lines}=    Split to lines    ${contents}
     [Return]    @{lines}
 
@@ -458,7 +484,7 @@ Severity Iterator For TSDR
 Severity Iterator For Syslog HBase
     [Arguments]    ${message}    ${value}    &{syslog_severity}
     [Documentation]    Simulating FOR loop for checking HBASE for each syslog_severity
-    ${output}=    Query the Data from HBaseClient    scan 'SysLog'
+    ${output}=    Query the Data from HBaseClient    scan 'SYSLOG'
     Should Contain X Times    ${output}    ${message}    8
     ${iterator}=    Evaluate    ${value} * 8
     : FOR    ${level}    IN ZIP    &{syslog_severity}
@@ -625,32 +651,32 @@ Collect Data from SNMP Agent
     \    ${ifMtu}=    Get From Dictionary    ${int}    ifMtu
     \    ${ifOperStatus1}=    Get From Dictionary    ${int}    ifOperStatus
     \    ${ifOperStatus}=    Get From Dictionary    ${OPER_STATUS}    ${ifOperStatus1}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfOutDiscards*RK=ifIndex:${ifindex},SnmpMetric:IfOutDiscards*
+    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfOutDiscards*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutDiscards*
     \    Append To List    ${SNMP_VALUES}    ${ifOutDiscards}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfInDiscards*RK=ifIndex:${ifindex},SnmpMetric:IfInDiscards*
+    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfInDiscards*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInDiscards*
     \    Append To List    ${SNMP_VALUES}    ${ifInDiscards}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfInOctets*RK=ifIndex:${ifindex},SnmpMetric:IfInOctets*
+    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfInOctets*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInOctets*
     \    Append To List    ${SNMP_VALUES}    ${ifInOctets}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfOutQLen*RK=ifIndex:${ifindex},SnmpMetric:IfOutQLen*
+    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfOutQLen*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutQLen*
     \    Append To List    ${SNMP_VALUES}    ${ifOutQLen}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfOutErrors*RK=ifIndex:${ifindex},SnmpMetric:IfOutErrors*
+    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfOutErrors*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutErrors*
     \    Append To List    ${SNMP_VALUES}    ${ifOutErrors}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfInUcastPkts*RK=ifIndex:${ifindex},SnmpMetric:IfInUcastPkts*
+    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfInUcastPkts*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInUcastPkts*
     \    Append To List    ${SNMP_VALUES}    ${ifInUcastPkts}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfOutNUcastPkts*RK=ifIndex:${ifindex},SnmpMetric:IfOutNUcastPkts*
+    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfOutNUcastPkts*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutNUcastPkts*
     \    Append To List    ${SNMP_VALUES}    ${ifOutNUcastPkts}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfInErrors*RK=ifIndex:${ifindex},SnmpMetric:IfInErrors*
+    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfInErrors*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInErrors*
     \    Append To List    ${SNMP_VALUES}    ${ifInErrors}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfOutOctets*RK=ifIndex:${ifindex},SnmpMetric:IfOutOctets*
+    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfOutOctets*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutOctets*
     \    Append To List    ${SNMP_VALUES}    ${ifOutOctets}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfAdminStatus*RK=ifIndex:${ifindex},SnmpMetric:IfAdminStatus*
+    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfAdminStatus*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfAdminStatus*
     \    Append To List    ${SNMP_VALUES}    ${ifAdminStatus}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfInUnknownProtos*RK=ifIndex:${ifindex},SnmpMetric:IfInUnknownProtos*
+    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfInUnknownProtos*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInUnknownProtos*
     \    Append To List    ${SNMP_VALUES}    ${ifInUnknownProtos}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfOutUcastPkts*RK=ifIndex:${ifindex},SnmpMetric:IfOutUcastPkts*
+    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfOutUcastPkts*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutUcastPkts*
     \    Append To List    ${SNMP_VALUES}    ${ifOutUcastPkts}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfInNUcastPkts*RK=ifIndex:${ifindex},SnmpMetric:IfInNUcastPkts*
+    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfInNUcastPkts*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInNUcastPkts*
     \    Append To List    ${SNMP_VALUES}    ${ifInNUcastPkts}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfOperStatus*RK=ifIndex:${ifindex},SnmpMetric:IfOperStatus*
+    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfOperStatus*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOperStatus*
     \    Append To List    ${SNMP_VALUES}    ${ifOperStatus}
     [Return]    ${SNMP_ENTRY}    ${SNMP_VALUES}
