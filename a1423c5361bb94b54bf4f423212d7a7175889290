@@ -45,6 +45,30 @@
       "revId": "a1423c5361bb94b54bf4f423212d7a7175889290",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1cea3b0f",
+        "filename": "csit/suites/netconf/MDSAL/northbound.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-01-25T16:02:29Z",
+      "side": 1,
+      "message": "I am thinking that I don\u0027t want the FastFail feature in this suite as well as the tests here take only a few tenths of second to execute and determine if they fail or not. However I would like to remove it in a separate change to avoid mixing unrelated stuff in one change.",
+      "parentUuid": "9a3d3df0_3c829f4f",
+      "range": {
+        "startLine": 26,
+        "startChar": 52,
+        "endLine": 26,
+        "endChar": 69
+      },
+      "revId": "a1423c5361bb94b54bf4f423212d7a7175889290",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
