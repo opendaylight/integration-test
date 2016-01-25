@@ -133,8 +133,8 @@ Restconf_Get_Modules_Shall_Return_404
     BuiltIn.Should_Be_Equal_As_Strings    404    ${response.status_code}
 
 Commit_No_Transaction
-    [Documentation]    Attempt to perform "commit" when there are no changes in the candidate configuration and check that it fails with the correct error.
-    Test_Commit_With_No_Transactions
+    [Documentation]    Attempt to perform "commit" when there are no changes in the candidate configuration and check that it returns OK status.
+    Perform_Test    commit-no-transaction
 
 Edit_Config_Another_Modules_Merge_For_Discard
     [Documentation]    Create an element to be discarded and check the reply.
@@ -269,8 +269,7 @@ Delete_Not_Existing_Module
 
 Commit_Delete_Not_Existing_Module
     [Documentation]    Attempt to commit and check the reply.
-    Test_Commit_With_No_Transactions
-    [Teardown]    Utils.Report_Failure_Due_To_Bug    4455
+    Perform_Test    commit-no-transaction
 
 Remove_Not_Existing_Module
     [Documentation]    Attempt to remove the "module" element again and check that the operation is "silently ignored".
@@ -420,9 +419,3 @@ Send_And_Check
     [Arguments]    ${name}    ${expected}
     ${actual}=    Load_And_Send_Message    ${name}
     BuiltIn.Should_Be_Equal    ${expected}    ${actual}
-
-Test_Commit_With_No_Transactions
-    [Documentation]    Issue a "commit" RPC request and check that it fails with "No current transactions" error.
-    ${reply}=    Load_And_Send_Message    commit-no-transaction
-    ${expected}=    Load_Expected_Reply    commit-no-transaction
-    BuiltIn.Should_Contain    ${reply}    ${expected}
