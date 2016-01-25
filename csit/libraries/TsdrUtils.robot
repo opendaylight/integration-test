@@ -15,13 +15,13 @@ ${HBASE_CLIENT}    /tmp/Hbase/hbase-0.94.15/bin
 ${CASSANDRA_CLIENT}    /tmp/cassandra/apache-cassandra-2.1.12/bin
 ${final}          ${EMPTY}
 ${prompt_timeout}    ${EMPTY}
-${CASSANDRA_DB_PATH}    /tmp/cassandra/apache-cassandra-2.1.12/
 ${metric_path}    metricpath
 ${metric_val}     metricval
 ${metric_log}     metriclog
 ${temp_metric_val}    temp_metric_val
 ${NETFLOW_PORT}    2055
 ${KARAF_PATH}     ${WORKSPACE}/${BUNDLEFOLDER}
+${CASSANDRA_DB_PATH}    ${CURDIR}/
 ${TSDR_PATH}      ${KARAF_PATH}/tsdr
 ${PURGE_PATH}     ${KARAF_PATH}/etc/tsdr.data.purge.cfg
 ${SNMP_PATH}      ${KARAF_PATH}/etc/tsdr.snmp.cfg
@@ -57,21 +57,32 @@ Ping All Hosts
     Read Until    mininet>
 
 Iperf All Hosts
+    [Arguments]    ${host1}    ${host2}
+    [Documentation]    Iperf between ${host1} and ${host2}
+    Switch Connection    ${mininet_conn_id1}
+    Write    iperf ${host1} ${host2}
+    Read Until    mininet>
+
+
+Iperf All Hosts Hbase
     [Arguments]    ${pattern}
     [Documentation]    Iperf between h1 and h2 and check Hbase
-    Switch Connection    ${mininet_conn_id1}
-    Write    iperf h1 h2
-    Read Until    mininet>
+    Iperf All Hosts    h1    h2
     ${query_output}=    Query the Data from HBaseClient    count 'NETFLOW'
     Should Match Regexp    ${query_output}    ${pattern}
 
 Iperf All Hosts Cassandra
     [Arguments]    ${pattern}
     [Documentation]    Iperf between h1 and h2 and check Cassandra
-    Switch Connection    ${mininet_conn_id1}
-    Write    iperf h1 h2
-    Read Until    mininet>
+    Iperf All Hosts    h1    h2
     ${query_output}=    Count Cassandra rows    select count(*) from tsdr.metriclog;
+    Should Match Regexp    ${query_output}    ${pattern}
+
+Iperf All Hosts HSQLDB
+    [Arguments]    ${pattern}
+    [Documentation]    Iperf between h1 and h2 and check Cassandra
+    Iperf All Hosts    h1    h2
+    ${query_output}=   Issue Command On Karaf Console    tsdr:list NETFLOW | wc -l
     Should Match Regexp    ${query_output}    ${pattern}
 
 Stop Tsdr Suite
@@ -266,8 +277,8 @@ Create Temporary Key Info
     [Arguments]    ${pattern}    ${remote}=${ODL_SYSTEM_IP}    ${user}=${TOOLS_SYSTEM_USER}    ${prompt_timeout}=120s    ${val_table}=metricval
     [Documentation]    Creates a temporary File with matching keya,keyb values.
     Log    Removing existing file
-    Run Command On Remote System    ${ODL_SYSTEM_IP}    rm -rf ${CASSANDRA_DB_PATH}${temp_metric_val}
-    Run Command On Remote System    ${ODL_SYSTEM_IP}    cat ${CASSANDRA_DB_PATH}${val_table}|grep "${pattern}" > ${CASSANDRA_DB_PATH}${temp_metric_val}
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    sudo rm -rf ${CASSANDRA_DB_PATH}${temp_metric_val}
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    sudo cat ${CASSANDRA_DB_PATH}${val_table}|grep "${pattern}" > ${CASSANDRA_DB_PATH}${temp_metric_val}
 
 Verify Metric Val File
     [Documentation]    Returns Value for metric matching particular keya,keyb
@@ -302,13 +313,23 @@ Copy TSDR tables
     ${conn_id}=    Open Connection    ${remote}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${prompt_timeout}
     Login With Public Key    ${user}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    export JAVA_HOME=/usr
-    Write    ${CASSANDRA_CLIENT}/cqlsh
+    Write    sudo ${CASSANDRA_CLIENT}/cqlsh
     Read Until    cqlsh>
     Write    COPY tsdr.${key_table} TO '${CASSANDRA_DB_PATH}${key_table}' WITH DELIMITER = ' ';
     Read Until    cqlsh>
     Write    COPY tsdr.${val_table} TO '${CASSANDRA_DB_PATH}${val_table}' WITH DELIMITER = ' ';
     Read Until    cqlsh>
     Write    exit
+    Execute Command    sudo chmod 777 ${CASSANDRA_DB_PATH}
+    Execute Command    sudo chmod 777 *
+    ${wr}=    Execute Command    ls -l ${CASSANDRA_DB_PATH}
+    LOG    ${wr}    WARN
+    ${output1}=    Execute Command    cat ${CASSANDRA_DB_PATH}${key_table} | head
+    LOG    ${output1}    WARN
+    ${output1}=    Execute Command    pwd ${CASSANDRA_DB_PATH}${key_table}
+    LOG    ${output1}    WARN
+    ${get_output}=    OperatingSystem.Get File    ${CASSANDRA_DB_PATH}${key_table}
+    LOG    ${get_output}    WARN
     Close Connection
 
 Issue Cassandra Query
@@ -458,7 +479,7 @@ Severity Iterator For TSDR
 Severity Iterator For Syslog HBase
     [Arguments]    ${message}    ${value}    &{syslog_severity}
     [Documentation]    Simulating FOR loop for checking HBASE for each syslog_severity
-    ${output}=    Query the Data from HBaseClient    scan 'SysLog'
+    ${output}=    Query the Data from HBaseClient    scan 'SYSLOG'
     Should Contain X Times    ${output}    ${message}    8
     ${iterator}=    Evaluate    ${value} * 8
     : FOR    ${level}    IN ZIP    &{syslog_severity}
