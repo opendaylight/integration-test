@@ -16,6 +16,52 @@
       "revId": "d0cc7a1ae43d5324931a88c26cd48895a3c04ca7",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_bc734f4c",
+        "filename": "csit/suites/lacp/Lacp_Feature_OF13/010__lacp_inventory.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-25T16:42:47Z",
+      "side": 1,
+      "message": "this keyword (and same with Delete, Post, etc) are being\ndeprecated and the new keyword is like \"Get Request\", \"Post Request\" etc.\n\nfyi.",
+      "range": {
+        "startLine": 23,
+        "startChar": 15,
+        "endLine": 23,
+        "endChar": 18
+      },
+      "revId": "d0cc7a1ae43d5324931a88c26cd48895a3c04ca7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_dc76133e",
+        "filename": "csit/suites/lacp/Lacp_Feature_OF13/020__lacp_lag_resiliency.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-25T16:42:47Z",
+      "side": 1,
+      "message": "you have this same keyword (and probably others) in multiple suites.  Its probably time to create a LACPLibrary.robot in our libraries folder.\n\nalso, one enhancement here could be to pass ${node} as an argument which makes it more usable down the road.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 49
+      },
+      "revId": "d0cc7a1ae43d5324931a88c26cd48895a3c04ca7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
