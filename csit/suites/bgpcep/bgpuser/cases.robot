@@ -35,6 +35,7 @@ Library           RequestsLibrary
 Library           ${CURDIR}/../../../libraries/HsfJson/hsf_json.py
 Variables         ${CURDIR}/../../../variables/Variables.py
 Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}
+Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
@@ -284,16 +285,3 @@ Check_Number_Of_Speaker_Connections
     [Documentation]    Run netstat in mininet machine and parse it for number of established connections. Check it is ${howmany}.
     ${output}=    SSHKeywords.Count_Port_Occurences    17900    ESTABLISHED    python
     BuiltIn.Should_Be_Equal_As_Strings    ${output}    ${howmany}
-
-Read_And_Fail_If_Prompt_Is_Seen
-    [Documentation]    Try to read SSH to see prompt, but expect to see no prompt within SSHLibrary's timeout.
-    ${passed}=    BuiltIn.Run_Keyword_And_Return_Status    BuiltIn.Run_Keyword_And_Expect_Error    No match found for '${TOOLS_SYSTEM_PROMPT}' in *.    Read_Text_Before_Prompt
-    BuiltIn.Return_From_Keyword_If    ${passed}
-    BGPSpeaker.Dump_BGP_Speaker_Logs
-    Builtin.Fail    The prompt was seen but it was not expected yet
-
-Read_Text_Before_Prompt
-    [Documentation]    Log text gathered by SSHLibrary.Read_Until_Prompt.
-    ...    This needs to be a separate keyword just because how Read_And_Fail_If_Prompt_Is_Seen is implemented.
-    ${text}=    SSHLibrary.Read_Until_Prompt
-    BuiltIn.Log    ${text}
