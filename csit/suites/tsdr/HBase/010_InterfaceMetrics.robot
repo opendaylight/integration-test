@@ -65,7 +65,6 @@ Verify TSDR Configuration Interval
     [Arguments]    ${interval}
     [Documentation]    Verify Configuration interval of TSDR Collection
     ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_INTERVAL}
-    LOG    ${resp.content}    WARN
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${interval}
 
