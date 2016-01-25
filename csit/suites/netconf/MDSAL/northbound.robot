@@ -23,8 +23,7 @@ Documentation     Metconf MDSAL Northbound test suite.
 ...               TODO: Change the 4 testcases to use unique message IDs.
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
-Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           RequestsLibrary
 Library           SSHLibrary
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
