@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_763c48e3",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/Bug_4794.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-25T12:16:29Z",
+      "side": 1,
+      "message": "Nice idea to execute the following teardown-ish actions after detecting failure.\nThe downside is that we report failure due to Bug 4794 without knowing whether it was this check, or the check at line 39 (or both). I recommend to separate the checks into two test cases.",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 39
+      },
+      "revId": "30d0afeb31c049afd6ee5497400a749698f8c02e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_56414459",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/Bug_4794.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-25T12:16:29Z",
+      "side": 1,
+      "message": "four spaces",
+      "range": {
+        "startLine": 64,
+        "startChar": 40,
+        "endLine": 64,
+        "endChar": 45
+      },
+      "revId": "30d0afeb31c049afd6ee5497400a749698f8c02e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
