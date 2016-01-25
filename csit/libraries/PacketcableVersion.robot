@@ -20,4 +20,4 @@ Init Variables Lithium
 
 Create Session And Init Variables
     Init Variables
-    Create Session    ODLSession    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    Create Session    ODLSession    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}

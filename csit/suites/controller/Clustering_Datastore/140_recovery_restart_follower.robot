@@ -11,7 +11,7 @@ Variables         ../../../variables/Variables.py
 *** Variables ***
 ${CAR_SHARD}      shard-car-config
 ${NUM_CARS}       ${60}
-@{controllers}    ${CONTROLLER}    ${CONTROLLER1}    ${CONTROLLER2}
+@{controllers}    ${ODL_SYSTEM_IP}    ${ODL_SYSTEM_2_IP}    ${CONTROLLER2}
 ${KARAF_HOME}     ${WORKSPACE}/${BUNDLEFOLDER}
 ${START_TIMEOUT}    300s
 ${STOP_TIMEOUT}    180s

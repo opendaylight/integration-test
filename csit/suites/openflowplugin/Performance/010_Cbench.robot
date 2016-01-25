@@ -18,7 +18,7 @@ ${switch_count}    8
 ${duration_in_secs}    12
 ${loops}          10
 ${num_of_unique_macs}    10000
-${cbench_system}    ${MININET}
+${cbench_system}    ${TOOLS_SYSTEM_IP}
 ${cbench_executable}    /usr/local/bin/cbench
 ${throughput_results_file}    throughput.csv
 ${latency_results_file}    latency.csv
@@ -47,7 +47,7 @@ Run Cbench And Log Results
     ##down can catch this problem and log the results as zero.    However, we need to know which
     ##file to log to, so setting it as a suite variable here.
     Set Suite Variable    ${output_filename}
-    ${output}=    Run Command On Remote System    ${cbench_system}    ${cbench_executable} -c ${CONTROLLER} ${cbench_args}    prompt_timeout=${test_timeout}
+    ${output}=    Run Command On Remote System    ${cbench_system}    ${cbench_executable} -c ${ODL_SYSTEM_IP} ${cbench_args}    prompt_timeout=${test_timeout}
     Log    ${output}
     Should Contain    ${output}    RESULT
     ${result_line}=    Get Lines Containing String    ${output}    RESULT

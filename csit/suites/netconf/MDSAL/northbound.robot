@@ -292,7 +292,7 @@ Get_Data
     [Return]    ${data}
 
 Create_ODL_Netconf_Connection
-    [Arguments]    ${host}=${CONTROLLER}    ${port}=${ODL_NETCONF_PORT}    ${user}=${ODL_NETCONF_USER}    ${password}=${ODL_NETCONF_PASSWORD}
+    [Arguments]    ${host}=${ODL_SYSTEM_IP}    ${port}=${ODL_NETCONF_PORT}    ${user}=${ODL_NETCONF_USER}    ${password}=${ODL_NETCONF_PASSWORD}
     [Documentation]    Open a netconf connecion to the given machine.
     # The "-s netconf" flag (see the "SSHLibrary.Write" line below)    is not
     # supported by SSHLibrary, therefore we need to use this elaborate and
@@ -390,7 +390,7 @@ Close_ODL_Netconf_Connection_Gracefully
 Setup_Everything
     [Documentation]    Setup resources and create session for Restconf checking.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    RequestsLibrary.Create_Session    config    http://${CONTROLLER}:${RESTCONFPORT}${CONFIG_API}    auth=${AUTH}
+    RequestsLibrary.Create_Session    config    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${CONFIG_API}    auth=${AUTH}
 
 Teardown_Everything
     [Documentation]    Close the Netconf connection and destroy all sessions in the requests library.

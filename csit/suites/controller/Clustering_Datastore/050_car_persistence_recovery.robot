@@ -9,7 +9,7 @@ Variables         ../../../variables/Variables.py
 ${CAR_SHARD}      shard-car-config
 ${NUM_CARS}       ${50}
 ${KARAF_HOME}     ${WORKSPACE}/${BUNDLEFOLDER}
-@{controllers}    ${CONTROLLER}    ${CONTROLLER1}    ${CONTROLLER2}
+@{controllers}    ${ODL_SYSTEM_IP}    ${ODL_SYSTEM_2_IP}    ${CONTROLLER2}
 ${START_TIMEOUT}    300s
 ${STOP_TIMEOUT}    180s
 

@@ -6,7 +6,7 @@ Variables         ../variables/Variables.py
 ${WORKSPACE}      /tmp
 ${BUNDLEFOLDER}    distribution-karaf-0.3.0-SNAPSHOT
 ${AUTHN_CFG_FILE}    ${WORKSPACE}/${BUNDLEFOLDER}/etc/org.opendaylight.aaa.authn.cfg
-${CONTROLLER_USER}    ${MININET_USER}
+${CONTROLLER_USER}    ${TOOLS_SYSTEM_USER}
 
 *** Keywords ***
 AAA Login
@@ -51,7 +51,7 @@ Get Auth Token
     [Arguments]    ${user}=${USER}    ${password}=${PWD}    ${scope}=${SCOPE}    ${client_id}=${EMPTY}    ${client_secret}=${EMPTY}
     [Documentation]    Wrapper used to login to controller and retrieve an auth token. Optional argumented available for client based credentials.
     ${auth_data}=    Create Auth Data    ${USER}    ${PWD}    ${scope}    ${client_id}    ${client_secret}
-    ${resp}=    AAA Login    ${CONTROLLER}    ${auth_data}
+    ${resp}=    AAA Login    ${ODL_SYSTEM_IP}    ${auth_data}
     Should Be Equal As Strings    ${resp.status_code}    201
     ${auth_token}=    Extract Value From Content    ${resp.content}    /access_token    strip
     [Return]    ${auth_token}
@@ -71,7 +71,7 @@ Validate Token Format
 Get User From IDM DB
     [Arguments]    ${user_id}=${EMPTY}
     [Documentation]    Will return user information. If no user id is passed, it will retrieve all users in DB
-    Create Session    httpbin    http://${CONTROLLER}:${RESTPORT}
+    Create Session    httpbin    http://${ODL_SYSTEM_IP}:${RESTPORT}
     ${headers}=    Create Dictionary    Content-Type=application/x-www-form-urlencoded
     ${resp}=    RequestsLibrary.GET    httpbin    ${idmurl}/users/${user_id}    headers=${headers}
     Should Be Equal As Strings    ${resp.status_code}    200
@@ -81,7 +81,7 @@ Get User From IDM DB
 Create User
     [Arguments]    ${user_data}
     [Documentation]    Will return user information. If no user id is passed, it will retrieve all users in DB
-    Create Session    httpbin    http://${CONTROLLER}:${RESTPORT}
+    Create Session    httpbin    http://${ODL_SYSTEM_IP}:${RESTPORT}
     ${headers}=    Create Dictionary    Content-Type=application/json
     ${resp}=    RequestsLibrary.POST    httpbin    ${idmurl}/users    headers=${headers}    data=${user_data}
     Should Be Equal As Strings    ${resp.status_code}    201

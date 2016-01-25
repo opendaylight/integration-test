@@ -74,7 +74,7 @@ Create Bridge And Verify
     ${body}    Replace String    ${body}    tcp:controller1:6633    tcp:${ODL_SYSTEM_1_IP}:6640
     ${body}    Replace String    ${body}    tcp:controller2:6633    tcp:${ODL_SYSTEM_2_IP}:6640
     ${body}    Replace String    ${body}    tcp:controller3:6633    tcp:${ODL_SYSTEM_3_IP}:6640
-    ${body}    Replace String    ${body}    127.0.0.1    ${MININET}
+    ${body}    Replace String    ${body}    127.0.0.1    ${TOOLS_SYSTEM_IP}
     ${body}    Replace String    ${body}    br01    ${BRIDGE}
     ${body}    Replace String    ${body}    61644    ${OVSDB_PORT}
     Log    ${body}

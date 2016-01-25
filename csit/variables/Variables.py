@@ -181,14 +181,3 @@ SEND_ACCEPT_XML_HEADERS = {'Content-Type': 'application/xml', 'Accept': 'applica
 # Test deadlines global control
 ENABLE_GLOBAL_TEST_DEADLINES = True
 
-# Deprecated old variables, to be removed once all tests that need them are
-# updated to use the new names.
-CONTROLLER = ODL_SYSTEM_IP
-CONTROLLERS = ['CONTROLLER', 'CONTROLLER1', 'CONTROLLER2']
-CONTROLLER_PASSWORD = ODL_SYSTEM_PASSWORD
-CONTROLLER_PROMPT = ODL_SYSTEM_PROMPT
-MININET = TOOLS_SYSTEM_IP
-MININET_USER = TOOLS_SYSTEM_USER
-MININET_PASSWORD = TOOLS_SYSTEM_PASSWORD
-MININET_PROMPT = TOOLS_SYSTEM_PROMPT
-PROMPT = '>'  # TODO: remove this as it's vague.  need to fix any occurances of it first.
