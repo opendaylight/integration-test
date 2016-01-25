@@ -57,6 +57,7 @@ Library           RequestsLibrary
 Library           ${CURDIR}/../../../libraries/HsfJson/hsf_json.py
 Variables         ${CURDIR}/../../../variables/Variables.py
 Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}
+Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
@@ -347,24 +348,6 @@ Switch_To_BGP_Peer_Console
 Switch_To_BGP_Application_Peer_Console
     SSHLibrary.Switch Connection    bgp_app_peer_console
 
-Start_Console_Tool
-    [Arguments]    ${command}    ${tool_opt}
-    [Documentation]    Start the tool ${command} ${tool_opt}
-    BuiltIn.Log    ${command}
-    ${output}=    SSHLibrary.Write    ${command} ${tool_opt}
-    BuiltIn.Log    ${output}
-
-Wait_Until_Console_Tool_Finish
-    [Arguments]    ${timeout}
-    [Documentation]    Wait ${timeout} for the tool exit.
-    BuiltIn.Wait Until Keyword Succeeds    ${timeout}    1s    SSHLibrary.Read Until Prompt
-
-Stop_Console_Tool
-    [Documentation]    Stop the tool if still running.
-    Utils.Write_Bare_Ctrl_C
-    ${output}=    SSHLibrary.Read    delay=1s
-    BuiltIn.Log    ${output}
-
 Wait_For_Topology_To_Change_To
     [Arguments]    ${json_topology}    ${filename}    ${timeout}=10s    ${refresh}=1s
     [Documentation]    Normalize the expected json topology and save it to ${EXPECTED_RESPONSES_FOLDER}.
@@ -398,30 +381,3 @@ Normalize_And_Save_Expected_Json
     OperatingSystem.Create_File    ${directory}${/}${filename}    ${json_normalized}
     # TODO: Should we prepend .json to the filename? When we detect it is not already prepended?
     [Return]    ${json_normalized}
-
-Read_And_Fail_If_Prompt_Is_Seen
-    [Documentation]    Try to read SSH to see prompt, but expect to see no prompt within SSHLibrary's timeout.
-    ${passed}=    BuiltIn.Run_Keyword_And_Return_Status    BuiltIn.Run_Keyword_And_Expect_Error    No match found for '${TOOLS_SYSTEM_PROMPT}' in *.    Read_Text_Before_Prompt
-    BuiltIn.Return_From_Keyword_If    ${passed}
-    BGPSpeaker.Dump_BGP_Speaker_Logs
-    Builtin.Fail    The prompt was seen but it was not expected yet
-
-Read_Text_Before_Prompt
-    [Documentation]    Log text gathered by SSHLibrary.Read_Until_Prompt.
-    ...    This needs to be a separate keyword just because how Read_And_Fail_If_Prompt_Is_Seen is implemented.
-    ${text}=    SSHLibrary.Read_Until_Prompt
-    BuiltIn.Log    ${text}
-
-Store_File_To_Workspace
-    [Arguments]    ${source_file_name}    ${target_file_name}
-    [Documentation]    Store the ${source_file_name} to the workspace as ${target_file_name}.
-    ${output_log}=    SSHLibrary.Execute_Command    cat ${source_file_name}
-    BuiltIn.Log    ${output_log}
-    Create File    ${target_file_name}    ${output_log}
-
-Check_File_For_Word_Count
-    [Arguments]    ${file_name}    ${word}    ${expected_count}
-    [Documentation]    Count ${word} in ${file_name}. Expect ${expected_count} occurence(s)
-    ${output_log}=    SSHLibrary.Execute_Command    grep -o '${word}' ${file_name} | wc -l
-    BuiltIn.Log    ${output_log}
-    BuiltIn.Should_Be_Equal_As_Strings    ${output_log}    ${expected_count}
