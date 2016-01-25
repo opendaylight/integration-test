@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite connecting ODL to Mininet
-Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
 Test Teardown     Collect OVSDB Debugs
 Library           SSHLibrary
@@ -36,17 +36,17 @@ ${PING_NOT_CONTAIN}    Destination Host Unreachable
 Make the OVS instance to listen for connection
     [Documentation]    Connect OVS to ODL
     [Tags]    OVSDB netvirt
-    Clean Up Ovs    ${MININET}
-    Run Command On Remote System    ${MININET}    sudo ovs-vsctl set-manager tcp:${CONTROLLER}:${OVSDB_PORT}
-    ${output}    Run Command On Remote System    ${MININET}    sudo ovs-vsctl show
-    ${pingresult}    Run Command On Remote System    ${MININET}    ping ${CONTROLLER} -c 4
+    Clean Up Ovs    ${TOOLS_SYSTEM_IP}
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:${OVSDB_PORT}
+    ${output}    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
+    ${pingresult}    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    ping ${ODL_SYSTEM_IP} -c 4
     Should Not Contain    ${pingresult}    ${PING_NOT_CONTAIN}
     Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${node_list}
 
 Get manager connection
     [Documentation]    This will verify if the OVS manager is connected
     [Tags]    OVSDB netvirt
-    ${output}    Run Command On Remote System    ${MININET}    sudo ovs-vsctl show
+    ${output}    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
     ${lines}=    Get Lines Containing String    ${output}    is_connected
     ${manager}=    Get Line    ${lines}    0
     Should Contain    ${manager}    true
@@ -54,7 +54,7 @@ Get manager connection
 Get controller connection
     [Documentation]    This will verify if the OpenFlow controller is connected on all bridges
     [Tags]    OVSDB netvirt
-    ${output}    Run Command On Remote System    ${MININET}    sudo ovs-vsctl show
+    ${output}    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
     ${lines}=    Get Lines Containing String    ${output}    is_connected
     ${list}=    Split String    ${lines}    \n
     Remove From List    ${list}    0
@@ -64,26 +64,26 @@ Get controller connection
 Get bridge setup
     [Documentation]    This request is verifying that the br-int bridge has been created
     [Tags]    OVSDB netvirt
-    ${output}    Run Command On Remote System    ${MININET}    sudo ovs-vsctl show
-    Should Contain    ${output}    Controller "tcp:${CONTROLLER}:${OF_PORT}"
+    ${output}    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
+    Should Contain    ${output}    Controller "tcp:${ODL_SYSTEM_IP}:${OF_PORT}"
     Should Contain    ${output}    Bridge br-int
 
 Get port setup
     [Documentation]    This will check the port br-int has been created
     [Tags]    OVSDB netvirt
-    ${output}    Run Command On Remote System    ${MININET}    sudo ovs-vsctl show
+    ${output}    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
     Should Contain    ${output}    Port br-int
 
 Get interface setup
     [Documentation]    This verify the interface br-int has been created
     [Tags]    OVSDB netvirt
-    ${output}    Run Command On Remote System    ${MININET}    sudo ovs-vsctl show
+    ${output}    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
     Should Contain    ${output}    Interface br-int
 
 Get the bridge flows
     [Documentation]    This request fetch the OF13 flow tables to verify the flows are correctly added
     [Tags]    OVSDB netvirt
-    ${output}    Run Command On Remote System    ${MININET}    sudo ovs-ofctl -O Openflow13 dump-flows br-int
+    ${output}    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-ofctl -O Openflow13 dump-flows br-int
     Should Contain    ${output}    ${FLOWS_TABLE_20}
     Should Contain    ${output}    ${FLOW_CONTROLLER}
     Should Contain    ${output}    ${FLOWS_TABLE_30}

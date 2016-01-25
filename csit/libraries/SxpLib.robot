@@ -138,7 +138,7 @@ Should Not Contain Connection
 Setup SXP Environment
     [Documentation]    Create session to Controller
     Verify Feature Is Installed    odl-sxp-all
-    Create Session    session    url=http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+    Create Session    session    url=http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
     Wait Until Keyword Succeeds    15    3    Get Bindings Master Database
 
 Clean SXP Environment

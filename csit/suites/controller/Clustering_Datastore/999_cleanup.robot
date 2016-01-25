@@ -6,7 +6,7 @@ Library           ../../../libraries/UtilLibrary.py
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-@{controllers}    ${CONTROLLER}    ${CONTROLLER1}    ${CONTROLLER2}
+@{controllers}    ${ODL_SYSTEM_IP}    ${ODL_SYSTEM_2_IP}    ${CONTROLLER2}
 ${KARAF_HOME}     ${WORKSPACE}/${BUNDLEFOLDER}
 
 *** Test Cases ***

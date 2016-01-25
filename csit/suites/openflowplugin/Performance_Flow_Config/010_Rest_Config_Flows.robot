@@ -15,7 +15,7 @@ Library           SSHLibrary
 ${switches}       25
 ${flows}          2000
 ${threads}        5
-${start}          sudo mn --controller=remote,ip=${CONTROLLER} --topo linear,${switches},1 --switch ovsk,protocols=OpenFlow13
+${start}          sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo linear,${switches},1 --switch ovsk,protocols=OpenFlow13
 ${PERFSCRIPT}     ${CURDIR}/../../../../tools/odl-mdsal-clustering-tests/clustering-performance-test/flow_add_delete_test.py
 ${PARSESCRIPT}    ${CURDIR}/../../../../tools/odl-mdsal-clustering-tests/clustering-performance-test/create_plot_data_files.py
 
@@ -30,7 +30,7 @@ Are Switches Connected
     [Teardown]    Stop Http Session
 
 Configure And Deconfigure Flows
-    ${result}=    Run Process    ${PERFSCRIPT}    --host    ${CONTROLLER}    --flows    ${flows}
+    ${result}=    Run Process    ${PERFSCRIPT}    --host    ${ODL_SYSTEM_IP}    --flows    ${flows}
     ...    --threads    ${threads}    --auth    shell=yes
     Log    ${result.stdout}
     Create File    out.log.txt    content=${result.stdout}
@@ -43,9 +43,9 @@ Start Suite
     [Documentation]    Basic setup/cleanup work that can be done safely before any system
     ...    is run.
     Log    Start the test on the base edition
-    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=>    timeout=600s
+    ${mininet_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=>    timeout=600s
     Set Suite Variable    ${mininet_conn_id}
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    sudo ovs-vsctl set-manager ptcp:6644
     Read Until    >
     Write    sudo mn -c
@@ -68,8 +68,8 @@ Stop Suite
 
 Start Http Session
     [Documentation]    Starts http session
-    Log    http://${CONTROLLER}:${RESTCONFPORT} auth=${AUTH} headers=${HEADERS_XML}
-    Create Session    tcsession    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+    Log    http://${ODL_SYSTEM_IP}:${RESTCONFPORT} auth=${AUTH} headers=${HEADERS_XML}
+    Create Session    tcsession    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
 
 Stop Http Session
     [Documentation]    Stops http session

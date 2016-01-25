@@ -19,7 +19,7 @@ ${INTENT_ID}      b9a13232-525e-4d8c-be21-cd65e3436033
 *** Keywords ***
 Start NIC VTN Renderer Suite
     [Documentation]    Start Nic VTN Renderer Init Test Suite
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     BuiltIn.Wait_Until_Keyword_Succeeds    30    3    Fetch Intent List
 
 Stop NIC VTN Renderer Suite
@@ -28,7 +28,7 @@ Stop NIC VTN Renderer Suite
 
 Start NIC VTN Rest Test Suite
     [Documentation]    Start Nic VTN Renderer Rest Test Suite
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     Clean Mininet System
     Start Mininet Linear    ${switches}
 

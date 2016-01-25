@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite to verify data types using RPCs
-Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
 Test Setup        Set Suite Variable    ${RPC_Datatype__current_json}    ${EMPTY}
 Test Teardown     Remove Datatype And Check Removal

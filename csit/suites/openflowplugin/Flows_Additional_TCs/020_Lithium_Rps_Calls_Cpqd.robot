@@ -10,7 +10,7 @@ Variables         ../../../variables/ofplugin/RpcVariables.py
 
 *** Variables ***
 ${send_update_table_url}    /restconf/operations/sal-table:update-table
-${start}          sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,1 --switch user
+${start}          sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo tree,1 --switch user
 
 *** Test Cases ***
 Sending Update Table
@@ -23,7 +23,7 @@ Sending Update Table
 Initialization Phase
     [Documentation]    Starts mininet and verify if topology is in operational ds
     Start Suite
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
     Wait Until Keyword Succeeds    10s    1s    Are Switches Connected Topo
 
 Final Phase

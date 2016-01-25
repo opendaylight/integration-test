@@ -59,7 +59,7 @@ Setup_Everything
     KarafKeywords.Open_Controller_Karaf_Console_On_Background
     KarafKeywords.Log_Message_To_Controller_Karaf    Starting Netconf readiness test suite
     BuiltIn.Run_Keyword_If    ${DEBUG_LOGGING_FOR_EVERYTHING}    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set DEBUG
-    RequestsLibrary.Create_Session    ses    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}
+    RequestsLibrary.Create_Session    ses    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     # TODO: Do not include slash in ${OPERATIONAL_TOPO_API}, having it typed here is more readable.
     # TODO: Alternatively, create variable in Variables which starts with http.
     # Both TODOs would probably need to update every suite relying on current Variables.

@@ -25,7 +25,7 @@ ${PPS_RESULTS_FILE}    pps.csv
 *** Test Cases ***
 Add Simple IPv4 Mappings
     ${start_date}=    Get Current Date
-    Run Process With Logging And Status Check    ${MAPPING_BLASTER}    --host    ${CONTROLLER}    --mappings    ${MAPPINGS}
+    Run Process With Logging And Status Check    ${MAPPING_BLASTER}    --host    ${ODL_SYSTEM_IP}    --mappings    ${MAPPINGS}
     ${end_date}=    Get Current Date
     ${add_seconds}=    Subtract Date From Date    ${end_date}    ${start_date}
     Log    ${add_seconds}
@@ -34,7 +34,7 @@ Add Simple IPv4 Mappings
 Generate Test Traffic
     Reset Stats
     ${result}=    Run Process With Logging And Status Check    /usr/local/bin/udpreplay    --pps    ${REPLAY_PPS}    --repeat    ${REPLAY_CNT}
-    ...    --host    ${CONTROLLER}    --port    4342    ${REPLAY_FILE}
+    ...    --host    ${ODL_SYSTEM_IP}    --port    4342    ${REPLAY_FILE}
     ${partial}=    Fetch From Left    ${result.stdout}    s =
     Log    ${partial}
     ${get_seconds}=    Fetch From Right    ${partial}    ${SPACE}
@@ -72,7 +72,7 @@ Get Transmitted Map-Requests Stats
     [Return]    ${txmrep}
 
 Prepare Environment
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     Run Process With Logging And Status Check    wget    -P    ${TOOLS_DIR}    ${LISP_SCAPY}
     Run Process With Logging And Status Check    ${PCAP_CREATOR}    --requests    ${MAPPINGS}
 

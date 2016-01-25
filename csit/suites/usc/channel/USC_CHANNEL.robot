@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for usc channel functionality
-Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
 Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py

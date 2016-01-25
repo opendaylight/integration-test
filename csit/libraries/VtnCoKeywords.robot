@@ -11,19 +11,19 @@ Variables         ../variables/Variables.py
 Resource          ./Utils.robot
 
 *** variable ***
-${vlan_topo}      sudo mn --controller=remote,ip=${CONTROLLER} --custom vlan_vtn_test.py --topo vlantopo
+${vlan_topo}      sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom vlan_vtn_test.py --topo vlantopo
 
 *** Keywords ***
 Get VtnCo
     [Documentation]    Download the VTN Coordinator from Controller VM
     Log    Download the VTN Coordinator bz2 file
-    SSHLibrary.Open_Connection    ${CONTROLLER}
+    SSHLibrary.Open_Connection    ${ODL_SYSTEM_IP}
     SSHLibrary.Login_With_Public_Key    ${CONTROLLER_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     ${VTNC_FILENAME}=    Catenate    SEPARATOR=/    ${WORKSPACE}    vtn_coordinator.tar.bz2
     SSHLibrary.Get_File    ${WORKSPACE}/${BUNDLEFOLDER}/externalapps/*vtn-coordinator*-bin.tar.bz2    ${VTNC_FILENAME}
     SSHLibrary.Close_Connection
-    SSHLibrary.Open_Connection    ${MININET}
-    SSHLibrary.Login_With_Public_Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
+    SSHLibrary.Login_With_Public_Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     SSHLibrary.Put_File    ${VTNC_FILENAME}    /tmp
     SSHLibrary.Close_Connection
 
@@ -31,7 +31,7 @@ Start SuiteVtnCo
     [Documentation]    Download and startup the VTN Coordinator.
     Log    Start the VTN Coordinator
     #Get VtnCo
-    ${vtnc_conn_id}=    SSHLibrary.Open Connection    ${CONTROLLER}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    ${vtnc_conn_id}=    SSHLibrary.Open Connection    ${ODL_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Suite Variable    ${vtnc_conn_id}
     SSHLibrary.Login_With_Public_Key    ${CONTROLLER_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     SSHLibrary.Execute Command    sudo mkdir -p /usr/local/vtn
@@ -57,7 +57,7 @@ Stop SuiteVtnCo
 
 Start SuiteVtnCoTest
     [Documentation]    Start the VTNCo Test
-    Create Session    session    http://${CONTROLLER}:8083    headers=${VTNC_HEADERS}
+    Create Session    session    http://${ODL_SYSTEM_IP}:8083    headers=${VTNC_HEADERS}
 
 Stop SuiteVtnCoTest
     [Documentation]    Exit the VtnCo Test
@@ -71,7 +71,7 @@ Get Coordinator Version
 Add a Controller
     [Arguments]    ${ctrlname}    ${ctrlip}
     [Documentation]    Create a controller
-    ${controllerinfo}    Create Dictionary    controller_id=${ctrlname}    type=odc    ipaddr=${CONTROLLER}    version=1.0
+    ${controllerinfo}    Create Dictionary    controller_id=${ctrlname}    type=odc    ipaddr=${ODL_SYSTEM_IP}    version=1.0
     ${controllercreate}    Create Dictionary    controller=${controllerinfo}
     ${controllercreate_json}=    json.dumps    ${controllercreate}
     ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${CTRLS_CREATE}    data=${controllercreate_json}
@@ -255,7 +255,7 @@ Create VLANMAP in VBRIDGE
 
 Start vlan_topo
     [Documentation]    This will start mininet with custom topology on both the Virtual Machines
-    Start Mininet    ${MININET}    ${vlan_topo}    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
+    Start Mininet    ${TOOLS_SYSTEM_IP}    ${vlan_topo}    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
 
 Delete a FLOWLIST
     [Arguments]    ${flowlistname}

@@ -19,9 +19,9 @@ ${TSDR_PORTSTATS}    tsdr:list PortStats
 *** Test Cases ***
 Verification of TSDR H2 Feature Installation
     [Documentation]    Install and Verify the TSDR H2 Datastore and JDBC
-    Install a Feature    jdbc    ${CONTROLLER}    ${KARAF_SHELL_PORT}    60
+    Install a Feature    jdbc    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    60
     Verify Feature Is Installed    jdbc
-    COMMENT    Install a Feature    odl-tsdr-all    ${CONTROLLER}    ${KARAF_SHELL_PORT}    60
+    COMMENT    Install a Feature    odl-tsdr-all    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    60
     Verify Feature Is Installed    odl-tsdr-all
     Verify Feature Is Installed    odl-tsdr-H2-persistence
     Verify Feature Is Installed    odl-tsdr-core
@@ -41,7 +41,7 @@ Verify PortStats On Karaf console
     [Documentation]    Verify the InterfaceMetrics(PortStats),attributes using ${TSDR_PORTSTATS}
     : FOR    ${list}    IN    @{INTERFACE_METRICS}
     \    ${tsdr_cmd}=    Concatenate the String    ${TSDR_PORTSTATS}    | grep ${list} | head
-    \    ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}    ${CONTROLLER}    ${KARAF_SHELL_PORT}    30
+    \    ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    30
     \    Should Contain    ${output}    ${list}
 
 Verify PortStats-Attributes on H2 Datastore using JDBC Client

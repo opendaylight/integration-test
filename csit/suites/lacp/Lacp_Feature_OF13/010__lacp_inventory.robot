@@ -84,5 +84,5 @@ Verify LACP Tags Are Formed
 
 LACP Inventory Suite Setup
     [Documentation]    If these basic checks fail, there is no need to continue any of the other test cases
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     Wait Until Keyword Succeeds    10s    1s    Verify LACP Tags Are Formed

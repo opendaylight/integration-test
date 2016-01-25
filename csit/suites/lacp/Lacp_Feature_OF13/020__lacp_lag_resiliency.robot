@@ -91,14 +91,14 @@ Verify LACP Tags Are Formed
 
 LACP Inventory Suite Setup
     [Documentation]    If these basic checks fail, there is no need to continue any of the other test cases
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     Wait Until Keyword Succeeds    15s    1s    Verify LACP Tags Are Formed
 
 Set Host interface state
     [Arguments]    ${port-id}    ${port-state}
     [Documentation]    Will configure the port state of the Host to either up or down
-    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write      sudo ./m h2
     Write      sudo ifconfig ${port-id}
     Write      sudo ifconfig ${port-id} ${port-state}
@@ -106,7 +106,7 @@ Set Host interface state
 Verify Switch S1 Group Table
     [Arguments]    ${group-type}    ${port-id1}    ${port-id2}    ${port-id2-state}
     [Documentation]    Functionality to verify the presence of LACP group entries on the OVS Switch(S1) Group table
-    ${group_output}=    Run Command on Remote System    ${MININET}    sudo ovs-ofctl dump-groups s1 -O OpenFlow13    ${MININET_USER}    #
+    ${group_output}=    Run Command on Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-ofctl dump-groups s1 -O OpenFlow13    ${TOOLS_SYSTEM_USER}    #
     Log    ${group_output}
     Comment    ${group_output}    Read Until    mininet>
     ${result}=    Get Lines Containing String    ${group_output}    output:${port-id1}

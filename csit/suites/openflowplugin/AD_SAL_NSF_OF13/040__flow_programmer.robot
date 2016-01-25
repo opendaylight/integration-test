@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for Flow Programmer
-Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTPORT}    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
 Library           Collections
 Library           RequestsLibrary
