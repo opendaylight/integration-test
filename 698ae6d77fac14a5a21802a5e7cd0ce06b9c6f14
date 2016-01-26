@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_efd87655",
+        "filename": "csit/suites/alto/basic/010_resourcepool.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-26T20:33:16Z",
+      "side": 1,
+      "message": "it\u0027s more readable, in general, if you don\u0027t put the slash \nin the var name and use it when you need it, like line 15 below would be ${RESOURCE_POOL_BASE}/${DEFAULT_CONTEXT_ID}\n\nbut, not a big deal.",
+      "range": {
+        "startLine": 10,
+        "startChar": 25,
+        "endLine": 10,
+        "endChar": 26
+      },
+      "revId": "698ae6d77fac14a5a21802a5e7cd0ce06b9c6f14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4fdec240",
+        "filename": "csit/suites/alto/basic/010_resourcepool.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-26T20:33:16Z",
+      "side": 1,
+      "message": "1) please use the new keyword \"RequestsLibrary.Get Request\" as \"RequestsLibrary.Get\" is being deprecated.\n\n2) is there something concrete you could check for in the ${resp.content} that would make this test case a little more\nrobust.  This is just a typical question we ask when we only see a check for 200 status code",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 60
+      },
+      "revId": "698ae6d77fac14a5a21802a5e7cd0ce06b9c6f14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_efbfd6ce",
+        "filename": "csit/suites/alto/basic/020_simple_IRD.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-26T20:33:16Z",
+      "side": 1,
+      "message": "this should go to our libraries dir.  you can have an alto subdir in there if you want.  This is where we want to point people to look for all the libraries for all projects.",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 33
+      },
+      "revId": "698ae6d77fac14a5a21802a5e7cd0ce06b9c6f14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6fe4660d",
+        "filename": "csit/suites/alto/basic/020_simple_IRD.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-26T20:33:16Z",
+      "side": 1,
+      "message": "I saw these in the other suite.  I think you should move these to Variables.py or a specific ALTO variables file for better maintenance.\n\nadditionally, if any of these other variables would be shared now, or in the future, putting them in a common variables file is reccomended.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 61
+      },
+      "revId": "698ae6d77fac14a5a21802a5e7cd0ce06b9c6f14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2fb1bef8",
+        "filename": "csit/suites/alto/basic/020_simple_IRD.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-26T20:33:16Z",
+      "side": 1,
+      "message": "I\u0027m no privy to alto, but wondering if 30s is really how long it can sometimes take?  if so, then it\u0027s fine.  but,\nmy guess is that it\u0027s much faster.\n\nwhat can happen when using larger values in these WUKS is that a bad distribution can be running and the tests are going to fail, but each one of these steps could sit and spin for 30s wasting time in the upstream infra.",
+      "range": {
+        "startLine": 42,
+        "startChar": 35,
+        "endLine": 42,
+        "endChar": 38
+      },
+      "revId": "698ae6d77fac14a5a21802a5e7cd0ce06b9c6f14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
