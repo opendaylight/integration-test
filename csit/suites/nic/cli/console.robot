@@ -40,7 +40,7 @@ Verify NIC Command Add and Remove
     ...    The command "Wait Until Keyword Succeeds" is used to poll for 10 minutes
     ...    until the intent:add command is availible for the test case to be run.
     [Tags]    NIC
-    Wait Until Keyword Succeeds    10 min    5 sec    Verify Intent:Add Command is Availible
+    Wait Until Keyword Succeeds    1 min    5 sec    Verify Intent:Add Command is Availible
     : FOR    ${intent}    IN    @{all_intents}
     \    ${id}=    Add Intent    @{intent}
     \    Append To List    ${all_intents_ids}    ${id}
@@ -65,9 +65,9 @@ Verify NIC Command Add and Remove
 *** Keywords ***
 Setup NIC Console Environment
     [Documentation]    Installing NIC Console related features (odl-nic-core, odl-nic-console)
-    Install a Feature    odl-nic-core-service-mdsal
-    Install a Feature    odl-nic-core
-    Install a Feature    odl-nic-console
+    Install a Feature    odl-nic-core-service-mdsal    timeout=60s
+    Install a Feature    odl-nic-core    timeout=60s
+    Install a Feature    odl-nic-console    timeout=60s
     Start Suite
     Verify Feature Is Installed    odl-nic-core
     Verify Feature Is Installed    odl-nic-console
