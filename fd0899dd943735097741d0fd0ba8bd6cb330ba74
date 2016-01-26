@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_42b17ef7",
+        "filename": "csit/suites/usc/UscUtils.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2706
+      },
+      "writtenOn": "2016-01-26T00:00:34Z",
+      "side": 1,
+      "message": "OK, I\u0027ll do that.",
+      "parentUuid": "9a3d3df0_c7b64ddc",
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_48654e44",
         "filename": "csit/suites/usc/UscUtils.txt",
         "patchSetId": 2
@@ -173,6 +191,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_a27cca21",
+        "filename": "csit/suites/usc/UscUtils.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2706
+      },
+      "writtenOn": "2016-01-26T00:00:34Z",
+      "side": 1,
+      "message": "OK, I will use the name ${TOOLS_SYSTEM_IP} to replace ${MININET}.",
+      "parentUuid": "9a3d3df0_07b155e1",
+      "range": {
+        "startLine": 32,
+        "startChar": 46,
+        "endLine": 32,
+        "endChar": 53
+      },
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_48cc2e36",
         "filename": "csit/suites/usc/UscUtils.txt",
         "patchSetId": 2
@@ -279,6 +321,30 @@
       "side": 1,
       "message": "Ok, I understand the need.\n\nGoing back to my other comment about the ${USC_TOOLS_HOME} that you changed to ${NAV_USC_TOOLS}; what I meant to suggest would look like this.\n\nvariables:\n${USC_TOOLS_DIR}    $HOME/usc-tools\n${AgentTcpCallHomeCommand}    java -jar ${USC_TOOLS_DIR}/EchoServer.jar -t true -p 2007\n\nThen it\u0027s only one Write command:\n\nWrite    ${AgentTcpCallHomeCommand}\n\nyou might be able to use that ${USC_TOOLS_DIR} in other paths as well (fetching agent output logs, etc).\n\nanyway, that\u0027s what I was trying to get at, but failed :)",
       "parentUuid": "9a3d3df0_717e36e6",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 37,
+        "endChar": 14
+      },
+      "revId": "fd0899dd943735097741d0fd0ba8bd6cb330ba74",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_82a0a691",
+        "filename": "csit/suites/usc/UscUtils.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2706
+      },
+      "writtenOn": "2016-01-26T00:00:34Z",
+      "side": 1,
+      "message": "Sorry I didn\u0027t make it clear. I tried java -jar ${USC_TOOLS_DIR}/EchoServer.jar -t true -p 2007 and that doesn\u0027t work. It is because there are some settings and certificates for TLS/DTLS under folder ${USC-TOOLS_DIR}. Runing the command in your way fails to read those settings so it fails. So I have to write commands in 2 steps.",
+      "parentUuid": "9a3d3df0_07ff9568",
       "range": {
         "startLine": 32,
         "startChar": 4,
