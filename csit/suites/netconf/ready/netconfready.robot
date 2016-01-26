@@ -46,6 +46,7 @@ Wait_For_Netconf_Connector
     [Documentation]    Attempt to wait for the netconf-connector for configurable time.
     [Tags]    critical
     BuiltIn.Run_Keyword_Unless    ${netconf_is_ready}    BuiltIn.Wait_Until_Keyword_Succeeds    ${NETCONFREADY_WAIT}    1s    Check_Netconf_Connector
+    BuiltIn.Set_Suite_Variable    ${netconf_is_ready}    True
     [Teardown]    Utils.Report_Failure_Due_To_Bug    4583
 
 Check_Whether_Netconf_Connector_Can_Pretty_Print
