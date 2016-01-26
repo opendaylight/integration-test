@@ -14,6 +14,7 @@ integration/test/csit/suites/openflowplugin/Flows_Additional_TCs/Stat_Manager_ex
 integration/test/csit/suites/openflowplugin/Groups_Meters_OF13
 integration/test/csit/suites/openflowplugin/Bug_Validation
 # BGPCEP functional tests:
-integration/test/csit/suites/bgpcep/pcepuser
-integration/test/csit/suites/bgpcep/tcpmd5user
-integration/test/csit/suites/bgpcep/bgpuser
+# temporarily disabling bgp tests since bgp features are also temporarily removed from controller deploy
+# integration/test/csit/suites/bgpcep/pcepuser
+# integration/test/csit/suites/bgpcep/tcpmd5user
+# integration/test/csit/suites/bgpcep/bgpuser
