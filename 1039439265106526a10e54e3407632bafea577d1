@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_00de4911",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-01-27T14:03:28Z",
+      "side": 1,
+      "message": "Well, it is not \"one search\u0026replace\". It is \"one search\u0026replace followed by conflict resolution, new chain version submitting and sandbox job running (read: serious time hog) and possibly repeating the whole thing at least once due to omissions\". Total time: 2-4 hours (with luck it could be just 45 minutes but when we had such luck last time?).\n\nBut if you think all of this is going to take negligible time ... here you go ...",
+      "parentUuid": "9a3d3df0_40b171e0",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 19
+      },
+      "revId": "1039439265106526a10e54e3407632bafea577d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_85f8ab7d",
         "filename": "csit/suites/netconf/ready/netconfready.robot",
         "patchSetId": 11
@@ -132,6 +156,30 @@
       "side": 1,
       "message": "Yup, sorry, wrong highlight.\nI meant ${NETCONF_CONNECTOR} from line 77.",
       "parentUuid": "9a3d3df0_25127fb1",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 24
+      },
+      "revId": "1039439265106526a10e54e3407632bafea577d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a0c15d30",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-01-27T14:03:28Z",
+      "side": 1,
+      "message": "Ok, that was already fixed :)",
+      "parentUuid": "9a3d3df0_c0ad818a",
       "range": {
         "startLine": 50,
         "startChar": 0,
