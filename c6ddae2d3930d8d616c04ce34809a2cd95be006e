@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_d7ab841c",
+        "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-01-27T22:13:20Z",
+      "side": 0,
+      "message": "You are just removing test, I guess you will have to replace this by keywords from the new CLI resource. Same applies to other robot files.",
+      "revId": "c6ddae2d3930d8d616c04ce34809a2cd95be006e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
