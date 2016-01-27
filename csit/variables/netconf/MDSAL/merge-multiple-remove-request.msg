@@ -7,9 +7,13 @@
         set
     </test-option>
     <default-operation>none</default-operation>
-    <config>
-        <modules xmlns="urn:opendaylight:params:xml:ns:yang:controller:config" xmlns:a="urn:ietf:params:xml:ns:netconf:base:1.0" a:operation="remove">
-        </modules>
+    <config xmlns:a="urn:ietf:params:xml:ns:netconf:base:1.0">
+    <cars xmlns="urn:opendaylight:params:xml:ns:yang:controller:config:sal-clustering-it:car" a:operation="remove">
+    </cars>
+    <people xmlns="urn:opendaylight:params:xml:ns:yang:controller:config:sal-clustering-it:people" a:operation="remove">
+    </people>
+    <car-people xmlns="urn:opendaylight:params:xml:ns:yang:controller:config:sal-clustering-it:car-people" a:operation="remove">
+    </car-people>
     </config>
 </edit-config>
 </rpc>

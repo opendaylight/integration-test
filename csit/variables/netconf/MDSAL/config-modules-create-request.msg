@@ -5,13 +5,12 @@
 </target>
 <default-operation>create</default-operation>
 <config>
-<modules xmlns="urn:opendaylight:params:xml:ns:yang:controller:config">
-<module>
-<type xmlns:prefix="urn:opendaylight:params:xml:ns:yang:controller:threadpool:impl">prefix:threadfactory-naming</type>
-<name>name0</name>
-<name-prefix xmlns="urn:opendaylight:params:xml:ns:yang:controller:threadpool:impl">remote-connector-processing-executor</name-prefix>
-</module>
-</modules>
+<people xmlns="urn:opendaylight:params:xml:ns:yang:controller:config:sal-clustering-it:people">
+  <person>
+    <id>CUSTBAD</id>
+    <age>99</age>
+  </person>
+</people>
 </config>
 </edit-config>
 </rpc>

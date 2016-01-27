@@ -60,7 +60,7 @@ Additional_Attributes_In_Message
     BuiltIn.Should_Contain    ${reply}    additional="otherthing"
     BuiltIn.Should_Contain    ${reply}    xmlns:prefix="http://www.example.com/my-schema-example.html"
 
-Edit_Config_Modules_Merge
+Edit_Config_First_Batch_Merge
     [Documentation]    Request a "merge" operation adding an element in candidate configuration and check the reply.
     Perform_Test    config-modules-merge-1
 
@@ -72,51 +72,36 @@ Commit_Edit
     [Documentation]    Commit the change and check the reply.
     Perform_Test    commit-edit
 
-name0_In_Config_Running_To_Confirm_Edit_After_Commit
+First_Batch_In_Config_Running_To_Confirm_Edit_After_Commit
     [Documentation]    Check that the change is now in the configuration.
     ${reply}=    Load_And_Send_Message    get-config-edit-after-commit
-    BuiltIn.Should_Contain    ${reply}    <name>name0</name>
-
-name0_In_Config_Modules_Via_Restconf
-    [Documentation]    Check that the change is also visible through Restconf.
-    ${data}=    Utils.Get_Data_From_URI    config    config:modules    headers=${ACCEPT_XML}
-    BuiltIn.Should_Contain    ${data}    <name>name0</name>
+    Check_First_Batch_Data_Present    ${reply}
 
 Terminate_Connection_Gracefully
     [Documentation]    Close the session and disconnect.
     Close_ODL_Netconf_Connection_Gracefully
 
-name0_In_Config_Modules_Via_Restconf_After_Disconnect
-    [Documentation]    Check that the change is still visible through Restconf after Netconf disconnect.
-    ${data}=    Utils.Get_Data_From_URI    config    config:modules    headers=${ACCEPT_XML}
-    BuiltIn.Should_Contain    ${data}    <name>name0</name>
-
 Reconnect_To_ODL_Netconf_After_Graceful_Session_End
     [Documentation]    Reconnect to ODL Netconf and fail if that is not possible.
     Open_ODL_Netconf_Connection
 
-name0_In_Config_Running_After_Reconnect
+First_Batch_In_Config_Running_After_Reconnect
     [Documentation]    Check that the change is now in the configuration.
     ${reply}=    Load_And_Send_Message    get-config-edit-after-commit
-    BuiltIn.Should_Contain    ${reply}    <name>name0</name>
+    Check_First_Batch_Data_Present    ${reply}
 
-name0_In_Config_Modules_Via_Restconf_After_Reconnect
-    [Documentation]    Check that the change is still visible through Restconf after Netconf reconnect.
-    ${data}=    Utils.Get_Data_From_URI    config    config:modules    headers=${ACCEPT_XML}
-    BuiltIn.Should_Contain    ${data}    <name>name0</name>
-
-Edit_Config_Modules_Create_Shall_Fail_Now
+Edit_Config_Create_Shall_Fail_Now
     [Documentation]    Request a "create" operation of an element that already exists and check that it fails with the correct error (RFC 6241, section 7.2, operation "create").
     Perform_Test    config-modules-create
 
-Delete_Modules
+Delete_First_Batch
     [Documentation]    Delete the created element from the candidate configuration and check the reply.
     Perform_Test    config-modules-delete
 
 Get_Config_Running_To_Confirm_No_Delete_Before_Commit
     [Documentation]    Make sure the element is still present in the running configuration as the delete command was not committed yet.
     ${reply}=    Load_And_Send_Message    get-config-no-delete-before-commit
-    BuiltIn.Should_Contain    ${reply}    <name>name0</name>
+    Check_First_Batch_Data_Present    ${reply}
 
 Commit_Delete
     [Documentation]    Commit the deletion of the element and check the reply.
@@ -126,24 +111,19 @@ Get_Config_Running_To_Confirm_Delete_After_Commit
     [Documentation]    Check that the element is gone.
     Check_Test_Objects_Not_Present_In_Config    get-config-delete-after-commit
 
-Restconf_Get_Modules_Shall_Return_404
-    [Documentation]    Check that "Not Found" is returned when Restconf is asked for the deleted element.
-    ${response}=    RequestsLibrary.Get    config    config:modules    ${ACCEPT_XML}
-    BuiltIn.Should_Be_Equal_As_Strings    404    ${response.status_code}
-
 Commit_No_Transaction
     [Documentation]    Attempt to perform "commit" when there are no changes in the candidate configuration and check that it returns OK status.
     Perform_Test    commit-no-transaction
 
-Edit_Config_Another_Modules_Merge_For_Discard
+Edit_Config_Second_Batch_Merge
     [Documentation]    Create an element to be discarded and check the reply.
     Perform_Test    config-modules-merge-2
 
 Get_And_Check_Config_Candidate_For_Discard
     [Documentation]    Check that the element to be discarded is present in the candidate configuration.
     ${reply}=    Load_And_Send_Message    get-config-candidate
-    BuiltIn.Should_Contain    ${reply}    <name>name1</name>
-    BuiltIn.Should_Not_Contain    ${reply}    name0
+    Check_First_Batch_Data_Not_Present    ${reply}
+    Check_Second_Batch_Data_Present    ${reply}
 
 Discard_Changes_Using_Discard_Request
     [Documentation]    Ask the server to discard the candidate and check the reply.
@@ -153,59 +133,46 @@ Get_And_Check_Config_Candidate_To_Confirm_Discard
     [Documentation]    Check that the element was really discarded.
     Check_Test_Objects_Not_Present_In_Config    get-config-candidate-discard
 
-Edit_Config_Modules_Multiple_Modules_Merge_1
-    [Documentation]    Create the element with "name2" subelement again and check the reply.
+Edit_Config_Multiple_Batch_Merge_Create
+    [Documentation]    Use a create request with the third batch to create the infrastructure.
+    Perform_Test    merge-multiple-create
+
+Edit_Config_Multiple_Batch_Merge_Third
+    [Documentation]    Use a create request with the third batch to create the infrastructure.
     Perform_Test    merge-multiple-1
 
-Edit_Config_Modules_Multiple_Modules_Merge_2
+Edit_Config_Multiple_Batch_Merge_Fourth
+    [Documentation]    Use a merge request with the third batch to create the infrastructure.
     [Documentation]    Add a "name3" subelement to the element and check the reply.
     Perform_Test    merge-multiple-2
 
-Edit_Config_Modules_Multiple_Modules_Merge_3
+Edit_Config_Multiple_Batch_Merge_Fifth
     [Documentation]    Add a "name4" subelement to the element and check the reply.
     Perform_Test    merge-multiple-3
 
-Commit_Multiple_Modules_Merge
+Commit_Multiple_Merge
     [Documentation]    Commit the changes and check the reply.
     Perform_Test    merge-multiple-commit
 
-name2_name3_name4_In_Running_Config
+Multiple_Batch_Data_In_Running_Config
     [Documentation]    Check that the 3 subelements are now present in the running configuration.
     ${reply}=    Load_And_Send_Message    merge-multiple-check
-    BuiltIn.Should_Contain    ${reply}    <name>name2</name>
-    BuiltIn.Should_Contain    ${reply}    <name>name3</name>
-    BuiltIn.Should_Contain    ${reply}    <name>name4</name>
-
-name2_name3_name4_In_Config_Modules_Via_Restconf
-    [Documentation]    Check that the 3 subelements are visible via Restconf.
-    ${data}=    Utils.Get_Data_From_URI    config    config:modules    headers=${ACCEPT_XML}
-    BuiltIn.Should_Contain    ${data}    <name>name2</name>
-    BuiltIn.Should_Contain    ${data}    <name>name3</name>
-    BuiltIn.Should_Contain    ${data}    <name>name4</name>
+    Check_Multiple_Batch_Data_Present    ${reply}
 
 Abort_Connection_To_Simulate_Session_Failure
     [Documentation]    Simulate session failure by disconnecting without terminating the session.
     Abort_ODL_Netconf_Connection
 
-name2_name3_name4_In_Config_Modules_Via_Restconf_After_Session_Fail
-    [Documentation]    Check that the 3 subelements are visible via Restconf.
-    ${data}=    Utils.Get_Data_From_URI    config    config:modules    headers=${ACCEPT_XML}
-    BuiltIn.Should_Contain    ${data}    <name>name2</name>
-    BuiltIn.Should_Contain    ${data}    <name>name3</name>
-    BuiltIn.Should_Contain    ${data}    <name>name4</name>
-
 Reconnect_To_ODL_Netconf_After_Session_Failure
     [Documentation]    Reconnect to ODL Netconf and fail if that is not possible.
     Open_ODL_Netconf_Connection
 
-name2_name3_name4_In_Running_Config_After_Session_Failure
+Multiple_Batch_Data_In_Running_Config_After_Session_Failure
     [Documentation]    Check that the 3 subelements are now present in the running configuration.
     ${reply}=    Load_And_Send_Message    merge-multiple-check
-    BuiltIn.Should_Contain    ${reply}    <name>name2</name>
-    BuiltIn.Should_Contain    ${reply}    <name>name3</name>
-    BuiltIn.Should_Contain    ${reply}    <name>name4</name>
+    Check_Multiple_Batch_Data_Present    ${reply}
 
-Edit_Multiple_Modules_Merge
+Edit_Multiple_Merge_Data
     [Documentation]    Add another subelement named "test" to the element and check the reply.
     Perform_Test    merge-multiple-edit
 
@@ -216,7 +183,10 @@ Commit_Multiple_Modules_Merge_Edit
 Check_Multiple_Modules_Merge_Edit
     [Documentation]    Check that the "test" subelement exists and has correct value for "port" subelement.
     ${reply}=    Load_And_Send_Message    merge-multiple-edit-check
-    BuiltIn.Should_Contain    ${reply}    <port xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">2022</port>
+    BuiltIn.Should_Contain    ${reply}    <id>test</id>
+    BuiltIn.Should_Contain    ${reply}    <model>Dixi</model>
+    BuiltIn.Should_Contain    ${reply}    <manufacturer>BMW</manufacturer>
+    BuiltIn.Should_Contain    ${reply}    <year>1928</year>
 
 Update_Multiple_Modules_Merge
     [Documentation]    Update the value of the "port" subelement of the "test" subelement and check the reply.
@@ -229,7 +199,13 @@ Commit_Multiple_Modules_Merge_Update
 Check_Multiple_Modules_Merge_Update
     [Documentation]    Check that the value of the "port" was really updated.
     ${reply}=    Load_And_Send_Message    merge-multiple-update-check
-    BuiltIn.Should_Contain    ${reply}    <port xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">3000</port>
+    BuiltIn.Should_Contain    ${reply}    <id>test</id>
+    BuiltIn.Should_Contain    ${reply}    <model>Bentley Speed Six</model>
+    BuiltIn.Should_Contain    ${reply}    <manufacturer>Bentley</manufacturer>
+    BuiltIn.Should_Contain    ${reply}    <year>1930</year>
+    BuiltIn.Should_Not_Contain    ${reply}    <model>Dixi</model>
+    BuiltIn.Should_Not_Contain    ${reply}    <manufacturer>BMW</manufacturer>
+    BuiltIn.Should_Not_Contain    ${reply}    <year>1928</year>
 
 Replace_Multiple_Modules_Merge
     [Documentation]    Replace the content of the "test" with another completely different and check the reply.
@@ -242,28 +218,48 @@ Commit_Multiple_Modules_Merge_Replace
 Check_Multiple_Modules_Merge_Replace
     [Documentation]    Check that the new content is there and the old content is gone.
     ${reply}=    Load_And_Send_Message    merge-multiple-replace-check
-    BuiltIn.Should_Contain    ${reply}    <name>test</name>
-    BuiltIn.Should_Contain    ${reply}    <address xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">10.194.132.42</address>
-    BuiltIn.Should_Contain    ${reply}    <tcp-only xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">false</tcp-only>
-    BuiltIn.Should_Contain    ${reply}    <port xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">4000</port>
-    BuiltIn.Should_Contain    ${reply}    <password xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">admin</password>
-    BuiltIn.Should_Contain    ${reply}    <username xmlns="urn:opendaylight:params:xml:ns:yang:controller:md:sal:connector:netconf">admin</username>
-    BuiltIn.Should_Not_Contain    ${reply}    <name>global-event-executor</name>
-    BuiltIn.Should_Not_Contain    ${reply}    <name>binding-osgi-broker</name>
-    BuiltIn.Should_Not_Contain    ${reply}    <name>dom-broker</name>
-    BuiltIn.Should_Not_Contain    ${reply}    <name>global-netconf-dispatcher</name>
-    BuiltIn.Should_Not_Contain    ${reply}    <name>global-netconf-processing-executor</name>
+    BuiltIn.Should_Contain    ${reply}    <id>REPLACE</id>
+    BuiltIn.Should_Contain    ${reply}    <manufacturer>FIAT</manufacturer>
+    BuiltIn.Should_Contain    ${reply}    <model>Panda</model>
+    BuiltIn.Should_Contain    ${reply}    <year>2003</year>
+    BuiltIn.Should_Contain    ${reply}    <car-id>REPLACE</car-id>
+    BuiltIn.Should_Not_Contain    ${reply}    <id>TOY001</id>
+    BuiltIn.Should_Not_Contain    ${reply}    <id>CUST001</id>
+    BuiltIn.Should_Not_Contain    ${reply}    <car-id>TOY001</car-id>
+    BuiltIn.Should_Not_Contain    ${reply}    <person-id>CUST001</person-id>
+    BuiltIn.Should_Not_Contain    ${reply}    <id>OLD001</id>
+    BuiltIn.Should_Not_Contain    ${reply}    <id>CUST002</id>
+    BuiltIn.Should_Not_Contain    ${reply}    <car-id>OLD001</car-id>
+    BuiltIn.Should_Not_Contain    ${reply}    <person-id>CUST002</person-id>
+    BuiltIn.Should_Not_Contain    ${reply}    <id>CAROLD</id>
+    BuiltIn.Should_Contain    ${reply}    <id>CUSTOLD</id>
+    BuiltIn.Should_Not_Contain    ${reply}    <car-id>CAROLD</car-id>
+    BuiltIn.Should_Not_Contain    ${reply}    <person-id>CUSTOLD</person-id>
+    BuiltIn.Should_Not_Contain    ${reply}    <id>CARYOUNG</id>
+    BuiltIn.Should_Contain    ${reply}    <id>CUSTYOUNG</id>
+    BuiltIn.Should_Not_Contain    ${reply}    <car-id>CARYOUNG</car-id>
+    BuiltIn.Should_Contain    ${reply}    <person-id>CUSTYOUNG</person-id>
+    BuiltIn.Should_Not_Contain    ${reply}    <id>CARMID</id>
+    BuiltIn.Should_Contain    ${reply}    <id>CUSTMID</id>
+    BuiltIn.Should_Not_Contain    ${reply}    <car-id>CARMID</car-id>
+    BuiltIn.Should_Not_Contain    ${reply}    <person-id>CUSTMID</person-id>
+    BuiltIn.Should_Not_Contain    ${reply}    <id>CAROLD2</id>
+    BuiltIn.Should_Contain    ${reply}    <id>CUSTOLD2</id>
+    BuiltIn.Should_Not_Contain    ${reply}    <car-id>CAROLD2</car-id>
+    BuiltIn.Should_Not_Contain    ${reply}    <person-id>CUSTOLD2</person-id>
+    BuiltIn.Should_Not_Contain    ${reply}    <id>CUSTBAD</id>
+    BuiltIn.Should_Not_Contain    ${reply}    <id>test</id>
 
-Remove_Multiple_Modules
-    [Documentation]    Remove the testing "module" element and all its subelements and check the reply.
+Remove_Test_Data
+    [Documentation]    Remove the testing elements and all their subelements and check the reply.
     Perform_Test    merge-multiple-remove
 
-Commit_Multiple_Modules_Removal
+Commit_Test_Data_Removal
     [Documentation]    Commit the removal and check the reply.
     Perform_Test    merge-multiple-remove-commit
 
-Delete_Not_Existing_Module
-    [Documentation]    Attempt to delete the "module" element again and check that it fails with the correct error.
+Delete_Not_Existing_Element
+    [Documentation]    Attempt to delete the elements again and check that it fails with the correct error.
     Perform_Test    delete-not-existing
 
 Commit_Delete_Not_Existing_Module
@@ -395,15 +391,79 @@ Teardown_Everything
     Abort_ODL_Netconf_Connection
     RequestsLibrary.Delete_All_Sessions
 
+Check_First_Batch_Data
+    [Arguments]    ${reply}    ${keyword}
+    BuiltIn.RunKeyword    ${keyword}    ${reply}    <id>TOY001</id>
+    BuiltIn.RunKeyword    ${keyword}    ${reply}    <id>CUST001</id>
+    BuiltIn.RunKeyword    ${keyword}    ${reply}    <car-id>TOY001</car-id>
+    BuiltIn.RunKeyword    ${keyword}    ${reply}    <person-id>CUST001</person-id>
+
+Check_First_Batch_Data_Present
+    [Arguments]    ${reply}
+    Check_First_Batch_Data    ${reply}    BuiltIn.Should_Contain
+
+Check_First_Batch_Data_Not_Present
+    [Arguments]    ${reply}
+    Check_First_Batch_Data    ${reply}    BuiltIn.Should_Not_Contain
+
+Check_Second_Batch_Data
+    [Arguments]    ${reply}    ${keyword}
+    BuiltIn.RunKeyword    ${keyword}    ${reply}    <id>OLD001</id>
+    BuiltIn.RunKeyword    ${keyword}    ${reply}    <id>CUST002</id>
+    BuiltIn.RunKeyword    ${keyword}    ${reply}    <car-id>OLD001</car-id>
+    BuiltIn.RunKeyword    ${keyword}    ${reply}    <person-id>CUST002</person-id>
+
+Check_Second_Batch_Data_Present
+    [Arguments]    ${reply}
+    Check_Second_Batch_Data    ${reply}    BuiltIn.Should_Contain
+
+Check_Multiple_Batch_Data
+    [Arguments]    ${reply}    ${keyword}
+    BuiltIn.RunKeyword    ${keyword}    ${reply}    <id>CAROLD</id>
+    BuiltIn.RunKeyword    ${keyword}    ${reply}    <id>CUSTOLD</id>
+    BuiltIn.RunKeyword    ${keyword}    ${reply}    <car-id>CAROLD</car-id>
+    BuiltIn.RunKeyword    ${keyword}    ${reply}    <person-id>CUSTOLD</person-id>
+    BuiltIn.RunKeyword    ${keyword}    ${reply}    <id>CARYOUNG</id>
+    BuiltIn.RunKeyword    ${keyword}    ${reply}    <id>CUSTYOUNG</id>
+    BuiltIn.RunKeyword    ${keyword}    ${reply}    <car-id>CARYOUNG</car-id>
+    BuiltIn.RunKeyword    ${keyword}    ${reply}    <person-id>CUSTYOUNG</person-id>
+    BuiltIn.RunKeyword    ${keyword}    ${reply}    <id>CARMID</id>
+    BuiltIn.RunKeyword    ${keyword}    ${reply}    <id>CUSTMID</id>
+    BuiltIn.RunKeyword    ${keyword}    ${reply}    <car-id>CARMID</car-id>
+    BuiltIn.RunKeyword    ${keyword}    ${reply}    <person-id>CUSTMID</person-id>
+    BuiltIn.RunKeyword    ${keyword}    ${reply}    <id>CAROLD2</id>
+    BuiltIn.RunKeyword    ${keyword}    ${reply}    <id>CUSTOLD2</id>
+    BuiltIn.RunKeyword    ${keyword}    ${reply}    <car-id>CAROLD2</car-id>
+    BuiltIn.RunKeyword    ${keyword}    ${reply}    <person-id>CUSTOLD2</person-id>
+
+Check_Multiple_Batch_Data_Absent
+    [Arguments]    ${reply}
+    Check_Multiple_Batch_Data    ${reply}    BuiltIn.Should_not_Contain
+
+Check_Multiple_Batch_Data_Present
+    [Arguments]    ${reply}
+    Check_Multiple_Batch_Data    ${reply}    BuiltIn.Should_Contain
+
+Check_Auxiliary_Data
+    [Arguments]    ${reply}    ${keyword}
+    BuiltIn.RunKeyword    ${keyword}    ${reply}    <id>CUSTBAD</id>
+    BuiltIn.RunKeyword    ${keyword}    ${reply}    <id>test</id>
+
+Check_Test_Objects_Absent
+    [Arguments]    ${reply}
+    Check_First_Batch_Data_Not_Present    ${reply}
+    Check_Second_Batch_Data    ${reply}    BuiltIn.Should_not_Contain
+    Check_Multiple_Batch_Data_Absent    ${reply}
+    Check_Auxiliary_Data    ${reply}    BuiltIn.Should_not_Contain
+    BuiltIn.Should_not_Contain    ${reply}    <id>test</id>
+
 Check_Test_Objects_Not_Present_In_Config
     [Arguments]    ${name}
     [Documentation]    Use dataset with the specified name to get the configuration and check that none of our test objects are there.
     ${reply}=    Load_And_Send_Message    ${name}
-    BuiltIn.Should_Not_Contain    ${reply}    <name>name0</name>
-    BuiltIn.Should_Not_Contain    ${reply}    <name>name1</name>
-    BuiltIn.Should_Not_Contain    ${reply}    <name>name2</name>
-    BuiltIn.Should_Not_Contain    ${reply}    <name>name3</name>
-    BuiltIn.Should_Not_Contain    ${reply}    <name>name4</name>
+    Check_Test_Objects_Absent    ${reply}
+    BuiltIn.Should_not_Contain    ${reply}    <id>REPLACE</id>
+    [Return]    ${reply}
 
 Perform_Test
     [Arguments]    ${name}
