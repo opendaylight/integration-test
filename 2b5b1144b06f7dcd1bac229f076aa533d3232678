@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_4aacf0a0",
+        "filename": "csit/libraries/UscUtils.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-27T02:22:03Z",
+      "side": 1,
+      "message": "this needs changing too.  sorry I missed it on first passes.\nmore below.  also MININET_PASSWORD\n\nsee here to know what we are trying to settle to:\nhttps://github.com/opendaylight/integration-test/blob/master/csit/variables/Variables.py#L14-L25",
+      "range": {
+        "startLine": 38,
+        "startChar": 37,
+        "endLine": 38,
+        "endChar": 49
+      },
+      "revId": "2b5b1144b06f7dcd1bac229f076aa533d3232678",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2ab1acf8",
+        "filename": "csit/suites/usc/tcp/100__basic.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-27T02:22:03Z",
+      "side": 1,
+      "message": "ODL_SYSTEM_IP",
+      "range": {
+        "startLine": 3,
+        "startChar": 56,
+        "endLine": 3,
+        "endChar": 66
+      },
+      "revId": "2b5b1144b06f7dcd1bac229f076aa533d3232678",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8a955842",
+        "filename": "csit/suites/usc/tcp/110_TCP/Test.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-27T02:22:03Z",
+      "side": 1,
+      "message": "ODL_SYSTEM_IP",
+      "range": {
+        "startLine": 3,
+        "startChar": 56,
+        "endLine": 3,
+        "endChar": 66
+      },
+      "revId": "2b5b1144b06f7dcd1bac229f076aa533d3232678",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6a929458",
+        "filename": "csit/suites/usc/tcp/200_Multiple_Sessions_TCP/Test.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-27T02:22:03Z",
+      "side": 1,
+      "message": "ODL_SYSTEM_IP",
+      "range": {
+        "startLine": 3,
+        "startChar": 56,
+        "endLine": 3,
+        "endChar": 66
+      },
+      "revId": "2b5b1144b06f7dcd1bac229f076aa533d3232678",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ca9f605e",
+        "filename": "csit/suites/usc/tcp/300_Callhome_TCP/test.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-27T02:22:03Z",
+      "side": 1,
+      "message": "ODL_SYSTEM_IP",
+      "range": {
+        "startLine": 3,
+        "startChar": 56,
+        "endLine": 3,
+        "endChar": 66
+      },
+      "revId": "2b5b1144b06f7dcd1bac229f076aa533d3232678",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_aa9c9c6a",
+        "filename": "csit/suites/usc/udp/110_UDP/Test.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-27T02:22:03Z",
+      "side": 1,
+      "message": "ODL_SYSTEM_IP",
+      "range": {
+        "startLine": 3,
+        "startChar": 56,
+        "endLine": 3,
+        "endChar": 66
+      },
+      "revId": "2b5b1144b06f7dcd1bac229f076aa533d3232678",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0a894826",
+        "filename": "csit/suites/usc/udp/200_Multiple_Sessions_UDP/Test.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-27T02:22:03Z",
+      "side": 1,
+      "message": "ODL_SYSTEM_IP",
+      "range": {
+        "startLine": 3,
+        "startChar": 56,
+        "endLine": 3,
+        "endChar": 66
+      },
+      "revId": "2b5b1144b06f7dcd1bac229f076aa533d3232678",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ea8d0433",
+        "filename": "csit/suites/usc/udp/300_Callhome_UDP/Test.txt",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-27T02:22:03Z",
+      "side": 1,
+      "message": "ODL_SYSTEM_IP",
+      "range": {
+        "startLine": 3,
+        "startChar": 56,
+        "endLine": 3,
+        "endChar": 66
+      },
+      "revId": "2b5b1144b06f7dcd1bac229f076aa533d3232678",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
