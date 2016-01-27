@@ -19,7 +19,7 @@ Add Connection
     ${DATA}    Add Connection Xml    ${version}    ${mode}    ${ip}    ${port}    ${node}
     ...    ${password}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-connection    data=${DATA}    headers=${HEADERS_XML}
-    LOG     ${resp}
+    LOG    ${resp}
     Should be Equal As Strings    ${resp.status_code}    200
 
 Get Connections
@@ -56,7 +56,7 @@ Add Binding
     [Documentation]    Add binding via RPC to Master DB of node
     ${DATA}    Add Entry Xml    ${sgt}    ${prefix}    ${node}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-entry    data=${DATA}    headers=${HEADERS_XML}
-    LOG     ${resp.content}
+    LOG    ${resp.content}
     Should be Equal As Strings    ${resp.status_code}    200
 
 Get Bindings
@@ -103,17 +103,17 @@ Delete Binding
     Should be Equal As Strings    ${resp.status_code}    200
 
 Add PeerGroup
+    [Arguments]    ${name}    ${peers}=    ${node}=127.0.0.1    ${session}=session
     [Documentation]    Adds new PeerGroup via RPC to Node
-    [Arguments]     ${name}     ${peers}=    ${node}=127.0.0.1       ${session}=session
-    ${DATA}    Add Peer Group Xml        ${name}        ${peers}         ${node}
-    LOG     ${DATA}
+    ${DATA}    Add Peer Group Xml    ${name}    ${peers}    ${node}
+    LOG    ${DATA}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-peer-group    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
 
 Delete Peer Group
-    [Arguments]    ${name}    ${node}=127.0.0.1       ${session}=session
+    [Arguments]    ${name}    ${node}=127.0.0.1    ${session}=session
     [Documentation]    Delete PeerGroup via RPC from Node
-    ${DATA}    Delete Peer Group Xml        ${name}    ${node}
+    ${DATA}    Delete Peer Group Xml    ${name}    ${node}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:delete-peer-group    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
 
@@ -126,24 +126,24 @@ Get Peer Groups
     [Return]    ${resp.content}
 
 Clean Peer Groups
-    [Arguments]    ${node}=127.0.0.1       ${session}=session
+    [Arguments]    ${node}=127.0.0.1    ${session}=session
     [Documentation]    Delete all PeerGroups via RPC from node
-    ${resp}    Get Peer Groups    ${node}   ${session}
+    ${resp}    Get Peer Groups    ${node}    ${session}
     @{prefixes}    Parse Peer Groups    ${resp}
     : FOR    ${group}    IN    @{prefixes}
-    \    Delete Peer Group      ${group['name']}    ${node}     ${session}
+    \    Delete Peer Group    ${group['name']}    ${node}    ${session}
 
 Add Filter
-    [Arguments]    ${name}    ${type}      ${entries}       ${node}=127.0.0.1       ${session}=session
+    [Arguments]    ${name}    ${type}    ${entries}    ${node}=127.0.0.1    ${session}=session
     [Documentation]    Add Filter via RPC from Node
-    ${DATA}    Add Filter Xml        ${name}    ${type}    ${entries}   ${node}
+    ${DATA}    Add Filter Xml    ${name}    ${type}    ${entries}    ${node}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-filter    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
 
 Delete Filter
-    [Arguments]    ${name}    ${type}      ${node}=127.0.0.1       ${session}=session
+    [Arguments]    ${name}    ${type}    ${node}=127.0.0.1    ${session}=session
     [Documentation]    Delete Filter via RPC from Node
-    ${DATA}    Delete Filter Xml        ${name}    ${type}    ${node}
+    ${DATA}    Delete Filter Xml    ${name}    ${type}    ${node}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:delete-filter    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
 
@@ -190,20 +190,22 @@ Should Not Contain Connection
     Should Not Be True    ${out}    Shouldn't have ${ip}:${port} ${mode} ${version}
 
 Setup Topology Complex
-    [Arguments]     ${version}=version4     ${PASSWORD}=none
+    [Arguments]    ${version}=version4    ${PASSWORD}=none
     : FOR    ${node}    IN RANGE    2    6
-    \   Add Connection    ${version}    both    127.0.0.1    64999    127.0.0.${node}    ${PASSWORD}
-    \   Add Connection    ${version}    both    127.0.0.${node}    64999    127.0.0.1    ${PASSWORD}
-    \   Wait Until Keyword Succeeds    15    4    Verify Connection    ${version}    both    127.0.0.${node}
-    \   Add Binding    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
-    \   Add Binding    ${node}0    10.10.${node}0.0/24     127.0.0.${node}
-    \   Add Binding    ${node}0   10.${node}0.0.0/16      127.0.0.${node}
-    \   Add Binding    ${node}0    ${node}0.0.0.0/8        127.0.0.${node}
-
+    \    Add Connection    ${version}    both    127.0.0.1    64999    127.0.0.${node}
+    \    ...    ${PASSWORD}
+    \    Add Connection    ${version}    both    127.0.0.${node}    64999    127.0.0.1
+    \    ...    ${PASSWORD}
+    \    Wait Until Keyword Succeeds    15    4    Verify Connection    ${version}    both
+    \    ...    127.0.0.${node}
+    \    Add Binding    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
+    \    Add Binding    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
+    \    Add Binding    ${node}0    10.${node}0.0.0/16    127.0.0.${node}
+    \    Add Binding    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
     Add Binding    10    10.10.10.10/32    127.0.0.1
-    Add Binding    10    10.10.10.0/24     127.0.0.1
-    Add Binding    10    10.10.0.0/16      127.0.0.1
-    Add Binding    10    10.0.0.0/8        127.0.0.1
+    Add Binding    10    10.10.10.0/24    127.0.0.1
+    Add Binding    10    10.10.0.0/16    127.0.0.1
+    Add Binding    10    10.0.0.0/8    127.0.0.1
 
 Setup SXP Environment
     [Documentation]    Create session to Controller

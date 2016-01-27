@@ -48,7 +48,7 @@ Get Elp Hop
     ${rloc}=    Get From Dictionary    ${loc_record}    rloc
     ${exp_loc_path}=    Get From Dictionary    ${rloc}    explicit-locator-path
     ${actual_hop_index}=    Evaluate    ${hop_index} - 1
-    ${hop}=    Get From List    ${exp_loc_path}     ${actual_hop_index}
+    ${hop}=    Get From List    ${exp_loc_path}    ${actual_hop_index}
     [Return]    ${hop}
 
 Check Mapping Removal

@@ -21,19 +21,19 @@ ${agg2-connector-id2}    4
 Get the Specific Node Inventory and Lacp aggregator details
     [Documentation]    Get the lacp-aggregator data for specific node
     ${resp}    Get    session    ${OPERATIONAL_NODES_API}/node/${node1}
-    Verify LACP RESTAPI Response Code for node   ${resp} 
+    Verify LACP RESTAPI Response Code for node    ${resp}
     Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    ${agg-id1}
     Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    ${agg-id2}
 
 Get information of each lacp-aggregator for a node
     [Documentation]    Get each lacp-aggregator data for a node
     ${resp}    Get    session    ${OPERATIONAL_NODES_API}/node/${node1}/lacp-aggregators/${agg-id1}
-    Verify LACP RESTAPI Response Code for node   ${resp} 
+    Verify LACP RESTAPI Response Code for node    ${resp}
     Verify LACP connector associated for aggregator    ${resp.content}    ${node1}    ${agg1-connector-id1}
     Verify LACP connector associated for aggregator    ${resp.content}    ${node1}    ${agg1-connector-id2}
     Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    lag-groupid
     ${resp}    Get    session    ${OPERATIONAL_NODES_API}/node/${node1}/lacp-aggregators/${agg-id2}
-    Verify LACP RESTAPI Response Code for node   ${resp}
+    Verify LACP RESTAPI Response Code for node    ${resp}
     Verify LACP connector associated for aggregator    ${resp.content}    ${node1}    ${agg2-connector-id1}
     Verify LACP connector associated for aggregator    ${resp.content}    ${node1}    ${agg2-connector-id2}
     Verify LACP RESTAPI Aggregator and Tag Contents    ${resp.content}    lag-groupid

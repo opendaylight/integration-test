@@ -99,9 +99,9 @@ Set Host interface state
     [Documentation]    Will configure the port state of the Host to either up or down
     Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
-    Write      sudo ./m h2
-    Write      sudo ifconfig ${port-id}
-    Write      sudo ifconfig ${port-id} ${port-state}
+    Write    sudo ./m h2
+    Write    sudo ifconfig ${port-id}
+    Write    sudo ifconfig ${port-id} ${port-state}
 
 Verify Switch S1 Group Table
     [Arguments]    ${group-type}    ${port-id1}    ${port-id2}    ${port-id2-state}

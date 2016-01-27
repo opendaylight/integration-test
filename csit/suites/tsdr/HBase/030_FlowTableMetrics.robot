@@ -34,8 +34,6 @@ Verification of FlowTableMetrics-PacketMatch on HBase Client
     [Documentation]    Verify the FlowTableMetrics has been updated on HBase Datastore
     Verify the Metrics Attributes on Hbase Client    PacketMatch    Node:openflow:1,Table:0    FLOWTABLESTATS
 
-
 Verification of FlowTableMetrics-PacketLookup on HBase Client
     [Documentation]    Verify the FlowTableMetrics has been updated on HBase Datastore
     Verify the Metrics Attributes on Hbase Client    PacketLookup    Node:openflow:1,Table:0    FLOWTABLESTATS
-

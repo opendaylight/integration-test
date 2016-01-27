@@ -51,7 +51,7 @@ OVSDB Connection Manager Suite Setup
     Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
 
 OVSDB Connection Manager Suite Teardown
-    [Documentation]  Cleans up test environment, close existing sessions.
+    [Documentation]    Cleans up test environment, close existing sessions.
     Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
     RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE}
     ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
@@ -61,7 +61,7 @@ OVSDB Connection Manager Suite Teardown
 Create Bridge
     [Documentation]    This will create bridge on the specified OVSDB node.
     ${body}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_bridge.json
-    ${body}    Replace String    ${body}     ovsdb://127.0.0.1:61644    ovsdb://uuid/${ovsdb_uuid}
+    ${body}    Replace String    ${body}    ovsdb://127.0.0.1:61644    ovsdb://uuid/${ovsdb_uuid}
     ${body}    Replace String    ${body}    tcp:127.0.0.1:6633    tcp:${ODL_SYSTEM_IP}:6640
     ${body}    Replace String    ${body}    127.0.0.1    ${TOOLS_SYSTEM_IP}
     ${body}    Replace String    ${body}    br01    ${BRIDGE}

@@ -40,7 +40,6 @@ Verification of QueueMetrics-TransmissionErrors on HBase Client
     [Documentation]    Verify the QueueMetrics has been updated on HBase Datastore
     Verify the Metrics Attributes on Hbase Client    TransmissionErrors    Node:openflow:2    QUEUESTATS
 
-
 *** Keyword ***
 Configuration of Queue on Switch
     [Documentation]    Queue configuration on openvswitch

@@ -30,7 +30,6 @@ Verification of FlowMetrics-PacketCount on HBase Client
     Should Contain    ${Line1}    PacketCount
     Verify the Metrics Attributes on Hbase Client    PacketCount    Node:openflow:1,Table:0    FLOWSTATS
 
-
 Verification of FlowMetrics-BytesCount on HBase Client
     [Documentation]    Verify the FlowStats-ByteCount on both Karaf Console and Hbase Client
     ${tsdr_cmd}=    Concatenate the String    ${TSDR_FLOWSTATS}    | grep ByteCount | head
@@ -38,4 +37,3 @@ Verification of FlowMetrics-BytesCount on HBase Client
     ${Line1}=    Get Line    ${output}    0
     Should Contain    ${Line1}    ByteCount
     Verify the Metrics Attributes on Hbase Client    ByteCount    Node:openflow:1,Table:0    FLOWSTATS
-
