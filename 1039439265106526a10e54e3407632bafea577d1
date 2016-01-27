@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_45ffc367",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-27T10:53:14Z",
+      "side": 1,
+      "message": "This name looks too general, consider making this a resource-private variable.\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Resource-private_variables",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 19
+      },
+      "revId": "1039439265106526a10e54e3407632bafea577d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_85f8ab7d",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-27T10:53:14Z",
+      "side": 1,
+      "message": "Definitely should be resource-private.",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 50,
+        "endChar": 24
+      },
+      "revId": "1039439265106526a10e54e3407632bafea577d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0505bb79",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-27T10:53:14Z",
+      "side": 1,
+      "message": "\"all variables created during test execution are considered mutable, even if the firstly assigned value never changes\"\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Immutable_variables",
+      "range": {
+        "startLine": 77,
+        "startChar": 34,
+        "endLine": 77,
+        "endChar": 54
+      },
+      "revId": "1039439265106526a10e54e3407632bafea577d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_65f5a782",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-27T10:53:14Z",
+      "side": 1,
+      "message": "Delete outdated comments.",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 6
+      },
+      "revId": "1039439265106526a10e54e3407632bafea577d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
