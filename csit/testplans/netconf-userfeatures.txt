@@ -8,4 +8,5 @@
 integration/test/csit/suites/netconf/ready
 integration/test/csit/suites/netconf/MDSAL
 integration/test/csit/suites/netconf/CRUD
+integration/test/csit/suites/netconf/notifications
 integration/test/csit/suites/controller/NETCONF
