@@ -114,6 +114,213 @@
       "revId": "698ae6d77fac14a5a21802a5e7cd0ce06b9c6f14",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_db873060",
+        "filename": "csit/suites/alto/basic/AltoParser.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-01-27T16:24:29Z",
+      "side": 1,
+      "message": "These are sets too, not sure if \"key\" makes sense",
+      "range": {
+        "startLine": 9,
+        "startChar": 7,
+        "endLine": 9,
+        "endChar": 11
+      },
+      "revId": "698ae6d77fac14a5a21802a5e7cd0ce06b9c6f14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7b96e495",
+        "filename": "csit/suites/alto/basic/AltoParser.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-01-27T16:24:29Z",
+      "side": 1,
+      "message": "It\u0027d be good to have docstrings for all fns. This one is quite complex, so even more important. Inline docs at the loops and conditionals of this fn would be good too. Examples of good docstrings:\n\nhttps://git.opendaylight.org/gerrit/#/c/22384/\nhttps://github.com/IEEERobotics/bot/blob/master/bot/server/ctrl_server.py\n\nA better fn name might help clarity/maintenance as well. What does \"check\" mean? Is there a more descriptive wording?",
+      "range": {
+        "startLine": 30,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 33
+      },
+      "revId": "698ae6d77fac14a5a21802a5e7cd0ce06b9c6f14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7baf04e4",
+        "filename": "csit/suites/alto/basic/AltoParser.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-01-27T16:24:29Z",
+      "side": 1,
+      "message": "Not a fan of \"my*\" var names",
+      "range": {
+        "startLine": 30,
+        "startChar": 44,
+        "endLine": 30,
+        "endChar": 47
+      },
+      "revId": "698ae6d77fac14a5a21802a5e7cd0ce06b9c6f14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_bb906c96",
+        "filename": "csit/suites/alto/basic/AltoParser.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-01-27T16:24:29Z",
+      "side": 1,
+      "message": "Not a fan of 1-letter var names",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 31,
+        "endChar": 5
+      },
+      "revId": "698ae6d77fac14a5a21802a5e7cd0ce06b9c6f14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9b8da87e",
+        "filename": "csit/suites/alto/basic/AltoParser.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-01-27T16:24:29Z",
+      "side": 1,
+      "message": "Inline docs describing what this logic is doing would be nice",
+      "range": {
+        "startLine": 39,
+        "startChar": 24,
+        "endLine": 39,
+        "endChar": 100
+      },
+      "revId": "698ae6d77fac14a5a21802a5e7cd0ce06b9c6f14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_fbe9541b",
+        "filename": "csit/suites/alto/basic/AltoParser.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-01-27T16:24:29Z",
+      "side": 1,
+      "message": "Inline docs describing what this logic is doing would be nice",
+      "range": {
+        "startLine": 41,
+        "startChar": 28,
+        "endLine": 43,
+        "endChar": 76
+      },
+      "revId": "698ae6d77fac14a5a21802a5e7cd0ce06b9c6f14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_fb3794ae",
+        "filename": "csit/suites/alto/basic/AltoParser.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-01-27T16:24:29Z",
+      "side": 1,
+      "message": "Same 1-letter var feedback",
+      "range": {
+        "startLine": 53,
+        "startChar": 8,
+        "endLine": 53,
+        "endChar": 9
+      },
+      "revId": "698ae6d77fac14a5a21802a5e7cd0ce06b9c6f14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_dbee1022",
+        "filename": "csit/suites/alto/basic/AltoParser.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-01-27T16:24:29Z",
+      "side": 1,
+      "message": "This doesn\u0027t make sense to me. You\u0027re resetting the iteration var by using it to index into the thing you\u0027re iterating over. Hard to imagine this isn\u0027t a bug.",
+      "range": {
+        "startLine": 62,
+        "startChar": 12,
+        "endLine": 62,
+        "endChar": 45
+      },
+      "revId": "698ae6d77fac14a5a21802a5e7cd0ce06b9c6f14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_db3c5096",
+        "filename": "csit/suites/alto/basic/AltoParser.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-01-27T16:24:29Z",
+      "side": 1,
+      "message": "Again, almost anything would be more descriptive than \"my\"",
+      "range": {
+        "startLine": 77,
+        "startChar": 16,
+        "endLine": 77,
+        "endChar": 19
+      },
+      "revId": "698ae6d77fac14a5a21802a5e7cd0ce06b9c6f14",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
