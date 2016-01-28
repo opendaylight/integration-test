@@ -16,7 +16,7 @@ Variables         ../../../variables/Variables.py
 ${SWITCH_CLASS}    Ovs
 ${SWITCH_IP}      ${MININET}
 ${SWITCH_PROMPT}    ${DEFAULT_LINUX_PROMPT}
-${CONTROLLER}     null
+${ODL_SYSTEM_IP}     null
 ${REST_CONTEXT}    /restconf/operational/opendaylight-inventory:nodes
 
 *** Test Cases ***
@@ -38,12 +38,12 @@ Switch Qualification Suite Setup
     ${test_switch}=    Get Switch    ${SWITCH_CLASS}
     Set Suite Variable    ${test_switch}
     Call Method    ${test_switch}    set_mgmt_ip    ${SWITCH_IP}
-    Call Method    ${test_switch}    set_controller_ip    ${CONTROLLER}
+    Call Method    ${test_switch}    set_controller_ip    ${ODL_SYSTEM_IP}
     Call Method    ${test_switch}    set_mgmt_prompt    ${SWITCH_PROMPT}
     Log    MAKE: ${test_switch.make}\n MODEL: ${test_switch.model}\n IP: ${test_switch.mgmt_ip}\n PROMPT: ${test_switch.mgmt_prompt}\n CONTROLLER_IP: ${test_switch.of_controller_ip}\n MGMT_PROTOCOL: ${test_switch.mgmt_protocol}
     Ping    ${test_switch.mgmt_ip}
     Initialize Switch    ${test_switch}
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
 
 Switch Qualification Suite Teardown
     Cleanup Switch    ${test_switch}

@@ -19,5 +19,5 @@ Start Suite
     Execute Command    sudo mn -c
     Write    ${start}
     Read Until    mininet>
-    Write    start_with_cluster ${CONTROLLER},${CONTROLLER1},${CONTROLLER2}
+    Write    start_with_cluster ${ODL_SYSTEM_IP},${ODL_SYSTEM_2_IP},${ODL_SYSTEM_3_IP}
     Read Until    mininet>
