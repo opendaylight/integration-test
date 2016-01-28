@@ -1,11 +1,11 @@
 *** Settings ***
 Documentation     Test for layers AE/CONTAINER/CONTENTINSTANCE
-Suite Teardown    Kill The Tree    ${CONTROLLER}    InCSE1    admin    admin
+Suite Teardown    Kill The Tree    ${ODL_SYSTEM_IP}    InCSE1    admin    admin
 Library           ../../../libraries/criotdm.py
 Library           Collections
 
 *** Variables ***
-${httphost}       ${CONTROLLER}
+${httphost}       ${ODL_SYSTEM_IP}
 ${httpuser}       admin
 ${httppass}       admin
 ${rt_ae}          2
