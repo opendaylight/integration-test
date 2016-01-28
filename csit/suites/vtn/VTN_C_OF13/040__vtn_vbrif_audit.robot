@@ -32,7 +32,7 @@ Create VBRIF in VBRIDGE Vbr_audit Interface2
 
 Update controller to Valid IP
     [Documentation]    Update Controller ip to valid from invalid
-    Update Controller    odc_test    ${CONTROLLER}    valid_IP
+    Update Controller    odc_test    ${ODL_SYSTEM_IP}    valid_IP
 
 Verify the Controller State is in waiting_audit
     [Documentation]    Check Controller status
