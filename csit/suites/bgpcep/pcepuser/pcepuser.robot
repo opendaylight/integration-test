@@ -34,7 +34,7 @@ Topology_Precondition
 
 Start_Pcc_Mock
     [Documentation]    Execute pcc-mock on Mininet, fail is Open is not sent, keep it running for next tests.
-    ${command}=    Set_Variable    java -jar ${filename} --local-address ${MININET} --remote-address ${CONTROLLER} 2>&1 | tee pccmock.log
+    ${command}=    Set_Variable    java -jar ${filename} --local-address ${MININET} --remote-address ${ODL_SYSTEM_IP} 2>&1 | tee pccmock.log
     Log    ${command}
     Write    ${command}
     Read_Until    started, sent proposal Open
@@ -121,7 +121,7 @@ Set_It_Up
     SSHLibrary.Open_Connection    ${MININET}    prompt=${MININET_PROMPT}    timeout=${OUTPUT_TIMEOUT}
     Utils.Flexible_Mininet_Login
     # FIXME: Unify Module prefix usage across whole file.
-    Create_Session    ses    http://${CONTROLLER}:${RESTCONFPORT}/restconf/operational/network-topology:network-topology    auth=${AUTH}
+    Create_Session    ses    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}/restconf/operational/network-topology:network-topology    auth=${AUTH}
     ${name}=    NexusKeywords.Deploy_Test_Tool    bgpcep/pcep-pcc-mock
     BuiltIn.Set_Suite_Variable    ${filename}    ${name}
     Remove_Directory    ${ExpDir}

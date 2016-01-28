@@ -125,7 +125,7 @@ Resource          ${CURDIR}/../../../libraries/Utils.robot
 # This table acts as an exhaustive list of variables users can modify on pybot invocation.
 # It also contains commented-out lines for variables defined elswhere.
 # Keep this list in alphabetical order.
-# ${CONTROLLER} is inherited from Variables.py
+# ${ODL_SYSTEM_IP} is inherited from Variables.py
 # ${CONTROLLER_USER} is inherited from Variables.py
 # ${CONTROLLER_PASSWORD} is inherited from Variables.py
 ${CONTROLLER_PROMPT}    ${DEFAULT_LINUX_PROMPT}    # from Variables.py
@@ -157,7 +157,7 @@ ${RESTCONF_REUSE}    True
 ${RESTCONF_SCOPE}    ${EMPTY}
 ${RESTCONF_USER}    ${USER}    # from Variables.py
 ${UPDATER_COLOCATED}    False
-${UPDATER_ODLADDRESS}    ${CONTROLLER}
+${UPDATER_ODLADDRESS}    ${ODL_SYSTEM_IP}
 ${UPDATER_REFRESH}    0.1
 ${UPDATER_TIMEOUT}    300
 ${UPDATERVM_ENABLE_TCP_RW_REUSE}    True
@@ -201,8 +201,8 @@ Put_Updater
     SSHKeywords.Assure_Library_Counter    target_dir=${UPDATERVM_WORKSPACE}
     SSHKeywords.Assure_Library_Ipaddr    terget_dir=${UPDATERVM_WORKSPACE}
     # Done preparation of Updater VM, now use AuthStandalone to create session from robot VM too.
-    BuiltIn.Log_Many    ${RESTCONF_USER}    ${RESTCONF_PASSWORD}    ${RESTCONF_SCOPE}    ${CONTROLLER}
-    ${session} =    AuthStandalone.Init_Session    ${CONTROLLER}    ${RESTCONF_USER}    ${RESTCONF_PASSWORD}    ${RESTCONF_SCOPE}
+    BuiltIn.Log_Many    ${RESTCONF_USER}    ${RESTCONF_PASSWORD}    ${RESTCONF_SCOPE}    ${ODL_SYSTEM_IP}
+    ${session} =    AuthStandalone.Init_Session    ${ODL_SYSTEM_IP}    ${RESTCONF_USER}    ${RESTCONF_PASSWORD}    ${RESTCONF_SCOPE}
     BuiltIn.Set_Suite_Variable    ${rest_session}    ${session}
     # TODO: Define http timeouts.
 
@@ -227,7 +227,7 @@ Topology_Precondition
 Start_Pcc_Mock
     [Documentation]    Launch pcc-mock on background so simulated PCCs start connecting to controller.
     SSHLibrary.Switch_Connection    pccmock
-    ${command} =    BuiltIn.Set_Variable    java -jar ${mocklocation} --local-address ${FIRST_PCC_IP} --remote-address ${CONTROLLER} --pcc ${PCCS} --lsp ${LSPS} &> ${LOG_PATH}/${LOG_NAME}
+    ${command} =    BuiltIn.Set_Variable    java -jar ${mocklocation} --local-address ${FIRST_PCC_IP} --remote-address ${ODL_SYSTEM_IP} --pcc ${PCCS} --lsp ${LSPS} &> ${LOG_PATH}/${LOG_NAME}
     BuiltIn.Log    ${command}
     SSHLibrary.Write    ${command}
     # The pccmock SSH session is left alive, but no data will be exchanged for a while.
@@ -388,7 +388,7 @@ Restore_Tcp_Rw_Reuse
 *** Keywords ***
 Pccmock_From_Controller
     [Documentation]    Copy Controller values to Pccmock VM variables.
-    BuiltIn.Set_Suite_Variable    ${PCCMOCKVM_IP}    ${CONTROLLER}
+    BuiltIn.Set_Suite_Variable    ${PCCMOCKVM_IP}    ${ODL_SYSTEM_IP}
     BuiltIn.Set_Suite_Variable    ${PCCMOCKVM_PASSWORD}    ${CONTROLLER_PASSWORD}
     BuiltIn.Set_Suite_Variable    ${PCCMOCKVM_PROMPT}    ${CONTROLLER_PROMPT}
     BuiltIn.Set_Suite_Variable    ${PCCMOCKVM_WORKSPACE}    ${CONTROLLER_WORKSPACE}
@@ -396,7 +396,7 @@ Pccmock_From_Controller
 
 Updater_From_Controller
     [Documentation]    Copy Controller values to Uprater VM variables.
-    BuiltIn.Set_Suite_Variable    ${UPDATERVM_IP}    ${CONTROLLER}
+    BuiltIn.Set_Suite_Variable    ${UPDATERVM_IP}    ${ODL_SYSTEM_IP}
     BuiltIn.Set_Suite_Variable    ${UPDATERVM_PASSWORD}    ${CONTROLLER_PASSWORD}
     BuiltIn.Set_Suite_Variable    ${UPDATERVM_PROMPT}    ${CONTROLLER_PROMPT}
     BuiltIn.Set_Suite_Variable    ${UPDATERVM_WORKSPACE}    ${CONTROLLER_WORKSPACE}
