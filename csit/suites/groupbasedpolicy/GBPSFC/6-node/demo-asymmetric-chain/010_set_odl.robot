@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for setting up infrastructure for demo-asymmetric-chain
-Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_YANG_JSON}
+Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_YANG_JSON}
 Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
 Library           OperatingSystem
