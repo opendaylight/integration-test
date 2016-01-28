@@ -6,4 +6,4 @@ Library           SSHLibrary
 Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
-${start}          sudo mn --controller=remote,ip=${CONTROLLER} --topo=linear,3 --switch ovsk,protocols=OpenFlow13
+${start}          sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo=linear,3 --switch ovsk,protocols=OpenFlow13
