@@ -19,14 +19,14 @@ ${TSDR_FLOWGROUPSTATS}    tsdr:list FlowGroupStats
 Verify the FlowGroup Stats attributes exist thru Karaf console
     [Documentation]    Verify the FlowGroupStats attributes exist on Karaf Console
     Wait Until Keyword Succeeds    120s    1s    Verify the Metric is Collected?    ${TSDR_FLOWGROUPSTATS}    ByteCount
-    ${output}=    Issue Command On Karaf Console    ${TSDR_FLOWGROUPSTATS}    ${CONTROLLER}    ${KARAF_SHELL_PORT}    30
+    ${output}=    Issue Command On Karaf Console    ${TSDR_FLOWGROUPSTATS}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    30
     : FOR    ${list}    IN    @{FLOWGROUP_METRICS}
     \    Should Contain    ${output}    ${list}
 
 Verification of FlowGroupStats-ByteCount on Karaf Console
     [Documentation]    Verify the FlowGroupStats has been updated thru tsdr:list command on karaf console
     ${tsdr_cmd}=    Concatenate the String    ${TSDR_FLOWGROUPSTATS}    | grep ByteCount | head
-    ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}    ${CONTROLLER}    ${KARAF_SHELL_PORT}    90
+    ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    90
     Should Contain    ${output}    ByteCount
     Should Contain    ${output}    FLOWGROUPSTATS
     Should not Contain    ${output}    null

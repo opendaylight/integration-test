@@ -19,14 +19,14 @@ ${TSDR_FLOWMETERSTATS}    tsdr:list FlowMeterStats
 Verify the FlowMeter Stats attributes exist thru Karaf console
     [Documentation]    Verify the FlowMeterStats attributes exist on Karaf Console
     Wait Until Keyword Succeeds    120s    1s    Verify the Metric is Collected?    ${TSDR_FLOWMETERSTATS}    ByteInCount
-    ${output}=    Issue Command On Karaf Console    ${TSDR_FLOWMETERSTATS}    ${CONTROLLER}    ${KARAF_SHELL_PORT}    30
+    ${output}=    Issue Command On Karaf Console    ${TSDR_FLOWMETERSTATS}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    30
     : FOR    ${list}    IN    @{FLOWMETER_METRICS}
     \    Should Contain    ${output}    ${list}
 
 Verification of FlowMeterStats-ByteInCount on Karaf Console
     [Documentation]    Verify the FlowMeterStats has been updated thru tsdr:list command on karaf console
     ${tsdr_cmd}=    Concatenate the String    ${TSDR_FLOWMETERSTATS}    | grep ByteInCount | head
-    ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}    ${CONTROLLER}    ${KARAF_SHELL_PORT}    90
+    ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    90
     Should Contain    ${output}    ByteInCount
     Should Contain    ${output}    FLOWMETERSTATS
     Should not Contain    ${output}    null
@@ -48,7 +48,7 @@ Uninstall all TSDR H2 Feature
 
 Verification TSDR Command shouldnot exist in help
     [Documentation]    Verify the TSDR List command on help
-    ${output}=    Issue Command On Karaf Console    tsdr\t    ${CONTROLLER}    ${KARAF_SHELL_PORT}
+    ${output}=    Issue Command On Karaf Console    tsdr\t    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}
     Should not Contain    ${output}    tsdr:list
 
 *** Keyword ***
