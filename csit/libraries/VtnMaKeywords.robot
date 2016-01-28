@@ -9,8 +9,8 @@ Variables         ../variables/Variables.py
 Resource          ./Utils.robot
 
 *** Variables ***
-${vlan_topo_10}    sudo mn --controller=remote,ip=${CONTROLLER} --custom vlan_vtn_test.py --topo vlantopo
-${vlan_topo_13}    sudo mn --controller=remote,ip=${CONTROLLER} --custom vlan_vtn_test.py --topo vlantopo --switch ovsk,protocols=OpenFlow13
+${vlan_topo_10}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom vlan_vtn_test.py --topo vlantopo
+${vlan_topo_13}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom vlan_vtn_test.py --topo vlantopo --switch ovsk,protocols=OpenFlow13
 ${VERSION_VTN}    controller/nb/v2/vtn/version
 ${VTN_INVENTORY}    restconf/operational/vtn-inventory:vtn-nodes
 ${DUMPFLOWS_OF10}    dpctl dump-flows -O OpenFlow10
@@ -25,8 +25,8 @@ ${vlanmap_bridge2}    300
 @{VLANMAP_BRIDGE2_DATAFLOW}    "reason":"VLANMAPPED"    "virtual-node-path":{"bridge-name":"vBridge2_vlan","tenant-name":"Tenant1","vlan-map-id":"ANY.300"}
 ${out_before_pathpolicy}    output:2
 ${out_after_pathpolicy}    output:3
-${pathpolicy_topo_13}    sudo mn --controller=remote,ip=${CONTROLLER} --custom topo-3sw-2host_multipath.py --topo pathpolicytopo --switch ovsk,protocols=OpenFlow13
-${pathpolicy_topo_10}    sudo mn --controller=remote,ip=${CONTROLLER} --custom topo-3sw-2host_multipath.py --topo pathpolicytopo --switch ovsk,protocols=OpenFlow10
+${pathpolicy_topo_13}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom topo-3sw-2host_multipath.py --topo pathpolicytopo --switch ovsk,protocols=OpenFlow13
+${pathpolicy_topo_10}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom topo-3sw-2host_multipath.py --topo pathpolicytopo --switch ovsk,protocols=OpenFlow10
 @{PATHMAP_ATTR}    "index":"1"    "condition":"flowcond_path"    "policy":"1"
 ${policy_id}      1
 ${in_port}        1
@@ -36,13 +36,13 @@ ${custom}         ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
 *** Keywords ***
 Start SuiteVtnMa
     [Documentation]    Start VTN Manager Rest Config Api Test Suite
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     BuiltIn.Wait_Until_Keyword_Succeeds    30    3    Fetch vtn list
     Start Suite
 
 Start SuiteVtnMaTest
     [Documentation]    Start VTN Manager Test Suite
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 
 Stop SuiteVtnMa
     [Documentation]    Stop VTN Manager Test Suite

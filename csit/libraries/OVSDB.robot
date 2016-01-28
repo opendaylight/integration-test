@@ -33,7 +33,7 @@ Add Bridge To Ovsdb Node
     [Arguments]    ${mininet_ip}    ${bridge_num}    ${datapath_id}
     [Documentation]    This will create a bridge and add it to the OVSDB node.
     ${sample}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_bridge.json
-    ${sample1}    Replace String    ${sample}    tcp:127.0.0.1:6633    tcp:${CONTROLLER}:6633
+    ${sample1}    Replace String    ${sample}    tcp:127.0.0.1:6633    tcp:${ODL_SYSTEM_IP}:6633
     ${sample2}    Replace String    ${sample1}    127.0.0.1    ${mininet_ip}
     ${sample3}    Replace String    ${sample2}    br01    ${bridge_num}
     ${sample4}    Replace String    ${sample3}    61644    ${OVSDB_PORT}

@@ -9,8 +9,8 @@ Variables         ../variables/Variables.py
 Resource          ./Utils.robot
 
 *** Variables ***
-${vlan_topo_10}    sudo mn --controller=remote,ip=${CONTROLLER} --custom vlan_vtn_test.py --topo vlantopo
-${vlan_topo_13}    sudo mn --controller=remote,ip=${CONTROLLER} --custom vlan_vtn_test.py --topo vlantopo --switch ovsk,protocols=OpenFlow13
+${vlan_topo_10}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom vlan_vtn_test.py --topo vlantopo
+${vlan_topo_13}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom vlan_vtn_test.py --topo vlantopo --switch ovsk,protocols=OpenFlow13
 ${REST_CONTEXT_VTNS}    controller/nb/v2/vtn/default/vtns
 ${REST_CONTEXT}    controller/nb/v2/vtn/default
 ${VERSION_VTN}    controller/nb/v2/vtn/version
@@ -25,8 +25,8 @@ ${vlanmap_bridge1}    {"vlan": "200"}
 ${vlanmap_bridge2}    {"vlan": "300"}
 @{VLANMAP_BRIDGE1_DATAFLOW}    "reason":"VLANMAPPED"    "path":{"tenant":"Tenant1","bridge":"vBridge1_vlan"}
 @{VLANMAP_BRIDGE2_DATAFLOW}    "reason":"VLANMAPPED"    "path":{"tenant":"Tenant1","bridge":"vBridge2_vlan"}
-${pathpolicy_topo_13}    sudo mn --controller=remote,ip=${CONTROLLER} --custom topo-3sw-2host_multipath.py --topo pathpolicytopo --switch ovsk,protocols=OpenFlow13
-${pathpolicy_topo_10}    sudo mn --controller=remote,ip=${CONTROLLER} --custom topo-3sw-2host_multipath.py --topo pathpolicytopo --switch ovsk,protocols=OpenFlow10
+${pathpolicy_topo_13}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom topo-3sw-2host_multipath.py --topo pathpolicytopo --switch ovsk,protocols=OpenFlow13
+${pathpolicy_topo_10}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom topo-3sw-2host_multipath.py --topo pathpolicytopo --switch ovsk,protocols=OpenFlow10
 @{PATHMAP_ATTR}    "index":"1"    "condition":"flowcond_path"    "policy":"1"
 ${policy_id}      1
 @{PATHPOLICY_ATTR}    "id":"1"    "type":"OF"    "name":"s4-eth2"
@@ -38,7 +38,7 @@ ${out_after_pathpolicy}    output:3
 *** Keywords ***
 Start SuiteVtnMa
     [Documentation]    Start VTN Manager Init Test Suite
-    Create Session    session    http://${CONTROLLER}:${RESTPORT}    auth=${AUTH}    headers=${HEADERS}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTPORT}    auth=${AUTH}    headers=${HEADERS}
     BuiltIn.Wait_Until_Keyword_Succeeds    30    3    Fetch vtn list
     Start Suite
 
@@ -49,7 +49,7 @@ Stop SuiteVtnMa
 
 Start SuiteVtnMaTest
     [Documentation]    Start VTN Manager Test Suite
-    Create Session    session    http://${CONTROLLER}:${RESTPORT}    auth=${AUTH}    headers=${HEADERS}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTPORT}    auth=${AUTH}    headers=${HEADERS}
 
 Stop SuiteVtnMaTest
     [Documentation]    Stop VTN Manager Test Suite

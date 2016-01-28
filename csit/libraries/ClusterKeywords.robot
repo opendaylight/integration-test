@@ -103,7 +103,7 @@ Get Controller List
     [Arguments]    ${exclude_controller}=${EMPTY}
     [Documentation]    Creates a list of all controllers minus any excluded controller.
     Log    ${exclude_controller}
-    @{searchlist}    Create List    ${CONTROLLER}    ${CONTROLLER1}    ${CONTROLLER2}
+    @{searchlist}    Create List    ${ODL_SYSTEM_IP}    ${ODL_SYSTEM_2_IP}    ${ODL_SYSTEM_3_IP}
     Remove Values From List    ${searchlist}    ${exclude_controller}
     Log    ${searchlist}
     [Return]    ${searchlist}

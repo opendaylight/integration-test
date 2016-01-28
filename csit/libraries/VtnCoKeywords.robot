@@ -11,13 +11,13 @@ Variables         ../variables/Variables.py
 Resource          ./Utils.robot
 
 *** variable ***
-${vlan_topo}      sudo mn --controller=remote,ip=${CONTROLLER} --custom vlan_vtn_test.py --topo vlantopo
+${vlan_topo}      sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom vlan_vtn_test.py --topo vlantopo
 
 *** Keywords ***
 Get VtnCo
     [Documentation]    Download the VTN Coordinator from Controller VM
     Log    Download the VTN Coordinator bz2 file
-    SSHLibrary.Open_Connection    ${CONTROLLER}
+    SSHLibrary.Open_Connection    ${ODL_SYSTEM_IP}
     SSHLibrary.Login_With_Public_Key    ${CONTROLLER_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     ${VTNC_FILENAME}=    Catenate    SEPARATOR=/    ${WORKSPACE}    vtn_coordinator.tar.bz2
     SSHLibrary.Get_File    ${WORKSPACE}/${BUNDLEFOLDER}/externalapps/*vtn-coordinator*-bin.tar.bz2    ${VTNC_FILENAME}
@@ -31,7 +31,7 @@ Start SuiteVtnCo
     [Documentation]    Download and startup the VTN Coordinator.
     Log    Start the VTN Coordinator
     #Get VtnCo
-    ${vtnc_conn_id}=    SSHLibrary.Open Connection    ${CONTROLLER}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    ${vtnc_conn_id}=    SSHLibrary.Open Connection    ${ODL_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Suite Variable    ${vtnc_conn_id}
     SSHLibrary.Login_With_Public_Key    ${CONTROLLER_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     SSHLibrary.Execute Command    sudo mkdir -p /usr/local/vtn
@@ -57,7 +57,7 @@ Stop SuiteVtnCo
 
 Start SuiteVtnCoTest
     [Documentation]    Start the VTNCo Test
-    Create Session    session    http://${CONTROLLER}:8083    headers=${VTNC_HEADERS}
+    Create Session    session    http://${ODL_SYSTEM_IP}:8083    headers=${VTNC_HEADERS}
 
 Stop SuiteVtnCoTest
     [Documentation]    Exit the VtnCo Test
