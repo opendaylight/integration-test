@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_7a27fdb6",
+        "filename": "csit/libraries/TopoprocessingKeywords.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-28T00:37:04Z",
+      "side": 1,
+      "message": "we are asking people to start using the new variable formats going forward.  can you please change this (and all other occurances in these files) to ${ODL_SYSTEM_IP} please.",
+      "range": {
+        "startLine": 72,
+        "startChar": 25,
+        "endLine": 72,
+        "endChar": 35
+      },
+      "revId": "0d0ae3b940d61a50ed1f7e2490d954fb69b48204",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5a2af97e",
+        "filename": "csit/libraries/TopoprocessingKeywords.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-28T00:37:04Z",
+      "side": 1,
+      "message": "this entire keyword seems to be doing the work that you get for free with this one liner:\n\n\"Issue Command On Karaf Console    feature:list -i\"\n\nline 20 in KarafKeywords.robot\n\nno need for this keyword, or if you want the keyword because of it\u0027s more clear name, then just use it as a wrapper to the example I wrote above.",
+      "range": {
+        "startLine": 70,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 27
+      },
+      "revId": "0d0ae3b940d61a50ed1f7e2490d954fb69b48204",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_fa3aedcb",
+        "filename": "csit/libraries/TopoprocessingKeywords.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-28T00:37:04Z",
+      "side": 1,
+      "message": "how about a FOR loop 1 through 6 instead of the repetitive work? \n\napplies below.",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 60
+      },
+      "revId": "0d0ae3b940d61a50ed1f7e2490d954fb69b48204",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
