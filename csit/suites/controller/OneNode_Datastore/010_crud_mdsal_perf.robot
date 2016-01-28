@@ -28,9 +28,9 @@ Resource          ../../../libraries/SetupUtils.robot
 ${ITEM_COUNT}     ${10000}
 ${ITEM_BATCH}     ${10000}
 ${PROCEDURE_TIMEOUT}    5m
-${addcarcmd}      python cluster_rest_script.py --host ${CONTROLLER} --port ${RESTCONFPORT} add --itemtype car --itemcount ${ITEM_COUNT} --ipr ${ITEM_BATCH}
-${addpeoplecmd}    python cluster_rest_script.py --host ${CONTROLLER} --port ${RESTCONFPORT} add --itemtype people --itemcount ${ITEM_COUNT} --ipr ${ITEM_BATCH}
-${purchasecmd}    python cluster_rest_script.py --host ${CONTROLLER} --port ${RESTCONFPORT} add-rpc --itemtype car-people --itemcount ${ITEM_COUNT} --threads 5
+${addcarcmd}      python cluster_rest_script.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} add --itemtype car --itemcount ${ITEM_COUNT} --ipr ${ITEM_BATCH}
+${addpeoplecmd}    python cluster_rest_script.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} add --itemtype people --itemcount ${ITEM_COUNT} --ipr ${ITEM_BATCH}
+${purchasecmd}    python cluster_rest_script.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} add-rpc --itemtype car-people --itemcount ${ITEM_COUNT} --threads 5
 ${carurl}         /restconf/config/car:cars
 ${peopleurl}      /restconf/config/people:people
 ${carpeopleurl}    /restconf/config/car-people:car-people
@@ -110,7 +110,7 @@ Start Suite
     SSHLibrary.Put File    ${CURDIR}/../../../../tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py    .
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    ls    return_stdout=True    return_stderr=True
     ...    return_rc=True
-    RequestsLibrary.Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}
+    RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
 
 Stop Suite
     [Documentation]    Suite teardown keyword

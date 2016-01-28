@@ -8,7 +8,7 @@ Resource          ../../../libraries/CarsAndPeople.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-@{controllers}    ${CONTROLLER}    ${CONTROLLER1}    ${CONTROLLER2}
+@{controllers}    ${ODL_SYSTEM_IP}    ${ODL_SYSTEM_2_IP}    ${ODL_SYSTEM_3_IP}
 ${SHARD_CAR_NAME}    shard-car-config
 ${SHARD_PEOPLE_NAME}    shard-people-config
 ${SHARD_CAR_PERSON_NAME}    shard-car-people-config
