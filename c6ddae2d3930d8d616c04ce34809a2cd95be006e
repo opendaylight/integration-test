@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_bd7dff70",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-01-28T10:28:57Z",
+      "side": 0,
+      "message": "This change breaks netconf scaling test. Fix is at https://git.opendaylight.org/gerrit/33688/\n\nThe verify job should be reconfigured to trigger the \"run all tests\" verify job on all changes to Variables.py and to give -1 if any \"Variable not found\" errors occur.",
+      "range": {
+        "startLine": 181,
+        "startChar": 0,
+        "endLine": 182,
+        "endChar": 35
+      },
+      "revId": "c6ddae2d3930d8d616c04ce34809a2cd95be006e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
