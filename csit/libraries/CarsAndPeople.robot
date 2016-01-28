@@ -1,8 +1,12 @@
 *** Settings ***
+Documentation     Resource for handling operations with cars/people model in cluster environment.
 Library           Collections
-Library           CrudLibrary.py
-Library           SettingsLibrary.py
-Resource          DatastoreCRUD.robot
+#Library           CrudLibrary.py
+#Library           SettingsLibrary.py
+#Resource          DatastoreCRUD.robot
+Resource          ${CURDIR}/ClusterManagement.robot
+
+## HERE
 
 *** Keywords ***
 Add Cars And Verify
