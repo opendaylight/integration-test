@@ -41,7 +41,7 @@ Start Suite
     Execute Command    sudo mn -c
     Write    ${start}
     Read Until    mininet>
-    Write    start ${CONTROLLER} ${init_sw}
+    Write    start ${ODL_SYSTEM_IP} ${init_sw}
     Read Until    mininet>
     Wait Until Keyword Succeeds    10s    1s    Verify Switches Connected    ${init_sw}
 
@@ -54,7 +54,7 @@ Add Switches
 Verify Switches Connected
     [Arguments]    ${exp_switches}
     [Documentation]    Verifies if switches are connected/present in operational inventory
-    ${sw}    ${rep}    ${found}=    Flow Stats Collected    controller=${CONTROLLER}
+    ${sw}    ${rep}    ${found}=    Flow Stats Collected    controller=${ODL_SYSTEM_IP}
     Should Be Equal As Numbers    ${sw}    ${exp_switches}
 
 Log Store Max Found

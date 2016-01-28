@@ -396,9 +396,9 @@ Init Flow Variables
     Set Suite Variable    ${xmlroot}
 
 Create Controllers Sessions
-    Create Session    session1    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    Create Session    session2    http://${CONTROLLER1}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    Create Session    session3    http://${CONTROLLER2}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+    Create Session    session1    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+    Create Session    session2    http://${ODL_SYSTEM_2_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+    Create Session    session3    http://${ODL_SYSTEM_3_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
 
 Get Controller Response
     [Arguments]    ${session}    ${url}

@@ -7,7 +7,7 @@ Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${start}          sudo mn --controller=remote,ip=${CONTROLLER} --topo tree,${TOPO_TREE_DEPTH},${TOPO_TREE_FANOUT} --switch ovsk,protocols=OpenFlow13
+${start}          sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo tree,${TOPO_TREE_DEPTH},${TOPO_TREE_FANOUT} --switch ovsk,protocols=OpenFlow13
 
 *** Keywords ***
 Start Suite

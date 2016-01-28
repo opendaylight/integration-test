@@ -47,7 +47,7 @@ Run Cbench And Log Results
     ##down can catch this problem and log the results as zero.    However, we need to know which
     ##file to log to, so setting it as a suite variable here.
     Set Suite Variable    ${output_filename}
-    ${output}=    Run Command On Remote System    ${cbench_system}    ${cbench_executable} -c ${CONTROLLER} ${cbench_args}    prompt_timeout=${test_timeout}
+    ${output}=    Run Command On Remote System    ${cbench_system}    ${cbench_executable} -c ${ODL_SYSTEM_IP} ${cbench_args}    prompt_timeout=${test_timeout}
     Log    ${output}
     Should Contain    ${output}    RESULT
     ${result_line}=    Get Lines Containing String    ${output}    RESULT

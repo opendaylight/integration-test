@@ -40,7 +40,7 @@ Check If There Is A Reason To Exit Test Or If Duration Has Expired
     ...    indicate if the requested duration of the longevity test has elapsed. The caller does not have to use
     ...    that return value.
     Should Be Equal    ${comparator1}    ${comparator2}    ${comparator_failure_message}
-    Verify Controller Is Not Dead    ${CONTROLLER}
+    Verify Controller Is Not Dead    ${ODL_SYSTEM_IP}
     ${is_expired}=    Check If Test Duration Is Expired
     [Return]    ${is_expired}
 
@@ -56,7 +56,7 @@ Check If Test Duration Is Expired
 Longevity Suite Setup
     [Documentation]    In addtion to opening the REST session to the controller, the ${end_time} that this
     ...    test should not exceed is calculated and made in to a suite wide variable.
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
     ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Log    Copying ${CREATE_FULLYMESH_TOPOLOGY_FILE_PATH} file to Mininet VM

@@ -287,7 +287,7 @@ Delete All Flows
 
 Initialization Phase
     [Documentation]    Initiate tcp connection with controller
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
 
 Teardown Phase
     [Documentation]    Closes tcp connection with controller and removes flows
