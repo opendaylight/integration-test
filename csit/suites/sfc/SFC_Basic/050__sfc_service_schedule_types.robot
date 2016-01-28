@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for SFC Function Schedule Algorithm Types, Operates types from Restconf APIs.
-Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
 Library           SSHLibrary
 Library           Collections
