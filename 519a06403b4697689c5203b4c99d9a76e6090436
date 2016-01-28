@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_40dccc12",
+        "filename": "csit/suites/netconf/notifications/notifications_basic.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-28T17:00:31Z",
+      "side": 1,
+      "message": "checked already in line 115",
+      "range": {
+        "startLine": 118,
+        "startChar": 60,
+        "endLine": 118,
+        "endChar": 67
+      },
+      "revId": "519a06403b4697689c5203b4c99d9a76e6090436",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_20d708ef",
+        "filename": "csit/suites/netconf/notifications/notifications_basic.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-28T17:00:31Z",
+      "side": 1,
+      "message": "Update to current state.",
+      "range": {
+        "startLine": 151,
+        "startChar": 4,
+        "endLine": 151,
+        "endChar": 19
+      },
+      "revId": "519a06403b4697689c5203b4c99d9a76e6090436",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6008f091",
+        "filename": "csit/suites/netconf/notifications/templates/subscribe.xml",
+        "patchSetId": 10
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-01-28T17:00:31Z",
+      "side": 1,
+      "message": "remove trailing spaces",
+      "range": {
+        "startLine": 4,
+        "startChar": 65,
+        "endLine": 4,
+        "endChar": 67
+      },
+      "revId": "519a06403b4697689c5203b4c99d9a76e6090436",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
