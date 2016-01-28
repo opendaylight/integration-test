@@ -66,6 +66,16 @@ Additional_Attributes_In_Message
     BuiltIn.Should_Contain    ${reply}    additional="otherthing"
     BuiltIn.Should_Contain    ${reply}    xmlns:prefix="http://www.example.com/my-schema-example.html"
 
+Send_Stuff_In_Undefined_Namespace
+    [Documentation]    Try to send something within an undefined namespace and check the reply complains about the nonexistent namespace and element.
+    ${reply}=    Load_And_Send_Message    merge-nonexistent-namespace
+    BuiltIn.Set_Test_Variable    ${bugno}    5125
+    BuiltIn.Should_Not_Contain    ${reply}    java.lang.NullPointerException
+    BuiltIn.Set_Test_Variable    ${bugno}    ${EMPTY}
+    BuiltIn.Should_Contain    ${reply}    urn:this:is:in:a:nonexistent:namespace
+    BuiltIn.Should_Contain    ${reply}    does-not-exist
+    [Teardown]    BuiltIn.Run_Keyword_If    '${bugno}' != '${EMPTY}'    Utils.Report_Failure_Due_To_Bug    5125
+
 Edit_Config_First_Batch_Merge
     [Documentation]    Request a "merge" operation adding an element in candidate configuration and check the reply.
     Perform_Test    merge-1
