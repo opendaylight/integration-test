@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_5a03190d",
+        "filename": "csit/suites/ovsdb/Ovsdb_Net-virt/020_Ovsdb_Southbound_Net-Virt.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-28T00:00:00Z",
+      "side": 1,
+      "message": "can you please change this to TOOLS_SYSTEM_IP?  we are in the process of moving away from CONTROLLER and MININET naming.",
+      "range": {
+        "startLine": 31,
+        "startChar": 58,
+        "endLine": 31,
+        "endChar": 65
+      },
+      "revId": "e5af981d27dfc475d53da6f0f509d5bfeda785d8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
