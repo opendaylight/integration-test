@@ -50,7 +50,7 @@ Setup_Config_Via_Restconf
     ${variable_was_set}=    BuiltIn.Get_Variable_Value    ${cvr_actfile}    NEVER
     BuiltIn.Return_From_Keyword_If    '''${variable_was_set}''' != '''NEVER'''
     # Do not append slash at the end uf URL, Requests would add another, resulting in error.
-    RequestsLibrary.Create_Session    cvr_session    http://${CONTROLLER}:${RESTCONFPORT}${CONTROLLER_CONFIG_MOUNT}    headers=${HEADERS_XML}    auth=${AUTH}
+    RequestsLibrary.Create_Session    cvr_session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${CONTROLLER_CONFIG_MOUNT}    headers=${HEADERS_XML}    auth=${AUTH}
     ${workspace_defined}=    BuiltIn.Run_Keyword_And_return_Status    BuiltIn.Variable_Should_Exist    ${WORKSPACE}
     BuiltIn.Run_Keyword_If    ${workspace_defined}    BuiltIn.Set_Suite_Variable    ${cvr_workspace}    ${WORKSPACE}
     BuiltIn.Set_Suite_Variable    ${cvr_actfile}    ${cvr_workspace}${/}actual.json
