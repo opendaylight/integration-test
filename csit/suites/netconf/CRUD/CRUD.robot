@@ -78,6 +78,15 @@ Check_Device_Data_Is_Modified
     [Documentation]    Get the device data and make sure it contains the created content.
     Check_Config_Data    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud"><l>Modified Content</l></cont></data>
 
+Modify_Device_Data_Via_JSON
+    [Documentation]    Send a JSON request to change the sample test data and check that the request went OK.
+    ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${device_name}'}
+    NetconfViaRestconf.Put_Json_Template_Folder_Via_Restconf    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}datamodjson    ${template_as_string}
+
+Check_Device_Data_Is_Modified_Via_JSON
+    [Documentation]    Get the device data as XML and make sure it matches the content posted as JSON in the previous case.
+    Check_Config_Data    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud"><l>Content Modified via JSON</l></cont></data>
+
 Delete_Device_Data
     [Documentation]    Send a request to delete the sample test data on the device and check that the request went OK.
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${device_name}'}
