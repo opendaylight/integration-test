@@ -65,6 +65,14 @@ Resolve_Xml_Data_From_Template_Folder
     ${xml_data}=    Strip_Endline_And_Apply_Substitutions_From_Mapping    ${data_template}    ${mapping_as_string}
     [Return]    ${xml_data}
 
+Resolve_Json_Data_From_Template_Folder
+    [Arguments]    ${folder}    ${mapping_as_string}
+    [Documentation]    Read data template from folder, strip endline, make changes according to mapping, return the result.
+    ${data_template}=    OperatingSystem.Get_File    ${folder}${/}data.json
+    BuiltIn.Log    ${data_template}
+    ${json_data}=    Strip_Endline_And_Apply_Substitutions_From_Mapping    ${data_template}    ${mapping_as_string}
+    [Return]    ${json_data}
+
 Strip_Endline_And_Apply_Substitutions_From_Mapping
     [Arguments]    ${template_as_string}    ${mapping_as_string}
     [Documentation]    Strip endline, apply substitutions, Log and return the result.
@@ -112,6 +120,24 @@ Put_Xml_Template_Folder_Via_Restconf
     ${uri_part}=    Resolve_URI_From_Template_Folder    ${folder}    ${mapping_as_string}
     ${xml_data}=    Resolve_Xml_Data_From_Template_Folder    ${folder}    ${mapping_as_string}
     Put_Xml_Via_Restconf    ${uri_part}    ${xml_data}
+
+Put_Json_Via_Restconf
+    [Arguments]    ${uri_part}    ${json_data}
+    [Documentation]    Put JSON data to given controller-config URI, check reponse text is empty and status_code is one of allowed ones.
+    BuiltIn.Log    ${uri_part}
+    BuiltIn.Log    ${json_data}
+    ${response}=    RequestsLibrary.Put    ${NetconfViaRestconf__active_config_session}    ${uri_part}    data=${json_data}    headers=${HEADERS}
+    BuiltIn.Log    ${response.text}
+    BuiltIn.Log    ${response.status_code}
+    BuiltIn.Should_Be_Empty    ${response.text}
+    BuiltIn.Should_Contain    ${allowed_status_codes}    ${response.status_code}
+
+Put_Json_Template_Folder_Via_Restconf
+    [Arguments]    ${folder}    ${mapping_as_string}={}
+    [Documentation]    Resolve URI and data from folder, PUT to controller config.
+    ${uri_part}=    Resolve_URI_From_Template_Folder    ${folder}    ${mapping_as_string}
+    ${json_data}=    Resolve_Json_Data_From_Template_Folder    ${folder}    ${mapping_as_string}
+    Put_Json_Via_Restconf    ${uri_part}    ${json_data}
 
 Delete_Via_Restconf
     [Arguments]    ${uri_part}
