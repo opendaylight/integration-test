@@ -63,11 +63,11 @@ Get vlanflow h2 h6
 
 Verify data flow details for vlanmap vBridge2_vlan
     [Documentation]    Verify the data flows for the specified tenant and vBridge2_vlan
-    Wait Until Keyword Succeeds    20s    1s   Verify Data Flows    Tenant1    vBridge2_vlan
+    Wait Until Keyword Succeeds    20s    1s    Verify Data Flows    Tenant1    vBridge2_vlan
 
 Get vlanflow h2 h5
     [Documentation]    ping h2 to h5
-    Wait Until Keyword Succeeds    20s    1s   Mininet Ping Should Not Succeed    h2    h5
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Not Succeed    h2    h5
 
 Delete a vtn Tenant1
     [Documentation]    Delete a vtn Tenant1

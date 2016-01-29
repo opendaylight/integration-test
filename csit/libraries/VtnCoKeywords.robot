@@ -133,7 +133,7 @@ Create VBR in VTN
     ${vbrcreate_json}=    json.dumps    ${vbrcreate}
     ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS_CREATE}    data=${vbrcreate_json}
     Run Keyword If    '${vbrname}' == 'Vbr_audit'    Should Be Equal As Strings    ${resp.status_code}    202
-    ...    ELSE     Should Be Equal As Strings    ${resp.status_code}    201
+    ...    ELSE    Should Be Equal As Strings    ${resp.status_code}    201
 
 Create VBRIF in VBR
     [Arguments]    ${vtnname}    ${vbrname}    ${vbrifname}    ${ifdescription}    ${retcode}

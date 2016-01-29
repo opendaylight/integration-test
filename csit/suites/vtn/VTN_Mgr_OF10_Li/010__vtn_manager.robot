@@ -79,7 +79,7 @@ Add a portmap for interface if4
 
 Ping h2 to h4
     [Documentation]    Verify Ping between hosts h2 and h4. To check mininet ping here added wait until time as '20s'. Since, sometimes it takes maximum '20sec' to send packet b/w hosts.
-    Wait Until Keyword Succeeds    20s    1s   Mininet Ping Should Succeed    h2    h4
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h2    h4
 
 Get flow
     [Documentation]    Get flow of a vtn Tenant1
@@ -88,7 +88,7 @@ Get flow
 Verify FlowMacAddress
     [Documentation]    Checking Flows on switch
     [Tags]    Switch
-    Wait Until Keyword Succeeds    20s    1s   Verify FlowMacAddress    h2    h4    OF10
+    Wait Until Keyword Succeeds    20s    1s    Verify FlowMacAddress    h2    h4    OF10
 
 Remove Portmap for If1
     [Documentation]    Remove portmap for the interface If1
@@ -99,7 +99,7 @@ Remove Portmap for If1
 
 Verify RemovedFlowMacAddress
     [Documentation]    flows will be deleted after the port map is removed
-    Wait Until Keyword Succeeds    20s    1s   Verify RemovedFlowMacAddress    h1    h3    OF10
+    Wait Until Keyword Succeeds    20s    1s    Verify RemovedFlowMacAddress    h1    h3    OF10
 
 Delete a vtn Tenant1
     [Documentation]    Delete a vtn Tenant1
