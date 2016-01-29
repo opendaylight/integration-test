@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_8638aca1",
+        "filename": "csit/suites/netconf/notifications/notifications_basic.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 4792
+      },
+      "writtenOn": "2016-01-29T09:13:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_eb3a2133",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 70
+      },
+      "revId": "519a06403b4697689c5203b4c99d9a76e6090436",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_2b4529b3",
         "filename": "csit/suites/netconf/notifications/notifications_basic.robot",
         "patchSetId": 10
@@ -36,6 +60,30 @@
       "writtenOn": "2016-01-29T01:07:51Z",
       "side": 1,
       "message": "repeating three lines here a lot?  local keyword that does this work makes it easier to enhance and maintain.\n\nno big deal",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 34
+      },
+      "revId": "519a06403b4697689c5203b4c99d9a76e6090436",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0673fc80",
+        "filename": "csit/suites/netconf/notifications/notifications_basic.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 4792
+      },
+      "writtenOn": "2016-01-29T09:13:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_2b4529b3",
       "range": {
         "startLine": 52,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_663be89c",
+        "filename": "csit/suites/netconf/notifications/notifications_basic.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 4792
+      },
+      "writtenOn": "2016-01-29T09:13:06Z",
+      "side": 1,
+      "message": "deleted",
+      "parentUuid": "9a3d3df0_40dccc12",
+      "range": {
+        "startLine": 118,
+        "startChar": 60,
+        "endLine": 118,
+        "endChar": 67
+      },
+      "revId": "519a06403b4697689c5203b4c99d9a76e6090436",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_20d708ef",
         "filename": "csit/suites/netconf/notifications/notifications_basic.robot",
         "patchSetId": 10
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_e66d389b",
+        "filename": "csit/suites/netconf/notifications/notifications_basic.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 4792
+      },
+      "writtenOn": "2016-01-29T09:13:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_20d708ef",
+      "range": {
+        "startLine": 151,
+        "startChar": 4,
+        "endLine": 151,
+        "endChar": 19
+      },
+      "revId": "519a06403b4697689c5203b4c99d9a76e6090436",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_6008f091",
         "filename": "csit/suites/netconf/notifications/templates/subscribe.xml",
         "patchSetId": 10
@@ -105,6 +201,30 @@
       "writtenOn": "2016-01-28T17:00:31Z",
       "side": 1,
       "message": "remove trailing spaces",
+      "range": {
+        "startLine": 4,
+        "startChar": 65,
+        "endLine": 4,
+        "endChar": 67
+      },
+      "revId": "519a06403b4697689c5203b4c99d9a76e6090436",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8606eccc",
+        "filename": "csit/suites/netconf/notifications/templates/subscribe.xml",
+        "patchSetId": 10
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 4792
+      },
+      "writtenOn": "2016-01-29T09:13:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_6008f091",
       "range": {
         "startLine": 4,
         "startChar": 65,
