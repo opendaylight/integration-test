@@ -25,6 +25,52 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_8bdef50f",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/010_set_odl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-29T00:28:55Z",
+      "side": 1,
+      "message": "the new keyword is \"RequestsLibrary.Put Request\" as this version is being deprecated.  This applies to all of the rest actions (put, post, get, etc).",
+      "range": {
+        "startLine": 18,
+        "startChar": 15,
+        "endLine": 18,
+        "endChar": 34
+      },
+      "revId": "c56588f502a4186fd8de755568e39995c3e3dc0d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6be1f1cf",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/010_set_odl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-29T00:28:55Z",
+      "side": 1,
+      "message": "the only verifications being done for these cases (and the \"Put Tenant\" case below) is that you get a 200 status code on the Put.  do you want to add something more?  A Get and verify the response contains the data you just Put, for example",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 92
+      },
+      "revId": "c56588f502a4186fd8de755568e39995c3e3dc0d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_db529012",
         "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/035_track_curl_h35_2_h36_2.robot",
         "patchSetId": 8
@@ -41,6 +87,29 @@
         "startChar": 4,
         "endLine": 41,
         "endChar": 5
+      },
+      "revId": "c56588f502a4186fd8de755568e39995c3e3dc0d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_abebf9ae",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/035_track_curl_h35_2_h36_2.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-01-29T00:28:55Z",
+      "side": 1,
+      "message": "with each test case so similar, it really feels like a data driven approach would be more appropriate.  only if you want.\nhere is an example that we have:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/suites/openflowplugin/Flows_OF13/305__ttl.robot\n\nfor those tests that don\u0027t fit you do:\n\nMy Test Case That Doesn\u0027t Fit\n    [Template]    None\n    Do the work",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 131
       },
       "revId": "c56588f502a4186fd8de755568e39995c3e3dc0d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
