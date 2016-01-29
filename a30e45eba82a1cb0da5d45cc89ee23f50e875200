@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_26a60054",
+        "filename": "csit/libraries/NetconfViaRestconf.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-01-29T11:42:02Z",
+      "side": 1,
+      "message": "This whole thing should be refactored and merged with \"ConfigViaRestconf\" where another instance of this code lives.",
+      "parentUuid": "9a3d3df0_c60d9492",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 38
+      },
+      "revId": "a30e45eba82a1cb0da5d45cc89ee23f50e875200",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_06277c13",
         "filename": "csit/libraries/NetconfViaRestconf.robot",
         "patchSetId": 1
@@ -82,6 +106,30 @@
       "writtenOn": "2016-01-29T10:41:39Z",
       "side": 1,
       "message": "Put_Request (applies elsewhere).",
+      "range": {
+        "startLine": 129,
+        "startChar": 36,
+        "endLine": 129,
+        "endChar": 39
+      },
+      "revId": "a30e45eba82a1cb0da5d45cc89ee23f50e875200",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a67170e2",
+        "filename": "csit/libraries/NetconfViaRestconf.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-01-29T11:42:02Z",
+      "side": 1,
+      "message": "Conversion to Put_Request would take quite a bit of debugging (2-5 hr depending on how different Put_Request is from Put) and I have higher priority stuff to do right now.",
+      "parentUuid": "9a3d3df0_e621b8fd",
       "range": {
         "startLine": 129,
         "startChar": 36,
