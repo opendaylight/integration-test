@@ -159,7 +159,6 @@ Edit_Config_Multiple_Batch_Merge_Third
 
 Edit_Config_Multiple_Batch_Merge_Fourth
     [Documentation]    Use a merge request with the third batch to create the infrastructure.
-    [Documentation]    Add a "name3" subelement to the element and check the reply.
     Perform_Test    merge-multiple-2
 
 Edit_Config_Multiple_Batch_Merge_Fifth
