@@ -84,10 +84,10 @@ Verify Data Persistency
     ${device_id}    Find Device Id    ${device2_ip}
     Issue Command On Karaf Console    networkdevice:set-location ${device_id} ${location2}
     Issue Command On Karaf Console    networkdevice:set-friendly-name ${device_id} ${device2_name}
-    Stop One Or More Controllers    ${CONTROLLER}
-    Wait Until Keyword Succeeds    60s    3s    Controller Down Check    ${CONTROLLER}
-    Start One Or More Controllers    ${CONTROLLER}
-    UtilLibrary.Wait For Controller Up    ${CONTROLLER}    ${RESTCONFPORT}
+    Stop One Or More Controllers    ${ODL_SYSTEM_IP}
+    Wait Until Keyword Succeeds    60s    3s    Controller Down Check    ${ODL_SYSTEM_IP}
+    Start One Or More Controllers    ${ODL_SYSTEM_IP}
+    UtilLibrary.Wait For Controller Up    ${ODL_SYSTEM_IP}    ${RESTCONFPORT}
     ${output}=    Issue Command On Karaf Console    user:get-enabled
     ${string}=    Extract String To Validate    ${output}    User{username=Username{value=    0
     Should Match    ${string}    ${username}

@@ -22,7 +22,7 @@ Resource          ../../../libraries/AAAKeywords.robot
 
 *** Variables ***
 # port is fixed in Jetty configuration, as well
-${URI}            http://${CONTROLLER}:8282
+${URI}            http://${ODL_SYSTEM_IP}:8282
 # create lists for Domains, Roles and Users - that can be cleaned up upon Teardown
 @{cleanup_domain_list}
 @{cleanup_role_list}
