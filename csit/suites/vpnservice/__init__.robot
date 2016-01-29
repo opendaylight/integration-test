@@ -8,8 +8,8 @@ Variables         ../../variables/Variables.py
 Resource          ../../libraries/Utils.robot
 
 *** Variables ***
-${start1}         sudo mn \ --controller=remote,ip=${CONTROLLER} --custom custom.py --topo Switch1 --switch ovsk,protocols=OpenFlow13
-${start2}         sudo mn \ --controller=remote,ip=${CONTROLLER} --custom custom.py --topo Switch2 --switch ovsk,protocols=OpenFlow13
+${start1}         sudo mn \ --controller=remote,ip=${ODL_SYSTEM_IP} --custom custom.py --topo Switch1 --switch ovsk,protocols=OpenFlow13
+${start2}         sudo mn \ --controller=remote,ip=${ODL_SYSTEM_IP} --custom custom.py --topo Switch2 --switch ovsk,protocols=OpenFlow13
 
 *** Keywords ***
 Start Suite

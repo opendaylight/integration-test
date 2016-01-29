@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test Suite for vpn instance
-Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
 Variables         ../../variables/vpnservice/configureSwitches.py    ${MININET}    ${MININET1}
 Library           SSHLibrary

@@ -95,7 +95,7 @@ Setup_Everything
     KarafKeywords.Open_Controller_Karaf_Console_On_Background
     KarafKeywords.Log_Message_To_Controller_Karaf    Starting Netconf readiness test suite
     BuiltIn.Run_Keyword_If    ${DEBUG_LOGGING_FOR_EVERYTHING}    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set DEBUG
-    RequestsLibrary.Create_Session    ses    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}
+    RequestsLibrary.Create_Session    ses    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     NetconfKeywords.Setup_Netconf_Keywords
 
 Teardown_Everything
