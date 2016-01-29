@@ -6,6 +6,17 @@ Documentation     Access Netconf via Restconf.
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
+...
+...               FIXME: This whole thing needs to be refactored and merged with
+...               "ConfigViaRestconf.robot" which contains nearly identical (or even completely
+...               identical) pieces of code.
+...
+...               FIXME: This module (along with "ConfigViaRestconf.robot") uses the deprecated
+...               "RequestsLibrary.Put" keyword to issue requests to the ODL. Convert these
+...               statements to use "RequestsLibrary.Put_Request" instead. Similarly for
+...               "RequestsLibrary.Post" and "RequestsLibrary.Delete". It might be best to do
+...               this change after the code duplication in these two modules is removed (see
+...               the previous FIXME).
 Library           RequestsLibrary
 Library           OperatingSystem
 Resource          Utils.robot

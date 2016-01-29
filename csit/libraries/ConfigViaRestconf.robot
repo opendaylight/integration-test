@@ -28,6 +28,9 @@ Documentation     Robot keyword library (Resource) for runtime changes to config
 ...               * netconf-connector feature installed on ODL.
 ...               * Setup_Config_Via_Restconf called from suite Setup
 ...               (or before any other call to a keyword from this library) at least once.
+...
+...               FIXME: This module needs merging with NetconfViaRestconf.robot and fixing.
+...               See comments in NetconfViaRestconf.robot for more details.
 Library           OperatingSystem
 Library           RequestsLibrary
 Library           String
