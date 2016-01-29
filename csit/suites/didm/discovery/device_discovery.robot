@@ -87,9 +87,9 @@ Setup DIDM Environment
     Verify Feature Is Installed    odl-openflowplugin-all-li
     ${message}=    Set Variable    org.opendaylight.didm.ovs - 0.2.0.SNAPSHOT | Device-type Listener registered
     Wait For Karaf Log    ${message}
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     Log    Start device
     ${mininet_topo_opt}=    Set Variable    --topo linear,1 --switch ovsk,protocols=OpenFlow13
-    ${mininet_conn_id}=    Start Mininet Single Controller    ${DEVICE_IP}    ${CONTROLLER}    ${mininet_topo_opt}
+    ${mininet_conn_id}=    Start Mininet Single Controller    ${DEVICE_IP}    ${ODL_SYSTEM_IP}    ${mininet_topo_opt}
     Wait Until Keyword Succeeds    11s    1s    Check DIDM Registered With Device
     Set Suite Variable    ${mininet_conn_id}
