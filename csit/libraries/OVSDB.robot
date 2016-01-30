@@ -74,6 +74,7 @@ Get OVSDB UUID
     ...    node-id stripped of "ovsdb://uuid/". If not found, ${EMPTY} will be returned.
     ${uuid}=    Set Variable    ${EMPTY}
     ${resp}=    RequestsLibrary.Get Request    ${controller_http_session}    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1
+    Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${resp_json}=    To Json    ${resp.content}
     ${topologies}=    Get From Dictionary    ${resp_json}    topology
