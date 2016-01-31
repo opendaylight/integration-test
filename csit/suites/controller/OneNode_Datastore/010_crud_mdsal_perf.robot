@@ -104,9 +104,9 @@ Start Suite
     [Documentation]    Suite setup keyword
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
-    ${mininet_conn_id}=    SSHLibrary.Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=6s
+    ${mininet_conn_id}=    SSHLibrary.Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=6s
     Builtin.Set Suite Variable    ${mininet_conn_id}
-    Utils.Flexible Mininet Login    ${MININET_USER}
+    Utils.Flexible Mininet Login    ${TOOLS_SYSTEM_USER}
     SSHLibrary.Put File    ${CURDIR}/../../../../tools/odl-mdsal-clustering-tests/scripts/cluster_rest_script.py    .
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    ls    return_stdout=True    return_stderr=True
     ...    return_rc=True
