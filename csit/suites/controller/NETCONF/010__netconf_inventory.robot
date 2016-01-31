@@ -10,8 +10,8 @@ Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${NETOPEER}       ${MININET}
-${NETOPEER_USER}    ${MININET_USER}
+${NETOPEER}       ${TOOLS_SYSTEM_IP}
+${NETOPEER_USER}    ${TOOLS_SYSTEM_USER}
 ${FILE}           ${CURDIR}/../../../variables/xmls/netconf.xml
 ${REST_CONT_CONF}    /restconf/config/network-topology:network-topology/topology/topology-netconf
 ${REST_CONT_OPER}    /restconf/operational/network-topology:network-topology/topology/topology-netconf
