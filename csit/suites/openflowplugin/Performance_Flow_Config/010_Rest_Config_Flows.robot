@@ -43,9 +43,9 @@ Start Suite
     [Documentation]    Basic setup/cleanup work that can be done safely before any system
     ...    is run.
     Log    Start the test on the base edition
-    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=>    timeout=600s
+    ${mininet_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=>    timeout=600s
     Set Suite Variable    ${mininet_conn_id}
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    sudo ovs-vsctl set-manager ptcp:6644
     Read Until    >
     Write    sudo mn -c

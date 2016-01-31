@@ -68,8 +68,8 @@ Stop Mininet End
 Connect Switches
     [Documentation]    Starts mininet with requested number of switches (${swnr})
     Log    Starting mininet with ${swnr} switches
-    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=600
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=600
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
     Execute Command    sudo mn -c
     Write    ${start_cmd}
@@ -78,8 +78,8 @@ Connect Switches
 
 Create Http Session And Upload Files
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=600
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=600
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Put File    ${CURDIR}/../../../../tools/odl-mdsal-clustering-tests/clustering-performance-test/ovs-scripts/*    ./
     Close Connection
 
