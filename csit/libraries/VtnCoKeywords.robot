@@ -22,8 +22,8 @@ Get VtnCo
     ${VTNC_FILENAME}=    Catenate    SEPARATOR=/    ${WORKSPACE}    vtn_coordinator.tar.bz2
     SSHLibrary.Get_File    ${WORKSPACE}/${BUNDLEFOLDER}/externalapps/*vtn-coordinator*-bin.tar.bz2    ${VTNC_FILENAME}
     SSHLibrary.Close_Connection
-    SSHLibrary.Open_Connection    ${MININET}
-    SSHLibrary.Login_With_Public_Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
+    SSHLibrary.Login_With_Public_Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     SSHLibrary.Put_File    ${VTNC_FILENAME}    /tmp
     SSHLibrary.Close_Connection
 
@@ -256,7 +256,7 @@ Create VLANMAP in VBRIDGE
 
 Start vlan_topo
     [Documentation]    This will start mininet with custom topology on both the Virtual Machines
-    Start Mininet    ${MININET}    ${vlan_topo}    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
+    Start Mininet    ${TOOLS_SYSTEM_IP}    ${vlan_topo}    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
 
 Delete a FLOWLIST
     [Arguments]    ${flowlistname}

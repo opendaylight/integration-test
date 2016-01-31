@@ -14,7 +14,7 @@ ${start}          sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo tree,1 
 
 *** Keywords ***
 Start Suite
-    [Arguments]    ${system}=${MININET}    ${user}=${MININET_USER}    ${password}=${MININET_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${timeout}=30s
+    [Arguments]    ${system}=${TOOLS_SYSTEM_IP}    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${TOOLS_SYSTEM_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${timeout}=30s
     [Documentation]    Basic setup/cleanup work that can be done safely before any system
     ...    is run.
     Log    Start the test on the base edition
@@ -27,7 +27,7 @@ Start Suite
     Read Until    mininet>
 
 Start Mininet
-    [Arguments]    ${system}=${MININET}    ${cmd}=${start}    ${custom}=    ${user}=${MININET_USER}    ${password}=${MININET_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}
+    [Arguments]    ${system}=${TOOLS_SYSTEM_IP}    ${cmd}=${start}    ${custom}=    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${TOOLS_SYSTEM_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}
     ...    ${prompt_timeout}=30s
     [Documentation]    Basic setup to start mininet with custom topology
     Log    Start the test on the base edition
@@ -137,7 +137,7 @@ Clean Mininet System
     Run Command On Mininet    ${system}    sudo ps -elf | egrep 'usr/local/bin/mn' | egrep python | awk '{print "sudo kill -9",$4}' | sh
 
 Clean Up Ovs
-    [Arguments]    ${system}=${MININET}
+    [Arguments]    ${system}=${TOOLS_SYSTEM_IP}
     [Documentation]    Cleans up the OVS instance and remove any existing common known bridges.
     ${output}=    Run Command On Mininet    ${system}    sudo ovs-vsctl list-br
     Log    ${output}
@@ -154,7 +154,7 @@ Extract Value From Content
     [Return]    ${value}
 
 Get Process ID Based On Regex On Remote System
-    [Arguments]    ${system}    ${regex_string_to_match_on}    ${user}=${MININET_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
+    [Arguments]    ${system}    ${regex_string_to_match_on}    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
     [Documentation]    Uses ps to find a process that matches the supplied regex. Returns the PID of that process
     ...    The ${regex_string_to_match_on} should produce a unique process otherwise the PID returned may not be
     ...    the expected PID
@@ -169,7 +169,7 @@ Get Process ID Based On Regex On Remote System
     [Return]    ${pid}
 
 Get Process Thread Count On Remote System
-    [Arguments]    ${system}    ${pid}    ${user}=${MININET_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
+    [Arguments]    ${system}    ${pid}    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
     [Documentation]    Executes the ps command to retrieve the lightweight process (aka thread) count.
     ${cmd}=    Set Variable    ps --no-headers -o nlwp ${pid}
     ${output}=    Run Command On Remote System    ${system}    ${cmd}    user=${user}    password=${password}    prompt=${prompt}
@@ -238,7 +238,7 @@ Run Command On Controller
     BuiltIn.Run Keyword And Return    Run Command On Remote System    ${system}    ${cmd}    ${user}    ${password}    prompt=${prompt}
 
 Verify File Exists On Remote System
-    [Arguments]    ${system}    ${file}    ${user}=${MININET_USER}    ${password}=${MININET_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=5s
+    [Arguments]    ${system}    ${file}    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${TOOLS_SYSTEM_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=5s
     [Documentation]    Will create connection with public key and will PASS if the given ${file} exists,
     ...    otherwise will FAIL
     ${conn_id}=    Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}

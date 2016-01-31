@@ -6,7 +6,7 @@ Variables         ../variables/Variables.py
 ${WORKSPACE}      /tmp
 ${BUNDLEFOLDER}    distribution-karaf-0.3.0-SNAPSHOT
 ${AUTHN_CFG_FILE}    ${WORKSPACE}/${BUNDLEFOLDER}/etc/org.opendaylight.aaa.authn.cfg
-${CONTROLLER_USER}    ${MININET_USER}
+${CONTROLLER_USER}    ${TOOLS_SYSTEM_USER}
 
 *** Keywords ***
 AAA Login
