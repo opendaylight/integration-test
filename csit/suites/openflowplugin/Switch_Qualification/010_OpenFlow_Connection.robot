@@ -14,7 +14,7 @@ Variables         ../../../variables/Variables.py
 
 *** Variables ***
 ${SWITCH_CLASS}    Ovs
-${SWITCH_IP}      ${MININET}
+${SWITCH_IP}      ${TOOLS_SYSTEM_IP}
 ${SWITCH_PROMPT}    ${DEFAULT_LINUX_PROMPT}
 ${ODL_SYSTEM_IP}     null
 ${REST_CONTEXT}    /restconf/operational/opendaylight-inventory:nodes

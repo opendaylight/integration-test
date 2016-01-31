@@ -15,8 +15,8 @@ Start Suite
     ${TOPO_TREE_DEPTH}    Convert To Integer    ${TOPO_TREE_DEPTH}
     ${TOPO_TREE_FANOUT}    Convert To Integer    ${TOPO_TREE_FANOUT}
     ${numnodes}    Num Of Nodes    ${TOPO_TREE_DEPTH}    ${TOPO_TREE_FANOUT}
-    Open Connection    ${MININET}    prompt=>    timeout=${numnodes*3}
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=>    timeout=${numnodes*3}
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    sudo ovs-vsctl set-manager ptcp:6644
     Read Until    >
     Write    sudo mn -c

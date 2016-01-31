@@ -26,8 +26,8 @@ Find Max Switch Links
 Link Scale Suite Setup
     [Documentation]    Do initial steps for link scale tests
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    ${mininet_conn_id}=    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    ${mininet_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Log    Copying ${CREATE_FULLYMESH_TOPOLOGY_FILE_PATH} file to Mininet VM
     Put File    ${CURDIR}/../../../${CREATE_FULLYMESH_TOPOLOGY_FILE_PATH}
     Close Connection

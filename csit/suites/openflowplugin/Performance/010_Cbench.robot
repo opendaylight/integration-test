@@ -18,7 +18,7 @@ ${switch_count}    8
 ${duration_in_secs}    12
 ${loops}          10
 ${num_of_unique_macs}    10000
-${cbench_system}    ${MININET}
+${cbench_system}    ${TOOLS_SYSTEM_IP}
 ${cbench_executable}    /usr/local/bin/cbench
 ${throughput_results_file}    throughput.csv
 ${latency_results_file}    latency.csv
