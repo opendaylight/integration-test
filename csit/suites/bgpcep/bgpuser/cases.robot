@@ -77,6 +77,7 @@ Check_Talking_Connection_Is_Established
     [Documentation]    See TCP (BGP) connection in established state.
     # This case is separate from the previous one, to resemble structure of the second half of this suite more closely.
     Check_Speaker_Is_Connected
+    [Teardown]    Utils.Report_Failure_Due_To_Bug    5171
 
 Check_Talking_Topology_Is_Filled
     [Documentation]    See new routes in example-ipv4-topology as a proof that synchronization was correct.
