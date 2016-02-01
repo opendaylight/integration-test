@@ -24,11 +24,6 @@ Create Key
     ${add_key}=    OperatingSystem.Get File    ${IPV4_C_KEY}
     Post Log Check    ${LFM_RPC_API}:add-key    ${add_key}
 
-Attempt To Create Key Again
-    [Documentation]    Try to overwrite existing IPv4 EID key
-    ${add_key}=    OperatingSystem.Get File    ${IPV4_C_KEY}
-    Post Log Check    ${LFM_RPC_API}:add-key    ${add_key}    409
-
 Attempt To Read Non-Existing Key
     [Documentation]    Try to read a non-existing key for an IPv4 EID
     ${get_key}=    OperatingSystem.Get File    ${MISS_RD}
