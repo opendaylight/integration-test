@@ -7,6 +7,8 @@ Documentation     Basic tests for odl-bgpcep-bgp-all feature.
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
+...               TODO: Rename this file after Beryllium is out, for example to basic.robot
+...
 ...               Test suite performs basic BGP functional test cases:
 ...               BGP peer initiated coonection
 ...               - introduce and check 3 prefixes in one update message
