@@ -5,7 +5,10 @@
 # and is available at http://www.eclipse.org/legal/epl-v10.html
 
 # Place the suites in run order:
-integration/test/csit/suites/netconf/ready
-integration/test/csit/suites/bgpcep/pcepuser
-integration/test/csit/suites/bgpcep/tcpmd5user
-integration/test/csit/suites/bgpcep/bgpuser
+integration/test/csit/suites/netconf/ready/netconfready.robot
+integration/test/csit/suites/bgpcep/pcepuser/pcepuser.robot
+integration/test/csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot
+integration/test/csit/suites/bgpcep/bgpuser/cases.robot
+integration/test/csit/suites/bgpcep/bgpuser/bgp_app_peer_basic.robot
+integration/test/csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot
+integration/test/csit/suites/bgpcep/bgpuser/ebgp_peers_basic.robot
