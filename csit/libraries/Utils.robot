@@ -4,6 +4,8 @@ Library           SSHLibrary
 Library           String
 Library           DateTime
 Library           Process
+Library           Collections
+Library           RequestsLibrary
 Library           ./UtilLibrary.py
 Resource          KarafKeywords.robot
 Variables         ../variables/Variables.py
@@ -63,14 +65,37 @@ Report_Failure_Due_To_Bug
     [Arguments]    ${number}
     [Documentation]    Report that a test failed due to a known Bugzilla bug whose
     ...    number is provided as an argument.
-    ...    This must be used in the [Teardown] setting of the affected test
+    ...    Not FAILED (incl. SKIPPED) test are not reported.
+    ...    This keyword must be used in the [Teardown] setting of the affected test
     ...    or as the first line of the test if FastFail module is not being
     ...    used. It reports the URL of the bug on console and also puts it
     ...    into the Robot log file.
-    ${msg}=    BuiltIn.Set_Variable    This test fails due to https://bugs.opendaylight.org/show_bug.cgi?id=${number}
+    ${test_skipped}=    BuiltIn.Evaluate    len(re.findall('SKIPPED', '''${TEST_MESSAGE}''')) > 0    modules=re
+    BuiltIn.Return From Keyword If    ('${TEST_STATUS}' != 'FAIL') or ${test_skipped}
     ${newline}=    BuiltIn.Evaluate    chr(10)
-    Run Keyword If    "${TEST STATUS}"=="FAIL"    BuiltIn.Set Test Message    ${msg}${newline}${newline}${TEST_MESSAGE}
-    Run Keyword If    "${TEST STATUS}"=="FAIL"    BuiltIn.Log    ${msg}
+    ${msg}=    BuiltIn.Set_Variable    This test fails due to https://bugs.opendaylight.org/show_bug.cgi?id=${number}
+    BuiltIn.Set Test Message    ${msg}${newline}${newline}${TEST_MESSAGE}
+    BuiltIn.Log    ${msg}
+
+Report_Failure_And_Point_To_Linked_Bugs
+    [Documentation]    Report that a test failed and point to linked Bugzilla bug(s).
+    ...    Linked bugs must contain the ${reference} inside comments (workaround
+    ...    becasue of currently missing suitable field for external references and
+    ...    not correctly working the CONTENT MATCHES filter).
+    ...    Not FAILED (incl. SKIPPED) test are not reported.
+    ...    This keyword must be used in the [Teardown] setting of the affected test
+    ...    or as the first line of the test if FastFail module is not being
+    ...    used. It reports the URL of the bug on console and also puts it
+    ...    into the Robot log file.
+    ${test_skipped}=    BuiltIn.Evaluate    len(re.findall('SKIPPED', '''${TEST_MESSAGE}''')) > 0    modules=re
+    BuiltIn.Return From Keyword If    ('${TEST_STATUS}' != 'FAIL') or ${test_skipped}
+    ${newline}=    BuiltIn.Evaluate    chr(10)
+    ${reference}=    String.Replace_String_Using_Regexp    ${SUITE_NAME}_${TEST_NAME}    [ /\.-]    _
+    ${reference}=    String.Convert_To_Lowercase    ${reference}
+    ${msg}=    BuiltIn.Set_Variable    ... click for list of related bugs or create a new one if needed (with the${newline}"${reference}"${newline}reference somewhere inside)
+    ${bugs}=    BuiltIn.Set_Variable    "https://bugs.opendaylight.org/buglist.cgi?f1=longdesc&o1=substring&v1=${reference}&order=bug_status"
+    BuiltIn.Run_Keyword_If    "${TEST STATUS}"=="FAIL"    BuiltIn.Set Test Message    ${msg}${newline}${bugs}${newline}${newline}${TEST_MESSAGE}
+    BuiltIn.Run_Keyword_If    "${TEST STATUS}"=="FAIL"    BuiltIn.Log    ${msg}${newline}${bugs}
 
 Ensure All Nodes Are In Response
     [Arguments]    ${URI}    ${node_list}
