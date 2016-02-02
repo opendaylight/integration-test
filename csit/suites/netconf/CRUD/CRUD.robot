@@ -10,6 +10,12 @@ Documentation     netconf-connector CRUD test suite.
 ...
 ...               Perform basic operations (Create, Read, Update and Delete or CRUD) on device
 ...               data mounted onto a netconf connector and see if they work.
+...
+...               FIXME: Replace the BuiltIn.Should_[Not_]Contain instances in the test cases
+...               that check the car list related data with calls to keywords of a Resource
+...               aimed at getting interesting pieces of data from the XML files and checking
+...               them against expected data sets. See MDSAL/northbound.robot suite for
+...               additional information.
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
@@ -59,37 +65,96 @@ Check_Device_Data_Is_Empty
     [Documentation]    Get the device data and make sure it is empty.
     Check_Config_Data    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
 
-Create_Device_Data
-    [Documentation]    Send some sample test data into the device and check that the request went OK.
+Create_Device_Data_Label_Via_Xml
+    [Documentation]    Send a sample test data label into the device and check that the request went OK.
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${device_name}'}
     NetconfViaRestconf.Post_Xml_Template_Folder_Via_Restconf    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}dataorig    ${template_as_string}
 
-Check_Device_Data_Is_Created
-    [Documentation]    Get the device data and make sure it contains the created content.
+Check_Device_Data_Label_Is_Created
+    [Documentation]    Get the device data label and make sure it contains the created content.
     Check_Config_Data    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud"><l>Content</l></cont></data>
 
-Modify_Device_Data
-    [Documentation]    Send a request to change the sample test data and check that the request went OK.
+Modify_Device_Data_Label_Via_Xml
+    [Documentation]    Send a request to change the sample test data label and check that the request went OK.
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${device_name}'}
     NetconfViaRestconf.Put_Xml_Template_Folder_Via_Restconf    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}datamod1    ${template_as_string}
 
-Check_Device_Data_Is_Modified
-    [Documentation]    Get the device data and make sure it contains the created content.
+Check_Device_Data_Label_Is_Modified
+    [Documentation]    Get the device data label and make sure it contains the modified content.
     Check_Config_Data    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud"><l>Modified Content</l></cont></data>
 
-Modify_Device_Data_Via_JSON
-    [Documentation]    Send a JSON request to change the sample test data and check that the request went OK.
+Modify_Device_Data_Label_Via_Json
+    [Documentation]    Send a JSON request to change the sample test data label and check that the request went OK.
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${device_name}'}
     NetconfViaRestconf.Put_Json_Template_Folder_Via_Restconf    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}datamodjson    ${template_as_string}
 
-Check_Device_Data_Is_Modified_Via_JSON
-    [Documentation]    Get the device data as XML and make sure it matches the content posted as JSON in the previous case.
+Check_Device_Data_Label_Is_Modified_Via_Json
+    [Documentation]    Get the device data label as XML and make sure it matches the content posted as JSON in the previous case.
     Check_Config_Data    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud"><l>Content Modified via JSON</l></cont></data>
+
+Create_Car_List
+    [Documentation]    Send a request to create a list of cars in the sample test data label and check that the request went OK.
+    ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${device_name}'}
+    NetconfViaRestconf.Post_Xml_Template_Folder_Via_Restconf    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}cars    ${template_as_string}
+
+Check_Car_List_Created
+    [Documentation]    Get the device data label as XML and make sure it matches the content posted as JSON in the previous case.
+    ${data}=    Get_Config_Data
+    BuiltIn.Should_Contain    ${data}    <id>KEEP</id>
+    BuiltIn.Should_Not_Contain    ${data}    <id>SMALL</id>
+    BuiltIn.Should_Not_Contain    ${data}    <model>Isetta</model>
+    BuiltIn.Should_Not_Contain    ${data}    <manufacturer>BMW</manufacturer>
+    BuiltIn.Should_Not_Contain    ${data}    <year>1953</year>
+    BuiltIn.Should_Not_Contain    ${data}    <category>microcar</category>
+    BuiltIn.Should_Not_Contain    ${data}    <id>TOYOTA</id>
+    BuiltIn.Should_Not_Contain    ${data}    <model>Camry</model>
+    BuiltIn.Should_Not_Contain    ${data}    <manufacturer>Toyota</manufacturer>
+    BuiltIn.Should_Not_Contain    ${data}    <year>1982</year>
+    BuiltIn.Should_Not_Contain    ${data}    <category>sedan</category>
+
+Add_Device_Data_Item_1_Via_XML_Post
+    [Documentation]    Send a request to create a data item in the test list and check that the request went OK.
+    ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${device_name}'}
+    NetconfViaRestconf.Post_Xml_Template_Folder_Via_Restconf    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}item1    ${template_as_string}
+
+Check_Item1_Is_Created
+    [Documentation]    Get the device data as XML and make sure it matches the content posted as JSON in the previous case.
+    ${data}=    Get_Config_Data
+    BuiltIn.Should_Contain    ${data}    <id>SMALL</id>
+    BuiltIn.Should_Contain    ${data}    <model>Isetta</model>
+    BuiltIn.Should_Contain    ${data}    <manufacturer>BMW</manufacturer>
+    BuiltIn.Should_Contain    ${data}    <year>1953</year>
+    BuiltIn.Should_Contain    ${data}    <category>microcar</category>
+    BuiltIn.Should_Not_Contain    ${data}    <id>TOYOTA</id>
+    BuiltIn.Should_Not_Contain    ${data}    <model>Camry</model>
+    BuiltIn.Should_Not_Contain    ${data}    <manufacturer>Toyota</manufacturer>
+    BuiltIn.Should_Not_Contain    ${data}    <year>1982</year>
+    BuiltIn.Should_Not_Contain    ${data}    <category>sedan</category>
+
+Add_Device_Data_Item_2_Via_JSON_Post
+    [Documentation]    Send a JSON request to change the sample test data and check that the request went OK.
+    ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${device_name}'}
+    NetconfViaRestconf.Post_Json_Template_Folder_Via_Restconf    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}item2    ${template_as_string}
+
+Check_Item2_Is_Created
+    [Documentation]    Get the device data as XML and make sure it matches the content posted as JSON in the previous case.
+    ${data}=    Get_Config_Data
+    BuiltIn.Should_Contain    ${data}    <id>SMALL</id>
+    BuiltIn.Should_Contain    ${data}    <model>Isetta</model>
+    BuiltIn.Should_Contain    ${data}    <manufacturer>BMW</manufacturer>
+    BuiltIn.Should_Contain    ${data}    <year>1953</year>
+    BuiltIn.Should_Contain    ${data}    <category>microcar</category>
+    BuiltIn.Should_Contain    ${data}    <id>TOYOTA</id>
+    BuiltIn.Should_Contain    ${data}    <model>Camry</model>
+    BuiltIn.Should_Contain    ${data}    <manufacturer>Toyota</manufacturer>
+    BuiltIn.Should_Contain    ${data}    <year>1982</year>
+    BuiltIn.Should_Contain    ${data}    <category>sedan</category>
 
 Delete_Device_Data
     [Documentation]    Send a request to delete the sample test data on the device and check that the request went OK.
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${device_name}'}
     NetconfViaRestconf.Delete_Xml_Template_Folder_Via_Restconf    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}datamod1    ${template_as_string}
+    NetconfViaRestconf.Delete_Xml_Template_Folder_Via_Restconf    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}item1    ${template_as_string}
 
 Check_Device_Data_Is_Deleted
     [Documentation]    Get the device data and make sure it is empty again.
@@ -130,9 +195,14 @@ Teardown_Everything
     RequestsLibrary.Delete_All_Sessions
     BuiltIn.Run_Keyword_And_Ignore_Error    NetconfKeywords.Stop_Testtool
 
-Check_Config_Data
-    [Arguments]    ${expected}    ${contains}=False
+Get_Config_Data
+    [Documentation]    Get and return the config data from the device.
     ${url}=    Builtin.Set_Variable    network-topology:network-topology/topology/topology-netconf/node/${device_name}/yang-ext:mount
     ${data}=    Utils.Get_Data_From_URI    nvr_session    ${url}    headers=${ACCEPT_XML}
+    [Return]    ${data}
+
+Check_Config_Data
+    [Arguments]    ${expected}    ${contains}=False
+    ${data}=    Get_Config_Data
     BuiltIn.Run_Keyword_Unless    ${contains}    BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${expected}
     BuiltIn.Run_Keyword_If    ${contains}    BuiltIn.Should_Contain    ${data}    ${expected}
