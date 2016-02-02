@@ -4,6 +4,8 @@ Library           SSHLibrary
 Library           String
 Library           DateTime
 Library           Process
+Library           Collections
+Library           RequestsLibrary
 Library           ./UtilLibrary.py
 Resource          KarafKeywords.robot
 Variables         ../variables/Variables.py
@@ -71,6 +73,21 @@ Report_Failure_Due_To_Bug
     ${newline}=    BuiltIn.Evaluate    chr(10)
     Run Keyword If    "${TEST STATUS}"=="FAIL"    BuiltIn.Set Test Message    ${msg}${newline}${newline}${TEST_MESSAGE}
     Run Keyword If    "${TEST STATUS}"=="FAIL"    BuiltIn.Log    ${msg}
+
+Report_Failure_And_Point_To_Linked_Bugs
+    [Documentation]    Report that a test failed and point to linked Bugzilla bug(s).
+    ...    Linked bugs must contain the ${reference} somewhere inside.
+    ...    This must be used in the [Teardown] setting of the affected test
+    ...    or as the first line of the test if FastFail module is not being
+    ...    used. It reports the URL of the bug on console and also puts it
+    ...    into the Robot log file.
+    ${newline}=    BuiltIn.Evaluate    chr(10)
+    ${reference}=    String.Replace_String_Using_Regexp    ${SUITE_NAME}_${TEST_NAME}    [ /\.-]    _
+    ${reference}=    String.Convert_To_Lowercase    ${reference}
+    ${msg}=    BuiltIn.Set_Variable    ... click for list of related bugs or create a new one if needed (with the${newline}"${reference}"${newline}reference somewhere inside)
+    ${bugs}=    BuiltIn.Set_Variable    "https://bugs.opendaylight.org/buglist.cgi?f1=content&o1=matches&v1=${reference}&order=bug_status"
+    BuiltIn.Run_Keyword_If    "${TEST STATUS}"=="FAIL"    BuiltIn.Set Test Message    ${msg}${newline}${bugs}${newline}${newline}${TEST_MESSAGE}
+    BuiltIn.Run_Keyword_If    "${TEST STATUS}"=="FAIL"    BuiltIn.Log    ${msg}${newline}${bugs}
 
 Ensure All Nodes Are In Response
     [Arguments]    ${URI}    ${node_list}
