@@ -110,6 +110,7 @@ Wait_For_Stable_Talking_Ipv4_Topology
 Check_Talking_Ipv4_Topology_Count
     [Documentation]    Count the routes in example-ipv4-topology and fail if the count is not correct.
     [Tags]    critical
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT_CHANGE_COUNT_SINGLE}
 
 Kill_Talking_BGP_Speaker
@@ -153,10 +154,12 @@ Reconfigure_ODL_To_Initiate_Connection
 Wait_For_Stable_Listening_Ipv4_Topology
     [Documentation]    Wait until example-ipv4-topology becomes stable.
     ChangeCounter.Wait_For_Change_Count_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_CHANGE_COUNT_SINGLE}    repetitions=${REPETITIONS_CHANGE_COUNT_SINGLE}    count_to_overcome=${last_change_count_single}
+    [Teardown]    Report_Failure_Due_To_Bug    5139
 
 Check_Listening_Ipv4_Topology_Count
     [Documentation]    Count the routes in example-ipv4-topology and fail if the count is not correct.
     [Tags]    critical
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT_CHANGE_COUNT_SINGLE}
 
 Kill_Listening_BGP_Speaker

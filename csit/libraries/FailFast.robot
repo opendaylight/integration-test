@@ -33,7 +33,8 @@ Fail_This_Fast_On_Previous_Error
     BuiltIn.Run_Keyword_If    '''${SuiteFastFail}'''=='True'    BuiltIn.Fail    SKIPPED due to a failure in a previous fundamental test case.
 
 Start_Failing_Fast_If_This_Failed
-    [Documentation]    Set suite fail fast behavior on, if current test case has failed.
+    [Documentation]    Report bugs and set suite fail fast behavior on, if current test case has failed.
+    Utils.Report_Failure_Due_To_Linked_Bugs
     BuiltIn.Run_Keyword_If_Test_Failed    BuiltIn.Set_Suite_Variable    ${SuiteFastFail}    True
 
 Run_Even_When_Failing_Fast
@@ -41,5 +42,6 @@ Run_Even_When_Failing_Fast
     BuiltIn.No_Operation
 
 Do_Not_Start_Failing_If_This_Failed
-    [Documentation]    This is just a more readable 'None' to override [Teardown].
+    [Documentation]    Just report bugs in the [Teardown] in case of test failure.
+    Utils.Report_Failure_Due_To_Linked_Bugs
     BuiltIn.No_Operation
