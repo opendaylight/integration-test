@@ -71,6 +71,7 @@ Configure_Device_On_Netconf
     [Tags]    critical
     NetconfViaRestconf.Activate_NVR_Session    ${NODE_CONFIGURER}
     NetconfKeywords.Configure_Device_In_Netconf    ${DEVICE_NAME}    device_type=configure-via-topology
+    [Teardown]    Utils.Report_Failure_Due_To_Bug    5089
 
 Check_Configurer_Has_Netconf_Connector_For_Device
     [Documentation]    Get the list of mounts and search for our device there. Fail if not found.
