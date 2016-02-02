@@ -41,7 +41,7 @@ Documentation     BGP performance of ingesting from many iBGP peers, data change
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
-Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
+Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
 Library           DateTime
 Library           RequestsLibrary
 Library           SSHLibrary    timeout=10s
@@ -113,6 +113,7 @@ Wait_For_Stable_Talking_Ipv4_Topology
 Check_Talking_Ipv4_Topology_Count
     [Documentation]    Count the routes in example-ipv4-topology and fail if the count is not correct.
     [Tags]    critical
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT_PREFIX_COUNT_MANY}
 
 Kill_Talking_BGP_Speakers
@@ -121,7 +122,7 @@ Kill_Talking_BGP_Speakers
     BGPSpeaker.Kill_BGP_Speaker
     FailFast.Do_Not_Fail_Fast_From_Now_On
     # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
-    [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
+    [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
 Wait_For_Stable_Ipv4_Topology_After_Talking
     [Documentation]    Wait until example-ipv4-topology becomes stable again.
