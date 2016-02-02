@@ -113,6 +113,7 @@ Wait_For_Stable_Talking_Ipv4_Topology
 Check_Talking_Ipv4_Topology_Count
     [Documentation]    Count the routes in example-ipv4-topology and fail if the count is not correct.
     [Tags]    critical
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT_PREFIX_COUNT_MANY}
 
 Kill_Talking_BGP_Speakers
