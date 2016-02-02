@@ -72,6 +72,22 @@ Report_Failure_Due_To_Bug
     Run Keyword If    "${TEST STATUS}"=="FAIL"    BuiltIn.Set Test Message    ${msg}${newline}${newline}${TEST_MESSAGE}
     Run Keyword If    "${TEST STATUS}"=="FAIL"    BuiltIn.Log    ${msg}
 
+Report_Failure_Due_To_Linked_Bugs
+    [Documentation]    Report that a test failed due to linked Bugzilla bug(s).
+    ...    Linked bugs must contain ${SUITE_NAME}/${TEST_NAME} in the keywords field.
+    ...    Links points to not VERIFIED bugs and to possible regression as well.
+    ...    This must be used in the [Teardown] setting of the affected test
+    ...    or as the first line of the test if FastFail module is not being
+    ...    used. It reports the URL of the bug on console and also puts it
+    ...    into the Robot log file.
+    ${msg}=    BuiltIn.Set_Variable    Check list of related known issues ...
+    ${reference}=    String.Replace_String    ${SUITE_NAME}.${TEST_NAME}    ${SPACE}    _
+    ${bugs}=    BuiltIn.Set_Variable    - open bugs: "https://bugs.opendaylight.org/buglist.cgi?f1=keywords&o1=substring&v1=${reference}&f2=bug_status&o2=notequals&v2=VERIFIED"
+    ${regression}=    BuiltIn.Set_Variable    - possible regession: "https://bugs.opendaylight.org/buglist.cgi?f1=keywords&o1=substring&v1=${reference}&f2=bug_status&o2=equals&v2=VERIFIED"
+    ${newline}=    BuiltIn.Evaluate    chr(10)
+    BuiltIn.Run_Keyword_If    "${TEST STATUS}"=="FAIL"    BuiltIn.Set Test Message    ${msg}${newline}${bugs}${newline}${regression}${newline}${newline}${TEST_MESSAGE}
+    BuiltIn.Run_Keyword_If    "${TEST STATUS}"=="FAIL"    BuiltIn.Log    ${msg}${newline}${bugs}${newline}${regression}
+
 Ensure All Nodes Are In Response
     [Arguments]    ${URI}    ${node_list}
     [Documentation]    A GET is made to the supplied ${URI} and every item in the ${node_list}
