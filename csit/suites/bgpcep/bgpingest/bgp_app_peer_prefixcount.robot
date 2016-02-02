@@ -96,13 +96,11 @@ BGP_Application_Peer_Prefill_Routes
 Wait_For_Ipv4_Topology_Is_Prefilled
     [Documentation]    Wait until example-ipv4-topology reaches the target prfix count.
     BuiltIn.Wait Until Keyword Succeeds    ${bgp_filling_timeout}    10s    PrefixCounting.Check_Ipv4_Topology_Count    ${PREFILL}
-    [Teardown]    Report_Failure_Due_To_Bug    4689
 
 Check_Bgp_Peer_Updates_For_Prefilled_Routes
     [Documentation]    Count the routes introduced by updates.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
     BuiltIn.Wait Until Keyword Succeeds    ${bgp_filling_timeout}    1s    Check_File_For_Word_Count    bgp_peer.log    total_received_nlri_prefix_counter: ${PREFILL}    2
-    [Teardown]    Report_Failure_Due_To_Bug    4689
 
 BGP_Application_Peer_Introduce_Single_Routes
     [Documentation]    Start BGP application peer tool and introduce routes.
@@ -114,13 +112,11 @@ BGP_Application_Peer_Introduce_Single_Routes
 Wait_For_Ipv4_Topology_Is_Filled
     [Documentation]    Wait until example-ipv4-topology reaches the target prfix count.
     BuiltIn.Wait Until Keyword Succeeds    ${bgp_filling_timeout}    10s    PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT_APP_PEER_PREFIX_COUNT}
-    [Teardown]    Report_Failure_Due_To_Bug    4689
 
 Check_Bgp_Peer_Updates_For_All_Routes
     [Documentation]    Count the routes introduced by updates.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
     BuiltIn.Wait Until Keyword Succeeds    ${bgp_filling_timeout}    1s    Check_File_For_Word_Count    bgp_peer.log    total_received_nlri_prefix_counter: ${COUNT_APP_PEER_PREFIX_COUNT}    2
-    [Teardown]    Report_Failure_Due_To_Bug    4689
 
 Disconnect_BGP_Peer
     [Documentation]    Stop BGP peer tool
@@ -136,6 +132,7 @@ Reconnect_BGP_Peer
 
 Check_Bgp_Peer_Updates_For_Reintroduced_Routes
     [Documentation]    Count the routes introduced by updates.
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
     BuiltIn.Wait Until Keyword Succeeds    ${bgp_filling_timeout}    1s    Check_File_For_Word_Count    bgp_peer.log    total_received_nlri_prefix_counter: ${COUNT_APP_PEER_PREFIX_COUNT}    2
 
 BGP_Application_Peer_Delete_All_Routes
@@ -157,7 +154,6 @@ Check_Bgp_Peer_Updates_For_Prefix_Withdrawals
     [Documentation]    Count the routes withdrawn by updates.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
     BuiltIn.Wait Until Keyword Succeeds    ${bgp_emptying_timeout}    1s    Check_File_For_Word_Count    bgp_peer.log    total_received_withdrawn_prefix_counter: ${COUNT_APP_PEER_PREFIX_COUNT}    2
-    [Teardown]    Report_Failure_Due_To_Bug    4689
 
 Stop_BGP_Peer
     [Documentation]    Stop BGP peer tool
@@ -175,10 +171,9 @@ Delete_Bgp_Application_Peer_Configuration
     ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer-app'}
     ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_application_peer    ${template_as_string}
 
-Check_Controller_Logs
+Check_Bug_4719
     [Documentation]    Check controller's log for errors
     Check Karaf Log File Does Not Have Messages    ${ODL_SYSTEM_IP}    Failed to send message Update
-    [Teardown]    Report_Failure_Due_To_Bug    4791
 
 *** Keywords ***
 Setup_Everything
