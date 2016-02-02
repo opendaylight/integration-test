@@ -22,6 +22,7 @@ Documentation     Robot keyword library (Resource) for implementing fail fast be
 ...               If success of such "run even when failing" test case can return the system under test
 ...               back to corret state, call at the end of such test case this:
 ...               Do_Not_Fail_Fast_From_Now_On
+Library           String
 
 *** Keywords ***
 Do_Not_Fail_Fast_From_Now_On
@@ -33,13 +34,17 @@ Fail_This_Fast_On_Previous_Error
     BuiltIn.Run_Keyword_If    '''${SuiteFastFail}'''=='True'    BuiltIn.Fail    SKIPPED due to a failure in a previous fundamental test case.
 
 Start_Failing_Fast_If_This_Failed
-    [Documentation]    Set suite fail fast behavior on, if current test case has failed.
+    [Documentation]    Report bugs and set suite fail fast behavior on, if current test case has failed.
     BuiltIn.Run_Keyword_If_Test_Failed    BuiltIn.Set_Suite_Variable    ${SuiteFastFail}    True
+    ${reason}=    String.Get_Line    ${TEST_MESSAGE}    -1
+    BuiltIn.Run_Keyword_Unless    "${reason}"=="SKIPPED due to a failure in a previous fundamental test case."    Utils.Report_Failure_Due_To_Linked_Bugs
 
 Run_Even_When_Failing_Fast
     [Documentation]    This is just a more readable 'None' to override [Setup].
     BuiltIn.No_Operation
 
 Do_Not_Start_Failing_If_This_Failed
-    [Documentation]    This is just a more readable 'None' to override [Teardown].
-    BuiltIn.No_Operation
+    [Documentation]    Just report bugs in the [Teardown] in case of test failure.
+    ${reason}=    String.Get_Line    ${TEST_MESSAGE}    -1
+    BuiltIn.Run_Keyword_Unless    "${reason}"=="SKIPPED due to a failure in a previous fundamental test case."    Utils.Report_Failure_Due_To_Linked_Bugs
+
