@@ -25,7 +25,7 @@ Documentation     BGP performance of ingesting from 1 iBGP peer, data change cou
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
-Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
+Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
 Variables         ${CURDIR}/../../../variables/Variables.py
@@ -92,6 +92,7 @@ Wait_For_Stable_Talking_Ipv4_Topology
 Check_Talking_Ipv4_Topology_Count
     [Documentation]    Count the routes in example-ipv4-topology and fail if the count is not correct.
     [Tags]    critical
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT_PREFIX_COUNT_SINGLE}
 
 Kill_Talking_BGP_Speaker
@@ -101,7 +102,7 @@ Kill_Talking_BGP_Speaker
     BGPSpeaker.Kill_BGP_Speaker
     FailFast.Do_Not_Fail_Fast_From_Now_On
     # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
-    [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
+    [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
 Store_Results_For_Talking_BGP_Speaker
     [Documentation]    Store results for plotting
@@ -122,6 +123,7 @@ Wait_For_Stable_Ipv4_Topology_After_Talking
 Check_For_Empty_Ipv4_Topology_After_Talking
     [Documentation]    Example-ipv4-topology should be empty now.
     [Tags]    critical
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     PrefixCounting.Check_Ipv4_Topology_Is_Empty
 
 Start_Listening_BGP_Speaker
@@ -140,6 +142,7 @@ Wait_For_Stable_Listening_Ipv4_Topology
 Check_Listening_Ipv4_Topology_Count
     [Documentation]    Count the routes in example-ipv4-topology and fail if the count is not correct.
     [Tags]    critical
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT_PREFIX_COUNT_SINGLE}
 
 Kill_Listening_BGP_Speaker
@@ -149,7 +152,7 @@ Kill_Listening_BGP_Speaker
     BGPSpeaker.Kill_BGP_Speaker
     FailFast.Do_Not_Fail_Fast_From_Now_On
     # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
-    [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
+    [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
 Store_Results_For_Listening_BGP_Speaker
     [Documentation]    Store results for plotting
@@ -167,6 +170,7 @@ Wait_For_Stable_Ipv4_Topology_After_Listening
 Check_For_Empty_Ipv4_Topology_After_Listening
     [Documentation]    Example-ipv4-topology should be empty now.
     [Tags]    critical
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     PrefixCounting.Check_Ipv4_Topology_Is_Empty
 
 Restore_Karaf_Logging_Levels
