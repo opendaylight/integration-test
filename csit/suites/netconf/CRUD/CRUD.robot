@@ -12,8 +12,7 @@ Documentation     netconf-connector CRUD test suite.
 ...               data mounted onto a netconf connector and see if they work.
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
-Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           Collections
 Library           RequestsLibrary
 Library           OperatingSystem
