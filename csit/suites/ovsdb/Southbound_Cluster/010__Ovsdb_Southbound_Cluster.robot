@@ -23,7 +23,7 @@ Check Shards Status Before Fail
     [Documentation]    Check Status for all shards in Ovsdb application.
     Check Ovsdb Shards Status    ${original_cluster_list}
 
-Start Mininet Multiple Connections
+Start OVS Multiple Connections
     [Documentation]    Start mininet with connection to all cluster instances.
     ${mininet_conn_id}    Add Multiple Managers to OVS    ${TOOLS_SYSTEM_IP}    ${original_cluster_list}
     Set Suite Variable    ${mininet_conn_id}
@@ -184,6 +184,40 @@ Delete Bridge Via Rest Call And Verify In Owner After Recover
     [Documentation]    This request will delete the bridge node from the config data store and operational data store.
     Delete Bridge Via Rest Call And Verify    ${original_cluster_list}    ${new_owner}
 
+Create Bridge Manually In Old Owner and Verify After Recover
+    [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
+    Create Bridge Manually And Verify    ${original_cluster_list}    ${original_owner}
+
+Add Port Manually In Old Owner and Verify After Recover
+    [Documentation]    Add Port in Owner and verify it gets applied from all instances.
+    Add Port To The Manual Bridge And Verify    ${original_cluster_list}    ${original_owner}
+
 Create Bridge Via Controller In Old Owner and Verify After Recover
     [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
     Create Bridge And Verify    ${original_cluster_list}    ${original_owner}
+
+Create Port Via Controller In Old Owner and Verify After Recover
+    [Documentation]    Create Port in Owner and verify it gets applied from all instances.
+    Create Port Via Controller    ${original_cluster_list}    ${original_owner}
+
+Modify the destination IP of Port After Recover
+    [Documentation]    This will modify the dst ip of existing port
+    Modify the destination IP of Port    ${original_cluster_list}    ${original_owner}
+
+Get Operational Topology with modified Port After Recover
+    [Documentation]    This request will fetch the operational topology after the modified port is added to the bridge
+    Get Operational Topology with modified Port    ${original_cluster_list}    ${original_owner}
+
+Delete the Port After Recover
+    [Documentation]    This request will delete the port node from the bridge node and data store.
+    Delete Port And Verify    ${original_cluster_list}    ${original_owner}
+
+Delete the Bridge In Old Owner and Verify After Recover
+    [Documentation]    This request will delete the bridge node from the config data store and operational data store.
+    Delete Bridge Manually And Verify    ${original_cluster_list}    ${original_owner}
+
+Delete Bridge Via Rest Call And Verify In Old Owner After Recover
+    [Documentation]    This request will delete the bridge node from the config data store and operational data store.
+    Delete Bridge Via Rest Call And Verify    ${original_cluster_list}    ${original_owner}
+
+
