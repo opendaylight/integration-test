@@ -26,7 +26,9 @@ Documentation     Metconf MDSAL Northbound test suite.
 ...               invocations (see Check_Multiple_Modules_Merge_Replace for a particularly bad
 ...               example). Create a resource that will be able to extract the data from the
 ...               requests and search for them in the response, then convert to usage of this
-...               resource (think "Thou shall not repeat yourself").
+...               resource (think "Thou shall not repeat yourself"). The following resource was
+...               found when doing research on this:
+...               http://robotframework.org/robotframework/latest/libraries/XML.html
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
