@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_ea6e9200",
+        "filename": "csit/libraries/AAAKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-02T01:03:16Z",
+      "side": 1,
+      "message": "I think this needs more thought.  We don\u0027t really want to have ${CONTROLLER_USER} anywhere either.  I\u0027ll comment inline below, but I think this line can be deleted entirely",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 42
+      },
+      "revId": "dff957f009ce4cc5ee40d1612eecd36e48b0480b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ca710ee2",
+        "filename": "csit/libraries/AAAKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-02T01:03:16Z",
+      "side": 1,
+      "message": "should be ODL_SYSTEM_USER",
+      "range": {
+        "startLine": 36,
+        "startChar": 31,
+        "endLine": 36,
+        "endChar": 46
+      },
+      "revId": "dff957f009ce4cc5ee40d1612eecd36e48b0480b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2a787ac3",
+        "filename": "csit/libraries/AAAKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-02T01:03:16Z",
+      "side": 1,
+      "message": "should be ODL_SYSTEM_USER",
+      "range": {
+        "startLine": 45,
+        "startChar": 31,
+        "endLine": 45,
+        "endChar": 46
+      },
+      "revId": "dff957f009ce4cc5ee40d1612eecd36e48b0480b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
