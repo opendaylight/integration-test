@@ -64,6 +64,50 @@ Get Cluster Entity Owner For Ovsdb
     \    Run Keyword If    '${candidate}' != '${owner}'    Append To List    ${candidates_list}    ${candidate}
     [Return]    ${owner}    ${candidates_list}
 
+Get Dynamic Datapath id
+    [Documentation]     Retrieve the datapath id attribute for the bridge.
+    Log    Check OVS bridge configuration
+    ${output}=    Run Command On Mininet    ${mininet}    sudo ovs-vsctl list bridge br-int
+    Log    ${output}
+    ${output_splitted}=    Split String    ${output}    :
+    Log    ${output_splitted}
+    ${datapath}=    Get from List    ${output_splitted}    3
+    Log    ${datapath}
+    ${data_splitted}    Split String    ${datapath}
+    Log    ${data_splitted}
+    ${id}=    Get from List    ${data_splitted}    0
+    Log    ${id}
+    ${id}=    Replace String    ${id}    "    ${EMPTY}
+    Log    ${id}
+    @{id1}=    Split String To Characters    ${id}
+    ${element1}=    Get from List    ${id1}    4
+    Set Suite Variable    ${element1}
+    ${element2}=    Get from List    ${id1}    5
+    Set Suite Variable    ${element2}
+    ${element3}=    Get from List    ${id1}    6
+    Set Suite Variable    ${element3}
+    ${element4}=    Get from List    ${id1}    7
+    Set Suite Variable    ${element4}
+    ${element5}=    Get from List    ${id1}    8
+    Set Suite Variable    ${element5}
+    ${element6}=    Get from List    ${id1}    9
+    Set Suite Variable    ${element6}
+    ${element7}=    Get from List    ${id1}    10
+    Set Suite Variable    ${element7}
+    ${element8}=    Get from List    ${id1}    11
+    Set Suite Variable    ${element8}
+    ${element9}=    Get from List    ${id1}    12
+    Set Suite Variable    ${element9}
+    ${element10}=    Get from List    ${id1}    13
+    Set Suite Variable    ${element10}
+    ${element11}=    Get from List    ${id1}    14
+    Set Suite Variable    ${element11}
+    ${element12}=    Get from List    ${id1}    15
+    Set Suite Variable    ${element12}
+    Set Suite Variable    ${datapath_id}    00:00:${element1}${element2}:${element3}${element4}:${element5}${element6}:${element7}${element8}:${element9}${element10}:${element11}${element12}
+    Log    ${datapath_id}
+    [Return]    ${datapath_id}
+
 Create Bridge And Verify
     [Arguments]    ${controller_index_list}    ${controller_index}    ${status}=${NONE}
     [Documentation]    Create bridge in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
