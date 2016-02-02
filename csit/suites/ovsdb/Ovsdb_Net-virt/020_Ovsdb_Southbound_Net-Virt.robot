@@ -13,6 +13,7 @@ Resource          ../../../libraries/OVSDB.robot
 
 *** Variables ***
 @{FLOW_TABLE_LIST}    actions=goto_table:20    actions=CONTROLLER:65535    actions=goto_table:30    actions=goto_table:40    actions=goto_table:50    actions=goto_table:60    actions=goto_table:70    actions=goto_table:80    actions=goto_table:90    actions=goto_table:100    actions=goto_table:110    actions=drop
+@{node_list}      ovsdb://uuid/
 
 
 *** Test Cases ***
@@ -31,6 +32,7 @@ Start Mininet Multiple Connections
     ${mininet_conn_id}    Add Multiple Managers to OVS  ${TOOLS_SYSTEM_IP}    ${original_cluster_list}
     Set Suite Variable    ${mininet_conn_id}
     Log    ${mininet_conn_id}
+    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${original_index_list}    ${node_list}    ${OPERATIONAL_TOPO_API}
 
 Get bridge setup
     [Documentation]    This request is verifying that the br-int bridge has been created
