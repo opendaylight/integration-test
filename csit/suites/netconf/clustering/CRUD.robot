@@ -60,6 +60,10 @@ ${ORIGINAL_DATA}    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:open
 ${MODIFIED_DATA}    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud"><l>Modified Content</l></cont></data>
 
 *** Test Cases ***
+Start_Testtool
+    [Documentation]    Deploy and start test tool, then wait for all its devices to become online.
+    NetconfKeywords.Install_And_Start_Testtool    device-count=1    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas
+
 Check_Device_Is_Not_Mounted_At_Beginning
     [Documentation]    Sanity check making sure our device is not there. Fail if found.
     [Tags]    critical
@@ -209,7 +213,6 @@ Setup_Everything
     # Connect to the Mininet machine
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    prompt=${TOOLS_SYSTEM_PROMPT}
     Utils.Flexible_Mininet_Login
-    NetconfKeywords.Install_And_Start_Testtool    device-count=1    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas
 
 Teardown_Everything
     [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.
