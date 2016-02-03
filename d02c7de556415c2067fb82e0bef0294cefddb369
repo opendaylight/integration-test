@@ -1,0 +1,101 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_58eb0fb0",
+        "filename": "csit/suites/tsdr/Cassandra/050_SyslogTable.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-03T17:31:17Z",
+      "side": 1,
+      "message": "missing Documentation here.\n\nand test case below",
+      "revId": "d02c7de556415c2067fb82e0bef0294cefddb369",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_98cc7763",
+        "filename": "csit/suites/tsdr/HBase/050_SyslogTable.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-03T17:31:17Z",
+      "side": 1,
+      "message": "docs",
+      "revId": "d02c7de556415c2067fb82e0bef0294cefddb369",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f8db0319",
+        "filename": "csit/suites/tsdr/HBase/070_Netflow.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-03T17:31:17Z",
+      "side": 1,
+      "message": "I saw this keyword before.  did you want to move it to a library?  also needs docs",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 87
+      },
+      "revId": "d02c7de556415c2067fb82e0bef0294cefddb369",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d8d6fff0",
+        "filename": "csit/suites/tsdr/HSQLDB/060_syslog_Collector.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-03T17:31:17Z",
+      "side": 1,
+      "message": "docs.  below as well.",
+      "revId": "d02c7de556415c2067fb82e0bef0294cefddb369",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_18086790",
+        "filename": "csit/suites/tsdr/HSQLDB/070_Netflow.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-03T17:31:17Z",
+      "side": 1,
+      "message": "duplicate keyword belongs in library, but I do notice it has some differences between files.  If those differences are\nminor, perhaps you can add an argument to the keyword to account for that difference.  It will help with maintenance down the road.",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 83
+      },
+      "revId": "d02c7de556415c2067fb82e0bef0294cefddb369",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
