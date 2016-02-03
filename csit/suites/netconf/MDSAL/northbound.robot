@@ -73,7 +73,7 @@ Send_Stuff_In_Undefined_Namespace
     BuiltIn.Should_Not_Contain    ${reply}    java.lang.NullPointerException
     BuiltIn.Set_Test_Variable    ${bugno}    ${EMPTY}
     BuiltIn.Should_Contain    ${reply}    urn:this:is:in:a:nonexistent:namespace
-    BuiltIn.Should_Contain    ${reply}    does-not-exist
+    BuiltIn.Should_Contain    ${reply}    <rpc-error>
     [Teardown]    BuiltIn.Run_Keyword_If    '${bugno}' != '${EMPTY}'    Utils.Report_Failure_Due_To_Bug    5125
 
 Edit_Config_First_Batch_Merge
