@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Collection of test cases to validate OVSDB projects bugs.
-...               -  https://bugs.opendaylight.org/show_bug.cgi?id=4794
-...               -  https://bugs.opendaylight.org/show_bug.cgi?id=5177
+...               - https://bugs.opendaylight.org/show_bug.cgi?id=4794
+...               - https://bugs.opendaylight.org/show_bug.cgi?id=5177
 Suite Setup       OVSDB Connection Manager Suite Setup
 Suite Teardown    OVSDB Connection Manager Suite Teardown
 Test Setup        Log Testcase Start To Controller Karaf
@@ -46,8 +46,7 @@ Bug 4794
     Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
     Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
     # If the exception is seen in karaf.log within 10s, the following line will FAIL, which is the point.
-    Verify_Keyword_Does_Not_Fail_Within_Timeout    10s    1s
-    ...    Check Karaf Log File Does Not Have Messages    ${ODL_SYSTEM_IP}    Shard.*shard-topology-operational An exception occurred while preCommitting transaction
+    Verify_Keyword_Does_Not_Fail_Within_Timeout    10s    1s    Check Karaf Log File Does Not Have Messages    ${ODL_SYSTEM_IP}    Shard.*shard-topology-operational An exception occurred while preCommitting transaction
     [Teardown]    Report_Failure_Due_To_Bug    4794
 
 *** Keywords ***

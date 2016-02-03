@@ -63,7 +63,6 @@ Iperf All Hosts
     Write    iperf ${host1} ${host2}
     Read Until    mininet>
 
-
 Iperf All Hosts Hbase
     [Arguments]    ${pattern}
     [Documentation]    Iperf between h1 and h2 and check Hbase
@@ -82,7 +81,7 @@ Iperf All Hosts HSQLDB
     [Arguments]    ${pattern}
     [Documentation]    Iperf between h1 and h2 and check Cassandra
     Iperf All Hosts    h1    h2
-    ${query_output}=   Issue Command On Karaf Console    tsdr:list NETFLOW | wc -l
+    ${query_output}=    Issue Command On Karaf Console    tsdr:list NETFLOW | wc -l
     Should Match Regexp    ${query_output}    ${pattern}
 
 Stop Tsdr Suite
@@ -264,7 +263,6 @@ Verify the Metrics Attributes on Cassandra Client
     ${metric_count}=    Get From List    ${split_line}    3
     [Return]    ${metric_count}
 
-
 Form Portstats Query Pattern
     [Arguments]    ${metric}    ${node}    ${port}    ${attribute}
     [Documentation]    Used for geneating openflow metrics Queries for Cassandra.
@@ -285,7 +283,6 @@ Create Temporary Key Info
     ${output}=    Run Command On Remote System    ${ODL_SYSTEM_IP}    cat ${CASSANDRA_DB_PATH}${val_table}|grep "${pattern}"
     [Return]    ${output}
 
-
 Verify Metric Val File
     [Documentation]    Returns Value for metric matching particular keya,keyb
     @{metricval}=    Read File and Return Split Lines    ${CASSANDRA_DB_PATH}${temp_metric_val}
@@ -303,7 +300,6 @@ Verify Metric log File
     [Return]    ${contents}
 
 Grep From File
-
     [Arguments]    ${file}    ${pattern}
     [Documentation]    Use cat to grep from the file and return the output
     ${output}=    Run Command On Remote System    ${ODL_SYSTEM_IP}    cat ${file} | ${pattern}
