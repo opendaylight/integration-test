@@ -34,7 +34,6 @@ Verification of TSDR Cassandra Feature Installation
     Verify Feature Is Installed    odl-tsdr-openflow-statistics-collector
     Start Tsdr Suite
     Ping All Hosts
-    Wait Until Keyword Succeeds    5x    30 sec    Check Metric path    24\\d+|25\\d+
     Wait Until Keyword Succeeds    5x    30 sec    Check Metric val     \\d{5}
 
 Storing Statistics from Openflow REST
@@ -144,6 +143,4 @@ Extract From DB Table
     ${ret_val1}=    Set Variable    -100
     ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    ${pattern}
     [Return]    ${ret_val1}
-
-
 
