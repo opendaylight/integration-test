@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_1d085990",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-03T14:51:09Z",
+      "side": 1,
+      "message": "Better names: Get_As_Xml/Get_As_Json. The \"Accepting\" in the name refers to an implementation detail (what is filled in the \"Accept\" header) which is not interesting from the point of the caller (the caller knows that he wants XML/Json and does not care about what to put into the \"Accept\" header in order to get it).",
+      "range": {
+        "startLine": 98,
+        "startChar": 0,
+        "endLine": 98,
+        "endChar": 18
+      },
+      "revId": "627d2ce2eabda54ee065b5ea8612dcc25da21407",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ddd6f1f0",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-03T14:51:09Z",
+      "side": 1,
+      "message": "Consider using a parametrized keyword for the bulk of this code and just place a call with the correct parameter(s) into the Get_Accepting_Xml/Get_Accepting_Json.",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 104,
+        "endChar": 32
+      },
+      "revId": "627d2ce2eabda54ee065b5ea8612dcc25da21407",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_fdf2d598",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-03T14:51:09Z",
+      "side": 1,
+      "message": "To support better code deduplication this variable should be deprecated and the headers variables shall be splitted into \"incoming data headers\" (ACCEPT_XML, ACCEPT_JSON) and \"outgoing data headers\" (suggested names: CONTENT_XML, CONTENT_YANG_JSON). That way it will be easier and more readable to assemble the right headers for whatever the keyword needs to accomplish.",
+      "range": {
+        "startLine": 129,
+        "startChar": 114,
+        "endLine": 129,
+        "endChar": 140
+      },
+      "revId": "627d2ce2eabda54ee065b5ea8612dcc25da21407",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
