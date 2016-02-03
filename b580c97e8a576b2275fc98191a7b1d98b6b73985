@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_98f3d79e",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-03T17:43:08Z",
+      "side": 1,
+      "message": "I don\u0027t think so. And I don\u0027t think it is repetitive. The \"location\" part says what thing is in the file, the \"uri\" says in what format the thing is stored/specified.",
+      "range": {
+        "startLine": 49,
+        "startChar": 57,
+        "endLine": 49,
+        "endChar": 107
+      },
+      "revId": "b580c97e8a576b2275fc98191a7b1d98b6b73985",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f8f2e398",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-03T17:43:08Z",
+      "side": 1,
+      "message": "The names are pretty good. However probably it would be more readable to move these keywords past the keywords they are using.",
+      "range": {
+        "startLine": 73,
+        "startChar": 0,
+        "endLine": 73,
+        "endChar": 21
+      },
+      "revId": "b580c97e8a576b2275fc98191a7b1d98b6b73985",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
