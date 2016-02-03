@@ -127,4 +127,3 @@ Connect Controller To OVSDB Node
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Wait Until Keyword Succeeds    3s    1s    Verify OVS Reports Connected
-
