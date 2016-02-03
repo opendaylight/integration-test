@@ -1,26 +1,21 @@
 *** Settings ***
-Documentation     Start the controllers
+Documentation     Restart all ODLs removing persisted data
 Default Tags      3-node-cluster
-Resource          ../../../libraries/ClusterKeywords.robot
+Suite Setup       ClusterManagement.ClusterManagement_Setup
+Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 
 *** Variables ***
-@{controllers}    ${ODL_SYSTEM_IP}    ${ODL_SYSTEM_2_IP}    ${ODL_SYSTEM_3_IP}
-${KARAF_HOME}     ${WORKSPACE}/${BUNDLEFOLDER}
 ${START_TIMEOUT}    300s
-${STOP_TIMEOUT}    180s
 
 *** Test Cases ***
-Stop All Controllers
+Kill_All_Members
     [Documentation]    Stop all the controllers in the cluster.
-    Stop One Or More Controllers    @{controllers}
-    Wait For Cluster Down    ${STOP_TIMEOUT}    @{controllers}
+    ClusterManagement.Kill_Members_From_List_Or_All
 
-Clean All Journals
-    [Documentation]    Clean the journals of all the controllers in the cluster
-    Clean One Or More Journals    @{controllers}
-    Clean One Or More Snapshots    @{controllers}
+Clear_Persisted_Data
+    [Documentation]    Clean the journals and snapshots of all the controllers in the cluster.
+    ClusterManagement.Clean_Journals_And_Snapshots_On_List_Or_All
 
-Start All Controllers
-    [Documentation]    Start all the controllers in the cluster
-    Start One Or More Controllers    @{controllers}
-    Wait For Cluster Sync    ${START_TIMEOUT}    @{controllers}
+Start_All_Members
+    [Documentation]    Start all the controllers in the cluster.
+    ClusterManagement.Start_Members_From_List_Or_All    timeout=${START_TIMEOUT}

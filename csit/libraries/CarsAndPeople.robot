@@ -1,10 +1,17 @@
 *** Settings ***
+Documentation     Resource for handling operations with cars/people model in cluster environment.
 Library           Collections
-Library           CrudLibrary.py
-Library           SettingsLibrary.py
-Resource          DatastoreCRUD.robot
+#Library           CrudLibrary.py
+#Library           SettingsLibrary.py
+#Resource          DatastoreCRUD.robot
+Resource          ${CURDIR}/ClusterManagement.robot
 
 *** Keywords ***
+Add_Cars_To_Member
+    [Arguments]    ${num_cars}    ${member_index}
+
+## HERE
+
 Add Cars And Verify
     [Arguments]    ${controller_ip}    ${num_cars}    ${timeout}=3s
     [Documentation]    Initializes shard and then adds the specified number of cars and performs a GET as a check.
