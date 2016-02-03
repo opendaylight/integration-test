@@ -51,17 +51,17 @@ Verify Invalid VTN Renderer Command Add and Remove in CLI
     [Tags]    NIC
     : FOR    ${intent}    IN    @{all_invalid_Intent}
     \    ${id}=    Add Intent From Karaf Console    @{intent}
-    \    ${output}=    Issue Command On Karaf Console    log:display |grep "Invalid Address"
+    \    ${output}=    Issue Command On Karaf Console    log:display | grep "Invalid Address"
     \    Should Contain    ${output}    Invalid Address
 
 *** Keywords ***
 Verify VTNBundle
-    ${output}=    Issue Command On Karaf Console    bundle:list |grep vtn-renderer
+    ${output}=    Issue Command On Karaf Console    bundle:list | grep vtn-renderer
     Should Contain    ${output}    Active
 
 Setup NIC Console Environment
-    [Documentation]    Installing NIC Console related features (odl-nic-core, odl-nic-console)
-    Verify Feature Is Installed    odl-nic-core
+    [Documentation]    Installing NIC Console related features (odl-nic-core-mdsal, odl-nic-console, odl-nic-console)
+    Verify Feature Is Installed    odl-nic-core-mdsal
     Verify Feature Is Installed    odl-nic-console
     Verify Feature Is Installed    odl-nic-renderer-vtn
     Clean Mininet System

@@ -38,9 +38,9 @@ Verify NIC Command Add and Remove
     ...    and stores the intent ids, then verifies that the intents were added. Finally, it compiles the intents
     ...    to verify that intents were properly merged and also validates intents were removed at the end per the cleanup procedure.
     ...    The command "Wait Until Keyword Succeeds" is used to poll for 10 minutes
-    ...    until the intent:add command is availible for the test case to be run.
+    ...    until the intent:add command is available for the test case to be run.
     [Tags]    NIC
-    Wait Until Keyword Succeeds    1 min    5 sec    Verify Intent:Add Command is Availible
+    Wait Until Keyword Succeeds    1 min    5 sec    Verify Intent:Add Command is Available
     : FOR    ${intent}    IN    @{all_intents}
     \    ${id}=    Add Intent    @{intent}
     \    Append To List    ${all_intents_ids}    ${id}
@@ -64,9 +64,9 @@ Verify NIC Command Add and Remove
 
 *** Keywords ***
 Setup NIC Console Environment
-    [Documentation]    Installing NIC Console related features (odl-nic-core, odl-nic-console)
+    [Documentation]    Installing NIC Console related features (odl-nic-core-mdsal, odl-nic-console)
     Start Suite
-    Verify Feature Is Installed    odl-nic-core
+    Verify Feature Is Installed    odl-nic-core-mdsal
     Verify Feature Is Installed    odl-nic-console
 
 Add Intent
@@ -81,7 +81,7 @@ Add Intent
 
 Verify Intent:Add Command is Availible
     [Documentation]    Verifies that odl-nic-console is up and intent:add command is available to be used.
-    ...    Should be used with the command "Wait Until Keyword Succeeds" to poll until command is availible.
+    ...    Should be used with the command "Wait Until Keyword Succeeds" to poll until command is available.
     ${output}=    Issue Command On Karaf Console    intent:add
     Should Not Contain    ${output}    Command not found
 
