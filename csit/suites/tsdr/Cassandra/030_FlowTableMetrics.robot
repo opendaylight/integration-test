@@ -15,7 +15,6 @@ ${TSDR_FLOWTABLE_STATS}    tsdr:list FlowTableStats
 @{tsdr_pl}
 @{tsdr_af}
 @{tsdr_pm}
-${QUERY_HEAD}    /restconf/operational/opendaylight-inventory:nodes/node
 ${packetlookup}    flow-table-statistics/packets-looked-up
 ${activeflows}    flow-table-statistics/active-flows
 ${packetmatched}    flow-table-statistics/packets-matched
@@ -33,36 +32,35 @@ Verification of TSDR Cassandra Feature Installation
     Verify Feature Is Installed    odl-tsdr-openflow-statistics-collector
     Start Tsdr Suite
     Ping All Hosts
-    Wait Until Keyword Succeeds    5x    30 sec    Check Metric path    24\\d+|25\\d+
     Wait Until Keyword Succeeds    5x    30 sec    Check Metric val     \\d{5}
 
 
 Getting all Tables from Openflow Plugin
     [Documentation]    Getting Flow Table Stats Values from Openflow plugin
-    ${ret}=    Get Stats XML    ${QUERY_HEAD}/openflow:1/table/0/    ${packetlookup}
+    ${ret}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:1/table/0/    ${packetlookup}
     Append To List    ${openflow_packetlookup}    ${ret}
-    ${ret}=    Get Stats XML    ${QUERY_HEAD}/openflow:2/table/0/    ${packetlookup}
+    ${ret}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:2/table/0/    ${packetlookup}
     Append To List    ${openflow_packetlookup}    ${ret}
-    ${ret}=    Get Stats XML    ${QUERY_HEAD}/openflow:3/table/0/    ${packetlookup}
+    ${ret}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:3/table/0/    ${packetlookup}
     Append To List    ${openflow_packetlookup}    ${ret}
 
     Set Suite Variable    @{openflow_packetlookup}
 
 
-    ${ret}=    Get Stats XML    ${QUERY_HEAD}/openflow:1/table/0/    ${activeflows}
+    ${ret}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:1/table/0/    ${activeflows}
     Append To List    ${openflow_activeflows}    ${ret}
-    ${ret}=    Get Stats XML    ${QUERY_HEAD}/openflow:2/table/0/    ${activeflows}
+    ${ret}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:2/table/0/    ${activeflows}
     Append To List    ${openflow_activeflows}    ${ret}
-    ${ret}=    Get Stats XML    ${QUERY_HEAD}/openflow:3/table/0/    ${activeflows}
+    ${ret}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:3/table/0/    ${activeflows}
     Append To List    ${openflow_activeflows}    ${ret}
 
     Set Suite Variable    @{openflow_activeflows}
 
-    ${ret}=    Get Stats XML    ${QUERY_HEAD}/openflow:1/table/0/    ${packetmatched}
+    ${ret}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:1/table/0/    ${packetmatched}
     Append To List    ${openflow_packetmatched}    ${ret}
-    ${ret}=    Get Stats XML    ${QUERY_HEAD}/openflow:2/table/0/    ${packetmatched}
+    ${ret}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:2/table/0/    ${packetmatched}
     Append To List    ${openflow_packetmatched}    ${ret}
-    ${ret}=    Get Stats XML    ${QUERY_HEAD}/openflow:3/table/0/    ${packetmatched}
+    ${ret}=    Get Stats XML    ${OPERATIONAL_NODES_API}/node/openflow:3/table/0/    ${packetmatched}
     Append To List    ${openflow_packetmatched}    ${ret}
 
     Set Suite Variable    @{openflow_packetmatched}

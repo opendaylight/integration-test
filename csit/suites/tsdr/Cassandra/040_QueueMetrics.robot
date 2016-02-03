@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for Cassandra DataStore Queue Stats Verification
-Suite Setup           Initialize Cassandra Tables Metricval 
+Suite Setup           Initialize Cassandra Tables Metricval
 Suite Teardown    Stop Tsdr Suite
 Library           SSHLibrary
 Library           Collections
@@ -13,7 +13,7 @@ Variables         ../../../variables/Variables.py
 *** Variables ***
 @{QUEUE_METRICS}    TransmittedPackets    TransmittedBytes    TransmissionErrors
 ${TSDR_QUEUESTATS}    tsdr:list QueueStats
-${QUERY_HEAD}    /restconf/operational/opendaylight-inventory:nodes/node
+${QUERY_HEAD}    ${OPERATIONAL_NODES_API}/node
 ${query_head1}    ${QUERY_HEAD}/openflow:2/node-connector/openflow:2:2/queue/
 @{tsdr_q0}
 @{tsdr_q2}
@@ -36,7 +36,6 @@ Verification of TSDR Cassandra Feature Installation
     Start Tsdr Suite
     Configuration of Queue on Switch
     Ping All Hosts
-    Wait Until Keyword Succeeds    5x    30 sec    Check Metric path    24\\d+|25\\d+|26\\d+|27\\d+
     Wait Until Keyword Succeeds    5x    30 sec    Check Metric val     \\d{5}
 
 Getting all Tables from Openflow Plugin
@@ -75,7 +74,7 @@ Verification of FlowStats-Attributes on Cassandra Data Store
     [Documentation]    Verify the InterfaceMetrics has been updated on Cassandra Data Store
     Copy TSDR tables
     ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:2 | grep DC=QUEUESTATS | grep MN=TransmissionErrors | grep RK=Node:openflow:2,NodeConnector:openflow:2:2,Queue:0
-    Append To List    ${tsdr_q0}    ${ret_val1}    
+    Append To List    ${tsdr_q0}    ${ret_val1}
     ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:2 | grep DC=QUEUESTATS | grep MN=TransmittedPackets | grep RK=Node:openflow:2,NodeConnector:openflow:2:2,Queue:0
     Append To List    ${tsdr_q0}    ${ret_val1}
     ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:2 | grep DC=QUEUESTATS | grep MN=TransmittedBytes | grep RK=Node:openflow:2,NodeConnector:openflow:2:2,Queue:0

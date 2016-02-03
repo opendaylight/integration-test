@@ -14,7 +14,6 @@ Variables         ../../../variables/Variables.py
 
 @{FLOW_METRICS}    PacketCount    ByteCount
 ${TSDR_FLOWSTATS}    tsdr:list FlowStats
-${QUERY_HEAD}    /restconf/operational/opendaylight-inventory:nodes/node
 ${packet_count}    flow/flow-statistics/packet-count
 ${byte_count}    flow/flow-statistics/byte-count
 @{tsdr_op1}
@@ -32,39 +31,36 @@ ${byte_count}    flow/flow-statistics/byte-count
 
 Verification of TSDR Cassandra Feature Installation
     [Documentation]    Install and Verify the TSDR Cassandra Features
-    COMMENT    Install a Feature    odl-tsdr-cassandra-all    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    60
     Verify Feature Is Installed    odl-tsdr-cassandra
-    COMMENT    Verify Feature Is Installed    odl-tsdr-cassandra-persistence
     Verify Feature Is Installed    odl-tsdr-openflow-statistics-collector
     Start Tsdr Suite
     Ping All Hosts
-    Wait Until Keyword Succeeds    5x    30 sec    Check Metric path    24\\d+|25\\d+
     Wait Until Keyword Succeeds    5x    30 sec    Check Metric val     \\d{5}
 
 
 Getting all Tables from Openflow Plugin
     [Documentation]    Getting Flowstats from openflow plugin
 
-    @{openflow_1}=    Return all XML matches    ${QUERY_HEAD}/openflow:1/table/0/    flow/id
-    @{openflow_2}=    Return all XML matches    ${QUERY_HEAD}/openflow:2/table/0/    flow/id
-    @{openflow_3}=    Return all XML matches    ${QUERY_HEAD}/openflow:3/table/0/    flow/id
+    @{openflow_1}=    Return all XML matches    ${OPERATIONAL_NODES_API}/node/openflow:1/table/0/    flow/id
+    @{openflow_2}=    Return all XML matches    ${OPERATIONAL_NODES_API}/node/openflow:2/table/0/    flow/id
+    @{openflow_3}=    Return all XML matches    ${OPERATIONAL_NODES_API}/node/openflow:3/table/0/    flow/id
 
     Set Suite Variable 	  @{openflow_1}
     Set Suite Variable    @{openflow_2}
     Set Suite Variable    @{openflow_3}
 
-    @{openflow_1_packetcount}=    Return all XML matches    ${QUERY_HEAD}/openflow:1/table/0/    ${packet_count}
-    @{openflow_2_packetcount}=    Return all XML matches    ${QUERY_HEAD}/openflow:2/table/0/    ${packet_count}
-    @{openflow_3_packetcount}=    Return all XML matches    ${QUERY_HEAD}/openflow:3/table/0/    ${packet_count}
+    @{openflow_1_packetcount}=    Return all XML matches    ${OPERATIONAL_NODES_API}/node/openflow:1/table/0/    ${packet_count}
+    @{openflow_2_packetcount}=    Return all XML matches    ${OPERATIONAL_NODES_API}/node/openflow:2/table/0/    ${packet_count}
+    @{openflow_3_packetcount}=    Return all XML matches    ${OPERATIONAL_NODES_API}/node/openflow:3/table/0/    ${packet_count}
 
     Set Suite Variable    @{openflow_1_packetcount}
     Set Suite Variable    @{openflow_2_packetcount}
     Set Suite Variable    @{openflow_3_packetcount}
 
 
-    @{openflow_1_bytecount}=    Return all XML matches    ${QUERY_HEAD}/openflow:1/table/0/    ${byte_count}
-    @{openflow_2_bytecount}=    Return all XML matches    ${QUERY_HEAD}/openflow:2/table/0/    ${byte_count}
-    @{openflow_3_bytecount}=    Return all XML matches    ${QUERY_HEAD}/openflow:3/table/0/    ${byte_count}
+    @{openflow_1_bytecount}=    Return all XML matches    ${OPERATIONAL_NODES_API}/node/openflow:1/table/0/    ${byte_count}
+    @{openflow_2_bytecount}=    Return all XML matches    ${OPERATIONAL_NODES_API}/node/openflow:2/table/0/    ${byte_count}
+    @{openflow_3_bytecount}=    Return all XML matches    ${OPERATIONAL_NODES_API}/node/openflow:3/table/0/    ${byte_count}
 
     Set Suite Variable    @{openflow_1_bytecount}
     Set Suite Variable    @{openflow_2_bytecount}
@@ -76,7 +72,7 @@ Verification of FlowStats-Attributes on Cassandra Data Store
     : FOR    ${flow}    IN    @{openflow_1}
     \   ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:1 | grep DC=FLOWSTATS | grep MN=PacketCount | grep -F 'RK=Node:openflow:1,Table:0,Flow:${flow}'
     \   Append To List    ${tsdr_op1_pc}    ${ret_val1}
-   
+
     : FOR    ${flow}    IN    @{openflow_2}
     \   ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    grep NID=openflow:2 | grep DC=FLOWSTATS | grep MN=PacketCount | grep -F 'RK=Node:openflow:2,Table:0,Flow:${flow}'
     \   Append To List    ${tsdr_op2_pc}    ${ret_val1}
