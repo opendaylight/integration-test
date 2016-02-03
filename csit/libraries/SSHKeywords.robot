@@ -16,6 +16,13 @@ Library           SSHLibrary
 Resource          ${CURDIR}/Utils.robot
 
 *** Keywords ***
+Open_Connection_To_ODL_System
+    [Documentation]    Open a connection to the ODL system and return its identifier.
+    ...    On clustered systems this opens the connection to the first node.
+    ${odl}=    SSHLibrary.Open_Connection    ${ODL_SYSTEM_IP}    prompt=${ODL_SYSTEM_PROMPT}    timeout=10s
+    Utils.Flexible_Controller_Login
+    [Return]    ${odl}
+
 Open_Connection_To_Tools_System
     [Documentation]    Open a connection to the tools system and return its identifier.
     ${tools}=    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    prompt=${TOOLS_SYSTEM_PROMPT}
