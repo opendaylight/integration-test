@@ -36,7 +36,6 @@ Verification of TSDR Cassandra Feature Installation
     Start Tsdr Suite
     Configuration of Queue on Switch
     Ping All Hosts
-    Wait Until Keyword Succeeds    5x    30 sec    Check Metric path    24\\d+|25\\d+|26\\d+|27\\d+
     Wait Until Keyword Succeeds    5x    30 sec    Check Metric val     \\d{5}
 
 Getting all Tables from Openflow Plugin
