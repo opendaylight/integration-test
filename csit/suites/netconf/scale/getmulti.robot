@@ -77,10 +77,7 @@ Setup_Everything
     SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     NetconfKeywords.Setup_Netconf_Keywords
-    # Connect to the tools machine
-    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
-    Utils.Flexible_Mininet_Login
-    # Deploy testing tools on it.
+    # Deploy testing tools.
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/netconf_tools/getter.py
     SSHLibrary.Put_File    ${CURDIR}/../../../libraries/AuthStandalone.py
 

@@ -156,8 +156,7 @@ Set_It_Up
     [Documentation]    Create SSH session to Mininet machine, prepare HTTP client session to Controller.
     ...    Figure out latest pcc-mock version and download it from Nexus to Mininet.
     ...    Also, delete and create directories for json diff handling.
-    SSHLibrary.Open_Connection    ${MININET}
-    SSHLibrary.Login_With_Public_Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    NexusKeywords.Initialize_Artifact_Deployment_And_Usage
     ${current_connection}=    SSHLibrary.Get_Connection
     ${current_prompt}=    BuiltIn.Set_Variable    ${current_connection.prompt}
     BuiltIn.Log    ${current_prompt}

@@ -33,6 +33,7 @@ Setup_NetconfKeywords
     ${tmp}=    BuiltIn.Create_Dictionary
     BuiltIn.Set_Suite_Variable    ${NetconfKeywords__mounted_device_types}    ${tmp}
     NetconfViaRestconf.Setup_Netconf_Via_Restconf
+    NexusKeywords.Initialize_Artifact_Deployment_And_Usage
 
 Configure_Device_In_Netconf
     [Arguments]    ${device_name}    ${device_type}=default    ${device_port}=${FIRST_TESTTOOL_PORT}

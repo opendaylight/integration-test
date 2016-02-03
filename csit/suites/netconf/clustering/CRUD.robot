@@ -210,9 +210,6 @@ Setup_Everything
     NetconfViaRestconf.Create_NVR_Session    node1    ${ODL_SYSTEM_1_IP}
     NetconfViaRestconf.Create_NVR_Session    node2    ${ODL_SYSTEM_2_IP}
     NetconfViaRestconf.Create_NVR_Session    node3    ${ODL_SYSTEM_3_IP}
-    # Connect to the Mininet machine
-    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    prompt=${TOOLS_SYSTEM_PROMPT}
-    Utils.Flexible_Mininet_Login
 
 Teardown_Everything
     [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.
