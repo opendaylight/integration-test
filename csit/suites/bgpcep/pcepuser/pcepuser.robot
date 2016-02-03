@@ -118,8 +118,7 @@ Set_It_Up
     [Documentation]    Create SSH session to Mininet machine, prepare HTTP client session to Controller.
     ...    Figure out latest pcc-mock version and download it from Nexus to Mininet.
     ...    Also, delete and create directories for json diff handling.
-    SSHLibrary.Open_Connection    ${MININET}    prompt=${MININET_PROMPT}    timeout=${OUTPUT_TIMEOUT}
-    Utils.Flexible_Mininet_Login
+    NexusKeywords.Initialize_Artifact_Deployment_And_Usage
     # FIXME: Unify Module prefix usage across whole file.
     Create_Session    ses    http://${CONTROLLER}:${RESTCONFPORT}/restconf/operational/network-topology:network-topology    auth=${AUTH}
     ${name}=    NexusKeywords.Deploy_Test_Tool    bgpcep/pcep-pcc-mock

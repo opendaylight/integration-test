@@ -12,8 +12,16 @@ Documentation     Nexus repository access keywords.
 ...               netconf operations into reusable keywords to make writing netconf
 ...               test suites easier.
 Library           SSHLibrary
+Resource          SSHKeywords.robot
 
 *** Keywords ***
+Initialize_Artifact_Deployment_And_Usage
+    [Documentation]    Initialize Nexus artifact deployment and usage
+    ...    Create and activate a connection to the tools system and perform
+    ...    additional configuration to allow the remaining keywords to deploy
+    ...    and use artifacts from Nexus on the tools system.
+    SSHKeywords.Open_Connection_To_Tools_System
+
 NexusKeywords__Get_Version_From_Metadata
     ${version}=    SSHLibrary.Execute_Command    cat metadata.xml | grep latest | cut -d '>' -f 2 | cut -d '<' -f 1
     BuiltIn.Log    ${version}

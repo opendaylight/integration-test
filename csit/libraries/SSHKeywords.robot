@@ -13,8 +13,15 @@ Documentation     Resource enhancing SSHLibrary with Keywords used in multiple s
 ...               and if the Keywords do not fit into a more specific Resource,
 ...               you can place them here.
 Library           SSHLibrary
+Resource          ${CURDIR}/Utils.robot
 
 *** Keywords ***
+Open_Connection_To_Tools_System
+    [Documentation]    Open a connection to the tools system and return its identifier.
+    ${tools}=    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    prompt=${TOOLS_SYSTEM_PROMPT}
+    Utils.Flexible_Mininet_Login
+    [Return]    ${tools}
+
 Execute_Command_Passes
     [Arguments]    ${command}
     [Documentation]    Execute command via SSH. If RC is nonzero, log everything. Retrun bool string of command success.

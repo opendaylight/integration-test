@@ -58,9 +58,6 @@ Setup_Everything
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     NetconfKeywords.Setup_Netconf_Keywords
     KarafKeywords.Configure_Timeout_For_Karaf_Console    120s
-    # Connect to the tools machine
-    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
-    Utils.Flexible_Mininet_Login
 
 Teardown_Everything
     [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.

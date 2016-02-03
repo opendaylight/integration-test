@@ -120,9 +120,6 @@ Setup_Everything
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
     NetconfKeywords.Setup_Netconf_Keywords
-    # Connect to the Mininet machine
-    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    prompt=${TOOLS_SYSTEM_PROMPT}
-    Utils.Flexible_Mininet_Login
 
 Teardown_Everything
     [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.
