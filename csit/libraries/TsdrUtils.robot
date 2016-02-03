@@ -11,7 +11,7 @@ Library           json
 Library           HttpLibrary.HTTP
 
 *** Variables ***
-${HBASE_CLIENT}    /usr/lib/hbase/hbase-0.94.15/bin
+${HBASE_CLIENT}    /tmp/hbase/hbase-0.94.15/bin
 ${CASSANDRA_CLIENT}    /tmp/cassandra/apache-cassandra-2.1.12/bin
 ${final}          ${EMPTY}
 ${prompt_timeout}    ${EMPTY}
@@ -57,8 +57,8 @@ Ping All Hosts
     Read Until    mininet>
 
 Iperf All Hosts
-    [Arguments]    ${host1}    ${host2}   
-    [Documentation]    Iperf between ${host1} and ${host2} 
+    [Arguments]    ${host1}    ${host2}
+    [Documentation]    Iperf between ${host1} and ${host2}
     Switch Connection    ${mininet_conn_id1}
     Write    iperf ${host1} ${host2}
     Read Until    mininet>
@@ -181,8 +181,8 @@ Initialize Cassandra Tables
     [Arguments]    ${remote}=${ODL_SYSTEM_IP}    ${user}=${TOOLS_SYSTEM_USER}    ${prompt_timeout}=120s    ${key_table}=metricpath    ${val_table}=metricval
     [Documentation]    Truncate Existing tables in Cassandra to Start it fresh.
     Log    Attempting to truncate tables in Cassandra
-    Run Command On Remote System    ${ODL_SYSTEM_IP}    rm -rf ${CASSANDRA_DB_PATH}${key_table}
-    Run Command On Remote System    ${ODL_SYSTEM_IP}    rm -rf ${CASSANDRA_DB_PATH}${val_table}
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    sudo rm -rf ${CASSANDRA_DB_PATH}${key_table}
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    sudo rm -rf ${CASSANDRA_DB_PATH}${val_table}
     ${conn_id}=    Open Connection    ${remote}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${prompt_timeout}
     Login With Public Key    ${user}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    export JAVA_HOME=/usr
@@ -199,8 +199,8 @@ Initialize Cassandra Tables Metricval
     [Arguments]    ${remote}=${ODL_SYSTEM_IP}    ${user}=${TOOLS_SYSTEM_USER}    ${prompt_timeout}=120s    ${key_table}=metricpath    ${val_table}=metricval
     [Documentation]    Truncate Existing tables in Cassandra to Start it fresh
     Log    Attempting to truncate tables in Cassandra
-    Run Command On Remote System    ${ODL_SYSTEM_IP}    rm -rf ${CASSANDRA_DB_PATH}${key_table}
-    Run Command On Remote System    ${ODL_SYSTEM_IP}    rm -rf ${CASSANDRA_DB_PATH}${val_table}
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    sudo rm -rf ${CASSANDRA_DB_PATH}${key_table}
+    Run Command On Remote System    ${ODL_SYSTEM_IP}    sudo rm -rf ${CASSANDRA_DB_PATH}${val_table}
     ${conn_id}=    Open Connection    ${remote}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${prompt_timeout}
     Login With Public Key    ${user}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    export JAVA_HOME=/usr
@@ -255,9 +255,15 @@ Verify the Metrics Attributes on Cassandra Client
     ${keya_bool}=    Evaluate    ${keya} < 0
     ${keya}=    Run Keyword If    '${keya_bool}' == 'True'    Catenate    SEPARATOR=    \\    ${keya}
     ...    ELSE    Catenate    ${keya}
-    Create Temporary Key Info    ${keya} ${keyb}
-    ${metric_value}=    Verify Metric Val File
-    [Return]    ${metric_value}
+    ${metricval}=    Create Temporary Key Info    ${keya} ${keyb}
+    @{lines}=    Split to lines    ${metricval}
+    ${mv_len}=    Get Length    ${lines}
+    ${mv_len}=    Evaluate    ${mv_len} - 1
+    ${found_line}=    Get From List    ${lines}    ${mv_len}
+    @{split_line}=    Split String    ${found_line}    ${SPACE}
+    ${metric_count}=    Get From List    ${split_line}    3
+    [Return]    ${metric_count}
+
 
 Form Portstats Query Pattern
     [Arguments]    ${metric}    ${node}    ${port}    ${attribute}
@@ -275,10 +281,10 @@ Form Portstats Query Pattern
 
 Create Temporary Key Info
     [Arguments]    ${pattern}    ${remote}=${ODL_SYSTEM_IP}    ${user}=${TOOLS_SYSTEM_USER}    ${prompt_timeout}=120s    ${val_table}=metricval
-    [Documentation]    Creates a temporary File with matching keya,keyb values.
-    Log    Removing existing file
-    Run Command On Remote System    ${ODL_SYSTEM_IP}    rm -rf ${CASSANDRA_DB_PATH}${temp_metric_val}
-    Run Command On Remote System    ${ODL_SYSTEM_IP}    cat ${CASSANDRA_DB_PATH}${val_table}|grep "${pattern}" > ${CASSANDRA_DB_PATH}${temp_metric_val}
+    [Documentation]    Return rows matching keya and keyb
+    ${output}=    Run Command On Remote System    ${ODL_SYSTEM_IP}    cat ${CASSANDRA_DB_PATH}${val_table}|grep "${pattern}"
+    [Return]    ${output}
+
 
 Verify Metric Val File
     [Documentation]    Returns Value for metric matching particular keya,keyb
@@ -288,12 +294,11 @@ Verify Metric Val File
     ${found_line}=    Get From List    ${metricval}    ${mv_len}
     @{split_line}=    Split String    ${found_line}    ${SPACE}
     ${metric_count}=    Get From List    ${split_line}    3
-    LOG    ${metric_count}    WARN
     [Return]    ${metric_count}
 
 Verify Metric log File
-    [Arguments]    ${pattern}
-    [Documentation]    Returns Value for lines in Metriclog file matching the pattern
+    [Arguments]    ${metric_log}    ${pattern} 
+    [Documentation]    Returns Value for lines in Metriclog matching the pattern
     ${contents}=    Grep From File    ${CASSANDRA_DB_PATH}${temp_metric_val}    ${pattern}
     [Return]    ${contents}
 
@@ -301,12 +306,9 @@ Grep From File
 
     [Arguments]    ${file}    ${pattern}
     [Documentation]    Use cat to grep from the file and return the output
-    LOG    ${file}    WARN
-    LOG    ${pattern}    WARN
     ${output}=    Run Command On Remote System    ${ODL_SYSTEM_IP}    cat ${file} | ${pattern}
-    LOG    ${output}    WARN
     [Return]    ${output}
- 
+
 Find Metricval Keys
     [Arguments]    ${pattern}    ${file}
     [Documentation]    Return list element which has the particular pattern.
@@ -324,16 +326,13 @@ Copy TSDR tables
     ${conn_id}=    Open Connection    ${remote}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${prompt_timeout}
     Login With Public Key    ${user}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    export JAVA_HOME=/usr
-    Write    ${CASSANDRA_CLIENT}/cqlsh
+    Write    sudo ${CASSANDRA_CLIENT}/cqlsh
     Read Until    cqlsh>
     Write    COPY tsdr.${key_table} TO '${CASSANDRA_DB_PATH}${key_table}' WITH DELIMITER = ' ';
     Read Until    cqlsh>
     Write    COPY tsdr.${val_table} TO '${CASSANDRA_DB_PATH}${val_table}' WITH DELIMITER = ' ';
     Read Until    cqlsh>
     Write    exit
-    Write    sudo chmod 755 ${CASSANDRA_DB_PATH}
-    ${wr}=    Execute Command    ls -l ${CASSANDRA_DB_PATH}
-    ${output1}=    Execute Command    cat ${CASSANDRA_DB_PATH}${key_table} | head
     Close Connection
 
 Issue Cassandra Query
@@ -369,7 +368,6 @@ Read File and Return Split Lines
     [Arguments]    ${filename}
     [Documentation]    Reads the file and returns each line as list
     ${contents}=    Run Command On Remote System    ${ODL_SYSTEM_IP}    cat ${filename}
-    LOG    ${contents}    WARN
     @{lines}=    Split to lines    ${contents}
     [Return]    @{lines}
 
@@ -422,7 +420,8 @@ Verify the Metrics Syslog on Cassandra Client
     ${keya_bool}=    Evaluate    ${keya} < 0
     ${keya}=    Run Keyword If    '${keya_bool}' == 'True'    Catenate    SEPARATOR=    \\    ${keya}
     ...    ELSE    Catenate    ${keya}
-    Create Temporary Key Info    ${keya} ${keyb}    val_table=${metric_log}
+    ${metric_log}=    Create Temporary Key Info    ${keya} ${keyb}    val_table=metriclog
+    [Return]    ${metric_log}
 
 Iterating over metricpath
     [Documentation]    Used to traverse over metricpath file and traverse over metricpath file and get the keys
@@ -575,7 +574,6 @@ Extract Row Values from TSDR Query
     ...    ELSE IF    '${DATA_CATEGORY}'=='QUEUESTATS'    Extract QUEUESTATS RecordKeys    ${RK}
     ${epoch_time}=    Convert Date    ${time}    epoch    date_format=%a %b %d %H:%M:%S %Z %Y
     ${epoch_time_int}=    Convert To Integer    ${epoch_time}
-    LOG    [NID=${NID}][DC=${DC}][MN=${MN}][${RK_VAL}][TS=${epoch_time_int}][${MV}]
     Should Match    ${tsdr_row}    *${NID}*
     Should Match    ${tsdr_row}    *${DC}*
     Should Match    ${tsdr_row}    *${MN}*
@@ -651,32 +649,33 @@ Collect Data from SNMP Agent
     \    ${ifMtu}=    Get From Dictionary    ${int}    ifMtu
     \    ${ifOperStatus1}=    Get From Dictionary    ${int}    ifOperStatus
     \    ${ifOperStatus}=    Get From Dictionary    ${OPER_STATUS}    ${ifOperStatus1}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfOutDiscards*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutDiscards*
+    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfOutDiscards | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutDiscards
     \    Append To List    ${SNMP_VALUES}    ${ifOutDiscards}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfInDiscards*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInDiscards*
+    \    Append To List    ${SNMP_ENTRY}     grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfInDiscards | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInDiscards
     \    Append To List    ${SNMP_VALUES}    ${ifInDiscards}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfInOctets*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInOctets*
+    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfInOctets | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInOctets
     \    Append To List    ${SNMP_VALUES}    ${ifInOctets}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfOutQLen*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutQLen*
+    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfOutQLen | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutQLen
     \    Append To List    ${SNMP_VALUES}    ${ifOutQLen}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfOutErrors*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutErrors*
+    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfOutErrors | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutErrors
     \    Append To List    ${SNMP_VALUES}    ${ifOutErrors}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfInUcastPkts*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInUcastPkts*
+    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfInUcastPkts | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInUcastPkts
     \    Append To List    ${SNMP_VALUES}    ${ifInUcastPkts}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfOutNUcastPkts*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutNUcastPkts*
+    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfOutNUcastPkts | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutNUcastPkts
     \    Append To List    ${SNMP_VALUES}    ${ifOutNUcastPkts}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfInErrors*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInErrors*
+    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfInErrors | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInErrors
     \    Append To List    ${SNMP_VALUES}    ${ifInErrors}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfOutOctets*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutOctets*
+    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfOutOctets | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutOctets
     \    Append To List    ${SNMP_VALUES}    ${ifOutOctets}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfAdminStatus*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfAdminStatus*
+    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfAdminStatus | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfAdminStatus
     \    Append To List    ${SNMP_VALUES}    ${ifAdminStatus}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfInUnknownProtos*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInUnknownProtos*
+    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfInUnknownProtos | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInUnknownProtos
     \    Append To List    ${SNMP_VALUES}    ${ifInUnknownProtos}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfOutUcastPkts*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutUcastPkts*
+    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfOutUcastPkts | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOutUcastPkts
     \    Append To List    ${SNMP_VALUES}    ${ifOutUcastPkts}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfInNUcastPkts*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInNUcastPkts*
+    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfInNUcastPkts | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfInNUcastPkts
     \    Append To List    ${SNMP_VALUES}    ${ifInNUcastPkts}
-    \    Append To List    ${SNMP_ENTRY}    *NID=${SNMP_IP}*DC=SNMPINTERFACES*MN=IfOperStatus*RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOperStatus*
+    \    Append To List    ${SNMP_ENTRY}    grep NID=${SNMP_IP} | grep DC=SNMPINTERFACES | grep MN=IfOperStatus | grep RK=ifIndex:${ifindex},ifName:Iso88023Csmacd,SnmpMetric:IfOperStatus
     \    Append To List    ${SNMP_VALUES}    ${ifOperStatus}
     [Return]    ${SNMP_ENTRY}    ${SNMP_VALUES}
+
