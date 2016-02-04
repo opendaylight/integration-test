@@ -18,12 +18,12 @@ Get VtnCo
     [Documentation]    Download the VTN Coordinator from Controller VM
     Log    Download the VTN Coordinator bz2 file
     SSHLibrary.Open_Connection    ${ODL_SYSTEM_IP}
-    SSHLibrary.Login_With_Public_Key    ${CONTROLLER_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    SSHLibrary.Login_With_Public_Key    ${ODL_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     ${VTNC_FILENAME}=    Catenate    SEPARATOR=/    ${WORKSPACE}    vtn_coordinator.tar.bz2
     SSHLibrary.Get_File    ${WORKSPACE}/${BUNDLEFOLDER}/externalapps/*vtn-coordinator*-bin.tar.bz2    ${VTNC_FILENAME}
     SSHLibrary.Close_Connection
-    SSHLibrary.Open_Connection    ${MININET}
-    SSHLibrary.Login_With_Public_Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
+    SSHLibrary.Login_With_Public_Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     SSHLibrary.Put_File    ${VTNC_FILENAME}    /tmp
     SSHLibrary.Close_Connection
 
@@ -33,7 +33,7 @@ Start SuiteVtnCo
     #Get VtnCo
     ${vtnc_conn_id}=    SSHLibrary.Open Connection    ${ODL_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Suite Variable    ${vtnc_conn_id}
-    SSHLibrary.Login_With_Public_Key    ${CONTROLLER_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    SSHLibrary.Login_With_Public_Key    ${ODL_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     SSHLibrary.Execute Command    sudo mkdir -p /usr/local/vtn
     SSHLibrary.Execute Command    sudo chown jenkins /usr/local/vtn
     SSHLibrary.Execute Command    sudo yum install -q -y http://yum.postgresql.org/9.3/redhat/rhel-7-x86_64/pgdg-centos93-9.3-1.noarch.rpm
@@ -256,7 +256,7 @@ Create VLANMAP in VBRIDGE
 
 Start vlan_topo
     [Documentation]    This will start mininet with custom topology on both the Virtual Machines
-    Start Mininet    ${MININET}    ${vlan_topo}    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
+    Start Mininet    ${TOOLS_SYSTEM_IP}    ${vlan_topo}    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
 
 Delete a FLOWLIST
     [Arguments]    ${flowlistname}

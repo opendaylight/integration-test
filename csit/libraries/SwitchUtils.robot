@@ -89,7 +89,7 @@ Open Connection Wrapper
     ...    switch.mgmt_protocol, the connection open will be handled by the right robot
     ...    library (Telnet or SSHLibrary). \ The connection_index is returned.
     Run Keyword If    "${switch.mgmt_protocol}" == "ssh"    Call Method    ${switch}    set_ssh_key    ${USER_HOME}/.ssh/${SSH_KEY}
-    Run Keyword If    "${switch.mgmt_protocol}" == "ssh"    Call Method    ${switch}    set_mgmt_user    ${MININET_USER}
+    Run Keyword If    "${switch.mgmt_protocol}" == "ssh"    Call Method    ${switch}    set_mgmt_user    ${TOOLS_SYSTEM_USER}
     ${connection_index}=    Run Keyword If    "${switch.mgmt_protocol}" == "ssh"    SSHLibrary.Open Connection    ${switch.mgmt_ip}    prompt=${switch.mgmt_prompt}    timeout=30s
     Run Keyword If    "${switch.mgmt_protocol}" == "ssh"    Login With Public Key    ${switch.mgmt_user}    ${switch.ssh_key}    any
     ${connection_index}=    Run Keyword If    "${switch.mgmt_protocol}" == "telnet"    Telnet.Open Connection    ${switch.mgmt_ip}
