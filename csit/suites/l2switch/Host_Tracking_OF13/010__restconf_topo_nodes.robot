@@ -59,24 +59,26 @@ Host Tracker host3
     [Documentation]    Get the network topology, should contain hos 3 one time
     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_TOPO_API}    "node-id":"host:${MAC_3}"    1
 
-Link Down
-    [Documentation]    Take link s1-h1 down and verify host1 goes away
-    Write    link s1 h1 down
-    Read Until    mininet>
-    @{list}    Create List    "link-down":true
-    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${OPERATIONAL_NODES_API}/node/openflow:1/node-connector/openflow:1:1    ${list}
-    @{list}    Create List    ${MAC_1}
-    Wait Until Keyword Succeeds    10s    2s    Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}    ${list}
-
-Link Up
-    [Documentation]    Take link s1-h1 up and verify host1 comes back
-    Write    link s1 h1 up
-    Read Until    mininet>
-    @{list}    Create List    "link-down":false
-    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${OPERATIONAL_NODES_API}/node/openflow:1/node-connector/openflow:1:1    ${list}
-    Write    pingall
-    Read Until    mininet>
-    Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_TOPO_API}    "node-id":"host:${MAC_1}"    1
+# Following tests are removed because this feature is not implemented yet:
+#
+# Link Down
+#     [Documentation]    Take link s1-h1 down and verify host1 goes away
+#     Write    link s1 h1 down
+#     Read Until    mininet>
+#     @{list}    Create List    "link-down":true
+#     Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${OPERATIONAL_NODES_API}/node/openflow:1/node-connector/openflow:1:1    ${list}
+#     @{list}    Create List    ${MAC_1}
+#     Wait Until Keyword Succeeds    10s    2s    Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}    ${list}
+#
+# Link Up
+#     [Documentation]    Take link s1-h1 up and verify host1 comes back
+#     Write    link s1 h1 up
+#     Read Until    mininet>
+#     @{list}    Create List    "link-down":false
+#     Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${OPERATIONAL_NODES_API}/node/openflow:1/node-connector/openflow:1:1    ${list}
+#     Write    pingall
+#     Read Until    mininet>
+#     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_TOPO_API}    "node-id":"host:${MAC_1}"    1
 
 Remove Port
     [Documentation]    Remove port s1-eth1 and verify host1 goes away
