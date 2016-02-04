@@ -52,7 +52,7 @@ Check Karaf Log Has Messages
     [Return]    ${output}
 
 Check Karaf Log File Does Not Have Messages
-    [Arguments]    ${ip}    ${message}    ${user}=${CONTROLLER_USER}    ${password}=${CONTROLLER_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${log_file}=${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log
+    [Arguments]    ${ip}    ${message}    ${user}=${ODL_SYSTEM_USER}    ${password}=${CONTROLLER_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${log_file}=${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log
     [Documentation]    Fails if the provided ${message} is found in the karaf.log file. Uses grep to search. The
     ...    karaf.log file can be overridden with ${log_file} to be any file on the given system @ ${ip}
     ${output}=    Run Command On Controller    ${ip}    grep -c '${message}' ${log_file}    user=${user}    password=${password}    prompt=${prompt}

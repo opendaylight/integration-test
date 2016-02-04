@@ -112,12 +112,12 @@ Verify Data Flows
 Start PathSuiteVtnMaTest
     [Documentation]    Start VTN Manager Test Suite and Mininet
     Start SuiteVtnMaTest
-    Start Mininet    ${MININET}    ${pathpolicy_topo_13}    ${custom}
+    Start Mininet    ${TOOLS_SYSTEM_IP}    ${pathpolicy_topo_13}    ${custom}
 
 Start PathSuiteVtnMaTestOF10
     [Documentation]    Start VTN Manager Test Suite and Mininet in Open Flow 10 Specification
     Start SuiteVtnMaTest
-    Start Mininet    ${MININET}    ${pathpolicy_topo_10}    ${custom}
+    Start Mininet    ${TOOLS_SYSTEM_IP}    ${pathpolicy_topo_10}    ${custom}
 
 Stop PathSuiteVtnMaTest
     [Documentation]    Cleanup/Shutdown work at the completion of all tests.
@@ -209,9 +209,9 @@ Start vlan_topo
     [Arguments]    ${OF}
     [Documentation]    Create custom topology for vlan functionality
     Clean Mininet System
-    ${mininet_conn_id1}=    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    ${mininet_conn_id1}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Suite Variable    ${mininet_conn_id1}
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
     Put File    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
     Run Keyword If    '${OF}' == 'OF13'    Write    ${vlan_topo_13}
