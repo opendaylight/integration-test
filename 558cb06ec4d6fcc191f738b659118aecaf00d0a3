@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_157dcdb1",
+        "filename": "tools/deployment/search.sh",
+        "patchSetId": 4
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-04T14:18:49Z",
+      "side": 1,
+      "message": "At this point I don\u0027t know yet if I found the thing I am looking for. Namely if the loop finds another subdirectory inside this \"item\", then the \"item\" is not to be trusted and the search shall thus continue. See the header comment where the \"item\" is required to have only 1 subdirectory.",
+      "parentUuid": "9a3d3df0_95eb9daf",
+      "range": {
+        "startLine": 38,
+        "startChar": 10,
+        "endLine": 38,
+        "endChar": 21
+      },
+      "revId": "558cb06ec4d6fcc191f738b659118aecaf00d0a3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_f5d149fc",
         "filename": "tools/deployment/search.sh",
         "patchSetId": 4
