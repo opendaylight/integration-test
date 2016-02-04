@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_b5134165",
+        "filename": "csit/suites/bgpcep/bgpingest/manypeers_peercount.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-04T14:11:19Z",
+      "side": 1,
+      "message": "Threshold of only two log messages from each thread?\nWe should check all expected Updates arrived, so 900k with default settings.",
+      "range": {
+        "startLine": 107,
+        "startChar": 38,
+        "endLine": 107,
+        "endChar": 39
+      },
+      "revId": "2d48fa4f8f12bb945246cd04f0b453f92e084f29",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_953f1dd6",
+        "filename": "csit/testplans/bgpcep-bgp-ingest.txt",
+        "patchSetId": 16
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-04T14:11:19Z",
+      "side": 1,
+      "message": "Move one line down, manypeers_prefixcount uses 2 peers, which is less likely to trigger breaking bugs.",
+      "range": {
+        "startLine": 12,
+        "startChar": 56,
+        "endLine": 12,
+        "endChar": 65
+      },
+      "revId": "2d48fa4f8f12bb945246cd04f0b453f92e084f29",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
