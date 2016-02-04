@@ -59,8 +59,11 @@ Host Tracker host3
     [Documentation]    Get the network topology, should contain hos 3 one time
     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_TOPO_API}    "node-id":"host:${MAC_3}"    1
 
+Following tests are removed because this feature is not implemented yet:
+
 Link Down
     [Documentation]    Take link s1-h1 down and verify host1 goes away
+    [Tags]    exclude
     Write    link s1 h1 down
     Read Until    mininet>
     @{list}    Create List    "link-down":true
@@ -70,6 +73,7 @@ Link Down
 
 Link Up
     [Documentation]    Take link s1-h1 up and verify host1 comes back
+    [Tags]    exclude
     Write    link s1 h1 up
     Read Until    mininet>
     @{list}    Create List    "link-down":false
