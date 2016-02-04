@@ -1,0 +1,7 @@
+{
+ "input": {
+  "car-id": "boogie",
+  "person-id": "joe",
+  "person": "/people:people/people:person[people:id='joe'"
+ }
+}
