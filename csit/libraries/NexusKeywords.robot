@@ -40,10 +40,14 @@ Deploy_Artifact
     ${version}=    NexusKeywords__Get_Version_From_Metadata
     ${namepart}=    SSHLibrary.Execute_Command    curl ${urlbase}/${version}/maven-metadata.xml | grep value | head -n 1 | cut -d '>' -f 2 | cut -d '<' -f 1
     BuiltIn.Log    ${namepart}
+    ${length}=    BuiltIn.Get_Length    ${namepart}
+    BuiltIn.Run_Keyword_If    ${length} == 0    BuiltIn.Fatal_Error    Artifact "${name_prefix}" not found
     ${filename}=    BuiltIn.Set_Variable    ${name_prefix}${namepart}${name_suffix}
     BuiltIn.Log    ${filename}
-    ${response}=    SSHLibrary.Execute_Command    wget -q -N ${urlbase}/${version}/${filename} 2>&1
+    ${url}=    BuiltIn.Set_Variable    ${urlbase}/${version}/${filename}
+    ${response}    ${result}=    SSHLibrary.Execute_Command    wget -q -N ${url} 2>&1    return_rc=True
     BuiltIn.Log    ${response}
+    BuiltIn.Run_Keyword_If    ${result} != 0    BuiltIn.Fatal_Error    Artifact "${name_prefix}" could not be downloaded from ${url}
     [Return]    ${filename}
 
 Deploy_Test_Tool
