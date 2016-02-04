@@ -38,31 +38,31 @@ Stop NIC VTN Rest Test Suite
 
 Fetch Intent List
     [Documentation]    Check if VTN Renderer feature is installed.
-    ${resp}=    RequestsLibrary.Get    session    ${INTENTS}
+    ${resp}=    RequestsLibrary.Get Request    session    ${INTENTS}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Add Intent Using RestConf
     [Arguments]    ${intent_id}    ${intent_data}
     [Documentation]    Create a intent with specified parameters.
-    ${resp}=    RequestsLibrary.put    session    ${REST_CONTEXT_INTENT}/${intent_id}    data=${intent_data}
+    ${resp}=    RequestsLibrary.put Request    session    ${REST_CONTEXT_INTENT}/${intent_id}    data=${intent_data}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify Intent Using RestConf
     [Arguments]    ${intent_id}
     [Documentation]    Verify If intent is created.
-    ${resp}=    RequestsLibrary.Get    session    ${REST_CONTEXT_INTENT}/${intent_id}
+    ${resp}=    RequestsLibrary.Get Request    session    ${REST_CONTEXT_INTENT}/${intent_id}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Update Intent Using RestConf
     [Arguments]    ${intent_id}    ${intent_data}
     [Documentation]    Update a intent with specified parameters.
-    ${resp}=    RequestsLibrary.put    session    ${REST_CONTEXT_INTENT}/${intent_id}    data=${intent_data}
+    ${resp}=    RequestsLibrary.put Request    session    ${REST_CONTEXT_INTENT}/${intent_id}    data=${intent_data}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Delete Intent Using RestConf
     [Arguments]    ${intent_id}
     [Documentation]    Delete a intent with specified parameters.
-    ${resp}=    RequestsLibrary.Delete    session    ${REST_CONTEXT_INTENT}/${intent_id}
+    ${resp}=    RequestsLibrary.Delete Request    session    ${REST_CONTEXT_INTENT}/${intent_id}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Add Intent From Karaf Console

@@ -65,7 +65,7 @@ Stop SuiteVtnCoTest
 
 Get Coordinator Version
     [Documentation]    Get API version for testing
-    ${resp}    RequestsLibrary.Get    session    ${VTNWEBAPI}/api_version
+    ${resp}    RequestsLibrary.Get Request    session    ${VTNWEBAPI}/api_version
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Add a Controller
@@ -74,13 +74,13 @@ Add a Controller
     ${controllerinfo}    Create Dictionary    controller_id=${ctrlname}    type=odc    ipaddr=${ctrlip}    version=1.0
     ${controllercreate}    Create Dictionary    controller=${controllerinfo}
     ${controllercreate_json}=    json.dumps    ${controllercreate}
-    ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${CTRLS_CREATE}    data=${controllercreate_json}
+    ${resp}    RequestsLibrary.Post Request    session    ${VTNWEBAPI}/${CTRLS_CREATE}    data=${controllercreate_json}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Remove Controller
     [Arguments]    ${ctrlname}
     [Documentation]    Delete a Controller
-    ${resp}    RequestsLibrary.Delete    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}.json
+    ${resp}    RequestsLibrary.Delete Request    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}.json
     Should Be Equal As Strings    ${resp.status_code}    204
 
 Update Controller
@@ -89,7 +89,7 @@ Update Controller
     ${controllerinfo}    Create Dictionary    description=${desc}    ipaddr=${ctrlip}    version=1.0
     ${controllerupdate}    Create Dictionary    controller=${controllerinfo}
     ${controllerupdate_json}=    json.dumps    ${controllerupdate}
-    ${resp}    RequestsLibrary.Put    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}.json    data=${controllerupdate_json}
+    ${resp}    RequestsLibrary.Put Request    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}.json    data=${controllerupdate_json}
     Should Be Equal As Strings    ${resp.status_code}    204
 
 Audit Controller
@@ -98,13 +98,13 @@ Audit Controller
     ${auditinfo}    Create Dictionary    force=false    real-network_audit=false
     ${auditupdate}    Create Dictionary    audit=${auditinfo}
     ${auditupdate_json}=    json.dumps    ${auditupdate}
-    ${resp}    RequestsLibrary.Put    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}/audit.json    data=${auditupdate_json}
+    ${resp}    RequestsLibrary.Put Request    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}/audit.json    data=${auditupdate_json}
     Should Be Equal As Strings    ${resp.status_code}    204
 
 Check Controller Status
     [Arguments]    ${ctrlname}    ${stat}
     [Documentation]    Get controller status
-    ${resp}    RequestsLibrary.Get    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}.json
+    ${resp}    RequestsLibrary.Get Request    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}.json
     ${contents}    To JSON    ${resp.content}
     ${controllerblock}    Get From Dictionary    ${contents}    controller
     ${status}    Get From Dictionary    ${controllerblock}    operstatus
@@ -116,13 +116,13 @@ Add a VTN
     ${vtninfo}    Create Dictionary    vtn_name=${vtnname}    description=${vtndescription}
     ${vtncreate}    Create Dictionary    vtn=${vtninfo}
     ${vtncreate_json}=    json.dumps    ${vtncreate}
-    ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${VTNS_CREATE}    data=${vtncreate_json}
+    ${resp}    RequestsLibrary.Post Request    session    ${VTNWEBAPI}/${VTNS_CREATE}    data=${vtncreate_json}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Delete a VTN
     [Arguments]    ${vtnname}
     [Documentation]    Delete a VTN Created
-    ${resp}    RequestsLibrary.Delete    session    ${VTNWEBAPI}/${VTNS}/${vtnname}.json
+    ${resp}    RequestsLibrary.Delete Request    session    ${VTNWEBAPI}/${VTNS}/${vtnname}.json
     Should Be Equal As Strings    ${resp.status_code}    204
 
 Create VBR in VTN
@@ -131,7 +131,7 @@ Create VBR in VTN
     ${vbrinfo}    Create Dictionary    vbr_name=${vbrname}    controller_id=${ctrlname}    domain_id=(DEFAULT)
     ${vbrcreate}    Create Dictionary    vbridge=${vbrinfo}
     ${vbrcreate_json}=    json.dumps    ${vbrcreate}
-    ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS_CREATE}    data=${vbrcreate_json}
+    ${resp}    RequestsLibrary.Post Request    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS_CREATE}    data=${vbrcreate_json}
     Run Keyword If    '${vbrname}' == 'Vbr_audit'    Should Be Equal As Strings    ${resp.status_code}    202
     ...    ELSE    Should Be Equal As Strings    ${resp.status_code}    201
 
@@ -141,7 +141,7 @@ Create VBRIF in VBR
     ${vbrifinfo}    Create Dictionary    if_name=${vbrifname}    description=${ifdescription}
     ${vbrifcreate}    Create Dictionary    interface=${vbrifinfo}
     ${vbrifcreate_json}=    json.dumps    ${vbrifcreate}
-    ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${VBRIFS_CREATE}    data=${vbrifcreate_json}
+    ${resp}    RequestsLibrary.Post Request    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${VBRIFS_CREATE}    data=${vbrifcreate_json}
     Should Be Equal As Strings    ${resp.status_code}    ${retcode}
 
 Define Portmap for VBRIF
@@ -150,7 +150,7 @@ Define Portmap for VBRIF
     ${logical_port_info}    Create Dictionary    logical_port_id=${logical_port_id}
     ${portmapdefine}    Create Dictionary    portmap=${logical_port_info}
     ${portmapdefine_json}=    json.dumps    ${portmapdefine}
-    ${resp}    RequestsLibrary.Put    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${VBRIFS}/${vbrifname}/${PORTMAP_CREATE}    data=${portmapdefine_json}
+    ${resp}    RequestsLibrary.Put Request    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${VBRIFS}/${vbrifname}/${PORTMAP_CREATE}    data=${portmapdefine_json}
     Should Be Equal As Strings    ${resp.status_code}    204
 
 Add a FLOWLIST
@@ -159,7 +159,7 @@ Add a FLOWLIST
     ${flowlistinfo}    Create Dictionary    fl_name=${flowlistname}    ip_version=${ipversion}
     ${flowlistcreate}    Create Dictionary    flowlist=${flowlistinfo}
     ${flowlistcreate_json}=    json.dumps    ${flowlistcreate}
-    ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${FLOWLISTS_CREATE}    data=${flowlistcreate_json}
+    ${resp}    RequestsLibrary.Post Request    session    ${VTNWEBAPI}/${FLOWLISTS_CREATE}    data=${flowlistcreate_json}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Create FLOWLISTENTRY
@@ -169,7 +169,7 @@ Create FLOWLISTENTRY
     ...    ipsrcaddrprefix=32    ipproto=1
     ${flowlistentrycreate}    Create Dictionary    flowlistentry=${flowlistentryinfo}
     ${flowlistentrycreate_json}=    json.dumps    ${flowlistentrycreate}
-    ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${FLOWLISTS}/${flowlistname}/${FLOWLISTENTRIES_CREATE}    data=${flowlistentrycreate_json}
+    ${resp}    RequestsLibrary.Post Request    session    ${VTNWEBAPI}/${FLOWLISTS}/${flowlistname}/${FLOWLISTENTRIES_CREATE}    data=${flowlistentrycreate_json}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Create FLOWLISTENTRY_ANY in FLOWLIST
@@ -178,7 +178,7 @@ Create FLOWLISTENTRY_ANY in FLOWLIST
     ${flowlistentryinfo}    Create Dictionary    seqnum=1
     ${flowlistentrycreate}    Create Dictionary    flowlistentry=${flowlistentryinfo}
     ${flowlistentrycreate_json}=    json.dumps    ${flowlistentrycreate}
-    ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${FLOWLISTS}/${flowlistname}/${FLOWLISTENTRIES_CREATE}    data=${flowlistentrycreate_json}
+    ${resp}    RequestsLibrary.Post Request    session    ${VTNWEBAPI}/${FLOWLISTS}/${flowlistname}/${FLOWLISTENTRIES_CREATE}    data=${flowlistentrycreate_json}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Create VBRIF in FLOWFILTER
@@ -187,7 +187,7 @@ Create VBRIF in FLOWFILTER
     ${flowfilters_info}    Create Dictionary    ff_type=${ff_type}
     ${flowfiltersdefine}    Create Dictionary    flowfilter=${flowfilters_info}
     ${flowfiltersdefine_json}=    json.dumps    ${flowfiltersdefine}
-    ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${VBRIFS}/${vbrifname}/${FLOWFILTERS_CREATE}    data=${flowfiltersdefine_json}
+    ${resp}    RequestsLibrary.Post Request    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${VBRIFS}/${vbrifname}/${FLOWFILTERS_CREATE}    data=${flowfiltersdefine_json}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Create FLOWFILTERENTRY DROP In VBRIFFLOWFILTER
@@ -196,7 +196,7 @@ Create FLOWFILTERENTRY DROP In VBRIFFLOWFILTER
     ${flowfilterentryinfo}    Create Dictionary    seqnum=233    fl_name=Flowlist1    action_type=${actiontype}    priority=3    dscp=55
     ${flowfilterentrycreate}    Create Dictionary    flowfilterentry=${flowfilterentryinfo}
     ${flowfilterentrycreate_json}=    json.dumps    ${flowfilterentrycreate}
-    ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${VBRIFS}/${vbrifname}/${FLOWFILTERS}/${FLOWFILTERENTRIES_CREATE}    data=${flowfilterentrycreate_json}
+    ${resp}    RequestsLibrary.Post Request    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${VBRIFS}/${vbrifname}/${FLOWFILTERS}/${FLOWFILTERENTRIES_CREATE}    data=${flowfilterentrycreate_json}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Create FLOWFILTERENTRY PASS In VBRIFFLOWFILTER
@@ -205,7 +205,7 @@ Create FLOWFILTERENTRY PASS In VBRIFFLOWFILTER
     ${flowfilterentryinfo}    Create Dictionary    fl_name=Flowlist1    action_type=${actiontype}    priority=3    dscp=55
     ${flowfilterentrycreate}    Create Dictionary    flowfilterentry=${flowfilterentryinfo}
     ${flowfilterentrycreate_json}=    json.dumps    ${flowfilterentrycreate}
-    ${resp}    RequestsLibrary.Put    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${VBRIFS}/${vbrifname}/${FLOWFILTERS}/${FLOWFILTERS_UPDATE}/${seqnum}    data=${flowfilterentrycreate_json}
+    ${resp}    RequestsLibrary.Put Request    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${VBRIFS}/${vbrifname}/${FLOWFILTERS}/${FLOWFILTERS_UPDATE}/${seqnum}    data=${flowfilterentrycreate_json}
     Should Be Equal As Strings    ${resp.status_code}    204
 
 Create FLOWFILTER in VBR
@@ -214,7 +214,7 @@ Create FLOWFILTER in VBR
     ${flowfilters_info}    Create Dictionary    ff_type=${ff_type}
     ${flowfiltersdefine}    Create Dictionary    flowfilter=${flowfilters_info}
     ${flowfiltersdefine_json}=    json.dumps    ${flowfiltersdefine}
-    ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${FLOWFILTERS_CREATE}    data=${flowfiltersdefine_json}
+    ${resp}    RequestsLibrary.Post Request    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${FLOWFILTERS_CREATE}    data=${flowfiltersdefine_json}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Create FLOWFILTERENTRY PASS in VBRFLOWFILTER
@@ -224,7 +224,7 @@ Create FLOWFILTERENTRY PASS in VBRFLOWFILTER
     ${flowfilterentryinfo_1}    Create Dictionary    vnode_name=${vbrname}    fl_name=Flowlist1    direction=in
     ${flowfilterentrycreate}    Create Dictionary    flowfilterentry=${flowfilterentryinfo}
     ${flowfilterentrycreate_json}=    json.dumps    ${flowfilterentrycreate}
-    ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${FLOWFILTERS}/${FLOWFILTERENTRIES_CREATE}    data=${flowfilterentrycreate_json}
+    ${resp}    RequestsLibrary.Post Request    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${FLOWFILTERS}/${FLOWFILTERENTRIES_CREATE}    data=${flowfilterentrycreate_json}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Create FLOWFILTER in VTN
@@ -233,7 +233,7 @@ Create FLOWFILTER in VTN
     ${flowfilters_info}    Create Dictionary    ff_type=${ff_type}
     ${flowfiltersdefine}    Create Dictionary    flowfilter=${flowfilters_info}
     ${flowfiltersdefine_json}=    json.dumps    ${flowfiltersdefine}
-    ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${FLOWFILTERS_CREATE}    data=${flowfiltersdefine_json}
+    ${resp}    RequestsLibrary.Post Request    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${FLOWFILTERS_CREATE}    data=${flowfiltersdefine_json}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Create FLOWFILTERENTRY PASS in VTNFLOWFILTER
@@ -242,7 +242,7 @@ Create FLOWFILTERENTRY PASS in VTNFLOWFILTER
     ${flowfilterentryinfo}    Create Dictionary    seqnum=233    fl_name=Flowlist1    action_type=${actiontype}    priority=3    dscp=55
     ${flowfilterentrycreate}    Create Dictionary    flowfilterentry=${flowfilterentryinfo}
     ${flowfilterentrycreate_json}=    json.dumps    ${flowfilterentrycreate}
-    ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${FLOWFILTERS}/${FLOWFILTERENTRIES_CREATE}    data=${flowfilterentrycreate_json}
+    ${resp}    RequestsLibrary.Post Request    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${FLOWFILTERS}/${FLOWFILTERENTRIES_CREATE}    data=${flowfilterentrycreate_json}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Create VLANMAP in VBRIDGE
@@ -251,7 +251,7 @@ Create VLANMAP in VBRIDGE
     ${vlaninfo}    Create Dictionary    vlan_id=${vlanid}
     ${vlancreate}    Create Dictionary    vlanmap=${vlaninfo}
     ${vlancreate_json}=    json.dumps    ${vlancreate}
-    ${resp}    RequestsLibrary.Post    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${VLANMAP_CREATE }    data=${vlancreate_json}
+    ${resp}    RequestsLibrary.Post Request    session    ${VTNWEBAPI}/${VTNS}/${vtnname}/${VBRS}/${vbrname}/${VLANMAP_CREATE }    data=${vlancreate_json}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Start vlan_topo
@@ -261,7 +261,7 @@ Start vlan_topo
 Delete a FLOWLIST
     [Arguments]    ${flowlistname}
     [Documentation]    Delete a Flowlist
-    ${resp}    RequestsLibrary.Delete    session    ${VTNWEBAPI}/${FLOWLISTS}/${flowlistname}.json
+    ${resp}    RequestsLibrary.Delete Request    session    ${VTNWEBAPI}/${FLOWLISTS}/${flowlistname}.json
     Should Be Equal As Strings    ${resp.status_code}    204
 
 Test Ping
@@ -274,7 +274,7 @@ Test Ping
 Verify Switch
     [Arguments]    ${ctrlname}    ${switch_id}
     [Documentation]    Get switch
-    ${resp}    RequestsLibrary.Get    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}/${SW}/${switch_id}.json
+    ${resp}    RequestsLibrary.Get Request    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}/${SW}/${switch_id}.json
     ${contents}    To JSON    ${resp.content}
     ${switchblock}    Get From Dictionary    ${contents}    switch
     ${status}    Get From Dictionary    ${switchblock}    switch_id
@@ -283,5 +283,5 @@ Verify Switch
 Verify SwitchPort
     [Arguments]    ${ctrlname}    ${switch_id}
     [Documentation]    Get switch
-    ${resp}    RequestsLibrary.Get    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}/${SW}/${switch_id}/${PORTS}
+    ${resp}    RequestsLibrary.Get Request    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}/${SW}/${switch_id}/${PORTS}
     Should Be Equal As Strings    ${resp.status_code}    200

@@ -57,50 +57,50 @@ Stop SuiteVtnMaTest
 
 Fetch vtn list
     [Documentation]    Check if VTN Manager is up.
-    ${resp}=    RequestsLibrary.Get    session    ${REST_CONTEXT_VTNS}
+    ${resp}=    RequestsLibrary.Get Request    session    ${REST_CONTEXT_VTNS}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Fetch vtn switch inventory
     [Arguments]    ${sw_name}
     [Documentation]    Check if Switch is detected.
-    ${resp}=    RequestsLibrary.Get    session    ${VTN_INVENTORY}/vtn-inventory:vtn-node/${sw_name}
+    ${resp}=    RequestsLibrary.Get Request    session    ${VTN_INVENTORY}/vtn-inventory:vtn-node/${sw_name}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Add a vtn
     [Arguments]    ${vtn_name}    ${vtn_data}
     [Documentation]    Create a vtn with specified parameters.
-    ${resp}=    RequestsLibrary.Post    session    ${REST_CONTEXT_VTNS}/${vtn_name}    data=${vtn_data}
+    ${resp}=    RequestsLibrary.Post Request    session    ${REST_CONTEXT_VTNS}/${vtn_name}    data=${vtn_data}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Delete a vtn
     [Arguments]    ${vtn_name}
     [Documentation]    Create a vtn with specified parameters.
-    ${resp}=    RequestsLibrary.Delete    session    ${REST_CONTEXT_VTNS}/${vtn_name}
+    ${resp}=    RequestsLibrary.Delete Request    session    ${REST_CONTEXT_VTNS}/${vtn_name}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Add a vBridge
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${vBridge_data}
     [Documentation]    Create a vBridge in a VTN
-    ${resp}=    RequestsLibrary.Post    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}    data=${vBridge_data}
+    ${resp}=    RequestsLibrary.Post Request    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}    data=${vBridge_data}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Add a interface
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${interface_name}    ${interface_data}
     [Documentation]    Create a interface into a vBridge of a VTN
-    ${resp}=    RequestsLibrary.Post    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/interfaces/${interface_name}    data=${interface_data}
+    ${resp}=    RequestsLibrary.Post Request    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/interfaces/${interface_name}    data=${interface_data}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Add a portmap
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${interface_name}    ${portmap_data}
     [Documentation]    Create a portmap for a interface of a vbridge
     ${json_data}=    json.dumps    ${portmap_data}
-    ${resp}=    RequestsLibrary.Put    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/interfaces/${interface_name}/portmap    data=${json_data}    headers=${HEADERS}
+    ${resp}=    RequestsLibrary.Put Request    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/interfaces/${interface_name}/portmap    data=${json_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify Data Flows
     [Arguments]    ${vtn_name}    ${vBridge_name}
     [Documentation]    Verify the reason and physical data flows for the specified vtn and vbridge
-    ${resp}=    RequestsLibrary.Get    session    ${REST_CONTEXT_VTNS}/${vtn_name}/flows/detail
+    ${resp}=    RequestsLibrary.Get Request    session    ${REST_CONTEXT_VTNS}/${vtn_name}/flows/detail
     Run Keyword If    '${vBridge_name}' == 'vBridge1'    DataFlowsForBridge    ${resp}    @{BRIDGE1_DATAFLOW}
     ...    ELSE IF    '${vBridge_name}' == 'vBridge2'    DataFlowsForBridge    ${resp}    @{BRIDGE2_DATAFLOW}
     ...    ELSE IF    '${vBridge_name}' == 'vBridge1_vlan'    DataFlowsForBridge    ${resp}    @{VLANMAP_BRIDGE1_DATAFLOW}
@@ -116,12 +116,12 @@ Add a pathmap
     [Arguments]    ${pathmap_data}
     [Documentation]    Create a pathmap for a vtn
     ${json_data}=    json.dumps    ${pathmap_data}
-    ${resp}=    RequestsLibrary.Put    session    ${REST_CONTEXT}/pathmaps/${policy_id}    data=${pathmap_data}    headers=${HEADERS}
+    ${resp}=    RequestsLibrary.Put Request    session    ${REST_CONTEXT}/pathmaps/${policy_id}    data=${pathmap_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Get a pathmap
     [Documentation]    Get a pathmap for a vtn.
-    ${resp}=    RequestsLibrary.Get    session    ${REST_CONTEXT}/pathmaps
+    ${resp}=    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/pathmaps
     : FOR    ${pathElement}    IN    @{PATHMAP_ATTR}
     \    should Contain    ${resp.content}    ${pathElement}
 
@@ -129,12 +129,12 @@ Add a pathpolicy
     [Arguments]    ${pathpolicy_data}
     [Documentation]    Create a pathpolicy for a vtn
     ${json_data}=    json.dumps    ${pathpolicy_data}
-    ${resp}=    RequestsLibrary.Put    session    ${REST_CONTEXT}/pathpolicies/${policy_id}    data=${pathpolicy_data}    headers=${HEADERS}
+    ${resp}=    RequestsLibrary.Put Request    session    ${REST_CONTEXT}/pathpolicies/${policy_id}    data=${pathpolicy_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Get a pathpolicy
     [Documentation]    Get a pathpolicy for a vtn.
-    ${resp}=    RequestsLibrary.Get    session    ${REST_CONTEXT}/pathpolicies/${policy_id}
+    ${resp}=    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/pathpolicies/${policy_id}
     : FOR    ${pathpolicyElement}    IN    @{PATHPOLICY_ATTR}
     \    should Contain    ${resp.content}    ${pathpolicyElement}
 
@@ -163,23 +163,23 @@ Stop PathSuiteVtnMaTest
 
 Delete a pathmap
     [Documentation]    Delete a pathmap for a vtn
-    ${resp}=    RequestsLibrary.Delete    session    ${REST_CONTEXT}/pathmaps/1
+    ${resp}=    RequestsLibrary.Delete Request    session    ${REST_CONTEXT}/pathmaps/1
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Get a pathmap after delete
     [Documentation]    Get a pathmap for a vtn.
-    ${resp}=    RequestsLibrary.Get    session    ${REST_CONTEXT}/pathmaps
+    ${resp}=    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/pathmaps
     : FOR    ${pathElement}    IN    @{PATHMAP_ATTR}
     \    should Not Contain    ${resp.content}    ${pathElement}
 
 Delete a pathpolicy
     [Documentation]    Delete a pathpolicy for a vtn
-    ${resp}=    RequestsLibrary.Delete    session    ${REST_CONTEXT}/pathpolicies/1
+    ${resp}=    RequestsLibrary.Delete Request    session    ${REST_CONTEXT}/pathpolicies/1
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Get a pathpolicy after delete
     [Documentation]    Get a pathpolicy for a vtn after delete.
-    ${resp}=    RequestsLibrary.Get    session    ${REST_CONTEXT}/pathpolicies/${policy_id}
+    ${resp}=    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/pathpolicies/${policy_id}
     : FOR    ${pathpolicyElement}    IN    @{PATHPOLICY_ATTR}
     \    should Not Contain    ${resp.content}    ${pathpolicyElement}
 
@@ -187,7 +187,7 @@ Add a macmap
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${macmap_data}
     [Documentation]    Create a macmap for a vbridge
     ${json_data}=    json.dumps    ${macmap_data}
-    ${resp}=    RequestsLibrary.Post    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/macmap/allow    data=${macmap_data}    headers=${HEADERS}
+    ${resp}=    RequestsLibrary.Post Request    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/macmap/allow    data=${macmap_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Get DynamicMacAddress
@@ -204,7 +204,7 @@ Add a vBridgeMacMapping
     [Arguments]    ${tenant_name}    ${Bridge_name}    ${bridge_macmap_data}
     [Documentation]    Create a vbridge macmap for a bridge
     ${json_data}=    json.dumps    ${bridge_macmap_data}
-    ${resp}=    RequestsLibrary.Post    session    ${REST_CONTEXT_VTNS}/${tenant_name}/vbridges/${Bridge_name}/macmap/allow    data=${json_data}    headers=${HEADERS}
+    ${resp}=    RequestsLibrary.Post Request    session    ${REST_CONTEXT_VTNS}/${tenant_name}/vbridges/${Bridge_name}/macmap/allow    data=${json_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Mininet Ping Should Succeed
@@ -224,7 +224,7 @@ Mininet Ping Should Not Succeed
 Delete a interface
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${interface_name}
     [Documentation]    Delete a interface with specified parameters.
-    ${resp}=    RequestsLibrary.Delete    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/interfaces/${interface_name}
+    ${resp}=    RequestsLibrary.Delete Request    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/interfaces/${interface_name}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Start vlan_topo
@@ -242,20 +242,20 @@ Start vlan_topo
 Add a vlanmap
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${vlanmap_data}
     [Documentation]    Create a vlanmap
-    ${resp}=    RequestsLibrary.Post    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/vlanmaps/    data=${vlanmap_data}    headers=${HEADERS}
+    ${resp}=    RequestsLibrary.Post Request    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/vlanmaps/    data=${vlanmap_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Get flow
     [Arguments]    ${vtn_name}
     [Documentation]    Get data flow.
-    ${resp}=    RequestsLibrary.Get    session    ${REST_CONTEXT_VTNS}/${vtn_name}/flows/detail
+    ${resp}=    RequestsLibrary.Get Request    session    ${REST_CONTEXT_VTNS}/${vtn_name}/flows/detail
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Remove a portmap
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${interface_name}    ${portmap_data}
     [Documentation]    Remove a portmap for a interface of a vbridge
     ${json_data}=    json.dumps    ${portmap_data}
-    ${resp}=    RequestsLibrary.Delete    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/interfaces/${interface_name}/portmap    data=${json_data}    headers=${HEADERS}
+    ${resp}=    RequestsLibrary.Delete Request    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/interfaces/${interface_name}/portmap    data=${json_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify FlowMacAddress
@@ -304,43 +304,43 @@ Add a flowcondition
     [Arguments]    ${cond_name}    ${flowcond_data}
     [Documentation]    Create a flowcondition for a interface of a vbridge
     ${json_data}=    json.dumps    ${flowcond_data}
-    ${resp}=    RequestsLibrary.Put    session    ${REST_CONTEXT}/flowconditions/${cond_name}    data=${json_data}    headers=${HEADERS}
+    ${resp}=    RequestsLibrary.Put Request    session    ${REST_CONTEXT}/flowconditions/${cond_name}    data=${json_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Delete a flowcondition
     [Arguments]    ${cond_name}
     [Documentation]    Delete a flowcondition for a interface of a vbridge
-    ${resp}=    RequestsLibrary.Delete    session    ${REST_CONTEXT}/flowconditions/${cond_name}
+    ${resp}=    RequestsLibrary.Delete Request    session    ${REST_CONTEXT}/flowconditions/${cond_name}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Add a flowfilter
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${interface_name}    ${flowfilter_data}    ${ff_index}
     [Documentation]    Create a flowfilter for a vtn
-    ${resp}=    RequestsLibrary.Put    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/interfaces/${interface_name}/flowfilters/IN/${ff_index}    data=${flowfilter_data}    headers=${HEADERS}
+    ${resp}=    RequestsLibrary.Put Request    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/interfaces/${interface_name}/flowfilters/IN/${ff_index}    data=${flowfilter_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Add a flowfilter_vtn
     [Arguments]    ${vtn_name}    ${flowfilter_data}    ${ff_index}
     [Documentation]    Create a flowfilter for a vtn
-    ${resp}=    RequestsLibrary.Put    session    ${REST_CONTEXT_VTNS}/${vtn_name}/flowfilters/${ff_index}    data=${flowfilter_data}    headers=${HEADERS}
+    ${resp}=    RequestsLibrary.Put Request    session    ${REST_CONTEXT_VTNS}/${vtn_name}/flowfilters/${ff_index}    data=${flowfilter_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Add a flowfilter_vbr
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${flowfilter_data}    ${ff_index}
     [Documentation]    Create a flowfilter for a vbr
-    ${resp}=    RequestsLibrary.Put    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/flowfilters/IN/${ff_index}    data=${flowfilter_data}    headers=${HEADERS}
+    ${resp}=    RequestsLibrary.Put Request    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/flowfilters/IN/${ff_index}    data=${flowfilter_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Update a flowfilter
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${interface_name}    ${flowfilter_data}    ${ff_index}
     [Documentation]    Create a flowfilter for a vtn
-    ${resp}=    RequestsLibrary.Put    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/interfaces/${interface_name}/flowfilters/IN/${ff_index}    data=${flowfilter_data}    headers=${HEADERS}
+    ${resp}=    RequestsLibrary.Put Request    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/interfaces/${interface_name}/flowfilters/IN/${ff_index}    data=${flowfilter_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Add a flowfilter for drop
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${interface_name}    ${flowfilter_data}    ${ff_index}
     [Documentation]    Create a flowfilter for a vtn
-    ${resp}=    RequestsLibrary.Put    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/interfaces/${interface_name}/flowfilters/IN/${ff_index}    data=${flowfilter_data}    headers=${HEADERS}
+    ${resp}=    RequestsLibrary.Put Request    session    ${REST_CONTEXT_VTNS}/${vtn_name}/vbridges/${vBridge_name}/interfaces/${interface_name}/flowfilters/IN/${ff_index}    data=${flowfilter_data}    headers=${HEADERS}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify Flow Entry for Inet Flowfilter
