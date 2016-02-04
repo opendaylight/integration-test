@@ -140,6 +140,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_0872d448",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-04T15:35:18Z",
+      "side": 1,
+      "message": "\"non-as\" *_Templated keywords are not really that low level, as Resolve_* and *_Uri are. If the TODO is implemented, they will be the \"can do it all\" keywords, while *_As_*_Templated will be just wrappers for easier invocation.\nFor now, I am keeping both current implementation and a TODO (including question mark) for future re-evaluation.",
+      "parentUuid": "9a3d3df0_48785c8f",
+      "range": {
+        "startLine": 75,
+        "startChar": 18,
+        "endLine": 76,
+        "endChar": 65
+      },
+      "revId": "453edbd51813a22263ffc67eb510028f81469d44",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_551c7577",
         "filename": "csit/libraries/TemplatedRequests.robot",
         "patchSetId": 7
