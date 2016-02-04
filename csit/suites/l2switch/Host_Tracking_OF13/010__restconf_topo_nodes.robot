@@ -61,6 +61,7 @@ Host Tracker host3
 
 Link Down
     [Documentation]    Take link s1-h1 down and verify host1 goes away
+    [Tags]    exclude
     Write    link s1 h1 down
     Read Until    mininet>
     @{list}    Create List    "link-down":true
@@ -70,6 +71,7 @@ Link Down
 
 Link Up
     [Documentation]    Take link s1-h1 up and verify host1 comes back
+    [Tags]    exclude
     Write    link s1 h1 up
     Read Until    mininet>
     @{list}    Create List    "link-down":false
