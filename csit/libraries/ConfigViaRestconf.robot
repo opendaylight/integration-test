@@ -165,7 +165,7 @@ Put_Xml_Config_Via_Restconf
     [Documentation]    Put XML data to given controller-config URI, check reponse text is empty and status_code is one of allowed ones.
     BuiltIn.Log    ${uri_part}
     BuiltIn.Log    ${xml_data}
-    ${response}=    RequestsLibrary.Put    cvr_session    ${uri_part}    data=${xml_data}
+    ${response}=    RequestsLibrary.Put Request    cvr_session    ${uri_part}    data=${xml_data}
     BuiltIn.Log    ${response.text}
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Should_Be_Empty    ${response.text}
@@ -175,7 +175,7 @@ Get_Xml_Config_Via_Restconf
     [Arguments]    ${uri_part}
     [Documentation]    Get XML data from given controller-config URI, check status_code is one of allowed ones, return response text.
     BuiltIn.Log    ${uri_part}
-    ${response}=    RequestsLibrary.Get    cvr_session    ${uri_part}    headers=${ACCEPT_XML}
+    ${response}=    RequestsLibrary.Get Request    cvr_session    ${uri_part}    headers=${ACCEPT_XML}
     BuiltIn.Log    ${response.text}
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Should_Contain    ${allowed_status_codes}    ${response.status_code}
@@ -185,7 +185,7 @@ Get_Json_Config_Via_Restconf
     [Arguments]    ${uri_part}
     [Documentation]    Get XML data from given controller-config URI, check status_code is one of allowed ones, return response text.
     BuiltIn.Log    ${uri_part}
-    ${response}=    RequestsLibrary.Get    cvr_session    ${uri_part}    headers=${ACCEPT_JSON}
+    ${response}=    RequestsLibrary.Get Request    cvr_session    ${uri_part}    headers=${ACCEPT_JSON}
     BuiltIn.Log    ${response.text}
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Should_Contain    ${allowed_status_codes}    ${response.status_code}
@@ -195,7 +195,7 @@ Delete_Config_Via_Restconf
     [Arguments]    ${uri_part}
     [Documentation]    Delete resource at controller-config URI, check reponse text is empty and status_code is 204.
     BuiltIn.Log    ${uri_part}
-    ${response}=    RequestsLibrary.Delete    cvr_session    ${uri_part}
+    ${response}=    RequestsLibrary.Delete Request    cvr_session    ${uri_part}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Be_Empty    ${response.text}
     BuiltIn.Should_Contain    ${allowed_status_codes}    ${response.status_code}

@@ -133,7 +133,7 @@ Start Mininet With One Switch And ${hosts} hosts
 Check Number Of Hosts
     [Arguments]    ${hosts}
     [Documentation]    Check number of hosts in inventory
-    ${resp}=    RequestsLibrary.Get    session    ${OPERATIONAL_TOPO_API}
+    ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
     Log    Check number of hosts in inventory
     Log To Console    Check number of hosts in inventory
     Should Be Equal As Strings    ${resp.status_code}    200
@@ -143,7 +143,7 @@ Check Number Of Hosts
 Check Number Of Links
     [Arguments]    ${links}
     [Documentation]    Check number of links in inventory is ${links}
-    ${resp}=    RequestsLibrary.Get    session    ${OPERATIONAL_TOPO_API}
+    ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
     Log    Check number of links in inventory is ${links}
     Log To Console    Check number of links in inventory is ${links}
     Should Be Equal As Strings    ${resp.status_code}    200
@@ -163,7 +163,7 @@ Ping Two Hosts
 
 Check No Hosts
     [Documentation]    Check if all hosts are deleted from inventory
-    ${resp}=    RequestsLibrary.Get    session    ${OPERATIONAL_TOPO_API}
+    ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
     Log To Console    Checking no hosts are present in operational database
     Log    Checking no hosts are present in operational database
     Should Be Equal As Strings    ${resp.status_code}    200
@@ -205,7 +205,7 @@ Check Every Switch
     ${mac}=    Convert To Integer    ${mac}
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
     \    ${dpid_decimal}=    Evaluate    ${mac}+${switch}
-    \    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_API}/node/openflow:${dpid_decimal}
+    \    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}/node/openflow:${dpid_decimal}
     \    Should Be Equal As Strings    ${resp.status_code}    200
     \    Log To Console    Checking Switch ${switch}
     \    Should Contain    ${resp.content}    flow-capable-node-connector-statistics
@@ -214,7 +214,7 @@ Check Every Switch
 Check Linear Topology
     [Arguments]    ${switches}
     [Documentation]    Check Linear topology given ${switches}
-    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_TOPO_API}
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
     Log To Console    Checking Topology
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
@@ -231,7 +231,7 @@ Check Linear Topology
 Check No Switches
     [Arguments]    ${switches}
     [Documentation]    Check no switch is in inventory
-    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_API}
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
     Log To Console    Checking No Switches
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
@@ -240,7 +240,7 @@ Check No Switches
 Check No Topology
     [Arguments]    ${switches}
     [Documentation]    Check no switch is in topology
-    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_TOPO_API}
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
     Log To Console    Checking No Topology
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
