@@ -121,7 +121,7 @@ Set_It_Up
     NexusKeywords.Initialize_Artifact_Deployment_And_Usage
     # FIXME: Unify Module prefix usage across whole file.
     Create_Session    ses    http://${CONTROLLER}:${RESTCONFPORT}/restconf/operational/network-topology:network-topology    auth=${AUTH}
-    ${name}=    NexusKeywords.Deploy_Test_Tool    bgpcep/pcep-pcc-mock
+    ${name}=    NexusKeywords.Deploy_Test_Tool    bgpcep    pcep-pcc-mock
     BuiltIn.Set_Suite_Variable    ${filename}    ${name}
     Remove_Directory    ${ExpDir}
     Remove_Directory    ${ActDir}

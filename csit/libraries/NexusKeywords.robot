@@ -31,9 +31,9 @@ NexusKeywords__Get_Version_From_Metadata
     BuiltIn.Fail    Unrecognized metadata format, cannot determine the location of the requested artifact.
 
 Deploy_Artifact
-    [Arguments]    ${directory}    ${name_prefix}    ${name_suffix}=-executable.jar    ${type}=snapshot
+    [Arguments]    ${component}    ${artifact}    ${name_prefix}    ${name_suffix}=-executable.jar    ${type}=snapshot
     [Documentation]    Deploy the specified artifact from Nexus to the cwd of the machine to which the active SSHLibrary connection points.
-    ${urlbase}=    BuiltIn.Set_Variable    ${NEXUSURL_PREFIX}/content/repositories/opendaylight.${type}/org/opendaylight/${directory}
+    ${urlbase}=    BuiltIn.Set_Variable    ${NEXUSURL_PREFIX}/content/repositories/opendaylight.${type}/org/opendaylight/${component}/${artifact}
     ${response}=    SSHLibrary.Execute_Command    curl ${urlbase}/maven-metadata.xml >metadata.xml
     BuiltIn.Log    ${response}
     # TODO: Use RequestsLibrary and String instead of curl and bash utilities?
@@ -47,7 +47,7 @@ Deploy_Artifact
     [Return]    ${filename}
 
 Deploy_Test_Tool
-    [Arguments]    ${name}    ${suffix}=executable    ${type}=snapshot
+    [Arguments]    ${component}    ${artifact}    ${suffix}=executable    ${type}=snapshot
     [Documentation]    Deploy a test tool.
     ...    The test tools have naming convention of the form
     ...    "${type}/some/dir/somewhere/<tool-name>/<tool-name>-<version-tag>-${suffix}.jar"
@@ -56,8 +56,7 @@ Deploy_Test_Tool
     ...    keyword calculates ${name_prefix} and ${name_suffix} for
     ...    "Deploy_Artifact" and then calls "Deploy_Artifact" to do the real
     ...    work of deploying the artifact.
-    ${name_part}=    BuiltIn.Evaluate    '${name}'.split("/").pop()
-    ${name_prefix}=    BuiltIn.Set_Variable    ${name_part}-
+    ${name_prefix}=    BuiltIn.Set_Variable    ${artifact}-
     ${name_suffix}=    BuiltIn.Set_Variable    -${suffix}.jar
-    ${filename}=    Deploy_Artifact    ${name}    ${name_prefix}    ${name_suffix}    ${type}
+    ${filename}=    Deploy_Artifact    ${component}    ${artifact}    ${name_prefix}    ${name_suffix}    ${type}
     [Return]    ${filename}
