@@ -22,6 +22,219 @@
       "revId": "de8ffa532d80f9767493032644e909061a0952a0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_371c5177",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-05T16:21:47Z",
+      "side": 1,
+      "message": "They are used a few times below. Seems like a reasonable way imho.",
+      "parentUuid": "9a3d3df0_7e6fdbc5",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 64
+      },
+      "revId": "de8ffa532d80f9767493032644e909061a0952a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7771b9df",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-05T16:21:47Z",
+      "side": 1,
+      "message": "Extra /n",
+      "revId": "de8ffa532d80f9767493032644e909061a0952a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d70c0545",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-05T16:21:47Z",
+      "side": 1,
+      "message": "Why CAP? I\u0027m not necessary opposed, just not sure of the reasoning. Should try to be consistent with other docs.",
+      "range": {
+        "startLine": 40,
+        "startChar": 8,
+        "endLine": 40,
+        "endChar": 12
+      },
+      "revId": "de8ffa532d80f9767493032644e909061a0952a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_973c3de4",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-05T16:21:47Z",
+      "side": 1,
+      "message": "It looks like you\u0027re wrapping this (and some other lines) to keep it short, but the one you added on 272 is quite long.",
+      "revId": "de8ffa532d80f9767493032644e909061a0952a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b707c11c",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-05T16:21:47Z",
+      "side": 1,
+      "message": "Are you doing this to get the line \u003c79 chars? If so, see other comment about 120 max for Int/Test. May apply to other same-reason changes.",
+      "range": {
+        "startLine": 97,
+        "startChar": 28,
+        "endLine": 101,
+        "endChar": 42
+      },
+      "revId": "de8ffa532d80f9767493032644e909061a0952a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f7014907",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-05T16:21:47Z",
+      "side": 1,
+      "message": "This seems to make the indentation inconsistent with surrounding code",
+      "range": {
+        "startLine": 126,
+        "startChar": 52,
+        "endLine": 127,
+        "endChar": 72
+      },
+      "revId": "de8ffa532d80f9767493032644e909061a0952a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_97139d65",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-05T16:21:47Z",
+      "side": 1,
+      "message": "Note that the Python max line length for Int/Test is 120 chars. imho these shouldn\u0027t be wrapped.\n\nhttps://github.com/opendaylight/integration-test/blob/master/tox.ini#L14",
+      "range": {
+        "startLine": 148,
+        "startChar": 0,
+        "endLine": 151,
+        "endChar": 55
+      },
+      "revId": "de8ffa532d80f9767493032644e909061a0952a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_13016005",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-05T16:21:47Z",
+      "side": 1,
+      "message": "I think the previous version of this had more clear indentation",
+      "range": {
+        "startLine": 189,
+        "startChar": 44,
+        "endLine": 190,
+        "endChar": 24
+      },
+      "revId": "de8ffa532d80f9767493032644e909061a0952a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_773ff9d6",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 272,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-05T16:21:47Z",
+      "side": 1,
+      "message": "Since you\u0027ve wrapped some other docstrings above, I suspect you meant to wrap this one.",
+      "revId": "de8ffa532d80f9767493032644e909061a0952a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_17302d00",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 380,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-05T16:21:47Z",
+      "side": 1,
+      "message": "Any reason for the all caps var name changes?",
+      "range": {
+        "startLine": 380,
+        "startChar": 8,
+        "endLine": 380,
+        "endChar": 28
+      },
+      "revId": "de8ffa532d80f9767493032644e909061a0952a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
