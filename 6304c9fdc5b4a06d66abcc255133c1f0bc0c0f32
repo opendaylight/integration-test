@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_fca80e79",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 16
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-05T12:25:08Z",
+      "side": 1,
+      "message": "- make Check* test cases after Wait* cases to be not skipped on failure",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 1
+      },
+      "revId": "6304c9fdc5b4a06d66abcc255133c1f0bc0c0f32",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9ce8e2b5",
+        "filename": "csit/libraries/SetupUtils.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-05T12:25:08Z",
+      "side": 1,
+      "message": "In the next line, there should be only direct call to Report_Failure_And_Point_To_Linked_Bugs\nThe SKIPPED checking should be inside that Keyword.",
+      "range": {
+        "startLine": 29,
+        "startChar": 92,
+        "endLine": 29,
+        "endChar": 96
+      },
+      "revId": "6304c9fdc5b4a06d66abcc255133c1f0bc0c0f32",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1cc5f23b",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-05T12:25:08Z",
+      "side": 1,
+      "message": "Builtin.Return_From_Keyword_If    \u0027${TEST_STATUS}\u0027 !\u003d \u0027FAIL\u0027\nThen check for SKIPPED (return early when detected) and only then proceed to generating and printing message.\n(Perhaps apply similar edit also to Report_Failure_Due_To_Bug)",
+      "range": {
+        "startLine": 83,
+        "startChar": 34,
+        "endLine": 83,
+        "endChar": 35
+      },
+      "revId": "6304c9fdc5b4a06d66abcc255133c1f0bc0c0f32",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
