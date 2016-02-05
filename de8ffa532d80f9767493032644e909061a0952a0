@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_733d4cbb",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-05T16:38:36Z",
+      "side": 1,
+      "message": "I guess my point was to make it like this:\n\nDEFAULT_HEADERS \u003d  {\u0027Content-Type\u0027: \u0027application/json\u0027,\n                   \u0027Authorization\u0027: \u0027Basic YWRtaW46YWRtaW4\u003d\u0027,\n                   \u0027Accept\u0027: \u0027application/json\u0027}\n\nthen use that below, or for clarity below you could:\n\nPUT_HEADERS \u003d DEFAULT_HEADERS\nGET_HEADERS \u003d DEFAULT_HEADERS\nDELETE_HEADERS \u003d DEFAULT_HEADERS\n\nnot a big deal to me, just something I noticed.",
+      "parentUuid": "9a3d3df0_371c5177",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 25,
+        "endChar": 64
+      },
+      "revId": "de8ffa532d80f9767493032644e909061a0952a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_7771b9df",
         "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
         "patchSetId": 8
