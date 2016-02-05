@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_775ed977",
+        "filename": "csit/libraries/ALTO/AltoParser.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-05T15:39:49Z",
+      "side": 1,
+      "message": "Great docs! Thanks! This will help maintainability drastically. Also applies to other docstrings below.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 7
+      },
+      "revId": "b470affe3bc1df7c918c5070c33788a7b300d1eb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
