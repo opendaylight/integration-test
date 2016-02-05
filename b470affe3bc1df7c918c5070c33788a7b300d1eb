@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a3d3df0_f3783c91",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-05T16:51:22Z",
+      "side": 1,
+      "message": "can you change this message to explain the entire set of changes in this patch and not just what the last --amend has done.",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 36
+      },
+      "revId": "b470affe3bc1df7c918c5070c33788a7b300d1eb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_775ed977",
         "filename": "csit/libraries/ALTO/AltoParser.py",
         "patchSetId": 8
@@ -18,6 +41,144 @@
         "startChar": 0,
         "endLine": 38,
         "endChar": 7
+      },
+      "revId": "b470affe3bc1df7c918c5070c33788a7b300d1eb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b35eb410",
+        "filename": "csit/suites/alto/basic/010_resourcepool.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-05T16:51:22Z",
+      "side": 1,
+      "message": "you have these in your alto/Variables.py file, so no need to put them here.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 62
+      },
+      "revId": "b470affe3bc1df7c918c5070c33788a7b300d1eb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_53a7680c",
+        "filename": "csit/suites/alto/basic/020_simple_IRD.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-05T16:51:22Z",
+      "side": 1,
+      "message": "these look like good candidates for your alto/Variables.py file.  probably things you\u0027ll want to use in other suites as your CSIT grows, is my guess.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 85
+      },
+      "revId": "b470affe3bc1df7c918c5070c33788a7b300d1eb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f39f9cb2",
+        "filename": "csit/suites/alto/basic/020_simple_IRD.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-05T16:51:22Z",
+      "side": 1,
+      "message": "you have these in your alto/Variables.py file, so no need to put them here.",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 62
+      },
+      "revId": "b470affe3bc1df7c918c5070c33788a7b300d1eb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3373c4b2",
+        "filename": "csit/suites/alto/basic/020_simple_IRD.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-05T16:51:22Z",
+      "side": 1,
+      "message": "you don\u0027t this twice.  just once is enough to set ${BASE_URL} as a suite variable.",
+      "range": {
+        "startLine": 29,
+        "startChar": 26,
+        "endLine": 29,
+        "endChar": 52
+      },
+      "revId": "b470affe3bc1df7c918c5070c33788a7b300d1eb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d36378da",
+        "filename": "csit/suites/alto/basic/020_simple_IRD.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-05T16:51:22Z",
+      "side": 1,
+      "message": "don\u0027t need this, as ${HEADERS} is already available to you after sourcing Variables.py.\n\napplies below as well.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 68
+      },
+      "revId": "b470affe3bc1df7c918c5070c33788a7b300d1eb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9369f0c0",
+        "filename": "csit/suites/alto/basic/020_simple_IRD.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-05T16:51:22Z",
+      "side": 1,
+      "message": "change this to \"Put Request\"\n\napplies below as well.",
+      "range": {
+        "startLine": 55,
+        "startChar": 31,
+        "endLine": 55,
+        "endChar": 34
       },
       "revId": "b470affe3bc1df7c918c5070c33788a7b300d1eb",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
