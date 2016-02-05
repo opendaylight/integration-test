@@ -11,6 +11,7 @@ Documentation     Nexus repository access keywords.
 ...               This library encapsulates a bunch of somewhat complex and commonly used
 ...               netconf operations into reusable keywords to make writing netconf
 ...               test suites easier.
+Library           OperatingSystem
 Library           SSHLibrary
 Library           String
 Resource          SSHKeywords.robot
@@ -59,9 +60,10 @@ NexusKeywords__Detect_Version_To_Pull
     [Return]    ${version}    ${location}
 
 Deploy_Artifact
-    [Arguments]    ${component}    ${artifact}    ${name_prefix}    ${name_suffix}=-executable.jar    ${type}=snapshot
+    [Arguments]    ${component}    ${artifact}    ${name_prefix}    ${name_suffix}=-executable.jar
     [Documentation]    Deploy the specified artifact from Nexus to the cwd of the machine to which the active SSHLibrary connection points.
-    ${urlbase}=    BuiltIn.Set_Variable    ${NEXUSURL_PREFIX}/content/repositories/opendaylight.${type}
+    ${bundle_url}=    OperatingSystem.Get_Environment_Variable    ACTUALBUNDLEURL
+    ${urlbase}=    String.Fetch_From_Left    ${bundle_url}    /org/opendaylight
     ${version}    ${location}=    NexusKeywords__Detect_Version_To_Pull    ${component}
     # TODO: Use RequestsLibrary and String instead of curl and bash utilities?
     ${url}=    BuiltIn.Set_Variable    ${urlbase}/${location}/${artifact}/${version}
@@ -78,10 +80,10 @@ Deploy_Artifact
     [Return]    ${filename}
 
 Deploy_Test_Tool
-    [Arguments]    ${component}    ${artifact}    ${suffix}=executable    ${type}=snapshot
+    [Arguments]    ${component}    ${artifact}    ${suffix}=executable
     [Documentation]    Deploy a test tool.
     ...    The test tools have naming convention of the form
-    ...    "${type}/some/dir/somewhere/<tool-name>/<tool-name>-<version-tag>-${suffix}.jar"
+    ...    "${repository}/some/dir/somewhere/<tool-name>/<tool-name>-<version-tag>-${suffix}.jar"
     ...    where "<tool-name>" is the name of the tool and "<version-tag>" is
     ...    the version tag that is digged out of the maven metadata. This
     ...    keyword calculates ${name_prefix} and ${name_suffix} for
@@ -89,5 +91,5 @@ Deploy_Test_Tool
     ...    work of deploying the artifact.
     ${name_prefix}=    BuiltIn.Set_Variable    ${artifact}-
     ${name_suffix}=    BuiltIn.Set_Variable    -${suffix}.jar
-    ${filename}=    Deploy_Artifact    ${component}    ${artifact}    ${name_prefix}    ${name_suffix}    ${type}
+    ${filename}=    Deploy_Artifact    ${component}    ${artifact}    ${name_prefix}    ${name_suffix}
     [Return]    ${filename}
