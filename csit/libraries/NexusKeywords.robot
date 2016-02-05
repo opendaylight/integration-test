@@ -68,7 +68,7 @@ Deploy_Artifact
     ${namepart}=    SSHLibrary.Execute_Command    curl ${url}/maven-metadata.xml | grep value | head -n 1 | cut -d '>' -f 2 | cut -d '<' -f 1
     BuiltIn.Log    ${namepart}
     ${length}=    BuiltIn.Get_Length    ${namepart}
-    BuiltIn.Run_Keyword_If    ${length} == 0    BuiltIn.Fail    Artifact "${artifact}" not found in component "${component}"
+    ${namepart}=    BuiltIn.Set_Variable_If    ${length} == 0    ${version}    ${namepart}
     ${filename}=    BuiltIn.Set_Variable    ${name_prefix}${namepart}${name_suffix}
     BuiltIn.Log    ${filename}
     ${url}=    BuiltIn.Set_Variable    ${url}/${filename}
