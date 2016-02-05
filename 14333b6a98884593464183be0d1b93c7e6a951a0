@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_17c5cd3b",
+        "filename": "csit/suites/bgpcep/bgpingest/manypeers_peercount.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-05T15:12:25Z",
+      "side": 1,
+      "message": "BuiltIn.Log_To_Console would be more readable, but no big deal.",
+      "range": {
+        "startLine": 94,
+        "startChar": 46,
+        "endLine": 94,
+        "endChar": 57
+      },
+      "revId": "14333b6a98884593464183be0d1b93c7e6a951a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_17dcad11",
+        "filename": "csit/suites/bgpcep/bgpingest/manypeers_peercount.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-05T15:12:25Z",
+      "side": 1,
+      "message": "Explain (comment line in Robot code) that this is a way to detect the number of received prefixes does not raise above the expected value.",
+      "range": {
+        "startLine": 107,
+        "startChar": 38,
+        "endLine": 107,
+        "endChar": 39
+      },
+      "revId": "14333b6a98884593464183be0d1b93c7e6a951a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f7d669f0",
+        "filename": "csit/suites/bgpcep/bgpingest/manypeers_peercount.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-05T15:12:25Z",
+      "side": 1,
+      "message": "Sandbox run with 100k spent 10 seconds in one iteration, so this value may need to be increased for 1M target. Make this a configurable variable.",
+      "range": {
+        "startLine": 108,
+        "startChar": 49,
+        "endLine": 108,
+        "endChar": 52
+      },
+      "revId": "14333b6a98884593464183be0d1b93c7e6a951a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3708d190",
+        "filename": "csit/suites/bgpcep/bgpingest/manypeers_peercount.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-05T15:12:25Z",
+      "side": 1,
+      "message": "Sandbox found a bug in WaitUtils. Will be fixed separately later.",
+      "range": {
+        "startLine": 124,
+        "startChar": 19,
+        "endLine": 124,
+        "endChar": 67
+      },
+      "revId": "14333b6a98884593464183be0d1b93c7e6a951a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
