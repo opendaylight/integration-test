@@ -1,0 +1,8 @@
+Verified+1: jenkins-releng <jenkins-releng@opendaylight.org>
+Code-Review+1: Jozef Behran <jbehran@cisco.com>
+Code-Review+2: Vratko Polák <vrpolak@cisco.com>
+Submitted-by: Vratko Polák <vrpolak@cisco.com>
+Submitted-at: Fri, 05 Feb 2016 14:49:07 +0000
+Reviewed-on: https://git.opendaylight.org/gerrit/34149
+Project: integration/test
+Branch: refs/heads/master
