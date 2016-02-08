@@ -241,7 +241,7 @@ def _task_executor(preparing_function, odl_ip="127.0.0.1", port="8181",
     Args:
         :param preparing_function: function to prepare http request object
 
-        :param odl_ip: ip address of ODL; default="127.0.0.1"
+        :param odl_ip: ip address of ODL or comma separated addesses; default="127.0.0.1"
 
         :param port: restconf port; default="8181"
 
@@ -257,6 +257,10 @@ def _task_executor(preparing_function, odl_ip="127.0.0.1", port="8181",
         :returns dict: dictionary of http response counts like
                        {"http_status_code1: "count1", etc.}
     """
+
+    # geting hosts
+    hosts = odl_ip.split(',')
+    nrhosts = len(hosts)
 
     items = [i+1 for i in range(item_count)]
     item_groups = []
@@ -279,7 +283,7 @@ def _task_executor(preparing_function, odl_ip="127.0.0.1", port="8181",
         thr = threading.Thread(target=_request_sender,
                                args=(i, preparing_function, auth),
                                kwargs={"in_queue": send_queue, "exit_event": exit_event,
-                                       "odl_ip": odl_ip, "port": port,
+                                       "odl_ip": hosts[i % nrhosts], "port": port,
                                        "out_queue": result_queue})
         threads.append(thr)
         thr.start()
@@ -628,7 +632,8 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Cluster datastore"
                                                  "performance test script")
     parser.add_argument("--host", default="127.0.0.1",
-                        help="Host where odl controller is running"
+                        help="Host where odl controller is running."
+                             "Or comma separated list of hosts."
                              "(default is 127.0.0.1)")
     parser.add_argument("--port", default="8181",
                         help="Port on which odl's RESTCONF is listening"
