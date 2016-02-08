@@ -239,7 +239,7 @@ Check Config Flow Presence
 
 Flow Presence Config Flow
     ${headers}=    Create Dictionary    Accept=application/xml
-    ${resp}=    RequestsLibrary.Get    session    /restconf/config/opendaylight-inventory:nodes/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}    headers=${headers}
+    ${resp}=    RequestsLibrary.Get Request    session    /restconf/config/opendaylight-inventory:nodes/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}    headers=${headers}
     Log    ${resp}
     Log    ${resp.content}
     Return From Keyword If    ${resp.status_code}!=200    ${False}    ${EMPTY}
@@ -259,7 +259,7 @@ Check Operational Table Presence
 
 Flow Presence Operational Table
     ${headers}=    Create Dictionary    Accept=application/xml
-    ${resp}=    RequestsLibrary.Get    session    /restconf/operational/opendaylight-inventory:nodes/node/openflow:${switch_idx}/table/${table_id}    headers=${headers}
+    ${resp}=    RequestsLibrary.Get Request    session    /restconf/operational/opendaylight-inventory:nodes/node/openflow:${switch_idx}/table/${table_id}    headers=${headers}
     Log    ${resp}
     Log    ${resp.content}
     Return From Keyword If    ${resp.status_code}!=200    ${False}    ${EMPTY}
@@ -269,12 +269,12 @@ Flow Presence Operational Table
 
 Add Flow
     Log    ${data}
-    ${resp}=    RequestsLibrary.Put    session    /restconf/config/opendaylight-inventory:nodes/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}    headers=${HEADERS_XML}    data=${data}
+    ${resp}=    RequestsLibrary.Put Request    session    /restconf/config/opendaylight-inventory:nodes/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}    headers=${HEADERS_XML}    data=${data}
     ${msg}=    Set Variable    Adding flow for /restconf/config/opendaylight-inventory:nodes/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id} failed, http response ${resp.status_code} received.
     Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}
 
 Delete Flow
-    ${resp}=    RequestsLibrary.Delete    session    /restconf/config/opendaylight-inventory:nodes/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}
+    ${resp}=    RequestsLibrary.Delete Request    session    /restconf/config/opendaylight-inventory:nodes/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}
     ${msg}=    Set Variable    Delete flow for /restconf/config/opendaylight-inventory:nodes/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id} failed, http response ${resp.status_code} received.
     Should Be Equal As Strings    ${resp.status_code}    200    msg=${msg}
 

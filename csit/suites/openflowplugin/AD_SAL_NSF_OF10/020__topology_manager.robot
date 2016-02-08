@@ -28,9 +28,9 @@ Add a userlink
     [Tags]    adsal
     ${body}    Set Variable    {"name":"${name}", "status":"Success", "srcNodeConnector":"OF|1@OF|00:00:00:00:00:00:00:02", "dstNodeConnector":"OF|1@OF|00:00:00:00:00:00:00:03"}
     ${expected_content}    To JSON    ${body}
-    ${resp}    RequestsLibrary.Put    session    ${REST_CONTEXT}/${CONTAINER}/userLink/${name}    data=${body}
+    ${resp}    RequestsLibrary.Put Request    session    ${REST_CONTEXT}/${CONTAINER}/userLink/${name}    data=${body}
     Should Be Equal As Strings    ${resp.status_code}    201
-    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}/${CONTAINER}/userLinks
+    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/${CONTAINER}/userLinks
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     ${resp_content}    Get From Dictionary    ${result}    userLinks
@@ -40,9 +40,9 @@ Remove a userlink
     [Documentation]    Remove a userlink, list to validate the result.
     [Tags]    adsal
     ${expected_content}    Create Dictionary    name=${name}    status=Success    srcNodeConnector=OF|1@OF|00:00:00:00:00:00:00:02    dstNodeConnector=OF|1@OF|00:00:00:00:00:00:00:03
-    ${resp}    RequestsLibrary.Delete    session    ${REST_CONTEXT}/${CONTAINER}/userLink/${name}
+    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CONTEXT}/${CONTAINER}/userLink/${name}
     Should Be Equal As Strings    ${resp.status_code}    204
-    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}/${CONTAINER}/userLinks
+    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/${CONTAINER}/userLinks
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     ${resp_content}    Get From Dictionary    ${result}    userLinks
