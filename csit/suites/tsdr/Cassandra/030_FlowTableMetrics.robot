@@ -114,6 +114,6 @@ Comparing Flow Table Metrics
 
 *** Keywords ***
 Initialize the Tsdr Suite
-    COMMENT    Initialize the Cassandra for TSDR
+    [Documentation]    Initialize Metricval Tables.
     Initialize Cassandra Tables Metricval
 

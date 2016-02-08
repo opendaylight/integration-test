@@ -132,5 +132,6 @@ Comparing Byte Count Metrics
 
 *** Keywords ***
 Initialize the Tsdr Suite
+    [Documentation]    Initialize Metricval Tables.
     Initialize Cassandra Tables Metricval
 

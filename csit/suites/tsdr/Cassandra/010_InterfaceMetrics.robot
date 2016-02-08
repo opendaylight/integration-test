@@ -9,6 +9,7 @@ Library           ../../../libraries/Common.py
 Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/TsdrUtils.robot
 Variables         ../../../variables/Variables.py
+Metadata          https://bugs.opendaylight.org/show_bug.cgi?id=5068    ${EMPTY}
 
 *** Variables ***
 @{INTERFACE_METRICS}    TransmittedPackets    TransmittedBytes    TransmitErrors    TransmitDrops    ReceivedPackets    ReceivedBytes    ReceiveOverRunError
@@ -26,6 +27,7 @@ ${metric_val}     metric_val
 @{tsdr_list}
 
 *** Test Cases ***
+
 Verification of TSDR Cassandra Feature Installation
     [Documentation]    Install and Verify the TSDR Cassandra Features
     COMMENT    Install a Feature    odl-tsdr-cassandra-all    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    60
@@ -37,7 +39,6 @@ Verification of TSDR Cassandra Feature Installation
     Wait Until Keyword Succeeds    5x    30 sec    Check Metric val     \\d{5}
 
 Storing Statistics from Openflow REST
-
     [Documentation]    Store openflow PortStats metrics using REST.
     : FOR    ${item}    IN    @{xpath}
     \    ${ret_val}=    Set Variable    -1
@@ -73,8 +74,6 @@ Storing Statistics from Openflow REST
     \    ${ret_val}=    Set Variable    -1
     Log List    ${xml_list}
 
-
-
 Verification of InterfaceMetrics-Attributes on Cassandra Client
     [Documentation]    Verify the InterfaceMetrics has been updated on Cassandra Data Store
     Copy TSDR tables
@@ -101,11 +100,9 @@ Verification of InterfaceMetrics-Attributes on Cassandra Client
     \    Append To List    ${tsdr_list}    ${ret_val1}
 
 Comparing Mertics
-
     [Documentation]    Compare openflow Interface metrics between data collected from openflow Plugin and TSDR
     : FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${xml_list}    ${tsdr_list}
     \    Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}
-
 
 
 Verify Configuration Interval-change
@@ -117,6 +114,7 @@ Verify Configuration Interval-change
     Post TSDR Configuration Interval    180
     Verify TSDR Configuration Interval    180
     Delete All Sessions
+    [Teardown]    Report_Failure_Due_To_Bug    5068
 
 *** Keywords ***
 
