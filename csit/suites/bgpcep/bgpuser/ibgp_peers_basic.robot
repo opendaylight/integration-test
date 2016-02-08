@@ -92,7 +92,6 @@ TC1_Connect_BGP_Peer1
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer1_console
     Start_Console_Tool    ${BGP_PEER1_COMMAND}    ${BGP_PEER1_OPTIONS}
-    Read_And_Fail_If_Prompt_Is_Seen
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER1_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
 
 TC1_Connect_BGP_Peer2
@@ -100,7 +99,6 @@ TC1_Connect_BGP_Peer2
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer2_console
     Start_Console_Tool    ${BGP_PEER2_COMMAND}    ${BGP_PEER2_OPTIONS}
-    Read_And_Fail_If_Prompt_Is_Seen
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER2_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
 
 TC1_BGP_Peer1_Check_Log_For_Introduced_Prefixes
@@ -173,7 +171,6 @@ TC2_Connect_BGP_Peer1
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer1_console
     Start_Console_Tool    ${BGP_PEER1_COMMAND}    ${BGP_PEER1_OPTIONS}
-    Read_And_Fail_If_Prompt_Is_Seen
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER1_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
 
 TC2_Connect_BGP_Peer2
@@ -181,7 +178,6 @@ TC2_Connect_BGP_Peer2
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer2_console
     Start_Console_Tool    ${BGP_PEER2_COMMAND}    ${BGP_PEER2_OPTIONS}
-    Read_And_Fail_If_Prompt_Is_Seen
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER2_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
 
 TC2_BGP_Peer1_Check_Log_For_Introduced_Prefixes
@@ -252,7 +248,6 @@ TC3_Connect_BGP_Peer1
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer1_console
     Start_Console_Tool    ${BGP_PEER1_COMMAND}    ${BGP_PEER1_OPTIONS}
-    Read_And_Fail_If_Prompt_Is_Seen
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER1_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
 
 TC3_Connect_BGP_Peer2
@@ -260,7 +255,6 @@ TC3_Connect_BGP_Peer2
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer2_console
     Start_Console_Tool    ${BGP_PEER2_COMMAND}    ${BGP_PEER2_OPTIONS}
-    Read_And_Fail_If_Prompt_Is_Seen
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    Check_Example_IPv4_Topology_Content    {"prefix":"${BGP_PEER2_FIRST_PREFIX_IP}/${PREFIX_LEN}"}
 
 TC3_BGP_Peer1_Check_Log_For_No_Updates
