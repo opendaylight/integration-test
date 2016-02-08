@@ -1,19 +1,17 @@
 *** Settings ***
 Documentation     This test finds the leader for shards in a 3-Node cluster and executes CRUD operations on them
-Default Tags      3-node-cluster
-Resource          ../../../libraries/ClusterKeywords.robot
-Resource          ../../../libraries/CarsAndPeople.robot
-Variables         ../../../variables/Variables.py
+Default Tags      3-node-cluster    critical
+Library           Collections
+Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
+Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Variables         ${CURDIR}/../../../variables/Variables.py
 
 *** Variables ***
-${SHARD_CAR_NAME}    shard-car-config
-${SHARD_PEOPLE_NAME}    shard-people-config
-${SHARD_CAR_PERSON_NAME}    shard-car-people-config
 ${NUM_ENTRIES}    ${30}
 
 *** Test Cases ***
-Get Car Leader And Followers
-    [Documentation]    Find leader and followers in the car shard
+Get_Car_Leader_And_Followers
+    [Documentation]    Find leader and followers in the car (config) shard.
     ${CURRENT_CAR_LEADER}    Get Leader And Verify    ${SHARD_CAR_NAME}
     Set Suite Variable    ${CURRENT_CAR_LEADER}
     ${CAR_FOLLOWERS}    Get All Followers    ${SHARD_CAR_NAME}
@@ -91,3 +89,18 @@ Get Car-Person Mappings From Follower1
 Get Car-Person Mappings From Follower2
     [Documentation]    Get car-person mappings from Follower2 to see all entries
     Get Car-Person Mappings And Verify    @{CAR_PERSON_FOLLOWERS}[1]    ${NUM_ENTRIES}
+
+*** Keywords ***
+Setup
+    [Documentation]    Initialize resources, memorize shard leaders.
+    ClusterManagement.ClusterManagement_Setup
+    Set_Variables_For_Shard    shard_name=car
+    Set_Variables_For_Shard    shard_name=people
+    Set_Variables_For_Shard    shard_name=car-people
+
+Set_Variables_For_Shard
+    [Arguments]    ${shard_name}
+    [Documentation]    Get leader and followers, set suite variables.
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=config
+    BuiltIn.Set_Suite_Variable    \${${shard_name}_leader}    ${leader}
+    BuiltIn.Set_Suite_Variable    \${${shard_name}_followers}    ${follower_list}
