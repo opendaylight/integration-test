@@ -16,7 +16,7 @@ ${REST_CONTEXT}    /restconf/operational/network-topology:network-topology
 Get RESTCONF Topology
     [Documentation]    Get RESTCONF Topology and validate the result.
     Wait Until Keyword Succeeds    30s    2s    Ensure All Nodes Are In Response    ${REST_CONTEXT}    ${node_list}
-    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}
+    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}
     Log    ${resp.content}
 
 List all the links
@@ -81,7 +81,7 @@ Add Port
 *** Keywords ***
 Verify Links
     [Arguments]    ${expected_links}
-    ${resp}    RequestsLibrary.Get    session    ${REST_CONTEXT}/topology/flow:1
+    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/topology/flow:1
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
