@@ -1,0 +1,7 @@
+   {
+    "id": "localhost/cars/car_id_$i",
+    "category": "car_category_$i",
+    "model": "car_model_$i",
+    "manufacturer": "car_manufacturer_$i",
+    "year": $i
+   }
