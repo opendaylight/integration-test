@@ -51,15 +51,17 @@ Revoke Token And Verify Transaction Fails
     Revoke Auth Token    ${auth_token}
     Make REST Transaction    401    ${auth_token}
 
-Disable Authentication And Re-Enable Authentication
-    [Documentation]    Toggles authentication off and verifies that no login credentials are needed for REST transactions
-    Disable Authentication On Controller    ${ODL_SYSTEM_IP}
-    Wait Until Keyword Succeeds    10s    1s    Make REST Transaction    200
-    Enable Authentication On Controller    ${ODL_SYSTEM_IP}
-    Wait Until Keyword Succeeds    10s    1s    Validate That Authentication Fails With Wrong Token
-    ${auth_token}=    Get Auth Token
-    Make REST Transaction    200    ${auth_token}
-    [Teardown]    Report_Failure_Due_To_Bug    4922
+# Test has been disabled due to the fact that this interface has changed.  Authentication is now disabled
+# through modification of shiro.ini, which requires controller restart and is not suit for this test.
+#Disable Authentication And Re-Enable Authentication
+#    [Documentation]    Toggles authentication off and verifies that no login credentials are needed for REST transactions
+#    Disable Authentication On Controller    ${ODL_SYSTEM_IP}
+#    Wait Until Keyword Succeeds    10s    1s    Make REST Transaction    200
+#    Enable Authentication On Controller    ${ODL_SYSTEM_IP}
+#    Wait Until Keyword Succeeds    10s    1s    Validate That Authentication Fails With Wrong Token
+#    ${auth_token}=    Get Auth Token
+#    Make REST Transaction    200    ${auth_token}
+#    [Teardown]    Report_Failure_Due_To_Bug    4922
 
 *** Keywords ***
 Validate That Authentication Fails With Wrong Token
