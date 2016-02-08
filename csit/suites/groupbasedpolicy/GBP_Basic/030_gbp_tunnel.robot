@@ -21,7 +21,7 @@ Add Tunnels
     Add Elements To URI From File    ${GBP_TUNNELS_API}    ${GBP_TUNNELS_FILE}
     ${body}    OperatingSystem.Get File    ${GBP_TUNNELS_FILE}
     ${jsonbody}    To Json    ${body}
-    ${resp}    RequestsLibrary.Get    session    ${GBP_TUNNELS_API}
+    ${resp}    RequestsLibrary.Get Request    session    ${GBP_TUNNELS_API}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     Lists Should be Equal    ${jsonbody}    ${result}
@@ -31,10 +31,10 @@ Delete All Tunnels
     Add Elements To URI From File    ${GBP_TUNNELS_API}    ${GBP_TUNNELS_FILE}
     ${body}    OperatingSystem.Get File    ${GBP_TUNNELS_FILE}
     ${jsonbody}    To Json    ${body}
-    ${resp}    RequestsLibrary.Get    session    ${GBP_TUNNELS_API}
+    ${resp}    RequestsLibrary.Get Request    session    ${GBP_TUNNELS_API}
     Should Be Equal As Strings    ${resp.status_code}    200
     Remove All Elements At URI    ${GBP_TUNNELS_API}
-    ${resp}    RequestsLibrary.Get    session    ${GBP_TUNNELS_API}
+    ${resp}    RequestsLibrary.Get Request    session    ${GBP_TUNNELS_API}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Add one Tunnel
@@ -42,7 +42,7 @@ Add one Tunnel
     Add Elements To URI From File    ${GBP_TUNNEL1_URL}    ${GBP_TUNNEL1_FILE}
     ${body}    OperatingSystem.Get File    ${GBP_TUNNEL1_FILE}
     ${jsonbody}    To Json    ${body}
-    ${resp}    RequestsLibrary.Get    session    ${GBP_TUNNEL1_URL}
+    ${resp}    RequestsLibrary.Get Request    session    ${GBP_TUNNEL1_URL}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     Lists Should be Equal    ${result}    ${jsonbody}
@@ -50,7 +50,7 @@ Add one Tunnel
 Get A Non-existing Tunnel
     [Documentation]    Get A Non-existing Tunnel
     Remove All Elements At URI    ${GBP_TUNNELS_API}
-    ${resp}    RequestsLibrary.Get    session    ${GBP_TUNNEL1_URL}
+    ${resp}    RequestsLibrary.Get Request    session    ${GBP_TUNNEL1_URL}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete one Tunnel
@@ -58,7 +58,7 @@ Delete one Tunnel
     Remove All Elements At URI    ${GBP_TUNNELS_API}
     Add Elements To URI From File    ${GBP_TUNNEL1_URL}    ${GBP_TUNNEL1_FILE}
     Remove All Elements At URI    ${GBP_TUNNEL1_URL}
-    ${resp}    RequestsLibrary.Get    session    ${GBP_TUNNELS_API}
+    ${resp}    RequestsLibrary.Get Request    session    ${GBP_TUNNELS_API}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Not Contain    ${resp.content}    ${GBP_TUNNEL_ID}
 
