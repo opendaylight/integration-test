@@ -1,14 +1,10 @@
 *** Settings ***
 Documentation     This test finds the leader for shards in a 3-Node cluster and executes CRUD operations on them
 Default Tags      3-node-cluster
-Resource          ../../../libraries/ClusterKeywords.robot
-Resource          ../../../libraries/CarsAndPeople.robot
-Variables         ../../../variables/Variables.py
+Resource          ${CURDIR}/../../../libraries/ClusterKeywords.robot
+Variables         ${CURDIR}/../../../variables/Variables.py
 
 *** Variables ***
-${SHARD_CAR_NAME}    shard-car-config
-${SHARD_PEOPLE_NAME}    shard-people-config
-${SHARD_CAR_PERSON_NAME}    shard-car-people-config
 ${NUM_ENTRIES}    ${30}
 
 *** Test Cases ***
