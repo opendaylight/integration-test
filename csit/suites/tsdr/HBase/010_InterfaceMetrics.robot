@@ -10,6 +10,7 @@ Library           ../../../libraries/Common.py
 Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/TsdrUtils.robot
 Variables         ../../../variables/Variables.py
+Metadata          https://bugs.opendaylight.org/show_bug.cgi?id=5068    ${EMPTY}
 
 *** Variables ***
 @{INTERFACE_METRICS}    TransmittedPackets    TransmittedBytes    TransmitErrors    TransmitDrops    ReceivedPackets    ReceivedBytes    ReceiveOverRunError
@@ -54,6 +55,7 @@ Verify Configuration Interval-change
     Verify TSDR Configuration Interval    200
     Post TSDR Configuration Interval    180
     Verify TSDR Configuration Interval    180
+    [Teardown]    Report_Failure_Due_To_Bug    5068
 
 *** Keywords ***
 Initialize the Tsdr Suite

@@ -9,6 +9,7 @@ Library           ../../../libraries/Common.py
 Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/TsdrUtils.robot
 Variables         ../../../variables/Variables.py
+Metadata          https://bugs.opendaylight.org/show_bug.cgi?id=5068    ${EMPTY}
 
 *** Variables ***
 @{INTERFACE_METRICS}    TransmittedPackets    TransmittedBytes    TransmitErrors    TransmitDrops    ReceivedPackets    ReceivedBytes    ReceiveOverRunError
@@ -37,7 +38,6 @@ Verification of TSDR Cassandra Feature Installation
     Wait Until Keyword Succeeds    5x    30 sec    Check Metric val     \\d{5}
 
 Storing Statistics from Openflow REST
-
     [Documentation]    Store openflow PortStats metrics using REST.
     : FOR    ${item}    IN    @{xpath}
     \    ${ret_val}=    Set Variable    -1
@@ -101,12 +101,9 @@ Verification of InterfaceMetrics-Attributes on Cassandra Client
     \    Append To List    ${tsdr_list}    ${ret_val1}
 
 Comparing Mertics
-
     [Documentation]    Compare openflow Interface metrics between data collected from openflow Plugin and TSDR
     : FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${xml_list}    ${tsdr_list}
     \    Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    20
-
-
 
 Verify Configuration Interval-change
     [Documentation]    Verify the TSDR Collection configuration changes
@@ -117,9 +114,9 @@ Verify Configuration Interval-change
     Post TSDR Configuration Interval    180
     Verify TSDR Configuration Interval    180
     Delete All Sessions
+    [Teardown]    Report_Failure_Due_To_Bug    5068
 
 *** Keywords ***
-
 Verify TSDR Configuration Interval
     [Arguments]    ${interval}
     [Documentation]    Verify Configuration interval of TSDR Collection
