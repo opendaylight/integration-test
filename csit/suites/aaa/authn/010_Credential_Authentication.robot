@@ -53,7 +53,7 @@ Revoke Token And Verify Transaction Fails
 
 Disable Authentication And Re-Enable Authentication
     [Documentation]    Toggles authentication off and verifies that no login credentials are needed for REST transactions.
-    ...    Test has been disabled due to the fact that this interface has changed.  Authentication is now disabled
+    ...    Test has been disabled due to the fact that this interface has changed. Authentication is now disabled
     ...    through modification of shiro.ini, which requires controller restart and is not suit for this test.
     [Tags]    exclude
     Disable Authentication On Controller    ${ODL_SYSTEM_IP}
