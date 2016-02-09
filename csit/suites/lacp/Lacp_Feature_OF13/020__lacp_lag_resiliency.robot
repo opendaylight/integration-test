@@ -18,6 +18,7 @@ ${agg1-connector-id1}    1
 ${agg1-connector-id2}    2
 ${agg2-connector-id1}    3
 ${agg2-connector-id2}    4
+${ubuntu-linux-prompt}    $
 
 *** Test Cases ***
 Verify the Group tables data for Switch(S1)
@@ -97,7 +98,7 @@ LACP Inventory Suite Setup
 Set Host interface state
     [Arguments]    ${port-id}    ${port-state}
     [Documentation]    Will configure the port state of the Host to either up or down
-    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}
+    Open Connection    ${MININET}    prompt=${ubuntu-linux-prompt}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    sudo ./m h2
     Write    sudo ifconfig ${port-id}
