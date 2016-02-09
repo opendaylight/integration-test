@@ -35,7 +35,7 @@ Start Tsdr Suite
     [Documentation]    TSDR specific setup/cleanup work that can be done safely before any system.
     ...    is run.
     Clean Mininet System
-    ${mininet_conn_id1}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    ${mininet_conn_id1}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=120s
     Set Suite Variable    ${mininet_conn_id1}
     Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
