@@ -17,8 +17,9 @@ Variables         ../../../variables/Variables.py
 ...               ReceiveFrameError    ReceiveErrors    ReceiveDrops    ReceiveCrcError    CollisionCount
 @{CATEGORY}       FLOWGROUPSTATS    FLOWMETERSTATS    FLOWSTATS    FLOWTABLESTATS    PORTSTATS    QUEUESTATS
 ${TSDR_PORTSTATS}    tsdr:list PORTSTATS
-${CONFIG_INTERVAL}    /restconf/config/tsdr-openflow-statistics-collector:TSDRDCConfig
+${CONFIG_INTERVAL}    /restconf/config/tsdr-openflow-statistics-collector:TSDROSCConfig
 ${OPER_INTERVAL}    /restconf/operations/tsdr-openflow-statistics-collector:setPollingInterval
+&{HEADERS_QUERY}    Content-Type=application/json    Content-Type=application/json
 
 *** Test Cases ***
 Verification of TSDR HBase Feature Installation
@@ -50,18 +51,19 @@ Verification of InterfaceMetrics-Attributes on HBase Client
 
 Verify Configuration Interval-change
     [Documentation]    Verify the TSDR Collection configuration changes
-    Verify TSDR Configuration Interval    180
-    Post TSDR Configuration Interval    200
-    Verify TSDR Configuration Interval    200
-    Post TSDR Configuration Interval    180
-    Verify TSDR Configuration Interval    180
+    Post TSDR Configuration Interval    15000
+    Verify TSDR Configuration Interval    15000
+    Post TSDR Configuration Interval    20000
+    Wait Until Keyword Succeeds    5x    5 sec    Verify TSDR Configuration Interval    20000
+    Post TSDR Configuration Interval    15000
+    Wait Until Keyword Succeeds    5x    5 sec    Verify TSDR Configuration Interval    15000
     [Teardown]    Report_Failure_Due_To_Bug    5068
 
 *** Keywords ***
 Initialize the Tsdr Suite
     COMMENT    Initialize the HBase for TSDR
     Start Tsdr Suite
-    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_QUERY}
 
 Verify TSDR Configuration Interval
     [Arguments]    ${interval}
@@ -75,7 +77,6 @@ Post TSDR Configuration Interval
     [Documentation]    Configuration TSDR collection interval ${interval}
     ${p1}    Create Dictionary    interval=${interval}
     ${p2}    Create Dictionary    input=${p1}
-    ${post_data}    Create Dictionary    setPollingInterval=${p2}
-    Log    ${post_data}
-    ${resp}    RequestsLibrary.Post Request    session    ${OPER_INTERVAL}    ${post_data}
-    Should Be Equal As Strings    ${resp.status_code}    201
+    ${p2_json}=    json.dumps    ${p2}
+    ${resp}    RequestsLibrary.Post Request    session    ${OPER_INTERVAL}    data=${p2_json}
+    Should Be Equal As Strings    ${resp.status_code}    200
