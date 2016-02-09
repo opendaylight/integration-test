@@ -16,14 +16,14 @@ ${node1}          openflow:1
 *** Test Cases ***
 Verify Switch S1 LACP flow entry packet hit doesn't display zero value
     [Documentation]    Verify the LACP flow entry packet hit stats doesn't display zero value on the Switch S1
-    ${result}=    Run Command On Remote System    ${MININET}    sudo ovs-ofctl dump-flows s1 -O OpenFlow13
+    ${result}=    Run Command On Remote System    ${MININET}    sudo ovs-ofctl dump-flows s1 -O OpenFlow13    ${MININET_USER}   ${EMPTY}    $
     Comment    ${result}    Read Until    mininet>
     Should Not Contain    ${result}    n_packets=0
     Should Not Contain    ${result}    n_bytes=0
 
 Verify Switch S1 Port stats doesn't display zero value
     [Documentation]    Verify the port stats for the Switch S1 doesn't display value with zero
-    ${result}=    Run Command On Remote System    ${MININET}    sudo ovs-ofctl dump-ports s1 -O OpenFlow13    ${MININET_USER}    #
+    ${result}=    Run Command On Remote System    ${MININET}    sudo ovs-ofctl dump-ports s1 -O OpenFlow13    ${MININET_USER}    ${EMPTY}    $
     Comment    ${result}    Read Until    mininet>
     ${port1}=    Get Lines Containing String    ${result}    1:
     Should Not Contain    ${port1}    rx pkts=0

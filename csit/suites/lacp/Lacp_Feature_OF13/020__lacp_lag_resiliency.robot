@@ -18,6 +18,7 @@ ${agg1-connector-id1}    1
 ${agg1-connector-id2}    2
 ${agg2-connector-id1}    3
 ${agg2-connector-id2}    4
+${ubuntu-linux-prompt}    $
 
 *** Test Cases ***
 Verify the Group tables data for Switch(S1)
@@ -97,7 +98,7 @@ LACP Inventory Suite Setup
 Set Host interface state
     [Arguments]    ${port-id}    ${port-state}
     [Documentation]    Will configure the port state of the Host to either up or down
-    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}
+    Open Connection    ${MININET}    prompt=${ubuntu-linux-prompt}
     Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    sudo ./m h2
     Write    sudo ifconfig ${port-id}
@@ -106,7 +107,7 @@ Set Host interface state
 Verify Switch S1 Group Table
     [Arguments]    ${group-type}    ${port-id1}    ${port-id2}    ${port-id2-state}
     [Documentation]    Functionality to verify the presence of LACP group entries on the OVS Switch(S1) Group table
-    ${group_output}=    Run Command on Remote System    ${MININET}    sudo ovs-ofctl dump-groups s1 -O OpenFlow13    ${MININET_USER}    #
+    ${group_output}=    Run Command on Remote System    ${MININET}    sudo ovs-ofctl dump-groups s1 -O OpenFlow13    ${MININET_USER}    ${EMPTY}    $
     Log    ${group_output}
     Comment    ${group_output}    Read Until    mininet>
     ${result}=    Get Lines Containing String    ${group_output}    output:${port-id1}
