@@ -1,7 +1,6 @@
 *** Settings ***
 Documentation     Test suite for Cassandra DataStore PortStats Verification
 Suite Teardown    Stop Tsdr Suite
-Metadata          https://bugs.opendaylight.org/show_bug.cgi?id=5068    ${EMPTY}
 Library           SSHLibrary
 Library           Collections
 Library           String
@@ -19,8 +18,6 @@ ${root_path}      flow-capable-node-connector-statistics
 ...               ${root_path}/receive-frame-error    ${root_path}/receive-errors    ${root_path}/receive-drops    ${root_path}/receive-crc-error    ${root_path}/collision-count
 @{CATEGORY}       FlowStats    FlowTableStats    PortStats    QueueStats
 ${TSDR_PORTSTATS}    tsdr:list PortStats
-${CONFIG_INTERVAL}    /restconf/config/tsdr-openflow-statistics-collector:TSDRDCConfig
-${OPER_INTERVAL}    /restconf/operations/tsdr-openflow-statistics-collector:setPollingInterval
 ${metric_path}    metric_path
 ${metric_val}     metric_val
 @{xml_list}
@@ -103,35 +100,7 @@ Comparing Mertics
     : FOR    ${xml_val}    ${tsdr_val}    IN ZIP    ${xml_list}    ${tsdr_list}
     \    Compare Tsdr XML Metrics    ${xml_val}    ${tsdr_val}    20
 
-Verify Configuration Interval-change
-    [Documentation]    Verify the TSDR Collection configuration changes
-    ${session}=    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-    Verify TSDR Configuration Interval    180
-    Post TSDR Configuration Interval    200
-    Verify TSDR Configuration Interval    200
-    Post TSDR Configuration Interval    180
-    Verify TSDR Configuration Interval    180
-    Delete All Sessions
-    [Teardown]    Report_Failure_Due_To_Bug    5068
-
 *** Keywords ***
-Verify TSDR Configuration Interval
-    [Arguments]    ${interval}
-    [Documentation]    Verify Configuration interval of TSDR Collection
-    ${resp}    RequestsLibrary.Get    session    ${CONFIG_INTERVAL}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    Should Contain    ${resp.content}    ${interval}
-
-Post TSDR Configuration Interval
-    [Arguments]    ${interval}
-    [Documentation]    Configuration TSDR collection interval ${interval}
-    ${p1}    Create Dictionary    interval    ${interval}
-    ${p2}    Create Dictionary    input    ${p1}
-    ${post_data}    Create Dictionary    setPollingInterval    ${p2}
-    Log    ${post_data}
-    ${resp}    RequestsLibrary.Post    session    ${OPER_INTERVAL}    ${post_data}
-    Should Be Equal As Strings    ${resp.status_code}    201
-
 Extract From DB Table
     [Arguments]    ${pattern}
     [Documentation]    Extract from metricpath table and return the value
