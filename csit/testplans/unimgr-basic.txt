@@ -1,0 +1,3 @@
+# Place the suites in run order:
+integration/test/csit/suites/unimgr/basic
+integration/test/csit/suites/unimgr/uni_operations
