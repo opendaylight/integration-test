@@ -6,17 +6,17 @@
                 {
                     "name": "dpi-abstract100",
                     "order": 0,
-                    "type": "service-function-type:firewall"
+                    "type": "firewall"
                 },
                 {
                     "name": "napt44-abstract100",
                     "order": 1,
-                    "type": "service-function-type:dpi"
+                    "type": "dpi"
                 },
                 {
                     "name": "firewall-abstract100",
                     "order": 2,
-                    "type": "service-function-type:napt44"
+                    "type": "napt44"
                 }
             ]
         }

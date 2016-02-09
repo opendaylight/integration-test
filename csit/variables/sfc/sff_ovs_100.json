@@ -17,11 +17,10 @@
         "service-function-dictionary": [
           {
             "sff-sf-data-plane-locator": {
-              "port": 6000,
-              "ip": "10.1.1.7"
+              "sf-dpl-name": "SF7-DPL",
+              "sff-dpl-name": "eth0"
             },
-            "name": "SF7",
-            "type": "service-function-type:dpi"
+            "name": "SF7"
           }
         ]
       }
