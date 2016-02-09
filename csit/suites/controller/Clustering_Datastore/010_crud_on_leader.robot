@@ -7,20 +7,8 @@ Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
 
 *** Variables ***
-<<<<<<< HEAD
-<<<<<<< HEAD
-${SHARD_CAR_NAME}    shard-car-config
-${SHARD_PEOPLE_NAME}    shard-people-config
-${SHARD_CAR_PERSON_NAME}    shard-car-people-config
-${NUM_ENTRIES}    ${30}
-=======
 ${CARPEOPLE_ITEMS}    ${30}
 ${VAR_DIR}        ${CURDIR}/../../../variables/carpeople
->>>>>>> 01fb66f... a
-=======
-${CARPEOPLE_ITEMS}    ${30}
-${VAR_DIR}        ${CURDIR}/../../../variables/controller/carpeople
->>>>>>> ddda913... WIP: Rework of controller cluster suite
 
 *** Test Cases ***
 Add_Cars_To_Leader
