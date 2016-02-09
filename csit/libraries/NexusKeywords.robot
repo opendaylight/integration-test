@@ -16,6 +16,9 @@ Library           SSHLibrary
 Library           String
 Resource          SSHKeywords.robot
 
+*** Variables ***
+${NEXUS_FALLBACK_URL}    http://nexus.opendaylight.org/content/repositories/opendaylight.snapshot
+
 *** Keywords ***
 Initialize_Artifact_Deployment_And_Usage
     [Arguments]    ${tools_system_connect}=True
@@ -60,13 +63,16 @@ NexusKeywords__Detect_Version_To_Pull
     [Return]    ${version}    ${location}
 
 Deploy_Artifact
-    [Arguments]    ${component}    ${artifact}    ${name_prefix}    ${name_suffix}=-executable.jar
+    [Arguments]    ${component}    ${artifact}    ${name_prefix}    ${name_suffix}=-executable.jar    ${fallback_url}=${NEXUS_FALLBACK_URL}
     [Documentation]    Deploy the specified artifact from Nexus to the cwd of the machine to which the active SSHLibrary connection points.
     ...    Must have ${BUNDLE_URL} variable set to the URL from which the
     ...    tested ODL distribution was downloaded and this place must be
     ...    inside a repository created by a standard distribution
-    ...    construction job.
+    ...    construction job. If this is detected to ne be the case, fallback URL is used.
     ${urlbase}=    String.Fetch_From_Left    ${BUNDLE_URL}    /org/opendaylight
+    # If the BUNDLE_URL points somewhere else (perhaps *patch-test* job in Jenkins),
+    # ${urlbase} is the whole ${BUNDLE_URL}, in which case we use the ${fallback_url}
+    ${urlbase}=    BuiltIn.Set_Variable_If    '${urlbase}' != '${BUNDLE_URL}'    ${urlbase}    ${fallback_url}
     ${version}    ${location}=    NexusKeywords__Detect_Version_To_Pull    ${component}
     # TODO: Use RequestsLibrary and String instead of curl and bash utilities?
     ${url}=    BuiltIn.Set_Variable    ${urlbase}/${location}/${artifact}/${version}
