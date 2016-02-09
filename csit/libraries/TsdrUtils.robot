@@ -35,7 +35,7 @@ Start Tsdr Suite
     [Documentation]    TSDR specific setup/cleanup work that can be done safely before any system.
     ...    is run.
     Clean Mininet System
-    ${mininet_conn_id1}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    ${mininet_conn_id1}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=120s
     Set Suite Variable    ${mininet_conn_id1}
     Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
@@ -56,32 +56,32 @@ Ping All Hosts
     Write    pingall
     Read Until    mininet>
 
-Iperf All Hosts
+Ping Pair Hosts
     [Arguments]    ${host1}    ${host2}
-    [Documentation]    Iperf between ${host1} and ${host2}
+    [Documentation]    Ping between ${host1} and ${host2}
     Switch Connection    ${mininet_conn_id1}
-    Write    iperf ${host1} ${host2}
+    Write    pingpair ${host1} ${host2}
     Read Until    mininet>
 
 
-Iperf All Hosts Hbase
+Ping Pair Hosts Hbase
     [Arguments]    ${pattern}
-    [Documentation]    Iperf between h1 and h2 and check Hbase
-    Iperf All Hosts    h1    h2
+    [Documentation]    Ping between h1 and h2 and check Hbase
+    Ping Pair Hosts    h1    h2
     ${query_output}=    Query the Data from HBaseClient    count 'NETFLOW'
     Should Match Regexp    ${query_output}    ${pattern}
 
-Iperf All Hosts Cassandra
+Ping Pair Hosts Cassandra
     [Arguments]    ${pattern}
-    [Documentation]    Iperf between h1 and h2 and check Cassandra
-    Iperf All Hosts    h1    h2
+    [Documentation]    Ping between h1 and h2 and check Cassandra
+    Ping Pair Hosts    h1    h2
     ${query_output}=    Count Cassandra rows    select count(*) from tsdr.metriclog;
     Should Match Regexp    ${query_output}    ${pattern}
 
-Iperf All Hosts HSQLDB
+Ping Pair Hosts HSQLDB
     [Arguments]    ${pattern}
     [Documentation]    Iperf between h1 and h2 and check Cassandra
-    Iperf All Hosts    h1    h2
+    Ping Pair Hosts    h1    h2
     ${query_output}=   Issue Command On Karaf Console    tsdr:list NETFLOW | wc -l
     Should Match Regexp    ${query_output}    ${pattern}
 
