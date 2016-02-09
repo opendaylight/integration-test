@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_f2830d54",
+        "filename": "csit/libraries/PrefixCounting.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-09T16:41:50Z",
+      "side": 1,
+      "message": "This is traditionally called \"session\", as most of the time http/tcp connection is not established.",
+      "range": {
+        "startLine": 40,
+        "startChar": 54,
+        "endLine": 40,
+        "endChar": 64
+      },
+      "revId": "ebaa5b43eaa226285e6baaf262fcfc2837e471bc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1281514a",
+        "filename": "csit/libraries/WaitUtils.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-09T16:41:50Z",
+      "side": 1,
+      "message": "So, with +1, the correct function here is floor()?",
+      "range": {
+        "startLine": 197,
+        "startChar": 51,
+        "endLine": 197,
+        "endChar": 55
+      },
+      "revId": "ebaa5b43eaa226285e6baaf262fcfc2837e471bc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5292b99f",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-09T16:41:50Z",
+      "side": 1,
+      "message": "Underscores.",
+      "range": {
+        "startLine": 55,
+        "startChar": 14,
+        "endLine": 55,
+        "endChar": 15
+      },
+      "revId": "ebaa5b43eaa226285e6baaf262fcfc2837e471bc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7297fd90",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-09T16:41:50Z",
+      "side": 1,
+      "message": "ALL_CAPS",
+      "range": {
+        "startLine": 55,
+        "startChar": 12,
+        "endLine": 55,
+        "endChar": 13
+      },
+      "revId": "ebaa5b43eaa226285e6baaf262fcfc2837e471bc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b291859b",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-09T16:41:50Z",
+      "side": 1,
+      "message": "Use the actual variable name.\nAlso in other Wait* and Check* test cases.",
+      "range": {
+        "startLine": 63,
+        "startChar": 32,
+        "endLine": 63,
+        "endChar": 53
+      },
+      "revId": "ebaa5b43eaa226285e6baaf262fcfc2837e471bc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_928c4181",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-09T16:41:50Z",
+      "side": 1,
+      "message": "The usual netconf connector feature is documented to be incompatible with cluster. [0]\nYou have to use the cluster compatible feature, and also configure controller-config device explicitly (aimed to ODL_SYSTEM_1_IP instead of 127.0.0.1) before using this library. See netconf clustered CRUD suite for more info.\n\n[0] https://wiki.opendaylight.org/view/Integration/Test/Cluster_Incompatible_Features#odl-netconf-connector",
+      "range": {
+        "startLine": 87,
+        "startChar": 4,
+        "endLine": 87,
+        "endChar": 21
+      },
+      "revId": "ebaa5b43eaa226285e6baaf262fcfc2837e471bc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_52c0f97b",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-09T16:41:50Z",
+      "side": 1,
+      "message": "${ODL_SYSTEM_1_IP} to be even more explicit about which node is used.",
+      "range": {
+        "startLine": 92,
+        "startChar": 115,
+        "endLine": 92,
+        "endChar": 131
+      },
+      "revId": "ebaa5b43eaa226285e6baaf262fcfc2837e471bc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_724c1d43",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 207,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-09T16:41:50Z",
+      "side": 1,
+      "message": "The rest of setup is just to verify cluster is ready, right?\nIf yes, add a comment to code, and do not set suite variables.",
+      "range": {
+        "startLine": 207,
+        "startChar": 4,
+        "endLine": 207,
+        "endChar": 19
+      },
+      "revId": "ebaa5b43eaa226285e6baaf262fcfc2837e471bc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
