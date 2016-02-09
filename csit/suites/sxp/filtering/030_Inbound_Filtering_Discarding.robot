@@ -192,7 +192,7 @@ Check One Group 4-2
     ...    permit ACL 10.10.10.0 0.0.0.255
     ...    permit ACL 10.0.0.0 0.254.0.0
     ...    Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
-    ${resp}    Get Bindings Master Database    127.0.0.5
+    ${resp}    Get Bindings    127.0.0.5
     Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
     Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
     Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
@@ -216,7 +216,7 @@ Check One Group 5-3
     ...    permit SGT 30 ACL 10.10.10.0 0.0.0.255
     ...    permit SGT 50 ACL 10.0.0.0 0.254.0.0
     ...    Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
-    ${resp}    Get Bindings Master Database    127.0.0.4
+    ${resp}    Get Bindings    127.0.0.4
     Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
     Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
     Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp

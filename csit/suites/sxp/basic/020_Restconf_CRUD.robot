@@ -14,12 +14,12 @@ Resource          ../../../variables/Variables.py
 *** Test Cases ***
 Test Add Binding
     [Documentation]    Test if bindings are added to Master DB
-    ${resp}    Get Bindings Master Database
+    ${resp}    Get Bindings
     Add Binding    5230    1.1.1.1/32
-    ${resp}    Get Bindings Master Database
+    ${resp}    Get Bindings
     Should Contain Binding    ${resp}    5230    1.1.1.1/32
     Add Binding    30    2001:0:0:0:0:0:0:0/128
-    ${resp}    Get Bindings Master Database
+    ${resp}    Get Bindings
     Should Contain Binding    ${resp}    30    2001:0:0:0:0:0:0:0/128
 
 Test Add Connection
@@ -34,13 +34,13 @@ Test Add Connection
 Test Delete Binding
     [Documentation]    Test if bindings are deleted from Master DB
     Add Binding    52301    12.1.1.1/32
-    ${resp}    Get Bindings Master Database
+    ${resp}    Get Bindings
     Should Contain Binding    ${resp}    52301    12.1.1.1/32
     Delete Binding    2631    12.1.1.1/32
-    ${resp}    Get Bindings Master Database
+    ${resp}    Get Bindings
     Should Contain Binding    ${resp}    52301    12.1.1.1/32
     Delete Binding    52301    12.1.1.1/32
-    ${resp}    Get Bindings Master Database
+    ${resp}    Get Bindings
     Should Not Contain Binding    ${resp}    52301    12.1.1.1/32
 
 Test Delete Connection
@@ -58,10 +58,10 @@ Test Delete Connection
 Test Update Binding
     [Documentation]    Test if bindings can be updated to different values
     Add Binding    3230    1.1.1.10/32
-    ${resp}    Get Bindings Master Database
+    ${resp}    Get Bindings
     Should Contain Binding    ${resp}    3230    1.1.1.10/32
     Update Binding    3230    1.1.1.10/32    623    10.10.10.10/32
-    ${resp}    Get Bindings Master Database
+    ${resp}    Get Bindings
     Should Not Contain Binding    ${resp}    3230    1.1.1.10/32
     Should Contain Binding    ${resp}    623    10.10.10.10/32
 

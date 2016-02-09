@@ -18,7 +18,7 @@ Test Mega Topology
     [Documentation]    Stress test that contains of connecting 20 Nodes and exporting their bindings
     Setup Mega Topology
     Sleep    5s
-    ${resp}    Get Bindings Master Database    127.0.0.1
+    ${resp}    Get Bindings    127.0.0.1
     : FOR    ${num}    IN RANGE    2    22
     \    ${ip}    Get Ip From Number    ${num}
     \    Should Contain Binding    ${resp}    ${num}    ${ip}/32    sxp
@@ -27,7 +27,7 @@ Test Complex Mega Topology
     [Documentation]    Stress test that contains of connecting 30 Nodes and exporting their bindings
     Setup Complex Mega Topology
     Sleep    5s
-    ${resp}    Get Bindings Master Database    127.0.0.1
+    ${resp}    Get Bindings    127.0.0.1
     : FOR    ${num}    IN RANGE    22    32
     \    ${ip}    Get Ip From Number    ${num}
     \    Should Contain Binding    ${resp}    ${num}    ${ip}/32    sxp
@@ -40,7 +40,7 @@ Text Bindings export
     Add Connection    version4    listener    127.0.0.2    64999    127.0.0.1
     Add Connection    version4    speaker    127.0.0.1    64999    127.0.0.2
     Sleep    5s
-    ${resp}    Get Bindings Master Database    127.0.0.1
+    ${resp}    Get Bindings    127.0.0.1
     : FOR    ${num}    IN RANGE    2    102
     \    ${ip}    Get Ip From Number    ${num}
     \    Should Contain Binding    ${resp}    ${num}    ${ip}/32    sxp
