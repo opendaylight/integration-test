@@ -117,9 +117,10 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
 Library           ${CURDIR}/../../../libraries/AuthStandalone.py
-Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
-Resource          ${CURDIR}/../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot    # for Deploy_Artifact
+Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot    # for Require_* and Assure_*
+Resource          ${CURDIR}/../../../libraries/Utils.robot    # for Flexible_SSH_Login
 
 *** Variables ***
 # This table acts as an exhaustive list of variables users can modify on pybot invocation.
@@ -140,7 +141,6 @@ ${MININET}        127.0.0.1
 ${MININET_PROMPT}    ${DEFAULT_LINUX_PROMPT}    # from Variables.py
 ${MININET_USER}    mininet
 ${MININET_WORKSPACE}    /tmp
-${MOCK_FILE}      pcc-mock-ecexutable.jar
 ${PCCDOWNLOAD_HOSTHEADER}    nexus.opendaylight.org
 ${PCCDOWNLOAD_URLBASE}    http://${PCCDOWNLOAD_HOSTHEADER}/content/repositories/opendaylight.snapshot/org/opendaylight/bgpcep/pcep-pcc-mock/
 ${PCCMOCK_COLOCATED}    False
@@ -171,22 +171,13 @@ ${UPDATERVM_WORKSPACE}    ${MININET_WORKSPACE}
 Download_Pcc_Mock
     [Documentation]    SSH login to pcc-mock VM, download latest pcc-mock executable from Nexus.
     BuiltIn.Run_Keyword_If    ${PCCMOCK_COLOCATED}    Pccmock_From_Controller
+    NexusKeywords.Initialize_Artifact_Deployment_And_Usage    tools_system_connect=False
     SSHLibrary.Open_Connection    ${PCCMOCKVM_IP}    alias=pccmock
     SSHLibrary.Set_Client_Configuration    timeout=10s
     SSHLibrary.Set_Client_Configuration    prompt=${PCCMOCKVM_PROMPT}
     Utils.Flexible_SSH_Login    ${PCCMOCKVM_USER}    ${PCCMOCKVM_PASSWORD}    delay=4s
-    ${curl_common} =    BuiltIn.Set_Variable    curl -s -H "Host:${PCCDOWNLOAD_HOSTHEADER}" ${PCCDOWNLOAD_URLBASE}
-    ${version} =    SSHLibrary.Execute_Command    ${curl_common}/maven-metadata.xml \| grep latest \| cut -d '>' -f 2 \| cut -d '<' -f 1
-    BuiltIn.Log    ${version}
-    ${namepart} =    SSHLibrary.Execute_Command    ${curl_common}/${version}/maven-metadata.xml \| grep value \| head -n 1 \| cut -d '>' -f 2 \| cut -d '<' -f 1
-    BuiltIn.Log    ${namepart}
-    BuiltIn.Set_Suite_Variable    ${filename}    pcep-pcc-mock-${namepart}-executable.jar
-    BuiltIn.Log    ${filename}
-    BuiltIn.Set_Suite_Variable    ${mocklocation}    ${PCCMOCKVM_WORKSPACE}/${MOCK_FILE}
-    # TODO: Debug to make wget -N work
-    ${response}    ${err}    ${return_code} =    SSHLibrary.Execute_Command    ${curl_common}/${version}/${filename} > ${mocklocation}    return_rc=True    return_stderr=True
-    BuiltIn.Log    ${err}
-    BuiltIn.Should_Be_Equal    ${return_code}    ${0}
+    ${file_name} =    NexusKeywords.Deploy_Test_Tool    bgpcep    pcep-pcc-mock
+    BuiltIn.Set_Suite_Variable    ${mock_location}    ${file_name}
 
 Put_Updater
     [Documentation]    Open SSH session to updater VM, copy the utility there, including dependencies, also prepare direct http session.
@@ -227,7 +218,7 @@ Topology_Precondition
 Start_Pcc_Mock
     [Documentation]    Launch pcc-mock on background so simulated PCCs start connecting to controller.
     SSHLibrary.Switch_Connection    pccmock
-    ${command} =    BuiltIn.Set_Variable    java -jar ${mocklocation} --local-address ${FIRST_PCC_IP} --remote-address ${CONTROLLER} --pcc ${PCCS} --lsp ${LSPS} &> ${LOG_PATH}/${LOG_NAME}
+    ${command} =    BuiltIn.Set_Variable    java -jar ${mock_location} --local-address ${FIRST_PCC_IP} --remote-address ${CONTROLLER} --pcc ${PCCS} --lsp ${LSPS} &> ${LOG_PATH}/${LOG_NAME}
     BuiltIn.Log    ${command}
     SSHLibrary.Write    ${command}
     # The pccmock SSH session is left alive, but no data will be exchanged for a while.

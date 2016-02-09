@@ -18,18 +18,18 @@ Resource          SSHKeywords.robot
 
 *** Keywords ***
 Initialize_Artifact_Deployment_And_Usage
-    [Documentation]    Initialize Nexus artifact deployment and usage
-    ...    Create and activate a connection to the tools system and perform
-    ...    additional configuration to allow the remaining keywords to deploy
-    ...    and use artifacts from Nexus on the tools system.
-    # Connect to the ODL machine
+    [Arguments]    ${tools_system_connect}=True
+    [Documentation]    Places search utility to ODL system, which will be needed for version detection.
+    ...    By default also initialize a SSH connection to Tools system,
+    ...    as following Keywords assume a working connection towards target system.
+    # Connect to the ODL machine.
     ${odl}=    SSHKeywords.Open_Connection_To_ODL_System
     # Deploy the search tool.
     SSHLibrary.Put_File    ${CURDIR}/../../tools/deployment/search.sh
     SSHLibrary.Close_Connection
-    # Connect to the Tools System machine
-    ${tools}=    SSHKeywords.Open_Connection_To_Tools_System
-    BuiltIn.Set_Suite_Variable    ${SSHKeywords__tools_system_connection}    ${tools}
+    # Optionally connect to the Tools System machine.
+    BuiltIn.Return_From_Keyword_If    not (${tools_system_connect})    # the argument may be a convoluted Python expression
+    SSHKeywords.Open_Connection_To_Tools_System
 
 NexusKeywords__Get_Items_To_Look_At
     [Arguments]    ${component}
