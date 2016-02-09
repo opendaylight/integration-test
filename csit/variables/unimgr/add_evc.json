@@ -1,0 +1,32 @@
+{
+    "link": [
+        {
+            "link-id": "evc://1",
+            "source": {
+                "source-node": "/network-topology/topology/node/uni://{uni1-ip}"
+            },
+            "destination": {
+                "dest-node": "/network-topology/topology/node/uni://{uni2-ip}"
+            },
+            "cl-unimgr-mef:uni-source": [
+                {
+                    "order": "0",
+                    "ip-address": "{uni1-ip}"
+                }
+            ],
+            "cl-unimgr-mef:uni-dest": [
+                {
+                    "order": "0",
+                    "ip-address": "{uni2-ip}"
+                }
+            ],
+            "cl-unimgr-mef:cos-id": "string",
+            "cl-unimgr-mef:ingress-bw": {
+                "speed-10G": {}
+            },
+            "cl-unimgr-mef:egress-bw": {
+                "speed-10G": {}
+            }
+        }
+    ]
+}
