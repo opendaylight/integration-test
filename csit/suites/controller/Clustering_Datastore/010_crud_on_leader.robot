@@ -19,39 +19,23 @@ See_Added_Cars_On_Leader
     [Documentation]    GET response should match the PUT data on Leader.
     TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${car_leader_session}    verify=True    iterations=${CARPEOPLE_ITEMS}
 
-Get Added Cars From Follower1
-    [Documentation]    Get added cars from Follower1
-    Get Cars And Verify    @{CAR_FOLLOWERS}[0]    ${NUM_ENTRIES}
+See_Added_Cars_On_Followers
+    [Documentation]    The same check on other peers.
+    : FOR    ${session}    IN    @{car_follower_sessions}
+    \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}    verify=True    iterations=${CARPEOPLE_ITEMS}
 
-Get Added Cars From Follower2
-    [Documentation]    Get added cars from Follower2
-    Get Cars And Verify    @{CAR_FOLLOWERS}[1]    ${NUM_ENTRIES}
+Add_People_To_Leader
+    [Documentation]    Add ${CARPEOPLE_ITEMS} people to ${people_leader_session}.
+    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_DIR}/people    session=${people_leader_session}    iterations=${CARPEOPLE_ITEMS}
 
-Get People Leader And Followers
-    [Documentation]    Find leader and followers in the people shard
-    ${CURRENT_PEOPLE_LEADER}    Get Leader And Verify    ${SHARD_PEOPLE_NAME}
-    Set Suite Variable    ${CURRENT_PEOPLE_LEADER}
-    ${PEOPLE_FOLLOWERS}    Get All Followers    ${SHARD_PEOPLE_NAME}
-    Set Suite Variable    ${PEOPLE_FOLLOWERS}
+See_Added_People_On_Leader
+    [Documentation]    GET response should match the PUT data on Leader.
+    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/people    session=${people_leader_session}    verify=True    iterations=${CARPEOPLE_ITEMS}
 
-Add People And Get People From Leader
-    [Documentation]    Add some people and get people from Leader.
-    Add People And Verify    ${CURRENT_PEOPLE_LEADER}    ${NUM_ENTRIES}
-
-Get Added People From Follower1
-    [Documentation]    Get added people from Follower1
-    Get People And Verify    @{PEOPLE_FOLLOWERS}[0]    ${NUM_ENTRIES}
-
-Get Added People From Follower2
-    [Documentation]    Get added people from Follower2
-    Get People And Verify    @{PEOPLE_FOLLOWERS}[1]    ${NUM_ENTRIES}
-
-Get Car-Person Leader And Followers
-    [Documentation]    Find leader and followers in the car-person shard
-    ${CURRENT_CAR_PERSON_LEADER}    Get Leader And Verify    ${SHARD_CAR_PERSON_NAME}
-    Set Suite Variable    ${CURRENT_CAR_PERSON_LEADER}
-    ${CAR_PERSON_FOLLOWERS}    Get All Followers    ${SHARD_CAR_PERSON_NAME}
-    Set Suite Variable    ${CAR_PERSON_FOLLOWERS}
+See_Added_People_On_Followers
+    [Documentation]    The same check on other peers.
+    : FOR    ${session}    IN    @{people_follower_sessions}
+    \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/people    session=${session}    verify=True    iterations=${CARPEOPLE_ITEMS}
 
 Purchase_Cars_On_Leader
     [Documentation]    Purchase some cars on the Leader.
