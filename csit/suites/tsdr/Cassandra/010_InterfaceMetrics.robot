@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation     Test suite for Cassandra DataStore PortStats Verification
 Suite Teardown    Stop Tsdr Suite
+Metadata          https://bugs.opendaylight.org/show_bug.cgi?id=5068    ${EMPTY}
 Library           SSHLibrary
 Library           Collections
 Library           String
@@ -9,19 +10,18 @@ Library           ../../../libraries/Common.py
 Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/TsdrUtils.robot
 Variables         ../../../variables/Variables.py
-Metadata          https://bugs.opendaylight.org/show_bug.cgi?id=5068    ${EMPTY}
 
 *** Variables ***
 @{INTERFACE_METRICS}    TransmittedPackets    TransmittedBytes    TransmitErrors    TransmitDrops    ReceivedPackets    ReceivedBytes    ReceiveOverRunError
 ...               ReceiveFrameError    ReceiveErrors    ReceiveDrops    ReceiveCrcError    CollisionCount
-${root_path}    flow-capable-node-connector-statistics
-@{xpath}    ${root_path}/packets/transmitted    ${root_path}/bytes/transmitted    ${root_path}/transmit-errors    ${root_path}/transmit-drops    ${root_path}/packets/received    ${root_path}/bytes/received    ${root_path}/receive-over-run-error
-...                ${root_path}/receive-frame-error    ${root_path}/receive-errors    ${root_path}/receive-drops    ${root_path}/receive-crc-error    ${root_path}/collision-count
+${root_path}      flow-capable-node-connector-statistics
+@{xpath}          ${root_path}/packets/transmitted    ${root_path}/bytes/transmitted    ${root_path}/transmit-errors    ${root_path}/transmit-drops    ${root_path}/packets/received    ${root_path}/bytes/received    ${root_path}/receive-over-run-error
+...               ${root_path}/receive-frame-error    ${root_path}/receive-errors    ${root_path}/receive-drops    ${root_path}/receive-crc-error    ${root_path}/collision-count
 @{CATEGORY}       FlowStats    FlowTableStats    PortStats    QueueStats
 ${TSDR_PORTSTATS}    tsdr:list PortStats
 ${CONFIG_INTERVAL}    /restconf/config/tsdr-openflow-statistics-collector:TSDRDCConfig
 ${OPER_INTERVAL}    /restconf/operations/tsdr-openflow-statistics-collector:setPollingInterval
-${metric_path}     metric_path
+${metric_path}    metric_path
 ${metric_val}     metric_val
 @{xml_list}
 @{tsdr_list}
@@ -35,7 +35,7 @@ Verification of TSDR Cassandra Feature Installation
     Verify Feature Is Installed    odl-tsdr-openflow-statistics-collector
     Start Tsdr Suite
     Ping All Hosts
-    Wait Until Keyword Succeeds    5x    30 sec    Check Metric val     \\d{5}
+    Wait Until Keyword Succeeds    5x    30 sec    Check Metric val    \\d{5}
 
 Storing Statistics from Openflow REST
     [Documentation]    Store openflow PortStats metrics using REST.
@@ -73,13 +73,11 @@ Storing Statistics from Openflow REST
     \    ${ret_val}=    Set Variable    -1
     Log List    ${xml_list}
 
-
-
 Verification of InterfaceMetrics-Attributes on Cassandra Client
     [Documentation]    Verify the InterfaceMetrics has been updated on Cassandra Data Store
     Copy TSDR tables
     : FOR    ${list}    IN    @{INTERFACE_METRICS}
-    \    ${ret_val1}=    Extract From DB Table     grep NID=openflow:1 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:1,NodeConnector:openflow:1:1
+    \    ${ret_val1}=    Extract From DB Table    grep NID=openflow:1 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:1,NodeConnector:openflow:1:1
     \    Append To List    ${tsdr_list}    ${ret_val1}
     \    ${ret_val1}=    Extract From DB Table    grep NID=openflow:1 | grep DC=PORTSTATS | grep MN=${list} | grep RK=Node:openflow:1,NodeConnector:openflow:1:2
     \    Append To List    ${tsdr_list}    ${ret_val1}
@@ -140,4 +138,3 @@ Extract From DB Table
     ${ret_val1}=    Set Variable    -100
     ${ret_val1}=    Verify the Metrics Attributes on Cassandra Client    ${pattern}
     [Return]    ${ret_val1}
-
