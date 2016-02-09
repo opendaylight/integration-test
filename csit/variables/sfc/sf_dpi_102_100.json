@@ -2,7 +2,7 @@
     "service-function": [
         {
             "name": "dpi-102-100",
-            "type": "service-function-type:dpi",
+            "type": "dpi",
             "nsh-aware": true,
             "sf-data-plane-locator": [
                 {
