@@ -7,10 +7,8 @@ Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
 
 *** Variables ***
-${SHARD_CAR_NAME}    shard-car-config
-${SHARD_PEOPLE_NAME}    shard-people-config
-${SHARD_CAR_PERSON_NAME}    shard-car-people-config
-${NUM_ENTRIES}    ${30}
+${CARPEOPLE_ITEMS}    ${30}
+${VAR_DIR}        ${CURDIR}/../../../variables/carpeople
 
 *** Test Cases ***
 Add_Cars_To_Leader
