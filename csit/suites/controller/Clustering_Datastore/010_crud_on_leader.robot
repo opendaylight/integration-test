@@ -6,10 +6,15 @@ Resource          ../../../libraries/CarsAndPeople.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
+<<<<<<< HEAD
 ${SHARD_CAR_NAME}    shard-car-config
 ${SHARD_PEOPLE_NAME}    shard-people-config
 ${SHARD_CAR_PERSON_NAME}    shard-car-people-config
 ${NUM_ENTRIES}    ${30}
+=======
+${CARPEOPLE_ITEMS}    ${30}
+${VAR_DIR}        ${CURDIR}/../../../variables/carpeople
+>>>>>>> 01fb66f... a
 
 *** Test Cases ***
 Get Car Leader And Followers
