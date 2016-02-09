@@ -19,8 +19,9 @@ ${root_path}      flow-capable-node-connector-statistics
 ...               ${root_path}/receive-frame-error    ${root_path}/receive-errors    ${root_path}/receive-drops    ${root_path}/receive-crc-error    ${root_path}/collision-count
 @{CATEGORY}       FlowStats    FlowTableStats    PortStats    QueueStats
 ${TSDR_PORTSTATS}    tsdr:list PortStats
-${CONFIG_INTERVAL}    /restconf/config/tsdr-openflow-statistics-collector:TSDRDCConfig
+${CONFIG_INTERVAL}    /restconf/config/tsdr-openflow-statistics-collector:TSDROSCConfig
 ${OPER_INTERVAL}    /restconf/operations/tsdr-openflow-statistics-collector:setPollingInterval
+&{HEADERS_QUERY}    Content-Type=application/json    Content-Type=application/json
 ${metric_path}    metric_path
 ${metric_val}     metric_val
 @{xml_list}
@@ -105,12 +106,12 @@ Comparing Mertics
 
 Verify Configuration Interval-change
     [Documentation]    Verify the TSDR Collection configuration changes
-    ${session}=    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-    Verify TSDR Configuration Interval    180
-    Post TSDR Configuration Interval    200
-    Verify TSDR Configuration Interval    200
-    Post TSDR Configuration Interval    180
-    Verify TSDR Configuration Interval    180
+    ${session}=    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_QUERY}
+    Verify TSDR Configuration Interval    15000
+    Post TSDR Configuration Interval    20000
+    Wait Until Keyword Succeeds    5x    5 sec    Verify TSDR Configuration Interval    20000
+    Post TSDR Configuration Interval    15000
+    Wait Until Keyword Succeeds    5x    5 sec    Verify TSDR Configuration Interval    15000
     Delete All Sessions
     [Teardown]    Report_Failure_Due_To_Bug    5068
 
@@ -125,12 +126,11 @@ Verify TSDR Configuration Interval
 Post TSDR Configuration Interval
     [Arguments]    ${interval}
     [Documentation]    Configuration TSDR collection interval ${interval}
-    ${p1}    Create Dictionary    interval    ${interval}
-    ${p2}    Create Dictionary    input    ${p1}
-    ${post_data}    Create Dictionary    setPollingInterval    ${p2}
-    Log    ${post_data}
-    ${resp}    RequestsLibrary.Post    session    ${OPER_INTERVAL}    ${post_data}
-    Should Be Equal As Strings    ${resp.status_code}    201
+    ${p1}    Create Dictionary    interval=${interval}
+    ${p2}    Create Dictionary    input=${p1}
+    ${p2_json}=    json.dumps    ${p2}
+    ${resp}    RequestsLibrary.Post Request    session    ${OPER_INTERVAL}    data=${p2_json}
+    Should Be Equal As Strings    ${resp.status_code}    200
 
 Extract From DB Table
     [Arguments]    ${pattern}
