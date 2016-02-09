@@ -4,6 +4,7 @@ Documentation     Simple resource with setup keywords which combine FailFast and
 ...               See FailFast.robot documentation for intricacies of that library.
 Resource          ${CURDIR}/FailFast.robot
 Resource          ${CURDIR}/KarafKeywords.robot
+Resource          ${CURDIR}/Utils.robot
 
 *** Keywords ***
 Setup_Utils_For_Setup_And_Teardown
