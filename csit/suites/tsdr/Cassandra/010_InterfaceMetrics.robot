@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation     Test suite for Cassandra DataStore PortStats Verification
 Suite Teardown    Stop Tsdr Suite
+Metadata          https://bugs.opendaylight.org/show_bug.cgi?id=5068    ${EMPTY}
 Library           SSHLibrary
 Library           Collections
 Library           String
@@ -9,7 +10,6 @@ Library           ../../../libraries/Common.py
 Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/TsdrUtils.robot
 Variables         ../../../variables/Variables.py
-Metadata          https://bugs.opendaylight.org/show_bug.cgi?id=5068    ${EMPTY}
 
 *** Variables ***
 @{INTERFACE_METRICS}    TransmittedPackets    TransmittedBytes    TransmitErrors    TransmitDrops    ReceivedPackets    ReceivedBytes    ReceiveOverRunError
