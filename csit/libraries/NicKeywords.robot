@@ -15,6 +15,10 @@ ${REST_CONTEXT_INTENT}    restconf/config/intent:intents/intent
 ${INTENTS}        restconf/config/intent:intents
 ${VTN_INVENTORY}    restconf/operational/vtn-inventory:vtn-nodes
 ${INTENT_ID}      b9a13232-525e-4d8c-be21-cd65e3436033
+${SERVICE_FUNCTIONS_URI}    /restconf/config/service-function:service-functions/
+${SERVICE_FUNCTIONS_FILE}    ${CURDIR}/../variables/redirect/service-functions.json
+${SERVICE_FORWARDERS_URI}    /restconf/config/service-function-forwarder:service-function-forwarders/
+${SERVICE_FORWARDERS_FILE}    ${CURDIR}/../variables/redirect/service-function-forwarders.json
 
 *** Keywords ***
 Start NIC VTN Renderer Suite
@@ -96,3 +100,7 @@ Mininet Ping Should Not Succeed
     Write    ${host1} ping -c 10 ${host2}
     ${result}    Read Until    mininet>
     Should Not Contain    ${result}    64 bytes
+
+
+
+
