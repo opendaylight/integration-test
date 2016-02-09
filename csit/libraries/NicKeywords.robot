@@ -15,6 +15,10 @@ ${REST_CONTEXT_INTENT}    restconf/config/intent:intents/intent
 ${INTENTS}        restconf/config/intent:intents
 ${VTN_INVENTORY}    restconf/operational/vtn-inventory:vtn-nodes
 ${INTENT_ID}      b9a13232-525e-4d8c-be21-cd65e3436033
+${SERVICE_FUNCTIONS_URI}    /restconf/config/service-function:service-functions/
+${SERVICE_FUNCTIONS_FILE}    ${CURDIR}/../variables/redirect/service-functions.json
+${SERVICE_FORWARDERS_URI}    /restconf/config/service-function-forwarder:service-function-forwarders/
+${SERVICE_FORWARDERS_FILE}    ${CURDIR}/../variables/redirect/service-function-forwarders.json
 
 *** Keywords ***
 Start NIC VTN Renderer Suite
@@ -96,3 +100,45 @@ Mininet Ping Should Not Succeed
     Write    ${host1} ping -c 10 ${host2}
     ${result}    Read Until    mininet>
     Should Not Contain    ${result}    64 bytes
+
+Start NIC Redirect Test Suite
+    [Documentation]    Start Nic Redirect Rest Test Suite
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+
+Stop NIC Redirect Test Suite
+    [Documentation]    Stop Nic Redirect Test Suite
+    Delete All Sessions
+
+Add Service Functions Using RestConf
+    [Documentation]    Create a Service Function.
+    ${body}    OperatingSystem.Get File    ${SERVICE_FUNCTIONS_FILE}
+    ${jsonbody}    To Json    ${body}
+    ${resp}=    RequestsLibrary.put    session    ${SERVICE_FUNCTIONS_URI}    data=${jsonbody}
+    Should Be Equal As Strings    ${resp.status_code}    200
+
+Add Service Function Forwarders Using RestConf
+    [Documentation]    Create Service Function Forwarders.
+    ${body}    OperatingSystem.Get File    ${SERVICE_FORWARDERS_FILE}
+    ${jsonbody}    To Json    ${body}
+    ${resp}=    RequestsLibrary.put    session    ${SERVICE_FORWARDERS_URI}    data=${jsonbody}
+    Should Be Equal As Strings    ${resp.status_code}    200
+
+Create Intent From Karaf Console For Redirect
+    [Arguments]    ${from}    ${to}    ${action}    ${service_name}
+    [Documentation]    Creates an intent to the controller, and returns the id of the intent created.
+    Issue Command On Karaf Console    log:clear
+    ${output}=    Issue Command On Karaf Console    intent:add -f ${from} -t ${to} -a ${action} -f ${service_name}
+    Should Contain    ${output}    Intent created
+    ${output}=    Fetch From Left    ${output}    )
+    ${output_split}=    Split String    ${output}    ${SPACE}
+    ${id}=    Get From List    ${output_split}    3
+    [Return]    ${id}
+
+Delete Intent From Karaf Console For Redirect
+    [Arguments]    ${id}
+    [Documentation]    Removes an intent from the controller via the provided intent id.
+    ${output}=    Issue Command On Karaf Console    intent:remove ${id}
+    Should Contain    ${output}    Intent successfully removed
+    ${output}=    Wait Until Keyword Succeeds    300s    2s    Issue Command On Karaf Console    log:display |grep "initIntentsConfiguration: config populated: Intents"
+    Should Contain    ${output}    ${id}
+
