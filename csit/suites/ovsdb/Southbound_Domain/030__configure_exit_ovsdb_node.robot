@@ -39,7 +39,7 @@ Connect to OVSDB Node
 Get Operational Topology
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes
     Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${node_list}
-    [Teardown]    Report_Failure_Due_To_Bug    4756
+    [Teardown]    Report_Failure_Due_To_Bug    5221
 
 Verify Bridge Port Not In Config DS
     [Documentation]    This will fetch the configuration topology from configuration data store to verify the bridge is added to the data store
@@ -94,6 +94,7 @@ Get Operational Topology with modified Port
     [Documentation]    This request will fetch the operational topology after the Port is added to the bridge
     @{list}    Create List    ${BRIDGE}    vx1    10.0.0.19
     Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${list}
+    [Teardown]    Report_Failure_Due_To_Bug    5221
 
 Create Port and attach to a Bridge
     [Documentation]    This request will creates port/interface and attach it to the specific bridge
@@ -108,6 +109,7 @@ Get Operational Topology with Port
     [Documentation]    This request will fetch the operational topology after the Port is added to the bridge
     @{list}    Create List    ${BRIDGE}    vxlanport
     Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${list}
+    [Teardown]    Report_Failure_Due_To_Bug    5221
 
 Delete the Port1
     [Documentation]    This request will delete the port node from the bridge node and data store.
