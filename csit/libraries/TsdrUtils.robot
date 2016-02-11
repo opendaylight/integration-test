@@ -402,8 +402,8 @@ Compare Tsdr XML Metrics
 Generate Syslog
     [Arguments]    ${facility}    ${level}    ${MESSAGE}
     [Documentation]    Uses syslogd to generate syslogs
-    Run Command On Remote System    ${ODL_SYSTEM_IP}    logger -p ${facility}.${level} -n 127.0.0.1 -u 514 ${MESSAGE}
-
+    ${log}=    Run Command On Remote System    ${ODL_SYSTEM_IP}    logger -p ${facility}.${level} -n 127.0.0.1 -u 514 ${MESSAGE}
+    LOG    ${log}    WARN
 Verify Metric Val File For Syslog
     [Documentation]    Returns Value for metric matching particular keya,keyb
     @{metricval}=    Read File and Return Split Lines    ${CASSANDRA_DB_PATH}${temp_metric_val}
