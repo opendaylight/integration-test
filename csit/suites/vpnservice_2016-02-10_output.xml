@@ -1,0 +1,3184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generated="20160210 20:00:54.071" generator="Robot 2.8.6 (Python 2.7.6 on linux2)">
+<suite source="/home/mininet/VPN/test/csit/suites/vpnservice" id="s1" name="Vpnservice">
+<kw type="setup" name="Start Suite">
+<doc>Test suit for vpn service using mininet OF13 and OVS 2.3.1</doc>
+<arguments>
+</arguments>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Start the tests</arg>
+</arguments>
+<msg timestamp="20160210 20:00:55.148" level="INFO">Start the tests</msg>
+<status status="PASS" endtime="20160210 20:00:55.148" starttime="20160210 20:00:55.148"></status>
+</kw>
+<kw type="kw" name="${mininet1_conn_id_1} = SSHLibrary.Open Connection">
+<doc>Opens a new SSH connection to the given `host` and `port`.</doc>
+<arguments>
+<arg>${MININET}</arg>
+<arg>prompt=${DEFAULT_LINUX_PROMPT}</arg>
+<arg>timeout=30s</arg>
+</arguments>
+<msg timestamp="20160210 20:00:55.149" level="INFO">${mininet1_conn_id_1} = 1</msg>
+<status status="PASS" endtime="20160210 20:00:55.149" starttime="20160210 20:00:55.149"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${mininet1_conn_id_1}</arg>
+</arguments>
+<msg timestamp="20160210 20:00:55.150" level="INFO">${mininet1_conn_id_1} = 1</msg>
+<status status="PASS" endtime="20160210 20:00:55.150" starttime="20160210 20:00:55.150"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Login With Public Key">
+<doc>Logs into the SSH server using key-based authentication.</doc>
+<arguments>
+<arg>${MININET_USER}</arg>
+<arg>${USER_HOME}/.ssh/${SSH_KEY}</arg>
+<arg>any</arg>
+</arguments>
+<msg timestamp="20160210 20:00:55.151" level="INFO">Logging into '10.183.254.140:22' as 'mininet'.</msg>
+<msg timestamp="20160210 20:00:55.630" level="INFO">Read output: Welcome to Ubuntu 14.04.1 LTS (GNU/Linux 3.13.0-43-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+
+619 packages can be updated.
+317 updates are security updates.
+
+Last login: Wed Feb 10 19:55:41 2016 from 153.88.52.119
+mininet@mininet-vm:~\&gt;</msg>
+<status status="PASS" endtime="20160210 20:00:55.630" starttime="20160210 20:00:55.150"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Execute Command">
+<doc>Executes `command` on the remote machine and returns its outputs.</doc>
+<arguments>
+<arg>sudo ovs-vsctl del-br BR1</arg>
+</arguments>
+<msg timestamp="20160210 20:00:55.631" level="INFO">Executing command 'sudo ovs-vsctl del-br BR1'.</msg>
+<msg timestamp="20160210 20:00:56.219" level="INFO">Command exited with return code 1.</msg>
+<status status="PASS" endtime="20160210 20:00:56.219" starttime="20160210 20:00:55.631"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Execute Command">
+<doc>Executes `command` on the remote machine and returns its outputs.</doc>
+<arguments>
+<arg>sudo ovs-vsctl add-br BR1</arg>
+</arguments>
+<msg timestamp="20160210 20:00:56.220" level="INFO">Executing command 'sudo ovs-vsctl add-br BR1'.</msg>
+<msg timestamp="20160210 20:00:56.427" level="INFO">Command exited with return code 0.</msg>
+<status status="PASS" endtime="20160210 20:00:56.427" starttime="20160210 20:00:56.220"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Execute Command">
+<doc>Executes `command` on the remote machine and returns its outputs.</doc>
+<arguments>
+<arg>sudo ovs-vsctl set bridge BR1 protocols=OpenFlow13</arg>
+</arguments>
+<msg timestamp="20160210 20:00:56.428" level="INFO">Executing command 'sudo ovs-vsctl set bridge BR1 protocols=OpenFlow13'.</msg>
+<msg timestamp="20160210 20:00:56.513" level="INFO">Command exited with return code 0.</msg>
+<status status="PASS" endtime="20160210 20:00:56.514" starttime="20160210 20:00:56.427"></status>
+</kw>
+<kw type="kw" name="${swcmd1} = BuiltIn.Catenate">
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<arguments>
+<arg>SEPARATOR=</arg>
+<arg>sudo ovs-vsctl set-controller BR1 tcp:</arg>
+<arg>${CONTROLLER}</arg>
+<arg>:6633</arg>
+</arguments>
+<msg timestamp="20160210 20:00:56.514" level="INFO">${swcmd1} = sudo ovs-vsctl set-controller BR1 tcp:10.183.254.140:6633</msg>
+<status status="PASS" endtime="20160210 20:00:56.514" starttime="20160210 20:00:56.514"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Execute Command">
+<doc>Executes `command` on the remote machine and returns its outputs.</doc>
+<arguments>
+<arg>${swcmd1}</arg>
+</arguments>
+<msg timestamp="20160210 20:00:56.515" level="INFO">Executing command 'sudo ovs-vsctl set-controller BR1 tcp:10.183.254.140:6633'.</msg>
+<msg timestamp="20160210 20:00:56.568" level="INFO">Command exited with return code 0.</msg>
+<status status="PASS" endtime="20160210 20:00:56.568" starttime="20160210 20:00:56.515"></status>
+</kw>
+<kw type="kw" name="${output} = SSHLibrary.Execute Command">
+<doc>Executes `command` on the remote machine and returns its outputs.</doc>
+<arguments>
+<arg>sudo ifconfig BR1 up</arg>
+</arguments>
+<msg timestamp="20160210 20:00:56.569" level="INFO">Executing command 'sudo ifconfig BR1 up'.</msg>
+<msg timestamp="20160210 20:00:56.736" level="INFO">Command exited with return code 0.</msg>
+<msg timestamp="20160210 20:00:56.737" level="INFO">${output} = </msg>
+<status status="PASS" endtime="20160210 20:00:56.737" starttime="20160210 20:00:56.569"></status>
+</kw>
+<kw type="kw" name="${swcmd1} = BuiltIn.Catenate">
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<arguments>
+<arg>SEPARATOR=</arg>
+<arg>sudo ovs-vsctl set-manager tcp:</arg>
+<arg>${CONTROLLER}</arg>
+<arg>:6640</arg>
+</arguments>
+<msg timestamp="20160210 20:00:56.738" level="INFO">${swcmd1} = sudo ovs-vsctl set-manager tcp:10.183.254.140:6640</msg>
+<status status="PASS" endtime="20160210 20:00:56.738" starttime="20160210 20:00:56.737"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Execute Command">
+<doc>Executes `command` on the remote machine and returns its outputs.</doc>
+<arguments>
+<arg>${swcmd1}</arg>
+</arguments>
+<msg timestamp="20160210 20:00:56.738" level="INFO">Executing command 'sudo ovs-vsctl set-manager tcp:10.183.254.140:6640'.</msg>
+<msg timestamp="20160210 20:00:56.824" level="INFO">Command exited with return code 0.</msg>
+<status status="PASS" endtime="20160210 20:00:56.824" starttime="20160210 20:00:56.738"></status>
+</kw>
+<kw type="kw" name="${output} = SSHLibrary.Execute Command">
+<doc>Executes `command` on the remote machine and returns its outputs.</doc>
+<arguments>
+<arg>sudo ovs-vsctl show</arg>
+</arguments>
+<msg timestamp="20160210 20:00:56.825" level="INFO">Executing command 'sudo ovs-vsctl show'.</msg>
+<msg timestamp="20160210 20:00:57.405" level="INFO">Command exited with return code 0.</msg>
+<msg timestamp="20160210 20:00:57.406" level="INFO">${output} = 8625e529-b120-425d-ae73-39757be6e38b
+    Manager "tcp:10.183.254.140:6640"
+    Bridge "BR1"
+        Controller "tcp:10.183.254.140:6633"
+        Port "BR1"
+            Interface "BR1"
+                ...</msg>
+<status status="PASS" endtime="20160210 20:00:57.405" starttime="20160210 20:00:56.824"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20160210 20:00:57.406" level="INFO">8625e529-b120-425d-ae73-39757be6e38b
+    Manager "tcp:10.183.254.140:6640"
+    Bridge "BR1"
+        Controller "tcp:10.183.254.140:6633"
+        Port "BR1"
+            Interface "BR1"
+                type: internal
+    ovs_version: "2.4.0"</msg>
+<status status="PASS" endtime="20160210 20:00:57.406" starttime="20160210 20:00:57.406"></status>
+</kw>
+<kw type="kw" name="${resp} = BuiltIn.Sleep">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>3</arg>
+</arguments>
+<msg timestamp="20160210 20:01:00.407" level="INFO">Slept 3 seconds</msg>
+<msg timestamp="20160210 20:01:00.407" level="INFO">${resp} = None</msg>
+<status status="PASS" endtime="20160210 20:01:00.407" starttime="20160210 20:00:57.406"></status>
+</kw>
+<kw type="kw" name="${mininet2_conn_id_1} = SSHLibrary.Open Connection">
+<doc>Opens a new SSH connection to the given `host` and `port`.</doc>
+<arguments>
+<arg>${MININET1}</arg>
+<arg>prompt=${DEFAULT_LINUX_PROMPT}</arg>
+<arg>timeout=30s</arg>
+</arguments>
+<msg timestamp="20160210 20:01:00.409" level="INFO">${mininet2_conn_id_1} = 2</msg>
+<status status="PASS" endtime="20160210 20:01:00.409" starttime="20160210 20:01:00.408"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Set Global Variable">
+<doc>Makes a variable available globally in all tests and suites.</doc>
+<arguments>
+<arg>${mininet2_conn_id_1}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:00.410" level="INFO">${mininet2_conn_id_1} = 2</msg>
+<status status="PASS" endtime="20160210 20:01:00.410" starttime="20160210 20:01:00.409"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Login With Public Key">
+<doc>Logs into the SSH server using key-based authentication.</doc>
+<arguments>
+<arg>${MININET_USER}</arg>
+<arg>${USER_HOME}/.ssh/${SSH_KEY}</arg>
+<arg>any</arg>
+</arguments>
+<msg timestamp="20160210 20:01:00.411" level="INFO">Logging into '10.183.254.141:22' as 'mininet'.</msg>
+<msg timestamp="20160210 20:01:00.718" level="INFO">Read output: Welcome to Ubuntu 14.04.1 LTS (GNU/Linux 3.13.0-43-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+
+Last login: Wed Feb 10 19:51:10 2016 from 10.183.254.140
+mininet@mininet-vm:~\&gt;</msg>
+<status status="PASS" endtime="20160210 20:01:00.718" starttime="20160210 20:01:00.410"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Execute Command">
+<doc>Executes `command` on the remote machine and returns its outputs.</doc>
+<arguments>
+<arg>sudo ovs-vsctl del-br BR2</arg>
+</arguments>
+<msg timestamp="20160210 20:01:00.719" level="INFO">Executing command 'sudo ovs-vsctl del-br BR2'.</msg>
+<msg timestamp="20160210 20:01:00.731" level="INFO">Command exited with return code 1.</msg>
+<status status="PASS" endtime="20160210 20:01:00.732" starttime="20160210 20:01:00.719"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Execute Command">
+<doc>Executes `command` on the remote machine and returns its outputs.</doc>
+<arguments>
+<arg>sudo ovs-vsctl add-br BR2</arg>
+</arguments>
+<msg timestamp="20160210 20:01:00.732" level="INFO">Executing command 'sudo ovs-vsctl add-br BR2'.</msg>
+<msg timestamp="20160210 20:01:00.796" level="INFO">Command exited with return code 0.</msg>
+<status status="PASS" endtime="20160210 20:01:00.796" starttime="20160210 20:01:00.732"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Execute Command">
+<doc>Executes `command` on the remote machine and returns its outputs.</doc>
+<arguments>
+<arg>sudo ovs-vsctl set bridge BR2 protocols=OpenFlow13</arg>
+</arguments>
+<msg timestamp="20160210 20:01:00.797" level="INFO">Executing command 'sudo ovs-vsctl set bridge BR2 protocols=OpenFlow13'.</msg>
+<msg timestamp="20160210 20:01:00.884" level="INFO">Command exited with return code 0.</msg>
+<status status="PASS" endtime="20160210 20:01:00.884" starttime="20160210 20:01:00.797"></status>
+</kw>
+<kw type="kw" name="${swcmd1} = BuiltIn.Catenate">
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<arguments>
+<arg>SEPARATOR=</arg>
+<arg>sudo ovs-vsctl set-controller BR2 tcp:</arg>
+<arg>${CONTROLLER}</arg>
+<arg>:6633</arg>
+</arguments>
+<msg timestamp="20160210 20:01:00.885" level="INFO">${swcmd1} = sudo ovs-vsctl set-controller BR2 tcp:10.183.254.140:6633</msg>
+<status status="PASS" endtime="20160210 20:01:00.884" starttime="20160210 20:01:00.884"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Execute Command">
+<doc>Executes `command` on the remote machine and returns its outputs.</doc>
+<arguments>
+<arg>${swcmd1}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:00.885" level="INFO">Executing command 'sudo ovs-vsctl set-controller BR2 tcp:10.183.254.140:6633'.</msg>
+<msg timestamp="20160210 20:01:00.938" level="INFO">Command exited with return code 0.</msg>
+<status status="PASS" endtime="20160210 20:01:00.939" starttime="20160210 20:01:00.885"></status>
+</kw>
+<kw type="kw" name="${output} = SSHLibrary.Execute Command">
+<doc>Executes `command` on the remote machine and returns its outputs.</doc>
+<arguments>
+<arg>sudo ifconfig BR2 up</arg>
+</arguments>
+<msg timestamp="20160210 20:01:00.940" level="INFO">Executing command 'sudo ifconfig BR2 up'.</msg>
+<msg timestamp="20160210 20:01:00.983" level="INFO">Command exited with return code 0.</msg>
+<msg timestamp="20160210 20:01:00.983" level="INFO">${output} = </msg>
+<status status="PASS" endtime="20160210 20:01:00.983" starttime="20160210 20:01:00.939"></status>
+</kw>
+<kw type="kw" name="${swcmd1} = BuiltIn.Catenate">
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<arguments>
+<arg>SEPARATOR=</arg>
+<arg>sudo ovs-vsctl set-manager tcp:</arg>
+<arg>${CONTROLLER}</arg>
+<arg>:6640</arg>
+</arguments>
+<msg timestamp="20160210 20:01:00.984" level="INFO">${swcmd1} = sudo ovs-vsctl set-manager tcp:10.183.254.140:6640</msg>
+<status status="PASS" endtime="20160210 20:01:00.984" starttime="20160210 20:01:00.983"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Execute Command">
+<doc>Executes `command` on the remote machine and returns its outputs.</doc>
+<arguments>
+<arg>${swcmd1}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:00.984" level="INFO">Executing command 'sudo ovs-vsctl set-manager tcp:10.183.254.140:6640'.</msg>
+<msg timestamp="20160210 20:01:01.070" level="INFO">Command exited with return code 0.</msg>
+<status status="PASS" endtime="20160210 20:01:01.070" starttime="20160210 20:01:00.984"></status>
+</kw>
+<kw type="kw" name="${output} = SSHLibrary.Execute Command">
+<doc>Executes `command` on the remote machine and returns its outputs.</doc>
+<arguments>
+<arg>sudo ovs-vsctl show</arg>
+</arguments>
+<msg timestamp="20160210 20:01:01.071" level="INFO">Executing command 'sudo ovs-vsctl show'.</msg>
+<msg timestamp="20160210 20:01:01.124" level="INFO">Command exited with return code 0.</msg>
+<msg timestamp="20160210 20:01:01.124" level="INFO">${output} = 4e40b03d-084c-4d68-a596-171db9c5f719
+    Manager "tcp:10.183.254.140:6640"
+    Bridge "BR2"
+        Controller "tcp:10.183.254.140:6633"
+        Port "BR2"
+            Interface "BR2"
+                ...</msg>
+<status status="PASS" endtime="20160210 20:01:01.124" starttime="20160210 20:01:01.070"></status>
+</kw>
+<kw type="kw" name="${resp} = BuiltIn.Sleep">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>3</arg>
+</arguments>
+<msg timestamp="20160210 20:01:04.125" level="INFO">Slept 3 seconds</msg>
+<msg timestamp="20160210 20:01:04.126" level="INFO">${resp} = None</msg>
+<status status="PASS" endtime="20160210 20:01:04.126" starttime="20160210 20:01:01.124"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${output}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:04.126" level="INFO">4e40b03d-084c-4d68-a596-171db9c5f719
+    Manager "tcp:10.183.254.140:6640"
+    Bridge "BR2"
+        Controller "tcp:10.183.254.140:6633"
+        Port "BR2"
+            Interface "BR2"
+                type: internal
+    ovs_version: "2.4.0"</msg>
+<status status="PASS" endtime="20160210 20:01:04.126" starttime="20160210 20:01:04.126"></status>
+</kw>
+<kw type="kw" name="${resp} = Open Connection And Log In Server And Run Script">
+<doc></doc>
+<arguments>
+<arg>${OVS_HOST1}</arg>
+<arg>${OVS_HOST1_USER}</arg>
+<arg>${OVS_HOST1_PWD}</arg>
+<arg>${START_NS_SCRIPT}</arg>
+</arguments>
+<kw type="kw" name="${connection_handle} = SSHLibrary.Open Connection">
+<doc>Opens a new SSH connection to the given `host` and `port`.</doc>
+<arguments>
+<arg>${HOST}</arg>
+<arg>timeout=30s</arg>
+</arguments>
+<msg timestamp="20160210 20:01:04.129" level="INFO">${connection_handle} = 3</msg>
+<status status="PASS" endtime="20160210 20:01:04.129" starttime="20160210 20:01:04.128"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Set Client Configuration">
+<doc>Update the `configuration` of the current connection.</doc>
+<arguments>
+<arg>prompt=&gt;</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:04.129" starttime="20160210 20:01:04.129"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Login">
+<doc>Logs into the SSH server with the given `username` and `password`.</doc>
+<arguments>
+<arg>${USERNAME}</arg>
+<arg>${PASSWORD}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:04.130" level="INFO">Logging into '10.183.254.140:22' as 'mininet'.</msg>
+<msg timestamp="20160210 20:01:04.697" level="INFO">Read output: Welcome to Ubuntu 14.04.1 LTS (GNU/Linux 3.13.0-43-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+
+619 packages can be updated.
+317 updates are security updates.
+
+Last login: Wed Feb 10 20:00:55 2016 from 10.183.254.140
+mininet@mininet-vm:~\&gt;</msg>
+<status status="PASS" endtime="20160210 20:01:04.697" starttime="20160210 20:01:04.130"></status>
+</kw>
+<kw type="kw" name="${scriptcmd} = BuiltIn.Catenate">
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<arguments>
+<arg>SEPARATOR=</arg>
+<arg>${USER_HOME}</arg>
+<arg>${NS_SCRIPT_PATH}</arg>
+<arg>${scriptname}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:04.698" level="INFO">${scriptcmd} = /home/mininet/VPN/test/csit/scripts/ns_setup.sh</msg>
+<status status="PASS" endtime="20160210 20:01:04.698" starttime="20160210 20:01:04.698"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Write">
+<doc>Writes the given `text` on the remote machine and appends a newline.</doc>
+<arguments>
+<arg>${scriptcmd}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:04.716" level="INFO">/home/mininet/VPN/test/csit/scripts/ns_setup.sh</msg>
+<status status="PASS" endtime="20160210 20:01:04.716" starttime="20160210 20:01:04.698"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Set Client Configuration">
+<doc>Update the `configuration` of the current connection.</doc>
+<arguments>
+<arg>prompt=&gt;</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:04.717" starttime="20160210 20:01:04.717"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${scriptcmd}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:04.718" starttime="20160210 20:01:04.717"></status>
+</kw>
+<kw type="kw" name="${output} = SSHLibrary.Read Until Prompt">
+<doc>Consumes and returns the server output until the prompt is found.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20160210 20:01:06.372" level="INFO">seting the network namespace "ns2" failed: Operation not permitted
+ovs-ofctl: BR2 is not a bridge or a socket
+ns2
+ns1
+1: lo: &lt;LOOPBACK&gt;</msg>
+<msg timestamp="20160210 20:01:06.372" level="INFO">${output} = seting the network namespace "ns2" failed: Operation not permitted
+ovs-ofctl: BR2 is not a bridge or a socket
+ns2
+ns1
+1: lo: &lt;LOOPBACK&gt;</msg>
+<status status="PASS" endtime="20160210 20:01:06.372" starttime="20160210 20:01:04.718"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Close Connection">
+<doc>Closes the current connection.</doc>
+<arguments>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:06.437" starttime="20160210 20:01:06.372"></status>
+</kw>
+<msg timestamp="20160210 20:01:06.437" level="INFO">${resp} = seting the network namespace "ns2" failed: Operation not permitted
+ovs-ofctl: BR2 is not a bridge or a socket
+ns2
+ns1
+1: lo: &lt;LOOPBACK&gt;</msg>
+<status status="PASS" endtime="20160210 20:01:06.437" starttime="20160210 20:01:04.127"></status>
+</kw>
+<kw type="kw" name="${resp} = Open Connection And Log In Server And Run Script">
+<doc></doc>
+<arguments>
+<arg>${OVS_HOST2}</arg>
+<arg>${OVS_HOST2_USER}</arg>
+<arg>${OVS_HOST2_PWD}</arg>
+<arg>${START_NS_SCRIPT}</arg>
+</arguments>
+<kw type="kw" name="${connection_handle} = SSHLibrary.Open Connection">
+<doc>Opens a new SSH connection to the given `host` and `port`.</doc>
+<arguments>
+<arg>${HOST}</arg>
+<arg>timeout=30s</arg>
+</arguments>
+<msg timestamp="20160210 20:01:06.440" level="INFO">${connection_handle} = 4</msg>
+<status status="PASS" endtime="20160210 20:01:06.440" starttime="20160210 20:01:06.440"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Set Client Configuration">
+<doc>Update the `configuration` of the current connection.</doc>
+<arguments>
+<arg>prompt=&gt;</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:06.441" starttime="20160210 20:01:06.440"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Login">
+<doc>Logs into the SSH server with the given `username` and `password`.</doc>
+<arguments>
+<arg>${USERNAME}</arg>
+<arg>${PASSWORD}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:06.441" level="INFO">Logging into '10.183.254.141:22' as 'mininet'.</msg>
+<msg timestamp="20160210 20:01:06.735" level="INFO">Read output: Welcome to Ubuntu 14.04.1 LTS (GNU/Linux 3.13.0-43-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+
+Last login: Wed Feb 10 20:01:00 2016 from 10.183.254.140
+mininet@mininet-vm:~\&gt;</msg>
+<status status="PASS" endtime="20160210 20:01:06.735" starttime="20160210 20:01:06.441"></status>
+</kw>
+<kw type="kw" name="${scriptcmd} = BuiltIn.Catenate">
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<arguments>
+<arg>SEPARATOR=</arg>
+<arg>${USER_HOME}</arg>
+<arg>${NS_SCRIPT_PATH}</arg>
+<arg>${scriptname}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:06.736" level="INFO">${scriptcmd} = /home/mininet/VPN/test/csit/scripts/ns_setup.sh</msg>
+<status status="PASS" endtime="20160210 20:01:06.736" starttime="20160210 20:01:06.736"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Write">
+<doc>Writes the given `text` on the remote machine and appends a newline.</doc>
+<arguments>
+<arg>${scriptcmd}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:06.762" level="INFO">/home/mininet/VPN/test/csit/scripts/ns_setup.sh</msg>
+<status status="PASS" endtime="20160210 20:01:06.762" starttime="20160210 20:01:06.737"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Set Client Configuration">
+<doc>Update the `configuration` of the current connection.</doc>
+<arguments>
+<arg>prompt=&gt;</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:06.763" starttime="20160210 20:01:06.762"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${scriptcmd}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:06.763" starttime="20160210 20:01:06.763"></status>
+</kw>
+<kw type="kw" name="${output} = SSHLibrary.Read Until Prompt">
+<doc>Consumes and returns the server output until the prompt is found.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20160210 20:01:07.210" level="INFO">OFPST_FLOW reply (OF1.3) (xid=0x2):
+ cookie=0x6800000, duration=5.540s, table=16, n_packets=0, n_bytes=0, priority=0 actions=goto_table:17
+ cookie=0x1030000, duration=6.196s, table=20, n_packets=0, n_bytes=0, priority=0 actions=goto_table:80
+ cookie=0x8000003, duration=5.540s, table=21, n_packets=0, n_bytes=0, priority=0 actions=goto_table:80
+ cookie=0x8050000, duration=5.540s, table=50, n_packets=0, n_bytes=0, priority=0 actions=CONTROLLER:65535,goto_table:51
+ cookie=0x8030000, duration=5.540s, table=51, n_packets=0, n_bytes=0, priority=0 actions=goto_table:52
+ns4
+ns3
+Cannot open network namespace "ns2": No such file or directory
+Cannot open network namespace "ns2": No such file or directory
+mininet@mininet-vm:~\&gt;</msg>
+<msg timestamp="20160210 20:01:07.210" level="INFO">${output} = OFPST_FLOW reply (OF1.3) (xid=0x2):
+ cookie=0x6800000, duration=5.540s, table=16, n_packets=0, n_bytes=0, priority=0 actions=goto_table:17
+ cookie=0x1030000, duration=6.196s, table=20, n_packets=0, ...</msg>
+<status status="PASS" endtime="20160210 20:01:07.210" starttime="20160210 20:01:06.763"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Close Connection">
+<doc>Closes the current connection.</doc>
+<arguments>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:07.325" starttime="20160210 20:01:07.210"></status>
+</kw>
+<msg timestamp="20160210 20:01:07.325" level="INFO">${resp} = OFPST_FLOW reply (OF1.3) (xid=0x2):
+ cookie=0x6800000, duration=5.540s, table=16, n_packets=0, n_bytes=0, priority=0 actions=goto_table:17
+ cookie=0x1030000, duration=6.196s, table=20, n_packets=0, ...</msg>
+<status status="PASS" endtime="20160210 20:01:07.325" starttime="20160210 20:01:06.438"></status>
+</kw>
+<kw type="kw" name="${resp} = ops1.Delete All Net">
+<doc>Delete all Network,subnet,port configuration on the node.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20160210 20:01:07.344" level="INFO">Starting new HTTP connection (1): 10.183.254.140</msg>
+<msg timestamp="20160210 20:01:08.319" level="INFO">===================Deleting the Ports++++++++++++++++++++++
+All neutron ports: {
+   "ports" : [ ]
+}
+[]
+===================Deleting the Subnets++++++++++++++++++++++
+{
+   "subnets" : [ ]
+}
+All sub networks {
+   "subnets" : [ ]
+}
+[]
+===================Deleting the Networks++++++++++++++++++++++
+All networks {
+   "networks" : [ ]
+}
+[]</msg>
+<msg timestamp="20160210 20:01:08.320" level="INFO">${resp} = 0</msg>
+<status status="PASS" endtime="20160210 20:01:08.319" starttime="20160210 20:01:07.325"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.320" level="INFO">0</msg>
+<status status="PASS" endtime="20160210 20:01:08.320" starttime="20160210 20:01:08.320"></status>
+</kw>
+<status status="PASS" endtime="20160210 20:01:08.320" starttime="20160210 20:00:55.146"></status>
+</kw>
+<suite source="/home/mininet/VPN/test/csit/suites/vpnservice/02_odl_vpn_service.robot" id="s1-s1" name="02 Odl Vpn Service">
+<test id="s1-s1-t1" name="TC01 Verify TUNNEL creation">
+<kw type="kw" name="${exp_result} = BuiltIn.Convert To Integer">
+<doc>Converts the given item to an integer number.</doc>
+<arguments>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.377" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20160210 20:01:08.377" level="INFO">${exp_result} = 0</msg>
+<status status="PASS" endtime="20160210 20:01:08.377" starttime="20160210 20:01:08.377"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>"Get the dpn ids"</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.378" level="INFO">"Get the dpn ids"</msg>
+<status status="PASS" endtime="20160210 20:01:08.378" starttime="20160210 20:01:08.378"></status>
+</kw>
+<kw type="kw" name="${resp} = vpn.Create Tunnel">
+<doc>It creates gre tunnel .parameters are as shown below.</doc>
+<arguments>
+<arg>srcip=${MININET}</arg>
+<arg>dstip=${MININET1}</arg>
+<arg>srcbr=${BRIDGE1}</arg>
+<arg>dstbr=${BRIDGE2}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.379" level="INFO">Starting new HTTP connection (1): 10.183.254.140</msg>
+<msg timestamp="20160210 20:01:08.459" level="INFO">srcip == 10.183.254.140
+dstip == 10.183.254.141
+dstbr == BR2
+srcbr == BR1
+Response is &lt;Response [200]&gt;
+Response Content is {"bridge-ref-info":{"bridge-ref-entry":[{"dpid":200113405966155,"bridge-reference":"/network-topology:network-topology/network-topology:topology[network-topology:topology-id='ovsdb:1']/network-topology:node[network-topology:node-id='ovsdb://uuid/4e40b03d-084c-4d68-a596-171db9c5f719/bridge/BR2']"},{"dpid":37655691605835,"bridge-reference":"/network-topology:network-topology/network-topology:topology[network-topology:topology-id='ovsdb:1']/network-topology:node[network-topology:node-id='ovsdb://uuid/8625e529-b120-425d-ae73-39757be6e38b/bridge/BR1']"}]}}
+Response Code is 200
+ bridge-reference
+ /network-topology:network-topology/network-topology:topology[network-topology:topology-id='ovsdb:1']/network-topology:node[network-topology:node-id='ovsdb://uuid/4e40b03d-084c-4d68-a596-171db9c5f719/bridge/BR2']
+ dpid
+ 200113405966155
+ bridge-reference
+ /network-topology:network-topology/network-topology:topology[network-topology:topology-id='ovsdb:1']/network-topology:node[network-topology:node-id='ovsdb://uuid/8625e529-b120-425d-ae73-39757be6e38b/bridge/BR1']
+Dpn id is 37655691605835
+Response is &lt;Response [200]&gt;
+Response Content is {"bridge-ref-info":{"bridge-ref-entry":[{"dpid":200113405966155,"bridge-reference":"/network-topology:network-topology/network-topology:topology[network-topology:topology-id='ovsdb:1']/network-topology:node[network-topology:node-id='ovsdb://uuid/4e40b03d-084c-4d68-a596-171db9c5f719/bridge/BR2']"},{"dpid":37655691605835,"bridge-reference":"/network-topology:network-topology/network-topology:topology[network-topology:topology-id='ovsdb:1']/network-topology:node[network-topology:node-id='ovsdb://uuid/8625e529-b120-425d-ae73-39757be6e38b/bridge/BR1']"}]}}
+Response Code is 200
+ bridge-reference
+ /network-topology:network-topology/network-topology:topology[network-topology:topology-id='ovsdb:1']/network-topology:node[network-topology:node-id='ovsdb://uuid/4e40b03d-084c-4d68-a596-171db9c5f719/bridge/BR2']
+Dpn id is 200113405966155
+JASON structure of neutron_network {'transport-zone': [{'subnets': [{'vlan-id': 0, 'vteps': [{'portname': 'phy0', 'dpn-id': 37655691605835, 'ip-address': '10.183.254.140'}, {'portname': 'phy1', 'dpn-id': 200113405966155, 'ip-address': '10.183.254.141'}], 'prefix': '10.183.254.0/24', 'gateway-ip': '0.0.0.0'}], 'tunnel-type': 'odl-interface:tunnel-type-gre', 'zone-name': 'TZA'}]}
+Response Content is 
+Response Code is 204
+Create gre tunnel is SUCCESS</msg>
+<msg timestamp="20160210 20:01:08.459" level="INFO">${resp} = 0</msg>
+<status status="PASS" endtime="20160210 20:01:08.459" starttime="20160210 20:01:08.378"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:08.460" starttime="20160210 20:01:08.460"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${resp}</arg>
+<arg>${exp_result}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.460" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'int'&gt;</msg>
+<status status="PASS" endtime="20160210 20:01:08.461" starttime="20160210 20:01:08.460"></status>
+</kw>
+<doc>Verify Tunnel creation</doc>
+<tags>
+</tags>
+<status status="PASS" endtime="20160210 20:01:08.461" critical="yes" starttime="20160210 20:01:08.375"></status>
+</test>
+<test id="s1-s1-t2" name="TC02 Verify neutron network creation">
+<kw type="kw" name="${exp_result} = BuiltIn.Convert To Integer">
+<doc>Converts the given item to an integer number.</doc>
+<arguments>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.463" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20160210 20:01:08.463" level="INFO">${exp_result} = 0</msg>
+<status status="PASS" endtime="20160210 20:01:08.463" starttime="20160210 20:01:08.463"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>"Creating Network"</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.464" level="INFO">"Creating Network"</msg>
+<status status="PASS" endtime="20160210 20:01:08.464" starttime="20160210 20:01:08.463"></status>
+</kw>
+<kw type="kw" name="${res} = vpn.Create Network">
+<doc>It creates the network with given name. interface parameters are as shown below.</doc>
+<arguments>
+<arg>${NEUTRON_NETWORK1}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.465" level="INFO">Starting new HTTP connection (1): 10.183.254.140</msg>
+<msg timestamp="20160210 20:01:08.549" level="INFO">JASON structure of neutron_network {'network': {'status': 'ACTIVE', 'subnets': [], 'id': '12809f83-ccdf-422c-a20a-4ddae0710001', 'provider:segmentation_id': None, 'router:external': 'false', 'name': 'mynetwork1', 'admin_state_up': 'true', 'tenant_id': '6c53df3a-3456-11e5-a151-feff819cdc9f', 'provider:network_type': 'local', 'vlan_transparent': 'false', 'shared': 'false'}}
+Response Content is {
+   "network" : {
+      "id" : "12809f83-ccdf-422c-a20a-4ddae0710001",
+      "tenant_id" : "6c53df3a-3456-11e5-a151-feff819cdc9f",
+      "name" : "mynetwork1",
+      "admin_state_up" : true,
+      "shared" : false,
+      "router:external" : false,
+      "provider:network_type" : "local",
+      "status" : "ACTIVE",
+      "vlan_transparent" : false
+   }
+}
+Response Code is 201
+Create Network is SUCCESS for uuid 12809f83-ccdf-422c-a20a-4ddae0710001
+Network List {'12809f83-ccdf-422c-a20a-4ddae0710001': []}
+Netname List {'mynetwork1': '12809f83-ccdf-422c-a20a-4ddae0710001'}</msg>
+<msg timestamp="20160210 20:01:08.549" level="INFO">${res} = 0</msg>
+<status status="PASS" endtime="20160210 20:01:08.549" starttime="20160210 20:01:08.464"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${res}</arg>
+<arg>${exp_result}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.550" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'int'&gt;</msg>
+<status status="PASS" endtime="20160210 20:01:08.550" starttime="20160210 20:01:08.549"></status>
+</kw>
+<kw type="kw" name="${res} = vpn.Create Network">
+<doc>It creates the network with given name. interface parameters are as shown below.</doc>
+<arguments>
+<arg>${NEUTRON_NETWORK2}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.561" level="INFO">JASON structure of neutron_network {'network': {'status': 'ACTIVE', 'subnets': [], 'id': '12809f83-ccdf-422c-a20a-4ddae0710002', 'provider:segmentation_id': None, 'router:external': 'false', 'name': 'mynetwork2', 'admin_state_up': 'true', 'tenant_id': '6c53df3a-3456-11e5-a151-feff819cdc9f', 'provider:network_type': 'local', 'vlan_transparent': 'false', 'shared': 'false'}}
+Response Content is {
+   "network" : {
+      "id" : "12809f83-ccdf-422c-a20a-4ddae0710002",
+      "tenant_id" : "6c53df3a-3456-11e5-a151-feff819cdc9f",
+      "name" : "mynetwork2",
+      "admin_state_up" : true,
+      "shared" : false,
+      "router:external" : false,
+      "provider:network_type" : "local",
+      "status" : "ACTIVE",
+      "vlan_transparent" : false
+   }
+}
+Response Code is 201
+Create Network is SUCCESS for uuid 12809f83-ccdf-422c-a20a-4ddae0710002
+Network List {'12809f83-ccdf-422c-a20a-4ddae0710002': [], '12809f83-ccdf-422c-a20a-4ddae0710001': []}
+Netname List {'mynetwork2': '12809f83-ccdf-422c-a20a-4ddae0710002', 'mynetwork1': '12809f83-ccdf-422c-a20a-4ddae0710001'}</msg>
+<msg timestamp="20160210 20:01:08.562" level="INFO">${res} = 0</msg>
+<status status="PASS" endtime="20160210 20:01:08.562" starttime="20160210 20:01:08.550"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${res}</arg>
+<arg>${exp_result}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.562" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'int'&gt;</msg>
+<status status="PASS" endtime="20160210 20:01:08.562" starttime="20160210 20:01:08.562"></status>
+</kw>
+<doc>Verify neutron network creation</doc>
+<tags>
+</tags>
+<status status="PASS" endtime="20160210 20:01:08.563" critical="yes" starttime="20160210 20:01:08.461"></status>
+</test>
+<test id="s1-s1-t3" name="TC03 Verify fetching available network">
+<kw type="kw" name="${exp_result} = BuiltIn.Convert To Integer">
+<doc>Converts the given item to an integer number.</doc>
+<arguments>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.565" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20160210 20:01:08.565" level="INFO">${exp_result} = 0</msg>
+<status status="PASS" endtime="20160210 20:01:08.565" starttime="20160210 20:01:08.565"></status>
+</kw>
+<kw type="kw" name="${result} = BuiltIn.Convert To Integer">
+<doc>Converts the given item to an integer number.</doc>
+<arguments>
+<arg>1</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.565" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20160210 20:01:08.566" level="INFO">${result} = 1</msg>
+<status status="PASS" endtime="20160210 20:01:08.565" starttime="20160210 20:01:08.565"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>"Fetching Network Inmformation"</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.566" level="INFO">"Fetching Network Inmformation"</msg>
+<status status="PASS" endtime="20160210 20:01:08.566" starttime="20160210 20:01:08.566"></status>
+</kw>
+<kw type="kw" name="${resp} = vpn.Get Networks">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20160210 20:01:08.574" level="INFO">All networks {
+   "networks" : [ {
+      "id" : "12809f83-ccdf-422c-a20a-4ddae0710001",
+      "tenant_id" : "6c53df3a345611e5a151feff819cdc9f",
+      "name" : "mynetwork1",
+      "admin_state_up" : true,
+      "shared" : false,
+      "router:external" : false,
+      "status" : "ACTIVE",
+      "segments" : [ ]
+   }, {
+      "id" : "12809f83-ccdf-422c-a20a-4ddae0710002",
+      "tenant_id" : "6c53df3a345611e5a151feff819cdc9f",
+      "name" : "mynetwork2",
+      "admin_state_up" : true,
+      "shared" : false,
+      "router:external" : false,
+      "status" : "ACTIVE",
+      "segments" : [ ]
+   } ]
+}</msg>
+<msg timestamp="20160210 20:01:08.574" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20160210 20:01:08.574" starttime="20160210 20:01:08.566"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:08.574" starttime="20160210 20:01:08.574"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.content}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.575" level="INFO">{
+   "networks" : [ {
+      "id" : "12809f83-ccdf-422c-a20a-4ddae0710001",
+      "tenant_id" : "6c53df3a345611e5a151feff819cdc9f",
+      "name" : "mynetwork1",
+      "admin_state_up" : true,
+      "shared" : false,
+      "router:external" : false,
+      "status" : "ACTIVE",
+      "segments" : [ ]
+   }, {
+      "id" : "12809f83-ccdf-422c-a20a-4ddae0710002",
+      "tenant_id" : "6c53df3a345611e5a151feff819cdc9f",
+      "name" : "mynetwork2",
+      "admin_state_up" : true,
+      "shared" : false,
+      "router:external" : false,
+      "status" : "ACTIVE",
+      "segments" : [ ]
+   } ]
+}</msg>
+<status status="PASS" endtime="20160210 20:01:08.575" starttime="20160210 20:01:08.575"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.576" level="INFO">200</msg>
+<status status="PASS" endtime="20160210 20:01:08.576" starttime="20160210 20:01:08.575"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal As Strings">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+<arg>${GET_RESP_CODE}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.576" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20160210 20:01:08.576" starttime="20160210 20:01:08.576"></status>
+</kw>
+<doc>Verify fetching available network</doc>
+<tags>
+<tag>Get</tag>
+</tags>
+<status status="PASS" endtime="20160210 20:01:08.577" critical="yes" starttime="20160210 20:01:08.563"></status>
+</test>
+<test id="s1-s1-t4" name="TC04 Verify neutron subnet creation">
+<kw type="kw" name="${exp_result} = BuiltIn.Convert To Integer">
+<doc>Converts the given item to an integer number.</doc>
+<arguments>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.579" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20160210 20:01:08.579" level="INFO">${exp_result} = 0</msg>
+<status status="PASS" endtime="20160210 20:01:08.579" starttime="20160210 20:01:08.579"></status>
+</kw>
+<kw type="kw" name="${result} = BuiltIn.Convert To Integer">
+<doc>Converts the given item to an integer number.</doc>
+<arguments>
+<arg>1</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.580" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20160210 20:01:08.580" level="INFO">${result} = 1</msg>
+<status status="PASS" endtime="20160210 20:01:08.580" starttime="20160210 20:01:08.579"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>"Creating the Subnet"</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.580" level="INFO">"Creating the Subnet"</msg>
+<status status="PASS" endtime="20160210 20:01:08.580" starttime="20160210 20:01:08.580"></status>
+</kw>
+<kw type="kw" name="${res} = vpn.Create Subnet">
+<doc>It creates the sub network with given name. interface parameters are as shown below.</doc>
+<arguments>
+<arg>${NEUTRON_NETWORK1}</arg>
+<arg>${NEUTRON_SUBNET1}</arg>
+<arg>${NEUTRON_IPSUBNET1}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.643" level="INFO">Network List :  {'12809f83-ccdf-422c-a20a-4ddae0710002': [], '12809f83-ccdf-422c-a20a-4ddae0710001': ['6c496958-a787-4d8c-9465-f4c417660001']}
+JSON value of neutron_subnet {'subnet': {'ipv6_ra_mode': 'null', 'allocation_pools': [{'start': '20.1.1.2', 'end': '20.1.1.254'}], 'host_routes': [], 'ipv6_address_mode': 'null', 'cidr': '20.1.1.0/24', 'id': '6c496958-a787-4d8c-9465-f4c417660001', 'name': 'mysubnet1', 'enable_dhcp': 'true', 'network_id': '12809f83-ccdf-422c-a20a-4ddae0710001', 'tenant_id': '6c53df3a-3456-11e5-a151-feff819cdc9f', 'dns_nameservers': [], 'gateway_ip': '20.1.1.1', 'ip_version': 4}}
+Subnet Info: {
+   "subnet" : {
+      "id" : "6c496958-a787-4d8c-9465-f4c417660001",
+      "tenant_id" : "6c53df3a-3456-11e5-a151-feff819cdc9f",
+      "network_id" : "12809f83-ccdf-422c-a20a-4ddae0710001",
+      "name" : "mysubnet1",
+      "ip_version" : 4,
+      "cidr" : "20.1.1.0/24",
+      "gateway_ip" : "20.1.1.1",
+      "dns_nameservers" : [ ],
+      "allocation_pools" : [ {
+         "start" : "20.1.1.2",
+         "end" : "20.1.1.254"
+      } ],
+      "host_routes" : [ ],
+      "enable_dhcp" : true,
+      "ipv6_address_mode" : "null",
+      "ipv6_ra_mode" : "null"
+   }
+}
+Status Code is: 201
+Create SubNetwork with uuid 6c496958-a787-4d8c-9465-f4c417660001   is success</msg>
+<msg timestamp="20160210 20:01:08.643" level="INFO">${res} = 0</msg>
+<status status="PASS" endtime="20160210 20:01:08.643" starttime="20160210 20:01:08.581"></status>
+</kw>
+<kw type="kw" name="${res} = vpn.Create Subnet">
+<doc>It creates the sub network with given name. interface parameters are as shown below.</doc>
+<arguments>
+<arg>${NEUTRON_NETWORK2}</arg>
+<arg>${NEUTRON_SUBNET2}</arg>
+<arg>${NEUTRON_IPSUBNET2}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.655" level="INFO">Network List :  {'12809f83-ccdf-422c-a20a-4ddae0710002': ['6c496958-a787-4d8c-9465-f4c417660002'], '12809f83-ccdf-422c-a20a-4ddae0710001': ['6c496958-a787-4d8c-9465-f4c417660001']}
+JSON value of neutron_subnet {'subnet': {'ipv6_ra_mode': 'null', 'allocation_pools': [{'start': '30.1.1.2', 'end': '30.1.1.254'}], 'host_routes': [], 'ipv6_address_mode': 'null', 'cidr': '30.1.1.0/24', 'id': '6c496958-a787-4d8c-9465-f4c417660002', 'name': 'mysubnet2', 'enable_dhcp': 'true', 'network_id': '12809f83-ccdf-422c-a20a-4ddae0710002', 'tenant_id': '6c53df3a-3456-11e5-a151-feff819cdc9f', 'dns_nameservers': [], 'gateway_ip': '30.1.1.1', 'ip_version': 4}}
+Subnet Info: {
+   "subnet" : {
+      "id" : "6c496958-a787-4d8c-9465-f4c417660002",
+      "tenant_id" : "6c53df3a-3456-11e5-a151-feff819cdc9f",
+      "network_id" : "12809f83-ccdf-422c-a20a-4ddae0710002",
+      "name" : "mysubnet2",
+      "ip_version" : 4,
+      "cidr" : "30.1.1.0/24",
+      "gateway_ip" : "30.1.1.1",
+      "dns_nameservers" : [ ],
+      "allocation_pools" : [ {
+         "start" : "30.1.1.2",
+         "end" : "30.1.1.254"
+      } ],
+      "host_routes" : [ ],
+      "enable_dhcp" : true,
+      "ipv6_address_mode" : "null",
+      "ipv6_ra_mode" : "null"
+   }
+}
+Status Code is: 201
+Create SubNetwork with uuid 6c496958-a787-4d8c-9465-f4c417660002   is success</msg>
+<msg timestamp="20160210 20:01:08.655" level="INFO">${res} = 0</msg>
+<status status="PASS" endtime="20160210 20:01:08.655" starttime="20160210 20:01:08.644"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${res}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:08.656" starttime="20160210 20:01:08.656"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${res}</arg>
+<arg>${exp_result}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.656" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'int'&gt;</msg>
+<status status="PASS" endtime="20160210 20:01:08.657" starttime="20160210 20:01:08.656"></status>
+</kw>
+<doc>Verify neutron subnet creation</doc>
+<tags>
+<tag>Post</tag>
+</tags>
+<status status="PASS" endtime="20160210 20:01:08.657" critical="yes" starttime="20160210 20:01:08.577"></status>
+</test>
+<test id="s1-s1-t5" name="TC05 Verify fetching available subnet">
+<kw type="kw" name="${exp_result} = BuiltIn.Convert To Integer">
+<doc>Converts the given item to an integer number.</doc>
+<arguments>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.659" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20160210 20:01:08.659" level="INFO">${exp_result} = 0</msg>
+<status status="PASS" endtime="20160210 20:01:08.659" starttime="20160210 20:01:08.659"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>"Fetching Subnet Information"</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.660" level="INFO">"Fetching Subnet Information"</msg>
+<status status="PASS" endtime="20160210 20:01:08.660" starttime="20160210 20:01:08.660"></status>
+</kw>
+<kw type="kw" name="${resp} = vpn.Get Subnets">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20160210 20:01:08.668" level="INFO">{
+   "subnets" : [ {
+      "id" : "6c496958-a787-4d8c-9465-f4c417660001",
+      "tenant_id" : "6c53df3a345611e5a151feff819cdc9f",
+      "network_id" : "12809f83-ccdf-422c-a20a-4ddae0710001",
+      "name" : "mysubnet1",
+      "ip_version" : 4,
+      "cidr" : "20.1.1.0/24",
+      "gateway_ip" : "20.1.1.1",
+      "dns_nameservers" : [ ],
+      "allocation_pools" : [ {
+         "start" : "20.1.1.2",
+         "end" : "20.1.1.254"
+      } ],
+      "host_routes" : [ ],
+      "enable_dhcp" : true,
+      "ipv6_address_mode" : null,
+      "ipv6_ra_mode" : null
+   }, {
+      "id" : "6c496958-a787-4d8c-9465-f4c417660002",
+      "tenant_id" : "6c53df3a345611e5a151feff819cdc9f",
+      "network_id" : "12809f83-ccdf-422c-a20a-4ddae0710002",
+      "name" : "mysubnet2",
+      "ip_version" : 4,
+      "cidr" : "30.1.1.0/24",
+      "gateway_ip" : "30.1.1.1",
+      "dns_nameservers" : [ ],
+      "allocation_pools" : [ {
+         "start" : "30.1.1.2",
+         "end" : "30.1.1.254"
+      } ],
+      "host_routes" : [ ],
+      "enable_dhcp" : true,
+      "ipv6_address_mode" : null,
+      "ipv6_ra_mode" : null
+   } ]
+}
+All sub networks {
+   "subnets" : [ {
+      "id" : "6c496958-a787-4d8c-9465-f4c417660001",
+      "tenant_id" : "6c53df3a345611e5a151feff819cdc9f",
+      "network_id" : "12809f83-ccdf-422c-a20a-4ddae0710001",
+      "name" : "mysubnet1",
+      "ip_version" : 4,
+      "cidr" : "20.1.1.0/24",
+      "gateway_ip" : "20.1.1.1",
+      "dns_nameservers" : [ ],
+      "allocation_pools" : [ {
+         "start" : "20.1.1.2",
+         "end" : "20.1.1.254"
+      } ],
+      "host_routes" : [ ],
+      "enable_dhcp" : true,
+      "ipv6_address_mode" : null,
+      "ipv6_ra_mode" : null
+   }, {
+      "id" : "6c496958-a787-4d8c-9465-f4c417660002",
+      "tenant_id" : "6c53df3a345611e5a151feff819cdc9f",
+      "network_id" : "12809f83-ccdf-422c-a20a-4ddae0710002",
+      "name" : "mysubnet2",
+      "ip_version" : 4,
+      "cidr" : "30.1.1.0/24",
+      "gateway_ip" : "30.1.1.1",
+      "dns_nameservers" : [ ],
+      "allocation_pools" : [ {
+         "start" : "30.1.1.2",
+         "end" : "30.1.1.254"
+      } ],
+      "host_routes" : [ ],
+      "enable_dhcp" : true,
+      "ipv6_address_mode" : null,
+      "ipv6_ra_mode" : null
+   } ]
+}</msg>
+<msg timestamp="20160210 20:01:08.668" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20160210 20:01:08.668" starttime="20160210 20:01:08.660"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:08.669" starttime="20160210 20:01:08.668"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:08.669" starttime="20160210 20:01:08.669"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.content}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.670" level="INFO">{
+   "subnets" : [ {
+      "id" : "6c496958-a787-4d8c-9465-f4c417660001",
+      "tenant_id" : "6c53df3a345611e5a151feff819cdc9f",
+      "network_id" : "12809f83-ccdf-422c-a20a-4ddae0710001",
+      "name" : "mysubnet1",
+      "ip_version" : 4,
+      "cidr" : "20.1.1.0/24",
+      "gateway_ip" : "20.1.1.1",
+      "dns_nameservers" : [ ],
+      "allocation_pools" : [ {
+         "start" : "20.1.1.2",
+         "end" : "20.1.1.254"
+      } ],
+      "host_routes" : [ ],
+      "enable_dhcp" : true,
+      "ipv6_address_mode" : null,
+      "ipv6_ra_mode" : null
+   }, {
+      "id" : "6c496958-a787-4d8c-9465-f4c417660002",
+      "tenant_id" : "6c53df3a345611e5a151feff819cdc9f",
+      "network_id" : "12809f83-ccdf-422c-a20a-4ddae0710002",
+      "name" : "mysubnet2",
+      "ip_version" : 4,
+      "cidr" : "30.1.1.0/24",
+      "gateway_ip" : "30.1.1.1",
+      "dns_nameservers" : [ ],
+      "allocation_pools" : [ {
+         "start" : "30.1.1.2",
+         "end" : "30.1.1.254"
+      } ],
+      "host_routes" : [ ],
+      "enable_dhcp" : true,
+      "ipv6_address_mode" : null,
+      "ipv6_ra_mode" : null
+   } ]
+}</msg>
+<status status="PASS" endtime="20160210 20:01:08.670" starttime="20160210 20:01:08.669"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.670" level="INFO">200</msg>
+<status status="PASS" endtime="20160210 20:01:08.670" starttime="20160210 20:01:08.670"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal As Strings">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+<arg>${GET_RESP_CODE}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.671" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20160210 20:01:08.671" starttime="20160210 20:01:08.671"></status>
+</kw>
+<doc>Verify fetching available subnet</doc>
+<tags>
+<tag>Get</tag>
+</tags>
+<status status="PASS" endtime="20160210 20:01:08.671" critical="yes" starttime="20160210 20:01:08.657"></status>
+</test>
+<test id="s1-s1-t6" name="TC06 Verify neutron port creation">
+<kw type="kw" name="${exp_result} = BuiltIn.Convert To Integer">
+<doc>Converts the given item to an integer number.</doc>
+<arguments>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.674" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20160210 20:01:08.674" level="INFO">${exp_result} = 0</msg>
+<status status="PASS" endtime="20160210 20:01:08.674" starttime="20160210 20:01:08.674"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>"Verify neutron port creation"</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.675" level="INFO">"Verify neutron port creation"</msg>
+<status status="PASS" endtime="20160210 20:01:08.675" starttime="20160210 20:01:08.674"></status>
+</kw>
+<kw type="kw" name="${res} = vpn.Create Port">
+<doc>It creates the port with given name. interface parameters are as shown below.</doc>
+<arguments>
+<arg>${NEUTRON_NETWORK1}</arg>
+<arg>${NEUTRON_PORT1}</arg>
+<arg>mac=${NEUTRON_PORT1_MAC}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.745" level="INFO">mac == 00:16:3E:19:F7:8B
+Subnet id List is ['6c496958-a787-4d8c-9465-f4c417660001']
+Subnet Name List is {'mysubnet2': '6c496958-a787-4d8c-9465-f4c417660002', 'mysubnet1': '6c496958-a787-4d8c-9465-f4c417660001'}
+IP List is 20.1.1.0/24
+Port MAC address is 00:16:3E:19:F7:8B
+Port Device id is 20e500c3-41e1-4be0-b854-55c710a10001
+Neutron port IP address 20.1.1.2
+Tap port info tap79ad0001-19
+Tap port name list info {'myport1': 'tap79ad0001-19'}
+JSON value of neutron_port {'port': {'name': 'myport1', 'admin_state_up': 'true', 'network_id': '12809f83-ccdf-422c-a20a-4ddae0710001', 'tenant_id': '6c53df3a-3456-11e5-a151-feff819cdc9f', 'mac_address': '00:16:3E:19:F7:8B', 'fixed_ips': [{'subnet_id': '6c496958-a787-4d8c-9465-f4c417660001', 'ip_address': '20.1.1.2'}], 'id': '79ad0001-19e0-489c-9505-cc70f9eb0001'}}
+/controller/nb/v2/neutron/ports/
+Response Info: &lt;Response [201]&gt;
+Port Resp Status code: 201
+Port Info: {
+   "port" : {
+      "id" : "79ad0001-19e0-489c-9505-cc70f9eb0001",
+      "tenant_id" : "6c53df3a-3456-11e5-a151-feff819cdc9f",
+      "network_id" : "12809f83-ccdf-422c-a20a-4ddae0710001",
+      "name" : "myport1",
+      "admin_state_up" : true,
+      "status" : "ACTIVE",
+      "mac_address" : "00:16:3E:19:F7:8B",
+      "fixed_ips" : [ {
+         "ip_address" : "20.1.1.2",
+         "subnet_id" : "6c496958-a787-4d8c-9465-f4c417660001"
+      } ]
+   }
+}
+Port name list: {'myport1': '79ad0001-19e0-489c-9505-cc70f9eb0001'}
+Port Mac list: {'79ad0001-19e0-489c-9505-cc70f9eb0001': '00:16:3E:19:F7:8B'}
+Create Neutron Port with uuid 79ad0001-19e0-489c-9505-cc70f9eb0001   is success</msg>
+<msg timestamp="20160210 20:01:08.745" level="INFO">${res} = 0</msg>
+<status status="PASS" endtime="20160210 20:01:08.745" starttime="20160210 20:01:08.675"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${res}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:08.746" starttime="20160210 20:01:08.745"></status>
+</kw>
+<kw type="kw" name="${res} = vpn.Create Port">
+<doc>It creates the port with given name. interface parameters are as shown below.</doc>
+<arguments>
+<arg>${NEUTRON_NETWORK1}</arg>
+<arg>${NEUTRON_PORT2}</arg>
+<arg>mac=${NEUTRON_PORT2_MAC}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.759" level="INFO">mac == 00:16:3E:BB:9B:0F
+Subnet id List is ['6c496958-a787-4d8c-9465-f4c417660001']
+Subnet Name List is {'mysubnet2': '6c496958-a787-4d8c-9465-f4c417660002', 'mysubnet1': '6c496958-a787-4d8c-9465-f4c417660001'}
+IP List is 20.1.1.0/24
+Port MAC address is 00:16:3E:BB:9B:0F
+Port Device id is 20e500c3-41e1-4be0-b854-55c710a10002
+Neutron port IP address 20.1.1.3
+Tap port info tap79ad0002-19
+Tap port name list info {'myport2': 'tap79ad0002-19', 'myport1': 'tap79ad0001-19'}
+JSON value of neutron_port {'port': {'name': 'myport2', 'admin_state_up': 'true', 'network_id': '12809f83-ccdf-422c-a20a-4ddae0710001', 'tenant_id': '6c53df3a-3456-11e5-a151-feff819cdc9f', 'mac_address': '00:16:3E:BB:9B:0F', 'fixed_ips': [{'subnet_id': '6c496958-a787-4d8c-9465-f4c417660001', 'ip_address': '20.1.1.3'}], 'id': '79ad0002-19e0-489c-9505-cc70f9eb0002'}}
+/controller/nb/v2/neutron/ports/
+Response Info: &lt;Response [201]&gt;
+Port Resp Status code: 201
+Port Info: {
+   "port" : {
+      "id" : "79ad0002-19e0-489c-9505-cc70f9eb0002",
+      "tenant_id" : "6c53df3a-3456-11e5-a151-feff819cdc9f",
+      "network_id" : "12809f83-ccdf-422c-a20a-4ddae0710001",
+      "name" : "myport2",
+      "admin_state_up" : true,
+      "status" : "ACTIVE",
+      "mac_address" : "00:16:3E:BB:9B:0F",
+      "fixed_ips" : [ {
+         "ip_address" : "20.1.1.3",
+         "subnet_id" : "6c496958-a787-4d8c-9465-f4c417660001"
+      } ]
+   }
+}
+Port name list: {'myport2': '79ad0002-19e0-489c-9505-cc70f9eb0002', 'myport1': '79ad0001-19e0-489c-9505-cc70f9eb0001'}
+Port Mac list: {'79ad0001-19e0-489c-9505-cc70f9eb0001': '00:16:3E:19:F7:8B', '79ad0002-19e0-489c-9505-cc70f9eb0002': '00:16:3E:BB:9B:0F'}
+Create Neutron Port with uuid 79ad0002-19e0-489c-9505-cc70f9eb0002   is success</msg>
+<msg timestamp="20160210 20:01:08.760" level="INFO">${res} = 0</msg>
+<status status="PASS" endtime="20160210 20:01:08.759" starttime="20160210 20:01:08.746"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${res}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:08.760" starttime="20160210 20:01:08.760"></status>
+</kw>
+<kw type="kw" name="${res} = vpn.Create Port">
+<doc>It creates the port with given name. interface parameters are as shown below.</doc>
+<arguments>
+<arg>${NEUTRON_NETWORK2}</arg>
+<arg>${NEUTRON_PORT3}</arg>
+<arg>mac=${NEUTRON_PORT3_MAC}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.772" level="INFO">mac == 00:16:3E:92:F5:F8
+Subnet id List is ['6c496958-a787-4d8c-9465-f4c417660002']
+Subnet Name List is {'mysubnet2': '6c496958-a787-4d8c-9465-f4c417660002', 'mysubnet1': '6c496958-a787-4d8c-9465-f4c417660001'}
+IP List is 30.1.1.0/24
+Port MAC address is 00:16:3E:92:F5:F8
+Port Device id is 20e500c3-41e1-4be0-b854-55c710a10003
+Neutron port IP address 30.1.1.4
+Tap port info tap79ad0003-19
+Tap port name list info {'myport2': 'tap79ad0002-19', 'myport3': 'tap79ad0003-19', 'myport1': 'tap79ad0001-19'}
+JSON value of neutron_port {'port': {'name': 'myport3', 'admin_state_up': 'true', 'network_id': '12809f83-ccdf-422c-a20a-4ddae0710002', 'tenant_id': '6c53df3a-3456-11e5-a151-feff819cdc9f', 'mac_address': '00:16:3E:92:F5:F8', 'fixed_ips': [{'subnet_id': '6c496958-a787-4d8c-9465-f4c417660002', 'ip_address': '30.1.1.4'}], 'id': '79ad0003-19e0-489c-9505-cc70f9eb0003'}}
+/controller/nb/v2/neutron/ports/
+Response Info: &lt;Response [201]&gt;
+Port Resp Status code: 201
+Port Info: {
+   "port" : {
+      "id" : "79ad0003-19e0-489c-9505-cc70f9eb0003",
+      "tenant_id" : "6c53df3a-3456-11e5-a151-feff819cdc9f",
+      "network_id" : "12809f83-ccdf-422c-a20a-4ddae0710002",
+      "name" : "myport3",
+      "admin_state_up" : true,
+      "status" : "ACTIVE",
+      "mac_address" : "00:16:3E:92:F5:F8",
+      "fixed_ips" : [ {
+         "ip_address" : "30.1.1.4",
+         "subnet_id" : "6c496958-a787-4d8c-9465-f4c417660002"
+      } ]
+   }
+}
+Port name list: {'myport2': '79ad0002-19e0-489c-9505-cc70f9eb0002', 'myport3': '79ad0003-19e0-489c-9505-cc70f9eb0003', 'myport1': '79ad0001-19e0-489c-9505-cc70f9eb0001'}
+Port Mac list: {'79ad0001-19e0-489c-9505-cc70f9eb0001': '00:16:3E:19:F7:8B', '79ad0003-19e0-489c-9505-cc70f9eb0003': '00:16:3E:92:F5:F8', '79ad0002-19e0-489c-9505-cc70f9eb0002': '00:16:3E:BB:9B:0F'}
+Create Neutron Port with uuid 79ad0003-19e0-489c-9505-cc70f9eb0003   is success</msg>
+<msg timestamp="20160210 20:01:08.772" level="INFO">${res} = 0</msg>
+<status status="PASS" endtime="20160210 20:01:08.772" starttime="20160210 20:01:08.760"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${res}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:08.773" starttime="20160210 20:01:08.772"></status>
+</kw>
+<kw type="kw" name="${res} = vpn.Create Port">
+<doc>It creates the port with given name. interface parameters are as shown below.</doc>
+<arguments>
+<arg>${NEUTRON_NETWORK2}</arg>
+<arg>${NEUTRON_PORT4}</arg>
+<arg>mac=${NEUTRON_PORT4_MAC}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.783" level="INFO">mac == 00:16:3E:19:57:58
+Subnet id List is ['6c496958-a787-4d8c-9465-f4c417660002']
+Subnet Name List is {'mysubnet2': '6c496958-a787-4d8c-9465-f4c417660002', 'mysubnet1': '6c496958-a787-4d8c-9465-f4c417660001'}
+IP List is 30.1.1.0/24
+Port MAC address is 00:16:3E:19:57:58
+Port Device id is 20e500c3-41e1-4be0-b854-55c710a10004
+Neutron port IP address 30.1.1.5
+Tap port info tap79ad0004-19
+Tap port name list info {'myport2': 'tap79ad0002-19', 'myport3': 'tap79ad0003-19', 'myport1': 'tap79ad0001-19', 'myport4': 'tap79ad0004-19'}
+JSON value of neutron_port {'port': {'name': 'myport4', 'admin_state_up': 'true', 'network_id': '12809f83-ccdf-422c-a20a-4ddae0710002', 'tenant_id': '6c53df3a-3456-11e5-a151-feff819cdc9f', 'mac_address': '00:16:3E:19:57:58', 'fixed_ips': [{'subnet_id': '6c496958-a787-4d8c-9465-f4c417660002', 'ip_address': '30.1.1.5'}], 'id': '79ad0004-19e0-489c-9505-cc70f9eb0004'}}
+/controller/nb/v2/neutron/ports/
+Response Info: &lt;Response [201]&gt;
+Port Resp Status code: 201
+Port Info: {
+   "port" : {
+      "id" : "79ad0004-19e0-489c-9505-cc70f9eb0004",
+      "tenant_id" : "6c53df3a-3456-11e5-a151-feff819cdc9f",
+      "network_id" : "12809f83-ccdf-422c-a20a-4ddae0710002",
+      "name" : "myport4",
+      "admin_state_up" : true,
+      "status" : "ACTIVE",
+      "mac_address" : "00:16:3E:19:57:58",
+      "fixed_ips" : [ {
+         "ip_address" : "30.1.1.5",
+         "subnet_id" : "6c496958-a787-4d8c-9465-f4c417660002"
+      } ]
+   }
+}
+Port name list: {'myport2': '79ad0002-19e0-489c-9505-cc70f9eb0002', 'myport3': '79ad0003-19e0-489c-9505-cc70f9eb0003', 'myport1': '79ad0001-19e0-489c-9505-cc70f9eb0001', 'myport4': '79ad0004-19e0-489c-9505-cc70f9eb0004'}
+Port Mac list: {'79ad0001-19e0-489c-9505-cc70f9eb0001': '00:16:3E:19:F7:8B', '79ad0003-19e0-489c-9505-cc70f9eb0003': '00:16:3E:92:F5:F8', '79ad0002-19e0-489c-9505-cc70f9eb0002': '00:16:3E:BB:9B:0F', '79ad0004-19e0-489c-9505-cc70f9eb0004': '00:16:3E:19:57:58'}
+Create Neutron Port with uuid 79ad0004-19e0-489c-9505-cc70f9eb0004   is success</msg>
+<msg timestamp="20160210 20:01:08.783" level="INFO">${res} = 0</msg>
+<status status="PASS" endtime="20160210 20:01:08.783" starttime="20160210 20:01:08.773"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${res}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:08.783" starttime="20160210 20:01:08.783"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${res}</arg>
+<arg>${exp_result}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.784" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'int'&gt;</msg>
+<status status="PASS" endtime="20160210 20:01:08.784" starttime="20160210 20:01:08.784"></status>
+</kw>
+<doc>Verify neutron port creation</doc>
+<tags>
+<tag>Post</tag>
+</tags>
+<status status="PASS" endtime="20160210 20:01:08.784" critical="yes" starttime="20160210 20:01:08.672"></status>
+</test>
+<test id="s1-s1-t7" name="TC07 Verify fetching available ports">
+<kw type="kw" name="${exp_result} = BuiltIn.Convert To Integer">
+<doc>Converts the given item to an integer number.</doc>
+<arguments>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.787" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20160210 20:01:08.787" level="INFO">${exp_result} = 0</msg>
+<status status="PASS" endtime="20160210 20:01:08.787" starttime="20160210 20:01:08.787"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>"Verify fetching available ports"</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.787" level="INFO">"Verify fetching available ports"</msg>
+<status status="PASS" endtime="20160210 20:01:08.787" starttime="20160210 20:01:08.787"></status>
+</kw>
+<kw type="kw" name="${resp} = vpn.Get Ports">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20160210 20:01:08.798" level="INFO">All neutron ports: {
+   "ports" : [ {
+      "id" : "79ad0001-19e0-489c-9505-cc70f9eb0001",
+      "tenant_id" : "6c53df3a345611e5a151feff819cdc9f",
+      "network_id" : "12809f83-ccdf-422c-a20a-4ddae0710001",
+      "name" : "myport1",
+      "admin_state_up" : true,
+      "status" : "ACTIVE",
+      "mac_address" : "00:16:3E:19:F7:8B",
+      "fixed_ips" : [ {
+         "ip_address" : "20.1.1.2",
+         "subnet_id" : "6c496958-a787-4d8c-9465-f4c417660001"
+      } ]
+   }, {
+      "id" : "79ad0003-19e0-489c-9505-cc70f9eb0003",
+      "tenant_id" : "6c53df3a345611e5a151feff819cdc9f",
+      "network_id" : "12809f83-ccdf-422c-a20a-4ddae0710002",
+      "name" : "myport3",
+      "admin_state_up" : true,
+      "status" : "ACTIVE",
+      "mac_address" : "00:16:3E:92:F5:F8",
+      "fixed_ips" : [ {
+         "ip_address" : "30.1.1.4",
+         "subnet_id" : "6c496958-a787-4d8c-9465-f4c417660002"
+      } ]
+   }, {
+      "id" : "79ad0004-19e0-489c-9505-cc70f9eb0004",
+      "tenant_id" : "6c53df3a345611e5a151feff819cdc9f",
+      "network_id" : "12809f83-ccdf-422c-a20a-4ddae0710002",
+      "name" : "myport4",
+      "admin_state_up" : true,
+      "status" : "ACTIVE",
+      "mac_address" : "00:16:3E:19:57:58",
+      "fixed_ips" : [ {
+         "ip_address" : "30.1.1.5",
+         "subnet_id" : "6c496958-a787-4d8c-9465-f4c417660002"
+      } ]
+   }, {
+      "id" : "79ad0002-19e0-489c-9505-cc70f9eb0002",
+      "tenant_id" : "6c53df3a345611e5a151feff819cdc9f",
+      "network_id" : "12809f83-ccdf-422c-a20a-4ddae0710001",
+      "name" : "myport2",
+      "admin_state_up" : true,
+      "status" : "ACTIVE",
+      "mac_address" : "00:16:3E:BB:9B:0F",
+      "fixed_ips" : [ {
+         "ip_address" : "20.1.1.3",
+         "subnet_id" : "6c496958-a787-4d8c-9465-f4c417660001"
+      } ]
+   } ]
+}
+{
+   "ports" : [ {
+      "id" : "79ad0001-19e0-489c-9505-cc70f9eb0001",
+      "tenant_id" : "6c53df3a345611e5a151feff819cdc9f",
+      "network_id" : "12809f83-ccdf-422c-a20a-4ddae0710001",
+      "name" : "myport1",
+      "admin_state_up" : true,
+      "status" : "ACTIVE",
+      "mac_address" : "00:16:3E:19:F7:8B",
+      "fixed_ips" : [ {
+         "ip_address" : "20.1.1.2",
+         "subnet_id" : "6c496958-a787-4d8c-9465-f4c417660001"
+      } ]
+   }, {
+      "id" : "79ad0003-19e0-489c-9505-cc70f9eb0003",
+      "tenant_id" : "6c53df3a345611e5a151feff819cdc9f",
+      "network_id" : "12809f83-ccdf-422c-a20a-4ddae0710002",
+      "name" : "myport3",
+      "admin_state_up" : true,
+      "status" : "ACTIVE",
+      "mac_address" : "00:16:3E:92:F5:F8",
+      "fixed_ips" : [ {
+         "ip_address" : "30.1.1.4",
+         "subnet_id" : "6c496958-a787-4d8c-9465-f4c417660002"
+      } ]
+   }, {
+      "id" : "79ad0004-19e0-489c-9505-cc70f9eb0004",
+      "tenant_id" : "6c53df3a345611e5a151feff819cdc9f",
+      "network_id" : "12809f83-ccdf-422c-a20a-4ddae0710002",
+      "name" : "myport4",
+      "admin_state_up" : true,
+      "status" : "ACTIVE",
+      "mac_address" : "00:16:3E:19:57:58",
+      "fixed_ips" : [ {
+         "ip_address" : "30.1.1.5",
+         "subnet_id" : "6c496958-a787-4d8c-9465-f4c417660002"
+      } ]
+   }, {
+      "id" : "79ad0002-19e0-489c-9505-cc70f9eb0002",
+      "tenant_id" : "6c53df3a345611e5a151feff819cdc9f",
+      "network_id" : "12809f83-ccdf-422c-a20a-4ddae0710001",
+      "name" : "myport2",
+      "admin_state_up" : true,
+      "status" : "ACTIVE",
+      "mac_address" : "00:16:3E:BB:9B:0F",
+      "fixed_ips" : [ {
+         "ip_address" : "20.1.1.3",
+         "subnet_id" : "6c496958-a787-4d8c-9465-f4c417660001"
+      } ]
+   } ]
+}</msg>
+<msg timestamp="20160210 20:01:08.798" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20160210 20:01:08.798" starttime="20160210 20:01:08.788"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:08.799" starttime="20160210 20:01:08.798"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.content}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.799" level="INFO">{
+   "ports" : [ {
+      "id" : "79ad0001-19e0-489c-9505-cc70f9eb0001",
+      "tenant_id" : "6c53df3a345611e5a151feff819cdc9f",
+      "network_id" : "12809f83-ccdf-422c-a20a-4ddae0710001",
+      "name" : "myport1",
+      "admin_state_up" : true,
+      "status" : "ACTIVE",
+      "mac_address" : "00:16:3E:19:F7:8B",
+      "fixed_ips" : [ {
+         "ip_address" : "20.1.1.2",
+         "subnet_id" : "6c496958-a787-4d8c-9465-f4c417660001"
+      } ]
+   }, {
+      "id" : "79ad0003-19e0-489c-9505-cc70f9eb0003",
+      "tenant_id" : "6c53df3a345611e5a151feff819cdc9f",
+      "network_id" : "12809f83-ccdf-422c-a20a-4ddae0710002",
+      "name" : "myport3",
+      "admin_state_up" : true,
+      "status" : "ACTIVE",
+      "mac_address" : "00:16:3E:92:F5:F8",
+      "fixed_ips" : [ {
+         "ip_address" : "30.1.1.4",
+         "subnet_id" : "6c496958-a787-4d8c-9465-f4c417660002"
+      } ]
+   }, {
+      "id" : "79ad0004-19e0-489c-9505-cc70f9eb0004",
+      "tenant_id" : "6c53df3a345611e5a151feff819cdc9f",
+      "network_id" : "12809f83-ccdf-422c-a20a-4ddae0710002",
+      "name" : "myport4",
+      "admin_state_up" : true,
+      "status" : "ACTIVE",
+      "mac_address" : "00:16:3E:19:57:58",
+      "fixed_ips" : [ {
+         "ip_address" : "30.1.1.5",
+         "subnet_id" : "6c496958-a787-4d8c-9465-f4c417660002"
+      } ]
+   }, {
+      "id" : "79ad0002-19e0-489c-9505-cc70f9eb0002",
+      "tenant_id" : "6c53df3a345611e5a151feff819cdc9f",
+      "network_id" : "12809f83-ccdf-422c-a20a-4ddae0710001",
+      "name" : "myport2",
+      "admin_state_up" : true,
+      "status" : "ACTIVE",
+      "mac_address" : "00:16:3E:BB:9B:0F",
+      "fixed_ips" : [ {
+         "ip_address" : "20.1.1.3",
+         "subnet_id" : "6c496958-a787-4d8c-9465-f4c417660001"
+      } ]
+   } ]
+}</msg>
+<status status="PASS" endtime="20160210 20:01:08.800" starttime="20160210 20:01:08.799"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.800" level="INFO">200</msg>
+<status status="PASS" endtime="20160210 20:01:08.800" starttime="20160210 20:01:08.800"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal As Strings">
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+<arg>${GET_RESP_CODE}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.801" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'unicode'&gt;</msg>
+<status status="PASS" endtime="20160210 20:01:08.801" starttime="20160210 20:01:08.800"></status>
+</kw>
+<doc>Verify fetching available ports</doc>
+<tags>
+<tag>Get</tag>
+</tags>
+<status status="PASS" endtime="20160210 20:01:08.801" critical="yes" starttime="20160210 20:01:08.785"></status>
+</test>
+<test id="s1-s1-t8" name="TC08 Verify vpn service creation and data path traffic test">
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>"Creating L3vpn"</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:08.804" starttime="20160210 20:01:08.804"></status>
+</kw>
+<kw type="kw" name="${result} = vpn.Create L3vpn">
+<doc>It creates the L3VPN and parameters are as shown below.</doc>
+<arguments>
+<arg>${L3VPN}</arg>
+<arg>${RD}</arg>
+<arg>${IMPORT_RT}</arg>
+<arg>${EXPORT_RT}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.975" level="INFO">JASON structure of neutron_network {'input': {'l3vpn': [{'name': 'vpnnew', 'export-RT': ['100:1'], 'route-distinguisher': ['100:1'], 'import-RT': ['100:1'], 'id': '4ae8cd92-48ca-49b5-94e1-b2921a260003', 'tenant-id': '6c53df3a-3456-11e5-a151-feff819cdc9f'}]}}
+Response Content is {"output":{"response":["Operation successful with no errors"]}}
+Response Code is 200
+Create L3VPN is SUCCESS for uuid 4ae8cd92-48ca-49b5-94e1-b2921a260003</msg>
+<msg timestamp="20160210 20:01:08.976" level="INFO">${result} = 4ae8cd92-48ca-49b5-94e1-b2921a260003</msg>
+<status status="PASS" endtime="20160210 20:01:08.975" starttime="20160210 20:01:08.804"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${result}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:08.976" level="INFO">4ae8cd92-48ca-49b5-94e1-b2921a260003</msg>
+<status status="PASS" endtime="20160210 20:01:08.976" starttime="20160210 20:01:08.976"></status>
+</kw>
+<kw type="kw" name="${resp} = vpn.Get L 3 Vpn">
+<doc>It Get L3VPN information .</doc>
+<arguments>
+<arg>${L3VPN}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:09.010" level="INFO">JASON structure of neutron_network {'input': {'id': '4ae8cd92-48ca-49b5-94e1-b2921a260003'}}
+Response Content is {"output":{"l3vpn-instances":[{"export-RT":["100:1"],"tenant-id":"6c53df3a-3456-11e5-a151-feff819cdc9f","id":"4ae8cd92-48ca-49b5-94e1-b2921a260003","import-RT":["100:1"],"name":"vpnnew","route-distinguisher":["100:1"]}]}}
+Response Code is 200
+Get L3VPN  is SUCCESS for uuid 4ae8cd92-48ca-49b5-94e1-b2921a260003</msg>
+<msg timestamp="20160210 20:01:09.010" level="INFO">${resp} = {"output":{"l3vpn-instances":[{"export-RT":["100:1"],"tenant-id":"6c53df3a-3456-11e5-a151-feff819cdc9f","id":"4ae8cd92-48ca-49b5-94e1-b2921a260003","import-RT":["100:1"],"name":"vpnnew","route-disting...</msg>
+<status status="PASS" endtime="20160210 20:01:09.010" starttime="20160210 20:01:08.976"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Contain">
+<doc>Fails if `item1` does not contain `item2` one or more times.</doc>
+<arguments>
+<arg>${resp}</arg>
+<arg>${L3VPN}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:09.011" starttime="20160210 20:01:09.010"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>"L3vpn created is found</arg>
+<arg>in DB"</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:09.011" starttime="20160210 20:01:09.011"></status>
+</kw>
+<kw type="for" name="${value} IN [ @{vpn_values} ]">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="foritem" name="${value} = 100:1">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="BuiltIn.Should Contain">
+<doc>Fails if `item1` does not contain `item2` one or more times.</doc>
+<arguments>
+<arg>${resp}</arg>
+<arg>${value}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:09.012" starttime="20160210 20:01:09.012"></status>
+</kw>
+<status status="PASS" endtime="20160210 20:01:09.012" starttime="20160210 20:01:09.012"></status>
+</kw>
+<status status="PASS" endtime="20160210 20:01:09.012" starttime="20160210 20:01:09.011"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>"L3vpn details are found in DB"</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:09.013" starttime="20160210 20:01:09.012"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>"Associate network"</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:09.013" starttime="20160210 20:01:09.013"></status>
+</kw>
+<kw type="kw" name="${netid2} = vpn.Associate Network">
+<doc></doc>
+<arguments>
+<arg>${NEUTRON_NETWORK1}</arg>
+<arg>${L3VPN}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:09.056" level="INFO">Response Info: {'mynetwork2': '12809f83-ccdf-422c-a20a-4ddae0710002', 'mynetwork1': '12809f83-ccdf-422c-a20a-4ddae0710001'}
+JSON value of l3vpn {'input': {'vpn-id': '4ae8cd92-48ca-49b5-94e1-b2921a260003', 'network-id': ['12809f83-ccdf-422c-a20a-4ddae0710001']}}
+Response Info: &lt;Response [200]&gt;
+Port Resp Status code: 200
+Port Info: 
+Associate network through uuid</msg>
+<msg timestamp="20160210 20:01:09.056" level="INFO">${netid2} = 12809f83-ccdf-422c-a20a-4ddae0710001</msg>
+<status status="PASS" endtime="20160210 20:01:09.056" starttime="20160210 20:01:09.013"></status>
+</kw>
+<kw type="kw" name="${netid3} = vpn.Associate Network">
+<doc></doc>
+<arguments>
+<arg>${NEUTRON_NETWORK2}</arg>
+<arg>${L3VPN}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:09.080" level="INFO">Response Info: {'mynetwork2': '12809f83-ccdf-422c-a20a-4ddae0710002', 'mynetwork1': '12809f83-ccdf-422c-a20a-4ddae0710001'}
+JSON value of l3vpn {'input': {'vpn-id': '4ae8cd92-48ca-49b5-94e1-b2921a260003', 'network-id': ['12809f83-ccdf-422c-a20a-4ddae0710002']}}
+Response Info: &lt;Response [200]&gt;
+Port Resp Status code: 200
+Port Info: 
+Associate network through uuid</msg>
+<msg timestamp="20160210 20:01:09.080" level="INFO">${netid3} = 12809f83-ccdf-422c-a20a-4ddae0710002</msg>
+<status status="PASS" endtime="20160210 20:01:09.080" starttime="20160210 20:01:09.057"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${netid2}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:09.081" starttime="20160210 20:01:09.080"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>"Check if vpn is updated after association of network"</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:09.081" starttime="20160210 20:01:09.081"></status>
+</kw>
+<kw type="kw" name="${resp} = vpn.Get L 3 Vpn">
+<doc>It Get L3VPN information .</doc>
+<arguments>
+<arg>${L3VPN}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:09.087" level="INFO">JASON structure of neutron_network {'input': {'id': '4ae8cd92-48ca-49b5-94e1-b2921a260003'}}
+Response Content is {"output":{"l3vpn-instances":[{"export-RT":["100:1"],"tenant-id":"6c53df3a-3456-11e5-a151-feff819cdc9f","import-RT":["100:1"],"id":"4ae8cd92-48ca-49b5-94e1-b2921a260003","name":"vpnnew","network-ids":["12809f83-ccdf-422c-a20a-4ddae0710002","12809f83-ccdf-422c-a20a-4ddae0710001"],"route-distinguisher":["100:1"]}]}}
+Response Code is 200
+Get L3VPN  is SUCCESS for uuid 4ae8cd92-48ca-49b5-94e1-b2921a260003</msg>
+<msg timestamp="20160210 20:01:09.087" level="INFO">${resp} = {"output":{"l3vpn-instances":[{"export-RT":["100:1"],"tenant-id":"6c53df3a-3456-11e5-a151-feff819cdc9f","import-RT":["100:1"],"id":"4ae8cd92-48ca-49b5-94e1-b2921a260003","name":"vpnnew","network-ids":...</msg>
+<status status="PASS" endtime="20160210 20:01:09.087" starttime="20160210 20:01:09.081"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:09.088" starttime="20160210 20:01:09.088"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>"check if uuid of associated network is found in DB"</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:09.088" starttime="20160210 20:01:09.088"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Contain">
+<doc>Fails if `item1` does not contain `item2` one or more times.</doc>
+<arguments>
+<arg>${resp}</arg>
+<arg>${netid2}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:09.089" starttime="20160210 20:01:09.089"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>"Associated network found in DB"</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:09.089" starttime="20160210 20:01:09.089"></status>
+</kw>
+<kw type="kw" name="${resp} = BuiltIn.Sleep">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>${DELAY_BEFORE_PING}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:14.090" level="INFO">Slept 5 seconds</msg>
+<msg timestamp="20160210 20:01:14.091" level="INFO">${resp} = None</msg>
+<status status="PASS" endtime="20160210 20:01:14.091" starttime="20160210 20:01:09.090"></status>
+</kw>
+<kw type="for" name="${index} IN RANGE [ 2 ]">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="foritem" name="${index} = 0">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="${ping_output} = vpn.Ping From Node">
+<doc></doc>
+<arguments>
+<arg>${NS1}</arg>
+<arg>${IP_NS2}</arg>
+<arg>${COUNT}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:28.230" level="INFO">ip netns exec ns1 ping -c 5 20.1.1.3
+Output of ping command :
+PING 20.1.1.3 (20.1.1.3) 56(84) bytes of data.
+64 bytes from 20.1.1.3: icmp_seq=5 ttl=64 time=0.192 ms
+
+--- 20.1.1.3 ping statistics ---
+5 packets transmitted, 1 received, 80% packet loss, time 3999ms
+rtt min/avg/max/mdev = 0.192/0.192/0.192/0.000 ms</msg>
+<msg timestamp="20160210 20:01:28.231" level="INFO">${ping_output} = PING 20.1.1.3 (20.1.1.3) 56(84) bytes of data.
+64 bytes from 20.1.1.3: icmp_seq=5 ttl=64 time=0.192 ms
+
+--- 20.1.1.3 ping statistics ---
+5 packets transmitted, 1 received, 80% packet loss, time 3999ms...</msg>
+<status status="PASS" endtime="20160210 20:01:28.231" starttime="20160210 20:01:14.091"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${ping_output}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:28.233" starttime="20160210 20:01:28.232"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ping_output}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:28.234" level="INFO">PING 20.1.1.3 (20.1.1.3) 56(84) bytes of data.
+64 bytes from 20.1.1.3: icmp_seq=5 ttl=64 time=0.192 ms
+
+--- 20.1.1.3 ping statistics ---
+5 packets transmitted, 1 received, 80% packet loss, time 3999ms
+rtt min/avg/max/mdev = 0.192/0.192/0.192/0.000 ms
+</msg>
+<status status="PASS" endtime="20160210 20:01:28.234" starttime="20160210 20:01:28.233"></status>
+</kw>
+<kw type="kw" name="${resp} = BuiltIn.Sleep">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>${DELAY_BEFORE_PING}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:33.235" level="INFO">Slept 5 seconds</msg>
+<msg timestamp="20160210 20:01:33.236" level="INFO">${resp} = None</msg>
+<status status="PASS" endtime="20160210 20:01:33.235" starttime="20160210 20:01:28.234"></status>
+</kw>
+<kw type="kw" name="${ping_output} = vpn.Ping From Node">
+<doc></doc>
+<arguments>
+<arg>${NS1}</arg>
+<arg>${IP_NS3}</arg>
+<arg>${COUNT}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:37.258" level="INFO">ip netns exec ns1 ping -c 5 30.1.1.4
+Output of ping command :
+PING 30.1.1.4 (30.1.1.4) 56(84) bytes of data.
+64 bytes from 30.1.1.4: icmp_seq=1 ttl=64 time=7.19 ms
+64 bytes from 30.1.1.4: icmp_seq=2 ttl=64 time=0.377 ms
+64 bytes from 30.1.1.4: icmp_seq=3 ttl=64 time=0.292 ms
+64 bytes from 30.1.1.4: icmp_seq=4 ttl=64 time=0.384 ms
+64 bytes from 30.1.1.4: icmp_seq=5 ttl=64 time=0.607 ms
+
+--- 30.1.1.4 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 3999ms
+rtt min/avg/max/mdev = 0.292/1.771/7.197/2.715 ms</msg>
+<msg timestamp="20160210 20:01:37.259" level="INFO">${ping_output} = PING 30.1.1.4 (30.1.1.4) 56(84) bytes of data.
+64 bytes from 30.1.1.4: icmp_seq=1 ttl=64 time=7.19 ms
+64 bytes from 30.1.1.4: icmp_seq=2 ttl=64 time=0.377 ms
+64 bytes from 30.1.1.4: icmp_seq=3 ttl=64 ...</msg>
+<status status="PASS" endtime="20160210 20:01:37.258" starttime="20160210 20:01:33.236"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${ping_output}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:37.260" starttime="20160210 20:01:37.259"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ping_output}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:37.260" level="INFO">PING 30.1.1.4 (30.1.1.4) 56(84) bytes of data.
+64 bytes from 30.1.1.4: icmp_seq=1 ttl=64 time=7.19 ms
+64 bytes from 30.1.1.4: icmp_seq=2 ttl=64 time=0.377 ms
+64 bytes from 30.1.1.4: icmp_seq=3 ttl=64 time=0.292 ms
+64 bytes from 30.1.1.4: icmp_seq=4 ttl=64 time=0.384 ms
+64 bytes from 30.1.1.4: icmp_seq=5 ttl=64 time=0.607 ms
+
+--- 30.1.1.4 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 3999ms
+rtt min/avg/max/mdev = 0.292/1.771/7.197/2.715 ms
+</msg>
+<status status="PASS" endtime="20160210 20:01:37.261" starttime="20160210 20:01:37.260"></status>
+</kw>
+<kw type="kw" name="${resp} = BuiltIn.Sleep">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>${DELAY_BEFORE_PING}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:42.262" level="INFO">Slept 5 seconds</msg>
+<msg timestamp="20160210 20:01:42.263" level="INFO">${resp} = None</msg>
+<status status="PASS" endtime="20160210 20:01:42.262" starttime="20160210 20:01:37.261"></status>
+</kw>
+<kw type="kw" name="${ping_output} = vpn.Ping From Node">
+<doc></doc>
+<arguments>
+<arg>${NS1}</arg>
+<arg>${IP_NS4}</arg>
+<arg>${COUNT}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:46.277" level="INFO">ip netns exec ns1 ping -c 5 30.1.1.5
+Output of ping command :
+PING 30.1.1.5 (30.1.1.5) 56(84) bytes of data.
+64 bytes from 30.1.1.5: icmp_seq=1 ttl=64 time=3.84 ms
+64 bytes from 30.1.1.5: icmp_seq=2 ttl=64 time=0.349 ms
+64 bytes from 30.1.1.5: icmp_seq=3 ttl=64 time=0.394 ms
+64 bytes from 30.1.1.5: icmp_seq=4 ttl=64 time=0.568 ms
+64 bytes from 30.1.1.5: icmp_seq=5 ttl=64 time=0.470 ms
+
+--- 30.1.1.5 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 3999ms
+rtt min/avg/max/mdev = 0.349/1.124/3.843/1.361 ms</msg>
+<msg timestamp="20160210 20:01:46.278" level="INFO">${ping_output} = PING 30.1.1.5 (30.1.1.5) 56(84) bytes of data.
+64 bytes from 30.1.1.5: icmp_seq=1 ttl=64 time=3.84 ms
+64 bytes from 30.1.1.5: icmp_seq=2 ttl=64 time=0.349 ms
+64 bytes from 30.1.1.5: icmp_seq=3 ttl=64 ...</msg>
+<status status="PASS" endtime="20160210 20:01:46.278" starttime="20160210 20:01:42.263"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${ping_output}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:46.279" starttime="20160210 20:01:46.278"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ping_output}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:46.279" level="INFO">PING 30.1.1.5 (30.1.1.5) 56(84) bytes of data.
+64 bytes from 30.1.1.5: icmp_seq=1 ttl=64 time=3.84 ms
+64 bytes from 30.1.1.5: icmp_seq=2 ttl=64 time=0.349 ms
+64 bytes from 30.1.1.5: icmp_seq=3 ttl=64 time=0.394 ms
+64 bytes from 30.1.1.5: icmp_seq=4 ttl=64 time=0.568 ms
+64 bytes from 30.1.1.5: icmp_seq=5 ttl=64 time=0.470 ms
+
+--- 30.1.1.5 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 3999ms
+rtt min/avg/max/mdev = 0.349/1.124/3.843/1.361 ms
+</msg>
+<status status="PASS" endtime="20160210 20:01:46.279" starttime="20160210 20:01:46.279"></status>
+</kw>
+<status status="PASS" endtime="20160210 20:01:46.279" starttime="20160210 20:01:14.091"></status>
+</kw>
+<kw type="foritem" name="${index} = 1">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="${ping_output} = vpn.Ping From Node">
+<doc></doc>
+<arguments>
+<arg>${NS1}</arg>
+<arg>${IP_NS2}</arg>
+<arg>${COUNT}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:50.302" level="INFO">ip netns exec ns1 ping -c 5 20.1.1.3
+Output of ping command :
+PING 20.1.1.3 (20.1.1.3) 56(84) bytes of data.
+64 bytes from 20.1.1.3: icmp_seq=1 ttl=64 time=0.248 ms
+64 bytes from 20.1.1.3: icmp_seq=2 ttl=64 time=0.059 ms
+64 bytes from 20.1.1.3: icmp_seq=3 ttl=64 time=0.046 ms
+64 bytes from 20.1.1.3: icmp_seq=4 ttl=64 time=0.048 ms
+64 bytes from 20.1.1.3: icmp_seq=5 ttl=64 time=0.115 ms
+
+--- 20.1.1.3 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 3998ms
+rtt min/avg/max/mdev = 0.046/0.103/0.248/0.076 ms</msg>
+<msg timestamp="20160210 20:01:50.303" level="INFO">${ping_output} = PING 20.1.1.3 (20.1.1.3) 56(84) bytes of data.
+64 bytes from 20.1.1.3: icmp_seq=1 ttl=64 time=0.248 ms
+64 bytes from 20.1.1.3: icmp_seq=2 ttl=64 time=0.059 ms
+64 bytes from 20.1.1.3: icmp_seq=3 ttl=64...</msg>
+<status status="PASS" endtime="20160210 20:01:50.302" starttime="20160210 20:01:46.280"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${ping_output}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:50.304" starttime="20160210 20:01:50.303"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ping_output}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:50.305" level="INFO">PING 20.1.1.3 (20.1.1.3) 56(84) bytes of data.
+64 bytes from 20.1.1.3: icmp_seq=1 ttl=64 time=0.248 ms
+64 bytes from 20.1.1.3: icmp_seq=2 ttl=64 time=0.059 ms
+64 bytes from 20.1.1.3: icmp_seq=3 ttl=64 time=0.046 ms
+64 bytes from 20.1.1.3: icmp_seq=4 ttl=64 time=0.048 ms
+64 bytes from 20.1.1.3: icmp_seq=5 ttl=64 time=0.115 ms
+
+--- 20.1.1.3 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 3998ms
+rtt min/avg/max/mdev = 0.046/0.103/0.248/0.076 ms
+</msg>
+<status status="PASS" endtime="20160210 20:01:50.305" starttime="20160210 20:01:50.305"></status>
+</kw>
+<kw type="kw" name="${resp} = BuiltIn.Sleep">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>${DELAY_BEFORE_PING}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:55.307" level="INFO">Slept 5 seconds</msg>
+<msg timestamp="20160210 20:01:55.307" level="INFO">${resp} = None</msg>
+<status status="PASS" endtime="20160210 20:01:55.307" starttime="20160210 20:01:50.305"></status>
+</kw>
+<kw type="kw" name="${ping_output} = vpn.Ping From Node">
+<doc></doc>
+<arguments>
+<arg>${NS1}</arg>
+<arg>${IP_NS3}</arg>
+<arg>${COUNT}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:59.333" level="INFO">ip netns exec ns1 ping -c 5 30.1.1.4
+Output of ping command :
+PING 30.1.1.4 (30.1.1.4) 56(84) bytes of data.
+64 bytes from 30.1.1.4: icmp_seq=1 ttl=64 time=0.743 ms
+64 bytes from 30.1.1.4: icmp_seq=2 ttl=64 time=0.342 ms
+64 bytes from 30.1.1.4: icmp_seq=3 ttl=64 time=0.340 ms
+64 bytes from 30.1.1.4: icmp_seq=4 ttl=64 time=0.358 ms
+64 bytes from 30.1.1.4: icmp_seq=5 ttl=64 time=0.332 ms
+
+--- 30.1.1.4 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 3999ms
+rtt min/avg/max/mdev = 0.332/0.423/0.743/0.160 ms</msg>
+<msg timestamp="20160210 20:01:59.334" level="INFO">${ping_output} = PING 30.1.1.4 (30.1.1.4) 56(84) bytes of data.
+64 bytes from 30.1.1.4: icmp_seq=1 ttl=64 time=0.743 ms
+64 bytes from 30.1.1.4: icmp_seq=2 ttl=64 time=0.342 ms
+64 bytes from 30.1.1.4: icmp_seq=3 ttl=64...</msg>
+<status status="PASS" endtime="20160210 20:01:59.334" starttime="20160210 20:01:55.307"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${ping_output}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:01:59.335" starttime="20160210 20:01:59.334"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ping_output}</arg>
+</arguments>
+<msg timestamp="20160210 20:01:59.335" level="INFO">PING 30.1.1.4 (30.1.1.4) 56(84) bytes of data.
+64 bytes from 30.1.1.4: icmp_seq=1 ttl=64 time=0.743 ms
+64 bytes from 30.1.1.4: icmp_seq=2 ttl=64 time=0.342 ms
+64 bytes from 30.1.1.4: icmp_seq=3 ttl=64 time=0.340 ms
+64 bytes from 30.1.1.4: icmp_seq=4 ttl=64 time=0.358 ms
+64 bytes from 30.1.1.4: icmp_seq=5 ttl=64 time=0.332 ms
+
+--- 30.1.1.4 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 3999ms
+rtt min/avg/max/mdev = 0.332/0.423/0.743/0.160 ms
+</msg>
+<status status="PASS" endtime="20160210 20:01:59.335" starttime="20160210 20:01:59.335"></status>
+</kw>
+<kw type="kw" name="${resp} = BuiltIn.Sleep">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>${DELAY_BEFORE_PING}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:04.337" level="INFO">Slept 5 seconds</msg>
+<msg timestamp="20160210 20:02:04.337" level="INFO">${resp} = None</msg>
+<status status="PASS" endtime="20160210 20:02:04.337" starttime="20160210 20:01:59.336"></status>
+</kw>
+<kw type="kw" name="${ping_output} = vpn.Ping From Node">
+<doc></doc>
+<arguments>
+<arg>${NS1}</arg>
+<arg>${IP_NS4}</arg>
+<arg>${COUNT}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:08.353" level="INFO">ip netns exec ns1 ping -c 5 30.1.1.5
+Output of ping command :
+PING 30.1.1.5 (30.1.1.5) 56(84) bytes of data.
+64 bytes from 30.1.1.5: icmp_seq=1 ttl=64 time=0.769 ms
+64 bytes from 30.1.1.5: icmp_seq=2 ttl=64 time=0.400 ms
+64 bytes from 30.1.1.5: icmp_seq=3 ttl=64 time=0.404 ms
+64 bytes from 30.1.1.5: icmp_seq=4 ttl=64 time=0.396 ms
+64 bytes from 30.1.1.5: icmp_seq=5 ttl=64 time=0.358 ms
+
+--- 30.1.1.5 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 3999ms
+rtt min/avg/max/mdev = 0.358/0.465/0.769/0.153 ms</msg>
+<msg timestamp="20160210 20:02:08.354" level="INFO">${ping_output} = PING 30.1.1.5 (30.1.1.5) 56(84) bytes of data.
+64 bytes from 30.1.1.5: icmp_seq=1 ttl=64 time=0.769 ms
+64 bytes from 30.1.1.5: icmp_seq=2 ttl=64 time=0.400 ms
+64 bytes from 30.1.1.5: icmp_seq=3 ttl=64...</msg>
+<status status="PASS" endtime="20160210 20:02:08.354" starttime="20160210 20:02:04.337"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${ping_output}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:08.355" starttime="20160210 20:02:08.354"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ping_output}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:08.355" level="INFO">PING 30.1.1.5 (30.1.1.5) 56(84) bytes of data.
+64 bytes from 30.1.1.5: icmp_seq=1 ttl=64 time=0.769 ms
+64 bytes from 30.1.1.5: icmp_seq=2 ttl=64 time=0.400 ms
+64 bytes from 30.1.1.5: icmp_seq=3 ttl=64 time=0.404 ms
+64 bytes from 30.1.1.5: icmp_seq=4 ttl=64 time=0.396 ms
+64 bytes from 30.1.1.5: icmp_seq=5 ttl=64 time=0.358 ms
+
+--- 30.1.1.5 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 3999ms
+rtt min/avg/max/mdev = 0.358/0.465/0.769/0.153 ms
+</msg>
+<status status="PASS" endtime="20160210 20:02:08.355" starttime="20160210 20:02:08.355"></status>
+</kw>
+<status status="PASS" endtime="20160210 20:02:08.356" starttime="20160210 20:01:46.280"></status>
+</kw>
+<status status="PASS" endtime="20160210 20:02:08.356" starttime="20160210 20:01:14.091"></status>
+</kw>
+<kw type="kw" name="${ping_output} = vpn.Ping From Node">
+<doc></doc>
+<arguments>
+<arg>${NS1}</arg>
+<arg>${IP_NS2}</arg>
+<arg>${COUNT}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:12.378" level="INFO">ip netns exec ns1 ping -c 5 20.1.1.3
+Output of ping command :
+PING 20.1.1.3 (20.1.1.3) 56(84) bytes of data.
+64 bytes from 20.1.1.3: icmp_seq=1 ttl=64 time=0.295 ms
+64 bytes from 20.1.1.3: icmp_seq=2 ttl=64 time=0.038 ms
+64 bytes from 20.1.1.3: icmp_seq=3 ttl=64 time=0.047 ms
+64 bytes from 20.1.1.3: icmp_seq=4 ttl=64 time=0.075 ms
+64 bytes from 20.1.1.3: icmp_seq=5 ttl=64 time=0.077 ms
+
+--- 20.1.1.3 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 3998ms
+rtt min/avg/max/mdev = 0.038/0.106/0.295/0.095 ms</msg>
+<msg timestamp="20160210 20:02:12.379" level="INFO">${ping_output} = PING 20.1.1.3 (20.1.1.3) 56(84) bytes of data.
+64 bytes from 20.1.1.3: icmp_seq=1 ttl=64 time=0.295 ms
+64 bytes from 20.1.1.3: icmp_seq=2 ttl=64 time=0.038 ms
+64 bytes from 20.1.1.3: icmp_seq=3 ttl=64...</msg>
+<status status="PASS" endtime="20160210 20:02:12.378" starttime="20160210 20:02:08.356"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${ping_output}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:12.380" starttime="20160210 20:02:12.379"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ping_output}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:12.382" level="INFO">PING 20.1.1.3 (20.1.1.3) 56(84) bytes of data.
+64 bytes from 20.1.1.3: icmp_seq=1 ttl=64 time=0.295 ms
+64 bytes from 20.1.1.3: icmp_seq=2 ttl=64 time=0.038 ms
+64 bytes from 20.1.1.3: icmp_seq=3 ttl=64 time=0.047 ms
+64 bytes from 20.1.1.3: icmp_seq=4 ttl=64 time=0.075 ms
+64 bytes from 20.1.1.3: icmp_seq=5 ttl=64 time=0.077 ms
+
+--- 20.1.1.3 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 3998ms
+rtt min/avg/max/mdev = 0.038/0.106/0.295/0.095 ms
+</msg>
+<status status="PASS" endtime="20160210 20:02:12.382" starttime="20160210 20:02:12.381"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Match Regexp">
+<doc>Fails if `string` does not match `pattern` as a regular expression.</doc>
+<arguments>
+<arg>${ping_output}</arg>
+<arg>${PING_REGEX}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:12.383" starttime="20160210 20:02:12.382"></status>
+</kw>
+<kw type="kw" name="${resp} = BuiltIn.Sleep">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>${DELAY_BEFORE_PING}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:17.384" level="INFO">Slept 5 seconds</msg>
+<msg timestamp="20160210 20:02:17.385" level="INFO">${resp} = None</msg>
+<status status="PASS" endtime="20160210 20:02:17.384" starttime="20160210 20:02:12.383"></status>
+</kw>
+<kw type="kw" name="${ping_output} = vpn.Ping From Node">
+<doc></doc>
+<arguments>
+<arg>${NS1}</arg>
+<arg>${IP_NS3}</arg>
+<arg>${COUNT}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:21.406" level="INFO">ip netns exec ns1 ping -c 5 30.1.1.4
+Output of ping command :
+PING 30.1.1.4 (30.1.1.4) 56(84) bytes of data.
+64 bytes from 30.1.1.4: icmp_seq=1 ttl=64 time=0.856 ms
+64 bytes from 30.1.1.4: icmp_seq=2 ttl=64 time=0.427 ms
+64 bytes from 30.1.1.4: icmp_seq=3 ttl=64 time=0.390 ms
+64 bytes from 30.1.1.4: icmp_seq=4 ttl=64 time=0.457 ms
+64 bytes from 30.1.1.4: icmp_seq=5 ttl=64 time=0.524 ms
+
+--- 30.1.1.4 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 3999ms
+rtt min/avg/max/mdev = 0.390/0.530/0.856/0.170 ms</msg>
+<msg timestamp="20160210 20:02:21.407" level="INFO">${ping_output} = PING 30.1.1.4 (30.1.1.4) 56(84) bytes of data.
+64 bytes from 30.1.1.4: icmp_seq=1 ttl=64 time=0.856 ms
+64 bytes from 30.1.1.4: icmp_seq=2 ttl=64 time=0.427 ms
+64 bytes from 30.1.1.4: icmp_seq=3 ttl=64...</msg>
+<status status="PASS" endtime="20160210 20:02:21.407" starttime="20160210 20:02:17.385"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${ping_output}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:21.408" starttime="20160210 20:02:21.408"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ping_output}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:21.409" level="INFO">PING 30.1.1.4 (30.1.1.4) 56(84) bytes of data.
+64 bytes from 30.1.1.4: icmp_seq=1 ttl=64 time=0.856 ms
+64 bytes from 30.1.1.4: icmp_seq=2 ttl=64 time=0.427 ms
+64 bytes from 30.1.1.4: icmp_seq=3 ttl=64 time=0.390 ms
+64 bytes from 30.1.1.4: icmp_seq=4 ttl=64 time=0.457 ms
+64 bytes from 30.1.1.4: icmp_seq=5 ttl=64 time=0.524 ms
+
+--- 30.1.1.4 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 3999ms
+rtt min/avg/max/mdev = 0.390/0.530/0.856/0.170 ms
+</msg>
+<status status="PASS" endtime="20160210 20:02:21.409" starttime="20160210 20:02:21.409"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Match Regexp">
+<doc>Fails if `string` does not match `pattern` as a regular expression.</doc>
+<arguments>
+<arg>${ping_output}</arg>
+<arg>${PING_REGEX}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:21.410" starttime="20160210 20:02:21.410"></status>
+</kw>
+<kw type="kw" name="${resp} = BuiltIn.Sleep">
+<doc>Pauses the test executed for the given time.</doc>
+<arguments>
+<arg>${DELAY_BEFORE_PING}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:26.412" level="INFO">Slept 5 seconds</msg>
+<msg timestamp="20160210 20:02:26.412" level="INFO">${resp} = None</msg>
+<status status="PASS" endtime="20160210 20:02:26.412" starttime="20160210 20:02:21.411"></status>
+</kw>
+<kw type="kw" name="${ping_output} = vpn.Ping From Node">
+<doc></doc>
+<arguments>
+<arg>${NS1}</arg>
+<arg>${IP_NS4}</arg>
+<arg>${COUNT}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.433" level="INFO">ip netns exec ns1 ping -c 5 30.1.1.5
+Output of ping command :
+PING 30.1.1.5 (30.1.1.5) 56(84) bytes of data.
+64 bytes from 30.1.1.5: icmp_seq=1 ttl=64 time=0.770 ms
+64 bytes from 30.1.1.5: icmp_seq=2 ttl=64 time=0.611 ms
+64 bytes from 30.1.1.5: icmp_seq=3 ttl=64 time=0.417 ms
+64 bytes from 30.1.1.5: icmp_seq=4 ttl=64 time=0.413 ms
+64 bytes from 30.1.1.5: icmp_seq=5 ttl=64 time=0.385 ms
+
+--- 30.1.1.5 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 3999ms
+rtt min/avg/max/mdev = 0.385/0.519/0.770/0.149 ms</msg>
+<msg timestamp="20160210 20:02:30.434" level="INFO">${ping_output} = PING 30.1.1.5 (30.1.1.5) 56(84) bytes of data.
+64 bytes from 30.1.1.5: icmp_seq=1 ttl=64 time=0.770 ms
+64 bytes from 30.1.1.5: icmp_seq=2 ttl=64 time=0.611 ms
+64 bytes from 30.1.1.5: icmp_seq=3 ttl=64...</msg>
+<status status="PASS" endtime="20160210 20:02:30.434" starttime="20160210 20:02:26.413"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${ping_output}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:30.435" starttime="20160210 20:02:30.434"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${ping_output}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.435" level="INFO">PING 30.1.1.5 (30.1.1.5) 56(84) bytes of data.
+64 bytes from 30.1.1.5: icmp_seq=1 ttl=64 time=0.770 ms
+64 bytes from 30.1.1.5: icmp_seq=2 ttl=64 time=0.611 ms
+64 bytes from 30.1.1.5: icmp_seq=3 ttl=64 time=0.417 ms
+64 bytes from 30.1.1.5: icmp_seq=4 ttl=64 time=0.413 ms
+64 bytes from 30.1.1.5: icmp_seq=5 ttl=64 time=0.385 ms
+
+--- 30.1.1.5 ping statistics ---
+5 packets transmitted, 5 received, 0% packet loss, time 3999ms
+rtt min/avg/max/mdev = 0.385/0.519/0.770/0.149 ms
+</msg>
+<status status="PASS" endtime="20160210 20:02:30.435" starttime="20160210 20:02:30.435"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Match Regexp">
+<doc>Fails if `string` does not match `pattern` as a regular expression.</doc>
+<arguments>
+<arg>${ping_output}</arg>
+<arg>${PING_REGEX}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:30.436" starttime="20160210 20:02:30.436"></status>
+</kw>
+<doc>Verify vpn service creation and data path traffic test</doc>
+<tags>
+</tags>
+<status status="PASS" endtime="20160210 20:02:30.436" critical="yes" starttime="20160210 20:01:08.802"></status>
+</test>
+<test id="s1-s1-t9" name="TC09 Verify Dissociate Network from VPN instance">
+<kw type="kw" name="${netid2} = vpn.Dissociate Network">
+<doc></doc>
+<arguments>
+<arg>${NEUTRON_NETWORK1}</arg>
+<arg>${L3VPN}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.465" level="INFO">JSON value of l3vpn {'input': {'vpn-id': '4ae8cd92-48ca-49b5-94e1-b2921a260003', 'network-id': ['12809f83-ccdf-422c-a20a-4ddae0710001']}}
+Response Info: &lt;Response [200]&gt;
+Port Resp Status code: 200
+Port Info: 
+Dissociate network through uuid</msg>
+<msg timestamp="20160210 20:02:30.465" level="INFO">${netid2} = 12809f83-ccdf-422c-a20a-4ddae0710001</msg>
+<status status="PASS" endtime="20160210 20:02:30.465" starttime="20160210 20:02:30.439"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${netid2}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:30.466" starttime="20160210 20:02:30.465"></status>
+</kw>
+<kw type="kw" name="${netid3} = vpn.Dissociate Network">
+<doc></doc>
+<arguments>
+<arg>${NEUTRON_NETWORK2}</arg>
+<arg>${L3VPN}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.498" level="INFO">JSON value of l3vpn {'input': {'vpn-id': '4ae8cd92-48ca-49b5-94e1-b2921a260003', 'network-id': ['12809f83-ccdf-422c-a20a-4ddae0710002']}}
+Response Info: &lt;Response [200]&gt;
+Port Resp Status code: 200
+Port Info: 
+Dissociate network through uuid</msg>
+<msg timestamp="20160210 20:02:30.498" level="INFO">${netid3} = 12809f83-ccdf-422c-a20a-4ddae0710002</msg>
+<status status="PASS" endtime="20160210 20:02:30.498" starttime="20160210 20:02:30.466"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${netid3}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:30.499" starttime="20160210 20:02:30.498"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>"Check if vpn is updated after association of network"</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:30.499" starttime="20160210 20:02:30.499"></status>
+</kw>
+<kw type="kw" name="${resp} = vpn.Get L 3 Vpn">
+<doc>It Get L3VPN information .</doc>
+<arguments>
+<arg>${L3VPN}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.505" level="INFO">JASON structure of neutron_network {'input': {'id': '4ae8cd92-48ca-49b5-94e1-b2921a260003'}}
+Response Content is {"output":{"l3vpn-instances":[{"export-RT":["100:1"],"tenant-id":"6c53df3a-3456-11e5-a151-feff819cdc9f","id":"4ae8cd92-48ca-49b5-94e1-b2921a260003","import-RT":["100:1"],"name":"vpnnew","route-distinguisher":["100:1"]}]}}
+Response Code is 200
+Get L3VPN  is SUCCESS for uuid 4ae8cd92-48ca-49b5-94e1-b2921a260003</msg>
+<msg timestamp="20160210 20:02:30.505" level="INFO">${resp} = {"output":{"l3vpn-instances":[{"export-RT":["100:1"],"tenant-id":"6c53df3a-3456-11e5-a151-feff819cdc9f","id":"4ae8cd92-48ca-49b5-94e1-b2921a260003","import-RT":["100:1"],"name":"vpnnew","route-disting...</msg>
+<status status="PASS" endtime="20160210 20:02:30.505" starttime="20160210 20:02:30.499"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:30.505" starttime="20160210 20:02:30.505"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>"check if uuid of dissociated network is not found in DB"</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:30.506" starttime="20160210 20:02:30.506"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Not Contain">
+<doc>Fails if `item1` contains `item2` one or more times.</doc>
+<arguments>
+<arg>${resp}</arg>
+<arg>${netid3}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:30.506" starttime="20160210 20:02:30.506"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>"dissociated network not found in DB"</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:30.507" starttime="20160210 20:02:30.507"></status>
+</kw>
+<doc>Dissociate Network from VPN instance</doc>
+<tags>
+</tags>
+<status status="PASS" endtime="20160210 20:02:30.507" critical="yes" starttime="20160210 20:02:30.437"></status>
+</test>
+<test id="s1-s1-t10" name="TC10 Verify Deletion of vpn instance">
+<kw type="kw" name="${resp} = vpn.Get L 3 Vpn">
+<doc>It Get L3VPN information .</doc>
+<arguments>
+<arg>${L3VPN}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.514" level="INFO">JASON structure of neutron_network {'input': {'id': '4ae8cd92-48ca-49b5-94e1-b2921a260003'}}
+Response Content is {"output":{"l3vpn-instances":[{"export-RT":["100:1"],"tenant-id":"6c53df3a-3456-11e5-a151-feff819cdc9f","id":"4ae8cd92-48ca-49b5-94e1-b2921a260003","import-RT":["100:1"],"name":"vpnnew","route-distinguisher":["100:1"]}]}}
+Response Code is 200
+Get L3VPN  is SUCCESS for uuid 4ae8cd92-48ca-49b5-94e1-b2921a260003</msg>
+<msg timestamp="20160210 20:02:30.514" level="INFO">${resp} = {"output":{"l3vpn-instances":[{"export-RT":["100:1"],"tenant-id":"6c53df3a-3456-11e5-a151-feff819cdc9f","id":"4ae8cd92-48ca-49b5-94e1-b2921a260003","import-RT":["100:1"],"name":"vpnnew","route-disting...</msg>
+<status status="PASS" endtime="20160210 20:02:30.514" starttime="20160210 20:02:30.509"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Contain">
+<doc>Fails if `item1` does not contain `item2` one or more times.</doc>
+<arguments>
+<arg>${resp}</arg>
+<arg>${L3VPN}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:30.514" starttime="20160210 20:02:30.514"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>"Deleting vpn instance"</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.515" level="INFO">"Deleting vpn instance"</msg>
+<status status="PASS" endtime="20160210 20:02:30.515" starttime="20160210 20:02:30.515"></status>
+</kw>
+<kw type="kw" name="${resp} = vpn.Delete L 3 Vpn">
+<doc>It creates the network with given name. interface parameters are as shown below.</doc>
+<arguments>
+<arg>${L3VPN}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.537" level="INFO">JASON structure of neutron_network {'input': {'id': ['4ae8cd92-48ca-49b5-94e1-b2921a260003']}}
+Response Content is {"output":{"response":["Operation successful with no errors"]}}
+Response Code is 200
+Delete L3vpn is SUCCESS for uuid 4ae8cd92-48ca-49b5-94e1-b2921a260003</msg>
+<msg timestamp="20160210 20:02:30.538" level="INFO">${resp} = 0</msg>
+<status status="PASS" endtime="20160210 20:02:30.537" starttime="20160210 20:02:30.515"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>"vpn instance deleted"</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.538" level="INFO">"vpn instance deleted"</msg>
+<status status="PASS" endtime="20160210 20:02:30.538" starttime="20160210 20:02:30.538"></status>
+</kw>
+<doc>Delete VPN instance</doc>
+<tags>
+</tags>
+<status status="PASS" endtime="20160210 20:02:30.538" critical="yes" starttime="20160210 20:02:30.507"></status>
+</test>
+<test id="s1-s1-t11" name="TC11 Verify neutron Port Deletion">
+<kw type="kw" name="${exp_result} = BuiltIn.Convert To Integer">
+<doc>Converts the given item to an integer number.</doc>
+<arguments>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.541" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20160210 20:02:30.541" level="INFO">${exp_result} = 0</msg>
+<status status="PASS" endtime="20160210 20:02:30.541" starttime="20160210 20:02:30.541"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>"Delete Netowrk"</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.542" level="INFO">"Delete Netowrk"</msg>
+<status status="PASS" endtime="20160210 20:02:30.542" starttime="20160210 20:02:30.541"></status>
+</kw>
+<kw type="kw" name="${res} = vpn.Delete Port">
+<doc>It deletes the port with given port name. interface parameters are as shown below.</doc>
+<arguments>
+<arg>${NEUTRON_PORT1}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.550" level="INFO">Response is: 
+Response is: &lt;Response [204]&gt;
+Delete Port is SUCCESS for uuid 79ad0001-19e0-489c-9505-cc70f9eb0001
+Port Name to uuid mapping List is: {'myport2': '79ad0002-19e0-489c-9505-cc70f9eb0002', 'myport3': '79ad0003-19e0-489c-9505-cc70f9eb0003', 'myport4': '79ad0004-19e0-489c-9505-cc70f9eb0004'}
+Port Mac to uuid mapping List is: {'79ad0003-19e0-489c-9505-cc70f9eb0003': '00:16:3E:92:F5:F8', '79ad0002-19e0-489c-9505-cc70f9eb0002': '00:16:3E:BB:9B:0F', '79ad0004-19e0-489c-9505-cc70f9eb0004': '00:16:3E:19:57:58'}
+Network to port uuid mapping List is: {'mynetwork2': '79ad0004-19e0-489c-9505-cc70f9eb0004', 'mynetwork1': '79ad0002-19e0-489c-9505-cc70f9eb0002'}</msg>
+<msg timestamp="20160210 20:02:30.550" level="INFO">${res} = 0</msg>
+<status status="PASS" endtime="20160210 20:02:30.550" starttime="20160210 20:02:30.542"></status>
+</kw>
+<kw type="kw" name="${res} = vpn.Delete Port">
+<doc>It deletes the port with given port name. interface parameters are as shown below.</doc>
+<arguments>
+<arg>${NEUTRON_PORT2}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.558" level="INFO">Response is: 
+Response is: &lt;Response [204]&gt;
+Delete Port is SUCCESS for uuid 79ad0002-19e0-489c-9505-cc70f9eb0002
+Port Name to uuid mapping List is: {'myport3': '79ad0003-19e0-489c-9505-cc70f9eb0003', 'myport4': '79ad0004-19e0-489c-9505-cc70f9eb0004'}
+Port Mac to uuid mapping List is: {'79ad0003-19e0-489c-9505-cc70f9eb0003': '00:16:3E:92:F5:F8', '79ad0004-19e0-489c-9505-cc70f9eb0004': '00:16:3E:19:57:58'}
+Network to port uuid mapping List is: {'mynetwork2': '79ad0004-19e0-489c-9505-cc70f9eb0004', 'mynetwork1': '79ad0002-19e0-489c-9505-cc70f9eb0002'}</msg>
+<msg timestamp="20160210 20:02:30.559" level="INFO">${res} = 0</msg>
+<status status="PASS" endtime="20160210 20:02:30.558" starttime="20160210 20:02:30.550"></status>
+</kw>
+<kw type="kw" name="${res} = vpn.Delete Port">
+<doc>It deletes the port with given port name. interface parameters are as shown below.</doc>
+<arguments>
+<arg>${NEUTRON_PORT3}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.566" level="INFO">Response is: 
+Response is: &lt;Response [204]&gt;
+Delete Port is SUCCESS for uuid 79ad0003-19e0-489c-9505-cc70f9eb0003
+Port Name to uuid mapping List is: {'myport4': '79ad0004-19e0-489c-9505-cc70f9eb0004'}
+Port Mac to uuid mapping List is: {'79ad0004-19e0-489c-9505-cc70f9eb0004': '00:16:3E:19:57:58'}
+Network to port uuid mapping List is: {'mynetwork2': '79ad0004-19e0-489c-9505-cc70f9eb0004', 'mynetwork1': '79ad0002-19e0-489c-9505-cc70f9eb0002'}</msg>
+<msg timestamp="20160210 20:02:30.566" level="INFO">${res} = 0</msg>
+<status status="PASS" endtime="20160210 20:02:30.566" starttime="20160210 20:02:30.559"></status>
+</kw>
+<kw type="kw" name="${res} = vpn.Delete Port">
+<doc>It deletes the port with given port name. interface parameters are as shown below.</doc>
+<arguments>
+<arg>${NEUTRON_PORT4}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.574" level="INFO">Response is: 
+Response is: &lt;Response [204]&gt;
+Delete Port is SUCCESS for uuid 79ad0004-19e0-489c-9505-cc70f9eb0004
+Port Name to uuid mapping List is: {}
+Port Mac to uuid mapping List is: {}
+Network to port uuid mapping List is: {'mynetwork2': '79ad0004-19e0-489c-9505-cc70f9eb0004', 'mynetwork1': '79ad0002-19e0-489c-9505-cc70f9eb0002'}</msg>
+<msg timestamp="20160210 20:02:30.574" level="INFO">${res} = 0</msg>
+<status status="PASS" endtime="20160210 20:02:30.574" starttime="20160210 20:02:30.566"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${res}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:30.575" starttime="20160210 20:02:30.574"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${res}</arg>
+<arg>${exp_result}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.575" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'int'&gt;</msg>
+<status status="PASS" endtime="20160210 20:02:30.575" starttime="20160210 20:02:30.575"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>"Get available ports"</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.576" level="INFO">"Get available ports"</msg>
+<status status="PASS" endtime="20160210 20:02:30.576" starttime="20160210 20:02:30.576"></status>
+</kw>
+<kw type="kw" name="${resp} = vpn.Get Ports">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20160210 20:02:30.580" level="INFO">All neutron ports: {
+   "ports" : [ ]
+}
+{
+   "ports" : [ ]
+}</msg>
+<msg timestamp="20160210 20:02:30.580" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20160210 20:02:30.580" starttime="20160210 20:02:30.576"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:30.580" starttime="20160210 20:02:30.580"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.content}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.581" level="INFO">{
+   "ports" : [ ]
+}</msg>
+<status status="PASS" endtime="20160210 20:02:30.581" starttime="20160210 20:02:30.581"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.582" level="INFO">200</msg>
+<status status="PASS" endtime="20160210 20:02:30.582" starttime="20160210 20:02:30.581"></status>
+</kw>
+<doc>Verify neutron Port Deletion</doc>
+<tags>
+<tag>Delete</tag>
+</tags>
+<status status="PASS" endtime="20160210 20:02:30.582" critical="yes" starttime="20160210 20:02:30.539"></status>
+</test>
+<test id="s1-s1-t12" name="TC12 Verify neutron Subnet Deletion">
+<kw type="kw" name="${exp_result} = BuiltIn.Convert To Integer">
+<doc>Converts the given item to an integer number.</doc>
+<arguments>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.585" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20160210 20:02:30.585" level="INFO">${exp_result} = 0</msg>
+<status status="PASS" endtime="20160210 20:02:30.585" starttime="20160210 20:02:30.585"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>"Delete Subnet Netowrk"</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.585" level="INFO">"Delete Subnet Netowrk"</msg>
+<status status="PASS" endtime="20160210 20:02:30.586" starttime="20160210 20:02:30.585"></status>
+</kw>
+<kw type="kw" name="${res} = vpn.Delete Subnet">
+<doc>It deletes the sub network with given subnetwork name. interface parameters are as shown below.</doc>
+<arguments>
+<arg>${NEUTRON_SUBNET1}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.595" level="INFO">Response is: 
+Response is: &lt;Response [204]&gt;
+Delete subnet network is SUCCESS for uuid 6c496958-a787-4d8c-9465-f4c417660001
+Subnet Name to uuid mapping List is: {'mysubnet2': '6c496958-a787-4d8c-9465-f4c417660002'}
+Subnet IP to uuid mapping List is: {'6c496958-a787-4d8c-9465-f4c417660002': '30.1.1.0/24'}</msg>
+<msg timestamp="20160210 20:02:30.595" level="INFO">${res} = 0</msg>
+<status status="PASS" endtime="20160210 20:02:30.595" starttime="20160210 20:02:30.586"></status>
+</kw>
+<kw type="kw" name="${res} = vpn.Delete Subnet">
+<doc>It deletes the sub network with given subnetwork name. interface parameters are as shown below.</doc>
+<arguments>
+<arg>${NEUTRON_SUBNET2}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.610" level="INFO">Response is: 
+Response is: &lt;Response [204]&gt;
+Delete subnet network is SUCCESS for uuid 6c496958-a787-4d8c-9465-f4c417660002
+Subnet Name to uuid mapping List is: {}
+Subnet IP to uuid mapping List is: {}</msg>
+<msg timestamp="20160210 20:02:30.610" level="INFO">${res} = 0</msg>
+<status status="PASS" endtime="20160210 20:02:30.610" starttime="20160210 20:02:30.596"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${res}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:30.611" starttime="20160210 20:02:30.610"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${res}</arg>
+<arg>${exp_result}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.611" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'int'&gt;</msg>
+<status status="PASS" endtime="20160210 20:02:30.611" starttime="20160210 20:02:30.611"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>"Get available Subnets"</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.612" level="INFO">"Get available Subnets"</msg>
+<status status="PASS" endtime="20160210 20:02:30.612" starttime="20160210 20:02:30.612"></status>
+</kw>
+<kw type="kw" name="${resp} = vpn.Get Subnets">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20160210 20:02:30.615" level="INFO">{
+   "subnets" : [ ]
+}
+All sub networks {
+   "subnets" : [ ]
+}</msg>
+<msg timestamp="20160210 20:02:30.615" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20160210 20:02:30.615" starttime="20160210 20:02:30.612"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:30.616" starttime="20160210 20:02:30.616"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.content}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.616" level="INFO">{
+   "subnets" : [ ]
+}</msg>
+<status status="PASS" endtime="20160210 20:02:30.617" starttime="20160210 20:02:30.616"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.617" level="INFO">200</msg>
+<status status="PASS" endtime="20160210 20:02:30.617" starttime="20160210 20:02:30.617"></status>
+</kw>
+<doc>Verify neutron Subnet Deletion</doc>
+<tags>
+<tag>Delete</tag>
+</tags>
+<status status="PASS" endtime="20160210 20:02:30.617" critical="yes" starttime="20160210 20:02:30.582"></status>
+</test>
+<test id="s1-s1-t13" name="TC13 Verify neutron network Deletion">
+<kw type="kw" name="${exp_result} = BuiltIn.Convert To Integer">
+<doc>Converts the given item to an integer number.</doc>
+<arguments>
+<arg>0</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.620" level="INFO">Argument types are:
+&lt;type 'unicode'&gt;</msg>
+<msg timestamp="20160210 20:02:30.620" level="INFO">${exp_result} = 0</msg>
+<status status="PASS" endtime="20160210 20:02:30.620" starttime="20160210 20:02:30.620"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>"Delete Netowrk"</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.621" level="INFO">"Delete Netowrk"</msg>
+<status status="PASS" endtime="20160210 20:02:30.621" starttime="20160210 20:02:30.620"></status>
+</kw>
+<kw type="kw" name="${res} = vpn.Delete Net">
+<doc>It deletes the network with given netname. interface parameters are as shown below.</doc>
+<arguments>
+<arg>${NEUTRON_NETWORK1}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.628" level="INFO">{'mynetwork2': '12809f83-ccdf-422c-a20a-4ddae0710002', 'mynetwork1': '12809f83-ccdf-422c-a20a-4ddae0710001'}
+Response is: &lt;Response [204]&gt;
+Response is: 
+Response is: &lt;Response [204]&gt;
+Delete network is SUCCESS for uuid 12809f83-ccdf-422c-a20a-4ddae0710001
+Network Name to uuid mapping List is: {'mynetwork2': '12809f83-ccdf-422c-a20a-4ddae0710002'}
+Network Name to subnet uuid mapping List is: {'12809f83-ccdf-422c-a20a-4ddae0710002': ['6c496958-a787-4d8c-9465-f4c417660002']}</msg>
+<msg timestamp="20160210 20:02:30.628" level="INFO">${res} = 0</msg>
+<status status="PASS" endtime="20160210 20:02:30.628" starttime="20160210 20:02:30.621"></status>
+</kw>
+<kw type="kw" name="${res} = vpn.Delete Net">
+<doc>It deletes the network with given netname. interface parameters are as shown below.</doc>
+<arguments>
+<arg>${NEUTRON_NETWORK2}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.633" level="INFO">{'mynetwork2': '12809f83-ccdf-422c-a20a-4ddae0710002'}
+Response is: &lt;Response [204]&gt;
+Response is: 
+Response is: &lt;Response [204]&gt;
+Delete network is SUCCESS for uuid 12809f83-ccdf-422c-a20a-4ddae0710002
+Network Name to uuid mapping List is: {}
+Network Name to subnet uuid mapping List is: {}</msg>
+<msg timestamp="20160210 20:02:30.633" level="INFO">${res} = 0</msg>
+<status status="PASS" endtime="20160210 20:02:30.633" starttime="20160210 20:02:30.628"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${res}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:30.634" starttime="20160210 20:02:30.634"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Should Be Equal">
+<doc>Fails if the given objects are unequal.</doc>
+<arguments>
+<arg>${res}</arg>
+<arg>${exp_result}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.634" level="INFO">Argument types are:
+&lt;type 'int'&gt;
+&lt;type 'int'&gt;</msg>
+<status status="PASS" endtime="20160210 20:02:30.635" starttime="20160210 20:02:30.634"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>"Get available Networks"</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.635" level="INFO">"Get available Networks"</msg>
+<status status="PASS" endtime="20160210 20:02:30.635" starttime="20160210 20:02:30.635"></status>
+</kw>
+<kw type="kw" name="${resp} = vpn.Get Networks">
+<doc></doc>
+<arguments>
+</arguments>
+<msg timestamp="20160210 20:02:30.638" level="INFO">All networks {
+   "networks" : [ ]
+}</msg>
+<msg timestamp="20160210 20:02:30.639" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" endtime="20160210 20:02:30.639" starttime="20160210 20:02:30.635"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${resp}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:30.639" starttime="20160210 20:02:30.639"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.content}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.640" level="INFO">{
+   "networks" : [ ]
+}</msg>
+<status status="PASS" endtime="20160210 20:02:30.640" starttime="20160210 20:02:30.640"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${resp.status_code}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.641" level="INFO">200</msg>
+<status status="PASS" endtime="20160210 20:02:30.641" starttime="20160210 20:02:30.640"></status>
+</kw>
+<doc>Verify neutron network Deletion</doc>
+<tags>
+<tag>Delete</tag>
+</tags>
+<status status="PASS" endtime="20160210 20:02:30.641" critical="yes" starttime="20160210 20:02:30.618"></status>
+</test>
+<doc>Test Suite for veirfication of ODL Neutron functions</doc>
+<metadata>
+</metadata>
+<status status="PASS" endtime="20160210 20:02:30.642" starttime="20160210 20:01:08.321"></status>
+</suite>
+<kw type="teardown" name="Stop Suite">
+<doc></doc>
+<arguments>
+</arguments>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>Stop the tests</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.647" level="INFO">Stop the tests</msg>
+<status status="PASS" endtime="20160210 20:02:30.647" starttime="20160210 20:02:30.646"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Switch Connection">
+<doc>Switches the active connection by index or alias.</doc>
+<arguments>
+<arg>${mininet2_conn_id_1}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:30.647" starttime="20160210 20:02:30.647"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${mininet2_conn_id_1}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.648" level="INFO">2</msg>
+<status status="PASS" endtime="20160210 20:02:30.648" starttime="20160210 20:02:30.648"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Execute Command">
+<doc>Executes `command` on the remote machine and returns its outputs.</doc>
+<arguments>
+<arg>sudo ovs-vsctl del-br BR2</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.648" level="INFO">Executing command 'sudo ovs-vsctl del-br BR2'.</msg>
+<msg timestamp="20160210 20:02:30.692" level="INFO">Command exited with return code 0.</msg>
+<status status="PASS" endtime="20160210 20:02:30.692" starttime="20160210 20:02:30.648"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Write">
+<doc>Writes the given `text` on the remote machine and appends a newline.</doc>
+<arguments>
+<arg>exit</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.732" level="INFO">exit</msg>
+<status status="PASS" endtime="20160210 20:02:30.732" starttime="20160210 20:02:30.692"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Switch Connection">
+<doc>Switches the active connection by index or alias.</doc>
+<arguments>
+<arg>${mininet1_conn_id_1}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:30.733" starttime="20160210 20:02:30.732"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>${mininet1_conn_id_1}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.733" level="INFO">1</msg>
+<status status="PASS" endtime="20160210 20:02:30.734" starttime="20160210 20:02:30.733"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Execute Command">
+<doc>Executes `command` on the remote machine and returns its outputs.</doc>
+<arguments>
+<arg>sudo ovs-vsctl del-br BR1</arg>
+</arguments>
+<msg timestamp="20160210 20:02:30.734" level="INFO">Executing command 'sudo ovs-vsctl del-br BR1'.</msg>
+<msg timestamp="20160210 20:02:31.033" level="INFO">Command exited with return code 0.</msg>
+<status status="PASS" endtime="20160210 20:02:31.033" starttime="20160210 20:02:30.734"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Write">
+<doc>Writes the given `text` on the remote machine and appends a newline.</doc>
+<arguments>
+<arg>exit</arg>
+</arguments>
+<msg timestamp="20160210 20:02:31.080" level="INFO">exit</msg>
+<status status="PASS" endtime="20160210 20:02:31.080" starttime="20160210 20:02:31.033"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log">
+<doc>Logs the given message with the given level.</doc>
+<arguments>
+<arg>StopNameSpace</arg>
+</arguments>
+<msg timestamp="20160210 20:02:31.080" level="INFO">StopNameSpace</msg>
+<status status="PASS" endtime="20160210 20:02:31.080" starttime="20160210 20:02:31.080"></status>
+</kw>
+<kw type="kw" name="${resp} = Open Connection And Log In Server And Run Script">
+<doc></doc>
+<arguments>
+<arg>${OVS_HOST1}</arg>
+<arg>${OVS_HOST1_USER}</arg>
+<arg>${OVS_HOST1_PWD}</arg>
+<arg>${STOP_NS_SCRIPT}</arg>
+</arguments>
+<kw type="kw" name="${connection_handle} = SSHLibrary.Open Connection">
+<doc>Opens a new SSH connection to the given `host` and `port`.</doc>
+<arguments>
+<arg>${HOST}</arg>
+<arg>timeout=30s</arg>
+</arguments>
+<msg timestamp="20160210 20:02:31.084" level="INFO">${connection_handle} = 5</msg>
+<status status="PASS" endtime="20160210 20:02:31.084" starttime="20160210 20:02:31.083"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Set Client Configuration">
+<doc>Update the `configuration` of the current connection.</doc>
+<arguments>
+<arg>prompt=&gt;</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:31.084" starttime="20160210 20:02:31.084"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Login">
+<doc>Logs into the SSH server with the given `username` and `password`.</doc>
+<arguments>
+<arg>${USERNAME}</arg>
+<arg>${PASSWORD}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:31.085" level="INFO">Logging into '10.183.254.140:22' as 'mininet'.</msg>
+<msg timestamp="20160210 20:02:31.645" level="INFO">Read output: Welcome to Ubuntu 14.04.1 LTS (GNU/Linux 3.13.0-43-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+
+619 packages can be updated.
+317 updates are security updates.
+
+Last login: Wed Feb 10 20:01:04 2016 from 10.183.254.140
+mininet@mininet-vm:~\&gt;</msg>
+<status status="PASS" endtime="20160210 20:02:31.645" starttime="20160210 20:02:31.084"></status>
+</kw>
+<kw type="kw" name="${scriptcmd} = BuiltIn.Catenate">
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<arguments>
+<arg>SEPARATOR=</arg>
+<arg>${USER_HOME}</arg>
+<arg>${NS_SCRIPT_PATH}</arg>
+<arg>${scriptname}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:31.646" level="INFO">${scriptcmd} = /home/mininet/VPN/test/csit/scripts/stop_ns.sh</msg>
+<status status="PASS" endtime="20160210 20:02:31.646" starttime="20160210 20:02:31.646"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Write">
+<doc>Writes the given `text` on the remote machine and appends a newline.</doc>
+<arguments>
+<arg>${scriptcmd}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:31.670" level="INFO">/home/mininet/VPN/test/csit/scripts/stop_ns.sh</msg>
+<status status="PASS" endtime="20160210 20:02:31.670" starttime="20160210 20:02:31.647"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Set Client Configuration">
+<doc>Update the `configuration` of the current connection.</doc>
+<arguments>
+<arg>prompt=&gt;</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:31.671" starttime="20160210 20:02:31.670"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${scriptcmd}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:31.671" starttime="20160210 20:02:31.671"></status>
+</kw>
+<kw type="kw" name="${output} = SSHLibrary.Read Until Prompt">
+<doc>Consumes and returns the server output until the prompt is found.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20160210 20:02:32.070" level="INFO">Killing network namespaces (and resources) ...
+Deleting ns2 ...
+Deleting ns1 ...
+Deleting any eth links ...
+mininet@mininet-vm:~\&gt;</msg>
+<msg timestamp="20160210 20:02:32.070" level="INFO">${output} = Killing network namespaces (and resources) ...
+Deleting ns2 ...
+Deleting ns1 ...
+Deleting any eth links ...
+mininet@mininet-vm:~\&gt;</msg>
+<status status="PASS" endtime="20160210 20:02:32.070" starttime="20160210 20:02:31.671"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Close Connection">
+<doc>Closes the current connection.</doc>
+<arguments>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:32.185" starttime="20160210 20:02:32.071"></status>
+</kw>
+<msg timestamp="20160210 20:02:32.185" level="INFO">${resp} = Killing network namespaces (and resources) ...
+Deleting ns2 ...
+Deleting ns1 ...
+Deleting any eth links ...
+mininet@mininet-vm:~\&gt;</msg>
+<status status="PASS" endtime="20160210 20:02:32.185" starttime="20160210 20:02:31.081"></status>
+</kw>
+<kw type="kw" name="${resp} = Open Connection And Log In Server And Run Script">
+<doc></doc>
+<arguments>
+<arg>${OVS_HOST2}</arg>
+<arg>${OVS_HOST2_USER}</arg>
+<arg>${OVS_HOST2_PWD}</arg>
+<arg>${STOP_NS_SCRIPT}</arg>
+</arguments>
+<kw type="kw" name="${connection_handle} = SSHLibrary.Open Connection">
+<doc>Opens a new SSH connection to the given `host` and `port`.</doc>
+<arguments>
+<arg>${HOST}</arg>
+<arg>timeout=30s</arg>
+</arguments>
+<msg timestamp="20160210 20:02:32.188" level="INFO">${connection_handle} = 6</msg>
+<status status="PASS" endtime="20160210 20:02:32.188" starttime="20160210 20:02:32.188"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Set Client Configuration">
+<doc>Update the `configuration` of the current connection.</doc>
+<arguments>
+<arg>prompt=&gt;</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:32.189" starttime="20160210 20:02:32.189"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Login">
+<doc>Logs into the SSH server with the given `username` and `password`.</doc>
+<arguments>
+<arg>${USERNAME}</arg>
+<arg>${PASSWORD}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:32.190" level="INFO">Logging into '10.183.254.141:22' as 'mininet'.</msg>
+<msg timestamp="20160210 20:02:32.566" level="INFO">Read output: Welcome to Ubuntu 14.04.1 LTS (GNU/Linux 3.13.0-43-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com/
+
+Last login: Wed Feb 10 20:01:06 2016 from 10.183.254.140
+mininet@mininet-vm:~\&gt;</msg>
+<status status="PASS" endtime="20160210 20:02:32.567" starttime="20160210 20:02:32.190"></status>
+</kw>
+<kw type="kw" name="${scriptcmd} = BuiltIn.Catenate">
+<doc>Catenates the given items together and returns the resulted string.</doc>
+<arguments>
+<arg>SEPARATOR=</arg>
+<arg>${USER_HOME}</arg>
+<arg>${NS_SCRIPT_PATH}</arg>
+<arg>${scriptname}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:32.567" level="INFO">${scriptcmd} = /home/mininet/VPN/test/csit/scripts/stop_ns.sh</msg>
+<status status="PASS" endtime="20160210 20:02:32.567" starttime="20160210 20:02:32.567"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Write">
+<doc>Writes the given `text` on the remote machine and appends a newline.</doc>
+<arguments>
+<arg>${scriptcmd}</arg>
+</arguments>
+<msg timestamp="20160210 20:02:32.580" level="INFO">/home/mininet/VPN/test/csit/scripts/stop_ns.sh</msg>
+<status status="PASS" endtime="20160210 20:02:32.580" starttime="20160210 20:02:32.568"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Set Client Configuration">
+<doc>Update the `configuration` of the current connection.</doc>
+<arguments>
+<arg>prompt=&gt;</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:32.581" starttime="20160210 20:02:32.581"></status>
+</kw>
+<kw type="kw" name="BuiltIn.Log To Console">
+<doc>Logs the given message to the console.</doc>
+<arguments>
+<arg>${scriptcmd}</arg>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:32.582" starttime="20160210 20:02:32.581"></status>
+</kw>
+<kw type="kw" name="${output} = SSHLibrary.Read Until Prompt">
+<doc>Consumes and returns the server output until the prompt is found.</doc>
+<arguments>
+</arguments>
+<msg timestamp="20160210 20:02:32.615" level="INFO">Killing network namespaces (and resources) ...
+Deleting ns4 ...
+Deleting ns3 ...
+Deleting any eth links ...
+mininet@mininet-vm:~\&gt;</msg>
+<msg timestamp="20160210 20:02:32.616" level="INFO">${output} = Killing network namespaces (and resources) ...
+Deleting ns4 ...
+Deleting ns3 ...
+Deleting any eth links ...
+mininet@mininet-vm:~\&gt;</msg>
+<status status="PASS" endtime="20160210 20:02:32.615" starttime="20160210 20:02:32.582"></status>
+</kw>
+<kw type="kw" name="SSHLibrary.Close Connection">
+<doc>Closes the current connection.</doc>
+<arguments>
+</arguments>
+<status status="PASS" endtime="20160210 20:02:32.730" starttime="20160210 20:02:32.616"></status>
+</kw>
+<msg timestamp="20160210 20:02:32.730" level="INFO">${resp} = Killing network namespaces (and resources) ...
+Deleting ns4 ...
+Deleting ns3 ...
+Deleting any eth links ...
+mininet@mininet-vm:~\&gt;</msg>
+<status status="PASS" endtime="20160210 20:02:32.730" starttime="20160210 20:02:32.185"></status>
+</kw>
+<status status="PASS" endtime="20160210 20:02:32.731" starttime="20160210 20:02:30.645"></status>
+</kw>
+<doc>Test suite for Inventory Scalability</doc>
+<metadata>
+</metadata>
+<status status="PASS" endtime="20160210 20:02:32.731" starttime="20160210 20:00:54.071"></status>
+</suite>
+<statistics>
+<total>
+<stat fail="0" pass="13">Critical Tests</stat>
+<stat fail="0" pass="13">All Tests</stat>
+</total>
+<tag>
+<stat info="" links="" doc="" combined="" pass="3" fail="0">Delete</stat>
+<stat info="" links="" doc="" combined="" pass="3" fail="0">Get</stat>
+<stat info="" links="" doc="" combined="" pass="2" fail="0">Post</stat>
+</tag>
+<suite>
+<stat fail="0" pass="13" id="s1" name="Vpnservice">Vpnservice</stat>
+<stat fail="0" pass="13" id="s1-s1" name="02 Odl Vpn Service">Vpnservice.02 Odl Vpn Service</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
