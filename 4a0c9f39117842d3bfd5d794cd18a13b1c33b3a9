@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_140bf425",
+        "filename": "csit/suites/sfc/Clustering_Datastore/020_simple_clustering.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2016-02-11T18:48:14Z",
+      "side": 1,
+      "message": "I think this is a typo, should it just have one underscore, like this: SFC_API",
+      "range": {
+        "startLine": 20,
+        "startChar": 38,
+        "endLine": 20,
+        "endChar": 47
+      },
+      "revId": "4a0c9f39117842d3bfd5d794cd18a13b1c33b3a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
