@@ -11,19 +11,20 @@ odl-cluster-data {
   akka {
     loglevel = "INFO"
     loggers = ["akka.event.slf4j.Slf4jLogger"]
+    logger-startup-timeout = 300s
 
     actor {
-
       provider = "akka.cluster.ClusterActorRefProvider"
       serializers {
-                java = "akka.serialization.JavaSerializer"
-                proto = "akka.remote.serialization.ProtobufSerializer"
-              }
+        java = "akka.serialization.JavaSerializer"
+        proto = "akka.remote.serialization.ProtobufSerializer"
+        readylocal = "org.opendaylight.controller.cluster.datastore.messages.ReadyLocalTransactionSerializer"
+      }
 
-              serialization-bindings {
-                  "com.google.protobuf.Message" = proto
-
-              }
+      serialization-bindings {
+        "com.google.protobuf.Message" = proto
+        "org.opendaylight.controller.cluster.datastore.messages.ReadyLocalTransaction" = readylocal
+      }
 
       default-dispatcher {
         # Setting throughput to 1 makes the dispatcher fair. It processes 1 message from
@@ -50,6 +51,8 @@ odl-cluster-data {
 
     cluster {
       seed-nodes = {{{DS_SEED_NODES}}}
+      
+      seed-node-timeout = 12s
 
       auto-down-unreachable-after = 30s
 
@@ -58,42 +61,23 @@ odl-cluster-data {
       ]
 
     }
-  }
-}
 
-odl-cluster-rpc {
-  bounded-mailbox {
-    mailbox-type = "org.opendaylight.controller.cluster.common.actor.MeteredBoundedMailbox"
-    mailbox-capacity = 1000
-    mailbox-push-timeout-time = 100ms
-  }
+    persistence {
+      # By default the snapshots/journal directories live in KARAF_HOME. You can choose to put it somewhere else by
+      # modifying the following two properties. The directory location specified may be a relative or absolute path. 
+      # The relative path is always relative to KARAF_HOME.
 
-  metric-capture-enabled = true
+      # snapshot-store.local.dir = "target/snapshots"
+      # journal.leveldb.dir = "target/journal"
 
-  akka {
-    loglevel = "INFO"
-    loggers = ["akka.event.slf4j.Slf4jLogger"]
-    log-dead-letters = 10000
+      journal {
+        leveldb {
+          # Set native = off to use a Java-only implementation of leveldb.
+          # Note that the Java-only version is not currently considered by Akka to be production quality.
 
-    actor {
-      provider = "akka.cluster.ClusterActorRefProvider"
-
-    }
-    remote {
-      log-remote-lifecycle-events = off
-      netty.tcp {
-        hostname = "{{HOST}}"
-        port = 2551
-        maximum-frame-size = 419430400
-        send-buffer-size = 52428800
-        receive-buffer-size = 52428800
+          # native = off
+        }
       }
-    }
-
-    cluster {
-      seed-nodes = {{{RPC_SEED_NODES}}}
-
-      auto-down-unreachable-after = 30s
     }
   }
 }
