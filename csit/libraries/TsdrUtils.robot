@@ -9,6 +9,7 @@ Resource          Utils.robot
 Variables         ../variables/Variables.py
 Library           json
 Library           HttpLibrary.HTTP
+Library           Process
 
 *** Variables ***
 ${HBASE_CLIENT}    /tmp/Hbase/hbase-0.94.15/bin
@@ -28,6 +29,11 @@ ${SNMP_PATH}      ${KARAF_PATH}/etc/tsdr.snmp.cfg
 ${SNMP_COMMUNITY}    mib2dev\/if-mib
 &{HEADERS_QUERY}    Content-Type=application/json    Content-Type=application/json
 &{OPER_STATUS}    up=1    down=2    testing=3    unknown=4    dormant=5    notPresent=6    lowerLayerDown=7
+&{syslog_facility}    kern=0    user=1    mail=2    daemon=3    auth=4    syslog=5    lpr=6    news=7    uucp=8
+...                    authpriv=10    ftp=11    local0=16    local1=17    local2=18    local3=19
+...                    local4=20    local5=21    local6=22    local7=23
+&{syslog_severity}    emerg=0    alert=1    crit=2    err=3    warning=4    notice=5    info=6    debug=7
+
 
 *** Keywords ***
 Start Tsdr Suite
@@ -402,7 +408,11 @@ Compare Tsdr XML Metrics
 Generate Syslog
     [Arguments]    ${facility}    ${level}    ${MESSAGE}
     [Documentation]    Uses syslogd to generate syslogs
-    Run Command On Remote System    ${ODL_SYSTEM_IP}    logger -p ${facility}.${level} -n 127.0.0.1 -u 514 ${MESSAGE}
+    ${facility_val}=    Get From Dictionary    ${syslog_facility}    ${facility}
+    ${level_val}=    Get From Dictionary    ${syslog_severity}    ${level}
+    ${fac_sev}=    Evaluate    ${facility_val} * 8 + ${level_val}
+    Start Process    nc    -w0    -u    ${ODL_SYSTEM_IP}    514    <<<    <${fac_sev}>${MESSAGE}
+
 
 Verify Metric Val File For Syslog
     [Documentation]    Returns Value for metric matching particular keya,keyb
