@@ -24,18 +24,6 @@ odl-cluster-data {
                   "com.google.protobuf.Message" = proto
 
               }
-
-      default-dispatcher {
-        # Setting throughput to 1 makes the dispatcher fair. It processes 1 message from
-        # the mailbox before moving on to the next mailbox
-        throughput = 1
-      }
-
-      default-mailbox {
-        # When not using a BalancingDispatcher it is recommended that we use the SingleConsumerOnlyUnboundedMailbox
-        # as it is the most efficient for multiple producer/single consumer use cases
-        mailbox-type="akka.dispatch.SingleConsumerOnlyUnboundedMailbox"
-      }
     }
     remote {
       log-remote-lifecycle-events = off
@@ -51,7 +39,7 @@ odl-cluster-data {
     cluster {
       seed-nodes = {{{DS_SEED_NODES}}}
 
-      auto-down-unreachable-after = 30s
+      auto-down-unreachable-after = 10s
 
       roles = [
         "{{MEMBER_NAME}}"
@@ -73,7 +61,6 @@ odl-cluster-rpc {
   akka {
     loglevel = "INFO"
     loggers = ["akka.event.slf4j.Slf4jLogger"]
-    log-dead-letters = 10000
 
     actor {
       provider = "akka.cluster.ClusterActorRefProvider"
@@ -84,16 +71,13 @@ odl-cluster-rpc {
       netty.tcp {
         hostname = "{{HOST}}"
         port = 2551
-        maximum-frame-size = 419430400
-        send-buffer-size = 52428800
-        receive-buffer-size = 52428800
       }
     }
 
     cluster {
       seed-nodes = {{{RPC_SEED_NODES}}}
 
-      auto-down-unreachable-after = 30s
+      auto-down-unreachable-after = 10s
     }
   }
 }
