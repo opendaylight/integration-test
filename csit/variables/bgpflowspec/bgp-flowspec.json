@@ -1,0 +1,24 @@
+{
+    u'bgp-flowspec:flowspec-routes': {u'flowspec-route': [
+    {u'attributes': {u'as-path': {},
+    u'extended-communities': [{u'traffic-action-extended-community': {u'sample': True,
+    u'terminal-action': True},
+    u'transitive': True}],
+    u'local-pref': {u'pref': 100},
+    u'origin': {u'value': u'igp'}},
+    u'flowspec': [{u'destination-prefix': u'192.168.0.1/32'},
+    {u'source-prefix': u'10.0.0.1/32'},
+    {u'protocol-ips': [{u'op': u'equals end-of-list', u'value': 6}]},
+    {u'ports': [{u'op': u'equals end-of-list', u'value': 80}]},
+    {u'destination-ports': [{u'op': u'greater-than', u'value': 8080},
+    {u'op': u'end-of-list less-than and-bit', u'value': 8088}]},
+    {u'source-ports': [{u'op': u'end-of-list greater-than', u'value': 1024}]},
+    {u'types': [{u'op': u'equals end-of-list', u'value': 0}]},
+    {u'codes': [{u'op': u'equals end-of-list', u'value': 0}]},
+    {u'tcp-flags': [{u'op': u'match end-of-list', u'value': 32}]},
+    {u'packet-lengths': [{u'op': u'greater-than', u'value': 400},
+    {u'op': u'end-of-list less-than and-bit', u'value': 500}]},
+    {u'dscps': [{u'op': u'equals end-of-list', u'value': 20}]},
+    {u'fragments': [{u'op': u'match end-of-list', u'value': u'first'}]}],
+    u'route-key': u"all packets to 192.168.0.1/32 AND from 10.0.0.1/32 AND where IP protocol equals to 6 AND where port equals to 80 AND where destination port is greater than 8080 and is less than 8088 AND where source port is greater than 1024 AND where ICMP type equals to 0 AND where ICMP code equals to 0 AND where TCP flags does match 32 AND where packet length is greater than 400 and is less than 500 AND where DSCP equals to 20 AND where fragment does match 'IS FIRST' "}]}
+}
