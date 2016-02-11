@@ -36,36 +36,19 @@ Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 ${BGP_TOOL_LOG_LEVEL}    info
 ${BGP_PEERS_LOG_FILE_NAME}    bgp_peer.log
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
-${CHECK_PERIOD}    10
-${CHECK_PERIOD_PREFIX_COUNT}    ${CHECK_PERIOD}
-${CHECK_PERIOD_PREFIX_COUNT_MANY}    ${CHECK_PERIOD_PREFIX_COUNT}
-${CHECK_PERIOD_PREFIX_COUNT_MANY_RRC}    ${CHECK_PERIOD_PREFIX_COUNT_MANY}
+${CHECK_PERIOD_PREFIX_COUNT_MANY_RRC}    10
 ${COUNT}          1000000
-${COUNT_PREFIX_COUNT}    ${COUNT}
-${COUNT_PREFIX_COUNT_MANY}    ${COUNT_PREFIX_COUNT}
-${COUNT_PREFIX_COUNT_MANY_RRC}    ${COUNT_PREFIX_COUNT_MANY}
+${COUNT_PREFIX_COUNT_MANY_RRC}    ${COUNT}
 ${FIRST_PEER_IP}    127.0.0.1
 ${HOLDTIME}       180
-${HOLDTIME_PREFIX_COUNT}    ${HOLDTIME}
-${HOLDTIME_PREFIX_COUNT_MANY}    ${HOLDTIME_PREFIX_COUNT}
-${HOLDTIME_PREFIX_COUNT_MANY_RRC}    ${HOLDTIME_PREFIX_COUNT_MANY}
+${HOLDTIME_PREFIX_COUNT_MANY_RRC}    ${HOLDTIME}
 ${KARAF_LOG_LEVEL}    INFO
 ${KARAF_BGPCEP_LOG_LEVEL}    ${KARAF_LOG_LEVEL}
 ${KARAF_PROTOCOL_LOG_LEVEL}    ${KARAF_BGPCEP_LOG_LEVEL}
-${MULTIPLICITY}    10
-${MULTIPLICITY_PREFIX_COUNT}    ${MULTIPLICITY}
-${MULTIPLICITY_PREFIX_COUNT_MANY}    ${MULTIPLICITY_PREFIX_COUNT}
-${MULTIPLICITY_PREFIX_COUNT_MANY_RRC}    ${MULTIPLICITY_PREFIX_COUNT_MANY}
-${REPETITIONS}    1
-${REPETITIONS_PREFIX_COUNT}    ${REPETITIONS}
-${REPETITIONS_PREFIX_COUNT_MANY}    ${REPETITIONS_PREFIX_COUNT}
-${REPETITIONS_PREFIX_COUNT_MANY_RRC}    ${REPETITIONS_PREFIX_COUNT_MANY}
+${MULTIPLICITY_PREFIX_COUNT_MANY_RRC}    10
+${REPETITIONS_PREFIX_COUNT_MANY_RRC}    10
 ${TEST_DURATION_MULTIPLIER}    1
-${TEST_DURATION_MULTIPLIER_PREFIX_COUNT}    ${TEST_DURATION_MULTIPLIER}
-${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_MANY}    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT}
-${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_MANY_RRC}    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_MANY}
-# TODO: Option names can be better.
-# TODO: TODOs can be better.
+${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_MANY_RRC}    ${TEST_DURATION_MULTIPLIER}
 
 *** Test Cases ***
 Check_For_Empty_Ipv4_Topology_Before_Talking
@@ -92,8 +75,9 @@ Wait_For_Ipv4_Topology
     [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     BuiltIn.Log    ${bgp_filling_timeout}s    console=yes
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${bgp_filling_timeout}    ${CHECK_PERIOD_PREFIX_COUNT_MANY_RRC}    Check_Ipv4_Topology    ${COUNT_PREFIX_COUNT_MANY_RRC}
-    [Teardown]    Report_Failure_Due_To_Bug    5185
+    Init_Check_Ipv4_Topology_Keyword    ${COUNT_PREFIX_COUNT_MANY_RRC}    ${REPETITIONS_PREFIX_COUNT_MANY_RRC}
+    ${message}=    BuiltIn.Wait_Until_Keyword_Succeeds    ${bgp_filling_timeout}    ${CHECK_PERIOD_PREFIX_COUNT_MANY_RRC}    Check_Ipv4_Topology
+    BuiltIn.Should_Be_Equal_As_Strings    ${message}    Target value reached.
 
 Check_Logs_For_Updates
     [Documentation]    Check BGP peer logs for received updates.
@@ -122,14 +106,12 @@ Wait_For_Stable_Ipv4_Topology_After_Talking
     [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_emptying_timeout}    period=${CHECK_PERIOD_PREFIX_COUNT_MANY_RRC}    repetitions=${REPETITIONS_PREFIX_COUNT_MANY_RRC}    excluded_count=${COUNT_PREFIX_COUNT_MANY_RRC}
-    [Teardown]    Report_Failure_Due_To_Bug    5097
 
 Check_For_Empty_Ipv4_Topology_After_Talking
     [Documentation]    Example-ipv4-topology should be empty now.
     [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     PrefixCounting.Check_Ipv4_Topology_Is_Empty
-    [Teardown]    Report_Failure_Due_To_Bug    5097
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
@@ -172,13 +154,27 @@ Teardown_Everything
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
 
-Check_Ipv4_Topology
-    [Arguments]    ${expected_count}=0
-    [Documentation]    Check and log the IPv4 topology count
-    ${current_time} =    DateTime.Get_Current_Date    exclude_millis=True
+Init_Check_Ipv4_Topology_Keyword
+    [Arguments]    ${expected_count}=0    ${deadlock_cycles}=-1
+    [Documentation]    Initialise test variables for Check_Ipv4_Topology keyword.
+    ${deadlock_cycles}=    Convert To Integer    ${deadlock_cycles}
     ${actual_count} =    PrefixCounting.Get_Ipv4_Topology_Count
-    BuiltIn.Log    ${current_time}: actual (expected) prefix count is ${actual_count} (${expected_count})    console=yes
-    BuiltIn.Should_Be_Equal_As_Strings    ${actual_count}    ${expected_count}
+    BuiltIn.Set_Test_Variable    ${deadlock_cycles}
+    BuiltIn.Set_Test_Variable    ${ipv4_topology_deadlock_countdown}    ${deadlock_cycles}
+    BuiltIn.Set_Test_Variable    ${ipv4_topology_last_count}    ${actual_count}
+    BuiltIn.Set_Test_Variable    ${expected_count}
+
+Check_Ipv4_Topology
+    [Documentation]    Check and log the IPv4 topology count. PASS if ${expected_count} or ${actual_count} not changed for ${deadlock_cycles} keyword calls.
+    ${actual_count} =    PrefixCounting.Get_Ipv4_Topology_Count
+    ${ipv4_topology_deadlock_countdown}=    BuiltIn.Set_Variable_If    (${actual_count} == ${ipv4_topology_last_count}) and (${ipv4_topology_deadlock_countdown} >= 0)    ${ipv4_topology_deadlock_countdown - 1}    ${deadlock_cycles}
+    ${current_time} =    DateTime.Get_Current_Date    exclude_millis=True
+    BuiltIn.Set_Test_Variable    ${ipv4_topology_deadlock_countdown}
+    BuiltIn.Set_Test_Variable    ${ipv4_topology_last_count}    ${actual_count}
+    BuiltIn.Log    ${current_time}: actual / expected prefix count is ${actual_count} / ${expected_count} (countdown: ${ipv4_topology_deadlock_countdown})    console=yes
+    BuiltIn.Return_From_Keyword_If    ${ipv4_topology_deadlock_countdown} == 0    Deadlock detected (ipv4-topology not changed for ${deadlock_cycles} cycles)
+    BuiltIn.Should_Be_Equal_As_Integers    ${actual_count}    ${expected_count}
+    [Return]    Target value reached.
 
 Check_File_For_Occurence
     [Arguments]    ${file_name}    ${keyword}    ${value}=''    ${threshold}=1
