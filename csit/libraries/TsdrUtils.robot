@@ -9,6 +9,7 @@ Resource          Utils.robot
 Variables         ../variables/Variables.py
 Library           json
 Library           HttpLibrary.HTTP
+Library           Process
 
 *** Variables ***
 ${HBASE_CLIENT}    /tmp/Hbase/hbase-0.94.15/bin
@@ -28,6 +29,10 @@ ${SNMP_PATH}      ${KARAF_PATH}/etc/tsdr.snmp.cfg
 ${SNMP_COMMUNITY}    mib2dev\/if-mib
 &{HEADERS_QUERY}    Content-Type=application/json    Content-Type=application/json
 &{OPER_STATUS}    up=1    down=2    testing=3    unknown=4    dormant=5    notPresent=6    lowerLayerDown=7
+&{syslog_facility}    kern=0
+${MESSAGE}    Oct 29 18:10:31: ODL: %STKUNIT0-M:CP %IFMGR-5-ASTATE_UP: Changed interface Admin state to up: Te 0/0
+${MESSAGE_PATTERN}    Changed interface
+
 
 *** Keywords ***
 Start Tsdr Suite
@@ -400,9 +405,9 @@ Compare Tsdr XML Metrics
     Should Be True    ${val_diff} <= ${val_max}
 
 Generate Syslog
-    [Arguments]    ${facility}    ${level}    ${MESSAGE}
+    [Arguments]    ${facility}
     [Documentation]    Uses syslogd to generate syslogs
-    Run Command On Remote System    ${ODL_SYSTEM_IP}    logger -p ${facility}.${level} -n 127.0.0.1 -u 514 ${MESSAGE}
+    Run    echo "<${facility}>${MESSAGE}" | nc -w 4 -u ${ODL_SYSTEM_IP} 1514
 
 Verify Metric Val File For Syslog
     [Documentation]    Returns Value for metric matching particular keya,keyb
@@ -470,6 +475,7 @@ Severity Iterator
 Severity Iterator For TSDR
     [Arguments]    ${key}    ${facility_value}    ${iterator_value}    ${syslogs}    ${MESSAGE}    ${syslog_severity}
     [Documentation]    Simulating FOR loop for checking TSDR for each syslog_severity
+    LOG    ${syslogs}    WARN
     ${iterator}=    Evaluate    ${iterator_value} * 8
     : FOR    ${level}    IN ZIP    &{syslog_severity}
     \    ${severity_value}=    Get From Dictionary    ${syslog_severity}    ${level}
