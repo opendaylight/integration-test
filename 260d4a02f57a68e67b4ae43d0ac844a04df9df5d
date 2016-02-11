@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_f47130e1",
+        "filename": "csit/testplans/unimgr.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 3675
+      },
+      "writtenOn": "2016-02-11T21:30:01Z",
+      "side": 1,
+      "message": "you need to create a separated test plan to hold this suite, could be unimgr-operations",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 50
+      },
+      "revId": "260d4a02f57a68e67b4ae43d0ac844a04df9df5d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
