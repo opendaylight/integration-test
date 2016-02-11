@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_e8bb19e3",
+        "filename": "csit/suites/tsdr/HBase/010_InterfaceMetrics.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-11T04:24:47Z",
+      "side": 1,
+      "message": "curious about this.  why is it needed?  just looking to learn.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 82
+      },
+      "revId": "9fd01a3cbd40d1e7eecbfd588a57254c9e6d767a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
