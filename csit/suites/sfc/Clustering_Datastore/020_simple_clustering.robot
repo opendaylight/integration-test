@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite for GBP Tenants, Operates functions from Restconf APIs.
+Documentation     Test suite for SFC Service Functions, Operates functions from Restconf APIs.
 Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
 Library           SSHLibrary
@@ -17,7 +17,7 @@ Add Service Functions To One Node
     [Documentation]    Add service functions from JSON file
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     ${jsonbody}    Read JSON From File    ${SFC_FUNCTIONS_FILE}
-    Add Elements To URI From File    ${SFC__API}    ${SFC_FUNCTIONS_FILE}
+    Add Elements To URI From File    ${SFC_API}    ${SFC_FUNCTIONS_FILE}    headers=${HEADERS_YANG_JSON}$
     ${resp}    RequestsLibrary.Get    session    ${SFC_API}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
