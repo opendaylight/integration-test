@@ -1,0 +1,222 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_31cd655e",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-12T16:08:48Z",
+      "side": 1,
+      "message": "Should be removed",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 3
+      },
+      "revId": "16f91658b59ad2b7163f087a3423dc00f2760540",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_91dc3114",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-12T16:08:48Z",
+      "side": 1,
+      "message": "Please doc this in this fn\u0027s docstring",
+      "revId": "16f91658b59ad2b7163f087a3423dc00f2760540",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_110e618d",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-12T16:08:48Z",
+      "side": 1,
+      "message": "Doesn\u0027t look like you\u0027re doing anything with this",
+      "revId": "16f91658b59ad2b7163f087a3423dc00f2760540",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_71d7eded",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-12T16:08:48Z",
+      "side": 1,
+      "message": "This is a docstring from another fn, please update",
+      "range": {
+        "startLine": 273,
+        "startChar": 0,
+        "endLine": 278,
+        "endChar": 11
+      },
+      "revId": "16f91658b59ad2b7163f087a3423dc00f2760540",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_51f9097f",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 288,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-12T16:08:48Z",
+      "side": 1,
+      "message": "I\u0027d be good to document (in the docstring for example) what you expect to be passed as port_type when you trip this conditional.",
+      "range": {
+        "startLine": 288,
+        "startChar": 16,
+        "endLine": 288,
+        "endChar": 20
+      },
+      "revId": "16f91658b59ad2b7163f087a3423dc00f2760540",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1137814f",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 369,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-12T16:08:48Z",
+      "side": 1,
+      "message": "This deletes all ports, right? Maybe just make it True/False.",
+      "range": {
+        "startLine": 369,
+        "startChar": 49,
+        "endLine": 369,
+        "endChar": 53
+      },
+      "revId": "16f91658b59ad2b7163f087a3423dc00f2760540",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_914a71c3",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 370,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-12T16:08:48Z",
+      "side": 1,
+      "message": "Spaces, wording, caps",
+      "range": {
+        "startLine": 370,
+        "startChar": 30,
+        "endLine": 370,
+        "endChar": 78
+      },
+      "revId": "16f91658b59ad2b7163f087a3423dc00f2760540",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_313ba539",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 371,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-12T16:08:48Z",
+      "side": 1,
+      "message": "This isn\u0027t clear to me",
+      "range": {
+        "startLine": 371,
+        "startChar": 45,
+        "endLine": 371,
+        "endChar": 73
+      },
+      "revId": "16f91658b59ad2b7163f087a3423dc00f2760540",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_71452db2",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 400,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-12T16:08:48Z",
+      "side": 1,
+      "message": "You\u0027re not passing any param that may have been provided",
+      "range": {
+        "startLine": 400,
+        "startChar": 44,
+        "endLine": 400,
+        "endChar": 46
+      },
+      "revId": "16f91658b59ad2b7163f087a3423dc00f2760540",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d11359b6",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 402,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-12T16:08:48Z",
+      "side": 1,
+      "message": "Also not passing a pram",
+      "range": {
+        "startLine": 402,
+        "startChar": 41,
+        "endLine": 402,
+        "endChar": 43
+      },
+      "revId": "16f91658b59ad2b7163f087a3423dc00f2760540",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
