@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_47b02b43",
+        "filename": "csit/suites/iotdm/basic/030_LayerTest.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-12T23:24:16Z",
+      "side": 1,
+      "message": "we are now requesting patches to modify these variables from CONTROLLER to ODL_SYSTEM_IP.  this will apply to other files in this patch.  Since I am requesting an update to this patch anyway, can you please make these modifications too?",
+      "range": {
+        "startLine": 3,
+        "startChar": 37,
+        "endLine": 3,
+        "endChar": 47
+      },
+      "revId": "6d120ddce9dec7d2c84edc0ab9d83e0ea67c5733",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_077e236b",
+        "filename": "csit/suites/iotdm/basic/050_ContainerAttributeTest.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-12T23:24:16Z",
+      "side": 1,
+      "message": "at least this block looks very similar, if not exactly the same as lines 491,494-495.  You can put $that_logic in to a local keyword, then use \"Wait Until Keyword Succeeds    3s    1s    $that_logic\" to avoid using sleeps.  Please do \nsomething similar to that as we really want to avoid sleeps.",
+      "range": {
+        "startLine": 474,
+        "startChar": 0,
+        "endLine": 476,
+        "endChar": 90
+      },
+      "revId": "6d120ddce9dec7d2c84edc0ab9d83e0ea67c5733",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e7805f48",
+        "filename": "csit/suites/iotdm/basic/050_ContainerAttributeTest.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-12T23:24:16Z",
+      "side": 1,
+      "message": "was this done for debugging purposes, or do you need it to show up in robot reports.  nothing wrong with either.  if it\u0027s for debugging, then you can remove it.  if it\u0027s for robot reports no problem.  But, if you use the approach in the last comment to make a local keyword, then this kind of work will be done every time that keyword is called and you don\u0027t have to miss putting it, like you may have missed in the test case above.",
+      "range": {
+        "startLine": 492,
+        "startChar": 0,
+        "endLine": 493,
+        "endChar": 18
+      },
+      "revId": "6d120ddce9dec7d2c84edc0ab9d83e0ea67c5733",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_47978b90",
+        "filename": "csit/suites/iotdm/basic/050_ContainerAttributeTest.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-12T23:24:16Z",
+      "side": 1,
+      "message": "this is not being used, afaict",
+      "range": {
+        "startLine": 533,
+        "startChar": 0,
+        "endLine": 533,
+        "endChar": 40
+      },
+      "revId": "6d120ddce9dec7d2c84edc0ab9d83e0ea67c5733",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2792479f",
+        "filename": "csit/suites/iotdm/basic/050_ContainerAttributeTest.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-12T23:24:16Z",
+      "side": 1,
+      "message": "test or text?  either way, it\u0027s not used anywhere in this test case.",
+      "range": {
+        "startLine": 649,
+        "startChar": 3,
+        "endLine": 649,
+        "endChar": 11
+      },
+      "revId": "6d120ddce9dec7d2c84edc0ab9d83e0ea67c5733",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8791939b",
+        "filename": "csit/suites/iotdm/basic/050_ContainerAttributeTest.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-12T23:24:16Z",
+      "side": 1,
+      "message": "not using this anywhere",
+      "range": {
+        "startLine": 669,
+        "startChar": 0,
+        "endLine": 669,
+        "endChar": 30
+      },
+      "revId": "6d120ddce9dec7d2c84edc0ab9d83e0ea67c5733",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c7ea7b0e",
+        "filename": "csit/suites/iotdm/basic/060_ConInAttributeTest.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-12T23:24:16Z",
+      "side": 1,
+      "message": "if this is not needed, just remove the lines altogether.",
+      "range": {
+        "startLine": 228,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 56
+      },
+      "revId": "6d120ddce9dec7d2c84edc0ab9d83e0ea67c5733",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_07f583ed",
+        "filename": "csit/suites/iotdm/basic/080_FilterCriteriaTest.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-12T23:24:16Z",
+      "side": 1,
+      "message": "if it\u0027s not needed, you can remove.",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 59
+      },
+      "revId": "6d120ddce9dec7d2c84edc0ab9d83e0ea67c5733",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e7f7bff3",
+        "filename": "csit/suites/iotdm/basic/090_AccessControlPolicyTest.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-12T23:24:16Z",
+      "side": 1,
+      "message": "not valid?  remove if so.  if it\u0027s a good test case that might just be failing (because of iotdm bug) then you can let it fail in releng.  we have a [Teardown] keyword to report failures due to bugs.",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 72
+      },
+      "revId": "6d120ddce9dec7d2c84edc0ab9d83e0ea67c5733",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_27d9a783",
+        "filename": "csit/suites/iotdm/basic/090_AccessControlPolicyTest.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-12T23:24:16Z",
+      "side": 1,
+      "message": "not doing anything with ${container} so this line is a noop.",
+      "range": {
+        "startLine": 94,
+        "startChar": 3,
+        "endLine": 94,
+        "endChar": 35
+      },
+      "revId": "6d120ddce9dec7d2c84edc0ab9d83e0ea67c5733",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_87e87311",
+        "filename": "csit/suites/iotdm/basic/090_AccessControlPolicyTest.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-12T23:24:16Z",
+      "side": 1,
+      "message": "put these before the \"Should Be True\" check.  if that check\nfails, these lines wont execute, and the failing case is when you\u0027ll likely want to see this output.",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 18
+      },
+      "revId": "6d120ddce9dec7d2c84edc0ab9d83e0ea67c5733",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
