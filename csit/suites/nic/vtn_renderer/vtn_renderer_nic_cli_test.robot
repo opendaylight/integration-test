@@ -60,9 +60,8 @@ Verify VTNBundle
     Should Contain    ${output}    Active
 
 Setup NIC Console Environment
-    [Documentation]    Installing NIC Console related features (odl-nic-core-mdsal, odl-nic-console, odl-nic-console)
+    [Documentation]    Installing NIC Console related features (odl-nic-core-mdsal, odl-nic-renderer-vtn)
     Verify Feature Is Installed    odl-nic-core-mdsal
-    Verify Feature Is Installed    odl-nic-console
     Verify Feature Is Installed    odl-nic-renderer-vtn
     Clean Mininet System
     Start Mininet Linear    ${switches}
