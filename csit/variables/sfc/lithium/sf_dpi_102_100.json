@@ -1,0 +1,19 @@
+{
+    "service-function": [
+        {
+            "name": "dpi-102-100",
+            "type": "service-function-type:dpi",
+            "nsh-aware": true,
+            "sf-data-plane-locator": [
+                {
+                    "name": "dpl-100",
+                    "port": 10100,
+                    "ip": "10.3.1.102",
+                    "service-function-forwarder": "SFF-bootstrap"
+                }
+            ],
+            "ip-mgmt-address": "10.3.1.102",
+            "rest-uri": "http://localhost:10100"
+        }
+    ]
+}

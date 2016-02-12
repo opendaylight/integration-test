@@ -8,13 +8,16 @@ Library           OperatingSystem
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
 
-*** Variables ***
-${SFC_API}        /restconf/config/service-function:service-functions
-${SFC_FUNCTIONS_FILE}    ${CURDIR}/../../../variables/sfc/service-functions.json
-
 *** Test Cases ***
+Init Variables
+    [Documentation]    Initialize ODL version specific variables
+    log    ${ODL_VERSION}
+    Run Keyword If    '${ODL_VERSION}' == 'stable-lithium'    Init Variables Lithium
+    ...    ELSE    Init Variables Master
+
 Add Service Functions To First Node
     [Documentation]    Add service functions from JSON file
+    Install a Feature    ${KARAF_FEATURES}    ${ODL_SYSTEM_IP}
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     ${jsonbody}    Read JSON From File    ${SFC_FUNCTIONS_FILE}
     Add Elements To URI From File    ${SFC_API}    ${SFC_FUNCTIONS_FILE}    ${HEADERS_YANG_JSON}
@@ -24,6 +27,7 @@ Add Service Functions To First Node
     Lists Should be Equal    ${result}    ${jsonbody}
 
 Read Service Functions From Second Node
+    Install a Feature    ${KARAF_FEATURES}    ${ODL_SYSTEM_2_IP}
     Create Session    session    http://${ODL_SYSTEM_2_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     ${jsonbody}    Read JSON From File    ${SFC_FUNCTIONS_FILE}
     ${resp}    RequestsLibrary.Get    session    ${SFC_API}
@@ -32,6 +36,7 @@ Read Service Functions From Second Node
     Lists Should be Equal    ${result}    ${jsonbody}
 
 Read Service Functions From Third Node
+    Install a Feature    ${KARAF_FEATURES}    ${ODL_SYSTEM_3_IP}
     Create Session    session    http://${ODL_SYSTEM_3_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     ${jsonbody}    Read JSON From File    ${SFC_FUNCTIONS_FILE}
     ${resp}    RequestsLibrary.Get    session    ${SFC_API}
@@ -45,3 +50,15 @@ Read JSON From File
     ${body}    OperatingSystem.Get File    ${filepath}
     ${jsonbody}    To Json    ${body}
     [Return]    ${jsonbody}
+
+Init Variables Master
+    [Documentation]    Sets variables specific to latest(master) version
+    Set Suite Variable    ${SFC_API}            /restconf/config/service-function:service-functions
+    Set Suite Variable    ${SFC_FUNCTIONS_FILE} ${CURDIR}/../../../variables/sfc/master/service-functions.json
+    Set Suite Variable    ${KARAF_FEATURES} odl-sfc-provider-rest
+
+Init Variables Lithium
+    [Documentation]    Sets variables specific to Lithium version
+    Set Suite Variable    ${SFC_API}            /restconf/config/service-function:service-functions
+    Set Suite Variable    ${SFC_FUNCTIONS_FILE} ${CURDIR}/../../../variables/sfc/lithium/service-functions.json
+    Set Suite Variable    ${KARAF_FEATURES} odl-sfc-core,odl-restconf-all

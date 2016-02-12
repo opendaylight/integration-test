@@ -1,0 +1,9 @@
+{
+    "service-function-scheduler-type": [
+        {
+            "type": "service-function-scheduler-type:random",
+            "enabled": true,
+            "name": "random"
+        }
+    ]
+}

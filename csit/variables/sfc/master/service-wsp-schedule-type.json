@@ -1,0 +1,9 @@
+{
+    "service-function-scheduler-type": [
+        {
+            "type": "service-function-scheduler-type:weighted-shortest-path",
+            "enabled": false,
+            "name": "weighted-shortest-path"
+        }
+    ]
+}
