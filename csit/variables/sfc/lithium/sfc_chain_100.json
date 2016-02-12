@@ -1,0 +1,24 @@
+{
+    "service-function-chain": [
+        {
+            "name": "SFC100",
+            "sfc-service-function": [
+                {
+                    "name": "dpi-abstract100",
+                    "order": 0,
+                    "type": "service-function-type:firewall"
+                },
+                {
+                    "name": "napt44-abstract100",
+                    "order": 1,
+                    "type": "service-function-type:dpi"
+                },
+                {
+                    "name": "firewall-abstract100",
+                    "order": 2,
+                    "type": "service-function-type:napt44"
+                }
+            ]
+        }
+    ]
+}
