@@ -8,11 +8,13 @@ Library           OperatingSystem
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
 
-*** Variables ***
-${SFC_API}        /restconf/config/service-function:service-functions
-${SFC_FUNCTIONS_FILE}    ${CURDIR}/../../../variables/sfc/service-functions.json
-
 *** Test Cases ***
+Init Variables
+    [Documentation]    Initialize ODL version specific variables
+    log    ${ODL_VERSION}
+    Run Keyword If    '${ODL_VERSION}' == 'stable-lithium'    Init Variables Lithium
+    ...    ELSE    Init Variables Master
+
 Add Service Functions To First Node
     [Documentation]    Add service functions from JSON file
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
@@ -45,3 +47,13 @@ Read JSON From File
     ${body}    OperatingSystem.Get File    ${filepath}
     ${jsonbody}    To Json    ${body}
     [Return]    ${jsonbody}
+
+Init Variables Master
+    [Documentation]    Sets variables specific to latest(master) version
+    Set Suite Variable    ${SFC_API}            /restconf/config/service-function:service-functions
+    Set Suite Variable    ${SFC_FUNCTIONS_FILE} ${CURDIR}/../../../variables/sfc/master/service-functions.json
+
+Init Variables Lithium
+    [Documentation]    Sets variables specific to Lithium version
+    Set Suite Variable    ${SFC_API}            /restconf/config/service-function:service-functions
+    Set Suite Variable    ${SFC_FUNCTIONS_FILE} ${CURDIR}/../../../variables/sfc/lithium/service-functions.json
