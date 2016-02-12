@@ -22,6 +22,30 @@
       "revId": "71fca5689e2e49d533ea9a68e06a6a11d723f349",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_04b621fa",
+        "filename": "csit/suites/usc/tcp/200_Multiple_Sessions_TCP/Test.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2706
+      },
+      "writtenOn": "2016-02-12T22:21:56Z",
+      "side": 1,
+      "message": "It is a mistake. I\u0027ve remove this line. And I\u0027ve changed all .txt to .robot.",
+      "parentUuid": "9a3d3df0_e45cddef",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 12
+      },
+      "revId": "71fca5689e2e49d533ea9a68e06a6a11d723f349",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
