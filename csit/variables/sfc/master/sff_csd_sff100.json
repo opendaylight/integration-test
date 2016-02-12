@@ -1,0 +1,17 @@
+{
+    "connected-sff-dictionary": [
+        {
+            "name": "SFF100",
+            "sff-interfaces": [
+                {
+                    "sff-interface": "dpl-100"
+                }
+            ],
+            "sff-sff-data-plane-locator": {
+              "port": 6000,
+              "ip": "10.1.1.2"
+            },
+            "failmode": "service-function-forwarder:open"
+        }
+    ]
+}

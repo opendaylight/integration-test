@@ -1,0 +1,12 @@
+{
+    "service-node": [
+        {
+            "name": "node-100",
+            "ip-mgmt-address": "10.3.1.100",
+            "service-function": [
+                "dpi-100-1",
+                "firewall-102-1"
+            ]
+        }
+    ]
+}
