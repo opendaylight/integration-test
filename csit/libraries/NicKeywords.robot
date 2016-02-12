@@ -80,8 +80,9 @@ Remove Intent From Karaf Console
     [Documentation]    Removes an intent from the controller via the provided intent id.
     ${output}=    Issue Command On Karaf Console    intent:remove ${id}
     Should Contain    ${output}    Intent successfully removed
-    ${output}=    Issue Command On Karaf Console    log:display |grep "Removed VTN configuration associated with the deleted Intent: "
-    Should Contain    ${output}    Removed VTN configuration associated with the deleted Intent    ${id}
+    ${output}=    Issue Command On Karaf Console    log:display | grep "Removed VTN configuration associated with the deleted Intent: "
+    #The below log statements has changed an info to trace mode in Beryllium, and in future release will roll back the same.
+    #Should Contain    ${output}    Removed VTN configuration associated with the deleted Intent    ${id}
 
 Mininet Ping Should Succeed
     [Arguments]    ${host1}    ${host2}
