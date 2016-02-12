@@ -1,0 +1,27 @@
+{
+  "service-function-scheduler-types": {
+    "service-function-scheduler-type": [
+      {
+        "name": "random",
+        "type": "service-function-scheduler-type:random",
+        "enabled": false
+      },
+      {
+        "name": "round-robin",
+        "type": "service-function-scheduler-type:round-robin",
+        "enabled": true
+      },
+      {
+        "name": "load-balance",
+        "type": "service-function-scheduler-type:load-balance",
+        "enabled": false
+      },
+      {
+        "name": "shortest-path",
+        "type": "service-function-scheduler-type:shortest-path",
+        "enabled": false
+      }
+    ]
+  }
+}
+
