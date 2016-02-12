@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_444ca942",
+        "filename": "csit/suites/sfc/Clustering_Datastore/020_simple_clustering.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-12T18:36:32Z",
+      "side": 1,
+      "message": "I don\u0027t know if you can \"do work\" in this *** Variables *** section, but I\u0027ve never tried.  if this doesn\u0027t work,\nthen put this whole block down in your *** Keywords *** section and then add a line after line 3 like this:\n\nSuite Setup    Init Variables\n\n\nThat will run this keyword before any test cases, which is what you want.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 40
+      },
+      "revId": "1273992457d8c23fcdaf1b1f4a44a3365e4bcc8e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
