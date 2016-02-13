@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_477dcb1b",
+        "filename": "csit/libraries/UscUtils.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-13T00:55:35Z",
+      "side": 1,
+      "message": "this is complicated, but I know it works :)\n\nI think a more clear way to do this, in robot:\n\n${file_exist_status}    Run Keyword And Ignore Error    File Should Exist    ~/usc-tools/UscAgent.tar\nRun Keyword If    \"${file_exists_status}\" \u003d\u003d \"FAIL\"    Run    git clone ...\n\nIt would help others down the road to be able to understand this suite faster.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 173
+      },
+      "revId": "be667f869e6e09dbc8640879af97c8673523ecd6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2778872a",
+        "filename": "csit/libraries/UscUtils.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-13T00:55:35Z",
+      "side": 1,
+      "message": "17/17 seems very specific.  could this change down the road when updates are made to the usc-tools repo?  if so, this will start breaking.",
+      "range": {
+        "startLine": 35,
+        "startChar": 18,
+        "endLine": 35,
+        "endChar": 32
+      },
+      "revId": "be667f869e6e09dbc8640879af97c8673523ecd6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
