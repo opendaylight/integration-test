@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_e7b4dfd2",
+        "filename": "csit/suites/iotdm/basic/030_LayerTest.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-13T03:09:32Z",
+      "side": 1,
+      "message": "Sure. No problem.",
+      "parentUuid": "9a3d3df0_47b02b43",
+      "range": {
+        "startLine": 3,
+        "startChar": 37,
+        "endLine": 3,
+        "endChar": 47
+      },
+      "revId": "6d120ddce9dec7d2c84edc0ab9d83e0ea67c5733",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_077e236b",
         "filename": "csit/suites/iotdm/basic/050_ContainerAttributeTest.robot",
         "patchSetId": 4
@@ -36,6 +60,30 @@
       "writtenOn": "2016-02-12T23:24:16Z",
       "side": 1,
       "message": "at least this block looks very similar, if not exactly the same as lines 491,494-495.  You can put $that_logic in to a local keyword, then use \"Wait Until Keyword Succeeds    3s    1s    $that_logic\" to avoid using sleeps.  Please do \nsomething similar to that as we really want to avoid sleeps.",
+      "range": {
+        "startLine": 474,
+        "startChar": 0,
+        "endLine": 476,
+        "endChar": 90
+      },
+      "revId": "6d120ddce9dec7d2c84edc0ab9d83e0ea67c5733",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e7021f6e",
+        "filename": "csit/suites/iotdm/basic/050_ContainerAttributeTest.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 476,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-13T03:09:32Z",
+      "side": 1,
+      "message": "Thanks JamO, I know we want to avoid the sleep, our tests will take like 10 seconds. Our purpose is to test whether the \"lastmodifiedtime\" attribute of a certain resource is changed when we update this resource. Could you give me an example of how this \"wait until keyword succeeds\" method can save sleep time?",
+      "parentUuid": "9a3d3df0_077e236b",
       "range": {
         "startLine": 474,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_47f94b7f",
+        "filename": "csit/suites/iotdm/basic/050_ContainerAttributeTest.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 493,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-13T03:09:32Z",
+      "side": 1,
+      "message": "This is for debugging, I will remove all the similar part.",
+      "parentUuid": "9a3d3df0_e7805f48",
+      "range": {
+        "startLine": 492,
+        "startChar": 0,
+        "endLine": 493,
+        "endChar": 18
+      },
+      "revId": "6d120ddce9dec7d2c84edc0ab9d83e0ea67c5733",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_47978b90",
         "filename": "csit/suites/iotdm/basic/050_ContainerAttributeTest.robot",
         "patchSetId": 4
@@ -82,6 +154,30 @@
       "writtenOn": "2016-02-12T23:24:16Z",
       "side": 1,
       "message": "this is not being used, afaict",
+      "range": {
+        "startLine": 533,
+        "startChar": 0,
+        "endLine": 533,
+        "endChar": 40
+      },
+      "revId": "6d120ddce9dec7d2c84edc0ab9d83e0ea67c5733",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_27f40786",
+        "filename": "csit/suites/iotdm/basic/050_ContainerAttributeTest.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 533,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-13T03:09:32Z",
+      "side": 1,
+      "message": "I will remove that.",
+      "parentUuid": "9a3d3df0_47978b90",
       "range": {
         "startLine": 533,
         "startChar": 0,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_87f3539d",
+        "filename": "csit/suites/iotdm/basic/050_ContainerAttributeTest.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 649,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-13T03:09:32Z",
+      "side": 1,
+      "message": "I will remove that.",
+      "parentUuid": "9a3d3df0_2792479f",
+      "range": {
+        "startLine": 649,
+        "startChar": 3,
+        "endLine": 649,
+        "endChar": 11
+      },
+      "revId": "6d120ddce9dec7d2c84edc0ab9d83e0ea67c5733",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_8791939b",
         "filename": "csit/suites/iotdm/basic/050_ContainerAttributeTest.robot",
         "patchSetId": 4
@@ -128,6 +248,30 @@
       "writtenOn": "2016-02-12T23:24:16Z",
       "side": 1,
       "message": "not using this anywhere",
+      "range": {
+        "startLine": 669,
+        "startChar": 0,
+        "endLine": 669,
+        "endChar": 30
+      },
+      "revId": "6d120ddce9dec7d2c84edc0ab9d83e0ea67c5733",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_67ee0fb6",
+        "filename": "csit/suites/iotdm/basic/050_ContainerAttributeTest.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 669,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-13T03:09:32Z",
+      "side": 1,
+      "message": "I will remove that.",
+      "parentUuid": "9a3d3df0_8791939b",
       "range": {
         "startLine": 669,
         "startChar": 0,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_c72c3b05",
+        "filename": "csit/suites/iotdm/basic/060_ConInAttributeTest.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-13T03:09:32Z",
+      "side": 1,
+      "message": "Sure.  I will remove that.",
+      "parentUuid": "9a3d3df0_c7ea7b0e",
+      "range": {
+        "startLine": 228,
+        "startChar": 0,
+        "endLine": 238,
+        "endChar": 56
+      },
+      "revId": "6d120ddce9dec7d2c84edc0ab9d83e0ea67c5733",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_07f583ed",
         "filename": "csit/suites/iotdm/basic/080_FilterCriteriaTest.robot",
         "patchSetId": 4
@@ -174,6 +342,30 @@
       "writtenOn": "2016-02-12T23:24:16Z",
       "side": 1,
       "message": "if it\u0027s not needed, you can remove.",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 152,
+        "endChar": 59
+      },
+      "revId": "6d120ddce9dec7d2c84edc0ab9d83e0ea67c5733",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a72f77f5",
+        "filename": "csit/suites/iotdm/basic/080_FilterCriteriaTest.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 152,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-13T03:09:32Z",
+      "side": 1,
+      "message": "I will remove that.",
+      "parentUuid": "9a3d3df0_07f583ed",
       "range": {
         "startLine": 144,
         "startChar": 0,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_c7055b7b",
+        "filename": "csit/suites/iotdm/basic/090_AccessControlPolicyTest.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-13T03:09:32Z",
+      "side": 1,
+      "message": "They are not ready, I will remove them",
+      "parentUuid": "9a3d3df0_e7f7bff3",
+      "range": {
+        "startLine": 82,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 72
+      },
+      "revId": "6d120ddce9dec7d2c84edc0ab9d83e0ea67c5733",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_27d9a783",
         "filename": "csit/suites/iotdm/basic/090_AccessControlPolicyTest.robot",
         "patchSetId": 4
@@ -232,6 +448,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_a7081792",
+        "filename": "csit/suites/iotdm/basic/090_AccessControlPolicyTest.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-13T03:09:32Z",
+      "side": 1,
+      "message": "I will remove it.",
+      "parentUuid": "9a3d3df0_27d9a783",
+      "range": {
+        "startLine": 94,
+        "startChar": 3,
+        "endLine": 94,
+        "endChar": 35
+      },
+      "revId": "6d120ddce9dec7d2c84edc0ab9d83e0ea67c5733",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_87e87311",
         "filename": "csit/suites/iotdm/basic/090_AccessControlPolicyTest.robot",
         "patchSetId": 4
@@ -243,6 +483,30 @@
       "writtenOn": "2016-02-12T23:24:16Z",
       "side": 1,
       "message": "put these before the \"Should Be True\" check.  if that check\nfails, these lines wont execute, and the failing case is when you\u0027ll likely want to see this output.",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 105,
+        "endChar": 18
+      },
+      "revId": "6d120ddce9dec7d2c84edc0ab9d83e0ea67c5733",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0700e365",
+        "filename": "csit/suites/iotdm/basic/090_AccessControlPolicyTest.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-13T03:09:32Z",
+      "side": 1,
+      "message": "Thanks!",
+      "parentUuid": "9a3d3df0_87e87311",
       "range": {
         "startLine": 102,
         "startChar": 0,
