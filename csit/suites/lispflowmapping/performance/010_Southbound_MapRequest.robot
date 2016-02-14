@@ -55,7 +55,7 @@ Compute And Export Results
 
 *** Keywords ***
 Reset Stats
-    ${resp}=    RequestsLibrary.Post Request   session    ${LFM_SB_RPC_API}:reset-stats
+    ${resp}=    RequestsLibrary.Post Request    session    ${LFM_SB_RPC_API}:reset-stats
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
