@@ -22,7 +22,7 @@ Put Service Nodes
     ${body}    OperatingSystem.Get File    ${SERVICE_NODES_FILE}
     ${jsonbody}    To Json    ${body}
     ${nodes}    Get From Dictionary    ${jsonbody}    service-nodes
-    ${resp}    RequestsLibrary.Get    session    ${SERVICE_NODES_URI}
+    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_NODES_URI}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     ${node}    Get From Dictionary    ${result}    service-nodes
@@ -31,10 +31,10 @@ Put Service Nodes
 Delete All Service Nodes
     [Documentation]    Delete all Service Nodes
     Add Elements To URI From File    ${SERVICE_NODES_URI}    ${SERVICE_NODES_FILE}
-    ${resp}    RequestsLibrary.Get    session    ${SERVICE_NODES_URI}
+    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_NODES_URI}
     Should Be Equal As Strings    ${resp.status_code}    200
     Remove All Elements At URI    ${SERVICE_NODES_URI}
-    ${resp}    RequestsLibrary.Get    session    ${SERVICE_NODES_URI}
+    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_NODES_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Get one Service Node
@@ -48,7 +48,7 @@ Get A Non-existing Service Node
     [Documentation]    Get A Non-existing Service Node
     Remove All Elements At URI    ${SERVICE_NODES_URI}
     Add Elements To URI From File    ${SERVICE_NODES_URI}    ${SERVICE_NODES_FILE}
-    ${resp}    RequestsLibrary.Get    session    ${SERVICE_NODES_URI}service-node/non-existing-sf
+    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_NODES_URI}service-node/non-existing-sf
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete A Service Node
@@ -56,7 +56,7 @@ Delete A Service Node
     Remove All Elements At URI    ${SERVICE_NODES_URI}
     Add Elements To URI From File    ${SERVICE_NODES_URI}    ${SERVICE_NODES_FILE}
     Remove All Elements At URI    ${SERVICE_NODES_URI}service-node/node-101
-    ${resp}    RequestsLibrary.Get    session    ${SERVICE_NODES_URI}
+    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_NODES_URI}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Not Contain    ${resp.content}    node-101
 
@@ -68,7 +68,7 @@ Delete A Non-existing Service Node
     ${jsonbody}    To Json    ${body}
     ${nodes}    Get From Dictionary    ${jsonbody}    service-nodes
     Remove All Elements At URI    ${SERVICE_NODES_URI}service-node/non-existing-sn
-    ${resp}    RequestsLibrary.Get    session    ${SERVICE_NODES_URI}
+    ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_NODES_URI}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     ${node}    Get From Dictionary    ${result}    service-nodes

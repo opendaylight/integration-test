@@ -15,7 +15,7 @@ Add Service Functions To First Node
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     ${jsonbody}    Read JSON From File    ${SFC_FUNCTIONS_FILE}
     Add Elements To URI From File    ${SFC_API}    ${SFC_FUNCTIONS_FILE}    ${HEADERS_YANG_JSON}
-    ${resp}    RequestsLibrary.Get    session    ${SFC_API}
+    ${resp}    RequestsLibrary.Get Request    session    ${SFC_API}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     Lists Should be Equal    ${result}    ${jsonbody}
@@ -23,7 +23,7 @@ Add Service Functions To First Node
 Read Service Functions From Second Node
     Create Session    session    http://${ODL_SYSTEM_2_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     ${jsonbody}    Read JSON From File    ${SFC_FUNCTIONS_FILE}
-    ${resp}    RequestsLibrary.Get    session    ${SFC_API}
+    ${resp}    RequestsLibrary.Get Request    session    ${SFC_API}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     Lists Should be Equal    ${result}    ${jsonbody}
@@ -31,7 +31,7 @@ Read Service Functions From Second Node
 Read Service Functions From Third Node
     Create Session    session    http://${ODL_SYSTEM_3_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     ${jsonbody}    Read JSON From File    ${SFC_FUNCTIONS_FILE}
-    ${resp}    RequestsLibrary.Get    session    ${SFC_API}
+    ${resp}    RequestsLibrary.Get Request    session    ${SFC_API}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
     Lists Should be Equal    ${result}    ${jsonbody}
