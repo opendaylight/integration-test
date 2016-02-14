@@ -22,6 +22,30 @@
       "revId": "ea264370edd0780287438343bd5cad3fdf1f6d82",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_18cdde5d",
+        "filename": "csit/suites/sfc/Clustering_Datastore/020_simple_clustering.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2039
+      },
+      "writtenOn": "2016-02-14T18:42:45Z",
+      "side": 1,
+      "message": "Jamo, what\u0027s the syntax for suite setup? Is it as simple as the following? *** Suite Setup ***",
+      "parentUuid": "9a3d3df0_78c50a3b",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 40
+      },
+      "revId": "ea264370edd0780287438343bd5cad3fdf1f6d82",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
