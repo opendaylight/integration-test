@@ -64,7 +64,7 @@ Put And Check At URI In Cluster
     ...    and check the data is replicated in all instances in ${controller_index_list}.
     ${expected_body}=    Hsf Json    ${body}
     Log    ${body}
-    ${resp}    RequestsLibrary.Put Request    controller${controller_index}    ${uri}    ${body}    ${HEADERS_YANG_JSON}
+    ${resp}    RequestsLibrary.Put Request    controller${controller_index}    ${uri}    data=${body}    headers=${HEADERS_YANG_JSON}
     Log    ${resp.content}
     Log    ${resp.status_code}
     ${status_code}=    Convert To String    ${resp.status_code}
