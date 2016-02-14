@@ -25,7 +25,7 @@ ${DEVICE_TYPE}    "mininet-didm:mininet-device-type"
 Verify Device Identification
     [Documentation]    Verification of Device type identification feature with device driver installed.
     [Tags]    DIDM
-    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL_NODES_API}
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ${DIDM_ID}
     Should Contain    ${resp.content}    ${DEVICE_TYPE}
