@@ -21,28 +21,28 @@ Add Pre-define Role
     [Documentation]    Add Pre-define Role
     [Tags]    Put
     ${body}    OperatingSystem.Get File    ${PREDEFINE_ROLE_FILE}
-    ${resp}    RequestsLibrary.Put    session    ${PREDEFINE_ROLE_URI}    data=${body}    headers=${HEADERS_YANG_JSON}
+    ${resp}    RequestsLibrary.Put Request    session    ${PREDEFINE_ROLE_URI}    data=${body}    headers=${HEADERS_YANG_JSON}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Add Pre-define Node
     [Documentation]    Add Pre-define Node
     [Tags]    Put
     ${body}    OperatingSystem.Get File    ${PREDEFINE_NODE_FILE}
-    ${resp}    RequestsLibrary.Put    session    ${PREDEFINE_NODE_URI}    data=${body}    headers=${HEADERS_YANG_JSON}
+    ${resp}    RequestsLibrary.Put Request    session    ${PREDEFINE_NODE_URI}    data=${body}    headers=${HEADERS_YANG_JSON}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Add Pre-define Connection
     [Documentation]    Add Pre-define Connection
     [Tags]    Put
     ${body}    OperatingSystem.Get File    ${PREDEFINE_CONNECTION_FILE}
-    ${resp}    RequestsLibrary.Put    session    ${PREDEFINE_CONNECTION_URI}    data=${body}    headers=${HEADERS_YANG_JSON}
+    ${resp}    RequestsLibrary.Put Request    session    ${PREDEFINE_CONNECTION_URI}    data=${body}    headers=${HEADERS_YANG_JSON}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Register Tenant
     [Documentation]    Register Tenant
     [Tags]    Post
     ${body}    OperatingSystem.Get File    ${REGISTER_TENANT_FILE}
-    ${resp}    RequestsLibrary.Post    session    ${REGISTER_TENANT_URI}    data=${body}    headers=${HEADERS_YANG_JSON}
+    ${resp}    RequestsLibrary.Post Request    session    ${REGISTER_TENANT_URI}    data=${body}    headers=${HEADERS_YANG_JSON}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
