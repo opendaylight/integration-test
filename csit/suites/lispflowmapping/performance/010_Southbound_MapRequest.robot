@@ -55,12 +55,12 @@ Compute And Export Results
 
 *** Keywords ***
 Reset Stats
-    ${resp}=    RequestsLibrary.Post    session    ${LFM_SB_RPC_API}:reset-stats
+    ${resp}=    RequestsLibrary.Post Request    session    ${LFM_SB_RPC_API}:reset-stats
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Get Transmitted Map-Requests Stats
-    ${resp}=    RequestsLibrary.Post    session    ${LFM_SB_RPC_API}:get-stats
+    ${resp}=    RequestsLibrary.Post Request    session    ${LFM_SB_RPC_API}:get-stats
     Log    ${resp.content}
     ${output}=    Get From Dictionary    ${resp.json()}    output
     ${stats}=    Get From Dictionary    ${output}    control-message-stats
