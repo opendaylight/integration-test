@@ -46,6 +46,30 @@
       "revId": "ea264370edd0780287438343bd5cad3fdf1f6d82",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_58d766ed",
+        "filename": "csit/suites/sfc/Clustering_Datastore/020_simple_clustering.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-14T18:46:24Z",
+      "side": 1,
+      "message": "just move this whole block down to the *** Keywords *** section.\n\nThen under your Documentation line (line 2) put this:\n\nSuite Setup    Init Variables\n\n\nThat\u0027s it.  Suite Setup is executed first and if it has anything that fails, then robot will just ignore the rest of the suite and exit early.  It helps us avoid wasting resources running tests that are probably invalid.",
+      "parentUuid": "9a3d3df0_18cdde5d",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 40
+      },
+      "revId": "ea264370edd0780287438343bd5cad3fdf1f6d82",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
