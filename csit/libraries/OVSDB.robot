@@ -85,7 +85,7 @@ Get OVSDB UUID
     \    ${node_id}=    Get From Dictionary    ${node}    node-id
     \    ${node_uuid}=    Replace String    ${node_id}    ovsdb://uuid/    ${EMPTY}
     \    # Since    bridges are also listed as nodes, but will not have the extra "ovsdb:connection-info data, we need to
-    \    # use "Run Keyword And Ignore Error" below.
+    # use "Run Keyword And Ignore Error" below.
     \    ${status}    ${connection_info}    Run Keyword And Ignore Error    Get From Dictionary    ${node}    ovsdb:connection-info
     \    ${status}    ${remote_ip}    Run Keyword And Ignore Error    Get From Dictionary    ${connection_info}    remote-ip
     \    ${uuid}=    Set Variable If    '${remote_ip}' == '${ovs_system_ip}'    ${node_uuid}    ${uuid}
@@ -94,9 +94,9 @@ Get OVSDB UUID
 Collect OVSDB Debugs
     [Arguments]    ${switch}=br-int
     [Documentation]    Used to log useful test debugs for OVSDB related system tests.
-    ${output}=    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
+    ${output}=    Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
     Log    ${output}
-    ${output}=    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${switch} | cut -d',' -f3-
+    ${output}=    Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${switch} | cut -d',' -f3-
     Log    ${output}
 
 Clean OVSDB Test Environment
@@ -105,7 +105,7 @@ Clean OVSDB Test Environment
     ...    tests. Not every step will always be neccessary, but should not cause any problems for
     ...    any new ovsdb test suites.
     Clean Mininet System    ${tools_system}
-    Run Command On Remote System    ${tools_system}    sudo ovs-vsctl del-manager
-    Run Command On Remote System    ${tools_system}    sudo /usr/share/openvswitch/scripts/ovs-ctl stop
-    Run Command On Remote System    ${tools_system}    sudo rm -rf /etc/openvswitch/conf.db
-    Run Command On Remote System    ${tools_system}    sudo /usr/share/openvswitch/scripts/ovs-ctl start
+    Run Command On Mininet    ${tools_system}    sudo ovs-vsctl del-manager
+    Run Command On Mininet    ${tools_system}    sudo /usr/share/openvswitch/scripts/ovs-ctl stop
+    Run Command On Mininet    ${tools_system}    sudo rm -rf /etc/openvswitch/conf.db
+    Run Command On Mininet    ${tools_system}    sudo /usr/share/openvswitch/scripts/ovs-ctl start
