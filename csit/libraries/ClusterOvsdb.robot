@@ -76,7 +76,9 @@ Create Bridge And Verify
     ${body}    Replace String    ${body}    tcp:controller2:6633    tcp:${ODL_SYSTEM_2_IP}:6640
     ${body}    Replace String    ${body}    tcp:controller3:6633    tcp:${ODL_SYSTEM_3_IP}:6640
     ${body}    Replace String    ${body}    127.0.0.1    ${TOOLS_SYSTEM_IP}
-    ${BRIDGE}=    Set Variable If    "${status}"=="AfterFail"    br02    br01
+    ${BRIDGE}=    Set Variable If    "${status}"=="BeforeFail"    br01
+    ...    "${status}"=="AfterFail"    br02
+    ...    "${status}"=="AfterRecover"    br05
     Log    ${BRIDGE}
     ${body}    Replace String    ${body}    br01    ${BRIDGE}
     ${body}    Replace String    ${body}    61644    ${OVSDB_PORT}
@@ -104,10 +106,14 @@ Delete Bridge Manually And Verify
     Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
 
 Delete Bridge Via Rest Call And Verify
-    [Arguments]    ${controller_index_list}    ${controller_index}
+    [Arguments]    ${controller_index_list}    ${controller_index}    ${status}=${NONE}
     [Documentation]    Delete bridge in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
     # need to get UUID which should be the same on all controllers in cluster, so asking controller1
     ${ovsdb_uuid}=    Get OVSDB UUID    controller_http_session=controller${controller_index}
+    ${BRIDGE}=    Set Variable If    "${status}"=="BeforeFail"    br01
+    ...    "${status}"=="AfterFail"    br02
+    ...    "${status}"=="AfterRecover"    br05
+    Log    ${BRIDGE}
     ${dictionary}=    Create Dictionary    ${BRIDGE}=0
     Wait Until Keyword Succeeds    20s    1s    Delete And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE}
     Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}
@@ -118,7 +124,9 @@ Create Port Via Controller
     ${sample}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_port_3node.json
     ${body}    Replace String    ${sample}    192.168.1.10    ${TOOLS_SYSTEM_IP}
     Log    ${body}
-    ${BRIDGE}=    Set Variable If    "${status}"=="AfterFail"    br02    br01
+    ${BRIDGE}=    Set Variable If    "${status}"=="BeforeFail"    br01
+    ...    "${status}"=="AfterFail"    br02
+    ...    "${status}"=="AfterRecover"    br05
     Log    ${BRIDGE}
     Log    URL is ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE}/termination-point/vx2/
     ${port_dictionary}=    Create Dictionary    ${BRIDGE}=7    vx2=3
@@ -164,14 +172,14 @@ Verify Bridge in Restarted Node
     [Arguments]    ${controller_index_list}    ${status}=${NONE}
     [Documentation]    Verify Bridge in Restarted node, which is created when the node is down.
     ${BRIDGE}=    Set Variable If    "${status}"=="AfterCandidateRecover"    br04    br02
-    ${dictionary}    Create Dictionary    ${BRIDGE}=6
+    ${dictionary}    Create Dictionary    ${BRIDGE}=7
     Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
 
 Verify Port in Restarted Node
     [Arguments]    ${controller_index_list}    ${status}=${NONE}
     [Documentation]    Verify Port in Restarted node, which is created when the node is down.
     ${BRIDGE}=    Set Variable If    "${status}"=="AfterCandidateRecover"    br04    br02
-    ${dictionary}    Create Dictionary    ${BRIDGE}=6    vx2=3
+    ${dictionary}    Create Dictionary    ${BRIDGE}=7    vx2=3
     Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
 
 Create Bridge In Candidate
@@ -233,5 +241,5 @@ Configure Exit OVSDB Connection
     [Documentation]    Cleans up test environment, close existing sessions.
     Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
     ${dictionary}=    Create Dictionary    ovsdb://uuid=0
-    Delete And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}
+    Delete And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${CONFIG_TOPO_API}
     Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}

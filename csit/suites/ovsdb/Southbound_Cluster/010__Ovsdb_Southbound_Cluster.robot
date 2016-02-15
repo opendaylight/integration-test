@@ -45,11 +45,11 @@ Add Port Manually In Owner and Verify Before Fail
 
 Create Bridge Via Controller In Owner and Verify Before Fail
     [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
-    Create Bridge And Verify    ${original_cluster_list}    ${original_owner}
+    Create Bridge And Verify    ${original_cluster_list}    ${original_owner}    BeforeFail
 
 Create Port Via Controller In Owner and Verify Before Fail
     [Documentation]    Create Port in Owner and verify it gets applied from all instances.
-    Create Port Via Controller    ${original_cluster_list}    ${original_owner}
+    Create Port Via Controller    ${original_cluster_list}    ${original_owner}    BeforeFail
 
 Modify the destination IP of Port Before Fail
     [Documentation]    This will modify the dst ip of existing port
@@ -69,7 +69,7 @@ Delete the Bridge In Owner and Verify Before Fail
 
 Delete Bridge Via Rest Call And Verify In Owner Before Fail
     [Documentation]    This request will delete the bridge node from the config data store and operational data store.
-    Delete Bridge Via Rest Call And Verify    ${original_cluster_list}    ${original_owner}
+    Delete Bridge Via Rest Call And Verify    ${original_cluster_list}    ${original_owner}    BeforeFail
 
 Kill Owner Instance
     [Documentation]    Kill Owner Instance and verify it is dead
@@ -115,17 +115,9 @@ Get Operational Topology with modified Port After Fail
     [Documentation]    This request will fetch the operational topology after the modified port is added to the bridge
     Get Operational Topology with modified Port    ${new_cluster_list}    ${new_owner}    AfterFail
 
-Delete the Port After Fail
-    [Documentation]    This request will delete the port node from the bridge node and data store.
-    Delete Port And Verify    ${new_cluster_list}    ${new_owner}    AfterFail
-
 Delete the Bridge In Owner and Verify After Fail
     [Documentation]    This request will delete the bridge node from the config data store and operational data store.
     Delete Bridge Manually And Verify    ${new_cluster_list}    ${new_owner}
-
-Delete Bridge Via Rest Call And Verify In Owner After Fail
-    [Documentation]    This request will delete the bridge node from the config data store and operational data store.
-    Delete Bridge Via Rest Call And Verify    ${new_cluster_list}    ${new_owner}
 
 Start Old Owner Instance
     [Documentation]    Start Owner Instance and verify it is active
@@ -150,7 +142,7 @@ Add Port Manually In Owner and Verify After Recover
 
 Create Bridge Via Controller In Owner and Verify After Recover
     [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
-    Create Bridge And Verify    ${original_cluster_list}    ${new_owner}
+    Create Bridge And Verify    ${original_cluster_list}    ${new_owner}    AfterRecover
 
 Verify Bridge in Restarted Node Which Is Killed Earlier
     [Documentation]    Verify Bridge in Restarted node, which is created when the node is down.
@@ -158,7 +150,7 @@ Verify Bridge in Restarted Node Which Is Killed Earlier
 
 Create Port Via Controller In Owner and Verify After Recover
     [Documentation]    Create Port in Owner and verify it gets applied from all instances.
-    Create Port Via Controller    ${original_cluster_list}    ${new_owner}
+    Create Port Via Controller    ${original_cluster_list}    ${new_owner}    AfterRecover
 
 Verify Port in Restarted Node Which Is Killed Earlier
     [Documentation]    Verify Port in Restarted node, which is created when the node is down.
@@ -179,6 +171,10 @@ Delete the Port After Recover
 Delete the Bridge In Owner and Verify After Recover
     [Documentation]    This request will delete the bridge node from the operational data store.
     Delete Bridge Manually And Verify    ${original_cluster_list}    ${new_owner}
+
+Delete Bridge Via Rest Call And Verify In Owner After Fail
+    [Documentation]    This request will delete the bridge node from the config data store and operational data store.
+    Delete Bridge Via Rest Call And Verify    ${new_cluster_list}    ${new_owner}    AfterFail
 
 Delete Bridge Via Rest Call And Verify In Owner After Recover
     [Documentation]    This request will delete the bridge node from the config data store and operational data store.
@@ -211,6 +207,10 @@ Get Operational Topology with modified Port After Recover
 Delete the Port After Recover
     [Documentation]    This request will delete the port node from the bridge node and data store.
     Delete Port And Verify    ${original_cluster_list}    ${original_owner}
+
+Delete the Port After Fail
+    [Documentation]    This request will delete the port node from the bridge node and data store.
+    Delete Port And Verify    ${new_cluster_list}    ${new_owner}    AfterFail
 
 Delete the Bridge In Old Owner and Verify After Recover
     [Documentation]    This request will delete the bridge node from the config data store and operational data store.
