@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Netvirt library. This library is useful for tests to create network, subnet, router and vm instances
+Documentation     Openstack library. This library is useful for tests to create network, subnet, router and vm instances
 Library           SSHLibrary
 Resource          Utils.robot
 Variables         ../variables/Variables.py
@@ -74,6 +74,29 @@ Create Vm Instance
     ${VmElement}=    Set Variable If    "${network_name}"=="net1_network"    MyFirstInstance    MySecondInstance
     ${output}=    Write Commands Until Prompt     nova boot --image cirros-0.3.4-x86_64-uec --flavor m1.tiny --nic net-id=${net_id} ${VmElement}
     Log    ${output}
+
+Create Vm Instances
+    [Arguments]    ${net_id}
+    [Documentation]    Create Four Vm Instance with the net id of the Netowrk.
+    : FOR    ${VmElement}    IN    @{VM_INSTANCES_NAME}
+    \    ${output}=    Write Commands Until Prompt     nova boot --image cirros-0.3.4-x86_64-uec --flavor m1.tiny --nic net-id=${net_id} ${VmElement}
+    Log    ${output}
+
+Ping Vm Instances
+    [Arguments]    ${net_id}    ${is_vm_delete}=NONE
+    [Documentation]    Reach all Vm Instance with the net id of the Netowrk.
+    @{VM_IPS}=    Set Variable If    ${is_vm_delete}==true    10.0.0.4    10.0.0.5    10.0.0.6    
+    : FOR    ${VmIpElement}    IN    @{VM_IPS}
+    \    ${output}=    Write Commands Until Prompt     sudo ip netns exec qdhcp-${net_id} ping -c 3 ${VmIpElement}    20s
+    \    Log    ${output}
+    \    Should Contain    ${output}    64 bytes
+
+Not Ping Vm Instances
+    [Arguments]    ${net_id}
+    [Documentation]    Should Not Reach removed Vm Instance.
+    ${output}=    Write Commands Until Prompt     sudo ip netns exec qdhcp-${net_id} ping -c 3 10.0.0.3
+    Log    ${output}
+    Should Contain    ${output}    Destination Host Unreachable
 
 Delete Vm Instance
     [Arguments]    ${vm_name}
