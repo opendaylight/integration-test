@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_8374de36",
+        "filename": "csit/libraries/NicKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-02-15T23:26:46Z",
+      "side": 1,
+      "message": "just leave 1 space after the #, as recommended here: https://wiki.opendaylight.org/view/CrossProject:Integration_Group:Test_Code_Guidelines",
+      "revId": "fd91b716d2640b2ba7d8ef0264c604f2390751b1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
