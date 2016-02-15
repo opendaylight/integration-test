@@ -23,7 +23,7 @@
         ]
       },
       "match": {
-        "ipv4-destination": "10.0.2.0/24",
+        "ipv4-destination": "10.0.1.0/24",
         "ethernet-match": {
           "ethernet-type": {
             "type": 2048
