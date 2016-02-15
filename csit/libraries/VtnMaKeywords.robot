@@ -32,7 +32,8 @@ ${policy_id}      1
 ${in_port}        1
 ${dscp_action}    set_field:32->nw_tos_shifted
 ${dscp_flow}    mod_nw_tos:128
-@{icmp_action}    nw_src=10.0.0.1   nw_dst=10.0.0.3
+@{icmp_action}    mod_tp_dst:22    mod_tp_src:33
+${icmp_code}    mod_tp_dst:22
 @{PATHPOLICY_ATTR}    "id":1    "port-desc":"openflow:4,2,s4-eth2"
 ${custom}         ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
 
