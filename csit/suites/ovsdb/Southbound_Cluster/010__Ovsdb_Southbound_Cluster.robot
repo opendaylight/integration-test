@@ -66,6 +66,26 @@ Delete Bridge In Owner And Verify Before Fail
     [Documentation]    Delete bridge in Owner and verify it gets deleted from all instances.
     ClusterOvsdb.Delete Sample Bridge And Verify    ${original_cluster_list}    ${original_owner}
 
+Modify the destination IP of Port Before Fail
+    [Documentation]    This will modify the dst ip of existing port
+    Modify the destination IP of Port    ${original_cluster_list}    ${original_owner}    BeforeFail
+
+Get Operational Topology with modified Port Before Fail
+    [Documentation]    This request will fetch the operational topology after the modified port is added to the bridge
+    Get Operational Topology with modified Port    ${original_cluster_list}    ${original_owner}    BeforeFail
+
+Delete the Port Before Fail
+    [Documentation]    This request will delete the port node from the bridge node and data store.
+    Delete Port And Verify    ${original_cluster_list}    ${original_owner}    BeforeFail
+
+Delete the Bridge In Owner and Verify Before Fail
+    [Documentation]    This request will delete the bridge node from the operational data store.
+    Delete Bridge Manually And Verify    ${original_cluster_list}    ${original_owner}
+
+Delete Bridge Via Rest Call And Verify In Owner Before Fail
+    [Documentation]    This request will delete the bridge node from the config data store and operational data store.
+    Delete Bridge Via Rest Call And Verify    ${original_cluster_list}    ${original_owner}    BeforeFail
+
 Kill Owner Instance
     [Documentation]    Kill Owner Instance and verify it is dead
     ClusterKeywords.Kill Multiple Controllers    ${original_owner}
@@ -139,6 +159,50 @@ Delete the Bridge Manually and Verify After Recover
     [Documentation]    Delete bridge with OVS command and verify it gets deleted from all instances.
     ClusterOvsdb.Delete Sample Bridge Manually And Verify    ${original_cluster_list}
 
+Create Bridge Manually In Owner and Verify After Recover
+    [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
+    Create Bridge Manually And Verify    ${original_cluster_list}    ${new_owner}
+
+Add Port Manually In Owner and Verify After Recover
+    [Documentation]    Add Port in Owner and verify it gets applied from all instances.
+    Add Port To The Manual Bridge And Verify    ${original_cluster_list}    ${new_owner}
+
+Create Bridge Via Controller In Owner and Verify After Recover
+    [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
+    Create Bridge And Verify    ${original_cluster_list}    ${new_owner}    AfterRecover
+
+Verify Bridge in Restarted Node Which Is Killed Earlier
+    [Documentation]    Verify Bridge in Restarted node, which is created when the node is down.
+    Verify Bridge in Restarted Node    ${original_cluster_list}
+
+Create Port Via Controller In Owner and Verify After Recover
+    [Documentation]    Create Port in Owner and verify it gets applied from all instances.
+    Create Port Via Controller    ${original_cluster_list}    ${new_owner}    AfterRecover
+
+Verify Port in Restarted Node Which Is Killed Earlier
+    [Documentation]    Verify Port in Restarted node, which is created when the node is down.
+    Verify Port in Restarted Node    ${original_cluster_list}
+
+Delete the Port After Fail
+    [Documentation]    This request will delete the port node from the bridge node and data store.
+    Delete Port And Verify    ${new_cluster_list}    ${new_owner}    AfterFail
+
+Delete Bridge Via Rest Call And Verify In Owner After Fail
+    [Documentation]    This request will delete the bridge node from the config data store and operational data store.
+    Delete Bridge Via Rest Call And Verify    ${new_cluster_list}    ${new_owner}    AfterFail
+
+Modify the destination IP of Port After Recover
+    [Documentation]    This will modify the dst ip of existing port
+    Modify the destination IP of Port    ${original_cluster_list}    ${new_owner}    AfterRecover
+
+Get Operational Topology with modified Port After Recover
+    [Documentation]    This request will fetch the operational topology after the modified port is added to the bridge
+    Get Operational Topology with modified Port    ${original_cluster_list}    ${new_owner}    AfterRecover
+
+Delete the Port After Recover
+    [Documentation]    This request will delete the port node from the bridge node and data store.
+    Delete Port And Verify    ${original_cluster_list}    ${new_owner}    AfterRecover
+
 Verify Modified Port After Recover
     [Documentation]    Verify modified port exists in all instances.
     ClusterOvsdb.Verify Sample Port Is Modified    ${original_cluster_list}
@@ -146,6 +210,14 @@ Verify Modified Port After Recover
 Delete Port In New Owner After Recover
     [Documentation]    Delete port in Owner and verify it gets deleted from all instances.
     ClusterOvsdb.Delete Sample Port And Verify    ${original_cluster_list}    ${new_owner}
+
+Delete Bridge Via Rest Call And Verify In Owner After Recover
+    [Documentation]    This request will delete the bridge node from the config data store and operational data store.
+    Delete Bridge Via Rest Call And Verify    ${original_cluster_list}    ${new_owner}    AfterRecover
+
+Create Bridge Manually In Old Owner and Verify After Recover
+    [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
+    Create Bridge Manually And Verify    ${original_cluster_list}    ${original_owner}
 
 Delete Bridge In New Owner And Verify After Recover
     [Documentation]    Delete bridge in Owner and verify it gets deleted from all instances.
@@ -166,6 +238,14 @@ Modify the destination IP of Port In Old Owner After Recover
 Verify Port Is Modified After Recover
     [Documentation]    Verify port is modified in all instances.
     ClusterOvsdb.Verify Sample Port Is Modified    ${original_cluster_list}
+
+Modify the destination IP of Port After Recover
+    [Documentation]    This will modify the dst ip of existing port
+    Modify the destination IP of Port    ${original_cluster_list}    ${original_owner}    AfterRecover
+
+Get Operational Topology with modified Port After Recover
+    [Documentation]    This request will fetch the operational topology after the modified port is added to the bridge
+    Get Operational Topology with modified Port    ${original_cluster_list}    ${original_owner}    AfterRecover
 
 Delete Port In Old Owner After Recover
     [Documentation]    Delete port in Owner and verify it gets deleted from all instances.
