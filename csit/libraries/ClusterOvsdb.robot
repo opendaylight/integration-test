@@ -233,5 +233,5 @@ Configure Exit OVSDB Connection
     [Documentation]    Cleans up test environment, close existing sessions.
     Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
     ${dictionary}=    Create Dictionary    ovsdb://uuid=0
-    Delete And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}
+    Delete And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${CONFIG_TOPO_API}
     Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}

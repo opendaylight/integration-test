@@ -45,7 +45,7 @@ Add Port Manually In Owner and Verify Before Fail
 
 Create Bridge Via Controller In Owner and Verify Before Fail
     [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
-    Create Bridge And Verify    ${original_cluster_list}    ${original_owner}
+    Create Bridge And Verify    ${original_cluster_list}    ${original_owner}    rerun    
 
 Create Port Via Controller In Owner and Verify Before Fail
     [Documentation]    Create Port in Owner and verify it gets applied from all instances.
