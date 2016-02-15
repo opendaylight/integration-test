@@ -26,19 +26,19 @@ Unification on Network Topology
     Prepare New Feature Installation
     Install a Feature    odl-topoprocessing-network-topology odl-bgpcep-pcep-all    timeout=30
     Wait For Karaf Log    Registering Topology Request Listener    300
-    ${resp}    RequestsLibrary.Put    session    ${CONFIGURATION}/${TOPOLOGY_URL}/unif:1    data=${UNIFICATION_NT}
+    ${resp}    RequestsLibrary.Put Request    session    ${CONFIGURATION}/${TOPOLOGY_URL}/unif:1    data=${UNIFICATION_NT}
     Log    ${CONFIGURATION}/${TOPOLOGY_URL}/unif:1
     Should Be Equal As Strings    ${resp.status_code}    200
     Wait For Karaf Log    Correlation configuration successfully read
-    ${resp}    RequestsLibrary.Put    session    ${CONFIGURATION}/${TOPOLOGY_URL}/und-topo:1    data=${UNDERLAY_TOPOLOGY_1}
+    ${resp}    RequestsLibrary.Put Request    session    ${CONFIGURATION}/${TOPOLOGY_URL}/und-topo:1    data=${UNDERLAY_TOPOLOGY_1}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Issue Command On Karaf Console    log:clear
-    ${resp}    RequestsLibrary.Put    session    ${CONFIGURATION}/${TOPOLOGY_URL}/und-topo:2    data=${UNDERLAY_TOPOLOGY_2}
+    ${resp}    RequestsLibrary.Put Request    session    ${CONFIGURATION}/${TOPOLOGY_URL}/und-topo:2    data=${UNDERLAY_TOPOLOGY_2}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Wait For Karaf Log    Transaction successfully written
-    ${resp}    RequestsLibrary.Get    session    ${OPERATIONAL}/network-topology:network-topology
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL}/network-topology:network-topology
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    <topology-id>unif:1</topology-id>
@@ -75,5 +75,5 @@ Wait For Karaf Log
 
 Prepare New Feature Installation
     [Documentation]    Clears karaf logs and CONFIGURATION datastore
-    ${resp}    RequestsLibrary.Delete    session    ${CONFIGURATION}/network-topology:network-topology
+    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIGURATION}/network-topology:network-topology
     Issue Command On Karaf Console    log:clear
