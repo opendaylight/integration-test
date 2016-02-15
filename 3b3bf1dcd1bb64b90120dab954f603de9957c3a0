@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_5550ccd3",
+        "filename": "csit/suites/unimgr/uni_operations/010_unimanager_restconf.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 4013
+      },
+      "writtenOn": "2016-02-15T15:18:56Z",
+      "side": 1,
+      "message": "ok will use Variable.py",
+      "parentUuid": "9a3d3df0_c7a27bad",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 20
+      },
+      "revId": "3b3bf1dcd1bb64b90120dab954f603de9957c3a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_a7be57d2",
         "filename": "csit/suites/unimgr/uni_operations/010_unimanager_restconf.robot",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2016-02-13T00:42:27Z",
       "side": 1,
       "message": "these are available in Variables.py already as OPERATIONAL_TOPO_API and CONFIG_TOPO_API.  use those...",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 83
+      },
+      "revId": "3b3bf1dcd1bb64b90120dab954f603de9957c3a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_956534b7",
+        "filename": "csit/suites/unimgr/uni_operations/010_unimanager_restconf.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 4013
+      },
+      "writtenOn": "2016-02-15T15:18:56Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "9a3d3df0_a7be57d2",
       "range": {
         "startLine": 19,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_d55b3cf4",
+        "filename": "csit/suites/unimgr/uni_operations/010_unimanager_restconf.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 4013
+      },
+      "writtenOn": "2016-02-15T15:18:56Z",
+      "side": 1,
+      "message": "this is the bridge name which suppose to be created by ODL, \ndoing delete bridge at the begging just in case if the previous test failed.\nwill make a variable for this.",
+      "parentUuid": "9a3d3df0_07b623fa",
+      "range": {
+        "startLine": 30,
+        "startChar": 76,
+        "endLine": 30,
+        "endChar": 82
+      },
+      "revId": "3b3bf1dcd1bb64b90120dab954f603de9957c3a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_27ca476e",
         "filename": "csit/suites/unimgr/uni_operations/010_unimanager_restconf.robot",
         "patchSetId": 6
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_d5b7bcf3",
+        "filename": "csit/suites/unimgr/uni_operations/010_unimanager_restconf.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 4013
+      },
+      "writtenOn": "2016-02-15T15:18:56Z",
+      "side": 1,
+      "message": "this clear everything, we don\u0027t really need this. will create a keyword for cleaning the unimgre env and re-use it.",
+      "parentUuid": "9a3d3df0_27ca476e",
+      "range": {
+        "startLine": 34,
+        "startChar": 0,
+        "endLine": 35,
+        "endChar": 82
+      },
+      "revId": "3b3bf1dcd1bb64b90120dab954f603de9957c3a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_87c9937a",
         "filename": "csit/suites/unimgr/uni_operations/010_unimanager_restconf.robot",
         "patchSetId": 6
@@ -105,6 +201,30 @@
       "writtenOn": "2016-02-13T00:42:27Z",
       "side": 1,
       "message": "we do not allow sleep.  one good solution is to do this:\n\nWait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${Unimgr_operation_API}/topology/unimgr:uni/    ${mininet1_IP}\nWait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${Unimgr_operation_API}/topology/unimgr:uni/    ${mininet2_IP}\n\nthis comment applies below.\n\nfor other more complicated checks, you can put the complex logic in a local\nkeyword and then wrap that keyword in a WUKS.",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 16
+      },
+      "revId": "3b3bf1dcd1bb64b90120dab954f603de9957c3a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b50798c9",
+        "filename": "csit/suites/unimgr/uni_operations/010_unimanager_restconf.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 4013
+      },
+      "writtenOn": "2016-02-15T15:18:56Z",
+      "side": 1,
+      "message": "ok will use, Wait Until Keyword Success",
+      "parentUuid": "9a3d3df0_87c9937a",
       "range": {
         "startLine": 52,
         "startChar": 0,
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_b5a318b1",
+        "filename": "csit/suites/unimgr/uni_operations/020_unimanager_cli.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 4013
+      },
+      "writtenOn": "2016-02-15T15:18:56Z",
+      "side": 1,
+      "message": "will remove this, not suppose to be there",
+      "parentUuid": "9a3d3df0_07ad839c",
+      "range": {
+        "startLine": 35,
+        "startChar": 87,
+        "endLine": 35,
+        "endChar": 110
+      },
+      "revId": "3b3bf1dcd1bb64b90120dab954f603de9957c3a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_e7afbf92",
         "filename": "csit/suites/unimgr/uni_operations/020_unimanager_cli.robot",
         "patchSetId": 6
@@ -197,6 +341,30 @@
       "writtenOn": "2016-02-13T00:42:27Z",
       "side": 1,
       "message": "ah, this is why you have that value in the robot file.  not a big deal like this, but one slight improvement would be\nto abstract this string to something like MACADDRESS.  then in robot, when you get this data you can use the Replace String keyword to take your robot defined mac_address and put it here.  it would make it easier to maintain by a smidge.  again, not a big deal.",
+      "range": {
+        "startLine": 12,
+        "startChar": 31,
+        "endLine": 12,
+        "endChar": 48
+      },
+      "revId": "3b3bf1dcd1bb64b90120dab954f603de9957c3a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_35d0a81e",
+        "filename": "csit/variables/unimgr/add_uni.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 4013
+      },
+      "writtenOn": "2016-02-15T15:18:56Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "9a3d3df0_47966b4d",
       "range": {
         "startLine": 12,
         "startChar": 31,
