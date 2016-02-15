@@ -31,7 +31,7 @@ Check Entity Owner Status And Find Owner and Candidate Before Fail
     Set Suite Variable    ${original_candidate}
 
 Create Bridge Via Controller In Owner and Verify Before Fail
-    [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
+    [Documentation]    Create Bridge in Owner and verify it gets applied from all the instances.
     Create Bridge In Candidate    ${original_cluster_list}    ${original_owner}    BeforeCandidateFail
 
 Create Port Via Controller In Owner and Verify Before Fail
