@@ -6,12 +6,8 @@ Variables         ../variables/Variables.py
 
 *** Keywords ***
 Create Network
-    [Arguments]    ${network_name}
+    [Arguments]    ${network_name}     ${devstack_path}=/opt/stack/new/devstack
     [Documentation]    Create Network with neutron request.
-    ${output}=    Write Commands Until Prompt    cd /opt/stack/new/devstack && cat localrc
-    Log    ${output}
-    ${output}=    Write Commands Until Prompt    source openrc admin admin
-    Log    ${output}
     ${output}=    Write Commands Until Prompt    neutron -v net-create ${network_name}
     Log    ${output}
     Should Contain    ${output}    Created a new network
@@ -131,9 +127,9 @@ Close Vm Instance
     Log    ${output}
 
 Ssh Vm Instance
-    [Arguments]    ${net_id}    ${vm_ip}    ${user}=cirros    ${password}=cubswin:)
+    [Arguments]    ${net_id}    ${vm_ip}    ${user}=cirros    ${password}=cubswin:)     ${key_file}=test.pem
     [Documentation]    Login to the vm instance using ssh in the network.
-    ${output}=   Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -i test.pem ${user}@${vm_ip}    (yes/no)?
+    ${output}=   Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -i ${key_file} ${user}@${vm_ip}    (yes/no)?
     Log    ${output}
     ${output}=   Write Commands Until Expected Prompt    yes    d:
     Log    ${output}
@@ -145,20 +141,23 @@ Ssh Vm Instance
     Log    ${output}
 
 Create Router
+    [Arguments]    ${router_name}
     [Documentation]    Create Router and Add Interface to the subnets.
-    ${output}=    Write Commands Until Prompt    neutron -v router-create router_1
+    ${output}=    Write Commands Until Prompt    neutron -v router-create ${router_name}
     Log    ${output}
     : FOR    ${SubnetElement}    IN    @{SUBNETS_NAME}
-    \    ${output}=    Write Commands Until Prompt    neutron -v router-interface-add router_1 ${SubnetElement}
+    \    ${output}=    Write Commands Until Prompt    neutron -v router-interface-add ${router_name} ${SubnetElement}
     Log    ${output}
 
 Remove Interface
+    [Arguments]    ${router_name}
     [Documentation]    Remove Interface to the subnets.
     : FOR    ${SubnetElement}    IN    @{SUBNETS_NAME}
-    \    ${output}=    Write Commands Until Prompt    neutron -v router-interface-delete router_1 ${SubnetElement}
+    \    ${output}=    Write Commands Until Prompt    neutron -v router-interface-delete ${router_name} ${SubnetElement}
     \    Log    ${output}
 
 Delete Router
+    [Arguments]    ${router_name}
     [Documentation]    Delete Router and Interface to the subnets.
-    ${output}=    Write Commands Until Prompt    neutron -v router-delete router_1
+    ${output}=    Write Commands Until Prompt    neutron -v router-delete ${router_name}
     Log    ${output}

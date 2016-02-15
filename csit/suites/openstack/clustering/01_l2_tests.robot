@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite to verify packet flows between vm instances.
-Suite Setup       Devstack Suite Setup
+Suite Setup       Devstack Suite Setup Tests
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -20,30 +20,19 @@ Resource          ../../../libraries/DevstackUtils.robot
 @{DHCP_IPS}    30.0.0.2    40.0.0.2
 
 *** Test Cases ***
-Run Devstack Gate Wrapper
-    Write Commands Until Prompt    unset GIT_BASE
-    Write Commands Until Prompt    env
-    ${output}=    Write Commands Until Prompt    ./devstack-gate/devstack-vm-gate-wrap.sh    timeout=3600s    #60min
+Get OVS Manager Connection Status
+    [Documentation]    This will verify if the OVS manager is connected
+    ${output}=    Write Commands Until Prompt    /opt/stack/devstack && cat localrc
     Log    ${output}
-    Should Not Contain    ${output}    ERROR: the main setup script run by this job failed
-    # workaround for https://bugs.launchpad.net/networking-odl/+bug/1512418
-    Write Commands Until Prompt    cd /opt/stack/new/tempest-lib
-    Write Commands Until Prompt    sudo python setup.py install
-    [Teardown]    Show Devstack Debugs
-
-Validate Neutron and Networking-ODL Versions
-    ${output}=    Write Commands Until Prompt    cd /opt/stack/new/neutron; git branch;
-    Should Contain    ${output}    * ${OPENSTACK_BRANCH}
-    ${output}=    Write Commands Until Prompt    cd /opt/stack/new/networking-odl; git branch;
-    Should Contain    ${output}    * ${NETWORKING-ODL_BRANCH}
-
-tempest.api.network
-    Run Tempest Tests    ${TEST_NAME}
+    ${output}=    Write Commands Until Prompt    source openrc admin admin
+    Log    ${output}
+    ${output}=   Write Commands Until Prompt    sudo ovs-vsctl show
+    Log    ${output}
 
 Create Networks
     [Documentation]    Create Network with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
-    \    Create Network    ${NetworkElement}
+    \    Create Network    ${NetworkElement}    devstack_path=/opt/stack/devstack
 
 Create Subnets For network_1
     [Documentation]    Create Sub Nets for the Networks with neutron request.
@@ -57,14 +46,12 @@ Create Vm Instances For network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     ${net_id}=    Get Net Id    network_1
     Create Vm Instances    ${net_id}    ${NET_1_VM_INSTANCES}
-    View Vm Console    ${NET_1_VM_INSTANCES}
 
 Create Vm Instances For network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     ${net_id}=    Get Net Id    network_2
     Set Suite Variable    ${net_id}
     Create Vm Instances    ${net_id}    ${NET_2_VM_INSTANCES}
-    View Vm Console    ${NET_2_VM_INSTANCES}
 
 List Networks With Namespaces
     ${output}=   Write Commands Until Prompt     sudo ip netns list
@@ -96,14 +83,7 @@ Ping All Vm Instances In network_2
     \    ${output}    Ping Vm From DHCP Namespace    ${net_id}    ${VmIpElement}
     \    Should Contain    ${output}    64 bytes
 
-Add Key-Pair For Vm Instance
-    [Documentation]    Creates key pair to ssh to the vm instance.
-    ${output}=   Write Commands Until Prompt    nova keypair-add test > test.pem
-    Log    ${output}
-    ${output}=   Write Commands Until Prompt    chmod 600 test.pem
-    Log    ${output}
-
-List The Availalbe Key Pair List
+List The Available Key Pair List
     [Documentation]    Check the existing key pairs available.
     ${output}=   Write Commands Until Prompt    nova keypair-list
     Log    ${output}
@@ -187,107 +167,8 @@ Delete Sub Networks In network_1
 Delete Sub Networks In network_2
     [Documentation]    Delete Sub Nets for the Networks with neutron request.
     Delete SubNet    subnet_2
-=======
-Create Subnets
-    [Documentation]    Create Sub Nets for the Networks with neutron request.
-    : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
-    \    Create SubNet    ${NetworkElement}
-
-Create Vm Instances For A Network
-    [Documentation]    Create More Vm instances using flavor and image names for a network.
-    ${net_id}=    Get Net Id    net1_network
-    Set Suite Variable    ${net_id}
-    Create Vm Instances    ${net_id}
-
-Show Details of Created Vm Instance
-    [Documentation]    View Details of the created vm instances using nova show.
-    : FOR    ${VmElement}    IN    @{VM_INSTANCES_NAME}
-    \    ${output}=   Write Commands Until Prompt     nova show ${VmElement}
-    \    Log    ${output}
-
-Show Console Log of Created Vm Instance
-    [Documentation]    View Console log of the created vm instances using nova show.
-    : FOR    ${VmElement}    IN    @{VM_INSTANCES_NAME}
-    \    ${output}=   Write Commands Until Prompt     nova console-log ${VmElement}
-    \    Log    ${output}
-
-List Networks With Namespaces
-    ${output}=   Write Commands Until Prompt     sudo ip netns list
-    Log    ${output}
-
-Verify Created Vm Instance In Dump Flow
-    [Documentation]    Verify the existence of the created vm instance ips in the dump flow.
-    ${output}=   Write Commands Until Prompt     sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
-    Log    ${output}
-    : FOR    ${VmIpElement}    IN    @{VM_IPS}
-    \    Should Contain    ${output}    ${VmIpElement}
-
-Ping All Vm Instances
-    [Documentation]    Check reachability of vm instances by pinging to them.
-    Ping Vm Instances    ${net_id}
-
-Verify Vm Communication After Ping With Flows
-    [Documentation]    Verify reachability of vm instances with dump flow.
-    : FOR    ${VmIpElement}    IN    @{VM_IPS}
-    \    ${output3}=   Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int | grep arp_tpa=${VmIpElement}
-    \    Log    ${output3}
-    \    Should Contain    ${output}    n_packets=1
-
-Create Routers
-    [Documentation]    Create Router and Add Interface to the subnets.
-    Create Router
-
-Verify Gateway Ip After Interface Added
-    [Documentation]    Verify the existence of the gateway ips with the dump flow in Beryllium.
-    Run Keyword If    "${ODL_VERSION}" == "lithium-latest"    Run Keyword And Ignore Error    Verify Gateway Ips
-    ...    ELSE IF    "${ODL_VERSION}" != "lithium-latest"    Verify Gateway Ips
-
-Verify Dhcp Flow Entries
-    [Documentation]    Verify Created SubNets for the Networks with the dump flow in Beryllium.
-    Run Keyword If    "${ODL_VERSION}" == "lithium-latest"    Run Keyword And Ignore Error    Verify Dhcp Ips
-    ...    ELSE IF    "${ODL_VERSION}" != "lithium-latest"    Verify Dhcp Ips
-
-Delete Vm Instance
-    [Documentation]    Delete Vm instances using instance names.
-    Delete Vm Instance    MyFirstInstance
-
-Verify Deleted Vm Instance Removed In Dump Flow
-    [Documentation]    Verify the non-existence of the vm instance ips in the dump flow.
-    ${output}=   Write Commands Until Prompt     sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
-    Log    ${output}
-    Should Not Contain    ${output}    10.0.0.3
-
-Ping All Vm Instances
-    [Documentation]    Check reachability of vm instances by pinging to them.
-    Ping Vm Instances    ${net_id}    ${is_vm_delete}=true
-
-No Ping For MyFirstInstance
-    [Documentation]    Check reachability of vm instances by pinging to them.
-    Not Ping Vm Instances    ${net_id}
-
-Delete Router Interfaces
-    [Documentation]    Remove Interface to the subnets.
-    Remove Interface
-
-Delete Routers
-    [Documentation]    Delete Router and Interface to the subnets.
-    Delete Router
-
-Verify Deleted Routers
-    [Documentation]    Verify Deleted Routers for the Networks with dump flow.
-    Verify No Gateway Ips
-
-Delete Sub Networks
-    [Documentation]    Delete Sub Nets for the Networks with neutron request.
-    : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
-    \    Delete SubNet    ${NetworkElement}
 
 Delete Networks
     [Documentation]    Delete Networks with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
     \    Delete Network    ${NetworkElement}
-
-Verify Deleted Subnets
-    [Documentation]    Verify Deleted SubNets for the Networks with dump flow.
-    Verify No Dhcp Ips
->>>>>>> 7eaab16... WIP: Ovsdb Openstack 3 Node Tests
