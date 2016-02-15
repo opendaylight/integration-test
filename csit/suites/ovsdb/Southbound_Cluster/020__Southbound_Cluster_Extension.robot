@@ -101,4 +101,5 @@ Delete Bridge Via Rest Call And Verify In Owner After Recover
 
 Cleans Up Test Environment For Next Suite
     [Documentation]    Cleans up test environment, close existing sessions in teardown.
+    [Tags]    exclude
     Configure Exit OVSDB Connection    ${original_cluster_list}    ${new_owner}
