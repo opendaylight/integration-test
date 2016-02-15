@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_b8914d49",
+        "filename": "csit/libraries/ClusterOvsdb.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-15T18:40:26Z",
+      "side": 1,
+      "message": "what about adding a line here to do \"Get OVSDB UUID\"?",
+      "revId": "c5c222a72cfbaca730c9a3bd30594f2148417b28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
