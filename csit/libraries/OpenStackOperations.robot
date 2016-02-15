@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Netvirt library. This library is useful for tests to create network, subnet, router and vm instances
+Documentation     Openstack library. This library is useful for tests to create network, subnet, router and vm instances
 Library           SSHLibrary
 Resource          Utils.robot
 Variables         ../variables/Variables.py
@@ -8,7 +8,9 @@ Variables         ../variables/Variables.py
 Create Network
     [Arguments]    ${network_name}
     [Documentation]    Create Network with neutron request.
-    ${output}=    Write Commands Until Prompt    cd /opt/stack/new/devstack && cat localrc
+    ${output}=    Write Commands Until Prompt    cd /opt/stack/devstack
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    ls
     Log    ${output}
     ${output}=    Write Commands Until Prompt    source openrc admin admin
     Log    ${output}
@@ -24,10 +26,8 @@ Delete Network
     Should Contain    ${output}    Deleted network: ${network_name}
 
 Create SubNet
-    [Arguments]    ${network_name}
+    [Arguments]    ${network_name}    ${subnet}    ${range_ip}
     [Documentation]    Create SubNet for the Network with neutron request.
-    ${subnet}=    Set Variable If    "${network_name}"=="net1_network"    subnet1    subnet2
-    ${range_ip}=    Set Variable If    "${network_name}"=="net1_network"    10.0.0.0/24    20.0.0.0/24
     ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet}
     Log    ${output}
     Should Contain    ${output}    Created a new subnet
@@ -54,9 +54,9 @@ Verify No Dhcp Ips
     \    Should Not Contain    ${output}    ${DhcpIpElement}
 
 Delete SubNet
-    [Arguments]    ${network_name}
+    [Arguments]    ${subnet}
     [Documentation]    Delete SubNet for the Network with neutron request.
-    ${subnet}=    Set Variable If    "${network_name}"=="net1_network"    subnet1    subnet2
+    Log    ${subnet}
     ${output}=    Write Commands Until Prompt    neutron -v subnet-delete ${subnet}
     Log    ${output}
     Should Contain    ${output}    Deleted subnet: ${subnet}
@@ -74,6 +74,29 @@ Create Vm Instance
     ${VmElement}=    Set Variable If    "${network_name}"=="net1_network"    MyFirstInstance    MySecondInstance
     ${output}=    Write Commands Until Prompt     nova boot --image cirros-0.3.4-x86_64-uec --flavor m1.tiny --nic net-id=${net_id} ${VmElement}
     Log    ${output}
+
+Create Vm Instances
+    [Arguments]    ${net_id}
+    [Documentation]    Create Four Vm Instance with the net id of the Netowrk.
+    : FOR    ${VmElement}    IN    @{VM_INSTANCES_NAME}
+    \    ${output}=    Write Commands Until Prompt     nova boot --image cirros-0.3.4-x86_64-uec --flavor m1.tiny --nic net-id=${net_id} ${VmElement}
+    Log    ${output}
+
+Ping Vm Instances
+    [Arguments]    ${net_id}    ${is_vm_delete}=NONE
+    [Documentation]    Reach all Vm Instance with the net id of the Netowrk.
+    @{VM_IPS}=    Set Variable If    ${is_vm_delete}==true    10.0.0.4    10.0.0.5    10.0.0.6    
+    : FOR    ${VmIpElement}    IN    @{VM_IPS}
+    \    ${output}=    Write Commands Until Prompt     sudo ip netns exec qdhcp-${net_id} ping -c 3 ${VmIpElement}    20s
+    \    Log    ${output}
+    \    Should Contain    ${output}    64 bytes
+
+Not Ping Vm Instances
+    [Arguments]    ${net_id}
+    [Documentation]    Should Not Reach removed Vm Instance.
+    ${output}=    Write Commands Until Prompt     sudo ip netns exec qdhcp-${net_id} ping -c 3 10.0.0.3
+    Log    ${output}
+    Should Contain    ${output}    Destination Host Unreachable
 
 Delete Vm Instance
     [Arguments]    ${vm_name}
