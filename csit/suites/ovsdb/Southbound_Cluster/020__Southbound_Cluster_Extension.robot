@@ -100,5 +100,7 @@ Delete Bridge Via Rest Call And Verify In Owner After Recover
     Delete Bridge In Candidate    ${original_cluster_list}    ${new_owner}
 
 Cleans Up Test Environment For Next Suite
-    [Documentation]    Cleans up test environment, close existing sessions in teardown.
+    [Documentation]    Cleans up test environment, close existing sessions in teardown. This step needs to be excluded
+    ...    until the keyword "Get Cluster Entity Owner For Ovsdb" is fixed to search using ovs uuid as argument.
+    [Tags]    exclude
     Configure Exit OVSDB Connection    ${original_cluster_list}    ${new_owner}

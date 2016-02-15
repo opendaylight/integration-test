@@ -90,7 +90,7 @@ Create Bridge And Verify
 Create Bridge Manually And Verify
     [Arguments]    ${controller_index_list}    ${controller_index}
     [Documentation]    Create bridge in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-br br-s1
+    Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-br br-s1
     ${dictionary_operational}=    Create Dictionary    br-s1=5
     ${dictionary_config}=    Create Dictionary    br-s1=0
     Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_config}    ${CONFIG_TOPO_API}
@@ -99,7 +99,7 @@ Create Bridge Manually And Verify
 Delete Bridge Manually And Verify
     [Arguments]    ${controller_index_list}    ${controller_index}
     [Documentation]    Delete bridge in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-br br-s1
+    Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-br br-s1
     ${dictionary}=    Create Dictionary    br-s1=0
     Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
 
@@ -146,7 +146,7 @@ Delete Port And Verify
 Add Port To The Manual Bridge And Verify
     [Arguments]    ${controller_index_list}    ${controller_index}
     [Documentation]    Add Port in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-port br-s1 vx1 -- set Interface vx1 type=vxlan
+    Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-port br-s1 vx1 -- set Interface vx1 type=vxlan
     ${dictionary_operational}=    Create Dictionary    vx1=2
     ${dictionary_config}=    Create Dictionary    vx1=0
     Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_config}    ${CONFIG_TOPO_API}
@@ -193,7 +193,8 @@ Create Bridge In Candidate
     Log    ${body}
     ${TOOLS_SYSTEM_IP1}    Replace String    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_IP}    "${TOOLS_SYSTEM_IP}"
     ${dictionary}=    Create Dictionary    ${TOOLS_SYSTEM_IP1}=1    ${OVSDBPORT}=4    ${BRIDGE}=1
-    Wait Until Keyword Succeeds    20s    1s    Put And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE}    ${body}
+    Wait Until Keyword Succeeds    20s    1s    Put And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE}
+    ...    ${body}
     Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}
 
 Create Port Vxlan in Candidate
