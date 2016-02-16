@@ -30,20 +30,31 @@ Create and Verify VTEP -No Vlan
     @{resp_array}    Split String    ${result}    ,,
     ${Dpn-2}    Get From List    ${resp_array}    4
     Log    ${Dpn-2}
+    Log    >>>> Updating Json with prefix,dpn ids,ips <<<<
+    ${substr}    Should Match Regexp    ${MININET}    [0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}\.
+    ${subnet}    Catenate    ${substr}0
+    Log    ${subnet}
+    ${prefix-add}    Run    sed -i \ 's/1.1.1.1/${subnet}/g' ${VPN_CONFIG_DIR}/Itm_creation_no_vlan.json
     ${dpn1-update}    Run    sed -i 's/"dpn-id":1/"dpn-id": ${Dpn-1}/g' ${VPN_CONFIG_DIR}/Itm_creation_no_vlan.json
     ${dpn2-update}    Run    sed -i 's/"dpn-id":2/"dpn-id": ${Dpn-2}/g' ${VPN_CONFIG_DIR}/Itm_creation_no_vlan.json
+    ${dpn1-ip-add}    Run    sed -i 's/"ip-address":"2.2.2.2"/"ip-address": "${MININET}"/g' ${VPN_CONFIG_DIR}/Itm_creation_no_vlan.json
+    ${dpn2-ip-add}    Run    sed -i 's/"ip-address":"3.3.3.3"/"ip-address": "${MININET1}"/g' ${VPN_CONFIG_DIR}/Itm_creation_no_vlan.json
+    Log    >>>> Json Update completed<<<<
     ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/Itm_creation_no_vlan.json
     ${resp}    RequestsLibrary.Post    session    ${REST_CON}/itm:transport-zones/    data=${body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    204
     Run Keyword If    "${resp.status_code}"==204    Log    Json posted successfully
-    Log    >>>>> Resetting the Dpn Ids to \ 1 & 2<<<<<
+    Log    >>>>> Resetting Json to default values<<<<<
     ${reset_1}    Run    sed -i 's/"dpn-id": ${Dpn-1}/"dpn-id":1/g' ${VPN_CONFIG_DIR}/Itm_creation_no_vlan.json
     ${reset_2}    Run    sed -i 's/"dpn-id": ${Dpn-2}/"dpn-id":2/g' ${VPN_CONFIG_DIR}/Itm_creation_no_vlan.json
+    ${reset-dpn1-ip}    run    sed -i 's/"ip-address": "${MININET}"/"ip-address":"2.2.2.2"/g' ${VPN_CONFIG_DIR}/Itm_creation_no_vlan.json
+    ${reset-dpn2-ip}    run    sed -i 's/"ip-address": "${MININET1}"/"ip-address":"3.3.3.3"/g' ${VPN_CONFIG_DIR}/Itm_creation_no_vlan.json
+    ${prefix-reset}    run    sed -i 's/${subnet}/1.1.1.1/g' ${VPN_CONFIG_DIR}/Itm_creation_no_vlan.json
     ${resp}    RequestsLibrary.Get    session    ${REST_CON}/itm:transport-zones/transport-zone/${itm_created[0]}/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
-    @{Itm-no-vlan}    Create List    TZA    10.183.254.0/24    0    ${Dpn-1}    s1-eth1
+    @{Itm-no-vlan}    Create List    TZA    ${subnet}    0    ${Dpn-1}    s1-eth1
     ...    ${MININET}    ${Dpn-2}    s2-eth1    ${MININET1}    0.0.0.0    tunnel-type-vxlan
     : FOR    ${value}    IN    @{Itm-no-vlan}
     \    Should Contain    ${resp.content}    ${value}
@@ -171,22 +182,33 @@ Create and Verify VTEP-Vlan
     @{resp_array}    Split String    ${result}    ,,
     ${Dpn-2}    Get From List    ${resp_array}    4
     Log    ${Dpn-2}
+    Log    >>>> Updating Json with prefix,dpn ids,ips <<<<
+    ${substr}    Should Match Regexp    ${MININET}    [0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}\.
+    ${subnet}    Catenate    ${substr}0
+    Log    ${subnet}
+    ${prefix-add}    Run    sed -i \ 's/1.1.1.1/${subnet}/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan.json
     ${dpn1-update}    Run    sed -i 's/"dpn-id":1/"dpn-id": ${Dpn-1}/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan.json
     ${dpn2-update}    Run    sed -i 's/"dpn-id":2/"dpn-id": ${Dpn-2}/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan.json
+    ${dpn1-ip-add}    Run    sed -i 's/"ip-address":"2.2.2.2"/"ip-address": "${MININET}"/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan.json
+    ${dpn2-ip-add}    Run    sed -i 's/"ip-address":"3.3.3.3"/"ip-address": "${MININET1}"/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan.json
+    Log    >>>> Json Update completed<<<<
     ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/Itm_creation_vlan.json
     ${resp}    RequestsLibrary.Post    session    ${REST_CON}/itm:transport-zones/    data=${body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    204
     Run Keyword If    "${resp.status_code}"==204    Log    Json posted successfully
-    Log    >>>>> Resetting the Dpn Ids to \ 1 & 2<<<<<
+    Log    >>>>> Resetting Json to default values<<<<<
     ${reset_1}    Run    sed -i 's/"dpn-id": ${Dpn-1}/"dpn-id":1/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan.json
     ${reset_2}    Run    sed -i 's/"dpn-id": ${Dpn-2}/"dpn-id":2/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan.json
+    ${reset-dpn1-ip}    run    sed -i 's/"ip-address": "${MININET}"/"ip-address":"2.2.2.2"/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan.json
+    ${reset-dpn2-ip}    run    sed -i 's/"ip-address": "${MININET1}"/"ip-address":"3.3.3.3"/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan.json
+    ${prefix-reset}    run    sed -i 's/${subnet}/1.1.1.1/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan.json
     ${resp}    RequestsLibrary.Get    session    ${REST_CON}/itm:transport-zones/transport-zone/${itm_created[0]}/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
-    @{Itm-vlan}    Create List    TZA    10.183.254.0/24    100    ${Dpn-1}    s1-eth1
+    @{Itm}    Create List    TZA    ${subnet}    100    ${Dpn-1}    s1-eth1
     ...    ${MININET}    ${Dpn-2}    s2-eth1    ${MININET1}    0.0.0.0    tunnel-type-vxlan
-    : FOR    ${value}    IN    @{Itm-vlan}
+    : FOR    ${value}    IN    @{Itm}
     \    Should Contain    ${resp.content}    ${value}
     Sleep    3
     ${resp}    RequestsLibrary.Get    session    ${REST_OPER}/ietf-interfaces:interfaces-state/interface/s1/    headers=${ACCEPT_XML}
@@ -303,22 +325,36 @@ Create VTEP - Vlan and Gateway
     @{resp_array}    Split String    ${result}    ,,
     ${Dpn-2}    Get From List    ${resp_array}    4
     Log    ${Dpn-2}
+    Log    >>>> Updating Json with prefix,dpn ids,ips <<<<
+    ${substr}    Should Match Regexp    ${MININET}    [0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}\.
+    ${subnet}    Catenate    ${substr}0
+    ${gateway}    Catenate    ${substr}1
+    Log    ${subnet}
+    ${prefix-add}    Run    sed -i \ 's/1.1.1.1/${subnet}/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan_gateway.json
     ${dpn1-update}    Run    sed -i 's/"dpn-id":1/"dpn-id": ${Dpn-1}/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan_gateway.json
     ${dpn2-update}    Run    sed -i 's/"dpn-id":2/"dpn-id": ${Dpn-2}/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan_gateway.json
+    ${dpn1-ip-add}    Run    sed -i 's/"ip-address":"2.2.2.2"/"ip-address": "${MININET}"/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan_gateway.json
+    ${dpn2-ip-add}    Run    sed -i 's/"ip-address":"3.3.3.3"/"ip-address": "${MININET1}"/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan_gateway.json
+    ${gateway-add}    Run    sed -i 's/"gateway-ip":"0.0.0.0"/"gateway-ip": "${gateway}"/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan_gateway.json
+    Log    >>>> Json Update completed<<<<
     ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/Itm_creation_vlan_gateway.json
     ${resp}    RequestsLibrary.Post    session    ${REST_CON}/itm:transport-zones/    data=${body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    204
     Run Keyword If    "${resp.status_code}"==204    Log    Json posted successfully
-    Log    >>>>> Resetting the Dpn Ids to \ 1 & 2<<<<<
+    Log    >>>>> Resetting Json to default values<<<<<
     ${reset_1}    Run    sed -i 's/"dpn-id": ${Dpn-1}/"dpn-id":1/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan_gateway.json
     ${reset_2}    Run    sed -i 's/"dpn-id": ${Dpn-2}/"dpn-id":2/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan_gateway.json
+    ${reset-dpn1-ip}    run    sed -i 's/"ip-address": "${MININET}"/"ip-address":"2.2.2.2"/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan_gateway.json
+    ${reset-dpn2-ip}    run    sed -i 's/"ip-address": "${MININET1}"/"ip-address":"3.3.3.3"/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan_gateway.json
+    ${prefix-reset}    run    sed -i 's/${subnet}/1.1.1.1/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan_gateway.json
+    ${gateway-reset}    run    sed -i 's/"gateway-ip": "${gateway}"/"gateway-ip":"0.0.0.0"/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan_gateway.json
     ${resp}    RequestsLibrary.Get    session    ${REST_CON}/itm:transport-zones/transport-zone/${itm_created[0]}/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
-    @{Itm-vlan-gateway}    Create List    TZA    10.183.254.0/24    101    ${Dpn-1}    s1-eth1
-    ...    ${MININET}    ${Dpn-2}    s2-eth1    ${MININET1}    10.183.254.1    tunnel-type-vxlan
-    : FOR    ${value}    IN    @{Itm-vlan-gateway}
+    @{Itm}    Create List    TZA    ${subnet}    ${gateway}    ${Dpn-1}    s1-eth1
+    ...    ${MININET}    ${Dpn-2}    s2-eth1    ${MININET1}    tunnel-type-vxlan
+    : FOR    ${value}    IN    @{Itm}
     \    Should Contain    ${resp.content}    ${value}
     Sleep    3
     Log    >>>>Verify Tunnel Verify Tunnel Created between dpn 1 and dpn 2<<<<
@@ -419,4 +455,3 @@ Delete VTEP -Vlan and gateway
     Should Be Equal As Strings    ${resp_5.status_code}    200
     ${resp_6}    RequestsLibrary.Get    session    ${REST_CON}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn-2}/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp_6.status_code}    200
-
