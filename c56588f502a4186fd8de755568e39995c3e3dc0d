@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_c99725eb",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/005_wait_for_connections.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2016-02-16T15:42:45Z",
+      "side": 1,
+      "message": "You\u0027re right. Done.",
+      "parentUuid": "9a3d3df0_bb34ecde",
+      "range": {
+        "startLine": 19,
+        "startChar": 33,
+        "endLine": 19,
+        "endChar": 38
+      },
+      "revId": "c56588f502a4186fd8de755568e39995c3e3dc0d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_8bdef50f",
         "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/010_set_odl.robot",
         "patchSetId": 8
@@ -36,6 +60,30 @@
       "writtenOn": "2016-01-29T00:28:55Z",
       "side": 1,
       "message": "the new keyword is \"RequestsLibrary.Put Request\" as this version is being deprecated.  This applies to all of the rest actions (put, post, get, etc).",
+      "range": {
+        "startLine": 18,
+        "startChar": 15,
+        "endLine": 18,
+        "endChar": 34
+      },
+      "revId": "c56588f502a4186fd8de755568e39995c3e3dc0d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_89fa3d41",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/010_set_odl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2016-02-16T15:42:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_8bdef50f",
       "range": {
         "startLine": 18,
         "startChar": 15,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_69f7f959",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/010_set_odl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2016-02-16T15:42:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_6be1f1cf",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 49,
+        "endChar": 92
+      },
+      "revId": "c56588f502a4186fd8de755568e39995c3e3dc0d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_db529012",
         "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/035_track_curl_h35_2_h36_2.robot",
         "patchSetId": 8
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_a99c6110",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/035_track_curl_h35_2_h36_2.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2016-02-16T15:42:45Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_db529012",
+      "range": {
+        "startLine": 41,
+        "startChar": 4,
+        "endLine": 41,
+        "endChar": 5
+      },
+      "revId": "c56588f502a4186fd8de755568e39995c3e3dc0d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_abebf9ae",
         "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/035_track_curl_h35_2_h36_2.robot",
         "patchSetId": 8
@@ -105,6 +201,30 @@
       "writtenOn": "2016-01-29T00:28:55Z",
       "side": 1,
       "message": "with each test case so similar, it really feels like a data driven approach would be more appropriate.  only if you want.\nhere is an example that we have:\n\nhttps://github.com/opendaylight/integration-test/blob/master/csit/suites/openflowplugin/Flows_OF13/305__ttl.robot\n\nfor those tests that don\u0027t fit you do:\n\nMy Test Case That Doesn\u0027t Fit\n    [Template]    None\n    Do the work",
+      "range": {
+        "startLine": 44,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 131
+      },
+      "revId": "c56588f502a4186fd8de755568e39995c3e3dc0d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e9a2e949",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/035_track_curl_h35_2_h36_2.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2016-02-16T15:42:45Z",
+      "side": 1,
+      "message": "That sounds good to me but I\u0027m not sure if we have enough time for doing it now. Multiple files would have to be changed in different folders. Doing it later in a single patch would work better for us.",
+      "parentUuid": "9a3d3df0_abebf9ae",
       "range": {
         "startLine": 44,
         "startChar": 0,
