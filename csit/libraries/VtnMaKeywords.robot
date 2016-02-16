@@ -106,7 +106,7 @@ Add a vlanmap
 Verify Data Flows
     [Arguments]    ${vtn_name}    ${vBridge_name}
     [Documentation]    Verify the reason and physical data flows for the specified vtn and vbridge
-    ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-flow-impl:vtn-flows/vtn-flow-table/${vtn_name}
+    ${resp}=    RequestsLibrary.Get Request    session    restconf/operations/vtn-flow:get-data-flow    data={"input":{"tenant-name":"${vtn_name}","mode":"UPDATESTATS"}}
     Run Keyword If    '${vBridge_name}' == 'vBridge1'    DataFlowsForBridge    ${resp}    @{BRIDGE1_DATAFLOW}
     ...    ELSE IF    '${vBridge_name}' == 'vBridge2'    DataFlowsForBridge    ${resp}    @{BRIDGE2_DATAFLOW}
     ...    ELSE IF    '${vBridge_name}' == 'vBridge1_vlan'    DataFlowsForBridge    ${resp}    @{VLANMAP_BRIDGE1_DATAFLOW}
