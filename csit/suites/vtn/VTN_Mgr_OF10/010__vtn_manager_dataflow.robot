@@ -47,7 +47,7 @@ Ping h1 to h3
 
 Verify data flow details For vBridge1
     [Documentation]    Verify the data flows for the specified tenant and bridge
-    Wait Until Keyword Succeeds    20s    1s    Verify Data Flows    Tenant1    vBridge1
+    Verify Data Flows    Tenant1    vBridge1
 
 Add a vBridge vBridge2
     [Documentation]    Add a vBridge vBridge2 in vtn Tenant1
