@@ -13,7 +13,7 @@ ${ENDPOINTS_OPER_PATH}    /restconf/operational/endpoint:endpoints
 *** Keywords ***
 Unregister Endpoints
     [Documentation]    Unregister Endpoints Endpoints from ODL
-    ${result} =    RequestsLibrary.Get    session    ${ENDPOINTS_OPER_PATH}
+    ${result} =    RequestsLibrary.Get Request    session    ${ENDPOINTS_OPER_PATH}
     ${json_result} =    json.loads    ${result.text}
     Pass Execution If    ${json_result['endpoints']}=={}    No Endpoints available
     ${L2_ENDPOINTS} =    Set Variable    ${json_result['endpoints']['endpoint']}
@@ -22,7 +22,7 @@ Unregister Endpoints
     Unregister L2Endpoints    ${L2_ENDPOINTS}
     Log    ${L3_ENDPOINTS}
     Unregister L3Endpoints    ${L3_ENDPOINTS}
-    ${result} =    RequestsLibrary.Get    session    ${ENDPOINTS_OPER_PATH}
+    ${result} =    RequestsLibrary.Get Request    session    ${ENDPOINTS_OPER_PATH}
     ${json_result} =    json.loads    ${result.text}
     Should Be Empty    ${json_result['endpoints']}
 
