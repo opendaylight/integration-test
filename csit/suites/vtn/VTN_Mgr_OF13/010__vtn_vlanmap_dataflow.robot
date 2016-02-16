@@ -51,7 +51,7 @@ Get vlanflow h1 h5
 
 Verify data flow details for vlanmap vBridge1_vlan
     [Documentation]    Verify the data flows for the specified tenant and vBridge1_vlan
-    Verify Data Flows    Tenant1    vBridge1_vlan
+    Wait Until Keyword Succeeds    20s    1s    Verify Data Flows    Tenant1    vBridge1_vlan
 
 Get vlanflow h2 h4
     [Documentation]    ping h2 to h4
@@ -63,7 +63,7 @@ Get vlanflow h2 h6
 
 Verify data flow details for vlanmap vBridge2_vlan
     [Documentation]    Verify the data flows for the specified tenant and vBridge2_vlan
-    Verify Data Flows    Tenant1    vBridge2_vlan
+    Wait Until Keyword Succeeds    20s    1s    Verify Data Flows    Tenant1    vBridge2_vlan
 
 Get vlanflow h2 h5
     [Documentation]    ping h2 to h5

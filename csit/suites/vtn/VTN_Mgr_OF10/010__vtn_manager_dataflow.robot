@@ -75,7 +75,7 @@ Ping h2 to h4
 
 Verify data flow details for vBridge2
     [Documentation]    Verify the data flows for the specified tenant and bridge
-    Verify Data Flows    Tenant1    vBridge2
+    Wait Until Keyword Succeeds    20s    1s    Verify Data Flows    Tenant1    vBridge2
 
 Verify FlowMacAddress
     [Documentation]    Checking Flows on switch
