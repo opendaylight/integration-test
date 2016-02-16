@@ -11,7 +11,7 @@ ${flowfilterInetdata}    "vtn-flow-filter":[{"condition":"cond_1","vtn-pass-filt
 
 ${flowfilterInetdropdata}    "vtn-flow-filter":[{"condition":"cond_1","vtn-drop-filter":{},"vtn-flow-action":[{"order": "1","vtn-set-inet-src-action":{"ipv4-address":"10.0.0.1/32"}},{"order": "2","vtn-set-inet-dst-action":{"ipv4-address":"10.0.0.3/32"}}],"index": "1"}]
 
-${flowfilterIcmpCodedata}    "vtn-flow-filter":[{"condition":"cond_1","vtn-pass-filter":{},"vtn-flow-action":[{"order": "1","vtn-set-inet-src-action":{"ipv4-address":"10.0.0.1/32"}},{"order": "2","vtn-set-inet-dst-action":{"ipv4-address":"10.0.0.3/32"}}],"index": "1"}]
+${flowfilterIcmpCodedata}    "vtn-flow-filter":[{"condition":"cond_1","vtn-pass-filter":{},"vtn-flow-action":[{"order": "1","vtn-set-icmp-code-action":{"code":"22"}}],"index": "1"}]
 
 ${flowfilterTpsrcTpdstdata}    "vtn-flow-filter": [{"condition": "cond_1","vtn-pass-filter": {},"vtn-flow-action": [{"order": "1","vtn-set-port-src-action": {"port": "5"}},{"order": "2","vtn-set-port-dst-action": {"port": "10"}}],"index": "1"}]
 
@@ -122,7 +122,7 @@ Add a vtn flowfilter with Icmp code
 
 Verify icmp action for vtn flowfilter
     [Documentation]    Verify actions in Flow Enties for icmp code and type
-    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${DUMPFLOWS_OF10}     @{icmp_action}
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter     ${icmp_action}    ${DUMPFLOWS_OF10}
 
 Add a vbr flowfilter with Icmp code
     [Documentation]    Create a flowfilter with icmp code and Verify ping
@@ -131,7 +131,7 @@ Add a vbr flowfilter with Icmp code
 
 Verify icmp action for vbr flowfilter
     [Documentation]    Verify actions in Flow Enties for icmp code and type
-    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${DUMPFLOWS_OF10}    @{icmp_action}
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter     ${icmp_action}    ${DUMPFLOWS_OF10}
 
 Add a vbrif flowfilter with Icmp code
     [Documentation]    Create a flowfilter with icmp code and Verify ping
@@ -140,7 +140,7 @@ Add a vbrif flowfilter with Icmp code
 
 Verify icmp action for vbrif flowfilter
     [Documentation]    Verify actions in Flow Enties for icmp code and type
-    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${DUMPFLOWS_OF10}     @{icmp_action}
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter     ${icmp_action}    ${DUMPFLOWS_OF10}
 
 Add a flowfilter with tpsrc and tpdst
     [Documentation]    Create a flowfilter with tpsrc and tpdst and Verify ping
