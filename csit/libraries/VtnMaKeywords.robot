@@ -17,12 +17,12 @@ ${DUMPFLOWS_OF10}    dpctl dump-flows -O OpenFlow10
 ${DUMPFLOWS_OF13}    dpctl dump-flows -O OpenFlow13
 ${index}          7
 @{inet_actions}    nw_src=10.0.0.1   nw_dst=10.0.0.3
-@{BRIDGE1_DATAFLOW}    "reason":"PORTMAPPED"    "virtual-node-path":{"bridge-name":"vBridge1","tenant-name":"Tenant1","interface-name":"if2"}
-@{BRIDGE2_DATAFLOW}    "reason":"PORTMAPPED"    "virtual-node-path":{"bridge-name":"vBridge2","tenant-name":"Tenant1","interface-name":"if3"}
+@{BRIDGE1_DATAFLOW}    "reason":"PORTMAPPED"    "tenant-name":"Tenant1"   "bridge-name":"vBridge1"    "interface-name":"if2"
+@{BRIDGE2_DATAFLOW}    "reason":"PORTMAPPED"    "tenant-name":"Tenant1"   "bridge-name":"vBridge2"    "interface-name":"if3"
 ${vlanmap_bridge1}    200
 ${vlanmap_bridge2}    300
-@{VLANMAP_BRIDGE1_DATAFLOW}    "reason":"VLANMAPPED"    "virtual-node-path":{"bridge-name":"vBridge1_vlan","tenant-name":"Tenant1","vlan-map-id":"ANY.200"}
-@{VLANMAP_BRIDGE2_DATAFLOW}    "reason":"VLANMAPPED"    "virtual-node-path":{"bridge-name":"vBridge2_vlan","tenant-name":"Tenant1","vlan-map-id":"ANY.300"}
+@{VLANMAP_BRIDGE1_DATAFLOW}    "reason":"VLANMAPPED"   "tenant-name":"Tenant1"    "bridge-name":"vBridge1_vlan"
+@{VLANMAP_BRIDGE2_DATAFLOW}    "reason":"VLANMAPPED"   "tenant-name":"Tenant1"    "bridge-name":"vBridge2_vlan"
 ${out_before_pathpolicy}    output:2
 ${out_after_pathpolicy}    output:3
 ${pathpolicy_topo_13}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom topo-3sw-2host_multipath.py --topo pathpolicytopo --switch ovsk,protocols=OpenFlow13
@@ -30,9 +30,9 @@ ${pathpolicy_topo_10}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custo
 @{PATHMAP_ATTR}    "index":"1"    "condition":"flowcond_path"    "policy":"1"
 ${policy_id}      1
 ${in_port}        1
+${icmp_action}    mod_tp_dst:22
 ${dscp_action}    set_field:32->nw_tos_shifted
 ${dscp_flow}    mod_nw_tos:128
-@{icmp_action}    nw_src=10.0.0.1   nw_dst=10.0.0.3
 @{PATHPOLICY_ATTR}    "id":1    "port-desc":"openflow:4,2,s4-eth2"
 ${custom}         ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
 
@@ -106,7 +106,7 @@ Add a vlanmap
 Verify Data Flows
     [Arguments]    ${vtn_name}    ${vBridge_name}
     [Documentation]    Verify the reason and physical data flows for the specified vtn and vbridge
-    ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-flow-impl:vtn-flows/vtn-flow-table/${vtn_name}
+    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow:get-data-flow    data={"input":{"tenant-name":"${vtn_name}","mode":"UPDATESTATS"}}
     Run Keyword If    '${vBridge_name}' == 'vBridge1'    DataFlowsForBridge    ${resp}    @{BRIDGE1_DATAFLOW}
     ...    ELSE IF    '${vBridge_name}' == 'vBridge2'    DataFlowsForBridge    ${resp}    @{BRIDGE2_DATAFLOW}
     ...    ELSE IF    '${vBridge_name}' == 'vBridge1_vlan'    DataFlowsForBridge    ${resp}    @{VLANMAP_BRIDGE1_DATAFLOW}
