@@ -162,6 +162,11 @@ Set Bgpcep Log Levels
     Execute Controller Karaf Command On Background    log:set ${bgpcep_level} org.opendaylight.bgpcep
     Execute Controller Karaf Command On Background    log:set ${protocol_level} org.opendaylight.protocol
 
+Set Vtn Trace Log Level
+    [Arguments]    ${trace_loglevel}=${TRACE_LOG_LEVEL}
+    [Documentation]    Assuming OCKCOB was used, set logging level on bgpcep and protocol loggers without affecting current SSH session.
+    Execute Controller Karaf Command On Background    log:set ${trace_loglevel} org.opendaylight.vtnSet Vtn Trace Log Level
+
 Wait For Karaf Log
     [Arguments]    ${message}    ${timeout}=60
     [Documentation]    Read karaf logs until message appear
@@ -171,3 +176,5 @@ Wait For Karaf Log
     Write    log:tail
     Read Until    ${message}
     Close Connection
+
+
