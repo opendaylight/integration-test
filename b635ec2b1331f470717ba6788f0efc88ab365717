@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_470bf929",
+        "filename": "csit/suites/groupbasedpolicy/GBPSFC/6-node/demo-symmetric-chain/010_set_odl.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-17T22:28:46Z",
+      "side": 1,
+      "message": "no problem, but just pointing out that this is not\ngating, meaning it will not check anything or fail if \nthe GET fails or resp.content does not have what you\nexpect.  Could just be for logging purposes, which is\nwhy I say it is not a problem.",
+      "range": {
+        "startLine": 66,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 26
+      },
+      "revId": "b635ec2b1331f470717ba6788f0efc88ab365717",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
