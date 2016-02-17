@@ -45,6 +45,30 @@
       "revId": "87655ad5e4db1440835e9a22320255347c6c5554",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_584d9c3d",
+        "filename": "csit/suites/unimgr/uni_operations/010_unimanager_restconf.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 3675
+      },
+      "writtenOn": "2016-02-17T01:48:23Z",
+      "side": 1,
+      "message": "Correct, this should be done in the suite setup. Without those keywords success, the whole suite is doomed to failure. Current implementation in UniMgr codebase needs the OVS to be connected either in a passive way (ptcp) or in an active way (tcp)",
+      "parentUuid": "9a3d3df0_d8288c88",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 53
+      },
+      "revId": "87655ad5e4db1440835e9a22320255347c6c5554",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
