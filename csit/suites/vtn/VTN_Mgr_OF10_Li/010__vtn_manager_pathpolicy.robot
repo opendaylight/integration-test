@@ -2,6 +2,7 @@
 Documentation     Test suite for VTN Manager using OF10
 Suite Setup       Start PathSuiteVtnMaTestOF10
 Suite Teardown    Stop PathSuiteVtnMaTest
+Force Tags        exclude
 Resource          ../../../libraries/VtnMaKeywordsLi.robot
 
 *** Variables ***
