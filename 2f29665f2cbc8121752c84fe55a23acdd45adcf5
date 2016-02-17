@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_e29ddbbd",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-17T22:51:53Z",
+      "side": 1,
+      "message": "Sorry I forgot to check pep8, i will do that.",
+      "parentUuid": "9a3d3df0_c2541701",
+      "range": {
+        "startLine": 96,
+        "startChar": 48,
+        "endLine": 96,
+        "endChar": 49
+      },
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_62438b42",
         "filename": "csit/suites/iotdm/basic/090_AccessControlPolicyTest.robot",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2016-02-17T22:44:02Z",
       "side": 1,
       "message": "can you make it Log instead of LOG?",
+      "range": {
+        "startLine": 89,
+        "startChar": 4,
+        "endLine": 89,
+        "endChar": 7
+      },
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e2767ba3",
+        "filename": "csit/suites/iotdm/basic/090_AccessControlPolicyTest.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-17T22:51:53Z",
+      "side": 1,
+      "message": "Sure, I will make each LOG to \"Log\"",
+      "parentUuid": "9a3d3df0_62438b42",
       "range": {
         "startLine": 89,
         "startChar": 4,
