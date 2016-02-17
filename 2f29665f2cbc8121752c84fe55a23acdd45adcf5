@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a3d3df0_c23ed78b",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-17T23:16:17Z",
+      "side": 1,
+      "message": "It\u0027d be nice to include some docs about fn params. Good examples:\n\nhttps://git.opendaylight.org/gerrit/#/c/22384/11/test/csit/libraries/Docker.py\nhttps://github.com/IEEERobotics/bot/blob/master/bot/server/ctrl_server.py",
+      "range": {
+        "startLine": 69,
+        "startChar": 18,
+        "endLine": 69,
+        "endChar": 25
+      },
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_82504fd5",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-17T23:16:17Z",
+      "side": 1,
+      "message": "You could do this logic with a dict: `playload_map \u003d {1: acp_payload, 2: ae_payload, ...}; payload_map[1]`",
+      "range": {
+        "startLine": 69,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 17
+      },
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_82b4cf35",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-17T23:16:17Z",
+      "side": 1,
+      "message": "I think you\u0027re following the norm for this code (which is good), but the norm for Int/Test\u0027s Python code overall is double quotes for strings. It\u0027s  not a big deal.",
+      "range": {
+        "startLine": 93,
+        "startChar": 25,
+        "endLine": 93,
+        "endChar": 26
+      },
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_c2541701",
         "filename": "csit/libraries/ciotdm.py",
         "patchSetId": 6
@@ -43,6 +112,103 @@
         "endLine": 96,
         "endChar": 49
       },
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_626a6bb4",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-17T23:16:17Z",
+      "side": 1,
+      "message": "I see that you\u0027re following the norm here (which is good), but ideally all of these fns would use snake_case instead of camelCase.",
+      "range": {
+        "startLine": 189,
+        "startChar": 8,
+        "endLine": 189,
+        "endChar": 27
+      },
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e284bb5f",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-17T23:16:17Z",
+      "side": 1,
+      "message": "Docs for fn params would be good. See links to examples above.",
+      "range": {
+        "startLine": 189,
+        "startChar": 34,
+        "endLine": 189,
+        "endChar": 43
+      },
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0280bf44",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-17T23:16:17Z",
+      "side": 1,
+      "message": "Why are you returning self?",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c2f09700",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-17T23:16:17Z",
+      "side": 1,
+      "message": "I see there are a fns you didn\u0027t touch in this patch that don\u0027t have docs for params. For maintainability, we recommend documenting them. This feedback wouldn\u0027t block this patch - we don\u0027t hold a patch accountable for something it\u0027s not touching.",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_62df0b6a",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-17T23:16:17Z",
+      "side": 1,
+      "message": "Modifying so many instance vars in these fns seems like a code smell to me. Not a blocker, just feedback.",
       "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
