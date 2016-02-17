@@ -9,12 +9,12 @@
                   "vteps": [
                     {
                      "dpn-id":1,
-                     "portname": "s1-eth1",
+                     "portname": "BR1-eth1",
                      "ip-address":"2.2.2.2"
                     },
                     {
                     "dpn-id":2,
-                    "portname": "s2-eth1",
+                    "portname": "BR2-eth1",
                     "ip-address":"3.3.3.3"
                     }
 		],
