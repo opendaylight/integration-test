@@ -34,32 +34,37 @@ Create and Verify VTEP -No Vlan
     ${substr}    Should Match Regexp    ${MININET}    [0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}\.
     ${subnet}    Catenate    ${substr}0
     Log    ${subnet}
-    ${prefix-add}    Run    sed -i \ 's/1.1.1.1/${subnet}/g' ${VPN_CONFIG_DIR}/Itm_creation_no_vlan.json
-    ${dpn1-update}    Run    sed -i 's/"dpn-id":1/"dpn-id": ${Dpn-1}/g' ${VPN_CONFIG_DIR}/Itm_creation_no_vlan.json
-    ${dpn2-update}    Run    sed -i 's/"dpn-id":2/"dpn-id": ${Dpn-2}/g' ${VPN_CONFIG_DIR}/Itm_creation_no_vlan.json
-    ${dpn1-ip-add}    Run    sed -i 's/"ip-address":"2.2.2.2"/"ip-address": "${MININET}"/g' ${VPN_CONFIG_DIR}/Itm_creation_no_vlan.json
-    ${dpn2-ip-add}    Run    sed -i 's/"ip-address":"3.3.3.3"/"ip-address": "${MININET1}"/g' ${VPN_CONFIG_DIR}/Itm_creation_no_vlan.json
+    ${json-file}=    Set Variable    Itm_creation_no_vlan.json
+    Set Json_fields    ${Dpn-1}    ${Dpn-2}    ${MININET}    ${MININET1}    ${subnet}    ${json-file}
     Log    >>>> Json Update completed<<<<
     ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/Itm_creation_no_vlan.json
     ${resp}    RequestsLibrary.Post    session    ${REST_CON}/itm:transport-zones/    data=${body}
     Log    ${resp.content}
+    Log    ${resp.status_code}
+    Run Keyword If    "${resp.status_code}"==204    Reset Json_fields    ${Dpn-1}    ${Dpn-2}    ${MININET}    ${MININET1}
+    ...    ${subnet}    ${json-file}
+    Run Keyword If    "${resp.status_code}"!=204    Reset Json_fields    ${Dpn-1}    ${Dpn-2}    ${MININET}    ${MININET1}
+    ...    ${subnet}    ${json-file}
     Should Be Equal As Strings    ${resp.status_code}    204
-    Run Keyword If    "${resp.status_code}"==204    Log    Json posted successfully
-    Log    >>>>> Resetting Json to default values<<<<<
-    ${reset_1}    Run    sed -i 's/"dpn-id": ${Dpn-1}/"dpn-id":1/g' ${VPN_CONFIG_DIR}/Itm_creation_no_vlan.json
-    ${reset_2}    Run    sed -i 's/"dpn-id": ${Dpn-2}/"dpn-id":2/g' ${VPN_CONFIG_DIR}/Itm_creation_no_vlan.json
-    ${reset-dpn1-ip}    run    sed -i 's/"ip-address": "${MININET}"/"ip-address":"2.2.2.2"/g' ${VPN_CONFIG_DIR}/Itm_creation_no_vlan.json
-    ${reset-dpn2-ip}    run    sed -i 's/"ip-address": "${MININET1}"/"ip-address":"3.3.3.3"/g' ${VPN_CONFIG_DIR}/Itm_creation_no_vlan.json
-    ${prefix-reset}    run    sed -i 's/${subnet}/1.1.1.1/g' ${VPN_CONFIG_DIR}/Itm_creation_no_vlan.json
     ${resp}    RequestsLibrary.Get    session    ${REST_CON}/itm:transport-zones/transport-zone/${itm_created[0]}/    headers=${ACCEPT_XML}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Log    ${resp.status_code}
     Log    ${resp.content}
-    @{Itm-no-vlan}    Create List    TZA    ${subnet}    0    ${Dpn-1}    s1-eth1
-    ...    ${MININET}    ${Dpn-2}    s2-eth1    ${MININET1}    0.0.0.0    tunnel-type-vxlan
+    Should Be Equal As Strings    ${resp.status_code}    200
+    @{Itm-no-vlan}    Create List    TZA    ${subnet}    0    ${Dpn-1}    BR1-eth1
+    ...    ${MININET}    ${Dpn-2}    BR2-eth1    ${MININET1}    0.0.0.0    tunnel-type-vxlan
     : FOR    ${value}    IN    @{Itm-no-vlan}
     \    Should Contain    ${resp.content}    ${value}
     Sleep    3
-    ${resp}    RequestsLibrary.Get    session    ${REST_OPER}/ietf-interfaces:interfaces-state/interface/s1/    headers=${ACCEPT_XML}
+    Log    >>>>>OVS Validation in Switch 1 for Tunnel Created <<<<<
+    Switch Connection    ${conn_id_1}
+    ${check-1}    Execute Command    sudo ovs-vsctl show
+    Log    ${check-1}
+    Log    >>>>>OVS Validation in Switch 2 for Tunnel Created <<<<<
+    Switch Connection    ${conn_id_2}
+    ${check-2}    Execute Command    sudo ovs-vsctl show
+    Log    ${check-2}
+    Log    >>>>>OVS validation Done <<<<<
+    ${resp}    RequestsLibrary.Get    session    ${REST_OPER}/ietf-interfaces:interfaces-state/interface/BR1/    headers=${ACCEPT_XML}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    re.sub    <.*?>    ,    ${resp.content}
@@ -68,7 +73,7 @@ Create and Verify VTEP -No Vlan
     ${int1_name}    Get From List    ${resp_array}    1
     Log    ${int1_name}
     Should Be String    ${int1_name}
-    Should Be True    '${int1_name}' =='s1'
+    Should Be True    '${int1_name}' =='BR1'
     Log    Interface Name is ${int1_name}
     ${admin_status}    Get From List    ${resp_array}    3
     Log    ${admin_status}
@@ -79,7 +84,7 @@ Create and Verify VTEP -No Vlan
     Should Be True    '${Operational_status}' == 'up'
     Log    Operational status is UP
     Log    >>>>Validating Interface 2 states<<<<
-    ${resp}    RequestsLibrary.Get    session    ${REST_OPER}/ietf-interfaces:interfaces-state/interface/s2/    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.Get    session    ${REST_OPER}/ietf-interfaces:interfaces-state/interface/BR2/    headers=${ACCEPT_XML}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    re.sub    <.*?>    ,    ${resp.content}
@@ -88,7 +93,7 @@ Create and Verify VTEP -No Vlan
     ${interface2_name}    Get From List    ${resp_array}    1
     Log    ${interface2_name}
     Should Be String    ${interface2_name}
-    Should Be True    '${interface2_name}' =='s2'
+    Should Be True    '${interface2_name}' =='BR2'
     Log    Interface Name is ${interface2_name}
     ${admin_status}    Get From List    ${resp_array}    3
     Log    ${admin_status}
@@ -186,32 +191,36 @@ Create and Verify VTEP-Vlan
     ${substr}    Should Match Regexp    ${MININET}    [0-9]\{1,3}\.[0-9]\{1,3}\.[0-9]\{1,3}\.
     ${subnet}    Catenate    ${substr}0
     Log    ${subnet}
-    ${prefix-add}    Run    sed -i \ 's/1.1.1.1/${subnet}/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan.json
-    ${dpn1-update}    Run    sed -i 's/"dpn-id":1/"dpn-id": ${Dpn-1}/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan.json
-    ${dpn2-update}    Run    sed -i 's/"dpn-id":2/"dpn-id": ${Dpn-2}/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan.json
-    ${dpn1-ip-add}    Run    sed -i 's/"ip-address":"2.2.2.2"/"ip-address": "${MININET}"/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan.json
-    ${dpn2-ip-add}    Run    sed -i 's/"ip-address":"3.3.3.3"/"ip-address": "${MININET1}"/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan.json
+    ${json-file}=    Set Variable    Itm_creation_vlan.json
+    Set Json_fields    ${Dpn-1}    ${Dpn-2}    ${MININET}    ${MININET1}    ${subnet}    ${json-file}
     Log    >>>> Json Update completed<<<<
     ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/Itm_creation_vlan.json
     ${resp}    RequestsLibrary.Post    session    ${REST_CON}/itm:transport-zones/    data=${body}
     Log    ${resp.content}
+    Log    ${resp.status_code}
+    Run Keyword If    "${resp.status_code}"==204    Reset Json_fields    ${Dpn-1}    ${Dpn-2}    ${MININET}    ${MININET1}
+    ...    ${subnet}    ${json-file}
+    Run Keyword If    "${resp.status_code}"!=204    Reset Json_fields    ${Dpn-1}    ${Dpn-2}    ${MININET}    ${MININET1}
+    ...    ${subnet}    ${json-file}
     Should Be Equal As Strings    ${resp.status_code}    204
-    Run Keyword If    "${resp.status_code}"==204    Log    Json posted successfully
-    Log    >>>>> Resetting Json to default values<<<<<
-    ${reset_1}    Run    sed -i 's/"dpn-id": ${Dpn-1}/"dpn-id":1/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan.json
-    ${reset_2}    Run    sed -i 's/"dpn-id": ${Dpn-2}/"dpn-id":2/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan.json
-    ${reset-dpn1-ip}    run    sed -i 's/"ip-address": "${MININET}"/"ip-address":"2.2.2.2"/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan.json
-    ${reset-dpn2-ip}    run    sed -i 's/"ip-address": "${MININET1}"/"ip-address":"3.3.3.3"/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan.json
-    ${prefix-reset}    run    sed -i 's/${subnet}/1.1.1.1/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan.json
     ${resp}    RequestsLibrary.Get    session    ${REST_CON}/itm:transport-zones/transport-zone/${itm_created[0]}/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
-    @{Itm}    Create List    TZA    ${subnet}    100    ${Dpn-1}    s1-eth1
-    ...    ${MININET}    ${Dpn-2}    s2-eth1    ${MININET1}    0.0.0.0    tunnel-type-vxlan
+    @{Itm}    Create List    TZA    ${subnet}    100    ${Dpn-1}    BR1-eth1
+    ...    ${MININET}    ${Dpn-2}    BR2-eth1    ${MININET1}    0.0.0.0    tunnel-type-vxlan
     : FOR    ${value}    IN    @{Itm}
     \    Should Contain    ${resp.content}    ${value}
     Sleep    3
-    ${resp}    RequestsLibrary.Get    session    ${REST_OPER}/ietf-interfaces:interfaces-state/interface/s1/    headers=${ACCEPT_XML}
+	Log    >>>>>OVS Validation in Switch 1 for Tunnel Created <<<<<
+    Switch Connection    ${conn_id_1}
+    ${check-1}    Execute Command    sudo ovs-vsctl show
+    Log    ${check-1}
+    Log    >>>>>OVS Validation in Switch 2 for Tunnel Created <<<<<
+    Switch Connection    ${conn_id_2}
+    ${check-2}    Execute Command    sudo ovs-vsctl show
+    Log    ${check-2}
+    Log    >>>>>OVS validation Done <<<<<
+    ${resp}    RequestsLibrary.Get    session    ${REST_OPER}/ietf-interfaces:interfaces-state/interface/BR1/    headers=${ACCEPT_XML}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    re.sub    <.*?>    ,    ${resp.content}
@@ -220,7 +229,7 @@ Create and Verify VTEP-Vlan
     ${int1_name}    Get From List    ${resp_array}    1
     Log    ${int1_name}
     Should Be String    ${int1_name}
-    Should Be True    '${int1_name}' =='s1'
+    Should Be True    '${int1_name}' =='BR1'
     Log    Interface Name is ${int1_name}
     ${admin_status}    Get From List    ${resp_array}    3
     Log    ${admin_status}
@@ -231,7 +240,7 @@ Create and Verify VTEP-Vlan
     Should Be True    '${Operational_status}' == 'up'
     Log    Operational status is UP
     Log    >>>>Validating Interface 2 states<<<<
-    ${resp}    RequestsLibrary.Get    session    ${REST_OPER}/ietf-interfaces:interfaces-state/interface/s2/    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.Get    session    ${REST_OPER}/ietf-interfaces:interfaces-state/interface/BR2/    headers=${ACCEPT_XML}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    re.sub    <.*?>    ,    ${resp.content}
@@ -240,7 +249,7 @@ Create and Verify VTEP-Vlan
     ${interface2_name}    Get From List    ${resp_array}    1
     Log    ${interface2_name}
     Should Be String    ${interface2_name}
-    Should Be True    '${interface2_name}' =='s2'
+    Should Be True    '${interface2_name}' =='BR2'
     Log    Interface Name is ${interface2_name}
     ${admin_status}    Get From List    ${resp_array}    3
     Log    ${admin_status}
@@ -330,33 +339,35 @@ Create VTEP - Vlan and Gateway
     ${subnet}    Catenate    ${substr}0
     ${gateway}    Catenate    ${substr}1
     Log    ${subnet}
-    ${prefix-add}    Run    sed -i \ 's/1.1.1.1/${subnet}/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan_gateway.json
-    ${dpn1-update}    Run    sed -i 's/"dpn-id":1/"dpn-id": ${Dpn-1}/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan_gateway.json
-    ${dpn2-update}    Run    sed -i 's/"dpn-id":2/"dpn-id": ${Dpn-2}/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan_gateway.json
-    ${dpn1-ip-add}    Run    sed -i 's/"ip-address":"2.2.2.2"/"ip-address": "${MININET}"/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan_gateway.json
-    ${dpn2-ip-add}    Run    sed -i 's/"ip-address":"3.3.3.3"/"ip-address": "${MININET1}"/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan_gateway.json
-    ${gateway-add}    Run    sed -i 's/"gateway-ip":"0.0.0.0"/"gateway-ip": "${gateway}"/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan_gateway.json
+    ${json-file}=    Set Variable    Itm_creation_vlan_gateway.json
+    Set Json_fields    ${Dpn-1}    ${Dpn-2}    ${MININET}    ${MININET1}    ${subnet}    ${json-file}
     Log    >>>> Json Update completed<<<<
     ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/Itm_creation_vlan_gateway.json
     ${resp}    RequestsLibrary.Post    session    ${REST_CON}/itm:transport-zones/    data=${body}
     Log    ${resp.content}
+    Log    ${resp.status_code}
+    Run Keyword If    "${resp.status_code}"==204    Reset Json_fields    ${Dpn-1}    ${Dpn-2}    ${MININET}    ${MININET1}
+    ...    ${subnet}    ${json-file}
+    Run Keyword If    "${resp.status_code}"!=204    Reset Json_fields    ${Dpn-1}    ${Dpn-2}    ${MININET}    ${MININET1}
+    ...    ${subnet}    ${json-file}
     Should Be Equal As Strings    ${resp.status_code}    204
-    Run Keyword If    "${resp.status_code}"==204    Log    Json posted successfully
-    Log    >>>>> Resetting Json to default values<<<<<
-    ${reset_1}    Run    sed -i 's/"dpn-id": ${Dpn-1}/"dpn-id":1/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan_gateway.json
-    ${reset_2}    Run    sed -i 's/"dpn-id": ${Dpn-2}/"dpn-id":2/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan_gateway.json
-    ${reset-dpn1-ip}    run    sed -i 's/"ip-address": "${MININET}"/"ip-address":"2.2.2.2"/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan_gateway.json
-    ${reset-dpn2-ip}    run    sed -i 's/"ip-address": "${MININET1}"/"ip-address":"3.3.3.3"/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan_gateway.json
-    ${prefix-reset}    run    sed -i 's/${subnet}/1.1.1.1/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan_gateway.json
-    ${gateway-reset}    run    sed -i 's/"gateway-ip": "${gateway}"/"gateway-ip":"0.0.0.0"/g' ${VPN_CONFIG_DIR}/Itm_creation_vlan_gateway.json
     ${resp}    RequestsLibrary.Get    session    ${REST_CON}/itm:transport-zones/transport-zone/${itm_created[0]}/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
-    @{Itm}    Create List    TZA    ${subnet}    ${gateway}    ${Dpn-1}    s1-eth1
-    ...    ${MININET}    ${Dpn-2}    s2-eth1    ${MININET1}    tunnel-type-vxlan
+    @{Itm}    Create List    TZA    ${subnet}    ${gateway}    ${Dpn-1}    BR1-eth1
+    ...    ${MININET}    ${Dpn-2}    BR2-eth1    ${MININET1}    tunnel-type-vxlan
     : FOR    ${value}    IN    @{Itm}
     \    Should Contain    ${resp.content}    ${value}
-    Sleep    3
+    Sleep    5
+	Log    >>>>>OVS Validation in Switch 1 for Tunnel Created <<<<<
+    Switch Connection    ${conn_id_1}
+    ${check-1}    Execute Command    sudo ovs-vsctl show
+    Log    ${check-1}
+    Log    >>>>>OVS Validation in Switch 2 for Tunnel Created <<<<<
+    Switch Connection    ${conn_id_2}
+    ${check-2}    Execute Command    sudo ovs-vsctl show
+    Log    ${check-2}
+    Log    >>>>>OVS validation Done <<<<<
     Log    >>>>Verify Tunnel Verify Tunnel Created between dpn 1 and dpn 2<<<<
     ${resp}    RequestsLibrary.Get    session    ${REST_CON}/itm-state:tunnel-list/internal-tunnel/${Dpn-1}/${Dpn-2}/    headers=${ACCEPT_XML}
     Log    ${resp.content}
@@ -390,7 +401,7 @@ Create VTEP - Vlan and Gateway
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
     Log    >>>>Validating Interface states<<<<
-    ${resp}    RequestsLibrary.Get    session    ${REST_OPER}/ietf-interfaces:interfaces-state/interface/s1/    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.Get    session    ${REST_OPER}/ietf-interfaces:interfaces-state/interface/BR1/    headers=${ACCEPT_XML}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    re.sub    <.*?>    ,    ${resp.content}
@@ -398,7 +409,7 @@ Create VTEP - Vlan and Gateway
     @{resp_array}    Split String    ${result}    ,,
     ${interface1_name}    Get From List    ${resp_array}    1
     Log    ${interface1_name}
-    Should Be True    '${interface1_name}' =='s1'
+    Should Be True    '${interface1_name}' =='BR1'
     Log    Interface Name is ${interface1_name}
     ${admin_status}    Get From List    ${resp_array}    3
     Log    ${admin_status}
@@ -409,7 +420,7 @@ Create VTEP - Vlan and Gateway
     Should Be True    '${Operational_status}' == 'up'
     Log    Operational status is UP
     Log    >>>>Verify Interface 2 state<<<<
-    ${resp}    RequestsLibrary.Get    session    ${REST_OPER}/ietf-interfaces:interfaces-state/interface/s2/    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.Get    session    ${REST_OPER}/ietf-interfaces:interfaces-state/interface/BR2/    headers=${ACCEPT_XML}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    re.sub    <.*?>    ,    ${resp.content}
@@ -417,7 +428,7 @@ Create VTEP - Vlan and Gateway
     @{resp_array}    Split String    ${result}    ,,
     ${interface2_name}    Get From List    ${resp_array}    1
     Log    ${interface2_name}
-    Should Be True    '${interface2_name}' =='s2'
+    Should Be True    '${interface2_name}' =='BR2'
     Log    Interface Name is ${interface2_name}
     ${admin_status}    Get From List    ${resp_array}    3
     Log    ${admin_status}
@@ -455,3 +466,20 @@ Delete VTEP -Vlan and gateway
     Should Be Equal As Strings    ${resp_5.status_code}    200
     ${resp_6}    RequestsLibrary.Get    session    ${REST_CON}/itm-state:dpn-endpoints/DPN-TEPs-info/${Dpn-2}/    headers=${ACCEPT_XML}
     Should Be Equal As Strings    ${resp_6.status_code}    200
+
+*** Keywords ***
+Reset Json_fields
+    [Arguments]    ${arg1}    ${arg2}    ${arg3}    ${arg4}    ${arg5}    ${arg6}
+    ${reset_1}    Run    sed -i 's/"dpn-id": ${Dpn-1}/"dpn-id":1/g' ${VPN_CONFIG_DIR}/${json-file}
+    ${reset_2}    Run    sed -i 's/"dpn-id": ${Dpn-2}/"dpn-id":2/g' ${VPN_CONFIG_DIR}/${json-file}
+    ${reset-dpn1-ip}    run    sed -i 's/"ip-address": "${MININET}"/"ip-address":"2.2.2.2"/g' ${VPN_CONFIG_DIR}/${json-file}
+    ${reset-dpn2-ip}    run    sed -i 's/"ip-address": "${MININET1}"/"ip-address":"3.3.3.3"/g' ${VPN_CONFIG_DIR}/${json-file}
+    ${prefix-reset}    run    sed -i 's/${subnet}/1.1.1.1/g' \ ${VPN_CONFIG_DIR}/${json-file}
+
+Set Json _fields
+    [Arguments]    ${arg1}    ${arg2}    ${arg3}    ${arg4}    ${arg5}    ${arg6}
+    ${prefix-add}    Run    sed -i \ 's/1.1.1.1/${subnet}/g' ${VPN_CONFIG_DIR}/${json-file}
+    ${dpn1-update}    Run    sed -i 's/"dpn-id":1/"dpn-id": ${Dpn-1}/g' ${VPN_CONFIG_DIR}/${json-file}
+    ${dpn2-update}    Run    sed -i 's/"dpn-id":2/"dpn-id": ${Dpn-2}/g' ${VPN_CONFIG_DIR}/${json-file}
+    ${dpn1-ip-add}    Run    sed -i 's/"ip-address":"2.2.2.2"/"ip-address": "${MININET}"/g' ${VPN_CONFIG_DIR}/${json-file}
+    ${dpn2-ip-add}    Run    sed -i 's/"ip-address":"3.3.3.3"/"ip-address": "${MININET1}"/g' ${VPN_CONFIG_DIR}/${json-file}
