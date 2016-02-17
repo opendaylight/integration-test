@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_78186075",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-17T00:43:12Z",
+      "side": 1,
+      "message": "nice!",
+      "range": {
+        "startLine": 32,
+        "startChar": 0,
+        "endLine": 38,
+        "endChar": 44
+      },
+      "revId": "87655ad5e4db1440835e9a22320255347c6c5554",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d8288c88",
+        "filename": "csit/suites/unimgr/uni_operations/010_unimanager_restconf.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-17T00:43:12Z",
+      "side": 1,
+      "message": "question:  if either of these keywords fail would that make the rest of the test suite invalid?  If so, you should move\nthis work to a \"Suite Setup\".  That would allow robot to\nskip all of the test cases (saving precious time/resources)\nif there is trouble.  If other cases would still be valid\nwhen these fail, then ignore this comment :)",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 53
+      },
+      "revId": "87655ad5e4db1440835e9a22320255347c6c5554",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
