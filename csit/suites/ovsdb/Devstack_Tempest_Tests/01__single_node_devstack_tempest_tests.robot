@@ -16,6 +16,8 @@ ${default_devstack_prompt_timeout}    10s
 ${devstack_workspace}    ~/ds_workspace
 ${DEVSTACK_SYSTEM_PASSWORD}    \    # set to empty, but provide for others to override if desired
 ${CLEAN_DEVSTACK_HOST}    False
+${HEADERS_YANG_JSON}    {'Content-Type': 'application/yang.data+json'}
+
 
 *** Test Cases ***
 Run Devstack Gate Wrapper
@@ -35,12 +37,53 @@ Validate Neutron and Networking-ODL Versions
     ${output}=    Write Commands Until Prompt    cd /opt/stack/new/networking-odl; git branch;
     Should Contain    ${output}    * ${NETWORKING-ODL_BRANCH}
 
+Basic Rest Check Local To OpenDaylight VM With 8181
+    Write Commands Until Prompt    curl -u "admin:admin" http://localhost:8181/restconf/modules
+
 tempest.api.network
     Run Tempest Tests    ${TEST_NAME}
 
 tempest
     [Tags]    exclude
     Run Tempest Tests    ${TEST_NAME}    900s
+
+Trying to hit ODL with curl command
+    Run    curl -u "admin:admin" http://${DEVSTACK_SYSTEM_IP}:8181/restconf/modules
+
+List iptables
+    ${output}=    Write Commands Until Prompt    sudo iptables --list
+    Log    ${output}
+
+Disable firewall
+    ${output}=    Write Commands Until Prompt    sudo systemctl disable firewalld && sudo systemctl stop firewalld
+    Log    ${output}
+
+Disable firewall service
+    ${output}=    Write Commands Until Prompt    sudo systemctl stop firewalld.service
+    Log    ${output}
+
+Disable iptables service
+    ${output}=    Write Commands Until Prompt    sudo systemctl stop iptables.service
+    Log    ${output}
+
+Test neutron
+    ${output}=    Write Commands Until Prompt    cd /opt/stack/new/devstack
+    ${output}=    Write Commands Until Prompt    source openrc admin admin
+    ${output}=    Write Commands Until Prompt    neutron -v net-create net_123_groupbasedpolicy
+    Log    ${output}
+
+Testing ODL restconf port 8181 with standard headers
+    Create Session    session    http://${DEVSTACK_SYSTEM_IP}:8181    auth=${AUTH}    headers=${headers}
+    Wait Until Keyword Succeeds    3x    5 s    Get Data From URI    session    ${ODL_BOOT_WAIT_URL}    headers=${headers}
+    Wait Until Keyword Succeeds    2x    5 s    Get Data From URI    session    /restconf/config/service-function:service-functions    headers=${headers}
+    # not sure about slash in front, let's try the same withouth it.
+    Wait Until Keyword Succeeds    2x    5 s    Get Data From URI    session    restconf/config/service-function:service-functions    headers=${headers}
+    Delete All Sessions
+
+Testing ODL restconf port 8181 with different headers
+    Create Session    session    http://${DEVSTACK_SYSTEM_IP}:8181    auth=${AUTH}    headers=${HEADERS_YANG_JSON}
+    Wait Until Keyword Succeeds    3x    5 s    Get Data From URI    session    ${ODL_BOOT_WAIT_URL}    headers=${HEADERS_YANG_JSON}
+    Delete All Sessions
 
 *** Keywords ***
 Run Tempest Tests
