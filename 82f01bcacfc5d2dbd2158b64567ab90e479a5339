@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_042e0afb",
+        "filename": "csit/suites/controller/OneNode_Datastore/carpeople_library_test.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-18T17:53:15Z",
+      "side": 1,
+      "message": "You should avoid requiring users to prefix 99% of their template specifications with \"${VAR_BASE}\". Suggestion: Create another parameter named ${base} which will default to ${VAR_BASE} and will allow the user to override the base for the 1% of cases where it is not \"${VAR_BASE}\" and have the \"folder\" parameter stating only the name of the actual template to be used. Also \"folder\" shall really be named \"template\", \"folder\" is too generic.",
+      "range": {
+        "startLine": 32,
+        "startChar": 54,
+        "endLine": 32,
+        "endChar": 65
+      },
+      "revId": "82f01bcacfc5d2dbd2158b64567ab90e479a5339",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
