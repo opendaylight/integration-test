@@ -4,6 +4,9 @@
 # This program and the accompanying materials are made available under the
 # terms of the Eclipse Public License v1.0 which accompanies this distribution,
 # and is available at http://www.eclipse.org/legal/epl-v10.html
+#
+# FIXME: Use ${CURDIR}/../norm_json.py everywhere, then delete ${CURDIR}.
+# https://trello.com/c/N3s0xhc6/260-rename-hfsjson-hsf-json-py-to-something-friendlier
 
 try:
     import simplejson as _json

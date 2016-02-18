@@ -87,7 +87,7 @@ Report_Failure_And_Point_To_Linked_Bugs
     ...    or as the first line of the test if FastFail module is not being
     ...    used. It reports the URL of the bug on console and also puts it
     ...    into the Robot log file.
-    ${test_skipped}=    BuiltIn.Evaluate    len(re.findall('SKIPPED', '''${TEST_MESSAGE}''')) > 0    modules=re
+    ${test_skipped}=    BuiltIn.Evaluate    len(re.findall('SKIPPED', """${TEST_MESSAGE}""")) > 0    modules=re
     BuiltIn.Return From Keyword If    ('${TEST_STATUS}' != 'FAIL') or ${test_skipped}
     ${newline}=    BuiltIn.Evaluate    chr(10)
     ${reference}=    String.Replace_String_Using_Regexp    ${SUITE_NAME}_${TEST_NAME}    [ /\.-]    _
