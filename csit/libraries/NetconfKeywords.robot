@@ -17,6 +17,7 @@ Library           RequestsLibrary
 Resource          NetconfViaRestconf.robot
 Resource          NexusKeywords.robot
 Resource          SSHKeywords.robot
+Resource          Utils.robot
 
 *** Variables ***
 ${TESTTOOL_DEFAULT_JAVA_OPTIONS}    -Xmx1G -XX:MaxPermSize=256M -Dorg.apache.sshd.registerBouncyCastle=false
@@ -153,7 +154,9 @@ Install_And_Start_Testtool
     # Start the testtool
     ${command}    BuiltIn.Set_Variable    java ${java_options} -jar ${filename} ${tool_options} --device-count ${device-count} --debug ${debug} ${schemas_option} --md-sal ${mdsal}
     BuiltIn.Log    Running testtool: ${command}
-    SSHLibrary.Write    ${command} >testtool.log 2>&1
+    ${logfile}=    Utils.Get_Log_File_Name    testtool
+    BuiltIn.Set_Suite_Variable    ${testtool_log}    ${logfile}
+    SSHLibrary.Write    ${command} >${logfile} 2>&1
     # Store information needed by other keywords.
     BuiltIn.Set_Suite_Variable    ${NetconfKeywords__testtool_device_count}    ${device-count}
     # Wait for the testtool to boot up.
@@ -173,7 +176,7 @@ Stop_Testtool
     # TODO: Maybe this keyword's content shall be moved into SSHUtils and named somewhat like
     # "Interrupt_Program_And_Download_Its_Log" which will get an argument stating the name of
     # the log file to get.
-    SSHLibrary.Get_File    testtool.log
+    SSHLibrary.Get_File    ${testtool_log}
 
 NetconfKeywords__Check_Netconf_Test_Timeout_Not_Expired
     [Arguments]    ${deadline_Date}
