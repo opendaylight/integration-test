@@ -119,18 +119,42 @@ Unification Termination Point Inside
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    5
     Should Contain X Times    ${resp.content}    <termination-point>    6
+    # bgp:1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:1']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    2
+    ${tp}    Get Element    ${node}    xpath=.//termination-point[tp-ref='/network-topology:network-topology/topology/network-topo:1/node/bgp:1/termination-point/tp:1:3']
+    ${tp}    Element to String    ${tp}
+    Should Contain X Times    ${tp}    <tp-ref>/network-topology:network-topology/topology/network-topo:1/node/bgp:1/termination-point/tp:1:3</tp-ref>    1
+    ${tp}    Get Element    ${node}    xpath=.//termination-point[tp-ref='/network-topology:network-topology/topology/network-topo:1/node/bgp:1/termination-point/tp:1:1']
+    ${tp}    Element to String    ${tp}
+    Should Contain X Times    ${tp}    <tp-ref>/network-topology:network-topology/topology/network-topo:1/node/bgp:1/termination-point/tp:1:1</tp-ref>    1
+    Should Contain X Times    ${tp}    <tp-ref>/network-topology:network-topology/topology/network-topo:1/node/bgp:1/termination-point/tp:1:2</tp-ref>    1
+    # bgp:3
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:3']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    2
+    ${tp}    Get Element    ${node}    xpath=.//termination-point[tp-ref='/network-topology:network-topology/topology/network-topo:1/node/bgp:3/termination-point/tp:3:2']
+    ${tp}    Element to String    ${tp}
+    Should Contain X Times    ${tp}    <tp-ref>/network-topology:network-topology/topology/network-topo:1/node/bgp:3/termination-point/tp:3:2</tp-ref>    1
+    ${tp}    Get Element    ${node}    xpath=.//termination-point[tp-ref='/network-topology:network-topology/topology/network-topo:1/node/bgp:3/termination-point/tp:3:1']
+    ${tp}    Element to String    ${tp}
+    Should Contain X Times    ${tp}    <tp-ref>/network-topology:network-topology/topology/network-topo:1/node/bgp:3/termination-point/tp:3:1</tp-ref>    1
+    # bgp:4
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:4']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
+    ${tp}    Get Element    ${node}    xpath=.//termination-point[tp-ref='/network-topology:network-topology/topology/network-topo:1/node/bgp:4/termination-point/tp:4:1']
+    ${tp}    Element to String    ${tp}
+    Should Contain X Times    ${tp}    <tp-ref>/network-topology:network-topology/topology/network-topo:1/node/bgp:4/termination-point/tp:4:1</tp-ref>    1
+    Should Contain X Times    ${tp}    <tp-ref>/network-topology:network-topology/topology/network-topo:1/node/bgp:4/termination-point/tp:4:2</tp-ref>    1
+    # bgp:5
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:5']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
+    ${tp}    Get Element    ${node}    xpath=.//termination-point[tp-ref='/network-topology:network-topology/topology/network-topo:1/node/bgp:5/termination-point/tp:5:1']
+    ${tp}    Element to String    ${tp}
+    Should Contain X Times    ${tp}    <tp-ref>/network-topology:network-topology/topology/network-topo:1/node/bgp:5/termination-point/tp:5:1</tp-ref>    1
 
 Unification Termination Point Inside Inventory
     [Documentation]    Test aggregate inside operation on termination points
