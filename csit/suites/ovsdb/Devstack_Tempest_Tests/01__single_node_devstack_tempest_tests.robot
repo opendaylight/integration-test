@@ -16,8 +16,15 @@ ${default_devstack_prompt_timeout}    10s
 ${devstack_workspace}    ~/ds_workspace
 ${DEVSTACK_SYSTEM_PASSWORD}    \    # set to empty, but provide for others to override if desired
 ${CLEAN_DEVSTACK_HOST}    False
+${HEADERS_YANG_JSON}    {'Content-Type': 'application/yang.data+json'}
 
 *** Test Cases ***
+Check Firewall Things Before Devstacky stuff
+    ${output}=    Write Commands Until Prompt    sudo iptables --list
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    sudo systemctl status firewalld
+    Log    ${output}
+
 Run Devstack Gate Wrapper
     Write Commands Until Prompt    unset GIT_BASE
     Write Commands Until Prompt    env
@@ -35,12 +42,62 @@ Validate Neutron and Networking-ODL Versions
     ${output}=    Write Commands Until Prompt    cd /opt/stack/new/networking-odl; git branch;
     Should Contain    ${output}    * ${NETWORKING-ODL_BRANCH}
 
+Basic Rest Check Local To OpenDaylight VM With 8181
+    Write Commands Until Prompt    curl -u "admin:admin" http://localhost:8181/restconf/modules
+
 tempest.api.network
+    [Tags]    exclude
     Run Tempest Tests    ${TEST_NAME}
 
 tempest
     [Tags]    exclude
     Run Tempest Tests    ${TEST_NAME}    900s
+
+Trying to hit ODL with curl command before mucking with firewall stuff
+    Run    curl -u "admin:admin" http://${DEVSTACK_SYSTEM_IP}:8181/restconf/modules
+
+Check Firewall Things After Devstacky stuff
+    ${output}=    Write Commands Until Prompt    sudo iptables --list
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    sudo systemctl status firewalld
+    Log    ${output}
+
+Poke Holes In Iptables
+    ${output}=    Write Commands Until Prompt    sudo iptables -A INPUT ACCEPT
+    ${output}=    Write Commands Until Prompt    sudo iptables -A FORWARD ACCEPT
+    Log    ${output}
+
+Check Firewall Things After Trying To Turn Them Off
+    ${output}=    Write Commands Until Prompt    sudo iptables --list
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    sudo systemctl status firewalld
+    Log    ${output}
+
+Trying to hit ODL with curl command after mucking with firewall stuff
+    Run    curl -u "admin:admin" http://${DEVSTACK_SYSTEM_IP}:8181/restconf/modules
+
+Testing ODL restconf port 8181 with standard headers
+    Create Session    session    http://${DEVSTACK_SYSTEM_IP}:8181    auth=${AUTH}    headers=${headers}
+    Wait Until Keyword Succeeds    3x    5 s    Get Data From URI    session    ${ODL_BOOT_WAIT_URL}    headers=${headers}
+    Delete All Sessions
+
+Check Something More Meaningful
+    Create Session    session    http://${DEVSTACK_SYSTEM_IP}:${8181}    auth=${AUTH}    headers=${headers}
+    Wait Until Keyword Succeeds    3x    5 s    Get Data From URI    session    ${ODL_BOOT_WAIT_URL}    headers=${headers}
+    Suite Teardown    Delete All Sessions
+
+Test neutron
+    ${output}=    Write Commands Until Prompt    cd /opt/stack/new/devstack && cat localrc
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    source openrc admin admin
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    neutron -v net-create debuggingIsFun_network
+    Log    ${output}
+
+Testing ODL restconf port 8181 with different headers
+    Create Session    session    http://${DEVSTACK_SYSTEM_IP}:${8181}    auth=${AUTH}    headers=${headers}
+    Wait Until Keyword Succeeds    5x    5 s    Get Data From URI    session    /controller/nb/v2/neutron/networks    headers=${headers}
+    Delete All Sessions
 
 *** Keywords ***
 Run Tempest Tests
