@@ -16,6 +16,11 @@ ${INTENTS}        restconf/config/intent:intents
 ${VTN_INVENTORY}    restconf/operational/vtn-inventory:vtn-nodes
 ${INTENT_ID}      b9a13232-525e-4d8c-be21-cd65e3436033
 
+${DUMPFLOWS_OF10}    dpctl dump-flows
+${dscp_flow}    mod_nw_tos
+${normal_flow}    NORMAL
+
+
 *** Keywords ***
 Start NIC VTN Renderer Suite
     [Documentation]    Start Nic VTN Renderer Init Test Suite
@@ -97,3 +102,95 @@ Mininet Ping Should Not Succeed
     Write    ${host1} ping -c 10 ${host2}
     ${result}    Read Until    mininet>
     Should Not Contain    ${result}    64 bytes
+
+
+Start NIC OF Renderer Suite
+    [Documentation]    Start Nic OF Renderer Init Test Suite
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    Start Suite
+
+Stop NIC OF Rest Test Suite
+    [Documentation]    Stop Nic OF Renderer Test Suite
+    Delete All Sessions
+
+Stop NIC OF Renderer Suite
+    [Documentation]    Stop Nic OF Renderer Test Suite
+    Delete All Sessions
+
+Add Qos Configuration
+    [Arguments]    ${name}    ${dscp}
+    [Documentation]    Creates a QoS configuration and add an intent from the controller.
+    ${output}=    Issue Command On Karaf Console    intent:qosConfig -p ${name} -d ${dscp}
+    Should Contain    ${output}    QoS profile is configured
+    ${output}=    Fetch From Left    ${output}    )
+    ${output_split}=    Split String    ${output}    ${SPACE}
+    ${id}=    Get From List    ${output_split}    5
+    [Return]    ${id}
+
+Invalid Qos Configuration
+    [Arguments]    ${name}    ${dscp}
+    [Documentation]    Add an intent from the controller.
+    ${output}=    Issue Command On Karaf Console    intent:qosConfi -p ${name} -d ${dscp}
+    Should Contain    ${output}    Command not found
+
+Invalid Dscp
+    [Arguments]    ${name}    ${dscp}
+    [Documentation]    Add an intent from the controller.
+    ${output}=    Issue Command On Karaf Console    intent:qosConfig -p ${name} -d ${dscp}
+    Should Contain    ${output}    Error executing command: Invalid range
+
+Add Qos From Karaf Console
+    [Arguments]    ${intent_from}    ${intent_to}    ${action}    ${constraint}    ${profile_name}
+    [Documentation]    Adds an QOS to the controller, and returns the id of the intent created.
+    ${output}=    Issue Command On Karaf Console    intent:add -f ${intent_from} -t ${intent_to} -a ${action} -q ${constraint} -p ${profile_name}
+    Should Contain    ${output}    Intent created
+    ${output}=    Fetch From Left    ${output}    )
+    ${output_split}=    Split String    ${output}    ${SPACE}
+    ${id}=    Get From List    ${output_split}    3
+    [Return]    ${id}
+
+Verify TOS Actions
+    [Arguments]    ${actions}    ${DUMPFLOWS}
+    [Documentation]    Verify the QoS actions after ping in the dumpflows
+    write    ${DUMPFLOWS}
+    ${result}    Read Until    mininet>
+    Should Contain    ${result}    ${actions}
+
+Verify OFBundle
+    ${output}=    Issue Command On Karaf Console    bundle:list | grep of-renderer
+    Should Contain    ${output}    Active
+
+Setup NIC Console Environment
+    [Documentation]    Installing NIC Console related features (install odl-nic-core-mdsal odl-nic-console odl-nic-listeners)
+    Verify Feature Is Installed    odl-nic-core-mdsal
+    Verify Feature Is Installed    odl-nic-console
+    Verify Feature Is Installed    odl-nic-renderer-of
+    Verify Feature Is Installed    odl-nic-pipeline-manager
+    Verify Feature Is Installed    odl-nic-listeners
+
+Start Mininet Linear Topology
+    [Arguments]    ${switches}
+    [Documentation]    Start mininet linear topology with ${switches} nodes
+    Log To Console    Starting mininet linear ${switches}
+    ${mininet_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${switches*3}
+    Set Suite Variable    ${mininet_conn_id}
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    Execute Command    java -version
+    Write    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo linear,${switches}
+    Read Until    mininet>
+    Sleep    6
+
+Get DynamicMacAddress
+    [Arguments]    ${h}
+    [Documentation]    Get Dynamic mac address of Host
+    write    ${h} ifconfig -a | grep HWaddr
+    ${source}    Read Until    mininet>
+    ${HWaddress}=    Split String    ${source}    ${SPACE}
+    ${sourceHWaddr}=    Get from List    ${HWaddress}    7
+    ${sourceHWaddress}=    Convert To Lowercase    ${sourceHWaddr}
+    Return From Keyword    ${sourceHWaddress}    # Also [Return] would work here.
+
+Get Intent List
+    [Documentation]    Check list of intents
+    ${resp}=    RequestsLibrary.Get Request    session    ${INTENTS}
+    Should Contain    ${resp.content}    intents
