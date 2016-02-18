@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_dd287688",
+        "filename": "csit/suites/vtn/VTN_Mgr_OF10/010__vtn_manager_dataflow.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 1479
+      },
+      "writtenOn": "2016-02-18T05:05:23Z",
+      "side": 1,
+      "message": "I didn\u0027t see any failures, for all Verify functionality added WUKS. I think it is not added. Removed WUKS.",
+      "parentUuid": "9a3d3df0_2757d5cb",
+      "revId": "4f073de90465a31f7923870fa28a01abb6c91a9b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_e7604da7",
         "filename": "csit/suites/vtn/VTN_Mgr_OF10/010__vtn_manager_flowfilter.robot",
         "patchSetId": 12
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_bd2db297",
+        "filename": "csit/suites/vtn/VTN_Mgr_OF10/010__vtn_manager_flowfilter.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 1479
+      },
+      "writtenOn": "2016-02-18T05:05:23Z",
+      "side": 1,
+      "message": "Yes i see failure while modified and testing dataflow in sandbox. So i changed test cases and amended in this patch.\n\nI will push as separate patch for flowfilter issue. Here i will push patch for Bug 5343",
+      "parentUuid": "9a3d3df0_e7604da7",
+      "revId": "4f073de90465a31f7923870fa28a01abb6c91a9b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_c76549b6",
         "filename": "csit/suites/vtn/VTN_Mgr_OF13/010__vtn_manager_flowfilter.robot",
         "patchSetId": 12
@@ -47,6 +83,24 @@
       "writtenOn": "2016-02-17T18:11:19Z",
       "side": 1,
       "message": "Are these additional cases?, Please add it as a seperate patch to avoid confusion with Fix for #5343?",
+      "revId": "4f073de90465a31f7923870fa28a01abb6c91a9b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1d1f7e5c",
+        "filename": "csit/suites/vtn/VTN_Mgr_OF13/010__vtn_manager_flowfilter.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 1479
+      },
+      "writtenOn": "2016-02-18T05:05:23Z",
+      "side": 1,
+      "message": "This is not addidtional cases. Changed scenario of test cases. Will push as new patch along with flowfilter changes.",
+      "parentUuid": "9a3d3df0_c76549b6",
       "revId": "4f073de90465a31f7923870fa28a01abb6c91a9b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
