@@ -22,6 +22,52 @@
       "revId": "82f01bcacfc5d2dbd2158b64567ab90e479a5339",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a41bdec8",
+        "filename": "csit/suites/controller/OneNode_Datastore/carpeople_library_test.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-18T18:00:06Z",
+      "side": 1,
+      "message": "Well, looking at the existing suites, they have similar specs so maybe my \"${base}\" idea is mistracked. But I would still rename \"folder\" to something more specific (\"template\"? \"template_folder\" is way too long).",
+      "range": {
+        "startLine": 32,
+        "startChar": 65,
+        "endLine": 32,
+        "endChar": 66
+      },
+      "revId": "82f01bcacfc5d2dbd2158b64567ab90e479a5339",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_047c4aeb",
+        "filename": "csit/suites/controller/OneNode_Datastore/carpeople_library_test.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-18T18:00:06Z",
+      "side": 1,
+      "message": "${/} (unless we want to make the tests Linux/Unix specific).",
+      "range": {
+        "startLine": 37,
+        "startChar": 65,
+        "endLine": 37,
+        "endChar": 66
+      },
+      "revId": "82f01bcacfc5d2dbd2158b64567ab90e479a5339",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
