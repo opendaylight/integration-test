@@ -411,3 +411,12 @@ Post Log Check
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    ${status_code}
     [Return]    ${resp}
+
+Get Log File Name
+    [Arguments]    ${testtool}
+    [Documentation]    Get the name of the suite sanitized to be usable as a part of filename.
+    ...    These names are used to constructs names of the log files produced
+    ...    by the testing tools so two suites using a tool wont overwrite the
+    ...    log files if they happen to run in one job.
+    ${name}=    BuiltIn.Evaluate    """${SUITE_NAME}""".replace(" ","-").replace("/","-").replace(".","-")
+    [Return]    ${testtool}--${name}.log
