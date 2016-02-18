@@ -25,6 +25,7 @@ Start Suite
     Set Suite Variable    ${mininet_conn_id}
     Flexible Mininet Login    user=${user}    password=${password}
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
+    Execute Command    java -version
     Write    ${start}
     Read Until    mininet>
 
