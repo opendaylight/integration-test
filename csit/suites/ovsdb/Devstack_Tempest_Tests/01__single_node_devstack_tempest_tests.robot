@@ -16,8 +16,15 @@ ${default_devstack_prompt_timeout}    10s
 ${devstack_workspace}    ~/ds_workspace
 ${DEVSTACK_SYSTEM_PASSWORD}    \    # set to empty, but provide for others to override if desired
 ${CLEAN_DEVSTACK_HOST}    False
+${HEADERS_YANG_JSON}    {'Content-Type': 'application/yang.data+json'}
 
 *** Test Cases ***
+Check Firewall Things Before Devstacky stuff
+    ${output}=    Write Commands Until Prompt    sudo iptables --list
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    sudo systemctl status firewalld
+    Log    ${output}
+
 Run Devstack Gate Wrapper
     Write Commands Until Prompt    unset GIT_BASE
     Write Commands Until Prompt    env
@@ -35,12 +42,77 @@ Validate Neutron and Networking-ODL Versions
     ${output}=    Write Commands Until Prompt    cd /opt/stack/new/networking-odl; git branch;
     Should Contain    ${output}    * ${NETWORKING-ODL_BRANCH}
 
+Basic Rest Check Local To OpenDaylight VM With 8181
+    Write Commands Until Prompt    curl -u "admin:admin" http://localhost:8181/restconf/modules
+
 tempest.api.network
+    [Tags]    exclude
     Run Tempest Tests    ${TEST_NAME}
 
 tempest
     [Tags]    exclude
     Run Tempest Tests    ${TEST_NAME}    900s
+
+Trying to hit ODL with curl command before mucking with firewall stuff
+    Run    curl -u "admin:admin" http://${DEVSTACK_SYSTEM_IP}:8181/restconf/modules
+
+Check Firewall Things After Devstacky stuff
+    ${output}=    Write Commands Until Prompt    sudo iptables --list
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    sudo systemctl status firewalld
+    Log    ${output}
+
+Poke Holes In Iptables
+    # these two lines didn't work.  I was hoping to be more surgical instead of flushing all rules, but can't figure it out
+    # ${output}=    Write Commands Until Prompt    sudo iptables -A INPUT -j ACCEPT
+    # ${output}=    Write Commands Until Prompt    sudo iptables -A FORWARD -j ACCEPT
+    ${output}=    Write Commands Until Prompt    sudo iptables -F
+    Log    ${output}
+
+Check Firewall Things After Trying To Turn Them Off
+    ${output}=    Write Commands Until Prompt    sudo iptables --list
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    sudo systemctl status firewalld
+    Log    ${output}
+
+Trying to hit ODL with curl command after mucking with firewall stuff
+    Run    curl -u "admin:admin" http://${DEVSTACK_SYSTEM_IP}:8181/restconf/modules
+
+Testing ODL restconf port 8181 with standard headers
+    Create Session    session    http://${DEVSTACK_SYSTEM_IP}:8181    auth=${AUTH}    headers=${headers}
+    Wait Until Keyword Succeeds    3x    5 s    Get Data From URI    session    ${ODL_BOOT_WAIT_URL}    headers=${headers}
+    Delete All Sessions
+
+Check Something More Meaningful
+    Create Session    session    http://${DEVSTACK_SYSTEM_IP}:${8181}    auth=${AUTH}    headers=${headers}
+    Wait Until Keyword Succeeds    3x    5 s    Get Data From URI    session    ${ODL_BOOT_WAIT_URL}    headers=${headers}
+    Delete All Sessions
+
+Test neutron
+    ${output}=    Write Commands Until Prompt    cd /opt/stack/new/devstack && cat localrc
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    source openrc admin admin
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    neutron -v net-create debuggingIsFun_network
+    Log    ${output}
+
+Testing ODL restconf port 8181 with different headers
+    Create Session    session    http://${DEVSTACK_SYSTEM_IP}:${8181}    auth=${AUTH}    headers=${headers}
+    Wait Until Keyword Succeeds    5x    5 s    Get Data From URI    session    /controller/nb/v2/neutron/networks    headers=${headers}
+    Delete All Sessions
+
+Testing karaf console with standard headers
+    SSHLibrary.Open Connection    ${DEVSTACK_SYSTEM_IP}    port=8101
+    Flexible SSH Login    admin    admin
+    ${stdout}    ${stderr}    ${rc}    SSHLibrary.Execute Command    version    return_stdout=True    return_stderr=True    return_rc=True
+    Log    ${stdout}
+    Log    ${stderr}
+    Log    ${rc}
+    ${stdout}    ${stderr}    ${rc}    SSHLibrary.Execute Command    feature:list    return_stdout=True    return_stderr=True    return_rc=True
+    Log    ${stdout}
+    Log    ${stderr}
+    Log    ${rc}
+    SSHLibrary.Close Connection
 
 *** Keywords ***
 Run Tempest Tests
@@ -64,7 +136,10 @@ Devstack Suite Setup
     Write Commands Until Prompt    export ODL_BOOT_WAIT_URL=${ODL_BOOT_WAIT_URL}
     ${odl_version_to_install}=    Get Networking ODL Version Of Release    ${ODL_VERSION}
     Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG="enable_plugin networking-odl https://git.openstack.org/openstack/networking-odl ${NETWORKING-ODL_BRANCH};"
+
     Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG+=ODL_NETVIRT_DEBUG_LOGS=True;ODL_RELEASE="${odl_version_to_install};"
+#    Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG+=ODL_RELEASE="${odl_version_to_install};"
+#    Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG+=ODL_NETVIRT_KARAF_FEATURE=odl-groupbasedpolicy-base;
     Write Commands Until Prompt    echo $DEVSTACK_LOCAL_CONFIG
     Write Commands Until Prompt    export OVERRIDE_ZUUL_BRANCH=${OPENSTACK_BRANCH}
     Write Commands Until Prompt    export PYTHONUNBUFFERED=true
