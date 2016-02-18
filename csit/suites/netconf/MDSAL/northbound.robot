@@ -132,6 +132,7 @@ Get_Config_Running_To_Confirm_Delete_After_Commit
 Commit_No_Transaction
     [Documentation]    Attempt to perform "commit" when there are no changes in the candidate configuration and check that it returns OK status.
     Perform_Test    commit-no-transaction
+    [Teardown]    Utils.Report_Failure_Due_To_Bug    4455
 
 Edit_Config_Second_Batch_Merge
     [Documentation]    Create an element to be discarded and check the reply.
@@ -282,6 +283,7 @@ Delete_Not_Existing_Element
 Commit_Delete_Not_Existing_Module
     [Documentation]    Attempt to commit and check the reply.
     Perform_Test    commit-no-transaction
+    [Teardown]    Utils.Report_Failure_Due_To_Bug    4455
 
 Remove_Not_Existing_Module
     [Documentation]    Attempt to remove the "module" element again and check that the operation is "silently ignored".
@@ -290,6 +292,7 @@ Remove_Not_Existing_Module
 Commit_Remove_Not_Existing_Module
     [Documentation]    Attempt to commit and check the reply.
     Perform_Test    remove-not-existing-commit
+    [Teardown]    Utils.Report_Failure_Due_To_Bug    4455
 
 Close_Session
     [Documentation]    Close the session and check that it was closed properly.
