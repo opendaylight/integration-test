@@ -68,6 +68,30 @@
       "revId": "82f01bcacfc5d2dbd2158b64567ab90e479a5339",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_84ddfae2",
+        "filename": "csit/suites/controller/OneNode_Datastore/carpeople_library_test.robot",
+        "patchSetId": 61
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-18T18:05:12Z",
+      "side": 1,
+      "message": "Many Resources already are. Such edits are better suited for a separate Change over multiple Resources.",
+      "parentUuid": "9a3d3df0_047c4aeb",
+      "range": {
+        "startLine": 37,
+        "startChar": 65,
+        "endLine": 37,
+        "endChar": 66
+      },
+      "revId": "82f01bcacfc5d2dbd2158b64567ab90e479a5339",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
