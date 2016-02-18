@@ -1,5 +1,7 @@
 *** Settings ***
-Documentation     Documentation     Waiting for flows to appear on switches.
+Documentation     Documentation Waiting for flows to appear on switches.
+Suite Setup       Start Connections
+Suite Teardown    Close Connections
 Library           SSHLibrary
 Resource          ../../../../../libraries/Utils.robot
 Resource          ../../../../../libraries/GBP/ConnUtils.robot
@@ -8,11 +10,8 @@ Resource          ../../../../../libraries/GBP/OpenFlowUtils.robot
 Variables         ../../../../../variables/Variables.py
 Resource          ../Variables.robot
 Resource          ../Connections.robot
-Suite Setup       Start Connections
-Suite Teardown    Close Connections
 
 *** Testcases ***
-
 Wait For Flows on GBPSFC1
     [Documentation]    Waiting for flows to appear on OVS switch.
     Switch Connection    GPSFC1_CONNECTION
@@ -42,4 +41,3 @@ Wait For Flows on GBPSFC6
     [Documentation]    Waiting for flows to appear on OVS switch.
     Switch Connection    GPSFC6_CONNECTION
     Wait For Flows On Switch    ${GBPSFC6}    sw6
-

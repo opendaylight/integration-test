@@ -219,5 +219,3 @@ Delete the Bridge In Old Owner and Verify After Recover
 Delete Bridge Via Rest Call And Verify In Old Owner After Recover
     [Documentation]    This request will delete the bridge node from the config data store and operational data store.
     Delete Bridge Via Rest Call And Verify    ${original_cluster_list}    ${original_owner}
-
-
