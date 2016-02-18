@@ -12,8 +12,8 @@ ${THE_FIRST_IRD_RESOURCE_ID}    hello
 ${THE_SECOND_IRD_RESOURCE_ID}    world
 ${RESOURCE_IN_FIRST_IRD}    test-model-networkmap
 ${RESOURCE_IN_SECOND_IRD}    test-model-filtered-costmap
-${BASE_URL}
-${RANDOM_CONTEXT_ID}
+${BASE_URL}       ${EMPTY}
+${RANDOM_CONTEXT_ID}    ${EMPTY}
 
 *** Test Cases ***
 Check the simple IRD information
@@ -34,13 +34,15 @@ Create two IRDs
 
 Add one IRD configuration entry in one IRD instance
     [Documentation]    Add one IRD configuration entry in an IRD whose name is hello. Link IRD entry to one existed resource.
-    Wait Until Keyword Succeeds    5s    1s    Add An IRD Configuration Entry    ${THE_FIRST_IRD_RESOURCE_ID}    ${DEFAULT_CONTEXT_ID}    ${RESOURCE_IN_FIRST_IRD}    ${BASE_URL}
-    Wait Until Keyword Succeeds    5s    1s    Add An IRD Configuration Entry    ${THE_SECOND_IRD_RESOURCE_ID}    ${DEFAULT_CONTEXT_ID}    ${RESOURCE_IN_SECOND_IRD}    ${BASE_URL}
+    Wait Until Keyword Succeeds    5s    1s    Add An IRD Configuration Entry    ${THE_FIRST_IRD_RESOURCE_ID}    ${DEFAULT_CONTEXT_ID}    ${RESOURCE_IN_FIRST_IRD}
+    ...    ${BASE_URL}
+    Wait Until Keyword Succeeds    5s    1s    Add An IRD Configuration Entry    ${THE_SECOND_IRD_RESOURCE_ID}    ${DEFAULT_CONTEXT_ID}    ${RESOURCE_IN_SECOND_IRD}
+    ...    ${BASE_URL}
 
 *** Keywords ***
 Check GET Response Code Equals 200
     [Arguments]    ${uri_without_ip_port}
-    ${resp}    RequestsLibrary.Get Request   session    ${uri_without_ip_port}
+    ${resp}    RequestsLibrary.Get Request    session    ${uri_without_ip_port}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Create An IRD
@@ -52,5 +54,5 @@ Create An IRD
 Add An IRD Configuration Entry
     [Arguments]    ${IRD_id}    ${context_id}    ${resource_id}    ${base_url}
     ${body}    Set Variable    {"ird-configuration-entry":{"entry-id":"${resource_id}","instance":"/alto-resourcepool:context[alto-resourcepool:context-id='${context_id}']/alto-resourcepool:resource[alto-resourcepool:resource-id='${resource_id}']","path":"${base_url}/${resource_id}"}}
-    ${resp}    RequestsLibrary.Put Request     session    /${ALTO_CONFIG_IRD_INSTANCE_CONFIG}/${IRD_id}/ird-configuration-entry/${resource_id}    data=${body}
+    ${resp}    RequestsLibrary.Put Request    session    /${ALTO_CONFIG_IRD_INSTANCE_CONFIG}/${IRD_id}/ird-configuration-entry/${resource_id}    data=${body}
     should Be Equal As Strings    ${resp.status_code}    200

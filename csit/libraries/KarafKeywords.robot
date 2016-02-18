@@ -32,7 +32,7 @@ Issue Command On Karaf Console
 Check For Elements On Karaf Command Output Message
     [Arguments]    ${cmd}    ${elements}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=5
     [Documentation]    Will execute the command using Issue Command On Karaf Console then check for the given elements
-    ...                in the command output message
+    ...    in the command output message
     ${output}    Issue Command On Karaf Console    ${cmd}    ${controller}    ${karaf_port}    ${timeout}
     : FOR    ${i}    IN    @{elements}
     \    Should Contain    ${output}    ${i}

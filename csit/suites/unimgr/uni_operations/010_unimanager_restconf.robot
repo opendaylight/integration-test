@@ -13,15 +13,14 @@ Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/UnimgrKeywords.robot
 
 *** Variables ***
-${DEFAULT_LINUX_PROMPT}
+${DEFAULT_LINUX_PROMPT}    ${EMPTY}
 ${Mininet1_IP}    ${TOOLS_SYSTEM_IP}
 ${Mininet2_IP}    ${TOOLS_SYSTEM_2_IP}
-${UNI1_MAC}    68:5b:35:bb:f8:3e
-${UNI2_MAC}    52:7b:25:cb:a7:3c
+${UNI1_MAC}       68:5b:35:bb:f8:3e
+${UNI2_MAC}       52:7b:25:cb:a7:3c
 ${Evc_topo_API}    topology/unimgr:evc/link/evc:%2F%2F1
 ${Uni_topo_API}    topology/unimgr:uni/node/uni:%2F%2F
 ${UniMgr_variables_DIR}    ${CURDIR}/../../../variables/unimgr
-
 
 *** Test Cases ***
 Create source and destination UNIs at the OVS instances using Restconf API
@@ -38,7 +37,6 @@ Create source and destination UNIs at the OVS instances using Restconf API
     ${elements}    Create List    ${Mininet1_IP}    ${Mininet2_IP}
     Wait Until Keyword Succeeds    16s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/unimgr:uni/    ${elements}
 
-
 Update UNI Speed
     [Documentation]    Update the Unis source and destenation speed
     [Tags]    UniMgr UNIs Speed
@@ -51,7 +49,6 @@ Update UNI Speed
     Should Be Equal As Strings    ${resp.status_code}    200
     ${elements}    Create List    speed-10G
     Wait Until Keyword Succeeds    16s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/unimgr:uni/    ${elements}
-
 
 Create EVC tunnel between the Unis
     [Documentation]    Create EVC between Unis
@@ -76,7 +73,6 @@ Update EVC Ingress and Egress Speed
     Should Be Equal As Strings    ${resp.status_code}    200
     ${elements}    Create List    speed-1G
     Wait Until Keyword Succeeds    16s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/unimgr:evc/    ${elements}
-
 
 Delete EVC tunnel between the Unis
     [Documentation]    Delete EVC

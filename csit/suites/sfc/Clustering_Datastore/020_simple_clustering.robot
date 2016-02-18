@@ -51,10 +51,10 @@ Init Variables
 
 Init Variables Master
     [Documentation]    Sets variables specific to latest(master) version
-    Set Suite Variable    ${SFC_API}            /restconf/config/service-function:service-functions
+    Set Suite Variable    ${SFC_API}    /restconf/config/service-function:service-functions
     Set Suite Variable    ${SFC_FUNCTIONS_FILE} ${CURDIR}/../../../variables/sfc/master/service-functions.json
 
 Init Variables Lithium
     [Documentation]    Sets variables specific to Lithium version
-    Set Suite Variable    ${SFC_API}            /restconf/config/service-function:service-functions
+    Set Suite Variable    ${SFC_API}    /restconf/config/service-function:service-functions
     Set Suite Variable    ${SFC_FUNCTIONS_FILE} ${CURDIR}/../../../variables/sfc/lithium/service-functions.json

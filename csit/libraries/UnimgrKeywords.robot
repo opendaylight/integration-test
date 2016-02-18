@@ -1,11 +1,11 @@
 *** Settings ***
-Documentation    Unimgr keywords defination that will be used in Unimgr suite.
-Library    OperatingSystem
-Library    SSHLibrary
-Library    String
-Resource    ../../../libraries/OVSDB.robot
-Resource    ../../../libraries/Utils.robot
-Variables    ../../../variables/Variables.py
+Documentation     Unimgr keywords defination that will be used in Unimgr suite.
+Library           OperatingSystem
+Library           SSHLibrary
+Library           String
+Resource          ../../../libraries/OVSDB.robot
+Resource          ../../../libraries/Utils.robot
+Variables         ../../../variables/Variables.py
 
 *** Variables ***
 ${Bridge_Name}    ovsbr0
@@ -15,8 +15,8 @@ ${UniMgr_Variables_DIR}    ../variables/unimgr
 Setup Unimgr Test Environment
     [Documentation]    Establish the Opendayligh session and prepair the Mininet VMs
     Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-    Prepair Unimgr Test Environment     ${TOOLS_SYSTEM_IP}
-    Prepair Unimgr Test Environment     ${TOOLS_SYSTEM_2_IP}
+    Prepair Unimgr Test Environment    ${TOOLS_SYSTEM_IP}
+    Prepair Unimgr Test Environment    ${TOOLS_SYSTEM_2_IP}
 
 Prepair Unimgr Test Environment
     [Arguments]    ${Mininet_IP}
@@ -25,7 +25,7 @@ Prepair Unimgr Test Environment
     Run Command On Remote System    ${Mininet_IP}    sudo ovs-vsctl del-br ${Bridge_Name}
     Run Command On Remote System    ${Mininet_IP}    sudo ovs-vsctl set-manager ptcp:${OVSDBPORT}
     ${stdout}=    Run Command On Remote System    ${Mininet_IP}    sudo ovs-vsctl show
-    Should Contain     ${stdout}    "ptcp:${OVSDBPORT}"
+    Should Contain    ${stdout}    "ptcp:${OVSDBPORT}"
 
 Get Add Uni Json
     [Arguments]    ${IP-Address}    ${MAC-Address}

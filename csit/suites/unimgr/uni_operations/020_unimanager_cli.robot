@@ -14,11 +14,11 @@ Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/UnimgrKeywords.robot
 
 *** Variables ***
-${DEFAULT_LINUX_PROMPT}
+${DEFAULT_LINUX_PROMPT}    ${EMPTY}
 ${Mininet1_IP}    ${TOOLS_SYSTEM_IP}
 ${Mininet2_IP}    ${TOOLS_SYSTEM_2_IP}
-${UNI1_MAC}    68:5b:35:bb:f8:3e
-${UNI2_MAC}    52:7b:25:cb:a7:3c
+${UNI1_MAC}       68:5b:35:bb:f8:3e
+${UNI2_MAC}       52:7b:25:cb:a7:3c
 
 *** Test Cases ***
 Create source and destination UNIs at the OVS instances using Restconf API

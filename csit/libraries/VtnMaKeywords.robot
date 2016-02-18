@@ -16,7 +16,7 @@ ${VTN_INVENTORY}    restconf/operational/vtn-inventory:vtn-nodes
 ${DUMPFLOWS_OF10}    dpctl dump-flows -O OpenFlow10
 ${DUMPFLOWS_OF13}    dpctl dump-flows -O OpenFlow13
 ${index}          7
-@{inet_actions}    nw_src=10.0.0.1   nw_dst=10.0.0.3
+@{inet_actions}    nw_src=10.0.0.1    nw_dst=10.0.0.3
 @{BRIDGE1_DATAFLOW}    "reason":"PORTMAPPED"    "virtual-node-path":{"bridge-name":"vBridge1","tenant-name":"Tenant1","interface-name":"if2"}
 @{BRIDGE2_DATAFLOW}    "reason":"PORTMAPPED"    "virtual-node-path":{"bridge-name":"vBridge2","tenant-name":"Tenant1","interface-name":"if3"}
 ${vlanmap_bridge1}    200
@@ -31,8 +31,8 @@ ${pathpolicy_topo_10}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custo
 ${policy_id}      1
 ${in_port}        1
 ${dscp_action}    set_field:32->nw_tos_shifted
-${dscp_flow}    mod_nw_tos:128
-@{icmp_action}    nw_src=10.0.0.1   nw_dst=10.0.0.3
+${dscp_flow}      mod_nw_tos:128
+@{icmp_action}    nw_src=10.0.0.1    nw_dst=10.0.0.3
 @{PATHPOLICY_ATTR}    "id":1    "port-desc":"openflow:4,2,s4-eth2"
 ${custom}         ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
 
@@ -301,19 +301,19 @@ Add a vbrif flowfilter
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify Flow Entries for Flowfilter
-    [Arguments]   ${dumpflows}   @{flowfilter_actions}
+    [Arguments]    ${dumpflows}    @{flowfilter_actions}
     [Documentation]    Verify switch flow entry using flowfilter for a vtn
-    ${booleanValue}=    Run Keyword And Return Status    Verify Actions on Flow Entry   ${dumpflows}   @{flowfilter_actions}
+    ${booleanValue}=    Run Keyword And Return Status    Verify Actions on Flow Entry    ${dumpflows}    @{flowfilter_actions}
     Should Be Equal As Strings    ${booleanValue}    True
 
 Verify Removed Flow Entry for Inet Drop Flowfilter
-    [Arguments]   ${dumpflows}   @{flowfilter_actions}
+    [Arguments]    ${dumpflows}    @{flowfilter_actions}
     [Documentation]    Verify removed switch flow entry using flowfilter drop for a vtn
-    ${booleanValue}=    Run Keyword And Return Status    Verify Actions on Flow Entry   ${dumpflows}   @{flowfilter_actions}
+    ${booleanValue}=    Run Keyword And Return Status    Verify Actions on Flow Entry    ${dumpflows}    @{flowfilter_actions}
     Should Be Equal As Strings    ${booleanValue}    True
 
 Verify Actions on Flow Entry
-    [Arguments]   ${dumpflows}   @{flowfilter_actions}
+    [Arguments]    ${dumpflows}    @{flowfilter_actions}
     [Documentation]    check flow action elements by giving dumpflows in mininet
     write    ${dumpflows}
     ${result}    Read Until    mininet>
