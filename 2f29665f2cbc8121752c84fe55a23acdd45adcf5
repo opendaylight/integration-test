@@ -118,6 +118,23 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_42f807c3",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-18T00:26:50Z",
+      "side": 1,
+      "message": "It looks like the default for \u0027base\u0027 here is \u0027InCSE1\u0027. In line 183 you have logic \u0027if base is not None:\u0027 which seems to  only be possible if you pass None as the value for base.\n\nAre you truly expecting cases that pass None type value into the init function of class connect? Otherwise base will also pass this test.",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_626a6bb4",
         "filename": "csit/libraries/ciotdm.py",
         "patchSetId": 6
@@ -181,6 +198,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_e2079bc8",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-18T00:26:50Z",
+      "side": 1,
+      "message": "Agreed. You should have access to self without returning it. This function should likely be non-returning.",
+      "parentUuid": "9a3d3df0_0280bf44",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_c2f09700",
         "filename": "csit/libraries/ciotdm.py",
         "patchSetId": 6
@@ -209,6 +244,217 @@
       "writtenOn": "2016-02-17T23:16:17Z",
       "side": 1,
       "message": "Modifying so many instance vars in these fns seems like a code smell to me. Not a blocker, just feedback.",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_82fe8fac",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-18T00:26:50Z",
+      "side": 1,
+      "message": "This is less clear than the case above where you are returning the whole instance, but if you are setting an instance variable \u0027self.response \u003d\u0027 you should be able to access this from the instance directly. Here you are treating the instance variable like a local variable that needs to be returned.\n\nI\u0027d have to look closer at the rest of your code but it seems likely that you wouldn\u0027t want a monolithic self.response to be set each time you send a rest call. Which would mean you would likely want to return a local variable rather than an instance var.",
+      "parentUuid": "9a3d3df0_62df0b6a",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e22e7b42",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-18T00:26:50Z",
+      "side": 1,
+      "message": "Ditto above comment.",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c23377a9",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-18T00:26:50Z",
+      "side": 1,
+      "message": "ditto above comment",
+      "range": {
+        "startLine": 275,
+        "startChar": 18,
+        "endLine": 275,
+        "endChar": 19
+      },
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2225035c",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-18T00:26:50Z",
+      "side": 1,
+      "message": "ditto above comment",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_022a7f2b",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-18T00:26:50Z",
+      "side": 1,
+      "message": "ditto above commment",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c2da574b",
+        "filename": "csit/libraries/criotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-18T00:26:50Z",
+      "side": 1,
+      "message": "As said in previous comment about \u0027base\u0027 being None. If this is the only call to the init method of connect, base will never be none, as the passed value here and method default are both \"InCSE1\"",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_62e9cbe5",
+        "filename": "csit/libraries/criotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-18T00:26:50Z",
+      "side": 1,
+      "message": "PEP8: Surround top-level function and class definitions with two blank lines.",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8215efe6",
+        "filename": "csit/libraries/criotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-18T00:26:50Z",
+      "side": 1,
+      "message": "Here you are passing in an object and returning the object after you have modified headers of the object.\n\nYou should be able to pass in the object. Change its headers and not return anything. Your instance of the object will be updated without returning it.",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_42e64716",
+        "filename": "csit/libraries/criotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-18T00:26:50Z",
+      "side": 1,
+      "message": "PEP8: Surround top-level function and class definitions with two blank lines.",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e2d5db1c",
+        "filename": "csit/libraries/criotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-18T00:26:50Z",
+      "side": 1,
+      "message": "This would be reasonable if you were returning a local variable. \n\nAs the code is written you could do:\nconnection.create(parent, restype, attribute, name\u003dname)\nCheck_Response(connection.response, \"create\")\nreturn connection.response",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_22dce345",
+        "filename": "csit/libraries/criotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-18T00:26:50Z",
+      "side": 1,
+      "message": "Ditto comment above and so on below.",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_82eccff4",
+        "filename": "csit/libraries/criotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-18T00:26:50Z",
+      "side": 1,
+      "message": "PEP8 Function names should be lowercase, with words separated by underscores as necessary to improve readability.",
       "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
