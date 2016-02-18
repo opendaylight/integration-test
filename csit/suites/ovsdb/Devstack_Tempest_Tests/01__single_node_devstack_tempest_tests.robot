@@ -16,6 +16,7 @@ ${default_devstack_prompt_timeout}    10s
 ${devstack_workspace}    ~/ds_workspace
 ${DEVSTACK_SYSTEM_PASSWORD}    \    # set to empty, but provide for others to override if desired
 ${CLEAN_DEVSTACK_HOST}    False
+${HEADERS_YANG_JSON}    {'Content-Type': 'application/yang.data+json'}
 
 *** Test Cases ***
 Run Devstack Gate Wrapper
@@ -41,6 +42,26 @@ tempest.api.network
 tempest
     [Tags]    exclude
     Run Tempest Tests    ${TEST_NAME}    900s
+
+Testing ODL restconf port 8080 with standard headers
+    Create Session    session    http://${DEVSTACK_SYSTEM_IP}:${8080}    auth=${AUTH}    headers=${headers}
+    Wait Until Keyword Succeeds    3x    5 s    Get Data From URI    session    ${ODL_BOOT_WAIT_URL}    headers=${headers}
+    Delete All Sessions
+
+Testing ODL restconf port 8080 with different headers
+    Create Session    session    http://${DEVSTACK_SYSTEM_IP}:${8080}    auth=${AUTH}    headers=${HEADERS_YANG_JSON}
+    Wait Until Keyword Succeeds    3x    5 s    Get Data From URI    session    ${ODL_BOOT_WAIT_URL}    headers=${HEADERS_YANG_JSON}
+    Delete All Sessions
+
+Testing ODL restconf port 8181 with standard headers
+    Create Session    session    http://${DEVSTACK_SYSTEM_IP}:${8181}    auth=${AUTH}    headers=${headers}
+    Wait Until Keyword Succeeds    3x    5 s    Get Data From URI    session    ${ODL_BOOT_WAIT_URL}    headers=${headers}
+    Delete All Sessions
+
+Testing ODL restconf port 8181  with different headers
+    Create Session    session    http://${DEVSTACK_SYSTEM_IP}:${8181}    auth=${AUTH}    headers=${HEADERS_YANG_JSON}
+    Wait Until Keyword Succeeds    3x    5 s    Get Data From URI    session    ${ODL_BOOT_WAIT_URL}    headers=${HEADERS_YANG_JSON}
+    Delete All Sessions
 
 *** Keywords ***
 Run Tempest Tests
