@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_9571a246",
+        "filename": "csit/suites/topoprocessing/basic-topology-operations/010_Aggregation.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-02-19T01:28:09Z",
+      "side": 1,
+      "message": "FYI and future reference, we have the keyword Check Item Occurrence in Utils.robot to allow multiple checks of this kind. (https://git.opendaylight.org/gerrit/gitweb?p\u003dintegration/test.git;a\u003dblob;f\u003dcsit/libraries/Utils.robot;h\u003da18f2bec19ffec846ab62cb82c41a3364906b1d9;hb\u003dHEAD).",
+      "revId": "329fc7a47f6fd870f729dc2cdaa80c68645a13dd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
