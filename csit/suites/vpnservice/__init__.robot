@@ -6,58 +6,149 @@ Library           SSHLibrary
 Library           ../../libraries/Common.py
 Variables         ../../variables/Variables.py
 Resource          ../../libraries/Utils.robot
+Variables         ../../variables/vpnservice/neutron_service.py
 
-*** Variables ***
-${start1}         sudo mn \ --controller=remote,ip=${ODL_SYSTEM_IP} --custom custom.py --topo Switch1 --switch ovsk,protocols=OpenFlow13
-${start2}         sudo mn \ --controller=remote,ip=${ODL_SYSTEM_IP} --custom custom.py --topo Switch2 --switch ovsk,protocols=OpenFlow13
 
 *** Keywords ***
 Start Suite
     [Documentation]    Test suit for vpn service using mininet OF13 and OVS 2.3.1
     Log    Start the tests
-    Clean Mininet System
-    ${mininet1_conn_id_1}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    ${mininet1_conn_id_1}=    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Global Variable    ${mininet1_conn_id_1}
-    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
-    Execute Command    sudo ovs-vsctl set-manager ptcp:6644
-    Put File    ${CURDIR}/custom.py
-    Write    ${start1}
-    Read Until    mininet>
-    ${mininet1_conn_id_2}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout= 30s
-    Set Global Variable    ${mininet1_conn_id_2}
-    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
-    Execute Command    sudo ovs-vsctl add-port s1 s1-gre1 -- set interface s1-gre1 type=gre options:remote_ip=${TOOLS_SYSTEM_2_IP} options:local_ip=${TOOLS_SYSTEM_IP}
+    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    #SSHLibrary.Login    ${MININET_USER}    ${MININET_PASSWORD}
+    Execute Command    sudo ovs-vsctl del-br BR1
+    Execute Command    sudo ovs-vsctl add-br BR1
+    Execute Command    sudo ovs-vsctl set bridge BR1 protocols=OpenFlow13
+    ${swcmd1}=    Catenate    SEPARATOR=    sudo ovs-vsctl set-controller BR1 tcp:    ${CONTROLLER}    :6633
+    Execute Command    ${swcmd1}
+    ${output}    Execute Command    sudo ifconfig BR1 up
+    ${swcmd1}=    Catenate    SEPARATOR=    sudo ovs-vsctl set-manager tcp:    ${CONTROLLER}    :6640
+    Execute Command    ${swcmd1}
+
+    ${resp}     Execute Command    sudo /sbin/ip netns add ns1
+    ${resp}     Execute Command    sudo /sbin/ip link add tap-port-1 type veth peer name tap79ad0001-19
+    ${resp}     Execute Command    sudo ovs-vsctl add-port BR1 tap79ad0001-19
+    ${resp}     Execute Command    sudo /sbin/ip link set tap-port-1 netns ns1
+    ${resp}     Execute Command    sudo /sbin/ip netns exec ns1 /sbin/ip link set dev tap-port-1 up
+    ${resp}     Execute Command    sudo /sbin/ip link set dev tap79ad0001-19 up
+    ${resp}     Execute Command    sudo /sbin/ip netns exec ns1 /sbin/ifconfig tap-port-1 20.1.1.2 netmask 255.255.255.0
+    ${resp}     Execute Command    sudo /sbin/ip netns exec ns1 /sbin/ifconfig tap-port-1 hw ether 00:16:3E:19:F7:8B
+    ${resp}     Execute Command    sudo /sbin/ip netns exec ns1 /sbin/ip link set dev lo up
+    ${resp}     Execute Command    sudo /sbin/ip netns exec ns1 /sbin/ip route add default via 20.1.1.1
+    ${resp}     Execute Command    sudo /sbin/ip netns add ns2
+    ${resp}     Execute Command    sudo /sbin/ip link add tap-port-2 type veth peer name tap79ad0002-19
+    ${resp}     Execute Command    sudo ovs-vsctl add-port BR1 tap79ad0002-19
+    ${resp}     Execute Command    sudo /sbin/ip link set tap-port-2 netns ns2
+    ${resp}     Execute Command    sudo /sbin/ip netns exec ns2 /sbin/ip link set dev tap-port-2 up
+    ${resp}     Execute Command    sudo /sbin/ip link set dev tap79ad0002-19 up
+    ${resp}     Execute Command    sudo /sbin/ip netns exec ns2 /sbin/ifconfig tap-port-2 20.1.1.3 netmask 255.255.255.0
+    ${resp}     Execute Command    sudo /sbin/ip netns exec ns2 /sbin/ifconfig tap-port-2 hw ether 00:16:3E:BB:9B:0F
+    ${resp}     Execute Command    sudo /sbin/ip netns exec ns2 /sbin/ip link set dev lo up
+    ${resp}     Execute Command    sudo /sbin/ip netns exec ns2 /sbin/ip route add default via 20.1.1.1
+
+    #${output}    Execute Command    ${create_ns_setup_dpn_1}
+    #Log    ${output}
+    #${resp}    Sleep    3
     ${output}    Execute Command    sudo ovs-vsctl show
+    #${output}=    SSHLibrary.Read Until Prompt
     Log    ${output}
-    Execute Command    sudo ovs-ofctl add-flow s1 -O OpenFlow13 arp,actions=FLOOD
-    ${mininet2_conn_id_1}=    Open Connection    ${TOOLS_SYSTEM_2_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    ${resp}    Sleep    3
+    ${output}    Execute Command    sudo /sbin/ip netns list
+    ${resp}    Sleep    3
+    Log    ${output}
+    ${output}    Execute Command    sudo /sbin/ifconfig
+    ${resp}    Sleep    3
+    Log    ${output}
+    ${output}    Execute Command    sudo /sbin/ip netns exec ns1 /sbin/ifconfig
+    ${resp}    Sleep    3
+    Log    ${output}
+    ${output}    Execute Command    sudo /sbin/ip netns exec ns2 /sbin/ifconfig
+    ${resp}    Sleep    3
+    Log    ${output}
+
+    ${mininet2_conn_id_1}=    Open Connection    ${MININET1}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Global Variable    ${mininet2_conn_id_1}
-    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
-    Execute Command    sudo ovs-vsctl set-manager ptcp:6644
-    Put File    ${CURDIR}/custom.py
-    Write    ${start2}
-    Read Until    mininet>
-    ${mininet2_conn_id_2}=    Open Connection    ${TOOLS_SYSTEM_2_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout= 30s
-    Set Global Variable    ${mininet2_conn_id_2}
-    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
-    Execute Command    sudo ovs-vsctl add-port s2 s2-gre1 -- set interface s2-gre1 type=gre options:remote_ip=${TOOLS_SYSTEM_IP} options:local_ip=${TOOLS_SYSTEM_2_IP}
+    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    Execute Command    sudo ovs-vsctl del-manager
+    Execute Command    sudo /usr/share/openvswitch/scripts/ovs-ctl stop
+    Execute Command    sudo rm -rf /etc/openvswitch/conf.db
+    Execute Command    sudo /usr/share/openvswitch/scripts/ovs-ctl start
+    ${resp}    Sleep    30
+    Execute Command    sudo ovs-vsctl del-br BR2
+    Execute Command    sudo ovs-vsctl add-br BR2
+    Execute Command    sudo ovs-vsctl set bridge BR2 protocols=OpenFlow13
+    ${swcmd1}=    Catenate    SEPARATOR=    sudo ovs-vsctl set-controller BR2 tcp:    ${CONTROLLER}    :6633
+    Execute Command    ${swcmd1}
+    ${output}    Execute Command    sudo ifconfig BR2 up
+    ${swcmd1}=    Catenate    SEPARATOR=    sudo ovs-vsctl set-manager tcp:    ${CONTROLLER}    :6640
+    Execute Command    ${swcmd1}
+
+    ${resp}     Execute Command    sudo /sbin/ip netns add ns3
+    ${resp}     Execute Command    sudo /sbin/ip link add tap-port-3 type veth peer name tap79ad0003-19
+    ${resp}     Execute Command    sudo ovs-vsctl add-port BR2 tap79ad0003-19
+    ${resp}     Execute Command    sudo /sbin/ip link set tap-port-3 netns ns3
+    ${resp}     Execute Command    sudo /sbin/ip netns exec ns3 /sbin/ip link set dev tap-port-3 up
+    ${resp}     Execute Command    sudo /sbin/ip link set dev tap79ad0003-19 up
+    ${resp}     Execute Command    sudo /sbin/ip netns exec ns3 /sbin/ifconfig tap-port-3 30.1.1.4 netmask 255.255.255.0
+    ${resp}     Execute Command    sudo /sbin/ip netns exec ns3 /sbin/ifconfig tap-port-3 hw ether 00:16:3E:92:F5:F8
+    ${resp}     Execute Command    sudo /sbin/ip netns exec ns3 /sbin/ip link set dev lo up
+    ${resp}     Execute Command    sudo /sbin/ip netns exec ns3 /sbin/ip route add default via 30.1.1.1
+    ${resp}     Execute Command    sudo /sbin/ip netns add ns4
+    ${resp}     Execute Command    sudo /sbin/ip link add tap-port-4 type veth peer name tap79ad0004-19
+    ${resp}     Execute Command    sudo ovs-vsctl add-port BR2 tap79ad0004-19
+    ${resp}     Execute Command    sudo /sbin/ip link set tap-port-4 netns ns4
+    ${resp}     Execute Command    sudo /sbin/ip netns exec ns4 /sbin/ip link set dev tap-port-4 up
+    ${resp}     Execute Command    sudo /sbin/ip link set dev tap79ad0004-19 up
+    ${resp}     Execute Command    sudo /sbin/ip netns exec ns4 /sbin/ifconfig tap-port-4 30.1.1.5 netmask 255.255.255.0
+    ${resp}     Execute Command    sudo /sbin/ip netns exec ns4 /sbin/ifconfig tap-port-4 hw ether 00:16:3E:19:57:58
+    ${resp}     Execute Command    sudo /sbin/ip netns exec ns4 /sbin/ip link set dev lo up
+    ${resp}     Execute Command    sudo /sbin/ip netns exec ns4 /sbin/ip route add default via 30.1.1.1
+
+    #${output}    Execute Command    ${create_ns_setup_dpn_2}
+    #Log    ${output}
+    #${resp}    Sleep    3
     ${output}    Execute Command    sudo ovs-vsctl show
+    ${resp}    Sleep    3
     Log    ${output}
-    Execute Command    sudo ovs-ofctl add-flow s2 -O OpenFlow13 arp,actions=FLOOD
+    ${output}    Execute Command    sudo /sbin/ip netns list
+    ${resp}    Sleep    3
+    Log    ${output}
+    ${output}    Execute Command    sudo /sbin/ifconfig
+    ${resp}    Sleep    3
+    Log    ${output}
+    ${output}    Execute Command    sudo /sbin/ip netns exec ns3 /sbin/ifconfig
+    ${resp}    Sleep    3
+    Log    ${output}
+    ${output}    Execute Command    sudo /sbin/ip netns exec ns4 /sbin/ifconfig
+    ${resp}    Sleep    3
+    Log    ${output}
 
 Stop Suite
     Log    Stop the tests
-    Switch Connection    ${mininet1_conn_id_1}
-    Read
-    Write    exit
-    Read Until    ${DEFAULT_LINUX_PROMPT}
-    Close Connection
-    Switch Connection    ${mininet1_conn_id_2}
-    Close Connection
     Switch Connection    ${mininet2_conn_id_1}
-    Read
-    Write    exit
-    Read Until    ${DEFAULT_LINUX_PROMPT}
+    Log    ${mininet2_conn_id_1}
+    Execute Command    sudo ovs-vsctl del-br BR2
+
+
+    Execute Command    ${delete_ns_setup_dpn_1}
+    ${output}    Execute Command    sudo /sbin/ip netns list
+    ${resp}    Sleep    3
+    Log    ${output}
+    # Write    exit
     Close Connection
-    Switch Connection    ${mininet2_conn_id_2}
+    Switch Connection    ${mininet1_conn_id_1}
+    Log    ${mininet1_conn_id_1}
+    Execute Command    sudo ovs-vsctl del-br BR1
+
+
+    Execute Command    ${delete_ns_setup_dpn_2}
+    ${output}    Execute Command    sudo /sbin/ip netns list
+    ${resp}    Sleep    3
+    Log    ${output}
+    # Write    exit
     Close Connection
+    Log    StopNameSpace
+
+
+
