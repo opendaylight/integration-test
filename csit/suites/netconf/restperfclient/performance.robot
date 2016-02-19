@@ -15,11 +15,6 @@ Documentation     netconf-restperfclient Update performance test suite.
 ...               out to turn the first request sent to a "create" request and the
 ...               remaining requests to "update" requests (due to how the testtool device
 ...               behavior is implemented).
-...
-...               TODO: The "Wait_Until_Prompt" keyword shall probably be turned into a
-...               reusable piece and moved into SSHKeywords. There is a bunch of other
-...               test suites (e.g. PCEP, BGP) which contain the same or similar pieces of
-...               code.
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
@@ -118,11 +113,3 @@ Teardown_Everything
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Switch_Connection    ${testtool}
     BuiltIn.Run_Keyword_And_Ignore_Error    NetconfKeywords.Stop_Testtool
-
-Wait_Until_Prompt
-    [Documentation]    Wait until prompt appears or timeout occurs. When timeout occurs, send Ctrl-C and then wait for the prompt again.
-    ...    This is necessary because the restperfclient can crash and hang, requiring that Ctrl-C character to get rid of it for good.
-    ${status}    ${result}=    BuiltIn.Run_Keyword_And_Ignore_Error    SSHLibrary.Read_Until_Prompt
-    Return_From_Keyword_If    '${status}' == 'PASS'
-    Utils.Write_Bare_Ctrl_C
-    SSHLibrary.Read_Until_Prompt
