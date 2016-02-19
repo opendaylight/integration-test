@@ -30,7 +30,7 @@ Download Tools
     Log    Download tools begin ...
     ${tools_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     Set Suite Variable    ${tools_conn_id}
-    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    ${CLONE_USC_TOOLS}
     Read Until    (17/17), done.
     Log    Download tools ended.
@@ -48,13 +48,13 @@ Start TCP
     Log    Start USC test VM for TCP
     ${agent_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     Set Suite Variable    ${agent_conn_id}
-    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    ${NAV_USC_TOOLS}
     Write    ${AgentTcp}
     Read
     ${echo_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     Set Suite Variable    ${echo_conn_id}
-    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    ${NAV_USC_TOOLS}
     Write    ${EchoServerTcp}
     Read Until    initialized
@@ -65,13 +65,13 @@ Start UDP
     Log    Start USC test VM for UDP
     ${agent_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     Set Suite Variable    ${agent_conn_id}
-    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    ${NAV_USC_TOOLS}
     Write    ${AgentUdp}
     Read
     ${echo_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     Set Suite Variable    ${echo_conn_id}
-    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    ${NAV_USC_TOOLS}
     Write    ${EchoServerUdp}
     Read Until    initialized
@@ -82,13 +82,13 @@ Start CALLHOME_TCP
     Log    Start USC test VM for CALLHOME_TCP
     ${agent_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     Set Suite Variable    ${agent_conn_id}
-    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    ${NAV_USC_TOOLS}
     Write    ${AgentTcpCallhome}
     Read
     ${echo_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     Set Suite Variable    ${echo_conn_id}
-    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    ${NAV_USC_TOOLS}
     Write    ${EchoServerTcp}
     Read Until    initialized
@@ -99,13 +99,13 @@ Start CALLHOME_UDP
     Log    Start USC test VM for CALLHOME_UDP
     ${agent_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     Set Suite Variable    ${agent_conn_id}
-    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    ${NAV_USC_TOOLS}
     Write    ${AgentUdpCallhome}
     Read
     ${echo_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     Set Suite Variable    ${echo_conn_id}
-    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    ${NAV_USC_TOOLS}
     Write    ${EchoServerUdp}
     Read Until    initialized
@@ -116,7 +116,7 @@ Start Fallback_TCP
     Log    Start USC test VM for Fallback_TCP
     ${echo_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     Set Suite Variable    ${echo_conn_id}
-    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    ${NAV_USC_TOOLS}
     Write    ${EchoServerTcp}
     Read Until    initialized
@@ -127,7 +127,7 @@ Start Fallback_UDP
     Log    Start USC test VM for Fallback_TCP
     ${echo_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     Set Suite Variable    ${echo_conn_id}
-    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    ${NAV_USC_TOOLS}
     Write    ${EchoServerUdp}
     Read Until    initialized
@@ -138,7 +138,7 @@ Start Multiple_Sessions_TCP
     Log    Start USC test VM for Multiple_Sessions_TCP
     ${agent_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     Set Suite Variable    ${agent_conn_id}
-    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    ${NAV_USC_TOOLS}
     Write    ${AgentTcp}
     Read
@@ -147,7 +147,7 @@ Start Multiple_Sessions_TCP
     \    Log    ${port_index}
     \    ${echo_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     \    Append To List    ${L1}    ${echo_conn_id}
-    \    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    \    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     \    Write    ${NAV_USC_TOOLS}
     \    Write    java -jar EchoServer.jar -t true -p ${port_index}
     \    Read Until    initialized
@@ -159,7 +159,7 @@ Start Multiple_Sessions_UDP
     Log    Start USC test VM for Multiple_Sessions_UDP
     ${agent_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     Set Suite Variable    ${agent_conn_id}
-    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    ${NAV_USC_TOOLS}
     Write    ${AgentUdp}
     Read
@@ -168,7 +168,7 @@ Start Multiple_Sessions_UDP
     \    Log    ${port_index}
     \    ${echo_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     \    Append To List    ${L1}    ${echo_conn_id}
-    \    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    \    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     \    Write    ${NAV_USC_TOOLS}
     \    Write    java -jar EchoServer.jar -t false -p ${port_index}
     \    Read Until    initialized
