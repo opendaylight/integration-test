@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_7e403634",
+        "filename": "csit/suites/ovsdb/Southbound_Net-virt_Threenode/030_Ovsdb_Southbound_Net-Virt.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-19T23:32:07Z",
+      "side": 1,
+      "message": "please change all MININET vars to TOOLS_SYSTEM_IP",
+      "range": {
+        "startLine": 44,
+        "startChar": 55,
+        "endLine": 44,
+        "endChar": 62
+      },
+      "revId": "0e862cabd4fdd353bd68729dff7f92edf9510083",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9e437a41",
+        "filename": "csit/suites/ovsdb/Southbound_Net-virt_Threenode/030_Ovsdb_Southbound_Net-Virt.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-19T23:32:07Z",
+      "side": 1,
+      "message": "this looks like it should be part of a suite setup.  this is just verifying network connectivity between the mininet vm and the controller vms right?  That is kind of assumed in these CSIT environments, you can skip altogether, but if you want to keep it put it as part of your suite setup.  If\nthat is not working and it fails in suite setup then all\nthe test cases will be skipped, which seems appropriate if\nbasic connectivity is not there.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 62
+      },
+      "revId": "0e862cabd4fdd353bd68729dff7f92edf9510083",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_be463e4d",
+        "filename": "csit/suites/ovsdb/Southbound_Net-virt_Threenode/030_Ovsdb_Southbound_Net-Virt.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-19T23:32:07Z",
+      "side": 1,
+      "message": "use this keyword:\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/OVSDB.robot#L64",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 40
+      },
+      "revId": "0e862cabd4fdd353bd68729dff7f92edf9510083",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_fe7ba689",
+        "filename": "csit/suites/ovsdb/Southbound_Net-virt_Threenode/030_Ovsdb_Southbound_Net-Virt.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-19T23:32:07Z",
+      "side": 1,
+      "message": "this doesn\u0027t look like what you probably wanted.\n\nthis is going to run \"sudo ovs-vsctl show\" on the remote system and return the output.  there is no check and it\nwont fail, so no reason to do a WUKS. \n\nI see the same logic below, and I think this deserves it\u0027s own library keyword, probably in OVSDB.robot.  something like\n\nOvs-vsctl Show Should Contain\n  [Arguments]    ${system}\u003d${TOOLS_SYSTEM_IP}    ${list_of_things_to_find}\u003d${EMPTY}\n   ${output}\u003d    Run Command On Remote System    ${system}    sudo ovs-vsctl show\n  : FOR    ${element}    IN    ${list_of_things_to_find}\n  \\    Should Contain    ${element}    ${output}\n\nThen these test cases would look like this:\n\n\n  Wait Until Keyword Succeeds    20s    2s    Ovs-vsctl Show Should Contain    ${TOOLS_SYSTEM_IP}    Bridge br-int\n\n\n#note: syntax/correctness is probably not perfect above, but hopefully the idea\nmakes sense.",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 125
+      },
+      "revId": "0e862cabd4fdd353bd68729dff7f92edf9510083",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_be5d9e17",
+        "filename": "csit/suites/ovsdb/Southbound_Net-virt_Threenode/030_Ovsdb_Southbound_Net-Virt.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-19T23:32:07Z",
+      "side": 1,
+      "message": "this wont work as is for the same reasons as above, but this should also mostly go to a library.  can you create a keyword in OpenFlowUtils.robot called \"Wait Until Bridge Contains Flows\" with arguments for:\n\nsystem to check (e.g. TOOLS_SYSTEM_IP)\nhow long to check\nhow often to check (these two are for the wuks)\nlist of items to check (e.g. your flows)\n\nthere is already an example that\u0027s close that you can read\ncalled \"Wait For Flow On Switch\"",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 48
+      },
+      "revId": "0e862cabd4fdd353bd68729dff7f92edf9510083",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1e9e4ab9",
+        "filename": "csit/testplans/ovsdb_3_node_Netvirt.txt",
+        "patchSetId": 9
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-19T23:32:07Z",
+      "side": 1,
+      "message": "can we use a consistent naming scheme with regard to underscores and hyphens.  I think \"clustering\" is more\nclear than Threenode as well, if you agree.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 94
+      },
+      "revId": "0e862cabd4fdd353bd68729dff7f92edf9510083",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
