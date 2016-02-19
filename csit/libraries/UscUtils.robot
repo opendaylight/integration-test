@@ -10,16 +10,15 @@ ${REST_ADD_CHANNEL}    /restconf/operations/usc-channel:add-channel
 ${REST_REMOVE_CHANNEL}    /restconf/operations/usc-channel:remove-channel
 ${REST_SEND_MESSAGE}    /restconf/operations/usc-channel:send-message
 ${NAV_USC_TOOLS}    cd ~/usc-tools
-${CLONE_USC_TOOLS}    [ -f ~/usc-tools/UscAgent.jar ] && echo "The usc-tools does exist. (17/17), done." || git clone https://github.com/victorxu99/usc-tools.git ~/usc-tools
-${USC_AGENT_IP}    192.168.56.51
+${CLONE_USC_TOOLS}    [ -f ~/usc-tools/UscAgent.jar ] && echo "The usc-tools does exist, done." || git clone https://github.com/victorxu99/usc-tools.git ~/usc-tools
 ${ECHO_SERVER_PORT}    2007
 @{LIST_ECHO_SERVER_PORT}    2007    2008    2009
 ${TEST_MESSAGE}    This is a test message.
 ${NUM_OF_MESSAGES}    100
 ${AgentTcp}       java -jar UscAgent.jar -t true
 ${AgentUdp}       java -jar UscAgent.jar -t false
-${AgentTcpCallhome}    java -jar UscAgent.jar -t true -c true -h 192.168.56.20
-${AgentUdpCallhome}    java -jar UscAgent.jar -t false -c true -h 192.168.56.20
+${AgentTcpCallhome}    java -jar UscAgent.jar -t true -c true -h
+${AgentUdpCallhome}    java -jar UscAgent.jar -t false -c true -h
 ${EchoServerTcp}    java -jar EchoServer.jar -t true -p 2007
 ${EchoServerUdp}    java -jar EchoServer.jar -t false -p 2007
 
@@ -28,19 +27,8 @@ Download Tools
     [Documentation]    Download UscAgent and EchoServer before any system
     ...    is run.
     Log    Download tools begin ...
-    ${tools_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
-    Set Suite Variable    ${tools_conn_id}
-    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
-    Write    ${CLONE_USC_TOOLS}
-    Read Until    (17/17), done.
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    ${CLONE_USC_TOOLS}    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}    prompt_timeout=30s
     Log    Download tools ended.
-
-Close Download Connection
-    [Documentation]    Close Download Connection
-    Log    Close Download Connection
-    Switch Connection    ${tools_conn_id}
-    Write    exit
-    Close Connection
 
 Start TCP
     [Documentation]    Basic setup/cleanup work that can be done safely before any system
@@ -48,13 +36,13 @@ Start TCP
     Log    Start USC test VM for TCP
     ${agent_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     Set Suite Variable    ${agent_conn_id}
-    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    Flexible Mininet Login
     Write    ${NAV_USC_TOOLS}
     Write    ${AgentTcp}
     Read
     ${echo_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     Set Suite Variable    ${echo_conn_id}
-    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    Flexible Mininet Login
     Write    ${NAV_USC_TOOLS}
     Write    ${EchoServerTcp}
     Read Until    initialized
@@ -65,13 +53,13 @@ Start UDP
     Log    Start USC test VM for UDP
     ${agent_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     Set Suite Variable    ${agent_conn_id}
-    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    Flexible Mininet Login
     Write    ${NAV_USC_TOOLS}
     Write    ${AgentUdp}
     Read
     ${echo_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     Set Suite Variable    ${echo_conn_id}
-    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    Flexible Mininet Login
     Write    ${NAV_USC_TOOLS}
     Write    ${EchoServerUdp}
     Read Until    initialized
@@ -82,13 +70,14 @@ Start CALLHOME_TCP
     Log    Start USC test VM for CALLHOME_TCP
     ${agent_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     Set Suite Variable    ${agent_conn_id}
-    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    ${callhomeCmd}=    Catenate    ${AgentTcpCallhome}    ${ODL_SYSTEM_IP}
+    Flexible Mininet Login
     Write    ${NAV_USC_TOOLS}
-    Write    ${AgentTcpCallhome}
+    Write    ${callhomeCmd}
     Read
     ${echo_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     Set Suite Variable    ${echo_conn_id}
-    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    Flexible Mininet Login
     Write    ${NAV_USC_TOOLS}
     Write    ${EchoServerTcp}
     Read Until    initialized
@@ -99,13 +88,14 @@ Start CALLHOME_UDP
     Log    Start USC test VM for CALLHOME_UDP
     ${agent_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     Set Suite Variable    ${agent_conn_id}
-    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    ${callhomeCmd}=    Catenate    ${AgentUdpCallhome}    ${ODL_SYSTEM_IP}
+    Flexible Mininet Login
     Write    ${NAV_USC_TOOLS}
-    Write    ${AgentUdpCallhome}
+    Write    ${callhomeCmd}
     Read
     ${echo_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     Set Suite Variable    ${echo_conn_id}
-    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    Flexible Mininet Login
     Write    ${NAV_USC_TOOLS}
     Write    ${EchoServerUdp}
     Read Until    initialized
@@ -116,7 +106,7 @@ Start Fallback_TCP
     Log    Start USC test VM for Fallback_TCP
     ${echo_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     Set Suite Variable    ${echo_conn_id}
-    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    Flexible Mininet Login
     Write    ${NAV_USC_TOOLS}
     Write    ${EchoServerTcp}
     Read Until    initialized
@@ -127,7 +117,7 @@ Start Fallback_UDP
     Log    Start USC test VM for Fallback_TCP
     ${echo_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     Set Suite Variable    ${echo_conn_id}
-    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    Flexible Mininet Login
     Write    ${NAV_USC_TOOLS}
     Write    ${EchoServerUdp}
     Read Until    initialized
@@ -138,7 +128,7 @@ Start Multiple_Sessions_TCP
     Log    Start USC test VM for Multiple_Sessions_TCP
     ${agent_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     Set Suite Variable    ${agent_conn_id}
-    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    Flexible Mininet Login
     Write    ${NAV_USC_TOOLS}
     Write    ${AgentTcp}
     Read
@@ -147,7 +137,7 @@ Start Multiple_Sessions_TCP
     \    Log    ${port_index}
     \    ${echo_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     \    Append To List    ${L1}    ${echo_conn_id}
-    \    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    \    Flexible Mininet Login
     \    Write    ${NAV_USC_TOOLS}
     \    Write    java -jar EchoServer.jar -t true -p ${port_index}
     \    Read Until    initialized
@@ -159,7 +149,7 @@ Start Multiple_Sessions_UDP
     Log    Start USC test VM for Multiple_Sessions_UDP
     ${agent_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     Set Suite Variable    ${agent_conn_id}
-    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    Flexible Mininet Login
     Write    ${NAV_USC_TOOLS}
     Write    ${AgentUdp}
     Read
@@ -168,7 +158,7 @@ Start Multiple_Sessions_UDP
     \    Log    ${port_index}
     \    ${echo_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    timeout=30s
     \    Append To List    ${L1}    ${echo_conn_id}
-    \    Flexible Mininet Login    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}
+    \    Flexible Mininet Login
     \    Write    ${NAV_USC_TOOLS}
     \    Write    java -jar EchoServer.jar -t false -p ${port_index}
     \    Read Until    initialized
