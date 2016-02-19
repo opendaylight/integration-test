@@ -413,13 +413,14 @@ Post Log Check
     [Return]    ${resp}
 
 Get Log File Name
-    [Arguments]    ${testtool}
+    [Arguments]    ${testtool}    ${testcase}=${EMPTY}
     [Documentation]    Get the name of the suite sanitized to be usable as a part of filename.
     ...    These names are used to constructs names of the log files produced
     ...    by the testing tools so two suites using a tool wont overwrite the
     ...    log files if they happen to run in one job.
     ${name}=    BuiltIn.Evaluate    """${SUITE_NAME}""".replace(" ","-").replace("/","-").replace(".","-")
-    [Return]    ${testtool}--${name}.log
+    ${suffix}=    BuiltIn.Set_Variable_If    '${testcase}' != ''    --${testcase}    ${EMPTY}
+    [Return]    ${testtool}--${name}${suffix}.log
 
 Set_User_Configurable_Variable_Default
     [Arguments]    ${name}    ${value}
