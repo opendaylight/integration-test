@@ -286,7 +286,7 @@ Verify_Response_Templated
     # TODO: Support for XML-aware comparison could be added, but there are issues with namespaces and similar.
     ${expected_text} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=${base_name}    extension=${extension}    mapping=${mapping}    endline=${endline}
     ...    iterations=${iterations}    iter_start=${iter_start}
-    BuiltIn.Run_Keyword_If    ${normalize_json}    Normalize_Jsons_And_Compare    ${expected_text}    ${response}
+    BuiltIn.Run_Keyword_If    ${normalize_json}    Normalize_Jsons_And_Compare    expected_raw=${expected_text}    actual_raw=${response}
     ...    ELSE    BuiltIn.Should_Be_Equal    ${expected_text}    ${response}
 
 Get_From_Uri
@@ -387,10 +387,12 @@ Resolve_Text_From_Template_File
     [Return]    ${final_text}
 
 Normalize_Jsons_And_Compare
-    [Arguments]    ${actual_raw}    ${expected_raw}
+    [Arguments]    ${expected_raw}    ${actual_raw}
     [Documentation]    Use norm_json to normalize both JSON arguments, call Should_Be_Equal.
-    ${actual_normalized} =    norm_json.normalize_json_text    ${actual_raw}
+    BuiltIn.Log    ${expected_raw}
     ${expected_normalized} =    norm_json.normalize_json_text    ${expected_raw}
+    BuiltIn.Log    ${actual_raw}
+    ${actual_normalized} =    norm_json.normalize_json_text    ${actual_raw}
     # Should_Be_Equal shall print nice diff-style line comparison.
     BuiltIn.Should_Be_Equal    ${expected_normalized}    ${actual_normalized}
     # TODO: Add garbage collection? Check whether the temporary data accumulates.
