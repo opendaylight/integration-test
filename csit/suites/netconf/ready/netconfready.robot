@@ -106,7 +106,7 @@ Teardown_Everything
 Check_Netconf_Up_And_Running
     [Arguments]    ${pretty_print}=${EMPTY}
     [Documentation]    Make a request to netconf connector's list of mounted devices and check that the request was successful.
-    ${response}=    RequestsLibrary.Get    ses    restconf/config/network-topology:network-topology/topology/topology-netconf${netconf_connector}${pretty_print}
+    ${response}=    RequestsLibrary.Get_Request    ses    restconf/config/network-topology:network-topology/topology/topology-netconf${netconf_connector}${pretty_print}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Be_Equal_As_Strings    ${response.status_code}    200
 
