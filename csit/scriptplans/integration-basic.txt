@@ -1,2 +1,3 @@
 # Place the scripts in run order:
 integration/test/csit/suites/integration/scripts/sample.sh
+integration/test/csit/suites/integration/scripts/restart_ovs.sh
