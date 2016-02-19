@@ -97,7 +97,6 @@ Setup_Everything
     [Documentation]    Setup everything needed for the test cases.
     # Setup resources used by the suite.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
     NetconfKeywords.Setup_Netconf_Keywords
     # Connect to the tools system (rest-perf-client)
     ${restperfclient}=    SSHKeywords.Open_Connection_To_Tools_System
