@@ -17,7 +17,7 @@ Library           String
 Resource          SSHKeywords.robot
 
 *** Variables ***
-${NEXUS_FALLBACK_URL}    http://nexus.opendaylight.org/content/repositories/opendaylight.snapshot
+${NEXUS_FALLBACK_URL}    ${NEXUSURL_PREFIX}/content/repositories/opendaylight.snapshot
 
 *** Keywords ***
 Initialize_Artifact_Deployment_And_Usage
