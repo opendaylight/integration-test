@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_5e345249",
+        "filename": "csit/libraries/UscUtils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-02-20T02:32:48Z",
+      "side": 1,
+      "message": "Have you considered the keyword \"Run Command On Mininet\" from libraries/Utils.robot?",
+      "revId": "ec1e6d363ea8348afb641d238dc2a4719d6c909b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
