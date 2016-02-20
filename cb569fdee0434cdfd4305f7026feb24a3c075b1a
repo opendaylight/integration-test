@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_fe0c46ef",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-02-20T01:00:40Z",
+      "side": 1,
+      "message": "Please rephrase the commit message better. It is very difficult to judge the purpose of patch\n\nI understand that these tests test the Openstak Integration with the VPN Service in ODL Is that correct?",
+      "revId": "cb569fdee0434cdfd4305f7026feb24a3c075b1a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_de0182b0",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-02-20T01:00:40Z",
+      "side": 1,
+      "message": "Can you please add the copyright header as mentioned here\nhttps://wiki.opendaylight.org/view/OpenDaylight_Java_Style_Guide_-_Proposed",
+      "revId": "cb569fdee0434cdfd4305f7026feb24a3c075b1a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_fe33a6a8",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-02-20T01:00:40Z",
+      "side": 1,
+      "message": "Thanks for this file. great addition to the libraries, now many projects can use this",
+      "revId": "cb569fdee0434cdfd4305f7026feb24a3c075b1a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7ecdd684",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-02-20T01:00:40Z",
+      "side": 1,
+      "message": "Are the saveObject and getObject really used?",
+      "revId": "cb569fdee0434cdfd4305f7026feb24a3c075b1a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3eafce95",
+        "filename": "csit/libraries/VpnUtils.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-02-20T01:00:40Z",
+      "side": 1,
+      "message": "Please add copyright header here",
+      "revId": "cb569fdee0434cdfd4305f7026feb24a3c075b1a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
