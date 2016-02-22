@@ -12,7 +12,7 @@ ${dumpcmd}        sudo tcpdump -s 0 -w ${dumppcappath}
 
 *** Keywords ***
 Start Tcpdumping
-    [Arguments]    ${system}=${TOOLS_SYSTEM_IP}    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${TOOLS_SYSTEM_PASSWORD}    ${prompt}=${TOOLS_SYSTEM_PROMPT}    ${timeout}=5s    ${eth}=eth0
+    [Arguments]    ${system}=${TOOLS_SYSTEM_IP}    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${TOOLS_SYSTEM_PASSWORD}    ${prompt}=${TOOLS_SYSTEM_PROMPT}    ${timeout}=5s    ${eth}=s3-eth1
     ...    ${more_params}=${None}
     [Documentation]    Connects to the remote machine via ssh and starts tcpdump linux command
     ${currentcon}=    SSHLibrary.Get Connection    index=True
