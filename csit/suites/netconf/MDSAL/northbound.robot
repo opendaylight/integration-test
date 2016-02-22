@@ -306,7 +306,7 @@ Get_Data
     [Return]    ${data}
 
 Create_ODL_Netconf_Connection
-    [Arguments]    ${host}=${CONTROLLER}    ${port}=${ODL_NETCONF_PORT}    ${user}=${ODL_NETCONF_USER}    ${password}=${ODL_NETCONF_PASSWORD}
+    [Arguments]    ${host}=${CONTROLLER}    ${port}=${ODL_NETCONF_MDSAL_PORT}    ${user}=${ODL_NETCONF_USER}    ${password}=${ODL_NETCONF_PASSWORD}
     [Documentation]    Open a netconf connecion to the given machine.
     # The "-s netconf" flag (see the "SSHLibrary.Write" line below)    is not
     # supported by SSHLibrary, therefore we need to use this elaborate and
