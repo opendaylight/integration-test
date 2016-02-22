@@ -5,10 +5,10 @@ Suite Teardown    Stop SuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
 
 *** Variables ***
-${flowconditiondata}    "vtn-flow-match":[{"vtn-inet-match":{"source-network":"10.0.0.1/32","protocol":1,"destination-network":"10.0.0.3/32"},"index":"1"}]
-${flowfilterInetdata}    "vtn-flow-filter":[{"condition":"cond_1","vtn-pass-filter":{},"vtn-flow-action":[{"order": "1","vtn-set-inet-src-action":{"ipv4-address":"10.0.0.1/32"}},{"order": "2","vtn-set-inet-dst-action":{"ipv4-address":"10.0.0.3/32"}}],"index": "1"}]
-${flowfilterInetdropdata}    "vtn-flow-filter":[{"condition":"cond_1","vtn-drop-filter":{},"vtn-flow-action":[{"order": "1","vtn-set-inet-src-action":{"ipv4-address":"10.0.0.1/32"}},{"order": "2","vtn-set-inet-dst-action":{"ipv4-address":"10.0.0.3/32"}}],"index": "1"}]
-${flowfilterIcmpCodedata}    "vtn-flow-filter":[{"condition":"cond_1","vtn-pass-filter":{},"vtn-flow-action":[{"order": "1","vtn-set-inet-src-action":{"ipv4-address":"10.0.0.1/32"}},{"order": "2","vtn-set-inet-dst-action":{"ipv4-address":"10.0.0.3/32"}}],"index": "1"}]
+${flowconditiondata}    "vtn-flow-match":[{"vtn-inet-match":{"source-network":"10.0.0.1/32","destination-network":"10.0.0.3/32"},"index":"1"}]
+${flowfilterInetdata}    "vtn-flow-filter":[{"condition":"cond_1","vtn-pass-filter":{},"vtn-flow-action":[{"order": "1","vtn-set-inet-src-action":{"ipv4-address":"192.0.0.1/32"}},{"order": "2","vtn-set-inet-dst-action":{"ipv4-address":"192.0.0.2/32"}}],"index": "1"}]
+${flowfilterInetdropdata}    "vtn-flow-filter":[{"condition":"cond_1","vtn-drop-filter":{},"vtn-flow-action":[{"order": "1","vtn-set-inet-src-action":{"ipv4-address":"10.0.0.2/32"}},{"order": "2","vtn-set-inet-dst-action":{"ipv4-address":"10.0.0.4/32"}}],"index": "1"}]
+${flowfilterIcmpCodedata}    "vtn-flow-filter": [{"condition": "cond_1","index": "1", "vtn-pass-filter": {}, "vtn-flow-action": [{ "order": "1", "vtn-set-icmp-code-action":{"code": "1"}},{"order": "2","vtn-set-icmp-type-action": {"type": "3"}}]}]
 ${flowfilterTpsrcTpdstdata}    "vtn-flow-filter": [{"condition": "cond_1","vtn-pass-filter": {},"vtn-flow-action": [{"order": "1","vtn-set-port-src-action": {"port": "5"}},{"order": "2","vtn-set-port-dst-action": {"port": "10"}}],"index": "1"}]
 ${flowfilterDscpdata}    "vtn-flow-filter":[{"condition": "cond_1","vtn-pass-filter": {},"vtn-flow-action": [{"order": "1","vtn-set-inet-dscp-action": {"dscp":"32"}}],"index":"1"}]
 ${flowfiltervlanpcp}    "vtn-flow-filter":[{"condition":"cond_1","vtn-pass-filter":{},"vtn-flow-action":[{"order":"3","vtn-set-icmp-code-action":{"code":"1"}},{"order":"4","vtn-set-vlan-pcp-action":{"vlan-pcp":"3"}}],"index":"1"}]
@@ -52,27 +52,28 @@ Add a portmap for interface if2
 
 Ping h1 to h3
     [Documentation]    Ping h1 to h3, verify no packet loss
-    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+    Mininet Ping Should Succeed    h1    h3
+    #Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
 
 Add a vBridge vBridge2
     [Documentation]    Add a vBridge vBridge2 in vtn Tenant1
     Add a vBridge    Tenant1    vBridge2
 
 Add a interface If3
-    [Documentation]    Add a interface if3 into vBrdige vBridge1
-    Add a interface    Tenant1    vBridge1    if3
+    [Documentation]    Add a interface if3 into vBrdige vBridge2
+    Add a interface    Tenant1    vBridge2    if3
 
 Add a interface if4
-    [Documentation]    Add a interface if4 into vBrdige vBridge1
-    Add a interface    Tenant1    vBridge1    if4
+    [Documentation]    Add a interface if4 into vBrdige vBridge2
+    Add a interface    Tenant1    vBridge2    if4
 
 Add a portmap for interface if3
-    [Documentation]    Create a portmap on Interface if3 of vBridge1
-    Add a portmap    Tenant1    vBridge1    if3    openflow:2    s2-eth2
+    [Documentation]    Create a portmap on Interface if3 of vBridge2
+    Add a portmap    Tenant1    vBridge2    if3    openflow:2    s2-eth2
 
 Add a portmap for interface if4
-    [Documentation]    Create a portmap on Interface if4 of vBridge1
-    Add a portmap    Tenant1    vBridge1    if4    openflow:3    s3-eth2
+    [Documentation]    Create a portmap on Interface if4 of vBridge2
+    Add a portmap    Tenant1    vBridge2    if4    openflow:3    s3-eth2
 
 Ping h2 to h4
     [Documentation]    Ping h2 to h4, verify no packet loss
@@ -85,61 +86,80 @@ Add a flowcondition
 Add a vtn flowfilter with inet4src and inet4dst
     [Documentation]    Create a flowfilter with inet4 and Verify ping
     Add a vtn flowfilter    Tenant1    ${flowfilterInetdata}
-    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Not Succeed    h1    h3
 
 Verify inet4src and inet4dst of vtn flowfilter
     [Documentation]    Verify vtn flowfilter actions in Flow Enties for inet4src and inet4dst
-    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${DUMPFLOWS_OF13}    @{inet_actions}
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${DUMPFLOWS_OF13}    @{inet_action}
+
+Remove vtn Flowfilter which has inet4src and inet4dst
+    [Documentation]    Remove a flowfilter with inet4
+    Remove a vtn flowfilter    Tenant1    ${filter_index}
 
 Add a vbr flowfilter with inet4src and inet4dst
     [Documentation]    Create a flowfilter with inet4 and Verify ping
     Add a vbr flowfilter    Tenant1    vBridge1    ${flowfilterInetdata}
-    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Not Succeed    h1    h3
 
 Verify inet4src and inet4dst of vbr flowfilter
     [Documentation]    Verify actions in Flow Enties for inet4src and inet4dst
-    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${DUMPFLOWS_OF13}    @{inet_actions}
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${DUMPFLOWS_OF13}    @{inet_action}
+
+Remove vbr Flowfilter which has inet4src and inet4dst
+    [Documentation]    Remove a flowfilter with inet4src and inet4dst
+    Remove a vbr flowfilter    Tenant1    vBridge1    ${filter_index}
 
 Add a vbrif flowfilter with inet4src and inet4dst
     [Documentation]    Create a flowfilter with inet4 and Verify ping
     Add a vbrif flowfilter    Tenant1    vBridge1    if1    ${flowfilterInetdata}
-    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Not Succeed    h1    h3
 
 Verify inet4src and inet4dst of vbrif flowfilter
     [Documentation]    Verify actions in Flow Enties for inet4src and inet4dst
-    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${DUMPFLOWS_OF13}    @{inet_actions}
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${DUMPFLOWS_OF13}    @{inet_action}
+
+Remove vbrif Flowfilter which has inet4src and inet4dst
+    [Documentation]    Remove a flowfilter with inet4 and Verify ping
+    Remove a vbrif flowfilter    Tenant1    vBridge1    if1    ${filter_index}
 
 Add a vtn flowfilter with Icmp code
     [Documentation]    Create a flowfilter with icmp code and Verify ping
     Add a vtn flowfilter    Tenant1    ${flowfilterIcmpCodedata}
-    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Not Succeed    h1    h3
 
 Verify icmp action for vtn flowfilter
     [Documentation]    Verify actions in Flow Enties for icmp code and type
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${DUMPFLOWS_OF13}    @{icmp_action}
 
+Remove vtn Flowfilter index which has ICMP
+    [Documentation]    Remove a index of vtn flowfilter which have ICMP
+    Remove a vtn flowfilter    Tenant1    ${filter_index}
+
 Add a vbr flowfilter with Icmp code
     [Documentation]    Create a flowfilter with icmp code and Verify ping
     Add a vbr flowfilter    Tenant1    vBridge1    ${flowfilterIcmpCodedata}
-    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Not Succeed    h1    h3
 
 Verify icmp action for vbr flowfilter
     [Documentation]    Verify actions in Flow Enties for icmp code and type
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${DUMPFLOWS_OF13}    @{icmp_action}
 
+Remove vbr Flowfilter index which has ICMP
+    [Documentation]    Remove a index of vbr flowfilter which have ICMP
+    Remove a vbr flowfilter    Tenant1    vBridge1    ${filter_index}
+
 Add a vbrif flowfilter with Icmp code
     [Documentation]    Create a flowfilter with icmp code and Verify ping
     Add a vbrif flowfilter    Tenant1    vBridge1    if1    ${flowfilterIcmpCodedata}
-    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Not Succeed    h1    h3
 
 Verify icmp action for vbrif flowfilter
     [Documentation]    Verify actions in Flow Enties for icmp code and type
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${DUMPFLOWS_OF13}    @{icmp_action}
 
-Add a flowfilter with tpsrc and tpdst
-    [Documentation]    Create a flowfilter with tpsrc and tpdst and Verify ping
-    Add a vbrif flowfilter    Tenant1    vBridge1    if1    ${flowfilterTpsrcTpdstdata}
-    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+Remove vbrif Flowfilter index which has ICMP
+    [Documentation]    Remove a index of vbrif flowfilter which have ICMP
+    Remove a vbrif flowfilter    Tenant1    vBridge1    if1    ${filter_index}
 
 Add a vtn flowfilter with dscp
     [Documentation]    Create a flowfilter with dscp and Verify ping
@@ -150,6 +170,10 @@ Verify dscp action for vtn flowfilter
     [Documentation]    Verify actions in Flow Enties for dscp
     Wait_Until_Keyword_Succeeds    20s    1s    Verify flowactions    ${dscp_action}    ${DUMPFLOWS_OF13}
 
+Remove vtn Flowfilter index which have dscp
+    [Documentation]    Remove a index of vtn flowfilter which have DSCP
+    Remove a vtn flowfilter    Tenant1    ${filter_index}
+
 Add a vbr flowfilter with dscp
     [Documentation]    Create a flowfilter with dscp and Verify ping
     Add a vbr flowfilter    Tenant1    vBridge1    ${flowfilterDscpdata}
@@ -158,6 +182,10 @@ Add a vbr flowfilter with dscp
 Verify dscp action for vbr flowfilter
     [Documentation]    Verify actions in Flow Enties for dscp
     Wait_Until_Keyword_Succeeds    20s    1s    Verify flowactions    ${dscp_action}    ${DUMPFLOWS_OF13}
+
+Remove vbr Flowfilter index which have dscp
+    [Documentation]    Remove a index of vbr flowfilter which have DSCP
+    Remove a vbr flowfilter    Tenant1    vBridge1    ${filter_index}
 
 Add a vbrif flowfilter with dscp
     [Documentation]    Create a flowfilter with dscp and Verify ping
@@ -168,10 +196,27 @@ Verify dscp action for vbrif flowfilter
     [Documentation]    Verify actions in Flow Enties for dscp
     Wait_Until_Keyword_Succeeds    20s    1s    Verify flowactions    ${dscp_action}    ${DUMPFLOWS_OF13}
 
+Remove vbrif Flowfilter index which have dscp
+    [Documentation]    Remove a index of vbrif flowfilter which have DSCP
+    Remove a vbrif flowfilter    Tenant1    vBridge1    if1    ${filter_index}
+
 Add a flowfilter with vlanpcp
     [Documentation]    Create a flowfilter with vlanpcp and Verify ping
     Add a vbrif flowfilter    Tenant1    vBridge1    if1    ${flowfiltervlanpcp}
     Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+
+Remove vbrif Flowfilter index which have vlanpcp
+    [Documentation]    Remove a index of vbrif flowfilter which have vlanpcp
+    Remove a vbrif flowfilter    Tenant1    vBridge1    if1    ${filter_index}
+
+Add a flowfilter with tpsrc and tpdst
+    [Documentation]    Create a flowfilter with tpsrc and tpdst and Verify ping
+    Add a vbrif flowfilter    Tenant1    vBridge1    if1    ${flowfilterTpsrcTpdstdata}
+    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+
+Remove vbrif Flowfilter index which has tpsrc and tpdst
+    [Documentation]    Remove a index of vbrif flowfilter which have tpsrc and tpdst
+    Remove a vbrif flowfilter    Tenant1    vBridge1    if1    ${filter_index}
 
 Add a flowfilter with inet4 for drop
     [Documentation]    Create a flowfilter with inet4 for drop action and Verify no pinging
