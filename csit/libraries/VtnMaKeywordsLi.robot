@@ -39,6 +39,7 @@ ${out_after_pathpolicy}    output:3
 Start SuiteVtnMa
     [Arguments]    ${version_flag}=none
     [Documentation]    Start VTN Manager Init Test Suite
+    Issue Command On Karaf Console    log:set TRACE org.opendaylight.vtn
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTPORT}    auth=${AUTH}    headers=${HEADERS}
     BuiltIn.Wait_Until_Keyword_Succeeds    30    3    Fetch vtn list
     Start Suite
