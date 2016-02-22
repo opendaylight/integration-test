@@ -1,0 +1,377 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_bf23d3bb",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-22T22:49:44Z",
+      "side": 1,
+      "message": "Please use module-level docstrings for this",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 71
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_df2697cd",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-22T22:49:44Z",
+      "side": 1,
+      "message": "This is a bit strange. Only reason I know to use __import__ is if you need to import via a dynamic string. Your string here is fixed, shouldn\u0027t need.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 23
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ba3801d4",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-22T22:49:44Z",
+      "side": 1,
+      "message": "Not sure this needs to be a global",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 10
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9f39aff4",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-22T22:49:44Z",
+      "side": 1,
+      "message": "Doesn\u0027t seem to be used?",
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1a1bed73",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-22T22:49:44Z",
+      "side": 1,
+      "message": "Maintaining so much state via instance vars is a bad code smell to me. Functions that need to act on fewer instance vars would be easier to maintain and reason about.",
+      "range": {
+        "startLine": 32,
+        "startChar": 8,
+        "endLine": 32,
+        "endChar": 15
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3f3863ee",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-22T22:49:44Z",
+      "side": 1,
+      "message": "snake_case var and fn names (applies many places)",
+      "range": {
+        "startLine": 46,
+        "startChar": 13,
+        "endLine": 46,
+        "endChar": 23
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7a0cb93b",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-22T22:49:44Z",
+      "side": 1,
+      "message": "Booleans over yes/no strings imho",
+      "range": {
+        "startLine": 59,
+        "startChar": 40,
+        "endLine": 59,
+        "endChar": 43
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1f2d9fa8",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-22T22:49:44Z",
+      "side": 1,
+      "message": "No 1-letter fns please",
+      "range": {
+        "startLine": 128,
+        "startChar": 8,
+        "endLine": 128,
+        "endChar": 9
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7f15cb47",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-22T22:49:44Z",
+      "side": 1,
+      "message": "Something like gen_mac would be more clear. Also, we typically suggest relying on existing modules for IP/MAC logic, like netaddr.",
+      "range": {
+        "startLine": 132,
+        "startChar": 8,
+        "endLine": 132,
+        "endChar": 11
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_bf0ab323",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-22T22:49:44Z",
+      "side": 1,
+      "message": "Doesn\u0027t seem to be used (applies to other fns)",
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_df0df73f",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-22T22:49:44Z",
+      "side": 1,
+      "message": "Should do these with a `with` statement",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 18
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ff00bb03",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-22T22:49:44Z",
+      "side": 1,
+      "message": "This seems overly complex for logging logic. Just use logger calls inline, imho.",
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3a06b11d",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-22T22:49:44Z",
+      "side": 1,
+      "message": "These aren\u0027t the actual params",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 41
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5a28d585",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-22T22:49:44Z",
+      "side": 1,
+      "message": "Please doc fn params",
+      "range": {
+        "startLine": 223,
+        "startChar": 29,
+        "endLine": 223,
+        "endChar": 36
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9a1edd5d",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-22T22:49:44Z",
+      "side": 1,
+      "message": "Examples of good docstrings:\n\nhttps://git.opendaylight.org/gerrit/#/c/22384/11/test/csit/libraries/Docker.py",
+      "range": {
+        "startLine": 300,
+        "startChar": 8,
+        "endLine": 300,
+        "endChar": 22
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7a2319a7",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-22T22:49:44Z",
+      "side": 1,
+      "message": "Using uuid here and id above seems bug-prone",
+      "range": {
+        "startLine": 327,
+        "startChar": 25,
+        "endLine": 327,
+        "endChar": 29
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_da3b45cf",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-22T22:49:44Z",
+      "side": 1,
+      "message": "Using `-` here and `_` above seems bug-prone",
+      "range": {
+        "startLine": 328,
+        "startChar": 25,
+        "endLine": 329,
+        "endChar": 39
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
