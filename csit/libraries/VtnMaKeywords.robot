@@ -39,6 +39,8 @@ ${custom}         ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
 *** Keywords ***
 Start SuiteVtnMa
     [Documentation]    Start VTN Manager Rest Config Api Test Suite
+    Open Controller Karaf Console On Background
+    Set Vtn Trace Log Level
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     BuiltIn.Wait_Until_Keyword_Succeeds    30    3    Fetch vtn list
     Start Suite
