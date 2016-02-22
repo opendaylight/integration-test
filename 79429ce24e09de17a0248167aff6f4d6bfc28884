@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_3f1983d7",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-22T20:07:15Z",
+      "side": 1,
+      "message": "I might change this to \u0027add and delete\u0027 but is not blocking.",
+      "revId": "79429ce24e09de17a0248167aff6f4d6bfc28884",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9f0a4f77",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-22T20:07:15Z",
+      "side": 1,
+      "message": "delete_ports should be added to below doc but not blocking.",
+      "revId": "79429ce24e09de17a0248167aff6f4d6bfc28884",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9f81afc5",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-22T20:07:15Z",
+      "side": 1,
+      "message": "This script currently adds as many ports to \"bridge_name \u003d \u0027br-0-test\u0027\" as specified in instances. (See line 202)\n\nThis code that adds a delete function that deletes only one port from each bridge \"br-\u003cN\u003e-test\". So the add and delete functionality appears to be different.\n\nThe most useful delete behavior would be to undo what the script has done previously. While I\u0027m not opposed to adding N bridges with one port and then deleting N bridges with one port the former functionality is not present.",
+      "revId": "79429ce24e09de17a0248167aff6f4d6bfc28884",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
