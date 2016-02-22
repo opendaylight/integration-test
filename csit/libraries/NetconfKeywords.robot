@@ -37,9 +37,9 @@ Setup_NetconfKeywords
     NexusKeywords.Initialize_Artifact_Deployment_And_Usage
 
 Configure_Device_In_Netconf
-    [Arguments]    ${device_name}    ${device_type}=default    ${device_port}=${FIRST_TESTTOOL_PORT}
+    [Arguments]    ${device_name}    ${device_type}=default    ${device_port}=${FIRST_TESTTOOL_PORT}    ${device_address}=${TOOLS_SYSTEM_IP}    ${device_user}=admin    ${device_password}=topsecret
     [Documentation]    Tell Netconf about the specified device so it can add it into its configuration.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_IP': '${TOOLS_SYSTEM_IP}', 'DEVICE_NAME': '${device_name}', 'DEVICE_PORT': '${device_port}'}
+    ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_IP': '${device_address}', 'DEVICE_NAME': '${device_name}', 'DEVICE_PORT': '${device_port}', 'DEVICE_USER': '${device_user}', 'DEVICE_PASSWORD': '${device_password}'}
     NetconfViaRestconf.Put_Xml_Template_Folder_Via_Restconf    ${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${device_type}    ${template_as_string}
     Collections.Set_To_Dictionary    ${NetconfKeywords__mounted_device_types}    ${device_name}    ${device_type}
 
