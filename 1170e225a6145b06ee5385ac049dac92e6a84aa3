@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_5f65671c",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-22T22:21:57Z",
+      "side": 1,
+      "message": "Making this a boolean might be a slight clarity improvement",
+      "revId": "1170e225a6145b06ee5385ac049dac92e6a84aa3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5f4c479e",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 537,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-22T22:21:57Z",
+      "side": 1,
+      "message": "Can just let docstring do this",
+      "revId": "1170e225a6145b06ee5385ac049dac92e6a84aa3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3f518336",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 11
+      },
+      "lineNbr": 539,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-02-22T22:21:57Z",
+      "side": 1,
+      "message": "Suggest including on a different line",
+      "range": {
+        "startLine": 539,
+        "startChar": 40,
+        "endLine": 539,
+        "endChar": 106
+      },
+      "revId": "1170e225a6145b06ee5385ac049dac92e6a84aa3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
