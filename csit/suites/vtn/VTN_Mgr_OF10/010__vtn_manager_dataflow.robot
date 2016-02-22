@@ -2,6 +2,7 @@
 Documentation     Test suite for VTN Manager Data Flow using OF10
 Suite Setup       Start SuiteVtnMaTest
 Suite Teardown    Stop SuiteVtnMaTest
+Force Tags        exclude
 Resource          ../../../libraries/VtnMaKeywords.robot
 
 *** Test Cases ***
