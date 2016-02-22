@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_0b2d69a8",
+        "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-22T11:05:24Z",
+      "side": 1,
+      "message": "2016",
+      "range": {
+        "startLine": 4,
+        "startChar": 32,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "35d3fc6e82378e9c7b1cf5ecc420b4fd8a7bc060",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8ec867a9",
+        "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-22T11:05:24Z",
+      "side": 1,
+      "message": "This patch set uses zero netconf devices.\nOn the other hand, this Documentation does not mention MDSAL northbound interface.",
+      "range": {
+        "startLine": 11,
+        "startChar": 74,
+        "endLine": 12,
+        "endChar": 35
+      },
+      "revId": "35d3fc6e82378e9c7b1cf5ecc420b4fd8a7bc060",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_eee1332b",
+        "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-22T11:05:24Z",
+      "side": 1,
+      "message": "Initial data is created in separated test case, every restperfclient request is \"update\".",
+      "range": {
+        "startLine": 15,
+        "startChar": 30,
+        "endLine": 15,
+        "endChar": 74
+      },
+      "revId": "35d3fc6e82378e9c7b1cf5ecc420b4fd8a7bc060",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4e9dbfbb",
+        "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-22T11:05:24Z",
+      "side": 1,
+      "message": "Already done for this suite.",
+      "range": {
+        "startLine": 19,
+        "startChar": 18,
+        "endLine": 19,
+        "endChar": 23
+      },
+      "revId": "35d3fc6e82378e9c7b1cf5ecc420b4fd8a7bc060",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ae38cbd3",
+        "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-22T11:05:24Z",
+      "side": 1,
+      "message": "Not needed?",
+      "range": {
+        "startLine": 27,
+        "startChar": 18,
+        "endLine": 27,
+        "endChar": 29
+      },
+      "revId": "35d3fc6e82378e9c7b1cf5ecc420b4fd8a7bc060",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4e4f7f6b",
+        "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-22T11:05:24Z",
+      "side": 1,
+      "message": "Only needed in suite Teardown. As Delete_All_Sessions does not allow partial delete, it is possibly good to call that in Teardown to get rid of sessions created by Resources, but the Recources in question should recommend that.",
+      "range": {
+        "startLine": 28,
+        "startChar": 18,
+        "endLine": 28,
+        "endChar": 33
+      },
+      "revId": "35d3fc6e82378e9c7b1cf5ecc420b4fd8a7bc060",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0e3297f1",
+        "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-22T11:05:24Z",
+      "side": 1,
+      "message": "Not needed?",
+      "range": {
+        "startLine": 30,
+        "startChar": 18,
+        "endLine": 30,
+        "endChar": 24
+      },
+      "revId": "35d3fc6e82378e9c7b1cf5ecc420b4fd8a7bc060",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ee45b343",
+        "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-22T11:05:24Z",
+      "side": 1,
+      "message": "Only needed for Test Teardown, but SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed may be better.",
+      "range": {
+        "startLine": 32,
+        "startChar": 47,
+        "endLine": 32,
+        "endChar": 55
+      },
+      "revId": "35d3fc6e82378e9c7b1cf5ecc420b4fd8a7bc060",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8e5507fc",
+        "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-22T11:05:24Z",
+      "side": 1,
+      "message": "Not needed.",
+      "range": {
+        "startLine": 33,
+        "startChar": 47,
+        "endLine": 33,
+        "endChar": 60
+      },
+      "revId": "35d3fc6e82378e9c7b1cf5ecc420b4fd8a7bc060",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ee8ad362",
+        "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-22T11:05:24Z",
+      "side": 1,
+      "message": "No device present in this patch set. Instead, cars container is deleted here.",
+      "range": {
+        "startLine": 79,
+        "startChar": 47,
+        "endLine": 79,
+        "endChar": 54
+      },
+      "revId": "35d3fc6e82378e9c7b1cf5ecc420b4fd8a7bc060",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ae11eb53",
+        "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-22T11:05:24Z",
+      "side": 1,
+      "message": "Already called by NetconfKeywords.Setup_NetconfKeywords\nAlso, this Keyword is not expecting to be called twice.",
+      "range": {
+        "startLine": 93,
+        "startChar": 18,
+        "endLine": 93,
+        "endChar": 58
+      },
+      "revId": "35d3fc6e82378e9c7b1cf5ecc420b4fd8a7bc060",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4e393fa3",
+        "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-02-22T11:05:24Z",
+      "side": 1,
+      "message": "The error happens on Sandbox:\nVariable \u0027${testtool_log}\u0027 not found.\nStop_Testtool needs to know about ${restperfclientlog}.\nPerhaps make a separate test case out of this.",
+      "range": {
+        "startLine": 102,
+        "startChar": 23,
+        "endLine": 102,
+        "endChar": 40
+      },
+      "revId": "35d3fc6e82378e9c7b1cf5ecc420b4fd8a7bc060",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
