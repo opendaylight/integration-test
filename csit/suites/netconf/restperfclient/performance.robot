@@ -86,6 +86,8 @@ Check_For_Failed_Requests
     ...    we don't want to test performance of ODL rejecting our requests.
     ${result}=    SSHLibrary.Execute_Command    grep "Request failed" ${restperfclientlog}
     BuiltIn.Should_Be_Equal    '${result}'    ''
+    ${result}=    SSHLibrary.Execute_Command    grep "Status code" ${restperfclientlog}
+    BuiltIn.Should_Be_Equal    '${result}'    ''
 
 Deconfigure_Device_From_Netconf
     [Documentation]    Deconfigure the testtool device on Netconf connector.
