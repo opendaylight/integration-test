@@ -102,8 +102,6 @@ Setup_Everything
     # Connect to the tools system (rest-perf-client)
     ${restperfclient}=    SSHKeywords.Open_Connection_To_Tools_System
     BuiltIn.Set_Suite_Variable    ${restperfclient}    ${restperfclient}
-    # Initialize artifact deployment infrastructure.
-    NexusKeywords.Initialize_Artifact_Deployment_And_Usage
     ${testtool}=    SSHLibrary.Get Connection
     BuiltIn.Set_Suite_Variable    ${testtool}    ${testtool.index}
 
