@@ -2,6 +2,7 @@
 Documentation     Test suite for VTN Manager using OF10
 Suite Setup       Start SuiteVtnMaTest
 Suite Teardown    Stop SuiteVtnMaTest
+Force Tags        exclude
 Resource          ../../../libraries/VtnMaKeywords.robot
 
 *** Variables ***
@@ -95,6 +96,10 @@ Remove vtn Flowfilter index
     [Documentation]    Remove a index of vtn flowfilter
     Remove a vtn flowfilter    Tenant1    ${filter_index}
 
+Remove vtn Flowfilter index
+    [Documentation]    Remove a index of vtn flowfilter
+    Remove a vtn flowfilter    Tenant1    ${filter_index}
+
 Add a vbr flowfilter with inet4src and inet4dst
     [Documentation]    Create a flowfilter with inet4 and Verify ping
     Add a vbr flowfilter    Tenant1    vBridge1    ${flowfilterInetdata}
@@ -108,6 +113,10 @@ Remove vbr Flowfilter index
     [Documentation]    Remove a index of vbr flowfilter
     Remove a vbr flowfilter    Tenant1    vBridge1    ${filter_index}
 
+Remove vbr Flowfilter index
+    [Documentation]    Remove a index of vbr flowfilter
+    Remove a vbr flowfilter    Tenant1    vBridge1    ${filter_index}
+
 Add a vbrif flowfilter with inet4src and inet4dst
     [Documentation]    Create a flowfilter with inet4 and Verify ping
     Add a vbrif flowfilter    Tenant1    vBridge1    if1    ${flowfilterInetdata}
@@ -116,6 +125,10 @@ Add a vbrif flowfilter with inet4src and inet4dst
 Verify inet4src and inet4dst of vbrif flowfilter
     [Documentation]    Verify actions in Flow Enties for inet4src and inet4dst
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF10}    @{inet_actions}
+
+Remove vbrif Flowfilter index
+    [Documentation]    Remove a index of vbrif flowfilter
+    Remove a vbrif flowfilter    Tenant1    vBridge1    if1    ${filter_index}
 
 Remove vbrif Flowfilter index
     [Documentation]    Remove a index of vbrif flowfilter
@@ -137,6 +150,10 @@ Remove vtn Flowfilter index which has ICMP
     [Tags]    exclude
     Remove a vtn flowfilter    Tenant1    ${filter_index}
 
+Remove vtn Flowfilter index which has ICMP
+    [Documentation]    Remove a index of vtn flowfilter which have ICMP
+    Remove a vtn flowfilter    Tenant1    ${filter_index}
+
 Add a vbr flowfilter with Icmp code
     [Documentation]    Create a flowfilter with icmp code and Verify ping
     [Tags]    exclude
@@ -151,6 +168,10 @@ Verify icmp action for vbr flowfilter
 Remove vbr Flowfilter index which has ICMP
     [Documentation]    Remove a index of vbr flowfilter which have ICMP
     [Tags]    exclude
+    Remove a vbr flowfilter    Tenant1    vBridge1    ${filter_index}
+
+Remove vbr Flowfilter index which has ICMP
+    [Documentation]    Remove a index of vbr flowfilter which have ICMP
     Remove a vbr flowfilter    Tenant1    vBridge1    ${filter_index}
 
 Add a vbrif flowfilter with Icmp code
@@ -182,6 +203,10 @@ Remove vtn Flowfilter index which have dscp
     [Documentation]    Remove a index of vtn flowfilter which have DSCP
     Remove a vtn flowfilter    Tenant1    ${filter_index}
 
+Remove vtn Flowfilter index which have dscp
+    [Documentation]    Remove a index of vtn flowfilter which have DSCP
+    Remove a vtn flowfilter    Tenant1    ${filter_index}
+
 Add a vbr flowfilter with dscp
     [Documentation]    Create a flowfilter with dscp and Verify ping
     Add a vbr flowfilter    Tenant1    vBridge1    ${flowfilterDscpdata}
@@ -190,6 +215,10 @@ Add a vbr flowfilter with dscp
 Verify dscp action for vbr flowfilter
     [Documentation]    Verify actions in Flow Enties for dscp
     Wait_Until_Keyword_Succeeds    20s    1s    Verify flowactions    ${dscp_flow}    ${FF_DUMPFLOWS_OF10}
+
+Remove vbr Flowfilter index which have dscp
+    [Documentation]    Remove a index of vbr flowfilter which have DSCP
+    Remove a vbr flowfilter    Tenant1    vBridge1    ${filter_index}
 
 Remove vbr Flowfilter index which have dscp
     [Documentation]    Remove a index of vbr flowfilter which have DSCP

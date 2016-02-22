@@ -52,7 +52,8 @@ Add a portmap for interface if2
 
 Ping h1 to h3
     [Documentation]    Ping h1 to h3, verify no packet loss
-    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+    Mininet Ping Should Succeed    h1    h3
+    #Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
 
 Add a vBridge vBridge2
     [Documentation]    Add a vBridge vBridge2 in vtn Tenant1
@@ -93,7 +94,7 @@ Verify inet4src and inet4dst of vtn flowfilter
 
 Remove vtn Flowfilter index
     [Documentation]    Remove a index of vtn flowfilter
-    Remove a vtn flowfilter    Tenant1    ${filter_index}
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${DUMPFLOWS_OF13}    @{inet_action}
 
 Add a vbr flowfilter with inet4src and inet4dst
     [Documentation]    Create a flowfilter with inet4 and Verify ping
@@ -106,7 +107,7 @@ Verify inet4src and inet4dst of vbr flowfilter
 
 Remove vbr Flowfilter index
     [Documentation]    Remove a index of vbr flowfilter
-    Remove a vbr flowfilter    Tenant1    vBridge1    ${filter_index}
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${DUMPFLOWS_OF13}    @{inet_action}
 
 Add a vbrif flowfilter with inet4src and inet4dst
     [Documentation]    Create a flowfilter with inet4 and Verify ping
@@ -119,7 +120,7 @@ Verify inet4src and inet4dst of vbrif flowfilter
 
 Remove vbrif Flowfilter index
     [Documentation]    Remove a index of vbrif flowfilter
-    Remove a vbrif flowfilter    Tenant1    vBridge1    if1    ${filter_index}
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${DUMPFLOWS_OF13}    @{inet_action}
 
 Add a vtn flowfilter with Icmp code
     [Documentation]    Create a flowfilter with icmp code and Verify ping
@@ -135,6 +136,10 @@ Remove vtn Flowfilter index which has ICMP
     [Documentation]    Remove a index of vtn flowfilter which have ICMP
     Remove a vtn flowfilter    Tenant1    ${filter_index}
 
+Remove vtn Flowfilter index which has ICMP
+    [Documentation]    Remove a index of vtn flowfilter which have ICMP
+    Remove a vtn flowfilter    Tenant1    ${filter_index}
+
 Add a vbr flowfilter with Icmp code
     [Documentation]    Create a flowfilter with icmp code and Verify ping
     Add a vbr flowfilter    Tenant1    vBridge1    ${flowfilterIcmpCodedata}
@@ -144,6 +149,10 @@ Verify icmp action for vbr flowfilter
     [Documentation]    Verify actions in Flow Enties for icmp code and type
     [Tags]    exclude
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF13}    @{icmp_action}
+
+Remove vbr Flowfilter index which has ICMP
+    [Documentation]    Remove a index of vbr flowfilter which have ICMP
+    Remove a vbr flowfilter    Tenant1    vBridge1    ${filter_index}
 
 Remove vbr Flowfilter index which has ICMP
     [Documentation]    Remove a index of vbr flowfilter which have ICMP
@@ -176,6 +185,10 @@ Remove vtn Flowfilter index which have dscp
     [Documentation]    Remove a index of vtn flowfilter which have DSCP
     Remove a vtn flowfilter    Tenant1    ${filter_index}
 
+Remove vtn Flowfilter index which have dscp
+    [Documentation]    Remove a index of vtn flowfilter which have DSCP
+    Remove a vtn flowfilter    Tenant1    ${filter_index}
+
 Add a vbr flowfilter with dscp
     [Documentation]    Create a flowfilter with dscp and Verify ping
     Add a vbr flowfilter    Tenant1    vBridge1    ${flowfilterDscpdata}
@@ -184,6 +197,10 @@ Add a vbr flowfilter with dscp
 Verify dscp action for vbr flowfilter
     [Documentation]    Verify actions in Flow Enties for dscp
     Wait_Until_Keyword_Succeeds    20s    1s    Verify flowactions    ${dscp_action}    ${FF_DUMPFLOWS_OF13}
+
+Remove vbr Flowfilter index which have dscp
+    [Documentation]    Remove a index of vbr flowfilter which have DSCP
+    Remove a vbr flowfilter    Tenant1    vBridge1    ${filter_index}
 
 Remove vbr Flowfilter index which have dscp
     [Documentation]    Remove a index of vbr flowfilter which have DSCP
