@@ -3,6 +3,7 @@ Documentation     Test suite for VTN Manager using OF13
 Suite Setup       Start SuiteVtnMaTest
 Suite Teardown    Stop SuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
+Resource          ../../../libraries/KarafKeywords.robot
 
 *** Variables ***
 ${flowconditiondata}    "vtn-flow-match":[{"vtn-inet-match":{"source-network":"10.0.0.1/32","protocol":1,"destination-network":"10.0.0.3/32"},"index":"1"}]
@@ -14,6 +15,16 @@ ${flowfilterDscpdata}    "vtn-flow-filter":[{"condition": "cond_1","vtn-pass-fil
 ${flowfiltervlanpcp}    "vtn-flow-filter":[{"condition":"cond_1","vtn-pass-filter":{},"vtn-flow-action":[{"order":"3","vtn-set-icmp-code-action":{"code":"1"}},{"order":"4","vtn-set-vlan-pcp-action":{"vlan-pcp":"3"}}],"index":"1"}]
 
 *** Test Cases ***
+Start Log Message to controller Karaf
+    [Documentation]    Invoke to show the start of Robot tests in controller karaf log
+    Issue Command On Karaf Console    log:set trace org.opendaylight.vtn
+    Issue Command On Karaf Console    feature:list | grep odl*
+    Log Message To Controller Karaf      Start of Flowfilter Robot test file
+
+Verify Feature is Installed
+    [Documentation]    To check what are all the features is installed
+    Verify Feature Is Installed    odl-*
+
 Check if switch1 detected
     [Documentation]    Check if openflow:1 is detected
     BuiltIn.Wait_Until_Keyword_Succeeds    12    3    Fetch vtn switch inventory    openflow:1
@@ -190,3 +201,7 @@ Delete a flowcondition
 Delete a vtn Tenant1
     [Documentation]    Delete a vtn Tenant1
     Delete a vtn    Tenant1
+
+Stop Log Message to controller Karaf
+    [Documentation]    Invoke this to show the End of Robot tests in controller karaf log
+    Log Message To Controller Karaf     End of Flowfilter Robot test file
