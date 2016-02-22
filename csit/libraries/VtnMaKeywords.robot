@@ -14,6 +14,7 @@ ${vlan_topo_10}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom vlan
 ${vlan_topo_13}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom vlan_vtn_test.py --topo vlantopo --switch ovsk,protocols=OpenFlow13
 ${VERSION_VTN}    controller/nb/v2/vtn/version
 ${VTN_INVENTORY}    restconf/operational/vtn-inventory:vtn-nodes
+<<<<<<< HEAD
 ${DUMPFLOWS_OF10}    dpctl dump-flows -OOpenFlow10
 ${DUMPFLOWS_OF13}    dpctl dump-flows -OOpenFlow13
 ${FF_DUMPFLOWS_OF10}     sh ovs-ofctl dump-flows -OOpenFlow10 s3
