@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_3189bc75",
+        "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-22T14:05:05Z",
+      "side": 1,
+      "message": "In the other suite you did not notice this :)\nFixed in both.",
+      "parentUuid": "9a3d3df0_0b2d69a8",
+      "range": {
+        "startLine": 4,
+        "startChar": 32,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "35d3fc6e82378e9c7b1cf5ecc420b4fd8a7bc060",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_8ec867a9",
         "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
         "patchSetId": 2
@@ -266,6 +290,30 @@
       "writtenOn": "2016-02-22T11:05:24Z",
       "side": 1,
       "message": "The error happens on Sandbox:\nVariable \u0027${testtool_log}\u0027 not found.\nStop_Testtool needs to know about ${restperfclientlog}.\nPerhaps make a separate test case out of this.",
+      "range": {
+        "startLine": 102,
+        "startChar": 23,
+        "endLine": 102,
+        "endChar": 40
+      },
+      "revId": "35d3fc6e82378e9c7b1cf5ecc420b4fd8a7bc060",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_71cd04b7",
+        "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-22T14:05:05Z",
+      "side": 1,
+      "message": "Copy \u0026 Paste disease :D\nThere is no testtool used in this suite so no Stop_Testtool call shall be made in the teardown. Removed.",
+      "parentUuid": "9a3d3df0_4e393fa3",
       "range": {
         "startLine": 102,
         "startChar": 23,
