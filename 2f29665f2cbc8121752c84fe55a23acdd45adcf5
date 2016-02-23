@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_fa2e098b",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-23T07:05:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_82504fd5",
+      "range": {
+        "startLine": 69,
+        "startChar": 4,
+        "endLine": 69,
+        "endChar": 17
+      },
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_82b4cf35",
         "filename": "csit/libraries/ciotdm.py",
         "patchSetId": 6
@@ -59,6 +83,30 @@
       "writtenOn": "2016-02-17T23:16:17Z",
       "side": 1,
       "message": "I think you\u0027re following the norm for this code (which is good), but the norm for Int/Test\u0027s Python code overall is double quotes for strings. It\u0027s  not a big deal.",
+      "range": {
+        "startLine": 93,
+        "startChar": 25,
+        "endLine": 93,
+        "endChar": 26
+      },
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_bf8753b4",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-23T07:05:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_82b4cf35",
       "range": {
         "startLine": 93,
         "startChar": 25,
@@ -135,6 +183,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_ff8d5bd4",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-23T07:05:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_42f807c3",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_626a6bb4",
         "filename": "csit/libraries/ciotdm.py",
         "patchSetId": 6
@@ -181,6 +247,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_5fbe0766",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 189,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-23T07:05:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_626a6bb4",
+      "range": {
+        "startLine": 189,
+        "startChar": 8,
+        "endLine": 189,
+        "endChar": 27
+      },
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_0280bf44",
         "filename": "csit/libraries/ciotdm.py",
         "patchSetId": 6
@@ -210,6 +300,24 @@
       "side": 1,
       "message": "Agreed. You should have access to self without returning it. This function should likely be non-returning.",
       "parentUuid": "9a3d3df0_0280bf44",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3fc343ee",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-23T07:05:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_e2079bc8",
       "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -268,6 +376,42 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_3a54f1fd",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-23T07:05:31Z",
+      "side": 1,
+      "message": "we will remove one parameter \"name\" in the future, hope it will help",
+      "parentUuid": "9a3d3df0_62df0b6a",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1fa8ff1e",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-23T07:05:31Z",
+      "side": 1,
+      "message": "Hi Marcus, thanks for reviewing. I will remove the return method here and edit the other python file",
+      "parentUuid": "9a3d3df0_82fe8fac",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_e22e7b42",
         "filename": "csit/libraries/ciotdm.py",
         "patchSetId": 6
@@ -279,6 +423,24 @@
       "writtenOn": "2016-02-18T00:26:50Z",
       "side": 1,
       "message": "Ditto above comment.",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_65d53e1b",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 243,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-23T07:05:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_e22e7b42",
       "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -308,6 +470,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_45daba4c",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 275,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-23T07:05:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_c23377a9",
+      "range": {
+        "startLine": 275,
+        "startChar": 18,
+        "endLine": 275,
+        "endChar": 19
+      },
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_2225035c",
         "filename": "csit/libraries/ciotdm.py",
         "patchSetId": 6
@@ -319,6 +505,24 @@
       "writtenOn": "2016-02-18T00:26:50Z",
       "side": 1,
       "message": "ditto above comment",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a5dbc64d",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 305,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-23T07:05:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_2225035c",
       "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -342,6 +546,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_85e042fb",
+        "filename": "csit/libraries/ciotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 323,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-23T07:05:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_022a7f2b",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_c2da574b",
         "filename": "csit/libraries/criotdm.py",
         "patchSetId": 6
@@ -353,6 +575,24 @@
       "writtenOn": "2016-02-18T00:26:50Z",
       "side": 1,
       "message": "As said in previous comment about \u0027base\u0027 being None. If this is the only call to the init method of connect, base will never be none, as the passed value here and method default are both \"InCSE1\"",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9a553dfc",
+        "filename": "csit/libraries/criotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-23T07:05:31Z",
+      "side": 1,
+      "message": "Thanks for pointing this out.",
+      "parentUuid": "9a3d3df0_c2da574b",
       "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -376,6 +616,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_7a5af92a",
+        "filename": "csit/libraries/criotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-23T07:05:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_62e9cbe5",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_8215efe6",
         "filename": "csit/libraries/criotdm.py",
         "patchSetId": 6
@@ -387,6 +645,24 @@
       "writtenOn": "2016-02-18T00:26:50Z",
       "side": 1,
       "message": "Here you are passing in an object and returning the object after you have modified headers of the object.\n\nYou should be able to pass in the object. Change its headers and not return anything. Your instance of the object will be updated without returning it.",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_da42253d",
+        "filename": "csit/libraries/criotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-23T07:05:31Z",
+      "side": 1,
+      "message": "Thanks, I will delete that",
+      "parentUuid": "9a3d3df0_8215efe6",
       "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -410,6 +686,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_c5708a74",
+        "filename": "csit/libraries/criotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-23T07:05:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_42e64716",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_e2d5db1c",
         "filename": "csit/libraries/criotdm.py",
         "patchSetId": 6
@@ -421,6 +715,24 @@
       "writtenOn": "2016-02-18T00:26:50Z",
       "side": 1,
       "message": "This would be reasonable if you were returning a local variable. \n\nAs the code is written you could do:\nconnection.create(parent, restype, attribute, name\u003dname)\nCheck_Response(connection.response, \"create\")\nreturn connection.response",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_fa456943",
+        "filename": "csit/libraries/criotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-23T07:05:31Z",
+      "side": 1,
+      "message": "Good idea! will definitely do that.",
+      "parentUuid": "9a3d3df0_e2d5db1c",
       "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -455,6 +767,24 @@
       "writtenOn": "2016-02-18T00:26:50Z",
       "side": 1,
       "message": "PEP8 Function names should be lowercase, with words separated by underscores as necessary to improve readability.",
+      "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e5730e7e",
+        "filename": "csit/libraries/criotdm.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-02-23T07:05:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a3d3df0_82eccff4",
       "revId": "2f29665f2cbc8121752c84fe55a23acdd45adcf5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
