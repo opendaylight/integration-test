@@ -5,6 +5,7 @@ Library           UtilLibrary.py
 Library           ClusterStateLibrary.py
 Library           ./HsfJson/hsf_json.py
 Resource          Utils.robot
+Library           ShardClusterStatus.py
 
 *** Variables ***
 ${jolokia_conf}    /jolokia/read/org.opendaylight.controller:Category=ShardManager,name=shard-manager-config,type=DistributedConfigDatastore
@@ -318,3 +319,29 @@ Flush IPTables
     Should Contain    ${return string}    Flushing chain `INPUT'
     Should Contain    ${return string}    Flushing chain `FORWARD'
     Should Contain    ${return string}    Flushing chain `OUTPUT'
+Assert Ownership
+    [Arguments]   ${shard_name}
+    ${searchlist}                   Get Controller List
+    ${yolokiaLeaderIP}              GetLeader    ${shard_name}    ${3}    ${3}    ${1}    ${RESTCONFPORT}   @{searchlist}
+    ${matchFound}                   Get Cluster Leader and verify    ${yolokiaLeaderIP}     ${searchlist}
+    should be equal as strings    ${matchFound}   True
+    ${followersOnly}                Get Controller List   ${yolokiaLeaderIP}
+    Assert States Of Leader And Followers    ${yolokiaLeaderIP}   ${followersOnly}
+Get Cluster Leader and verify
+    [Arguments]  ${yolokiaLeaderIP}  ${searchlist}
+    ${leaderFound}   set variable    None
+    ${uri}    set variable     /operational/car-shard-status:node-cluster-shard-info/
+    :FOR  ${ip}  IN   @{searchlist}
+    \   ${response}   Get Request    ${ip}    ${uri}
+    \   ${leaderFound}   Find leader in car shard status   ${response.text}    yolokiaLeader=${yolokiaLeaderIP}
+    \   exit for loop if   '${leaderFound}' == 'True'
+    [Return]  ${leaderFound}
+Assert States Of Leader And Followers
+    [Arguments]   ${leader}   ${followersOnly}
+    ${uri}    set variable     /operational/car-shard-status:node-cluster-shard-info/
+    ${response}   Get Request   ${leader}    ${uri}
+    assert node state  role=Leader  resp=${response.text}
+    :FOR  ${ip}  IN   @{followersOnly}
+    \   ${response}   Get Request   ${ip}    ${uri}
+    \   ${status}     assert node state  role=Follower  resp=${response.text}
+    \   should be equal as strings   '${status}' == 'True'
