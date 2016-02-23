@@ -53,6 +53,7 @@ Get Cluster Entity Owner For Openflow
     ${owner}=    Convert To Integer    ${owner}
     List Should Contain Value    ${controller_index_list}    ${owner}    Owner ${owner} not exisiting in ${controller_index_list}
     ${entity_candidates_list}=    Get From Dictionary    @{entity_list}[${entity_index}]    candidate
+    List Should Contain Sublist    ${entity_candidates_list}    ${controller_index_list}    Candidates are missing in ${entity_candidates_list}
     ${list_length}=    Get Length    ${entity_candidates_list}
     : FOR    ${entity_candidate}    IN    @{entity_candidates_list}
     \    ${candidate}=    Replace String    &{entity_candidate}[name]    member-    ${EMPTY}
