@@ -58,6 +58,7 @@ Get Cluster Entity Owner For Openflow
     \    ${candidate}=    Replace String    &{entity_candidate}[name]    member-    ${EMPTY}
     \    ${candidate}=    Convert To Integer    ${candidate}
     \    Run Keyword If    '${candidate}' != '${owner}'    Append To List    ${candidates_list}    ${candidate}
+    List Should Contain Sublist    ${candidates_list}    ${controller_index_list}    Candidates are missing in ${candidates_list}
     [Return]    ${owner}    ${candidates_list}
 
 Get OpenFlow Entity Owner Status For One Device

@@ -62,6 +62,7 @@ Get Cluster Entity Owner For Ovsdb
     \    ${candidate}=    Replace String    &{entity_candidate}[name]    member-    ${EMPTY}
     \    ${candidate}=    Convert To Integer    ${candidate}
     \    Run Keyword If    '${candidate}' != '${owner}'    Append To List    ${candidates_list}    ${candidate}
+    List Should Contain Sublist    ${candidates_list}    ${controller_index_list}    Candidates are missing in ${candidates_list}
     [Return]    ${owner}    ${candidates_list}
 
 Create Bridge And Verify
