@@ -50,6 +50,7 @@ ${netconf_is_ready}    False
 ${NETCONFREADY_WAIT}    60s
 ${USE_NETCONF_CONNECTOR}    True
 ${DEBUG_LOGGING_FOR_EVERYTHING}    False
+${NETCONFREADY_WAIT_MDSAL}    60s
 
 *** Test Cases ***
 Check_Whether_Netconf_Is_Up_And_Running
@@ -87,6 +88,16 @@ Check_Whether_Netconf_Can_Pretty_Print
     BuiltIn.Run_Keyword_Unless    ${netconf_is_ready}    Fail    Netconf is not ready so it can't pretty-print now.
     Check_Netconf_Up_And_Running    ?prettyPrint=true
 
+Wait_For_MDSAL
+    [Documentation]    Wait for the MDSAL feature to become online
+    ${status}    ${message}=    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Verify_Feature_Is_Installed    odl-netconf-mdsal
+    BuiltIn.Run_Keyword_If    '${status}' == 'FAIL'    BuiltIn.Log    ${message}
+    BuiltIn.Run_Keyword_If    '${status}' == 'FAIL'    BuiltIn.Pass_Execution    The 'odl-netconf-mdsal' feature is not installed so no need to wait for it.
+    SSHKeywords.Open_Connection_To_ODL_System
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${NETCONFREADY_WAIT_MDSAL}    1s    Check_Netconf_MDSAL_Up_And_Running
+    SSHLibrary.Close_Connection
+    [Teardown]    Utils.Report_Failure_Due_To_Bug    4583
+
 *** Keywords ***
 Setup_Everything
     [Documentation]    Setup requests library and log into karaf.log that the netconf readiness wait starts.
@@ -114,3 +125,7 @@ Check_Netconf_Usable
     NetconfKeywords.Configure_Device_In_Netconf    test-device    device_type=configure-via-topology
     NetconfKeywords.Remove_Device_From_Netconf    test-device
     Check_Netconf_Up_And_Running
+
+Check_Netconf_MDSAL_Up_And_Running
+    ${count}=    SSHKeywords.Count_Port_Occurences    ${ODL_NETCONF_MDSAL_PORT}    LISTEN    java
+    BuiltIn.Should_Be_Equal_As_Integers    ${count}    1
