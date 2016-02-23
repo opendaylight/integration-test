@@ -14,6 +14,7 @@ Documentation     netconf-connector scaling test suite (single-threaded GET requ
 ...               - Deconfiguring devices one by one.
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           RequestsLibrary
 Library           SSHLibrary    timeout=10s
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
