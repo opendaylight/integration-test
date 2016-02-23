@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_da96a54b",
+        "filename": "csit/suites/ovsdb/Southbound_Net-virt_Threenode/010_Ovsdb_Net_virt_flow.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-23T01:17:40Z",
+      "side": 1,
+      "message": "where do these values come from?  Meaning, are we sure the\ndeployments this test will touch will always see these\nvalues?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 50
+      },
+      "revId": "1a05b2dd9870e918ed26f1d47092ede6bb3e707f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3aa8718c",
+        "filename": "csit/testplans/OVSDB_CLUSTER_NETVIRT.txt",
+        "patchSetId": 16
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-23T01:17:40Z",
+      "side": 1,
+      "message": "I think you missed my comment here on patch 9:\n\n\"\ncan we use a consistent naming scheme with regard to underscores and hyphens. I think \"clustering\" is more clear than Threenode as well, if you agree.\n\"",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 94
+      },
+      "revId": "1a05b2dd9870e918ed26f1d47092ede6bb3e707f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
