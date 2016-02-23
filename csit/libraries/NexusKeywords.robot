@@ -102,3 +102,16 @@ Deploy_Test_Tool
     ${name_suffix}=    BuiltIn.Set_Variable    -${suffix}.jar
     ${filename}=    Deploy_Artifact    ${component}    ${artifact}    ${name_prefix}    ${name_suffix}
     [Return]    ${filename}
+
+Set_Java_Version
+    [Arguments]    ${openjdk}=${EMPTY}    ${script}=jre_select.sh
+    [Documentation]    Export JAVA_HOME on currently active SSH connection. Return None.
+    ...    Not directly related to nexus, but different versioned Java artifacts may need this.
+    BuiltIn.Should_Contain    openjdk    ${openjdk}    Got unsupported openjdk: ${openjdk}
+    SSHLibrary.Put_File    ${CURDIR}/../scripts/${script}
+    ${out}    ${rc} =    SSHLibrary.Execute_Command    bash jre_select.sh ${openjdk} 2>&1    return_rc=True
+    SSHLibrary.Delete_File    ${script}
+    BuiltIn.Return_From_Keyword_If    not ${rc}
+    BuiltIn.Log    ${rc}
+    BuiltIn.Log    ${out}
+    BuiltIn.Fail    Failed to set desired JAVA_HOME.

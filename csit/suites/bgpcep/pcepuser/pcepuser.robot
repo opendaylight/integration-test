@@ -34,7 +34,8 @@ Topology_Precondition
 
 Start_Pcc_Mock
     [Documentation]    Execute pcc-mock on Mininet, fail is Open is not sent, keep it running for next tests.
-    ${command}=    Set_Variable    java -jar ${filename} --local-address ${MININET} --remote-address ${CONTROLLER} 2>&1 | tee pccmock.log
+    NexusKeywords.Set_Java_Home    openjdk=${OPENJDK}
+    ${command}=    Set_Variable    \${JAVA_HOME}/bin/java -jar ${filename} --local-address ${MININET} --remote-address ${CONTROLLER} 2>&1 | tee pccmock.log
     Log    ${command}
     Write    ${command}
     Read_Until    started, sent proposal Open
