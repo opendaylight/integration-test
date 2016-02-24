@@ -34,6 +34,7 @@ Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           RequestsLibrary
 Library           SSHLibrary
+Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
@@ -71,12 +72,11 @@ Additional_Attributes_In_Message
 Send_Stuff_In_Undefined_Namespace
     [Documentation]    Try to send something within an undefined namespace and check the reply complains about the nonexistent namespace and element.
     ${reply}=    Load_And_Send_Message    merge-nonexistent-namespace
-    BuiltIn.Set_Test_Variable    ${bugno}    5125
+    SetupUtils.Set_Known_Bug_Id    5125
     BuiltIn.Should_Not_Contain    ${reply}    java.lang.NullPointerException
-    BuiltIn.Set_Test_Variable    ${bugno}    ${EMPTY}
+    SetupUtils.Set_Unknown_Bug_Id
     BuiltIn.Should_Contain    ${reply}    urn:this:is:in:a:nonexistent:namespace
     BuiltIn.Should_Contain    ${reply}    <rpc-error>
-    [Teardown]    BuiltIn.Run_Keyword_If    '${bugno}' != '${EMPTY}'    Utils.Report_Failure_Due_To_Bug    5125
 
 Edit_Config_First_Batch_Merge
     [Documentation]    Request a "merge" operation adding an element in candidate configuration and check the reply.
