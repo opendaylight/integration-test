@@ -102,3 +102,19 @@ Deploy_Test_Tool
     ${name_suffix}=    BuiltIn.Set_Variable    -${suffix}.jar
     ${filename}=    Deploy_Artifact    ${component}    ${artifact}    ${name_prefix}    ${name_suffix}
     [Return]    ${filename}
+
+Compose_Base_Java_Command
+    [Arguments]    ${openjdk}=${EMPTY}
+    [Documentation]    Return string suitable for launching Java programs over SSHLibrary, depending on JRE version needed.
+    ...    Not directly related to nexus, but different versioned Java artifacts may need this.
+    BuiltIn.Return_From_Keyword_If    """${openjdk}""" == "openjdk8"    /usr/lib/jvm/java-1.8.0
+    BuiltIn.Return_From_Keyword_If    """${openjdk}""" == "openjdk7"    /usr/lib/jvm/java-1.7.0
+    BuiltIn.Return_From_Keyword    java
+
+Compose_Full_Java_Command
+    [Arguments]    ${options}    ${openjdk}=${EMPTY}
+    [Documentation]    Return full Bash command to run Java with given options.
+    ${base_command} =    Compose_Base_Java_Command    openjdk=${openjdk}
+    ${full_command} =    BuiltIn.Set_Variable    ${base_command} ${options}
+    BuiltIn.Log    ${full_command}
+    [Return]    ${full_command}

@@ -69,7 +69,7 @@ Deploy_And_Run_RestPerfClient
     ${options}=    BuiltIn.Set_Variable    ${options} --destination /restconf/config/network-topology:network-topology/topology/topology-netconf/node/${DEVICE_NAME}/yang-ext:mount/car:cars
     ${options}=    BuiltIn.Set_Variable    ${options} --edit-content request1.json
     ${options}=    BuiltIn.Set_Variable    ${options} --auth ${ODL_RESTCONF_USER} ${ODL_RESTCONF_PASSWORD}
-    ${command}    BuiltIn.Set_Variable    java -Xmx1G -XX:MaxPermSize=256M -jar ${filename} ${options}
+    ${command}=    NexusKeywords.Compose_Full_Java_Command    -Xmx1G -XX:MaxPermSize=256M -jar ${filename} ${options}    openjdk=${JDKVERSION}
     BuiltIn.Log    Running restperfclient: ${command}
     ${restperfclientlog}=    Utils.Get_Log_File_Name    restperfclient
     BuiltIn.Set_Suite_Variable    ${restperfclientlog}    ${restperfclientlog}
