@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_1e6598b4",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-24T13:47:37Z",
+      "side": 1,
+      "message": ".../bin/java",
+      "range": {
+        "startLine": 110,
+        "startChar": 90,
+        "endLine": 110,
+        "endChar": 95
+      },
+      "revId": "e994eb18f995a3317cf7a055495089661d0c345a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5e5ba0f5",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 111,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-24T13:47:37Z",
+      "side": 1,
+      "message": ".../bin/java",
+      "range": {
+        "startLine": 111,
+        "startChar": 90,
+        "endLine": 111,
+        "endChar": 95
+      },
+      "revId": "e994eb18f995a3317cf7a055495089661d0c345a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3e605ca4",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-24T13:47:37Z",
+      "side": 1,
+      "message": "Document that ${options} may contain BASH redirects so it must be the last thing in the resulting command string.",
+      "range": {
+        "startLine": 115,
+        "startChar": 19,
+        "endLine": 115,
+        "endChar": 29
+      },
+      "revId": "e994eb18f995a3317cf7a055495089661d0c345a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
