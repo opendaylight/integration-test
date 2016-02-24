@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_83e5d5dd",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-24T11:47:38Z",
+      "side": 1,
+      "message": "We need to create a keyword for creating commands that start Java programs. Then convert all these ${command} variables to use this new keyword. Then this patching can be done at exactly 1 place. This is too error prone (it is way too easy to simply put \"java -jar XYZ\" somewhere and then start wondering why the test works for Lithium and Berylium and not for Boron (or vice versa).",
+      "range": {
+        "startLine": 156,
+        "startChar": 42,
+        "endLine": 156,
+        "endChar": 64
+      },
+      "revId": "fbf6febcb949c0f3c49d68cd59c3c691e1b4f863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e3a781a5",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-24T11:47:38Z",
+      "side": 1,
+      "message": "${script}",
+      "range": {
+        "startLine": 112,
+        "startChar": 60,
+        "endLine": 112,
+        "endChar": 73
+      },
+      "revId": "fbf6febcb949c0f3c49d68cd59c3c691e1b4f863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a3c8d955",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-24T11:47:38Z",
+      "side": 1,
+      "message": "Move after the Builtin.Log lines. The default selector script emits some output that the users might want to look at. Additionally, if the selection script fails but reports success, we want to be able to see its output.",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 47
+      },
+      "revId": "fbf6febcb949c0f3c49d68cd59c3c691e1b4f863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_43df4d0d",
+        "filename": "csit/scripts/jre_select.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-24T11:47:38Z",
+      "side": 1,
+      "message": "Add TODO: Discuss with community how to handle the \"sudo\" action. JAVA_HOME should be enough for karaf start now. But we don\u0027t know if it will be enough for karaf start in the future. Now we know if it is enough or will be enough to run all the random test tools we want to run.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 117
+      },
+      "revId": "fbf6febcb949c0f3c49d68cd59c3c691e1b4f863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_03d9c521",
+        "filename": "csit/scripts/jre_select.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-24T11:47:38Z",
+      "side": 1,
+      "message": "Ditto (see the IF branch above).",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 119
+      },
+      "revId": "fbf6febcb949c0f3c49d68cd59c3c691e1b4f863",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
