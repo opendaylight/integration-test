@@ -91,6 +91,10 @@ Verify inet4src and inet4dst of vtn flowfilter
     [Documentation]    Verify vtn flowfilter actions in Flow Enties for inet4src and inet4dst
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${DUMPFLOWS_OF13}    @{inet_actions}
 
+Remove vtn Flowfilter which has inet4src and inet4dst
+    [Documentation]    Remove a flowfilter with inet4 and Verify ping
+    Remove a vtn flowfilter    Tenant1    ${filter_index}
+
 Add a vbr flowfilter with inet4src and inet4dst
     [Documentation]    Create a flowfilter with inet4 and Verify ping
     Add a vbr flowfilter    Tenant1    vBridge1    ${flowfilterInetdata}
@@ -99,6 +103,10 @@ Add a vbr flowfilter with inet4src and inet4dst
 Verify inet4src and inet4dst of vbr flowfilter
     [Documentation]    Verify actions in Flow Enties for inet4src and inet4dst
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${DUMPFLOWS_OF13}    @{inet_actions}
+
+Remove vbr Flowfilter which has inet4src and inet4dst
+    [Documentation]    Remove a flowfilter with inet4 and Verify ping
+    Remove a vbr flowfilter    Tenant1    vBridge1    ${filter_index}
 
 Add a vbrif flowfilter with inet4src and inet4dst
     [Documentation]    Create a flowfilter with inet4 and Verify ping
@@ -109,6 +117,10 @@ Verify inet4src and inet4dst of vbrif flowfilter
     [Documentation]    Verify actions in Flow Enties for inet4src and inet4dst
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${DUMPFLOWS_OF13}    @{inet_actions}
 
+Remove vbrif Flowfilter which has inet4src and inet4dst
+    [Documentation]    Remove a flowfilter with inet4 and Verify ping
+    Remove a vbrif flowfilter    Tenant1    vBridge1    if1    ${filter_index}
+
 Add a vtn flowfilter with Icmp code
     [Documentation]    Create a flowfilter with icmp code and Verify ping
     Add a vtn flowfilter    Tenant1    ${flowfilterIcmpCodedata}
@@ -117,6 +129,10 @@ Add a vtn flowfilter with Icmp code
 Verify icmp action for vtn flowfilter
     [Documentation]    Verify actions in Flow Enties for icmp code and type
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${DUMPFLOWS_OF13}    @{icmp_action}
+
+Remove vtn Flowfilter which have ICMP
+    [Documentation]    Remove a flowfilter with imcp and Verify ping
+    Remove a vtn flowfilter    Tenant1    ${filter_index}
 
 Add a vbr flowfilter with Icmp code
     [Documentation]    Create a flowfilter with icmp code and Verify ping
@@ -127,6 +143,10 @@ Verify icmp action for vbr flowfilter
     [Documentation]    Verify actions in Flow Enties for icmp code and type
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${DUMPFLOWS_OF13}    @{icmp_action}
 
+Remove vbr Flowfilter which have ICMP
+    [Documentation]    Remove a flowfilter with ICMP and Verify ping
+    Remove a vbr flowfilter    Tenant1    vBridge1    ${filter_index}
+
 Add a vbrif flowfilter with Icmp code
     [Documentation]    Create a flowfilter with icmp code and Verify ping
     Add a vbrif flowfilter    Tenant1    vBridge1    if1    ${flowfilterIcmpCodedata}
@@ -135,6 +155,10 @@ Add a vbrif flowfilter with Icmp code
 Verify icmp action for vbrif flowfilter
     [Documentation]    Verify actions in Flow Enties for icmp code and type
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${DUMPFLOWS_OF13}    @{icmp_action}
+
+Remove vbrif Flowfilter which have ICMP
+    [Documentation]    Remove a flowfilter with icmp and Verify ping
+    Remove a vbrif flowfilter    Tenant1    vBridge1    if1    ${filter_index}
 
 Add a flowfilter with tpsrc and tpdst
     [Documentation]    Create a flowfilter with tpsrc and tpdst and Verify ping
@@ -150,6 +174,10 @@ Verify dscp action for vtn flowfilter
     [Documentation]    Verify actions in Flow Enties for dscp
     Wait_Until_Keyword_Succeeds    20s    1s    Verify flowactions    ${dscp_action}    ${DUMPFLOWS_OF13}
 
+Remove vtn Flowfilter which have dscp
+    [Documentation]    Remove a flowfilter with dscp and Verify ping
+    Remove a vtn flowfilter    Tenant1    ${filter_index}
+
 Add a vbr flowfilter with dscp
     [Documentation]    Create a flowfilter with dscp and Verify ping
     Add a vbr flowfilter    Tenant1    vBridge1    ${flowfilterDscpdata}
@@ -159,6 +187,10 @@ Verify dscp action for vbr flowfilter
     [Documentation]    Verify actions in Flow Enties for dscp
     Wait_Until_Keyword_Succeeds    20s    1s    Verify flowactions    ${dscp_action}    ${DUMPFLOWS_OF13}
 
+Remove vbr Flowfilter which have dscp
+    [Documentation]    Remove a flowfilter with dscp and Verify ping
+    Remove a vbr flowfilter    Tenant1    vBridge1    ${filter_index}
+
 Add a vbrif flowfilter with dscp
     [Documentation]    Create a flowfilter with dscp and Verify ping
     Add a vbrif flowfilter    Tenant1    vBridge1    if1    ${flowfilterDscpdata}
@@ -167,6 +199,10 @@ Add a vbrif flowfilter with dscp
 Verify dscp action for vbrif flowfilter
     [Documentation]    Verify actions in Flow Enties for dscp
     Wait_Until_Keyword_Succeeds    20s    1s    Verify flowactions    ${dscp_action}    ${DUMPFLOWS_OF13}
+
+Remove vbrif Flowfilter which have dscp
+    [Documentation]    Remove a flowfilter with dscp and Verify ping
+    Remove a vbrif flowfilter    Tenant1    vBridge1    if1    ${filter_index}
 
 Add a flowfilter with vlanpcp
     [Documentation]    Create a flowfilter with vlanpcp and Verify ping

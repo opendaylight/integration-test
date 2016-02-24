@@ -30,6 +30,7 @@ ${pathpolicy_topo_10}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custo
 @{PATHMAP_ATTR}    "index":"1"    "condition":"flowcond_path"    "policy":"1"
 ${policy_id}      1
 ${in_port}        1
+${filter_index}   1   
 ${dscp_action}    set_field:32->nw_tos_shifted
 ${dscp_flow}      mod_nw_tos:128
 @{icmp_action}    nw_src=10.0.0.1    nw_dst=10.0.0.3
@@ -288,16 +289,34 @@ Add a vtn flowfilter
     ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-filter:set-flow-filter    data={"input": {"tenant-name": "${vtn_name}",${vtnflowfilter_data}}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
+Remove a vtn flowfilter
+    [Arguments]    ${vtn_name}    ${filter_index}
+    [Documentation]    Delete a vtn flowfilter
+    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-filter:remove-flow-filter    data={"input": {"indices": ["1"], "tenant-name": "${vtn_name}"}}
+    Should Be Equal As Strings    ${resp.status_code}    200
+
 Add a vbr flowfilter
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${vbrflowfilter_data}
     [Documentation]    Create a flowfilter for a vbr
     ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-filter:set-flow-filter    data={"input": {"tenant-name": "${vtn_name}", "bridge-name": "${vBridge_name}", ${vbrflowfilter_data}}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
+Remove a vbr flowfilter
+    [Arguments]    ${vtn_name}    ${vBridge_name}    ${filter_index}
+    [Documentation]    Delete a vbr flowfilter
+    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-filter:remove-flow-filter    data={"input": {"indices": ["${filter_index}"], "tenant-name": "${vtn_name}","bridge-name": "${vBridge_name}"}}
+    Should Be Equal As Strings    ${resp.status_code}    200
+
 Add a vbrif flowfilter
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${interface_name}    ${vbrif_flowfilter_data}
     [Documentation]    Create a flowfilter for a vbrif
     ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-filter:set-flow-filter    data={"input": {"tenant-name": ${vtn_name}, "bridge-name": "${vBridge_name}","interface-name":"${interface_name}",${vbrif_flowfilter_data}}}
+    Should Be Equal As Strings    ${resp.status_code}    200
+
+Remove a vbrif flowfilter
+    [Arguments]    ${vtn_name}    ${vBridge_name}    ${interface_name}    ${filter_index}
+    [Documentation]    Delete a vbrif flowfilter
+    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-filter:remove-flow-filter    data={"input": {"indices": ["${filter_index}"], "tenant-name": "${vtn_name}","bridge-name": "${vBridge_name}","interface-name": "${interface_name}"}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify Flow Entries for Flowfilter
