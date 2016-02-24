@@ -41,7 +41,8 @@ Topology_Precondition
 
 Start_Secure_Pcc_Mock
     [Documentation]    Execute pcc-mock on Mininet with password set, fail if pcc-mock promptly exits. Keep pcc-mock running for next test cases.
-    ${command}=    BuiltIn.Set_Variable    java -jar ${filename} --password topsecret --reconnect 1 --local-address ${MININET} --remote-address ${CONTROLLER} 2>&1 | tee pccmock.log
+    NexusKeywords.Set_Java_Home    openjdk=${OPENJDK}
+    ${command}=    BuiltIn.Set_Variable    \${JAVA_HOME}/bin/java -jar ${filename} --password topsecret --reconnect 1 --local-address ${MININET} --remote-address ${CONTROLLER} 2>&1 | tee pccmock.log
     BuiltIn.Log    ${command}
     SSHLibrary.Write    ${command}
     Read_And_Fail_If_Prompt_Is_Seen
