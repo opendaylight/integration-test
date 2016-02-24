@@ -63,19 +63,20 @@ Get Cluster Entity Owner For Openflow
     [Return]    ${owner}    ${candidates_list}
 
 Get OpenFlow Entity Owner Status For One Device
-    [Arguments]    ${controller_index_list}
+    [Arguments]    ${controller_index_list}    ${device}
     [Documentation]    Check Entity Owner Status and identify owner and candidate.
     ${owner}    ${candidates_list}    Wait Until Keyword Succeeds    10s    1s    Get Cluster Entity Owner For Openflow    ${controller_index_list}
-    ...    openflow    openflow:1
+    ...    openflow    ${device}
     [Return]    ${owner}    ${candidates_list}
 
-Check OpenFlow Network Operational Information For One Device
+Check OpenFlow Network Operational Information
     [Arguments]    ${controller_index_list}
-    [Documentation]    Check device openflow:1 is in operational inventory and topology in all instances in ${controller_index_list}.
-    ...    Inventory should show 1x node_id per device 1x node_id per connector. Topology should show 2x node_id per device + 3x node_id per connector.
-    ${dictionary}    Create Dictionary    openflow:1=4
+    [Documentation]    Check devices in tree,2 are in operational inventory and topology in all instances in ${controller_index_list}.
+    ...    Inventory should show 1x node_id per device 1x node_id per connector. Topology should show 2x node_id per device + 3x node_id per connector
+    ...    + 5x node_id per link termination. TODO: A Keyword that can calculate this based on mininet topology.
+    ${dictionary}    Create Dictionary    openflow:1=4    openflow:2=5    openflow:3=5
     Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_NODES_API}
-    ${dictionary}    Create Dictionary    openflow:1=11
+    ${dictionary}    Create Dictionary    openflow:1=21    openflow:2=19    openflow:3=19
     Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
 
 Check No OpenFlow Network Operational Information
@@ -138,12 +139,16 @@ Take OpenFlow Device Link Down and Verify
     [Arguments]    ${controller_index_list}
     [Documentation]    Take a link down and verify port status in all instances in ${controller_index_list}.
     ${dictionary}=    Create Dictionary    "link-down":true=1
-    ${ouput}=    Send Mininet Command    ${mininet_conn_id}    link s1 h1 down
+    ${ouput}=    Send Mininet Command    ${mininet_conn_id}    link s1 s2 down
     Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${operational_port_1}
+    ${dictionary}    Create Dictionary    openflow:1=16    openflow:2=14    openflow:3=19
+    Wait Until Keyword Succeeds    20s    2s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
 
 Take OpenFlow Device Link Up and Verify
     [Arguments]    ${controller_index_list}
     [Documentation]    Take the link up and verify port status in all instances in ${controller_index_list}.
     ${dictionary}=    Create Dictionary    "link-down":true=0
-    ${ouput}=    Send Mininet Command    ${mininet_conn_id}    link s1 h1 up
+    ${ouput}=    Send Mininet Command    ${mininet_conn_id}    link s1 s2 up
     Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${operational_port_1}
+    ${dictionary}    Create Dictionary    openflow:1=21    openflow:2=19    openflow:3=19
+    Wait Until Keyword Succeeds    5s    1s    Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}

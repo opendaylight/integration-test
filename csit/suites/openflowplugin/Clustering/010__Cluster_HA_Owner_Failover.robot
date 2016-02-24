@@ -19,20 +19,30 @@ Check Shards Status Before Fail
     Check OpenFlow Shards Status    ${original_cluster_list}
 
 Start Mininet Multiple Connections
-    [Documentation]    Start mininet with connection to all cluster instances.
-    ${mininet_conn_id}=    Start Mininet Multiple Controllers    ${TOOLS_SYSTEM_IP}    ${original_cluster_list}
+    [Documentation]    Start mininet tree,2 with connection to all cluster instances.
+    ${mininet_conn_id}=    Start Mininet Multiple Controllers    ${TOOLS_SYSTEM_IP}    ${original_cluster_list}    --topo tree,2 --switch ovsk,protocols=OpenFlow13
     Set Suite Variable    ${mininet_conn_id}
 
 Check Entity Owner Status And Find Owner and Candidate Before Fail
-    [Documentation]    Check Entity Owner Status and identify owner and candidate.
-    ${original_owner}    ${original_candidates_list}    Get OpenFlow Entity Owner Status For One Device    ${original_cluster_list}
+    [Documentation]    Check Entity Owner Status and identify owner and candidate for first switch s1.
+    ${original_owner}    ${original_candidates_list}    Get OpenFlow Entity Owner Status For One Device    ${original_cluster_list}    openflow:1
     ${original_candidate}=    Get From List    ${original_candidates_list}    0
     Set Suite Variable    ${original_owner}
     Set Suite Variable    ${original_candidate}
 
+Reconnect Extra Switches To Candidate And Check Entity Owner
+    [Documentation]    Connect switches s2 and s3 to candidate instance.
+    Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s2    tcp:${ODL_SYSTEM_${original_candidate}_IP}:6633
+    Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s3    tcp:${ODL_SYSTEM_${original_candidate}_IP}:6633
+    ${original_candidate_list}=    Create List    ${original_candidate}
+    ${owner}    ${candidates_list}    Get OpenFlow Entity Owner Status For One Device    ${original_candidate_list}    openflow:2
+    Should Be Equal    ${owner}    ${original_candidate}
+    ${owner}    ${candidates_list}    Get OpenFlow Entity Owner Status For One Device    ${original_candidate_list}    openflow:2
+    Should Be Equal    ${owner}    ${original_candidate}
+
 Check Network Operational Information Before Fail
-    [Documentation]    Check device is in operational inventory and topology in all cluster instances.
-    Check OpenFlow Network Operational Information For One Device    ${original_cluster_list}
+    [Documentation]    Check devices in operational inventory and topology in all cluster instances.
+    Check OpenFlow Network Operational Information    ${original_cluster_list}
 
 Add Configuration In Owner and Verify Before Fail
     [Documentation]    Add Flow in Owner and verify it gets applied from all instances.
@@ -95,7 +105,7 @@ Check Shards Status After Fail
 
 Check Entity Owner Status And Find Owner and Candidate After Fail
     [Documentation]    Check Entity Owner Status and identify owner and candidate.
-    ${new_owner}    ${new_candidates_list}    Get OpenFlow Entity Owner Status For One Device    ${new_cluster_list}
+    ${new_owner}    ${new_candidates_list}    Get OpenFlow Entity Owner Status For One Device    ${new_cluster_list}    openflow:1
     Run Keyword And Continue On Failure    List Should Not Contain Value    ${new_candidates_list}    ${original_owner}    Original owner ${original_owner} still in candidate list.
     Remove Values From List    ${new_candidates_list}    ${original_owner}
     ${new_candidate}=    Get From List    ${new_candidates_list}    0
@@ -104,8 +114,8 @@ Check Entity Owner Status And Find Owner and Candidate After Fail
     [Teardown]    Report_Failure_Due_To_Bug    5004
 
 Check Network Operational Information After Fail
-    [Documentation]    Check device is in operational inventory and topology in all cluster instances.
-    Check OpenFlow Network Operational Information For One Device    ${new_cluster_list}
+    [Documentation]    Check devices in operational inventory and topology in all cluster instances.
+    Check OpenFlow Network Operational Information    ${new_cluster_list}
 
 Add Configuration In Owner and Verify After Fail
     [Documentation]    Add Flow in Owner and verify it gets applied from all instances.
@@ -165,12 +175,12 @@ Check Shards Status After Recover
 
 Check Entity Owner Status After Recover
     [Documentation]    Check Entity Owner Status and identify owner and candidate.
-    ${new_owner}    ${new_candidates_list}    Get OpenFlow Entity Owner Status For One Device    ${original_cluster_list}
+    ${new_owner}    ${new_candidates_list}    Get OpenFlow Entity Owner Status For One Device    ${original_cluster_list}    openflow:1
     Set Suite Variable    ${new_owner}
 
 Check Network Operational Information After Recover
-    [Documentation]    Check device is in operational inventory and topology in all cluster instances.
-    Check OpenFlow Network Operational Information For One Device    ${original_cluster_list}
+    [Documentation]    Check devices in operational inventory and topology in all cluster instances.
+    Check OpenFlow Network Operational Information    ${original_cluster_list}
 
 Add Configuration In Owner and Verify After Recover
     [Documentation]    Add Flow in Owner and verify it gets applied from all instances.

@@ -34,21 +34,27 @@ Start Mininet Multiple Controllers
     Write    sudo mn ${options}
     Read Until    mininet>
     Log    Create controller configuration
-    ${ovs_opt}=    Set Variable
+    ${controller_opt}=    Set Variable
     : FOR    ${index}    IN    @{controller_index_list}
-    \    ${ovs_opt}=    Catenate    ${ovs_opt}    ${SPACE}tcp:${ODL_SYSTEM_${index}_IP}:${ofport}
-    \    Log    ${ovs_opt}
+    \    ${controller_opt}=    Catenate    ${controller_opt}    ${SPACE}tcp:${ODL_SYSTEM_${index}_IP}:${ofport}
+    \    Log    ${controller_opt}
     Log    Find Number of OVS bridges
     ${num_bridges}    Run Command On Mininet    ${mininet}    sudo ovs-vsctl show | grep Bridge | wc -l
     ${num_bridges}=    Convert To Integer    ${num_bridges}
-    Log    Configure OVS controllers ${ovs_opt} in all bridges
+    Log    Configure OVS controllers ${controller_opt} in all bridges
     : FOR    ${i}    IN RANGE    1    ${num_bridges+1}
     \    ${bridge}=    Run Command On Mininet    ${mininet}    sudo ovs-vsctl show | grep Bridge | cut -c 12- | sort | head -${i} | tail -1
-    \    Run Command On Mininet    ${mininet}    sudo ovs-vsctl set-controller ${bridge} ${ovs_opt}
+    \    Set Controller In OVS Bridge    ${mininet}    ${bridge}    ${controller_opt}
     Log    Check OVS configuratiom
     ${output}=    Run Command On Mininet    ${mininet}    sudo ovs-vsctl show
     Log    ${output}
     [Return]    ${mininet_conn_id}
+
+Set Controller In OVS Bridge
+    [Arguments]    ${mininet}    ${bridge}    ${controller_opt}
+    [Documentation]    Sets controller for a given OVS ${bridge} using controller options in ${controller_opt}
+    Run Command On Mininet    ${mininet}    sudo ovs-vsctl del-controller ${bridge}
+    Run Command On Mininet    ${mininet}    sudo ovs-vsctl set-controller ${bridge} ${controller_opt}
 
 Add Multiple Managers to OVS
     [Arguments]    ${mininet}    ${controller_index_list}    ${ovs_mgr_port}=6640
