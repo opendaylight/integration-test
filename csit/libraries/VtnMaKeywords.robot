@@ -7,16 +7,20 @@ Library           json
 Library           RequestsLibrary
 Variables         ../variables/Variables.py
 Resource          ./Utils.robot
+Resource          ./KarafKeywords.robot
 
 *** Variables ***
 ${vlan_topo_10}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom vlan_vtn_test.py --topo vlantopo
 ${vlan_topo_13}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom vlan_vtn_test.py --topo vlantopo --switch ovsk,protocols=OpenFlow13
 ${VERSION_VTN}    controller/nb/v2/vtn/version
 ${VTN_INVENTORY}    restconf/operational/vtn-inventory:vtn-nodes
-${DUMPFLOWS_OF10}    dpctl dump-flows -O OpenFlow10
-${DUMPFLOWS_OF13}    dpctl dump-flows -O OpenFlow13
+${DUMPFLOWS_OF10}    sh ovs-ofctl dump-flows s3
+#${DUMPFLOWS_OF10}    dpctl dump-flows -O OpenFlow10
+${DROP_DUMPFLOWS}    sh ovs-ofctl dump-flows s2
+#${DUMPFLOWS_OF13}    dpctl dump-flows -O OpenFlow13
+${DUMPFLOWS_OF13}    sh ovs-ofctl dump-flows s3
 ${index}          7
-@{inet_actions}    nw_src=10.0.0.1    nw_dst=10.0.0.3
+@{inet_actions}    mod_nw_src:192.0.0.1    mod_nw_dst:192.0.0.2
 @{BRIDGE1_DATAFLOW}    "reason":"PORTMAPPED"    "tenant-name":"Tenant1"    "bridge-name":"vBridge1"    "interface-name":"if2"
 @{BRIDGE2_DATAFLOW}    "reason":"PORTMAPPED"    "tenant-name":"Tenant1"    "bridge-name":"vBridge2"    "interface-name":"if3"
 ${vlanmap_bridge1}    200
@@ -32,13 +36,15 @@ ${policy_id}      1
 ${in_port}        1
 ${dscp_action}    set_field:32->nw_tos_shifted
 ${dscp_flow}      mod_nw_tos:128
-@{icmp_action}    nw_src=10.0.0.1    nw_dst=10.0.0.3
+@{icmp_action}    mod_tp_dst:1    mod_tp_src:5
+${drop_action}    actions=drop
 @{PATHPOLICY_ATTR}    "id":1    "port-desc":"openflow:4,2,s4-eth2"
 ${custom}         ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
 
 *** Keywords ***
 Start SuiteVtnMa
     [Documentation]    Start VTN Manager Rest Config Api Test Suite
+    Issue Command On Karaf Console    log:set trace org.opendaylight.vtn
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     BuiltIn.Wait_Until_Keyword_Succeeds    30    3    Fetch vtn list
     Start Suite
@@ -49,7 +55,7 @@ Start SuiteVtnMaTest
 
 Stop SuiteVtnMa
     [Documentation]    Stop VTN Manager Test Suite
-    Delete All Sessions
+    #Delete All Sessions
     Stop Suite
 
 Stop SuiteVtnMaTest
@@ -125,7 +131,7 @@ Start PathSuiteVtnMaTestOF10
 Stop PathSuiteVtnMaTest
     [Documentation]    Cleanup/Shutdown work at the completion of all tests.
     Delete All Sessions
-    Stop Mininet    ${mininet_conn_id}
+    #Stop Mininet    ${mininet_conn_id}
 
 DataFlowsForBridge
     [Arguments]    ${resp}    @{BRIDGE_DATAFLOW}
@@ -208,6 +214,16 @@ Mininet Ping Should Not Succeed
     ${result}    Read Until    mininet>
     Should Not Contain    ${result}    64 bytes
 
+#Mininet Ping Should Not Succeed
+    #[Arguments]    ${host1}    ${host2}
+    #[Documentation]    Ping hosts when there is no connectivity and check hosts is unreachable
+    #Write    ${host1} ping -c 6 ${host2}
+    #${result}    Read Until    mininet>
+    #Should Not Contain    ${result}    64 bytes
+    #Write    sh ovs-ofctl dump-flows s3
+    #${result}    Read Until    mininet>
+    #Should Contain    ${result}    mod_nw_src:192.0.0.1
+
 Start vlan_topo
     [Arguments]    ${OF}
     [Documentation]    Create custom topology for vlan functionality
@@ -282,6 +298,13 @@ Verify flowactions
     ${result}    Read Until    mininet>
     Should Contain    ${result}    ${actions}
 
+Verify flowaction
+    [Arguments]    ${DUMPFLOWS}
+    [Documentation]    Verify the flowfilter actions after ping in the dumpflows
+    write    ${DUMPFLOWS}
+    ${result}    Read Until    mininet>
+    Should Contain    ${result}   NXST_FLOW 
+
 Add a vtn flowfilter
     [Arguments]    ${vtn_name}    ${vtnflowfilter_data}
     [Documentation]    Create a flowfilter for a vtn
@@ -306,11 +329,11 @@ Verify Flow Entries for Flowfilter
     ${booleanValue}=    Run Keyword And Return Status    Verify Actions on Flow Entry    ${dumpflows}    @{flowfilter_actions}
     Should Be Equal As Strings    ${booleanValue}    True
 
-Verify Removed Flow Entry for Inet Drop Flowfilter
-    [Arguments]    ${dumpflows}    @{flowfilter_actions}
-    [Documentation]    Verify removed switch flow entry using flowfilter drop for a vtn
-    ${booleanValue}=    Run Keyword And Return Status    Verify Actions on Flow Entry    ${dumpflows}    @{flowfilter_actions}
-    Should Be Equal As Strings    ${booleanValue}    True
+#Verify Removed Flow Entry for Inet Drop Flowfilter
+    #[Arguments]    @{flowfilter_actions}   ${dumpflows}
+    #[Documentation]    Verify removed switch flow entry using flowfilter drop for a vtn
+    #${booleanValue}=    Run Keyword And Return Status    Verify flowactions    @{flowfilter_actions}    ${dumpflows}
+    #Should Be Equal As Strings    ${booleanValue}    True
 
 Verify Actions on Flow Entry
     [Arguments]    ${dumpflows}    @{flowfilter_actions}
@@ -344,3 +367,4 @@ Remove flowcondition
     [Documentation]    Remove the flowcondition by name
     ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-condition:remove-flow-condition    data={"input":{"name":"${flowcond_name}"}}
     Should Be Equal As Strings    ${resp.status_code}    200
+
