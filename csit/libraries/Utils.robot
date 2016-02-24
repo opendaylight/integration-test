@@ -25,6 +25,9 @@ Start Suite
     Set Suite Variable    ${mininet_conn_id}
     Flexible Mininet Login    user=${user}    password=${password}
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
+    Execute Command    sudo ovs-ofctl -V
+    Execute Command    cat /etc/os-release
+    Execute Command    cat /etc/redhat-release
     Write    ${start}
     Read Until    mininet>
 
