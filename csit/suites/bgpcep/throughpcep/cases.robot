@@ -218,7 +218,7 @@ Topology_Precondition
 Start_Pcc_Mock
     [Documentation]    Launch pcc-mock on background so simulated PCCs start connecting to controller.
     SSHLibrary.Switch_Connection    pccmock
-    ${command} =    BuiltIn.Set_Variable    java -jar ${mock_location} --local-address ${FIRST_PCC_IP} --remote-address ${CONTROLLER} --pcc ${PCCS} --lsp ${LSPS} &> ${LOG_PATH}/${LOG_NAME}
+    ${command} =    NexusKeywords.Compose_Full_Java_Command    -jar ${mock_location} --local-address ${FIRST_PCC_IP} --remote-address ${CONTROLLER} --pcc ${PCCS} --lsp ${LSPS} &> ${LOG_PATH}/${LOG_NAME}
     BuiltIn.Log    ${command}
     SSHLibrary.Write    ${command}
     # The pccmock SSH session is left alive, but no data will be exchanged for a while.
