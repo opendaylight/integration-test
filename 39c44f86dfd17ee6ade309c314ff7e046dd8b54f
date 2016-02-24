@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_1d411da9",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 8
+      },
+      "lineNbr": 361,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-24T23:56:14Z",
+      "side": 1,
+      "message": "I dislike the usage here \u0027usage --deleteports delete\u0027 because it could be anything and will delete porst. I\u0027d prefer something like like delete bridges above or boolean here. However I don\u0027t see this as blocking.",
+      "revId": "39c44f86dfd17ee6ade309c314ff7e046dd8b54f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
