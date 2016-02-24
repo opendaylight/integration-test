@@ -93,7 +93,7 @@ Report_Failure_And_Point_To_Linked_Bugs
     ${reference}=    String.Replace_String_Using_Regexp    ${SUITE_NAME}_${TEST_NAME}    [ /\.-]    _
     ${reference}=    String.Convert_To_Lowercase    ${reference}
     ${msg}=    BuiltIn.Set_Variable    ... click for list of related bugs or create a new one if needed (with the${newline}"${reference}"${newline}reference somewhere inside)
-    ${bugs}=    BuiltIn.Set_Variable    "https://bugs.opendaylight.org/buglist.cgi?f1=longdesc&o1=substring&v1=${reference}&order=bug_status"
+    ${bugs}=    BuiltIn.Set_Variable    "https://bugs.opendaylight.org/buglist.cgi?f1=cf_external_ref&o1=substring&v1=${reference}&order=bug_status"
     BuiltIn.Set Test Message    ${msg}${newline}${bugs}${newline}${newline}${TEST_MESSAGE}
     BuiltIn.Log    ${msg}${newline}${bugs}
 
