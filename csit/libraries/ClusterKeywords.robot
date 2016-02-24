@@ -25,7 +25,7 @@ Create Controller Sessions
     ${NUM_ODL_SYSTEM}=    Convert to Integer    ${NUM_ODL_SYSTEM}
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
     \    Log    Create Session ${ODL_SYSTEM_${i+1}_IP}
-    \    Create Session    controller${i+1}    http://${ODL_SYSTEM_${i+1}_IP}:${RESTCONFPORT}    auth=${AUTH}
+    \    RequestsLibrary.Create Session    controller${i+1}    http://${ODL_SYSTEM_${i+1}_IP}:${RESTCONFPORT}    auth=${AUTH}
 
 Get Cluster Shard Status
     [Arguments]    ${controller_index_list}    ${shard_type}    ${shard}
@@ -38,9 +38,9 @@ Get Cluster Shard Status
     ${leader}=    Set Variable    0
     ${follower_list}=    Create List
     : FOR    ${i}    IN    @{controller_index_list}
-    \    ${data}=    Get Data From URI    controller${i}    ${jolokia_read}:Category=Shards,name=member-${i}-shard-${shard}-${shard_type},type=${type}
+    \    ${data}=    Utils.Get Data From URI    controller${i}    ${jolokia_read}:Category=Shards,name=member-${i}-shard-${shard}-${shard_type},type=${type}
     \    Log    ${data}
-    \    ${json}=    To Json    ${data}
+    \    ${json}=    RequestsLibrary.To Json    ${data}
     \    ${status}=    Get From Dictionary    &{json}[value]    RaftState
     \    Log    Controller ${ODL_SYSTEM_${i}_IP} is ${status} for shard ${shard}
     \    Run Keyword If    '${status}' == 'Leader'    Set Test Variable    ${leader}    ${i}
@@ -54,9 +54,9 @@ Check Item Occurrence At URI In Cluster
     [Documentation]    Send a GET with the supplied ${uri} to all cluster instances in ${controller_index_list}
     ...    and check for occurrences of items expressed in a dictionary ${dictionary_item_occurrence}.
     : FOR    ${i}    IN    @{controller_index_list}
-    \    ${data}    Get Data From URI    controller${i}    ${uri}
+    \    ${data}    Utils.Get Data From URI    controller${i}    ${uri}
     \    Log    ${data}
-    \    Check Item Occurrence    ${data}    ${dictionary_item_occurrence}
+    \    Utils.Check Item Occurrence    ${data}    ${dictionary_item_occurrence}
 
 Put And Check At URI In Cluster
     [Arguments]    ${controller_index_list}    ${controller_index}    ${uri}    ${body}
@@ -89,15 +89,15 @@ Kill Multiple Controllers
     [Arguments]    @{controller_index_list}
     [Documentation]    Give this keyword a scalar or list of controllers to be stopped.
     : FOR    ${i}    IN    @{controller_index_list}
-    \    ${output}=    Run Command On Controller    ${ODL_SYSTEM_${i}_IP}    ps axf | grep karaf | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
-    \    Controller Down Check    ${ODL_SYSTEM_${i}_IP}
+    \    ${output}=    Utils.Run Command On Controller    ${ODL_SYSTEM_${i}_IP}    ps axf | grep karaf | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
+    \    ClusterKeywords.Controller Down Check    ${ODL_SYSTEM_${i}_IP}
 
 Start Multiple Controllers
     [Arguments]    ${timeout}    @{controller_index_list}
     [Documentation]    Give this keyword a scalar or list of controllers to be started.
     : FOR    ${i}    IN    @{controller_index_list}
-    \    ${output}=    Run Command On Controller    ${ODL_SYSTEM_${i}_IP}    ${WORKSPACE}/${BUNDLEFOLDER}/bin/start
-    \    Wait For Controller Sync    ${timeout}    ${ODL_SYSTEM_${i}_IP}
+    \    ${output}=    Utils.Run Command On Controller    ${ODL_SYSTEM_${i}_IP}    ${WORKSPACE}/${BUNDLEFOLDER}/bin/start
+    \    ClusterKeywords.Wait For Controller Sync    ${timeout}    ${ODL_SYSTEM_${i}_IP}
 
 Get Controller List
     [Arguments]    ${exclude_controller}=${EMPTY}
