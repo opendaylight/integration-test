@@ -2,6 +2,7 @@
 Documentation     Test suite for VTN Manager using OF13
 Suite Setup       Start SuiteVtnMaTest
 Suite Teardown    Stop SuiteVtnMaTest
+
 Resource          ../../../libraries/VtnMaKeywords.robot
 
 *** Test Cases ***
