@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_1932d25e",
+        "filename": "csit/libraries/ClusterOpenFlow.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-24T17:48:07Z",
+      "side": 1,
+      "message": "this keyword name reads generic, but the code is specific\nto a tree,2 topology.  We didn\u0027t worry about it before and\nyou have a TODO that will track an improvement so not gonna\nworry about it here.\n\nmaybe passing arguments that hold the device\u003dcount for each\nof nodes and topo api.  well, I guess you\u0027d want the arguments to be a list of dictionaries, but you get the\npoint I hope.  then the user of this keyword can use it \nfor any kind of topo.\n\nsame criticsm for the other keywords in this library I\nguess, now that I read them.  It all seems pretty specific\nto an exact topology, but the keyword names are all \ngeneric sounding.  Generic is better, but we\u0027ll need to\nrefactor some stuff to get there.",
+      "range": {
+        "startLine": 72,
+        "startChar": 0,
+        "endLine": 72,
+        "endChar": 46
+      },
+      "revId": "404b0481d98c5631958526502b6f67212b5a995f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_790afe79",
+        "filename": "csit/libraries/MininetKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-24T17:48:07Z",
+      "side": 1,
+      "message": "my first thought was that this should live in the ovsdb library, but it also fits here.  Wondering if we have\nenough reason to create just an ovs library, then having\novsdb, mininet and ovs as separate files.  They all \nintersect with each other though.  the \"set-manager\" argument\nfor ovs-vsctl lives in ovsdb library. \n\nwhat do you think?",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 57,
+        "endChar": 101
+      },
+      "revId": "404b0481d98c5631958526502b6f67212b5a995f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_397b56f6",
+        "filename": "csit/suites/openflowplugin/Clustering/010__Cluster_HA_Owner_Failover.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-02-24T17:48:07Z",
+      "side": 1,
+      "message": "I must be missing something here.  looks like exact same two\nlines repeated from lines 38-39",
+      "range": {
+        "startLine": 40,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 56
+      },
+      "revId": "404b0481d98c5631958526502b6f67212b5a995f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
