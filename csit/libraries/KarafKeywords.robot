@@ -67,7 +67,7 @@ Check Karaf Log File Does Not Have Messages
     Should Be Equal As Strings    ${output}    0
 
 Install a Feature
-    [Arguments]    ${feature_name}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=15
+    [Arguments]    ${feature_name}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=180
     [Documentation]    Will Install the given ${feature_name}
     Log    ${timeout}
     ${output}=    Issue Command On Karaf Console    feature:install ${feature_name}    ${controller}    ${karaf_port}    ${timeout}
@@ -75,7 +75,7 @@ Install a Feature
     [Return]    ${output}
 
 Uninstall a Feature
-    [Arguments]    ${feature_name}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=15
+    [Arguments]    ${feature_name}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=180
     [Documentation]    Will UnInstall the given ${feature_name}
     ${output}=    Issue Command On Karaf Console    feature:uninstall ${feature_name}    ${controller}    ${karaf_port}    ${timeout}
     Log    ${output}
