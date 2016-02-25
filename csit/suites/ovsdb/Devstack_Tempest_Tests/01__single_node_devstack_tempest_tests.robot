@@ -64,7 +64,7 @@ Devstack Suite Setup
     Write Commands Until Prompt    export ODL_BOOT_WAIT_URL=${ODL_BOOT_WAIT_URL}
     ${odl_version_to_install}=    Get Networking ODL Version Of Release    ${ODL_VERSION}
     Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG="enable_plugin networking-odl https://git.openstack.org/openstack/networking-odl ${NETWORKING-ODL_BRANCH};"
-    Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG+=ODL_NETVIRT_DEBUG_LOGS=True;ODL_RELEASE="${odl_version_to_install};"
+    Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG+="ODL_NETVIRT_DEBUG_LOGS=True;ODL_RELEASE=${odl_version_to_install};"
     Write Commands Until Prompt    echo $DEVSTACK_LOCAL_CONFIG
     Write Commands Until Prompt    export OVERRIDE_ZUUL_BRANCH=${OPENSTACK_BRANCH}
     Write Commands Until Prompt    export PYTHONUNBUFFERED=true
