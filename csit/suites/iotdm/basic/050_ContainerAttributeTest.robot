@@ -33,8 +33,6 @@ Set Suite Variable
     Should Contain    ${text}    "lt":    "pi":    "st":
     Should Contain    ${text}    "ct":    "ty":3    "cbs"
     Should Not Contain    S{text}    "lbl"    "creator"    "or"
-
-
     #==================================================
     #    Container Optional Attribute Test (Allowed)
     #==================================================
@@ -695,7 +693,7 @@ Delete the Container2-4.6
     ${childNumber} =    Get Length    ${chr}
     Should Be Equal As Integers    ${childNumber}    4
 
-4.74 if alread have 20, then set mbs to 5，will delete contentInstance until mbs less than 5.
+4.74 if alread have 20, then set mbs to 5, will delete contentInstance until mbs less than 5.
     [Documentation]    what if alread have 20, then set mbs to 5, will delete contentInstance until mbs less than 5.
     ${attr} =    Set Variable    "mbs":5
     ${r}=    Update Resource    ${iserver}    InCSE1/Container2    ${rt_container}    ${attr}

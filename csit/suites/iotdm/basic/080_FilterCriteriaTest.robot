@@ -114,7 +114,6 @@ Create the tree
 
 6. stateTagBigger
     ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/Container3    rcn=4&stb=1
-
     ${count} =    Get Length    ${r.json()['m2m:cnt']['ch']}
     Should Be Equal As Integers    ${count}    2
     # 7. expireBefore
@@ -142,7 +141,6 @@ Create the tree
     Should Be Equal As Integers    ${count}    1
 
 2.1 And Test - labels
-
     ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1    fu=1&rcn=4&sts=4&lbl=contentInstanceUnderContainerContainer&lbl=underCSE
     ${count} =    Get Length    ${r.json()}
     Should Be Equal As Integers    ${count}    6

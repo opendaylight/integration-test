@@ -30,9 +30,8 @@ ${SNMP_COMMUNITY}    mib2dev\/if-mib
 &{HEADERS_QUERY}    Content-Type=application/json    Content-Type=application/json
 &{OPER_STATUS}    up=1    down=2    testing=3    unknown=4    dormant=5    notPresent=6    lowerLayerDown=7
 &{syslog_facility}    kern=0
-${MESSAGE}    Oct 29 18:10:31: ODL: %STKUNIT0-M:CP %IFMGR-5-ASTATE_UP: Changed interface Admin state to up: Te 0/0
+${MESSAGE}        Oct 29 18:10:31: ODL: %STKUNIT0-M:CP %IFMGR-5-ASTATE_UP: Changed interface Admin state to up: Te 0/0
 ${MESSAGE_PATTERN}    Changed interface
-
 
 *** Keywords ***
 Start Tsdr Suite
