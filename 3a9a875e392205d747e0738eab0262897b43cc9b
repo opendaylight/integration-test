@@ -2,6 +2,74 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a3d3df0_3d4981b7",
+        "filename": "csit/libraries/netconf_library.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-25T01:19:40Z",
+      "side": 1,
+      "message": "You might make the get_\u003cname\u003e_url() function more readable using something like the following:\nfor line in rsp.text.splitlines():\n    if \u0027-executable.jar\u0027 in line and \u0027http\u0027 in line and \u0027jar.\u0027 not in line:\n        line \u003d line.split(\u0027\u003cresourceURI\u003e\u0027)[1]\n        download_url \u003d line.split(\u0027\u003c/resourceURI\u003e\u0027)[0]\n        if \u0027https\u0027 in download_url:\n            download_url \u003d download_url.replace(\u0027https\u0027, \u0027http\u0027)\n        print(download_url)\n        return download_url",
+      "revId": "3a9a875e392205d747e0738eab0262897b43cc9b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7d1949d6",
+        "filename": "csit/libraries/netconf_library.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-25T01:19:40Z",
+      "side": 1,
+      "message": "I wonder if wouldn\u0027t be better as an environment variable or some other less hardcoded solution. Would make this more maintainable.",
+      "revId": "3a9a875e392205d747e0738eab0262897b43cc9b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9d624d3c",
+        "filename": "csit/libraries/netconf_library.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-25T01:19:40Z",
+      "side": 1,
+      "message": "I understand that you are selecting text here using index slicing, looking for the following string: \u0027https://nexus.opendaylight.org/service/local/repositories/opendaylight.snapshot/content/org/opendaylight/controller/netconf-testtool/0.3.0-SNAPSHOT/netconf-testtool-0.3.0-20150618.163904-939-executable.jar\u0027\n\nI wonder if it would be more readable if you used \u0027if \u0027-executable.jar\u0027 in res.split(\u0027-\u0027):\u0027 and then checked to make sure res does not contain unwanted artifacts \u0027if \u0027jar.\u0027 not in res:\u0027.\n\nSee another thought at start of get_ttool_url()",
+      "revId": "3a9a875e392205d747e0738eab0262897b43cc9b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_dd8175c4",
+        "filename": "csit/libraries/netconf_library.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-25T01:19:40Z",
+      "side": 1,
+      "message": "It feels like this function and the above function are almost identical. It would make sense to me to create a helper function with args \u0027url\u0027 and \u0027jar_location_offset\u0027 that could be called to get both tool locations.\n\nCut code in half and make more maintainable.",
+      "revId": "3a9a875e392205d747e0738eab0262897b43cc9b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fad0f9df_d81f8508",
         "filename": "csit/libraries/netconf_library.py",
         "patchSetId": 3
@@ -19,6 +87,24 @@
         "endLine": 91,
         "endChar": 24
       },
+      "revId": "3a9a875e392205d747e0738eab0262897b43cc9b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9dc9ad28",
+        "filename": "csit/libraries/netconf_library.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-25T01:19:40Z",
+      "side": 1,
+      "message": "Agree here.",
+      "parentUuid": "fad0f9df_d81f8508",
       "revId": "3a9a875e392205d747e0738eab0262897b43cc9b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -88,6 +174,125 @@
         "endLine": 140,
         "endChar": 21
       },
+      "revId": "3a9a875e392205d747e0738eab0262897b43cc9b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_bdd471bd",
+        "filename": "csit/suites/controller/Netconf_Scale/cases_new.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-25T01:19:40Z",
+      "side": 1,
+      "message": "It seems like ${CURDIR}/../../../libraries/netconf_library.py could be simplified by ../../../libraries/netconf_library.py\n\nDitto below.",
+      "revId": "3a9a875e392205d747e0738eab0262897b43cc9b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5de3a5a3",
+        "filename": "csit/suites/controller/Netconf_Scale/cases_new.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-25T01:19:40Z",
+      "side": 1,
+      "message": "I wonder if many of the test cases below shouldn\u0027t be in keyword section rather than testcase as they seem to be setup?",
+      "revId": "3a9a875e392205d747e0738eab0262897b43cc9b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7dce692f",
+        "filename": "csit/suites/controller/Netconf_Scale/cases_new.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-25T01:19:40Z",
+      "side": 1,
+      "message": "Is this commented out code still needed? I prefer to take commented code out before merging unless there is a good reason (I.E. it is instructive) to leave in.",
+      "revId": "3a9a875e392205d747e0738eab0262897b43cc9b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ddcfb527",
+        "filename": "csit/suites/controller/Netconf_Scale/cases_new.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-25T01:19:40Z",
+      "side": 1,
+      "message": "Ditto above.",
+      "revId": "3a9a875e392205d747e0738eab0262897b43cc9b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1ddd9de0",
+        "filename": "csit/suites/controller/Netconf_Scale/cases_new.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-25T01:19:40Z",
+      "side": 1,
+      "message": "Ditto the remove commented code here.",
+      "revId": "3a9a875e392205d747e0738eab0262897b43cc9b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_fdd9d9f3",
+        "filename": "csit/suites/controller/Netconf_Scale/cases_new.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-25T01:19:40Z",
+      "side": 1,
+      "message": "Prefer more descriptive variables and session is not much longer than ses.",
+      "revId": "3a9a875e392205d747e0738eab0262897b43cc9b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3de06195",
+        "filename": "csit/suites/controller/Netconf_Scale/cases_new.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-25T01:19:40Z",
+      "side": 1,
+      "message": "I think there is a library that covers running remote commands.",
       "revId": "3a9a875e392205d747e0738eab0262897b43cc9b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
