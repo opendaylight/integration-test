@@ -39,6 +39,11 @@ def check_quietly(FileSpec):
     except (IOError, OSError), e:
         Error(FileSpec, "Not accessible: " + str(e))
         return
+    try:
+        Data = Data.decode("utf8")
+    except:
+        Error(FileSpec, "Has invalid UTF8 data")
+        return
     TidyTool = robot.tidy.Tidy()
     CleanedData = TidyTool.file(FileSpec)
     if Data != CleanedData:
@@ -61,6 +66,7 @@ def tidy(FileSpec):
     TidyTool = robot.tidy.Tidy()
     try:
         CleanedData = TidyTool.file(FileSpec)
+        CleanedData = CleanedData.encode("utf8")
         open(FileSpec, "w").write(CleanedData)
     except (IOError, OSError), e:
         Error(FileSpec, "Not accessible: " + str(e))
