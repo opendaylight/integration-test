@@ -6,7 +6,7 @@ Documentation     Test suite to verify fitration operation on different models.
 ...               Topology-id on the end of each urls must match topology-id from xml. Yang models of components in topology are defined in xmls.
 Suite Setup       Setup Environment
 Suite Teardown    Clean Environment
-Test Teardown     Filtration Termination Points Test Teardown
+Test Teardown     Test Teardown    network-topology:network-topology/topology/topo:1
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           XML
@@ -21,7 +21,7 @@ Filtration IPV4 Network Topology Model
     [Documentation]    Test of ipv4 type of filtration operation on Network Topology model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    termination-point    network-topo:1
     ${request}    Insert Filter    ${request}    ${FILTER_IPV4}    l3-unicast-igp-topology:igp-termination-point-attributes/l3-unicast-igp-topology:ip-address
-    ${request}    Set IPV4 Filter    ${request}    192.168.1.1/24
+    ${request}    Set IPV4 Filter    ${request}    192.168.1.1/8
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    5
@@ -36,8 +36,6 @@ Filtration IPV4 Network Topology Model
     Should Contain X Times    ${node}    <termination-point>    2
     Should Contain    ${node}    <tp-id>tp:3:1</tp-id>
     Should Contain    ${node}    <tp-id>tp:3:2</tp-id>
-    [Teardown]    Run Keywords    Filtration Termination Points Test Teardown
-    ...    AND    Report_Failure_Due_To_Bug    4750
 
 Filtration Range Number Network Topology Model
     [Documentation]    Test of range number type of filtration operation on Network Topology model
@@ -57,8 +55,6 @@ Filtration Range Number Network Topology Model
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
     Should Contain    ${node}    <tp-id>tp:6:1</tp-id>
-    [Teardown]    Run Keywords    Filtration Termination Points Test Teardown
-    ...    AND    Report_Failure_Due_To_Bug    4750
 
 Filtration Range Number Inventory Model
     [Documentation]    Test of range number type of filtration operation on Inventory model
@@ -78,7 +74,7 @@ Filtration Range Number Inventory Model
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:5']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    [Teardown]    Run Keywords    Filtration Termination Points Test Teardown
+    [Teardown]    Run Keywords    Test Teardown    network-topology:network-topology/topology/topo:1
     ...    AND    Report_Failure_Due_To_Bug    4674
 
 Filtration Specific Number Network Topology Model
@@ -94,8 +90,6 @@ Filtration Specific Number Network Topology Model
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
     Should Contain    ${node}    <tp-id>tp:7:1</tp-id>
-    [Teardown]    Run Keywords    Filtration Termination Points Test Teardown
-    ...    AND    Report_Failure_Due_To_Bug    4750
 
 Filtration Specific Number Inventory Model
     [Documentation]    Test of specific number type of filtration operation on Inventory model
@@ -118,7 +112,7 @@ Filtration Specific Number Inventory Model
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:4']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    3
-    [Teardown]    Run Keywords    Filtration Termination Points Test Teardown
+    [Teardown]    Run Keywords    Test Teardown    network-topology:network-topology/topology/topo:1
     ...    AND    Report_Failure_Due_To_Bug    4674
 
 Filtration Specific String Network Topology Model
@@ -133,8 +127,6 @@ Filtration Specific String Network Topology Model
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:7']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    [Teardown]    Run Keywords    Filtration Termination Points Test Teardown
-    ...    AND    Report_Failure_Due_To_Bug    4750
 
 Filtration Specific String Inventory Model
     [Documentation]    Test of specific string type of filtration operation on Inventory model
@@ -150,7 +142,7 @@ Filtration Specific String Inventory Model
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:5']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    [Teardown]    Run Keywords    Filtration Termination Points Test Teardown
+    [Teardown]    Run Keywords    Test Teardown    network-topology:network-topology/topology/topo:1
     ...    AND    Report_Failure_Due_To_Bug    4674
 
 Filtration Range String Network Topology Model
@@ -171,8 +163,6 @@ Filtration Range String Network Topology Model
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:10']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    [Teardown]    Run Keywords    Filtration Termination Points Test Teardown
-    ...    AND    Report_Failure_Due_To_Bug    4750
 
 Filtration Range String Inventory Model
     [Documentation]    Test of range string type of filtration operation on Inventory model
@@ -188,7 +178,7 @@ Filtration Range String Inventory Model
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:5']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    [Teardown]    Run Keywords    Filtration Termination Points Test Teardown
+    [Teardown]    Run Keywords    Test Teardown    network-topology:network-topology/topology/topo:1
     ...    AND    Report_Failure_Due_To_Bug    4674
 
 Filtration IPV6 Network Topology Model
@@ -203,8 +193,6 @@ Filtration IPV6 Network Topology Model
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:11']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    [Teardown]    Run Keywords    Filtration Termination Points Test Teardown
-    ...    AND    Report_Failure_Due_To_Bug    4750
 
 Filtration Script Network Topology Model
     [Documentation]    Test of script type of filtration operation on Network Topology model
@@ -222,8 +210,6 @@ Filtration Script Network Topology Model
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:5']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    [Teardown]    Run Keywords    Filtration Termination Points Test Teardown
-    ...    AND    Report_Failure_Due_To_Bug    4750
 
 Filtration Script Inventory Model
     [Documentation]    Test of script type of filtration operation on Inventory model
@@ -241,10 +227,5 @@ Filtration Script Inventory Model
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:1']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    [Teardown]    Run Keywords    Filtration Termination Points Test Teardown
+    [Teardown]    Run Keywords    Test Teardown    network-topology:network-topology/topology/topo:1
     ...    AND    Report_Failure_Due_To_Bug    4674
-
-*** Keywords ***
-Filtration Termination Points Test Teardown
-    Test Teardown    network-topology:network-topology/topology/topo:1
-    Report_Failure_Due_To_Bug    4673

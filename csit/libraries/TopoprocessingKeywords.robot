@@ -110,10 +110,10 @@ Prepare Unification Topology Request
     [Return]    ${request_template}
 
 Prepare Unification Filtration Topology Request
-    [Arguments]    ${request_template}    ${model}    ${target-field}    ${underlay_topo2}
+    [Arguments]    ${request_template}    ${model}    ${target_field}    ${underlay_topo2}
     [Documentation]    Prepare topology request for unification on two topologies from template
     ${request_template}    Set Element Text    ${request_template}    ${underlay_topo2}    xpath=.//correlation/aggregation/mapping[2]/underlay-topology
-    ${request_template}    Set Element Text    ${request_template}    ${target-field}    xpath=.//correlation/aggregation/mapping[2]/target-field[1]/target-field-path
+    Insert Target Field    ${request_template}    2    ${target_field}    1
     ${request_template}    Set Element Text    ${request_template}    ${model}    xpath=.//correlation/aggregation/mapping[2]/input-model
     ${request_template}    Element to String    ${request_template}
     [Return]    ${request_template}
@@ -127,7 +127,7 @@ Prepare Unification Filtration Inside Topology Request
     ${request_template}    Set Element Text    ${request_template}    unification    xpath=.//correlation/aggregation/aggregation-type
     ${request_template}    Set Element Text    ${request_template}    ${model}    xpath=.//correlation/aggregation/mapping[1]/input-model
     ${request_template}    Set Element Text    ${request_template}    ${underlay_topo}    xpath=.//correlation/aggregation/mapping[1]/underlay-topology
-    ${request_template}    Set Element Text    ${request_template}    ${target-field}    xpath=.//correlation/aggregation/mapping[1]/target-field[1]/target-field-path
+    Insert Target Field    ${request_template}    1    ${target-field}    1
     ${request_template}    Set Element Text    ${request_template}    ${underlay_topo}    xpath=.//correlation/filtration/underlay-topology
     ${request_template}    Element to String    ${request_template}
     [Return]    ${request_template}

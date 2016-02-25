@@ -39,8 +39,6 @@ Filtration Range Number Inventory Model
     Should Contain X Times    ${resp.content}    <link-id>link:    2
     Should Contain X Times    ${resp.content}    <link-ref>link:14:12</link-ref>    1
     Should Contain X Times    ${resp.content}    <link-ref>link:15:13</link-ref>    1
-    [Teardown]    Run Keywords    Filtration Links Test Teardown
-    ...    AND    Report_Failure_Due_To_Bug    4761
 
 Filtration Specific Number Network Topology Model
     [Documentation]    Test of specific number type of filtration operation on Network Topology model
@@ -53,8 +51,6 @@ Filtration Specific Number Network Topology Model
     Should Contain X Times    ${resp.content}    <link-id>link:    2
     Should Contain X Times    ${resp.content}    <link-ref>link:1:4</link-ref>    1
     Should Contain X Times    ${resp.content}    <link-ref>link:1:2-1</link-ref>    1
-    [Teardown]    Run Keywords    Filtration Links Test Teardown
-    ...    AND    Report_Failure_Due_To_Bug    4721
 
 Filtration Specific Number Inventory Model
     [Documentation]    Test of specific number type of filtration operation on Inventory model
@@ -67,8 +63,6 @@ Filtration Specific Number Inventory Model
     Should Contain X Times    ${resp.content}    <link-id>link:    1
     Should Contain X Times    ${resp.content}    <link-ref>link:11:12</link-ref>    1
     [Teardown]    Run Keywords    Filtration Links Test Teardown
-    ...    AND    Report_Failure_Due_To_Bug    4761
-    ...    AND    Report_Failure_Due_To_Bug    4721
 
 Filtration Specific String Network Topology Model
     [Documentation]    Test of specific string type of filtration operation on Network Topology model
@@ -90,8 +84,6 @@ Filtration Specific String Inventory Model
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <link-id>link:    1
     Should Contain X Times    ${resp.content}    <link-ref>link:15:13</link-ref>    1
-    [Teardown]    Run Keywords    Filtration Links Test Teardown
-    ...    AND    Report_Failure_Due_To_Bug    4761
 
 Filtration Range String Network Topology Model
     [Documentation]    Test of range string type of filtration operation on Network Topology model
@@ -115,8 +107,6 @@ Filtration Range String Inventory Model
     Should Contain X Times    ${resp.content}    <link-id>link:    2
     Should Contain X Times    ${resp.content}    <link-ref>link:14:12</link-ref>    1
     Should Contain X Times    ${resp.content}    <link-ref>link:15:13</link-ref>    1
-    [Teardown]    Run Keywords    Filtration Links Test Teardown
-    ...    AND    Report_Failure_Due_To_Bug    4761
 
 Filtration Script Network Topology Model
     [Documentation]    Test of script type of filtration operation on Network Topology model
@@ -142,10 +132,8 @@ Filtration Script Inventory Model
     Should Contain X Times    ${resp.content}    <link-ref>link:11:12</link-ref>    1
     Should Contain X Times    ${resp.content}    <link-ref>link:14:12</link-ref>    1
     Should Contain X Times    ${resp.content}    <link-ref>link:15:13</link-ref>    1
-    [Teardown]    Run Keywords    Filtration Links Test Teardown
-    ...    AND    Report_Failure_Due_To_Bug    4761
 
 *** Keywords ***
 Filtration Links Test Teardown
     Test Teardown    network-topology:network-topology/topology/topo:1
-    Report_Failure_Due_To_Bug    4673
+    Report_Failure_Due_To_Bug    5188

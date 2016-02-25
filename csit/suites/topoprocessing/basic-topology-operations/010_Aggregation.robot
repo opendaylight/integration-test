@@ -6,7 +6,7 @@ Documentation     Test suite to verify unification operation on different models
 ...               xmls and verify output. Topology-id on the end of each urls must match topology-id from xml. Yang models of components in topology are defined in xmls.
 Suite Setup       Setup Environment
 Suite Teardown    Clean Environment
-Test Teardown     Aggregation Test Teardown
+Test Teardown     Test Teardown    network-topology:network-topology/topology/topo:1
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           XML
@@ -179,10 +179,4 @@ Unification Termination Point Inside Inventory
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:5']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    [Teardown]    Run Keywords    Aggregation Test Teardown
-    ...    AND    Report_Failure_Due_To_Bug    4674
-
-*** Keywords ***
-Aggregation Test Teardown
-    Test Teardown    network-topology:network-topology/topology/topo:1
-    Report_Failure_Due_To_Bug    5157
+    [Teardown]    Report_Failure_Due_To_Bug    4674
