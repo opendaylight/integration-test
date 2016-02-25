@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_e37adc75",
+        "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-25T11:21:01Z",
+      "side": 1,
+      "message": "See comments in https://git.opendaylight.org/gerrit/35380/1",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 22
+      },
+      "revId": "0518c79d4c8a4c72d202152e91bf545a5dadd498",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
