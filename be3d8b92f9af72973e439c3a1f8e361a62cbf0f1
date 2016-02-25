@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_0340a032",
+        "filename": "csit/libraries/SetupUtils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-25T11:15:45Z",
+      "side": 1,
+      "message": "After thinking this through overnight I finally realized why I had that hunch about removing the \"precise bug reporting facility\" was a step in the wrong direction. Imagine the following: After several years of active developers we will have a test case with e.g. 200 linked bugs. Now imagine that the test case catches a regression. Which of the 200 bugs in the linked list it actually caught? That is the question that a developer sometimes needs to answer before he can get an idea about what exactly is failing, why, and how to fix that. However answering that question by digging through 200 bugs is not exactly my idea of high productivity work. This is why I want the test cases to work hard to try to pinpoint specific bugs - in that case the developer does not have to search at all, the link emitted will tell him the exact bug caught.\n\nThe \"linked bugs\" reporting facility is good for reporting bugs caught by a test run on a Releng Jenkins job. The reporter then can just copy a string reported by the failed test to the external references field and the bug gets included in the search list produced by the test case. However testers then shall try to figure out how to check for that particular bug and include code that performs that check and reports the exact bug using the \"precise bug reporting facility\". This is something that shall be discussed with the community.\n\nExtracting these bug checks into their own test cases turns out to be not a good idea. First problem is proliferation of suite variables caused by that (or a speed penalty caused by repeatedly executing the same test steps just to get some output which can then be searched for symptoms of a particular bug) and second problem is that over time the test code will most likely become unmaintainable because it is not obvious at a glance which \"bug checks\" are a part of another test case and which \"bug checks\" are standalone. For an example of a standalone bug check see Netconf Readiness suite which contains a testcase specifically designed to catch bug 5014 in Netconf. This test case attempts to execute some operations on an apparently dead Netconf and then looks at their results to see if the specific symptom (dead Netconf mysteriously becoming alive) of the bug 5014 is present. This test case is a standalone bug check because it contains its own actions to be applied on the tested system.",
+      "revId": "be3d8b92f9af72973e439c3a1f8e361a62cbf0f1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}

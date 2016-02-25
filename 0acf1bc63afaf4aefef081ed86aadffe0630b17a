@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_e355bcfa",
+        "filename": "csit/suites/netconf/MDSAL/northbound.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-25T11:15:45Z",
+      "side": 0,
+      "message": "This ugly and fragile piece of code was made more readable by this change. I changed my mind about the \"split the bug check out of this test case\", the point here is that \"the bug check\" is actually a part of this test case, it gives the test case the ability to pinpoint precisely this bug if it causes the failure. The testcases shall perform the detection of the exact bug whenever possible to avoid wasting time of the developers. See the file comment on the SetupUtils.robot file for more information about this subject.",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 79,
+        "endChar": 111
+      },
+      "revId": "0acf1bc63afaf4aefef081ed86aadffe0630b17a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
