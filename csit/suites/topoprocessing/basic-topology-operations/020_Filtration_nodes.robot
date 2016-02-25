@@ -6,7 +6,7 @@ Documentation     Test suite to verify fitration operation on different models.
 ...               Topology-id on the end of each urls must match topology-id from xml. Yang models of components in topology are defined in xmls.
 Suite Setup       Setup Environment
 Suite Teardown    Clean Environment
-Test Teardown     Filtration Nodes Test Teardown
+Test Teardown     Test Teardown    network-topology:network-topology/topology/topo:1
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           XML
@@ -29,9 +29,9 @@ Filtration IPV4 Network Topology Model
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:1']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    3
-    Should Contain    ${node}    <tp-id>tp:1:1</tp-id>
-    Should Contain    ${node}    <tp-id>tp:1:2</tp-id>
-    Should Contain    ${node}    <tp-id>tp:1:3</tp-id>
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:1/node/bgp:1/termination-point/tp:1:3</tp-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:1/node/bgp:1/termination-point/tp:1:2</tp-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:1/node/bgp:1/termination-point/tp:1:3</tp-ref>    1
     Should Contain X Times    ${resp.content}    <node-ref>bgp:2</node-ref>    1
 
 Filtration IPV4 Inventory Model
@@ -44,8 +44,6 @@ Filtration IPV4 Inventory Model
     Should Contain X Times    ${resp.content}    <node-id>node:    3
     : FOR    ${index}    IN RANGE    1    3
     \    Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
-    [Teardown]    Run Keywords    Filtration Nodes Test Teardown
-    ...    AND    Report_Failure_Due_To_Bug    4683
 
 Filtration Range Number Network Topology Model
     [Documentation]    Test of range number type of filtration operation on Network Topology model
@@ -58,11 +56,23 @@ Filtration Range Number Network Topology Model
     : FOR    ${index}    IN RANGE    7    10
     \    Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
     Should Contain X Times    ${resp.content}    <termination-point>    5
-    Should Contain    ${resp.content}    <tp-id>tp:7:1</tp-id>
-    Should Contain    ${resp.content}    <tp-id>tp:7:2</tp-id>
-    Should Contain    ${resp.content}    <tp-id>tp:8:1</tp-id>
-    Should Contain    ${resp.content}    <tp-id>tp:9:1</tp-id>
-    Should Contain    ${resp.content}    <tp-id>tp:10:1</tp-id>
+    #node bgp:7
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:7']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:7/termination-point/tp:7:1</tp-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:7/termination-point/tp:7:2</tp-ref>    1
+    #node bgp:8
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:8']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:8/termination-point/tp:8:1</tp-ref>    1
+    #node bgp:9
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:9']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:9/termination-point/tp:9:1</tp-ref>    1
+    #node bgp:10
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:10']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:10/termination-point/tp:10:1</tp-ref>    1
 
 Filtration Range Number Inventory Model
     [Documentation]    Test of range number type of filtration operation on Inventory model
@@ -74,8 +84,6 @@ Filtration Range Number Inventory Model
     Should Contain X Times    ${resp.content}    <node-id>node:    3
     : FOR    ${index}    IN RANGE    8    10
     \    Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
-    [Teardown]    Run Keywords    Filtration Nodes Test Teardown
-    ...    AND    Report_Failure_Due_To_Bug    4683
 
 Filtration Specific Number Network Topology Model
     [Documentation]    Test of specific number type of filtration operation on Network Topology model
@@ -91,8 +99,6 @@ Filtration Specific Number Network Topology Model
     Should Contain X Times    ${resp.content}    <termination-point>    2
     Should Contain    ${resp.content}    <tp-id>tp:9:1</tp-id>
     Should Contain    ${resp.content}    <tp-id>tp:10:1</tp-id>
-    [Teardown]    Run Keywords    Filtration Nodes Test Teardown
-    ...    AND    Report_Failure_Due_To_Bug    4721
 
 Filtration Specific Number Inventory Model
     [Documentation]    Test of specific number type of filtration operation on Inventory model
@@ -105,9 +111,6 @@ Filtration Specific Number Inventory Model
     Should Contain X Times    ${resp.content}    <node-id>node:    2
     Should Contain X Times    ${resp.content}    <node-ref>of-node:8</node-ref>    1
     Should Contain X Times    ${resp.content}    <node-ref>of-node:9</node-ref>    1
-    [Teardown]    Run Keywords    Filtration Nodes Test Teardown
-    ...    AND    Report_Failure_Due_To_Bug    4683
-    ...    AND    Report_Failure_Due_To_Bug    4721
 
 Filtration Specific String Network Topology Model
     [Documentation]    Test of specific string type of filtration operation on Network Topology model
@@ -120,8 +123,14 @@ Filtration Specific String Network Topology Model
     Should Contain X Times    ${resp.content}    <node-ref>bgp:9</node-ref>    1
     Should Contain X Times    ${resp.content}    <node-ref>bgp:10</node-ref>    1
     Should Contain X Times    ${resp.content}    <termination-point>    2
-    Should Contain    ${resp.content}    <tp-id>tp:9:1</tp-id>
-    Should Contain    ${resp.content}    <tp-id>tp:10:1</tp-id>
+    #node bgp:9
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:9']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:9/termination-point/tp:9:1</tp-ref>    1
+    #node bgp:10
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:10']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:10/termination-point/tp:10:1</tp-ref>    1
 
 Filtration Specific String Inventory Model
     [Documentation]    Test of specific string type of filtration operation on Inventory model
@@ -133,8 +142,6 @@ Filtration Specific String Inventory Model
     Should Contain X Times    ${resp.content}    <node-id>node:    2
     Should Contain X Times    ${resp.content}    <node-ref>of-node:8</node-ref>    1
     Should Contain X Times    ${resp.content}    <node-ref>of-node:9</node-ref>    1
-    [Teardown]    Run Keywords    Filtration Nodes Test Teardown
-    ...    AND    Report_Failure_Due_To_Bug    4683
 
 Filtration Range String Network Topology Model
     [Documentation]    Test of range string type of filtration operation on Network Topology model
@@ -147,11 +154,23 @@ Filtration Range String Network Topology Model
     : FOR    ${index}    IN RANGE    7    10
     \    Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
     Should Contain X Times    ${resp.content}    <termination-point>    5
-    Should Contain    ${resp.content}    <tp-id>tp:7:1</tp-id>
-    Should Contain    ${resp.content}    <tp-id>tp:7:2</tp-id>
-    Should Contain    ${resp.content}    <tp-id>tp:8:1</tp-id>
-    Should Contain    ${resp.content}    <tp-id>tp:9:1</tp-id>
-    Should Contain    ${resp.content}    <tp-id>tp:10:1</tp-id>
+    #node bgp:7
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:7']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:7/termination-point/tp:7:1</tp-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:7/termination-point/tp:7:2</tp-ref>    1
+    #node bgp:8
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:8']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:8/termination-point/tp:8:1</tp-ref>    1
+    #node bgp:9
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:9']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:9/termination-point/tp:9:1</tp-ref>    1
+    #node bgp:10
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:10']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:10/termination-point/tp:10:1</tp-ref>    1
 
 Filtration Range String Inventory Model
     [Documentation]    Test of range string type of filtration operation on Inventory model
@@ -163,8 +182,6 @@ Filtration Range String Inventory Model
     Should Contain X Times    ${resp.content}    <node-id>node:    3
     : FOR    ${index}    IN RANGE    8    10
     \    Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
-    [Teardown]    Run Keywords    Filtration Nodes Test Teardown
-    ...    AND    Report_Failure_Due_To_Bug    4683
 
 Filtration IPV6 Network Topology Model
     [Documentation]    Test of ipv6 type of filtration operation on Network Topology model
@@ -177,7 +194,14 @@ Filtration IPV6 Network Topology Model
     Should Contain X Times    ${resp.content}    <node-ref>bgp:11</node-ref>    1
     Should Contain X Times    ${resp.content}    <node-ref>bgp:12</node-ref>    1
     Should Contain X Times    ${resp.content}    <termination-point>    1
-    Should Contain    ${resp.content}    <tp-id>tp:11:1</tp-id>
+    #node bgp:11
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:11']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:3/node/bgp:11/termination-point/tp:11:1</tp-ref>    1
+    #node bgp:12
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:12']/..
+    ${node}    Element to String    ${node}
+    Should Not Contain    ${node}    <tp-ref>
 
 Filtration IPV6 Inventory Model
     [Documentation]    Test of ipv6 type of filtration operation on Inventory model
@@ -190,8 +214,6 @@ Filtration IPV6 Inventory Model
     Should Contain X Times    ${resp.content}    <node-ref>of-node:12</node-ref>    1
     Should Contain X Times    ${resp.content}    <node-ref>of-node:14</node-ref>    1
     Should Contain X Times    ${resp.content}    <node-ref>of-node:15</node-ref>    1
-    [Teardown]    Run Keywords    Filtration Nodes Test Teardown
-    ...    AND    Report_Failure_Due_To_Bug    4683
 
 Filtration Script Network Topology Model
     [Documentation]    Test of script type of filtration operation on Network Topology model
@@ -205,11 +227,20 @@ Filtration Script Network Topology Model
     : FOR    ${index}    IN RANGE    3    5
     \    Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
     Should Contain X Times    ${resp.content}    <termination-point>    5
-    Should Contain    ${resp.content}    <tp-id>tp:3:1</tp-id>
-    Should Contain    ${resp.content}    <tp-id>tp:3:2</tp-id>
-    Should Contain    ${resp.content}    <tp-id>tp:4:1</tp-id>
-    Should Contain    ${resp.content}    <tp-id>tp:4:2</tp-id>
-    Should Contain    ${resp.content}    <tp-id>tp:5:1</tp-id>
+    #node bgp:3
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:3']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:1/node/bgp:3/termination-point/tp:3:1</tp-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:1/node/bgp:3/termination-point/tp:3:2</tp-ref>    1
+    #node bgp:4
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:4']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:1/node/bgp:4/termination-point/tp:4:1</tp-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:1/node/bgp:4/termination-point/tp:4:2</tp-ref>    1
+    #node bgp:5
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:5']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:1/node/bgp:5/termination-point/tp:5:1</tp-ref>    1
 
 Filtration Script Inventory Model
     [Documentation]    Test of script type of filtration operation on Inventory model
@@ -222,10 +253,3 @@ Filtration Script Inventory Model
     Should Contain X Times    ${resp.content}    <node-id>node:    3
     : FOR    ${index}    IN RANGE    1    3
     \    Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
-    [Teardown]    Run Keywords    Filtration Nodes Test Teardown
-    ...    AND    Report_Failure_Due_To_Bug    4683
-
-*** Keywords ***
-Filtration Nodes Test Teardown
-    Test Teardown    network-topology:network-topology/topology/topo:1
-    Report_Failure_Due_To_Bug    4673
