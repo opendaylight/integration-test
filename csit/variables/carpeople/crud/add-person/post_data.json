@@ -1,0 +1,9 @@
+{
+ "input": {
+  "id": "localhost/people/person_id_$i",
+  "gender": "gender_$i",
+  "age": $i,
+  "address": "address_$i",
+  "contactNo": "contact_$i"
+ }
+}
