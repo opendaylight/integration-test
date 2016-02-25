@@ -10,7 +10,7 @@ ${httppass}       admin
 ${rt_ae}          2
 ${rt_container}    3
 ${rt_contentInstance}    4
-${rt_acp}    1
+${rt_acp}         1
 
 *** Test Cases ***
 Set Suite Variable
@@ -51,9 +51,10 @@ Set Suite Variable
     Should Contain    ${text}    "ri":    "pi":
 
 1.3 Create ACP with invalid acip(ipv4)
-    [documentation]    input a invalid ipv4 address and expect error
+    [Documentation]    input a invalid ipv4 address and expect error
     ${attr} =    Set Variable    "pv":{"acr":[{"acor" : ["111","222"],"acop":35,"acco":[{"acip":{"ipv4":["127.0.01"]}}]},{"acor" : ["111","222"],"acop":35}]},"pvs":{"acr":[{"acor" : ["111","222"],"acop":7},{"acor" : ["111","222"],"acop":9}]},"rn":"Acp3"
-    ${error}=    Run Keyword And Expect Error    *    Create Resource    ${iserver}    InCSE1    ${rt_acp}    ${attr}
+    ${error}=    Run Keyword And Expect Error    *    Create Resource    ${iserver}    InCSE1    ${rt_acp}
+    ...    ${attr}
     Should Start with    ${error}    Cannot create this resource [400]
     Should Contain    ${error}    not a valid Ipv4 address
 
@@ -68,12 +69,12 @@ Set Suite Variable
     Should Contain    ${text}    "ri":    "pi":
 
 1.5 Create ACP with invalid acip(ipv6)
-    [documentation]    input a invalid Ipv6 address and expect error
+    [Documentation]    input a invalid Ipv6 address and expect error
     ${attr} =    Set Variable    "pv":{"acr":[{"acor" : ["111","222"],"acop":35,"acco":[{"acip":{"ipv6":["2001:db8:0:0:0:ff00:42"]}}]},{"acor" : ["111","222"],"acop":35}]},"pvs":{"acr":[{"acor" : ["111","222"],"acop":7},{"acor" : ["111","222"],"acop":9}]},"rn":"Acp3"
-    ${error}=    Run Keyword And Expect Error    *    Create Resource    ${iserver}    InCSE1    ${rt_acp}    ${attr}
+    ${error}=    Run Keyword And Expect Error    *    Create Resource    ${iserver}    InCSE1    ${rt_acp}
+    ...    ${attr}
     Should Start with    ${error}    Cannot create this resource [400]
     Should Contain    ${error}    not a valid Ipv6 address
-
 
 *** Keywords ***
 Connect And Create Resource

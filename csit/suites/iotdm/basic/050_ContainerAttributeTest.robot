@@ -33,8 +33,6 @@ Set Suite Variable
     Should Contain    ${text}    "lt":    "pi":    "st":
     Should Contain    ${text}    "ct":    "ty":3    "cbs"
     Should Not Contain    S{text}    "lbl"    "creator"    "or"
-
-
     #==================================================
     #    Container Optional Attribute Test (Allowed)
     #==================================================
