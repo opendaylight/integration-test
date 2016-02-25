@@ -96,6 +96,10 @@ Test neutron
     ${output}=    Write Commands Until Prompt    neutron -v net-create debuggingIsFun_network
     Log    ${output}
 
+Test subnet
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-create debuggingIsFun_network 10.0.0.0/24
+    Log    ${output}
+
 Check if Docker is installed
     ${output}=    Write Commands Until Prompt    docker --version
     Log    ${output}
