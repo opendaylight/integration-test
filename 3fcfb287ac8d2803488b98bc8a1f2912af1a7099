@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_fd00b935",
+        "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-25T01:30:26Z",
+      "side": 1,
+      "message": "I\u0027d love to see documentation for each of these Test Cases.",
+      "revId": "3fcfb287ac8d2803488b98bc8a1f2912af1a7099",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5dfa8543",
+        "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-25T01:30:26Z",
+      "side": 1,
+      "message": "Unless I\u0027m mistaken the above two commands are identical. Is this on purpose?\n\nWhere is the testtool started?",
+      "revId": "3fcfb287ac8d2803488b98bc8a1f2912af1a7099",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
