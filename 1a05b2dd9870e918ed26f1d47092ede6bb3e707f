@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_7dc309ed",
+        "filename": "csit/suites/ovsdb/Southbound_Net-virt_Threenode/010_Ovsdb_Net_virt_flow.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-25T02:02:55Z",
+      "side": 1,
+      "message": "Yeah, it appears these should stay the same. It looks like he is using these to hard-code the uuid of external network when simulating a call from Openstack to Neutron NB. See line 55-59.\n\nI\u0027d think OpenStack would create this uuid but in this case it needs to be supplied.",
+      "parentUuid": "9a3d3df0_da96a54b",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 50
+      },
+      "revId": "1a05b2dd9870e918ed26f1d47092ede6bb3e707f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_3aa8718c",
         "filename": "csit/testplans/OVSDB_CLUSTER_NETVIRT.txt",
         "patchSetId": 16
@@ -36,6 +60,30 @@
       "writtenOn": "2016-02-23T01:17:40Z",
       "side": 1,
       "message": "I think you missed my comment here on patch 9:\n\n\"\ncan we use a consistent naming scheme with regard to underscores and hyphens. I think \"clustering\" is more clear than Threenode as well, if you agree.\n\"",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 94
+      },
+      "revId": "1a05b2dd9870e918ed26f1d47092ede6bb3e707f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ddb4d583",
+        "filename": "csit/testplans/OVSDB_CLUSTER_NETVIRT.txt",
+        "patchSetId": 16
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-02-25T02:02:55Z",
+      "side": 1,
+      "message": "Agree here.",
+      "parentUuid": "9a3d3df0_3aa8718c",
       "range": {
         "startLine": 2,
         "startChar": 0,
