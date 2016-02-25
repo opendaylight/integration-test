@@ -16,8 +16,6 @@ Put Service Functions
     ${edited_json}    Replace String    ${json_to_edit}    _SF1    ${GBPSFC3}
     ${edited_json}    Replace String    ${edited_json}    _SF2    ${GBPSFC5}
     Add Elements To URI And Verify    ${SF_PATH}    ${edited_json}    ${HEADERS_YANG_JSON}
-    
-
 
 Put Service Function Forwarders
     [Documentation]    Register Service Function Forwarders to ODL
