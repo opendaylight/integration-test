@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_511eeebb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 110
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-25T19:00:03Z",
+      "side": 1,
+      "message": "without",
+      "range": {
+        "startLine": 12,
+        "startChar": 19,
+        "endLine": 12,
+        "endChar": 25
+      },
+      "revId": "8cfbb32bf2c181bd30d6d3711c1596a4a4a52b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d1815ec4",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 110
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-25T19:00:03Z",
+      "side": 1,
+      "message": "Use just ${already_done} (without quotes) and make sure that it is set to either \"True\" or \"False\". That way it is way more readable.",
+      "range": {
+        "startLine": 46,
+        "startChar": 38,
+        "endLine": 46,
+        "endChar": 66
+      },
+      "revId": "8cfbb32bf2c181bd30d6d3711c1596a4a4a52b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_9162363c",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 110
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-25T19:00:03Z",
+      "side": 1,
+      "message": "The comment at line 47 applies to this block of code from here to the end of the keyword? If not, add another comment in front of this line with brief description of the purpose of this code block. As the code and its comments is, it makes me wonder \"why you need so much code to just \u0027avoid retries\u0027? And where exactly is the code that you don\u0027t want to retry?\"",
+      "revId": "8cfbb32bf2c181bd30d6d3711c1596a4a4a52b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_31724a11",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 110
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-25T19:00:03Z",
+      "side": 1,
+      "message": "Consider extracting this stuff into its own keyword and give it a descriptive name. So much detail in one keyword makes the code somewhat unreadable.",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 74
+      },
+      "revId": "8cfbb32bf2c181bd30d6d3711c1596a4a4a52b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_51754ef8",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 110
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-25T19:00:03Z",
+      "side": 1,
+      "message": "This type of comment is an exception from the rule above as it is pretty obvious it applies only to the following line. Additionally, TODOs are destined to eventually disappear from the code.",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 74,
+        "endChar": 93
+      },
+      "revId": "8cfbb32bf2c181bd30d6d3711c1596a4a4a52b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_d1583e8c",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 110
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-25T19:00:03Z",
+      "side": 1,
+      "message": "Name is confusingly similar to the keyword at line 97. The extra \"s\" can easily get lost when speed reading.",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 35
+      },
+      "revId": "8cfbb32bf2c181bd30d6d3711c1596a4a4a52b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
