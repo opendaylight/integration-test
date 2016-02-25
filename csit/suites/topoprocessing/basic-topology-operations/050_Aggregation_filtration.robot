@@ -6,7 +6,7 @@ Documentation     Test suite to verify fitration operation on different models.
 ...               Topology-id on the end of each urls must match topology-id from xml. Yang models of components in topology are defined in xmls.
 Suite Setup       Setup Environment
 Suite Teardown    Clean Environment
-Test Teardown     Aggregation Filtration Test Teardown
+Test Teardown     Test Teardown    network-topology:network-topology/topology/topo:1
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           XML
@@ -51,8 +51,6 @@ Unification Filtration Node Inside Inventory model
     Should Contain    ${node}    <node-ref>of-node:17</node-ref>
     Should Contain    ${node}    <node-ref>of-node:19</node-ref>
     Should Contain    ${node}    <node-ref>of-node:20</node-ref>
-    [Teardown]    Run Keywords    Aggregation Filtration Test Teardown
-    ...    AND    Report_Failure_Due_To_Bug    4683
 
 Unification Filtration Termination Point Inside Network Topology model
     [Documentation]    Test unification filtration inside operation on Network Topology model
@@ -82,8 +80,6 @@ Unification Filtration Termination Point Inside Network Topology model
     Should Contain    ${node}    <tp-ref>tp:24:1</tp-ref>
     Should Contain    ${node}    <tp-ref>tp:24:2</tp-ref>
     Should Contain    ${node}    <tp-ref>tp:24:3</tp-ref>
-    [Teardown]    Run Keywords    Aggregation Filtration Test Teardown
-    ...    AND    Report_Failure_Due_To_Bug    4750
 
 Unification Filtration Node Network Topology model
     [Documentation]    Test unification filtration operation on Network Topology model
@@ -138,10 +134,3 @@ Unification Filtration Node Inventory model
     Should Contain X Times    ${node}    <supporting-node>    2
     Should Contain    ${node}    <node-ref>of-node:6</node-ref>
     Should Contain    ${node}    <node-ref>of-node:16</node-ref>
-    [Teardown]    Run Keywords    Aggregation Filtration Test Teardown
-    ...    AND    Report_Failure_Due_To_Bug    4683
-
-*** Keywords ***
-Aggregation Filtration Test Teardown
-    Test Teardown    network-topology:network-topology/topology/topo:1
-    Report_Failure_Due_To_Bug    4673
