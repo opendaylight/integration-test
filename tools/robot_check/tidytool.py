@@ -4,6 +4,20 @@ import stat
 import robot.tidy
 
 
+def construct_kill_non_ascii_table():
+    result = []
+    for i in range(128):
+        result.append(chr(i))
+    result.append("?" * 128)
+    return "".join(result)
+
+
+def kill_non_ascii(FileSpec):
+    input_data = open(FileSpec).read()
+    input_data = input_data.translate(kill_non_ascii_translation_table)
+    open(FileSpec,"w").write(input_data)
+
+
 def Error(FileSpec, Message):
     global ErrorsReported
     print "File", FileSpec + ":", Message
@@ -60,6 +74,7 @@ def tidy(FileSpec):
     print "Processing file:", FileSpec
     TidyTool = robot.tidy.Tidy()
     try:
+        kill_non_ascii(FileSpec)
         CleanedData = TidyTool.file(FileSpec)
         open(FileSpec, "w").write(CleanedData)
     except (IOError, OSError), e:
@@ -91,6 +106,7 @@ if __name__ == "__main__":
     if len(sys.argv) < 2:
         usage()
         raise SystemExit
+    kill_non_ascii_translation_table = construct_kill_non_ascii_table()
     Command = sys.argv[1]
     DirList = sys.argv[2:]
     if Command == "check":
