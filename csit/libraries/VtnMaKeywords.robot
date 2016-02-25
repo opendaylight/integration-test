@@ -16,13 +16,13 @@ ${VTN_INVENTORY}    restconf/operational/vtn-inventory:vtn-nodes
 ${DUMPFLOWS_OF10}    dpctl dump-flows -O OpenFlow10
 ${DUMPFLOWS_OF13}    dpctl dump-flows -O OpenFlow13
 ${index}          7
-@{inet_actions}    nw_src=10.0.0.1   nw_dst=10.0.0.3
-@{BRIDGE1_DATAFLOW}    "reason":"PORTMAPPED"    "tenant-name":"Tenant1"   "bridge-name":"vBridge1"    "interface-name":"if2"
-@{BRIDGE2_DATAFLOW}    "reason":"PORTMAPPED"    "tenant-name":"Tenant1"   "bridge-name":"vBridge2"    "interface-name":"if3"
+@{inet_actions}    nw_src=10.0.0.1    nw_dst=10.0.0.3
+@{BRIDGE1_DATAFLOW}    "reason":"PORTMAPPED"    "tenant-name":"Tenant1"    "bridge-name":"vBridge1"    "interface-name":"if2"
+@{BRIDGE2_DATAFLOW}    "reason":"PORTMAPPED"    "tenant-name":"Tenant1"    "bridge-name":"vBridge2"    "interface-name":"if3"
 ${vlanmap_bridge1}    200
 ${vlanmap_bridge2}    300
-@{VLANMAP_BRIDGE1_DATAFLOW}    "reason":"VLANMAPPED"   "tenant-name":"Tenant1"    "bridge-name":"vBridge1_vlan"
-@{VLANMAP_BRIDGE2_DATAFLOW}    "reason":"VLANMAPPED"   "tenant-name":"Tenant1"    "bridge-name":"vBridge2_vlan"
+@{VLANMAP_BRIDGE1_DATAFLOW}    "reason":"VLANMAPPED"    "tenant-name":"Tenant1"    "bridge-name":"vBridge1_vlan"
+@{VLANMAP_BRIDGE2_DATAFLOW}    "reason":"VLANMAPPED"    "tenant-name":"Tenant1"    "bridge-name":"vBridge2_vlan"
 ${out_before_pathpolicy}    output:2
 ${out_after_pathpolicy}    output:3
 ${pathpolicy_topo_13}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom topo-3sw-2host_multipath.py --topo pathpolicytopo --switch ovsk,protocols=OpenFlow13

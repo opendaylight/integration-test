@@ -9,7 +9,6 @@ Resource          ../../../libraries/TsdrUtils.robot
 Variables         ../../../variables/Variables.py
 
 *** Test Cases ***
-
 Verification of TSDR HSQLDB Feature Installation
     [Documentation]    Install and Verify the TSDR Cassandra Syslog Features
     COMMENT    Install a Feature    odl-tsdr-hsqldb-all    ${CONTROLLER}    ${KARAF_SHELL_PORT}    60
@@ -18,10 +17,9 @@ Verification of TSDR HSQLDB Feature Installation
     Verify Feature Is Installed    odl-tsdr-hsqldb
     Verify Feature Is Installed    odl-tsdr-syslog-collector
 
-
 Sending syslog to ODL Syslog collector using Logger command
     [Documentation]    Verifying if syslogs is getting generated.
-    :FOR    ${key}    IN ZIP   &{syslog_facility}
+    : FOR    ${key}    IN ZIP    &{syslog_facility}
     \    ${value}=    Get From Dictionary    ${syslog_facility}    ${key}
     \    ${f_value}=    Evaluate    ${value} * 8
     \    Generate Syslog    ${f_value}
@@ -30,6 +28,5 @@ Sending syslog to ODL Syslog collector using Logger command
 Verifying TSDR Data Store For Syslog Entries
     [Documentation]    Verifying if syslogs is getting stored.
     ${output}=    Issue Command On Karaf Console    tsdr:list SYSLOG
-    Should Contain X Times    ${output}    SYSLOG   1
+    Should Contain X Times    ${output}    SYSLOG    1
     Should Contain    ${output}    ${MESSAGE_PATTERN}
-
