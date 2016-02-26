@@ -53,11 +53,11 @@ ${NODE_CONFIGURER}    node1
 ${NODE_SETTER}    node2
 ${NODE_CHECKER}    node3
 ${DEVICE_CHECK_TIMEOUT}    60s
-${DIRECTORY_WITH_TEMPLATE_FOLDERS}    ${CURDIR}/../../../variables/netconf/CRUD
 ${DEVICE_NAME}    netconf-test-device
-${EMPTY_DATA}     <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
-${ORIGINAL_DATA}    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud"><l>Content</l></cont></data>
-${MODIFIED_DATA}    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud"><l>Modified Content</l></cont></data>
+${directory_with_template_folders}    ${CURDIR}/../../../variables/netconf/CRUD
+${empty_data}     <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
+${original_data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud"><l>Content</l></cont></data>
+${modified_data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"><cont xmlns="urn:opendaylight:test:netconf:crud"><l>Modified Content</l></cont></data>
 
 *** Test Cases ***
 Start_Testtool
@@ -100,76 +100,76 @@ Wait_For_Device_To_Become_Visible_For_Setter
 
 Check_Device_Data_Is_Seen_As_Empty_On_Configurer
     [Documentation]    Get the device data as seen by configurer and make sure it is empty.
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${NODE_CONFIGURER}    ${EMPTY_DATA}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${NODE_CONFIGURER}    ${empty_data}
 
 Check_Device_Data_Is_Seen_As_Empty_On_Checker
     [Documentation]    Get the device data as seen by checker and make sure it is empty.
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${NODE_CHECKER}    ${EMPTY_DATA}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${NODE_CHECKER}    ${empty_data}
 
 Check_Device_Data_Is_Seen_As_Empty_On_Setter
     [Documentation]    Get the device data as seen by setter and make sure it is empty.
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${NODE_SETTER}    ${EMPTY_DATA}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${NODE_SETTER}    ${empty_data}
 
 Create_Device_Data
     [Documentation]    Send some sample test data into the device and check that the request went OK.
     NetconfViaRestconf.Activate_NVR_Session    ${NODE_SETTER}
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${DEVICE_NAME}'}
-    NetconfViaRestconf.Post_Xml_Template_Folder_Via_Restconf    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}dataorig    ${template_as_string}
+    NetconfViaRestconf.Post_Xml_Template_Folder_Via_Restconf    ${directory_with_template_folders}${/}dataorig    ${template_as_string}
 
 Check_New_Device_Data_Is_Visible_On_Setter
     [Documentation]    Get the device data and make sure it contains the created content.
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${NODE_SETTER}    ${ORIGINAL_DATA}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${NODE_SETTER}    ${original_data}
 
 Check_New_Device_Data_Is_Visible_On_Checker
     [Documentation]    Check that the created device data make their way into the checker node.
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${NODE_CHECKER}    ${ORIGINAL_DATA}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${NODE_CHECKER}    ${original_data}
 
 Check_New_Device_Data_Is_Visible_On_Configurer
     [Documentation]    Check that the created device data make their way into the configurer node.
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${NODE_CONFIGURER}    ${ORIGINAL_DATA}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${NODE_CONFIGURER}    ${original_data}
 
 Modify_Device_Data
     [Documentation]    Send a request to change the sample test data and check that the request went OK.
     NetconfViaRestconf.Activate_NVR_Session    ${NODE_SETTER}
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${DEVICE_NAME}'}
-    NetconfViaRestconf.Put_Xml_Template_Folder_Via_Restconf    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}datamod1    ${template_as_string}
+    NetconfViaRestconf.Put_Xml_Template_Folder_Via_Restconf    ${directory_with_template_folders}${/}datamod1    ${template_as_string}
     [Teardown]    Utils.Report_Failure_Due_To_Bug    4968
 
 Check_Device_Data_Is_Modified
     [Documentation]    Get the device data and make sure it contains the modified content.
-    Check_Config_Data    ${NODE_SETTER}    ${MODIFIED_DATA}
+    Check_Config_Data    ${NODE_SETTER}    ${modified_data}
     [Teardown]    Utils.Report_Failure_Due_To_Bug    4968
 
 Check_Modified_Device_Data_Is_Visible_On_Checker
     [Documentation]    Check that the modified device data make their way into the checker node.
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    1s    Check_Config_Data    ${NODE_CHECKER}    ${MODIFIED_DATA}
+    BuiltIn.Wait_Until_Keyword_Succeeds    60s    1s    Check_Config_Data    ${NODE_CHECKER}    ${modified_data}
     [Teardown]    Utils.Report_Failure_Due_To_Bug    4968
 
 Check_Modified_Device_Data_Is_Visible_On_Configurer
     [Documentation]    Check that the modified device data make their way into the configurer node.
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    1s    Check_Config_Data    ${NODE_CONFIGURER}    ${MODIFIED_DATA}
+    BuiltIn.Wait_Until_Keyword_Succeeds    60s    1s    Check_Config_Data    ${NODE_CONFIGURER}    ${modified_data}
     [Teardown]    Utils.Report_Failure_Due_To_Bug    4968
 
 Delete_Device_Data
     [Documentation]    Send a request to delete the sample test data on the device and check that the request went OK.
     NetconfViaRestconf.Activate_NVR_Session    ${NODE_SETTER}
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${DEVICE_NAME}'}
-    NetconfViaRestconf.Delete_Xml_Template_Folder_Via_Restconf    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}datamod1    ${template_as_string}
+    NetconfViaRestconf.Delete_Xml_Template_Folder_Via_Restconf    ${directory_with_template_folders}${/}datamod1    ${template_as_string}
     [Teardown]    Utils.Report_Failure_Due_To_Bug    4968
 
 Check_Device_Data_Is_Deleted
     [Documentation]    Get the device data and make sure it is empty again.
-    Check_Config_Data    ${NODE_SETTER}    ${EMPTY_DATA}
+    Check_Config_Data    ${NODE_SETTER}    ${empty_data}
     [Teardown]    Utils.Report_Failure_Due_To_Bug    4968
 
 Check_Device_Data_Deletion_Is_Visible_On_Checker
     [Documentation]    Check that the device data deletion makes its way into the checker node.
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    1s    Check_Config_Data    ${NODE_CHECKER}    ${EMPTY_DATA}
+    BuiltIn.Wait_Until_Keyword_Succeeds    60s    1s    Check_Config_Data    ${NODE_CHECKER}    ${empty_data}
     [Teardown]    Utils.Report_Failure_Due_To_Bug    4968
 
 Check_Device_Data_Deletion_Is_Visible_On_Configurer
     [Documentation]    Check that the device data deletion makes its way into the checker node.
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    1s    Check_Config_Data    ${NODE_CONFIGURER}    ${EMPTY_DATA}
+    BuiltIn.Wait_Until_Keyword_Succeeds    60s    1s    Check_Config_Data    ${NODE_CONFIGURER}    ${empty_data}
     [Teardown]    Utils.Report_Failure_Due_To_Bug    4968
 
 Deconfigure_Device_In_Netconf
