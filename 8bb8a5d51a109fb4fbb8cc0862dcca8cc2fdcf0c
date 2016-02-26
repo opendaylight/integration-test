@@ -69,6 +69,30 @@
       "revId": "8bb8a5d51a109fb4fbb8cc0862dcca8cc2fdcf0c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1243c442",
+        "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-26T11:12:28Z",
+      "side": 1,
+      "message": "Update: The utility keyword is now added: https://git.opendaylight.org/gerrit/35459",
+      "parentUuid": "9a3d3df0_17b29693",
+      "range": {
+        "startLine": 142,
+        "startChar": 36,
+        "endLine": 142,
+        "endChar": 56
+      },
+      "revId": "8bb8a5d51a109fb4fbb8cc0862dcca8cc2fdcf0c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
