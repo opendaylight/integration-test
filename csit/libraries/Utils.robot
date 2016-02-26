@@ -420,3 +420,25 @@ Get Log File Name
     ...    log files if they happen to run in one job.
     ${name}=    BuiltIn.Evaluate    """${SUITE_NAME}""".replace(" ","-").replace("/","-").replace(".","-")
     [Return]    ${testtool}--${name}.log
+
+Set_User_Configurable_Variable_Default
+    [Arguments]    ${name}    ${value}
+    [Documentation]    Set a default value for an user configurable variable.
+    ...    This keyword is needed if your default value is calculated using
+    ...    a complex expression which needs BuiltIn.Evaluate or even more
+    ...    complex keywords. It sets the variable ${name} to ${value} but
+    ...    only if the variable ${name} was not set previously. This keyword
+    ...    is intended for user configurable variables which are supposed to
+    ...    be set only with pybot -v; calling this keyword on a variable
+    ...    that was already set by another keyword is a bug in the suite or
+    ...    resource trying to call this keyword.
+    # TODO: Figure out how to make the ${value} evaluation "lazy" (meaning
+    #    evaluating it only when the user did not set anything and thus the
+    #    default is needed). This might be needed to avoid potentially costly
+    #    keyword invocations when they are not needed. Currently no need for
+    #    this was identified, thus leaving it here as a TODO. Based on
+    #    comments the best approach would be to create another keyword that
+    #    expects a ScalarClosure in the place of ${value} and calls the
+    #    closure to get the value but only if the value is needed).
+    ${value}=    BuiltIn.Get_Variable_Value    \${${name}}    ${value}
+    BuiltIn.Set_Suite_Variable    \${${name}}    ${value}
