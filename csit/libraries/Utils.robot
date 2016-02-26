@@ -420,3 +420,10 @@ Get Log File Name
     ...    log files if they happen to run in one job.
     ${name}=    BuiltIn.Evaluate    """${SUITE_NAME}""".replace(" ","-").replace("/","-").replace(".","-")
     [Return]    ${testtool}--${name}.log
+
+Set_Immutable_Variable_Default
+    [Arguments]    ${name}    ${value}
+    [Documentation]
+    ${value}=    BuiltIn.Get_Variable_Value    \${${name}}    ${value}
+    ${name}=    BuiltIn.Set_Variable    \${${name}}
+    BuiltIn.Set_Suite_Variable    ${name}    ${value}
