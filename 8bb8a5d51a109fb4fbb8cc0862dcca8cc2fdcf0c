@@ -45,6 +45,30 @@
       "revId": "8bb8a5d51a109fb4fbb8cc0862dcca8cc2fdcf0c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_17b29693",
+        "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-02-26T11:10:18Z",
+      "side": 1,
+      "message": "The [0] did not say \"I would like ALL_CAPS to mean \"user can override it with pybot -v\". It stated \"It does not matter whether the value is expected to be overridden in pybot (using -v), or if it is just a shorthand for too-long or frequently repeated value.\"\n\nI fixed that broken description to match what you wrote in this comment. Unfortunately that means your original link for [0] is now not valid (I placed the new link at the end of this post). It occurs to me that using ALL_CAPS for shorthands of too long or too repetitive values shall be snake_case to avoid users thinking they can replace these values using pybot -v and expect the suite to continue to work. However that means a bunch of your nitpicks was wrong.\n\nHowever I need to add an utility keyword to cover the case when \"the default value of the user configurable variable depends on other user configurable variables (or some environment data or something) in a nontrivial way (not just a simple string concatenation is all that\u0027s needed to construct the default value)\" as this is not supported by bare Robot Framework.\n\n[0] https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#User_configurable_variables",
+      "parentUuid": "9a3d3df0_91dfd60c",
+      "range": {
+        "startLine": 142,
+        "startChar": 36,
+        "endLine": 142,
+        "endChar": 56
+      },
+      "revId": "8bb8a5d51a109fb4fbb8cc0862dcca8cc2fdcf0c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
