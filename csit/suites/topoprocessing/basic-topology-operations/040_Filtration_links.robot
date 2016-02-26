@@ -25,9 +25,9 @@ Filtration Range Number Network Topology Model
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <link-id>link:    3
-    Should Contain X Times    ${resp.content}    <link-ref>link:1:4</link-ref>    1
-    Should Contain X Times    ${resp.content}    <link-ref>link:1:3</link-ref>    1
-    Should Contain X Times    ${resp.content}    <link-ref>link:1:2-1</link-ref>    1
+    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:4</link-ref>    1
+    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:3</link-ref>    1
+    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:2-1</link-ref>    1
 
 Filtration Range Number Inventory Model
     [Documentation]    Test of range number type of filtration operation on Inventory model
@@ -40,30 +40,6 @@ Filtration Range Number Inventory Model
     Should Contain X Times    ${resp.content}    <link-ref>link:14:12</link-ref>    1
     Should Contain X Times    ${resp.content}    <link-ref>link:15:13</link-ref>    1
 
-Filtration Specific Number Network Topology Model
-    [Documentation]    Test of specific number type of filtration operation on Network Topology model
-    Pass Execution    Test is being passed due to incorrect target field. Test will be included in execution when corrected.
-    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    link    network-topo:1
-    ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_NUMBER}    l3-unicast-igp-topology:igp-link-attributes/l3-unicast-igp-topology:metric
-    ${request}    Set Specific Number Filter    ${request}    12
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <link-id>link:    2
-    Should Contain X Times    ${resp.content}    <link-ref>link:1:4</link-ref>    1
-    Should Contain X Times    ${resp.content}    <link-ref>link:1:2-1</link-ref>    1
-
-Filtration Specific Number Inventory Model
-    [Documentation]    Test of specific number type of filtration operation on Inventory model
-    Pass Execution    Test is being passed due to incorrect target field. Test will be included in execution when corrected.
-    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    opendaylight-inventory-model    link    openflow-topo:3
-    ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_NUMBER}    l3-unicast-igp-topology:igp-link-attributes/l3-unicast-igp-topology:metric
-    ${request}    Set Specific Number Filter    ${request}    16
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <link-id>link:    1
-    Should Contain X Times    ${resp.content}    <link-ref>link:11:12</link-ref>    1
-    [Teardown]    Run Keywords    Filtration Links Test Teardown
-
 Filtration Specific String Network Topology Model
     [Documentation]    Test of specific string type of filtration operation on Network Topology model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    link    network-topo:1
@@ -72,8 +48,8 @@ Filtration Specific String Network Topology Model
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <link-id>link:    2
-    Should Contain X Times    ${resp.content}    <link-ref>link:1:4</link-ref>    1
-    Should Contain X Times    ${resp.content}    <link-ref>link:1:2-1</link-ref>    1
+    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:4</link-ref>    1
+    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:2-1</link-ref>    1
 
 Filtration Specific String Inventory Model
     [Documentation]    Test of specific string type of filtration operation on Inventory model
@@ -93,9 +69,9 @@ Filtration Range String Network Topology Model
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <link-id>link:    3
-    Should Contain X Times    ${resp.content}    <link-ref>link:1:4</link-ref>    1
-    Should Contain X Times    ${resp.content}    <link-ref>link:1:3</link-ref>    1
-    Should Contain X Times    ${resp.content}    <link-ref>link:1:2-1</link-ref>    1
+    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:4</link-ref>    1
+    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:2-1</link-ref>    1
+    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:3</link-ref>    1
 
 Filtration Range String Inventory Model
     [Documentation]    Test of range string type of filtration operation on Inventory model
@@ -117,8 +93,8 @@ Filtration Script Network Topology Model
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <link-id>link:    2
-    Should Contain X Times    ${resp.content}    <link-ref>link:1:3</link-ref>    1
-    Should Contain X Times    ${resp.content}    <link-ref>link:1:2-2</link-ref>    1
+    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:3</link-ref>    1
+    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:2-2</link-ref>    1
 
 Filtration Script Inventory Model
     [Documentation]    Test of script type of filtration operation on Inventory model

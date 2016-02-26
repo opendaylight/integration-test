@@ -399,7 +399,8 @@ NETWORK_UNDERLAY_TOPOLOGY_4 = '''<topology
 NETWORK_UNDERLAY_TOPOLOGY_5 = '''<topology
                                 xmlns="urn:TBD:params:xml:ns:yang:network-topology"
                                 xmlns:igp="urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology"
-                                xmlns:isis="urn:TBD:params:xml:ns:yang:network:isis-topology">
+                                xmlns:isis="urn:TBD:params:xml:ns:yang:network:isis-topology"
+                                xmlns:ovsdb="urn:opendaylight:params:xml:ns:yang:ovsdb">
                             <topology-id>network-topo:5</topology-id>
                             <node>
                                 <node-id>bgp:21</node-id>
@@ -412,18 +413,21 @@ NETWORK_UNDERLAY_TOPOLOGY_5 = '''<topology
                                 </igp:igp-node-attributes>
                                 <termination-point>
                                     <tp-id>tp:21:1</tp-id>
+                                    <ovsdb:name>portA</ovsdb:name>
                                     <igp:igp-termination-point-attributes>
                                         <igp:ip-address>192.168.1.9</igp:ip-address>
                                     </igp:igp-termination-point-attributes>
                                 </termination-point>
                                 <termination-point>
                                     <tp-id>tp:21:2</tp-id>
+                                    <ovsdb:name>portA</ovsdb:name>
                                     <igp:igp-termination-point-attributes>
                                        <igp:ip-address>192.168.1.8</igp:ip-address>
                                     </igp:igp-termination-point-attributes>
                                 </termination-point>
                                 <termination-point>
                                     <tp-id>tp:21:3</tp-id>
+                                    <ovsdb:name>portA</ovsdb:name>
                                     <igp:igp-termination-point-attributes>
                                         <igp:ip-address>192.168.1.8</igp:ip-address>
                                     </igp:igp-termination-point-attributes>
@@ -440,12 +444,14 @@ NETWORK_UNDERLAY_TOPOLOGY_5 = '''<topology
                                 </igp:igp-node-attributes>
                                 <termination-point>
                                     <tp-id>tp:22:1</tp-id>
+                                    <ovsdb:name>portA</ovsdb:name>
                                     <igp:igp-termination-point-attributes>
                                         <igp:ip-address>192.168.2.9</igp:ip-address>
                                     </igp:igp-termination-point-attributes>
                                 </termination-point>
                                 <termination-point>
                                     <tp-id>tp:22:2</tp-id>
+                                    <ovsdb:name>portB</ovsdb:name>
                                     <igp:igp-termination-point-attributes>
                                         <igp:ip-address>192.168.1.7</igp:ip-address>
                                     </igp:igp-termination-point-attributes>
@@ -472,18 +478,21 @@ NETWORK_UNDERLAY_TOPOLOGY_5 = '''<topology
                                 </igp:igp-node-attributes>
                                 <termination-point>
                                     <tp-id>tp:24:1</tp-id>
+                                    <ovsdb:name>portA</ovsdb:name>
                                     <igp:igp-termination-point-attributes>
                                         <igp:ip-address>192.168.1.7</igp:ip-address>
                                     </igp:igp-termination-point-attributes>
                                 </termination-point>
                                 <termination-point>
                                     <tp-id>tp:24:2</tp-id>
+                                    <ovsdb:name>portA</ovsdb:name>
                                     <igp:igp-termination-point-attributes>
                                         <igp:ip-address>192.168.1.7</igp:ip-address>
                                     </igp:igp-termination-point-attributes>
                                 </termination-point>
                                 <termination-point>
                                     <tp-id>tp:24:3</tp-id>
+                                    <ovsdb:name>portB</ovsdb:name>
                                     <igp:igp-termination-point-attributes>
                                         <igp:ip-address>192.168.1.7</igp:ip-address>
                                     </igp:igp-termination-point-attributes>
@@ -619,6 +628,7 @@ OPENFLOW_UNDERLAY_NODES = '''
         <node-connector>
             <id>openflow:1:1</id>
             <flov-inv:port-number>1</flov-inv:port-number>
+            <flov-inv:maximum-speed>1</flov-inv:maximum-speed>
             <flov-inv:name>portC</flov-inv:name>
         </node-connector>
         <node-connector>
@@ -634,16 +644,19 @@ OPENFLOW_UNDERLAY_NODES = '''
         <node-connector>
             <id>openflow:2:1</id>
             <flov-inv:port-number>1</flov-inv:port-number>
+            <flov-inv:maximum-speed>1</flov-inv:maximum-speed>
             <flov-inv:name>portB</flov-inv:name>
         </node-connector>
         <node-connector>
             <id>openflow:2:2</id>
             <flov-inv:port-number>2</flov-inv:port-number>
+            <flov-inv:maximum-speed>2</flov-inv:maximum-speed>
             <flov-inv:name>portD</flov-inv:name>
         </node-connector>
         <node-connector>
             <id>openflow:2:3</id>
             <flov-inv:port-number>3</flov-inv:port-number>
+            <flov-inv:maximum-speed>3</flov-inv:maximum-speed>
             <flov-inv:name>portA</flov-inv:name>
         </node-connector>
         <flov-inv:manufacturer>Pantheon Technologies</flov-inv:manufacturer>
@@ -655,14 +668,17 @@ OPENFLOW_UNDERLAY_NODES = '''
         <node-connector>
             <id>openflow:3:1</id>
             <flov-inv:port-number>2</flov-inv:port-number>
+            <flov-inv:maximum-speed>2</flov-inv:maximum-speed>
         </node-connector>
         <node-connector>
             <id>openflow:3:2</id>
             <flov-inv:port-number>2</flov-inv:port-number>
+            <flov-inv:maximum-speed>2</flov-inv:maximum-speed>
         </node-connector>
         <node-connector>
             <id>openflow:3:3</id>
             <flov-inv:port-number>1</flov-inv:port-number>
+            <flov-inv:maximum-speed>1</flov-inv:maximum-speed>
         </node-connector>
         <flov-inv:manufacturer>Pantheon Technologies</flov-inv:manufacturer>
         <flov-inv:ip-address>192.168.1.3</flov-inv:ip-address>
@@ -673,14 +689,17 @@ OPENFLOW_UNDERLAY_NODES = '''
         <node-connector>
             <id>openflow:4:1</id>
             <flov-inv:port-number>1</flov-inv:port-number>
+            <flov-inv:maximum-speed>1</flov-inv:maximum-speed>
         </node-connector>
         <node-connector>
             <id>openflow:4:2</id>
             <flov-inv:port-number>1</flov-inv:port-number>
+            <flov-inv:maximum-speed>1</flov-inv:maximum-speed>
         </node-connector>
         <node-connector>
             <id>openflow:4:3</id>
             <flov-inv:port-number>1</flov-inv:port-number>
+            <flov-inv:maximum-speed>1</flov-inv:maximum-speed>
         </node-connector>
         <flov-inv:manufacturer>Cisco</flov-inv:manufacturer>
         <flov-inv:ip-address>192.168.2.1</flov-inv:ip-address>
@@ -691,6 +710,7 @@ OPENFLOW_UNDERLAY_NODES = '''
         <node-connector>
             <id>openflow:5:1</id>
             <flov-inv:port-number>3</flov-inv:port-number>
+            <flov-inv:maximum-speed>3</flov-inv:maximum-speed>
             <flov-inv:name>portB</flov-inv:name>
         </node-connector>
         <flov-inv:manufacturer>Cisco</flov-inv:manufacturer>

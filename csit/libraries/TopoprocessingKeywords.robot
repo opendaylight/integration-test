@@ -72,7 +72,7 @@ Insert Underlay Topologies
     [Documentation]    Insert underlay topologies used by following tests
     Log    Inserting underlay topologies
     # Network underlay topologies
-    : FOR    ${index}    IN RANGE    1    6
+    : FOR    ${index}    IN RANGE    1    7
     \    ${resp}    Put Request    session    ${CONFIG_API}/${TOPOLOGY_URL}/network-topo:${index}    data=${NETWORK_UNDERLAY_TOPOLOGY_${index}}
     \    Log    ${resp.content}
     \    Should Be Equal As Strings    ${resp.status_code}    200
@@ -81,7 +81,7 @@ Insert Underlay Topologies
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     # Openflow underlay topologies
-    : FOR    ${index}    IN RANGE    1    6
+    : FOR    ${index}    IN RANGE    1    7
     \    ${resp}    Put Request    session    ${CONFIG_API}/${TOPOLOGY_URL}/openflow-topo:${index}    data=${OPENFLOW_UNDERLAY_TOPOLOGY_${index}}
     \    Log    ${resp.content}
     \    Should Be Equal As Strings    ${resp.status_code}    200
@@ -110,10 +110,12 @@ Prepare Unification Topology Request
     [Return]    ${request_template}
 
 Prepare Unification Filtration Topology Request
-    [Arguments]    ${request_template}    ${model}    ${target_field}    ${underlay_topo2}
+    [Arguments]    ${request_template}    ${model}    ${correlation_item}    ${target_field1}    ${underlay_topo1}    ${target_field2}
+    ...    ${underlay_topo2}
     [Documentation]    Prepare topology request for unification on two topologies from template
+    ${request_template}    Prepare Unification Filtration Inside Topology Request    ${request_template}    ${model}    ${correlation_item}    ${target_field1}    ${underlay_topo1}
     ${request_template}    Set Element Text    ${request_template}    ${underlay_topo2}    xpath=.//correlation/aggregation/mapping[2]/underlay-topology
-    Insert Target Field    ${request_template}    2    ${target_field}    1
+    Insert Target Field    ${request_template}    2    ${target_field2}    1
     ${request_template}    Set Element Text    ${request_template}    ${model}    xpath=.//correlation/aggregation/mapping[2]/input-model
     ${request_template}    Element to String    ${request_template}
     [Return]    ${request_template}
@@ -130,6 +132,12 @@ Prepare Unification Filtration Inside Topology Request
     Insert Target Field    ${request_template}    1    ${target-field}    1
     ${request_template}    Set Element Text    ${request_template}    ${underlay_topo}    xpath=.//correlation/filtration/underlay-topology
     ${request_template}    Element to String    ${request_template}
+    [Return]    ${request_template}
+
+Insert Apply Filters
+    [Arguments]    ${request_template}    ${mapping}    ${filter_id}
+    ${request_template}    Add Element    ${request_template}    ${APPLY_FILTERS}    xpath=.//correlation/aggregation/mapping[${mapping}]
+    ${request_template}    Set Element Text    ${request_template}    ${filter_id}    xpath=.//correlation/aggregation/mapping[${mapping}]/apply-filters
     [Return]    ${request_template}
 
 Prepare Filtration Topology Request
@@ -156,6 +164,13 @@ Insert Filter
     ${model}    Get Element Text    ${request_template}    xpath=.//correlations/output-model
     ${request_template}    Set Element Text    ${request_template}    ${model}    xpath=.//correlation/filtration/filter/input-model
     ${request_template}    Set Element Text    ${request_template}    ${target_field}    xpath=.//correlation/filtration/filter/target-field
+    [Return]    ${request_template}
+
+Insert Filter With ID
+    [Arguments]    ${request_template}    ${filter_template}    ${target_field}    ${filter_id}
+    [Documentation]    Add filter to filtration with specified id
+    ${request_template}    Insert Filter    ${request_template}    ${filter_template}    ${target_field}
+    ${request_template}    Set Element Text    ${request_template}    ${filter_id}    xpath=.//correlation/filtration/filter/filter-id
     [Return]    ${request_template}
 
 Set IPV4 Filter
