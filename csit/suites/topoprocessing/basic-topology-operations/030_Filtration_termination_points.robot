@@ -17,26 +17,6 @@ Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/TopoprocessingKeywords.robot
 
 *** Test Cases ***
-Filtration IPV4 Network Topology Model
-    [Documentation]    Test of ipv4 type of filtration operation on Network Topology model
-    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    termination-point    network-topo:1
-    ${request}    Insert Filter    ${request}    ${FILTER_IPV4}    l3-unicast-igp-topology:igp-termination-point-attributes/l3-unicast-igp-topology:ip-address
-    ${request}    Set IPV4 Filter    ${request}    192.168.1.1/8
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    5
-    Should Contain X Times    ${resp.content}    <termination-point>    4
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:1']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    2
-    Should Contain    ${node}    <tp-id>tp:1:1</tp-id>
-    Should Contain    ${node}    <tp-id>tp:1:2</tp-id>
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:3']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    2
-    Should Contain    ${node}    <tp-id>tp:3:1</tp-id>
-    Should Contain    ${node}    <tp-id>tp:3:2</tp-id>
-
 Filtration Range Number Network Topology Model
     [Documentation]    Test of range number type of filtration operation on Network Topology model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    termination-point    network-topo:2
@@ -49,12 +29,12 @@ Filtration Range Number Network Topology Model
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:7']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    2
-    Should Contain    ${node}    <tp-id>tp:7:1</tp-id>
-    Should Contain    ${node}    <tp-id>tp:7:2</tp-id>
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:7/termination-point/tp:7:1</tp-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:7/termination-point/tp:7:2</tp-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:6']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    Should Contain    ${node}    <tp-id>tp:6:1</tp-id>
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:6/termination-point/tp:6:1</tp-ref>    1
 
 Filtration Range Number Inventory Model
     [Documentation]    Test of range number type of filtration operation on Inventory model
@@ -68,14 +48,17 @@ Filtration Range Number Inventory Model
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    2
+    Should Contain X Times    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:2:3</inventory-node-connector-ref>    1
+    Should Contain X Times    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:2:2</inventory-node-connector-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:3']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    2
+    Should Contain X Times    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:3:2</inventory-node-connector-ref>    1
+    Should Contain X Times    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:3:1</inventory-node-connector-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:5']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    [Teardown]    Run Keywords    Test Teardown    network-topology:network-topology/topology/topo:1
-    ...    AND    Report_Failure_Due_To_Bug    4674
+    Should Contain X Times    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:5:1</inventory-node-connector-ref>    1
 
 Filtration Specific Number Network Topology Model
     [Documentation]    Test of specific number type of filtration operation on Network Topology model
@@ -89,31 +72,27 @@ Filtration Specific Number Network Topology Model
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:7']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    Should Contain    ${node}    <tp-id>tp:7:1</tp-id>
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:7/termination-point/tp:7:1</tp-ref>    1
 
 Filtration Specific Number Inventory Model
     [Documentation]    Test of specific number type of filtration operation on Inventory model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    opendaylight-inventory-model    termination-point    openflow-topo:1
-    ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_NUMBER}    flow-node-inventory:port-number
-    ${request}    Set Specific Number Filter    ${request}    1
+    #${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_NUMBER}    flow-node-inventory:port-number
+    ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_NUMBER}    flow-node-inventory:maximum-speed
+    ${request}    Set Specific Number Filter    ${request}    2
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    5
-    Should Contain X Times    ${resp.content}    <termination-point>    7
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:1']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    2
+    Should Contain X Times    ${resp.content}    <termination-point>    3
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
+    Should Contain X Times    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:2:2</inventory-node-connector-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:3']/..
     ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    1
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:4']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    3
-    [Teardown]    Run Keywords    Test Teardown    network-topology:network-topology/topology/topo:1
-    ...    AND    Report_Failure_Due_To_Bug    4674
+    Should Contain X Times    ${node}    <termination-point>    2
+    Should Contain X Times    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:3:2</inventory-node-connector-ref>    1
+    Should Contain X Times    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:3:1</inventory-node-connector-ref>    1
 
 Filtration Specific String Network Topology Model
     [Documentation]    Test of specific string type of filtration operation on Network Topology model
@@ -127,6 +106,7 @@ Filtration Specific String Network Topology Model
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:7']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:7/termination-point/tp:7:2</tp-ref>    1
 
 Filtration Specific String Inventory Model
     [Documentation]    Test of specific string type of filtration operation on Inventory model
@@ -139,11 +119,11 @@ Filtration Specific String Inventory Model
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
+    Should Contain X Times    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:2:1</inventory-node-connector-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:5']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    [Teardown]    Run Keywords    Test Teardown    network-topology:network-topology/topology/topo:1
-    ...    AND    Report_Failure_Due_To_Bug    4674
+    Should Contain X Times    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:5:1</inventory-node-connector-ref>    1
 
 Filtration Range String Network Topology Model
     [Documentation]    Test of range string type of filtration operation on Network Topology model
@@ -157,12 +137,15 @@ Filtration Range String Network Topology Model
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:6']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
+    Should Contain    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:6/termination-point/tp:6:1</tp-ref>
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:7']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
+    Should Contain    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:7/termination-point/tp:7:2</tp-ref>
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:10']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
+    Should Contain    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:10/termination-point/tp:10:1</tp-ref>
 
 Filtration Range String Inventory Model
     [Documentation]    Test of range string type of filtration operation on Inventory model
@@ -175,30 +158,18 @@ Filtration Range String Inventory Model
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    2
+    Should Contain    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:2:1</inventory-node-connector-ref>
+    Should Contain    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:2:3</inventory-node-connector-ref>
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:5']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    [Teardown]    Run Keywords    Test Teardown    network-topology:network-topology/topology/topo:1
-    ...    AND    Report_Failure_Due_To_Bug    4674
-
-Filtration IPV6 Network Topology Model
-    [Documentation]    Test of ipv6 type of filtration operation on Network Topology model
-    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    termination-point    network-topo:3
-    ${request}    Insert Filter    ${request}    ${FILTER_IPV6}    l3-unicast-igp-topology:igp-termination-point-attributes/l3-unicast-igp-topology:ip-address
-    ${request}    Set IPV6 Filter    ${request}    fe80:0:0:0:0:0:c0a8:101/120
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    5
-    Should Contain X Times    ${resp.content}    <termination-point>    1
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:11']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    1
+    Should Contain    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:5:1</inventory-node-connector-ref>
 
 Filtration Script Network Topology Model
     [Documentation]    Test of script type of filtration operation on Network Topology model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    termination-point    network-topo:1
-    ${request}    Insert Filter    ${request}    ${FILTER_SCRIPT}    l3-unicast-igp-topology:igp-termination-point-attributes/l3-unicast-igp-topology:ip-address
-    ${script}    Set Variable    if (node.getValue().indexOf("192.168.1") > -1 ) {filterOut.setResult(true);} else {filterOut.setResult(false);}
+    ${request}    Insert Filter    ${request}    ${FILTER_SCRIPT}    ovsdb:ofport
+    ${script}    Set Variable    if (node.getValue() > 1117 ) {filterOut.setResult(true);} else {filterOut.setResult(false);}
     ${request}    Set Script Filter    ${request}    javascript    ${script}
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
@@ -207,9 +178,12 @@ Filtration Script Network Topology Model
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:4']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    2
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:1/node/bgp:4/termination-point/tp:4:2</tp-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:1/node/bgp:4/termination-point/tp:4:1</tp-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:5']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:1/node/bgp:5/termination-point/tp:5:1</tp-ref>    1
 
 Filtration Script Inventory Model
     [Documentation]    Test of script type of filtration operation on Inventory model
@@ -224,8 +198,9 @@ Filtration Script Inventory Model
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    2
+    Should Contain X Times    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:2:3</inventory-node-connector-ref>    1
+    Should Contain X Times    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:2:2</inventory-node-connector-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:1']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    [Teardown]    Run Keywords    Test Teardown    network-topology:network-topology/topology/topo:1
-    ...    AND    Report_Failure_Due_To_Bug    4674
+    Should Contain X Times    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:1:1</inventory-node-connector-ref>    1

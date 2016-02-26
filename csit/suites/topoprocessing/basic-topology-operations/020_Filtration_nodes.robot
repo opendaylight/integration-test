@@ -42,7 +42,7 @@ Filtration IPV4 Inventory Model
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    3
-    : FOR    ${index}    IN RANGE    1    3
+    : FOR    ${index}    IN RANGE    1    4
     \    Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
 
 Filtration Range Number Network Topology Model
@@ -53,7 +53,7 @@ Filtration Range Number Network Topology Model
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    4
-    : FOR    ${index}    IN RANGE    7    10
+    : FOR    ${index}    IN RANGE    7    11
     \    Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
     Should Contain X Times    ${resp.content}    <termination-point>    5
     #node bgp:7
@@ -82,7 +82,7 @@ Filtration Range Number Inventory Model
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    3
-    : FOR    ${index}    IN RANGE    8    10
+    : FOR    ${index}    IN RANGE    8    11
     \    Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
 
 Filtration Specific Number Network Topology Model
@@ -151,7 +151,7 @@ Filtration Range String Network Topology Model
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    4
-    : FOR    ${index}    IN RANGE    7    10
+    : FOR    ${index}    IN RANGE    7    11
     \    Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
     Should Contain X Times    ${resp.content}    <termination-point>    5
     #node bgp:7
@@ -180,7 +180,7 @@ Filtration Range String Inventory Model
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    3
-    : FOR    ${index}    IN RANGE    8    10
+    : FOR    ${index}    IN RANGE    8    11
     \    Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
 
 Filtration IPV6 Network Topology Model
@@ -224,7 +224,7 @@ Filtration Script Network Topology Model
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    3
-    : FOR    ${index}    IN RANGE    3    5
+    : FOR    ${index}    IN RANGE    3    6
     \    Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
     Should Contain X Times    ${resp.content}    <termination-point>    5
     #node bgp:3
@@ -251,5 +251,5 @@ Filtration Script Inventory Model
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    3
-    : FOR    ${index}    IN RANGE    1    3
+    : FOR    ${index}    IN RANGE    1    4
     \    Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
