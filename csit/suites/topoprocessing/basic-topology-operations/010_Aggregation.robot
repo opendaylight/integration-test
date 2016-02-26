@@ -25,7 +25,7 @@ Unification Node
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    9
-    : FOR    ${index}    IN RANGE    1    9
+    : FOR    ${index}    IN RANGE    1    10
     \    Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:10']/..
     ${node}    Element to String    ${node}
@@ -40,7 +40,7 @@ Unification Node Inventory
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    8
-    : FOR    ${index}    IN RANGE    1    10
+    : FOR    ${index}    IN RANGE    1    11
     \    Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:1']/..
     ${node}    Element to String    ${node}
@@ -60,7 +60,7 @@ Unification Scripting Node
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    9
-    : FOR    ${index}    IN RANGE    1    10
+    : FOR    ${index}    IN RANGE    1    11
     \    Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:1']/..
     ${node}    Element to String    ${node}
@@ -76,7 +76,7 @@ Unification Scripting Node Inventory
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    9
-    : FOR    ${index}    IN RANGE    1    10
+    : FOR    ${index}    IN RANGE    1    11
     \    Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
     ${node}    Element to String    ${node}
