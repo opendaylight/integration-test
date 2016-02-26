@@ -33,10 +33,9 @@ Resource          ${CURDIR}/../../../libraries/Utils.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
 
 *** Variables ***
-${DIRECTORY_WITH_CRUD_TEMPLATES}    ${CURDIR}/../../../variables/netconf/CRUD
-${DIRECTORY_WITH_TEMPLATE_FOLDERS}    ${CURDIR}/../../../variables/netconf/RestPerfClient
 ${DEVICE_NAME}    ${FIRST_TESTTOOL_PORT}-sim-device
 ${REQUEST_COUNT}    65536
+${directory_with_crud_templates}    ${CURDIR}/../../../variables/netconf/CRUD
 
 *** Test Cases ***
 Start_Testtool
@@ -56,7 +55,7 @@ Wait_For_Device_To_Become_Connected
 Create_Device_Data
     [Documentation]    Send some sample test data into the device and check that the request went OK.
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${DEVICE_NAME}'}
-    NetconfViaRestconf.Post_Xml_Template_Folder_Via_Restconf    ${DIRECTORY_WITH_CRUD_TEMPLATES}${/}cars    ${template_as_string}
+    NetconfViaRestconf.Post_Xml_Template_Folder_Via_Restconf    ${directory_with_crud_templates}${/}cars    ${template_as_string}
 
 Deploy_And_Run_RestPerfClient
     [Documentation]    Deploy and execute restperfclient, asking it to send the specified amount of requests to the netconf connector of the device.
