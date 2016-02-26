@@ -17,26 +17,6 @@ Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/TopoprocessingKeywords.robot
 
 *** Test Cases ***
-Filtration IPV4 Network Topology Model
-    [Documentation]    Test of ipv4 type of filtration operation on Network Topology model
-    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    termination-point    network-topo:1
-    ${request}    Insert Filter    ${request}    ${FILTER_IPV4}    l3-unicast-igp-topology:igp-termination-point-attributes/l3-unicast-igp-topology:ip-address
-    ${request}    Set IPV4 Filter    ${request}    192.168.1.1/8
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    5
-    Should Contain X Times    ${resp.content}    <termination-point>    4
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:1']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    2
-    Should Contain    ${node}    <tp-id>tp:1:1</tp-id>
-    Should Contain    ${node}    <tp-id>tp:1:2</tp-id>
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:3']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    2
-    Should Contain    ${node}    <tp-id>tp:3:1</tp-id>
-    Should Contain    ${node}    <tp-id>tp:3:2</tp-id>
-
 Filtration Range Number Network Topology Model
     [Documentation]    Test of range number type of filtration operation on Network Topology model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    termination-point    network-topo:2
@@ -180,19 +160,6 @@ Filtration Range String Inventory Model
     Should Contain X Times    ${node}    <termination-point>    1
     [Teardown]    Run Keywords    Test Teardown    network-topology:network-topology/topology/topo:1
     ...    AND    Report_Failure_Due_To_Bug    4674
-
-Filtration IPV6 Network Topology Model
-    [Documentation]    Test of ipv6 type of filtration operation on Network Topology model
-    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    termination-point    network-topo:3
-    ${request}    Insert Filter    ${request}    ${FILTER_IPV6}    l3-unicast-igp-topology:igp-termination-point-attributes/l3-unicast-igp-topology:ip-address
-    ${request}    Set IPV6 Filter    ${request}    fe80:0:0:0:0:0:c0a8:101/120
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    5
-    Should Contain X Times    ${resp.content}    <termination-point>    1
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:11']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    1
 
 Filtration Script Network Topology Model
     [Documentation]    Test of script type of filtration operation on Network Topology model
