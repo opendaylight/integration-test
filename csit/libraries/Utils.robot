@@ -420,3 +420,18 @@ Get Log File Name
     ...    log files if they happen to run in one job.
     ${name}=    BuiltIn.Evaluate    """${SUITE_NAME}""".replace(" ","-").replace("/","-").replace(".","-")
     [Return]    ${testtool}--${name}.log
+
+Set_User_Configurable_Variable_Default
+    [Arguments]    ${name}    ${value}
+    [Documentation]    Set a default value for an user configurable variable.
+    ...    This keyword is needed if your default value is calculates using
+    ...    a complex expression which needs BuiltIn.Evaluate or even more
+    ...    complex keywords. It sets the variable ${name} to ${value} but
+    ...    only if the variable ${name} was not set previously (it is
+    ...    supposed to be set only with pybot -v; calling this keyword on
+    ...    a variable that was already set is a bug in the suite).
+    # TODO: Detect if ${value} is a closure and if so, invoke it to receive
+    #    the actual default value. This might be needed to avoid
+    #    potentially costly keyword invocations when they are not needed.
+    ${value}=    BuiltIn.Get_Variable_Value    \${${name}}    ${value}
+    BuiltIn.Set_Suite_Variable    \${${name}}    ${value}
