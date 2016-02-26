@@ -57,15 +57,16 @@ UNIFICATION_FILTRATION_NT_AGGREGATE_INSIDE = '''<topology xmlns="urn:opendayligh
                                 <aggregation>
                                     <aggregation-type>{aggregation-type}</aggregation-type>
                                     <mapping>
-                                        <apply-filters>1</apply-filters>
                                         <input-model>{input-model}</input-model>
                                         <underlay-topology>{underlay-topology-id}</underlay-topology>
-                                        <!-- target field -->
                                         <aggregate-inside>true</aggregate-inside>
+                                        <!-- target field -->
+                                        <!-- apply filters -->
                                     </mapping>
                                 </aggregation>
                                 <filtration>
                                     <underlay-topology>{underlay-topology-id}</underlay-topology>
+                                    <!-- Filter -->
                                 </filtration>
                             </correlation>
                         </correlations>
@@ -81,22 +82,24 @@ UNIFICATION_FILTRATION_NT = '''<topology xmlns="urn:opendaylight:topology:correl
                                 <correlation-item>{correlation-item}</correlation-item>
                                 <aggregation>
                                     <aggregation-type>{aggregation-type}</aggregation-type>
-                                   <mapping>
-                                        <apply-filters>1</apply-filters>
+                                    <mapping>
                                         <input-model>{input-model}</input-model>
                                         <underlay-topology>{underlay-topology-id}</underlay-topology>
-                                        <!-- target field -->
                                         <aggregate-inside>false</aggregate-inside>
+                                        <!-- target field -->
+                                        <!-- apply filters -->
                                     </mapping>
                                     <mapping>
                                         <input-model>{input-model}</input-model>
                                         <underlay-topology>{underlay-topology-id}</underlay-topology>
-                                        <!-- target field -->
                                         <aggregate-inside>false</aggregate-inside>
+                                        <!-- target field -->
+                                        <!-- apply filters -->
                                     </mapping>
                                 </aggregation>
                                 <filtration>
                                     <underlay-topology>{underlay-topology-id}</underlay-topology>
+                                    <!-- Filter -->
                                 </filtration>
                             </correlation>
                         </correlations>
@@ -117,6 +120,10 @@ FILTRATION_NT = '''<topology xmlns="urn:opendaylight:topology:correlation" xmlns
                         </correlation>
                     </correlations>
                 </topology>'''
+
+APPLY_FILTERS = '''
+<apply-filters>{filter-id}</apply-filters>
+'''
 
 TARGET_FIELD = '''
 <target-field>
