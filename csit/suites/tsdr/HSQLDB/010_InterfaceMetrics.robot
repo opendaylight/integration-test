@@ -13,18 +13,20 @@ Variables         ../../../variables/Variables.py
 *** Variables ***
 @{INTERFACE_METRICS}    TransmittedPackets    TransmittedBytes    TransmitErrors    TransmitDrops    ReceivedPackets    ReceivedBytes    ReceiveOverRunError
 ...               ReceiveFrameError    ReceiveErrors    ReceiveDrops    ReceiveCrcError    CollisionCount
-@{CATEGORY}       FLOWGROUPSTATS    FLOWMETERSTATS    FLOWSTATS    FLOWTABLESTATS    PORTSTATS    QUEUESTATS
-${TSDR_PORTSTATS}    tsdr:list PORTSTATS
 
 *** Test Cases ***
+Init Variables
+    [Documentation]    Initialize ODL version specific variables
+    log    ${ODL_VERSION}
+    Run Keyword If    '${ODL_VERSION}' == 'stable-lithium'    Init Variables Lithium
+    ...    ELSE    Init Variables Master
+
 Verification of TSDR HSQLDB Feature Installation
     [Documentation]    Install and Verify the TSDR HSQLDB Datastore and JDBC
     COMMENT    Install a Feature    odl-tsdr-hsqldb    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    60
     COMMENT    Install a Feature    odl-tsdr-openflow-statistics-collector    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    60
-    Wait Until Keyword Succeeds    120s    1s    Verify the Metric is Collected?    log:display | grep "Connecting to HSQLDB"    HSQLDB
-    Verify Feature Is Installed    odl-tsdr-hsqldb
+    Verify Feature Is Installed    ${HSQLDB_INSTALL}
     Verify Feature Is Installed    odl-tsdr-core
-    Verify Feature Is Installed    odl-tsdr-openflow-statistics-collector
 
 Verification TSDR Command exists in Help
     [Documentation]    Verify the TSDR List command on Help
@@ -41,3 +43,16 @@ Verify PortStats On Karaf console
     \    ${tsdr_cmd}=    Concatenate the String    ${TSDR_PORTSTATS}    | grep ${list} | head
     \    ${output}=    Issue Command On Karaf Console    ${tsdr_cmd}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    30
     \    Should Contain    ${output}    ${list}
+
+*** Keywords ***
+Init Variables Master
+    [Documentation]    Sets variables specific to latest(master) version
+    Set Suite Variable    @{CATEGORY}       FLOWGROUPSTATS    FLOWMETERSTATS    FLOWSTATS    FLOWTABLESTATS    PORTSTATS    QUEUESTATS
+    Set Suite Variable    ${TSDR_PORTSTATS}    tsdr:list PORTSTATS
+    Set Suite Variable    ${HSQLDB_INSTALL}    odl-tsdr-hsqldb
+
+Init Variables Lithium
+    [Documentation]    Sets variables specific to Lithium version
+    Set Suite Variable    @{CATEGORY}       FlowStats    FlowTableStats    PortStats    QueueStats
+    Set Suite Variable    ${TSDR_PORTSTATS}    tsdr:list PortStats
+    Set Suite Variable    ${HSQLDB_INSTALL}    odl-tsdr-HSQLDB
