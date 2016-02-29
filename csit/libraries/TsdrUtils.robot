@@ -228,7 +228,7 @@ Generate HBase Query
     ${hbase_query}=    Concatenate the String    scan    '${table}'
     ${hbase_query}=    Concatenate the String    ${hbase_query}    ,{ FILTER =>\"(RowFilter(=,
     ${hbase_query}=    Concatenate the String    ${hbase_query}    'regexstring:${filter}*\')) AND (RowFilter(=,
-    ${hbase_query}=    Concatenate the String    ${hbase_query}    'regexstring:MN=${metric}*\'))\",LIMIT=>10}
+    ${hbase_query}=    Concatenate the String    ${hbase_query}    'regexstring:${metric}*\'))\",LIMIT=>10}
     [Return]    ${hbase_query}
 
 Get Metrics Value
