@@ -21,7 +21,8 @@ Issue Command On Karaf Console
     [Arguments]    ${cmd}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=5
     [Documentation]    Will execute the given ${cmd} by ssh'ing to the karaf console running on ${ODL_SYSTEM_IP}
     ...    Note that this keyword will open&close new SSH connection, without switching back to previously current session.
-    Open Connection    ${controller}    port=${karaf_port}    prompt=${KARAF_PROMPT}    timeout=${timeout}
+    Open Connection    ${controller}    port=${karaf_port}    prompt=${KARAF_PROMPT}    timeout=3600
+    Set Client Configuration    timeout=3600
     Login    ${KARAF_USER}    ${KARAF_PASSWORD}
     Write    ${cmd}
     ${output}    Read Until    ${KARAF_PROMPT}
