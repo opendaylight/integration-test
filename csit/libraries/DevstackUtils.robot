@@ -44,8 +44,8 @@ Devstack Suite Setup Tests
     SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
 
 Devstack Suite Setup
-    [Arguments]    ${source_pwd}=no
-    [Documentation]    Login to the Openstack Control Node to run tempest suite
+    [Documentation]  Login to  the Openstack Control Node to run tempest suite
+    [Arguments]      ${karaf_features}=${EMPTY}  ${boot_wait_url}=${EMPTY}  ${public_br}=${EMPTY}  ${q_l3_enabled}=${EMPTY}  ${source_pwd}=no
     ${devstack_conn_id}=    SSHLibrary.Open Connection    ${DEVSTACK_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}
     Set Suite Variable    ${devstack_conn_id}
     Set Suite Variable    ${source_pwd}
@@ -61,6 +61,10 @@ Devstack Suite Setup
     ${odl_version_to_install}=    Get Networking ODL Version Of Release    ${ODL_VERSION}
     Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG="enable_plugin networking-odl https://git.openstack.org/openstack/networking-odl ${NETWORKING-ODL_BRANCH};"
     Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG+="ODL_NETVIRT_DEBUG_LOGS=True;ODL_RELEASE=${odl_version_to_install};"
+    Export Karaf Features If Defined      ${karaf_features}
+    Export Odl Boot Wait Url If Defined   ${boot_wait_url}
+    Export Public Bridge If Specified     ${public_br}
+    Export Q_L3 Enabled  ${q_l3_enabled}
     Write Commands Until Prompt    echo $DEVSTACK_LOCAL_CONFIG
     Write Commands Until Prompt    export OVERRIDE_ZUUL_BRANCH=${OPENSTACK_BRANCH}
     Write Commands Until Prompt    export PYTHONUNBUFFERED=true
@@ -111,10 +115,39 @@ Write Commands Until Prompt
     ${output}=    SSHLibrary.Read Until Prompt
     [Return]    ${output}
 
+Export Karaf Features If Defined
+    [Arguments]    ${karaf_features}
+    [Documentation]    Exports features to install on Karaf.
+    Return From Keyword If  "${karaf_features}" == "${EMPTY}"
+    Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG+="ODL_NETVIRT_KARAF_FEATURE=${karaf_features};"
+
+Export Odl Boot Wait Url If Defined
+    [Arguments]    ${boot_wait_url}
+    [Documentation]    Exports boot wait URL for ODL Karaf.
+    Return From Keyword If  "${boot_wait_url}" == "${EMPTY}"
+    Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG+="ODL_BOOT_WAIT_URL=${boot_wait_url};"
+
+Export Public Bridge If Specified
+    [Arguments]    ${bridge_name}
+    [Documentation]    Specifies a bridge as public, otherwise br-ex would have to be created.
+    Return From Keyword If  "${bridge_name}" == "${EMPTY}"
+    Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG+="PUBLIC_BRIDGE=${bridge_name};"
+
+Export Q_L3 Enabled
+    [Arguments]    ${true_or_false}
+    [Documentation]    Explicitely enables or disables L3 agent. Replaced with ODL if disabled.
+    Return From Keyword If  "${true_or_false}" == "${EMPTY}"
+    Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG+="Q_L3_ENABLED=${true_or_false};"
+    ${true_or_false}   Convert To Lowercase   ${true_or_false}
+    Return From Keyword If  "${true_or_false}" == "true"
+    Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG+="NEUTRON_CREATE_INITIAL_NETWORKS=False;"
+    Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG+="ODL_L3=True;"
+
 Get Networking ODL Version Of Release
     [Arguments]    ${version}
     [Documentation]    Get version of ODL to be installed
     # once Beryllium SR1 goes out, we can change beryllium-latest to use 0.4.2
+    Return From Keyword If    "${version}" == "boron-latest"    boron-snapshot-0.5.0
     Return From Keyword If    "${version}" == "beryllium-latest"    beryllium-snapshot-0.4.2
     Return From Keyword If    "${version}" == "beryllium-SR1"    beryllium-snapshot-0.4.1
     Return From Keyword If    "${version}" == "beryllium"    beryllium-snapshot-0.4.0
