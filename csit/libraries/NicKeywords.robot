@@ -81,7 +81,7 @@ Remove Intent From Karaf Console
     ${output}=    Issue Command On Karaf Console    intent:remove ${id}
     Should Contain    ${output}    Intent successfully removed
     ${output}=    Issue Command On Karaf Console    log:display | grep "Removed VTN configuration associated with the deleted Intent: "
-    # The below log statements has changed an info to trace mode in Beryllium, and in future release will roll back the same.
+    #The below log statements has changed an info to trace mode in Beryllium, and in future release will roll back in same.
     #Should Contain    ${output}    Removed VTN configuration associated with the deleted Intent    ${id}
 
 Mininet Ping Should Succeed
@@ -94,6 +94,6 @@ Mininet Ping Should Succeed
 Mininet Ping Should Not Succeed
     [Arguments]    ${host1}    ${host2}
     [Timeout]    2 minute
-    Write    ${host1} ping -c 10 ${host2}
+    Write    ${host1} ping -c 3 ${host2}
     ${result}    Read Until    mininet>
     Should Not Contain    ${result}    64 bytes
