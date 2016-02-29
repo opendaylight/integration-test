@@ -5,17 +5,16 @@ Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
 Resource          ../../../libraries/Utils.robot
+Resource          ../../../libraries/OpenStackOperations.robot
+Resource          ../../../libraries/DevstackUtils.robot
 
 *** Variables ***
-${ODL_VERSION}    lithium-SR3
-${OPENSTACK_BRANCH}    stable/liberty
-${NETWORKING-ODL_BRANCH}    ${OPENSTACK_BRANCH}
-${TEMPEST_REGEX}    tempest.api.network
-${ODL_BOOT_WAIT_URL}    restconf/operational/network-topology:network-topology/topology/netvirt:1
-${default_devstack_prompt_timeout}    10s
-${devstack_workspace}    ~/ds_workspace
-${DEVSTACK_SYSTEM_PASSWORD}    \    # set to empty, but provide for others to override if desired
-${CLEAN_DEVSTACK_HOST}    False
+@{NETWORKS_NAME}    net1_network    net2_network
+@{SUBNETS_NAME}    subnet1    subnet2
+@{VM_INSTANCES_NAME}    MyFirstInstance    MySecondInstance
+@{VM_IPS}    10.0.0.3    20.0.0.3
+@{GATEWAY_IPS}    10.0.0.1    20.0.0.1
+@{DHCP_IPS}    10.0.0.2    20.0.0.2
 
 *** Test Cases ***
 Run Devstack Gate Wrapper
@@ -38,98 +37,110 @@ Validate Neutron and Networking-ODL Versions
 tempest.api.network
     Run Tempest Tests    ${TEST_NAME}
 
-tempest
-    [Tags]    exclude
-    Run Tempest Tests    ${TEST_NAME}    900s
+Create Networks
+    [Documentation]    Create Network with neutron request.
+    : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
+    \    Create Network    ${NetworkElement}
 
-*** Keywords ***
-Run Tempest Tests
-    [Arguments]    ${tempest_regex}    ${timeout}=600s
-    Write Commands Until Prompt    cd /opt/stack/new/tempest
-    Write Commands Until Prompt    sudo rm -rf /opt/stack/new/tempest/.testrepository
-    Write Commands Until Prompt    sudo testr init
-    ${results}=    Write Commands Until Prompt    sudo -E testr run ${tempest_regex} --subunit | subunit-trace --no-failure-debug -f    timeout=${timeout}
-    Should Contain    ${results}    Failed: 0
-    # TODO: also need to verify some non-zero pass count as well as other results are ok (e.g. skipped, etc)
+Create Subnets
+    [Documentation]    Create Sub Nets for the Networks with neutron request.
+    : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
+    \    Create SubNet    ${NetworkElement}
 
-Devstack Suite Setup
-    SSHLibrary.Open Connection    ${DEVSTACK_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}
-    Utils.Flexible SSH Login    ${DEVSTACK_SYSTEM_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
-    SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
-    Run Keyword If    ${CLEAN_DEVSTACK_HOST}    Clean DevStack Host In Case It Is Not Sterile
-    Write Commands Until Prompt    export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin
-    Write Commands Until Prompt    export ODL_VERSION=${ODL_VERSION}
-    Write Commands Until Prompt    export OPENSTACK_BRANCH=${OPENSTACK_BRANCH}
-    Write Commands Until Prompt    export TEMPEST_REGEX=${TEMPEST_REGEX}
-    Write Commands Until Prompt    export ODL_BOOT_WAIT_URL=${ODL_BOOT_WAIT_URL}
-    ${odl_version_to_install}=    Get Networking ODL Version Of Release    ${ODL_VERSION}
-    Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG="enable_plugin networking-odl https://git.openstack.org/openstack/networking-odl ${NETWORKING-ODL_BRANCH};"
-    Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG+="ODL_NETVIRT_DEBUG_LOGS=True;ODL_RELEASE=${odl_version_to_install};"
-    Write Commands Until Prompt    echo $DEVSTACK_LOCAL_CONFIG
-    Write Commands Until Prompt    export OVERRIDE_ZUUL_BRANCH=${OPENSTACK_BRANCH}
-    Write Commands Until Prompt    export PYTHONUNBUFFERED=true
-    Write Commands Until Prompt    export DEVSTACK_GATE_TIMEOUT=120
-    Write Commands Until Prompt    export DEVSTACK_GATE_TEMPEST=1
-    Write Commands Until Prompt    export DEVSTACK_GATE_NEUTRON=1
-    Write Commands Until Prompt    export KEEP_LOCALRC=1
-    Write Commands Until Prompt    export PROJECTS="openstack/networking-odl $PROJECTS"
-    Write Commands Until Prompt    export DEVSTACK_GATE_TEMPEST_REGEX=tempest.api.network.test_ports.PortsTestJSON.test_show_port
-    Write Commands Until Prompt    sudo yum -y install redhat-lsb-core indent python-testrepository    timeout=120s
-    Write Commands Until Prompt    sudo /usr/sbin/groupadd ${DEVSTACK_SYSTEM_USER}
-    Write Commands Until Prompt    sudo mkdir -p /opt/stack/new
-    Write Commands Until Prompt    sudo chown -R ${DEVSTACK_SYSTEM_USER}:${DEVSTACK_SYSTEM_USER} /opt/stack/new
-    Write Commands Until Prompt    sudo bash -c 'echo "stack ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers'
-    Write Commands Until Prompt    sudo mkdir -p /usr/local/${DEVSTACK_SYSTEM_USER}/slave_scripts
-    Write Commands Until Prompt    git clone https://github.com/openstack/os-testr.git    timeout=30s
-    Write Commands Until Prompt    cd os-testr/os_testr
-    Write Commands Until Prompt    sudo cp subunit2html.py /usr/local/${DEVSTACK_SYSTEM_USER}/slave_scripts
-    Write Commands Until Prompt    mkdir -p ${devstack_workspace}
-    Write Commands Until Prompt    cd ${devstack_workspace}
-    Write Commands Until Prompt    export WORKSPACE=${devstack_workspace}
-    Write Commands Until Prompt    rm -rf devstack-gate
-    Write Commands Until Prompt    git clone https://git.openstack.org/openstack-infra/devstack-gate    timeout=30s
+List Ports
+    ${output}=   Write Commands Until Prompt     neutron -v port-list
+    Log    ${output}
 
-Clean DevStack Host In Case It Is Not Sterile
-    [Documentation]    In upstream CI, the expectation is that the devstack VM is fresh, sterile and ready
-    ...    for any version of devstack, networking-odl, and OpenDaylight. During local test development,
-    ...    it can be faster to just clean the needed packages, configurations, repos, files, etc. instead of
-    ...    spinning up a new system. This keyword serves as a living list of those items needed to prep a
-    ...    potentially non-sterile devstack system.
-    Write Commands Until Prompt    pgrep python | awk '{print "sudo kill",$1}' | sh
-    Write Commands Until Prompt    pgrep java | awk '{print "sudo kill",$1}' | sh
-    Write Commands Until Prompt    rpm -qa | grep rdo
-    Write Commands Until Prompt    sudo rpm -e $(sudo rpm -qa | grep rdo)
-    Write Commands Until Prompt    sudo yum remove -y pyOpenSSL
-    Write Commands Until Prompt    sudo -H pip uninstall -y virtualenv
-    Write Commands Until Prompt    sudo rm -rf /tmp/ansible /opt/stack
-    Write Commands Until Prompt    rm -rf ${devstack_workspace} ~/os-testr
-    Write Commands Until Prompt    sudo ovs-vsctl del-br br-ex
-    Write Commands Until Prompt    sudo ovs-vsctl del-br br-int
-    Write Commands Until Prompt    sudo ovs-vsctl del-manager
+List Available Networks
+    ${output}=   Write Commands Until Prompt     neutron -v net-list
+    Log    ${output}
 
-Write Commands Until Prompt
-    [Arguments]    ${cmd}    ${timeout}=${default_devstack_prompt_timeout}
-    [Documentation]    quick wrapper for Write and Read Until Prompt Keywords to make test cases more readable
-    SSHLibrary.Set Client Configuration    timeout=${timeout}
-    SSHLibrary.Write    ${cmd}
-    ${output}=    SSHLibrary.Read Until Prompt
-    [Return]    ${output}
+List Tenants
+    ${output}=   Write Commands Until Prompt     keystone tenant-list
+    Log    ${output}
 
-Get Networking ODL Version Of Release
-    [Arguments]    ${version}
-    # once Beryllium SR1 goes out, we can change beryllium-latest to use 0.4.2
-    Return From Keyword If    "${version}" == "beryllium-latest"    beryllium-snapshot-0.4.1
-    Return From Keyword If    "${version}" == "beryllium-SR1"    beryllium-snapshot-0.4.1
-    Return From Keyword If    "${version}" == "beryllium"    beryllium-snapshot-0.4.0
-    Return From Keyword If    "${version}" == "lithium-latest"    lithium-snapshot-0.3.5
-    Return From Keyword If    "${version}" == "lithium-SR4"    lithium-snapshot-0.3.4
-    Return From Keyword If    "${version}" == "lithium-SR3"    lithium-snapshot-0.3.3
-    Return From Keyword If    "${version}" == "lithium-SR2"    lithium-snapshot-0.3.2
-    Return From Keyword If    "${version}" == "lithium-SR1"    lithium-snapshot-0.3.1
-    # FYI networking-odl no longer has this for some reason.
-    Return From Keyword If    "${version}" == "lithium"    lithium-snapshot-0.3.0
-    Return From Keyword If    "${version}" == "helium"    helium
+List Nova
+    ${output}=   Write Commands Until Prompt     nova list
+    Log    ${output}
 
-Show Devstack Debugs
-    Write Commands Until Prompt    gunzip /opt/stack/logs/devstacklog.txt.gz
-    Write Commands Until Prompt    tail -n1000 /opt/stack/logs/devstacklog.txt    timeout=600s
+List Nova Images
+    ${output}=   Write Commands Until Prompt     nova image-list
+    Log    ${output}
+
+List Nova Flavor
+    ${output}=   Write Commands Until Prompt     nova flavor-list
+    Log    ${output}
+
+Create Vm Instances
+    [Documentation]    Create Vm instances using flavor and image names.
+    : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
+    \    ${net_id}=    Get Net Id    ${NetworkElement}
+    \    Create Vm Instance    ${net_id}    ${NetworkElement}
+
+Show Details of Created Vm Instance
+    [Documentation]    View Details of the created vm instances using nova show.
+    : FOR    ${VmElement}    IN    @{VM_INSTANCES_NAME}
+    \    ${output}=   Write Commands Until Prompt     nova show ${VmElement}
+    \    Log    ${output}
+
+Verify Created Vm Instance In Dump Flow
+    [Documentation]    Verify the existence of the created vm instance ips in the dump flow.
+    ${output}=   Write Commands Until Prompt     sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+    : FOR    ${VmIpElement}    IN    @{VM_IPS}
+    \    Should Contain    ${output}    ${VmIpElement}
+
+Create Routers
+    [Documentation]    Create Router and Add Interface to the subnets.
+    Create Router
+
+Verify Gateway Ip After Interface Added
+    [Documentation]    Verify the existence of the gateway ips in the dump flow.
+    ${output}=   Write Commands Until Prompt     sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+    : FOR    ${GatewayIpElement}    IN    @{GATEWAY_IPS}
+    \    Should Contain    ${output}    ${GatewayIpElement}
+
+Verify Dhcp Flow Entries
+    [Documentation]    Verify Created SubNets for the Networks with dump flow.
+    Verify Dhcp Ips
+
+Delete Vm Instances
+    [Documentation]    Delete Vm instances using instance names.
+    : FOR    ${VmElement}    IN    @{VM_INSTANCES_NAME}
+    \    Delete Vm Instance    ${VmElement}
+
+Verify Deleted Vm Instance Removed In Dump Flow
+    [Documentation]    Verify the non-existence of the vm instance ips in the dump flow.
+    : FOR    ${VmIpElement}    IN    @{VM_IPS}
+    \    ${output}=   Write Commands Until Prompt     sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    \    Log    ${output}
+    \    Should Not Contain    ${output}    ${VmIpElement}
+
+Delete Router Interfaces
+    [Documentation]    Remove Interface to the subnets.
+    Remove Interface
+
+Delete Routers
+    [Documentation]    Delete Router and Interface to the subnets.
+    Delete Router
+
+Verify Deleted Routers
+    [Documentation]    Verify Deleted Routers for the Networks with dump flow.
+    Verify No Gateway Ips
+
+Delete Sub Networks
+    [Documentation]    Delete Sub Nets for the Networks with neutron request.
+    : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
+    \    Delete SubNet    ${NetworkElement}
+
+Delete Networks
+    [Documentation]    Delete Networks with neutron request.
+    : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
+    \    Delete Network    ${NetworkElement}
+
+Verify Deleted Subnets
+    [Documentation]    Verify Deleted SubNets for the Networks with dump flow.
+    Verify No Dhcp Ips
+    [Teardown]    Report_Failure_Due_To_Bug    5408
+>>>>>>> a0e936d... Single Node Odl Tempest Job Tests
