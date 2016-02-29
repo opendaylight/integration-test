@@ -84,8 +84,8 @@ Get OVSDB UUID
     : FOR    ${node}    IN    @{node_list}
     \    ${node_id}=    Get From Dictionary    ${node}    node-id
     \    ${node_uuid}=    Replace String    ${node_id}    ovsdb://uuid/    ${EMPTY}
-    \    # Since bridges are also listed as nodes, but will not have the extra "ovsdb:connection-info data, we need to
-    \    # use "Run Keyword And Ignore Error" below.
+    # Since bridges are also listed as nodes, but will not have the extra "ovsdb:connection-info data, we need to
+    # use "Run Keyword And Ignore Error" below.
     \    ${status}    ${connection_info}    Run Keyword And Ignore Error    Get From Dictionary    ${node}    ovsdb:connection-info
     \    ${status}    ${remote_ip}    Run Keyword And Ignore Error    Get From Dictionary    ${connection_info}    remote-ip
     \    ${uuid}=    Set Variable If    '${remote_ip}' == '${ovs_system_ip}'    ${node_uuid}    ${uuid}
@@ -133,4 +133,6 @@ Add Multiple Managers to OVS
     Log    Check OVS configuratiom
     ${output}=    Run Command On Mininet    ${mininet}    sudo ovs-vsctl show
     Log    ${output}
-    [Return]    ${mininet_conn_id}
+    ${ovsdb_uuid}=    Get OVSDB UUID    controller_http_session=controller1
+    [Return]    ${mininet_conn_id}    ${ovsdb_uuid}
+
