@@ -11,15 +11,7 @@ Resource          KarafKeywords.robot
 Variables         ../variables/Variables.py
 
 *** Variables ***
-${ODL_VERSION}    lithium-SR3
-${OPENSTACK_BRANCH}    stable/liberty
-${NETWORKING-ODL_BRANCH}    ${OPENSTACK_BRANCH}
-${TEMPEST_REGEX}    tempest.api.network
-${ODL_BOOT_WAIT_URL}    restconf/operational/network-topology:network-topology/topology/netvirt:1
-${default_devstack_prompt_timeout}    10s
-${devstack_workspace}    ~/ds_workspace
-${DEVSTACK_SYSTEM_PASSWORD}    \    # set to empty, but provide for others to override if desired
-${CLEAN_DEVSTACK_HOST}    False
+${default_devstack_prompt_timeout}  10s
 
 *** Keywords ***
 Run Tempest Tests
@@ -32,7 +24,9 @@ Run Tempest Tests
     # TODO: also need to verify some non-zero pass count as well as other results are ok (e.g. skipped, etc)
 
 Devstack Suite Setup
-    SSHLibrary.Open Connection    ${DEVSTACK_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}
+    [Documentation]  Installs and runs Openstack. Karaf features and boot-wait URL for ODL can be specified in arguments.
+    [Arguments]      ${karaf_features}=${EMPTY}    ${boot_wait_url}=${EMPTY}
+    SSHLibrary.Open Connection    ${DEVSTACK_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    alias=${DEVSTACK_CONN_ALIAS}
     Utils.Flexible SSH Login    ${DEVSTACK_SYSTEM_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
     Run Keyword If    ${CLEAN_DEVSTACK_HOST}    Clean DevStack Host In Case It Is Not Sterile
@@ -40,10 +34,12 @@ Devstack Suite Setup
     Write Commands Until Prompt    export ODL_VERSION=${ODL_VERSION}
     Write Commands Until Prompt    export OPENSTACK_BRANCH=${OPENSTACK_BRANCH}
     Write Commands Until Prompt    export TEMPEST_REGEX=${TEMPEST_REGEX}
-    Write Commands Until Prompt    export ODL_BOOT_WAIT_URL=${ODL_BOOT_WAIT_URL}
     ${odl_version_to_install}=    Get Networking ODL Version Of Release    ${ODL_VERSION}
+    Log    ${odl_version_to_install}
     Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG="enable_plugin networking-odl https://git.openstack.org/openstack/networking-odl ${NETWORKING-ODL_BRANCH};"
-    Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG+="ODL_NETVIRT_DEBUG_LOGS=True;ODL_RELEASE=${odl_version_to_install};"
+    Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG+="ODL_NETVIRT_DEBUG_LOGS=True;ODL_RELEASE=${odl_version_to_install};PHYSICAL_NETWORK=dr-external;"
+    Export Karaf Features If Defined      ${karaf_features}
+    Export Odl Boot Wait Url If Defined   ${boot_wait_url}
     Write Commands Until Prompt    echo $DEVSTACK_LOCAL_CONFIG
     Write Commands Until Prompt    export OVERRIDE_ZUUL_BRANCH=${OPENSTACK_BRANCH}
     Write Commands Until Prompt    export PYTHONUNBUFFERED=true
@@ -94,8 +90,22 @@ Write Commands Until Prompt
     ${output}=    SSHLibrary.Read Until Prompt
     [Return]    ${output}
 
+Export Karaf Features If Defined
+    [Arguments]    ${karaf_features}
+    [Documentation]    Exports features to install on Karaf.
+    Pass Execution If  "${karaf_features}" == "${EMPTY}"  No Karaf features specified!
+    Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG+="ODL_NETVIRT_KARAF_FEATURE=${KARAF_FEATURES};"
+
+Export Odl Boot Wait Url If Defined
+    [Arguments]    ${boot_wait_url}
+    [Documentation]    Exports boot wait URL for ODL Karaf.
+    Pass Execution If  "${boot_wait_url}" == "${EMPTY}"  No Karaf features specified!
+    Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG+="ODL_BOOT_WAIT_URL=${boot_wait_url};"
+
+
 Get Networking ODL Version Of Release
     [Arguments]    ${version}
+    Log    ${version}
     # once Beryllium SR1 goes out, we can change beryllium-latest to use 0.4.2
     Return From Keyword If    "${version}" == "beryllium-latest"    beryllium-snapshot-0.4.1
     Return From Keyword If    "${version}" == "beryllium-SR1"    beryllium-snapshot-0.4.1
@@ -111,5 +121,8 @@ Get Networking ODL Version Of Release
 
 Show Devstack Debugs
     Write Commands Until Prompt    gunzip /opt/stack/logs/devstacklog.txt.gz
-    Write Commands Until Prompt    tail -n2000 /opt/stack/logs/devstacklog.txt    timeout=600s
-    Write Commands Until Prompt    grep 'distribution-karaf.*zip' /opt/stack/logs/devstacklog.txt
+    Write Commands Until Prompt    tail -n1000 /opt/stack/logs/devstacklog.txt    timeout=600s
+
+Close Devstack Connection
+    Switch Connection    devstack_conn
+    Close Connection
