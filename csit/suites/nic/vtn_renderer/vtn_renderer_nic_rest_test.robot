@@ -24,4 +24,4 @@ Verify Ping
 Delete Intent
     [Documentation]    Delete the intent created.
     Delete Intent Using RestConf    ${INTENT_ID}
-    Mininet Ping Should Not Succeed    h1    h2
+    Wait Until Keyword Succeeds    10s    1s    Mininet Ping Should Not Succeed    h1    h2
