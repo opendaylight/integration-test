@@ -45,14 +45,14 @@ Verify VTN Renderer Command Add and Remove in CLI
     : FOR    ${intent_id}    IN    @{all_intents_ids}
     \    Remove Intent From Karaf Console    ${intent_id}
 
-Verify Invalid VTN Renderer Command Add and Remove in CLI
+Verify Invalid VTN Renderer Command Add in CLI
     [Documentation]    Invalid IP address for intent creation It first creates the intents
     ...    and stores the intent ids, but flow condition and flowfilter was not created.
     [Tags]    NIC
     : FOR    ${intent}    IN    @{all_invalid_Intent}
     \    ${id}=    Add Intent From Karaf Console    @{intent}
-    \    ${output}=    Issue Command On Karaf Console    log:display | grep "Invalid Address"
-    \    Should Contain    ${output}    Invalid Address
+    \    ${output}=    Issue Command On Karaf Console    log:display | grep "Invalid address is specified in Intent configuration"
+    \    Should Contain    ${output}    Invalid address is specified in Intent configuration
 
 *** Keywords ***
 Verify VTNBundle
