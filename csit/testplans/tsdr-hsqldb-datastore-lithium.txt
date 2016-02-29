@@ -1,0 +1,5 @@
+# Place the suites in run order:
+integration/test/csit/suites/tsdr/HSQLDB/010_InterfaceMetrics.robot
+integration/test/csit/suites/tsdr/HSQLDB/020_FlowMetrics.robot
+integration/test/csit/suites/tsdr/HSQLDB/030_FlowTableMetrics.robot
+integration/test/csit/suites/tsdr/HSQLDB/040_QueueMetrics.robot

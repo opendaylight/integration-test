@@ -15,13 +15,16 @@ Variables         ../../../variables/Variables.py
 *** Variables ***
 @{INTERFACE_METRICS}    TransmittedPackets    TransmittedBytes    TransmitErrors    TransmitDrops    ReceivedPackets    ReceivedBytes    ReceiveOverRunError
 ...               ReceiveFrameError    ReceiveErrors    ReceiveDrops    ReceiveCrcError    CollisionCount
-@{CATEGORY}       FLOWGROUPSTATS    FLOWMETERSTATS    FLOWSTATS    FLOWTABLESTATS    PORTSTATS    QUEUESTATS
-${TSDR_PORTSTATS}    tsdr:list PORTSTATS
-${CONFIG_INTERVAL}    /restconf/config/tsdr-openflow-statistics-collector:TSDROSCConfig
-${OPER_INTERVAL}    /restconf/operations/tsdr-openflow-statistics-collector:setPollingInterval
 &{HEADERS_QUERY}    Content-Type=application/json    Content-Type=application/json
 
 *** Test Cases ***
+
+Init Variables
+    [Documentation]    Initialize ODL version specific variables
+    log    ${ODL_VERSION}
+    Run Keyword If    '${ODL_VERSION}' == 'stable-lithium'    Init Variables Lithium
+    ...    ELSE    Init Variables Master
+
 Verification of TSDR HBase Feature Installation
     [Documentation]    Install and Verify the TSDR HBase Features
     COMMENT    Install a Feature    odl-tsdr-hbase    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    60
@@ -47,19 +50,42 @@ Verification of TSDR PortStats
 Verification of InterfaceMetrics-Attributes on HBase Client
     [Documentation]    Verify the InterfaceMetrics has been updated on HBase Datastore
     : FOR    ${list}    IN    @{INTERFACE_METRICS}
-    \    Verify the Metrics Attributes on Hbase Client    ${list}    Node:openflow:1,NodeConnector:1    PORTSTATS
+    \    Verify the Metrics Attributes on Hbase Client    ${list}    ${node_connector}    ${portstats}
 
 Verify Configuration Interval-change
     [Documentation]    Verify the TSDR Collection configuration changes
-    Wait Until Keyword Succeeds    5x    3 sec    Post TSDR Configuration Interval    15000
-    Wait Until Keyword Succeeds    5x    3 sec    Verify TSDR Configuration Interval    15000
-    Wait Until Keyword Succeeds    5x    3 sec    Post TSDR Configuration Interval    20000
-    Wait Until Keyword Succeeds    5x    3 sec    Verify TSDR Configuration Interval    20000
-    Wait Until Keyword Succeeds    5x    3 sec    Post TSDR Configuration Interval    15000
-    Wait Until Keyword Succeeds    5x    3 sec    Verify TSDR Configuration Interval    15000
+    Wait Until Keyword Succeeds    5x    3 sec    Post TSDR Configuration Interval    ${default_poll}
+    Wait Until Keyword Succeeds    5x    3 sec    Verify TSDR Configuration Interval    ${default_poll}
+    Wait Until Keyword Succeeds    5x    3 sec    Post TSDR Configuration Interval    ${non_default_poll}
+    Wait Until Keyword Succeeds    5x    3 sec    Verify TSDR Configuration Interval    ${non_default_poll}
+    Wait Until Keyword Succeeds    5x    3 sec    Post TSDR Configuration Interval    ${default_poll}
+    Wait Until Keyword Succeeds    5x    3 sec    Verify TSDR Configuration Interval    ${default_poll}
     [Teardown]    Report_Failure_Due_To_Bug    5068
 
 *** Keywords ***
+
+Init Variables Master
+    [Documentation]    Sets variables specific to latest(master) version
+    Set Suite Variable    @{CATEGORY}       FLOWGROUPSTATS    FLOWMETERSTATS    FLOWSTATS    FLOWTABLESTATS    PORTSTATS    QUEUESTATS
+    Set Suite Variable    ${TSDR_PORTSTATS}    tsdr:list PORTSTATS
+    Set Suite Variable    ${CONFIG_INTERVAL}    /restconf/config/tsdr-openflow-statistics-collector:TSDROSCConfig
+    Set Suite Variable    ${OPER_INTERVAL}    /restconf/operations/tsdr-openflow-statistics-collector:setPollingInterval
+    Set Suite Variable    ${default_poll}    15000
+    set Suite Variable    ${non_default_poll}    20000
+    set Suite Variable    ${node_connector}    Node:openflow:1,NodeConnector:1
+    set suite Variable    ${portstats}    PORTSTATS
+
+Init Variables Lithium
+    [Documentation]    Sets variables specific to Lithium version
+    Set Suite Variable    @{CATEGORY}       FlowStats    FlowTableStats    PortStats    QueueStats
+    Set Suite Variable    ${TSDR_PORTSTATS}    tsdr:list PortStats
+    Set Suite Variable    ${CONFIG_INTERVAL}    /restconf/config/TSDRDC:TSDRDCConfig
+    Set Suite Variable    ${OPER_INTERVAL}    /restconf/operations/TSDRDC:setPollingInterval
+    Set Suite Variable    ${default_poll}    180
+    set Suite Variable    ${non_default_poll}    200
+    set Suite Variable    ${node_connector}    openflow:1_1
+    set suite Variable    ${portstats}    InterfaceMetrics
+
 Initialize the Tsdr Suite
     COMMENT    Initialize the HBase for TSDR
     Start Tsdr Suite

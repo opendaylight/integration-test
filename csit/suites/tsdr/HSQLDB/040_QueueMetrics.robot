@@ -12,9 +12,14 @@ Variables         ../../../variables/Variables.py
 
 *** Variables ***
 @{QUEUE_METRICS}    TransmittedPackets    TransmittedBytes    TransmissionErrors
-${TSDR_QUEUE_STATS}    tsdr:list QUEUESTATS
 
 *** Test Cases ***
+Init Variables
+    [Documentation]    Initialize ODL version specific variables
+    log    ${ODL_VERSION}
+    Run Keyword If    '${ODL_VERSION}' == 'stable-lithium'    Init Variables Lithium
+    ...    ELSE    Init Variables Master
+
 Verify the QueueStats attributes exist thru Karaf console
     [Documentation]    Verify the QueueMetrics attributes exist on Karaf Console
     Wait Until Keyword Succeeds    60s    1s    Verify the Metric is Collected?    ${TSDR_QUEUE_STATS}    Transmitted
@@ -26,3 +31,12 @@ Verify the QueueStats attributes exist thru Karaf console
 Configuration of Queue on Switch
     [Documentation]    Queue configuration on openvswitch
     Configure the Queue on Switch    s2-eth2
+
+Init Variables Master
+    [Documentation]    Sets variables specific to latest(master) version
+    Set Suite Variable    ${TSDR_QUEUE_STATS}    tsdr:list QUEUESTATS
+
+Init Variables Lithium
+    [Documentation]    Sets variables specific to Lithium version
+    Set Suite Variable    ${TSDR_QUEUE_STATS}    tsdr:list QueueStats
+

@@ -12,9 +12,15 @@ Variables         ../../../variables/Variables.py
 
 *** Variables ***
 @{QUEUE_METRICS}    TransmittedPackets    TransmittedBytes    TransmissionErrors
-${TSDR_QUEUESTATS}    tsdr:list QUEUESTATS
 
 *** Test Cases ***
+
+Init Variables
+    [Documentation]    Initialize ODL version specific variables
+    log    ${ODL_VERSION}
+    Run Keyword If    '${ODL_VERSION}' == 'stable-lithium'    Init Variables Lithium
+    ...    ELSE    Init Variables Master
+
 Verify the Queue Metrics attributes exist thru Karaf console
     [Documentation]    Verify the QueueMetrics attributes exist on Karaf Console
     Wait Until Keyword Succeeds    180s    1s    Verify the Metric is Collected?    ${TSDR_QUEUESTATS}    Transmitted
@@ -30,17 +36,32 @@ Verification of QueueMetrics-TransmittedPackets on Karaf Console
 
 Verification of QueueMetrics-TransmittedPackets on HBase Client
     [Documentation]    Verify the QueueMetrics has been updated on HBase Datastore
-    Verify the Metrics Attributes on Hbase Client    TransmittedPackets    Node:openflow:2    QUEUESTATS
+    Verify the Metrics Attributes on Hbase Client    TransmittedPackets    ${node_connector}    ${queuestats}
 
 Verification of QueueMetrics-TransmittedBytes on HBase Client
     [Documentation]    Verify the QueueMetrics has been updated on HBase Datastore
-    Verify the Metrics Attributes on Hbase Client    TransmittedBytes    Node:openflow:2    QUEUESTATS
+    Verify the Metrics Attributes on Hbase Client    TransmittedBytes    ${node_connector}    ${queuestats}
 
 Verification of QueueMetrics-TransmissionErrors on HBase Client
     [Documentation]    Verify the QueueMetrics has been updated on HBase Datastore
-    Verify the Metrics Attributes on Hbase Client    TransmissionErrors    Node:openflow:2    QUEUESTATS
+    Verify the Metrics Attributes on Hbase Client    TransmissionErrors    ${node_connector}    ${queuestats}
 
 *** Keyword ***
 Configuration of Queue on Switch
     [Documentation]    Queue configuration on openvswitch
     Configure the Queue on Switch    s2-eth2
+
+*** Keywords ***
+
+Init Variables Master
+    [Documentation]    Sets variables specific to latest(master) version
+    Set Suite Variable    ${TSDR_QUEUESTATS}    tsdr:list QUEUESTATS
+    set Suite Variable    ${node_connector}    Node:openflow:2
+    set suite Variable    ${queuestats}    QUEUESTATS
+
+Init Variables Lithium
+    [Documentation]    Sets variables specific to Lithium version
+    Set Suite Variable    ${TSDR_QUEUESTATS}    tsdr:list QueueStats
+    set Suite Variable    ${node_connector}    openflow:2
+    set suite Variable    ${queuestats}    QueueMetrics
+
