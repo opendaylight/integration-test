@@ -64,7 +64,7 @@ Add Vxlan To Bridge
 Verify OVS Reports Connected
     [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
     [Documentation]    Uses "vsctl show" to check for string "is_connected"
-    ${output}=    Run Command On Remote System    ${tools_system}    sudo ovs-vsctl show
+    ${output}=    Utils.Run Command On Remote System    ${tools_system}    sudo ovs-vsctl show
     Should Contain    ${output}    is_connected
 
 Get OVSDB UUID
@@ -81,11 +81,11 @@ Get OVSDB UUID
     ${topology}=    Get From List    ${topologies}    0
     ${node_list}=    Get From Dictionary    ${topology}    node
     Log    ${node_list}
+    # Since bridges are also listed as nodes, but will not have the extra "ovsdb:connection-info data,
+    # we need to use "Run Keyword And Ignore Error" below.
     : FOR    ${node}    IN    @{node_list}
     \    ${node_id}=    Get From Dictionary    ${node}    node-id
     \    ${node_uuid}=    Replace String    ${node_id}    ovsdb://uuid/    ${EMPTY}
-    \    # Since bridges are also listed as nodes, but will not have the extra "ovsdb:connection-info data, we need to
-    \    # use "Run Keyword And Ignore Error" below.
     \    ${status}    ${connection_info}    Run Keyword And Ignore Error    Get From Dictionary    ${node}    ovsdb:connection-info
     \    ${status}    ${remote_ip}    Run Keyword And Ignore Error    Get From Dictionary    ${connection_info}    remote-ip
     \    ${uuid}=    Set Variable If    '${remote_ip}' == '${ovs_system_ip}'    ${node_uuid}    ${uuid}
@@ -94,9 +94,9 @@ Get OVSDB UUID
 Collect OVSDB Debugs
     [Arguments]    ${switch}=br-int
     [Documentation]    Used to log useful test debugs for OVSDB related system tests.
-    ${output}=    Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
+    ${output}=    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
     Log    ${output}
-    ${output}=    Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${switch} | cut -d',' -f3-
+    ${output}=    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-ofctl -O OpenFlow13 dump-flows ${switch} | cut -d',' -f3-
     Log    ${output}
 
 Clean OVSDB Test Environment
@@ -104,33 +104,31 @@ Clean OVSDB Test Environment
     [Documentation]    General Use Keyword attempting to sanitize test environment for OVSDB related
     ...    tests. Not every step will always be neccessary, but should not cause any problems for
     ...    any new ovsdb test suites.
-    Clean Mininet System    ${tools_system}
-    Run Command On Mininet    ${tools_system}    sudo ovs-vsctl del-manager
-    Run Command On Mininet    ${tools_system}    sudo /usr/share/openvswitch/scripts/ovs-ctl stop
-    Run Command On Mininet    ${tools_system}    sudo rm -rf /etc/openvswitch/conf.db
-    Run Command On Mininet    ${tools_system}    sudo /usr/share/openvswitch/scripts/ovs-ctl start
+    Utils.Clean Mininet System    ${tools_system}
+    Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl del-manager
+    Utils.Run Command On Mininet    ${tools_system}    sudo /usr/share/openvswitch/scripts/ovs-ctl stop
+    Utils.Run Command On Mininet    ${tools_system}    sudo rm -rf /etc/openvswitch/conf.db
+    Utils.Run Command On Mininet    ${tools_system}    sudo /usr/share/openvswitch/scripts/ovs-ctl start
 
 Set Controller In OVS Bridge
-    [Arguments]    ${mininet}    ${bridge}    ${controller_opt}
+    [Arguments]    ${tools_system}    ${bridge}    ${controller_opt}
     [Documentation]    Sets controller for a given OVS ${bridge} using controller options in ${controller_opt}
-    Run Command On Mininet    ${mininet}    sudo ovs-vsctl del-controller ${bridge}
-    Run Command On Mininet    ${mininet}    sudo ovs-vsctl set-controller ${bridge} ${controller_opt}
+    Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl del-controller ${bridge}
+    Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl set-controller ${bridge} ${controller_opt}
 
 Add Multiple Managers to OVS
-    [Arguments]    ${mininet}    ${controller_index_list}    ${ovs_mgr_port}=6640
-    [Documentation]    Start Mininet with custom topology and connect to all controllers in the ${controller_index_list}.
+    [Arguments]    ${tools_system}    ${controller_index_list}    ${ovs_mgr_port}=6640
+    [Documentation]    Connect OVS to all controllers in the ${controller_index_list}.
     Log    Clear any existing mininet
-    Clean Mininet System    ${mininet}
-    ${mininet_conn_id}=    Open Connection    ${mininet}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=${DEFAULT_TIMEOUT}
-    Set Suite Variable    ${mininet_conn_id}
-    Flexible Mininet Login
+    Utils.Clean Mininet System    ${tools_system}
     ${ovs_opt}=    Set Variable
     : FOR    ${index}    IN    @{controller_index_list}
     \    ${ovs_opt}=    Catenate    ${ovs_opt}    ${SPACE}tcp:${ODL_SYSTEM_${index}_IP}:${ovs_mgr_port}
     \    Log    ${ovs_opt}
     Log    Configure OVS Managers in the OVS
-    Run Command On Mininet    ${mininet}    sudo ovs-vsctl set-manager ${ovs_opt}
+    Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl set-manager ${ovs_opt}
     Log    Check OVS configuratiom
-    ${output}=    Run Command On Mininet    ${mininet}    sudo ovs-vsctl show
+    ${output}=    Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl show
     Log    ${output}
-    [Return]    ${mininet_conn_id}
+    ${ovsdb_uuid}=    Get OVSDB UUID    controller_http_session=controller1
+    [Return]    ${ovsdb_uuid}
