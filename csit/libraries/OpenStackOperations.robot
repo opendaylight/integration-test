@@ -15,10 +15,9 @@ Create Network
     [Documentation]    Create Network with neutron request.
     ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v net-create ${network_name}    30s
-    Close Connection
+    ${output}=    Write Commands Until Prompt    neutron -v net-create ${network_name} | grep -w id | awk '{print $4}'    30s
     Log    ${output}
-    Should Contain    ${output}    Created a new network
+    [Return]    ${output}
 
 Delete Network
     [Arguments]    ${network_name}
