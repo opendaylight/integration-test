@@ -1,0 +1,21 @@
+{
+  "service-functions": {
+    "service-function": [
+      {
+        "name": "srvc1",
+        "sf-data-plane-locator": [
+          {
+            "name": "Egress",
+            "service-function-forwarder": "openflow:4"
+          },
+          {
+            "name": "Ingress",
+            "service-function-forwarder": "openflow:3"
+          }
+        ],
+        "nsh-aware": false,
+        "type": "delay"
+      }
+    ]
+  }
+}
