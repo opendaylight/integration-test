@@ -206,3 +206,9 @@ MININET_USER = TOOLS_SYSTEM_USER
 MININET_PASSWORD = TOOLS_SYSTEM_PASSWORD
 MININET_PROMPT = TOOLS_SYSTEM_PROMPT
 PROMPT = '>'  # TODO: remove this as it's vague.  need to fix any occurances of it first.
+
+# Mininet Custom topology
+CREATE_REDIRECT_PATH_TOPOLOGY="redirect_test.py"
+CREATE_REDIRECT_PATH_TOPOLOGY_PATH = "MininetTopo/" +\
+                                    CREATE_REDIRECT_PATH_TOPOLOGY
+
