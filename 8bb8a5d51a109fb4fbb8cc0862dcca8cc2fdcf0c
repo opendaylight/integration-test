@@ -93,6 +93,30 @@
       "revId": "8bb8a5d51a109fb4fbb8cc0862dcca8cc2fdcf0c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5096df3f",
+        "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-01T16:50:04Z",
+      "side": 1,
+      "message": "\u003e \"I would like ALL_CAPS to mean\"\n\nBy \"to mean\" I meant \"to imply\". :(\n\nOverall, I like your [0], except two things:\n\n\"DO NOT set the variable to anything in the Variables table\"\nis confusing and perhaps even false. Have you verified users cannot configure the value in such case?\n\n\"and which are not meant to be overridden use snake_case\". I disagree. In fact, users can override such values, and the overridden value would stay immutable. Snake case should imply the variable is mutable or not defined before setup (now with the exception of indirect configuration by Utils.Set_Immutable_Variable_Default).",
+      "parentUuid": "9a3d3df0_17b29693",
+      "range": {
+        "startLine": 142,
+        "startChar": 36,
+        "endLine": 142,
+        "endChar": 56
+      },
+      "revId": "8bb8a5d51a109fb4fbb8cc0862dcca8cc2fdcf0c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
