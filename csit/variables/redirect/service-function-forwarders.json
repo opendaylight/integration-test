@@ -1,0 +1,64 @@
+{
+  "service-function-forwarders": {
+    "service-function-forwarder": [
+      {
+        "name": "openflow:3",
+        "service-node": "OVSDB2",
+        "sff-data-plane-locator": [
+          {
+            "name": "Ingress",
+            "data-plane-locator":
+            {
+                "vlan-id": 100,
+                "mac": "11:11:11:11:11:11",
+                "transport": "service-locator:mac"
+            },
+            "service-function-forwarder-ofs:ofs-port":
+            {
+                "port-id" : "3"
+            }
+          }
+        ],
+        "service-function-dictionary": [
+          {
+            "name": "srvc1",
+            "sff-sf-data-plane-locator":
+            {
+                "sf-dpl-name" : "openflow:3",
+                "sff-dpl-name" : "Ingress"
+            }
+          }
+        ]
+      },
+      {
+        "name": "openflow:4",
+        "service-node": "OVSDB3",
+        "sff-data-plane-locator": [
+          {
+            "name": "Egress",
+            "data-plane-locator":
+            {
+                "vlan-id": 200,
+                "mac": "44:44:44:44:44:44",
+                "transport": "service-locator:mac"
+            },
+            "service-function-forwarder-ofs:ofs-port":
+            {
+                "port-id" : "3"
+            }
+          }
+        ],
+        "service-function-dictionary": [
+          {
+            "name": "srvc1",
+            "sff-sf-data-plane-locator":
+            {
+                "sf-dpl-name" : "openflow:4",
+                "sff-dpl-name" : "Egress"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
