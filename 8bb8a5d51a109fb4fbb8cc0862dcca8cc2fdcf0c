@@ -117,6 +117,30 @@
       "revId": "8bb8a5d51a109fb4fbb8cc0862dcca8cc2fdcf0c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_f0a453a7",
+        "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-01T16:59:31Z",
+      "side": 1,
+      "message": "Oh, and a third thing: There are more variables hard-coded into Robot, for example ${NONE}, ${SPACE} or ${CURDIR}. Once again, common properties include the fact the value is always defined and does not change within its scope.",
+      "parentUuid": "9a3d3df0_5096df3f",
+      "range": {
+        "startLine": 142,
+        "startChar": 36,
+        "endLine": 142,
+        "endChar": 56
+      },
+      "revId": "8bb8a5d51a109fb4fbb8cc0862dcca8cc2fdcf0c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
