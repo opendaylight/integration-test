@@ -60,6 +60,8 @@ NexusKeywords__Detect_Version_To_Pull
     BuiltIn.Log    ${version}
     BuiltIn.Run_Keyword_If    ${result}!=0    BuiltIn.Fail    Component "${component}" not found, cannot locate test tool
     ${version}    ${location}=    String.Split_String    ${version}    max_split=1
+    # Force Lithium SR4 netconf tests to use Beryllium tool.
+    ${version}=    BuiltIn.Set_Variable_If    '${version}' == '0.3.4-Lithium-SR4'    0.4.0-Beryllium    ${version}
     [Return]    ${version}    ${location}
 
 Deploy_Artifact
