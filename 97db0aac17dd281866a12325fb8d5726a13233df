@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_fbb9cfcc",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-03-03T14:21:31Z",
+      "side": 1,
+      "message": "It is a bug because it breaks assumptions of the coder putting it there. This is the type of usage that causes somebody to be hit with a question \"Why this value doesn\u0027t get assigned keyword is not doing anything?\" and after spending several hours trying to figure that out the answer turns out to be \"Well, I am setting the variable at this keyword called 3 lines before, that\u0027s why\". Using a feature in a way that causes it to behave unexpectedly is a bug in my book.\n\nThere could be another use for this keyword and that is to set a default value for a variable that gets set conditionally somewhere else but that case is easily solved without this keyword by setting the default into the variable before invoking that \"somewhere else\" action that sets the conditional value into that variable. Thus this keyword shall be used strictly for user configurable variables, it shall be used strictly in test setup and nowhere else and the user configurable variables that are set by it shall be not set to anything anywhere else.",
+      "parentUuid": "9a3d3df0_fbd6ef26",
+      "range": {
+        "startLine": 432,
+        "startChar": 48,
+        "endLine": 432,
+        "endChar": 51
+      },
+      "revId": "97db0aac17dd281866a12325fb8d5726a13233df",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_bbf0e7c9",
         "filename": "csit/libraries/Utils.robot",
         "patchSetId": 3
@@ -82,6 +106,30 @@
       "writtenOn": "2016-03-03T13:35:52Z",
       "side": 1,
       "message": "ScalarClosures already require explicit invocation when used. Are there closures which are interchangeable with simple values?",
+      "range": {
+        "startLine": 433,
+        "startChar": 34,
+        "endLine": 433,
+        "endChar": 43
+      },
+      "revId": "97db0aac17dd281866a12325fb8d5726a13233df",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_7bd49feb",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-03-03T14:21:31Z",
+      "side": 1,
+      "message": "Well, I will have to reword the TODO to state the problem it is about instead of trying to offer a solution without stating the problem. The problem here is that calculating the default value might be an expensive operation and we thus might want to have a way to avoid paying the expense when we already got a ready-made value to be placed there.",
+      "parentUuid": "9a3d3df0_bbf0e7c9",
       "range": {
         "startLine": 433,
         "startChar": 34,
