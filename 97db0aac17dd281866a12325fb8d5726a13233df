@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_1b291337",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 427,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-03T13:35:52Z",
+      "side": 1,
+      "message": "d",
+      "range": {
+        "startLine": 427,
+        "startChar": 68,
+        "endLine": 427,
+        "endChar": 69
+      },
+      "revId": "97db0aac17dd281866a12325fb8d5726a13233df",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_bb190724",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-03T13:35:52Z",
+      "side": 1,
+      "message": "Resource?",
+      "range": {
+        "startLine": 432,
+        "startChar": 59,
+        "endLine": 432,
+        "endChar": 64
+      },
+      "revId": "97db0aac17dd281866a12325fb8d5726a13233df",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_fbd6ef26",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 432,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-03T13:35:52Z",
+      "side": 1,
+      "message": "No operation (or elevating lesser-scoped variable to suite variable) is a bug?\nIt is not the intended use, but I think it does not break anything.",
+      "range": {
+        "startLine": 432,
+        "startChar": 48,
+        "endLine": 432,
+        "endChar": 51
+      },
+      "revId": "97db0aac17dd281866a12325fb8d5726a13233df",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_bbf0e7c9",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 433,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-03T13:35:52Z",
+      "side": 1,
+      "message": "ScalarClosures already require explicit invocation when used. Are there closures which are interchangeable with simple values?",
+      "range": {
+        "startLine": 433,
+        "startChar": 34,
+        "endLine": 433,
+        "endChar": 43
+      },
+      "revId": "97db0aac17dd281866a12325fb8d5726a13233df",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
