@@ -1,0 +1,7 @@
+{
+ "input": {
+  "person": "/people:people/people:person[people:id='localhost/people/person_id_$i']",
+  "car-id": "localhost/cars/car_id_$i",
+  "person-id": "localhost/people/person_id_$i"
+ }
+}
