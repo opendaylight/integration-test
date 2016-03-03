@@ -134,4 +134,3 @@ Add Multiple Managers to OVS
     ${output}=    Run Command On Mininet    ${mininet}    sudo ovs-vsctl show
     Log    ${output}
     [Return]    ${mininet_conn_id}
-
