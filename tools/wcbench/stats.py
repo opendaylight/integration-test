@@ -332,7 +332,7 @@ elif args.graphs:
 else:
     graphs_to_build = []
 for graph, graph_num in zip(graphs_to_build, range(len(graphs_to_build))):
-    graph_map[graph](len(graphs_to_build), graph_num+1)
+    graph_map[graph](len(graphs_to_build), graph_num + 1)
 
 # Compute stats
 if args.all_stats:

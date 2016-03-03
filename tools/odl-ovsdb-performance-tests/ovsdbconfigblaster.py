@@ -107,7 +107,7 @@ class OvsdbConfigBlaster (object):
             vswitch_name: {
                 'name': vswitch_name,
                 'ip': vswitch_ip,
-                'remote-ip':  vswitch_remote_ip,
+                'remote-ip': vswitch_remote_ip,
                 'ovsdb-port': vswitch_ovsdb_port,
                 'node-id': 'ovsdb://%s:%s'
                            % (vswitch_ip,
@@ -240,7 +240,7 @@ class OvsdbConfigBlaster (object):
                             ],
                             u"vlan-mode": u"access"
                         }
-                        ]
+                    ]
                 },
                     # TODO add port-body
                     'port-body': {}}
