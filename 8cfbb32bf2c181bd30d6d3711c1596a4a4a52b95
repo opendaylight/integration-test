@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_5b11db50",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 110
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-03T12:34:32Z",
+      "side": 1,
+      "message": "Robot does not provide any mechanisms that would help with the \"make sure\" part.\nBut in this case I guess the Resource can trust users not to put anything dangerous into ${ClusterManagement__has_setup_run}.\nI will change this to be more readable.",
+      "parentUuid": "9a3d3df0_d1815ec4",
+      "range": {
+        "startLine": 46,
+        "startChar": 38,
+        "endLine": 46,
+        "endChar": 66
+      },
+      "revId": "8cfbb32bf2c181bd30d6d3711c1596a4a4a52b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_9162363c",
         "filename": "csit/libraries/ClusterManagement.robot",
         "patchSetId": 110
@@ -65,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "9a3d3df0_5b38bbd2",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 110
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-03T12:34:32Z",
+      "side": 1,
+      "message": "Will remove the comment.",
+      "parentUuid": "9a3d3df0_9162363c",
+      "revId": "8cfbb32bf2c181bd30d6d3711c1596a4a4a52b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_31724a11",
         "filename": "csit/libraries/ClusterManagement.robot",
         "patchSetId": 110
@@ -76,6 +118,30 @@
       "writtenOn": "2016-02-25T19:00:03Z",
       "side": 1,
       "message": "Consider extracting this stuff into its own keyword and give it a descriptive name. So much detail in one keyword makes the code somewhat unreadable.",
+      "range": {
+        "startLine": 55,
+        "startChar": 0,
+        "endLine": 62,
+        "endChar": 74
+      },
+      "revId": "8cfbb32bf2c181bd30d6d3711c1596a4a4a52b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_bb33c7f4",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 110
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-03T12:34:32Z",
+      "side": 1,
+      "message": "Will do.",
+      "parentUuid": "9a3d3df0_31724a11",
       "range": {
         "startLine": 55,
         "startChar": 0,
@@ -122,6 +188,30 @@
       "writtenOn": "2016-02-25T19:00:03Z",
       "side": 1,
       "message": "Name is confusingly similar to the keyword at line 97. The extra \"s\" can easily get lost when speed reading.",
+      "range": {
+        "startLine": 114,
+        "startChar": 0,
+        "endLine": 114,
+        "endChar": 35
+      },
+      "revId": "8cfbb32bf2c181bd30d6d3711c1596a4a4a52b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_5b66fbed",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 110
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-03T12:34:32Z",
+      "side": 1,
+      "message": "Will do.",
+      "parentUuid": "9a3d3df0_d1583e8c",
       "range": {
         "startLine": 114,
         "startChar": 0,
