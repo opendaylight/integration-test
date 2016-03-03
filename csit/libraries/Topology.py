@@ -16,7 +16,7 @@ class Topology(object):
         [{u'type': u'OF', u'id': u'00:00:00:00:00:00:00:01'},
          {u'type': u'OF', u'id': u'00:00:00:00:00:00:00:02'},
          {u'type': u'OF', u'id': u'00:00:00:00:00:00:00:03'}]
-        ]
+    ]
 
     def __init__(self):
         self.builtin = BuiltIn()

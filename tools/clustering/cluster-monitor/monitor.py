@@ -131,11 +131,11 @@ for controller in controllers:
 
     # collect shards found in any controller; does not require all controllers to have the same shards
     for localShard in data['value']['LocalShards']:
-        shardName = localShard[(localShard.find("-shard-")+7):localShard.find("-config")]
+        shardName = localShard[(localShard.find("-shard-") + 7):localShard.find("-config")]
         Shards.add(shardName)
 print controller_names
 print Shards
-field_len = max(map(len, Shards))+2
+field_len = max(map(len, Shards)) + 2
 
 stdscr = curses.initscr()
 curses.noecho()
@@ -155,7 +155,7 @@ curses.init_pair(5, curses.COLOR_BLACK, curses.COLOR_YELLOW)
 for row, controller in enumerate(controller_names):
     stdscr.addstr(row + 1, 0, string.center(controller, field_len), curses.color_pair(1))
 for data_column, shard in enumerate(Shards):
-    stdscr.addstr(0, (field_len+1) * (data_column + 1), string.center(shard, field_len), curses.color_pair(1))
+    stdscr.addstr(0, (field_len + 1) * (data_column + 1), string.center(shard, field_len), curses.color_pair(1))
 stdscr.addstr(len(Shards) + 2, 0, 'Press q to quit.', curses.color_pair(1))
 stdscr.refresh()
 
@@ -170,12 +170,12 @@ while key != ord('q') and key != ord('Q'):
         cluster_stat = getClusterRolesWithCurl(shard_name, controllers, controller_names)
         for row, controller in enumerate(controllers):
             status = size_and_color(cluster_stat, field_len, controller)
-            stdscr.addstr(row + 1, (field_len+1) * (data_column + 1), status['txt'], status['color'])
+            stdscr.addstr(row + 1, (field_len + 1) * (data_column + 1), status['txt'], status['color'])
     time.sleep(0.5)
     if odd_or_even % 2 == 0:
-        stdscr.addstr(0, field_len/2 - 2, " <3 ", curses.color_pair(5))
+        stdscr.addstr(0, field_len / 2 - 2, " <3 ", curses.color_pair(5))
     else:
-        stdscr.addstr(0, field_len/2 - 2, " <3 ", curses.color_pair(0))
+        stdscr.addstr(0, field_len / 2 - 2, " <3 ", curses.color_pair(0))
     stdscr.refresh()
 
 # clean up

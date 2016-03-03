@@ -140,7 +140,7 @@ class Deployer:
                                  self.rootdir)
 
     def kill_controller(self):
-        self.remote.copy_file("kill_controller.sh",  self.rootdir + "/")
+        self.remote.copy_file("kill_controller.sh", self.rootdir + "/")
         self.remote.exec_cmd(self.rootdir + "/kill_controller.sh")
 
     def deploy(self):
@@ -266,10 +266,10 @@ def main():
 
     for x in range(0, 10):
         if len(all_replicas) > args.rf:
-            replicas["REPLICAS_" + str(x+1)] \
+            replicas["REPLICAS_" + str(x + 1)] \
                 = array_str(random.sample(all_replicas, args.rf))
         else:
-            replicas["REPLICAS_" + str(x+1)] = array_str(all_replicas)
+            replicas["REPLICAS_" + str(x + 1)] = array_str(all_replicas)
 
     deployers = []
 

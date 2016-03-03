@@ -30,7 +30,7 @@ def monitor_stats(crawler, monitortime, period):
         yield (actualtime, crawler.nodes, crawler.reported_flows, crawler.found_flows)
         if actualtime > basetime + monitortime:
             break
-        time.sleep(period-get_time_delta(actualtime, lastcrawl))
+        time.sleep(period - get_time_delta(actualtime, lastcrawl))
 
 
 if __name__ == "__main__":

@@ -141,7 +141,7 @@ def _randomize(spread, maxn):
     while True:
         if spread == 'gauss':
             ga = abs(random.gauss(0, 1))
-            rv = int(ga*float(maxn)/3)
+            rv = int(ga * float(maxn) / 3)
             if rv < maxn:
                 return rv
         elif spread == 'linear':
@@ -160,7 +160,7 @@ def generate_new_flow_details(flows=10, switches=1, swspread='gauss', tables=250
     It also returns a dictionary with statsistics."""
     swflows = [_randomize(swspread, switches) for f in range(int(flows))]
     # we have to increse the switch index because mininet start indexing switches from 1 (not 0)
-    fltables = [(s+1, _randomize(tabspread, tables), idx) for idx, s in enumerate(swflows)]
+    fltables = [(s + 1, _randomize(tabspread, tables), idx) for idx, s in enumerate(swflows)]
     notes = _get_notes(fltables)
     return fltables, notes
 

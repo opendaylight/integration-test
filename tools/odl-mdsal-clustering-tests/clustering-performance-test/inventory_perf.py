@@ -84,12 +84,12 @@ def get_inventory(tnum, url, hdrs, rnum, cond):
                 results[r.status_code] = 1
 
     total = sum(results.values())
-    rate = total/t.secs
+    rate = total / t.secs
     total_requests.increment(total)
     total_req_rate.increment(rate)
 
-    mbytes = total_len / (1024*1024)
-    mrate = mbytes/t.secs
+    mbytes = total_len / (1024 * 1024)
+    mrate = mbytes / t.secs
     total_mbytes.increment(mbytes)
     total_mb_rate.increment(mrate)
 

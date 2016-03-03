@@ -284,7 +284,7 @@ class XmlComparator:
             if nodeDict['flow']['priority'] == origDict['flow']['priority']:
                 for p in IGNORED_PATHS_FOR_OC:
                     td = copy.copy(origDict)
-                    _rem_unimplemented_tags(p[0], p[1],  td)
+                    _rem_unimplemented_tags(p[0], p[1], td)
                     for (p, t, v) in TAGS_TO_ADD_FOR_OC:
                         _add_tags(p, t, v, td)
                     for (p, t, rt) in TAGS_TO_MODIFY_FOR_OC:

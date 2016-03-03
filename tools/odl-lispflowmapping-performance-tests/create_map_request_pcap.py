@@ -30,7 +30,7 @@ def generate_eids_random(base, n):
     eids = []
     for i in range(0, n):
         eids.append(str(netaddr.IPAddress(base) +
-                        random.randint(0, (n-1)*increment)))
+                        random.randint(0, (n - 1) * increment)))
     return eids
 
 
@@ -44,7 +44,7 @@ def generate_eids_sequential(base, n):
     """
     eids = []
     for i in range(0, n):
-        eids.append(str(netaddr.IPAddress(base) + i*increment))
+        eids.append(str(netaddr.IPAddress(base) + i * increment))
     return eids
 
 

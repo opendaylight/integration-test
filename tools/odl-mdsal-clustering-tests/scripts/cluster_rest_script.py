@@ -262,10 +262,10 @@ def _task_executor(preparing_function, odl_ip="127.0.0.1", port="8181",
     hosts = odl_ip.split(',')
     nrhosts = len(hosts)
 
-    items = [i+1 for i in range(item_count)]
+    items = [i + 1 for i in range(item_count)]
     item_groups = []
     for i in range(0, item_count, items_per_request):
-        item_groups.append(items[i:i+items_per_request])
+        item_groups.append(items[i:i + items_per_request])
 
     # fill the queue with details needed for one http requests
     send_queue = Queue.Queue()
