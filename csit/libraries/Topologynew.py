@@ -20,7 +20,7 @@ class Topologynew(object):
         [{u'type': u'MD_SAL', u'id': u'openflow:1'},
          {u'type': u'MD_SAL', u'id': u'openflow:2'},
          {u'type': u'MD_SAL', u'id': u'openflow:3'}]
-        ]
+    ]
 
     def __init__(self):
         self.builtin = BuiltIn()
@@ -71,7 +71,7 @@ class Topologynew(object):
 
         num_nodes = Common.num_of_nodes(depth, fanout)
         nodelist = []
-        for i in xrange(1, num_nodes+1):
+        for i in xrange(1, num_nodes + 1):
             temp = {"id": "00:00:00:00:00:00:00:%s" % format(i, '02x'), "type": "OF"}
             nodelist.append(temp)
         if int(exceptroot):
@@ -87,7 +87,7 @@ class Topologynew(object):
         @return     leafnodes:  list of ids of leaf nodes
         '''
         leafnodes = []
-        self._enumerate_nodes(0, 1, 1, fanout, depth-1, leafnodes)
+        self._enumerate_nodes(0, 1, 1, fanout, depth - 1, leafnodes)
         return leafnodes
 
     def _enumerate_nodes(self, currentdepth, nodeid, currentbranch, fanout, depth, leafnodes):
@@ -95,8 +95,8 @@ class Topologynew(object):
             leafnodes.append("00:00:00:00:00:00:00:%s" % format(nodeid, '02x'))
             return 1
         nodes = 1
-        for i in xrange(1,  fanout+1):
-            nodes += self._enumerate_nodes(currentdepth+1, nodeid+nodes, i, fanout, depth, leafnodes)
+        for i in xrange(1, fanout + 1):
+            nodes += self._enumerate_nodes(currentdepth + 1, nodeid + nodes, i, fanout, depth, leafnodes)
         return nodes
 
 if __name__ == '__main__':

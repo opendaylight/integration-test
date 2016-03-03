@@ -11,7 +11,7 @@ __email__ = "syedbahm@cisco.com"
 
 def addCar(numberOfCars):
     """Creates the specified number of cars based on Cars yang model using RESTCONF"""
-    for x in range(1, numberOfCars+1):
+    for x in range(1, numberOfCars + 1):
         strId = str(x)
         payload = settings.add_car_payload_template.substitute(
             id=strId, category="category" + strId, model="model" + strId,
@@ -50,7 +50,7 @@ def addPerson(numberOfPersons):
         return
 
     genderToggle = "Male"
-    for x in range(1, numberOfPersons+1):
+    for x in range(1, numberOfPersons + 1):
         if(genderToggle == "Male"):
             genderToggle = "Female"
         else:

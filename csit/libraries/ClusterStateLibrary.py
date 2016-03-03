@@ -60,7 +60,7 @@ def getClusterRoles(shardName, numOfShards=3, numOfTries=3, sleepBetweenRetriesI
     return dict
 
 
-def isRole(role,  shardName, ipAddress, numOfShards=3, numOfRetries=1, sleepFor=3, port=8181):
+def isRole(role, shardName, ipAddress, numOfShards=3, numOfRetries=1, sleepFor=3, port=8181):
     """Given a role (Leader, Follower, Candidate, or IsolatedLeader),
     shardname (e.g. shard-inventory-config), controller IP address,
     and number of shards on the controller,this function determines if the controller,
