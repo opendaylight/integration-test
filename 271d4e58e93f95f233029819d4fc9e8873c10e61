@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_640cfb94",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-03-04T22:47:56Z",
+      "side": 1,
+      "message": "This would be out-of-scope for this patch I guess, but the way you\u0027re using num_instances is a bit strange imho. Helper fns that add/del ports/bridges/etc use this global value for how many of things they should add/del. A more clear way would be to pass num_ports, num_bridges, etc to the helpers directly, not maintain it as an instance var.",
+      "range": {
+        "startLine": 66,
+        "startChar": 13,
+        "endLine": 66,
+        "endChar": 26
+      },
+      "revId": "271d4e58e93f95f233029819d4fc9e8873c10e61",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_0419afd6",
+        "filename": "tools/odl-ovsdb-performance-tests/ovsdbconfigblaster.py",
+        "patchSetId": 9
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-03-04T22:47:56Z",
+      "side": 1,
+      "message": "Same feedback as before - you\u0027re not using this arg for anything, other than setting it here. That seems to be the case with other __init__ params, like vswitch_lst_del_br, vswitch_port_type.",
+      "revId": "271d4e58e93f95f233029819d4fc9e8873c10e61",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
