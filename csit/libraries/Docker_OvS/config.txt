@@ -1,0 +1,18 @@
+CREATE AN ISOLATED NETWORK NAMED isolated_nw
+
+    docker network create -o com.docker.network.bridge.enable_icc=false -o com.docker.network.bridge.enable_ip_masquerade=false isolated_nw
+    --> create a new private network, should be 172.18.0.1/16
+
+CREATE RULES
+    - ON THE HOST RUNNING ODL IF DIFFERENT OF THE HOST RUNNING DOCKER (this rule is for OSX)
+        sudo route -n add 172.18.0.0/16 <ip-docker-host>
+
+    - ON THE HOST RUNNING DOCKER (forward all traffic from the isolated_nw bridge to the local interface)
+        iptables -A FORWARD -i <isolated_nw> -o <local-interface (i.e. eth0)> -j ACCEPT
+            iptables -A FORWARD -i <local-interface (i.e. eht0)> -o  <isolated_nw> -j ACCEPT
+
+In the above rules,  <ip-docker-host> = <local-interface (i.e. eht0)>
+
+INCREASE HOST ULIMIT RUNNINT ODL to 65536 (less or more as you like)
+$ ulimit -n
+65536
