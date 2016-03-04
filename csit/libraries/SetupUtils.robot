@@ -38,7 +38,8 @@ Set_Unknown_Bug_Id
     Set_Known_Bug_Id    ${EMPTY}
 
 SetupUtils__Report_Bugs_Causing_Failure
-    BuiltIn.Run_Keyword_And_Return_If    '${SetupUtils__Known_Bug_ID}' != ''    Utils.Report_Failure_Due_To_Bug    ${SetupUtils__Known_Bug_ID}
+    BuiltIn.Run_Keyword_If    '${SetupUtils__Known_Bug_ID}' != ''    Utils.Report_Failure_Due_To_Bug    ${SetupUtils__Known_Bug_ID}
+    BuiltIn.Run_Keyword_And_Return_If    '${SetupUtils__Known_Bug_ID}' != ''    Set_Known_Bug_Id    ${EMPTY}
     Utils.Report_Failure_And_Point_To_Linked_Bugs
 
 Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
