@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_6444fb73",
+        "filename": "csit/libraries/ClusterKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-03-05T01:50:02Z",
+      "side": 1,
+      "message": "I\u0027m very confused by this.  Can you explain what\u0027s the purpose here?  I\u0027m think I\u0027m missing something basic.\n\nThe only differences between these keywords is:\n - one has a scalar argument while the other is a list argument\n - one starts all controllers first then waits for sync, while the other\n   does a start/wait-for-sync one controller at a time.\n\nAlso, the keyword \"Start Specific Controller\" sounds like you just want to\nstart a single controller.  if so, don\u0027t accept a list and do a FOR loop\ninside.",
+      "range": {
+        "startLine": 95,
+        "startChar": 0,
+        "endLine": 108,
+        "endChar": 72
+      },
+      "revId": "44c674611366b2602d77f6b34215f579861efa6a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_44473777",
+        "filename": "csit/libraries/ClusterOpenFlow.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-03-05T01:50:02Z",
+      "side": 1,
+      "message": "I\u0027m not against verbosity here \"Inventory Config\" if others \nagree that it\u0027s more readable?",
+      "range": {
+        "startLine": 15,
+        "startChar": 4,
+        "endLine": 15,
+        "endChar": 13
+      },
+      "revId": "44c674611366b2602d77f6b34215f579861efa6a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a461e306",
+        "filename": "csit/libraries/ClusterOpenFlow.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-03-05T01:50:02Z",
+      "side": 1,
+      "message": "Is 30s still reasonable?  Are we just adding a single flow and then verifying it\u0027s in operational?\n\nimho, if it\u0027s taking even 15s for a flow to be pushed and show up in operational it\u0027s very long.\n\nanyone agree?",
+      "range": {
+        "startLine": 103,
+        "startChar": 35,
+        "endLine": 103,
+        "endChar": 38
+      },
+      "revId": "44c674611366b2602d77f6b34215f579861efa6a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c4522734",
+        "filename": "csit/suites/openflowplugin/Clustering/020__Cluster_HA_Leader_Follower_Failover.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-03-05T01:50:02Z",
+      "side": 1,
+      "message": "I really like the short, concise test cases.  They are easy to understand the point.",
+      "revId": "44c674611366b2602d77f6b34215f579861efa6a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_e4576b24",
+        "filename": "csit/suites/openflowplugin/Clustering/020__Cluster_HA_Leader_Follower_Failover.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-03-05T01:50:02Z",
+      "side": 1,
+      "message": "I think I see this same stuff a few times below.  Probably should make it a local keyword.",
+      "range": {
+        "startLine": 25,
+        "startChar": 0,
+        "endLine": 40,
+        "endChar": 52
+      },
+      "revId": "44c674611366b2602d77f6b34215f579861efa6a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
