@@ -141,6 +141,54 @@
       "revId": "8bb8a5d51a109fb4fbb8cc0862dcca8cc2fdcf0c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_1a646448",
+        "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-03-07T13:06:59Z",
+      "side": 1,
+      "message": "Reworded the wiki to add a distinguishing feature between the user configurable variables and the Robot hard-coded variables and to point out that ${EMPTY} is not the only such Robot hard-coded variable.",
+      "parentUuid": "9a3d3df0_f0a453a7",
+      "range": {
+        "startLine": 142,
+        "startChar": 36,
+        "endLine": 142,
+        "endChar": 56
+      },
+      "revId": "8bb8a5d51a109fb4fbb8cc0862dcca8cc2fdcf0c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_3a0fa889",
+        "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-03-07T13:06:59Z",
+      "side": 1,
+      "message": "I fixed the \"I would like ALL_CAPS to mean\" as it turned out the original information there was false. If you set a variable in the Variables table and then use the keyword, the keyword will be silently turned into a NOP. So the wiki was fixed to point that out.\n\n\"and which are not meant to be overridden\" does not mean users can\u0027t override such values, it means they should not. I intend the \"snake_case\" to mean \"you shall not touch this unless you really know what you are doing\". An example of such a variable is \"directory_with_template_folders\". You can try to override the value but unless you know the test suite intimately, you won\u0027t be able to figure out what else is needed to be done in order to make the test suite to continue working and testing what it is supposed to test. Maybe we should use another variable casing style for such variables, I suggest Caravan_Case. Or refrain from setting such variables in the Variables table and set them in the test setup instead (but I consider that \"solution\" klugy and ugly). I added a TODO comment pointing thir problem out to the Wiki.\n\nI reworded the Wiki to make it less confusing (and to add the know-how in the paragraph above) though.",
+      "parentUuid": "9a3d3df0_5096df3f",
+      "range": {
+        "startLine": 142,
+        "startChar": 36,
+        "endLine": 142,
+        "endChar": 56
+      },
+      "revId": "8bb8a5d51a109fb4fbb8cc0862dcca8cc2fdcf0c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
