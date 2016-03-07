@@ -13,6 +13,22 @@ __license__ = "New-style BSD"
 __email__ = "jmedved@cisco.com"
 
 
+class Timer(object):
+    def __init__(self, verbose=False):
+        self.verbose = verbose
+
+    def __enter__(self):
+        self.start = time.time()
+        return self
+
+    def __exit__(self, *args):
+        self.end = time.time()
+        self.secs = self.end - self.start
+        self.msecs = self.secs * 1000  # millisecs
+        if self.verbose:
+            print ("elapsed time: %f ms" % self.msecs)
+
+
 def wait_for_stats(crawler, exp_found, timeout, delay):
     """
     Waits for the ODL stats manager to catch up. Polls ODL inventory every
@@ -28,16 +44,18 @@ def wait_for_stats(crawler, exp_found, timeout, delay):
     """
     total_delay = 0
     print 'Waiting for stats to catch up:'
-    while True:
-        crawler.crawl_inventory()
-        print '   %d, %d' % (crawler.reported_flows, crawler.found_flows)
-        if crawler.found_flows == exp_found or total_delay > timeout:
-            break
-        total_delay += delay
-        time.sleep(delay)
+
+    with Timer() as t:
+        while True:
+            crawler.crawl_inventory()
+            print '   %d, %d' % (crawler.reported_flows, crawler.found_flows)
+            if crawler.found_flows == exp_found or total_delay > timeout:
+                break
+            total_delay += delay
+            time.sleep(delay)
 
     if total_delay < timeout:
-        print 'Stats collected in %d seconds.' % total_delay
+        print 'Stats collected in %d seconds.' % t.secs
     else:
         print 'Stats collection did not finish in %d seconds. Aborting...' % total_delay
 

@@ -120,6 +120,15 @@ class FlowConfigBlaster(object):
             """
             Calculates the stats for RESTCONF request and flow programming
             throughput, and aggregates statistics across all Blaster threads.
+
+            Args:
+                rqst_stats: Request statistics dictionary
+                flow_stats: Flow statistcis dictionary
+                elapsed_time: Elapsed time for the test
+
+            Returns: Rates (requests/sec) for successfully finished requests,
+                     the total number of requests, sucessfully installed flow and
+                     the total number of flows
             """
             ok_rqsts = rqst_stats[200] + rqst_stats[204]
             total_rqsts = sum(rqst_stats.values())
@@ -236,13 +245,18 @@ class FlowConfigBlaster(object):
         FlowConfigBlaster instantiation. Flow templates are json-compatible
         dictionaries that MUST contain elements for flow cookie, flow name,
         flow id and the destination IPv4 address in the flow match field.
-        :param flow_id: Id for the new flow to create
-        :param ipaddr: IP Address to put into the flow's match
-        :return: The newly created flow instance
+
+        Args:
+            flow_id: Id for the new flow to create
+            ipaddr: IP Address to put into the flow's match
+            node_id: ID of the node where to create the flow
+
+        Returns: The flow that gas been created from the template
+
         """
         flow = copy.deepcopy(self.flow_mode_template['flow'][0])
         flow['cookie'] = flow_id
-        flow['flow-name'] = 'TestFlow-%d' % flow_id
+        flow['flow-name'] = self.create_flow_name(flow_id)
         flow['id'] = str(flow_id)
         flow['match']['ipv4-destination'] = '%s/32' % str(netaddr.IPAddress(ipaddr))
         return flow
@@ -253,6 +267,8 @@ class FlowConfigBlaster(object):
         :param session: 'requests' session on which to perform the POST
         :param node: The ID of the openflow node to which to post the flows
         :param flow_list: List of flows (in dictionary form) to POST
+        :param flow_count: Flow counter for round-robin host load balancing
+
         :return: status code from the POST operation
         """
         flow_data = self.convert_to_json(flow_list, node)
@@ -355,10 +371,14 @@ class FlowConfigBlaster(object):
     def delete_flow(self, session, node, flow_id, flow_count):
         """
         Deletes a single flow from the ODL config data store using RESTCONF
-        :param session: 'requests' session on which to perform the POST
-        :param node: Id of the openflow node from which to delete the flow
-        :param flow_id: ID of the to-be-deleted flow
-        :return: status code from the DELETE operation
+        Args:
+            session: 'requests' session on which to perform the POST
+            node:  Id of the openflow node from which to delete the flow
+            flow_id: ID of the to-be-deleted flow
+            flow_count: Index of the flow being processed (for round-robin LB)
+
+        Returns: status code from the DELETE operation
+
         """
 
         hosts = self.host.split(",")
@@ -477,6 +497,9 @@ class FlowConfigBlaster(object):
     def get_ok_rqsts(self):
         return self.total_ok_rqsts
 
+    def create_flow_name(self, flow_id):
+        return 'TestFlow-%d' % flow_id
+
 
 def get_json_from_file(filename):
     """
@@ -497,6 +520,7 @@ def get_json_from_file(filename):
             pass
 
     return None
+
 
 ###############################################################################
 # This is an example of what the content of a JSON flow mode template should
