@@ -230,6 +230,9 @@ class FlowConfigBlaster(object):
 
         return nodes
 
+    def create_flow_name(self, flow_id):
+        return 'TestFlow-%d' % flow_id
+
     def create_flow_from_template(self, flow_id, ipaddr, node_id):
         """
         Create a new flow instance from the flow template specified during
@@ -242,7 +245,7 @@ class FlowConfigBlaster(object):
         """
         flow = copy.deepcopy(self.flow_mode_template['flow'][0])
         flow['cookie'] = flow_id
-        flow['flow-name'] = 'TestFlow-%d' % flow_id
+        flow['flow-name'] = self.create_flow_name(flow_id)
         flow['id'] = str(flow_id)
         flow['match']['ipv4-destination'] = '%s/32' % str(netaddr.IPAddress(ipaddr))
         return flow
@@ -253,6 +256,8 @@ class FlowConfigBlaster(object):
         :param session: 'requests' session on which to perform the POST
         :param node: The ID of the openflow node to which to post the flows
         :param flow_list: List of flows (in dictionary form) to POST
+        :param flow_count: Flow counter for round-robin host load balancing
+
         :return: status code from the POST operation
         """
         flow_data = self.convert_to_json(flow_list, node)
