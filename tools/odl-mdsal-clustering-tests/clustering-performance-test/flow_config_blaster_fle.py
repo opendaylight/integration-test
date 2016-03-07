@@ -1,9 +1,10 @@
 #!/usr/bin/python
 from flow_config_blaster import FlowConfigBlaster
 import argparse
-import netaddr
 import time
 import json
+import copy
+import requests
 
 
 __author__ = "Jan Medved"
@@ -21,17 +22,17 @@ class FlowConfigBlasterFLE(FlowConfigBlaster):
         "name": "flow-mod",
         "cookie": "0",
         "priority": "32768",
-        "ether-type": "2048",
-        "dst-ip": "10.0.0.1/32",
+        "eth_type": "2048",
+        "ipv4_dst": "10.0.0.1/32",
         "active": "true",
         "actions": "output=flood"
     }
 
     def __init__(self, host, port, ncycles, nthreads, nnodes, nflows, startflow):
-        FlowConfigBlaster.__init__(self, host, port, ncycles, nthreads, nnodes, nflows, startflow, False, '')
+        FlowConfigBlaster.__init__(self, host, port, ncycles, nthreads, 1, nnodes, nflows, startflow, False)
 
-        # Create the service URL
-        self.url = 'http://' + self.host + ":" + self.port + '/wm/staticflowentrypusher/json'
+    def create_floodlight_url(self, host):
+        return 'http://' + host + ":" + self.port + '/wm/staticflowpusher/json'
 
     def get_num_nodes(self, session):
         """
@@ -52,40 +53,59 @@ class FlowConfigBlasterFLE(FlowConfigBlaster):
 
         return nodes
 
-    def post_flows(self, session, node, flow_id, ipaddr):
+    def post_flows(self, session, node, flow_list, flow_count):
         """
-        Adds a flow. Overrides the add_flow method in FlowConfigBlaster.
-        :param session:
-        :param node:
-        :param flow_id:
-        :param ipaddr:
-        :return:
+        Performs a RESTCONF post of flows passed in the 'flow_list' parameters
+        :param session: 'requests' session on which to perform the POST
+        :param node: The ID of the openflow node to which to post the flows
+        :param flow_list: List of flows (in dictionary form) to POST
+        :param flow_count: Number of flows in flow_list (must be 1)
+        :return: status code from the POST operation
         """
-        self.flow['switch'] = "00:00:00:00:00:00:00:%s" % '{0:02x}'.format(node)
-        self.flow['name'] = 'TestFlow-%d' % flow_id
-        self.flow['cookie'] = str(flow_id)
-        self.flow['dst-ip'] = "%s/32" % str(netaddr.IPAddress(ipaddr))
+        flow = copy.deepcopy(self.flow)
+        flow['switch'] = "00:00:00:00:00:00:00:%s" % '{0:02x}'.format(node)
+        flow['name'] = flow_list[0]['flow-name']
+        flow['table'] = flow_list[0]['table_id']
+        flow['cookie'] = flow_list[0]['cookie']
+        # flow['cookie_mask'] = flow_list[0]['cookie_mask']
+        flow['idle_timeout'] = flow_list[0]['idle-timeout']
+        flow['hard_timeout'] = flow_list[0]['hard-timeout']
+        flow['ipv4_dst'] = flow_list[0]['match']['ipv4-destination']
 
-        flow_data = json.dumps(self.flow)
-        # print flow_data
-        # print flow_url
+        flow_data = json.dumps(flow)
 
-        r = session.post(self.url, data=flow_data, headers=self.putheaders, stream=False)
+        hosts = self.host.split(",")
+        host = hosts[flow_count % len(hosts)]
+        flow_url = self.create_floodlight_url(host)
+
+        r = session.post(flow_url, data=flow_data, headers=self.putheaders, stream=False)
         return r.status_code
 
-    def delete_flow(self, session, node, flow_id):
+    def delete_flow(self, session, node, flow_id, flow_count):
         """
-        Deletes a flow. Overrides the delete_flow method in FlowConfigBlaster.
-        :param session:
-        :param node:
-        :param flow_id:
-        :return:
+        Deletes a single flow from the ODL config data store using RESTCONF
+        :param session: 'requests' session on which to perform the POST
+        :param node: Id of the openflow node from which to delete the flow
+        :param flow_id: ID of the to-be-deleted flow
+        :param flow_count: Flow counter for round-robin of delete operations
+        :return: status code from the DELETE operation
         """
-        f = {'name': 'TestFlow-%d' % flow_id}
-        flow_data = json.dumps(f)
 
-        r = session.delete(self.url, data=flow_data, headers=self.getheaders)
+        hosts = self.host.split(",")
+        host = hosts[flow_count % len(hosts)]
+        flow_url = self.create_floodlight_url(host)
+        flow_data = json.dumps({'name': self.create_flow_name(flow_id)})
+
+        r = session.delete(flow_url, data=flow_data, headers=self.getheaders)
         return r.status_code
+
+    def clear_all_flows(self):
+        clear_url = 'http://' + self.host + ":" + self.port + '/wm/staticflowpusher/clear/all/json'
+        r = requests.get(clear_url)
+        if r.status_code == 200:
+            print "All flows cleared before the test"
+        else:
+            print "Failed to clear flows from the controller, your results may vary"
 
 
 if __name__ == "__main__":
@@ -122,11 +142,13 @@ if __name__ == "__main__":
     fct = FlowConfigBlasterFLE(in_args.host, in_args.port, in_args.cycles, in_args.threads, in_args.nodes,
                                in_args.flows, in_args.startflow)
 
+    fct.clear_all_flows()
+
     # Run through <cycles>, where <threads> are started in each cycle and <flows> are added from each thread
     fct.add_blaster()
 
-    print '\n*** Total flows added: %s' % fct.get_total_flows()
-    print '    HTTP[OK] results:  %d\n' % fct.get_ok_flows()
+    print '\n*** Total flows added: %s' % fct.get_ok_flows()
+    print '    HTTP[OK] results:  %d\n' % fct.get_ok_rqsts()
 
     if in_args.delay > 0:
         print '*** Waiting for %d seconds before the delete cycle ***\n' % in_args.delay
@@ -136,3 +158,5 @@ if __name__ == "__main__":
     # deleted in each thread
     if in_args.delete:
         fct.delete_blaster()
+        print '\n*** Total flows deleted: %s' % fct.get_ok_flows()
+        print '    HTTP[OK] results:    %d\n' % fct.get_ok_rqsts()
