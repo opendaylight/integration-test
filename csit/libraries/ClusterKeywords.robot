@@ -146,6 +146,7 @@ Start Multiple Controllers
     [Documentation]    Give this keyword a scalar or list of controllers to be started.
     : FOR    ${i}    IN    @{controller_index_list}
     \    ${output}=    Utils.Run Command On Controller    ${ODL_SYSTEM_${i}_IP}    ${WORKSPACE}/${BUNDLEFOLDER}/bin/start
+    : FOR    ${i}    IN    @{controller_index_list}
     \    ClusterKeywords.Wait For Controller Sync    ${timeout}    ${ODL_SYSTEM_${i}_IP}
 
 Get Controller List
