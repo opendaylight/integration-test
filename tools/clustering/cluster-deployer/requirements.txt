@@ -1,0 +1,3 @@
+pystache
+# This is required by SSHLibrary import in remote_host.py
+robotframework-sshlibrary
