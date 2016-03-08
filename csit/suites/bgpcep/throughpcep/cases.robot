@@ -114,7 +114,7 @@ Suite Teardown    Disconnect
 Test Setup        FailFast.Fail_This_Fast_On_Previous_Error
 Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
 Variables         ${CURDIR}/../../../variables/Variables.py
-Library           SSHLibrary    timeout=10s
+Library           SSHLibrary
 Library           RequestsLibrary
 Library           ${CURDIR}/../../../libraries/AuthStandalone.py
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
@@ -173,9 +173,9 @@ Download_Pcc_Mock
     BuiltIn.Run_Keyword_If    ${PCCMOCK_COLOCATED}    Pccmock_From_Controller
     NexusKeywords.Initialize_Artifact_Deployment_And_Usage    tools_system_connect=False
     SSHLibrary.Open_Connection    ${PCCMOCKVM_IP}    alias=pccmock
-    SSHLibrary.Set_Client_Configuration    timeout=10s
+    SSHLibrary.Set_Client_Configuration    timeout=40s
     SSHLibrary.Set_Client_Configuration    prompt=${PCCMOCKVM_PROMPT}
-    Utils.Flexible_SSH_Login    ${PCCMOCKVM_USER}    ${PCCMOCKVM_PASSWORD}    delay=4s
+    Utils.Flexible_SSH_Login    ${PCCMOCKVM_USER}    ${PCCMOCKVM_PASSWORD}    delay=40s
     ${file_name} =    NexusKeywords.Deploy_Test_Tool    bgpcep    pcep-pcc-mock
     BuiltIn.Set_Suite_Variable    ${mock_location}    ${file_name}
 
@@ -183,10 +183,10 @@ Put_Updater
     [Documentation]    Open SSH session to updater VM, copy the utility there, including dependencies, also prepare direct http session.
     BuiltIn.Run_Keyword_If    ${UPDATER_COLOCATED}    Updater_From_Controller
     SSHLibrary.Open_Connection    ${UPDATERVM_IP}    alias=updater
-    SSHLibrary.Set_Client_Configuration    timeout=20s
+    SSHLibrary.Set_Client_Configuration    timeout=40s
     SSHLibrary.Set_Client_Configuration    prompt=${UPDATERVM_PROMPT}
-    Utils.Flexible_SSH_Login    ${UPDATERVM_USER}    ${UPDATERVM_PASSWORD}    delay=4s
-    SSHKeywords.Require_Python
+    Utils.Flexible_SSH_Login    ${UPDATERVM_USER}    ${UPDATERVM_PASSWORD}    delay=40s
+    SSHKeywords.Require_Pypy
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/pcep_updater/updater.py    ${UPDATERVM_WORKSPACE}/
     SSHLibrary.Put_File    ${CURDIR}/../../../libraries/AuthStandalone.py    ${UPDATERVM_WORKSPACE}/
     SSHKeywords.Assure_Library_Counter    target_dir=${UPDATERVM_WORKSPACE}
@@ -454,7 +454,7 @@ Updater
     BuiltIn.Log    ${workers}
     Set_Hop    ${iteration}
     SSHLibrary.Switch_Connection    updater
-    ${response} =    SSHLibrary.Execute_Command    bash -c "cd ${UPDATERVM_WORKSPACE}; taskset 0x00000001 python updater.py --workers '${workers}' --odladdress '${UPDATER_ODLADDRESS}' --user '${RESTCONF_USER}' --password '${RESTCONF_PASSWORD}' --scope '${RESTCONF_SCOPE}' --pccaddress '${FIRST_PCC_IP}' --pccs '${PCCS}' --lsps '${LSPS}' --hop '${hop}' --timeout '${UPDATER_TIMEOUT}' --refresh '${UPDATER_REFRESH}' --reuse '${RESTCONF_REUSE}' 2>&1"
+    ${response} =    SSHLibrary.Execute_Command    bash -c "cd ${UPDATERVM_WORKSPACE}; pypy updater.py --workers '${workers}' --odladdress '${UPDATER_ODLADDRESS}' --user '${RESTCONF_USER}' --password '${RESTCONF_PASSWORD}' --scope '${RESTCONF_SCOPE}' --pccaddress '${FIRST_PCC_IP}' --pccs '${PCCS}' --lsps '${LSPS}' --hop '${hop}' --timeout '${UPDATER_TIMEOUT}' --refresh '${UPDATER_REFRESH}' --reuse '${RESTCONF_REUSE}' 2>&1"
     BuiltIn.Log    ${response}
     ${expected} =    BuiltIn.Set_Variable    Counter({'pass': ${size}})
     BuiltIn.Log    ${expected}
