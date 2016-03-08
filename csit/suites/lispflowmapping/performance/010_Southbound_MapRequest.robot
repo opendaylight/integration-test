@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite to determine the southbound Map-Request serving rate
+Documentation     LISP southbound performance tests
 Suite Setup       Prepare Environment
 Suite Teardown    Destroy Environment
 Library           Collections
@@ -18,7 +18,8 @@ ${PCAP_CREATOR}    ${TOOLS_DIR}/create_map_request_pcap.py
 ${MAPPING_BLASTER}    ${TOOLS_DIR}/mapping_blaster.py
 ${REPLAY_PPS}     100000
 ${REPLAY_CNT}     1000
-${REPLAY_FILE}    encapsulated-map-requests-sequential.pcap
+${REPLAY_FILE_MREQ}    encapsulated-map-requests-sequential.pcap
+${REPLAY_FILE_MREG}    map-registers-sequential.pcap
 ${RPCS_RESULTS_FILE}    rpcs.csv
 ${PPS_RESULTS_FILE}    pps.csv
 
@@ -31,27 +32,40 @@ Add Simple IPv4 Mappings
     Log    ${add_seconds}
     Set Suite Variable    ${add_seconds}
 
-Generate Test Traffic
+Generate Map-Request Test Traffic
     Reset Stats
     ${result}=    Run Process With Logging And Status Check    /usr/local/bin/udpreplay    --pps    ${REPLAY_PPS}    --repeat    ${REPLAY_CNT}
-    ...    --host    ${ODL_SYSTEM_IP}    --port    4342    ${REPLAY_FILE}
+    ...    --host    ${ODL_SYSTEM_IP}    --port    4342    ${REPLAY_FILE_MREQ}
     ${partial}=    Fetch From Left    ${result.stdout}    s =
     Log    ${partial}
-    ${get_seconds}=    Fetch From Right    ${partial}    ${SPACE}
-    ${get_seconds}=    Convert To Number    ${get_seconds}
-    Log    ${get_seconds}
-    Set Suite Variable    ${get_seconds}
+    ${get_seconds_mreq}=    Fetch From Right    ${partial}    ${SPACE}
+    ${get_seconds_mreq}=    Convert To Number    ${get_seconds_mreq}
+    Log    ${get_seconds_mreq}
+    Set Suite Variable    ${get_seconds_mreq}
+
+Generate Map-Register Test Traffic
+    ${result}=    Run Process With Logging And Status Check    /usr/local/bin/udpreplay    --pps    ${REPLAY_PPS}    --repeat    ${REPLAY_CNT}
+    ...    --host    ${ODL_SYSTEM_IP}    --port    4342    ${REPLAY_FILE_MREG}
+    ${partial}=    Fetch From Left    ${result.stdout}    s =
+    Log    ${partial}
+    ${get_seconds_mreg}=    Fetch From Right    ${partial}    ${SPACE}
+    ${get_seconds_mreg}=    Convert To Number    ${get_seconds_mreg}
+    Log    ${get_seconds_mreg}
+    Set Suite Variable    ${get_seconds_mreg}
 
 Compute And Export Results
     ${rpcs}=    Evaluate    ${MAPPINGS}/${add_seconds}
     Log    ${rpcs}
     Create File    ${RPCS_RESULTS_FILE}    store/s\n
     Append To File    ${RPCS_RESULTS_FILE}    ${rpcs}\n
-    ${txmrep}=    Get Transmitted Map-Requests Stats
-    ${pps}=    Evaluate    ${txmrep}/${get_seconds}
-    Log    ${pps}
-    Create File    ${PPS_RESULTS_FILE}    replies/s\n
-    Append To File    ${PPS_RESULTS_FILE}    ${pps}\n
+    ${tx_mrep}=    Get Transmitted Map-Requests Stats
+    ${pps_mrep}=    Evaluate    ${tx_mrep}/${get_seconds_mreq}
+    Log    ${pps_mrep}
+    Create File    ${PPS_RESULTS_FILE}    replies/s,notifies/s\n
+    ${tx_mnot}=    Get Transmitted Map-Notifies Stats
+    ${pps_mnot}=    Evaluate    ${tx_mnot}/${get_seconds_mreg}
+    Log    ${pps_mnot}
+    Append To File    ${PPS_RESULTS_FILE}    ${pps_mrep},${pps_mnot}\n
 
 *** Keywords ***
 Reset Stats
@@ -66,10 +80,22 @@ Get Transmitted Map-Requests Stats
     ${stats}=    Get From Dictionary    ${output}    control-message-stats
     ${ctrlmsg}=    Get From Dictionary    ${stats}    control-message
     ${replies}=    Get From List    ${ctrlmsg}    2
-    ${txmrep}=    Get From Dictionary    ${replies}    tx-count
-    ${txmrep}=    Convert To Integer    ${txmrep}
-    Log    ${txmrep}
-    [Return]    ${txmrep}
+    ${tx_mrep}=    Get From Dictionary    ${replies}    tx-count
+    ${tx_mrep}=    Convert To Integer    ${tx_mrep}
+    Log    ${tx_mrep}
+    [Return]    ${tx_mrep}
+
+Get Transmitted Map-Notifies Stats
+    ${resp}=    RequestsLibrary.Post Request    session    ${LFM_SB_RPC_API}:get-stats
+    Log    ${resp.content}
+    ${output}=    Get From Dictionary    ${resp.json()}    output
+    ${stats}=    Get From Dictionary    ${output}    control-message-stats
+    ${ctrlmsg}=    Get From Dictionary    ${stats}    control-message
+    ${notifies}=    Get From List    ${ctrlmsg}    4
+    ${tx_mnot}=    Get From Dictionary    ${notifies}    tx-count
+    ${tx_mnot}=    Convert To Integer    ${tx_mnot}
+    Log    ${tx_mnot}
+    [Return]    ${tx_mnot}
 
 Prepare Environment
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
@@ -79,4 +105,5 @@ Prepare Environment
 Destroy Environment
     Delete All Sessions
     Remove File    ${TOOLS_DIR}/lisp.py*
-    Remove File    ${REPLAY_FILE}
+    Remove File    ${REPLAY_FILE_MREQ}
+    Remove File    ${REPLAY_FILE_MREG}

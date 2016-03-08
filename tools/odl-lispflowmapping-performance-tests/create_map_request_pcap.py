@@ -1,8 +1,8 @@
 #!/usr/bin/env python
 """
-Script to generate a pcap file with n Map-Request packets with EID records
-increasing sequentially and (optionally) another pcap file with n Map-Request
-packets that have random EIDs
+Script to generate files with n Map-Request packets and n Map-Register packets
+with EID records increasing sequentially and (optionally) files with n
+Map-Request packets and n Map-Register packets that have random EIDs
 
 Use `./create_map_request_pcap.py --help` to see options
 """
@@ -16,7 +16,7 @@ __author__ = "Lori Jakab"
 __copyright__ = "Copyright (c) 2015, Cisco Systems, Inc."
 __license__ = "New-style BSD"
 __email__ = "lojakab@cisco.com"
-__version__ = "0.0.2"
+__version__ = "0.0.3"
 
 
 def generate_eids_random(base, n):
@@ -76,6 +76,40 @@ def generate_map_request(eid):
                                    request_records=record)
     return packet
 
+
+def generate_map_register(eid, rloc):
+    """Create a LISP Map-Register packet as a Scapy object
+    Args:
+        :param eid: A string used as the EID record
+        :param rloc: A string used as the RLOC
+    Returns:
+        :return : returns a Scapy Map-Request packet object
+    """
+    sport1 = random.randint(60000, 65000)
+    sport2 = random.randint(60000, 65000)
+    rnonce = random.randint(0, 2**63)
+
+    rlocs = [lisp.LISP_Locator_Record(priority=1, weight=1,
+                                      multicast_priority=255,
+                                      multicast_weight=0,
+                                      reserved=0, locator_flags=5,
+                                      locator_afi=1, address=rloc)]
+
+    record = [lisp.LISP_MapRecord(record_ttl=1440, locator_count=1,
+                                  eid_prefix_length=32, action=0,
+                                  authoritative=1, reserved=0,
+                                  map_version_number=0, record_afi=1,
+                                  record_address=eid, locators=rlocs)]
+
+    packet = lisp.Ether(dst=dst_mac, src=src_mac)
+    packet /= lisp.IP(dst=dst_rloc, src=src_rloc)
+    packet /= lisp.UDP(sport=sport1, dport=4342)
+    packet /= lisp.LISP_MapRegister(ptype=3, nonce=rnonce,
+                                    register_flags=1,
+                                    register_count=1,
+                                    register_records=record)
+    return packet
+
 parser = argparse.ArgumentParser(description='Create a Map-Request trace file')
 
 parser.add_argument('--dst-mac', default='00:00:00:00:00:00',
@@ -112,18 +146,24 @@ src_eid = in_args.src_eid
 increment = in_args.increment
 
 seq_eids = generate_eids_sequential(in_args.base_eid, in_args.requests)
-seq_pkts = []
+seq_pkts_mreq = []
+seq_pkts_mreg = []
 
 for eid in seq_eids:
-    seq_pkts.append(generate_map_request(eid))
+    seq_pkts_mreq.append(generate_map_request(eid))
+    seq_pkts_mreg.append(generate_map_register(eid, eid))
 
-lisp.wrpcap("encapsulated-map-requests-sequential.pcap", seq_pkts)
+lisp.wrpcap("encapsulated-map-requests-sequential.pcap", seq_pkts_mreq)
+lisp.wrpcap("map-registers-sequential.pcap", seq_pkts_mreg)
 
 if in_args.random is True:
     rand_eids = generate_eids_random(in_args.base_eid, in_args.requests)
-    rand_pkts = []
+    rand_pkts_mreq = []
+    rand_pkts_mreg = []
 
     for eid in rand_eids:
-        rand_pkts.append(generate_map_request(eid))
+        rand_pkts_mreq.append(generate_map_request(eid))
+        rand_pkts_mreg.append(generate_map_register(eid, eid))
 
-    lisp.wrpcap("encapsulated-map-requests-random.pcap", rand_pkts)
+    lisp.wrpcap("encapsulated-map-requests-random.pcap", rand_pkts_mreq)
+    lisp.wrpcap("map-registers-random.pcap", rand_pkts_mreg)
