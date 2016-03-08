@@ -1,0 +1,4 @@
+# Depends on system install of libcurl-devel (or similar)
+pycurl --global-option="--with-nss"
+requests
+robotframework-sshlibrary
