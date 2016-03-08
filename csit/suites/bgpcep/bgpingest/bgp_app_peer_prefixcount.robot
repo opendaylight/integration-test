@@ -54,13 +54,13 @@ ${BGP_PEER_LOG_LEVEL}    info
 ${BGP_APP_PEER_LOG_LEVEL}    info
 ${CONTROLLER_LOG_LEVEL}    INFO
 ${CONTROLLER_BGP_LOG_LEVEL}    DEFAULT
-${BGP_PEER_COMMAND}    python play.py --amount 0 --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --${BGP_PEER_LOG_LEVEL}
+${BGP_PEER_COMMAND}    pypy play.py --amount 0 --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --${BGP_PEER_LOG_LEVEL}
 ${BGP_PEER_OPTIONS}    &>bgp_peer.log
 ${BGP_APP_PEER_ID}    10.0.0.10
-${BGP_APP_PEER_INITIAL_COMMAND}    python bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command post --count ${PREFILL} --prefix 8.0.0.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL}
-${BGP_APP_PEER_PUT_COMMAND}    python bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command put --count ${PREFILL} --prefix 8.0.0.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL}
-${BGP_APP_PEER_DELETE_ALL_COMMAND}    python bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command delete-all --${BGP_APP_PEER_LOG_LEVEL}
-${BGP_APP_PEER_GET_COMMAND}    python bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command get --${BGP_APP_PEER_LOG_LEVEL}
+${BGP_APP_PEER_INITIAL_COMMAND}    pypy bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command post --count ${PREFILL} --prefix 8.0.0.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL}
+${BGP_APP_PEER_PUT_COMMAND}    pypy bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command put --count ${PREFILL} --prefix 8.0.0.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL}
+${BGP_APP_PEER_DELETE_ALL_COMMAND}    pypy bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command delete-all --${BGP_APP_PEER_LOG_LEVEL}
+${BGP_APP_PEER_GET_COMMAND}    pypy bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command get --${BGP_APP_PEER_LOG_LEVEL}
 ${BGP_APP_PEER_OPTIONS}    &>bgp_app_peer.log
 ${TEST_DURATION_MULTIPLIER}    30
 ${last_prefix_count}    -1
@@ -105,7 +105,7 @@ Check_Bgp_Peer_Updates_For_Prefilled_Routes
 BGP_Application_Peer_Introduce_Single_Routes
     [Documentation]    Start BGP application peer tool and introduce routes.
     SSHLibrary.Switch Connection    bgp_app_peer_console
-    Start_Console_Tool    python bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command add --count ${remaining_prefixes} --prefix 12.0.0.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL}    ${BGP_APP_PEER_OPTIONS}
+    Start_Console_Tool    pypy bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command add --count ${remaining_prefixes} --prefix 12.0.0.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL}    ${BGP_APP_PEER_OPTIONS}
     Wait_Until_Console_Tool_Finish    ${bgp_filling_timeout}
     Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_singles.log
 
