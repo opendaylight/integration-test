@@ -97,7 +97,20 @@ Start Multiple Controllers
     [Documentation]    Give this keyword a scalar or list of controllers to be started.
     : FOR    ${i}    IN    @{controller_index_list}
     \    ${output}=    Utils.Run Command On Controller    ${ODL_SYSTEM_${i}_IP}    ${WORKSPACE}/${BUNDLEFOLDER}/bin/start
+    : FOR    ${i}    IN    @{controller_index_list}
     \    ClusterKeywords.Wait For Controller Sync    ${timeout}    ${ODL_SYSTEM_${i}_IP}
+
+Kill Specific Controller
+    [Arguments]    ${controller_index}
+    [Documentation]    Give this keyword a specific controller node to be stopped.
+    Utils.Run Command On Controller    ${ODL_SYSTEM_${controller_index}_IP}    ps axf | grep karaf | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
+    ClusterKeywords.Controller Down Check    ${ODL_SYSTEM_${controller_index}_IP}
+
+Start Specific Controller
+    [Arguments]    ${timeout}    ${controller_index}
+    [Documentation]    Give this keyword a specific  controller node to be started.
+    Utils.Run Command On Controller    ${ODL_SYSTEM_${controller_index}_IP}    ${WORKSPACE}/${BUNDLEFOLDER}/bin/start
+    ClusterKeywords.Wait For Controller Sync    ${timeout}    ${ODL_SYSTEM_${controller_index}_IP}
 
 Get Controller List
     [Arguments]    ${exclude_controller}=${EMPTY}
@@ -318,3 +331,4 @@ Flush IPTables
     Should Contain    ${return string}    Flushing chain `INPUT'
     Should Contain    ${return string}    Flushing chain `FORWARD'
     Should Contain    ${return string}    Flushing chain `OUTPUT'
+

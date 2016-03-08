@@ -12,6 +12,14 @@ ${operational_table_0}    ${OPERATIONAL_NODES_API}/node/openflow:1/table/0
 ${operational_port_1}    ${OPERATIONAL_NODES_API}/node/openflow:1/node-connector/openflow:1:1
 
 *** Keywords ***
+Get InventoryConfig Shard Status
+    [Arguments]    ${controller_index_list}
+    [Documentation]    Check Status for Inventory Config shard in OpenFlow application.
+    ${inv_conf_leader}    ${inv_conf_followers_list}    Wait Until Keyword Succeeds    10s    1s    ClusterKeywords.Get Cluster Shard Status 
+    ...    ${controller_index_list}    config    inventory
+    Log    config inventory Leader is ${inv_conf_leader} and followers are ${inv_conf_followers_list}
+    [Return]   ${inv_conf_leader}  ${inv_conf_followers_list}
+
 Check OpenFlow Shards Status
     [Arguments]    ${controller_index_list}
     [Documentation]    Check Status for all shards in OpenFlow application.
@@ -96,7 +104,7 @@ Add Sample Flow And Verify
     Run Keyword If    '${ODL_OF_PLUGIN}' == 'helium'    Set Test Variable    &{dictionary}    10.0.1.0/24=2    "output-node-connector":"1"=1
     Run Keyword If    '${ODL_OF_PLUGIN}' == 'lithium'    Set Test Variable    &{dictionary}    10.0.1.0/24=1    "output-node-connector":"1"=1
     ClusterKeywords.Put And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${config_table_0}/flow/1    ${body}
-    Wait Until Keyword Succeeds    15s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${operational_table_0}
+    Wait Until Keyword Succeeds    25s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${operational_table_0}
 
 Modify Sample Flow And Verify
     [Arguments]    ${controller_index_list}    ${controller_index}
@@ -105,7 +113,7 @@ Modify Sample Flow And Verify
     Run Keyword If    '${ODL_OF_PLUGIN}' == 'helium'    Set Test Variable    &{dictionary}    10.0.1.0/24=2    "output-node-connector":"2"=1
     Run Keyword If    '${ODL_OF_PLUGIN}' == 'lithium'    Set Test Variable    &{dictionary}    10.0.1.0/24=1    "output-node-connector":"2"=1
     ClusterKeywords.Put And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${config_table_0}/flow/1    ${body}
-    Wait Until Keyword Succeeds    15s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${operational_table_0}
+    Wait Until Keyword Succeeds    25s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${operational_table_0}
 
 Delete Sample Flow And Verify
     [Arguments]    ${controller_index_list}    ${controller_index}
@@ -123,7 +131,7 @@ Send RPC Add Sample Flow And Verify
     ${resp}    RequestsLibrary.Post Request    controller${controller_index}    /restconf/operations/sal-flow:add-flow    data=${body}    headers=${HEADERS_YANG_JSON}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
-    Wait Until Keyword Succeeds    15s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${operational_table_0}
+    Wait Until Keyword Succeeds    25s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${operational_table_0}
 
 Send RPC Delete Sample Flow And Verify
     [Arguments]    ${controller_index_list}    ${controller_index}
@@ -152,3 +160,4 @@ Take OpenFlow Device Link Up and Verify
     Wait Until Keyword Succeeds    5s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${operational_port_1}
     ${dictionary}    Create Dictionary    openflow:1=21    openflow:2=19    openflow:3=19
     Wait Until Keyword Succeeds    5s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
+
