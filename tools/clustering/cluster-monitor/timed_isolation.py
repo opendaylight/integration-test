@@ -19,12 +19,12 @@ The file should look like this:
     {
         "cluster": {
             "controllers": [
-                "172.17.10.93",
-                "172.17.10.94",
-                "172.17.10.95"
+                {"ip": "172.17.10.93", "port": "8181"},
+                {"ip": "172.17.10.93", "port": "8181"},
+                {"ip": "172.17.10.93", "port": "8181"}
             ],
             "user": "username",
-            "pass": "password"
+            "pass": "password",
         }
     }
 
@@ -53,7 +53,10 @@ except:
     print 'unable to open the file cluster.json'
     exit(1)
 try:
-    controllers = data["cluster"]["controllers"]
+    cluster_list = data["cluster"]["controllers"]
+    cluster_ips = []
+    for controller in cluster_list:
+        cluster_ips.append(controller["ip"])
     user_name = data["cluster"]["user"]
     user_pass = data["cluster"]["pass"]
 except:
@@ -69,9 +72,9 @@ except:
 
 print 'Isolating controller ' + str(isolate)
 
-print UtilLibrary.isolate_controller(controllers, user_name, user_pass, isolate)
+print UtilLibrary.isolate_controller(cluster_ips, user_name, user_pass, isolate)
 
 print 'Pausing for ' + str(duration) + ' seconds...'
 time.sleep(duration)
 
-print UtilLibrary.flush_iptables(controllers, user_name, user_pass)
+print UtilLibrary.flush_iptables(cluster_ips, user_name, user_pass)

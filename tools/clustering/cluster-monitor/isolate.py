@@ -9,7 +9,7 @@ a single integer argument corresponding to the number of a controller
 in a json file's ordered list of controllers. This is the controller to
 be isolated.
 
-A file named 'cluster.json' containing a list of the IP addresses and
+A file named 'cluster.json' containing a list of the IP addresses, ports and
 credentials of the controllers is required. It resides in the same
 directory as monitor.py.
 
@@ -18,12 +18,12 @@ The file should look like this:
     {
         "cluster": {
             "controllers": [
-                "172.17.10.93",
-                "172.17.10.94",
-                "172.17.10.95"
+                {"ip": "172.17.10.93", "port": "8181"},
+                {"ip": "172.17.10.93", "port": "8181"},
+                {"ip": "172.17.10.93", "port": "8181"}
             ],
             "user": "username",
-            "pass": "password"
+            "pass": "password",
         }
     }
 
@@ -52,6 +52,9 @@ except:
     exit(1)
 try:
     cluster_list = data["cluster"]["controllers"]
+    cluster_ips = []
+    for controller in cluster_list:
+        cluster_ips.append(controller["ip"])
     user_name = data["cluster"]["user"]
     user_pass = data["cluster"]["pass"]
 except:
@@ -66,4 +69,4 @@ except:
 
 print "isolating controller " + str(isolate)
 
-print UtilLibrary.isolate_controller(cluster_list, user_name, user_pass, isolate)
+print UtilLibrary.isolate_controller(cluster_ips, user_name, user_pass, isolate)

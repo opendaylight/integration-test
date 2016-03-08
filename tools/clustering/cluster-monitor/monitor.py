@@ -2,25 +2,26 @@
 """
 Cluster Monitor Tool
 Author: Phillip Shea
-Updated: 2015-May-07
+Updated: 2016-Mar-07
 
 This tool provides real-time visualization of the cluster member roles for all
 shards in the config datastore.
 
-A file named 'cluster.json' contaning a list of the IP addresses of the
-controllers is required. This resides in the same directory as monitor.py.
+A file named 'cluster.json' contaning a list of the IP addresses and port numbers
+of the controllers is required. This resides in the same directory as monitor.py.
 "user" and "pass" are not required for monitor.py, but they may be
 needed for other apps in this folder. The file should look like this:
 
     {
         "cluster": {
             "controllers": [
-                "172.17.10.93",
-                "172.17.10.94",
-                "172.17.10.95"
+                {"ip": "172.17.10.93", "port": "8181"},
+                {"ip": "172.17.10.93", "port": "8181"},
+                {"ip": "172.17.10.93", "port": "8181"}
             ],
             "user": "username",
-            "pass": "password"
+            "pass": "password",
+            "shards_to_exclude": []  # list of shard names to omit from output
         }
     }
 
@@ -51,30 +52,30 @@ def rest_get(restURL):
 
 
 def getClusterRolesWithCurl(shardName, *args):
-    ips = args[0]
+    controllers = args[0]
     names = args[1]
     controller_state = {}
-    for i, ip in enumerate(ips):
-        controller_state[ip] = None
-        url = 'http://' + ip + ':' + '8181/jolokia/read/org.opendaylight.controller:'
+    for i, controller in enumerate(controllers):
+        controller_state[controller["ip"]] = None
+        url = "http://" + controller["ip"] + ":" + controller["port"] + "/jolokia/read/org.opendaylight.controller:"
         url += 'Category=Shards,name=' + names[i]
         url += '-shard-' + shardName + '-config,type=DistributedConfigDatastore'
         try:
             resp = rest_get(url)
             if resp['status'] != 200:
-                controller_state[ip] = 'HTTP ' + str(resp['status'])
+                controller_state[controller["ip"]] = 'HTTP ' + str(resp['status'])
             if 'value' in resp:
                 data_value = resp['value']
-                controller_state[ip] = data_value['RaftState']
+                controller_state[controller["ip"]] = data_value['RaftState']
         except:
             if 'timed out' in str(sys.exc_info()[1]):
-                controller_state[ip] = 'timeout'
+                controller_state[controller["ip"]] = 'timeout'
             elif 'JSON' in str(sys.exc_info()):
-                controller_state[ip] = 'JSON error'
+                controller_state[controller["ip"]] = 'JSON error'
             elif 'connect to host' in str(sys.exc_info()):
-                controller_state[ip] = 'no connection'
+                controller_state[controller["ip"]] = 'no connection'
             else:
-                controller_state[ip] = 'down'
+                controller_state[controller["ip"]] = 'down'
     return controller_state
 
 
@@ -101,6 +102,7 @@ except:
     exit(1)
 try:
     controllers = data["cluster"]["controllers"]
+    shards_to_exclude = data["cluster"]["shards_to_exclude"]
 except:
     print str(sys.exc_info())
     print 'Error reading the file cluster.json'
@@ -110,7 +112,7 @@ controller_names = []
 Shards = set()
 # Retrieve controller names and shard names.
 for controller in controllers:
-    url = "http://" + controller + ":8181/jolokia/read/org.opendaylight.controller:"
+    url = "http://" + controller["ip"] + ":" + controller["port"] + "/jolokia/read/org.opendaylight.controller:"
     url += "Category=ShardManager,name=shard-manager-config,type=DistributedConfigDatastore"
     try:
         data = rest_get(url)
@@ -132,7 +134,8 @@ for controller in controllers:
     # collect shards found in any controller; does not require all controllers to have the same shards
     for localShard in data['value']['LocalShards']:
         shardName = localShard[(localShard.find("-shard-") + 7):localShard.find("-config")]
-        Shards.add(shardName)
+        if shardName not in shards_to_exclude:
+            Shards.add(shardName)
 print controller_names
 print Shards
 field_len = max(map(len, Shards)) + 2
@@ -167,16 +170,17 @@ while key != ord('q') and key != ord('Q'):
     key = stdscr.getch()
 
     for data_column, shard_name in enumerate(Shards):
-        cluster_stat = getClusterRolesWithCurl(shard_name, controllers, controller_names)
-        for row, controller in enumerate(controllers):
-            status = size_and_color(cluster_stat, field_len, controller)
-            stdscr.addstr(row + 1, (field_len + 1) * (data_column + 1), status['txt'], status['color'])
-    time.sleep(0.5)
-    if odd_or_even % 2 == 0:
-        stdscr.addstr(0, field_len / 2 - 2, " <3 ", curses.color_pair(5))
-    else:
-        stdscr.addstr(0, field_len / 2 - 2, " <3 ", curses.color_pair(0))
-    stdscr.refresh()
+        if shard_name not in shards_to_exclude:
+            cluster_stat = getClusterRolesWithCurl(shard_name, controllers, controller_names)
+            for row, controller in enumerate(controllers):
+                status = size_and_color(cluster_stat, field_len, controller["ip"])
+                stdscr.addstr(row + 1, (field_len + 1) * (data_column + 1), status['txt'], status['color'])
+        time.sleep(0.5)
+        if odd_or_even % 2 == 0:
+            stdscr.addstr(0, field_len / 2 - 2, " <3 ", curses.color_pair(5))
+        else:
+            stdscr.addstr(0, field_len / 2 - 2, " <3 ", curses.color_pair(0))
+        stdscr.refresh()
 
 # clean up
 curses.nocbreak()

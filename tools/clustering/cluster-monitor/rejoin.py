@@ -15,12 +15,12 @@ The file should look like this:
     {
         "cluster": {
             "controllers": [
-                "172.17.10.93",
-                "172.17.10.94",
-                "172.17.10.95"
+                {"ip": "172.17.10.93", "port": "8181"},
+                {"ip": "172.17.10.93", "port": "8181"},
+                {"ip": "172.17.10.93", "port": "8181"}
             ],
             "user": "username",
-            "pass": "password"
+            "pass": "password",
         }
     }
 
@@ -49,6 +49,9 @@ except:
     exit(1)
 try:
     cluster_list = data["cluster"]["controllers"]
+    cluster_ips = []
+    for controller in cluster_list:
+        cluster_ips.append(controller["ip"])
     user_name = data["cluster"]["user"]
     user_pass = data["cluster"]["pass"]
 except:
@@ -56,4 +59,4 @@ except:
     print 'Error reading the file cluster.json'
     exit(1)
 
-print UtilLibrary.flush_iptables(cluster_list, user_name, user_pass)
+print UtilLibrary.flush_iptables(cluster_ips, user_name, user_pass)
