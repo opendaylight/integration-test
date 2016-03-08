@@ -82,10 +82,7 @@ Deploy_Artifact
     ${namepart}=    BuiltIn.Set_Variable_If    ${length} == 0    ${version}    ${namepart}
     ${filename}=    BuiltIn.Set_Variable    ${name_prefix}${namepart}${name_suffix}
     BuiltIn.Log    ${filename}
-    ${url}=    BuiltIn.Set_Variable    ${url}/${filename}
-    ${response}    ${result}=    SSHLibrary.Execute_Command    wget -q -N ${url} 2>&1    return_rc=True
-    BuiltIn.Log    ${response}
-    BuiltIn.Run_Keyword_If    ${result} != 0    BuiltIn.Fail    Artifact "${artifact}" in component "${component}" could not be downloaded from ${url}
+    SSHLibrary.File_Should_Exist    ${filename}
     [Return]    ${filename}
 
 Deploy_Test_Tool

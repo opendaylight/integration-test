@@ -33,7 +33,7 @@ Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
-Library           SSHLibrary    timeout=10s
+Library           SSHLibrary    timeout=40s
 Library           RequestsLibrary
 Variables         ${CURDIR}/../../../variables/Variables.py
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
@@ -43,6 +43,7 @@ Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
 Resource          ${CURDIR}/../../../libraries/PrefixCounting.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 
 *** Variables ***
 ${BGP_TOOL_LOG_LEVEL}    info
@@ -142,55 +143,6 @@ Check_For_Empty_Ipv4_Topology_After_Talking
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     PrefixCounting.Check_Ipv4_Topology_Is_Empty
 
-Start_Listening_BGP_Speaker
-    [Documentation]    Start Python speaker in listening mode.
-    BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT_CHANGE_COUNT_SINGLE} --listen --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --update ${UPDATE} --${BGP_TOOL_LOG_LEVEL} --results ${RESULTS_FILE_NAME}
-
-Reconfigure_ODL_To_Initiate_Connection
-    [Documentation]    Replace BGP peer config module, now with initiate-connection set to true.
-    Store_Change_Count
-    ${template_as_string} =    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${TOOLS_SYSTEM_IP}', 'HOLDTIME': '${HOLDTIME_CHANGE_COUNT_SINGLE}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'true'}
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
-
-Wait_For_Stable_Listening_Ipv4_Topology
-    [Documentation]    Wait until example-ipv4-topology becomes stable.
-    ChangeCounter.Wait_For_Change_Count_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD_CHANGE_COUNT_SINGLE}    repetitions=${REPETITIONS_CHANGE_COUNT_SINGLE}    count_to_overcome=${last_change_count_single}
-
-Check_Listening_Ipv4_Topology_Count
-    [Documentation]    Count the routes in example-ipv4-topology and fail if the count is not correct.
-    [Tags]    critical
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT_CHANGE_COUNT_SINGLE}
-
-Kill_Listening_BGP_Speaker
-    [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
-    [Tags]    critical
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    Store_Change_Count
-    BGPSpeaker.Kill_BGP_Speaker
-    FailFast.Do_Not_Fail_Fast_From_Now_On
-    # NOTE: It is still possible to remain failing fast, if both previous and this test have failed.
-    [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
-
-Store_Results_For_Listening_BGP_Speaker
-    [Documentation]    Store results for plotting
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    Store_File_To_Workspace    totals-${RESULTS_FILE_NAME}    totals-${RESULTS_FILE_NAME}
-    Store_File_To_Workspace    performance-${RESULTS_FILE_NAME}    performance-${RESULTS_FILE_NAME}
-    Store_File_To_Workspace    totals-${RESULTS_FILE_NAME}    changecount-listening-totals-${RESULTS_FILE_NAME}
-    Store_File_To_Workspace    performance-${RESULTS_FILE_NAME}    changecount-listening-performance-${RESULTS_FILE_NAME}
-
-Wait_For_Stable_Ipv4_Topology_After_Listening
-    [Documentation]    Wait until example-ipv4-topology becomes stable again.
-    [Tags]    critical
-    ChangeCounter.Wait_For_Change_Count_To_Become_Stable    timeout=${bgp_emptying_timeout}    period=${CHECK_PERIOD_CHANGE_COUNT_SINGLE}    repetitions=${REPETITIONS_CHANGE_COUNT_SINGLE}    count_to_overcome=${last_change_count_single}
-
-Check_For_Empty_Ipv4_Topology_After_Listening
-    [Documentation]    Example-ipv4-topology should be empty now.
-    [Tags]    critical
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    PrefixCounting.Check_Ipv4_Topology_Is_Empty
-
 Restore_Karaf_Logging_Levels
     [Documentation]    Set logging on bgpcep and protocol to the global value.
     KarafKeywords.Set_Bgpcep_Log_Levels    bgpcep_level=${KARAF_LOG_LEVEL}    protocol_level=${KARAF_LOG_LEVEL}
@@ -214,7 +166,7 @@ Setup_Everything
     ConfigViaRestconf.Setup_Config_Via_Restconf
     ChangeCounter.CC_Setup
     PrefixCounting.PC_Setup
-    SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
+    SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=40s
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
     Utils.Flexible_Mininet_Login
     RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
@@ -222,6 +174,8 @@ Setup_Everything
     # TODO: Alternatively, create variable in Variables which starts with http.
     # Both TODOs would probably need to update every suite relying on current Variables.
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
+    SSHKeywords.Require_Python
+    SSHKeywords.Assure_Library_Ipaddr    target_dir=.
     # Calculate the timeout value based on how many routes are going to be pushed
     # TODO: Unify formulas with other suites in this directory.
     ${timeout} =    BuiltIn.Evaluate    ${TEST_DURATION_MULTIPLIER_CHANGE_COUNT_SINGLE} * (${COUNT_CHANGE_COUNT_SINGLE} * 3.0 / 10000 + 20)
