@@ -12,6 +12,14 @@ ${operational_table_0}    ${OPERATIONAL_NODES_API}/node/openflow:1/table/0
 ${operational_port_1}    ${OPERATIONAL_NODES_API}/node/openflow:1/node-connector/openflow:1:1
 
 *** Keywords ***
+Get InventoryConfig Shard Status
+    [Arguments]    ${controller_index_list}
+    [Documentation]    Check Status for Inventory Config shard in OpenFlow application.
+    ${inv_conf_leader}    ${inv_conf_followers_list}    Wait Until Keyword Succeeds    10s    1s    ClusterKeywords.Get Cluster Shard Status    ${controller_index_list}
+    ...    config    inventory
+    Log    config inventory Leader is ${inv_conf_leader} and followers are ${inv_conf_followers_list}
+    [Return]    ${inv_conf_leader}    ${inv_conf_followers_list}
+
 Check OpenFlow Shards Status
     [Arguments]    ${controller_index_list}
     [Documentation]    Check Status for all shards in OpenFlow application.
