@@ -9,7 +9,7 @@ Documentation     Robot keyword library (Resource) for handling the BGP speaker 
 ...
 ...               This library contains keywords to handle command line tools in BGP Application
 ...               for handling shell connections
-Library           SSHLibrary    timeout=10s
+Library           SSHLibrary
 Library           RequestsLibrary
 Variables         ${CURDIR}/../variables/Variables.py
 Resource          ${CURDIR}/Utils.robot
@@ -54,10 +54,12 @@ Store_File_To_Workspace
     Create File    ${target_file_name}    ${output_log}
 
 Check_File_For_Word_Count
-    [Arguments]    ${file_name}    ${word}    ${expected_count}
-    [Documentation]    Count ${word} in ${file_name}. Expect ${expected_count} occurence(s)
+    [Arguments]    ${file_name}    ${word}    ${expected_count}    ${or_more}=False
+    [Documentation]    Count ${word} in ${file_name}. Expect ${expected_count} occurence(s).
+    ...    If \${or_more}, more occurences are tolerated.
     ${output_log}=    SSHLibrary.Execute_Command    grep -o '${word}' ${file_name} | wc -l
     BuiltIn.Log    ${output_log}
+    BuiltIn.Run_Keyword_If    ${or_more} and (${output_log} >= ${expected_count})    BuiltIn.Return_From_Keyword
     BuiltIn.Should_Be_Equal_As_Strings    ${output_log}    ${expected_count}
 
 Count_Key_Value_Pairs
