@@ -359,7 +359,7 @@ Stop_Pcc_Mock
 Download_Pccmock_Log
     [Documentation]    Transfer pcc-mock output from pcc-mock VM to robot VM.
     [Setup]    Run_Even_When_Failing_Fast
-    SSHLibrary.Get_File    ${LOG_PATH}/${LOG_NAME}    ${CURDIR}/${LOG_NAME}
+    SSHLibrary.Get_File    ${LOG_PATH}/${LOG_NAME}    ${LOG_NAME}
 
 Topology_Postcondition
     [Documentation]    Verify that within timeout, PCEP topology contains no PCCs again.
