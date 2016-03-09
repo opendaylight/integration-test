@@ -206,3 +206,20 @@ MININET_USER = TOOLS_SYSTEM_USER
 MININET_PASSWORD = TOOLS_SYSTEM_PASSWORD
 MININET_PROMPT = TOOLS_SYSTEM_PROMPT
 PROMPT = '>'  # TODO: remove this as it's vague.  need to fix any occurances of it first.
+
+# Centinel Variables
+SET_CONFIGURATION_URI = '/restconf/operations/configuration:set-centinel-configurations'
+GET_CONFIGURATION_URI = '/restconf/operational/configuration:configurationRecord/'
+STREAMRECORD_CONFIG = '/restconf/config/stream:streamRecord'
+SET_STREAMRECORD = '/restconf/operations/stream:set-stream'
+ALERTFIELDCONTENTRULERECORD = '/restconf/config/alertrule:alertFieldContentRuleRecord/'
+SET_ALERTFIELDCONTENTRULERECORD = '/restconf/operations/alertrule:set-alert-field-content-rule'
+ALERTFIELDVALUERULERECORD = '/restconf/config/alertrule:alertFieldValueRuleRecord'
+SET_ALERTFIELDVALUERULERECORD = '/restconf/operations/alertrule:set-alert-field-value-rule'
+ALERTMESSAGECOUNTRULERECORD = '/restconf/config/alertrule:alertMessageCountRuleRecord/'
+SET_ALERTMESSAGECOUNTRULERECORD = '/restconf/operations/alertrule:set-alert-message-count-rule'
+GET_DASHBOARDRECORD = '/restconf/operational/dashboardrule:dashboardRecord/'
+SET_DASHBOARDRECORD = '/restconf/operations/dashboardrule:set-dashboard'
+DELETE_DASHBOARDRECORD = '/restconf/operations/dashboardrule:delete-dashboard'
+SET_SUBSCRIBEUSER = '/restconf/operations/subscribe:subscribe-user'
+SUBSCRIPTION = '/restconf/config/subscribe:subscription/'
