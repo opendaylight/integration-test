@@ -30,6 +30,7 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
 Force Tags        critical
 Library           SSHLibrary    timeout=40s
+Library           OperatingSystem
 Library           RequestsLibrary
 Variables         ${CURDIR}/../../../variables/Variables.py
 Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
@@ -57,15 +58,21 @@ ${CONTROLLER_BGP_LOG_LEVEL}    DEFAULT
 ${BGP_PEER_COMMAND}    pypy play.py --amount 0 --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --${BGP_PEER_LOG_LEVEL}
 ${BGP_PEER_OPTIONS}    &>bgp_peer.log
 ${BGP_APP_PEER_ID}    10.0.0.10
-${BGP_APP_PEER_INITIAL_COMMAND}    pypy bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command post --count ${PREFILL} --prefix 8.0.0.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL}
-${BGP_APP_PEER_PUT_COMMAND}    pypy bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command put --count ${PREFILL} --prefix 8.0.0.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL}
+${BGP_APP_PEER_INITIAL_COMMAND}    pypy bgp_trial_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command post --count ${PREFILL} --prefix 8.0.0.0 --prefixlen 28
 ${BGP_APP_PEER_DELETE_ALL_COMMAND}    pypy bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command delete-all --${BGP_APP_PEER_LOG_LEVEL}
-${BGP_APP_PEER_GET_COMMAND}    pypy bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command get --${BGP_APP_PEER_LOG_LEVEL}
-${BGP_APP_PEER_OPTIONS}    &>bgp_app_peer.log
+${BGP_APP_PEER_GET_COMMAND}    pypy bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command get
+${BGP_APP_PEER_OPTIONS}    &>bgp_trial_peer.log
 ${TEST_DURATION_MULTIPLIER}    30
 ${last_prefix_count}    -1
 
 *** Test Cases ***
+Install_Bgp_Trial
+    [Documentation]    Install additional Java mdsal application according to instructions.
+    BuiltIn.Log_To_Console    Assuming the .kar file was alreasy processed in deploy/.
+    ${rc} =    OperatingSystem.Run_And_Return_Rc    cp -r data/kar/bgptrial-features-1.0.0-SNAPSHOT/bgptrial system/
+    BuiltIn.Should_Be_Equal    ${0}    ${rc}
+    KarafKeyword.Install_A_Feature    odl-bgptrial-rest
+
 Check_For_Empty_Ipv4_Topology_Before_Starting
     [Documentation]    Wait for example-ipv4-topology to come up and empty. Give large timeout for case when BGP boots slower than restconf.
     BuiltIn.Wait_Until_Keyword_Succeeds    120s    1s    PrefixCounting.Check_Ipv4_Topology_Is_Empty
@@ -105,7 +112,7 @@ Check_Bgp_Peer_Updates_For_Prefilled_Routes
 BGP_Application_Peer_Introduce_Single_Routes
     [Documentation]    Start BGP application peer tool and introduce routes.
     SSHLibrary.Switch Connection    bgp_app_peer_console
-    Start_Console_Tool    pypy bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command add --count ${remaining_prefixes} --prefix 12.0.0.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL}    ${BGP_APP_PEER_OPTIONS}
+    Start_Console_Tool    pypy bgp_trial_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command add --count ${remaining_prefixes} --prefix 12.0.0.0 --prefixlen 28    ${BGP_APP_PEER_OPTIONS}
     Wait_Until_Console_Tool_Finish    ${bgp_filling_timeout}
     Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_singles.log
 
@@ -191,6 +198,7 @@ Setup_Everything
     Open_BGP_Aplicationp_Peer_Console
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/bgp_app_peer.py
+    SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/bgp_trial_peer.py
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/ipv4-routes-template.xml
     # Calculate the timeout value based on how many routes are going to be pushed.
     # The offset (20) is set for keeping reasonable timeout for low COUNT values.
@@ -208,6 +216,7 @@ Teardown_Everything
     SSHLibrary.Switch Connection    bgp_peer_console
     KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
     KillPythonTool.Search_And_Kill_Remote_Python    'bgp_app_peer\.py'
+    KillPythonTool.Search_And_Kill_Remote_Python    'bgp_trial_peer\.py'
     ConfigViaRestconf.Teardown_Config_Via_Restconf
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
