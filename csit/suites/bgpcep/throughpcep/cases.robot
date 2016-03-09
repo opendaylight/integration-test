@@ -190,7 +190,7 @@ Put_Updater
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/pcep_updater/updater.py    ${UPDATERVM_WORKSPACE}/
     SSHLibrary.Put_File    ${CURDIR}/../../../libraries/AuthStandalone.py    ${UPDATERVM_WORKSPACE}/
     SSHKeywords.Assure_Library_Counter    target_dir=${UPDATERVM_WORKSPACE}
-    SSHKeywords.Assure_Library_Ipaddr    terget_dir=${UPDATERVM_WORKSPACE}
+    SSHKeywords.Assure_Library_Ipaddr    target_dir=${UPDATERVM_WORKSPACE}
     # Done preparation of Updater VM, now use AuthStandalone to create session from robot VM too.
     BuiltIn.Log_Many    ${RESTCONF_USER}    ${RESTCONF_PASSWORD}    ${RESTCONF_SCOPE}    ${CONTROLLER}
     ${session} =    AuthStandalone.Init_Session    ${CONTROLLER}    ${RESTCONF_USER}    ${RESTCONF_PASSWORD}    ${RESTCONF_SCOPE}
