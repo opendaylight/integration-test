@@ -50,7 +50,6 @@ Start SuiteVtnMaTest
 Stop SuiteVtnMa
     [Documentation]    Stop VTN Manager Test Suite
     Delete All Sessions
-    Stop Suite
 
 Stop SuiteVtnMaTest
     [Documentation]    Stop VTN Manager Test Suite
