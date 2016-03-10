@@ -19,13 +19,13 @@ Resource          ${CURDIR}/Utils.robot
 Open_Connection_To_ODL_System
     [Documentation]    Open a connection to the ODL system and return its identifier.
     ...    On clustered systems this opens the connection to the first node.
-    ${odl}=    SSHLibrary.Open_Connection    ${ODL_SYSTEM_IP}    prompt=${ODL_SYSTEM_PROMPT}    timeout=10s
+    ${odl}=    SSHLibrary.Open_Connection    ${ODL_SYSTEM_IP}    prompt=${ODL_SYSTEM_PROMPT}    timeout=40s
     Utils.Flexible_Controller_Login
     [Return]    ${odl}
 
 Open_Connection_To_Tools_System
     [Documentation]    Open a connection to the tools system and return its identifier.
-    ${tools}=    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    prompt=${TOOLS_SYSTEM_PROMPT}
+    ${tools}=    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=40s
     Utils.Flexible_Mininet_Login
     [Return]    ${tools}
 
@@ -45,17 +45,23 @@ Require_Python
     BuiltIn.Return_From_Keyword_If    ${passed}
     BuiltIn.Fatal_Error    Python is not installed!
 
+Require_Pypy
+    [Documentation]    Verify current SSH connection leads to machine with python working. Fatal fail otherwise.
+    ${passed} =    Execute_Command_Passes    pypy --version
+    BuiltIn.Return_From_Keyword_If    ${passed}
+    BuiltIn.Fatal_Error    Pypy is not installed!
+
 Assure_Library_Ipaddr
     [Arguments]    ${target_dir}=.
     [Documentation]    Tests whether ipaddr module is present on ssh-connected machine, Puts ipaddr.py to target_dir if not.
-    ${passed} =    Execute_Command_Passes    bash -c 'cd "${target_dir}" && python -c "import ipaddr"'
+    ${passed} =    Execute_Command_Passes    bash -c 'cd "${target_dir}" && pypy -c "import ipaddr"'
     BuiltIn.Return_From_Keyword_If    ${passed}
     SSHLibrary.Put_File    ${CURDIR}/ipaddr.py    ${target_dir}/
 
 Assure_Library_Counter
     [Arguments]    ${target_dir}=.
     [Documentation]    Tests whether Counter is present in collections on ssh-connected machine, Puts Counter.py to workspace if not.
-    ${passed} =    Execute_Command_Passes    bash -c 'cd "${target_dir}" && python -c "from collections import Counter"'
+    ${passed} =    Execute_Command_Passes    bash -c 'cd "${target_dir}" && pypy -c "from collections import Counter"'
     # TODO: Move the bash-cd wrapper to separate keyword?
     BuiltIn.Return_From_Keyword_If    ${passed}
     SSHLibrary.Put_File    ${CURDIR}/Counter.py    ${target_dir}/
