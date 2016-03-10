@@ -14,7 +14,6 @@ Variables         ../../../variables/Variables.py
 @{QUEUE_METRICS}    TransmittedPackets    TransmittedBytes    TransmissionErrors
 
 *** Test Cases ***
-
 Init Variables
     [Documentation]    Initialize ODL version specific variables
     log    ${ODL_VERSION}
@@ -46,12 +45,10 @@ Verification of QueueMetrics-TransmissionErrors on HBase Client
     [Documentation]    Verify the QueueMetrics has been updated on HBase Datastore
     Verify the Metrics Attributes on Hbase Client    TransmissionErrors    ${node_connector}    ${queuestats}
 
-*** Keyword ***
+*** Keywords ***
 Configuration of Queue on Switch
     [Documentation]    Queue configuration on openvswitch
     Configure the Queue on Switch    s2-eth2
-
-*** Keywords ***
 
 Init Variables Master
     [Documentation]    Sets variables specific to latest(master) version
@@ -64,4 +61,3 @@ Init Variables Lithium
     Set Suite Variable    ${TSDR_QUEUESTATS}    tsdr:list QueueStats
     set Suite Variable    ${node_connector}    openflow:2
     set suite Variable    ${queuestats}    QueueMetrics
-
