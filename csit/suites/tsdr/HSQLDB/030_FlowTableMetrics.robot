@@ -35,4 +35,3 @@ Init Variables Master
 Init Variables Lithium
     [Documentation]    Sets variables specific to Lithium version
     Set Suite Variable    ${TSDR_FLOWTABLE_STATS}    tsdr:list FlowTableStats
-

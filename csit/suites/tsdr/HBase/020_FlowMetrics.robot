@@ -14,7 +14,6 @@ Variables         ../../../variables/Variables.py
 @{FLOW_METRICS}    PacketCount    ByteCount
 
 *** Test Cases ***
-
 Init Variables
     [Documentation]    Initialize ODL version specific variables
     log    ${ODL_VERSION}
@@ -35,6 +34,7 @@ Verification of FlowMetrics-PacketCount on HBase Client
     ${Line1}=    Get Line    ${output}    0
     Should Contain    ${Line1}    PacketCount
     Verify the Metrics Attributes on Hbase Client    PacketCount    ${node_connector}    ${flowstats}
+
 Verification of FlowMetrics-BytesCount on HBase Client
     [Documentation]    Verify the FlowStats-ByteCount on both Karaf Console and Hbase Client
     ${tsdr_cmd}=    Concatenate the String    ${TSDR_FLOWSTATS}    | grep ByteCount | head
@@ -44,7 +44,6 @@ Verification of FlowMetrics-BytesCount on HBase Client
     Verify the Metrics Attributes on Hbase Client    ByteCount    ${node_connector}    ${flowstats}
 
 *** Keywords ***
-
 Init Variables Master
     [Documentation]    Sets variables specific to latest(master) version
     Set Suite Variable    ${TSDR_FLOWSTATS}    tsdr:list FLOWSTATS
@@ -56,4 +55,3 @@ Init Variables Lithium
     Set Suite Variable    ${TSDR_FLOWSTATS}    tsdr:list FlowStats
     set Suite Variable    ${node_connector}    openflow:1_0
     set suite Variable    ${flowstats}    FlowMetrics
-

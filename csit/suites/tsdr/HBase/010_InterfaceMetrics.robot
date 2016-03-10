@@ -18,7 +18,6 @@ Variables         ../../../variables/Variables.py
 &{HEADERS_QUERY}    Content-Type=application/json    Content-Type=application/json
 
 *** Test Cases ***
-
 Init Variables
     [Documentation]    Initialize ODL version specific variables
     log    ${ODL_VERSION}
@@ -63,10 +62,10 @@ Verify Configuration Interval-change
     [Teardown]    Report_Failure_Due_To_Bug    5068
 
 *** Keywords ***
-
 Init Variables Master
     [Documentation]    Sets variables specific to latest(master) version
-    Set Suite Variable    @{CATEGORY}       FLOWGROUPSTATS    FLOWMETERSTATS    FLOWSTATS    FLOWTABLESTATS    PORTSTATS    QUEUESTATS
+    Set Suite Variable    @{CATEGORY}    FLOWGROUPSTATS    FLOWMETERSTATS    FLOWSTATS    FLOWTABLESTATS    PORTSTATS
+    ...    QUEUESTATS
     Set Suite Variable    ${TSDR_PORTSTATS}    tsdr:list PORTSTATS
     Set Suite Variable    ${CONFIG_INTERVAL}    /restconf/config/tsdr-openflow-statistics-collector:TSDROSCConfig
     Set Suite Variable    ${OPER_INTERVAL}    /restconf/operations/tsdr-openflow-statistics-collector:setPollingInterval
@@ -77,7 +76,7 @@ Init Variables Master
 
 Init Variables Lithium
     [Documentation]    Sets variables specific to Lithium version
-    Set Suite Variable    @{CATEGORY}       FlowStats    FlowTableStats    PortStats    QueueStats
+    Set Suite Variable    @{CATEGORY}    FlowStats    FlowTableStats    PortStats    QueueStats
     Set Suite Variable    ${TSDR_PORTSTATS}    tsdr:list PortStats
     Set Suite Variable    ${CONFIG_INTERVAL}    /restconf/config/TSDRDC:TSDRDCConfig
     Set Suite Variable    ${OPER_INTERVAL}    /restconf/operations/TSDRDC:setPollingInterval
