@@ -1,0 +1,10 @@
+Some suite use pypy. Install it.
+Also install some packages pypy should recognice, mostly "requests".
+Suites use SSH, scripts tell them to connect to 127.0.0.1
+Overall check: make sure this works (aside asking for password):
+ssh 127.0.0.1 'pypy -c "import requests"'
+
+Be sure that your JAVA_HOME points to Java 8 installation
+and PATH is prioritized to search its bin. Checks:
+ssh 127.0.0.1 'java -version'
+ssh 127.0.0.1 '${JAVA_HOME}/bin/java -version'
