@@ -14,7 +14,6 @@ Variables         ../../../variables/Variables.py
 ${TSDR_FLOWTABLE_STATS}    tsdr:list FLOWTABLESTATS
 
 *** Test Cases ***
-
 Init Variables
     [Documentation]    Initialize ODL version specific variables
     log    ${ODL_VERSION}
@@ -46,7 +45,6 @@ Verification of FlowTableMetrics-PacketLookup on HBase Client
     Verify the Metrics Attributes on Hbase Client    PacketLookup    ${node_connector}    ${flowtablestats}
 
 *** Keywords ***
-
 Init Variables Master
     [Documentation]    Sets variables specific to latest(master) version
     Set Suite Variable    ${TSDR_FLOWSTATS}    tsdr:list FLOWTABLESTATS
@@ -58,4 +56,3 @@ Init Variables Lithium
     Set Suite Variable    ${TSDR_FLOWSTATS}    tsdr:list FlowTableStats
     set Suite Variable    ${node_connector}    openflow:1_0
     set suite Variable    ${flowtablestats}    FlowTableMetrics
-

@@ -47,12 +47,13 @@ Verify PortStats On Karaf console
 *** Keywords ***
 Init Variables Master
     [Documentation]    Sets variables specific to latest(master) version
-    Set Suite Variable    @{CATEGORY}       FLOWGROUPSTATS    FLOWMETERSTATS    FLOWSTATS    FLOWTABLESTATS    PORTSTATS    QUEUESTATS
+    Set Suite Variable    @{CATEGORY}    FLOWGROUPSTATS    FLOWMETERSTATS    FLOWSTATS    FLOWTABLESTATS    PORTSTATS
+    ...    QUEUESTATS
     Set Suite Variable    ${TSDR_PORTSTATS}    tsdr:list PORTSTATS
     Set Suite Variable    ${HSQLDB_INSTALL}    odl-tsdr-hsqldb
 
 Init Variables Lithium
     [Documentation]    Sets variables specific to Lithium version
-    Set Suite Variable    @{CATEGORY}       FlowStats    FlowTableStats    PortStats    QueueStats
+    Set Suite Variable    @{CATEGORY}    FlowStats    FlowTableStats    PortStats    QueueStats
     Set Suite Variable    ${TSDR_PORTSTATS}    tsdr:list PortStats
     Set Suite Variable    ${HSQLDB_INSTALL}    odl-tsdr-HSQLDB

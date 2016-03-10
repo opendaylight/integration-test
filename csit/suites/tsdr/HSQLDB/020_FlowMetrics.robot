@@ -20,7 +20,6 @@ Init Variables
     Run Keyword If    '${ODL_VERSION}' == 'stable-lithium'    Init Variables Lithium
     ...    ELSE    Init Variables Master
 
-
 Verification of TSDR FlowMetrics
     [Documentation]    Verify the TSDR FLOWSTATS
     Wait Until Keyword Succeeds    60s    1s    Verify the Metric is Collected?    ${TSDR_FLOWSTATS}    PacketCount

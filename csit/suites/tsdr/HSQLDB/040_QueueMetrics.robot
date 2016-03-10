@@ -39,4 +39,3 @@ Init Variables Master
 Init Variables Lithium
     [Documentation]    Sets variables specific to Lithium version
     Set Suite Variable    ${TSDR_QUEUE_STATS}    tsdr:list QueueStats
-
