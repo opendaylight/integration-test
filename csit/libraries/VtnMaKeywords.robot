@@ -7,16 +7,17 @@ Library           json
 Library           RequestsLibrary
 Variables         ../variables/Variables.py
 Resource          ./Utils.robot
+Resource          ./KarafKeywords.robot
 
 *** Variables ***
 ${vlan_topo_10}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom vlan_vtn_test.py --topo vlantopo
 ${vlan_topo_13}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom vlan_vtn_test.py --topo vlantopo --switch ovsk,protocols=OpenFlow13
 ${VERSION_VTN}    controller/nb/v2/vtn/version
 ${VTN_INVENTORY}    restconf/operational/vtn-inventory:vtn-nodes
-${DUMPFLOWS_OF10}    dpctl dump-flows -O OpenFlow10
+${DUMPFLOWS_OF10}    sh ovs-ofctl dump-flows s3
 ${DUMPFLOWS_OF13}    dpctl dump-flows -O OpenFlow13
 ${index}          7
-@{inet_actions}    nw_src=10.0.0.1    nw_dst=10.0.0.3
+@{inet_actions}    mod_nw_src:192.0.0.1    mod_nw_dst:192.0.0.2
 @{BRIDGE1_DATAFLOW}    "reason":"PORTMAPPED"    "tenant-name":"Tenant1"    "bridge-name":"vBridge1"    "interface-name":"if2"
 @{BRIDGE2_DATAFLOW}    "reason":"PORTMAPPED"    "tenant-name":"Tenant1"    "bridge-name":"vBridge2"    "interface-name":"if3"
 ${vlanmap_bridge1}    200
@@ -30,15 +31,18 @@ ${pathpolicy_topo_10}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custo
 @{PATHMAP_ATTR}    "index":"1"    "condition":"flowcond_path"    "policy":"1"
 ${policy_id}      1
 ${in_port}        1
+@{inet_action}    set_field:192.0.0.1->ip_src    set_field:192.0.0.2->ip_dst
 ${dscp_action}    set_field:32->nw_tos_shifted
 ${dscp_flow}      mod_nw_tos:128
-@{icmp_action}    nw_src=10.0.0.1    nw_dst=10.0.0.3
+@{icmp_action}    mod_tp_dst:1    mod_tp_src:3
+${drop_action}    actions=drop
 @{PATHPOLICY_ATTR}    "id":1    "port-desc":"openflow:4,2,s4-eth2"
 ${custom}         ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
 
 *** Keywords ***
 Start SuiteVtnMa
-    [Documentation]    Start VTN Manager Rest Config Api Test Suite
+    [Documentation]    Start VTN Manager Rest Config Api Test Suite, and enabling karaf loglevel as TRACE for VTN.
+    Issue Command On Karaf Console    log:set TRACE org.opendaylight.vtn
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     BuiltIn.Wait_Until_Keyword_Succeeds    30    3    Fetch vtn list
     Start Suite
@@ -248,7 +252,7 @@ Verify RemovedFlowMacAddress
     [Arguments]    ${host1}    ${host2}    ${OF_VERSION}
     [Documentation]    Verify the removed source and destination mac address.
     Run Keyword If    '${OF_VERSION}' == 'OF10'    Verify Removed Flows On OpenFlow    ${host1}    ${host2}    ${DUMPFLOWS_OF10}
-    ...    ELSE    VerifyRemovedFlowsOnOpenFlow    ${host1}    ${host2}    ${DUMPFLOWS_OF13}
+    ...    ELSE    Verify Removed Flows On OpenFlow    ${host1}    ${host2}    ${DUMPFLOWS_OF13}
 
 Verify Removed Flows On OpenFlow
     [Arguments]    ${host1}    ${host2}    ${DUMPFLOWS}
