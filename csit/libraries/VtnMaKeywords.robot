@@ -7,16 +7,17 @@ Library           json
 Library           RequestsLibrary
 Variables         ../variables/Variables.py
 Resource          ./Utils.robot
+Resource          ./KarafKeywords.robot
 
 *** Variables ***
 ${vlan_topo_10}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom vlan_vtn_test.py --topo vlantopo
 ${vlan_topo_13}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom vlan_vtn_test.py --topo vlantopo --switch ovsk,protocols=OpenFlow13
 ${VERSION_VTN}    controller/nb/v2/vtn/version
 ${VTN_INVENTORY}    restconf/operational/vtn-inventory:vtn-nodes
-${DUMPFLOWS_OF10}    dpctl dump-flows -O OpenFlow10
-${DUMPFLOWS_OF13}    dpctl dump-flows -O OpenFlow13
+${DUMPFLOWS_OF10_TREE2}    sh ovs-ofctl dump-flows s3
+${DUMPFLOWS_OF13_TREE2}    dpctl dump-flows -O OpenFlow13
 ${index}          7
-@{inet_actions}    nw_src=10.0.0.1    nw_dst=10.0.0.3
+@{inet_actions}    mod_nw_src:192.0.0.1    mod_nw_dst:192.0.0.2
 @{BRIDGE1_DATAFLOW}    "reason":"PORTMAPPED"    "tenant-name":"Tenant1"    "bridge-name":"vBridge1"    "interface-name":"if2"
 @{BRIDGE2_DATAFLOW}    "reason":"PORTMAPPED"    "tenant-name":"Tenant1"    "bridge-name":"vBridge2"    "interface-name":"if3"
 ${vlanmap_bridge1}    200
@@ -32,13 +33,15 @@ ${policy_id}      1
 ${in_port}        1
 ${dscp_action}    set_field:32->nw_tos_shifted
 ${dscp_flow}      mod_nw_tos:128
-@{icmp_action}    nw_src=10.0.0.1    nw_dst=10.0.0.3
+@{icmp_action}    mod_tp_dst:1    mod_tp_src:5
+${drop_action}    actions=drop
 @{PATHPOLICY_ATTR}    "id":1    "port-desc":"openflow:4,2,s4-eth2"
 ${custom}         ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
 
 *** Keywords ***
 Start SuiteVtnMa
-    [Documentation]    Start VTN Manager Rest Config Api Test Suite
+    [Documentation]    Start VTN Manager Rest Config Api Test Suite, and enabling karaf loglevel as TRACE for VTN.
+    Issue Command On Karaf Console    log:set TRACE org.opendaylight.vtn
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     BuiltIn.Wait_Until_Keyword_Succeeds    30    3    Fetch vtn list
     Start Suite
@@ -50,7 +53,6 @@ Start SuiteVtnMaTest
 Stop SuiteVtnMa
     [Documentation]    Stop VTN Manager Test Suite
     Delete All Sessions
-    Stop Suite
 
 Stop SuiteVtnMaTest
     [Documentation]    Stop VTN Manager Test Suite
@@ -173,7 +175,7 @@ Delete a pathpolicy
 Verify flowEntryPathPolicy
     [Arguments]    ${of_version}    ${port}    ${output}
     [Documentation]    Checking Flows on switch S1 and switch S3 after applying path policy
-    ${DUMPFLOWS}=    Set Variable If    "${of_version}"=="OF10"    ${DUMPFLOWS_OF10}    ${DUMPFLOWS_OF13}
+    ${DUMPFLOWS}=    Set Variable If    "${of_version}"=="OF10"    ${DUMPFLOWS_OF10_TREE2}    ${DUMPFLOWS_OF13_TREE2}
     write    ${DUMPFLOWS}
     ${result}    Read Until    mininet>
     Should Contain    ${result}    in_port=${port}    actions=${output}
@@ -236,8 +238,8 @@ Remove a portmap
 Verify FlowMacAddress
     [Arguments]    ${host1}    ${host2}    ${OF_VERSION}
     [Documentation]    Verify the source and destination mac address.
-    Run Keyword If    '${OF_VERSION}' == 'OF10'    Verify Flows On OpenFlow    ${host1}    ${host2}    ${DUMPFLOWS_OF10}
-    ...    ELSE    VerifyFlowsOnOpenFlow    ${host1}    ${host2}    ${DUMPFLOWS_OF13}
+    Run Keyword If    '${OF_VERSION}' == 'OF10'    Verify Flows On OpenFlow    ${host1}    ${host2}    ${DUMPFLOWS_OF10_TREE2}
+    ...    ELSE    VerifyFlowsOnOpenFlow    ${host1}    ${host2}    ${DUMPFLOWS_OF13_TREE2}
 
 Verify Flows On OpenFlow
     [Arguments]    ${host1}    ${host2}    ${DUMPFLOWS}
@@ -248,8 +250,8 @@ Verify Flows On OpenFlow
 Verify RemovedFlowMacAddress
     [Arguments]    ${host1}    ${host2}    ${OF_VERSION}
     [Documentation]    Verify the removed source and destination mac address.
-    Run Keyword If    '${OF_VERSION}' == 'OF10'    Verify Removed Flows On OpenFlow    ${host1}    ${host2}    ${DUMPFLOWS_OF10}
-    ...    ELSE    VerifyRemovedFlowsOnOpenFlow    ${host1}    ${host2}    ${DUMPFLOWS_OF13}
+    Run Keyword If    '${OF_VERSION}' == 'OF10'    Verify Removed Flows On OpenFlow    ${host1}    ${host2}    ${DUMPFLOWS_OF10_TREE2}
+    ...    ELSE    Verify Removed Flows On OpenFlow    ${host1}    ${host2}    ${DUMPFLOWS_OF13_TREE2}
 
 Verify Removed Flows On OpenFlow
     [Arguments]    ${host1}    ${host2}    ${DUMPFLOWS}
