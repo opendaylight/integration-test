@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_76d5bfe3",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-03-11T04:12:01Z",
+      "side": 1,
+      "message": "you only need to get this installed on the VM once\nright?  probably the right place is in the mininet \nvm script (which ever one VTN uses) like this:\nhttps://github.com/opendaylight/releng-builder/blob/master/jenkins-scripts/mininet.sh",
+      "range": {
+        "startLine": 218,
+        "startChar": 4,
+        "endLine": 218,
+        "endChar": 68
+      },
+      "revId": "b04febb69ea1a59361b90e4b8b384c1783591ffa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
