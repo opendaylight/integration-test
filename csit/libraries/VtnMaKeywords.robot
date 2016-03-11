@@ -215,6 +215,7 @@ Start vlan_topo
     ${mininet_conn_id1}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Suite Variable    ${mininet_conn_id1}
     Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    Execute Command    sudo apt-get -y  --force-yes -qq install vlan
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
     Put File    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
     Run Keyword If    '${OF}' == 'OF13'    Write    ${vlan_topo_13}
