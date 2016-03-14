@@ -427,12 +427,15 @@ Set_User_Configurable_Variable_Default
     [Documentation]    Set a default value for an user configurable variable.
     ...    This keyword is needed if your default value is calculated using
     ...    a complex expression which needs BuiltIn.Evaluate or even more
-    ...    complex keywords. It sets the variable ${name} to ${value} but
-    ...    only if the variable ${name} was not set previously. This keyword
-    ...    is intended for user configurable variables which are supposed to
-    ...    be set only with pybot -v; calling this keyword on a variable
-    ...    that was already set by another keyword is a bug in the suite or
-    ...    resource trying to call this keyword.
+    ...    complex keywords. It sets the variable ${name} (the name of the
+    ...    variable MUST be specified WITHOUT the ${} syntactic sugar due
+    ...    to limitations of Robot Framework) to ${value} but only if the
+    ...    variable ${name} was not set previously. This keyword is intended
+    ...    for user configurable variables which are supposed to be set only
+    ...    with pybot -v; calling this keyword on a variable that was already
+    ...    set by another keyword will silently turn the call into a NOP and
+    ...    thus is a bug in the suite or resource trying to call this
+    ...    keyword.
     # TODO: Figure out how to make the ${value} evaluation "lazy" (meaning
     #    evaluating it only when the user did not set anything and thus the
     #    default is needed). This might be needed to avoid potentially costly
@@ -441,5 +444,27 @@ Set_User_Configurable_Variable_Default
     #    comments the best approach would be to create another keyword that
     #    expects a ScalarClosure in the place of ${value} and calls the
     #    closure to get the value but only if the value is needed).
+    #    The best idea how to implement this "laziness" would be to have the
+    #    used to define another keyword that will be responsible for getting
+    #    the default value and then passing the name of this getter keyword
+    #    to this keyword. Then this keyword would call the getter (to obtain
+    #    the expensive default value) only if it discovers that this value
+    #    is really needed (because the variable is not set yet).
+    # TODO: Is the above TODO really necessary? Right now we don't have any
+    #    examples of "expensive default values" where to obtain the default
+    #    value is so expensive on resources (e.g. need to SSH somewhere to
+    #    check something) that we would want to skip the calculation if the
+    #    variable for which it is needed has a value already provided by the
+    #    user using "pybot -v" or something. One example would be
+    #    JAVA_HOME if it would be designed as user-configurable variable
+    #    (currently it is not; users can specify "use jdk7" or "use jdk8"
+    #    but not "use the jdk over there"; and there actually is no JAVA_HOME
+    #    present in the resource, rather the Java invocation command uses the
+    #    Java invocation with a full path). The default value of JAVA_HOME
+    #    has to be obtained by issuing commands on the SSH connection where
+    #    the resulting Java invocation command will be used (to check
+    #    multiple candidate paths until one that fits is found) and we could
+    #    skip all this checking if a JAVA_HOME was supplied by the user using
+    #    "pybot -v".
     ${value}=    BuiltIn.Get_Variable_Value    \${${name}}    ${value}
     BuiltIn.Set_Suite_Variable    \${${name}}    ${value}
