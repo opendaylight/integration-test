@@ -38,14 +38,15 @@ ${out_after_pathpolicy}    output:3
 *** Keywords ***
 Start SuiteVtnMa
     [Documentation]    Start VTN Manager Init Test Suite
+    [Arguments]       ${ver} = "none"
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTPORT}    auth=${AUTH}    headers=${HEADERS}
     BuiltIn.Wait_Until_Keyword_Succeeds    30    3    Fetch vtn list
     Start Suite
+    Run Keyword If    '${ver}' == 'OF13_Li'     Add Table Miss Flows
 
 Stop SuiteVtnMa
     [Documentation]    Stop VTN Manager Test Suite
     Delete All Sessions
-    Stop Suite
 
 Start SuiteVtnMaTest
     [Documentation]    Start VTN Manager Test Suite
@@ -54,6 +55,12 @@ Start SuiteVtnMaTest
 Stop SuiteVtnMaTest
     [Documentation]    Stop VTN Manager Test Suite
     Delete All Sessions
+
+Add Table Miss Flows
+    [Documentation]    Add Flow entried to handle table miss situation
+    Switch Connection      ${mininet_conn_id}
+    Write      "dpctl add-flow priority=0,actions=output:CONTROLLER"
+    Read Until    "mininet>"
 
 Fetch vtn list
     [Documentation]    Check if VTN Manager is up.
@@ -148,8 +155,10 @@ Verify flowEntryPathPolicy
 
 Start PathSuiteVtnMaTest
     [Documentation]    Start VTN Manager Test Suite and Mininet
+    [Arguments]       ${ver} = "none"
     Start SuiteVtnMaTest
     Start Mininet    ${TOOLS_SYSTEM_IP}    ${pathpolicy_topo_13}    ${custom}
+    Run Keyword If    '${ver}' == 'OF13_Li'     Add Table Miss Flows
 
 Start PathSuiteVtnMaTestOF10
     [Documentation]    Start VTN Manager Test Suite and Mininet in Open Flow 10 Specification
