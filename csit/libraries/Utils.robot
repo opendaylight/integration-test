@@ -426,12 +426,15 @@ Set_User_Configurable_Variable_Default
     [Documentation]    Set a default value for an user configurable variable.
     ...    This keyword is needed if your default value is calculated using
     ...    a complex expression which needs BuiltIn.Evaluate or even more
-    ...    complex keywords. It sets the variable ${name} to ${value} but
-    ...    only if the variable ${name} was not set previously. This keyword
-    ...    is intended for user configurable variables which are supposed to
-    ...    be set only with pybot -v; calling this keyword on a variable
-    ...    that was already set by another keyword is a bug in the suite or
-    ...    resource trying to call this keyword.
+    ...    complex keywords. It sets the variable ${name} (the name of the
+    ...    variable MUST be specified WITHOUT the ${} syntactic sugar due
+    ...    to limitations of Robot Framework) to ${value} but only if the
+    ...    variable ${name} was not set previously. This keyword is intended
+    ...    for user configurable variables which are supposed to be set only
+    ...    with pybot -v; calling this keyword on a variable that was already
+    ...    set by another keyword will silently turn the call into a NOP and
+    ...    thus is a bug in the suite or resource trying to call this
+    ...    keyword.
     # TODO: Figure out how to make the ${value} evaluation "lazy" (meaning
     #    evaluating it only when the user did not set anything and thus the
     #    default is needed). This might be needed to avoid potentially costly
@@ -440,5 +443,8 @@ Set_User_Configurable_Variable_Default
     #    comments the best approach would be to create another keyword that
     #    expects a ScalarClosure in the place of ${value} and calls the
     #    closure to get the value but only if the value is needed).
+    # TODO: Is the above TODO really necessary? Right now we don't have any
+    #    examples of "expensive default values" whose calculation we would
+    #    prefer to skip when they are not needed.
     ${value}=    BuiltIn.Get_Variable_Value    \${${name}}    ${value}
     BuiltIn.Set_Suite_Variable    \${${name}}    ${value}
