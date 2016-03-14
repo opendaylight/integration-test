@@ -213,6 +213,30 @@
       "revId": "8bb8a5d51a109fb4fbb8cc0862dcca8cc2fdcf0c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_094ed13a",
+        "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-03-14T11:21:36Z",
+      "side": 1,
+      "message": "Well, I am not a big fan of \"_leading_underscore\" styles of naming (it looks ugly to me) but I guess I can cope. So, let\u0027s be it. However I have higher priority tasks to do for now so I will leave fixing the variable names for a less loaded time.\n\nBut this variable will stay named as it is. This variable turns out to be useful to be \"user can override\" kind of variable.",
+      "parentUuid": "9a3d3df0_491c596a",
+      "range": {
+        "startLine": 142,
+        "startChar": 36,
+        "endLine": 142,
+        "endChar": 56
+      },
+      "revId": "8bb8a5d51a109fb4fbb8cc0862dcca8cc2fdcf0c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
