@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for VTN Manager (OF13)
-Suite Setup       Start SuiteVtnMa
+Suite Setup       Start SuiteVtnMa     version_flag=OF13
 Suite Teardown    Stop SuiteVtnMa
 Resource          ../../../libraries/VtnMaKeywordsLi.robot
 
