@@ -45,7 +45,6 @@ Start SuiteVtnMa
 Stop SuiteVtnMa
     [Documentation]    Stop VTN Manager Test Suite
     Delete All Sessions
-    Stop Suite
 
 Start SuiteVtnMaTest
     [Documentation]    Start VTN Manager Test Suite
