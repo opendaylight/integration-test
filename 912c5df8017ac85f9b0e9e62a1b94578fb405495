@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_89eca12b",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-14T11:09:22Z",
+      "side": 1,
+      "message": "sudden",
+      "range": {
+        "startLine": 14,
+        "startChar": 1,
+        "endLine": 14,
+        "endChar": 8
+      },
+      "revId": "912c5df8017ac85f9b0e9e62a1b94578fb405495",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_c9f22905",
+        "filename": "csit/suites/netconf/bugs/5383.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-14T11:09:22Z",
+      "side": 1,
+      "message": "tell us what?",
+      "range": {
+        "startLine": 59,
+        "startChar": 100,
+        "endLine": 59,
+        "endChar": 112
+      },
+      "revId": "912c5df8017ac85f9b0e9e62a1b94578fb405495",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_a9f525ee",
+        "filename": "csit/suites/netconf/bugs/5383.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-14T11:09:22Z",
+      "side": 1,
+      "message": "This test case does not seem to be necessary.",
+      "range": {
+        "startLine": 64,
+        "startChar": 26,
+        "endLine": 64,
+        "endChar": 38
+      },
+      "revId": "912c5df8017ac85f9b0e9e62a1b94578fb405495",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_09e09127",
+        "filename": "csit/suites/netconf/bugs/5383.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-14T11:09:22Z",
+      "side": 1,
+      "message": "Perhaps subset of features would be sufficient (only PCEP or only BGP)?",
+      "range": {
+        "startLine": 78,
+        "startChar": 25,
+        "endLine": 78,
+        "endChar": 43
+      },
+      "revId": "912c5df8017ac85f9b0e9e62a1b94578fb405495",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
