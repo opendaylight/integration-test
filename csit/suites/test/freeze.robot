@@ -5,6 +5,9 @@ Library           OperatingSystem
 Library           SSHLibrary
 Resource          ${CURDIR}/../../libraries/Utils.robot
 
+*** Variables ***
+@{PATH_LIST}      /usr    /usr/lib    /usr/lib/jvm    /usr/lib/jvm/java-1.7.0    /usr/lib/jvm/java-1.8.0
+
 *** Test Cases ***
 Freeze
     ${versions} =    OperatingSystem.Run    pip freeze
@@ -14,30 +17,54 @@ Ulimit_On_Robot
     ${limits} =    OperatingSystem.Run    bash -c "ulimit -a"
     BuiltIn.Log    ${limits}
 
-Ulimit_On_Controller
+Ulimit_On_Odl_System
     SSHLibrary.Open_Connection    ${ODL_SYSTEM_IP}
     Utils.Flexible_Controller_Login
     ${limits} =    SSHLibrary.Execute_Command    bash -c "ulimit -a"
     BuiltIn.Log    ${limits}
+    SSHLibrary.Close_Connection
 
-Ulimit_On_Mininet
+Ulimit_On_Tools_System
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
     Utils.Flexible_Mininet_Login
     ${limits} =    SSHLibrary.Execute_Command    bash -c "ulimit -a"
     BuiltIn.Log    ${limits}
+    SSHLibrary.Close_Connection
 
 DiskFree_On_Robot
     ${sizes} =    OperatingSystem.Run    bash -c "df -h"
     BuiltIn.Log    ${sizes}
 
-DiskFree_On_Controller
+DiskFree_On_Odl_System
     SSHLibrary.Open_Connection    ${ODL_SYSTEM_IP}
     Utils.Flexible_Controller_Login
     ${sizes} =    SSHLibrary.Execute_Command    bash -c "df -h"
     BuiltIn.Log    ${sizes}
+    SSHLibrary.Close_Connection
 
-DiskFree_On_Mininet
+DiskFree_On_Tools_System
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
     Utils.Flexible_Mininet_Login
     ${sizes} =    SSHLibrary.Execute_Command    bash -c "df -h"
     BuiltIn.Log    ${sizes}
+    SSHLibrary.Close_Connection
+
+Ls_On_Odl_System
+    SSHLibrary.Open_Connection    ${ODL_SYSTEM_IP}
+    Utils.Flexible_Controller_Login
+    Ls_List    ${PATH_LIST}
+    SSHLibrary.Close_Connection
+
+Ls_On_Tools_System
+    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
+    Utils.Flexible_Mininet_Login
+    Ls_List    ${PATH_LIST}
+    SSHLibrary.Close_Connection
+
+*** Keywords ***
+Ls_List
+    [Arguments]    ${path_list}
+    [Documentation]    Run "ls -lA" for each path in the list.
+    : FOR    ${path}    IN    @{path_list}
+    \    ${listing} =    SSHLibrary.Execute_Command    bash -c "ls -lA ${path}"
+    \    BuiltIn.Log    ${listing}
