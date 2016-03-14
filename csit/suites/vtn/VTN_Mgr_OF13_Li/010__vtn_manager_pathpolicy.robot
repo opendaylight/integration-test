@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for VTN Manager PathPolicy using OF13
-Suite Setup       Start PathSuiteVtnMaTest
+Suite Setup       Start PathSuiteVtnMaTest     OF13_Li
 Suite Teardown    Stop PathSuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywordsLi.robot
 

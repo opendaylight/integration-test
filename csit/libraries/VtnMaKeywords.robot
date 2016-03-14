@@ -38,10 +38,12 @@ ${custom}         ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
 
 *** Keywords ***
 Start SuiteVtnMa
+    [Arguments]      ${ver}=none
     [Documentation]    Start VTN Manager Rest Config Api Test Suite
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     BuiltIn.Wait_Until_Keyword_Succeeds    30    3    Fetch vtn list
     Start Suite
+    Run Keyword If    '${ver}' == 'OF13_Li'    Add Table Miss Flows
 
 Start SuiteVtnMaTest
     [Documentation]    Start VTN Manager Test Suite
@@ -50,6 +52,7 @@ Start SuiteVtnMaTest
 Stop SuiteVtnMa
     [Documentation]    Stop VTN Manager Test Suite
     Delete All Sessions
+    Stop Suite
 
 Stop SuiteVtnMaTest
     [Documentation]    Stop VTN Manager Test Suite
@@ -65,6 +68,12 @@ Fetch vtn switch inventory
     [Documentation]    Check if Switch is detected.
     ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-inventory:vtn-nodes/vtn-node/${sw_name}
     Should Be Equal As Strings    ${resp.status_code}    200
+
+Add Table Miss Flows
+    [Documentation]    Add Flow entried to handle table miss situation
+    Switch Connection      ${mininet_conn_id}
+    Write      "dpctl add-flow priority=0,actions=output:CONTROLLER"
+    Read Until    "mininet>"
 
 Add a Vtn
     [Arguments]    ${vtn_name}
@@ -113,8 +122,10 @@ Verify Data Flows
 
 Start PathSuiteVtnMaTest
     [Documentation]    Start VTN Manager Test Suite and Mininet
+    [Arguments]      ${ver}=none
     Start SuiteVtnMaTest
     Start Mininet    ${TOOLS_SYSTEM_IP}    ${pathpolicy_topo_13}    ${custom}
+    Run Keyword If    '${ver}' == 'OF13_Li'    Add Table Miss Flows
 
 Start PathSuiteVtnMaTestOF10
     [Documentation]    Start VTN Manager Test Suite and Mininet in Open Flow 10 Specification
