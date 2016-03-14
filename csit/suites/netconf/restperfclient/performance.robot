@@ -72,7 +72,7 @@ Deploy_And_Run_RestPerfClient
     BuiltIn.Log    Running restperfclient: ${command}
     ${restperfclientlog}=    Utils.Get_Log_File_Name    restperfclient
     BuiltIn.Set_Suite_Variable    ${restperfclientlog}    ${restperfclientlog}
-    Execute_Command_Passes    ${command} >${restperfclientlog} 2>&1
+    SSHKeywords.Execute_Command_Passes    ${command} >${restperfclientlog} 2>&1
     SSHLibrary.Get_File    ${restperfclientlog}
     ${result}=    SSHLibrary.Execute_Command    grep "FINISHED. Execution time:" ${restperfclientlog}
     BuiltIn.Should_Not_Be_Equal    '${result}'    ''
