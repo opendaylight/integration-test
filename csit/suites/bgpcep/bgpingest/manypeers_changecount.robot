@@ -176,16 +176,16 @@ Setup_Everything
     ChangeCounter.CC_Setup
     PrefixCounting.PC_Setup
     KarafKeywords.Open Controller Karaf Console On Background
-    SSHLibrary.Set_Default_Configuration    prompt=${ODL_SYSTEM_PROMPT}
-    SSHLibrary.Open_Connection    ${ODL_SYSTEM_IP}
-    Utils.Flexible_Controller_Login
     RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
     # TODO: Do not include slash in ${OPERATIONAL_TOPO_API}, having it typed here is more readable.
     # TODO: Alternatively, create variable in Variables which starts with http.
     # Both TODOs would probably need to update every suite relying on current Variables.
+    SSHLibrary.Set_Default_Configuration    prompt=${ODL_SYSTEM_PROMPT}
+    SSHLibrary.Open_Connection    ${ODL_SYSTEM_IP}
+    Utils.Flexible_Controller_Login
     SSHKeywords.Require_Python
-    SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
+    SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
     # Calculate the timeout value based on how many routes are going to be pushed
     ${period} =    DateTime.Convert_Time    ${CHECK_PERIOD_CHANGE_COUNT_MANY}    result_format=number
     ${timeout} =    BuiltIn.Evaluate    ${TEST_DURATION_MULTIPLIER_CHANGE_COUNT_MANY} * (${COUNT_CHANGE_COUNT_MANY} * 3.0 / 10000 + ${period} * (${REPETITIONS_CHANGE_COUNT_MANY} + 1))
