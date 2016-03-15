@@ -8,6 +8,7 @@ Library           OperatingSystem
 Library           RequestsLibrary
 Library           String
 Resource          ../../../libraries/Utils.robot
+Resource          ../../../libraries/LISPFlowMapping.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
@@ -44,6 +45,7 @@ Generate Map-Request Test Traffic
     Set Suite Variable    ${get_seconds_mreq}
 
 Generate Map-Register Test Traffic
+    Allow Unauthenticated Map-Registers
     ${result}=    Run Process With Logging And Status Check    /usr/local/bin/udpreplay    --pps    ${REPLAY_PPS}    --repeat    ${REPLAY_CNT}
     ...    --host    ${ODL_SYSTEM_IP}    --port    4342    ${REPLAY_FILE_MREG}
     ${partial}=    Fetch From Left    ${result.stdout}    s =
@@ -72,6 +74,10 @@ Reset Stats
     ${resp}=    RequestsLibrary.Post Request    session    ${LFM_SB_RPC_API}:reset-stats
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
+
+Allow Unauthenticated Map-Registers
+    ${add_key}=    OperatingSystem.Get File    ${JSON_DIR}/rpc_add-key_default.json
+    Post Log Check    ${LFM_RPC_API}:add-key    ${add_key}
 
 Get Transmitted Map-Requests Stats
     ${resp}=    RequestsLibrary.Post Request    session    ${LFM_SB_RPC_API}:get-stats
