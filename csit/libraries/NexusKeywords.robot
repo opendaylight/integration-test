@@ -17,6 +17,10 @@ Library           String
 Resource          SSHKeywords.robot
 
 *** Variables ***
+${JAVA_7_HOME_CENTOS}    /usr/lib/jvm/java-1.7.0
+${JAVA_7_HOME_UBUNTU}    /usr/lib/jvm/java-7-openjdk-amd64
+${JAVA_8_HOME_CENTOS}    /usr/lib/jvm/java-1.8.0
+${JAVA_8_HOME_UBUNTU}    /usr/lib/jvm/java-8-openjdk-amd64
 ${NEXUS_FALLBACK_URL}    ${NEXUSURL_PREFIX}/content/repositories/opendaylight.snapshot
 
 *** Keywords ***
@@ -103,19 +107,29 @@ Deploy_Test_Tool
     ${filename}=    Deploy_Artifact    ${component}    ${artifact}    ${name_prefix}    ${name_suffix}
     [Return]    ${filename}
 
+Compose_Dilemma_Filepath
+    [Arguments]    ${default_path}    ${specific_path}
+    [Documentation]    Query active SSH connection, return specific path if it exists else default path.
+    ${out}    ${rc}=    SSHLibrary.Execute_Command    ls -lA ${specific_path} &2>1    return_rc=True
+    BuiltIn.Return_From_Keyword_If    ${rc} == 0    ${specific_path}
+    BuiltIn.Return_From_Keyword    ${default_path}
+
 Compose_Base_Java_Command
     [Arguments]    ${openjdk}=${JDKVERSION}
     [Documentation]    Return string suitable for launching Java programs over SSHLibrary, depending on JRE version needed.
-    ...    Not directly related to nexus, but different versioned Java artifacts may need this.
-    BuiltIn.Return_From_Keyword_If    """${openjdk}""" == "openjdk8"    /usr/lib/jvm/java-1.8.0/bin/java
-    BuiltIn.Return_From_Keyword_If    """${openjdk}""" == "openjdk7"    /usr/lib/jvm/java-1.7.0/bin/java
+    ...    This requires that the SSH connection on which the command is going to be used is active as it is needed for querying files.
+    ...    Commands composed for one SSH connection shall not be reused on other SSH connections as the two connections may have different Java setups.
+    ...    Not directly related to Nexus, but versioned Java tools may need this.
+    BuiltIn.Run_Keyword_And_Return_If    """${openjdk}""" == "openjdk8"    Compose_Dilemma_Filepath    ${JAVA_8_HOME_CENTOS}/bin/java    ${JAVA_8_HOME_UBUNTU}/bin/java
+    BuiltIn.Run_Keyword_And_Return_If    """${openjdk}""" == "openjdk7"    Compose_Dilemma_Filepath    ${JAVA_7_HOME_CENTOS}/bin/java    ${JAVA_7_HOME_UBUNTU}/bin/java
     BuiltIn.Return_From_Keyword    java
 
 Compose_Full_Java_Command
     [Arguments]    ${options}    ${openjdk}=${JDKVERSION}
     [Documentation]    Return full Bash command to run Java with given options.
+    ...    This requires that the SSH connection on which the command is going to be used is active as it is needed for querying files.
     ...    The options may include JVM options, application command line arguments, Bash redirects and other constructs.
-    ${base_command} =    Compose_Base_Java_Command    openjdk=${openjdk}
-    ${full_command} =    BuiltIn.Set_Variable    ${base_command} ${options}
+    ${base_command}=    Compose_Base_Java_Command    openjdk=${openjdk}
+    ${full_command}=    BuiltIn.Set_Variable    ${base_command} ${options}
     BuiltIn.Log    ${full_command}
     [Return]    ${full_command}
