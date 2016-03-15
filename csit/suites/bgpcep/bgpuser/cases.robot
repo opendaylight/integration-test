@@ -211,8 +211,6 @@ Setup_Everything
     ...    prepare directories for responses, put Python tool to mininet machine, setup imported resources.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
-    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
-    Utils.Flexible_Mininet_Login
     RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_TOPO_API}    auth=${AUTH}
     # TODO: Do not include slash in ${OPERATIONAL_TOPO_API}, having it typed here is more readable.
     # TODO: Alternatively, create variable in Variables which starts with http.
@@ -222,6 +220,10 @@ Setup_Everything
     # The previous suite may have been using the same directories.
     OperatingSystem.Create_Directory    ${EXPECTED_RESPONSES_FOLDER}
     OperatingSystem.Create_Directory    ${ACTUAL_RESPONSES_FOLDER}
+    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
+    Utils.Flexible_Mininet_Login
+    SSHKeywords.Require_Python
+    SSHKeywords.Assure_Library_Ipaddr    target_dir=.
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
     ConfigViaRestconf.Setup_Config_Via_Restconf
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
