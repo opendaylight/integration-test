@@ -45,6 +45,30 @@
       "revId": "da6fc8d99aff49b26886fb08b5be1a309dc22f9f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_b2cc6abc",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 446,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-03-15T11:35:55Z",
+      "side": 1,
+      "message": "You did not get the point. Yes, it is true that accessing a variable cannot trigger a keyword execution. But the point here is that the default value passed to this might need to be obtained by making expensive actions like querying a SSH connection and we might want to be able to automatically skip these expensive operations if the default value turns out to be not needed because the user used pybot -v OUR_EXPENSIVE_VARIABLE:some_simple_value. I fixed the TODO to make this point clear.\n\nOne example is the JAVA_HOME. Or would be if JAVA_HOME would be designed to be user-configurable variable. According to the change https://git.opendaylight.org/gerrit/36199/ getting the default value for JAVA_HOME involves issuing commands on the connection where the command is supposed to be used (to query whether multiple candidate paths fit) which can turn out to be pretty expensive. If the user specified the JAVA_HOME using \"pybot -v\", we could skip all this checking and just use the user\u0027s value directly.",
+      "parentUuid": "9a3d3df0_72882271",
+      "range": {
+        "startLine": 446,
+        "startChar": 46,
+        "endLine": 446,
+        "endChar": 47
+      },
+      "revId": "da6fc8d99aff49b26886fb08b5be1a309dc22f9f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
