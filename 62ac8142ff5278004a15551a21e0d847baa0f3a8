@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_92d3265f",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-03-15T11:00:19Z",
+      "side": 1,
+      "message": "Better: \"This requires that the SSH connection on which the command is going to be used is active as it is needed for querying files. Commands composed for one SSH connection shall not be reused on other SSH connections as the two connections may have different Java setups.\"\n\nDifferent machines can have different Java paths and querying one while using the command on the other might cause problems. So it is worth stressing that the \"active SSH connection\" shall be the one on which the command will ultimately be invoked and that these commands shall not be reused between connections.",
+      "range": {
+        "startLine": 120,
+        "startChar": 11,
+        "endLine": 120,
+        "endChar": 63
+      },
+      "revId": "62ac8142ff5278004a15551a21e0d847baa0f3a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
