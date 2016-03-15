@@ -1,0 +1,11 @@
+{
+    "input": {
+        "eid": {
+            "address-type": "ietf-lisp-address-types:ipv4-prefix-afi",
+            "ipv4-prefix": "0.0.0.0/0"
+        },
+        "mapping-authkey": {
+            "key-type": 0
+        }
+    }
+}
