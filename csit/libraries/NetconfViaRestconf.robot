@@ -66,6 +66,7 @@ Resolve_URI_From_Template_Folder
     ${uri_template}=    OperatingSystem.Get_File    ${folder}${/}config.uri
     BuiltIn.Log    ${uri_template}
     ${uri_part}=    Strip_Endline_And_Apply_Substitutions_From_Mapping    ${uri_template}    ${mapping_as_string}
+    BuiltIn.Log    ${uri_part}
     [Return]    ${uri_part}
 
 Resolve_Xml_Data_From_Template_Folder
@@ -74,6 +75,7 @@ Resolve_Xml_Data_From_Template_Folder
     ${data_template}=    OperatingSystem.Get_File    ${folder}${/}data.xml
     BuiltIn.Log    ${data_template}
     ${xml_data}=    Strip_Endline_And_Apply_Substitutions_From_Mapping    ${data_template}    ${mapping_as_string}
+    BuiltIn.Log    ${xml_data}
     [Return]    ${xml_data}
 
 Resolve_Json_Data_From_Template_Folder
@@ -82,6 +84,7 @@ Resolve_Json_Data_From_Template_Folder
     ${data_template}=    OperatingSystem.Get_File    ${folder}${/}data.json
     BuiltIn.Log    ${data_template}
     ${json_data}=    Strip_Endline_And_Apply_Substitutions_From_Mapping    ${data_template}    ${mapping_as_string}
+    BuiltIn.Log    ${json_data}
     [Return]    ${json_data}
 
 Strip_Endline_And_Apply_Substitutions_From_Mapping
