@@ -7,6 +7,7 @@ Library           json
 Library           RequestsLibrary
 Variables         ../variables/Variables.py
 Resource          ./Utils.robot
+Resource          ./KarafKeywords.robot
 
 *** Variables ***
 ${vlan_topo_10}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom vlan_vtn_test.py --topo vlantopo
@@ -38,7 +39,8 @@ ${custom}         ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
 
 *** Keywords ***
 Start SuiteVtnMa
-    [Documentation]    Start VTN Manager Rest Config Api Test Suite
+    [Documentation]    Start VTN Manager Rest Config Api Test Suite, and enabling karaf loglevel as TRACE for VTN.
+    Issue Command On Karaf Console    log:set TRACE org.opendaylight.vtn
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     BuiltIn.Wait_Until_Keyword_Succeeds    30    3    Fetch vtn list
     Start Suite
