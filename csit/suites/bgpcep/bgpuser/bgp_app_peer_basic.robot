@@ -306,6 +306,8 @@ Setup_Everything
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
     Open_BGP_Peer_Console
+    SSHKeywords.Require_Python
+    SSHKeywords.Assure_Library_Ipaddr    target_dir=.
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
     Open_BGP_Aplicationp_Peer_Console
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/bgp_app_peer.py

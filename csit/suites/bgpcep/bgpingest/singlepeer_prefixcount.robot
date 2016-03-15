@@ -35,6 +35,7 @@ Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
 Resource          ${CURDIR}/../../../libraries/PrefixCounting.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 
 *** Variables ***
 ${BGP_TOOL_LOG_LEVEL}    info
@@ -190,13 +191,15 @@ Setup_Everything
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     ConfigViaRestconf.Setup_Config_Via_Restconf
     PrefixCounting.PC_Setup
-    SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
-    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
-    Utils.Flexible_Mininet_Login
     RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
     # TODO: Do not include slash in ${OPERATIONAL_TOPO_API}, having it typed here is more readable.
     # TODO: Alternatively, create variable in Variables which starts with http.
     # Both TODOs would probably need to update every suite relying on current Variables.
+    SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
+    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
+    Utils.Flexible_Mininet_Login
+    SSHKeywords.Require_Python
+    SSHKeywords.Assure_Library_Ipaddr    target_dir=.
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
     # Calculate the timeout value based on how many routes are going to be pushed
     # TODO: Replace 20 with some formula from period and repetitions.
