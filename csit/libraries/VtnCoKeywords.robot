@@ -31,8 +31,7 @@ Start SuiteVtnCo
     [Documentation]    Download and startup the VTN Coordinator.
     Log    Start the VTN Coordinator
     #Get VtnCo
-    ${vtnc_conn_id}=    SSHLibrary.Open Connection    ${ODL_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
-    Set Suite Variable    ${vtnc_conn_id}
+    SSHLibrary.Open Connection    ${ODL_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     SSHLibrary.Login_With_Public_Key    ${ODL_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     SSHLibrary.Execute Command    sudo mkdir -p /usr/local/vtn
     SSHLibrary.Execute Command    sudo chown jenkins /usr/local/vtn
@@ -40,15 +39,21 @@ Start SuiteVtnCo
     SSHLibrary.Execute Command    sudo yum install -q -y postgresql93-libs postgresql93 postgresql93-server postgresql93-contrib postgresql93-odbc
     SSHLibrary.Execute Command    tar -C/ -jxvf ${WORKSPACE}/${BUNDLEFOLDER}/externalapps/*vtn-coordinator*-bin.tar.bz2
     SSHLibrary.Execute Command    /usr/local/vtn/sbin/db_setup
+    Write     sudo netstat -tunpl | grep 8083
+    Read Until    ${DEFAULT_LINUX_PROMPT}
     SSHLibrary.Execute Command    /usr/local/vtn/bin/vtn_start
     SSHLibrary.Execute Command    /usr/local/vtn/bin/unc_dmctl status
     SSHLibrary.Execute Command    /usr/local/vtn/sbin/db_setup
     SSHLibrary.Execute Command    sed -i 's/odcdrv_ping_interval = 30/odcdrv_ping_interval = 10/g' /usr/local/vtn/modules/odcdriver.conf
     SSHLibrary.Execute Command    sed -i 's/physical_attributes_read_interval = 40/physical_attributes_read_interval = 15/g' /usr/local/vtn/modules/vtndrvintf.conf
-    SSHLibrary.Execute Command    /usr/local/vtn/bin/vtn_start
-    SSHLibrary.Execute Command    /usr/local/vtn/bin/unc_dmctl status
     SSHLibrary.Execute Command    /usr/local/vtn/bin/drvodc_control loglevel trace
     SSHLibrary.Execute Command    /usr/local/vtn/bin/lgcnw_control loglevel trace
+    Write     sudo netstat -tunpl | grep 8083
+    Read Until    ${DEFAULT_LINUX_PROMPT}
+    Write     curl --user admin:adminpass -X GET 'http://127.0.0.1:8083/vtn-webapi/api_version.json'
+    Read Until    ${DEFAULT_LINUX_PROMPT}
+    Write     netstat -tunpl | grep 8083
+    Read Until    ${DEFAULT_LINUX_PROMPT}
     SSHLibrary.Execute Command    exit
 
 Stop SuiteVtnCo
