@@ -22,6 +22,24 @@
       "revId": "696493aec783638f62b3cba853ca52c4dfef4657",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6c50460b",
+        "filename": "csit/suites/lispflowmapping/performance/010_Southbound_MapRequest.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-03-16T09:22:11Z",
+      "side": 1,
+      "message": "It\u0027s used for the ${JSON_DIR} definition. I could duplicate the definition locally, but it would be better to have it in just one place.",
+      "parentUuid": "9a3d3df0_38003901",
+      "revId": "696493aec783638f62b3cba853ca52c4dfef4657",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
