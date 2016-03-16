@@ -36,10 +36,7 @@ Check Ports STP status
 
 Ping Test
     [Documentation]    Ping h1 to h2, verify no packet loss or duplicates
-    Write    h1 ping -w 1 h2
-    ${result}    Read Until    mininet>
-    Should Contain    ${result}    1 received, 0% packet loss
-    Should Not Contain    ${result}    duplicates
+    Wait Until Keyword Succeeds    10s    2s    Ping Works Good
 
 Link Down
     [Documentation]    Take link s1-s2 down and verify ping works
@@ -48,10 +45,7 @@ Link Down
     Read Until    mininet>
     @{list}    Create List    ${DISCARD}
     Wait Until Keyword Succeeds    10s    2s    Check For Elements Not At URI    ${OPERATIONAL_NODES_API}    ${list}
-    Write    h1 ping -w 1 h2
-    ${result}    Read Until    mininet>
-    Should Contain    ${result}    received, 0% packet loss
-    Should Not Contain    ${result}    duplicates
+    Wait Until Keyword Succeeds    10s    2s    Ping Works Good
 
 Link Up
     [Documentation]    Take link s1-s2 up and verify ping works
@@ -60,10 +54,7 @@ Link Up
     Read Until    mininet>
     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    ${FORWARD}    4
     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    ${DISCARD}    2
-    Write    h1 ping -w 1 h2
-    ${result}    Read Until    mininet>
-    Should Contain    ${result}    received, 0% packet loss
-    Should Not Contain    ${result}    duplicates
+    Wait Until Keyword Succeeds    10s    2s    Ping Works Good
 
 Remove Port
     [Documentation]    Remove port s1-eth2 and verify ping works
@@ -71,10 +62,7 @@ Remove Port
     Read Until    mininet>
     @{list}    Create List    ${DISCARD}
     Wait Until Keyword Succeeds    10s    2s    Check For Elements Not At URI    ${OPERATIONAL_NODES_API}    ${list}
-    Write    h1 ping -w 1 h2
-    ${result}    Read Until    mininet>
-    Should Contain    ${result}    64 bytes from 10.0.0.2
-    Should Not Contain    ${result}    duplicates
+    Wait Until Keyword Succeeds    10s    2s    Ping Works Good
 
 Add Port
     [Documentation]    Add port s1-eth2 and verify ping works
@@ -82,11 +70,7 @@ Add Port
     Read Until    mininet>
     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    ${FORWARD}    4
     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    ${DISCARD}    2
-    Sleep    1
-    Write    h1 ping -w 1 h2
-    ${result}    Read Until    mininet>
-    Should Contain    ${result}    64 bytes from 10.0.0.2
-    Should Not Contain    ${result}    duplicates
+    Wait Until Keyword Succeeds    10s    2s    Ping Works Good
 
 *** Keywords ***
 Start Suite
@@ -101,3 +85,9 @@ Start Suite
     Execute Command    sudo mn -c
     Write    ${start}
     Read Until    mininet>
+
+Ping Works Good
+    Write    h1 ping -w 1 h2
+    ${result}    Read Until    mininet>
+    Should Contain    ${result}    received, 0% packet loss
+    Should Not Contain    ${result}    duplicates
