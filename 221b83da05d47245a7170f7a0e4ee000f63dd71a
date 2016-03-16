@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_986185ab",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-03-16T03:59:55Z",
+      "side": 1,
+      "message": "Can s3 be used alone with variable name instead of hard coding here. Are all flow entries checked only for s3?",
+      "revId": "221b83da05d47245a7170f7a0e4ee000f63dd71a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
