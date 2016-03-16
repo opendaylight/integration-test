@@ -39,6 +39,10 @@ Start SuiteVtnCo
     SSHLibrary.Execute Command    sudo yum install -q -y http://yum.postgresql.org/9.3/redhat/rhel-7-x86_64/pgdg-centos93-9.3-1.noarch.rpm
     SSHLibrary.Execute Command    sudo yum install -q -y postgresql93-libs postgresql93 postgresql93-server postgresql93-contrib postgresql93-odbc
     SSHLibrary.Execute Command    tar -C/ -jxvf ${WORKSPACE}/${BUNDLEFOLDER}/externalapps/*vtn-coordinator*-bin.tar.bz2
+    SSHLibrary.Execute Command    export JAVA_HOME="/usr/lib/jvm/java-1.7.0-openjdk-1.7.0.85-2.6.1.2.el7_1.x86_64/jre"
+    SSHLibrary.Execute Command    export PATH=$PATH:$HOME/bin:$JAVA_HOME/bin
+    SSHLibrary.Execute Command    echo $JAVA_HOME
+    SSHLibrary.Execute Command    echo $PATH
     SSHLibrary.Execute Command    /usr/local/vtn/sbin/db_setup
     SSHLibrary.Execute Command    /usr/local/vtn/bin/vtn_start
     SSHLibrary.Execute Command    /usr/local/vtn/bin/unc_dmctl status
