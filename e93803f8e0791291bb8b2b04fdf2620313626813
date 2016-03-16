@@ -1,0 +1,280 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a3d3df0_2cc75e65",
+        "filename": "csit/suites/bgpcep/bgpflowspec/010_bgp_flowspec.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-16T11:31:37Z",
+      "side": 1,
+      "message": "6",
+      "range": {
+        "startLine": 4,
+        "startChar": 35,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "e93803f8e0791291bb8b2b04fdf2620313626813",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ec973646",
+        "filename": "csit/suites/bgpcep/bgpflowspec/010_bgp_flowspec.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-16T11:31:37Z",
+      "side": 1,
+      "message": "Use ${CURDIR} everywhere. Even no curdir is better than mixed curdir.",
+      "range": {
+        "startLine": 13,
+        "startChar": 18,
+        "endLine": 13,
+        "endChar": 19
+      },
+      "revId": "e93803f8e0791291bb8b2b04fdf2620313626813",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_cc923256",
+        "filename": "csit/suites/bgpcep/bgpflowspec/010_bgp_flowspec.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-16T11:31:37Z",
+      "side": 1,
+      "message": "Delete un-needed lines.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 1
+      },
+      "revId": "e93803f8e0791291bb8b2b04fdf2620313626813",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_6c8b261f",
+        "filename": "csit/suites/bgpcep/bgpflowspec/010_bgp_flowspec.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-16T11:31:37Z",
+      "side": 1,
+      "message": "We have a discussion on wiki with Jozef Behran about correct casing style for variables of this type. I prefer ALL_CAPS.\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#User_configurable_variables",
+      "range": {
+        "startLine": 25,
+        "startChar": 2,
+        "endLine": 25,
+        "endChar": 5
+      },
+      "revId": "e93803f8e0791291bb8b2b04fdf2620313626813",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_4c8e222f",
+        "filename": "csit/suites/bgpcep/bgpflowspec/010_bgp_flowspec.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-16T11:31:37Z",
+      "side": 1,
+      "message": "Do you want to use some Setup and Teardown Keywords defined there?",
+      "range": {
+        "startLine": 59,
+        "startChar": 15,
+        "endLine": 59,
+        "endChar": 49
+      },
+      "revId": "e93803f8e0791291bb8b2b04fdf2620313626813",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ac81aefc",
+        "filename": "csit/suites/bgpcep/bgpflowspec/010_bgp_flowspec.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-16T11:31:37Z",
+      "side": 1,
+      "message": "Delete the line.",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 5
+      },
+      "revId": "e93803f8e0791291bb8b2b04fdf2620313626813",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_cc799230",
+        "filename": "csit/suites/bgpcep/bgpflowspec/010_bgp_flowspec.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-16T11:31:37Z",
+      "side": 1,
+      "message": "Get_Request",
+      "range": {
+        "startLine": 122,
+        "startChar": 31,
+        "endLine": 122,
+        "endChar": 34
+      },
+      "revId": "e93803f8e0791291bb8b2b04fdf2620313626813",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8c84aa0b",
+        "filename": "csit/suites/bgpcep/bgpflowspec/010_bgp_flowspec.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-16T11:31:37Z",
+      "side": 1,
+      "message": "Delete the argument.",
+      "range": {
+        "startLine": 122,
+        "startChar": 67,
+        "endLine": 122,
+        "endChar": 68
+      },
+      "revId": "e93803f8e0791291bb8b2b04fdf2620313626813",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_cca07292",
+        "filename": "csit/suites/bgpcep/bgpflowspec/010_bgp_flowspec.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-16T11:31:37Z",
+      "side": 1,
+      "message": "${expected_response}\nSimilarly for other local variables.",
+      "range": {
+        "startLine": 125,
+        "startChar": 4,
+        "endLine": 125,
+        "endChar": 13
+      },
+      "revId": "e93803f8e0791291bb8b2b04fdf2620313626813",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_2c759e31",
+        "filename": "csit/suites/bgpcep/bgpflowspec/010_bgp_flowspec.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-16T11:31:37Z",
+      "side": 1,
+      "message": "Capital F.",
+      "range": {
+        "startLine": 125,
+        "startChar": 38,
+        "endLine": 125,
+        "endChar": 39
+      },
+      "revId": "e93803f8e0791291bb8b2b04fdf2620313626813",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_ecd0d620",
+        "filename": "csit/variables/bgpflowspec/bgp-flowspec-redirect.cfg",
+        "patchSetId": 23
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-16T11:31:37Z",
+      "side": 1,
+      "message": "Are tabs required? Use spaces if possible.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 1
+      },
+      "revId": "e93803f8e0791291bb8b2b04fdf2620313626813",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a3d3df0_8cb66af7",
+        "filename": "csit/variables/bgpflowspec/bgp-flowspec-redirect.cfg",
+        "patchSetId": 23
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-16T11:31:37Z",
+      "side": 1,
+      "message": "trailing space",
+      "range": {
+        "startLine": 17,
+        "startChar": 24,
+        "endLine": 17,
+        "endChar": 25
+      },
+      "revId": "e93803f8e0791291bb8b2b04fdf2620313626813",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
