@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "9a3d3df0_afe7e0aa",
+        "filename": "csit/suites/bgpcep/bgpuser/ibgp_peer_lsp.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-16T16:32:26Z",
+      "side": 1,
+      "message": "\"linkstate\" or \"LSP state\" could be mentioned, but no big deal.",
+      "range": {
+        "startLine": 2,
+        "startChar": 18,
+        "endLine": 2,
+        "endChar": 23
+      },
+      "revId": "9b494b61a2d7a1461a90dbc6a94a5db939e10b72",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_e9f60dd6",
         "filename": "csit/suites/bgpcep/bgpuser/ibgp_peer_lsp.robot",
         "patchSetId": 12
