@@ -35,7 +35,7 @@ Test Add Flows Group 0
     \    Create Flow Variables For Suite From XML File    ${XmlsDir}/${flowfile}
     \    Run Keyword And Continue On Failure    Add Flow Via RPC    ${switch_idx}    ${xmlroot}
     # Lets wait for ofp to collect stats
-    Sleep    3s
+    Wait Until Keyword Succeeds    10s    2s    FlowLib.Check Flow Stats Are Available    openflow:1
     # Show switch content (for debug purposes if needed)
     Write    dpctl dump-flows -O OpenFlow13
     Read Until    mininet>
