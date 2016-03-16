@@ -31,8 +31,7 @@ Start SuiteVtnCo
     [Documentation]    Download and startup the VTN Coordinator.
     Log    Start the VTN Coordinator
     #Get VtnCo
-    ${vtnc_conn_id}=    SSHLibrary.Open Connection    ${ODL_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
-    Set Suite Variable    ${vtnc_conn_id}
+    SSHLibrary.Open Connection    ${ODL_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     SSHLibrary.Login_With_Public_Key    ${ODL_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     SSHLibrary.Execute Command    sudo mkdir -p /usr/local/vtn
     SSHLibrary.Execute Command    sudo chown jenkins /usr/local/vtn
@@ -49,6 +48,7 @@ Start SuiteVtnCo
     SSHLibrary.Execute Command    /usr/local/vtn/bin/unc_dmctl status
     SSHLibrary.Execute Command    /usr/local/vtn/bin/drvodc_control loglevel trace
     SSHLibrary.Execute Command    /usr/local/vtn/bin/lgcnw_control loglevel trace
+    SSHLibrary.Execute Command    curl --user admin:adminpass -H 'content-type: application/json' -X GET 'http://127.0.0.1:8083/vtn-webapi/api_version.json'  
     SSHLibrary.Execute Command    exit
 
 Stop SuiteVtnCo
