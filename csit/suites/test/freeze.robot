@@ -1,9 +1,13 @@
 *** Settings ***
 Documentation     Not a test, it just logs versions of installed Python modules.
 ...               Useful when library documentation mentions version-specific behavior.
+Suite Setup       RequestsLibrary.Create_Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
+Suite Teardown    RequestsLibrary.Delete_All_Sessions
 Library           OperatingSystem
 Library           SSHLibrary
+Library           RequestsLibrary
 Resource          ${CURDIR}/../../libraries/Utils.robot
+Variables         ${CURDIR}/../../variables/Variables.py
 
 *** Test Cases ***
 Freeze
@@ -41,3 +45,13 @@ DiskFree_On_Mininet
     Utils.Flexible_Mininet_Login
     ${sizes} =    SSHLibrary.Execute_Command    bash -c "df -h"
     BuiltIn.Log    ${sizes}
+
+Log_Modules
+    ${resp} =    RequestsLibrary.Get_Request    session    ${CONTROLLER_CONFIG_MOUNT}/config:modules
+    BuiltIn.Log    ${resp.content}
+    BuiltIn.Should_Contain    ${resp.content}    distribution-version
+
+Check_Distribution_Version
+    ${resp} =    RequestsLibrary.Get_Request    session    ${CONTROLLER_CONFIG_MOUNT}/config:modules/module/odl-distribution-version:odl-version/odl-distribution-version
+    BuiltIn.Log    ${resp.content}
+    BuiltIn.Should_Contain    ${resp.content}    "0.4.1-SNAPSHOT"    # specific to pre-SR1 Beryllium snapshot builds
