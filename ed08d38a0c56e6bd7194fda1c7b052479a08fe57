@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a42497e_47c70413",
+        "filename": "csit/suites/bgpcep/bgpflowspec/010_bgp_flowspec.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-17T14:59:51Z",
+      "side": 1,
+      "message": "${FLOWSPEC_URL} would be better, but no big deal.",
+      "range": {
+        "startLine": 29,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 14
+      },
+      "revId": "ed08d38a0c56e6bd7194fda1c7b052479a08fe57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a42497e_27cc7835",
+        "filename": "csit/suites/bgpcep/bgpflowspec/010_bgp_flowspec.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-17T14:59:51Z",
+      "side": 1,
+      "message": "This will not work on Fedora, by we can fix that if tools system switches to that.",
+      "range": {
+        "startLine": 62,
+        "startChar": 70,
+        "endLine": 62,
+        "endChar": 82
+      },
+      "revId": "ed08d38a0c56e6bd7194fda1c7b052479a08fe57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a42497e_87d10cd0",
+        "filename": "csit/suites/bgpcep/bgpflowspec/010_bgp_flowspec.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-17T14:59:51Z",
+      "side": 1,
+      "message": "This is quite an intrusive way, but I guess users would not mind. Also, when releng finishes moving to private cloud, these steps could become obsolete and we can remove them.",
+      "range": {
+        "startLine": 64,
+        "startChar": 70,
+        "endLine": 64,
+        "endChar": 86
+      },
+      "revId": "ed08d38a0c56e6bd7194fda1c7b052479a08fe57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a42497e_67d680c7",
+        "filename": "csit/suites/bgpcep/bgpflowspec/010_bgp_flowspec.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-17T14:59:51Z",
+      "side": 1,
+      "message": "This works only because Robot is case (and underscore) insensitive with respect to variable names.",
+      "range": {
+        "startLine": 118,
+        "startChar": 59,
+        "endLine": 118,
+        "endChar": 70
+      },
+      "revId": "ed08d38a0c56e6bd7194fda1c7b052479a08fe57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
