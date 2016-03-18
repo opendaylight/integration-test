@@ -19,8 +19,8 @@ Resource          ../../../libraries/TopoprocessingKeywords.robot
 *** Test Cases ***
 Filtration Range Number Network Topology Model
     [Documentation]    Test of range number type of filtration operation on Network Topology model
-    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    termination-point    network-topo:2
-    ${request}    Insert Filter    ${request}    ${FILTER_RANGE_NUMBER}    ovsdb:ofport
+    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    termination-point    network-topo:2
+    ${request}    Insert Filter    ${request}    network-topology-model    ${FILTER_RANGE_NUMBER}    ovsdb:ofport
     ${request}    Set Range Number Filter    ${request}    1115    1119
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
@@ -38,8 +38,8 @@ Filtration Range Number Network Topology Model
 
 Filtration Range Number Inventory Model
     [Documentation]    Test of range number type of filtration operation on Inventory model
-    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    opendaylight-inventory-model    termination-point    openflow-topo:1
-    ${request}    Insert Filter    ${request}    ${FILTER_RANGE_NUMBER}    flow-node-inventory:port-number
+    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    termination-point    openflow-topo:1
+    ${request}    Insert Filter    ${request}    opendaylight-inventory-model    ${FILTER_RANGE_NUMBER}    flow-node-inventory:port-number
     ${request}    Set Range Number Filter    ${request}    2    4
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
@@ -62,8 +62,8 @@ Filtration Range Number Inventory Model
 
 Filtration Specific Number Network Topology Model
     [Documentation]    Test of specific number type of filtration operation on Network Topology model
-    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    termination-point    network-topo:2
-    ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_NUMBER}    ovsdb:ofport
+    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    termination-point    network-topo:2
+    ${request}    Insert Filter    ${request}    network-topology-model    ${FILTER_SPECIFIC_NUMBER}    ovsdb:ofport
     ${request}    Set Specific Number Filter    ${request}    1119
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
@@ -76,9 +76,9 @@ Filtration Specific Number Network Topology Model
 
 Filtration Specific Number Inventory Model
     [Documentation]    Test of specific number type of filtration operation on Inventory model
-    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    opendaylight-inventory-model    termination-point    openflow-topo:1
+    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    termination-point    openflow-topo:1
     #${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_NUMBER}    flow-node-inventory:port-number
-    ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_NUMBER}    flow-node-inventory:maximum-speed
+    ${request}    Insert Filter    ${request}    opendaylight-inventory-model    ${FILTER_SPECIFIC_NUMBER}    flow-node-inventory:maximum-speed
     ${request}    Set Specific Number Filter    ${request}    2
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
@@ -96,8 +96,8 @@ Filtration Specific Number Inventory Model
 
 Filtration Specific String Network Topology Model
     [Documentation]    Test of specific string type of filtration operation on Network Topology model
-    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    termination-point    network-topo:2
-    ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_STRING}    ovsdb:name
+    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    termination-point    network-topo:2
+    ${request}    Insert Filter    ${request}    network-topology-model    ${FILTER_SPECIFIC_STRING}    ovsdb:name
     ${request}    Set Specific String Filter    ${request}    portC
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
@@ -110,8 +110,8 @@ Filtration Specific String Network Topology Model
 
 Filtration Specific String Inventory Model
     [Documentation]    Test of specific string type of filtration operation on Inventory model
-    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    opendaylight-inventory-model    termination-point    openflow-topo:1
-    ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_STRING}    flow-node-inventory:name
+    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    termination-point    openflow-topo:1
+    ${request}    Insert Filter    ${request}    opendaylight-inventory-model    ${FILTER_SPECIFIC_STRING}    flow-node-inventory:name
     ${request}    Set Specific String Filter    ${request}    portB
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain X Times    ${resp.content}    <node-id>node:    5
@@ -127,8 +127,8 @@ Filtration Specific String Inventory Model
 
 Filtration Range String Network Topology Model
     [Documentation]    Test of range string type of filtration operation on Network Topology model
-    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    termination-point    network-topo:2
-    ${request}    Insert Filter    ${request}    ${FILTER_RANGE_STRING}    ovsdb:name
+    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    termination-point    network-topo:2
+    ${request}    Insert Filter    ${request}    network-topology-model    ${FILTER_RANGE_STRING}    ovsdb:name
     ${request}    Set Range String Filter    ${request}    portA    portC
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
@@ -149,8 +149,8 @@ Filtration Range String Network Topology Model
 
 Filtration Range String Inventory Model
     [Documentation]    Test of range string type of filtration operation on Inventory model
-    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    opendaylight-inventory-model    termination-point    openflow-topo:1
-    ${request}    Insert Filter    ${request}    ${FILTER_RANGE_STRING}    flow-node-inventory:name
+    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    termination-point    openflow-topo:1
+    ${request}    Insert Filter    ${request}    opendaylight-inventory-model    ${FILTER_RANGE_STRING}    flow-node-inventory:name
     ${request}    Set Range String Filter    ${request}    portA    portB
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain X Times    ${resp.content}    <node-id>node:    5
@@ -167,8 +167,8 @@ Filtration Range String Inventory Model
 
 Filtration Script Network Topology Model
     [Documentation]    Test of script type of filtration operation on Network Topology model
-    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    termination-point    network-topo:1
-    ${request}    Insert Filter    ${request}    ${FILTER_SCRIPT}    ovsdb:ofport
+    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    termination-point    network-topo:1
+    ${request}    Insert Filter    ${request}    network-topology-model    ${FILTER_SCRIPT}    ovsdb:ofport
     ${script}    Set Variable    if (node.getValue() > 1117 ) {filterOut.setResult(true);} else {filterOut.setResult(false);}
     ${request}    Set Script Filter    ${request}    javascript    ${script}
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
@@ -187,8 +187,8 @@ Filtration Script Network Topology Model
 
 Filtration Script Inventory Model
     [Documentation]    Test of script type of filtration operation on Inventory model
-    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    opendaylight-inventory-model    termination-point    openflow-topo:1
-    ${request}    Insert Filter    ${request}    ${FILTER_SCRIPT}    flow-node-inventory:name
+    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    termination-point    openflow-topo:1
+    ${request}    Insert Filter    ${request}    opendaylight-inventory-model    ${FILTER_SCRIPT}    flow-node-inventory:name
     ${script}    Set Variable    if (node.getValue().indexOf("portB") > -1 ) {filterOut.setResult(true);} else {filterOut.setResult(false);}
     ${request}    Set Script Filter    ${request}    javascript    ${script}
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1

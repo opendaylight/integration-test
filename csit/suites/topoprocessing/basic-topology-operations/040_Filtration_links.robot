@@ -19,8 +19,8 @@ Resource          ../../../libraries/TopoprocessingKeywords.robot
 *** Test Cases ***
 Filtration Range Number Network Topology Model
     [Documentation]    Test of range number type of filtration operation on Network Topology model
-    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    link    network-topo:1
-    ${request}    Insert Filter    ${request}    ${FILTER_RANGE_NUMBER}    l3-unicast-igp-topology:igp-link-attributes/l3-unicast-igp-topology:metric
+    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    link    network-topo:1
+    ${request}    Insert Filter    ${request}    network-topology-model    ${FILTER_RANGE_NUMBER}    l3-unicast-igp-topology:igp-link-attributes/l3-unicast-igp-topology:metric
     ${request}    Set Range Number Filter    ${request}    11    13
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
@@ -31,8 +31,8 @@ Filtration Range Number Network Topology Model
 
 Filtration Range Number Inventory Model
     [Documentation]    Test of range number type of filtration operation on Inventory model
-    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    opendaylight-inventory-model    link    openflow-topo:3
-    ${request}    Insert Filter    ${request}    ${FILTER_RANGE_NUMBER}    l3-unicast-igp-topology:igp-link-attributes/l3-unicast-igp-topology:metric
+    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    link    openflow-topo:3
+    ${request}    Insert Filter    ${request}    opendaylight-inventory-model    ${FILTER_RANGE_NUMBER}    l3-unicast-igp-topology:igp-link-attributes/l3-unicast-igp-topology:metric
     ${request}    Set Range Number Filter    ${request}    14    15
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
@@ -42,8 +42,8 @@ Filtration Range Number Inventory Model
 
 Filtration Specific String Network Topology Model
     [Documentation]    Test of specific string type of filtration operation on Network Topology model
-    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    link    network-topo:1
-    ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_STRING}    l3-unicast-igp-topology:igp-link-attributes/l3-unicast-igp-topology:name
+    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    link    network-topo:1
+    ${request}    Insert Filter    ${request}    network-topology-model    ${FILTER_SPECIFIC_STRING}    l3-unicast-igp-topology:igp-link-attributes/l3-unicast-igp-topology:name
     ${request}    Set Specific String Filter    ${request}    linkA
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
@@ -53,8 +53,8 @@ Filtration Specific String Network Topology Model
 
 Filtration Specific String Inventory Model
     [Documentation]    Test of specific string type of filtration operation on Inventory model
-    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    opendaylight-inventory-model    link    openflow-topo:3
-    ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_STRING}    l3-unicast-igp-topology:igp-link-attributes/l3-unicast-igp-topology:name
+    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    link    openflow-topo:3
+    ${request}    Insert Filter    ${request}    opendaylight-inventory-model    ${FILTER_SPECIFIC_STRING}    l3-unicast-igp-topology:igp-link-attributes/l3-unicast-igp-topology:name
     ${request}    Set Specific String Filter    ${request}    linkD
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
@@ -63,8 +63,8 @@ Filtration Specific String Inventory Model
 
 Filtration Range String Network Topology Model
     [Documentation]    Test of range string type of filtration operation on Network Topology model
-    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    link    network-topo:1
-    ${request}    Insert Filter    ${request}    ${FILTER_RANGE_STRING}    l3-unicast-igp-topology:igp-link-attributes/l3-unicast-igp-topology:name
+    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    link    network-topo:1
+    ${request}    Insert Filter    ${request}    network-topology-model    ${FILTER_RANGE_STRING}    l3-unicast-igp-topology:igp-link-attributes/l3-unicast-igp-topology:name
     ${request}    Set Range String Filter    ${request}    linkA    linkB
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
@@ -75,8 +75,8 @@ Filtration Range String Network Topology Model
 
 Filtration Range String Inventory Model
     [Documentation]    Test of range string type of filtration operation on Inventory model
-    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    opendaylight-inventory-model    link    openflow-topo:3
-    ${request}    Insert Filter    ${request}    ${FILTER_RANGE_STRING}    l3-unicast-igp-topology:igp-link-attributes/l3-unicast-igp-topology:name
+    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    link    openflow-topo:3
+    ${request}    Insert Filter    ${request}    opendaylight-inventory-model    ${FILTER_RANGE_STRING}    l3-unicast-igp-topology:igp-link-attributes/l3-unicast-igp-topology:name
     ${request}    Set Range String Filter    ${request}    linkC    linkD
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
@@ -86,8 +86,8 @@ Filtration Range String Inventory Model
 
 Filtration Script Network Topology Model
     [Documentation]    Test of script type of filtration operation on Network Topology model
-    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    link    network-topo:1
-    ${request}    Insert Filter    ${request}    ${FILTER_SCRIPT}    l3-unicast-igp-topology:igp-link-attributes/l3-unicast-igp-topology:name
+    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    link    network-topo:1
+    ${request}    Insert Filter    ${request}    network-topology-model    ${FILTER_SCRIPT}    l3-unicast-igp-topology:igp-link-attributes/l3-unicast-igp-topology:name
     ${script}    Set Variable    if (node.getValue().indexOf("linkA") > -1 ) {filterOut.setResult(true);} else {filterOut.setResult(false);}
     ${request}    Set Script Filter    ${request}    javascript    ${script}
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
@@ -98,8 +98,8 @@ Filtration Script Network Topology Model
 
 Filtration Script Inventory Model
     [Documentation]    Test of script type of filtration operation on Inventory model
-    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    opendaylight-inventory-model    link    openflow-topo:3
-    ${request}    Insert Filter    ${request}    ${FILTER_SCRIPT}    l3-unicast-igp-topology:igp-link-attributes/l3-unicast-igp-topology:name
+    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    link    openflow-topo:3
+    ${request}    Insert Filter    ${request}    opendaylight-inventory-model    ${FILTER_SCRIPT}    l3-unicast-igp-topology:igp-link-attributes/l3-unicast-igp-topology:name
     ${script}    Set Variable    if (node.getValue().indexOf("linkA") > -1 ) {filterOut.setResult(true);} else {filterOut.setResult(false);}
     ${request}    Set Script Filter    ${request}    javascript    ${script}
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1

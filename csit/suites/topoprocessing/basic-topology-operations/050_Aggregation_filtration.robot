@@ -20,7 +20,7 @@ Resource          ../../../libraries/TopoprocessingKeywords.robot
 Unification Filtration Node Inside Network Topology model
     [Documentation]    Test unification filtration inside operation on Network Topology model
     ${request}    Prepare Unification Filtration Inside Topology Request    ${UNIFICATION_FILTRATION_NT_AGGREGATE_INSIDE}    network-topology-model    node    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    network-topo:4
-    ${request}    Insert Filter With ID    ${request}    ${FILTER_IPV4}    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    1
+    ${request}    Insert Filter With ID    ${request}    network-topology-model    ${FILTER_IPV4}    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    1
     ${request}    Insert Apply Filters    ${request}    1    1
     ${request}    Set IPV4 Filter    ${request}    192.168.2.1/24
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
@@ -38,7 +38,7 @@ Unification Filtration Node Inside Network Topology model
 Unification Filtration Node Inside Inventory model
     [Documentation]    Test unification filtration inside operation on Inventory model
     ${request}    Prepare Unification Filtration Inside Topology Request    ${UNIFICATION_FILTRATION_NT_AGGREGATE_INSIDE}    opendaylight-inventory-model    node    flow-node-inventory:ip-address    openflow-topo:4
-    ${request}    Insert Filter With ID    ${request}    ${FILTER_IPV4}    flow-node-inventory:ip-address    1
+    ${request}    Insert Filter With ID    ${request}    opendaylight-inventory-model    ${FILTER_IPV4}    flow-node-inventory:ip-address    1
     ${request}    Insert Apply Filters    ${request}    1    1
     ${request}    Set IPV4 Filter    ${request}    192.168.2.1/24
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
@@ -57,7 +57,7 @@ Unification Filtration Node Inside Inventory model
 Unification Filtration Termination Point Inside Network Topology model
     [Documentation]    Test unification filtration inside operation on Network Topology model
     ${request}    Prepare Unification Filtration Inside Topology Request    ${UNIFICATION_FILTRATION_NT_AGGREGATE_INSIDE}    network-topology-model    termination-point    ovsdb:name    network-topo:5
-    ${request}    Insert Filter With ID    ${request}    ${FILTER_SPECIFIC_STRING}    ovsdb:name    1
+    ${request}    Insert Filter With ID    ${request}    network-topology-model    ${FILTER_SPECIFIC_STRING}    ovsdb:name    1
     ${request}    Insert Apply Filters    ${request}    1    1
     ${request}    Set Specific String Filter    ${request}    portA
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
@@ -89,7 +89,7 @@ Unification Filtration Node Network Topology model
     ${target_field}    Set Variable    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4
     ${request}    Prepare Unification Filtration Topology Request    ${UNIFICATION_FILTRATION_NT}    network-topology-model    node    ${target_field}    network-topo:4
     ...    ${target_field}    network-topo:1
-    ${request}    Insert Filter With ID    ${request}    ${FILTER_IPV4}    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    1
+    ${request}    Insert Filter With ID    ${request}    network-topology-model    ${FILTER_IPV4}    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    1
     ${request}    Insert Apply Filters    ${request}    1    1
     ${request}    Insert Apply Filters    ${request}    2    1
     ${request}    Set IPV4 Filter    ${request}    192.168.1.1/24
@@ -114,7 +114,7 @@ Unification Filtration Node Inventory model
     [Documentation]    Test unification filtration operation on Inventory model
     ${request}    Prepare Unification Filtration Topology Request    ${UNIFICATION_FILTRATION_NT}    opendaylight-inventory-model    node    flow-node-inventory:ip-address    openflow-topo:4
     ...    flow-node-inventory:ip-address    openflow-topo:6
-    ${request}    Insert Filter With ID    ${request}    ${FILTER_IPV4}    flow-node-inventory:ip-address    1
+    ${request}    Insert Filter With ID    ${request}    opendaylight-inventory-model    ${FILTER_IPV4}    flow-node-inventory:ip-address    1
     ${request}    Insert Apply Filters    ${request}    1    1
     ${request}    Insert Apply Filters    ${request}    2    1
     ${request}    Set IPV4 Filter    ${request}    192.168.1.1/24

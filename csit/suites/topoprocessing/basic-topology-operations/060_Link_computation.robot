@@ -79,8 +79,8 @@ Link Computation Aggregation Inside
 
 Link Computation Filtration
     [Documentation]    Test of link computation with filtration on Network Topology model
-    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    node    network-topo:6
-    ${request}    Insert Filter    ${request}    ${FILTER_IPV4}    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4
+    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    node    network-topo:6
+    ${request}    Insert Filter    ${request}    network-topology-model    ${FILTER_IPV4}    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4
     ${request}    Set IPV4 Filter    ${request}    192.168.2.1/32
     ${request}    Insert Link Computation Inside    ${request}    ${LINK_COMPUTATION_INSIDE}    n:network-topology-model    network-topo:6
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
@@ -112,7 +112,7 @@ Link Computation Aggregation Filtration
     ${target_field}    Set Variable    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4
     ${request}    Prepare Unification Filtration Topology Request    ${UNIFICATION_FILTRATION_NT}    network-topology-model    node    ${target_field}    network-topo:6
     ...    ${target_field}    network-topo:1
-    ${request}    Insert Filter With ID    ${request}    ${FILTER_IPV4}    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    1
+    ${request}    Insert Filter With ID    ${request}    network-topology-model    ${FILTER_IPV4}    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    1
     ${request}    Insert Apply Filters    ${request}    1    1
     ${request}    Insert Apply Filters    ${request}    2    1
     ${request}    Set IPV4 Filter    ${request}    192.168.1.1/24
