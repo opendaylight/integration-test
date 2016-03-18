@@ -22,6 +22,121 @@
       "revId": "871ec8dec739400d36526d87d627d3db9d844abc",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a42497e_d33916da",
+        "filename": "csit/libraries/ClusterKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-03-18T20:59:32Z",
+      "side": 1,
+      "message": "we already have \"Kill One or More Controllers\" and \"Start One Or More Controllers\" that do most of this.  I think your\nadditions make sense (\"Controller Down Check\" and \"Wait For\nController Sync\") but adding these keywords will make it \nconfusing.    Probably adding the down check to \"Kill One Or More Controllers\" is reasonable and gets you what you like.  Adding the \"Wait For Controller Sync\" is probably best to just call at the top level test case.  If it goes in the \"Start One Or More Controllers\" keyword it could break someone that\u0027s using it just to start one controller that has no partners up yet to sync with.",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 98
+      },
+      "revId": "871ec8dec739400d36526d87d627d3db9d844abc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a42497e_b3360ae6",
+        "filename": "csit/libraries/ClusterOpenFlow.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-03-18T20:59:32Z",
+      "side": 1,
+      "message": "extra white space.  there is the robot tidy tool you can try to catch these things, if you feel like taking the extra step",
+      "range": {
+        "startLine": 18,
+        "startChar": 140,
+        "endLine": 18,
+        "endChar": 141
+      },
+      "revId": "871ec8dec739400d36526d87d627d3db9d844abc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a42497e_13341edd",
+        "filename": "csit/libraries/ClusterOpenFlow.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-03-18T20:59:32Z",
+      "side": 1,
+      "message": "is there a good reason to move from 15 to 25s?  I\u0027m worried that we (all of us) are trying to be more and more gentle \nwith our cluster tests because they are not stable.  The\ninstability is more likely in the cluster features themselves.  \n\nBut, if there is a legit reason to use 25s, no problem.",
+      "range": {
+        "startLine": 107,
+        "startChar": 35,
+        "endLine": 107,
+        "endChar": 38
+      },
+      "revId": "871ec8dec739400d36526d87d627d3db9d844abc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a42497e_f33092ea",
+        "filename": "csit/suites/openflowplugin/Clustering/020__Cluster_HA_Leader_Follower_Failover.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-03-18T20:59:32Z",
+      "side": 1,
+      "message": "I think it\u0027s time to get this in a more common place.  on your next patch, could you put it in Variables.py?  We have\nother suites using it just like this and we can (in another patch) remove it from them.  better for maintenance.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 46
+      },
+      "revId": "871ec8dec739400d36526d87d627d3db9d844abc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a42497e_534d0672",
+        "filename": "csit/suites/openflowplugin/Clustering/020__Cluster_HA_Leader_Follower_Failover.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-03-18T20:59:32Z",
+      "side": 1,
+      "message": "personally, I like these short, easy-to-read testcases.  :)",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 108
+      },
+      "revId": "871ec8dec739400d36526d87d627d3db9d844abc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
