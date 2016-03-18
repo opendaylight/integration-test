@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a42497e_58188584",
+        "filename": "tools/clustering/cluster-monitor/requirements.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-03-18T20:25:59Z",
+      "side": 1,
+      "message": "how do these get determined? asking because the monitor.py does not really need robot.  I don\u0027t think it uses requests either.  It does have other imports it cares about, but I don\u0027t know if those are all coming from pip or not.",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 25
+      },
+      "revId": "e98cf0d7a6da101c31fd2595c854bbea7355beb8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
