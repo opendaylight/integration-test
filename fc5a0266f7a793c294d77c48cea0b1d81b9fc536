@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a42497e_b30f2a2e",
+        "filename": "csit/suites/ovsdb/Netvirt_Cluster/010_Ovsdb_Netvirt_flow.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-03-18T20:44:30Z",
+      "side": 1,
+      "message": "this needs to move to a more common config location, like Variables.py.  And a new name, like NEUTRON_NB_API",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 43
+      },
+      "revId": "fc5a0266f7a793c294d77c48cea0b1d81b9fc536",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a42497e_f319b27a",
+        "filename": "csit/suites/ovsdb/Netvirt_Cluster/010_Ovsdb_Netvirt_flow.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-03-18T20:44:30Z",
+      "side": 1,
+      "message": "I\u0027m wondering about these values.  We are assuming these, or \nwe are configuring these (so it\u0027s ok to use anything we want?)",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 50
+      },
+      "revId": "fc5a0266f7a793c294d77c48cea0b1d81b9fc536",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a42497e_d312b657",
+        "filename": "csit/suites/ovsdb/Netvirt_Cluster/030_Ovsdb_Southbound_NetVirt.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-03-18T20:44:30Z",
+      "side": 1,
+      "message": "I don\u0027t see this being used anywhere?",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 51
+      },
+      "revId": "fc5a0266f7a793c294d77c48cea0b1d81b9fc536",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
