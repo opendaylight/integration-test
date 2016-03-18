@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a42497e_d86775e9",
+        "filename": "tools/fastbgp/prepare/bgp.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-18T14:35:16Z",
+      "side": 1,
+      "message": "TMessageBase(object):\nApplies elsewhere.",
+      "range": {
+        "startLine": 15,
+        "startChar": 6,
+        "endLine": 15,
+        "endChar": 19
+      },
+      "revId": "e183b15e82ea73e66063e26890553d03159ad37b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a42497e_b86429e6",
+        "filename": "tools/fastbgp/prepare/bgp.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-18T14:35:16Z",
+      "side": 1,
+      "message": "Use \"pylint\" program to notify you about variable naming quality.",
+      "range": {
+        "startLine": 187,
+        "startChar": 12,
+        "endLine": 187,
+        "endChar": 13
+      },
+      "revId": "e183b15e82ea73e66063e26890553d03159ad37b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a42497e_98a5ed06",
+        "filename": "tools/fastbgp/prepare/dthandle.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-18T14:35:16Z",
+      "side": 1,
+      "message": "There has to be a standard module which already does this.",
+      "range": {
+        "startLine": 9,
+        "startChar": 4,
+        "endLine": 9,
+        "endChar": 18
+      },
+      "revId": "e183b15e82ea73e66063e26890553d03159ad37b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a42497e_d8ae55e7",
+        "filename": "tools/fastbgp/prepare/prepare.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-18T14:35:16Z",
+      "side": 1,
+      "message": "ippaddr already has a function for this.",
+      "range": {
+        "startLine": 20,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 11
+      },
+      "revId": "e183b15e82ea73e66063e26890553d03159ad37b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
