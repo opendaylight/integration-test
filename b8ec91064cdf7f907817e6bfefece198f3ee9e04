@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a42497e_13e7fe41",
+        "filename": "csit/suites/ovsdb/Devstack_Tempest_Tests/01__single_node_devstack_tempest_tests.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-03-18T22:57:59Z",
+      "side": 0,
+      "message": "I think we still want to have this.",
+      "range": {
+        "startLine": 38,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 37
+      },
+      "revId": "b8ec91064cdf7f907817e6bfefece198f3ee9e04",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
