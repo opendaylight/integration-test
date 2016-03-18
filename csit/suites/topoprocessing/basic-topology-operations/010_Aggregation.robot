@@ -23,14 +23,14 @@ Unification Node
     ${request}    Insert Target Field    ${request}    0    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    0
     ${request}    Insert Target Field    ${request}    1    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    0
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
+    Should Contain    ${resp.content}    <network-id>topo:1</network-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    9
     : FOR    ${index}    IN RANGE    1    10
-    \    Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
+    \    Should Contain X Times    ${resp.content}    <supporting-node><node-ref>bgp:${index}</node-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:10']/..
     ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <node-ref>bgp:10</node-ref>    1
-    Should Contain X Times    ${node}    <node-ref>bgp:5</node-ref>    1
+    Should Contain X Times    ${node}    <supporting-node><node-ref>bgp:10</node-ref>    1
+    Should Contain X Times    ${node}    <supporting-node><node-ref>bgp:5</node-ref>    1
 
 Unification Node Inventory
     [Documentation]    Test unification operation on inventory model
@@ -38,18 +38,18 @@ Unification Node Inventory
     ${request}    Insert Target Field    ${request}    0    flow-node-inventory:ip-address    0
     ${request}    Insert Target Field    ${request}    1    flow-node-inventory:ip-address    0
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
+    Should Contain    ${resp.content}    <network-id>topo:1</network-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    8
     : FOR    ${index}    IN RANGE    1    11
-    \    Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
+    \    Should Contain X Times    ${resp.content}    <supporting-node><node-ref>of-node:${index}</node-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:1']/..
     ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <node-ref>of-node:6</node-ref>    1
-    Should Contain X Times    ${node}    <node-ref>of-node:1</node-ref>    1
+    Should Contain X Times    ${node}    <supporting-node><node-ref>of-node:6</node-ref>    1
+    Should Contain X Times    ${node}    <supporting-node><node-ref>of-node:1</node-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:4']/..
     ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <node-ref>of-node:10</node-ref>    1
-    Should Contain X Times    ${node}    <node-ref>of-node:4</node-ref>    1
+    Should Contain X Times    ${node}    <supporting-node><node-ref>of-node:10</node-ref>    1
+    Should Contain X Times    ${node}    <supporting-node><node-ref>of-node:4</node-ref>    1
 
 Unification Scripting Node
     [Documentation]    Test unification operation on Network Topology model using scripting
@@ -58,14 +58,14 @@ Unification Scripting Node
     ${request}    Insert Target Field    ${request}    1    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    0
     ${request}    Insert Scripting into Request    ${request}    javascript    if (originalItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.1") > -1 && newItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.3") > -1 || originalItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.3") > -1 && newItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.1") > -1) {aggregable.setResult(true);} else { aggregable.setResult(false);}
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
+    Should Contain    ${resp.content}    <network-id>topo:1</network-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    9
     : FOR    ${index}    IN RANGE    1    11
-    \    Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
+    \    Should Contain X Times    ${resp.content}    <supporting-node><node-ref>bgp:${index}</node-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:1']/..
     ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <node-ref>bgp:1</node-ref>    1
-    Should Contain X Times    ${node}    <node-ref>bgp:6</node-ref>    1
+    Should Contain X Times    ${node}    <supporting-node><node-ref>bgp:1</node-ref>    1
+    Should Contain X Times    ${node}    <supporting-node><node-ref>bgp:6</node-ref>    1
 
 Unification Scripting Node Inventory
     [Documentation]    Test unification operation on inventory model using scripting
@@ -74,21 +74,21 @@ Unification Scripting Node Inventory
     ${request}    Insert Target Field    ${request}    1    flow-node-inventory:ip-address    0
     ${request}    Insert Scripting into Request    ${request}    javascript    if (originalItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.2") > -1 && newItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.4") > -1 || originalItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.4") > -1 && newItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.2") > -1) {aggregable.setResult(true);} else { aggregable.setResult(false);}
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
+    Should Contain    ${resp.content}    <network-id>topo:1</network-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    9
     : FOR    ${index}    IN RANGE    1    11
-    \    Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
+    \    Should Contain X Times    ${resp.content}    <supporting-node><node-ref>of-node:${index}</node-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
     ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <node-ref>of-node:2</node-ref>    1
-    Should Contain X Times    ${node}    <node-ref>of-node:8</node-ref>    1
+    Should Contain X Times    ${node}    <supporting-node><node-ref>of-node:2</node-ref>    1
+    Should Contain X Times    ${node}    <supporting-node><node-ref>of-node:8</node-ref>    1
 
 Unification Node Inside
     [Documentation]    Test of unification type of aggregation inside on nodes on Network Topology model
     ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    network-topology-model    node    network-topo:1
     ${request}    Insert Target Field    ${request}    0    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    0
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
+    Should Contain    ${resp.content}    <network-id>topo:1</network-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    4
     ${response_xml}    Parse XML    ${resp.content}
     ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='bgp:3']/..
@@ -102,7 +102,7 @@ Unification Node Inside Inventory
     ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    opendaylight-inventory-model    node    openflow-topo:2
     ${request}    Insert Target Field    ${request}    0    flow-node-inventory:ip-address    0
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
+    Should Contain    ${resp.content}    <network-id>topo:1</network-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    4
     ${response_xml}    Parse XML    ${resp.content}
     ${node}    Get Element    ${response_xml}    xpath=.//node/supporting-node[node-ref='of-node:7']/..
@@ -116,13 +116,13 @@ Unification Termination Point Inside
     ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    network-topology-model    termination-point    network-topo:1
     ${request}    Insert Target Field    ${request}    0    ovsdb:ofport    0
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
+    Should Contain    ${resp.content}    <network-id>topo:1</network-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    5
-    Should Contain X Times    ${resp.content}    <termination-point>    6
+    Should Contain X Times    ${resp.content}    <tp-id>tp:    6
     # bgp:1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:1']/..
     ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    2
+    Should Contain X Times    ${node}    <tp-ref>    2
     ${tp}    Get Element    ${node}    xpath=.//termination-point[tp-ref='/network-topology:network-topology/topology/network-topo:1/node/bgp:1/termination-point/tp:1:3']
     ${tp}    Element to String    ${tp}
     Should Contain X Times    ${tp}    <tp-ref>/network-topology:network-topology/topology/network-topo:1/node/bgp:1/termination-point/tp:1:3</tp-ref>    1
@@ -133,7 +133,7 @@ Unification Termination Point Inside
     # bgp:3
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:3']/..
     ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    2
+    Should Contain X Times    ${node}    <tp-ref>    2
     ${tp}    Get Element    ${node}    xpath=.//termination-point[tp-ref='/network-topology:network-topology/topology/network-topo:1/node/bgp:3/termination-point/tp:3:2']
     ${tp}    Element to String    ${tp}
     Should Contain X Times    ${tp}    <tp-ref>/network-topology:network-topology/topology/network-topo:1/node/bgp:3/termination-point/tp:3:2</tp-ref>    1
@@ -143,7 +143,7 @@ Unification Termination Point Inside
     # bgp:4
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:4']/..
     ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    1
+    Should Contain X Times    ${node}    <tp-ref>    1
     ${tp}    Get Element    ${node}    xpath=.//termination-point[tp-ref='/network-topology:network-topology/topology/network-topo:1/node/bgp:4/termination-point/tp:4:1']
     ${tp}    Element to String    ${tp}
     Should Contain X Times    ${tp}    <tp-ref>/network-topology:network-topology/topology/network-topo:1/node/bgp:4/termination-point/tp:4:1</tp-ref>    1
@@ -151,7 +151,7 @@ Unification Termination Point Inside
     # bgp:5
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:5']/..
     ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    1
+    Should Contain X Times    ${node}    <tp-ref>    1
     ${tp}    Get Element    ${node}    xpath=.//termination-point[tp-ref='/network-topology:network-topology/topology/network-topo:1/node/bgp:5/termination-point/tp:5:1']
     ${tp}    Element to String    ${tp}
     Should Contain X Times    ${tp}    <tp-ref>/network-topology:network-topology/topology/network-topo:1/node/bgp:5/termination-point/tp:5:1</tp-ref>    1
@@ -161,7 +161,7 @@ Unification Termination Point Inside Inventory
     ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    opendaylight-inventory-model    termination-point    openflow-topo:1
     ${request}    Insert Target Field    ${request}    0    flow-node-inventory:port-number    0
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
+    Should Contain    ${resp.content}    <network-id>topo:1</network-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    5
     Should Contain X Times    ${resp.content}    <termination-point>    8
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:1']/..

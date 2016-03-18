@@ -24,16 +24,16 @@ Unification Filtration Node Inside Network Topology model
     ${request}    Insert Apply Filters    ${request}    1    1
     ${request}    Set IPV4 Filter    ${request}    192.168.2.1/24
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
+    Should Contain    ${resp.content}    <network-id>topo:1</network-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    2
-    Should Contain    ${resp.content}    <node-ref>bgp:    3
+    Should Contain    ${resp.content}    <supporting-node><node-ref>bgp:    3
     : FOR    ${index}    IN RANGE    18    21
-    \    Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
+    \    Should Contain X Times    ${resp.content}    <supporting-node><node-ref>bgp:${index}</node-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:18']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <supporting-node>    2
-    Should Contain    ${node}    <node-ref>bgp:18</node-ref>
-    Should Contain    ${node}    <node-ref>bgp:20</node-ref>
+    Should Contain    ${node}    <supporting-node><node-ref>bgp:18</node-ref>
+    Should Contain    ${node}    <supporting-node><node-ref>bgp:20</node-ref>
 
 Unification Filtration Node Inside Inventory model
     [Documentation]    Test unification filtration inside operation on Inventory model
@@ -42,7 +42,7 @@ Unification Filtration Node Inside Inventory model
     ${request}    Insert Apply Filters    ${request}    1    1
     ${request}    Set IPV4 Filter    ${request}    192.168.2.1/24
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
+    Should Contain    ${resp.content}    <network-id>topo:1</network-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    2
     Should Contain    ${resp.content}    <node-ref>of-node:    4
     : FOR    ${index}    IN RANGE    17    21
@@ -61,24 +61,24 @@ Unification Filtration Termination Point Inside Network Topology model
     ${request}    Insert Apply Filters    ${request}    1    1
     ${request}    Set Specific String Filter    ${request}    portA
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
+    Should Contain    ${resp.content}    <network-id>topo:1</network-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    5
-    Should Contain X Times    ${resp.content}    <termination-point>    4
+    Should Contain X Times    ${resp.content}    <tp-id>    4
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:21']/..
     ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    2
+    Should Contain X Times    ${node}    <tp-id>    2
     ${tp}    Get Element    ${node}    xpath=.//termination-point/supporting-termin-point[tp-ref='tp:21:2']/..
     ${tp}    Element to String    ${tp}
     Should Contain X Times    ${tp}    <tp-ref>tp:    2
     Should Contain    ${tp}    <tp-ref>tp:21:3</tp-ref>
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:22']/..
     ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    1
+    Should Contain X Times    ${node}    <tp-id>    1
     Should Contain X Times    ${node}    <tp-ref>tp:    1
     Should Contain    ${node}    <tp-ref>tp:22:2</tp-ref>
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:24']/..
     ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    1
+    Should Contain X Times    ${node}    <tp-id>    1
     Should Contain X Times    ${node}    <tp-ref>tp:    3
     Should Contain    ${node}    <tp-ref>tp:24:1</tp-ref>
     Should Contain    ${node}    <tp-ref>tp:24:2</tp-ref>
@@ -94,21 +94,21 @@ Unification Filtration Node Network Topology model
     ${request}    Insert Apply Filters    ${request}    2    1
     ${request}    Set IPV4 Filter    ${request}    192.168.1.1/24
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
+    Should Contain    ${resp.content}    <network-id>topo:1</network-id>
     Should Contain X Times    ${resp.content}    <node>    2
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:1']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <supporting-node>    2
-    Should Contain X Times    ${node}    <node-ref>bgp:1</node-ref>    1
-    Should Contain X Times    ${node}    <node-ref>bgp:16</node-ref>    1
-    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:1/node/bgp:1/termination-point/tp:1:3</tp-ref>    1
-    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:1/node/bgp:1/termination-point/tp:1:2</tp-ref>    1
-    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:1/node/bgp:1/termination-point/tp:1:1</tp-ref>    1
+    Should Contain X Times    ${node}    <supporting-node><node-ref>bgp:1</node-ref>    1
+    Should Contain X Times    ${node}    <supporting-node><node-ref>bgp:16</node-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>tp:1:3</tp-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>tp:1:2</tp-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>tp:1:1</tp-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:2']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <supporting-node>    2
-    Should Contain X Times    ${node}    <node-ref>bgp:2</node-ref>    1
-    Should Contain X Times    ${node}    <node-ref>bgp:17</node-ref>    1
+    Should Contain X Times    ${node}    <supporting-node><node-ref>bgp:2</node-ref>    1
+    Should Contain X Times    ${node}    <supporting-node><node-ref>bgp:17</node-ref>    1
 
 Unification Filtration Node Inventory model
     [Documentation]    Test unification filtration operation on Inventory model
@@ -119,7 +119,7 @@ Unification Filtration Node Inventory model
     ${request}    Insert Apply Filters    ${request}    2    1
     ${request}    Set IPV4 Filter    ${request}    192.168.1.1/24
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
+    Should Contain    ${resp.content}    <network-id>topo:1</network-id>
     Should Contain X Times    ${resp.content}    <node>    2
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:26']/..
     ${node}    Element to String    ${node}
