@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a42497e_98120d61",
+        "filename": "tools/clustering/cluster-deployer/requirements.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-03-18T20:26:47Z",
+      "side": 1,
+      "message": "not sure, but thinking we don\u0027t need robot here...",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 25
+      },
+      "revId": "7b38b3b670958c2b6ac8e871ecdada92c28e1d89",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
