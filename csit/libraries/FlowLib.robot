@@ -12,12 +12,12 @@ Variables         ../variables/Variables.py
 
 *** Keywords ***
 Check Flow Stats Are Available
-    [Arguments]    ${node_id}
+    [Arguments]    ${node_id}    ${flows}
     [Documentation]    A GET on the /node/${node_id} inventory API is made and flow stats string is checked for existence.
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}/node/${node_id}
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}/node/${node_id}/table/2
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
-    Should Contain    ${resp.content}    flow-statistics
+    Should Contain X Times    ${resp.content}    packet-count    ${flows}
 
 Create Inventory Flow
     [Documentation]    Calls FlowLib.Make_Inventory_Flow function and initializes and sanitizes
