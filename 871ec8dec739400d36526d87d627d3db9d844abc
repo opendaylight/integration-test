@@ -25,6 +25,23 @@
     },
     {
       "key": {
+        "uuid": "7a42497e_a5099d2e",
+        "filename": "csit/libraries/ClusterKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-03-20T19:47:04Z",
+      "side": 1,
+      "message": "This is good and saves time :)",
+      "revId": "871ec8dec739400d36526d87d627d3db9d844abc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a42497e_d33916da",
         "filename": "csit/libraries/ClusterKeywords.robot",
         "patchSetId": 1
@@ -36,6 +53,30 @@
       "writtenOn": "2016-03-18T20:59:32Z",
       "side": 1,
       "message": "we already have \"Kill One or More Controllers\" and \"Start One Or More Controllers\" that do most of this.  I think your\nadditions make sense (\"Controller Down Check\" and \"Wait For\nController Sync\") but adding these keywords will make it \nconfusing.    Probably adding the down check to \"Kill One Or More Controllers\" is reasonable and gets you what you like.  Adding the \"Wait For Controller Sync\" is probably best to just call at the top level test case.  If it goes in the \"Start One Or More Controllers\" keyword it could break someone that\u0027s using it just to start one controller that has no partners up yet to sync with.",
+      "range": {
+        "startLine": 103,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 98
+      },
+      "revId": "871ec8dec739400d36526d87d627d3db9d844abc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a42497e_850e2133",
+        "filename": "csit/libraries/ClusterKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-03-20T19:47:04Z",
+      "side": 1,
+      "message": "I agree, original keywords do the work for a scalar and a list so no need for these 2 new KW.",
+      "parentUuid": "7a42497e_d33916da",
       "range": {
         "startLine": 103,
         "startChar": 0,
@@ -82,6 +123,30 @@
       "writtenOn": "2016-03-18T20:59:32Z",
       "side": 1,
       "message": "is there a good reason to move from 15 to 25s?  I\u0027m worried that we (all of us) are trying to be more and more gentle \nwith our cluster tests because they are not stable.  The\ninstability is more likely in the cluster features themselves.  \n\nBut, if there is a legit reason to use 25s, no problem.",
+      "range": {
+        "startLine": 107,
+        "startChar": 35,
+        "endLine": 107,
+        "endChar": 38
+      },
+      "revId": "871ec8dec739400d36526d87d627d3db9d844abc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a42497e_e5128557",
+        "filename": "csit/libraries/ClusterOpenFlow.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-03-20T19:47:04Z",
+      "side": 1,
+      "message": "We set 15s because we saw in some sporadic and rare cases controller spending 8 secs to retrieve stats, I do not see those issues anymore so going to 25 secs seems too much unless there is a good reason we miss here.",
+      "parentUuid": "7a42497e_13341edd",
       "range": {
         "startLine": 107,
         "startChar": 35,
