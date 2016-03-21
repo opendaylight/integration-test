@@ -16,6 +16,98 @@
       "revId": "416c7a20bdeb4094170bdeea5d636d4c3929f75c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_fd0227b3",
+        "filename": "csit/suites/centinel/basic/020_FeatureInstallation.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-03-21T20:52:42Z",
+      "side": 1,
+      "message": "you should use ODL_SYSTEM_IP here as well.",
+      "range": {
+        "startLine": 14,
+        "startChar": 47,
+        "endLine": 14,
+        "endChar": 57
+      },
+      "revId": "416c7a20bdeb4094170bdeea5d636d4c3929f75c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_3d2c8f4a",
+        "filename": "csit/suites/centinel/basic/020_FeatureInstallation.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-03-21T20:52:42Z",
+      "side": 1,
+      "message": "you can get rid of this whole section and just do this:\n\n${strings_to_verify}\u003d    Create List    \"Stream handler provider initated\"\nCheck For Elements On Karaf Command Output Message    log:display | grep \"Stream handler provider initated\"    ${strings_to_verify}",
+      "range": {
+        "startLine": 16,
+        "startChar": 4,
+        "endLine": 23,
+        "endChar": 45
+      },
+      "revId": "416c7a20bdeb4094170bdeea5d636d4c3929f75c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_5d2b5b30",
+        "filename": "csit/suites/centinel/basic/030_Configuration.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-03-21T20:52:42Z",
+      "side": 1,
+      "message": "it\u0027s probably time to make a centinel section in Variables.py (or even just a separate centinel variables file) in our variables folder for these things.  I saw duplication across files in this patch.  putting them in\na single location helps with maintenance.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 84
+      },
+      "revId": "416c7a20bdeb4094170bdeea5d636d4c3929f75c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_9d1cc315",
+        "filename": "csit/variables/centinel/set_alertFieldContentRuleRecord.json",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-03-21T20:52:42Z",
+      "side": 1,
+      "message": "I\u0027m not sure if we care about tabs vs spaces in json files, but I\u0027ve seen other reviewers asked for them to be removed in\nother files (e.g. .py files).  just fyi, in case it matters to you",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 1
+      },
+      "revId": "416c7a20bdeb4094170bdeea5d636d4c3929f75c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
