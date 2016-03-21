@@ -69,18 +69,18 @@ Test Nodes
     \    ...    ${PASSWORD}
     \    Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.2
     \    ...    ${PASSWORD}
-    \    Wait Until Keyword Succeeds    15    4    Verify Connection    ${cmp_version}    listener
+    \    Wait Until Keyword Succeeds    15    1    Verify Connection    ${cmp_version}    listener
     \    ...    127.0.0.2    64999    127.0.0.1
-    \    Wait Until Keyword Succeeds    15    4    Verify connection    ${cmp_version}    speaker
+    \    Wait Until Keyword Succeeds    15    1    Verify Connection    ${cmp_version}    speaker
     \    ...    127.0.0.1    64999    127.0.0.2
     \    Log    OK ${r_version}:listener ${version}:speaker
     \    Add Connection    ${version}    listener    127.0.0.2    64999    127.0.0.3
     \    ...    ${PASSWORD}
     \    Add Connection    ${r_version}    speaker    127.0.0.3    64999    127.0.0.2
     \    ...    ${PASSWORD}
-    \    Wait Until Keyword Succeeds    15    4    Verify Connection    ${cmp_version}    listener
+    \    Wait Until Keyword Succeeds    15    1    Verify Connection    ${cmp_version}    listener
     \    ...    127.0.0.2    64999    127.0.0.3
-    \    Wait Until Keyword Succeeds    15    4    Verify connection    ${cmp_version}    speaker
+    \    Wait Until Keyword Succeeds    15    1    Verify Connection    ${cmp_version}    speaker
     \    ...    127.0.0.3    64999    127.0.0.2
     \    Log    OK ${version}:listener ${r_version}:speaker
     \    Run Keyword If    '${version}' == 'version4' and '${r_version}' == 'version4'    Test Both    ${version}    ${r_version}    ${PASSWORD}
@@ -92,9 +92,9 @@ Test Both
     ${cmp_version}    Lower Version    ${r_version}    ${version}
     Add Connection    ${r_version}    both    127.0.0.3    64999    127.0.0.1    ${PASSWORD}
     Add Connection    ${version}    both    127.0.0.1    64999    127.0.0.3    ${PASSWORD}
-    Wait Until Keyword Succeeds    15    4    Verify Connection    ${cmp_version}    both    127.0.0.3
+    Wait Until Keyword Succeeds    15    1    Verify Connection    ${cmp_version}    both    127.0.0.3
     ...    64999    127.0.0.1
-    Wait Until Keyword Succeeds    15    4    Verify Connection    ${cmp_version}    both    127.0.0.1
+    Wait Until Keyword Succeeds    15    1    Verify Connection    ${cmp_version}    both    127.0.0.1
     ...    64999    127.0.0.3
     Log    OK ${r_version}:both ${version}:both
 

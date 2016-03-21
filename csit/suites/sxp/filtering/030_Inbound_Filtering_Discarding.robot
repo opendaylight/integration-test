@@ -127,7 +127,7 @@ Setup Nodes
     \    ...    ${password}
     \    Add Connection    ${version}    both    127.0.0.${node}    64999    127.0.0.1
     \    ...    ${password}
-    \    Wait Until Keyword Succeeds    15    4    Verify Connection    ${version}    both
+    \    Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    both
     \    ...    127.0.0.${node}
     \    Add Binding    ${node}0    10.10.10.${node}0/32    127.0.0.${node}
     \    Add Binding    ${node}0    10.10.${node}0.0/24    127.0.0.${node}
@@ -135,6 +135,8 @@ Setup Nodes
     \    Add Binding    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
     Add Connection    ${version}    both    127.0.0.5    64999    127.0.0.3    ${password}
     Add Connection    ${version}    both    127.0.0.3    64999    127.0.0.5    ${password}
+    Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    both    127.0.0.5
+    ...    64999    127.0.0.3
     Add Binding    50    10.10.10.50/32    127.0.0.5
     Add Binding    50    10.10.50.0/24    127.0.0.5
     Add Binding    50    10.50.0.0/16    127.0.0.5
@@ -153,16 +155,16 @@ Setup Nodes Legacy Par One
     \    Add Binding    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
     Add Connection    ${version}    listener    127.0.0.1    64999    127.0.0.2    ${password}
     Add Connection    ${version}    speaker    127.0.0.2    64999    127.0.0.1    ${password}
-    Wait Until Keyword Succeeds    15    4    Verify Connection    ${version}    speaker    127.0.0.2
+    Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    speaker    127.0.0.2
     Add Connection    ${version}    listener    127.0.0.1    64999    127.0.0.4    ${password}
     Add Connection    ${version}    speaker    127.0.0.4    64999    127.0.0.1    ${password}
-    Wait Until Keyword Succeeds    15    4    Verify Connection    ${version}    speaker    127.0.0.4
+    Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    speaker    127.0.0.4
     Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.3    ${password}
     Add Connection    ${version}    listener    127.0.0.3    64999    127.0.0.1    ${password}
-    Wait Until Keyword Succeeds    15    4    Verify Connection    ${version}    listener    127.0.0.3
+    Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    listener    127.0.0.3
     Add Connection    ${version}    listener    127.0.0.5    64999    127.0.0.3    ${password}
     Add Connection    ${version}    speaker    127.0.0.3    64999    127.0.0.5    ${password}
-    Wait Until Keyword Succeeds    15    4    Verify Connection    ${version}    listener    127.0.0.5
+    Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    listener    127.0.0.5
     ...    64999    127.0.0.3
 
 Setup Nodes Legacy Par Two
@@ -174,16 +176,16 @@ Setup Nodes Legacy Par Two
     \    Add Binding    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
     Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.2    ${password}
     Add Connection    ${version}    listener    127.0.0.2    64999    127.0.0.1    ${password}
-    Wait Until Keyword Succeeds    15    4    Verify Connection    ${version}    listener    127.0.0.2
+    Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    listener    127.0.0.2
     Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.4    ${password}
     Add Connection    ${version}    listener    127.0.0.4    64999    127.0.0.1    ${password}
-    Wait Until Keyword Succeeds    15    4    Verify Connection    ${version}    listener    127.0.0.4
+    Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    listener    127.0.0.4
     Add Connection    ${version}    listener    127.0.0.1    64999    127.0.0.3    ${password}
     Add Connection    ${version}    speaker    127.0.0.3    64999    127.0.0.1    ${password}
-    Wait Until Keyword Succeeds    15    4    Verify Connection    ${version}    speaker    127.0.0.3
+    Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    speaker    127.0.0.3
     Add Connection    ${version}    speaker    127.0.0.5    64999    127.0.0.3    ${password}
     Add Connection    ${version}    listener    127.0.0.3    64999    127.0.0.5    ${password}
-    Wait Until Keyword Succeeds    15    4    Verify Connection    ${version}    speaker    127.0.0.5
+    Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    speaker    127.0.0.5
     ...    64999    127.0.0.3
 
 Check One Group 4-2
@@ -192,7 +194,7 @@ Check One Group 4-2
     ...    permit ACL 10.10.10.0 0.0.0.255
     ...    permit ACL 10.0.0.0 0.254.0.0
     ...    Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
-    ${resp}    Get Bindings Master Database    127.0.0.5
+    ${resp}    Get Bindings    127.0.0.5
     Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
     Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
     Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
@@ -216,7 +218,7 @@ Check One Group 5-3
     ...    permit SGT 30 ACL 10.10.10.0 0.0.0.255
     ...    permit SGT 50 ACL 10.0.0.0 0.254.0.0
     ...    Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
-    ${resp}    Get Bindings Master Database    127.0.0.4
+    ${resp}    Get Bindings    127.0.0.4
     Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
     Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
     Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
