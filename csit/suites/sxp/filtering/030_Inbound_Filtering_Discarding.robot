@@ -187,48 +187,48 @@ Setup Nodes Legacy Par Two
     ...    64999    127.0.0.3
 
 Check One Group 4-2
-    [Documentation]    Check if only bindings matching filter from node 4 and 2 are propagated to SXP-DB of other nodes
-    ...    Database should contains only Bindings regarding to these matches:
-    ...    permit ACL 10.10.10.0 0.0.0.255
-    ...    permit ACL 10.0.0.0 0.254.0.0
-    ...    Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
-    ${resp}    Get Bindings Master Database    127.0.0.5
-    Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
-    Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
-    Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
-    Should Contain Binding    ${resp}    10    10.0.0.0/8    sxp
-    Should Contain Binding    ${resp}    20    10.10.10.20/32    sxp
-    Should Not Contain Binding    ${resp}    20    10.10.20.0/24    sxp
-    Should Contain Binding    ${resp}    20    10.20.0.0/16    sxp
-    Should Not Contain Binding    ${resp}    20    20.0.0.0/8    sxp
-    Should Contain Binding    ${resp}    30    10.10.10.30/32    sxp
-    Should Contain Binding    ${resp}    30    10.10.30.0/24    sxp
-    Should Contain Binding    ${resp}    30    10.30.0.0/16    sxp
-    Should Contain Binding    ${resp}    30    30.0.0.0/8    sxp
-    Should Contain Binding    ${resp}    40    10.10.10.40/32    sxp
-    Should Not Contain Binding    ${resp}    40    10.10.40.0/24    sxp
-    Should Contain Binding    ${resp}    40    10.40.0.0/16    sxp
-    Should Not Contain Binding    ${resp}    40    40.0.0.0/8    sxp
+    [Documentation]     Check if only bindings matching filter from node 4 and 2 are propagated to SXP-DB of other nodes
+    ...                 Database should contains only Bindings regarding to these matches:
+    ...                 permit ACL 10.10.10.0 0.0.0.255
+    ...                 permit ACL 10.0.0.0 0.254.0.0
+    ...                 Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
+    ${resp}    Get Bindings    127.0.0.5
+    Should Contain Binding      ${resp}    10    10.10.10.10/32    sxp
+    Should Contain Binding      ${resp}    10    10.10.10.0/24    sxp
+    Should Contain Binding      ${resp}    10    10.10.0.0/16    sxp
+    Should Contain Binding      ${resp}    10    10.0.0.0/8    sxp
+    Should Contain Binding      ${resp}    20    10.10.10.20/32    sxp
+    Should Not Contain Binding  ${resp}    20    10.10.20.0/24    sxp
+    Should Contain Binding      ${resp}    20    10.20.0.0/16    sxp
+    Should Not Contain Binding  ${resp}    20    20.0.0.0/8    sxp
+    Should Contain Binding      ${resp}    30    10.10.10.30/32    sxp
+    Should Contain Binding      ${resp}    30    10.10.30.0/24    sxp
+    Should Contain Binding      ${resp}    30    10.30.0.0/16    sxp
+    Should Contain Binding      ${resp}    30    30.0.0.0/8    sxp
+    Should Contain Binding      ${resp}    40    10.10.10.40/32    sxp
+    Should Not Contain Binding  ${resp}    40    10.10.40.0/24    sxp
+    Should Contain Binding      ${resp}    40    10.40.0.0/16    sxp
+    Should Not Contain Binding  ${resp}    40    40.0.0.0/8    sxp
 
 Check One Group 5-3
-    [Documentation]    Check if only bindings matching filter from node 5 and 3 are propagated to SXP-DB of other nodes
-    ...    Database should contains only Bindings regarding to these matches:
-    ...    permit SGT 30 ACL 10.10.10.0 0.0.0.255
-    ...    permit SGT 50 ACL 10.0.0.0 0.254.0.0
-    ...    Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
-    ${resp}    Get Bindings Master Database    127.0.0.4
-    Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
-    Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
-    Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
-    Should Contain Binding    ${resp}    10    10.0.0.0/8    sxp
-    Should Contain Binding    ${resp}    30    10.10.10.30/32    sxp
-    Should Not Contain Binding    ${resp}    30    10.10.30.0/24    sxp
-    Should Not Contain Binding    ${resp}    30    10.30.0.0/16    sxp
-    Should Not Contain Binding    ${resp}    30    30.0.0.0/8    sxp
-    Should Not Contain Binding    ${resp}    50    10.10.10.50/32    sxp
-    Should Not Contain Binding    ${resp}    50    10.10.50.0/24    sxp
-    Should Contain Binding    ${resp}    50    10.50.0.0/16    sxp
-    Should Not Contain Binding    ${resp}    50    50.0.0.0/8    sxp
+    [Documentation]     Check if only bindings matching filter from node 5 and 3 are propagated to SXP-DB of other nodes
+    ...                 Database should contains only Bindings regarding to these matches:
+    ...                 permit SGT 30 ACL 10.10.10.0 0.0.0.255
+    ...                 permit SGT 50 ACL 10.0.0.0 0.254.0.0
+    ...                 Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
+    ${resp}    Get Bindings    127.0.0.4
+    Should Contain Binding      ${resp}    10    10.10.10.10/32    sxp
+    Should Contain Binding      ${resp}    10    10.10.10.0/24    sxp
+    Should Contain Binding      ${resp}    10    10.10.0.0/16    sxp
+    Should Contain Binding      ${resp}    10    10.0.0.0/8    sxp
+    Should Contain Binding      ${resp}    30    10.10.10.30/32    sxp
+    Should Not Contain Binding  ${resp}    30    10.10.30.0/24    sxp
+    Should Not Contain Binding  ${resp}    30    10.30.0.0/16    sxp
+    Should Not Contain Binding  ${resp}    30    30.0.0.0/8    sxp
+    Should Not Contain Binding  ${resp}    50    10.10.10.50/32    sxp
+    Should Not Contain Binding  ${resp}    50    10.10.50.0/24    sxp
+    Should Contain Binding      ${resp}    50    10.50.0.0/16    sxp
+    Should Not Contain Binding  ${resp}    50    50.0.0.0/8    sxp
 
 Clean Nodes
     Clean Connections    127.0.0.1

@@ -328,6 +328,43 @@ def find_connection(connections_json, version, mode, ip, port, state):
     return False
 
 
+def parse_bindings(bindings_json):
+    """Parse JSON string into Array of Bindings
+
+    :param bindings_json: JSON containing Bindings
+    :type bindings_json: string
+    :returns: Array containing Bindings.
+
+    """
+    data = json.loads(bindings_json)
+    output = []
+    for bindings_json in data['output'].values():
+        for binding in bindings_json:
+            output.append(binding)
+    return output
+
+
+def find_binding(bindings, sgt, prefix):
+    """Test if Binding with specified values is contained in JSON
+
+    :param bindings: JSON containing Bindings
+    :type bindings: string
+    :param sgt: Source Group Tag
+    :type sgt: string
+    :param prefix: Ipv4/6 prefix
+    :type prefix: string
+    :returns: True if Binding with specified params was found, otherwise False.
+
+    """
+    found = False
+    for binding in parse_bindings(bindings):
+        if binding['sgt'] == int(sgt):
+            for ip_prefix in binding['ip-prefix']:
+                if ip_prefix == prefix:
+                    found = True
+    return found
+
+
 def parse_prefix_groups(prefix_groups_json, source_):
     """Parse JSON string into Array of PrefixGroups
 
@@ -343,13 +380,13 @@ def parse_prefix_groups(prefix_groups_json, source_):
     output = []
     for binding in bindings.values():
         for binding_source in binding:
-            if binding_source['binding-source'] == source_:
+            if source_ == "any" or binding_source['binding-source'] == source_:
                 for prefix_group in binding_source['prefix-group']:
                     output.append(prefix_group)
     return output
 
 
-def find_binding(prefix_groups_json, sgt, prefix, source_, action):
+def find_binding_legacy(prefix_groups_json, sgt, prefix, source_, action):
     """Test if Binding with specified values is contained in JSON
 
     :param prefix_groups_json: JSON containing Bindings and PrefixGroups
@@ -372,41 +409,6 @@ def find_binding(prefix_groups_json, sgt, prefix, source_, action):
                 if binding['ip-prefix'] == prefix and binding['action'] == action:
                     found = True
     return found
-
-
-def find_binding_with_peer_sequence(prefix_groups_json, sgt, prefix, source_, action, node_id, peer_seq):
-    """Test if Binding with specified values is contained in JSON
-
-    :param prefix_groups_json: JSON containing Bindings and PrefixGroups
-    :type prefix_groups_json: string
-    :param sgt: Source Group Tag
-    :type sgt: string
-    :param prefix: Ipv4/6 prefix
-    :type prefix: string
-    :param source_: Source of binding (local/sxp)
-    :type source_: string
-    :param action: Action for binding (add/delete)
-    :type action: string
-    :param node_id: NodeId of from where Binding came from
-    :type node_id: string
-    :param peer_seq: Hop of specified NodeId from where Binding came from
-    :type peer_seq: string
-    :returns: True if Binding with specified params was found, otherwise False.
-
-    """
-    correct_sequence = False
-    found_source = False
-    for prefixgroup in parse_prefix_groups(prefix_groups_json, source_):
-        if prefixgroup['sgt'] == int(sgt):
-            for binding in prefixgroup['binding']:
-                if binding['ip-prefix'] == prefix and binding['action'] == action:
-                    for peer in binding['peer-sequence']['peer']:
-                        if peer['seq'] == int(peer_seq) and peer['node-id'] == node_id:
-                            correct_sequence = True
-                    for peer_source in binding['sources']['source']:
-                        if peer_source == node_id:
-                            found_source = True
-    return found_source and correct_sequence
 
 
 def add_entry_xml(sgt, prefix, ip):
