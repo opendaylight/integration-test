@@ -87,7 +87,7 @@ Check One Group 4-2
     ...    permit ACL 10.10.10.0 0.0.0.255
     ...    permit ACL 10.0.0.0 0.254.0.0
     ...    Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
-    ${resp}    Get Bindings Master Database    127.0.0.5
+    ${resp}    Get Bindings    127.0.0.5
     Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
     Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
     Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
@@ -104,7 +104,7 @@ Check One Group 4-2
     Should Not Contain Binding    ${resp}    40    10.10.40.0/24    sxp
     Should Contain Binding    ${resp}    40    10.40.0.0/16    sxp
     Should Not Contain Binding    ${resp}    40    40.0.0.0/8    sxp
-    ${resp}    Get Bindings Master Database    127.0.0.3
+    ${resp}    Get Bindings    127.0.0.3
     Should Contain Binding    ${resp}    50    10.10.10.50/32    sxp
     Should Contain Binding    ${resp}    50    10.10.50.0/24    sxp
     Should Contain Binding    ${resp}    50    10.50.0.0/16    sxp
@@ -115,7 +115,7 @@ Check Two Group 4-2
     ...    Database should contains only Bindings regarding to these matches:
     ...    permit ACL 10.0.0.0 0.255.255.255
     ...    Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
-    ${resp}    Get Bindings Master Database    127.0.0.5
+    ${resp}    Get Bindings    127.0.0.5
     Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
     Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
     Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
@@ -132,7 +132,7 @@ Check Two Group 4-2
     Should Contain Binding    ${resp}    40    10.10.40.0/24    sxp
     Should Contain Binding    ${resp}    40    10.40.0.0/16    sxp
     Should Not Contain Binding    ${resp}    40    40.0.0.0/8    sxp
-    ${resp}    Get Bindings Master Database    127.0.0.3
+    ${resp}    Get Bindings    127.0.0.3
     Should Contain Binding    ${resp}    50    10.10.10.50/32    sxp
     Should Contain Binding    ${resp}    50    10.10.50.0/24    sxp
     Should Contain Binding    ${resp}    50    10.50.0.0/16    sxp
@@ -143,7 +143,7 @@ Check Three Group 4-2
     ...    Database should contains only Bindings regarding to these matches:
     ...    deny ACL 10.0.0.0 0.255.255.255
     ...    Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
-    ${resp}    Get Bindings Master Database    127.0.0.5
+    ${resp}    Get Bindings    127.0.0.5
     Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
     Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
     Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
@@ -167,7 +167,7 @@ Check One Group 5-3
     ...    permit SGT 30 ACL 10.10.10.0 0.0.0.255
     ...    permit SGT 50 ACL 10.0.0.0 0.254.0.0
     ...    Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
-    ${resp}    Get Bindings Master Database    127.0.0.4
+    ${resp}    Get Bindings    127.0.0.4
     Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
     Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
     Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
@@ -184,7 +184,7 @@ Check One Group 5-3
     Should Not Contain Binding    ${resp}    50    10.10.50.0/24    sxp
     Should Contain Binding    ${resp}    50    10.50.0.0/16    sxp
     Should Not Contain Binding    ${resp}    50    50.0.0.0/8    sxp
-    ${resp}    Get Bindings Master Database    127.0.0.2
+    ${resp}    Get Bindings    127.0.0.2
     Should Contain Binding    ${resp}    40    10.10.10.40/32    sxp
     Should Contain Binding    ${resp}    40    10.10.40.0/24    sxp
     Should Contain Binding    ${resp}    40    10.40.0.0/16    sxp
@@ -195,7 +195,7 @@ Check Two Group 5-3
     ...    Database should contains only Bindings regarding to these matches:
     ...    permit ESGT 20,40 ACL 10.0.0.0 0.255.255.255
     ...    Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
-    ${resp}    Get Bindings Master Database    127.0.0.4
+    ${resp}    Get Bindings    127.0.0.4
     Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
     Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
     Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
@@ -212,7 +212,7 @@ Check Two Group 5-3
     Should Not Contain Binding    ${resp}    50    10.10.50.0/24    sxp
     Should Not Contain Binding    ${resp}    50    10.50.0.0/16    sxp
     Should Not Contain Binding    ${resp}    50    50.0.0.0/8    sxp
-    ${resp}    Get Bindings Master Database    127.0.0.2
+    ${resp}    Get Bindings    127.0.0.2
     Should Contain Binding    ${resp}    40    10.10.10.40/32    sxp
     Should Contain Binding    ${resp}    40    10.10.40.0/24    sxp
     Should Contain Binding    ${resp}    40    10.40.0.0/16    sxp
