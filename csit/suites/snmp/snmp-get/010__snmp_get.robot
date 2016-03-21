@@ -7,6 +7,7 @@ Library           Collections
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Library           ../../../libraries/Topology.py
+Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
