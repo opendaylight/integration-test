@@ -62,24 +62,33 @@ Add Binding
 Get Bindings
     [Arguments]    ${node}=127.0.0.1    ${session}=session
     [Documentation]    Gets all binding via RPC from Master DB of node
-    ${DATA}    Get Bindings From Node Xml    ${node}
-    ${resp}    Post Request    ${session}    ${REST_CONTEXT}:get-node-bindings    data=${DATA}    headers=${HEADERS_XML}
+    ${DATA}    Get Bindings From Node Xml    ${node}    all
+    ${resp}    Run Keyword If    '${ODL_STREAM}' == 'boron'    Post Request    ${session}    ${REST_CONTEXT}:get-node-bindings    data=${DATA}
+    ...    headers=${HEADERS_XML}
+    ...    ELSE    Get Request    ${session}    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/master-database/    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.content}
 
 Clean Bindings
     [Arguments]    ${node}=127.0.0.1    ${session}=session
     [Documentation]    Delete all bindings via RPC from Master DB of node
-    ${resp}    Get Bindings Master Database    ${node}    ${session}
-    @{prefixes}    Parse Prefix Groups    ${resp}    local
-    : FOR    ${prefix}    IN    @{prefixes}
-    \    Clean Binding    ${prefix}    ${prefix['binding']}    ${node}    ${session}
+    ${resp}    Get Bindings    ${node}    ${session}
+    @{bindings}    Run Keyword If    '${ODL_STREAM}' == 'boron'    Parse Bindings    ${resp}
+    ...    ELSE    Parse Prefix Groups    ${resp}    local
+    : FOR    ${binding}    IN    @{bindings}
+    \    Run Keyword If    '${ODL_STREAM}' == 'boron'    Clean Binding    ${binding['sgt']}    ${binding['ip-prefix']}    ${node}
+    \    ...    ${session}
+    \    ...    ELSE    Clean Binding    ${binding}    ${binding['binding']}    ${node}
+    \    ...    ${session}
 
 Clean Binding
-    [Arguments]    ${prefix}    ${bindings}    ${node}    ${session}
+    [Arguments]    ${sgt}    ${prefixes}    ${node}    ${session}
     [Documentation]    Used for nester FOR loop
-    : FOR    ${binding}    IN    @{bindings}
-    \    Delete Binding    ${prefix['sgt']}    ${binding['ip-prefix']}    ${node}    ${session}
+    : FOR    ${prefix}    IN    @{prefixes}
+    \    Run Keyword If    '${ODL_STREAM}' == 'boron'    Delete Binding    ${sgt}    ${prefix}    ${node}
+    \    ...    ${session}
+    \    ...    ELSE    Delete Binding    ${sgt['sgt']}    ${prefix['ip-prefix']}    ${node}
+    \    ...    ${session}
 
 Get Bindings Master Database
     [Arguments]    ${node}=127.0.0.1    ${session}=session
@@ -148,32 +157,20 @@ Delete Filter
     Should be Equal As Strings    ${resp.status_code}    200
 
 Should Contain Binding
-    [Arguments]    ${resp}    ${sgt}    ${prefix}    ${db_source}=local
+    [Arguments]    ${resp}    ${sgt}    ${prefix}    ${db_source}=any
     [Documentation]    Tests if data contains specified binding
-    ${out}    Find Binding    ${resp}    ${sgt}    ${prefix}    ${db_source}    add
+    ${out}    Run Keyword If    '${ODL_STREAM}' == 'boron'    Find Binding    ${resp}    ${sgt}    ${prefix}
+    ...    ELSE    Find Binding Legacy    ${resp}    ${sgt}    ${prefix}    ${db_source}
+    ...    add
     Should Be True    ${out}    Doesn't have ${sgt} ${prefix}
-    ${out}    Find Binding    ${resp}    ${sgt}    ${prefix}    ${db_source}    delete
-    Should Not Be True    ${out}    Should't have ${sgt} ${prefix}
 
 Should Not Contain Binding
-    [Arguments]    ${resp}    ${sgt}    ${prefix}    ${db_source}=local
+    [Arguments]    ${resp}    ${sgt}    ${prefix}    ${db_source}=any
     [Documentation]    Tests if data doesn't contains specified binding
-    ${out}    Find Binding    ${resp}    ${sgt}    ${prefix}    ${db_source}    add
+    ${out}    Run Keyword If    '${ODL_STREAM}' == 'boron'    Find Binding    ${resp}    ${sgt}    ${prefix}
+    ...    ELSE    Find Binding Legacy    ${resp}    ${sgt}    ${prefix}    ${db_source}
+    ...    add
     Should Not Be True    ${out}    Should't have ${sgt} ${prefix}
-
-Should Contain Binding With Peer Sequence
-    [Arguments]    ${resp}    ${sgt}    ${prefix}    ${source}    ${seq}=0    ${db_source}=local
-    [Documentation]    Tests if data contains specified binding with peer sequence
-    ${out}    Find Binding With Peer Sequence    ${resp}    ${sgt}    ${prefix}    ${db_source}    add
-    ...    ${source}    ${seq}
-    Should Be True    ${out}    Doesn't have ${sgt} ${prefix} ${source} ${seq} ${db_source}
-
-Should Not Contain Binding With Peer Sequence
-    [Arguments]    ${resp}    ${sgt}    ${prefix}    ${source}    ${seq}=0    ${db_source}=local
-    [Documentation]    Tests if data doesn't contains specified binding with peer sequence
-    ${out}    Find Binding With Peer Sequence    ${resp}    ${sgt}    ${prefix}    ${db_source}    add
-    ...    ${source}    ${seq}
-    Should Not Be True    ${out}    Should't have ${sgt} ${prefix} ${source} ${seq} ${db_source}
 
 Should Contain Connection
     [Arguments]    ${resp}    ${ip}    ${port}    ${mode}    ${version}    ${state}=none
@@ -210,8 +207,8 @@ Setup Topology Complex
 Setup SXP Environment
     [Documentation]    Create session to Controller
     Verify Feature Is Installed    odl-sxp-all
-    Create Session    session    url=http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    Wait Until Keyword Succeeds    15    3    Get Bindings Master Database
+    Create Session    session    url=http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+    Wait Until Keyword Succeeds    15    3    Get Bindings
 
 Clean SXP Environment
     [Documentation]    Destroy created sessions
