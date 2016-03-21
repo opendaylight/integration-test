@@ -90,16 +90,16 @@ Setup Nodes
     \    Add Binding    ${node}0    ${node}0.0.0.0/8    127.0.0.${node}
     Add Connection    ${version}    both    127.0.0.1    64999    127.0.0.2    ${password}
     Add Connection    ${version}    both    127.0.0.2    64999    127.0.0.1    ${password}
-    Wait Until Keyword Succeeds    15    4    Verify Connection    ${version}    both    127.0.0.2
+    Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    both    127.0.0.2
     Add Connection    ${version}    speaker    127.0.0.1    64999    127.0.0.3    ${password}
     Add Connection    ${version}    listener    127.0.0.3    64999    127.0.0.1    ${password}
-    Wait Until Keyword Succeeds    15    4    Verify Connection    ${version}    listener    127.0.0.3
+    Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    listener    127.0.0.3
     Add Connection    ${version}    both    127.0.0.1    64999    127.0.0.4    ${password}
     Add Connection    ${version}    both    127.0.0.4    64999    127.0.0.1    ${password}
-    Wait Until Keyword Succeeds    15    4    Verify Connection    ${version}    both    127.0.0.4
+    Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    both    127.0.0.4
     Add Connection    ${version}    listener    127.0.0.1    64999    127.0.0.5    ${password}
     Add Connection    ${version}    speaker    127.0.0.5    64999    127.0.0.1    ${password}
-    Wait Until Keyword Succeeds    15    4    Verify Connection    ${version}    speaker    127.0.0.5
+    Wait Until Keyword Succeeds    15    1    Verify Connection    ${version}    speaker    127.0.0.5
 
 Check One Group 4-5
     [Documentation]    Check if only bindings matching filter nodes 4 and 5
@@ -109,7 +109,7 @@ Check One Group 4-5
     ...    permit ACL 10.0.0.0 0.255.255.0
     ...    Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
     : FOR    ${node}    IN RANGE    4    6
-    \    ${resp}    Get Bindings Master Database    127.0.0.${node}
+    \    ${resp}    Get Bindings    127.0.0.${node}
     \    Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
     \    Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
     \    Should Not Contain Binding    ${resp}    10    10.10.0.0/16    sxp
@@ -122,7 +122,7 @@ Check One Group 4-5
     \    Should Not Contain Binding    ${resp}    30    10.10.30.0/24    sxp
     \    Should Contain Binding    ${resp}    30    10.30.0.0/16    sxp
     \    Should Not Contain Binding    ${resp}    30    30.0.0.0/8    sxp
-    ${resp}    Get Bindings Master Database    127.0.0.2
+    ${resp}    Get Bindings    127.0.0.2
     Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
     Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
     Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
@@ -143,7 +143,7 @@ Check Two Group 4-5
     ...    permit ACL 10.10.0.0 0.0.255.0
     ...    Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
     : FOR    ${node}    IN RANGE    4    6
-    \    ${resp}    Get Bindings Master Database    127.0.0.${node}
+    \    ${resp}    Get Bindings    127.0.0.${node}
     \    Should Not Contain Binding    ${resp}    10    10.10.10.10/32    sxp
     \    Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
     \    Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
@@ -156,7 +156,7 @@ Check Two Group 4-5
     \    Should Contain Binding    ${resp}    30    10.10.30.0/24    sxp
     \    Should Not Contain Binding    ${resp}    30    10.30.0.0/16    sxp
     \    Should Not Contain Binding    ${resp}    30    30.0.0.0/8    sxp
-    ${resp}    Get Bindings Master Database    127.0.0.2
+    ${resp}    Get Bindings    127.0.0.2
     Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
     Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
     Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
@@ -179,7 +179,7 @@ Check One Group 2-5
     ...    Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
     @{list}    Create List    127.0.0.2    127.0.0.5
     : FOR    ${node}    IN    @{list}
-    \    ${resp}    Get Bindings Master Database    ${node}
+    \    ${resp}    Get Bindings    ${node}
     \    Should Not Contain Binding    ${resp}    10    10.10.10.10/32    sxp
     \    Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
     \    Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
@@ -192,7 +192,7 @@ Check One Group 2-5
     \    Should Contain Binding    ${resp}    40    10.10.40.0/24    sxp
     \    Should Not Contain Binding    ${resp}    40    10.40.0.0/16    sxp
     \    Should Not Contain Binding    ${resp}    40    40.0.0.0/8    sxp
-    ${resp}    Get Bindings Master Database    127.0.0.4
+    ${resp}    Get Bindings    127.0.0.4
     Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
     Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
     Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
@@ -213,7 +213,7 @@ Check Two Group 2-5
     ...    Info regarding filtering https://wiki.opendaylight.org/view/SXP:Beryllium:Developer_Guide
     @{list}    Create List    127.0.0.2    127.0.0.5
     : FOR    ${node}    IN    @{list}
-    \    ${resp}    Get Bindings Master Database    ${node}
+    \    ${resp}    Get Bindings    ${node}
     \    Should Not Contain Binding    ${resp}    10    10.10.10.10/32    sxp
     \    Should Not Contain Binding    ${resp}    10    10.10.10.0/24    sxp
     \    Should Not Contain Binding    ${resp}    10    10.10.0.0/16    sxp
@@ -226,7 +226,7 @@ Check Two Group 2-5
     \    Should Contain Binding    ${resp}    40    10.10.40.0/24    sxp
     \    Should Not Contain Binding    ${resp}    40    10.40.0.0/16    sxp
     \    Should Not Contain Binding    ${resp}    40    40.0.0.0/8    sxp
-    ${resp}    Get Bindings Master Database    127.0.0.4
+    ${resp}    Get Bindings    127.0.0.4
     Should Contain Binding    ${resp}    10    10.10.10.10/32    sxp
     Should Contain Binding    ${resp}    10    10.10.10.0/24    sxp
     Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
