@@ -133,6 +133,9 @@ Setup_Everything
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    alias=receiver
     Utils.Flexible_Mininet_Login
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/wstools/wsreceiver.py
+    ${output_log}    ${errort_log}=    SSHLibrary.Execute Command    sudo apt-get install -y python-pip    return_stdout=True    return_stderr=True
+    BuiltIn.Log    ${output_log}
+    BuiltIn.Log    ${error_log}
     ${output_log} =    SSHLibrary.Execute_Command    sudo pip install websocket-client
     BuiltIn.Log    ${output_log}
     ${output_log} =    SSHLibrary.Execute_Command    python -c "help('modules')"
