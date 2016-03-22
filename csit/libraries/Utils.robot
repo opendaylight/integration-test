@@ -468,3 +468,15 @@ Set_User_Configurable_Variable_Default
     #    "pybot -v".
     ${value}=    BuiltIn.Get_Variable_Value    \${${name}}    ${value}
     BuiltIn.Set_Suite_Variable    \${${name}}    ${value}
+
+Convert_To_Minutes
+    [Arguments]    ${time}
+    [Documentation]    Convert a Robot time string to an integer expressing the time in minutes, rounded up
+    ...    This is a wrapper around DateTime.Convert_Time which does not
+    ...    provide this functionality directly nor is even able to produce
+    ...    an integer directly. It is needed for RestPerfClient which
+    ...    cannot accept floats for its --timeout parameter and interprets
+    ...    the value supplied in this parameter in minutes.
+    ${result}=    DateTime.Convert_Time    ${time}    result_format=number
+    ${result}=    BuiltIn.Evaluate    int(($result+0.59999)/60)
+    [Return]    ${result}
