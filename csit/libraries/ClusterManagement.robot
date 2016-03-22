@@ -92,7 +92,8 @@ Get_Leader_And_Followers_For_Shard
     [Arguments]    ${shard_name}=default    ${shard_type}=operational    ${validate}=True    ${member_index_list}=${EMPTY}    ${verify_restconf}=True
     [Documentation]    Get role lists, validate there is one leader, return the leader and list of followers.
     ...    Optionally, issue GET to a simple restconf URL to make sure subsequent operations will not encounter 503.
-    ${leader_list}    ${follower_list} =    Get_State_Info_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    validate=True    member_index_list=${member_index_list}    verify_restconf=${verify_restconf}
+    ${leader_list}    ${follower_list} =    Get_State_Info_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}    validate=True    member_index_list=${member_index_list}
+    ...    verify_restconf=${verify_restconf}
     ${leader_count} =    BuiltIn.Get_Length    ${leader_list}
     BuiltIn.Run_Keyword_If    ${leader_count} < 1    BuiltIn.Fail    No leader found.
     BuiltIn.Length_Should_Be    ${leader_list}    ${1}    Too many Leaders.

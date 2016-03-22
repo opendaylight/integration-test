@@ -37,13 +37,13 @@ ${out_after_pathpolicy}    output:3
 
 *** Keywords ***
 Start SuiteVtnMa
+    [Arguments]    ${version_flag}=none
     [Documentation]    Start VTN Manager Init Test Suite
-    [Arguments]       ${version_flag}=none
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTPORT}    auth=${AUTH}    headers=${HEADERS}
     BuiltIn.Wait_Until_Keyword_Succeeds    30    3    Fetch vtn list
     Start Suite
-    Run Keyword If    '${version_flag}' == 'OF13'    Set Global Variable      ${OPENFLOW_VERSION}     OF13
-    ...    ELSE    Set Global Variable     ${OPENFLOW_VERSION}     OF10
+    Run Keyword If    '${version_flag}' == 'OF13'    Set Global Variable    ${OPENFLOW_VERSION}    OF13
+    ...    ELSE    Set Global Variable    ${OPENFLOW_VERSION}    OF10
 
 Stop SuiteVtnMa
     [Documentation]    Stop VTN Manager Test Suite
@@ -59,7 +59,7 @@ Stop SuiteVtnMaTest
 
 Add Table Miss Flows
     [Documentation]    Add Flow entried to handle table miss situation
-    Write      dpctl add-flow priority=0,actions=output:CONTROLLER -OOpenFlow13
+    Write    dpctl add-flow priority=0,actions=output:CONTROLLER -OOpenFlow13
     Read Until    mininet>
 
 Fetch vtn list
@@ -217,7 +217,7 @@ Add a vBridgeMacMapping
 Mininet Ping Should Succeed
     [Arguments]    ${host1}    ${host2}
     [Documentation]    Ping hosts to check connectivity
-    Run Keyword If    '${OPENFLOW_VERSION}' == 'OF13'     Add Table Miss Flows
+    Run Keyword If    '${OPENFLOW_VERSION}' == 'OF13'    Add Table Miss Flows
     Write    ${host1} ping -c 1 ${host2}
     ${result}    Read Until    mininet>
     Should Contain    ${result}    64 bytes
@@ -225,7 +225,7 @@ Mininet Ping Should Succeed
 Mininet Ping Should Not Succeed
     [Arguments]    ${host1}    ${host2}
     [Documentation]    Ping hosts when there is no connectivity and check hosts is unreachable
-    Run Keyword If    '${OPENFLOW_VERSION}' == 'OF13'     Add Table Miss Flows
+    Run Keyword If    '${OPENFLOW_VERSION}' == 'OF13'    Add Table Miss Flows
     Write    ${host1} ping -c 3 ${host2}
     ${result}    Read Until    mininet>
     Should Not Contain    ${result}    64 bytes
