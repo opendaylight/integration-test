@@ -57,7 +57,8 @@ Invoke_Restperfclient
     ${options}=    BuiltIn.Set_Variable    --ip ${ip} --port ${port} --edits ${count}
     ${options}=    BuiltIn.Set_Variable    ${options} --edit-content request1.json --async-requests ${async}
     ${options}=    BuiltIn.Set_Variable    ${options} --auth ${user} ${password}
-    ${options}=    BuiltIn.Set_Variable    ${options} --destination ${url}
+    ${timeout_in_minutes}=    Utils.Convert_To_Minutes    ${timeout}
+    ${options}=    BuiltIn.Set_Variable    ${options} --timeout ${timeout_in_minutes} --destination ${url}
     ${command}=    BuiltIn.Set_Variable    ${RestPerfClient__restperfclient_invocation_command_prefix} ${options}
     BuiltIn.Log    Running restperfclient: ${command}
     SSHLibrary.Switch_Connection    ${RestPerfClient__restperfclient}

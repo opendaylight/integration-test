@@ -89,7 +89,7 @@ Setup_Everything
     # Calculate and set the value of the timeout
     ${value}=    BuiltIn.Evaluate    ${REQUEST_COUNT}/50+10
     Utils.Set_User_Configurable_Variable_Default    TESTTOOL_DEVICE_TIMEOUT    ${value} s
-    ${value}=    DateTime.Add_Time_To_Time    ${TESTTOOL_DEVICE_TIMEOUT}    60s    result_format=compact
+    ${value}=    DateTime.Add_Time_To_Time    ${TESTTOOL_DEVICE_TIMEOUT}    2m    result_format=compact
     Utils.Set_User_Configurable_Variable_Default    TESTTOOL_DEVICE_TIMEOUT_FOR_TESTCASE    ${value}
     # Setup resources used by the suite.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
