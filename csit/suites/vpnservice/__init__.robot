@@ -8,39 +8,39 @@ Variables         ../../variables/Variables.py
 Resource          ../../libraries/Utils.robot
 
 *** Variables ***
-${start1}         sudo mn \ --controller=remote,ip=${CONTROLLER} --custom custom.py --topo Switch1 --switch ovsk,protocols=OpenFlow13
-${start2}         sudo mn \ --controller=remote,ip=${CONTROLLER} --custom custom.py --topo Switch2 --switch ovsk,protocols=OpenFlow13
+${start1}         sudo mn \ --controller=remote,ip=${ODL_SYSTEM_IP} --custom custom.py --topo Switch1 --switch ovsk,protocols=OpenFlow13
+${start2}         sudo mn \ --controller=remote,ip=${ODL_SYSTEM_IP} --custom custom.py --topo Switch2 --switch ovsk,protocols=OpenFlow13
 
 *** Keywords ***
 Start Suite
     [Documentation]    Test suit for vpn service using mininet OF13 and OVS 2.3.1
     Log    Start the tests
     Clean Mininet System
-    ${mininet1_conn_id_1}=    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    ${mininet1_conn_id_1}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Global Variable    ${mininet1_conn_id_1}
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
     Put File    ${CURDIR}/custom.py
     Write    ${start1}
     Read Until    mininet>
-    ${mininet1_conn_id_2}=    Open Connection    ${MININET}    prompt=${DEFAULT_LINUX_PROMPT}    timeout= 30s
+    ${mininet1_conn_id_2}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout= 30s
     Set Global Variable    ${mininet1_conn_id_2}
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
-    Execute Command    sudo ovs-vsctl add-port s1 s1-gre1 -- set interface s1-gre1 type=gre options:remote_ip=${MININET1} options:local_ip=${MININET}
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    Execute Command    sudo ovs-vsctl add-port s1 s1-gre1 -- set interface s1-gre1 type=gre options:remote_ip=${TOOLS_SYSTEM_2_IP} options:local_ip=${TOOLS_SYSTEM_1_IP}
     ${output}    Execute Command    sudo ovs-vsctl show
     Log    ${output}
     Execute Command    sudo ovs-ofctl add-flow s1 -O OpenFlow13 arp,actions=FLOOD
-    ${mininet2_conn_id_1}=    Open Connection    ${MININET1}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    ${mininet2_conn_id_1}=    Open Connection    ${TOOLS_SYSTEM_2_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
     Set Global Variable    ${mininet2_conn_id_1}
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
     Put File    ${CURDIR}/custom.py
     Write    ${start2}
     Read Until    mininet>
-    ${mininet2_conn_id_2}=    Open Connection    ${MININET1}    prompt=${DEFAULT_LINUX_PROMPT}    timeout= 30s
+    ${mininet2_conn_id_2}=    Open Connection    ${TOOLS_SYSTEM_2_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout= 30s
     Set Global Variable    ${mininet2_conn_id_2}
-    Login With Public Key    ${MININET_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
-    Execute Command    sudo ovs-vsctl add-port s2 s2-gre1 -- set interface s2-gre1 type=gre options:remote_ip=${MININET} options:local_ip=${MININET1}
+    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    Execute Command    sudo ovs-vsctl add-port s2 s2-gre1 -- set interface s2-gre1 type=gre options:remote_ip=${TOOLS_SYSTEM_1_IP} options:local_ip=${TOOLS_SYSTEM_2_IP}
     ${output}    Execute Command    sudo ovs-vsctl show
     Log    ${output}
     Execute Command    sudo ovs-ofctl add-flow s2 -O OpenFlow13 arp,actions=FLOOD
