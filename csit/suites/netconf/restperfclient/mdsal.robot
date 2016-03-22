@@ -60,6 +60,8 @@ Run_RestPerfClient_Directly_On_MDSAL
     Set_Known_Bug_Id    5413
     Execute_Command_Passes    ${command} >${restperfclientlog} 2>&1
     Set_Unknown_Bug_Id
+    ${result}=    SSHLibrary.Execute_Command    grep "thread timed out" ${restperfclientlog}
+    BuiltIn.Should_Be_Equal    '${result}'    ''
     ${result}=    SSHLibrary.Execute_Command    grep "FINISHED. Execution time:" ${restperfclientlog}
     BuiltIn.Should_Not_Be_Equal    '${result}'    ''
 
@@ -101,6 +103,9 @@ Run_RestPerfClient_Through_Netconf_Connector
     BuiltIn.Log    Running restperfclient: ${command}
     Set_Known_Bug_Id    5413
     Execute_Command_Passes    ${command} >${restperfclientlog} 2>&1
+    Set_Known_Bug_Id    5581
+    ${result}=    SSHLibrary.Execute_Command    grep "thread timed out" ${restperfclientlog}
+    BuiltIn.Should_Be_Equal    '${result}'    ''
     Set_Unknown_Bug_Id
     ${result}=    SSHLibrary.Execute_Command    grep "FINISHED. Execution time:" ${restperfclientlog}
     BuiltIn.Should_Not_Be_Equal    '${result}'    ''
