@@ -43,7 +43,6 @@ Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 
 *** Variables ***
-${MININET_PROMPT}    ${DEFAULT_LINUX_PROMPT}
 ${ODL_LOG_LEVEL}    DEFAULT
 ${TX_TYPE}        {TX-CHAINING,SIMPLE-TX}
 ${OP_TYPE}        {PUT,MERGE,DELETE}
@@ -108,8 +107,8 @@ Setup_Everything
     [Documentation]    Setup imported resources, SSH-login to mininet machine,
     ...    create HTTP session, put Python tool to mininet machine.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    SSHLibrary.Set_Default_Configuration    prompt=${MININET_PROMPT}
-    SSHLibrary.Open_Connection    ${MININET}
+    SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
+    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
     Utils.Flexible_Mininet_Login
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/mdsal_benchmark/${tool}
 
@@ -119,10 +118,10 @@ Teardown_Everything
 
 Start_Benchmark_Tool
     [Documentation]    Start the benchmark tool. Check that it has been running at least for ${tool_startup_timeout} period.
-    ${command}=    BuiltIn.Set_Variable    python ${tool} --host ${CONTROLLER} --port ${RESTCONFPORT} --warmup ${WARMUPS} --runs ${RUNS} --total ${TOTAL_OPS} --inner ${INNER_OPS} --txtype ${TX_TYPE} --ops ${OPS_PER_TX} --optype ${OP_TYPE} --plot ${FILTER} --units ${UNITS} ${tool_args} &> ${tool_log_name}
+    ${command}=    BuiltIn.Set_Variable    python ${tool} --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --warmup ${WARMUPS} --runs ${RUNS} --total ${TOTAL_OPS} --inner ${INNER_OPS} --txtype ${TX_TYPE} --ops ${OPS_PER_TX} --optype ${OP_TYPE} --plot ${FILTER} --units ${UNITS} ${tool_args} &> ${tool_log_name}
     BuiltIn.Log    ${command}
     ${output}=    SSHLibrary.Write    ${command}
-    ${status}    ${message}=    BuiltIn.Run Keyword And Ignore Error    Write Until Expected Output    ${EMPTY}    ${MININET_PROMPT}    ${tool_startup_timeout}
+    ${status}    ${message}=    BuiltIn.Run Keyword And Ignore Error    Write Until Expected Output    ${EMPTY}    ${TOOLS_SYSTEM_PROMPT}    ${tool_startup_timeout}
     ...    1s
     BuiltIn.Log    ${status}
     BuiltIn.Log    ${message}

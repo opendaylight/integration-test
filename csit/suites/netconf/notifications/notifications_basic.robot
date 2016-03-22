@@ -141,8 +141,8 @@ Setup_Everything
     ${output_log} =    SSHLibrary.Execute_Command    python -c "help('modules')"
     BuiltIn.Log    ${output_log}
     Should Contain    ${output_log}    websocket
-    RequestsLibrary.Create Session    restconf    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}
-    BuiltIn.Log    http://${CONTROLLER}:${RESTCONFPORT}
+    RequestsLibrary.Create Session    restconf    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
+    BuiltIn.Log    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
 
 Teardown_Everything

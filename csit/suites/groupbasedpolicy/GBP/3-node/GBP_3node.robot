@@ -10,7 +10,7 @@ Setup Node
     [Arguments]    ${GBP}    ${suite_dir}    ${sw_index}    ${timeout}=10s
     ConnUtils.Connect and Login    ${GBP}    timeout=${timeout}
     SSHLibrary.Put File    ${suite_dir}/init_scripts/*    ${VM_HOME_FOLDER}${/}${VM_SCRIPTS_FOLDER}/    mode=0755
-    ${stdout}    ${stderr}    ${rc}    Execute in VE    python ${VM_HOME_FOLDER}${/}${VM_SCRIPTS_FOLDER}/infrastructure_launch.py ${CONTROLLER} ${sw_index}    timeout=${timeout}
+    ${stdout}    ${stderr}    ${rc}    Execute in VE    python ${VM_HOME_FOLDER}${/}${VM_SCRIPTS_FOLDER}/infrastructure_launch.py ${ODL_SYSTEM_IP} ${sw_index}    timeout=${timeout}
     Should Be Equal As Numbers    ${rc}    0
     SSHLibrary.Close Connection
 

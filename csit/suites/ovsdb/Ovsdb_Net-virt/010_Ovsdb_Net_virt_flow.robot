@@ -29,7 +29,7 @@ Check Shards Status Before Fail
 
 Start Mininet Multiple Connections
     [Documentation]    Start mininet with connection to all cluster instances.
-    ${mininet_conn_id}    Add Multiple Managers to OVS    ${MININET}    ${original_cluster_list}
+    ${mininet_conn_id}    Add Multiple Managers to OVS    ${TOOLS_SYSTEM_IP}    ${original_cluster_list}
     Set Suite Variable    ${mininet_conn_id}
     Log    ${mininet_conn_id}
 

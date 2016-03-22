@@ -85,10 +85,10 @@ Documentation     PCEP performance suite, uses restconf with configurable authen
 ...               LOG_NAME: Filename (without path) to save pcc-mock output into.
 ...               LOG_PATH: Override if not the same as pccmock VM workspace.
 ...               LSPS: Number of LSPs per PCC to simulate and test.
-...               MININET: Numeric IP address of VM to run pcc-mock and updater from by default.
-...               MININET_PASSWORD: Linux password to go with the username (empty means keys).
-...               MININET_PROMPT: Substring to identify Linux prompt on Mininet VM.
-...               MININET_USER: Linux username to SSH to on Mininet VM.
+...               TOOLS_SYSTEM_IP: Numeric IP address of VM to run pcc-mock and updater from by default.
+...               TOOLS_SYSTEM_PASSWORD: Linux password to go with the username (empty means keys).
+...               TOOLS_SYSTEM_PROMPT: Substring to identify Linux prompt on Mininet VM.
+...               TOOLS_SYSTEM_USER: Linux username to SSH to on Mininet VM.
 ...               MININET_WORKSPACE: Path to where files may be created on Mininet VM.
 ...               MOCK_FILE: Filename to use for mock-pcc executable instead of the timestamped one.
 ...               PCCDOWNLOAD_HOSTHEADER: Download server may check checks this header before showing content.
@@ -126,10 +126,6 @@ Resource          ${CURDIR}/../../../libraries/Utils.robot    # for Flexible_SSH
 # This table acts as an exhaustive list of variables users can modify on pybot invocation.
 # It also contains commented-out lines for variables defined elswhere.
 # Keep this list in alphabetical order.
-# ${CONTROLLER} is inherited from Variables.py
-# ${CONTROLLER_USER} is inherited from Variables.py
-# ${CONTROLLER_PASSWORD} is inherited from Variables.py
-${CONTROLLER_PROMPT}    ${DEFAULT_LINUX_PROMPT}    # from Variables.py
 ${CONTROLLER_WORKSPACE}    /tmp
 ${FIRST_PCC_IP}    ${PCCMOCKVM_IP}
 # ${LOG_FILE} is reserved for location of pybot-created log.html
@@ -137,17 +133,15 @@ ${LOG_NAME}       throughpcep.log
 ${LOG_PATH}       ${PCCMOCKVM_WORKSPACE}
 ${LSPS}           65535
 ${MININET}        127.0.0.1
-# ${MININET_PASSWORD} is inherited from Variables.py
-${MININET_PROMPT}    ${DEFAULT_LINUX_PROMPT}    # from Variables.py
 ${MININET_USER}    mininet
 ${MININET_WORKSPACE}    /tmp
 ${PCCDOWNLOAD_HOSTHEADER}    nexus.opendaylight.org
 ${PCCDOWNLOAD_URLBASE}    http://${PCCDOWNLOAD_HOSTHEADER}/content/repositories/opendaylight.snapshot/org/opendaylight/bgpcep/pcep-pcc-mock/
 ${PCCMOCK_COLOCATED}    False
-${PCCMOCKVM_IP}    ${MININET}
-${PCCMOCKVM_PASSWORD}    ${MININET_PASSWORD}
-${PCCMOCKVM_PROMPT}    ${MININET_PROMPT}
-${PCCMOCKVM_USER}    ${MININET_USER}
+${PCCMOCKVM_IP}    ${TOOLS_SYSTEM_IP}
+${PCCMOCKVM_PASSWORD}    ${TOOLS_SYSTEM_PASSWORD}
+${PCCMOCKVM_PROMPT}    ${TOOLS_SYSTEM_PROMPT}
+${PCCMOCKVM_USER}    ${TOOLS_SYSTEM_USER}
 ${PCCMOCKVM_WORKSPACE}    ${MININET_WORKSPACE}
 ${PCCS}           1
 ${PCEP_READY_VERIFY_TIMEOUT}    300s
@@ -157,13 +151,13 @@ ${RESTCONF_REUSE}    True
 ${RESTCONF_SCOPE}    ${EMPTY}
 ${RESTCONF_USER}    ${USER}    # from Variables.py
 ${UPDATER_COLOCATED}    False
-${UPDATER_ODLADDRESS}    ${CONTROLLER}
+${UPDATER_ODLADDRESS}    ${OLD_SYSTEM_IP}
 ${UPDATER_REFRESH}    0.1
 ${UPDATER_TIMEOUT}    300
 ${UPDATERVM_ENABLE_TCP_RW_REUSE}    True
-${UPDATERVM_IP}    ${MININET}
-${UPDATERVM_PASSWORD}    ${MININET_PASSWORD}
-${UPDATERVM_PROMPT}    ${MININET_PROMPT}
+${UPDATERVM_IP}    ${TOOLS_SYSTEM_IP}
+${UPDATERVM_PASSWORD}    ${TOOLS_SYSTEM_PASSWORD}
+${UPDATERVM_PROMPT}    ${TOOLS_SYSTEM_PROMPT}
 ${UPDATERVM_USER}    ${MININET_USER}
 ${UPDATERVM_WORKSPACE}    ${MININET_WORKSPACE}
 
@@ -192,8 +186,8 @@ Put_Updater
     SSHKeywords.Assure_Library_Counter    target_dir=${UPDATERVM_WORKSPACE}
     SSHKeywords.Assure_Library_Ipaddr    target_dir=${UPDATERVM_WORKSPACE}
     # Done preparation of Updater VM, now use AuthStandalone to create session from robot VM too.
-    BuiltIn.Log_Many    ${RESTCONF_USER}    ${RESTCONF_PASSWORD}    ${RESTCONF_SCOPE}    ${CONTROLLER}
-    ${session} =    AuthStandalone.Init_Session    ${CONTROLLER}    ${RESTCONF_USER}    ${RESTCONF_PASSWORD}    ${RESTCONF_SCOPE}
+    BuiltIn.Log_Many    ${RESTCONF_USER}    ${RESTCONF_PASSWORD}    ${RESTCONF_SCOPE}    ${ODL_SYSTEM_IP}
+    ${session} =    AuthStandalone.Init_Session    ${ODL_SYSTEM_IP}    ${RESTCONF_USER}    ${RESTCONF_PASSWORD}    ${RESTCONF_SCOPE}
     BuiltIn.Set_Suite_Variable    ${rest_session}    ${session}
     # TODO: Define http timeouts.
 
@@ -218,7 +212,7 @@ Topology_Precondition
 Start_Pcc_Mock
     [Documentation]    Launch pcc-mock on background so simulated PCCs start connecting to controller.
     SSHLibrary.Switch_Connection    pccmock
-    ${command} =    NexusKeywords.Compose_Full_Java_Command    -jar ${mock_location} --local-address ${FIRST_PCC_IP} --remote-address ${CONTROLLER} --pcc ${PCCS} --lsp ${LSPS} &> ${LOG_PATH}/${LOG_NAME}
+    ${command} =    NexusKeywords.Compose_Full_Java_Command    -jar ${mock_location} --local-address ${FIRST_PCC_IP} --remote-address ${ODL_SYSTEM_IP} --pcc ${PCCS} --lsp ${LSPS} &> ${LOG_PATH}/${LOG_NAME}
     BuiltIn.Log    ${command}
     SSHLibrary.Write    ${command}
     # The pccmock SSH session is left alive, but no data will be exchanged for a while.
@@ -379,17 +373,17 @@ Restore_Tcp_Rw_Reuse
 *** Keywords ***
 Pccmock_From_Controller
     [Documentation]    Copy Controller values to Pccmock VM variables.
-    BuiltIn.Set_Suite_Variable    ${PCCMOCKVM_IP}    ${CONTROLLER}
-    BuiltIn.Set_Suite_Variable    ${PCCMOCKVM_PASSWORD}    ${CONTROLLER_PASSWORD}
-    BuiltIn.Set_Suite_Variable    ${PCCMOCKVM_PROMPT}    ${CONTROLLER_PROMPT}
+    BuiltIn.Set_Suite_Variable    ${PCCMOCKVM_IP}    ${ODL_SYSTEM_IP}
+    BuiltIn.Set_Suite_Variable    ${PCCMOCKVM_PASSWORD}    ${ODL_SYSTEM_PASSWORD}
+    BuiltIn.Set_Suite_Variable    ${PCCMOCKVM_PROMPT}    ${ODL_SYSTEM_PROMPT}
     BuiltIn.Set_Suite_Variable    ${PCCMOCKVM_WORKSPACE}    ${CONTROLLER_WORKSPACE}
     BuiltIn.Set_Suite_Variable    ${LOG_PATH}    ${CONTROLLER_WORKSPACE}
 
 Updater_From_Controller
     [Documentation]    Copy Controller values to Uprater VM variables.
-    BuiltIn.Set_Suite_Variable    ${UPDATERVM_IP}    ${CONTROLLER}
-    BuiltIn.Set_Suite_Variable    ${UPDATERVM_PASSWORD}    ${CONTROLLER_PASSWORD}
-    BuiltIn.Set_Suite_Variable    ${UPDATERVM_PROMPT}    ${CONTROLLER_PROMPT}
+    BuiltIn.Set_Suite_Variable    ${UPDATERVM_IP}    ${ODL_SYSTEM_IP}
+    BuiltIn.Set_Suite_Variable    ${UPDATERVM_PASSWORD}    ${ODL_SYSTEM_PASSWORD}
+    BuiltIn.Set_Suite_Variable    ${UPDATERVM_PROMPT}    ${ODL_SYSTEM_PROMPT}
     BuiltIn.Set_Suite_Variable    ${UPDATERVM_WORKSPACE}    ${CONTROLLER_WORKSPACE}
 
 Disconnect
