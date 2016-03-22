@@ -83,6 +83,8 @@ Check_For_Failed_Requests
     ...    This is a separate test case to distinguish between restperfclient
     ...    failure and failed requests. Failed requests are rejected because
     ...    we don't want to test performance of ODL rejecting our requests.
+    ${result}=    SSHLibrary.Execute_Command    grep "thread timed out" ${restperfclientlog}
+    BuiltIn.Should_Be_Equal    '${result}'    ''
     ${result}=    SSHLibrary.Execute_Command    grep "Request failed" ${restperfclientlog}
     BuiltIn.Should_Be_Equal    '${result}'    ''
     ${result}=    SSHLibrary.Execute_Command    grep "Status code" ${restperfclientlog}
