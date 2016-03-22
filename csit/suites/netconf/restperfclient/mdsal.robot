@@ -56,6 +56,8 @@ Run_RestPerfClient_Directly_On_MDSAL
     ${prefix}=    NexusKeywords.Compose_Full_Java_Command    -Xmx1G -XX:MaxPermSize=256M -jar ${filename} ${options}
     BuiltIn.Set_Suite_Variable    ${command_prefix}    ${prefix}
     ${command}    BuiltIn.Set_Variable    ${command_prefix} /restconf/config/car:cars
+    ${timeout}=    Utils.Convert_To_Seconds   ${DIRECT_MDSAL_TIMEOUT}
+    ${command}    BuiltIn.Set_Variable    ${command} --timeout ${timeout}
     BuiltIn.Log    Running restperfclient: ${command}
     Set_Known_Bug_Id    5413
     Execute_Command_Passes    ${command} >${restperfclientlog} 2>&1
@@ -100,6 +102,8 @@ Run_RestPerfClient_Through_Netconf_Connector
     SSHLibrary.Switch_Connection    ${restperfclient}
     SSHLibrary.Set_Client_Configuration    timeout=${NETCONF_CONNECTOR_MDSAL_TIMEOUT}
     ${command}    BuiltIn.Set_Variable    ${command_prefix} /restconf/config/network-topology:network-topology/topology/topology-netconf/node/odl-mdsal-northbound-via-netconf-connector/yang-ext:mount/car:cars
+    ${timeout}=    DateTime.Convert_To_Seconds    ${NETCONF_CONNECTOR_MDSAL_TIMEOUT}
+    ${command}    BuiltIn.Set_Variable    ${command} --timeout ${timeout}
     BuiltIn.Log    Running restperfclient: ${command}
     Set_Known_Bug_Id    5413
     Execute_Command_Passes    ${command} >${restperfclientlog} 2>&1

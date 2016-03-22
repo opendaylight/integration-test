@@ -70,6 +70,8 @@ Deploy_And_Run_RestPerfClient
     ${options}=    BuiltIn.Set_Variable    ${options} --edit-content request1.json
     ${options}=    BuiltIn.Set_Variable    ${options} --auth ${ODL_RESTCONF_USER} ${ODL_RESTCONF_PASSWORD}
     ${command}=    NexusKeywords.Compose_Full_Java_Command    -Xmx1G -XX:MaxPermSize=256M -jar ${filename} ${options}
+    ${timeout}=    Utils.Convert_To_Seconds    ${TESTTOOL_DEVICE_TIMEOUT}
+    ${command}    BuiltIn.Set_Variable    ${command} --timeout ${timeout}
     BuiltIn.Log    Running restperfclient: ${command}
     ${restperfclientlog}=    Utils.Get_Log_File_Name    restperfclient
     BuiltIn.Set_Suite_Variable    ${restperfclientlog}    ${restperfclientlog}
