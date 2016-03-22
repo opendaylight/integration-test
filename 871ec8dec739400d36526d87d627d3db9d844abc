@@ -182,6 +182,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_26947c36",
+        "filename": "csit/suites/openflowplugin/Clustering/020__Cluster_HA_Leader_Follower_Failover.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-03-22T18:43:49Z",
+      "side": 1,
+      "message": "Agree here. This should be better dealt with. I might be mistaken but I believe KARAF_HOME ENV VAR is set when karaf is started, we might be able to pull it from the controller ENV when started and pass into pybot run. But at worse case we should refrain from setting it over and over in each robot file.",
+      "parentUuid": "7a42497e_f33092ea",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 46
+      },
+      "revId": "871ec8dec739400d36526d87d627d3db9d844abc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a42497e_534d0672",
         "filename": "csit/suites/openflowplugin/Clustering/020__Cluster_HA_Leader_Follower_Failover.robot",
         "patchSetId": 1
