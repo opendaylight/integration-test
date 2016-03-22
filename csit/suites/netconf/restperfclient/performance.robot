@@ -59,6 +59,7 @@ Create_Device_Data
 
 Deploy_And_Run_RestPerfClient
     [Documentation]    Deploy and execute restperfclient, asking it to send the specified amount of requests to the netconf connector of the device.
+    [Timeout]    ${TESTTOOL_DEVICE_TIMEOUT}
     SSHLibrary.Switch_Connection    ${restperfclient}
     SSHLibrary.Put_File    ${CURDIR}/../../../variables/netconf/RestPerfClient/request1.json
     ${filename}=    NexusKeywords.Deploy_Test_Tool    netconf    netconf-testtool    rest-perf-client
@@ -95,6 +96,9 @@ Deconfigure_Device_From_Netconf
 *** Keywords ***
 Setup_Everything
     [Documentation]    Setup everything needed for the test cases.
+    # Calculate and set the value of the timeout
+    ${value}=    BuiltIn.Evaluate    ${REQUEST_COUNT}/50+10
+    Utils.Set_User_Configurable_Variable_Default    TESTTOOL_DEVICE_TIMEOUT    ${value} s
     # Setup resources used by the suite.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     NetconfKeywords.Setup_Netconf_Keywords
