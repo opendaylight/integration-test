@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_26659c45",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-03-22T21:18:44Z",
+      "side": 1,
+      "message": "Would love to see method doc strings instead of one off comments but is not a blocker.",
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
