@@ -11,8 +11,8 @@ Variables         ../../../variables/Variables.py
 *** Test Cases ***
 Verification of TSDR HSQLDB Feature Installation
     [Documentation]    Install and Verify the TSDR Cassandra Syslog Features
-    COMMENT    Install a Feature    odl-tsdr-hsqldb-all    ${CONTROLLER}    ${KARAF_SHELL_PORT}    60
-    COMMENT    Install a Feature    odl-tsdr-syslog-collector    ${CONTROLLER}    ${KARAF_SHELL_PORT}    60
+    COMMENT    Install a Feature    odl-tsdr-hsqldb-all    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    60
+    COMMENT    Install a Feature    odl-tsdr-syslog-collector    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    60
     Wait Until Keyword Succeeds    24x    10 sec    Check Karaf Log Has Messages    tsdr.syslog
     Verify Feature Is Installed    odl-tsdr-hsqldb
     Verify Feature Is Installed    odl-tsdr-syslog-collector

@@ -28,7 +28,7 @@ ${transmittederrors}    flow-capable-node-connector-queue-statistics/transmissio
 *** Test Cases ***
 Verification of TSDR Cassandra Feature Installation
     [Documentation]    Install and Verify the TSDR Cassandra Features
-    COMMENT    Install a Feature    odl-tsdr-cassandra-all    ${CONTROLLER}    ${KARAF_SHELL_PORT}    60
+    COMMENT    Install a Feature    odl-tsdr-cassandra-all    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    60
     Verify Feature Is Installed    odl-tsdr-cassandra
     COMMENT    Verify Feature Is Installed    odl-tsdr-cassandra-persistence
     Verify Feature Is Installed    odl-tsdr-openflow-statistics-collector

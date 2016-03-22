@@ -1,7 +1,7 @@
 #!/bin/bash
 
-echo "Controller IP is ${CONTROLLER0}"
-echo "Mininet IP is ${MININET0}"
+echo "Controller IP is ${ODL_SYSTEM_IP}"
+echo "Mininet IP is ${TOOLS_SYSTEM_IP}"
 echo "Distribution bundle URL is ${ACTUALBUNDLEURL}"
 echo "Distribution bundle is ${BUNDLE}"
 echo "Distribution bundle version is ${BUNDLEVERSION}"
