@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_c695d889",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 481,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-22T16:54:55Z",
+      "side": 1,
+      "message": "That does not work for 0 \u003c ${result} \u003c 0.001\nAlternatives:\n-int(-${result} / 60)\nor\nint(math.ceil(${result} / 60.0))\n(which needs modules\u003dmath)",
+      "range": {
+        "startLine": 481,
+        "startChar": 38,
+        "endLine": 481,
+        "endChar": 62
+      },
+      "revId": "927678c0c1234dbafa33243e76a4c450d82b2af2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
