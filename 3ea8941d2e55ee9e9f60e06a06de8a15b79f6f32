@@ -22,6 +22,30 @@
       "revId": "3ea8941d2e55ee9e9f60e06a06de8a15b79f6f32",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_065500c6",
+        "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-03-22T17:35:41Z",
+      "side": 1,
+      "message": "The options that are the same for both performance tests in this suite are added to ${options} which is then used to construct ${command_prefix} that is reused in the second performance test. The options that differ between the performance tests are then added to ${command}. Added a bunch od comments that explain this (and one TODO to convert this code into something more readable).",
+      "parentUuid": "5a3f45e8_86cab09f",
+      "range": {
+        "startLine": 55,
+        "startChar": 32,
+        "endLine": 55,
+        "endChar": 57
+      },
+      "revId": "3ea8941d2e55ee9e9f60e06a06de8a15b79f6f32",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
