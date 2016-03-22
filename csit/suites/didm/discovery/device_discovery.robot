@@ -10,7 +10,7 @@ Suite Teardown    DIDM Suite Teardown
 Library           SSHLibrary
 Library           Collections
 Library           RequestsLibrary
-Resource          ../../../variables/Variables.robot
+Resource          ../../../variables/DIDM/Variables.robot
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/MininetKeywords.robot
@@ -30,7 +30,7 @@ Identifying Device Type
     [Tags]    DIDM
     ${device_type}=    Find Device Type
     Log    ${device_type}
-    Should Match    ${DEVICE_TYPE}    ${device_type}
+    Should Match    ${TOOLS_SYSTEM_IP}    ${device_type}
 
 Identifying Hardware Information
     [Documentation]    Verify device hardware information
@@ -54,7 +54,7 @@ Identifying Serial Number
     Should Match    ${DEVICE_SERIAL_NUMBER}    ${serial_number}
 
 Identifying Software Information
-    [Documentation]    Verify device software information
+    [Documentation]    Verify device software infoDrmation
     [Tags]    DIDM
     ${device_sw}=    Find Device Software
     Log    ${device_sw}
@@ -87,9 +87,9 @@ Setup DIDM Environment
     Verify Feature Is Installed    odl-openflowplugin-all-li
     ${message}=    Set Variable    org.opendaylight.didm.ovs - 0.2.0.SNAPSHOT | Device-type Listener registered
     Wait For Karaf Log    ${message}
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     Log    Start device
     ${mininet_topo_opt}=    Set Variable    --topo linear,1 --switch ovsk,protocols=OpenFlow13
-    ${mininet_conn_id}=    Start Mininet Single Controller    ${DEVICE_IP}    ${CONTROLLER}    ${mininet_topo_opt}
+    ${mininet_conn_id}=    Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${mininet_topo_opt}
     Wait Until Keyword Succeeds    11s    1s    Check DIDM Registered With Device
     Set Suite Variable    ${mininet_conn_id}

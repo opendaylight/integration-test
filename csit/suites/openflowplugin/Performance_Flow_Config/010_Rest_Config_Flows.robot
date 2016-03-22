@@ -43,18 +43,17 @@ Start Suite
     [Documentation]    Basic setup/cleanup work that can be done safely before any system
     ...    is run.
     Log    Start the test on the base edition
-    ${mininet_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=>    timeout=600s
+    ${mininet_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=600s
     Set Suite Variable    ${mininet_conn_id}
     Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    sudo ovs-vsctl set-manager ptcp:6644
-    Read Until    >
+    Read Until    ${DEFAULT_LINUX_PROMPT}
     Write    sudo mn -c
-    Read Until    >
-    Read Until    >
-    Read Until    >
+    Read Until    ${DEFAULT_LINUX_PROMPT}
+    Read Until    ${DEFAULT_LINUX_PROMPT}
+    Read Until    ${DEFAULT_LINUX_PROMPT}
     Write    ${start}
     Read Until    mininet>
-    Sleep    6
 
 Stop Suite
     [Documentation]    Cleanup/Shutdown work that should be done at the completion of all
@@ -63,7 +62,7 @@ Stop Suite
     Switch Connection    ${mininet_conn_id}
     Read
     Write    exit
-    Read Until    >
+    Read Until    ${DEFAULT_LINUX_PROMPT}
     Close Connection
 
 Start Http Session

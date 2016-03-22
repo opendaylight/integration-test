@@ -19,7 +19,7 @@ ${TSDR_QUEUE_STATS}    tsdr:list QueueStats
 Verify the Queue Stats attributes exist thru Karaf console
     [Documentation]    Verify the QueueMetrics attributes exist on Karaf Console
     Wait Until Keyword Succeeds    60s    1s    Verify the Metric is Collected?    ${TSDR_QUEUE_STATS}    Transmitted
-    ${output}=    Issue Command On Karaf Console    ${TSDR_QUEUE_STATS}    ${CONTROLLER}    ${KARAF_SHELL_PORT}    30
+    ${output}=    Issue Command On Karaf Console    ${TSDR_QUEUE_STATS}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}    30
     : FOR    ${list}    IN    @{QUEUE_METRICS}
     \    Should Contain    ${output}    ${list}
 
@@ -31,9 +31,9 @@ Verify QueueStats-Attributes on H2 Datastore using JDBC Client
 
 Verify tsdr:purgeall command
     [Documentation]    Verify the tsdr:purgeall command
-    Issue Command On Karaf Console    tsdr:purgeall    ${CONTROLLER}    ${KARAF_SHELL_PORT}
+    Issue Command On Karaf Console    tsdr:purgeall    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}
     : FOR    ${list}    IN    @{CMD_LIST}
-    \    ${out}=    Issue Command On Karaf Console    tsdr:list ${list}    ${CONTROLLER}    ${KARAF_SHELL_PORT}
+    \    ${out}=    Issue Command On Karaf Console    tsdr:list ${list}    ${ODL_SYSTEM_IP}    ${KARAF_SHELL_PORT}
     \    Should Contain    ${out}    no data of this category
     : FOR    ${list}    IN    @{QUEUE_METRICS}
     \    ${out}=    Query Metrics on H2 Datastore    QUEUESTATS    ${list}

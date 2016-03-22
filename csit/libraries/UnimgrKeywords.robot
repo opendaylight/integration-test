@@ -14,7 +14,7 @@ ${UniMgr_Variables_DIR}    ../variables/unimgr
 *** Keywords ***
 Setup Unimgr Test Environment
     [Documentation]    Establish the Opendayligh session and prepair the Mininet VMs
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     Prepair Unimgr Test Environment    ${TOOLS_SYSTEM_IP}
     Prepair Unimgr Test Environment    ${TOOLS_SYSTEM_2_IP}
 

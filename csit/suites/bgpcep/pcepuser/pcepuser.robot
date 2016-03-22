@@ -16,10 +16,9 @@ Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
 Resource          ${CURDIR}/../../../libraries/PcepOperations.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
-Variables         ${CURDIR}/../../../variables/pcepuser/variables.py    ${MININET}
+Variables         ${CURDIR}/../../../variables/pcepuser/variables.py    ${TOOLS_SYSTEM_IP}
 
 *** Variables ***
-${MININET_PROMPT}    ${DEFAULT_LINUX_PROMPT}
 ${OUTPUT_TIMEOUT}    10
 # FIXME: Unify parameter naming and case.
 ${ExpDir}         ${CURDIR}/expected
@@ -34,7 +33,7 @@ Topology_Precondition
 
 Start_Pcc_Mock
     [Documentation]    Execute pcc-mock on Mininet, fail is Open is not sent, keep it running for next tests.
-    ${command}=    NexusKeywords.Compose_Full_Java_Command    -jar ${filename} --local-address ${MININET} --remote-address ${CONTROLLER} 2>&1 | tee pccmock.log
+    ${command}=    NexusKeywords.Compose_Full_Java_Command    -jar ${filename} --local-address ${TOOLS_SYSTEM_IP} --remote-address ${ODL_SYSTEM_IP} 2>&1 | tee pccmock.log
     Log    ${command}
     Write    ${command}
     Read_Until    started, sent proposal Open
@@ -120,7 +119,7 @@ Set_It_Up
     ...    Also, delete and create directories for json diff handling.
     NexusKeywords.Initialize_Artifact_Deployment_And_Usage
     # FIXME: Unify Module prefix usage across whole file.
-    Create_Session    ses    http://${CONTROLLER}:${RESTCONFPORT}/restconf/operational/network-topology:network-topology    auth=${AUTH}
+    Create_Session    ses    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}/restconf/operational/network-topology:network-topology    auth=${AUTH}
     ${name}=    NexusKeywords.Deploy_Test_Tool    bgpcep    pcep-pcc-mock
     BuiltIn.Set_Suite_Variable    ${filename}    ${name}
     Remove_Directory    ${ExpDir}
