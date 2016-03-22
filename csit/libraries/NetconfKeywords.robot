@@ -227,7 +227,8 @@ Invoke_Restperfclient
     ${options}=    BuiltIn.Set_Variable    --ip ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --edits ${REQUEST_COUNT}
     ${options}=    BuiltIn.Set_Variable    ${options} --edit-content request1.json --async-requests false
     ${options}=    BuiltIn.Set_Variable    ${options} --auth ${ODL_RESTCONF_USER} ${ODL_RESTCONF_PASSWORD}
-    ${options}=    BuiltIn.Set_Variable    ${options} --destination ${url}
+    ${timeout}=    Utils.Convert_To_Minutes    ${timeout}
+    ${options}=    BuiltIn.Set_Variable    ${options} --timeout ${timeout} --destination ${url}
     ${command}=    BuiltIn.Set_Variable    ${restperfclient_invocation_command_prefix} ${options}
     BuiltIn.Log    Running restperfclient: ${command}
     SSHLibrary.Switch_Connection    ${restperfclient}
