@@ -43,6 +43,16 @@ _template_add_cp_rpc = {
     }
 }
 
+_template_add_person_rpc = {
+    "input": {
+        "people:id": "to be replaced",
+        "people:gender": "male",
+        "people:address": "to be replaced",
+        "people:contactNo": "to be replaced",
+        "people:age": "99"
+    }
+}
+
 
 def _build_url(odl_ip, port, uri):
     """Compose URL from generic IP, port and URI fragment.
@@ -168,8 +178,37 @@ def _prepare_add_car_people_rpc(odl_ip, port, item_list, auth):
     return req
 
 
+def _prepare_add_person_rpc(odl_ip, port, item_list, auth):
+    """Creates a POST http requests to purchase cars using an rpc.
+
+    Args:
+        :param odl_ip: controller's ip address or hostname
+
+        :param port: controller's restconf port
+
+        :param item_list: controller item's list contains a list of ids of the people
+        only the first item is considered
+
+        :param auth: authentication credentials
+
+    Returns:
+        :returns req: http request object
+    """
+
+    container = {"input": {}}
+    item = item_list[0]
+    entry = container["input"]
+    entry["people:id"] = str(item)
+    entry["people:address"] = "address" + str(item)
+    entry["people:contactNo"] = str(item)
+    container["input"] = entry
+    req = _build_post(odl_ip, port, "operations/people:add-person", container, auth)
+    return req
+
+
 def _request_sender(thread_id, preparing_function, auth, in_queue=None,
-                    exit_event=None, odl_ip="127.0.0.1", port="8181", out_queue=None):
+                    full_event=None, odl_ip="127.0.0.1", port="8181", out_queue=None,
+                    quit_event=None):
     """The funcion sends http requests.
 
     Runs in the working thread. It reads out flow details from the queue and
@@ -182,8 +221,10 @@ def _request_sender(thread_id, preparing_function, auth, in_queue=None,
 
         :param in_queue: input queue, flow details are comming from here
 
-        :param exit_event: event to notify working thread that the parent
+        :param full_event: event to notify working thread that the parent
                            (task executor) stopped filling the input queue
+
+        :param quit_event: event to notify working thread to quit immediately
 
         :param odl_ip: ip address of ODL; default="127.0.0.1"
 
@@ -198,21 +239,25 @@ def _request_sender(thread_id, preparing_function, auth, in_queue=None,
     ses = requests.Session()
     counter = [0 for i in range(600)]
 
-    while True:
+    while not quit_event.is_set():
         try:
             item_list = in_queue.get(timeout=1)
         except Queue.Empty:
-            if exit_event.is_set() and in_queue.empty():
+            if full_event.is_set() and in_queue.empty():
                 break
             continue
         req = preparing_function(odl_ip, port, item_list, auth)
         prep = req.prepare()
         try:
-            rsp = ses.send(prep, timeout=60)
+            rsp = ses.send(prep, timeout=10)
         except requests.exceptions.Timeout:
             counter[99] += 1
             logger.error("No response from %s", odl_ip)
             continue
+        except Exception as ex:
+            counter[98] += 1
+            logger.error("Exception occured", ex)
+            break
         logger.debug("%s %s", rsp.request, rsp.request.url)
         logger.debug("Headers %s:", rsp.request.headers)
         logger.debug("Body: %s", rsp.request.body)
@@ -229,7 +274,7 @@ def _request_sender(thread_id, preparing_function, auth, in_queue=None,
 
 def _task_executor(preparing_function, odl_ip="127.0.0.1", port="8181",
                    thread_count=1, item_count=1, items_per_request=1,
-                   auth=('admin', 'admin')):
+                   auth=('admin', 'admin'), cli_args=None):
     """The main function which drives sending of http requests.
 
     Creates 2 queues and requested number of "working threads".
@@ -253,6 +298,8 @@ def _task_executor(preparing_function, odl_ip="127.0.0.1", port="8181",
 
         :param auth: authentication credentials
 
+        :param cli_args: all cli arguments from argparser
+
     Returns:
         :returns dict: dictionary of http response counts like
                        {"http_status_code1: "count1", etc.}
@@ -261,8 +308,9 @@ def _task_executor(preparing_function, odl_ip="127.0.0.1", port="8181",
     # geting hosts
     hosts = odl_ip.split(',')
     nrhosts = len(hosts)
+    init_id = 0 if cli_args is None else cli_args.init_id
 
-    items = [i + 1 for i in range(item_count)]
+    items = [i + init_id for i in range(item_count)]
     item_groups = []
     for i in range(0, item_count, items_per_request):
         item_groups.append(items[i:i + items_per_request])
@@ -275,20 +323,23 @@ def _task_executor(preparing_function, odl_ip="127.0.0.1", port="8181",
     # create an empty result queue
     result_queue = Queue.Queue()
     # create exit event
-    exit_event = threading.Event()
+    full_event = threading.Event()
+
+    # regitering thread notifier
+    signal.signal(signal.SIGINT, quit_handler)
 
     # start threads to read details from queues and to send http requests
     threads = []
     for i in range(int(thread_count)):
         thr = threading.Thread(target=_request_sender,
                                args=(i, preparing_function, auth),
-                               kwargs={"in_queue": send_queue, "exit_event": exit_event,
+                               kwargs={"in_queue": send_queue, "full_event": full_event,
                                        "odl_ip": hosts[i % nrhosts], "port": port,
-                                       "out_queue": result_queue})
+                                       "out_queue": result_queue, "quit_event"=quit_event})
         threads.append(thr)
         thr.start()
 
-    exit_event.set()
+    full_event.set()
 
     result = {}
     # wait for reqults and sum them up
@@ -331,7 +382,7 @@ def _build_delete(odl_ip, port, uri):
     assert rsp.status_code == 200, rsp.text
 
 
-def delete_car(odl_ip, port, thread_count, item_count, auth, items_per_request):
+def delete_car(odl_ip, port, thread_count, item_count, auth, items_per_request, cli_args):
     """Delete cars container from config datastore, assert success.
 
     Args:
@@ -347,6 +398,8 @@ def delete_car(odl_ip, port, thread_count, item_count, auth, items_per_request):
 
         :param items_per_request: ignored; only 1 request needed
 
+        :param cli_args: all cli arguments from argparser
+
     Returns:
         None
     """
@@ -355,7 +408,7 @@ def delete_car(odl_ip, port, thread_count, item_count, auth, items_per_request):
     _build_delete(odl_ip, port, "config/car:cars")
 
 
-def delete_people(odl_ip, port, thread_count, item_count, auth, items_per_request):
+def delete_people(odl_ip, port, thread_count, item_count, auth, items_per_request, cli_args):
     """Delete people container from config datastore.
 
     Args:
@@ -371,6 +424,8 @@ def delete_people(odl_ip, port, thread_count, item_count, auth, items_per_reques
 
         :param items_per_request: ignored; only 1 request needed
 
+        :param cli_args: all cli arguments from argparser
+
     Returns:
         None
     """
@@ -379,7 +434,7 @@ def delete_people(odl_ip, port, thread_count, item_count, auth, items_per_reques
     _build_delete(odl_ip, port, "config/people:people")
 
 
-def delete_car_people(odl_ip, port, thread_count, item_count, auth, items_per_request):
+def delete_car_people(odl_ip, port, thread_count, item_count, auth, items_per_request, cli_args):
     """Delete car-people container from config datastore.
 
     Args:
@@ -394,6 +449,8 @@ def delete_car_people(odl_ip, port, thread_count, item_count, auth, items_per_re
         :param auth: authentication credentials
 
         :param items_per_request: ignored; only 1 request needed
+
+        :param cli_args: all cli arguments from argparser
 
     Returns:
         None
@@ -449,6 +506,8 @@ def get_car(odl_ip, port, thread_count, item_count, auth, items_per_request):
 
         :param items_per_request: ignored; only 1 request needed
 
+        :param cli_args: all cli arguments from argparser
+
     Returns:
         None
     """
@@ -457,7 +516,7 @@ def get_car(odl_ip, port, thread_count, item_count, auth, items_per_request):
     _build_get(odl_ip, port, "config/car:cars")
 
 
-def get_people(odl_ip, port, thread_count, item_count, auth, items_per_request):
+def get_people(odl_ip, port, thread_count, item_count, auth, items_per_request, cli_args):
     """Reads people entries from config datastore.
 
     TODO: some needed logic to be added handle http response in the future,
@@ -476,6 +535,8 @@ def get_people(odl_ip, port, thread_count, item_count, auth, items_per_request):
 
         :param items_per_request: ignored; only 1 request needed
 
+        :param cli_args: all cli arguments from argparser
+
     Returns:
         None
     """
@@ -484,7 +545,7 @@ def get_people(odl_ip, port, thread_count, item_count, auth, items_per_request):
     _build_get(odl_ip, port, "config/people:people")
 
 
-def get_car_people(odl_ip, port, thread_count, item_count, auth, items_per_request):
+def get_car_people(odl_ip, port, thread_count, item_count, auth, items_per_request, cli_args):
     """Reads car-people entries from config datastore.
 
     TODO: some needed logic to be added handle http response in the future,
@@ -503,6 +564,8 @@ def get_car_people(odl_ip, port, thread_count, item_count, auth, items_per_reque
 
         :param items_per_request: ignored; only 1 request needed
 
+        :param cli_args: all cli arguments from argparser
+
     Returns:
         None
     """
@@ -511,7 +574,8 @@ def get_car_people(odl_ip, port, thread_count, item_count, auth, items_per_reque
     _build_get(odl_ip, port, "config/car-people:car-people")
 
 
-def add_car(odl_ip, port, thread_count, item_count, auth, items_per_request):
+def add_car(odl_ip, port, thread_count, item_count, auth, items_per_request,
+            cli_args):
     """Configure car entries to the config datastore.
 
     Args:
@@ -528,6 +592,8 @@ def add_car(odl_ip, port, thread_count, item_count, auth, items_per_request):
         :param items_per_request: items per request, not used here,
                                   just to keep the same api
 
+        :param cli_args: all cli arguments from argparser
+
     Returns:
         None
     """
@@ -536,13 +602,14 @@ def add_car(odl_ip, port, thread_count, item_count, auth, items_per_request):
                 item_count, odl_ip, port, items_per_request)
     res = _task_executor(_prepare_add_car, odl_ip=odl_ip, port=port,
                          thread_count=thread_count, item_count=item_count,
-                         items_per_request=items_per_request, auth=auth)
+                         items_per_request=items_per_request, auth=auth, cli_args=cli_args)
     if res.keys() != [204]:
         logger.error("Not all cars were configured: " + repr(res))
         raise Exception("Not all cars were configured: " + repr(res))
 
 
-def add_people(odl_ip, port, thread_count, item_count, auth, items_per_request):
+def add_people(odl_ip, port, thread_count, item_count, auth, items_per_request,
+               cli_args):
     """Configure people entries to the config datastore.
 
     Args:
@@ -559,6 +626,8 @@ def add_people(odl_ip, port, thread_count, item_count, auth, items_per_request):
         :param items_per_request: items per request, not used here,
                                   just to keep the same api
 
+        :param cli_args: all cli arguments from argparser
+
     Returns:
         None
     """
@@ -567,14 +636,14 @@ def add_people(odl_ip, port, thread_count, item_count, auth, items_per_request):
                 item_count, odl_ip, port, items_per_request)
     res = _task_executor(_prepare_add_people, odl_ip=odl_ip, port=port,
                          thread_count=thread_count, item_count=item_count,
-                         items_per_request=items_per_request, auth=auth)
+                         items_per_request=items_per_request, auth=auth, cli_args=cli_args)
     if res.keys() != [204]:
         logger.error("Not all people were configured: " + repr(res))
         raise Exception("Not all people were configured: " + repr(res))
 
 
 def add_car_people_rpc(odl_ip, port, thread_count, item_count, auth,
-                       items_per_request):
+                       items_per_request, cli_args):
     """Configure car-people entries to the config datastore one by one using rpc
 
     Args:
@@ -591,6 +660,8 @@ def add_car_people_rpc(odl_ip, port, thread_count, item_count, auth,
         :param items_per_request: items per request, not used here,
                                   just to keep the same api
 
+        :param cli_args: all cli arguments from argparser
+
     Returns:
         None
     """
@@ -605,8 +676,47 @@ def add_car_people_rpc(odl_ip, port, thread_count, item_count, auth,
 
     res = _task_executor(_prepare_add_car_people_rpc, odl_ip=odl_ip, port=port,
                          thread_count=thread_count, item_count=item_count,
-                         items_per_request=items_per_request, auth=auth)
-    if res.keys() != [204]:
+                         items_per_request=items_per_request, auth=auth, cli_args=cli_args)
+    if res.keys() != [204] and res.keys() != [200]:
+        logger.error("Not all rpc calls passed: " + repr(res))
+        raise Exception("Not all rpc calls passed: " + repr(res))
+
+
+def add_person_rpc(odl_ip, port, thread_count, item_count, auth, items_per_request, cli_args):
+    """Configure person entries to the config datastore one by one using rpc
+
+    Args:
+        :param odl_ip: ip address of ODL; default="127.0.0.1"
+
+        :param port: restconf port; default="8181"
+
+        :param thread_count: number of threads used to send http requests; default=1
+
+        :param item_count: number of items to be condigured
+
+        :param auth: authentication credentials
+
+        :param items_per_request: items per request, not used here,
+                                  just to keep the same api
+
+        :param cli_args: all cli arguments from argparser
+
+    Returns:
+        None
+    """
+
+    logger.info("Add %s person(s) to %s:%s (%s per request)",
+                item_count, odl_ip, port, items_per_request)
+    if items_per_request != 1:
+        logger.error("Only 1 item per request is supported, " +
+                     "you specified: {0}".format(item_count))
+        raise NotImplementedError("Only 1 item per request is supported, " +
+                                  "you specified: {0}".format(item_count))
+
+    res = _task_executor(_prepare_add_person_rpc, odl_ip=odl_ip, port=port,
+                         thread_count=thread_count, item_count=item_count,
+                         items_per_request=items_per_request, auth=auth, cli_args=cli_args)
+    if res.keys() != [200]:
         logger.error("Not all rpc calls passed: " + repr(res))
         raise Exception("Not all rpc calls passed: " + repr(res))
 
@@ -618,8 +728,12 @@ _handler_matrix = {
     "add": {"car": add_car, "people": add_people},
     "get": {"car": get_car, "people": get_people, "car-people": get_car_people},
     "delete": {"car": delete_car, "people": delete_people, "car-people": delete_car_people},
-    "add-rpc": {"car-people": add_car_people_rpc},
+    "add-rpc": {"car-people": add_car_people_rpc, "people": add_person_rpc},
 }
+
+quit_event = threading.Event()
+def quit_handler(signal, frame):
+    quit_event.set()
 
 
 if __name__ == "__main__":
@@ -651,6 +765,7 @@ if __name__ == "__main__":
     parser.add_argument("--user", help="Restconf user name", default="admin")
     parser.add_argument("--password", help="Restconf password", default="admin")
     parser.add_argument("--ipr", type=int, help="Items per request", default=1)
+    parser.add_argument("--init-id", type=int, help="Initial id for given itemtype", default=0, dest='init_id')
     parser.add_argument("--debug", dest="loglevel", action="store_const",
                         const=logging.DEBUG, default=logging.INFO,
                         help="Set log level to debug (default is error)")
@@ -682,4 +797,4 @@ if __name__ == "__main__":
 
     handler_function = _handler_matrix[args.action][args.itemtype]
     handler_function(args.host, args.port, args.threads,
-                     args.itemcount, auth, args.ipr)
+                     args.itemcount, auth, args.ipr, args)
