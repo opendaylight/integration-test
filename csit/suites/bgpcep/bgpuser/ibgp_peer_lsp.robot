@@ -10,7 +10,6 @@ Documentation     Basic tests for iBGP peers.
 ...               Test suite performs basic iBGP functional test case for
 ...               carrying LSP State Information in BGP as described in
 ...               http://tools.ietf.org/html/draft-ietf-idr-te-lsp-distribution-03
-...
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
@@ -33,7 +32,7 @@ Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 
 *** Variables ***
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
-${COUNT}    1
+${COUNT}          1
 ${HOLDTIME}       180
 ${BGP_PEER_LOG_FILE}    bgp_peer.log
 ${BGP_PEER_COMMAND}    python play.py --amount ${COUNT} --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --${BGP_PEER_LOG_LEVEL} --logfile ${BGP_PEER_LOG_FILE} --bgpls True
@@ -46,8 +45,8 @@ ${CONTROLLER_BGP_LOG_LEVEL}    DEFAULT
 
 *** Test Cases ***
 TC1_Configure_iBGP_Peer
-    [Tags]    critical
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
+    [Tags]    critical
     ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${TOOLS_SYSTEM_IP}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'false'}
     ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
 
