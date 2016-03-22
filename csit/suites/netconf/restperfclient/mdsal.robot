@@ -49,13 +49,24 @@ Run_RestPerfClient_Directly_On_MDSAL
     SSHLibrary.Put_File    ${CURDIR}/../../../variables/netconf/RestPerfClient/request1.json
     ${filename}=    NexusKeywords.Deploy_Test_Tool    netconf    netconf-testtool    rest-perf-client
     SSHLibrary.Set_Client_Configuration    timeout=${DIRECT_MDSAL_TIMEOUT}
+    # Construct the part of the RestPerfClient command that is the same here
+    # and in Run_RestPerfClient_Through_Netconf_Connector. Put it into the
+    # ${command_prefix} suite variable.
+    # TODO: Extract this command construction code into a keyword that gets
+    # the suite specific values and spits out the completed command. Then
+    # just use this keyword to get the command. That is most likely much less
+    # confusing to the readers.
     ${options}=    BuiltIn.Set_Variable    --ip ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --edits ${REQUEST_COUNT}
     ${options}=    BuiltIn.Set_Variable    ${options} --edit-content request1.json --async-requests false
     ${options}=    BuiltIn.Set_Variable    ${options} --auth ${ODL_RESTCONF_USER} ${ODL_RESTCONF_PASSWORD}
-    ${options}=    BuiltIn.Set_Variable    ${options} --destination
     ${prefix}=    NexusKeywords.Compose_Full_Java_Command    -Xmx1G -XX:MaxPermSize=256M -jar ${filename} ${options}
     BuiltIn.Set_Suite_Variable    ${command_prefix}    ${prefix}
-    ${command}    BuiltIn.Set_Variable    ${command_prefix} /restconf/config/car:cars
+    # Now finish the command by combining ${command_prefix} with the options
+    # that are specific to this test case.
+    ${timeout}=    Utils.Convert_To_Minutes    ${DIRECT_MDSAL_TIMEOUT}
+    ${command}=    BuiltIn.Set_Variable    ${command_prefix} --timeout ${timeout} --destination
+    ${command}=    BuiltIn.Set_Variable    ${command} /restconf/config/car:cars
+    # Run the command and check the results.
     BuiltIn.Log    Running restperfclient: ${command}
     Set_Known_Bug_Id    5413
     Execute_Command_Passes    ${command} >${restperfclientlog} 2>&1
@@ -99,7 +110,15 @@ Run_RestPerfClient_Through_Netconf_Connector
     BuiltIn.Set_Suite_Variable    ${restperfclientlog}    ${restperfclientlog}
     SSHLibrary.Switch_Connection    ${restperfclient}
     SSHLibrary.Set_Client_Configuration    timeout=${NETCONF_CONNECTOR_MDSAL_TIMEOUT}
-    ${command}    BuiltIn.Set_Variable    ${command_prefix} /restconf/config/network-topology:network-topology/topology/topology-netconf/node/odl-mdsal-northbound-via-netconf-connector/yang-ext:mount/car:cars
+    # Construct the RestPerfClient command by combining ${command_prefix}
+    # with the options specific to this test case. The ${command_prefix} was
+    # constructed in Run_RestPerfClient_Directly_On_MDSAL. See also the TODO
+    # in Run_RestPerfClient_Directly_On_MDSAL which, once complete, will turn
+    # this hunk of code into just 1 line.
+    ${timeout}=    Utils.Convert_To_Minutes    ${NETCONF_CONNECTOR_MDSAL_TIMEOUT}
+    ${command}=    BuiltIn.Set_Variable    ${command_prefix} --timeout ${timeout} --destination
+    ${command}=    BuiltIn.Set_Variable    ${command} /restconf/config/network-topology:network-topology/topology/topology-netconf/node/odl-mdsal-northbound-via-netconf-connector/yang-ext:mount/car:cars
+    # Run the command and check the results.
     BuiltIn.Log    Running restperfclient: ${command}
     Set_Known_Bug_Id    5413
     Execute_Command_Passes    ${command} >${restperfclientlog} 2>&1
@@ -147,11 +166,11 @@ Setup_Everything
     # Calculate timeouts
     ${value}=    BuiltIn.Evaluate    ${REQUEST_COUNT}/50+10
     Utils.Set_User_Configurable_Variable_Default    DIRECT_MDSAL_TIMEOUT    ${value} s
-    ${value}=    DateTime.Add_Time_To_Time    ${DIRECT_MDSAL_TIMEOUT}    60s    result_format=compact
+    ${value}=    DateTime.Add_Time_To_Time    ${DIRECT_MDSAL_TIMEOUT}    2m    result_format=compact
     Utils.Set_User_Configurable_Variable_Default    DIRECT_MDSAL_TIMEOUT_FOR_TESTCASE    ${value}
     ${value}=    BuiltIn.Evaluate    ${REQUEST_COUNT}/10+10
     Utils.Set_User_Configurable_Variable_Default    NETCONF_CONNECTOR_MDSAL_TIMEOUT    ${value} s
-    ${value}=    DateTime.Add_Time_To_Time    ${NETCONF_CONNECTOR_MDSAL_TIMEOUT}    60s    result_format=compact
+    ${value}=    DateTime.Add_Time_To_Time    ${NETCONF_CONNECTOR_MDSAL_TIMEOUT}    2m    result_format=compact
     Utils.Set_User_Configurable_Variable_Default    NETCONF_CONNECTOR_MDSAL_TIMEOUT_FOR_TESTCASE    ${value}
 
 Teardown_Everything
