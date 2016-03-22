@@ -217,15 +217,14 @@ Add a vBridgeMacMapping
 Mininet Ping Should Succeed
     [Arguments]    ${host1}    ${host2}
     [Documentation]    Ping hosts to check connectivity
-    Run Keyword If    '${OPENFLOW_VERSION}' == 'OF13'    Add Table Miss Flows
     Write    ${host1} ping -c 1 ${host2}
     ${result}    Read Until    mininet>
+    Read Until    mininet>
     Should Contain    ${result}    64 bytes
 
 Mininet Ping Should Not Succeed
     [Arguments]    ${host1}    ${host2}
     [Documentation]    Ping hosts when there is no connectivity and check hosts is unreachable
-    Run Keyword If    '${OPENFLOW_VERSION}' == 'OF13'    Add Table Miss Flows
     Write    ${host1} ping -c 3 ${host2}
     ${result}    Read Until    mininet>
     Should Not Contain    ${result}    64 bytes
