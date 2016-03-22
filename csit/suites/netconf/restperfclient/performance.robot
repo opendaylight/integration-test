@@ -66,6 +66,8 @@ Deploy_And_Run_RestPerfClient
     ${timeout}=    BuiltIn.Evaluate    ${REQUEST_COUNT}/100+10
     SSHLibrary.Set_Client_Configuration    timeout=${timeout}
     ${options}=    BuiltIn.Set_Variable    --ip ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --edits ${REQUEST_COUNT}
+    ${timeout}=    Utils.Convert_To_Minutes    ${TESTTOOL_DEVICE_TIMEOUT}
+    ${options}=    BuiltIn.Set_Variable    ${options} --timeout ${timeout}
     ${options}=    BuiltIn.Set_Variable    ${options} --destination /restconf/config/network-topology:network-topology/topology/topology-netconf/node/${DEVICE_NAME}/yang-ext:mount/car:cars
     ${options}=    BuiltIn.Set_Variable    ${options} --edit-content request1.json
     ${options}=    BuiltIn.Set_Variable    ${options} --auth ${ODL_RESTCONF_USER} ${ODL_RESTCONF_PASSWORD}
@@ -101,7 +103,7 @@ Setup_Everything
     # Calculate and set the value of the timeout
     ${value}=    BuiltIn.Evaluate    ${REQUEST_COUNT}/50+10
     Utils.Set_User_Configurable_Variable_Default    TESTTOOL_DEVICE_TIMEOUT    ${value} s
-    ${value}=    DateTime.Add_Time_To_Time    ${TESTTOOL_DEVICE_TIMEOUT}    60s    result_format=compact
+    ${value}=    DateTime.Add_Time_To_Time    ${TESTTOOL_DEVICE_TIMEOUT}    2m    result_format=compact
     Utils.Set_User_Configurable_Variable_Default    TESTTOOL_DEVICE_TIMEOUT_FOR_TESTCASE    ${value}
     # Setup resources used by the suite.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
