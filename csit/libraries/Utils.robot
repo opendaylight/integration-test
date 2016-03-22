@@ -468,3 +468,16 @@ Set_User_Configurable_Variable_Default
     #    "pybot -v".
     ${value}=    BuiltIn.Get_Variable_Value    \${${name}}    ${value}
     BuiltIn.Set_Suite_Variable    \${${name}}    ${value}
+
+Convert_To_Seconds
+    [Arguments]    ${time}
+    [Documentation]    Convert a Robot time string to an integer expressing the time in seconds
+    ...    This is a wrapper around DateTime.Convert_Time which does not
+    ...    provide a way to convert time strings to integers directly.
+    ...    DateTime.Convert_Time converts to a float which must be
+    ...    converted to integer explicitly using another line.
+    ...    This is needed for RestPerfClient which cannot accept floats
+    ...    for its --timeout parameter.
+    ${result}=    DateTime.Convert_Time    ${time}    result_format=number
+    ${result}=    BuiltIn.Evaluate    int($result)
+    [Return]    ${result}
