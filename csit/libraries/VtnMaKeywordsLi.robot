@@ -220,6 +220,8 @@ Mininet Ping Should Succeed
     Run Keyword If    '${OPENFLOW_VERSION}' == 'OF13'     Add Table Miss Flows
     Write    ${host1} ping -c 1 ${host2}
     ${result}    Read Until    mininet>
+    Write    dpctl dump-flows -OOpenFlow13
+    Read Until    mininet>
     Should Contain    ${result}    64 bytes
 
 Mininet Ping Should Not Succeed
