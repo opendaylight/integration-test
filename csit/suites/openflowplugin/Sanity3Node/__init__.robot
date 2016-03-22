@@ -11,7 +11,7 @@ ${start}          sudo python DynamicMininet.py
 *** Keywords ***
 Start Suite
     Log    Start the test on the base edition
-    ${mininet_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=>
+    ${mininet_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}
     Set Suite Variable    ${mininet_conn_id}
     Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/id_rsa    any
     Put File    ${CURDIR}/../../../libraries/DynamicMininet.py    .

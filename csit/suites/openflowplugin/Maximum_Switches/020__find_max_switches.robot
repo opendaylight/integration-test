@@ -33,7 +33,7 @@ Find Max Switches
 Start Suite
     [Documentation]    Starts mininet with requested number of switches
     Log    Start the test on the base edition
-    ${mininet_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=>    timeout=1800
+    ${mininet_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=1800
     Set Suite Variable    ${mininet_conn_id}
     Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Put File    ${CURDIR}/../../../libraries/DynamicMininet.py    DynamicMininet.py

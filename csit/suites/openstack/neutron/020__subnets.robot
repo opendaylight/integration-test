@@ -28,7 +28,7 @@ Check OpenStack Subnets
 Check OpenDaylight subnets
     [Documentation]    Checking OpenDaylight Neutron API for Known Subnets
     [Tags]    Subnets Neutron OpenDaylight
-    Create Session    ODLSession    http://${CONTROLLER}:${PORT}    headers=${HEADERS}    auth=${AUTH}
+    Create Session    ODLSession    http://${ODL_SYSTEM_IP}:${PORT}    headers=${HEADERS}    auth=${AUTH}
     ${resp}    get    ODLSession    ${ODLREST}
     Should be Equal As Strings    ${resp.status_code}    200
     ${ODLResult}    To Json    ${resp.content}
