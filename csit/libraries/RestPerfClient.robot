@@ -70,8 +70,8 @@ Invoke_Restperfclient
     BuiltIn.Should_Not_Be_Equal    '${result}'    ''
 
 Grep_Restperfclient_Log
-    [Documentation]    Search for the specified string in the log file produced by latest invocation of RestPerfClient
     [Arguments]    ${pattern}
+    [Documentation]    Search for the specified string in the log file produced by latest invocation of RestPerfClient
     BuiltIn.Should_Not_Be_Equal    '${RestPerfClient__restperfclientlog}'    ''
     ${result}=    SSHLibrary.Execute_Command    grep '${pattern}' ${RestPerfClient__restperfclientlog}
     [Return]    ${result}
