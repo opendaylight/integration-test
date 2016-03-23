@@ -14,6 +14,7 @@ Documentation     Perform complex operations on netconf.
 Library           Collections
 Library           DateTime
 Library           RequestsLibrary
+Library           SSHLibrary
 Resource          NetconfViaRestconf.robot
 Resource          NexusKeywords.robot
 Resource          SSHKeywords.robot
