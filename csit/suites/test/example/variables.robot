@@ -1,0 +1,3 @@
+*** Variables ***
+${ROBOT_PRIMARY}    FOO
+${ROBOT_SECONDARY}    ${ROBOT_PRIMARY}
