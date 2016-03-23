@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_1749acd0",
+        "filename": "csit/variables/Variables.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-23T15:41:13Z",
+      "side": 1,
+      "message": "Hi Jamo. If you are doing big changes, take a look at this card: https://trello.com/c/17Ks74IA/298-move-variable-definitions-from-variables-py-into-variables-robot",
+      "revId": "63342e0454b82783a6ef7a9b19e1698b9b5cd621",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
