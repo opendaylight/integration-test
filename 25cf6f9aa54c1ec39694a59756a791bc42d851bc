@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_ac36abe5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 4
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-23T10:52:28Z",
+      "side": 1,
+      "message": "i",
+      "range": {
+        "startLine": 9,
+        "startChar": 11,
+        "endLine": 9,
+        "endChar": 12
+      },
+      "revId": "25cf6f9aa54c1ec39694a59756a791bc42d851bc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ec30b3ea",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-23T10:52:28Z",
+      "side": 1,
+      "message": "This should accept IP address (TOOLS_SYSTEM_1_IP as default), as there are tests which need to access multiple tools systems which may want to use it. In that case, Setup_Restperfclient could accept IP as well.\n\nBut that sounds line an improvement to be implemented later. Perhaps leave a TODO? No big deal though.",
+      "range": {
+        "startLine": 211,
+        "startChar": 26,
+        "endLine": 211,
+        "endChar": 69
+      },
+      "revId": "25cf6f9aa54c1ec39694a59756a791bc42d851bc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_0c34ffdc",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-23T10:52:28Z",
+      "side": 1,
+      "message": "Not needed, the connection is active since line 211.",
+      "range": {
+        "startLine": 213,
+        "startChar": 15,
+        "endLine": 213,
+        "endChar": 32
+      },
+      "revId": "25cf6f9aa54c1ec39694a59756a791bc42d851bc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4c74479c",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-23T10:52:28Z",
+      "side": 1,
+      "message": "[Return]\n\nI have added a section with the reasoning: https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Setting_suite_variables_in_Keywords\n\nAlso applies to ${restperfclient} (and ${restperfclientlog} below) value, which is currently not even documented as a suite variable.",
+      "range": {
+        "startLine": 217,
+        "startChar": 4,
+        "endLine": 217,
+        "endChar": 77
+      },
+      "revId": "25cf6f9aa54c1ec39694a59756a791bc42d851bc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
