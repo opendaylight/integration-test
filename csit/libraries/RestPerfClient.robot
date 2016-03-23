@@ -47,6 +47,11 @@ Setup_Restperfclient
     ${prefix}=    NexusKeywords.Compose_Full_Java_Command    -Xmx1G -XX:MaxPermSize=256M -jar ${filename}
     BuiltIn.Set_Suite_Variable    ${RestPerfClient__restperfclient_invocation_command_prefix}    ${prefix}
 
+RestPerfClient__Kill
+    Utils.Write_Bare_Ctrl_C
+    SSHLibrary.Set_Client_Configuration    timeout=5
+    SSHLibrary.Read_Until_Prompt
+
 Restperfclient__Invoke_With_Timeout
     [Arguments]    ${timeout}    ${command}
     [Timeout]    ${timeout}
@@ -59,6 +64,8 @@ Invoke_Restperfclient
     ...    Assemble the RestPerfClient invocation commad, setup the specified
     ...    timeout for the SSH connection, invoke the assembled command and
     ...    then check that RestPerfClient finished its run correctly.
+    [Teardown]    BuiltIn.Run_Keyword_If    ${restperfclient_running}    BuiltIn.Run_Keyword_And_Ignore_Error    RestPerfClient__Kill
+    ${restperfclient_running}=    Set_Variable    False
     ${logname}=    Utils.Get_Log_File_Name    restperfclient    ${testcase}
     BuiltIn.Set_Suite_Variable    ${RestPerfClient__restperfclientlog}    ${logname}
     ${options}=    BuiltIn.Set_Variable    --ip ${ip} --port ${port} --edits ${count}
@@ -72,7 +79,9 @@ Invoke_Restperfclient
     SSHLibrary.Set_Client_Configuration    timeout=${timeout}
     ${keyword_timeout}=    DateTime.Add_Time_To_Time    ${timeout}    2m    result_format=compact
     SetupUtils.Set_Known_Bug_Id    5413
+    ${restperfclient_running}=    Set_Variable    True
     Restperfclient__Invoke_With_Timeout    ${keyword_timeout}    ${command}
+    ${restperfclient_running}=    Set_Variable    False
     SetupUtils.Set_Unknown_Bug_Id
     ${result}=    Grep_Restperfclient_Log    FINISHED. Execution time:
     BuiltIn.Should_Not_Be_Equal    '${result}'    ''
