@@ -16,6 +16,334 @@
       "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_b7fef836",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-03-23T17:44:28Z",
+      "side": 1,
+      "message": "+1",
+      "parentUuid": "5a3f45e8_26659c45",
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_12c89a73",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-03-23T17:44:28Z",
+      "side": 1,
+      "message": "It\u0027d be useful for understanding the rest of the code if you gave an example response in the fn\u0027s docstring.",
+      "range": {
+        "startLine": 27,
+        "startChar": 54,
+        "endLine": 27,
+        "endChar": 71
+      },
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_17588c55",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-03-23T17:44:28Z",
+      "side": 1,
+      "message": "It\u0027d be good to use the Python 3-style print\n\nhttps://docs.python.org/3.0/whatsnew/3.0.html#print-is-a-function",
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f7f8804b",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-03-23T17:44:28Z",
+      "side": 1,
+      "message": "Pretty sure this doesn\u0027t work (and other occurrences). Need to import sys and do sys.exit.",
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_7740f056",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-03-23T17:44:28Z",
+      "side": 1,
+      "message": "Minor: spacing",
+      "range": {
+        "startLine": 35,
+        "startChar": 37,
+        "endLine": 35,
+        "endChar": 38
+      },
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f2e36e31",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-03-23T17:44:28Z",
+      "side": 1,
+      "message": "Minor: spacing (also, may want to make capitalization more consistent, but not a blocker)",
+      "range": {
+        "startLine": 40,
+        "startChar": 51,
+        "endLine": 40,
+        "endChar": 53
+      },
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_172feca2",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-03-23T17:44:28Z",
+      "side": 1,
+      "message": "We use snake_case var names, as recommended by PEP8 (applies elsewhere)",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 17
+      },
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_52d06253",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-03-23T17:44:28Z",
+      "side": 1,
+      "message": "Since you\u0027re not using clusterStatus, I suggest doing this in one line for clarity (example below)",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 44
+      },
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f72b6092",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-03-23T17:44:28Z",
+      "side": 1,
+      "message": "Don\u0027t cap",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 11
+      },
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_d2f8f2c6",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-03-23T17:44:28Z",
+      "side": 1,
+      "message": "Is it necessary to convert this again? If not, I think this entire block of logic that extracts member_status could be one line (see comments above and below), which would be more clear/maintainable imho.",
+      "range": {
+        "startLine": 46,
+        "startChar": 13,
+        "endLine": 46,
+        "endChar": 32
+      },
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_32ee7623",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-03-23T17:44:28Z",
+      "side": 1,
+      "message": "Since you\u0027re never using the var status, it would be more clear to do this in one line (json.loads(members)[\"members\"]).",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 36
+      },
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_72463e25",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-03-23T17:44:28Z",
+      "side": 1,
+      "message": "The splitting logic these three lines are implementing isn\u0027t clear to me. Can you add some inline docs? Maybe an example?\n\nLater: I now see it\u0027s extracting an IP. The required regex isn\u0027t particularly clear either, but it would be `import re; re.search(\"(?\u003c\u003d@)(.*)(?\u003c\u003d:)\", \"prefixstuff@10.0.0.2:endstuff\").group(0)` if you want to use it.",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 51
+      },
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_72111eac",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-03-23T17:44:28Z",
+      "side": 1,
+      "message": "If I\u0027m understanding the logic later, `node` seems to be an IP. I think a more descriptive var name, one that includes \"ip\", would help clarity/maintainability.",
+      "range": {
+        "startLine": 54,
+        "startChar": 8,
+        "endLine": 54,
+        "endChar": 12
+      },
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_86462b22",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-03-23T17:44:28Z",
+      "side": 1,
+      "message": "Since you\u0027re not using these for anything more than building the single url below, I suggest just writing them in one var declaration, something like `url \u003d (\"a\" \"b\" \"c\") would work fine (\"abc\"), even if you put them on multiple lines for style. You could also use `\\` to escape the newlines, but imho parens are more clear.",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 58
+      },
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_57185484",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-03-23T17:44:28Z",
+      "side": 1,
+      "message": "Please use consistent quotes. Int/Test typically uses double quotes. Applies elsewhere.",
+      "range": {
+        "startLine": 65,
+        "startChar": 1,
+        "endLine": 66,
+        "endChar": 52
+      },
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
