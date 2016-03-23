@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_6cedc38b",
+        "filename": "csit/libraries/RestPerfClient.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-23T14:02:03Z",
+      "side": 1,
+      "message": "There may be suites which want to use this Resource without NetconfKeywords, in which case NexusKeywords is not initialized yet.",
+      "range": {
+        "startLine": 27,
+        "startChar": 20,
+        "endLine": 27,
+        "endChar": 33
+      },
+      "revId": "3f5cfac43780f8417ddf1bd5772d142477d182a1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ece1d39b",
+        "filename": "csit/libraries/RestPerfClient.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-23T14:02:03Z",
+      "side": 1,
+      "message": "${pattern}?",
+      "range": {
+        "startLine": 56,
+        "startChar": 19,
+        "endLine": 56,
+        "endChar": 28
+      },
+      "revId": "3f5cfac43780f8417ddf1bd5772d142477d182a1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_2cf3bb74",
+        "filename": "csit/libraries/RestPerfClient.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-23T14:02:03Z",
+      "side": 1,
+      "message": "Perhaps check the variable is not empty? Perhaps check the file exists?\nNo big deal though. Unless there are failures were the checks are needed, the checks would just decrease readability.",
+      "range": {
+        "startLine": 57,
+        "startChar": 65,
+        "endLine": 57,
+        "endChar": 101
+      },
+      "revId": "3f5cfac43780f8417ddf1bd5772d142477d182a1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_4cee078d",
+        "filename": "csit/libraries/RestPerfClient.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-23T14:02:03Z",
+      "side": 1,
+      "message": "Single quotes are safer, caller may want to put dollars into the pattern.",
+      "range": {
+        "startLine": 57,
+        "startChar": 53,
+        "endLine": 57,
+        "endChar": 54
+      },
+      "revId": "3f5cfac43780f8417ddf1bd5772d142477d182a1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
