@@ -6,7 +6,7 @@ Documentation     Test suite to verify fitration operation on different models.
 ...               Topology-id on the end of each urls must match topology-id from xml. Yang models of components in topology are defined in xmls.
 Suite Setup       Setup Environment
 Suite Teardown    Clean Environment
-Test Teardown     Filtration Links Test Teardown
+Test Teardown     Test Teardown    network-topology:network-topology/topology/topo:1
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           XML
@@ -25,6 +25,7 @@ Filtration Range Number Network Topology Model
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <link-id>link:    3
+    Check Supporting Links in Links    ${resp.content}    3
     Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:4</link-ref>    1
     Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:3</link-ref>    1
     Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:2-1</link-ref>    1
@@ -37,8 +38,9 @@ Filtration Range Number Inventory Model
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <link-id>link:    2
-    Should Contain X Times    ${resp.content}    <link-ref>link:14:12</link-ref>    1
-    Should Contain X Times    ${resp.content}    <link-ref>link:15:13</link-ref>    1
+    Check Supporting Links in Links    ${resp.content}    2
+    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/openflow-topo:3/link/link:14:12</link-ref>    1
+    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/openflow-topo:3/link/link:15:13</link-ref>    1
 
 Filtration Specific String Network Topology Model
     [Documentation]    Test of specific string type of filtration operation on Network Topology model
@@ -48,6 +50,7 @@ Filtration Specific String Network Topology Model
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <link-id>link:    2
+    Check Supporting Links in Links    ${resp.content}    2
     Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:4</link-ref>    1
     Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:2-1</link-ref>    1
 
@@ -59,7 +62,8 @@ Filtration Specific String Inventory Model
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <link-id>link:    1
-    Should Contain X Times    ${resp.content}    <link-ref>link:15:13</link-ref>    1
+    Check Supporting Links in Links    ${resp.content}    1
+    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/openflow-topo:3/link/link:15:13</link-ref>    1
 
 Filtration Range String Network Topology Model
     [Documentation]    Test of range string type of filtration operation on Network Topology model
@@ -69,6 +73,7 @@ Filtration Range String Network Topology Model
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <link-id>link:    3
+    Check Supporting Links in Links    ${resp.content}    3
     Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:4</link-ref>    1
     Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:2-1</link-ref>    1
     Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:3</link-ref>    1
@@ -81,8 +86,9 @@ Filtration Range String Inventory Model
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <link-id>link:    2
-    Should Contain X Times    ${resp.content}    <link-ref>link:14:12</link-ref>    1
-    Should Contain X Times    ${resp.content}    <link-ref>link:15:13</link-ref>    1
+    Check Supporting Links in Links    ${resp.content}    2
+    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/openflow-topo:3/link/link:14:12</link-ref>    1
+    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/openflow-topo:3/link/link:15:13</link-ref>    1
 
 Filtration Script Network Topology Model
     [Documentation]    Test of script type of filtration operation on Network Topology model
@@ -93,6 +99,7 @@ Filtration Script Network Topology Model
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <link-id>link:    2
+    Check Supporting Links in Links    ${resp.content}    2
     Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:3</link-ref>    1
     Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:2-2</link-ref>    1
 
@@ -105,11 +112,15 @@ Filtration Script Inventory Model
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <link-id>link:    3
-    Should Contain X Times    ${resp.content}    <link-ref>link:11:12</link-ref>    1
-    Should Contain X Times    ${resp.content}    <link-ref>link:14:12</link-ref>    1
-    Should Contain X Times    ${resp.content}    <link-ref>link:15:13</link-ref>    1
+    Check Supporting Links in Links    ${resp.content}    3
+    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/openflow-topo:3/link/link:11:12</link-ref>    1
+    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/openflow-topo:3/link/link:14:12</link-ref>    1
+    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/openflow-topo:3/link/link:15:13</link-ref>    1
 
 *** Keywords ***
-Filtration Links Test Teardown
-    Test Teardown    network-topology:network-topology/topology/topo:1
-    Report_Failure_Due_To_Bug    5188
+Check Supporting Links in Links
+    [Arguments]    ${content}    ${number_of_links}
+    : FOR    ${index}    IN RANGE    1    ${number_of_links} + 1
+    \    ${link}    Get Element    ${content}    xpath=.//link[${index}]
+    \    ${link}    Element To String    ${link}
+    \    Should Contain X Times    ${link}    <link-ref>    1
