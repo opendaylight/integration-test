@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_771470f5",
+        "filename": "csit/libraries/RestPerfClient.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-23T15:31:17Z",
+      "side": 1,
+      "message": "This sounds like a FIXME.",
+      "range": {
+        "startLine": 19,
+        "startChar": 18,
+        "endLine": 19,
+        "endChar": 22
+      },
+      "revId": "9b1a400b13dadca6e3d7caca7c0615645b9bb2a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
