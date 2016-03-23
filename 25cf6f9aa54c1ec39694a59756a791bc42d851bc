@@ -91,6 +91,30 @@
       "revId": "25cf6f9aa54c1ec39694a59756a791bc42d851bc",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_acab4bd5",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-03-23T11:26:44Z",
+      "side": 1,
+      "message": "The 3 suite variables were changed to resource local variables as it really is not necessary for the callers of these keywords to mess around with them. Regarding the [Return] I am not a big fan of \"you must pass the value returned by keyword X to argument Y of keyword Z everytime you want to use keyword Z\" type of rules, they tend to reduce maintainability (especially if the keyword Z is called from a test case different than the keyword X is called).",
+      "parentUuid": "5a3f45e8_4c74479c",
+      "range": {
+        "startLine": 217,
+        "startChar": 4,
+        "endLine": 217,
+        "endChar": 77
+      },
+      "revId": "25cf6f9aa54c1ec39694a59756a791bc42d851bc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
