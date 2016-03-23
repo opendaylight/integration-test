@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_51822453",
+        "filename": "csit/suites/ovsdb/Devstack_Tempest_Tests/01__single_node_devstack_tempest_tests.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-03-23T01:40:36Z",
+      "side": 1,
+      "message": "This line would mean that only Lithium will be tested, Can you please make sure all versions of ODL are tested",
+      "revId": "c8e65782880d2afaa7f496aff26f0e92ab8cca3e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
