@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_0c207ff6",
+        "filename": "csit/suites/netconf/restperfclient/mdsal.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-23T13:16:50Z",
+      "side": 1,
+      "message": "RestPerfClient.Grep_Restperfclient_Log?",
+      "range": {
+        "startLine": 57,
+        "startChar": 18,
+        "endLine": 57,
+        "endChar": 52
+      },
+      "revId": "32d3d856408e67fbe422f99dbd5c0fb893e397df",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
