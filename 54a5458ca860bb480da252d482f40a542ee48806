@@ -22,6 +22,30 @@
       "revId": "54a5458ca860bb480da252d482f40a542ee48806",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_57ee948c",
+        "filename": "csit/suites/ovsdb/Devstack_Tempest_Tests/01__single_node_devstack_tempest_tests.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-03-23T15:53:16Z",
+      "side": 1,
+      "message": "but we want our test to use the most recent ODL distro on the latest beryllium branch which would be 4.2 snapshot, right?  SR2 is released from that branch at the end, and\nthen we would change beryllium-latest to 4.3\n\nI think that\u0027s the idea we are trying to accomplish, at least.",
+      "parentUuid": "5a3f45e8_f7736013",
+      "range": {
+        "startLine": 120,
+        "startChar": 23,
+        "endLine": 120,
+        "endChar": 24
+      },
+      "revId": "54a5458ca860bb480da252d482f40a542ee48806",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
