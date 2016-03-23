@@ -4,7 +4,6 @@ Variables         ../variables/Variables.py
 
 *** Variables ***
 ${WORKSPACE}      /tmp
-${BUNDLEFOLDER}    distribution-karaf-0.3.0-SNAPSHOT
 ${AUTHN_CFG_FILE}    ${WORKSPACE}/${BUNDLEFOLDER}/etc/org.opendaylight.aaa.authn.cfg
 
 *** Keywords ***
