@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_cc5df74a",
+        "filename": "csit/libraries/RestPerfClient.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-03-23T15:00:46Z",
+      "side": 1,
+      "message": "This was one of the reasons why I wanted this to be in NetconfKeywords. Users then would know that \"I am using NetconfKeywords, I have to initialize it first\". Solution for this problem is quite involved so I added a TODO instead.",
+      "parentUuid": "5a3f45e8_6cedc38b",
+      "range": {
+        "startLine": 27,
+        "startChar": 20,
+        "endLine": 27,
+        "endChar": 33
+      },
+      "revId": "3f5cfac43780f8417ddf1bd5772d142477d182a1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_ece1d39b",
         "filename": "csit/libraries/RestPerfClient.robot",
         "patchSetId": 16
@@ -87,6 +111,30 @@
         "startChar": 53,
         "endLine": 57,
         "endChar": 54
+      },
+      "revId": "3f5cfac43780f8417ddf1bd5772d142477d182a1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_ac5a2b4e",
+        "filename": "csit/libraries/RestPerfClient.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-03-23T15:00:46Z",
+      "side": 1,
+      "message": "Checking that the variable is not empty was added because if the variable is empty then the suite trying to invoke this has a bug and other keywords that deal with this value also have this check so I am adding it also for consistency.\n\nChecking that the file exists would decrease readability and the suites did exist for quite a time without such a check.",
+      "parentUuid": "5a3f45e8_2cf3bb74",
+      "range": {
+        "startLine": 57,
+        "startChar": 65,
+        "endLine": 57,
+        "endChar": 101
       },
       "revId": "3f5cfac43780f8417ddf1bd5772d142477d182a1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
