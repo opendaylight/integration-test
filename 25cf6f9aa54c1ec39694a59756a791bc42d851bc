@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_8cf3ef09",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-03-23T11:42:43Z",
+      "side": 1,
+      "message": "This needs quite a bit of thinking about how to design it. And whether we want to run restperfclient on other machines than the tools system. Currently I don\u0027t need to run multiple restperfclient instances concurrently so I don\u0027t see a point in spending time on support like this. Once I get to the point that I am going to need to run multiple restperfclient instances, I will be able to think (and especially, debug) a lot better about how to implement this functionality.\n\nSSHKeywords.Open_Connection_To_Tools_System does not take an IP because we have only one tools system in our test environments.",
+      "parentUuid": "5a3f45e8_ec30b3ea",
+      "range": {
+        "startLine": 211,
+        "startChar": 26,
+        "endLine": 211,
+        "endChar": 69
+      },
+      "revId": "25cf6f9aa54c1ec39694a59756a791bc42d851bc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_0c34ffdc",
         "filename": "csit/libraries/NetconfKeywords.robot",
         "patchSetId": 4
