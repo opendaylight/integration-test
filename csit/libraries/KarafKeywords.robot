@@ -6,7 +6,6 @@ Variables         ../variables/Variables.py
 
 *** Variables ***
 ${WORKSPACE}      /tmp
-${BUNDLEFOLDER}    distribution-karaf-0.3.0-SNAPSHOT
 ${KarafKeywords__karaf_connection_index}    -1
 
 *** Keywords ***
