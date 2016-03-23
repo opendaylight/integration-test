@@ -50,7 +50,15 @@ Setup_Restperfclient
 Restperfclient__Invoke_With_Timeout
     [Arguments]    ${timeout}    ${command}
     [Timeout]    ${timeout}
+    [Teardown]    BuiltIn.Run_Keyword_If    ${restperfclient_running}    BuiltIn.Run_Keyword_And_Ignore_Error    RestPerfClient__Kill
+    ${restperfclient_running}=    Set_Variable    True
     Execute_Command_Passes    ${command} >${RestPerfClient__restperfclientlog} 2>&1
+    ${restperfclient_running}=    Set_Variable    False
+
+RestPerfClient__Kill
+    Utils.Write_Bare_Ctrl_C
+    SSHLibrary.Set_Client_Configuration    timeout=5
+    SSHLibrary.Read_Until_Prompt
 
 Invoke_Restperfclient
     [Arguments]    ${timeout}    ${url}    ${testcase}=${EMPTY}    ${ip}=${ODL_SYSTEM_IP}    ${port}=${RESTCONFPORT}    ${count}=${REQUEST_COUNT}
@@ -65,13 +73,15 @@ Invoke_Restperfclient
     ${options}=    BuiltIn.Set_Variable    ${options} --edit-content request1.json --async-requests ${async}
     ${options}=    BuiltIn.Set_Variable    ${options} --auth ${user} ${password}
     ${timeout_in_minutes}=    Utils.Convert_To_Minutes    ${timeout}
-    ${options}=    BuiltIn.Set_Variable    ${options} --timeout ${timeout_in_minutes} --destination ${url}
+    ${options}=    BuiltIn.Set_Variable    ${options} --destination ${url}
     ${command}=    BuiltIn.Set_Variable    ${RestPerfClient__restperfclient_invocation_command_prefix} ${options}
     BuiltIn.Log    Running restperfclient: ${command}
     SSHLibrary.Switch_Connection    ${RestPerfClient__restperfclient}
     SSHLibrary.Set_Client_Configuration    timeout=${timeout}
     ${keyword_timeout}=    DateTime.Add_Time_To_Time    ${timeout}    1m    result_format=compact
+    SetupUtils.Set_Known_Bug_Id    5413
     Restperfclient__Invoke_With_Timeout    ${keyword_timeout}    ${command}
+    SetupUtils.Set_Unknown_Bug_Id
     ${result}=    Grep_Restperfclient_Log    FINISHED. Execution time:
     BuiltIn.Should_Not_Be_Equal    '${result}'    ''
 
