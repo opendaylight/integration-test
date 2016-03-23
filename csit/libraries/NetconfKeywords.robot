@@ -14,6 +14,7 @@ Documentation     Perform complex operations on netconf.
 Library           Collections
 Library           DateTime
 Library           RequestsLibrary
+Library           SSHLibrary
 Resource          NetconfViaRestconf.robot
 Resource          NexusKeywords.robot
 Resource          SSHKeywords.robot
@@ -199,3 +200,49 @@ Perform_Operation_On_Each_Device
     ${deadline_Date}=    DateTime.Add_Time_To_Date    ${current_Date}    ${timeout}
     BuiltIn.Set_Suite_Variable    ${current_port}    ${BASE_NETCONF_DEVICE_PORT}
     BuiltIn.Repeat_Keyword    ${count} times    NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device    ${operation}    ${deadline_Date}
+
+Setup_Restperfclient
+    [Documentation]    Deploy RestPerfClient and determine the Java command to use to call it.
+    ...    Open a SSH connection to the tools system dedicated to
+    ...    RestPerfClient, deploy RestPerfClient and the data files it needs
+    ...    to do its work, determine the Java command prefix needed to invoke
+    ...    it and set ${restperfclient_invocation_command_prefix} suite
+    ...    variable to that prefix.
+    ${restperfclient}=    SSHKeywords.Open_Connection_To_Tools_System
+    BuiltIn.Set_Suite_Variable    ${restperfclient}    ${restperfclient}
+    SSHLibrary.Switch_Connection    ${restperfclient}
+    SSHLibrary.Put_File    ${CURDIR}/../variables/netconf/RestPerfClient/request1.json
+    ${filename}=    NexusKeywords.Deploy_Test_Tool    netconf    netconf-testtool    rest-perf-client
+    ${prefix}=    NexusKeywords.Compose_Full_Java_Command    -Xmx1G -XX:MaxPermSize=256M -jar ${filename}
+    BuiltIn.Set_Suite_Variable    ${restperfclient_invocation_command_prefix}    ${prefix}
+
+Invoke_Restperfclient
+    [Arguments]    ${logname}    ${timeout}    ${url}
+    [Documentation]    Invoke RestPerfClient on the specified URL with the specified timeout.
+    ...    Assemble the RestPerfClient invocation commad, setup the specified
+    ...    timeout for the SSH connection, invoke the assembled command and
+    ...    then check that RestPerfClient finished its run correctly.
+    ${restperfclientlog}=    Utils.Get_Log_File_Name    restperfclient    ${logname}
+    BuiltIn.Set_Suite_Variable    ${restperfclientlog}    ${restperfclientlog}
+    ${options}=    BuiltIn.Set_Variable    --ip ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --edits ${REQUEST_COUNT}
+    ${options}=    BuiltIn.Set_Variable    ${options} --edit-content request1.json --async-requests false
+    ${options}=    BuiltIn.Set_Variable    ${options} --auth ${ODL_RESTCONF_USER} ${ODL_RESTCONF_PASSWORD}
+    ${options}=    BuiltIn.Set_Variable    ${options} --destination ${url}
+    ${command}=    BuiltIn.Set_Variable    ${restperfclient_invocation_command_prefix} ${options}
+    BuiltIn.Log    Running restperfclient: ${command}
+    SSHLibrary.Switch_Connection    ${restperfclient}
+    SSHLibrary.Set_Client_Configuration    timeout=${timeout}
+    Set_Known_Bug_Id    5413
+    Execute_Command_Passes    ${command} >${restperfclientlog} 2>&1
+    Set_Unknown_Bug_Id
+    ${result}=    SSHLibrary.Execute_Command    grep "FINISHED. Execution time:" ${restperfclientlog}
+    BuiltIn.Should_Not_Be_Equal    '${result}'    ''
+
+Collect_From_Restperfclient
+    [Documentation]    Collect useful data produced by restperfclient
+    SSHLibrary.Get_File    ${restperfclientlog}
+
+Teardown_Restperfclient
+    [Documentation]    Free resources allocated during the RestPerfClient setup
+    SSHLibrary.Switch_Connection    ${restperfclient}
+    SSHLibrary.Close_Connection
