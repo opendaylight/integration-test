@@ -88,6 +88,7 @@ Check_For_Failed_Netconf_Connector_Requests
     ...    failure and failed requests. Failed requests are rejected because
     ...    we don't want to test performance of ODL rejecting our requests.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    RestPerfClient.Kill_Restperfclient
     ${restperfclientlog}=    RestPerfClient.Get_Current_Log_Name
     Set_Known_Bug_Id    5581
     ${result}=    RestPerfClient.Grep_Restperfclient_Log    thread timed out
