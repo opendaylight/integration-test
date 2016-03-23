@@ -60,8 +60,6 @@ Run_RestPerfClient_Directly_On_MDSAL
     Set_Known_Bug_Id    5413
     Execute_Command_Passes    ${command} >${restperfclientlog} 2>&1
     Set_Unknown_Bug_Id
-    ${result}=    SSHLibrary.Execute_Command    grep "thread timed out" ${restperfclientlog}
-    BuiltIn.Should_Be_Equal    '${result}'    ''
     ${result}=    SSHLibrary.Execute_Command    grep "FINISHED. Execution time:" ${restperfclientlog}
     BuiltIn.Should_Not_Be_Equal    '${result}'    ''
 
@@ -71,6 +69,8 @@ Check_For_Failed_Direct_MDSAL_Requests
     ...    failure and failed requests. Failed requests are rejected because
     ...    we don't want to test performance of ODL rejecting our requests.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    ${result}=    SSHLibrary.Execute_Command    grep "thread timed out" ${restperfclientlog}
+    BuiltIn.Should_Be_Equal    '${result}'    ''
     ${result}=    SSHLibrary.Execute_Command    grep "Request failed" ${restperfclientlog}
     BuiltIn.Should_Be_Equal    '${result}'    ''
     ${result}=    SSHLibrary.Execute_Command    grep "Status code" ${restperfclientlog}
@@ -103,9 +103,6 @@ Run_RestPerfClient_Through_Netconf_Connector
     BuiltIn.Log    Running restperfclient: ${command}
     Set_Known_Bug_Id    5413
     Execute_Command_Passes    ${command} >${restperfclientlog} 2>&1
-    Set_Known_Bug_Id    5581
-    ${result}=    SSHLibrary.Execute_Command    grep "thread timed out" ${restperfclientlog}
-    BuiltIn.Should_Be_Equal    '${result}'    ''
     Set_Unknown_Bug_Id
     ${result}=    SSHLibrary.Execute_Command    grep "FINISHED. Execution time:" ${restperfclientlog}
     BuiltIn.Should_Not_Be_Equal    '${result}'    ''
@@ -116,6 +113,10 @@ Check_For_Failed_Netconf_Connector_Requests
     ...    failure and failed requests. Failed requests are rejected because
     ...    we don't want to test performance of ODL rejecting our requests.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    Set_Known_Bug_Id    5581
+    ${result}=    SSHLibrary.Execute_Command    grep "thread timed out" ${restperfclientlog}
+    BuiltIn.Should_Be_Equal    '${result}'    ''
+    Set_Unknown_Bug_Id
     ${result}=    SSHLibrary.Execute_Command    grep "Request failed" ${restperfclientlog}
     BuiltIn.Should_Be_Equal    '${result}'    ''
     ${result}=    SSHLibrary.Execute_Command    grep "Status code" ${restperfclientlog}
