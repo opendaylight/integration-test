@@ -69,7 +69,6 @@ Check_For_Failed_Requests
     ...    This is a separate test case to distinguish between restperfclient
     ...    failure and failed requests. Failed requests are rejected because
     ...    we don't want to test performance of ODL rejecting our requests.
-    ${restperfclientlog}=    RestPerfClient.Get_Current_Log_Name
     ${result}=    RestPerfClient.Grep_Restperfclient_Log    thread timed out
     BuiltIn.Should_Be_Equal    '${result}'    ''
     ${result}=    RestPerfClient.Grep_Restperfclient_Log    Request failed

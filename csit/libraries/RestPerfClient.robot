@@ -77,9 +77,6 @@ Grep_Restperfclient_Log
     ${result}=    SSHLibrary.Execute_Command    grep '${pattern}' ${RestPerfClient__restperfclientlog}
     [Return]    ${result}
 
-Get_Current_Log_Name
-    [Return]    ${RestPerfClient__restperfclientlog}
-
 Collect_From_Restperfclient
     [Documentation]    Collect useful data produced by restperfclient
     BuiltIn.Should_Not_Be_Equal    '${RestPerfClient__restperfclientlog}'    ''
