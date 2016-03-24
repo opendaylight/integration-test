@@ -48,17 +48,17 @@ Filtration Range Number Inventory Model
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    2
-    Should Contain X Times    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:2:3</inventory-node-connector-ref>    1
-    Should Contain X Times    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:2:2</inventory-node-connector-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:2/termination-point/tp:3</tp-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:2/termination-point/tp:2:2</tp-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:3']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    2
-    Should Contain X Times    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:3:2</inventory-node-connector-ref>    1
-    Should Contain X Times    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:3:1</inventory-node-connector-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:3/termination-point/tp:3:2</tp-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:3/termination-point/tp:3:1</tp-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:5']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    Should Contain X Times    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:5:1</inventory-node-connector-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:5/termination-point/tp:5:1</tp-ref>    1
 
 Filtration Specific Number Network Topology Model
     [Documentation]    Test of specific number type of filtration operation on Network Topology model
@@ -77,7 +77,6 @@ Filtration Specific Number Network Topology Model
 Filtration Specific Number Inventory Model
     [Documentation]    Test of specific number type of filtration operation on Inventory model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    opendaylight-inventory-model    termination-point    openflow-topo:1
-    #${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_NUMBER}    flow-node-inventory:port-number
     ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_NUMBER}    flow-node-inventory:maximum-speed
     ${request}    Set Specific Number Filter    ${request}    2
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
@@ -87,12 +86,12 @@ Filtration Specific Number Inventory Model
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    Should Contain X Times    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:2:2</inventory-node-connector-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:2/termination-point/tp:2:2</tp-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:3']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    2
-    Should Contain X Times    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:3:2</inventory-node-connector-ref>    1
-    Should Contain X Times    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:3:1</inventory-node-connector-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:3/termination-point/tp:3:2</tp-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:3/termination-point/tp:3:1</tp-ref>    1
 
 Filtration Specific String Network Topology Model
     [Documentation]    Test of specific string type of filtration operation on Network Topology model
@@ -119,11 +118,11 @@ Filtration Specific String Inventory Model
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    Should Contain X Times    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:2:1</inventory-node-connector-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:2/termination-point/tp:2:1</tp-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:5']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    Should Contain X Times    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:5:1</inventory-node-connector-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:5/termination-point/tp:5:1</tp-ref>    1
 
 Filtration Range String Network Topology Model
     [Documentation]    Test of range string type of filtration operation on Network Topology model
@@ -137,15 +136,15 @@ Filtration Range String Network Topology Model
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:6']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    Should Contain    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:6/termination-point/tp:6:1</tp-ref>
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:6/termination-point/tp:6:1</tp-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:7']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    Should Contain    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:7/termination-point/tp:7:2</tp-ref>
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:7/termination-point/tp:7:2</tp-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:10']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    Should Contain    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:10/termination-point/tp:10:1</tp-ref>
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:10/termination-point/tp:10:1</tp-ref>    1
 
 Filtration Range String Inventory Model
     [Documentation]    Test of range string type of filtration operation on Inventory model
@@ -158,12 +157,12 @@ Filtration Range String Inventory Model
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    2
-    Should Contain    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:2:1</inventory-node-connector-ref>
-    Should Contain    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:2:3</inventory-node-connector-ref>
+    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:2/termination-point/tp:2:1</tp-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:2/termination-point/tp:3</tp-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:5']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    Should Contain    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:5:1</inventory-node-connector-ref>
+    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:5/termination-point/tp:5:1</tp-ref>    1
 
 Filtration Script Network Topology Model
     [Documentation]    Test of script type of filtration operation on Network Topology model
@@ -198,9 +197,9 @@ Filtration Script Inventory Model
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    2
-    Should Contain X Times    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:2:3</inventory-node-connector-ref>    1
-    Should Contain X Times    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:2:2</inventory-node-connector-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:2/termination-point/tp:3</tp-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:2/termination-point/tp:2:2</tp-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:1']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    Should Contain X Times    ${node}    <inventory-node-connector-ref xmlns="urn:opendaylight:model:topology:inventory">openflow:1:1</inventory-node-connector-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:1/termination-point/tp:1:1</tp-ref>    1
