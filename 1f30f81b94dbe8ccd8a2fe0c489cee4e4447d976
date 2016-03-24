@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a3f45e8_ffedf2f0",
+        "filename": "csit/libraries/RestPerfClient.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-24T08:54:28Z",
+      "side": 1,
+      "message": "Add [Documentation].",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 20
+      },
+      "revId": "1f30f81b94dbe8ccd8a2fe0c489cee4e4447d976",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_7fb9e2e8",
+        "filename": "csit/libraries/RestPerfClient.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-24T08:54:28Z",
+      "side": 1,
+      "message": "I have noticed pip now installs robotframework\u003d\u003d3.0 which supports Keyword timeout (even configurable from argument), so using that would be a cleaner solution.\nhttp://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#user-keyword-timeout",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 26
+      },
+      "revId": "1f30f81b94dbe8ccd8a2fe0c489cee4e4447d976",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
