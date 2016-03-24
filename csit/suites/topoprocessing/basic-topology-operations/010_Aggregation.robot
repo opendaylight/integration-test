@@ -164,19 +164,45 @@ Unification Termination Point Inside Inventory
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    5
     Should Contain X Times    ${resp.content}    <termination-point>    8
+    # of-node:1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:1']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:1/termination-point/tp:1:1</tp-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:1/termination-point/tp:1:2</tp-ref>    1
+    # of-node:2
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    3
+    ${tp}    Get Element    ${node}    xpath=.//termination-point[tp-ref='/network-topology:network-topology/topology/openflow-topo:1/node/of-node:2/termination-point/tp:2:2']
+    ${tp}    Element to String    ${tp}
+    Should Contain X Times    ${tp}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:2/termination-point/tp:2:2</tp-ref>    1
+    ${tp}    Get Element    ${node}    xpath=.//termination-point[tp-ref='/network-topology:network-topology/topology/openflow-topo:1/node/of-node:2/termination-point/tp:2:1']
+    ${tp}    Element to String    ${tp}
+    Should Contain X Times    ${tp}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:2/termination-point/tp:2:1</tp-ref>    1
+    ${tp}    Get Element    ${node}    xpath=.//termination-point[tp-ref='/network-topology:network-topology/topology/openflow-topo:1/node/of-node:2/termination-point/tp:3']
+    ${tp}    Element to String    ${tp}
+    Should Contain X Times    ${tp}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:2/termination-point/tp:3</tp-ref>    1
+    # of-node:3
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:3']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    2
+    ${tp}    Get Element    ${node}    xpath=.//termination-point[tp-ref='/network-topology:network-topology/topology/openflow-topo:1/node/of-node:3/termination-point/tp:3:3']
+    ${tp}    Element to String    ${tp}
+    Should Contain X Times    ${tp}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:3/termination-point/tp:3:3</tp-ref>    1
+    ${tp}    Get Element    ${node}    xpath=.//termination-point[tp-ref='/network-topology:network-topology/topology/openflow-topo:1/node/of-node:3/termination-point/tp:3:2']
+    ${tp}    Element to String    ${tp}
+    Should Contain X Times    ${tp}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:3/termination-point/tp:3:2</tp-ref>    1
+    Should Contain X Times    ${tp}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:3/termination-point/tp:3:1</tp-ref>    1
+    # of-node:4
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:4']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:4/termination-point/tp:4:1</tp-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:4/termination-point/tp:4:2</tp-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:4/termination-point/tp:4:3</tp-ref>    1
+    # of-node:5
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:5']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    [Teardown]    Report_Failure_Due_To_Bug    4674
+    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:5/termination-point/tp:5:1</tp-ref>    1
