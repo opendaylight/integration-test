@@ -60,7 +60,6 @@ Create_Device_Data
 
 Run_Restperfclient
     [Documentation]    Deploy and execute restperfclient, asking it to send the specified amount of requests to the netconf connector of the device.
-    [Timeout]    ${TESTTOOL_DEVICE_TIMEOUT_FOR_TESTCASE}
     ${url}=    BuiltIn.Set_Variable    /restconf/config/network-topology:network-topology/topology/topology-netconf/node/${DEVICE_NAME}/yang-ext:mount/car:cars
     RestPerfClient.Invoke_Restperfclient    ${TESTTOOL_DEVICE_TIMEOUT}    ${url}    async=true
 
@@ -89,8 +88,6 @@ Setup_Everything
     # Calculate and set the value of the timeout
     ${value}=    BuiltIn.Evaluate    ${REQUEST_COUNT}/50+10
     Utils.Set_User_Configurable_Variable_Default    TESTTOOL_DEVICE_TIMEOUT    ${value} s
-    ${value}=    DateTime.Add_Time_To_Time    ${TESTTOOL_DEVICE_TIMEOUT}    2m    result_format=compact
-    Utils.Set_User_Configurable_Variable_Default    TESTTOOL_DEVICE_TIMEOUT_FOR_TESTCASE    ${value}
     # Setup resources used by the suite.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     NetconfKeywords.Setup_Netconf_Keywords
