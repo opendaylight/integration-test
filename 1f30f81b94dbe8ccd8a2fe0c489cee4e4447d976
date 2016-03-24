@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_ba57f801",
+        "filename": "csit/libraries/RestPerfClient.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-03-24T10:51:23Z",
+      "side": 1,
+      "message": "Resource local keywords don\u0027t need a [Documentation]. They are not supposed to be used from outside of their containing resource. See for example NetconfKeywords.robot which contains quite a bunch of resource local keywords with no [Documentation].",
+      "parentUuid": "5a3f45e8_ffedf2f0",
+      "range": {
+        "startLine": 48,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 20
+      },
+      "revId": "1f30f81b94dbe8ccd8a2fe0c489cee4e4447d976",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_7fb9e2e8",
         "filename": "csit/libraries/RestPerfClient.robot",
         "patchSetId": 3
