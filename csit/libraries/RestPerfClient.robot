@@ -23,6 +23,7 @@ Documentation     RestPerfClient handling singleton resource.
 ...               and currently all suites using this use also NetconfKeywords so this
 ...               was postponed. Workaround for the problem: Initialize NexusKeywords
 ...               manually before initializing this resource.
+Library           DateTime
 Library           SSHLibrary
 Resource          ${CURDIR}/NexusKeywords.robot
 Resource          ${CURDIR}/SetupUtils.robot
@@ -46,6 +47,11 @@ Setup_Restperfclient
     ${prefix}=    NexusKeywords.Compose_Full_Java_Command    -Xmx1G -XX:MaxPermSize=256M -jar ${filename}
     BuiltIn.Set_Suite_Variable    ${RestPerfClient__restperfclient_invocation_command_prefix}    ${prefix}
 
+Restperfclient__Invoke_With_Timeout
+    [Arguments]    ${timeout}    ${command}
+    [Timeout]    ${timeout}
+    Execute_Command_Passes    ${command} >${RestPerfClient__restperfclientlog} 2>&1
+
 Invoke_Restperfclient
     [Arguments]    ${timeout}    ${url}    ${testcase}=${EMPTY}    ${ip}=${ODL_SYSTEM_IP}    ${port}=${RESTCONFPORT}    ${count}=${REQUEST_COUNT}
     ...    ${async}=false    ${user}=${ODL_RESTCONF_USER}    ${password}=${ODL_RESTCONF_PASSWORD}
@@ -64,8 +70,9 @@ Invoke_Restperfclient
     BuiltIn.Log    Running restperfclient: ${command}
     SSHLibrary.Switch_Connection    ${RestPerfClient__restperfclient}
     SSHLibrary.Set_Client_Configuration    timeout=${timeout}
+    ${keyword_timeout}=    DateTime.Add_Time_To_Time    ${timeout}    2m    result_format=compact
     SetupUtils.Set_Known_Bug_Id    5413
-    Execute_Command_Passes    ${command} >${RestPerfClient__restperfclientlog} 2>&1
+    Restperfclient__Invoke_With_Timeout    ${keyword_timeout}    ${command}
     SetupUtils.Set_Unknown_Bug_Id
     ${result}=    Grep_Restperfclient_Log    FINISHED. Execution time:
     BuiltIn.Should_Not_Be_Equal    '${result}'    ''
