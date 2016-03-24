@@ -25,6 +25,7 @@ Documentation     RestPerfClient handling singleton resource.
 ...               manually before initializing this resource.
 Library           SSHLibrary
 Resource          ${CURDIR}/NexusKeywords.robot
+Resource          ${CURDIR}/SetupUtils.robot
 Resource          ${CURDIR}/SSHKeywords.robot
 Resource          ${CURDIR}/Utils.robot
 
@@ -63,9 +64,9 @@ Invoke_Restperfclient
     BuiltIn.Log    Running restperfclient: ${command}
     SSHLibrary.Switch_Connection    ${RestPerfClient__restperfclient}
     SSHLibrary.Set_Client_Configuration    timeout=${timeout}
-    Set_Known_Bug_Id    5413
+    SetupUtils.Set_Known_Bug_Id    5413
     Execute_Command_Passes    ${command} >${RestPerfClient__restperfclientlog} 2>&1
-    Set_Unknown_Bug_Id
+    SetupUtils.Set_Unknown_Bug_Id
     ${result}=    Grep_Restperfclient_Log    FINISHED. Execution time:
     BuiltIn.Should_Not_Be_Equal    '${result}'    ''
 
