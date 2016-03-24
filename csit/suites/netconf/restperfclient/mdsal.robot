@@ -20,7 +20,6 @@ Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
-Library           DateTime
 Library           RequestsLibrary
 Library           OperatingSystem
 Library           SSHLibrary    timeout=10s
@@ -43,7 +42,6 @@ Create_Test_Data_For_Direct_Access
 
 Run_RestPerfClient_Directly_On_MDSAL
     [Documentation]    Deploy and execute restperfclient, asking it to send the specified amount of requests to the MDSAL via Restconf.
-    [Timeout]    ${DIRECT_MDSAL_TIMEOUT_FOR_TESTCASE}
     ${url}=    BuiltIn.Set_Variable    /restconf/config/car:cars
     RestPerfClient.Invoke_Restperfclient    ${DIRECT_MDSAL_TIMEOUT}    ${url}    testcase=direct
 
@@ -78,7 +76,6 @@ Configure_ODL_As_A_Device_On_Netconf
 
 Run_RestPerfClient_Through_Netconf_Connector
     [Documentation]    Ask RestPerfClient to send the requests to the MDSAL mapped via a netconf connector.
-    [Timeout]    ${NETCONF_CONNECTOR_MDSAL_TIMEOUT_FOR_TESTCASE}
     ${url}=    BuiltIn.Set_Variable    /restconf/config/network-topology:network-topology/topology/topology-netconf/node/odl-mdsal-northbound-via-netconf-connector/yang-ext:mount/car:cars
     RestPerfClient.Invoke_Restperfclient    ${NETCONF_CONNECTOR_MDSAL_TIMEOUT}    ${url}    testcase=netconf-connector
 
@@ -118,12 +115,8 @@ Setup_Everything
     # Calculate timeouts
     ${value}=    BuiltIn.Evaluate    ${REQUEST_COUNT}/50+10
     Utils.Set_User_Configurable_Variable_Default    DIRECT_MDSAL_TIMEOUT    ${value} s
-    ${value}=    DateTime.Add_Time_To_Time    ${DIRECT_MDSAL_TIMEOUT}    2m    result_format=compact
-    Utils.Set_User_Configurable_Variable_Default    DIRECT_MDSAL_TIMEOUT_FOR_TESTCASE    ${value}
     ${value}=    BuiltIn.Evaluate    ${REQUEST_COUNT}/10+10
     Utils.Set_User_Configurable_Variable_Default    NETCONF_CONNECTOR_MDSAL_TIMEOUT    ${value} s
-    ${value}=    DateTime.Add_Time_To_Time    ${NETCONF_CONNECTOR_MDSAL_TIMEOUT}    2m    result_format=compact
-    Utils.Set_User_Configurable_Variable_Default    NETCONF_CONNECTOR_MDSAL_TIMEOUT_FOR_TESTCASE    ${value}
 
 Teardown_Everything
     [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.
