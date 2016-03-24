@@ -30,6 +30,7 @@ Resource          ${CURDIR}/Utils.robot
 
 *** Variables ***
 ${RestPerfClient__restperfclientlog}    ${EMPTY}
+${RestPerfClient__running}    False
 
 *** Keywords ***
 Setup_Restperfclient
@@ -45,6 +46,15 @@ Setup_Restperfclient
     ${prefix}=    NexusKeywords.Compose_Full_Java_Command    -Xmx1G -XX:MaxPermSize=256M -jar ${filename}
     BuiltIn.Set_Suite_Variable    ${RestPerfClient__restperfclient_invocation_command_prefix}    ${prefix}
 
+RestPerfClient__Kill
+    Utils.Write_Bare_Ctrl_C
+    SSHLibrary.Set_Client_Configuration    timeout=5
+    SSHLibrary.Read_Until_Prompt
+
+Kill_RestPerfClient
+    BuiltIn.Run_Keyword_If    ${RestPerfClient__running}    BuiltIn.Run_Keyword_And_Ignore_Error    RestPerfClient__Kill
+    Set_Suite_Variable    ${RestPerfClient__running}    False
+
 Invoke_Restperfclient
     [Arguments]    ${timeout}    ${url}    ${testcase}=${EMPTY}    ${ip}=${ODL_SYSTEM_IP}    ${port}=${RESTCONFPORT}    ${count}=${REQUEST_COUNT}
     ...    ${async}=false    ${user}=${ODL_RESTCONF_USER}    ${password}=${ODL_RESTCONF_PASSWORD}
@@ -57,14 +67,15 @@ Invoke_Restperfclient
     ${options}=    BuiltIn.Set_Variable    --ip ${ip} --port ${port} --edits ${count}
     ${options}=    BuiltIn.Set_Variable    ${options} --edit-content request1.json --async-requests ${async}
     ${options}=    BuiltIn.Set_Variable    ${options} --auth ${user} ${password}
-    ${timeout_in_minutes}=    Utils.Convert_To_Minutes    ${timeout}
-    ${options}=    BuiltIn.Set_Variable    ${options} --timeout ${timeout_in_minutes} --destination ${url}
+    ${options}=    BuiltIn.Set_Variable    ${options} --destination ${url}
     ${command}=    BuiltIn.Set_Variable    ${RestPerfClient__restperfclient_invocation_command_prefix} ${options}
     BuiltIn.Log    Running restperfclient: ${command}
     SSHLibrary.Switch_Connection    ${RestPerfClient__restperfclient}
     SSHLibrary.Set_Client_Configuration    timeout=${timeout}
     Set_Known_Bug_Id    5413
+    Set_Suite_Variable    ${RestPerfClient__running}    True
     Execute_Command_Passes    ${command} >${RestPerfClient__restperfclientlog} 2>&1
+    Set_Suite_Variable    ${RestPerfClient__running}    False
     Set_Unknown_Bug_Id
     ${result}=    Grep_Restperfclient_Log    FINISHED. Execution time:
     BuiltIn.Should_Not_Be_Equal    '${result}'    ''
@@ -72,6 +83,7 @@ Invoke_Restperfclient
 Grep_Restperfclient_Log
     [Arguments]    ${pattern}
     [Documentation]    Search for the specified string in the log file produced by latest invocation of RestPerfClient
+    Kill_RestPerfClient
     BuiltIn.Should_Not_Be_Equal    '${RestPerfClient__restperfclientlog}'    ''
     ${result}=    SSHLibrary.Execute_Command    grep '${pattern}' ${RestPerfClient__restperfclientlog}
     [Return]    ${result}

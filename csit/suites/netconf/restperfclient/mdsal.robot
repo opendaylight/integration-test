@@ -119,11 +119,11 @@ Setup_Everything
     # Calculate timeouts
     ${value}=    BuiltIn.Evaluate    ${REQUEST_COUNT}/50+10
     Utils.Set_User_Configurable_Variable_Default    DIRECT_MDSAL_TIMEOUT    ${value} s
-    ${value}=    DateTime.Add_Time_To_Time    ${DIRECT_MDSAL_TIMEOUT}    2m    result_format=compact
+    ${value}=    DateTime.Add_Time_To_Time    ${DIRECT_MDSAL_TIMEOUT}    60s    result_format=compact
     Utils.Set_User_Configurable_Variable_Default    DIRECT_MDSAL_TIMEOUT_FOR_TESTCASE    ${value}
     ${value}=    BuiltIn.Evaluate    ${REQUEST_COUNT}/10+10
     Utils.Set_User_Configurable_Variable_Default    NETCONF_CONNECTOR_MDSAL_TIMEOUT    ${value} s
-    ${value}=    DateTime.Add_Time_To_Time    ${NETCONF_CONNECTOR_MDSAL_TIMEOUT}    2m    result_format=compact
+    ${value}=    DateTime.Add_Time_To_Time    ${NETCONF_CONNECTOR_MDSAL_TIMEOUT}    60s    result_format=compact
     Utils.Set_User_Configurable_Variable_Default    NETCONF_CONNECTOR_MDSAL_TIMEOUT_FOR_TESTCASE    ${value}
 
 Teardown_Everything
