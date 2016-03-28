@@ -49,6 +49,54 @@ Get Cluster Shard Status
     Length Should Be    ${follower_list}    ${lenght-1}    Not enough or too many Followers in shard ${shard_type} ${shard}
     [Return]    ${leader}    ${follower_list}
 
+Get Cluster Entity Owner
+    [Arguments]    ${controller_index_list}    ${device_type}    ${device}
+    [Documentation]    Checks Entity Owner status for a ${device} and returns owner index and list of candidates from a ${controller_index_list}.
+    ...    ${device_type} can be openflow, ovsdb, etc.
+    ${length}=    Get Length    ${controller_index_list}
+    ${candidates_list}=    Create List
+    ${data}=    Utils.Get Data From URI    controller@{controller_index_list}[0]    /restconf/operational/entity-owners:entity-owners
+    Log    ${data}
+    ${clear_data}=    Run Keyword If    '${device_type}' == 'openflow'    Extract OpenFlow Device Data
+    ${Clear_data}=    Run Keyword If    '${device_type}' == 'ovsdb'    Extract Ovsdb Device Data
+    ${json}=    RequestsLibrary.To Json    ${clear_data}
+    ${entity_type_list}=    Get From Dictionary    &{json}[entity-owners]    entity-type
+    ${entity_type_index}=    Get Index From List Of Dictionaries    ${entity_type_list}    type    ${device_type}
+    Should Not Be Equal    ${entity_type_index}    -1    No Entity Owner found for ${device_type}
+    ${entity_list}=    Get From Dictionary    @{entity_type_list}[${entity_type_index}]    entity
+    ${entity_index}=    Utils.Get Index From List Of Dictionaries    ${entity_list}    id    ${device}
+    Should Not Be Equal    ${entity_index}    -1    Device ${device} not found in Entity Owner ${device_type}
+    ${entity_owner}=    Get From Dictionary    @{entity_list}[${entity_index}]    owner
+    Should Not Be Empty    ${entity_owner}    No owner found for ${device}
+    ${owner}=    Replace String    ${entity_owner}    member-    ${EMPTY}
+    ${owner}=    Convert To Integer    ${owner}
+    List Should Contain Value    ${controller_index_list}    ${owner}    Owner ${owner} not exisiting in ${controller_index_list}
+    ${entity_candidates_list}=    Get From Dictionary    @{entity_list}[${entity_index}]    candidate
+    ${list_length}=    Get Length    ${entity_candidates_list}
+    : FOR    ${entity_candidate}    IN    @{entity_candidates_list}
+    \    ${candidate}=    Replace String    &{entity_candidate}[name]    member-    ${EMPTY}
+    \    ${candidate}=    Convert To Integer    ${candidate}
+    \    Append To List    ${candidates_list}    ${candidate}
+    List Should Contain Sublist    ${candidates_list}    ${controller_index_list}    Candidates are missing in ${candidates_list}
+    Remove Values From List    ${candidates_list}    ${owner}
+    [Return]    ${owner}    ${candidates_list}
+
+Extract OpenFlow Device Data
+    [Arguments]    ${data}
+    [Documentation]    Remove superfluous OpenFlow device data from Entity Owner printout.
+    ${clear_data}=    Replace String    ${data}    /general-entity:entity[general-entity:name='    ${EMPTY}
+    ${clear_data}=    Replace String    ${data}    ']    ${EMPTY}
+    Log    ${clear_data}
+    [Return]    ${clear_data}
+
+Extract Ovsdb Device Data
+    [Arguments]    ${data}
+    [Documentation]    Remove superfluous OVSDB device data from Entity Owner printout.
+    ${clear_data}=    Replace String    ${data}    /network-topology:network-topology/network-topology:topology[network-topology:topology-id='ovsdb:1']/network-topology:node[network-topology:node-id='    ${EMPTY}
+    ${clear_data}=    Replace String    ${data}    ']    ${EMPTY}
+    Log    ${clear_data}
+    [Return]    ${clear_data}
+
 Check Item Occurrence At URI In Cluster
     [Arguments]    ${controller_index_list}    ${dictionary_item_occurrence}    ${uri}
     [Documentation]    Send a GET with the supplied ${uri} to all cluster instances in ${controller_index_list}

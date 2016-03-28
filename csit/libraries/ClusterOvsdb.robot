@@ -27,44 +27,10 @@ Check Ovsdb Shards Status After Cluster Event
     [Documentation]    Check Shard Status after some cluster event.
     Wait Until Keyword Succeeds    90s    1s    Check Ovsdb Shards Status    ${controller_index_list}
 
-Get Cluster Entity Owner For Ovsdb
-    [Arguments]    ${controller_index_list}    ${device_type}    ${device}
-    [Documentation]    Checks Entity Owner status for a ${device} and returns owner index and list of candidates from a ${controller_index_list}.
-    ...    ${device_type} is openflow, ovsdb, etc...
-    ${length}=    Get Length    ${controller_index_list}
-    ${candidates_list}=    Create List
-    ${data}=    Utils.Get Data From URI    controller@{controller_index_list}[0]    /restconf/operational/entity-owners:entity-owners
-    Log    ${data}
-    ${data}=    Replace String    ${data}    /network-topology:network-topology/network-topology:topology[network-topology:topology-id='ovsdb:1']/network-topology:node[network-topology:node-id='    ${EMPTY}
-    Log    ${data}
-    ${clear_data}=    Replace String    ${data}    ']    ${EMPTY}
-    Log    ${clear_data}
-    ${json}=    To Json    ${clear_data}
-    ${entity_type_list}=    Get From Dictionary    &{json}[entity-owners]    entity-type
-    ${entity_type_index}=    Get Index From List Of Dictionaries    ${entity_type_list}    type    ${device_type}
-    Should Not Be Equal    ${entity_type_index}    -1    No Entity Owner found for ${device_type}
-    ${entity_list}=    Get From Dictionary    @{entity_type_list}[${entity_type_index}]    entity
-    ${entity_index}=    Get Index From List Of Dictionaries    ${entity_list}    id    ${device}
-    Should Not Be Equal    ${entity_index}    -1    Device ${device} not found in Entity Owner ${device_type}
-    ${entity_owner}=    Get From Dictionary    @{entity_list}[${entity_index}]    owner
-    Should Not Be Empty    ${entity_owner}    No owner found for ${device}
-    ${owner}=    Replace String    ${entity_owner}    member-    ${EMPTY}
-    ${owner}=    Convert To Integer    ${owner}
-    List Should Contain Value    ${controller_index_list}    ${owner}    Owner ${owner} not exisiting in ${controller_index_list}
-    ${entity_candidates_list}=    Get From Dictionary    @{entity_list}[${entity_index}]    candidate
-    ${list_length}=    Get Length    ${entity_candidates_list}
-    : FOR    ${entity_candidate}    IN    @{entity_candidates_list}
-    \    ${candidate}=    Replace String    &{entity_candidate}[name]    member-    ${EMPTY}
-    \    ${candidate}=    Convert To Integer    ${candidate}
-    \    Append To List    ${candidates_list}    ${candidate}
-    List Should Contain Sublist    ${candidates_list}    ${controller_index_list}    Candidates are missing in ${candidates_list}
-    Remove Values From List    ${candidates_list}    ${owner}
-    [Return]    ${owner}    ${candidates_list}
-
 Get Ovsdb Entity Owner Status For One Device
     [Arguments]    ${controller_index_list}    ${device}
     [Documentation]    Check Entity Owner Status and identify owner and candidate for an ovs device ${device}.
-    ${owner}    ${candidates_list}    Wait Until Keyword Succeeds    20s    1s    Get Cluster Entity Owner For Ovsdb    ${controller_index_list}
+    ${owner}    ${candidates_list}    Wait Until Keyword Succeeds    20s    1s    ClusterKeywords.Get Cluster Entity Owner    ${controller_index_list}
     ...    ovsdb    ${device}
     [Return]    ${owner}    ${candidates_list}
 
