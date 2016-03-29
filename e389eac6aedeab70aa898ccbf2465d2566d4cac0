@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "3a4c51b2_62a4b257",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 4030
+      },
+      "writtenOn": "2016-03-29T15:16:54Z",
+      "side": 1,
+      "message": "Thanks for your comments,\ni added doc string instead of comments",
+      "parentUuid": "5a3f45e8_26659c45",
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_12c89a73",
         "filename": "tools/clustering/cluster-tools/cluster_check.py",
         "patchSetId": 3
@@ -77,6 +95,24 @@
     },
     {
       "key": {
+        "uuid": "3a4c51b2_c28826c9",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 4030
+      },
+      "writtenOn": "2016-03-29T15:16:54Z",
+      "side": 1,
+      "message": "Thanks for your comments,\nI fixed as you suggested",
+      "parentUuid": "5a3f45e8_17588c55",
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_f7f8804b",
         "filename": "tools/clustering/cluster-tools/cluster_check.py",
         "patchSetId": 3
@@ -94,6 +130,24 @@
     },
     {
       "key": {
+        "uuid": "3a4c51b2_826d7e07",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 4030
+      },
+      "writtenOn": "2016-03-29T15:16:54Z",
+      "side": 1,
+      "message": "fixed.",
+      "parentUuid": "5a3f45e8_f7f8804b",
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_7740f056",
         "filename": "tools/clustering/cluster-tools/cluster_check.py",
         "patchSetId": 3
@@ -105,6 +159,30 @@
       "writtenOn": "2016-03-23T17:44:28Z",
       "side": 1,
       "message": "Minor: spacing",
+      "range": {
+        "startLine": 35,
+        "startChar": 37,
+        "endLine": 35,
+        "endChar": 38
+      },
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_6272f2e6",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 4030
+      },
+      "writtenOn": "2016-03-29T15:16:54Z",
+      "side": 1,
+      "message": "fixed.",
+      "parentUuid": "5a3f45e8_7740f056",
       "range": {
         "startLine": 35,
         "startChar": 37,
@@ -140,6 +218,30 @@
     },
     {
       "key": {
+        "uuid": "3a4c51b2_c27666d8",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 4030
+      },
+      "writtenOn": "2016-03-29T15:16:54Z",
+      "side": 1,
+      "message": "fixed.",
+      "parentUuid": "5a3f45e8_f2e36e31",
+      "range": {
+        "startLine": 40,
+        "startChar": 51,
+        "endLine": 40,
+        "endChar": 53
+      },
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_172feca2",
         "filename": "tools/clustering/cluster-tools/cluster_check.py",
         "patchSetId": 3
@@ -151,6 +253,30 @@
       "writtenOn": "2016-03-23T17:44:28Z",
       "side": 1,
       "message": "We use snake_case var names, as recommended by PEP8 (applies elsewhere)",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 17
+      },
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_a2735ae6",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 4030
+      },
+      "writtenOn": "2016-03-29T15:16:54Z",
+      "side": 1,
+      "message": "Used snake_case var names as you suggested",
+      "parentUuid": "5a3f45e8_172feca2",
       "range": {
         "startLine": 44,
         "startChar": 4,
@@ -209,6 +335,30 @@
     },
     {
       "key": {
+        "uuid": "3a4c51b2_85b468f3",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 4030
+      },
+      "writtenOn": "2016-03-29T15:16:54Z",
+      "side": 1,
+      "message": "We are clusterStatus because it\u0027s containing member object.",
+      "parentUuid": "5a3f45e8_52d06253",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 44
+      },
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_d2f8f2c6",
         "filename": "tools/clustering/cluster-tools/cluster_check.py",
         "patchSetId": 3
@@ -232,6 +382,30 @@
     },
     {
       "key": {
+        "uuid": "3a4c51b2_c5cdd088",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 4030
+      },
+      "writtenOn": "2016-03-29T15:16:54Z",
+      "side": 1,
+      "message": "member object having array data, so need to convert as json",
+      "parentUuid": "5a3f45e8_d2f8f2c6",
+      "range": {
+        "startLine": 46,
+        "startChar": 13,
+        "endLine": 46,
+        "endChar": 32
+      },
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_32ee7623",
         "filename": "tools/clustering/cluster-tools/cluster_check.py",
         "patchSetId": 3
@@ -243,6 +417,30 @@
       "writtenOn": "2016-03-23T17:44:28Z",
       "side": 1,
       "message": "Since you\u0027re never using the var status, it would be more clear to do this in one line (json.loads(members)[\"members\"]).",
+      "range": {
+        "startLine": 46,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 36
+      },
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_e27d62b3",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 4030
+      },
+      "writtenOn": "2016-03-29T15:16:54Z",
+      "side": 1,
+      "message": "fixed.",
+      "parentUuid": "5a3f45e8_32ee7623",
       "range": {
         "startLine": 46,
         "startChar": 0,
@@ -301,6 +499,54 @@
     },
     {
       "key": {
+        "uuid": "3a4c51b2_4526e0bb",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 4030
+      },
+      "writtenOn": "2016-03-29T15:16:54Z",
+      "side": 1,
+      "message": "Used regex logic to retreive IP\nThanks for your suggestion.",
+      "parentUuid": "5a3f45e8_72463e25",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 54,
+        "endChar": 51
+      },
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_a5ca446c",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 4030
+      },
+      "writtenOn": "2016-03-29T15:16:54Z",
+      "side": 1,
+      "message": "fixed.",
+      "parentUuid": "5a3f45e8_72111eac",
+      "range": {
+        "startLine": 54,
+        "startChar": 8,
+        "endLine": 54,
+        "endChar": 12
+      },
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_86462b22",
         "filename": "tools/clustering/cluster-tools/cluster_check.py",
         "patchSetId": 3
@@ -324,6 +570,30 @@
     },
     {
       "key": {
+        "uuid": "3a4c51b2_e519ec7a",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 4030
+      },
+      "writtenOn": "2016-03-29T15:16:54Z",
+      "side": 1,
+      "message": "fixed.",
+      "parentUuid": "5a3f45e8_86462b22",
+      "range": {
+        "startLine": 57,
+        "startChar": 0,
+        "endLine": 61,
+        "endChar": 58
+      },
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_57185484",
         "filename": "tools/clustering/cluster-tools/cluster_check.py",
         "patchSetId": 3
@@ -335,6 +605,30 @@
       "writtenOn": "2016-03-23T17:44:28Z",
       "side": 1,
       "message": "Please use consistent quotes. Int/Test typically uses double quotes. Applies elsewhere.",
+      "range": {
+        "startLine": 65,
+        "startChar": 1,
+        "endLine": 66,
+        "endChar": 52
+      },
+      "revId": "e389eac6aedeab70aa898ccbf2465d2566d4cac0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_05c85873",
+        "filename": "tools/clustering/cluster-tools/cluster_check.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 4030
+      },
+      "writtenOn": "2016-03-29T15:16:54Z",
+      "side": 1,
+      "message": "fixed.",
+      "parentUuid": "5a3f45e8_57185484",
       "range": {
         "startLine": 65,
         "startChar": 1,
