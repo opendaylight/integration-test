@@ -1,7 +1,7 @@
 UNIFICATION_NT = '''<topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
                         <n:topology-id>topo:1</n:topology-id>
                         <correlations>
-                            <output-model>{output-model}</output-model>
+                            <!-- <output-model>{output-model}</output-model> -->
                             <correlation>
                                 <correlation-id>1</correlation-id>
                                 <type>{type}</type>
@@ -28,7 +28,7 @@ UNIFICATION_NT = '''<topology xmlns="urn:opendaylight:topology:correlation" xmln
 UNIFICATION_NT_AGGREGATE_INSIDE = '''<topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
                         <n:topology-id>topo:1</n:topology-id>
                         <correlations>
-                            <output-model>{output-model}</output-model>
+                            <!-- <output-model>{output-model}</output-model> -->
                             <correlation>
                                 <correlation-id>1</correlation-id>
                                 <type>{type}</type>
@@ -49,7 +49,7 @@ UNIFICATION_NT_AGGREGATE_INSIDE = '''<topology xmlns="urn:opendaylight:topology:
 UNIFICATION_FILTRATION_NT_AGGREGATE_INSIDE = '''<topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
                         <n:topology-id>topo:1</n:topology-id>
                         <correlations>
-                            <output-model>{output-model}</output-model>
+                            <!-- <output-model>{output-model}</output-model> -->
                             <correlation>
                                 <correlation-id>1</correlation-id>
                                 <type>{type}</type>
@@ -75,7 +75,7 @@ UNIFICATION_FILTRATION_NT_AGGREGATE_INSIDE = '''<topology xmlns="urn:opendayligh
 UNIFICATION_FILTRATION_NT = '''<topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
                         <n:topology-id>topo:1</n:topology-id>
                         <correlations>
-                            <output-model>{output-model}</output-model>
+                            <!-- <output-model>{output-model}</output-model> -->
                             <correlation>
                                 <correlation-id>1</correlation-id>
                                 <type>{type}</type>
@@ -108,7 +108,7 @@ UNIFICATION_FILTRATION_NT = '''<topology xmlns="urn:opendaylight:topology:correl
 FILTRATION_NT = '''<topology xmlns="urn:opendaylight:topology:correlation" xmlns:n="urn:TBD:params:xml:ns:yang:network-topology">
                     <n:topology-id>topo:1</n:topology-id>
                     <correlations>
-                        <output-model>{output-model}</output-model>
+                        <!-- <output-model>{output-model}</output-model> -->
                         <correlation>
                             <correlation-id>1</correlation-id>
                             <type>filtration-only</type>
@@ -219,7 +219,7 @@ FILTER_SPECIFIC_STRING = '''<filter>
                  </filter>'''
 
 LINK_COMPUTATION_INSIDE = '''<link-computation xmlns="urn:opendaylight:topology:link:computation" xmlns:n="urn:opendaylight:topology:correlation">
-            <output-model>{output-model}</output-model>
+            <!-- <output-model>{output-model}</output-model> -->
             <node-info>
                 <node-topology>topo:1</node-topology>
                 <input-model>{input-model}</input-model>
@@ -231,7 +231,7 @@ LINK_COMPUTATION_INSIDE = '''<link-computation xmlns="urn:opendaylight:topology:
         </link-computation>'''
 
 LINK_COMPUTATION = '''<link-computation xmlns="urn:opendaylight:topology:link:computation" xmlns:n="urn:opendaylight:topology:correlation">
-            <output-model>{output-model}</output-model>
+            <!-- <output-model>{output-model}</output-model> -->
             <node-info>
                 <node-topology>topo:1</node-topology>
                 <input-model>{input-model}</input-model>

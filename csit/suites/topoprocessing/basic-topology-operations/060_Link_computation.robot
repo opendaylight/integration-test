@@ -22,8 +22,8 @@ Link Computation Aggregation Inside
     ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    network-topology-model    node    network-topo:6
     ${request}    Insert Target Field    ${request}    0    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    0
     ${request}    Insert Link Computation Inside    ${request}    ${LINK_COMPUTATION_INSIDE}    n:network-topology-model    network-topo:6
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
+    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1    ietf-network:network/topo:1
+    Should Contain    ${resp.content}    <network-id>topo:1</network-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    4
     Should Contain X Times    ${resp.content}    <link-id>    4
     #nodes 29 and 28
@@ -49,28 +49,28 @@ Link Computation Aggregation Inside
     Should Contain X Times    ${node}    <node-ref>bgp:27</node-ref>    1
     ${node_27}    Get Element Text    ${node}    xpath=./node-id
     #link 28-29
-    ${link}    Get Element    ${resp.content}    xpath=.//link/supporting-link[link-ref='/network-topology/topology/network-topo:6/link/link:28:29']/..
+    ${link}    Get Element    ${resp.content}    xpath=.//link/supporting-link[link-ref='link:28:29']/..
     ${link}    Element to String    ${link}
     ${source}    Get Element Text    ${link}    xpath=.//source-node
     ${destination}    Get Element Text    ${link}    xpath=.//dest-node
     Should Be Equal As Strings    ${source}    ${node_28}
     Should Be Equal As Strings    ${destination}    ${node_29}
     #link 26-28
-    ${link}    Get Element    ${resp.content}    xpath=.//link/supporting-link[link-ref='/network-topology/topology/network-topo:6/link/link:26:28']/..
+    ${link}    Get Element    ${resp.content}    xpath=.//link/supporting-link[link-ref='link:26:28']/..
     ${link}    Element to String    ${link}
     ${source}    Get Element Text    ${link}    xpath=.//source-node
     ${destination}    Get Element Text    ${link}    xpath=.//dest-node
     Should Be Equal As Strings    ${source}    ${node_26}
     Should Be Equal As Strings    ${destination}    ${node_28}
     #link 29:30-2
-    ${link}    Get Element    ${resp.content}    xpath=.//link/supporting-link[link-ref='/network-topology/topology/network-topo:6/link/link:29:30-2']/..
+    ${link}    Get Element    ${resp.content}    xpath=.//link/supporting-link[link-ref='link:29:30-2']/..
     ${link}    Element to String    ${link}
     ${source}    Get Element Text    ${link}    xpath=.//source-node
     ${destination}    Get Element Text    ${link}    xpath=.//dest-node
     Should Be Equal As Strings    ${source}    ${node_29}
     Should Be Equal As Strings    ${destination}    ${node_30}
     #link 29:30-1
-    ${link}    Get Element    ${resp.content}    xpath=.//link/supporting-link[link-ref='/network-topology/topology/network-topo:6/link/link:29:30-1']/..
+    ${link}    Get Element    ${resp.content}    xpath=.//link/supporting-link[link-ref='link:29:30-1']/..
     ${link}    Element to String    ${link}
     ${source}    Get Element Text    ${link}    xpath=.//source-node
     ${destination}    Get Element Text    ${link}    xpath=.//dest-node
@@ -79,16 +79,16 @@ Link Computation Aggregation Inside
 
 Link Computation Filtration
     [Documentation]    Test of link computation with filtration on Network Topology model
-    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    node    network-topo:6
-    ${request}    Insert Filter    ${request}    ${FILTER_IPV4}    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4
+    ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    node    network-topo:6
+    ${request}    Insert Filter    ${request}    ${FILTER_IPV4}    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    network-topology-model
     ${request}    Set IPV4 Filter    ${request}    192.168.2.1/32
     ${request}    Insert Link Computation Inside    ${request}    ${LINK_COMPUTATION_INSIDE}    n:network-topology-model    network-topo:6
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
+    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1    ietf-network:network/topo:1
+    Should Contain    ${resp.content}    <network-id>topo:1</network-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    2
     Should Contain X Times    ${resp.content}    <node-ref>bgp:28</node-ref>    1
     Should Contain X Times    ${resp.content}    <node-ref>bgp:29</node-ref>    1
-    Should Contain X Times    ${resp.content}    <link>    1
+    Should Contain X Times    ${resp.content}    <link-id>link:    1
     #node 28
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:28']/..
     ${node}    Element to String    ${node}
@@ -100,7 +100,7 @@ Link Computation Filtration
     Should Contain X Times    ${node}    <node-ref>bgp:29</node-ref>    1
     ${node_29}    Get Element Text    ${node}    xpath=./node-id
     #link 28-29
-    ${link}    Get Element    ${resp.content}    xpath=.//link/supporting-link[link-ref='/network-topology/topology/network-topo:6/link/link:28:29']/..
+    ${link}    Get Element    ${resp.content}    xpath=.//link/supporting-link[link-ref='link:28:29']/..
     ${link}    Element to String    ${link}
     ${source}    Get Element Text    ${link}    xpath=.//source-node
     ${destination}    Get Element Text    ${link}    xpath=.//dest-node
@@ -112,38 +112,38 @@ Link Computation Aggregation Filtration
     ${target_field}    Set Variable    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4
     ${request}    Prepare Unification Filtration Topology Request    ${UNIFICATION_FILTRATION_NT}    network-topology-model    node    ${target_field}    network-topo:6
     ...    ${target_field}    network-topo:1
-    ${request}    Insert Filter With ID    ${request}    ${FILTER_IPV4}    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    1
+    ${request}    Insert Filter With ID    ${request}    ${FILTER_IPV4}    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    network-topology-model    1
     ${request}    Insert Apply Filters    ${request}    1    1
     ${request}    Insert Apply Filters    ${request}    2    1
     ${request}    Set IPV4 Filter    ${request}    192.168.1.1/24
     ${request}    Insert Link Computation    ${request}    ${LINK_COMPUTATION}    n:network-topology-model    network-topo:6    network-topo:1
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
+    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1    ietf-network:network/topo:1
+    Should Contain    ${resp.content}    <network-id>topo:1</network-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    2
-    Should Contain X Times    ${resp.content}    <link>    2
+    Should Contain X Times    ${resp.content}    <link-id>link:    2
     #nodes 26 and 1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:26']/..
     ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <node-ref>bgp:26</node-ref>    1
-    Should Contain X Times    ${node}    <node-ref>bgp:1</node-ref>    1
+    Element Text Should Be    ${node}    bgp:26    xpath=.//supporting-node[network-ref='network-topo:6']/node-ref
+    Element Text Should Be    ${node}    bgp:1    xpath=.//supporting-node[network-ref='network-topo:1']/node-ref
     ${node_26}    Get Element Text    ${node}    xpath=./node-id
     ${node_1}    Get Element Text    ${node}    xpath=./node-id
     #nodes 27 and 2
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:27']/..
     ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <node-ref>bgp:27</node-ref>    1
-    Should Contain X Times    ${node}    <node-ref>bgp:2</node-ref>    1
+    Element Text Should Be    ${node}    bgp:27    xpath=.//supporting-node[network-ref='network-topo:6']/node-ref
+    Element Text Should Be    ${node}    bgp:2    xpath=.//supporting-node[network-ref='network-topo:1']/node-ref
     ${node_27}    Get Element Text    ${node}    xpath=./node-id
     ${node_2}    Get Element Text    ${node}    xpath=./node-id
     #link 1:2-1
-    ${link}    Get Element    ${resp.content}    xpath=.//link/supporting-link[link-ref='/network-topology/topology/network-topo:1/link/link:1:2-1']/..
+    ${link}    Get Element    ${resp.content}    xpath=.//link/supporting-link[link-ref='link:1:2-1']/..
     ${link}    Element to String    ${link}
     ${source}    Get Element Text    ${link}    xpath=.//source-node
     ${destination}    Get Element Text    ${link}    xpath=.//dest-node
     Should Be Equal As Strings    ${source}    ${node_1}
     Should Be Equal As Strings    ${destination}    ${node_2}
     #link 1:2-2
-    ${link}    Get Element    ${resp.content}    xpath=.//link/supporting-link[link-ref='/network-topology/topology/network-topo:1/link/link:1:2-2']/..
+    ${link}    Get Element    ${resp.content}    xpath=.//link/supporting-link[link-ref='link:1:2-2']/..
     ${link}    Element to String    ${link}
     ${source}    Get Element Text    ${link}    xpath=.//source-node
     ${destination}    Get Element Text    ${link}    xpath=.//dest-node
