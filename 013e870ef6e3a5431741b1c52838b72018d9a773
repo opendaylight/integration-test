@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_92caea9f",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 364,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-03-29T10:44:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_2c8d7b32",
+      "range": {
+        "startLine": 364,
+        "startChar": 20,
+        "endLine": 364,
+        "endChar": 32
+      },
+      "revId": "013e870ef6e3a5431741b1c52838b72018d9a773",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_2ccc5b35",
         "filename": "csit/libraries/SxpLib.robot",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2016-03-23T13:51:56Z",
       "side": 1,
       "message": "Use the newer ODL_SYSTEM_IP please.\n\nIf you run into issues in you local setup, consider working on this task: https://trello.com/c/17Ks74IA/298-move-variable-definitions-from-variables-py-into-variables-robot",
+      "range": {
+        "startLine": 203,
+        "startChar": 46,
+        "endLine": 203,
+        "endChar": 56
+      },
+      "revId": "013e870ef6e3a5431741b1c52838b72018d9a773",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_12bedaff",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-03-29T10:44:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_2ccc5b35",
       "range": {
         "startLine": 203,
         "startChar": 46,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "5a3f45e8_326316b3",
+        "filename": "csit/suites/sxp/filtering/010_Inbound_Filtering.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-03-29T10:44:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_8cd12fd0",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 0
+      },
+      "revId": "013e870ef6e3a5431741b1c52838b72018d9a773",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a3f45e8_6cd663c7",
         "filename": "csit/suites/sxp/topology/010_Topology_Features.robot",
         "patchSetId": 7
@@ -82,6 +154,30 @@
       "writtenOn": "2016-03-23T13:51:56Z",
       "side": 1,
       "message": "This appears many times in the suite. Perhaps with 1 second the suite would run faster?",
+      "range": {
+        "startLine": 78,
+        "startChar": 41,
+        "endLine": 78,
+        "endChar": 42
+      },
+      "revId": "013e870ef6e3a5431741b1c52838b72018d9a773",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a3f45e8_f2688e89",
+        "filename": "csit/suites/sxp/topology/010_Topology_Features.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-03-29T10:44:41Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "5a3f45e8_6cd663c7",
       "range": {
         "startLine": 78,
         "startChar": 41,
