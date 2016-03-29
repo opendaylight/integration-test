@@ -272,6 +272,20 @@ Get Controller Sync Status
     ...    ELSE    Set Test Variable    ${SyncStatus}    ${FALSE}
     [Return]    ${SyncStatus}
 
+Clean Runtime Configs
+    [Arguments]    @{controllers}
+    [Documentation]    Give this keyword a scalar or list of controllers on which to clean run time config files.
+    ${del_cmd} =    Set Variable    rm -rf ${KARAF_HOME}/etc/opendaylight/current/controller.currentconfig.xml
+    : FOR    ${ip}    IN    @{controllers}
+    \    Run Command On Remote System    ${ip}    ${del_cmd}
+
+Clean One Or More Data Directories
+    [Arguments]    @{controllers}
+    [Documentation]    Give this keyword a scalar or list of controllers on which to clean data directories.
+    ${del_cmd} =    Set Variable    rm -rf ${KARAF_HOME}/data
+    : FOR    ${ip}    IN    @{controllers}
+    \    Run Command On Remote System    ${ip}    ${del_cmd}
+
 Clean One Or More Journals
     [Arguments]    @{controllers}
     [Documentation]    Give this keyword a scalar or list of controllers on which to clean journals.
