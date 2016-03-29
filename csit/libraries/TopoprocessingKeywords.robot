@@ -15,14 +15,14 @@ ${REMOTE_FILE}    ${WORKSPACE}/${BUNDLEFOLDER}/etc/opendaylight/karaf/80-topopro
 
 *** Keywords ***
 Send Basic Request
-    [Arguments]    ${request}    ${overlay_topology_url}
+    [Arguments]    ${request}    ${input_overlay_topology_url}    ${output_overlay_topology_url}
     [Documentation]    Test basic aggregation
-    ${resp}    Put Request    session    ${CONFIG_API}/${overlay_topology_url}    data=${request}
-    Log    ${CONFIG_API}/${overlay_topology_url}
+    ${resp}    Put Request    session    ${CONFIG_API}/${input_overlay_topology_url}    data=${request}
+    Log    ${CONFIG_API}/${input_overlay_topology_url}
     Should Be Equal As Strings    ${resp.status_code}    200
     Wait For Karaf Log    Correlation configuration successfully read
     Wait For Karaf Log    Transaction successfully written
-    ${resp}    Get Request    session    ${OPERATIONAL_API}/${overlay_topology_url}
+    ${resp}    Get Request    session    ${OPERATIONAL_API}/${output_overlay_topology_url}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
     [Return]    ${resp}
@@ -40,7 +40,7 @@ Setup Environment
     ${features}    Issue Command On Karaf Console    feature:list -i
     ${lines}    Get Lines Containing String    ${features}    odl-topoprocessing-framework
     ${length}    Get Length    ${lines}
-    Install a Feature    odl-openflowplugin-nsf-model-li odl-topoprocessing-framework odl-topoprocessing-network-topology odl-topoprocessing-inventory odl-mdsal-models odl-ovsdb-southbound-impl    timeout=120
+    Install a Feature    odl-openflowplugin-nsf-model-li odl-topoprocessing-framework odl-topoprocessing-network-topology odl-topoprocessing-inventory odl-topoprocessing-i2rs odl-mdsal-models odl-ovsdb-southbound-impl    timeout=120
     Run Keyword If    ${length} == 0    Wait For Karaf Log    Registering Topology Request Listener    60
     Prepare New Feature Installation
     Insert Underlay topologies
@@ -91,7 +91,6 @@ Insert Underlay Topologies
 Prepare Unification Inside Topology Request
     [Arguments]    ${request_template}    ${model}    ${correlation_item}    ${underlay_topo1}
     [Documentation]    Prepare topology request for unification inside from template
-    ${request_template}    Set Element Text    ${request_template}    ${model}    xpath=.//correlations/output-model
     ${request_template}    Set Element Text    ${request_template}    aggregation-only    xpath=.//correlations/correlation/type
     ${request_template}    Set Element Text    ${request_template}    ${correlation_item}    xpath=.//correlation/correlation-item
     ${request_template}    Set Element Text    ${request_template}    unification    xpath=.//correlation/aggregation/aggregation-type
@@ -123,7 +122,6 @@ Prepare Unification Filtration Topology Request
 Prepare Unification Filtration Inside Topology Request
     [Arguments]    ${request_template}    ${model}    ${correlation_item}    ${target-field}    ${underlay_topo}
     [Documentation]    Prepare topology request for unification filtration inside from template
-    ${request_template}    Set Element Text    ${request_template}    ${model}    xpath=.//correlations/output-model
     ${request_template}    Set Element Text    ${request_template}    filtration-aggregation    xpath=.//correlations/correlation/type
     ${request_template}    Set Element Text    ${request_template}    ${correlation_item}    xpath=.//correlation/correlation-item
     ${request_template}    Set Element Text    ${request_template}    unification    xpath=.//correlation/aggregation/aggregation-type
@@ -141,9 +139,8 @@ Insert Apply Filters
     [Return]    ${request_template}
 
 Prepare Filtration Topology Request
-    [Arguments]    ${request_template}    ${model}    ${correlation_item}    ${underlay_topo}
+    [Arguments]    ${request_template}    ${correlation_item}    ${underlay_topo}
     [Documentation]    Prepare topology request for filtration from template
-    ${request_template}    Set Element Text    ${request_template}    ${model}    xpath=.//correlations/output-model
     ${request_template}    Set Element Text    ${request_template}    ${correlation_item}    xpath=.//correlation/correlation-item
     ${request_template}    Set Element Text    ${request_template}    ${underlay_topo}    xpath=.//correlation/filtration/underlay-topology
     [Return]    ${request_template}
@@ -158,18 +155,17 @@ Insert Target Field
     [Return]    ${request_template}
 
 Insert Filter
-    [Arguments]    ${request_template}    ${filter_template}    ${target_field}
+    [Arguments]    ${request_template}    ${filter_template}    ${target_field}    ${input_model}
     [Documentation]    Add filter to filtration
     ${request_template}    Add Element    ${request_template}    ${filter_template}    xpath=.//correlation/filtration
-    ${model}    Get Element Text    ${request_template}    xpath=.//correlations/output-model
-    ${request_template}    Set Element Text    ${request_template}    ${model}    xpath=.//correlation/filtration/filter/input-model
+    ${request_template}    Set Element Text    ${request_template}    ${input_model}    xpath=.//correlation/filtration/filter/input-model
     ${request_template}    Set Element Text    ${request_template}    ${target_field}    xpath=.//correlation/filtration/filter/target-field
     [Return]    ${request_template}
 
 Insert Filter With ID
-    [Arguments]    ${request_template}    ${filter_template}    ${target_field}    ${filter_id}
+    [Arguments]    ${request_template}    ${filter_template}    ${target_field}    ${input_model}    ${filter_id}
     [Documentation]    Add filter to filtration with specified id
-    ${request_template}    Insert Filter    ${request_template}    ${filter_template}    ${target_field}
+    ${request_template}    Insert Filter    ${request_template}    ${filter_template}    ${target_field}    ${input_model}
     ${request_template}    Set Element Text    ${request_template}    ${filter_id}    xpath=.//correlation/filtration/filter/filter-id
     [Return]    ${request_template}
 
@@ -231,7 +227,6 @@ Insert Link Computation Inside
     ${request_template}    Add Element    ${request_template}    ${link_computation_template}    xpath=.
     ${request_template}    Set Element Text    ${request_template}    ${input_model}    xpath=.//link-computation/node-info/input-model
     ${request_template}    Set Element Text    ${request_template}    ${input_model}    xpath=.//link-computation/link-info/input-model
-    ${request_template}    Set Element Text    ${request_template}    ${input_model}    xpath=.//link-computation/output-model
     ${request_template}    Set Element Text    ${request_template}    ${underlay_topology}    xpath=.//link-computation/link-info/link-topology
     ${request_template}    Set Element Attribute    ${request_template}    xmlns:n    urn:opendaylight:topology:correlation    xpath=./link-computation
     ${request_template}    Element to String    ${request_template}
@@ -244,7 +239,6 @@ Insert Link Computation
     ${request_template}    Set Element Text    ${request_template}    ${input_model}    xpath=.//link-computation/node-info/input-model
     ${request_template}    Set Element Text    ${request_template}    ${input_model}    xpath=.//link-computation/link-info[1]/input-model
     ${request_template}    Set Element Text    ${request_template}    ${input_model}    xpath=.//link-computation/link-info[2]/input-model
-    ${request_template}    Set Element Text    ${request_template}    ${input_model}    xpath=.//link-computation/output-model
     ${request_template}    Set Element Text    ${request_template}    ${underlay_topology_1}    xpath=.//link-computation/link-info[1]/link-topology
     ${request_template}    Set Element Text    ${request_template}    ${underlay_topology_2}    xpath=.//link-computation/link-info[2]/link-topology
     ${request_template}    Set Element Attribute    ${request_template}    xmlns:n    urn:opendaylight:topology:correlation    xpath=./link-computation
