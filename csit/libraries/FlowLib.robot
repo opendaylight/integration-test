@@ -17,7 +17,7 @@ Check Flow Stats Are Available
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}/node/${node_id}/table/2
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
-    Should Contain X Times    ${resp.content}    packet-count    ${flows}
+    Should Contain X Times    ${resp.content}    priority    ${flows}
 
 Create Inventory Flow
     [Documentation]    Calls FlowLib.Make_Inventory_Flow function and initializes and sanitizes
