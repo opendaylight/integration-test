@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "3a4c51b2_2d9f3261",
+        "filename": "csit/suites/system/port_check.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-31T17:50:25Z",
+      "side": 1,
+      "message": "Also, there are UDP ports too, not only TCP ports.",
+      "range": {
+        "startLine": 17,
+        "startChar": 35,
+        "endLine": 17,
+        "endChar": 40
+      },
+      "revId": "aec28f178e6a1f690a012cb05493cdf0b4ea8b9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_ed942a46",
+        "filename": "csit/suites/system/port_check.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-31T17:50:25Z",
+      "side": 1,
+      "message": "What is the added value of those variable definitions? I do not think the ability to write @{openflow} instead of two numbers is value enough for this possibly big table.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 21
+      },
+      "revId": "aec28f178e6a1f690a012cb05493cdf0b4ea8b9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a4c51b2_eda26a99",
         "filename": "csit/suites/system/port_check.robot",
         "patchSetId": 1
@@ -49,6 +95,29 @@
     },
     {
       "key": {
+        "uuid": "3a4c51b2_0d73564e",
+        "filename": "csit/suites/system/port_check.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-31T17:50:25Z",
+      "side": 1,
+      "message": "This table should be moved to a separate file, not to scare contributors by all the Robot code around.\n\nWe should probably have separate tables for each ODL_STREAM.\n\nAnd I think it would be better to have port numbers in lines (sorted numerically) and feature names in columns. That way port collision will be automatically visible.\nBut the current Port wiki has also nice property of including descriptions. Also we may want to distinguish primary features (which contain bundles performing the bind) and indirect features (which have primary feature in their dependency tree).\n\nI think it should be possible to have a table satisfying all of the previous paragraph, but it may need some parsing in the Robot code.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 10
+      },
+      "revId": "aec28f178e6a1f690a012cb05493cdf0b4ea8b9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a4c51b2_0d9cf668",
         "filename": "csit/suites/system/port_check.robot",
         "patchSetId": 1
@@ -65,6 +134,53 @@
         "startChar": 0,
         "endLine": 82,
         "endChar": 8
+      },
+      "revId": "aec28f178e6a1f690a012cb05493cdf0b4ea8b9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_adb062de",
+        "filename": "csit/suites/system/port_check.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-31T17:50:25Z",
+      "side": 1,
+      "message": "This will be similar to WFGASSVCS_Happy of csit/suites/test/libraries/WaitUtilsTest.robot\nAssuming Count_List_Of_Opened_Ports runs the command from Get_List_Of_Opened_Ports followed by \"| wc -l\" (to return number of ports present), three lines of Robot code follow. Note that Gerrit collapses 4 spaces to 1 space (another reason to use underscores):\n\n${getter}\u003d ScalarClosures.Closure_From_Keyword_And_Argument Count_List_Of_Opened_Ports\n${validator}\u003d ScalarClosures.Closure_From_Keyword_And_Arguments WaitUtils.Limiting_Stability_Safe_Stateful_Validator_As_Keyword state_holder data_holder valid_minimum\u003d0\nWaitUtils.Wait_For_Getter_And_Safe_Stateful_Validator_Consecutive_Success timeout\u003d11s period\u003d1s count\u003d4 getter\u003d${getter} safe_validator\u003d${validator}",
+      "parentUuid": "3a4c51b2_0d9cf668",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 8
+      },
+      "revId": "aec28f178e6a1f690a012cb05493cdf0b4ea8b9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_8db5a6cf",
+        "filename": "csit/suites/system/port_check.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-03-31T17:50:25Z",
+      "side": 1,
+      "message": "There is also etc/opendaylight/current/controller.currentconfig.xml\nIt only gets populated when user changes ODL configuration at runtime (by Restconf typically, not just by applying edited .xml when installing feature).\n\nI do not think it is relevant here, just making the piece of knowledge public.",
+      "range": {
+        "startLine": 102,
+        "startChar": 22,
+        "endLine": 102,
+        "endChar": 38
       },
       "revId": "aec28f178e6a1f690a012cb05493cdf0b4ea8b9d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
