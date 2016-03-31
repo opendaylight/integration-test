@@ -1,0 +1,1 @@
+{"input":{"description":"test stream1","streamRules":[{"field": "test_message","type": "match-exactly","inverted":false,"value":"TEST_INFO"}],"title":"Stream Name"}}
