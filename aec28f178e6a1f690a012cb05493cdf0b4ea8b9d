@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a4c51b2_0d9cf668",
+        "filename": "csit/suites/system/port_check.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-03-31T17:08:19Z",
+      "side": 1,
+      "message": "Vratko,\n\nI was thinking something in WaitUtils.robot could do this for\nme, but I couldn\u0027t figure it out.  It was a little too abstract for me and I couldn\u0027t find a real example of it.  Do\nyou think it would work?  I\u0027d like to use it, as its a lot \nsmarter than what I have here, and I don\u0027t want to use a Sleep so directly :)",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 8
+      },
+      "revId": "aec28f178e6a1f690a012cb05493cdf0b4ea8b9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
