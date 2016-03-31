@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3a4c51b2_2dad7289",
+        "filename": "csit/suites/system/port_check.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-03-31T17:28:10Z",
+      "side": 1,
+      "message": "Yes, it can be a variables file no problem.  Initially, I was thinking projects would keep this file up to date, but I think a variables file with *only* ports listed would be easier for projects to digest.  I will do that.",
+      "parentUuid": "3a4c51b2_eda26a99",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 52
+      },
+      "revId": "aec28f178e6a1f690a012cb05493cdf0b4ea8b9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a4c51b2_0d9cf668",
         "filename": "csit/suites/system/port_check.robot",
         "patchSetId": 1
