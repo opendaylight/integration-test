@@ -23,7 +23,7 @@ ${FLOW_NAME}      forward
 Get list of nodes
     [Documentation]    Get the inventory to make sure openflow:1 comes up
     ${node_list}=    Create List    openflow:1
-    Wait Until Keyword Succeeds    40s    1s    Check For Elements At URI    ${REST_CONTEXT_OP}    ${node_list}
+    Wait Until Keyword Succeeds    60s    1s    Check For Elements At URI    ${REST_CONTEXT_OP}    ${node_list}
 
 Add a group
     [Documentation]    Add a group using RESTCONF
