@@ -42,6 +42,7 @@ ${DEFAULT_RIB_CHECK_TIMEOUT}    10s
 ${BGP_PEER_LOG_LEVEL}    debug
 ${CONTROLLER_LOG_LEVEL}    INFO
 ${CONTROLLER_BGP_LOG_LEVEL}    DEFAULT
+${JSONKEYSTR}    "linkstate-route"
 
 *** Test Cases ***
 TC1_Configure_iBGP_Peer
@@ -54,7 +55,7 @@ TC1_Check_Example_Bgp_Rib_Is_Empty
     [Documentation]    Check RIB for none linkstate-routes
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer_console
-    Check_Example_Bgp_Rib_Does_Not_Contain    "bgp-linkstate:linkstate-routes": {.+}
+    Check_Example_Bgp_Rib_Does_Not_Contain    ${JSONKEYSTR}
 
 TC1_Connect_BGP_Peer
     [Documentation]    Connect BGP peer
@@ -67,7 +68,7 @@ TC1_Check_Example_Bgp_Rib
     [Documentation]    Check RIB for linkstate-route(s)
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer_console
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_RIB_CHECK_TIMEOUT}    ${DEFAULT_RIB_CHECK_PERIOD}    Check_Example_Bgp_Rib_Content    "bgp-linkstate:linkstate-routes": {.+}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_RIB_CHECK_TIMEOUT}    ${DEFAULT_RIB_CHECK_PERIOD}    Check_Example_Bgp_Rib_Content    ${JSONKEYSTR}
 
 TC1_Disconnect_BGP_Peer
     [Documentation]    Stop BGP peer & store logs
@@ -102,17 +103,17 @@ Teardown_Everything
     SSHLibrary.Close_All_Connections
 
 Check_Example_Bgp_Rib_Content
-    [Arguments]    ${pattern}    ${error_message}=Expected pattern not found.
+    [Arguments]    ${substr}    ${error_message}=${JSONKEYSTR} not found, but expected.
     [Documentation]    Check the example-bgp-rib content for string
     ${response}=    RequestsLibrary.Get Request    operational    bgp-rib:bgp-rib/rib/example-bgp-rib
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
-    BuiltIn.Should_Match_Regexp    ${response.text}    ${pattern}    ${error_message}    values=False
+    BuiltIn.Should_Contain    ${response.text}    ${substr}    ${error_message}    values=False
 
 Check_Example_Bgp_Rib_Does_Not_Contain
-    [Arguments]    ${pattern}    ${error_message}=Unexpected pattern found.
+    [Arguments]    ${substr}    ${error_message}=${JSONKEYSTR} found, but not expected.
     [Documentation]    Check the example-bgp-rib does not contain the string
     ${response}=    RequestsLibrary.Get Request    operational    bgp-rib:bgp-rib/rib/example-bgp-rib
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Log    ${response.text}
-    BuiltIn.Should_Not_Match_Regexp    ${response.text}    ${pattern}    ${error_message}    values=False
+    BuiltIn.Should_Not_Contain    ${response.text}    ${substr}    ${error_message}    values=False
