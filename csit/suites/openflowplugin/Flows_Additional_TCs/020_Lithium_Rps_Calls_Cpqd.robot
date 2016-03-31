@@ -24,7 +24,7 @@ Initialization Phase
     [Documentation]    Starts mininet and verify if topology is in operational ds
     Start Suite
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    Wait Until Keyword Succeeds    40s    1s    Are Switches Connected Topo
+    Wait Until Keyword Succeeds    60s    1s    Are Switches Connected Topo
 
 Final Phase
     [Documentation]    Stops mininet
