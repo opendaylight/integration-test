@@ -1,0 +1,12 @@
+{
+    "input": {
+        "graylogIp": "localhost",
+        "graylogPort": "12900",
+        "flumeIp": "localhost",
+        "flumePort": "41414",
+        "drillIp": "localhost",
+        "drillPort": "8047",
+        "syslogPort": "1514",
+        "secureSysLog": false
+    }
+}
