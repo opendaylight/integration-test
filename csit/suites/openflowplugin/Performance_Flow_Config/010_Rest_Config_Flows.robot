@@ -1,15 +1,13 @@
 *** Settings ***
 Documentation     Test suite with connection of multiple switches
-Suite Setup       Start Suite
-Suite Teardown    Stop Suite
+Suite Setup       Utils.Start Suite
+Suite Teardown    Utils.Stop Suite
 Library           OperatingSystem
-Library           Collections
 Library           XML
 Library           Process
-Variables         ../../../variables/Variables.py
 Library           RequestsLibrary
-Library           ../../../libraries/Common.py
-Library           SSHLibrary
+Resource          ../../../libraries/Utils.robot
+Variables         ../../../variables/Variables.py
 
 *** Variables ***
 ${switches}       25
@@ -20,56 +18,36 @@ ${PERFSCRIPT}     ${CURDIR}/../../../../tools/odl-mdsal-clustering-tests/cluster
 ${PARSESCRIPT}    ${CURDIR}/../../../../tools/odl-mdsal-clustering-tests/clustering-performance-test/create_plot_data_files.py
 
 *** Test Cases ***
-Are Switches Connected
+Check Switches Connected
     [Documentation]    Checks wheather switches are connected to controller
     [Setup]    Start Http Session
-    ${resp}=    Get    tcsession    /restconf/operational/network-topology:network-topology/topology/flow:1    headers=${ACCEPT_XML}
-    Log    ${resp.content}
-    ${count}=    Get Element Count    ${resp.content}    xpath=node
-    Should Be Equal As Numbers    ${count}    ${switches}
+    Wait Until Keyword Succeeds    5    1    Are Switches Connected    ${switches}
     [Teardown]    Stop Http Session
 
 Configure And Deconfigure Flows
-    ${result}=    Run Process    ${PERFSCRIPT}    --host    ${ODL_SYSTEM_IP}    --flows    ${flows}
+    [Documentation]    Runs the flow peformance script and the script that parses the results to csv file.
+    ${result}=    Process.Run Process    ${PERFSCRIPT}    --host    ${ODL_SYSTEM_IP}    --flows    ${flows}
     ...    --threads    ${threads}    --auth    shell=yes
     Log    ${result.stdout}
-    Create File    out.log.txt    content=${result.stdout}
+    OperatingSystem.Create File    out.log.txt    content=${result.stdout}
     Log    ${result.stderr}
     Should Be Equal As Integers    ${result.rc}    0
-    ${result}=    Run Process    python    ${PARSESCRIPT}
+    ${result}=    Process.Run Process    python    ${PARSESCRIPT}
 
 *** Keywords ***
-Start Suite
-    [Documentation]    Basic setup/cleanup work that can be done safely before any system
-    ...    is run.
-    Log    Start the test on the base edition
-    ${mininet_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=600s
-    Set Suite Variable    ${mininet_conn_id}
-    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
-    Write    sudo ovs-vsctl set-manager ptcp:6644
-    Read Until    ${DEFAULT_LINUX_PROMPT}
-    Write    sudo mn -c
-    Read Until    ${DEFAULT_LINUX_PROMPT}
-    Read Until    ${DEFAULT_LINUX_PROMPT}
-    Read Until    ${DEFAULT_LINUX_PROMPT}
-    Write    ${start}
-    Read Until    mininet>
-
-Stop Suite
-    [Documentation]    Cleanup/Shutdown work that should be done at the completion of all
-    ...    tests
-    Log    Stop the test on the base edition
-    Switch Connection    ${mininet_conn_id}
-    Read
-    Write    exit
-    Read Until    ${DEFAULT_LINUX_PROMPT}
-    Close Connection
-
 Start Http Session
     [Documentation]    Starts http session
     Log    http://${ODL_SYSTEM_IP}:${RESTCONFPORT} auth=${AUTH} headers=${HEADERS_XML}
-    Create Session    tcsession    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+    RequestsLibrary.Create Session    tcsession    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+
+Are Switches Connected
+    [Arguments]    ${switches}
+    [Documentation]    Checks Topology Contains a fix number ${switches} of switces.
+    ${resp}=    RequestsLibrary.Get Request    tcsession    /restconf/operational/network-topology:network-topology/topology/flow:1    headers=${ACCEPT_XML}
+    Log    ${resp.content}
+    ${count}=    XML.Get Element Count    ${resp.content}    xpath=node
+    Should Be Equal As Numbers    ${count}    ${switches}
 
 Stop Http Session
     [Documentation]    Stops http session
-    Delete All Sessions
+    RequestsLibrary.Delete All Sessions
