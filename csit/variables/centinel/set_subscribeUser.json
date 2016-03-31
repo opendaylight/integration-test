@@ -1,0 +1,10 @@
+{
+    "input": {
+        "subscribeID": "subscribeId1",
+        "userName": "myuser",
+        "mode": "stream",
+        "URL": "myurl",
+        "streamID": "streamId1",
+        "ruleID": "ruleId1"
+    }
+}

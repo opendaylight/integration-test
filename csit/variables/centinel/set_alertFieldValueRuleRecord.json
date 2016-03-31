@@ -1,0 +1,16 @@
+{
+    "input": {
+        "alertTypeClassifier": "alert-field-value",
+        "fieldValueThreshholdType": "higher",
+        "timeStamp": 1,
+        "fieldValueField": "str1",
+        "fieldValueGrace": 2,
+        "fieldValueType": "minimum value",
+        "streamID": "streamId2",
+        "ruleID": "str420",
+        "ruleTypeClassifier": "base-alert",
+        "fieldValueThreshhold": 3,
+        "nodeType": "string",
+        "fieldValueBacklog": 4
+    }
+}
