@@ -1,0 +1,14 @@
+{
+    "input": {
+        "streamID": "streamId3",
+        "alertTypeClassifier": "alert-message-count",
+        "messageCountBacklog": 420,
+        "timeStamp": 420,
+        "ruleID": "ruletest420",
+        "ruleTypeClassifier": "base-alert",
+        "messageCountGrace": 420,
+        "messageCountCount": 420,
+        "messageCountOperator": "more",
+        "alertName": "dasjfghj"
+    }
+}

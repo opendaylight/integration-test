@@ -1,0 +1,15 @@
+{
+    "input": {
+        "streamID": "streamId1",
+        "alertTypeClassifier": "alert-field-content",
+        "timeStamp": 54,
+        "ruleID": "str54",
+        "fieldContentBacklog": 1,
+        "fieldContentField": "str41",
+        "ruleTypeClassifier": "base-alert",
+        "fieldContentGrace": 12,
+        "nodeType": "str22",
+        "configID": "str21",
+        "fieldContentCompareToValue": "str31"
+    }
+}
