@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a4c51b2_2d93b2fb",
+        "filename": "csit/suites/centinel/basic/040_Stream.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-03-31T22:09:49Z",
+      "side": 1,
+      "message": "good catch.",
+      "range": {
+        "startLine": 28,
+        "startChar": 6,
+        "endLine": 28,
+        "endChar": 9
+      },
+      "revId": "4e876308ba2401d207280db3817668e9468f9362",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_0d9076eb",
+        "filename": "csit/variables/centinel/set_alertFieldContentRuleRecord.json",
+        "patchSetId": 12
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-03-31T22:09:49Z",
+      "side": 1,
+      "message": "you can still keep it readable across different lines, but just use spaces instead of tabs.  I didn\u0027t mean for you to collapse it all.  sorry.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 164
+      },
+      "revId": "4e876308ba2401d207280db3817668e9468f9362",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
