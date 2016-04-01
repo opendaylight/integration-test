@@ -204,7 +204,7 @@ class Deployer:
         # Copy the distribution to the host and unzip it
         odl_file_path = self.dir_name + "/odl.zip"
         self.remote.copy_file(self.distribution, odl_file_path)
-        self.remote.exec_cmd("unzip " + odl_file_path + " -d " +
+        self.remote.exec_cmd("unzip -o " + odl_file_path + " -d " +
                              self.dir_name + "/")
 
         # Rename the distribution directory to odl
