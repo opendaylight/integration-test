@@ -1,4 +1,5 @@
 # Place the suites in run order:
 integration/test/csit/suites/openflowplugin/Clustering
 integration/test/csit/suites/openflowplugin/Clustering
-integration/test/csit/suites/openflowplugin/Sanity3Node
+#Commenting this last test so we can better observe mininet stop bug in karaf console
+#integration/test/csit/suites/openflowplugin/Sanity3Node
