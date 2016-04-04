@@ -134,6 +134,11 @@ Post_Json_Template_Folder_Via_Restconf
     ${json_data}=    Resolve_Json_Data_From_Template_Folder    ${folder}    ${mapping_as_string}
     Post_Json_Via_Restconf    ${uri_part}    ${json_data}
 
+Check_Status_Code
+    [Arguments]    ${status_code}
+    [Documentation]    Check whether the specified status code is among the status codes representing a success, fail if not.
+    BuiltIn.Should_Contain    ${allowed_status_codes}    ${status_code}
+
 Put_Xml_Via_Restconf
     [Arguments]    ${uri_part}    ${xml_data}    ${return_reply}=False
     [Documentation]    Put XML data to given controller-config URI, check reponse text is empty and status_code is one of allowed ones.
@@ -144,7 +149,7 @@ Put_Xml_Via_Restconf
     BuiltIn.Log    ${response.status_code}
     Return_From_Keyword_If    ${return_reply}    ${response.status_code}    ${response.text}
     BuiltIn.Should_Be_Empty    ${response.text}
-    BuiltIn.Should_Contain    ${allowed_status_codes}    ${response.status_code}
+    Check_Status_Code    ${response.status_code}
 
 Put_Xml_Template_Folder_Via_Restconf
     [Arguments]    ${folder}    ${mapping_as_string}={}    ${return_reply}=False
@@ -163,7 +168,7 @@ Put_Json_Via_Restconf
     BuiltIn.Log    ${response.text}
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Should_Be_Empty    ${response.text}
-    BuiltIn.Should_Contain    ${allowed_status_codes}    ${response.status_code}
+    Check_Status_Code    ${response.status_code}
 
 Put_Json_Template_Folder_Via_Restconf
     [Arguments]    ${folder}    ${mapping_as_string}={}
@@ -179,7 +184,7 @@ Delete_Via_Restconf
     ${response}=    RequestsLibrary.Delete Request    ${NetconfViaRestconf__active_config_session}    ${uri_part}
     BuiltIn.Log    ${response.text}
     BuiltIn.Should_Be_Empty    ${response.text}
-    BuiltIn.Should_Contain    ${allowed_status_codes}    ${response.status_code}
+    Check_Status_Code    ${response.status_code}
 
 Delete_Xml_Template_Folder_Via_Restconf
     [Arguments]    ${folder}    ${mapping_as_string}={}
