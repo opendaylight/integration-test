@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "3a4c51b2_14e7da13",
+        "filename": "tools/fastbgp/prepare/bgp.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-04-04T15:35:52Z",
+      "side": 1,
+      "message": "*notes to self* We should add this to the int/test tox checks.",
+      "parentUuid": "7a42497e_b86429e6",
+      "range": {
+        "startLine": 187,
+        "startChar": 12,
+        "endLine": 187,
+        "endChar": 13
+      },
+      "revId": "e183b15e82ea73e66063e26890553d03159ad37b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a42497e_98a5ed06",
         "filename": "tools/fastbgp/prepare/dthandle.py",
         "patchSetId": 3
@@ -64,6 +88,29 @@
         "startChar": 4,
         "endLine": 9,
         "endChar": 18
+      },
+      "revId": "e183b15e82ea73e66063e26890553d03159ad37b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_3df119ce",
+        "filename": "tools/fastbgp/prepare/dthandle.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-04-04T15:35:52Z",
+      "side": 1,
+      "message": "There\u0027s good date formatting logic in the standard datetime module. Applies to these other date fns as well. https://docs.python.org/3/library/datetime.html#strftime-strptime-behavior",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 14
       },
       "revId": "e183b15e82ea73e66063e26890553d03159ad37b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
