@@ -81,3 +81,16 @@ Stop Mininet And Exit Multiple Sessions
     [Documentation]    Stops Mininet and exits sessions in ${mininet_conn_list}.
     : FOR    ${mininet_conn_id}    IN    @{mininet_conn_list}
     \    MininetKeywords.Stop Mininet And Exit    ${mininet_conn_id}
+
+Verify Aggregate Flow From Mininet Session
+    [Arguments]    ${mininet_conn_id}    ${switch_count}    ${flow_count}    ${time_out}
+    [Documentation]    Verify flow count per switch
+    Wait Until Keyword Succeeds    ${time_out}    2s    MininetKeywords.Mininet Sync Status    ${mininet_conn_id}    ${switch_count}    ${flow_count}
+
+Mininet Sync Status
+    [Arguments]    ${mininet_id}    ${switch_count}    ${flow_count}
+    [Documentation]    Sync with mininet to match exact number of flows
+    Set Test Variable    &{dictionary}    flow_count\=${flow_count}=${switch_count}
+    ${cmd} =    Set Variable    dpctl dump-aggregate -O OpenFlow13
+    ${output}=    MininetKeywords.Send Mininet Command    ${mininet_id}    ${cmd}
+    Utils.Check Item Occurrence    ${output}    ${dictionary}
