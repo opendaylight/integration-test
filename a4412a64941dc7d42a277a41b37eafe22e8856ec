@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a4c51b2_486c259d",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2016-04-04T18:57:47Z",
+      "side": 1,
+      "message": "Is the first dot a typo? If not I\u0027m curious what it means since I would have though \"*.sw?\" would have covered it?",
+      "revId": "a4412a64941dc7d42a277a41b37eafe22e8856ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
