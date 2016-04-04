@@ -21,7 +21,7 @@ opendaylight/northbound/integrationtest/logs/*
 log.html
 output.xml
 report.html
-*.swp
+.*.sw?
 .vagrant
 .tox/
 *.egg-info/
