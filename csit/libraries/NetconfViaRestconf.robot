@@ -135,22 +135,24 @@ Post_Json_Template_Folder_Via_Restconf
     Post_Json_Via_Restconf    ${uri_part}    ${json_data}
 
 Put_Xml_Via_Restconf
-    [Arguments]    ${uri_part}    ${xml_data}
+    [Arguments]    ${uri_part}    ${xml_data}    ${return_reply}=False
     [Documentation]    Put XML data to given controller-config URI, check reponse text is empty and status_code is one of allowed ones.
     BuiltIn.Log    ${uri_part}
     BuiltIn.Log    ${xml_data}
     ${response}=    RequestsLibrary.Put Request    ${NetconfViaRestconf__active_config_session}    ${uri_part}    data=${xml_data}
     BuiltIn.Log    ${response.text}
     BuiltIn.Log    ${response.status_code}
+    Return_From_Keyword_If    ${return_reply}    ${response.status_code}    ${response.text}
     BuiltIn.Should_Be_Empty    ${response.text}
     BuiltIn.Should_Contain    ${allowed_status_codes}    ${response.status_code}
 
 Put_Xml_Template_Folder_Via_Restconf
-    [Arguments]    ${folder}    ${mapping_as_string}={}
+    [Arguments]    ${folder}    ${mapping_as_string}={}    ${return_reply}=False
     [Documentation]    Resolve URI and data from folder, PUT to controller config.
     ${uri_part}=    Resolve_URI_From_Template_Folder    ${folder}    ${mapping_as_string}
     ${xml_data}=    Resolve_Xml_Data_From_Template_Folder    ${folder}    ${mapping_as_string}
-    Put_Xml_Via_Restconf    ${uri_part}    ${xml_data}
+    ${result}=    Put_Xml_Via_Restconf    ${uri_part}    ${xml_data}    ${return_reply}
+    [Return]    ${result}
 
 Put_Json_Via_Restconf
     [Arguments]    ${uri_part}    ${json_data}
