@@ -1,4 +1,4 @@
-# #!/usr/local/bin/python
+#!/usr/bin/env python
 #
 # This script restarts the cluster nodes. It can optionally cleanup the persistent data.
 # --------------------------------------------------------------------------------------
