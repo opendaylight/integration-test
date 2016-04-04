@@ -130,25 +130,32 @@ Check_New_Device_Data_Is_Visible_On_Configurer
 
 Modify_Device_Data
     [Documentation]    Send a request to change the sample test data and check that the request went OK.
+    Set_Suite_Variable    ${bug_5649_absent}    True
     NetconfViaRestconf.Activate_NVR_Session    ${NODE_SETTER}
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${DEVICE_NAME}'}
-    NetconfViaRestconf.Put_Xml_Template_Folder_Via_Restconf    ${directory_with_template_folders}${/}datamod1    ${template_as_string}
-    [Teardown]    Utils.Report_Failure_Due_To_Bug    4968
+    ${reply}=    NetconfViaRestconf.Put_Xml_Template_Folder_Via_Restconf    ${directory_with_template_folders}${/}datamod1    ${template_as_string}    return_reply=True
+    SetupUtils.Set_Known_Bug_Id    5649
+    Set_Suite_Variable    ${bug_5649_absent}    False
+    BuiltIn.Should_Not_Countain    ${reply}    NullPointerException
+    Set_Suite_Variable    ${bug_5649_absent}    True
+    SetupUtils.Set_Known_Bug_Id    4968
+    BuiltIn.Should_Be_Empty    ${reply}
+    [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
 Check_Device_Data_Is_Modified
     [Documentation]    Get the device data and make sure it contains the modified content.
     Check_Config_Data    ${NODE_SETTER}    ${modified_data}
-    [Teardown]    Utils.Report_Failure_Due_To_Bug    4968
+    [Teardown]    BuiltIn.Run_Keyword_If    ${bug_5649_absent}    Utils.Report_Failure_Due_To_Bug    4968
 
 Check_Modified_Device_Data_Is_Visible_On_Checker
     [Documentation]    Check that the modified device data make their way into the checker node.
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    1s    Check_Config_Data    ${NODE_CHECKER}    ${modified_data}
-    [Teardown]    Utils.Report_Failure_Due_To_Bug    4968
+    [Teardown]    BuiltIn.Run_Keyword_If    ${bug_5649_absent}    Utils.Report_Failure_Due_To_Bug    4968
 
 Check_Modified_Device_Data_Is_Visible_On_Configurer
     [Documentation]    Check that the modified device data make their way into the configurer node.
     BuiltIn.Wait_Until_Keyword_Succeeds    60s    1s    Check_Config_Data    ${NODE_CONFIGURER}    ${modified_data}
-    [Teardown]    Utils.Report_Failure_Due_To_Bug    4968
+    [Teardown]    BuiltIn.Run_Keyword_If    ${bug_5649_absent}    Utils.Report_Failure_Due_To_Bug    4968
 
 Delete_Device_Data
     [Documentation]    Send a request to delete the sample test data on the device and check that the request went OK.
