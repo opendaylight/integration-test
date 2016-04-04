@@ -26,7 +26,7 @@ ${DIRECTORY_WITH_DEVICE_TEMPLATES}    ${CURDIR}/../variables/netconf/device
 ${FIRST_TESTTOOL_PORT}    17830
 ${BASE_NETCONF_DEVICE_PORT}    17830
 ${DEVICE_NAME_BASE}    netconf-scaling-device
-${TESTTOOL_DEVICE_TIMEOUT}    60s
+${TESTTOOL_BOOT_TIMEOUT}    60s
 ${ENABLE_NETCONF_TEST_TIMEOUT}    ${ENABLE_GLOBAL_TEST_DEADLINES}
 
 *** Keywords ***
@@ -140,7 +140,7 @@ NetconfKeywords__Check_Device_Is_Up
 NetconfKeywords__Wait_Device_Is_Up_And_Running
     [Arguments]    ${device_name}
     ${number}=    BuiltIn.Evaluate    '${device_name}'.split('-').pop()
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${TESTTOOL_DEVICE_TIMEOUT}    1s    Check_Device_Up_And_Running    ${number}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${TESTTOOL_BOOT_TIMEOUT}    1s    Check_Device_Up_And_Running    ${number}
 
 Install_And_Start_Testtool
     [Arguments]    ${device-count}=10    ${debug}=true    ${schemas}=none    ${tool_options}=${EMPTY}    ${java_options}=${TESTTOOL_DEFAULT_JAVA_OPTIONS}    ${mdsal}=true
