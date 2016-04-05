@@ -22,9 +22,8 @@ Filtration Range Number Network Topology Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    termination-point    network-topo:2
     ${request}    Insert Filter    ${request}    ${FILTER_RANGE_NUMBER}    ovsdb:ofport
     ${request}    Set Range Number Filter    ${request}    1115    1119
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    5
     Should Contain X Times    ${resp.content}    <termination-point>    3
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:7']/..
     ${node}    Element to String    ${node}
@@ -41,9 +40,8 @@ Filtration Range Number Inventory Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    opendaylight-inventory-model    termination-point    openflow-topo:1
     ${request}    Insert Filter    ${request}    ${FILTER_RANGE_NUMBER}    flow-node-inventory:port-number
     ${request}    Set Range Number Filter    ${request}    2    4
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    5
     Should Contain X Times    ${resp.content}    <termination-point>    5
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
     ${node}    Element to String    ${node}
@@ -65,9 +63,8 @@ Filtration Specific Number Network Topology Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    termination-point    network-topo:2
     ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_NUMBER}    ovsdb:ofport
     ${request}    Set Specific Number Filter    ${request}    1119
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    5
     Should Contain X Times    ${resp.content}    <termination-point>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:7']/..
     ${node}    Element to String    ${node}
@@ -79,9 +76,8 @@ Filtration Specific Number Inventory Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    opendaylight-inventory-model    termination-point    openflow-topo:1
     ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_NUMBER}    flow-node-inventory:maximum-speed
     ${request}    Set Specific Number Filter    ${request}    2
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    5
     Should Contain X Times    ${resp.content}    <termination-point>    3
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
     ${node}    Element to String    ${node}
@@ -98,9 +94,8 @@ Filtration Specific String Network Topology Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    termination-point    network-topo:2
     ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_STRING}    ovsdb:name
     ${request}    Set Specific String Filter    ${request}    portC
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    5
     Should Contain X Times    ${resp.content}    <termination-point>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:7']/..
     ${node}    Element to String    ${node}
@@ -112,8 +107,7 @@ Filtration Specific String Inventory Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    opendaylight-inventory-model    termination-point    openflow-topo:1
     ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_STRING}    flow-node-inventory:name
     ${request}    Set Specific String Filter    ${request}    portB
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
-    Should Contain X Times    ${resp.content}    <node-id>node:    5
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
     Should Contain X Times    ${resp.content}    <termination-point>    2
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
     ${node}    Element to String    ${node}
@@ -129,9 +123,8 @@ Filtration Range String Network Topology Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    termination-point    network-topo:2
     ${request}    Insert Filter    ${request}    ${FILTER_RANGE_STRING}    ovsdb:name
     ${request}    Set Range String Filter    ${request}    portA    portC
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    5
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
+    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>    ${EMPTY}
     Should Contain X Times    ${resp.content}    <termination-point>    3
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:6']/..
     ${node}    Element to String    ${node}
@@ -151,8 +144,7 @@ Filtration Range String Inventory Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    opendaylight-inventory-model    termination-point    openflow-topo:1
     ${request}    Insert Filter    ${request}    ${FILTER_RANGE_STRING}    flow-node-inventory:name
     ${request}    Set Range String Filter    ${request}    portA    portB
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
-    Should Contain X Times    ${resp.content}    <node-id>node:    5
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
     Should Contain X Times    ${resp.content}    <termination-point>    3
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
     ${node}    Element to String    ${node}
@@ -170,9 +162,8 @@ Filtration Script Network Topology Model
     ${request}    Insert Filter    ${request}    ${FILTER_SCRIPT}    ovsdb:ofport
     ${script}    Set Variable    if (node.getValue() > 1117 ) {filterOut.setResult(true);} else {filterOut.setResult(false);}
     ${request}    Set Script Filter    ${request}    javascript    ${script}
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    5
     Should Contain X Times    ${resp.content}    <termination-point>    3
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:4']/..
     ${node}    Element to String    ${node}
@@ -190,9 +181,8 @@ Filtration Script Inventory Model
     ${request}    Insert Filter    ${request}    ${FILTER_SCRIPT}    flow-node-inventory:name
     ${script}    Set Variable    if (node.getValue().indexOf("portB") > -1 ) {filterOut.setResult(true);} else {filterOut.setResult(false);}
     ${request}    Set Script Filter    ${request}    javascript    ${script}
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    5
     Should Contain X Times    ${resp.content}    <termination-point>    3
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
     ${node}    Element to String    ${node}
