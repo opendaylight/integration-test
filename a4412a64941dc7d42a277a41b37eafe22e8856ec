@@ -16,6 +16,24 @@
       "revId": "a4412a64941dc7d42a277a41b37eafe22e8856ec",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_cb9e6c56",
+        "filename": ".gitignore",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-04-05T16:14:06Z",
+      "side": 1,
+      "message": "Vim tmp files are hidden, they start with `.`. This is catching that initial dot. It\u0027s a little more exact than without it, but there are even more exact regexes we could use. I don\u0027t have a strong opinion about how exact we should be. https://github.com/github/gitignore/blob/master/Global/Vim.gitignore",
+      "parentUuid": "3a4c51b2_486c259d",
+      "revId": "a4412a64941dc7d42a277a41b37eafe22e8856ec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
