@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "3a4c51b2_0bacd4ec",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 12
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2016-04-05T14:20:15Z",
+      "side": 1,
+      "message": "This commit message is too long. You might consider splitting the latter half into the body something like:\n\n Add csit test cases for centinel features\n \n Tests:\n - stream\n - alert\n - dashboard\n - subscribe\n - configuration\n\n ...\n\nSome details on how and why well formed commit messages are important you I\u0027d recommend this blog post:\nhttp://chris.beams.io/posts/git-commit/",
+      "revId": "4e876308ba2401d207280db3817668e9468f9362",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a4c51b2_2d93b2fb",
         "filename": "csit/suites/centinel/basic/040_Stream.robot",
         "patchSetId": 12
