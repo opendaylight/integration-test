@@ -22,6 +22,7 @@ Send Basic Request
     Should Be Equal As Strings    ${resp.status_code}    200
     Wait For Karaf Log    Correlation configuration successfully read
     Wait For Karaf Log    Transaction successfully written
+    Sleep    1.5s    Waiting for topoprocessing to finish ongoing job
     ${resp}    Get Request    session    ${OPERATIONAL_API}/${overlay_topology_url}
     Should Be Equal As Strings    ${resp.status_code}    200
     Log    ${resp.content}
