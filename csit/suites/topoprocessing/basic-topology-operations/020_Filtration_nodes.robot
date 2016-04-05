@@ -22,9 +22,8 @@ Filtration IPV4 Network Topology Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    node    network-topo:1
     ${request}    Insert Filter    ${request}    ${FILTER_IPV4}    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4
     ${request}    Set IPV4 Filter    ${request}    192.168.1.1/24
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    2
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    2
     Should Contain X Times    ${resp.content}    <node-ref>bgp:1</node-ref>    1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:1']/..
     ${node}    Element to String    ${node}
@@ -39,9 +38,8 @@ Filtration IPV4 Inventory Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    opendaylight-inventory-model    node    openflow-topo:1
     ${request}    Insert Filter    ${request}    ${FILTER_IPV4}    flow-node-inventory:ip-address
     ${request}    Set IPV4 Filter    ${request}    192.168.1.1/24
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    3
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    3
     : FOR    ${index}    IN RANGE    1    4
     \    Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
 
@@ -50,9 +48,8 @@ Filtration Range Number Network Topology Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    node    network-topo:2
     ${request}    Insert Filter    ${request}    ${FILTER_RANGE_NUMBER}    ovsdb:ovs-version
     ${request}    Set Range Number Filter    ${request}    20    25
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    4
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    4
     : FOR    ${index}    IN RANGE    7    11
     \    Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
     Should Contain X Times    ${resp.content}    <termination-point>    5
@@ -79,9 +76,8 @@ Filtration Range Number Inventory Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    opendaylight-inventory-model    node    openflow-topo:2
     ${request}    Insert Filter    ${request}    ${FILTER_RANGE_NUMBER}    flow-node-inventory:serial-number
     ${request}    Set Range Number Filter    ${request}    20    25
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    3
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    3
     : FOR    ${index}    IN RANGE    8    11
     \    Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
 
@@ -91,9 +87,8 @@ Filtration Specific Number Network Topology Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    node    network-topo:2
     ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_NUMBER}    ovsdb:ovs-version
     ${request}    Set Specific Number Filter    ${request}    25
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    2
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    2
     Should Contain X Times    ${resp.content}    <node-ref>bgp:9</node-ref>    1
     Should Contain X Times    ${resp.content}    <node-ref>bgp:10</node-ref>    1
     Should Contain X Times    ${resp.content}    <termination-point>    2
@@ -106,9 +101,8 @@ Filtration Specific Number Inventory Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    opendaylight-inventory-model    node    openflow-topo:2
     ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_NUMBER}    flow-node-inventory:serial-number
     ${request}    Set Specific Number Filter    ${request}    21
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    2
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    2
     Should Contain X Times    ${resp.content}    <node-ref>of-node:8</node-ref>    1
     Should Contain X Times    ${resp.content}    <node-ref>of-node:9</node-ref>    1
 
@@ -117,9 +111,8 @@ Filtration Specific String Network Topology Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    node    network-topo:2
     ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_STRING}    ovsdb:ovs-version
     ${request}    Set Specific String Filter    ${request}    25
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    2
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    2
+    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>    ${EMPTY}
     Should Contain X Times    ${resp.content}    <node-ref>bgp:9</node-ref>    1
     Should Contain X Times    ${resp.content}    <node-ref>bgp:10</node-ref>    1
     Should Contain X Times    ${resp.content}    <termination-point>    2
@@ -137,9 +130,8 @@ Filtration Specific String Inventory Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    opendaylight-inventory-model    node    openflow-topo:2
     ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_STRING}    flow-node-inventory:serial-number
     ${request}    Set Specific String Filter    ${request}    21
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    2
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    2
     Should Contain X Times    ${resp.content}    <node-ref>of-node:8</node-ref>    1
     Should Contain X Times    ${resp.content}    <node-ref>of-node:9</node-ref>    1
 
@@ -148,9 +140,8 @@ Filtration Range String Network Topology Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    node    network-topo:2
     ${request}    Insert Filter    ${request}    ${FILTER_RANGE_STRING}    ovsdb:ovs-version
     ${request}    Set Range String Filter    ${request}    20    25
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    4
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    4
     : FOR    ${index}    IN RANGE    7    11
     \    Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
     Should Contain X Times    ${resp.content}    <termination-point>    5
@@ -177,9 +168,8 @@ Filtration Range String Inventory Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    opendaylight-inventory-model    node    openflow-topo:2
     ${request}    Insert Filter    ${request}    ${FILTER_RANGE_STRING}    flow-node-inventory:serial-number
     ${request}    Set Range String Filter    ${request}    20    25
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    3
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    3
     : FOR    ${index}    IN RANGE    8    11
     \    Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
 
@@ -188,9 +178,8 @@ Filtration IPV6 Network Topology Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    node    network-topo:3
     ${request}    Insert Filter    ${request}    ${FILTER_IPV6}    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv6
     ${request}    Set IPV6 Filter    ${request}    fe80:0:0:0:0:0:c0a8:101/120
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    2
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    2
     Should Contain X Times    ${resp.content}    <node-ref>bgp:11</node-ref>    1
     Should Contain X Times    ${resp.content}    <node-ref>bgp:12</node-ref>    1
     Should Contain X Times    ${resp.content}    <termination-point>    1
@@ -208,9 +197,8 @@ Filtration IPV6 Inventory Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    opendaylight-inventory-model    node    openflow-topo:3
     ${request}    Insert Filter    ${request}    ${FILTER_IPV6}    flow-node-inventory:ip-address
     ${request}    Set IPV6 Filter    ${request}    fe80:0:0:0:0:0:c0a8:201/120
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    3
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    3
     Should Contain X Times    ${resp.content}    <node-ref>of-node:12</node-ref>    1
     Should Contain X Times    ${resp.content}    <node-ref>of-node:14</node-ref>    1
     Should Contain X Times    ${resp.content}    <node-ref>of-node:15</node-ref>    1
@@ -221,9 +209,8 @@ Filtration Script Network Topology Model
     ${request}    Insert Filter    ${request}    ${FILTER_SCRIPT}    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4
     ${script}    Set Variable    if (node.getValue().indexOf("192.168.1") > -1 ) {filterOut.setResult(true);} else {filterOut.setResult(false);}
     ${request}    Set Script Filter    ${request}    javascript    ${script}
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    3
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    3
     : FOR    ${index}    IN RANGE    3    6
     \    Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
     Should Contain X Times    ${resp.content}    <termination-point>    5
@@ -248,8 +235,7 @@ Filtration Script Inventory Model
     ${request}    Insert Filter    ${request}    ${FILTER_SCRIPT}    flow-node-inventory:ip-address
     ${script}    Set Variable    if (node.getValue().indexOf("192.168.2") > -1 ) {filterOut.setResult(true);} else {filterOut.setResult(false);}
     ${request}    Set Script Filter    ${request}    javascript    ${script}
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    3
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    3
     : FOR    ${index}    IN RANGE    1    4
     \    Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1

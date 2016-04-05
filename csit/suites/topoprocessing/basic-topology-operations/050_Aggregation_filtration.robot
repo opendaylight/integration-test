@@ -23,9 +23,8 @@ Unification Filtration Node Inside Network Topology model
     ${request}    Insert Filter With ID    ${request}    ${FILTER_IPV4}    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    1
     ${request}    Insert Apply Filters    ${request}    1    1
     ${request}    Set IPV4 Filter    ${request}    192.168.2.1/24
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    2
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    2
     Should Contain    ${resp.content}    <node-ref>bgp:    3
     : FOR    ${index}    IN RANGE    18    21
     \    Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
@@ -41,9 +40,8 @@ Unification Filtration Node Inside Inventory model
     ${request}    Insert Filter With ID    ${request}    ${FILTER_IPV4}    flow-node-inventory:ip-address    1
     ${request}    Insert Apply Filters    ${request}    1    1
     ${request}    Set IPV4 Filter    ${request}    192.168.2.1/24
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    2
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    2
     Should Contain    ${resp.content}    <node-ref>of-node:    4
     : FOR    ${index}    IN RANGE    17    21
     \    Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
@@ -60,9 +58,8 @@ Unification Filtration Termination Point Inside Network Topology model
     ${request}    Insert Filter With ID    ${request}    ${FILTER_SPECIFIC_STRING}    ovsdb:name    1
     ${request}    Insert Apply Filters    ${request}    1    1
     ${request}    Set Specific String Filter    ${request}    portA
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    5
     Should Contain X Times    ${resp.content}    <termination-point>    3
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:21']/..
     ${node}    Element to String    ${node}
@@ -92,9 +89,8 @@ Unification Filtration Node Network Topology model
     ${request}    Insert Apply Filters    ${request}    1    1
     ${request}    Insert Apply Filters    ${request}    2    1
     ${request}    Set IPV4 Filter    ${request}    192.168.1.1/24
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node>    2
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node>    2
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:1']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <supporting-node>    2
@@ -117,9 +113,8 @@ Unification Filtration Node Inventory model
     ${request}    Insert Apply Filters    ${request}    1    1
     ${request}    Insert Apply Filters    ${request}    2    1
     ${request}    Set IPV4 Filter    ${request}    192.168.1.1/24
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node>    2
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node>    2
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:26']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <node-ref>of-node:26</node-ref>    1

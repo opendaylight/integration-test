@@ -14,7 +14,7 @@ ${OPERATIONAL_XML}    ${CURDIR}/../suites/topoprocessing/operational.xml
 ${REMOTE_FILE}    ${WORKSPACE}/${BUNDLEFOLDER}/etc/opendaylight/karaf/80-topoprocessing-config.xml
 
 *** Keywords ***
-Send Basic Request
+Basic Request Put
     [Arguments]    ${request}    ${overlay_topology_url}
     [Documentation]    Test basic aggregation
     ${resp}    Put Request    session    ${CONFIG_API}/${overlay_topology_url}    data=${request}
@@ -22,8 +22,21 @@ Send Basic Request
     Should Be Equal As Strings    ${resp.status_code}    200
     Wait For Karaf Log    Correlation configuration successfully read
     Wait For Karaf Log    Transaction successfully written
+
+Basic Request Get And Test
+    [Arguments]    ${request}    ${overlay_topology_url}    ${should_contain}    ${times}
+    [Documentation]    Test basic aggregation
     ${resp}    Get Request    session    ${OPERATIONAL_API}/${overlay_topology_url}
     Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain X Times    ${resp.content}    ${should_contain}    ${times}
+    [Return]    ${resp}
+
+Send Basic Request And Test If Contain X Times
+    [Arguments]    ${request}    ${overlay_topology_url}    ${should_contain}    ${times}
+    [Documentation]    Test basic aggregation
+    Basic Request Put    ${request}    ${overlay_topology_url}
+    ${resp}    Wait Until Keyword Succeeds    40x    250ms    Basic Request Get And Test    ${request}    ${overlay_topology_url}
+    ...    ${should_contain}    ${times}
     Log    ${resp.content}
     [Return]    ${resp}
 
