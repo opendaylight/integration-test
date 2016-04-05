@@ -110,7 +110,7 @@ Deploy_Test_Tool
 Compose_Dilemma_Filepath
     [Arguments]    ${default_path}    ${specific_path}
     [Documentation]    Query active SSH connection, return specific path if it exists else default path.
-    ${out}    ${rc}=    SSHLibrary.Execute_Command    ls -lA ${specific_path} &2>1    return_rc=True
+    ${out}    ${rc}=    SSHLibrary.Execute_Command    ls -lA ${specific_path} 2>&1    return_rc=True
     BuiltIn.Return_From_Keyword_If    ${rc} == 0    ${specific_path}
     BuiltIn.Return_From_Keyword    ${default_path}
 
