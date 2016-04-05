@@ -22,9 +22,8 @@ Link Computation Aggregation Inside
     ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    network-topology-model    node    network-topo:6
     ${request}    Insert Target Field    ${request}    0    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    0
     ${request}    Insert Link Computation Inside    ${request}    ${LINK_COMPUTATION_INSIDE}    n:network-topology-model    network-topo:6
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    4
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    4
     Should Contain X Times    ${resp.content}    <link-id>    4
     #nodes 29 and 28
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:28']/..
@@ -83,9 +82,8 @@ Link Computation Filtration
     ${request}    Insert Filter    ${request}    ${FILTER_IPV4}    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4
     ${request}    Set IPV4 Filter    ${request}    192.168.2.1/32
     ${request}    Insert Link Computation Inside    ${request}    ${LINK_COMPUTATION_INSIDE}    n:network-topology-model    network-topo:6
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    2
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    2
     Should Contain X Times    ${resp.content}    <node-ref>bgp:28</node-ref>    1
     Should Contain X Times    ${resp.content}    <node-ref>bgp:29</node-ref>    1
     Should Contain X Times    ${resp.content}    <link>    1
@@ -117,9 +115,8 @@ Link Computation Aggregation Filtration
     ${request}    Insert Apply Filters    ${request}    2    1
     ${request}    Set IPV4 Filter    ${request}    192.168.1.1/24
     ${request}    Insert Link Computation    ${request}    ${LINK_COMPUTATION}    n:network-topology-model    network-topo:6    network-topo:1
-    ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    2
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <node-id>node:    2
     Should Contain X Times    ${resp.content}    <link>    2
     #nodes 26 and 1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:26']/..
