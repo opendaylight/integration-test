@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a4c51b2_ee9ff601",
+        "filename": "csit/libraries/UscUtils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-06T03:57:34Z",
+      "side": 1,
+      "message": "these are already the default for this keyword.  you can remove if you want.  applies below.  or keep for readability\nis fine too.",
+      "range": {
+        "startLine": 39,
+        "startChar": 30,
+        "endLine": 39,
+        "endChar": 92
+      },
+      "revId": "e29403a01f95117f67219d19f39328066aab6919",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
