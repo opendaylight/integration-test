@@ -63,26 +63,25 @@ Unification Filtration Termination Point Inside Network Topology model
     ${resp}    Send Basic Request    ${request}    network-topology:network-topology/topology/topo:1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <node-id>node:    5
-    Should Contain X Times    ${resp.content}    <termination-point>    4
+    Should Contain X Times    ${resp.content}    <termination-point>    3
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:21']/..
     ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    2
-    ${tp}    Get Element    ${node}    xpath=.//termination-point/supporting-termin-point[tp-ref='tp:21:2']/..
-    ${tp}    Element to String    ${tp}
-    Should Contain X Times    ${tp}    <tp-ref>tp:    2
-    Should Contain    ${tp}    <tp-ref>tp:21:3</tp-ref>
+    Should Contain X Times    ${node}    <termination-point>    1
+    Should Contain X Times    ${node}    <tp-ref>    3
+    Should Contain    ${node}    <tp-ref>/network-topology:network-topology/topology/network-topo:5/node/bgp:21/termination-point/tp:21:2</tp-ref>
+    Should Contain    ${node}    <tp-ref>/network-topology:network-topology/topology/network-topo:5/node/bgp:21/termination-point/tp:21:1</tp-ref>
+    Should Contain    ${node}    <tp-ref>/network-topology:network-topology/topology/network-topo:5/node/bgp:21/termination-point/tp:21:3</tp-ref>
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:22']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    Should Contain X Times    ${node}    <tp-ref>tp:    1
-    Should Contain    ${node}    <tp-ref>tp:22:2</tp-ref>
+    Should Contain X Times    ${node}    <tp-ref>    1
+    Should Contain    ${node}    <tp-ref>/network-topology:network-topology/topology/network-topo:5/node/bgp:22/termination-point/tp:22:1</tp-ref>
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:24']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    Should Contain X Times    ${node}    <tp-ref>tp:    3
-    Should Contain    ${node}    <tp-ref>tp:24:1</tp-ref>
-    Should Contain    ${node}    <tp-ref>tp:24:2</tp-ref>
-    Should Contain    ${node}    <tp-ref>tp:24:3</tp-ref>
+    Should Contain X Times    ${node}    <tp-ref>    2
+    Should Contain    ${node}    <tp-ref>/network-topology:network-topology/topology/network-topo:5/node/bgp:24/termination-point/tp:24:1</tp-ref>
+    Should Contain    ${node}    <tp-ref>/network-topology:network-topology/topology/network-topo:5/node/bgp:24/termination-point/tp:24:2</tp-ref>
 
 Unification Filtration Node Network Topology model
     [Documentation]    Test unification filtration operation on Network Topology model
