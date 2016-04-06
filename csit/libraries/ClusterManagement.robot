@@ -36,7 +36,6 @@ Resource          ${CURDIR}/Utils.robot    # for Run_Command_On_Controller
 ${JOLOKIA_CONF_SHARD_MANAGER_URI}    jolokia/read/org.opendaylight.controller:Category=ShardManager,name=shard-manager-config,type=DistributedConfigDatastore
 ${JOLOKIA_OPER_SHARD_MANAGER_URI}    jolokia/read/org.opendaylight.controller:Category=ShardManager,name=shard-manager-operational,type=DistributedOperationalDatastore
 ${JOLOKIA_READ_URI}    jolokia/read/org.opendaylight.controller
-${KARAF_HOME}     ${WORKSPACE}${/}${BUNDLEFOLDER}
 ${RESTCONF_MODULES_DIR}    ${CURDIR}/../variables/restconf/modules
 
 *** Keywords ***
@@ -64,18 +63,18 @@ Kill_Members_From_List_Or_All
     \    Verify_Karaf_Is_Not_Running_On_Member    member_index=${index}
 
 Clean_Journals_And_Snapshots_On_List_Or_All
-    [Arguments]    ${member_index_list}=${EMPTY}
+    [Arguments]    ${member_index_list}=${EMPTY}    ${karaf_home}=${WORKSPACE}${/}${BUNDLEFOLDER}
     [Documentation]    Delete journal and snapshots directories on every node listed (or all).
     ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
-    ${command} =    Set Variable    rm -rf "${KARAF_HOME}/journal" "${KARAF_HOME}/snapshots"
+    ${command} =    Set Variable    rm -rf "${karaf_home}/journal" "${karaf_home}/snapshots"
     : FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
     \    Run_Command_On_Member    command=${command}    member_index=${index}
 
 Start_Members_From_List_Or_All
-    [Arguments]    ${member_index_list}=${EMPTY}    ${wait_for_sync}=True    ${timeout}=300s
+    [Arguments]    ${member_index_list}=${EMPTY}    ${wait_for_sync}=True    ${timeout}=300s    ${karaf_home}=${WORKSPACE}${/}${BUNDLEFOLDER}
     [Documentation]    If the list is empty, start all cluster members. Otherwise, start members based on present indices.
     ...    If ${wait_for_sync}, wait for cluster sync on listed members.
-    ${command} =    BuiltIn.Set_Variable    ${KARAF_HOME}/bin/start
+    ${command} =    BuiltIn.Set_Variable    ${karaf_home}/bin/start
     Run_Command_On_List_Or_All    command=${command}    member_index_list=${member_index_list}
     BuiltIn.Return_From_Keyword_If    not ${wait_for_sync}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    1s    Check_Cluster_Is_In_Sync    member_index_list=${member_index_list}
