@@ -114,13 +114,37 @@ def dumps_indented(obj, indent=1):
     return pretty_json + '\n'  # to avoid diff "no newline" warning line
 
 
-def normalize_json_text(text, strict=False, indent=1):  # pylint likes lowercase
+def sort_bits(obj, keys_with_bits=[]):
+    """
+    Rearrange string values of list bits names in alphabetical order.
+
+    This function looks at dict items with known keys.
+    If the value is string, space-separated names are sorted.
+    This function is recursive over dicts and lists.
+    Current implementation performs re-arranging in-place (to save memory),
+    so it is not required to store the return value.
+    """
+    if isinstance(obj, dict):
+        for key, value in obj.iteritems():
+            if key in keys_with_bits and isinstance(value, str):
+                obj[key] = " ".join(sorted(value.split(" ")))
+            else:
+                sort_bits(value, keys_with_bits)
+    # a string is not a list
+    else if isinstance(obj, list):
+        for item in obj:
+            sort_bits(item, keys_with_bits)
+    return obj
+
+
+def normalize_json_text(text, strict=False, indent=1, keys_with_bits=[]):
     """
     Attempt to return sorted indented JSON string.
 
     If parse error happens:
     If strict is true, raise the exception.
     If strict is not true, return original text with error message.
+    If keys_with_bits is non-empty, sun sort_bits on intermediate Python object.
     """
     try:
         object_decoded = loads_sorted(text)
@@ -129,5 +153,7 @@ def normalize_json_text(text, strict=False, indent=1):  # pylint likes lowercase
             raise err
         else:
             return str(err) + '\n' + text
+    if keys_with_bits:
+        sort_bits(object_decoded, keys_with_bits)
     pretty_json = dumps_indented(object_decoded, indent=indent)
     return pretty_json

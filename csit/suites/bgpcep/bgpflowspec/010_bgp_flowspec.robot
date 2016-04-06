@@ -115,11 +115,12 @@ Verify Empty Flowspec Data
 Verify Flowspec Data
     [Arguments]    ${exprspfile}
     [Documentation]    Verify expected response
-    ${rsp}=    RequestsLibrary.Get Request    session    ${FLOWSPEC_URL}
-    Log    ${rsp.content}
-    ${received_json}=    Normalize Json Text    ${rsp.content}
+    ${keys_with_bits}=    BuiltIn.Create_List    op
     ${expected_rsp}=    OperatingSystem.Get File    ${CURDIR}/../../../variables/bgpflowspec/${exprspfile}
-    ${expected_json}=    Normalize Json Text    ${expected_rsp}
-    Log    ${received_json}
-    Log    ${expected_json}
-    Should Be Equal    ${received_json}    ${expected_json}
+    ${expected_json}=    norm_json.Normalize Json Text    ${expected_rsp}    keys_with_bits=${keys_with_bits}
+    ${rsp}=    RequestsLibrary.Get Request    session    ${FLOWSPEC_URL}
+    BuiltIn.Log    ${rsp.content}
+    ${received_json}=    norm_json.Normalize Json Text    ${rsp.content}    keys_with_bits=${keys_with_bits}
+    BuiltIn.Log    ${received_json}
+    BuiltIn.Log    ${expected_json}
+    BuiltIn.Should Be Equal    ${received_json}    ${expected_json}
