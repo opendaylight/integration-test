@@ -12,6 +12,9 @@ Documentation     Resource enhancing SSHLibrary with Keywords used in multiple s
 ...               When the Keywords assume a SSH session is active,
 ...               and if the Keywords do not fit into a more specific Resource,
 ...               you can place them here.
+...
+...               TODO: Migrate Keywords related to handling SSH here.
+...               That may include Utils.Flexible_SSH_Login, KarafKeywords.Restore_Current_SSH_Connection_From_Index and similar.
 Library           SSHLibrary
 Resource          ${CURDIR}/Utils.robot
 
