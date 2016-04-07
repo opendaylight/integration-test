@@ -12,6 +12,9 @@ Documentation     Resource enhancing SSHLibrary with Keywords used in multiple s
 ...               When the Keywords assume a SSH session is active,
 ...               and if the Keywords do not fit into a more specific Resource,
 ...               you can place them here.
+...
+...               TODO: Migrate Keywords related to handling SSH here.
+...               That may include Utils.Flexible_SSH_Login, KarafKeywords.Restore_Current_SSH_Connection_From_Index and similar.
 Library           SSHLibrary
 Resource          ${CURDIR}/Utils.robot
 
@@ -28,6 +31,15 @@ Open_Connection_To_Tools_System
     ${tools}=    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    prompt=${TOOLS_SYSTEM_PROMPT}
     Utils.Flexible_Mininet_Login
     [Return]    ${tools}
+
+Execute_Command_Should_Pass
+    [Arguments]    ${command}    ${stderr_must_be_empty}=True
+    [Documentation]    Execute command via SSH. Requite zero rc, optionally empty stderr. Return stdout.
+    ${stdout}    ${stderr}    ${rc} =    SSHLibrary.Execute_Command    ${command}    return_stderr=True    return_rc=True
+    BuiltIn.Should_Be_Equal    ${rc}    ${0}
+    BuiltIn.Run_Keyword_If    ${stderr_must_be_empty}    BuiltIn.Should_Be_Empty    ${stderr}
+    ...    ELSE    BuiltIn.Log    ${stderr}
+    [Return]    ${stdout}
 
 Execute_Command_Passes
     [Arguments]    ${command}
