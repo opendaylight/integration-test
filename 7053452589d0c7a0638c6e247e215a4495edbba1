@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3a4c51b2_891aa56c",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-04-07T17:33:21Z",
+      "side": 1,
+      "message": "I think this particular \"trick\" shall be an exception from the rule (maybe a special keyword shall be created that will do this argument value fixing and then declare that the exception must use this special keyword). Right now I will fix it to match the rule but the fix will be quite ugly.",
+      "parentUuid": "3a4c51b2_064a0280",
+      "range": {
+        "startLine": 124,
+        "startChar": 4,
+        "endLine": 124,
+        "endChar": 14
+      },
+      "revId": "7053452589d0c7a0638c6e247e215a4495edbba1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a4c51b2_6625c6c1",
         "filename": "csit/libraries/NexusKeywords.robot",
         "patchSetId": 2
@@ -41,6 +65,29 @@
         "startChar": 21,
         "endLine": 129,
         "endChar": 74
+      },
+      "revId": "7053452589d0c7a0638c6e247e215a4495edbba1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_c952ed12",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-04-07T17:33:21Z",
+      "side": 1,
+      "message": "You did not notice this debugging command :D",
+      "range": {
+        "startLine": 131,
+        "startChar": 4,
+        "endLine": 131,
+        "endChar": 24
       },
       "revId": "7053452589d0c7a0638c6e247e215a4495edbba1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
