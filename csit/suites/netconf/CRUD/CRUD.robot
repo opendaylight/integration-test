@@ -27,8 +27,8 @@ Library           SSHLibrary    timeout=10s
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
-Resource          ${CURDIR}/../../../libraries/NetconfViaRestconf.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
 
@@ -68,7 +68,7 @@ Check_Device_Data_Is_Empty
 Create_Device_Data_Label_Via_Xml
     [Documentation]    Send a sample test data label into the device and check that the request went OK.
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${device_name}'}
-    NetconfViaRestconf.Post_Xml_Template_Folder_Via_Restconf    ${directory_with_template_folders}${/}dataorig    ${template_as_string}
+    TemplatedRequests.Post_As_Xml_Templated    ${directory_with_template_folders}${/}dataorig    ${template_as_string}
 
 Check_Device_Data_Label_Is_Created
     [Documentation]    Get the device data label and make sure it contains the created content.
@@ -77,7 +77,7 @@ Check_Device_Data_Label_Is_Created
 Modify_Device_Data_Label_Via_Xml
     [Documentation]    Send a request to change the sample test data label and check that the request went OK.
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${device_name}'}
-    NetconfViaRestconf.Put_Xml_Template_Folder_Via_Restconf    ${directory_with_template_folders}${/}datamod1    ${template_as_string}
+    TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}datamod1    ${template_as_string}
 
 Check_Device_Data_Label_Is_Modified
     [Documentation]    Get the device data label and make sure it contains the modified content.
@@ -113,7 +113,7 @@ Check_Modified_Device_Data_Is_Still_There
 Modify_Device_Data_Again
     [Documentation]    Send a request to change the sample test data and check that the request went OK.
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${device_name}'}
-    NetconfViaRestconf.Put_Xml_Template_Folder_Via_Restconf    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}datamod2    ${template_as_string}
+    TemplatedRequests.Put_As_Xml_Templated    ${DIRECTORY_WITH_TEMPLATE_FOLDERS}${/}datamod2    ${template_as_string}
 
 Check_Device_Data_Is_Modified_Again
     [Documentation]    Get the device data and make sure it contains the created content.
@@ -122,7 +122,7 @@ Check_Device_Data_Is_Modified_Again
 Modify_Device_Data_Label_Via_Json
     [Documentation]    Send a JSON request to change the sample test data label and check that the request went OK.
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${device_name}'}
-    NetconfViaRestconf.Put_Json_Template_Folder_Via_Restconf    ${directory_with_template_folders}${/}datamodjson    ${template_as_string}
+    TemplatedRequests.Put_As_Json_Templated    ${directory_with_template_folders}${/}datamodjson    ${template_as_string}
 
 Check_Device_Data_Label_Is_Modified_Via_Json
     [Documentation]    Get the device data label as XML and make sure it matches the content posted as JSON in the previous case.
@@ -131,7 +131,7 @@ Check_Device_Data_Label_Is_Modified_Via_Json
 Create_Car_List
     [Documentation]    Send a request to create a list of cars in the sample test data label and check that the request went OK.
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${device_name}'}
-    NetconfViaRestconf.Post_Xml_Template_Folder_Via_Restconf    ${directory_with_template_folders}${/}cars    ${template_as_string}
+    TemplatedRequests.Post_As_Xml_Templated    ${directory_with_template_folders}${/}cars    ${template_as_string}
 
 Check_Car_List_Created
     [Documentation]    Get the device data label as XML and make sure it matches the content posted as JSON in the previous case.
@@ -151,7 +151,7 @@ Check_Car_List_Created
 Add_Device_Data_Item_1_Via_XML_Post
     [Documentation]    Send a request to create a data item in the test list and check that the request went OK.
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${device_name}'}
-    NetconfViaRestconf.Post_Xml_Template_Folder_Via_Restconf    ${directory_with_template_folders}${/}item1    ${template_as_string}
+    TemplatedRequests.Post_As_Xml_Templated    ${directory_with_template_folders}${/}item1    ${template_as_string}
 
 Check_Item1_Is_Created
     [Documentation]    Get the device data as XML and make sure it matches the content posted as JSON in the previous case.
@@ -170,7 +170,7 @@ Check_Item1_Is_Created
 Add_Device_Data_Item_2_Via_JSON_Post
     [Documentation]    Send a JSON request to change the sample test data and check that the request went OK.
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${device_name}'}
-    NetconfViaRestconf.Post_Json_Template_Folder_Via_Restconf    ${directory_with_template_folders}${/}item2    ${template_as_string}
+    TemplatedRequests.Post_As_Json_Templated    ${directory_with_template_folders}${/}item2    ${template_as_string}
 
 Check_Item2_Is_Created
     [Documentation]    Get the device data as XML and make sure it matches the content posted as JSON in the previous case.
@@ -189,8 +189,8 @@ Check_Item2_Is_Created
 Delete_Device_Data
     [Documentation]    Send a request to delete the sample test data on the device and check that the request went OK.
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${device_name}'}
-    NetconfViaRestconf.Delete_Xml_Template_Folder_Via_Restconf    ${directory_with_template_folders}${/}datamod1    ${template_as_string}
-    NetconfViaRestconf.Delete_Xml_Template_Folder_Via_Restconf    ${directory_with_template_folders}${/}item1    ${template_as_string}
+    TemplatedRequests.Delete_Templated    ${directory_with_template_folders}${/}datamod1    ${template_as_string}
+    TemplatedRequests.Delete_Templated    ${directory_with_template_folders}${/}item1    ${template_as_string}
 
 Check_Device_Data_Is_Deleted
     [Documentation]    Get the device data and make sure it is empty again.
@@ -224,14 +224,13 @@ Setup_Everything
 
 Teardown_Everything
     [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.
-    Teardown_Netconf_Via_Restconf
     RequestsLibrary.Delete_All_Sessions
     BuiltIn.Run_Keyword_And_Ignore_Error    NetconfKeywords.Stop_Testtool
 
 Get_Config_Data
     [Documentation]    Get and return the config data from the device.
-    ${url}=    Builtin.Set_Variable    network-topology:network-topology/topology/topology-netconf/node/${device_name}/yang-ext:mount
-    ${data}=    Utils.Get_Data_From_URI    nvr_session    ${url}    headers=${ACCEPT_XML}
+    ${url}=    Builtin.Set_Variable    ${CONFIG_API}/network-topology:network-topology/topology/topology-netconf/node/${device_name}/yang-ext:mount
+    ${data}=    TemplatedRequests.Get_As_Xml_From_Uri    ${url}
     [Return]    ${data}
 
 Check_Config_Data
