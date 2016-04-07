@@ -53,13 +53,28 @@ Get Cluster Entity Owner
     [Arguments]    ${controller_index_list}    ${device_type}    ${device}
     [Documentation]    Checks Entity Owner status for a ${device} and returns owner index and list of candidates from a ${controller_index_list}.
     ...    ${device_type} can be openflow, ovsdb, etc.
-    ${length}=    Get Length    ${controller_index_list}
+    ${owner}    ${candidates_list}=    Get Device Entity Owner And Candidates Indexes    controller@{controller_index_list}[0]    ${device_type}    ${device}
+    List Should Contain Value    ${controller_index_list}    ${owner}    Owner ${owner} not exisiting in ${controller_index_list}
+    List Should Contain Sublist    ${candidates_list}    ${controller_index_list}    Candidates are missing in ${candidates_list}
+    Remove Values From List    ${candidates_list}    ${owner}
+    [Return]    ${owner}    ${candidates_list}
+
+Get Device Entity Owner And Followers Indexes
+    [Arguments]    ${session}    ${device_type}    ${device}
+    [Documentation]    Returns the owner and followers indexes for a ${device}. Follower list = candidate list - owner
+    ${owner}    ${candidates_list}=    Get Device Entity Owner And Candidates Indexes    ${session}    ${device_type}    ${device}
+    Remove Values From List    ${candidates_list}    ${owner}
+    [Return]    ${owner}    ${candidates_list}
+
+Get Device Entity Owner And Candidates Indexes
+    [Arguments]    ${session}    ${device_type}    ${device}
+    [Documentation]    Returns the owner and candidates indexes for a ${device}. Returns raw information, does not check missing
+    ...    cluster nodes or so.
     ${candidates_list}=    Create List
-    ${data}=    Utils.Get Data From URI    controller@{controller_index_list}[0]    /restconf/operational/entity-owners:entity-owners
+    ${data}=    Utils.Get Data From URI    ${session}    /restconf/operational/entity-owners:entity-owners
     Log    ${data}
-    ${clear_data}=    Run Keyword If    '${device_type}' == 'openflow'    Extract OpenFlow Device Data    ${data}
-    ...    ELSE IF    '${device_type}' == 'ovsdb'    Extract Ovsdb Device Data    ${data}
-    ...    ELSE    Fail    Not recognized device type: ${device_type}
+    ${clear_data}=    Run Keyword If    '${device_type}' == 'openflow'    Extract OpenFlow Device Data    ${data}    ELSE IF    '${device_type}' == 'ovsdb'
+    ...    Extract Ovsdb Device Data    ${data}    ELSE    Fail    Not recognized device type: ${device_type}
     ${json}=    RequestsLibrary.To Json    ${clear_data}
     ${entity_type_list}=    Get From Dictionary    &{json}[entity-owners]    entity-type
     ${entity_type_index}=    Get Index From List Of Dictionaries    ${entity_type_list}    type    ${device_type}
@@ -71,15 +86,11 @@ Get Cluster Entity Owner
     Should Not Be Empty    ${entity_owner}    No owner found for ${device}
     ${owner}=    Replace String    ${entity_owner}    member-    ${EMPTY}
     ${owner}=    Convert To Integer    ${owner}
-    List Should Contain Value    ${controller_index_list}    ${owner}    Owner ${owner} not exisiting in ${controller_index_list}
     ${entity_candidates_list}=    Get From Dictionary    @{entity_list}[${entity_index}]    candidate
-    ${list_length}=    Get Length    ${entity_candidates_list}
     : FOR    ${entity_candidate}    IN    @{entity_candidates_list}
     \    ${candidate}=    Replace String    &{entity_candidate}[name]    member-    ${EMPTY}
     \    ${candidate}=    Convert To Integer    ${candidate}
     \    Append To List    ${candidates_list}    ${candidate}
-    List Should Contain Sublist    ${candidates_list}    ${controller_index_list}    Candidates are missing in ${candidates_list}
-    Remove Values From List    ${candidates_list}    ${owner}
     [Return]    ${owner}    ${candidates_list}
 
 Extract OpenFlow Device Data
@@ -193,6 +204,13 @@ Stop One Or More Controllers
     : FOR    ${ip}    IN    @{controllers}
     \    Run Command On Remote System    ${ip}    ${cmd}
 
+Stop Controller Node And Verify
+    [Arguments]    ${node}
+    [Documentation]    Stops the given node
+    @{leader_list}=    BuiltIn.Create List    ${node}
+    Kill One Or More Controllers    @{leader_list}
+    Controller Down Check    ${node}
+
 Kill One Or More Controllers
     [Arguments]    @{controllers}
     [Documentation]    Give this keyword a scalar or list of controllers to be stopped.
@@ -227,6 +245,13 @@ Start One Or More Controllers
     ${cmd} =    Set Variable    ${KARAF_HOME}/bin/start
     : FOR    ${ip}    IN    @{controllers}
     \    Run Command On Remote System    ${ip}    ${cmd}
+
+Start Controller Node And Verify
+    [Arguments]    ${node}    ${start_timeout}
+    [Documentation]    Starts the given node
+    @{controllers}=    BuiltIn.CreateList    ${node}
+    Start One Or More Controllers    @{controllers}
+    Wait For Controller Sync    ${start_timeout}    @{controllers}
 
 Wait For Cluster Sync
     [Arguments]    ${timeout}    @{controllers}
@@ -268,8 +293,8 @@ Get Controller Sync Status
     ${value}=    Get From Dictionary    ${json}    value
     ${OperSyncStatus}=    Get From Dictionary    ${value}    SyncStatus
     Log    Operational Sync Status: ${OperSyncStatus}
-    Run Keyword If    ${OperSyncStatus} and ${ConfSyncStatus}    Set Test Variable    ${SyncStatus}    ${TRUE}
-    ...    ELSE    Set Test Variable    ${SyncStatus}    ${FALSE}
+    Run Keyword If    ${OperSyncStatus} and ${ConfSyncStatus}    Set Test Variable    ${SyncStatus}    ${TRUE}    ELSE    Set Test Variable
+    ...    ${SyncStatus}    ${FALSE}
     [Return]    ${SyncStatus}
 
 Clean One Or More Journals
@@ -338,12 +363,12 @@ Rejoin One Controller To Another
 Modify IPTables
     [Arguments]    ${isolated controller}    ${controller}    ${rule type}
     [Documentation]    Adds a rule, usually inserting or deleting an entry between two controllers.
-    ${base string}    Set Variable    sudo iptables ${rule type} OUTPUT -p all --source
+    ${base string}    Set Variable    sudo /sbin/iptables ${rule type} OUTPUT -p all --source
     ${cmd string}    Catenate    ${base string}    ${isolated controller} --destination ${controller} -j DROP
     Run Command On Remote System    ${isolated controller}    ${cmd string}
     ${cmd string}    Catenate    ${base string}    ${controller} --destination ${isolated controller} -j DROP
     Run Command On Remote System    ${isolated controller}    ${cmd string}
-    ${cmd string}    Set Variable    sudo iptables -L -n
+    ${cmd string}    Set Variable    sudo /sbin/iptables -L -n
     ${return string}=    Run Command On Remote System    ${isolated controller}    ${cmd string}
     #If inserting rules:
     Run Keyword If    "${rule type}" == '-I'    Should Match Regexp    ${return string}    [\s\S]*DROP *all *-- *${isolated controller} *${controller}[\s\S]*
@@ -362,7 +387,7 @@ Flush IPTables
     [Arguments]    ${isolated controller}
     [Documentation]    This keyword is generally not called from a test case but supports a complete wipe of all rules on
     ...    all contollers.
-    ${cmd string}    Set Variable    sudo iptables -v -F
+    ${cmd string}    Set Variable    sudo /sbin/iptables -v -F
     ${return string}=    Run Command On Remote System    ${isolated controller}    ${cmd string}
     Log    return: ${return string}
     Should Contain    ${return string}    Flushing chain `INPUT'

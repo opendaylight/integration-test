@@ -1,5 +1,8 @@
 # Place the suites in run order:
 integration/test/csit/suites/openflowplugin/Clustering
 integration/test/csit/suites/openflowplugin/Clustering
+integration/test/csit/suites/openflowplugin/EntityOwhership/010_Switch_Disconnect.robot
+integration/test/csit/suites/openflowplugin/EntityOwhership/020_Cluster_Sync_Problems.robot
+integration/test/csit/suites/openflowplugin/EntityOwhership/030_Cluster_Node_Failure.robot
 #Commenting this last test so we can better observe mininet stop bug in karaf console
 #integration/test/csit/suites/openflowplugin/Sanity3Node
