@@ -338,12 +338,12 @@ Rejoin One Controller To Another
 Modify IPTables
     [Arguments]    ${isolated controller}    ${controller}    ${rule type}
     [Documentation]    Adds a rule, usually inserting or deleting an entry between two controllers.
-    ${base string}    Set Variable    sudo iptables ${rule type} OUTPUT -p all --source
+    ${base string}    Set Variable    sudo /sbin/iptables ${rule type} OUTPUT -p all --source
     ${cmd string}    Catenate    ${base string}    ${isolated controller} --destination ${controller} -j DROP
     Run Command On Remote System    ${isolated controller}    ${cmd string}
     ${cmd string}    Catenate    ${base string}    ${controller} --destination ${isolated controller} -j DROP
     Run Command On Remote System    ${isolated controller}    ${cmd string}
-    ${cmd string}    Set Variable    sudo iptables -L -n
+    ${cmd string}    Set Variable    sudo /sbin/iptables -L -n
     ${return string}=    Run Command On Remote System    ${isolated controller}    ${cmd string}
     #If inserting rules:
     Run Keyword If    "${rule type}" == '-I'    Should Match Regexp    ${return string}    [\s\S]*DROP *all *-- *${isolated controller} *${controller}[\s\S]*
@@ -362,7 +362,7 @@ Flush IPTables
     [Arguments]    ${isolated controller}
     [Documentation]    This keyword is generally not called from a test case but supports a complete wipe of all rules on
     ...    all contollers.
-    ${cmd string}    Set Variable    sudo iptables -v -F
+    ${cmd string}    Set Variable    sudo /sbin/iptables -v -F
     ${return string}=    Run Command On Remote System    ${isolated controller}    ${cmd string}
     Log    return: ${return string}
     Should Contain    ${return string}    Flushing chain `INPUT'
