@@ -480,3 +480,11 @@ Convert_To_Minutes
     ${seconds}=    DateTime.Convert_Time    ${time}    result_format=number
     ${minutes}=    BuiltIn.Evaluate    int(math.ceil(${seconds}/60.0))    modules=math
     [Return]    ${minutes}
+
+Write Commands Until Expected Prompt
+    [Arguments]    ${cmd}    ${prompt}    ${timeout}=${DEFAULT_TIMEOUT}
+    [Documentation]    quick wrapper for Write and Read Until Prompt Keywords to make test cases more readable
+    SSHLibrary.Set Client Configuration    timeout=${timeout}
+    SSHLibrary.Write    ${cmd}
+    ${output}=    SSHLibrary.Read Until    ${prompt}
+    [Return]    ${output}
