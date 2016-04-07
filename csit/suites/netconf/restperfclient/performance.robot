@@ -26,10 +26,10 @@ Library           String
 Library           SSHLibrary    timeout=10s
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
-Resource          ${CURDIR}/../../../libraries/NetconfViaRestconf.robot
 Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
 Resource          ${CURDIR}/../../../libraries/RestPerfClient.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
 
@@ -56,7 +56,7 @@ Wait_For_Device_To_Become_Connected
 Create_Device_Data
     [Documentation]    Send some sample test data into the device and check that the request went OK.
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${DEVICE_NAME}'}
-    NetconfViaRestconf.Post_Xml_Template_Folder_Via_Restconf    ${directory_with_crud_templates}${/}cars    ${template_as_string}
+    TemplatedRequests.Post_As_Xml_Templated    ${directory_with_crud_templates}${/}cars    ${template_as_string}
 
 Run_Restperfclient
     [Documentation]    Deploy and execute restperfclient, asking it to send the specified amount of requests to the netconf connector of the device.
@@ -97,7 +97,6 @@ Setup_Everything
 
 Teardown_Everything
     [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.
-    Teardown_Netconf_Via_Restconf
     RequestsLibrary.Delete_All_Sessions
     RestPerfClient.Teardown_Restperfclient
     SSHLibrary.Switch_Connection    ${testtool}

@@ -43,8 +43,8 @@ Library           SSHLibrary    timeout=10s
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
-Resource          ${CURDIR}/../../../libraries/NetconfViaRestconf.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
 
@@ -67,36 +67,30 @@ Start_Testtool
 Check_Device_Is_Not_Mounted_At_Beginning
     [Documentation]    Sanity check making sure our device is not there. Fail if found.
     [Tags]    critical
-    NetconfViaRestconf.Activate_NVR_Session    ${NODE_CONFIGURER}
-    NetconfKeywords.Check_Device_Has_No_Netconf_Connector    ${DEVICE_NAME}
+    NetconfKeywords.Check_Device_Has_No_Netconf_Connector    ${DEVICE_NAME}    session=${NODE_CONFIGURER}
 
 Configure_Device_On_Netconf
     [Documentation]    Make request to configure a testtool device on Netconf connector
     [Tags]    critical
-    NetconfViaRestconf.Activate_NVR_Session    ${NODE_CONFIGURER}
-    NetconfKeywords.Configure_Device_In_Netconf    ${DEVICE_NAME}    device_type=configure-via-topology
+    NetconfKeywords.Configure_Device_In_Netconf    ${DEVICE_NAME}    device_type=configure-via-topology    session=${NODE_CONFIGURER}
     [Teardown]    Utils.Report_Failure_Due_To_Bug    5089
 
 Check_Configurer_Has_Netconf_Connector_For_Device
     [Documentation]    Get the list of mounts and search for our device there. Fail if not found.
     [Tags]    critical
-    NetconfViaRestconf.Activate_NVR_Session    ${NODE_CONFIGURER}
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Device_Instance_Count    1
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Device_Instance_Count    1    session=${NODE_CONFIGURER}
 
 Wait_For_Device_To_Become_Visible_For_Configurer
     [Documentation]    Wait until the device becomes visible on configurer node.
-    NetconfViaRestconf.Activate_NVR_Session    ${NODE_CONFIGURER}
-    NetconfKeywords.Wait_Device_Connected    ${DEVICE_NAME}
+    NetconfKeywords.Wait_Device_Connected    ${DEVICE_NAME}    session=${NODE_CONFIGURER}
 
 Wait_For_Device_To_Become_Visible_For_Checker
     [Documentation]    Wait until the device becomes visible on checker node.
-    NetconfViaRestconf.Activate_NVR_Session    ${NODE_CHECKER}
-    NetconfKeywords.Wait_Device_Connected    ${DEVICE_NAME}
+    NetconfKeywords.Wait_Device_Connected    ${DEVICE_NAME}    session=${NODE_CHECKER}
 
 Wait_For_Device_To_Become_Visible_For_Setter
     [Documentation]    Wait until the device becomes visible on setter node.
-    NetconfViaRestconf.Activate_NVR_Session    ${NODE_SETTER}
-    NetconfKeywords.Wait_Device_Connected    ${DEVICE_NAME}
+    NetconfKeywords.Wait_Device_Connected    ${DEVICE_NAME}    session=${NODE_SETTER}
 
 Check_Device_Data_Is_Seen_As_Empty_On_Configurer
     [Documentation]    Get the device data as seen by configurer and make sure it is empty.
@@ -112,9 +106,8 @@ Check_Device_Data_Is_Seen_As_Empty_On_Setter
 
 Create_Device_Data
     [Documentation]    Send some sample test data into the device and check that the request went OK.
-    NetconfViaRestconf.Activate_NVR_Session    ${NODE_SETTER}
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${DEVICE_NAME}'}
-    NetconfViaRestconf.Post_Xml_Template_Folder_Via_Restconf    ${directory_with_template_folders}${/}dataorig    ${template_as_string}
+    TemplatedRequests.Post_As_Xml_Templated    ${directory_with_template_folders}${/}dataorig    ${template_as_string}    session=${NODE_SETTER}
 
 Check_New_Device_Data_Is_Visible_On_Setter
     [Documentation]    Get the device data and make sure it contains the created content.
@@ -130,9 +123,8 @@ Check_New_Device_Data_Is_Visible_On_Configurer
 
 Modify_Device_Data
     [Documentation]    Send a request to change the sample test data and check that the request went OK.
-    NetconfViaRestconf.Activate_NVR_Session    ${NODE_SETTER}
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${DEVICE_NAME}'}
-    NetconfViaRestconf.Put_Xml_Template_Folder_Via_Restconf    ${directory_with_template_folders}${/}datamod1    ${template_as_string}
+    TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}datamod1    ${template_as_string}    session=${NODE_SETTER}
     [Teardown]    Utils.Report_Failure_Due_To_Bug    4968
 
 Check_Device_Data_Is_Modified
@@ -152,9 +144,8 @@ Check_Modified_Device_Data_Is_Visible_On_Configurer
 
 Delete_Device_Data
     [Documentation]    Send a request to delete the sample test data on the device and check that the request went OK.
-    NetconfViaRestconf.Activate_NVR_Session    ${NODE_SETTER}
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${DEVICE_NAME}'}
-    NetconfViaRestconf.Delete_Xml_Template_Folder_Via_Restconf    ${directory_with_template_folders}${/}datamod1    ${template_as_string}
+    TemplatedRequests.Delete_Templated    ${directory_with_template_folders}${/}datamod1    ${template_as_string}    session=${NODE_SETTER}
     [Teardown]    Utils.Report_Failure_Due_To_Bug    4968
 
 Check_Device_Data_Is_Deleted
@@ -176,8 +167,7 @@ Deconfigure_Device_In_Netconf
     [Documentation]    Make request to deconfigure the device on Netconf connector.
     [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    NetconfViaRestconf.Activate_NVR_Session    ${NODE_CONFIGURER}
-    NetconfKeywords.Remove_Device_From_Netconf    ${DEVICE_NAME}
+    NetconfKeywords.Remove_Device_From_Netconf    ${DEVICE_NAME}    session=${NODE_CONFIGURER}
 
 Check_Device_Deconfigured_On_Configurer
     [Documentation]    Check that the device is really going to be gone. Fail if still there after one minute.
@@ -186,46 +176,41 @@ Check_Device_Deconfigured_On_Configurer
     ...    data once completed. This test makes sure this asynchronous operation does not take
     ...    unreasonable amount of time.
     [Tags]    critical
-    NetconfViaRestconf.Activate_NVR_Session    ${NODE_CONFIGURER}
-    NetconfKeywords.Wait_Device_Fully_Removed    ${DEVICE_NAME}
+    NetconfKeywords.Wait_Device_Fully_Removed    ${DEVICE_NAME}    session=${NODE_CONFIGURER}
 
 Check_Device_Deconfigured_On_Checker
     [Documentation]    Check that the device is going to be gone from the checker node. Fail if still there after one minute.
     [Tags]    critical
-    NetconfViaRestconf.Activate_NVR_Session    ${NODE_CHECKER}
-    NetconfKeywords.Wait_Device_Fully_Removed    ${DEVICE_NAME}
+    NetconfKeywords.Wait_Device_Fully_Removed    ${DEVICE_NAME}    session=${NODE_CHECKER}
 
 Check_Device_Deconfigured_On_Setter
     [Documentation]    Check that the device is going to be gone from the setter node. Fail if still there after one minute.
     [Tags]    critical
-    NetconfViaRestconf.Activate_NVR_Session    ${NODE_SETTER}
-    NetconfKeywords.Wait_Device_Fully_Removed    ${DEVICE_NAME}
+    NetconfKeywords.Wait_Device_Fully_Removed    ${DEVICE_NAME}    session=${NODE_SETTER}
 
 *** Keywords ***
 Setup_Everything
     [Documentation]    Setup everything needed for the test cases.
     # Setup resources used by the suite.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    NetconfKeywords.Setup_Netconf_Keywords
-    NetconfViaRestconf.Create_NVR_Session    node1    ${ODL_SYSTEM_1_IP}
-    NetconfViaRestconf.Create_NVR_Session    node2    ${ODL_SYSTEM_2_IP}
-    NetconfViaRestconf.Create_NVR_Session    node3    ${ODL_SYSTEM_3_IP}
+    NetconfKeywords.Setup_Netconf_Keywords    create_session_for_templated_requests=False
+    RequestsLibrary.Create_Session    node1    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}    headers=${HEADERS_XML}    auth=${AUTH}
+    RequestsLibrary.Create_Session    node2    http://${ODL_SYSTEM_2_IP}:${RESTCONFPORT}    headers=${HEADERS_XML}    auth=${AUTH}
+    RequestsLibrary.Create_Session    node3    http://${ODL_SYSTEM_3_IP}:${RESTCONFPORT}    headers=${HEADERS_XML}    auth=${AUTH}
 
 Teardown_Everything
     [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.
-    Teardown_Netconf_Via_Restconf
     RequestsLibrary.Delete_All_Sessions
     NetconfKeywords.Stop_Testtool
 
 Check_Device_Instance_Count
-    [Arguments]    ${expected}
-    ${count}    NetconfKeywords.Count_Netconf_Connectors_For_Device    ${DEVICE_NAME}
+    [Arguments]    ${expected}    ${session}
+    ${count}    NetconfKeywords.Count_Netconf_Connectors_For_Device    ${DEVICE_NAME}    session=${session}
     Builtin.Should_Be_Equal_As_Strings    ${count}    ${expected}
 
 Check_Config_Data
     [Arguments]    ${node}    ${expected}    ${contains}=False
-    NetconfViaRestconf.Activate_NVR_Session    ${node}
-    ${url}=    Builtin.Set_Variable    network-topology:network-topology/topology/topology-netconf/node/${DEVICE_NAME}/yang-ext:mount
-    ${data}=    NetconfViaRestconf.Get_Config_Data_From_URI    ${url}    headers=${ACCEPT_XML}
+    ${url}=    Builtin.Set_Variable    ${CONFIG_API}/network-topology:network-topology/topology/topology-netconf/node/${DEVICE_NAME}/yang-ext:mount
+    ${data}=    TemplatedRequests.Get_As_Xml_From_Uri    ${url}    session=${node}
     BuiltIn.Run_Keyword_Unless    ${contains}    BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${expected}
     BuiltIn.Run_Keyword_If    ${contains}    BuiltIn.Should_Contain    ${data}    ${expected}
