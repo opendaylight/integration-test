@@ -122,6 +122,8 @@ Compose_Base_Java_Command
     ...    Not directly related to Nexus, but versioned Java tools may need this.
     BuiltIn.Run_Keyword_And_Return_If    """${openjdk}""" == "openjdk8"    Compose_Dilemma_Filepath    ${JAVA_8_HOME_CENTOS}/bin/java    ${JAVA_8_HOME_UBUNTU}/bin/java
     BuiltIn.Run_Keyword_And_Return_If    """${openjdk}""" == "openjdk7"    Compose_Dilemma_Filepath    ${JAVA_7_HOME_CENTOS}/bin/java    ${JAVA_7_HOME_UBUNTU}/bin/java
+    ${JAVA_HOME}=    OperatingSystem.Get_Environment_Variable    JAVA_HOME
+    BuiltIn.Return_From_Keyword_If    """${openjdk}""" == "javahome"    ${JAVA_HOME}/bin/java
     BuiltIn.Return_From_Keyword    java
 
 Compose_Full_Java_Command
