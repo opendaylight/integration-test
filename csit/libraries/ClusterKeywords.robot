@@ -57,9 +57,8 @@ Get Cluster Entity Owner
     ${candidates_list}=    Create List
     ${data}=    Utils.Get Data From URI    controller@{controller_index_list}[0]    /restconf/operational/entity-owners:entity-owners
     Log    ${data}
-    ${clear_data}=    Run Keyword If    '${device_type}' == 'openflow'    Extract OpenFlow Device Data    ${data}
-    ...    ELSE IF    '${device_type}' == 'ovsdb'    Extract Ovsdb Device Data    ${data}
-    ...    ELSE    Fail    Not recognized device type: ${device_type}
+    ${clear_data}=    Run Keyword If    '${device_type}' == 'openflow'    Extract OpenFlow Device Data    ${data}    ELSE IF    '${device_type}' == 'ovsdb'
+    ...    Extract Ovsdb Device Data    ${data}    ELSE    Fail    Not recognized device type: ${device_type}
     ${json}=    RequestsLibrary.To Json    ${clear_data}
     ${entity_type_list}=    Get From Dictionary    &{json}[entity-owners]    entity-type
     ${entity_type_index}=    Get Index From List Of Dictionaries    ${entity_type_list}    type    ${device_type}
@@ -79,6 +78,34 @@ Get Cluster Entity Owner
     \    ${candidate}=    Convert To Integer    ${candidate}
     \    Append To List    ${candidates_list}    ${candidate}
     List Should Contain Sublist    ${candidates_list}    ${controller_index_list}    Candidates are missing in ${candidates_list}
+    Remove Values From List    ${candidates_list}    ${owner}
+    [Return]    ${owner}    ${candidates_list}
+
+Get Device Entity Owner And Followers Indexes
+    [Arguments]    ${session}    ${device_type}    ${device}
+    [Documentation]    Returns the owner and followers indexes for a ${device}. Returns row information, does not check missing
+    ...    cluster nodes or so.
+    ${candidates_list}=    Create List
+    ${data}=    Utils.Get Data From URI    ${session}    /restconf/operational/entity-owners:entity-owners
+    Log    ${data}
+    ${clear_data}=    Run Keyword If    '${device_type}' == 'openflow'    Extract OpenFlow Device Data    ${data}    ELSE IF    '${device_type}' == 'ovsdb'
+    ...    Extract Ovsdb Device Data    ${data}    ELSE    Fail    Not recognized device type: ${device_type}
+    ${json}=    RequestsLibrary.To Json    ${clear_data}
+    ${entity_type_list}=    Get From Dictionary    &{json}[entity-owners]    entity-type
+    ${entity_type_index}=    Get Index From List Of Dictionaries    ${entity_type_list}    type    ${device_type}
+    Should Not Be Equal    ${entity_type_index}    -1    No Entity Owner found for ${device_type}
+    ${entity_list}=    Get From Dictionary    @{entity_type_list}[${entity_type_index}]    entity
+    ${entity_index}=    Utils.Get Index From List Of Dictionaries    ${entity_list}    id    ${device}
+    Should Not Be Equal    ${entity_index}    -1    Device ${device} not found in Entity Owner ${device_type}
+    ${entity_owner}=    Get From Dictionary    @{entity_list}[${entity_index}]    owner
+    Should Not Be Empty    ${entity_owner}    No owner found for ${device}
+    ${owner}=    Replace String    ${entity_owner}    member-    ${EMPTY}
+    ${owner}=    Convert To Integer    ${owner}
+    ${entity_candidates_list}=    Get From Dictionary    @{entity_list}[${entity_index}]    candidate
+    : FOR    ${entity_candidate}    IN    @{entity_candidates_list}
+    \    ${candidate}=    Replace String    &{entity_candidate}[name]    member-    ${EMPTY}
+    \    ${candidate}=    Convert To Integer    ${candidate}
+    \    Append To List    ${candidates_list}    ${candidate}
     Remove Values From List    ${candidates_list}    ${owner}
     [Return]    ${owner}    ${candidates_list}
 
@@ -268,8 +295,8 @@ Get Controller Sync Status
     ${value}=    Get From Dictionary    ${json}    value
     ${OperSyncStatus}=    Get From Dictionary    ${value}    SyncStatus
     Log    Operational Sync Status: ${OperSyncStatus}
-    Run Keyword If    ${OperSyncStatus} and ${ConfSyncStatus}    Set Test Variable    ${SyncStatus}    ${TRUE}
-    ...    ELSE    Set Test Variable    ${SyncStatus}    ${FALSE}
+    Run Keyword If    ${OperSyncStatus} and ${ConfSyncStatus}    Set Test Variable    ${SyncStatus}    ${TRUE}    ELSE    Set Test Variable
+    ...    ${SyncStatus}    ${FALSE}
     [Return]    ${SyncStatus}
 
 Clean One Or More Journals
@@ -338,12 +365,12 @@ Rejoin One Controller To Another
 Modify IPTables
     [Arguments]    ${isolated controller}    ${controller}    ${rule type}
     [Documentation]    Adds a rule, usually inserting or deleting an entry between two controllers.
-    ${base string}    Set Variable    sudo iptables ${rule type} OUTPUT -p all --source
+    ${base string}    Set Variable    sudo /sbin/iptables ${rule type} OUTPUT -p all --source
     ${cmd string}    Catenate    ${base string}    ${isolated controller} --destination ${controller} -j DROP
     Run Command On Remote System    ${isolated controller}    ${cmd string}
     ${cmd string}    Catenate    ${base string}    ${controller} --destination ${isolated controller} -j DROP
     Run Command On Remote System    ${isolated controller}    ${cmd string}
-    ${cmd string}    Set Variable    sudo iptables -L -n
+    ${cmd string}    Set Variable    sudo /sbin/iptables -L -n
     ${return string}=    Run Command On Remote System    ${isolated controller}    ${cmd string}
     #If inserting rules:
     Run Keyword If    "${rule type}" == '-I'    Should Match Regexp    ${return string}    [\s\S]*DROP *all *-- *${isolated controller} *${controller}[\s\S]*
@@ -362,7 +389,7 @@ Flush IPTables
     [Arguments]    ${isolated controller}
     [Documentation]    This keyword is generally not called from a test case but supports a complete wipe of all rules on
     ...    all contollers.
-    ${cmd string}    Set Variable    sudo iptables -v -F
+    ${cmd string}    Set Variable    sudo /sbin/iptables -v -F
     ${return string}=    Run Command On Remote System    ${isolated controller}    ${cmd string}
     Log    return: ${return string}
     Should Contain    ${return string}    Flushing chain `INPUT'
