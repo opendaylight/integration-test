@@ -115,17 +115,43 @@ Compose_Dilemma_Filepath
     BuiltIn.Return_From_Keyword    ${default_path}
 
 Compose_Base_Java_Command
-    [Arguments]    ${openjdk}=${JDKVERSION}
+    [Arguments]    ${openjdk}=${EMPTY}
     [Documentation]    Return string suitable for launching Java programs over SSHLibrary, depending on JRE version needed.
     ...    This requires that the SSH connection on which the command is going to be used is active as it is needed for querying files.
     ...    Commands composed for one SSH connection shall not be reused on other SSH connections as the two connections may have different Java setups.
     ...    Not directly related to Nexus, but versioned Java tools may need this.
-    BuiltIn.Run_Keyword_And_Return_If    """${openjdk}""" == "openjdk8"    Compose_Dilemma_Filepath    ${JAVA_8_HOME_CENTOS}/bin/java    ${JAVA_8_HOME_UBUNTU}/bin/java
-    BuiltIn.Run_Keyword_And_Return_If    """${openjdk}""" == "openjdk7"    Compose_Dilemma_Filepath    ${JAVA_7_HOME_CENTOS}/bin/java    ${JAVA_7_HOME_UBUNTU}/bin/java
-    BuiltIn.Return_From_Keyword    java
+    # Check whether the user set the override and return it if yes.
+    ${default}=    BuiltIn.Get_Variable_Value    ${JDKVERSION}    none
+    ${openjdk_usable}=    BuiltIn.Set_Variable_If    """${openjdk}"""==""    ${default}    ${openjdk}
+    BuiltIn.Run_Keyword_And_Return_If    """${openjdk_usable}""" == "openjdk8"    Compose_Dilemma_Filepath    ${JAVA_8_HOME_CENTOS}/bin/java    ${JAVA_8_HOME_UBUNTU}/bin/java
+    BuiltIn.Run_Keyword_And_Return_If    """${openjdk_usable}""" == "openjdk7"    Compose_Dilemma_Filepath    ${JAVA_7_HOME_CENTOS}/bin/java    ${JAVA_7_HOME_UBUNTU}/bin/java
+    # Attempt to call plain "java" command directly. If it works, return it.
+    ${out}    ${rc}=    SSHLibrary.Execute_Command    java -version 2>&1    return_rc=True
+    BuiltIn.Return_From_Keyword_If    ${rc} == 0    java
+    # Query the virtual machine for the JAVA_HOME environment variable and
+    # use it to assemble a (hopefully) working command. If that worked out,
+    # return the result.
+    ${java}=    SSHLibrary.Execute_Command    echo \$JAVA_HOME/bin/java 2>&1
+    ${out}    ${rc}=    SSHLibrary.Execute_Command    ${java} -version 2>&1    return_rc=True
+    BuiltIn.Return_From_Keyword_If    ${rc} == 0    ${java}
+    # There are bizzare test environment setups where the (correct) JAVA_HOME
+    # is set in the VM where Robot is running but not in the VM where the
+    # tools are supposed to run (usually because these two are really one
+    # and the same system and idiosyncracies of BASH prevent easy injection
+    # of the JAVA_HOME environment variable into a place where connections
+    # made by SSHLibrary would pick it up). So try to use that value to
+    # create a java command and check that it works.
+    ${JAVA_HOME}=    OperatingSystem.Get_Environment_Variable    JAVA_HOME    ${EMPTY}
+    ${java}=    BuiltIn.Set_Variable_If    """${JAVA_HOME}"""!=""    ${JAVA_HOME}/bin/java    false
+    ${out}    ${rc}=    SSHLibrary.Execute_Command    ${java} -version 2>&1    return_rc=True
+    BuiltIn.Return_From_Keyword_If    ${rc} == 0    ${java}
+    # Nothing works, most likely java is not installed at all on the target
+    # machine or it is hopelesly lost. Bail out with a helpful message
+    # telling the user how to make it accessible for the script.
+    BuiltIn.Fail    Unable to find Java; specify \${JDKVERSION}, put it to your PATH or set JAVA_HOME environment variable.
 
 Compose_Full_Java_Command
-    [Arguments]    ${options}    ${openjdk}=${JDKVERSION}
+    [Arguments]    ${options}    ${openjdk}=${EMPTY}
     [Documentation]    Return full Bash command to run Java with given options.
     ...    This requires that the SSH connection on which the command is going to be used is active as it is needed for querying files.
     ...    The options may include JVM options, application command line arguments, Bash redirects and other constructs.
