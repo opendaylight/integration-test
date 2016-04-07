@@ -42,10 +42,13 @@ Create Networks
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
     \    Create Network    ${NetworkElement}
 
-Create Subnets
+Create Subnets For net1_network
     [Documentation]    Create Sub Nets for the Networks with neutron request.
-    : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
-    \    Create SubNet    ${NetworkElement}
+    Create SubNet    net1_network    subnet1    10.0.0.0/24
+
+Create Subnets For net2_network
+    [Documentation]    Create Sub Nets for the Networks with neutron request.
+    Create SubNet    net2_network    subnet2    20.0.0.0/24
 
 List Ports
     ${output}=    Write Commands Until Prompt    neutron -v port-list
@@ -128,10 +131,13 @@ Verify Deleted Routers
     [Documentation]    Verify Deleted Routers for the Networks with dump flow.
     Verify No Gateway Ips
 
-Delete Sub Networks
+Delete Sub Networks In net1_network
     [Documentation]    Delete Sub Nets for the Networks with neutron request.
-    : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
-    \    Delete SubNet    ${NetworkElement}
+    Delete SubNet    subnet1
+
+Delete Sub Networks In net2_network
+    [Documentation]    Delete Sub Nets for the Networks with neutron request.
+    Delete SubNet    subnet2
 
 Delete Networks
     [Documentation]    Delete Networks with neutron request.
