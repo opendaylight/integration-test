@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a4c51b2_a955e1c7",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-04-07T18:11:18Z",
+      "side": 1,
+      "message": "It turns out that Robot Framework 3.0 has the bug fixed (or the bug was for variables defined in Variables.py? I don\u0027t know ...). Anyway, if you specify a default value for a variable in the Resource\u0027s \"Variables\" table and then use it as a default value for an argument of a keyword and the user overrides the value of that variable, the Robot Framework 3.0 correctly uses the user-supplied value as the default value for the argument of that keyword (instead of the default value specified in the Resource). This thus allowed me to get rid of all tricky code.",
+      "revId": "241920acc7e834f9db75e3f068f17df35ce594e6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
