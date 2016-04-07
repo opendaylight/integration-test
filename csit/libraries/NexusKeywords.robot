@@ -115,14 +115,21 @@ Compose_Dilemma_Filepath
     BuiltIn.Return_From_Keyword    ${default_path}
 
 Compose_Base_Java_Command
-    [Arguments]    ${openjdk}=${JDKVERSION}
+    [Arguments]    ${openjdk_unusable}=${EMPTY}
     [Documentation]    Return string suitable for launching Java programs over SSHLibrary, depending on JRE version needed.
     ...    This requires that the SSH connection on which the command is going to be used is active as it is needed for querying files.
     ...    Commands composed for one SSH connection shall not be reused on other SSH connections as the two connections may have different Java setups.
     ...    Not directly related to Nexus, but versioned Java tools may need this.
+    ${default}=    BuiltIn.Get_Variable_Value    ${JDKVERSION}    none
+    ${openjdk}=    BuiltIn.Set_Variable_If    """${openjdk_unusable}"""==""    ${default}    ${openjdk_unusable}
     BuiltIn.Run_Keyword_And_Return_If    """${openjdk}""" == "openjdk8"    Compose_Dilemma_Filepath    ${JAVA_8_HOME_CENTOS}/bin/java    ${JAVA_8_HOME_UBUNTU}/bin/java
     BuiltIn.Run_Keyword_And_Return_If    """${openjdk}""" == "openjdk7"    Compose_Dilemma_Filepath    ${JAVA_7_HOME_CENTOS}/bin/java    ${JAVA_7_HOME_UBUNTU}/bin/java
-    BuiltIn.Return_From_Keyword    java
+    ${out}    ${rc}=    SSHLibrary.Execute_Command    java -version 2>&1    return_rc=True
+    BuiltIn.Return_From_Keyword_If    ${rc} == 0    java
+    ${JAVA_HOME}=    OperatingSystem.Get_Environment_Variable    JAVA_HOME    ${EMPTY}
+    BuiltIn.Return_From_Keyword_If    """${JAVA_HOME}"""!=""    ${JAVA_HOME}/bin/java
+    FatalError    "Fail"
+    BuiltIn.Fail    Unable to find 'java'; specify \${JDKVERSION}, set JAVA_HOME environment variable or put it to your PATH.
 
 Compose_Full_Java_Command
     [Arguments]    ${options}    ${openjdk}=${JDKVERSION}
