@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Netvirt library. This library is useful for tests to create network, subnet, router and vm instances
+Documentation     Openstack library. This library is useful for tests to create network, subnet, router and vm instances
 Library           SSHLibrary
 Resource          Utils.robot
 Variables         ../variables/Variables.py
@@ -26,8 +26,16 @@ Delete Network
 Create SubNet
     [Arguments]    ${network_name}
     [Documentation]    Create SubNet for the Network with neutron request.
-    ${subnet}=    Set Variable If    "${network_name}"=="net1_network"    subnet1    subnet2
-    ${range_ip}=    Set Variable If    "${network_name}"=="net1_network"    10.0.0.0/24    20.0.0.0/24
+    Run Keyword If    "${network_name}"=="net1_network"    Set Suite Variable    ${subnet}    subnet1
+    ...    ELSE IF    "${network_name}"=="net2_network"    Set Suite Variable    ${subnet}    subnet2
+    ...    ELSE IF    "${network_name}"=="network_1"    Set Suite Variable    ${subnet}    subnet_1
+    ...    ELSE IF    "${network_name}"=="network_2"    Set Suite Variable    ${subnet}    subnet_2
+    Log    ${subnet}
+    Run Keyword If    "${network_name}"=="net1_network"    Set Suite Variable    ${range_ip}    10.0.0.0/24
+    ...    ELSE IF    "${network_name}"=="net2_network"    Set Suite Variable    ${range_ip}    20.0.0.0/24
+    ...    ELSE IF    "${network_name}"=="network_1"    Set Suite Variable    ${range_ip}    30.0.0.0/24
+    ...    ELSE IF    "${network_name}"=="network_2"    Set Suite Variable    ${range_ip}    40.0.0.0/24
+    Log    ${range_ip}
     ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet}
     Log    ${output}
     Should Contain    ${output}    Created a new subnet
@@ -56,7 +64,11 @@ Verify No Dhcp Ips
 Delete SubNet
     [Arguments]    ${network_name}
     [Documentation]    Delete SubNet for the Network with neutron request.
-    ${subnet}=    Set Variable If    "${network_name}"=="net1_network"    subnet1    subnet2
+    Run Keyword If    "${network_name}"=="net1_network"    Set Suite Variable    ${subnet}    subnet1
+    ...    ELSE IF    "${network_name}"=="net2_network"    Set Suite Variable    ${subnet}    subnet2
+    ...    ELSE IF    "${network_name}"=="network_1"    Set Suite Variable    ${subnet}    subnet_1
+    ...    ELSE IF    "${network_name}"=="network_2"    Set Suite Variable    ${subnet}    subnet_2
+    Log    ${subnet}
     ${output}=    Write Commands Until Prompt    neutron -v subnet-delete ${subnet}
     Log    ${output}
     Should Contain    ${output}    Deleted subnet: ${subnet}
@@ -90,6 +102,77 @@ Get Net Id
     ${net_id}=    Get from List    ${splitted_output}    0
     Log    ${net_id}
     [Return]    ${net_id}
+
+Create Vm Instances
+    [Arguments]    ${net_id}    ${vm_instance_names}
+    [Documentation]    Create Four Vm Instance with the net id of the Netowrk.
+    : FOR    ${VmElement}    IN    @{vm_instance_names}
+    \    ${output}=    Write Commands Until Prompt     nova boot --image cirros-0.3.4-x86_64-uec --flavor m1.tiny --nic net-id=${net_id} ${VmElement}
+    \    Log    ${output}
+
+View Vm Console
+    [Arguments]    ${vm_instance_names}
+    [Documentation]    View Console log of the created vm instances using nova show.
+    : FOR    ${VmElement}    IN    @{vm_instance_names}
+    \    ${output}=   Write Commands Until Prompt     nova show ${VmElement}
+    \    ${output}=   Write Commands Until Prompt     nova console-log ${VmElement}
+    \    Log    ${output}
+
+Ping Vm Instances
+    [Arguments]    ${net_id}    ${vm_ips_list}
+    [Documentation]    Reach all Vm Instance with the net id of the Netowrk.
+    Log    ${vm_ips_list}
+    : FOR    ${VmIpElement}    IN    @{vm_ips_list}
+    \    ${output}=    Write Commands Until Prompt     sudo ip netns exec qdhcp-${net_id} ping -c 3 ${VmIpElement}    20s
+    \    Log    ${output}
+    \    Should Contain    ${output}    64 bytes
+    \    ${output}=    Write Commands Until Prompt     sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+
+Ping From Instance
+    [Arguments]    ${dst_ip}
+    [Documentation]    Ping to the expected destination ip.
+    ${output}=   Write Commands Until Expected Prompt    ping -c 3 ${dst_ip}    $
+    Log    ${output}
+    Should Contain    ${output}    64 bytes
+
+Curl Metadata Server
+    [Documentation]    Ping to the expected destination ip.
+    ${output}=   Write Commands Until Expected Prompt    curl http://169.254.169.254    $
+    Log    ${output}
+
+Close Vm Instance
+    [Documentation]    Exit the vm instance.
+    ${output}=   Write Commands Until Prompt    exit
+    Log    ${output}
+
+Ssh Vm Instance
+    [Arguments]    ${net_id}    ${vm_ip}
+    [Documentation]    Login to the vm instance using ssh in the network.
+    ${output}=   Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -i test.pem cirros@${vm_ip}    (yes/no)?
+    Log    ${output}
+    ${output}=   Write Commands Until Expected Prompt    yes    d:
+    Log    ${output}
+    ${output}=   Write Commands Until Expected Prompt    cubswin:)    $
+    Log    ${output}
+    ${output}=   Write Commands Until Expected Prompt    ifconfig    $
+    Log    ${output}
+    ${output}=   Write Commands Until Expected Prompt    route    $
+    Log    ${output}
+
+Write Commands Until Expected Prompt
+    [Arguments]    ${cmd}    ${prompt}    ${timeout}=${default_devstack_prompt_timeout}
+    [Documentation]    quick wrapper for Write and Read Until Prompt Keywords to make test cases more readable
+    SSHLibrary.Set Client Configuration    timeout=${timeout}
+    SSHLibrary.Write    ${cmd}
+    ${output}=    SSHLibrary.Read Until    ${prompt}
+    [Return]    ${output}
+
+Not Ping Vm Instances
+    [Arguments]    ${net_id}    ${vm_ip}
+    [Documentation]    Should Not Reach removed Vm Instance.
+    ${output}=    Write Commands Until Prompt     sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}
+    Log    ${output}
+    Should Contain    ${output}    Destination Host Unreachable
 
 Create Router
     [Documentation]    Create Router and Add Interface to the subnets.
