@@ -62,7 +62,6 @@ Setup_Everything
 
 Teardown_Everything
     [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.
-    Teardown_Netconf_Via_Restconf
     RequestsLibrary.Delete_All_Sessions
     NetconfKeywords.Stop_Testtool
 
