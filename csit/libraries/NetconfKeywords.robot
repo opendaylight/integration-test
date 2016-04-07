@@ -15,9 +15,9 @@ Library           Collections
 Library           DateTime
 Library           RequestsLibrary
 Library           SSHLibrary
-Resource          NetconfViaRestconf.robot
 Resource          NexusKeywords.robot
 Resource          SSHKeywords.robot
+Resource          TemplatedRequests.robot
 Resource          Utils.robot
 
 *** Variables ***
@@ -31,69 +31,71 @@ ${ENABLE_NETCONF_TEST_TIMEOUT}    ${ENABLE_GLOBAL_TEST_DEADLINES}
 
 *** Keywords ***
 Setup_NetconfKeywords
+    [Arguments]    ${create_session_for_templated_requests}=True
     [Documentation]    Setup the environment for the other keywords of this Resource to work properly.
     ${tmp}=    BuiltIn.Create_Dictionary
     BuiltIn.Set_Suite_Variable    ${NetconfKeywords__mounted_device_types}    ${tmp}
-    NetconfViaRestconf.Setup_Netconf_Via_Restconf
+    BuiltIn.Run_Keyword_If    ${create_session_for_templated_requests}    TemplatedRequests.Create_Default_Session
     NexusKeywords.Initialize_Artifact_Deployment_And_Usage
 
 Configure_Device_In_Netconf
-    [Arguments]    ${device_name}    ${device_type}=default    ${device_port}=${FIRST_TESTTOOL_PORT}    ${device_address}=${TOOLS_SYSTEM_IP}    ${device_user}=admin    ${device_password}=topsecret
+    [Arguments]    ${device_name}    ${device_type}=default    ${device_port}=${FIRST_TESTTOOL_PORT}    ${device_address}=${TOOLS_SYSTEM_IP}    ${device_user}=admin    ${device_password}=topsecret    ${session}=default
     [Documentation]    Tell Netconf about the specified device so it can add it into its configuration.
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_IP': '${device_address}', 'DEVICE_NAME': '${device_name}', 'DEVICE_PORT': '${device_port}', 'DEVICE_USER': '${device_user}', 'DEVICE_PASSWORD': '${device_password}'}
-    NetconfViaRestconf.Put_Xml_Template_Folder_Via_Restconf    ${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${device_type}    ${template_as_string}
+    TemplatedRequests.Put_As_Xml_Templated    ${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${device_type}    ${template_as_string}    session=${session}
     Collections.Set_To_Dictionary    ${NetconfKeywords__mounted_device_types}    ${device_name}    ${device_type}
 
 Count_Netconf_Connectors_For_Device
-    [Arguments]    ${device_name}
+    [Arguments]    ${device_name}    ${session}=default
     [Documentation]    Count all instances of the specified device in the Netconf topology (usually 0 or 1).
     # FIXME: This no longer counts netconf connectors, it counts "device instances in Netconf topology".
     # This keyword should be renamed but without an automatic keyword naming standards checker this is
     # potentially destabilizing change so right now it is as FIXME. Proposed new name:
     # Count_Device_Instances_In_Netconf_Topology
-    ${mounts}=    NetconfViaRestconf.Get_Operational_Data_From_URI    network-topology:network-topology/topology/topology-netconf
+    ${mounts}=    TemplatedRequests.Get_As_Json_From_Uri    ${OPERATIONAL_API}/network-topology:network-topology/topology/topology-netconf    session=${session}
     Builtin.Log    ${mounts}
-    ${actual_count}=    Builtin.Evaluate    len('''${mounts}'''.split('"node-id":"${device_name}"'))-1
+    ${actual_count}=    Builtin.Evaluate    len('''${mounts}'''.split('"node-id": "${device_name}"'))-1
     Builtin.Return_From_Keyword    ${actual_count}
 
 Check_Device_Has_No_Netconf_Connector
-    [Arguments]    ${device_name}
+    [Arguments]    ${device_name}    ${session}=default
     [Documentation]    Check that there are no instances of the specified device in the Netconf topology.
     # FIXME: Similarlt to "Count_Netconf_Connectors_For_Device", this does not check whether the device has
     # no netconf connector but whether the device is present in the netconf topology or not. Rename, proposed
     # new name: Check_Device_Not_Present_In_Netconf_Topology
-    ${count}    Count_Netconf_Connectors_For_Device    ${device_name}
+    ${count}    Count_Netconf_Connectors_For_Device    ${device_name}    session=${session}
     Builtin.Should_Be_Equal_As_Strings    ${count}    0
 
 Check_Device_Completely_Gone
-    [Arguments]    ${device_name}
+    [Arguments]    ${device_name}    ${session}=default
     [Documentation]    Check that the specified device has no Netconf connectors nor associated data.
-    Check_Device_Has_No_Netconf_Connector    ${device_name}
-    ${uri}=    Builtin.Set_Variable    network-topology:network-topology/topology/topology-netconf/node/${device_name}
-    ${response}=    RequestsLibrary.Get Request    nvr_session    ${uri}    ${ACCEPT_XML}
-    BuiltIn.Should_Be_Equal_As_Integers    ${response.status_code}    404
+    Check_Device_Has_No_Netconf_Connector    ${device_name}    session=${session}
+    ${uri}=    Builtin.Set_Variable    ${CONFIG_API}/network-topology:network-topology/topology/topology-netconf/node/${device_name}
+    ${status}    ${response}=    BuiltIn.Run_Keyword_And_Ignore_Error    TemplatedRequests.Get_As_Xml_From_Uri    ${uri}    session=${session}
+    BuiltIn.Should_Be_Equal_As_Strings    ${status}    FAIL
+    BuiltIn.Should_Contain    ${response}    404
 
 Check_Device_Connected
-    [Arguments]    ${device_name}
+    [Arguments]    ${device_name}    ${session}=default
     [Documentation]    Check that the specified device is accessible from Netconf.
-    ${device_status}=    NetconfViaRestconf.Get_Operational_Data_From_URI    network-topology:network-topology/topology/topology-netconf/node/${device_name}
-    Builtin.Should_Contain    ${device_status}    "netconf-node-topology:connection-status":"connected"
+    ${device_status}=    TemplatedRequests.Get_As_Json_From_Uri    ${OPERATIONAL_API}/network-topology:network-topology/topology/topology-netconf/node/${device_name}    session=${session}
+    Builtin.Should_Contain    ${device_status}    "netconf-node-topology:connection-status": "connected"
 
 Wait_Device_Connected
-    [Arguments]    ${device_name}    ${timeout}=10s    ${period}=1s
+    [Arguments]    ${device_name}    ${timeout}=10s    ${period}=1s    ${session}=default
     [Documentation]    Wait for the device to become connected.
     ...    It is more readable to use this keyword in a test case than to put the whole WUKS below into it.
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    ${period}    Check_Device_Connected    ${device_name}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    ${period}    Check_Device_Connected    ${device_name}    session=${session}
 
 Remove_Device_From_Netconf
-    [Arguments]    ${device_name}
+    [Arguments]    ${device_name}    ${session}=default
     [Documentation]    Tell Netconf to deconfigure the specified device
     ${device_type}=    Collections.Pop_From_Dictionary    ${NetconfKeywords__mounted_device_types}    ${device_name}
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${device_name}'}
-    NetconfViaRestconf.Delete_Xml_Template_Folder_Via_Restconf    ${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${device_type}    ${template_as_string}
+    TemplatedRequests.Delete_Templated    ${DIRECTORY_WITH_DEVICE_TEMPLATES}${/}${device_type}    ${template_as_string}    session=${session}
 
 Wait_Device_Fully_Removed
-    [Arguments]    ${device_name}    ${timeout}=10s    ${period}=1s
+    [Arguments]    ${device_name}    ${timeout}=10s    ${period}=1s    ${session}=default
     [Documentation]    Wait until all netconf connectors for the device with the given name disappear.
     ...    Call of Remove_Device_From_Netconf returns before netconf gets
     ...    around deleting the device's connector. To ensure the device is
@@ -102,7 +104,7 @@ Wait_Device_Fully_Removed
     ...    is not made before using this keyword, the wait will fail.
     ...    Using this keyword is more readable than putting the WUKS below
     ...    into a test case.
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    ${period}    Check_Device_Completely_Gone    ${device_name}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    ${period}    Check_Device_Completely_Gone    ${device_name}    session=${session}
 
 NetconfKeywords__Deploy_Additional_Schemas
     [Arguments]    ${schemas}
