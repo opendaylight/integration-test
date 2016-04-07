@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Netvirt library. This library is useful for tests to create network, subnet, router and vm instances
+Documentation     Openstack library. This library is useful for tests to create network, subnet, router and vm instances
 Library           SSHLibrary
 Resource          Utils.robot
 Variables         ../variables/Variables.py
@@ -24,10 +24,8 @@ Delete Network
     Should Contain    ${output}    Deleted network: ${network_name}
 
 Create SubNet
-    [Arguments]    ${network_name}
+    [Arguments]    ${network_name}    ${subnet}    ${range_ip}
     [Documentation]    Create SubNet for the Network with neutron request.
-    ${subnet}=    Set Variable If    "${network_name}"=="net1_network"    subnet1    subnet2
-    ${range_ip}=    Set Variable If    "${network_name}"=="net1_network"    10.0.0.0/24    20.0.0.0/24
     ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet}
     Log    ${output}
     Should Contain    ${output}    Created a new subnet
@@ -54,9 +52,9 @@ Verify No Dhcp Ips
     \    Should Not Contain    ${output}    ${DhcpIpElement}
 
 Delete SubNet
-    [Arguments]    ${network_name}
+    [Arguments]    ${subnet}
     [Documentation]    Delete SubNet for the Network with neutron request.
-    ${subnet}=    Set Variable If    "${network_name}"=="net1_network"    subnet1    subnet2
+    Log    ${subnet}
     ${output}=    Write Commands Until Prompt    neutron -v subnet-delete ${subnet}
     Log    ${output}
     Should Contain    ${output}    Deleted subnet: ${subnet}
@@ -91,6 +89,68 @@ Get Net Id
     Log    ${net_id}
     [Return]    ${net_id}
 
+Create Vm Instances
+    [Arguments]    ${net_id}    ${vm_instance_names}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.tiny
+    [Documentation]    Create Four Vm Instance with the net id of the Netowrk.
+    : FOR    ${VmElement}    IN    @{vm_instance_names}
+    \    ${output}=    Write Commands Until Prompt     nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement}
+    \    Log    ${output}
+
+View Vm Console
+    [Arguments]    ${vm_instance_names}
+    [Documentation]    View Console log of the created vm instances using nova show.
+    : FOR    ${VmElement}    IN    @{vm_instance_names}
+    \    ${output}=   Write Commands Until Prompt     nova show ${VmElement}
+    \    ${output}=   Write Commands Until Prompt     nova console-log ${VmElement}
+    \    Log    ${output}
+
+Ping Vm Instances
+    [Arguments]    ${net_id}    ${vm_ips_list}
+    [Documentation]    Reach all Vm Instance with the net id of the Netowrk.
+    Log    ${vm_ips_list}
+    : FOR    ${VmIpElement}    IN    @{vm_ips_list}
+    \    ${output}=    Write Commands Until Prompt     sudo ip netns exec qdhcp-${net_id} ping -c 3 ${VmIpElement}    20s
+    \    Log    ${output}
+    \    Should Contain    ${output}    64 bytes
+
+Ping From Instance
+    [Arguments]    ${dst_ip}
+    [Documentation]    Ping to the expected destination ip.
+    ${output}=   Write Commands Until Expected Prompt    ping -c 3 ${dst_ip}    $
+    Log    ${output}
+    Should Contain    ${output}    64 bytes
+
+Curl Metadata Server
+    [Documentation]    Ping to the expected destination ip.
+    ${output}=   Write Commands Until Expected Prompt    curl http://169.254.169.254    $
+    Log    ${output}
+
+Close Vm Instance
+    [Documentation]    Exit the vm instance.
+    ${output}=   Write Commands Until Prompt    exit
+    Log    ${output}
+
+Ssh Vm Instance
+    [Arguments]    ${net_id}    ${vm_ip}    ${user}=cirros    ${password}=cubswin:)
+    [Documentation]    Login to the vm instance using ssh in the network.
+    ${output}=   Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -i test.pem ${user}@${vm_ip}    (yes/no)?
+    Log    ${output}
+    ${output}=   Write Commands Until Expected Prompt    yes    d:
+    Log    ${output}
+    ${output}=   Write Commands Until Expected Prompt    ${password}    $
+    Log    ${output}
+    ${output}=   Write Commands Until Expected Prompt    ifconfig    $
+    Log    ${output}
+    ${output}=   Write Commands Until Expected Prompt    route    $
+    Log    ${output}
+
+Not Ping Vm Instances
+    [Arguments]    ${net_id}    ${vm_ip}
+    [Documentation]    Should Not Reach removed Vm Instance.
+    ${output}=    Write Commands Until Prompt     sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}
+    Log    ${output}
+    Should Contain    ${output}    Destination Host Unreachable
+
 Create Router
     [Documentation]    Create Router and Add Interface to the subnets.
     ${output}=   Write Commands Until Prompt     neutron -v router-create router_1
@@ -109,4 +169,3 @@ Delete Router
     [Documentation]    Delete Router and Interface to the subnets.
     ${output}=   Write Commands Until Prompt     neutron -v router-delete router_1
     Log    ${output}
-
