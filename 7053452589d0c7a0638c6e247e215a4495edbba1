@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a4c51b2_064a0280",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-07T16:59:46Z",
+      "side": 1,
+      "message": "\"From keyword code block, references to arguments should be treated as immutable local variables.\"\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Argument_naming",
+      "range": {
+        "startLine": 124,
+        "startChar": 4,
+        "endLine": 124,
+        "endChar": 14
+      },
+      "revId": "7053452589d0c7a0638c6e247e215a4495edbba1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_6625c6c1",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-07T16:59:46Z",
+      "side": 1,
+      "message": "This would get value from Robot VM which would be totally unrelated. Something like this would be better:\n\nSSHLibrary.Write     echo \"\\$JAVA_HOME\"\n${JAVA_HOME}\u003d    SSHLibrary.Read_Until_Prompt\n\n(SSHLibrary.Execute_Command would get value from fresh environment.)",
+      "range": {
+        "startLine": 129,
+        "startChar": 21,
+        "endLine": 129,
+        "endChar": 74
+      },
+      "revId": "7053452589d0c7a0638c6e247e215a4495edbba1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_862c52ad",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-07T16:59:46Z",
+      "side": 1,
+      "message": "Move this before JAVA_HOME part of the sentence, to reflect the order this Keyword evaluates.",
+      "range": {
+        "startLine": 132,
+        "startChar": 105,
+        "endLine": 132,
+        "endChar": 124
+      },
+      "revId": "7053452589d0c7a0638c6e247e215a4495edbba1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
