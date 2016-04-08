@@ -63,6 +63,12 @@ Kill_Members_From_List_Or_All
     : FOR    ${index}    IN    @{index_list}
     \    Verify_Karaf_Is_Not_Running_On_Member    member_index=${index}
 
+Kill_Member
+    [Arguments]    ${member}    ${confirm}=True
+    [Documentation]    Convenience keyword that kills the specified member of the cluster.
+    ${index_list} =    BuiltIn.Create_List    ${member}
+    Kill_Members_From_List_Or_All    ${index_list}    ${confirm}
+
 Clean_Journals_And_Snapshots_On_List_Or_All
     [Arguments]    ${member_index_list}=${EMPTY}
     [Documentation]    Delete journal and snapshots directories on every node listed (or all).
@@ -80,6 +86,12 @@ Start_Members_From_List_Or_All
     BuiltIn.Return_From_Keyword_If    not ${wait_for_sync}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    1s    Check_Cluster_Is_In_Sync    member_index_list=${member_index_list}
     # TODO: Do we also want to check Shard Leaders here?
+
+Start_Member
+    [Arguments]    ${member}    ${wait_for_sync}=True    ${timeout}=300s
+    [Documentation]    Convenience keyword that starts the specified member of the cluster.
+    ${index_list} =    BuiltIn.Create_List    ${member}
+    Start_Members_From_List_Or_All    ${index_list}    ${wait_for_sync}    ${timeout}
 
 Verify_Leader_Exists_For_Each_Shard
     [Arguments]    ${shard_name_list}    ${shard_type}=operational    ${member_index_list}=${EMPTY}    ${verify_restconf}=True
