@@ -16,6 +16,29 @@
       "revId": "241920acc7e834f9db75e3f068f17df35ce594e6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_0fab35d9",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 139,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-08T07:57:23Z",
+      "side": 1,
+      "message": "Due to those idiosyncracies, there may be suites, which perform \"SSHLibrary.Write bash\" after opening SSH connection to make it load ~/.bashrc and for such suites it would be better to use SSHLibrary.Write and SSHLibrary.Read_Until_Prompt instead of SSHLibrary.Execute_Command. But currently there is no such suite, and this Change is bloated enough already.",
+      "range": {
+        "startLine": 139,
+        "startChar": 30,
+        "endLine": 139,
+        "endChar": 44
+      },
+      "revId": "241920acc7e834f9db75e3f068f17df35ce594e6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
