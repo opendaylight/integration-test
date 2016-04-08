@@ -1,0 +1,136 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a4c51b2_fac7a510",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-08T15:04:29Z",
+      "side": 1,
+      "message": "Is this worth to be added to Variables.py (or Variables.robot)?",
+      "range": {
+        "startLine": 55,
+        "startChar": 60,
+        "endLine": 55,
+        "endChar": 138
+      },
+      "revId": "34d586dadca32fafcf298389ed3547784f70d3b4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_5ad859ef",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-08T15:04:29Z",
+      "side": 1,
+      "message": "This looks like a location.uri content to me.",
+      "range": {
+        "startLine": 73,
+        "startChar": 39,
+        "endLine": 73,
+        "endChar": 132
+      },
+      "revId": "34d586dadca32fafcf298389ed3547784f70d3b4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_faee858a",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-08T15:04:29Z",
+      "side": 1,
+      "message": "Similar location.uri",
+      "range": {
+        "startLine": 81,
+        "startChar": 67,
+        "endLine": 81,
+        "endChar": 165
+      },
+      "revId": "34d586dadca32fafcf298389ed3547784f70d3b4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_7a02753f",
+        "filename": "csit/suites/netconf/CRUD/CRUD.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-08T15:04:29Z",
+      "side": 1,
+      "message": "Yet another location.uri",
+      "range": {
+        "startLine": 232,
+        "startChar": 39,
+        "endLine": 232,
+        "endChar": 147
+      },
+      "revId": "34d586dadca32fafcf298389ed3547784f70d3b4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_5affb934",
+        "filename": "csit/suites/netconf/clustering/CRUD.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-08T15:04:29Z",
+      "side": 1,
+      "message": "The same YALU as in previous comment.\nThat is because this Check_Config_Data is basically the same as Get_* plus *Check_* in the previous suite, but with configurable node.\n\nYou could add something like Get_As_Xml_Templated_Should_Contain into TemplatedRequests.\n\nOr perhaps add an argument to Get_As_Xml_Templated. exact\u003dTrue would be default, doing what verify\u003dTrue currently does; exact\u003dFalse would do BuiltIn.Should_Contain instead.",
+      "range": {
+        "startLine": 213,
+        "startChar": 39,
+        "endLine": 213,
+        "endChar": 147
+      },
+      "revId": "34d586dadca32fafcf298389ed3547784f70d3b4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_7ab0b58b",
+        "filename": "csit/variables/netconf/CRUD/item1/put_data.xml",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-08T15:04:29Z",
+      "side": 1,
+      "message": "I do not think TemplatedRequests recognizes put_data.xml filename. It only recognizes data.xml (for GET and PUT) and post_data.xml (for POST).",
+      "revId": "34d586dadca32fafcf298389ed3547784f70d3b4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
