@@ -37,7 +37,7 @@ import pycurl
 import string
 
 
-def rest_get(restURL):
+def rest_get(restURL, username, password):
     rest_buffer = BytesIO()
     c = pycurl.Curl()
     c.setopt(c.TIMEOUT, 2)
@@ -46,6 +46,7 @@ def rest_get(restURL):
     c.setopt(c.URL, str(restURL))
     c.setopt(c.HTTPGET, 0)
     c.setopt(c.WRITEFUNCTION, rest_buffer.write)
+    c.setopt(pycurl.USERPWD, "%s:%s" % (str(username), str(password)))
     c.perform()
     c.close()
     return json.loads(rest_buffer.getvalue())
@@ -61,7 +62,7 @@ def getClusterRolesWithCurl(shardName, *args):
         url += 'Category=Shards,name=' + names[i]
         url += '-shard-' + shardName + '-config,type=DistributedConfigDatastore'
         try:
-            resp = rest_get(url)
+            resp = rest_get(url, username, password)
             if resp['status'] != 200:
                 controller_state[controller["ip"]] = 'HTTP ' + str(resp['status'])
             if 'value' in resp:
@@ -103,6 +104,8 @@ except:
 try:
     controllers = data["cluster"]["controllers"]
     shards_to_exclude = data["cluster"]["shards_to_exclude"]
+    username = data["cluster"]["user"]
+    password = data["cluster"]["pass"]
 except:
     print str(sys.exc_info())
     print 'Error reading the file cluster.json'
@@ -114,10 +117,12 @@ Shards = set()
 for controller in controllers:
     url = "http://" + controller["ip"] + ":" + controller["port"] + "/jolokia/read/org.opendaylight.controller:"
     url += "Category=ShardManager,name=shard-manager-config,type=DistributedConfigDatastore"
+    print url
+    rest_get(url, username, password)
     try:
-        data = rest_get(url)
+        data = rest_get(url, username, password)
     except:
-        print 'Unable to retrieve shard names from ' + controller
+        print 'Unable to retrieve shard names from ' + str(controller)
         print 'Are all controllers up?'
         print str(sys.exc_info()[1])
         exit(1)
