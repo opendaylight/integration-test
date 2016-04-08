@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a4c51b2_671add6f",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-08T23:46:12Z",
+      "side": 1,
+      "message": "this can be for a new patch, but for a \"Create Subnet\" keyword in an OpenstackOperations library I think it should\nbe more flexible.  let us pass the name of the subnet and CIDR.  instead this is hardcoded to only let us do subnet1 or subnet2.  what if I want to scale to subnet19999.\n\nI think we do not have a lot of consumers of this keyword at this point, so if people agree when can do this sooner rather\nthan later.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 55
+      },
+      "revId": "f697e4cf4c2436f63df1a53f091acb86d1041d95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_e7254dac",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-08T23:46:12Z",
+      "side": 1,
+      "message": "same basic comment I made above.",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 20
+      },
+      "revId": "f697e4cf4c2436f63df1a53f091acb86d1041d95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_273735e5",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-08T23:46:12Z",
+      "side": 1,
+      "message": "image and flavor should be arguments.  we can default them to these values though so consumers of this keyword don\u0027t\nhave to care if this is what they want.",
+      "range": {
+        "startLine": 110,
+        "startChar": 65,
+        "endLine": 110,
+        "endChar": 113
+      },
+      "revId": "f697e4cf4c2436f63df1a53f091acb86d1041d95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_873449df",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-08T23:46:12Z",
+      "side": 1,
+      "message": "Cool keyword!  :)",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 119,
+        "endChar": 25
+      },
+      "revId": "f697e4cf4c2436f63df1a53f091acb86d1041d95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_67313dec",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-08T23:46:12Z",
+      "side": 1,
+      "message": "put this above the \"Should Contain\" line otherwise if the \"Should Contain\" line fails we wouldn\u0027t get this output \nwhich is probably mostly only valuable in the failure\ncase.",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 101
+      },
+      "revId": "f697e4cf4c2436f63df1a53f091acb86d1041d95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_4741a138",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-08T23:46:12Z",
+      "side": 1,
+      "message": "it will likely never matter, but I\u0027d say to add \n${user}\u003dcirros and ${password}\u003dcubswin:) as arguments and use those variables below.",
+      "range": {
+        "startLine": 149,
+        "startChar": 4,
+        "endLine": 149,
+        "endChar": 40
+      },
+      "revId": "f697e4cf4c2436f63df1a53f091acb86d1041d95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_a7522511",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-08T23:46:12Z",
+      "side": 1,
+      "message": "technically, this is not true:\n\nhttps://en.wikipedia.org/wiki/Curse_of_the_Billy_Goat",
+      "range": {
+        "startLine": 155,
+        "startChar": 57,
+        "endLine": 155,
+        "endChar": 64
+      },
+      "revId": "f697e4cf4c2436f63df1a53f091acb86d1041d95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_273e15b9",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-08T23:46:12Z",
+      "side": 1,
+      "message": "this belongs in Utils.robot",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 25
+      },
+      "revId": "f697e4cf4c2436f63df1a53f091acb86d1041d95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
