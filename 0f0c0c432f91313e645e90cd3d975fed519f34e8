@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a4c51b2_6fc47992",
+        "filename": "csit/libraries/norm_json.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 130,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-04-08T08:46:44Z",
+      "side": 1,
+      "message": "Modifying the object you are iterating through is an undefined operation (especially when the object is a dictionary). [1] doesn\u0027t say that replacing values is unsafe but that is not the same as saying replacing values is safe (note that \"replacing a value\" is not the same as \"modifying a mutable value\"). [2] and [3] seem to suggest that replacing values in a dictionary while iterating it is safe now but we don\u0027t know whether it will stay safe in the future. Additionally, this code sets a bad example, encouraging others to tinker with the container they are iterating over and it will be only a matter of time when they fall into one of the dangerous pits. So it is better to be safe than sorry. Collect the key/value pairs with the new values into a list and put the new values into \"obj\" after the iteration is over.\n\n[1] https://docs.python.org/2/library/stdtypes.html#dict.iteritems\n[2] http://stackoverflow.com/questions/6777485/modifying-a-python-dict-while-iterating-over-it\n[3] http://stackoverflow.com/questions/2315520/in-python-how-do-i-loop-through-the-dictionary-and-change-the-value-if-it-equal",
+      "range": {
+        "startLine": 130,
+        "startChar": 16,
+        "endLine": 130,
+        "endChar": 27
+      },
+      "revId": "0f0c0c432f91313e645e90cd3d975fed519f34e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_8fe4653c",
+        "filename": "csit/libraries/norm_json.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-04-08T08:46:44Z",
+      "side": 1,
+      "message": "dict ?",
+      "range": {
+        "startLine": 133,
+        "startChar": 24,
+        "endLine": 133,
+        "endChar": 28
+      },
+      "revId": "0f0c0c432f91313e645e90cd3d975fed519f34e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_afe7a13f",
+        "filename": "csit/libraries/norm_json.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-04-08T08:46:44Z",
+      "side": 1,
+      "message": "run",
+      "range": {
+        "startLine": 147,
+        "startChar": 36,
+        "endLine": 147,
+        "endChar": 39
+      },
+      "revId": "0f0c0c432f91313e645e90cd3d975fed519f34e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
