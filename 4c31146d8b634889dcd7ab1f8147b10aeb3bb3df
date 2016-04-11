@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_6449608b",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-11T17:51:19Z",
+      "side": 1,
+      "message": "hmmm...  this isn\u0027t going to make sense to people looking\nat Utils.robot and thinking about using this keyword if \nthey don\u0027t know/care about anything devstack.\n\nhow about using ${DEFAULT_TIMEOUT} which comes from Variables.py and is 30s.  Does that break anything?",
+      "range": {
+        "startLine": 485,
+        "startChar": 55,
+        "endLine": 485,
+        "endChar": 86
+      },
+      "revId": "4c31146d8b634889dcd7ab1f8147b10aeb3bb3df",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
