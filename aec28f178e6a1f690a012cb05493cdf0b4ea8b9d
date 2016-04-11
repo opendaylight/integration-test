@@ -48,6 +48,54 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_4479c4fb",
+        "filename": "csit/suites/system/port_check.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-11T16:44:29Z",
+      "side": 1,
+      "message": "please see patch set #2.  I think it\u0027s starting to look ok\nthis way.",
+      "parentUuid": "3a4c51b2_ed942a46",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 21
+      },
+      "revId": "aec28f178e6a1f690a012cb05493cdf0b4ea8b9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_04205cf6",
+        "filename": "csit/suites/system/port_check.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-11T16:44:29Z",
+      "side": 1,
+      "message": "you are right.  I need to do this more specific to TCP vs UDP.  Next patch set will have something towards this end.",
+      "parentUuid": "3a4c51b2_2d9f3261",
+      "range": {
+        "startLine": 17,
+        "startChar": 35,
+        "endLine": 17,
+        "endChar": 40
+      },
+      "revId": "aec28f178e6a1f690a012cb05493cdf0b4ea8b9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a4c51b2_eda26a99",
         "filename": "csit/suites/system/port_check.robot",
         "patchSetId": 1
@@ -95,6 +143,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_a42248ff",
+        "filename": "csit/suites/system/port_check.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-11T16:44:29Z",
+      "side": 1,
+      "message": "Does the new patch seem better, An?",
+      "parentUuid": "3a4c51b2_2dad7289",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 22,
+        "endChar": 52
+      },
+      "revId": "aec28f178e6a1f690a012cb05493cdf0b4ea8b9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a4c51b2_0d73564e",
         "filename": "csit/suites/system/port_check.robot",
         "patchSetId": 1
@@ -106,6 +178,30 @@
       "writtenOn": "2016-03-31T17:50:25Z",
       "side": 1,
       "message": "This table should be moved to a separate file, not to scare contributors by all the Robot code around.\n\nWe should probably have separate tables for each ODL_STREAM.\n\nAnd I think it would be better to have port numbers in lines (sorted numerically) and feature names in columns. That way port collision will be automatically visible.\nBut the current Port wiki has also nice property of including descriptions. Also we may want to distinguish primary features (which contain bundles performing the bind) and indirect features (which have primary feature in their dependency tree).\n\nI think it should be possible to have a table satisfying all of the previous paragraph, but it may need some parsing in the Robot code.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 10
+      },
+      "revId": "aec28f178e6a1f690a012cb05493cdf0b4ea8b9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_c46cb439",
+        "filename": "csit/suites/system/port_check.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-11T16:44:29Z",
+      "side": 1,
+      "message": "Thanks for giving me the example:\nhttps://git.opendaylight.org/gerrit/#/c/37018/\n\nThe problem I see there, is that it will become really cumbersome for popular ports (e.g. 8181).\n\nCheck the way it\u0027s starting to look now that I have more\nfeatures and ports in the variables file.  Seems like it\u0027s\nlooking ok.\n\nThe process to catch port conflicts will be more of a human\nproblem.  This job will fail unless the right ports are \ngiven in the variable file.  In order to get the right ports\nin the variables file, a committer from Int/Test (we should\nalso require Int/Dist committer too) will have to review\nthe changes and merge.\n\nA real example would have been VPNService in the past.  They\nwould have created their feature and taken tcp:8185.  First,\nthis test would fail because a new feature is found and\nthis test needs to be updated with that.  VPNService would \nideally do that update.  Next, they would add their port \nlisting and when they go to add port 8185, they will then\nnotice that NetIde already owns it and have to pick something\nelse.\n\nThat\u0027s how I\u0027m envisioning this all working.",
+      "parentUuid": "3a4c51b2_0d73564e",
       "range": {
         "startLine": 24,
         "startChar": 0,
@@ -165,6 +261,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_a469a827",
+        "filename": "csit/suites/system/port_check.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-11T16:44:29Z",
+      "side": 1,
+      "message": "I didn\u0027t try this yet, but thanks for the code.  I will try to get it in next.",
+      "parentUuid": "3a4c51b2_adb062de",
+      "range": {
+        "startLine": 71,
+        "startChar": 0,
+        "endLine": 82,
+        "endChar": 8
+      },
+      "revId": "aec28f178e6a1f690a012cb05493cdf0b4ea8b9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a4c51b2_8db5a6cf",
         "filename": "csit/suites/system/port_check.robot",
         "patchSetId": 1
@@ -176,6 +296,30 @@
       "writtenOn": "2016-03-31T17:50:25Z",
       "side": 1,
       "message": "There is also etc/opendaylight/current/controller.currentconfig.xml\nIt only gets populated when user changes ODL configuration at runtime (by Restconf typically, not just by applying edited .xml when installing feature).\n\nI do not think it is relevant here, just making the piece of knowledge public.",
+      "range": {
+        "startLine": 102,
+        "startChar": 22,
+        "endLine": 102,
+        "endChar": 38
+      },
+      "revId": "aec28f178e6a1f690a012cb05493cdf0b4ea8b9d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a4c51b2_519fb45f",
+        "filename": "csit/suites/system/port_check.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-11T16:44:29Z",
+      "side": 1,
+      "message": "makes sense.  I\u0027ll add that keyword and step here.  it wont hurt and might help down the road",
+      "parentUuid": "3a4c51b2_8db5a6cf",
       "range": {
         "startLine": 102,
         "startChar": 22,
