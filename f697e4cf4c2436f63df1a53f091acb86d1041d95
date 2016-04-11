@@ -307,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_84446c75",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-11T17:51:19Z",
+      "side": 1,
+      "message": "I was making a joke here.  :)  The password is about the\nChicago Cubs baseball team winning, but they really never\ndo.  sorry.",
+      "parentUuid": "1a494da4_61aaf2d5",
+      "range": {
+        "startLine": 155,
+        "startChar": 57,
+        "endLine": 155,
+        "endChar": 64
+      },
+      "revId": "f697e4cf4c2436f63df1a53f091acb86d1041d95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a4c51b2_273e15b9",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 2
