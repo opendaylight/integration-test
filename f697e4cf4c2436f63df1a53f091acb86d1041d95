@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_0134cedc",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 4062
+      },
+      "writtenOn": "2016-04-11T10:19:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a4c51b2_671add6f",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 41,
+        "endChar": 55
+      },
+      "revId": "f697e4cf4c2436f63df1a53f091acb86d1041d95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a4c51b2_e7254dac",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 2
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_e130c2ea",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 4062
+      },
+      "writtenOn": "2016-04-11T10:19:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a4c51b2_e7254dac",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 71,
+        "endChar": 20
+      },
+      "revId": "f697e4cf4c2436f63df1a53f091acb86d1041d95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a4c51b2_273735e5",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 2
@@ -59,6 +107,30 @@
       "writtenOn": "2016-04-08T23:46:12Z",
       "side": 1,
       "message": "image and flavor should be arguments.  we can default them to these values though so consumers of this keyword don\u0027t\nhave to care if this is what they want.",
+      "range": {
+        "startLine": 110,
+        "startChar": 65,
+        "endLine": 110,
+        "endChar": 113
+      },
+      "revId": "f697e4cf4c2436f63df1a53f091acb86d1041d95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_414d3672",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 4062
+      },
+      "writtenOn": "2016-04-11T10:19:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a4c51b2_273735e5",
       "range": {
         "startLine": 110,
         "startChar": 65,
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_e15e0212",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 4062
+      },
+      "writtenOn": "2016-04-11T10:19:11Z",
+      "side": 1,
+      "message": "the intention here is to check the output contains 64 bytes for successful ping. so if i put the line above, the keyword\u0027s intention might be changed that it will look for 64 bytes in dump flow output. right now, we are removing dump flow verification, which we will do later.",
+      "parentUuid": "3a4c51b2_67313dec",
+      "range": {
+        "startLine": 129,
+        "startChar": 0,
+        "endLine": 129,
+        "endChar": 101
+      },
+      "revId": "f697e4cf4c2436f63df1a53f091acb86d1041d95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a4c51b2_4741a138",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 2
@@ -128,6 +224,30 @@
       "writtenOn": "2016-04-08T23:46:12Z",
       "side": 1,
       "message": "it will likely never matter, but I\u0027d say to add \n${user}\u003dcirros and ${password}\u003dcubswin:) as arguments and use those variables below.",
+      "range": {
+        "startLine": 149,
+        "startChar": 4,
+        "endLine": 149,
+        "endChar": 40
+      },
+      "revId": "f697e4cf4c2436f63df1a53f091acb86d1041d95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_419b76c9",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 4062
+      },
+      "writtenOn": "2016-04-11T10:19:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a4c51b2_4741a138",
       "range": {
         "startLine": 149,
         "startChar": 4,
@@ -163,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_61aaf2d5",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 4062
+      },
+      "writtenOn": "2016-04-11T10:19:11Z",
+      "side": 1,
+      "message": "please let us know whether it needs to be updated.",
+      "parentUuid": "3a4c51b2_a7522511",
+      "range": {
+        "startLine": 155,
+        "startChar": 57,
+        "endLine": 155,
+        "endChar": 64
+      },
+      "revId": "f697e4cf4c2436f63df1a53f091acb86d1041d95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a4c51b2_273e15b9",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 2
@@ -174,6 +318,30 @@
       "writtenOn": "2016-04-08T23:46:12Z",
       "side": 1,
       "message": "this belongs in Utils.robot",
+      "range": {
+        "startLine": 162,
+        "startChar": 0,
+        "endLine": 168,
+        "endChar": 25
+      },
+      "revId": "f697e4cf4c2436f63df1a53f091acb86d1041d95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_21a0eaf3",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 168,
+      "author": {
+        "id": 4062
+      },
+      "writtenOn": "2016-04-11T10:19:11Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a4c51b2_273e15b9",
       "range": {
         "startLine": 162,
         "startChar": 0,
