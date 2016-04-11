@@ -123,50 +123,44 @@ Remove vbrif Flowfilter index
 
 Add a vtn flowfilter with Icmp code
     [Documentation]    Create a flowfilter with icmp code and Verify ping
-    [Tags]    exclude
     Add a vtn flowfilter    Tenant1    ${flowfilterIcmpCodedata}
     Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Not Succeed    h1    h3
+    [Teardown]    Report_Failure_Due_To_Bug    5587
 
 Verify icmp action for vtn flowfilter
     [Documentation]    Verify actions in Flow Enties for icmp code and type
-    [Tags]    exclude
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF10}    @{icmp_action}
 
 Remove vtn Flowfilter index which has ICMP
     [Documentation]    Remove a index of vtn flowfilter which have ICMP
-    [Tags]    exclude
     Remove a vtn flowfilter    Tenant1    ${filter_index}
 
 Add a vbr flowfilter with Icmp code
     [Documentation]    Create a flowfilter with icmp code and Verify ping
-    [Tags]    exclude
     Add a vbr flowfilter    Tenant1    vBridge1    ${flowfilterIcmpCodedata}
     Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Not Succeed    h1    h3
+    [Teardown]    Report_Failure_Due_To_Bug    5587
 
 Verify icmp action for vbr flowfilter
     [Documentation]    Verify actions in Flow Enties for icmp code and type
-    [Tags]    exclude
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF10}    @{icmp_action}
 
 Remove vbr Flowfilter index which has ICMP
     [Documentation]    Remove a index of vbr flowfilter which have ICMP
-    [Tags]    exclude
     Remove a vbr flowfilter    Tenant1    vBridge1    ${filter_index}
 
 Add a vbrif flowfilter with Icmp code
     [Documentation]    Create a flowfilter with icmp code and Verify ping
-    [Tags]    exclude
     Add a vbrif flowfilter    Tenant1    vBridge1    if1    ${flowfilterIcmpCodedata}
     Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Not Succeed    h1    h3
+    [Teardown]    Report_Failure_Due_To_Bug    5587
 
 Verify icmp action for vbrif flowfilter
     [Documentation]    Verify actions in Flow Enties for icmp code and type
-    [Tags]    exclude
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF10}    @{icmp_action}
 
 Remove vbrif Flowfilter index which has ICMP
     [Documentation]    Remove a index of vbrif flowfilter which have ICMP
-    [Tags]    exclude
     Remove a vbrif flowfilter    Tenant1    vBridge1    if1    ${filter_index}
 
 Add a vtn flowfilter with dscp

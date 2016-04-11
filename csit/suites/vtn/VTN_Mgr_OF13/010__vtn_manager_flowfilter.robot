@@ -128,8 +128,8 @@ Add a vtn flowfilter with Icmp code
 
 Verify icmp action for vtn flowfilter
     [Documentation]    Verify actions in Flow Enties for icmp code and type
-    [Tags]    exclude
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF13}    @{icmp_action}
+    [Teardown]    Report_Failure_Due_To_Bug    5618
 
 Remove vtn Flowfilter index which has ICMP
     [Documentation]    Remove a index of vtn flowfilter which have ICMP
@@ -142,8 +142,8 @@ Add a vbr flowfilter with Icmp code
 
 Verify icmp action for vbr flowfilter
     [Documentation]    Verify actions in Flow Enties for icmp code and type
-    [Tags]    exclude
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF13}    @{icmp_action}
+    [Teardown]    Report_Failure_Due_To_Bug    5618
 
 Remove vbr Flowfilter index which has ICMP
     [Documentation]    Remove a index of vbr flowfilter which have ICMP
@@ -156,8 +156,8 @@ Add a vbrif flowfilter with Icmp code
 
 Verify icmp action for vbrif flowfilter
     [Documentation]    Verify actions in Flow Enties for icmp code and type
-    [Tags]    exclude
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF13}    @{icmp_action}
+    [Teardown]    Report_Failure_Due_To_Bug    5618
 
 Remove vbrif Flowfilter index which has ICMP
     [Documentation]    Remove a index of vbrif flowfilter which have ICMP
