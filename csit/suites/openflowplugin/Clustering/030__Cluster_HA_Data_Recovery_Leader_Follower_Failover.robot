@@ -30,6 +30,7 @@ Get inventory Leader Before Leader Restart
     ${inventory_leader}    ${inventory_followers}    ClusterOpenFlow.Get InventoryConfig Shard Status    ${original_cluster_list}
     ${follower_node_1}=    Get From List    ${inventory_followers}    0
     ${follower_node_2}=    Get From List    ${inventory_followers}    1
+    Set Suite Variable    ${inventory_leader_old}    ${inventory_leader}
     Set Suite Variable    ${follower_node_1}
     Set Suite Variable    ${follower_node_2}
     Set Suite Variable    ${inventory_leader}
@@ -62,16 +63,16 @@ Get inventory Follower After Leader Restart
     Set Suite Variable    ${follower_node_2}
     Set Suite Variable    ${inventory_leader}
 
-Start Mininet Connect To Follower Node2
-    [Documentation]    Start mininet with connection to cluster Follower Node2.
-    ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_${follower_node_2}_IP}
+Start Mininet Connect To Old Leader
+    [Documentation]    Start mininet with connection to cluster old leader.
+    ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_${inventory_leader_old}_IP}
     Set Suite Variable    ${mininet_conn_id}
 
 Verify Flows In Switch After Leader Restart
     [Documentation]    Verify flows are installed in switch after leader restart.
     MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count_per_node}    ${flow_count_per_switch}    ${operation_timeout}
 
-Stop Mininet Connected To Follower Node2 and Exit
+Stop Mininet Connected To Old Leader and Exit
     [Documentation]    Stop mininet and exit connection.
     MininetKeywords.Stop Mininet And Exit    ${mininet_conn_id}
     Utils.Clean Mininet System
