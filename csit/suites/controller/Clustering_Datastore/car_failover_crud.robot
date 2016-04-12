@@ -40,8 +40,7 @@ Add_Original_Cars_On_Old_Leader
 
 Kill_Original_Car_Leader
     [Documentation]    Kill the car Leader to cause a new leader to get elected.
-    ${kill_list} =    BuiltIn.Create_List    ${car_leader_index}
-    ClusterManagement.Kill_Members_From_List_Or_All    member_index_list=${kill_list}    confirm=True
+    ClusterManagement.Kill_Single_Member    ${car_leader_index}    confirm=True
 
 Wait_For_New_Leader
     [Documentation]    Wait until new car Leader is elected.
@@ -92,8 +91,7 @@ See_Follower_Cars_On_New_Followers
 
 Start_Old_Car_Leader
     [Documentation]    Start the killed member without deleting the persisted data.
-    ${revive_list} =    BuiltIn.Create_List    ${car_leader_index}
-    ClusterManagement.Start_Members_From_List_Or_All    member_index_list=${revive_list}    wait_for_sync=True    timeout=${MEMBER_START_TIMEOUT}
+    ClusterManagement.Start_Members_From_List_Or_All    ${car_leader_index}    wait_for_sync=True    timeout=${MEMBER_START_TIMEOUT}
     BuiltIn.Wait_Until_Keyword_Succeeds    30s    2s    ClusterManagement.Verify_Leader_Exists_For_Each_Shard    shard_name_list=${SHARD_NAME_LIST}    shard_type=config
 
 See_Folower_Cars_On_Old_Leader
