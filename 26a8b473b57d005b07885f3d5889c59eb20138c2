@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_10c89273",
+        "filename": "csit/libraries/ClusterKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-12T14:04:20Z",
+      "side": 1,
+      "message": "This is not defined in this Resource, so it has to be defined in caller suite. But the same applies to the following two keywords, so not a blocker for this Change.",
+      "range": {
+        "startLine": 278,
+        "startChar": 43,
+        "endLine": 278,
+        "endChar": 56
+      },
+      "revId": "26a8b473b57d005b07885f3d5889c59eb20138c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
