@@ -52,9 +52,8 @@ Buy_Cars_After_0_Reboots_And_Verify
 Reboot_1
     [Documentation]    Previous car-people Leader is rebooted (without persistence cleanup).
     ${index_to_reboot} =    Collections.Remove_From_List    ${list_to_reboot}    0
-    ${index_list} =    BuiltIn.Create_List    ${index_to_reboot}
-    ClusterManagement.Kill_Members_From_List_Or_All    member_index_list=${index_list}    confirm=True
-    ClusterManagement.Start_Members_From_List_Or_All    member_index_list=${index_list}    wait_for_sync=True    timeout=${MEMBER_START_TIMEOUT}
+    ClusterManagement.Kill_Single_Member    ${index_to_reboot}    confirm=True
+    ClusterManagement.Start_Single_Member    ${index_to_reboot}    wait_for_sync=True    timeout=${MEMBER_START_TIMEOUT}
     BuiltIn.Wait_Until_Keyword_Succeeds    30s    2s    ClusterManagement.Verify_Leader_Exists_For_Each_Shard    shard_name_list=${SHARD_NAME_LIST}    shard_type=config
 
 Buy_Cars_After_1_Reboots_And_Verify
@@ -68,9 +67,8 @@ Buy_Cars_After_1_Reboots_And_Verify
 Reboot_2
     [Documentation]    Previous car-people Leader is rebooted (without persistence cleanup).
     ${index_to_reboot} =    Collections.Remove_From_List    ${list_to_reboot}    0
-    ${index_list} =    BuiltIn.Create_List    ${index_to_reboot}
-    ClusterManagement.Kill_Members_From_List_Or_All    member_index_list=${index_list}    confirm=True
-    ClusterManagement.Start_Members_From_List_Or_All    member_index_list=${index_list}    wait_for_sync=True    timeout=${MEMBER_START_TIMEOUT}
+    ClusterManagement.Kill_Single_Member    ${index_to_reboot}    confirm=True
+    ClusterManagement.Start_Single_Member    ${index_to_reboot}    wait_for_sync=True    timeout=${MEMBER_START_TIMEOUT}
     BuiltIn.Wait_Until_Keyword_Succeeds    30s    2s    ClusterManagement.Verify_Leader_Exists_For_Each_Shard    shard_name_list=${SHARD_NAME_LIST}    shard_type=config
 
 Buy_Cars_After_2_Reboots_And_Verify
@@ -84,9 +82,8 @@ Buy_Cars_After_2_Reboots_And_Verify
 Reboot_3
     [Documentation]    Previous car-people Leader is rebooted (without persistence cleanup).
     ${index_to_reboot} =    Collections.Remove_From_List    ${list_to_reboot}    0
-    ${index_list} =    BuiltIn.Create_List    ${index_to_reboot}
-    ClusterManagement.Kill_Members_From_List_Or_All    member_index_list=${index_list}    confirm=True
-    ClusterManagement.Start_Members_From_List_Or_All    member_index_list=${index_list}    wait_for_sync=True    timeout=${MEMBER_START_TIMEOUT}
+    ClusterManagement.Kill_Single_Member    ${index_to_reboot}    confirm=True
+    ClusterManagement.Start_Single_Member    ${index_to_reboot}    wait_for_sync=True    timeout=${MEMBER_START_TIMEOUT}
     BuiltIn.Wait_Until_Keyword_Succeeds    30s    2s    ClusterManagement.Verify_Leader_Exists_For_Each_Shard    shard_name_list=${SHARD_NAME_LIST}    shard_type=config
 
 Buy_Cars_After_3_Reboots_And_Verify
