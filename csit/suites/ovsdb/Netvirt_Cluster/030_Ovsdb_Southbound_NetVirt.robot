@@ -13,7 +13,8 @@ Resource          ../../../libraries/OVSDB.robot
 Resource          ../../../libraries/KarafKeywords.robot
 
 *** Variables ***
-@{FLOW_TABLE_LIST}    actions=goto_table:20    actions=CONTROLLER:65535    actions=goto_table:30    actions=goto_table:40    actions=goto_table:50    actions=goto_table:60    actions=goto_table:70    actions=goto_table:80    actions=goto_table:90    actions=goto_table:100    actions=goto_table:110    actions=drop
+@{FLOW_TABLE_LIST}    actions=goto_table:20    actions=CONTROLLER:65535    actions=goto_table:30    actions=goto_table:40    actions=goto_table:50    actions=goto_table:60    actions=goto_table:70
+...               actions=goto_table:80    actions=goto_table:90    actions=goto_table:100    actions=goto_table:110    actions=drop
 
 *** Test Cases ***
 Create Original Cluster List
@@ -34,7 +35,7 @@ Check Shards Status Before Fail
 
 Start Mininet Multiple Connections
     [Documentation]    Start mininet with connection to all cluster instances.
-    ${mininet_conn_id}    Add Multiple Managers to OVS  ${TOOLS_SYSTEM_IP}    ${original_cluster_list}
+    ${mininet_conn_id}    Add Multiple Managers to OVS    ${TOOLS_SYSTEM_IP}    ${original_cluster_list}
     Set Suite Variable    ${mininet_conn_id}
     Log    ${mininet_conn_id}
 
@@ -68,7 +69,6 @@ Get interface setup
     ${output}    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
     Log    ${output}
     Should Contain    ${output}    Interface br-int
-
 
 Get the bridge flows
     [Documentation]    This request fetch the OF13 flow tables to verify the flows are correctly added
