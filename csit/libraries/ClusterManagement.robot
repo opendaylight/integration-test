@@ -239,5 +239,5 @@ ClusterManagement__Include_Member_Index
     Collections.Set_To_Dictionary    ${index_to_ip_mapping}    ${index}    ${member_ip}
     # Http session, with ${AUTH}, without headers.
     ${session_alias} =    Resolve_Http_Session_For_Member    member_index=${index}
-    RequestsLibrary.Create_Session    ${session_alias}    http://${member_ip}:${RESTCONFPORT}    auth=${AUTH}
+    RequestsLibrary.Create_Session    ${session_alias}    http://${member_ip}:${RESTCONFPORT}    auth=${AUTH}    max_retries=0
     Collections.Append_To_List    ${session_list}    ${session_alias}
