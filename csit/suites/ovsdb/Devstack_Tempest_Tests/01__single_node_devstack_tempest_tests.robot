@@ -12,9 +12,9 @@ Resource          ../../../libraries/DevstackUtils.robot
 @{NETWORKS_NAME}    net1_network    net2_network
 @{SUBNETS_NAME}    subnet1    subnet2
 @{VM_INSTANCES_NAME}    MyFirstInstance    MySecondInstance
-@{VM_IPS}    10.0.0.3    20.0.0.3
+@{VM_IPS}         10.0.0.3    20.0.0.3
 @{GATEWAY_IPS}    10.0.0.1    20.0.0.1
-@{DHCP_IPS}    10.0.0.2    20.0.0.2
+@{DHCP_IPS}       10.0.0.2    20.0.0.2
 
 *** Test Cases ***
 Run Devstack Gate Wrapper
@@ -48,27 +48,27 @@ Create Subnets
     \    Create SubNet    ${NetworkElement}
 
 List Ports
-    ${output}=   Write Commands Until Prompt     neutron -v port-list
+    ${output}=    Write Commands Until Prompt    neutron -v port-list
     Log    ${output}
 
 List Available Networks
-    ${output}=   Write Commands Until Prompt     neutron -v net-list
+    ${output}=    Write Commands Until Prompt    neutron -v net-list
     Log    ${output}
 
 List Tenants
-    ${output}=   Write Commands Until Prompt     keystone tenant-list
+    ${output}=    Write Commands Until Prompt    keystone tenant-list
     Log    ${output}
 
 List Nova
-    ${output}=   Write Commands Until Prompt     nova list
+    ${output}=    Write Commands Until Prompt    nova list
     Log    ${output}
 
 List Nova Images
-    ${output}=   Write Commands Until Prompt     nova image-list
+    ${output}=    Write Commands Until Prompt    nova image-list
     Log    ${output}
 
 List Nova Flavor
-    ${output}=   Write Commands Until Prompt     nova flavor-list
+    ${output}=    Write Commands Until Prompt    nova flavor-list
     Log    ${output}
 
 Create Vm Instances
@@ -80,12 +80,12 @@ Create Vm Instances
 Show Details of Created Vm Instance
     [Documentation]    View Details of the created vm instances using nova show.
     : FOR    ${VmElement}    IN    @{VM_INSTANCES_NAME}
-    \    ${output}=   Write Commands Until Prompt     nova show ${VmElement}
+    \    ${output}=    Write Commands Until Prompt    nova show ${VmElement}
     \    Log    ${output}
 
 Verify Created Vm Instance In Dump Flow
     [Documentation]    Verify the existence of the created vm instance ips in the dump flow.
-    ${output}=   Write Commands Until Prompt     sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
     Log    ${output}
     : FOR    ${VmIpElement}    IN    @{VM_IPS}
     \    Should Contain    ${output}    ${VmIpElement}
@@ -112,7 +112,7 @@ Delete Vm Instances
 Verify Deleted Vm Instance Removed In Dump Flow
     [Documentation]    Verify the non-existence of the vm instance ips in the dump flow.
     : FOR    ${VmIpElement}    IN    @{VM_IPS}
-    \    ${output}=   Write Commands Until Prompt     sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    \    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
     \    Log    ${output}
     \    Should Not Contain    ${output}    ${VmIpElement}
 

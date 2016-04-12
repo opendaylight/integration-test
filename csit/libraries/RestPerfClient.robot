@@ -64,7 +64,6 @@ Invoke_Restperfclient
     ...    Assemble the RestPerfClient invocation commad, setup the specified
     ...    timeout for the SSH connection, invoke the assembled command and
     ...    then check that RestPerfClient finished its run correctly.
-    [Teardown]    BuiltIn.Run_Keyword_If    ${restperfclient_running}    BuiltIn.Run_Keyword_And_Ignore_Error    RestPerfClient__Kill
     ${restperfclient_running}=    Set_Variable    False
     ${logname}=    Utils.Get_Log_File_Name    restperfclient    ${testcase}
     BuiltIn.Set_Suite_Variable    ${RestPerfClient__restperfclientlog}    ${logname}
@@ -85,6 +84,7 @@ Invoke_Restperfclient
     SetupUtils.Set_Unknown_Bug_Id
     ${result}=    Grep_Restperfclient_Log    FINISHED. Execution time:
     BuiltIn.Should_Not_Be_Equal    '${result}'    ''
+    [Teardown]    BuiltIn.Run_Keyword_If    ${restperfclient_running}    BuiltIn.Run_Keyword_And_Ignore_Error    RestPerfClient__Kill
 
 Grep_Restperfclient_Log
     [Arguments]    ${pattern}

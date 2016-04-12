@@ -42,7 +42,7 @@ ${DEFAULT_RIB_CHECK_TIMEOUT}    10s
 ${BGP_PEER_LOG_LEVEL}    debug
 ${CONTROLLER_LOG_LEVEL}    INFO
 ${CONTROLLER_BGP_LOG_LEVEL}    DEFAULT
-${JSONKEYSTR}    "linkstate-route"
+${JSONKEYSTR}     "linkstate-route"
 
 *** Test Cases ***
 TC1_Configure_iBGP_Peer
