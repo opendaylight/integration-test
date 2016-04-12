@@ -49,6 +49,8 @@ ClusterManagement_Setup
     ${status}    ${possibly_int_of_members} =    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Convert_To_Integer    ${NUM_ODL_SYSTEM}
     ${int_of_members} =    BuiltIn.Set_Variable_If    '${status}' != 'PASS'    ${1}    ${possibly_int_of_members}
     ClusterManagement__Compute_Derived_Variables    int_of_members=${int_of_members}
+    ${dict}=    BuiltIn.Create_Dictionary
+    BuiltIn.Set_Suite_Variable    ${ClusterManagement__Active_Sessions}    ${dict}
 
 Kill_Members_From_List_Or_All
     [Arguments]    ${member_index_list}=${EMPTY}    ${confirm}=True
@@ -60,6 +62,8 @@ Kill_Members_From_List_Or_All
     # TODO: Convert to WUKS with configurable timeout if it turns out 1 second is not enough.
     BuiltIn.Sleep    1s    Kill -9 closes open files, which may take longer than ssh overhead, but not long enough to warrant WUKS.
     ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    : FOR    ${index}    IN    @{index_list}
+    \    Collections.Remove_From_Dictionary    ${ClusterManagement__Active_Sessions}    ${index}
     : FOR    ${index}    IN    @{index_list}
     \    Verify_Karaf_Is_Not_Running_On_Member    member_index=${index}
 
@@ -104,6 +108,11 @@ Resolve_Http_Session_For_Member
     [Arguments]    ${member_index}
     [Documentation]    Return RequestsLibrary session alias pointing to node of given index.
     ${session} =    BuiltIn.Set_Variable    ClusterManagement__session_${member_index}
+    ${present}=    BuiltIn.Run_Keyword_And_Return_Status    Collections.Get_From_Dictionary    ${ClusterManagement__Active_Sessions}    ${member_index}
+    BuiltIn.Return_From_Keyword_If    ${present}    ${session}
+    ${member_ip}=    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${member_index}
+    RequestsLibrary.Create_Session    ${session}    http://${member_ip}:${RESTCONFPORT}    auth=${AUTH}
+    Collections.Set_To_Dictionary    ${ClusterManagement__Active_Sessions}    ${member_index}    True
     [Return]    ${session}
 
 Get_State_Info_For_Shard
@@ -224,20 +233,15 @@ ClusterManagement__Compute_Derived_Variables
     @{session_list} =    BuiltIn.Create_List
     &{index_to_ip_mapping} =    BuiltIn.Create_Dictionary
     : FOR    ${index}    IN RANGE    1    ${int_of_members+1}
-    \    ClusterManagement__Include_Member_Index    ${index}    ${member_index_list}    ${session_list}    ${index_to_ip_mapping}
+    \    ClusterManagement__Include_Member_Index    ${index}    ${member_index_list}    ${index_to_ip_mapping}
     BuiltIn.Set_Suite_Variable    \${ClusterManagement__member_index_list}    ${member_index_list}
     BuiltIn.Set_Suite_Variable    \${ClusterManagement__index_to_ip_mapping}    ${index_to_ip_mapping}
-    BuiltIn.Set_Suite_Variable    \${ClusterManagement__session_list}    ${session_list}
 
 ClusterManagement__Include_Member_Index
-    [Arguments]    ${index}    ${member_index_list}    ${session_list}    ${index_to_ip_mapping}
+    [Arguments]    ${index}    ${member_index_list}    ${index_to_ip_mapping}
     [Documentation]    Add a corresponding item based on index into the last three arguments.
     ...    Create the Http session whose alias is added to list.
     Collections.Append_To_List    ${member_index_list}    ${index}
     ${member_ip} =    BuiltIn.Set_Variable    ${ODL_SYSTEM_${index}_IP}
     # ${index} is int (not string) so "key=value" syntax does not work in the following line.
     Collections.Set_To_Dictionary    ${index_to_ip_mapping}    ${index}    ${member_ip}
-    # Http session, with ${AUTH}, without headers.
-    ${session_alias} =    Resolve_Http_Session_For_Member    member_index=${index}
-    RequestsLibrary.Create_Session    ${session_alias}    http://${member_ip}:${RESTCONFPORT}    auth=${AUTH}
-    Collections.Append_To_List    ${session_list}    ${session_alias}
