@@ -22,6 +22,75 @@
       "revId": "26a8b473b57d005b07885f3d5889c59eb20138c2",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_50ddfa13",
+        "filename": "csit/suites/system/port_assignments.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-12T14:21:56Z",
+      "side": 1,
+      "message": "Alright, this should be enough to detect port conflicts, if it stays sorted by the port value.",
+      "range": {
+        "startLine": 2,
+        "startChar": 2,
+        "endLine": 2,
+        "endChar": 15
+      },
+      "revId": "26a8b473b57d005b07885f3d5889c59eb20138c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_30e2eed5",
+        "filename": "csit/suites/system/port_assignments.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-12T14:21:56Z",
+      "side": 1,
+      "message": "Put \"tcp\" somewhere.",
+      "range": {
+        "startLine": 17,
+        "startChar": 2,
+        "endLine": 17,
+        "endChar": 7
+      },
+      "revId": "26a8b473b57d005b07885f3d5889c59eb20138c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_f0eec6b3",
+        "filename": "csit/suites/system/port_assignments.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-12T14:21:56Z",
+      "side": 1,
+      "message": "Interesting, it seems 8080 offers the same restconf stuff as 8181, I am not sure whether it is a feature or a bug.",
+      "range": {
+        "startLine": 27,
+        "startChar": 65,
+        "endLine": 27,
+        "endChar": 78
+      },
+      "revId": "26a8b473b57d005b07885f3d5889c59eb20138c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
