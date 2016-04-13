@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_782618bc",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-13T15:47:43Z",
+      "side": 1,
+      "message": "Nice, Trello card updated:\nhttps://trello.com/c/gR9WGkem/272-contribute-to-requestslibrary",
+      "range": {
+        "startLine": 242,
+        "startChar": 113,
+        "endLine": 242,
+        "endChar": 126
+      },
+      "revId": "63424f44150ee682d6f35b95cbedb2de8910db3a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
