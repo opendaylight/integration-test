@@ -145,7 +145,7 @@ Start Multiple Controllers
     [Arguments]    ${timeout}    @{controller_index_list}
     [Documentation]    Give this keyword a scalar or list of controllers to be started.
     : FOR    ${i}    IN    @{controller_index_list}
-    \    ${output}=    Utils.Run Command On Controller    ${ODL_SYSTEM_${i}_IP}    ${WORKSPACE}/${BUNDLEFOLDER}/bin/start
+    \    ${output}=    Utils.Run Command On Controller    ${ODL_SYSTEM_${i}_IP}    export JAVA_HOME="${JAVA_HOME}" ; ${WORKSPACE}/${BUNDLEFOLDER}/bin/start
     : FOR    ${i}    IN    @{controller_index_list}
     \    ClusterKeywords.Wait For Controller Sync    ${timeout}    ${ODL_SYSTEM_${i}_IP}
 
@@ -224,7 +224,7 @@ Controller Down Check
 Start One Or More Controllers
     [Arguments]    @{controllers}
     [Documentation]    Give this keyword a scalar or list of controllers to be started.
-    ${cmd} =    Set Variable    ${KARAF_HOME}/bin/start
+    ${cmd} =    Set Variable    export JAVA_HOME="${JAVA_HOME}" ; ${KARAF_HOME}/bin/start
     : FOR    ${ip}    IN    @{controllers}
     \    Run Command On Remote System    ${ip}    ${cmd}
 
