@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_da3e4429",
+        "filename": "csit/suites/controller/Clustering_Datastore/buycar_failover.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-13T10:50:46Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 56,
+        "startChar": 41,
+        "endLine": 56,
+        "endChar": 59
+      },
+      "revId": "a8db0b21f4a6d57651f0a2d870de4fc48d78cbd6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_fa4500b4",
+        "filename": "csit/suites/controller/Clustering_Datastore/car_failover_crud.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-13T10:50:46Z",
+      "side": 1,
+      "message": "Start_Single_Member",
+      "range": {
+        "startLine": 94,
+        "startChar": 22,
+        "endLine": 94,
+        "endChar": 52
+      },
+      "revId": "a8db0b21f4a6d57651f0a2d870de4fc48d78cbd6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
