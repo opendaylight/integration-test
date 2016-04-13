@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a494da4_bd08922e",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-13T15:45:01Z",
+      "side": 1,
+      "message": "Perhaps you should add that some Keywords accept single index which may be string (current index lists assume integers).",
+      "range": {
+        "startLine": 13,
+        "startChar": 37,
+        "endLine": 13,
+        "endChar": 54
+      },
+      "revId": "a8db0b21f4a6d57651f0a2d870de4fc48d78cbd6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_da3e4429",
         "filename": "csit/suites/controller/Clustering_Datastore/buycar_failover.robot",
         "patchSetId": 3
