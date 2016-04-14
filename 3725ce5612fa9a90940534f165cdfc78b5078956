@@ -1,0 +1,613 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_6dbf77d1",
+        "filename": "csit/scriptplans/integration-basic.txt",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "what\u0027s the idea with this?  This is going to restart\novs before the system tests are run?\n\nWe have robot keywords already to do things like this\nwhich you can call as part of suite setup, etc.  Doing\nit here doesn\u0027t seem to give any value since ovs will be\ncoming up fresh on these systems as they are always freshly\nbooted for each job that runs.",
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_cdb4cbf4",
+        "filename": "csit/suites/integration/scripts/restart_ovs.sh",
+        "patchSetId": 27
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "as I said in the other file, we have robot keywords to totally restart ovs clean.  we don\u0027t need to reboot.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 11
+      },
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_adb97feb",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "use better names for these variables please.  It will not\nbe easy to understand the difference between REST_CON1, REST_CON2, etc when they are used below",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 12
+      },
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_0dceb383",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "you probably just want \"Log\", not \"Log To Console\"",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 29
+      },
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_edca676d",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "should be moved to just below [Documentation]\n\nactually, if you run robot tidy [0] on these robot files, you\u0027ll notice some automatic cleanup, I think.\n\n[0] http://robotframework.org/robotframework/latest/RobotFrameworkUserGuide.html#test-data-clean-up-tool-tidy",
+      "range": {
+        "startLine": 50,
+        "startChar": 3,
+        "endLine": 50,
+        "endChar": 17
+      },
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_4dc8bb74",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "why are you doing this?  I don\u0027t see ${result} being used.  same quesion on line 49 with ${exp_result}",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 40
+      },
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_2dc56f5b",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "where\u0027s the \"verification\" step in this test case?",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 20
+      },
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_8da123ac",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "probably just \"Log\", and also put your logging above the \nchecks (e.g. \"Should Contain\") because if the check fails\nthe logging step would not execute.  And the failure case is\nmost likely when you want to see the logs.",
+      "range": {
+        "startLine": 140,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 54
+      },
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_6da657c3",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "since it\u0027s a work in progress, comments are ok, but before merging we will ask to remove debugging code like this.",
+      "range": {
+        "startLine": 148,
+        "startChar": 4,
+        "endLine": 148,
+        "endChar": 110
+      },
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_cdab2b88",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "this is only going to log the response of the last \ncall.  you could loop over each neutron port 1-4 and log\nafter each delete.",
+      "range": {
+        "startLine": 210,
+        "startChar": 0,
+        "endLine": 210,
+        "endChar": 28
+      },
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_adb05ff5",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 211,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "you can use \"Should Be Equal As Numbers\" and you would no\nlonger need line 203",
+      "range": {
+        "startLine": 211,
+        "startChar": 4,
+        "endLine": 211,
+        "endChar": 46
+      },
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_ed91c753",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 268,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "I\u0027m sure we have keywords in Utils.robot that will do this (and more) for you.",
+      "range": {
+        "startLine": 268,
+        "startChar": 0,
+        "endLine": 268,
+        "endChar": 27
+      },
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_0d951340",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "no sleeps!",
+      "range": {
+        "startLine": 273,
+        "startChar": 0,
+        "endLine": 273,
+        "endChar": 15
+      },
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_4d76fb3f",
+        "filename": "csit/suites/vpnservice/040_Configure_ITM.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "what does ITM stand for?",
+      "range": {
+        "startLine": 2,
+        "startChar": 33,
+        "endLine": 2,
+        "endChar": 36
+      },
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_ed78a72d",
+        "filename": "csit/suites/vpnservice/040_Configure_ITM.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "this exists already in Variables.py",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 34
+      },
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_0d7cf31f",
+        "filename": "csit/suites/vpnservice/040_Configure_ITM.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "what is all this?",
+      "range": {
+        "startLine": 16,
+        "startChar": 25,
+        "endLine": 16,
+        "endChar": 127
+      },
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_8d880324",
+        "filename": "csit/suites/vpnservice/040_Configure_ITM.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "missing docs",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 31
+      },
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_8d8f6323",
+        "filename": "csit/suites/vpnservice/040_Configure_ITM.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "we no longer use MININET.  Instead we have TOOLS_SYSTEM_1_IP, TOOLS_SYSTEM_2_IP, etc.\n\nalso, if there is any ${CONTROLLER} variables, please change those to ${ODL_SYSTEM_1_IP}",
+      "range": {
+        "startLine": 34,
+        "startChar": 42,
+        "endLine": 34,
+        "endChar": 49
+      },
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_2d73af4e",
+        "filename": "csit/suites/vpnservice/040_Configure_ITM.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "new version of RequestsLibrary adds \"Request\" to the keyword, so need to change all of these.  Specific to this\nline, it needs to be \"RequestsLibrary.Post Request\".  applies\nto all others (e.g. GET, PUT, etc)",
+      "range": {
+        "startLine": 44,
+        "startChar": 15,
+        "endLine": 44,
+        "endChar": 35
+      },
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_cd996b70",
+        "filename": "csit/suites/vpnservice/040_Configure_ITM.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "this is hard to read.  could you move the work to a local\nkeyword like \"Split Response By Tag\" (as that\u0027s what I\nthink you are doing).  so these four lines (which you repeat\nelsewhere) would just be:\n\n@{resp_array}\u003d    Split Response By Tag    ${resp}",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 150,
+        "endChar": 52
+      },
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_ad9e9f54",
+        "filename": "csit/suites/vpnservice/040_Configure_ITM.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "why are you doing this again?  you already did it in line 150",
+      "range": {
+        "startLine": 154,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 52
+      },
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_6dbbf7c4",
+        "filename": "csit/suites/vpnservice/040_Configure_ITM.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 393,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "this [0] seems more readable to me as a way to make substitutions in files.\n\n[0] https://github.com/opendaylight/integration-test/blob/master/csit/suites/ovsdb/Netvirt_Cluster/010_Ovsdb_Netvirt_flow.robot#L65-L66",
+      "range": {
+        "startLine": 393,
+        "startChar": 4,
+        "endLine": 393,
+        "endChar": 98
+      },
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_cdb04be0",
+        "filename": "csit/suites/vpnservice/__init__.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "I don\u0027t think you have to do that Catenate step.\n\nAlso, why not use our Utils.robot keywords to send commands\nto the TOOLS_SYSTEM",
+      "range": {
+        "startLine": 23,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 32
+      },
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_adb5ffce",
+        "filename": "csit/suites/vpnservice/__init__.robot",
+        "patchSetId": 27
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "you will need to use the full path to the \"ip\" util.  /sbin/ip should work.",
+      "range": {
+        "startLine": 32,
+        "startChar": 4,
+        "endLine": 32,
+        "endChar": 85
+      },
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_0dca334f",
+        "filename": "csit/variables/vpnservice/Itm_creation_no_vlan.json",
+        "patchSetId": 27
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "example of a tab to remove",
+      "range": {
+        "startLine": 20,
+        "startChar": 1,
+        "endLine": 20,
+        "endChar": 2
+      },
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_edc6e748",
+        "filename": "csit/variables/vpnservice/neutron_service.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "I suggest you move this to a .robot variable file.\nI know we have Variables.py, but we are in the process of\nconverting that too.  There can be issues with variable\nprecedence/overriding when using the python method.\n\nnot a big deal, for example just change:\n\nNEUTRON_NETWORK1 \u003d \"mynetwork1\"\n\nto:\n\n${NEUTRON_NETWORK1}    mynetwork1\n\nand rename the file to have .robot extension.",
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_4dc43b40",
+        "filename": "csit/variables/vpnservice/neutron_service.py",
+        "patchSetId": 27
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-14T23:34:31Z",
+      "side": 1,
+      "message": "this looks similar to steps I saw in the robot file.  wondering if it\u0027s duplication or not?",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 21
+      },
+      "revId": "3725ce5612fa9a90940534f165cdfc78b5078956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
