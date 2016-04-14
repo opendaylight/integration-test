@@ -256,6 +256,7 @@ Create VLANMAP in VBRIDGE
 
 Start vlan_topo
     [Documentation]    This will start mininet with custom topology on both the Virtual Machines
+    Install Package in Mininet     vlan
     Start Mininet    ${TOOLS_SYSTEM_IP}    ${vlan_topo}    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
 
 Delete a FLOWLIST
