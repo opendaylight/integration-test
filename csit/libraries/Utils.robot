@@ -488,3 +488,13 @@ Write Commands Until Expected Prompt
     SSHLibrary.Write    ${cmd}
     ${output}=    SSHLibrary.Read Until    ${prompt}
     [Return]    ${output}
+
+Install Package On Ubuntu System
+    [Arguments]    ${package_name}    ${system}=${TOOLS_SYSTEM_IP}     ${user}=${TOOLS_SYSTEM_USER}    ${password}=${TOOLS_SYSTEM_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}
+    ...    ${prompt_timeout}=30s
+    [Documentation]    Keyword to install packages for testing to Ubuntu Mininet VM
+    Log    Keyword to install package to Mininet Ubuntu VM
+    Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
+    Flexible Mininet Login    user=${user}    password=${password}
+    Write    sudo apt-get install -y ${package_name}
+    Read Until     ${prompt}
