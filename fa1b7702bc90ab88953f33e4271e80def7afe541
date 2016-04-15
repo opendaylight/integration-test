@@ -1,0 +1,314 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_8d4ac381",
+        "filename": "csit/libraries/Scalability.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-15T03:12:30Z",
+      "side": 1,
+      "message": "so the below two keywords are identical, right?  except\nfor the features they install?\n\nI wonder if it\u0027s worth it to pass the feature to install\nas an argument and just have one keyword that says\n\"Find Max Ovsdb Switches\"",
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_6d4f7793",
+        "filename": "csit/libraries/Scalability.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-15T03:12:30Z",
+      "side": 1,
+      "message": "I don\u0027t understand this line very well?",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 94
+      },
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_ad497f8d",
+        "filename": "csit/libraries/Scalability.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-15T03:12:30Z",
+      "side": 1,
+      "message": "needs two more spaces (robot.tidy might be worth running on\nthis patch)",
+      "range": {
+        "startLine": 237,
+        "startChar": 26,
+        "endLine": 237,
+        "endChar": 28
+      },
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_0d5eb345",
+        "filename": "csit/libraries/Scalability.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-15T03:12:30Z",
+      "side": 1,
+      "message": "how come we only set s1\u0027s manager?  what about all the switches?\n\nalso wondering if this would cause any trouble with existing\nsuites that use this keyword.  I don\u0027t know, just thinking \nout loud.",
+      "range": {
+        "startLine": 248,
+        "startChar": 17,
+        "endLine": 248,
+        "endChar": 19
+      },
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_4d58bb56",
+        "filename": "csit/libraries/Scalability.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-15T03:12:30Z",
+      "side": 1,
+      "message": "what\u0027s this magic?",
+      "range": {
+        "startLine": 284,
+        "startChar": 36,
+        "endLine": 284,
+        "endChar": 37
+      },
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_2d556f1d",
+        "filename": "csit/libraries/Scalability.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-15T03:12:30Z",
+      "side": 1,
+      "message": "any reason not to do:\n\nLog    ${resp.content}\n\nmight help when debugging failures.  applies below too.",
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_8d31230e",
+        "filename": "csit/libraries/Scalability.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 365,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-15T03:12:30Z",
+      "side": 1,
+      "message": "you used it here too.  seems like a misnomer.",
+      "range": {
+        "startLine": 365,
+        "startChar": 18,
+        "endLine": 365,
+        "endChar": 23
+      },
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_2d90cfeb",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-15T03:12:30Z",
+      "side": 1,
+      "message": "is this a typo?",
+      "range": {
+        "startLine": 64,
+        "startChar": 14,
+        "endLine": 64,
+        "endChar": 19
+      },
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_adbb3f71",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-15T03:12:30Z",
+      "side": 1,
+      "message": "it would probably read cleaner (can even be in the calling\nsuite actually) to do this:\n\n: FOR    ${tools_system}    IN    @{list_of_tools_systems}\n\\    Utils.Clean Mininet System    ${tools_system}\n\\    OVSDB.Clean OVSDB Test Environment    ${tools_system}\n\nThat would give you everything here, and more.",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 24
+      },
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_2d7e0faf",
+        "filename": "csit/suites/ovsdb/Max_Switches/010__finding_max_switches.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-15T03:12:30Z",
+      "side": 1,
+      "message": "technically, this is not needed in this file.",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 33
+      },
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_0db0738a",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-15T03:12:30Z",
+      "side": 1,
+      "message": "thanks!",
+      "range": {
+        "startLine": 113,
+        "startChar": 0,
+        "endLine": 113,
+        "endChar": 23
+      },
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_cd44cb76",
+        "filename": "tools/odl-ovsdb-scale-tests/run-robot-test.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-15T03:12:30Z",
+      "side": 1,
+      "message": "is this relevant?  I don\u0027t remember seeing anything dockerish in this patch.",
+      "range": {
+        "startLine": 3,
+        "startChar": 1,
+        "endLine": 3,
+        "endChar": 45
+      },
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_6d6817f6",
+        "filename": "tools/odl-ovsdb-scale-tests/run-robot-test.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-15T03:12:30Z",
+      "side": 1,
+      "message": "I don\u0027t know this guy.",
+      "range": {
+        "startLine": 15,
+        "startChar": 23,
+        "endLine": 15,
+        "endChar": 32
+      },
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_cd6deb06",
+        "filename": "tools/odl-ovsdb-scale-tests/run-robot-test.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-15T03:12:30Z",
+      "side": 1,
+      "message": "curious about what this is doing?",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 100
+      },
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
