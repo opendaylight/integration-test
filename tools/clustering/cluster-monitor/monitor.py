@@ -5,7 +5,7 @@ Author: Phillip Shea
 Updated: 2016-Mar-07
 
 This tool provides real-time visualization of the cluster member roles for all
-shards in the config datastore.
+shards in either the config or operational datastore.
 
 A file named 'cluster.json' contaning a list of the IP addresses and port numbers
 of the controllers is required. This resides in the same directory as monitor.py.
@@ -25,7 +25,7 @@ needed for other apps in this folder. The file should look like this:
         }
     }
 
-Usage:python monitor.py
+Usage:python monitor.py [-d data_store_name]
 """
 from io import BytesIO
 import time
@@ -35,7 +35,7 @@ import sys
 import json
 import pycurl
 import string
-
+import argparse
 
 def rest_get(restURL, username, password):
     rest_buffer = BytesIO()
@@ -60,7 +60,7 @@ def getClusterRolesWithCurl(shardName, *args):
         controller_state[controller["ip"]] = None
         url = "http://" + controller["ip"] + ":" + controller["port"] + "/jolokia/read/org.opendaylight.controller:"
         url += 'Category=Shards,name=' + names[i]
-        url += '-shard-' + shardName + '-config,type=DistributedConfigDatastore'
+        url += '-shard-' + shardName + '-' + data_store.lower() + ',type=Distributed' + data_store + 'Datastore'
         try:
             resp = rest_get(url, username, password)
             if resp['status'] != 200:
@@ -93,6 +93,14 @@ def size_and_color(cluster_roles, field_length, ip_addr):
         status_dict['color'] = curses.color_pair(0)
     return status_dict
 
+parser = argparse.ArgumentParser()
+parser.add_argument('-d', '--datastore', default='Config', type=str,
+                    help='polling can be done on "Config" or "Operational" data stores')
+args = parser.parse_args()
+data_store = args.datastore
+if data_store != 'Config' and data_store != 'Operational':
+    print 'Only "Config" or "Operational" data store is available for polling'
+    exit(1)
 
 try:
     with open('cluster.json') as cluster_file:
@@ -116,7 +124,7 @@ Shards = set()
 # Retrieve controller names and shard names.
 for controller in controllers:
     url = "http://" + controller["ip"] + ":" + controller["port"] + "/jolokia/read/org.opendaylight.controller:"
-    url += "Category=ShardManager,name=shard-manager-config,type=DistributedConfigDatastore"
+    url += "Category=ShardManager,name=shard-manager-" + data_store.lower() + ",type=Distributed" + data_store + "Datastore"
     rest_get(url, username, password)
     try:
         data = rest_get(url, username, password)
@@ -137,7 +145,7 @@ for controller in controllers:
 
     # collect shards found in any controller; does not require all controllers to have the same shards
     for localShard in data['value']['LocalShards']:
-        shardName = localShard[(localShard.find("-shard-") + 7):localShard.find("-config")]
+        shardName = localShard[(localShard.find("-shard-") + 7):localShard.find("-" + data_store.lower())]
         if shardName not in shards_to_exclude:
             Shards.add(shardName)
 print controller_names
