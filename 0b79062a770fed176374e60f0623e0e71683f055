@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_9063f819",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 4062
+      },
+      "writtenOn": "2016-04-15T09:36:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a494da4_7052ac14",
+      "revId": "0b79062a770fed176374e60f0623e0e71683f055",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_d0574001",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 5
@@ -30,6 +48,30 @@
       "writtenOn": "2016-04-15T04:51:59Z",
       "side": 1,
       "message": "I think a more clear name would be \"Pint Vm From DHCP Namespace\"",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 17
+      },
+      "revId": "0b79062a770fed176374e60f0623e0e71683f055",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_7068ecf5",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 4062
+      },
+      "writtenOn": "2016-04-15T09:36:58Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a494da4_d0574001",
       "range": {
         "startLine": 107,
         "startChar": 0,
@@ -65,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_105ec845",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 4062
+      },
+      "writtenOn": "2016-04-15T09:36:58Z",
+      "side": 1,
+      "message": "Thanks Jamo for the thoughts.\nI think here, the keywords should be more atomic, say if we combine the \"Ssh Vm Instance\" in this keyword \"Ping From Instance\" then for next test Ping Dhcp Server From Instance In network_1 again log in with ssh and ping.\nto make this work in the keyword \"Ping From Instance\" we should close the connection.\nSo everytime we ssh, ping and close. To avoid this, i feel its better to have the ssh and ping keywords separate as exisitng now.\n\nI aggree to remove the keyword \"Not Ping Vm Instances\". I removed it, and returned output to the test suite to check the corresponding functionality either 64 Bytes or Destination Host Unreachable.",
+      "parentUuid": "1a494da4_b05c3427",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 18
+      },
+      "revId": "0b79062a770fed176374e60f0623e0e71683f055",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_1041a839",
         "filename": "csit/suites/ovsdb/Devstack_Tempest_Tests/02__additional_flows_verification_tests.robot",
         "patchSetId": 5
@@ -88,6 +154,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_f05a3c4f",
+        "filename": "csit/suites/ovsdb/Devstack_Tempest_Tests/02__additional_flows_verification_tests.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 4062
+      },
+      "writtenOn": "2016-04-15T09:36:58Z",
+      "side": 1,
+      "message": "in the current test we are not doing any verification with this keyword.\ni just added it for debug purpose in later since it gives some cpu and memory information.",
+      "parentUuid": "1a494da4_1041a839",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 44
+      },
+      "revId": "0b79062a770fed176374e60f0623e0e71683f055",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_f03d1cbd",
         "filename": "csit/suites/ovsdb/Devstack_Tempest_Tests/02__additional_flows_verification_tests.robot",
         "patchSetId": 5
@@ -99,6 +189,30 @@
       "writtenOn": "2016-04-15T04:51:59Z",
       "side": 1,
       "message": "so, using my comments from the library file, this would\ncollapse to a single testcase, like this:\n\nCheck Vm Reachability\n  [Documentation] ...\n  ${net_id}\u003d    Get Net Id    network_1\n  ${output}\u003d    Ping From Instance    30.0.0.3    30.0.0.4    ${net_id}\n  Should Contain    ${output}    64 bytes",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 33
+      },
+      "revId": "0b79062a770fed176374e60f0623e0e71683f055",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_9031380e",
+        "filename": "csit/suites/ovsdb/Devstack_Tempest_Tests/02__additional_flows_verification_tests.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 4062
+      },
+      "writtenOn": "2016-04-15T09:36:58Z",
+      "side": 1,
+      "message": "modified as per library changes.",
+      "parentUuid": "1a494da4_f03d1cbd",
       "range": {
         "startLine": 87,
         "startChar": 0,
