@@ -107,6 +107,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_2148d85a",
+        "filename": "csit/libraries/Scalability.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 237,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-04-15T20:03:00Z",
+      "side": 1,
+      "message": "True.",
+      "parentUuid": "1a494da4_ad497f8d",
+      "range": {
+        "startLine": 237,
+        "startChar": 26,
+        "endLine": 237,
+        "endChar": 28
+      },
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_0d5eb345",
         "filename": "csit/libraries/Scalability.robot",
         "patchSetId": 1
@@ -118,6 +142,30 @@
       "writtenOn": "2016-04-15T03:12:30Z",
       "side": 1,
       "message": "how come we only set s1\u0027s manager?  what about all the switches?\n\nalso wondering if this would cause any trouble with existing\nsuites that use this keyword.  I don\u0027t know, just thinking \nout loud.",
+      "range": {
+        "startLine": 248,
+        "startChar": 17,
+        "endLine": 248,
+        "endChar": 19
+      },
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_01967c94",
+        "filename": "csit/libraries/Scalability.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-04-15T20:03:00Z",
+      "side": 1,
+      "message": "set-manager deals with OVSDB database for the OVS instance. Setting one mininet switch\u0027s manager (I.E. setting manager for a OVS Bridge) sets OVSDB database manager for whole OVS. Whereas mininet switches are technically an OVS bridge emulating an independent OpenFlow switch, it seems commands that deal with OVSDB act on the whole OVS instance.",
+      "parentUuid": "1a494da4_0d5eb345",
       "range": {
         "startLine": 248,
         "startChar": 17,
@@ -340,6 +388,30 @@
       "writtenOn": "2016-04-15T03:12:30Z",
       "side": 1,
       "message": "technically, this is not needed in this file.",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 33
+      },
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_e13d50bd",
+        "filename": "csit/suites/ovsdb/Max_Switches/010__finding_max_switches.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-04-15T20:03:00Z",
+      "side": 1,
+      "message": "Done we need to use \u0027Create Session\u0027 above?\n\nSession is used in Scalability.robot but is not created there.",
+      "parentUuid": "1a494da4_2d7e0faf",
       "range": {
         "startLine": 6,
         "startChar": 0,
