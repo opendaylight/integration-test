@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite for Ovsdb Southbound Cluster - Owner failover and recover
+Documentation     Test suite for Ovsdb Southbound Cluster - Owner failover and recover the owner(Testing).
 Suite Setup       Create Controller Sessions
 Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
