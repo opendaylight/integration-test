@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_36b65c3e",
+        "filename": "csit/suites/netconf/clusteringscale/performance.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-15T15:40:39Z",
+      "side": 1,
+      "message": "Mention cluster.",
+      "range": {
+        "startLine": 2,
+        "startChar": 48,
+        "endLine": 2,
+        "endChar": 64
+      },
+      "revId": "ad27ad8e4cc0efa3c3f3d9e0e7e3af6cb3192c99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_96d01055",
+        "filename": "csit/suites/netconf/clusteringscale/performance.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-15T15:40:39Z",
+      "side": 1,
+      "message": "It is explicit that line 76 targets member-3, but it is not explicit which nodes are targetted by lines 56 and 71.",
+      "range": {
+        "startLine": 68,
+        "startChar": 11,
+        "endLine": 68,
+        "endChar": 31
+      },
+      "revId": "ad27ad8e4cc0efa3c3f3d9e0e7e3af6cb3192c99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_d6ca98a0",
+        "filename": "csit/suites/netconf/clusteringscale/performance.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-15T15:40:39Z",
+      "side": 1,
+      "message": "Mention either here or in suite Documentation that duration of this test case is the main performance metric.",
+      "range": {
+        "startLine": 74,
+        "startChar": 23,
+        "endLine": 74,
+        "endChar": 41
+      },
+      "revId": "ad27ad8e4cc0efa3c3f3d9e0e7e3af6cb3192c99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_76d58442",
+        "filename": "csit/suites/netconf/clusteringscale/performance.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-15T15:40:39Z",
+      "side": 1,
+      "message": "There will be several suites with checks similar to this, perhaps something like NetconfCars.robot Resource could be created.",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 18
+      },
+      "revId": "ad27ad8e4cc0efa3c3f3d9e0e7e3af6cb3192c99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
