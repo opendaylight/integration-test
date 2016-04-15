@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_76c104e4",
+        "filename": "csit/libraries/Scalability.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-04-15T19:41:27Z",
+      "side": 1,
+      "message": "True, installed feature is different, but \u0027Find Max Ovsdb Netvirt Switches\u0027 has addition of \u0027Check Netvirt Br\u0027. However, I take your point, 98% the same. I\u0027m considering ways to refactor...",
+      "parentUuid": "1a494da4_8d4ac381",
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_6d4f7793",
         "filename": "csit/libraries/Scalability.robot",
         "patchSetId": 1
@@ -30,6 +48,30 @@
       "writtenOn": "2016-04-15T03:12:30Z",
       "side": 1,
       "message": "I don\u0027t understand this line very well?",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 53,
+        "endChar": 94
+      },
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_f6acf437",
+        "filename": "csit/libraries/Scalability.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-04-15T19:41:27Z",
+      "side": 1,
+      "message": "I should have added a note, as I don\u0027t understand it now as well as when I wrote it. :p\n\nIf I remember correctly this is an IF that sets step_counter to 25 at the start of the FOR loop and adds 20 for each subsequent loop. I believe I did this to allow for a timeout based on the number of loops (see next line use of step_counter). I remember running into an issue where timeout based on switches was not precise enough, either way too long or too short and test would fail.",
+      "parentUuid": "1a494da4_6d4f7793",
       "range": {
         "startLine": 53,
         "startChar": 0,
@@ -111,6 +153,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_01131c5d",
+        "filename": "csit/libraries/Scalability.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-04-15T19:41:27Z",
+      "side": 1,
+      "message": "Hmm, I don\u0027t remember :p",
+      "parentUuid": "1a494da4_4d58bb56",
+      "range": {
+        "startLine": 284,
+        "startChar": 36,
+        "endLine": 284,
+        "endChar": 37
+      },
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_2d556f1d",
         "filename": "csit/libraries/Scalability.robot",
         "patchSetId": 1
@@ -122,6 +188,24 @@
       "writtenOn": "2016-04-15T03:12:30Z",
       "side": 1,
       "message": "any reason not to do:\n\nLog    ${resp.content}\n\nmight help when debugging failures.  applies below too.",
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_764f4493",
+        "filename": "csit/libraries/Scalability.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 339,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-04-15T19:41:27Z",
+      "side": 1,
+      "message": "This could be helpful. When this fails it prints out truncated response that doesn\u0027t contain the item. So it could be redundant but on the other hand might be helpful.",
+      "parentUuid": "1a494da4_2d556f1d",
       "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -174,6 +258,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_211a986e",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-04-15T19:41:27Z",
+      "side": 1,
+      "message": "This should probably read something like \u0027Stop Multiple Mininet\u0027 but I\u0027m inclined to take your advice below and remove this and instead add to calling suite.",
+      "parentUuid": "1a494da4_2d90cfeb",
+      "range": {
+        "startLine": 64,
+        "startChar": 14,
+        "endLine": 64,
+        "endChar": 19
+      },
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_adbb3f71",
         "filename": "csit/libraries/Utils.robot",
         "patchSetId": 1
@@ -185,6 +293,30 @@
       "writtenOn": "2016-04-15T03:12:30Z",
       "side": 1,
       "message": "it would probably read cleaner (can even be in the calling\nsuite actually) to do this:\n\n: FOR    ${tools_system}    IN    @{list_of_tools_systems}\n\\    Utils.Clean Mininet System    ${tools_system}\n\\    OVSDB.Clean OVSDB Test Environment    ${tools_system}\n\nThat would give you everything here, and more.",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 24
+      },
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_411d2466",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-04-15T19:41:27Z",
+      "side": 1,
+      "message": "Sounds like a good idea to me.",
+      "parentUuid": "1a494da4_adbb3f71",
       "range": {
         "startLine": 65,
         "startChar": 0,
@@ -266,6 +398,30 @@
     },
     {
       "key": {
+        "uuid": "1a494da4_81260cb9",
+        "filename": "tools/odl-ovsdb-scale-tests/run-robot-test.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-04-15T19:41:27Z",
+      "side": 1,
+      "message": "This is remnant of this test\u0027s origins as docker based. \n\nWhile I plan to push a patch with that functionality, I can probably remove this from here for now and add again later.",
+      "parentUuid": "1a494da4_cd44cb76",
+      "range": {
+        "startLine": 3,
+        "startChar": 1,
+        "endLine": 3,
+        "endChar": 45
+      },
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a494da4_6d6817f6",
         "filename": "tools/odl-ovsdb-scale-tests/run-robot-test.sh",
         "patchSetId": 1
@@ -277,6 +433,30 @@
       "writtenOn": "2016-04-15T03:12:30Z",
       "side": 1,
       "message": "I don\u0027t know this guy.",
+      "range": {
+        "startLine": 15,
+        "startChar": 23,
+        "endLine": 15,
+        "endChar": 32
+      },
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_612b0083",
+        "filename": "tools/odl-ovsdb-scale-tests/run-robot-test.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-04-15T19:41:27Z",
+      "side": 1,
+      "message": "I think the equivalent would be \u0027jenkins\u0027 user in CI. This would be local user outside of CI, but point taken, this should be ${TOOLS_SYSTEM_USER}.",
+      "parentUuid": "1a494da4_6d6817f6",
       "range": {
         "startLine": 15,
         "startChar": 23,
@@ -305,6 +485,76 @@
         "startChar": 0,
         "endLine": 26,
         "endChar": 100
+      },
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_c120149e",
+        "filename": "tools/odl-ovsdb-scale-tests/run-robot-test.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-04-15T19:41:27Z",
+      "side": 1,
+      "message": "This is saving the last 1M of karaf.log on controller to local karaf.log file and the next few lines save the entirety of karaf log to compressed form locally.\n\nUseful for debug. Stolen from CI run robot tests shell script.",
+      "parentUuid": "1a494da4_cd6deb06",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 100
+      },
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_013afccc",
+        "filename": "tools/odl-ovsdb-scale-tests/setup-robot-env-vars.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-04-15T19:41:27Z",
+      "side": 1,
+      "message": "Should probably be called TOOLS_SYSTEM_USER and set to $USER",
+      "range": {
+        "startLine": 25,
+        "startChar": 7,
+        "endLine": 25,
+        "endChar": 16
+      },
+      "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_a12508ad",
+        "filename": "tools/odl-ovsdb-scale-tests/setup-robot-env-vars.sh",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-04-15T19:41:27Z",
+      "side": 1,
+      "message": "Looks like this doesn\u0027t need to be here.",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 26,
+        "endChar": 27
       },
       "revId": "fa1b7702bc90ab88953f33e4271e80def7afe541",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
