@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a494da4_7052ac14",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-15T04:51:59Z",
+      "side": 1,
+      "message": "probably want to add \"Log    ${output}\" below this line too.",
+      "revId": "0b79062a770fed176374e60f0623e0e71683f055",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_d0574001",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-15T04:51:59Z",
+      "side": 1,
+      "message": "I think a more clear name would be \"Pint Vm From DHCP Namespace\"",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 17
+      },
+      "revId": "0b79062a770fed176374e60f0623e0e71683f055",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_b05c3427",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-15T04:51:59Z",
+      "side": 1,
+      "message": "I think this keyword makes more sense if it\u0027s also doing\nthe \"Ssh Vm Instance\" too.\n\nSo, in my suite, I want to say this:\n\nPing From Instance    ${source_vm}    ${dest_vm}    ${netns}\n\nthen this keyword would first call:\n\n    Ssh Vm Instance    ${netns}    ${source_vm}\n\nthen the rest of this keyword is the same.\n\n\n\nhmmm....  also thinking more now that I see the keyword\nbelow \"Not Ping Vm Instances\".  That keyword\u0027s name is\nclumsy to me.\n\nWhat do you think about this?\n\nOne keyword that does what I described above (the ssh, then the ping command), but this one keyword will return the ${output} to the caller.  The caller can then determine\nwhat it wants (\"64 bytes\" or \"Destination Host Unreachable\")",
+      "range": {
+        "startLine": 116,
+        "startChar": 0,
+        "endLine": 116,
+        "endChar": 18
+      },
+      "revId": "0b79062a770fed176374e60f0623e0e71683f055",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_1041a839",
+        "filename": "csit/suites/ovsdb/Devstack_Tempest_Tests/02__additional_flows_verification_tests.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-15T04:51:59Z",
+      "side": 1,
+      "message": "is there anything we want to actually check here?  So far\nthis test case is not doing any verifications.",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 44
+      },
+      "revId": "0b79062a770fed176374e60f0623e0e71683f055",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a494da4_f03d1cbd",
+        "filename": "csit/suites/ovsdb/Devstack_Tempest_Tests/02__additional_flows_verification_tests.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-15T04:51:59Z",
+      "side": 1,
+      "message": "so, using my comments from the library file, this would\ncollapse to a single testcase, like this:\n\nCheck Vm Reachability\n  [Documentation] ...\n  ${net_id}\u003d    Get Net Id    network_1\n  ${output}\u003d    Ping From Instance    30.0.0.3    30.0.0.4    ${net_id}\n  Should Contain    ${output}    64 bytes",
+      "range": {
+        "startLine": 87,
+        "startChar": 0,
+        "endLine": 94,
+        "endChar": 33
+      },
+      "revId": "0b79062a770fed176374e60f0623e0e71683f055",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
