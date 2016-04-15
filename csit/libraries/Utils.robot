@@ -61,6 +61,22 @@ Stop Suite
     Read Until    ${prompt}
     Close Connection
 
+Stop Multiple Suite
+    [Arguments]    ${mininet_conn_list}     ${prompt}=${DEFAULT_LINUX_PROMPT}
+    [Documentation]    Cleanup/Shutdown work that should be done at the completion of all
+    ...    tests for multiple mininet hosts
+    Log    Stopping Multiple Mininet
+    : FOR   ${mininet_conn_id}  IN    @{mininet_conn_list}
+    \   Switch Connection    ${mininet_conn_id}
+    \   Read
+    \   Write    exit
+    \   Read Until    ${prompt}
+    \   Write    sudo mn -c
+    \   Read Until    ${prompt}
+    \   Write    sudo ovs-vsctl del-manager
+    \   Read Until    ${prompt}
+    \   Close Connection
+
 Report_Failure_Due_To_Bug
     [Arguments]    ${number}
     [Documentation]    Report that a test failed due to a known Bugzilla bug whose
