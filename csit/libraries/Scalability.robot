@@ -1,5 +1,6 @@
 *** Settings ***
 Library           SSHLibrary
+Resource          KarafKeywords.robot
 Resource          Utils.robot
 Library           String
 Library           Collections
@@ -35,6 +36,40 @@ Find Max Switches
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
     \    ...    Check No Topology    ${switches}
     \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${max-switches}    Convert To String    ${switches}
+    [Return]    ${max-switches}
+
+Find Max Ovsdb Switches
+    [Arguments]    ${start}    ${stop}    ${step}    ${feature}=odl-ovsdb-southbound-impl-rest
+    [Documentation]    Find max ovsdb netvirt switches from ${start} until ${stop} stepping by ${step}
+    ${max-switches}    Set Variable    ${0}
+    ${start}    Convert to Integer    ${start}
+    ${stop}    Convert to Integer    ${stop}
+    ${step}    Convert to Integer    ${step}
+    ${NUM_TOOLS_SYSTEM}    Convert to Integer    ${NUM_TOOLS_SYSTEM}
+    Install a Feature    ${feature}
+    : FOR    ${switches}    IN RANGE    ${start}    ${stop+1}    ${step}
+    \    # ${timeout_step_counter} needed for sane timeout with large number of switches
+    \    # set to 25 for first loop and 20 is added per additional loop
+    \    ${timeout_step_counter}    Set Variable If    ${step}==${switches}    ${25}    ${timeout_step_counter}
+    \    ${timeout}    Set Variable If    ${switches}>100    ${timeout_step_counter}    ${switches/4}
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Start Mininet Linear    ${switches}
+    \    ...    ${timeout}    ovsdb
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Is Not Dead    ${ODL_SYSTEM_IP}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${timeout*2}    10s
+    \    ...    Check Ovsdb Topology    ${ovs_switch_uuid_list}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword If    '${feature}'=='odl-ovsdb-openstack'    Run Keyword And Ignore Error
+    \    ...    Wait Until Keyword Succeeds    ${timeout*2}    10s    Check Netvirt Br    ${ovs_switch_uuid_list}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Clean OVSDB Tools Systems
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${timeout}    10s
+    \    ...    Check No Ovsdb Topology    ${ovs_switch_uuid_list}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${timeout_step_counter}    Evaluate    ${timeout_step_counter}+${20}
     \    ${max-switches}    Convert To String    ${switches}
     [Return]    ${max-switches}
 
@@ -124,8 +159,8 @@ Start Mininet With One Switch And ${hosts} hosts
     [Documentation]    Start mininet with one switch and ${hosts} hosts
     Log    Starting mininet with one switch and ${hosts} hosts
     Log To Console    Starting mininet with one switch and ${hosts} hosts
-    ${mininet_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${hosts*3}
-    Set Suite Variable    ${mininet_conn_id}
+    Append To List    ${tools_conn_ids_list}    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${hosts*3}
+    Set Suite Variable    ${tools_conn_ids_list}
     Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo linear,1,${hosts} --switch ovsk,protocols=OpenFlow13
     Read Until    mininet>
@@ -170,32 +205,60 @@ Check No Hosts
     Should Not Contain    ${resp.content}    "node-id":"host:
 
 Start Mininet Linear
-    [Arguments]    ${switches}
+    [Arguments]    ${switches}    ${timeout}=${switches*2}    ${test_mode}=openflow
     [Documentation]    Start mininet linear topology with ${switches} nodes
     Log To Console    Starting mininet linear ${switches}
-    ${mininet_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${switches*3}
-    Set Suite Variable    ${mininet_conn_id}
-    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
-    Write    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo linear,${switches} --switch ovsk,protocols=OpenFlow13
-    Read Until    mininet>
-    Sleep    6
+    ${num_ovs_per_mininet}    Evaluate    ${switches}/${NUM_TOOLS_SYSTEM}
+    ${tools_system_range_end}    Evaluate    ${NUM_TOOLS_SYSTEM}+1
+    @{tools_conn_ids_list}=    Create List
+    : FOR    ${mininet_system_num}    IN RANGE    1    ${tools_system_range_end}
+    \    ${temp_mininet_ip_var}    Set Variable    ${TOOLS_SYSTEM_${mininet_system_num}_IP}
+    \    ${temp_mininet_conn_id}    Open Connection    ${temp_mininet_ip_var}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${timeout}
+    \    Append To List    ${tools_conn_ids_list}    ${temp_mininet_conn_id}
+    \    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    \    Write    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo linear,${num_ovs_per_mininet} --switch ovsk,protocols=OpenFlow13
+    \    Read Until    mininet>
+    \    Sleep    6
+    \    # Only need to modify s1 switch here because it's effect is on whole OVSDB database
+    \    Run Keyword If    '${test_mode}'=='ovsdb'    Write    s1 ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    \    Run Keyword If    '${test_mode}'=='ovsdb'    Read Until    mininet>
+    \    Run Keyword If    '${test_mode}'=='ovsdb'    Get Ovsdb Mininet Node Names    ${num_ovs_per_mininet}
+    \    Log    Mininet ${temp_mininet_ip_var} Started with ${num_ovs_per_mininet} nodes    console=yes
+    Set Suite Variable    ${tools_conn_ids_list}
+
+Get Ovsdb Mininet Node Names
+    [Arguments]    ${num_ovs_per_mininet}
+    [Documentation]    Gets OVSDB node name by appending OVS Database UUID to '/bridge/s<switch_num>'
+    Log To Console    Getting Mininet Uuids
+    @{ovs_switch_uuid_list}=    Create List
+    : FOR    ${ovs_switch_num}    IN RANGE    1    ${num_ovs_per_mininet}
+    \    Write    s${ovs_switch_num} ovs-vsctl get Open_vSwitch . _uuid
+    \    ${ovs_switch_uuid}    Read Until    mininet>
+    \    ${ovs_switch_uuid}    Fetch From Left    ${ovs_switch_uuid}    \r\r\nmininet>
+    \    Append To List    ${ovs_switch_uuid_list}    uuid/${ovs_switch_uuid}/bridge/s${ovs_switch_num}
+    Set Suite Variable    ${ovs_switch_uuid_list}
 
 Start Mininet With Custom Topology
     [Arguments]    ${topology_file}    ${switches}    ${base_mac}=00:00:00:00:00:00    ${base_ip}=1.1.1.1    ${hosts}=0    ${mininet_start_time}=100
     [Documentation]    Start a custom mininet topology.
     Log To Console    Start a custom mininet topology with ${switches} nodes
-    ${mininet_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${mininet_start_time}
-    Set Suite Variable    ${mininet_conn_id}
-    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
-    Write    python ${topology_file} ${switches} ${hosts} ${base_mac} ${base_ip}
-    Read Until    ${DEFAULT_LINUX_PROMPT}
-    Write    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom switch.py --topo demotopo --switch ovsk,protocols=OpenFlow13
-    Read Until    mininet>
-    Write    sh ovs-vsctl show
-    ${output}=    Read Until    mininet>
-    # Ovsdb connection is sometimes lost after mininet is started. Checking if the connection is alive before proceeding.
-    Should Not Contain    ${output}    database connection failed
-    Log To Console    Mininet Started with ${switches} nodes
+    ${num_ovs_per_mininet}    Evaluate    ${switches}/${NUM_TOOLS_SYSTEM}
+    ${tools_system_range_end}    Evaluate    ${NUM_TOOLS_SYSTEM}+1
+    @{tools_conn_ids_list}=    Create List
+    : FOR    ${mininet_system_num}    IN RANGE    1    ${tools_system_range_end}
+    \    ${temp_mininet_ip_var}    Set Variable    ${TOOLS_SYSTEM_${mininet_system_num}_IP}
+    \    ${temp_mininet_conn_id}=    Open Connection    ${temp_mininet_ip_var}    prompt${DEFAULT_LINUX_PROMPT}    timeout=10
+    \    Append To List    ${tools_conn_ids_list}    ${temp_mininet_conn_id}
+    \    Write    python ${topology_file} ${switches} ${hosts} ${base_mac} ${base_ip}
+    \    Read Until    ${DEFAULT_LINUX_PROMPT}
+    \    Write    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom switch.py --topo demotopo --switch ovsk,protocols=OpenFlow13
+    \    Read Until    mininet>
+    \    Write    sh ovs-vsctl show
+    \    ${output}=    Read Until    mininet>
+    \    # Ovsdb connection is sometimes lost after mininet is started. Checking if the connection is alive before proceeding.
+    \    Should Not Contain    ${output}    database connection failed
+    \    Log    Mininet ${temp_mininet_ip_var} Started with ${num_ovs_per_mininet} nodes    console=yes
+    Set Suite Variable    ${tools_conn_ids_list}
 
 Check Every Switch
     [Arguments]    ${switches}    ${base_mac}=00:00:00:00:00:00
@@ -246,15 +309,52 @@ Check No Topology
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
     \    Should Not Contain    ${resp.content}    openflow:${switch}
 
+Check Ovsdb Topology
+    [Arguments]    ${switches}
+    [Documentation]    Check Ovsdb topology given ${switches}
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_OVSDB}
+    Log To Console    Checking OVSDB SB Topology
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${switch}    IN    @{switches}
+    \    Should Contain    ${resp.content}    ovsdb://${switch}
+
+Check Netvirt Br
+    [Arguments]    ${switches}
+    [Documentation]    Check Ovsdb topology given ${switches}
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_OVSDB}
+    Log To Console    Checking Netvirt Created br-int
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${switch}    IN    @{switches}
+    \    Should Contain    ${resp.content}    ovsdb://${switch}/br-int
+
+Check No Ovsdb Topology
+    [Arguments]    ${switches}
+    [Documentation]    Check no switch is in ovsdb topo
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_OVSDB}
+    Log To Console    Checking No Switches
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    : FOR    ${switch}    IN    @{switches}
+    \    Should Not Contain    ${resp.content}    ovsdb://${switch}
+
+Clean OVSDB Tools Systems
+    [Documentation]    Cleans up all tools systems
+    ${tools_system_range_end}    Evaluate    ${NUM_TOOLS_SYSTEM}+1
+    : FOR    ${tools_system_num}    IN RANGE    1    ${tools_system_range_end}
+    \    ${tools_system}    Set Variable    ${TOOLS_SYSTEM_${tools_system_num}_IP}
+    \    OVSDB.Clean OVSDB Test Environment    ${tools_system}
+
 Stop Mininet Simulation
     [Documentation]    Stop mininet
     Log To Console    Stopping Mininet
-    Switch Connection    ${mininet_conn_id}
-    Read
-    Write    exit
-    Read Until    ${DEFAULT_LINUX_PROMPT}
-    Close Connection
+    : FOR    ${mininet_conn_id}    IN    @{tools_conn_ids_list}
+    \    Utils.Stop Mininet    ${mininet_conn_id}
 
 Scalability Suite Teardown
     Delete All Sessions
-    Clean Mininet System
+    ${tools_system_range_end}    Evaluate    ${NUM_TOOLS_SYSTEM}+1
+    : FOR    ${mininet_system_num}    IN RANGE    1    ${tools_system_range_end}
+    \    ${temp_mininet_ip_var}    Set Variable    ${TOOLS_SYSTEM_${mininet_system_num}_IP}
+    \    Utils.Clean Mininet System    ${temp_mininet_ip_var}
