@@ -105,9 +105,11 @@ def generate_map_register(eid, rloc):
     packet /= lisp.IP(dst=dst_rloc, src=src_rloc)
     packet /= lisp.UDP(sport=sport1, dport=4342)
     packet /= lisp.LISP_MapRegister(ptype=3, nonce=rnonce,
-                                    register_flags=1,
+                                    register_flags=10,
+                                    additional_register_flags=1,
                                     register_count=1,
-                                    register_records=record)
+                                    register_records=record,
+                                    xtr_id_low=netaddr.IPAddress(eid))
     return packet
 
 parser = argparse.ArgumentParser(description='Create a Map-Request trace file')

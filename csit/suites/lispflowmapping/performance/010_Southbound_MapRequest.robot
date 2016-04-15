@@ -13,7 +13,7 @@ Variables         ../../../variables/Variables.py
 
 *** Variables ***
 ${MAPPINGS}       10000
-${LISP_SCAPY}     https://raw.githubusercontent.com/intouch/py-lispnetworking/master/lisp.py
+${LISP_SCAPY}     https://raw.githubusercontent.com/ljakab/py-lispnetworking/opendaylight/lisp.py
 ${TOOLS_DIR}      ${CURDIR}/../../../../tools/odl-lispflowmapping-performance-tests/
 ${PCAP_CREATOR}    ${TOOLS_DIR}/create_lisp_control_plane_pcap.py
 ${MAPPING_BLASTER}    ${TOOLS_DIR}/mapping_blaster.py
