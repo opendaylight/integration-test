@@ -4,8 +4,7 @@
 cat > ${WORKSPACE}/hbasestartup.sh <<EOF
 cd /tmp/Hbase
 echo "Start the HBase Server"
-export JAVA_HOME=/usr
-/tmp/Hbase/hbase-0.94.15/bin/start-hbase.sh
+export JAVA_HOME=/usr/tmp/Hbase/hbase-0.94.15/bin/start-hbase.sh
 
 EOF
 echo "Copy the Hbase startup script to ${ODL_SYSTEM_IP}"
