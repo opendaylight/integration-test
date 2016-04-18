@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_c395bc89",
+        "filename": "csit/testplans/openflowplugin-entity-ownership.txt",
+        "patchSetId": 17
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-18T15:23:49Z",
+      "side": 1,
+      "message": "Running separate jobs is costly due to overhead at creating and destroying VMs.\nIs it possible to add these suites to an existing 3-node functional OFP job?",
+      "revId": "fcf3cf12ea506f3eb2971fd0221e11cf84e3d3a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
