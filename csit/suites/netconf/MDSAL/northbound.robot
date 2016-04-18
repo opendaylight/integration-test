@@ -47,6 +47,9 @@ ${dataext}        msg
 ${ssh_netconf_pid}    -1
 
 *** Test Cases ***
+Testing Contribution
+    PassExecution    This is a testing contribution
+
 Connect_To_ODL_Netconf
     [Documentation]    Connect to ODL Netconf and fail if that is not possible.
     Create_ODL_Netconf_Connection
