@@ -91,6 +91,30 @@
       "revId": "ad27ad8e4cc0efa3c3f3d9e0e7e3af6cb3192c99",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_3d9bfbca",
+        "filename": "csit/suites/netconf/clusteringscale/performance.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-04-18T08:24:37Z",
+      "side": 1,
+      "message": "Let\u0027s merge the suite as it is and use this proposition as a training task for our trainees.",
+      "parentUuid": "1a494da4_76d58442",
+      "range": {
+        "startLine": 110,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 18
+      },
+      "revId": "ad27ad8e4cc0efa3c3f3d9e0e7e3af6cb3192c99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
