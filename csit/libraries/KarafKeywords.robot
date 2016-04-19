@@ -114,7 +114,7 @@ Open Controller Karaf Console On Background
     ${karaf_connection}=    SSHLibrary.Get Connection
     SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}
     BuiltIn.Set Suite Variable    ${KarafKeywords__karaf_connection_index}    ${karaf_connection.index}
-    Restore Current SSH Connection From Index    ${current_ssh_connection.index}
+    [Teardown]    Restore Current SSH Connection From Index    ${current_ssh_connection.index}
 
 Configure Timeout For Karaf Console
     [Arguments]    ${timeout}
@@ -122,7 +122,7 @@ Configure Timeout For Karaf Console
     BuiltIn.Run Keyword If    ${KarafKeywords__karaf_connection_index} == -1    Fail    Need to connect to a Karaf Console first
     ${current_connection_index}=    SSHLibrary.Switch Connection    ${KarafKeywords__karaf_connection_index}
     SSHLibrary.Set_Client_Configuration    timeout=${timeout}
-    Restore Current SSH Connection From Index    ${current_connection_index}
+    [Teardown]    Restore Current SSH Connection From Index    ${current_connection_index}
 
 Execute Controller Karaf Command On Background
     [Arguments]    ${command}
@@ -132,11 +132,11 @@ Execute Controller Karaf Command On Background
     ${current_connection_index}=    SSHLibrary.Switch Connection    ${KarafKeywords__karaf_connection_index}
     ${status_write}    ${message_write}=    BuiltIn.Run Keyword And Ignore Error    SSHLibrary.Write    ${command}
     ${status_wait}    ${message_wait}=    BuiltIn.Run Keyword And Ignore Error    SSHLibrary.Read Until Prompt
-    Restore Current SSH Connection From Index    ${current_connection_index}
     BuiltIn.Run Keyword If    '${status_write}' != 'PASS'    BuiltIn.Fail    Failed to send the command: ${command}
     BuiltIn.Log    ${message_wait}
     BuiltIn.Run Keyword If    '${status_wait}' != 'PASS'    BuiltIn.Fail    Failed to see prompt after sending the command: ${command}
     [Return]    ${message_wait}
+    [Teardown]    Restore Current SSH Connection From Index    ${current_connection_index}
 
 Execute Controller Karaf Command With Retry On Background
     [Arguments]    ${command}
