@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_94b01cdf",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-04-19T12:42:09Z",
+      "side": 1,
+      "message": "Docstrings are updated now.",
+      "parentUuid": "9a3d3df0_bf23d3bb",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 71
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_df2697cd",
         "filename": "csit/libraries/Openstack.py",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2016-02-22T22:49:44Z",
       "side": 1,
       "message": "This is a bit strange. Only reason I know to use __import__ is if you need to import via a dynamic string. Your string here is fixed, shouldn\u0027t need.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 23,
+        "endChar": 23
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_949f7c03",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-04-19T12:42:09Z",
+      "side": 1,
+      "message": "We are maintaining variable in \"openstackconfig.py\" file  And we want to differentiate the variables if same variable exists with some other files.",
+      "parentUuid": "9a3d3df0_df2697cd",
       "range": {
         "startLine": 22,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_74a46857",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-04-19T12:42:09Z",
+      "side": 1,
+      "message": "Removed.",
+      "parentUuid": "9a3d3df0_ba3801d4",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 10
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_9f39aff4",
         "filename": "csit/libraries/Openstack.py",
         "patchSetId": 6
@@ -88,6 +160,24 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_7472a8e6",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-04-19T12:42:09Z",
+      "side": 1,
+      "message": "This variable is required to use functions in the the robot scripts - where the tests are defined.",
+      "parentUuid": "9a3d3df0_9f39aff4",
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_1a1bed73",
         "filename": "csit/libraries/Openstack.py",
         "patchSetId": 6
@@ -99,6 +189,30 @@
       "writtenOn": "2016-02-22T22:49:44Z",
       "side": 1,
       "message": "Maintaining so much state via instance vars is a bad code smell to me. Functions that need to act on fewer instance vars would be easier to maintain and reason about.",
+      "range": {
+        "startLine": 32,
+        "startChar": 8,
+        "endLine": 32,
+        "endChar": 15
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_344f9094",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-04-19T12:42:09Z",
+      "side": 1,
+      "message": "It is a openstack simulator where we maintain uuid values of networks, subnets and ports. So it is required.",
+      "parentUuid": "9a3d3df0_1a1bed73",
       "range": {
         "startLine": 32,
         "startChar": 8,
@@ -134,6 +248,30 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_d45d744a",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-04-19T12:42:09Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "9a3d3df0_3f3863ee",
+      "range": {
+        "startLine": 46,
+        "startChar": 13,
+        "endLine": 46,
+        "endChar": 23
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_7a0cb93b",
         "filename": "csit/libraries/Openstack.py",
         "patchSetId": 6
@@ -145,6 +283,30 @@
       "writtenOn": "2016-02-22T22:49:44Z",
       "side": 1,
       "message": "Booleans over yes/no strings imho",
+      "range": {
+        "startLine": 59,
+        "startChar": 40,
+        "endLine": 59,
+        "endChar": 43
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_943bfcea",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-04-19T12:42:09Z",
+      "side": 1,
+      "message": "This simulator supports for 8080 port and 8181 REST ports. Earlier we were using the rest ports for configuring the networks and subnets. If neutron manager in SDN(ODL) doesn\u0027t work, w\u0027ll use this option (8181 port) for debuggint purpose.",
+      "parentUuid": "9a3d3df0_7a0cb93b",
       "range": {
         "startLine": 59,
         "startChar": 40,
@@ -180,6 +342,30 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_341dd074",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-04-19T12:42:09Z",
+      "side": 1,
+      "message": "This is taken care.",
+      "parentUuid": "9a3d3df0_1f2d9fa8",
+      "range": {
+        "startLine": 128,
+        "startChar": 8,
+        "endLine": 128,
+        "endChar": 9
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_7f15cb47",
         "filename": "csit/libraries/Openstack.py",
         "patchSetId": 6
@@ -191,6 +377,30 @@
       "writtenOn": "2016-02-22T22:49:44Z",
       "side": 1,
       "message": "Something like gen_mac would be more clear. Also, we typically suggest relying on existing modules for IP/MAC logic, like netaddr.",
+      "range": {
+        "startLine": 132,
+        "startChar": 8,
+        "endLine": 132,
+        "endChar": 11
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_9412dc60",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-04-19T12:42:09Z",
+      "side": 1,
+      "message": "This is also taken care.",
+      "parentUuid": "9a3d3df0_7f15cb47",
       "range": {
         "startLine": 132,
         "startChar": 8,
@@ -220,6 +430,24 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_f402380a",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-04-19T12:42:09Z",
+      "side": 1,
+      "message": "This is removed",
+      "parentUuid": "9a3d3df0_bf0ab323",
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_df0df73f",
         "filename": "csit/libraries/Openstack.py",
         "patchSetId": 6
@@ -231,6 +459,30 @@
       "writtenOn": "2016-02-22T22:49:44Z",
       "side": 1,
       "message": "Should do these with a `with` statement",
+      "range": {
+        "startLine": 138,
+        "startChar": 0,
+        "endLine": 140,
+        "endChar": 18
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_2f045914",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-04-19T12:42:09Z",
+      "side": 1,
+      "message": "Not using, hence removed.",
+      "parentUuid": "9a3d3df0_df0df73f",
       "range": {
         "startLine": 138,
         "startChar": 0,
@@ -260,6 +512,24 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_cf12fd57",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-04-19T12:42:09Z",
+      "side": 1,
+      "message": "Logger is passed from outside to support logger, it is wrapper which prints message on stdout if we do not pass logger.",
+      "parentUuid": "9a3d3df0_ff00bb03",
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_3a06b11d",
         "filename": "csit/libraries/Openstack.py",
         "patchSetId": 6
@@ -271,6 +541,30 @@
       "writtenOn": "2016-02-22T22:49:44Z",
       "side": 1,
       "message": "These aren\u0027t the actual params",
+      "range": {
+        "startLine": 170,
+        "startChar": 0,
+        "endLine": 171,
+        "endChar": 41
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_af0fc92d",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-04-19T12:42:09Z",
+      "side": 1,
+      "message": "docstrings are added",
+      "parentUuid": "9a3d3df0_3a06b11d",
       "range": {
         "startLine": 170,
         "startChar": 0,
@@ -306,6 +600,30 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_0f1d1567",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-04-19T12:42:09Z",
+      "side": 1,
+      "message": "docstrings are added.",
+      "parentUuid": "9a3d3df0_5a28d585",
+      "range": {
+        "startLine": 223,
+        "startChar": 29,
+        "endLine": 223,
+        "endChar": 36
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_9a1edd5d",
         "filename": "csit/libraries/Openstack.py",
         "patchSetId": 6
@@ -317,6 +635,30 @@
       "writtenOn": "2016-02-22T22:49:44Z",
       "side": 1,
       "message": "Examples of good docstrings:\n\nhttps://git.opendaylight.org/gerrit/#/c/22384/11/test/csit/libraries/Docker.py",
+      "range": {
+        "startLine": 300,
+        "startChar": 8,
+        "endLine": 300,
+        "endChar": 22
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_ef19c17a",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 300,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-04-19T12:42:09Z",
+      "side": 1,
+      "message": "Docstrings are added now",
+      "parentUuid": "9a3d3df0_9a1edd5d",
       "range": {
         "startLine": 300,
         "startChar": 8,
@@ -352,6 +694,30 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_8f20059d",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 327,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-04-19T12:42:09Z",
+      "side": 1,
+      "message": "This is to support json structure used for both 8080 and 8181 ports.",
+      "parentUuid": "9a3d3df0_7a2319a7",
+      "range": {
+        "startLine": 327,
+        "startChar": 25,
+        "endLine": 327,
+        "endChar": 29
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a3d3df0_da3b45cf",
         "filename": "csit/libraries/Openstack.py",
         "patchSetId": 6
@@ -363,6 +729,30 @@
       "writtenOn": "2016-02-22T22:49:44Z",
       "side": 1,
       "message": "Using `-` here and `_` above seems bug-prone",
+      "range": {
+        "startLine": 328,
+        "startChar": 25,
+        "endLine": 329,
+        "endChar": 39
+      },
+      "revId": "501cf0dcf3212ab116a5e8ac35066be812a604c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_cf395dda",
+        "filename": "csit/libraries/Openstack.py",
+        "patchSetId": 6
+      },
+      "lineNbr": 329,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-04-19T12:42:09Z",
+      "side": 1,
+      "message": "json structure for 8080 and 8181 port is different.\nFor example tenant_id used in json structure for 8080 port and tenant-id used in json structure for 8181  REST port.",
+      "parentUuid": "9a3d3df0_da3b45cf",
       "range": {
         "startLine": 328,
         "startChar": 25,
