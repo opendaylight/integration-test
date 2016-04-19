@@ -24,6 +24,7 @@ ${CLEAN_DEVSTACK_HOST}    False
 *** Keywords ***
 Run Tempest Tests
     [Arguments]    ${tempest_regex}    ${timeout}=600s
+    [Documentation]  Execute the tempest tests
     Write Commands Until Prompt    cd /opt/stack/new/tempest
     Write Commands Until Prompt    sudo rm -rf /opt/stack/new/tempest/.testrepository
     Write Commands Until Prompt    sudo testr init
@@ -31,7 +32,14 @@ Run Tempest Tests
     Should Contain    ${results}    Failed: 0
     # TODO: also need to verify some non-zero pass count as well as other results are ok (e.g. skipped, etc)
 
+Devstack Suite Setup Tests
+    [Documentation]  Login to  the Openstack Control Node to run tempest suite
+    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT}
+    Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
+
 Devstack Suite Setup
+    [Documentation]  Login to  the Openstack Control Node to run tempest suite
     SSHLibrary.Open Connection    ${DEVSTACK_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}
     Utils.Flexible SSH Login    ${DEVSTACK_SYSTEM_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
@@ -95,6 +103,7 @@ Write Commands Until Prompt
     [Return]    ${output}
 
 Get Networking ODL Version Of Release
+    [Documentation]   Get version of ODL to be installed
     [Arguments]    ${version}
     # once Beryllium SR1 goes out, we can change beryllium-latest to use 0.4.2
     Return From Keyword If    "${version}" == "beryllium-latest"    beryllium-snapshot-0.4.2
@@ -110,6 +119,7 @@ Get Networking ODL Version Of Release
     Return From Keyword If    "${version}" == "helium"    helium
 
 Show Devstack Debugs
+    [Documentation]   Collect the devstack logs to debug in case of failure
     Write Commands Until Prompt    gunzip /opt/stack/logs/devstacklog.txt.gz
     Write Commands Until Prompt    tail -n2000 /opt/stack/logs/devstacklog.txt    timeout=600s
     Write Commands Until Prompt    grep 'distribution-karaf.*zip' /opt/stack/logs/devstacklog.txt
