@@ -95,7 +95,7 @@ Verify Created Vm Instance In Dump Flow
 
 Create Routers
     [Documentation]    Create Router and Add Interface to the subnets.
-    Create Router
+    Create Router    router_1
 
 Verify Gateway Ip After Interface Added
     [Documentation]    Verify the existence of the gateway ips with the dump flow in Beryllium.
@@ -121,11 +121,11 @@ Verify Deleted Vm Instance Removed In Dump Flow
 
 Delete Router Interfaces
     [Documentation]    Remove Interface to the subnets.
-    Remove Interface
+    Remove Interface    router_1
 
 Delete Routers
     [Documentation]    Delete Router and Interface to the subnets.
-    Delete Router
+    Delete Router    router_1
 
 Verify Deleted Routers
     [Documentation]    Verify Deleted Routers for the Networks with dump flow.
