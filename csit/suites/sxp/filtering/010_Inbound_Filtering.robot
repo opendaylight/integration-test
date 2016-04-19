@@ -2,7 +2,6 @@
 Documentation     Test suite to verify Inbound filtering functionality
 Suite Setup       Setup SXP Environment
 Suite Teardown    Clean SXP Environment
-Test Setup        Setup Topology Complex
 Test Teardown     Clean Nodes
 Library           RequestsLibrary
 Library           SSHLibrary
@@ -24,6 +23,7 @@ Access List Filtering
     ${entry2}    Get Filter Entry    20    permit    acl=10.0.0.0,0.254.0.0
     ${entries}    Combine Strings    ${entry1}    ${entry2}
     Add Filter    GROUP    inbound    ${entries}
+    Setup Topology Complex
     Wait Until Keyword Succeeds    4    1    Check One Group 4-2
     Delete Filter    GROUP    inbound
     ${entries}    Get Filter Entry    10    permit    acl=10.0.0.0,0.255.255.255
@@ -42,6 +42,7 @@ Access List Sgt Filtering
     ${entry2}    Get Filter Entry    20    permit    sgt=50    acl=10.0.0.0,0.254.0.0
     ${entries}    Combine Strings    ${entry1}    ${entry2}
     Add Filter    GROUP    inbound    ${entries}
+    Setup Topology Complex
     Wait Until Keyword Succeeds    4    1    Check One Group 5-3
     Delete Filter    GROUP    inbound
     ${entries}    Get Filter Entry    10    permit    esgt=20,40    acl=10.0.0.0,0.255.255.255
@@ -56,6 +57,7 @@ Prefix List Filtering
     ${entry2}    Get Filter Entry    20    permit    epl=10.0.0.0/8,le,16
     ${entries}    Combine Strings    ${entry1}    ${entry2}
     Add Filter    GROUP    inbound    ${entries}
+    Setup Topology Complex
     Wait Until Keyword Succeeds    4    1    Check One Group 4-2
     Delete Filter    GROUP    inbound
     ${entries}    Get Filter Entry    10    permit    pl=10.0.0.0/8
@@ -74,6 +76,7 @@ Prefix List Sgt Filtering
     ${entry2}    Get Filter Entry    20    permit    pl=10.50.0.0/16
     ${entries}    Combine Strings    ${entry1}    ${entry2}
     Add Filter    GROUP    inbound    ${entries}
+    Setup Topology Complex
     Wait Until Keyword Succeeds    4    1    Check One Group 5-3
     Delete Filter    GROUP    inbound
     ${entries}    Get Filter Entry    10    permit    esgt=20,40    pl=10.0.0.0/8

@@ -30,13 +30,13 @@ Access List Filtering
 
 Access List Sgt Filtering
     [Documentation]    Test ACL and SGT filter behaviour during filter update
-    Setup Nodes
     ${peers}    Add Peers    127.0.0.3    127.0.0.5
     Add PeerGroup    GROUP    ${peers}
     ${entry1}    Get Filter Entry    10    permit    sgt=30    acl=10.10.10.0,0.0.0.255
     ${entry2}    Get Filter Entry    20    permit    sgt=50    acl=10.0.0.0,0.254.0.0
     ${entries}    Combine Strings    ${entry1}    ${entry2}
     Add Filter    GROUP    inbound-discarding    ${entries}
+    Setup Nodes
     Wait Until Keyword Succeeds    4    1    Check One Group 5-3
     Delete Filter    GROUP    inbound-discarding
     Wait Until Keyword Succeeds    4    1    Check One Group 5-3
@@ -56,13 +56,13 @@ Prefix List Filtering
 
 Prefix List Sgt Filtering
     [Documentation]    Test Prefix List and SGT filter behaviour during filter update
-    Setup Nodes
     ${peers}    Add Peers    127.0.0.3    127.0.0.5
     Add PeerGroup    GROUP    ${peers}
     ${entry1}    Get Filter Entry    10    permit    sgt=30    pl=10.10.10.0/24
     ${entry2}    Get Filter Entry    20    permit    pl=10.50.0.0/16
     ${entries}    Combine Strings    ${entry1}    ${entry2}
     Add Filter    GROUP    inbound-discarding    ${entries}
+    Setup Nodes
     Wait Until Keyword Succeeds    4    1    Check One Group 5-3
     Delete Filter    GROUP    inbound-discarding
     Wait Until Keyword Succeeds    4    1    Check One Group 5-3
@@ -82,13 +82,13 @@ Access List Filtering Legacy
 
 Access List Sgt Filtering Legacy
     [Documentation]    Test ACL and SGT filter behaviour during filter update
-    Setup Nodes Legacy Par One
     ${peers}    Add Peers    127.0.0.3    127.0.0.5
     Add PeerGroup    GROUP    ${peers}
     ${entry1}    Get Filter Entry    10    permit    sgt=30    acl=10.10.10.0,0.0.0.255
     ${entry2}    Get Filter Entry    20    permit    sgt=50    acl=10.0.0.0,0.254.0.0
     ${entries}    Combine Strings    ${entry1}    ${entry2}
     Add Filter    GROUP    inbound-discarding    ${entries}
+    Setup Nodes Legacy Par One
     Wait Until Keyword Succeeds    4    1    Check One Group 5-3
     Delete Filter    GROUP    inbound-discarding
     Wait Until Keyword Succeeds    4    1    Check One Group 5-3
@@ -108,13 +108,13 @@ Prefix List Filtering Legacy
 
 Prefix List Sgt Filtering Legacy
     [Documentation]    Test Prefix List and SGT filter behaviour during filter update
-    Setup Nodes Legacy Par One
     ${peers}    Add Peers    127.0.0.3    127.0.0.5
     Add PeerGroup    GROUP    ${peers}
     ${entry1}    Get Filter Entry    10    permit    sgt=30    pl=10.10.10.0/24
     ${entry2}    Get Filter Entry    20    permit    pl=10.50.0.0/16
     ${entries}    Combine Strings    ${entry1}    ${entry2}
     Add Filter    GROUP    inbound-discarding    ${entries}
+    Setup Nodes Legacy Par One
     Wait Until Keyword Succeeds    4    1    Check One Group 5-3
     Delete Filter    GROUP    inbound-discarding
     Wait Until Keyword Succeeds    4    1    Check One Group 5-3
