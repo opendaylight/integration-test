@@ -97,7 +97,7 @@ Write Commands Until Prompt
 Get Networking ODL Version Of Release
     [Arguments]    ${version}
     # once Beryllium SR1 goes out, we can change beryllium-latest to use 0.4.2
-    Return From Keyword If    "${version}" == "beryllium-latest"    beryllium-snapshot-0.4.1
+    Return From Keyword If    "${version}" == "beryllium-latest"    beryllium-snapshot-0.4.2
     Return From Keyword If    "${version}" == "beryllium-SR1"    beryllium-snapshot-0.4.1
     Return From Keyword If    "${version}" == "beryllium"    beryllium-snapshot-0.4.0
     Return From Keyword If    "${version}" == "lithium-latest"    lithium-snapshot-0.3.5
