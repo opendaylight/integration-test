@@ -46,7 +46,7 @@ def lower_version(ver1, ver2):
         return ver2
 
 
-def get_filter_entry(seq, entry_type, sgt="", esgt="", acl="", eacl="", pl="", epl=""):
+def get_filter_entry(seq, entry_type, sgt="", esgt="", acl="", eacl="", pl="", epl="", ps=""):
     """Generate xml containing FilterEntry data
 
     :param seq: Sequence of entry
@@ -65,6 +65,8 @@ def get_filter_entry(seq, entry_type, sgt="", esgt="", acl="", eacl="", pl="", e
     :type pl: string
     :param epl: ExtendedPrefixList matches to be added to entry
     :type epl: string
+    :param ps: PeerSequence matches to be added to entry
+    :type ps: string
     :returns: String containing xml data for request
 
     """
@@ -87,9 +89,14 @@ def get_filter_entry(seq, entry_type, sgt="", esgt="", acl="", eacl="", pl="", e
     elif eacl:
         args = eacl.split(',')
         entries += add_eacl_entry_xml(args[0], args[1], args[2], args[3])
+    if ps:
+        args = ps.split(',')
+        entries += add_ps_entry_xml(args[0], args[1])
     # Wrap entries in ACL/PrefixList according to specified values
     if pl or epl:
         return add_pl_entry_default_xml(seq, entry_type, entries)
+    elif ps:
+        return add_ps_entry_default_xml(seq, entry_type, entries)
     return add_acl_entry_default_xml(seq, entry_type, entries)
 
 
@@ -210,6 +217,26 @@ def add_eacl_entry_xml(ip, mask, amask, wmask):
     return templ.substitute({'ip': ip, 'mask': mask, 'amask': amask, 'wmask': wmask})
 
 
+def add_ps_entry_default_xml(seq, entry_type, ps_entries):
+    """Generate xml containing PeerSequence data
+
+    :param seq: Sequence of PrefixList entry
+    :type seq: string
+    :param entry_type: Entry type (permit/deny)
+    :type entry_type: string
+    :param ps_entries: XML data containing PeerSequence entries
+    :type ps_entries: string
+    :returns: String containing xml data for request
+
+    """
+    templ = Template('''
+    <peer-sequence-entry xmlns="urn:opendaylight:sxp:controller">
+          <entry-type>$entry_type</entry-type>
+          <entry-seq>$seq</entry-seq>$ps_entries
+    </peer-sequence-entry>''')
+    return templ.substitute({'seq': seq, 'entry_type': entry_type, 'ps_entries': ps_entries})
+
+
 def add_pl_entry_default_xml(seq, entry_type, pl_entries):
     """Generate xml containing PrefixList data
 
@@ -266,6 +293,23 @@ def add_epl_entry_xml(prefix, op, mask):
             </mask>
         </prefix-list-match>''')
     return templ.substitute({'prefix': prefix, 'mask': mask, 'op': op})
+
+
+def add_ps_entry_xml(op, length):
+    """Generate xml containing Extended PrefixList data
+
+    :param op: PrefixList option (ge/le/eq)
+    :type op: string
+    :param length: PeerSequence length
+    :type length: string
+    :returns: String containing xml data for request
+
+    """
+    templ = Template('''
+        <peer-sequence-length>$length</peer-sequence-length>
+        <peer-sequence-range>$op</peer-sequence-range>
+        ''')
+    return templ.substitute({'length': length, 'op': op})
 
 
 def parse_peer_groups(groups_json):
@@ -667,11 +711,11 @@ def get_connections_from_node_xml(ip):
     return data
 
 
-def get_bindings_from_node_xml(ip, range):
+def get_bindings_from_node_xml(ip, binding_range):
     """Generate xml for Get Bindings request
 
-    :param range: All or only Local bindings
-    :type ip: string
+    :param binding_range: All or only Local bindings
+    :type binding_range: string
     :param ip: Ipv4 address of node
     :type ip: string
     :returns: String containing xml data for request
@@ -681,5 +725,5 @@ def get_bindings_from_node_xml(ip, range):
   <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
   <bindings-range xmlns="urn:opendaylight:sxp:controller">$range</bindings-range>
 </input>''')
-    data = templ.substitute({'ip': ip, 'range': range})
+    data = templ.substitute({'ip': ip, 'range': binding_range})
     return data

@@ -2,7 +2,6 @@
 Documentation     Test suite to verify Outbound filtering functionality
 Suite Setup       Setup SXP Environment
 Suite Teardown    Clean SXP Environment
-Test Setup        Setup Nodes
 Test Teardown     Clean Nodes
 Library           RequestsLibrary
 Library           SSHLibrary
@@ -25,6 +24,7 @@ Access List Filtering
     ${entry3}    Get Filter Entry    30    permit    acl=10.0.0.0,0.255.255.0
     ${entries}    Combine Strings    ${entry1}    ${entry2}    ${entry3}
     Add Filter    GROUP    outbound    ${entries}
+    Setup Nodes
     Wait Until Keyword Succeeds    4    1    Check One Group 4-5
     Delete Filter    GROUP    outbound
     ${entry1}    Get Filter Entry    10    permit    acl=10.20.0.0,0.0.255.255
@@ -42,6 +42,7 @@ Access List Sgt Filtering
     ${entry3}    Get Filter Entry    30    permit    sgt=30    acl=10.10.10.0,0.0.0.255
     ${entries}    Combine Strings    ${entry1}    ${entry2}    ${entry3}
     Add Filter    GROUP    outbound    ${entries}
+    Setup Nodes
     Wait Until Keyword Succeeds    4    1    Check One Group 2-5
     Delete Filter    GROUP    outbound
     ${entries}    Get Filter Entry    10    permit    esgt=20,40    acl=10.10.0.0,0.0.255.255
@@ -57,6 +58,7 @@ Prefix List Filtering
     ${entry3}    Get Filter Entry    30    permit    epl=10.0.0.0/8,le,24
     ${entries}    Combine Strings    ${entry1}    ${entry2}    ${entry3}
     Add Filter    GROUP    outbound    ${entries}
+    Setup Nodes
     Wait Until Keyword Succeeds    4    1    Check One Group 4-5
     Delete Filter    GROUP    outbound
     ${entry1}    Get Filter Entry    10    permit    pl=10.20.0.0/16
@@ -74,6 +76,7 @@ Prefix List Sgt Filtering
     ${entry3}    Get Filter Entry    30    permit    sgt=30    pl=10.10.10.0/24
     ${entries}    Combine Strings    ${entry1}    ${entry2}    ${entry3}
     Add Filter    GROUP    outbound    ${entries}
+    Setup Nodes
     Wait Until Keyword Succeeds    4    1    Check One Group 2-5
     Delete Filter    GROUP    outbound
     ${entries}    Get Filter Entry    10    permit    esgt=20,40    pl=10.10.0.0/16
