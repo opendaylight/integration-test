@@ -482,7 +482,7 @@ Convert_To_Minutes
     [Return]    ${minutes}
 
 Write Commands Until Expected Prompt
-    [Arguments]    ${cmd}    ${prompt}    ${timeout}=${DEFAULT_TIMEOUT}
+    [Arguments]    ${cmd}    ${prompt}    ${timeout}=30s
     [Documentation]    quick wrapper for Write and Read Until Prompt Keywords to make test cases more readable
     SSHLibrary.Set Client Configuration    timeout=${timeout}
     SSHLibrary.Write    ${cmd}

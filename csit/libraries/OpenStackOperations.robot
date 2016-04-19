@@ -6,9 +6,9 @@ Variables         ../variables/Variables.py
 
 *** Keywords ***
 Create Network
-    [Arguments]    ${network_name}
+    [Arguments]    ${network_name}     ${devstack_path}=/opt/stack/new/devstack
     [Documentation]    Create Network with neutron request.
-    ${output}=    Write Commands Until Prompt    cd /opt/stack/new/devstack && cat localrc
+    ${output}=    Write Commands Until Prompt    cd ${devstack_path} && cat localrc
     Log    ${output}
     ${output}=    Write Commands Until Prompt    source openrc admin admin
     Log    ${output}
@@ -122,18 +122,19 @@ Ping From Instance
 
 Curl Metadata Server
     [Documentation]    Ping to the expected destination ip.
-    ${output}=   Write Commands Until Expected Prompt    curl http://169.254.169.254    $
-    Log    ${output}
+    ${output}=   Write Commands Until Expected Prompt    curl -i http://169.254.169.254    $
+    Write Commands Until Prompt    exit
+    Should Contain     ${output}     200
 
 Close Vm Instance
     [Documentation]    Exit the vm instance.
-    ${output}=   Write Commands Until Prompt    exit
+    ${output}=   Write Commands Until Expected Prompt    exit
     Log    ${output}
 
 Ssh Vm Instance
-    [Arguments]    ${net_id}    ${vm_ip}    ${user}=cirros    ${password}=cubswin:)
+    [Arguments]    ${net_id}    ${vm_ip}    ${user}=cirros    ${password}=cubswin:)     ${key_file}=test.pem
     [Documentation]    Login to the vm instance using ssh in the network.
-    ${output}=   Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -i test.pem ${user}@${vm_ip}    (yes/no)?
+    ${output}=   Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -i ${key_file} ${user}@${vm_ip}    (yes/no)?
     Log    ${output}
     ${output}=   Write Commands Until Expected Prompt    yes    d:
     Log    ${output}
@@ -145,20 +146,33 @@ Ssh Vm Instance
     Log    ${output}
 
 Create Router
+    [Arguments]    ${router_name}
     [Documentation]    Create Router and Add Interface to the subnets.
-    ${output}=    Write Commands Until Prompt    neutron -v router-create router_1
-    Log    ${output}
-    : FOR    ${SubnetElement}    IN    @{SUBNETS_NAME}
-    \    ${output}=    Write Commands Until Prompt    neutron -v router-interface-add router_1 ${SubnetElement}
-    Log    ${output}
+    ${output}=    Write Commands Until Prompt    neutron -v router-create ${router_name}
+    Should Contain     ${output}     Created a new router
+
+Add Router Interface
+    [Arguments]    ${router_name}     ${interface_name}
+    ${output}=    Write Commands Until Prompt    neutron -v router-interface-add ${router_name} ${interface_name}
+    Should Contain     ${output}     Added interface
 
 Remove Interface
+    [Arguments]    ${router_name}     ${interface_name}
     [Documentation]    Remove Interface to the subnets.
-    : FOR    ${SubnetElement}    IN    @{SUBNETS_NAME}
-    \    ${output}=    Write Commands Until Prompt    neutron -v router-interface-delete router_1 ${SubnetElement}
-    \    Log    ${output}
+    ${output}=    Write Commands Until Prompt    neutron -v router-interface-delete ${router_name} ${interface_name}
+    Should Contain     ${output}     Removed interface from router
 
 Delete Router
+    [Arguments]    ${router_name}
     [Documentation]    Delete Router and Interface to the subnets.
-    ${output}=    Write Commands Until Prompt    neutron -v router-delete router_1
-    Log    ${output}
+    ${output}=    Write Commands Until Prompt    neutron -v router-delete ${router_name}
+    Should Contain     ${output}     Deleted router:
+
+Show Debugs
+    [Arguments]    ${vm_indices}
+    [Documentation]   Run these commands for debugging, it can list state of VM instances and ip information in control node
+    ${output}=   Write Commands Until Prompt     sudo ip netns list
+    Log     ${output}
+    : FOR    ${index}    IN    @{vm_indices}
+    \     ${output}=   Write Commands Until Prompt     nova show ${index}
+    \     Log    ${output}
