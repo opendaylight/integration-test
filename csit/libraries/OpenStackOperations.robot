@@ -6,9 +6,9 @@ Variables         ../variables/Variables.py
 
 *** Keywords ***
 Create Network
-    [Arguments]    ${network_name}
+    [Arguments]    ${network_name}     devstack_path=/opt/stack/new/devstack
     [Documentation]    Create Network with neutron request.
-    ${output}=    Write Commands Until Prompt    cd /opt/stack/new/devstack && cat localrc
+    ${output}=    Write Commands Until Prompt    cd ${devstack_path} && cat localrc
     Log    ${output}
     ${output}=    Write Commands Until Prompt    source openrc admin admin
     Log    ${output}
