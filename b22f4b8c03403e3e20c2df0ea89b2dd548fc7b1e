@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_64ee738d",
+        "filename": "csit/suites/ovsdb/Devstack_Tempest_Tests/01__single_node_devstack_tempest_tests.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-19T23:41:38Z",
+      "side": 1,
+      "message": "I know it\u0027s not part of this patch, but this section of \"test cases\" are not really test cases. just a blind execution of some command. we should add some checks at some point. again, not for this patch, but I wanted to point it out.",
+      "range": {
+        "startLine": 53,
+        "startChar": 0,
+        "endLine": 87,
+        "endChar": 25
+      },
+      "revId": "b22f4b8c03403e3e20c2df0ea89b2dd548fc7b1e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
