@@ -88,7 +88,7 @@ Reconfigure_ODL_To_Accept_Connection
 
 Wait_For_Data_Change_Counter_Ready
     [Documentation]    Data change counter might have been slower to start than ipv4 topology, wait for it.
-    BuiltIn.Wait_Until_Keyword_Succeeds    60s    1s    ChangeCounter.Get_Change_Count
+    BuiltIn.Wait_Until_Keyword_Succeeds    180s    1s    ChangeCounter.Get_Change_Count
 
 Reconfigure_Data_Change_Counter
     [Documentation]    Configure data change counter to count transactions in example-ipv4-topology instead of example-linkstate-topology.
