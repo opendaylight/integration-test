@@ -25,6 +25,10 @@ Start Suite
     Set Suite Variable    ${mininet_conn_id}
     Flexible Mininet Login    user=${user}    password=${password}
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
+    Execute Command    sudo ovs-vsctl show
+    Execute Command    sudo mn --version
+    Execute Command    sudo cat /etc/os-release
+    Execute Command    sudo dpkg -l vlan
     Write    ${start}
     Read Until    mininet>
 
@@ -37,6 +41,10 @@ Start Mininet
     ${mininet_conn_id}=    Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
     Set Suite Variable    ${mininet_conn_id}
     Flexible Mininet Login    user=${user}    password=${password}
+    Execute Command    sudo ovs-vsctl show
+    Execute Command    sudo mn --version
+    Execute Command    sudo cat /etc/os-release
+    Execute Command    sudo dpkg -l vlan
     Put File    ${custom}
     Write    ${cmd}
     Read Until    mininet>
@@ -480,3 +488,13 @@ Convert_To_Minutes
     ${seconds}=    DateTime.Convert_Time    ${time}    result_format=number
     ${minutes}=    BuiltIn.Evaluate    int(math.ceil(${seconds}/60.0))    modules=math
     [Return]    ${minutes}
+
+Install Package in Mininet
+    [Arguments]    ${package_name}    ${system}=${TOOLS_SYSTEM_IP}     ${user}=${TOOLS_SYSTEM_USER}    ${password}=${TOOLS_SYSTEM_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}
+    ...    ${prompt_timeout}=30s
+    [Documentation]    Keyword to install packages for testing to Ubuntu Mininet VM
+    Log    Keyword to install package to Mininet Ubuntu VM
+    Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
+    Flexible Mininet Login    user=${user}    password=${password}
+    Write    sudo apt-get install -y ${package_name}
+    Read Until     ${prompt}
