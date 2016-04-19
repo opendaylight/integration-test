@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_d4c3b488",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-04-19T11:27:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa57193c_144b6c5a",
+      "range": {
+        "startLine": 7,
+        "startChar": 22,
+        "endLine": 7,
+        "endChar": 34
+      },
+      "revId": "b178eccf575753c3867d419e8e6a70770c3fad35",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_f43078ea",
         "filename": "csit/suites/sxp/filtering/040_Peer_Sequence_filtering.robot",
         "patchSetId": 1
@@ -36,6 +60,30 @@
       "writtenOn": "2016-04-19T11:14:30Z",
       "side": 1,
       "message": "Very minor comment:\nMost assignments in this suite (or other SXP suites) do not write equals sign, so it would be better not to write equals in lines as this either.\n\n(Of course, writing equals everywhere would be even better, but that may be too much of editing.)",
+      "range": {
+        "startLine": 53,
+        "startChar": 12,
+        "endLine": 53,
+        "endChar": 15
+      },
+      "revId": "b178eccf575753c3867d419e8e6a70770c3fad35",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_343cb093",
+        "filename": "csit/suites/sxp/filtering/040_Peer_Sequence_filtering.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-04-19T11:27:56Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa57193c_f43078ea",
       "range": {
         "startLine": 53,
         "startChar": 12,
