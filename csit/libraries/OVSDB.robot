@@ -128,7 +128,7 @@ Add Multiple Managers to OVS
     Log    Configure OVS Managers in the OVS
     Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl set-manager ${ovs_opt}
     Log    Check OVS configuratiom
-    ${output}=    Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl show
+    ${output}=    Wait Until Keyword Succeeds    5s    1s    Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl show
     Log    ${output}
     ${ovsdb_uuid}=    Wait Until Keyword Succeeds    5s    1s    Get OVSDB UUID    controller_http_session=controller1
     [Return]    ${ovsdb_uuid}
