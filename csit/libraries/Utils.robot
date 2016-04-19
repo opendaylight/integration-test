@@ -232,11 +232,13 @@ Run Command On Remote System
     [Documentation]    Reduces the common work of running a command on a remote system to a single higher level
     ...    robot keyword, taking care to log in with a public key and. The command given is written
     ...    and the output returned. No test conditions are checked.
+    ${current_ssh_connection}=    SSHLibrary.Get Connection
     Log    Attempting to execute ${cmd} on ${system} by ${user} with ${keyfile_pass} and ${prompt}
     ${conn_id}=    SSHLibrary.Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
     Flexible SSH Login    ${user}    ${password}
     ${stdout}    ${stderr}    SSHLibrary.Execute Command    ${cmd}    return_stderr=True
     SSHLibrary.Close Connection
+    KarafKeywords.Restore_Current_SSH_Connection_From_Index
     Log    ${stderr}
     [Return]    ${stdout}
 
