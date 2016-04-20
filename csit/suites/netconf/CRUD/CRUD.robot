@@ -24,6 +24,7 @@ Library           RequestsLibrary
 Library           OperatingSystem
 Library           String
 Library           SSHLibrary    timeout=10s
+Resource          ${CURDIR}/../../../libraries/ClusterKeywords.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
@@ -64,6 +65,9 @@ Wait_For_Device_To_Become_Connected
 Check_Device_Data_Is_Empty
     [Documentation]    Get the device data and make sure it is empty.
     Check_Config_Data    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
+
+Test_Entity_Ownership_Data
+    ClusterKeywords.Get Device Entity Owner And Followers Indexes    node1    openflow    abc123
 
 Create_Device_Data_Label_Via_Xml
     [Documentation]    Send a sample test data label into the device and check that the request went OK.
