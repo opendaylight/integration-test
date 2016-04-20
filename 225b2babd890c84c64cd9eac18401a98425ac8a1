@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_d53bab36",
+        "filename": "csit/libraries/ClusterKeywords.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-04-20T15:37:50Z",
+      "side": 1,
+      "message": "Is there any reason to complicate matters with this and the extra and cryptic ${device_type} parameter? According to me removing the cryptic ${device_type} parameter and using this simple piece of code would do the trick:\n\n    ${clear_data}\u003d    Extract OpenFlow Device Data    ${data}    \n    ${clear_data}\u003d    Extract Ovsdb Device Data    ${clear_data}\n\nHint: Netconf device entities would have to use this confusing call to get their data:\n\n    ${netconf_device_entity}\u003d    Get Device Entity Owner And Followers Indexes    node1    openflow    netconf-test-device",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 92,
+        "endChar": 109
+      },
+      "revId": "225b2babd890c84c64cd9eac18401a98425ac8a1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
