@@ -110,6 +110,14 @@ Check_Device_Data_Is_Seen_As_Empty_On_Setter
     [Documentation]    Get the device data as seen by setter and make sure it is empty.
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${NODE_SETTER}    ${empty_data}
 
+Test_Entity_Ownership_Data_1
+    ${data}=    Utils.Get Data From URI    node1    ${CONFIG_API}/restconf/operational/entity-owners:entity-owners
+    Log    ${data}
+
+Test_Entity_Ownership_Data_2
+    ${data}=    Utils.Get Data From URI    node1    ${OPERATIONAL_API}/restconf/operational/entity-owners:entity-owners
+    Log    ${data}
+
 Create_Device_Data
     [Documentation]    Send some sample test data into the device and check that the request went OK.
     NetconfViaRestconf.Activate_NVR_Session    ${NODE_SETTER}
