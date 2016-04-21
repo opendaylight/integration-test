@@ -137,6 +137,7 @@ Execute Controller Karaf Command On Background
     BuiltIn.Run Keyword If    '${status_wait}' != 'PASS'    BuiltIn.Fail    Failed to see prompt after sending the command: ${command}
     [Teardown]    Restore Current SSH Connection From Index    ${current_connection_index}
     [Return]    ${message_wait}
+    [Teardown]    Restore Current SSH Connection From Index    ${current_connection_index}
 
 Execute Controller Karaf Command With Retry On Background
     [Arguments]    ${command}
