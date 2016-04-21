@@ -94,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_888f5523",
+        "filename": "csit/suites/netconf/clustering/outages.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-04-21T13:56:01Z",
+      "side": 1,
+      "message": "This is not \"User Configurable Variable\" (see https://wiki.opendaylight.org/index.php?title\u003dIntegration/Test/Test_Code_Guidelines#Variable_naming) so it has to use snake_case.",
+      "parentUuid": "fa57193c_c8f30d09",
+      "range": {
+        "startLine": 46,
+        "startChar": 1,
+        "endLine": 46,
+        "endChar": 34
+      },
+      "revId": "e43617d2cc07c52c3b40623342afcdff3d8886a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_c8a5cd05",
         "filename": "csit/suites/netconf/clustering/outages.robot",
         "patchSetId": 28
