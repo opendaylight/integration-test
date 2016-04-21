@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_c86e6dc9",
+        "filename": "csit/suites/netconf/clustering/outages.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-21T12:35:42Z",
+      "side": 1,
+      "message": "Distinguish from CRUD.robot",
+      "range": {
+        "startLine": 2,
+        "startChar": 36,
+        "endLine": 2,
+        "endChar": 40
+      },
+      "revId": "e43617d2cc07c52c3b40623342afcdff3d8886a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_a87339b0",
+        "filename": "csit/suites/netconf/clustering/outages.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-21T12:35:42Z",
+      "side": 1,
+      "message": "were",
+      "range": {
+        "startLine": 14,
+        "startChar": 38,
+        "endLine": 14,
+        "endChar": 42
+      },
+      "revId": "e43617d2cc07c52c3b40623342afcdff3d8886a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_48909d95",
+        "filename": "csit/suites/netconf/clustering/outages.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-21T12:35:42Z",
+      "side": 1,
+      "message": "Reboots take time. Is there a reason why each operation has to be executed on each node?\nCreate on 1, Update on 2 and Delete on 3 may suffice.",
+      "range": {
+        "startLine": 21,
+        "startChar": 54,
+        "endLine": 21,
+        "endChar": 69
+      },
+      "revId": "e43617d2cc07c52c3b40623342afcdff3d8886a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_c8f30d09",
+        "filename": "csit/suites/netconf/clustering/outages.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-21T12:35:42Z",
+      "side": 1,
+      "message": "ALL_CAPS",
+      "range": {
+        "startLine": 46,
+        "startChar": 1,
+        "endLine": 46,
+        "endChar": 34
+      },
+      "revId": "e43617d2cc07c52c3b40623342afcdff3d8886a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_c8a5cd05",
+        "filename": "csit/suites/netconf/clustering/outages.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-21T12:35:42Z",
+      "side": 1,
+      "message": "All_Nodes",
+      "range": {
+        "startLine": 67,
+        "startChar": 38,
+        "endLine": 67,
+        "endChar": 47
+      },
+      "revId": "e43617d2cc07c52c3b40623342afcdff3d8886a2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
