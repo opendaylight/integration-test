@@ -255,7 +255,7 @@ Controller Sync Status Should Be False
 Get Controller Sync Status
     [Arguments]    ${controller_ip}
     [Documentation]    Return Sync Status.
-    Create_Session    session    http://${controller_ip}:${RESTCONFPORT}    headers=${HEADERS}    auth=${AUTH}
+    Create_Session    session    http://${controller_ip}:${RESTCONFPORT}    headers=${HEADERS}    auth=${AUTH}    max_retries=0
     ${data}=    Get Data From URI    session    ${jolokia_conf}
     Log    ${data}
     ${json}=    To Json    ${data}
