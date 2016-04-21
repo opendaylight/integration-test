@@ -57,12 +57,14 @@ Get Cluster Entity Owner
     ${candidates_list}=    Create List
     ${data}=    Utils.Get Data From URI    controller@{controller_index_list}[0]    /restconf/operational/entity-owners:entity-owners
     Log    ${data}
-    ${clear_data}=    Run Keyword If    '${device_type}' == 'openflow'    Extract OpenFlow Device Data    ${data}
-    ...    ELSE IF    '${device_type}' == 'ovsdb'    Extract Ovsdb Device Data    ${data}
+    ${device_style}=    BuiltIn.Set_Variable_If    '${device_type}' == 'netconf'    openflow    ${device_type}
+    ${entity_type}=    BuiltIn.Set_Variable_If    '${device_type}' == 'netconf'    netconf-node/${device}    ${device_type}
+    ${clear_data}=    Run Keyword If    '${device_style}' == 'openflow'    Extract OpenFlow Device Data    ${data}
+    ...    ELSE IF    '${device_style}' == 'ovsdb'    Extract Ovsdb Device Data    ${data}
     ...    ELSE    Fail    Not recognized device type: ${device_type}
     ${json}=    RequestsLibrary.To Json    ${clear_data}
     ${entity_type_list}=    Get From Dictionary    &{json}[entity-owners]    entity-type
-    ${entity_type_index}=    Get Index From List Of Dictionaries    ${entity_type_list}    type    ${device_type}
+    ${entity_type_index}=    Get Index From List Of Dictionaries    ${entity_type_list}    type    ${entity_type}
     Should Not Be Equal    ${entity_type_index}    -1    No Entity Owner found for ${device_type}
     ${entity_list}=    Get From Dictionary    @{entity_type_list}[${entity_type_index}]    entity
     ${entity_index}=    Utils.Get Index From List Of Dictionaries    ${entity_list}    id    ${device}
