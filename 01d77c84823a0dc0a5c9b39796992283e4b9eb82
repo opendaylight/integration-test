@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_e292689e",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-22T23:44:55Z",
+      "side": 1,
+      "message": "perfect!",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 56
+      },
+      "revId": "01d77c84823a0dc0a5c9b39796992283e4b9eb82",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_42907495",
+        "filename": "csit/suites/openstack/connectivity/02_l3_tests.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-22T23:44:55Z",
+      "side": 1,
+      "message": "do you want your \"[Teardown]    Show Debugs\"  in this one?",
+      "revId": "01d77c84823a0dc0a5c9b39796992283e4b9eb82",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
