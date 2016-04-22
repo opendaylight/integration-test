@@ -5,8 +5,7 @@
             "ipv4-prefix": "0.0.0.0/0"
         },
         "mapping-authkey": {
-            "key-string": "password",
-            "key-type": 1
+            "key-type": 0
         }
     }
 }

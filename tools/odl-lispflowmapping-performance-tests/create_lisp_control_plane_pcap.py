@@ -77,11 +77,12 @@ def generate_map_request(eid):
     return packet
 
 
-def generate_map_register(eid, rloc):
+def generate_map_register(eid, rloc, key_id):
     """Create a LISP Map-Register packet as a Scapy object
     Args:
         :param eid: A string used as the EID record
         :param rloc: A string used as the RLOC
+        :param key_id: Integer value specifying the authentication type
     Returns:
         :return : returns a Scapy Map-Request packet object
     """
@@ -108,6 +109,7 @@ def generate_map_register(eid, rloc):
                                     register_flags=10,
                                     additional_register_flags=1,
                                     register_count=1,
+                                    key_id=key_id,
                                     register_records=record,
                                     xtr_id_low=netaddr.IPAddress(eid))
     return packet
@@ -150,22 +152,28 @@ increment = in_args.increment
 seq_eids = generate_eids_sequential(in_args.base_eid, in_args.requests)
 seq_pkts_mreq = []
 seq_pkts_mreg = []
+seq_pkts_mrga = []
 
 for eid in seq_eids:
     seq_pkts_mreq.append(generate_map_request(eid))
-    seq_pkts_mreg.append(generate_map_register(eid, eid))
+    seq_pkts_mreg.append(generate_map_register(eid, eid, 0))
+    seq_pkts_mrga.append(generate_map_register(eid, eid, 1))
 
 lisp.wrpcap("encapsulated-map-requests-sequential.pcap", seq_pkts_mreq)
-lisp.wrpcap("map-registers-sequential.pcap", seq_pkts_mreg)
+lisp.wrpcap("map-registers-sequential-no-auth.pcap", seq_pkts_mreg)
+lisp.wrpcap("map-registers-sequential-sha1-auth.pcap", seq_pkts_mrga)
 
 if in_args.random is True:
     rand_eids = generate_eids_random(in_args.base_eid, in_args.requests)
     rand_pkts_mreq = []
     rand_pkts_mreg = []
+    rand_pkts_mrga = []
 
     for eid in rand_eids:
         rand_pkts_mreq.append(generate_map_request(eid))
-        rand_pkts_mreg.append(generate_map_register(eid, eid))
+        rand_pkts_mreg.append(generate_map_register(eid, eid, 0))
+        rand_pkts_mrga.append(generate_map_register(eid, eid, 1))
 
     lisp.wrpcap("encapsulated-map-requests-random.pcap", rand_pkts_mreq)
-    lisp.wrpcap("map-registers-random.pcap", rand_pkts_mreg)
+    lisp.wrpcap("map-registers-random-no-auth.pcap", rand_pkts_mreg)
+    lisp.wrpcap("map-registers-random-sha1-auth.pcap", rand_pkts_mreg)
