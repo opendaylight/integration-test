@@ -11,6 +11,7 @@ integration/test/csit/suites/netconf/ready
 integration/test/csit/suites/netconf/clustering/CRUD.robot
 
 # Run the intrusive cluster tests after the non-intrusive ones.
+integration/test/csit/suites/netconf/clustering/entity.robot
 integration/test/csit/suites/netconf/clustering/outages.robot
 
 # Repeat the CRUD test suite again to try to detect breakage caused by
