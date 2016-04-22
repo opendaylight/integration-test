@@ -17,7 +17,7 @@ Documentation     netconf-connector CRUD test suite.
 ...               them against expected data sets. See MDSAL/northbound.robot suite for
 ...               additional information.
 Suite Setup       Setup_Everything
-Suite Teardown    Teardown_Everything
+Suite Teardown    SetupUtils.Teardown_Netconf_Suite    testtool=True
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           Collections
 Library           RequestsLibrary
@@ -221,11 +221,6 @@ Setup_Everything
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
     NetconfKeywords.Setup_Netconf_Keywords
-
-Teardown_Everything
-    [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.
-    RequestsLibrary.Delete_All_Sessions
-    BuiltIn.Run_Keyword_And_Ignore_Error    NetconfKeywords.Stop_Testtool
 
 Get_Config_Data
     [Documentation]    Get and return the config data from the device.

@@ -15,7 +15,7 @@ Documentation     netconf-connector scaling test suite (multi-threaded GET reque
 ...               (using external Python tool).
 ...               - Deconfigure the devices one by one.
 Suite Setup       Setup_Everything
-Suite Teardown    Teardown_Everything
+Suite Teardown    SetupUtils.Teardown_Netconf_Suite    testtool=True
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           Collections
 Library           String
@@ -81,11 +81,6 @@ Setup_Everything
     # Deploy testing tools.
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/netconf_tools/getter.py
     SSHLibrary.Put_File    ${CURDIR}/../../../libraries/AuthStandalone.py
-
-Teardown_Everything
-    [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.
-    RequestsLibrary.Delete_All_Sessions
-    NetconfKeywords.Stop_Testtool
 
 Configure_Device
     [Arguments]    ${current_name}

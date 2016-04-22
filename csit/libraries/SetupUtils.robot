@@ -50,3 +50,12 @@ Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
 Teardown_Test_Show_Bugs_If_Test_Failed
     [Documentation]    Test case teardown. Show linked bugs in case of failure.
     SetupUtils__Report_Bugs_Causing_Failure
+
+Teardown_Netconf_Suite
+    [Arguments]    ${restperfclient}=False    ${testtool}=False
+    [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.
+    Teardown_Netconf_Via_Restconf
+    RequestsLibrary.Delete_All_Sessions
+    BuiltIn.Run_Keyword_If    ${testtool}    BuiltIn.Run_Keyword_And_Ignore_Error    NetconfKeywords.Stop_Testtool
+    BuiltIn.Run_Keyword_If    ${restperfclient}    BuiltIn.Run_Keyword_And_Ignore_Error    RestPerfClient.Teardown_Restperfclient
+    SSHLibrary.Close_All_Connections

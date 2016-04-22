@@ -17,7 +17,7 @@ Documentation     netconf-restperfclient MDSAL performance test suite.
 ...               asynchronous requests. The restperfclient is used to generate the "update"
 ...               requests, the "create" request is issued in a sepate test case.
 Suite Setup       Setup_Everything
-Suite Teardown    Teardown_Everything
+Suite Teardown    SetupUtils.Teardown_Netconf_Suite    restperfclient=True
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
 Library           RequestsLibrary
@@ -117,8 +117,3 @@ Setup_Everything
     Utils.Set_User_Configurable_Variable_Default    DIRECT_MDSAL_TIMEOUT    ${value} s
     ${value}=    BuiltIn.Evaluate    ${REQUEST_COUNT}/10+10
     Utils.Set_User_Configurable_Variable_Default    NETCONF_CONNECTOR_MDSAL_TIMEOUT    ${value} s
-
-Teardown_Everything
-    [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.
-    RequestsLibrary.Delete_All_Sessions
-    RestPerfClient.Teardown_Restperfclient

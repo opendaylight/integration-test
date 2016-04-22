@@ -33,7 +33,7 @@ Documentation     netconf clustered CRUD test suite.
 ...               this currently has fairly low priority due to Beryllium delivery date so
 ...               it was left out.
 Suite Setup       Setup_Everything
-Suite Teardown    Teardown_Everything
+Suite Teardown    SetupUtils.Teardown_Netconf_Suite    testtool=True
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           Collections
 Library           RequestsLibrary
@@ -197,11 +197,6 @@ Setup_Everything
     RequestsLibrary.Create_Session    node1    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}    headers=${HEADERS_XML}    auth=${AUTH}
     RequestsLibrary.Create_Session    node2    http://${ODL_SYSTEM_2_IP}:${RESTCONFPORT}    headers=${HEADERS_XML}    auth=${AUTH}
     RequestsLibrary.Create_Session    node3    http://${ODL_SYSTEM_3_IP}:${RESTCONFPORT}    headers=${HEADERS_XML}    auth=${AUTH}
-
-Teardown_Everything
-    [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.
-    RequestsLibrary.Delete_All_Sessions
-    NetconfKeywords.Stop_Testtool
 
 Check_Device_Instance_Count
     [Arguments]    ${expected}    ${session}

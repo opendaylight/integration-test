@@ -13,7 +13,7 @@ Documentation     netconf-connector scaling test suite (single-threaded GET requ
 ...               - Sending requests for configuration data.
 ...               - Deconfiguring devices one by one.
 Suite Setup       Setup_Everything
-Suite Teardown    Teardown_Everything
+Suite Teardown    SetupUtils.Teardown_Netconf_Suite    testtool=True
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           RequestsLibrary
 Library           SSHLibrary    timeout=10s
@@ -59,11 +59,6 @@ Setup_Everything
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     NetconfKeywords.Setup_Netconf_Keywords
     KarafKeywords.Configure_Timeout_For_Karaf_Console    120s
-
-Teardown_Everything
-    [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.
-    RequestsLibrary.Delete_All_Sessions
-    NetconfKeywords.Stop_Testtool
 
 Configure_Device
     [Arguments]    ${current_name}
