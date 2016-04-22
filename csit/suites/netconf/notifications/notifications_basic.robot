@@ -16,7 +16,7 @@ Documentation     Basic tests for BGP application peer.
 ...
 ...               TODO: Use cars/people model for data
 Suite Setup       Setup_Everything
-Suite Teardown    Teardown_Everything
+Suite Teardown    SetupUtils.Teardown_Netconf_Suite
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
 Library           OperatingSystem
@@ -144,13 +144,6 @@ Setup_Everything
     RequestsLibrary.Create Session    restconf    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     BuiltIn.Log    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
-
-Teardown_Everything
-    [Documentation]    Close connections.
-    ...    Tear down imported Resources.
-    ConfigViaRestconf.Teardown_Config_Via_Restconf
-    RequestsLibrary.Delete_All_Sessions
-    SSHLibrary.Close_All_Connections
 
 Log_Response
     [Arguments]    ${resp}
