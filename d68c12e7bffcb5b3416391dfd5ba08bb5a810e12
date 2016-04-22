@@ -1,0 +1,153 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_b7ca749f",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-22T18:42:42Z",
+      "side": 1,
+      "message": "Seems like, in general, this library is missing [Documentation]",
+      "revId": "d68c12e7bffcb5b3416391dfd5ba08bb5a810e12",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_17bb600f",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-22T18:42:42Z",
+      "side": 1,
+      "message": "this might not be the only way to \"fail\".  I wonder if there is also another positive check we can make?  like also checking return code is 200.",
+      "range": {
+        "startLine": 126,
+        "startChar": 4,
+        "endLine": 126,
+        "endChar": 65
+      },
+      "revId": "d68c12e7bffcb5b3416391dfd5ba08bb5a810e12",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_f74a2c26",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-22T18:42:42Z",
+      "side": 1,
+      "message": "you don\u0027t need this, as this is default arg anyway.  FYI if you want to remove to keep things looking more simple.",
+      "range": {
+        "startLine": 26,
+        "startChar": 48,
+        "endLine": 26,
+        "endChar": 81
+      },
+      "revId": "d68c12e7bffcb5b3416391dfd5ba08bb5a810e12",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_175240dd",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-22T18:42:42Z",
+      "side": 1,
+      "message": "these are not test cases, as they are not actually testing/checking anything.  One idea would be to create a local keyword like \"Show Debugs\" (probably a better name, but\nI can\u0027t think of one) and in that keyword, do a \"nova list\", \"nova show\", neutron list/show commands, etc.  then just call\nthat in each test case that you want it.  Maybe all of them,\nas it will help debug things when/if there are failures.\n\nthis applies below as well.",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 55,
+        "endChar": 25
+      },
+      "revId": "d68c12e7bffcb5b3416391dfd5ba08bb5a810e12",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_77057cc1",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-22T18:42:42Z",
+      "side": 1,
+      "message": "just to point out another thing that is not really a test case.",
+      "range": {
+        "startLine": 101,
+        "startChar": 1,
+        "endLine": 103,
+        "endChar": 21
+      },
+      "revId": "d68c12e7bffcb5b3416391dfd5ba08bb5a810e12",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_971490f6",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-22T18:42:42Z",
+      "side": 1,
+      "message": "after these deletes, are we checking (via NB rest API) that these things are actually deleted.",
+      "range": {
+        "startLine": 144,
+        "startChar": 0,
+        "endLine": 165,
+        "endChar": 44
+      },
+      "revId": "d68c12e7bffcb5b3416391dfd5ba08bb5a810e12",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_d7f568cc",
+        "filename": "csit/suites/openstack/connectivity/02_l3_tests.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-22T18:42:42Z",
+      "side": 1,
+      "message": "I have the same basic comments from other suite.",
+      "revId": "d68c12e7bffcb5b3416391dfd5ba08bb5a810e12",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
