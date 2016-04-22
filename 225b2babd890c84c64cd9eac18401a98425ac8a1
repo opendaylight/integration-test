@@ -22,6 +22,29 @@
       "revId": "225b2babd890c84c64cd9eac18401a98425ac8a1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_91a140ac",
+        "filename": "csit/libraries/ClusterKeywords.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-04-22T11:16:16Z",
+      "side": 1,
+      "message": "Any reason why this duplicates the entire previous keyword?",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 46
+      },
+      "revId": "225b2babd890c84c64cd9eac18401a98425ac8a1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
