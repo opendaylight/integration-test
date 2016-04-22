@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation     Test suite for SFC Service Functions, Operates functions from Restconf APIs.
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Setup       Run Keywords    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+...               AND             Init Variables
 Suite Teardown    Delete All Sessions
 Library           SSHLibrary
 Library           Collections
@@ -8,13 +9,6 @@ Library           OperatingSystem
 Library           RequestsLibrary
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
-
-*** Variables ***
-${SERVICE_FUNCTIONS_URI}    /restconf/config/service-function:service-functions/
-${SERVICE_FUNCTIONS_FILE}    ../../../variables/sfc/service-functions.json
-${SF_DPI102100_URI}    /restconf/config/service-function:service-functions/service-function/dpi-102-100/
-${SF_DPI102100_FILE}    ../../../variables/sfc/sf_dpi_102_100.json
-${SF_DPL101_FILE}    ../../../variables/sfc/sf_dpl_101.json
 
 *** Test Cases ***
 Add Service Functions
@@ -43,7 +37,7 @@ Get one Service Function
     [Documentation]    Get one Service Function
     Remove All Elements At URI    ${SERVICE_FUNCTIONS_URI}
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
-    ${elements}=    Create List    dpi-102-1    service-function-type:dpi
+    ${elements}=    Create List    dpi-102-1    dpi
     Check For Elements At URI    ${SERVICE_FUNCTIONS_URI}service-function/dpi-102-1    ${elements}
 
 Get A Non-existing Service Function
@@ -80,7 +74,7 @@ Put one Service Function
     [Documentation]    Put one Service Function
     Remove All Elements At URI    ${SERVICE_FUNCTIONS_URI}
     Add Elements To URI From File    ${SF_DPI102100_URI}    ${SF_DPI102100_FILE}
-    ${elements}=    Create List    dpi-102-100    service-function-type:dpi
+    ${elements}=    Create List    dpi-102-100    dpi
     Check For Elements At URI    ${SF_DPI102100_URI}    ${elements}
     Check For Elements At URI    ${SERVICE_FUNCTIONS_URI}    ${elements}
 
@@ -123,3 +117,16 @@ Delete Service Function DPL
 Clean Datastore After Tests
     [Documentation]    Clean All Service Functions In Datastore After Tests
     Remove All Elements At URI    ${SERVICE_FUNCTIONS_URI}
+
+*** Keywords ***
+Init Variables
+    [Documentation]    Initialize ODL version specific variables
+    log    ${ODL_STREAM}
+    Run Keyword If    '${ODL_STREAM}' == 'stable-lithium'    Set Suite Variable    ${VERSION_DIR}    lithium 
+    ...    ELSE    Set Suite Variable    ${VERSION_DIR}    master
+    Set Suite Variable    ${SERVICE_FUNCTIONS_URI}    /restconf/config/service-function:service-functions/
+    Set Suite Variable    ${SERVICE_FUNCTIONS_FILE}    ../../../variables/sfc/${VERSION_DIR}/service-functions.json
+    Set Suite Variable    ${SF_DPI102100_URI}    /restconf/config/service-function:service-functions/service-function/dpi-102-100/
+    Set Suite Variable    ${SF_DPI102100_FILE}    ../../../variables/sfc/${VERSION_DIR}/sf_dpi_102_100.json
+    Set Suite Variable    ${SF_DPL101_FILE}    ../../../variables/sfc/${VERSION_DIR}/sf_dpl_101.json
+
