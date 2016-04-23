@@ -65,6 +65,30 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_174b60b1",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-04-23T01:31:44Z",
+      "side": 1,
+      "message": "the default is /opt/stack/new/devstack which is used by tempest suite. The other jobs use /opt/stack/devstack. hence I added this argument just to avoid modifying thee tempest tests as they are working fine.",
+      "parentUuid": "fa57193c_f74a2c26",
+      "range": {
+        "startLine": 26,
+        "startChar": 48,
+        "endLine": 26,
+        "endChar": 81
+      },
+      "revId": "d68c12e7bffcb5b3416391dfd5ba08bb5a810e12",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_175240dd",
         "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
         "patchSetId": 15
