@@ -280,3 +280,5 @@ Show Debugs
     : FOR    ${index}    IN    @{vm_indices}
     \    ${output}=    Write Commands Until Prompt    nova show ${index}
     \    Log    ${output}
+    \    ${output}=    Write Commands Until Prompt    nova console-log ${index}
+    \    Log    ${output}
