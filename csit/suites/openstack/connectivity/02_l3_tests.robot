@@ -1,12 +1,12 @@
 *** Settings ***
-Documentation     Test suite to check connectivity in L3 using routers.
-Suite Setup       Devstack Suite Setup Tests
-Library           SSHLibrary
-Library           OperatingSystem
-Library           RequestsLibrary
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/OpenStackOperations.robot
-Resource          ../../../libraries/DevstackUtils.robot
+Documentation    Test suite to check connectivity in L3 using routers.
+Suite Setup    Devstack Suite Setup Tests
+Library    SSHLibrary
+Library    OperatingSystem
+Library    RequestsLibrary
+Resource    ../../../libraries/Utils.robot
+Resource    ../../../libraries/OpenStackOperations.robot
+Resource    ../../../libraries/DevstackUtils.robot
 
 *** Variables ***
 @{NETWORKS_NAME}    network_1    network_2
@@ -65,10 +65,14 @@ Ping Vm Instance In network_1 From network_2
     ${output}    Ping Vm From DHCP Namespace    ${net_id}    50.0.0.3
     Should Contain    ${output}    64 bytes
 
-Login to Vm Instances In network_1 Using Ssh
+Connectivity Tests From Vm Instances In network_1
     [Documentation]    Logging to the vm instance using generated key pair.
     ${net_id}=    Get Net Id    network_1
-    Ssh Vm Instance    ${net_id}    50.0.0.3
+    ${dst_ip_list}=    Create List    50.0.0.2
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list}=    Create List    60.0.0.2
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance      ${net_id}    50.0.0.3    ${dst_ip_list}    l3    other_dst_ip_list=${other_dst_ip_list}
 
 Ping Vm Instance From Instance In network_1
     [Documentation]    Check reachability of vm instances by pinging.
@@ -81,21 +85,14 @@ Ping Dhcp Server In network_2 From Instance In network_1
     Should Contain    ${output}    64 bytes
     Close Vm Instance
 
-Login to Vm Instances In network_2 Using Ssh
+Connectivity Tests From Vm Instances In network_2
     [Documentation]    Logging to the vm instance using generated key pair.
     ${net_id}=    Get Net Id    network_2
-    Ssh Vm Instance    ${net_id}    60.0.0.3
-
-Ping Vm Instance From Instance In network_2
-    [Documentation]    Check reachability of vm instances by pinging.
-    ${output}=    Ping From Instance    50.0.0.3
-    Should Contain    ${output}    64 bytes
-
-Ping Dhcp Server In network_1 From Instance In network_2
-    [Documentation]    ping the dhcp server from instance.
-    ${output}=    Ping From Instance    50.0.0.2
-    Should Contain    ${output}    64 bytes
-    Close Vm Instance
+    ${dst_ip_list}=    Create List    60.0.0.2
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list}=    Create List    50.0.0.2
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance      ${net_id}    60.0.0.3    ${dst_ip_list}    l3    other_dst_ip_list=${other_dst_ip_list}
 
 Delete Vm Instances In network_1
     [Documentation]    Delete Vm instances using instance names in network_1.
