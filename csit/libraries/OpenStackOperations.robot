@@ -1,18 +1,23 @@
 *** Settings ***
-Documentation     Openstack library. This library is useful for tests to create network, subnet, router and vm instances
-Library           SSHLibrary
-Resource          Utils.robot
-Variables         ../variables/Variables.py
+Documentation    Openstack library. This library is useful for tests to create network, subnet, router and vm instances
+Library    SSHLibrary
+Resource    Utils.robot
+Variables    ../variables/Variables.py
 
 *** Keywords ***
-Create Network
-    [Arguments]    ${network_name}    ${devstack_path}=/opt/stack/new/devstack
-    [Documentation]    Create Network with neutron request.
-    ${output}=    Write Commands Until Prompt    cd ${devstack_path} && cat localrc
+Source Password
+    [Arguments]     ${devstack_path}=/opt/stack/new/devstack
+    [Documentation]    Sourcing the Openstack PAsswords for neutron configurations
+    ${output}=    Write Commands Until Prompt    cd ${devstack_path} && cat localrc    30s
     Log    ${output}
     ${output}=    Write Commands Until Prompt    source openrc admin admin
     Log    ${output}
-    ${output}=    Write Commands Until Prompt    neutron -v net-create ${network_name}
+
+Create Network
+    [Arguments]    ${network_name}    ${devstack_path}=/opt/stack/new/devstack
+    [Documentation]    Create Network with neutron request.
+    Source Password        devstack_path=${devstack_path}
+    ${output}=    Write Commands Until Prompt    neutron -v net-create ${network_name}    30s
     Log    ${output}
     Should Contain    ${output}    Created a new network
 
@@ -26,7 +31,7 @@ Delete Network
 Create SubNet
     [Arguments]    ${network_name}    ${subnet}    ${range_ip}
     [Documentation]    Create SubNet for the Network with neutron request.
-    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet}
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet}    30s
     Log    ${output}
     Should Contain    ${output}    Created a new subnet
 
@@ -131,10 +136,10 @@ Close Vm Instance
     ${output}=    Write Commands Until Prompt    exit
     Log    ${output}
 
-Ssh Vm Instance
-    [Arguments]    ${net_id}    ${vm_ip}    ${user}=cirros    ${password}=cubswin:)    ${key_file}=test.pem
+Test Operations From Vm Instance
+    [Arguments]    ${net_id}    ${src_ip}    ${dst_ip_list}    ${l2_or_l3}=l2    ${other_dst_ip_list}=${NONE}    ${user}=cirros    ${password}=cubswin:)
     [Documentation]    Login to the vm instance using ssh in the network.
-    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -i ${key_file} ${user}@${vm_ip}    (yes/no)?
+    ${output}=   Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${src_ip}    (yes/no)?
     Log    ${output}
     ${output}=    Write Commands Until Expected Prompt    yes    d:
     Log    ${output}
@@ -144,6 +149,35 @@ Ssh Vm Instance
     Log    ${output}
     ${output}=    Write Commands Until Expected Prompt    route    $
     Log    ${output}
+    ${dest_vm}=    Get From List    ${dst_ip_list}    0
+    Log    ${dest_vm}
+    ${output}=   Write Commands Until Expected Prompt    ping -c 3 ${dest_vm}    $
+    Log    ${output}
+    Should Contain     ${output}     64 bytes
+    ${dest_dhcp}=    Get From List    ${dst_ip_list}    1
+    Log    ${dest_dhcp}
+    ${output}=   Write Commands Until Expected Prompt    ping -c 3 ${dest_dhcp}    $
+    Log    ${output}
+    Should Contain     ${output}     64 bytes
+    ${output}=   Write Commands Until Expected Prompt    curl -i http://169.254.169.254    $
+    Log    ${output}
+    Should Contain     ${output}     200
+    Run Keyword If    '${l2_or_l3}' == 'l3'    Ping Other Instances    ${other_dst_ip_list}
+    Write Commands Until Prompt    exit
+
+Ping Other Instances
+    [Arguments]    ${other_dst_ip_list}
+    [Documentation]    Check reachability with other network's instances.
+    ${dest_vm}=    Get From List    ${other_dst_ip_list}    0
+    Log    ${dest_vm}
+    ${output}=   Write Commands Until Expected Prompt    ping -c 3 ${dest_vm}    $
+    Log    ${output}
+    Should Contain     ${output}     64 bytes
+    ${dest_dhcp}=    Get From List    ${other_dst_ip_list}    1
+    Log    ${dest_dhcp}
+    ${output}=   Write Commands Until Expected Prompt    ping -c 3 ${dest_dhcp}    $
+    Log    ${output}
+    Should Contain     ${output}     64 bytes
 
 Create Router
     [Arguments]    ${router_name}
