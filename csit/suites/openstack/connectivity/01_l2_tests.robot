@@ -1,12 +1,12 @@
 *** Settings ***
-Documentation     Test suite to verify packet flows between vm instances.
-Suite Setup       Devstack Suite Setup Tests
-Library           SSHLibrary
-Library           OperatingSystem
-Library           RequestsLibrary
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/OpenStackOperations.robot
-Resource          ../../../libraries/DevstackUtils.robot
+Documentation    Test suite to verify packet flows between vm instances.
+Suite Setup    Devstack Suite Setup Tests
+Library    SSHLibrary
+Library    OperatingSystem
+Library    RequestsLibrary
+Resource    ../../../libraries/Utils.robot
+Resource    ../../../libraries/OpenStackOperations.robot
+Resource    ../../../libraries/DevstackUtils.robot
 
 *** Variables ***
 @{NETWORKS_NAME}    network_1    network_2
@@ -63,40 +63,16 @@ Ping All Vm Instances In network_2
 Login to Vm Instances In network_1 Using Ssh
     [Documentation]    Logging to the vm instance using generated key pair.
     ${net_id}=    Get Net Id    network_1
-    Ssh Vm Instance    ${net_id}    30.0.0.3
-
-Ping Vm Instance From Instance In network_1
-    [Documentation]    Check reachability of vm instances by pinging.
-    ${output}=    Ping From Instance    30.0.0.4
-    Should Contain    ${output}    64 bytes
-
-Ping Dhcp Server From Instance In network_1
-    [Documentation]    ping the dhcp server from instance.
-    ${output}=    Ping From Instance    30.0.0.2
-    Should Contain    ${output}    64 bytes
-
-Ping Metadata Server From Instance In network_1
-    [Documentation]    ping the metadata server from instance.
-    Curl Metadata Server
+    ${dst_ip_list}=    Create List    30.0.0.4    30.0.0.2
+    Log    ${dst_ip_list}
+    Ssh Vm Instance    ${net_id}    30.0.0.3    ${dst_ip_list}
 
 Login to Vm Instances In network_2 Using Ssh
     [Documentation]    Logging to the vm instance using generated key pair.
     ${net_id}=    Get Net Id    network_2
-    Ssh Vm Instance    ${net_id}    40.0.0.3
-
-Ping Vm Instance From Instance In network_2
-    [Documentation]    Check reachability of vm instances by pinging.
-    ${output}=    Ping From Instance    40.0.0.4
-    Should Contain    ${output}    64 bytes
-
-Ping Dhcp Server From Instance In network_2
-    [Documentation]    ping the dhcp server from instance.
-    ${output}=    Ping From Instance    40.0.0.2
-    Should Contain    ${output}    64 bytes
-
-Ping Metadata Server From Instance In network_2
-    [Documentation]    ping the metadata server from instance.
-    Curl Metadata Server
+    ${dst_ip_list}=    Create List    40.0.0.4    40.0.0.2
+    Log    ${dst_ip_list}
+    Ssh Vm Instance    ${net_id}    40.0.0.3    ${dst_ip_list}
 
 Delete Vm Instance
     [Documentation]    Delete Vm instances using instance names.

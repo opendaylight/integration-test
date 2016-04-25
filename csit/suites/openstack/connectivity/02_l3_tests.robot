@@ -1,12 +1,12 @@
 *** Settings ***
-Documentation     Test suite to check connectivity in L3 using routers.
-Suite Setup       Devstack Suite Setup Tests
-Library           SSHLibrary
-Library           OperatingSystem
-Library           RequestsLibrary
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/OpenStackOperations.robot
-Resource          ../../../libraries/DevstackUtils.robot
+Documentation    Test suite to check connectivity in L3 using routers.
+Suite Setup    Devstack Suite Setup Tests
+Library    SSHLibrary
+Library    OperatingSystem
+Library    RequestsLibrary
+Resource    ../../../libraries/Utils.robot
+Resource    ../../../libraries/OpenStackOperations.robot
+Resource    ../../../libraries/DevstackUtils.robot
 
 *** Variables ***
 @{NETWORKS_NAME}    network_1    network_2
@@ -68,6 +68,11 @@ Ping Vm Instance In network_1 From network_2
 Login to Vm Instances In network_1 Using Ssh
     [Documentation]    Logging to the vm instance using generated key pair.
     ${net_id}=    Get Net Id    network_1
+    ${dst_ip_list}=    Create List    50.0.0.2
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list}=    Create List    60.0.0.2
+    Log    ${other_dst_ip_list}
+    Ssh Vm Instance    ${net_id}    50.0.0.3    ${dst_ip_list}    l3    ${other_dst_ip_list}
     Ssh Vm Instance    ${net_id}    50.0.0.3
 
 Ping Vm Instance From Instance In network_1
