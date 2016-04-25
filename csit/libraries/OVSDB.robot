@@ -66,6 +66,7 @@ Verify OVS Reports Connected
     [Documentation]    Uses "vsctl show" to check for string "is_connected"
     ${output}=    Utils.Run Command On Remote System    ${tools_system}    sudo ovs-vsctl show
     Should Contain    ${output}    is_connected
+    [Return]    ${output}
 
 Get OVSDB UUID
     [Arguments]    ${ovs_system_ip}=${TOOLS_SYSTEM_IP}    ${controller_ip}=${ODL_SYSTEM_IP}    ${controller_http_session}=session
