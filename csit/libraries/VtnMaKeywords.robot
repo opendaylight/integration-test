@@ -20,6 +20,10 @@ ${FF_DUMPFLOWS_OF10}    sh ovs-ofctl dump-flows -OOpenFlow10 s3
 ${FF_DUMPFLOWS_OF13}    sh ovs-ofctl dump-flows -OOpenFlow13 s3
 ${DROP_DUMPFLOWS_OF10}    sh ovs-ofctl dump-flows -OOpenFlow10 s2
 ${DROP_DUMPFLOWS_OF13}    sh ovs-ofctl dump-flows -OOpenFlow13 s2
+${DROP_OUT_DUMPFLOWS_OF10}    sh ovs-ofctl dump-flows -OOpenFlow10 s3
+${DROP_OUT_DUMPFLOWS_OF13}    sh ovs-ofctl dump-flows -OOpenFlow13 s3
+${FF_OUT_DUMPFLOWS_OF10}    sh ovs-ofctl dump-flows -OOpenFlow10 s2
+${FF_OUT_DUMPFLOWS_OF13}    sh ovs-ofctl dump-flows -OOpenFlow13 s2
 ${index}          7
 @{inet_actions}    mod_nw_src:192.0.0.1    mod_nw_dst:192.0.0.2
 @{BRIDGE1_DATAFLOW}    "reason":"PORTMAPPED"    "tenant-name":"Tenant1"    "bridge-name":"vBridge1"    "interface-name":"if2"
