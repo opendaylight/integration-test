@@ -1,18 +1,23 @@
 *** Settings ***
-Documentation     Openstack library. This library is useful for tests to create network, subnet, router and vm instances
-Library           SSHLibrary
-Resource          Utils.robot
-Variables         ../variables/Variables.py
+Documentation    Openstack library. This library is useful for tests to create network, subnet, router and vm instances
+Library    SSHLibrary
+Resource    Utils.robot
+Variables    ../variables/Variables.py
 
 *** Keywords ***
-Create Network
-    [Arguments]    ${network_name}    ${devstack_path}=/opt/stack/new/devstack
-    [Documentation]    Create Network with neutron request.
-    ${output}=    Write Commands Until Prompt    cd ${devstack_path} && cat localrc
+Source Password
+    [Arguments]     ${devstack_path}=/opt/stack/new/devstack
+    [Documentation]    Sourcing the Openstack PAsswords for neutron configurations
+    ${output}=    Write Commands Until Prompt    cd ${devstack_path} && cat localrc    30s
     Log    ${output}
     ${output}=    Write Commands Until Prompt    source openrc admin admin
     Log    ${output}
-    ${output}=    Write Commands Until Prompt    neutron -v net-create ${network_name}
+
+Create Network
+    [Arguments]    ${network_name}    ${devstack_path}=/opt/stack/new/devstack
+    [Documentation]    Create Network with neutron request.
+    Source Password        devstack_path=${devstack_path}
+    ${output}=    Write Commands Until Prompt    neutron -v net-create ${network_name}    30s
     Log    ${output}
     Should Contain    ${output}    Created a new network
 
@@ -26,7 +31,7 @@ Delete Network
 Create SubNet
     [Arguments]    ${network_name}    ${subnet}    ${range_ip}
     [Documentation]    Create SubNet for the Network with neutron request.
-    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet}
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet}    30s
     Log    ${output}
     Should Contain    ${output}    Created a new subnet
 
@@ -94,6 +99,7 @@ Create Vm Instances
     [Documentation]    Create Four Vm Instance with the net id of the Netowrk.
     : FOR    ${VmElement}    IN    @{vm_instance_names}
     \    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement}
+    \    sleep      15s
     \    Log    ${output}
 
 View Vm Console
@@ -131,10 +137,21 @@ Close Vm Instance
     ${output}=    Write Commands Until Prompt    exit
     Log    ${output}
 
-Ssh Vm Instance
-    [Arguments]    ${net_id}    ${vm_ip}    ${user}=cirros    ${password}=cubswin:)    ${key_file}=test.pem
+Check If Console Is VmInstance
+    [Documentation]     Check if the session has been able to login to the VM instance
+    ${output}=       Write Commands Until Expected Prompt      id       $
+    Should Contain    ${output}     cirros
+
+Exit From Vm Console
+    [Documentation]     Check if the session has been able to login to the VM instance and exit the instance
+    ${rcode}=    Run Keyword And Return Status      Check If Console Is VmInstance
+    Run Keyword If     ${rcode}     Write Commands Until Prompt     exit
+    Get OvsDebugInfo
+
+Test Operations From Vm Instance
+    [Arguments]    ${net_id}    ${src_ip}    ${dst_ip_list}    ${l2_or_l3}=l2    ${other_dst_ip_list}=${NONE}    ${user}=cirros    ${password}=cubswin:)
     [Documentation]    Login to the vm instance using ssh in the network.
-    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -i ${key_file} ${user}@${vm_ip}    (yes/no)?
+    ${output}=   Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${src_ip}    (yes/no)?
     Log    ${output}
     ${output}=    Write Commands Until Expected Prompt    yes    d:
     Log    ${output}
@@ -144,6 +161,35 @@ Ssh Vm Instance
     Log    ${output}
     ${output}=    Write Commands Until Expected Prompt    route    $
     Log    ${output}
+    ${dest_vm}=    Get From List    ${dst_ip_list}    0
+    Log    ${dest_vm}
+    ${output}=   Write Commands Until Expected Prompt    ping -c 3 ${dest_vm}    $
+    Log    ${output}
+    Should Contain     ${output}     64 bytes
+    ${dest_dhcp}=    Get From List    ${dst_ip_list}    1
+    Log    ${dest_dhcp}
+    ${output}=   Write Commands Until Expected Prompt    ping -c 3 ${dest_dhcp}    $
+    Log    ${output}
+    Should Contain     ${output}     64 bytes
+    ${output}=   Write Commands Until Expected Prompt    curl -i http://169.254.169.254    $
+    Log    ${output}
+    Should Contain     ${output}     200
+    Run Keyword If    '${l2_or_l3}' == 'l3'    Ping Other Instances    ${other_dst_ip_list}
+    [Teardown]      Exit From Vm Console
+
+Ping Other Instances
+    [Arguments]    ${other_dst_ip_list}
+    [Documentation]    Check reachability with other network's instances.
+    ${dest_vm}=    Get From List    ${other_dst_ip_list}    0
+    Log    ${dest_vm}
+    ${output}=   Write Commands Until Expected Prompt    ping -c 3 ${dest_vm}    $
+    Log    ${output}
+    Should Contain     ${output}     64 bytes
+    ${dest_dhcp}=    Get From List    ${other_dst_ip_list}    1
+    Log    ${dest_dhcp}
+    ${output}=   Write Commands Until Expected Prompt    ping -c 3 ${dest_dhcp}    $
+    Log    ${output}
+    Should Contain     ${output}     64 bytes
 
 Create Router
     [Arguments]    ${router_name}
@@ -167,6 +213,22 @@ Delete Router
     [Documentation]    Delete Router and Interface to the subnets.
     ${output}=    Write Commands Until Prompt    neutron -v router-delete ${router_name}
     Should Contain    ${output}    Deleted router:
+
+Get DumpFlows And Ovsconfig
+    [Arguments]    ${openstack_node_ip}
+    [Documentation]    Get the OvsConfig and Flow entries from OVS from the Openstack Node
+    SSHLibrary.Open Connection    ${openstack_node_ip}    prompt=${DEFAULT_LINUX_PROMPT}
+    Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
+    Write Commands Until Prompt     sudo ovs-vsctl show
+    Write Commands Until Prompt     sudo ovs-ofctl dump-flows br-int -OOpenFlow13
+    Write     exit
+
+Get OvsDebugInfo
+    [Documentation]    Get the OvsConfig and Flow entries from all Openstack nodes
+    Run Keyword If     0 < ${NUM_OS_SYSTEM}       Get DumpFlows And Ovsconfig     ${OS_CONTROL_NODE_IP}
+    Run Keyword If     1 < ${NUM_OS_SYSTEM}       Get DumpFlows And Ovsconfig     ${OS_COMPUTE_1_IP}
+    Run Keyword If     2 < ${NUM_OS_SYSTEM}       Get DumpFlows And Ovsconfig     ${OS_COMPUTE_2_IP}
 
 Show Debugs
     [Arguments]    ${vm_indices}
