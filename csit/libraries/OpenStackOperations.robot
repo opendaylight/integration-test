@@ -8,11 +8,11 @@ Variables         ../variables/Variables.py
 Create Network
     [Arguments]    ${network_name}     ${devstack_path}=/opt/stack/new/devstack
     [Documentation]    Create Network with neutron request.
-    ${output}=    Write Commands Until Prompt    cd ${devstack_path} && cat localrc
+    ${output}=    Write Commands Until Prompt    cd ${devstack_path} && cat localrc    30s
     Log    ${output}
     ${output}=    Write Commands Until Prompt    source openrc admin admin
     Log    ${output}
-    ${output}=    Write Commands Until Prompt    neutron -v net-create ${network_name}
+    ${output}=    Write Commands Until Prompt    neutron -v net-create ${network_name}    30s
     Log    ${output}
     Should Contain    ${output}    Created a new network
 
@@ -26,7 +26,7 @@ Delete Network
 Create SubNet
     [Arguments]    ${network_name}    ${subnet}    ${range_ip}
     [Documentation]    Create SubNet for the Network with neutron request.
-    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet}
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet}    30s
     Log    ${output}
     Should Contain    ${output}    Created a new subnet
 
@@ -93,7 +93,7 @@ Create Vm Instances
     [Arguments]    ${net_id}    ${vm_instance_names}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.tiny
     [Documentation]    Create Four Vm Instance with the net id of the Netowrk.
     : FOR    ${VmElement}    IN    @{vm_instance_names}
-    \    ${output}=    Write Commands Until Prompt     nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement}
+    \    ${output}=    Write Commands Until Prompt     nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement}    30s
     \    Log    ${output}
 
 View Vm Console
@@ -132,7 +132,7 @@ Close Vm Instance
     Log    ${output}
 
 Ssh Vm Instance
-    [Arguments]    ${net_id}    ${vm_ip}    ${user}=cirros    ${password}=cubswin:)     ${key_file}=test.pem
+    [Arguments]    ${net_id}    ${vm_ip}    ${user}=cirros    ${password}=cubswin:)    ${key_file}=test.pem    
     [Documentation]    Login to the vm instance using ssh in the network.
     ${output}=   Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -i ${key_file} ${user}@${vm_ip}    (yes/no)?
     Log    ${output}
