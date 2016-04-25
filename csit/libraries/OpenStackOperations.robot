@@ -132,7 +132,7 @@ Close Vm Instance
     Log    ${output}
 
 Ssh Vm Instance
-    [Arguments]    ${net_id}    ${vm_ip}    ${user}=cirros    ${password}=cubswin:)     ${key_file}=test.pem
+    [Arguments]    ${net_id}    ${vm_ip}    ${key_file}=test.pem    ${user}=cirros    ${password}=cubswin:)     
     [Documentation]    Login to the vm instance using ssh in the network.
     ${output}=   Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -i ${key_file} ${user}@${vm_ip}    (yes/no)?
     Log    ${output}
