@@ -1,1 +1,2 @@
 integration/test/csit/suites/openstack/connectivity/
+integration/test/csit/suites/openstack/clustering/
