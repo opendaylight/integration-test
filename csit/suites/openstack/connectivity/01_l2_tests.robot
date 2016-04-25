@@ -22,6 +22,11 @@ Resource    ../../../libraries/DevstackUtils.robot
 @{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
 
 *** Test Cases ***
+
+Disable Iptables Firewall
+    [Documentation]    Disable the Iptables.
+    Stop Iptables
+
 Create Networks
     [Documentation]    Create Network with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
