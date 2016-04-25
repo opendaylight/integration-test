@@ -165,6 +165,12 @@ LFM_SB_RPC_API = "/restconf/operations/odl-lisp-sb"
 
 # Neutron
 NEUTRON_NB_API = '/controller/nb/v2/neutron'
+ODLREST = '/controller/nb/v2/neutron/networks'
+OSREST = '/v2.0/networks'
+KARAF_HOME = '${WORKSPACE}${/}${BUNDLEFOLDER}'
+
+# Openstack System Prompt
+OS_SYSTEM_PROMPT = '$'
 
 # Other global variables
 # TODO: Move these to more apropriate sections.
