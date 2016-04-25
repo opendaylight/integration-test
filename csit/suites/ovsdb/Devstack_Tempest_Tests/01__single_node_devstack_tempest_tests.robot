@@ -97,6 +97,11 @@ Create Routers
     [Documentation]    Create Router and Add Interface to the subnets.
     Create Router    router_1
 
+Add Interfaces To Router
+    [Documentation]    Add Interfaces
+    : FOR    ${interface}    IN    @{SUBNETS_NAME}
+    \    Add Router Interface    router_1    ${interface}
+
 Verify Gateway Ip After Interface Added
     [Documentation]    Verify the existence of the gateway ips with the dump flow in Beryllium.
     Run Keyword If    "${ODL_VERSION}" == "lithium-latest"    Run Keyword And Ignore Error    Verify Gateway Ips

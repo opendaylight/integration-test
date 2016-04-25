@@ -11,10 +11,10 @@ Resource          ../../../libraries/DevstackUtils.robot
 *** Variables ***
 @{NETWORKS_NAME}    network_1    network_2
 @{SUBNETS_NAME}    subnet_1    subnet_2
-@{NET_1_VM_INSTANCES}    MyFirstInstance_1    MySecondInstance_1
-@{NET_2_VM_INSTANCES}    MyFirstInstance_2    MySecondInstance_2
-@{NET_1_VM_IPS}    30.0.0.3    30.0.0.4
-@{NET_2_VM_IPS}    40.0.0.3    40.0.0.4
+@{NET_1_VM_INSTANCES}    MyFirstInstance_1    MySecondInstance_1    MyThirdInstance_1
+@{NET_2_VM_INSTANCES}    MyFirstInstance_2    MySecondInstance_2    MyThirdInstance_2
+@{NET_1_VM_IPS}    30.0.0.3    30.0.0.4    30.0.0.5
+@{NET_2_VM_IPS}    40.0.0.3    40.0.0.4    40.0.0.5
 @{VM_IPS_NOT_DELETED}    30.0.0.4
 @{GATEWAY_IPS}    30.0.0.1    40.0.0.1
 @{DHCP_IPS}       30.0.0.2    40.0.0.2
