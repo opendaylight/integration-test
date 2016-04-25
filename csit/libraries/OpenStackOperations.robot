@@ -4,6 +4,10 @@ Library    SSHLibrary
 Resource    Utils.robot
 Variables    ../variables/Variables.py
 
+*** Variables ***
+@{vm_ip_list}
+@{NET_1_VM_IPS}
+
 *** Keywords ***
 Source Password
     [Arguments]        ${force}=no
@@ -105,6 +109,13 @@ Create Vm Instances
     \    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement}
     \    Log    ${output}
     \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VmElement}
+    \    ${vm_ip}=    Get Vm Instance Dynamic Ip    ${VmElement}    ${net_name}
+    \    Append To List    ${vm_ip_list}    ${vm_ip}
+    Log    ${vm_ip_list}
+    Set Suite Variable    ${vm_ip_list}
+    ${NET_1_VM_IPS}=    Get Slice From List   ${vm_ip_list}    0    3
+    Log    ${NET_1_VM_IPS}
+    Set Suite Variable    ${NET_1_VM_IPS}
 
 Verify VM Is ACTIVE
     [Arguments]    ${vm_name}
@@ -112,6 +123,14 @@ Verify VM Is ACTIVE
     ${output}=    Write Commands Until Prompt    nova show ${vm_name} | grep OS-EXT-STS:vm_state
     Log    ${output}
     Should Contain     ${output}    active
+
+Get Vm Instance Dynamic Ip
+    [Arguments]    ${vm_instance}    ${net_name}
+    [Documentation]    Retrieve the assigned ip for the created vm instance
+    ${vm_ip}=    Write Commands Until Prompt    nova show ${vm_instance} | grep "${net_name} network" | get_field 2
+    Log    ${vm_ip}
+    [Return]    ${vm_ip}
+
 
 View Vm Console
     [Arguments]    ${vm_instance_names}
@@ -279,4 +298,6 @@ Show Debugs
     Log    ${output}
     : FOR    ${index}    IN    @{vm_indices}
     \    ${output}=    Write Commands Until Prompt    nova show ${index}
+    \    Log    ${output}
+    \    ${output}=    Write Commands Until Prompt    nova console-log ${index}
     \    Log    ${output}
