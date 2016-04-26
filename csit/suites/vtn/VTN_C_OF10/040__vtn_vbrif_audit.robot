@@ -36,7 +36,7 @@ Update controller to Valid IP
 
 Verify the Controller State is in waiting_audit
     [Documentation]    Check Controller status
-    Wait Until Keyword Succeeds    12s    2s    Check Controller Status    odc_test    waiting_audit
+    Wait Until Keyword Succeeds    40s    1s    Check Controller Status    odc_test    waiting_audit
 
 Audit a controller manually
     [Documentation]    Trigger update audit
