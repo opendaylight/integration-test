@@ -90,6 +90,7 @@ Update Controller
     ${controllerupdate}    Create Dictionary    controller=${controllerinfo}
     ${controllerupdate_json}=    json.dumps    ${controllerupdate}
     ${resp}    RequestsLibrary.Put Request    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}.json    data=${controllerupdate_json}
+    SSHLibrary.Execute Command    netstat -tunpl
     Should Be Equal As Strings    ${resp.status_code}    204
 
 Audit Controller
@@ -99,6 +100,7 @@ Audit Controller
     ${auditupdate}    Create Dictionary    audit=${auditinfo}
     ${auditupdate_json}=    json.dumps    ${auditupdate}
     ${resp}    RequestsLibrary.Put Request    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}/audit.json    data=${auditupdate_json}
+    SSHLibrary.Execute Command    netstat -tunpl
     Should Be Equal As Strings    ${resp.status_code}    204
 
 Check Controller Status
@@ -107,7 +109,9 @@ Check Controller Status
     ${resp}    RequestsLibrary.Get Request    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}.json
     ${contents}    To JSON    ${resp.content}
     ${controllerblock}    Get From Dictionary    ${contents}    controller
+    SSHLibrary.Execute Command    netstat -tunpl
     ${status}    Get From Dictionary    ${controllerblock}    operstatus
+    
     Should Be Equal As Strings    ${status}    ${stat}
 
 Add a VTN

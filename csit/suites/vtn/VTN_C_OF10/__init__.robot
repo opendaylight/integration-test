@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite for AD-SAL NSF
 Suite Setup       Start Suite
-Suite Teardown    Delete All Sessions
+Suite Teardown    Stop Suite
 Library           SSHLibrary
 Resource          ../../../libraries/VtnCoKeywords.robot
 
