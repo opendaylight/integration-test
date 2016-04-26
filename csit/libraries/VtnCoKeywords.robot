@@ -71,7 +71,7 @@ Get Coordinator Version
 Add a Controller
     [Arguments]    ${ctrlname}    ${ctrlip}
     [Documentation]    Create a controller
-    ${controllerinfo}    Create Dictionary    controller_id=${ctrlname}    type=odc    ipaddr=${ctrlip}    version=1.0
+    ${controllerinfo}    Create Dictionary    controller_id=127.0.0.1    type=odc    ipaddr=${ctrlip}    version=1.0
     ${controllercreate}    Create Dictionary    controller=${controllerinfo}
     ${controllercreate_json}=    json.dumps    ${controllercreate}
     ${resp}    RequestsLibrary.Post Request    session    ${VTNWEBAPI}/${CTRLS_CREATE}    data=${controllercreate_json}
@@ -86,7 +86,7 @@ Remove Controller
 Update Controller
     [Arguments]    ${ctrlname}    ${ctrlip}    ${desc}
     [Documentation]    Update controller
-    ${controllerinfo}    Create Dictionary    description=${desc}    ipaddr=${ctrlip}    version=1.0
+    ${controllerinfo}    Create Dictionary    description=${desc}    ipaddr=127.0.0.1    version=1.0
     ${controllerupdate}    Create Dictionary    controller=${controllerinfo}
     ${controllerupdate_json}=    json.dumps    ${controllerupdate}
     ${resp}    RequestsLibrary.Put Request    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}.json    data=${controllerupdate_json}
