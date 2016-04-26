@@ -48,13 +48,13 @@ ${custom}         ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
 Start SuiteVtnMa
     [Documentation]    Start VTN Manager Rest Config Api Test Suite, and enabling karaf loglevel as TRACE for VTN.
     Issue Command On Karaf Console    log:set TRACE org.opendaylight.vtn
-    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_YANG_JSON}
     BuiltIn.Wait_Until_Keyword_Succeeds    30    3    Fetch vtn list
     Start Suite
 
 Start SuiteVtnMaTest
     [Documentation]    Start VTN Manager Test Suite
-    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_YANG_JSON}
 
 Stop SuiteVtnMa
     [Documentation]    Stop VTN Manager Test Suite
