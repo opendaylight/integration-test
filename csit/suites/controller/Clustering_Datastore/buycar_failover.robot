@@ -41,62 +41,47 @@ Add_People_To_First_Follower_And_Verify
     : FOR    ${session}    IN    @{ClusterManagement__session_list}
     \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/people    session=${session}    verify=True    iterations=${people_items}
 
-Buy_Cars_After_0_Reboots_And_Verify
-    [Documentation]    Buy some cars on the test member.
+Buy_Cars_On_Leader_And_Verify
+    [Documentation]    Buy some cars on the leader member.
     ${iter_start} =    BuiltIn.Evaluate    0 * ${CARPEOPLE_ITEMS} + 1
-    CarPeople.Buy_Several_Cars    session=${buying_session}    iterations=${CARPEOPLE_ITEMS}    iter_start=${iter_start}
+    CarPeople.Buy_Several_Cars    session=${car-people_leader_session}    iterations=${CARPEOPLE_ITEMS}    iter_start=${iter_start}
     ${total_iterations} =    BuiltIn.Evaluate    1 * ${CARPEOPLE_ITEMS}
     : FOR    ${session}    IN    @{ClusterManagement__session_list}
     \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/car-people    session=${session}    verify=True    iterations=${total_iterations}
 
-Reboot_1
-    [Documentation]    Previous car-people Leader is rebooted (without persistence cleanup).
-    ${index_to_reboot} =    Collections.Remove_From_List    ${list_to_reboot}    0
-    ClusterManagement.Kill_Single_Member    ${index_to_reboot}    confirm=True
-    ClusterManagement.Start_Single_Member    ${index_to_reboot}    wait_for_sync=True    timeout=${MEMBER_START_TIMEOUT}
-    BuiltIn.Wait_Until_Keyword_Succeeds    30s    2s    ClusterManagement.Verify_Leader_Exists_For_Each_Shard    shard_name_list=${SHARD_NAME_LIST}    shard_type=config
-
-Buy_Cars_After_1_Reboots_And_Verify
-    [Documentation]    Buy some cars on the test member.
+Buy_Cars_On_Follower_And_Verify
+    [Documentation]    Buy some cars on the first follower member.
     ${iter_start} =    BuiltIn.Evaluate    1 * ${CARPEOPLE_ITEMS} + 1
-    CarPeople.Buy_Several_Cars    session=${buying_session}    iterations=${CARPEOPLE_ITEMS}    iter_start=${iter_start}
+    CarPeople.Buy_Several_Cars    session=${car-people_first_follower_session}    iterations=${CARPEOPLE_ITEMS}    iter_start=${iter_start}
     ${total_iterations} =    BuiltIn.Evaluate    2 * ${CARPEOPLE_ITEMS}
     : FOR    ${session}    IN    @{ClusterManagement__session_list}
     \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/car-people    session=${session}    verify=True    iterations=${total_iterations}
 
-Reboot_2
-    [Documentation]    Previous car-people Leader is rebooted (without persistence cleanup).
-    ${index_to_reboot} =    Collections.Remove_From_List    ${list_to_reboot}    0
-    ClusterManagement.Kill_Single_Member    ${index_to_reboot}    confirm=True
-    ClusterManagement.Start_Single_Member    ${index_to_reboot}    wait_for_sync=True    timeout=${MEMBER_START_TIMEOUT}
+Reboot_People_Leader
+    [Documentation]    Previous people Leader is rebooted. We should never stop the people first follower, this is where people are registered.
+    ClusterManagement.Kill_Single_Member     ${people_leader_index}    confirm=True
+    ClusterManagement.Start_Single_Member     ${people_leader_index}    wait_for_sync=True    timeout=${MEMBER_START_TIMEOUT}
     BuiltIn.Wait_Until_Keyword_Succeeds    30s    2s    ClusterManagement.Verify_Leader_Exists_For_Each_Shard    shard_name_list=${SHARD_NAME_LIST}    shard_type=config
 
-Buy_Cars_After_2_Reboots_And_Verify
+Buy_Cars_On_Leader_After_Reboot_And_Verify
     [Documentation]    Buy some cars on the test member.
     ${iter_start} =    BuiltIn.Evaluate    2 * ${CARPEOPLE_ITEMS} + 1
-    CarPeople.Buy_Several_Cars    session=${buying_session}    iterations=${CARPEOPLE_ITEMS}    iter_start=${iter_start}
+    CarPeople.Buy_Several_Cars    session=${car-people_leader_session}    iterations=${CARPEOPLE_ITEMS}    iter_start=${iter_start}
     ${total_iterations} =    BuiltIn.Evaluate    3 * ${CARPEOPLE_ITEMS}
     : FOR    ${session}    IN    @{ClusterManagement__session_list}
     \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/car-people    session=${session}    verify=True    iterations=${total_iterations}
 
-Reboot_3
-    [Documentation]    Previous car-people Leader is rebooted (without persistence cleanup).
-    ${index_to_reboot} =    Collections.Remove_From_List    ${list_to_reboot}    0
-    ClusterManagement.Kill_Single_Member    ${index_to_reboot}    confirm=True
-    ClusterManagement.Start_Single_Member    ${index_to_reboot}    wait_for_sync=True    timeout=${MEMBER_START_TIMEOUT}
-    BuiltIn.Wait_Until_Keyword_Succeeds    30s    2s    ClusterManagement.Verify_Leader_Exists_For_Each_Shard    shard_name_list=${SHARD_NAME_LIST}    shard_type=config
-
-Buy_Cars_After_3_Reboots_And_Verify
+Buy_Cars_On_Follower_After_Reboot_And_Verify
     [Documentation]    Buy some cars on the test member.
     ${iter_start} =    BuiltIn.Evaluate    3 * ${CARPEOPLE_ITEMS} + 1
-    CarPeople.Buy_Several_Cars    session=${buying_session}    iterations=${CARPEOPLE_ITEMS}    iter_start=${iter_start}
+    CarPeople.Buy_Several_Cars    session=${car-people_first_follower_session}    iterations=${CARPEOPLE_ITEMS}    iter_start=${iter_start}
     ${total_iterations} =    BuiltIn.Evaluate    4 * ${CARPEOPLE_ITEMS}
     : FOR    ${session}    IN    @{ClusterManagement__session_list}
     \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/car-people    session=${session}    verify=True    iterations=${total_iterations}
 
 Delete_All_CarPeople
     [Documentation]    DELETE car-people container. No verification beyond http status.
-    TemplatedRequests.Delete_Templated    folder=${VAR_DIR}/car-people    session=${buying_session}
+    TemplatedRequests.Delete_Templated    folder=${VAR_DIR}/car-people    session=${car-people_leader_session}
 
 Delete_All_People
     [Documentation]    DELETE people container. No verification beyond http status.
@@ -116,4 +101,3 @@ Setup
     ${leader_list} =    BuiltIn.Create_List    ${car-people_leader_index}
     ${reboot_list} =    Collections.Combine_Lists    ${leader_list}    ${car-people_follower_indices}
     BuiltIn.Set_Suite_Variable    \${list_to_reboot}    ${reboot_list}
-    BuiltIn.Set_Suite_Variable    \${buying_session}    ${car-people_leader_session}
