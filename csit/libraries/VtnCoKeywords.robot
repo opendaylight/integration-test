@@ -71,7 +71,7 @@ Get Coordinator Version
 Add a Controller
     [Arguments]    ${ctrlname}    ${ctrlip}
     [Documentation]    Create a controller
-    ${controllerinfo}    Create Dictionary    controller_id=${ctrlname}    type=odc    ipaddr=${ctrlip}    version=1.0
+    ${controllerinfo}    Create Dictionary    controller_id=${ctrlname}    type=odc    ipaddr=127.0.0.1    version=1.0
     ${controllercreate}    Create Dictionary    controller=${controllerinfo}
     ${controllercreate_json}=    json.dumps    ${controllercreate}
     ${resp}    RequestsLibrary.Post Request    session    ${VTNWEBAPI}/${CTRLS_CREATE}    data=${controllercreate_json}
@@ -86,10 +86,11 @@ Remove Controller
 Update Controller
     [Arguments]    ${ctrlname}    ${ctrlip}    ${desc}
     [Documentation]    Update controller
-    ${controllerinfo}    Create Dictionary    description=${desc}    ipaddr=${ctrlip}    version=1.0
+    ${controllerinfo}    Create Dictionary    description=${desc}    ipaddr=127.0.0.1    version=1.0
     ${controllerupdate}    Create Dictionary    controller=${controllerinfo}
     ${controllerupdate_json}=    json.dumps    ${controllerupdate}
     ${resp}    RequestsLibrary.Put Request    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}.json    data=${controllerupdate_json}
+    SSHLibrary.Execute Command    netstat -tunpl
     Should Be Equal As Strings    ${resp.status_code}    204
 
 Audit Controller
@@ -99,6 +100,7 @@ Audit Controller
     ${auditupdate}    Create Dictionary    audit=${auditinfo}
     ${auditupdate_json}=    json.dumps    ${auditupdate}
     ${resp}    RequestsLibrary.Put Request    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}/audit.json    data=${auditupdate_json}
+    SSHLibrary.Execute Command    netstat -tunpl
     Should Be Equal As Strings    ${resp.status_code}    204
 
 Check Controller Status
@@ -107,7 +109,9 @@ Check Controller Status
     ${resp}    RequestsLibrary.Get Request    session    ${VTNWEBAPI}/${CTRLS}/${ctrlname}.json
     ${contents}    To JSON    ${resp.content}
     ${controllerblock}    Get From Dictionary    ${contents}    controller
+    SSHLibrary.Execute Command    netstat -tunpl
     ${status}    Get From Dictionary    ${controllerblock}    operstatus
+    
     Should Be Equal As Strings    ${status}    ${stat}
 
 Add a VTN
