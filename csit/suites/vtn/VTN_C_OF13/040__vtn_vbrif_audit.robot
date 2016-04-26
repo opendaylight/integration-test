@@ -8,10 +8,11 @@ Resource          ../../../libraries/WaitForFailure.robot
 *** Test Cases ***
 Add a ODL Controller with Invalid IP
     [Documentation]    Add a Controller
-    Add a Controller    odc_test    10.0.0.1
+    Add a Controller    odc_test    127.0.0.1
 
 Verify the Controller Status is down
     [Documentation]    Check Controller status
+    [Tags]    exclude
     WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    12s    1s    Check Controller Status    odc_test    down
 
 Add a Vtn Tenant1
@@ -32,7 +33,7 @@ Create VBRIF in VBRIDGE Vbr_audit Interface2
 
 Update controller to Valid IP
     [Documentation]    Update Controller ip to valid from invalid
-    Update Controller    odc_test    ${ODL_SYSTEM_IP}    valid_IP
+    Update Controller    odc_test    127.0.0.1    valid_IP
 
 Verify the Controller State is in waiting_audit
     [Documentation]    Check Controller status
