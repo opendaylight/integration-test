@@ -59,7 +59,7 @@ Reboot_1
 Buy_Cars_After_1_Reboots_And_Verify
     [Documentation]    Buy some cars on the test member.
     ${iter_start} =    BuiltIn.Evaluate    1 * ${CARPEOPLE_ITEMS} + 1
-    CarPeople.Buy_Several_Cars    session=${buying_session}    iterations=${CARPEOPLE_ITEMS}    iter_start=${iter_start}
+    CarPeople.Buy_Several_Cars    session=${buying_session}    iterations=${CARPEOPLE_ITEMS}    iter_start=${iter_start}    ${registration_delay}=60s
     ${total_iterations} =    BuiltIn.Evaluate    2 * ${CARPEOPLE_ITEMS}
     : FOR    ${session}    IN    @{ClusterManagement__session_list}
     \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/car-people    session=${session}    verify=True    iterations=${total_iterations}
@@ -74,7 +74,7 @@ Reboot_2
 Buy_Cars_After_2_Reboots_And_Verify
     [Documentation]    Buy some cars on the test member.
     ${iter_start} =    BuiltIn.Evaluate    2 * ${CARPEOPLE_ITEMS} + 1
-    CarPeople.Buy_Several_Cars    session=${buying_session}    iterations=${CARPEOPLE_ITEMS}    iter_start=${iter_start}
+    CarPeople.Buy_Several_Cars    session=${buying_session}    iterations=${CARPEOPLE_ITEMS}    iter_start=${iter_start}    ${registration_delay}=60s
     ${total_iterations} =    BuiltIn.Evaluate    3 * ${CARPEOPLE_ITEMS}
     : FOR    ${session}    IN    @{ClusterManagement__session_list}
     \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/car-people    session=${session}    verify=True    iterations=${total_iterations}
@@ -89,7 +89,7 @@ Reboot_3
 Buy_Cars_After_3_Reboots_And_Verify
     [Documentation]    Buy some cars on the test member.
     ${iter_start} =    BuiltIn.Evaluate    3 * ${CARPEOPLE_ITEMS} + 1
-    CarPeople.Buy_Several_Cars    session=${buying_session}    iterations=${CARPEOPLE_ITEMS}    iter_start=${iter_start}
+    CarPeople.Buy_Several_Cars    session=${buying_session}    iterations=${CARPEOPLE_ITEMS}    iter_start=${iter_start}    ${registration_delay}=60s
     ${total_iterations} =    BuiltIn.Evaluate    4 * ${CARPEOPLE_ITEMS}
     : FOR    ${session}    IN    @{ClusterManagement__session_list}
     \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/car-people    session=${session}    verify=True    iterations=${total_iterations}

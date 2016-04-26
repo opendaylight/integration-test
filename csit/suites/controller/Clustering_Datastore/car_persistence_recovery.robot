@@ -26,9 +26,11 @@ ${MEMBER_START_TIMEOUT}    300s
 ${VAR_DIR}        ${CURDIR}/../../../variables/carpeople/crud
 
 *** Test Cases ***
-Add_Cars_On_Leader
+Add_Cars_On_Leader_And_Verify
     [Documentation]    Single big PUT to datastore to add cars to car Leader.
     TemplatedRequests.Put_As_Json_Templated    folder=${VAR_DIR}/cars    session=${car_leader_session}    iterations=${CAR_ITEMS}
+    : FOR    ${session}    IN    @{ClusterManagement__session_list}
+    \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}    verify=True    iterations=${CAR_ITEMS}
 
 Kill_All_Members
     [Documentation]    Kill all controllers.
