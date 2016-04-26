@@ -29,6 +29,7 @@ Run Tempest Tests
     Write Commands Until Prompt    sudo rm -rf /opt/stack/new/tempest/.testrepository
     Write Commands Until Prompt    sudo testr init
     ${results}=    Write Commands Until Prompt    sudo -E testr run ${tempest_regex} --subunit | subunit-trace --no-failure-debug -f    timeout=${timeout}
+    Create File    ${WORKSPACE}/tempest_output.log    data=${results}
     Should Contain    ${results}    Failed: 0
     # TODO: also need to verify some non-zero pass count as well as other results are ok (e.g. skipped, etc)
 
