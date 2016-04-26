@@ -64,7 +64,7 @@ Buy_Cars_On_Leader
 
 Buy_Cars_On_Followers
     [Documentation]    On each Follower buy corresponding ID segment of cars in buy-car loop.
-    ${start_id} =    BuiltIn.Set_Variable    0
+    ${start_id} =    BuiltIn.Set_Variable    1
     : FOR    ${session}    IN    @{car-people_follower_sessions}
     \    CarPeople.Buy_Several_Cars    session=${session}    iterations=${items_per_follower}    iter_start=${start_id}
     \    ${start_id} =    BuiltIn.Evaluate    ${start_id} + ${items_per_follower}
