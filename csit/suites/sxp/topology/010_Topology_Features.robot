@@ -63,13 +63,7 @@ Most Recent Rule Test
     Add Binding    100    15.15.15.15/32    127.0.0.3
     Sleep    2s
     Add Binding    99    15.15.15.15/32    127.0.0.2
-    Sleep    1s
-    ${resp}    Get Bindings
-    Should Contain Binding    ${resp}    543    5.5.5.5/32
-    Should Contain Binding    ${resp}    99    15.15.15.15/32
-    ${resp}    Get Bindings    127.0.0.4
-    Should Contain Binding    ${resp}    543    5.5.5.5/32
-    Should Contain Binding    ${resp}    99    15.15.15.15/32
+    Wait Until Keyword Succeeds    4    1    Check Most Recent
 
 Shorthest Path Test
     [Documentation]    Shorthes Path over Most Recent
@@ -208,6 +202,15 @@ Check Shorthest Path
     ${resp}    Get Bindings    127.0.0.4
     Should Contain Binding    ${resp}    542    5.5.5.5/32
     Should Contain Binding    ${resp}    9954    105.15.125.15/32
+    Should Contain Binding    ${resp}    99    15.15.15.15/32
+
+Check Most Recent
+    [Documentation]    Checks if MostRecent rule is applied onto bindings
+    ${resp}    Get Bindings
+    Should Contain Binding    ${resp}    543    5.5.5.5/32
+    Should Contain Binding    ${resp}    99    15.15.15.15/32
+    ${resp}    Get Bindings    127.0.0.4
+    Should Contain Binding    ${resp}    543    5.5.5.5/32
     Should Contain Binding    ${resp}    99    15.15.15.15/32
 
 Clean Nodes
