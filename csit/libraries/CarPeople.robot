@@ -49,6 +49,8 @@ Set_Variables_For_Shard
     ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=config
     BuiltIn.Set_Suite_Variable    \${${shard_name}_leader_index}    ${leader}
     BuiltIn.Set_Suite_Variable    \${${shard_name}_follower_indices}    ${follower_list}
+    ${first_follower_index} =    Collections.Get_From_List    ${follower_list}    0
+    BuiltIn.Set_Suite_Variable    \${${shard_name}_first_follower_index}    ${first_follower_index}
     ${leader_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${leader}
     BuiltIn.Set_Suite_Variable    \${${shard_name}_leader_session}    ${leader_session}
     ${sessions} =    BuiltIn.Create_List
