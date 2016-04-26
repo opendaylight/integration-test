@@ -38,6 +38,15 @@ Add_Original_Cars_On_Old_Leader
     [Documentation]    Add initial cars on car Leader.
     TemplatedRequests.Put_As_Json_Templated    folder=${VAR_DIR}/cars    session=${car_leader_session}    iterations=${CAR_ITEMS}    iter_start=${ORIGINAL_START_I}
 
+See_Added_Cars_On_Leader
+    [Documentation]    GET response from Leader should match the PUT data.
+    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${car_leader_session}    verify=True    iterations=${CAR_ITEMS}    iter_start=${ORIGINAL_START_I}
+
+See_Added_Cars_On_Followers
+    [Documentation]    The same check on other members.
+    : FOR    ${session}    IN    @{car_follower_sessions}
+    \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}    verify=True    iterations=${CAR_ITEMS}    iter_start=${ORIGINAL_START_I}
+
 Kill_Original_Car_Leader
     [Documentation]    Kill the car Leader to cause a new leader to get elected.
     ClusterManagement.Kill_Single_Member    ${car_leader_index}    confirm=True

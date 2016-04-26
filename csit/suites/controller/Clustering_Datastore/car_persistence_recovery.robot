@@ -30,6 +30,15 @@ Add_Cars_On_Leader
     [Documentation]    Single big PUT to datastore to add cars to car Leader.
     TemplatedRequests.Put_As_Json_Templated    folder=${VAR_DIR}/cars    session=${car_leader_session}    iterations=${CAR_ITEMS}
 
+See_Added_Cars_On_Leader
+    [Documentation]    GET response from Leader should match the PUT data.
+    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${car_leader_session}    verify=True    iterations=${CAR_ITEMS}
+
+See_Added_Cars_On_Followers
+    [Documentation]    The same check on other members.
+    : FOR    ${session}    IN    @{car_follower_sessions}
+    \    TemplatedRequests.Get_As_Json_Templated    folder=${VAR_DIR}/cars    session=${session}    verify=True    iterations=${CAR_ITEMS}
+
 Kill_All_Members
     [Documentation]    Kill all controllers.
     ClusterManagement.Kill_Members_From_List_Or_All    confirm=True
