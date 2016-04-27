@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_d9575601",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-04-27T04:38:35Z",
+      "side": 1,
+      "message": "trailing space",
+      "revId": "fb0074f67ece0b1d1e6217d943b81c511c9d5830",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_b95c2227",
+        "filename": "csit/suites/openstack/clustering/01_l2_tests.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-04-27T04:38:35Z",
+      "side": 1,
+      "message": "You mean ODL_SYSTEM_IP?",
+      "revId": "fb0074f67ece0b1d1e6217d943b81c511c9d5830",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_1941ce39",
+        "filename": "csit/suites/openstack/clustering/01_l2_tests.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-04-27T04:38:35Z",
+      "side": 1,
+      "message": "In general I would recommend to use cluster Keywords that use controller indexes instead of controller IPs. In case of failure it is much easier to troubleshoot indexes than IP addresses. If we do not have a KW for it (I think we only have for killing controller) we can add one.",
+      "revId": "fb0074f67ece0b1d1e6217d943b81c511c9d5830",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
