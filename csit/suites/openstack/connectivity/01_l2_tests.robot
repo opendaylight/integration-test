@@ -17,7 +17,7 @@ Resource          ../../../libraries/DevstackUtils.robot
 @{NET_2_VM_IPS}    40.0.0.3    40.0.0.4
 @{VM_IPS_NOT_DELETED}    30.0.0.4
 @{GATEWAY_IPS}    30.0.0.1    40.0.0.1
-@{DHCP_IPS}    30.0.0.2    40.0.0.2
+@{DHCP_IPS}       30.0.0.2    40.0.0.2
 
 *** Test Cases ***
 Create Networks
@@ -37,14 +37,14 @@ Create Vm Instances For network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     ${net_id}=    Get Net Id    network_1
     Create Vm Instances    ${net_id}    ${NET_1_VM_INSTANCES}
-    [Teardown]    Show Debugs      ${NET_1_VM_INSTANCES}
+    [Teardown]    Show Debugs    ${NET_1_VM_INSTANCES}
 
 Create Vm Instances For network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     ${net_id}=    Get Net Id    network_2
     Set Suite Variable    ${net_id}
     Create Vm Instances    ${net_id}    ${NET_2_VM_INSTANCES}
-    [Teardown]    Show Debugs      ${NET_2_VM_INSTANCES}
+    [Teardown]    Show Debugs    ${NET_2_VM_INSTANCES}
 
 Ping All Vm Instances In network_1
     [Documentation]    Check reachability of vm instances by pinging to them.

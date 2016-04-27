@@ -59,8 +59,8 @@ Buy_Cars_On_Follower_And_Verify
 
 Reboot_People_Leader
     [Documentation]    Previous people Leader is rebooted. We should never stop the people first follower, this is where people are registered.
-    ClusterManagement.Kill_Single_Member     ${people_leader_index}    confirm=True
-    ClusterManagement.Start_Single_Member     ${people_leader_index}    wait_for_sync=True    timeout=${MEMBER_START_TIMEOUT}
+    ClusterManagement.Kill_Single_Member    ${people_leader_index}    confirm=True
+    ClusterManagement.Start_Single_Member    ${people_leader_index}    wait_for_sync=True    timeout=${MEMBER_START_TIMEOUT}
     BuiltIn.Wait_Until_Keyword_Succeeds    30s    2s    ClusterManagement.Verify_Leader_Exists_For_Each_Shard    shard_name_list=${SHARD_NAME_LIST}    shard_type=config
 
 Buy_Cars_On_Leader_After_Reboot_And_Verify
