@@ -2,11 +2,15 @@
 
 # Installation of Cassandra
 cat > ${WORKSPACE}/cassandrastartup.sh <<EOF
+mkdir -p /tmp/cassandra
 cd /tmp/cassandra
+wget --no-verbose http://apache.osuosl.org/cassandra/2.1.14/apache-cassandra-2.1.14-bin.tar.gz
+echo "Installing the Cassandra Server..."
+tar -xvf apache-cassandra-2.1.14-bin.tar.gz
 echo "Start the Cassandra Server"
 export JAVA_HOME=/usr
-sudo /tmp/cassandra/apache-cassandra-2.1.12/bin/cassandra
-ls -l /tmp/cassandra/apache-cassandra-2.1.12/bin/cassandra
+sudo /tmp/cassandra/apache-cassandra-2.1.14/bin/cassandra
+ls -l /tmp/cassandra/apache-cassandra-2.1.14/bin/cassandra
 
 EOF
 echo "Copy the Cassanra startup script to ${ODL_SYSTEM_IP}"
