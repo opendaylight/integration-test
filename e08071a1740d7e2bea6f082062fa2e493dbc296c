@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_3e03d810",
+        "filename": "csit/suites/sfc/SFC_Basic/010__sfc_service_functions.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-04-27T03:32:25Z",
+      "side": 1,
+      "message": "You can call directly a keyword called \"Init Suite\"",
+      "revId": "e08071a1740d7e2bea6f082062fa2e493dbc296c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_99ff9e01",
+        "filename": "csit/suites/sfc/SFC_Basic/010__sfc_service_functions.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-04-27T03:32:25Z",
+      "side": 1,
+      "message": "You could rename this to \"Init Suite\" and add the Create Session KW here.",
+      "revId": "e08071a1740d7e2bea6f082062fa2e493dbc296c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
