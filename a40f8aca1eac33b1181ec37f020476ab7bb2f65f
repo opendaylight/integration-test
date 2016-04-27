@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_19dd4e71",
+        "filename": "csit/suites/sfc/SFC_Basic/010__sfc_service_functions.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-04-27T06:18:46Z",
+      "side": 1,
+      "message": "just double checking if the plan for now is just to have\na \"master\" directory for all variables that are not lithium.  meaning beryllium would use the same variables in\nmaster/ as would boron?",
+      "range": {
+        "startLine": 126,
+        "startChar": 19,
+        "endLine": 126,
+        "endChar": 65
+      },
+      "revId": "a40f8aca1eac33b1181ec37f020476ab7bb2f65f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
