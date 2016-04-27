@@ -22,6 +22,30 @@
       "revId": "a40f8aca1eac33b1181ec37f020476ab7bb2f65f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_9905dec4",
+        "filename": "csit/suites/sfc/SFC_Basic/010__sfc_service_functions.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5849
+      },
+      "writtenOn": "2016-04-27T07:05:47Z",
+      "side": 1,
+      "message": "Yes, for now we do not have intentions to change them. If there is need to differentiate in future releases we will add a new directory.",
+      "parentUuid": "fa57193c_19dd4e71",
+      "range": {
+        "startLine": 126,
+        "startChar": 19,
+        "endLine": 126,
+        "endChar": 65
+      },
+      "revId": "a40f8aca1eac33b1181ec37f020476ab7bb2f65f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
