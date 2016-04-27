@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_d90c7697",
+        "filename": "csit/suites/controller/Clustering_Datastore/carpeople_crud.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-27T08:40:24Z",
+      "side": 0,
+      "message": "Ouch. This is what I get for setting 1 as default iter_start value in TemplatedRequests.",
+      "range": {
+        "startLine": 67,
+        "startChar": 45,
+        "endLine": 67,
+        "endChar": 46
+      },
+      "revId": "5313c9795139fff9a723bf5db2418e82c8182a34",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_1926ee16",
+        "filename": "csit/suites/controller/Clustering_Datastore/buycar_failover.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-27T08:40:24Z",
+      "side": 1,
+      "message": "Oh, that is because Add_People_To_First_Follower_And_Verify acted there.\nThe registration is done on the member which received add-person RPC, irrespective of who is Leader of any Shard.\nObvious in retrospect.",
+      "range": {
+        "startLine": 61,
+        "startChar": 80,
+        "endLine": 61,
+        "endChar": 143
+      },
+      "revId": "b687b50c8bae92cc04c25dcb4dd7d394f50e34c2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
