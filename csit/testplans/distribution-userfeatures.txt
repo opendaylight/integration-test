@@ -8,3 +8,4 @@
 integration/test/csit/suites/distribution/size.robot
 integration/test/csit/suites/netconf/ready/netconfready.robot
 integration/test/csit/suites/distribution/version.robot
+integration/test/csit/suites/distribution/Karaf_Sequence_Install.robot
