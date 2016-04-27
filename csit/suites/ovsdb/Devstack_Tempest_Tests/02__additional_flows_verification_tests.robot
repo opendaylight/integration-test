@@ -17,7 +17,7 @@ Resource          ../../../libraries/DevstackUtils.robot
 @{NET_2_VM_IPS}    40.0.0.3    40.0.0.4
 @{VM_IPS_NOT_DELETED}    30.0.0.4
 @{GATEWAY_IPS}    30.0.0.1    40.0.0.1
-@{DHCP_IPS}    30.0.0.2    40.0.0.2
+@{DHCP_IPS}       30.0.0.2    40.0.0.2
 
 *** Test Cases ***
 Create Networks
@@ -47,13 +47,13 @@ Create Vm Instances For network_2
     View Vm Console    ${NET_2_VM_INSTANCES}
 
 List Networks With Namespaces
-    ${output}=   Write Commands Until Prompt     sudo ip netns list
+    ${output}=    Write Commands Until Prompt    sudo ip netns list
     Log    ${output}
 
 Show Details of Created Vm Instance In network_1
     [Documentation]    View Details of the created vm instances using nova show.
     : FOR    ${VmElement}    IN    @{NET_1_VM_INSTANCES}
-    \    ${output}=   Write Commands Until Prompt     nova show ${VmElement}
+    \    ${output}=    Write Commands Until Prompt    nova show ${VmElement}
     \    Log    ${output}
 
 Ping All Vm Instances In network_1
@@ -66,7 +66,7 @@ Ping All Vm Instances In network_1
 Show Details of Created Vm Instance In network_2
     [Documentation]    View Details of the created vm instances using nova show.
     : FOR    ${VmElement}    IN    @{NET_2_VM_INSTANCES}
-    \    ${output}=   Write Commands Until Prompt     nova show ${VmElement}
+    \    ${output}=    Write Commands Until Prompt    nova show ${VmElement}
     \    Log    ${output}
 
 Ping All Vm Instances In network_2
@@ -78,14 +78,14 @@ Ping All Vm Instances In network_2
 
 Add Key-Pair For Vm Instance
     [Documentation]    Creates key pair to ssh to the vm instance.
-    ${output}=   Write Commands Until Prompt    nova keypair-add test > test.pem
+    ${output}=    Write Commands Until Prompt    nova keypair-add test > test.pem
     Log    ${output}
-    ${output}=   Write Commands Until Prompt    chmod 600 test.pem
+    ${output}=    Write Commands Until Prompt    chmod 600 test.pem
     Log    ${output}
 
 List The Availalbe Key Pair List
     [Documentation]    Check the existing key pairs available.
-    ${output}=   Write Commands Until Prompt    nova keypair-list
+    ${output}=    Write Commands Until Prompt    nova keypair-list
     Log    ${output}
 
 Login to Vm Instances In network_1 Using Ssh

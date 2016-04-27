@@ -16,7 +16,7 @@ Resource          ../../../libraries/DevstackUtils.robot
 @{NET_1_VM_IPS}    50.0.0.3
 @{NET_2_VM_IPS}    60.0.0.3
 @{GATEWAY_IPS}    50.0.0.1    60.0.0.1
-@{DHCP_IPS}    50.0.0.2    60.0.0.2
+@{DHCP_IPS}       50.0.0.2    60.0.0.2
 
 *** Test Cases ***
 Create Networks
@@ -36,13 +36,13 @@ Create Vm Instances For network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     ${net_id}=    Get Net Id    network_1
     Create Vm Instances    ${net_id}    ${NET_1_VM_INSTANCES}
-    [Teardown]    Show Debugs      ${NET_1_VM_INSTANCES}
+    [Teardown]    Show Debugs    ${NET_1_VM_INSTANCES}
 
 Create Vm Instances For network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     ${net_id}=    Get Net Id    network_2
     Create Vm Instances    ${net_id}    ${NET_2_VM_INSTANCES}
-    [Teardown]    Show Debugs      ${NET_2_VM_INSTANCES}
+    [Teardown]    Show Debugs    ${NET_2_VM_INSTANCES}
 
 Create Routers
     [Documentation]    Create Router
@@ -50,8 +50,8 @@ Create Routers
 
 Add Interfaces To Router
     [Documentation]    Add Interfaces
-    : FOR     ${interface}    IN     @{SUBNETS_NAME}
-    \    Add Router Interface     router_1     ${interface}
+    : FOR    ${interface}    IN    @{SUBNETS_NAME}
+    \    Add Router Interface    router_1    ${interface}
 
 Ping Vm Instance In network_2 From network_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
@@ -109,8 +109,8 @@ Delete Vm Instances In network_2
 
 Delete Router Interfaces
     [Documentation]    Remove Interface to the subnets.
-    : FOR     ${interface}    IN     @{SUBNETS_NAME}
-    \     Remove Interface     router_1     ${interface}
+    : FOR    ${interface}    IN    @{SUBNETS_NAME}
+    \    Remove Interface    router_1    ${interface}
 
 Delete Routers
     [Documentation]    Delete Router and Interface to the subnets.
