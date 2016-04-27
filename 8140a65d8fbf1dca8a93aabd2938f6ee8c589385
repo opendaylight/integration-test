@@ -16,6 +16,57 @@
       "revId": "8140a65d8fbf1dca8a93aabd2938f6ee8c589385",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_5934e6dd",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-04-27T04:23:42Z",
+      "side": 1,
+      "message": "I am a bit confused here, when you say Leader/Follower in this and below KW, do you mean Owner/Candidate in the ODL cluster name convention?",
+      "revId": "8140a65d8fbf1dca8a93aabd2938f6ee8c589385",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_994dde75",
+        "filename": "csit/suites/openflowplugin/EntityOwhership/010_Switch_Disconnect.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-04-27T04:23:42Z",
+      "side": 1,
+      "message": "Have you considered this Keyword: MininetKeywords.Start Mininet Multiple Controllers?",
+      "revId": "8140a65d8fbf1dca8a93aabd2938f6ee8c589385",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_393132ed",
+        "filename": "csit/suites/openflowplugin/EntityOwhership/010_Switch_Disconnect.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-04-27T04:23:42Z",
+      "side": 1,
+      "message": "This is huge test case, cannot this be broken down in small test cases so we can easily understand when something fails.",
+      "revId": "8140a65d8fbf1dca8a93aabd2938f6ee8c589385",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
