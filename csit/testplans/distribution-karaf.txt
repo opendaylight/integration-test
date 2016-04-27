@@ -1,0 +1,1 @@
+integration/test/csit/suites/distribution/karaf/Karaf_Sequence_Install.robot
