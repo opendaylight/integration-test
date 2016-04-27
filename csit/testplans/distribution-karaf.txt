@@ -1,0 +1,1 @@
+integration/test/csit/suites/distribution/karaf/karaf-hang.robot
