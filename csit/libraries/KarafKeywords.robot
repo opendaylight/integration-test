@@ -83,6 +83,15 @@ Install a Feature
     Log    ${output}
     [Return]    ${output}
 
+Install a Feature Using Active Connection
+    [Arguments]    ${feature_name}
+    [Documentation]    Will Install the given ${feature_name} using active connection
+    ${cmd}=    BuiltIn.Set_Variable    feature:install ${feature_name}
+    Write    ${cmd}
+    ${output}    SSHLibrary.Read_Until    ${KARAF_PROMPT}
+    Log    ${output}
+    [Return]    ${output}
+
 Uninstall a Feature
     [Arguments]    ${feature_name}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=180
     [Documentation]    Will UnInstall the given ${feature_name}
@@ -108,6 +117,14 @@ Open Controller Karaf Console On Background
     Collections.Set To Dictionary    ${connection_index_dict}    ${member_index}    ${karaf_connection_object.index}
     SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}
     [Teardown]    SSHKeywords.Restore Current SSH Connection From Index    ${current_ssh_connection_object.index}
+
+Open Controller Karaf Console With Timeout
+    [Arguments]    ${member_index}=${1}    ${timeout}=3s
+    [Documentation]    Open new connection to karaf console for member index with specified timeout.
+    BuiltIn.Log    ${member_index}
+    ${odl_ip}=    ClusterManagement.Resolve_IP_Address_For_Member    ${member_index}
+    SSHLibrary.Open Connection    ${odl_ip}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_DETAILED_PROMPT}    timeout=${timeout}
+    SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}
 
 Configure Timeout For Karaf Console
     [Arguments]    ${timeout}    ${member_index_list}=${EMPTY}
