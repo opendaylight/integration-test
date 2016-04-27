@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_f43dffbc",
+        "filename": "csit/libraries/ClusterKeywords.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-04-27T11:23:03Z",
+      "side": 1,
+      "message": "KW arguments\n\n1) session introduced: i did want to used this session\ncontroller@{controller_index_list}[0]\n\n2) tight checking: \nduring the debug i hit the problem when after karaf kill the owner was changed but it was not removed from candidate list.\nKeyword Get Cluster Entity Owner failed and it was too complicated to find out why. I created a new kw which will return just indexes and the robot tc will decide if returned values are expected or not.",
+      "parentUuid": "fa57193c_193a6ecd",
+      "revId": "8140a65d8fbf1dca8a93aabd2938f6ee8c589385",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_5934e6dd",
         "filename": "csit/libraries/OvsManager.robot",
         "patchSetId": 23
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_7479ef92",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-04-27T11:23:03Z",
+      "side": 1,
+      "message": "You\u0027re rigth, i\u0027ll use ovs naming convention.",
+      "parentUuid": "fa57193c_5934e6dd",
+      "revId": "8140a65d8fbf1dca8a93aabd2938f6ee8c589385",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_994dde75",
         "filename": "csit/suites/openflowplugin/EntityOwhership/010_Switch_Disconnect.robot",
         "patchSetId": 23
@@ -47,6 +83,24 @@
       "writtenOn": "2016-04-27T04:23:42Z",
       "side": 1,
       "message": "Have you considered this Keyword: MininetKeywords.Start Mininet Multiple Controllers?",
+      "revId": "8140a65d8fbf1dca8a93aabd2938f6ee8c589385",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_b42547ad",
+        "filename": "csit/suites/openflowplugin/EntityOwhership/010_Switch_Disconnect.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-04-27T11:23:03Z",
+      "side": 1,
+      "message": "Yes, i have considered and it did not suite my needs that time.\n\nIt is not seen in the latest patchset(23 at the moment). I did have a crosscheck between ovsdb and entity ownersip data. And for that reason i wanted to have ability to choose the controller\u0027s connection order.\n\nBut because ovsdb of openvswitch was not reliable, i wrote them email with my problem and i removed these checks from robot, but once it is solved, i want o return them back.\n\nNow it is possible to use MininetKeywords.Start Mininet Multiple Controllers, but i would prefer to leave it as it is.",
+      "parentUuid": "fa57193c_994dde75",
       "revId": "8140a65d8fbf1dca8a93aabd2938f6ee8c589385",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
