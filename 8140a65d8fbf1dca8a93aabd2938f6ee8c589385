@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_193a6ecd",
+        "filename": "csit/libraries/ClusterKeywords.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-04-27T03:58:05Z",
+      "side": 1,
+      "message": "Any reason for duplicating this KW?",
+      "revId": "8140a65d8fbf1dca8a93aabd2938f6ee8c589385",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
