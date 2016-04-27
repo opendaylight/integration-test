@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_963488df",
+        "filename": "csit/libraries/ClusterKeywords.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-27T14:27:27Z",
+      "side": 1,
+      "message": "raw",
+      "range": {
+        "startLine": 86,
+        "startChar": 88,
+        "endLine": 86,
+        "endChar": 91
+      },
+      "revId": "8e092b40baf845cefa18af2f39cc966f6bbaa2e6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_b6526c11",
+        "filename": "csit/libraries/ClusterKeywords.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-27T14:27:27Z",
+      "side": 1,
+      "message": "Rebase to newer parent commit, to avoid potential merge conflicts.",
+      "range": {
+        "startLine": 368,
+        "startChar": 43,
+        "endLine": 368,
+        "endChar": 49
+      },
+      "revId": "8e092b40baf845cefa18af2f39cc966f6bbaa2e6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_56415038",
+        "filename": "csit/suites/openflowplugin/EntityOwhership/010_Switch_Disconnect.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-27T14:27:27Z",
+      "side": 1,
+      "message": "Is this a Keyword?",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 6
+      },
+      "revId": "8e092b40baf845cefa18af2f39cc966f6bbaa2e6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_16587831",
+        "filename": "csit/suites/openflowplugin/EntityOwhership/010_Switch_Disconnect.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-04-27T14:27:27Z",
+      "side": 1,
+      "message": "Uncomment or delete.",
+      "range": {
+        "startLine": 28,
+        "startChar": 4,
+        "endLine": 28,
+        "endChar": 5
+      },
+      "revId": "8e092b40baf845cefa18af2f39cc966f6bbaa2e6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
