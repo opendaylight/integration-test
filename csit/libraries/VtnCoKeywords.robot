@@ -77,6 +77,19 @@ Add a Controller
     ${resp}    RequestsLibrary.Post Request    session    ${VTNWEBAPI}/${CTRLS_CREATE}    data=${controllercreate_json}
     Should Be Equal As Strings    ${resp.status_code}    201
 
+Delete All Controller
+    [Arguments]
+    [Documentation]    Get a Controller list
+    ${resp}    RequestsLibrary.Get Request    session    ${VTNWEBAPI}/${CTRLS}.json
+    ${contents}    To JSON    ${resp.content}
+    ${ctrlist}=    Get From Dictionary    ${contents}    controllers
+    ${length}=    Get Length    ${ctrlist}
+    : FOR    ${index}    IN RANGE    0    ${length}
+    \    ${controller}=   Get From List   ${ctrlist}    ${index}
+    \    ${controller_name}=    Get From Dictionary    ${controller}    controller_id
+    \    ${booleanValue}=    Run Keyword And Return Status    Remove Controller    ${controller_name}
+    Should Be Equal As Strings    ${booleanValue}    True
+
 Remove Controller
     [Arguments]    ${ctrlname}
     [Documentation]    Delete a Controller
@@ -118,6 +131,19 @@ Add a VTN
     ${vtncreate_json}=    json.dumps    ${vtncreate}
     ${resp}    RequestsLibrary.Post Request    session    ${VTNWEBAPI}/${VTNS_CREATE}    data=${vtncreate_json}
     Should Be Equal As Strings    ${resp.status_code}    201
+
+Delete All VTN
+    [Arguments]
+    [Documentation]    Get a VTN list
+    ${resp}    RequestsLibrary.Get Request    session    ${VTNWEBAPI}/${VTNS}.json
+    ${contents}    To JSON    ${resp.content}
+    ${vtnlist}=    Get From Dictionary    ${contents}    vtns
+    ${length}=    Get Length    ${vtnlist}
+    : FOR    ${index}    IN RANGE    0    ${length}
+    \    ${tenant}=   Get From List   ${vtnlist}    ${index}
+    \    ${tenant_name}=    Get From Dictionary    ${tenant}    vtn_name
+    \    ${booleanValue}=    Run Keyword And Return Status    Delete a VTN    ${tenant_name}
+    Should Be Equal As Strings    ${booleanValue}    True
 
 Delete a VTN
     [Arguments]    ${vtnname}

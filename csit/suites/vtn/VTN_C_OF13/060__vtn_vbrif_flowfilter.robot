@@ -66,14 +66,14 @@ Test Ping for Configuration
     [Documentation]    ping between hosts in mininet
     Wait Until Keyword Succeeds    20s    1s    Test Ping    h1    h3
 
-Delete a VTN Tenant1
-    [Documentation]    Delete Vtn Tenant1
-    Delete a VTN    Tenant1
+Delete all Tenant in a List
+    [Documentation]    List vtns and remove all the vtn created
+    Delete All VTN
 
 Delete a FLOWLIST Flowlist1
     [Documentation]    Delete Flowlist
     Delete a FLOWLIST    Flowlist1
 
-Delete a Controller odc1
-    [Documentation]    Delete Controller odc1
-    Remove Controller    odc_test
+Delete all controller in List
+    [Documentation]    Delete all Controller configured
+    Delete All Controller
