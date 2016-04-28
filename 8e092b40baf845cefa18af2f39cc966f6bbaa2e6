@@ -71,6 +71,30 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_7c48b55b",
+        "filename": "csit/suites/openflowplugin/EntityOwhership/010_Switch_Disconnect.robot",
+        "patchSetId": 25
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-04-28T11:15:46Z",
+      "side": 1,
+      "message": "This is a switch name. The test case itself is templated.",
+      "parentUuid": "fa57193c_56415038",
+      "range": {
+        "startLine": 27,
+        "startChar": 4,
+        "endLine": 27,
+        "endChar": 6
+      },
+      "revId": "8e092b40baf845cefa18af2f39cc966f6bbaa2e6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_16587831",
         "filename": "csit/suites/openflowplugin/EntityOwhership/010_Switch_Disconnect.robot",
         "patchSetId": 25
