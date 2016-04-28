@@ -38,6 +38,7 @@ Start SuiteVtnCo
     SSHLibrary.Execute Command    sudo chown jenkins /usr/local/vtn
     SSHLibrary.Execute Command    sudo yum install -q -y http://yum.postgresql.org/9.3/redhat/rhel-7-x86_64/pgdg-centos93-9.3-1.noarch.rpm
     SSHLibrary.Execute Command    sudo yum install -q -y postgresql93-libs postgresql93 postgresql93-server postgresql93-contrib postgresql93-odbc
+    SSHLibrary.Execute Command    sudo psql --version
     SSHLibrary.Execute Command    tar -C/ -jxvf ${WORKSPACE}/${BUNDLEFOLDER}/externalapps/*vtn-coordinator*-bin.tar.bz2
     SSHLibrary.Execute Command    /usr/local/vtn/sbin/db_setup
     SSHLibrary.Execute Command    /usr/local/vtn/bin/vtn_start
@@ -76,6 +77,19 @@ Add a Controller
     ${controllercreate_json}=    json.dumps    ${controllercreate}
     ${resp}    RequestsLibrary.Post Request    session    ${VTNWEBAPI}/${CTRLS_CREATE}    data=${controllercreate_json}
     Should Be Equal As Strings    ${resp.status_code}    201
+
+Delete All Controller
+    [Arguments]
+    [Documentation]    Get a Controller list
+    ${resp}    RequestsLibrary.Get Request    session    ${VTNWEBAPI}/${CTRLS}.json
+    ${contents}    To JSON    ${resp.content}
+    ${ctrlist}=    Get From Dictionary    ${contents}    controllers
+    ${length}=    Get Length    ${ctrlist}
+    : FOR    ${index}    IN RANGE    0    ${length}
+    \    ${controller}=   Get From List   ${ctrlist}    ${index}
+    \    ${controller_name}=    Get From Dictionary    ${controller}    controller_id
+    \    ${booleanValue}=    Run Keyword And Return Status    Remove Controller    ${controller_name}
+    Should Be Equal As Strings    ${booleanValue}    True
 
 Remove Controller
     [Arguments]    ${ctrlname}
@@ -118,6 +132,19 @@ Add a VTN
     ${vtncreate_json}=    json.dumps    ${vtncreate}
     ${resp}    RequestsLibrary.Post Request    session    ${VTNWEBAPI}/${VTNS_CREATE}    data=${vtncreate_json}
     Should Be Equal As Strings    ${resp.status_code}    201
+
+Delete All VTN
+    [Arguments]
+    [Documentation]    Get a VTN list
+    ${resp}    RequestsLibrary.Get Request    session    ${VTNWEBAPI}/${VTNS}.json
+    ${contents}    To JSON    ${resp.content}
+    ${vtnlist}=    Get From Dictionary    ${contents}    vtns
+    ${length}=    Get Length    ${vtnlist}
+    : FOR    ${index}    IN RANGE    0    ${length}
+    \    ${tenant}=   Get From List   ${vtnlist}    ${index}
+    \    ${tenant_name}=    Get From Dictionary    ${tenant}    vtn_name
+    \    ${booleanValue}=    Run Keyword And Return Status    Delete a VTN    ${tenant_name}
+    Should Be Equal As Strings    ${booleanValue}    True
 
 Delete a VTN
     [Arguments]    ${vtnname}

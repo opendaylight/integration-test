@@ -44,6 +44,6 @@ Verify switchPort switch3
     [Documentation]    Get switchport/switch3
     Verify SwitchPort    odc_test    openflow:3
 
-Delete a Controller
-    [Documentation]    Delete Controller odc1
-    Remove Controller    odc_test
+Delete all controller in List
+    [Documentation]    Delete all Controller configured
+    Delete All Controller
