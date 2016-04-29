@@ -36,6 +36,7 @@ Check Ports STP status
 
 Ping Test
     [Documentation]    Ping h1 to h2, verify no packet loss or duplicates
+    Sleep    1
     Wait Until Keyword Succeeds    10s    2s    Ping Works Good
 
 Link Down
@@ -60,8 +61,6 @@ Remove Port
     [Documentation]    Remove port s1-eth2 and verify ping works
     Write    sh ovs-vsctl del-port s1 s1-eth2
     Read Until    mininet>
-    @{list}    Create List    ${DISCARD}
-    Wait Until Keyword Succeeds    10s    2s    Check For Elements Not At URI    ${OPERATIONAL_NODES_API}    ${list}
     Wait Until Keyword Succeeds    10s    2s    Ping Works Good
 
 Add Port
