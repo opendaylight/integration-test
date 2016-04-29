@@ -31,7 +31,7 @@ Documentation     Robot keyword library (Resource) for runtime changes to config
 Library           OperatingSystem
 Library           RequestsLibrary
 Library           String
-Library           ${CURDIR}/HsfJson/hsf_json.py
+Library           ${CURDIR}/norm_json.py
 Variables         ${CURDIR}/../variables/Variables.py
 
 *** Variables ***

@@ -18,7 +18,7 @@ Library           OperatingSystem
 Library           RequestsLibrary
 Library           SSHLibrary    prompt=]>
 Library           String
-Library           ${CURDIR}/../../../libraries/HsfJson/hsf_json.py
+Library           ${CURDIR}/norm_json.py
 Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
