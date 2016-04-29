@@ -11,7 +11,7 @@ Suite Teardown    Tear_It_Down
 Library           OperatingSystem
 Library           SSHLibrary
 Library           RequestsLibrary
-Library           ${CURDIR}/../../../libraries/HsfJson/hsf_json.py
+Library           ${CURDIR}/norm_json.py
 Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
 Resource          ${CURDIR}/../../../libraries/PcepOperations.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot

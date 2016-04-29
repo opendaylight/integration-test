@@ -3,7 +3,7 @@ Library           RequestsLibrary
 Library           Collections
 Library           UtilLibrary.py
 Library           ClusterStateLibrary.py
-Library           ./HsfJson/hsf_json.py
+Library           ${CURDIR}/norm_json.py
 Resource          Utils.robot
 
 *** Variables ***
@@ -135,7 +135,7 @@ Create Data And Check At URI In Cluster
     [Arguments]    ${controller_index_list}    ${controller_index}    ${uri}    ${body}    ${create_method}=PUT
     [Documentation]    Send a ${create_method} REST call with the supplied ${uri} and ${body} (json string) to a
     ...    ${controller_index} and check the data is replicated in all instances in ${controller_index_list}.
-    ${expected_body}=    Hsf Json    ${body}
+    ${expected_body}=    normalize_json_text    ${body}
     Log    ${body}
     ${resp}    Run Keyword If    "${create_method}" == "POST"    RequestsLibrary.Post Request    controller${controller_index}    ${uri}    data=${body}
     ...    headers=${HEADERS}
@@ -148,7 +148,7 @@ Create Data And Check At URI In Cluster
     \    ${data}    Wait Until Keyword Succeeds    5s    1s    Get Data From URI    controller${i}
     \    ...    ${uri}
     \    Log    ${data}
-    \    ${received_body}    Hsf Json    ${data}
+    \    ${received_body}    normalize_json_text    ${data}
     \    Should Be Equal    ${expected_body}    ${received_body}
 
 Delete And Check At URI In Cluster
