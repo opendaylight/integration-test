@@ -36,6 +36,9 @@ Check Ports STP status
 
 Ping Test
     [Documentation]    Ping h1 to h2, verify no packet loss or duplicates
+    # This sleep is needed because if the ping in the below WUKS is launched before the STP effectively removes the link,
+    # it produces a packet storm in mininet that makes the test unresponsive.
+    Sleep    1
     Wait Until Keyword Succeeds    10s    2s    Ping Works Good
 
 Link Down
@@ -60,8 +63,6 @@ Remove Port
     [Documentation]    Remove port s1-eth2 and verify ping works
     Write    sh ovs-vsctl del-port s1 s1-eth2
     Read Until    mininet>
-    @{list}    Create List    ${DISCARD}
-    Wait Until Keyword Succeeds    10s    2s    Check For Elements Not At URI    ${OPERATIONAL_NODES_API}    ${list}
     Wait Until Keyword Succeeds    10s    2s    Ping Works Good
 
 Add Port
