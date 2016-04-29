@@ -39,9 +39,7 @@ Check No Host Is Present
 
 Ping All
     [Documentation]    Pingall, verify no packet loss
-    Write    pingall
-    ${result}    Read Until    mininet>
-    Should Contain    ${result}    Results: 0% dropped
+    Wait Until Keyword Succeeds    10s    2s    Ping All Works Good
 
 Check Host Links
     [Documentation]    Get the topology and check links
@@ -96,3 +94,9 @@ Add Port
     Write    pingall
     Read Until    mininet>
     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_TOPO_API}    "node-id":"host:${MAC_1}"    1
+
+*** Keywords ***
+Ping All Works Good
+    Write    pingall
+    ${result}    Read Until    mininet>
+    Should Contain    ${result}    Results: 0% dropped

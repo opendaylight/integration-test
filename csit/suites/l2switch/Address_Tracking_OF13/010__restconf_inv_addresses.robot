@@ -31,9 +31,7 @@ Check No Host Is Present
 
 Ping All
     [Documentation]    Pingall, verify no packet loss
-    Write    pingall
-    ${result}    Read Until    mininet>
-    Should Contain    ${result}    Results: 0% dropped
+    Wait Until Keyword Succeeds    10s    2s    Ping All Works Good
 
 Check node 1 addresses
     [Documentation]    Get the address observations for node 1
@@ -52,3 +50,9 @@ Check node 3 addresses
     @{list}    Create List    ${IP_1}    ${IP_2}
     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}/node/openflow:3    ${IP_3}    1
     Wait Until Keyword Succeeds    10s    2s    Check For Elements Not At URI    ${OPERATIONAL_NODES_API}/node/openflow:3    ${list}
+
+*** Keywords ***
+Ping All Works Good
+    Write    pingall
+    ${result}    Read Until    mininet>
+    Should Contain    ${result}    Results: 0% dropped
