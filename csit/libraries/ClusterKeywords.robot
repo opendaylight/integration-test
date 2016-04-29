@@ -3,7 +3,7 @@ Library           RequestsLibrary
 Library           Collections
 Library           UtilLibrary.py
 Library           ClusterStateLibrary.py
-Library           ./HsfJson/hsf_json.py
+Library           ${CURDIR}/norm_json.py
 Resource          Utils.robot
 
 *** Variables ***

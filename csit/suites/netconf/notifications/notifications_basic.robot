@@ -23,7 +23,7 @@ Library           OperatingSystem
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
 Library           Collections
-Library           ${CURDIR}/../../../libraries/HsfJson/hsf_json.py
+Library           ${CURDIR}/norm_json.py
 Variables         ${CURDIR}/../../../variables/Variables.py
 Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
