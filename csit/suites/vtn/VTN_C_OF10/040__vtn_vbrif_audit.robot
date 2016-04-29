@@ -4,6 +4,7 @@ Suite Setup       Start SuiteVtnCoTest
 Suite Teardown    Stop SuiteVtnCoTest
 Resource          ../../../libraries/VtnCoKeywords.robot
 Resource          ../../../libraries/WaitForFailure.robot
+Force Tags        exclude
 
 *** Test Cases ***
 Add a ODL Controller with Invalid IP
