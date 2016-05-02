@@ -118,6 +118,30 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_8bf9f94f",
+        "filename": "csit/suites/netconf/clustering/outages.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-02T13:12:10Z",
+      "side": 1,
+      "message": "First step: replace everywhere node1 -\u003e ${node1} (and similarly for 2 and 3)\nSecond step:\n${node1}\u003d    ClusterManagement.Resolve_Http_Session_For_Member    ${1}\n(and similar for 2 and 3)\nIs there anything more to do?",
+      "parentUuid": "fa57193c_2be8adb3",
+      "range": {
+        "startLine": 180,
+        "startChar": 4,
+        "endLine": 180,
+        "endChar": 34
+      },
+      "revId": "3a1410090e7077281b8964e5da6876759bafe746",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_8b8d797e",
         "filename": "csit/suites/netconf/clustering/outages.robot",
         "patchSetId": 32
