@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_ebbcf56e",
+        "filename": "csit/suites/netconf/clustering/outages.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 194,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-02T13:14:18Z",
+      "side": 1,
+      "message": "tidy",
+      "range": {
+        "startLine": 194,
+        "startChar": 104,
+        "endLine": 194,
+        "endChar": 105
+      },
+      "revId": "cdfc38044a02009a9a27869b011f7aca4d9de53c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_cbc131e6",
+        "filename": "csit/testplans/netconf-clustering.txt",
+        "patchSetId": 35
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-02T13:14:18Z",
+      "side": 1,
+      "message": "+1",
+      "range": {
+        "startLine": 16,
+        "startChar": 2,
+        "endLine": 16,
+        "endChar": 34
+      },
+      "revId": "cdfc38044a02009a9a27869b011f7aca4d9de53c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
