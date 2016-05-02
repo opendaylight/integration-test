@@ -1,0 +1,303 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_0bede9c3",
+        "filename": "csit/libraries/ClusterKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-02T12:56:37Z",
+      "side": 1,
+      "message": "This Keyword (also line 125) comes from the old library, so it has to be replaced.",
+      "range": {
+        "startLine": 114,
+        "startChar": 25,
+        "endLine": 114,
+        "endChar": 33
+      },
+      "revId": "99e9a3295dafcc155b35fae5b69295a8adc57b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_6bd105fb",
+        "filename": "csit/libraries/ConfigViaRestconf.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-02T12:56:37Z",
+      "side": 1,
+      "message": "Needs to be replaced (also in the following line).",
+      "range": {
+        "startLine": 101,
+        "startChar": 29,
+        "endLine": 101,
+        "endChar": 46
+      },
+      "revId": "99e9a3295dafcc155b35fae5b69295a8adc57b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_4bcec15b",
+        "filename": "csit/libraries/PcepOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-02T12:56:37Z",
+      "side": 1,
+      "message": "replace",
+      "range": {
+        "startLine": 62,
+        "startChar": 31,
+        "endLine": 62,
+        "endChar": 48
+      },
+      "revId": "99e9a3295dafcc155b35fae5b69295a8adc57b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_abdb1d1a",
+        "filename": "csit/libraries/PcepOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-02T12:56:37Z",
+      "side": 1,
+      "message": "replace",
+      "range": {
+        "startLine": 63,
+        "startChar": 28,
+        "endLine": 63,
+        "endChar": 46
+      },
+      "revId": "99e9a3295dafcc155b35fae5b69295a8adc57b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_8bd8d91e",
+        "filename": "csit/suites/bgpcep/bgpuser/bgp_app_peer_basic.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 381,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-02T12:56:37Z",
+      "side": 1,
+      "message": "replace",
+      "range": {
+        "startLine": 381,
+        "startChar": 27,
+        "endLine": 381,
+        "endChar": 44
+      },
+      "revId": "99e9a3295dafcc155b35fae5b69295a8adc57b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_eb04f57f",
+        "filename": "csit/suites/bgpcep/bgpuser/cases.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 271,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-02T12:56:37Z",
+      "side": 1,
+      "message": "replace",
+      "range": {
+        "startLine": 271,
+        "startChar": 27,
+        "endLine": 271,
+        "endChar": 44
+      },
+      "revId": "99e9a3295dafcc155b35fae5b69295a8adc57b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_6bf8e57c",
+        "filename": "csit/suites/bgpcep/bgpuser/ebgp_peers_basic.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-02T12:56:37Z",
+      "side": 1,
+      "message": "Does not seem to be used in this suite at all.",
+      "range": {
+        "startLine": 25,
+        "startChar": 28,
+        "endLine": 25,
+        "endChar": 36
+      },
+      "revId": "99e9a3295dafcc155b35fae5b69295a8adc57b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_8bef39b0",
+        "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-02T12:56:37Z",
+      "side": 1,
+      "message": "not used",
+      "range": {
+        "startLine": 34,
+        "startChar": 28,
+        "endLine": 34,
+        "endChar": 37
+      },
+      "revId": "99e9a3295dafcc155b35fae5b69295a8adc57b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_eb2b55e9",
+        "filename": "csit/suites/bgpcep/pcepuser/pcepuser.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-02T12:56:37Z",
+      "side": 1,
+      "message": "replace",
+      "range": {
+        "startLine": 136,
+        "startChar": 19,
+        "endLine": 136,
+        "endChar": 27
+      },
+      "revId": "99e9a3295dafcc155b35fae5b69295a8adc57b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_cb301159",
+        "filename": "csit/suites/bgpcep/pcepuser/pcepuser.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-02T12:56:37Z",
+      "side": 1,
+      "message": "replace",
+      "range": {
+        "startLine": 142,
+        "startChar": 20,
+        "endLine": 142,
+        "endChar": 28
+      },
+      "revId": "99e9a3295dafcc155b35fae5b69295a8adc57b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_2b36ed52",
+        "filename": "csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 206,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-02T12:56:37Z",
+      "side": 1,
+      "message": "replace",
+      "range": {
+        "startLine": 206,
+        "startChar": 19,
+        "endLine": 206,
+        "endChar": 36
+      },
+      "revId": "99e9a3295dafcc155b35fae5b69295a8adc57b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_0b3b293b",
+        "filename": "csit/suites/bgpcep/tcpmd5user/tcpmd5user.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-02T12:56:37Z",
+      "side": 1,
+      "message": "replace",
+      "range": {
+        "startLine": 212,
+        "startChar": 20,
+        "endLine": 212,
+        "endChar": 37
+      },
+      "revId": "99e9a3295dafcc155b35fae5b69295a8adc57b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_ab495dd2",
+        "filename": "csit/suites/netconf/notifications/notifications_basic.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-02T12:56:37Z",
+      "side": 1,
+      "message": "not used",
+      "range": {
+        "startLine": 26,
+        "startChar": 28,
+        "endLine": 26,
+        "endChar": 37
+      },
+      "revId": "99e9a3295dafcc155b35fae5b69295a8adc57b95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
