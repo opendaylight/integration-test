@@ -94,6 +94,30 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_2be8adb3",
+        "filename": "csit/suites/netconf/clustering/outages.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-05-02T12:54:10Z",
+      "side": 1,
+      "message": "This is better done as a separate refactoring change as it requires reworking nearly every test case (estimated effort required: 4-5 days).",
+      "parentUuid": "fa57193c_4bc1a17f",
+      "range": {
+        "startLine": 180,
+        "startChar": 4,
+        "endLine": 180,
+        "endChar": 34
+      },
+      "revId": "3a1410090e7077281b8964e5da6876759bafe746",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_8b8d797e",
         "filename": "csit/suites/netconf/clustering/outages.robot",
         "patchSetId": 32
