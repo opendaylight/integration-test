@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_ab4b1d58",
+        "filename": "csit/suites/distribution/karaf/karaf-hang.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-02T10:42:44Z",
+      "side": 1,
+      "message": "6",
+      "range": {
+        "startLine": 4,
+        "startChar": 35,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "2bc8bd895dfa36102a4adf9d241e92e2ef2a0051",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_4b3ec1b9",
+        "filename": "csit/suites/distribution/karaf/karaf-hang.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-02T10:42:44Z",
+      "side": 1,
+      "message": "Remove commented-out code.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 1
+      },
+      "revId": "2bc8bd895dfa36102a4adf9d241e92e2ef2a0051",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
