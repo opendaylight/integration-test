@@ -38,6 +38,11 @@ flow_template = {
     }
 }
 
+flow_delete_template = {
+      "deviceId": "of:0000000000000001",
+      "flowId": 21392098393151996
+}
+
 
 class Timer(object):
     def __init__(self, verbose=False):
@@ -85,13 +90,15 @@ def _prepare_post(cntl, method, flows, template=None):
     Returns:
         :returns req: http request object
     """
-    fl1 = flows[0]
-    dev_id, ip = fl1
-    url = 'http://' + cntl + ':' + '8181/onos/v1/flows/' + dev_id
-    flow = copy.deepcopy(template)
-    flow["deviceId"] = dev_id
-    flow["selector"]["criteria"][1]["ip"] = '%s/32' % str(netaddr.IPAddress(ip))
-    req_data = json.dumps(flow)
+    flow_list = []
+    for dev_id, ip in (flows):
+        flow = copy.deepcopy(template)
+        flow["deviceId"] = dev_id
+        flow["selector"]["criteria"][1]["ip"] = '%s/32' % str(netaddr.IPAddress(ip))
+        flow_list.append (flow)
+    body = { "flows": flow_list }
+    url = 'http://' + cntl + ':' + '8181/onos/v1/flows/'
+    req_data = json.dumps(body)
     req = requests.Request(method, url, headers={'Content-Type': 'application/json'},
                            data=req_data, auth=('onos', 'rocks'))
     return req
@@ -112,10 +119,17 @@ def _prepare_delete(cntl, method, flows, template=None):
     Returns:
         :returns req: http request object
     """
-    fl1 = flows[0]
-    dev_id, flow_id = fl1
-    url = 'http://' + cntl + ':' + '8181/onos/v1/flows/' + dev_id + '/' + flow_id
-    req = requests.Request(method, url, auth=('onos', 'rocks'))
+    flow_list = []
+    for dev_id, flow_id in (flows):
+        flow = copy.deepcopy(template)
+        flow["deviceId"] = dev_id
+        flow["flowId"] = flow_id
+        flow_list.append (flow)
+    body = { "flows": flow_list }
+    url = 'http://' + cntl + ':' + '8181/onos/v1/flows/'
+    req_data = json.dumps(body)
+    req = requests.Request(method, url, headers={'Content-Type': 'application/json'},
+                           data=req_data, auth=('onos', 'rocks'))
     return req
 
 
@@ -281,6 +295,8 @@ def main(*argv):
                              'Each thread will add/delete <FLOWS> flows.')
     parser.add_argument('--flows', type=int, default=10,
                         help='Number of flows that will be added/deleted in total, default 10')
+    parser.add_argument('--fpr', type=int, default=1,
+                        help='Number of flows per REST request, default 1')
     parser.add_argument('--timeout', type=int, default=100,
                         help='The maximum time (seconds) to wait between the add and delete cycles; default=100')
     parser.add_argument('--no-delete', dest='no_delete', action='store_true', default=False,
@@ -308,13 +324,20 @@ def main(*argv):
     print "    flows  :", base_num_flows
 
     # lets fill the queue for workers
+    nflows = 0
+    flow_list = []
     flow_details = []
     sendqueue = Queue.Queue()
     for i in range(in_args.flows):
         dev_id = random.choice(base_dev_ids)
         dst_ip = ip_addr.increment()
-        sendqueue.put([(dev_id, dst_ip)])
+        flow_list.append ((dev_id, dst_ip))
         flow_details.append((dev_id, dst_ip))
+        nflows += 1
+        if nflows == in_args.fpr:
+            sendqueue.put(flow_list)
+            nflows = 0
+            flow_list = []
 
     # result_gueue
     resultqueue = Queue.Queue()
@@ -378,9 +401,16 @@ def main(*argv):
     print "Flows to be removed: ", len(flows_remove_details)
 
     # lets fill the queue for workers
+    nflows = 0
+    flow_list = []
     sendqueue = Queue.Queue()
     for fld in flows_remove_details:
-        sendqueue.put([fld])
+        flow_list.append (fld)
+        nflows += 1
+        if nflows == in_args.fpr:
+            sendqueue.put(flow_list)
+            nflows = 0
+            flow_list = []
 
     # result_gueue
     resultqueue = Queue.Queue()
@@ -395,7 +425,7 @@ def main(*argv):
             thr = threading.Thread(target=_wt_request_sender, args=(i, preparefnc),
                                    kwargs={"inqueue": sendqueue, "exitevent": exitevent,
                                            "controllers": [in_args.host], "restport": in_args.port,
-                                           "template": flow_template, "outqueue": resultqueue, "method": "DELETE"})
+                                           "template": flow_delete_template, "outqueue": resultqueue, "method": "DELETE"})
             threads.append(thr)
             thr.start()
 
