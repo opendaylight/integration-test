@@ -65,6 +65,7 @@ Check_Whether_Netconf_Is_Up_And_Running
 Wait_For_Netconf
     [Documentation]    Wait for the Netconf to go up for configurable time.
     [Tags]    critical
+    BuiltIn.Set_Suite_Variable    ${netconf_not_ready_cause}    4583
     SetupUtils.Set_Known_Bug_Id    4583
     BuiltIn.Run_Keyword_Unless    ${netconf_is_ready}    BuiltIn.Wait_Until_Keyword_Succeeds    ${NETCONFREADY_WAIT}    1s    Check_Netconf_Up_And_Running
     BuiltIn.Set_Suite_Variable    ${netconf_is_ready}    True
@@ -87,7 +88,7 @@ Check_For_Bug_5014
 Check_Whether_Netconf_Can_Pretty_Print
     [Documentation]    Make one request to netconf-connector and see if it works.
     [Tags]    critical
-    SetupUtils.Set_Known_Bug_Id    4583
+    SetupUtils.Set_Known_Bug_Id    ${netconf_not_ready_cause}
     BuiltIn.Run_Keyword_Unless    ${netconf_is_ready}    Fail    Netconf is not ready so it can't pretty-print now.
     Check_Netconf_Up_And_Running    ?prettyPrint=true
 
@@ -121,6 +122,9 @@ Check_Netconf_Up_And_Running
     [Documentation]    Make a request to netconf connector's list of mounted devices and check that the request was successful.
     ${response}=    RequestsLibrary.Get_Request    ses    restconf/config/network-topology:network-topology/topology/topology-netconf${netconf_connector}${pretty_print}
     BuiltIn.Log    ${response.text}
+    ${status}=    BuiltIn.Run_Keyword_And_Return_Status    BuiltIn.Should_Contain    ${response.text}    data model content does not exist
+    BuiltIn.Run_Keyword_If    ${status}    BuiltIn.Set_Suite_Variable    ${netconf_not_ready_cause}    5832
+    BuiltIn.Run_Keyword_If    ${status}    SetupUtils.Set_Known_Bug_Id    5832
     BuiltIn.Should_Be_Equal_As_Strings    ${response.status_code}    200
 
 Check_Netconf_Usable
