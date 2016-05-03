@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_96ee3d21",
+        "filename": "csit/libraries/SetupUtils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-03T11:44:20Z",
+      "side": 1,
+      "message": "Not every suite is using NetconViaRestconf, so this may fail. See for example result from verify job: https://jenkins.opendaylight.org/releng/job/netconf-csit-verify-1node-userfeatures/128/robot/report/log.html#s1-s3-s1-k2-k1\n\nPossibly, this step also has to be controlled by a boolean argument.\nAlso, use full name with Resource name prepended.",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 33
+      },
+      "revId": "0615f6a875e0488353c1bcbe7c2944c28558679e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
