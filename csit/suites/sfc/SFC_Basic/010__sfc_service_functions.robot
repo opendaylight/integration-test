@@ -125,8 +125,8 @@ Init Suite
     Run Keyword If    '${ODL_STREAM}' == 'stable-lithium'    Set Suite Variable    ${VERSION_DIR}    lithium
     ...    ELSE    Set Suite Variable    ${VERSION_DIR}    master
     Set Suite Variable    ${SERVICE_FUNCTIONS_URI}    /restconf/config/service-function:service-functions/
-    Set Suite Variable    ${SERVICE_FUNCTIONS_FILE}    ../../../variables/sfc/${VERSION_DIR}/service-functions.json
+    Set Suite Variable    ${SERVICE_FUNCTIONS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-functions.json
     Set Suite Variable    ${SF_DPI102100_URI}    /restconf/config/service-function:service-functions/service-function/dpi-102-100/
-    Set Suite Variable    ${SF_DPI102100_FILE}    ../../../variables/sfc/${VERSION_DIR}/sf_dpi_102_100.json
-    Set Suite Variable    ${SF_DPL101_FILE}    ../../../variables/sfc/${VERSION_DIR}/sf_dpl_101.json
+    Set Suite Variable    ${SF_DPI102100_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sf_dpi_102_100.json
+    Set Suite Variable    ${SF_DPL101_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sf_dpl_101.json
 
