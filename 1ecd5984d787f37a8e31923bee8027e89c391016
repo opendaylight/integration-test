@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_f1d6a3c4",
+        "filename": "csit/libraries/PrefixCounting.robot",
+        "patchSetId": 48
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-03T15:28:22Z",
+      "side": 1,
+      "message": "I would like it more if these two were arguments and default values.",
+      "range": {
+        "startLine": 20,
+        "startChar": 0,
+        "endLine": 20,
+        "endChar": 14
+      },
+      "revId": "1ecd5984d787f37a8e31923bee8027e89c391016",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_0c6fbcc6",
+        "filename": "csit/scriptplans/bgpcep-bgpclustering.txt",
+        "patchSetId": 48
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-03T15:28:22Z",
+      "side": 1,
+      "message": "6?\nMaybe not, as this is a copy of another file.\n2015-2016 is the safest option.",
+      "range": {
+        "startLine": 1,
+        "startChar": 19,
+        "endLine": 1,
+        "endChar": 20
+      },
+      "revId": "1ecd5984d787f37a8e31923bee8027e89c391016",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_ecf888e7",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route.robot",
+        "patchSetId": 48
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-03T15:28:22Z",
+      "side": 1,
+      "message": "Do you need this for anything?",
+      "range": {
+        "startLine": 35,
+        "startChar": 71,
+        "endLine": 35,
+        "endChar": 85
+      },
+      "revId": "1ecd5984d787f37a8e31923bee8027e89c391016",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_ac87b060",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route.robot",
+        "patchSetId": 48
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-03T15:28:22Z",
+      "side": 1,
+      "message": "This needs a Documentation. Is \"try 3 times\" really the recommended way for configuring a new netconf device in a cluster?",
+      "range": {
+        "startLine": 96,
+        "startChar": 25,
+        "endLine": 96,
+        "endChar": 43
+      },
+      "revId": "1ecd5984d787f37a8e31923bee8027e89c391016",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_8c90ec96",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route.robot",
+        "patchSetId": 48
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-03T15:28:22Z",
+      "side": 1,
+      "message": "That Bug is about an alternative way of configuring a per. It does not explain why WUKS is needed for the config subsystem way. And I do not thing the sleep does anything useful when WUKS is there.",
+      "range": {
+        "startLine": 108,
+        "startChar": 20,
+        "endLine": 108,
+        "endChar": 30
+      },
+      "revId": "1ecd5984d787f37a8e31923bee8027e89c391016",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_6c8d987b",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route.robot",
+        "patchSetId": 48
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-03T15:28:22Z",
+      "side": 1,
+      "message": "tidy",
+      "range": {
+        "startLine": 212,
+        "startChar": 0,
+        "endLine": 212,
+        "endChar": 0
+      },
+      "revId": "1ecd5984d787f37a8e31923bee8027e89c391016",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
