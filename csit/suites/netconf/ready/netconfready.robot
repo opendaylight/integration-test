@@ -121,6 +121,8 @@ Check_Netconf_Up_And_Running
     [Documentation]    Make a request to netconf connector's list of mounted devices and check that the request was successful.
     ${response}=    RequestsLibrary.Get_Request    ses    restconf/config/network-topology:network-topology/topology/topology-netconf${netconf_connector}${pretty_print}
     BuiltIn.Log    ${response.text}
+    ${status}=    BuiltIn.Run_Keyword_And_Return_Status    BuiltIn.Should_Contain    ${response.text}    data model content does not exist
+    BuiltIn.Run_Keyword_If    ${status}    SetupUtils.Set_Known_Bug_Id    5832
     BuiltIn.Should_Be_Equal_As_Strings    ${response.status_code}    200
 
 Check_Netconf_Usable
