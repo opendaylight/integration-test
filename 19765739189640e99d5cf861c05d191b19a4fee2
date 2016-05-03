@@ -34,6 +34,24 @@
       "revId": "19765739189640e99d5cf861c05d191b19a4fee2",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5aaae553_48041f7e",
+        "filename": "csit/suites/vpnservice/030__configure_2_switches.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 3276
+      },
+      "writtenOn": "2016-05-03T14:54:31Z",
+      "side": 1,
+      "message": "It shouldn\u0027t take this long but we saw one test failing with 10. We\u0027ll revisit these once things stabilize and see if normally goes through in 1st attempt or takes more than 5s.",
+      "parentUuid": "7aade967_aae24001",
+      "revId": "19765739189640e99d5cf861c05d191b19a4fee2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
