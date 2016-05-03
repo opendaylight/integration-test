@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_f6d179ce",
+        "filename": "csit/libraries/ClusterKeywords.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-03T12:39:55Z",
+      "side": 1,
+      "message": "This could be used by Get_Cluster_Entity_Owner keyword (after around line 56 and before line 80) with small changes there.",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 45
+      },
+      "revId": "8c9d6fc2bc389bd638d5a8e3553173c406d43d7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_564665c0",
+        "filename": "csit/suites/openflowplugin/EntityOwhership/010_Switch_Disconnect.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-03T12:39:55Z",
+      "side": 1,
+      "message": "Line 27 now looks confusing, and using template also makes the code longer (by lines 5, 23 and 30).\nSimilarly for other suites.",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 13
+      },
+      "revId": "8c9d6fc2bc389bd638d5a8e3553173c406d43d7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_967e3de3",
+        "filename": "csit/suites/openflowplugin/EntityOwhership/020_Cluster_Sync_Problems.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-03T12:39:55Z",
+      "side": 1,
+      "message": "It would be better to change ClusterKeywords to guarantee active SSH connection remains the same. See these merged Changes:\nhttps://git.opendaylight.org/gerrit/#/c/38306/\nhttps://git.opendaylight.org/gerrit/#/c/37820/",
+      "range": {
+        "startLine": 154,
+        "startChar": 29,
+        "endLine": 154,
+        "endChar": 46
+      },
+      "revId": "8c9d6fc2bc389bd638d5a8e3553173c406d43d7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_b660a136",
+        "filename": "csit/suites/openflowplugin/EntityOwhership/030_Cluster_Node_Failure.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-03T12:39:55Z",
+      "side": 1,
+      "message": "These Keywords could be moved into ClusterKeywords.",
+      "range": {
+        "startLine": 176,
+        "startChar": 0,
+        "endLine": 176,
+        "endChar": 31
+      },
+      "revId": "8c9d6fc2bc389bd638d5a8e3553173c406d43d7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
