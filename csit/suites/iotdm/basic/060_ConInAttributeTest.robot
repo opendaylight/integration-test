@@ -213,7 +213,7 @@ Delete the ContenInstance 2.33
     ${random} =    Evaluate    random.randint(0,50)    modules=random
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"${random}"
     Create Resource    ${iserver}    ${container}    ${rt_contentInstance}    ${attr}
-    ${latestCon} =    Get Latest    ${container}
+    ${latestCon} =    Get Latest     ${container}
     Should Be Equal As Strings    ${random}    ${latestCon}
 
 4.12 GetLatest Loop 50 times Test
@@ -262,5 +262,5 @@ Latest Con Test
     ${random} =    Evaluate    random.randint(0,50)    modules=random
     ${attr} =    Set Variable    "cnf": "1","or": "http://hey/you","con":"${random}"
     Create Resource    ${iserver}    ${resourceURI}    ${rt_contentInstance}    ${attr}
-    ${latestCon} =    Get Latest    ${resourceURI}
+    ${latestCon} =    Get Latest     ${resourceURI}
     Should Be Equal As Strings    ${random}    ${latestCon}

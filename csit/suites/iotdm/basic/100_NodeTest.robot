@@ -10,8 +10,8 @@ ${httppass}       admin
 ${rt_ae}          2
 ${rt_container}    3
 ${rt_contentInstance}    4
-${rt_acp}         1
-${rt_node}        14
+${rt_acp}    1
+${rt_nod}    14
 
 *** Test Cases ***
 Set Suite Variable

@@ -409,6 +409,7 @@ Response Is Correct
     ${status_code} =    Status Code    ${r}
     Should Be True    199 < ${status_code} < 299
 
+
 Cannot Retrieve Error
     [Arguments]    ${uri}
     ${error} =    Run Keyword And Expect Error    *    Retrieve Resource    ${iserver}    ${uri}
