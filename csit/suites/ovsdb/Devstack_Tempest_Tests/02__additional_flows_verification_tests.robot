@@ -63,6 +63,12 @@ Ping All Vm Instances In network_1
     \    ${output}    Ping Vm From DHCP Namespace    ${net_id}    ${VmIpElement}
     \    Should Contain    ${output}    64 bytes
 
+Verify Dump Flow for network_1
+    [Documentation]    Verify the existence of the created DHCP ips in the dump flow.
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+    Should Contain    ${output}    actions
+
 Show Details of Created Vm Instance In network_2
     [Documentation]    View Details of the created vm instances using nova show.
     : FOR    ${VmElement}    IN    @{NET_2_VM_INSTANCES}
@@ -75,6 +81,12 @@ Ping All Vm Instances In network_2
     : FOR    ${VmIpElement}    IN    @{NET_2_VM_IPS}
     \    ${output}    Ping Vm From DHCP Namespace    ${net_id}    ${VmIpElement}
     \    Should Contain    ${output}    64 bytes
+
+Verify Dump Flow for network_2
+    [Documentation]    Verify the existence of the created DHCP ips in the dump flow.
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+    Should Contain    ${output}    actions
 
 Add Key-Pair For Vm Instance
     [Documentation]    Creates key pair to ssh to the vm instance.
