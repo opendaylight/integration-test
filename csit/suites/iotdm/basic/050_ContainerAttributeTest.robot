@@ -33,6 +33,8 @@ Set Suite Variable
     Should Contain    ${text}    "lt":    "pi":    "st":
     Should Contain    ${text}    "ct":    "ty":3    "cbs"
     Should Not Contain    S{text}    "lbl"    "creator"    "or"
+
+
     #==================================================
     #    Container Optional Attribute Test (Allowed)
     #==================================================
@@ -623,7 +625,7 @@ Delete the Container2-4.5
     # cannot create 2
     ${rr} =    Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}    ${attr}
     Check Response and Retrieve Resource    ${rr}
-    ${rr} =    Retrieve resource    ${iserver}    InCSE1/Container2
+    ${rr} =    Retrieve resource With Command    ${iserver}    InCSE1/Container2    rcn=5
     ${chr} =    Set Variable    ${rr.json()['m2m:cnt']['ch']}
     ${cbs} =    Set Variable    ${rr.json()['m2m:cnt']['cbs']}
     Should Be Equal As Integers    ${rr.json()['m2m:cnt']['cni']}    1
@@ -639,7 +641,7 @@ Delete the Container2-4.5
     Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}    ${attr}
     Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}    ${attr}
     #Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}    ${attr}
-    ${rr}=    Retrieve resource    ${iserver}    InCSE1/Container2
+    ${rr}=    Retrieve resource With Command    ${iserver}    InCSE1/Container2    rcn=5
     Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}    ${attr}
     ${mni} =    Set Variable    ${rr.json()['m2m:cnt']['mni']}
     ${chr} =    Set Variable    ${rr.json()['m2m:cnt']['ch']}
@@ -649,7 +651,7 @@ Delete the Container2-4.5
     [Documentation]    if alread have 4, then set mni to 1, will delete 3 children
     ${attr} =    Set Variable    "mni":1
     ${r}=    Update Resource    ${iserver}    InCSE1/Container2    ${rt_container}    ${attr}
-    ${rr}=    Retrieve resource    ${iserver}    InCSE1/Container2
+    ${rr}=    Retrieve resource With Command    ${iserver}    InCSE1/Container2    rcn=5
     ${chr} =    Set Variable    ${rr.json()['m2m:cnt']['ch']}
     ${mni} =    Set Variable    ${rr.json()['m2m:cnt']['mni']}
     Should Be Equal As Integers    ${rr.json()['m2m:cnt']['cni']}    1
@@ -686,7 +688,7 @@ Delete the Container2-4.6
     Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}    ${attr}
     Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}    ${attr}
     Create Resource    ${iserver}    InCSE1/Container2    ${rt_contentInstance}    ${attr}
-    ${rr}=    Retrieve resource    ${iserver}    InCSE1/Container2
+    ${rr}=    Retrieve resource With Command    ${iserver}    InCSE1/Container2    rcn=5
     ${cbs} =    Set Variable    ${rr.json()['m2m:cnt']['cbs']}
     ${chr} =    Set Variable    ${rr.json()['m2m:cnt']['ch']}
     Should Be Equal As Integers    ${rr.json()['m2m:cnt']['cni']}    4
@@ -697,7 +699,7 @@ Delete the Container2-4.6
     [Documentation]    what if alread have 20, then set mbs to 5, will delete contentInstance until mbs less than 5.
     ${attr} =    Set Variable    "mbs":5
     ${r}=    Update Resource    ${iserver}    InCSE1/Container2    ${rt_container}    ${attr}
-    ${rr}=    Retrieve resource    ${iserver}    InCSE1/Container2
+    ${rr}=    Retrieve resource With Command    ${iserver}    InCSE1/Container2    rcn=5
     ${chr} =    Set Variable    ${rr.json()['m2m:cnt']['ch']}
     ${cbs} =    Set Variable    ${rr.json()['m2m:cnt']['cbs']}
     Should Be Equal As Integers    ${rr.json()['m2m:cnt']['cni']}    1
