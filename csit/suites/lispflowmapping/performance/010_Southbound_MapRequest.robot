@@ -117,7 +117,7 @@ Get Control Message Stats
 
 Prepare Environment
     Create File    ${RPCS_RESULTS_FILE}    store/s\n
-    Create File    ${PPS_RESULTS_FILE}    replies/s,notifies/s,notifies/s\n
+    Create File    ${PPS_RESULTS_FILE}    replies/s,notifies/s,auth_notifies/s\n
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     Run Process With Logging And Status Check    wget    -P    ${TOOLS_DIR}    ${LISP_SCAPY}
     Run Process With Logging And Status Check    ${PCAP_CREATOR}    --requests    ${MAPPINGS}
