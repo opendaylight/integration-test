@@ -22,53 +22,25 @@ cse_payload = '''
 }
 '''
 
-resourcepayload = '''
+template_payload = '''
 {
-    %s
+    "m2m:%s" : {%s}
 }
 '''
 
-ae_payload = '''
-{
-    "m2m:ae":{%s}
-}
-'''
+resources = {"m2m:acp", "m2m:ae", "m2m:cnt", "m2m:cin",
+             "m2m:cb", "m2m:div", "m2m:evcg", "m2m:evin",
+             "m2m:grp", "m2m:lcp", "m2m:mssp", "m2m:mgc",
+             "m2m:mgo", "m2m:nod", "m2m:pch", "m2m:csr",
+             "m2m:req", "m2m:sch", "m2m:asar", "m2m:svsn",
+             "m2m:stcl", "m2m:stcg", "m2m:sub"}
 
-con_payload = '''
-{
-    "m2m:cnt":{%s}
-}
-'''
-
-cin_payload = '''
-{
-   "m2m:cin":{%s}
-}
-'''
-
-sub_payload = '''
-{
-    "m2m:sub":{%s}
-}
-'''
-
-acp_payload = '''
-{
-    "m2m:acp":{%s}
-}
-'''
-
-nod_payload = '''
-{
-    "m2m:nod":{%s}
-}
-'''
-
-resources = {"m2m:ae", "m2m:cnt", "m2m:cin", "m2m:sub",
-             "m2m:acp", "m2m:nod", "m2m:grp"}
-
-payload_map = {1: acp_payload, 2: ae_payload, 3: con_payload,
-               4: cin_payload, 14: nod_payload, 23: sub_payload}
+payname_map = {1: "acp", 2: "ae", 3: "cnt", 4: "cin",
+               5: "cb", 6: "div", 7: "evcg", 8: "evin",
+               9: "grp", 10: "lcp", 11: "mssp", 12: "mgc",
+               13: "mgo", 14: "nod", 15: "pch", 16: "csr",
+               17: "req", 18: "sch", 19: "asar", 20: "svsn",
+               21: "stcl", 22: "stcg", 23: "sub"}
 
 
 def find_key(response, key):
@@ -185,8 +157,7 @@ class connect:
         if parent is None:
             return None
         restype = int(restype)
-        payload = payload_map[restype]
-        payload = payload % (attr)
+        payload = template_payload % (payname_map[restype], attr)
         self.headers['content-type'] = 'application/\
             vnd.onem2m-res+json;ty=%s' % (restype)
         parent = normalize(parent)
@@ -208,8 +179,7 @@ class connect:
         if parent is None:
             return None
         restype = int(restype)
-        payload = payload_map[restype]
-        payload = payload % (attr)
+        payload = template_payload % (payname_map[restype], attr)
         self.headers['content-type'] = 'application/\
             vnd.onem2m-res+json;ty=%s' % (restype)
         parent = normalize(parent)
@@ -223,7 +193,7 @@ class connect:
         if resource_uri is None:
             return None
         resource_uri = normalize(resource_uri)
-        self.url = self.server + ":8282/%s?rcn=5" % (resource_uri)
+        self.url = self.server + ":8282/%s" % (resource_uri)
         self.headers['X-M2M-NM'] = None
         self.headers['content-type'] = 'application/vnd.onem2m-res+json'
         self.response = self.session.get(
@@ -250,8 +220,7 @@ class connect:
             return None
         resource_uri = normalize(resource_uri)
         restype = int(restype)
-        payload = payload_map[restype]
-        payload = payload % (attr)
+        payload = template_payload % (payname_map[restype], attr)
         self.headers['content-type'] = 'application/vnd.onem2m-res+json'
         self.url = self.server + ":8282/%s" % (resource_uri)
         self.response = self.session.put(
@@ -264,8 +233,7 @@ class connect:
             return None
         resource_uri = normalize(resource_uri)
         restype = int(restype)
-        payload = payload_map[restype]
-        payload = payload % (attr)
+        payload = template_payload % (payname_map[restype], attr)
         self.headers['content-type'] = 'application/vnd.onem2m-res+json'
         self.url = self.server + ":8282/%s?%s" % (resource_uri, command)
         self.response = self.session.put(
