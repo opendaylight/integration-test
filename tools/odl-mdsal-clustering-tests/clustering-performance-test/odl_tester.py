@@ -11,37 +11,19 @@ import time
 
 
 flow_template = {
-    "appId": 10,
-    "priority": 40000,
-    "timeout": 0,
-    "isPermanent": True,
-    "deviceId": "of:0000000000000001",
-    "treatment": {
-        "instructions": [
-            {
-                "type": "NOACTION"
+    "id": "2",
+    "match": {
+        "ethernet-match": {
+            "ethernet-type": {
+                "type": 2048
             }
-        ],
-        "deferred": []
+        },
+        "ipv4-destination": "10.0.20.0/24"
     },
-    "selector": {
-        "criteria": [
-            {
-                "type": "ETH_TYPE",
-                "ethType": 2048
-            },
-            {
-                "type": "IPV4_DST",
-                "ip": "10.0.0.0/32"
-            }
-        ]
-    }
+    "priority": 2,
+    "table_id": 0
 }
-
-flow_delete_template = {
-    "deviceId": "of:0000000000000001",
-    "flowId": 21392098393151996
-}
+odl_node_url = '/restconf/config/opendaylight-inventory:nodes/node/'
 
 
 class Timer(object):
@@ -93,14 +75,14 @@ def _prepare_post(cntl, method, flows, template=None):
     flow_list = []
     for dev_id, ip in (flows):
         flow = copy.deepcopy(template)
-        flow["deviceId"] = dev_id
-        flow["selector"]["criteria"][1]["ip"] = '%s/32' % str(netaddr.IPAddress(ip))
+        flow["id"] = ip
+        flow["match"]["ipv4-destination"] = '%s/32' % str(netaddr.IPAddress(ip))
         flow_list.append(flow)
-    body = {"flows": flow_list}
-    url = 'http://' + cntl + ':' + '8181/onos/v1/flows/'
+    body = {"flow": flow_list}
+    url = 'http://' + cntl + ':8181' + odl_node_url + dev_id + '/table/0'
     req_data = json.dumps(body)
     req = requests.Request(method, url, headers={'Content-Type': 'application/json'},
-                           data=req_data, auth=('onos', 'rocks'))
+                           data=req_data, auth=('admin', 'admin'))
     return req
 
 
@@ -119,17 +101,10 @@ def _prepare_delete(cntl, method, flows, template=None):
     Returns:
         :returns req: http request object
     """
-    flow_list = []
-    for dev_id, flow_id in (flows):
-        flow = copy.deepcopy(template)
-        flow["deviceId"] = dev_id
-        flow["flowId"] = flow_id
-        flow_list.append(flow)
-    body = {"flows": flow_list}
-    url = 'http://' + cntl + ':' + '8181/onos/v1/flows/'
-    req_data = json.dumps(body)
+    dev_id, flow_id = flows[0]
+    url = 'http://' + cntl + ':8181' + odl_node_url + dev_id + '/table/0/flow/' + str(flow_id)
     req = requests.Request(method, url, headers={'Content-Type': 'application/json'},
-                           data=req_data, auth=('onos', 'rocks'))
+                           data=None, auth=('admin', 'admin'))
     return req
 
 
@@ -192,93 +167,35 @@ def _wt_request_sender(thread_id, preparefnc, inqueue=None, exitevent=None, cont
 
 def get_device_ids(controller='127.0.0.1', port=8181):
     """Returns a list of switch ids"""
-    rsp = requests.get(url='http://{0}:{1}/onos/v1/devices'.format(controller, port), auth=('onos', 'rocks'))
+    ids = []
+    rsp = requests.get(url='http://{0}:{1}/restconf/operational/opendaylight-inventory:nodes'
+                       .format(controller, port), auth=('admin', 'admin'))
     if rsp.status_code != 200:
         return []
-    devices = json.loads(rsp.content)['devices']
-    ids = [d['id'] for d in devices if 'of:' in d['id']]
+    try:
+        devices = json.loads(rsp.content)['nodes']['node']
+        ids = [d['id'] for d in devices]
+    except KeyError:
+        pass
     return ids
 
 
 def get_flow_ids(controller='127.0.0.1', port=8181):
     """Returns a list of flow ids"""
-    rsp = requests.get(url='http://{0}:{1}/onos/v1/flows'.format(controller, port), auth=('onos', 'rocks'))
-    if rsp.status_code != 200:
-        return []
-    flows = json.loads(rsp.content)['flows']
-    ids = [f['id'] for f in flows]
+    ids = []
+    device_ids = get_device_ids(controller, port)
+    for device_id in device_ids:
+        rsp = requests.get(url='http://{0}:{1}/restconf/operational/opendaylight-inventory:nodes/node/%s/table/0'
+                           .format(controller, port) % device_id, auth=('admin', 'admin'))
+        if rsp.status_code != 200:
+            return []
+        try:
+            flows = json.loads(rsp.content)['flow-node-inventory:table'][0]['flow']
+            for f in flows:
+                ids.append(f['id'])
+        except KeyError:
+            pass
     return ids
-
-
-def get_flow_simple_stats(controller='127.0.0.1', port=8181):
-    """Returns a list of flow ids"""
-    rsp = requests.get(url='http://{0}:{1}/onos/v1/flows'.format(controller, port), auth=('onos', 'rocks'))
-    if rsp.status_code != 200:
-        return []
-    flows = json.loads(rsp.content)['flows']
-    res = {}
-    for f in flows:
-        if f['state'] not in res:
-            res[f['state']] = 1
-        else:
-            res[f['state']] += 1
-    return res
-
-
-def get_flow_device_pairs(controller='127.0.0.1', port=8181, flow_details=[]):
-    """Pairing flows from controller with deteils we used ofr creation"""
-    rsp = requests.get(url='http://{0}:{1}/onos/v1/flows'.format(controller, port), auth=('onos', 'rocks'))
-    if rsp.status_code != 200:
-        return
-    flows = json.loads(rsp.content)['flows']
-    # print "Flows", flows
-    # print "Details", flow_details
-    for dev_id, ip in flow_details:
-        # print "looking for details", dev_id, ip
-        for f in flows:
-            # lets identify if it is our flow
-            if f["treatment"]["instructions"][0]["type"] != "DROP":
-                # print "NOT DROP"
-                continue
-            if f["deviceId"] == dev_id:
-                if "ip" in f["selector"]["criteria"][0]:
-                    item_idx = 0
-                elif "ip" in f["selector"]["criteria"][1]:
-                    item_idx = 1
-                else:
-                    continue
-                # print "Comparing", '%s/32' % str(netaddr.IPAddress(ip))
-                if f["selector"]["criteria"][item_idx]["ip"] == '%s/32' % str(netaddr.IPAddress(ip)):
-                    # print dev_id, ip, f
-                    yield dev_id, f["id"]
-                    break
-
-
-def get_flow_to_remove(controller='127.0.0.1', port=8181):
-    """Pairing flows from controller with deteils we used ofr creation"""
-    rsp = requests.get(url='http://{0}:{1}/onos/v1/flows'.format(controller, port), auth=('onos', 'rocks'))
-    if rsp.status_code != 200:
-        return
-    flows = json.loads(rsp.content)['flows']
-    # print "Flows", flows
-    # print "Details", flow_details
-
-    for f in flows:
-        # lets identify if it is our flow
-        if f["treatment"]["instructions"][0]["type"] != "NOACTION":
-            # print "NOT DROP"
-            continue
-        if "ip" in f["selector"]["criteria"][0]:
-            item_idx = 0
-        elif "ip" in f["selector"]["criteria"][1]:
-            item_idx = 1
-        else:
-            continue
-            # print "Comparing", '%s/32' % str(netaddr.IPAddress(ip))
-        ipstr = f["selector"]["criteria"][item_idx]["ip"]
-        if '10.' in ipstr and '/32' in ipstr:
-            # print dev_id, ip, f
-            yield (f["deviceId"], f["id"])
 
 
 def main(*argv):
@@ -328,8 +245,8 @@ def main(*argv):
     flow_list = []
     flow_details = []
     sendqueue = Queue.Queue()
+    dev_id = random.choice(base_dev_ids)
     for i in range(in_args.flows):
-        dev_id = random.choice(base_dev_ids)
         dst_ip = ip_addr.increment()
         flow_list.append((dev_id, dst_ip))
         flow_details.append((dev_id, dst_ip))
@@ -338,6 +255,7 @@ def main(*argv):
             sendqueue.put(flow_list)
             nflows = 0
             flow_list = []
+            dev_id = random.choice(base_dev_ids)
 
     # result_gueue
     resultqueue = Queue.Queue()
@@ -377,11 +295,10 @@ def main(*argv):
     rounds = 200
     with Timer() as t:
         for i in range(rounds):
-            flow_stats = get_flow_simple_stats(controller=in_args.host)
-            print flow_stats
-            try:
-                pending_adds = int(flow_stats[u'PENDING_ADD'])
-            except KeyError:
+            reported_flows = len(get_flow_ids(controller=in_args.host))
+            expected_flows = base_num_flows + in_args.flows
+            print "Reported Flows: %d/%d" % (reported_flows, expected_flows)
+            if reported_flows >= expected_flows:
                 break
             time.sleep(1)
 
@@ -396,25 +313,11 @@ def main(*argv):
     # sleep in between
     time.sleep(in_args.timeout)
 
-    # lets delete flows, need to get ids to be deleted, becasue we dont have flow_id on config time
-    # we have to pair flows on out own
-    flows_remove_details = []
-    # for a in get_flow_device_pairs(controller=in_args.host, flow_details=flow_details):
-    for a in get_flow_to_remove(controller=in_args.host):
-        flows_remove_details.append(a)
-    print "Flows to be removed: ", len(flows_remove_details)
-
+    print "Flows to be removed: %d" % len(flow_details)
     # lets fill the queue for workers
-    nflows = 0
-    flow_list = []
     sendqueue = Queue.Queue()
-    for fld in flows_remove_details:
-        flow_list.append(fld)
-        nflows += 1
-        if nflows == in_args.fpr:
-            sendqueue.put(flow_list)
-            nflows = 0
-            flow_list = []
+    for fld in flow_details:
+        sendqueue.put([fld])
 
     # result_gueue
     resultqueue = Queue.Queue()
@@ -424,32 +327,37 @@ def main(*argv):
     # run workers
     preparefnc = _prepare_delete
     with Timer() as tmr:
-        threads = []
-        for i in range(int(in_args.threads)):
-            thr = threading.Thread(target=_wt_request_sender, args=(i, preparefnc),
-                                   kwargs={"inqueue": sendqueue, "exitevent": exitevent,
-                                           "controllers": [in_args.host], "restport": in_args.port,
-                                           "template": flow_delete_template, "outqueue": resultqueue,
-                                           "method": "DELETE"})
-            threads.append(thr)
-            thr.start()
+        if in_args.bulk_delete:
+            url = 'http://' + in_args.host + ':' + '8181'
+            url += '/restconf/config/opendaylight-inventory:nodes'
+            rsp = requests.delete(url, headers={'Content-Type': 'application/json'}, auth=('admin', 'admin'))
+            result = {rsp.status_code: 1}
+        else:
+            threads = []
+            for i in range(int(in_args.threads)):
+                thr = threading.Thread(target=_wt_request_sender, args=(i, preparefnc),
+                                       kwargs={"inqueue": sendqueue, "exitevent": exitevent,
+                                               "controllers": [in_args.host], "restport": in_args.port,
+                                               "template": None, "outqueue": resultqueue, "method": "DELETE"})
+                threads.append(thr)
+                thr.start()
 
-        exitevent.set()
+            exitevent.set()
 
-        result = {}
-        # waitng for reqults and sum them up
-        for t in threads:
-            t.join()
-            # reading partial resutls from sender thread
-            part_result = resultqueue.get()
-            for k, v in part_result.iteritems():
-                if k not in result:
-                    result[k] = v
-                else:
-                    result[k] += v
+            result = {}
+            # waitng for reqults and sum them up
+            for t in threads:
+                t.join()
+                # reading partial resutls from sender thread
+                part_result = resultqueue.get()
+                for k, v in part_result.iteritems():
+                    if k not in result:
+                        result[k] = v
+                    else:
+                        result[k] += v
 
-    print "Removed", len(flows_remove_details), "flows in", tmr.secs, "seconds", result
-    del_details = {"duration": tmr.secs, "flows": len(flows_remove_details)}
+    print "Removed", len(flow_details), "flows in", tmr.secs, "seconds", result
+    del_details = {"duration": tmr.secs, "flows": len(flow_details)}
 
 #    # lets print some stats
 #    print "\n\nSome stats monitoring ...."
@@ -462,11 +370,10 @@ def main(*argv):
     rounds = 200
     with Timer() as t:
         for i in range(rounds):
-            flow_stats = get_flow_simple_stats(controller=in_args.host)
-            print flow_stats
-            try:
-                pending_rems = int(flow_stats[u'PENDING_REMOVE'])
-            except KeyError:
+            reported_flows = len(get_flow_ids(controller=in_args.host))
+            expected_flows = base_num_flows
+            print "Reported Flows: %d/%d" % (reported_flows, expected_flows)
+            if reported_flows <= expected_flows:
                 break
             time.sleep(1)
 
