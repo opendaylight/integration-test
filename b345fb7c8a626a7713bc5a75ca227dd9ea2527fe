@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_33f938ea",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-05-05T20:31:38Z",
+      "side": 1,
+      "message": "Please update the subject, with something like \"Add pyangbind generated LISP library\" and then in the body of the commit message a small description of what this is and why it is useful (since this is a new things, which was discussed among a few folks only)",
+      "revId": "b345fb7c8a626a7713bc5a75ca227dd9ea2527fe",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_f3eea021",
+        "filename": "csit/libraries/JsonGenerator.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-05-05T20:31:38Z",
+      "side": 1,
+      "message": "for now, this file should\u0027t be part of the submission",
+      "revId": "b345fb7c8a626a7713bc5a75ca227dd9ea2527fe",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
