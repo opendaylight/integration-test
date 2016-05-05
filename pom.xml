@@ -215,7 +215,7 @@
     <site>
       <id>opendaylight-site</id>
       <name>OpenDaylight Site</name>
-      <url>dav:http://nexus.opendaylight.org/content/sites/site/${project.groupId}/${stream}/</url>
+      <url>dav:https://nexus.opendaylight.org/content/sites/site/${project.groupId}/${stream}/</url>
     </site>
   </distributionManagement>
 </project>
