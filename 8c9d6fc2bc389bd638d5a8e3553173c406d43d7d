@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_6a3c55e3",
+        "filename": "csit/libraries/ClusterKeywords.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-05T12:10:19Z",
+      "side": 1,
+      "message": "I was not suggesting removal of Get Device Entity Owner And Followers Indexes.\nI was suggesting replacing most of Get Cluster Entity Owner code (between \"index list to session\" and \"additional check\" parts) with a call to Get Device Entity Owner And Followers Indexes.",
+      "parentUuid": "fa57193c_445d0821",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 45
+      },
+      "revId": "8c9d6fc2bc389bd638d5a8e3553173c406d43d7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_564665c0",
         "filename": "csit/suites/openflowplugin/EntityOwhership/010_Switch_Disconnect.robot",
         "patchSetId": 29
@@ -143,6 +167,30 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_6d0aaf22",
+        "filename": "csit/suites/openflowplugin/EntityOwhership/020_Cluster_Sync_Problems.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-05T12:10:19Z",
+      "side": 1,
+      "message": "Yup that was my comment about. But now when I think about it, it does not have to be done within this Change.\nhttps://trello.com/c/UH0uMpX2/311-make-utils-run-command-on-remote-system-preserve-active-ssh-connection",
+      "parentUuid": "fa57193c_64a64c12",
+      "range": {
+        "startLine": 154,
+        "startChar": 29,
+        "endLine": 154,
+        "endChar": 46
+      },
+      "revId": "8c9d6fc2bc389bd638d5a8e3553173c406d43d7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_b660a136",
         "filename": "csit/suites/openflowplugin/EntityOwhership/030_Cluster_Node_Failure.robot",
         "patchSetId": 29
@@ -178,6 +226,30 @@
       "side": 1,
       "message": "Do i have to move it?  The problem of some our libraries is , that they are so big that when you look for a good keyword it is sometimes easier to create one. Library is good, let\u0027s keep it as it is.",
       "parentUuid": "fa57193c_b660a136",
+      "range": {
+        "startLine": 176,
+        "startChar": 0,
+        "endLine": 176,
+        "endChar": 31
+      },
+      "revId": "8c9d6fc2bc389bd638d5a8e3553173c406d43d7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_4d0feb30",
+        "filename": "csit/suites/openflowplugin/EntityOwhership/030_Cluster_Node_Failure.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-05T12:10:19Z",
+      "side": 1,
+      "message": "\u003e Do i have to move it?\n\nWell, in the future we will be using one Resource only, probably ClusterManagement, which already contains similar Keyword (with appropriate argument).\nhttps://trello.com/c/ITsT1ZV0/312-migrate-cluster-suites-away-from-clusterkeywords",
+      "parentUuid": "fa57193c_047af087",
       "range": {
         "startLine": 176,
         "startChar": 0,
