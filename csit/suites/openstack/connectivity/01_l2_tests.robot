@@ -52,6 +52,7 @@ Ping All Vm Instances In network_1
     : FOR    ${VmIpElement}    IN    @{NET_1_VM_IPS}
     \    ${output}    Ping Vm From DHCP Namespace    ${net_id}    ${VmIpElement}
     \    Should Contain    ${output}    64 bytes
+	\    Get DumpFlows And Ovsconfig     ${OS_CONTROL_NODE_IP}
 
 Ping All Vm Instances In network_2
     [Documentation]    Check reachability of vm instances by pinging to them.
@@ -59,6 +60,7 @@ Ping All Vm Instances In network_2
     : FOR    ${VmIpElement}    IN    @{NET_2_VM_IPS}
     \    ${output}    Ping Vm From DHCP Namespace    ${net_id}    ${VmIpElement}
     \    Should Contain    ${output}    64 bytes
+	\    Get DumpFlows And Ovsconfig     ${OS_CONTROL_NODE_IP}
 
 Login to Vm Instances In network_1 Using Ssh
     [Documentation]    Logging to the vm instance using generated key pair.
