@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for SFC Service Nodes, Operates Nodes from Restconf APIs.
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Setup       Init Suite
 Suite Teardown    Delete All Sessions
 Library           SSHLibrary
 Library           Collections
@@ -9,11 +9,6 @@ Library           RequestsLibrary
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
 
-*** Variables ***
-${SERVICE_NODES_URI}    /restconf/config/service-node:service-nodes/
-${SERVICE_NODES_FILE}    ../../../variables/sfc/service-nodes.json
-${SN_NODE100_URI}    /restconf/config/service-node:service-nodes/service-node/node-100
-${SN_NODE100_FILE}    ../../../variables/sfc/sn_node_100.json
 
 *** Test Cases ***
 Put Service Nodes
@@ -85,3 +80,16 @@ Put one Service Node
 Clean All Service Nodes After Tests
     [Documentation]    Delete all Service Nodes From Datastore After Tests
     Remove All Elements At URI    ${SERVICE_NODES_URI}
+
+*** keywords ***
+Init Suite
+    [Documentation]    Initialize session and ODL version specific variables
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    log    ${ODL_STREAM}
+    Run Keyword If    '${ODL_STREAM}' == 'stable-lithium'    Set Suite Variable    ${VERSION_DIR}    lithium
+    ...    ELSE    Set Suite Variable    ${VERSION_DIR}    master
+    Set Suite Variable    ${SERVICE_NODES_URI}    /restconf/config/service-node:service-nodes/
+    Set Suite Variable    ${SERVICE_NODES_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-nodes.json
+    Set Suite Variable    ${SN_NODE100_URI}    /restconf/config/service-node:service-nodes/service-node/node-100
+    Set Suite Variable    ${SN_NODE100_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sn_node_100.json
+
