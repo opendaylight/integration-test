@@ -236,15 +236,10 @@ Delete a interface
 
 Start vlan_topo
     [Arguments]    ${OF}
-    Clean Mininet System
-    ${mininet_conn_id1}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
-    Set Suite Variable    ${mininet_conn_id1}
-    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
-    Execute Command    sudo ovs-vsctl set-manager ptcp:6644
-    Put File    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
-    Run Keyword If    '${OF}' == 'OF13'    Write    ${vlan_topo_13}
-    ...    ELSE IF    '${OF}' == 'OF10'    Write    ${vlan_topo_10}
-    ${result}    Read Until    mininet>
+    [Documentation]    Create custom topology for vlan functionality
+    Install Package On Ubuntu System     vlan
+    Run Keyword If    '${OF}' == 'OF13'    Start Mininet    ${TOOLS_SYSTEM_IP}    ${vlan_topo_13}    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
+    ...    ELSE IF    '${OF}' == 'OF10'    Start Mininet    ${TOOLS_SYSTEM_IP}    ${vlan_topo_10}    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
 
 Add a vlanmap
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${vlanmap_data}
