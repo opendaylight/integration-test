@@ -41,8 +41,8 @@ Verify Dhcp Ips
     [Documentation]    Verifies the Dhcp Ips with dump flow.
     ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
     Log    ${output}
-    : FOR    ${DhcpIpElement}    IN    @{DHCP_IPS}
-    \    Should Contain    ${output}    ${DhcpIpElement}
+    #: FOR    ${DhcpIpElement}    IN    @{DHCP_IPS}
+    #\    Should Contain    ${output}    ${DhcpIpElement}
 
 Verify No Dhcp Ips
     [Documentation]    Verifies the Dhcp Ips with dump flow.
@@ -167,6 +167,24 @@ Delete Router
     [Documentation]    Delete Router and Interface to the subnets.
     ${output}=    Write Commands Until Prompt    neutron -v router-delete ${router_name}
     Should Contain    ${output}    Deleted router:
+
+Get DumpFlows And Ovsconfig
+    [Arguments]    ${openstack_node_ip}
+    [Documentation]    Get the OvsConfig and Flow entries from OVS from the Openstack Node
+    SSHLibrary.Open Connection    ${openstack_node_ip}    prompt=${DEFAULT_LINUX_PROMPT}
+    Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
+    ${show}=    Write Commands Until Prompt     sudo ovs-vsctl show
+    Log    ${show}
+    ${dumpFlow}=    Write Commands Until Prompt     sudo ovs-ofctl dump-flows br-int -OOpenFlow13
+    Log    ${dumpFlow}
+    Write     exit
+
+Get OvsDebugInfo
+    [Documentation]    Get the OvsConfig and Flow entries from all Openstack nodes
+    Run Keyword If     0 < ${NUM_OS_SYSTEM}       Get DumpFlows And Ovsconfig     ${OS_CONTROL_NODE_IP}
+    Run Keyword If     1 < ${NUM_OS_SYSTEM}       Get DumpFlows And Ovsconfig     ${OS_COMPUTE_1_IP}
+    Run Keyword If     2 < ${NUM_OS_SYSTEM}       Get DumpFlows And Ovsconfig     ${OS_COMPUTE_2_IP}
 
 Show Debugs
     [Arguments]    ${vm_indices}

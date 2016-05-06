@@ -46,6 +46,10 @@ Create Vm Instances For network_2
     Create Vm Instances    ${net_id}    ${NET_2_VM_INSTANCES}
     [Teardown]    Show Debugs    ${NET_2_VM_INSTANCES}
 
+Get DumpFlows one
+    [Documentation]    Check the dump-flows.
+    Verify Dhcp Ips
+
 Ping All Vm Instances In network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
     ${net_id}=    Get Net Id    network_1
@@ -53,12 +57,21 @@ Ping All Vm Instances In network_1
     \    ${output}    Ping Vm From DHCP Namespace    ${net_id}    ${VmIpElement}
     \    Should Contain    ${output}    64 bytes
 
+Get DumpFlows network_1
+    [Documentation]    Check the dump-flows.
+    Verify Dhcp Ips
+
+
 Ping All Vm Instances In network_2
     [Documentation]    Check reachability of vm instances by pinging to them.
     ${net_id}=    Get Net Id    network_2
     : FOR    ${VmIpElement}    IN    @{NET_2_VM_IPS}
     \    ${output}    Ping Vm From DHCP Namespace    ${net_id}    ${VmIpElement}
     \    Should Contain    ${output}    64 bytes
+
+Get DumpFlows network_2
+    [Documentation]    Check the dump-flows.
+    Verify Dhcp Ips
 
 Login to Vm Instances In network_1 Using Ssh
     [Documentation]    Logging to the vm instance using generated key pair.
@@ -70,10 +83,18 @@ Ping Vm Instance From Instance In network_1
     ${output}=    Ping From Instance    30.0.0.4
     Should Contain    ${output}    64 bytes
 
+Get DumpFlows Instance In network_1
+    [Documentation]    Check the dump-flows.
+    Verify Dhcp Ips
+
 Ping Dhcp Server From Instance In network_1
     [Documentation]    ping the dhcp server from instance.
     ${output}=    Ping From Instance    30.0.0.2
     Should Contain    ${output}    64 bytes
+
+Get DumpFlows Server From Instance In network_1
+    [Documentation]    Check the dump-flows.
+    Get DumpFlows And Ovsconfig     ${OS_CONTROL_NODE_IP}
 
 Ping Metadata Server From Instance In network_1
     [Documentation]    ping the metadata server from instance.
