@@ -221,8 +221,10 @@ Get DumpFlows And Ovsconfig
     SSHLibrary.Open Connection    ${openstack_node_ip}    prompt=${DEFAULT_LINUX_PROMPT}
     Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
-    Write Commands Until Prompt     sudo ovs-vsctl show
-    Write Commands Until Prompt     sudo ovs-ofctl dump-flows br-int -OOpenFlow13
+    ${show}=    Write Commands Until Prompt     sudo ovs-vsctl show
+	Log    ${show}
+    ${dumpFlow}=    Write Commands Until Prompt     sudo ovs-ofctl dump-flows br-int -OOpenFlow13
+	Log    ${dumpFlow}
     Write     exit
 
 Get OvsDebugInfo
