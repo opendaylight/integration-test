@@ -73,6 +73,30 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_9e412b3c",
+        "filename": "csit/libraries/ClusterKeywords.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-05-06T04:12:33Z",
+      "side": 1,
+      "message": "+1, that would fix the code replication issue here.",
+      "parentUuid": "fa57193c_6a3c55e3",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 45
+      },
+      "revId": "8c9d6fc2bc389bd638d5a8e3553173c406d43d7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_564665c0",
         "filename": "csit/suites/openflowplugin/EntityOwhership/010_Switch_Disconnect.robot",
         "patchSetId": 29
@@ -250,6 +274,30 @@
       "side": 1,
       "message": "\u003e Do i have to move it?\n\nWell, in the future we will be using one Resource only, probably ClusterManagement, which already contains similar Keyword (with appropriate argument).\nhttps://trello.com/c/ITsT1ZV0/312-migrate-cluster-suites-away-from-clusterkeywords",
       "parentUuid": "fa57193c_047af087",
+      "range": {
+        "startLine": 176,
+        "startChar": 0,
+        "endLine": 176,
+        "endChar": 31
+      },
+      "revId": "8c9d6fc2bc389bd638d5a8e3553173c406d43d7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_7e3ed7b9",
+        "filename": "csit/suites/openflowplugin/EntityOwhership/030_Cluster_Node_Failure.robot",
+        "patchSetId": 29
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-05-06T04:12:33Z",
+      "side": 1,
+      "message": "For new cluster test we would prefer people using instance indexes instead of IP addresses (e.g. ClusterManagement library). This particular KW together with the others you call in ClusterKeywords are still useful for single instance test so they would eventually be moved to Karaf library or similar.\n\nhttps://lists.opendaylight.org/pipermail/integration-dev/2016-May/006602.html\n\nI think for now the easiest is to put it in ClusterKeywords as Vratko point out.",
+      "parentUuid": "fa57193c_4d0feb30",
       "range": {
         "startLine": 176,
         "startChar": 0,
