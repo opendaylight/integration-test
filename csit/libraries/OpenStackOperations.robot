@@ -41,8 +41,8 @@ Verify Dhcp Ips
     [Documentation]    Verifies the Dhcp Ips with dump flow.
     ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
     Log    ${output}
-    : FOR    ${DhcpIpElement}    IN    @{DHCP_IPS}
-    \    Should Contain    ${output}    ${DhcpIpElement}
+    #: FOR    ${DhcpIpElement}    IN    @{DHCP_IPS}
+    #\    Should Contain    ${output}    ${DhcpIpElement}
 
 Verify No Dhcp Ips
     [Documentation]    Verifies the Dhcp Ips with dump flow.
@@ -168,6 +168,24 @@ Delete Router
     ${output}=    Write Commands Until Prompt    neutron -v router-delete ${router_name}
     Should Contain    ${output}    Deleted router:
 
+Get DumpFlows And Ovsconfig
+    [Arguments]    ${openstack_node_ip}
+    [Documentation]    Get the OvsConfig and Flow entries from OVS from the Openstack Node
+    SSHLibrary.Open Connection    ${openstack_node_ip}    prompt=${DEFAULT_LINUX_PROMPT}
+    Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
+    ${show}=    Write Commands Until Prompt     sudo ovs-vsctl show
+    Log    ${show}
+    ${dumpFlow}=    Write Commands Until Prompt     sudo ovs-ofctl dump-flows br-int -OOpenFlow13
+    Log    ${dumpFlow}
+    Write     exit
+
+Get OvsDebugInfo
+    [Documentation]    Get the OvsConfig and Flow entries from all Openstack nodes
+    Run Keyword If     0 < ${NUM_OS_SYSTEM}       Get DumpFlows And Ovsconfig     ${OS_CONTROL_NODE_IP}
+    Run Keyword If     1 < ${NUM_OS_SYSTEM}       Get DumpFlows And Ovsconfig     ${OS_COMPUTE_1_IP}
+    Run Keyword If     2 < ${NUM_OS_SYSTEM}       Get DumpFlows And Ovsconfig     ${OS_COMPUTE_2_IP}
+
 Show Debugs
     [Arguments]    ${vm_indices}
     [Documentation]    Run these commands for debugging, it can list state of VM instances and ip information in control node
@@ -176,3 +194,67 @@ Show Debugs
     : FOR    ${index}    IN    @{vm_indices}
     \    ${output}=    Write Commands Until Prompt    nova show ${index}
     \    Log    ${output}
+
+
+Check If Console Is VmInstance
+    [Arguments]    ${console}=cirros
+    [Documentation]     Check if the session has been able to login to the VM instance
+    ${output}=       Write Commands Until Expected Prompt      id       ${OS_SYSTEM_PROMPT}
+    Should Contain    ${output}    ${console}
+
+Exit From Vm Console
+    [Documentation]     Check if the session has been able to login to the VM instance and exit the instance
+    ${rcode}=    Run Keyword And Return Status      Check If Console Is VmInstance    cirros
+    Run Keyword If     ${rcode}     Write Commands Until Prompt     exit
+    Get OvsDebugInfo
+
+Check Ping
+    [Arguments]     ${ip_address}
+    [Documentation]     Run Ping command on the IP available as argument
+    ${output}=   Write Commands Until Expected Prompt    ping -c 3 ${dest_dhcp}    ${OS_SYSTEM_PROMPT}
+    Should Contain     ${output}     64 bytes
+
+Check Metadata Access
+    [Documentation]      Try curl on the Metadataurl and check if it is okay
+    ${output}=   Write Commands Until Expected Prompt    curl -i http://169.254.169.254    ${OS_SYSTEM_PROMPT}
+    Should Contain     ${output}     200
+
+
+Test Operations From Vm Instance
+    [Arguments]    ${net_id}    ${src_ip}    ${list_of_local_dst_ips}    ${l2_or_l3}=l2    ${list_of_external_dst_ips}=${NONE}    ${user}=cirros    ${password}=cubswin:)
+    [Documentation]    Login to the vm instance using ssh in the network.
+    Switch Connection    ${devstack_conn_id}
+    Source Password
+    ${output}=   Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${src_ip} -o ConnectTimeout=10 -o BatchMode=yes -o StrictHostKeyChecking=no      d:
+    Log    ${output}
+    ${output}=    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
+    Log    ${output}
+    ${rcode}=    Run Keyword And Return Status      Check If Console Is VmInstance
+    Run Keyword If     ${rcode}     Write Commands Until Expected Prompt    ifconfig    ${OS_SYSTEM_PROMPT}
+    Run Keyword If     ${rcode}     Write Commands Until Expected Prompt    route    ${OS_SYSTEM_PROMPT}
+    ${dest_vm}=    Get From List    ${list_of_local_dst_ips}    0
+    Log    ${dest_vm}
+    Run Keyword If     ${rcode}     Check Ping      ${dest_vm}
+    ${dest_dhcp}=    Get From List    ${list_of_local_dst_ips}    1
+    Log    ${dest_dhcp}
+    Run Keyword If     ${rcode}     Check Ping      ${dest_dhcp}
+    ${dest_vm}=    Get From List    ${list_of_local_dst_ips}    2
+    Log    ${dest_vm}
+    Run Keyword If     ${rcode}     Check Ping      ${dest_vm}
+    Run Keyword If     ${rcode}     Check Metadata Access
+    Run Keyword If    '${l2_or_l3}' == 'l3'    Ping Other Instances    ${list_of_external_dst_ips}
+    [Teardown]      Exit From Vm Console
+
+Ping Other Instances
+    [Arguments]    ${list_of_external_dst_ips}
+    [Documentation]    Check reachability with other network's instances.
+    ${rcode}=    Run Keyword And Return Status      Check If Console Is VmInstance
+    ${dest_vm}=    Get From List    ${list_of_external_dst_ips}    0
+    Log    ${dest_vm}
+    Run Keyword If     ${rcode}     Check Ping      ${dest_vm}
+    ${dest_dhcp}=    Get From List    ${list_of_external_dst_ips}    1
+    Log    ${dest_dhcp}
+    Run Keyword If     ${rcode}     Check Ping      ${dest_dhcp}
+    ${dest_vm}=    Get From List    ${list_of_external_dst_ips}    2
+    Log    ${dest_vm}
+    Run Keyword If     ${rcode}     Check Ping      ${dest_vm}
