@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_de1d6368",
+        "filename": "csit/libraries/ClusterKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-05-06T03:49:22Z",
+      "side": 1,
+      "message": "I am ok with this change as long as there is good documentation on these 2 new variables.",
+      "revId": "e9a9acd7bba8fdf95baaa565f2e4a6ae087ea1c9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
