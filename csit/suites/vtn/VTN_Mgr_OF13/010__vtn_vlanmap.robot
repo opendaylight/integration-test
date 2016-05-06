@@ -4,6 +4,10 @@ Suite Setup       Start SuiteVtnMaTest
 Suite Teardown    Stop SuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
 
+*** Variables ***
+${flowconditiondata}    "vtn-flow-match":[{"vtn-inet-match":{"source-network":"10.0.0.1/32","destination-network":"10.0.0.3/32"},"index":"1"}]
+${flowfiltervlanpcp}    "vtn-flow-filter":[{"condition":"cond_1","vtn-pass-filter":{},"vtn-flow-action":[{"order":"1","vtn-set-vlan-pcp-action":{"vlan-pcp":"5"}}],"index":"1"}]
+
 *** Test Cases ***
 Start topology
     [Documentation]    Add a vlan topology
@@ -60,6 +64,36 @@ Get vlanflow h2 h6
 Get vlanflow h2 h5
     [Documentation]    ping h2 to h5
     Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Not Succeed    h2    h5
+
+Add a flowcondition
+    [Documentation]    Create a flowcondition cond_1 using restconfig api
+    Add a flowcondition    cond_1    ${flowconditiondata}
+
+Add a vtn flowfilter with vlanpcp
+    [Documentation]    Create a flowfilter with vlanpcp and Verify ping
+    Add a vtn flowfilter    Tenant1    ${flowfiltervlanpcp}
+    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+
+Verify vlanpcp of vtn flowfilter
+    [Documentation]    Verify vtn flowfilter actions in Flow Enties for vlanpcp
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF13}    ${vlanpcp_action}
+
+Remove vtn Flowfilter index
+    [Documentation]    Remove a index of vtn flowfilter
+    Remove a vtn flowfilter    Tenant1    ${filter_index}
+
+Add a vbr flowfilter with vlanpcp
+    [Documentation]    Create a flowfilter with vlanpcp and Verify ping
+    Add a vbr flowfilter    Tenant1    vBridge1    ${flowfiltervlanpcp}
+    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+
+Verify vlanpcp of vbr flowfilter
+    [Documentation]    Verify actions in Flow Enties for vlanpcp
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF13}    ${vlanpcp_action}
+
+Remove vbr Flowfilter index
+    [Documentation]    Remove a index of vbr flowfilter
+    Remove a vbr flowfilter    Tenant1    vBridge1    ${filter_index}
 
 Delete a vtn Tenant1
     [Documentation]    Delete a vtn Tenant1
