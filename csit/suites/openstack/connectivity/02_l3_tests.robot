@@ -1,22 +1,23 @@
 *** Settings ***
-Documentation     Test suite to check connectivity in L3 using routers.
-Suite Setup       Devstack Suite Setup Tests
-Library           SSHLibrary
-Library           OperatingSystem
-Library           RequestsLibrary
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/OpenStackOperations.robot
-Resource          ../../../libraries/DevstackUtils.robot
+Documentation    Test suite to check connectivity in L3 using routers.
+Suite Setup    Devstack Suite Setup Tests
+Library    SSHLibrary
+Library    OperatingSystem
+Library    RequestsLibrary
+Resource    ../../../libraries/Utils.robot
+Resource    ../../../libraries/OpenStackOperations.robot
+Resource    ../../../libraries/DevstackUtils.robot
 
 *** Variables ***
 @{NETWORKS_NAME}    network_1    network_2
 @{SUBNETS_NAME}    subnet_1    subnet_2
-@{NET_1_VM_INSTANCES}    MyFirstInstance_1
-@{NET_2_VM_INSTANCES}    MyFirstInstance_2
-@{NET_1_VM_IPS}    50.0.0.3
-@{NET_2_VM_IPS}    60.0.0.3
+@{NET_1_VM_INSTANCES}    l3_instance_net_1_1   l3_instance_net_1_2
+@{NET_2_VM_INSTANCES}    l3_instance_net_2_1   l3_instance_net_2_2
+@{NET_1_VM_IPS}    50.0.0.3    50.0.0.4
+@{NET_2_VM_IPS}    60.0.0.3    60.0.0.4
 @{GATEWAY_IPS}    50.0.0.1    60.0.0.1
 @{DHCP_IPS}       50.0.0.2    60.0.0.2
+@{SUBNETS_RANGE}    50.0.0.0/24    60.0.0.0/24
 
 *** Test Cases ***
 Create Networks
@@ -26,11 +27,11 @@ Create Networks
 
 Create Subnets For network_1
     [Documentation]    Create Sub Nets for the Networks with neutron request.
-    Create SubNet    network_1    subnet_1    50.0.0.0/24
+    Create SubNet    network_1    subnet_1    @{SUBNETS_RANGE}[0]
 
 Create Subnets For network_2
     [Documentation]    Create Sub Nets for the Networks with neutron request.
-    Create SubNet    network_2    subnet_2    60.0.0.0/24
+    Create SubNet    network_2    subnet_2    @{SUBNETS_RANGE}[1]
 
 Create Vm Instances For network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
@@ -56,46 +57,39 @@ Add Interfaces To Router
 Ping Vm Instance In network_2 From network_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
     ${net_id}=    Get Net Id    network_1
-    ${output}    Ping Vm From DHCP Namespace    ${net_id}    60.0.0.3
+    ${output}    Ping Vm From DHCP Namespace    ${net_id}    @{NET_2_VM_IPS}[0]
     Should Contain    ${output}    64 bytes
 
 Ping Vm Instance In network_1 From network_2
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
     ${net_id}=    Get Net Id    network_2
-    ${output}    Ping Vm From DHCP Namespace    ${net_id}    50.0.0.3
+    ${output}    Ping Vm From DHCP Namespace    ${net_id}    @{NET_1_VM_IPS}[0]
     Should Contain    ${output}    64 bytes
 
-Login to Vm Instances In network_1 Using Ssh
+Connectivity Tests From Vm Instances In network_1
     [Documentation]    Logging to the vm instance using generated key pair.
     ${net_id}=    Get Net Id    network_1
-    Ssh Vm Instance    ${net_id}    50.0.0.3
+    ${dst_ip_list}=    Create List    @{DHCP_IPS}[0]     @{NET_1_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance      ${net_id}    @{NET_1_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3     other_dst_ip_list=${other_dst_ip_list}
 
-Ping Vm Instance From Instance In network_1
-    [Documentation]    Check reachability of vm instances by pinging.
-    ${output}=    Ping From Instance    60.0.0.3
-    Should Contain    ${output}    64 bytes
-
-Ping Dhcp Server In network_2 From Instance In network_1
-    [Documentation]    ping the dhcp server from instance.
-    ${output}=    Ping From Instance    60.0.0.2
-    Should Contain    ${output}    64 bytes
-    Close Vm Instance
-
-Login to Vm Instances In network_2 Using Ssh
+Connectivity Tests From Vm Instances In network_2
     [Documentation]    Logging to the vm instance using generated key pair.
     ${net_id}=    Get Net Id    network_2
-    Ssh Vm Instance    ${net_id}    60.0.0.3
+    ${dst_ip_list}=    Create List    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance      ${net_id}    @{NET_2_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3     other_dst_ip_list=${other_dst_ip_list}
+    Log    ${net_id}
+    Log    ${dst_ip_list}
+    Log    ${other_dst_ip_list}
 
-Ping Vm Instance From Instance In network_2
-    [Documentation]    Check reachability of vm instances by pinging.
-    ${output}=    Ping From Instance    50.0.0.3
-    Should Contain    ${output}    64 bytes
-
-Ping Dhcp Server In network_1 From Instance In network_2
-    [Documentation]    ping the dhcp server from instance.
-    ${output}=    Ping From Instance    50.0.0.2
-    Should Contain    ${output}    64 bytes
-    Close Vm Instance
+Get OvsDebugInfo
+    [Documentation]    Get OvsDebugInfo
+    Get OvsDebugInfo
 
 Delete Vm Instances In network_1
     [Documentation]    Delete Vm instances using instance names in network_1.

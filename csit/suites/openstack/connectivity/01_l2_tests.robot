@@ -60,6 +60,10 @@ Ping All Vm Instances In network_2
     \    ${output}    Ping Vm From DHCP Namespace    ${net_id}    ${VmIpElement}
     \    Should Contain    ${output}    64 bytes
 
+Get DumpFlows network_2
+    [Documentation]    Check the dump-flows.
+    Verify Dhcp Ips
+
 Login to Vm Instances In network_1 Using Ssh
     [Documentation]    Logging to the vm instance using generated key pair.
     ${net_id}=    Get Net Id    network_1
@@ -70,10 +74,18 @@ Ping Vm Instance From Instance In network_1
     ${output}=    Ping From Instance    30.0.0.4
     Should Contain    ${output}    64 bytes
 
+Get DumpFlows Instance In network_1
+    [Documentation]    Check the dump-flows.
+    Verify Dhcp Ips
+
 Ping Dhcp Server From Instance In network_1
     [Documentation]    ping the dhcp server from instance.
     ${output}=    Ping From Instance    30.0.0.2
     Should Contain    ${output}    64 bytes
+
+Get DumpFlows Server From Instance In network_1
+    [Documentation]    Check the dump-flows.
+    Get DumpFlows And Ovsconfig     ${OS_CONTROL_NODE_IP}
 
 Ping Metadata Server From Instance In network_1
     [Documentation]    ping the metadata server from instance.
@@ -97,6 +109,21 @@ Ping Dhcp Server From Instance In network_2
 Ping Metadata Server From Instance In network_2
     [Documentation]    ping the metadata server from instance.
     Curl Metadata Server
+
+Connectivity Tests From Vm Instances In l2_network_1
+    [Documentation]    Logging to the vm instance using generated key pair.
+    ${net_id}=    Get Net Id    l2_network_1
+    ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}[1]    @{DHCP_IPS}[0]     @{NET_1_VM_IPS}[2]
+    Log    ${dst_ip_list}
+    Test Operations From Vm Instance      ${net_id}    @{NET_1_VM_IPS}[0]    ${dst_ip_list}
+
+Connectivity Tests From Vm Instances In l2_network_2
+    [Documentation]    Logging to the vm instance using generated key pair.
+    ${net_id}=    Get Net Id    l2_network_2
+    ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[1]    @{DHCP_IPS}[1]     @{NET_2_VM_IPS}[2]
+    Log    ${dst_ip_list}
+    Test Operations From Vm Instance      ${net_id}    @{NET_2_VM_IPS}[0]    ${dst_ip_list}
+
 
 Delete Vm Instance
     [Documentation]    Delete Vm instances using instance names.
