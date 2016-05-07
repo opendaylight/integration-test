@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_2e5eeae6",
+        "filename": "csit/suites/l2switch/Loop_Removal_OF13/010__loop_of_3.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-05-07T00:27:57Z",
+      "side": 1,
+      "message": "this doesn\u0027t make sense.  The WUKS below can just fail the first time if needed.  Having \"Sleep\" in our suites goes against our guidelines.  I guess if we need it (there are \ncases), then put a # comment to say why",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 14
+      },
+      "revId": "2486ae662072478fd17e967db65610b581bf2ee7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
