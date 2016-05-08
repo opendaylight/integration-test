@@ -1,0 +1,27 @@
+{
+     "transport-zone": [
+            {
+                "zone-name": "TZA",
+                "subnets": [
+                    {
+                        "prefix": "1.1.1.1",
+                        "vlan-id": 0,
+                        "vteps": [
+                           {
+                                "dpn-id": 1,
+                                "portname": "phy0",
+                                "ip-address": "2.2.2.2"
+                            },
+                            {
+                                "dpn-id": 2,
+                                "portname": "phy2",
+                                "ip-address": "3.3.3.3"
+                            }
+                        ],
+                        "gateway-ip": "0.0.0.0"
+                    }
+                ],
+     "tunnel-type": "odl-interface:tunnel-type-vxlan"
+            }
+        ]
+}
