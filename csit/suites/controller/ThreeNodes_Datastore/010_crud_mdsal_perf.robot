@@ -31,7 +31,7 @@ ${ITEM_BATCH}     ${10000}
 ${PROCEDURE_TIMEOUT}    5m
 ${threads}        6    # threads are assigned to cluster nodes in round robin way
 ${addcarcmd}      python cluster_rest_script.py --port ${RESTCONFPORT} add --itemtype car --itemcount ${ITEM_COUNT} --ipr ${ITEM_BATCH}
-${addpeoplecmd}    python cluster_rest_script.py --port ${RESTCONFPORT} add --itemtype people --itemcount ${ITEM_COUNT} --ipr ${ITEM_BATCH}
+${addpeoplecmd}    python cluster_rest_script.py --port ${RESTCONFPORT} add-rpc --itemtype people --itemcount ${ITEM_COUNT} --threads 6
 ${purchasecmd}    python cluster_rest_script.py --port ${RESTCONFPORT} add-rpc --itemtype car-people --itemcount ${ITEM_COUNT} --threads 6
 ${carurl}         /restconf/config/car:cars
 ${peopleurl}      /restconf/config/people:people
@@ -60,7 +60,7 @@ Verify Cars
 Add People
     [Documentation]    Request to add ${ITEM_COUNT} people (timeout in ${PROCEDURE_TIMEOUT}).
     ${people_leader}=    ClusterKeywords.Get Leader And Verify    ${SHARD_PEOPLE_NAME}
-    Start Tool    ${addpeoplecmd}    --host ${people_leader} ${TOOL_OPTIONS}
+    Start Tool    ${addpeoplecmd}    --host ${ODL_SYSTEM_1_IP},${ODL_SYSTEM_2_IP},${ODL_SYSTEM_3_IP} ${TOOL_OPTIONS}
     Wait Until Tool Finish    ${PROCEDURE_TIMEOUT}
 
 Verify People
@@ -80,10 +80,7 @@ Verify Purchases
     [Documentation]    Store logs and verify result
     Stop Tool
     Store File To Workspace    cluster_rest_script.log    cluster_rest_script_purchase_cars.log
-    ${rsp}=    RequestsLibrary.Get Request    session    ${carpeopleurl}    headers=${ACCEPT_XML}
-    ${count}=    XML.Get Element Count    ${rsp.content}    xpath=car-person
-    Should Be Equal As Numbers    ${count}    ${ITEM_COUNT}
-    [Teardown]    Report_Failure_Due_To_Bug    4220
+    Wait Until Keyword Succeeds    ${PROCEDURE_TIMEOUT}    1    Purchase Is Completed    ${ITEM_COUNT}
 
 Delete Cars
     [Documentation]    Remove cars from the datastore
@@ -135,6 +132,13 @@ Wait_Until_Tool_Finish
     [Arguments]    ${timeout}
     [Documentation]    Wait ${timeout} for the tool exit.
     BuiltIn.Wait Until Keyword Succeeds    ${timeout}    1s    SSHLibrary.Read Until Prompt
+
+Purchase Is Completed
+    [Arguments]    ${item_count}
+    [Documentation]    Check purchase of ${item_count} is completed.
+    ${rsp}=    RequestsLibrary.Get Request    session    ${carpeopleurl}    headers=${ACCEPT_XML}
+    ${count}=    XML.Get Element Count    ${rsp.content}    xpath=car-person
+    Should Be Equal As Numbers    ${count}    ${item_count}
 
 Stop_Tool
     [Documentation]    Stop the tool if still running.
