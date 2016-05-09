@@ -23,14 +23,14 @@ _template_add_car = {
     ]
 }
 
-_template_add_people = {
-    "person": [
+_template_add_people_rpc = {
+    "input": [
         {
-            "id": "to be replaced",
-            "gender": "male",
-            "age": "99",
-            "address": "to be replaced",
-            "contactNo": "to be replaced"
+            "people:id": "to be replaced",
+            "people:gender": "male",
+            "people:age": "99",
+            "people:address": "to be replaced",
+            "people:contactNo": "to be replaced"
         }
     ]
 }
@@ -113,7 +113,7 @@ def _prepare_add_car(odl_ip, port, item_list, auth):
     return req
 
 
-def _prepare_add_people(odl_ip, port, item_list, auth):
+def _prepare_add_people_rpc(odl_ip, port, item_list, auth):
     """Creates a POST http requests to configure people in configuration datastore.
 
     Args:
@@ -129,14 +129,14 @@ def _prepare_add_people(odl_ip, port, item_list, auth):
         :returns req: http request object
     """
 
-    container = {"person": []}
-    for item in item_list:
-        entry = copy.deepcopy(_template_add_people["person"][0])
-        entry["id"] = str(item)
-        entry["address"] = "address" + str(item)
-        entry["contactNo"] = str(item)
-        container["person"].append(entry)
-    req = _build_post(odl_ip, port, "config/people:people", container, auth)
+    container = {"input": {}}
+    item = item_list[0]
+    entry = container["input"]
+    entry["people:id"] = str(item)
+    entry["people:address"] = "address" + str(item)
+    entry["people:contactNo"] = str(item)
+    container["input"] = entry
+    req = _build_post(odl_ip, port, "operations/people:add-person", container, auth)
     return req
 
 
@@ -542,7 +542,7 @@ def add_car(odl_ip, port, thread_count, item_count, auth, items_per_request):
         raise Exception("Not all cars were configured: " + repr(res))
 
 
-def add_people(odl_ip, port, thread_count, item_count, auth, items_per_request):
+def add_people_rpc(odl_ip, port, thread_count, item_count, auth, items_per_request):
     """Configure people entries to the config datastore.
 
     Args:
@@ -565,10 +565,15 @@ def add_people(odl_ip, port, thread_count, item_count, auth, items_per_request):
 
     logger.info("Add %s people to %s:%s (%s per request)",
                 item_count, odl_ip, port, items_per_request)
-    res = _task_executor(_prepare_add_people, odl_ip=odl_ip, port=port,
+    if items_per_request != 1:
+        logger.error("Only 1 item per request is supported, " +
+                     "you specified: {0}".format(item_count))
+        raise NotImplementedError("Only 1 item per request is supported, " +
+                                  "you specified: {0}".format(item_count))
+    res = _task_executor(_prepare_add_people_rpc, odl_ip=odl_ip, port=port,
                          thread_count=thread_count, item_count=item_count,
                          items_per_request=items_per_request, auth=auth)
-    if res.keys() != [204]:
+    if res.keys() != [200]:
         logger.error("Not all people were configured: " + repr(res))
         raise Exception("Not all people were configured: " + repr(res))
 
@@ -606,7 +611,7 @@ def add_car_people_rpc(odl_ip, port, thread_count, item_count, auth,
     res = _task_executor(_prepare_add_car_people_rpc, odl_ip=odl_ip, port=port,
                          thread_count=thread_count, item_count=item_count,
                          items_per_request=items_per_request, auth=auth)
-    if res.keys() != [204]:
+    if res.keys() != [200]:
         logger.error("Not all rpc calls passed: " + repr(res))
         raise Exception("Not all rpc calls passed: " + repr(res))
 
@@ -615,10 +620,10 @@ _actions = ["add", "get", "delete", "add-rpc"]
 _items = ["car", "people", "car-people"]
 
 _handler_matrix = {
-    "add": {"car": add_car, "people": add_people},
+    "add": {"car": add_car},
     "get": {"car": get_car, "people": get_people, "car-people": get_car_people},
     "delete": {"car": delete_car, "people": delete_people, "car-people": delete_car_people},
-    "add-rpc": {"car-people": add_car_people_rpc},
+    "add-rpc": {"car-people": add_car_people_rpc, "people": add_people_rpc},
 }
 
 
