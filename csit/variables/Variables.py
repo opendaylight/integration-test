@@ -221,3 +221,9 @@ SET_DASHBOARDRECORD = '/restconf/operations/dashboardrule:set-dashboard'
 DELETE_DASHBOARDRECORD = '/restconf/operations/dashboardrule:delete-dashboard'
 SET_SUBSCRIBEUSER = '/restconf/operations/subscribe:subscribe-user'
 SUBSCRIPTION = '/restconf/config/subscribe:subscription/'
+
+#IOTDM Variables
+POST_CSE_URI = '/restconf/operations/onem2m:onem2m-cse-provisioning'
+POST_MGMTOBJECT_URI = '/InCSE1/mockNode?ty=13'
+HEADERS_CSE={'Accept': 'application/json','Content-Type': 'application/json' }
+HEADERS1 = {'Content-Type': 'application/vnd.onem2m-res+json;ty=13', 'Accept': 'application/vnd.onem2m-res+json;ty=13', 'X-M2M-Origin': 'AE-ID','X-M2M-NM': 'mockMgmt','X-M2M-RI': '12345'}
