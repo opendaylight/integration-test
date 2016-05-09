@@ -22,6 +22,30 @@
       "revId": "2486ae662072478fd17e967db65610b581bf2ee7",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_e18d2333",
+        "filename": "csit/suites/l2switch/Loop_Removal_OF13/010__loop_of_3.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-05-09T04:28:10Z",
+      "side": 1,
+      "message": "This sleep is needed because if the ping in the below WUKS is launched before the STP effectively removes the link, there is a packet storm in mininet that makes the test unresponsive.",
+      "parentUuid": "fa57193c_2e5eeae6",
+      "range": {
+        "startLine": 39,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 14
+      },
+      "revId": "2486ae662072478fd17e967db65610b581bf2ee7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
