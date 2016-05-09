@@ -66,7 +66,7 @@ VTNC_HEADERS = {'Content-Type': 'application/json',
                 'username': 'admin', 'password': 'adminpass'}
 
 VTNWEBAPI = '/vtn-webapi'
-# controllers URL
+# fs URL
 CTRLS_CREATE = 'controllers.json'
 CTRLS = 'controllers'
 SW = 'switches'
@@ -221,3 +221,15 @@ SET_DASHBOARDRECORD = '/restconf/operations/dashboardrule:set-dashboard'
 DELETE_DASHBOARDRECORD = '/restconf/operations/dashboardrule:delete-dashboard'
 SET_SUBSCRIBEUSER = '/restconf/operations/subscribe:subscribe-user'
 SUBSCRIPTION = '/restconf/config/subscribe:subscription/'
+
+# IOTDM Variables
+POST_CSE_URI = '/restconf/operations/onem2m:onem2m-cse-provisioning'
+POST_NODE_URI = '/mockCSE?ty=14'
+POST_MGMTOBJECT_URI = '/mockCSE/mockNode?ty=13'
+HEADERS_CSE = {'Accept': 'application/json', 'Content-Type': 'application/json'}
+HEADERS_NODE = {'Content-Type': 'application/vnd.onem2m-res+json;ty=14',
+               'Accept': 'application/vnd.onem2m-res+json;ty=14', 'X-M2M-NM': 'mockNode', 
+               'X-M2M-Origin': 'AE-ID', 'X-M2M-RI': '12345'}
+HEADERS1 = {'Content-Type': 'application/vnd.onem2m-res+json;ty=13',
+           'X-M2M-Origin': 'AE-ID', 'X-M2M-RI': '12345', 'Accept': 'application/vnd.onem2m-res+json;ty=13', 
+           'X-M2M-NM': 'mockMgmt'}

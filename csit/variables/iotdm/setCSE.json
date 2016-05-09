@@ -1,0 +1,15 @@
+{ "input": {
+
+       "onem2m-primitive": [
+          {
+               "name": "CSE_ID",
+               "value": "mockCSE"
+           },
+           {
+               "name": "CSE_TYPE",
+               "value": "IN-CSE"
+           }
+       ]
+   }
+
+} 
