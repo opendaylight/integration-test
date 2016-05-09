@@ -54,6 +54,10 @@ Restart Leader From Cluster Node
     ClusterKeywords.Kill Multiple Controllers    ${inventory_leader}
     ClusterKeywords.Start Multiple Controllers    ${START_TIMEOUT}    ${inventory_leader}
 
+Check Shards Status After Leader Restart
+    [Documentation]    Check Status for all shards in OpenFlow application.
+    ClusterOpenFlow.Check OpenFlow Shards Status    ${original_cluster_list}
+
 Get inventory Follower After Leader Restart
     [Documentation]    Find new Followers and Leader in the inventory config shard After Leader Restart.
     ${inventory_leader}    ${inventory_followers}    ClusterOpenFlow.Get InventoryConfig Shard Status    ${original_cluster_list}
