@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for SFC Service Function Chains, Operates Chains from Restconf APIs.
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Setup       Init Suite
 Suite Teardown    Delete All Sessions
 Library           SSHLibrary
 Library           Collections
@@ -8,14 +8,6 @@ Library           OperatingSystem
 Library           RequestsLibrary
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
-
-*** Variables ***
-${SERVICE_CHAINS_URI}    /restconf/config/service-function-chain:service-function-chains/
-${SERVICE_CHAINS_FILE}    ../../../variables/sfc/service-function-chains.json
-${SERVICE_CHAIN100_URI}    /restconf/config/service-function-chain:service-function-chains/service-function-chain/SFC100
-${SERVICE_CHAIN100_FILE}    ../../../variables/sfc/sfc_chain_100.json
-${SERVICE_CHAIN100_SFIDS_URI}    /restconf/config/service-function-chain:service-function-chains/service-function-chain/SFC100/sfc-service-function/ids-abstract100
-${SERVICE_CHAIN100_SFIDS_FILE}    ../../../variables/sfc/sfc_chain_100_sfids.json
 
 *** Test Cases ***
 Put Service Function Chains
@@ -88,7 +80,7 @@ Get one Service Function From Chain
     [Documentation]    Get one Service Function From Chain
     Remove All Elements At URI    ${SERVICE_CHAINS_URI}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
-    ${elements}=    Create List    dpi-abstract1    "order":0    service-function-type:dpi
+    ${elements}=    Create List    dpi-abstract1    "order":0    "type":"dpi"
     Check For Elements At URI    ${SERVICE_CHAINS_URI}service-function-chain/SFC1/sfc-service-function/dpi-abstract1    ${elements}
 
 Get A Non-existing Service Function From Chain
@@ -123,7 +115,7 @@ Put one Service Function into Chain
     Remove All Elements At URI    ${SERVICE_CHAINS_URI}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     Add Elements To URI From File    ${SERVICE_CHAIN100_SFIDS_URI}    ${SERVICE_CHAIN100_SFIDS_FILE}
-    ${elements}=    Create List    ids-abstract100    "order":3    service-function-type:ids
+    ${elements}=    Create List    ids-abstract100    "order":3    "type":"ids"
     Check For Elements At URI    ${SERVICE_CHAIN100_SFIDS_URI}    ${elements}
     Check For Elements At URI    ${SERVICE_CHAIN100_URI}    ${elements}
     Check For Elements At URI    ${SERVICE_CHAINS_URI}    ${elements}
@@ -131,3 +123,19 @@ Put one Service Function into Chain
 Clean All Service Function Chains After Tests
     [Documentation]    Delete all Service Function Chains From Datastore After Tests
     Remove All Elements At URI    ${SERVICE_CHAINS_URI}
+
+*** keywords ***
+Init Suite
+    [Documentation]    Initialize session and ODL version specific variables
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    log    ${ODL_STREAM}
+    Run Keyword If    '${ODL_STREAM}' == 'stable-lithium'    Set Suite Variable    ${VERSION_DIR}    lithium
+    ...    ELSE    Set Suite Variable    ${VERSION_DIR}    master
+    Set Suite Variable    ${SERVICE_CHAINS_URI}    /restconf/config/service-function-chain:service-function-chains/
+    Set Suite Variable    ${SERVICE_CHAINS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-function-chains.json
+    Set Suite Variable    ${SERVICE_CHAIN100_URI}    /restconf/config/service-function-chain:service-function-chains/service-function-chain/SFC100
+    Set Suite Variable    ${SERVICE_CHAIN100_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sfc_chain_100.json
+    Set Suite Variable    ${SERVICE_CHAIN100_SFIDS_URI}    /restconf/config/service-function-chain:service-function-chains/service-function-chain/SFC100/sfc-service-function/ids-abstract100
+    Set Suite Variable    ${SERVICE_CHAIN100_SFIDS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sfc_chain_100_sfids.json
+
+
