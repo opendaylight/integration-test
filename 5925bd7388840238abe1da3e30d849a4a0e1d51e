@@ -96,6 +96,30 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_5f65cadf",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 102,
+      "author": {
+        "id": 4062
+      },
+      "writtenOn": "2016-05-09T14:26:31Z",
+      "side": 1,
+      "message": "Modified to have only one keyword for creating vm instances for maintenance.",
+      "parentUuid": "fa57193c_399f5954",
+      "range": {
+        "startLine": 97,
+        "startChar": 0,
+        "endLine": 102,
+        "endChar": 25
+      },
+      "revId": "5925bd7388840238abe1da3e30d849a4a0e1d51e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_67276e65",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 23
@@ -783,6 +807,24 @@
       "side": 1,
       "message": "Thanks Jamo for the thought, yeah, it\u0027s good to verify using GET calls. will update this in coming patch.",
       "parentUuid": "fa57193c_67b5aeed",
+      "revId": "5925bd7388840238abe1da3e30d849a4a0e1d51e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_bf6226d6",
+        "filename": "csit/suites/openstack/clustering/02_l3_tests.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 4062
+      },
+      "writtenOn": "2016-05-09T14:26:31Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa57193c_b9d8891e",
       "revId": "5925bd7388840238abe1da3e30d849a4a0e1d51e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
