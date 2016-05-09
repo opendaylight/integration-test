@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for SFC Function Schedule Algorithm Types, Operates types from Restconf APIs.
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Setup       Init Suite
 Suite Teardown    Delete All Sessions
 Library           SSHLibrary
 Library           Collections
@@ -8,12 +8,6 @@ Library           OperatingSystem
 Library           RequestsLibrary
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
-
-*** Variables ***
-${SERVICE_SCHED_TYPES_URI}    /restconf/config/service-function-scheduler-type:service-function-scheduler-types/
-${SERVICE_SCHED_TYPES_FILE}    ../../../variables/sfc/service-schedule-types.json
-${SERVICE_WSP_SCHED_TYPE_URI}    /restconf/config/service-function-scheduler-type:service-function-scheduler-types/service-function-scheduler-type/service-function-scheduler-type:weighted-shortest-path
-${SERVICE_WSP_SCHED_TYPE_FILE}    ../../../variables/sfc/service-wsp-schedule-type.json
 
 *** Test Cases ***
 Add Service Function Schedule Algorithm Types
@@ -84,3 +78,19 @@ Put one Service Function Schedule Algorithm Type
 Clean Datastore After Tests
     [Documentation]    Delete All Service Function Schedule Algorithm Types From Datastore After Tests
     Remove All Elements At URI    ${SERVICE_SCHED_TYPES_URI}
+
+
+
+*** keywords ***
+Init Suite
+    [Documentation]    Initialize session and ODL version specific variables
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    log    ${ODL_STREAM}
+    Run Keyword If    '${ODL_STREAM}' == 'stable-lithium'    Set Suite Variable    ${VERSION_DIR}    lithium
+    ...    ELSE    Set Suite Variable    ${VERSION_DIR}    master
+    Set Suite Variable    ${SERVICE_SCHED_TYPES_URI}    /restconf/config/service-function-scheduler-type:service-function-scheduler-types/
+    Set Suite Variable    ${SERVICE_SCHED_TYPES_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-schedule-types.json
+    Set Suite Variable    ${SERVICE_WSP_SCHED_TYPE_URI}    /restconf/config/service-function-scheduler-type:service-function-scheduler-types/service-function-scheduler-type/service-function-scheduler-type:weighted-shortest-path
+    Set Suite Variable    ${SERVICE_WSP_SCHED_TYPE_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-wsp-schedule-type.json
+
+

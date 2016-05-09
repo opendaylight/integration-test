@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for SFC Service Function Paths, Operates paths from Restconf APIs.
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Suite Setup       Init Suite
 Suite Teardown    Delete All Sessions
 Library           SSHLibrary
 Library           Collections
@@ -8,12 +8,6 @@ Library           OperatingSystem
 Library           RequestsLibrary
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
-
-*** Variables ***
-${SERVICE_FUNCTION_PATHS_URI}    /restconf/config/service-function-path:service-function-paths/
-${SERVICE_FUNCTION_PATHS_FILE}    ../../../variables/sfc/service-function-paths.json
-${SERVICE_FUNCTION_PATH400_URI}    /restconf/config/service-function-path:service-function-paths/service-function-path/SFC1-400
-${SERVICE_FUNCTION_PATH400_FILE}    ../../../variables/sfc/sfp_sfc1_path400.json
 
 *** Test Cases ***
 Add Service Function Paths
@@ -91,3 +85,17 @@ Put one Service Function
 Clean All Service Function Paths After Tests
     [Documentation]    Delete all Service Function Paths From Datastore After Tests
     Remove All Elements At URI    ${SERVICE_FUNCTION_PATHS_URI}
+
+*** keywords ***
+Init Suite
+    [Documentation]    Initialize session and ODL version specific variables
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    log    ${ODL_STREAM}
+    Run Keyword If    '${ODL_STREAM}' == 'stable-lithium'    Set Suite Variable    ${VERSION_DIR}    lithium
+    ...    ELSE    Set Suite Variable    ${VERSION_DIR}    master
+    Set Suite Variable    ${SERVICE_FUNCTION_PATHS_URI}    /restconf/config/service-function-path:service-function-paths/
+    Set Suite Variable    ${SERVICE_FUNCTION_PATHS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-function-paths.json
+    Set Suite Variable    ${SERVICE_FUNCTION_PATH400_URI}    /restconf/config/service-function-path:service-function-paths/service-function-path/SFC1-400
+    Set Suite Variable    ${SERVICE_FUNCTION_PATH400_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sfp_sfc1_path400.json
+
+
