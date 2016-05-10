@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_42568ad3",
+        "filename": "csit/suites/openflowplugin/EntityOwhership/010_Switch_Disconnect.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T15:18:08Z",
+      "side": 1,
+      "message": "Follower list is created by removing owner from list of candidates using Collections.Remove_Values_From_List, which removes all occurrences of value, so this check cannot fail.\nApplies to other \"owner not in followers\" lines.",
+      "range": {
+        "startLine": 92,
+        "startChar": 16,
+        "endLine": 92,
+        "endChar": 45
+      },
+      "revId": "eab778bdf938602051d0f1330b0fa2c1f3d9f19c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
