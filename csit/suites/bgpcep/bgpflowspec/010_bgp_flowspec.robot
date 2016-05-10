@@ -116,7 +116,7 @@ Verify Flowspec Data
     [Arguments]    ${exprspfile}
     [Documentation]    Verify expected response
     ${keys_with_bits}=    BuiltIn.Create_List    op
-    ${expected_rsp}=    OperatingSystem.Get File    ${CURDIR}/../../../variables/bgpflowspec/${exprspfile}
+    ${expected_rsp}=    Get Expected Response From File    ${exprspfile}
     ${expected_json}=    norm_json.Normalize Json Text    ${expected_rsp}    keys_with_bits=${keys_with_bits}
     ${rsp}=    RequestsLibrary.Get Request    session    ${FLOWSPEC_URL}
     BuiltIn.Log    ${rsp.content}
@@ -124,3 +124,11 @@ Verify Flowspec Data
     BuiltIn.Log    ${received_json}
     BuiltIn.Log    ${expected_json}
     BuiltIn.Should Be Equal    ${received_json}    ${expected_json}
+
+Get Expected Response From File
+    [Arguments]    ${exprspfile}
+    [Documentation]    Looks for release specific response first, then take default.
+    ${status}    ${expresponse}=    BuiltIn.Run_Keyword_And_Ignore_Error    OperatingSystem.Get File    ${CURDIR}/../../../variables/bgpflowspec/${exprspfile}.${ODL_STREAM}
+    Return From Keyword If    '${status}' == 'PASS'    ${expresponse}
+    ${expresponse}=    OperatingSystem.Get File    ${CURDIR}/../../../variables/bgpflowspec/${exprspfile}
+    [Return]    ${expresponse}
