@@ -140,6 +140,167 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_02977291",
+        "filename": "csit/libraries/VsctlListParser.py",
+        "patchSetId": 30
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T15:08:50Z",
+      "side": 1,
+      "message": "These print commands produce INFO messages. I believe they were useful while debugging this library, but are they still needed?",
+      "range": {
+        "startLine": 22,
+        "startChar": 4,
+        "endLine": 22,
+        "endChar": 9
+      },
+      "revId": "ddd13ac3bbbcce429b724322360735f5a8374a8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_42916a98",
+        "filename": "csit/libraries/VsctlListParser.py",
+        "patchSetId": 30
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T15:08:50Z",
+      "side": 1,
+      "message": "Remove commented-out code.",
+      "range": {
+        "startLine": 29,
+        "startChar": 12,
+        "endLine": 29,
+        "endChar": 13
+      },
+      "revId": "ddd13ac3bbbcce429b724322360735f5a8374a8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_c2f45af4",
+        "filename": "csit/libraries/VsctlListParser.py",
+        "patchSetId": 30
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T15:08:50Z",
+      "side": 1,
+      "message": "This is just a copy of line 54. Either delete or replace with an appropriate comment.",
+      "range": {
+        "startLine": 45,
+        "startChar": 4,
+        "endLine": 45,
+        "endChar": 5
+      },
+      "revId": "ddd13ac3bbbcce429b724322360735f5a8374a8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_82ea620d",
+        "filename": "csit/libraries/VsctlListParser.py",
+        "patchSetId": 30
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T15:08:50Z",
+      "side": 1,
+      "message": "with",
+      "range": {
+        "startLine": 54,
+        "startChar": 21,
+        "endLine": 54,
+        "endChar": 26
+      },
+      "revId": "ddd13ac3bbbcce429b724322360735f5a8374a8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_a2f7a6f4",
+        "filename": "csit/libraries/VsctlListParser.py",
+        "patchSetId": 30
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T15:08:50Z",
+      "side": 1,
+      "message": "to?",
+      "range": {
+        "startLine": 70,
+        "startChar": 51,
+        "endLine": 70,
+        "endChar": 53
+      },
+      "revId": "ddd13ac3bbbcce429b724322360735f5a8374a8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_e2d87e81",
+        "filename": "csit/libraries/VsctlListParser.py",
+        "patchSetId": 30
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T15:08:50Z",
+      "side": 1,
+      "message": "Alignment.",
+      "range": {
+        "startLine": 82,
+        "startChar": 7,
+        "endLine": 82,
+        "endChar": 8
+      },
+      "revId": "ddd13ac3bbbcce429b724322360735f5a8374a8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_8238a2a1",
+        "filename": "csit/libraries/VsctlListParser.py",
+        "patchSetId": 30
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T15:08:50Z",
+      "side": 1,
+      "message": "Alignment.",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 3
+      },
+      "revId": "ddd13ac3bbbcce429b724322360735f5a8374a8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_154a1180",
         "filename": "csit/suites/openflowplugin/EntityOwhership/010_Switch_Disconnect.robot",
         "patchSetId": 30
