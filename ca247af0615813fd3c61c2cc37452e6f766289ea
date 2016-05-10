@@ -1,0 +1,349 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_359ab563",
+        "filename": "csit/libraries/PrefixCounting.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T10:33:03Z",
+      "side": 1,
+      "message": "Arguments are never accessed in this Keyword. Remove this line.",
+      "range": {
+        "startLine": 22,
+        "startChar": 4,
+        "endLine": 22,
+        "endChar": 15
+      },
+      "revId": "ca247af0615813fd3c61c2cc37452e6f766289ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_b5ad258b",
+        "filename": "csit/libraries/PrefixCounting.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T10:33:03Z",
+      "side": 1,
+      "message": "This part of the Keyword name may no longer be relevant (depending on which topology is specified in argument). But all suites using this Keyword are accessing a variant of ipv4 topology, so the name can stay.",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 8
+      },
+      "revId": "ca247af0615813fd3c61c2cc37452e6f766289ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_95aaa16e",
+        "filename": "csit/libraries/PrefixCounting.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T10:33:03Z",
+      "side": 1,
+      "message": "Most libraries use ${session} for Request session names.",
+      "range": {
+        "startLine": 27,
+        "startChar": 19,
+        "endLine": 27,
+        "endChar": 35
+      },
+      "revId": "ca247af0615813fd3c61c2cc37452e6f766289ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_f5b67ddb",
+        "filename": "csit/libraries/PrefixCounting.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T10:33:03Z",
+      "side": 1,
+      "message": "${topology}?",
+      "range": {
+        "startLine": 27,
+        "startChar": 51,
+        "endLine": 27,
+        "endChar": 65
+      },
+      "revId": "ca247af0615813fd3c61c2cc37452e6f766289ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_b5c40541",
+        "filename": "csit/libraries/PrefixCounting.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T10:33:03Z",
+      "side": 1,
+      "message": "Getter is executed before Validator, so it would be slightly more intuitive to swap lines 61 and 60.",
+      "range": {
+        "startLine": 61,
+        "startChar": 4,
+        "endLine": 61,
+        "endChar": 13
+      },
+      "revId": "ca247af0615813fd3c61c2cc37452e6f766289ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_151211b1",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T10:33:03Z",
+      "side": 1,
+      "message": "Which one of the three present?\nApplies everywhere.",
+      "range": {
+        "startLine": 74,
+        "startChar": 32,
+        "endLine": 74,
+        "endChar": 53
+      },
+      "revId": "ca247af0615813fd3c61c2cc37452e6f766289ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_75542d54",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T10:33:03Z",
+      "side": 1,
+      "message": "I do not see where is this variable initialized.\nAnd example-ipv4-topology-1 as a string value is more readable than ${example_ipv4_topology_1} anyway.\nApplies everywhere.",
+      "range": {
+        "startLine": 77,
+        "startChar": 175,
+        "endLine": 77,
+        "endChar": 201
+      },
+      "revId": "ca247af0615813fd3c61c2cc37452e6f766289ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_d5cc1938",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T10:33:03Z",
+      "side": 1,
+      "message": "This is a single dictionary, so it is a single mapping. It contains multiple substitution rules (so you may call it \u0026{rules}), but as \"mapping\" is the name of a common TemplatedRequests keyword argument, it would be more readable to use \u0026{mapping}.",
+      "range": {
+        "startLine": 92,
+        "startChar": 4,
+        "endLine": 92,
+        "endChar": 15
+      },
+      "revId": "ca247af0615813fd3c61c2cc37452e6f766289ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_f5dddd15",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T10:33:03Z",
+      "side": 1,
+      "message": "single space",
+      "range": {
+        "startLine": 93,
+        "startChar": 33,
+        "endLine": 93,
+        "endChar": 37
+      },
+      "revId": "ca247af0615813fd3c61c2cc37452e6f766289ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_95c10131",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T10:33:03Z",
+      "side": 1,
+      "message": "therefore",
+      "range": {
+        "startLine": 93,
+        "startChar": 137,
+        "endLine": 93,
+        "endChar": 145
+      },
+      "revId": "ca247af0615813fd3c61c2cc37452e6f766289ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_75d1cdfa",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T10:33:03Z",
+      "side": 1,
+      "message": "Put this into [Documentation], so that users know this Keyword also performs check and if needed retries (with de-configuration before next configuration attempt).",
+      "range": {
+        "startLine": 93,
+        "startChar": 4,
+        "endLine": 93,
+        "endChar": 5
+      },
+      "revId": "ca247af0615813fd3c61c2cc37452e6f766289ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_d5e259d4",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T10:33:03Z",
+      "side": 1,
+      "message": "This sentence contains several commas already, so it could also start with a capital letter and end with a full stop.",
+      "range": {
+        "startLine": 93,
+        "startChar": 6,
+        "endLine": 93,
+        "endChar": 7
+      },
+      "revId": "ca247af0615813fd3c61c2cc37452e6f766289ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_753f0d26",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T10:33:03Z",
+      "side": 1,
+      "message": "This looks like a Bug, which could prevent users from easily mounting devices with large schemata.\nIs there at least an Improvement open in Bugzilla for ODL to do this retry internally?",
+      "range": {
+        "startLine": 93,
+        "startChar": 123,
+        "endLine": 93,
+        "endChar": 135
+      },
+      "revId": "ca247af0615813fd3c61c2cc37452e6f766289ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_d517f9a1",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T10:33:03Z",
+      "side": 1,
+      "message": "quickly\n\nOfficially, there should be a WUKS which detects when peer fails to connect, and repeats the attempt within timeout.\n\nBut easier solution would be to start the peer in listening mode and configure ODL to initiate connection.\nReal BGP devices perform both connect retries and listening at once, so the mode used for testing does not matter much.",
+      "range": {
+        "startLine": 106,
+        "startChar": 194,
+        "endLine": 106,
+        "endChar": 200
+      },
+      "revId": "ca247af0615813fd3c61c2cc37452e6f766289ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_15605131",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T10:33:03Z",
+      "side": 1,
+      "message": "Only ${EXAMPLE_IPV4_TOPOLOGY_PREF}${dos_leader} is expected to be filled. Possibly, all topology checks in this suite should be querying that.",
+      "range": {
+        "startLine": 131,
+        "startChar": 108,
+        "endLine": 131,
+        "endChar": 134
+      },
+      "revId": "ca247af0615813fd3c61c2cc37452e6f766289ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
