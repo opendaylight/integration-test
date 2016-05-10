@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_154a1180",
+        "filename": "csit/suites/openflowplugin/EntityOwhership/010_Switch_Disconnect.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T11:38:54Z",
+      "side": 1,
+      "message": "followers\nNow that ClusterKeywords distinguish between Followers and Candidates, variable names in this suite should distinguish them as well.\n\nAlternatively, call Get_*_Candidates_* and perform checks with candidates. You may choose on case-by-case basis depending on which is shorter.",
+      "range": {
+        "startLine": 121,
+        "startChar": 26,
+        "endLine": 121,
+        "endChar": 36
+      },
+      "revId": "ddd13ac3bbbcce429b724322360735f5a8374a8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_35b75588",
+        "filename": "csit/suites/openflowplugin/EntityOwhership/010_Switch_Disconnect.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T11:38:54Z",
+      "side": 1,
+      "message": "Candidate\nso that line 152 is not needed.",
+      "range": {
+        "startLine": 151,
+        "startChar": 77,
+        "endLine": 151,
+        "endChar": 86
+      },
+      "revId": "ddd13ac3bbbcce429b724322360735f5a8374a8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
