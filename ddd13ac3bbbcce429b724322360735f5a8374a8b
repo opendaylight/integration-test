@@ -2,6 +2,144 @@
   "comments": [
     {
       "key": {
+        "uuid": "fa57193c_10f97fe9",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T12:29:47Z",
+      "side": 1,
+      "message": "Mention that this is not a check, nor a state change. It is merely a info useful for debugging.",
+      "range": {
+        "startLine": 45,
+        "startChar": 23,
+        "endLine": 45,
+        "endChar": 31
+      },
+      "revId": "ddd13ac3bbbcce429b724322360735f5a8374a8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_10d05f4f",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T12:29:47Z",
+      "side": 1,
+      "message": "This is just a copy of line 63, write proper Documentation for this Keyword.\nThis also applies to lines 89 and 100.",
+      "range": {
+        "startLine": 76,
+        "startChar": 4,
+        "endLine": 76,
+        "endChar": 19
+      },
+      "revId": "ddd13ac3bbbcce429b724322360735f5a8374a8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_305923ff",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T12:29:47Z",
+      "side": 1,
+      "message": "This has 5 lines identical to the previous Keyword. Perhaps creating Get_Controller_Connection_Status (to be used by both Kyewords) is worthwhile now.",
+      "range": {
+        "startLine": 98,
+        "startChar": 10,
+        "endLine": 98,
+        "endChar": 13
+      },
+      "revId": "ddd13ac3bbbcce429b724322360735f5a8374a8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_30100301",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T12:29:47Z",
+      "side": 1,
+      "message": "Get_Slave_Nodes perhaps?",
+      "range": {
+        "startLine": 147,
+        "startChar": 0,
+        "endLine": 147,
+        "endChar": 18
+      },
+      "revId": "ddd13ac3bbbcce429b724322360735f5a8374a8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_90174fed",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T12:29:47Z",
+      "side": 1,
+      "message": "I do not like this, as it may result on sporadic failures which depend in this randomness.\nWould it me easy to change this so that switch [1,2,3,4,5] gets controller [1,2,3,1,2] as master?\n(There has to be an English word for this distribution.)",
+      "range": {
+        "startLine": 171,
+        "startChar": 39,
+        "endLine": 171,
+        "endChar": 52
+      },
+      "revId": "ddd13ac3bbbcce429b724322360735f5a8374a8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_f0d32b36",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-10T12:29:47Z",
+      "side": 1,
+      "message": "tidy",
+      "range": {
+        "startLine": 176,
+        "startChar": 47,
+        "endLine": 176,
+        "endChar": 54
+      },
+      "revId": "ddd13ac3bbbcce429b724322360735f5a8374a8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_154a1180",
         "filename": "csit/suites/openflowplugin/EntityOwhership/010_Switch_Disconnect.robot",
         "patchSetId": 30
