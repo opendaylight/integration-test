@@ -51,6 +51,11 @@ FlowSpec Test 2
     BuiltIn.Wait Until Keyword Succeeds    15s    1s    Verify Flowspec Data    ${EXP2}
     [Teardown]    Stop_Tool
 
+Deconfigure_ODL_To_Accept_Connection
+    [Documentation]    Deconfigure BGP peer.
+    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${TOOLS_SYSTEM_IP}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'false'}
+    ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}    ${template_as_string}
+
 *** Keywords ***
 Start Suite
     [Documentation]    Suite setup keyword
