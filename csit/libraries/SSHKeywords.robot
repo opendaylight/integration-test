@@ -117,6 +117,10 @@ Virtual_Env_Create
     Execute_Command_At_Cwd_Should_Pass    virtualenv ${SSHKeywords__current_venv_path}
     BuiltIn.Run_Keyword_And_Return    Virtual_Env_Run_Cmd_At_Cwd    pip install --upgrade pip
 
+Virtual_Env_Delete
+    [Documentation]    Deletes a directory with virtual env.
+    Execute_Command_At_Cwd_Should_Pass    rm -rf ${SSHKeywords__current_venv_path}
+
 Virtual_Env_Run_Cmd_At_Cwd
     [Arguments]    ${cmd}    ${log_on_success}=True    ${log_on_failure}=True    ${stderr_must_be_empty}=True
     [Documentation]    Runs given command within activated virtual env.
