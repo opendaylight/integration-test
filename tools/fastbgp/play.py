@@ -1600,13 +1600,14 @@ class WriteTracker(object):
 class StateTracker(object):
     """Main loop has state so complex it warrants this separate class."""
 
-    def __init__(self, bgp_socket, generator, timer):
+    def __init__(self, bgp_socket, generator, timer, inqueue):
         """The state tracker initialisation.
 
         Arguments:
             bgp_socket: socket to be used for sending / receiving
             generator: generator to be used for message generation
             timer: timer to be used for scheduling
+            inqueue: user initiated messages queue
         """
         # References to outside objects.
         self.socket = bgp_socket
@@ -1626,6 +1627,7 @@ class StateTracker(object):
         # TODO: Alternative is to switch fairly between reading and
         # writing (called round robin from now on).
         # Message counting is done in generator.
+        self.inqueue = inqueue
 
     def perform_one_loop_iteration(self):
         """ The main loop iteration
@@ -1643,6 +1645,13 @@ class StateTracker(object):
                     logger.info("KEEP ALIVE is sent.")
                 # We are sending a message now, so let's prioritize it.
                 self.prioritize_writing = True
+
+        try:
+            msg = self.inqueue.get_nowait()
+            msgbin = binascii.unhexlify(msg)
+            self.writer.enqueue_message_for_sending(msgbin)
+        except Queue.Empty:
+            pass
         # Now we know what our priorities are, we have to check
         # which actions are available.
         # socket.socket() returns three lists,
@@ -1730,7 +1739,7 @@ def create_logger(loglevel, logfile):
     return logger
 
 
-def job(arguments):
+def job(arguments, inqueue):
     """One time initialisation and iterations looping.
     Notes:
         Establish BGP connection and run iterations.
@@ -1769,10 +1778,17 @@ def job(arguments):
     # Use the remembered time.
     timer.reset_my_keepalive_time(timer.snapshot_time)
     # End of initial handshake phase.
-    state = StateTracker(bgp_socket, generator, timer)
+    state = StateTracker(bgp_socket, generator, timer, inqueue)
     while True:  # main reactor loop
         state.perform_one_loop_iteration()
 
+
+class Rpcs:
+    def __init__(self, sendqueue):
+        self.queue = sendqueue
+
+    def send(self, text):
+        self.queue.put(text)
 
 def threaded_job(arguments):
     """Run the job threaded
@@ -1787,6 +1803,7 @@ def threaded_job(arguments):
     prefix_current = arguments.firstprefix
     myip_current = arguments.myip
     thread_args = []
+    rpcqueue = Queue.Queue()
 
     while 1:
         amount_per_util = (amount_left - 1) / utils_left + 1  # round up
@@ -1807,14 +1824,14 @@ def threaded_job(arguments):
     try:
         # Create threads
         for t in thread_args:
-            thread.start_new_thread(job, (t,))
+            thread.start_new_thread(job, (t, rpcqueue))
     except Exception:
         print "Error: unable to start thread."
         raise SystemExit(2)
 
-    # Work remains forever
-    while 1:
-        time.sleep(5)
+    rpcserver = SimpleXMLRPCServer((arguments.myip.compressed, 8000), allow_none=True)
+    rpcserver.register_instance(Rpcs(rpcqueue))
+    rpcserver.serve_forever()
 
 
 if __name__ == "__main__":
