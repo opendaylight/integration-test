@@ -1,0 +1,124 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_4bf225d3",
+        "filename": "csit/suites/iotdm/basic/110_MgmtTest.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-05-11T15:41:54Z",
+      "side": 1,
+      "message": "Glad to see that you remove the iotdm python library, Thanks, \nNext step is to add more test in this file, like Update, delete, layer check(create mgmt under contentInstance and expect error), other expect error check like add missing mandatory attribute, modify attributes those not allowed, etc.",
+      "revId": "eb93546b2585eadf29cbf9e39177473d06616623",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_8b2d5d49",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 229,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-05-11T15:41:54Z",
+      "side": 1,
+      "message": "\"ACCEPT\" header is not necessary.\nPEP8 does not allow one line exceeds 79 chars, there are several ways to fix that, for example, we can use \\ to separate one line. \n\n\"\nBackslashes may still be appropriate at times. For example, long, multiple with -statements cannot use implicit continuation, so backslashes are acceptable:\n\nwith open(\u0027/path/to/some/file/you/want/to/read\u0027) as file_1, \\\n     open(\u0027/path/to/some/file/being/written\u0027, \u0027w\u0027) as file_2:\n    file_2.write(file_1.read())\n\n\"\n\nsee more information on PEP8 website\nhttps://www.python.org/dev/peps/pep-0008/",
+      "range": {
+        "startLine": 229,
+        "startChar": 15,
+        "endLine": 229,
+        "endChar": 43
+      },
+      "revId": "eb93546b2585eadf29cbf9e39177473d06616623",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_2b16d1f1",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 231,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-05-11T15:41:54Z",
+      "side": 1,
+      "message": "not necessary",
+      "range": {
+        "startLine": 231,
+        "startChar": 1,
+        "endLine": 231,
+        "endChar": 48
+      },
+      "revId": "eb93546b2585eadf29cbf9e39177473d06616623",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_6b30c99e",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 234,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-05-11T15:41:54Z",
+      "side": 1,
+      "message": "this is not necessary",
+      "range": {
+        "startLine": 234,
+        "startChar": 46,
+        "endLine": 234,
+        "endChar": 95
+      },
+      "revId": "eb93546b2585eadf29cbf9e39177473d06616623",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_ab2ae129",
+        "filename": "csit/variables/iotdm/setCSE.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-05-11T15:41:54Z",
+      "side": 1,
+      "message": "the red dot may cause some jenkin issue, could you delete that?",
+      "revId": "eb93546b2585eadf29cbf9e39177473d06616623",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_eb1b391a",
+        "filename": "csit/variables/iotdm/setNode.json",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2602
+      },
+      "writtenOn": "2016-05-11T15:41:54Z",
+      "side": 1,
+      "message": "same issue here, is it a tab?",
+      "revId": "eb93546b2585eadf29cbf9e39177473d06616623",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
