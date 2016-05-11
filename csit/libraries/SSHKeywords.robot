@@ -125,7 +125,7 @@ Virtual_Env_Run_Cmd_At_Cwd
 Virtual_Env_Install_Package
     [Arguments]    ${package}
     [Documentation]    Installs python package into virtual env. Use with version if needed (e.g. exabgp==3.4.16)
-    BuiltIn.Run_Keyword_And_Return    Virtual_Env_Run_Cmd_At_Cwd    pip install ${package}
+    BuiltIn.Run_Keyword_And_Return    Virtual_Env_Run_Cmd_At_Cwd    pip install ${package}      stderr_must_be_empty=False
 
 Virtual_Env_Uninstall_Package
     [Arguments]    ${package}
