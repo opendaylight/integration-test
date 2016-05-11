@@ -13,5 +13,4 @@ integration/test/csit/suites/bgpcep/bgpuser/bgp_app_peer_basic.robot
 integration/test/csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot
 integration/test/csit/suites/bgpcep/bgpuser/ebgp_peers_basic.robot
 integration/test/csit/suites/bgpcep/bgpflowspec/010_bgp_flowspec.robot
-integration/test/csit/suites/bgpcep/bgpfunct/010_bgp_functional.robot
 integration/test/csit/suites/bgpcep/bgpuser/ibgp_peer_lsp.robot
