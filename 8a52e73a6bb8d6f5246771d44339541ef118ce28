@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_4c54f820",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route.robot",
+        "patchSetId": 51
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-12T13:49:27Z",
+      "side": 1,
+      "message": "Mention that this should be the Leader of default operational Shard, otherwise the scenario would fail due to https://bugs.opendaylight.org/show_bug.cgi?id\u003d5536",
+      "range": {
+        "startLine": 14,
+        "startChar": 18,
+        "endLine": 14,
+        "endChar": 26
+      },
+      "revId": "8a52e73a6bb8d6f5246771d44339541ef118ce28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_ac32f40d",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route.robot",
+        "patchSetId": 51
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-12T13:49:27Z",
+      "side": 1,
+      "message": "de-configures",
+      "range": {
+        "startLine": 92,
+        "startChar": 116,
+        "endLine": 92,
+        "endChar": 128
+      },
+      "revId": "8a52e73a6bb8d6f5246771d44339541ef118ce28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_8c3570f9",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route.robot",
+        "patchSetId": 51
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-12T13:49:27Z",
+      "side": 1,
+      "message": "before",
+      "range": {
+        "startLine": 92,
+        "startChar": 140,
+        "endLine": 92,
+        "endChar": 146
+      },
+      "revId": "8a52e73a6bb8d6f5246771d44339541ef118ce28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_2c26e4ce",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route.robot",
+        "patchSetId": 51
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-12T13:49:27Z",
+      "side": 1,
+      "message": "are",
+      "range": {
+        "startLine": 94,
+        "startChar": 143,
+        "endLine": 94,
+        "endChar": 144
+      },
+      "revId": "8a52e73a6bb8d6f5246771d44339541ef118ce28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_cc3f68d5",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route.robot",
+        "patchSetId": 51
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-12T13:49:27Z",
+      "side": 1,
+      "message": "If the",
+      "range": {
+        "startLine": 94,
+        "startChar": 78,
+        "endLine": 94,
+        "endChar": 83
+      },
+      "revId": "8a52e73a6bb8d6f5246771d44339541ef118ce28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_ec834c02",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route.robot",
+        "patchSetId": 51
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-12T13:49:27Z",
+      "side": 1,
+      "message": "WUKS in the following test case is a good solution, so this comment line is now obsolete.",
+      "range": {
+        "startLine": 107,
+        "startChar": 4,
+        "endLine": 107,
+        "endChar": 18
+      },
+      "revId": "8a52e73a6bb8d6f5246771d44339541ef118ce28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_cc9da85b",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route.robot",
+        "patchSetId": 51
+      },
+      "lineNbr": 115,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-12T13:49:27Z",
+      "side": 1,
+      "message": "as seen from node 1.\n(also in other checks Documentation)",
+      "range": {
+        "startLine": 115,
+        "startChar": 143,
+        "endLine": 115,
+        "endChar": 144
+      },
+      "revId": "8a52e73a6bb8d6f5246771d44339541ef118ce28",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
