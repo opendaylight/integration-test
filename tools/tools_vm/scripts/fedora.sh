@@ -95,6 +95,12 @@ cd $HOME && \
   python setup.py build && \
   su -c "python setup.py install"
 
+
+# Install Pyangbind, a tool to generate python bindings which can be further used to
+# generate JSON dict for yang files.
+echo "Installing Pyangbind plugin"
+su -c "pip install pyangbind"
+
 # ----------------------------
 # Add aliases to run the tools
 # ----------------------------
