@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_1f3b44d2",
+        "filename": "csit/libraries/VsctlListParser.py",
+        "patchSetId": 33
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-12T14:26:42Z",
+      "side": 1,
+      "message": "value of",
+      "range": {
+        "startLine": 43,
+        "startChar": 23,
+        "endLine": 43,
+        "endChar": 30
+      },
+      "revId": "49d825da94996af46c67b61f3586844549621bf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_9f38f4a1",
+        "filename": "csit/suites/openflowplugin/EntityOwhership/010_Switch_Disconnect.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-12T14:26:42Z",
+      "side": 1,
+      "message": "This is usually controller1, but that may be a problem in the other two suites if node-1 ends up being the old master to be isolated or killed.\nYou need to be sure you are asking one of old followers (for example the one which is also the new follower), so this Keyword needs an argument the test cases can specify.",
+      "range": {
+        "startLine": 147,
+        "startChar": 100,
+        "endLine": 147,
+        "endChar": 117
+      },
+      "revId": "49d825da94996af46c67b61f3586844549621bf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
