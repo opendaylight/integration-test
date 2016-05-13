@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_8ebe00d3",
+        "filename": "csit/libraries/OvsManager.robot",
+        "patchSetId": 35
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-13T11:32:05Z",
+      "side": 1,
+      "message": "I would prefer to always set the first controller as the owner, as it has the initial active_session and its karaf.log could contain Robot messages.",
+      "range": {
+        "startLine": 172,
+        "startChar": 39,
+        "endLine": 172,
+        "endChar": 71
+      },
+      "revId": "bc097e19e3a3aae19618f6bf8a8f5f05129311e8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
