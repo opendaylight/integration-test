@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_8e09e0df",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route.robot",
+        "patchSetId": 52
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-13T11:18:13Z",
+      "side": 1,
+      "message": "tidy",
+      "range": {
+        "startLine": 15,
+        "startChar": 18,
+        "endLine": 15,
+        "endChar": 22
+      },
+      "revId": "a0d1c4a548e4f1e76995ec9bc004e7152d861d62",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_6e044cc0",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route.robot",
+        "patchSetId": 52
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-13T11:18:13Z",
+      "side": 1,
+      "message": "it de-configures",
+      "range": {
+        "startLine": 94,
+        "startChar": 113,
+        "endLine": 94,
+        "endChar": 128
+      },
+      "revId": "a0d1c4a548e4f1e76995ec9bc004e7152d861d62",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_ee27bc62",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route.robot",
+        "patchSetId": 52
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-13T11:18:13Z",
+      "side": 1,
+      "message": "Mention retries when ODL does not accept the connection yet.",
+      "range": {
+        "startLine": 112,
+        "startChar": 61,
+        "endLine": 112,
+        "endChar": 62
+      },
+      "revId": "a0d1c4a548e4f1e76995ec9bc004e7152d861d62",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_8e30c09f",
+        "filename": "csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route.robot",
+        "patchSetId": 52
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-13T11:18:13Z",
+      "side": 1,
+      "message": "Documentation stating this also checks against ODL closing the connection.",
+      "range": {
+        "startLine": 253,
+        "startChar": 0,
+        "endLine": 253,
+        "endChar": 14
+      },
+      "revId": "a0d1c4a548e4f1e76995ec9bc004e7152d861d62",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
