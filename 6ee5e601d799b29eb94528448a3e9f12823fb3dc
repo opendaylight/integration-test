@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_53f81349",
+        "filename": "csit/suites/openflowplugin/EntityOwhership/010_Switch_Disconnect.robot",
+        "patchSetId": 34
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-13T09:37:04Z",
+      "side": 1,
+      "message": "1\nI was trying to read karaf.log and there were many lines concerning other 4 switches this suite is not focusing on.",
+      "range": {
+        "startLine": 15,
+        "startChar": 18,
+        "endLine": 15,
+        "endChar": 19
+      },
+      "revId": "6ee5e601d799b29eb94528448a3e9f12823fb3dc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
