@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_6eba8c24",
+        "filename": "csit/suites/vpnservice/020__configure_vpn.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-13T10:44:21Z",
+      "side": 1,
+      "message": "The commit message should explain why the old suites are no longer needed.",
+      "revId": "d885d374a3b51749ac3bd2b3bd78f56b8d915cf8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_0eab10d7",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-13T10:44:21Z",
+      "side": 1,
+      "message": "https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#String_parts",
+      "range": {
+        "startLine": 17,
+        "startChar": 39,
+        "endLine": 17,
+        "endChar": 40
+      },
+      "revId": "d885d374a3b51749ac3bd2b3bd78f56b8d915cf8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_8e51e010",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-13T10:44:21Z",
+      "side": 1,
+      "message": "tidy",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 2
+      },
+      "revId": "d885d374a3b51749ac3bd2b3bd78f56b8d915cf8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_8e78c090",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-13T10:44:21Z",
+      "side": 1,
+      "message": "I do not like changing files on disk. Just return the edited text. If the caller needs to persist the returned value, BuiltIn.Set_Suite_Variable can be used.\n\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Templated_data",
+      "range": {
+        "startLine": 302,
+        "startChar": 31,
+        "endLine": 302,
+        "endChar": 42
+      },
+      "revId": "d885d374a3b51749ac3bd2b3bd78f56b8d915cf8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_ee585c34",
+        "filename": "csit/variables/vpnservice/vxlan_tunnel.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-13T10:44:21Z",
+      "side": 1,
+      "message": "Use a consistent indentation.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 5
+      },
+      "revId": "d885d374a3b51749ac3bd2b3bd78f56b8d915cf8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
