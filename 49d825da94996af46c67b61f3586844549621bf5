@@ -45,6 +45,30 @@
       "revId": "49d825da94996af46c67b61f3586844549621bf5",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_33de3f6e",
+        "filename": "csit/suites/openflowplugin/EntityOwhership/010_Switch_Disconnect.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-05-13T07:52:12Z",
+      "side": 1,
+      "message": "Other 2 suites change the ${active_session} variable in Isolate/Kill Switches Old Owner to set correct session.",
+      "parentUuid": "fa57193c_9f38f4a1",
+      "range": {
+        "startLine": 147,
+        "startChar": 100,
+        "endLine": 147,
+        "endChar": 117
+      },
+      "revId": "49d825da94996af46c67b61f3586844549621bf5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
