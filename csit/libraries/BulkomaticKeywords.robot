@@ -94,4 +94,3 @@ Verify Bulk Flow
     [Documentation]    Verify Bulk flows get replicated in all instances in ${controller_index_list}
     ${get_body}=    OperatingSystem.Get File    ${CURDIR}/../variables/openflowplugin/${get_bulk_json_file}
     BulkomaticKeywords.Verify Bulk Flow In Cluster Nodes    ${controller_index_list}    ${timeout}    ${GET_BULK_CONFIG_NODES_API}    ${get_body}    headers=${HEADERS_YANG_JSON}
-
