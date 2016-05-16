@@ -42,6 +42,30 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_c4957441",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-05-16T09:14:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa57193c_0eab10d7",
+      "range": {
+        "startLine": 17,
+        "startChar": 39,
+        "endLine": 17,
+        "endChar": 40
+      },
+      "revId": "d885d374a3b51749ac3bd2b3bd78f56b8d915cf8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_8e51e010",
         "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
         "patchSetId": 1
@@ -53,6 +77,30 @@
       "writtenOn": "2016-05-13T10:44:21Z",
       "side": 1,
       "message": "tidy",
+      "range": {
+        "startLine": 69,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 2
+      },
+      "revId": "d885d374a3b51749ac3bd2b3bd78f56b8d915cf8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_a490404f",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-05-16T09:14:46Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa57193c_8e51e010",
       "range": {
         "startLine": 69,
         "startChar": 0,
@@ -88,6 +136,30 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_248c3035",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 302,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-05-16T09:14:46Z",
+      "side": 1,
+      "message": "this is taken care now, not writing the file to disc",
+      "parentUuid": "fa57193c_8e78c090",
+      "range": {
+        "startLine": 302,
+        "startChar": 31,
+        "endLine": 302,
+        "endChar": 42
+      },
+      "revId": "d885d374a3b51749ac3bd2b3bd78f56b8d915cf8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_ee585c34",
         "filename": "csit/variables/vpnservice/vxlan_tunnel.json",
         "patchSetId": 1
@@ -99,6 +171,30 @@
       "writtenOn": "2016-05-13T10:44:21Z",
       "side": 1,
       "message": "Use a consistent indentation.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 5
+      },
+      "revId": "d885d374a3b51749ac3bd2b3bd78f56b8d915cf8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_c47c5423",
+        "filename": "csit/variables/vpnservice/vxlan_tunnel.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-05-16T09:14:46Z",
+      "side": 1,
+      "message": "taken care now.\nchanged according the  \"autopep8\" standards.",
+      "parentUuid": "fa57193c_ee585c34",
       "range": {
         "startLine": 2,
         "startChar": 0,
