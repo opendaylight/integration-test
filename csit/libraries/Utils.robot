@@ -497,5 +497,7 @@ Install Package On Ubuntu System
     Log    Keyword to install package to Mininet Ubuntu VM
     Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
     Flexible Mininet Login    user=${user}    password=${password}
+    Write    sudo apt-get update
+    Read Until    ${prompt}
     Write    sudo apt-get install -y ${package_name}
     Read Until    ${prompt}
