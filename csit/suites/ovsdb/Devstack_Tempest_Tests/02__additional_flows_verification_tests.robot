@@ -35,15 +35,12 @@ Create Subnets For network_2
 
 Create Vm Instances For network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    ${net_id}=    Get Net Id    network_1
-    Create Vm Instances    ${net_id}    ${NET_1_VM_INSTANCES}
+    Create Vm Instances    network_1    ${NET_1_VM_INSTANCES}
     View Vm Console    ${NET_1_VM_INSTANCES}
 
 Create Vm Instances For network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    ${net_id}=    Get Net Id    network_2
-    Set Suite Variable    ${net_id}
-    Create Vm Instances    ${net_id}    ${NET_2_VM_INSTANCES}
+    Create Vm Instances    network_2    ${NET_2_VM_INSTANCES}
     View Vm Console    ${NET_2_VM_INSTANCES}
 
 List Networks With Namespaces
@@ -58,10 +55,8 @@ Show Details of Created Vm Instance In network_1
 
 Ping All Vm Instances In network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
-    ${net_id}=    Get Net Id    network_1
     : FOR    ${VmIpElement}    IN    @{NET_1_VM_IPS}
-    \    ${output}    Ping Vm From DHCP Namespace    ${net_id}    ${VmIpElement}
-    \    Should Contain    ${output}    64 bytes
+    \    Ping Vm From DHCP Namespace    network_1    ${VmIpElement}
 
 Show Details of Created Vm Instance In network_2
     [Documentation]    View Details of the created vm instances using nova show.
@@ -71,10 +66,8 @@ Show Details of Created Vm Instance In network_2
 
 Ping All Vm Instances In network_2
     [Documentation]    Check reachability of vm instances by pinging to them.
-    ${net_id}=    Get Net Id    network_2
     : FOR    ${VmIpElement}    IN    @{NET_2_VM_IPS}
-    \    ${output}    Ping Vm From DHCP Namespace    ${net_id}    ${VmIpElement}
-    \    Should Contain    ${output}    64 bytes
+    \    Ping Vm From DHCP Namespace    network_2    ${VmIpElement}
 
 Add Key-Pair For Vm Instance
     [Documentation]    Creates key pair to ssh to the vm instance.
@@ -140,10 +133,8 @@ Delete Vm Instance
 
 Ping All Vm Instances
     [Documentation]    Check reachability of vm instances by pinging to them.
-    ${net_id}=    Get Net Id    network_1
     : FOR    ${VmIpElement}    IN    @{VM_IPS_NOT_DELETED}
-    \    ${output}=    Ping Vm From DHCP Namespace    ${net_id}    ${VmIpElement}
-    \    Should Contain    ${output}    64 bytes
+    \    Ping Vm From DHCP Namespace    network_1    ${VmIpElement}
 
 No Ping For Deleted Vm
     [Documentation]    Check non reachability of deleted vm instances by pinging to them.
