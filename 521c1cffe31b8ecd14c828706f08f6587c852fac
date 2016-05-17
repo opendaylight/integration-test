@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_2d9410e1",
+        "filename": "csit/libraries/OcpAgentKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-05-17T17:41:53Z",
+      "side": 1,
+      "message": "Please  fix the end of line white spaces in  this file and other files as well",
+      "revId": "521c1cffe31b8ecd14c828706f08f6587c852fac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_6dbd6868",
+        "filename": "csit/libraries/OcpAgentKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-05-17T17:41:53Z",
+      "side": 1,
+      "message": "Instead of hard coding, there is a variable in Varaibles.py for Mininet_prompt, please use that",
+      "revId": "521c1cffe31b8ecd14c828706f08f6587c852fac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_adb78085",
+        "filename": "csit/libraries/OcpAgentKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-05-17T17:41:53Z",
+      "side": 1,
+      "message": "Can\u0027t the plugin be installed ass features from karaf, It is mandatory to be built from source?",
+      "revId": "521c1cffe31b8ecd14c828706f08f6587c852fac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
