@@ -179,17 +179,9 @@ Delete Vm Instance
     [Documentation]    Delete Vm instances using instance names.
     Delete Vm Instance    VmInstance1_l2_net_1
 
-Ping All Vm Instances
-    [Documentation]    Check reachability of vm instances by pinging to them.
-    ${net_id}=    Get Net Id    l2_net_1
-    : FOR    ${VmIpElement}    IN    @{VM_IPS_NOT_DELETED}
-    \    ${output}=    Ping Vm From DHCP Namespace    ${net_id}    ${VmIpElement}
-    \    Should Contain    ${output}    64 bytes
-
 No Ping For Deleted Vm
     [Documentation]    Check non reachability of deleted vm instances by pinging to them.
-    ${output}=    Ping Vm From DHCP Namespace    ${net_id}    @{NET_1_VM_IPS}[0]
-    Should Contain    ${output}    Destination Host Unreachable
+    ${output}=    Ping From DHCP Should Not Succeed    l2_network_1    @{NET_1_VM_IPS}[0]
 
 Delete Vm Instances In network_1
     [Documentation]    Delete Vm instances using instance names in network_1.
