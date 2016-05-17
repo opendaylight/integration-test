@@ -219,7 +219,7 @@ Create Router
     [Documentation]    Create Router and Add Interface to the subnets.
     Switch Connection    ${devstack_conn_id}
     Source Password
-    ${output}=    Write Commands Until Prompt    neutron -v router-create ${router_name}
+    ${output}=    Write Commands Until Prompt    neutron -v router-create ${router_name}     30s
     Should Contain    ${output}    Created a new router
 
 Add Router Interface

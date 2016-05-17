@@ -76,13 +76,11 @@ List Nova Flavor
 
 Create Vm Instances For net1_network
     [Documentation]    Create Vm instances using flavor and image names.
-    ${net_id}=    Get Net Id    net1_network
-    Create Vm Instances    ${net_id}    ${VM_INSTANCES_NAME}
+    Create Vm Instances    net1_network    ${VM_INSTANCES_NAME}
 
 Create Vm Instances For net2_network
     [Documentation]    Create Vm instances using flavor and image names.
-    ${net_id}=    Get Net Id    net2_network
-    Create Vm Instances    ${net_id}    ${VM_INSTANCES_NAME}
+    Create Vm Instances    net2_network    ${VM_INSTANCES_NAME}
 
 Show Details of Created Vm Instance
     [Documentation]    View Details of the created vm instances using nova show.
