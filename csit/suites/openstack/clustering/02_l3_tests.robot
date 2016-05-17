@@ -114,15 +114,15 @@ Ping Vm Instance3 In l3_net_2 From l3_net_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
     Ping Vm From DHCP Namespace    l3_net_1    @{NET_2_VM_IPS}[2]
 
-Ping Vm Instance In l3_net_1 From l3_net_2
+Ping Vm Instance1 In l3_net_1 From l3_net_2
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
     Ping Vm From DHCP Namespace    l3_net_2    @{NET_1_VM_IPS}[0]
 
-Ping Vm Instance In l3_net_1 From l3_net_2
+Ping Vm Instance2 In l3_net_1 From l3_net_2
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
     Ping Vm From DHCP Namespace    l3_net_2    @{NET_1_VM_IPS}[1]
 
-Ping Vm Instance In l3_net_1 From l3_net_2
+Ping Vm Instance3 In l3_net_1 From l3_net_2
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
     Ping Vm From DHCP Namespace    l3_net_2    @{NET_1_VM_IPS}[2]
 

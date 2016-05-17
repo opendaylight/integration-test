@@ -11,10 +11,12 @@ Resource          ../../../libraries/DevstackUtils.robot
 *** Variables ***
 @{NETWORKS_NAME}    net1_network    net2_network
 @{SUBNETS_NAME}    subnet1    subnet2
-@{VM_INSTANCES_NAME}    MyFirstInstance    MySecondInstance
+@{NET_1_VM_INSTANCES}    MyFirstInstance_1    MySecondInstance_1
+@{NET_2_VM_INSTANCES}    MyFirstInstance_2    MySecondInstance_2
 @{VM_IPS}         10.0.0.3    20.0.0.3
 @{GATEWAY_IPS}    10.0.0.1    20.0.0.1
 @{DHCP_IPS}       10.0.0.2    20.0.0.2
+@{SUBNETS_RANGE}    10.0.0.0/24    20.0.0.0/24
 
 *** Test Cases ***
 Run Devstack Gate Wrapper
@@ -44,11 +46,11 @@ Create Networks
 
 Create Subnets For net1_network
     [Documentation]    Create Sub Nets for the Networks with neutron request.
-    Create SubNet    net1_network    subnet1    10.0.0.0/24
+    Create SubNet    net1_network    subnet1    @{SUBNETS_RANGE}[0]
 
 Create Subnets For net2_network
     [Documentation]    Create Sub Nets for the Networks with neutron request.
-    Create SubNet    net2_network    subnet2    20.0.0.0/24
+    Create SubNet    net2_network    subnet2    @{SUBNETS_RANGE}[1]
 
 List Ports
     ${output}=    Write Commands Until Prompt    neutron -v port-list
@@ -76,19 +78,13 @@ List Nova Flavor
 
 Create Vm Instances For net1_network
     [Documentation]    Create Vm instances using flavor and image names.
-    ${net_id}=    Get Net Id    net1_network
-    Create Vm Instances    ${net_id}    ${VM_INSTANCES_NAME}
+    Create Vm Instances    net1_network    ${NET_1_VM_INSTANCES}
+    [Teardown]    Show Debugs      ${NET_1_VM_INSTANCES}
 
 Create Vm Instances For net2_network
     [Documentation]    Create Vm instances using flavor and image names.
-    ${net_id}=    Get Net Id    net2_network
-    Create Vm Instances    ${net_id}    ${VM_INSTANCES_NAME}
-
-Show Details of Created Vm Instance
-    [Documentation]    View Details of the created vm instances using nova show.
-    : FOR    ${VmElement}    IN    @{VM_INSTANCES_NAME}
-    \    ${output}=    Write Commands Until Prompt    nova show ${VmElement}
-    \    Log    ${output}
+    Create Vm Instances    net2_network    ${NET_2_VM_INSTANCES}
+    [Teardown]    Show Debugs      ${NET_2_VM_INSTANCES}
 
 Verify Created Vm Instance In Dump Flow
     [Documentation]    Verify the existence of the created vm instance ips in the dump flow.
@@ -111,9 +107,14 @@ Verify Dhcp Flow Entries
     Run Keyword If    "${ODL_VERSION}" == "lithium-latest"    Run Keyword And Ignore Error    Verify Dhcp Ips
     ...    ELSE IF    "${ODL_VERSION}" != "lithium-latest"    Verify Dhcp Ips
 
-Delete Vm Instances
-    [Documentation]    Delete Vm instances using instance names.
-    : FOR    ${VmElement}    IN    @{VM_INSTANCES_NAME}
+Delete Vm Instances In net1_network
+    [Documentation]    Delete Vm instances using instance names in net1_network.
+    : FOR    ${VmElement}    IN    @{NET_1_VM_INSTANCES}
+    \    Delete Vm Instance    ${VmElement}
+
+Delete Vm Instances In net2_network
+    [Documentation]    Delete Vm instances using instance names in net2_network.
+    : FOR    ${VmElement}    IN    @{NET_2_VM_INSTANCES}
     \    Delete Vm Instance    ${VmElement}
 
 Verify Deleted Vm Instance Removed In Dump Flow
@@ -125,7 +126,8 @@ Verify Deleted Vm Instance Removed In Dump Flow
 
 Delete Router Interfaces
     [Documentation]    Remove Interface to the subnets.
-    Remove Interface    router_1
+    : FOR     ${interface}    IN     @{SUBNETS_NAME}
+    \     Remove Interface     router_1     ${interface}
 
 Delete Routers
     [Documentation]    Delete Router and Interface to the subnets.

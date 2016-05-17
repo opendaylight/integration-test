@@ -44,8 +44,12 @@ Devstack Suite Setup Tests
     SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
 
 Devstack Suite Setup
+    [Arguments]    ${source_pwd}=no
     [Documentation]    Login to the Openstack Control Node to run tempest suite
-    SSHLibrary.Open Connection    ${DEVSTACK_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}
+    ${devstack_conn_id}=   SSHLibrary.Open Connection    ${DEVSTACK_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}
+    Set Suite Variable    ${devstack_conn_id}
+    Set Suite Variable    ${source_pwd}
+    Log    ${devstack_conn_id}
     Utils.Flexible SSH Login    ${DEVSTACK_SYSTEM_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
     Run Keyword If    ${CLEAN_DEVSTACK_HOST}    Clean DevStack Host In Case It Is Not Sterile

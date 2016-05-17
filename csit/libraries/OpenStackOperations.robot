@@ -133,6 +133,17 @@ Ping Vm From DHCP Namespace
     Log    ${output}
     Should Contain    ${output}    64 bytes
 
+Ping From DHCP Should Not Succeed
+    [Arguments]    ${net_name}    ${vm_ip}
+    [Documentation]    Should Not Reach Vm Instance with the net id of the Netowrk.
+    Log    ${vm_ip}
+    Switch Connection    ${devstack_conn_id}
+    ${net_id}=    Get Net Id      ${net_name}
+    Log    ${net_id}
+    ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
+    Log    ${output}
+    Should Not Contain    ${output}    64 bytes
+
 Ping From Instance
     [Arguments]    ${dest_vm}
     [Documentation]    Ping to the expected destination ip.
@@ -219,7 +230,7 @@ Create Router
     [Documentation]    Create Router and Add Interface to the subnets.
     Switch Connection    ${devstack_conn_id}
     Source Password
-    ${output}=    Write Commands Until Prompt    neutron -v router-create ${router_name}
+    ${output}=    Write Commands Until Prompt    neutron -v router-create ${router_name}     30s
     Should Contain    ${output}    Created a new router
 
 Add Router Interface
