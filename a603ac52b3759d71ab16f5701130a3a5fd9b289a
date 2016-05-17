@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_30f2a7d2",
+        "filename": "csit/suites/ovsdb/Devstack_Tempest_Tests/02__additional_flows_verification_tests.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-05-17T19:45:15Z",
+      "side": 1,
+      "message": "Please ensure that Get NEt ID is not used from tests as it is more a library internal keyword.",
+      "revId": "a603ac52b3759d71ab16f5701130a3a5fd9b289a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_d0e24b00",
+        "filename": "csit/suites/ovsdb/Devstack_Tempest_Tests/02__additional_flows_verification_tests.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-05-17T19:45:15Z",
+      "side": 1,
+      "message": "Please fix this as the Keyword has been removed.Intead TEst Connectivity keyword must be used with adiffernt arrguments.",
+      "revId": "a603ac52b3759d71ab16f5701130a3a5fd9b289a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
