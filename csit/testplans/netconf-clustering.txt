@@ -11,6 +11,7 @@ integration/test/csit/suites/netconf/ready
 integration/test/csit/suites/netconf/clustering/CRUD.robot
 
 # Run the intrusive cluster tests after the non-intrusive ones.
+integration/test/csit/suites/netconf/clustering/device_link_outages.robot
 integration/test/csit/suites/netconf/clustering/odl_link_outages.robot
 integration/test/csit/suites/netconf/clustering/node_outages.robot
 
