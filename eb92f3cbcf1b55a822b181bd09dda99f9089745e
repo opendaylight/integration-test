@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_c1e39831",
+        "filename": "tools/odl-lispflowmapping-yang-bindings/generate_bindings.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-05-18T20:25:56Z",
+      "side": 1,
+      "message": "I would prefer to use ODL gerrit links for these files instead of Github, since that\u0027s the canonical source. Example: https://git.opendaylight.org/gerrit/gitweb?p\u003dmdsal.git;a\u003dblob_plain;f\u003dmodel/ietf/ietf-yang-types/src/main/yang/ietf-yang-types.yang;hb\u003dHEAD",
+      "revId": "eb92f3cbcf1b55a822b181bd09dda99f9089745e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_81d9a085",
+        "filename": "tools/odl-lispflowmapping-yang-bindings/generate_bindings.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-05-18T20:25:56Z",
+      "side": 1,
+      "message": "This should be included in this patch, instead of downloading.",
+      "revId": "eb92f3cbcf1b55a822b181bd09dda99f9089745e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_e1e85c12",
+        "filename": "tools/odl-lispflowmapping-yang-bindings/generate_bindings.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-05-18T20:25:56Z",
+      "side": 1,
+      "message": "Why not use the eid container from \u0027grouping eid-container\u0027 in odl-lisp-proto instead of adding a new one?",
+      "revId": "eb92f3cbcf1b55a822b181bd09dda99f9089745e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
