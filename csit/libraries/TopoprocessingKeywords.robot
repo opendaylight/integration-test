@@ -74,6 +74,7 @@ Test Teardown
     Log    Deleting overlay topology from ${CONFIG_API}/${overlay_topology}
     ${resp}    Delete Request    session    ${CONFIG_API}/${overlay_topology}
     Should Be Equal As Strings    ${resp.status_code}    200
+    Sleep    1s    wait for the proper cleanup
 
 Prepare New Feature Installation
     [Documentation]    Clears karaf logs and CONFIGURATION datastore
