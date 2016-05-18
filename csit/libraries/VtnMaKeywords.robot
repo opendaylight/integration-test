@@ -111,6 +111,12 @@ Delete a Vtn
     ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn:remove-vtn    data={"input": {"tenant-name":${vtn_name}}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
+Delete a Vbridge
+    [Arguments]    ${vtn_name}    ${vbr_name}
+    [Documentation]    Delete a vtn with specified parameters.
+    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-vbridge:remove-vbridge    data={"input": {"tenant-name":${vtn_name}, "bridge-name":${vbr_name}}}
+    Should Be Equal As Strings    ${resp.status_code}    200
+
 Add a vlanmap
     [Arguments]    ${vtn_name}    ${vbr_name}    ${vlan_id}
     [Documentation]    Create a vlanmap
@@ -325,6 +331,12 @@ Remove a vbrif flowfilter
     [Documentation]    Delete a vbrif flowfilter
     ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-filter:remove-flow-filter    data={"input": {"indices": ["${filter_index}"], "tenant-name": "${vtn_name}","bridge-name": "${vBridge_name}","interface-name": "${interface_name}"}}
     Should Be Equal As Strings    ${resp.status_code}    200
+
+Add a vlan portmap
+    [Arguments]    ${vtn_name}    ${vbr_name}    ${interface_name}    ${id}    ${node_id}    ${port_id}
+    [Documentation]    Create a portmap for a interface of a vbridge
+    ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-port-map:set-port-map    data={"input": { "tenant-name":${vtn_name}, "bridge-name":${vbr_name}, "interface-name": ${interface_name}, "vlan-id": ${id}, "node":"${node_id}", "port-name":"${port_id}"}}
+        Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify Flow Entries for Flowfilter
     [Arguments]    ${dumpflows}    @{flowfilter_actions}
