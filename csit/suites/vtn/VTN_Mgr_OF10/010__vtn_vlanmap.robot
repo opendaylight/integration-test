@@ -95,6 +95,35 @@ Remove vbr Flowfilter index
     [Documentation]    Remove a index of vbr flowfilter
     Remove a vbr flowfilter    Tenant1    vBridge1    ${filter_index}
 
+Add a interface If1
+    [Documentation]    Add a interface if1 into vBridge vBridge1
+    Add a interface    Tenant1    vBridge1    if1
+
+Add a interface if2
+    [Documentation]    Add a interface if2 into vBridge vBridge1
+    Add a interface    Tenant1    vBridge1    if2
+
+Add a portmap with vlan-id for interface if1
+    [Documentation]    Create a vlan portmap on Interface if1 of vBridge1
+    Add a vlan portmap    Tenant1    vBridge1    if1    200    openflow:2    s2-eth1
+
+Add a portmap with vlan-id for interface if2
+    [Documentation]    Create a vlan portmap on Interface if2 of vBridge1
+    Add a vlan portmap    Tenant1    vBridge1    if2    200    openflow:3    s3-eth1
+
+Add a vbrif flowfilter with vlanpcp
+    [Documentation]    Create a flowfilter with vlanpcp and Verify ping
+    Add a vbrif flowfilter    Tenant1    vBridge1    if1    ${flowfiltervlanpcp}
+    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+
+Verify vlanpcp of vbrif flowfilter
+    [Documentation]    Verify actions in Flow Enties for vlanpcp
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_OUT_DUMPFLOWS_OF10}    ${vlanpcp_action}
+
+Delete a flowcondition
+    [Documentation]    Delete a flowcondition
+    Remove flowcondition    cond_1
+
 Delete a vtn Tenant1
     [Documentation]    Delete a vtn Tenant1
     Delete a vtn    Tenant1
