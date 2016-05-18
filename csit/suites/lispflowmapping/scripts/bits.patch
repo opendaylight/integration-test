@@ -1,0 +1,104 @@
+*** ietf-lisp-address-types.yang	2016-05-29 00:36:20.843215496 +0530
+--- ietf-lisp-address-types-updated.yang	2016-05-29 00:37:35.135213297 +0530
+***************
+*** 449,455 ****
+          reference
+            "http://tools.ietf.org/html/draft-ietf-lisp-lcaf-10
+             #section-4.5";
+!         leaf latitude {
+            type bits {
+              bit N {
+                description
+--- 449,455 ----
+          reference
+            "http://tools.ietf.org/html/draft-ietf-lisp-lcaf-10
+             #section-4.5";
+!         /*leaf latitude {
+            type bits {
+              bit N {
+                description
+***************
+*** 458,464 ****
+            }
+            description
+              "Bit that selects between North and South latitude.";
+!         }
+          leaf latitude-degrees {
+            type uint8 {
+              range "0 .. 90";
+--- 458,464 ----
+            }
+            description
+              "Bit that selects between North and South latitude.";
+!         }*/
+          leaf latitude-degrees {
+            type uint8 {
+              range "0 .. 90";
+***************
+*** 480,486 ****
+            description
+              "Seconds of latitude.";
+          }
+!         leaf longitude {
+            type bits {
+              bit E {
+                description
+--- 480,486 ----
+            description
+              "Seconds of latitude.";
+          }
+!         /*leaf longitude {
+            type bits {
+              bit E {
+                description
+***************
+*** 489,495 ****
+            }
+            description
+              "Bit that selects between East and West longitude.";
+!         }
+          leaf longitude-degrees {
+            type uint16 {
+              range "0 .. 180";
+--- 489,495 ----
+            }
+            description
+              "Bit that selects between East and West longitude.";
+!         }*/
+          leaf longitude-degrees {
+            type uint16 {
+              range "0 .. 180";
+***************
+*** 588,594 ****
+              description
+                "AFI address.";
+            }
+!           leaf lrs-bits {
+              type bits{
+                bit lookup {
+                  description
+--- 588,594 ----
+              description
+                "AFI address.";
+            }
+!           /*leaf lrs-bits {
+              type bits{
+                bit lookup {
+                  description
+***************
+*** 605,611 ****
+              }
+              description
+                "Flag bits per hop.";
+!           }
+          }
+        }
+        container source-dest-key {
+--- 605,611 ----
+              }
+              description
+                "Flag bits per hop.";
+!           }*/
+          }
+        }
+        container source-dest-key {
