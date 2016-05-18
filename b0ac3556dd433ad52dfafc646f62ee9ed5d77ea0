@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_5eada99b",
+        "filename": "csit/suites/ocpplugin/basic/010__ocp_get.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-05-18T16:49:34Z",
+      "side": 1,
+      "message": "these are the defaults in your library, so you can remove these entirely to make it more clear.  same applies below in \"Start Emulator Single\"",
+      "range": {
+        "startLine": 21,
+        "startChar": 38,
+        "endLine": 21,
+        "endChar": 76
+      },
+      "revId": "b0ac3556dd433ad52dfafc646f62ee9ed5d77ea0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_5eb649fb",
+        "filename": "csit/suites/ocpplugin/basic/010__ocp_get.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-05-18T16:49:34Z",
+      "side": 1,
+      "message": "put a blank line between test cases.\n\nbtw, look up \"robot.tidy\".  you can run that on your robot code to get a free clean up.  I don\u0027t think it will do much\nhere though.  just fyi.",
+      "range": {
+        "startLine": 24,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 60
+      },
+      "revId": "b0ac3556dd433ad52dfafc646f62ee9ed5d77ea0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_1ebcd1db",
+        "filename": "csit/suites/ocpplugin/basic/010__ocp_get.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-05-18T16:49:34Z",
+      "side": 1,
+      "message": "RRH means nothing to me, but if it\u0027s a fundamental acronym to ocplugin it\u0027s fine.  verbosity is ok in test case titles.",
+      "range": {
+        "startLine": 25,
+        "startChar": 14,
+        "endLine": 25,
+        "endChar": 17
+      },
+      "revId": "b0ac3556dd433ad52dfafc646f62ee9ed5d77ea0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
