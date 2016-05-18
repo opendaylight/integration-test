@@ -35,34 +35,42 @@ Add a vBridge vBridge1
 
 Add a vlanmap for bridge1
     [Documentation]    Add a Vlanmap for bridge1 in vtn Tenant1
+    [Tags]    exclude
     Add a vlanmap    Tenant1    vBridge1    ${vlanmap_bridge1}
 
 Add a vBridge vBridge2
     [Documentation]    Add a vBridge vBridge2 in vtn Tenant1
+    [Tags]    exclude
     Add a vBridge    Tenant1    vBridge2
 
 Add a vlanmap for bridge2
     [Documentation]    Add a Vlanmap for bridge1 in vtn Tenant1
+    [Tags]    exclude
     Add a vlanmap    Tenant1    vBridge2    ${vlanmap_bridge2}
 
 Get vlanflow h1 h3
     [Documentation]    ping h1 to h3
+    [Tags]    exclude
     Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
 
 Get vlanflow h1 h5
     [Documentation]    ping h1 to h5
+    [Tags]    exclude
     Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h5
 
 Get vlanflow h2 h4
     [Documentation]    ping h2 to h4
+    [Tags]    exclude
     Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h2    h4
 
 Get vlanflow h2 h6
     [Documentation]    ping h2 to h6
+    [Tags]    exclude
     Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h2    h6
 
 Get vlanflow h2 h5
     [Documentation]    ping h2 to h5
+    [Tags]    exclude
     Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Not Succeed    h2    h5
 
 Add a flowcondition
@@ -71,29 +79,69 @@ Add a flowcondition
 
 Add a vtn flowfilter with vlanpcp
     [Documentation]    Create a flowfilter with vlanpcp and Verify ping
+    [Tags]    exclude
     Add a vtn flowfilter    Tenant1    ${flowfiltervlanpcp}
     Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
 
 Verify vlanpcp of vtn flowfilter
     [Documentation]    Verify vtn flowfilter actions in Flow Enties for vlanpcp
+    [Tags]    exclude
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_OUT_DUMPFLOWS_OF10}    ${vlanpcp_action}
 
 Remove vtn Flowfilter index
     [Documentation]    Remove a index of vtn flowfilter
+    [Tags]    exclude
     Remove a vtn flowfilter    Tenant1    ${filter_index}
 
 Add a vbr flowfilter with vlanpcp
     [Documentation]    Create a flowfilter with vlanpcp and Verify ping
+    [Tags]    exclude
     Add a vbr flowfilter    Tenant1    vBridge1    ${flowfiltervlanpcp}
     Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
 
 Verify vlanpcp of vbr flowfilter
     [Documentation]    Verify actions in Flow Enties for vlanpcp
+    [Tags]    exclude
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_OUT_DUMPFLOWS_OF10}    ${vlanpcp_action}
 
 Remove vbr Flowfilter index
     [Documentation]    Remove a index of vbr flowfilter
+    [Tags]    exclude
     Remove a vbr flowfilter    Tenant1    vBridge1    ${filter_index}
+
+Add a interface If1
+    [Documentation]    Add a interface if1 into vBridge vBridge1
+    Add a interface    Tenant1    vBridge1    if1
+    
+
+Add a interface if2
+    [Documentation]    Add a interface if2 into vBridge vBridge1
+    Add a interface    Tenant1    vBridge1    if2
+
+Add a portmap with vlan-id for interface if1
+    [Documentation]    Create a vlan portmap on Interface if1 of vBridge1
+    Add a vlan portmap    Tenant1    vBridge1    if1    200    openflow:1    s1-eth1
+
+Add a portmap with vlan-id for interface if2
+    [Documentation]    Create a vlan portmap on Interface if2 of vBridge1
+    Add a vlan portmap    Tenant1    vBridge1    if2    200    openflow:2    s2-eth3
+
+Add a vbrif flowfilter with vlanpcp
+    [Documentation]    Create a flowfilter with vlanpcp and Verify ping
+    Add a vbrif flowfilter    Tenant1    vBridge1    if1    ${flowfiltervlanpcp}
+    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+
+Verify vlanpcp of vbrif flowfilter
+    [Documentation]    Verify actions in Flow Enties for vlanpcp
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_OUT_DUMPFLOWS_OF10}    ${vlanpcp_action}
+    
+Remove vbrif Flowfilter index
+    [Documentation]    Remove a index of vbrif flowfilter
+    Remove a vbrif flowfilter    Tenant1    vBridge1    if1    ${filter_index} 
+
+Delete a flowcondition
+    [Documentation]    Delete a flowcondition
+    Remove flowcondition    cond_1
 
 Delete a vtn Tenant1
     [Documentation]    Delete a vtn Tenant1
