@@ -233,7 +233,6 @@ Restore Network and Verify After Recover
 Stop Mininet and Exit
     [Documentation]    Stop mininet and exit connection.
     MininetKeywords.Stop Mininet And Exit    ${mininet_conn_id}
-    Utils.Clean Mininet System
 
 Check No Network Operational Information
     [Documentation]    Check device is not in operational inventory or topology in all cluster instances.

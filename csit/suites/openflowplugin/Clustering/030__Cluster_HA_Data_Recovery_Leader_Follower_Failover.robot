@@ -47,10 +47,10 @@ Add Flows In Follower Node2 and Verify Before Leader Restart
 Stop Mininet Connected To Follower Node1 and Exit
     [Documentation]    Stop mininet and exit connection.
     MininetKeywords.Stop Mininet And Exit    ${mininet_conn_id}
-    Utils.Clean Mininet System
 
 Restart Leader From Cluster Node
     [Documentation]    Kill Leader Node and Start it Up, Verify it is sync with other controller node.
+    Sleep    5
     ClusterKeywords.Kill Multiple Controllers    ${inventory_leader}
     ClusterKeywords.Start Multiple Controllers    ${START_TIMEOUT}    ${inventory_leader}
 
@@ -75,7 +75,6 @@ Verify Flows In Switch After Leader Restart
 Stop Mininet Connected To Old Leader and Exit
     [Documentation]    Stop mininet and exit connection.
     MininetKeywords.Stop Mininet And Exit    ${mininet_conn_id}
-    Utils.Clean Mininet System
 
 Restart Follower Node2
     [Documentation]    Kill Follower Node2 and Start it Up, Verify it is sync with other controller node.
@@ -103,7 +102,6 @@ Verify Flows In Switch After Follower Restart
 Stop Mininet Connected To Leader and Exit
     [Documentation]    Stop mininet Connected To Other Follower and exit connection.
     MininetKeywords.Stop Mininet And Exit    ${mininet_conn_id}
-    Utils.Clean Mininet System
 
 Restart Full Cluster
     [Documentation]    Kill all Cluster Nodes and Start it Up All.
@@ -135,4 +133,3 @@ Delete Flows In Follower Node1 and Verify After Leader Restart
 Stop Mininet Connected To Follower Node2 and Exit After Cluster Restart
     [Documentation]    Stop mininet Connected To Other Follower and exit connection.
     MininetKeywords.Stop Mininet And Exit    ${mininet_conn_id}
-    Utils.Clean Mininet System
