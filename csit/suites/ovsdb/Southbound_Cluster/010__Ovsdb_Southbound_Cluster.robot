@@ -38,26 +38,6 @@ Add Port Manually and Verify Before Fail
     [Documentation]    Add port with OVS command and verify it gets applied from all instances.
     ClusterOvsdb.Add Sample Port To The Manual Bridge And Verify    ${original_cluster_list}
 
-Delete the Bridge Manually and Verify Before Fail
-    [Documentation]    Delete bridge with OVS command and verify it gets deleted from all instances.
-    ClusterOvsdb.Delete Sample Bridge Manually And Verify    ${original_cluster_list}
-
-Create Bridge In Owner and Verify Before Fail
-    [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
-    ClusterOvsdb.Create Sample Bridge And Verify    ${original_cluster_list}    ${original_owner}
-
-Create Port In Owner and Verify Before Fail
-    [Documentation]    Create Port in Owner and verify it gets applied from all instances.
-    ClusterOvsdb.Create Sample Port And Verify    ${original_cluster_list}    ${original_owner}
-
-Modify the destination IP of Port In Owner Before Fail
-    [Documentation]    Modify the dst ip of existing port in Owner.
-    ClusterOvsdb.Modify the destination IP of Sample Port    ${original_cluster_list}    ${original_owner}
-
-Verify Port Is Modified Before Fail
-    [Documentation]    Verify port is modified in all instances.
-    ClusterOvsdb.Verify Sample Port Is Modified    ${original_cluster_list}
-
 Delete Port In Owner Before Fail
     [Documentation]    Delete port in Owner and verify it gets deleted from all instances.
     ClusterOvsdb.Delete Sample Port And Verify    ${original_cluster_list}    ${original_owner}
@@ -134,14 +114,6 @@ Create Bridge Manually and Verify After Recover
 Add Port Manually and Verify After Recover
     [Documentation]    Add port with OVS command and verify it gets applied from all instances.
     ClusterOvsdb.Add Sample Port To The Manual Bridge And Verify    ${original_cluster_list}
-
-Delete the Bridge Manually and Verify After Recover
-    [Documentation]    Delete bridge with OVS command and verify it gets deleted from all instances.
-    ClusterOvsdb.Delete Sample Bridge Manually And Verify    ${original_cluster_list}
-
-Verify Modified Port After Recover
-    [Documentation]    Verify modified port exists in all instances.
-    ClusterOvsdb.Verify Sample Port Is Modified    ${original_cluster_list}
 
 Delete Port In New Owner After Recover
     [Documentation]    Delete port in Owner and verify it gets deleted from all instances.
