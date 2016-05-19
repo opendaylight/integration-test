@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_9878f12c",
+        "filename": "csit/suites/ovsdb/Devstack_Tempest_Tests/01__single_node_devstack_tempest_tests.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-05-19T20:11:26Z",
+      "side": 1,
+      "message": "Priya,\n\n I think removing tesmpest  tests is not a comment, Please add them back. This is a very important test",
+      "revId": "104cbfab17640f0637e7f0f5a30b5b67270b2d87",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
