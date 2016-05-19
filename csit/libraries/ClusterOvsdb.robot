@@ -107,8 +107,9 @@ Delete Sample Port And Verify
     [Arguments]    ${controller_index_list}    ${controller_index}
     [Documentation]    Delete port vx2 from bridge ${BRIDGE} in controller ${controller_index} and verify it gets deleted in all instances in ${controller_index_list}.
     ${dictionary}=    Create Dictionary    vx2=0
+    Log    ${dictionary}
     ClusterKeywords.Delete And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE}/termination-point/vx2/
-    Wait Until Keyword Succeeds    5s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
+    Wait Until Keyword Succeeds    5s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}
 
 Delete Sample Bridge And Verify
     [Arguments]    ${controller_index_list}    ${controller_index}
