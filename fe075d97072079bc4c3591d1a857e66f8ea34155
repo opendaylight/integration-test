@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_2476e2a4",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-05-19T06:13:43Z",
+      "side": 1,
+      "message": "Should Not Reach...",
+      "range": {
+        "startLine": 138,
+        "startChar": 23,
+        "endLine": 138,
+        "endChar": 76
+      },
+      "revId": "fe075d97072079bc4c3591d1a857e66f8ea34155",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_04791e93",
+        "filename": "csit/suites/ovsdb/Devstack_Tempest_Tests/02__additional_flows_verification_tests.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-05-19T06:13:43Z",
+      "side": 1,
+      "message": "whitespace and below",
+      "range": {
+        "startLine": 68,
+        "startChar": 50,
+        "endLine": 68,
+        "endChar": 51
+      },
+      "revId": "fe075d97072079bc4c3591d1a857e66f8ea34155",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
