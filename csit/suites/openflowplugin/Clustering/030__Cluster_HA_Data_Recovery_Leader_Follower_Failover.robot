@@ -47,12 +47,19 @@ Add Flows In Follower Node2 and Verify Before Leader Restart
 Stop Mininet Connected To Follower Node1 and Exit
     [Documentation]    Stop mininet and exit connection.
     MininetKeywords.Stop Mininet And Exit    ${mininet_conn_id}
-    Utils.Clean Mininet System
+    Sleep    30
 
-Restart Leader From Cluster Node
+Stop Inventory Leader From Cluster Node
     [Documentation]    Kill Leader Node and Start it Up, Verify it is sync with other controller node.
     ClusterKeywords.Kill Multiple Controllers    ${inventory_leader}
+    # ${new_cluster_list}    Create Controller Index List
+    # Remove Values From List    ${new_cluster_list}    ${inventory_leader}
+    # ClusterOpenFlow.Check OpenFlow Shards Status After Cluster Event    ${new_cluster_list}
+
+Start Inventory Leader From Cluster Node
+    [Documentation]    Create original cluster list and check Status for all shards in OpenFlow application.
     ClusterKeywords.Start Multiple Controllers    ${START_TIMEOUT}    ${inventory_leader}
+    # ClusterOpenFlow.Check OpenFlow Shards Status    ${original_cluster_list}
 
 Get inventory Follower After Leader Restart
     [Documentation]    Find new Followers and Leader in the inventory config shard After Leader Restart.
@@ -62,6 +69,7 @@ Get inventory Follower After Leader Restart
     Set Suite Variable    ${follower_node_1}
     Set Suite Variable    ${follower_node_2}
     Set Suite Variable    ${inventory_leader}
+    Sleep    30
 
 Start Mininet Connect To Old Leader
     [Documentation]    Start mininet with connection to cluster old leader.
@@ -75,7 +83,6 @@ Verify Flows In Switch After Leader Restart
 Stop Mininet Connected To Old Leader and Exit
     [Documentation]    Stop mininet and exit connection.
     MininetKeywords.Stop Mininet And Exit    ${mininet_conn_id}
-    Utils.Clean Mininet System
 
 Restart Follower Node2
     [Documentation]    Kill Follower Node2 and Start it Up, Verify it is sync with other controller node.
@@ -103,7 +110,6 @@ Verify Flows In Switch After Follower Restart
 Stop Mininet Connected To Leader and Exit
     [Documentation]    Stop mininet Connected To Other Follower and exit connection.
     MininetKeywords.Stop Mininet And Exit    ${mininet_conn_id}
-    Utils.Clean Mininet System
 
 Restart Full Cluster
     [Documentation]    Kill all Cluster Nodes and Start it Up All.
@@ -135,4 +141,3 @@ Delete Flows In Follower Node1 and Verify After Leader Restart
 Stop Mininet Connected To Follower Node2 and Exit After Cluster Restart
     [Documentation]    Stop mininet Connected To Other Follower and exit connection.
     MininetKeywords.Stop Mininet And Exit    ${mininet_conn_id}
-    Utils.Clean Mininet System
