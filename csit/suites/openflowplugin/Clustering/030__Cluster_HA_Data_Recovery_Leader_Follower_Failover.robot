@@ -49,9 +49,16 @@ Stop Mininet Connected To Follower Node1 and Exit
     MininetKeywords.Stop Mininet And Exit    ${mininet_conn_id}
     Utils.Clean Mininet System
 
-Restart Leader From Cluster Node
+Stop Inventory Leader From Cluster Node
     [Documentation]    Kill Leader Node and Start it Up, Verify it is sync with other controller node.
     ClusterKeywords.Kill Multiple Controllers    ${inventory_leader}
+    ${new_cluster_list}    Create Controller Index List
+    Remove Values From List    ${new_cluster_list}    ${inventory_leader}
+    Set Suite Variable    ${new_cluster_list}
+
+Start Inventory Leader From Cluster Node
+    [Documentation]    Create original cluster list and check Status for all shards in OpenFlow application.
+    ClusterOpenFlow.Check OpenFlow Shards Status After Cluster Event    ${new_cluster_list}
     ClusterKeywords.Start Multiple Controllers    ${START_TIMEOUT}    ${inventory_leader}
 
 Get inventory Follower After Leader Restart
