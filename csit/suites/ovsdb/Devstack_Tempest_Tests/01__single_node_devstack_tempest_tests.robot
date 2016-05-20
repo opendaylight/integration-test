@@ -79,12 +79,12 @@ List Nova Flavor
 Create Vm Instances For net1_network
     [Documentation]    Create Vm instances using flavor and image names.
     Create Vm Instances    net1_network    ${NET_1_VM_INSTANCES}
-    [Teardown]    Show Debugs      ${NET_1_VM_INSTANCES}
+    [Teardown]    Show Debugs    ${NET_1_VM_INSTANCES}
 
 Create Vm Instances For net2_network
     [Documentation]    Create Vm instances using flavor and image names.
     Create Vm Instances    net2_network    ${NET_2_VM_INSTANCES}
-    [Teardown]    Show Debugs      ${NET_2_VM_INSTANCES}
+    [Teardown]    Show Debugs    ${NET_2_VM_INSTANCES}
 
 Verify Created Vm Instance In Dump Flow
     [Documentation]    Verify the existence of the created vm instance ips in the dump flow.
@@ -126,8 +126,8 @@ Verify Deleted Vm Instance Removed In Dump Flow
 
 Delete Router Interfaces
     [Documentation]    Remove Interface to the subnets.
-    : FOR     ${interface}    IN     @{SUBNETS_NAME}
-    \     Remove Interface     router_1     ${interface}
+    : FOR    ${interface}    IN    @{SUBNETS_NAME}
+    \    Remove Interface    router_1    ${interface}
 
 Delete Routers
     [Documentation]    Delete Router and Interface to the subnets.

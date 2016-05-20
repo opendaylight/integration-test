@@ -10,8 +10,6 @@ Library           HttpLibrary.HTTP
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
 
-
-
 *** Test Cases ***
 Basic Environment Setup Tests
     [Documentation]    Prepare Basic Test Environment
@@ -20,6 +18,7 @@ Basic Environment Setup Tests
     Add Elements To URI From File    ${SERVICE_FUNCTIONS_URI}    ${SERVICE_FUNCTIONS_FILE}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
+
 Create and Get Rendered Service Path
     [Documentation]    Create and Get Rendered Service Path Through RESTConf APIs
     Post Elements To URI As JSON    ${OPERATIONS_CREATE_RSP_URI}    ${CREATE_RSP1_INPUT}
@@ -111,6 +110,7 @@ Generate RSPs with Random Schedule Algorithm type
     Check For Elements At URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-2/rendered-service-path-hop/2/    ${elements}
     Post Elements To URI As JSON    ${OPERATIONS_DELETE_RSP_URI}    ${DELETE_RSP1_INPUT}
     Post Elements To URI As JSON    ${OPERATIONS_DELETE_RSP_URI}    ${DELETE_RSP2_INPUT}
+
 Generate RSPs with Round Robin Schedule Algorithm type
     [Documentation]    Generate RSPs with Round Robin Schedule Algorithm type
     Remove All Elements At URI    ${SERVICE_SCHED_TYPES_URI}
@@ -163,6 +163,7 @@ Generate RSPs with Round Robin Schedule Algorithm type
     Post Elements To URI As JSON    ${OPERATIONS_DELETE_RSP_URI}    ${DELETE_RSP4_INPUT}
     Post Elements To URI As JSON    ${OPERATIONS_DELETE_RSP_URI}    ${DELETE_RSP5_INPUT}
     Post Elements To URI As JSON    ${OPERATIONS_DELETE_RSP_URI}    ${DELETE_RSP6_INPUT}
+
 Generate RSPs with Shortest Path Schedule Algorithm type
     [Documentation]    Generate RSPs with Shortest Path Schedule Algorithm type Through RESTConf APIs
     Remove All Elements At URI    ${SERVICE_SCHED_TYPES_URI}
@@ -199,6 +200,7 @@ Generate RSPs with Shortest Path Schedule Algorithm type
     Should Be Equal    ${fwd_hop2}    ${fwd_hop3}
     Post Elements To URI As JSON    ${OPERATIONS_DELETE_RSP_URI}    ${DELETE_RSP1_INPUT}
     Post Elements To URI As JSON    ${OPERATIONS_DELETE_RSP_URI}    ${DELETE_RSP2_INPUT}
+
 Clean Datastore After Tests
     [Documentation]    Clean All Items In Datastore After Tests
     Remove All Elements At URI    ${SERVICE_FUNCTIONS_URI}
@@ -226,7 +228,6 @@ Init Suite
     log    ${ODL_STREAM}
     Run Keyword If    '${ODL_STREAM}' == 'stable-lithium'    Set Suite Variable    ${VERSION_DIR}    lithium
     ...    ELSE    Set Suite Variable    ${VERSION_DIR}    master
-
     Set Suite Variable    ${SERVICE_FUNCTIONS_URI}    /restconf/config/service-function:service-functions/
     Set Suite Variable    ${SERVICE_FUNCTIONS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-functions.json
     Set Suite Variable    ${SERVICE_FORWARDERS_URI}    /restconf/config/service-function-forwarder:service-function-forwarders/
@@ -264,4 +265,3 @@ Init Suite
     Set Suite Variable    ${DELETE_RSP4_INPUT}    {"input":{"name":"SFC1-100-Path-4"}}
     Set Suite Variable    ${DELETE_RSP5_INPUT}    {"input":{"name":"SFC1-100-Path-5"}}
     Set Suite Variable    ${DELETE_RSP6_INPUT}    {"input":{"name":"SFC1-100-Path-6"}}
-

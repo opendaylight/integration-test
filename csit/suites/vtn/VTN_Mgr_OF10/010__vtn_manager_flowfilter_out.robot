@@ -7,11 +7,11 @@ Resource          ../../../libraries/VtnMaKeywords.robot
 *** Variables ***
 ${flowconditiondata}    "vtn-flow-match":[{"vtn-inet-match":{"source-network":"10.0.0.3/32","destination-network":"10.0.0.1/32"},"index":"1"}]
 ${flowfilterInetdata}    "output": "true", "vtn-flow-filter":[{"condition":"cond_1","vtn-pass-filter":{},"vtn-flow-action":[{"order": "1","vtn-set-inet-src-action":{"ipv4-address":"192.0.0.1/32"}},{"order": "2","vtn-set-inet-dst-action":{"ipv4-address":"192.0.0.2/32"}}],"index": "1"}]
-${flowfilterInetdropdata}   "output": "true", "vtn-flow-filter":[{"condition":"cond_1","vtn-drop-filter":{},"vtn-flow-action":[{"order": "1","vtn-set-inet-src-action":{"ipv4-address":"10.0.0.2/32"}},{"order": "2","vtn-set-inet-dst-action":{"ipv4-address":"10.0.0.4/32"}}],"index": "1"}]
-${flowfilterIcmpCodedata}   "output": "true", "vtn-flow-filter": [{"condition": "cond_1","index": "1", "vtn-pass-filter": {}, "vtn-flow-action": [{ "order": "1", "vtn-set-icmp-code-action":{"code": "1"}},{"order": "2","vtn-set-icmp-type-action": {"type": "3"}}]}]
-${flowfilterTpsrcTpdstdata}   "output": "true", "vtn-flow-filter": [{"condition": "cond_1","vtn-pass-filter": {},"vtn-flow-action": [{"order": "1","vtn-set-port-src-action": {"port": "5"}},{"order": "2","vtn-set-port-dst-action": {"port": "10"}}],"index": "1"}]
-${flowfilterDscpdata}   "output": "true", "vtn-flow-filter":[{"condition": "cond_1","vtn-pass-filter": {},"vtn-flow-action": [{"order": "1","vtn-set-inet-dscp-action": {"dscp":"32"}}],"index":"1"}]
-${flowfiltervlanpcp}   "output": "true", "vtn-flow-filter":[{"condition":"cond_1","vtn-pass-filter":{},"vtn-flow-action":[{"order":"3","vtn-set-icmp-code-action":{"code":"1"}},{"order":"4","vtn-set-vlan-pcp-action":{"vlan-pcp":"3"}}],"index":"1"}]
+${flowfilterInetdropdata}    "output": "true", "vtn-flow-filter":[{"condition":"cond_1","vtn-drop-filter":{},"vtn-flow-action":[{"order": "1","vtn-set-inet-src-action":{"ipv4-address":"10.0.0.2/32"}},{"order": "2","vtn-set-inet-dst-action":{"ipv4-address":"10.0.0.4/32"}}],"index": "1"}]
+${flowfilterIcmpCodedata}    "output": "true", "vtn-flow-filter": [{"condition": "cond_1","index": "1", "vtn-pass-filter": {}, "vtn-flow-action": [{ "order": "1", "vtn-set-icmp-code-action":{"code": "1"}},{"order": "2","vtn-set-icmp-type-action": {"type": "3"}}]}]
+${flowfilterTpsrcTpdstdata}    "output": "true", "vtn-flow-filter": [{"condition": "cond_1","vtn-pass-filter": {},"vtn-flow-action": [{"order": "1","vtn-set-port-src-action": {"port": "5"}},{"order": "2","vtn-set-port-dst-action": {"port": "10"}}],"index": "1"}]
+${flowfilterDscpdata}    "output": "true", "vtn-flow-filter":[{"condition": "cond_1","vtn-pass-filter": {},"vtn-flow-action": [{"order": "1","vtn-set-inet-dscp-action": {"dscp":"32"}}],"index":"1"}]
+${flowfiltervlanpcp}    "output": "true", "vtn-flow-filter":[{"condition":"cond_1","vtn-pass-filter":{},"vtn-flow-action":[{"order":"3","vtn-set-icmp-code-action":{"code":"1"}},{"order":"4","vtn-set-vlan-pcp-action":{"vlan-pcp":"3"}}],"index":"1"}]
 
 *** Test Cases ***
 Check if switch1 detected

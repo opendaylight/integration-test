@@ -9,7 +9,6 @@ Library           RequestsLibrary
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
 
-
 *** Test Cases ***
 Put Service Nodes
     [Documentation]    Add Service Nodes from JSON file
@@ -92,4 +91,3 @@ Init Suite
     Set Suite Variable    ${SERVICE_NODES_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-nodes.json
     Set Suite Variable    ${SN_NODE100_URI}    /restconf/config/service-node:service-nodes/service-node/node-100
     Set Suite Variable    ${SN_NODE100_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sn_node_100.json
-
