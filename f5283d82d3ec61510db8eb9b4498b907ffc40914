@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_e8d79821",
+        "filename": "csit/suites/netconf/clustering/ODLLinkOutages.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-20T09:45:35Z",
+      "side": 1,
+      "message": "isolation",
+      "range": {
+        "startLine": 2,
+        "startChar": 39,
+        "endLine": 2,
+        "endChar": 45
+      },
+      "revId": "f5283d82d3ec61510db8eb9b4498b907ffc40914",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
