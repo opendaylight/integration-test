@@ -137,5 +137,3 @@ Init Suite
     Set Suite Variable    ${SERVICE_CHAIN100_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sfc_chain_100.json
     Set Suite Variable    ${SERVICE_CHAIN100_SFIDS_URI}    /restconf/config/service-function-chain:service-function-chains/service-function-chain/SFC100/sfc-service-function/ids-abstract100
     Set Suite Variable    ${SERVICE_CHAIN100_SFIDS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sfc_chain_100_sfids.json
-
-

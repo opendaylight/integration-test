@@ -35,8 +35,8 @@ Run Tempest Tests
 
 Devstack Suite Setup Tests
     [Arguments]    ${source_pwd}=no
-    [Documentation]  Login to  the Openstack Control Node to run tempest suite
-    ${devstack_conn_id}=   SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT}
+    [Documentation]    Login to the Openstack Control Node to run tempest suite
+    ${devstack_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT}
     Set Suite Variable    ${devstack_conn_id}
     Set Suite Variable    ${source_pwd}
     Log    ${devstack_conn_id}
@@ -46,7 +46,7 @@ Devstack Suite Setup Tests
 Devstack Suite Setup
     [Arguments]    ${source_pwd}=no
     [Documentation]    Login to the Openstack Control Node to run tempest suite
-    ${devstack_conn_id}=   SSHLibrary.Open Connection    ${DEVSTACK_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}
+    ${devstack_conn_id}=    SSHLibrary.Open Connection    ${DEVSTACK_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}
     Set Suite Variable    ${devstack_conn_id}
     Set Suite Variable    ${source_pwd}
     Log    ${devstack_conn_id}

@@ -1,20 +1,20 @@
 *** Settings ***
-Documentation    Openstack library. This library is useful for tests to create network, subnet, router and vm instances
-Library    SSHLibrary
-Resource    Utils.robot
-Variables    ../variables/Variables.py
+Documentation     Openstack library. This library is useful for tests to create network, subnet, router and vm instances
+Library           SSHLibrary
+Resource          Utils.robot
+Variables         ../variables/Variables.py
 
 *** Keywords ***
 Source Password
-    [Arguments]        ${force}=no
+    [Arguments]    ${force}=no
     [Documentation]    Sourcing the Openstack PAsswords for neutron configurations
-    Run Keyword If    '${source_pwd}' == 'yes' or '${force}' == 'yes'     Write Commands Until Prompt    cd ${DEVSTACK_DEPLOY_PATH}; source openrc admin admin
+    Run Keyword If    '${source_pwd}' == 'yes' or '${force}' == 'yes'    Write Commands Until Prompt    cd ${DEVSTACK_DEPLOY_PATH}; source openrc admin admin
 
 Create Network
     [Arguments]    ${network_name}
     [Documentation]    Create Network with neutron request.
     Switch Connection    ${devstack_conn_id}
-    Source Password      force=yes
+    Source Password    force=yes
     ${output}=    Write Commands Until Prompt    neutron -v net-create ${network_name}    30s
     Log    ${output}
     Should Contain    ${output}    Created a new network
@@ -81,13 +81,13 @@ Delete Vm Instance
     Switch Connection    ${devstack_conn_id}
     Source Password
     ${output}=    Write Commands Until Prompt    nova delete ${vm_name}
-    Should Contain     ${output}     ${vm_name}
+    Should Contain    ${output}    ${vm_name}
 
 Get Net Id
     [Arguments]    ${network_name}
     [Documentation]    Retrieve the net id for the given network name to create specific vm instance
     Switch Connection    ${devstack_conn_id}
-    Source Password     force=yes
+    Source Password    force=yes
     ${output}=    Write Commands Until Prompt    neutron net-list | grep "${network_name}" | get_field 1
     Log    ${output}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
@@ -100,7 +100,7 @@ Create Vm Instances
     [Documentation]    Create X Vm Instance with the net id of the Netowrk.
     Switch Connection    ${devstack_conn_id}
     Source Password
-    ${net_id}=    Get Net Id      ${net_name}
+    ${net_id}=    Get Net Id    ${net_name}
     : FOR    ${VmElement}    IN    @{vm_instance_names}
     \    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement}
     \    Log    ${output}
@@ -111,7 +111,7 @@ Verify VM Is ACTIVE
     [Documentation]    Run these commands to check whether the created vm instance is active or not.
     ${output}=    Write Commands Until Prompt    nova show ${vm_name} | grep OS-EXT-STS:vm_state
     Log    ${output}
-    Should Contain     ${output}    active
+    Should Contain    ${output}    active
 
 View Vm Console
     [Arguments]    ${vm_instance_names}
@@ -127,7 +127,7 @@ Ping Vm From DHCP Namespace
     [Documentation]    Reach all Vm Instance with the net id of the Netowrk.
     Log    ${vm_ip}
     Switch Connection    ${devstack_conn_id}
-    ${net_id}=    Get Net Id      ${net_name}
+    ${net_id}=    Get Net Id    ${net_name}
     Log    ${net_id}
     ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
     Log    ${output}
@@ -138,7 +138,7 @@ Ping From DHCP Should Not Succeed
     [Documentation]    Should Not Reach Vm Instance with the net id of the Netowrk.
     Log    ${vm_ip}
     Switch Connection    ${devstack_conn_id}
-    ${net_id}=    Get Net Id      ${net_name}
+    ${net_id}=    Get Net Id    ${net_name}
     Log    ${net_id}
     ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
     Log    ${output}
@@ -164,73 +164,74 @@ Close Vm Instance
 
 Check If Console Is VmInstance
     [Arguments]    ${console}=cirros
-    [Documentation]     Check if the session has been able to login to the VM instance
-    ${output}=       Write Commands Until Expected Prompt      id       ${OS_SYSTEM_PROMPT}
+    [Documentation]    Check if the session has been able to login to the VM instance
+    ${output}=    Write Commands Until Expected Prompt    id    ${OS_SYSTEM_PROMPT}
     Should Contain    ${output}    ${console}
 
 Exit From Vm Console
-    [Documentation]     Check if the session has been able to login to the VM instance and exit the instance
-    ${rcode}=    Run Keyword And Return Status      Check If Console Is VmInstance    cirros
-    Run Keyword If     ${rcode}     Write Commands Until Prompt     exit
+    [Documentation]    Check if the session has been able to login to the VM instance and exit the instance
+    ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance    cirros
+    Run Keyword If    ${rcode}    Write Commands Until Prompt    exit
     Get OvsDebugInfo
 
 Check Ping
-    [Arguments]     ${ip_address}
-    [Documentation]     Run Ping command on the IP available as argument
-    ${output}=   Write Commands Until Expected Prompt    ping -c 3 ${ip_address}    ${OS_SYSTEM_PROMPT}
-    Should Contain     ${output}     64 bytes
+    [Arguments]    ${ip_address}
+    [Documentation]    Run Ping command on the IP available as argument
+    ${output}=    Write Commands Until Expected Prompt    ping -c 3 ${ip_address}    ${OS_SYSTEM_PROMPT}
+    Should Contain    ${output}    64 bytes
 
 Check Metadata Access
-    [Documentation]      Try curl on the Metadataurl and check if it is okay
-    ${output}=   Write Commands Until Expected Prompt    curl -i http://169.254.169.254    ${OS_SYSTEM_PROMPT}
-    Should Contain     ${output}     200
+    [Documentation]    Try curl on the Metadataurl and check if it is okay
+    ${output}=    Write Commands Until Expected Prompt    curl -i http://169.254.169.254    ${OS_SYSTEM_PROMPT}
+    Should Contain    ${output}    200
 
 Test Operations From Vm Instance
-    [Arguments]    ${net_name}    ${src_ip}    ${list_of_local_dst_ips}    ${l2_or_l3}=l2    ${list_of_external_dst_ips}=${NONE}    ${user}=cirros    ${password}=cubswin:)
+    [Arguments]    ${net_name}    ${src_ip}    ${list_of_local_dst_ips}    ${l2_or_l3}=l2    ${list_of_external_dst_ips}=${NONE}    ${user}=cirros
+    ...    ${password}=cubswin:)
     [Documentation]    Login to the vm instance using ssh in the network.
     Switch Connection    ${devstack_conn_id}
     Source Password
-    ${net_id}=    Get Net Id      ${net_name}
-    ${output}=   Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${src_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no      d:
+    ${net_id}=    Get Net Id    ${net_name}
+    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${src_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no    d:
     Log    ${output}
     ${output}=    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
     Log    ${output}
-    ${rcode}=    Run Keyword And Return Status      Check If Console Is VmInstance
-    Run Keyword If     ${rcode}     Write Commands Until Expected Prompt    ifconfig    ${OS_SYSTEM_PROMPT}
-    Run Keyword If     ${rcode}     Write Commands Until Expected Prompt    route    ${OS_SYSTEM_PROMPT}
+    ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    ifconfig    ${OS_SYSTEM_PROMPT}
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    route    ${OS_SYSTEM_PROMPT}
     ${dest_vm}=    Get From List    ${list_of_local_dst_ips}    0
     Log    ${dest_vm}
-    Run Keyword If     ${rcode}     Check Ping      ${dest_vm}
+    Run Keyword If    ${rcode}    Check Ping    ${dest_vm}
     ${dest_dhcp}=    Get From List    ${list_of_local_dst_ips}    1
     Log    ${dest_dhcp}
-    Run Keyword If     ${rcode}     Check Ping      ${dest_dhcp}
+    Run Keyword If    ${rcode}    Check Ping    ${dest_dhcp}
     ${dest_vm}=    Get From List    ${list_of_local_dst_ips}    2
     Log    ${dest_vm}
-    Run Keyword If     ${rcode}     Check Ping      ${dest_vm}
-    Run Keyword If     ${rcode}     Check Metadata Access
+    Run Keyword If    ${rcode}    Check Ping    ${dest_vm}
+    Run Keyword If    ${rcode}    Check Metadata Access
     Run Keyword If    '${l2_or_l3}' == 'l3'    Ping Other Instances    ${list_of_external_dst_ips}
-    [Teardown]      Exit From Vm Console
+    [Teardown]    Exit From Vm Console
 
 Ping Other Instances
     [Arguments]    ${list_of_external_dst_ips}
     [Documentation]    Check reachability with other network's instances.
-    ${rcode}=    Run Keyword And Return Status      Check If Console Is VmInstance
+    ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance
     ${dest_vm}=    Get From List    ${list_of_external_dst_ips}    0
     Log    ${dest_vm}
-    Run Keyword If     ${rcode}     Check Ping      ${dest_vm}
+    Run Keyword If    ${rcode}    Check Ping    ${dest_vm}
     ${dest_dhcp}=    Get From List    ${list_of_external_dst_ips}    1
     Log    ${dest_dhcp}
-    Run Keyword If     ${rcode}     Check Ping      ${dest_dhcp}
+    Run Keyword If    ${rcode}    Check Ping    ${dest_dhcp}
     ${dest_vm}=    Get From List    ${list_of_external_dst_ips}    2
     Log    ${dest_vm}
-    Run Keyword If     ${rcode}     Check Ping      ${dest_vm}
+    Run Keyword If    ${rcode}    Check Ping    ${dest_vm}
 
 Create Router
     [Arguments]    ${router_name}
     [Documentation]    Create Router and Add Interface to the subnets.
     Switch Connection    ${devstack_conn_id}
     Source Password
-    ${output}=    Write Commands Until Prompt    neutron -v router-create ${router_name}     30s
+    ${output}=    Write Commands Until Prompt    neutron -v router-create ${router_name}    30s
     Should Contain    ${output}    Created a new router
 
 Add Router Interface
@@ -259,18 +260,18 @@ Delete Router
 Get DumpFlows And Ovsconfig
     [Arguments]    ${openstack_node_ip}
     [Documentation]    Get the OvsConfig and Flow entries from OVS from the Openstack Node
-    Log     ${openstack_node_ip}
+    Log    ${openstack_node_ip}
     SSHLibrary.Open Connection    ${openstack_node_ip}    prompt=${DEFAULT_LINUX_PROMPT}
     Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
-    Write Commands Until Expected Prompt     sudo ovs-vsctl show       ]>
-    Write Commands Until Expected Prompt     sudo ovs-ofctl dump-flows br-int -OOpenFlow13     ]>
+    Write Commands Until Expected Prompt    sudo ovs-vsctl show    ]>
+    Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows br-int -OOpenFlow13    ]>
 
 Get OvsDebugInfo
     [Documentation]    Get the OvsConfig and Flow entries from all Openstack nodes
-    Run Keyword If     0 < ${NUM_OS_SYSTEM}       Get DumpFlows And Ovsconfig     ${OS_CONTROL_NODE_IP}
-    Run Keyword If     1 < ${NUM_OS_SYSTEM}       Get DumpFlows And Ovsconfig     ${OS_COMPUTE_1_IP}
-    Run Keyword If     2 < ${NUM_OS_SYSTEM}       Get DumpFlows And Ovsconfig     ${OS_COMPUTE_2_IP}
+    Run Keyword If    0 < ${NUM_OS_SYSTEM}    Get DumpFlows And Ovsconfig    ${OS_CONTROL_NODE_IP}
+    Run Keyword If    1 < ${NUM_OS_SYSTEM}    Get DumpFlows And Ovsconfig    ${OS_COMPUTE_1_IP}
+    Run Keyword If    2 < ${NUM_OS_SYSTEM}    Get DumpFlows And Ovsconfig    ${OS_COMPUTE_2_IP}
 
 Show Debugs
     [Arguments]    ${vm_indices}

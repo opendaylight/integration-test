@@ -1,21 +1,21 @@
 *** Settings ***
-Documentation    Test suite to check connectivity in L3 using routers.
-Suite Setup    Devstack Suite Setup Tests
-Suite Teardown      Close All Connections
-Library    SSHLibrary
-Library    OperatingSystem
-Library    RequestsLibrary
-Resource    ../../../libraries/Utils.robot
-Resource    ../../../libraries/OpenStackOperations.robot
-Resource    ../../../libraries/DevstackUtils.robot
+Documentation     Test suite to check connectivity in L3 using routers.
+Suite Setup       Devstack Suite Setup Tests
+Suite Teardown    Close All Connections
+Library           SSHLibrary
+Library           OperatingSystem
+Library           RequestsLibrary
+Resource          ../../../libraries/Utils.robot
+Resource          ../../../libraries/OpenStackOperations.robot
+Resource          ../../../libraries/DevstackUtils.robot
 
 *** Variables ***
 @{NETWORKS_NAME}    network_1    network_2
 @{SUBNETS_NAME}    subnet_1    subnet_2
-@{NET_1_VM_INSTANCES}    l3_instance_net_1_1   l3_instance_net_1_2      l3_instance_net_1_3
-@{NET_2_VM_INSTANCES}    l3_instance_net_2_1   l3_instance_net_2_2      l3_instance_net_2_3
-@{NET_1_VM_IPS}    50.0.0.3    50.0.0.4     50.0.0.5
-@{NET_2_VM_IPS}    60.0.0.3    60.0.0.4     60.0.0.5
+@{NET_1_VM_INSTANCES}    l3_instance_net_1_1    l3_instance_net_1_2    l3_instance_net_1_3
+@{NET_2_VM_INSTANCES}    l3_instance_net_2_1    l3_instance_net_2_2    l3_instance_net_2_3
+@{NET_1_VM_IPS}    50.0.0.3    50.0.0.4    50.0.0.5
+@{NET_2_VM_IPS}    60.0.0.3    60.0.0.4    60.0.0.5
 @{GATEWAY_IPS}    50.0.0.1    60.0.0.1
 @{DHCP_IPS}       50.0.0.2    60.0.0.2
 @{SUBNETS_RANGE}    50.0.0.0/24    60.0.0.0/24
@@ -36,12 +36,12 @@ Create Subnets For network_2
 
 Create Vm Instances For network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances     network_1     ${NET_1_VM_INSTANCES}
+    Create Vm Instances    network_1    ${NET_1_VM_INSTANCES}
     [Teardown]    Show Debugs    ${NET_1_VM_INSTANCES}
 
 Create Vm Instances For network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances     network_2     ${NET_2_VM_INSTANCES}
+    Create Vm Instances    network_2    ${NET_2_VM_INSTANCES}
     [Teardown]    Show Debugs    ${NET_2_VM_INSTANCES}
 
 Create Routers
@@ -79,51 +79,51 @@ Ping Vm Instance3 In network_1 From network_2
 
 Connectivity Tests From Vm Instance1 In network_1
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{DHCP_IPS}[0]     @{NET_1_VM_IPS}[1]     @{NET_1_VM_IPS}[2]
+    ${dst_ip_list}=    Create List    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
     Log    ${dst_ip_list}
-    ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[0]     @{NET_2_VM_IPS}[1]    @{NET_2_VM_IPS}[2] 
+    ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[0]    @{NET_2_VM_IPS}[1]    @{NET_2_VM_IPS}[2]
     Log    ${other_dst_ip_list}
-    Test Operations From Vm Instance      network_1    @{NET_1_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3     list_of_external_dst_ips=${other_dst_ip_list}
+    Test Operations From Vm Instance    network_1    @{NET_1_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
 Connectivity Tests From Vm Instance2 In network_1
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{DHCP_IPS}[0]     @{NET_1_VM_IPS}[1]     @{NET_1_VM_IPS}[2]
+    ${dst_ip_list}=    Create List    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
     Log    ${dst_ip_list}
-    ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[0]     @{NET_2_VM_IPS}[1]      @{NET_2_VM_IPS}[2]
+    ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[0]    @{NET_2_VM_IPS}[1]    @{NET_2_VM_IPS}[2]
     Log    ${other_dst_ip_list}
-    Test Operations From Vm Instance      network_1    @{NET_1_VM_IPS}[1]    ${dst_ip_list}    l2_or_l3=l3     list_of_external_dst_ips=${other_dst_ip_list}
+    Test Operations From Vm Instance    network_1    @{NET_1_VM_IPS}[1]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
 Connectivity Tests From Vm Instance3 In network_1
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{DHCP_IPS}[0]     @{NET_1_VM_IPS}[1]     @{NET_1_VM_IPS}[2]
+    ${dst_ip_list}=    Create List    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
     Log    ${dst_ip_list}
-    ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[0]     @{NET_2_VM_IPS}[1]      @{NET_2_VM_IPS}[2]
+    ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[0]    @{NET_2_VM_IPS}[1]    @{NET_2_VM_IPS}[2]
     Log    ${other_dst_ip_list}
-    Test Operations From Vm Instance      network_1    @{NET_1_VM_IPS}[2]    ${dst_ip_list}    l2_or_l3=l3     list_of_external_dst_ips=${other_dst_ip_list}
+    Test Operations From Vm Instance    network_1    @{NET_1_VM_IPS}[2]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
 Connectivity Tests From Vm Instance1 In network_2
     [Documentation]    Logging to the vm instance using generated key pair.
     ${dst_ip_list}=    Create List    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[1]    @{NET_2_VM_IPS}[2]
     Log    ${dst_ip_list}
-    ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[0]    @{NET_1_VM_IPS}[1]     @{NET_1_VM_IPS}[2]
+    ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
     Log    ${other_dst_ip_list}
-    Test Operations From Vm Instance      network_2     @{NET_2_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3     list_of_external_dst_ips=${other_dst_ip_list}
+    Test Operations From Vm Instance    network_2    @{NET_2_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
 Connectivity Tests From Vm Instance2 In network_2
     [Documentation]    Logging to the vm instance using generated key pair.
     ${dst_ip_list}=    Create List    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[0]    @{NET_2_VM_IPS}[2]
     Log    ${dst_ip_list}
-    ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[0]    @{NET_1_VM_IPS}[1]     @{NET_1_VM_IPS}[2]
+    ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
     Log    ${other_dst_ip_list}
-    Test Operations From Vm Instance      network_2     @{NET_2_VM_IPS}[1]    ${dst_ip_list}    l2_or_l3=l3     list_of_external_dst_ips=${other_dst_ip_list}
+    Test Operations From Vm Instance    network_2    @{NET_2_VM_IPS}[1]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
 Connectivity Tests From Vm Instance3 In network_2
     [Documentation]    Logging to the vm instance using generated key pair.
     ${dst_ip_list}=    Create List    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[0]    @{NET_2_VM_IPS}[1]
     Log    ${dst_ip_list}
-    ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[0]    @{NET_1_VM_IPS}[1]     @{NET_1_VM_IPS}[2]
+    ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
     Log    ${other_dst_ip_list}
-    Test Operations From Vm Instance      network_2     @{NET_2_VM_IPS}[2]    ${dst_ip_list}    l2_or_l3=l3     list_of_external_dst_ips=${other_dst_ip_list}
+    Test Operations From Vm Instance    network_2    @{NET_2_VM_IPS}[2]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
 Delete Vm Instances In network_1
     [Documentation]    Delete Vm instances using instance names in network_1.

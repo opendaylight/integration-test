@@ -279,4 +279,3 @@ Init Suite
     Set Suite Variable    ${SFF_SFD_LOCATOR_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sff_sfd_locator.json
     Set Suite Variable    ${SFF_CSD_SFF100_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sff_csd_sff100.json
     Set Suite Variable    ${SFF_CSD_LOCATOR_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sff_csd_locator.json
-

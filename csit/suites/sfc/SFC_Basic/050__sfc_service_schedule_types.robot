@@ -79,8 +79,6 @@ Clean Datastore After Tests
     [Documentation]    Delete All Service Function Schedule Algorithm Types From Datastore After Tests
     Remove All Elements At URI    ${SERVICE_SCHED_TYPES_URI}
 
-
-
 *** keywords ***
 Init Suite
     [Documentation]    Initialize session and ODL version specific variables
@@ -92,5 +90,3 @@ Init Suite
     Set Suite Variable    ${SERVICE_SCHED_TYPES_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-schedule-types.json
     Set Suite Variable    ${SERVICE_WSP_SCHED_TYPE_URI}    /restconf/config/service-function-scheduler-type:service-function-scheduler-types/service-function-scheduler-type/service-function-scheduler-type:weighted-shortest-path
     Set Suite Variable    ${SERVICE_WSP_SCHED_TYPE_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-wsp-schedule-type.json
-
-

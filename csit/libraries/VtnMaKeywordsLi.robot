@@ -237,7 +237,7 @@ Delete a interface
 Start vlan_topo
     [Arguments]    ${OF}
     [Documentation]    Create custom topology for vlan functionality
-    Install Package On Ubuntu System     vlan
+    Install Package On Ubuntu System    vlan
     Run Keyword If    '${OF}' == 'OF13'    Start Mininet    ${TOOLS_SYSTEM_IP}    ${vlan_topo_13}    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
     ...    ELSE IF    '${OF}' == 'OF10'    Start Mininet    ${TOOLS_SYSTEM_IP}    ${vlan_topo_10}    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
 

@@ -73,8 +73,9 @@ Get Device Entity Owner And Candidates Indexes
     ${candidates_list}=    Create List
     ${data}=    Utils.Get Data From URI    ${session}    /restconf/operational/entity-owners:entity-owners
     Log    ${data}
-    ${clear_data}=    Run Keyword If    '${device_type}' == 'openflow'    Extract OpenFlow Device Data    ${data}    ELSE IF    '${device_type}' == 'ovsdb'
-    ...    Extract Ovsdb Device Data    ${data}    ELSE    Fail    Not recognized device type: ${device_type}
+    ${clear_data}=    Run Keyword If    '${device_type}' == 'openflow'    Extract OpenFlow Device Data    ${data}
+    ...    ELSE IF    '${device_type}' == 'ovsdb'    Extract Ovsdb Device Data    ${data}
+    ...    ELSE    Fail    Not recognized device type: ${device_type}
     ${json}=    RequestsLibrary.To Json    ${clear_data}
     ${entity_type_list}=    Get From Dictionary    &{json}[entity-owners]    entity-type
     ${entity_type_index}=    Get Index From List Of Dictionaries    ${entity_type_list}    type    ${device_type}
@@ -293,8 +294,8 @@ Get Controller Sync Status
     ${value}=    Get From Dictionary    ${json}    value
     ${OperSyncStatus}=    Get From Dictionary    ${value}    SyncStatus
     Log    Operational Sync Status: ${OperSyncStatus}
-    Run Keyword If    ${OperSyncStatus} and ${ConfSyncStatus}    Set Test Variable    ${SyncStatus}    ${TRUE}    ELSE    Set Test Variable
-    ...    ${SyncStatus}    ${FALSE}
+    Run Keyword If    ${OperSyncStatus} and ${ConfSyncStatus}    Set Test Variable    ${SyncStatus}    ${TRUE}
+    ...    ELSE    Set Test Variable    ${SyncStatus}    ${FALSE}
     [Return]    ${SyncStatus}
 
 Clean One Or More Journals

@@ -1,29 +1,29 @@
 *** Settings ***
-Documentation    Test suite to verify packet flows between vm instances.
-Suite Setup    Devstack Suite Setup Tests     source_pwd=yes
-Suite Teardown      Close All Connections
-Library    SSHLibrary
-Library    OperatingSystem
-Library    RequestsLibrary
-Library    Collections
-Resource    ../../../libraries/Utils.robot
-Resource    ../../../libraries/OpenStackOperations.robot
-Resource    ../../../libraries/DevstackUtils.robot
-Resource    ../../../libraries/OVSDB.robot
-Library    ../../../libraries/Common.py
-Variables    ../../../variables/Variables.py
-Resource    ../../../libraries/ClusterKeywords.robot
+Documentation     Test suite to verify packet flows between vm instances.
+Suite Setup       Devstack Suite Setup Tests    source_pwd=yes
+Suite Teardown    Close All Connections
+Library           SSHLibrary
+Library           OperatingSystem
+Library           RequestsLibrary
+Library           Collections
+Resource          ../../../libraries/Utils.robot
+Resource          ../../../libraries/OpenStackOperations.robot
+Resource          ../../../libraries/DevstackUtils.robot
+Resource          ../../../libraries/OVSDB.robot
+Library           ../../../libraries/Common.py
+Variables         ../../../variables/Variables.py
+Resource          ../../../libraries/ClusterKeywords.robot
 
 *** Variables ***
 @{NETWORKS_NAME}    l2_net_1    l2_net_2
 @{SUBNETS_NAME}    l2_sub_net_1    l2_sub_net_2
-@{NET_1_VM_INSTANCES}    VmInstance1_l2_net_1    VmInstance2_net_1     VmInstance3_net_1
-@{NET_2_VM_INSTANCES}    VmInstance1_l2_net_2    VmInstance2_net_2     VmInstance3_net_2
-@{NET_1_VM_IPS}    70.0.0.3    70.0.0.4     70.0.0.5
-@{NET_2_VM_IPS}    80.0.0.3    80.0.0.4     80.0.0.5
+@{NET_1_VM_INSTANCES}    VmInstance1_l2_net_1    VmInstance2_net_1    VmInstance3_net_1
+@{NET_2_VM_INSTANCES}    VmInstance1_l2_net_2    VmInstance2_net_2    VmInstance3_net_2
+@{NET_1_VM_IPS}    70.0.0.3    70.0.0.4    70.0.0.5
+@{NET_2_VM_IPS}    80.0.0.3    80.0.0.4    80.0.0.5
 @{VM_IPS_NOT_DELETED}    70.0.0.4
 @{GATEWAY_IPS}    70.0.0.1    80.0.0.1
-@{DHCP_IPS}    70.0.0.2    80.0.0.2
+@{DHCP_IPS}       70.0.0.2    80.0.0.2
 @{cluster_down_list}    1    2
 @{SUBNETS_RANGE}    70.0.0.0/24    80.0.0.0/24
 
@@ -56,7 +56,7 @@ Create Subnets For l2_net_2
     Create SubNet    l2_net_2    l2_sub_net_2    @{SUBNETS_RANGE}[1]
 
 Take Down ODL1
-    [Documentation]   Kill the karaf in First Controller
+    [Documentation]    Kill the karaf in First Controller
     ClusterKeywords.Kill Multiple Controllers    1
     ${new_cluster_list}    ClusterKeywords.Create Controller Index List
     Remove Values From List    ${new_cluster_list}    1
@@ -66,16 +66,16 @@ Create Vm Instances For l2_net_1
     [Documentation]    Create Vm instances using flavor and image names for a network.
     Log    ${devstack_conn_id}
     Create Vm Instances    l2_net_1    ${NET_1_VM_INSTANCES}
-    [Teardown]    Show Debugs      ${NET_1_VM_INSTANCES}
+    [Teardown]    Show Debugs    ${NET_1_VM_INSTANCES}
 
 Bring Up ODL1
-    [Documentation]  Bring up ODL1 again
+    [Documentation]    Bring up ODL1 again
     ClusterKeywords.Start Multiple Controllers    300s    1
     ${new_cluster_list}    ClusterKeywords.Create Controller Index List
     Set Suite Variable    ${new_cluster_list}
 
 Take Down ODL2
-    [Documentation]   Kill the karaf in Second Controller
+    [Documentation]    Kill the karaf in Second Controller
     ClusterKeywords.Kill Multiple Controllers    2
     ${new_cluster_list}    ClusterKeywords.Create Controller Index List
     Remove Values From List    ${new_cluster_list}    2
@@ -83,41 +83,41 @@ Take Down ODL2
 
 Create Vm Instances For l2_net_2
     [Documentation]    Create Vm instances using flavor and image names for a network.
-    Create Vm Instances     l2_net_2    ${NET_2_VM_INSTANCES}
-    [Teardown]    Show Debugs      ${NET_2_VM_INSTANCES}
+    Create Vm Instances    l2_net_2    ${NET_2_VM_INSTANCES}
+    [Teardown]    Show Debugs    ${NET_2_VM_INSTANCES}
 
 Bring Up ODL2
-    [Documentation]  Bring up ODL2 again
+    [Documentation]    Bring up ODL2 again
     ClusterKeywords.Start Multiple Controllers    300s    2
     ${new_cluster_list}    ClusterKeywords.Create Controller Index List
     Set Suite Variable    ${new_cluster_list}
 
 Ping Vm Instance1 In l2_net_1
     [Documentation]    Check reachability of vm instances by pinging to them.
-    Ping Vm From DHCP Namespace     l2_net_1    @{NET_1_VM_IPS}[0]
+    Ping Vm From DHCP Namespace    l2_net_1    @{NET_1_VM_IPS}[0]
 
 Ping Vm Instance2 In l2_net_1
     [Documentation]    Check reachability of vm instances by pinging to them.
-    Ping Vm From DHCP Namespace     l2_net_1    @{NET_1_VM_IPS}[1]
+    Ping Vm From DHCP Namespace    l2_net_1    @{NET_1_VM_IPS}[1]
 
 Ping Vm Instance3 In l2_net_1
     [Documentation]    Check reachability of vm instances by pinging to them.
-    Ping Vm From DHCP Namespace     l2_net_1    @{NET_1_VM_IPS}[2]
+    Ping Vm From DHCP Namespace    l2_net_1    @{NET_1_VM_IPS}[2]
 
 Ping Vm Instance1 In l2_net_2
     [Documentation]    Check reachability of vm instances by pinging to them.
-    Ping Vm From DHCP Namespace     l2_net_2    @{NET_2_VM_IPS}[0]
+    Ping Vm From DHCP Namespace    l2_net_2    @{NET_2_VM_IPS}[0]
 
 Ping Vm Instance2 In l2_net_2
     [Documentation]    Check reachability of vm instances by pinging to them.
-    Ping Vm From DHCP Namespace     l2_net_2    @{NET_2_VM_IPS}[1]
+    Ping Vm From DHCP Namespace    l2_net_2    @{NET_2_VM_IPS}[1]
 
 Ping Vm Instance3 In l2_net_2
     [Documentation]    Check reachability of vm instances by pinging to them.
-    Ping Vm From DHCP Namespace     l2_net_2    @{NET_2_VM_IPS}[2]
+    Ping Vm From DHCP Namespace    l2_net_2    @{NET_2_VM_IPS}[2]
 
 Take Down ODL3
-    [Documentation]   Kill the karaf in Third Controller
+    [Documentation]    Kill the karaf in Third Controller
     ClusterKeywords.Kill Multiple Controllers    3
     ${new_cluster_list}    ClusterKeywords.Create Controller Index List
     Remove Values From List    ${new_cluster_list}    3
@@ -125,53 +125,53 @@ Take Down ODL3
 
 Connectivity Tests From Vm Instance1 In l2_net_1
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}[1]    @{DHCP_IPS}[0]     @{NET_1_VM_IPS}[2]
+    ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}[1]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[2]
     Log    ${dst_ip_list}
-    Test Operations From Vm Instance      l2_net_1     @{NET_1_VM_IPS}[0]    ${dst_ip_list}
+    Test Operations From Vm Instance    l2_net_1    @{NET_1_VM_IPS}[0]    ${dst_ip_list}
 
 Connectivity Tests From Vm Instance2 In l2_net_1
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}[0]    @{DHCP_IPS}[0]     @{NET_1_VM_IPS}[2]
+    ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}[0]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[2]
     Log    ${dst_ip_list}
-    Test Operations From Vm Instance      l2_net_1     @{NET_1_VM_IPS}[1]    ${dst_ip_list}
+    Test Operations From Vm Instance    l2_net_1    @{NET_1_VM_IPS}[1]    ${dst_ip_list}
 
 Connectivity Tests From Vm Instance3 In l2_net_1
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}[0]    @{DHCP_IPS}[0]     @{NET_1_VM_IPS}[1]
+    ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}[0]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[1]
     Log    ${dst_ip_list}
-    Test Operations From Vm Instance      l2_net_1     @{NET_1_VM_IPS}[2]    ${dst_ip_list}
+    Test Operations From Vm Instance    l2_net_1    @{NET_1_VM_IPS}[2]    ${dst_ip_list}
 
 Bring Up ODL3
-    [Documentation]  Bring up ODL3 again
+    [Documentation]    Bring up ODL3 again
     ClusterKeywords.Start Multiple Controllers    300s    3
     ${new_cluster_list}    ClusterKeywords.Create Controller Index List
     Set Suite Variable    ${new_cluster_list}
 
 Take Down ODL1 and ODL2
-    [Documentation]   Kill the karaf in First and Second Controller
+    [Documentation]    Kill the karaf in First and Second Controller
     : FOR    ${index}    IN    @{cluster_down_list}
     \    ClusterKeywords.Kill Multiple Controllers    ${index}
 
 Connectivity Tests From Vm Instance1 In l2_net_2
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[1]    @{DHCP_IPS}[1]     @{NET_2_VM_IPS}[2]
+    ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[1]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[2]
     Log    ${dst_ip_list}
-    Test Operations From Vm Instance      l2_net_2     @{NET_2_VM_IPS}[0]    ${dst_ip_list}
+    Test Operations From Vm Instance    l2_net_2    @{NET_2_VM_IPS}[0]    ${dst_ip_list}
 
 Connectivity Tests From Vm Instance2 In l2_net_2
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]     @{NET_2_VM_IPS}[2]
+    ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[2]
     Log    ${dst_ip_list}
-    Test Operations From Vm Instance      l2_net_2     @{NET_2_VM_IPS}[1]    ${dst_ip_list}
+    Test Operations From Vm Instance    l2_net_2    @{NET_2_VM_IPS}[1]    ${dst_ip_list}
 
 Connectivity Tests From Vm Instance3 In l2_net_2
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]     @{NET_2_VM_IPS}[1]
+    ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[1]
     Log    ${dst_ip_list}
-    Test Operations From Vm Instance      l2_net_2     @{NET_2_VM_IPS}[2]    ${dst_ip_list}
+    Test Operations From Vm Instance    l2_net_2    @{NET_2_VM_IPS}[2]    ${dst_ip_list}
 
 Bring Up ODL1 and ODL2
-    [Documentation]  Bring up ODL1 and ODL2 again.
+    [Documentation]    Bring up ODL1 and ODL2 again.
     : FOR    ${index}    IN    @{cluster_down_list}
     \    ClusterKeywords.Start Multiple Controllers    300s    ${index}
 
