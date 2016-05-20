@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_bbc5ec3d",
+        "filename": "csit/suites/netconf/clustering/odl_link_outages.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-20T11:58:33Z",
+      "side": 1,
+      "message": "Sandbox shows this can fail [0]. Therefore this test case needs a reference to a Bug.\n\n[0] https://jenkins.opendaylight.org/sandbox/job/netconf-csit-3node-clustering-only-beryllium/4/robot/report/log.html#s1-s3-t7-k2-k1-k3-k7-k1",
+      "range": {
+        "startLine": 86,
+        "startChar": 22,
+        "endLine": 86,
+        "endChar": 43
+      },
+      "revId": "fe6223b41f7b3cacc30ceec6abb9d80d73a09138",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_fb900445",
+        "filename": "csit/suites/netconf/clustering/odl_link_outages.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-20T11:58:33Z",
+      "side": 1,
+      "message": "These seem to be the same between the three suites. Either move them to a Resource yourself, or at least add FIXMEs and create a Trello card (as I like to task occasional junior testers with this kind of refactoring).",
+      "range": {
+        "startLine": 172,
+        "startChar": 0,
+        "endLine": 172,
+        "endChar": 16
+      },
+      "revId": "fe6223b41f7b3cacc30ceec6abb9d80d73a09138",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_3bad5c9d",
+        "filename": "csit/testplans/netconf-clustering.txt",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-20T11:58:33Z",
+      "side": 1,
+      "message": "Do you have an argument why node outages are expected to be more disruptive than link outages?\nIf not, I would suggest to run node outages first, as that is the more tested (hopefully also more fixed) scenario.",
+      "range": {
+        "startLine": 15,
+        "startChar": 48,
+        "endLine": 15,
+        "endChar": 52
+      },
+      "revId": "fe6223b41f7b3cacc30ceec6abb9d80d73a09138",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
