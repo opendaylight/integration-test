@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_48284434",
+        "filename": "csit/suites/netconf/clustering/DeviceLinkOutages.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-20T09:26:15Z",
+      "side": 1,
+      "message": "link",
+      "range": {
+        "startLine": 2,
+        "startChar": 34,
+        "endLine": 2,
+        "endChar": 38
+      },
+      "revId": "574fa7625dfbea9a8674bae6135058093a739231",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
