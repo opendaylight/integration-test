@@ -17,6 +17,7 @@ Resource          ../../../variables/Variables.py
 *** Test Cases ***
 Access List Filtering
     [Documentation]    Test ACL filter behaviour during filter update
+    [Tags]    SXP    Filtering
     ${peers}    Add Peers    127.0.0.4    127.0.0.5
     Add PeerGroup    GROUP    ${peers}
     ${entry1}    Get Filter Entry    10    permit    acl=10.10.10.0,0.0.0.255
@@ -35,6 +36,7 @@ Access List Filtering
 
 Access List Sgt Filtering
     [Documentation]    Test ACL and SGT filter behaviour during filter update
+    [Tags]    SXP    Filtering
     ${peers}    Add Peers    127.0.0.2    127.0.0.5
     Add PeerGroup    GROUP    ${peers}
     ${entry1}    Get Filter Entry    10    deny    acl=10.10.20.0,0.0.0.255
@@ -51,6 +53,7 @@ Access List Sgt Filtering
 
 Prefix List Filtering
     [Documentation]    Test Prefix List filter behaviour during filter update
+    [Tags]    SXP    Filtering
     ${peers}    Add Peers    127.0.0.4    127.0.0.5
     Add PeerGroup    GROUP    ${peers}
     ${entry1}    Get Filter Entry    10    permit    pl=10.10.10.0/24
@@ -69,6 +72,7 @@ Prefix List Filtering
 
 Prefix List Sgt Filtering
     [Documentation]    Test Prefix List and SGT filter behaviour during filter update
+    [Tags]    SXP    Filtering
     ${peers}    Add Peers    127.0.0.2    127.0.0.5
     Add PeerGroup    GROUP    ${peers}
     ${entry1}    Get Filter Entry    10    deny    pl=10.10.20.0/24
@@ -84,6 +88,20 @@ Prefix List Sgt Filtering
     Wait Until Keyword Succeeds    4    1    Check Two Group 2-5
 
 *** Keywords ***
+Setup SXP Environment
+    [Documentation]    Create session to Controller
+    Setup SXP Sesion
+    : FOR    ${num}    IN RANGE    1    6
+    \    ${ip}    Get Ip From Number    ${num}
+    \   Run Keyword If    '${ODL_STREAM}' == 'boron'    Add Node    ${ip}
+
+Clean SXP Environment
+    [Documentation]    Destroy created sessions
+    : FOR    ${num}    IN RANGE    1    6
+    \    ${ip}    Get Ip From Number    ${num}
+    \   Run Keyword If    '${ODL_STREAM}' == 'boron'    Delete Node    ${ip}
+    Clean SXP Sesion
+
 Setup Nodes
     [Arguments]    ${version}=version4    ${password}=none
     : FOR    ${node}    IN RANGE    1    5

@@ -17,6 +17,7 @@ Resource          ../../../variables/Variables.py
 *** Test Cases ***
 Peer Sequence Filtering
     [Documentation]    Test PeerSequence filter behaviour
+    [Tags]    SXP    Filtering
     ${peers}    Add Peers    127.0.0.2
     Add PeerGroup    GROUP    ${peers}
     ${entry1}    Get Filter Entry    10    permit    ps=le,0
@@ -50,6 +51,7 @@ Peer Sequence Filtering
 
 Inbound PL Combinations Filtering
     [Documentation]    Test PeerSequence filter combined with PrefixList filter
+    [Tags]    SXP    Filtering
     @{scopes}    Create List    inbound    inbound-discarding
     : FOR    ${scope}    IN    @{scopes}
     \    Add PeerGroup    GROUP
@@ -67,6 +69,7 @@ Inbound PL Combinations Filtering
 
 Inbound ACL Combinations Filtering
     [Documentation]    Test PeerSequence filter combined with ACL filter
+    [Tags]    SXP    Filtering
     @{scopes}    Create List    inbound    inbound-discarding
     : FOR    ${scope}    IN    @{scopes}
     \    ${peers}    Add Peers    127.0.0.2
@@ -88,6 +91,7 @@ Inbound ACL Combinations Filtering
 
 Outbound PL Combinations Filtering
     [Documentation]    Test PeerSequence filter combined with PrefixList filter
+    [Tags]    SXP    Filtering
     Add PeerGroup    GROUP
     ${entry1}    Get Filter Entry    10    permit    pl=1.1.1.0/24
     ${entries}    Combine Strings    ${entry1}
@@ -102,6 +106,7 @@ Outbound PL Combinations Filtering
 
 Outbound ACL Combinations Filtering
     [Documentation]    Test PeerSequence filter combined with ACL filter
+    [Tags]    SXP    Filtering
     Add PeerGroup    GROUP
     ${entry1}    Get Filter Entry    10    permit    ps=eq,0
     ${entry2}    Get Filter Entry    20    permit    ps=ge,2
@@ -116,6 +121,20 @@ Outbound ACL Combinations Filtering
     Wait Until Keyword Succeeds    4    1    Check Outbound ACL Combinations Filtering
 
 *** Keywords ***
+Setup SXP Environment
+    [Documentation]    Create session to Controller
+    Setup SXP Sesion
+    : FOR    ${num}    IN RANGE    1    6
+    \    ${ip}    Get Ip From Number    ${num}
+    \   Run Keyword If    '${ODL_STREAM}' == 'boron'    Add Node    ${ip}
+
+Clean SXP Environment
+    [Documentation]    Destroy created sessions
+    : FOR    ${num}    IN RANGE    1    6
+    \    ${ip}    Get Ip From Number    ${num}
+    \   Run Keyword If    '${ODL_STREAM}' == 'boron'    Delete Node    ${ip}
+    Clean SXP Sesion
+
 Setup Nodes
     [Arguments]    ${version}=version4    ${password}=none
     [Documentation]    Setup Topology for PeerSequence tests
