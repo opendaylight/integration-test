@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite to verify inbound-discarding filtering functionality
-Suite Setup       Setup SXP Environment
-Suite Teardown    Clean SXP Environment
+Suite Setup       Setup SXP Environment     6
+Suite Teardown    Clean SXP Environment     6
 Test Teardown     Clean Nodes
 Library           RequestsLibrary
 Library           SSHLibrary
@@ -17,6 +17,7 @@ Resource          ../../../variables/Variables.py
 *** Test Cases ***
 Access List Filtering
     [Documentation]    Test ACL filter behaviour during filter update
+    [Tags]    SXP    Filtering
     Setup Nodes
     ${peers}    Add Peers    127.0.0.2    127.0.0.4
     Add PeerGroup    GROUP    ${peers}
@@ -30,6 +31,7 @@ Access List Filtering
 
 Access List Sgt Filtering
     [Documentation]    Test ACL and SGT filter behaviour during filter update
+    [Tags]    SXP    Filtering
     ${peers}    Add Peers    127.0.0.3    127.0.0.5
     Add PeerGroup    GROUP    ${peers}
     ${entry1}    Get Filter Entry    10    permit    sgt=30    acl=10.10.10.0,0.0.0.255
@@ -43,6 +45,7 @@ Access List Sgt Filtering
 
 Prefix List Filtering
     [Documentation]    Test Prefix List filter behaviour during filter update
+    [Tags]    SXP    Filtering
     Setup Nodes
     ${peers}    Add Peers    127.0.0.2    127.0.0.4
     Add PeerGroup    GROUP    ${peers}
@@ -56,6 +59,7 @@ Prefix List Filtering
 
 Prefix List Sgt Filtering
     [Documentation]    Test Prefix List and SGT filter behaviour during filter update
+    [Tags]    SXP    Filtering
     ${peers}    Add Peers    127.0.0.3    127.0.0.5
     Add PeerGroup    GROUP    ${peers}
     ${entry1}    Get Filter Entry    10    permit    sgt=30    pl=10.10.10.0/24
@@ -69,6 +73,7 @@ Prefix List Sgt Filtering
 
 Access List Filtering Legacy
     [Documentation]    Test ACL filter behaviour during filter update
+    [Tags]    SXP    Filtering
     Setup Nodes Legacy Par Two
     ${peers}    Add Peers    127.0.0.2    127.0.0.4
     Add PeerGroup    GROUP    ${peers}
@@ -82,6 +87,7 @@ Access List Filtering Legacy
 
 Access List Sgt Filtering Legacy
     [Documentation]    Test ACL and SGT filter behaviour during filter update
+    [Tags]    SXP    Filtering
     ${peers}    Add Peers    127.0.0.3    127.0.0.5
     Add PeerGroup    GROUP    ${peers}
     ${entry1}    Get Filter Entry    10    permit    sgt=30    acl=10.10.10.0,0.0.0.255
@@ -95,6 +101,7 @@ Access List Sgt Filtering Legacy
 
 Prefix List Filtering Legacy
     [Documentation]    Test Prefix List filter behaviour during filter update
+    [Tags]    SXP    Filtering
     Setup Nodes Legacy Par Two
     ${peers}    Add Peers    127.0.0.2    127.0.0.4
     Add PeerGroup    GROUP    ${peers}
@@ -108,6 +115,7 @@ Prefix List Filtering Legacy
 
 Prefix List Sgt Filtering Legacy
     [Documentation]    Test Prefix List and SGT filter behaviour during filter update
+    [Tags]    SXP    Filtering
     ${peers}    Add Peers    127.0.0.3    127.0.0.5
     Add PeerGroup    GROUP    ${peers}
     ${entry1}    Get Filter Entry    10    permit    sgt=30    pl=10.10.10.0/24
