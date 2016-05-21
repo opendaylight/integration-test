@@ -12,6 +12,23 @@ Variables         ../variables/Variables.py
 ${REST_CONTEXT}    /restconf/operations/sxp-controller
 
 *** Keywords ***
+Add Node
+    [Arguments]    ${node}    ${password}=password    ${version}=version4     ${port}=64999     ${session}=session
+    [Documentation]    Add node via RPC to ODL
+    ${DATA}    Add Node Xml    ${node}    ${port}   ${password}   ${version}
+    LOG     ${DATA}
+    ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-node    data=${DATA}    headers=${HEADERS_XML}
+    LOG    ${resp}
+    Should be Equal As Strings    ${resp.status_code}    200
+
+Delete Node
+    [Arguments]    ${node}  ${session}=session
+    [Documentation]    Delete connection via RPC from node
+    ${DATA}    Delete Node Xml    ${node}
+    LOG     ${DATA}
+    ${resp}    Post Request    ${session}    ${REST_CONTEXT}:delete-node    data=${DATA}    headers=${HEADERS_XML}
+    Should be Equal As Strings    ${resp.status_code}    200
+
 Add Connection
     [Arguments]    ${version}    ${mode}    ${ip}    ${port}    ${node}=127.0.0.1    ${password}=none
     ...    ${session}=session
@@ -197,12 +214,15 @@ Setup Topology Complex
     Add Binding    10    10.10.0.0/16    127.0.0.1
     Add Binding    10    10.0.0.0/8    127.0.0.1
 
-Setup SXP Environment
+Setup SXP Sesion
     [Documentation]    Create session to Controller
-    Verify Feature Is Installed    odl-sxp-all
+    Verify Feature Is Installed    odl-sxp-controller
     Create Session    session    url=http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    Wait Until Keyword Succeeds    15    1    Get Bindings
+    ${resp}    RequestsLibrary.Get Request    session    ${MODULES_API}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${resp.content}    ietf-restconf
 
-Clean SXP Environment
+Clean SXP Sesion
     [Documentation]    Destroy created sessions
     Delete All Sessions

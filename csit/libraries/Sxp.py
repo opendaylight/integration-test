@@ -364,7 +364,7 @@ def find_connection(connections_json, version, mode, ip, port, state):
     """
     for connection in parse_connections(connections_json):
         if (connection['peer-address'] == ip and connection['tcp-port'] == int(port) and connection['mode'] == mode and
-                connection['version'] == version):
+                    connection['version'] == version):
             if state == 'none':
                 return True
             elif connection['state'] == state:
@@ -726,4 +726,56 @@ def get_bindings_from_node_xml(ip, binding_range):
   <bindings-range xmlns="urn:opendaylight:sxp:controller">$range</bindings-range>
 </input>''')
     data = templ.substitute({'ip': ip, 'range': binding_range})
+    return data
+
+
+def add_node_xml(node_id, port, password, version, ip=None, expansion=0):
+    """Generate xml for Get Bindings request
+
+    :param node_id: Ipv4 address formated node id
+    :type node_id: string
+    :param ip: Ipv4 address of node
+    :type ip: string
+    :param port: Node port number
+    :type port: int
+    :param expansion: Bindings expansion
+    :type expansion: int
+    :returns: String containing xml data for request
+
+    """
+    if ip is None:
+        ip = node_id
+    templ = Template('''<input xmlns="urn:opendaylight:sxp:controller">
+    <node-id>$id</node-id>
+    <timers>
+        <retry-open-time>5</retry-open-time>
+        <hold-time-min-acceptable>120</hold-time-min-acceptable>
+        <delete-hold-down-time>120</delete-hold-down-time>
+        <hold-time-min>90</hold-time-min>
+        <reconciliation-time>120</reconciliation-time>
+        <hold-time>90</hold-time>
+        <hold-time-max>180</hold-time-max>
+        <keep-alive-time>30</keep-alive-time>
+    </timers>
+    <mapping-expanded>$expansion</mapping-expanded>
+    <security>
+        <password>$password</password>
+    </security>
+    <connections></connections>
+    <tcp-port>$port</tcp-port>
+    <version>$version</version>
+    <description>ODL SXP Controller</description>
+    <source-ip>$ip</source-ip>
+    <master-database></master-database>
+</input>''')
+    data = templ.substitute(
+        {'ip': ip, 'id': node_id, 'port': port, 'password': password, 'version': version, 'expansion': expansion})
+    return data
+
+
+def delete_node_xml(node_id):
+    templ = Template('''<input xmlns="urn:opendaylight:sxp:controller">
+  <node-id>$id</node-id>
+</input>''')
+    data = templ.substitute({'id': node_id})
     return data
