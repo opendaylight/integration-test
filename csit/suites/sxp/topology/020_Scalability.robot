@@ -16,6 +16,7 @@ Resource          ../../../variables/Variables.py
 *** Test Cases ***
 Test Mega Topology
     [Documentation]    Stress test that contains of connecting 20 Nodes and exporting their bindings
+    [Tags]    SXP    Scalability
     Setup Mega Topology
     Sleep    5s
     ${resp}    Get Bindings    127.0.0.1
@@ -25,6 +26,7 @@ Test Mega Topology
 
 Test Complex Mega Topology
     [Documentation]    Stress test that contains of connecting 30 Nodes and exporting their bindings
+    [Tags]    SXP    Scalability
     Setup Complex Mega Topology
     Sleep    5s
     ${resp}    Get Bindings    127.0.0.1
@@ -34,6 +36,7 @@ Test Complex Mega Topology
 
 Text Bindings export
     [Documentation]    Stress test that consist of exporting 500 Bindings under 5s
+    [Tags]    SXP    Scalability
     : FOR    ${num}    IN RANGE    2    502
     \    ${ip}    Get Ip From Number    ${num}
     \    Add Binding    ${num}    ${ip}/32    127.0.0.2
@@ -46,6 +49,20 @@ Text Bindings export
     \    Should Contain Binding    ${resp}    ${num}    ${ip}/32    sxp
 
 *** Keywords ***
+Setup SXP Environment
+    [Documentation]    Create session to Controller
+    Setup SXP Sesion
+    : FOR    ${num}    IN RANGE    1    32
+    \    ${ip}    Get Ip From Number    ${num}
+    \   Run Keyword If    '${ODL_STREAM}' == 'boron'    Add Node    ${ip}
+
+Clean SXP Environment
+    [Documentation]    Destroy created sessions
+    : FOR    ${num}    IN RANGE    1    32
+    \    ${ip}    Get Ip From Number    ${num}
+    \   Run Keyword If    '${ODL_STREAM}' == 'boron'    Delete Node    ${ip}
+    Clean SXP Sesion
+
 Setup Mega Topology
     [Arguments]    ${version}=version4
     : FOR    ${num}    IN RANGE    2    22

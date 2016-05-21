@@ -14,6 +14,7 @@ Resource          ../../../variables/Variables.py
 *** Test Cases ***
 Test Add Binding
     [Documentation]    Test if bindings are added to Master DB
+    [Tags]    Restconf CRUD    SXP
     ${resp}    Get Bindings
     Add Binding    5230    1.1.1.1/32
     ${resp}    Get Bindings
@@ -24,6 +25,7 @@ Test Add Binding
 
 Test Add Connection
     [Documentation]    Test if connections are added to Node
+    [Tags]    Restconf CRUD    SXP
     Add Connection    version4    speaker    10.1.0.0    60000
     ${resp}    Get Connections
     Should Contain Connection    ${resp}    10.1.0.0    60000    speaker    version4
@@ -33,6 +35,7 @@ Test Add Connection
 
 Test Delete Binding
     [Documentation]    Test if bindings are deleted from Master DB
+    [Tags]    Restconf CRUD    SXP
     Add Binding    52301    12.1.1.1/32
     ${resp}    Get Bindings
     Should Contain Binding    ${resp}    52301    12.1.1.1/32
@@ -45,6 +48,7 @@ Test Delete Binding
 
 Test Delete Connection
     [Documentation]    Test if conncetions are removed from Node
+    [Tags]    Restconf CRUD    SXP
     Add Connection    version4    speaker    127.1.0.30    60000
     ${resp}    Get Connections
     Should Contain Connection    ${resp}    127.1.0.30    60000    speaker    version4
@@ -57,6 +61,7 @@ Test Delete Connection
 
 Test Update Binding
     [Documentation]    Test if bindings can be updated to different values
+    [Tags]    Restconf CRUD    SXP
     Add Binding    3230    1.1.1.10/32
     ${resp}    Get Bindings
     Should Contain Binding    ${resp}    3230    1.1.1.10/32
@@ -66,6 +71,17 @@ Test Update Binding
     Should Contain Binding    ${resp}    623    10.10.10.10/32
 
 *** Keywords ***
+Setup SXP Environment
+    [Documentation]    Create session to Controller
+    Setup SXP Sesion
+    Run Keyword If    '${ODL_STREAM}' == 'boron'    Add Node    127.0.0.1
+
+Clean SXP Environment
+    [Documentation]    Destroy created sessions
+    Delete Node     127.0.0.1
+    Run Keyword If    '${ODL_STREAM}' == 'boron'    Clean SXP Sesion
+
 Clean Node
+    Add Node    127.0.0.1
     Clean Connections    127.0.0.1
     Clean Bindings    127.0.0.1

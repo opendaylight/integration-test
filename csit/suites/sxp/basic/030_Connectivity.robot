@@ -16,6 +16,7 @@ Resource          ../../../variables/Variables.py
 *** Test Cases ***
 Version 1
     [Documentation]    Test if Version1 <=> Version1 can be connected
+    [Tags]    SXP    Connectivity
     Test Nodes    version1    none    version1
     Log    OK without passwords
     Clean Nodes
@@ -24,6 +25,7 @@ Version 1
 
 Version 2
     [Documentation]    Test if Version2 <=> Version2 can be connected
+    [Tags]    SXP    Connectivity
     Test Nodes    version2    none    version2
     Log    OK without passwords
     Clean Nodes
@@ -31,6 +33,7 @@ Version 2
 
 Version 3
     [Documentation]    Test if Version3 <=> Version3 can be connected
+    [Tags]    SXP    Connectivity
     Test Nodes    version3    none    version3
     Log    OK without passwords
     Clean Nodes
@@ -38,6 +41,7 @@ Version 3
 
 Version 4
     [Documentation]    Test if Version4 <=> Version4 can be connected
+    [Tags]    SXP    Connectivity
     Test Nodes    version4    none    version4
     Log    OK without passwords
     Clean Nodes
@@ -45,6 +49,7 @@ Version 4
 
 Mixed Versions
     [Documentation]    Test of version negotiation proces during connecting
+    [Tags]    SXP    Connectivity
     @{list} =    Create List    version2    version3    version4
     Test Nodes    version1    none    @{list}
     Test Nodes    version1    default    @{list}
@@ -59,6 +64,20 @@ Mixed Versions
     Test Nodes    version4    default    @{list}
 
 *** Keywords ***
+Setup SXP Environment
+    [Documentation]    Create session to Controller
+    Setup SXP Sesion
+    : FOR    ${num}    IN RANGE    1    6
+    \    ${ip}    Get Ip From Number    ${num}
+    \   Run Keyword If    '${ODL_STREAM}' == 'boron'    Add Node    ${ip}
+
+Clean SXP Environment
+    [Documentation]    Destroy created sessions
+    : FOR    ${num}    IN RANGE    1    6
+    \    ${ip}    Get Ip From Number    ${num}
+    \   Run Keyword If    '${ODL_STREAM}' == 'boron'    Delete Node    ${ip}
+    Clean SXP Sesion
+
 Test Nodes
     [Arguments]    ${version}    ${PASSWORD}    @{versions}
     [Documentation]    Setup connection Speaker => Listener / Listener => Speaker / Both <=> Both for specific versions
