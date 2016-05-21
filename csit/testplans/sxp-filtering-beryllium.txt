@@ -2,4 +2,3 @@
 integration/test/csit/suites/sxp/filtering/010_Inbound_Filtering.robot
 integration/test/csit/suites/sxp/filtering/020_Outbound_Filtering.robot
 integration/test/csit/suites/sxp/filtering/030_Inbound_Filtering_Discarding.robot
-

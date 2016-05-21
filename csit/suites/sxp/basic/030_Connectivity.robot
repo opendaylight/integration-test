@@ -1,21 +1,19 @@
 *** Settings ***
 Documentation     Test suite to test connectivity problems
-Suite Setup       Setup SXP Environment
-Suite Teardown    Clean SXP Environment
+Suite Setup       Setup SXP Environment     6
+Suite Teardown    Clean SXP Environment     6
 Test Setup        Clean Nodes
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           ../../../libraries/Sxp.py
 Resource          ../../../libraries/SxpLib.robot
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../variables/Variables.py
 
 *** Variables ***
 
 *** Test Cases ***
 Version 1
     [Documentation]    Test if Version1 <=> Version1 can be connected
+    [Tags]    SXP    Connectivity
     Test Nodes    version1    none    version1
     Log    OK without passwords
     Clean Nodes
@@ -24,6 +22,7 @@ Version 1
 
 Version 2
     [Documentation]    Test if Version2 <=> Version2 can be connected
+    [Tags]    SXP    Connectivity
     Test Nodes    version2    none    version2
     Log    OK without passwords
     Clean Nodes
@@ -31,6 +30,7 @@ Version 2
 
 Version 3
     [Documentation]    Test if Version3 <=> Version3 can be connected
+    [Tags]    SXP    Connectivity
     Test Nodes    version3    none    version3
     Log    OK without passwords
     Clean Nodes
@@ -38,6 +38,7 @@ Version 3
 
 Version 4
     [Documentation]    Test if Version4 <=> Version4 can be connected
+    [Tags]    SXP    Connectivity
     Test Nodes    version4    none    version4
     Log    OK without passwords
     Clean Nodes
@@ -45,6 +46,7 @@ Version 4
 
 Mixed Versions
     [Documentation]    Test of version negotiation proces during connecting
+    [Tags]    SXP    Connectivity
     @{list} =    Create List    version2    version3    version4
     Test Nodes    version1    none    @{list}
     Test Nodes    version1    default    @{list}
