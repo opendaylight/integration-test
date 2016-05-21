@@ -48,7 +48,7 @@
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
-                                <retry-open-time>5</retry-open-time>
+                                <retry-open-time>1</retry-open-time>
                                 <hold-time-min-acceptable>120</hold-time-min-acceptable>
                                 <keep-alive-time>30</keep-alive-time>
                                 <hold-time>90</hold-time>
@@ -69,7 +69,7 @@
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
-                                <retry-open-time>5</retry-open-time>
+                                <retry-open-time>1</retry-open-time>
                                 <hold-time-min-acceptable>120</hold-time-min-acceptable>
                                 <keep-alive-time>30</keep-alive-time>
                                 <hold-time>90</hold-time>
@@ -90,7 +90,7 @@
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
-                                <retry-open-time>5</retry-open-time>
+                                <retry-open-time>1</retry-open-time>
                                 <hold-time-min-acceptable>120</hold-time-min-acceptable>
                                 <keep-alive-time>30</keep-alive-time>
                                 <hold-time>90</hold-time>
@@ -111,7 +111,7 @@
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
-                                <retry-open-time>5</retry-open-time>
+                                <retry-open-time>1</retry-open-time>
                                 <hold-time-min-acceptable>120</hold-time-min-acceptable>
                                 <keep-alive-time>30</keep-alive-time>
                                 <hold-time>90</hold-time>
@@ -132,7 +132,7 @@
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
-                                <retry-open-time>5</retry-open-time>
+                                <retry-open-time>1</retry-open-time>
                                 <hold-time-min-acceptable>120</hold-time-min-acceptable>
                                 <keep-alive-time>30</keep-alive-time>
                                 <hold-time>90</hold-time>

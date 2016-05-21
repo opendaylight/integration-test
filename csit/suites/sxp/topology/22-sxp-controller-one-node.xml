@@ -44,7 +44,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -65,7 +65,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -86,7 +86,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -107,7 +107,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -128,7 +128,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -149,7 +149,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -170,7 +170,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -191,7 +191,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -212,7 +212,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -233,7 +233,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -254,7 +254,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -275,7 +275,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -296,7 +296,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -317,7 +317,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -338,7 +338,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -359,7 +359,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -380,7 +380,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -401,7 +401,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -422,7 +422,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -443,7 +443,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -464,7 +464,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -485,7 +485,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -506,7 +506,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -527,7 +527,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -548,7 +548,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -569,7 +569,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -590,7 +590,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -611,7 +611,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -632,7 +632,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -653,7 +653,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
@@ -674,7 +674,7 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>5</mapping-expanded>
+                            <retry-open-time>1</retry-open-time>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
