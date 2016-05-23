@@ -24,7 +24,7 @@ Basic Request Put
     Wait For Karaf Log    Transaction successfully written
 
 Basic Request Get And Test
-    [Arguments]    ${request}    ${overlay_topology_url}    ${should_contain}    ${times}
+    [Arguments]    ${overlay_topology_url}    ${should_contain}    ${times}
     [Documentation]    Test basic aggregation
     ${resp}    Get Request    session    ${OPERATIONAL_API}/${overlay_topology_url}
     Should Be Equal As Strings    ${resp.status_code}    200
@@ -272,3 +272,11 @@ Insert Scripting into Request
     ${request}    Set Element Text    ${request}    ${language}    xpath=.//correlation/aggregation/scripting/language
     ${request}    Element to String    ${request}
     [Return]    ${request}
+
+Create Isis Node
+    [Arguments]    ${node-id}    ${router-id-ipv4}
+    [Documentation]    Create an isis node element with id and ip
+    ${request}    Set Element Text    ${NODE_ISIS}    ${node-id}    xpath=.//node-id
+    ${request}    Set Element Text    ${request}    ${router-id-ipv4}    xpath=.//igp-node-attributes/isis-node-attributes/ted/te-router-id-ipv4
+    ${request}    Element to String    ${request}
+    [Return ]    ${request}
