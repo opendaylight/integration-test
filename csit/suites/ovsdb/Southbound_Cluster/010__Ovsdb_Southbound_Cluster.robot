@@ -174,7 +174,11 @@ Delete Port In Old Owner After Recover
 Delete Bridge In Old Owner And Verify After Recover
     [Documentation]    Delete bridge in Owner and verify it gets deleted from all instances.
     ClusterOvsdb.Delete Sample Bridge And Verify    ${original_cluster_list}    ${original_owner}
-
+	
+Delete Manager in OVS
+	[Documentation]    Delete Manager in ovs said.
+	ClusterOvsdb.Delete Manager an OVS instance to the controller   ${original_cluster_list}    ${original_owner}
+	
 Cleans Up Test Environment For Next Suite
     [Documentation]    Cleans up test environment, close existing sessions in teardown.
     ClusterOvsdb.Configure Exit OVSDB Connection    ${original_cluster_list}
