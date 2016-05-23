@@ -245,3 +245,19 @@ LINK_COMPUTATION = '''<link-computation xmlns="urn:opendaylight:topology:link:co
                 <input-model>{input-model}</input-model>
             </link-info>
         </link-computation>'''
+
+NODE_ISIS = '''<node xmlns="urn:TBD:params:xml:ns:yang:network-topology" xmlns:igp="urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology" xmlns:isis="urn:TBD:params:xml:ns:yang:network:isis-topology">
+            <node-id>{node-id}</node-id>
+            <igp:igp-node-attributes>
+                <isis:isis-node-attributes>
+                    <isis:ted>
+                        <isis:te-router-id-ipv4>{router-id-ipv4}</isis:te-router-id-ipv4>
+                    </isis:ted>
+                </isis:isis-node-attributes>
+            </igp:igp-node-attributes>
+        </node>'''
+
+NODE_OPENFLOW = '''<node xmlns="urn:opendaylight:inventory" xmlns:flov-inv="urn:opendaylight:flow:inventory">
+        <id>{node-id}</id>
+        <flov-inv:ip-address>{ip-address}</flov-inv:ip-address>
+    </node>'''
