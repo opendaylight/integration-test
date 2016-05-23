@@ -175,6 +175,10 @@ Delete Bridge In Old Owner And Verify After Recover
     [Documentation]    Delete bridge in Owner and verify it gets deleted from all instances.
     ClusterOvsdb.Delete Sample Bridge And Verify    ${original_cluster_list}    ${original_owner}
 
+Delete Managers in OVS
+    [Documentation]    Delete Manager in OVS and verify it gets deleted from all instances.
+    ClusterOvsdb.Delete Managers in OVS instance    ${original_cluster_list}    ${original_owner}
+
 Cleans Up Test Environment For Next Suite
     [Documentation]    Cleans up test environment, close existing sessions in teardown.
     ClusterOvsdb.Configure Exit OVSDB Connection    ${original_cluster_list}

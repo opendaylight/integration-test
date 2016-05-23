@@ -122,4 +122,19 @@ Configure Exit OVSDB Connection
     [Documentation]    Cleans up test environment, close existing sessions.
     OVSDB.Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
     ${dictionary}=    Create Dictionary    ovsdb://uuid=0
-    Wait Until Keyword Succeeds    5s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
+    Wait Until Keyword Succeeds    5s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API
+
+Delete Managers in OVS instance
+    [Arguments]    ${controller_index_list}    ${controller_index}
+    [Documentation]   Delete the manager.
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
+    #Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    Wait Until Keyword Succeeds    5s    1s    Verify OVS Instances Deleted
+
+Verify OVS Instances Deleted
+    [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
+    [Documentation]    Uses "vsctl show" to check for string "is_connected"
+    ${output}=    Utils.Run Command On Remote System    ${tools_system}    sudo ovs-vsctl show
+    Should Not Contain    ${output}    is_connected
+    [Return]    ${output}
+
