@@ -333,10 +333,11 @@ Create_ODL_Netconf_Connection
 
 Reopen_ODL_Netconf_Connection
     [Documentation]    Reopen a closed netconf connection.
+    ${tty}=    SSHKeywords.Get_Tty_Id
     SSHLibrary.Write    sshpass -p ${ssh_password} ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no ${ssh_user}\@127.0.0.1 -p ${ssh_port} -s netconf
     ${hello}=    SSHLibrary.Read_Until    ${ODL_NETCONF_PROMPT}
     SSHLibrary.Switch_Connection    ${ssh_control}
-    ${pid}=    SSHLibrary.Execute_Command    ps -A | grep sshpass | cut -b 1-6
+    ${pid}=    SSHLibrary.Execute_Command    ps -A | grep sshpass | grep "${tty}" | cut -b 1-6
     BuiltIn.Set_Suite_Variable    ${ssh_netconf_pid}    ${pid}
     SSHLibrary.Switch_Connection    ${ssh_netconf}
     [Return]    ${hello}

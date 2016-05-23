@@ -65,3 +65,13 @@ Count_Port_Occurences
     [Documentation]    Run 'netstat' on the remote machine and count occurences of given port in the given state connected to process with the given name.
     ${output}=    SSHLibrary.Execute_Command    netstat -natp 2> /dev/null | grep -E ":${port} .+ ${state} .+${name}" | wc -l
     [Return]    ${output}
+
+Get_Tty_Id
+    SSHLibrary.Write    tty >tty.txt
+    ${output}=    SSHLibrary.Read_Until_Prompt
+    BuiltIn.Log    ${output}
+    ${tty}=    SSHLibrary.Execute_Command    cat tty.txt
+    ${tty}=    String.Split_To_Lines    ${tty}
+    ${tty}=    Collections.Get_From_List    ${tty}    0
+    ${tty}=    String.Fetch_From_Right    ${tty}    /dev/
+    [Return]    ${tty}
