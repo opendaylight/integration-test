@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_8619a07b",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 137,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-24T13:09:22Z",
+      "side": 1,
+      "message": "Are you sure cwd is the same as the default for Execute_Command? Prepending/tmp/ may be safer.\n\nEither way, Documentation should mention a temporary file is created (and never deleted).",
+      "range": {
+        "startLine": 137,
+        "startChar": 51,
+        "endLine": 137,
+        "endChar": 63
+      },
+      "revId": "8ce0c215515eaf29172d7664fd30ef268b10b982",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_9b073d1c",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-24T13:09:22Z",
+      "side": 1,
+      "message": "This is clunky, but I guess it is easier and more reliable than trying to parse ${java} from previous line.",
+      "range": {
+        "startLine": 140,
+        "startChar": 46,
+        "endLine": 140,
+        "endChar": 49
+      },
+      "revId": "8ce0c215515eaf29172d7664fd30ef268b10b982",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
