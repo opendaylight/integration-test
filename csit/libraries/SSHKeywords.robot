@@ -81,3 +81,24 @@ Get_Tty_Id
     ${tty}=    Collections.Get_From_List    ${tty}    0
     ${tty}=    String.Fetch_From_Right    ${tty}    /dev/
     [Return]    ${tty}
+
+Invoke
+    [Arguments]    ${command}    ${return_stdout}=True    ${return_stderr}=False    ${return_rc}=False
+    [Documentation]    SSHLibrary.Execute_Command is expected to be
+    ...    equivalent to SSHLibrary.Write followed by
+    ...    SSHLibrary.Read_Until_Prompt and then "automagically" stripping
+    ...    everything that was not produced by the invoked command. The
+    ...    actual behavior of SSHLibrary.Execute_Command is to invoke the
+    ...    command with an undocumented state of the environment (which does
+    ...    not match the environment in which commands invoked via
+    ...    SSHLibrary.Write operate), leading to all sorts of subtle bugs
+    ...    in the suites that use it. This keywords has the same API as
+    ...    SSHLibrary.Execute_Command but it makes sure its behavior matches
+    ...    what is expected. SSHLibrary.Execute_Command shall never be used
+    ...    directly.
+    # The current implementation augments the command with a stub that makes
+    # sure the $HOME/.bash_profile bash startup file is executed prior to the
+    # command (if it exists).
+    ${augmented}=    BuiltIn.Set_Variable    if test -f $HOME/.bash_profile; then . $HOME/.bash_profile; fi; ${command}
+    ${result}=    SSHLibrary.Execute_Command    ${augmented}    return_stdout=${return_stdout}    return_stderr=${return_stderr}    return_rc=${return_rc}
+    [Return]    ${result}
