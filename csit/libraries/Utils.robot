@@ -315,9 +315,10 @@ Concatenate the String
     [Return]    ${output}
 
 Post Elements To URI
-    [Arguments]    ${rest_uri}    ${data}    ${headers}=${headers}
+    [Arguments]    ${rest_uri}    ${data}    ${headers}=${headers}    ${session}=session
     [Documentation]    Perform a POST rest operation, using the URL and data provided
-    ${resp} =    RequestsLibrary.Post Request    session    ${rest_uri}    data=${data}    headers=${headers}
+    ${resp} =    RequestsLibrary.Post Request    ${session}    ${rest_uri}    data=${data}    headers=${headers}
+    Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Remove All Elements At URI
