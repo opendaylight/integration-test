@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_00ec58c6",
+        "filename": "tools/odl-lispflowmapping-yang-bindings/generate_bindings.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-05-24T08:51:53Z",
+      "side": 1,
+      "message": "Unless the check the exit code from patch, you cannot be sure it was successful. Maybe you could do \u0027patch -i bits_container.patch \u0026\u0026 echo \"Success!\"\u0027 instead.",
+      "revId": "8278da8b98a850e1fac44ca4e364ec59f7be58d4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_60f9d47f",
+        "filename": "tools/odl-lispflowmapping-yang-bindings/generate_bindings.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-05-24T08:51:53Z",
+      "side": 1,
+      "message": "Since we want to be able to call RPCs too, I think it would be better to use odl-mappingservice.yang to generate the bindings. I has odl-lisp-proto.yang as a dependency, so everything from there would also be generated. It can be found at https://git.opendaylight.org/gerrit/gitweb?p\u003dlispflowmapping.git;a\u003dblob_plain;f\u003dmappingservice/api/src/main/yang/odl-mappingservice.yang;hb\u003dHEAD",
+      "revId": "8278da8b98a850e1fac44ca4e364ec59f7be58d4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
