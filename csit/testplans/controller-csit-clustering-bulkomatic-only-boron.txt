@@ -1,1 +1,1 @@
-integration/test/csit/suites/controller/Clustering_DS_Bulkomatic/010__Cluster_HA_Data_Consistency_Config_DS.robot
+integration/test/csit/suites/openflowplugin/Clustering/040__Cluster_HA_Data_Recovery_BulkFlow_Single_Switch.robot
