@@ -1,0 +1,11 @@
+{
+"input" :
+  {
+   "sal-bulk-flow:verbose" : "false",
+   "sal-bulk-flow:dpn-count" : "1",
+   "sal-bulk-flow:is-config-ds" : "true",
+   "sal-bulk-flow:flows-per-dpn" : "1000",
+   "sal-bulk-flow:start-table-id" : "0",
+   "sal-bulk-flow:end-table-id" : "1"
+  }
+}
