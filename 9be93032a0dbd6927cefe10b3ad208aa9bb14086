@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_c62f18f5",
+        "filename": "csit/suites/bgpcep/bgpflowspec/010_bgp_flowspec.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-24T13:38:01Z",
+      "side": 0,
+      "message": "${TOOLS_SYSTEM_PROMPT}\nBut I do not think removing prompt argument altogether would work in Sandbox.",
+      "range": {
+        "startLine": 62,
+        "startChar": 88,
+        "endLine": 62,
+        "endChar": 108
+      },
+      "revId": "9be93032a0dbd6927cefe10b3ad208aa9bb14086",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
