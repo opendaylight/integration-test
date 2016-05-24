@@ -129,8 +129,15 @@ Compose_Base_Java_Command
     BuiltIn.Return_From_Keyword_If    ${rc} == 0    java
     # Query the virtual machine for the JAVA_HOME environment variable and
     # use it to assemble a (hopefully) working command. If that worked out,
-    # return the result.
-    ${java}=    SSHLibrary.Execute_Command    echo \$JAVA_HOME/bin/java 2>&1
+    # return the result. This quirky way of querying with SSHLibrary.Write
+    # and SSHLibrary.Read_Until_Prompt is required because
+    # SSHLibrary.Execute_Command fails to run any account specific startup
+    # files, leaving JAVA_HOME undefined and causing the whole thing to
+    # fail.
+    SSHLibrary.Write    echo \$JAVA_HOME/bin/java >javahome.tmp
+    ${java}=    SSHLibrary.Read_Until_Prompt
+    Log    ${java}
+    ${java}=    SSHLibrary.Execute_Command    cat javahome.tmp
     ${out}    ${rc}=    SSHLibrary.Execute_Command    ${java} -version 2>&1    return_rc=True
     BuiltIn.Return_From_Keyword_If    ${rc} == 0    ${java}
     # There are bizzare test environment setups where the (correct) JAVA_HOME
