@@ -45,6 +45,30 @@
       "revId": "1d38b3b22664572b8fea66e641f8f7acb3742524",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_215cfe7d",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2877
+      },
+      "writtenOn": "2016-05-24T15:21:24Z",
+      "side": 1,
+      "message": "The name \"Execute_Command_With_Bash_Profile\" is too long.\n\nAdditionally, this keyword is meant to replace SSHLibrary.Execute_Command. I decided to rename it to \"Invoke\" so SSHLibrary.Execute_Command does not get accidentally used instead of this keyword.\n\nThe replacement is due to subtle problems with SSHLibrary.Execute_Command (see ee https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Avoid_SSHLibrary.Execute_Command.2C_use_SSHKeywords.Invoke_instead).",
+      "parentUuid": "fa57193c_869b6071",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 83,
+        "endChar": 15
+      },
+      "revId": "1d38b3b22664572b8fea66e641f8f7acb3742524",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
