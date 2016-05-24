@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_b61693a5",
+        "filename": "csit/suites/openflowplugin/Clustering/040__Cluster_HA_Data_Recovery_BulkFlow_Single_Switch.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-05-24T17:51:38Z",
+      "side": 1,
+      "message": "probably things like this (now that I saw it in your other patch as well) can end up in your library file\u0027s variables section so you aren\u0027t having it in multiple places.",
+      "range": {
+        "startLine": 22,
+        "startChar": 0,
+        "endLine": 24,
+        "endChar": 130
+      },
+      "revId": "9354adb947768ee8bd47b348cf41e236f5f826bf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
