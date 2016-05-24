@@ -169,9 +169,9 @@ Setup_Everything
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
     # Calculate the timeout value based on how many routes are going to be pushed.
     ${period} =    DateTime.Convert_Time    ${CHECK_PERIOD_PREFIX_COUNT_MANY}    result_format=number
-    ${timeout} =    BuiltIn.Evaluate    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_MANY} * (${COUNT_PREFIX_COUNT_MANY} * 3.0 / 10000 + ${period} * (${REPETITIONS_PREFIX_COUNT_MANY} + 1))
+    ${timeout} =    BuiltIn.Evaluate    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_MANY} * (${COUNT_PREFIX_COUNT_MANY} * 3.0 / 10000 + ${period} * (${REPETITIONS_PREFIX_COUNT_MANY} + 1)) + 20
     Builtin.Set_Suite_Variable    ${bgp_filling_timeout}    ${timeout}
-    ${timeout} =    BuiltIn.Evaluate    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_MANY} * (${COUNT_PREFIX_COUNT_MANY} * 2.0 / 10000 + ${period} * (${REPETITIONS_PREFIX_COUNT_MANY} + 1))
+    ${timeout} =    BuiltIn.Evaluate    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_MANY} * (${COUNT_PREFIX_COUNT_MANY} * 2.0 / 10000 + ${period} * (${REPETITIONS_PREFIX_COUNT_MANY} + 1)) + 20
     Builtin.Set_Suite_Variable    ${bgp_emptying_timeout}    ${timeout}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${KARAF_LOG_LEVEL}
 
