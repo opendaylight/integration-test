@@ -130,18 +130,7 @@ Compose_Base_Java_Command
     # Query the virtual machine for the JAVA_HOME environment variable and
     # use it to assemble a (hopefully) working command. If that worked out,
     # return the result.
-    ${java}=    SSHLibrary.Execute_Command    echo \$JAVA_HOME/bin/java 2>&1
-    ${out}    ${rc}=    SSHLibrary.Execute_Command    ${java} -version 2>&1    return_rc=True
-    BuiltIn.Return_From_Keyword_If    ${rc} == 0    ${java}
-    # There are bizzare test environment setups where the (correct) JAVA_HOME
-    # is set in the VM where Robot is running but not in the VM where the
-    # tools are supposed to run (usually because these two are really one
-    # and the same system and idiosyncracies of BASH prevent easy injection
-    # of the JAVA_HOME environment variable into a place where connections
-    # made by SSHLibrary would pick it up). So try to use that value to
-    # create a java command and check that it works.
-    ${JAVA_HOME}=    OperatingSystem.Get_Environment_Variable    JAVA_HOME    ${EMPTY}
-    ${java}=    BuiltIn.Set_Variable_If    """${JAVA_HOME}"""!=""    ${JAVA_HOME}/bin/java    false
+    ${java}=    SSHKeywords.Execute_Command    echo \$JAVA_HOME/bin/java 2>&1
     ${out}    ${rc}=    SSHLibrary.Execute_Command    ${java} -version 2>&1    return_rc=True
     BuiltIn.Return_From_Keyword_If    ${rc} == 0    ${java}
     # Nothing works, most likely java is not installed at all on the target

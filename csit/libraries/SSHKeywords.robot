@@ -79,3 +79,14 @@ Get_Tty_Id
     ${tty}=    Collections.Get_From_List    ${tty}    0
     ${tty}=    String.Fetch_From_Right    ${tty}    /dev/
     [Return]    ${tty}
+
+Execute_Command
+    [Arguments]    ${command}    ${return_stdout}=True    ${return_stderr}=False    ${return_rc}=False
+    [Documentation]    Invoke SSHLibrary.Execute_Command with an augmented
+    ...    version of the command that makes sure the $HOME/.bash_profile
+    ...    bash startup file is executed prior to the command (if it exists).
+    ...    The SSHLibrary.Execute_Command does not do that and it breaks
+    ...    local working environments.
+    ${augmented}=    BuiltIn.Set_Variable    if test -f $HOME/.bash_profile; then . $HOME/.bash_profile; fi; ${command}
+    ${result}=    SSHLibrary.Execute_Command    ${augmented}    return_stdout=${return_stdout}    return_stderr=${return_stderr}    return_rc=${return_rc}
+    [Return]    ${result}
