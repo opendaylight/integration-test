@@ -36,7 +36,7 @@ class Timer(object):
         self.secs = self.end - self.start
         self.msecs = self.secs * 1000  # millisecs
         if self.verbose:
-            print ("elapsed time: %f ms" % self.msecs)
+            print("elapsed time: %f ms" % self.msecs)
 
 # Initialize the totals over all threads
 total_requests = Counter(0)

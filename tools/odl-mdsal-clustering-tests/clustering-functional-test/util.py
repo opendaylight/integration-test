@@ -40,7 +40,7 @@ def post(url, userId, password, data):
 
     resp = requests.post(url, data.encode(), headers=headers)
 
-    # print (resp.raise_for_status())
+    # print(resp.raise_for_status())
     print(resp.headers)
 
     return resp

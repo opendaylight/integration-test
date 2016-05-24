@@ -207,7 +207,7 @@ def options():
 
     usageString = usageString + command + param
 
-    print (usageString)
+    print(usageString)
 
 
 #
