@@ -59,7 +59,7 @@ Deconfigure_ODL_To_Accept_Connection
 *** Keywords ***
 Start Suite
     [Documentation]    Suite setup keyword
-    ${mininet_conn_id}=    SSHLibrary.Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=6s
+    ${mininet_conn_id}=    SSHLibrary.Open Connection    ${TOOLS_SYSTEM_IP}    timeout=6s
     Builtin.Set Suite Variable    ${mininet_conn_id}
     Utils.Flexible Mininet Login    ${TOOLS_SYSTEM_USER}
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    ls    return_stdout=True    return_stderr=True
