@@ -192,7 +192,7 @@ def getCarPersonMappings(hostname, port, ignore):
     """
     resp = UtilLibrary.get(SettingsLibrary.getCarPersonUrl(hostname, port), "admin", "admin")
     resp.encoding = 'utf-8'
-    print (resp)
+    print(resp)
 
     return resp
 
@@ -297,7 +297,7 @@ def options():
 
     usageString = usageString + command + param
 
-    print (usageString)
+    print(usageString)
 
 
 #

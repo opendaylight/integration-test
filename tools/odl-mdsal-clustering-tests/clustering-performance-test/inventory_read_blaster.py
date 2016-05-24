@@ -33,7 +33,7 @@ class Timer(object):
         self.secs = self.end - self.start
         self.msecs = self.secs * 1000  # millisecs
         if self.verbose:
-            print ("elapsed time: %f ms" % self.msecs)
+            print("elapsed time: %f ms" % self.msecs)
 
 
 def read(hosts, port, auth, datastore, print_lock, cycles, results_queue):

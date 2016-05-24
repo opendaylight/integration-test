@@ -26,7 +26,7 @@ class Timer(object):
         self.secs = self.end - self.start
         self.msecs = self.secs * 1000  # millisecs
         if self.verbose:
-            print ("elapsed time: %f ms" % self.msecs)
+            print("elapsed time: %f ms" % self.msecs)
 
 
 def wait_for_stats(crawler, exp_found, timeout, delay):
