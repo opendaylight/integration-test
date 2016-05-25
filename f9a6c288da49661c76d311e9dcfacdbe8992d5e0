@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_f8459470",
+        "filename": "csit/suites/controller/akka_upgrade/1node.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-05-25T22:19:03Z",
+      "side": 1,
+      "message": "Hopefully you find a way to extract this from {stream} in future versions.",
+      "revId": "f9a6c288da49661c76d311e9dcfacdbe8992d5e0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_981c5879",
+        "filename": "csit/suites/controller/akka_upgrade/1node.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-05-25T22:19:03Z",
+      "side": 1,
+      "message": "this is confusing: ${cfg_older} is extracted from Newer distro while ${cfg_newer} is extracted from Older distro. I think this test will be more clear if you just swap var names and then you copy ${cfg_newer} into ${cfg_older}.",
+      "revId": "f9a6c288da49661c76d311e9dcfacdbe8992d5e0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
