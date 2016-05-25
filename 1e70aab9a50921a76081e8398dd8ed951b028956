@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_58f80049",
+        "filename": "csit/suites/controller/Clustering_DS_Bulkomatic/010__Cluster_HA_Data_Consistency_Config_DS.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-05-25T21:43:15Z",
+      "side": 1,
+      "message": "Any variable you are going to reuse in other bulkomatic robot files (e.g. cluster test) please move to BulkomaticKW library.",
+      "revId": "1e70aab9a50921a76081e8398dd8ed951b028956",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
