@@ -297,6 +297,14 @@ Show Debugs
     ${output}=    Write Commands Until Prompt    sudo ip netns list
     Log    ${output}
     : FOR    ${index}    IN    @{vm_indices}
-    \    ${output}=    Write Commands Until Prompt    nova show ${index}
+    \    ${output}=    Write Commands Until Prompt    nova console-log ${index} | grep "debug start" -A 10    30s
     \    Log    ${output}
+    \    ${output}=    Wait Until Keyword Succeeds    30s    2s    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    \    Log    ${output}
+    Close Connection
+
+Show Dumps For Network
+    [Documentation]    Run these commands for debugging, it can list state of networks and ip information in control node
+    ${output}=    Wait Until Keyword Succeeds    30s    2s    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
     Close Connection

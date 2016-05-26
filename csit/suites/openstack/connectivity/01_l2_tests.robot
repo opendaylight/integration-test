@@ -30,10 +30,12 @@ Create Networks
 Create Subnets For l2_network_1
     [Documentation]    Create Sub Nets for the Networks with neutron request.
     Create SubNet    l2_network_1    l2_subnet_1    @{SUBNETS_RANGE}[0]
+    [Teardown]    Show Dumps For Network
 
 Create Subnets For l2_network_2
     [Documentation]    Create Sub Nets for the Networks with neutron request.
     Create SubNet    l2_network_2    l2_subnet_2    @{SUBNETS_RANGE}[1]
+    [Teardown]    Show Dumps For Network
 
 Create Vm Instances For l2_network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.

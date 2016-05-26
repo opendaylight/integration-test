@@ -36,6 +36,8 @@ Run Tempest Tests
 Devstack Suite Setup Tests
     [Arguments]    ${source_pwd}=no
     [Documentation]    Login to the Openstack Control Node to run tempest suite
+    : FOR    ${ip}    IN    @{CONTROLLERS}
+    \    Issue Command On Karaf Console    log:set TRACE org.opendaylight.netvirt.openstack.netvirt    ${ip}
     ${devstack_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT}
     Set Suite Variable    ${devstack_conn_id}
     Set Suite Variable    ${source_pwd}
