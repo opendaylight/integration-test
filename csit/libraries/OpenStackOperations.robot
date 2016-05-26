@@ -297,6 +297,8 @@ Show Debugs
     ${output}=    Write Commands Until Prompt    sudo ip netns list
     Log    ${output}
     : FOR    ${index}    IN    @{vm_indices}
-    \    ${output}=    Write Commands Until Prompt    nova show ${index}
+    \    ${output}=    Write Commands Until Prompt    nova console-log ${index} | grep "debug start" -A 10    30s
+    \    Log    ${output}
+    \    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int    30s
     \    Log    ${output}
     Close Connection
