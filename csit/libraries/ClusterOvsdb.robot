@@ -43,12 +43,37 @@ Create Sample Bridge Manually And Verify
     Wait Until Keyword Succeeds    5s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_config}    ${CONFIG_TOPO_API}
     Wait Until Keyword Succeeds    10s    2s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_operational}    ${OPERATIONAL_TOPO_API}
 
+Create Sample Bridge Manually And Verify In Openstack
+    [Arguments]    ${controller_index_list}    ${tools_system}
+    [Documentation]    Create bridge br-s1 using OVS command and verify it gets created in all instances in ${controller_index_list}.
+    Utils.Run Command On Remote System    ${tools_system}    sudo ovs-vsctl add-br br-s1
+    ${dictionary_operational}=    Create Dictionary    br-s1=5
+    ${dictionary_config}=    Create Dictionary    br-s1=0
+    Wait Until Keyword Succeeds    5s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_config}    ${CONFIG_TOPO_API}
+    Wait Until Keyword Succeeds    10s    2s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_operational}    ${OPERATIONAL_TOPO_API}
+
 Add Sample Port To The Manual Bridge And Verify
     [Arguments]    ${controller_index_list}
     [Documentation]    Add Port vx1 to br-s1 using OVS command and verify it gets added in all instances in ${controller_index_list}.
     Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-port br-s1 vx1 -- set Interface vx1 type=vxlan
     ${dictionary_operational}=    Create Dictionary    vx1=2
     ${dictionary_config}=    Create Dictionary    vx1=0
+    Wait Until Keyword Succeeds    5s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_config}    ${CONFIG_TOPO_API}
+    Wait Until Keyword Succeeds    5s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_operational}    ${OPERATIONAL_TOPO_API}
+
+Create Sample Tap Device In Openstack
+    [Documentation]    Create Tap Device  vport1 and vport2 to add to the bridge br-s1 using OVS command.
+    Utils.Run Command On Remote System    ${OS_CONTROL_NODE_IP}    ip tuntap add mode tap vport1
+    Utils.Run Command On Remote System    ${OS_CONTROL_NODE_IP}    ip tuntap add mode tap vport2
+    Utils.Run Command On Remote System    ${OS_CONTROL_NODE_IP}    ifconfig vport1 up
+    Utils.Run Command On Remote System    ${OS_CONTROL_NODE_IP}    ifconfig vport2 up
+
+Add Sample Tap Device To The Manual Bridge And Verify In Openstack
+    [Arguments]    ${controller_index_list}    ${tools_system}
+    [Documentation]    Add Tap Device  vport1 and vport2 to br-s1 using OVS command and verify it gets added in all instances in ${controller_index_list}.
+    Utils.Run Command On Remote System    ${tools_system}    sudo ovs-vsctl add-port br-s1 vport1 -- add-port br-s1 vport2
+    ${dictionary_operational}=    Create Dictionary    vport1=2    vport2=2
+    ${dictionary_config}=    Create Dictionary    vport1=0    vport2=0
     Wait Until Keyword Succeeds    5s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_config}    ${CONFIG_TOPO_API}
     Wait Until Keyword Succeeds    5s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_operational}    ${OPERATIONAL_TOPO_API}
 
