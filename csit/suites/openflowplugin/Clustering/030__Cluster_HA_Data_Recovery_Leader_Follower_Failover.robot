@@ -48,6 +48,7 @@ Stop Mininet Connected To Follower Node1 and Exit
     [Documentation]    Stop mininet and exit connection.
     MininetKeywords.Stop Mininet And Exit    ${mininet_conn_id}
     Utils.Clean Mininet System
+    Sleep    10
 
 Restart Leader From Cluster Node
     [Documentation]    Kill Leader Node and Start it Up, Verify it is sync with other controller node.
