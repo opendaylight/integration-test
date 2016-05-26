@@ -62,6 +62,8 @@ Kill_Original_Odl
     [Documentation]    The ODL prepared by releng/builder is the newer one, kill it.
     ...    Also, remove journal and snapshots.
     ClusterManagement.Kill_Members_From_List_Or_All
+    # This is deliberately analoguous to killing the whole cluster.
+    # (As opposed to killing just one member, but for 1 node it is the same.)
     ClusterManagement.Clean_Journals_And_Snapshots_On_List_Or_All
 
 Install_Older_Odl
@@ -74,23 +76,21 @@ Install_Older_Odl
     # TODO: Add more strict checks. Folder should have single line, without .zip extension.
     # Extract featuresBoot lines.
     ${cfg_filename} =    BuiltIn.Set_Variable    org.apache.karaf.features.cfg
-    ${cfg_older} =    BuiltIn.Set_Variable    ${WORKSPACE}/${BUNDLEFOLDER}/etc/${cfg_filename}
-    ${cfg_newer} =    BuiltIn.Set_Variable    ${alternative_bundlefolder}/etc/${cfg_filename}
-    ${vanilla_line} =    SSHKeywords.Execute_Command_Should_Pass    grep 'featuresBoot' "${cfg_newer}" | grep -v 'featuresBootAsynchronous'
-    ${older_line} =    SSHKeywords.Execute_Command_Should_Pass    grep 'featuresBoot' "${cfg_older}" | grep -v 'featuresBootAsynchronous'
+    ${cfg_older} =    BuiltIn.Set_Variable    ${alternative_bundlefolder}/etc/${cfg_filename}
+    ${cfg_newer} =    BuiltIn.Set_Variable    ${WORKSPACE}/${BUNDLEFOLDER}/etc/${cfg_filename}
+    ${vanilla_line} =    SSHKeywords.Execute_Command_Should_Pass    grep 'featuresBoot' "${cfg_older}" | grep -v 'featuresBootAsynchronous'
+    ${csit_line} =    SSHKeywords.Execute_Command_Should_Pass    grep 'featuresBoot' "${cfg_newer}" | grep -v 'featuresBootAsynchronous'
     # Replace the vanilla line.
-    SSHKeywords.Execute_Command_Should_Pass    sed -i 's/${vanilla_line}/${older_line}/g' "${cfg_newer}"
+    SSHKeywords.Execute_Command_Should_Pass    sed -i 's/${vanilla_line}/${csit_line}/g' "${cfg_older}"
     # Verify the replaced line.
-    ${newer_line} =    SSHKeywords.Execute_Command_Should_Pass    grep 'featuresBoot' "${cfg_newer}" | grep -v 'featuresBootAsynchronous'
-    BuiltIn.Should_Not_Be_Equal    ${vanilla_line}    ${newer_line}
-    BuiltIn.Should_Be_Equal    ${older_line}    ${newer_line}
+    ${updated_line} =    SSHKeywords.Execute_Command_Should_Pass    grep 'featuresBoot' "${cfg_older}" | grep -v 'featuresBootAsynchronous'
+    BuiltIn.Should_Not_Be_Equal    ${vanilla_line}    ${updated_line}
+    BuiltIn.Should_Be_Equal    ${csit_line}    ${updated_line}
 
 Start_Older_Odl
     [Documentation]    Start older ODL on background.
     [Tags]    1node    carpeople    # Not critical, to save space in default log.html presentation
     ClusterManagement.Start_Members_From_List_Or_All    wait_for_sync=True    timeout=${CLUSTER_BOOTUP_SYNC_TIMEOUT}    karaf_home=${alternative_bundlefolder}
-    # This is deliberately analoguous to killing the whole cluster.
-    # (As opposed to killing just one member, but for 1 node it is the same.)
 
 Add_Data
     [Documentation]    Put car data to config datastore of older ODL.
