@@ -300,3 +300,20 @@ Show Debugs
     \    ${output}=    Write Commands Until Prompt    nova show ${index}
     \    Log    ${output}
     Close Connection
+
+Get Mac Address
+    [Arguments]    ${ip}
+    [Documentation]    Retrieve the mac address for the given subnet ip
+    ${mac_add}=    Write Commands Until Prompt    neutron port-list | grep "${ip}" | get_field 3
+    Log    ${mac_add}
+    [Return]    ${mac_add}
+
+Verify VM With Dump Flows
+    [Arguments]    ${mac_addr}    @{VM_FLOWS}
+    [Documentation]    Verify the vm instance entry in the dump flow with all tables.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    : FOR    ${table}    IN    @{VM_FLOWS}
+    \    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int | grep ${table}
+    \    Log    ${output}
+    \    Should Contain    ${output}    ${mac_addr}
