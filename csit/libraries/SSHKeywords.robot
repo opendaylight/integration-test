@@ -121,3 +121,36 @@ Invoke
     ${augmented}=    BuiltIn.Set_Variable    if test -f $HOME/.bash_profile; then . $HOME/.bash_profile; fi; ${command}
     ${result}=    SSHLibrary.Execute_Command    ${augmented}    return_stdout=${return_stdout}    return_stderr=${return_stderr}    return_rc=${return_rc}
     [Return]    ${result}
+
+Deploy_Directory
+    [Arguments]    ${source}    ${destination}    ${mode}=0744    ${newline}=    ${recursive}=False
+    [Documentation]    Deploy a directory to the remote machine, overwriting
+    ...    any existing file or directory with the same name at the specified
+    ...    destination.
+    SSHLibrary.Execute_Command    rm -rf ${destination}
+    SSHLibrary.Put_Directory    ${source}    destination=${destination}    mode=${mode}    newline=${newline}    recursive=${recursive}
+
+Update_Directory
+    [Arguments]    ${source}    ${destination}    ${mode}=0744    ${newline}=    ${recursive}=False
+    [Documentation]    Update the specified existing destination directory
+    ...    with the content of the source directory. Files in the source
+    ...    directory will overwrite corresponding files in the destination
+    ...    directory or will be created in the destination directory if they
+    ...    don't exist there yet but files that exist in the destination
+    ...    directory but not in the source directory will be left intact.
+    ...    Invoking this keyword with a nonexistent destination directory
+    ...    will create it with the files from the source directory.
+    # Invoking SSHLibrary.Put_Directory with an existing destination
+    # directory will result in undefined behavior. The elaborate code below
+    # is making the behavior defined as specified in the documentation.
+    # The particularly troublesome use cases are something like "update
+    # /home/odl/toolconfig from ../../variables/bgpcep/exabgp/evpnconfigs"
+    # (note the basename of the directory being updated is different from the
+    # basename of the directory where the data we want to update with is
+    # located).
+    ${rc}=    Invoke    test -d ${destination}    return_stdout=False    return_rc=True
+    BuiltIn.Run_Keyword_And_Return_If    ${rc}!=0    Deploy_Directory    ${source}    ${destination}    ${mode}    ${newline}    ${recursive}
+    ${name}=    Invoke    X=""; Y=""; if test -n "$TEMP"; then X=`dirname $TEMP`"/"; Y=`basename $TEMP`; fi; echo $X$Y`mktemp -d -u`
+    Deploy_Directory    ${source}    ${name}    ${mode}    ${newline}    ${recursive}
+    ${stdout}    ${stderr}=    Invoke    cp -r ${name}/* ${destination}    return_stdout=True    return_stderr=True
+    Invoke    rm -rf ${name}
