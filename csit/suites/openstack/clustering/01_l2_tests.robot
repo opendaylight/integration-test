@@ -10,6 +10,7 @@ Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/DevstackUtils.robot
 Resource          ../../../libraries/OVSDB.robot
+Resource          ../../../libraries/ClusterOvsdb.robot
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/ClusterKeywords.robot
@@ -41,6 +42,18 @@ Check OVS Manager Connection Status
     Set Suite Variable    ${status}    is_connected: true
     ${dictionary}=    Create Dictionary    ${status}=9
     Utils.Check Item Occurrence    ${output}    ${dictionary}
+
+Create Bridge Manually and Verify Before Fail
+    [Documentation]    Create bridge with OVS command and verify it gets applied from all instances.
+    ClusterOvsdb.Create Sample Bridge Manually And Verify In Openstack    ${original_cluster_list}    ${OS_CONTROL_NODE_IP}
+
+Create Tap Device Before Fail
+    [Documentation]    Create tap devices to add to the bridge in ovs
+    ClusterOvsdb.Create Sample Tap Device In Openstack
+
+Add Tap Device Manually and Verify Before Fail
+    [Documentation]    Add tap devices to the bridge with OVS command and verify it gets applied from all instances.
+    ClusterOvsdb.Add Sample Tap Device To The Manual Bridge And Verify In Openstack    ${original_cluster_list}    ${OS_CONTROL_NODE_IP}
 
 Create Networks
     [Documentation]    Create Network with neutron request.
