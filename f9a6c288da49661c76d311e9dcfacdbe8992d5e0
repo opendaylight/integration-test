@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_2da509a2",
+        "filename": "csit/suites/controller/akka_upgrade/1node.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-26T10:08:40Z",
+      "side": 1,
+      "message": "Not a pressing issue right now, so I have just created a Trello card:\nhttps://trello.com/c/Nk2Vayil/319-enhance-akka-upgrade-suite-for-autodetection-of-previous-release",
+      "parentUuid": "fa57193c_f8459470",
+      "revId": "f9a6c288da49661c76d311e9dcfacdbe8992d5e0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_981c5879",
         "filename": "csit/suites/controller/akka_upgrade/1node.robot",
         "patchSetId": 39
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_4da83d77",
+        "filename": "csit/suites/controller/akka_upgrade/1node.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-26T10:08:40Z",
+      "side": 1,
+      "message": "Ouch. Previous patch sets used different names and I replaced that is a wrong way. Fix in progress: https://git.opendaylight.org/gerrit/39472",
+      "parentUuid": "fa57193c_981c5879",
+      "revId": "f9a6c288da49661c76d311e9dcfacdbe8992d5e0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_f813d463",
         "filename": "csit/suites/controller/akka_upgrade/1node.robot",
         "patchSetId": 39
@@ -47,6 +83,30 @@
       "writtenOn": "2016-05-25T22:19:14Z",
       "side": 1,
       "message": "you mean \"starting\" I think.",
+      "range": {
+        "startLine": 92,
+        "startChar": 41,
+        "endLine": 92,
+        "endChar": 48
+      },
+      "revId": "f9a6c288da49661c76d311e9dcfacdbe8992d5e0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_adb8f9c8",
+        "filename": "csit/suites/controller/akka_upgrade/1node.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-26T10:08:40Z",
+      "side": 1,
+      "message": "Moving to Kill_Original_Odl test case in https://git.opendaylight.org/gerrit/39472",
+      "parentUuid": "fa57193c_f813d463",
       "range": {
         "startLine": 92,
         "startChar": 41,
