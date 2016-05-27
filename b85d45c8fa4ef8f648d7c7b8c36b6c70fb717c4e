@@ -1,0 +1,257 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_9e0c3def",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-05-27T05:28:55Z",
+      "side": 1,
+      "message": "some of these are duplicates.  but, more importantly, you should use what we have available in the Variables.py [0]\n\nI am pretty sure we have a common location for the neutron\nAPI too.\n\n[0] https://github.com/opendaylight/integration-test/blob/master/csit/variables/Variables.py#L120-L122",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 34
+      },
+      "revId": "b85d45c8fa4ef8f648d7c7b8c36b6c70fb717c4e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_1ef82dc2",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-05-27T05:28:55Z",
+      "side": 1,
+      "message": "tags should be before or after documentation, I guess.\n\nrobot.tidy is your friend.",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 18
+      },
+      "revId": "b85d45c8fa4ef8f648d7c7b8c36b6c70fb717c4e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_de123508",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-05-27T05:28:55Z",
+      "side": 1,
+      "message": "I see this pattern a lot.  If you like it, you can \nwrite a local (or library) keyword with something like\n\nValidate and Log Response\n    [Arguments]    ${response}    ${expected_status_code}\n    Log    ${response.content}\n    Log    ${response.status_code}\n    Should Be Equal As Strings    ${response.status_code}    ${expected_status_code}",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 60
+      },
+      "revId": "b85d45c8fa4ef8f648d7c7b8c36b6c70fb717c4e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_fe0d79e9",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-05-27T05:28:55Z",
+      "side": 1,
+      "message": "duplicate",
+      "range": {
+        "startLine": 65,
+        "startChar": 0,
+        "endLine": 65,
+        "endChar": 26
+      },
+      "revId": "b85d45c8fa4ef8f648d7c7b8c36b6c70fb717c4e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_3efb71c2",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-05-27T05:28:55Z",
+      "side": 1,
+      "message": "I think robot.tidy would get rid of this kind of stuff.",
+      "range": {
+        "startLine": 68,
+        "startChar": 0,
+        "endLine": 68,
+        "endChar": 2
+      },
+      "revId": "b85d45c8fa4ef8f648d7c7b8c36b6c70fb717c4e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_7e0169ae",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-05-27T05:28:55Z",
+      "side": 1,
+      "message": "btw, you should see in our Variables.py that our URIs never end in a backslash \u0027/\u0027 because it makes it more readable to \ndo ${ODLREST}/subnets as opposed to ${ODLREST}subnets/",
+      "range": {
+        "startLine": 75,
+        "startChar": 58,
+        "endLine": 75,
+        "endChar": 68
+      },
+      "revId": "b85d45c8fa4ef8f648d7c7b8c36b6c70fb717c4e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_5efe25af",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-05-27T05:28:55Z",
+      "side": 1,
+      "message": "good log message, but nothing below this line is checking anything.",
+      "range": {
+        "startLine": 158,
+        "startChar": 4,
+        "endLine": 158,
+        "endChar": 65
+      },
+      "revId": "b85d45c8fa4ef8f648d7c7b8c36b6c70fb717c4e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_be2e6141",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-05-27T05:28:55Z",
+      "side": 1,
+      "message": "just to point out about my comment above how a local keyword\nwould take these three lines down to one making things a\nlittle  more readable.",
+      "range": {
+        "startLine": 216,
+        "startChar": 0,
+        "endLine": 218,
+        "endChar": 60
+      },
+      "revId": "b85d45c8fa4ef8f648d7c7b8c36b6c70fb717c4e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_9e339daa",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-05-27T05:28:55Z",
+      "side": 1,
+      "message": "we pretty much try to never let \"sleep\" come in to \nCSIT, without a good reason.  If it might take a little\nbit for the below GET to find the right answer then you \ncan wrap that part in a \"Wait Until Keyword Succeeds\" (WUKS) with a 3s duration @ 1s polling period",
+      "range": {
+        "startLine": 279,
+        "startChar": 0,
+        "endLine": 279,
+        "endChar": 24
+      },
+      "revId": "b85d45c8fa4ef8f648d7c7b8c36b6c70fb717c4e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_fe245961",
+        "filename": "csit/suites/vpnservice/__init__.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-05-27T05:28:55Z",
+      "side": 1,
+      "message": "not sure what happened here, but we are now using TOOLS_SYSTEM_IP instead of MININET.  this applies everywhere\nI guess...  *USER, *PASSWORD.",
+      "range": {
+        "startLine": 15,
+        "startChar": 51,
+        "endLine": 15,
+        "endChar": 58
+      },
+      "revId": "b85d45c8fa4ef8f648d7c7b8c36b6c70fb717c4e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_de299538",
+        "filename": "csit/suites/vpnservice/__init__.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-05-27T05:28:55Z",
+      "side": 1,
+      "message": "I bet this would do all that you want:\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/OVSDB.robot#L103\n\nbtw, no sleep 30 please.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 48
+      },
+      "revId": "b85d45c8fa4ef8f648d7c7b8c36b6c70fb717c4e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
