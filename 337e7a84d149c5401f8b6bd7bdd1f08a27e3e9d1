@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_84498a62",
+        "filename": "csit/suites/sxp/topology/010_Topology_Features.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-27T12:27:12Z",
+      "side": 1,
+      "message": "This Sleep is not needed then. Are the two previous Sleeps needed?",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 15
+      },
+      "revId": "337e7a84d149c5401f8b6bd7bdd1f08a27e3e9d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
