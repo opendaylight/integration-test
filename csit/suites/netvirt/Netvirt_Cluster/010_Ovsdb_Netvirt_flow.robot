@@ -18,6 +18,7 @@ ${OVSDB_CONFIG_DIR}    ${CURDIR}/../../../variables/ovsdb
 ${EXT_NET1_ID}    7da709ff-397f-4778-a0e8-994811272fdb
 ${EXT_SUBNET1_ID}    00289199-e288-464a-ab2f-837ca67101a7
 ${TNT1_ID}        cde2563ead464ffa97963c59e002c0cf
+${ODLREST}        /controller/nb/v2/neutron/
 
 *** Test Cases ***
 Create Original Cluster List
