@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_1e714d76",
+        "filename": "csit/suites/ocpplugin/basic/010__ocp_get.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-05-27T05:07:46Z",
+      "side": 1,
+      "message": "this is all good and a great way to start getting system test upstream.  once you start building things up you\u0027ll\nprobably find that you would rather put things like ${NODE_ID}, ${REST_GET_PARAM} and your $data variable in to \na common location (library or variable file).  But, for now,\nyou are only using it here, so let\u0027s get things going for ocpplugin :)",
+      "revId": "a419f6e915e3f02852a6423c82585d7837c309c0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
