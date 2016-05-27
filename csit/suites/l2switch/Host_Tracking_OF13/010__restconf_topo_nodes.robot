@@ -58,7 +58,7 @@ Host Tracker host3
     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_TOPO_API}    "node-id":"host:${MAC_3}"    1
 
 Link Down
-    [Documentation]    Take link s1-h1 down and verify host1 goes away
+    [Documentation]    Take link s1-h1 down and verify host1 goes away. This is a not implemented feature.
     [Tags]    exclude
     Write    link s1 h1 down
     Read Until    mininet>
@@ -68,7 +68,7 @@ Link Down
     Wait Until Keyword Succeeds    10s    2s    Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}    ${list}
 
 Link Up
-    [Documentation]    Take link s1-h1 up and verify host1 comes back
+    [Documentation]    Take link s1-h1 up and verify host1 comes back. This is a not implemented feature.
     [Tags]    exclude
     Write    link s1 h1 up
     Read Until    mininet>
@@ -79,14 +79,16 @@ Link Up
     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_TOPO_API}    "node-id":"host:${MAC_1}"    1
 
 Remove Port
-    [Documentation]    Remove port s1-eth1 and verify host1 goes away
+    [Documentation]    Remove port s1-eth1 and verify host1 goes away. This fails sporadically in CI but not in local env.
+    [Tags]    exclude
     Write    sh ovs-vsctl del-port s1 s1-eth1
     Read Until    mininet>
     @{list}    Create List    ${MAC_1}
     Wait Until Keyword Succeeds    10s    2s    Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}    ${list}
 
 Add Port
-    [Documentation]    Add port s2-eth1 and verify host1 comes back
+    [Documentation]    Add port s2-eth1 and verify host1 comes back. This only works with the previous test.
+    [Tags]    exclude
     Write    sh ovs-vsctl add-port s1 s1-eth1 -- set interface s1-eth1 ofport=1
     Read Until    mininet>
     @{list}    Create List    "link-down":false
