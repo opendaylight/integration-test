@@ -41,13 +41,12 @@ Create Token with Client Authorization
 
 Token Authentication In REST Request
     [Documentation]    Use a token to make a successful REST transaction
-    ${auth_token}=    Get Auth Token
-    Make REST Transaction    200    ${auth_token}
+    ${auth_token}=    Get Token And Verify
+    [Teardown]    Report_Failure_Due_To_Bug    5838
 
 Revoke Token And Verify Transaction Fails
     [Documentation]    negative test to revoke valid token and check that REST transaction fails
-    ${auth_token}=    Get Auth Token
-    Make REST Transaction    200    ${auth_token}
+    ${auth_token}=    Wait Until Keyword Succeeds    10s    1s    Get Token and Verify
     Revoke Auth Token    ${auth_token}
     Make REST Transaction    401    ${auth_token}
 
@@ -60,11 +59,15 @@ Disable Authentication And Re-Enable Authentication
     Wait Until Keyword Succeeds    10s    1s    Make REST Transaction    200
     Enable Authentication On Controller    ${ODL_SYSTEM_IP}
     Wait Until Keyword Succeeds    10s    1s    Validate That Authentication Fails With Wrong Token
-    ${auth_token}=    Get Auth Token
-    Make REST Transaction    200    ${auth_token}
+    ${auth_token}=    Get Token And Verify
     [Teardown]    Report_Failure_Due_To_Bug    4922
 
 *** Keywords ***
+Get Token And Verify
+    ${auth_token}=    Get Auth Token
+    Make REST Transaction    200    ${auth_token}
+    [Return]    ${auth_token}
+
 Validate That Authentication Fails With Wrong Token
     ${bad_token}=    Set Variable    notARealToken
     Make REST Transaction    401    ${bad_token}
