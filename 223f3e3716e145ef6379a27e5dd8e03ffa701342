@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "fa57193c_d1286388",
+        "filename": "csit/suites/aaa/authn/010_Credential_Authentication.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 3635
+      },
+      "writtenOn": "2016-05-27T22:25:43Z",
+      "side": 1,
+      "message": "Technically should we add the Teardown step here too?  I am thinking that if the auth token is never successfully provisioned, then there is no way to revoke it...",
+      "revId": "223f3e3716e145ef6379a27e5dd8e03ffa701342",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
