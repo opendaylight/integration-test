@@ -16,6 +16,24 @@
       "revId": "223f3e3716e145ef6379a27e5dd8e03ffa701342",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_111f7b5c",
+        "filename": "csit/suites/aaa/authn/010_Credential_Authentication.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-05-27T22:31:18Z",
+      "side": 1,
+      "message": "Good point, let me try something more sophisticated here.",
+      "parentUuid": "fa57193c_d1286388",
+      "revId": "223f3e3716e145ef6379a27e5dd8e03ffa701342",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
