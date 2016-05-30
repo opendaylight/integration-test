@@ -10,10 +10,9 @@ Library           ../../../libraries/Topology.py
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/OcpAgentKeywords.robot
 Variables         ../../../variables/Variables.py
+Variables         ../../../variables/ocpplugin/Variables.py
 
 *** Variables ***
-${NODE_ID}        /restconf/operational/opendaylight-inventory:nodes/node/ocp:
-${REST_GET_PARAM}    /restconf/operations/ocp-service:get-param-nb
 
 *** Test Cases ***
 Check if node exist
