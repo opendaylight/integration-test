@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_9c3b2938",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-05-30T09:52:24Z",
+      "side": 1,
+      "message": "Moved all the variable which are duplicate. Using them from Variable.py  Minimum number of variable are used which are not duplicate.",
+      "parentUuid": "fa57193c_9e0c3def",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 34
+      },
+      "revId": "b85d45c8fa4ef8f648d7c7b8c36b6c70fb717c4e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_1ef82dc2",
         "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_1c1719a5",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-05-30T09:52:24Z",
+      "side": 1,
+      "message": "Using the \u0027Tags after Documentation - now it is consistent everywhere.",
+      "parentUuid": "fa57193c_1ef82dc2",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 18
+      },
+      "revId": "b85d45c8fa4ef8f648d7c7b8c36b6c70fb717c4e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_de123508",
         "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2016-05-27T05:28:55Z",
       "side": 1,
       "message": "I see this pattern a lot.  If you like it, you can \nwrite a local (or library) keyword with something like\n\nValidate and Log Response\n    [Arguments]    ${response}    ${expected_status_code}\n    Log    ${response.content}\n    Log    ${response.status_code}\n    Should Be Equal As Strings    ${response.status_code}    ${expected_status_code}",
+      "range": {
+        "startLine": 49,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 60
+      },
+      "revId": "b85d45c8fa4ef8f648d7c7b8c36b6c70fb717c4e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_5c5fd172",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-05-30T09:52:24Z",
+      "side": 1,
+      "message": "Log    ${response.status_code} - not Logging now, duplicate are removed.",
+      "parentUuid": "fa57193c_de123508",
       "range": {
         "startLine": 49,
         "startChar": 0,
@@ -140,6 +212,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_bc538d6b",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-05-30T09:52:24Z",
+      "side": 1,
+      "message": "Now using from Variable.py  - NEUTRON_NB_API",
+      "parentUuid": "fa57193c_7e0169ae",
+      "range": {
+        "startLine": 75,
+        "startChar": 58,
+        "endLine": 75,
+        "endChar": 68
+      },
+      "revId": "b85d45c8fa4ef8f648d7c7b8c36b6c70fb717c4e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_5efe25af",
         "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
         "patchSetId": 3
@@ -151,6 +247,30 @@
       "writtenOn": "2016-05-27T05:28:55Z",
       "side": 1,
       "message": "good log message, but nothing below this line is checking anything.",
+      "range": {
+        "startLine": 158,
+        "startChar": 4,
+        "endLine": 158,
+        "endChar": 65
+      },
+      "revId": "b85d45c8fa4ef8f648d7c7b8c36b6c70fb717c4e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_dc4ac1ab",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-05-30T09:52:24Z",
+      "side": 1,
+      "message": "changed this",
+      "parentUuid": "fa57193c_5efe25af",
       "range": {
         "startLine": 158,
         "startChar": 4,
@@ -243,6 +363,30 @@
       "writtenOn": "2016-05-27T05:28:55Z",
       "side": 1,
       "message": "I bet this would do all that you want:\nhttps://github.com/opendaylight/integration-test/blob/master/csit/libraries/OVSDB.robot#L103\n\nbtw, no sleep 30 please.",
+      "range": {
+        "startLine": 41,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 48
+      },
+      "revId": "b85d45c8fa4ef8f648d7c7b8c36b6c70fb717c4e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_7cd1f5cc",
+        "filename": "csit/suites/vpnservice/__init__.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-05-30T09:52:24Z",
+      "side": 1,
+      "message": "This is removed and importing it from OVSDB.robot\nAnd removed sleep",
+      "parentUuid": "fa57193c_de299538",
       "range": {
         "startLine": 41,
         "startChar": 0,
