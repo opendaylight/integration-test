@@ -13,18 +13,26 @@ Variables         ../../../variables/Variables.py
 Variables         ../../../variables/ocpplugin/Variables.py
 
 *** Variables ***
+${NODE_AMOUNT}    20
 *** Test Cases ***
-Check if node exist
+Install agent
+    [Documentation]    install agent
+    [Tags]    install
+    OcpAgentKeywords.Install Agent
+
+Create multiple emulators
     [Documentation]    get inventory node
     [Tags]    get node
-    OcpAgentKeywords.Install Agent
-    ${mininet_conn_id}=    OcpAgentKeywords.Start Emulator Single
-    ${resp}    Get Request    session   ${NODE_ID}TST-100
+    ${NODE_AMOUNT}=    Convert To Integer    ${NODE_AMOUNT}
+    ${mininet_conn_id}=    OcpAgentKeywords.Start Emulator Multiple     number=${NODE_AMOUNT+1}
+    ${resp}    Get Request    session   ${NODE_ID}TST-${NODE_AMOUNT}
     Should Be Equal As Strings    ${resp.status_code}    200
 
-Get param from emulator
+Get param from emulators
     [Documentation]    OCPPLUGIN  get param
     [Tags]    OCPPLUGIN get
-    ${resp}    Post Request    session    ${REST_GET_PARAM}    data={"input":{"nodeId":"ocp:TST-100","obj":[{"id":"ALL","param":[{"name":"ALL"}]}]}}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    ${NODE_AMOUNT}=    Convert To Integer    ${NODE_AMOUNT}
+    : FOR    ${NODE_NUM}    IN RANGE    1    ${NODE_AMOUNT+1}
+    \    ${resp}    Post Request    session    ${REST_GET_PARAM}    data={"input":{"nodeId":"ocp:TST-${NODE_NUM}","obj":[{"id":"ALL","param":[{"name":"ALL"}]}]}}
+    \    Should Be Equal As Strings    ${resp.status_code}    200
     Stop Emulator And Exit    ${mininet_conn_id}
