@@ -91,8 +91,9 @@ Create_Device_Data
 
 Find_And_Shutdown_Device_Entity_Owner
     [Documentation]    Simulate a failure of the owner of the entity that represents the device.
-    ${owner}    ${candidates}=    Get_Netconf_Entity_Info    ${DEVICE_NAME}    session=node1
-    Length Should Be    ${candidates}    2    Wrong count of candidates returned
+    ${owner}    ${candidates}=    ClusterKeywords.Get Device Entity Owner And Candidates Indexes    node1    netconf    ${DEVICE NAME}
+    Log    ${candidates}
+    Length Should Be    ${candidates}    3    Wrong count of candidates returned
     BuiltIn.Set_Suite_Variable    ${original_device_owner}    ${owner}
     BuiltIn.Set_Suite_Variable    ${candidate1}    @{candidates}[0]
     BuiltIn.Set_Suite_Variable    ${candidate2}    @{candidates}[1]
@@ -101,6 +102,8 @@ Find_And_Shutdown_Device_Entity_Owner
 Wait_For_New_Owner_To_Appear
     [Documentation]    Wait for the cluster to recover from the failure and choose a new owner for the entity.
     [Tags]    critical
+    @{controller_list}=    ${ODL_SYSTEM_1_IP}    ${ODL_SYSTEM_2_IP}    ${ODL_SYSTEM_3_IP}
+    ClusterKeywords.Wait For Cluster Sync    1m    @{controller_list}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${CLUSTER_RECOVERY_TIMEOUT}    1s    Check_Owner_Reconfigured    ${original_device_owner}
 
 Modify_Device_Data_When_Original_Owner_Is_Down
@@ -174,39 +177,13 @@ Check_Config_Data
     BuiltIn.Run_Keyword_Unless    ${contains}    BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${expected}
     BuiltIn.Run_Keyword_If    ${contains}    BuiltIn.Should_Contain    ${data}    ${expected}
 
-Get_Netconf_Entity_Info
-    [Arguments]    ${entity}    ${session}
-    [Documentation]    Get owner and candidates for the specified netconf entity
-    ...    TODO: Merge with ClusterKeywords.Get_Cluster_Entity_Owner which
-    ...    contains most of the code from this keyword.
-    ${entity_type}=    BuiltIn.Set_Variable    netconf-node/${entity}
-    ${candidates_list}=    Create List
-    ${data}=    Utils.Get Data From URI    ${session}    /restconf/operational/entity-owners:entity-owners
-    Log    ${data}
-    ${clear_data}=    Replace String    ${data}    /general-entity:entity[general-entity:name='    ${EMPTY}
-    ${clear_data}=    Replace String    ${clear_data}    ']    ${EMPTY}
-    ${json}=    RequestsLibrary.To Json    ${clear_data}
-    ${entity_type_list}=    Get From Dictionary    &{json}[entity-owners]    entity-type
-    ${entity_type_index}=    Get Index From List Of Dictionaries    ${entity_type_list}    type    ${entity_type}
-    Should Not Be Equal    ${entity_type_index}    -1    No Entity Owner found for ${entity_type}
-    ${entity_list}=    Get From Dictionary    @{entity_type_list}[${entity_type_index}]    entity
-    ${entity_index}=    Utils.Get Index From List Of Dictionaries    ${entity_list}    id    ${entity}
-    Should Not Be Equal    ${entity_index}    -1    Device ${entity} not found in Entity Owner ${entity_type}
-    ${entity_owner}=    Get From Dictionary    @{entity_list}[${entity_index}]    owner
-    Should Not Be Empty    ${entity_owner}    No owner found for ${entity}
-    ${owner}=    Replace String    ${entity_owner}    member-    ${EMPTY}
-    ${owner}=    Convert To Integer    ${owner}
-    ${entity_candidates_list}=    Get From Dictionary    @{entity_list}[${entity_index}]    candidate
-    ${list_length}=    Get Length    ${entity_candidates_list}
-    : FOR    ${entity_candidate}    IN    @{entity_candidates_list}
-    \    ${candidate}=    Replace String    &{entity_candidate}[name]    member-    ${EMPTY}
-    \    ${candidate}=    Convert To Integer    ${candidate}
-    \    Append To List    ${candidates_list}    ${candidate}
-    Remove Values From List    ${candidates_list}    ${owner}
-    [Return]    ${owner}    ${candidates_list}
-
 Check_Owner_Reconfigured
     [Arguments]    ${original_device_owner}
     [Documentation]    Check whether the entity owner changed. Fail if not or no owner found.
-    ${owner}    ${candidates}=    Get_Netconf_Entity_Info    ${DEVICE_NAME}    session=${candidate1}
+    Log    original_owner ${original_device_owner}
+    Log    node_c1 node${candidate1}
+    Log    node_c2 node${candidate2}
+    Log    controller_c1 controller${candidate1} 
+    Log    controller_c2 controller${candidate2}
+    ${owner}    ${candidates}=    ClusterKeywords.Get_Device_Entity_Owner_And_Candidates_Indexes    controller${candidate1}    netconf    ${DEVICE_NAME}
     BuiltIn.Should_Not_Be_Equal_As_Integers    ${owner}    ${original_device_owner}
