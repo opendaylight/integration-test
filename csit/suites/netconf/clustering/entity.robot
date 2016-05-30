@@ -78,40 +78,49 @@ Wait_For_Device_To_Become_Visible_For_All_Nodes
     NetconfKeywords.Wait_Device_Connected    ${DEVICE_NAME}    session=node2
     NetconfKeywords.Wait_Device_Connected    ${DEVICE_NAME}    session=node3
 
-Create_Device_Data
-    [Documentation]    Create some data on the device and propagate it throughout the cluster.
+Check_Config_Data_Before_Data_Creation
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node1    ${empty_data}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node2    ${empty_data}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node3    ${empty_data}
+
+Create_Device_Data
+    [Documentation]    Create some data on the device and propagate it throughout the cluster.
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${DEVICE_NAME}'}
     TemplatedRequests.Post_As_Xml_Templated    ${directory_with_template_folders}${/}dataorig    ${template_as_string}    session=node2
+
+Check_Config_Data_After_Device_Creation
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node1    ${original_data}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node2    ${original_data}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node3    ${original_data}
 
 Find_And_Shutdown_Device_Entity_Owner
     [Documentation]    Simulate a failure of the owner of the entity that represents the device.
-    ${owner}    ${candidates}=    Get_Netconf_Entity_Info    ${DEVICE_NAME}    session=node1
-    Length Should Be    ${candidates}    2    Wrong count of candidates returned
+    ${owner}    ${followers}=    ClusterKeywords.Get Device Entity Owner And Followers Indexes    node1    netconf    ${DEVICE NAME}
+    Log    ${followers}
+    Length Should Be    ${followers}    2    Wrong count of followers returned
     BuiltIn.Set_Suite_Variable    ${original_device_owner}    ${owner}
-    BuiltIn.Set_Suite_Variable    ${candidate1}    @{candidates}[0]
-    BuiltIn.Set_Suite_Variable    ${candidate2}    @{candidates}[1]
+    BuiltIn.Set_Suite_Variable    ${follower1}    @{followers}[0]
+    BuiltIn.Set_Suite_Variable    ${follower2}    @{followers}[1]
     ClusterManagement.Kill_Single_Member    ${owner}
 
 Wait_For_New_Owner_To_Appear
     [Documentation]    Wait for the cluster to recover from the failure and choose a new owner for the entity.
     [Tags]    critical
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${CLUSTER_RECOVERY_TIMEOUT}    1s    Check_Owner_Reconfigured    ${original_device_owner}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${CLUSTER_RECOVERY_TIMEOUT}    1s    Check_Owner_Reconfigured
+
+Check_Config_Data_Before_Modification_With_Original_Owner_Down
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node${follower1}    ${original_data}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node${follower2}    ${original_data}
 
 Modify_Device_Data_When_Original_Owner_Is_Down
     [Documentation]    Attempt to modify the data on the device after recovery and see if it still works.
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node${candidate1}    ${original_data}
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node${candidate2}    ${original_data}
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${DEVICE_NAME}'}
-    TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}datamod1    ${template_as_string}    session=node${candidate1}
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node${candidate1}    ${modified_data}
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node${candidate2}    ${modified_data}
+    TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}datamod1    ${template_as_string}    session=node${follower1}
     [Teardown]    Utils.Report_Failure_Due_To_Bug    4968
+
+Check_Config_Data_After_Modification_With_Original_Owner_Down
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node${follower1}    ${modified_data}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node${follower2}    ${modified_data}
 
 Restart_Original_Entity_Owner
     [Documentation]    Restart the original entity owner and see if it can still see the device and the new data on it.
@@ -123,10 +132,12 @@ Modify_Device_Data_With_Original_Owner
     [Documentation]    Check that the original owner of the entity is still able to modify the data on the device
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${DEVICE_NAME}'}
     TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}datamod2    ${template_as_string}    session=node${original_device_owner}
+    [Teardown]    Utils.Report_Failure_Due_To_Bug    5761
+
+Check_Config_Data_After_Modification_With_Original_Owner_Up
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node1    ${modified_data_2}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node2    ${modified_data_2}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node3    ${modified_data_2}
-    [Teardown]    Utils.Report_Failure_Due_To_Bug    5761
 
 Deconfigure_Device_In_Netconf
     [Documentation]    Make request to deconfigure the device on Netconf connector and see if it works.
@@ -174,39 +185,10 @@ Check_Config_Data
     BuiltIn.Run_Keyword_Unless    ${contains}    BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${expected}
     BuiltIn.Run_Keyword_If    ${contains}    BuiltIn.Should_Contain    ${data}    ${expected}
 
-Get_Netconf_Entity_Info
-    [Arguments]    ${entity}    ${session}
-    [Documentation]    Get owner and candidates for the specified netconf entity
-    ...    TODO: Merge with ClusterKeywords.Get_Cluster_Entity_Owner which
-    ...    contains most of the code from this keyword.
-    ${entity_type}=    BuiltIn.Set_Variable    netconf-node/${entity}
-    ${candidates_list}=    Create List
-    ${data}=    Utils.Get Data From URI    ${session}    /restconf/operational/entity-owners:entity-owners
-    Log    ${data}
-    ${clear_data}=    Replace String    ${data}    /general-entity:entity[general-entity:name='    ${EMPTY}
-    ${clear_data}=    Replace String    ${clear_data}    ']    ${EMPTY}
-    ${json}=    RequestsLibrary.To Json    ${clear_data}
-    ${entity_type_list}=    Get From Dictionary    &{json}[entity-owners]    entity-type
-    ${entity_type_index}=    Get Index From List Of Dictionaries    ${entity_type_list}    type    ${entity_type}
-    Should Not Be Equal    ${entity_type_index}    -1    No Entity Owner found for ${entity_type}
-    ${entity_list}=    Get From Dictionary    @{entity_type_list}[${entity_type_index}]    entity
-    ${entity_index}=    Utils.Get Index From List Of Dictionaries    ${entity_list}    id    ${entity}
-    Should Not Be Equal    ${entity_index}    -1    Device ${entity} not found in Entity Owner ${entity_type}
-    ${entity_owner}=    Get From Dictionary    @{entity_list}[${entity_index}]    owner
-    Should Not Be Empty    ${entity_owner}    No owner found for ${entity}
-    ${owner}=    Replace String    ${entity_owner}    member-    ${EMPTY}
-    ${owner}=    Convert To Integer    ${owner}
-    ${entity_candidates_list}=    Get From Dictionary    @{entity_list}[${entity_index}]    candidate
-    ${list_length}=    Get Length    ${entity_candidates_list}
-    : FOR    ${entity_candidate}    IN    @{entity_candidates_list}
-    \    ${candidate}=    Replace String    &{entity_candidate}[name]    member-    ${EMPTY}
-    \    ${candidate}=    Convert To Integer    ${candidate}
-    \    Append To List    ${candidates_list}    ${candidate}
-    Remove Values From List    ${candidates_list}    ${owner}
-    [Return]    ${owner}    ${candidates_list}
-
 Check_Owner_Reconfigured
-    [Arguments]    ${original_device_owner}
     [Documentation]    Check whether the entity owner changed. Fail if not or no owner found.
-    ${owner}    ${candidates}=    Get_Netconf_Entity_Info    ${DEVICE_NAME}    session=${candidate1}
+    Log    Original Owner Index: ${original_device_owner}
+    Log    Follower 1: node${follower1}
+    Log    Follower 2: node${follower2}
+    ${owner}    ${candidates}=    ClusterKeywords.Get_Device_Entity_Owner_And_Candidates_Indexes    node${follower1}    netconf    ${DEVICE_NAME}
     BuiltIn.Should_Not_Be_Equal_As_Integers    ${owner}    ${original_device_owner}
