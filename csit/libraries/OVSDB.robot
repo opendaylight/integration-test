@@ -131,5 +131,5 @@ Add Multiple Managers to OVS
     Log    Check OVS configuration
     ${output}=    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected    ${tools_system}
     Log    ${output}
-    ${ovsdb_uuid}=    Wait Until Keyword Succeeds    5s    1s    Get OVSDB UUID    controller_http_session=controller1
+    ${ovsdb_uuid}=    Wait Until Keyword Succeeds    10s    2s    Get OVSDB UUID    controller_http_session=controller1
     [Return]    ${ovsdb_uuid}

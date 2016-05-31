@@ -41,7 +41,7 @@ Create Sample Bridge Manually And Verify
     ${dictionary_operational}=    Create Dictionary    br-s1=5
     ${dictionary_config}=    Create Dictionary    br-s1=0
     Wait Until Keyword Succeeds    5s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_config}    ${CONFIG_TOPO_API}
-    Wait Until Keyword Succeeds    5s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_operational}    ${OPERATIONAL_TOPO_API}
+    Wait Until Keyword Succeeds    10s    2s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_operational}    ${OPERATIONAL_TOPO_API}
 
 Add Sample Port To The Manual Bridge And Verify
     [Arguments]    ${controller_index_list}
