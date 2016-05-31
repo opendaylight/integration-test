@@ -21,7 +21,8 @@ Documentation     Suite for testing upgrading persisted data from earlier releas
 ...               Note that in order to create traffic large enough for snapshots to be created,
 ...               this suite also actis as a stress test for Restconf.
 ...               But as that is not a primary focus of this suite,
-...               data seen on newer ODL is only compared to what was seen on the older ODL.
+...               data seen on newer ODL is only compared to what was seen on the older ODL
+...               (stored in ${data_before} suite variable).
 ...
 ...               As using Robotframework would be both too slow and too memory consuming,
 ...               this suite uses a specialized Python utility for pushing the data locally on ODL_SYSTEM.
@@ -126,9 +127,8 @@ Start_Newer_Odl
     ClusterManagement.Start_Members_From_List_Or_All    wait_for_sync=True    timeout=${CLUSTER_BOOTUP_SYNC_TIMEOUT}
 
 Verify_Data_Is_Restored
-    [Documentation]    Get car data from config datastore and verify it matches what was seen before.
-    ${data_after} =    TemplatedRequests.Get_As_Json_Templated    folder=${CAR_VAR_DIR}    verify=False
-    BuiltIn.Should_Be_Equal    ${data_before}    ${data_after}
+    [Documentation]    Wait until data check succeeds (there may be temporary 503).
+    BuiltIn.Wait_Until_Keyword_Succeeds    180s    5s    Check_Restored_Data
 
 Archive_Older_Karaf_Log
     [Documentation]    Only original location benefits from automatic karaf.log archivation.
@@ -143,3 +143,9 @@ Setup_Suite
     TemplatedRequests.Create_Default_Session
     ${connection} =    SSHKeywords.Open_Connection_To_ODL_System
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/odl-mdsal-clustering-tests/${PYTHON_UTILITY_FILENAME}
+
+Check_Restored_Data
+    [Documentation]    Get car data from config datastore and check it is equal to the stored data.
+    ...    This has to be a separate keyword, as it is run under WUKS.
+    ${data_after} =    TemplatedRequests.Get_As_Json_Templated    folder=${CAR_VAR_DIR}    verify=False
+    BuiltIn.Should_Be_Equal    ${data_before}    ${data_after}
