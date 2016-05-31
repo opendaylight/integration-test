@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_08206ff6",
+        "filename": "csit/suites/netconf/clustering/entity.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-31T12:02:07Z",
+      "side": 1,
+      "message": "tidy",
+      "range": {
+        "startLine": 95,
+        "startChar": 164,
+        "endLine": 95,
+        "endChar": 165
+      },
+      "revId": "9e771b372ce490a31c6c28127829b86101a83631",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_8883dfcb",
+        "filename": "csit/suites/netconf/clustering/entity.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-31T12:02:07Z",
+      "side": 1,
+      "message": "This may result in ${original_device_owner}, which is down and the Get would fail.",
+      "range": {
+        "startLine": 182,
+        "startChar": 110,
+        "endLine": 182,
+        "endChar": 131
+      },
+      "revId": "9e771b372ce490a31c6c28127829b86101a83631",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_28657345",
+        "filename": "csit/suites/netconf/clustering/entity.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-05-31T12:02:07Z",
+      "side": 1,
+      "message": "Looking at line 61 of https://git.opendaylight.org/gerrit/#/c/37982/3/csit/libraries/ClusterKeywords.robot\nI think there is more logic to do than just supply \"openflow\".",
+      "range": {
+        "startLine": 182,
+        "startChar": 134,
+        "endLine": 182,
+        "endChar": 142
+      },
+      "revId": "9e771b372ce490a31c6c28127829b86101a83631",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
