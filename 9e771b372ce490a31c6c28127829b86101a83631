@@ -68,6 +68,54 @@
       "revId": "9e771b372ce490a31c6c28127829b86101a83631",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_08aa2f19",
+        "filename": "csit/suites/netconf/clustering/entity.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5394
+      },
+      "writtenOn": "2016-05-31T12:27:48Z",
+      "side": 1,
+      "message": "Line 62 invokes line 87 which performs string replacement if supplied the \"openflow\" argument making the invocation equivalent to the original Get_Netconf_Entity_Info.\n\nAccording to the linked change, it should be sufficient to change \"openflow\" to \"netconf\" once that change gets implemented.",
+      "parentUuid": "da5c1566_28657345",
+      "range": {
+        "startLine": 182,
+        "startChar": 134,
+        "endLine": 182,
+        "endChar": 142
+      },
+      "revId": "9e771b372ce490a31c6c28127829b86101a83631",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_e87d3bb3",
+        "filename": "csit/suites/netconf/clustering/entity.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 182,
+      "author": {
+        "id": 5394
+      },
+      "writtenOn": "2016-05-31T12:27:48Z",
+      "side": 1,
+      "message": "Would it be sufficient to set it to \"controller@{controller_list}[1]\" or should it be hardcoded to something like \"node2\" ?",
+      "parentUuid": "da5c1566_8883dfcb",
+      "range": {
+        "startLine": 182,
+        "startChar": 110,
+        "endLine": 182,
+        "endChar": 131
+      },
+      "revId": "9e771b372ce490a31c6c28127829b86101a83631",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
