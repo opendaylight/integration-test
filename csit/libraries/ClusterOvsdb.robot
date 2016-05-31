@@ -86,7 +86,7 @@ Create Sample Port And Verify
     Log    URL is ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE}/termination-point/vx2/
     ${port_dictionary}=    Create Dictionary    ${BRIDGE}=7    vx2=3
     ClusterKeywords.Put And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE}/termination-point/vx2/    ${body}
-    Wait Until Keyword Succeeds    5s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${port_dictionary}    ${OPERATIONAL_TOPO_API}
+    Wait Until Keyword Succeeds    5s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${port_dictionary}    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}
 
 Modify the destination IP of Sample Port
     [Arguments]    ${controller_index_list}    ${controller_index}
@@ -101,7 +101,7 @@ Verify Sample Port Is Modified
     [Arguments]    ${controller_index_list}
     [Documentation]    Verify dst ip of port vx2 in bridge ${BRIDGE} gets modified in all instances in ${controller_index_list}.
     ${port_dictionary}    Create Dictionary    br01=7    vx2=3    10.0.0.19=1
-    Wait Until Keyword Succeeds    5s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${port_dictionary}    ${OPERATIONAL_TOPO_API}
+    Wait Until Keyword Succeeds    5s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${port_dictionary}    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}
 
 Delete Sample Port And Verify
     [Arguments]    ${controller_index_list}    ${controller_index}
