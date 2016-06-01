@@ -248,8 +248,10 @@ LINK_COMPUTATION = '''<link-computation xmlns="urn:opendaylight:topology:link:co
 
 NODE_ISIS = '''<node xmlns="urn:TBD:params:xml:ns:yang:network-topology"
             xmlns:igp="urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology"
-            xmlns:isis="urn:TBD:params:xml:ns:yang:network:isis-topology">
+            xmlns:isis="urn:TBD:params:xml:ns:yang:network:isis-topology"
+            xmlns:ovsdb="urn:opendaylight:params:xml:ns:yang:ovsdb">
             <node-id>{node-id}</node-id>
+            <ovsdb:ovs-version>{ovs-version}</ovsdb:ovs-version>
             <igp:igp-node-attributes>
                 <isis:isis-node-attributes>
                     <isis:ted>
@@ -262,6 +264,7 @@ NODE_ISIS = '''<node xmlns="urn:TBD:params:xml:ns:yang:network-topology"
 NODE_OPENFLOW = '''<node xmlns="urn:opendaylight:inventory" xmlns:flov-inv="urn:opendaylight:flow:inventory">
         <id>{node-id}</id>
         <flov-inv:ip-address>{ip-address}</flov-inv:ip-address>
+        <flov-inv:serial-number>{serial-number}</flov-inv:serial-number>
     </node>'''
 
 TERMINATION_POINT_OVSDB = '''<termination-point xmlns="urn:TBD:params:xml:ns:yang:network-topology"
@@ -274,3 +277,20 @@ NODE_CONNECTOR_OPENFLOW = '''<node-connector xmlns="urn:opendaylight:inventory" 
             <id>{nc-id}</id>
             <flov-inv:port-number>{port-number}</flov-inv:port-number>
         </node-connector>'''
+
+LINK = '''<link xmlns="urn:TBD:params:xml:ns:yang:network-topology"
+                                xmlns:igp="urn:TBD:params:xml:ns:yang:nt:l3-unicast-igp-topology"
+                                xmlns:isis="urn:TBD:params:xml:ns:yang:network:isis-topology"
+                                xmlns:ovsdb="urn:opendaylight:params:xml:ns:yang:ovsdb">
+        <link-id>{link-id}</link-id>
+        <source>
+            <source-node>{source-node}</source-node>
+        </source>
+        <destination>
+            <dest-node>{dest-node}</dest-node>
+        </destination>
+        <igp:igp-link-attributes>
+            <igp:name>{name}</igp:name>
+            <igp:metric>{metric}</igp:metric>
+        </igp:igp-link-attributes>
+    </link>'''
