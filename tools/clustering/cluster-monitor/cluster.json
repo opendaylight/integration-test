@@ -1,12 +1,12 @@
 {
     "cluster": {
         "controllers": [
-            {"ip": "172.17.10.93", "port": "8181"},
-            {"ip": "172.17.10.93", "port": "8181"},
-            {"ip": "172.17.10.93", "port": "8181"}
+            {"ip": "209.132.179.51", "port": "8181"},
+            {"ip": "209.132.179.73", "port": "8181"},
+            {"ip": "209.132.179.181", "port": "8181"}
         ],
-        "user": "username",
-        "pass": "password",
+        "user": "admin",
+        "pass": "admin",
         "shards_to_exclude": []
     }
 }
