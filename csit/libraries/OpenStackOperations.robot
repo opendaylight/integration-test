@@ -20,6 +20,15 @@ Create Network
     Log    ${output}
     Should Contain    ${output}    Created a new network
 
+List Networks
+    [Documentation]    List networks and return output with neutron client.
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron net-list    30s
+    Close Connection
+    Log    ${output}
+    [Return]    ${output}
+
 Delete Network
     [Arguments]    ${network_name}
     [Documentation]    Delete Network with neutron request.
