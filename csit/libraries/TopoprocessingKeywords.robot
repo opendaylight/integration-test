@@ -16,7 +16,7 @@ ${REMOTE_FILE}    ${WORKSPACE}/${BUNDLEFOLDER}/etc/opendaylight/karaf/80-topopro
 *** Keywords ***
 Basic Request Put
     [Arguments]    ${request}    ${overlay_topology_url}
-    [Documentation]    Test basic aggregation
+    [Documentation]    Send a simple HTTP PUT request to Configurational datastore
     ${resp}    Put Request    session    ${CONFIG_API}/${overlay_topology_url}    data=${request}
     Log    ${CONFIG_API}/${overlay_topology_url}
     Should Be Equal As Strings    ${resp.status_code}    200
@@ -25,15 +25,21 @@ Basic Request Put
 
 Basic Request Get And Test
     [Arguments]    ${request}    ${overlay_topology_url}    ${should_contain}    ${times}
-    [Documentation]    Test basic aggregation
+    [Documentation]    Send a simple HTTP GET request to a given URL and test if response contains the expected item X times
+    ${resp}    Basic Request Get    ${overlay_topology_url}
+    Should Contain X Times    ${resp.content}    ${should_contain}    ${times}
+    [Return]    ${resp}
+
+Basic Request Get
+    [Arguments]    ${overlay_topology_url}
+    [Documentation]    Send a simple HTTP GET request to a given URL
     ${resp}    Get Request    session    ${OPERATIONAL_API}/${overlay_topology_url}
     Should Be Equal As Strings    ${resp.status_code}    200
-    Should Contain X Times    ${resp.content}    ${should_contain}    ${times}
     [Return]    ${resp}
 
 Send Basic Request And Test If Contain X Times
     [Arguments]    ${request}    ${overlay_topology_url}    ${should_contain}    ${times}
-    [Documentation]    Test basic aggregation
+    [Documentation]    Send a basic HTTP PUT request to a given URL and test if response contains the expexted item X times
     Basic Request Put    ${request}    ${overlay_topology_url}
     ${resp}    Wait Until Keyword Succeeds    40x    250ms    Basic Request Get And Test    ${request}    ${overlay_topology_url}
     ...    ${should_contain}    ${times}
@@ -280,20 +286,22 @@ Insert Scripting into Request
     [Return]    ${request}
 
 Create Isis Node
-    [Arguments]    ${node-id}    ${router-id-ipv4}
+    [Arguments]    ${node-id}    ${ovs-version}=23    ${router-id-ipv4}=10.0.0.1
     [Documentation]    Create an isis node element with id and ip
     ${request}    Set Element Text    ${NODE_ISIS}    ${node-id}    xpath=.//node-id
+    ${request}    Set Element Text    ${request}    ${ovs-version}    xpath=.//ovs-version
     ${request}    Set Element Text    ${request}    ${router-id-ipv4}    xpath=.//igp-node-attributes/isis-node-attributes/ted/te-router-id-ipv4
     ${request}    Element to String    ${request}
-    [Return ]    ${request}
+    [Return]    ${request}
 
 Create Openflow Node
-    [Arguments]    ${node-id}    ${ip-address}
+    [Arguments]    ${node-id}    ${ip-address}=10.0.0.1    ${serial-number}=27
     [Documentation]    Create an Openflow node element with id and ip
     ${request}    Set Element Text    ${NODE_OPENFLOW}    ${node-id}    xpath=.//id
     ${request}    Set Element Text    ${request}    ${ip-address}    xpath=.//ip-address
+    ${request}    Set Element Text    ${request}    ${serial-number}    xpath=.//serial-number
     ${request}    Element to String    ${request}
-    [Return ]    ${request}
+    [Return]    ${request}
 
 Create OVSDB Termination Point
     [Arguments]    ${tp-id}    ${ofport}
@@ -301,7 +309,7 @@ Create OVSDB Termination Point
     ${request}    Set Element Text    ${TERMINATION_POINT_OVSDB}    ${tp-id}    xpath=.//tp-id
     ${request}    Set Element Text    ${request}    ${ofport}    xpath=.//ofport
     ${request}    Element to String    ${request}
-    [Return ]    ${request}
+    [Return]    ${request}
 
 Create Openflow Node Connector
     [Arguments]    ${nc-id}    ${port-number}
@@ -309,4 +317,14 @@ Create Openflow Node Connector
     ${request}    Set Element Text    ${NODE_CONNECTOR_OPENFLOW}    ${nc-id}    xpath=.//id
     ${request}    Set Element Text    ${request}    ${port-number}    xpath=.//port-number
     ${request}    Element to String    ${request}
-    [Return ]    ${request}
+    [Return]    ${request}
+
+Create Link
+    [Arguments]    ${link-id}    ${source-node}    ${dest-node}    ${name}    ${metric}
+    ${request}    Set Element Text    ${LINK}    ${link-id}    xpath=.//link-id
+    ${request}    Set Element Text    ${request}    ${source-node}    xpath=.//source/source-node
+    ${request}    Set Element Text    ${request}    ${dest-node}    xpath=.//destination/dest-node
+    ${request}    Set Element Text    ${request}    ${name}    xpath=.//igp-link-attributes/name
+    ${request}    Set Element Text    ${request}    ${metric}    xpath=.//igp-link-attributes/metric
+    ${request}    Element to String    ${request}
+    [Return]    ${request}
