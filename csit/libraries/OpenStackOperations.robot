@@ -24,7 +24,7 @@ Delete Network
     [Documentation]    Delete Network with neutron request.
     Switch Connection    ${devstack_conn_id}
     Source Password
-    ${output}=    Write Commands Until Prompt    neutron -v net-delete ${network_name}
+    ${output}=    Write Commands Until Prompt    neutron -v net-delete ${network_name}    30s
     Log    ${output}
     Should Contain    ${output}    Deleted network: ${network_name}
 
@@ -80,7 +80,7 @@ Delete Vm Instance
     [Documentation]    Delete Vm instances using instance names.
     Switch Connection    ${devstack_conn_id}
     Source Password
-    ${output}=    Write Commands Until Prompt    nova delete ${vm_name}
+    ${output}=    Write Commands Until Prompt    nova delete ${vm_name}    40s
     Should Contain    ${output}    ${vm_name}
 
 Get Net Id
@@ -96,7 +96,7 @@ Get Net Id
     [Return]    ${net_id}
 
 Create Vm Instances
-    [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.tiny
+    [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano
     [Documentation]    Create X Vm Instance with the net id of the Netowrk.
     Switch Connection    ${devstack_conn_id}
     Source Password
