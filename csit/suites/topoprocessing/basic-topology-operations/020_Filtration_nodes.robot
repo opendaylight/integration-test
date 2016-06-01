@@ -30,7 +30,7 @@ Filtration IPV4 Network Topology Model
     Should Contain X Times    ${node}    <termination-point>    3
     Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:1/node/bgp:1/termination-point/tp:1:3</tp-ref>    1
     Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:1/node/bgp:1/termination-point/tp:1:2</tp-ref>    1
-    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:1/node/bgp:1/termination-point/tp:1:3</tp-ref>    1
+    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:1/node/bgp:1/termination-point/tp:1:1</tp-ref>    1
     Should Contain X Times    ${resp.content}    <node-ref>bgp:2</node-ref>    1
 
 Filtration IPV4 Inventory Model
