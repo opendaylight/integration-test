@@ -8,6 +8,7 @@ Library           Collections
 Library           RequestsLibrary
 Library           ./UtilLibrary.py
 Resource          KarafKeywords.robot
+Resource          OpenStackOperations.robot
 Variables         ../variables/Variables.py
 
 *** Variables ***
@@ -23,13 +24,14 @@ ${CLEAN_DEVSTACK_HOST}    False
 
 *** Keywords ***
 Run Tempest Tests
-    [Arguments]    ${tempest_regex}    ${timeout}=600s
+    [Arguments]    ${tempest_regex}    ${tempest_directory}=/opt/stack/tempest    ${timeout}=600s
     [Documentation]    Execute the tempest tests
-    Write Commands Until Prompt    cd /opt/stack/new/tempest
-    Write Commands Until Prompt    sudo rm -rf /opt/stack/new/tempest/.testrepository
-    Write Commands Until Prompt    sudo testr init
-    ${results}=    Write Commands Until Prompt    sudo -E testr run ${tempest_regex} --subunit | subunit-trace --no-failure-debug -f    timeout=${timeout}
-    Create File    ${WORKSPACE}/tempest_output.log    data=${results}
+    Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
+    Write Commands Until Prompt    cd ${tempest_directory}
+    Write Commands Until Prompt    sudo rm -rf ${tempest_directory}/.testrepository
+    Write Commands Until Prompt    testr init
+    ${results}=    Write Commands Until Prompt    testr run ${tempest_regex} --subunit | subunit-trace --no-failure-debug -f    timeout=${timeout}
+    Create File    tempest_output_${tempest_regex}.log    data=${results}
     Should Contain    ${results}    Failed: 0
     # TODO: also need to verify some non-zero pass count as well as other results are ok (e.g. skipped, etc)
 
