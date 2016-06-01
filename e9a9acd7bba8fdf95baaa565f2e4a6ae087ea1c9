@@ -16,6 +16,24 @@
       "revId": "e9a9acd7bba8fdf95baaa565f2e4a6ae087ea1c9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_e56721e9",
+        "filename": "csit/libraries/ClusterKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-01T08:23:47Z",
+      "side": 1,
+      "message": "\u003e good documentation on these 2 new variables\n\nDo you mean ${device_style} and ${entity_type}? I do not think they need specific documentation more than some of the old local variables, such as ${clear_data} or ${entity_type_list}.",
+      "parentUuid": "fa57193c_de1d6368",
+      "revId": "e9a9acd7bba8fdf95baaa565f2e4a6ae087ea1c9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
