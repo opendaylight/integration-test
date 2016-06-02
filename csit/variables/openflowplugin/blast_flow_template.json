@@ -1,0 +1,37 @@
+{
+    "flow": [
+        {
+            "hard-timeout": 65000,
+            "idle-timeout": 65000,
+            "cookie_mask": 4294967295,
+            "flow-name": "FLOW-NAME-TEMPLATE",
+            "priority": 2,
+            "cookie": 0,
+            "table_id": 0,
+            "id": "FLOW-ID-TEMPLATE",
+            "match": {
+                "ipv4-destination": "0.0.0.0/32",
+                "ethernet-match": {
+                    "ethernet-type": {
+                        "type": 2048
+                    }
+                }
+            },
+            "instructions": {
+                "instruction": [
+                    {
+                        "order": 0,
+                        "apply-actions": {
+                            "action": [
+                                {
+                                    "flood-action": {},
+                                    "order": 0
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
