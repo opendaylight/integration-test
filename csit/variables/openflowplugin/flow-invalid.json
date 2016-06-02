@@ -1,0 +1,32 @@
+{
+    "flow": [
+        {
+            "hard-timeout": 65000,
+            "idle-timeout": 65000,
+            "cookie_mask": 4294967295,
+            "flow-name": "flow-invalid",
+            "priority": 2,
+            "cookie": 0,
+            "table_id": 0,
+            "id": "1",
+            "match": {
+                "ipv4-destination": "10.0.2.5/32"
+            },
+            "instructions": {
+                "instruction": [
+                    {
+                        "order": 0,
+                        "apply-actions": {
+                            "action": [
+                                {
+                                    "drop-action": {},
+                                    "order": 0
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+        }
+    ]
+}
