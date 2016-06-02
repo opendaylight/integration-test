@@ -1,0 +1,2 @@
+# Place the suites in run order:
+integration/test/csit/suites/openflowplugin/Failover/010_Flow_Config_Retry.robot
