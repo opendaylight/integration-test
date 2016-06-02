@@ -29,11 +29,12 @@ Delete Network
     Should Contain    ${output}    Deleted network: ${network_name}
 
 Create SubNet
-    [Arguments]    ${network_name}    ${subnet}    ${range_ip}
+    [Arguments]    ${network_name}    ${subnet}    ${range_ip}     ${gateway}=yes
     [Documentation]    Create SubNet for the Network with neutron request.
     Switch Connection    ${devstack_conn_id}
     Source Password
-    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet}    30s
+    ${output}=    Run Keyword If     '${gateway}' == 'yes'      Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet}    30s
+    ...    ELSE IF    '${gateway}' == 'no'      Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet} --no-gateway      30
     Log    ${output}
     Should Contain    ${output}    Created a new subnet
 
@@ -96,7 +97,7 @@ Get Net Id
     [Return]    ${net_id}
 
 Create Vm Instances
-    [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.tiny
+    [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano
     [Documentation]    Create X Vm Instance with the net id of the Netowrk.
     Switch Connection    ${devstack_conn_id}
     Source Password
