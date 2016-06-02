@@ -281,3 +281,13 @@ Show Debugs
     : FOR    ${index}    IN    @{vm_indices}
     \    ${output}=    Write Commands Until Prompt    nova show ${index}
     \    Log    ${output}
+
+Get mac_address
+    [Arguments]    ${Subnet_ip}
+    [Documentation]    Retrieve the mac_address for the portlist
+    ${output}=    Write Commands Until Prompt    neutron port-list | grep "${Subnet_ip}" | cut -d \| -f 4
+    Log    ${output}
+    ${splitted_output}=    Split String    ${output}    ${EMPTY}
+    ${mac_address}=    Get from List    ${splitted_output}    0
+    Log    ${mac_address}
+    [Return]    ${mac_address}
