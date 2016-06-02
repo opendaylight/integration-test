@@ -29,11 +29,12 @@ Delete Network
     Should Contain    ${output}    Deleted network: ${network_name}
 
 Create SubNet
-    [Arguments]    ${network_name}    ${subnet}    ${range_ip}
+    [Arguments]    ${network_name}    ${subnet}    ${range_ip}     ${gateway}=yes
     [Documentation]    Create SubNet for the Network with neutron request.
     Switch Connection    ${devstack_conn_id}
     Source Password
-    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet}    30s
+    ${output}=    Run Keyword If     '${gateway}' == 'yes'      Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet}    30s
+    ...    ELSE IF    '${gateway}' == 'no'      Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet} --no-gateway      30
     Log    ${output}
     Should Contain    ${output}    Created a new subnet
 
