@@ -56,6 +56,38 @@ List Ports
     ${output}=    Write Commands Until Prompt    neutron -v port-list
     Log    ${output}
 
+Verify Created network1 In Dump Flow
+    [Documentation]    Verify the existence of the created network1 ips in the dump flow.
+    ${mac_address}=      Get mac_address    @{SUBNETS_RANGE}[0]
+    Log     ${mac_address}
+    : FOR    ${macaddress}    IN    @{VM_IPS}
+    \     ${output}=    Ping Vm From DHCP Namespace    ${mac_address}    ${macaddress}
+          Log    ${output}
+    \    Should Contain    ${output}    ${macaddress}
+
+Verify Created network1 In Dump Flow
+    [Documentation]    Verify the existence of the created network1 ips in the dump flow.
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+    : FOR    ${VmIpElement}    IN    @{VM_IPS}
+    \    Should Contain    ${output}    ${VmIpElement}
+
+Verify Created network2 In Dump Flow
+    [Documentation]    Verify the existence of the created network2 ips in the dump flow.
+    ${mac_address}=      Get mac_address    @{SUBNETS_RANGE}[1]
+    Log      ${mac_address}
+    : FOR    ${macaddress}    IN    @{VM_IPS}
+    \     ${output}=    Ping Vm From DHCP Namespace    ${mac_address}    ${macaddress}
+          Log     ${output}
+    \    Should Contain    ${output}    ${macaddress}
+
+Verify Created network2 In Dump Flow
+    [Documentation]    Verify the existence of the created network2 ips in the dump flow.
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+    : FOR    ${VmIpElement}    IN    @{VM_IPS}
+    \    Should Contain    ${output}    ${VmIpElement}
+
 List Available Networks
     ${output}=    Write Commands Until Prompt    neutron -v net-list
     Log    ${output}
