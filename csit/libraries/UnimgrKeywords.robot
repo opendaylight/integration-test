@@ -3,9 +3,9 @@ Documentation     Unimgr keywords defination that will be used in Unimgr suite.
 Library           OperatingSystem
 Library           SSHLibrary
 Library           String
-Resource          ../../../libraries/OVSDB.robot
-Resource          ../../../libraries/Utils.robot
-Variables         ../../../variables/Variables.py
+Resource          ./OVSDB.robot
+Resource          ./Utils.robot
+Variables         ../variables/Variables.py
 
 *** Variables ***
 ${Bridge_Name}    ovsbr0
