@@ -252,6 +252,14 @@ Wait For Flows On Switch
     Wait Until Keyword Succeeds    120s    20s    Count Flows On Switch    ${switch_name}
     SSHLibrary.Close Connection
 
+Show Switch Status
+    [Arguments]    ${switch_name}
+    [Documentation]    Shows status of a switch for easier debugging.
+    ${stdout}    ${stderr}    SSHLibrary.Execute Command    sudo ovs-ofctl dump-flows ${switch_name} -OOpenFlow13    return_stderr=True
+    Log    ${stdout}
+    ${stdout}    ${stderr}    SSHLibrary.Execute Command    sudo ovs-vsctl show    return_stderr=True
+    Log    ${stdout}
+
 Count Flows On Switch
     [Arguments]    ${switch_name}
     ${out}    SSHLibrary.Execute Command    printf "%d" $(($(sudo ovs-ofctl dump-flows ${switch_name} -OOpenFlow13 | wc -l)-1))
