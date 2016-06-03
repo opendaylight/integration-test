@@ -48,7 +48,8 @@ Run Cbench And Log Results
     ##down can catch this problem and log the results as zero.    However, we need to know which
     ##file to log to, so setting it as a suite variable here.
     Set Suite Variable    ${output_filename}
-    ${output}=    Run Keyword If    "${cbench_system}" == "localhost"    Run Process    ${cbench_executable}    -c    ${ODL_SYSTEM_IP}    ${cbench_args}
+    ${output}=    Run Keyword If    "${cbench_system}" == "localhost"    Run Process    ${cbench_executable}    -c    ${ODL_SYSTEM_IP}
+    ...    ${cbench_args}
     ...    ELSE    Run Command On Remote System    ${cbench_system}    ${cbench_executable} -c ${ODL_SYSTEM_IP} ${cbench_args}    prompt_timeout=${test_timeout}
     Log    ${output}
     Should Contain    ${output}    RESULT

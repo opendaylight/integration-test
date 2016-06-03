@@ -37,12 +37,12 @@ Create Subnets For network_2
 Create Vm Instances For network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     Create Vm Instances    network_1    ${NET_1_VM_INSTANCES}
-    [Teardown]    Show Debugs      ${NET_1_VM_INSTANCES}
+    [Teardown]    Show Debugs    ${NET_1_VM_INSTANCES}
 
 Create Vm Instances For network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     Create Vm Instances    network_2    ${NET_2_VM_INSTANCES}
-    [Teardown]    Show Debugs      ${NET_2_VM_INSTANCES}
+    [Teardown]    Show Debugs    ${NET_2_VM_INSTANCES}
 
 List Networks With Namespaces
     ${output}=    Write Commands Until Prompt    sudo ip netns list
@@ -68,25 +68,25 @@ Connectivity Tests From Vm Instance1 In network_1
     [Documentation]    Logging to the vm instance1
     ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}[1]    @{DHCP_IPS}[0]
     Log    ${dst_ip_list}
-    Test Operations From Vm Instance      network_1     @{NET_1_VM_IPS}[0]    ${dst_ip_list}
+    Test Operations From Vm Instance    network_1    @{NET_1_VM_IPS}[0]    ${dst_ip_list}
 
 Connectivity Tests From Vm Instance2 In network_1
     [Documentation]    Logging to the vm instance2
     ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}[0]    @{DHCP_IPS}[0]
     Log    ${dst_ip_list}
-    Test Operations From Vm Instance      network_1     @{NET_1_VM_IPS}[1]    ${dst_ip_list}
+    Test Operations From Vm Instance    network_1    @{NET_1_VM_IPS}[1]    ${dst_ip_list}
 
 Connectivity Tests From Vm Instance1 In network_2
     [Documentation]    Logging to the vm instance1
     ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[1]    @{DHCP_IPS}[1]
     Log    ${dst_ip_list}
-    Test Operations From Vm Instance      network_2     @{NET_2_VM_IPS}[0]    ${dst_ip_list}
+    Test Operations From Vm Instance    network_2    @{NET_2_VM_IPS}[0]    ${dst_ip_list}
 
 Connectivity Tests From Vm Instance2 In network_2
     [Documentation]    Logging to the vm instance2
     ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]
     Log    ${dst_ip_list}
-    Test Operations From Vm Instance      network_2     @{NET_2_VM_IPS}[1]    ${dst_ip_list}
+    Test Operations From Vm Instance    network_2    @{NET_2_VM_IPS}[1]    ${dst_ip_list}
 
 Delete Vm Instance
     [Documentation]    Delete Vm instances using instance names.

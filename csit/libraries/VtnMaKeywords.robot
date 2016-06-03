@@ -330,7 +330,7 @@ Add a vlan portmap
     [Arguments]    ${vtn_name}    ${vbr_name}    ${interface_name}    ${id}    ${node_id}    ${port_id}
     [Documentation]    Create a portmap for a interface of a vbridge
     ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-port-map:set-port-map    data={"input": { "tenant-name":${vtn_name}, "bridge-name":${vbr_name}, "interface-name": ${interface_name}, "vlan-id": ${id}, "node":"${node_id}", "port-name":"${port_id}"}}
-        Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify Flow Entries for Flowfilter
     [Arguments]    ${dumpflows}    @{flowfilter_actions}
