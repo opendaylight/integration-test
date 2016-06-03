@@ -1,0 +1,225 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_f6c9905b",
+        "filename": "csit/libraries/BulkomaticKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-06-03T03:04:45Z",
+      "side": 1,
+      "message": "You do not have to create new session, you just need to use session\u003dcontroller${i}, where ${i} is the instance index. Remember all controller sessions are opened in the Setup step.",
+      "revId": "b6249358f4c8243ffbd57c873e2fc3ae927b261b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_76dd8014",
+        "filename": "csit/libraries/BulkomaticKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-06-03T03:04:45Z",
+      "side": 1,
+      "message": "Do you really need to pass ${jolokia_write_op_status} as an argument? it seems this is more like a test variable you can use straight in the KW.",
+      "revId": "b6249358f4c8243ffbd57c873e2fc3ae927b261b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_56e2fcd5",
+        "filename": "csit/libraries/BulkomaticKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-06-03T03:04:45Z",
+      "side": 1,
+      "message": "Same comment here with ${jolokia_read_op_status}",
+      "revId": "b6249358f4c8243ffbd57c873e2fc3ae927b261b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_b6e718e4",
+        "filename": "csit/libraries/BulkomaticKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-06-03T03:04:45Z",
+      "side": 1,
+      "message": "Same comment on ${jolokia_flow_cout_api} and then the ${jolokia_flow_count} is really the value you are going to verify, not the one you get from jolokia, so I would change the name and also the Documentation to make this more clear. To me this test case is a Verify instead of Get.",
+      "revId": "b6249358f4c8243ffbd57c873e2fc3ae927b261b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_36c4a83f",
+        "filename": "csit/libraries/BulkomaticKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-06-03T03:04:45Z",
+      "side": 1,
+      "message": "You do not have to create new session, you just need to use session\u003dcontroller${i} in the next line. Remember all controller sessions are opened in the Setup step.",
+      "revId": "b6249358f4c8243ffbd57c873e2fc3ae927b261b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_7604607e",
+        "filename": "csit/libraries/BulkomaticKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-06-03T03:04:45Z",
+      "side": 1,
+      "message": "This KW is too generic to be called bulk-o-matic. I would create something generic like Post at URI and place in Utils.robot or just remove it (see my comment on the next KW).",
+      "revId": "b6249358f4c8243ffbd57c873e2fc3ae927b261b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_f6d070f9",
+        "filename": "csit/libraries/BulkomaticKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-06-03T03:04:45Z",
+      "side": 1,
+      "message": "This step will trigger a bulk get and will not do any flow verification, so I would change this Verify to Get.",
+      "revId": "b6249358f4c8243ffbd57c873e2fc3ae927b261b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_36db081d",
+        "filename": "csit/libraries/BulkomaticKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-06-03T03:04:45Z",
+      "side": 1,
+      "message": "The ${get_uri} seems like a test variable more than an argument needs to be passed.",
+      "revId": "b6249358f4c8243ffbd57c873e2fc3ae927b261b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_76b620de",
+        "filename": "csit/libraries/BulkomaticKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-06-03T03:04:45Z",
+      "side": 1,
+      "message": "You do not have to create new session, you just need to use session\u003dcontroller${i} in the next line. Remember all controller sessions are opened in the Setup step.",
+      "revId": "b6249358f4c8243ffbd57c873e2fc3ae927b261b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_d6cd6c5f",
+        "filename": "csit/libraries/BulkomaticKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-06-03T03:04:45Z",
+      "side": 1,
+      "message": "I do not think you need any WUKS here, you just trigger a bulk get and you should get straight 200 OK. Also I would do the RequestsLibrary.Post Request directly here instead of creating a KW for it (see above KW).",
+      "revId": "b6249358f4c8243ffbd57c873e2fc3ae927b261b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_56bb1cc4",
+        "filename": "csit/libraries/BulkomaticKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-06-03T03:04:45Z",
+      "side": 1,
+      "message": "I think here is just a controller index, instead of controller index list.",
+      "revId": "b6249358f4c8243ffbd57c873e2fc3ae927b261b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_b6b0b8de",
+        "filename": "csit/libraries/BulkomaticKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-06-03T03:04:45Z",
+      "side": 1,
+      "message": "Same comment with controller index here.",
+      "revId": "b6249358f4c8243ffbd57c873e2fc3ae927b261b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_16d8841c",
+        "filename": "csit/libraries/BulkomaticKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-06-03T03:04:45Z",
+      "side": 1,
+      "message": "I think this is not Verify but Get Bulk Flow. To simplify I would probably consolidate and add here the FOR and the Post you have in Verify Bulk Flow In Cluster Nodes and Verify Bulk Flow Node, so you will not need these 2 KWs.",
+      "revId": "b6249358f4c8243ffbd57c873e2fc3ae927b261b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
