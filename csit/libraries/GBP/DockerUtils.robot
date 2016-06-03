@@ -1,6 +1,5 @@
 *** Settings ***
 Library           SSHLibrary
-Resource          ../Utils.robot
 
 *** Variables ***
 
@@ -79,5 +78,5 @@ Execute Curl
     [Documentation]    Executes curl or curl loop for caller methods based on given parameters.
     ${output}    SSHLibrary.Execute Command    docker exec ${docker_name} curl ${dest_address}:${service_port} >/dev/null 2>&1 && echo success
     Should Contain    ${output}    success
-    Run Keyword If    ${endless} == "TRUE"    SSHLibrary.Execute Command    docker exec -d ${docker_name} /bin/sh -c "while [ -f curl_running ]; do curl ${dest_address}:${service_port} ; sleep ${sleep}; done"
+    Run Keyword If    ${endless} == "TRUE"    SSHLibrary.Execute Command    docker exec -d ${docker_name} /bin/sh -c "while [ -f curl_running ]; do curl ${dest_address}:${service_port} -m 1 && sleep ${sleep}; done"
     Log    ${output}
