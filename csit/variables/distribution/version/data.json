@@ -1,0 +1,9 @@
+{
+ "module": [
+  {
+   "type": "odl-distribution-version:odl-version",
+   "name": "odl-distribution-version",
+   "odl-distribution-version:version": "$VERSION"
+  }
+ ]
+}
