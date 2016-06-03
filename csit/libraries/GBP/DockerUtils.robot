@@ -1,6 +1,5 @@
 *** Settings ***
 Library           SSHLibrary
-Resource          ../Utils.robot
 
 *** Variables ***
 
@@ -34,7 +33,7 @@ Stop HTTP Service on Docker
     ${stdout}    SSHLibrary.Execute Command    docker exec ${docker_name} kill ${stdout}    return_stdout=True    return_stderr=False    return_rc=False
 
 Curl from Docker
-    [Arguments]    ${docker_name}    ${dest_address}    ${service_port}=80    ${connect_timeout}=2    ${retry}=3x    ${retry_after}=1s
+    [Arguments]    ${docker_name}    ${dest_address}    ${service_port}=80    ${connect_timeout}=2    ${retry}=5x    ${retry_after}=1s
     [Documentation]    Sends HTTP request to remote server. Endless curl should not be running.
     ${output}    SSHLibrary.Execute Command    docker exec ${docker_name} ls | grep curl_running    return_stdout=True    return_stderr=False    return_rc=False
     Should Be Empty    ${output}
@@ -77,7 +76,7 @@ Test Port On Docker
 Execute Curl
     [Arguments]    ${docker_name}    ${dest_address}    ${service_port}    ${endless}="FALSE"    ${sleep}=1
     [Documentation]    Executes curl or curl loop for caller methods based on given parameters.
-    ${output}    SSHLibrary.Execute Command    docker exec ${docker_name} curl ${dest_address}:${service_port} >/dev/null 2>&1 && echo success
+    ${output}    SSHLibrary.Execute Command    docker exec ${docker_name} curl ${dest_address}:${service_port} -m 5 >/dev/null 2>&1 && echo success
     Should Contain    ${output}    success
-    Run Keyword If    ${endless} == "TRUE"    SSHLibrary.Execute Command    docker exec -d ${docker_name} /bin/sh -c "while [ -f curl_running ]; do curl ${dest_address}:${service_port} ; sleep ${sleep}; done"
+    Run Keyword If    ${endless} == "TRUE"    SSHLibrary.Execute Command    docker exec -d ${docker_name} /bin/sh -c "while [ -f curl_running ]; do curl ${dest_address}:${service_port} -m 1 && sleep ${sleep}; done"
     Log    ${output}
