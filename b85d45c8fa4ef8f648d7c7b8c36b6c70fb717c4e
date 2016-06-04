@@ -283,6 +283,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_e941aa0c",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-06-04T00:34:44Z",
+      "side": 1,
+      "message": "ok.  I just want to point out that all of the below code in\nthis test case (and others have similar) is just for debugging\npurposes.  There are no checks/tests happening.  If you had\nspecific things to check in resp.content, it would make this\nsuite a lot better.  Currently, you are only validating that\nthe above two Post calls are returning 200 codes.",
+      "parentUuid": "da5c1566_dc4ac1ab",
+      "range": {
+        "startLine": 158,
+        "startChar": 4,
+        "endLine": 158,
+        "endChar": 65
+      },
+      "revId": "b85d45c8fa4ef8f648d7c7b8c36b6c70fb717c4e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_be2e6141",
         "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
         "patchSetId": 3
@@ -340,6 +364,30 @@
       "writtenOn": "2016-05-27T05:28:55Z",
       "side": 1,
       "message": "not sure what happened here, but we are now using TOOLS_SYSTEM_IP instead of MININET.  this applies everywhere\nI guess...  *USER, *PASSWORD.",
+      "range": {
+        "startLine": 15,
+        "startChar": 51,
+        "endLine": 15,
+        "endChar": 58
+      },
+      "revId": "b85d45c8fa4ef8f648d7c7b8c36b6c70fb717c4e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_893c6e95",
+        "filename": "csit/suites/vpnservice/__init__.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-06-04T00:34:44Z",
+      "side": 1,
+      "message": "Still need all these MININET* vars changed to TOOLS_SYSTEM*",
+      "parentUuid": "fa57193c_fe245961",
       "range": {
         "startLine": 15,
         "startChar": 51,
