@@ -47,6 +47,8 @@ ${dscp_flow}      mod_nw_tos:128
 ${drop_action}    actions=drop
 ${vlanpcp_action}    mod_vlan_pcp:6
 ${vlanpcp_actions}    set_field:6->vlan_pcp
+${dlsrc_action}    mod_dl_src:22:11:38:d1:05:7c
+${dlsrc_actions}    set_field:22:11:38:d1:05:7c->eth_src
 @{PATHPOLICY_ATTR}    "id":1    "port-desc":"openflow:4,2,s4-eth2"
 ${custom}         ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
 

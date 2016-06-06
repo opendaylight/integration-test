@@ -202,6 +202,45 @@ Remove vbrif Flowfilter index which have dscp
     [Documentation]    Remove a index of vbrif flowfilter which have DSCP
     Remove a vbrif flowfilter    Tenant1    vBridge1    if1    ${filter_index}
 
+Add a vtn flowfilter with dl-src
+    [Documentation]    Create a flowfilter with dl-src and Verify ping
+    Add a vtn flowfilter    Tenant1    ${flowfilterdlsrc}
+    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+
+Verify dl-src action for vtn flowfilter
+    [Documentation]    Verify actions in Flow Enties for dl-src
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify flowactions    ${dlsrc_actions}    ${FF_DUMPFLOWS_OF13}
+
+Remove vtn Flowfilter index which have dl-src
+    [Documentation]    Remove a index of vtn flowfilter which have DL_SRC
+    Remove a vtn flowfilter    Tenant1    ${filter_index}
+
+Add a vbr flowfilter with dl-src
+    [Documentation]    Create a flowfilter with dl-src and Verify ping
+    Add a vbr flowfilter    Tenant1    vBridge1    ${flowfilterdlsrc}
+    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+
+Verify dl-src action for vbr flowfilter
+    [Documentation]    Verify actions in Flow Enties for dl-src
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify flowactions    ${dlsrc_actions}    ${FF_DUMPFLOWS_OF13}
+
+Remove vbr Flowfilter index which have dl-src
+    [Documentation]    Remove a index of vbr flowfilter which have DL_SRC
+    Remove a vbr flowfilter    Tenant1    vBridge1    ${filter_index}
+
+Add a vbrif flowfilter with dl-src
+    [Documentation]    Create a flowfilter with dl-src and Verify ping
+    Add a vbrif flowfilter    Tenant1    vBridge1    if1    ${flowfilterdlsrc}
+    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+
+Verify dl-src action for vbrif flowfilter
+    [Documentation]    Verify actions in Flow Enties for dl-src
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify flowactions    ${dlsrc_actions}    ${FF_DUMPFLOWS_OF13}
+
+Remove vbrif Flowfilter index which have dl-src
+    [Documentation]    Remove a index of vbrif flowfilter which have DL_SRC
+    Remove a vbrif flowfilter    Tenant1    vBridge1    if1    ${filter_index}
+
 Add a flowfilter with inet4 for drop
     [Documentation]    Create a flowfilter with inet4 for drop action and Verify no pinging
     Add a vbrif flowfilter    Tenant1    vBridge1    if1    ${flowfilterInetdropdata}
