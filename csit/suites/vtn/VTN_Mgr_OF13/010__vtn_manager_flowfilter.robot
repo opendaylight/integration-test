@@ -11,6 +11,7 @@ ${flowfilterInetdropdata}    "vtn-flow-filter":[{"condition":"cond_1","vtn-drop-
 ${flowfilterIcmpCodedata}    "vtn-flow-filter": [{"condition": "cond_1","index": "1", "vtn-pass-filter": {}, "vtn-flow-action": [{ "order": "1", "vtn-set-icmp-code-action":{"code": "1"}},{"order": "2","vtn-set-icmp-type-action": {"type": "3"}}]}]
 ${flowfilterTpsrcTpdstdata}    "vtn-flow-filter": [{"condition": "cond_1","vtn-pass-filter": {},"vtn-flow-action": [{"order": "1","vtn-set-port-src-action": {"port": "5"}},{"order": "2","vtn-set-port-dst-action": {"port": "10"}}],"index": "1"}]
 ${flowfilterDscpdata}    "vtn-flow-filter":[{"condition": "cond_1","vtn-pass-filter": {},"vtn-flow-action": [{"order": "1","vtn-set-inet-dscp-action": {"dscp":"32"}}],"index":"1"}]
+${flowfilterdlsrc}    "vtn-flow-filter":[{"condition": "cond_1","vtn-pass-filter": {},"vtn-flow-action": [{"order": "1","vtn-set-dl-src-action": {"address":"00:00:00:00:00:11"}}],"index":"1"}]
 ${flowfiltervlanpcp}    "vtn-flow-filter":[{"condition":"cond_1","vtn-pass-filter":{},"vtn-flow-action":[{"order":"3","vtn-set-icmp-code-action":{"code":"1"}},{"order":"4","vtn-set-vlan-pcp-action":{"vlan-pcp":"3"}}],"index":"1"}]
 
 *** Test Cases ***
@@ -200,6 +201,45 @@ Verify dscp action for vbrif flowfilter
 
 Remove vbrif Flowfilter index which have dscp
     [Documentation]    Remove a index of vbrif flowfilter which have DSCP
+    Remove a vbrif flowfilter    Tenant1    vBridge1    if1    ${filter_index}
+
+Add a vtn flowfilter with dl-src
+    [Documentation]    Create a flowfilter with dl-src and Verify ping
+    Add a vtn flowfilter    Tenant1    ${flowfilterdlsrc}
+    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+
+Verify dl-src action for vtn flowfilter
+    [Documentation]    Verify actions in Flow Enties for dl-src
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify flowactions    ${dlsrc_actions}    ${FF_DUMPFLOWS_OF13}
+
+Remove vtn Flowfilter index which have dl-src
+    [Documentation]    Remove a index of vtn flowfilter which have DL_SRC
+    Remove a vtn flowfilter    Tenant1    ${filter_index}
+
+Add a vbr flowfilter with dl-src
+    [Documentation]    Create a flowfilter with dl-src and Verify ping
+    Add a vbr flowfilter    Tenant1    vBridge1    ${flowfilterdlsrc}
+    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+
+Verify dl-src action for vbr flowfilter
+    [Documentation]    Verify actions in Flow Enties for dl-src
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify flowactions    ${dlsrc_actions}    ${FF_DUMPFLOWS_OF13}
+
+Remove vbr Flowfilter index which have dl-src
+    [Documentation]    Remove a index of vbr flowfilter which have DL_SRC
+    Remove a vbr flowfilter    Tenant1    vBridge1    ${filter_index}
+
+Add a vbrif flowfilter with dl-src
+    [Documentation]    Create a flowfilter with dl-src and Verify ping
+    Add a vbrif flowfilter    Tenant1    vBridge1    if1    ${flowfilterdlsrc}
+    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+
+Verify dl-src action for vbrif flowfilter
+    [Documentation]    Verify actions in Flow Enties for dl-src
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify flowactions    ${dlsrc_actions}    ${FF_DUMPFLOWS_OF13}
+
+Remove vbrif Flowfilter index which have dl-src
+    [Documentation]    Remove a index of vbrif flowfilter which have DL_SRC
     Remove a vbrif flowfilter    Tenant1    vBridge1    if1    ${filter_index}
 
 Add a flowfilter with inet4 for drop
