@@ -307,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_3f69148c",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-06-06T08:03:20Z",
+      "side": 1,
+      "message": "I removed this for now as the validation is not being done, We will add in future.",
+      "parentUuid": "da5c1566_e941aa0c",
+      "range": {
+        "startLine": 158,
+        "startChar": 4,
+        "endLine": 158,
+        "endChar": 65
+      },
+      "revId": "b85d45c8fa4ef8f648d7c7b8c36b6c70fb717c4e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_be2e6141",
         "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
         "patchSetId": 3
@@ -388,6 +412,54 @@
       "side": 1,
       "message": "Still need all these MININET* vars changed to TOOLS_SYSTEM*",
       "parentUuid": "fa57193c_fe245961",
+      "range": {
+        "startLine": 15,
+        "startChar": 51,
+        "endLine": 15,
+        "endChar": 58
+      },
+      "revId": "b85d45c8fa4ef8f648d7c7b8c36b6c70fb717c4e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_dc2be192",
+        "filename": "csit/suites/vpnservice/__init__.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-06-06T08:03:20Z",
+      "side": 1,
+      "message": "If use the second TOOLS_SYSTEM_1_IP, it is not working\nhence the kept MININET as it is (we will be changing it in the later files)",
+      "parentUuid": "fa57193c_fe245961",
+      "range": {
+        "startLine": 15,
+        "startChar": 51,
+        "endLine": 15,
+        "endChar": 58
+      },
+      "revId": "b85d45c8fa4ef8f648d7c7b8c36b6c70fb717c4e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_ffcddc5e",
+        "filename": "csit/suites/vpnservice/__init__.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-06-06T08:03:20Z",
+      "side": 1,
+      "message": "MININET is replaced with TOOL_SYSTEM every where",
+      "parentUuid": "da5c1566_893c6e95",
       "range": {
         "startLine": 15,
         "startChar": 51,
