@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_95600137",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 3
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5872
+      },
+      "writtenOn": "2016-06-06T13:23:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_35e4953a",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 5
+      },
+      "revId": "220ced3c1eb7cb1bd7da7770482191dd82271a25",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_953761b0",
         "filename": "csit/suites/topoprocessing/basic-topology-operations/070_Underlay_update.robot",
         "patchSetId": 3
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_55778902",
+        "filename": "csit/suites/topoprocessing/basic-topology-operations/070_Underlay_update.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 5872
+      },
+      "writtenOn": "2016-06-06T13:23:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_953761b0",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 4
+      },
+      "revId": "220ced3c1eb7cb1bd7da7770482191dd82271a25",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_d541d90c",
         "filename": "csit/suites/topoprocessing/basic-topology-operations/070_Underlay_update.robot",
         "patchSetId": 3
@@ -59,6 +107,30 @@
       "writtenOn": "2016-06-06T12:18:31Z",
       "side": 1,
       "message": "Test case names tend to have capitalized every word.",
+      "range": {
+        "startLine": 72,
+        "startChar": 11,
+        "endLine": 72,
+        "endChar": 12
+      },
+      "revId": "220ced3c1eb7cb1bd7da7770482191dd82271a25",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_357495fc",
+        "filename": "csit/suites/topoprocessing/basic-topology-operations/070_Underlay_update.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 5872
+      },
+      "writtenOn": "2016-06-06T13:23:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "da5c1566_d541d90c",
       "range": {
         "startLine": 72,
         "startChar": 11,
