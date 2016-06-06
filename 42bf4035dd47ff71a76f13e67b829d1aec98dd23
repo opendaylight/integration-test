@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "da5c1566_3fee34ed",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-06-06T08:03:20Z",
+      "side": 1,
+      "message": "removed this",
+      "parentUuid": "da5c1566_09485e2c",
+      "range": {
+        "startLine": 50,
+        "startChar": 0,
+        "endLine": 51,
+        "endChar": 40
+      },
+      "revId": "42bf4035dd47ff71a76f13e67b829d1aec98dd23",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "da5c1566_69559ac5",
         "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
         "patchSetId": 7
@@ -36,6 +60,24 @@
       "writtenOn": "2016-06-04T00:47:22Z",
       "side": 1,
       "message": "applies elsewhere as well, but it would be good (can be in a newer patch if you don\u0027t want to worry about it here) if you had another check that compared ${resp.content} to what you\nexpect to be there",
+      "revId": "42bf4035dd47ff71a76f13e67b829d1aec98dd23",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_9fbae0df",
+        "filename": "csit/suites/vpnservice/02_odl_vpn_service.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 5431
+      },
+      "writtenOn": "2016-06-06T08:03:20Z",
+      "side": 1,
+      "message": "removed this",
+      "parentUuid": "da5c1566_69559ac5",
       "revId": "42bf4035dd47ff71a76f13e67b829d1aec98dd23",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
