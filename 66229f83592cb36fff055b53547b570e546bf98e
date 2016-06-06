@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_3569358c",
+        "filename": "csit/libraries/TopoprocessingKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-06T12:34:37Z",
+      "side": 1,
+      "message": "Lines 29-30 should be replaced by a call to Basic_Request_Get.",
+      "range": {
+        "startLine": 29,
+        "startChar": 15,
+        "endLine": 29,
+        "endChar": 26
+      },
+      "revId": "66229f83592cb36fff055b53547b570e546bf98e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_d50f19e0",
+        "filename": "csit/libraries/TopoprocessingKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-06T12:34:37Z",
+      "side": 1,
+      "message": "Documentation in the first 4 Keywords should not be identical.",
+      "range": {
+        "startLine": 36,
+        "startChar": 23,
+        "endLine": 36,
+        "endChar": 45
+      },
+      "revId": "66229f83592cb36fff055b53547b570e546bf98e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_550309b8",
+        "filename": "csit/libraries/TopoprocessingKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 325,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-06T12:34:37Z",
+      "side": 1,
+      "message": "Where is this defined?",
+      "range": {
+        "startLine": 325,
+        "startChar": 38,
+        "endLine": 325,
+        "endChar": 45
+      },
+      "revId": "66229f83592cb36fff055b53547b570e546bf98e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_b5e26501",
+        "filename": "csit/suites/topoprocessing/basic-topology-operations/070_Underlay_update.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-06T12:34:37Z",
+      "side": 1,
+      "message": "This looks confusing. It would be better if ovs-version was the last argument, with a default value suitable for this test.",
+      "range": {
+        "startLine": 28,
+        "startChar": 44,
+        "endLine": 28,
+        "endChar": 49
+      },
+      "revId": "66229f83592cb36fff055b53547b570e546bf98e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
