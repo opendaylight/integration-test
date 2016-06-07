@@ -308,3 +308,123 @@ Unification Filtration Node Update Inside Inventory model
     Should Contain    ${node}    <node-ref>of-node:17</node-ref>
     Should Contain    ${node}    <node-ref>of-node:19</node-ref>
     Should Contain    ${node}    <node-ref>of-node:20</node-ref>
+
+Link Computation Aggregation Inside Update NT
+    [Documentation]    Test of link computation with unification type of aggregation inside on updated nodes from network-topology model 
+    ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    network-topology-model    node    network-topo:6
+    ${request}    Insert Target Field    ${request}    0    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    0
+    ${request}    Insert Link Computation Inside    ${request}    ${LINK_COMPUTATION_INSIDE}    n:network-topology-model    network-topo:6
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    4
+    #Divide double nodes from overlay topology
+    ${request}    Create Isis Node    bgp:29    router-id-ipv4=192.168.1.3
+    Basic Request Put    ${request}    network-topology:network-topology/topology/network-topo:6/node/bgp:29
+    ${resp}    Basic Request Get    network-topology:network-topology/topology/topo:1
+    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
+    Should Contain X Times    ${resp.content}    <link-id>    4
+    #nodes 29
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:29']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <node-ref>bgp:29</node-ref>    1
+    ${node_29}    Get Element Text    ${node}    xpath=./node-id
+    #node 28
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:28']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <node-ref>bgp:28</node-ref>    1
+    ${node_28}    Get Element Text    ${node}    xpath=./node-id
+    #node 26
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:26']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <node-ref>bgp:26</node-ref>    1
+    ${node_26}    Get Element Text    ${node}    xpath=./node-id
+    #node 30
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:30']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <node-ref>bgp:30</node-ref>    1
+    ${node_30}    Get Element Text    ${node}    xpath=./node-id
+    #node 27
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:27']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <node-ref>bgp:27</node-ref>    1
+    ${node_27}    Get Element Text    ${node}    xpath=./node-id
+    #link 28-29
+    ${link}    Get Element    ${resp.content}    xpath=.//link/supporting-link[link-ref='/network-topology/topology/network-topo:6/link/link:28:29']/..
+    ${link}    Element to String    ${link}
+    ${source}    Get Element Text    ${link}    xpath=.//source-node
+    ${destination}    Get Element Text    ${link}    xpath=.//dest-node
+    Should Be Equal As Strings    ${source}    ${node_28}
+    Should Be Equal As Strings    ${destination}    ${node_29}
+    #link 26-28
+    ${link}    Get Element    ${resp.content}    xpath=.//link/supporting-link[link-ref='/network-topology/topology/network-topo:6/link/link:26:28']/..
+    ${link}    Element to String    ${link}
+    ${source}    Get Element Text    ${link}    xpath=.//source-node
+    ${destination}    Get Element Text    ${link}    xpath=.//dest-node
+    Should Be Equal As Strings    ${source}    ${node_26}
+    Should Be Equal As Strings    ${destination}    ${node_28}
+    #link 29:30-2
+    ${link}    Get Element    ${resp.content}    xpath=.//link/supporting-link[link-ref='/network-topology/topology/network-topo:6/link/link:29:30-2']/..
+    ${link}    Element to String    ${link}
+    ${source}    Get Element Text    ${link}    xpath=.//source-node
+    ${destination}    Get Element Text    ${link}    xpath=.//dest-node
+    Should Be Equal As Strings    ${source}    ${node_29}
+    Should Be Equal As Strings    ${destination}    ${node_30}
+    #link 29:30-1
+    ${link}    Get Element    ${resp.content}    xpath=.//link/supporting-link[link-ref='/network-topology/topology/network-topo:6/link/link:29:30-1']/..
+    ${link}    Element to String    ${link}
+    ${source}    Get Element Text    ${link}    xpath=.//source-node
+    ${destination}    Get Element Text    ${link}    xpath=.//dest-node
+    Should Be Equal As Strings    ${source}    ${node_29}
+    Should Be Equal As Strings    ${destination}    ${node_30}
+    #Update link to node out of topology
+    ${request}    Create Link    link:28:29    bgp:28    bgp:31    linkB    11
+    Basic Request Put    ${request}    network-topology:network-topology/topology/network-topo:6/link/link:28:29
+    ${resp}    Basic Request Get    network-topology:network-topology/topology/topo:1
+    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
+    Should Contain X Times    ${resp.content}    <link-id>    3
+    #nodes 29
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:29']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <node-ref>bgp:29</node-ref>    1
+    ${node_29}    Get Element Text    ${node}    xpath=./node-id
+    #node 28
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:28']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <node-ref>bgp:28</node-ref>    1
+    ${node_28}    Get Element Text    ${node}    xpath=./node-id
+    #node 26
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:26']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <node-ref>bgp:26</node-ref>    1
+    ${node_26}    Get Element Text    ${node}    xpath=./node-id
+    #node 30
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:30']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <node-ref>bgp:30</node-ref>    1
+    ${node_30}    Get Element Text    ${node}    xpath=./node-id
+    #node 27
+    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:27']/..
+    ${node}    Element to String    ${node}
+    Should Contain X Times    ${node}    <node-ref>bgp:27</node-ref>    1
+    ${node_27}    Get Element Text    ${node}    xpath=./node-id
+    #link 28-29
+    Should Not Contain    ${resp.content}    /network-topology/topology/network-topo:6/link/link:28:29
+    #link 26-28
+    ${link}    Get Element    ${resp.content}    xpath=.//link/supporting-link[link-ref='/network-topology/topology/network-topo:6/link/link:26:28']/..
+    ${link}    Element to String    ${link}
+    ${source}    Get Element Text    ${link}    xpath=.//source-node
+    ${destination}    Get Element Text    ${link}    xpath=.//dest-node
+    Should Be Equal As Strings    ${source}    ${node_26}
+    Should Be Equal As Strings    ${destination}    ${node_28}
+    #link 29:30-2
+    ${link}    Get Element    ${resp.content}    xpath=.//link/supporting-link[link-ref='/network-topology/topology/network-topo:6/link/link:29:30-2']/..
+    ${link}    Element to String    ${link}
+    ${source}    Get Element Text    ${link}    xpath=.//source-node
+    ${destination}    Get Element Text    ${link}    xpath=.//dest-node
+    Should Be Equal As Strings    ${source}    ${node_29}
+    Should Be Equal As Strings    ${destination}    ${node_30}
+    #link 29:30-1
+    ${link}    Get Element    ${resp.content}    xpath=.//link/supporting-link[link-ref='/network-topology/topology/network-topo:6/link/link:29:30-1']/..
+    ${link}    Element to String    ${link}
+    ${source}    Get Element Text    ${link}    xpath=.//source-node
+    ${destination}    Get Element Text    ${link}    xpath=.//dest-node
+    Should Be Equal As Strings    ${source}    ${node_29}
+    Should Be Equal As Strings    ${destination}    ${node_30}
