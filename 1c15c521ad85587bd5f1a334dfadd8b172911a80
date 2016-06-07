@@ -1,0 +1,112 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_c9049d17",
+        "filename": "csit/libraries/Appenders/ElasticsearchAppender.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 68,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-06-07T01:52:23Z",
+      "side": 1,
+      "message": "Only basic metric I miss is CPU usage in %. Can you see if there is any java mbean  for that?",
+      "revId": "1c15c521ad85587bd5f1a334dfadd8b172911a80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_3e091132",
+        "filename": "csit/libraries/Appenders/ElasticsearchAppender.py",
+        "patchSetId": 15
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-06-07T01:52:23Z",
+      "side": 1,
+      "message": "This will need some rework to make it cluster-aware, see my comments in the mail.",
+      "revId": "1c15c521ad85587bd5f1a334dfadd8b172911a80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_290a7921",
+        "filename": "csit/suites/longevity/010_Check_JVM_Resource.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-06-07T01:52:23Z",
+      "side": 1,
+      "message": "Can you please store this test file in /csit/suites/test? this will be a better place for now. Eventually it should go to /csit/suites/test/libraries but now it will fail because of lack elasticsearch software.",
+      "revId": "1c15c521ad85587bd5f1a334dfadd8b172911a80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_2959d9fe",
+        "filename": "csit/suites/longevity/010_Check_JVM_Resource.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-06-07T01:52:23Z",
+      "side": 1,
+      "message": "Please change ${IP} to ${ODL_SYSTEM_IP}. Later for cluster we will have to use a Keyword to connect to individual systems ${ODL_SYSTEM_1_IP}, ${ODL_SYSTEM_2_IP}, ${ODL_SYSTEM_3_IP}. Also please change ${PORT} to ${ELASTICPORT} (or similar name) and add the default value (9200) in Variables.py.",
+      "revId": "1c15c521ad85587bd5f1a334dfadd8b172911a80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_2910b900",
+        "filename": "csit/suites/longevity/010_Check_JVM_Resource.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-06-07T01:52:23Z",
+      "side": 1,
+      "message": "Just ThreadCount would be better here",
+      "range": {
+        "startLine": 22,
+        "startChar": 76,
+        "endLine": 22,
+        "endChar": 99
+      },
+      "revId": "1c15c521ad85587bd5f1a334dfadd8b172911a80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_0915f5f0",
+        "filename": "csit/suites/longevity/010_Check_JVM_Resource.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-06-07T01:52:23Z",
+      "side": 1,
+      "message": "It would be good to add a plot for TotalLoadedClassCount and also for CPU usage if you figure out how to get the mbean.",
+      "revId": "1c15c521ad85587bd5f1a334dfadd8b172911a80",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
