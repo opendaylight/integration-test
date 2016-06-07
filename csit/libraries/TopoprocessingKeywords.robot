@@ -272,3 +272,19 @@ Insert Scripting into Request
     ${request}    Set Element Text    ${request}    ${language}    xpath=.//correlation/aggregation/scripting/language
     ${request}    Element to String    ${request}
     [Return]    ${request}
+
+Create Isis Node
+    [Arguments]    ${node-id}    ${router-id-ipv4}
+    [Documentation]    Create an isis node element with id and ip
+    ${request}    Set Element Text    ${NODE_ISIS}    ${node-id}    xpath=.//node-id
+    ${request}    Set Element Text    ${request}    ${router-id-ipv4}    xpath=.//igp-node-attributes/isis-node-attributes/ted/te-router-id-ipv4
+    ${request}    Element to String    ${request}
+    [Return ]    ${request}
+
+Create Openflow Node
+    [Arguments]    ${node-id}    ${ip-address}
+    [Documentation]    Create an Openflow node element with id and ip
+    ${request}    Set Element Text    ${NODE_OPENFLOW}    ${node-id}    xpath=.//id
+    ${request}    Set Element Text    ${request}    ${ip-address}    xpath=.//ip-address
+    ${request}    Element to String    ${request}
+    [Return ]    ${request}
