@@ -75,6 +75,12 @@ Test Teardown
     ${resp}    Delete Request    session    ${CONFIG_API}/${overlay_topology}
     Should Be Equal As Strings    ${resp.status_code}    200
 
+Test Teardown With Underlay Topologies Refresh
+    [Arguments]    ${overlay_topology}
+    [Documentation]    Deletes given overlay topology from datastore and overwrites the underlaying ones with initial topologies
+    Test Teardown    ${overlay_topology}
+    Insert Underlay Topologies
+
 Prepare New Feature Installation
     [Documentation]    Clears karaf logs and CONFIGURATION datastore
     ${resp}    Delete Request    session    ${CONFIG_API}/network-topology:network-topology
@@ -286,5 +292,21 @@ Create Openflow Node
     [Documentation]    Create an Openflow node element with id and ip
     ${request}    Set Element Text    ${NODE_OPENFLOW}    ${node-id}    xpath=.//id
     ${request}    Set Element Text    ${request}    ${ip-address}    xpath=.//ip-address
+    ${request}    Element to String    ${request}
+    [Return ]    ${request}
+
+Create OVSDB Termination Point
+    [Arguments]    ${tp-id}    ${ofport}
+    [Documentation]    Create an OVSDB termination point element with id and port
+    ${request}    Set Element Text    ${TERMINATION_POINT_OVSDB}    ${tp-id}    xpath=.//tp-id
+    ${request}    Set Element Text    ${request}    ${ofport}    xpath=.//ofport
+    ${request}    Element to String    ${request}
+    [Return ]    ${request}
+
+Create Openflow Node Connector
+    [Arguments]    ${nc-id}    ${port-number}
+    [Documentation]    Create an Openflow node connector element with id and port number
+    ${request}    Set Element Text    ${NODE_CONNECTOR_OPENFLOW}    ${nc-id}    xpath=.//id
+    ${request}    Set Element Text    ${request}    ${port-number}    xpath=.//port-number
     ${request}    Element to String    ${request}
     [Return ]    ${request}
