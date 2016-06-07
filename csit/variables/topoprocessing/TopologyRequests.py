@@ -263,3 +263,14 @@ NODE_OPENFLOW = '''<node xmlns="urn:opendaylight:inventory" xmlns:flov-inv="urn:
         <id>{node-id}</id>
         <flov-inv:ip-address>{ip-address}</flov-inv:ip-address>
     </node>'''
+
+TERMINATION_POINT_OVSDB = '''<termination-point xmlns="urn:TBD:params:xml:ns:yang:network-topology"
+                                                xmlns:ovsdb="urn:opendaylight:params:xml:ns:yang:ovsdb">
+                                    <tp-id>{tp-id}</tp-id>
+                                    <ovsdb:ofport>{ofport}</ovsdb:ofport>
+                                </termination-point>'''
+
+NODE_CONNECTOR_OPENFLOW = '''<node-connector xmlns="urn:opendaylight:inventory" xmlns:flov-inv="urn:opendaylight:flow:inventory">
+            <id>{nc-id}</id>
+            <flov-inv:port-number>{port-number}</flov-inv:port-number>
+        </node-connector>'''
