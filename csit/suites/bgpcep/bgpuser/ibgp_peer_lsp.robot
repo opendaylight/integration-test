@@ -18,7 +18,7 @@ Library           OperatingSystem
 Library           RequestsLibrary
 Library           DateTime
 Variables         ${CURDIR}/../../../variables/Variables.py
-Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${ODL_SYSTEM_PROMPT}
+Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
 Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot

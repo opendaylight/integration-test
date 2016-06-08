@@ -11,7 +11,7 @@ Suite Teardown    Stop Suite
 Library           RequestsLibrary
 Library           SSHLibrary
 Variables         ${CURDIR}/../../../variables/Variables.py
-Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}
+Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
