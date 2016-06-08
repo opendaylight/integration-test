@@ -13,6 +13,7 @@ Resource          ../../../libraries/OVSDB.robot
 Resource          ../../../libraries/KarafKeywords.robot
 
 *** Variables ***
+${ODLREST}        /controller/nb/v2/neutron
 ${OVSDB_CONFIG_DIR}    ${CURDIR}/../../../variables/ovsdb
 @{node_list}      ovsdb://uuid/
 ${EXT_NET1_ID}    7da709ff-397f-4778-a0e8-994811272fdb
