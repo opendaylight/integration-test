@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_4ddb70ed",
+        "filename": "csit/suites/netconf/clustering/entity.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-08T15:10:48Z",
+      "side": 1,
+      "message": "Only \"follower\" is allowed now.",
+      "range": {
+        "startLine": 109,
+        "startChar": 103,
+        "endLine": 109,
+        "endChar": 112
+      },
+      "revId": "a44b01626c7796c0084c9c18f63be2b2403241ca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_2dd8bcee",
+        "filename": "csit/suites/netconf/clustering/entity.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-08T15:10:48Z",
+      "side": 1,
+      "message": "This is already a suite variable. Shadowing it as a Keyword argument is confusing.",
+      "range": {
+        "startLine": 179,
+        "startChar": 19,
+        "endLine": 179,
+        "endChar": 43
+      },
+      "revId": "a44b01626c7796c0084c9c18f63be2b2403241ca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_0dd218d2",
+        "filename": "csit/suites/netconf/clustering/entity.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 184,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-08T15:10:48Z",
+      "side": 1,
+      "message": "Now this can never happen, because Get Device Entity Owner And Followers Indexes explicitly removes owner from the list.",
+      "range": {
+        "startLine": 184,
+        "startChar": 55,
+        "endLine": 184,
+        "endChar": 95
+      },
+      "revId": "a44b01626c7796c0084c9c18f63be2b2403241ca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
