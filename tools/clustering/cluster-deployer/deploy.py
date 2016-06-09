@@ -235,7 +235,8 @@ class Deployer:
                              args.rootdir + "/deploy/current")
 
         # Run karaf
-        self.remote.start_controller(self.dir_name)
+#        self.remote.start_controller(self.dir_name)
+        self.remote.exec_cmd(self.dir_name + "/odl/bin/start debug")
 
 
 def main():
