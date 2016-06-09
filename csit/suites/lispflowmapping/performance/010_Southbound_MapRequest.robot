@@ -24,6 +24,7 @@ ${REPLAY_FILE_MREG}    map-registers-sequential-no-auth.pcap
 ${REPLAY_FILE_MRGA}    map-registers-sequential-sha1-auth.pcap
 ${RPCS_RESULTS_FILE}    rpcs.csv
 ${PPS_RESULTS_FILE}    pps.csv
+${ODL_SYSTEM_IP}    192.168.100.1
 
 *** Test Cases ***
 Add Simple IPv4 Mappings
