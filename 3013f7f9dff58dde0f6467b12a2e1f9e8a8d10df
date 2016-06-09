@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "da5c1566_ecc88176",
+        "filename": "csit/suites/topoprocessing/basic-topology-operations/070_Underlay_update.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 5007
+      },
+      "writtenOn": "2016-06-09T14:16:52Z",
+      "side": 1,
+      "message": "port-number 4 is still in the range (from 2 to 4)",
+      "range": {
+        "startLine": 124,
+        "startChar": 58,
+        "endLine": 124,
+        "endChar": 75
+      },
+      "revId": "3013f7f9dff58dde0f6467b12a2e1f9e8a8d10df",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_ccc5bd5c",
+        "filename": "csit/suites/topoprocessing/basic-topology-operations/070_Underlay_update.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5007
+      },
+      "writtenOn": "2016-06-09T14:16:52Z",
+      "side": 1,
+      "message": "opendlow:3:2 is from the node openflow:3, not 2",
+      "range": {
+        "startLine": 125,
+        "startChar": 79,
+        "endLine": 125,
+        "endChar": 89
+      },
+      "revId": "3013f7f9dff58dde0f6467b12a2e1f9e8a8d10df",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_2ca279ae",
+        "filename": "csit/suites/topoprocessing/basic-topology-operations/070_Underlay_update.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 5007
+      },
+      "writtenOn": "2016-06-09T14:16:52Z",
+      "side": 1,
+      "message": "tp:3:1 is from the node of-node:3, not 2",
+      "range": {
+        "startLine": 132,
+        "startChar": 114,
+        "endLine": 132,
+        "endChar": 123
+      },
+      "revId": "3013f7f9dff58dde0f6467b12a2e1f9e8a8d10df",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
