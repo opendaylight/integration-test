@@ -22,6 +22,30 @@
       "revId": "5e10fc62544967e9f5e96ea2e0d42a74dae236f9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "da5c1566_0c05f510",
+        "filename": "csit/suites/bgpcep/bgpflowspec/010_bgp_flowspec.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-09T12:59:21Z",
+      "side": 1,
+      "message": "Yes, releng/builder scripts run pybot with -v for those (among others).\nMaybe we should document which values are set that way, so that people running tests outside CI know what to do without too much debugging.",
+      "parentUuid": "da5c1566_c8748e9e",
+      "range": {
+        "startLine": 14,
+        "startChar": 67,
+        "endLine": 14,
+        "endChar": 106
+      },
+      "revId": "5e10fc62544967e9f5e96ea2e0d42a74dae236f9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
