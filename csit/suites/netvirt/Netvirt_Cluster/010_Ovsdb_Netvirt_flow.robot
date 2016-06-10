@@ -57,7 +57,7 @@ Check External Net for Tenant
     [Documentation]    Check External Net for Tenant
     [Tags]    OpenStack Call Flow
     ${resp}=    Create Dictionary    "networks" : [ ]=1
-    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${resp}    ${ODLREST}/networks
+    Check Item Occurrence At URI In Cluster    ${original_cluster_list}    ${resp}    ${NEUTRON_NETWORKS_API}
 
 Create External Net for Tenant
     [Documentation]    Create External Net for Tenant
@@ -66,4 +66,4 @@ Create External Net for Tenant
     ${Data}    Replace String    ${Data}    {netId}    ${EXT_NET1_ID}
     ${Data}    Replace String    ${Data}    {tntId}    ${TNT1_ID}
     Log    ${Data}
-    Put And Check At URI In Cluster    ${original_cluster_list}    1    ${ODLREST}/networks    ${Data}
+    Post And Check At URI In Cluster    ${original_cluster_list}    1    ${NEUTRON_NETWORKS_API}    ${Data}
