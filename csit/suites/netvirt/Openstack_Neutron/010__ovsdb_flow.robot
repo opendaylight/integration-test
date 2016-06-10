@@ -15,7 +15,6 @@ Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/OVSDB.robot
 
 *** Variables ***
-${ODLREST}        /controller/nb/v2/neutron
 ${OVSDB_CONFIG_DIR}    ${CURDIR}/../../../variables/ovsdb
 ${TNT1_ID}        cde2563ead464ffa97963c59e002c0cf
 ${EXT_NET1_ID}    7da709ff-397f-4778-a0e8-994811272fdb
@@ -70,7 +69,7 @@ Ensure netvirt is loaded
 Check External Net for Tenant
     [Documentation]    Check External Net for Tenant
     [Tags]    OpenStack Call Flow
-    ${resp}    RequestsLibrary.Get Request    session    ${ODLREST}/networks
+    ${resp}    RequestsLibrary.Get Request    session    ${NEUTRON_NB_API}/networks
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
 
@@ -81,7 +80,7 @@ Create External Net for Tenant
     ${Data}    Replace String    ${Data}    {netId}    ${EXT_NET1_ID}
     ${Data}    Replace String    ${Data}    {tntId}    ${TNT1_ID}
     Log    ${Data}
-    ${resp}    RequestsLibrary.Post Request    session    ${ODLREST}/networks    data=${Data}    headers=${HEADERS}
+    ${resp}    RequestsLibrary.Post Request    session    ${NEUTRON_NB_API}/networks    data=${Data}    headers=${HEADERS}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    201
 
@@ -93,7 +92,7 @@ Create External Subnet
     ${Data}    Replace String    ${Data}    {tntId}    ${TNT1_ID}
     ${Data}    Replace String    ${Data}    {subnetId}    ${EXT_SUBNET1_ID}
     Log    ${Data}
-    ${resp}    RequestsLibrary.Post Request    session    ${ODLREST}/subnets    ${Data}
+    ${resp}    RequestsLibrary.Post Request    session    ${NEUTRON_NB_API}/subnets    ${Data}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Create Tenant Router
@@ -103,7 +102,7 @@ Create Tenant Router
     ${Data}    Replace String    ${Data}    {tntId}    ${TNT1_ID}
     ${Data}    Replace String    ${Data}    {rtrId}    ${TNT1_RTR_ID}
     Log    ${Data}
-    ${resp}    RequestsLibrary.Post Request    session    ${ODLREST}/routers    ${Data}
+    ${resp}    RequestsLibrary.Post Request    session    ${NEUTRON_NB_API}/routers    ${Data}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Set Router Gateway
@@ -116,7 +115,7 @@ Set Router Gateway
     ${Data}    Replace String    ${Data}    {subnetId}    ${EXT_SUBNET1_ID}
     ${Data}    Replace String    ${Data}    {portId}    ${NEUTRON_PORT_TNT1_RTR_GW}
     Log    ${Data}
-    ${resp}    RequestsLibrary.Post Request    session    ${ODLREST}/ports    ${Data}
+    ${resp}    RequestsLibrary.Post Request    session    ${NEUTRON_NB_API}/ports    ${Data}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Update Router Port Gateway
@@ -128,7 +127,7 @@ Update Router Port Gateway
     ${Data}    Replace String    ${Data}    {subnetId}    ${EXT_SUBNET1_ID}
     ${Data}    Replace String    ${Data}    {portId}    ${NEUTRON_PORT_TNT1_RTR_GW}
     Log    ${Data}
-    ${resp}    RequestsLibrary.Put Request    session    ${ODLREST}/routers/${TNT1_RTR_ID}    ${Data}
+    ${resp}    RequestsLibrary.Put Request    session    ${NEUTRON_NB_API}/routers/${TNT1_RTR_ID}    ${Data}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Create Tenant Internal Net
@@ -140,7 +139,7 @@ Create Tenant Internal Net
     ${Data}    Replace String    ${Data}    {netName}    ${TNT1_NET1_NAME}
     ${Data}    Replace String    ${Data}    {netSegm}    ${TNT1_NET1_SEGM}
     Log    ${Data}
-    ${resp}    RequestsLibrary.Post Request    session    ${ODLREST}/networks    ${Data}
+    ${resp}    RequestsLibrary.Post Request    session    ${NEUTRON_NB_API}/networks    ${Data}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Create Tenant Internal Subnet
@@ -152,7 +151,7 @@ Create Tenant Internal Subnet
     ${Data}    Replace String    ${Data}    {subnetId}    ${TNT1_SUBNET1_ID}
     ${Data}    Replace String    ${Data}    {subnetName}    ${TNT1_SUBNET1_NAME}
     Log    ${Data}
-    ${resp}    RequestsLibrary.Post Request    session    ${ODLREST}/subnets    ${Data}
+    ${resp}    RequestsLibrary.Post Request    session    ${NEUTRON_NB_API}/subnets    ${Data}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Create Port DHCP
@@ -167,7 +166,7 @@ Create Port DHCP
     ${Data}    Replace String    ${Data}    {dhcpMac}    ${TNT1_NET1_DHCP_MAC}
     ${Data}    Replace String    ${Data}    {dhcpId}    ${TNT1_NET1_DHCP_PORT_ID}
     Log    ${Data}
-    ${resp}    RequestsLibrary.Post Request    session    ${ODLREST}/ports    ${Data}
+    ${resp}    RequestsLibrary.Post Request    session    ${NEUTRON_NB_API}/ports    ${Data}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Update Port DHCP
@@ -177,7 +176,7 @@ Update Port DHCP
     ${Data}    Replace String    ${Data}    {BIND_HOST_ID}    ${ODL_SYSTEM_IP}
     ${Data}    Replace String    ${Data}    {dhcpDeviceId}    ${TNT1_NET1_DHCP_DEVICE_ID}
     Log    ${Data}
-    ${resp}    RequestsLibrary.Put Request    session    ${ODLREST}/ports/${TNT1_NET1_DHCP_PORT_ID}    ${Data}
+    ${resp}    RequestsLibrary.Put Request    session    ${NEUTRON_NB_API}/ports/${TNT1_NET1_DHCP_PORT_ID}    ${Data}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Create Router Interface on Tenant Internal Subnet
@@ -190,7 +189,7 @@ Create Router Interface on Tenant Internal Subnet
     ${Data}    Replace String    ${Data}    {subnetId}    ${TNT1_SUBNET1_ID}
     ${Data}    Replace String    ${Data}    {portId}    ${NEUTRON_PORT_TNT1_RTR_NET1}
     Log    ${Data}
-    ${resp}    RequestsLibrary.Post Request    session    ${ODLREST}/ports    ${Data}
+    ${resp}    RequestsLibrary.Post Request    session    ${NEUTRON_NB_API}/ports    ${Data}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Update Router Interface on Tenant Internal Subnet
@@ -202,7 +201,7 @@ Update Router Interface on Tenant Internal Subnet
     ${Data}    Replace String    ${Data}    {subnetId}    ${TNT1_SUBNET1_ID}
     ${Data}    Replace String    ${Data}    {portId}    ${NEUTRON_PORT_TNT1_RTR_NET1}
     Log    ${Data}
-    ${resp}    RequestsLibrary.Put Request    session    ${ODLREST}/routers/${TNT1_RTR_ID}/add_router_interface    ${Data}
+    ${resp}    RequestsLibrary.Put Request    session    ${NEUTRON_NB_API}/routers/${TNT1_RTR_ID}/add_router_interface    ${Data}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Create Port VM
@@ -217,7 +216,7 @@ Create Port VM
     ${Data}    Replace String    ${Data}    {macAddr}    ${TNT1_VM1_MAC}
     ${Data}    Replace String    ${Data}    {deviceId}    ${TNT1_VM1_DEVICE_ID}
     Log    ${Data}
-    ${resp}    RequestsLibrary.Post Request    session    ${ODLREST}/ports    ${Data}
+    ${resp}    RequestsLibrary.Post Request    session    ${NEUTRON_NB_API}/ports    ${Data}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Create Port Floating IP
@@ -230,7 +229,7 @@ Create Port Floating IP
     ${Data}    Replace String    ${Data}    {macAddress}    ${FLOAT_IP1_MAC}
     ${Data}    Replace String    ${Data}    {deviceId}    ${FLOAT_IP1_DEVICE_ID}
     Log    ${Data}
-    ${resp}    RequestsLibrary.Post Request    session    ${ODLREST}/ports    ${Data}
+    ${resp}    RequestsLibrary.Post Request    session    ${NEUTRON_NB_API}/ports    ${Data}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Create Floating IP
@@ -242,7 +241,7 @@ Create Floating IP
     ${Data}    Replace String    ${Data}    {floatIpId}    ${FLOAT_IP1_ID}
     ${Data}    Replace String    ${Data}    {floatIpAddress}    ${FLOAT_IP1_ADDRESS}
     Log    ${Data}
-    ${resp}    RequestsLibrary.Post Request    session    ${ODLREST}/floatingips    ${Data}
+    ${resp}    RequestsLibrary.Post Request    session    ${NEUTRON_NB_API}/floatingips    ${Data}
     Should Be Equal As Strings    ${resp.status_code}    201
 
 Associate the Floating IP with Tenant VM
@@ -256,5 +255,5 @@ Associate the Floating IP with Tenant VM
     ${Data}    Replace String    ${Data}    {floatIpAddress}    ${FLOAT_IP1_ADDRESS}
     ${Data}    Replace String    ${Data}    {vmPortId}    ${TNT1_VM1_PORT_ID}
     Log    ${Data}
-    ${resp}    RequestsLibrary.Put Request    session    ${ODLREST}/floatingips/${FLOAT_IP1_ID}    ${Data}
+    ${resp}    RequestsLibrary.Put Request    session    ${NEUTRON_NB_API}/floatingips/${FLOAT_IP1_ID}    ${Data}
     Should Be Equal As Strings    ${resp.status_code}    200
