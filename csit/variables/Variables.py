@@ -8,19 +8,20 @@ Edited: Many times by many people
 
 # VM Environment defaults
 DEFAULT_LINUX_PROMPT = '>'
-DEFAULT_LINUX_PROMPT_STRICT = ']>'
-DEFAULT_USER = 'jenkins'
+DEFAULT_USER = 'mininet'
 DEFAULT_TIMEOUT = '30s'
 
 # ODL system variables
-ODL_SYSTEM_IP = '127.0.0.1'  # Override if ODL is not running locally to pybot
+ODL_SYSTEM_IP = '10.183.254.160'  # Override if ODL is not running locally to pybot
 ODL_SYSTEM_IP_LIST = ['ODL_SYSTEM_1_IP', 'ODL_SYSTEM_2_IP', 'ODL_SYSTEM_3_IP']
 ODL_SYSTEM_USER = DEFAULT_USER
 ODL_SYSTEM_PASSWORD = ''  # empty means use public key authentication
 ODL_SYSTEM_PROMPT = DEFAULT_LINUX_PROMPT
+ODL_STREAM = 'stable_beryllium'
 
 # "Tools" system variables (mininet etc).
-TOOLS_SYSTEM_IP = '127.0.0.1'  # Override if tools are not run locally to pybot
+TOOLS_SYSTEM_IP = '10.183.254.160'  # Override if tools are not run locally to pybot
+TOOLS_SYSTEM_2_IP='10.183.254.161'
 TOOLS_SYSTEM_USER = DEFAULT_USER
 TOOLS_SYSTEM_PASSWORD = ''  # empty means use public key authentication
 TOOLS_SYSTEM_PROMPT = DEFAULT_LINUX_PROMPT
@@ -156,10 +157,7 @@ CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH = "MininetTopo/" +\
 
 GBP_REGEP_API = "/restconf/operations/endpoint:register-endpoint"
 GBP_UNREGEP_API = "/restconf/operations/endpoint:unregister-endpoint"
-GBP_ENDPOINTS_API = "/restconf/operational/endpoint:endpoints"
-GBP_BASE_ENDPOINTS_API = "/restconf/operational/base-endpoint:endpoints"
 GBP_TENANTS_API = "/restconf/config/policy:tenants"
-OPERATIONAL_GBP_TENANTS_API = "/restconf/operational/policy:tenants"
 GBP_TUNNELS_API = "/restconf/config/opendaylight-inventory:nodes"
 
 # LISP Flow Mapping variables
@@ -169,13 +167,6 @@ LFM_SB_RPC_API = "/restconf/operations/odl-lisp-sb"
 
 # Neutron
 NEUTRON_NB_API = '/controller/nb/v2/neutron'
-NEUTRON_NETWORKS_API = NEUTRON_NB_API + '/' + 'networks'
-NEUTRON_ROUTERS_API = NEUTRON_NB_API + '/' + 'routers'
-OSREST = '/v2.0/networks'
-KARAF_HOME = '${WORKSPACE}${/}${BUNDLEFOLDER}'
-
-# Openstack System Prompt
-OS_SYSTEM_PROMPT = '$'
 
 # Other global variables
 # TODO: Move these to more apropriate sections.
@@ -232,6 +223,3 @@ SET_DASHBOARDRECORD = '/restconf/operations/dashboardrule:set-dashboard'
 DELETE_DASHBOARDRECORD = '/restconf/operations/dashboardrule:delete-dashboard'
 SET_SUBSCRIBEUSER = '/restconf/operations/subscribe:subscribe-user'
 SUBSCRIPTION = '/restconf/config/subscribe:subscription/'
-
-# Elasticsearch Variables
-ELASTICPORT = 9200
