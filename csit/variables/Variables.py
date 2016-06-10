@@ -8,27 +8,33 @@ Edited: Many times by many people
 
 # VM Environment defaults
 DEFAULT_LINUX_PROMPT = '>'
-DEFAULT_LINUX_PROMPT_STRICT = ']>'
-DEFAULT_USER = 'jenkins'
+DEFAULT_USER = 'mininet'
 DEFAULT_TIMEOUT = '30s'
 
 # ODL system variables
-ODL_SYSTEM_IP = '127.0.0.1'  # Override if ODL is not running locally to pybot
+# Override if ODL is not running locally
+ODL_SYSTEM_IP = '10.183.254.160'
 ODL_SYSTEM_IP_LIST = ['ODL_SYSTEM_1_IP', 'ODL_SYSTEM_2_IP', 'ODL_SYSTEM_3_IP']
 ODL_SYSTEM_USER = DEFAULT_USER
-ODL_SYSTEM_PASSWORD = ''  # empty means use public key authentication
+# empty means use public key authentication
+ODL_SYSTEM_PASSWORD = ''
 ODL_SYSTEM_PROMPT = DEFAULT_LINUX_PROMPT
+ODL_STREAM = 'stable_beryllium'
 
 # "Tools" system variables (mininet etc).
-TOOLS_SYSTEM_IP = '127.0.0.1'  # Override if tools are not run locally to pybot
+# Override if tools are not run locally to pybot
+TOOLS_SYSTEM_IP = '10.183.254.160'
+TOOLS_SYSTEM_2_IP = '10.183.254.161'
 TOOLS_SYSTEM_USER = DEFAULT_USER
-TOOLS_SYSTEM_PASSWORD = ''  # empty means use public key authentication
+# empty means use public key authentication
+TOOLS_SYSTEM_PASSWORD = ''
 TOOLS_SYSTEM_PROMPT = DEFAULT_LINUX_PROMPT
 
 # KARAF Variables
 KARAF_SHELL_PORT = '8101'
 ESCAPE_CHARACTER = '\x1B'
-KARAF_DETAILED_PROMPT = '@' + ESCAPE_CHARACTER + '[0m' + ESCAPE_CHARACTER + '[34mroot' + ESCAPE_CHARACTER + '[0m>'
+KARAF_DETAILED_PROMPT = '@' + ESCAPE_CHARACTER + \
+    '[0m' + ESCAPE_CHARACTER + '[34mroot' + ESCAPE_CHARACTER + '[0m>'
 KARAF_USER = 'karaf'
 KARAF_PASSWORD = 'karaf'
 KARAF_PROMPT = 'opendaylight-user'
@@ -110,7 +116,8 @@ FLOWFILTERS_UPDATE = 'flowfilterentries'
 # Common APIs
 CONFIG_NODES_API = '/restconf/config/opendaylight-inventory:nodes'
 OPERATIONAL_NODES_API = '/restconf/operational/opendaylight-inventory:nodes'
-OPERATIONAL_NODES_NETVIRT = '/restconf/operational/network-topology:network-topology/topology/netvirt:1'
+OPERATIONAL_NODES_NETVIRT = '/restconf/operational/network-topology:' \
+                            'network-topology/topology/netvirt:1'
 OPERATIONAL_TOPO_API = '/restconf/operational/network-topology:' \
                        'network-topology'
 CONFIG_TOPO_API = '/restconf/config/network-topology:network-topology'
@@ -125,9 +132,11 @@ MODULES_API = '/restconf/modules'
 # NEMO Variables
 PREDEFINE_ROLE_URI = '/restconf/config/nemo-user:user-roles'
 PREDEFINE_NODE_URI = '/restconf/config/nemo-object:node-definitions'
-PREDEFINE_CONNECTION_URI = '/restconf/config/nemo-object:connection-definitions'
+PREDEFINE_CONNECTION_URI = '/restconf/config/nemo-object:' \
+                           'connection-definitions'
 REGISTER_TENANT_URI = '/restconf/operations/nemo-intent:register-user'
-STRUCTURE_INTENT_URI = '/restconf/operations/nemo-intent:structure-style-nemo-update'
+STRUCTURE_INTENT_URI = '/restconf/operations/nemo-intent:' \
+                       'structure-style-nemo-update'
 GET_INTENTS_URI = '/retconf/config/intent:intents'
 
 # TOKEN
@@ -156,10 +165,7 @@ CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH = "MininetTopo/" +\
 
 GBP_REGEP_API = "/restconf/operations/endpoint:register-endpoint"
 GBP_UNREGEP_API = "/restconf/operations/endpoint:unregister-endpoint"
-GBP_ENDPOINTS_API = "/restconf/operational/endpoint:endpoints"
-GBP_BASE_ENDPOINTS_API = "/restconf/operational/base-endpoint:endpoints"
 GBP_TENANTS_API = "/restconf/config/policy:tenants"
-OPERATIONAL_GBP_TENANTS_API = "/restconf/operational/policy:tenants"
 GBP_TUNNELS_API = "/restconf/config/opendaylight-inventory:nodes"
 
 # LISP Flow Mapping variables
@@ -169,14 +175,6 @@ LFM_SB_RPC_API = "/restconf/operations/odl-lisp-sb"
 
 # Neutron
 NEUTRON_NB_API = '/controller/nb/v2/neutron'
-NEUTRON_NETWORKS_API = NEUTRON_NB_API + '/' + 'networks'
-NEUTRON_PORTS_API = NEUTRON_NB_API + '/' + 'ports'
-NEUTRON_ROUTERS_API = NEUTRON_NB_API + '/' + 'routers'
-OSREST = '/v2.0/networks'
-KARAF_HOME = '${WORKSPACE}${/}${BUNDLEFOLDER}'
-
-# Openstack System Prompt
-OS_SYSTEM_PROMPT = '$'
 
 # Other global variables
 # TODO: Move these to more apropriate sections.
@@ -185,8 +183,10 @@ RESTPORT = '8282'
 RESTCONFPORT = '8181'
 OVSDBPORT = '6640'
 CONTAINER = 'default'
-PREFIX = 'http://' + ODL_SYSTEM_IP + ':' + PORT  # TODO: determine where this is used; create a better named variable
-USER = 'admin'  # TODO: who is using this?  Can we make it more specific? (e.g.  RESTCONF_USER)
+# TODO: determine where this is used; create a better named variable
+PREFIX = 'http://' + ODL_SYSTEM_IP + ':' + PORT
+# TODO: who is using this?  Can we make it more specific?(e.g.  RESTCONF_USER)
+USER = 'admin'
 PWD = 'admin'
 PASSWORD = 'EMPTY'
 AUTH = [u'admin', u'admin']
@@ -196,16 +196,19 @@ HEADERS_YANG_JSON = {'Content-Type': 'application/yang.data+json'}
 HEADERS_XML = {'Content-Type': 'application/xml'}
 ACCEPT_XML = {'Accept': 'application/xml'}
 ACCEPT_JSON = {'Accept': 'application/json'}
-ACCEPT_EMPTY = {}  # Json should be default, but no-output RPC cannot have Accept header.
+ACCEPT_EMPTY = {}
+# Json should be default, but no-output RPC cannot have Accept header.
 ODL_CONTROLLER_SESSION = None
 TOPO_TREE_LEVEL = 2
 TOPO_TREE_DEPTH = 3
 TOPO_TREE_FANOUT = 2
 KEYFILE_PASS = 'any'
 SSH_KEY = 'id_rsa'
-CONTROLLER_STOP_TIMEOUT = 120  # Max number of seconds test will wait for a controller to stop
+# Max number of seconds test will wait for a controller to stop
+CONTROLLER_STOP_TIMEOUT = 120
 TOPOLOGY_URL = 'network-topology:network-topology/topology'
-SEND_ACCEPT_XML_HEADERS = {'Content-Type': 'application/xml', 'Accept': 'application/xml'}
+SEND_ACCEPT_XML_HEADERS = {
+    'Content-Type': 'application/xml', 'Accept': 'application/xml'}
 
 # Test deadlines global control
 ENABLE_GLOBAL_TEST_DEADLINES = True
@@ -218,21 +221,26 @@ CONTROLLER_PASSWORD = ODL_SYSTEM_PASSWORD
 CONTROLLER_PROMPT = ODL_SYSTEM_PROMPT
 
 # Centinel Variables
-SET_CONFIGURATION_URI = '/restconf/operations/configuration:set-centinel-configurations'
-GET_CONFIGURATION_URI = '/restconf/operational/configuration:configurationRecord/'
+SET_CONFIGURATION_URI = '/restconf/operations/configuration:' \
+                        'set-centinel-configurations'
+GET_CONFIGURATION_URI = '/restconf/operational/configuration:' \
+                        'configurationRecord/'
 STREAMRECORD_CONFIG = '/restconf/config/stream:streamRecord'
 SET_STREAMRECORD = '/restconf/operations/stream:set-stream'
-ALERTFIELDCONTENTRULERECORD = '/restconf/config/alertrule:alertFieldContentRuleRecord/'
-SET_ALERTFIELDCONTENTRULERECORD = '/restconf/operations/alertrule:set-alert-field-content-rule'
-ALERTFIELDVALUERULERECORD = '/restconf/config/alertrule:alertFieldValueRuleRecord'
-SET_ALERTFIELDVALUERULERECORD = '/restconf/operations/alertrule:set-alert-field-value-rule'
-ALERTMESSAGECOUNTRULERECORD = '/restconf/config/alertrule:alertMessageCountRuleRecord/'
-SET_ALERTMESSAGECOUNTRULERECORD = '/restconf/operations/alertrule:set-alert-message-count-rule'
+ALERTFIELDCONTENTRULERECORD = '/restconf/config/alertrule:' \
+                              'alertFieldContentRuleRecord/'
+SET_ALERTFIELDCONTENTRULERECORD = '/restconf/operations/alertrule:' \
+                                  'set-alert-field-content-rule'
+ALERTFIELDVALUERULERECORD = '/restconf/config/alertrule:' \
+                            'alertFieldValueRuleRecord'
+SET_ALERTFIELDVALUERULERECORD = '/restconf/operations/alertrule:' \
+                                'set-alert-field-value-rule'
+ALERTMESSAGECOUNTRULERECORD = '/restconf/config/alertrule:' \
+                              'alertMessageCountRuleRecord/'
+SET_ALERTMESSAGECOUNTRULERECORD = '/restconf/operations/alertrule:' \
+                                  'set-alert-message-count-rule'
 GET_DASHBOARDRECORD = '/restconf/operational/dashboardrule:dashboardRecord/'
 SET_DASHBOARDRECORD = '/restconf/operations/dashboardrule:set-dashboard'
 DELETE_DASHBOARDRECORD = '/restconf/operations/dashboardrule:delete-dashboard'
 SET_SUBSCRIBEUSER = '/restconf/operations/subscribe:subscribe-user'
 SUBSCRIPTION = '/restconf/config/subscribe:subscription/'
-
-# Elasticsearch Variables
-ELASTICPORT = 9200
