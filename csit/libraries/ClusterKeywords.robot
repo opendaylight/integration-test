@@ -123,9 +123,22 @@ Put And Check At URI In Cluster
     [Arguments]    ${controller_index_list}    ${controller_index}    ${uri}    ${body}
     [Documentation]    Send a PUT with the supplied ${uri} and ${body} (json string) to a ${controller_index}
     ...    and check the data is replicated in all instances in ${controller_index_list}.
+    Create Data And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${uri}    ${body}    PUT
+
+Post And Check At URI In Cluster
+    [Arguments]    ${controller_index_list}    ${controller_index}    ${uri}    ${body}
+    [Documentation]    Send a POST with the supplied ${uri} and ${body} (json string) to a ${controller_index}
+    ...    and check the data is replicated in all instances in ${controller_index_list}.
+    Create Data And Check At URI In Cluster    ${controller_index_list}    ${controller_index}    ${uri}    ${body}    POST
+
+Create Data And Check At URI In Cluster
+    [Arguments]    ${controller_index_list}    ${controller_index}    ${uri}    ${body}    ${create_method}=PUT
+    [Documentation]    Send a ${create_method} REST call with the supplied ${uri} and ${body} (json string) to a
+    ...    ${controller_index} and check the data is replicated in all instances in ${controller_index_list}.
     ${expected_body}=    Hsf Json    ${body}
     Log    ${body}
-    ${resp}    RequestsLibrary.Put Request    controller${controller_index}    ${uri}    data=${body}    headers=${HEADERS_YANG_JSON}
+    ${resp}    Run Keyword If    "${create_method}" == "POST"    RequestsLibrary.Post Request    controller${controller_index}    ${uri}    data=${body}    ${HEADERS}
+    ...    ELSE    RequestsLibrary.Put Request    controller${controller_index}    ${uri}    data=${body}    ${HEADERS}
     Log    ${resp.content}
     Log    ${resp.status_code}
     ${status_code}=    Convert To String    ${resp.status_code}
