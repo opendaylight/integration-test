@@ -1,5 +1,5 @@
 {
-  "network": [
+  "networks": [
     {
       "provider:physical_network": "physnetext1",
       "port_security_enabled": true,
