@@ -1,0 +1,27 @@
+{
+    "transport-zone": [
+        {
+            "subnets": [
+                {
+                    "gateway-ip": "0.0.0.0",
+                    "prefix": "1.1.1.1/24",
+                    "vlan-id": 0,
+                    "vteps": [
+                        {
+                            "dpn-id": 101,
+                            "ip-address": "2.2.2.2",
+                            "portname": "BR1-eth1"
+                        },
+                        {
+                            "dpn-id": 102,
+                            "ip-address": "3.3.3.3",
+                            "portname": "BR2-eth1"
+                        }
+                    ]
+                }
+            ],
+            "tunnel-type": "odl-interface:tunnel-type-vxlan",
+            "zone-name": "TZA"
+        }
+    ]
+}
