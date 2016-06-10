@@ -1,0 +1,11 @@
+{
+        "interface": [
+            {
+                "name": "l2vlan-trunk",
+                "type": "iana-if-type:l2vlan",
+                "l2vlan-mode":"trunk",
+                "odl-interface:parent-interface": "tapab123",
+                "enabled": "true"
+            }
+        ]
+}
