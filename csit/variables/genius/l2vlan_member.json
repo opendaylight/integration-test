@@ -1,0 +1,12 @@
+  {
+        "interface": [
+            {
+                "name": "l2vlan-trunk1",
+                "type": "iana-if-type:l2vlan",
+                "l2vlan-mode":"trunk-member",
+                "vlan-id":1000,
+                "odl-interface:parent-interface": "l2vlan-trunk",
+                "enabled": "true"
+	     }
+	]
+ }
