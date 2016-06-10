@@ -1,0 +1,7 @@
+{
+  "input": {
+    "id-manager:pool-name": "test-pool",
+    "id-manager:low": 10,
+    "id-manager:high": 20
+  }
+}
