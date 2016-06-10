@@ -1,0 +1,7 @@
+{
+  "input": {
+    "id-manager:pool-name": "test-pool",
+    "id-manager:id-key": "test-key",
+    "id-manager:size": 5
+  }
+}
