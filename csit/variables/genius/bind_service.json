@@ -1,0 +1,33 @@
+ {
+      "bound-services": [
+        {
+          "service-name": "service1",
+          "flow-priority": "5",
+          "service-type": "service-type-flow-based",
+          "instruction": [
+           {
+            "order": 1,
+            "go-to-table": {
+               "table_id": 21
+             }
+           }],
+          "service-priority": "3",
+          "flow-cookie": "1"
+        },
+		{
+          "service-name": "service2",
+          "flow-priority": "5",
+          "service-type": "service-type-flow-based",
+          "instruction": [
+           {
+            "order": 1,
+            "go-to-table": {
+               "table_id": 50
+             }
+           }],
+          "service-priority": "4",
+          "flow-cookie": "1"
+        }
+		
+      ]
+}
