@@ -22,6 +22,30 @@
       "revId": "7d6c431b6445f400acff8af2983da12e321b9801",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_1ecc2d35",
+        "filename": "csit/suites/netconf/clustering/entity.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 5394
+      },
+      "writtenOn": "2016-06-13T10:54:54Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba51214e_9e22fdff",
+      "range": {
+        "startLine": 81,
+        "startChar": 25,
+        "endLine": 81,
+        "endChar": 31
+      },
+      "revId": "7d6c431b6445f400acff8af2983da12e321b9801",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
