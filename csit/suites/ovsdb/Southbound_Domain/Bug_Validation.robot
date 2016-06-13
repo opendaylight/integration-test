@@ -31,13 +31,14 @@ Bug 5221
     Connect Controller To OVSDB Node
     @{list}    Create List    ovsdb://${TOOLS_SYSTEM_IP}:${OVSDB_PORT}
     Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}
-    Create Bridge    ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:${OVSDB_PORT}    ${BRIDGE}
+    Create Bridge    ${TOOLS_SYSTEM_IP}:6634    ${BRIDGE}
     @{list}    Create List    ovsdb://${TOOLS_SYSTEM_IP}:${OVSDB_PORT}/bridge/${BRIDGE}
     Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}
     Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo /usr/share/openvswitch/scripts/ovs-ctl stop
     Wait Until Keyword Succeeds    8s    2s    Check For Elements Not At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}
     Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo /usr/share/openvswitch/scripts/ovs-ctl start
-    Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}
+    # Depending on when the retry timers are firing, it may take some 10s of seconds to reconnect, so setting to 30 to cover that.
+    Wait Until Keyword Succeeds    30s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}
     [Teardown]    Run Keywords    Clean OVSDB Test Environment
     ...    AND    Report_Failure_Due_To_Bug    5221
 
@@ -47,7 +48,13 @@ Bug 5177
     ...    1) create bridge in config using the UUID determined in Suite Setup
     ...    2) connect ovs (vsctl set-manager)
     ...    3) Fail if node is not discovered in Operational Store
-    ${node}    Set Variable    ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
+    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected
+    ${ovsdb_uuid}=    Get OVSDB UUID    ${TOOLS_SYSTEM_IP}
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
+    # Suite teardown wants this ${ovsdb_uuid} variable for it's best effort cleanup, so making it visible at suite level.
+    Set Suite Variable    ${ovsdb_uuid}
+    ${node}    Set Variable    uuid/${ovsdb_uuid}
     Create Bridge    ${node}    ${BRIDGE}
     ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
     Log    ${resp.content}
@@ -64,7 +71,7 @@ Bug 4794
     ...    always be executed immediately after.
     ...    1) delete bridge in config
     ...    2) Poll and Fail if exception is seen in karaf.log
-    ${node}    Set Variable    ovsdb://uuid/${ovsdb_uuid}
+    ${node}    Set Variable    ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}
     ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/${node}%2Fbridge%2F${BRIDGE}
     Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
     Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
@@ -81,8 +88,6 @@ OVSDB Connection Manager Suite Setup
     Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
     Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
     Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected
-    ${ovsdb_uuid}=    Get OVSDB UUID    ${TOOLS_SYSTEM_IP}
-    Set Suite Variable    ${ovsdb_uuid}
     Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
 
 OVSDB Connection Manager Suite Teardown
@@ -103,15 +108,16 @@ OVSDB Connection Manager Suite Teardown
     #    doing all this work each time.
 
 Create Bridge
-    [Arguments]    ${node}    ${bridge}
+    [Arguments]    ${node_string}    ${bridge}
     [Documentation]    This will create bridge on the specified OVSDB node.
     ${body}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_bridge.json
-    ${body}    Replace String    ${body}    ovsdb://127.0.0.1:61644    ovsdb://209.132.179.50:6634
+    ${body}    Replace String    ${body}    ovsdb://127.0.0.1:61644    ovsdb://${node_string}
     ${body}    Replace String    ${body}    tcp:127.0.0.1:6633    tcp:${ODL_SYSTEM_IP}:6640
     ${body}    Replace String    ${body}    127.0.0.1    ${TOOLS_SYSTEM_IP}
     ${body}    Replace String    ${body}    br01    ${bridge}
     ${body}    Replace String    ${body}    61644    ${OVSDB_PORT}
-    ${uri}=    Set Variable    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/${node}%2Fbridge%2F${bridge}
+    ${node_string}    Replace String    ${node_string}    /    %2F
+    ${uri}=    Set Variable    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${node_string}%2Fbridge%2F${bridge}
     Log    URL is ${uri}
     Log    data: ${body}
     ${resp}    RequestsLibrary.Put Request    session    ${uri}    data=${body}
