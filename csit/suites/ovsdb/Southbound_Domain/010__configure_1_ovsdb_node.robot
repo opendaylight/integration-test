@@ -33,7 +33,7 @@ Connect to OVSDB Node
     ${resp}    RequestsLibrary.Put Request    session    ${SOUTHBOUND_CONFIG_API}    data=${body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
-    Wait Until Keyword Succeeds    3s    1s    Verify OVS Reports Connected
+    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected
 
 Get Operational Topology
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes
