@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba51214e_829e1b55",
+        "filename": "csit/libraries/ChangeCounter.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-14T10:57:39Z",
+      "side": 1,
+      "message": "\"${ODL_STREAM}\" in [\"beryllium\", \"stable-lithium\"]",
+      "range": {
+        "startLine": 35,
+        "startChar": 46,
+        "endLine": 35,
+        "endChar": 70
+      },
+      "revId": "189d5eb6a5b9b8191c50bc3661df1114fbfcf6af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_e2c9d75b",
+        "filename": "csit/variables/bgpuser/change_counter/data.xml.boron",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-14T10:57:39Z",
+      "side": 1,
+      "message": "Keep this as data.xml and create data.xml.beryllium and data.xml.stable-lithium for the old data.",
+      "revId": "189d5eb6a5b9b8191c50bc3661df1114fbfcf6af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_02aa0b70",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 946,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-14T10:57:39Z",
+      "side": 1,
+      "message": "\"\\x00\\x00\\x00\\x64\" perhaps?",
+      "range": {
+        "startLine": 943,
+        "startChar": 17,
+        "endLine": 946,
+        "endChar": 26
+      },
+      "revId": "189d5eb6a5b9b8191c50bc3661df1114fbfcf6af",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
