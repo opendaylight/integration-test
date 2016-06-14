@@ -31,7 +31,9 @@ Get_Change_Count
     ${response} =    RequestsLibrary.Get_Request    operational    data-change-counter:data-change-counter
     BuiltIn.Should_Be_Equal    ${response.status_code}    ${200}    Got status: ${response.status_code} and message: ${response.text}
     # TODO: The following line can be insecure. Should we use regexp instead?
-    ${count} =    BuiltIn.Evaluate    ${response.text}["data-change-counter"]["count"]
+    # TODO: beware of new releases (carbon ...) and mind if more counters are used
+    ${count} =    BuiltIn.Run Keyword If      "${ODL_STREAM}"!="boron"      BuiltIn.Evaluate    ${response.text}["data-change-counter"]["count"]
+    ...           ELSE     BuiltIn.Evaluate    ${response.text}["data-change-counter"]["counter"][0]["count"]
     [Return]    ${count}
 
 Reconfigure_Topology_Name

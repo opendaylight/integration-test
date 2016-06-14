@@ -115,7 +115,8 @@ Delete_Xml_Template_Folder_Config_Via_Restconf
 Resolve_URI_From_Template_Folder
     [Arguments]    ${folder}    ${mapping_as_string}
     [Documentation]    Read URI template from folder, strip endline, make changes according to mapping, return the result.
-    ${uri_template}=    OperatingSystem.Get_File    ${folder}${/}config.uri
+    ${status}    ${uri_template}=    BuiltIn.Run_Keyword_And_Ignore_Error    OperatingSystem.Get_File    ${folder}${/}config.uri.${ODL_STREAM}
+    ${uri_template}=     BuiltIn.Run Keyword If     '${status}' != 'PASS'    OperatingSystem.Get_File    ${folder}${/}config.uri    ELSE   BuiltIn.Set Variable    ${uri_template}
     BuiltIn.Log    ${uri_template}
     ${uri_part}=    Strip_Endline_And_Apply_Substitutions_From_Mapping    ${uri_template}    ${mapping_as_string}
     [Return]    ${uri_part}
@@ -123,7 +124,8 @@ Resolve_URI_From_Template_Folder
 Resolve_Xml_Data_From_Template_Folder
     [Arguments]    ${folder}    ${mapping_as_string}
     [Documentation]    Read XML data template from folder, strip endline, make changes according to mapping, return the result.
-    ${data_template}=    OperatingSystem.Get_File    ${folder}${/}data.xml
+    ${status}    ${data_template}=    BuiltIn.Run_Keyword_And_Ignore_Error    OperatingSystem.Get_File    ${folder}${/}data.xml.${ODL_STREAM}
+    ${data_template}=     BuiltIn.Run Keyword If     '${status}' != 'PASS'    OperatingSystem.Get_File    ${folder}${/}data.xml    ELSE   BuiltIn.Set Variable    ${data_template}
     BuiltIn.Log    ${data_template}
     ${xml_data}=    Strip_Endline_And_Apply_Substitutions_From_Mapping    ${data_template}    ${mapping_as_string}
     [Return]    ${xml_data}
@@ -131,7 +133,8 @@ Resolve_Xml_Data_From_Template_Folder
 Resolve_Json_Data_From_Template_Folder
     [Arguments]    ${folder}    ${mapping_as_string}
     [Documentation]    Read JSON data template from folder, strip endline, make changes according to mapping, return the result.
-    ${data_template}=    OperatingSystem.Get_File    ${folder}${/}data.json
+    ${status}    ${data_template}=    BuiltIn.Run_Keyword_And_Ignore_Error    OperatingSystem.Get_File    ${folder}${/}data.json.${ODL_STREAM}
+    ${data_template}=     BuiltIn.Run Keyword If     '${status}' != 'PASS'    OperatingSystem.Get_File    ${folder}${/}data.json    ELSE   BuiltIn.Set Variable    ${data_template}
     BuiltIn.Log    ${data_template}
     ${json_data}=    Strip_Endline_And_Apply_Substitutions_From_Mapping    ${data_template}    ${mapping_as_string}
     [Return]    ${json_data}
