@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba51214e_ceacbc38",
+        "filename": "csit/suites/topoprocessing/basic-topology-operations/070_Underlay_update.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 328,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-06-14T19:00:25Z",
+      "side": 1,
+      "message": "this looks like a good snippet to turn in to a local keyword and reuse below, instead of all the duplicate lines.\n\nmaybe:\n\nValidate Node Count\n[Arguments]    ${node_number}\n    ${node}    Get Element    ${resp.content}    xpath\u003d.//node/supporting-node[node-ref\u003d\u0027bgp:${node_number}\u0027]/..\n    ${node}    Element to String    ${node}\n    Should Contain X Times    ${node}    \u003cnode-ref\u003ebgp:${node_number}\u003c/node-ref\u003e    1\n    ${node_${node_number}}    Get Element Text    ${node}    xpath\u003d./node-id  \n\nsame idea applies elsewhere with duplicate snippets with only one or two items changing",
+      "range": {
+        "startLine": 324,
+        "startChar": 4,
+        "endLine": 328,
+        "endChar": 64
+      },
+      "revId": "8743e8e6a80257aab315e1135d8deae67a098edb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
