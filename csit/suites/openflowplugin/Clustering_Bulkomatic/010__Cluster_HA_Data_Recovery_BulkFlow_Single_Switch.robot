@@ -13,12 +13,12 @@ Variables         ../../../variables/Variables.py
 ${operation_timeout}    100s
 ${restart_timeout}    350s
 ${flow_count_per_switch}    1000
-${switch_count_per_node}    1
+${switch_count}    1
 ${flow_count_after_add}    1000
 ${flow_count_after_del}    0
-${add_small_config}    sal_add_bulk_flow_small_config.json
-${get_small_config}    sal_get_bulk_flow_small_config.json
-${del_small_config}    sal_del_bulk_flow_small_config.json
+${orig_json_config_add}    sal_add_bulk_flow_config.json
+${orig_json_config_get}    sal_get_bulk_flow_config.json
+${orig_json_config_del}    sal_del_bulk_flow_config.json
 
 *** Test Cases ***
 Create Original Cluster List
@@ -43,14 +43,19 @@ Start Mininet Connect To Follower Node1
 
 Add Bulk Flow From Follower
     [Documentation]    1000 Flows added via Follower Node1 and verify it gets applied in all instances.
-    BulkomaticKeywords.Add Bulk Flow In Node    ${Follower_Node_1}    ${add_small_config}    ${operation_timeout}
+    ${temp_json_config_add}    BulkomaticKeywords.Set DPN And Flow Count In Json Add    ${orig_json_config_add}    ${switch_count}    ${flow_count_per_switch}
+    Set Suite Variable    ${temp_json_config_add}
+    BulkomaticKeywords.Add Bulk Flow In Node    ${Follower_Node_1}    ${temp_json_config_add}    ${operation_timeout}
 
 Get Bulk Flows and Verify In Cluster
-    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${original_cluster_list}    ${get_small_config}    ${operation_timeout}    ${flow_count_after_add}
+    [Documentation]    Initiate get operation and check flow count across cluster nodes
+    ${temp_json_config_get}    BulkomaticKeywords.Set DPN And Flow Count In Json Get    ${orig_json_config_get}    ${switch_count}    ${flow_count_after_add}
+    Set Suite Variable    ${temp_json_config_get}
+    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${original_cluster_list}    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_add}
 
 Verify Flows In Switch Before Cluster Restart
     [Documentation]    Verify flows are installed in switch before cluster restart.
-    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count_per_node}    ${flow_count_per_switch}    ${operation_timeout}
+    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count}    ${flow_count_per_switch}    ${operation_timeout}
 
 Kill All Cluster Nodes
     [Documentation]    Kill All Nodes.
@@ -67,7 +72,7 @@ Restart All Cluster Nodes
 
 Verify Data Recovery After Cluster Restart
     [Documentation]    1000 Flows preserved in all controller instances.
-    Wait Until Keyword Succeeds    ${restart_timeout}    2s    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${original_cluster_list}    ${get_small_config}    ${operation_timeout}
+    Wait Until Keyword Succeeds    ${restart_timeout}    2s    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${original_cluster_list}    ${temp_json_config_get}    ${operation_timeout}
     ...    ${flow_count_after_add}
 
 Start Mininet Again Connect To Follower Node1
@@ -77,7 +82,7 @@ Start Mininet Again Connect To Follower Node1
 
 Verify Flows In Switch After Cluster Restart
     [Documentation]    Verify flows are installed in switch after cluster restart.
-    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count_per_node}    ${flow_count_per_switch}    ${operation_timeout}
+    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count}    ${flow_count_per_switch}    ${operation_timeout}
 
 Stop Mininet Connected To Follower Node1
     [Documentation]    Stop mininet and exit connection.
@@ -85,11 +90,14 @@ Stop Mininet Connected To Follower Node1
     Utils.Clean Mininet System
 
 Delete All Flows From Follower Node1
-    [Documentation]    Rest 1000 Flows deleted via Follower Node1 and verify it gets applied in all instances.
-    BulkomaticKeywords.Delete Bulk Flow In Node    ${Follower_Node_1}    ${del_small_config}    ${operation_timeout}
+    [Documentation]    1000 Flows deleted via Follower Node1 and verify it gets applied in all instances.
+    ${temp_json_config_del}    BulkomaticKeywords.Set DPN And Flow Count In Json Del    ${orig_json_config_del}    ${switch_count}    ${flow_count_per_switch}
+    Set Suite Variable    ${temp_json_config_del}
+    BulkomaticKeywords.Delete Bulk Flow In Node    ${Follower_Node_1}    ${temp_json_config_del}    ${operation_timeout}
 
 Verify No Flows In Cluster
-    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${original_cluster_list}    ${get_small_config}    ${operation_timeout}    ${flow_count_after_del}
+    [Documentation]    Verify flow count is 0 across cluster nodes.
+    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${original_cluster_list}    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_del}
 
 Get Inventory Leader Before Leader Restart
     [Documentation]    Find leader in the inventory config shard
@@ -103,17 +111,18 @@ Start Mininet Connect To Leader
 
 Add Bulk Flow From Leader
     [Documentation]    1000 Flows added via Follower Node1 and verify it gets applied in all instances.
-    BulkomaticKeywords.Add Bulk Flow In Node    ${Inventory_Leader}    ${add_small_config}    ${operation_timeout}
+    BulkomaticKeywords.Add Bulk Flow In Node    ${Inventory_Leader}    ${temp_json_config_add}    ${operation_timeout}
 
 Get Bulk Flows and Verify In Cluster Before Leader Restart
-    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${original_cluster_list}    ${get_small_config}    ${operation_timeout}    ${flow_count_after_add}
+    [Documentation]    Initiate get operation and check flow count across cluster nodes
+    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${original_cluster_list}    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_add}
 
 Verify Flows In Switch Before Leader Restart
     [Documentation]    Verify flows are installed in switch before leader restart.
-    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count_per_node}    ${flow_count_per_switch}    ${operation_timeout}
+    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count}    ${flow_count_per_switch}    ${operation_timeout}
 
 Kill Leader From Cluster Node
-    [Documentation]    Kill Leader Node and Start it Up.
+    [Documentation]    Kill Leader Node.
     ClusterKeywords.Kill Multiple Controllers    ${Inventory_Leader}
 
 Stop Mininet Connected To Leader Node
@@ -127,7 +136,7 @@ Restart Leader from Cluster Node
 
 Verify Data Recovery After Leader Restart
     [Documentation]    1000 Flows preserved in all controller instances.
-    Wait Until Keyword Succeeds    ${restart_timeout}    2s    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${original_cluster_list}    ${get_small_config}    ${operation_timeout}
+    Wait Until Keyword Succeeds    ${restart_timeout}    2s    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${original_cluster_list}    ${temp_json_config_get}    ${operation_timeout}
     ...    ${flow_count_after_add}
 
 Start Mininet Again Connect To Leader
@@ -137,7 +146,7 @@ Start Mininet Again Connect To Leader
 
 Verify Flows In Switch After Leader Restart
     [Documentation]    Verify flows are installed in switch after leader restart.
-    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count_per_node}    ${flow_count_per_switch}    ${operation_timeout}
+    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count}    ${flow_count_per_switch}    ${operation_timeout}
 
 Stop Mininet Connected To Leader Node After Leader Restart
     [Documentation]    Stop mininet and exit connection.
@@ -145,11 +154,12 @@ Stop Mininet Connected To Leader Node After Leader Restart
     Utils.Clean Mininet System
 
 Delete All Flows From Leader Node
-    [Documentation]    Rest 1000 Flows deleted via Leader Node and verify it gets applied in all instances.
-    BulkomaticKeywords.Delete Bulk Flow In Node    ${Inventory_Leader}    ${del_small_config}    ${operation_timeout}
+    [Documentation]    1000 Flows deleted via Leader Node and verify it gets applied in all instances.
+    BulkomaticKeywords.Delete Bulk Flow In Node    ${Inventory_Leader}    ${temp_json_config_del}    ${operation_timeout}
 
 Verify No Flows In Cluster After Leader Restart
-    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${original_cluster_list}    ${get_small_config}    ${operation_timeout}    ${flow_count_after_del}
+    [Documentation]    Verify flow count is 0 across cluster nodes.
+    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${original_cluster_list}    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_del}
 
 Get Inventory Follower Before follower Restart
     [Documentation]    Find follower in the inventory config shard
@@ -164,14 +174,15 @@ Start Mininet Connect To Follower Node2
 
 Add Bulk Flow From Follower Node2
     [Documentation]    1000 Flows added via Follower Node2 and verify it gets applied in all instances.
-    BulkomaticKeywords.Add Bulk Flow In Node    ${Follower_Node_2}    ${add_small_config}    ${operation_timeout}
+    BulkomaticKeywords.Add Bulk Flow In Node    ${Follower_Node_2}    ${temp_json_config_add}    ${operation_timeout}
 
 Get Bulk Flows and Verify In Cluster Before Follower Restart
-    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${original_cluster_list}    ${get_small_config}    ${operation_timeout}    ${flow_count_after_add}
+    [Documentation]    Initiate get operation and check flow count across cluster nodes
+    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${original_cluster_list}    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_add}
 
 Verify Flows In Switch Before Follower Restart
     [Documentation]    Verify flows are installed in switch before follower restart.
-    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count_per_node}    ${flow_count_per_switch}    ${operation_timeout}
+    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count}    ${flow_count_per_switch}    ${operation_timeout}
 
 Kill Follower Node2
     [Documentation]    Kill Follower Node2.
@@ -188,7 +199,7 @@ Restart Follower Node2
 
 Verify Data Recovery After Follower Node2 Restart
     [Documentation]    1000 Flows preserved in all controller instances.
-    Wait Until Keyword Succeeds    ${restart_timeout}    2s    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${original_cluster_list}    ${get_small_config}    ${operation_timeout}
+    Wait Until Keyword Succeeds    ${restart_timeout}    2s    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${original_cluster_list}    ${temp_json_config_get}    ${operation_timeout}
     ...    ${flow_count_after_add}
 
 Start Mininet Again Connect To Follower Node2
@@ -198,7 +209,7 @@ Start Mininet Again Connect To Follower Node2
 
 Verify Flows In Switch After Follower Node2 Restart
     [Documentation]    Verify flows are installed in switch after follower restart.
-    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count_per_node}    ${flow_count_per_switch}    ${operation_timeout}
+    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count}    ${flow_count_per_switch}    ${operation_timeout}
 
 Stop Mininet Connected To Follower Node2
     [Documentation]    Stop mininet and exit connection.
@@ -206,8 +217,8 @@ Stop Mininet Connected To Follower Node2
     Utils.Clean Mininet System
 
 Delete All Flows From Follower Node 2
-    [Documentation]    Rest 1000 Flows deleted via Leader Node and verify it gets applied in all instances.
-    BulkomaticKeywords.Delete Bulk Flow In Node    ${Follower_Node_2}    ${del_small_config}    ${operation_timeout}
+    [Documentation]    1000 Flows deleted via Leader Node and verify it gets applied in all instances.
+    BulkomaticKeywords.Delete Bulk Flow In Node    ${Follower_Node_2}    ${temp_json_config_del}    ${operation_timeout}
 
 Verify No Flows In Cluster After Follower Node2 Restart
-    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${original_cluster_list}    ${get_small_config}    ${operation_timeout}    ${flow_count_after_del}
+    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${original_cluster_list}    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_del}

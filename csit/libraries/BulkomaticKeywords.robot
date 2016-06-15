@@ -35,22 +35,19 @@ Wait Until Read Finishes
     Wait Until Keyword Succeeds    ${timeout}    1s    BulkomaticKeywords.Operation Status Check    ${controller_index}    ${jolokia_read_op_status}
 
 Add Bulk Flow
-    [Arguments]    ${controller_index}    ${add_bulk_json_file}
-    [Documentation]    Add Bulk Flow in ${controller_index} according to ${add_bulk_json_file}.
-    ${add_body}=    OperatingSystem.Get File    ${CURDIR}/../variables/openflowplugin/${add_bulk_json_file}
-    ${resp}    Utils.Post Elements To URI    ${ADD_BULK_CONFIG_NODES_API}    ${add_body}    headers=${HEADERS_YANG_JSON}    session=controller${controller_index}
+    [Arguments]    ${controller_index}    ${json_body_add}
+    [Documentation]    Add Bulk Flow in ${controller_index} according to ${json_body_add}.
+    ${resp}    Utils.Post Elements To URI    ${ADD_BULK_CONFIG_NODES_API}    ${json_body_add}    headers=${HEADERS_YANG_JSON}    session=controller${controller_index}
 
 Delete Bulk Flow
-    [Arguments]    ${controller_index}    ${del_bulk_json_file}
-    [Documentation]    Delete Bulk Flow in ${controller_index} according to ${del_bulk_json_file}.
-    ${del_body}=    OperatingSystem.Get File    ${CURDIR}/../variables/openflowplugin/${del_bulk_json_file}
-    ${resp}    Utils.Post Elements To URI    ${ADD_BULK_CONFIG_NODES_API}    ${del_body}    headers=${HEADERS_YANG_JSON}    session=controller${controller_index}
+    [Arguments]    ${controller_index}    ${json_body_del}
+    [Documentation]    Delete Bulk Flow in ${controller_index} according to ${json_body_del}.
+    ${resp}    Utils.Post Elements To URI    ${ADD_BULK_CONFIG_NODES_API}    ${json_body_del}    headers=${HEADERS_YANG_JSON}    session=controller${controller_index}
 
 Get Bulk Flow
-    [Arguments]    ${controller_index}    ${get_bulk_json_file}
-    [Documentation]    Get Bulk Flow in ${controller_index} according to ${get_bulk_json_file}.
-    ${get_body}=    OperatingSystem.Get File    ${CURDIR}/../variables/openflowplugin/${get_bulk_json_file}
-    ${resp}    Utils.Post Elements To URI    ${GET_BULK_CONFIG_NODES_API}    ${get_body}    headers=${HEADERS_YANG_JSON}    session=controller${controller_index}
+    [Arguments]    ${controller_index}    ${json_body_get}
+    [Documentation]    Get Bulk Flow in ${controller_index} according to ${json_body_get}.
+    ${resp}    Utils.Post Elements To URI    ${GET_BULK_CONFIG_NODES_API}    ${json_body_get}    headers=${HEADERS_YANG_JSON}    session=controller${controller_index}
 
 Get Bulk Flow Count
     [Arguments]    ${controller_index}
@@ -69,23 +66,62 @@ Verify Flow Count
     Should Be Equal As Strings    ${value}    ${flow_count}
 
 Add Bulk Flow In Node
-    [Arguments]    ${controller_index}    ${add_bulk_json_file}    ${timeout}
+    [Arguments]    ${controller_index}    ${json_body_add}    ${timeout}
     [Documentation]    Add Bulk Flow in ${controller_index} and wait until operation is completed.
-    Add Bulk Flow    ${controller_index}    ${add_bulk_json_file}
+    Add Bulk Flow    ${controller_index}    ${json_body_add}
     Wait Until Write Finishes    ${controller_index}    ${timeout}
 
 Delete Bulk Flow In Node
-    [Arguments]    ${controller_index}    ${delete_bulk_json_file}    ${timeout}
+    [Arguments]    ${controller_index}    ${json_body_del}    ${timeout}
     [Documentation]    Delete Bulk Flow in ${controller_index} and wait until operation is completed.
-    Delete Bulk Flow    ${controller_index}    ${delete_bulk_json_file}
+    Delete Bulk Flow    ${controller_index}    ${json_body_del}
     Wait Until Write Finishes    ${controller_index}    ${timeout}
 
 Get Bulk Flow And Verify Count In Cluster
-    [Arguments]    ${controller_index_list}    ${get_bulk_json_file}    ${timeout}    ${flow_count}
+    [Arguments]    ${controller_index_list}    ${json_body_get}    ${timeout}    ${flow_count}
     [Documentation]    Get Bulk Flow and Verify Flow Count in ${controller_index_list} matches ${flow_count}.
     : FOR    ${index}    IN    @{controller_index_list}
-    \    Get Bulk Flow    ${index}    ${get_bulk_json_file}
+    \    Get Bulk Flow    ${index}    ${json_body_get}
     : FOR    ${index}    IN    @{controller_index_list}
     \    Wait Until Read Finishes    ${index}    ${timeout}
     : FOR    ${index}    IN    @{controller_index_list}
     \    Verify Flow Count    ${index}    ${flow_count}
+
+Set DPN And Flow Count In Json Add
+    [Arguments]    ${json_config}    ${dpn_count}    ${flows_count}
+    [Documentation]    Set new DPN count and flows count per DPN in the Bulkomatic Add json file.
+    ${body}=    OperatingSystem.Get File    ${CURDIR}/../variables/openflowplugin/${json_config}
+    ${get_string}=    Set Variable    "sal-bulk-flow:dpn-count" : "1"
+    ${put_string}=    Set Variable    "sal-bulk-flow:dpn-count" : "${dpn_count}"
+    ${str}    Replace String Using Regexp    ${body}    ${get_string}    ${put_string}
+    ${get_string}=    Set Variable    "sal-bulk-flow:flows-per-dpn" : "1000"
+    ${put_string}=    Set Variable    "sal-bulk-flow:flows-per-dpn" : "${flows_count}"
+    ${json_body_add}    Replace String Using Regexp    ${str}    ${get_string}    ${put_string}
+    Log    ${json_body_add}
+    [Return]    ${json_body_add}
+
+Set DPN And Flow Count In Json Get
+    [Arguments]    ${json_config}    ${dpn_count}    ${flows_count}
+    [Documentation]    Set new DPN count and flows count per DPN in the Bulkomatic Get json file.
+    ${body}=    OperatingSystem.Get File    ${CURDIR}/../variables/openflowplugin/${json_config}
+    ${get_string}=    Set Variable    "sal-bulk-flow:dpn-count" : "1"
+    ${put_string}=    Set Variable    "sal-bulk-flow:dpn-count" : "${dpn_count}"
+    ${str}    Replace String Using Regexp    ${body}    ${get_string}    ${put_string}
+    ${get_string}=    Set Variable    "sal-bulk-flow:flows-per-dpn" : "1000"
+    ${put_string}=    Set Variable    "sal-bulk-flow:flows-per-dpn" : "${flows_count}"
+    ${json_body_get}    Replace String Using Regexp    ${str}    ${get_string}    ${put_string}
+    Log    ${json_body_get}
+    [Return]    ${json_body_get}
+
+Set DPN And Flow Count In Json Del
+    [Arguments]    ${json_config}    ${dpn_count}    ${flows_count}
+    [Documentation]    Set new DPN count and flows count per DPN in the Bulkomatic Del json file.
+    ${body}=    OperatingSystem.Get File    ${CURDIR}/../variables/openflowplugin/${json_config}
+    ${get_string}=    Set Variable    "sal-bulk-flow:dpn-count" : "1"
+    ${put_string}=    Set Variable    "sal-bulk-flow:dpn-count" : "${dpn_count}"
+    ${str}    Replace String Using Regexp    ${body}    ${get_string}    ${put_string}
+    ${get_string}=    Set Variable    "sal-bulk-flow:flows-per-dpn" : "1000"
+    ${put_string}=    Set Variable    "sal-bulk-flow:flows-per-dpn" : "${flows_count}"
+    ${json_body_del}    Replace String Using Regexp    ${str}    ${get_string}    ${put_string}
+    Log    ${json_body_del}
+    [Return]    ${json_body_del}
