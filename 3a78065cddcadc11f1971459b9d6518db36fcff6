@@ -16,6 +16,24 @@
       "revId": "3a78065cddcadc11f1971459b9d6518db36fcff6",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_bedd2f45",
+        "filename": "csit/suites/netvirt/Netvirt_Cluster/010_Ovsdb_Netvirt_flow.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-06-15T17:07:08Z",
+      "side": 1,
+      "message": "yep.  just uploaded an update for that.",
+      "parentUuid": "da5c1566_8241c93b",
+      "revId": "3a78065cddcadc11f1971459b9d6518db36fcff6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
