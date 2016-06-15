@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ba51214e_0a3fbd26",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 1479
+      },
+      "writtenOn": "2016-06-15T06:51:13Z",
+      "side": 1,
+      "message": "Modified mac address",
+      "parentUuid": "ba51214e_2476373f",
+      "revId": "33bbe8de7b7656854b4600a265e5e3eda185b9aa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba51214e_849e2355",
         "filename": "csit/suites/vtn/VTN_Mgr_OF10/010__vtn_manager_flowfilter.robot",
         "patchSetId": 2
@@ -30,6 +48,24 @@
       "writtenOn": "2016-06-15T00:47:02Z",
       "side": 1,
       "message": "Should we verify iof the flow entries are removed after removing the action here?",
+      "revId": "33bbe8de7b7656854b4600a265e5e3eda185b9aa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_0a269d16",
+        "filename": "csit/suites/vtn/VTN_Mgr_OF10/010__vtn_manager_flowfilter.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 1479
+      },
+      "writtenOn": "2016-06-15T06:51:13Z",
+      "side": 1,
+      "message": "No we are not verifying flowfilter after deletion. But we checked in controller and confirmed it is deleted. Let me know if you think verification test cases after deletion is required.",
+      "parentUuid": "ba51214e_849e2355",
       "revId": "33bbe8de7b7656854b4600a265e5e3eda185b9aa",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
