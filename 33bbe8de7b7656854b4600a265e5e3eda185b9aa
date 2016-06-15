@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba51214e_2476373f",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-06-15T00:47:02Z",
+      "side": 1,
+      "message": "The MAC Address here seems very specific, Can you make it more like an example value so that it does not confuse",
+      "revId": "33bbe8de7b7656854b4600a265e5e3eda185b9aa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_849e2355",
+        "filename": "csit/suites/vtn/VTN_Mgr_OF10/010__vtn_manager_flowfilter.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-06-15T00:47:02Z",
+      "side": 1,
+      "message": "Should we verify iof the flow entries are removed after removing the action here?",
+      "revId": "33bbe8de7b7656854b4600a265e5e3eda185b9aa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_04aa1370",
+        "filename": "csit/suites/vtn/VTN_Mgr_OF13/010__vtn_manager_flowfilter.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-06-15T00:47:02Z",
+      "side": 1,
+      "message": "I feel all these items should be added to a data dictionary and constructed in a keyword so that they can be modified and tested.",
+      "revId": "33bbe8de7b7656854b4600a265e5e3eda185b9aa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
