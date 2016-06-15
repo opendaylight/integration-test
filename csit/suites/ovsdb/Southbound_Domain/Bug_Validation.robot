@@ -50,10 +50,8 @@ Bug 5177
     ...    3) Fail if node is not discovered in Operational Store
     Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager tcp:${ODL_SYSTEM_IP}:6640
     Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected
-    ${ovsdb_uuid}=    Get OVSDB UUID    ${TOOLS_SYSTEM_IP}
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
-    # Suite teardown wants this ${ovsdb_uuid} variable for it's best effort cleanup, so making it visible at suite level.
-    Set Suite Variable    ${ovsdb_uuid}
+    Wait Until Keyword Succeeds    3s    1s    Check For Non Empty OVSDB UUID And Set As Suite Variable
+    # {ovsbd_uuid} is made available by the above WUKS local keyword.
     ${node}    Set Variable    uuid/${ovsdb_uuid}
     Create Bridge    ${node}    ${BRIDGE}
     ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
@@ -133,3 +131,13 @@ Connect Controller To OVSDB Node
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected
+
+Check For Non Empty OVSDB UUID And Set As Suite Variable
+    [Documentation]    This is used to allow the consuming test case to wrap in a WUKS.  The call to
+    ...    operatoinal DS might happen too quickly after ovs node connects and the uuid might not be
+    ...    there yet, so need to poll for a few seconds after that.  The "Get OVSDB UUID" keyword
+    ...    will return ${EMPTY} if it's not found, so that is what we check here.
+    ${ovsdb_uuid}=    Get OVSDB UUID    ${TOOLS_SYSTEM_IP}
+    Should Not Be Empty    ${ovsdb_uuid}
+    Set Suite Variable    ${ovsdb_uuid}
+    [Return]    ${ovsdb_uuid}
