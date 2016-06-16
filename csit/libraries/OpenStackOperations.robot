@@ -91,7 +91,7 @@ Get Net Id
     [Arguments]    ${network_name}     ${connection_id}
     [Documentation]    Retrieve the net id for the given network name to create specific vm instance
     Switch Connection    ${connection_id}
-    ${output}=    Write Commands Until Prompt    neutron net-list | grep "${network_name}" | get_field 1
+    ${output}=    Write Commands Until Prompt    neutron net-list | grep "${network_name}" | get_field 1       30s
     Log    ${output}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${net_id}=    Get from List    ${splitted_output}    0
@@ -105,14 +105,14 @@ Create Vm Instances
     Switch Connection    ${devstack_conn_id}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
     : FOR    ${VmElement}    IN    @{vm_instance_names}
-    \    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement}
+    \    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement}    30s
     \    Log    ${output}
     \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VmElement}
 
 Verify VM Is ACTIVE
     [Arguments]    ${vm_name}
     [Documentation]    Run these commands to check whether the created vm instance is active or not.
-    ${output}=    Write Commands Until Prompt    nova show ${vm_name} | grep OS-EXT-STS:vm_state
+    ${output}=    Write Commands Until Prompt    nova show ${vm_name} | grep OS-EXT-STS:vm_state      30s
     Log    ${output}
     Should Contain    ${output}    active
 
@@ -264,7 +264,7 @@ Delete Router
     [Documentation]    Delete Router and Interface to the subnets.
     ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v router-delete ${router_name}
+    ${output}=    Write Commands Until Prompt    neutron -v router-delete ${router_name}       60s
     Close Connection
     Should Contain    ${output}    Deleted router:
 
@@ -297,6 +297,6 @@ Show Debugs
     ${output}=    Write Commands Until Prompt    sudo ip netns list
     Log    ${output}
     : FOR    ${index}    IN    @{vm_indices}
-    \    ${output}=    Write Commands Until Prompt    nova show ${index}
+    \    ${output}=    Write Commands Until Prompt    nova show ${index}     30s
     \    Log    ${output}
     Close Connection
