@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba51214e_3f811990",
+        "filename": "csit/suites/netconf/clustering/entity.robot",
+        "patchSetId": 26
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-16T09:35:53Z",
+      "side": 1,
+      "message": "It would be better if either owner or follower session was used. But I am not sure which would be more probable to discover a Bug, so we may keep it this way for a while and change later.",
+      "range": {
+        "startLine": 90,
+        "startChar": 130,
+        "endLine": 90,
+        "endChar": 135
+      },
+      "revId": "096af92f945d75dc9875eed5e5d480dcaae0b700",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
