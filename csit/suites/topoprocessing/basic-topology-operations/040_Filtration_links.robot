@@ -24,10 +24,7 @@ Filtration Range Number Network Topology Model
     ${request}    Set Range Number Filter    ${request}    11    13
     ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <link-id>link:    3
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Check Supporting Links in Links    ${resp.content}    3
-    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:4</link-ref>    1
-    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:3</link-ref>    1
-    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:2-1</link-ref>    1
+    Check Filtered Links In Topology    ${resp.content}    link:1:2-1    link:1:3    link:1:4
 
 Filtration Range Number Inventory Model
     [Documentation]    Test of range number type of filtration operation on Inventory model
@@ -36,9 +33,7 @@ Filtration Range Number Inventory Model
     ${request}    Set Range Number Filter    ${request}    14    15
     ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <link-id>link:    2
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Check Supporting Links in Links    ${resp.content}    2
-    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/openflow-topo:3/link/link:14:12</link-ref>    1
-    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/openflow-topo:3/link/link:15:13</link-ref>    1
+    Check Filtered Links In Topology    ${resp.content}    link:14:12    link:15:13
 
 Filtration Specific String Network Topology Model
     [Documentation]    Test of specific string type of filtration operation on Network Topology model
@@ -47,9 +42,7 @@ Filtration Specific String Network Topology Model
     ${request}    Set Specific String Filter    ${request}    linkA
     ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <link-id>link:    2
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Check Supporting Links in Links    ${resp.content}    2
-    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:4</link-ref>    1
-    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:2-1</link-ref>    1
+    Check Filtered Links In Topology    ${resp.content}    link:1:4    link:1:2-1
 
 Filtration Specific String Inventory Model
     [Documentation]    Test of specific string type of filtration operation on Inventory model
@@ -58,8 +51,7 @@ Filtration Specific String Inventory Model
     ${request}    Set Specific String Filter    ${request}    linkD
     ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <link-id>link:    1
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Check Supporting Links in Links    ${resp.content}    1
-    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/openflow-topo:3/link/link:15:13</link-ref>    1
+    Check Filtered Links In Topology    ${resp.content}    link:15:13
 
 Filtration Range String Network Topology Model
     [Documentation]    Test of range string type of filtration operation on Network Topology model
@@ -68,10 +60,7 @@ Filtration Range String Network Topology Model
     ${request}    Set Range String Filter    ${request}    linkA    linkB
     ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <link-id>link:    3
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Check Supporting Links in Links    ${resp.content}    3
-    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:4</link-ref>    1
-    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:2-1</link-ref>    1
-    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:3</link-ref>    1
+    Check Filtered Links In Topology    ${resp.content}    link:1:2-1    link:1:3    link:1:4
 
 Filtration Range String Inventory Model
     [Documentation]    Test of range string type of filtration operation on Inventory model
@@ -80,9 +69,7 @@ Filtration Range String Inventory Model
     ${request}    Set Range String Filter    ${request}    linkC    linkD
     ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <link-id>link:    2
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Check Supporting Links in Links    ${resp.content}    2
-    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/openflow-topo:3/link/link:14:12</link-ref>    1
-    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/openflow-topo:3/link/link:15:13</link-ref>    1
+    Check Filtered Links In Topology    ${resp.content}    link:14:12    link:15:13
 
 Filtration Script Network Topology Model
     [Documentation]    Test of script type of filtration operation on Network Topology model
@@ -92,9 +79,7 @@ Filtration Script Network Topology Model
     ${request}    Set Script Filter    ${request}    javascript    ${script}
     ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <link-id>link:    2
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Check Supporting Links in Links    ${resp.content}    2
-    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:3</link-ref>    1
-    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/network-topo:1/link/link:1:2-2</link-ref>    1
+    Check Filtered Links In Topology    ${resp.content}    link:1:2-2    link:1:3
 
 Filtration Script Inventory Model
     [Documentation]    Test of script type of filtration operation on Inventory model
@@ -104,15 +89,4 @@ Filtration Script Inventory Model
     ${request}    Set Script Filter    ${request}    javascript    ${script}
     ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <link-id>link:    3
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Check Supporting Links in Links    ${resp.content}    3
-    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/openflow-topo:3/link/link:11:12</link-ref>    1
-    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/openflow-topo:3/link/link:14:12</link-ref>    1
-    Should Contain X Times    ${resp.content}    <link-ref>/network-topology/topology/openflow-topo:3/link/link:15:13</link-ref>    1
-
-*** Keywords ***
-Check Supporting Links in Links
-    [Arguments]    ${content}    ${number_of_links}
-    : FOR    ${index}    IN RANGE    1    ${number_of_links} + 1
-    \    ${link}    Get Element    ${content}    xpath=.//link[${index}]
-    \    ${link}    Element To String    ${link}
-    \    Should Contain X Times    ${link}    <link-ref>    1
+    Check Filtered Links In Topology    ${resp.content}    link:11:12    link:14:12    link:15:13
