@@ -24,7 +24,7 @@ Basic Request Put
     Wait For Karaf Log    Transaction successfully written
 
 Basic Request Get And Test
-    [Arguments]    ${request}    ${overlay_topology_url}    ${should_contain}    ${times}
+    [Arguments]    ${overlay_topology_url}    ${should_contain}    ${times}
     [Documentation]    Send a simple HTTP GET request to a given URL and test if response contains the expected item X times
     ${resp}    Basic Request Get    ${overlay_topology_url}
     Should Contain X Times    ${resp.content}    ${should_contain}    ${times}
@@ -41,8 +41,8 @@ Send Basic Request And Test If Contain X Times
     [Arguments]    ${request}    ${overlay_topology_url}    ${should_contain}    ${times}
     [Documentation]    Send a basic HTTP PUT request to a given URL and test if response contains the expexted item X times
     Basic Request Put    ${request}    ${overlay_topology_url}
-    ${resp}    Wait Until Keyword Succeeds    40x    250ms    Basic Request Get And Test    ${request}    ${overlay_topology_url}
-    ...    ${should_contain}    ${times}
+    ${resp}    Wait Until Keyword Succeeds    40x    250ms    Basic Request Get And Test    ${overlay_topology_url}    ${should_contain}
+    ...    ${times}
     Log    ${resp.content}
     [Return]    ${resp}
 
@@ -328,3 +328,98 @@ Create Link
     ${request}    Set Element Text    ${request}    ${metric}    xpath=.//igp-link-attributes/metric
     ${request}    Element to String    ${request}
     [Return]    ${request}
+
+Extract Node from Topology
+    [Arguments]    ${topology}    ${supp_node_id}
+    [Documentation]    Returns node that contains supporting node with ID specified in argument supp_node_id
+    ${xpath}    Set Variable    .//node/supporting-node[node-ref='${supp_node_id}']/..
+    ${node}    Get Element    ${topology}    xpath=${xpath}
+    ${node}    Element to String    ${node}
+    [Return]    ${node}
+
+Extract Termination Point from Topology
+    [Arguments]    ${model}    ${topology}    ${topo_id}    ${node_id}    ${tp_id}
+    [Documentation]    Returns termination point that contains supporting termination point from specified topology, node and with specified id
+    Check Supported Model    ${model}
+    ${xpath}    Set Variable If    '${model}' == 'network-topology-model' or '${model}' == 'opendaylight-inventory-model'    .//termination-point[tp-ref='/network-topology:network-topology/topology/${topo_id}/node/${node_id}/termination-point/${tp_id}']    .//termination-point/supporting-termination-point[tp-ref='${tp_id}']/..
+    ${tp}    Get Element    ${topology}    xpath=${xpath}
+    ${tp}    Element to String    ${tp}
+    [Return]    ${tp}
+
+Extract Link from Topology
+    [Arguments]    ${model}    ${topology}    ${topo_id}    ${link_id}
+    [Documentation]    Returns link that contains supporting link
+    Check Supported Model    ${model}
+    ${xpath}    Set Variable If    '${model}' == 'network-topology-model' or '${model}' == 'opendaylight-inventory-model'    .//link/supporting-link[link-ref='/network-topology/topology/${topo_id}/link/${link_id}']/..    .//link/supporting-link[tp-ref='${tp_id}']/..
+    ${link}    Get Element    ${topology}    xpath=${xpath}
+    ${link}    Element to String    ${link}
+    [Return]    ${link}
+
+Check Supported Model
+    [Arguments]    ${model}
+    [Documentation]    Checks if model is supported.
+    Run Keyword If    '${model}' != 'network-topology-model' and '${model}' != 'i2rs-model' and '${model}' != 'opendaylight-inventory-model'    Fail    Not supported model
+
+Check Aggregated Node in Topology
+    [Arguments]    ${model}    ${topology}    ${tp_count}    @{supp_node_ids}
+    [Documentation]    Checks number of termination points and concrete supporting nodes in aggregated node and returns overlay node id. Model should be 'network-topology-model', 'opendaylight-inventory-model' or 'i2rs-model'.
+    Check Supported Model    ${model}
+    ${node_id}    Get From List    ${supp_node_ids}    0
+    ${aggregated_node}    Extract Node from Topology    ${topology}    ${node_id}
+    ${supp_node_count}    Get Length    ${supp_node_ids}
+    Should Contain X Times    ${aggregated_node}    <supporting-node>    ${supp_node_count}
+    Should Contain X Times    ${aggregated_node}    <termination-point    ${tp_count}
+    Should Contain X Times    ${aggregated_node}    <tp-ref>    ${tp_count}
+    : FOR    ${supp_node_id}    IN    @{supp_node_ids}
+    \    Element Text Should Be    ${aggregated_node}    ${supp_node_id}    xpath=.//supporting-node[node-ref='${supp_node_id}']/node-ref
+    ${overlay_node_id}    Get Element Text    ${aggregated_node}    xpath=./node-id
+    [Return]    ${overlay_node_id}
+
+Check Aggregated Termination Point in Node
+    [Arguments]    ${model}    ${topology}    ${topology_id}    ${node_id}    ${tp_id}    @{supp_tp_ids}
+    [Documentation]    Checks supporting termination points in aggregated termination point. Model should be 'network-topology-model', 'opendaylight-inventory-model' or 'i2rs-model'.
+    Check Supported Model    ${model}
+    ${tp}    Extract Termination Point from Topology    ${model}    ${topology}    ${topology_id}    ${node_id}    ${tp_id}
+    ${supp_tp_count}    Get Length    ${supp_tp_ids}
+    Should Contain X Times    ${tp}    <tp-ref>    ${supp_tp_count}
+    : FOR    ${supp_tp_id}    IN    @{supp_tp_ids}
+    \    Should Contain X Times    ${tp}    ${supp_tp_id}</tp-ref>    1
+
+Check Filtered Nodes in Topology
+    [Arguments]    ${topology}    ${tp_count}    @{node_ids}
+    [Documentation]    Checks nodes in filtered topology
+    ${node_count}    Get Length    ${node_ids}
+    Should Contain X Times    ${topology}    <node>    ${node_count}
+    Should Contain X Times    ${topology}    <supporting-node>    ${node_count}
+    Should Contain X Times    ${topology}    <termination-point    ${tp_count}
+    : FOR    ${node_id}    IN    @{node_ids}
+    \    Element Text Should Be    ${topology}    ${node_id}    xpath=.//node/supporting-node[node-ref='${node_id}']/node-ref
+
+Check Filtered Termination Points in Node
+    [Arguments]    ${topology}    ${supp_node_id}    @{supp_tp_ids}
+    [Documentation]    Checks termination points in filtered topology
+    ${node}    Extract Node from Topology    ${topology}    ${supp_node_id}
+    ${supp_tp_count}    Get Length    ${supp_tp_ids}
+    Should Contain X Times    ${node}    <supporting-node>    1
+    Should Contain X Times    ${node}    <termination-point    ${supp_tp_count}
+    Should Contain X Times    ${node}    <tp-ref>    ${supp_tp_count}
+    : FOR    ${supp_tp_id}    IN    @{supp_tp_ids}
+    \    Should Contain X Times    ${node}    ${supp_tp_id}    1
+
+Check Filtered Links In Topology
+    [Arguments]    ${topology}    @{supp_link_ids}
+    [Documentation]    Checks links in filtered topology
+    ${supp_link_count}    Get Length    ${supp_link_ids}
+    Should Contain X Times    ${topology}    <link>    ${supp_link_count}
+    Should Contain X Times    ${topology}    <link-ref>    ${supp_link_count}
+    : FOR    ${supp_link_id}    IN    @{supp_link_ids}
+    \    Should Contain X Times    ${topology}    ${supp_link_id}</link-ref>    1
+
+Check Overlay Link Source And Destination
+    [Arguments]    ${model}    ${topology}    ${topo_id}    ${link_id}    ${expected_source}    ${expected_destination}
+    [Documentation]    Checks if the overlay link's source and destination specified by a supporting link ref matches given source and destination
+    ${link}    Extract Link from Topology    ${model}    ${topology}    ${topo_id}    ${link_id}
+    ${link_source}    Get Element Text    ${link}    xpath=.//source-node
+    ${link_destination}    Get Element Text    ${link}    xpath=.//dest-node
+    Should Be Equal As Strings    ${link_source}    ${expected_source}
+    Should Be Equal As Strings    ${link_destination}    ${expected_destination}
