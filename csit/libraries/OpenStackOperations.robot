@@ -300,3 +300,32 @@ Show Debugs
     \    ${output}=    Write Commands Until Prompt    nova show ${index}
     \    Log    ${output}
     Close Connection
+
+Get Mac Address
+    [Arguments]    ${ip}
+    [Documentation]    Retrieve the mac address for the given subnet ip
+    ${mac_add_src}=    Write Commands Until Prompt    neutron port-list | grep "${ip}" | get_field 3
+    Log    ${mac_add_src}
+    ${mac_add_list}=    Split String    ${mac_add_src}    ${EMPTY}
+    ${mac_add}=    Get from List    ${mac_add_list}    0
+    Log    ${mac_add}
+    [Return]    ${mac_add}
+
+Verify Ipv4 In Dump Flow
+    [Documentation]    Execute the dump flow command and return the output.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int    30s
+    Log    ${output}
+    [Return]    ${output}
+
+Verify mac_add In Dump Flow
+    [Arguments]    ${table}
+    [Documentation]    Execute the dump flow command and return the output.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int | grep ${table}    30s
+    Log    ${output}
+    [Return]    ${output}
+
+
