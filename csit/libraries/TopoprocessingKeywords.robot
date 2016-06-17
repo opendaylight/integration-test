@@ -272,3 +272,60 @@ Insert Scripting into Request
     ${request}    Set Element Text    ${request}    ${language}    xpath=.//correlation/aggregation/scripting/language
     ${request}    Element to String    ${request}
     [Return]    ${request}
+
+Extract Node from Topology
+    [Arguments]    ${topology}    ${supp_node_id}
+    [Documentation]    Returns node that contains supporting node with ID specified in argument supp_node_id
+    ${xpath}    Set Variable    .//node/supporting-node[node-ref='${supp_node_id}']/..
+    ${node}    Get Element    ${topology}    xpath=${xpath}
+    ${node}    Element to String    ${node}
+    [Return]    ${node}
+
+Extract Termination Point from Topology
+    [Arguments]    ${model}    ${topology}    ${topo_id}    ${node_id}    ${tp_id}
+    [Documentation]    Returns termination point that contains supporting termination point from specified topology, node and with specified id
+    Check Supported Model    ${model}
+    ${xpath}    Set Variable If    '${model}' == 'network-topology-model' or '${model}' == 'opendaylight-inventory-model'    .//termination-point[tp-ref='/network-topology:network-topology/topology/${topo_id}/node/${node_id}/termination-point/${tp_id}']    .//termination-point/supporting-termination-point[tp-ref='${tp_id}']/..
+    ${tp}    Get Element    ${topology}    xpath=${xpath}
+    ${tp}    Element to String    ${tp}
+    [Return]    ${tp}
+
+Check Aggregated Node in Topology
+    [Arguments]    ${model}    ${topology}    ${tp_count}    @{supp_node_ids}
+    [Documentation]    Checks number of termination points and concrete supporting nodes in aggregated node. Model should be 'network-topology-model', 'opendaylight-inventory-model' or 'i2rs-model'.
+    Check Supported Model    ${model}
+    ${node_id}    Get From List    ${supp_node_ids}    0
+    ${aggregated_node}    Extract Node from Topology    ${topology}    ${node_id}
+    ${supp_node_count}    Get Length    ${supp_node_ids}
+    Should Contain X Times    ${aggregated_node}    <supporting-node>    ${supp_node_count}
+    Should Contain X Times    ${aggregated_node}    <termination-point    ${tp_count}
+    Run Keyword If    '${model}' == 'network-topology-model' or '${model}' == 'i2rs-model'    Should Contain X Times    ${aggregated_node}    <tp-ref>    ${tp_count}
+    Run Keyword If    '${model}' == 'opendaylight-inventory-model'    Should Contain X Times    ${aggregated_node}    <inventory-node-connector-ref    ${tp_count}
+    : FOR    ${supp_node_id}    IN    @{supp_node_ids}
+    \    Element Text Should Be    ${aggregated_node}    ${supp_node_id}    xpath=.//supporting-node[node-ref='${supp_node_id}']/node-ref
+
+Check Aggregated Termination Point in Node
+    [Arguments]    ${model}    ${topology}    ${topology_id}    ${node_id}    ${tp_id}    @{supp_tp_ids}
+    [Documentation]    Checks supporting termination points in aggregated termination point. Model should be 'network-topology-model', 'opendaylight-inventory-model' or 'i2rs-model'.
+    Check Supported Model    ${model}
+    ${tp}    Extract Termination Point from Topology    ${model}    ${topology}    ${topology_id}    ${node_id}    ${tp_id}
+    ${tp}    Element to String    ${tp}
+    ${supp_tp_count}    Get Length    ${supp_tp_ids}
+    Should Contain X Times    ${tp}    <tp-ref>    ${supp_tp_count}
+    : FOR    ${supp_tp_id}    IN    @{supp_tp_ids}
+    \    Should Contain X Times    ${tp}    ${supp_tp_id}    1
+
+Check Supported Model
+    [Arguments]    ${model}
+    [Documentation]    Checks if model is supported.
+    Run Keyword If    '${model}' != 'network-topology-model' and '${model}' != 'i2rs-model' and '${model}' != 'opendaylight-inventory-model'    Fail    Not supported model
+
+Check Filtered Nodes in Topology
+    [Arguments]    ${topology}    ${tp_count}    @{node_ids}
+    [Documentation]    Checks nodes in filtered topology
+    ${node_count}    Get Length    ${node_ids}
+    Should Contain X Times    ${topology}    <node>    ${node_count}
+    Should Contain X Times    ${topology}    <supporting-node>    ${node_count}
+    Should Contain X Times    ${topology}    <termination-point    ${tp_count}
+    : FOR    ${node_id}    IN    @{node_ids}
+    \    Element Text Should Be    ${topology}    ${node_id}    xpath=.//node/supporting-node[node-ref='${node_id}']/node-ref
