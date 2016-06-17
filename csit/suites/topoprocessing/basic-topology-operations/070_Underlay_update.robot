@@ -24,19 +24,17 @@ Unification Node Update
     ${request}    Insert Target Field    ${request}    0    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    0
     ${request}    Insert Target Field    ${request}    1    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    0
     ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    8
-
     #Update a node, expecting a unification of two nodes into one
     ${node}    Create Isis Node    bgp:1    router-id-ipv4=192.168.1.2
     Basic Request Put    ${node}    network-topology:network-topology/topology/network-topo:1/node/bgp:1
-    ${resp}    Basic Request Get And Test    ${node}    network-topology:network-topology/topology/topo:1    <node-id>node:    7
+    ${resp}    Basic Request Get And Test    network-topology:network-topology/topology/topo:1    <node-id>node:    7
     : FOR    ${index}    IN RANGE    1    11
     \    Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
     Validate Supporting Node Node-Ref Content    ${resp}    bgp:2    bgp:1
-
     #Update a unified node, expecting creation of a new overlay node
     ${node}    Create Isis Node    bgp:3    router-id-ipv4=192.168.3.1
     Basic Request Put    ${node}    network-topology:network-topology/topology/network-topo:1/node/bgp:3
-    ${resp}    Basic Request Get And Test    ${node}    network-topology:network-topology/topology/topo:1    <node-id>node:    8
+    ${resp}    Basic Request Get And Test    network-topology:network-topology/topology/topo:1    <node-id>node:    8
     : FOR    ${index}    IN RANGE    1    11
     \    Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
 
@@ -46,19 +44,17 @@ Unification Node Inventory
     ${request}    Insert Target Field    ${request}    0    flow-node-inventory:ip-address    0
     ${request}    Insert Target Field    ${request}    1    flow-node-inventory:ip-address    0
     ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    7
-
     #Update a node, expecting unification of two nodes into one
     ${node}    Create Openflow Node    openflow:2    192.168.1.1
     Basic Request Put    ${node}    opendaylight-inventory:nodes/node/openflow:2
-    ${resp}    Basic Request Get And Test    ${node}    network-topology:network-topology/topology/topo:1    <node-id>node:    6
+    ${resp}    Basic Request Get And Test    network-topology:network-topology/topology/topo:1    <node-id>node:    6
     : FOR    ${index}    IN RANGE    1    11
     \    Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
     Validate Supporting Node Node-Ref Content    ${resp}    of-node:2    of-node:6    of-node:1
-
     #Update a unified node, expecting creation of a new overlay node
     ${node}    Create Openflow Node    openflow:4    192.168.3.1
     Basic Request Put    ${node}    opendaylight-inventory:nodes/node/openflow:4
-    ${resp}    Basic Request Get And Test    ${node}    network-topology:network-topology/topology/topo:1    <node-id>node:    7
+    ${resp}    Basic Request Get And Test    network-topology:network-topology/topology/topo:1    <node-id>node:    7
     : FOR    ${index}    IN RANGE    1    11
     \    Should Contain X Times    ${resp.content}    <node-ref>of-node:${index}</node-ref>    1
 
@@ -78,7 +74,6 @@ Filtration Range Number Node Update Network Topology Model
     Validate Supporting Node TP-Ref Content    ${resp}    network-topo:2    bgp:8    tp:8:1
     Validate Supporting Node TP-Ref Content    ${resp}    network-topo:2    bgp:9    tp:9:1
     Validate Supporting Node TP-Ref Content    ${resp}    network-topo:2    bgp:10    tp:10:1
-
     ${request}    Create Isis Node    bgp:7    23
     Basic Request Put    ${request}    network-topology:network-topology/topology/network-topo:2/node/bgp:7
     ${request}    Create OVSDB Termination Point    tp:7:1    1119
@@ -116,18 +111,16 @@ Filtration Range Number Termination Point Update NT
     ${request}    Insert Filter    ${request}    ${FILTER_RANGE_NUMBER}    ovsdb:ofport
     ${request}    Set Range Number Filter    ${request}    1115    1119
     ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
-
     #Update a previously out-of-range termination point, so it passes filtration
     ${terminationPoint}    Create OVSDB Termination Point    tp:8:1    1115
     Basic Request Put    ${terminationPoint}    network-topology:network-topology/topology/network-topo:2/node/bgp:8/termination-point/tp:8:1
-    ${resp}    Basic Request Get And Test    ${terminationPoint}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
+    ${resp}    Basic Request Get And Test    network-topology:network-topology/topology/topo:1    <node-id>node:    5
     Should Contain X Times    ${resp.content}    <termination-point>    4
     Validate Supporting Node TP-Ref Content    ${resp}    network-topo:2    bgp:8    tp:8:1
-
     #Update a previsouly in-range termination point, so it is filtered out
     ${terminationPoint}    Create OVSDB Termination Point    tp:7:2    1110
     Basic Request Put    ${terminationPoint}    network-topology:network-topology/topology/network-topo:2/node/bgp:7/termination-point/tp:7:2
-    ${resp}    Basic Request Get And Test    ${terminationPoint}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
+    ${resp}    Basic Request Get And Test    network-topology:network-topology/topology/topo:1    <node-id>node:    5
     Should Contain X Times    ${resp.content}    <termination-point>    3
     Validate Supporting Node TP-Ref Content    ${resp}    network-topo:2    bgp:7    tp:7:1
 
@@ -138,18 +131,16 @@ Filtration Range Number Termination Point Update Inventory
     ${request}    Set Range Number Filter    ${request}    2    4
     ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
     Should Contain X Times    ${resp.content}    <termination-point>    5
-
     #Update a previously out-of-range termination point, so it passes filtration
     ${nodeConnector}    Create Openflow Node Connector    openflow:2:1    3
     Basic Request Put    ${nodeConnector}    opendaylight-inventory:nodes/node/openflow:2/node-connector/openflow:2:1
-    ${resp}    Basic Request Get And Test    ${nodeConnector}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
+    ${resp}    Basic Request Get And Test    network-topology:network-topology/topology/topo:1    <node-id>node:    5
     Should Contain X Times    ${resp.content}    <termination-point>    6
     Validate Supporting Node TP-Ref Content    ${resp}    openflow-topo:1    of-node:2    tp:3    tp:2:1    tp:2:2
-
     #Update an in-range termination point, so it is filtered out
     ${nodeConnector}    Create Openflow Node Connector    openflow:3:2    5
     Basic Request Put    ${nodeConnector}    opendaylight-inventory:nodes/node/openflow:3/node-connector/openflow:3:2
-    ${resp}    Basic Request Get And Test    ${nodeConnector}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
+    ${resp}    Basic Request Get And Test    network-topology:network-topology/topology/topo:1    <node-id>node:    5
     Should Contain X Times    ${resp.content}    <termination-point>    5
     Validate Supporting Node TP-Ref Content    ${resp}    openflow-topo:1    of-node:3    tp:3:1
 
@@ -213,7 +204,6 @@ Unification Filtration Node Update Inside Network Topology model
     : FOR    ${index}    IN RANGE    17    21
     \    Should Contain X Times    ${resp.content}    <node-ref>bgp:${index}</node-ref>    1
     Validate Supporting Node Node-Ref Content    ${resp}    bgp:18    bgp:17    bgp:20
-
     ${request}    Create Isis Node    bgp:17    10    192.168.1.2
     Basic Request Put    ${request}    network-topology:network-topology/topology/network-topo:4/node/bgp:17
     ${resp}    Basic Request Get    network-topology:network-topology/topology/topo:1
@@ -250,7 +240,7 @@ Unification Filtration Node Update Inside Inventory model
     Validate Supporting Node Node-Ref Content    ${resp}    of-node:17    of-node:19    of-node:20
 
 Link Computation Aggregation Inside Update NT
-    [Documentation]    Test of link computation with unification type of aggregation inside on updated nodes from network-topology model 
+    [Documentation]    Test of link computation with unification type of aggregation inside on updated nodes from network-topology model
     ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    network-topology-model    node    network-topo:6
     ${request}    Insert Target Field    ${request}    0    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    0
     ${request}    Insert Link Computation Inside    ${request}    ${LINK_COMPUTATION_INSIDE}    n:network-topology-model    network-topo:6
@@ -289,31 +279,31 @@ Link Computation Aggregation Inside Update NT
 
 *** Keywords ***
 Get Supporting Node ID
-    [Documentation]    Finds the supporting-node element containing the given node-ref and extracts its ID
     [Arguments]    ${resp}    ${node_ref_id}
+    [Documentation]    Finds the supporting-node element containing the given node-ref and extracts its ID
     ${supporting_node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='${node_ref_id}']/..
     ${supp_node_id}    Get Element Text    ${supporting_node}    xpath=./node-id
     [Return]    ${supp_node_id}
 
 Validate Supporting Node Node-Ref Content
-    [Documentation]    Checks if the supporting-node element with specified node-ref contains node-refs from the given list
     [Arguments]    ${resp}    ${node_ref_id}    @{node_ref_list}
+    [Documentation]    Checks if the supporting-node element with specified node-ref contains node-refs from the given list
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='${node_ref_id}']/..
     ${node}    Element to String    ${node}
-    :FOR    ${id}     IN      @{node_ref_list}
+    : FOR    ${id}    IN    @{node_ref_list}
     \    Should Contain X Times    ${node}    <node-ref>${id}</node-ref>    1
 
 Validate Supporting Node TP-Ref Content
-    [Documentation]    Checks if the supporting-node element with specified node-ref contains node-refs from the given list
     [Arguments]    ${resp}    ${topology_id}    ${node_ref_id}    @{tp_ref_list}
+    [Documentation]    Checks if the supporting-node element with specified node-ref contains node-refs from the given list
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='${node_ref_id}']/..
     ${node}    Element to String    ${node}
-    :FOR    ${id}     IN      @{tp_ref_list}
+    : FOR    ${id}    IN    @{tp_ref_list}
     \    Should Contain X Times    ${node}    /topology/${topology_id}/node/${node_ref_id}/termination-point/${id}</tp-ref>    1
 
 Validate Overlay Link Source And Destination
-    [Documentation]    Checks if the overlay link's source and destination specified by a supporting link ref matches given source and destination
     [Arguments]    ${resp}    ${link_ref}    ${expected_source}    ${expected_destination}
+    [Documentation]    Checks if the overlay link's source and destination specified by a supporting link ref matches given source and destination
     ${link}    Get Element    ${resp.content}    xpath=.//link/supporting-link[link-ref='${link_ref}']/..
     ${link}    Element to String    ${link}
     ${link_source}    Get Element Text    ${link}    xpath=.//source-node
