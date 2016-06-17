@@ -903,7 +903,7 @@ OPENFLOW_UNDERLAY_TOPOLOGY_1 = '''
             </inventory-topo:inventory-node-connector-ref>
         </termination-point>
         <termination-point>
-            <tp-id>tp:3</tp-id>
+            <tp-id>tp:2:3</tp-id>
             <inventory-topo:inventory-node-connector-ref>
                 /inventory:nodes/inventory:node[inventory:id="openflow:2"]/inventory:node-connector[inventory:id="openflow:2:3"]
             </inventory-topo:inventory-node-connector-ref>

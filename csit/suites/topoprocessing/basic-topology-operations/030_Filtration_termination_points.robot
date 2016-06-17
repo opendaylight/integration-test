@@ -25,15 +25,11 @@ Filtration Range Number Network Topology Model
     ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <termination-point>    3
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:7']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    2
-    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:7/termination-point/tp:7:1</tp-ref>    1
-    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:7/termination-point/tp:7:2</tp-ref>    1
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:6']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    1
-    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:6/termination-point/tp:6:1</tp-ref>    1
+    Check Filtered Termination Points in Node    ${resp.content}    bgp:6    tp:6:1
+    Check Filtered Termination Points in Node    ${resp.content}    bgp:7    tp:7:1    tp:7:2
+    Check Filtered Termination Points in Node    ${resp.content}    bgp:8
+    Check Filtered Termination Points in Node    ${resp.content}    bgp:9
+    Check Filtered Termination Points in Node    ${resp.content}    bgp:10
 
 Filtration Range Number Inventory Model
     [Documentation]    Test of range number type of filtration operation on Inventory model
@@ -43,20 +39,11 @@ Filtration Range Number Inventory Model
     ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <termination-point>    5
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    2
-    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:2/termination-point/tp:3</tp-ref>    1
-    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:2/termination-point/tp:2:2</tp-ref>    1
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:3']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    2
-    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:3/termination-point/tp:3:2</tp-ref>    1
-    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:3/termination-point/tp:3:1</tp-ref>    1
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:5']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    1
-    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:5/termination-point/tp:5:1</tp-ref>    1
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:1
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:2    tp:2:3    tp:2:2
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:3    tp:3:1    tp:3:2
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:4
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:5    tp:5:1
 
 Filtration Specific Number Network Topology Model
     [Documentation]    Test of specific number type of filtration operation on Network Topology model
@@ -69,7 +56,11 @@ Filtration Specific Number Network Topology Model
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:7']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
-    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:7/termination-point/tp:7:1</tp-ref>    1
+    Check Filtered Termination Points in Node    ${resp.content}    bgp:6
+    Check Filtered Termination Points in Node    ${resp.content}    bgp:7    tp:7:1
+    Check Filtered Termination Points in Node    ${resp.content}    bgp:8
+    Check Filtered Termination Points in Node    ${resp.content}    bgp:9
+    Check Filtered Termination Points in Node    ${resp.content}    bgp:10
 
 Filtration Specific Number Inventory Model
     [Documentation]    Test of specific number type of filtration operation on Inventory model
@@ -79,15 +70,11 @@ Filtration Specific Number Inventory Model
     ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <termination-point>    3
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    1
-    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:2/termination-point/tp:2:2</tp-ref>    1
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:3']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    2
-    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:3/termination-point/tp:3:2</tp-ref>    1
-    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:3/termination-point/tp:3:1</tp-ref>    1
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:1
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:2    tp:2:2
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:3    tp:3:1    tp:3:2
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:4
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:5
 
 Filtration Specific String Network Topology Model
     [Documentation]    Test of specific string type of filtration operation on Network Topology model
@@ -97,10 +84,11 @@ Filtration Specific String Network Topology Model
     ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <termination-point>    1
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:7']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    1
-    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:7/termination-point/tp:7:2</tp-ref>    1
+    Check Filtered Termination Points in Node    ${resp.content}    bgp:6
+    Check Filtered Termination Points in Node    ${resp.content}    bgp:7    tp:7:2
+    Check Filtered Termination Points in Node    ${resp.content}    bgp:8
+    Check Filtered Termination Points in Node    ${resp.content}    bgp:9
+    Check Filtered Termination Points in Node    ${resp.content}    bgp:10
 
 Filtration Specific String Inventory Model
     [Documentation]    Test of specific string type of filtration operation on Inventory model
@@ -109,14 +97,11 @@ Filtration Specific String Inventory Model
     ${request}    Set Specific String Filter    ${request}    portB
     ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
     Should Contain X Times    ${resp.content}    <termination-point>    2
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    1
-    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:2/termination-point/tp:2:1</tp-ref>    1
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:5']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    1
-    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:5/termination-point/tp:5:1</tp-ref>    1
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:1
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:2    tp:2:1
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:3
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:4
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:5    tp:5:1
 
 Filtration Range String Network Topology Model
     [Documentation]    Test of range string type of filtration operation on Network Topology model
@@ -126,18 +111,11 @@ Filtration Range String Network Topology Model
     ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>    ${EMPTY}
     Should Contain X Times    ${resp.content}    <termination-point>    3
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:6']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    1
-    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:6/termination-point/tp:6:1</tp-ref>    1
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:7']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    1
-    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:7/termination-point/tp:7:2</tp-ref>    1
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:10']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    1
-    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:2/node/bgp:10/termination-point/tp:10:1</tp-ref>    1
+    Check Filtered Termination Points in Node    ${resp.content}    bgp:6    tp:6:1
+    Check Filtered Termination Points in Node    ${resp.content}    bgp:7    tp:7:2
+    Check Filtered Termination Points in Node    ${resp.content}    bgp:8
+    Check Filtered Termination Points in Node    ${resp.content}    bgp:9
+    Check Filtered Termination Points in Node    ${resp.content}    bgp:10    tp:10:1
 
 Filtration Range String Inventory Model
     [Documentation]    Test of range string type of filtration operation on Inventory model
@@ -146,15 +124,11 @@ Filtration Range String Inventory Model
     ${request}    Set Range String Filter    ${request}    portA    portB
     ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
     Should Contain X Times    ${resp.content}    <termination-point>    3
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    2
-    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:2/termination-point/tp:2:1</tp-ref>    1
-    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:2/termination-point/tp:3</tp-ref>    1
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:5']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    1
-    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:5/termination-point/tp:5:1</tp-ref>    1
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:1
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:2    tp:2:1    tp:2:3
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:3
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:4
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:5    tp:5:1
 
 Filtration Script Network Topology Model
     [Documentation]    Test of script type of filtration operation on Network Topology model
@@ -165,15 +139,11 @@ Filtration Script Network Topology Model
     ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <termination-point>    3
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:4']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    2
-    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:1/node/bgp:4/termination-point/tp:4:2</tp-ref>    1
-    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:1/node/bgp:4/termination-point/tp:4:1</tp-ref>    1
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:5']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    1
-    Should Contain X Times    ${node}    <tp-ref>/network-topology/topology/network-topo:1/node/bgp:5/termination-point/tp:5:1</tp-ref>    1
+    Check Filtered Termination Points in Node    ${resp.content}    bgp:1
+    Check Filtered Termination Points in Node    ${resp.content}    bgp:2
+    Check Filtered Termination Points in Node    ${resp.content}    bgp:3
+    Check Filtered Termination Points in Node    ${resp.content}    bgp:4    tp:4:1    tp:4:2
+    Check Filtered Termination Points in Node    ${resp.content}    bgp:5    tp:5:1
 
 Filtration Script Inventory Model
     [Documentation]    Test of script type of filtration operation on Inventory model
@@ -184,12 +154,8 @@ Filtration Script Inventory Model
     ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <termination-point>    3
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:2']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    2
-    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:2/termination-point/tp:3</tp-ref>    1
-    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:2/termination-point/tp:2:2</tp-ref>    1
-    ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='of-node:1']/..
-    ${node}    Element to String    ${node}
-    Should Contain X Times    ${node}    <termination-point>    1
-    Should Contain X Times    ${node}    <tp-ref>/network-topology:network-topology/topology/openflow-topo:1/node/of-node:1/termination-point/tp:1:1</tp-ref>    1
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:1    tp:1:1
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:2    tp:2:2    tp:2:3
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:3
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:4
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:5
