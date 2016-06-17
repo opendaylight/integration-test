@@ -91,7 +91,7 @@ Get Net Id
     [Arguments]    ${network_name}     ${connection_id}
     [Documentation]    Retrieve the net id for the given network name to create specific vm instance
     Switch Connection    ${connection_id}
-    ${output}=    Write Commands Until Prompt    neutron net-list | grep "${network_name}" | get_field 1
+    ${output}=    Write Commands Until Prompt    neutron net-list | grep "${network_name}" | get_field 1    30s
     Log    ${output}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${net_id}=    Get from List    ${splitted_output}    0
@@ -105,14 +105,14 @@ Create Vm Instances
     Switch Connection    ${devstack_conn_id}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
     : FOR    ${VmElement}    IN    @{vm_instance_names}
-    \    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement}
+    \    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement}    60s
     \    Log    ${output}
     \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VmElement}
 
 Verify VM Is ACTIVE
     [Arguments]    ${vm_name}
     [Documentation]    Run these commands to check whether the created vm instance is active or not.
-    ${output}=    Write Commands Until Prompt    nova show ${vm_name} | grep OS-EXT-STS:vm_state
+    ${output}=    Write Commands Until Prompt    nova show ${vm_name} | grep OS-EXT-STS:vm_state    40s
     Log    ${output}
     Should Contain    ${output}    active
 
@@ -280,7 +280,7 @@ Get DumpFlows And Ovsconfig
 
 Get ControlNode Connection
     ${control_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
-    Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
+    Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}    10s
     SSHLibrary.Set Client Configuration    timeout=30s
     Source Password      force=yes
     [Return]    ${control_conn_id}
@@ -297,6 +297,49 @@ Show Debugs
     ${output}=    Write Commands Until Prompt    sudo ip netns list
     Log    ${output}
     : FOR    ${index}    IN    @{vm_indices}
-    \    ${output}=    Write Commands Until Prompt    nova show ${index}
+    \    ${output}=    Write Commands Until Prompt    nova show ${index}    50s
     \    Log    ${output}
     Close Connection
+
+Get Mac Address
+    [Arguments]    ${ip}
+    [Documentation]    Retrieve the mac address for the given subnet ip
+    ${mac_add_src}=    Write Commands Until Prompt    neutron port-list | grep "${ip}" | get_field 3    40s
+    Log    ${mac_add_src}
+    ${mac_add_list}=    Split String    ${mac_add_src}    ${EMPTY}
+    ${mac_add}=    Get from List    ${mac_add_list}    0
+    Log    ${mac_add}
+    [Return]    ${mac_add}
+
+Get Vm Instance Ip
+    [Arguments]    ${vm_indices}
+    [Documentation]    Retrieve the ip assigned for the created vm instance
+    : FOR    ${index}    IN    @{vm_indices}
+    \    ${source}=    Write Commands Until Prompt    nova show ${index} | grep network | get_field 2    60s
+    \    ${vm_list}=    Split String    ${source}    ${SPACE}
+    \    ${vm_ip}=    Get from List    ${vm_list}    0
+    \    Log    ${vm_ip}
+    \    Append To List    ${NET_VM_IPS}    ${vm_ip}
+    \    Set Suite Variable    ${NET_VM_IPS}
+    [Return]    ${NET_VM_IPS}
+
+Verify Ipv4 In Dump Flow
+    [Arguments]    ${ip}
+    [Documentation]    Execute the dump flow command and return the output.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int    30s
+    Log    ${output}
+    Should Contain    ${output}    ${ip}
+
+Verify mac_add In Dump Flow
+    [Arguments]    ${mac_add}    ${table}
+    [Documentation]    Execute the dump flow command and return the output.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int | grep ${table}    40s
+    Log    ${output}
+    Should Contain    ${output}    ${mac_add}
+
+
+
