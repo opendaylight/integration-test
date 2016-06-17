@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba51214e_976c829e",
+        "filename": "csit/suites/sxp/filtering/020_Outbound_Filtering.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-06-17T17:15:31Z",
+      "side": 1,
+      "message": "looks like you are repeating these in multiple suites.  it\u0027s better if you put it in a common location (eg. sxp robot library) and source it.",
+      "range": {
+        "startLine": 91,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 20
+      },
+      "revId": "ba85f25faa011720e6af87e56676317cee666709",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_b70a66d0",
+        "filename": "csit/suites/sxp/topology/020_Scalability.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-06-17T17:15:31Z",
+      "side": 1,
+      "message": "so these numbers might not be the same in every suite, so just make ${number} a variable and you can do \"Clean SXP Environment    32\" or 6, etc.",
+      "range": {
+        "startLine": 61,
+        "startChar": 34,
+        "endLine": 61,
+        "endChar": 42
+      },
+      "revId": "ba85f25faa011720e6af87e56676317cee666709",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
