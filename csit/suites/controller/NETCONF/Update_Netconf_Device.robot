@@ -31,7 +31,6 @@ Start TestTool
     Should Not Be Empty    ${url}
     Execute Command    wget -t 3 ${url} -P ${ttlocation}
     Execute Command    mv ${ttlocation}/${name} ${ttlocation}/netconf-testtool-0.3.0-SNAPSHOT-executable.jar
-    Execute Command    mv ${ttlocation}/${name} ${ttlocation}/netconf-testtool-0.3.0-SNAPSHOT-executable.jar
 
 Mount Netconf Device
     Comment    ${XML1}    Get File    ${FILE}
