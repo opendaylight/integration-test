@@ -49,6 +49,8 @@ ${vlanpcp_action}    mod_vlan_pcp:6
 ${vlanpcp_actions}    set_field:6->vlan_pcp
 ${dlsrc_action}    mod_dl_src:00:00:00:00:00:11
 ${dlsrc_actions}    set_field:00:00:00:00:00:11->eth_src
+@{set_port}    mod_tp_src:100    mod_tp_dst:200
+@{set_ports}   set_field:100->tcp_src    set_field:200->tcp_dst
 @{PATHPOLICY_ATTR}    "id":1    "port-desc":"openflow:4,2,s4-eth2"
 ${custom}         ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
 
@@ -71,6 +73,22 @@ Stop SuiteVtnMa
 Stop SuiteVtnMaTest
     [Documentation]    Stop VTN Manager Test Suite
     Delete All Sessions
+
+Stop_Console_Tool
+    [Documentation]    Stop the tool if still running.
+    Utils.Write_Bare_Ctrl_C
+    ${output}=    SSHLibrary.Read    delay=10s
+    BuiltIn.Log    ${output}
+
+Mininet Iperf Should Succeed
+    [Arguments]    ${host1}    ${host2}
+    [Documentation]    Generate TCP/UDP packet using iperf to check TCP/UDP port number in flowentries
+    ...    After ping completed manually Kill iperf server and client using CTRL+C.
+    Write    ${host1} iperf -s &
+    Stop_Console_Tool
+    Write    ${host2} iperf -c ${host1}
+    Stop_Console_Tool
+    #Stop_Console_Tool
 
 Fetch vtn list
     [Documentation]    Check if VTN Manager is up.
