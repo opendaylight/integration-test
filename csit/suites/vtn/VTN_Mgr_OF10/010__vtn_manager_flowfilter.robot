@@ -208,6 +208,19 @@ Remove vbrif Flowfilter index which have dscp
     [Documentation]    Remove a index of vbrif flowfilter which have DSCP
     Remove a vbrif flowfilter    Tenant1    vBridge1    if1    ${filter_index}
 
+Add a vtn flowfilter with set-port
+    [Documentation]    Create a flowfilter with dscp and Verify ping
+    Add a vtn flowfilter    Tenant1    ${flowfilterportdata}
+    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Iperf Should Succeed    h1    h3
+
+Verify set-port action for vtn flowfilter
+    [Documentation]    Verify actions in Flow Enties for dscp
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF10}    @{set_port}
+
+Remove vtn Flowfilter index which have set-port
+    [Documentation]    Remove a index of vtn flowfilter which have DSCP
+    Remove a vtn flowfilter    Tenant1    ${filter_index}
+
 Add a flowfilter with inet4 for drop
     [Documentation]    Create a flowfilter with inet4 for drop action and Verify no pinging
     Add a vbrif flowfilter    Tenant1    vBridge1    if1    ${flowfilterInetdropdata}
