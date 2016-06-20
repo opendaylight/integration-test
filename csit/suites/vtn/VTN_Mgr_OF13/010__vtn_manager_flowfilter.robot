@@ -13,6 +13,7 @@ ${flowfilterTpsrcTpdstdata}    "vtn-flow-filter": [{"condition": "cond_1","vtn-p
 ${flowfilterDscpdata}    "vtn-flow-filter":[{"condition": "cond_1","vtn-pass-filter": {},"vtn-flow-action": [{"order": "1","vtn-set-inet-dscp-action": {"dscp":"32"}}],"index":"1"}]
 ${flowfilterdlsrc}    "vtn-flow-filter":[{"condition": "cond_1","vtn-pass-filter": {},"vtn-flow-action": [{"order": "1","vtn-set-dl-src-action": {"address":"00:00:00:00:00:11"}}],"index":"1"}]
 ${flowfiltervlanpcp}    "vtn-flow-filter":[{"condition":"cond_1","vtn-pass-filter":{},"vtn-flow-action":[{"order":"3","vtn-set-icmp-code-action":{"code":"1"}},{"order":"4","vtn-set-vlan-pcp-action":{"vlan-pcp":"3"}}],"index":"1"}]
+${flowfilterportdata}    "vtn-flow-filter":[{"condition":"cond_1","vtn-pass-filter":{},"vtn-flow-action":[{"order":"1","vtn-set-port-src-action":{"port":"100"}},{"order":"2","vtn-set-port-dst-action":{"port":"200"}}],"index":"1"}]
 
 *** Test Cases ***
 Check if switch1 detected
@@ -240,6 +241,45 @@ Verify dl-src action for vbrif flowfilter
 
 Remove vbrif Flowfilter index which have dl-src
     [Documentation]    Remove a index of vbrif flowfilter which have DL_SRC
+    Remove a vbrif flowfilter    Tenant1    vBridge1    if1    ${filter_index}
+
+Add a vtn flowfilter with set-port
+    [Documentation]    Create a flowfilter with port-src/port-dst and Verify ping
+    Add a vtn flowfilter    Tenant1    ${flowfilterportdata}
+    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Iperf Should Succeed    h1    h3
+
+Verify set-port action for vtn flowfilter
+    [Documentation]    Verify actions in Flow Enties for tcp_src and tcp_dst
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF13}    @{set_ports}
+
+Remove vtn Flowfilter index which have set-port
+    [Documentation]    Remove a index of vtn flowfilter which have port-src/port-dst
+    Remove a vtn flowfilter    Tenant1    ${filter_index}
+
+Add a vbr flowfilter with set-port
+    [Documentation]    Create a flowfilter with port-src/port-dst and Verify ping
+    Add a vbr flowfilter    Tenant1    vBridge1    ${flowfilterportdata}
+    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Iperf Should Succeed    h1    h3
+
+Verify set-port action for vbr flowfilter
+    [Documentation]    Verify actions in Flow Enties for tcp_src and tcp_dst
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF13}    @{set_ports}
+
+Remove vbr Flowfilter index which have set-port
+    [Documentation]    Remove a index of vtn flowfilter which have port-src/port-dst
+    Remove a vbr flowfilter    Tenant1    vBridge1    ${filter_index}
+
+Add a vbrif flowfilter with set-port
+    [Documentation]    Create a flowfilter with port-src/port-dst and Verify ping
+    Add a vbrif flowfilter    Tenant1    vBridge1    if1    ${flowfilterportdata}
+    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Iperf Should Succeed    h1    h3
+
+Verify set-port action for vbrif flowfilter
+    [Documentation]    Verify actions in Flow Enties for tcp_src and tcp_dst
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF13}    @{set_ports}
+
+Remove vbrif Flowfilter index which have set-port
+    [Documentation]    Remove a index of vtn flowfilter which have port-src/port-dst
     Remove a vbrif flowfilter    Tenant1    vBridge1    if1    ${filter_index}
 
 Add a flowfilter with inet4 for drop
