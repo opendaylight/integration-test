@@ -47,6 +47,8 @@ ${dscp_flow}      mod_nw_tos:128
 ${drop_action}    actions=drop
 ${vlanpcp_action}    mod_vlan_pcp:6
 ${vlanpcp_actions}    set_field:6->vlan_pcp
+@{set_port}    mod_tp_src:100    mod_tp_dst:200
+@{set_ports}   set_field:100->tcp_src    set_field:200->tcp_dst 
 @{PATHPOLICY_ATTR}    "id":1    "port-desc":"openflow:4,2,s4-eth2"
 ${custom}         ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
 
@@ -69,6 +71,20 @@ Stop SuiteVtnMa
 Stop SuiteVtnMaTest
     [Documentation]    Stop VTN Manager Test Suite
     Delete All Sessions
+
+Stop_Console_Tool
+    [Documentation]    Stop the tool if still running.
+    Utils.Write_Bare_Ctrl_C
+    ${output}=    SSHLibrary.Read    delay=1s
+    BuiltIn.Log    ${output}
+
+Mininet Iperf Should Succeed
+    [Arguments]    ${host1}    ${host2}
+    [Documentation]    Ping hosts to check connectivity
+    Write    ${host1} iperf -s &
+    Write    ${host2} iperf -c ${host1}
+    Stop_Console_Tool
+    Stop_Console_Tool
 
 Fetch vtn list
     [Documentation]    Check if VTN Manager is up.
