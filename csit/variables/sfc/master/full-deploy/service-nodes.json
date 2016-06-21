@@ -1,0 +1,44 @@
+{
+    "service-nodes": {
+        "service-node": [
+            {
+                "name": "SF-1",
+                "service-function": [
+                    "dpi-102-2"
+                ],
+                "ip-mgmt-address": "172.17.0.4"
+            },
+            {
+                "name": "SF-2",
+                "service-function": [
+                    "napt-44-103-2"
+                ],
+                "ip-mgmt-address": "172.17.0.6"
+            },
+            {
+                "name": "SFF-1",
+                "service-function": [
+                ],
+                "ip-mgmt-address": "172.17.0.3"
+            },
+            {
+                "name": "SFF-2",
+                "service-function": [
+                ],
+                "ip-mgmt-address": "172.17.0.5"
+            },
+            {
+                "name": "classifier-1",
+                "service-function": [
+                ],
+                "ip-mgmt-address": "172.17.0.2"
+            },
+            {
+                "name": "classifier-2",
+                "service-function": [
+                ],
+                "ip-mgmt-address": "172.17.0.7"
+            }
+       ]
+    }
+}
