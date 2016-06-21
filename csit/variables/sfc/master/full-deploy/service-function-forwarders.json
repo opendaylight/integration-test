@@ -1,0 +1,100 @@
+{
+  "service-function-forwarders": {
+    "service-function-forwarder": [
+      {
+        "name": "SFF-1",
+        "service-node": "SFF-1",
+        "rest-uri": "http://localhost:5000",
+        "service-function-forwarder-ovs:ovs-bridge": {
+                    "bridge-name": "br-sfc"
+        },
+        "sff-data-plane-locator": [
+          {
+            "name": "SFF-1-DPL",
+            "data-plane-locator": {
+              "port": 5000,
+              "ip": "172.17.0.3",
+              "transport": "service-locator:vxlan-gpe"
+            },
+            "service-function-forwarder-ovs:ovs-options": {
+                "remote-ip": "flow",
+                "dst-port": "6633",
+                "key": "flow",
+                "nsp": "flow",
+                "nsi": "flow",
+                "nshc1": "flow",
+                "nshc2": "flow",
+                "nshc3": "flow",
+                "nshc4": "flow"
+            }
+          }
+        ],
+        "service-function-dictionary": [
+          {
+            "sff-sf-data-plane-locator": {
+              "sf-dpl-name": "SF-1-DPL",
+              "sff-dpl-name": "SFF-1-DPL"
+            },
+            "name": "SF1"
+          }
+        ],
+        "connected-sff-dictionary": [
+          {
+            "sff-sff-data-plane-locator": {
+              "port": 5000,
+              "ip": "172.17.0.5"
+            },
+            "name": "SFF-2"
+          }
+        ]
+      },
+      {
+        "name": "SFF-2",
+        "service-node": "SFF-2",
+        "service-function-forwarder-ovs:ovs-bridge": {
+                    "bridge-name": "br-sfc"
+        },
+        "rest-uri": "http://localhost:5000",
+        "sff-data-plane-locator": [
+          {
+            "name": "SFF-2-DPL",
+            "data-plane-locator": {
+              "port": 5000,
+              "ip": "172.17.0.5",
+              "transport": "service-locator:vxlan-gpe"
+            },
+            "service-function-forwarder-ovs:ovs-options": {
+                "remote-ip": "flow",
+                "dst-port": "6633",
+                "key": "flow",
+                "nsp": "flow",
+                "nsi": "flow",
+                "nshc1": "flow",
+                "nshc2": "flow",
+                "nshc3": "flow",
+                "nshc4": "flow"
+            }
+          }
+        ],
+        "service-function-dictionary": [
+          {
+            "sff-sf-data-plane-locator": {
+              "sf-dpl-name": "SF-2-DPL",
+              "sff-dpl-name": "SFF-2-DPL"
+            },
+            "name": "SF2"
+          }
+        ],
+        "connected-sff-dictionary": [
+          {
+            "sff-sff-data-plane-locator": {
+              "port": 5000,
+              "ip": "172.17.0.3"
+            },
+            "name": "SFF-1"
+          }
+        ]
+      }
+    ]
+  }
+}
