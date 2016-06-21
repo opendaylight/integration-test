@@ -1,0 +1,36 @@
+{
+  "service-functions": {
+    "service-function": [
+      {
+        "rest-uri": "http://localhost:10002",
+        "ip-mgmt-address": "172.17.0.4",
+        "sf-data-plane-locator": [
+          {
+            "name": "SF-1-DPL",
+            "port": 10002,
+            "ip": "172.17.0.4",
+            "service-function-forwarder": "SFF-1"
+          }
+        ],
+        "name": "dpi-102-2",
+        "type": "dpi",
+        "nsh-aware": true
+      },
+      {
+        "rest-uri": "http://localhost:10001",
+        "ip-mgmt-address": "172.17.0.6",
+        "sf-data-plane-locator": [
+          {
+            "name": "SF-2-DPL",
+            "port": 10001,
+            "ip": "172.17.0.6",
+            "service-function-forwarder": "SFF-2"
+          }
+        ],
+        "name": "napt44-103-2",
+        "type": "napt44",
+        "nsh-aware": true
+      }
+   ]
+  }
+}
