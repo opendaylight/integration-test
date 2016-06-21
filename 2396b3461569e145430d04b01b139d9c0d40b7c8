@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba51214e_2f6556e1",
+        "filename": "csit/suites/lispflowmapping/scripts/generate_bindings.sh",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-06-21T21:00:45Z",
+      "side": 1,
+      "message": "yang-files (missing dash)",
+      "revId": "2396b3461569e145430d04b01b139d9c0d40b7c8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_6f5f4e0f",
+        "filename": "csit/suites/lispflowmapping/scripts/generate_bindings.sh",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-06-21T21:00:45Z",
+      "side": 1,
+      "message": "You could use a variable like GITWEB_LISP\u003d\"https://git.opendaylight.org/gerrit/gitweb?p\u003dlispflowmapping.git;a\u003dblob_plain;\" to avoid repeating this part, you don\u0027t need hb\u003dHEAD (it\u0027s the default). Same for GITWEB_MDSAL and GITWEB_CONTROLLER",
+      "revId": "2396b3461569e145430d04b01b139d9c0d40b7c8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_8f62a2d6",
+        "filename": "csit/suites/lispflowmapping/scripts/generate_bindings.sh",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-06-21T21:00:45Z",
+      "side": 1,
+      "message": "we should add the bits.patch to the integration/test repo as well (in this patch is fine), so that we don\u0027t depend on external repos (unless really necessary)",
+      "revId": "2396b3461569e145430d04b01b139d9c0d40b7c8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_cf9bfac7",
+        "filename": "csit/suites/lispflowmapping/scripts/generate_bindings.sh",
+        "patchSetId": 7
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-06-21T21:00:45Z",
+      "side": 1,
+      "message": "AFAIK, you need the bindings on the system running this script, not the ODL system under test, so no need to SSH. With that, you can execute commands one by one, instead of creating a giant YANG_FILES and then a DOWNLOAD_CMD variable.",
+      "revId": "2396b3461569e145430d04b01b139d9c0d40b7c8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
