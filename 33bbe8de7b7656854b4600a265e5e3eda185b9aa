@@ -72,6 +72,24 @@
     },
     {
       "key": {
+        "uuid": "ba51214e_decd835f",
+        "filename": "csit/suites/vtn/VTN_Mgr_OF10/010__vtn_manager_flowfilter.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 224,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-06-21T00:45:13Z",
+      "side": 1,
+      "message": "Thanks for the response, I feel that one test case to verify if the flow entry got removed could be a good addition",
+      "parentUuid": "ba51214e_0a269d16",
+      "revId": "33bbe8de7b7656854b4600a265e5e3eda185b9aa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba51214e_04aa1370",
         "filename": "csit/suites/vtn/VTN_Mgr_OF13/010__vtn_manager_flowfilter.robot",
         "patchSetId": 2
