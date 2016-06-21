@@ -71,7 +71,7 @@ Reconfigure_ODL_To_Accept_Connection
 Start_Talking_BGP_speaker
     [Documentation]    Start Python speaker to connect to ODL, verify that the tool does not promptly exit.
     # Myport value is needed for checking whether connection at precise port was established.
-    BGPSpeaker.Start_BGP_Speaker    --amount 3 --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --${BGP_TOOL_LOG_LEVEL}
+    BGPSpeaker.Start_BGP_Speaker    --amount 3 --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --${BGP_TOOL_LOG_LEVEL} --stream ${ODL_STREAM}
     Read_And_Fail_If_Prompt_Is_Seen
 
 Check_Talking_Connection_Is_Established
@@ -101,7 +101,7 @@ Check_For_Empty_Topology_After_Talking
 
 Start_Listening_BGP_Speaker
     [Documentation]    Start Python speaker in listening mode, verify that the tool does not exit quickly.
-    BGPSpeaker.Start_BGP_Speaker    --amount 3 --listen --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --${BGP_TOOL_LOG_LEVEL}
+    BGPSpeaker.Start_BGP_Speaker    --amount 3 --listen --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --${BGP_TOOL_LOG_LEVEL} --stream ${ODL_STREAM}
     Read_And_Fail_If_Prompt_Is_Seen
 
 Check_Listening_Connection_Is_Not_Established_Yet
@@ -143,7 +143,7 @@ Check_For_Empty_Topology_After_Listening
 
 Start_Listening_BGP_Speaker_Case_2
     [Documentation]    BGP Speaker introduces 2 prefixes in the first update & another 2 prefixes while the very first is withdrawn in 2nd update
-    BGPSpeaker.Start_BGP_Speaker    --amount 3 --listen --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --prefill=2 --insert=2 --withdraw=1 --updates=single --firstprefix=8.0.0.240 --${BGP_TOOL_LOG_LEVEL}
+    BGPSpeaker.Start_BGP_Speaker    --amount 3 --listen --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --prefill=2 --insert=2 --withdraw=1 --updates=single --firstprefix=8.0.0.240 --${BGP_TOOL_LOG_LEVEL} --stream ${ODL_STREAM}
     Read_And_Fail_If_Prompt_Is_Seen
 
 Check_Listening_Connection_Is_Established_Case_2
@@ -172,7 +172,7 @@ Check_For_Empty_Topology_After_Listening_Case_2
 
 Start_Listening_BGP_Speaker_Case_3
     [Documentation]    BGP Speaker introduces 3 prefixes while the first one occures again in the withdrawn list (to be ignored bu controller)
-    BGPSpeaker.Start_BGP_Speaker    --amount 2 --listen --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --prefill=0 --insert=3 --withdraw=1 --updates=single --${BGP_TOOL_LOG_LEVEL}
+    BGPSpeaker.Start_BGP_Speaker    --amount 2 --listen --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --prefill=0 --insert=3 --withdraw=1 --updates=single --${BGP_TOOL_LOG_LEVEL} --stream ${ODL_STREAM}
     Read_And_Fail_If_Prompt_Is_Seen
 
 Check_Listening_Connection_Is_Established_Case_3

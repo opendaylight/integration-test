@@ -84,7 +84,7 @@ Change_Karaf_Logging_Levels
 Start_Talking_BGP_Speaker
     [Documentation]    Start Python speaker to connect to ODL.
     # Myport value is needed for checking whether connection at precise port was established.
-    BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT_PREFIX_COUNT_SINGLE} --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --update ${UPDATE} --${BGP_TOOL_LOG_LEVEL} --results ${RESULTS_FILE_NAME}
+    BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT_PREFIX_COUNT_SINGLE} --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --update ${UPDATE} --${BGP_TOOL_LOG_LEVEL} --results ${RESULTS_FILE_NAME} --stream ${ODL_STREAM}
 
 Wait_For_Stable_Talking_Ipv4_Topology
     [Documentation]    Wait until example-ipv4-topology becomes stable. This is done by checking stability of prefix count.
@@ -129,7 +129,7 @@ Check_For_Empty_Ipv4_Topology_After_Talking
 
 Start_Listening_BGP_Speaker
     [Documentation]    Start Python speaker in listening mode.
-    BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT_PREFIX_COUNT_SINGLE} --listen --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --update ${UPDATE} --${BGP_TOOL_LOG_LEVEL} --results ${RESULTS_FILE_NAME}
+    BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT_PREFIX_COUNT_SINGLE} --listen --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --update ${UPDATE} --${BGP_TOOL_LOG_LEVEL} --results ${RESULTS_FILE_NAME} --stream ${ODL_STREAM}
 
 Reconfigure_ODL_To_Initiate_Connection
     [Documentation]    Replace BGP peer config module, now with initiate-connection set to true.

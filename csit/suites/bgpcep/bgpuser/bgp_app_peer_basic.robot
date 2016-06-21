@@ -78,7 +78,7 @@ ${BGP_PEER_LOG_LEVEL}    debug
 ${BGP_APP_PEER_LOG_LEVEL}    debug
 ${CONTROLLER_LOG_LEVEL}    INFO
 ${CONTROLLER_BGP_LOG_LEVEL}    DEFAULT
-${BGP_PEER_COMMAND}    python play.py --amount 0 --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --${BGP_PEER_LOG_LEVEL}
+${BGP_PEER_COMMAND}    python play.py --amount 0 --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${ODL_SYSTEM_IP} --peerport=${ODL_BGP_PORT} --${BGP_PEER_LOG_LEVEL} --stream ${ODL_STREAM}
 ${BGP_PEER_OPTIONS}    ${EMPTY}
 ${BGP_APP_PEER_ID}    10.0.0.10
 ${BGP_APP_PEER_POST_COMMAND}    python bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command post --count 3 --prefix 8.0.1.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL}

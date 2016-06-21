@@ -252,5 +252,5 @@ Configure Netconf Device And Check Mounted
 
 Start Bgp Peer
     [Documentation]    Starts bgp peer and verifies that the peer runs.
-    BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT} --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${default_oper_shard_leader_node_ip} --peerport=${ODL_BGP_PORT} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --update ${UPDATE} --${BGP_TOOL_LOG_LEVEL} --results ${RESULTS_FILE_NAME}
+    BGPSpeaker.Start_BGP_Speaker    --amount ${COUNT} --myip=${TOOLS_SYSTEM_IP} --myport=${BGP_TOOL_PORT} --peerip=${default_oper_shard_leader_node_ip} --peerport=${ODL_BGP_PORT} --insert=${INSERT} --withdraw=${WITHDRAW} --prefill ${PREFILL} --update ${UPDATE} --${BGP_TOOL_LOG_LEVEL} --results ${RESULTS_FILE_NAME} --stream ${ODL_STREAM}
     BGPcliKeywords.Read_And_Fail_If_Prompt_Is_Seen
