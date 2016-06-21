@@ -337,7 +337,7 @@ Add Elements To URI From File
     [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}
     ${body}    OperatingSystem.Get File    ${data_file}
     ${resp}    RequestsLibrary.Put Request    session    ${dest_uri}    data=${body}    headers=${headers}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299
 
 Add Elements To URI From File And Verify
     [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}
