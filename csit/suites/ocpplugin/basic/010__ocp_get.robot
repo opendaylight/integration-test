@@ -26,6 +26,6 @@ Check if node exist
 Get param from emulator
     [Documentation]    OCPPLUGIN get param
     [Tags]    OCPPLUGIN get
-    ${resp}    Post Request    session    ${REST_GET_PARAM}    data={"input":{"nodeId":"ocp:TST-100","obj":[{"id":"ALL","param":[{"name":"ALL"}]}]}}
+    ${resp}    Post Request    session    ${REST_GET_PARAM}    data={"input":{"nodeId":"ocp:TST-100","objId":"ALL","paramName":"ALL"}}
     Should Be Equal As Strings    ${resp.status_code}    200
     Stop Emulator And Exit    ${mininet_conn_id}
