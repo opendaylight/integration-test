@@ -8,6 +8,7 @@ Library           Collections
 Library           RequestsLibrary
 Library           ./UtilLibrary.py
 Resource          KarafKeywords.robot
+Resource          TemplatedRequests.robot
 Variables         ../variables/Variables.py
 
 *** Variables ***
@@ -319,17 +320,17 @@ Post Elements To URI
     [Documentation]    Perform a POST rest operation, using the URL and data provided
     ${resp} =    RequestsLibrary.Post Request    ${session}    ${rest_uri}    data=${data}    headers=${headers}
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Remove All Elements At URI
     [Arguments]    ${uri}
     ${resp}    RequestsLibrary.Delete Request    session    ${uri}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Remove All Elements At URI And Verify
     [Arguments]    ${uri}
     ${resp}    RequestsLibrary.Delete Request    session    ${uri}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${resp}    RequestsLibrary.Get Request    session    ${uri}
     Should Be Equal As Strings    ${resp.status_code}    404
 
@@ -337,20 +338,20 @@ Add Elements To URI From File
     [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}
     ${body}    OperatingSystem.Get File    ${data_file}
     ${resp}    RequestsLibrary.Put Request    session    ${dest_uri}    data=${body}    headers=${headers}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Add Elements To URI From File And Verify
     [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}
     ${body}    OperatingSystem.Get File    ${data_file}
     ${resp}    RequestsLibrary.Put Request    session    ${dest_uri}    data=${body}    headers=${headers}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${resp}    RequestsLibrary.Get Request    session    ${dest_uri}
     Should Not Be Equal    ${resp.status_code}    404
 
 Add Elements To URI And Verify
     [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}
     ${resp}    RequestsLibrary.Put Request    session    ${dest_uri}    ${data_file}    headers=${headers}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${resp}    RequestsLibrary.Get Request    session    ${dest_uri}
     Should Not Be Equal    ${resp.status_code}    404
 
@@ -358,7 +359,7 @@ Post Elements To URI From File
     [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}
     ${body}    OperatingSystem.Get File    ${data_file}
     ${resp}    RequestsLibrary.Post Request    session    ${dest_uri}    data=${body}    headers=${headers}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Run Process With Logging And Status Check
     [Arguments]    @{proc_args}
