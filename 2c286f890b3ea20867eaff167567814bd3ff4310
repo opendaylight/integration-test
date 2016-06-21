@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba51214e_d1871f0e",
+        "filename": "csit/suites/bgpcep/bgpfunct/050_bmp_basic.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-21T13:07:37Z",
+      "side": 1,
+      "message": "Add a few sentences after the license, with high-level description of what this suite does and which features it needs installed.",
+      "range": {
+        "startLine": 2,
+        "startChar": 56,
+        "endLine": 2,
+        "endChar": 57
+      },
+      "revId": "2c286f890b3ea20867eaff167567814bd3ff4310",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_11cb5773",
+        "filename": "csit/suites/bgpcep/bgpfunct/050_bmp_basic.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-21T13:07:37Z",
+      "side": 1,
+      "message": "6",
+      "range": {
+        "startLine": 4,
+        "startChar": 35,
+        "endLine": 4,
+        "endChar": 36
+      },
+      "revId": "2c286f890b3ea20867eaff167567814bd3ff4310",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_f1fea36a",
+        "filename": "csit/suites/bgpcep/bgpfunct/050_bmp_basic.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-21T13:07:37Z",
+      "side": 1,
+      "message": "--log_level DEBUG \n\nFor functional tests it does not create too much lines, and the lines will be useful to see if anything fails.",
+      "range": {
+        "startLine": 25,
+        "startChar": 181,
+        "endLine": 25,
+        "endChar": 182
+      },
+      "revId": "2c286f890b3ea20867eaff167567814bd3ff4310",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_317c9b20",
+        "filename": "csit/suites/bgpcep/bgpfunct/050_bmp_basic.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-21T13:07:37Z",
+      "side": 1,
+      "message": "or BuiltIn.Create_Dictionary\nor BuiltIn.Create Dictionary\nor Create_Dictionary\njust make sure you use the same style for all keywords (and test case names) in the suite.",
+      "range": {
+        "startLine": 32,
+        "startChar": 18,
+        "endLine": 32,
+        "endChar": 35
+      },
+      "revId": "2c286f890b3ea20867eaff167567814bd3ff4310",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_71761340",
+        "filename": "csit/suites/bgpcep/bgpfunct/050_bmp_basic.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-21T13:07:37Z",
+      "side": 1,
+      "message": "If the teardown fails, all test cases are marked as failed. But there are only three of them, so no big deal.",
+      "range": {
+        "startLine": 55,
+        "startChar": 15,
+        "endLine": 55,
+        "endChar": 23
+      },
+      "revId": "2c286f890b3ea20867eaff167567814bd3ff4310",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
