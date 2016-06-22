@@ -8,6 +8,7 @@ Resource          Utils.robot
 ${REST_VIEW_CHANNEL}    /restconf/operations/usc-channel:view-channel
 ${REST_ADD_CHANNEL}    /restconf/operations/usc-channel:add-channel
 ${REST_REMOVE_CHANNEL}    /restconf/operations/usc-channel:remove-channel
+${REST_REMOVE_SESSION}    /restconf/operations/usc-channel:remove-session
 ${REST_SEND_MESSAGE}    /restconf/operations/usc-channel:send-message
 ${NAV_USC_TOOLS}    cd ~/usc-tools
 ${CLONE_USC_TOOLS}    [ -f ~/usc-tools/UscAgent.jar ] && echo "The usc-tools does exist, done." || git clone https://github.com/victorxu99/usc-tools.git ~/usc-tools

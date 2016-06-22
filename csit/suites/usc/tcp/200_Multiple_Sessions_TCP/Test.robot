@@ -62,17 +62,38 @@ View Bytes In and Bytes Out
     Should Contain    ${resp.content}    "bytes-out":${totalLen}
     Should Contain    ${resp.content}    "bytes-in":${totalLen}
 
-Remove Channel
+Remove Sessions
     [Documentation]    Remove the channels
     : FOR    ${port_index}    IN    @{LIST_ECHO_SERVER_PORT}
     \    ${content}    Create Dictionary    hostname=${TOOLS_SYSTEM_IP}    port=${port_index}    tcp=true
     \    ${channel}    Create Dictionary    channel=${content}
     \    ${input}    Create Dictionary    input=${channel}
     \    ${data}    json.dumps    ${input}
-    \    ${resp}    Post Request    session    ${REST_REMOVE_CHANNEL}    data=${data}
+    \    ${resp}    Post Request    session    ${REST_REMOVE_SESSION}    data=${data}
     \    Log    ${resp.content}
     \    Should Be Equal As Strings    ${resp.status_code}    200
     \    Should Contain    ${resp.content}    Succeed to remove
+
+Remove Channel
+    [Documentation]    Remove the channels
+    ${content}    Create Dictionary    hostname=${TOOLS_SYSTEM_IP}    tcp=true
+    ${channel}    Create Dictionary    channel=${content}
+    ${input}    Create Dictionary    input=${channel}
+    ${data}    json.dumps    ${input}
+    ${resp}    Post Request    session    ${REST_REMOVE_CHANNEL}    data=${data}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${resp.content}    Succeed to remove
+
+Check Channel
+    [Documentation]    Check if the channels are correct
+    ${topo}    Create Dictionary    topology-id=usc
+    ${input}    Create Dictionary    input=${topo}
+    ${data}    json.dumps    ${input}
+    ${resp}    Post Request    session    ${REST_VIEW_CHANNEL}    data=${data}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${resp.content}    "topology"
 
 *** Keywords ***
 Send Now
