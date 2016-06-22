@@ -1,0 +1,2 @@
+# Place the suites in run order:
+integration/test/csit/suites/openflowplugin/Performance_Flow_Config/070_Stats_Collection_100k_WithMininetRestart.robot
