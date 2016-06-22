@@ -113,6 +113,7 @@ Generate RSPs with Random Schedule Algorithm type
 
 Generate RSPs with Round Robin Schedule Algorithm type
     [Documentation]    Generate RSPs with Round Robin Schedule Algorithm type
+    [Tags]    exclude
     Remove All Elements At URI    ${SERVICE_SCHED_TYPES_URI}
     Add Elements To URI From File    ${SERVICE_ROUNDROBIN_SCHED_TYPE_URI}    ${SERVICE_ROUNDROBIN_SCHED_TYPE_FILE}
     Post Elements To URI As JSON    ${OPERATIONS_CREATE_RSP_URI}    ${CREATE_RSP1_INPUT}
