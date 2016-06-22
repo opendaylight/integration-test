@@ -199,7 +199,7 @@ Setup Topology Complex
 
 Setup SXP Environment
     [Documentation]    Create session to Controller
-    Verify Feature Is Installed    odl-sxp-all
+    Verify Feature Is Installed    odl-sxp-controller
     Create Session    session    url=http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
     Wait Until Keyword Succeeds    15    1    Get Bindings
 
