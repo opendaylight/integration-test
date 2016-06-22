@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba51214e_853441df",
+        "filename": "csit/suites/bgpcep/bgpfunct/050_bmp_basic.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-22T08:14:13Z",
+      "side": 1,
+      "message": "bound",
+      "range": {
+        "startLine": 12,
+        "startChar": 18,
+        "endLine": 12,
+        "endChar": 24
+      },
+      "revId": "043daeaf68c9b50862523c46c8b1f101933a1ee6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
