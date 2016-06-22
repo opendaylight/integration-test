@@ -95,6 +95,7 @@ Put Service Function DPL
 
 Put Service Function DPL to a Non-existing Service Function
     [Documentation]    Put Service Function DPL to a Non-existing Service Function
+    [Tags]    exclude
     Remove All Elements At URI    ${SERVICE_FUNCTIONS_URI}
     Add Elements To URI From File    ${SF_DPI102100_URI}sf-data-plane-locator/dpl-101    ${SF_DPL101_FILE}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTIONS_URI}

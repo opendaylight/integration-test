@@ -138,6 +138,7 @@ Put Service Function Forwarder DPL's Locator
 
 Delete Service Function Forwarder DPL's Locator
     [Documentation]    Delete Service Function Forwarder Data Plane Locator
+    [Tags]    exclude
     Remove All Elements At URI    ${SERVICE_FORWARDERS_URI}
     Add Elements To URI From File    ${SFF_OVS100_URI}    ${SFF_OVS100_FILE}
     Add Elements To URI From File    ${SFF_OVS100_URI}sff-data-plane-locator/dpl-101    ${SFF_DPL101_FILE}
