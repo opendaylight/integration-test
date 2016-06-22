@@ -63,7 +63,7 @@ View Bytes In and Bytes Out
 
 Remove Channel
     [Documentation]    Remove the channel
-    ${content}    Create Dictionary    hostname=${TOOLS_SYSTEM_IP}    port=${ECHO_SERVER_PORT}    tcp=true
+    ${content}    Create Dictionary    hostname=${TOOLS_SYSTEM_IP}    tcp=true
     ${channel}    Create Dictionary    channel=${content}
     ${input}    Create Dictionary    input=${channel}
     ${data}    json.dumps    ${input}
