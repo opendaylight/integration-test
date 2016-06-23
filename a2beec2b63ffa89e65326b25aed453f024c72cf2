@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba51214e_5a367f53",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 36
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-23T11:23:16Z",
+      "side": 1,
+      "message": "already imported",
+      "range": {
+        "startLine": 24,
+        "startChar": 7,
+        "endLine": 24,
+        "endChar": 15
+      },
+      "revId": "a2beec2b63ffa89e65326b25aed453f024c72cf2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_da20cff9",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 36
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-23T11:23:16Z",
+      "side": 1,
+      "message": "SharedDict?\nSafeDict?",
+      "range": {
+        "startLine": 38,
+        "startChar": 6,
+        "endLine": 38,
+        "endChar": 19
+      },
+      "revId": "a2beec2b63ffa89e65326b25aed453f024c72cf2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_3a3bcb3b",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 36
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-23T11:23:16Z",
+      "side": 1,
+      "message": "f",
+      "range": {
+        "startLine": 39,
+        "startChar": 16,
+        "endLine": 39,
+        "endChar": 17
+      },
+      "revId": "a2beec2b63ffa89e65326b25aed453f024c72cf2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_9a3f7725",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 36
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-23T11:23:16Z",
+      "side": 1,
+      "message": "f",
+      "range": {
+        "startLine": 41,
+        "startChar": 38,
+        "endLine": 41,
+        "endChar": 39
+      },
+      "revId": "a2beec2b63ffa89e65326b25aed453f024c72cf2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_ba1d1bc0",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 36
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-23T11:23:16Z",
+      "side": 1,
+      "message": "space",
+      "range": {
+        "startLine": 160,
+        "startChar": 17,
+        "endLine": 160,
+        "endChar": 19
+      },
+      "revId": "a2beec2b63ffa89e65326b25aed453f024c72cf2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_fa6833f7",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 36
+      },
+      "lineNbr": 1509,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-23T11:23:16Z",
+      "side": 1,
+      "message": "Pylint does not line variable names shorter than 3. \"store\" perhaps?\nApplies elsewhere.",
+      "range": {
+        "startLine": 1509,
+        "startChar": 29,
+        "endLine": 1509,
+        "endChar": 30
+      },
+      "revId": "a2beec2b63ffa89e65326b25aed453f024c72cf2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_7a7423cf",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 36
+      },
+      "lineNbr": 1510,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-23T11:23:16Z",
+      "side": 1,
+      "message": "This would overwrite a possible previous message which was not picked up by RPC server yet. Is that intended?",
+      "range": {
+        "startLine": 1510,
+        "startChar": 12,
+        "endLine": 1510,
+        "endChar": 23
+      },
+      "revId": "a2beec2b63ffa89e65326b25aed453f024c72cf2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_5ae95f7f",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 36
+      },
+      "lineNbr": 1712,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-23T11:23:16Z",
+      "side": 1,
+      "message": "This empty line does not seem to be required.",
+      "range": {
+        "startLine": 1712,
+        "startChar": 0,
+        "endLine": 1712,
+        "endChar": 0
+      },
+      "revId": "a2beec2b63ffa89e65326b25aed453f024c72cf2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_fa9af312",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 36
+      },
+      "lineNbr": 1876,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-23T11:23:16Z",
+      "side": 1,
+      "message": "or an empty string if there is nothing stored",
+      "range": {
+        "startLine": 1876,
+        "startChar": 29,
+        "endLine": 1876,
+        "endChar": 30
+      },
+      "revId": "a2beec2b63ffa89e65326b25aed453f024c72cf2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_9a8937cd",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 36
+      },
+      "lineNbr": 1887,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-23T11:23:16Z",
+      "side": 1,
+      "message": "return s.get(text, \u0027\u0027)\n(or without the second argument if None is acceptable)",
+      "range": {
+        "startLine": 1884,
+        "startChar": 12,
+        "endLine": 1887,
+        "endChar": 25
+      },
+      "revId": "a2beec2b63ffa89e65326b25aed453f024c72cf2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
