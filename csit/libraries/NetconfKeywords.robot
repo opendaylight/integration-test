@@ -203,3 +203,11 @@ Perform_Operation_On_Each_Device
     ${deadline_Date}=    DateTime.Add_Time_To_Date    ${current_Date}    ${timeout}
     BuiltIn.Set_Suite_Variable    ${current_port}    ${BASE_NETCONF_DEVICE_PORT}
     BuiltIn.Repeat_Keyword    ${count} times    NetconfKeywords__Perform_Operation_With_Checking_On_Next_Device    ${operation}    ${deadline_Date}
+
+Check_If_Data_Present_On_Device
+    [Documentation]    Verify if there is data present at the device with the given device number ${device_number}
+    [Arguments]    ${device_number}
+    ${device_name}=    Builtin.Set Variable   "${DEVICE_NAME_BASE}-${device_number}"
+    ${url}=    Builtin.Set_Variable    ${CONFIG_API}/network-topology:network-topology/topology/topology-netconf/node/${device_name}/yang-ext:mount
+    ${data}=    TemplatedRequests.Get_As_Xml_From_Uri    ${url}    session=node${device_number}
+    BuiltIn.Should_Be_Equal_As_Strings    ${data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
