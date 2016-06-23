@@ -29,8 +29,10 @@ Documentation     Resource housing Keywords common to several suites for cluster
 ...               TODO: Unify capitalization of Leaders and Followers.
 Library           RequestsLibrary    # for Create_Session and To_Json
 Library           Collections
+Library           SSHLibrary
 Resource          ${CURDIR}/TemplatedRequests.robot    # for Get_As_Json_From_Uri
 Resource          ${CURDIR}/Utils.robot    # for Run_Command_On_Controller
+Resource          ../../../libraries/SSHKeywords.robot
 
 *** Variables ***
 ${JAVA_HOME}      ${EMPTY}    # releng/builder scripts should provide correct value
@@ -395,6 +397,12 @@ Resolve_Shard_Type_Class
     BuiltIn.Run_Keyword_If    '${shard_type}' == 'config'    BuiltIn.Return_From_Keyword    DistributedConfigDatastore
     ...    ELSE IF    '${shard_type}' == 'operational'    BuiltIn.Return_From_Keyword    DistributedOperationalDatastore
     BuiltIn.Fail    Unrecognized shard type: ${shard_type}
+
+Clear_ODL_Data
+    [Documentation]    Clear ODL data/ tmp/ cache/ snapshot/ and journal/ directories. This is mainly intended for use when dealing with netconf-testtool
+    ...                due to some issues regarding generation of configuration files.
+    ...                This keyword expects an SSH connection to be already estamblished to the system that is running ODL.
+    SSHLibrary.Write    rm -fr ${WORKSPACE}/${BUNDLEFOLDER}/data ${WORKSPACE}/${BUNDLEFOLDER}/tmp ${WORKSPACE}/${BUNDLEFOLDER}/cache ${WORKSPACE}/${BUNDLEFOLDER}/journal ${WORKSPACE}/${BUNDLEFOLDER}/snapshot
 
 ClusterManagement__Build_List
     [Arguments]    ${member}
