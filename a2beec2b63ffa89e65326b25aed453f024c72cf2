@@ -2,6 +2,236 @@
   "comments": [
     {
       "key": {
+        "uuid": "ba51214e_55a65011",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 36
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-23T12:02:16Z",
+      "side": 1,
+      "message": "Sort imports by some criterion maybe?",
+      "range": {
+        "startLine": 3,
+        "startChar": 0,
+        "endLine": 3,
+        "endChar": 6
+      },
+      "revId": "a2beec2b63ffa89e65326b25aed453f024c72cf2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_95af48e3",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 36
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-23T12:02:16Z",
+      "side": 1,
+      "message": "Close curly braces.",
+      "range": {
+        "startLine": 25,
+        "startChar": 46,
+        "endLine": 25,
+        "endChar": 47
+      },
+      "revId": "a2beec2b63ffa89e65326b25aed453f024c72cf2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_d5b9c02f",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 36
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-23T12:02:16Z",
+      "side": 1,
+      "message": "type_\nOr some other variable name which is not a reserved word.",
+      "range": {
+        "startLine": 35,
+        "startChar": 23,
+        "endLine": 35,
+        "endChar": 27
+      },
+      "revId": "a2beec2b63ffa89e65326b25aed453f024c72cf2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_95962893",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 36
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-23T12:02:16Z",
+      "side": 1,
+      "message": "This would be safer inside the with.\nApplies to other methods too.",
+      "range": {
+        "startLine": 71,
+        "startChar": 26,
+        "endLine": 71,
+        "endChar": 41
+      },
+      "revId": "a2beec2b63ffa89e65326b25aed453f024c72cf2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_35d0fc4f",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 36
+      },
+      "lineNbr": 158,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-23T12:02:16Z",
+      "side": 1,
+      "message": "If everything leads to \"pass\", what are all the ifs for?",
+      "range": {
+        "startLine": 158,
+        "startChar": 4,
+        "endLine": 158,
+        "endChar": 9
+      },
+      "revId": "a2beec2b63ffa89e65326b25aed453f024c72cf2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_d5bee0fe",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 36
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-23T12:02:16Z",
+      "side": 1,
+      "message": "There is collections.Counter which may save some space.",
+      "range": {
+        "startLine": 173,
+        "startChar": 11,
+        "endLine": 173,
+        "endChar": 21
+      },
+      "revId": "a2beec2b63ffa89e65326b25aed453f024c72cf2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_7548b42d",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 36
+      },
+      "lineNbr": 301,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-23T12:02:16Z",
+      "side": 1,
+      "message": "\"No\"",
+      "range": {
+        "startLine": 301,
+        "startChar": 26,
+        "endLine": 301,
+        "endChar": 29
+      },
+      "revId": "a2beec2b63ffa89e65326b25aed453f024c72cf2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_75f6f4d8",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 36
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-23T12:02:16Z",
+      "side": 1,
+      "message": "logging.debug?",
+      "range": {
+        "startLine": 342,
+        "startChar": 4,
+        "endLine": 342,
+        "endChar": 9
+      },
+      "revId": "a2beec2b63ffa89e65326b25aed453f024c72cf2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_150698ce",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 36
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-23T12:02:16Z",
+      "side": 1,
+      "message": "thread?",
+      "range": {
+        "startLine": 348,
+        "startChar": 4,
+        "endLine": 348,
+        "endChar": 5
+      },
+      "revId": "a2beec2b63ffa89e65326b25aed453f024c72cf2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_b569ac8d",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 36
+      },
+      "lineNbr": 368,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-23T12:02:16Z",
+      "side": 1,
+      "message": "ce",
+      "range": {
+        "startLine": 368,
+        "startChar": 25,
+        "endLine": 368,
+        "endChar": 27
+      },
+      "revId": "a2beec2b63ffa89e65326b25aed453f024c72cf2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba51214e_5a367f53",
         "filename": "tools/fastbgp/play.py",
         "patchSetId": 36
