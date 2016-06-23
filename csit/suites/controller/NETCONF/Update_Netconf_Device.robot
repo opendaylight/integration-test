@@ -3,9 +3,9 @@ Library           SSHLibrary
 Library           OperatingSystem
 Library           String
 Library           Collections
-Library           ../../../libraries/RequestsLibrary.py
 Library           ../../../libraries/XmlComparator.py
 Library           ../../../libraries/netconf_library.py
+Library           Process
 Resource          ../../../variables/netconf_scale/NetScale_variables.robot
 
 *** Variables ***
@@ -25,12 +25,10 @@ Start TestTool
     Open Connection    ${CONTROLLER}
     Login    ${CNTLR_ADMIN}    ${CNTLR_ADMIN_PASSWORD}
     Execute Command    mkdir -p ${ttlocation}
-    ${log}=    Execute Command    rm -r -v ${ttlocation}/*
-    Log    ${log}
-    ${url}    ${name}=    get_ttool_url
-    Should Not Be Empty    ${url}
-    Execute Command    wget -t 3 ${url} -P ${ttlocation}
-    Execute Command    mv ${ttlocation}/${name} ${ttlocation}/netconf-testtool-0.3.0-SNAPSHOT-executable.jar
+    Execute Command    rm -r ${ttlocation}/*
+    Run    wget https://nexus.opendaylight.org/service/local/repositories/autorelease-1290/content/org/opendaylight/controller/netconf-testtool/0.3.5-Lithium-SR5/netconf-testtool-0.3.5-Lithium-SR5-executable.jar -O ${ttlocation}/netconf-testtool.jar
+    Start Process    java     -jar     ${ttlocation}/netconf-testtool.jar    alias=netconf_testtool_process
+    Is Process Running    netconf_testtool_process
 
 Mount Netconf Device
     Comment    ${XML1}    Get File    ${FILE}
