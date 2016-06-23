@@ -1,2 +1,2 @@
 # Place the suites in run order:
-integration/test/csit/suites/snmp/snmp-get
+integration/test/csit/suites/controller/NETCONF/Update_Netconf_Device.robot

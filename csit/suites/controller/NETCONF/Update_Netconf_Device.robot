@@ -3,9 +3,12 @@ Library           SSHLibrary
 Library           OperatingSystem
 Library           String
 Library           Collections
-Library           ../../../libraries/RequestsLibrary.py
 Library           ../../../libraries/XmlComparator.py
 Library           ../../../libraries/netconf_library.py
+Library           Process
+Library           RequestsLibrary
+Resource          ../../../libraries/NexusKeywords.robot
+Resource          ../../../libraries/NetconfKeywords.robot
 Resource          ../../../variables/netconf_scale/NetScale_variables.robot
 
 *** Variables ***
@@ -20,24 +23,23 @@ ${update_cfg_xml}    ${CURDIR}/../../../variables/xmls/netconf_update_cfg.xml
 ${CNTLR_ADMIN}    ${EMPTY}
 ${CNTLR_ADMIN_PASSWORD}    ${EMPTY}
 
+${NEXUS_FALLBACK_URL}    ${NEXUSURL_PREFIX}/content/repositories/opendaylight.snapshot
+
 *** Test Cases ***
 Start TestTool
     Open Connection    ${CONTROLLER}
     Login    ${CNTLR_ADMIN}    ${CNTLR_ADMIN_PASSWORD}
     Execute Command    mkdir -p ${ttlocation}
-    ${log}=    Execute Command    rm -r -v ${ttlocation}/*
-    Log    ${log}
-    ${url}    ${name}=    get_ttool_url
-    Should Not Be Empty    ${url}
-    Execute Command    wget -t 3 ${url} -P ${ttlocation}
-    Execute Command    mv ${ttlocation}/${name} ${ttlocation}/netconf-testtool-0.3.0-SNAPSHOT-executable.jar
+    Execute Command    rm -r ${ttlocation}/*
+    NetconfKeywords.Install_And_Start_Testtool    4    true    none
 
 Mount Netconf Device
     Comment    ${XML1}    Get File    ${FILE}
     Comment    ${XML2}    Replace String    ${XML1}    127.0.0.1    ${tt-sim-dev}
+    Log        ${AUTH}
     Comment    ${body}    Replace String    ${XML2}    admin    ${tt-sim-dev_USER}
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}
-    ${body}    Get File    ${update_cfg_xml}
+    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}
+    ${body}    Operating System.Get File    ${update_cfg_xml}
     Log    ${body}
     ${resp}    Post    session    ${REST_CONT_CONF}/${REST_Sim-Dev_Mount}    data=${body}
     Log    ${resp.content}
