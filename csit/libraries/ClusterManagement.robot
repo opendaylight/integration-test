@@ -29,8 +29,10 @@ Documentation     Resource housing Keywords common to several suites for cluster
 ...               TODO: Unify capitalization of Leaders and Followers.
 Library           RequestsLibrary    # for Create_Session and To_Json
 Library           Collections
+Library           SSHLibrary
 Resource          ${CURDIR}/TemplatedRequests.robot    # for Get_As_Json_From_Uri
 Resource          ${CURDIR}/Utils.robot    # for Run_Command_On_Controller
+Resource          SSHKeywords.robot
 
 *** Variables ***
 ${JAVA_HOME}      ${EMPTY}    # releng/builder scripts should provide correct value
@@ -39,6 +41,7 @@ ${JOLOKIA_OPER_SHARD_MANAGER_URI}    jolokia/read/org.opendaylight.controller:Ca
 ${JOLOKIA_READ_URI}    jolokia/read/org.opendaylight.controller
 ${ENTITY_OWNER_URI}    restconf/operational/entity-owners:entity-owners
 ${RESTCONF_MODULES_DIR}    ${CURDIR}/../variables/restconf/modules
+@{ODL_DEFAULT_DATA_DIRS}    tmp/    data/    cache/    snapshot/    journal/
 
 *** Keywords ***
 ClusterManagement_Setup
@@ -401,6 +404,26 @@ Resolve_Shard_Type_Class
     BuiltIn.Run_Keyword_If    '${shard_type}' == 'config'    BuiltIn.Return_From_Keyword    DistributedConfigDatastore
     ...    ELSE IF    '${shard_type}' == 'operational'    BuiltIn.Return_From_Keyword    DistributedOperationalDatastore
     BuiltIn.Fail    Unrecognized shard type: ${shard_type}
+
+ClusterManagement__Clean_Directories_On_List_Or_All
+    [Arguments]    ${karaf_home}    ${dir_list}
+    :FOR    ${dir}    IN    @{dir_list}
+    \    SSHLibrary.Write    rm -fr ${karaf_home}/${dir}
+
+Clean_Directories_On_List_Or_All
+# Figure out how to turn member_index_list into an ip address or something, fucking remotely
+# usefull.
+    [Arguments]    ${member_index_list}    ${karaf_home}    ${directory_list}=${EMPTY}
+    [Documentation]    Clear ODL data/ tmp/ cache/ snapshot/ and journal/ directories. This is mainly intended for use when dealing with netconf-testtool
+    ...                due to some issues regarding generation of configuration files.
+    ...                This keyword expects an SSH connection to be already estamblished to the system that is running ODL.
+    :FOR    ${member_index}    IN    ${member_index_list}
+    \    ${member_ip}=    Resolve_IP_Address_For_Member    ${member_index}
+    \    SSHLibrary.Open Connection    ${member_ip}
+    \    SSHLibrary.Login With Public Key    ${ODL_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    ${KEYFILE_PASS}
+    \    ${directory_list}=    Builtin.Set Variable If    "${directory_list}" == "${EMPTY}"    ${ODL_DEFAULT_DATA_DIRS}    ${directory_list}
+    \    ClusterManagement__Clean_Directories_On_List_Or_All    ${karaf_home}    ${directory_list}
+    \    SSHLibrary.Close Connection
 
 ClusterManagement__Build_List
     [Arguments]    ${member}
