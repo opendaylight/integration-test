@@ -1,12 +1,18 @@
 *** Settings ***
+Suite Setup       Setup_Everything
+Suite Teardown    Teardown_Everything
 Library           SSHLibrary
 Library           OperatingSystem
 Library           String
 Library           Collections
-Library           ../../../libraries/RequestsLibrary.py
 Library           ../../../libraries/XmlComparator.py
 Library           ../../../libraries/netconf_library.py
+Library           Process
+Library           RequestsLibrary
+Resource          ../../../libraries/NexusKeywords.robot
+Resource          ../../../libraries/NetconfKeywords.robot
 Resource          ../../../variables/netconf_scale/NetScale_variables.robot
+Resource          ../../../libraries/SetupUtils.robot
 
 *** Variables ***
 ${tt-sim-dev}     27830
@@ -17,36 +23,33 @@ ${REST_CONT_OPER}    /restconf/operational/network-topology:network-topology/top
 ${REST_SIm-Dev_Mount}    node/controller-config/yang-ext:mount/config:modules
 ${REST_SIM-DEV_CONF}    estconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/odl-sal-netconf-connector-cfg:sal-netconf-connector/${tt-sim-dev}    # estconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/odl-sal-netconf-connector-cfg:sal-netconf-connector/${tt-sim-dev}
 ${update_cfg_xml}    ${CURDIR}/../../../variables/xmls/netconf_update_cfg.xml
-${CNTLR_ADMIN}    ${EMPTY}
-${CNTLR_ADMIN_PASSWORD}    ${EMPTY}
+
+${NEXUS_FALLBACK_URL}    ${NEXUSURL_PREFIX}/content/repositories/opendaylight.snapshot
 
 *** Test Cases ***
 Start TestTool
     Open Connection    ${CONTROLLER}
-    Login    ${CNTLR_ADMIN}    ${CNTLR_ADMIN_PASSWORD}
+    SSHLibrary.Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Execute Command    mkdir -p ${ttlocation}
-    ${log}=    Execute Command    rm -r -v ${ttlocation}/*
-    Log    ${log}
-    ${url}    ${name}=    get_ttool_url
-    Should Not Be Empty    ${url}
-    Execute Command    wget -t 3 ${url} -P ${ttlocation}
-    Execute Command    mv ${ttlocation}/${name} ${ttlocation}/netconf-testtool-0.3.0-SNAPSHOT-executable.jar
+    Execute Command    rm -r ${ttlocation}/*
+    NetconfKeywords.Install_And_Start_Testtool    device-count=1    debug=false    mdsal=false
 
 Mount Netconf Device
     Comment    ${XML1}    Get File    ${FILE}
     Comment    ${XML2}    Replace String    ${XML1}    127.0.0.1    ${tt-sim-dev}
+    Log        ${AUTH}
     Comment    ${body}    Replace String    ${XML2}    admin    ${tt-sim-dev_USER}
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}
-    ${body}    Get File    ${update_cfg_xml}
+    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}
+    ${body}    Operating System.Get File    ${update_cfg_xml}
     Log    ${body}
-    ${resp}    Post    session    ${REST_CONT_CONF}/${REST_Sim-Dev_Mount}    data=${body}
+    ${resp}    RequestsLibrary.Post    session    ${REST_CONT_CONF}/${REST_Sim-Dev_Mount}    data=${body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    204
-    ${resp}    Get    session    ${REST_CONT_OPER}/node/${tt-sim-dev}
+    ${resp}    RequestsLibrary.Get    session    ${REST_CONT_OPER}/node/${tt-sim-dev}
 
 Netconf Device Base CFG
     Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}
-    ${resp}    Get    session    ${REST_CONT_CONF}/${REST_Sim-DEV_MOUNT}
+    ${resp}    RequestsLibrary.Get    session    ${REST_CONT_CONF}/${REST_Sim-DEV_MOUNT}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    {}
@@ -54,8 +57,21 @@ Netconf Device Base CFG
 
 Update Netconf Device CFG
     Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}
-    ${resp}    Get    session    ${REST_CONT_OPER}/${REST_SIM-DEV_MOUNT}
+    ${resp}    RequestsLibrary.Get    session    ${REST_CONT_OPER}/${REST_SIM-DEV_MOUNT}
     Log    ${resp}
-    ${resp}    Put    session    ${REST_SIM-DEV_CONF}    data=${update_cfg_xml}
+    ${resp}    RequestsLibrary.Put    session    ${REST_SIM-DEV_CONF}    data=${update_cfg_xml}
     Log    ${resp}
     Should Be Equal As Strings    ${resp.status_code}    200
+
+*** Keywords ***
+Setup_Everything
+    [Documentation]    Setup everything needed for the test cases.
+# Setup resources used by the suite.
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
+    NetconfKeywords.Setup_Netconf_Keywords
+
+Teardown_Everything
+    [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.
+    RequestsLibrary.Delete_All_Sessions
+    BuiltIn.Run_Keyword_And_Ignore_Error    NetconfKeywords.Stop_Testtool
