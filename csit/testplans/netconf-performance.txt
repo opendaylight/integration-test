@@ -1,0 +1,1 @@
+integration/test/csit/suites/controller/NETCONF/Update_Netconf_Device.robot

@@ -1,61 +1,75 @@
 *** Settings ***
-Library           SSHLibrary
+Suite Setup       Setup_Everything
+Suite Teardown    Teardown_Everything
+Default Tags      functional    netconf-performance
 Library           OperatingSystem
-Library           String
+Library           DateTime
+Library           RequestsLibrary
+Library           SSHLibrary    timeout=120s
 Library           Collections
-Library           ../../../libraries/RequestsLibrary.py
-Library           ../../../libraries/XmlComparator.py
-Library           ../../../libraries/netconf_library.py
+Library           ${CURDIR}/../../../libraries/netconf_library.py
+Variables         ${CURDIR}/../../../variables/Variables.py
 Resource          ../../../variables/netconf_scale/NetScale_variables.robot
+Resource          ../../../libraries/ClusterManagement.robot
+Resource          ../../../libraries/NetconfKeywords.robot
+Resource          ../../../libraries/NexusKeywords.robot
+Resource          ../../../libraries/SetupUtils.robot
+Resource          ../../../libraries/Utils.robot
+Resource          ../../../libraries/SSHKeywords.robot
 
 *** Variables ***
-${tt-sim-dev}     27830
-${tt-sim-dev_user}    admin
-${FILE}           ${CURDIR}/../../../variables/xmls/netconf.xml
-${REST_CONT_CONF}    /restconf/config/network-topology:network-topology/topology/topology-netconf    # restconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/odl-sal-netconf-connector-cfg:sal-netconf-connector/${tt-sim-dev}
-${REST_CONT_OPER}    /restconf/operational/network-topology:network-topology/topology/topology-netconf
-${REST_SIm-Dev_Mount}    node/controller-config/yang-ext:mount/config:modules
-${REST_SIM-DEV_CONF}    estconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/odl-sal-netconf-connector-cfg:sal-netconf-connector/${tt-sim-dev}    # estconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/odl-sal-netconf-connector-cfg:sal-netconf-connector/${tt-sim-dev}
-${update_cfg_xml}    ${CURDIR}/../../../variables/xmls/netconf_update_cfg.xml
-${CNTLR_ADMIN}    ${EMPTY}
-${CNTLR_ADMIN_PASSWORD}    ${EMPTY}
+${PERF_DEVICE_COUNT}    4
 
 *** Test Cases ***
-Start TestTool
-    Open Connection    ${CONTROLLER}
-    Login    ${CNTLR_ADMIN}    ${CNTLR_ADMIN_PASSWORD}
-    Execute Command    mkdir -p ${ttlocation}
-    ${log}=    Execute Command    rm -r -v ${ttlocation}/*
-    Log    ${log}
-    ${url}    ${name}=    get_ttool_url
-    Should Not Be Empty    ${url}
-    Execute Command    wget -t 3 ${url} -P ${ttlocation}
-    Execute Command    mv ${ttlocation}/${name} ${ttlocation}/netconf-testtool-0.3.0-SNAPSHOT-executable.jar
+Generate netconf configuration files
+    [Tags]    critical
+    SSHKeywords.Open_Connection_To_ODL_System
+# Deploy test tool
+    ${filename}=    NexusKeywords.Deploy_Test_Tool    netconf    netconf-testtool
+# Kill ODL
+    ClusterManagement.Kill_Members_From_List_Or_All
+# Generate files - generate ip address for TOOLS_SYSTEM --generate-config-address
+# Build command - Taken from NetconfKeywords.Install_And_Start_TestTool
+    ${command}=    NexusKeywords.Compose_Full_Java_Command    ${TESTTOOL_DEFAULT_JAVA_OPTIONS} -jar ${filename} --device-count ${PERF_DEVICE_COUNT} --generate-config-address ${TOOLS_SYSTEM_IP} --distribution-folder ${WORKSPACE}/${BUNDLEFOLDER}
+    Log    "Executing: " ${command}
+# Write - read until string "Registration succeeded"
+    SSHLibrary.Write    ${command} | tee testtool-device-generation.log
+    SSHLibrary.Read Until    started successfully
+# Stop test tool
+    Utils.Write_Bare_Ctrl_C
+    SSHLibrary.Get File    testtool-device-generate.log
+    SSHLibrary.Close Connection
 
-Mount Netconf Device
-    Comment    ${XML1}    Get File    ${FILE}
-    Comment    ${XML2}    Replace String    ${XML1}    127.0.0.1    ${tt-sim-dev}
-    Comment    ${body}    Replace String    ${XML2}    admin    ${tt-sim-dev_USER}
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}
-    ${body}    Get File    ${update_cfg_xml}
-    Log    ${body}
-    ${resp}    Post    session    ${REST_CONT_CONF}/${REST_Sim-Dev_Mount}    data=${body}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    204
-    ${resp}    Get    session    ${REST_CONT_OPER}/node/${tt-sim-dev}
+Start testtool
+    [Tags]    critical
+    SSHKeywords.Open_Connection_To_Tools_System
+# Start testtool again at TOOLS_SYSTEM
+    NetconfKeywords.Install_And_Start_TestTool    device-count=${PERF_DEVICE_COUNT}    schemas=${CURDIR}/../../../variables/netconf/CRUD/schemas
 
-Netconf Device Base CFG
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}
-    ${resp}    Get    session    ${REST_CONT_CONF}/${REST_Sim-DEV_MOUNT}
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    Should Contain    ${resp.content}    {}
-    Delete    session    http://${CONTROLLER}:${RESTCONFPORT}
+Restart ODL system
+    [Tags]    critical
+    ClusterManagement.Start_Members_From_List_Or_All
 
-Update Netconf Device CFG
-    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}
-    ${resp}    Get    session    ${REST_CONT_OPER}/${REST_SIM-DEV_MOUNT}
-    Log    ${resp}
-    ${resp}    Put    session    ${REST_SIM-DEV_CONF}    data=${update_cfg_xml}
-    Log    ${resp}
-    Should Be Equal As Strings    ${resp.status_code}    200
+Wait_For_Device_To_Become_Connected
+    [Documentation]    Wait until the device becomes available through Netconf on node 1.
+    NetconfKeywords.Perform_Operation_On_Each_Device    NetconfKeywords.Wait_Device_Connected    15m
+
+Wait_For_Device_Data_To_Be_Seen
+    [Documentation]    Wait until the device data show up at node 1.
+    BuiltIn.Wait_Until_Keyword_Succeeds    2m    1s   NetconfKeywords.Check_If_Data_Present_On_Device    1 
+
+*** Keywords ***
+Setup_Everything
+    [Documentation]    Setup everything needed for the test cases.
+# Setup resources used by the suite.
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
+    NetconfKeywords.Setup_Netconf_Keywords
+    ClusterManagement.ClusterManagement_Setup
+
+Teardown_Everything
+    [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.
+    RequestsLibrary.Delete_All_Sessions
+    BuiltIn.Run_Keyword_And_Ignore_Error    NetconfKeywords.Stop_Testtool
+
+
