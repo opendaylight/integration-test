@@ -2,7 +2,7 @@
 Documentation     Keywords relating to Netconf in the controller (such as mounting, deleting etc)
 Library           String
 Library           OperatingSystem
-Library           ../../libraries/RequestsLibrary.py
+Library           RequestsLibrary
 
 *** Variables ***
 ${CONTROLLER}     127.0.0.1
