@@ -37,7 +37,7 @@ Start SuiteVtnCo
     SSHLibrary.Execute Command    sudo mkdir -p /usr/local/vtn
     SSHLibrary.Execute Command    sudo chown jenkins /usr/local/vtn
     SSHLibrary.Execute Command    sudo yum install -q -y http://yum.postgresql.org/9.3/redhat/rhel-7-x86_64/pgdg-centos93-9.3-1.noarch.rpm
-    SSHLibrary.Execute Command    sudo yum install -q -y postgresql93-libs postgresql93 postgresql93-server postgresql93-contrib postgresql93-odbc-09.03.0400
+    SSHLibrary.Execute Command    sudo yum install -q -y postgresql93-libs-9.3.10 postgresql93-9.3.10 postgresql93-server-9.3.10 postgresql93-contrib-9.3.10 postgresql93-odbc-09.03.0400
     SSHLibrary.Execute Command    tar -C/ -jxvf ${WORKSPACE}/${BUNDLEFOLDER}/externalapps/*vtn-coordinator*-bin.tar.bz2
     Run Keyword If    '${ODL_STREAM}' == 'boron'    SSHLibrary.Execute Command    sudo yum upgrade -q -y    java-1.8.0-openjdk-devel
     SSHLibrary.Execute Command    /usr/local/vtn/sbin/db_setup
@@ -50,6 +50,7 @@ Start SuiteVtnCo
     SSHLibrary.Execute Command    /usr/local/vtn/bin/unc_dmctl status
     SSHLibrary.Execute Command    /usr/local/vtn/bin/drvodc_control loglevel trace
     SSHLibrary.Execute Command    /usr/local/vtn/bin/lgcnw_control loglevel trace
+    SSHLibrary.Execute Command    /usr/local/vtn/bin/phynw_control loglevel trace
     SSHLibrary.Execute Command    exit
 
 Stop SuiteVtnCo
