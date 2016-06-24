@@ -309,3 +309,32 @@ Show Debugs
     \    ${output}=    Write Commands Until Prompt    nova show ${index}     30s
     \    Log    ${output}
     Close Connection
+
+Get Mac Address
+    [Arguments]    ${ip}
+    [Documentation]    Retrieve the mac address for the given subnet ip
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${mac_add_src}=    Write Commands Until Prompt    neutron port-list | grep "${ip}" | get_field 3    40s
+    Log    ${mac_add_src}
+    [Return]    ${mac_add_src}
+
+Get Packet Count
+    [Arguments]    ${mac_address}
+    [Documentation]    Get Packet List To Find The Number Of Counts
+    ${packet_is_expired}=    Set Variable    False
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${n_packet}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int | grep ${mac_address} | grep table=110
+    Log    ${n_packet}
+    ${packet_list}=    Split String    ${n_packet}    ,
+    Log    ${packet_list}
+    ${packet}=     Get from List    ${packet_list}   3
+    Log    ${packet}
+    ${packet_split}=    Split String    ${packet}    =
+    Log    ${packet_split}
+    ${final_list}=    Get from List    ${packet_split}   1
+    Log    ${final_list}
+    ${packet_is_expired}=    Set Variable If    0 < "${final_list}"    True
+    Log     ${packet_is_expired}
+    [Return]    ${packet_is_expired}
