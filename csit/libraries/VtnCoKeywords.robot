@@ -37,7 +37,7 @@ Start SuiteVtnCo
     SSHLibrary.Execute Command    sudo mkdir -p /usr/local/vtn
     SSHLibrary.Execute Command    sudo chown jenkins /usr/local/vtn
     SSHLibrary.Execute Command    sudo yum install -q -y http://yum.postgresql.org/9.3/redhat/rhel-7-x86_64/pgdg-centos93-9.3-1.noarch.rpm
-    SSHLibrary.Execute Command    sudo yum install -q -y postgresql93-libs postgresql93 postgresql93-server postgresql93-contrib postgresql93-odbc-09.03.0400
+    SSHLibrary.Execute Command    sudo yum install -q -y postgresql93-libs-9.3.10 postgresql93-9.3.10 postgresql93-server-9.3.10 postgresql93-contrib-9.3.10 postgresql93-odbc-09.03.0400
     SSHLibrary.Execute Command    tar -C/ -jxvf ${WORKSPACE}/${BUNDLEFOLDER}/externalapps/*vtn-coordinator*-bin.tar.bz2
     Run Keyword If    '${ODL_STREAM}' == 'boron'    SSHLibrary.Execute Command    sudo yum upgrade -q -y    java-1.8.0-openjdk-devel
     SSHLibrary.Execute Command    /usr/local/vtn/sbin/db_setup
@@ -50,8 +50,19 @@ Start SuiteVtnCo
     SSHLibrary.Execute Command    /usr/local/vtn/bin/unc_dmctl status
     SSHLibrary.Execute Command    /usr/local/vtn/bin/drvodc_control loglevel trace
     SSHLibrary.Execute Command    /usr/local/vtn/bin/lgcnw_control loglevel trace
+    SSHLibrary.Execute Command    /usr/local/vtn/bin/phynw_control loglevel trace
     SSHLibrary.Execute Command    exit
-
+    
+Check Psql Query
+    [Documentation]    Execute pqsl comand to check query output
+    ${vtnc_conn_id1}=    SSHLibrary.Open Connection    ${ODL_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    Set Suite Variable    ${vtnc_conn_id1}
+    SSHLibrary.Login_With_Public_Key    ${ODL_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    SSHLibrary.Execute Command    /usr/pgsql-9.3/bin/psql -h localhost -p 12730 -d uncdb -U uncdbuser
+    SSHLibrary.Execute Command    db_user
+    SSHLibrary.Execute Command    SELECT  controller_name,switch_id,port_id,connected_switch,connected_port,connected_controller,connectedneighbor_valid FROM r_port_table WHERE controller_name =  'pfc1' and port_id > '' ORDER BY controller_name, switch_id, port_id ASC  LIMIT 10000;
+    SSHLibrary.Execute Command    exit
+    
 Stop SuiteVtnCo
     [Documentation]    Exit the Launch Test
     Log    Stop the Launch Test
