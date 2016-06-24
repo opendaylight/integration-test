@@ -22,6 +22,11 @@ Resource          ../../../libraries/DevstackUtils.robot
 @{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
 
 *** Test Cases ***
+Verify the install Dump flows with out creating any thing
+    [Documentation]   Without creating any network to check the dumpflows.
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+
 Create Networks
     [Documentation]    Create Network with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
@@ -45,29 +50,72 @@ Create Vm Instances For l2_network_2
     Create Vm Instances    l2_network_2    ${NET_2_VM_INSTANCES}
     [Teardown]    Show Debugs    ${NET_2_VM_INSTANCES}
 
+Verify the Dumpflows to creating the vm Instaces
+    [Documentation]   after creating vms to check the dumpflows
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+
 Ping Vm Instance1 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_1    @{NET_1_VM_IPS}[0]
+
+Verify the after ping_1 to check the dumpflows
+    [Documentation]   To verify the after ping_1 to check the Dumpflows
+    ${getmac_address}=    Get Mac Address   @{NET_1_VM_IPS}[0]
+    ${packet_status}=    Get Packet Count   ${getmac_address}
+    Should Be Equal As Strings    ${packet_status}    True
 
 Ping Vm Instance2 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_1    @{NET_1_VM_IPS}[1]
 
+Verify the after ping_2 to check the dumpflows
+    [Documentation]   To verify the after ping_2 to check the Dumpflows
+    ${getmac_address}=    Get Mac Address   @{NET_1_VM_IPS}[1]
+    ${packet_status}=    Get Packet Count   ${getmac_address}
+    Should Be Equal As Strings    ${packet_status}    True
+
 Ping Vm Instance3 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_1    @{NET_1_VM_IPS}[2]
+
+Verify the after ping_3 to check the dumpflows
+    [Documentation]   To verify the after ping_3 to check the Dumpflows
+    ${getmac_address}=    Get Mac Address   @{NET_1_VM_IPS}[2]
+    ${packet_status}=    Get Packet Count   ${getmac_address}
+    Should Be Equal As Strings    ${packet_status}    True
 
 Ping Vm Instance1 In l2_network_2
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_2    @{NET_2_VM_IPS}[0]
 
+Verify the after ping_4 to check the dumpflows
+    [Documentation]   To verify the after ping_4 to check the Dumpflows
+    ${getmac_address}=    Get Mac Address   @{NET_2_VM_IPS}[0]
+    ${packet_status}=    Get Packet Count   ${getmac_address}
+    Should Be Equal As Strings    ${packet_status}    True
+
 Ping Vm Instance2 In l2_network_2
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_2    @{NET_2_VM_IPS}[1]
 
+Verify the after ping_5 to check the dumpflows
+    [Documentation]   To verify the after ping_5 to check the Dumpflows
+    ${getmac_address}=    Get Mac Address   @{NET_2_VM_IPS}[1]
+    ${packet_status}=    Get Packet Count   ${getmac_address}
+    Should Be Equal As Strings    ${packet_status}    True
+
 Ping Vm Instance3 In l2_network_2
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_2    @{NET_2_VM_IPS}[2]
+
+Verify the after ping_6 to check the dumpflows
+    [Documentation]   To verify the after ping_6 to check the Dumpflows
+    ${getmac_address}=    Get Mac Address   @{NET_2_VM_IPS}[2]
+    ${packet_status}=    Get Packet Count   ${getmac_address}
+    Should Be Equal As Strings    ${packet_status}    True
 
 Connectivity Tests From Vm Instance1 In l2_network_1
     [Documentation]    Logging to the vm instance1
