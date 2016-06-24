@@ -45,29 +45,72 @@ Create Vm Instances For l2_network_2
     Create Vm Instances    l2_network_2    ${NET_2_VM_INSTANCES}
     [Teardown]    Show Debugs    ${NET_2_VM_INSTANCES}
 
+Verify The Dumpflows To Creating The Vm Instaces
+    [Documentation]   After Creating Vms To Check The Dumpflows
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+
 Ping Vm Instance1 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_1    @{NET_1_VM_IPS}[0]
+
+Verify Ping Vm Instance1 In l2_network_1 With Dump Flow
+    [Documentation]   To verifying  Ping_1 To Check The Dumpflows
+    ${getmac_address}=    Get Mac Address   @{NET_1_VM_IPS}[0]
+    ${packet_status}=    Get Packet Count   ${getmac_address}
+    Should Be Equal As Strings    ${packet_status}    True
 
 Ping Vm Instance2 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_1    @{NET_1_VM_IPS}[1]
 
+Verify Ping Vm Instance2 In l2_network_1 With Dump Flow
+    [Documentation]   To Verify The After Ping_2 To check The Dumpflows
+    ${getmac_address}=    Get Mac Address   @{NET_1_VM_IPS}[1]
+    ${packet_status}=    Get Packet Count   ${getmac_address}
+    Should Be Equal As Strings    ${packet_status}    True
+
 Ping Vm Instance3 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_1    @{NET_1_VM_IPS}[2]
+
+Verify Ping Vm Instance3 In l2_network_1 With Dump Flow
+    [Documentation]   To Verify The After Ping_3 To Check The Dumpflows
+    ${getmac_address}=    Get Mac Address   @{NET_1_VM_IPS}[2]
+    ${packet_status}=    Get Packet Count   ${getmac_address}
+    Should Be Equal As Strings    ${packet_status}    True
 
 Ping Vm Instance1 In l2_network_2
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_2    @{NET_2_VM_IPS}[0]
 
+Verify Ping Vm Instance1 In l2_network_2 With Dump Flow
+    [Documentation]   To verify The After ping_4 To Check The Dumpflows
+    ${getmac_address}=    Get Mac Address   @{NET_2_VM_IPS}[0]
+    ${packet_status}=    Get Packet Count   ${getmac_address}
+    Should Be Equal As Strings    ${packet_status}    True
+
 Ping Vm Instance2 In l2_network_2
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_2    @{NET_2_VM_IPS}[1]
 
+Verify Ping Vm Instance2 In l2_network_2 With Dump Flow
+    [Documentation]   To verify The After ping_5 To Check The Dumpflows
+    ${getmac_address}=    Get Mac Address   @{NET_2_VM_IPS}[1]
+    ${packet_status}=    Get Packet Count   ${getmac_address}
+    Should Be Equal As Strings    ${packet_status}    True
+
 Ping Vm Instance3 In l2_network_2
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_2    @{NET_2_VM_IPS}[2]
+
+Verify Ping Vm Instance3 In l2_network_2 With Dump Flow
+    [Documentation]   To verify The After ping_6 To Check The Dumpflows
+    ${getmac_address}=    Get Mac Address   @{NET_2_VM_IPS}[2]
+    ${packet_status}=    Get Packet Count   ${getmac_address}
+    Should Be Equal As Strings    ${packet_status}    True
 
 Connectivity Tests From Vm Instance1 In l2_network_1
     [Documentation]    Logging to the vm instance1
