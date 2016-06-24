@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ba51214e_a6e4e13b",
+        "filename": "csit/suites/usc/tcp/200_Multiple_Sessions_TCP/Test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-06-24T21:18:59Z",
+      "side": 1,
+      "message": "these seem the same as in the other suite?  maybe a lot of the test cases are that way?  it would be better to move them to a single/common location if possible.  something consider with a different patch probably, if you agree.",
+      "range": {
+        "startLine": 77,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 51
+      },
+      "revId": "a12979a0e2f8c195e9aaeec5224d0bba5e81cc83",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
