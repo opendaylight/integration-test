@@ -332,24 +332,28 @@ class FlowConfigBlaster(object):
             print '    Thread %d:\n        Adding %d flows on %d nodes' % (tid, self.nflows, n_nodes)
 
         nflows = 0
+        nb_actions = []
+        while nflows < self.nflows:
+            node_id = randrange(1, n_nodes + 1)
+            flow_list = []
+            for i in range(self.fpr):
+                flow_id = tid * (self.ncycles * self.nflows) + nflows + start_flow_id + self.startflow
+                self.flows[tid][flow_id] = node_id
+                flow_list.append(self.create_flow_from_template(flow_id, self.ip_addr.increment(), node_id))
+                nflows += 1
+                nb_actions.append((s, node_id, flow_list, nflows))
+                if nflows >= self.nflows:
+                    break
+
         with Timer() as t:
-            while nflows < self.nflows:
-                node_id = randrange(1, n_nodes + 1)
-                flow_list = []
-                for i in range(self.fpr):
-                    flow_id = tid * (self.ncycles * self.nflows) + nflows + start_flow_id + self.startflow
-                    self.flows[tid][flow_id] = node_id
-                    flow_list.append(self.create_flow_from_template(flow_id, self.ip_addr.increment(), node_id))
-                    nflows += 1
-                    if nflows >= self.nflows:
-                        break
-                sts = self.post_flows(s, node_id, flow_list, nflows)
+            for nb_action in nb_actions:
+                sts = self.post_flows(*nb_action)
                 try:
                     rqst_stats[sts] += 1
-                    flow_stats[sts] += len(flow_list)
+                    flow_stats[sts] += len(nb_action[2])
                 except KeyError:
                     rqst_stats[sts] = 1
-                    flow_stats[sts] = len(flow_list)
+                    flow_stats[sts] = len(nb_action[2])
 
         ok_rps, total_rps, ok_fps, total_fps = self.stats.process_stats(rqst_stats, flow_stats, t.secs)
 
