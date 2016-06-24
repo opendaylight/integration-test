@@ -42,6 +42,10 @@ Audit a controller manually
     [Documentation]    Trigger update audit
     Audit Controller    odc_test
 
+Check db query for UPPL
+    [Documentation]    Check psql query
+    Check Psql Query
+
 Define Portmap for Interface1
     [Documentation]    Map Interface1 to a logical port
     Define Portmap for VBRIF    Tenant1    Vbr_audit    Interface1    PP-OF:openflow:2-s2-eth1
