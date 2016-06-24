@@ -22,6 +22,11 @@ Resource          ../../../libraries/DevstackUtils.robot
 @{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
 
 *** Test Cases ***
+Verify the install Dump flows with out creating any thing
+    [Documentation]   Without creating any network to check the dumpflows.
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+
 Create Networks
     [Documentation]    Create Network with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
@@ -45,29 +50,156 @@ Create Vm Instances For l2_network_2
     Create Vm Instances    l2_network_2    ${NET_2_VM_INSTANCES}
     [Teardown]    Show Debugs    ${NET_2_VM_INSTANCES}
 
+Verify the Dumpflows to creating the vm Instaces
+    [Documentation]   after creating vms to check the dumpflows
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+
 Ping Vm Instance1 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_1    @{NET_1_VM_IPS}[0]
+
+Verify the after ping_1 to check the dumpflows
+    [Documentation]   To verify the after ping_1 to check the Dumpflows
+    ${packet_is_expired}=    Set Variable    False
+    ${mac_address}=    Get Mac Address   @{NET_1_VM_IPS}[0]
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${n_packet}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int | grep ${mac_address} | grep table=110
+    Log    ${n_packet}
+    ${packet_list}=    Split String    ${n_packet}    ,
+    Log    ${packet_list}
+    ${packet}=     Get from List    ${packet_list}   3
+    Log    ${packet}
+    ${packet_split}=    Split String    ${packet}    =
+    Log    ${packet_split}
+    ${final_list}=    Get from List    ${packet_split}   1
+    Log    ${final_list}
+    ${packet_is_expired}=    Set Variable If    0 < "${final_list}"    True
+    Log     ${packet_is_expired}
+    [Return]    ${packet_is_expired}
 
 Ping Vm Instance2 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_1    @{NET_1_VM_IPS}[1]
 
+Verify the after ping_2 to check the dumpflows
+    [Documentation]   To verify the after ping_2 to check the Dumpflows
+    ${packet_is_expired}=    Set Variable    False
+    ${mac_address}=    Get Mac Address   @{NET_1_VM_IPS}[1]
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${n_packet}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int | grep ${mac_address} | grep table=110
+    Log    ${n_packet}
+    ${packet_list}=    Split String    ${n_packet}    ,
+    Log    ${packet_list}
+    ${packet}=     Get from List    ${packet_list}   3
+    Log    ${packet}
+    ${packet_split}=    Split String    ${packet}    =
+    Log    ${packet_split}
+    ${final_list}=    Get from List    ${packet_split}   1
+    Log    ${final_list}
+    ${packet_is_expired}=    Set Variable If    0 < "${final_list}"    True
+    Log     ${packet_is_expired}
+    [Return]    ${packet_is_expired}
+
 Ping Vm Instance3 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_1    @{NET_1_VM_IPS}[2]
+
+Verify the after ping_3 to check the dumpflows
+    [Documentation]   To verify the after ping_3 to check the Dumpflows
+    ${packet_is_expired}=    Set Variable    False
+    ${mac_address}=    Get Mac Address   @{NET_1_VM_IPS}[2]
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${n_packet}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int | grep ${mac_address} | grep table=110
+    Log    ${n_packet}
+    ${packet_list}=    Split String    ${n_packet}    ,
+    Log    ${packet_list}
+    ${packet}=     Get from List    ${packet_list}   3
+    Log    ${packet}
+    ${packet_split}=    Split String    ${packet}    =
+    Log    ${packet_split}
+    ${final_list}=    Get from List    ${packet_split}   1
+    Log    ${final_list}
+    ${packet_is_expired}=    Set Variable If    0 < "${final_list}"    True
+    Log     ${packet_is_expired}
+    [Return]    ${packet_is_expired}
 
 Ping Vm Instance1 In l2_network_2
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_2    @{NET_2_VM_IPS}[0]
 
+Verify the after ping_4 to check the dumpflows
+    [Documentation]   To verify the after ping_4 to check the Dumpflows
+    ${packet_is_expired}=    Set Variable    False
+    ${mac_address}=    Get Mac Address   @{NET_2_VM_IPS}[0]
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${n_packet}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int | grep ${mac_address} | grep table=110
+    Log    ${n_packet}
+    ${packet_list}=    Split String    ${n_packet}    ,
+    Log    ${packet_list}
+    ${packet}=     Get from List    ${packet_list}   3
+    Log    ${packet}
+    ${packet_split}=    Split String    ${packet}    =
+    Log    ${packet_split}
+    ${final_list}=    Get from List    ${packet_split}   1
+    Log    ${final_list}
+    ${packet_is_expired}=    Set Variable If    0 < "${final_list}"    True
+    Log     ${packet_is_expired}
+    [Return]    ${packet_is_expired}
+
 Ping Vm Instance2 In l2_network_2
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_2    @{NET_2_VM_IPS}[1]
 
+Verify the after ping_5 to check the dumpflows
+    [Documentation]   To verify the after ping_5 to check the Dumpflows
+    ${packet_is_expired}=    Set Variable    False
+    ${mac_address}=    Get Mac Address   @{NET_2_VM_IPS}[1]
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${n_packet}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int | grep ${mac_address} | grep table=110
+    Log    ${n_packet}
+    ${packet_list}=    Split String    ${n_packet}    ,
+    Log    ${packet_list}
+    ${packet}=     Get from List    ${packet_list}   3
+    Log    ${packet}
+    ${packet_split}=    Split String    ${packet}    =
+    Log    ${packet_split}
+    ${final_list}=    Get from List    ${packet_split}   1
+    Log    ${final_list}
+    ${packet_is_expired}=    Set Variable If    0 < "${final_list}"    True
+    Log     ${packet_is_expired}
+    [Return]    ${packet_is_expired}
+
 Ping Vm Instance3 In l2_network_2
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_2    @{NET_2_VM_IPS}[2]
+
+Verify the after ping_6 to check the dumpflows
+    [Documentation]   To verify the after ping_6 to check the Dumpflows
+    ${packet_is_expired}=    Set Variable    False
+    ${mac_address}=    Get Mac Address   @{NET_2_VM_IPS}[2]
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${n_packet}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int | grep ${mac_address} | grep table=110
+    Log    ${n_packet}
+    ${packet_list}=    Split String    ${n_packet}    ,
+    Log    ${packet_list}
+    ${packet}=     Get from List    ${packet_list}   3
+    Log    ${packet}
+    ${packet_split}=    Split String    ${packet}    =
+    Log    ${packet_split}
+    ${final_list}=    Get from List    ${packet_split}   1
+    Log    ${final_list}
+    ${packet_is_expired}=    Set Variable If    0 < "${final_list}"    True
+    Log     ${packet_is_expired}
+    [Return]    ${packet_is_expired}
 
 Connectivity Tests From Vm Instance1 In l2_network_1
     [Documentation]    Logging to the vm instance1

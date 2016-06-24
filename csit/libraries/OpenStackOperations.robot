@@ -300,3 +300,12 @@ Show Debugs
     \    ${output}=    Write Commands Until Prompt    nova show ${index}     30s
     \    Log    ${output}
     Close Connection
+
+Get Mac Address
+    [Arguments]    ${ip}
+    [Documentation]    Retrieve the mac address for the given subnet ip
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${mac_add_src}=    Write Commands Until Prompt    neutron port-list | grep "${ip}" | get_field 3    40s
+    Log    ${mac_add_src}
+    [Return]    ${mac_add_src}
