@@ -22,6 +22,11 @@ Resource          ../../../libraries/DevstackUtils.robot
 @{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
 
 *** Test Cases ***
+Verify the install Dum flows with out creating any thing
+    [Documentation]   Without creating any network to check the dumflows.
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+
 Create Networks
     [Documentation]    Create Network with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
@@ -45,10 +50,28 @@ Create Vm Instances For l2_network_2
     Create Vm Instances    l2_network_2    ${NET_2_VM_INSTANCES}
     [Teardown]    Show Debugs    ${NET_2_VM_INSTANCES}
 
+Verify the Dum flow to crating the vm Instaces 
+    [Documentation]   Ofter creating vms to check the dumflows
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+
 Ping Vm Instance1 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_1    @{NET_1_VM_IPS}[0]
 
+Verify the ofter ping to check the dumflows
+    [Documentation]   To verify the ofter ping to check the Dumflows
+    ${packet_is_expired}=    Set Variable    False
+    ${mac_address}=    Get Mac Address   @{NET_1_VM_IPS}[0]
+    ${n_packet}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int | grep "${mac_address}" | grep table=110 | cut -d \, -f 4
+    Log    ${n_packet}
+    ${packet_list}=    Split String    ${n_packet}    =
+    Log    ${packet_list}
+    ${packet}=     Get from List    ${packet_list}   1
+    Log    ${packet}
+    ${packet_is_expired}=    Set Variable If    0 < "${packet}"    True
+    [Return]    ${packet_is_expired}
+    
 Ping Vm Instance2 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_1    @{NET_1_VM_IPS}[1]
