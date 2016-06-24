@@ -33,7 +33,11 @@ Create VBRIF in VBRIDGE Vbr_audit Interface2
 Update controller to Valid IP
     [Documentation]    Update Controller ip to valid from invalid
     Update Controller    odc_test    ${ODL_SYSTEM_IP}    valid_IP
-
+    
+Check Db query for UPPL
+    [Documentation]    Check psql DB query
+    Check Psql Query
+    
 Verify the Controller State is in waiting_audit
     [Documentation]    Check Controller status
     Wait Until Keyword Succeeds    12s    2s    Check Controller Status    odc_test    waiting_audit
