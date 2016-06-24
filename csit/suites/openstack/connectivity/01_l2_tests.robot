@@ -22,6 +22,11 @@ Resource          ../../../libraries/DevstackUtils.robot
 @{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
 
 *** Test Cases ***
+Verify the install Dum flows with out creating any thing
+    [Documentation]   Without creating any network to check the dumflows.
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+
 Create Networks
     [Documentation]    Create Network with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
@@ -35,6 +40,11 @@ Create Subnets For l2_network_2
     [Documentation]    Create Sub Nets for the Networks with neutron request.
     Create SubNet    l2_network_2    l2_subnet_2    @{SUBNETS_RANGE}[1]
 
+Verify the Dum flows ofter creating network 
+    [Documentation]   With creating any network to check the dumflows.
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+
 Create Vm Instances For l2_network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     Create Vm Instances    l2_network_1    ${NET_1_VM_INSTANCES}
@@ -45,29 +55,64 @@ Create Vm Instances For l2_network_2
     Create Vm Instances    l2_network_2    ${NET_2_VM_INSTANCES}
     [Teardown]    Show Debugs    ${NET_2_VM_INSTANCES}
 
+Verify the Dum flow to crating the vm Instaces 
+    [Documentation]   Ofter creating vms to check the dumflows
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+
 Ping Vm Instance1 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_1    @{NET_1_VM_IPS}[0]
+
+Verify the ofter ping to check the dumflows
+    [Documentation]   To verify the ofter ping to check the Dumflows 
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
 
 Ping Vm Instance2 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_1    @{NET_1_VM_IPS}[1]
 
+Verify the Dum flow ofter ping dhcp_1 to check the flows
+    [Documentation]   To check the  ofter ping DHCP_1 dumflows.
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+
 Ping Vm Instance3 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_1    @{NET_1_VM_IPS}[2]
+
+Verify the Dum flow ofter ping dhcp_2 to check the flows
+    [Documentation]   To check the  ofter ping DHCP_2 dumflows.
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
 
 Ping Vm Instance1 In l2_network_2
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_2    @{NET_2_VM_IPS}[0]
 
+Verify the Dum flow ofter ping dhcp_3 to check the flows
+    [Documentation]   To check the  ofter ping DHCP_3 dumflows.
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+
 Ping Vm Instance2 In l2_network_2
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_2    @{NET_2_VM_IPS}[1]
 
+Verify the Dum flow ofter ping dhcp_4 to check the flows
+    [Documentation]   To check the  ofter ping DHCP_4 dumflows.
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
+
 Ping Vm Instance3 In l2_network_2
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_2    @{NET_2_VM_IPS}[2]
+
+Verify the Dum flow ofter ping dhcp_5 to check the flows
+    [Documentation]   To check the  ofter ping DHCP_5 dumflows.
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
 
 Connectivity Tests From Vm Instance1 In l2_network_1
     [Documentation]    Logging to the vm instance1
