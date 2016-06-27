@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_20cc7035",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 45
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-06-27T14:16:11Z",
+      "side": 1,
+      "message": "why remove these tests?",
+      "revId": "751cf49c68db71187bcf1dfe9432f14276913204",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
