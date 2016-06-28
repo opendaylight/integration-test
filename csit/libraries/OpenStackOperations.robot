@@ -15,7 +15,7 @@ Create Network
     [Documentation]    Create Network with neutron request.
     ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v net-create ${network_name}    30s
+    ${output}=    Write Commands Until Prompt    neutron net-create ${network_name}    30s
     Close Connection
     Log    ${output}
     Should Contain    ${output}    Created a new network
@@ -25,7 +25,7 @@ Delete Network
     [Documentation]    Delete Network with neutron request.
     ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v net-delete ${network_name}     30s
+    ${output}=    Write Commands Until Prompt    neutron net-delete ${network_name}     30s
     Close Connection
     Log    ${output}
     Should Contain    ${output}    Deleted network: ${network_name}
@@ -35,7 +35,7 @@ Create SubNet
     [Documentation]    Create SubNet for the Network with neutron request.
     ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet}    30s
+    ${output}=    Write Commands Until Prompt    neutron subnet-create ${network_name} ${range_ip} --name ${subnet}    30s
     Close Connection
     Log    ${output}
     Should Contain    ${output}    Created a new subnet
@@ -67,7 +67,7 @@ Delete SubNet
     Log    ${subnet}
     ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v subnet-delete ${subnet}
+    ${output}=    Write Commands Until Prompt    neutron subnet-delete ${subnet}
     Close Connection
     Log    ${output}
     Should Contain    ${output}    Deleted subnet: ${subnet}
@@ -91,7 +91,7 @@ Get Net Id
     [Arguments]    ${network_name}     ${connection_id}
     [Documentation]    Retrieve the net id for the given network name to create specific vm instance
     Switch Connection    ${connection_id}
-    ${output}=    Write Commands Until Prompt    neutron net-list | grep "${network_name}" | get_field 1       30s
+    ${output}=    Write Commands Until Prompt    neutron net-list | grep "${network_name}" | get_field 1        60s
     Log    ${output}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${net_id}=    Get from List    ${splitted_output}    0
@@ -102,8 +102,8 @@ Create Vm Instances
     [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano
     [Documentation]    Create X Vm Instance with the net id of the Netowrk.
     ${devstack_conn_id}=       Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
+    Switch Connection    ${devstack_conn_id}
     : FOR    ${VmElement}    IN    @{vm_instance_names}
     \    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement}    30s
     \    Log    ${output}
@@ -130,8 +130,8 @@ Ping Vm From DHCP Namespace
     [Documentation]    Reach all Vm Instance with the net id of the Netowrk.
     Log    ${vm_ip}
     ${devstack_conn_id}=       Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
     ${net_id}=    Get Net Id    ${net_name}     ${devstack_conn_id}
+    Switch Connection    ${devstack_conn_id}
     Log    ${net_id}
     ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
     Log    ${output}
@@ -238,7 +238,7 @@ Create Router
     [Documentation]    Create Router and Add Interface to the subnets.
     ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v router-create ${router_name}    30s
+    ${output}=    Write Commands Until Prompt    neutron router-create ${router_name}    30s
     Close Connection
     Should Contain    ${output}    Created a new router
 
@@ -246,7 +246,7 @@ Add Router Interface
     [Arguments]    ${router_name}    ${interface_name}
     ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v router-interface-add ${router_name} ${interface_name}
+    ${output}=    Write Commands Until Prompt    neutron router-interface-add ${router_name} ${interface_name}
     Close Connection
     Should Contain    ${output}    Added interface
 
@@ -255,7 +255,7 @@ Remove Interface
     [Documentation]    Remove Interface to the subnets.
     ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v router-interface-delete ${router_name} ${interface_name}
+    ${output}=    Write Commands Until Prompt    neutron router-interface-delete ${router_name} ${interface_name}
     Close Connection
     Should Contain    ${output}    Removed interface from router
 
@@ -264,7 +264,7 @@ Delete Router
     [Documentation]    Delete Router and Interface to the subnets.
     ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v router-delete ${router_name}       60s
+    ${output}=    Write Commands Until Prompt    neutron router-delete ${router_name}       60s
     Close Connection
     Should Contain    ${output}    Deleted router:
 
@@ -297,6 +297,6 @@ Show Debugs
     ${output}=    Write Commands Until Prompt    sudo ip netns list
     Log    ${output}
     : FOR    ${index}    IN    @{vm_indices}
-    \    ${output}=    Write Commands Until Prompt    nova show ${index}     30s
+    \    ${output}=    Write Commands Until Prompt    nova show ${index}      45s
     \    Log    ${output}
     Close Connection
