@@ -41,12 +41,12 @@ Buy_Single_Car
     BuiltIn.Wait_Until_Keyword_Succeeds    ${registration_delay}    1s    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_DIR}/buy-car    mapping={"i": "${iteration}"}    session=${session}
 
 Set_Variables_For_Shard
-    [Arguments]    ${shard_name}
+    [Arguments]    ${shard_name}    ${shard_type}=config
     [Documentation]    Get leader and followers for given shard name and
     ...    set several suite variables related to member indices and sessions.
     ...    ClusterManagement Resource is assumed to be initialized.
     ...    TODO: car-people shard name causes dash in variable names. Should we convert to underscores?
-    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=config
+    ${leader}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=${shard_name}    shard_type=${shard_type}
     BuiltIn.Set_Suite_Variable    \${${shard_name}_leader_index}    ${leader}
     BuiltIn.Set_Suite_Variable    \${${shard_name}_follower_indices}    ${follower_list}
     ${leader_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${leader}

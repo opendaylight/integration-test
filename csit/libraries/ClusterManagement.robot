@@ -60,6 +60,38 @@ Kill_Members_From_List_Or_All
     : FOR    ${index}    IN    @{index_list}
     \    Verify_Karaf_Is_Not_Running_On_Member    member_index=${index}
 
+Isolate_Member_From_List_Or_All
+    [Arguments]    ${isolate_member_index}    ${member_index_list}=${EMPTY}
+    [Documentation]    If the list is empty, isolate member from all ODL instances. Otherwise, isolate member based on present indices.
+    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    ${source} =    Get From Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${isolate_member_index}
+    : FOR    ${index}    IN    @{index_list}
+    \    ${destination} =    Get From Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${index}
+    \    ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -I OUTPUT -p all --source ${source} --destination ${destination} -j DROP
+    \    Run Keyword If    "${index}" != "${isolate_member_index}"    Run_Command_On_Member    command=${command}    member_index=${isolate_member_index}
+    ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -L -n
+    ${output} =    Run_Command_On_Member    command=${command}    member_index=${isolate_member_index}
+    Log    ${output}
+
+Rejoin_Member_From_List_Or_All
+    [Arguments]    ${rejoin_member_index}    ${member_index_list}=${EMPTY}
+    [Documentation]    If the list is empty, rejoin member from all ODL instances. Otherwise, rejoin member based on present indices.
+    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    ${source} =    Get From Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${rejoin_member_index}
+    : FOR    ${index}    IN    @{index_list}
+    \    ${destination} =    Get From Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${index}
+    \    ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -D OUTPUT -p all --source ${source} --destination ${destination} -j DROP
+    \    Run Keyword If    "${index}" != "${rejoin_member_index}"    Run_Command_On_Member    command=${command}    member_index=${rejoin_member_index}
+    ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -L -n
+    ${output} =    Run_Command_On_Member    command=${command}    member_index=${rejoin_member_index}
+    Log    ${output}
+
+Flush_Iptables_From_List_Or_All
+    [Arguments]    ${member_index_list}=${EMPTY}
+    [Documentation]    If the list is empty, flush IPTables in all ODL instances. Otherwise, flush member based on present indices.
+    ${command} =    BuiltIn.Set_Variable    sudo iptables -v -F
+    ${output} =    Run_Command_On_List_Or_All    command=${command}    member_index_list=${member_index_list}
+
 ClusterManagement__Build_List
     [Arguments]    ${member}
     ${member_int}=    BuiltIn.Convert_To_Integer    ${member}
@@ -148,7 +180,6 @@ Check_Cluster_Is_In_Sync
     ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
     : FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
     \    ${status} =    Get_Sync_Status_Of_Member    member_index=${index}
-    \    # The previous line may have failed already. If not, check status.
     \    BuiltIn.Continue_For_Loop_If    'True' == '${status}'
     \    BuiltIn.Fail    Index ${index} has incorrect status: ${status}
 
