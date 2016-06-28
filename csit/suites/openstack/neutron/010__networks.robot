@@ -2,11 +2,8 @@
 Documentation     Checking Network created in OpenStack are pushed to OpenDaylight
 Suite Setup       Create Session    OSSession    http://${OPENSTACK}:9696    headers=${X-AUTH}
 Suite Teardown    Delete All Sessions
-Library           SSHLibrary
 Library           Collections
-Library           OperatingSystem
 Library           RequestsLibrary
-Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
@@ -19,27 +16,25 @@ Check OpenStack Networks
     [Documentation]    Checking OpenStack Neutron for known networks
     [Tags]    Network Neutron OpenStack
     Log    ${X-AUTH}
-    ${resp}    get    OSSession    ${OSREST}
+    ${resp}    get request    OSSession    ${OSREST}
     Should be Equal As Strings    ${resp.status_code}    200
     ${OSResult}    To Json    ${resp.content}
-    Set Suite Variable    ${OSResult}
     Log    ${OSResult}
 
 Check OpenDaylight Networks
-    [Documentation]    Checking OpenDaylight Neutron API for Known Networks
+    [Documentation]    Checking OpenDaylight Neutron API for known networks
     [Tags]    Network Neutron OpenDaylight
     Create Session    ODLSession    http://${ODL_SYSTEM_IP}:${PORT}    headers=${HEADERS}    auth=${AUTH}
-    ${resp}    get    ODLSession    ${ODLREST}
+    ${resp}    get request    ODLSession    ${ODLREST}
     Should be Equal As Strings    ${resp.status_code}    200
     ${ODLResult}    To Json    ${resp.content}
-    Set Suite Variable    ${ODLResult}
     Log    ${ODLResult}
 
 Create Network
     [Documentation]    Create new network in OpenStack
     [Tags]    Create Network OpenStack Neutron
     Log    ${postNet}
-    ${resp}    post    OSSession    ${OSREST}    data=${postNet}
+    ${resp}    post request    OSSession    ${OSREST}    data=${postNet}
     Should be Equal As Strings    ${resp.status_code}    201
     ${result}    To JSON    ${resp.content}
     ${result}    Get From Dictionary    ${result}    network
@@ -50,7 +45,7 @@ Create Network
     sleep    2
 
 Check Network
-    [Documentation]    Check Network created in OpenDaylight
+    [Documentation]    Check network created in OpenDaylight
     [Tags]    Check    Network OpenDaylight
-    ${resp}    get    ODLSession    ${ODLREST}/${NetID}
+    ${resp}    get request    ODLSession    ${ODLREST}/${NetID}
     Should be Equal As Strings    ${resp.status_code}    200

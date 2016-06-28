@@ -2,11 +2,8 @@
 Documentation     Checking Subnets created in OpenStack are pushed to OpenDaylight
 Suite Setup       Create Session    OSSession    http://${OPENSTACK}:9696    headers=${X-AUTH}
 Suite Teardown    Delete All Sessions
-Library           SSHLibrary
 Library           Collections
-Library           OperatingSystem
 Library           RequestsLibrary
-Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
@@ -16,30 +13,28 @@ ${data}           {"subnet":{"network_id":"${NETID}","ip_version":4,"cidr":"172.
 
 *** Test Cases ***
 Check OpenStack Subnets
-    [Documentation]    Checking OpenStack Neutron for known Subnets
+    [Documentation]    Checking OpenStack Neutron for known subnets
     [Tags]    Subnets Neutron OpenStack
     Log    ${X-AUTH}
-    ${resp}    get    OSSession    ${OSREST}
+    ${resp}    get request    OSSession    ${OSREST}
     Should be Equal As Strings    ${resp.status_code}    200
     ${OSResult}    To Json    ${resp.content}
-    Set Suite Variable    ${OSResult}
     Log    ${OSResult}
 
 Check OpenDaylight subnets
-    [Documentation]    Checking OpenDaylight Neutron API for Known Subnets
+    [Documentation]    Checking OpenDaylight Neutron API for known subnets
     [Tags]    Subnets Neutron OpenDaylight
     Create Session    ODLSession    http://${ODL_SYSTEM_IP}:${PORT}    headers=${HEADERS}    auth=${AUTH}
-    ${resp}    get    ODLSession    ${ODLREST}
+    ${resp}    get request    ODLSession    ${ODLREST}
     Should be Equal As Strings    ${resp.status_code}    200
     ${ODLResult}    To Json    ${resp.content}
-    Set Suite Variable    ${ODLResult}
     Log    ${ODLResult}
 
 Create New subnet
     [Documentation]    Create new subnet in OpenStack
     [Tags]    Create Subnet OpenStack Neutron
     Log    ${data}
-    ${resp}    post    OSSession    ${OSREST}    data=${data}
+    ${resp}    post request    OSSession    ${OSREST}    data=${data}
     Should be Equal As Strings    ${resp.status_code}    201
     ${result}    To JSON    ${resp.content}
     ${result}    Get From Dictionary    ${result}    subnet
@@ -52,5 +47,5 @@ Create New subnet
 Check New subnet
     [Documentation]    Check new subnet created in OpenDaylight
     [Tags]    Check    subnet OpenDaylight
-    ${resp}    get    ODLSession    ${ODLREST}/${SUBNETID}
+    ${resp}    get request    ODLSession    ${ODLREST}/${SUBNETID}
     Should be Equal As Strings    ${resp.status_code}    200
