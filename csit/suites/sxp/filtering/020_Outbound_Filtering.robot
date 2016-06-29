@@ -1,22 +1,20 @@
 *** Settings ***
 Documentation     Test suite to verify Outbound filtering functionality
-Suite Setup       Setup SXP Environment
-Suite Teardown    Clean SXP Environment
+Suite Setup       Setup SXP Environment     6
+Suite Teardown    Clean SXP Environment     6
 Test Teardown     Clean Nodes
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           ../../../libraries/Sxp.py
 Library           ../../../libraries/Common.py
 Resource          ../../../libraries/SxpLib.robot
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../variables/Variables.py
 
 *** Variables ***
 
 *** Test Cases ***
 Access List Filtering
     [Documentation]    Test ACL filter behaviour during filter update
+    [Tags]    SXP    Filtering
     ${peers}    Add Peers    127.0.0.4    127.0.0.5
     Add PeerGroup    GROUP    ${peers}
     ${entry1}    Get Filter Entry    10    permit    acl=10.10.10.0,0.0.0.255
@@ -35,6 +33,7 @@ Access List Filtering
 
 Access List Sgt Filtering
     [Documentation]    Test ACL and SGT filter behaviour during filter update
+    [Tags]    SXP    Filtering
     ${peers}    Add Peers    127.0.0.2    127.0.0.5
     Add PeerGroup    GROUP    ${peers}
     ${entry1}    Get Filter Entry    10    deny    acl=10.10.20.0,0.0.0.255
@@ -51,6 +50,7 @@ Access List Sgt Filtering
 
 Prefix List Filtering
     [Documentation]    Test Prefix List filter behaviour during filter update
+    [Tags]    SXP    Filtering
     ${peers}    Add Peers    127.0.0.4    127.0.0.5
     Add PeerGroup    GROUP    ${peers}
     ${entry1}    Get Filter Entry    10    permit    pl=10.10.10.0/24
@@ -69,6 +69,7 @@ Prefix List Filtering
 
 Prefix List Sgt Filtering
     [Documentation]    Test Prefix List and SGT filter behaviour during filter update
+    [Tags]    SXP    Filtering
     ${peers}    Add Peers    127.0.0.2    127.0.0.5
     Add PeerGroup    GROUP    ${peers}
     ${entry1}    Get Filter Entry    10    deny    pl=10.10.20.0/24
@@ -244,14 +245,14 @@ Check Two Group 2-5
     Should Contain Binding    ${resp}    30    30.0.0.0/8    sxp
 
 Clean Nodes
-    Clean Connections    127.0.0.1
-    Clean Connections    127.0.0.2
-    Clean Connections    127.0.0.3
-    Clean Connections    127.0.0.4
-    Clean Connections    127.0.0.5
-    Clean Peer Groups    127.0.0.1
     Clean Bindings    127.0.0.1
     Clean Bindings    127.0.0.2
     Clean Bindings    127.0.0.3
     Clean Bindings    127.0.0.4
     Clean Bindings    127.0.0.5
+    Clean Peer Groups    127.0.0.1
+    Clean Connections    127.0.0.1
+    Clean Connections    127.0.0.2
+    Clean Connections    127.0.0.3
+    Clean Connections    127.0.0.4
+    Clean Connections    127.0.0.5
