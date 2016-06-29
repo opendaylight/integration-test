@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_526208d9",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-06-29T17:38:01Z",
+      "side": 1,
+      "message": "Instead of repeating the keywork twice, Can you just try  increase the delay in read operation of BARE_CTRL_C  and check  it it helps, that way will be cleaner.",
+      "revId": "b6275931a7dd0183e2741d12694ea6e2b3ed6fec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
