@@ -300,3 +300,38 @@ Show Debugs
     \    ${output}=    Write Commands Until Prompt    nova show ${index}     30s
     \    Log    ${output}
     Close Connection
+
+Create First Security Group
+    [Arguments]    ${sg_name}
+    [Documentation]    Created new security group with name SG1.
+    Log    ${sg_name}
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron security-group-create ${sg_name}
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    Created a new security_group
+
+Delete Default Ingress SG Rule
+    [Documentation]    Delete ingress rule for default SG.
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${sg_list}=    Write Commands Until Prompt    neutron security-group-rule-list | grep default | grep ingress | grep IPv4 | get_field 1
+    Log    ${sg_list}
+    : FOR    ${index}    IN    @{sg_list}
+    \    ${output}=    Write Commands Until Prompt    neutron security-group-rule-delete ${index}     30s
+    \    Log    ${output}
+    Close Connection
+    
+Delete Default Egress SG Rule
+    [Documentation]    Delete egress rule for default SG.
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${sg_list}=    Write Commands Until Prompt    neutron security-group-rule-list | grep default | grep egress | grep IPv4 | get_field 1
+    Log    ${sg_list}
+    : FOR    ${index}    IN    @{sg_list}
+    \    ${output}=    Write Commands Until Prompt    neutron security-group-rule-delete ${index}     30s
+    \    Log    ${output}
+    Close Connection
+
+
