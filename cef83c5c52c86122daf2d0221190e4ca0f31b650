@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_89b63bdb",
+        "filename": "csit/libraries/ofclustermonkey.py",
+        "patchSetId": 51
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 992
+      },
+      "writtenOn": "2016-06-29T11:43:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_e57b9d27",
+      "range": {
+        "startLine": 4,
+        "startChar": 11,
+        "endLine": 4,
+        "endChar": 23
+      },
+      "revId": "cef83c5c52c86122daf2d0221190e4ca0f31b650",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_e5a27d99",
         "filename": "csit/libraries/ofclustermonkey.py",
         "patchSetId": 51
@@ -36,6 +60,30 @@
       "writtenOn": "2016-06-29T11:26:44Z",
       "side": 1,
       "message": "changing",
+      "range": {
+        "startLine": 11,
+        "startChar": 72,
+        "endLine": 11,
+        "endChar": 79
+      },
+      "revId": "cef83c5c52c86122daf2d0221190e4ca0f31b650",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_69bbe7c4",
+        "filename": "csit/libraries/ofclustermonkey.py",
+        "patchSetId": 51
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 992
+      },
+      "writtenOn": "2016-06-29T11:43:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_e5a27d99",
       "range": {
         "startLine": 11,
         "startChar": 72,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_09ca2b4f",
+        "filename": "csit/libraries/ofclustermonkey.py",
+        "patchSetId": 51
+      },
+      "lineNbr": 987,
+      "author": {
+        "id": 992
+      },
+      "writtenOn": "2016-06-29T11:43:20Z",
+      "side": 1,
+      "message": "It\u0027s used to isolate cluster node, but it\u0027s disabled because it\u0027s breaking ssh connection - added comment",
+      "parentUuid": "9a561d44_693127a2",
+      "range": {
+        "startLine": 987,
+        "startChar": 4,
+        "endLine": 987,
+        "endChar": 5
+      },
+      "revId": "cef83c5c52c86122daf2d0221190e4ca0f31b650",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_e9e37703",
         "filename": "csit/suites/openflowplugin/Clustering/040__Monkey.robot",
         "patchSetId": 51
@@ -82,6 +154,30 @@
       "writtenOn": "2016-06-29T11:26:44Z",
       "side": 1,
       "message": "ofclustermonkey.py",
+      "range": {
+        "startLine": 51,
+        "startChar": 58,
+        "endLine": 51,
+        "endChar": 78
+      },
+      "revId": "cef83c5c52c86122daf2d0221190e4ca0f31b650",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_e9c6d748",
+        "filename": "csit/suites/openflowplugin/Clustering/040__Monkey.robot",
+        "patchSetId": 51
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 992
+      },
+      "writtenOn": "2016-06-29T11:43:20Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_e9e37703",
       "range": {
         "startLine": 51,
         "startChar": 58,
