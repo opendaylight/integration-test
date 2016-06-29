@@ -22,6 +22,30 @@
       "revId": "f096aaf82aef86b70348dd291b6e8ac1c41bf4b8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_0cf8797b",
+        "filename": "csit/libraries/ofclustermonkey.py",
+        "patchSetId": 52
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 992
+      },
+      "writtenOn": "2016-06-29T13:40:05Z",
+      "side": 1,
+      "message": "variable is used to communicate between main thread and monkey thread to stop monkey. Monkey thread itself is only setting this variable when started and from that point it\u0027s just reading it\u0027s state",
+      "parentUuid": "9a561d44_29a72f51",
+      "range": {
+        "startLine": 607,
+        "startChar": 8,
+        "endLine": 607,
+        "endChar": 29
+      },
+      "revId": "f096aaf82aef86b70348dd291b6e8ac1c41bf4b8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
