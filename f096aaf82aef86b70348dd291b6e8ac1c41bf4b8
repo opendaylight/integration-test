@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_29a72f51",
+        "filename": "csit/libraries/ofclustermonkey.py",
+        "patchSetId": 52
+      },
+      "lineNbr": 607,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-06-29T12:37:54Z",
+      "side": 1,
+      "message": "please check if this is safe to access variable like this, because you access this variable from \"outside\" the thread with t.stop() and you use it within the thread in _run\n\ni cant remember why, but i used multithreading.Event for some reason in the past, maybe because i had to sync 2 children threads (not parent and child thread as it is here)",
+      "range": {
+        "startLine": 607,
+        "startChar": 8,
+        "endLine": 607,
+        "endChar": 29
+      },
+      "revId": "f096aaf82aef86b70348dd291b6e8ac1c41bf4b8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
