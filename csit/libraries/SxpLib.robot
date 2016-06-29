@@ -6,101 +6,117 @@ Library           SSHLibrary
 Library           String
 Library           ./Sxp.py
 Resource          KarafKeywords.robot
+Resource          Utils.robot
 Variables         ../variables/Variables.py
 
 *** Variables ***
 ${REST_CONTEXT}    /restconf/operations/sxp-controller
 
 *** Keywords ***
+Add Node
+    [Arguments]    ${node}    ${password}=password    ${version}=version4    ${port}=64999    ${session}=session
+    [Documentation]    Add node via RPC to ODL
+    ${DATA}    Add Node Xml    ${node}    ${port}    ${password}    ${version}
+    ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-node    data=${DATA}    headers=${HEADERS_XML}
+    Should be Equal As Strings    ${resp.status_code}    200
+
+Delete Node
+    [Arguments]    ${node}    ${session}=session
+    [Documentation]    Delete connection via RPC from node
+    ${DATA}    Delete Node Xml    ${node}
+    ${resp}    Post Request    ${session}    ${REST_CONTEXT}:delete-node    data=${DATA}    headers=${HEADERS_XML}
+    Should be Equal As Strings    ${resp.status_code}    200
+
 Add Connection
     [Arguments]    ${version}    ${mode}    ${ip}    ${port}    ${node}=127.0.0.1    ${password}=none
-    ...    ${session}=session
+    ...    ${session}=session    ${domain}=global
     [Documentation]    Add connection via RPC to node
     ${DATA}    Add Connection Xml    ${version}    ${mode}    ${ip}    ${port}    ${node}
-    ...    ${password}
+    ...    ${password}    ${domain}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-connection    data=${DATA}    headers=${HEADERS_XML}
-    LOG    ${resp}
     Should be Equal As Strings    ${resp.status_code}    200
 
 Get Connections
-    [Arguments]    ${node}=127.0.0.1    ${session}=session
+    [Arguments]    ${node}=127.0.0.1    ${session}=session    ${domain}=global
     [Documentation]    Gets all connections via RPC from node
-    ${DATA}    Get Connections From Node Xml    ${node}
+    ${DATA}    Get Connections From Node Xml    ${node}    ${domain}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:get-connections    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.content}
 
 Delete Connections
-    [Arguments]    ${ip}    ${port}    ${node}=127.0.0.1    ${session}=session
+    [Arguments]    ${ip}    ${port}    ${node}=127.0.0.1    ${session}=session    ${domain}=global
     [Documentation]    Delete connection via RPC from node
-    ${DATA}    Delete Connections Xml    ${ip}    ${port}    ${node}
+    ${DATA}    Delete Connections Xml    ${ip}    ${port}    ${node}    ${domain}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:delete-connection    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
 
 Clean Connections
-    [Arguments]    ${node}=127.0.0.1    ${session}=session
+    [Arguments]    ${node}=127.0.0.1    ${session}=session    ${domain}=global
     [Documentation]    Delete all connections via RPC from node
-    ${resp}    Get Connections    ${node}    ${session}
+    ${resp}    Get Connections    ${node}    ${session}    ${domain}
     @{connections}    Parse Connections    ${resp}
     : FOR    ${connection}    IN    @{connections}
     \    delete connections    ${connection['peer-address']}    ${connection['tcp-port']}    ${node}    ${session}
 
 Verify Connection
     [Arguments]    ${version}    ${mode}    ${ip}    ${port}=64999    ${node}=127.0.0.1    ${state}=on
+    ...    ${session}=session    ${domain}=global
     [Documentation]    Verify that connection is ON
-    ${resp}    Get Connections    ${node}
+    ${resp}    Get Connections    ${node}    ${session}    ${domain}
     Should Contain Connection    ${resp}    ${ip}    ${port}    ${mode}    ${version}    ${state}
 
 Add Binding
-    [Arguments]    ${sgt}    ${prefix}    ${node}=127.0.0.1    ${session}=session
+    [Arguments]    ${sgt}    ${prefix}    ${node}=127.0.0.1    ${session}=session    ${domain}=global
     [Documentation]    Add binding via RPC to Master DB of node
-    ${DATA}    Add Entry Xml    ${sgt}    ${prefix}    ${node}
+    ${DATA}    Add Entry Xml    ${sgt}    ${prefix}    ${node}    ${domain}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-entry    data=${DATA}    headers=${HEADERS_XML}
-    LOG    ${resp.content}
     Should be Equal As Strings    ${resp.status_code}    200
 
 Get Bindings
-    [Arguments]    ${node}=127.0.0.1    ${session}=session
+    [Arguments]    ${node}=127.0.0.1    ${session}=session    ${domain}=global
     [Documentation]    Gets all binding via RPC from Master DB of node
-    ${DATA}    Get Bindings From Node Xml    ${node}    all
-    ${resp}    Run Keyword If    '${ODL_STREAM}' == 'boron'    Post Request    ${session}    ${REST_CONTEXT}:get-node-bindings    data=${DATA}
+    ${DATA}    Get Bindings From Node Xml    ${node}    all    ${domain}
+    ${resp}    Run Keyword If    '${ODL_STREAM}' not in ['beryllium', 'stable-lithium']    Post Request    ${session}    ${REST_CONTEXT}:get-node-bindings    data=${DATA}
     ...    headers=${HEADERS_XML}
     ...    ELSE    Get Request    ${session}    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/master-database/    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.content}
 
 Clean Bindings
-    [Arguments]    ${node}=127.0.0.1    ${session}=session
+    [Arguments]    ${node}=127.0.0.1    ${session}=session    ${domain}=global
     [Documentation]    Delete all bindings via RPC from Master DB of node
-    ${resp}    Get Bindings    ${node}    ${session}
-    @{bindings}    Run Keyword If    '${ODL_STREAM}' == 'boron'    Parse Bindings    ${resp}
+    ${resp}    Get Bindings    ${node}    ${session}    ${domain}
+    @{bindings}    Run Keyword If    '${ODL_STREAM}' not in ['beryllium', 'stable-lithium']    Parse Bindings    ${resp}
     ...    ELSE    Parse Prefix Groups    ${resp}    local
     : FOR    ${binding}    IN    @{bindings}
-    \    Run Keyword If    '${ODL_STREAM}' == 'boron'    Clean Binding    ${binding['sgt']}    ${binding['ip-prefix']}    ${node}
-    \    ...    ${session}
+    \    Run Keyword If    '${ODL_STREAM}' not in ['beryllium', 'stable-lithium']    Clean Binding    ${binding['sgt']}    ${binding['ip-prefix']}    ${node}
+    \    ...    ${session}    ${domain}
     \    ...    ELSE    Clean Binding    ${binding}    ${binding['binding']}    ${node}
-    \    ...    ${session}
+    \    ...    ${session}    ${domain}
 
 Clean Binding
-    [Arguments]    ${sgt}    ${prefixes}    ${node}    ${session}
+    [Arguments]    ${sgt}    ${prefixes}    ${node}    ${session}    ${domain}=global
     [Documentation]    Used for nester FOR loop
     : FOR    ${prefix}    IN    @{prefixes}
-    \    Run Keyword If    '${ODL_STREAM}' == 'boron'    Delete Binding    ${sgt}    ${prefix}    ${node}
-    \    ...    ${session}
+    \    Run Keyword If    '${ODL_STREAM}' not in ['beryllium', 'stable-lithium']    Delete Binding    ${sgt}    ${prefix}    ${node}
+    \    ...    ${session}    ${domain}
     \    ...    ELSE    Delete Binding    ${sgt['sgt']}    ${prefix['ip-prefix']}    ${node}
-    \    ...    ${session}
+    \    ...    ${session}    ${domain}
 
 Update Binding
     [Arguments]    ${sgtOld}    ${prefixOld}    ${sgtNew}    ${prefixNew}    ${node}=127.0.0.1    ${session}=session
+    ...    ${domain}=global
     [Documentation]    Updates value of binding via RPC in Master DB of node
     ${DATA}    Update Binding Xml    ${sgtOld}    ${prefixOld}    ${sgtNew}    ${prefixNew}    ${node}
+    ...    ${domain}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:update-entry    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
 
 Delete Binding
-    [Arguments]    ${sgt}    ${prefix}    ${node}=127.0.0.1    ${session}=session
+    [Arguments]    ${sgt}    ${prefix}    ${node}=127.0.0.1    ${session}=session    ${domain}=global
     [Documentation]    Delete binding via RPC from Master DB of node
-    ${DATA}    Delete Binding Xml    ${sgt}    ${prefix}    ${node}
+    ${DATA}    Delete Binding Xml    ${sgt}    ${prefix}    ${node}    ${domain}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:delete-entry    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
 
@@ -108,7 +124,6 @@ Add PeerGroup
     [Arguments]    ${name}    ${peers}=    ${node}=127.0.0.1    ${session}=session
     [Documentation]    Adds new PeerGroup via RPC to Node
     ${DATA}    Add Peer Group Xml    ${name}    ${peers}    ${node}
-    LOG    ${DATA}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-peer-group    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
 
@@ -152,7 +167,7 @@ Delete Filter
 Should Contain Binding
     [Arguments]    ${resp}    ${sgt}    ${prefix}    ${db_source}=any
     [Documentation]    Tests if data contains specified binding
-    ${out}    Run Keyword If    '${ODL_STREAM}' == 'boron'    Find Binding    ${resp}    ${sgt}    ${prefix}
+    ${out}    Run Keyword If    '${ODL_STREAM}' not in ['beryllium', 'stable-lithium']    Find Binding    ${resp}    ${sgt}    ${prefix}
     ...    ELSE    Find Binding Legacy    ${resp}    ${sgt}    ${prefix}    ${db_source}
     ...    add
     Should Be True    ${out}    Doesn't have ${sgt} ${prefix}
@@ -160,7 +175,7 @@ Should Contain Binding
 Should Not Contain Binding
     [Arguments]    ${resp}    ${sgt}    ${prefix}    ${db_source}=any
     [Documentation]    Tests if data doesn't contains specified binding
-    ${out}    Run Keyword If    '${ODL_STREAM}' == 'boron'    Find Binding    ${resp}    ${sgt}    ${prefix}
+    ${out}    Run Keyword If    '${ODL_STREAM}' not in ['beryllium', 'stable-lithium']    Find Binding    ${resp}    ${sgt}    ${prefix}
     ...    ELSE    Find Binding Legacy    ${resp}    ${sgt}    ${prefix}    ${db_source}
     ...    add
     Should Not Be True    ${out}    Should't have ${sgt} ${prefix}
@@ -197,12 +212,97 @@ Setup Topology Complex
     Add Binding    10    10.10.0.0/16    127.0.0.1
     Add Binding    10    10.0.0.0/8    127.0.0.1
 
-Setup SXP Environment
+Setup SXP Session
     [Documentation]    Create session to Controller
     Verify Feature Is Installed    odl-sxp-controller
+    Wait Until Keyword Succeeds    20    10    Check Karaf Log Has Messages    Successfully pushed configuration snapshot 22-sxp-controller-one-node.xml
     Create Session    session    url=http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    Wait Until Keyword Succeeds    15    1    Get Bindings
+    ${resp}    RequestsLibrary.Get Request    session    ${MODULES_API}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${resp.content}    ietf-restconf
 
-Clean SXP Environment
+Clean SXP Session
     [Documentation]    Destroy created sessions
     Delete All Sessions
+
+Add Domain
+    [Arguments]    ${domain_name}    ${node}=127.0.0.1    ${session}=session
+    [Documentation]    Add Domain via RPC
+    ${DATA}    Add Domain Xml    ${node}    ${domain_name}
+    ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-domain    data=${DATA}    headers=${HEADERS_XML}
+    Should be Equal As Strings    ${resp.status_code}    200
+
+Delete Domain
+    [Arguments]    ${domain_name}    ${node}=127.0.0.1    ${session}=session
+    [Documentation]    Delete Domain via RPC
+    ${DATA}    Delete Domain Xml    ${node}    ${domain_name}
+    ${resp}    Post Request    ${session}    ${REST_CONTEXT}:delete-domain    data=${DATA}    headers=${HEADERS_XML}
+    Should be Equal As Strings    ${resp.status_code}    200
+
+Add Bindings
+    [Arguments]    ${sgt}    ${prefixes}    ${node}=127.0.0.1    ${session}=session    ${domain}=global
+    [Documentation]    Add bindings via RPC to Master DB of node
+    ${DATA}    Add Bindings Xml    ${node}    ${domain}    ${sgt}    ${prefixes}
+    ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-bindings    data=${DATA}    headers=${HEADERS_XML}
+    Should be Equal As Strings    ${resp.status_code}    200
+
+Delete Bindings
+    [Arguments]    ${sgt}    ${prefixes}    ${node}=127.0.0.1    ${session}=session    ${domain}=global
+    [Documentation]    Delete bindings via RPC from Master DB of node
+    ${DATA}    Delete Bindings Xml    ${node}    ${domain}    ${sgt}    ${prefixes}
+    ${resp}    Post Request    ${session}    ${REST_CONTEXT}:delete-bindings    data=${DATA}    headers=${HEADERS_XML}
+    Should be Equal As Strings    ${resp.status_code}    200
+
+Add Bindings Range
+    [Arguments]    ${sgt}    ${start}    ${size}    ${node}
+    [Documentation]    Add Bindings to Node specified by range
+    ${prefixes}    Prefix Range    ${start}    ${size}
+    Add Bindings    ${sgt}    ${prefixes}    ${node}
+
+Delete Bindings Range
+    [Arguments]    ${sgt}    ${start}    ${size}    ${node}
+    [Documentation]    Delete Bindings to Node specified by range
+    ${prefixes}    Prefix Range    ${start}    ${size}
+    Delete Bindings    ${sgt}    ${prefixes}    ${node}
+
+Check Binding Range
+    [Arguments]    ${sgt}    ${start}    ${end}    ${node}
+    [Documentation]    Check if Node contains Bindings specified by range
+    ${resp}    Get Bindings    ${node}
+    : FOR    ${num}    IN RANGE    ${start}    ${end}
+    \    ${ip}    Get Ip From Number    ${num}
+    \    Should Contain Binding    ${resp}    ${sgt}    ${ip}/32
+
+Check Binding Range Negative
+    [Arguments]    ${sgt}    ${start}    ${end}    ${node}
+    [Documentation]    Check if Node does not contains Bindings specified by range
+    ${resp}    Get Bindings    ${node}
+    : FOR    ${num}    IN RANGE    ${start}    ${end}
+    \    ${ip}    Get Ip From Number    ${num}
+    \    Should Not Contain Binding    ${resp}    ${sgt}    ${ip}/32
+
+Setup SXP Environment
+    [Arguments]    ${node_range}=2
+    [Documentation]    Create session to Controller, node_range parameter specifies number of nodes to be created plus one
+    Setup SXP Session
+    : FOR    ${num}    IN RANGE    1    ${node_range}
+    \    ${ip}    Get Ip From Number    ${num}
+    \    Run Keyword If    '${ODL_STREAM}' not in ['beryllium', 'stable-lithium']    Add Node    ${ip}
+    \    Run Keyword If    '${ODL_STREAM}' not in ['beryllium', 'stable-lithium']    Wait Until Keyword Succeeds    20    1    Check Node Started
+    \    ...    ${ip}
+
+Check Node Started
+    [Arguments]    ${node}    ${port}=64999    ${system}=${ODL_SYSTEM_IP}
+    [Documentation]    Verify that SxpNode has data writed to Operational datastore
+    ${resp}    RequestsLibrary.Get Request    session    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${rc}    Run Command On Remote System    ${system}    netstat -tln | grep -q ${node}:${port} && echo 0 || echo 1    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}    prompt=${ODL_SYSTEM_PROMPT}
+    Should Be Equal As Strings    ${rc}    0
+
+Clean SXP Environment
+    [Arguments]    ${node_range}=2
+    [Documentation]    Destroy created sessions
+    : FOR    ${num}    IN RANGE    1    ${node_range}
+    \    ${ip}    Get Ip From Number    ${num}
+    \    Run Keyword If    '${ODL_STREAM}' not in ['beryllium', 'stable-lithium']    Delete Node    ${ip}
+    Clean SXP Session
