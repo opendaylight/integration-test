@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_ea240ac8",
+        "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-06-29T08:22:58Z",
+      "side": 1,
+      "message": "This directory will be deleted in around 60 days.\nUse NexusKeywords as in other Netconf suites.",
+      "range": {
+        "startLine": 29,
+        "startChar": 74,
+        "endLine": 29,
+        "endChar": 90
+      },
+      "revId": "4e2d92ac00c2b388aa07ea589b4ef449884d0328",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
