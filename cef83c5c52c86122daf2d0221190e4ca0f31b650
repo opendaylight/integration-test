@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_e57b9d27",
+        "filename": "csit/libraries/ofclustermonkey.py",
+        "patchSetId": 51
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-06-29T11:26:44Z",
+      "side": 1,
+      "message": "disruptions ?",
+      "range": {
+        "startLine": 4,
+        "startChar": 11,
+        "endLine": 4,
+        "endChar": 23
+      },
+      "revId": "cef83c5c52c86122daf2d0221190e4ca0f31b650",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_e5a27d99",
+        "filename": "csit/libraries/ofclustermonkey.py",
+        "patchSetId": 51
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-06-29T11:26:44Z",
+      "side": 1,
+      "message": "changing",
+      "range": {
+        "startLine": 11,
+        "startChar": 72,
+        "endLine": 11,
+        "endChar": 79
+      },
+      "revId": "cef83c5c52c86122daf2d0221190e4ca0f31b650",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_693127a2",
+        "filename": "csit/libraries/ofclustermonkey.py",
+        "patchSetId": 51
+      },
+      "lineNbr": 987,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-06-29T11:26:44Z",
+      "side": 1,
+      "message": "where is this monkey used?",
+      "range": {
+        "startLine": 987,
+        "startChar": 4,
+        "endLine": 987,
+        "endChar": 5
+      },
+      "revId": "cef83c5c52c86122daf2d0221190e4ca0f31b650",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_e9e37703",
+        "filename": "csit/suites/openflowplugin/Clustering/040__Monkey.robot",
+        "patchSetId": 51
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-06-29T11:26:44Z",
+      "side": 1,
+      "message": "ofclustermonkey.py",
+      "range": {
+        "startLine": 51,
+        "startChar": 58,
+        "endLine": 51,
+        "endChar": 78
+      },
+      "revId": "cef83c5c52c86122daf2d0221190e4ca0f31b650",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
