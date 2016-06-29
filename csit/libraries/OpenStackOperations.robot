@@ -261,13 +261,19 @@ Check Ping
     ${output}=    Write Commands Until Expected Prompt    ping -c 3 ${ip_address}    ${OS_SYSTEM_PROMPT}
     Should Contain    ${output}    64 bytes
 
+Check No Ping
+    [Arguments]    ${ip_address}
+    [Documentation]    Run Ping command on the IP available as argument
+    ${output}=    Write Commands Until Expected Prompt    ping -c 3 ${ip_address}    ${OS_SYSTEM_PROMPT}
+    Should Not Contain    ${output}    64 bytes
+
 Check Metadata Access
     [Documentation]    Try curl on the Metadataurl and check if it is okay
     ${output}=    Write Commands Until Expected Prompt    curl -i http://169.254.169.254    ${OS_SYSTEM_PROMPT}
     Should Contain    ${output}    200
 
 Test Operations From Vm Instance
-    [Arguments]    ${net_name}    ${src_ip}    ${list_of_local_dst_ips}    ${l2_or_l3}=l2    ${list_of_external_dst_ips}=${NONE}    ${user}=cirros
+    [Arguments]    ${net_name}    ${src_ip}    ${list_of_local_dst_ips}    ${ping}=true    ${l2_or_l3}=l2    ${list_of_external_dst_ips}=${NONE}    ${user}=cirros
     ...    ${password}=cubswin:)
     [Documentation]    Login to the vm instance using ssh in the network.
     ${devstack_conn_id}=    Get ControlNode Connection
@@ -280,19 +286,27 @@ Test Operations From Vm Instance
     ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    ifconfig    ${OS_SYSTEM_PROMPT}
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    route    ${OS_SYSTEM_PROMPT}
-    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    arp -an    ${OS_SYSTEM_PROMPT}
     ${dest_vm}=    Get From List    ${list_of_local_dst_ips}    0
     Log    ${dest_vm}
-    Run Keyword If    ${rcode}    Check Ping    ${dest_vm}
+    Run Keyword If    ${rcode} and '${ping}' == 'true'    Check Ping    ${dest_vm}
+	...    ELSE IF    ${rcode} and '${ping}' == 'false'    Check No Ping    ${dest_vm}
     ${dest_dhcp}=    Get From List    ${list_of_local_dst_ips}    1
     Log    ${dest_dhcp}
-    Run Keyword If    ${rcode}    Check Ping    ${dest_dhcp}
-    ${dest_vm}=    Get From List    ${list_of_local_dst_ips}    2
-    Log    ${dest_vm}
-    Run Keyword If    ${rcode}    Check Ping    ${dest_vm}
+    Run Keyword If    ${rcode} and '${ping}' == 'true'    Check Ping    ${dest_dhcp}
+	...    ELSE IF    ${rcode} and '${ping}' == 'false'    Check No Ping    ${dest_dhcp}
+    ${length}=    Get Length    ${list_of_local_dst_ips}
+    Log    ${length}
+    BuiltIn.Run Keyword If    ${length} > 2    Check Ping For Third Instance    ${list_of_local_dst_ips}    
     Run Keyword If    ${rcode}    Check Metadata Access
     Run Keyword If    '${l2_or_l3}' == 'l3'    Ping Other Instances    ${list_of_external_dst_ips}
     [Teardown]    Exit From Vm Console
+
+Check Ping For Third Instance
+    [Arguments]    ${list_of_local_dst_ips}
+    [Documentation]    Check reachability for the third vm instance.
+    ${dest_vm}=    Get From List    ${list_of_local_dst_ips}    2
+    Log    ${dest_vm}
+    Run Keyword If    ${rcode}    Check Ping    ${dest_vm}
 
 Ping Other Instances
     [Arguments]    ${list_of_external_dst_ips}
@@ -408,3 +422,32 @@ Create Security Rule
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron security-group-rule-create --direction ${direction} --protocol ${protocol} --port-range-min ${min_port} --port-range-max ${max_port} --remote-ip-prefix ${remote_ip} ${sg_name}
     Close Connection
+
+Delete Default Ingress SG Rule
+    [Arguments]    ${ether_types}
+    [Documentation]    Delete ingress rule for default SG.
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    : FOR    ${index}    IN    @{ether_types}
+    \    ${sg_temp}=    Write Commands Until Prompt    neutron security-group-rule-list | grep default | grep ingress | grep ${index} | get_field 1
+    \    Log    ${sg_temp}
+    \    @{sg_list}    Split String     ${sg_temp}    ${EMPTY}
+    \    ${id}=    Get From List    ${sg_list}    0
+    \    ${output}=    Write Commands Until Prompt    neutron security-group-rule-delete ${id}    30s
+    \    Should Contain    ${output}    Deleted security_group_rule
+    Close Connection
+
+Delete Default Egress SG Rule
+    [Arguments]    ${ether_types}
+    [Documentation]    Delete egress rule for default SG.
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    : FOR    ${index}    IN    @{ether_types}
+    \    ${sg_temp}=    Write Commands Until Prompt    neutron security-group-rule-list | grep default | grep egress | grep ${index} | get_field 1
+    \    Log    ${sg_temp}
+    \    @{sg_list}    Split String     ${sg_temp}    ${EMPTY}
+    \    ${id}=    Get From List    ${sg_list}    0
+    \    ${output}=    Write Commands Until Prompt    neutron security-group-rule-delete ${id}    30s
+    \    Should Contain    ${output}    Deleted security_group_rule
+    Close Connection
+
