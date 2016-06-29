@@ -1,15 +1,13 @@
 *** Settings ***
 Documentation     Test suite to verify Outbound filtering functionality
-Suite Setup       Setup SXP Environment
-Suite Teardown    Clean SXP Environment
+Suite Setup       Setup SXP Environment     6
+Suite Teardown    Clean SXP Environment     6
 Test Teardown     Clean Nodes
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           ../../../libraries/Sxp.py
 Library           ../../../libraries/Common.py
 Resource          ../../../libraries/SxpLib.robot
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../variables/Variables.py
 
 *** Variables ***
@@ -17,6 +15,7 @@ Resource          ../../../variables/Variables.py
 *** Test Cases ***
 Peer Sequence Filtering
     [Documentation]    Test PeerSequence filter behaviour
+    [Tags]    SXP    Filtering
     ${peers}    Add Peers    127.0.0.2
     Add PeerGroup    GROUP    ${peers}
     ${entry1}    Get Filter Entry    10    permit    ps=le,0
@@ -50,6 +49,7 @@ Peer Sequence Filtering
 
 Inbound PL Combinations Filtering
     [Documentation]    Test PeerSequence filter combined with PrefixList filter
+    [Tags]    SXP    Filtering
     @{scopes}    Create List    inbound    inbound-discarding
     : FOR    ${scope}    IN    @{scopes}
     \    Add PeerGroup    GROUP
@@ -67,6 +67,7 @@ Inbound PL Combinations Filtering
 
 Inbound ACL Combinations Filtering
     [Documentation]    Test PeerSequence filter combined with ACL filter
+    [Tags]    SXP    Filtering
     @{scopes}    Create List    inbound    inbound-discarding
     : FOR    ${scope}    IN    @{scopes}
     \    ${peers}    Add Peers    127.0.0.2
@@ -88,6 +89,7 @@ Inbound ACL Combinations Filtering
 
 Outbound PL Combinations Filtering
     [Documentation]    Test PeerSequence filter combined with PrefixList filter
+    [Tags]    SXP    Filtering
     Add PeerGroup    GROUP
     ${entry1}    Get Filter Entry    10    permit    pl=1.1.1.0/24
     ${entries}    Combine Strings    ${entry1}
@@ -102,6 +104,7 @@ Outbound PL Combinations Filtering
 
 Outbound ACL Combinations Filtering
     [Documentation]    Test PeerSequence filter combined with ACL filter
+    [Tags]    SXP    Filtering
     Add PeerGroup    GROUP
     ${entry1}    Get Filter Entry    10    permit    ps=eq,0
     ${entry2}    Get Filter Entry    20    permit    ps=ge,2
