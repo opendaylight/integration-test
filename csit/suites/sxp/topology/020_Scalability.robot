@@ -1,21 +1,19 @@
 *** Settings ***
 Documentation     Test suite to test scalability of SXP
-Suite Setup       Setup SXP Environment
-Suite Teardown    Clean SXP Environment
+Suite Setup       Setup SXP Environment     32
+Suite Teardown    Clean SXP Environment     32
 Test Setup        Clean Nodes
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           ../../../libraries/Sxp.py
 Resource          ../../../libraries/SxpLib.robot
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../variables/Variables.py
 
 *** Variables ***
 
 *** Test Cases ***
 Test Mega Topology
     [Documentation]    Stress test that contains of connecting 20 Nodes and exporting their bindings
+    [Tags]    SXP    Scalability
     Setup Mega Topology
     Sleep    5s
     ${resp}    Get Bindings    127.0.0.1
@@ -25,6 +23,7 @@ Test Mega Topology
 
 Test Complex Mega Topology
     [Documentation]    Stress test that contains of connecting 30 Nodes and exporting their bindings
+    [Tags]    SXP    Scalability
     Setup Complex Mega Topology
     Sleep    5s
     ${resp}    Get Bindings    127.0.0.1
@@ -34,6 +33,7 @@ Test Complex Mega Topology
 
 Text Bindings export
     [Documentation]    Stress test that consist of exporting 500 Bindings under 5s
+    [Tags]    SXP    Scalability
     : FOR    ${num}    IN RANGE    2    502
     \    ${ip}    Get Ip From Number    ${num}
     \    Add Binding    ${num}    ${ip}/32    127.0.0.2
@@ -78,5 +78,5 @@ Setup Complex Mega Topology
 Clean Nodes
     : FOR    ${num}    IN RANGE    1    32
     \    ${ip}    Get Ip From Number    ${num}
-    \    Clean Connections    ${ip}
     \    Clean Bindings    ${ip}
+    \    Clean Connections    ${ip}

@@ -1,21 +1,19 @@
 *** Settings ***
 Documentation     Test suite to verify Behaviour in different topologies
-Suite Setup       Setup SXP Environment
-Suite Teardown    Clean SXP Environment
+Suite Setup       Setup SXP Environment     6
+Suite Teardown    Clean SXP Environment     6
 Test Teardown     Clean Nodes
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           ../../../libraries/Sxp.py
 Resource          ../../../libraries/SxpLib.robot
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/KarafKeywords.robot
-Resource          ../../../variables/Variables.py
 
 *** Variables ***
 
 *** Test Cases ***
 Export Test
     [Documentation]    Test behaviour after shutting down connections in Version4
+    [Tags]    SXP    Topology
     Setup Topology Triangel    version4
     Wait Until Keyword Succeeds    4    1    Check Export Part One
     Delete Connections    127.0.0.1    64999    127.0.0.3
@@ -27,6 +25,7 @@ Export Test
 
 Export Test Legacy
     [Documentation]    Test behaviour after shutting down connections in Legacy versions
+    [Tags]    SXP    Topology
     @{list} =    Create List    version1
     : FOR    ${version}    IN    @{list}
     \    Setup Topology Triangel    ${version}
@@ -41,21 +40,25 @@ Export Test Legacy
 
 Forwarding Test V2=>V1
     [Documentation]    Version 2 => 1 functionality
+    [Tags]    SXP    Topology
     Setup Topology Linear    version2    version1
     Wait Until Keyword Succeeds    4    1    Check Forwarding V2=>V1
 
 Forwarding Test V3=>V2
     [Documentation]    Version 3 => 2 functionality
+    [Tags]    SXP    Topology
     Setup Topology Linear    version3    version2
     Wait Until Keyword Succeeds    4    1    Check Forwarding V3=>V2
 
 Forwarding Test V4=>V3
     [Documentation]    Version 4 => 3 functionality
+    [Tags]    SXP    Topology
     Setup Topology Linear    version4    version3
     Wait Until Keyword Succeeds    4    1    Check Forwarding V4=>V3
 
 Most Recent Rule Test
     [Documentation]    Most Recent Rule
+    [Tags]    SXP    Topology
     Setup Topology Fork    version4
     Add Binding    542    5.5.5.5/32    127.0.0.2
     Sleep    2s
@@ -67,6 +70,7 @@ Most Recent Rule Test
 
 Shorthest Path Test
     [Documentation]    Shorthes Path over Most Recent
+    [Tags]    SXP    Topology
     Add Connection    version4    listener    127.0.0.5    64999    127.0.0.3
     Add Connection    version4    speaker    127.0.0.3    64999    127.0.0.5
     Wait Until Keyword Succeeds    15    1    Verify Connection    version4    listener    127.0.0.5
@@ -214,13 +218,13 @@ Check Most Recent
     Should Contain Binding    ${resp}    99    15.15.15.15/32
 
 Clean Nodes
-    Clean Connections    127.0.0.1
-    Clean Connections    127.0.0.2
-    Clean Connections    127.0.0.3
-    Clean Connections    127.0.0.4
-    Clean Connections    127.0.0.5
     Clean Bindings    127.0.0.1
     Clean Bindings    127.0.0.2
     Clean Bindings    127.0.0.3
     Clean Bindings    127.0.0.4
     Clean Bindings    127.0.0.5
+    Clean Connections    127.0.0.1
+    Clean Connections    127.0.0.2
+    Clean Connections    127.0.0.3
+    Clean Connections    127.0.0.4
+    Clean Connections    127.0.0.5

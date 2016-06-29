@@ -44,11 +44,11 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>0</mapping-expanded>
+                            <mapping-expanded>5</mapping-expanded>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
-                                <retry-open-time>5</retry-open-time>
+                                <retry-open-time>1</retry-open-time>
                                 <hold-time-min-acceptable>120</hold-time-min-acceptable>
                                 <keep-alive-time>30</keep-alive-time>
                                 <hold-time>90</hold-time>
@@ -65,11 +65,11 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>0</mapping-expanded>
+                            <mapping-expanded>5</mapping-expanded>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
-                                <retry-open-time>5</retry-open-time>
+                                <retry-open-time>1</retry-open-time>
                                 <hold-time-min-acceptable>120</hold-time-min-acceptable>
                                 <keep-alive-time>30</keep-alive-time>
                                 <hold-time>90</hold-time>
@@ -86,53 +86,11 @@
                             <security>
                                 <password>kavabonga</password>
                             </security>
-                            <mapping-expanded>0</mapping-expanded>
+                            <mapping-expanded>5</mapping-expanded>
                             <description>ODL SXP Controller</description>
                             <master-database></master-database>
                             <timers>
-                                <retry-open-time>5</retry-open-time>
-                                <hold-time-min-acceptable>120</hold-time-min-acceptable>
-                                <keep-alive-time>30</keep-alive-time>
-                                <hold-time>90</hold-time>
-                                <hold-time-min>90</hold-time-min>
-                                <hold-time-max>180</hold-time-max>
-                            </timers>
-                        </sxp-node>
-                        <sxp-node>
-                            <enabled>true</enabled>
-                            <node-id>127.0.0.4</node-id>
-                            <source-ip>127.0.0.4</source-ip>
-                            <tcp-port>64999</tcp-port>
-                            <version>version4</version>
-                            <security>
-                                <password>kavabonga</password>
-                            </security>
-                            <mapping-expanded>0</mapping-expanded>
-                            <description>ODL SXP Controller</description>
-                            <master-database></master-database>
-                            <timers>
-                                <retry-open-time>5</retry-open-time>
-                                <hold-time-min-acceptable>120</hold-time-min-acceptable>
-                                <keep-alive-time>30</keep-alive-time>
-                                <hold-time>90</hold-time>
-                                <hold-time-min>90</hold-time-min>
-                                <hold-time-max>180</hold-time-max>
-                            </timers>
-                        </sxp-node>
-                        <sxp-node>
-                            <enabled>true</enabled>
-                            <node-id>127.0.0.5</node-id>
-                            <source-ip>127.0.0.5</source-ip>
-                            <tcp-port>64999</tcp-port>
-                            <version>version4</version>
-                            <security>
-                                <password>kavabonga</password>
-                            </security>
-                            <mapping-expanded>0</mapping-expanded>
-                            <description>ODL SXP Controller</description>
-                            <master-database></master-database>
-                            <timers>
-                                <retry-open-time>5</retry-open-time>
+                                <retry-open-time>1</retry-open-time>
                                 <hold-time-min-acceptable>120</hold-time-min-acceptable>
                                 <keep-alive-time>30</keep-alive-time>
                                 <hold-time>90</hold-time>
