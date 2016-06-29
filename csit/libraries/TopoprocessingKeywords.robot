@@ -59,7 +59,7 @@ Setup Environment
     ${features}    Issue Command On Karaf Console    feature:list -i
     ${lines}    Get Lines Containing String    ${features}    odl-topoprocessing-framework
     ${length}    Get Length    ${lines}
-    Install a Feature    odl-openflowplugin-nsf-model-li odl-topoprocessing-framework odl-topoprocessing-network-topology odl-topoprocessing-inventory odl-mdsal-models odl-ovsdb-southbound-impl    timeout=120
+    Install a Feature    odl-openflowplugin-nsf-model odl-topoprocessing-framework odl-topoprocessing-network-topology odl-topoprocessing-inventory odl-mdsal-models odl-ovsdb-southbound-impl    timeout=120
     Run Keyword If    ${length} == 0    Wait For Karaf Log    Registering Topology Request Listener    60
     Prepare New Feature Installation
     Insert Underlay topologies
