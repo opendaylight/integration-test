@@ -46,6 +46,20 @@ def lower_version(ver1, ver2):
         return ver2
 
 
+def check_response(resp):
+    """Test if RPC request was correctly resolved
+
+    :param resp: RPC response
+    :type resp: string
+    :return: Boolean if RPC was successfully resolved
+    """
+    resp = json.loads(resp)
+    if resp['output']:
+        if resp['output']['result']:
+            return resp['output']['result']
+    return False
+
+
 def get_filter_entry(seq, entry_type, sgt="", esgt="", acl="", eacl="", pl="", epl="", ps=""):
     """Generate xml containing FilterEntry data
 
@@ -115,6 +129,24 @@ def add_peers(*args):
     peers = ""
     for count, value in enumerate(args):
         peers += templ.substitute({'ip': value})
+    return peers
+
+
+def add_domains(*args):
+    """Generate xml containing Domain mach data
+
+    :param args: Domain data
+    :type args: dict
+    :returns: String containing xml data for request
+
+    """
+    templ = Template('''
+        <domain>
+            <name>$name</name>
+        </domain>''')
+    peers = ""
+    for count, value in enumerate(args):
+        peers += templ.substitute({'name': value})
     return peers
 
 
@@ -364,7 +396,7 @@ def find_connection(connections_json, version, mode, ip, port, state):
     """
     for connection in parse_connections(connections_json):
         if (connection['peer-address'] == ip and connection['tcp-port'] == int(port) and connection['mode'] == mode and
-                connection['version'] == version):
+                    connection['version'] == version):
             if state == 'none':
                 return True
             elif connection['state'] == state:
@@ -454,7 +486,7 @@ def find_binding_legacy(prefix_groups_json, sgt, prefix, source_, action):
     return found
 
 
-def add_entry_xml(sgt, prefix, ip):
+def add_entry_xml(sgt, prefix, ip, domain_name):
     """Generate xml for Add Bindings request
 
     :param sgt: Source Group Tag
@@ -463,19 +495,22 @@ def add_entry_xml(sgt, prefix, ip):
     :type prefix: string
     :param ip: Ipv4 address of node
     :type ip: string
+    :param domain_name: Name of Domain
+    :type domain_name: string
     :returns: String containing xml data for request
 
     """
     templ = Template('''<input>
   <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
+  $domain
   <sgt xmlns="urn:opendaylight:sxp:controller">$sgt</sgt>
   <ip-prefix xmlns="urn:opendaylight:sxp:controller">$prefix</ip-prefix>
 </input>''')
-    data = templ.substitute({'sgt': sgt, 'prefix': prefix, 'ip': ip})
+    data = templ.substitute({'sgt': sgt, 'prefix': prefix, 'ip': ip, 'domain': get_domain_name(domain_name)})
     return data
 
 
-def add_connection_xml(version, mode, ip, port, node, password_):
+def add_connection_xml(version, mode, ip, port, node, password_, domain_name):
     """Generate xml for Add Connection request
 
     :param version: Version of SXP protocol (version1/2/3/4)
@@ -490,11 +525,14 @@ def add_connection_xml(version, mode, ip, port, node, password_):
     :type node: string
     :param password_: Password type (none/default)
     :type password_: string
+    :param domain_name: Name of Domain
+    :type domain_name: string
     :returns: String containing xml data for request
 
     """
     templ = Template('''<input>
    <requested-node xmlns="urn:opendaylight:sxp:controller">$node</requested-node>
+   $domain
    <connections xmlns="urn:opendaylight:sxp:controller">
       <connection>
          <peer-address>$ip</peer-address>
@@ -513,11 +551,12 @@ def add_connection_xml(version, mode, ip, port, node, password_):
 </input>
 ''')
     data = templ.substitute(
-        {'ip': ip, 'port': port, 'mode': mode, 'version': version, 'node': node, 'password_': password_})
+        {'ip': ip, 'port': port, 'mode': mode, 'version': version, 'node': node,
+         'password_': password_, 'domain': get_domain_name(domain_name)})
     return data
 
 
-def delete_connections_xml(address, port, node):
+def delete_connections_xml(address, port, node, domain_name):
     """Generate xml for Delete Connection request
 
     :param address: Ipv4/6 address of remote peer
@@ -526,19 +565,22 @@ def delete_connections_xml(address, port, node):
     :type port: string
     :param node: Ipv4 address of node
     :type node: string
+    :param domain_name: Name of Domain
+    :type domain_name: string
     :returns: String containing xml data for request
 
     """
     templ = Template('''<input>
    <requested-node xmlns="urn:opendaylight:sxp:controller">$node</requested-node>
+   $domain
    <peer-address xmlns="urn:opendaylight:sxp:controller">$address</peer-address>
    <tcp-port xmlns="urn:opendaylight:sxp:controller">$port</tcp-port>
 </input>''')
-    data = templ.substitute({'address': address, 'port': port, 'node': node})
+    data = templ.substitute({'address': address, 'port': port, 'node': node, 'domain': get_domain_name(domain_name)})
     return data
 
 
-def update_binding_xml(sgt0, prefix0, sgt1, prefix1, ip):
+def update_binding_xml(sgt0, prefix0, sgt1, prefix1, ip, domain_name):
     """Generate xml for Update Binding request
 
     :param sgt0: Original Source Group Tag
@@ -551,11 +593,14 @@ def update_binding_xml(sgt0, prefix0, sgt1, prefix1, ip):
     :type prefix1: string
     :param ip: Ipv4 address of node
     :type ip: string
+    :param domain_name: Name of Domain
+    :type domain_name: string
     :returns: String containing xml data for request
 
     """
     templ = Template('''<input>
   <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
+  $domain
   <original-binding xmlns="urn:opendaylight:sxp:controller">
     <sgt>$sgt0</sgt>
     <ip-prefix>$prefix0</ip-prefix>
@@ -566,11 +611,12 @@ def update_binding_xml(sgt0, prefix0, sgt1, prefix1, ip):
   </new-binding>
 </input>''')
     data = templ.substitute(
-        {'sgt0': sgt0, 'sgt1': sgt1, 'prefix0': prefix0, 'prefix1': prefix1, 'ip': ip})
+        {'sgt0': sgt0, 'sgt1': sgt1, 'prefix0': prefix0, 'prefix1': prefix1, 'ip': ip,
+         'domain': get_domain_name(domain_name)})
     return data
 
 
-def delete_binding_xml(sgt, prefix, ip):
+def delete_binding_xml(sgt, prefix, ip, domain_name):
     """Generate xml for Delete Binding request
 
     :param sgt: Source Group Tag
@@ -579,6 +625,8 @@ def delete_binding_xml(sgt, prefix, ip):
     :type prefix: string
     :param ip: Ipv4 address of node
     :type ip: string
+    :param domain_name: Name of Domain
+    :type domain_name: string
     :returns: String containing xml data for request
 
     """
@@ -586,8 +634,9 @@ def delete_binding_xml(sgt, prefix, ip):
   <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
   <sgt xmlns="urn:opendaylight:sxp:controller">$sgt</sgt>
   <ip-prefix xmlns="urn:opendaylight:sxp:controller">$prefix</ip-prefix>
+  $domain
 </input>''')
-    data = templ.substitute({'sgt': sgt, 'prefix': prefix, 'ip': ip})
+    data = templ.substitute({'sgt': sgt, 'prefix': prefix, 'ip': ip, 'domain': get_domain_name(domain_name)})
     return data
 
 
@@ -660,7 +709,6 @@ def add_filter_xml(group, filter_type, entries, ip):
     :type ip: string
     :returns: String containing xml data for request
 
-
     """
     templ = Template('''<input>
   <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
@@ -671,6 +719,33 @@ def add_filter_xml(group, filter_type, entries, ip):
 </input>''')
     data = templ.substitute(
         {'group': group, 'filter_type': filter_type, 'ip': ip, 'entries': entries})
+    return data
+
+
+def add_domain_filter_xml(domain, domains, entries, ip):
+    """Generate xml for Add Domain Filter request
+
+    :param domain: Name of Domain containing filter
+    :type domain: string
+    :param domains: Domains on which filter will be applied
+    :type domains: string
+    :param entries: XML formatted entries that will be added in filter
+    :type entries: string
+    :param ip: Ipv4 address of node
+    :type ip: string
+    :returns: String containing xml data for request
+
+    """
+    templ = Template('''<input>
+  <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
+  <domain-name xmlns="urn:opendaylight:sxp:controller">$domain</domain-name>
+  <sxp-domain-filter xmlns="urn:opendaylight:sxp:controller">
+    <domains>$domains</domains>
+    $entries
+  </sxp-domain-filter>
+</input>''')
+    data = templ.substitute(
+        {'domain': domain, 'domains': domains, 'ip': ip, 'entries': entries})
     return data
 
 
@@ -696,26 +771,11 @@ def delete_filter_xml(group, filter_type, ip):
     return data
 
 
-def get_connections_from_node_xml(ip):
-    """Generate xml for Get Connections request
+def delete_domain_filter_xml(domain, ip):
+    """Generate xml for Delete Filter request
 
-    :param ip: Ipv4 address of node
-    :type ip: string
-    :returns: String containing xml data for request
-
-    """
-    templ = Template('''<input>
-   <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
-</input>''')
-    data = templ.substitute({'ip': ip})
-    return data
-
-
-def get_bindings_from_node_xml(ip, binding_range):
-    """Generate xml for Get Bindings request
-
-    :param binding_range: All or only Local bindings
-    :type binding_range: string
+    :param domain: Name of Domain containing filter
+    :type domain: string
     :param ip: Ipv4 address of node
     :type ip: string
     :returns: String containing xml data for request
@@ -723,7 +783,218 @@ def get_bindings_from_node_xml(ip, binding_range):
     """
     templ = Template('''<input>
   <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
-  <bindings-range xmlns="urn:opendaylight:sxp:controller">$range</bindings-range>
+  <domain-name xmlns="urn:opendaylight:sxp:controller">$group</domain-name>
 </input>''')
-    data = templ.substitute({'ip': ip, 'range': binding_range})
+    data = templ.substitute(
+        {'domain': domain, 'ip': ip})
     return data
+
+
+def get_connections_from_node_xml(ip, domain_name):
+    """Generate xml for Get Connections request
+
+    :param ip: Ipv4 address of node
+    :type ip: string
+    :param domain_name: Name of Domain
+    :type domain_name: string
+    :returns: String containing xml data for request
+
+    """
+    templ = Template('''<input>
+   <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
+   $domain
+</input>''')
+    data = templ.substitute({'ip': ip, 'domain': get_domain_name(domain_name)})
+    return data
+
+
+def get_bindings_from_node_xml(ip, binding_range, domain_name):
+    """Generate xml for Get Bindings request
+
+    :param binding_range: All or only Local bindings
+    :type binding_range: string
+    :param ip: Ipv4 address of node
+    :type ip: string
+    :param domain_name: Name of Domain
+    :type domain_name: string
+    :returns: String containing xml data for request
+
+    """
+    templ = Template('''<input>
+  <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
+  <bindings-range xmlns="urn:opendaylight:sxp:controller">$range</bindings-range>
+  $domain
+</input>''')
+    data = templ.substitute({'ip': ip, 'range': binding_range, 'domain': get_domain_name(domain_name)})
+    return data
+
+
+def add_node_xml(node_id, port, password, version, node_ip=None, expansion=0):
+    """Generate xml for Add Node request
+
+    :param node_id: Ipv4 address formatted node id
+    :type node_id: string
+    :param node_ip: Ipv4 address of node
+    :type node_ip: string
+    :param port: Node port number
+    :type port: int
+    :param expansion: Bindings expansion
+    :type expansion: int
+    :returns: String containing xml data for request
+
+    """
+    if node_ip is None:
+        node_ip = node_id
+    templ = Template('''<input xmlns="urn:opendaylight:sxp:controller">
+    <node-id>$id</node-id>
+    <timers>
+        <retry-open-time>1</retry-open-time>
+        <hold-time-min-acceptable>120</hold-time-min-acceptable>
+        <delete-hold-down-time>120</delete-hold-down-time>
+        <hold-time-min>90</hold-time-min>
+        <reconciliation-time>120</reconciliation-time>
+        <hold-time>90</hold-time>
+        <hold-time-max>180</hold-time-max>
+        <keep-alive-time>30</keep-alive-time>
+    </timers>
+    <mapping-expanded>$expansion</mapping-expanded>
+    <security>
+        <password>$password</password>
+    </security>
+    <tcp-port>$port</tcp-port>
+    <version>$version</version>
+    <description>ODL SXP Controller</description>
+    <source-ip>$ip</source-ip>
+    <master-database></master-database>
+</input>''')
+    data = templ.substitute(
+        {'ip': node_ip, 'id': node_id, 'port': port, 'password': password, 'version': version, 'expansion': expansion})
+    return data
+
+
+def delete_node_xml(node_id):
+    """Generate xml for Delete node request
+
+    :param node_id: Ipv4 address formatted node id
+    :type node_id: string
+    :returns: String containing xml data for request
+
+    """
+    templ = Template('''<input xmlns="urn:opendaylight:sxp:controller">
+  <node-id>$id</node-id>
+</input>''')
+    data = templ.substitute({'id': node_id})
+    return data
+
+
+def add_domain_xml(node_id, name):
+    """Generate xml for Add Domain request
+
+    :param node_id: Id of node
+    :type node_id: string
+    :param name: Name of Domain
+    :type name: string
+    :returns: String containing xml data for request
+
+    """
+    templ = Template('''<input>
+  <node-id xmlns="urn:opendaylight:sxp:controller">$id</node-id>
+  <domain-name xmlns="urn:opendaylight:sxp:controller">$name</domain-name>
+</input>''')
+    data = templ.substitute({'name': name, 'id': node_id})
+    return data
+
+
+def delete_domain_xml(node_id, name):
+    """Generate xml for Remove Domain request
+
+    :param node_id: Id of node
+    :type node_id: string
+    :param name: Name of Domain
+    :type name: string
+    :returns: String containing xml data for request
+
+    """
+    return add_domain_xml(name, node_id)
+
+
+def get_domain_name(domain_name):
+    """Generate xml for Get Bindings request
+
+    :param domain_name: Name of Domain
+    :type domain_name: string
+    :returns: String containing xml data for request
+
+    """
+    if domain_name == 'global':
+        return ''
+    else:
+        return '<domain-name xmlns="urn:opendaylight:sxp:controller">' + domain_name + '</domain-name>'
+
+
+def add_bindings_xml(node_id, domain, sgt, prefixes):
+    """Generate xml for Add Bindings request
+
+    :param node_id: Id of node
+    :type node_id: string
+    :param domain: Name of Domain
+    :type domain: string
+    :param sgt: Security group
+    :type sgt: int
+    :param prefixes: List of ip-prefixes
+    :type prefixes: string
+    :returns: String containing xml data for request
+
+    """
+    bindings = ''
+    for prefix in prefixes.split(','):
+        bindings += '\n' + '<ip-prefix>' + prefix + '</ip-prefix>'
+    templ = Template('''<input>
+  <node-id xmlns="urn:opendaylight:sxp:controller">$id</node-id>
+  <domain-name xmlns="urn:opendaylight:sxp:controller">$name</domain-name>
+  <binding xmlns="urn:opendaylight:sxp:controller">
+      <sgt>$sgt</sgt>
+      $bindings
+  </binding>
+</input>''')
+    data = templ.substitute({'name': domain, 'id': node_id, 'sgt': sgt, 'bindings': bindings})
+    return data
+
+
+def delete_bindings_xml(node_id, domain, sgt, prefixes):
+    """Generate xml for Remove Bindings request
+
+    :param node_id: Id of node
+    :type node_id: string
+    :param domain: Name of Domain
+    :type domain: string
+    :param sgt: Security group
+    :type sgt: int
+    :param prefixes: List of ip-prefixes
+    :type prefixes: string
+    :returns: String containing xml data for request
+
+    """
+    return add_bindings_xml(node_id, domain, sgt, prefixes)
+
+
+def prefix_range(start, end):
+    """Generate and concatenate ip-prefixes
+
+    :param start: Start index
+    :type start: string
+    :param end: End index
+    :type end: string
+    :returns: String containing concatenated ip-prefixes
+
+    """
+    start = int(start)
+    end = int(end)
+    index = 0
+    prefixes = ''
+    while index < end:
+        prefixes += get_ip_from_number(start + index) + '/32'
+        index += 1
+        if index < end:
+            prefixes += ','
+    return prefixes
