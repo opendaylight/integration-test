@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_3efc7b3e",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-06-30T09:35:02Z",
+      "side": 1,
+      "message": "what does run_tempest.sh do? why not just use \"ostestr\" directly?\nalso where does this file exist? did you mean to add it in this review? I can\u0027t find it in integration-test repo",
+      "revId": "1a018ded6e9b2a111c36f74b2d75e555d6fce987",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_7e04337e",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-06-30T09:35:02Z",
+      "side": 1,
+      "message": "Can we run all the tempest.scenario here? If it\u0027s in a separate test case, worst case is that we will have some extra failures to debug.\nI especially like the \"tempest.scenario.*network\" tests, but there are some other interesting ones for example tempest.scenario.test_security_groups_* show the missing SG functionality in netvirt",
+      "revId": "1a018ded6e9b2a111c36f74b2d75e555d6fce987",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_1ec1b72e",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-06-30T09:35:02Z",
+      "side": 1,
+      "message": "Why is the router created manually? \nI simply use \"Q_L3_ENABLED\u003dTrue\" (and ODL_L3\u003dTrue), and devstack loads the env with it.",
+      "revId": "1a018ded6e9b2a111c36f74b2d75e555d6fce987",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_bee7ebe3",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-06-30T09:35:02Z",
+      "side": 1,
+      "message": "Why are there configurations required for tempest.conf? \nI don\u0027t configure anything - I just put \"enable_service tempest\" in local.conf\nThen /opt/stack/tempest is cloned by devstack, and /opt/stack/tempest/etc/tempest.conf is filled with all the required details - so basically all that is needed is to run the tests",
+      "revId": "1a018ded6e9b2a111c36f74b2d75e555d6fce987",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
