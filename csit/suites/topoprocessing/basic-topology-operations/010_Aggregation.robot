@@ -169,6 +169,6 @@ Unification Termination Point Inside Inventory
     Check Aggregated Termination Point in Node    ${model}    ${resp.content}    ${topology_id}    of-node:3    tp:3:3    tp:3:3
     Check Aggregated Termination Point in Node    ${model}    ${resp.content}    ${topology_id}    of-node:2    tp:2:1    tp:2:1
     Check Aggregated Termination Point in Node    ${model}    ${resp.content}    ${topology_id}    of-node:2    tp:2:2    tp:2:2
-    Check Aggregated Termination Point in Node    ${model}    ${resp.content}    ${topology_id}    of-node:2    tp:3    tp:3
+    Check Aggregated Termination Point in Node    ${model}    ${resp.content}    ${topology_id}    of-node:2    tp:2:3    tp:2:3
     Check Aggregated Termination Point in Node    ${model}    ${resp.content}    ${topology_id}    of-node:1    tp:1:1    tp:1:1
     ...    tp:1:2

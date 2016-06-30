@@ -40,7 +40,7 @@ Filtration Range Number Inventory Model
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <termination-point>    5
     Check Filtered Termination Points in Node    ${resp.content}    of-node:1
-    Check Filtered Termination Points in Node    ${resp.content}    of-node:2    /tp:3    tp:2:2
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:2    tp:2:3    tp:2:2
     Check Filtered Termination Points in Node    ${resp.content}    of-node:3    tp:3:1    tp:3:2
     Check Filtered Termination Points in Node    ${resp.content}    of-node:4
     Check Filtered Termination Points in Node    ${resp.content}    of-node:5    tp:5:1
@@ -125,7 +125,7 @@ Filtration Range String Inventory Model
     ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
     Should Contain X Times    ${resp.content}    <termination-point>    3
     Check Filtered Termination Points in Node    ${resp.content}    of-node:1
-    Check Filtered Termination Points in Node    ${resp.content}    of-node:2    tp:2:1    /tp:3
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:2    tp:2:1    tp:2:3
     Check Filtered Termination Points in Node    ${resp.content}    of-node:3
     Check Filtered Termination Points in Node    ${resp.content}    of-node:4
     Check Filtered Termination Points in Node    ${resp.content}    of-node:5    tp:5:1
@@ -155,7 +155,7 @@ Filtration Script Inventory Model
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <termination-point>    3
     Check Filtered Termination Points in Node    ${resp.content}    of-node:1    tp:1:1
-    Check Filtered Termination Points in Node    ${resp.content}    of-node:2    tp:2:2    /tp:3
+    Check Filtered Termination Points in Node    ${resp.content}    of-node:2    tp:2:2    tp:2:3
     Check Filtered Termination Points in Node    ${resp.content}    of-node:3
     Check Filtered Termination Points in Node    ${resp.content}    of-node:4
     Check Filtered Termination Points in Node    ${resp.content}    of-node:5

@@ -147,7 +147,7 @@ Filtration Range Number Termination Point Update Inventory
     Should Contain X Times    ${resp.content}    <termination-point>    6
     Check Aggregated Termination Point in Node    ${model}    ${resp.content}    openflow-topo:1    of-node:2    tp:2:1    tp:2:1
     Check Aggregated Termination Point in Node    ${model}    ${resp.content}    openflow-topo:1    of-node:2    tp:2:2    tp:2:2
-    Check Aggregated Termination Point in Node    ${model}    ${resp.content}    openflow-topo:1    of-node:2    tp:3    /tp:3
+    Check Aggregated Termination Point in Node    ${model}    ${resp.content}    openflow-topo:1    of-node:2    tp:2:3    tp:2:3
     #Update an in-range termination point, so it is filtered out
     ${nodeConnector}    Create Openflow Node Connector    openflow:3:2    5
     Basic Request Put    ${nodeConnector}    opendaylight-inventory:nodes/node/openflow:3/node-connector/openflow:3:2
