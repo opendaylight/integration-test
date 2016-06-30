@@ -5,12 +5,14 @@ OpenDaylight project.
 Authors: Baohua Yang@IBM, Denghui Huang@IBM
 Edited: Many times by many people
 """
+import os
 
 # VM Environment defaults
 DEFAULT_LINUX_PROMPT = '>'
 DEFAULT_LINUX_PROMPT_STRICT = ']>'
 DEFAULT_USER = 'jenkins'
 DEFAULT_TIMEOUT = '30s'
+HOME = os.getenv("HOME")
 
 # ODL system variables
 ODL_SYSTEM_IP = '127.0.0.1'  # Override if ODL is not running locally to pybot
