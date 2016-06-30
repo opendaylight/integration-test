@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_8b046616",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-06-30T17:53:48Z",
+      "side": 1,
+      "message": "this comes in the tempest repo [0].  I ended up using it because I was needing to use a config file (-C ${tempest_conf} in next line).  Locally, the /etc/tempest/tempest.conf file was getting used when I ran with ostester, but running this in sandbox it wasn\u0027t taking it.  So I needed to manually provide it and this run_tempests.sh works for that.",
+      "parentUuid": "9a561d44_3efc7b3e",
+      "revId": "1a018ded6e9b2a111c36f74b2d75e555d6fce987",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_7e04337e",
         "filename": "csit/suites/openstack/tempest/tempest.robot",
         "patchSetId": 59
@@ -30,6 +48,24 @@
       "writtenOn": "2016-06-30T09:35:02Z",
       "side": 1,
       "message": "Can we run all the tempest.scenario here? If it\u0027s in a separate test case, worst case is that we will have some extra failures to debug.\nI especially like the \"tempest.scenario.*network\" tests, but there are some other interesting ones for example tempest.scenario.test_security_groups_* show the missing SG functionality in netvirt",
+      "revId": "1a018ded6e9b2a111c36f74b2d75e555d6fce987",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_0b10564d",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-06-30T17:53:48Z",
+      "side": 1,
+      "message": "running scenario tests is on the to-do list.  but, I\u0027ll get that in the next patch.  I want to see api tests upstream and working first, then to get them running in our 3node cluster job.  then I\u0027ll get to scenario.",
+      "parentUuid": "9a561d44_7e04337e",
       "revId": "1a018ded6e9b2a111c36f74b2d75e555d6fce987",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_6b1d9266",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-06-30T17:53:48Z",
+      "side": 1,
+      "message": "this is creating the network, not the router.  We do have ODL_L3 true, but not sure about Q_L3_ENABLED.  If those are true do you think this is not neccessary?  I can try in sandbox.",
+      "parentUuid": "9a561d44_1ec1b72e",
+      "revId": "1a018ded6e9b2a111c36f74b2d75e555d6fce987",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_bee7ebe3",
         "filename": "csit/suites/openstack/tempest/tempest.robot",
         "patchSetId": 59
@@ -64,6 +118,24 @@
       "writtenOn": "2016-06-30T09:35:02Z",
       "side": 1,
       "message": "Why are there configurations required for tempest.conf? \nI don\u0027t configure anything - I just put \"enable_service tempest\" in local.conf\nThen /opt/stack/tempest is cloned by devstack, and /opt/stack/tempest/etc/tempest.conf is filled with all the required details - so basically all that is needed is to run the tests",
+      "revId": "1a018ded6e9b2a111c36f74b2d75e555d6fce987",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_cb25beac",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-06-30T17:53:48Z",
+      "side": 1,
+      "message": "this is not happening for me, and we are doing enabled_service tempest.  Something may be missing, but I \ncould not figure it out.",
+      "parentUuid": "9a561d44_bee7ebe3",
       "revId": "1a018ded6e9b2a111c36f74b2d75e555d6fce987",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
