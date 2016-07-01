@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_a7beb6fd",
+        "filename": "csit/suites/openstack/create_tunnels.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-01T21:42:51Z",
+      "side": 1,
+      "message": "fixed.",
+      "parentUuid": "9a561d44_365bfa55",
+      "revId": "0a9114e55c257bb864217025922fc9f0c1769718",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_7655721c",
         "filename": "csit/suites/openstack/create_tunnels.robot",
         "patchSetId": 1
@@ -30,6 +48,24 @@
       "writtenOn": "2016-07-01T13:11:51Z",
       "side": 1,
       "message": "what api is this? I have never seen it before. Otherwise, why not use ovsdb or openflowplugin apis?",
+      "revId": "0a9114e55c257bb864217025922fc9f0c1769718",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_c73c8a96",
+        "filename": "csit/suites/openstack/create_tunnels.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-01T21:42:51Z",
+      "side": 1,
+      "message": "this is the api you can use to get the decimal formatted value for the dpid of the br-int\u0027s that are connected.  you can see it used and parsed starting in line 38 below",
+      "parentUuid": "9a561d44_7655721c",
       "revId": "0a9114e55c257bb864217025922fc9f0c1769718",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -53,6 +89,24 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_875292db",
+        "filename": "csit/suites/openstack/create_tunnels.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-01T21:42:51Z",
+      "side": 1,
+      "message": "yes, these are probably good candidates to move to a library.  we do have the OVSDB.robot library already that probably does similar things.  these things can go there maybe.",
+      "parentUuid": "9a561d44_3622dab9",
+      "revId": "0a9114e55c257bb864217025922fc9f0c1769718",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_b636ea01",
         "filename": "csit/suites/openstack/create_tunnels.robot",
         "patchSetId": 1
@@ -64,6 +118,24 @@
       "writtenOn": "2016-07-01T13:11:51Z",
       "side": 1,
       "message": "nitpick spelling",
+      "revId": "0a9114e55c257bb864217025922fc9f0c1769718",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_e75eeee8",
+        "filename": "csit/suites/openstack/create_tunnels.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-01T21:42:51Z",
+      "side": 1,
+      "message": "fixed",
+      "parentUuid": "9a561d44_b636ea01",
       "revId": "0a9114e55c257bb864217025922fc9f0c1769718",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -87,6 +159,24 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_075e82e6",
+        "filename": "csit/testplans/vpnservice-netvirt-1node-openstack.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-01T21:42:51Z",
+      "side": 1,
+      "message": "it *has* to be named netvirt-vpnservice or it wont work.  it\u0027s fixed now.",
+      "parentUuid": "9a561d44_b61d4a76",
+      "revId": "0a9114e55c257bb864217025922fc9f0c1769718",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_d618be86",
         "filename": "csit/testplans/vpnservice-netvirt-1node-openstack.txt",
         "patchSetId": 1
@@ -98,6 +188,24 @@
       "writtenOn": "2016-07-01T13:11:51Z",
       "side": 1,
       "message": "would it be better to ahve the netvirt-vpnservice test suite here and in that suite make calls to the create_tunnels?",
+      "revId": "0a9114e55c257bb864217025922fc9f0c1769718",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_8769f28d",
+        "filename": "csit/testplans/vpnservice-netvirt-1node-openstack.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-01T21:42:51Z",
+      "side": 1,
+      "message": "we don\u0027t have a netvirt-vpnservice suite yet do we?  either way, this testplan is executed in order, so as long as the create tunnels part is first we can add whatever suites we want after.  I have the connectivity commented out for now because I am just using this patch in the sandbox to see if the br-int creation + tunnel creation is enough to make tempest api tests pass.  \n\nI know the tempest api tests should be passing if our setup is proper, as per what I saw in some downstream example from David from HPE.",
+      "parentUuid": "9a561d44_d618be86",
       "revId": "0a9114e55c257bb864217025922fc9f0c1769718",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
