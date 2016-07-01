@@ -1,0 +1,106 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_365bfa55",
+        "filename": "csit/suites/openstack/create_tunnels.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-07-01T13:11:51Z",
+      "side": 1,
+      "message": "is this accurate to say running tempest tests?",
+      "revId": "0a9114e55c257bb864217025922fc9f0c1769718",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_7655721c",
+        "filename": "csit/suites/openstack/create_tunnels.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-07-01T13:11:51Z",
+      "side": 1,
+      "message": "what api is this? I have never seen it before. Otherwise, why not use ovsdb or openflowplugin apis?",
+      "revId": "0a9114e55c257bb864217025922fc9f0c1769718",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_3622dab9",
+        "filename": "csit/suites/openstack/create_tunnels.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-07-01T13:11:51Z",
+      "side": 1,
+      "message": "This and some other methods here look like good candidates for a shared library.\n\nI could also see two libraries:\n1. uses ovs-vsctl or ovs-ofctl to get info from nodes\n2. uses ovsdb southbound restconf apis to get info from nodes",
+      "revId": "0a9114e55c257bb864217025922fc9f0c1769718",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b636ea01",
+        "filename": "csit/suites/openstack/create_tunnels.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-07-01T13:11:51Z",
+      "side": 1,
+      "message": "nitpick spelling",
+      "revId": "0a9114e55c257bb864217025922fc9f0c1769718",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b61d4a76",
+        "filename": "csit/testplans/vpnservice-netvirt-1node-openstack.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-07-01T13:11:51Z",
+      "side": 1,
+      "message": "can this be name netvirt-vpnservice-... to keep it consistent with the other netvirt tests?",
+      "revId": "0a9114e55c257bb864217025922fc9f0c1769718",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d618be86",
+        "filename": "csit/testplans/vpnservice-netvirt-1node-openstack.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-07-01T13:11:51Z",
+      "side": 1,
+      "message": "would it be better to ahve the netvirt-vpnservice test suite here and in that suite make calls to the create_tunnels?",
+      "revId": "0a9114e55c257bb864217025922fc9f0c1769718",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
