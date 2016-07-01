@@ -4,6 +4,7 @@ Documentation     Test suite for running tempest tests.  It is assumed that the 
 Suite Setup       Log In To Tempest Executor And Setup Test Environment
 Suite Teardown    Close All Connections
 Library           SSHLibrary
+Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/DevstackUtils.robot
 Variables         ../../../variables/Variables.py
