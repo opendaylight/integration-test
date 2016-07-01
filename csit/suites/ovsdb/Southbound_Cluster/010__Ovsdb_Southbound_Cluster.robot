@@ -38,6 +38,14 @@ Add Port Manually and Verify Before Fail
     [Documentation]    Add port with OVS command and verify it gets applied from all instances.
     ClusterOvsdb.Add Sample Port To The Manual Bridge And Verify    ${original_cluster_list}
 
+Create Tap Device Before Fail
+    [Documentation]    Create tap devices to add to the bridge in ovs
+    ClusterOvsdb.Create Sample Tap Device
+
+Add Tap Device Manually and Verify Before Fail
+    [Documentation]    Add tap devices to the bridge with OVS command and verify it gets applied from all instances.
+    ClusterOvsdb.Add Sample Tap Device To The Manual Bridge And Verify    ${original_cluster_list}
+
 Delete the Bridge Manually and Verify Before Fail
     [Documentation]    Delete bridge with OVS command and verify it gets deleted from all instances.
     ClusterOvsdb.Delete Sample Bridge Manually And Verify    ${original_cluster_list}
@@ -94,6 +102,14 @@ Add Port Manually and Verify After Fail
     [Documentation]    Add port with OVS command and verify it gets applied from all instances.
     ClusterOvsdb.Add Sample Port To The Manual Bridge And Verify    ${new_cluster_list}
 
+Create Tap Device After Fail
+    [Documentation]    Create tap devices to add to the bridge in ovs
+    ClusterOvsdb.Create Sample Tap Device
+
+Add Tap Device Manually and Verify After Fail
+    [Documentation]    Add tap devices to the bridge with OVS command and verify it gets applied from all instances.
+    ClusterOvsdb.Add Sample Tap Device To The Manual Bridge And Verify    ${new_cluster_list}
+
 Delete the Bridge Manually and Verify After Fail
     [Documentation]    Delete bridge with OVS command and verify it gets deleted from all instances.
     ClusterOvsdb.Delete Sample Bridge Manually And Verify    ${new_cluster_list}
@@ -134,6 +150,14 @@ Create Bridge Manually and Verify After Recover
 Add Port Manually and Verify After Recover
     [Documentation]    Add port with OVS command and verify it gets applied from all instances.
     ClusterOvsdb.Add Sample Port To The Manual Bridge And Verify    ${original_cluster_list}
+
+Create Tap Device After Recover
+    [Documentation]    Create tap devices to add to the bridge in ovs
+    ClusterOvsdb.Create Sample Tap Device
+
+Add Tap Device Manually and Verify After Recover
+    [Documentation]    Add tap devices to the bridge with OVS command and verify it gets applied from all instances.
+    ClusterOvsdb.Add Sample Tap Device To The Manual Bridge And Verify    ${original_cluster_list}
 
 Delete the Bridge Manually and Verify After Recover
     [Documentation]    Delete bridge with OVS command and verify it gets deleted from all instances.
