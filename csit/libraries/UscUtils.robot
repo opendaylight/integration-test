@@ -27,7 +27,7 @@ Download Tools
     [Documentation]    Download UscAgent and EchoServer before any system
     ...    is run.
     Log    Download tools begin ...
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    ${CLONE_USC_TOOLS}    user=${TOOLS_SYSTEM_USER}    password=${TOOLS_SYSTEM_PASSWORD}    prompt_timeout=30s
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    ${CLONE_USC_TOOLS}    prompt_timeout=30s
     Log    Download tools ended.
 
 Start TCP
