@@ -157,6 +157,23 @@
       "revId": "1a018ded6e9b2a111c36f74b2d75e555d6fce987",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d6639e18",
+        "filename": "tools/clustering/cluster-monitor/cluster.json",
+        "patchSetId": 59
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-07-01T12:56:36Z",
+      "side": 1,
+      "message": "Are these always fixed? If so, does this mean we can only run a single job at a time or are these addresses internal to the test?",
+      "revId": "1a018ded6e9b2a111c36f74b2d75e555d6fce987",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
