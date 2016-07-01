@@ -99,8 +99,10 @@ Delete Vm Instance
 Get Net Id
     [Arguments]    ${network_name}      ${devstack_conn_id}
     [Documentation]    Retrieve the net id for the given network name to create specific vm instance
+    ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron net-list | grep "${network_name}" | get_field 1       30s
+    Close Connection
     Log    ${output}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${net_id}=    Get from List    ${splitted_output}    0
@@ -140,7 +142,7 @@ Ping Vm From DHCP Namespace
     Log    ${vm_ip}
     ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${net_id}=    Get Net Id    ${net_name}     ${devstack_conn_id}
+    ${net_id}=    Get Net Id    ${net_name}
     Log    ${net_id}
     ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
     Log    ${output}
@@ -153,7 +155,7 @@ Ping From DHCP Should Not Succeed
     Log    ${vm_ip}
     ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${net_id}=    Get Net Id    ${net_name}     ${devstack_conn_id}
+    ${net_id}=    Get Net Id    ${net_name}
     Log    ${net_id}
     ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
     Close Connection

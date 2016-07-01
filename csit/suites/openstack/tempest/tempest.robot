@@ -4,6 +4,10 @@ Documentation     Test suite for running tempest tests.  It is assumed that the 
 Suite Setup       Log In To Tempest Executor And Setup Test Environment
 Suite Teardown    Close All Connections
 Library           SSHLibrary
+<<<<<<< 38b207793b95168da38806fb328565e565a01663
+=======
+Resource          ../../../libraries/OpenStackOperations.robot
+>>>>>>> add tunnel creation suite for vpnservice netvirt
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/DevstackUtils.robot
 Variables         ../../../variables/Variables.py
