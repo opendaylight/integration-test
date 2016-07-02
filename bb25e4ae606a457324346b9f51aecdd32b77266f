@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_a2bea4fd",
+        "filename": "csit/suites/openstack/create_tunnels.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-07-02T10:26:45Z",
+      "side": 1,
+      "message": "typo in title - \"Get DPID for Control Node\"\nalso as the TODO says, this is very hardcoded for a certain topology - would probably be easier to just loop over all 3 OVS nodes\n\nhopefully this should go away once automatic tunnel configurations is committed (same for automatic bridge configuration)",
+      "revId": "bb25e4ae606a457324346b9f51aecdd32b77266f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
