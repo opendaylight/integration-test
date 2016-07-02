@@ -55,6 +55,24 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_c2d59844",
+        "filename": "csit/libraries/DevstackUtils.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-07-02T10:18:12Z",
+      "side": 1,
+      "message": "OK, this makes sense, though I\u0027m surprised using the default tempest conf didn\u0027t work for you, I just run ostestr from the tempest directory and everything works fine. no need to fill in any extra details to the config file, and no need to give the conf as a parameter.\n\nwhatever works though, we can clean this up sometime in the future",
+      "parentUuid": "9a561d44_8b52a611",
+      "revId": "1a018ded6e9b2a111c36f74b2d75e555d6fce987",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_7e04337e",
         "filename": "csit/suites/openstack/tempest/tempest.robot",
         "patchSetId": 59
@@ -119,6 +137,24 @@
       "side": 1,
       "message": "this is creating the network, not the router.  We do have ODL_L3 true, but not sure about Q_L3_ENABLED.  If those are true do you think this is not neccessary?  I can try in sandbox.",
       "parentUuid": "9a561d44_1ec1b72e",
+      "revId": "1a018ded6e9b2a111c36f74b2d75e555d6fce987",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_02d0304f",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 59
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-07-02T10:18:12Z",
+      "side": 1,
+      "message": "yup, Q_L3_ENABLED will add an external network, and configure a router with a leg both in the ext-net and the private-net - take a look at lib/neutron-legacy in devstack repo, when Q_L3_ENABLED is true",
+      "parentUuid": "9a561d44_6b1d9266",
       "revId": "1a018ded6e9b2a111c36f74b2d75e555d6fce987",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
