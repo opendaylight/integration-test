@@ -46,6 +46,19 @@ Send Basic Request And Test If Contain X Times
     Log    ${resp.content}
     [Return]    ${resp}
 
+Send Basic Delete Request
+    [Documentation]    Sends a HTTP/DELETE request to a given URL
+    [Arguments]    ${url}
+    ${resp}    Delete Request    session    ${CONFIG_API}/${url}
+    Log    Deleting ${CONFIG_API}/${url}
+    [Return]    ${resp}
+
+Delete Underlay Node
+    [Documentation]    Deletes a node from an underlay topology
+    [Arguments]    ${topology-id}    ${node-id}
+    ${resp}    Send Basic Delete Request    network-topology:network-topology/topology/${topology-id}/node/${node-id}
+    [Return]    ${resp}
+
 Setup Environment
     [Documentation]    Setup karaf enviroment for following tests
     Log    ---- Setup Environment ----
