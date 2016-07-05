@@ -97,12 +97,10 @@ Delete Vm Instance
     Close Connection
 
 Get Net Id
-    [Arguments]    ${network_name}
+    [Arguments]    ${network_name}      ${devstack_conn_id}
     [Documentation]    Retrieve the net id for the given network name to create specific vm instance
-    ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron net-list | grep "${network_name}" | get_field 1       30s
-    Close Connection
     Log    ${output}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${net_id}=    Get from List    ${splitted_output}    0
@@ -114,7 +112,7 @@ Create Vm Instances
     [Documentation]    Create X Vm Instance with the net id of the Netowrk.
     ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${net_id}=    Get Net Id    ${net_name}
+    ${net_id}=    Get Net Id    ${net_name}      ${devstack_conn_id}
     : FOR    ${VmElement}    IN    @{vm_instance_names}
     \    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement}    30s
     \    Log    ${output}
@@ -142,7 +140,7 @@ Ping Vm From DHCP Namespace
     Log    ${vm_ip}
     ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${net_id}=    Get Net Id    ${net_name}
+    ${net_id}=    Get Net Id    ${net_name}     ${devstack_conn_id}
     Log    ${net_id}
     ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
     Log    ${output}
@@ -155,7 +153,7 @@ Ping From DHCP Should Not Succeed
     Log    ${vm_ip}
     ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${net_id}=    Get Net Id    ${net_name}
+    ${net_id}=    Get Net Id    ${net_name}     ${devstack_conn_id}
     Log    ${net_id}
     ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
     Close Connection
@@ -209,7 +207,7 @@ Test Operations From Vm Instance
     [Documentation]    Login to the vm instance using ssh in the network.
     ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${net_id}=    Get Net Id    ${net_name}
+    ${net_id}=    Get Net Id    ${net_name}      ${devstack_conn_id}
     ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${src_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no    d:
     Log    ${output}
     ${output}=    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
