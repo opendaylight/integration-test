@@ -1,1 +1,1 @@
-integration/test/csit/suites/openstack/connectivity/01_l2_tests.robot
+integration/test/csit/suites/openstack/VTN_Mgr_Neutron/01_l2_tests.robot
