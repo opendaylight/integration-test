@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_24260db8",
+        "filename": "csit/suites/lispflowmapping/msmr/020_RPC_CRUD.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-07-07T22:32:59Z",
+      "side": 1,
+      "message": "Please capitalize: Get LispAddress JSON (same for other occurrences below)",
+      "revId": "8ed8af4b8a0e1a7fd5605325bad36d945d516a47",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_843a79cb",
+        "filename": "csit/suites/lispflowmapping/msmr/020_RPC_CRUD.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-07-07T22:32:59Z",
+      "side": 1,
+      "message": "Get MappingAuthkey JSON",
+      "revId": "8ed8af4b8a0e1a7fd5605325bad36d945d516a47",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_643765e4",
+        "filename": "csit/suites/lispflowmapping/msmr/020_RPC_CRUD.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-07-07T22:32:59Z",
+      "side": 1,
+      "message": "Merge",
+      "revId": "8ed8af4b8a0e1a7fd5605325bad36d945d516a47",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_c43471e0",
+        "filename": "csit/suites/lispflowmapping/msmr/020_RPC_CRUD.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-07-07T22:32:59Z",
+      "side": 1,
+      "message": "Wrap input\n\nAlso you could create another keyword called \u0027Merge And Wrap input\u0027 since this is quite common, to save some code.",
+      "revId": "8ed8af4b8a0e1a7fd5605325bad36d945d516a47",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_a4317dee",
+        "filename": "csit/suites/lispflowmapping/msmr/020_RPC_CRUD.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-07-07T22:32:59Z",
+      "side": 1,
+      "message": "This looks also very common so that we could have a \u0027Get LispAddress JSON And Wrap input\u0027 keyword.",
+      "revId": "8ed8af4b8a0e1a7fd5605325bad36d945d516a47",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_044e696f",
+        "filename": "csit/suites/lispflowmapping/msmr/020_RPC_CRUD.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-07-07T22:32:59Z",
+      "side": 1,
+      "message": "Get LocatorRecord Object",
+      "revId": "8ed8af4b8a0e1a7fd5605325bad36d945d516a47",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_44586132",
+        "filename": "csit/suites/lispflowmapping/msmr/020_RPC_CRUD.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-07-07T22:32:59Z",
+      "side": 1,
+      "message": "Get LispAddress Object",
+      "revId": "8ed8af4b8a0e1a7fd5605325bad36d945d516a47",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_e4525512",
+        "filename": "csit/suites/lispflowmapping/msmr/020_RPC_CRUD.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-07-07T22:32:59Z",
+      "side": 1,
+      "message": "Get MappingRecord JSON",
+      "revId": "8ed8af4b8a0e1a7fd5605325bad36d945d516a47",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
