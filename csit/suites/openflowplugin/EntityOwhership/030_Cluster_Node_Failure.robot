@@ -8,14 +8,13 @@ Library           RequestsLibrary
 Library           XML
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/OvsManager.robot
-Resource          ${CURDIR}/../../../libraries/ClusterKeywords.robot
+Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Library           Collections
 
 *** Variables ***
 ${SWITCHES}       1
 # this is for mininet 2.2.1 ${START_CMD}    sudo mn --controller=remote,ip=${ODL_SYSTEM_1_IP} --controller=remote,ip=${ODL_SYSTEM_2_IP} --controller=remote,ip=${ODL_SYSTEM_3_IP} --topo linear,${SWITCHES} --switch ovsk,protocols=OpenFlow13
 ${START_CMD}      sudo mn --topo linear,${SWITCHES} --switch ovsk,protocols=OpenFlow13
-${START_TIMEOUT}    90s
 ${KARAF_HOME}     ${WORKSPACE}${/}${BUNDLEFOLDER}
 
 *** Test Cases ***
@@ -33,7 +32,7 @@ Switches Still Be Connected To All Nodes
 
 *** Keywords ***
 Start Suite
-    BuiltIn.Log    Start the test on the base edition
+    ClusterManagement.ClusterManagement Setup
     ${mininet_conn_id}=    SSHLibrary.Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${TOOLS_SYSTEM_PROMPT}
     BuiltIn.Set Suite Variable    ${mininet_conn_id}
     SSHLibrary.Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/id_rsa    any
@@ -47,10 +46,7 @@ Start Suite
     : FOR    ${i}    IN RANGE    0    ${SWITCHES}
     \    ${sid}=    BuiltIn.Evaluate    ${i}+1
     \    Collections.Append To List    ${switch_list}    s${sid}
-    : FOR    ${i}    IN RANGE    0    ${NUM_ODL_SYSTEM}
-    \    ${cid}=    BuiltIn.Evaluate    ${i}+1
-    \    RequestsLibrary.Create Session    controller${cid}    http://${ODL_SYSTEM_${cid}_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    BuiltIn.Set Suite Variable    ${active_session}    controller1
+    BuiltIn.Set Suite Variable    ${active_member}    1
     OvsManager.Setup Clustered Controller For Switches    ${switch_list}    ${cntls_list}
     BuiltIn.Wait Until Keyword Succeeds    10s    1s    Are Switches Connected Topo
 
@@ -60,9 +56,9 @@ End Suite
 
 Are Switches Connected Topo
     [Documentation]    Checks wheather switches are connected to controller
-    ${resp}=    RequestsLibrary.Get Request    ${active_session}    ${OPERATIONAL_TOPO_API}/topology/flow:1    headers=${ACCEPT_XML}
-    BuiltIn.Log    ${resp.content}
-    ${count}=    XML.Get Element Count    ${resp.content}    xpath=node
+    ${resp}=    ClusterManagement.Get From Member    ${OPERATIONAL_TOPO_API}/topology/flow:1    ${active_member}    access=${ACCEPT_XML}
+    BuiltIn.Log    ${resp}
+    ${count}=    XML.Get Element Count    ${resp}    xpath=node
     BuiltIn.Should Be Equal As Numbers    ${count}    ${SWITCHES}
 
 Check All Switches Connected To All Cluster Nodes
@@ -89,18 +85,20 @@ Kill Switchs Old Owner
     [Arguments]    ${switch_name}
     BuiltIn.Set Test Variable    ${stopped_karaf}    ${Empty}
     Check Count Integrity    ${switch_name}    expected_controllers=3
-    ${old_owner}    ${old_followers}=    ClusterKeywords.Get Device Entity Owner And Followers Indexes    ${active_session}    openflow    openflow:${idx}
+    ${old_owner}    ${old_followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
     ${old_master}=    BuiltIn.Set Variable    ${ODL_SYSTEM_${old_owner}_IP}
-    ${tmp_follower}=    Collections.Get From List    ${old_followers}    0
-    BuiltIn.Set Suite Variable    ${active_session}    controller${tmp_follower}
-    Stop Controller Node And Verify    ${old_master}
-    BuiltIn.Set Test Variable    ${stopped_karaf}    ${old_master}
+    ${tmp_followers}=    BuiltIn.Create List    @{old_followers}
+    Collections.Remove Values From List    ${tmp_followers}    ${old_owner}
+    ${tmp_follower}=    Collections.Get From List    ${tmp_followers}    0
+    BuiltIn.Set Suite Variable    ${active_member}    ${tmp_follower}
+    Stop Controller Node And Verify    ${old_owner}
+    BuiltIn.Set Test Variable    ${stopped_karaf}    ${old_owner}
     ${new_master}=    BuiltIn.Wait Until Keyword Succeeds    5x    3s    Verify New Master Controller Node    ${switch_name}    ${old_master}
-    ${owner}    ${followers}=    ClusterKeywords.Get Device Entity Owner And Followers Indexes    ${active_session}    openflow    openflow:${idx}
+    ${owner}    ${followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
     Collections.List Should Contain Value    ${old_followers}    ${owner}
     Check Count Integrity    ${switch_name}    expected_controllers=2
     BuiltIn.Should Be Equal As Strings    ${new_master}    ${ODL_SYSTEM_${owner}_IP}
-    BuiltIn.Set Suite Variable    ${active_session}    controller${owner}
+    BuiltIn.Set Suite Variable    ${active_member}    ${owner}
     BuiltIn.Set Test Variable    ${old_owner}
     BuiltIn.Set Test Variable    ${old_followers}
     BuiltIn.Set Test Variable    ${old_master}
@@ -109,23 +107,23 @@ Kill Switchs Old Owner
 
 Restart Switchs Old Owner
     [Arguments]    ${switch_name}
-    Start Controller Node And Verify    ${old_master}
+    Start Controller Node And Verify    ${old_owner}
     BuiltIn.Set Test Variable    ${stopped_karaf}    ${Empty}
     BuiltIn.Wait Until Keyword Succeeds    5x    3s    Verify Follower Added    ${switch_name}    ${old_owner}
-    ${new_owner}    ${new_followers}=    ClusterKeywords.Get Device Entity Owner And Followers Indexes    ${active_session}    openflow    openflow:${idx}
+    ${new_owner}    ${new_followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
     Check Count Integrity    ${switch_name}    expected_controllers=3
     BuiltIn.Should Be Equal    ${owner}    ${new_owner}
     Collections.List Should Contain Value    ${new_followers}    ${old_owner}
 
 Kill Switchs Candidate
     [Arguments]    ${switch_name}
-    ${old_owner}    ${old_followers}=    ClusterKeywords.Get Device Entity Owner And Followers Indexes    ${active_session}    openflow    openflow:${idx}
+    ${old_owner}    ${old_followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
     ${old_follower}=    Collections.Get From List    ${old_followers}    0
     ${old_slave}=    BuiltIn.Set Variable    ${ODL_SYSTEM_${old_follower}_IP}
-    Stop Controller Node And Verify    ${old_slave}
-    BuiltIn.Set Test Variable    ${stopped_karaf}    ${old_slave}
+    Stop Controller Node And Verify    ${old_follower}
+    BuiltIn.Set Test Variable    ${stopped_karaf}    ${old_follower}
     BuiltIn.Wait Until Keyword Succeeds    5x    3s    Check Count Integrity    ${switch_name}    expected_controllers=2
-    ${owner}    ${followers}=    ClusterKeywords.Get Device Entity Owner And Followers Indexes    ${active_session}    openflow    openflow:${idx}
+    ${owner}    ${followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
     BuiltIn.Should Be Equal    ${owner}    ${old_owner}
     Collections.List Should Not Contain Value    ${followers}    ${old_follower}
     BuiltIn.Should Be Equal As Strings    ${new_master}    ${ODL_SYSTEM_${owner}_IP}
@@ -137,10 +135,10 @@ Kill Switchs Candidate
 
 Restart Switchs Candidate
     [Arguments]    ${switch_name}
-    Start Controller Node And Verify    ${old_slave}
+    Start Controller Node And Verify    ${old_follower}
     BuiltIn.Set Test Variable    ${stopped_karaf}    ${Empty}
     BuiltIn.Wait Until Keyword Succeeds    5x    3s    Check Count Integrity    ${switch_name}    expected_controllers=3
-    ${new_owner}    ${new_followers}=    ClusterKeywords.Get Device Entity Owner And Followers Indexes    ${active_session}    openflow    openflow:${idx}
+    ${new_owner}    ${new_followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
     BuiltIn.Should Be Equal    ${old_owner}    ${new_owner}
     Collections.List Should Contain Value    ${new_followers}    ${old_follower}
 
@@ -148,7 +146,7 @@ Check Count Integrity
     [Arguments]    ${switch_name}    ${expected_controllers}=3
     [Documentation]    Every switch must have only one master and rest must be followers and together must be of expected nodes count
     ${idx}=    BuiltIn.Evaluate    "${switch_name}"[1:]
-    ${owner}    ${candidates}=    ClusterKeywords.Get Device Entity Owner And Candidates Indexes    ${active_session}    openflow    openflow:${idx}
+    ${owner}    ${candidates}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
     ${count}=    BuiltIn.Get Length    ${candidates}
     BuiltIn.Should Be Equal As Numbers    ${expected_controllers}    ${count}
 
@@ -156,7 +154,7 @@ Verify New Master Controller Node
     [Arguments]    ${switch_name}    ${old_master}
     [Documentation]    Checks if given node is different from actual master
     ${idx}=    BuiltIn.Evaluate    "${switch_name}"[1:]
-    ${owner}    ${followers}=    ClusterKeywords.Get Device Entity Owner And Followers Indexes    ${active_session}    openflow    openflow:${idx}
+    ${owner}    ${followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
     ${new_master}    BuiltIn.Set Variable    ${ODL_SYSTEM_${owner}_IP}
     BuiltIn.Should Not Be Equal    ${old_master}    ${new_master}
     Return From Keyword    ${new_master}
@@ -165,17 +163,17 @@ Verify Follower Added
     [Arguments]    ${switch_name}    ${expected_node}
     [Documentation]    Checks if given node is in the list of active followers
     ${idx}=    BuiltIn.Evaluate    "${switch_name}"[1:]
-    ${owner}    ${followers}=    ClusterKeywords.Get Device Entity Owner And Followers Indexes    ${active_session}    openflow    openflow:${idx}
+    ${owner}    ${followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
     Collections.List Should Contain Value    ${followers}    ${expected_node}
 
 Stop Controller Node And Verify
     [Arguments]    ${node}
     [Documentation]    Stops the given node
-    ClusterKeywords.Stop Controller Node And Verify    ${node}
+    ClusterManagement.Kill Single Member    ${node}
     [Teardown]    SSHLibrary.Switch Connection    ${mininet_conn_id}
 
 Start Controller Node And Verify
     [Arguments]    ${node}
     [Documentation]    Starts the given node
-    ClusterKeywords.Start Controller Node And Verify    ${node}    ${START_TIMEOUT}
+    ClusterManagement.Start Single Member    ${node}
     [Teardown]    SSHLibrary.Switch Connection    ${mininet_conn_id}
