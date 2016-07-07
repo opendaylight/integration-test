@@ -163,11 +163,25 @@ Add Filter
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-filter    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
 
+Add Domain Filter
+    [Arguments]    ${name}    ${domains}    ${entries}    ${node}=127.0.0.1    ${filter_name}=base-domain-filter    ${session}=session
+    [Documentation]    Add Domain Filter via RPC from Node
+    ${DATA}    Add Domain Filter Xml    ${name}    ${domains}    ${entries}    ${node}    ${filter_name}
+    ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-domain-filter    data=${DATA}    headers=${HEADERS_XML}
+    Should be Equal As Strings    ${resp.status_code}    200
+
 Delete Filter
     [Arguments]    ${name}    ${type}    ${node}=127.0.0.1    ${session}=session
     [Documentation]    Delete Filter via RPC from Node
     ${DATA}    Delete Filter Xml    ${name}    ${type}    ${node}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:delete-filter    data=${DATA}    headers=${HEADERS_XML}
+    Should be Equal As Strings    ${resp.status_code}    200
+
+Delete Domain Filter
+    [Arguments]    ${name}    ${node}=127.0.0.1    ${filter_name}=base-domain-filter    ${session}=session
+    [Documentation]    Delete Filter via RPC from Node
+    ${DATA}    Delete Filter Xml    ${name}    ${node}    ${filter_name}
+    ${resp}    Post Request    ${session}    ${REST_CONTEXT}:delete-domain-filter    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
 
 Should Contain Binding
@@ -309,8 +323,8 @@ Check Node Started
     [Documentation]    Verify that SxpNode has data writed to Operational datastore
     ${resp}    RequestsLibrary.Get Request    session    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${rc}    Run Command On Remote System    ${system}    netstat -tln | grep -q ${node}:${port} && echo 0 || echo 1    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}    prompt=${ODL_SYSTEM_PROMPT}
-    Should Be Equal As Strings    ${rc}    0
+    ${rc}    Run and Return RC    netstat -tln | grep -q ${node}:${port}
+    should be equal as integers    ${rc}    0
 
 Clean SXP Environment
     [Arguments]    ${node_range}=2
