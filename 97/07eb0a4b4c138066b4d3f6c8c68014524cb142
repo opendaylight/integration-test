@@ -1,0 +1,8 @@
+Verified+1: jenkins-releng <jenkins-releng@opendaylight.org>
+Code-Review+1: Morgan Richomme <morgan.richomme@orange.com>
+Code-Review+2: Jamo Luhrsen <jluhrsen@redhat.com>
+Submitted-by: Jamo Luhrsen <jluhrsen@redhat.com>
+Submitted-at: Thu, 07 Jul 2016 17:18:45 +0000
+Reviewed-on: https://git.opendaylight.org/gerrit/41461
+Project: integration/test
+Branch: refs/heads/master
