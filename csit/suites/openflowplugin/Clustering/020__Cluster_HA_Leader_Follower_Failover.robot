@@ -1,30 +1,21 @@
 *** Settings ***
 Documentation     Test suite for Cluster HA - Device Leader Follower failover
-Suite Setup       Create Controller Sessions
+Suite Setup       ClusterManagement Setup
 Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
 Resource          ../../../libraries/ClusterOpenFlow.robot
-Resource          ../../../libraries/ClusterKeywords.robot
+Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/MininetKeywords.robot
 Variables         ../../../variables/Variables.py
 
-*** Variables ***
-${INVENTORY_SHARD}    shard-inventory-config
-${START_TIMEOUT}    300s
-
 *** Test Cases ***
-Create Original Cluster List
-    [Documentation]    Create original cluster list.
-    ${original_cluster_list}    ClusterKeywords.Create Controller Index List
-    Set Suite Variable    ${original_cluster_list}
-
 Check Shards Status Before Leader Restart
     [Documentation]    Check Status for all shards in OpenFlow application.
-    ClusterOpenFlow.Check OpenFlow Shards Status    ${original_cluster_list}
+    ClusterOpenFlow.Check OpenFlow Shards Status    ${ClusterManagement_member_index_list}
 
 Get inventory Leader Before Leader Restart
     [Documentation]    Find leader in the inventory config shard
-    ${inventory_leader}    ${inventory_followers}    ClusterOpenFlow.Get InventoryConfig Shard Status    ${original_cluster_list}
+    ${inventory_leader}    ${inventory_followers}    ClusterOpenFlow.Get InventoryConfig Shard Status    ${ClusterManagement_member_index_list}
     ${follower_node_1}=    Get From List    ${inventory_followers}    0
     ${follower_node_2}=    Get From List    ${inventory_followers}    1
     Set Suite Variable    ${follower_node_1}
@@ -38,31 +29,31 @@ Start Mininet Connect To Leader
 
 Add Flows In Leader and Verify Before Leader Restart
     [Documentation]    Add Flow via Leader and verify it gets applied from all instances.
-    ClusterOpenFlow.Add Sample Flow And Verify    ${original_cluster_list}    ${inventory_leader}
+    ClusterOpenFlow.Add Sample Flow And Verify    ${ClusterManagement_member_index_list}    ${inventory_leader}
 
 Modify Flows In Leader and Verify Before Leader Restart
     [Documentation]    Modify Flow in Leader and verify it gets applied from all instances.
-    ClusterOpenFlow.Modify Sample Flow and Verify    ${original_cluster_list}    ${inventory_leader}
+    ClusterOpenFlow.Modify Sample Flow and Verify    ${ClusterManagement_member_index_list}    ${inventory_leader}
 
 Delete Flows In Leader and Verify Before Leader Restart
     [Documentation]    Delete Flow in Leader and verify it gets applied from all instances.
-    ClusterOpenFlow.Delete Sample Flow and Verify    ${original_cluster_list}    ${inventory_leader}
+    ClusterOpenFlow.Delete Sample Flow and Verify    ${ClusterManagement_member_index_list}    ${inventory_leader}
 
 Send RPC Add to Leader and Verify Before Leader Restart
     [Documentation]    Add Flow in Leader and verify it gets applied from all Controller instances.
-    ClusterOpenFlow.Send RPC Add Sample Flow and Verify    ${original_cluster_list}    ${inventory_leader}
+    ClusterOpenFlow.Send RPC Add Sample Flow and Verify    ${ClusterManagement_member_index_list}    ${inventory_leader}
 
 Send RPC Delete to Leader and Verify Before Leader Restart
     [Documentation]    Delete Flow in Owner and verify it gets removed from all Controller instances.
-    ClusterOpenFlow.Send RPC Delete Sample Flow and Verify    ${original_cluster_list}    ${inventory_leader}
+    ClusterOpenFlow.Send RPC Delete Sample Flow and Verify    ${ClusterManagement_member_index_list}    ${inventory_leader}
 
 Send RPC Add to Follower Node1 and Verify Before Leader Restart
     [Documentation]    Add Flow in Follower and verify it gets applied from all Controller instances.
-    ClusterOpenFlow.Send RPC Add Sample Flow and Verify    ${original_cluster_list}    ${follower_node_1}
+    ClusterOpenFlow.Send RPC Add Sample Flow and Verify    ${ClusterManagement_member_index_list}    ${follower_node_1}
 
 Send RPC Delete to Follower Node2 and Verify Before Leader Restart
     [Documentation]    Delete Flow in Follower and verify it gets removed from all Controller instances.
-    ClusterOpenFlow.Send RPC Delete Sample Flow and Verify    ${original_cluster_list}    ${follower_node_2}
+    ClusterOpenFlow.Send RPC Delete Sample Flow and Verify    ${ClusterManagement_member_index_list}    ${follower_node_2}
 
 Stop Mininet Connected To Leader and Exit
     [Documentation]    Stop mininet and exit connection.
@@ -71,12 +62,12 @@ Stop Mininet Connected To Leader and Exit
 
 Restart Leader From Cluster Node
     [Documentation]    Kill Leader Node and Start it Up, Verify it is sync with other controller node.
-    ClusterKeywords.Kill Multiple Controllers    ${inventory_leader}
-    ClusterKeywords.Start Multiple Controllers    ${START_TIMEOUT}    ${inventory_leader}
+    ClusterManagement.Kill Single Member    ${inventory_leader}
+    ClusterManagement.Start Single Member    ${inventory_leader}
 
 Get inventory Follower After Leader Restart
     [Documentation]    Find new Followers and Leader in the inventory config shard After Leader Restart
-    ${inventory_leader}    ${inventory_followers}    ClusterOpenFlow.Get InventoryConfig Shard Status    ${original_cluster_list}
+    ${inventory_leader}    ${inventory_followers}    ClusterOpenFlow.Get InventoryConfig Shard Status    ${ClusterManagement_member_index_list}
     ${follower_node_1}=    Get From List    ${inventory_followers}    0
     ${follower_node_2}=    Get From List    ${inventory_followers}    1
     Set Suite Variable    ${follower_node_1}
@@ -90,31 +81,31 @@ Start Mininet Connect To Follower Node1
 
 Add Flows In Follower Node2 and Verify Before Follower Restart
     [Documentation]    Add Flow via cluster Follower Node2 and verify it gets applied from all instances.
-    ClusterOpenFlow.Add Sample Flow And Verify    ${original_cluster_list}    ${follower_node_2}
+    ClusterOpenFlow.Add Sample Flow And Verify    ${ClusterManagement_member_index_list}    ${follower_node_2}
 
 Modify Flows In Follower Node2 and Verify Before Follower Restart
     [Documentation]    Modify Flow in Follower Node2 and verify it gets applied from all instances.
-    ClusterOpenFlow.Modify Sample Flow and Verify    ${original_cluster_list}    ${follower_node_2}
+    ClusterOpenFlow.Modify Sample Flow and Verify    ${ClusterManagement_member_index_list}    ${follower_node_2}
 
 Delete Flows In Follower Node2 and Verify Follower Restart
     [Documentation]    Delete Flow in Follower Node2 and verify it gets applied from all instances.
-    ClusterOpenFlow.Delete Sample Flow and Verify    ${original_cluster_list}    ${follower_node_2}
+    ClusterOpenFlow.Delete Sample Flow and Verify    ${ClusterManagement_member_index_list}    ${follower_node_2}
 
 Send RPC Add to Leader and Verify Before Follower Restart
     [Documentation]    Add Flow in Leader and verify it gets applied from all Controller instances.
-    ClusterOpenFlow.Send RPC Add Sample Flow and Verify    ${original_cluster_list}    ${inventory_leader}
+    ClusterOpenFlow.Send RPC Add Sample Flow and Verify    ${ClusterManagement_member_index_list}    ${inventory_leader}
 
 Send RPC Delete to Leader and Verify Before Follower Restart
     [Documentation]    Delete Flow in Owner and verify it gets removed from all Controller instances.
-    ClusterOpenFlow.Send RPC Delete Sample Flow and Verify    ${original_cluster_list}    ${inventory_leader}
+    ClusterOpenFlow.Send RPC Delete Sample Flow and Verify    ${ClusterManagement_member_index_list}    ${inventory_leader}
 
 Send RPC Add to First Follower Node1 and Verify Before Follower Restart
     [Documentation]    Add Flow in Follower and verify it gets applied from all Controller instances.
-    ClusterOpenFlow.Send RPC Add Sample Flow and Verify    ${original_cluster_list}    ${follower_node_1}
+    ClusterOpenFlow.Send RPC Add Sample Flow and Verify    ${ClusterManagement_member_index_list}    ${follower_node_1}
 
 Send RPC Delete to Follower Node2 and Verify Before Follower Restart
     [Documentation]    Delete Flow in Follower Node2 and verify it gets removed from all Controller instances.
-    ClusterOpenFlow.Send RPC Delete Sample Flow and Verify    ${original_cluster_list}    ${follower_node_2}
+    ClusterOpenFlow.Send RPC Delete Sample Flow and Verify    ${ClusterManagement_member_index_list}    ${follower_node_2}
 
 Stop Mininet Connected To Follower and Exit
     [Documentation]    Stop mininet and exit connection.
@@ -123,12 +114,12 @@ Stop Mininet Connected To Follower and Exit
 
 Restart Follower Node2
     [Documentation]    Kill Follower Node2 and Start it Up, Verify it is sync with other controller node.
-    ClusterKeywords.Kill Multiple Controllers    ${follower_node_2}
-    ClusterKeywords.Start Multiple Controllers    ${START_TIMEOUT}    ${follower_node_2}
+    ClusterManagement.Kill Single Member    ${follower_node_2}
+    ClusterManagement.Start Single Member    ${follower_node_2}
 
 Get inventory Follower After Follower Restart
     [Documentation]    Find Followers and Leader in the inventory config shard After Follower Restart
-    ${inventory_leader}    ${inventory_followers}    ClusterOpenFlow.Get InventoryConfig Shard Status    ${original_cluster_list}
+    ${inventory_leader}    ${inventory_followers}    ClusterOpenFlow.Get InventoryConfig Shard Status    ${ClusterManagement_member_index_list}
     ${follower_node_1}=    Get From List    ${inventory_followers}    0
     ${follower_node_2}=    Get From List    ${inventory_followers}    1
     Set Suite Variable    ${follower_node_1}
@@ -142,31 +133,31 @@ Start Mininet Connect To Follower Node2
 
 Add Flows In Follower Node1 and Verify Before Cluster Restart
     [Documentation]    Add Flow via cluster Follower Node1 and verify it gets applied from all instances.
-    ClusterOpenFlow.Add Sample Flow And Verify    ${original_cluster_list}    ${follower_node_1}
+    ClusterOpenFlow.Add Sample Flow And Verify    ${ClusterManagement_member_index_list}    ${follower_node_1}
 
 Modify Flows In Follower Node1 and Verify Before Cluster Restart
     [Documentation]    Modify Flow in Follower Node1 and verify it gets applied from all instances.
-    ClusterOpenFlow.Modify Sample Flow and Verify    ${original_cluster_list}    ${follower_node_1}
+    ClusterOpenFlow.Modify Sample Flow and Verify    ${ClusterManagement_member_index_list}    ${follower_node_1}
 
 Delete Flows In Follower Node1 and Verify Before Cluster Restart
     [Documentation]    Delete Flow in Follower Node1 and verify it gets applied from all instances.
-    ClusterOpenFlow.Delete Sample Flow and Verify    ${original_cluster_list}    ${follower_node_1}
+    ClusterOpenFlow.Delete Sample Flow and Verify    ${ClusterManagement_member_index_list}    ${follower_node_1}
 
 Send RPC Add to Leader and Verify Before Cluster Restart
     [Documentation]    Add Flow in Leader and verify it gets applied from all Controller instances.
-    ClusterOpenFlow.Send RPC Add Sample Flow and Verify    ${original_cluster_list}    ${inventory_leader}
+    ClusterOpenFlow.Send RPC Add Sample Flow and Verify    ${ClusterManagement_member_index_list}    ${inventory_leader}
 
 Send RPC Delete to Leader and Verify Before Cluster Restart
     [Documentation]    Delete Flow in Owner and verify it gets removed from all Controller instances.
-    ClusterOpenFlow.Send RPC Delete Sample Flow and Verify    ${original_cluster_list}    ${inventory_leader}
+    ClusterOpenFlow.Send RPC Delete Sample Flow and Verify    ${ClusterManagement_member_index_list}    ${inventory_leader}
 
 Send RPC Add to Follower Node2 and Verify Before Cluster Restart
     [Documentation]    Add Flow in Follower and verify it gets applied from all Controller instances.
-    ClusterOpenFlow.Send RPC Add Sample Flow and Verify    ${original_cluster_list}    ${follower_node_2}
+    ClusterOpenFlow.Send RPC Add Sample Flow and Verify    ${ClusterManagement_member_index_list}    ${follower_node_2}
 
 Send RPC Delete to Follower Node1 and Verify Before Cluster Restart
     [Documentation]    Delete Flow in Follower and verify it gets removed from all Controller instances.
-    ClusterOpenFlow.Send RPC Delete Sample Flow and Verify    ${original_cluster_list}    ${follower_node_1}
+    ClusterOpenFlow.Send RPC Delete Sample Flow and Verify    ${ClusterManagement_member_index_list}    ${follower_node_1}
 
 Stop Mininet Connected To Other Follower and Exit
     [Documentation]    Stop mininet Connected To Other Follower and exit connection.
@@ -175,12 +166,12 @@ Stop Mininet Connected To Other Follower and Exit
 
 Restart Full Cluster
     [Documentation]    Kill all Cluster Nodes and Start it Up All.
-    ClusterKeywords.Kill Multiple Controllers    @{original_cluster_list}
-    ClusterKeywords.Start Multiple Controllers    ${START_TIMEOUT}    @{original_cluster_list}
+    ClusterManagement.Kill Members From List Or All
+    ClusterManagement.Start Members From List Or All
 
 Get inventory Status After Cluster Restart
     [Documentation]    Find New Followers and Leader in the inventory config shard After Cluster Restart
-    ${inventory_leader}    ${inventory_followers}    ClusterOpenFlow.Get InventoryConfig Shard Status    ${original_cluster_list}
+    ${inventory_leader}    ${inventory_followers}    ClusterOpenFlow.Get InventoryConfig Shard Status    ${ClusterManagement_member_index_list}
     ${follower_node_1}=    Get From List    ${inventory_followers}    0
     ${follower_node_2}=    Get From List    ${inventory_followers}    1
     Set Suite Variable    ${follower_node_1}
@@ -194,31 +185,31 @@ Start Mininet Connect To Follower Node2 After Cluster Restart
 
 Add Flows In Follower Node1 and Verify After Cluster Restart
     [Documentation]    Add Flow via cluster Follower Node1 and verify it gets applied from all instances.
-    ClusterOpenFlow.Add Sample Flow And Verify    ${original_cluster_list}    ${follower_node_1}
+    ClusterOpenFlow.Add Sample Flow And Verify    ${ClusterManagement_member_index_list}    ${follower_node_1}
 
 Modify Flows In Follower Node1 and Verify After Cluster Restart
     [Documentation]    Modify Flow in Follower Node1 and verify it gets applied from all instances.
-    ClusterOpenFlow.Modify Sample Flow and Verify    ${original_cluster_list}    ${follower_node_1}
+    ClusterOpenFlow.Modify Sample Flow and Verify    ${ClusterManagement_member_index_list}    ${follower_node_1}
 
 Delete Flows In Follower Node1 and Verify After Cluster Restart
     [Documentation]    Delete Flow in Follower Node1 and verify it gets applied from all instances.
-    ClusterOpenFlow.Delete Sample Flow and Verify    ${original_cluster_list}    ${follower_node_1}
+    ClusterOpenFlow.Delete Sample Flow and Verify    ${ClusterManagement_member_index_list}    ${follower_node_1}
 
 Send RPC Add to Leader and Verify After Cluster Restart
     [Documentation]    Add Flow in Leader and verify it gets applied from all Controller instances.
-    ClusterOpenFlow.Send RPC Add Sample Flow and Verify    ${original_cluster_list}    ${inventory_leader}
+    ClusterOpenFlow.Send RPC Add Sample Flow and Verify    ${ClusterManagement_member_index_list}    ${inventory_leader}
 
 Send RPC Delete to Leader and Verify After Cluster Restart
     [Documentation]    Delete Flow in Owner and verify it gets removed from all Controller instances.
-    ClusterOpenFlow.Send RPC Delete Sample Flow and Verify    ${original_cluster_list}    ${inventory_leader}
+    ClusterOpenFlow.Send RPC Delete Sample Flow and Verify    ${ClusterManagement_member_index_list}    ${inventory_leader}
 
 Send RPC Add to Follower Node2 and Verify After Cluster Restart
     [Documentation]    Add Flow in Follower and verify it gets applied from all Controller instances.
-    ClusterOpenFlow.Send RPC Add Sample Flow and Verify    ${original_cluster_list}    ${follower_node_2}
+    ClusterOpenFlow.Send RPC Add Sample Flow and Verify    ${ClusterManagement_member_index_list}    ${follower_node_2}
 
 Send RPC Delete to Follower Node2 and Verify After Cluster Restart
     [Documentation]    Delete Flow in Follower and verify it gets removed from all Controller instances.
-    ClusterOpenFlow.Send RPC Delete Sample Flow and Verify    ${original_cluster_list}    ${follower_node_1}
+    ClusterOpenFlow.Send RPC Delete Sample Flow and Verify    ${ClusterManagement_member_index_list}    ${follower_node_1}
 
 Stop Mininet Connected To Follower Node2 and Exit After Cluster Restart
     [Documentation]    Stop mininet Connected To Other Follower and exit connection.
