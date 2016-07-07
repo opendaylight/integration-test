@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_042789b7",
+        "filename": "csit/libraries/JsonGenerator.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-07-07T22:18:57Z",
+      "side": 1,
+      "message": "Please capitalize as follows: Get_LISP_Address_JSON. It is not The Python Way(TM) but it looks better when used as a Robot Keyword.",
+      "revId": "55f0e8a3586b1788631125691169ca07ad719925",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_e42b7580",
+        "filename": "csit/libraries/JsonGenerator.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-07-07T22:18:57Z",
+      "side": 1,
+      "message": "This debug print should be removed.",
+      "revId": "55f0e8a3586b1788631125691169ca07ad719925",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
