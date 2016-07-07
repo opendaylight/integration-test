@@ -1,5 +1,7 @@
 *** Settings ***
 Documentation     Test suite for Neutron Plugin
+Suite Setup       Start Suite
+Suite Teardown    Stop Suite
 Library           SSHLibrary
 Library           Collections
 Library           RequestsLibrary
