@@ -9,7 +9,10 @@ Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${UserInfo}       {"auth": {"tenantName": "admin", "passwordCredentials": {"username": "admin", "password": "admin"}}}
+${OSTENANTNAME}   "admin"
+${OSUSERNAME}     "admin"
+${OSPASSWORD}     "admin"
+${UserInfo}       {"auth": {"tenantName": ${OSTENANTNAME}, "passwordCredentials": {"username": ${OSUSERNAME}, "password": ${OSPASSWORD}}}}
 
 *** Keywords ***
 Start Suite
