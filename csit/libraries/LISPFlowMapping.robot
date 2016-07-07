@@ -3,6 +3,7 @@ Documentation     This resource file defines keywords that are used in more
 ...               than one lispflowmapping test suite. Those suites include
 ...               ../variables/Variables.py, which is where some of the
 ...               variables are coming from.
+Library           JsonGenerator.py
 
 *** Variables ***
 ${JSON_DIR}       ${CURDIR}/../variables/lispflowmapping/Be
@@ -54,3 +55,13 @@ Get Elp Hop
 Check Mapping Removal
     [Arguments]    ${json}
     Post Log Check    ${LFM_RPC_API}:get-mapping    ${json}    404
+
+Get Mapping JSON
+    [Documentation]    Returns mapping record JSON dict
+    [Arguments]    ${eid}    ${rloc}
+    ${loc_record}=    Get LocatorRecord Object    ${rloc}
+    ${lisp_address}=    Get LispAddress Object    ${eid}
+    ${loc_record_list}=    Create List    ${loc_record}
+    ${mapping_record_json}=    Get MappingRecord JSON    ${lisp_address}    ${loc_record_list}
+    ${mapping}=    Wrap input    ${mapping_record_json}
+    [return]    ${mapping}
