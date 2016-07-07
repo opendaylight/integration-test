@@ -35,12 +35,12 @@ Create Subnets For network_2
     Create SubNet    network_2    subnet_2    @{SUBNETS_RANGE}[1]
 
 Create Vm Instances For network_1
-    [Documentation]    Create Four Vm instances using flavor and image names for a network.
+    [Documentation]    Create Vm instances using flavor and image names for a network.
     Create Vm Instances    network_1    ${NET_1_VM_INSTANCES}
     [Teardown]    Show Debugs    ${NET_1_VM_INSTANCES}
 
 Create Vm Instances For network_2
-    [Documentation]    Create Four Vm instances using flavor and image names for a network.
+    [Documentation]    Create Vm instances using flavor and image names for a network.
     Create Vm Instances    network_2    ${NET_2_VM_INSTANCES}
     [Teardown]    Show Debugs    ${NET_2_VM_INSTANCES}
 

@@ -45,7 +45,7 @@ Take Down ODL1
     Set Suite Variable    ${new_cluster_list}
 
 Create Vm Instances For l3_net_1
-    [Documentation]    Create Four Vm instances using flavor and image names for a network.
+    [Documentation]    Create Vm instances using flavor and image names for a network.
     Create Vm Instances    l3_net_1    ${NET_1_VM_INSTANCES}
     [Teardown]    Show Debugs    ${NET_1_VM_INSTANCES}
 
@@ -63,7 +63,7 @@ Take Down ODL2
     Set Suite Variable    ${new_cluster_list}
 
 Create Vm Instances For l3_net_2
-    [Documentation]    Create Four Vm instances using flavor and image names for a network.
+    [Documentation]    Create Vm instances using flavor and image names for a network.
     Create Vm Instances    l3_net_2    ${NET_2_VM_INSTANCES}
     [Teardown]    Show Debugs    ${NET_2_VM_INSTANCES}
 
