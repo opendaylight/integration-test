@@ -221,9 +221,6 @@ Test Operations From Vm Instance
     ${dest_dhcp}=    Get From List    ${list_of_local_dst_ips}    1
     Log    ${dest_dhcp}
     Run Keyword If    ${rcode}    Check Ping    ${dest_dhcp}
-    ${dest_vm}=    Get From List    ${list_of_local_dst_ips}    2
-    Log    ${dest_vm}
-    Run Keyword If    ${rcode}    Check Ping    ${dest_vm}
     Run Keyword If    ${rcode}    Check Metadata Access
     Run Keyword If    '${l2_or_l3}' == 'l3'    Ping Other Instances    ${list_of_external_dst_ips}
     [Teardown]    Exit From Vm Console
