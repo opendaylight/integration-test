@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_5874bece",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-08T18:41:12Z",
+      "side": 1,
+      "message": "what is a \"device\"?  one of the controllers?",
+      "range": {
+        "startLine": 128,
+        "startChar": 32,
+        "endLine": 128,
+        "endChar": 38
+      },
+      "revId": "4b13f116c3b57f8724df01c85c737e37da102d13",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d84f2e91",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 140,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-08T18:41:12Z",
+      "side": 1,
+      "message": "I think after looking at this keyword that \"device\" means some southbound connected device.  I\u0027m learning on the fly...",
+      "range": {
+        "startLine": 140,
+        "startChar": 29,
+        "endLine": 140,
+        "endChar": 35
+      },
+      "revId": "4b13f116c3b57f8724df01c85c737e37da102d13",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b8819a91",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-08T18:41:12Z",
+      "side": 1,
+      "message": "should this be openflow?\n\nactually this whole section has me confused :)",
+      "range": {
+        "startLine": 146,
+        "startChar": 73,
+        "endLine": 146,
+        "endChar": 80
+      },
+      "revId": "4b13f116c3b57f8724df01c85c737e37da102d13",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_9855b61f",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-08T18:41:12Z",
+      "side": 1,
+      "message": "the keywords below are clear/short and easier to read for me.",
+      "revId": "4b13f116c3b57f8724df01c85c737e37da102d13",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f831520c",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-08T18:41:12Z",
+      "side": 1,
+      "message": ":P\n\nI think kill -9 should always be ok in 1sec, but maybe on a really loaded system it will not be.",
+      "range": {
+        "startLine": 294,
+        "startChar": 4,
+        "endLine": 294,
+        "endChar": 23
+      },
+      "revId": "4b13f116c3b57f8724df01c85c737e37da102d13",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d8360e03",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 297,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-08T18:41:12Z",
+      "side": 1,
+      "message": "actually, just put your WUKS here is all you need to get rid\nof that sleep.  \n    WUKS    3s    1s",
+      "range": {
+        "startLine": 297,
+        "startChar": 9,
+        "endLine": 297,
+        "endChar": 71
+      },
+      "revId": "4b13f116c3b57f8724df01c85c737e37da102d13",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f8183286",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-08T18:41:12Z",
+      "side": 1,
+      "message": "there is something else to clean....\n\nvratko gave me that comment before, but I can\u0027t remember.  or I could be making that up...",
+      "range": {
+        "startLine": 317,
+        "startChar": 0,
+        "endLine": 317,
+        "endChar": 43
+      },
+      "revId": "4b13f116c3b57f8724df01c85c737e37da102d13",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
