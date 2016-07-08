@@ -10,15 +10,25 @@ Source Password
     [Documentation]    Sourcing the Openstack PAsswords for neutron configurations
     Run Keyword If    '${source_pwd}' == 'yes' or '${force}' == 'yes'    Write Commands Until Prompt    cd ${DEVSTACK_DEPLOY_PATH}; source openrc admin admin
 
+Get Tenant ID From Security Group
+    [Documentation]    Returns tenant ID by reading it from existing default security-group.
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt
+    ...    neutron security-group-show default | grep "| tenant_id" | awk '{print $4}'
+    Log    ${output}
+    [Return]    ${output}
+
 Create Network
-    [Arguments]    ${network_name}    ${additional_args}=${EMPTY}
+    [Arguments]    ${network_name}    ${additional_args}=${EMPTY}    ${verbose}=TRUE
     [Documentation]    Create Network with neutron request.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v net-create ${network_name} ${additional_args}    30s
-    Close Connection
+    ${command}    Set Variable If    "${verbose}" == "TRUE"    neutron -v net-create ${network_name} ${additional_args}
+    ...    neutron net-create ${network_name} ${additional_args} | grep -w id | awk '{print $4}'
+    ${output}=    Write Commands Until Prompt    ${command}    30s
     Log    ${output}
-    Should Contain    ${output}    Created a new network
+    [Return]    ${output}
 
 List Networks
     [Documentation]    List networks and return output with neutron client.
