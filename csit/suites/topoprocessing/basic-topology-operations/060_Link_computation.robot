@@ -6,24 +6,28 @@ Documentation     Test suite to verify link computation operation on different m
 ...               Topology-id on the end of each urls must match topology-id from xml. Yang models of components in topology are defined in xmls.
 Suite Setup       Setup Environment
 Suite Teardown    Clean Environment
-Test Teardown     Test Teardown    network-topology:network-topology/topology/topo:1
+Test Teardown     Delete Overlay Topology    ${OVERLAY_TOPO_URL}
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           XML
 Variables         ../../../variables/topoprocessing/TopologyRequests.py
+Variables         ../../../variables/topoprocessing/TargetFields.py
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/TopoprocessingKeywords.robot
+
+*** Variables ***
+${OVERLAY_TOPO_URL}    ${TOPOLOGY_URL}/topo:1
 
 *** Test Cases ***
 Link Computation Aggregation Inside
     [Documentation]    Test of link computation with unification inside on Network Topology model
     ${model}    Set Variable    network-topology-model
     ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    ${model}    node    network-topo:6
-    ${request}    Insert Target Field    ${request}    0    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    0
+    ${request}    Insert Target Field    ${request}    0    ${ISIS_NODE_TE_ROUTER_ID_IPV4}    0
     ${request}    Insert Link Computation Inside    ${request}    ${LINK_COMPUTATION_INSIDE}    n:network-topology-model    network-topo:6
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    4
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    4
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <link-id>    4
     ${overlay_node_id_28_29}    Check Aggregated Node in Topology    ${model}    ${resp.content}    0    bgp:28    bgp:29
@@ -40,10 +44,10 @@ Link Computation Filtration
     [Documentation]    Test of link computation with filtration on Network Topology model
     ${model}    Set Variable    network-topology-model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    ${model}    node    network-topo:6
-    ${request}    Insert Filter    ${request}    ${FILTER_IPV4}    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4
+    ${request}    Insert Filter    ${request}    ${FILTER_IPV4}    ${ISIS_NODE_TE_ROUTER_ID_IPV4}
     ${request}    Set IPV4 Filter    ${request}    192.168.2.1/32
     ${request}    Insert Link Computation Inside    ${request}    ${LINK_COMPUTATION_INSIDE}    n:network-topology-model    network-topo:6
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    2
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    2
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <link-id>    1
     ${overlay_node_id_28}    Check Aggregated Node in Topology    ${model}    ${resp.content}    0    bgp:28
@@ -53,15 +57,15 @@ Link Computation Filtration
 Link Computation Aggregation Filtration
     [Documentation]    Test of link computation with aggregation filtration on Network Topology model
     ${model}    Set Variable    network-topology-model
-    ${target_field}    Set Variable    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4
+    ${target_field}    Set Variable    ${ISIS_NODE_TE_ROUTER_ID_IPV4}
     ${request}    Prepare Unification Filtration Topology Request    ${UNIFICATION_FILTRATION_NT}    ${model}    node    ${target_field}    network-topo:6
     ...    ${target_field}    network-topo:1
-    ${request}    Insert Filter With ID    ${request}    ${FILTER_IPV4}    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    1
+    ${request}    Insert Filter With ID    ${request}    ${FILTER_IPV4}    ${ISIS_NODE_TE_ROUTER_ID_IPV4}    1
     ${request}    Insert Apply Filters    ${request}    1    1
     ${request}    Insert Apply Filters    ${request}    2    1
     ${request}    Set IPV4 Filter    ${request}    192.168.1.1/24
     ${request}    Insert Link Computation    ${request}    ${LINK_COMPUTATION}    n:network-topology-model    network-topo:6    network-topo:1
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    2
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    2
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <link>    2
     ${overlay_node_id_1_26}    Check Aggregated Node in Topology    ${model}    ${resp.content}    3    bgp:26    bgp:1
