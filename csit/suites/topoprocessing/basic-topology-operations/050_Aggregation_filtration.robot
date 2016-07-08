@@ -6,25 +6,29 @@ Documentation     Test suite to verify fitration operation on different models.
 ...               Topology-id on the end of each urls must match topology-id from xml. Yang models of components in topology are defined in xmls.
 Suite Setup       Setup Environment
 Suite Teardown    Clean Environment
-Test Teardown     Test Teardown    network-topology:network-topology/topology/topo:1
+Test Teardown     Delete Overlay Topology    ${OVERLAY_TOPO_URL}
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           XML
 Variables         ../../../variables/topoprocessing/TopologyRequests.py
+Variables         ../../../variables/topoprocessing/TargetFields.py
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/TopoprocessingKeywords.robot
 
+*** Variables ***
+${OVERLAY_TOPO_URL}    ${TOPOLOGY_URL}/topo:1
+
 *** Test Cases ***
 Unification Filtration Node Inside Network Topology model
     [Documentation]    Test unification filtration inside operation on Network Topology model
     ${model}    Set Variable    network-topology-model
-    ${request}    Prepare Unification Filtration Inside Topology Request    ${UNIFICATION_FILTRATION_NT_AGGREGATE_INSIDE}    ${model}    node    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    network-topo:4
-    ${request}    Insert Filter With ID    ${request}    ${FILTER_IPV4}    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    1
+    ${request}    Prepare Unification Filtration Inside Topology Request    ${UNIFICATION_FILTRATION_NT_AGGREGATE_INSIDE}    ${model}    node    ${ISIS_NODE_TE_ROUTER_ID_IPV4}    network-topo:4
+    ${request}    Insert Filter With ID    ${request}    ${FILTER_IPV4}    ${ISIS_NODE_TE_ROUTER_ID_IPV4}    1
     ${request}    Insert Apply Filters    ${request}    1    1
     ${request}    Set IPV4 Filter    ${request}    192.168.2.1/24
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    2
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    2
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <supporting-node>    3
     Check Aggregated Node in Topology    ${model}    ${resp.content}    0    bgp:18    bgp:20
@@ -33,11 +37,11 @@ Unification Filtration Node Inside Network Topology model
 Unification Filtration Node Inside Inventory model
     [Documentation]    Test unification filtration inside operation on Inventory model
     ${model}    Set Variable    opendaylight-inventory-model
-    ${request}    Prepare Unification Filtration Inside Topology Request    ${UNIFICATION_FILTRATION_NT_AGGREGATE_INSIDE}    ${model}    node    flow-node-inventory:ip-address    openflow-topo:4
-    ${request}    Insert Filter With ID    ${request}    ${FILTER_IPV4}    flow-node-inventory:ip-address    1
+    ${request}    Prepare Unification Filtration Inside Topology Request    ${UNIFICATION_FILTRATION_NT_AGGREGATE_INSIDE}    ${model}    node    ${OPENFLOW_NODE_IP_ADDRESS}    openflow-topo:4
+    ${request}    Insert Filter With ID    ${request}    ${FILTER_IPV4}    ${OPENFLOW_NODE_IP_ADDRESS}    1
     ${request}    Insert Apply Filters    ${request}    1    1
     ${request}    Set IPV4 Filter    ${request}    192.168.2.1/24
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    2
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    2
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <supporting-node>    4
     Check Aggregated Node in Topology    ${model}    ${resp.content}    0    of-node:18
@@ -46,11 +50,11 @@ Unification Filtration Node Inside Inventory model
 Unification Filtration Termination Point Inside Network Topology model
     [Documentation]    Test unification filtration inside operation on Network Topology model
     ${model}    Set Variable    network-topology-model
-    ${request}    Prepare Unification Filtration Inside Topology Request    ${UNIFICATION_FILTRATION_NT_AGGREGATE_INSIDE}    ${model}    termination-point    ovsdb:name    network-topo:5
-    ${request}    Insert Filter With ID    ${request}    ${FILTER_SPECIFIC_STRING}    ovsdb:name    1
+    ${request}    Prepare Unification Filtration Inside Topology Request    ${UNIFICATION_FILTRATION_NT_AGGREGATE_INSIDE}    ${model}    termination-point    ${OVSDB_TP_NAME}    network-topo:5
+    ${request}    Insert Filter With ID    ${request}    ${FILTER_SPECIFIC_STRING}    ${OVSDB_TP_NAME}    1
     ${request}    Insert Apply Filters    ${request}    1    1
     ${request}    Set Specific String Filter    ${request}    portA
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    5
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <termination-point>    3
     ${topology_id}    Set Variable    network-topo:5
@@ -63,14 +67,14 @@ Unification Filtration Termination Point Inside Network Topology model
 Unification Filtration Node Network Topology model
     [Documentation]    Test unification filtration operation on Network Topology model
     ${model}    Set Variable    network-topology-model
-    ${target_field}    Set Variable    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4
+    ${target_field}    Set Variable    ${ISIS_NODE_TE_ROUTER_ID_IPV4}
     ${request}    Prepare Unification Filtration Topology Request    ${UNIFICATION_FILTRATION_NT}    ${model}    node    ${target_field}    network-topo:4
     ...    ${target_field}    network-topo:1
-    ${request}    Insert Filter With ID    ${request}    ${FILTER_IPV4}    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    1
+    ${request}    Insert Filter With ID    ${request}    ${FILTER_IPV4}    ${ISIS_NODE_TE_ROUTER_ID_IPV4}    1
     ${request}    Insert Apply Filters    ${request}    1    1
     ${request}    Insert Apply Filters    ${request}    2    1
     ${request}    Set IPV4 Filter    ${request}    192.168.1.1/24
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node>    2
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node>    2
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <supporting-node>    4
     Should Contain X Times    ${resp.content}    <termination-point    3
@@ -81,13 +85,13 @@ Unification Filtration Node Network Topology model
 Unification Filtration Node Inventory model
     [Documentation]    Test unification filtration operation on Inventory model
     ${model}    Set Variable    opendaylight-inventory-model
-    ${request}    Prepare Unification Filtration Topology Request    ${UNIFICATION_FILTRATION_NT}    ${model}    node    flow-node-inventory:ip-address    openflow-topo:4
-    ...    flow-node-inventory:ip-address    openflow-topo:6
-    ${request}    Insert Filter With ID    ${request}    ${FILTER_IPV4}    flow-node-inventory:ip-address    1
+    ${request}    Prepare Unification Filtration Topology Request    ${UNIFICATION_FILTRATION_NT}    ${model}    node    ${OPENFLOW_NODE_IP_ADDRESS}    openflow-topo:4
+    ...    ${OPENFLOW_NODE_IP_ADDRESS}    openflow-topo:6
+    ${request}    Insert Filter With ID    ${request}    ${FILTER_IPV4}    ${OPENFLOW_NODE_IP_ADDRESS}    1
     ${request}    Insert Apply Filters    ${request}    1    1
     ${request}    Insert Apply Filters    ${request}    2    1
     ${request}    Set IPV4 Filter    ${request}    192.168.1.1/24
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node>    2
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node>    2
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <supporting-node>    3
     Should Contain X Times    ${resp.content}    <termination-point    0
