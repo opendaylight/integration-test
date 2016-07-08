@@ -86,7 +86,7 @@ Clean Environment
     Close Connection
     Delete All Sessions
 
-Test Teardown
+Delete Overlay Topology
     [Arguments]    ${overlay_topology}
     [Documentation]    Delete overlay topologies from datastore
     Log    ---- Test Teardown ----
@@ -94,10 +94,10 @@ Test Teardown
     ${resp}    Delete Request    session    ${CONFIG_API}/${overlay_topology}
     Should Be Equal As Strings    ${resp.status_code}    200
 
-Test Teardown With Underlay Topologies Refresh
+Refresh Underlay Topologies And Delete Overlay Topology
     [Arguments]    ${overlay_topology}
     [Documentation]    Deletes given overlay topology from datastore and overwrites the underlaying ones with initial topologies
-    Test Teardown    ${overlay_topology}
+    Delete Overlay Topology    ${overlay_topology}
     Insert Underlay Topologies
 
 Prepare New Feature Installation
