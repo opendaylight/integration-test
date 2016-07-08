@@ -1,0 +1,308 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_5d5b1054",
+        "filename": "csit/libraries/GBP/AssertionUtils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-08T15:58:38Z",
+      "side": 1,
+      "message": "please add some basic docs to each keyword",
+      "revId": "24862fca5e040520f07bb80bf1f17b9dfbeb4d5f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_fd31440c",
+        "filename": "csit/libraries/GBP/RestconfUtils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-08T15:58:38Z",
+      "side": 1,
+      "message": "I like the small bite sized, well defined keywords in here which will make your more complex test cases easier to read\n\nalso, docs please, if possible.",
+      "revId": "24862fca5e040520f07bb80bf1f17b9dfbeb4d5f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_dd360003",
+        "filename": "csit/libraries/GBP/RestconfUtils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-08T15:58:38Z",
+      "side": 1,
+      "message": "what are these TODO statements for?  looks like this keyword is doing what you need, right?",
+      "range": {
+        "startLine": 57,
+        "startChar": 4,
+        "endLine": 57,
+        "endChar": 25
+      },
+      "revId": "24862fca5e040520f07bb80bf1f17b9dfbeb4d5f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_3d13bc67",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-08T15:58:38Z",
+      "side": 1,
+      "message": "I think a better name is needed.  When I see \"Get Tenant ID\" from an OpenStackOperations library, I\u0027m thinking \"keystone tenant-list\".  Maybe \"Get Tenant ID From Security Group\" ?",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 13
+      },
+      "revId": "24862fca5e040520f07bb80bf1f17b9dfbeb4d5f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_5d095030",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-08T15:58:38Z",
+      "side": 1,
+      "message": "for simplicity, would just:\n    [Return]    ${output}\n\nbe ok here?  If there was nothing returned here before, then nobody consuming this keyword is going to care, and it will make it better imo anyway, if we always return the output.",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 31,
+        "endChar": 66
+      },
+      "revId": "24862fca5e040520f07bb80bf1f17b9dfbeb4d5f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_185d2622",
+        "filename": "csit/suites/groupbasedpolicy/GBP/Devstack/01__spin_up_devstack_and_verify.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-08T15:58:38Z",
+      "side": 1,
+      "message": "I feel like this suite is misnamed, as it\u0027s not spinning up devstack right?",
+      "revId": "24862fca5e040520f07bb80bf1f17b9dfbeb4d5f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_bd06ac1e",
+        "filename": "csit/suites/groupbasedpolicy/GBP/Devstack/01__spin_up_devstack_and_verify.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-08T15:58:38Z",
+      "side": 1,
+      "message": "this is already coming from Variables.robot:\nhttps://github.com/opendaylight/integration-test/blob/master/csit/variables/Variables.py#L194",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 70
+      },
+      "revId": "24862fca5e040520f07bb80bf1f17b9dfbeb4d5f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d8044e17",
+        "filename": "csit/suites/groupbasedpolicy/GBP/Devstack/01__spin_up_devstack_and_verify.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-08T15:58:38Z",
+      "side": 1,
+      "message": "I think I saw this somewhere else, and we are using ODL_SYSTEMP_IP now, as a standard.",
+      "range": {
+        "startLine": 17,
+        "startChar": 43,
+        "endLine": 17,
+        "endChar": 49
+      },
+      "revId": "24862fca5e040520f07bb80bf1f17b9dfbeb4d5f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_180fe631",
+        "filename": "csit/suites/groupbasedpolicy/GBP/Devstack/02__neutron-mapper_test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-08T15:58:38Z",
+      "side": 1,
+      "message": "Don\u0027t you have this as a keyword now?",
+      "range": {
+        "startLine": 75,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 86
+      },
+      "revId": "24862fca5e040520f07bb80bf1f17b9dfbeb4d5f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_7813825c",
+        "filename": "csit/suites/groupbasedpolicy/GBP/Devstack/02__neutron-mapper_test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 81,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-08T15:58:38Z",
+      "side": 1,
+      "message": "ODL_SYSTEM_IP",
+      "range": {
+        "startLine": 81,
+        "startChar": 42,
+        "endLine": 81,
+        "endChar": 48
+      },
+      "revId": "24862fca5e040520f07bb80bf1f17b9dfbeb4d5f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_58103e4e",
+        "filename": "csit/suites/groupbasedpolicy/GBP/Devstack/02__neutron-mapper_test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-08T15:58:38Z",
+      "side": 1,
+      "message": "I feel like this (or some version of this) should belong in the OpenStack library, like the other \"neutron create\" things.",
+      "range": {
+        "startLine": 102,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 28
+      },
+      "revId": "24862fca5e040520f07bb80bf1f17b9dfbeb4d5f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_58379ee3",
+        "filename": "csit/suites/groupbasedpolicy/GBP/Devstack/Variables.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-08T15:58:38Z",
+      "side": 1,
+      "message": "you can use this:\nhttps://github.com/opendaylight/integration-test/blob/master/csit/variables/Variables.py#L13",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 29
+      },
+      "revId": "24862fca5e040520f07bb80bf1f17b9dfbeb4d5f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f874b29d",
+        "filename": "csit/suites/groupbasedpolicy/GBP/Devstack/Variables.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-08T15:58:38Z",
+      "side": 1,
+      "message": "I have a hunch you don\u0027t need these anymore since you are using the new job type which takes care of all this.  It installs ODL and uses the features defined in the job, not these features here.",
+      "range": {
+        "startLine": 15,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 82
+      },
+      "revId": "24862fca5e040520f07bb80bf1f17b9dfbeb4d5f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d8528e12",
+        "filename": "csit/suites/groupbasedpolicy/GBP/Devstack/Variables.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-08T15:58:38Z",
+      "side": 1,
+      "message": "I see how you got ODL_IP.  can you use ODL_SYSTEM_IP throughout instead?",
+      "range": {
+        "startLine": 18,
+        "startChar": 0,
+        "endLine": 18,
+        "endChar": 43
+      },
+      "revId": "24862fca5e040520f07bb80bf1f17b9dfbeb4d5f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
