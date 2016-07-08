@@ -14,3 +14,5 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+
+Link to `Robot API docs <http://docs.opendaylight.org/en/latest/_static/integration/robot/index.html>`_.
