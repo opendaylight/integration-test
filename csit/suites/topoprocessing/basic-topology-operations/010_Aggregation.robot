@@ -6,24 +6,28 @@ Documentation     Test suite to verify unification operation on different models
 ...               xmls and verify output. Topology-id on the end of each urls must match topology-id from xml. Yang models of components in topology are defined in xmls.
 Suite Setup       Setup Environment
 Suite Teardown    Clean Environment
-Test Teardown     Test Teardown    network-topology:network-topology/topology/topo:1
+Test Teardown     Delete Overlay Topology    ${OVERLAY_TOPO_URL}
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           XML
 Variables         ../../../variables/topoprocessing/TopologyRequests.py
+Variables         ../../../variables/topoprocessing/TargetFields.py
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/TopoprocessingKeywords.robot
+
+*** Variables ***
+${OVERLAY_TOPO_URL}    ${TOPOLOGY_URL}/topo:1
 
 *** Test Cases ***
 Unification Node
     [Documentation]    Test unification operation on Network Topology model
     ${model}    Set Variable    network-topology-model
     ${request}    Prepare Unification Topology Request    ${UNIFICATION_NT}    ${model}    node    network-topo:1    network-topo:2
-    ${request}    Insert Target Field    ${request}    0    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    0
-    ${request}    Insert Target Field    ${request}    1    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    0
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    8
+    ${request}    Insert Target Field    ${request}    0    ${ISIS_NODE_TE_ROUTER_ID_IPV4}    0
+    ${request}    Insert Target Field    ${request}    1    ${ISIS_NODE_TE_ROUTER_ID_IPV4}    0
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    8
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <supporting-node>    10
     Should Contain X Times    ${resp.content}    <termination-point    14
@@ -41,9 +45,9 @@ Unification Node Inventory
     [Documentation]    Test unification operation on inventory model
     ${model}    Set Variable    opendaylight-inventory-model
     ${request}    Prepare Unification Topology Request    ${UNIFICATION_NT}    ${model}    node    openflow-topo:1    openflow-topo:2
-    ${request}    Insert Target Field    ${request}    0    flow-node-inventory:ip-address    0
-    ${request}    Insert Target Field    ${request}    1    flow-node-inventory:ip-address    0
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    7
+    ${request}    Insert Target Field    ${request}    0    ${OPENFLOW_NODE_IP_ADDRESS}    0
+    ${request}    Insert Target Field    ${request}    1    ${OPENFLOW_NODE_IP_ADDRESS}    0
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    7
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <supporting-node>    10
     Should Contain X Times    ${resp.content}    <termination-point    12
@@ -60,10 +64,10 @@ Unification Scripting Node
     [Documentation]    Test unification operation on Network Topology model using scripting
     ${model}    Set Variable    network-topology-model
     ${request}    Prepare Unification Topology Request    ${UNIFICATION_NT}    ${model}    node    network-topo:1    network-topo:2
-    ${request}    Insert Target Field    ${request}    0    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    0
-    ${request}    Insert Target Field    ${request}    1    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    0
+    ${request}    Insert Target Field    ${request}    0    ${ISIS_NODE_TE_ROUTER_ID_IPV4}    0
+    ${request}    Insert Target Field    ${request}    1    ${ISIS_NODE_TE_ROUTER_ID_IPV4}    0
     ${request}    Insert Scripting into Request    ${request}    javascript    if (originalItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.1") > -1 && newItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.3") > -1 || originalItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.3") > -1 && newItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.1") > -1) {aggregable.setResult(true);} else { aggregable.setResult(false);}
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    9
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    9
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <supporting-node>    10
     Should Contain X Times    ${resp.content}    <termination-point    14
@@ -82,10 +86,10 @@ Unification Scripting Node Inventory
     [Documentation]    Test unification operation on inventory model using scripting
     ${model}    Set Variable    opendaylight-inventory-model
     ${request}    Prepare Unification Topology Request    ${UNIFICATION_NT}    ${model}    node    openflow-topo:1    openflow-topo:2
-    ${request}    Insert Target Field    ${request}    0    flow-node-inventory:ip-address    0
-    ${request}    Insert Target Field    ${request}    1    flow-node-inventory:ip-address    0
+    ${request}    Insert Target Field    ${request}    0    ${OPENFLOW_NODE_IP_ADDRESS}    0
+    ${request}    Insert Target Field    ${request}    1    ${OPENFLOW_NODE_IP_ADDRESS}    0
     ${request}    Insert Scripting into Request    ${request}    javascript    if (originalItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.2") > -1 && newItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.4") > -1 || originalItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.4") > -1 && newItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.2") > -1) {aggregable.setResult(true);} else { aggregable.setResult(false);}
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    9
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    9
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <supporting-node>    10
     Should Contain X Times    ${resp.content}    <termination-point    12
@@ -104,8 +108,8 @@ Unification Node Inside
     [Documentation]    Test of unification type of aggregation inside on nodes on Network Topology model
     ${model}    Set Variable    network-topology-model
     ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    ${model}    node    network-topo:1
-    ${request}    Insert Target Field    ${request}    0    l3-unicast-igp-topology:igp-node-attributes/isis-topology:isis-node-attributes/isis-topology:ted/isis-topology:te-router-id-ipv4    0
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    4
+    ${request}    Insert Target Field    ${request}    0    ${ISIS_NODE_TE_ROUTER_ID_IPV4}    0
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    4
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <supporting-node>    5
     Should Contain X Times    ${resp.content}    <termination-point    8
@@ -119,8 +123,8 @@ Unification Node Inside Inventory
     [Documentation]    Test of unification type of aggregation inside on nodes on Inventory model
     ${model}    Set Variable    opendaylight-inventory-model
     ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    ${model}    node    openflow-topo:2
-    ${request}    Insert Target Field    ${request}    0    flow-node-inventory:ip-address    0
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    4
+    ${request}    Insert Target Field    ${request}    0    ${OPENFLOW_NODE_IP_ADDRESS}    0
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    4
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <supporting-node>    5
     Should Contain X Times    ${resp.content}    <termination-point    0
@@ -134,8 +138,8 @@ Unification Termination Point Inside
     [Documentation]    Test aggregate inside operation on termination points
     ${model}    Set Variable    network-topology-model
     ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    ${model}    termination-point    network-topo:1
-    ${request}    Insert Target Field    ${request}    0    ovsdb:ofport    0
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
+    ${request}    Insert Target Field    ${request}    0    ${OVSDB_OFPORT}    0
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    5
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <supporting-node>    5
     Should Contain X Times    ${resp.content}    <tp-ref>    8
@@ -154,8 +158,8 @@ Unification Termination Point Inside Inventory
     [Documentation]    Test aggregate inside operation on termination points
     ${model}    Set Variable    opendaylight-inventory-model
     ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    ${model}    termination-point    openflow-topo:1
-    ${request}    Insert Target Field    ${request}    0    flow-node-inventory:port-number    0
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    network-topology:network-topology/topology/topo:1    <node-id>node:    5
+    ${request}    Insert Target Field    ${request}    0    ${OPENFLOW_NODE_CONNECTOR_PORT_NUMBER}    0
+    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    5
     Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
     Should Contain X Times    ${resp.content}    <supporting-node>    5
     Should Contain X Times    ${resp.content}    <tp-ref>    12
