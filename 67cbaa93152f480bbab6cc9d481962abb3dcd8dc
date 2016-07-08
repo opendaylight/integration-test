@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_bdaa2c17",
+        "filename": "csit/suites/cardinal/basic/010_Restconf_OK.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-08T15:22:16Z",
+      "side": 1,
+      "message": "you can get rid of this file entirely.  this is only a skeleton that projects can use as an example to see CSIT running for their project.  It really has nothing to do with\nCardinal.",
+      "revId": "67cbaa93152f480bbab6cc9d481962abb3dcd8dc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_5dadd030",
+        "filename": "csit/suites/cardinal/basic/020_FeatureInstallation.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-08T15:22:16Z",
+      "side": 1,
+      "message": "I think a lot of these are not needed.  try to trim them down to only what you need.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "67cbaa93152f480bbab6cc9d481962abb3dcd8dc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_1dbcf868",
+        "filename": "csit/suites/cardinal/basic/030_FeatureUninstallation.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-08T15:22:16Z",
+      "side": 1,
+      "message": "probably the only line you need here, is the KarafKeywords resource line, as all you are doing below is calling a keyword\nfrom that library.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 49
+      },
+      "revId": "67cbaa93152f480bbab6cc9d481962abb3dcd8dc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
