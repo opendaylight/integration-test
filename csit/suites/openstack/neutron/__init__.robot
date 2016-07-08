@@ -16,7 +16,7 @@ ${UserInfo}       {"auth": {"tenantName": ${OSTENANTNAME}, "passwordCredentials"
 
 *** Keywords ***
 Start Suite
-    Create Session    KeyStoneSession    http://${OPENSTACK}:5000    headers=${HEADERS}
+    Create Session    KeyStoneSession    http://${KEYSTONE}:5000    headers=${HEADERS}
     ${resp}    post    KeyStoneSession    /v2.0/tokens    ${UserInfo}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${result}    To JSON    ${resp.content}
