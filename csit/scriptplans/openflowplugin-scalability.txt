@@ -1,0 +1,3 @@
+# Place the scripts in run order:
+integration/test/csit/scripts/longevity_short.sh
+integration/test/csit/scripts/longevity_common.sh
