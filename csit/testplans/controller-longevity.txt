@@ -1,0 +1,2 @@
+# Place the suites in run order:
+integration/test/csit/suites/test/Check_JVM_Resource.robot
