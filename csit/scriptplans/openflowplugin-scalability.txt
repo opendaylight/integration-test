@@ -1,0 +1,4 @@
+# Place the scripts in run order:
+integration/test/csit/scripts/longevity.sh 5000
+integration/test/csit/scripts/longevity.sh 1200000
+
