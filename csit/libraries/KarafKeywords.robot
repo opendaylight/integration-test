@@ -17,11 +17,11 @@ Verify Feature Is Installed
     [Return]    ${output}
 
 Issue Command On Karaf Console
-    [Arguments]    ${cmd}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=5
+    [Arguments]    ${cmd}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=5    ${loglevel}=INFO
     [Documentation]    Will execute the given ${cmd} by ssh'ing to the karaf console running on ${ODL_SYSTEM_IP}
     ...    Note that this keyword will open&close new SSH connection, without switching back to previously current session.
     Open Connection    ${controller}    port=${karaf_port}    prompt=${KARAF_PROMPT}    timeout=${timeout}
-    Login    ${KARAF_USER}    ${KARAF_PASSWORD}
+    Login    ${KARAF_USER}    ${KARAF_PASSWORD}   loglevel=${loglevel}
     Write    ${cmd}
     ${output}    Read Until    ${KARAF_PROMPT}
     Close Connection
