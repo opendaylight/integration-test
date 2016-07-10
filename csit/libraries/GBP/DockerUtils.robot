@@ -7,7 +7,7 @@ Library           SSHLibrary
 Ping from Docker
     [Arguments]    ${docker_name}    ${dest_address}    ${count}=1
     [Documentation]    Sends ICMP requests from docker container to remote address.
-    ${output}    ${rc}    SSHLibrary.Execute Command    docker exec ${docker_name} ping ${dest_address} -c ${count} >/dev/null 2>&1 && echo success    return_stdout=True    return_stderr=False    return_rc=True
+    ${output}    ${err}    ${rc}    SSHLibrary.Execute Command    docker exec ${docker_name} ping ${dest_address} -c ${count} >/dev/null 2>&1 && echo success    return_stdout=True    return_stderr=True    return_rc=True
     Should Contain    ${output}    success
     Should Be Equal As Numbers    ${rc}    0
 
@@ -15,14 +15,14 @@ Start Endless Ping from Docker
     [Arguments]    ${docker_name}    ${dest_address}
     [Documentation]    Starts endless ICMP pinging from docker container to remote address.
     Ping from Docker    ${docker_name}    ${dest_address}
-    SSHLibrary.Execute Command    docker exec -d ${docker_name} ping ${dest_address}
+    ${output}    SSHLibrary.Execute Command    docker exec -d ${docker_name} ping ${dest_address}
 
 Start HTTP Service on Docker
     [Arguments]    ${docker_name}    ${service_port}=80    ${timeout}=20s
     [Documentation]    Starts SimpleHTTPServer on docker container. Service port should be idle.
     ${stdout}    SSHLibrary.Execute Command    docker exec ${docker_name} ps aux | grep 'SimpleHTTPServer ${service_port}'    return_stdout=True    return_stderr=False    return_rc=False
     Should Be Empty    ${stdout}
-    SSHLibrary.Write    docker exec ${docker_name} python -m SimpleHTTPServer ${service_port} &
+    ${output}   SSHLibrary.Write    docker exec ${docker_name} python -m SimpleHTTPServer ${service_port} &
     Wait Until Keyword Succeeds    2 min    5 sec    Test Port On Docker    ${docker_name}    ${service_port}
 
 Stop HTTP Service on Docker
