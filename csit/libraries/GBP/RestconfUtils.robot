@@ -1,11 +1,11 @@
 *** Settings ***
-Documentation     Utils for Restconf operations for GBP
-Library           RequestsLibrary
-Library           OperatingSystem
-Library           String
-Library           json
-Variables         ../../variables/Variables.py
-Resource          ../Utils.robot
+Documentation    Utils for Restconf operations for GBP
+Library    RequestsLibrary
+Library    OperatingSystem
+Library    String
+Library    json
+Variables    ../../variables/Variables.py
+Resource    ../Utils.robot
 
 *** Variables ***
 ${ENDPOINT_UNREG_PATH}    ${GBP_UNREGEP_API}
@@ -56,7 +56,6 @@ Create L3 Endpoint JSON Data
 Get Endpoint Path
     [Arguments]    ${l2-context}    ${mac_address}
     [Documentation]    Returns path for a registered endpoint based on key in arguments
-    ${mac_address}    Convert To Uppercase    ${mac_address}
     [Return]    restconf/operational/endpoint:endpoints/endpoint/${l2-context}/${mac_address}
 
 Get EndpointL3 Path
@@ -142,9 +141,9 @@ Get Ip Prefix of Subnet
     ${subnet_json}    To Json    ${subnet}
     [Return]    ${subnet_json['subnet'][0]['ip-prefix']}
 
-Get Action Instance Name of Single Rule Contract
+Get Classifier Instance Name of Single Rule Contract
+    [Documentation]    Returns classifier-instance name from a single rule contract
     [Arguments]    ${contract}
-    [Documentation]    Returns action-instance name from a single rule contract
     ${contract_json}    To Json    ${contract}
     [Return]    ${contract_json['contract'][0]['subject'][0]['rule'][0]['classifier-ref'][0]['instance-name']}
 
