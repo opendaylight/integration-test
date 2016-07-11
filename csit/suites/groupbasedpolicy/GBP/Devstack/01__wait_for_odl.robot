@@ -21,6 +21,7 @@ Wait for Renderers and NeutronMapper
 Renderers And NeutronMapper Initialized
     [Documentation]  Ofoverlay and Neutronmapper features start check via datastore.
     [Arguments]      ${session}
+    ${boot_url}    Set Variable If    "${ODL_STREAM}" == "beryllium"    ${BERYLLIUM_BOOT_URL}    ${MASTER_BOOT_URL}
     Get Data From URI    ${session}    ${OF_OVERLAY_BOOT_URL}    headers=${headers}
-    ${response}    RequestsLibrary.Get Request    ${session}    ${NEURONMAPPER_BOOT_URL}    ${headers}
+    ${response}    RequestsLibrary.Get Request    ${session}    ${boot_url}    ${headers}
     Should Be Equal As Strings    404    ${response.status_code}
