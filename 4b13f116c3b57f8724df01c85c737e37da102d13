@@ -143,6 +143,29 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_6e93b74f",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-11T15:44:28Z",
+      "side": 1,
+      "message": "This piece of logic was causing confusion in suites I was reviewing before. The consensus was to keep \"candidates\" as the name of the items of the original list, and \"followers\" for the reduced list.\n\nThe name \"follower\" is better at suggesting \"not an owner\", similarly to leader/follower relation from shard member states.\nThe reason not to use \"candidate\" is to keep naming friendly for people looking at raw outputs, seeing the original \"candidate\" list.",
+      "range": {
+        "startLine": 167,
+        "startChar": 16,
+        "endLine": 167,
+        "endChar": 72
+      },
+      "revId": "4b13f116c3b57f8724df01c85c737e37da102d13",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_9855b61f",
         "filename": "csit/libraries/ClusterManagement.robot",
         "patchSetId": 6
@@ -154,6 +177,52 @@
       "writtenOn": "2016-07-08T18:41:12Z",
       "side": 1,
       "message": "the keywords below are clear/short and easier to read for me.",
+      "revId": "4b13f116c3b57f8724df01c85c737e37da102d13",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_8ede0b10",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-11T15:44:28Z",
+      "side": 1,
+      "message": "Is this required?\nI think Normalize_Jsons_And_Compare fail message contains the core useful information, and Logging like this is not good for scale tests.",
+      "range": {
+        "startLine": 238,
+        "startChar": 17,
+        "endLine": 238,
+        "endChar": 20
+      },
+      "revId": "4b13f116c3b57f8724df01c85c737e37da102d13",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_6ee1f7cf",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 248,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-11T15:44:28Z",
+      "side": 1,
+      "message": "(line 238)",
+      "range": {
+        "startLine": 248,
+        "startChar": 17,
+        "endLine": 248,
+        "endChar": 20
+      },
       "revId": "4b13f116c3b57f8724df01c85c737e37da102d13",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -195,6 +264,30 @@
       "side": 1,
       "message": "This is Vratko code, I will let him comment.",
       "parentUuid": "9a561d44_f831520c",
+      "range": {
+        "startLine": 294,
+        "startChar": 4,
+        "endLine": 294,
+        "endChar": 23
+      },
+      "revId": "4b13f116c3b57f8724df01c85c737e37da102d13",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ae102fa9",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-11T15:44:28Z",
+      "side": 1,
+      "message": "Well, WUKS 1x 1s\non a keyword made of lines 296-297 would be better.\n\nBut when I was writing this I did not know about \"retry given as count\", and on my local system ssh connection takes few tenths of second to establish anyway, so using sleep was the easier way for me.",
+      "parentUuid": "9a561d44_f34df573",
       "range": {
         "startLine": 294,
         "startChar": 4,
@@ -293,6 +386,76 @@
         "startLine": 317,
         "startChar": 0,
         "endLine": 317,
+        "endChar": 43
+      },
+      "revId": "4b13f116c3b57f8724df01c85c737e37da102d13",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_4e4a33c6",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-11T15:44:28Z",
+      "side": 1,
+      "message": "Other possible targets are ${KARAF_HOME}/data and ${KARAF_HOME}/etc/opendaylight/current/.\n\nBut both have severe consequences (forgetting installed features or config subsystem runtime changes), which are usually not desired by clustering tests.",
+      "parentUuid": "9a561d44_9348f95c",
+      "range": {
+        "startLine": 317,
+        "startChar": 0,
+        "endLine": 317,
+        "endChar": 43
+      },
+      "revId": "4b13f116c3b57f8724df01c85c737e37da102d13",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_4ef3539e",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-11T15:44:28Z",
+      "side": 1,
+      "message": "By the way, does anybody know why we are not changing iptables just on ${isolate_member_index}?",
+      "range": {
+        "startLine": 349,
+        "startChar": 4,
+        "endLine": 349,
+        "endChar": 9
+      },
+      "revId": "4b13f116c3b57f8724df01c85c737e37da102d13",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_8e61eb3b",
+        "filename": "csit/libraries/ClusterOpenFlow.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-11T15:44:28Z",
+      "side": 1,
+      "message": "Move this argument to second place, prepend \u003dNone and suites would not need to stick ${ClusterManagement__member_index_list} there every time.\n\nThat applies to other Keywords in this Resource as well.",
+      "range": {
+        "startLine": 62,
+        "startChar": 19,
+        "endLine": 62,
         "endChar": 43
       },
       "revId": "4b13f116c3b57f8724df01c85c737e37da102d13",
