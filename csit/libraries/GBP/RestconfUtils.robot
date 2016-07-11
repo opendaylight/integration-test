@@ -56,7 +56,6 @@ Create L3 Endpoint JSON Data
 Get Endpoint Path
     [Documentation]    Returns path for a registered endpoint based on key in arguments
     [Arguments]    ${l2-context}    ${mac_address}
-    ${mac_address}    Convert To Uppercase    ${mac_address}
     [Return]    restconf/operational/endpoint:endpoints/endpoint/${l2-context}/${mac_address}
 
 Get EndpointL3 Path
@@ -143,7 +142,7 @@ Get Ip Prefix of Subnet
     ${subnet_json}    To Json    ${subnet}
     [Return]    ${subnet_json['subnet'][0]['ip-prefix']}
 
-Get Action Instance Name of Single Rule Contract
+Get Classifier Instance Name of Single Rule Contract
     [Documentation]    Returns action-instance name from a single rule contract
     [Arguments]    ${contract}
     ${contract_json}    To Json    ${contract}
