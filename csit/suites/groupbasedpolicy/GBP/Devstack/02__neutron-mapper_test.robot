@@ -65,15 +65,73 @@ Test Create Network
     Set Global Variable    ${BRIDGE_DOMAIN_ID}   ${l2_bd_id}
     Set Global Variable    ${L3_CONTEXT_ID}      ${l3_ctx_id}
 
-*** Keywords ***
-Create Neutron Entity And Return ID
-    [Documentation]    Designed for creating neutron entities and returing their IDs.
-    [Arguments]    ${cmd}    ${pattern}=${UUID_PATTERN}
-    ${output}    Write Commands Until Prompt  ${cmd} | grep -w id | awk '{print $4}'
-    Should Not Be Empty    ${output}
-    ${id}     Should Match Regexp    ${output}    ${pattern}
-    [Return]    ${id}
+Test neutron subnet-create and verify
+    [Documentation]  Creates neutron subnet and verifies generated data
+    ${uuid}    Create SubNet    ${NETWORK_NAME}    ${SUBNET_NAME}    ${SUBNET_IP_PREFIX}    verbose=FALSE
+    ${subnet_id}     Should Match Regexp  ${uuid}  ${UUID_PATTERN}
+    ${subnet_path}   Get Subnet Path    ${TENANT_ID}   ${subnet_id}
+    ${subnet}        Get Data From URI  session        ${subnet_path}      headers=${headers}
+    ${l2_fd_id}      Assert Subnet      ${subnet}      ${NETWORK_NAME}    ${SUBNET_IP_PREFIX}
+    Should Be Equal as Strings          ${l2_fd_id}    ${FLOOD_DOMAIN_ID}
+    Set Global Variable                 ${SUBNET_ID}   ${subnet_id}
 
+Test neutron security-group-create
+    [Documentation]        Creates neutron security groups.
+    @{security_groups}    Set Variable    ${CLIENT_SG}    ${SERVER_SG}
+    : FOR    ${security_group}    IN    @{security_groups}
+    \    ${uuid}    Create Security Group    ${security_group}   verbose=FALSE
+    \    ${security_group_id}     Should Match Regexp  ${uuid}  ${UUID_PATTERN}
+    \    Run Keyword If  "${security_group}" == "${CLIENT_SG}"  Set Global Variable  ${CLIENT_SG_ID}  ${security_group_id}
+    ...  ELSE    Set Global Variable    ${SERVER_SG_ID}   ${security_group_id}
+    Pass Execution If    "${DEVSTACK_BRANCH}" == "stable/kilo"   Generated data for kilo not checked here.
+    Check Endpoint Group Name and Selector    ${SERVER_SG_ID}    ${SERVER_SG}
+    ...   ${TENANT_ID}    ${GROUP_RULE_ID}    provider-named-selector
+    Check Endpoint Group Name and Selector    ${CLIENT_SG_ID}    ${CLIENT_SG}
+    ...   ${TENANT_ID}    ${GROUP_RULE_ID}    consumer-named-selector
+
+Test neutron security-group-rule-create and verify if not stable/kilo
+    [Documentation]        Creates neutron security groups rules. Generated data are not checked here for stable/kilo.
+    ${remote_ip_prefix}    Set Variable    ${REMOTE_IP_PREFIX}
+    ${uuid}       Create Security Group Rule    ${SERVER_SG}
+    ...    --direction ingress --ethertype IPv4 --protocol tcp --port-range-min 80 --port-range-max 90 --remote-ip-prefix ${remote_ip_prefix}
+    ...    verbose=FALSE
+    ${group_rule_id}     Should Match Regexp  ${uuid}  ${UUID_PATTERN}
+    Set Global Variable    ${GROUP_RULE_ID}   ${group_rule_id}
+    Pass Execution If     "${DEVSTACK_BRANCH}" == "stable/kilo"    Generated data for kilo not checked here.
+    Verify Contract        ${GROUP_RULE_ID}   ${REMOTE_IP_PREFIX}  ${TENANT_ID}
+
+Test neutron router-create
+    [Documentation]  Creates neutron router.
+    ${uuid}          Create Neutron Router    ${ROUTER_NAME}    verbose=FALSE
+    ${router_id}     Should Match Regexp  ${uuid}  ${UUID_PATTERN}
+    Set Global Variable    ${ROUTER_ID}   ${router_id}
+
+Test neutron router-interface-add and verify
+    [Documentation]  Adds router's interface to subnet.
+    Router Interface Add Port    ${ROUTER_NAME}    ${SUBNET_NAME}    verbose=FALSE
+    ${l3_ctx_path}   Get L3 Context Path  ${TENANT_ID}    ${ROUTER_ID}
+    ${l3_ctx}        Get Data From URI    session         ${l3_ctx_path}    headers=${headers}
+    Check Name       ${l3_ctx}            ${ROUTER_NAME}
+
+Test server neutron port-create and verify
+    [Documentation]   Creates neutron port and verifies generated data.
+    ${mac_address}    Create neutron port      ${SERVER_PORT_IP}    ${SERVER_PORT_NAME}    ${SERVER_SG}
+    Set Global Variable    ${SERVER_MAC_ADDR}  ${mac_address}
+    Verify neutron port    ${mac_address}      ${SERVER_PORT_IP}    ${SERVER_SG_ID}
+
+Test client neutron port-create and verify
+    [Documentation]   Creates neutron port and verifies generated data.
+    ${mac_address}    Create neutron port      ${CLIENT_PORT_IP}    ${CLIENT_PORT_NAME}    ${CLIENT_SG}
+    Set Global Variable    ${CLIENT_MAC_ADDR}  ${mac_address}
+    Verify neutron port    ${mac_address}      ${CLIENT_PORT_IP}    ${CLIENT_SG_ID}
+    Run Keyword If        "${DEVSTACK_BRANCH}" == "stable/kilo"     Run Keywords
+    ...  Verify Contract   ${GROUP_RULE_ID}      ${REMOTE_IP_PREFIX}  ${TENANT_ID}   AND
+    ...  Check Endpoint Group Name and Selector  ${SERVER_SG_ID}      ${SERVER_SG}
+    ...  ${TENANT_ID}    ${GROUP_RULE_ID}    provider-named-selector  AND
+    ...  Check Endpoint Group Name and Selector  ${CLIENT_SG_ID}      ${CLIENT_SG}
+    ...  ${TENANT_ID}    ${GROUP_RULE_ID}    consumer-named-selector
+
+*** Keywords ***
 To Uuid
     [Documentation]  Insert dashes if missing to generate proper UUID string.
     [Arguments]    ${init_string}
@@ -84,6 +142,58 @@ To Uuid
      ${fourth}    Get Substring    ${init_string}    16   20
      ${fifth}     Get Substring    ${init_string}    20   32
     [Return]    ${first}-${second}-${third}-${fourth}-${fifth}
+
+Create neutron port
+    [Documentation]   Creates neutron port by issuing neutron port-create command.
+    [Arguments]    ${ip}    ${port_name}    ${sg_name}    ${subnet_name}=${SUBNET_NAME}
+    ${output}   Write Commands Until Prompt
+    ...    neutron port-create ${NETWORK_NAME} --fixed-ip subnet_id=${subnet_name},ip_address=${ip} --security-group ${sg_name} --name ${port_name} | grep -w mac_address | awk '{print $4}'
+    Should Not Be Empty    ${output}
+    ${mac_address}     Should Match Regexp   ${output}    ${MAC_ADDRESS_PATTERN}
+    ${mac_address}     Convert To Lowercase  ${mac_address}
+    [Return]  ${mac_address}
+
+Verify neutron port
+    [Documentation]   Verifies ODL data generated by neutron port-create command.
+    [Arguments]    ${mac_address}    ${ip_address}    ${endpoint_group_id}
+    ${endpoint_path}     Get Endpoint Path      ${BRIDGE_DOMAIN_ID}    ${mac_address}
+    ${endpoint-l3_path}  Get EndpointL3 Path    ${ROUTER_ID}    ${ip_address}
+    ${out}          Get Data From URI      session    restconf/operational/endpoint:endpoints     headers=${headers}
+    Log    ${out}
+    ${endpoint}          Get Data From URI      session    ${endpoint_path}     headers=${headers}
+    ${endpoint-l3}       Get Data From URI      session    ${endpoint-l3_path}  headers=${headers}
+    Check Endpoint  ${endpoint}  ${ip_address}  ${endpoint_group_id}  ${ROUTER_ID}  ${SUBNET_ID}  ${TENANT_ID}
+    Check Endpoint-L3  ${endpoint-l3}  ${mac_address}  ${endpoint_group_id}  ${BRIDGE_DOMAIN_ID}  ${SUBNET_ID}  ${TENANT_ID}
+
+Verify Contract
+    [Documentation]         Verifies data generated by security group and security group rules.
+    ...    Notifications for groups and rules come together with port notifications in stable/kilo.
+    [Arguments]             ${rule_id}    ${ip_prefix}    ${tenant}
+    ${contract_path}        Get Contract Path    ${TENANT_ID}    ${GROUP_RULE_ID}
+    ${contract}             Get Data From URI    session    ${contract_path}    headers=${headers}
+    Should Not Be Empty    ${contract}
+    ${prefix_constraint}    Get Prefix Constraint of Single Rule Contract    ${contract}
+    Should Be Equal As Strings    ${prefix_constraint['ip-prefix']}    ${REMOTE_IP_PREFIX}
+    ${action_ref}           Get Action of Single Rule Contract    ${contract}
+    Should Be Equal As Strings    ${action_ref['name']}    Allow
+    ${classif_inst_name}    Get Action Instance Name of Single Rule Contract    ${contract}
+    ${classif_inst_path}    Get Classifier Instance Path    ${TENANT_ID}    ${classif_inst_name}
+    ${classif_inst}         Get Data From URI    session    ${classif_inst_path}    headers=${headers}
+    ${classif_inst_json}    To Json    ${classif_inst}
+    ${parameter_values}     Set Variable
+    ...    ${classif_inst_json['classifier-instance'][0]['parameter-value']}
+    Set Global Variable  ${verify_index}    _
+    : FOR    ${par_value}    IN    @{parameter_values}
+    \    Run Keyword If    "${par_value['name']}" == "destport_range"    Check CI Range Values    ${par_value['range-value']}    80    90
+    ...    ELSE IF    "${par_value['name']}" == "proto"      Should Be Equal As Numbers    ${par_value['int-value']}    6
+    ...    ELSE IF    "${par_value['name']}" == "ethertype"  Should Be Equal As Numbers    ${par_value['int-value']}    2048
+    ...    ELSE    Fail
+
+Verify Endpoint Group
+    [Documentation]    Verifies data generated by security group and security group rules.
+    [Arguments]             ${client_}    ${ip_prefix}    ${tenant}
+    Check Endpoint Group Name and Selector    ${CLIENT_SG_ID}    ${CLIENT_SG}
+    ...   ${TENANT_ID}    ${GROUP_RULE_ID}    consumer-named-selector
 
 Clean Suite
     [Documentation]  Clears Openstack. This is also helpful when debugging tests locally.
