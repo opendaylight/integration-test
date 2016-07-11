@@ -4,6 +4,9 @@ Library           SSHLibrary
 Resource          Utils.robot
 Variables         ../variables/Variables.py
 
+*** Variables ***
+${UUID_PATTERN}    [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
+
 *** Keywords ***
 Source Password
     [Arguments]    ${force}=no
@@ -28,6 +31,7 @@ Create Network
     ...    neutron net-create ${network_name} | grep -w id | awk '{print $4}'
     ${output}=    Write Commands Until Prompt    ${command}    30s
     Log    ${output}
+    Should Match Regexp    ${output}    Created a new network|${UUID_PATTERN}
     [Return]    ${output}
 
 List Networks
@@ -50,14 +54,16 @@ Delete Network
     Should Contain    ${output}    Deleted network: ${network_name}
 
 Create SubNet
-    [Arguments]    ${network_name}    ${subnet}    ${range_ip}
+    [Arguments]    ${network_name}    ${subnet}    ${range_ip}    ${verbose}=TRUE
     [Documentation]    Create SubNet for the Network with neutron request.
     ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet}    30s
-    Close Connection
+    ${command}    Set Variable If    "${verbose}" == "TRUE"    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet}
+    ...    neutron subnet-create ${network_name} ${range_ip} --name ${subnet} | grep -w id | awk '{print $4}'
+    ${output}=    Write Commands Until Prompt    ${command}    30s
     Log    ${output}
-    Should Contain    ${output}    Created a new subnet
+    Should Match Regexp    ${output}    Created a new subnet|${UUID_PATTERN}
+    [Return]    ${output}
 
 Verify Gateway Ips
     [Documentation]    Verifies the Gateway Ips with dump flow.
