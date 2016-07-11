@@ -28,6 +28,7 @@ Create Network
     ...    neutron net-create ${network_name} ${additional_args} | grep -w id | awk '{print $4}'
     ${output}=    Write Commands Until Prompt    ${command}    30s
     Log    ${output}
+    Should Match Regexp    ${output}    Created a new network|${UUID_PATTERN}
     [Return]    ${output}
 
 List Networks
@@ -59,14 +60,16 @@ Delete Network
     Should Contain    ${output}    Deleted network: ${network_name}
 
 Create SubNet
-    [Arguments]    ${network_name}    ${subnet}    ${range_ip}
+    [Arguments]    ${network_name}    ${subnet}    ${range_ip}    ${verbose}=TRUE
     [Documentation]    Create SubNet for the Network with neutron request.
     ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet}    30s
-    Close Connection
+    ${command}    Set Variable If    "${verbose}" == "TRUE"    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet}
+    ...    neutron subnet-create ${network_name} ${range_ip} --name ${subnet} | grep -w id | awk '{print $4}'
+    ${output}=    Write Commands Until Prompt    ${command}    30s
     Log    ${output}
-    Should Contain    ${output}    Created a new subnet
+    Should Match Regexp    ${output}    Created a new subnet|${UUID_PATTERN}
+    [Return]    ${output}
 
 Create Port
     [Arguments]    ${network_name}    ${port_name}
@@ -109,6 +112,51 @@ Delete SubNet
     Close Connection
     Log    ${output}
     Should Contain    ${output}    Deleted subnet: ${subnet}
+
+Create Security Group
+    [Arguments]    ${security-group-name}   ${verbose}=TRUE
+    [Documentation]    Create Security group with neutron request.
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${command}    Set Variable If    "${verbose}" == "TRUE"    neutron -v security-group-create ${security-group-name}
+    ...    neutron security-group-create ${security-group-name} | grep -w id | awk '{print $4}'
+    ${output}=    Write Commands Until Prompt    ${command}    30s
+    Log    ${output}
+    Should Match Regexp    ${output}    Created a new security_group|${UUID_PATTERN}
+    [Return]    ${output}
+
+Create Security Group Rule
+    [Arguments]    ${security-group-rule-name}   ${params-string}    ${verbose}=TRUE
+    [Documentation]    Create Security group with neutron request.
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${command}    Set Variable If    "${verbose}" == "TRUE"    neutron -v security-group-rule create ${security-group-rule-name} ${params-string}
+    ...    neutron security-group-rule-create ${security-group-rule-name} ${params-string} | grep -w id | awk '{print $4}'
+    ${output}=    Write Commands Until Prompt    ${command}    30s
+    Log    ${output}
+    Should Match Regexp    ${output}    Created a new security_group_rule|${UUID_PATTERN}
+    [Return]    ${output}
+
+Create Router
+    [Arguments]    ${router-name}   ${verbose}=TRUE
+    [Documentation]    Create Security group rule with neutron request.
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${command}    Set Variable If    "${verbose}" == "TRUE"    neutron -v router-create ${router-name}
+    ...    neutron router-create ${router-name} | grep -w id | awk '{print $4}'
+    ${output}=    Write Commands Until Prompt    ${command}    30s
+    Log    ${output}
+    Should Match Regexp    ${output}    Created a new router|${UUID_PATTERN}
+    [Return]    ${output}
+
+Router Interface Add Port
+    [Arguments]    ${router-name}    ${subnet-name}   ${verbose}=TRUE
+    [Documentation]    Attaches router port to a subnet
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt     neutron -v router-interface-add ${router-name} subnet=${subnet-name}    30s
+    Log    ${output}
+    Should Match Regexp    ${output}    Added
 
 Verify No Gateway Ips
     [Documentation]    Verifies the Gateway Ips removed with dump flow.
