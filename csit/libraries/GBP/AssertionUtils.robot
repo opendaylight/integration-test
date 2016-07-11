@@ -125,3 +125,15 @@ Check Endpoint Group Name and Selector
     : FOR    ${selector}    IN    @{named_selectors}
     \    Return From Keyword If    "${selector['contract'][0]}" == "${contract_id}"
     Fail
+
+Verify Allow Action in Single Rule Contract
+    [Arguments]    ${contract}
+    [Documentation]    Verifies allow action in single rule contract
+    ${action_ref}    Get Action of Single Rule Contract    ${contract}
+    Should Be Equal As Strings    ${action_ref['name']}    Allow
+
+Verify Single Remote Ip Prefix In Contract
+    [Arguments]    ${contract}    ${ip_prefix}
+    [Documentation]    Verifies remote ip prefix in single prefix contract
+    ${prefix_constraint}    Get Prefix Constraint of Single Rule Contract    ${contract}
+    Should Be Equal As Strings    ${prefix_constraint['ip-prefix']}    ${ip_prefix}
