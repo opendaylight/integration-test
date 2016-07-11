@@ -2,6 +2,7 @@
 Documentation     Openstack library. This library is useful for tests to create network, subnet, router and vm instances
 Library           SSHLibrary
 Resource          Utils.robot
+Resource          ../variables/gbp/Constants.robot
 Variables         ../variables/Variables.py
 
 *** Keywords ***
@@ -25,7 +26,7 @@ Create Network
     Switch Connection    ${devstack_conn_id}
     ${command}    Set Variable If    "${verbose}" == "TRUE"    neutron -v net-create ${network_name} ${additional_args}    neutron net-create ${network_name} ${additional_args} | grep -w id | awk '{print $4}'
     ${output}=    Write Commands Until Prompt    ${command}    30s
-    Log    ${output}
+    Should Match Regexp    ${output}    Created a new network|${UUID_PATTERN}
     [Return]    ${output}
 
 List Networks
@@ -57,14 +58,15 @@ Delete Network
     Should Contain    ${output}    Deleted network: ${network_name}
 
 Create SubNet
-    [Arguments]    ${network_name}    ${subnet}    ${range_ip}
+    [Arguments]    ${network_name}    ${subnet}    ${range_ip}    ${verbose}=TRUE
     [Documentation]    Create SubNet for the Network with neutron request.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet}    30s
-    Close Connection
+    ${command}    Set Variable If    "${verbose}" == "TRUE"    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet}    neutron subnet-create ${network_name} ${range_ip} --name ${subnet} | grep -w id | awk '{print $4}'
+    ${output}=    Write Commands Until Prompt    ${command}    30s
     Log    ${output}
-    Should Contain    ${output}    Created a new subnet
+    Should Match Regexp    ${output}    Created a new subnet|${UUID_PATTERN}
+    [Return]    ${output}
 
 Create Port
     [Arguments]    ${network_name}    ${port_name}
@@ -126,6 +128,46 @@ Delete SubNet
     Close Connection
     Log    ${output}
     Should Contain    ${output}    Deleted subnet: ${subnet}
+
+Create Security Group
+    [Arguments]    ${security-group-name}    ${decription}    ${verbose}=TRUE
+    [Documentation]    Create Security group with neutron request.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${command}    Set Variable If    "${verbose}" == "TRUE"    neutron -v security-group-create ${security-group-name} ${decription}    neutron security-group-create ${security-group-name} ${decription} | grep -w id | awk '{print $4}'
+    ${output}=    Write Commands Until Prompt    ${command}    30s
+    Log    ${output}
+    Should Match Regexp    ${output}    Created a new security_group|${UUID_PATTERN}
+    [Return]    ${output}
+
+Create Security Group Rule
+    [Arguments]    ${security-group-name}    ${params-string}    ${verbose}=TRUE
+    [Documentation]    Create Security group rule with neutron request.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${command}    Set Variable If    "${verbose}" == "TRUE"    neutron -v security-group-rule-create ${security-group-name} ${params-string}    neutron security-group-rule-create ${security-group-name} ${params-string} | grep -w id | awk '{print $4}'
+    ${output}=    Write Commands Until Prompt    ${command}    30s
+    Log    ${output}
+    Should Match Regexp    ${output}    Created a new security_group_rule|${UUID_PATTERN}
+    [Return]    ${output}
+
+Create Security Rule
+    [Arguments]    ${direction}    ${protocol}    ${min_port}    ${max_port}    ${remote_ip}    ${sg_name}
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron security-group-rule-create --direction ${direction} --protocol ${protocol} --port-range-min ${min_port} --port-range-max ${max_port} --remote-ip-prefix ${remote_ip} ${sg_name}
+    Close Connection
+
+Create Router
+    [Arguments]    ${router-name}    ${verbose}=TRUE
+    [Documentation]    Creates neutron router.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${command}    Set Variable If    "${verbose}" == "TRUE"    neutron -v router-create ${router-name}    neutron router-create ${router-name} | grep -w id | awk '{print $4}'
+    ${output}=    Write Commands Until Prompt    ${command}    30s
+    Log    ${output}
+    Should Match Regexp    ${output}    Created a new router|${UUID_PATTERN}
+    [Return]    ${output}
 
 Verify No Gateway Ips
     [Documentation]    Verifies the Gateway Ips removed with dump flow.
@@ -325,22 +367,23 @@ Ping Other Instances
     \    Log    ${dest_ip}
     \    Run Keyword If    ${rcode}    Check Ping    ${dest_ip}
 
-Create Router
-    [Arguments]    ${router_name}
-    [Documentation]    Create Router and Add Interface to the subnets.
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v router-create ${router_name}    30s
-    Close Connection
-    Should Contain    ${output}    Created a new router
-
 Add Router Interface
     [Arguments]    ${router_name}    ${interface_name}
+    [Documentation]    Attaches neutron port to a router
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron -v router-interface-add ${router_name} ${interface_name}
     Close Connection
     Should Contain    ${output}    Added interface
+
+Add Router Interface To Subnet
+    [Arguments]    ${router-name}    ${subnet-name}    ${verbose}=TRUE
+    [Documentation]    Attaches neutron port to a router based on subnet name
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron -v router-interface-add ${router-name} subnet=${subnet-name}    30s
+    Log    ${output}
+    Should Match Regexp    ${output}    Added
 
 Remove Interface
     [Arguments]    ${router_name}    ${interface_name}
@@ -429,20 +472,6 @@ Show Debugs
     List Networks
     List Subnets
     List Ports
-
-Create Security Group
-    [Arguments]    ${sg_name}    ${desc}
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    nova secgroup-create ${sg_name} ${desc}    40s
-    Close Connection
-
-Create Security Rule
-    [Arguments]    ${direction}    ${protocol}    ${min_port}    ${max_port}    ${remote_ip}    ${sg_name}
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron security-group-rule-create --direction ${direction} --protocol ${protocol} --port-range-min ${min_port} --port-range-max ${max_port} --remote-ip-prefix ${remote_ip} ${sg_name}
-    Close Connection
 
 Neutron Security Group Show
     [Arguments]    ${SecurityGroupRuleName}    ${additional_args}=${EMPTY}
