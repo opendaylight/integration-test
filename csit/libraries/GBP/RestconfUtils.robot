@@ -56,7 +56,7 @@ Create L3 Endpoint JSON Data
 Get Endpoint Path
     [Documentation]    Returns path for a registered endpoint based on key in arguments
     [Arguments]    ${l2-context}    ${mac_address}
-    ${mac_address}    Convert To Uppercase    ${mac_address}
+    #${mac_address}    Convert To Uppercase    ${mac_address}
     [Return]    restconf/operational/endpoint:endpoints/endpoint/${l2-context}/${mac_address}
 
 Get EndpointL3 Path
