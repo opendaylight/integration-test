@@ -65,15 +65,17 @@ Test Create Network
     Set Global Variable    ${BRIDGE_DOMAIN_ID}   ${l2_bd_id}
     Set Global Variable    ${L3_CONTEXT_ID}      ${l3_ctx_id}
 
-*** Keywords ***
-Create Neutron Entity And Return ID
-    [Documentation]    Designed for creating neutron entities and returing their IDs.
-    [Arguments]    ${cmd}    ${pattern}=${UUID_PATTERN}
-    ${output}    Write Commands Until Prompt  ${cmd} | grep -w id | awk '{print $4}'
-    Should Not Be Empty    ${output}
-    ${id}     Should Match Regexp    ${output}    ${pattern}
-    [Return]    ${id}
+Test neutron subnet-create and verify
+    [Documentation]  Creates neutron subnet and verifies generated data
+    ${subnet_id}    Create SubNet    ${NETWORK_NAME}    ${SUBNET_NAME}    ${SUBNET_IP_PREFIX}    verbose=FALSE
+    ${subnet_path}   Get Subnet Path    ${TENANT_ID}   ${subnet_id}
+    ${subnet_path}    Set Variable    restconf/config/policy:tenants/policy:tenant/${TENANT_ID}/forwarding-context
+    ${subnet}        Get Data From URI  session        ${subnet_path}      headers=${headers}
+    ${l2_fd_id}      Assert Subnet      ${subnet}      ${NETWORK_NAME}    ${SUBNET_IP_PREFIX}
+    Should Be Equal as Strings          ${l2_fd_id}    ${FLOOD_DOMAIN_ID}
+    Set Global Variable                 ${SUBNET_ID}   ${subnet_id}
 
+*** Keywords ***
 To Uuid
     [Documentation]  Insert dashes if missing to generate proper UUID string.
     [Arguments]    ${init_string}
