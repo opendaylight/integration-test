@@ -105,6 +105,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_c8a0fb45",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 3547
+      },
+      "writtenOn": "2016-07-11T11:20:37Z",
+      "side": 1,
+      "message": "Important here is output format, so I decided to change it as following:\n - return the entire output if it\u0027s verbose (with all its debug messages)\n - return just the id we want to consume if the output is not verbose",
+      "parentUuid": "9a561d44_5d095030",
+      "range": {
+        "startLine": 31,
+        "startChar": 4,
+        "endLine": 31,
+        "endChar": 66
+      },
+      "revId": "24862fca5e040520f07bb80bf1f17b9dfbeb4d5f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_185d2622",
         "filename": "csit/suites/groupbasedpolicy/GBP/Devstack/01__spin_up_devstack_and_verify.robot",
         "patchSetId": 1
