@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_d30d4c92",
+        "filename": "csit/suites/lispflowmapping/msmr/020_RPC_CRUD.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-07-11T12:38:00Z",
+      "side": 1,
+      "message": "Do you need the underscores here? I think Robot automatically replaces spaces with underscores.",
+      "revId": "8fd57342712adc1784e53546cf399e26253a8133",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b31098a9",
+        "filename": "csit/suites/lispflowmapping/msmr/020_RPC_CRUD.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-07-11T12:38:00Z",
+      "side": 1,
+      "message": "I guess you can remove this line.",
+      "revId": "8fd57342712adc1784e53546cf399e26253a8133",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
