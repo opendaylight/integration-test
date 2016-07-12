@@ -48,6 +48,7 @@ Devstack Suite Setup Tests
     Log    ${devstack_conn_id}
     Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_YANG_JSON}
 
 Devstack Suite Setup
     [Arguments]    ${source_pwd}=no
