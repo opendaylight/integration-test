@@ -190,6 +190,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_abbdbc6a",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 167,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-12T10:17:29Z",
+      "side": 1,
+      "message": "\u003e using followers for entity ownership is confusing\n\nFair enough. I spent few minutes searching for a better noun. I think \"backup\" would make sense, but there is a risk of conflict with something else.\nI found \"heir\" and \"devisee\", but their pronunciation makes them tricky to use.\n\nCurrently I think the best word is \"successor\", given there will be context.\nWhen owner means \"device owner\", then successor means \"device owner successor\".\n\nThis Keyword then would be Get_Owner_And_Successors_For_Device.\n\nAny other ideas on the \"registered candidate for ownership but not currently owner\" word?",
+      "parentUuid": "9a561d44_b91077a9",
+      "range": {
+        "startLine": 167,
+        "startChar": 16,
+        "endLine": 167,
+        "endChar": 72
+      },
+      "revId": "4b13f116c3b57f8724df01c85c737e37da102d13",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_9855b61f",
         "filename": "csit/libraries/ClusterManagement.robot",
         "patchSetId": 6
@@ -396,6 +420,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_0bfe6838",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 294,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-12T10:17:29Z",
+      "side": 1,
+      "message": "I vote for leaving it as it is.",
+      "parentUuid": "9a561d44_19036343",
+      "range": {
+        "startLine": 294,
+        "startChar": 4,
+        "endLine": 294,
+        "endChar": 23
+      },
+      "revId": "4b13f116c3b57f8724df01c85c737e37da102d13",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_d8360e03",
         "filename": "csit/libraries/ClusterManagement.robot",
         "patchSetId": 6
@@ -561,6 +609,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_6be604b6",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 349,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-12T10:17:29Z",
+      "side": 1,
+      "message": "Right, sorry, my bad.",
+      "parentUuid": "9a561d44_39e1079b",
+      "range": {
+        "startLine": 349,
+        "startChar": 4,
+        "endLine": 349,
+        "endChar": 9
+      },
+      "revId": "4b13f116c3b57f8724df01c85c737e37da102d13",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_8e61eb3b",
         "filename": "csit/libraries/ClusterOpenFlow.robot",
         "patchSetId": 6
@@ -596,6 +668,30 @@
       "side": 1,
       "message": "I agree but this is a major rework that requires quite a few changes in the existing ofplugin suites. I will do that later once we get the ClusterManagement in shape and merged.",
       "parentUuid": "9a561d44_8e61eb3b",
+      "range": {
+        "startLine": 62,
+        "startChar": 19,
+        "endLine": 62,
+        "endChar": 43
+      },
+      "revId": "4b13f116c3b57f8724df01c85c737e37da102d13",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_8bf2786d",
+        "filename": "csit/libraries/ClusterOpenFlow.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-12T10:17:29Z",
+      "side": 1,
+      "message": "Alright. I am fine with doing that later, assuming there is a Trello card for that.",
+      "parentUuid": "9a561d44_b9eb57af",
       "range": {
         "startLine": 62,
         "startChar": 19,
