@@ -133,3 +133,25 @@ Add Multiple Managers to OVS
     Log    ${output}
     ${ovsdb_uuid}=    Wait Until Keyword Succeeds    30s    2s    Get OVSDB UUID    controller_http_session=controller1
     [Return]    ${ovsdb_uuid}
+
+After Reboot TO Check The OVS
+    [Arguments]    ${tools_system}    ${controller_index_list}    ${ovs_mgr_port}=6640
+    [Documentation]    Connect OVS to all controllers in the ${controller_index_list}.
+    Log    Clear any existing mininet
+    ${ovs_opt}=    Set Variable
+    : FOR    ${index}    IN    @{controller_index_list}
+    \    ${ovs_opt}=    Catenate    ${ovs_opt}    ${SPACE}tcp:${ODL_SYSTEM_${index}_IP}:${ovs_mgr_port}
+    \    Log    ${ovs_opt}
+    Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl set-manager ${ovs_opt}
+    Log    Check OVS configuration
+    ${output}=    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected    ${tools_system}
+    Log    ${output}
+
+Clean OVSDB Test del-manager
+    [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
+    [Documentation]    General Use Keyword attempting to sanitize test environment for OVSDB related
+    ...    tests. Not every step will always be neccessary, but should not cause any problems for
+    ...    any new ovsdb test suites.
+    Utils.Clean Mininet System    ${tools_system}
+    Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl del-manager
+
