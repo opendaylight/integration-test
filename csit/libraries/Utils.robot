@@ -500,3 +500,19 @@ Install Package On Ubuntu System
     Flexible Mininet Login    user=${user}    password=${password}
     Write    sudo apt-get install -y ${package_name}
     Read Until    ${prompt}
+
+Run Command On Mininet System
+    [Arguments]    ${system}    ${cmd}    ${user}=${DEFAULT_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=${DEFAULT_TIMEOUT}
+    [Documentation]    Reduces the common work of running a command on a remote system to a single higher level
+    ...    robot keyword, taking care to log in with a public key and. The command given is written
+    ...    and the output returned. No test conditions are checked.
+    ${current_ssh_connection}=    SSHLibrary.Get Connection
+    Log    Attempting to execute command "${cmd}" on remote system "${system}" by user "${user}" with keyfile pass "${keyfile_pass}" and prompt "${prompt}"
+    ${conn_id}=    SSHLibrary.Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
+    Flexible SSH Login    ${user}    ${password}
+    ${stdout}    ${stderr}    SSHLibrary.Execute Command    ${cmd}    return_stderr=True
+    SSHLibrary.Close Connection
+    Log    ${stderr}
+    [Teardown]    KarafKeywords.Restore_Current_SSH_Connection_From_Index    ${current_ssh_connection.index}
+    [Return]    ${stdout}
+
