@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_68560ad4",
+        "filename": "csit/scriptplans/controller-longevity.txt",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-12T05:19:41Z",
+      "side": 1,
+      "message": "For simplicity you could just call this file openflowplugin-scalability.txt and then no need to modify jjb project.",
+      "revId": "ec266cbd22d9ed52028ad703469a91deafdce478",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_8809dedf",
+        "filename": "csit/scripts/longevity-long-duration.sh",
+        "patchSetId": 20
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-12T05:19:41Z",
+      "side": 1,
+      "message": "So this actually copies directly in the controller folder before the controller is unzipped. I never tried this before, does this work for you? I guess it does if you get passed in sandbox.",
+      "revId": "ec266cbd22d9ed52028ad703469a91deafdce478",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_68bf2afc",
+        "filename": "csit/scripts/longevity-long-duration.sh",
+        "patchSetId": 20
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-12T05:19:41Z",
+      "side": 1,
+      "message": "Why you need this sleep here? Controller deploy and robot test happen after this script is executed.",
+      "revId": "ec266cbd22d9ed52028ad703469a91deafdce478",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_88627eab",
+        "filename": "csit/testplans/controller-longevity.txt",
+        "patchSetId": 20
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-12T05:19:41Z",
+      "side": 1,
+      "message": "Instead of using this file, I would prefer to modify existing openflowplugin scalability test to generate the plots. Can you do that?",
+      "revId": "ec266cbd22d9ed52028ad703469a91deafdce478",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
