@@ -12,8 +12,8 @@ Resource          ../../../libraries/DevstackUtils.robot
 *** Variables ***
 @{NETWORKS_NAME}    l2_network_1    l2_network_2
 @{SUBNETS_NAME}    l2_subnet_1    l2_subnet_2
-@{NET_1_VM_INSTANCES}    MyFirstInstance_1    MySecondInstance_1    MyThirdInstance_1
-@{NET_2_VM_INSTANCES}    MyFirstInstance_2    MySecondInstance_2    MyThirdInstance_2
+@{NET_1_VM_INSTANCES}    MyFirstInstance_1    MySecondInstance_1     MyThirdInstance_1
+@{NET_2_VM_INSTANCES}    MyFirstInstance_2    MySecondInstance_2     MyThirdInstance_2
 @{NET_1_VM_IPS}    30.0.0.3    30.0.0.4    30.0.0.5
 @{NET_2_VM_IPS}    40.0.0.3    40.0.0.4    40.0.0.5
 @{VM_IPS_NOT_DELETED}    30.0.0.4    30.0.0.5
@@ -73,13 +73,13 @@ Connectivity Tests From Vm Instance1 In l2_network_1
     [Documentation]    Logging to the vm instance1
     ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}[1]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[2]
     Log    ${dst_ip_list}
-    Test Operations From Vm Instance    l2_network_1    @{NET_1_VM_IPS}[0]    ${dst_ip_list}
+    Wait Until Keyword Succeeds    60s    5s    Test Operations From Vm Instance    l2_network_1    @{NET_1_VM_IPS}[0]    ${dst_ip_list}
 
 Connectivity Tests From Vm Instance2 In l2_network_1
     [Documentation]    Logging to the vm instance2
     ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}[0]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[2]
     Log    ${dst_ip_list}
-    Test Operations From Vm Instance    l2_network_1    @{NET_1_VM_IPS}[1]    ${dst_ip_list}
+    Wait Until Keyword Succeeds    90s    15s     Test Operations From Vm Instance    l2_network_1    @{NET_1_VM_IPS}[1]    ${dst_ip_list}
 
 Connectivity Tests From Vm Instance3 In l2_network_1
     [Documentation]    Logging to the vm instance2
@@ -91,27 +91,19 @@ Connectivity Tests From Vm Instance1 In l2_network_2
     [Documentation]    Logging to the vm instance using generated key pair.
     ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[1]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[2]
     Log    ${dst_ip_list}
-    Test Operations From Vm Instance    l2_network_2    @{NET_2_VM_IPS}[0]    ${dst_ip_list}
+    Wait Until Keyword Succeeds    60s    15s     Test Operations From Vm Instance    l2_network_2    @{NET_2_VM_IPS}[0]    ${dst_ip_list}
 
 Connectivity Tests From Vm Instance2 In l2_network_2
     [Documentation]    Logging to the vm instance using generated key pair.
     ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[2]
     Log    ${dst_ip_list}
-    Test Operations From Vm Instance    l2_network_2    @{NET_2_VM_IPS}[1]    ${dst_ip_list}
+    Wait Until Keyword Succeeds    90s    15s     Test Operations From Vm Instance    l2_network_2    @{NET_2_VM_IPS}[1]    ${dst_ip_list}
 
 Connectivity Tests From Vm Instance3 In l2_network_2
     [Documentation]    Logging to the vm instance using generated key pair.
     ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[1]
     Log    ${dst_ip_list}
     Test Operations From Vm Instance    l2_network_2    @{NET_2_VM_IPS}[2]    ${dst_ip_list}
-
-Delete A Vm Instance
-    [Documentation]    Delete Vm instances using instance names.
-    Delete Vm Instance    MyFirstInstance_1
-
-No Ping For Deleted Vm
-    [Documentation]    Check non reachability of deleted vm instances by pinging to them.
-    ${output}=    Ping From DHCP Should Not Succeed    l2_network_1    @{NET_1_VM_IPS}[0]
 
 Delete Vm Instances In l2_network_1
     [Documentation]    Delete Vm instances using instance names in l2_network_1.
