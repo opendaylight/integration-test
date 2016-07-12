@@ -9,7 +9,7 @@ Edited: Many times by many people
 # VM Environment defaults
 DEFAULT_LINUX_PROMPT = '>'
 DEFAULT_LINUX_PROMPT_STRICT = ']>'
-DEFAULT_USER = 'jenkins'
+DEFAULT_USER = 'tcs'
 DEFAULT_TIMEOUT = '30s'
 
 # ODL system variables
@@ -189,6 +189,7 @@ USER = 'admin'  # TODO: who is using this?  Can we make it more specific? (e.g. 
 PWD = 'admin'
 PASSWORD = 'EMPTY'
 AUTH = [u'admin', u'admin']
+AUTH1= [u'admi', u'admin']
 SCOPE = 'sdn'
 HEADERS = {'Content-Type': 'application/json'}
 HEADERS_YANG_JSON = {'Content-Type': 'application/yang.data+json'}
