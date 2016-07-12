@@ -179,3 +179,31 @@ Wait For Karaf Log
     Read Until    ${message}
     Close Connection
 
+Restore Current SSH Connection
+    [Arguments]    ${connection_index}
+    [Documentation]    Restore active SSH connection in SSHLibrary to given index.
+    ...
+    ...    Restore the currently active connection state in
+    ...    SSHLibrary to match the state returned by "Switch
+    ...    Connection" or "Get Connection". More specifically makes
+    ...    sure that there will be no active connection when the
+    ...    \${connection_index} reported by these means is None.
+    ...
+    ...    There is a misfeature in SSHLibrary: Invoking "SSHLibrary.Switch_Connection"
+    ...    and passing None as the "index_or_alias" argument to it has exactly the
+    ...    same effect as invoking "Close Connection".
+    ...    https://github.com/robotframework/SSHLibrary/blob/master/src/SSHLibrary/library.py#L560
+    ...
+    ...    We want to have Keyword which will "switch out" to previous
+    ...    "no connection active" state without killing the background one.
+    ...
+    ...    As some suites may hypothetically rely on non-writability of active connection,
+    ...    workaround is applied by opening and closing temporary connection.
+    ...    Unfortunately this will fail if run on Jython and there is no SSH server
+    ...    running on localhost, port 22 but there is nothing easy that can be done about it.
+    BuiltIn.Run Keyword And Return If    ${connection_index} is not None    SSHLibrary.Switch Connection    ${connection_index}
+    # The background connection is still current, bury it.
+    SSHLibrary.Open Connection    127.0.0.1
+    SSHLibrary.Close Connection
+
+
