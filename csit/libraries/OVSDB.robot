@@ -133,3 +133,34 @@ Add Multiple Managers to OVS
     Log    ${output}
     ${ovsdb_uuid}=    Wait Until Keyword Succeeds    30s    2s    Get OVSDB UUID    controller_http_session=controller1
     [Return]    ${ovsdb_uuid}
+
+After Reboot TO Check The OVS
+    [Arguments]    ${tools_system}    ${controller_index_list}    ${ovs_mgr_port}=6640
+    [Documentation]    Connect OVS to all controllers in the ${controller_index_list}.
+    Log    Configure OVS Managers in the OVS
+    ${ovs_opt}=    Set Variable
+    : FOR    ${index}    IN    @{controller_index_list}
+    \    ${ovs_opt}=    Catenate    ${ovs_opt}    ${SPACE}tcp:${ODL_SYSTEM_${index}_IP}:${ovs_mgr_port}
+    \    Log    ${ovs_opt}
+    Log    Configure OVS Managers in the OVS
+    Log    Check OVS configuration
+    ${output}=    Utils.Run Command On Mininet System     ${TOOLS_SYSTEM_IP}   sudo ovs-vsctl show
+    ${output_1}=   Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl set-manager ${ovs_opt}
+    Log    ${output}
+    Log    ${output_1}
+    Should Contain    ${output}    is_connected
+    [Return]    ${output}
+
+Run Command On Mininet System
+    [Arguments]    ${system}    ${cmd}    ${user}=${DEFAULT_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=${DEFAULT_TIMEOUT}
+    [Documentation]    Reduces the common work of running a command on a remote system to a single higher level
+    ...    robot keyword, taking care to log in with a public key and. The command given is written
+    ...    and the output returned. No test conditions are checked.
+    ${current_ssh_connection}=    SSHLibrary.Get Connection
+    Log    Attempting to execute command "${cmd}" on remote system "${system}" by user "${user}" with keyfile pass "${keyfile_pass}" and prompt "${prompt}"
+    ${conn_id}=    SSHLibrary.Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
+    Flexible SSH Login    ${user}    ${password}
+    ${stdout}    ${stderr}    SSHLibrary.Execute Command    ${cmd}    return_stderr=True
+    Log    ${stderr}
+    [Teardown]    KarafKeywords.Restore_Current_SSH_Connection_From_Index    ${current_ssh_connection.index}
+    [Return]    ${stdout}
