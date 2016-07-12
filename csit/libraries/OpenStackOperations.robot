@@ -19,6 +19,7 @@ Create Network
     Close Connection
     Log    ${output}
     Should Contain    ${output}    Created a new network
+    [Teardown]    Get OvsDebugInfo
 
 List Networks
     [Documentation]    List networks and return output with neutron client.
@@ -48,6 +49,7 @@ Create SubNet
     Close Connection
     Log    ${output}
     Should Contain    ${output}    Created a new subnet
+    [Teardown]    Get OvsDebugInfo
 
 Verify Gateway Ips
     [Documentation]    Verifies the Gateway Ips with dump flow.
@@ -117,6 +119,7 @@ Create Vm Instances
     \    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement}    30s
     \    Log    ${output}
     \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VmElement}
+    \    Get OvsDebugInfo
 
 Verify VM Is ACTIVE
     [Arguments]    ${vm_name}
@@ -146,6 +149,7 @@ Ping Vm From DHCP Namespace
     Log    ${output}
     Close Connection
     Should Contain    ${output}    64 bytes
+    [Teardown]    Get OvsDebugInfo
 
 Ping From DHCP Should Not Succeed
     [Arguments]    ${net_name}    ${vm_ip}
@@ -159,6 +163,7 @@ Ping From DHCP Should Not Succeed
     Close Connection
     Log    ${output}
     Should Not Contain    ${output}    64 bytes
+    [Teardown]    Get OvsDebugInfo
 
 Ping From Instance
     [Arguments]    ${dest_vm}
