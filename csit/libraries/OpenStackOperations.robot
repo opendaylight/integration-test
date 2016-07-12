@@ -117,6 +117,7 @@ Create Vm Instances
     \    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement}    30s
     \    Log    ${output}
     \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VmElement}
+    [Teardown]    Get OvsDebugInfo
 
 Verify VM Is ACTIVE
     [Arguments]    ${vm_name}
@@ -146,6 +147,7 @@ Ping Vm From DHCP Namespace
     Log    ${output}
     Close Connection
     Should Contain    ${output}    64 bytes
+    [Teardown]    Get OvsDebugInfo
 
 Ping From DHCP Should Not Succeed
     [Arguments]    ${net_name}    ${vm_ip}
@@ -159,6 +161,7 @@ Ping From DHCP Should Not Succeed
     Close Connection
     Log    ${output}
     Should Not Contain    ${output}    64 bytes
+    [Teardown]    Get OvsDebugInfo
 
 Ping From Instance
     [Arguments]    ${dest_vm}
@@ -299,13 +302,26 @@ Get OvsDebugInfo
     Run Keyword If    0 < ${NUM_OS_SYSTEM}    Get DumpFlows And Ovsconfig    ${OS_CONTROL_NODE_IP}
     Run Keyword If    1 < ${NUM_OS_SYSTEM}    Get DumpFlows And Ovsconfig    ${OS_COMPUTE_1_IP}
     Run Keyword If    2 < ${NUM_OS_SYSTEM}    Get DumpFlows And Ovsconfig    ${OS_COMPUTE_2_IP}
+    Collect DataStoreInfo
 
 Show Debugs
     [Arguments]    ${vm_indices}
     [Documentation]    Run these commands for debugging, it can list state of VM instances and ip information in control node
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    sudo ip netns list
     Log    ${output}
     : FOR    ${index}    IN    @{vm_indices}
     \    ${output}=    Write Commands Until Prompt    nova show ${index}     30s
     \    Log    ${output}
     Close Connection
+
+Collect DataStoreInfo
+    ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/entity-owners:entity-owners
+    Log     ${resp.content}
+    ${resp}=    RequestsLibrary.Get Request    session    restconf/config/opendaylight-inventory:nodes
+    Log     ${resp.content}
+    ${resp}=    RequestsLibrary.Get Request    session    restconf/config/network-topology:network-topology
+    Log     ${resp.content}
+    ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/network-topology:network-topology
+    Log     ${resp.content}
