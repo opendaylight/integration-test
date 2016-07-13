@@ -22,6 +22,30 @@
       "revId": "019c21405bb02d1f8a35bcbf32d760b1c6377520",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_4d2b5094",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 656
+      },
+      "writtenOn": "2016-07-13T11:21:57Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_f2a04145",
+      "range": {
+        "startLine": 20,
+        "startChar": 112,
+        "endLine": 20,
+        "endChar": 113
+      },
+      "revId": "019c21405bb02d1f8a35bcbf32d760b1c6377520",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
