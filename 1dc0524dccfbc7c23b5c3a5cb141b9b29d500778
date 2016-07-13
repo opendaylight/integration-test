@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_171e8263",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-13T16:20:25Z",
+      "side": 1,
+      "message": "robot.tidy gave me a 4th space here too, as well as moving [Return] below [Teardown] in lines 138/139 below.",
+      "range": {
+        "startLine": 24,
+        "startChar": 47,
+        "endLine": 24,
+        "endChar": 51
+      },
+      "revId": "1dc0524dccfbc7c23b5c3a5cb141b9b29d500778",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
