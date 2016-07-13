@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_ad902c44",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T10:02:27Z",
+      "side": 1,
+      "message": "I believe this will not usually work.\n\nAt least I believe I had s good reason to distinguish data from post_data in TemplatedRequests.\nFor example csit/variables/carpeople/crud/cars/:\nPost data starts with post_data.prolog.json but GET to the same location.uri returns data starting with data.prolog.json\n\nFor now I would just remove this Keyword, as no suite seem to be using it.\n\nIn long term, ClusterManagement should be integrated better with TemplatedRequests, and we should discourage suites which use Utils or direct RequestsLibrary in favor of TemplatedRequests wherever possible.",
+      "range": {
+        "startLine": 317,
+        "startChar": 108,
+        "endLine": 317,
+        "endChar": 115
+      },
+      "revId": "0a201f25fd8db8a072ed428239ac44d36bf9495f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_6df294d3",
+        "filename": "csit/libraries/ClusterOpenFlow.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T10:02:27Z",
+      "side": 1,
+      "message": "successor\n\nIdeally, this file should not contain \"candidate\" substring at all.",
+      "range": {
+        "startLine": 39,
+        "startChar": 18,
+        "endLine": 39,
+        "endChar": 27
+      },
+      "revId": "0a201f25fd8db8a072ed428239ac44d36bf9495f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_eddea43e",
+        "filename": "csit/suites/openflowplugin/Clustering/010__Cluster_HA_Owner_Failover.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T10:02:27Z",
+      "side": 1,
+      "message": "successor\n\nApplies to other variable names (and test case names) as well.",
+      "range": {
+        "startLine": 23,
+        "startChar": 36,
+        "endLine": 23,
+        "endChar": 45
+      },
+      "revId": "0a201f25fd8db8a072ed428239ac44d36bf9495f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_2dcffc80",
+        "filename": "csit/suites/openflowplugin/EntityOwhership/010_Switch_Disconnect.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T10:02:27Z",
+      "side": 1,
+      "message": "successors",
+      "range": {
+        "startLine": 142,
+        "startChar": 79,
+        "endLine": 142,
+        "endChar": 88
+      },
+      "revId": "0a201f25fd8db8a072ed428239ac44d36bf9495f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_8da568b7",
+        "filename": "csit/suites/openflowplugin/EntityOwhership/020_Cluster_Sync_Problems.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T10:02:27Z",
+      "side": 1,
+      "message": "successors\n\nMake sure \"follower\" or \"candidate\" is not a substring in this file (except for comments explaining why).\n\nApplies to 030_Cluster_Node_Failure.robot as well.",
+      "range": {
+        "startLine": 90,
+        "startChar": 26,
+        "endLine": 90,
+        "endChar": 35
+      },
+      "revId": "0a201f25fd8db8a072ed428239ac44d36bf9495f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
