@@ -14,6 +14,7 @@ Resource          ../../../libraries/ClusterOvsdb.robot
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/ClusterKeywords.robot
+Resource          ../../../libraries/ClusterOvsdb.robot
 
 *** Variables ***
 @{NETWORKS_NAME}    l2_net_1    l2_net_2
@@ -246,3 +247,20 @@ Delete Networks
     [Documentation]    Delete Networks with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
     \    Delete Network    ${NetworkElement}
+
+Delete Internal bridge and Verify
+    [Documentation]    Delete internal bridge with OVS command and verify it gets deleted from all instances.
+    ClusterOvsdb.Delete Internal Bridge Manually And Verify    ${original_cluster_list}
+    [Teardown]    Report_Failure_Due_To_Bug    6262
+
+Delete External bridge and Verify
+    [Documentation]    Delete external bridge with OVS command and verify it gets deleted from all instances.
+    ClusterOvsdb.Delete External Bridge Manually And Verify    ${original_cluster_list}
+    [Teardown]    Report_Failure_Due_To_Bug    6262
+
+Cleans Up Test Environment For Next Suite
+    [Documentation]    Cleans up test environment, close existing sessions in teardown.
+    Log    ${original_cluster_list}
+    ClusterOvsdb.Configure Exit Netvirt Connection    ${original_cluster_list}
+    [Teardown]    Report_Failure_Due_To_Bug    6262
+
