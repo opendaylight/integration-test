@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_54647821",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-13T16:07:44Z",
+      "side": 1,
+      "message": "sure",
+      "parentUuid": "9a561d44_f4714c45",
+      "range": {
+        "startLine": 197,
+        "startChar": 16,
+        "endLine": 197,
+        "endChar": 18
+      },
+      "revId": "0a201f25fd8db8a072ed428239ac44d36bf9495f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_ad902c44",
         "filename": "csit/libraries/ClusterManagement.robot",
         "patchSetId": 10
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_344e2497",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-13T16:07:44Z",
+      "side": 1,
+      "message": "fair enough, will remove the KW.",
+      "parentUuid": "9a561d44_ad902c44",
+      "range": {
+        "startLine": 317,
+        "startChar": 108,
+        "endLine": 317,
+        "endChar": 115
+      },
+      "revId": "0a201f25fd8db8a072ed428239ac44d36bf9495f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_6df294d3",
         "filename": "csit/libraries/ClusterOpenFlow.robot",
         "patchSetId": 10
@@ -59,6 +107,30 @@
       "writtenOn": "2016-07-13T10:02:27Z",
       "side": 1,
       "message": "successor\n\nIdeally, this file should not contain \"candidate\" substring at all.",
+      "range": {
+        "startLine": 39,
+        "startChar": 18,
+        "endLine": 39,
+        "endChar": 27
+      },
+      "revId": "0a201f25fd8db8a072ed428239ac44d36bf9495f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_14ab201e",
+        "filename": "csit/libraries/ClusterOpenFlow.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-13T16:07:44Z",
+      "side": 1,
+      "message": "Agree",
+      "parentUuid": "9a561d44_6df294d3",
       "range": {
         "startLine": 39,
         "startChar": 18,
