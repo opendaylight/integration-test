@@ -1,0 +1,1637 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_4d4510b2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 62
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Add",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 3
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_0d3b1839",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 62
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "e",
+      "range": {
+        "startLine": 7,
+        "startChar": 29,
+        "endLine": 7,
+        "endChar": 30
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ad130cb7",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 62
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "suites",
+      "range": {
+        "startLine": 7,
+        "startChar": 15,
+        "endLine": 7,
+        "endChar": 20
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_6d4a94c6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 62
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "l",
+      "range": {
+        "startLine": 10,
+        "startChar": 18,
+        "endLine": 10,
+        "endChar": 20
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_8d1608a6",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 62
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "T",
+      "range": {
+        "startLine": 14,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 1
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_cd1000ab",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 62
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "functional",
+      "range": {
+        "startLine": 14,
+        "startChar": 32,
+        "endLine": 14,
+        "endChar": 43
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ed0d0492",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 62
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Dot at the end of sentence.",
+      "range": {
+        "startLine": 15,
+        "startChar": 57,
+        "endLine": 15,
+        "endChar": 58
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_6d21f4fa",
+        "filename": "csit/libraries/BgpRpcClient.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "run",
+      "range": {
+        "startLine": 2,
+        "startChar": 60,
+        "endLine": 2,
+        "endChar": 64
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_4d1cf0c1",
+        "filename": "csit/libraries/BgpRpcClient.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Use triple-double-quotes for docstrings (everywhere, including other .py files).",
+      "range": {
+        "startLine": 13,
+        "startChar": 4,
+        "endLine": 13,
+        "endChar": 7
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ad7aecee",
+        "filename": "csit/libraries/BgpRpcClient.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Add docstring.",
+      "range": {
+        "startLine": 15,
+        "startChar": 33,
+        "endLine": 15,
+        "endChar": 34
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_8d64484a",
+        "filename": "csit/libraries/BgpRpcClient.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Document msg_only effect.",
+      "range": {
+        "startLine": 75,
+        "startChar": 32,
+        "endLine": 75,
+        "endChar": 33
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_0d50385d",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "csit/scripts is for scripts source-able by releng/builder environment preparation bash scripts. Move this file to some place in tools/.",
+      "range": {
+        "startLine": 1,
+        "startChar": 15,
+        "endLine": 1,
+        "endChar": 21
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_8dcba81d",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Pylint suggests moving there two lines after the following standard imports.",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 4
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ed5b4485",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "safe\n\nApplies everywhere.",
+      "range": {
+        "startLine": 17,
+        "startChar": 14,
+        "endLine": 17,
+        "endChar": 18
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_6de614b6",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Add docstring.",
+      "range": {
+        "startLine": 27,
+        "startChar": 41,
+        "endLine": 27,
+        "endChar": 42
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_adc82c23",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Usually I see args and kwargs without this space between \"unary operator\" and name. But both pep8 and pylint are fine with this, so I guess it is ok.",
+      "range": {
+        "startLine": 27,
+        "startChar": 24,
+        "endLine": 27,
+        "endChar": 25
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_0dd798c0",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Either put *p_arg, **n_arg here, or even better: remove those arguments altogether.",
+      "range": {
+        "startLine": 28,
+        "startChar": 40,
+        "endLine": 28,
+        "endChar": 42
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_4de19099",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Add docstring.",
+      "range": {
+        "startLine": 31,
+        "startChar": 23,
+        "endLine": 31,
+        "endChar": 24
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_adef8c86",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Add docstring.",
+      "range": {
+        "startLine": 35,
+        "startChar": 47,
+        "endLine": 35,
+        "endChar": 48
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_31be36d5",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Rpcs(object):",
+      "range": {
+        "startLine": 39,
+        "startChar": 6,
+        "endLine": 39,
+        "endChar": 11
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_51276ab6",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "https://www.python.org/dev/peps/pep-0257/\n\nIt mentions \"a phrase ending in a period\" only for one-line docstrings, but example of multi-line docstrings treat their first line as a complete sentence.",
+      "range": {
+        "startLine": 40,
+        "startChar": 36,
+        "endLine": 40,
+        "endChar": 37
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_3103d60e",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Pass\n\nApplies everywhere.\n\nSnippet from https://www.python.org/dev/peps/pep-0257/\n\nThe docstring is a phrase ending in a period. It prescribes the function or method\u0027s effect as a command (\"Do this\", \"Return that\"), not as a description; e.g. don\u0027t write \"Returns the pathname ...\".",
+      "range": {
+        "startLine": 51,
+        "startChar": 11,
+        "endLine": 51,
+        "endChar": 29
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_4df87049",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "logging.debug(\u0027Command towards exabgp: {}\u0027, text)\n\nFormatting would done the same way, but only if debug level is actually not ignored.\nApplies everywhere.",
+      "range": {
+        "startLine": 56,
+        "startChar": 8,
+        "endLine": 56,
+        "endChar": 64
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_6d59f459",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 71,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "This may be unsafe. Remove this if, rely on line 74 instead.",
+      "range": {
+        "startLine": 71,
+        "startChar": 26,
+        "endLine": 71,
+        "endChar": 28
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b16d269c",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "stor",
+      "range": {
+        "startLine": 73,
+        "startChar": 29,
+        "endLine": 73,
+        "endChar": 30
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_4d54f020",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Superfluous, remove.",
+      "range": {
+        "startLine": 92,
+        "startChar": 8,
+        "endLine": 92,
+        "endChar": 14
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ad32ec0d",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Superfluous, remove.",
+      "range": {
+        "startLine": 132,
+        "startChar": 8,
+        "endLine": 132,
+        "endChar": 14
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_cd3f60d5",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "This value is not needed, remove (or at least move to the commented-out block).",
+      "range": {
+        "startLine": 146,
+        "startChar": 4,
+        "endLine": 146,
+        "endChar": 11
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_8d3568f9",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "not body\n\nSlightly more permissive, unless there is a reason to distinguish empty string from None.",
+      "range": {
+        "startLine": 146,
+        "startChar": 22,
+        "endLine": 146,
+        "endChar": 34
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_6d30d401",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "I do not think the commented-out code is non-obvious enough for keeping it around. Remove it.",
+      "range": {
+        "startLine": 151,
+        "startChar": 4,
+        "endLine": 151,
+        "endChar": 6
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_71242eaf",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Stores message under key.",
+      "range": {
+        "startLine": 176,
+        "startChar": 7,
+        "endLine": 176,
+        "endChar": 43
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f12f9e86",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 273,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Add docstring.",
+      "range": {
+        "startLine": 273,
+        "startChar": 43,
+        "endLine": 273,
+        "endChar": 44
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_9158e233",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 279,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Uncomment as logging.debug, or remove.",
+      "range": {
+        "startLine": 279,
+        "startChar": 10,
+        "endLine": 279,
+        "endChar": 22
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_313bd69d",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Should this backslash be doubled? I think so. This is not a raw string (which would not understand \"escaped enter to line wrap\" correctly).\nAnd ordinary python strings need double backslash to mean single backslash (needed for re to understand the following dot correctly).",
+      "range": {
+        "startLine": 280,
+        "startChar": 38,
+        "endLine": 280,
+        "endChar": 39
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d14b7a29",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Documentation of decode_message says this is currently always None.\nPerhaps store the non-decoded body?\nmatch.groupdict()[\u0027body\u0027]",
+      "range": {
+        "startLine": 293,
+        "startChar": 35,
+        "endLine": 293,
+        "endChar": 38
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_115692d2",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "warn perhaps? Ot at least info.",
+      "range": {
+        "startLine": 363,
+        "startChar": 16,
+        "endLine": 363,
+        "endChar": 21
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_91b582f0",
+        "filename": "csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "test suite",
+      "range": {
+        "startLine": 2,
+        "startChar": 29,
+        "endLine": 2,
+        "endChar": 33
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_71eb8eb0",
+        "filename": "csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Include this in other testcases (as Setup or as part of existing Setup keyword).\n\nApplies to other suites as well.",
+      "range": {
+        "startLine": 72,
+        "startChar": 26,
+        "endLine": 72,
+        "endChar": 31
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f1bf9ea8",
+        "filename": "csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Call suitable setup keyword from SetupUtils.\n\nApplies to other suites as well.",
+      "range": {
+        "startLine": 83,
+        "startChar": 41,
+        "endLine": 83,
+        "endChar": 42
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d1ceda82",
+        "filename": "csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "tools or tools_system\n\nApplies everywhere.",
+      "range": {
+        "startLine": 84,
+        "startChar": 6,
+        "endLine": 84,
+        "endChar": 13
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b1c9a67b",
+        "filename": "csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "This may also catch config files possibly left there by previous suites, but consequences are not that bad, so no big deal.",
+      "range": {
+        "startLine": 106,
+        "startChar": 31,
+        "endLine": 106,
+        "endChar": 35
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d1a37a9c",
+        "filename": "csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Add Documentation.",
+      "range": {
+        "startLine": 129,
+        "startChar": 4,
+        "endLine": 129,
+        "endChar": 5
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f19afe6c",
+        "filename": "csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Do we want also this?\n\nVerify_Tools_Connection     connected\u003d${False}",
+      "range": {
+        "startLine": 147,
+        "startChar": 27,
+        "endLine": 147,
+        "endChar": 28
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_719d4e59",
+        "filename": "csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Add Documentation.",
+      "range": {
+        "startLine": 162,
+        "startChar": 4,
+        "endLine": 162,
+        "endChar": 5
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b177e63a",
+        "filename": "csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 164,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "update_object",
+      "range": {
+        "startLine": 164,
+        "startChar": 10,
+        "endLine": 164,
+        "endChar": 17
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_91b102e4",
+        "filename": "csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "This repeats in several places. I suggest to add Normalize_Jsons_With_Bits_And_Compare to TemplatedRequests, with Python object [op] as default argument value if possible.",
+      "range": {
+        "startLine": 176,
+        "startChar": 49,
+        "endLine": 176,
+        "endChar": 51
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b1cc0663",
+        "filename": "csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Mention multipath.\n\nAlso, other suites also have a short text after license.",
+      "range": {
+        "startLine": 2,
+        "startChar": 41,
+        "endLine": 2,
+        "endChar": 42
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f1d67ef0",
+        "filename": "csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Is this supposed to be configurable? If yes, choose a better name. If no, just use literal 2 in code.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 12
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_3108f690",
+        "filename": "csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "tidy",
+      "range": {
+        "startLine": 52,
+        "startChar": 47,
+        "endLine": 52,
+        "endChar": 48
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_313596f7",
+        "filename": "csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Many of the following Keywords are the same, or very similar to keywords in other exabgp suites.\nCreate csit/libraries/ExaBgp.robot or at least Trello card for that.",
+      "range": {
+        "startLine": 92,
+        "startChar": 15,
+        "endLine": 92,
+        "endChar": 16
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_913c62e4",
+        "filename": "csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Make part of Documentation.",
+      "range": {
+        "startLine": 110,
+        "startChar": 4,
+        "endLine": 110,
+        "endChar": 5
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_1159725a",
+        "filename": "csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "single l\n(applies everywhere)",
+      "range": {
+        "startLine": 129,
+        "startChar": 17,
+        "endLine": 129,
+        "endChar": 19
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b4bfd4fb",
+        "filename": "csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Why is this needed? How does ExaBgp fail to start?\nIn other words Documentation should be more verbose here.",
+      "range": {
+        "startLine": 135,
+        "startChar": 43,
+        "endLine": 135,
+        "endChar": 45
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f4466c4e",
+        "filename": "csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Mention verify instead.\nApplies to 010 and 040 suite as well.",
+      "range": {
+        "startLine": 160,
+        "startChar": 38,
+        "endLine": 160,
+        "endChar": 56
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_11305200",
+        "filename": "csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 180,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "What is this needed for? Do you want to BuiltIn.Log the result?",
+      "range": {
+        "startLine": 180,
+        "startChar": 22,
+        "endLine": 180,
+        "endChar": 42
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f4b94c16",
+        "filename": "csit/suites/bgpcep/bgpfunct/030_bgp_functionalt_evpn.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Wrap to lines of reasonable length.",
+      "range": {
+        "startLine": 62,
+        "startChar": 61,
+        "endLine": 62,
+        "endChar": 62
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f4fe6cad",
+        "filename": "csit/suites/bgpcep/bgpfunct/030_bgp_functionalt_evpn.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "This installation belongs to the 040 suite.",
+      "range": {
+        "startLine": 318,
+        "startChar": 40,
+        "endLine": 318,
+        "endChar": 51
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b446b41f",
+        "filename": "csit/suites/bgpcep/bgpfunct/030_bgp_functionalt_evpn.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 324,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "tidy",
+      "range": {
+        "startLine": 324,
+        "startChar": 53,
+        "endLine": 324,
+        "endChar": 56
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d4f9a8c9",
+        "filename": "csit/suites/bgpcep/bgpfunct/030_bgp_functionalt_evpn.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 352,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Get_Update_Content already does this.",
+      "range": {
+        "startLine": 352,
+        "startChar": 32,
+        "endLine": 352,
+        "endChar": 43
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_545f58e5",
+        "filename": "csit/suites/bgpcep/bgpfunct/030_bgp_functionalt_evpn.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 355,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Why semicolon here and not in line 360?",
+      "range": {
+        "startLine": 355,
+        "startChar": 29,
+        "endLine": 355,
+        "endChar": 30
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_74137c0d",
+        "filename": "csit/suites/bgpcep/bgpfunct/030_bgp_functionalt_evpn.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 406,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Put to Variables table?",
+      "range": {
+        "startLine": 406,
+        "startChar": 68,
+        "endLine": 406,
+        "endChar": 69
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d4e7e810",
+        "filename": "csit/suites/bgpcep/bgpfunct/040_bgp_functional_route_ref.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Mention suite and route refresh.",
+      "range": {
+        "startLine": 2,
+        "startChar": 29,
+        "endLine": 2,
+        "endChar": 33
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_14f200d2",
+        "filename": "csit/suites/bgpcep/bgpfunct/040_bgp_functional_route_ref.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "I do not know what \"exabgpa\" meand here.\nDid you mean it uses ODL application peer and ExaBGP as bgp peers?\nApplies to 010 and 020 as well.",
+      "range": {
+        "startLine": 11,
+        "startChar": 26,
+        "endLine": 11,
+        "endChar": 48
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_34be24d5",
+        "filename": "csit/suites/bgpcep/bgpfunct/040_bgp_functional_route_ref.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Mention how Jolokia is used to access BGP statistics on ODL.",
+      "range": {
+        "startLine": 14,
+        "startChar": 29,
+        "endLine": 14,
+        "endChar": 30
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_34d74425",
+        "filename": "csit/suites/bgpcep/bgpfunct/040_bgp_functional_route_ref.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "tidy",
+      "range": {
+        "startLine": 146,
+        "startChar": 31,
+        "endLine": 146,
+        "endChar": 36
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_512daa45",
+        "filename": "csit/variables/bgpfunctional/l2vpn_evpn/route_mac_rou.json",
+        "patchSetId": 62
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Remove trailing spaces. Everywhere.",
+      "range": {
+        "startLine": 8,
+        "startChar": 12,
+        "endLine": 8,
+        "endChar": 13
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b1f406d0",
+        "filename": "csit/variables/bgpfunctional/multipaths/services/post_psm.xml",
+        "patchSetId": 62
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Are tabs required? 4 (or 2 or 1) space look better.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 1
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_715c2eee",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "See exarpc.ExaStorage for comments.",
+      "range": {
+        "startLine": 35,
+        "startChar": 20,
+        "endLine": 35,
+        "endChar": 21
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f1679eb5",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "ExaStorage also describes intended usage, which is nice. In this case, there seem to be only message_type_string: hexlified_message pairs, no counters.",
+      "range": {
+        "startLine": 38,
+        "startChar": 53,
+        "endLine": 38,
+        "endChar": 54
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d1725a7b",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 1280,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Add wait_for_read description.",
+      "range": {
+        "startLine": 1280,
+        "startChar": 17,
+        "endLine": 1280,
+        "endChar": 18
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_310916de",
+        "filename": "tools/fastbgp/play.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 1713,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T15:09:50Z",
+      "side": 1,
+      "message": "Message to send\n\n(and without .format of course.)",
+      "range": {
+        "startLine": 1713,
+        "startChar": 25,
+        "endLine": 1713,
+        "endChar": 41
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
