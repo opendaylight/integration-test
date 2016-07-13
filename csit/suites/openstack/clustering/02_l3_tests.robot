@@ -9,6 +9,7 @@ Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/DevstackUtils.robot
 Resource          ../../../libraries/ClusterKeywords.robot
+Resource          ../../../libraries/ClusterOvsdb.robot
 
 *** Variables ***
 @{NETWORKS_NAME}    l3_net_1    l3_net_2
@@ -232,3 +233,12 @@ Delete Networks
     [Documentation]    Delete Networks with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
     \    Delete Network    ${NetworkElement}
+
+Controller Session Create
+    [Documentation]    Create session for controllers
+    Create Controller Sessions
+
+Cleans Up Test Environment For Next Suite
+    [Documentation]    Cleans up test environment, close existing sessions in teardown.
+    ClusterOvsdb.Configure Exit Netvirt Connection    ${original_cluster_list}
+
