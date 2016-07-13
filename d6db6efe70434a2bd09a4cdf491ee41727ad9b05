@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_577d9fb0",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-07-13T01:44:36Z",
+      "side": 1,
+      "message": "Please use named arguments for library methods, Simplifies writing test cases",
+      "revId": "d6db6efe70434a2bd09a4cdf491ee41727ad9b05",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
