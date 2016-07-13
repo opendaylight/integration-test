@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_f7714e45",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T17:25:50Z",
+      "side": 1,
+      "message": "ss",
+      "range": {
+        "startLine": 225,
+        "startChar": 12,
+        "endLine": 225,
+        "endChar": 13
+      },
+      "revId": "5949a3b8a3e39b03868e8b3368e9dd0bd6e4fafa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_37baa6c0",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 287,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-13T17:25:50Z",
+      "side": 1,
+      "message": "plus?\nNumber of nodes created is ${node_range}-1, but in this sentence \"minus one\" applies to \"number of nodes\" instead.",
+      "range": {
+        "startLine": 287,
+        "startChar": 114,
+        "endLine": 287,
+        "endChar": 119
+      },
+      "revId": "5949a3b8a3e39b03868e8b3368e9dd0bd6e4fafa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
