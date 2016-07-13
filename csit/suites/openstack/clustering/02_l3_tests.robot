@@ -232,3 +232,8 @@ Delete Networks
     [Documentation]    Delete Networks with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
     \    Delete Network    ${NetworkElement}
+
+Cleans Up Test Environment For Next Suite
+    [Documentation]    Cleans up test environment, close existing sessions in teardown.
+    ClusterOvsdb.Configure Exit Netvirt Connection    ${original_cluster_list}
+

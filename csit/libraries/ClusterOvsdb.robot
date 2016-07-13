@@ -139,3 +139,10 @@ Configure Exit OVSDB Connection
     OVSDB.Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
     ${dictionary}=    Create Dictionary    ovsdb://uuid=0
     Wait Until Keyword Succeeds    5s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
+
+Configure Exit Netvirt Connection
+    [Arguments]    ${controller_index_list}
+    [Documentation]    Cleans up test environment, close existing sessions.
+    OVSDB.Clean OVSDB Test Environment    ${OS_CONTROL_NODE_IP}
+    ${dictionary}=    Create Dictionary    ovsdb://uuid=0
+    Wait Until Keyword Succeeds    5s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
