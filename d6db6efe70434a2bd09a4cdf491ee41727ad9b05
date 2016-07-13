@@ -16,6 +16,24 @@
       "revId": "d6db6efe70434a2bd09a4cdf491ee41727ad9b05",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_0de31806",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 306,
+      "author": {
+        "id": 4062
+      },
+      "writtenOn": "2016-07-13T09:28:53Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_577d9fb0",
+      "revId": "d6db6efe70434a2bd09a4cdf491ee41727ad9b05",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
