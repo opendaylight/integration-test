@@ -10,6 +10,7 @@ Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/DevstackUtils.robot
 Resource          ../../../libraries/OVSDB.robot
+Resource          ../../../libraries/ClusterOvsdb.robot
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/ClusterKeywords.robot
@@ -28,6 +29,10 @@ Resource          ../../../libraries/ClusterKeywords.robot
 @{SUBNETS_RANGE}    70.0.0.0/24    80.0.0.0/24
 
 *** Test Cases ***
+Create All Controller Sessions
+    [Documentation]    Create sessions for all three contorllers.
+    ClusterKeywords.Create Controller Sessions
+
 Create Cluster List
     [Documentation]    Create original cluster list.
     ${original_cluster_list}    ClusterKeywords.Create Controller Index List
@@ -55,12 +60,36 @@ Create Subnets For l2_net_2
     [Documentation]    Create Sub Nets for the Networks with neutron request.
     Create SubNet    l2_net_2    l2_sub_net_2    @{SUBNETS_RANGE}[1]
 
+Create Bridge Manually and Verify Before Fail
+    [Documentation]    Create bridge with OVS command and verify it gets applied from all instances.
+    ClusterOvsdb.Create Sample Bridge Manually And Verify    ${original_cluster_list}    ${OS_CONTROL_NODE_IP}
+
+Add Tap Device Manually and Verify Before Fail
+    [Documentation]    Add tap devices to the bridge with OVS command and verify it gets applied from all instances.
+    ClusterOvsdb.Add Sample Tap Device To The Manual Bridge And Verify    ${original_cluster_list}    ${OS_CONTROL_NODE_IP}
+
+Delete the Bridge Manually and Verify Before Fail
+    [Documentation]    Delete bridge with OVS command and verify it gets deleted from all instances.
+    ClusterOvsdb.Delete Sample Bridge Manually And Verify    ${original_cluster_list}    ${OS_CONTROL_NODE_IP}
+
 Take Down ODL1
     [Documentation]    Kill the karaf in First Controller
     ClusterKeywords.Kill Multiple Controllers    1
     ${new_cluster_list}    ClusterKeywords.Create Controller Index List
-    Remove Values From List    ${new_cluster_list}    1
+    Remove From List    ${new_cluster_list}    0
     Set Suite Variable    ${new_cluster_list}
+
+Create Bridge Manually and Verify After Fail
+    [Documentation]    Create bridge with OVS command and verify it gets applied from all instances.
+    ClusterOvsdb.Create Sample Bridge Manually And Verify    ${new_cluster_list}    ${OS_CONTROL_NODE_IP}
+
+Add Tap Device Manually and Verify After Fail
+    [Documentation]    Add tap devices to the bridge with OVS command and verify it gets applied from all instances.
+    ClusterOvsdb.Add Sample Tap Device To The Manual Bridge And Verify    ${new_cluster_list}    ${OS_CONTROL_NODE_IP}
+
+Delete the Bridge Manually and Verify After Fail
+    [Documentation]    Delete bridge with OVS command and verify it gets deleted from all instances.
+    ClusterOvsdb.Delete Sample Bridge Manually And Verify    ${new_cluster_list}    ${OS_CONTROL_NODE_IP}
 
 Create Vm Instances For l2_net_1
     [Documentation]    Create Vm instances using flavor and image names for a network.
@@ -74,11 +103,23 @@ Bring Up ODL1
     ${new_cluster_list}    ClusterKeywords.Create Controller Index List
     Set Suite Variable    ${new_cluster_list}
 
+Create Bridge Manually and Verify After Recover
+    [Documentation]    Create bridge with OVS command and verify it gets applied from all instances.
+    ClusterOvsdb.Create Sample Bridge Manually And Verify    ${original_cluster_list}    ${OS_CONTROL_NODE_IP}
+
+Add Tap Device Manually and Verify After Recover
+    [Documentation]    Add tap devices to the bridge with OVS command and verify it gets applied from all instances.
+    ClusterOvsdb.Add Sample Tap Device To The Manual Bridge And Verify    ${original_cluster_list}    ${OS_CONTROL_NODE_IP}
+
+Delete the Bridge Manually and Verify After Recover
+    [Documentation]    Delete bridge with OVS command and verify it gets deleted from all instances.
+    ClusterOvsdb.Delete Sample Bridge Manually And Verify    ${original_cluster_list}    ${OS_CONTROL_NODE_IP}
+
 Take Down ODL2
     [Documentation]    Kill the karaf in Second Controller
     ClusterKeywords.Kill Multiple Controllers    2
     ${new_cluster_list}    ClusterKeywords.Create Controller Index List
-    Remove Values From List    ${new_cluster_list}    2
+    Remove From List    ${new_cluster_list}    1
     Set Suite Variable    ${new_cluster_list}
 
 Create Vm Instances For l2_net_2
@@ -120,7 +161,7 @@ Take Down ODL3
     [Documentation]    Kill the karaf in Third Controller
     ClusterKeywords.Kill Multiple Controllers    3
     ${new_cluster_list}    ClusterKeywords.Create Controller Index List
-    Remove Values From List    ${new_cluster_list}    3
+    Remove From List    ${new_cluster_list}    2
     Set Suite Variable    ${new_cluster_list}
 
 Connectivity Tests From Vm Instance1 In l2_net_1
