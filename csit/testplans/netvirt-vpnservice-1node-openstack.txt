@@ -1,3 +1,4 @@
 integration/test/csit/suites/openstack/create_tunnels.robot
+integration/test/csit/suites/openstack/vpnservice/basic_vpnservice.robot
 integration/test/csit/suites/openstack/tempest/
 integration/test/csit/suites/openstack/connectivity/
