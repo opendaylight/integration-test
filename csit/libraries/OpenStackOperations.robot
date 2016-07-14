@@ -6,16 +6,16 @@ Variables         ../variables/Variables.py
 
 *** Keywords ***
 Source Password
-    [Arguments]    ${force}=no
+    [Arguments]    ${force}=no    ${source_pwd}=yes
     [Documentation]    Sourcing the Openstack PAsswords for neutron configurations
     Run Keyword If    '${source_pwd}' == 'yes' or '${force}' == 'yes'    Write Commands Until Prompt    cd ${DEVSTACK_DEPLOY_PATH}; source openrc admin admin
 
 Create Network
-    [Arguments]    ${network_name}
+    [Arguments]    ${network_name}    ${additional_args}=${EMPTY}
     [Documentation]    Create Network with neutron request.
     ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v net-create ${network_name}    30s
+    ${output}=    Write Commands Until Prompt    neutron -v net-create ${network_name} ${additional_args}    30s
     Close Connection
     Log    ${output}
     Should Contain    ${output}    Created a new network
@@ -25,6 +25,15 @@ List Networks
     ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron net-list    30s
+    Close Connection
+    Log    ${output}
+    [Return]    ${output}
+
+List Subnets
+    [Documentation]    List subnets and return output with neutron client.
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron subnet-list    30s
     Close Connection
     Log    ${output}
     [Return]    ${output}
