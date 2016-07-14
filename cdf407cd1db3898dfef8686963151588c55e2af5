@@ -784,6 +784,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_a53a0032",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-07-14T11:09:16Z",
+      "side": 1,
+      "message": "\\. is for a dot as a literal, not as a wild card for any literal",
+      "parentUuid": "9a561d44_313bd69d",
+      "range": {
+        "startLine": 280,
+        "startChar": 38,
+        "endLine": 280,
+        "endChar": 39
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_d14b7a29",
         "filename": "csit/scripts/exarpc.py",
         "patchSetId": 62
@@ -795,6 +819,30 @@
       "writtenOn": "2016-07-13T15:09:50Z",
       "side": 1,
       "message": "Documentation of decode_message says this is currently always None.\nPerhaps store the non-decoded body?\nmatch.groupdict()[\u0027body\u0027]",
+      "range": {
+        "startLine": 293,
+        "startChar": 35,
+        "endLine": 293,
+        "endChar": 38
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_e544f8b8",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-07-14T11:09:16Z",
+      "side": 1,
+      "message": "It is None, but let this remain as it is. Once(if needed) we start decoding the content on our own, it will be used.",
+      "parentUuid": "9a561d44_d14b7a29",
       "range": {
         "startLine": 293,
         "startChar": 35,
@@ -991,6 +1039,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_a52160fe",
+        "filename": "csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-07-14T11:09:16Z",
+      "side": 1,
+      "message": "No, not needed.",
+      "parentUuid": "9a561d44_f19afe6c",
+      "range": {
+        "startLine": 147,
+        "startChar": 27,
+        "endLine": 147,
+        "endChar": 28
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_719d4e59",
         "filename": "csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot",
         "patchSetId": 62
@@ -1048,6 +1120,30 @@
       "writtenOn": "2016-07-13T15:09:50Z",
       "side": 1,
       "message": "This repeats in several places. I suggest to add Normalize_Jsons_With_Bits_And_Compare to TemplatedRequests, with Python object [op] as default argument value if possible.",
+      "range": {
+        "startLine": 176,
+        "startChar": 49,
+        "endLine": 176,
+        "endChar": 51
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_25643048",
+        "filename": "csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-07-14T11:09:16Z",
+      "side": 1,
+      "message": "next time, dont want to produce another files for code review now",
+      "parentUuid": "9a561d44_91b102e4",
       "range": {
         "startLine": 176,
         "startChar": 49,
@@ -1152,6 +1248,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_e5f7d857",
+        "filename": "csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-07-14T11:09:16Z",
+      "side": 1,
+      "message": "https://trello.com/c/1xCveEWW/331-int-test-create-csit-libraries-exabgp-robot-and-refactor-suites-bgpcep-bgpfunct",
+      "parentUuid": "9a561d44_313596f7",
+      "range": {
+        "startLine": 92,
+        "startChar": 15,
+        "endLine": 92,
+        "endChar": 16
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_913c62e4",
         "filename": "csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot",
         "patchSetId": 62
@@ -1209,6 +1329,30 @@
       "writtenOn": "2016-07-13T15:09:50Z",
       "side": 1,
       "message": "Why is this needed? How does ExaBgp fail to start?\nIn other words Documentation should be more verbose here.",
+      "range": {
+        "startLine": 135,
+        "startChar": 43,
+        "endLine": 135,
+        "endChar": 45
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_85a09c44",
+        "filename": "csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-07-14T11:09:16Z",
+      "side": 1,
+      "message": "exabgp may try to connect too early after odl reconfiguration and the connection attempt will be rejected, so need to try again",
+      "parentUuid": "9a561d44_b4bfd4fb",
       "range": {
         "startLine": 135,
         "startChar": 43,
