@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_1107b21d",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-07-14T13:49:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_114a12c5",
+      "range": {
+        "startLine": 47,
+        "startChar": 4,
+        "endLine": 47,
+        "endChar": 7
+      },
+      "revId": "77d76b9d09344d75951409568356ba52d585834c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_112172fb",
         "filename": "csit/libraries/SxpLib.robot",
         "patchSetId": 30
@@ -36,6 +60,30 @@
       "writtenOn": "2016-07-13T13:41:40Z",
       "side": 1,
       "message": "Session\n\n(doubled ss)\nApplies everywhere.",
+      "range": {
+        "startLine": 221,
+        "startChar": 10,
+        "endLine": 221,
+        "endChar": 16
+      },
+      "revId": "77d76b9d09344d75951409568356ba52d585834c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_3403c40e",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 221,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-07-14T13:49:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_112172fb",
       "range": {
         "startLine": 221,
         "startChar": 10,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_940a901f",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 284,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-07-14T13:49:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_b121a6fe",
+      "range": {
+        "startLine": 284,
+        "startChar": 11,
+        "endLine": 284,
+        "endChar": 18
+      },
+      "revId": "77d76b9d09344d75951409568356ba52d585834c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_b1688622",
         "filename": "csit/libraries/SxpLib.robot",
         "patchSetId": 30
@@ -82,6 +154,30 @@
       "writtenOn": "2016-07-13T13:41:40Z",
       "side": 1,
       "message": "I assume Carbon behavior would me more similar to Boron than to Beryllium.\nBecause of that, it would be better to check for past streams:\n\n\u0027${ODL_STREAM}\u0027 not in [\u0027beryllium\u0027, \u0027stable-lithium\u0027]\n\nApplies everywhere.",
+      "range": {
+        "startLine": 303,
+        "startChar": 27,
+        "endLine": 303,
+        "endChar": 53
+      },
+      "revId": "77d76b9d09344d75951409568356ba52d585834c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_74a9bcde",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-07-14T13:49:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_b1688622",
       "range": {
         "startLine": 303,
         "startChar": 27,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_144cc06f",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 318,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-07-14T13:49:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_31647648",
+      "range": {
+        "startLine": 318,
+        "startChar": 40,
+        "endLine": 318,
+        "endChar": 53
+      },
+      "revId": "77d76b9d09344d75951409568356ba52d585834c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_915bc286",
         "filename": "csit/suites/sxp/basic/040_Custom_Passwords.robot",
         "patchSetId": 30
@@ -128,6 +248,30 @@
       "writtenOn": "2016-07-13T13:41:40Z",
       "side": 1,
       "message": "Also 4 as in the next line?",
+      "range": {
+        "startLine": 3,
+        "startChar": 38,
+        "endLine": 3,
+        "endChar": 39
+      },
+      "revId": "77d76b9d09344d75951409568356ba52d585834c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_14ba0023",
+        "filename": "csit/suites/sxp/basic/040_Custom_Passwords.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-07-14T13:49:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_915bc286",
       "range": {
         "startLine": 3,
         "startChar": 38,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_74809c46",
+        "filename": "csit/suites/sxp/scripts/basic_node_setup.sh",
+        "patchSetId": 30
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-07-14T13:49:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_b14fe6bd",
+      "range": {
+        "startLine": 9,
+        "startChar": 74,
+        "endLine": 9,
+        "endChar": 75
+      },
+      "revId": "77d76b9d09344d75951409568356ba52d585834c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_114fb2be",
         "filename": "csit/suites/sxp/scripts/filtering_node_setup.sh",
         "patchSetId": 30
@@ -186,6 +354,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_d496c893",
+        "filename": "csit/suites/sxp/scripts/filtering_node_setup.sh",
+        "patchSetId": 30
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-07-14T13:49:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_114fb2be",
+      "range": {
+        "startLine": 7,
+        "startChar": 78,
+        "endLine": 7,
+        "endChar": 79
+      },
+      "revId": "77d76b9d09344d75951409568356ba52d585834c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_51964af1",
         "filename": "csit/suites/sxp/topology/030_Domains_Forwarding.robot",
         "patchSetId": 30
@@ -197,6 +389,30 @@
       "writtenOn": "2016-07-13T13:41:40Z",
       "side": 1,
       "message": "Are these WUKS needed in test cases?\nSetup Nodes was already waiting between Add Connection calls, so node 7 should be already stabilized, and Check Binding* also takes some time, so node 14 should also stabilize bevore test gets there.",
+      "range": {
+        "startLine": 19,
+        "startChar": 4,
+        "endLine": 19,
+        "endChar": 46
+      },
+      "revId": "77d76b9d09344d75951409568356ba52d585834c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b4f4f4cf",
+        "filename": "csit/suites/sxp/topology/030_Domains_Forwarding.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-07-14T13:49:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_51964af1",
       "range": {
         "startLine": 19,
         "startChar": 4,
@@ -295,6 +511,24 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_34ed8426",
+        "filename": "csit/testplans/sxp-basic-boron.txt",
+        "patchSetId": 30
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-07-14T13:49:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_b1ab661d",
+      "revId": "77d76b9d09344d75951409568356ba52d585834c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_11ab321e",
         "filename": "csit/testplans/sxp-topology-boron.txt",
         "patchSetId": 30
@@ -306,6 +540,24 @@
       "writtenOn": "2016-07-13T13:41:40Z",
       "side": 1,
       "message": "Do not create -boron, create -beryllium.",
+      "revId": "77d76b9d09344d75951409568356ba52d585834c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_94f450f3",
+        "filename": "csit/testplans/sxp-topology-boron.txt",
+        "patchSetId": 30
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-07-14T13:49:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_11ab321e",
       "revId": "77d76b9d09344d75951409568356ba52d585834c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
