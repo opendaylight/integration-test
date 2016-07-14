@@ -808,6 +808,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_409672f1",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 280,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-14T13:01:30Z",
+      "side": 1,
+      "message": "Yes on grep level string. But you are writing a Python level string, so you need \u0027\\\\.\u0027 to mean \u0027\\.\u0027 for grep.\nIn other words to \"understand the dot properly\" is for grep to see it as \u0027\\.\u0027 and not \u0027.\u0027.\nBut your current Python string just makes sure grep sees \u0027.\u0027, which is what you do not want.",
+      "parentUuid": "9a561d44_a53a0032",
+      "range": {
+        "startLine": 280,
+        "startChar": 38,
+        "endLine": 280,
+        "endChar": 39
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_d14b7a29",
         "filename": "csit/scripts/exarpc.py",
         "patchSetId": 62
@@ -843,6 +867,30 @@
       "side": 1,
       "message": "It is None, but let this remain as it is. Once(if needed) we start decoding the content on our own, it will be used.",
       "parentUuid": "9a561d44_d14b7a29",
+      "range": {
+        "startLine": 293,
+        "startChar": 35,
+        "endLine": 293,
+        "endChar": 38
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_2099be1f",
+        "filename": "csit/scripts/exarpc.py",
+        "patchSetId": 62
+      },
+      "lineNbr": 293,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-14T13:01:30Z",
+      "side": 1,
+      "message": "Ok.",
+      "parentUuid": "9a561d44_e544f8b8",
       "range": {
         "startLine": 293,
         "startChar": 35,
@@ -1063,6 +1111,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_c089e2cb",
+        "filename": "csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-14T13:01:30Z",
+      "side": 1,
+      "message": "Alright.",
+      "parentUuid": "9a561d44_a52160fe",
+      "range": {
+        "startLine": 147,
+        "startChar": 27,
+        "endLine": 147,
+        "endChar": 28
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_719d4e59",
         "filename": "csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot",
         "patchSetId": 62
@@ -1144,6 +1216,30 @@
       "side": 1,
       "message": "next time, dont want to produce another files for code review now",
       "parentUuid": "9a561d44_91b102e4",
+      "range": {
+        "startLine": 176,
+        "startChar": 49,
+        "endLine": 176,
+        "endChar": 51
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_2067fe26",
+        "filename": "csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-14T13:01:30Z",
+      "side": 1,
+      "message": "Ok, but create a Trello card for that.",
+      "parentUuid": "9a561d44_25643048",
       "range": {
         "startLine": 176,
         "startChar": 49,
@@ -1353,6 +1449,30 @@
       "side": 1,
       "message": "exabgp may try to connect too early after odl reconfiguration and the connection attempt will be rejected, so need to try again",
       "parentUuid": "9a561d44_b4bfd4fb",
+      "range": {
+        "startLine": 135,
+        "startChar": 43,
+        "endLine": 135,
+        "endChar": 45
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_eb184777",
+        "filename": "csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-14T13:01:30Z",
+      "side": 1,
+      "message": "Ok, but write that in Documentation (line 131).",
+      "parentUuid": "9a561d44_85a09c44",
       "range": {
         "startLine": 135,
         "startChar": 43,
