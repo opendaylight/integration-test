@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_7389c925",
+        "filename": "csit/suites/openflowplugin/Clustering/040__Monkey.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-15T06:19:10Z",
+      "side": 1,
+      "message": "Did not you open this session in the Start Suite?",
+      "revId": "5aee30e542aa80884fc1e9b7b63a02c922371692",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_538c8535",
+        "filename": "csit/suites/openflowplugin/Clustering/040__Monkey.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-15T06:19:10Z",
+      "side": 1,
+      "message": "Did not you open this session in the Start Suite?",
+      "revId": "5aee30e542aa80884fc1e9b7b63a02c922371692",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_93b8dde6",
+        "filename": "csit/suites/openflowplugin/Clustering/040__Monkey.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-15T06:19:10Z",
+      "side": 1,
+      "message": "This should go in vagrant files otherwise we need to install this every time we run this test.",
+      "revId": "5aee30e542aa80884fc1e9b7b63a02c922371692",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f3ce7982",
+        "filename": "csit/suites/openflowplugin/Clustering/040__Monkey.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 87,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-15T06:19:10Z",
+      "side": 1,
+      "message": "Please use new library ClusterManagement.robot to generate cluster controller sessions, list of controller IPs, check jolokia, etc..",
+      "revId": "5aee30e542aa80884fc1e9b7b63a02c922371692",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_73bb89e5",
+        "filename": "csit/suites/openflowplugin/Clustering/040__Monkey.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-15T06:19:10Z",
+      "side": 1,
+      "message": "Please use new library ClusterManagement.robot to generate cluster controller sessions, list of controller IPs, check jolokia, etc..",
+      "revId": "5aee30e542aa80884fc1e9b7b63a02c922371692",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_73a269af",
+        "filename": "csit/suites/openflowplugin/Clustering/040__Monkey.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 106,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-15T06:19:10Z",
+      "side": 1,
+      "message": "Please use new library ClusterManagement.robot to generate cluster controller sessions, list of controller IPs, check jolokia, etc..",
+      "revId": "5aee30e542aa80884fc1e9b7b63a02c922371692",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b3ac01a2",
+        "filename": "csit/suites/openflowplugin/Clustering/040__Monkey.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-15T06:19:10Z",
+      "side": 1,
+      "message": "I see this KW already in other suites in OF, please put it in a common resource file.",
+      "revId": "5aee30e542aa80884fc1e9b7b63a02c922371692",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
