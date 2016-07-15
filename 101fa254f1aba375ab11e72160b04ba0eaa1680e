@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_296362dd",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_prefixcount.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 208,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-15T13:59:25Z",
+      "side": 0,
+      "message": "Keep this in, fix lines 122 and 169 instead.",
+      "range": {
+        "startLine": 208,
+        "startChar": 40,
+        "endLine": 208,
+        "endChar": 48
+      },
+      "revId": "101fa254f1aba375ab11e72160b04ba0eaa1680e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
