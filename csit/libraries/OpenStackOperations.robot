@@ -327,4 +327,6 @@ Show Debugs
     : FOR    ${index}    IN    @{vm_indices}
     \    ${output}=    Write Commands Until Prompt    nova show ${index}     30s
     \    Log    ${output}
+    \    ${output}=    Write Commands Until Prompt    nova console-log ${index} | grep "debug start" -A10    30s
+    \    Log    ${output}
     Close Connection
