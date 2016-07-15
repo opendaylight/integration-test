@@ -90,7 +90,7 @@ Create Sample Bridge And Verify
     ${dictionary}=    Create Dictionary    ${TOOLS_SYSTEM_IP1}=1    ${OVSDBPORT}=4    ${BRIDGE}=1
     Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Put_As_Json_And_Check_Member_List_Or_All    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE}    ${body}    ${controller_index}
     ...    ${controller_index_list}
-    Wait Until Keyword Succeeds    10s    2s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}    dictionary=${dictionary}    member_index_list=${controller_index_list}
+    Wait Until Keyword Succeeds    30s    2s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}    dictionary=${dictionary}    member_index_list=${controller_index_list}
 
 Create Sample Port And Verify
     [Arguments]    ${controller_index}    ${controller_index_list}=${EMPTY}
@@ -99,9 +99,9 @@ Create Sample Port And Verify
     ${body}    Replace String    ${sample}    192.168.1.10    ${TOOLS_SYSTEM_IP}
     Log    ${body}
     Log    URL is ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE}/termination-point/vx2/
-    ${port_dictionary}=    Create Dictionary    ${BRIDGE}=6    vx2=3
+    ${port_dictionary}=    Create Dictionary    ${BRIDGE}=1    vx2=3
     ClusterManagement.Put_As_Json_And_Check_Member_List_Or_All    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE}/termination-point/vx2/    ${body}    ${controller_index}    ${controller_index_list}
-    Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE}    dictionary=${port_dictionary}    member_index_list=${controller_index_list}
+    Wait Until Keyword Succeeds    10s    2s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE}/termination-point/vx2    dictionary=${port_dictionary}    member_index_list=${controller_index_list}
 
 Modify the destination IP of Sample Port
     [Arguments]    ${controller_index}    ${controller_index_list}=${EMPTY}
