@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_731389b8",
+        "filename": "csit/suites/openflowplugin/Clustering/040__Monkey.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-15T07:22:21Z",
+      "side": 1,
+      "message": "Actually, the one in Start Suite is for mininet, this session is just to run some shell commands and get the out and err. You can leave like it is.",
+      "parentUuid": "9a561d44_7389c925",
+      "revId": "5aee30e542aa80884fc1e9b7b63a02c922371692",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_538c8535",
         "filename": "csit/suites/openflowplugin/Clustering/040__Monkey.robot",
         "patchSetId": 62
@@ -30,6 +48,24 @@
       "writtenOn": "2016-07-15T06:19:10Z",
       "side": 1,
       "message": "Did not you open this session in the Start Suite?",
+      "revId": "5aee30e542aa80884fc1e9b7b63a02c922371692",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_531645a8",
+        "filename": "csit/suites/openflowplugin/Clustering/040__Monkey.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 63,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-15T07:22:21Z",
+      "side": 1,
+      "message": "This one is actually opened in the last test case, so why you need to open it here? unless you close the previous session this is not needed.",
+      "parentUuid": "9a561d44_538c8535",
       "revId": "5aee30e542aa80884fc1e9b7b63a02c922371692",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
