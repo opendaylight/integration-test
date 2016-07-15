@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_ee72107b",
+        "filename": "csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot",
+        "patchSetId": 65
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-15T09:32:27Z",
+      "side": 1,
+      "message": "its",
+      "range": {
+        "startLine": 143,
+        "startChar": 49,
+        "endLine": 143,
+        "endChar": 53
+      },
+      "revId": "5889bb37edf39ab75227eb4a8c7e5717060c9e48",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
