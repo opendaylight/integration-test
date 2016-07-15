@@ -70,6 +70,24 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_33ae3186",
+        "filename": "csit/scriptplans/openflowplugin-scalability.txt",
+        "patchSetId": 24
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5406
+      },
+      "writtenOn": "2016-07-15T06:34:50Z",
+      "side": 1,
+      "message": "So both the scripts would be called one after the other here(not sure the implication of that on the job) or just one script would be called here but both the scripts would exist?",
+      "parentUuid": "9a561d44_7338a9a0",
+      "revId": "febac0dc9cc2b2a2c9e5a54a9b17c83d4ba7117d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_93ce1db3",
         "filename": "csit/scripts/longevity-long-duration.sh",
         "patchSetId": 24
