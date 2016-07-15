@@ -14,10 +14,9 @@ ${jolokia_flow_count_status}    /jolokia/read/org.opendaylight.openflowplugin.ap
 
 *** Keywords ***
 Operation Status Check
-    [Arguments]    ${controller_index}    ${op_status_uri}
+    [Arguments]    ${op_status_uri}    ${controller_index}
     [Documentation]    Checks to see if read or write operation is successfull in controller node.
-    ${data}=    Utils.Get Data From URI    controller${controller_index}    ${op_status_uri}
-    Log    ${data}
+    ${data}=    ClusterManagement.Get From Member    ${op_status_uri}    ${controller_index}
     ${json}=    To Json    ${data}
     ${value}=    Get From Dictionary    ${json}    value
     ${value}=    Convert to String    ${value}
@@ -26,66 +25,65 @@ Operation Status Check
 
 Wait Until Write Finishes
     [Arguments]    ${controller_index}    ${timeout}
-    [Documentation]    Wait Until Write operation status is OK in ${controller_index}.
-    Wait Until Keyword Succeeds    ${timeout}    1s    BulkomaticKeywords.Operation Status Check    ${controller_index}    ${jolokia_write_op_status}
+    [Documentation]    Wait Until Write operation status is OK in member ${controller_index}.
+    Wait Until Keyword Succeeds    ${timeout}    1s    BulkomaticKeywords.Operation Status Check    ${jolokia_write_op_status}    ${controller_index}
 
 Wait Until Read Finishes
     [Arguments]    ${controller_index}    ${timeout}
-    [Documentation]    Wait Until Read operation status is OK in ${controller_index}.
-    Wait Until Keyword Succeeds    ${timeout}    1s    BulkomaticKeywords.Operation Status Check    ${controller_index}    ${jolokia_read_op_status}
+    [Documentation]    Wait Until Read operation status is OK in member ${controller_index}.
+    Wait Until Keyword Succeeds    ${timeout}    1s    BulkomaticKeywords.Operation Status Check    ${jolokia_read_op_status}    ${controller_index}
 
 Add Bulk Flow
-    [Arguments]    ${controller_index}    ${json_body_add}
-    [Documentation]    Add Bulk Flow in ${controller_index} according to ${json_body_add}.
-    ${resp}    Utils.Post Elements To URI    ${ADD_BULK_CONFIG_NODES_API}    ${json_body_add}    headers=${HEADERS_YANG_JSON}    session=controller${controller_index}
+    [Arguments]    ${json_body_add}    ${controller_index}
+    [Documentation]    Add Bulk Flow in member ${controller_index} according to \${json_body_add}.
+    ${resp}    ClusterManagement.Post As Json To Member    ${ADD_BULK_CONFIG_NODES_API}    ${json_body_add}    ${controller_index}
 
 Delete Bulk Flow
-    [Arguments]    ${controller_index}    ${json_body_del}
-    [Documentation]    Delete Bulk Flow in ${controller_index} according to ${json_body_del}.
-    ${resp}    Utils.Post Elements To URI    ${ADD_BULK_CONFIG_NODES_API}    ${json_body_del}    headers=${HEADERS_YANG_JSON}    session=controller${controller_index}
+    [Arguments]    ${json_body_del}    ${controller_index}
+    [Documentation]    Delete Bulk Flow in member ${controller_index} according to \${json_body_del}.
+    ${resp}    ClusterManagement.Post As Json To Member    ${ADD_BULK_CONFIG_NODES_API}    ${json_body_del}    ${controller_index}
 
 Get Bulk Flow
-    [Arguments]    ${controller_index}    ${json_body_get}
-    [Documentation]    Get Bulk Flow in ${controller_index} according to ${json_body_get}.
-    ${resp}    Utils.Post Elements To URI    ${GET_BULK_CONFIG_NODES_API}    ${json_body_get}    headers=${HEADERS_YANG_JSON}    session=controller${controller_index}
+    [Arguments]    ${json_body_get}    ${controller_index}
+    [Documentation]    Get Bulk Flow in member ${controller_index} according to \${json_body_get}.
+    ${resp}    ClusterManagement.Post As Json To Member    ${GET_BULK_CONFIG_NODES_API}    ${json_body_get}    ${controller_index}
 
 Get Bulk Flow Count
     [Arguments]    ${controller_index}
-    [Documentation]    Get Flow count in ${controller_index}. New Flow Count is available after Get Bulk Flow operation.
-    ${data}=    Utils.Get Data From URI    controller${controller_index}    ${jolokia_flow_count_status}
-    Log    ${data}
+    [Documentation]    Get Flow count in member ${controller_index}. New Flow Count is available after Get Bulk Flow operation.
+    ${data}=    ClusterManagement.Get From Member    ${jolokia_flow_count_status}    ${controller_index}
     [Return]    ${data}
 
 Verify Flow Count
-    [Arguments]    ${controller_index}    ${flow_count}
-    [Documentation]    Verify Flow Count in ${controller_index} matches ${flow_count}.
+    [Arguments]    ${flow_count}    ${controller_index}
+    [Documentation]    Verify Flow Count in member ${controller_index} matches ${flow_count}.
     ${data}=    Get Bulk Flow Count    ${controller_index}
-    Log    ${data}
     ${json}=    To Json    ${data}
     ${value}=    Get From Dictionary    ${json}    value
     Should Be Equal As Strings    ${value}    ${flow_count}
 
 Add Bulk Flow In Node
-    [Arguments]    ${controller_index}    ${json_body_add}    ${timeout}
-    [Documentation]    Add Bulk Flow in ${controller_index} and wait until operation is completed.
-    Add Bulk Flow    ${controller_index}    ${json_body_add}
+    [Arguments]    ${json_body_add}    ${controller_index}    ${timeout}
+    [Documentation]    Add Bulk Flow in member ${controller_index} and wait until operation is completed.
+    Add Bulk Flow    ${json_body_add}    ${controller_index}
     Wait Until Write Finishes    ${controller_index}    ${timeout}
 
 Delete Bulk Flow In Node
-    [Arguments]    ${controller_index}    ${json_body_del}    ${timeout}
-    [Documentation]    Delete Bulk Flow in ${controller_index} and wait until operation is completed.
-    Delete Bulk Flow    ${controller_index}    ${json_body_del}
+    [Arguments]    ${json_body_del}    ${controller_index}    ${timeout}
+    [Documentation]    Delete Bulk Flow in member ${controller_index} and wait until operation is completed.
+    Delete Bulk Flow    ${json_body_del}    ${controller_index}
     Wait Until Write Finishes    ${controller_index}    ${timeout}
 
 Get Bulk Flow And Verify Count In Cluster
-    [Arguments]    ${controller_index_list}    ${json_body_get}    ${timeout}    ${flow_count}
+    [Arguments]    ${json_body_get}    ${timeout}    ${flow_count}    ${controller_index_list}=${EMPTY}
     [Documentation]    Get Bulk Flow and Verify Flow Count in ${controller_index_list} matches ${flow_count}.
-    : FOR    ${index}    IN    @{controller_index_list}
-    \    Get Bulk Flow    ${index}    ${json_body_get}
-    : FOR    ${index}    IN    @{controller_index_list}
+    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${controller_index_list}
+    : FOR    ${index}    IN    @{index_list}
+    \    Get Bulk Flow    ${json_body_get}    ${index}
+    : FOR    ${index}    IN    @{index_list}
     \    Wait Until Read Finishes    ${index}    ${timeout}
-    : FOR    ${index}    IN    @{controller_index_list}
-    \    Verify Flow Count    ${index}    ${flow_count}
+    : FOR    ${index}    IN    @{index_list}
+    \    Verify Flow Count    ${flow_count}    ${index}
 
 Set DPN And Flow Count In Json Add
     [Arguments]    ${json_config}    ${dpn_count}    ${flows_count}
