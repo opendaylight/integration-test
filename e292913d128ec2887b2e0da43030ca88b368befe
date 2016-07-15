@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_d06d2b9b",
+        "filename": "csit/suites/topoprocessing/basic-topology-operations/010_Aggregation.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-15T00:17:15Z",
+      "side": 1,
+      "message": "this is duplicated in lots of these suites, but not a blocker.",
+      "range": {
+        "startLine": 21,
+        "startChar": 0,
+        "endLine": 21,
+        "endChar": 45
+      },
+      "revId": "e292913d128ec2887b2e0da43030ca88b368befe",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_306d8799",
+        "filename": "csit/variables/topoprocessing/TargetFields.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-15T00:17:15Z",
+      "side": 1,
+      "message": "nothing you need to change, but I\u0027ve learned in the past (from Vratko) that it\u0027s better to do these variable files in\nthe .robot format instead of .py\n\njust fyi.",
+      "revId": "e292913d128ec2887b2e0da43030ca88b368befe",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
