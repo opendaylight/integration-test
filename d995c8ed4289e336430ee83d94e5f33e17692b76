@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_eef970c9",
+        "filename": "csit/suites/openflowplugin/Failover/010_Flow_Config_Retry.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-07-15T09:53:35Z",
+      "side": 1,
+      "message": "use ${CURDIR}",
+      "range": {
+        "startLine": 13,
+        "startChar": 17,
+        "endLine": 13,
+        "endChar": 18
+      },
+      "revId": "d995c8ed4289e336430ee83d94e5f33e17692b76",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_2e0408bf",
+        "filename": "csit/suites/openflowplugin/Failover/010_Flow_Config_Retry.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-07-15T09:53:35Z",
+      "side": 1,
+      "message": "remove sleep and better extend the next WUKS keyword",
+      "range": {
+        "startLine": 37,
+        "startChar": 13,
+        "endLine": 37,
+        "endChar": 23
+      },
+      "revId": "d995c8ed4289e336430ee83d94e5f33e17692b76",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_6e2d6046",
+        "filename": "csit/suites/openflowplugin/Failover/010_Flow_Config_Retry.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-07-15T09:53:35Z",
+      "side": 1,
+      "message": "change the order of these 2 lines, new leader will be elected before flows are installed",
+      "range": {
+        "startLine": 38,
+        "startChar": 4,
+        "endLine": 39,
+        "endChar": 10
+      },
+      "revId": "d995c8ed4289e336430ee83d94e5f33e17692b76",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_4e305c9e",
+        "filename": "csit/suites/openflowplugin/Failover/010_Flow_Config_Retry.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-07-15T09:53:35Z",
+      "side": 1,
+      "message": "same comments as above and apply this to whole file",
+      "range": {
+        "startLine": 52,
+        "startChar": 3,
+        "endLine": 54,
+        "endChar": 8
+      },
+      "revId": "d995c8ed4289e336430ee83d94e5f33e17692b76",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_cef46cd1",
+        "filename": "csit/suites/openflowplugin/Failover/010_Flow_Config_Retry.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-07-15T09:53:35Z",
+      "side": 1,
+      "message": "remove tabs (tidy)",
+      "range": {
+        "startLine": 60,
+        "startChar": 26,
+        "endLine": 60,
+        "endChar": 27
+      },
+      "revId": "d995c8ed4289e336430ee83d94e5f33e17692b76",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_0e1664f1",
+        "filename": "csit/suites/openflowplugin/Failover/020_FRM_Retry_Single.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-07-15T09:53:35Z",
+      "side": 1,
+      "message": "remove sleep and better use WUKS with Check Flow keyword",
+      "range": {
+        "startLine": 28,
+        "startChar": 13,
+        "endLine": 29,
+        "endChar": 18
+      },
+      "revId": "d995c8ed4289e336430ee83d94e5f33e17692b76",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
