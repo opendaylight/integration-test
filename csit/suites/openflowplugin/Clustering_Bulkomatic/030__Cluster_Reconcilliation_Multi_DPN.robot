@@ -1,10 +1,10 @@
 *** Settings ***
 Documentation     Test suite for Cluster with Bulk Flows - Reconcilliation in a multi DPN environment
-Suite Setup       Create Controller Sessions
+Suite Setup       ClusterManagement Setup
 Suite Teardown    Delete All Sessions
 Resource          ../../../libraries/BulkomaticKeywords.robot
 Resource          ../../../libraries/MininetKeywords.robot
-Resource          ../../../libraries/ClusterKeywords.robot
+Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/ClusterOpenFlow.robot
 Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
@@ -20,18 +20,19 @@ ${orig_json_config_get}    sal_get_bulk_flow_config.json
 ${orig_json_config_del}    sal_del_bulk_flow_config.json
 
 *** Test Cases ***
-Create Original Cluster List
-    [Documentation]    Create original cluster list.
-    ${original_cluster_list}    ClusterKeywords.Create Controller Index List
-    Set Suite Variable    ${original_cluster_list}
-
-Check Shards Status Before Leader Restart
+Check Shards Status And Initialize Variables
     [Documentation]    Check Status for all shards in OpenFlow application.
-    ClusterOpenFlow.Check OpenFlow Shards Status    ${original_cluster_list}
+    ClusterOpenFlow.Check OpenFlow Shards Status
+    ${temp_json_config_add}    BulkomaticKeywords.Set DPN And Flow Count In Json Add    ${orig_json_config_add}    ${switch_count}    ${flow_count_per_switch}
+    ${temp_json_config_get}    BulkomaticKeywords.Set DPN And Flow Count In Json Get    ${orig_json_config_get}    ${switch_count}    ${flow_count_after_add}
+    ${temp_json_config_del}    BulkomaticKeywords.Set DPN And Flow Count In Json Del    ${orig_json_config_del}    ${switch_count}    ${flow_count_per_switch}
+    Set Suite Variable    ${temp_json_config_add}
+    Set Suite Variable    ${temp_json_config_get}
+    Set Suite Variable    ${temp_json_config_del}
 
 Get Inventory Follower Before Cluster Restart
     [Documentation]    Find a follower in the inventory config shard
-    ${inventory_leader}    ${inventory_followers}    ClusterOpenFlow.Get InventoryConfig Shard Status    ${original_cluster_list}
+    ${inventory_leader}    ${inventory_followers}    ClusterOpenFlow.Get InventoryConfig Shard Status
     ${Follower_Node_1}=    Get From List    ${Inventory_Followers}    0
     ${Follower_Node_2}=    Get From List    ${Inventory_Followers}    1
     Set Suite Variable    ${Follower_Node_1}
@@ -45,14 +46,11 @@ Start Mininet Connect To Follower Node1
 
 Add Bulk Flow From Follower
     [Documentation]    3000 Flows (1K per DPN) in 3 DPN added via Follower Node1 and verify it gets applied in all instances.
-    ${temp_json_config_add}    BulkomaticKeywords.Set DPN And Flow Count In Json Add    ${orig_json_config_add}    ${switch_count}    ${flow_count_per_switch}
-    BulkomaticKeywords.Add Bulk Flow In Node    ${Follower_Node_1}    ${temp_json_config_add}    ${operation_timeout}
+    BulkomaticKeywords.Add Bulk Flow In Node    ${temp_json_config_add}    ${Follower_Node_1}    ${operation_timeout}
 
 Get Bulk Flows and Verify In Cluster
     [Documentation]    Initiate get operation and check flow count across cluster nodes
-    ${temp_json_config_get}    BulkomaticKeywords.Set DPN And Flow Count In Json Get    ${orig_json_config_get}    ${switch_count}    ${flow_count_after_add}
-    Set Suite Variable    ${temp_json_config_get}
-    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${original_cluster_list}    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_add}
+    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_add}
 
 Verify Flows In Switch Before Cluster Restart
     [Documentation]    Verify flows are installed in switch before cluster restart.
@@ -107,9 +105,8 @@ Stop Mininet Connected To Inventory Leader
 
 Delete All Flows From Follower Node1
     [Documentation]    3000 Flows deleted via Follower Node1 and verify it gets applied in all instances.
-    ${temp_json_config_del}    BulkomaticKeywords.Set DPN And Flow Count In Json Del    ${orig_json_config_del}    ${switch_count}    ${flow_count_per_switch}
-    BulkomaticKeywords.Delete Bulk Flow In Node    ${Follower_Node_1}    ${temp_json_config_del}    ${operation_timeout}
+    BulkomaticKeywords.Delete Bulk Flow In Node    ${temp_json_config_del}    ${Follower_Node_1}    ${operation_timeout}
 
 Verify No Flows In Cluster
     [Documentation]    Verify flow count is 0 across cluster nodes.
-    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${original_cluster_list}    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_del}
+    BulkomaticKeywords.Get Bulk Flow And Verify Count In Cluster    ${temp_json_config_get}    ${operation_timeout}    ${flow_count_after_del}
