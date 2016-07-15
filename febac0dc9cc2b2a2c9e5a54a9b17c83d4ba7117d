@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_93f73df5",
+        "filename": "csit/libraries/CheckJVMResourceKeywords.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-15T05:30:57Z",
+      "side": 1,
+      "message": "Good idea, this is the robot library anybody will use to monitor JVM resources. Can you add one line of documentation for this library?",
+      "revId": "febac0dc9cc2b2a2c9e5a54a9b17c83d4ba7117d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_73ea6910",
+        "filename": "csit/libraries/CheckJVMResourceKeywords.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-15T05:30:57Z",
+      "side": 1,
+      "message": "This is not very useful like this, lets create 4 KWs that just return the instant JVM value (Threading, Memory, etc...) for a given ${controller-ip} and ${elastic-port}:\n[Arguments]    ${controller-ip}\u003d${ODL_SYSTEM_IP}    ${elastic-port}\u003d${ELASTICPORT}\n...\n[Return]    ${value}",
+      "revId": "febac0dc9cc2b2a2c9e5a54a9b17c83d4ba7117d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b3f401f3",
+        "filename": "csit/libraries/CheckJVMResourceKeywords.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-15T05:30:57Z",
+      "side": 1,
+      "message": "Rename this KW to Create JVM Plots or similar and add 2 arguments like before:\n[Arguments]    ${controller-ip}\u003d${ODL_SYSTEM_IP} and ${elastic-port}\u003d${ELASTICPORT}",
+      "revId": "febac0dc9cc2b2a2c9e5a54a9b17c83d4ba7117d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_7338a9a0",
+        "filename": "csit/scriptplans/openflowplugin-scalability.txt",
+        "patchSetId": 24
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-15T05:30:57Z",
+      "side": 1,
+      "message": "I think we will need 2 scripts: jvm-collection-short-duration.sh and jvm-collection-long-duration.sh. The first with 5 sec collect interval and the second with much more as we commented before.",
+      "revId": "febac0dc9cc2b2a2c9e5a54a9b17c83d4ba7117d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_93ce1db3",
+        "filename": "csit/scripts/longevity-long-duration.sh",
+        "patchSetId": 24
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-15T05:30:57Z",
+      "side": 1,
+      "message": "So this is every 5 secs, suitable for short duration tests.",
+      "revId": "febac0dc9cc2b2a2c9e5a54a9b17c83d4ba7117d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_b342410e",
+        "filename": "csit/suites/openflowplugin/Inventory_Scalability_OF13/__init__.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-15T05:30:57Z",
+      "side": 1,
+      "message": "We do not need this.",
+      "revId": "febac0dc9cc2b2a2c9e5a54a9b17c83d4ba7117d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d346d520",
+        "filename": "csit/suites/openflowplugin/Inventory_Scalability_OF13/__init__.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-15T05:30:57Z",
+      "side": 1,
+      "message": "This will be just: CheckJVMResourceKeywords.Create JVM Plots",
+      "revId": "febac0dc9cc2b2a2c9e5a54a9b17c83d4ba7117d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
