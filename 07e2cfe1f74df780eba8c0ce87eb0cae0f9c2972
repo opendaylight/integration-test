@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_0eedc4ef",
+        "filename": "csit/suites/openflowplugin/Clustering_Bulkomatic/010__Cluster_HA_Data_Recovery_BulkFlow_Single_Switch.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-15T10:10:46Z",
+      "side": 1,
+      "message": "Why?",
+      "range": {
+        "startLine": 141,
+        "startChar": 4,
+        "endLine": 141,
+        "endChar": 9
+      },
+      "revId": "07e2cfe1f74df780eba8c0ce87eb0cae0f9c2972",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
