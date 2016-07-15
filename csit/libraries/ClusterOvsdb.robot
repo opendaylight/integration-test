@@ -90,7 +90,7 @@ Create Sample Bridge And Verify
     ${dictionary}=    Create Dictionary    ${TOOLS_SYSTEM_IP1}=1    ${OVSDBPORT}=4    ${BRIDGE}=1
     Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Put_As_Json_And_Check_Member_List_Or_All    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE}    ${body}    ${controller_index}
     ...    ${controller_index_list}
-    Wait Until Keyword Succeeds    10s    2s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}    dictionary=${dictionary}    member_index_list=${controller_index_list}
+    Wait Until Keyword Succeeds    30s    2s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}    dictionary=${dictionary}    member_index_list=${controller_index_list}
 
 Create Sample Port And Verify
     [Arguments]    ${controller_index}    ${controller_index_list}=${EMPTY}

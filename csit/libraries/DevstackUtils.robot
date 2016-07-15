@@ -43,6 +43,9 @@ Devstack Suite Setup Tests
     [Arguments]    ${source_pwd}=no    ${odl_ip}=${ODL_SYSTEM_IP}
     [Documentation]    Login to the Openstack Control Node to run tempest suite
     Create Session    session    http://${odl_ip}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    Issue Command On Karaf Console    log:set TRACE org.opendaylight.netvirt.openstack.netvirt.providers    ${ODL_SYSTEM_IP}
+    Issue Command On Karaf Console    log:set TRACE org.opendaylight.netvirt.openstack.netvirt.providers    ${ODL_SYSTEM_2_IP}
+    Issue Command On Karaf Console    log:set TRACE org.opendaylight.netvirt.openstack.netvirt.providers    ${ODL_SYSTEM_3_IP}
     ${devstack_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT}
     Set Suite Variable    ${devstack_conn_id}
     Set Suite Variable    ${source_pwd}
