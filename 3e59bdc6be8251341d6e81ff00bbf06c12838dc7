@@ -65,6 +65,29 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_2e1ec863",
+        "filename": "csit/suites/sxp/topology/020_Scalability.robot",
+        "patchSetId": 34
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-15T08:21:55Z",
+      "side": 1,
+      "message": "Oh, I have missed this one.\nSandbox shows Get Bindings is quick after the sleep, so using WUKS should be used instead if Sleep.\nApplies to other test cases as well.",
+      "range": {
+        "startLine": 18,
+        "startChar": 4,
+        "endLine": 19,
+        "endChar": 40
+      },
+      "revId": "3e59bdc6be8251341d6e81ff00bbf06c12838dc7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_d307f51b",
         "filename": "csit/suites/sxp/topology/020_Scalability.robot",
         "patchSetId": 34
