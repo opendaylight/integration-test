@@ -1252,6 +1252,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_6e756097",
+        "filename": "csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 176,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-07-15T08:49:01Z",
+      "side": 1,
+      "message": "https://trello.com/c/SavMOS52/332-int-test-create-a-new-kw-in-templatedrequests-for-comparison",
+      "parentUuid": "9a561d44_2067fe26",
+      "range": {
+        "startLine": 176,
+        "startChar": 49,
+        "endLine": 176,
+        "endChar": 51
+      },
+      "revId": "cdf407cd1db3898dfef8686963151588c55e2af5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_b1cc0663",
         "filename": "csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot",
         "patchSetId": 62
