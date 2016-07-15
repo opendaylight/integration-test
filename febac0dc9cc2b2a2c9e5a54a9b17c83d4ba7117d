@@ -88,6 +88,24 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_93ec5d91",
+        "filename": "csit/scriptplans/openflowplugin-scalability.txt",
+        "patchSetId": 24
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-15T07:40:46Z",
+      "side": 1,
+      "message": "the second, a better option is to have a single script and pass the duration as argument for example:  jvm-collection.sh 5000",
+      "parentUuid": "9a561d44_33ae3186",
+      "revId": "febac0dc9cc2b2a2c9e5a54a9b17c83d4ba7117d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_93ce1db3",
         "filename": "csit/scripts/longevity-long-duration.sh",
         "patchSetId": 24
