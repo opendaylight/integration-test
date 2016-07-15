@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_f3b0398d",
+        "filename": "csit/suites/openflowplugin/Failover/010_Flow_Config_Retry.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 992
+      },
+      "writtenOn": "2016-07-15T07:52:33Z",
+      "side": 1,
+      "message": "I\u0027m using Isolate a Controller From Cluster and Rejoin a Controller To Cluster from ClusterKeywords. I didn\u0027t find keywords with similar functionality in ClusterManagement. Are they somewhere else or have they been dropped completely (or have I just missed them)?",
+      "parentUuid": "9a561d44_13c04d29",
+      "revId": "f8e2d4b8fd7583c54a31bb8cdec166e0989c9796",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_73dee912",
         "filename": "csit/suites/openflowplugin/Failover/020_FRM_Retry_Single.robot",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2016-07-15T06:43:43Z",
       "side": 1,
       "message": "This library is deprecated and very soon deleted, please use ClusterManagement.robot library.",
+      "revId": "f8e2d4b8fd7583c54a31bb8cdec166e0989c9796",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_33abd11e",
+        "filename": "csit/suites/openflowplugin/Failover/020_FRM_Retry_Single.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 992
+      },
+      "writtenOn": "2016-07-15T07:52:33Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "9a561d44_73dee912",
       "revId": "f8e2d4b8fd7583c54a31bb8cdec166e0989c9796",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
