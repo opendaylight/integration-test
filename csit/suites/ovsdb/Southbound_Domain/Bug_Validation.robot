@@ -112,7 +112,7 @@ Create Bridge
     [Documentation]    This will create bridge on the specified OVSDB node.
     ${body}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_bridge.json
     ${body}    Replace String    ${body}    ovsdb://127.0.0.1:61644    ovsdb://${node_string}
-    ${body}    Replace String    ${body}    tcp:127.0.0.1:6633    tcp:${ODL_SYSTEM_IP}:6640
+    ${body}    Replace String    ${body}    tcp:127.0.0.1:6633    tcp:${ODL_SYSTEM_IP}:6633
     ${body}    Replace String    ${body}    127.0.0.1    ${TOOLS_SYSTEM_IP}
     ${body}    Replace String    ${body}    br01    ${bridge}
     ${body}    Replace String    ${body}    61644    ${OVSDB_PORT}
