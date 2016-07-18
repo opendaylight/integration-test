@@ -3,6 +3,7 @@ Documentation     Mininet library. This library is useful for tests using minine
 Library           SSHLibrary
 Resource          Utils.robot
 Resource          OVSDB.robot
+Resource          ClusterManagement.robot
 Variables         ../variables/Variables.py
 
 *** Keywords ***
@@ -23,8 +24,9 @@ Start Mininet Single Controller
     [Return]    ${mininet_conn_id}
 
 Start Mininet Multiple Controllers
-    [Arguments]    ${mininet}    ${controller_index_list}    ${options}=--topo tree,1 --switch ovsk,protocols=OpenFlow13    ${custom}=${EMPTY}    ${ofport}=6633
-    [Documentation]    Start Mininet with custom topology and connect to all controllers in the ${controller_index_list}.
+    [Arguments]    ${mininet}    ${controller_index_list}=${EMPTY}    ${options}=--topo tree,1 --switch ovsk,protocols=OpenFlow13    ${custom}=${EMPTY}    ${ofport}=6633
+    [Documentation]    Start Mininet with custom topology and connect to list of controllers in ${controller_index_list} or all if no list is provided.
+    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${controller_index_list}
     Log    Clear any existing mininet
     Utils.Clean Mininet System    ${mininet}
     ${mininet_conn_id}=    SSHLibrary.Open Connection    ${mininet}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=${DEFAULT_TIMEOUT}
@@ -36,7 +38,7 @@ Start Mininet Multiple Controllers
     SSHLibrary.Read Until    mininet>
     Log    Create controller configuration
     ${controller_opt}=    Set Variable
-    : FOR    ${index}    IN    @{controller_index_list}
+    : FOR    ${index}    IN    @{index_list}
     \    ${controller_opt}=    Catenate    ${controller_opt}    ${SPACE}tcp:${ODL_SYSTEM_${index}_IP}:${ofport}
     \    Log    ${controller_opt}
     Log    Find Number of OVS bridges
