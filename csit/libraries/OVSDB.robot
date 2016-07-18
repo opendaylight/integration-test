@@ -1,10 +1,11 @@
 *** Settings ***
 Library           SSHLibrary
-Resource          Utils.robot
 Library           String
 Library           Collections
-Variables         ../variables/Variables.py
 Library           RequestsLibrary
+Resource          Utils.robot
+Resource          ClusterManagement.robot
+Variables         ../variables/Variables.py
 
 *** Variables ***
 ${OVSDB_CONFIG_DIR}    ../variables/ovsdb
@@ -64,12 +65,12 @@ Add Vxlan To Bridge
 Verify OVS Reports Connected
     [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
     [Documentation]    Uses "vsctl show" to check for string "is_connected"
-    ${output}=    Utils.Run Command On Remote System    ${tools_system}    sudo ovs-vsctl show
+    ${output}=    Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl show
     Should Contain    ${output}    is_connected
     [Return]    ${output}
 
 Get OVSDB UUID
-    [Arguments]    ${ovs_system_ip}=${TOOLS_SYSTEM_IP}    ${controller_ip}=${ODL_SYSTEM_IP}    ${controller_http_session}=session
+    [Arguments]    ${ovs_system_ip}=${TOOLS_SYSTEM_IP}    ${controller_http_session}=session
     [Documentation]    Queries the topology in the operational datastore and searches for the node that has
     ...    the ${ovs_system_ip} argument as the "remote-ip". If found, the value returned will be the value of
     ...    node-id stripped of "ovsdb://uuid/". If not found, ${EMPTY} will be returned.
@@ -112,18 +113,19 @@ Clean OVSDB Test Environment
     Utils.Run Command On Mininet    ${tools_system}    sudo /usr/share/openvswitch/scripts/ovs-ctl start
 
 Set Controller In OVS Bridge
-    [Arguments]    ${tools_system}    ${bridge}    ${controller_opt}
+    [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}    ${bridge}    ${controller_opt}
     [Documentation]    Sets controller for a given OVS ${bridge} using controller options in ${controller_opt}
     Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl del-controller ${bridge}
     Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl set-controller ${bridge} ${controller_opt}
 
 Add Multiple Managers to OVS
-    [Arguments]    ${tools_system}    ${controller_index_list}    ${ovs_mgr_port}=6640
-    [Documentation]    Connect OVS to all controllers in the ${controller_index_list}.
+    [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}    ${controller_index_list}=${EMPTY}    ${ovs_mgr_port}=6640
+    [Documentation]    Connect OVS to the list of controllers in the ${controller_index_list} or all if no list is provided.
+    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${controller_index_list}
     Log    Clear any existing mininet
     Utils.Clean Mininet System    ${tools_system}
     ${ovs_opt}=    Set Variable
-    : FOR    ${index}    IN    @{controller_index_list}
+    : FOR    ${index}    IN    @{index_list}
     \    ${ovs_opt}=    Catenate    ${ovs_opt}    ${SPACE}tcp:${ODL_SYSTEM_${index}_IP}:${ovs_mgr_port}
     \    Log    ${ovs_opt}
     Log    Configure OVS Managers in the OVS
@@ -131,5 +133,7 @@ Add Multiple Managers to OVS
     Log    Check OVS configuration
     ${output}=    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected    ${tools_system}
     Log    ${output}
-    ${ovsdb_uuid}=    Wait Until Keyword Succeeds    30s    2s    Get OVSDB UUID    controller_http_session=controller1
+    ${controller_index}=    Collections.Get_From_List    ${index_list}    0
+    ${session}=    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${controller_index}
+    ${ovsdb_uuid}=    Wait Until Keyword Succeeds    30s    2s    Get OVSDB UUID    controller_http_session=${session}
     [Return]    ${ovsdb_uuid}
