@@ -192,15 +192,18 @@ Extract_Ovsdb_Device_Data
     [Return]    ${clear_data}
 
 Kill_Single_Member
-    [Arguments]    ${member}    ${confirm}=True
+    [Arguments]    ${member}    ${original_index_list}=${EMPTY}    ${confirm}=True
     [Documentation]    Convenience keyword that kills the specified member of the cluster.
+    ...    The KW will return a list of available members: \${updated index_list}=\${original_index_list}-\${member}
     ${index_list} =    ClusterManagement__Build_List    ${member}
-    Kill_Members_From_List_Or_All    ${index_list}    ${confirm}
+    ${updated_index_list} =    Kill_Members_From_List_Or_All    ${index_list}    ${original_index_list}    ${confirm}
+    [Return]    ${updated_index_list}
 
 Kill_Members_From_List_Or_All
-    [Arguments]    ${member_index_list}=${EMPTY}    ${confirm}=True
-    [Documentation]    If the list is empty, kill all ODL instances. Otherwise, kill members based on present indices.
+    [Arguments]    ${member_index_list}=${EMPTY}    ${original_index_list}=${EMPTY}    ${confirm}=True
+    [Documentation]    If the list is empty, kill all ODL instances. Otherwise, kill members based on \${kill_index_list}
     ...    If \${confirm} is True, sleep 1 second and verify killed instances are not there anymore.
+    ...    The KW will return a list of available members: \${updated index_list}=\${original_index_list}-\${member_index_list}
     ${command} =    BuiltIn.Set_Variable    ps axf | grep karaf | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
     Run_Command_On_List_Or_All    command=${command}    member_index_list=${member_index_list}
     BuiltIn.Return_From_Keyword_If    not ${confirm}
@@ -209,6 +212,10 @@ Kill_Members_From_List_Or_All
     ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
     : FOR    ${index}    IN    @{index_list}
     \    Verify_Karaf_Is_Not_Running_On_Member    member_index=${index}
+    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${original_index_list}
+    ${updated_index_list} =    BuiltIn.Create_List    @{index_list}
+    Collections.Remove_Values_From_List    ${updated_index_list}    @{member_index_list}
+    [Return]    ${updated_index_list}
 
 Start_Single_Member
     [Arguments]    ${member}    ${wait_for_sync}=True    ${timeout}=300s
@@ -258,6 +265,7 @@ Count_Running_Karafs_On_Member
 Isolate_Member_From_List_Or_All
     [Arguments]    ${isolate_member_index}    ${member_index_list}=${EMPTY}
     [Documentation]    If the list is empty, isolate member from all ODL instances. Otherwise, isolate member based on present indices.
+    ...    The KW will return a list of available members: \${updated index_list}=\${member_index_list}-\${isolate_member_index}
     ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
     ${source} =    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${isolate_member_index}
     : FOR    ${index}    IN    @{index_list}
@@ -267,6 +275,9 @@ Isolate_Member_From_List_Or_All
     ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -L -n
     ${output} =    Run_Command_On_Member    command=${command}    member_index=${isolate_member_index}
     BuiltIn.Log    ${output}
+    ${updated_index_list} =    BuiltIn.Create_List    @{index_list}
+    Collections.Remove_Values_From_List    ${updated_index_list}    ${isolate_member_index}
+    [Return]    ${updated_index_list}
 
 Rejoin_Member_From_List_Or_All
     [Arguments]    ${rejoin_member_index}    ${member_index_list}=${EMPTY}
@@ -405,6 +416,14 @@ ClusterManagement__Given_Or_Internal_Index_List
     [Documentation]    Utility to allow \${EMPTY} as default argument value, as the internal list is computed at runtime.
     ${given_length} =    BuiltIn.Get_Length    ${given_list}
     ${return_list} =    BuiltIn.Set_Variable_If    ${given_length} > 0    ${given_list}    ${ClusterManagement__member_index_list}
+    [Return]    ${return_list}
+
+ClusterManagement__Given_Or_Empty_List
+    [Arguments]    ${given_list}=${EMPTY}
+    [Documentation]    Utility to allow \${EMPTY} as default argument value, as an empty list is computed at runtime.
+    ${empty_list} =    BuiltIn.Create_List
+    ${given_length} =    BuiltIn.Get_Length    ${given_list}
+    ${return_list} =    BuiltIn.Set_Variable_If    ${given_length} > 0    ${given_list}    ${empty_list}
     [Return]    ${return_list}
 
 ClusterManagement__Compute_Derived_Variables
