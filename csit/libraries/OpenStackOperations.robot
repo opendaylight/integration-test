@@ -58,6 +58,16 @@ Create SubNet
     Log    ${output}
     Should Contain    ${output}    Created a new subnet
 
+Create Port
+    [Arguments]    ${network_name}    ${port_name}
+    [Documentation]    Create Port with neutron request.
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron -v port-create ${network_name} --name ${port_name}    30s
+    Close Connection
+    Log    ${output}
+    Should Contain    ${output}    Created a new port
+
 Verify Gateway Ips
     [Documentation]    Verifies the Gateway Ips with dump flow.
     ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
