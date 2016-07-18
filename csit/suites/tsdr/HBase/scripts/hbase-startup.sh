@@ -10,5 +10,5 @@ export JAVA_HOME=/usr
 EOF
 echo "Copy the Hbase startup script to ${ODL_SYSTEM_IP}"
 scp ${WORKSPACE}/hbasestartup.sh ${ODL_SYSTEM_IP}:/tmp
-ssh ${ODL_SYSTEM_IP} 'bash /tmp/hbasestartup.sh'
+ssh ${ODL_SYSTEM_IP} 'sudo bash /tmp/hbasestartup.sh'
 # vim: ts=4 sw=4 sts=4 et ft=sh :
