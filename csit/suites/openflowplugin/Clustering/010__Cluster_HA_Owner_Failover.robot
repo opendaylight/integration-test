@@ -99,8 +99,7 @@ Check Shards Status After Fail
 
 Check Entity Owner Status And Find Owner and Candidate After Fail
     [Documentation]    Check Entity Owner Status and identify owner and candidate.
-    ${first_member}=    Get From List    ${new_cluster_list}    0
-    ${new_owner}    ${new_candidate_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    ${first_member}    ${new_cluster_list}
+    ${new_owner}    ${new_candidate_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    ${original_candidate}    ${new_cluster_list}
     ${new_candidate}=    Get From List    ${new_candidate_list}    0
     Set Suite Variable    ${new_owner}
     Set Suite Variable    ${new_candidate}
