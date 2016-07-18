@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_640e1c8f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-18T10:18:08Z",
+      "side": 1,
+      "message": "Not true anymore.",
+      "range": {
+        "startLine": 10,
+        "startChar": 26,
+        "endLine": 10,
+        "endChar": 36
+      },
+      "revId": "dbc3337af0e77db82c6fe165b64478216a3c911c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_a4279411",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-18T10:18:08Z",
+      "side": 1,
+      "message": "Ambiguity. Only 3 \u0027i\u0027 but 1 \u0027m\u0027.",
+      "range": {
+        "startLine": 15,
+        "startChar": 9,
+        "endLine": 15,
+        "endChar": 18
+      },
+      "revId": "dbc3337af0e77db82c6fe165b64478216a3c911c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_c4e1e89b",
+        "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-18T10:18:08Z",
+      "side": 1,
+      "message": "NetconfKeywords.Install_And_Start_Testtool does not take this location into account. Either add support for that to NetconfKeywords.Install_And_Start_Testtool, or rely on outside methods of deleting outdated testtools (in Releng Jenkins, the method is destroying VMs after each job run).",
+      "range": {
+        "startLine": 33,
+        "startChar": 32,
+        "endLine": 33,
+        "endChar": 45
+      },
+      "revId": "dbc3337af0e77db82c6fe165b64478216a3c911c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_a4031441",
+        "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-18T10:18:08Z",
+      "side": 1,
+      "message": "This data contains 127.0.0.1 as device address, but the testtool is installed on different VM. Pick one location for testtool and set address accordingly.",
+      "range": {
+        "startLine": 44,
+        "startChar": 11,
+        "endLine": 44,
+        "endChar": 18
+      },
+      "revId": "dbc3337af0e77db82c6fe165b64478216a3c911c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_84fed036",
+        "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-18T10:18:08Z",
+      "side": 1,
+      "message": "This fails, because the default content type ODL accepts is JSON, but you are sending XML. Pick one format and use appropriate headers.",
+      "range": {
+        "startLine": 45,
+        "startChar": 31,
+        "endLine": 45,
+        "endChar": 43
+      },
+      "revId": "dbc3337af0e77db82c6fe165b64478216a3c911c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
