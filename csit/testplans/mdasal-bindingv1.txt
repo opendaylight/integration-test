@@ -1,0 +1,2 @@
+# Place the suites in run order:
+integration/test/csit/suites/mdsal/binding_v1/config-parent.robot
