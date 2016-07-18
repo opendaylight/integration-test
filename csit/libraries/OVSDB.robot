@@ -1,10 +1,11 @@
 *** Settings ***
 Library           SSHLibrary
-Resource          Utils.robot
 Library           String
 Library           Collections
-Variables         ../variables/Variables.py
 Library           RequestsLibrary
+Resource          Utils.robot
+Resource          ClusterManagement.robot
+Variables         ../variables/Variables.py
 
 *** Variables ***
 ${OVSDB_CONFIG_DIR}    ../variables/ovsdb
@@ -64,12 +65,12 @@ Add Vxlan To Bridge
 Verify OVS Reports Connected
     [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
     [Documentation]    Uses "vsctl show" to check for string "is_connected"
-    ${output}=    Utils.Run Command On Remote System    ${tools_system}    sudo ovs-vsctl show
+    ${output}=    Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl show
     Should Contain    ${output}    is_connected
     [Return]    ${output}
 
 Get OVSDB UUID
-    [Arguments]    ${ovs_system_ip}=${TOOLS_SYSTEM_IP}    ${controller_ip}=${ODL_SYSTEM_IP}    ${controller_http_session}=session
+    [Arguments]    ${ovs_system_ip}=${TOOLS_SYSTEM_IP}    ${controller_http_session}=session
     [Documentation]    Queries the topology in the operational datastore and searches for the node that has
     ...    the ${ovs_system_ip} argument as the "remote-ip". If found, the value returned will be the value of
     ...    node-id stripped of "ovsdb://uuid/". If not found, ${EMPTY} will be returned.
@@ -131,5 +132,7 @@ Add Multiple Managers to OVS
     Log    Check OVS configuration
     ${output}=    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected    ${tools_system}
     Log    ${output}
-    ${ovsdb_uuid}=    Wait Until Keyword Succeeds    30s    2s    Get OVSDB UUID    controller_http_session=controller1
+    ${controller_index}=    Collections.Get_From_List    ${controller_index_list}    0
+    ${session}=    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${controller_index}
+    ${ovsdb_uuid}=    Wait Until Keyword Succeeds    30s    2s    Get OVSDB UUID    controller_http_session=${session}
     [Return]    ${ovsdb_uuid}
