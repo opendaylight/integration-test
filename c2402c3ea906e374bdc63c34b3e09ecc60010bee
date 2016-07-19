@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_1d9e8a56",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-19T11:17:23Z",
+      "side": 1,
+      "message": "Why? I do not see count used anywhere.",
+      "range": {
+        "startLine": 134,
+        "startChar": 24,
+        "endLine": 134,
+        "endChar": 33
+      },
+      "revId": "c2402c3ea906e374bdc63c34b3e09ecc60010bee",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
