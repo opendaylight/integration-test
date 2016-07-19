@@ -118,6 +118,24 @@ def add_peers(*args):
     return peers
 
 
+def add_domains(*args):
+    """Generate xml containing Domain mach data
+
+    :param args: Domain data
+    :type args: dict
+    :returns: String containing xml data for request
+
+    """
+    templ = Template('''
+        <domain>
+            <name>$name</name>
+        </domain>''')
+    peers = ""
+    for count, value in enumerate(args):
+        peers += templ.substitute({'name': value})
+    return peers
+
+
 def add_sgt_matches_xml(sgt_entries):
     """Generate xml containing SGT mach data
 
@@ -677,7 +695,6 @@ def add_filter_xml(group, filter_type, entries, ip):
     :type ip: string
     :returns: String containing xml data for request
 
-
     """
     templ = Template('''<input>
   <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
@@ -688,6 +705,38 @@ def add_filter_xml(group, filter_type, entries, ip):
 </input>''')
     data = templ.substitute(
         {'group': group, 'filter_type': filter_type, 'ip': ip, 'entries': entries})
+    return data
+
+
+def add_domain_filter_xml(domain, domains, entries, ip, filter_name=None):
+    """Generate xml for Add Domain Filter request
+
+    :param domain: Name of Domain containing filter
+    :type domain: string
+    :param domains: Domains on which filter will be applied
+    :type domains: string
+    :param entries: XML formatted entries that will be added in filter
+    :type entries: string
+    :param ip: Ipv4 address of node
+    :type ip: string
+    :param filter_name: Name of filter
+    :type filter_name: string
+    :returns: String containing xml data for request
+
+    """
+    if filter_name:
+        filter_name = "<filter-name>" + filter_name + "</filter-name>"
+    templ = Template('''<input>
+  <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
+  <domain-name xmlns="urn:opendaylight:sxp:controller">$domain</domain-name>
+  <sxp-domain-filter xmlns="urn:opendaylight:sxp:controller">
+    $filter_name
+    <domains>$domains</domains>
+    $entries
+  </sxp-domain-filter>
+</input>''')
+    data = templ.substitute(
+        {'domain': domain, 'domains': domains, 'ip': ip, 'entries': entries, 'filter_name': filter_name})
     return data
 
 
@@ -710,6 +759,30 @@ def delete_filter_xml(group, filter_type, ip):
 </input>''')
     data = templ.substitute(
         {'group': group, 'filter_type': filter_type, 'ip': ip})
+    return data
+
+
+def delete_domain_filter_xml(domain, ip, filter_name=None):
+    """Generate xml for Delete Filter request
+
+    :param domain: Name of Domain containing filter
+    :type domain: string
+    :param ip: Ipv4 address of node
+    :type ip: string
+    :param filter_name: Name of filter
+    :type filter_name: string
+    :returns: String containing xml data for request
+
+    """
+    if filter_name:
+        filter_name = '<filter-name xmlns="urn:opendaylight:sxp:controller">' + filter_name + "</filter-name>"
+    templ = Template('''<input>
+  <requested-node xmlns="urn:opendaylight:sxp:controller">$ip</requested-node>
+  <domain-name xmlns="urn:opendaylight:sxp:controller">$domain</domain-name>
+  $filter_name
+</input>''')
+    data = templ.substitute(
+        {'domain': domain, 'ip': ip, 'filter_name': filter_name})
     return data
 
 
