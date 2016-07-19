@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_13a31bb3",
+        "filename": "csit/libraries/ofclustermonkey.py",
+        "patchSetId": 63
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-19T14:57:41Z",
+      "side": 1,
+      "message": "This one is commented-out in this patch set. Update Documentation accordingly.",
+      "range": {
+        "startLine": 15,
+        "startChar": 3,
+        "endLine": 15,
+        "endChar": 9
+      },
+      "revId": "f44b3c5322c8731d9fc4ef22016995da45c829d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_33257fab",
+        "filename": "csit/libraries/ofclustermonkey.py",
+        "patchSetId": 63
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-19T14:57:41Z",
+      "side": 1,
+      "message": "These are arguments of the decorated function, not of the decorator. Move them to docstring of \"wrapper\" function.\nYou can use functools.wraps if you want to expose that inner docstring.",
+      "range": {
+        "startLine": 101,
+        "startChar": 4,
+        "endLine": 101,
+        "endChar": 9
+      },
+      "revId": "f44b3c5322c8731d9fc4ef22016995da45c829d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_33145ff4",
+        "filename": "csit/libraries/ofclustermonkey.py",
+        "patchSetId": 63
+      },
+      "lineNbr": 874,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-19T14:57:41Z",
+      "side": 1,
+      "message": "Why? The corresponding keyword in ClusterKeywords.robot (or ClusterManagement.robot) alters iptables on self._cluster_node.",
+      "range": {
+        "startLine": 874,
+        "startChar": 49,
+        "endLine": 874,
+        "endChar": 53
+      },
+      "revId": "f44b3c5322c8731d9fc4ef22016995da45c829d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_33e29f03",
+        "filename": "csit/libraries/ofclustermonkey.py",
+        "patchSetId": 63
+      },
+      "lineNbr": 1020,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-19T14:57:41Z",
+      "side": 1,
+      "message": "This needs investigation.\n\nShort term solution would be to remove ClusterNodeIsolatingMonkey from the code entirely, and add it back (with corresponding monkey_count argument) in separate Change when this issue is fixed.",
+      "range": {
+        "startLine": 1020,
+        "startChar": 4,
+        "endLine": 1020,
+        "endChar": 5
+      },
+      "revId": "f44b3c5322c8731d9fc4ef22016995da45c829d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_38171c53",
+        "filename": "csit/suites/openflowplugin/Clustering/040__Monkey.robot",
+        "patchSetId": 63
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-19T14:57:41Z",
+      "side": 1,
+      "message": "Remove this line.",
+      "range": {
+        "startLine": 42,
+        "startChar": 0,
+        "endLine": 42,
+        "endChar": 1
+      },
+      "revId": "f44b3c5322c8731d9fc4ef22016995da45c829d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f303070b",
+        "filename": "csit/suites/openflowplugin/Clustering/040__Monkey.robot",
+        "patchSetId": 63
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-19T14:57:41Z",
+      "side": 1,
+      "message": "tidy",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 96,
+        "endChar": 0
+      },
+      "revId": "f44b3c5322c8731d9fc4ef22016995da45c829d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
