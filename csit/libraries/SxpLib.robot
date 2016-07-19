@@ -67,7 +67,7 @@ Verify Connection
     Should Contain Connection    ${resp}    ${ip}    ${port}    ${mode}    ${version}    ${state}
 
 Add Binding
-    [Arguments]    ${sgt}    ${prefix}    ${node}=127.0.0.1    ${session}=session    ${domain}=global
+    [Arguments]    ${sgt}    ${prefix}    ${node}=127.0.0.1    ${domain}=global    ${session}=session
     [Documentation]    Add binding via RPC to Master DB of node
     ${DATA}    Add Entry Xml    ${sgt}    ${prefix}    ${node}    ${domain}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-entry    data=${DATA}    headers=${HEADERS_XML}
@@ -100,9 +100,9 @@ Clean Binding
     [Documentation]    Used for nester FOR loop
     : FOR    ${prefix}    IN    @{prefixes}
     \    Run Keyword If    '${ODL_STREAM}' not in ['beryllium', 'stable-lithium']    Delete Binding    ${sgt}    ${prefix}    ${node}
-    \    ...    ${session}    ${domain}
+    \    ...    ${domain}    ${session}
     \    ...    ELSE    Delete Binding    ${sgt['sgt']}    ${prefix['ip-prefix']}    ${node}
-    \    ...    ${session}    ${domain}
+    \    ...    ${domain}    ${session}
 
 Update Binding
     [Arguments]    ${sgtOld}    ${prefixOld}    ${sgtNew}    ${prefixNew}    ${node}=127.0.0.1    ${session}=session
@@ -114,7 +114,7 @@ Update Binding
     Should be Equal As Strings    ${resp.status_code}    200
 
 Delete Binding
-    [Arguments]    ${sgt}    ${prefix}    ${node}=127.0.0.1    ${session}=session    ${domain}=global
+    [Arguments]    ${sgt}    ${prefix}    ${node}=127.0.0.1    ${domain}=global    ${session}=session
     [Documentation]    Delete binding via RPC from Master DB of node
     ${DATA}    Delete Binding Xml    ${sgt}    ${prefix}    ${node}    ${domain}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:delete-entry    data=${DATA}    headers=${HEADERS_XML}
@@ -157,11 +157,25 @@ Add Filter
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-filter    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
 
+Add Domain Filter
+    [Arguments]    ${name}    ${domains}    ${entries}    ${node}=127.0.0.1    ${filter_name}=base-domain-filter    ${session}=session
+    [Documentation]    Add Domain Filter via RPC from Node
+    ${DATA}    Add Domain Filter Xml    ${name}    ${domains}    ${entries}    ${node}    ${filter_name}
+    ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-domain-filter    data=${DATA}    headers=${HEADERS_XML}
+    Should be Equal As Strings    ${resp.status_code}    200
+
 Delete Filter
     [Arguments]    ${name}    ${type}    ${node}=127.0.0.1    ${session}=session
     [Documentation]    Delete Filter via RPC from Node
     ${DATA}    Delete Filter Xml    ${name}    ${type}    ${node}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:delete-filter    data=${DATA}    headers=${HEADERS_XML}
+    Should be Equal As Strings    ${resp.status_code}    200
+
+Delete Domain Filter
+    [Arguments]    ${name}    ${node}=127.0.0.1    ${filter_name}=base-domain-filter    ${session}=session
+    [Documentation]    Delete Filter via RPC from Node
+    ${DATA}    Delete Domain Filter Xml    ${name}    ${node}    ${filter_name}
+    ${resp}    Post Request    ${session}    ${REST_CONTEXT}:delete-domain-filter    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
 
 Should Contain Binding
