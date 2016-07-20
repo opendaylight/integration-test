@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite for running tempest tests.  It is assumed that the test environment
+Documentation     Test suite for running tempest tests. It is assumed that the test environment
 ...               is already deployed and ready.
 Suite Setup       Log In To Tempest Executor And Setup Test Environment
 Suite Teardown    Close All Connections
@@ -23,27 +23,26 @@ tempest.scenario.test_minimum_basic
 *** Keywords ***
 Log In To Tempest Executor And Setup Test Environment
     [Documentation]    Open SSH connection to a devstack system and source the openstack
-    ...                credentials needed to run the tempest tests
-    # source_pwd is expected to exist in the below Create Network, Create Subnet keywords.  Might be a bug.
+    ...    credentials needed to run the tempest tests
+    # source_pwd is expected to exist in the below Create Network, Create Subnet keywords.    Might be a bug.
     ${source_pwd}    Set Variable    yes
     Set Suite Variable    ${source_pwd}
     # Tempest network.api tests need an existing external network in order to create
-    # routers against.  Creating that here.
+    # routers against.    Creating that here.
     Create Network    external --router:external=True
-    Create Subnet     external    external-subnet    10.0.0.0/24
+    Create Subnet    external    external-subnet    10.0.0.0/24
     List Networks
-    ${control_node_conn_id}=     SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
+    ${control_node_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
     Utils.Flexible SSH Login    ${OS_USER}
     Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
-    ${net_id}=    Get Net Id    external     ${control_node_conn_id}
+    ${net_id}=    Get Net Id    external    ${control_node_conn_id}
     Generate Tempest Conf File    ${net_id}
-
 
 Generate Tempest Conf File
     [Arguments]    ${external_network_id}
-    [Documentation]    Tempest will be run with a config file ./tempest.conf.  That file needs to be auto
+    [Documentation]    Tempest will be run with a config file ./tempest.conf. That file needs to be auto
     ...    generated first, then updated with the current openstack info, including the specific external
-    ...    network id.  There was trouble with permissions in upstream CI, so everything is done with sudo
+    ...    network id. There was trouble with permissions in upstream CI, so everything is done with sudo
     ...    and even the tempest.conf is changed to 777 permissions.
     Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
     Write Commands Until Prompt    cd /opt/stack/tempest

@@ -14,6 +14,7 @@ Variables         ../../../variables/ocpplugin/Variables.py
 
 *** Variables ***
 ${NODE_AMOUNT}    20
+
 *** Test Cases ***
 Install agent
     [Documentation]    install agent
@@ -24,12 +25,12 @@ Create multiple emulators
     [Documentation]    get inventory node
     [Tags]    get node
     ${NODE_AMOUNT}=    Convert To Integer    ${NODE_AMOUNT}
-    ${mininet_conn_id}=    OcpAgentKeywords.Start Emulator Multiple     number=${NODE_AMOUNT+1}
-    ${resp}    Get Request    session   ${NODE_ID}TST-${NODE_AMOUNT}
+    ${mininet_conn_id}=    OcpAgentKeywords.Start Emulator Multiple    number=${NODE_AMOUNT+1}
+    ${resp}    Get Request    session    ${NODE_ID}TST-${NODE_AMOUNT}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Get param from emulators
-    [Documentation]    OCPPLUGIN  get param
+    [Documentation]    OCPPLUGIN get param
     [Tags]    OCPPLUGIN get
     ${NODE_AMOUNT}=    Convert To Integer    ${NODE_AMOUNT}
     : FOR    ${NODE_NUM}    IN RANGE    1    ${NODE_AMOUNT+1}

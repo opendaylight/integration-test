@@ -13,7 +13,7 @@ Source Password
 Create Network
     [Arguments]    ${network_name}    ${additional_args}=${EMPTY}
     [Documentation]    Create Network with neutron request.
-    ${devstack_conn_id}=       Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron -v net-create ${network_name} ${additional_args}    30s
     Close Connection
@@ -22,7 +22,7 @@ Create Network
 
 List Networks
     [Documentation]    List networks and return output with neutron client.
-    ${devstack_conn_id}=       Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron net-list    30s
     Close Connection
@@ -31,7 +31,7 @@ List Networks
 
 List Subnets
     [Documentation]    List subnets and return output with neutron client.
-    ${devstack_conn_id}=       Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron subnet-list    30s
     Close Connection
@@ -41,9 +41,9 @@ List Subnets
 Delete Network
     [Arguments]    ${network_name}
     [Documentation]    Delete Network with neutron request.
-    ${devstack_conn_id}=       Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v net-delete ${network_name}     30s
+    ${output}=    Write Commands Until Prompt    neutron -v net-delete ${network_name}    30s
     Close Connection
     Log    ${output}
     Should Contain    ${output}    Deleted network: ${network_name}
@@ -51,7 +51,7 @@ Delete Network
 Create SubNet
     [Arguments]    ${network_name}    ${subnet}    ${range_ip}
     [Documentation]    Create SubNet for the Network with neutron request.
-    ${devstack_conn_id}=       Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet}    30s
     Close Connection
@@ -61,7 +61,7 @@ Create SubNet
 Create Port
     [Arguments]    ${network_name}    ${port_name}
     [Documentation]    Create Port with neutron request.
-    ${devstack_conn_id}=       Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron -v port-create ${network_name} --name ${port_name}    30s
     Close Connection
@@ -93,7 +93,7 @@ Delete SubNet
     [Arguments]    ${subnet}
     [Documentation]    Delete SubNet for the Network with neutron request.
     Log    ${subnet}
-    ${devstack_conn_id}=       Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron -v subnet-delete ${subnet}
     Close Connection
@@ -110,16 +110,16 @@ Verify No Gateway Ips
 Delete Vm Instance
     [Arguments]    ${vm_name}
     [Documentation]    Delete Vm instances using instance names.
-    ${devstack_conn_id}=       Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    nova force-delete ${vm_name}      40s
+    ${output}=    Write Commands Until Prompt    nova force-delete ${vm_name}    40s
     Close Connection
 
 Get Net Id
-    [Arguments]    ${network_name}      ${devstack_conn_id}
+    [Arguments]    ${network_name}    ${devstack_conn_id}
     [Documentation]    Retrieve the net id for the given network name to create specific vm instance
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron net-list | grep "${network_name}" | get_field 1       30s
+    ${output}=    Write Commands Until Prompt    neutron net-list | grep "${network_name}" | get_field 1    30s
     Log    ${output}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${net_id}=    Get from List    ${splitted_output}    0
@@ -129,9 +129,9 @@ Get Net Id
 Create Vm Instances
     [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano
     [Documentation]    Create X Vm Instance with the net id of the Netowrk.
-    ${devstack_conn_id}=       Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${net_id}=    Get Net Id    ${net_name}      ${devstack_conn_id}
+    ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
     : FOR    ${VmElement}    IN    @{vm_instance_names}
     \    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement}    30s
     \    Log    ${output}
@@ -140,7 +140,7 @@ Create Vm Instances
 Verify VM Is ACTIVE
     [Arguments]    ${vm_name}
     [Documentation]    Run these commands to check whether the created vm instance is active or not.
-    ${output}=    Write Commands Until Prompt    nova show ${vm_name} | grep OS-EXT-STS:vm_state      30s
+    ${output}=    Write Commands Until Prompt    nova show ${vm_name} | grep OS-EXT-STS:vm_state    30s
     Log    ${output}
     Should Contain    ${output}    active
 
@@ -157,9 +157,9 @@ Ping Vm From DHCP Namespace
     [Arguments]    ${net_name}    ${vm_ip}
     [Documentation]    Reach all Vm Instance with the net id of the Netowrk.
     Log    ${vm_ip}
-    ${devstack_conn_id}=       Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${net_id}=    Get Net Id    ${net_name}     ${devstack_conn_id}
+    ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
     Log    ${net_id}
     ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
     Log    ${output}
@@ -170,9 +170,9 @@ Ping From DHCP Should Not Succeed
     [Arguments]    ${net_name}    ${vm_ip}
     [Documentation]    Should Not Reach Vm Instance with the net id of the Netowrk.
     Log    ${vm_ip}
-    ${devstack_conn_id}=       Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${net_id}=    Get Net Id    ${net_name}     ${devstack_conn_id}
+    ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
     Log    ${net_id}
     ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
     Close Connection
@@ -224,9 +224,9 @@ Test Operations From Vm Instance
     [Arguments]    ${net_name}    ${src_ip}    ${list_of_local_dst_ips}    ${l2_or_l3}=l2    ${list_of_external_dst_ips}=${NONE}    ${user}=cirros
     ...    ${password}=cubswin:)
     [Documentation]    Login to the vm instance using ssh in the network.
-    ${devstack_conn_id}=       Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${net_id}=    Get Net Id    ${net_name}      ${devstack_conn_id}
+    ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
     ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${src_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no    d:
     Log    ${output}
     ${output}=    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
@@ -264,7 +264,7 @@ Ping Other Instances
 Create Router
     [Arguments]    ${router_name}
     [Documentation]    Create Router and Add Interface to the subnets.
-    ${devstack_conn_id}=       Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron -v router-create ${router_name}    30s
     Close Connection
@@ -272,7 +272,7 @@ Create Router
 
 Add Router Interface
     [Arguments]    ${router_name}    ${interface_name}
-    ${devstack_conn_id}=       Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron -v router-interface-add ${router_name} ${interface_name}
     Close Connection
@@ -281,7 +281,7 @@ Add Router Interface
 Remove Interface
     [Arguments]    ${router_name}    ${interface_name}
     [Documentation]    Remove Interface to the subnets.
-    ${devstack_conn_id}=       Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron -v router-interface-delete ${router_name} ${interface_name}
     Close Connection
@@ -290,9 +290,9 @@ Remove Interface
 Delete Router
     [Arguments]    ${router_name}
     [Documentation]    Delete Router and Interface to the subnets.
-    ${devstack_conn_id}=       Get ControlNode Connection
+    ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v router-delete ${router_name}       60s
+    ${output}=    Write Commands Until Prompt    neutron -v router-delete ${router_name}    60s
     Close Connection
     Should Contain    ${output}    Deleted router:
 
@@ -310,7 +310,7 @@ Get ControlNode Connection
     ${control_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
     Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     SSHLibrary.Set Client Configuration    timeout=30s
-    Source Password      force=yes
+    Source Password    force=yes
     [Return]    ${control_conn_id}
 
 Get OvsDebugInfo
@@ -325,6 +325,6 @@ Show Debugs
     ${output}=    Write Commands Until Prompt    sudo ip netns list
     Log    ${output}
     : FOR    ${index}    IN    @{vm_indices}
-    \    ${output}=    Write Commands Until Prompt    nova show ${index}     30s
+    \    ${output}=    Write Commands Until Prompt    nova show ${index}    30s
     \    Log    ${output}
     Close Connection

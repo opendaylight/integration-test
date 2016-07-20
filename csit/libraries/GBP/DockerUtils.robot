@@ -75,8 +75,7 @@ Test Port On Docker
 Execute Curl
     [Arguments]    ${docker_name}    ${dest_address}    ${service_port}    ${endless}="FALSE"    ${sleep}=1
     [Documentation]    Executes curl or curl loop for caller methods based on given parameters.
-    Run Keyword If    ${endless} == "TRUE"    Run Keywords
-    ...    SSHLibrary.Execute Command    docker exec -d ${docker_name} /bin/sh -c "while [ -f curl_running ]; do curl ${dest_address}:${service_port} -m 1 && sleep ${sleep}; done"
+    Run Keyword If    ${endless} == "TRUE"    Run Keywords    SSHLibrary.Execute Command    docker exec -d ${docker_name} /bin/sh -c "while [ -f curl_running ]; do curl ${dest_address}:${service_port} -m 1 && sleep ${sleep}; done"
     ...    AND    Return From Keyword
     ${output}    SSHLibrary.Execute Command    docker exec ${docker_name} curl ${dest_address}:${service_port} -m 5 >/dev/null 2>&1 && echo success
     Should Contain    ${output}    success

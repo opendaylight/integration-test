@@ -9,7 +9,7 @@ Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${OSTENANTNAME}   "admin"
+${OSTENANTNAME}    "admin"
 ${OSUSERNAME}     "admin"
 ${OSPASSWORD}     "admin"
 ${UserInfo}       {"auth": {"tenantName": ${OSTENANTNAME}, "passwordCredentials": {"username": ${OSUSERNAME}, "password": ${OSPASSWORD}}}}

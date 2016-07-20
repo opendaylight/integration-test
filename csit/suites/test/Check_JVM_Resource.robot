@@ -9,13 +9,13 @@ Test JVM Keywords
     : FOR    ${INDEX}    IN RANGE    0    ${DURATION+1}    ${STEP}
     \    ${session}    Get Connection    ${ODL_SYSTEM_IP}    ${ELASTICPORT}
     \    Log    ${session}
-    \    ${threading}=    Get Jvm Threading     ${session}
+    \    ${threading}=    Get Jvm Threading    ${session}
     \    Log    ${threading}
-    \    ${memory}=    Get Jvm Memory       ${session}
+    \    ${memory}=    Get Jvm Memory    ${session}
     \    Log    ${memory}
-    \    ${classload}=    Get Jvm Classloading      ${session}
+    \    ${classload}=    Get Jvm Classloading    ${session}
     \    Log    ${classload}
-    \    ${operatingsystem}=    Get Jvm operatingsystem     ${session}
+    \    ${operatingsystem}=    Get Jvm operatingsystem    ${session}
     \    Log    ${operatingsystem}
     \    Sleep    ${STEP}
 

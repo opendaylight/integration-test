@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite to test connectivity problems
-Suite Setup       Setup SXP Environment     6
-Suite Teardown    Clean SXP Environment     6
+Suite Setup       Setup SXP Environment    6
+Suite Teardown    Clean SXP Environment    6
 Test Setup        Clean Nodes
 Library           RequestsLibrary
 Library           SSHLibrary

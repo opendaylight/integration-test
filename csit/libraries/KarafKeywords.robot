@@ -178,4 +178,3 @@ Wait For Karaf Log
     Write    log:tail
     Read Until    ${message}
     Close Connection
-

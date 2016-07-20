@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite to verify inbound-discarding filtering functionality
-Suite Setup       Setup SXP Environment     6
-Suite Teardown    Clean SXP Environment     6
+Suite Setup       Setup SXP Environment    6
+Suite Teardown    Clean SXP Environment    6
 Test Teardown     Clean Nodes
 Library           RequestsLibrary
 Library           SSHLibrary

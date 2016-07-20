@@ -11,34 +11,35 @@ Resource          ../Connections.robot
 
 *** Testcases ***
 Show GBPSFC1 Status
-    [Documentation]     Shows flows and configuration of a switch for easier debugging.
+    [Documentation]    Shows flows and configuration of a switch for easier debugging.
     Start Connections
-    Switch Connection   GPSFC1_CONNECTION
-    Show Switch Status  sw1
+    Switch Connection    GPSFC1_CONNECTION
+    Show Switch Status    sw1
 
 Show GBPSFC2 Status
-    [Documentation]     Shows flows and configuration of a switch for easier debugging.
-    Switch Connection   GPSFC2_CONNECTION
-    Show Switch Status  sw2
+    [Documentation]    Shows flows and configuration of a switch for easier debugging.
+    Switch Connection    GPSFC2_CONNECTION
+    Show Switch Status    sw2
 
 Show GBPSFC3 Status
-    [Documentation]     Shows flows and configuration of a switch for easier debugging.
-    Switch Connection   GPSFC3_CONNECTION
-    Show Switch Status  sw3
+    [Documentation]    Shows flows and configuration of a switch for easier debugging.
+    Switch Connection    GPSFC3_CONNECTION
+    Show Switch Status    sw3
 
 Show GBPSFC4 Status
-    [Documentation]     Shows flows and configuration of a switch for easier debugging.
-    Switch Connection   GPSFC4_CONNECTION
-    Show Switch Status  sw4
+    [Documentation]    Shows flows and configuration of a switch for easier debugging.
+    Switch Connection    GPSFC4_CONNECTION
+    Show Switch Status    sw4
+
 Show GBPSFC5 Status
-    [Documentation]     Shows flows and configuration of a switch for easier debugging.
-    Switch Connection   GPSFC5_CONNECTION
-    Show Switch Status  sw5
+    [Documentation]    Shows flows and configuration of a switch for easier debugging.
+    Switch Connection    GPSFC5_CONNECTION
+    Show Switch Status    sw5
 
 Show GBPSFC6 Status
-    [Documentation]     Shows flows and configuration of a switch for easier debugging.
-    Switch Connection   GPSFC6_CONNECTION
-    Show Switch Status  sw6
+    [Documentation]    Shows flows and configuration of a switch for easier debugging.
+    Switch Connection    GPSFC6_CONNECTION
+    Show Switch Status    sw6
     Close Connections
 
 Read Tenants Confing From ODL

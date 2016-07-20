@@ -31,7 +31,8 @@ Unification Node Removal NT
     Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    8
     #Remove an underlay aggregated node, preserving the overlay node
     Delete Underlay Node    network-topo:1    bgp:3
-    ${resp}    Wait Until Keyword Succeeds    10x    250ms    Basic Request Get And Test    ${OVERLAY_TOPO_URL}    <supporting-node>    9
+    ${resp}    Wait Until Keyword Succeeds    10x    250ms    Basic Request Get And Test    ${OVERLAY_TOPO_URL}    <supporting-node>
+    ...    9
     Check Aggregated Node in Topology    ${model}    ${resp.content}    2    bgp:4
     #Remove an underlay aggregated node, expecting removal of the overlay node
     Delete Underlay Node    network-topo:1    bgp:4
@@ -47,7 +48,8 @@ Unification Node Removal Inventory
     Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    7
     #Remove an underlay aggregated node, preserving the overlay node
     Delete Underlay Node    openflow-topo:2    of-node:6
-    ${resp}    Wait Until Keyword Succeeds    10x    250ms    Basic Request Get And Test    ${OVERLAY_TOPO_URL}    <supporting-node>    9
+    ${resp}    Wait Until Keyword Succeeds    10x    250ms    Basic Request Get And Test    ${OVERLAY_TOPO_URL}    <supporting-node>
+    ...    9
     Check Aggregated Node in Topology    ${model}    ${resp.content}    2    of-node:1
     #Remove an underlay aggregated node, expecting removal of the overlay node
     Delete Underlay Node    openflow-topo:1    of-node:1

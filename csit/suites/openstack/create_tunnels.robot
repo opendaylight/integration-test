@@ -1,6 +1,6 @@
 *** Settings ***
-Documentation     Initial test case to setup vxlan tunnels as required for netvirt-vpnservice.  It is assumed
-...    that the test environment is already deployed and ready.
+Documentation     Initial test case to setup vxlan tunnels as required for netvirt-vpnservice. It is assumed
+...               that the test environment is already deployed and ready.
 Library           SSHLibrary
 Library           RequestsLibrary
 Resource          ../../libraries/KarafKeywords.robot

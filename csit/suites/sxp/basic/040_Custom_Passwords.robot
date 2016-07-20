@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite to test custom password per peer fuctionality
 Suite Setup       Setup SXP Environment Local
-Suite Teardown    Clean SXP Environment     4
+Suite Teardown    Clean SXP Environment    4
 Test Setup        Clean Nodes
 Library           RequestsLibrary
 Library           SSHLibrary

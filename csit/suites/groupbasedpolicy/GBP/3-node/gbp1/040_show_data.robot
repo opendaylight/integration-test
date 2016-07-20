@@ -11,20 +11,20 @@ Resource          ../Connections.robot
 
 *** Testcases ***
 Show GBPSFC1 Status
-    [Documentation]     Shows flows and configuration of a switch for easier debugging.
+    [Documentation]    Shows flows and configuration of a switch for easier debugging.
     Start Connections
-    Switch Connection   GBP1_CONNECTION
-    Show Switch Status  sw1
+    Switch Connection    GBP1_CONNECTION
+    Show Switch Status    sw1
 
 Show GBPSFC2 Status
-    [Documentation]     Shows flows and configuration of a switch for easier debugging.
-    Switch Connection   GBP2_CONNECTION
-    Show Switch Status  sw2
+    [Documentation]    Shows flows and configuration of a switch for easier debugging.
+    Switch Connection    GBP2_CONNECTION
+    Show Switch Status    sw2
 
 Show GBPSFC3 Status
-    [Documentation]     Shows flows and configuration of a switch for easier debugging.
-    Switch Connection   GBP3_CONNECTION
-    Show Switch Status  sw3
+    [Documentation]    Shows flows and configuration of a switch for easier debugging.
+    Switch Connection    GBP3_CONNECTION
+    Show Switch Status    sw3
     Close Connections
 
 Read Tenants Confing From ODL

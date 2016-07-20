@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite to test scalability of SXP
-Suite Setup       Setup SXP Environment     32
-Suite Teardown    Clean SXP Environment     32
+Suite Setup       Setup SXP Environment    32
+Suite Teardown    Clean SXP Environment    32
 Test Setup        Clean Nodes
 Library           RequestsLibrary
 Library           SSHLibrary

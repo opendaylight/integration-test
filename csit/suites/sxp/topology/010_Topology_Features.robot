@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite to verify Behaviour in different topologies
-Suite Setup       Setup SXP Environment     6
-Suite Teardown    Clean SXP Environment     6
+Suite Setup       Setup SXP Environment    6
+Suite Teardown    Clean SXP Environment    6
 Test Teardown     Clean Nodes
 Library           RequestsLibrary
 Library           SSHLibrary
