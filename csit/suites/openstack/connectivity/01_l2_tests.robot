@@ -12,8 +12,6 @@ Resource          ../../../libraries/DevstackUtils.robot
 *** Variables ***
 @{NETWORKS_NAME}    l2_network_1    l2_network_2
 @{SUBNETS_NAME}    l2_subnet_1    l2_subnet_2
-@{NET_1_VM_INSTANCES}    MyFirstInstance_1    MySecondInstance_1    MyThirdInstance_1
-@{NET_2_VM_INSTANCES}    MyFirstInstance_2    MySecondInstance_2    MyThirdInstance_2
 @{NET_1_VM_IPS}    30.0.0.3    30.0.0.4    30.0.0.5
 @{NET_2_VM_IPS}    40.0.0.3    40.0.0.4    40.0.0.5
 @{VM_IPS_NOT_DELETED}    30.0.0.4    30.0.0.5
@@ -35,13 +33,31 @@ Create Subnets For l2_network_2
     [Documentation]    Create Sub Nets for the Networks with neutron request.
     Create SubNet    l2_network_2    l2_subnet_2    @{SUBNETS_RANGE}[1]
 
+Create Vm Instances List For Network l2_network_1
+    [Documentation]    Reads number of limited vm instances and returns a list with all vm instances names.
+    ${NET_1_VM_INSTANCES}    Create List
+    ${LIMIT_TEST_VM_INSTANCES_PER_NW}=    Convert to Integer    ${LIMIT_TEST_VM_INSTANCES_PER_NW}
+    : FOR    ${i}    IN RANGE    ${LIMIT_TEST_VM_INSTANCES_PER_NW}
+    \    Append To List    ${NET_1_VM_INSTANCES}    l2_instance_net_1_${i+1}
+    Set Suite Variable    ${NET_1_VM_INSTANCES}
+    Log    ${NET_1_VM_INSTANCES}
+
 Create Vm Instances For l2_network_1
-    [Documentation]    Create Four Vm instances using flavor and image names for a network.
+    [Documentation]    Create Vm instances using flavor and image names for a network.
     Create Vm Instances    l2_network_1    ${NET_1_VM_INSTANCES}
     [Teardown]    Show Debugs    ${NET_1_VM_INSTANCES}
 
+Create Vm Instances List For Network l2_network_2
+    [Documentation]    Reads number of limited vm instances and returns a list with all vm instances names.
+    ${NET_2_VM_INSTANCES}    Create List
+    ${LIMIT_TEST_VM_INSTANCES_PER_NW}=    Convert to Integer    ${LIMIT_TEST_VM_INSTANCES_PER_NW}
+    : FOR    ${i}    IN RANGE    ${LIMIT_TEST_VM_INSTANCES_PER_NW}
+    \    Append To List    ${NET_2_VM_INSTANCES}    l2_instance_net_2_${i+1}
+    Set Suite Variable    ${NET_2_VM_INSTANCES}
+    Log    ${NET_2_VM_INSTANCES}
+
 Create Vm Instances For l2_network_2
-    [Documentation]    Create Four Vm instances using flavor and image names for a network.
+    [Documentation]    Create Vm instances using flavor and image names for a network.
     Create Vm Instances    l2_network_2    ${NET_2_VM_INSTANCES}
     [Teardown]    Show Debugs    ${NET_2_VM_INSTANCES}
 
@@ -107,7 +123,7 @@ Connectivity Tests From Vm Instance3 In l2_network_2
 
 Delete A Vm Instance
     [Documentation]    Delete Vm instances using instance names.
-    Delete Vm Instance    MyFirstInstance_1
+    Delete Vm Instance    @{NET_1_VM_INSTANCES}[0]
 
 No Ping For Deleted Vm
     [Documentation]    Check non reachability of deleted vm instances by pinging to them.

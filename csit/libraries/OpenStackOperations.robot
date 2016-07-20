@@ -167,9 +167,9 @@ Ping Vm From DHCP Namespace
     [Arguments]    ${net_name}    ${vm_ip}
     [Documentation]    Reach all Vm Instance with the net id of the Netowrk.
     Log    ${vm_ip}
-    ${devstack_conn_id}=    Get ControlNode Connection
+    ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
+    ${net_id}=    Get Net Id    ${net_name}     ${devstack_conn_id}
     Log    ${net_id}
     ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
     Log    ${output}
@@ -338,3 +338,16 @@ Show Debugs
     \    ${output}=    Write Commands Until Prompt    nova show ${index}    30s
     \    Log    ${output}
     Close Connection
+
+Disable Statistics
+    [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
+    [Documentation]    Uses "vsctl" to check statistics status
+    ${output}=    Utils.Run Command On Remote System    ${tools_system}    sudo ovs-vsctl set bridge br-int other-config:enable-statistics=false
+    [Return]    ${output}
+
+Openvswitch List
+    [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
+    [Documentation]    Uses "vsctl" to check statistics status
+    ${output}=    Utils.Run Command On Remote System    ${tools_system}    sudo ovs-vsctl list Open_vSwitch
+    [Return]    ${output}
+
