@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_423db6ba",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 342,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-20T17:28:20Z",
+      "side": 1,
+      "message": "what\u0027s this suite var for?  probably messy to do this here, as it\u0027s hard to track down where/how a suite variable got set from a random library.",
+      "range": {
+        "startLine": 341,
+        "startChar": 4,
+        "endLine": 342,
+        "endChar": 40
+      },
+      "revId": "e4d1166474616f27d368184199b565406b09e2ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_a24c9271",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 17
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-07-20T17:28:20Z",
+      "side": 1,
+      "message": "why not just a \"Run Command On Remote System\" one line call here?",
+      "range": {
+        "startLine": 341,
+        "startChar": 0,
+        "endLine": 348,
+        "endChar": 20
+      },
+      "revId": "e4d1166474616f27d368184199b565406b09e2ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
