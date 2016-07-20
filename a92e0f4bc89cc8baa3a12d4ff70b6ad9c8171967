@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_e7385ca2",
+        "filename": "csit/libraries/ClusterOvsdb.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 91,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-20T15:06:24Z",
+      "side": 1,
+      "message": "no special reason, just to make the line not very long.",
+      "parentUuid": "9a561d44_81e1909c",
+      "range": {
+        "startLine": 91,
+        "startChar": 109,
+        "endLine": 91,
+        "endChar": 110
+      },
+      "revId": "a92e0f4bc89cc8baa3a12d4ff70b6ad9c8171967",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_e1904c45",
         "filename": "csit/libraries/OVSDB.robot",
         "patchSetId": 6
@@ -36,6 +60,30 @@
       "writtenOn": "2016-07-20T11:44:08Z",
       "side": 1,
       "message": "This also could support None.\n\nEvery suite which calls this would save one argument.",
+      "range": {
+        "startLine": 122,
+        "startChar": 61,
+        "endLine": 122,
+        "endChar": 62
+      },
+      "revId": "a92e0f4bc89cc8baa3a12d4ff70b6ad9c8171967",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_07aab0d3",
+        "filename": "csit/libraries/OVSDB.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-20T15:06:24Z",
+      "side": 1,
+      "message": "Good idea, will upload new patch.",
+      "parentUuid": "9a561d44_e1904c45",
       "range": {
         "startLine": 122,
         "startChar": 61,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "9a561d44_e7ea1c0e",
+        "filename": "csit/suites/openstack/clustering/02_l3_tests.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-20T15:06:24Z",
+      "side": 1,
+      "message": "Good idea, I will change this too.",
+      "parentUuid": "9a561d44_21b244e6",
+      "range": {
+        "startLine": 47,
+        "startChar": 52,
+        "endLine": 47,
+        "endChar": 53
+      },
+      "revId": "a92e0f4bc89cc8baa3a12d4ff70b6ad9c8171967",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "9a561d44_c1a548b6",
         "filename": "csit/suites/openstack/clustering/02_l3_tests.robot",
         "patchSetId": 6
@@ -82,6 +154,30 @@
       "writtenOn": "2016-07-20T11:44:08Z",
       "side": 1,
       "message": "This is the \"session\" argument. Looking at Sandbox run, this works and goes to node-1, maybe because ClusterManagement__session_1 was created as the first http session?\n\nThis should be more explicit, but that can be done in a separate Change.",
+      "range": {
+        "startLine": 95,
+        "startChar": 42,
+        "endLine": 95,
+        "endChar": 43
+      },
+      "revId": "a92e0f4bc89cc8baa3a12d4ff70b6ad9c8171967",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_87ba4008",
+        "filename": "csit/suites/openstack/clustering/02_l3_tests.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-20T15:06:24Z",
+      "side": 1,
+      "message": "I think this is nothing to do with controller but devstack node.",
+      "parentUuid": "9a561d44_c1a548b6",
       "range": {
         "startLine": 95,
         "startChar": 42,
