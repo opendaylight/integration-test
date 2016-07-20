@@ -6,7 +6,7 @@ Documentation     Test suite to verify unification operation on different models
 ...               xmls and verify output. Topology-id on the end of each urls must match topology-id from xml. Yang models of components in topology are defined in xmls.
 Suite Setup       Setup Environment
 Suite Teardown    Clean Environment
-Test Teardown     Delete Overlay Topology    ${OVERLAY_TOPO_URL}
+Test Teardown     Delete Overlay Topology
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           XML
@@ -17,9 +17,6 @@ Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/TopoprocessingKeywords.robot
 
-*** Variables ***
-${OVERLAY_TOPO_URL}    ${TOPOLOGY_URL}/topo:1
-
 *** Test Cases ***
 Unification Node
     [Documentation]    Test unification operation on Network Topology model
@@ -27,11 +24,8 @@ Unification Node
     ${request}    Prepare Unification Topology Request    ${UNIFICATION_NT}    ${model}    node    network-topo:1    network-topo:2
     ${request}    Insert Target Field    ${request}    0    ${ISIS_NODE_TE_ROUTER_ID_IPV4}    0
     ${request}    Insert Target Field    ${request}    1    ${ISIS_NODE_TE_ROUTER_ID_IPV4}    0
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    8
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <supporting-node>    10
-    Should Contain X Times    ${resp.content}    <termination-point    14
-    Should Contain X Times    ${resp.content}    <tp-ref>    14
+    Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=8    supporting-node_count=10    tp_count=14    tp-ref_count=14
     Check Aggregated Node in Topology    ${model}    ${resp.content}    2    bgp:5    bgp:10
     Check Aggregated Node in Topology    ${model}    ${resp.content}    1    bgp:9
     Check Aggregated Node in Topology    ${model}    ${resp.content}    1    bgp:8
@@ -47,11 +41,8 @@ Unification Node Inventory
     ${request}    Prepare Unification Topology Request    ${UNIFICATION_NT}    ${model}    node    openflow-topo:1    openflow-topo:2
     ${request}    Insert Target Field    ${request}    0    ${OPENFLOW_NODE_IP_ADDRESS}    0
     ${request}    Insert Target Field    ${request}    1    ${OPENFLOW_NODE_IP_ADDRESS}    0
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    7
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <supporting-node>    10
-    Should Contain X Times    ${resp.content}    <termination-point    12
-    Should Contain X Times    ${resp.content}    <tp-ref>    12
+    Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=7    supporting-node_count=10    tp_count=12    tp-ref_count=12
     Check Aggregated Node in Topology    ${model}    ${resp.content}    3    of-node:10    of-node:4
     Check Aggregated Node in Topology    ${model}    ${resp.content}    0    of-node:7    of-node:9
     Check Aggregated Node in Topology    ${model}    ${resp.content}    0    of-node:8
@@ -67,11 +58,8 @@ Unification Scripting Node
     ${request}    Insert Target Field    ${request}    0    ${ISIS_NODE_TE_ROUTER_ID_IPV4}    0
     ${request}    Insert Target Field    ${request}    1    ${ISIS_NODE_TE_ROUTER_ID_IPV4}    0
     ${request}    Insert Scripting into Request    ${request}    javascript    if (originalItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.1") > -1 && newItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.3") > -1 || originalItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.3") > -1 && newItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.1") > -1) {aggregable.setResult(true);} else { aggregable.setResult(false);}
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    9
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <supporting-node>    10
-    Should Contain X Times    ${resp.content}    <termination-point    14
-    Should Contain X Times    ${resp.content}    <tp-ref>    14
+    Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=9    supporting-node_count=10    tp_count=14    tp-ref_count=14
     Check Aggregated Node in Topology    ${model}    ${resp.content}    1    bgp:10
     Check Aggregated Node in Topology    ${model}    ${resp.content}    1    bgp:9
     Check Aggregated Node in Topology    ${model}    ${resp.content}    1    bgp:8
@@ -89,11 +77,8 @@ Unification Scripting Node Inventory
     ${request}    Insert Target Field    ${request}    0    ${OPENFLOW_NODE_IP_ADDRESS}    0
     ${request}    Insert Target Field    ${request}    1    ${OPENFLOW_NODE_IP_ADDRESS}    0
     ${request}    Insert Scripting into Request    ${request}    javascript    if (originalItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.2") > -1 && newItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.4") > -1 || originalItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.4") > -1 && newItem.getLeafNodes().get(java.lang.Integer.valueOf('0')).getValue().indexOf("192.168.1.2") > -1) {aggregable.setResult(true);} else { aggregable.setResult(false);}
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    9
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <supporting-node>    10
-    Should Contain X Times    ${resp.content}    <termination-point    12
-    Should Contain X Times    ${resp.content}    <tp-ref>    12
+    Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=9    supporting-node_count=10    tp_count=12    tp-ref_count=12
     Check Aggregated Node in Topology    ${model}    ${resp.content}    0    of-node:10
     Check Aggregated Node in Topology    ${model}    ${resp.content}    0    of-node:9
     Check Aggregated Node in Topology    ${model}    ${resp.content}    3    of-node:2    of-node:8
@@ -109,11 +94,8 @@ Unification Node Inside
     ${model}    Set Variable    network-topology-model
     ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    ${model}    node    network-topo:1
     ${request}    Insert Target Field    ${request}    0    ${ISIS_NODE_TE_ROUTER_ID_IPV4}    0
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    4
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <supporting-node>    5
-    Should Contain X Times    ${resp.content}    <termination-point    8
-    Should Contain X Times    ${resp.content}    <tp-ref>    8
+    Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=4    supporting-node_count=5    tp_count=8    tp-ref_count=8
     Check Aggregated Node in Topology    ${model}    ${resp.content}    1    bgp:5
     Check Aggregated Node in Topology    ${model}    ${resp.content}    4    bgp:3    bgp:4
     Check Aggregated Node in Topology    ${model}    ${resp.content}    0    bgp:2
@@ -124,11 +106,8 @@ Unification Node Inside Inventory
     ${model}    Set Variable    opendaylight-inventory-model
     ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    ${model}    node    openflow-topo:2
     ${request}    Insert Target Field    ${request}    0    ${OPENFLOW_NODE_IP_ADDRESS}    0
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    4
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <supporting-node>    5
-    Should Contain X Times    ${resp.content}    <termination-point    0
-    Should Contain X Times    ${resp.content}    <supporting-termination-point>    0
+    Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=4    supporting-node_count=5    tp_count=0
     Check Aggregated Node in Topology    ${model}    ${resp.content}    0    of-node:10
     Check Aggregated Node in Topology    ${model}    ${resp.content}    0    of-node:7    of-node:9
     Check Aggregated Node in Topology    ${model}    ${resp.content}    0    of-node:8
@@ -139,11 +118,8 @@ Unification Termination Point Inside
     ${model}    Set Variable    network-topology-model
     ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    ${model}    termination-point    network-topo:1
     ${request}    Insert Target Field    ${request}    0    ${OVSDB_OFPORT}    0
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    5
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <supporting-node>    5
-    Should Contain X Times    ${resp.content}    <tp-ref>    8
-    Should Contain X Times    ${resp.content}    <termination-point    6
+    Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5    tp_count=6    tp-ref_count=8
     ${topology_id}    Set Variable    network-topo:1
     Check Aggregated Termination Point in Node    ${model}    ${resp.content}    ${topology_id}    bgp:1    tp:1:1    tp:1:1
     ...    tp:1:2
@@ -159,11 +135,8 @@ Unification Termination Point Inside Inventory
     ${model}    Set Variable    opendaylight-inventory-model
     ${request}    Prepare Unification Inside Topology Request    ${UNIFICATION_NT_AGGREGATE_INSIDE}    ${model}    termination-point    openflow-topo:1
     ${request}    Insert Target Field    ${request}    0    ${OPENFLOW_NODE_CONNECTOR_PORT_NUMBER}    0
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    5
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <supporting-node>    5
-    Should Contain X Times    ${resp.content}    <tp-ref>    12
-    Should Contain X Times    ${resp.content}    <termination-point>    8
+    Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5    tp_count=8    tp-ref_count=12
     ${topology_id}    Set Variable    openflow-topo:1
     Check Aggregated Termination Point in Node    ${model}    ${resp.content}    ${topology_id}    of-node:5    tp:5:1    tp:5:1
     Check Aggregated Termination Point in Node    ${model}    ${resp.content}    ${topology_id}    of-node:4    tp:4:1    tp:4:1
