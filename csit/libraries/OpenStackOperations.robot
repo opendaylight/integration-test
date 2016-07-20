@@ -164,17 +164,18 @@ View Vm Console
     \    Log    ${output}
 
 Ping Vm From DHCP Namespace
-    [Arguments]    ${net_name}    ${vm_ip}
+    [Arguments]    ${net_name}    ${vm_ip_list}
     [Documentation]    Reach all Vm Instance with the net id of the Netowrk.
-    Log    ${vm_ip}
-    ${devstack_conn_id}=    Get ControlNode Connection
-    Switch Connection    ${devstack_conn_id}
-    ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
-    Log    ${net_id}
-    ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
-    Log    ${output}
-    Close Connection
-    Should Contain    ${output}    64 bytes
+    Log    ${vm_ip_list}
+    : FOR    ${vm_ip}    IN    @{vm_ip_list}
+    \    ${devstack_conn_id}=       Get ControlNode Connection
+    \    Switch Connection    ${devstack_conn_id}
+    \    ${net_id}=    Get Net Id    ${net_name}     ${devstack_conn_id}
+    \    Log    ${net_id}
+    \    ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
+    \    Log    ${output}
+    \    Close Connection
+    \    Should Contain    ${output}    64 bytes
 
 Ping From DHCP Should Not Succeed
     [Arguments]    ${net_name}    ${vm_ip}
@@ -338,3 +339,59 @@ Show Debugs
     \    ${output}=    Write Commands Until Prompt    nova show ${index}    30s
     \    Log    ${output}
     Close Connection
+
+Disable Statistics
+    [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
+    [Documentation]    Uses "vsctl" to check statistics status
+    ${output}=    Utils.Run Command On Remote System    ${tools_system}    sudo ovs-vsctl set bridge br-int other-config:enable-statistics=false
+    [Return]    ${output}
+
+Openvswitch List
+    [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
+    [Documentation]    Uses "vsctl" to check statistics status
+    ${output}=    Utils.Run Command On Remote System    ${tools_system}    sudo ovs-vsctl list Open_vSwitch
+    [Return]    ${output}
+
+Get Vm Instance Ips
+    [Arguments]    ${vm_indices}    ${NET_VM_IPS}
+    [Documentation]    Retrieve the ip assigned for the created vm instance
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    : FOR    ${index}    IN    @{vm_indices}
+    \    ${source}=    Write Commands Until Prompt    nova show ${index} | grep network | get_field 2    60s
+    \    ${vm_list}=    Split String    ${source}    [
+    \    ${vm_ip}=    Get from List    ${vm_list}    0
+    \    ${vm_ip}=    Replace String    ${vm_ip}    \r\n    ${EMPTY}
+    \    Log    ${vm_ip}
+    \    Append To List    ${NET_VM_IPS}    ${vm_ip}
+    [Return]    ${NET_VM_IPS}
+
+Connectivity Tests From A Vm Instance
+    [Arguments]    ${net_name}    ${vm_instance_name}    ${vm_ip_list}    ${dhcp_ip}
+    [Documentation]    Logging to the vm instance
+    ${vm_ip}=    Get Vm Instance Ip    ${vm_instance_name}
+    ${exclude_index}=    Get Index From List    ${vm_ip_list}    ${vm_ip}
+    Remove From List    ${vm_ip_list}    ${exclude_index}
+    Log    ${vm_ip_list}
+    Set Suite Variable    ${dst_ip_list}    ${vm_ip_list}
+    Log    ${dst_ip_list}
+    Append To List    ${dst_ip_list}    ${dhcp_ip}
+    Log    ${dst_ip_list}
+    Test Operations From Vm Instance    ${net_name}    ${vm_ip}    ${dst_ip_list}
+    Append To List    ${vm_ip_list}    ${vm_ip}
+    ${exclude}=    Get Index From List    ${dst_ip_list}    ${dhcp_ip}
+    Remove From List    ${dst_ip_list}    ${exclude}
+
+Get Vm Instance Ip
+    [Arguments]    ${vm_index}
+    [Documentation]    Retrieve the ip assigned for the created vm instance
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${source}=    Write Commands Until Prompt    nova show ${vm_index} | grep network | get_field 2    60s
+    ${vm_list}=    Split String    ${source}    [
+    ${vm_ip}=    Get from List    ${vm_list}    0
+    ${vm_ip}=    Replace String    ${vm_ip}    \r\n    ${EMPTY}
+    Log    ${vm_ip}
+    [Return]    ${vm_ip}
+
+
