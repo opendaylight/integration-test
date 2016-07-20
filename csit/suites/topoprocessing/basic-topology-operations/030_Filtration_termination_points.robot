@@ -6,7 +6,7 @@ Documentation     Test suite to verify fitration operation on different models.
 ...               Topology-id on the end of each urls must match topology-id from xml. Yang models of components in topology are defined in xmls.
 Suite Setup       Setup Environment
 Suite Teardown    Clean Environment
-Test Teardown     Delete Overlay Topology    ${OVERLAY_TOPO_URL}
+Test Teardown     Delete Overlay Topology
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           XML
@@ -17,18 +17,14 @@ Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/TopoprocessingKeywords.robot
 
-*** Variables ***
-${OVERLAY_TOPO_URL}    ${TOPOLOGY_URL}/topo:1
-
 *** Test Cases ***
 Filtration Range Number Network Topology Model
     [Documentation]    Test of range number type of filtration operation on Network Topology model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    termination-point    network-topo:2
     ${request}    Insert Filter    ${request}    ${FILTER_RANGE_NUMBER}    ${OVSDB_OFPORT}
     ${request}    Set Range Number Filter    ${request}    1115    1119
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    5
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <termination-point>    3
+    Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5    node-ref_count=5    tp_count=3    tp-ref_count=3
     Check Filtered Termination Points in Node    ${resp.content}    bgp:6    tp:6:1
     Check Filtered Termination Points in Node    ${resp.content}    bgp:7    tp:7:1    tp:7:2
     Check Filtered Termination Points in Node    ${resp.content}    bgp:8
@@ -40,9 +36,8 @@ Filtration Range Number Inventory Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    opendaylight-inventory-model    termination-point    openflow-topo:1
     ${request}    Insert Filter    ${request}    ${FILTER_RANGE_NUMBER}    ${OPENFLOW_NODE_CONNECTOR_PORT_NUMBER}
     ${request}    Set Range Number Filter    ${request}    2    4
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    5
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <termination-point>    5
+    Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5    node-ref_count=5    tp_count=5    tp-ref_count=5
     Check Filtered Termination Points in Node    ${resp.content}    of-node:1
     Check Filtered Termination Points in Node    ${resp.content}    of-node:2    tp:2:3    tp:2:2
     Check Filtered Termination Points in Node    ${resp.content}    of-node:3    tp:3:1    tp:3:2
@@ -54,9 +49,8 @@ Filtration Specific Number Network Topology Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    termination-point    network-topo:2
     ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_NUMBER}    ${OVSDB_OFPORT}
     ${request}    Set Specific Number Filter    ${request}    1119
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    5
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <termination-point>    1
+    Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5    node-ref_count=5    tp_count=1    tp-ref_count=1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:7']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
@@ -71,9 +65,8 @@ Filtration Specific Number Inventory Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    opendaylight-inventory-model    termination-point    openflow-topo:1
     ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_NUMBER}    ${OPENFLOW_NODE_CONNECTOR_MAXIMUM_SPEED}
     ${request}    Set Specific Number Filter    ${request}    2
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    5
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <termination-point>    3
+    Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5    node-ref_count=5    tp_count=3    tp-ref_count=3
     Check Filtered Termination Points in Node    ${resp.content}    of-node:1
     Check Filtered Termination Points in Node    ${resp.content}    of-node:2    tp:2:2
     Check Filtered Termination Points in Node    ${resp.content}    of-node:3    tp:3:1    tp:3:2
@@ -85,9 +78,8 @@ Filtration Specific String Network Topology Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    termination-point    network-topo:2
     ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_STRING}    ${OVSDB_TP_NAME}
     ${request}    Set Specific String Filter    ${request}    portC
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    5
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <termination-point>    1
+    Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5    node-ref_count=5    tp_count=1    tp-ref_count=1
     Check Filtered Termination Points in Node    ${resp.content}    bgp:6
     Check Filtered Termination Points in Node    ${resp.content}    bgp:7    tp:7:2
     Check Filtered Termination Points in Node    ${resp.content}    bgp:8
@@ -99,8 +91,8 @@ Filtration Specific String Inventory Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    opendaylight-inventory-model    termination-point    openflow-topo:1
     ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_STRING}    ${OPENFLOW_NODE_CONNECTOR_NAME}
     ${request}    Set Specific String Filter    ${request}    portB
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    5
-    Should Contain X Times    ${resp.content}    <termination-point>    2
+    Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5    node-ref_count=5    tp_count=2    tp-ref_count=2
     Check Filtered Termination Points in Node    ${resp.content}    of-node:1
     Check Filtered Termination Points in Node    ${resp.content}    of-node:2    tp:2:1
     Check Filtered Termination Points in Node    ${resp.content}    of-node:3
@@ -112,9 +104,8 @@ Filtration Range String Network Topology Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    network-topology-model    termination-point    network-topo:2
     ${request}    Insert Filter    ${request}    ${FILTER_RANGE_STRING}    ${OVSDB_TP_NAME}
     ${request}    Set Range String Filter    ${request}    portA    portC
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    5
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>    ${EMPTY}
-    Should Contain X Times    ${resp.content}    <termination-point>    3
+    Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5    node-ref_count=5    tp_count=3    tp-ref_count=3
     Check Filtered Termination Points in Node    ${resp.content}    bgp:6    tp:6:1
     Check Filtered Termination Points in Node    ${resp.content}    bgp:7    tp:7:2
     Check Filtered Termination Points in Node    ${resp.content}    bgp:8
@@ -126,8 +117,8 @@ Filtration Range String Inventory Model
     ${request}    Prepare Filtration Topology Request    ${FILTRATION_NT}    opendaylight-inventory-model    termination-point    openflow-topo:1
     ${request}    Insert Filter    ${request}    ${FILTER_RANGE_STRING}    ${OPENFLOW_NODE_CONNECTOR_NAME}
     ${request}    Set Range String Filter    ${request}    portA    portB
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    5
-    Should Contain X Times    ${resp.content}    <termination-point>    3
+    Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5    node-ref_count=5    tp_count=3    tp-ref_count=3
     Check Filtered Termination Points in Node    ${resp.content}    of-node:1
     Check Filtered Termination Points in Node    ${resp.content}    of-node:2    tp:2:1    tp:2:3
     Check Filtered Termination Points in Node    ${resp.content}    of-node:3
@@ -140,9 +131,8 @@ Filtration Script Network Topology Model
     ${request}    Insert Filter    ${request}    ${FILTER_SCRIPT}    ${OVSDB_OFPORT}
     ${script}    Set Variable    if (node.getValue() > 1117 ) {filterOut.setResult(true);} else {filterOut.setResult(false);}
     ${request}    Set Script Filter    ${request}    javascript    ${script}
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    5
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <termination-point>    3
+    Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5    node-ref_count=5    tp_count=3    tp-ref_count=3
     Check Filtered Termination Points in Node    ${resp.content}    bgp:1
     Check Filtered Termination Points in Node    ${resp.content}    bgp:2
     Check Filtered Termination Points in Node    ${resp.content}    bgp:3
@@ -155,9 +145,8 @@ Filtration Script Inventory Model
     ${request}    Insert Filter    ${request}    ${FILTER_SCRIPT}    ${OPENFLOW_NODE_CONNECTOR_NAME}
     ${script}    Set Variable    if (node.getValue().indexOf("portB") > -1 ) {filterOut.setResult(true);} else {filterOut.setResult(false);}
     ${request}    Set Script Filter    ${request}    javascript    ${script}
-    ${resp}    Send Basic Request And Test If Contain X Times    ${request}    ${OVERLAY_TOPO_URL}    <node-id>node:    5
-    Should Contain    ${resp.content}    <topology-id>topo:1</topology-id>
-    Should Contain X Times    ${resp.content}    <termination-point>    3
+    Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5    node-ref_count=5    tp_count=3    tp-ref_count=3
     Check Filtered Termination Points in Node    ${resp.content}    of-node:1    tp:1:1
     Check Filtered Termination Points in Node    ${resp.content}    of-node:2    tp:2:2    tp:2:3
     Check Filtered Termination Points in Node    ${resp.content}    of-node:3
