@@ -47,6 +47,24 @@ Check OVS Manager Connection Status
     ${dictionary}=    Create Dictionary    ${status}=9
     Utils.Check Item Occurrence    ${output}    ${dictionary}
 
+Check Statistics Disabled
+    [Documentation]    This will verify whether statistics disabled in both control and compute nodes
+    ${output}=    Wait Until Keyword Succeeds    30s    1s    Disable Statistics    ${OS_CONTROL_NODE_IP}
+    Log    ${output}
+    ${output}=    Wait Until Keyword Succeeds    30s    1s    Disable Statistics    ${OS_COMPUTE_1_IP}
+    Log    ${output}
+    ${output}=    Wait Until Keyword Succeeds    30s    1s    Disable Statistics    ${OS_COMPUTE_2_IP}
+    Log    ${output}
+
+List Of OpenvSwitch
+    [Documentation]    List the Open vswitch command
+    ${output}=    Wait Until Keyword Succeeds    30s    1s    Openvswitch List    ${OS_CONTROL_NODE_IP}
+    Log    ${output}
+    ${output}=    Wait Until Keyword Succeeds    30s    1s    Openvswitch List    ${OS_COMPUTE_1_IP}
+    Log    ${output}
+    ${output}=    Wait Until Keyword Succeeds    30s    1s    Openvswitch List    ${OS_COMPUTE_2_IP}
+    Log    ${output}
+
 Create Networks
     [Documentation]    Create Network with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
