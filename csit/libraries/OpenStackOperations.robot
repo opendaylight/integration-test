@@ -328,3 +328,17 @@ Show Debugs
     \    ${output}=    Write Commands Until Prompt    nova show ${index}     30s
     \    Log    ${output}
     Close Connection
+
+Disable Statistics
+    [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
+    [Documentation]    Uses "vsctl" to check statistics status
+    ${output}=    Utils.Run Command On Remote System    ${tools_system}    sudo ovs-vsctl set bridge br-int other-config:enable-statistics=false
+    [Return]    ${output}
+
+Openvswitch List
+    [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
+    [Documentation]    Uses "vsctl" to check statistics status
+    ${output}=    Utils.Run Command On Remote System    ${tools_system}    sudo ovs-vsctl list Open_vSwitch
+    [Return]    ${output}
+
+    
