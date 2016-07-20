@@ -127,13 +127,13 @@ Get Net Id
     [Return]    ${net_id}
 
 Create Vm Instances
-    [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano
+    [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${additional_args}=${EMPTY}
     [Documentation]    Create X Vm Instance with the net id of the Netowrk.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
     : FOR    ${VmElement}    IN    @{vm_instance_names}
-    \    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement}    30s
+    \    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement} ${additional_args}   30s
     \    Log    ${output}
     \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VmElement}
 
