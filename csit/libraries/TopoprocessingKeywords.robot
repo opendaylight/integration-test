@@ -12,6 +12,8 @@ Resource          Utils.robot
 ${CONFIGURATION_XML}    ${CURDIR}/../suites/topoprocessing/configuration.xml
 ${OPERATIONAL_XML}    ${CURDIR}/../suites/topoprocessing/operational.xml
 ${REMOTE_FILE}    ${WORKSPACE}/${BUNDLEFOLDER}/etc/opendaylight/karaf/80-topoprocessing-config.xml
+${OUTPUT_TOPO_NAME}    topo:1
+${OVERLAY_TOPO_URL}    ${TOPOLOGY_URL}/${OUTPUT_TOPO_NAME}
 
 *** Keywords ***
 Basic Request Put
@@ -23,27 +25,11 @@ Basic Request Put
     Wait For Karaf Log    Correlation configuration successfully read
     Wait For Karaf Log    Transaction successfully written
 
-Basic Request Get And Test
-    [Arguments]    ${overlay_topology_url}    ${should_contain}    ${times}
-    [Documentation]    Send a simple HTTP GET request to a given URL and test if response contains the expected item X times
-    ${resp}    Basic Request Get    ${overlay_topology_url}
-    Should Contain X Times    ${resp.content}    ${should_contain}    ${times}
-    [Return]    ${resp}
-
 Basic Request Get
     [Arguments]    ${overlay_topology_url}
     [Documentation]    Send a simple HTTP GET request to a given URL
     ${resp}    Get Request    session    ${OPERATIONAL_API}/${overlay_topology_url}
     Should Be Equal As Strings    ${resp.status_code}    200
-    [Return]    ${resp}
-
-Send Basic Request And Test If Contain X Times
-    [Arguments]    ${request}    ${overlay_topology_url}    ${should_contain}    ${times}
-    [Documentation]    Send a basic HTTP PUT request to a given URL and test if response contains the expexted item X times
-    Basic Request Put    ${request}    ${overlay_topology_url}
-    ${resp}    Wait Until Keyword Succeeds    40x    250ms    Basic Request Get And Test    ${overlay_topology_url}    ${should_contain}
-    ...    ${times}
-    Log    ${resp.content}
     [Return]    ${resp}
 
 Send Basic Delete Request
@@ -56,7 +42,7 @@ Send Basic Delete Request
 Delete Underlay Node
     [Documentation]    Deletes a node from an underlay topology
     [Arguments]    ${topology-id}    ${node-id}
-    ${resp}    Send Basic Delete Request    network-topology:network-topology/topology/${topology-id}/node/${node-id}
+    ${resp}    Send Basic Delete Request    ${TOPOLOGY_URL}/${topology-id}/node/${node-id}
     [Return]    ${resp}
 
 Setup Environment
@@ -87,17 +73,23 @@ Clean Environment
     Delete All Sessions
 
 Delete Overlay Topology
-    [Arguments]    ${overlay_topology}
     [Documentation]    Delete overlay topologies from datastore
+    Run Keyword If Test Failed    Print Output Topo
     Log    ---- Test Teardown ----
-    Log    Deleting overlay topology from ${CONFIG_API}/${overlay_topology}
-    ${resp}    Delete Request    session    ${CONFIG_API}/${overlay_topology}
+    Log    Deleting overlay topology from ${CONFIG_API}/${OVERLAY_TOPO_URL}
+    ${resp}    Delete Request    session    ${CONFIG_API}/${OVERLAY_TOPO_URL}
     Should Be Equal As Strings    ${resp.status_code}    200
 
+Print Output Topo
+    [Documentation]    Waits a while to allow any hanging transactions to finnish and then logs the output topology
+    Log    ---- Output Topo Dump After Cooldown----
+    Sleep    2s
+    ${resp}    Wait Until Keyword Succeeds    5x    250ms    Basic Request Get    ${OVERLAY_TOPO_URL}
+    Log    ${resp.content}
+
 Refresh Underlay Topologies And Delete Overlay Topology
-    [Arguments]    ${overlay_topology}
     [Documentation]    Deletes given overlay topology from datastore and overwrites the underlaying ones with initial topologies
-    Delete Overlay Topology    ${overlay_topology}
+    Delete Overlay Topology
     Insert Underlay Topologies
 
 Prepare New Feature Installation
@@ -401,10 +393,6 @@ Check Aggregated Termination Point in Node
 Check Filtered Nodes in Topology
     [Arguments]    ${topology}    ${tp_count}    @{node_ids}
     [Documentation]    Checks nodes in filtered topology
-    ${node_count}    Get Length    ${node_ids}
-    Should Contain X Times    ${topology}    <node>    ${node_count}
-    Should Contain X Times    ${topology}    <supporting-node>    ${node_count}
-    Should Contain X Times    ${topology}    <termination-point>    ${tp_count}
     : FOR    ${node_id}    IN    @{node_ids}
     \    Element Text Should Be    ${topology}    ${node_id}    xpath=.//node/supporting-node[node-ref='${node_id}']/node-ref
 
@@ -422,9 +410,6 @@ Check Filtered Termination Points in Node
 Check Filtered Links In Topology
     [Arguments]    ${topology}    @{supp_link_ids}
     [Documentation]    Checks links in filtered topology
-    ${supp_link_count}    Get Length    ${supp_link_ids}
-    Should Contain X Times    ${topology}    <link>    ${supp_link_count}
-    Should Contain X Times    ${topology}    <link-ref>    ${supp_link_count}
     : FOR    ${supp_link_id}    IN    @{supp_link_ids}
     \    Should Contain X Times    ${topology}    ${supp_link_id}</link-ref>    1
 
@@ -436,3 +421,19 @@ Check Overlay Link Source And Destination
     ${link_destination}    Get Element Text    ${link}    xpath=.//dest-node
     Should Be Equal As Strings    ${link_source}    ${expected_source}
     Should Be Equal As Strings    ${link_destination}    ${expected_destination}
+
+Output Topo Should Be Complete
+    [Documentation]    Verifies that the output topology contains the expected amount of essential elements
+    [Arguments]    ${node_count}=-1    ${supporting-node_count}=-1    ${node-ref_count}=-1    ${tp_count}=-1    ${tp-ref_count}=-1    ${link_count}=-1    ${link-ref_count}=-1
+    ${resp}    Wait Until Keyword Succeeds    5x    250ms    Basic Request Get    ${OVERLAY_TOPO_URL}
+    Should Contain    ${resp.content}    <topology-id>${OUTPUT_TOPO_NAME}</topology-id>
+    Run Keyword If    ${node_count}>-1    Should Contain X Times    ${resp.content}    <node>    ${node_count}
+    Run Keyword If    ${supporting-node_count}>-1    Should Contain X Times    ${resp.content}    <supporting-node>    ${supporting-node_count}
+    Run Keyword If    ${node-ref_count}>-1    Should Contain X Times    ${resp.content}    <node-ref>    ${node-ref_count}
+    Run Keyword If    ${link_count}>-1    Should Contain X Times    ${resp.content}    <link>    ${link_count}
+    Run Keyword If    ${link-ref_count}>-1    Should Contain X Times    ${resp.content}    <link-ref>    ${link-ref_count}
+    Run Keyword If    ${tp_count}>-1    Should Contain X Times    ${resp.content}    <termination-point>    ${tp_count}
+    Run Keyword If    ${tp-ref_count}>-1    Should Contain X Times    ${resp.content}    <tp-ref>    ${tp-ref_count}
+    Log    ---- Output Topo ----
+    Log    ${resp.content}
+    [Return]    ${resp}
