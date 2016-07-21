@@ -158,3 +158,10 @@ Compose_Full_Java_Command
     ${full_command}=    BuiltIn.Set_Variable    ${base_command} ${options}
     BuiltIn.Log    ${full_command}
     [Return]    ${full_command}
+
+Compose_Java_Home
+    [Arguments]    ${openjdk}=${JDKVERSION}
+    [Description]    Compose base java command and strip trailing "/bin/java".
+    ${java_command} =    Compose_Base_Java_Command
+    ${java_home}    ${bin}    ${java} =    String.Split_String_From_Right    ${java_command}    separator=/    max_split=2
+    [Return]    ${java_home}
