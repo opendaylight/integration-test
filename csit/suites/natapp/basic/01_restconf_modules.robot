@@ -11,4 +11,4 @@ Get Controller Modules
     ${resp} =    RequestsLibrary.Get_Request    session    ${MODULES_API}
     BuiltIn.Log    ${resp.content}
     BuiltIn.Should_Be_Equal    ${resp.status_code}    ${200}
-    BuiltIn.Should_Contain    ${resp.content}    ietf-restconf
+    BuiltIn.Should_Contain    ${resp.content}    natapp
