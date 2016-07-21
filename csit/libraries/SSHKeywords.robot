@@ -18,6 +18,9 @@ Documentation     Resource enhancing SSHLibrary with Keywords used in multiple s
 Library           SSHLibrary
 Resource          ${CURDIR}/Utils.robot
 
+*** Variables ***
+${SSHKeywords__current_remote_working_directory}    .
+
 *** Keywords ***
 Open_Connection_To_ODL_System
     [Documentation]    Open a connection to the ODL system and return its identifier.
@@ -32,6 +35,13 @@ Open_Connection_To_Tools_System
     Utils.Flexible_Mininet_Login
     [Return]    ${tools}
 
+Log_Command_Results
+    [Arguments]    ${stdout}    ${stderr}    ${rc}
+    [Documentation]    Log everything returned by SSHLibrary.Execute_Command
+    BuiltIn.Log    ${stdout}
+    BuiltIn.Log    ${stderr}
+    BuiltIn.Log    ${rc}
+
 Execute_Command_Passes
     [Arguments]    ${command}    ${return_success_only}=True    ${log_on_success}=False    ${log_on_failure}=True    ${stderr_must_be_empty}=False
     [Documentation]    Execute command via the active SSH connection. For success, rc has to be zero and optionally stderr has to be empty.
@@ -43,7 +53,7 @@ Execute_Command_Passes
     BuiltIn.Run_Keyword_If    (${log_on_success} and ${success}) or (${log_on_failure} and not ${success})    Log_Command_Results    ${stdout}    ${stderr}    ${rc}
     BuiltIn.Return_From_Keyword_If    ${return_success_only}    ${success}
     BuiltIn.Return_From_Keyword_If    ${success}    ${stdout}
-    BuiltIn.Fail    Got rc: ${rc} or stdout was not empty: ${stdout}
+    BuiltIn.Fail    Got rc: ${rc} or stderr was not empty: ${stderr}
 
 Execute_Command_Should_Pass
     [Arguments]    ${command}    ${log_on_success}=True    ${log_on_failure}=True    ${stderr_must_be_empty}=False
@@ -51,12 +61,23 @@ Execute_Command_Should_Pass
     ...    Also, log_on_success defaults to True (but is customizable, unlike return_success_only)..
     BuiltIn.Run_Keyword_And_Return    Execute_Command_Passes    ${command}    return_success_only=False    log_on_success=${log_on_success}    log_on_failure=${log_on_failure}    stderr_must_be_empty=${stderr_must_be_empty}
 
-Log_Command_Results
-    [Arguments]    ${stdout}    ${stderr}    ${rc}
-    [Documentation]    Log everything returned by SSHLibrary.Execute_Command
-    BuiltIn.Log    ${stdout}
-    BuiltIn.Log    ${stderr}
-    BuiltIn.Log    ${rc}
+Execute_Command_At_Path_Should_Pass
+    [Arguments]    ${command}    ${path}=None    ${log_on_success}=True    ${log_on_failure}=True    ${stderr_must_be_empty}=False
+    [Documentation]    A wrapper for Execute_Command_Should_Pass which performs "cd" to ${path} before executing the ${command}.
+    ...    This is useful when rewriting bash scripts, as series of SSHLibrary.Execute_Command do not share current working directory.
+    ...    TODO: Perhaps a Keyword which sets up environment variables would be useful as well.
+    ${cd_and_command} =    BuiltIn.Set_Variable    cd '${path}' && ${command}
+    BuiltIn.Run_Keyword_And_Return    Execute_Command_Should_Pass    command=${cd_and_command}    log_on_success=${log_on_success}    log_on_failure=${log_on_failure}    stderr_must_be_empty=${stderr_must_be_empty}
+
+Set_Cwd
+    [Arguments]    ${path}
+    [Documentation]    Set \${SSHKeywords__current_remote_working_directory} variable to ${path}. If SSH default is desired, use dot.
+    BuiltIn.Set_Suite_Variable    \${SSHKeywords__current_remote_working_directory}    ${path}
+
+Execute_Command_At_Cwd_Should_Pass
+    [Arguments]    ${command}    ${log_on_success}=True    ${log_on_failure}=True    ${stderr_must_be_empty}=False
+    [Documentation]    Run Execute_Command_At_Path_Should_Pass with previously set CWD as path.
+    BuiltIn.Run_Keyword_And_Return    Execute_Command_At_Path_Should_Pass    command=${command}    path=${SSHKeywords__current_remote_working_directory}    log_on_success=${log_on_success}    log_on_failure=${log_on_failure}    stderr_must_be_empty=${stderr_must_be_empty}
 
 Require_Python
     [Documentation]    Verify current SSH connection leads to machine with python working. Fatal fail otherwise.
