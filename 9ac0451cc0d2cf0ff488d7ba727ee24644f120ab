@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_2dd34905",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-22T10:56:18Z",
+      "side": 1,
+      "message": "I was thinking maybe this would work better as last argument, but I am not sure in which of the two arguments the caller is more likely to override the default value, so no big deal.",
+      "range": {
+        "startLine": 195,
+        "startChar": 32,
+        "endLine": 195,
+        "endChar": 63
+      },
+      "revId": "9ac0451cc0d2cf0ff488d7ba727ee24644f120ab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ed8031f9",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-22T10:56:18Z",
+      "side": 1,
+      "message": "Move this block before line 209.",
+      "range": {
+        "startLine": 215,
+        "startChar": 4,
+        "endLine": 215,
+        "endChar": 5
+      },
+      "revId": "9ac0451cc0d2cf0ff488d7ba727ee24644f120ab",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
