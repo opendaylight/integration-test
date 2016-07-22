@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "ba51214e_264bbc88",
+        "filename": "csit/suites/lispflowmapping/scripts/generate_bindings.sh",
+        "patchSetId": 7
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5443
+      },
+      "writtenOn": "2016-07-22T06:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba51214e_2f6556e1",
+      "revId": "2396b3461569e145430d04b01b139d9c0d40b7c8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "ba51214e_6f5f4e0f",
         "filename": "csit/suites/lispflowmapping/scripts/generate_bindings.sh",
         "patchSetId": 7
@@ -30,6 +48,24 @@
       "writtenOn": "2016-06-21T21:00:45Z",
       "side": 1,
       "message": "You could use a variable like GITWEB_LISP\u003d\"https://git.opendaylight.org/gerrit/gitweb?p\u003dlispflowmapping.git;a\u003dblob_plain;\" to avoid repeating this part, you don\u0027t need hb\u003dHEAD (it\u0027s the default). Same for GITWEB_MDSAL and GITWEB_CONTROLLER",
+      "revId": "2396b3461569e145430d04b01b139d9c0d40b7c8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ba51214e_06503831",
+        "filename": "csit/suites/lispflowmapping/scripts/generate_bindings.sh",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 5443
+      },
+      "writtenOn": "2016-07-22T06:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "ba51214e_6f5f4e0f",
       "revId": "2396b3461569e145430d04b01b139d9c0d40b7c8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
