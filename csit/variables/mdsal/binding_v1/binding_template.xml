@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.opendaylight.mdsal</groupId>
+        <artifactId>binding-parent</artifactId>
+        <version>$BINDING_PARENT_VERSION</version>
+        <!-- Boron snapshots: 0.9.x-SNAPSHOT -->
+        <relativePath/>
+    </parent>
+    <groupId>org.opendaylight.integration</groupId>
+    <artifactId>binding-parent-test</artifactId>
+    <packaging>bundle</packaging>
+</project>
