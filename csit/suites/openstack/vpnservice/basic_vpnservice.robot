@@ -13,24 +13,25 @@ Resource          ../../../libraries/DevstackUtils.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${net_1}          NET10
-${net_2}          NET20
-${subnet_1}       SUBNET1
-${subnet_2}       SUBNET2
+${net_1}    NET10
+${net_2}    NET20
+${subnet_1}    SUBNET1
+${subnet_2}    SUBNET2
 ${subnet_1_cidr}    10.1.1.0/24
 ${subnet_2_cidr}    20.1.1.0/24
-${port_1}         PORT1
-${port_2}         PORT2
-${port_3}         PORT3
-${port_4}         PORT4
+@{PORT_LIST}    PORT11    PORT21    PORT12    PORT22
+@{VM_INSTANCES}    VM11    VM21    VM12    VM22
+
 
 *** Test Cases ***
 Verify Tunnel Creation
     [Documentation]    Checks that vxlan tunnels have been created properly.
     [Tags]    exclude
-    Log    This test case is currently a noop, but work can be added here to validate if needed.    However, as the    suite Documentation notes, it's already assumed that the environment has been configured properly.    If    we do add work in this test case, we need to remove the "exclude" tag for it to run.    In fact, if this
-    ...    test case is critical to run, and if it fails we would be dead in the water for the rest of the suite,    we should move it to Suite Setup so that nothing else will run and waste time in a broken environment.
-    #TC1
+    Log    This test case is currently a noop, but work can be added here to validate if needed.  However, as the
+    ...    suite Documentation notes, it's already assumed that the environment has been configured properly.  If
+    ...    we do add work in this test case, we need to remove the "exclude" tag for it to run.  In fact, if this
+    ...    test case is critical to run, and if it fails we would be dead in the water for the rest of the suite,
+    ...    we should move it to Suite Setup so that nothing else will run and waste time in a broken environment.
 
 Create Neutron Networks
     [Documentation]    Create two networks
@@ -46,16 +47,23 @@ Create Neutron Subnets
 
 Create Neutron Ports
     [Documentation]    Create four ports under previously created subnets
-    Create Port    ${net_1}    ${port_1}
-    Create Port    ${net_1}    ${port_2}
-    Create Port    ${net_2}    ${port_3}
-    Create Port    ${net_2}    ${port_4}
+    Create Port    ${net_1}    ${PORT_LIST[0]}
+    Create Port    ${net_1}    ${PORT_LIST[1]}
+    Create Port    ${net_2}    ${PORT_LIST[2]}
+    Create Port    ${net_2}    ${PORT_LIST[3]}
 
 Check OpenDaylight Neutron Ports
     [Documentation]    Checking OpenDaylight Neutron API for known ports
     ${resp}    RequestsLibrary.Get Request    session    ${NEUTRON_PORTS_API}
     Log    ${resp.content}
     Should be Equal As Strings    ${resp.status_code}    200
+
+Create Nova VMs
+    [Documentation]    Create two subnets for previously created networks
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[0]}    ${VM_INSTANCES[0]}    ${OS_COMPUTE_1_IP}
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES[1]}    ${OS_COMPUTE_2_IP}
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES[2]}    ${OS_COMPUTE_1_IP}
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES[3]}    ${OS_COMPUTE_2_IP}
 
 *** Keywords ***
 Basic Vpnservice Suite Setup
