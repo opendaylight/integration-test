@@ -16,6 +16,24 @@
       "revId": "06cfdf9e30e2281b3c238e7a285cbcd8e0dba433",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_bb14afa0",
+        "filename": "csit/suites/lispflowmapping/scripts/generate_bindings.sh",
+        "patchSetId": 9
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 5443
+      },
+      "writtenOn": "2016-07-22T16:44:40Z",
+      "side": 1,
+      "message": "Done, Now I have changed the url to the patch and added the bits.patch in the latest commit.",
+      "parentUuid": "9a561d44_30271ecc",
+      "revId": "06cfdf9e30e2281b3c238e7a285cbcd8e0dba433",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
