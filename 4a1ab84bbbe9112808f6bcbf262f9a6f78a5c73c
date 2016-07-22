@@ -51,6 +51,24 @@
       "revId": "4a1ab84bbbe9112808f6bcbf262f9a6f78a5c73c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_363c36c8",
+        "filename": "csit/suites/lispflowmapping/scripts/generate_bindings.sh",
+        "patchSetId": 11
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-07-22T17:43:14Z",
+      "side": 1,
+      "message": "What I mean is that you don\u0027t need to download the patch with curl, you can just copy it to the workspace",
+      "parentUuid": "9a561d44_fb9d870b",
+      "revId": "4a1ab84bbbe9112808f6bcbf262f9a6f78a5c73c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
