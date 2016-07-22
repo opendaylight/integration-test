@@ -33,6 +33,24 @@
       "revId": "4a1ab84bbbe9112808f6bcbf262f9a6f78a5c73c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_fb9d870b",
+        "filename": "csit/suites/lispflowmapping/scripts/generate_bindings.sh",
+        "patchSetId": 11
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5443
+      },
+      "writtenOn": "2016-07-22T16:44:40Z",
+      "side": 1,
+      "message": "Actually I need it in the ${WORKSPACE}/$DIRECTORY as we are creating the bindings on the fly.",
+      "parentUuid": "9a561d44_3b41bfa9",
+      "revId": "4a1ab84bbbe9112808f6bcbf262f9a6f78a5c73c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
