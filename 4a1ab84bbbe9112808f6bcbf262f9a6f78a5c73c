@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_1b3e7b28",
+        "filename": "csit/suites/lispflowmapping/scripts/generate_bindings.sh",
+        "patchSetId": 11
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-07-22T16:03:24Z",
+      "side": 1,
+      "message": "Shouldn\u0027t be needed, see below.",
+      "revId": "4a1ab84bbbe9112808f6bcbf262f9a6f78a5c73c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_3b41bfa9",
+        "filename": "csit/suites/lispflowmapping/scripts/generate_bindings.sh",
+        "patchSetId": 11
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-07-22T16:03:24Z",
+      "side": 1,
+      "message": "Actually, you shouldn\u0027t need the above lines and downloading the patch, since it is in the current directory. That was the point of including it with this submission.",
+      "revId": "4a1ab84bbbe9112808f6bcbf262f9a6f78a5c73c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
