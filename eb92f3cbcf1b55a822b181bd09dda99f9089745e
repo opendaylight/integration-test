@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "fa57193c_921602f0",
+        "filename": "tools/odl-lispflowmapping-yang-bindings/generate_bindings.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 5443
+      },
+      "writtenOn": "2016-07-22T06:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa57193c_c1e39831",
+      "revId": "eb92f3cbcf1b55a822b181bd09dda99f9089745e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "fa57193c_81d9a085",
         "filename": "tools/odl-lispflowmapping-yang-bindings/generate_bindings.sh",
         "patchSetId": 2
@@ -47,6 +65,24 @@
       "writtenOn": "2016-05-18T20:25:56Z",
       "side": 1,
       "message": "Why not use the eid container from \u0027grouping eid-container\u0027 in odl-lisp-proto instead of adding a new one?",
+      "revId": "eb92f3cbcf1b55a822b181bd09dda99f9089745e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "fa57193c_d2d7da21",
+        "filename": "tools/odl-lispflowmapping-yang-bindings/generate_bindings.sh",
+        "patchSetId": 2
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 5443
+      },
+      "writtenOn": "2016-07-22T06:38:25Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "fa57193c_e1e85c12",
       "revId": "eb92f3cbcf1b55a822b181bd09dda99f9089745e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
