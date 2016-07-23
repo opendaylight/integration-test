@@ -24,7 +24,7 @@ Bug_2429
     ...    a larger number of failed connections will be used and a small margin of error will
     ...    determine if the test is a PASS or FAIL
     Log Environment Details
-    ${controller_pid}=    Get Process ID Based On Regex On Remote System    ${ODL_SYSTEM_IP}    java.*distribution.*karaf    ${ODL_SYSTEM_USER}
+    ${controller_pid}=    Get Process ID Based On Regex On Remote System    ${ODL_SYSTEM_IP}    java.*karaf    ${ODL_SYSTEM_USER}
     Should Match Regexp    ${controller_pid}    [0-9]+    PID was not discovered
     ${starting_thread_count}=    Get Process Thread Count On Remote System    ${ODL_SYSTEM_IP}    ${controller_pid}    ${ODL_SYSTEM_USER}
     Repeat Keyword    ${number_ofconnections_to_fail}    Start Process    nc    -w    1    ${ODL_SYSTEM_IP}
@@ -42,7 +42,7 @@ Bug_2429
 Log Environment Details
     [Documentation]    Will display relevant details of the test environement to help aid debugging efforts if
     ...    needed in the future.
-    ${output}=    Get Process ID Based On Regex On Remote System    ${ODL_SYSTEM_IP}    java.*distribution.*karaf    ${ODL_SYSTEM_USER}
+    ${output}=    Get Process ID Based On Regex On Remote System    ${ODL_SYSTEM_IP}    java.*karaf    ${ODL_SYSTEM_USER}
     Log    ${output}
     ${output}=    Run Command On Remote System    ${ODL_SYSTEM_IP}    netstat -na | grep 6633    ${ODL_SYSTEM_USER}
     Log    ${output}
