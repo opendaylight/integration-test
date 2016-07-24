@@ -5,7 +5,6 @@ Suite Teardown    Stop Suite
 Library           SSHLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
-Resource          ${CURDIR}/../../../libraries/CheckJVMResource.robot
 
 *** Variables ***
 ${start}          sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo tree,${TOPO_TREE_DEPTH},${TOPO_TREE_FANOUT} --switch ovsk,protocols=OpenFlow13
@@ -28,7 +27,6 @@ Start Suite
     Read Until    mininet>
 
 Stop Suite
-    CheckJVMResource.Create JVM Plots
     Log    Stop mininet
     Read
     Write    exit
