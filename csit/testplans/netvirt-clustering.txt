@@ -1,3 +1,4 @@
 # Place the suites in run order:
 integration/test/csit/suites/netvirt/Netvirt_Cluster/030_Ovsdb_Southbound_NetVirt.robot
 integration/test/csit/suites/netvirt/Netvirt_Cluster/010_Ovsdb_Netvirt_flow.robot
+integration/test/csit/suites/integration/Create_JVM_Plots.robot
