@@ -10,11 +10,12 @@ Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${switches}       25
-${flows}          2000
+${switches}       63
+${flows}          50000
+${fpr}            100
 ${threads}        5
 ${start}          sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo linear,${switches},1 --switch ovsk,protocols=OpenFlow13
-${PERFSCRIPT}     ${CURDIR}/../../../../tools/odl-mdsal-clustering-tests/clustering-performance-test/flow_add_delete_test.py
+${PERFSCRIPT}     ${CURDIR}/../../../../tools/odl-mdsal-clustering-tests/clustering-performance-test/odl_tester.py
 ${PARSESCRIPT}    ${CURDIR}/../../../../tools/odl-mdsal-clustering-tests/clustering-performance-test/create_plot_data_files.py
 
 *** Test Cases ***
@@ -26,8 +27,9 @@ Check Switches Connected
 
 Configure And Deconfigure Flows
     [Documentation]    Runs the flow peformance script and the script that parses the results to csv file.
-    ${result}=    Process.Run Process    ${PERFSCRIPT}    --host    ${ODL_SYSTEM_IP}    --flows    ${flows}
-    ...    --threads    ${threads}    --auth    shell=yes
+    ${result}=    Process.Run Process    python    ${PERFSCRIPT}    --host    ${ODL_SYSTEM_IP}    --flows
+    ...    ${flows}    --threads    ${threads}    --fpr    ${fpr}    --timeout
+    ...    0    --bulk-delete    shell=yes
     Log    ${result.stdout}
     OperatingSystem.Create File    out.log.txt    content=${result.stdout}
     Log    ${result.stderr}
