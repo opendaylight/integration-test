@@ -2,6 +2,7 @@
 Documentation     Robot keyword library for Monitoring JVM resources
 Library           ${CURDIR}/Appenders/ElasticsearchAppender.py
 Variables         ${CURDIR}/../variables/Variables.py
+Resource          ${CURDIR}/ClusterManagement.robot
 
 *** Keywords ***
 Get JVM Memory
@@ -46,3 +47,10 @@ Create JVM Plots
     Plot Points    ${session}    JVM Heap Memory    heapmemory.png    'Memory'    'HeapMemoryUsage'    'used'
     Plot Points    ${session}    JVM LoadedClassCount    class_count.png    'ClassLoading'    'TotalLoadedClassCount'
     Plot Points    ${session}    JVM CPU Usage    cpu_usage.png    'OperatingSystem'    'ProcessCpuLoad'
+
+Create_JVM_Plots_Cluster
+    [Arguments]    ${member_index_list}=${EMPTY}
+    [Documentation]    Draw Resource usage plot using plot_points method for cluster environment. Fail if no-sync is detected on a member from list (or any).
+    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    : FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+    \       Create JVM Plots       ${ODL_SYSTEM_${index}_IP}       ${ELASTICPORT}
