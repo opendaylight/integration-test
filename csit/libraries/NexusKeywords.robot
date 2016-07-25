@@ -9,8 +9,7 @@ Documentation     Nexus repository access keywords.
 ...
 ...
 ...               This library encapsulates a bunch of somewhat complex and commonly used
-...               netconf operations into reusable keywords to make writing netconf
-...               test suites easier.
+...               Nexus operations into reusable keywords to make writing test suites easier.
 Library           OperatingSystem
 Library           SSHLibrary
 Library           String
@@ -22,6 +21,10 @@ ${JAVA_7_HOME_CENTOS}    /usr/lib/jvm/java-1.7.0
 ${JAVA_7_HOME_UBUNTU}    /usr/lib/jvm/java-7-openjdk-amd64
 ${JAVA_8_HOME_CENTOS}    /usr/lib/jvm/java-1.8.0
 ${JAVA_8_HOME_UBUNTU}    /usr/lib/jvm/java-8-openjdk-amd64
+${JAVA_OPTIONS}    -Xmx3g    # Note that '-Xmx=3g' is wrong syntax.
+${JAVA_PERMSIZE}    -XX:MaxPermSize=512m
+${MAVEN_SETTINGS_URL}    https://raw.githubusercontent.com/opendaylight/odlparent/master/settings.xml
+${MAVEN_VERSION}    3.3.9
 ${NEXUS_FALLBACK_URL}    ${NEXUSURL_PREFIX}/content/repositories/opendaylight.snapshot
 
 *** Keywords ***
@@ -158,3 +161,33 @@ Compose_Full_Java_Command
     ${full_command}=    BuiltIn.Set_Variable    ${base_command} ${options}
     BuiltIn.Log    ${full_command}
     [Return]    ${full_command}
+
+Compose_Java_Home
+    [Arguments]    ${openjdk}=${JDKVERSION}
+    [Description]    Compose base java command and strip trailing "/bin/java".
+    ${java_command} =    Compose_Base_Java_Command
+    ${java_home}    ${bin}    ${java} =    String.Split_String_From_Right    ${java_command}    separator=/    max_split=2
+    [Return]    ${java_home}
+
+Install_Maven
+    [Arguments]    ${maven_version}=3.3.9    ${openjdk}=${JDKVERSION}
+    [Documentation]    Download and unpack Maven, prepare launch command with proper Java version and download settings file..
+    ...    This Keyword requires an active SSH connection to target machine.
+    ...    This Keyword sets global variables, so that suites can reuse existing installation.
+    ...    This Keyword can only place Maven (and settings) to remote current working directory.
+    ...    This Keyword does not perform any initial or final cleanup.
+    # Avoid multiple initialization by several downstream libraries.
+    ${installed_version} =    BuiltIn.Get_Variable_Value    \${Maven__installed_version}    None
+    BuiltIn.Return_From_Keyword_If    """${installed_version}""" == """${maven_version}"""
+    BuiltIn.Set_Global_Variable    \${Maven__installed_version}    ${maven_version}
+    BuiltIn.Set_Global_Variable    \${maven_directory}    apache-maven-${maven_version}
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    rm -rf '${maven_directory}'
+    ${maven_archive_filename} =    BuiltIn.Set_Variable    ${maven_directory}-bin.tar.gz
+    ${maven_download_url} =    BuiltIn.Set_Variable    http://www-us.apache.org/dist/maven/maven-3/${maven_version}/binaries/${maven_archive_filename}
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    wget -N '${maven_download_url}'    stderr_must_be_empty=False
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    tar xvf '${maven_archive_filename}'
+    ${java_home} =    NexusKeywords.Compose_Java_Home    openjdk=${openjdk}
+    ${java_actual_options} =    BuiltIn.Set_Variable_If    """${openjdk}""" == "openjdk7"    ${JAVA_OPTIONS} ${JAVA_PERMSIZE}    ${JAVA_OPTIONS}
+    BuiltIn.Set_Global_Variable    \${maven_bash_command}    export JAVA_HOME='${java_home}' && export MAVEN_OPTS='${java_actual_options}' && ./${maven_directory}/bin/mvn
+    # TODO: Get settings files from Jenkins settings provider, somehow.
+    SSHKeywords.Execute_Command_At_Cwd_Should_Pass    wget '${MAVEN_SETTINGS_URL}' -O settings.xml    stderr_must_be_empty=False
