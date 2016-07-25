@@ -290,6 +290,8 @@ def main(*argv):
     print "Added", in_args.flows, "flows in", tmr.secs, "seconds", result
     add_details = {"duration": tmr.secs, "flows": len(flow_details)}
 
+    print "Add Rate:", in_args.flows / tmr.secs, "flows/second"
+
     # lets print some stats
     print "\n\nStats monitoring ..."
     rounds = 200
@@ -358,6 +360,8 @@ def main(*argv):
 
     print "Removed", len(flow_details), "flows in", tmr.secs, "seconds", result
     del_details = {"duration": tmr.secs, "flows": len(flow_details)}
+
+    print "Remove Rate:", len(flow_details) / tmr.secs, "flows/second"
 
 #    # lets print some stats
 #    print "\n\nSome stats monitoring ...."
