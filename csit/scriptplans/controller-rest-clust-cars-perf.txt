@@ -1,2 +1,4 @@
 # Place the scripts in run order:
 integration/test/csit/scripts/car_people_shard.sh
+integration/test/csit/scripts/set_elasticsearch_attribute_short.sh
+integration/test/csit/scripts/set_jvm_common_attribute.sh
