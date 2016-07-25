@@ -13,6 +13,7 @@ target
 .settings
 MANIFEST.MF
 opendaylight/northbound/integrationtest/logs/*
+*.csv
 *.ipr
 *.iml
 *.iws
