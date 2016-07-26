@@ -22,6 +22,30 @@
       "revId": "90866e95064728570c50523506e9d602fd64321d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ad2d87aa",
+        "filename": "csit/suites/openflowplugin/Flows_Additional_TCs/Stat_Manager_extended/010_SM_add_upd_del_flows.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 605,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-26T15:02:32Z",
+      "side": 1,
+      "message": "Good catch :)",
+      "parentUuid": "9a561d44_fca3b3af",
+      "range": {
+        "startLine": 605,
+        "startChar": 59,
+        "endLine": 605,
+        "endChar": 68
+      },
+      "revId": "90866e95064728570c50523506e9d602fd64321d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
