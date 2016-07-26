@@ -36,7 +36,7 @@
         </ip-match>
         <sctp-source-port>768</sctp-source-port>
         <sctp-destination-port>384</sctp-destination-port>
-        <in-port>0</in-port>
+        <in-port>openflow:1:0</in-port>
     </match>
     <cookie>10</cookie>
     <flow-name>FooXf10</flow-name>

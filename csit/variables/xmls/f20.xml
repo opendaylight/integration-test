@@ -24,7 +24,7 @@
     <match>
         <metadata>
             <metadata>12345</metadata>
-            <metadata-mask>1234578</metadata-mask>
+            <metadata-mask>0xf0ff</metadata-mask>
         </metadata>
     </match>
 </flow>
