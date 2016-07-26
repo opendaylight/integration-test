@@ -38,7 +38,7 @@
             <icmpv4-type>6</icmpv4-type>
             <icmpv4-code>3</icmpv4-code>
         </icmpv4-match>
-        <in-port>0</in-port>
+        <in-port>openflow:1:0</in-port>
     </match>
     <cookie>11</cookie>
     <flow-name>FooXf11</flow-name>

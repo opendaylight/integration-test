@@ -14,7 +14,7 @@ ${REST_CON}       /restconf/config/opendaylight-inventory:nodes
 ${FILE}           ${CURDIR}/../../../variables/xmls/f20.xml
 ${FLOW}           143
 ${TABLE}          2
-@{FLOWELMENTS}    metadata=0x1010/0x12d692    LOCAL
+@{FLOWELMENTS}    metadata=0x3039/0xf0ff    LOCAL
 
 *** Test Cases ***
 Add a flow - Output to physical port#
