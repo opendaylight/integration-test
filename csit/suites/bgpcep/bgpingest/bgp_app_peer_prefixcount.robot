@@ -194,7 +194,7 @@ Setup_Everything
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/bgp_app_peer.py
-    SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/ipv4-routes-template.xml
+    SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/ipv4-routes-template.xml*
     # Calculate the timeout value based on how many routes are going to be pushed.
     # The offset (20) is set for keeping reasonable timeout for low COUNT values.
     ${timeout} =    BuiltIn.Evaluate    ${TEST_DURATION_MULTIPLIER} * ${COUNT_APP_PEER_PREFIX_COUNT} * 3.0 / 10000 + 20
