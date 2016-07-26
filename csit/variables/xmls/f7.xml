@@ -34,7 +34,7 @@
             <ip-dscp>15</ip-dscp>
             <ip-ecn>1</ip-ecn>
         </ip-match>
-        <in-port>0</in-port>
+        <in-port>openflow:1:0</in-port>
     </match>
     <cookie>7</cookie>
     <flow-name>FooXf7</flow-name>
