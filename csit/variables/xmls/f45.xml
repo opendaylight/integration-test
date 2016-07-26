@@ -20,8 +20,8 @@
     <out_group>0xffffffff</out_group>
     <match>
         <metadata>
-            <metadata-mask>0x46645a66</metadata-mask>
-            <metadata>500</metadata>
+            <metadata>1180719718</metadata>
+            <metadata-mask>0xfff0ffff</metadata-mask>
         </metadata>
     </match>
     <cookie>45</cookie>

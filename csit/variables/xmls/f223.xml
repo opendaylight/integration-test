@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flow xmlns="urn:opendaylight:flow:inventory">
+    <priority>223</priority>
+    <flow-name>Foo223</flow-name>
+    <match>
+        <ethernet-match>
+            <ethernet-type>
+                <type>2048</type>
+            </ethernet-type>
+        </ethernet-match>
+        <ipv4-destination-address-no-mask>7.7.7.0</ipv4-destination-address-no-mask>
+        <ipv4-destination-arbitrary-bitmask>255.0.241.0</ipv4-destination-arbitrary-bitmask>
+    </match>
+    <id>346</id>
+    <table_id>2</table_id>
+    <instructions>
+        <instruction>
+            <order>0</order>
+            <apply-actions>
+                <action>
+                   <order>0</order>
+                   <dec-nw-ttl/>
+                </action>
+            </apply-actions>
+        </instruction>
+    </instructions>
+</flow>

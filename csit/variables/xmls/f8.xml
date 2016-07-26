@@ -36,7 +36,7 @@
         </ip-match>
         <tcp-source-port>25364</tcp-source-port>
         <tcp-destination-port>8080</tcp-destination-port>
-        <in-port>0</in-port>
+        <in-port>openflow:1:0</in-port>
     </match>
     <cookie>8</cookie>
     <flow-name>FooXf8</flow-name>

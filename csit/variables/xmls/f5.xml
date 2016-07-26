@@ -29,7 +29,7 @@
         </ethernet-match>
         <ipv4-source>10.1.2.0/24</ipv4-source>
         <ipv4-destination>20.4.0.0/16</ipv4-destination>
-        <in-port>0</in-port>
+        <in-port>openflow:1:0</in-port>
     </match>
     <cookie>5</cookie>
     <flow-name>FooXf5</flow-name>
