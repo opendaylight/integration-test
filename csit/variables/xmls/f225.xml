@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<flow xmlns="urn:opendaylight:flow:inventory">
+    <priority>225</priority>
+    <flow-name>Foo225</flow-name>
+    <match>
+        <ethernet-match>
+            <ethernet-type>
+                <type>34525</type>
+            </ethernet-type>
+        </ethernet-match>
+        <ipv6-source-address-no-mask>2001:2001:2001:2001:2001:2001:0448:0448</ipv6-source-address-no-mask>
+        <ipv6-source-arbitrary-bitmask>FFFF:FFFF:FFFF:FFFF:0000:FFFF:F000:0000</ipv6-source-arbitrary-bitmask>
+    </match>
+    <id>348</id>
+    <table_id>2</table_id>
+    <instructions>
+        <instruction>
+            <order>0</order>
+            <apply-actions>
+                <action>
+                   <order>0</order>
+                   <dec-nw-ttl/>
+                </action>
+            </apply-actions>
+        </instruction>
+    </instructions>
+</flow>

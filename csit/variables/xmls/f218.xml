@@ -17,8 +17,8 @@
     <out_group>0xffffffff</out_group>
     <match>
         <tunnel>
-            <tunnel-mask>0xf7d120c</tunnel-mask>
-            <tunnel-id>10668</tunnel-id>
+            <tunnel-mask>0xfff0</tunnel-mask>
+            <tunnel-id>10656</tunnel-id>
         </tunnel>
     </match>
     <cookie>218</cookie>
