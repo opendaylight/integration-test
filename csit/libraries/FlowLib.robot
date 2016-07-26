@@ -226,14 +226,14 @@ Create Flow Variables For Suite From XML File
     Set Suite Variable    ${xmlroot}
 
 Check Datastore Presence
-    [Arguments]    ${fname}    ${reqconfpres}    ${reqoperpres}    ${upd}
+    [Arguments]    ${fname}    ${reqconfpres}    ${reqoperpres}    ${upd}    ${check_id}=${False}
     [Documentation]    Checks if flow is properly existing or not existing in the config and operational
     ...    datastores, based on the variables ${reqconfpres} and ${reqoperpres}
     Create Flow Variables For Suite From XML File    ${XmlsDir}/${fname}
     # Note:    ${upddata} and ${data} are suite variables set by the keyword above.
     ${det}=    Set Variable If    ${upd}==${True}    ${upddata}    ${data}
     Check Config Flow    ${reqconfpres}    ${det}
-    Check Operational Flow    ${reqoperpres}    ${det}
+    Check Operational Flow    ${reqoperpres}    ${det}    ${check_id}
 
 Flow Presence In Config Store
     [Arguments]    ${expvalue}
@@ -249,7 +249,7 @@ Flow Presence In Config Store
     Return From Keyword    ${pres}    ${msg}
 
 Flow Presence In Operational Store
-    [Arguments]    ${expvalue}
+    [Arguments]    ${expvalue}    ${check_id}=${False}
     [Documentation]    Checks the operational store for given flow. Returns True if present, otherwise returns False
     ...    This keyword assumes that the global/suite variables are available (${table_id}, ${flow_id} and ${switch_idx}
     ${headers}=    Create Dictionary    Accept=application/xml
@@ -257,7 +257,7 @@ Flow Presence In Operational Store
     Log    ${resp}
     Log    ${resp.content}
     Return From Keyword If    ${resp.status_code}!=200    ${False}    ${EMPTY}
-    ${pres}    ${msg}=    Is Flow Operational2    ${expvalue}    ${resp.content}
+    ${pres}    ${msg}=    Is Flow Operational2    ${expvalue}    ${resp.content}    ${check_id}
     Run Keyword If    '''${msg}'''!='${EMPTY}'    Log    ${msg}
     Return From Keyword    ${pres}    ${msg}
 
@@ -278,10 +278,10 @@ Check Config Flow
     Should Be Equal    ${expected}    ${presence_flow}    msg=${msgf}
 
 Check Operational Flow
-    [Arguments]    ${expected}    ${expvalue}
+    [Arguments]    ${expected}    ${expvalue}    ${check_id}=${False}
     [Documentation]    Wrapper keyword that calls "Flow Presence In Operational Store" and "Get Presence Failure Message" from this library
     ...    to verify that the ${expvalue} flow is or is not found in the config store, depending on whether or not it was ${expected}
-    ${presence_table}    ${msg}=    Flow Presence In Operational Store    ${expvalue}
+    ${presence_table}    ${msg}=    Flow Presence In Operational Store    ${expvalue}    ${check_id}
     ${msgf}=    Get Presence Failure Message    operational    ${expected}    ${presence_table}    ${msg}
     Should Be Equal    ${expected}    ${presence_table}    msg=${msgf}
 
