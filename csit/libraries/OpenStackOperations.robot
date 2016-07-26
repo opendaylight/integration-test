@@ -78,6 +78,16 @@ Create Port
     Log    ${output}
     Should Contain    ${output}    Created a new port
 
+Delete Port
+    [Arguments]    ${port_name}
+    [Documentation]    Delete Port with neutron request.
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron -v port-delete ${port_name}    30s
+    Close Connection
+    Log    ${output}
+    Should Contain    ${output}    Deleted a new port
+
 Verify Gateway Ips
     [Documentation]    Verifies the Gateway Ips with dump flow.
     ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
