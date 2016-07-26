@@ -179,7 +179,11 @@ class XMLtoDictParserTools():
 IGNORED_TAGS_FOR_OPERATIONAL_COMPARISON = ['id', 'flow-name', 'barrier', 'cookie_mask', 'installHw', 'flags',
                                            'strict', 'byte-count', 'duration', 'packet-count', 'in-port',
                                            'vlan-id-present', 'out_group', 'out_port', 'hard-timeout', 'idle-timeout',
-                                           'flow-statistics', 'cookie', 'clear-actions']  # noqa
+                                           'flow-statistics', 'cookie', 'clear-actions', 
+                                           'ipv4-source-address-no-mask', 'ipv4-source-arbitrary-bitmask',
+                                           'ipv4-destination-address-no-mask', 'ipv4-destination-arbitrary-bitmask',
+                                           'ipv6-source-address-no-mask', 'ipv6-source-arbitrary-bitmask',
+                                           'ipv6-destination-address-no-mask', 'ipv6-destination-arbitrary-bitmask']  # noqa
 
 IGNORED_PATHS_FOR_OC = [(['flow', 'instructions', 'instruction', 'apply-actions', 'action', 'controller-action'], True),  # noqa
                         (['flow', 'instructions', 'instruction', 'clear-actions', 'action'], False),
@@ -222,7 +226,7 @@ class XmlComparator:
                     XMLtoDictParserTools.getDifferenceDict(nodeDict, origDict))
         return False, ''
 
-    def is_flow_operational2(self, requested_flow, oper_resp):
+    def is_flow_operational2(self, requested_flow, oper_resp, check_id=False):
         def _rem_unimplemented_tags(tagpath, recurs, tdict):
             # print "_rem_unimplemented_tags", tagpath, tdict
             if len(tagpath) > 1 and tagpath[0] in tdict:
@@ -259,13 +263,16 @@ class XmlComparator:
             elif len(tagpath) == 0 and tag in tdict and related_tag in tdict:
                 tdict[tag] = str(long(tdict[tag]) & long(tdict[related_tag]))
 
+        IGNORED_TAGS_LIST = list(IGNORED_TAGS_FOR_OPERATIONAL_COMPARISON)
+        if check_id:
+            IGNORED_TAGS_LIST.remove('id')
         orig_tree = md.parseString(requested_flow)
         xml_resp_stream = oper_resp.encode('utf-8', 'ignore')
         xml_resp_tree = md.parseString(xml_resp_stream)
         nodeListOperFlows = xml_resp_tree.getElementsByTagNameNS("*", 'flow')
         origDict = XMLtoDictParserTools.parseTreeToDict(
             orig_tree._get_documentElement(),
-            ignoreList=IGNORED_TAGS_FOR_OPERATIONAL_COMPARISON)
+            ignoreList=IGNORED_TAGS_LIST)
 
         # origDict['flow-statistics'] = origDict.pop( 'flow' )
         reportDict = {}
@@ -273,7 +280,7 @@ class XmlComparator:
         for node in nodeListOperFlows:
             nodeDict = XMLtoDictParserTools.parseTreeToDict(
                 node,
-                ignoreList=IGNORED_TAGS_FOR_OPERATIONAL_COMPARISON)
+                ignoreList=IGNORED_TAGS_LIST)
             XMLtoDictParserTools.addDictValue(reportDict, index, nodeDict)
             index += 1
             # print nodeDict

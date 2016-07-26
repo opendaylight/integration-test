@@ -43,6 +43,6 @@
         </ip-match>
         <udp-source-port>25364</udp-source-port>
         <udp-destination-port>8080</udp-destination-port>
-        <in-port>0</in-port>
+        <in-port>openflow:1:0</in-port>
     </match>
 </flow>
