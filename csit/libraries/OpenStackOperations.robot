@@ -78,6 +78,16 @@ Create Port
     Log    ${output}
     Should Contain    ${output}    Created a new port
 
+Delete Port
+    [Arguments]    ${port_name}
+    [Documentation]    Delete Port with neutron request.
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron -v port-delete ${port_name}    30s
+    Close Connection
+    Log    ${output}
+    Should Contain    ${output}    Deleted a new port
+
 Verify Gateway Ips
     [Documentation]    Verifies the Gateway Ips with dump flow.
     ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
@@ -143,6 +153,7 @@ Get Port Id
     ${port_id}=    Write Commands Until Prompt    neutron port-list | grep "${port_name} | awk '{print $2}'       30s
     Log    ${port_id}
     [Return]    ${port_id}
+
 
 Create Vm Instances
     [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano
