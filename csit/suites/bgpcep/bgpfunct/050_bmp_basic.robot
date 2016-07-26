@@ -32,11 +32,12 @@ ${BMP_LOG_FILE}    bmpmock.log
 *** Test Cases ***
 Start_Bmp_Mock
     [Documentation]    Starts bmp-mock on tools vm
-    ${command}=    NexusKeywords.Compose_Full_Java_Command    -jar ${filename} --local_address ${TOOLS_SYSTEM_IP} --remote_address ${ODL_SYSTEM_IP} --routers_count 1 --peers_count 1 --log_level DEBUG 2>&1 | tee ${BMP_LOG_FILE}
+    ${command}=    NexusKeywords.Compose_Full_Java_Command    -jar ${filename} --local_address ${TOOLS_SYSTEM_IP} --remote_address ${ODL_SYSTEM_IP}:12345 --routers_count 1 --peers_count 1 --log_level DEBUG 2>&1 | tee ${BMP_LOG_FILE}
     BuiltIn.Log    ${command}
     SSHLibrary.Set_Client_Configuration    timeout=30s
     SSHLibrary.Write    ${command}
-    SSHLibrary.Read_Until    successfully established.
+    ${until_phrase}=    BuiltIn.Set_Variable_If    "${ODL_STREAM}"=="beryllium"    sucesfully established.    successfully established.
+    SSHLibrary.Read_Until    ${until_phrase}
 
 Verify Data Reported
     [Documentation]    Verifies if the tool reported expected data
