@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_fb2d7096",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-27T13:01:54Z",
+      "side": 1,
+      "message": "Path\n\nOther Keywords run commands at Cwd, but virtualenv would be usually installed to a fixed location. So specifying only name (or relative path) would not work, absolute path is needed.\n\nAlternatively, \"pwd\" can be called if the argument is detected to be relative path (starting with ./) and computed absolute path would be stored to Suite Variable.\n\nAlso, I recommend to use Global Variable, so that you can have one \"installation\" suite per job, with other suites relying on existing variables.",
+      "range": {
+        "startLine": 110,
+        "startChar": 16,
+        "endLine": 110,
+        "endChar": 20
+      },
+      "revId": "ace4592874cae2985c7a901d8b15b1976e402d54",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_f81f366a",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-27T13:01:54Z",
+      "side": 1,
+      "message": "I recommend to call Virtual_Env_Install_Package    --upgrade pip",
+      "range": {
+        "startLine": 117,
+        "startChar": 87,
+        "endLine": 117,
+        "endChar": 88
+      },
+      "revId": "ace4592874cae2985c7a901d8b15b1976e402d54",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_bb2f7887",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-27T13:01:54Z",
+      "side": 1,
+      "message": "At_Cwd\n\nEnv is already mentioned, Cwd is the part that caller might have forgotten about.",
+      "range": {
+        "startLine": 119,
+        "startChar": 20,
+        "endLine": 119,
+        "endChar": 30
+      },
+      "revId": "ace4592874cae2985c7a901d8b15b1976e402d54",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_fb545000",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-27T13:01:54Z",
+      "side": 1,
+      "message": "Support other Execute_Command_At_Cwd_Should_Pass arguments (applies to other Keywords as well).",
+      "range": {
+        "startLine": 121,
+        "startChar": 25,
+        "endLine": 121,
+        "endChar": 26
+      },
+      "revId": "ace4592874cae2985c7a901d8b15b1976e402d54",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_db498c61",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-27T13:01:54Z",
+      "side": 1,
+      "message": "This usually returns stdout, [Return] the result also here (and in other Keywords).",
+      "range": {
+        "startLine": 122,
+        "startChar": 4,
+        "endLine": 122,
+        "endChar": 5
+      },
+      "revId": "ace4592874cae2985c7a901d8b15b1976e402d54",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
