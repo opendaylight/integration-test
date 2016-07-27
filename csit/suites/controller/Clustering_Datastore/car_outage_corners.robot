@@ -35,11 +35,17 @@ ${MAJORITY_START_I}    200
 ${MEMBER_START_TIMEOUT}    300s
 @{SHARD_NAME_LIST}    car
 ${VAR_DIR}        ${CURDIR}/../../../variables/carpeople/crud
+${CLUSTER_DIR}    ${CURDIR}/../../../variables/clustering
 
 *** Test Cases ***
 Kill_Majority_Of_The_Followers
-    [Documentation]    Kill half plus one car Follower members.
+    [Documentation]    Kill half plus one car Follower members and set reviving followers down (otherwsise tipping followers cannot join cluster).
     ClusterManagement.Kill_Members_From_List_Or_All    member_index_list=${list_of_killing}    confirm=True
+    : FOR    ${index}    IN    @{list_of_reviving}
+    \    ${data}    OperatingSystem.Get File    ${CLUSTER_DIR}/member_down.json
+    \    ${member_ip} =    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${index}
+    \    ${data}    String.Replace String    ${data}    {member_ip}    ${member_ip}
+    \    TemplatedRequests.Post_To_Uri    uri=jolokia    data=${data}    content_type=${HEADERS}    accept=${ACCEPT_EMPTY}    session=${car_leader_session}
 
 Attempt_To_Add_Cars_To_Leader
     [Documentation]    Adding cars should fail, as majority of Followers are down.
