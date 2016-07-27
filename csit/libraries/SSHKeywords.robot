@@ -20,6 +20,7 @@ Resource          ${CURDIR}/Utils.robot
 
 *** Variables ***
 ${SSHKeywords__current_remote_working_directory}    .
+${SSHKeywords__current_venv_name}    defaultvenv
 
 *** Keywords ***
 Open_Connection_To_ODL_System
@@ -105,3 +106,31 @@ Count_Port_Occurences
     [Documentation]    Run 'netstat' on the remote machine and count occurences of given port in the given state connected to process with the given name.
     ${output} =    SSHLibrary.Execute_Command    netstat -natp 2> /dev/null | grep -E ":${port} .+ ${state} .+${name}" | wc -l
     [Return]    ${output}
+
+Virtual_Env_Set_Name
+    [Arguments]    ${venv_name}
+    [Documentation]    Set \${SSHKeywords__current_venv_name} variable to ${venv_name}.
+    BuiltIn.Set_Suite_Variable    \${SSHKeywords__current_venv_name}    ${venv_name}
+
+Virtual_Env_Create
+    [Documentation]     Creates virtual env. If not to use the default name, use Set_Venv_Name
+    Execute_Command_At_Cwd_Should_Pass      virtualenv ${SSHKeywords__current_venv_name}
+
+Virtual_Env_Run_Cmd_Inside_Env
+    [Documentation]     Runs given command within activated virtual env.
+    [Arguments]     ${cmd}
+    Execute_Command_At_Cwd_Should_Pass     source ${SSHKeywords__current_remote_working_directory}/${SSHKeywords__current_venv_name}/bin/activate; ${cmd}; deactivate
+
+Virtual_Env_Install_Package
+    [Documentation]     Installs python package into virtual env. Use with version if needed (e.g. exabgp==3.4.16)
+    [Arguments]     ${package}
+    Virtual_Env_Run_Cmd_Inside_Env      pip install ${package}
+
+Virtual_Env_Uninstall_Package
+    [Documentation]     Uninstalls python package from virtual env.
+    [Arguments]     ${package}
+    Virtual_Env_Run_Cmd_Inside_Env      pip uninstall -y ${package}
+
+Virtual_Env_Freeze
+    [Documentation]     Shows installed packages. To really see them you have to check stdout of the inner KWs.
+    Virtual_Env_Run_Cmd_Inside_Env      pip freeze
