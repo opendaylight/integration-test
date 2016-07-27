@@ -52,6 +52,24 @@
       "revId": "0e25f6d5d56413a60aec97c0566cc5764cc54728",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_3816ce55",
+        "filename": "csit/suites/controller/Clustering_Datastore/car_outage_corners.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1842
+      },
+      "writtenOn": "2016-07-27T12:50:25Z",
+      "side": 1,
+      "message": "We have a long frustrating history with auto-down-unreachable-after. Both enabling and disabling it produce different issues - so it\u0027s a matter of lesser of 2 evils. Enabling it can cause cluster islands to form when nodes are isolated (we saw that in testing) and akka doesn\u0027t recommend setting it in production, hence the reason for disabling it. \n\nAkka not allowing the Leader to bring back known nodes when there are other nodes unreachable is by design, not a bug. There are valid reasons for this. \n\nIn akka 2.4 they have added the notion of \"weakly-up\" members that looks like it should allow the Leader to bring back known nodes when there are other nodes unreachable. I intend to look into this option at some point.",
+      "parentUuid": "9a561d44_a5c63b98",
+      "revId": "0e25f6d5d56413a60aec97c0566cc5764cc54728",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
