@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_e54cb3ca",
+        "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-27T10:39:43Z",
+      "side": 1,
+      "message": "That is from cluster suite, this suite is not creating that session. You can use the \"default\" session simply by removing session argument.",
+      "range": {
+        "startLine": 54,
+        "startChar": 71,
+        "endLine": 54,
+        "endChar": 76
+      },
+      "revId": "cfbaf6c73758f4fa2669674f3c3ea02815ab4b54",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_45d59fb7",
+        "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-27T10:39:43Z",
+      "side": 1,
+      "message": "This Keyword should probably be defined in NetconfKeywords (possibly with more descriptive name).",
+      "range": {
+        "startLine": 58,
+        "startChar": 83,
+        "endLine": 58,
+        "endChar": 101
+      },
+      "revId": "cfbaf6c73758f4fa2669674f3c3ea02815ab4b54",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
