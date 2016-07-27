@@ -6,11 +6,14 @@ Authors: Baohua Yang@IBM, Denghui Huang@IBM
 Edited: Many times by many people
 """
 
+from os.path import expanduser
+
 # VM Environment defaults
 DEFAULT_LINUX_PROMPT = '>'
 DEFAULT_LINUX_PROMPT_STRICT = ']>'
 DEFAULT_USER = 'jenkins'
 DEFAULT_TIMEOUT = '30s'
+USER_HOME = expanduser("~")
 
 # ODL system variables
 ODL_SYSTEM_IP = '127.0.0.1'  # Override if ODL is not running locally to pybot
@@ -121,6 +124,7 @@ CONTROLLER_CONFIG_MOUNT = ('/restconf/config/network-topology:'
 CONFIG_API = '/restconf/config'
 OPERATIONAL_API = '/restconf/operational'
 MODULES_API = '/restconf/modules'
+MODULES_API_Usec = '/restconf/operations/'
 
 # NEMO Variables
 PREDEFINE_ROLE_URI = '/restconf/config/nemo-user:user-roles'
@@ -170,7 +174,6 @@ LFM_SB_RPC_API = "/restconf/operations/odl-lisp-sb"
 # Neutron
 NEUTRON_NB_API = '/controller/nb/v2/neutron'
 NEUTRON_NETWORKS_API = NEUTRON_NB_API + '/' + 'networks'
-NEUTRON_PORTS_API = NEUTRON_NB_API + '/' + 'ports'
 NEUTRON_ROUTERS_API = NEUTRON_NB_API + '/' + 'routers'
 OSREST = '/v2.0/networks'
 KARAF_HOME = '${WORKSPACE}${/}${BUNDLEFOLDER}'
@@ -190,6 +193,7 @@ USER = 'admin'  # TODO: who is using this?  Can we make it more specific? (e.g. 
 PWD = 'admin'
 PASSWORD = 'EMPTY'
 AUTH = [u'admin', u'admin']
+AUTH1 = [u'admn', u'admin']
 SCOPE = 'sdn'
 HEADERS = {'Content-Type': 'application/json'}
 HEADERS_YANG_JSON = {'Content-Type': 'application/yang.data+json'}
@@ -236,3 +240,10 @@ SUBSCRIPTION = '/restconf/config/subscribe:subscription/'
 
 # Elasticsearch Variables
 ELASTICPORT = 9200
+
+# Usecplugin Variables
+REST_CON_ID = '/restconf/operations/usecplugin:attackID'
+REST_CON_FromIP = '/restconf/operations/usecplugin:attacksFromIP'
+REST_CON_ToIP = '/restconf/operations/usecplugin:attacksToIP'
+REST_CON = '/restconf/operations/usecpluginaaa:attemptFromIP'
+REST_CON1 = '/restconf/operations/usecpluginaaa:attemptOnDateTime'
