@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_82f7ad8a",
+        "filename": "csit/variables/xmls/f221.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-07-27T07:55:45Z",
+      "side": 0,
+      "message": "why do we need to remove one instruction from the list?",
+      "range": {
+        "startLine": 15,
+        "startChar": 12,
+        "endLine": 15,
+        "endChar": 28
+      },
+      "revId": "0dc2eb3f482a62adf2625b79cf683d740d30a851",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
