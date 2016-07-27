@@ -22,6 +22,30 @@
       "revId": "0dc2eb3f482a62adf2625b79cf683d740d30a851",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_919895c1",
+        "filename": "csit/variables/xmls/f221.xml",
+        "patchSetId": 6
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-27T18:32:40Z",
+      "side": 0,
+      "message": "This action is not suported in ovs 2.0:\n\nOFPT_FLOW_MOD (OF1.3) (xid\u003d0x22f): ***decode error: OFPBIC_UNSUP_INST***\nOFPT_ERROR (OF1.3) (xid\u003d0x22f): OFPBIC_UNSUP_INST",
+      "parentUuid": "9a561d44_82f7ad8a",
+      "range": {
+        "startLine": 15,
+        "startChar": 12,
+        "endLine": 15,
+        "endChar": 28
+      },
+      "revId": "0dc2eb3f482a62adf2625b79cf683d740d30a851",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
