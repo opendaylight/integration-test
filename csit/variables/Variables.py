@@ -190,6 +190,7 @@ USER = 'admin'  # TODO: who is using this?  Can we make it more specific? (e.g. 
 PWD = 'admin'
 PASSWORD = 'EMPTY'
 AUTH = [u'admin', u'admin']
+AUTH1 = [u'admin', u'admin']
 SCOPE = 'sdn'
 HEADERS = {'Content-Type': 'application/json'}
 HEADERS_YANG_JSON = {'Content-Type': 'application/yang.data+json'}
