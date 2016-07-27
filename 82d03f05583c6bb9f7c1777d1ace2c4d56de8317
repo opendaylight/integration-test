@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_d856b229",
+        "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-27T12:45:50Z",
+      "side": 1,
+      "message": "This prefix suggests it is a Keyword internal to the Resource, not to be used directly unless needed.\nIn this case, you can use Perform_Operation_On_Each_Device.",
+      "range": {
+        "startLine": 56,
+        "startChar": 20,
+        "endLine": 56,
+        "endChar": 37
+      },
+      "revId": "82d03f05583c6bb9f7c1777d1ace2c4d56de8317",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
