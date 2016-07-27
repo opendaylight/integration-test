@@ -34,6 +34,24 @@
       "revId": "0e25f6d5d56413a60aec97c0566cc5764cc54728",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_a5c63b98",
+        "filename": "csit/suites/controller/Clustering_Datastore/car_outage_corners.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-27T12:15:33Z",
+      "side": 1,
+      "message": "The tipping member is only one, but otherwise it is correct.\nBut I am not sure why the Leader has to be explicitly told the reviving followers are down. Is \"the recent commit\" documented somewhere? Does this apply to Boron, Beryllium and Lithium?\n\nUPDATE: Ok, I have followed hints and found some documentation [0]:\n\"While there are unreachable nodes new nodes that are joining the cluster will not be promoted to full worthy members (with status Up).\"\n\nFrom that it is not clear whether \"new nodes that are joining the cluster\" include also \"old nodes that have not be seen some time but which are coming back\" as well. Looking at karaf logs [1], \"New incarnation of existing member\" hints Akka knows it is an old node. Then, \"Existing will be removed from the cluster and then new member will be allowed to join\" process starts by downing the returning node (the tipping one), but then fails to continue as the other node is in state \"Up seen\u003dfalse\" and such Leader thinks it cannot perform its duties (but I think it can as this is a returning node).\n\nPreviously, with auto-down-unreachable-after the other node will be marked as Down, effectively creating a 1-node cluster where leader is free to add new members. I agree we do not want the single node to accept data transactions.\n\nBut I think Akka should allow Leader to bring back known nodes even if there are other nodes unreachable. And even if not, it should not keep the returning node marked as Down, as it looks like a transitional implementation detail, not a cluster topology decision.\n\nAll in all, I think this change is hiding an Akka Bug (of Improvement type) or two, but as long as Controller docs point to Akka docs, I am fine with this.\n\n[0] http://doc.akka.io/docs/akka/rp-16s01p03/java/split-brain-resolver.html\n[1] https://logs.opendaylight.org/releng/jenkins092/controller-csit-3node-clustering-only-boron/709/archives/odl1_karaf.log.gz",
+      "parentUuid": "9a561d44_eed2d55a",
+      "revId": "0e25f6d5d56413a60aec97c0566cc5764cc54728",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
