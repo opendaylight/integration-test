@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_8e8b5967",
+        "filename": "csit/suites/controller/Clustering_Datastore/car_outage_corners.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 1842
+      },
+      "writtenOn": "2016-07-27T03:19:37Z",
+      "side": 1,
+      "message": "otherwsise (sic).  Re: \"tipping followers cannot join cluster\", not sure what you mean by tipping..",
+      "revId": "0e25f6d5d56413a60aec97c0566cc5764cc54728",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
