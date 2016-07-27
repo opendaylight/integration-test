@@ -20,6 +20,7 @@ Resource          ${CURDIR}/Utils.robot
 
 *** Variables ***
 ${SSHKeywords__current_remote_working_directory}    .
+${SSHKeywords__current_venv_path}    /tmp/defaultvenv
 
 *** Keywords ***
 Open_Connection_To_ODL_System
@@ -105,3 +106,32 @@ Count_Port_Occurences
     [Documentation]    Run 'netstat' on the remote machine and count occurences of given port in the given state connected to process with the given name.
     ${output} =    SSHLibrary.Execute_Command    netstat -natp 2> /dev/null | grep -E ":${port} .+ ${state} .+${name}" | wc -l
     [Return]    ${output}
+
+Virtual_Env_Set_Path
+    [Arguments]    ${venv_path}
+    [Documentation]    Set \${SSHKeywords__current_venv_path} variable to ${venv_path}. Path should be absolute.
+    BuiltIn.Set_Global_Variable    \${SSHKeywords__current_venv_path}    ${venv_path}
+
+Virtual_Env_Create
+    [Documentation]    Creates virtual env. If not to use the default name, use Virtual_Env_Set_Path kw. Returns stdout.
+    Execute_Command_At_Cwd_Should_Pass    virtualenv ${SSHKeywords__current_venv_path}
+    BuiltIn.Run_Keyword_And_Return    Virtual_Env_Run_Cmd_At_Cwd    pip install --upgrade pip
+
+Virtual_Env_Run_Cmd_At_Cwd
+    [Arguments]    ${cmd}    ${log_on_success}=True    ${log_on_failure}=True    ${stderr_must_be_empty}=True
+    [Documentation]    Runs given command within activated virtual env and returns stdout.
+    BuiltIn.Run_Keyword_And_Return    Execute_Command_At_Cwd_Should_Pass    source ${SSHKeywords__current_venv_path}/bin/activate; ${cmd}; deactivate    log_on_success=${log_on_success}    log_on_failure=${log_on_failure}    stderr_must_be_empty=${stderr_must_be_empty}
+
+Virtual_Env_Install_Package
+    [Arguments]    ${package}
+    [Documentation]    Installs python package into virtual env. Use with version if needed (e.g. exabgp==3.4.16). Returns stdout.
+    BuiltIn.Run_Keyword_And_Return    Virtual_Env_Run_Cmd_At_Cwd    pip install ${package}    stderr_must_be_empty=False
+
+Virtual_Env_Uninstall_Package
+    [Arguments]    ${package}
+    [Documentation]    Uninstalls python package from virtual env and returns stdout.
+    BuiltIn.Run_Keyword_And_Return    Virtual_Env_Run_Cmd_At_Cwd    pip uninstall -y ${package}
+
+Virtual_Env_Freeze
+    [Documentation]    Shows installed packages within the returned stdout.
+    BuiltIn.Run_Keyword_And_Return    Virtual_Env_Run_Cmd_At_Cwd    pip freeze
