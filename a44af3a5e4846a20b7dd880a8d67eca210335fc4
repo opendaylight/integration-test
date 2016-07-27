@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_8c56bc5a",
+        "filename": "csit/libraries/CheckJVMResource.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-27T22:59:51Z",
+      "side": 1,
+      "message": "You do not need this anymore.",
+      "revId": "a44af3a5e4846a20b7dd880a8d67eca210335fc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ecce582d",
+        "filename": "csit/libraries/CheckJVMResource.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-27T22:59:51Z",
+      "side": 1,
+      "message": "this is confusing, the name of the varible should be something like ${controllers_number} or similar and deafult value\u003d${NUM_ODL_SYSTEM}.",
+      "revId": "a44af3a5e4846a20b7dd880a8d67eca210335fc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_2cd5f0b8",
+        "filename": "csit/libraries/CheckJVMResource.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-27T22:59:51Z",
+      "side": 1,
+      "message": "For clarity add ElasticsearchAppender.* to the KWs belonging to the library.",
+      "revId": "a44af3a5e4846a20b7dd880a8d67eca210335fc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_ccfa7442",
+        "filename": "csit/libraries/CheckJVMResource.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-27T22:59:51Z",
+      "side": 1,
+      "message": "I think it is better to use controller ${index}\u003d1,2,3 instead of ${controller-ip}",
+      "revId": "a44af3a5e4846a20b7dd880a8d67eca210335fc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_6c8888c5",
+        "filename": "csit/scripts/set_jvm_common_attribute.sh",
+        "patchSetId": 15
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-27T22:59:51Z",
+      "side": 1,
+      "message": "I realized the other day, do you really need this? because I do not think this is the right path for java and therefore this line can break other java based applications.",
+      "revId": "a44af3a5e4846a20b7dd880a8d67eca210335fc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
