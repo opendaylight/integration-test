@@ -5,7 +5,7 @@ Suite Teardown    Stop SuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
 
 *** Variables ***
-${flowconditiondata}    "vtn-flow-match":[{"vtn-inet-match":{"source-network":"10.0.0.1/32","destination-network":"10.0.0.3/32"},"index":"1"}]
+${flowconditiondata}    "vtn-flow-match":[{"vtn-inet-match":{"source-network":"10.0.0.1/32","destination-network":"10.0.0.5/32"},"index":"1"}]
 ${flowfiltervlanpcp}    "vtn-flow-filter":[{"condition":"cond_1","vtn-pass-filter":{},"vtn-flow-action":[{"order":"1","vtn-set-vlan-pcp-action":{"vlan-pcp":"6"}}],"index":"1"}]
 
 *** Test Cases ***
@@ -45,13 +45,13 @@ Add a vlanmap for bridge2
     [Documentation]    Add a Vlanmap for bridge1 in vtn Tenant1
     Add a vlanmap    Tenant1    vBridge2    ${vlanmap_bridge2}
 
-Get vlanflow h1 h3
-    [Documentation]    ping h1 to h3
-    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
-
 Get vlanflow h1 h5
     [Documentation]    ping h1 to h5
     Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h5
+
+Get vlanflow h3 h5
+    [Documentation]    ping h3 to h5
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h3    h5
 
 Get vlanflow h2 h4
     [Documentation]    ping h2 to h4
@@ -61,9 +61,9 @@ Get vlanflow h2 h6
     [Documentation]    ping h2 to h6
     Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h2    h6
 
-Get vlanflow h2 h5
-    [Documentation]    ping h2 to h5
-    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Not Succeed    h2    h5
+Get vlanflow h1 h4
+    [Documentation]    ping h1 to h4
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Not Succeed    h1    h4
 
 Add a flowcondition
     [Documentation]    Create a flowcondition cond_1 using restconfig api
@@ -72,11 +72,11 @@ Add a flowcondition
 Add a vtn flowfilter with vlanpcp
     [Documentation]    Create a flowfilter with vlanpcp and Verify ping
     Add a vtn flowfilter    Tenant1    ${flowfiltervlanpcp}
-    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h5
 
 Verify vlanpcp of vtn flowfilter
     [Documentation]    Verify vtn flowfilter actions in Flow Enties for vlanpcp
-    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_OUT_DUMPFLOWS_OF10}    ${vlanpcp_action}
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF10}    ${vlanpcp_action}
 
 Remove vtn Flowfilter index
     [Documentation]    Remove a index of vtn flowfilter
@@ -85,11 +85,11 @@ Remove vtn Flowfilter index
 Add a vbr flowfilter with vlanpcp
     [Documentation]    Create a flowfilter with vlanpcp and Verify ping
     Add a vbr flowfilter    Tenant1    vBridge1    ${flowfiltervlanpcp}
-    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h5
 
 Verify vlanpcp of vbr flowfilter
     [Documentation]    Verify actions in Flow Enties for vlanpcp
-    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_OUT_DUMPFLOWS_OF10}    ${vlanpcp_action}
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF10}    ${vlanpcp_action}
 
 Remove vbr Flowfilter index
     [Documentation]    Remove a index of vbr flowfilter

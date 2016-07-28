@@ -5,7 +5,7 @@ Suite Teardown    Stop SuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
 
 *** Variables ***
-${flowconditiondata}    "vtn-flow-match":[{"vtn-inet-match":{"source-network":"10.0.0.1/32","destination-network":"10.0.0.3/32"},"index":"1"}]
+${flowconditiondata}    "vtn-flow-match":[{"vtn-inet-match":{"source-network":"10.0.0.1/32","destination-network":"10.0.0.5/32"},"index":"1"}]
 ${flowfiltervlanpcp}    "vtn-flow-filter":[{"condition":"cond_1","vtn-pass-filter":{},"vtn-flow-action":[{"order":"1","vtn-set-vlan-pcp-action":{"vlan-pcp":"6"}}],"index":"1"}]
 
 *** Test Cases ***
@@ -25,6 +25,10 @@ Check if switch3 detected
     [Documentation]    Check if openflow:3 is detected
     BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch inventory    openflow:3
 
+Add a Topology Wait
+    [Documentation]    Add a topology wait to wait for a completion of inter-switch link
+    Add a Topology wait    12000
+
 Add a vtn Tenant1
     [Documentation]    Add a vtn Tenant1
     Add a vtn    Tenant1
@@ -43,11 +47,11 @@ Add a interface if2
 
 Add a portmap with vlan-id for interface if1
     [Documentation]    Create a vlan portmap on Interface if1 of vBridge1
-    Add a vlan portmap    Tenant1    vBridge1    if1    200    openflow:1    s1-eth1
+    Add a vlan portmap    Tenant1    vBridge1    if1    200    openflow:2    s2-eth2
 
 Add a portmap with vlan-id for interface if2
     [Documentation]    Create a vlan portmap on Interface if2 of vBridge1
-    Add a vlan portmap    Tenant1    vBridge1    if2    200    openflow:2    s2-eth3
+    Add a vlan portmap    Tenant1    vBridge1    if2    200    openflow:3    s3-eth3
 
 Add a flowcondition
     [Documentation]    Create a flowcondition cond_1 using restconfig api
@@ -56,11 +60,11 @@ Add a flowcondition
 Add a vbrif flowfilter with vlanpcp
     [Documentation]    Create a flowfilter with vlanpcp and Verify ping
     Add a vbrif flowfilter    Tenant1    vBridge1    if1    ${flowfiltervlanpcp}
-    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+    Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h5
 
 Verify vlanpcp of vbrif flowfilter
     [Documentation]    Verify actions in Flow Enties for vlanpcp
-    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_OUT_DUMPFLOWS_OF13}    ${vlanpcp_actions}
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF13}    ${vlanpcp_actions}
 
 Remove vbrif Flowfilter index
     [Documentation]    Remove a index of vbrif flowfilter
