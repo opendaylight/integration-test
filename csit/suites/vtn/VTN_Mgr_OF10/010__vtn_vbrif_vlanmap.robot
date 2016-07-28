@@ -43,11 +43,11 @@ Add a interface if2
 
 Add a portmap with vlan-id for interface if1
     [Documentation]    Create a vlan portmap on Interface if1 of vBridge1
-    Add a vlan portmap    Tenant1    vBridge1    if1    200    openflow:1    s1-eth1
+    Add a vlan portmap    Tenant1    vBridge1    if1    200    openflow:2    s2-eth2
 
 Add a portmap with vlan-id for interface if2
     [Documentation]    Create a vlan portmap on Interface if2 of vBridge1
-    Add a vlan portmap    Tenant1    vBridge1    if2    200    openflow:2    s2-eth3
+    Add a vlan portmap    Tenant1    vBridge1    if2    200    openflow:3    s3-eth2
 
 Add a flowcondition
     [Documentation]    Create a flowcondition cond_1 using restconfig api
@@ -56,6 +56,7 @@ Add a flowcondition
 Add a vbrif flowfilter with vlanpcp
     [Documentation]    Create a flowfilter with vlanpcp and Verify ping
     Add a vbrif flowfilter    Tenant1    vBridge1    if1    ${flowfiltervlanpcp}
+    #Add a Topology wait    5000
     Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
 
 Verify vlanpcp of vbrif flowfilter
