@@ -78,6 +78,12 @@ Get Operational Topology with vxlan tunnel
     @{list}    Create List    vxlanport    ${TOOLS_SYSTEM_2_IP}    ${TOOLS_SYSTEM_IP}
     Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}    ${list}
 
+Delete Bridges from config datastore
+    [Documentation]    This request will delete the bridges from config data store.
+    [Tags]    Southbound
+    Delete Bridge From Ovsdb Node    ${TOOLS_SYSTEM_IP}    s2
+    Delete Bridge From Ovsdb Node    ${TOOLS_SYSTEM_2_IP}    s1
+
 Disconnect controller connection from the connected OVSDBs nodes
     [Documentation]    This request will disconnect the controller from the connected OVSDB node for clean startup for next suite.
     [Tags]    Southbound
@@ -109,10 +115,6 @@ Vxlan Extension Test Suite Setup
 
 Vxlan Extension Test Suite Teardown
     [Documentation]    Cleans up test environment, close existing sessions.
-    Delete Bridge From Ovsdb Node    ${TOOLS_SYSTEM_IP}    s2
-    Delete Bridge From Ovsdb Node    ${TOOLS_SYSTEM_2_IP}    s1
-    Disconnect From Ovsdb Node    ${TOOLS_SYSTEM_IP}
-    Disconnect From Ovsdb Node    ${TOOLS_SYSTEM_2_IP}
     Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
     Clean OVSDB Test Environment    ${TOOLS_SYSTEM_2_IP}
     ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
