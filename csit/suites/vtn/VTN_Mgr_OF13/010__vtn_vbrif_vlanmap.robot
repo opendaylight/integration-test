@@ -25,6 +25,10 @@ Check if switch3 detected
     [Documentation]    Check if openflow:3 is detected
     BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch inventory    openflow:3
 
+Add a Topology Wait
+    [Documentation]    Add a topology wait to wait for a completion of inter-switch link
+    Add a Topology wait    12000
+
 Add a vtn Tenant1
     [Documentation]    Add a vtn Tenant1
     Add a vtn    Tenant1
