@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_775b2cf6",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 112,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-28T14:33:53Z",
+      "side": 1,
+      "message": "Mention that the path should be absolute.",
+      "range": {
+        "startLine": 112,
+        "startChar": 81,
+        "endLine": 112,
+        "endChar": 85
+      },
+      "revId": "848ce247c18887e9e33e0e37cdbbbe75da881566",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_d773187e",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-07-28T14:33:53Z",
+      "side": 1,
+      "message": "Does this work on Sandbox? I am not sure whether pip prints nothing to stderr on success.",
+      "range": {
+        "startLine": 126,
+        "startChar": 28,
+        "endLine": 126,
+        "endChar": 29
+      },
+      "revId": "848ce247c18887e9e33e0e37cdbbbe75da881566",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
