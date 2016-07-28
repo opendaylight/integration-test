@@ -31,9 +31,17 @@ Add a macmap for bridge1
     ${destination}=    Get DynamicMacAddress    h3
     Add a macmap    Tenant1    vBridge1    ${source}    ${destination}
 
+Get macmapflow of h1 and h3
+    [Documentation]    ping should fail since two way communication is not enabled
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Not Succeed    h1    h3
+
 Get macmapflow h3 h1
-    [Documentation]    ping h3 to h1
+    [Documentation]    Enable communiaction between h3 to h1
     Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h3    h1
+
+Get macmapflow h1 h3
+    [Documentation]    Two way communication enabled
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
 
 Delete a vtn Tenant1
     [Documentation]    Delete a vtn Tenant1

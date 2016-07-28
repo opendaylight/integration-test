@@ -51,12 +51,12 @@ class VlanTopo(Topo):
         s2 = self.addSwitch('s2')
         s3 = self.addSwitch('s3')
 
-        self.addLink(s1, host1)
         self.addLink(s1, s2)
+        self.addLink(s2, host1)
         self.addLink(s2, host2)
         self.addLink(s2, host3)
-        self.addLink(s2, host4)
         self.addLink(s1, s3)
+        self.addLink(s3, host4)
         self.addLink(s3, host5)
         self.addLink(s3, host6)
 
