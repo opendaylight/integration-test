@@ -84,6 +84,24 @@
       "revId": "a44af3a5e4846a20b7dd880a8d67eca210335fc4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "9a561d44_a7e2bb2c",
+        "filename": "csit/scripts/set_jvm_common_attribute.sh",
+        "patchSetId": 15
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 5406
+      },
+      "writtenOn": "2016-07-28T00:20:16Z",
+      "side": 1,
+      "message": "Yup I checked it the sandbox, its not required. I did this because these guys did something similar https://git.opendaylight.org/gerrit/gitweb?p\u003dintegration/test.git;a\u003dblob;f\u003dcsit/suites/tsdr/HBase/scripts/hbase-startup.sh;h\u003d7a23c8c4f68dcc2c731d4b4c7e04c73556cee1ce;hb\u003de54716bcb6abcc995cc1f6ae58326215b14cf852 . I thought if it works for them it should work for me. I should have tested it though.",
+      "parentUuid": "9a561d44_6c8888c5",
+      "revId": "a44af3a5e4846a20b7dd880a8d67eca210335fc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
