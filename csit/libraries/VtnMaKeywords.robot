@@ -83,6 +83,12 @@ Fetch vtn switch inventory
     ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-inventory:vtn-nodes/vtn-node/${sw_name}
     Should Be Equal As Strings    ${resp.status_code}    200
 
+Add a Topology wait
+    [Arguments]    ${topo_wait}
+    [Documentation]    Add a topology wait to complete all Inter-switch link connection of switches
+    ${resp}=    RequestsLibrary.Put Request    session    restconf/config/vtn-config:vtn-config    data={"vtn-config": {"topology-wait":${topo_wait}, "host-tracking": "true"}}
+    Should Be Equal As Strings    ${resp.status_code}    200
+
 Add a Vtn
     [Arguments]    ${vtn_name}
     [Documentation]    Create a vtn with specified parameters.
