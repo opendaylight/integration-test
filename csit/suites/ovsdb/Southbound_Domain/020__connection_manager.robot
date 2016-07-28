@@ -115,7 +115,7 @@ Config Topology Still Contains Bridge
 
 Delete the Bridge through rest call
     [Documentation]    This request will delete the bridge node from the config data store.
-    ${resp}    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2F${BRIDGE2}
+    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE2}
     Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
 
 Get Operational Topology after Deletion of Bridge

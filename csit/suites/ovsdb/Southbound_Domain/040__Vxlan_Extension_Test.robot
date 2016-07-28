@@ -111,8 +111,6 @@ Vxlan Extension Test Suite Teardown
     [Documentation]    Cleans up test environment, close existing sessions.
     Delete Bridge From Ovsdb Node    ${TOOLS_SYSTEM_IP}    s2
     Delete Bridge From Ovsdb Node    ${TOOLS_SYSTEM_2_IP}    s1
-    Disconnect From Ovsdb Node    ${TOOLS_SYSTEM_IP}
-    Disconnect From Ovsdb Node    ${TOOLS_SYSTEM_2_IP}
     Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
     Clean OVSDB Test Environment    ${TOOLS_SYSTEM_2_IP}
     ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
