@@ -16,9 +16,8 @@ ${tempest_config_file}    ./tempest.conf
 tempest.api.network
     Run Tempest Tests    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
 
-tempest.scenario.test_minimum_basic
-    [Tags]    exclude
-    Run Tempest Tests    ${TEST_NAME}
+tempest.scenario.*network
+    Run Tempest Tests    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
 
 *** Keywords ***
 Log In To Tempest Executor And Setup Test Environment
