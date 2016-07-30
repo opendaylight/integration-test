@@ -7,6 +7,7 @@ Documentation     Cbench Latency and Throughput tests can be run from an externa
 Suite Setup       Cbench Suite Setup
 Test Teardown     Log Results As Zero If Cbench Timed Out
 Force Tags        cbench
+Library           ../../../libraries/ListenerRobotDatabaseStore.py    dashboard    odluser    odl    139.59.8.253    5432
 Library           String
 Library           Process
 Resource          ../../../libraries/Utils.robot
