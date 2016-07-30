@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "9a561d44_5b23aaa6",
+        "filename": "csit/libraries/TopoprocessingKeywords.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-07-30T01:23:20Z",
+      "side": 1,
+      "message": "You probably did not know but there is this \"Check Item Occurrence\" KW in https://git.opendaylight.org/gerrit/gitweb?p\u003dintegration/test.git;a\u003dblob;f\u003dcsit/libraries/Utils.robot that checks for values and occurrences in a string like a REST response.",
+      "revId": "9416a31260b1123264f04afaea2e07dcd85fcde0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
