@@ -383,6 +383,12 @@ Get_From_Member
     ${response_text} =    TemplatedRequests.Get_From_Uri    uri=${uri}    accept=${access}    session=${session}
     [Return]    ${response_text}
 
+Resolve_IP_Address_For_Member
+    [Arguments]    ${member_index}
+    [Documentation]    Return node IP address of given index.
+    ${ip_address} =    Collections.Get From Dictionary    dictionary=${ClusterManagement__index_to_ip_mapping}    key=${member_index}
+    [Return]    ${ip_address}
+
 Resolve_Http_Session_For_Member
     [Arguments]    ${member_index}
     [Documentation]    Return RequestsLibrary session alias pointing to node of given index.
