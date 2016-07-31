@@ -40,11 +40,11 @@ Library           RequestsLibrary
 Library           OperatingSystem
 Library           String
 Library           SSHLibrary    timeout=10s
-Resource          ${CURDIR}/../../../libraries/ClusterKeywords.robot
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
+Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
@@ -63,46 +63,52 @@ Start_Testtool
 
 Check_Device_Is_Not_Mounted_At_Beginning
     [Documentation]    Sanity check making sure our device is not there. Fail if found.
-    NetconfKeywords.Check_Device_Has_No_Netconf_Connector    ${DEVICE_NAME}    session=node1
-    NetconfKeywords.Check_Device_Has_No_Netconf_Connector    ${DEVICE_NAME}    session=node2
-    NetconfKeywords.Check_Device_Has_No_Netconf_Connector    ${DEVICE_NAME}    session=node3
+    NetconfKeywords.Check_Device_Has_No_Netconf_Connector    ${DEVICE_NAME}    session=${node1_session}
+    NetconfKeywords.Check_Device_Has_No_Netconf_Connector    ${DEVICE_NAME}    session=${node2_session}
+    NetconfKeywords.Check_Device_Has_No_Netconf_Connector    ${DEVICE_NAME}    session=${node3_session}
 
 Configure_Device_On_Netconf
     [Documentation]    Use node 1 to configure a testtool device on Netconf connector.
-    NetconfKeywords.Configure_Device_In_Netconf    ${DEVICE_NAME}    device_type=configure-via-topology    session=node1
+    NetconfKeywords.Configure_Device_In_Netconf    ${DEVICE_NAME}    device_type=configure-via-topology    session=${node1_session}
     [Teardown]    Utils.Report_Failure_Due_To_Bug    5089
 
 Wait_For_Device_To_Become_Visible_For_All_Nodes
     [Documentation]    Wait for the whole cluster to see the device.
-    NetconfKeywords.Wait_Device_Connected    ${DEVICE_NAME}    session=node1
-    NetconfKeywords.Wait_Device_Connected    ${DEVICE_NAME}    session=node2
-    NetconfKeywords.Wait_Device_Connected    ${DEVICE_NAME}    session=node3
+    NetconfKeywords.Wait_Device_Connected    ${DEVICE_NAME}    session=${node1_session}
+    NetconfKeywords.Wait_Device_Connected    ${DEVICE_NAME}    session=${node2_session}
+    NetconfKeywords.Wait_Device_Connected    ${DEVICE_NAME}    session=${node3_session}
 
 Check_Config_Data_Before_Data_Creation
     [Documentation]    Check if there really is no data present on none of the nodes
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node1    ${empty_data}
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node2    ${empty_data}
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node3    ${empty_data}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${node1_session}    ${empty_data}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${node2_session}    ${empty_data}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${node3_session}    ${empty_data}
 
 Create_Device_Data
     [Documentation]    Create some data on the device and propagate it throughout the cluster.
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${DEVICE_NAME}'}
-    TemplatedRequests.Post_As_Xml_Templated    ${directory_with_template_folders}${/}dataorig    ${template_as_string}    session=node2
+    TemplatedRequests.Post_As_Xml_Templated    ${directory_with_template_folders}${/}dataorig    ${template_as_string}    session=${node2_session}
 
 Check_Config_Data_After_Data_Creation
     [Documentation]    Check if the data we just added into the cluster is really there
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node1    ${original_data}
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node2    ${original_data}
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node3    ${original_data}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${node1_session}    ${original_data}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${node2_session}    ${original_data}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${node3_session}    ${original_data}
 
 Find_And_Shutdown_Device_Entity_Owner
     [Documentation]    Simulate a failure of the owner of the entity that represents the device.
-    ${owner}    ${followers}=    ClusterKeywords.Get Device Entity Owner And Followers Indexes    node1    netconf    ${DEVICE NAME}
+    ${owner}    ${followers}=    ClusterManagement.Get_Owner_And_Successors_For_device    ${DEVICE NAME}    netconf    1
     Log    ${followers}
     Length Should Be    ${followers}    2    Wrong count of followers returned
     BuiltIn.Set_Suite_Variable    ${original_device_owner}    ${owner}
     BuiltIn.Set_Suite_Variable    ${follower1}    @{followers}[0]
     BuiltIn.Set_Suite_Variable    ${follower2}    @{followers}[1]
+    ${original_device_owner_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${original_device_owner}
+    ${follower1_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${follower1}
+    ${follower2_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${follower2}
+    BuiltIn.Set_Suite_Variable    ${original_device_owner_session}
+    BuiltIn.Set_Suite_Variable    ${follower1_session}
+    BuiltIn.Set_Suite_Variable    ${follower2_session}
     ClusterManagement.Kill_Single_Member    ${owner}
 
 Wait_For_New_Owner_To_Appear
@@ -112,20 +118,20 @@ Wait_For_New_Owner_To_Appear
 
 Check_Config_Data_Before_Modification_With_Original_Owner_Down
     [Documentation]    Check if data is present and retrievable from follower nodes
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node${follower1}    ${original_data}
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node${follower2}    ${original_data}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${follower1_session}    ${original_data}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${follower2_session}    ${original_data}
     [Teardown]    Utils.Report_Failure_Due_To_Bug    6067
 
 Modify_Device_Data_When_Original_Owner_Is_Down
     [Documentation]    Attempt to modify the data on the device after recovery and see if it still works.
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${DEVICE_NAME}'}
-    TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}datamod1    ${template_as_string}    session=node${follower1}
+    TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}datamod1    ${template_as_string}    session=${follower1_session}
     [Teardown]    Utils.Report_Failure_Due_To_Bug    4968
 
 Check_Config_Data_After_Modification_With_Original_Owner_Down
     [Documentation]    Check if data is written correctly when original owner is shut down
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node${follower1}    ${modified_data}
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node${follower2}    ${modified_data}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${follower1_session}    ${modified_data}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${follower2_session}    ${modified_data}
     [Teardown]    Utils.Report_Failure_Due_To_Bug    6067
 
 Restart_Original_Entity_Owner
@@ -133,30 +139,30 @@ Restart_Original_Entity_Owner
     ClusterManagement.Start_Single_Member    ${original_device_owner}
 
 Check_Config_Data_After_Original_Owner_Restart
-    [Documentation]    Sanity check if we still can retrieve our data from the original device owner (node${original_device_owner}).
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node${original_device_owner}    ${modified_data}
+    [Documentation]    Sanity check if we still can retrieve our data from the original device owner.
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${original_device_owner_session}    ${modified_data}
     [Teardown]    Utils.Report_Failure_Due_To_Bug    5761
 
 Modify_Device_Data_With_Original_Owner
     [Documentation]    Check that the original owner of the entity is still able to modify the data on the device
     ${template_as_string}=    BuiltIn.Set_Variable    {'DEVICE_NAME': '${DEVICE_NAME}'}
-    TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}datamod2    ${template_as_string}    session=node${original_device_owner}
+    TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}datamod2    ${template_as_string}    session=${original_device_owner_session}
     [Teardown]    Utils.Report_Failure_Due_To_Bug    5761
 
 Check_Config_Data_After_Modification_With_Original_Owner_Up
     [Documentation]    Check if data has really been written as we expect. Fails if Modify_Device_Data_With_Original_Owner fails.
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node1    ${modified_data_2}
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node2    ${modified_data_2}
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    node3    ${modified_data_2}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${node1_session}    ${modified_data_2}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${node2_session}    ${modified_data_2}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEVICE_CHECK_TIMEOUT}    1s    Check_Config_Data    ${node3_session}    ${modified_data_2}
 
 Deconfigure_Device_In_Netconf
     [Documentation]    Make request to deconfigure the device on Netconf connector and see if it works.
     [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    NetconfKeywords.Remove_Device_From_Netconf    ${DEVICE_NAME}    session=node1
-    NetconfKeywords.Wait_Device_Fully_Removed    ${DEVICE_NAME}    session=node1
-    NetconfKeywords.Wait_Device_Fully_Removed    ${DEVICE_NAME}    session=node2
-    NetconfKeywords.Wait_Device_Fully_Removed    ${DEVICE_NAME}    session=node3
+    NetconfKeywords.Remove_Device_From_Netconf    ${DEVICE_NAME}    session=${node1_session}
+    NetconfKeywords.Wait_Device_Fully_Removed    ${DEVICE_NAME}    session=${node1_session}
+    NetconfKeywords.Wait_Device_Fully_Removed    ${DEVICE_NAME}    session=${node2_session}
+    NetconfKeywords.Wait_Device_Fully_Removed    ${DEVICE_NAME}    session=${node3_session}
 
 *** Keywords ***
 Setup_Everything
@@ -165,11 +171,12 @@ Setup_Everything
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     ClusterManagement.ClusterManagement_Setup
     NetconfKeywords.Setup_Netconf_Keywords    create_session_for_templated_requests=False
-    ClusterKeywords.Create_Controller_Sessions
-    # TODO: Refactor the suite to use ClusterManagement.Resolve_Http_Session_For_Member instead of these 3 "hardcoded" sessions.
-    RequestsLibrary.Create_Session    node1    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}    headers=${HEADERS_XML}    auth=${AUTH}
-    RequestsLibrary.Create_Session    node2    http://${ODL_SYSTEM_2_IP}:${RESTCONFPORT}    headers=${HEADERS_XML}    auth=${AUTH}
-    RequestsLibrary.Create_Session    node3    http://${ODL_SYSTEM_3_IP}:${RESTCONFPORT}    headers=${HEADERS_XML}    auth=${AUTH}
+    ${node1_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=1
+    ${node2_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=2
+    ${node3_session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=3
+    BuiltIn.Set_Suite_Variable    ${node1_session}
+    BuiltIn.Set_Suite_Variable    ${node2_session}
+    BuiltIn.Set_Suite_Variable    ${node3_session}
     # Constants that are not meant to be overriden by the users
     BuiltIn.Set_Suite_Variable    ${directory_with_template_folders}    ${CURDIR}/../../../variables/netconf/CRUD
     BuiltIn.Set_Suite_Variable    ${empty_data}    <data xmlns="${ODL_NETCONF_NAMESPACE}"></data>
@@ -185,13 +192,13 @@ Teardown_Everything
     NetconfKeywords.Stop_Testtool
 
 Check_Config_Data
-    [Arguments]    ${node}    ${expected}    ${contains}=False
+    [Arguments]    ${session}    ${expected}    ${contains}=False
     [Documentation]    Check that the data on the device matches the specified expectations.
     ...    TODO: Needs to be extracted into a suitable Resource as there is
     ...    the same code in at least two other suites (CRUD and clustered
     ...    CRUD).
     ${url}=    Builtin.Set_Variable    ${CONFIG_API}/network-topology:network-topology/topology/topology-netconf/node/${DEVICE_NAME}/yang-ext:mount
-    ${data}=    TemplatedRequests.Get_As_Xml_From_Uri    ${url}    session=${node}
+    ${data}=    TemplatedRequests.Get_As_Xml_From_Uri    ${url}    session=${session}
     BuiltIn.Run_Keyword_Unless    ${contains}    BuiltIn.Should_Be_Equal_As_Strings    ${data}    ${expected}
     BuiltIn.Run_Keyword_If    ${contains}    BuiltIn.Should_Contain    ${data}    ${expected}
 
@@ -200,5 +207,5 @@ Check_Owner_Reconfigured
     Log    Original Owner Index: ${original_device_owner}
     Log    Follower 1: node${follower1}
     Log    Follower 2: node${follower2}
-    ${owner}    ${candidates}=    ClusterKeywords.Get_Device_Entity_Owner_And_Candidates_Indexes    node${follower1}    netconf    ${DEVICE_NAME}
+    ${owner}    ${candidates}=    ClusterManagement.Get_Owner_And_Candidates_For_Device    ${DEVICE_NAME}    netconf    ${follower1}
     BuiltIn.Should_Not_Be_Equal_As_Integers    ${owner}    ${original_device_owner}
