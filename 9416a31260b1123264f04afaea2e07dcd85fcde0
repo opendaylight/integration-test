@@ -16,6 +16,24 @@
       "revId": "9416a31260b1123264f04afaea2e07dcd85fcde0",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_fcf061cb",
+        "filename": "csit/libraries/TopoprocessingKeywords.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5872
+      },
+      "writtenOn": "2016-08-01T11:25:52Z",
+      "side": 1,
+      "message": "Yes, well this is done intentionally. This way we don\u0027t have to specify and check for every single element in output topos, only those that matter in a given test. Maybe I should rename the keyword to something like \"Output Topo Should Contain\"?\nAFAIK the CIO kw does not allow optional/ignorable keys (zero means item should not be present). A workaround of conditional adding of items to the dictionary would kinda defeat the purpose.",
+      "parentUuid": "9a561d44_5b23aaa6",
+      "revId": "9416a31260b1123264f04afaea2e07dcd85fcde0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
