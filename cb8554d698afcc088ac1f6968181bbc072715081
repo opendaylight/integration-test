@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_bc6c2938",
+        "filename": "csit/suites/controller/ThreeNodes_Datastore/010_crud_mdsal_perf.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-01T12:06:44Z",
+      "side": 1,
+      "message": "${car_leader_ip} would be a better name.\nAlso, the right hand side should be just a call to some ClusterManagement keyword (create it if it does not exist already).",
+      "range": {
+        "startLine": 46,
+        "startChar": 4,
+        "endLine": 46,
+        "endChar": 17
+      },
+      "revId": "cb8554d698afcc088ac1f6968181bbc072715081",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
