@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_79b6238c",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-01T10:03:49Z",
+      "side": 1,
+      "message": "Are you sure? Looking at source, I would say that stdout ends up to be the return value. If that is the case, the four keywords above should also mention they are returning stdout.",
+      "range": {
+        "startLine": 136,
+        "startChar": 49,
+        "endLine": 136,
+        "endChar": 110
+      },
+      "revId": "f62f9a9355222d1596553d0616e7f39d36247634",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
