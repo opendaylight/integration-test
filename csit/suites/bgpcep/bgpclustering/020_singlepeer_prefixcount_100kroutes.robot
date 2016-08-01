@@ -27,7 +27,7 @@ Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
 Resource          ${CURDIR}/../../../libraries/PrefixCounting.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/ClusterKeywords.robot
+Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 
@@ -66,8 +66,7 @@ ${BGP_PEER_NAME}    example-bgp-peer
 
 *** Test Cases ***
 Get Default Operational Shard Leader
-    @{idx_list}=    BuiltIn.Create List    1    2    3
-    ${dos_leader}    ${dos_followers}=    ClusterKeywords.Get Cluster Shard Status    ${idx_list}    operational    default
+    ${dos_leader}    ${dos_followers}=    ClusterManagement.Get_Leader_And_Followers_For_Shard
     BuiltIn.Set Suite variable    ${dos_leader}    ${dos_leader}
     BuiltIn.Set Suite variable    ${default_oper_shard_leader_node_ip}    ${ODL_SYSTEM_${dos_leader}_IP}
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_${dos_leader}_IP}:${RESTCONFPORT}    auth=${AUTH}
@@ -200,6 +199,7 @@ Setup_Everything
     [Documentation]    Setup imported resources, SSH-login to tools system,
     ...    create HTTP session, put Python tool to tools system.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
+    ClusterManagement.ClusterManagement_Setup
     RequestsLibrary.Create_Session    ${CONFIGURATION_1}    http://${ODL_SYSTEM_1_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
     RequestsLibrary.Create_Session    ${CONFIGURATION_2}    http://${ODL_SYSTEM_2_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
     RequestsLibrary.Create_Session    ${CONFIGURATION_3}    http://${ODL_SYSTEM_3_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
@@ -219,16 +219,6 @@ Setup_Everything
     Builtin.Set_Suite_Variable    ${bgp_filling_timeout}    ${timeout}
     Builtin.Set_Suite_Variable    ${bgp_emptying_timeout}    ${bgp_filling_timeout*3.0/4}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${KARAF_LOG_LEVEL}
-    ClusterKeywords.Create_Controller_Sessions
-    ${controller_list}=    ClusterKeywords.Get_Controller_List
-    Builtin.Set_Suite_Variable    ${controller_list}
-    BuiltIn.Log    ${controller_list}
-    ${default_shard_leader_node_ip}=    ClusterKeywords.Get_Leader_And_Verify    ${SHARD_DEFAULT_CONFIG}
-    Builtin.Set_Suite_Variable    ${default_shard_leader_node_ip}
-    BuiltIn.Log    ${default_shard_leader_node_ip}
-    ${default_shard_follower_nodes_ip}=    ClusterKeywords.Get_All_Followers    ${SHARD_DEFAULT_CONFIG}
-    Builtin.Set_Suite_Variable    ${default_shard_follower_nodes_ip}
-    BuiltIn.Log    ${default_shard_follower_nodes_ip}
 
 Teardown_Everything
     [Documentation]    Make sure Python tool was killed and tear down imported Resources.
