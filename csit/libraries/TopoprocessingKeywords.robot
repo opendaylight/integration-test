@@ -45,6 +45,18 @@ Delete Underlay Node
     ${resp}    Send Basic Delete Request    ${TOPOLOGY_URL}/${topology-id}/node/${node-id}
     [Return]    ${resp}
 
+Delete Underlay Termination Point
+    [Arguments]    ${topology-id}    ${node-id}    ${tp-id}
+    [Documentation]    Deletes a termination point from an underlay topology
+    ${resp}    Send Basic Delete Request    ${TOPOLOGY_URL}/${topology-id}/node/${node-id}/termination-point/${tp-id}
+    [Return]    ${resp}
+
+Delete Underlay Link
+    [Arguments]    ${topology-id}    ${link-id}
+    [Documentation]    Deletes a link from an underlay topology
+    ${resp}    Send Basic Delete Request    ${TOPOLOGY_URL}/${topology-id}/link/${link-id}
+    [Return]    ${resp}
+
 Setup Environment
     [Documentation]    Setup karaf enviroment for following tests
     Log    ---- Setup Environment ----
@@ -423,8 +435,9 @@ Check Overlay Link Source And Destination
     Should Be Equal As Strings    ${link_destination}    ${expected_destination}
 
 Output Topo Should Be Complete
+    [Arguments]    ${node_count}=-1    ${supporting-node_count}=-1    ${node-ref_count}=-1    ${tp_count}=-1    ${tp-ref_count}=-1    ${link_count}=-1
+    ...    ${link-ref_count}=-1
     [Documentation]    Verifies that the output topology contains the expected amount of essential elements
-    [Arguments]    ${node_count}=-1    ${supporting-node_count}=-1    ${node-ref_count}=-1    ${tp_count}=-1    ${tp-ref_count}=-1    ${link_count}=-1    ${link-ref_count}=-1
     ${resp}    Wait Until Keyword Succeeds    5x    250ms    Basic Request Get    ${OVERLAY_TOPO_URL}
     Should Contain    ${resp.content}    <topology-id>${OUTPUT_TOPO_NAME}</topology-id>
     Run Keyword If    ${node_count}>-1    Should Contain X Times    ${resp.content}    <node>    ${node_count}
