@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_b047281d",
+        "filename": "csit/libraries/BulkomaticKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-01T23:17:50Z",
+      "side": 1,
+      "message": "I do not think I would change the library for this, I would better change the suite that uses the library.",
+      "revId": "3969105a155cd1f4e99e4600a7405934b255c22c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_10553cc6",
+        "filename": "csit/suites/openflowplugin/Clustering_Bulkomatic/100K_120DPN_3Node_Cluster_Scale_Up_Test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-01T23:17:50Z",
+      "side": 1,
+      "message": "For the test I would use 10, 20, 40, 80 and 160 DPNs so that you can always get total\u003d100K flows",
+      "revId": "3969105a155cd1f4e99e4600a7405934b255c22c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_f051a0d9",
+        "filename": "csit/suites/openflowplugin/Clustering_Bulkomatic/100K_120DPN_3Node_Cluster_Scale_Up_Test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-01T23:17:50Z",
+      "side": 1,
+      "message": "We will need to check impact (if any) of connecting mininet to follower node.",
+      "revId": "3969105a155cd1f4e99e4600a7405934b255c22c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_505e94ea",
+        "filename": "csit/suites/openflowplugin/Clustering_Bulkomatic/100K_120DPN_3Node_Cluster_Scale_Up_Test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-01T23:17:50Z",
+      "side": 1,
+      "message": "No sleep please, try to add some check to verify all nodes are connected to controller, you have plenty of examples in openflowplugin csit.",
+      "revId": "3969105a155cd1f4e99e4600a7405934b255c22c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_306318b3",
+        "filename": "csit/suites/openflowplugin/Clustering_Bulkomatic/100K_120DPN_3Node_Cluster_Scale_Up_Test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-01T23:17:50Z",
+      "side": 1,
+      "message": "Add the timers here instead of the library. Same as you did in next step.",
+      "revId": "3969105a155cd1f4e99e4600a7405934b255c22c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_300af8d2",
+        "filename": "csit/suites/openflowplugin/Clustering_Bulkomatic/100K_120DPN_3Node_Cluster_Scale_Up_Test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-01T23:17:50Z",
+      "side": 1,
+      "message": "We should add a step to verify flows in operational, one way I am thinking is to send a \"Get Bulk Flow\" to operational datastore.",
+      "revId": "3969105a155cd1f4e99e4600a7405934b255c22c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_f0688089",
+        "filename": "csit/suites/openflowplugin/Clustering_Bulkomatic/100K_120DPN_3Node_Cluster_Scale_Up_Test.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-01T23:17:50Z",
+      "side": 1,
+      "message": "If we put this step at the end we can also measure delete rate and switch delete time.",
+      "revId": "3969105a155cd1f4e99e4600a7405934b255c22c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
