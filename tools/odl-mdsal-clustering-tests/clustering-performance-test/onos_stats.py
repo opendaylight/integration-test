@@ -5,7 +5,7 @@ import sys
 import netaddr
 import threading
 import Queue
-import random
+import random  # noqa  # FIXME: This script seems to be unfinished!
 import copy
 import time
 
@@ -284,9 +284,9 @@ def main(*argv):
     base_dev_ids = get_device_ids(controller=in_args.host)
     base_flow_ids = get_flow_ids(controller=in_args.host)
     # ip
-    ip_addr = Counter(int(netaddr.IPAddress('10.0.0.1')))
+    ip_addr = Counter(int(netaddr.IPAddress('10.0.0.1')))  # noqa  # FIXME: This script seems to be unfinished!
     # prepare func
-    preparefnc = _prepare_post
+    preparefnc = _prepare_post  # noqa  # FIXME: This script seems to be unfinished!
 
     print "BASELINE:"
     print "    devices:", len(base_dev_ids)
