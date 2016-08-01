@@ -181,6 +181,7 @@ OS_SYSTEM_PROMPT = '$'
 
 # Other global variables
 # TODO: Move these to more apropriate sections.
+OFPORT = '6633'
 PORT = '8080'
 RESTPORT = '8282'
 RESTCONFPORT = '8181'

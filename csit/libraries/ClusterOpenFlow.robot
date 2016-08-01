@@ -138,3 +138,12 @@ Check_Flows_Operational_Datastore_On_Member
     [Documentation]    Check if number of Operational Flows on member of given index is equal to ${flow_count}.
     ${sw}    ${reported_flow}    ${found_flow}=    ScaleClient.Flow Stats Collected    controller=${ODL_SYSTEM_${member_index}_IP}
     BuiltIn.Should_Be_Equal_As_Numbers    ${flow_count}    ${found_flow}
+
+Check_Switch_State_Running_On_Member
+    [Arguments]    ${switch_count}    ${switch_state}    ${controller_index_list}=${EMPTY}
+    [Documentation]    Check suspected switch state of connected DPN in a member, based on which corrective actions can be taken further.
+    ${command} =    BuiltIn.Set_Variable    netstat -na | grep ${OFPORT} | grep -E ${switch_state} | wc -l
+    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${controller_index_list}
+    : FOR    ${index}    IN    @{index_list}
+    \    ${count} =    Run_Command_On_Member    command=${command}    member_index=${index}
+    \    BuiltIn.Should_Be_Equal    ${switch_count}    ${count}    Number of Switches in ${switch_state} state: ${count}

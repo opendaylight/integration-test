@@ -162,10 +162,27 @@ Clean Mininet System
     Run Command On Mininet    ${system}    sudo mn -c
     Run Command On Mininet    ${system}    sudo ps -elf | egrep 'usr/local/bin/mn' | egrep python | awk '{print "sudo kill -9",$4}' | sh
 
+Wait Till Stale State Over In Mininet
+    [Arguments]    ${switch_connection_state}    ${system}=${TOOLS_SYSTEM_IP}
+    [Documentation]    Query Mininet for stale state and check till it cease to exist.
+    ${output} =    Run Command On Mininet    ${system}    sudo netstat -na | grep ${OFPORT} | grep ${switch_connection_state} | wc -l
+    BuiltIn.Should_Be_Equal    0    ${output}
+
+Stabilize Mininet System
+    [Arguments]    ${switch_connection_state}
+    [Documentation]    Check till stale state (such as TIME_WAIT|CLOSE_WAIT|FIN_WAIT) is over
+    Wait Until Keyword Succeeds    ${mininet_timeout}    1s    Utils.Wait Till Stale State Over In Mininet    ${switch_connection_state}
+
+Clean And Stabilize Mininet System
+    [Arguments]    ${switch_connection_state}
+    [Documentation]    Clean Mininet system and check till stale state (such as TIME_WAIT|CLOSE_WAIT|FIN_WAIT) is over
+    Utils.Clean Mininet System
+    Utils.Stabilize Mininet System    ${switch_connection_state}
+
 Clean Up Ovs
     [Arguments]    ${system}=${TOOLS_SYSTEM_IP}
     [Documentation]    Cleans up the OVS instance and remove any existing common known bridges.
-    ${output}=    Run Command On Mininet    ${system}    sudo ovs-vsctl list-br
+    ${output}=    run Command On Mininet    ${system}    sudo ovs-vsctl list-br
     Log    ${output}
     : FOR    ${i}    IN    ${output}
     \    Run Command On Mininet    ${system}    sudo ovs-vsctl --if-exists del-br ${i}
