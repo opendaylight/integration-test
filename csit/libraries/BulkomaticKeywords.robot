@@ -2,6 +2,7 @@
 Documentation     Bulkomatic Keyword library contains keywords for performing bulkomatic operations
 ...               with a single bulkomatic API we can trigger bulk flows in config datastore which eventually populates switches and operational datastore
 ...               So far this library is only to be used by MD-SAL clustering and OpenFlowplugin clustering test as it is very specific for these tests
+Library           DateTime
 Resource          Utils.robot
 Variables         ../variables/Variables.py
 
@@ -66,7 +67,12 @@ Add Bulk Flow In Node
     [Arguments]    ${json_body_add}    ${controller_index}    ${timeout}
     [Documentation]    Add Bulk Flow in member ${controller_index} and wait until operation is completed.
     Add Bulk Flow    ${json_body_add}    ${controller_index}
+    ${datastore_write_start_time}=    Get Current Date    result_format=timestamp
     Wait Until Write Finishes    ${controller_index}    ${timeout}
+    ${datastore_write_end_time}=    Get Current Date    result_format=timestamp
+    ${config_datastore_write_time}=    Subtract Date From Date    ${datastore_write_end_time}     ${datastore_write_start_time}
+    Set Suite Variable    ${datastore_write_start_time}
+    Set Suite Variable    ${config_datastore_write_time}
 
 Delete Bulk Flow In Node
     [Arguments]    ${json_body_del}    ${controller_index}    ${timeout}
