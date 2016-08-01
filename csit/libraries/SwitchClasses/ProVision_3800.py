@@ -3,7 +3,7 @@ Provision 3800 Object Definition
 Authors: james.luhrsen@hp.com
 Created: 2014-10-02
 """
-from ProVision import *  # noqa
+from ProVision import ProVision
 
 
 class ProVision_3800(ProVision):

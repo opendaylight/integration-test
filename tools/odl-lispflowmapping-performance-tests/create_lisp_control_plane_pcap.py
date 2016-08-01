@@ -87,7 +87,6 @@ def generate_map_register(eid, rloc, key_id):
         :return : returns a Scapy Map-Request packet object
     """
     sport1 = random.randint(60000, 65000)
-    sport2 = random.randint(60000, 65000)
     rnonce = random.randint(0, 2**63)
 
     rlocs = [lisp.LISP_Locator_Record(priority=1, weight=1,

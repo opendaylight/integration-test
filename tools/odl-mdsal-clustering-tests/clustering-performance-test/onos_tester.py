@@ -380,7 +380,7 @@ def main(*argv):
             flow_stats = get_flow_simple_stats(controller=in_args.host)
             print flow_stats
             try:
-                pending_adds = int(flow_stats[u'PENDING_ADD'])
+                pending_adds = int(flow_stats[u'PENDING_ADD'])  # noqa  # FIXME: Print this somewhere.
             except KeyError:
                 break
             time.sleep(1)
@@ -465,7 +465,7 @@ def main(*argv):
             flow_stats = get_flow_simple_stats(controller=in_args.host)
             print flow_stats
             try:
-                pending_rems = int(flow_stats[u'PENDING_REMOVE'])
+                pending_rems = int(flow_stats[u'PENDING_REMOVE'])  # noqa  # FIXME: Print this somewhere.
             except KeyError:
                 break
             time.sleep(1)

@@ -4,7 +4,7 @@ Authors: james.luhrsen@hp.com
 Created: 2014-09-20
 """
 import importlib
-from xml.etree.ElementTree import *  # noqa
+import xml.etree.ElementTree as ElementTree
 
 
 class BaseSwitch(object):
@@ -77,7 +77,7 @@ class BaseSwitch(object):
         raise NotImplementedError("Please implement this method")
 
     def create_flow_match_elements(self, flow_xml):
-        flow_tree = fromstring(flow_xml)
+        flow_tree = ElementTree.fromstring(flow_xml)
         self.table_id = flow_tree.\
             find('{urn:opendaylight:flow:inventory}table_id').text
         instructions_element = flow_tree.\

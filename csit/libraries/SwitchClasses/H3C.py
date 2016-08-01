@@ -4,7 +4,7 @@ Authors: james.luhrsen@hp.com
 Created: 2014-10-02
 """
 import re
-from BaseSwitch import *  # noqa
+from BaseSwitch import BaseSwitch
 
 
 class H3C(BaseSwitch):
