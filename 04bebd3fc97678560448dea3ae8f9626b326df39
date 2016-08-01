@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_3974ab9b",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 401,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-01T08:21:24Z",
+      "side": 1,
+      "message": "Create Clean_Directories_On_List_Or_All keyword, which would accept arguments ${member_index_list}, ${karaf_home} and ${directory_list}.\nMake this keyword and Clean_Journals_And_Snapshots_On_List_Or_All call the new keyword, and chose name for this keyword reflecting it is also of Clean_*_On_List_Or_All type.",
+      "range": {
+        "startLine": 401,
+        "startChar": 0,
+        "endLine": 401,
+        "endChar": 14
+      },
+      "revId": "04bebd3fc97678560448dea3ae8f9626b326df39",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_7612b063",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 197,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-01T08:21:24Z",
+      "side": 1,
+      "message": "This seem to compute the value already present as ${current_port}.",
+      "range": {
+        "startLine": 197,
+        "startChar": 4,
+        "endLine": 197,
+        "endChar": 18
+      },
+      "revId": "04bebd3fc97678560448dea3ae8f9626b326df39",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_d62bc492",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-01T08:21:24Z",
+      "side": 1,
+      "message": "${new_name}?",
+      "range": {
+        "startLine": 198,
+        "startChar": 129,
+        "endLine": 198,
+        "endChar": 139
+      },
+      "revId": "04bebd3fc97678560448dea3ae8f9626b326df39",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_b62448c7",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-01T08:21:24Z",
+      "side": 1,
+      "message": "Make this accept ${device_name} instead.",
+      "range": {
+        "startLine": 212,
+        "startChar": 19,
+        "endLine": 212,
+        "endChar": 59
+      },
+      "revId": "04bebd3fc97678560448dea3ae8f9626b326df39",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_96082c2f",
+        "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-01T08:21:24Z",
+      "side": 1,
+      "message": "Tidy to align, or mode information from comments to [Documentation].",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 2
+      },
+      "revId": "04bebd3fc97678560448dea3ae8f9626b326df39",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_7909032c",
+        "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 56,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-01T08:21:24Z",
+      "side": 1,
+      "message": "Update documentation.",
+      "range": {
+        "startLine": 56,
+        "startChar": 82,
+        "endLine": 56,
+        "endChar": 88
+      },
+      "revId": "04bebd3fc97678560448dea3ae8f9626b326df39",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_590ec735",
+        "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.robot",
+        "patchSetId": 38
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-01T08:21:24Z",
+      "side": 1,
+      "message": "Perform this check on every device.",
+      "range": {
+        "startLine": 60,
+        "startChar": 61,
+        "endLine": 60,
+        "endChar": 67
+      },
+      "revId": "04bebd3fc97678560448dea3ae8f9626b326df39",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
