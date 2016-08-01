@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation     Cluster OpenFlow library. So far this library is only to be used by OpenFlow cluster test as it is very specific for this test.
 Library           RequestsLibrary
+Library           ${CURDIR}/ScaleClient.py
 Resource          ClusterManagement.robot
 Resource          MininetKeywords.robot
 Resource          Utils.robot
@@ -119,3 +120,17 @@ Take OpenFlow Device Link Up and Verify
     Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${operational_port_1}    dictionary=${dictionary}    member_index_list=${controller_index_list}
     ${dictionary}    Create Dictionary    openflow:1=21    openflow:2=19    openflow:3=19
     Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}    dictionary=${dictionary}    member_index_list=${controller_index_list}
+
+Verify_Switch_Connections_Running_On_Member
+    [Arguments]    ${switch_count}    ${switch_state}    ${member_index}
+    [Documentation]    Fail if number of Switch connections on member of given index is not equal to switch connected.
+    ${command} =    BuiltIn.Set_Variable    netstat -na | grep ${OFPORT} | grep ${switch_state} | wc -l
+    ${count} =    Run_Command_On_Member    command=${command}    member_index=${member_index}
+    BuiltIn.Should_Be_Equal    ${switch_count}    ${count}    Number of Switches in ${switch_state} state: ${count}
+
+Check_Flows_Inventory_Oper_DS
+    [Arguments]    ${switch_count}    ${flow_count_after_add}    ${member_index}
+    [Documentation]    Checks in inventory has required state
+    ${member_ip} =    Collections.Get_From_Dictionary    dictionary=${ClusterManagement__index_to_ip_mapping}    key=${member_index}
+    ${sw}    ${repf}    ${found_flow}=    Flow Stats Collected    controller=${member_ip}
+    Should Be Equal As Numbers    ${flow_count_after_add}    ${found_flow}
