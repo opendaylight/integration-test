@@ -55,7 +55,12 @@ ${custom}         ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
 *** Keywords ***
 Start SuiteVtnMa
     [Documentation]    Start VTN Manager Rest Config Api Test Suite, and enabling karaf loglevel as TRACE for VTN.
-    Issue Command On Karaf Console    log:set TRACE org.opendaylight.vtn
+    #Issue Command On Karaf Console    log:set TRACE org.opendaylight.vtn
+    ${vtn_mgr_id}=    SSHLibrary.Open Connection    ${ODL_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=30s
+    Set Suite Variable    ${vtn_mgr_id}
+    SSHLibrary.Login_With_Public_Key    ${ODL_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    SSHLibrary.Execute Command    sudo sed -i "$ i log4j.logger.org.opendaylight.vtn = TRACE" ${WORKSPACE}/${BUNDLEFOLDER}/etc/org.ops4j.pax.logging.cfg
+    SSHLibrary.Execute Command    cat ${WORKSPACE}/${BUNDLEFOLDER}/etc/org.ops4j.pax.logging.cfg
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_YANG_JSON}
     BuiltIn.Wait_Until_Keyword_Succeeds    30    3    Fetch vtn list
     Start Suite
@@ -81,12 +86,6 @@ Fetch vtn switch inventory
     [Arguments]    ${sw_name}
     [Documentation]    Check if Switch is detected.
     ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-inventory:vtn-nodes/vtn-node/${sw_name}
-    Should Be Equal As Strings    ${resp.status_code}    200
-
-Add a Topology wait
-    [Arguments]    ${topo_wait}
-    [Documentation]    Add a topology wait to complete all Inter-switch link connection of switches
-    ${resp}=    RequestsLibrary.Put Request    session    restconf/config/vtn-config:vtn-config    data={"vtn-config": {"topology-wait":${topo_wait}, "host-tracking": "true"}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Add a Vtn
