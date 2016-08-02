@@ -138,3 +138,18 @@ Configure Exit OVSDB Connection
     OVSDB.Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
     ${dictionary}=    Create Dictionary    ovsdb://uuid=0
     Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}    dictionary=${dictionary}    member_index_list=${controller_index_list}
+
+Delete Managers in OVS instance
+    [Arguments]    ${controller_index_list}    ${controller_index}
+    [Documentation]   Delete the manager.
+    ${show_list}=    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
+    ${show_list}=    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
+    Wait Until Keyword Succeeds    5s    1s    Verify OVS Instances Deleted
+
+Verify OVS Instances Deleted
+    [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
+    [Documentation]    Uses "vsctl show" to check for string "is_connected"
+    ${output}=    Utils.Run Command On Remote System    ${tools_system}    sudo ovs-vsctl show
+    Should Not Contain    ${output}    is_connected
+    [Return]    ${output}
