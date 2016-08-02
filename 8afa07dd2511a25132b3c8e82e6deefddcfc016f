@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_1d3434dd",
+        "filename": "csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot",
+        "patchSetId": 83
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-02T11:03:31Z",
+      "side": 1,
+      "message": "Is this useful? If yes, consider using SSHKeywords.Execute_Command_At_Cwd_Should_Pass",
+      "range": {
+        "startLine": 93,
+        "startChar": 70,
+        "endLine": 93,
+        "endChar": 72
+      },
+      "revId": "8afa07dd2511a25132b3c8e82e6deefddcfc016f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_9d6e84c8",
+        "filename": "csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot",
+        "patchSetId": 83
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-02T11:03:31Z",
+      "side": 1,
+      "message": "This repeats in multiple suites. What about creating SSHKeywords.Virtual_Env_Activate_On_Current_Session?",
+      "range": {
+        "startLine": 131,
+        "startChar": 38,
+        "endLine": 131,
+        "endChar": 50
+      },
+      "revId": "8afa07dd2511a25132b3c8e82e6deefddcfc016f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_5d9b4cc9",
+        "filename": "csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot",
+        "patchSetId": 83
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-02T11:03:31Z",
+      "side": 1,
+      "message": "SSHKeywords.Virtual_Env_Deactivate_On_Current_Session\nJust to hide Read_Until_Prompt and logging.",
+      "range": {
+        "startLine": 156,
+        "startChar": 38,
+        "endLine": 156,
+        "endChar": 48
+      },
+      "revId": "8afa07dd2511a25132b3c8e82e6deefddcfc016f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_fd47b849",
+        "filename": "csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot",
+        "patchSetId": 83
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-02T11:03:31Z",
+      "side": 1,
+      "message": "Once again, code multiplication. But Trello card for that is already created, so no big deal.",
+      "range": {
+        "startLine": 157,
+        "startChar": 0,
+        "endLine": 157,
+        "endChar": 9
+      },
+      "revId": "8afa07dd2511a25132b3c8e82e6deefddcfc016f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_5d74ec9b",
+        "filename": "csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot",
+        "patchSetId": 83
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-02T11:03:31Z",
+      "side": 1,
+      "message": "and fill it immediately with routes.",
+      "range": {
+        "startLine": 203,
+        "startChar": 52,
+        "endLine": 203,
+        "endChar": 53
+      },
+      "revId": "8afa07dd2511a25132b3c8e82e6deefddcfc016f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_3d793094",
+        "filename": "csit/suites/bgpcep/bgpfunct/040_bgp_functional_route_ref.robot",
+        "patchSetId": 83
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-02T11:03:31Z",
+      "side": 1,
+      "message": "No please. Update job definition instead.\n\nMention the required feature in suite [Documentation].",
+      "range": {
+        "startLine": 93,
+        "startChar": 79,
+        "endLine": 93,
+        "endChar": 106
+      },
+      "revId": "8afa07dd2511a25132b3c8e82e6deefddcfc016f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_7daa88d5",
+        "filename": "csit/suites/bgpcep/bgpfunct/040_bgp_functional_route_ref.robot",
+        "patchSetId": 83
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-02T11:03:31Z",
+      "side": 1,
+      "message": "Is the comparison missing?",
+      "range": {
+        "startLine": 191,
+        "startChar": 63,
+        "endLine": 191,
+        "endChar": 75
+      },
+      "revId": "8afa07dd2511a25132b3c8e82e6deefddcfc016f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
