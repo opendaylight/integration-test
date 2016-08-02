@@ -11,6 +11,8 @@ Variables         ../variables/Variables.py
 
 *** Variables ***
 ${REST_CONTEXT}    /restconf/operations/sxp-controller
+@{MESSAGE_LIST}    sxp
+
 
 *** Keywords ***
 Add Node
@@ -229,7 +231,11 @@ Setup Topology Complex
 Setup SXP Session
     [Documentation]    Create session to Controller
     Verify Feature Is Installed    odl-sxp-controller
-    Wait Until Keyword Succeeds    20    10    Check Karaf Log Has Messages    Successfully pushed configuration snapshot 22-sxp-controller-one-node.xml
+    ${output}    Issue Command On Karaf Console    log:display | grep 'Successfully pushed configuration snapshot'
+    LOG    ${output}
+    ${output}    Issue Command On Karaf Console    log:tail | grep 'Successfully pushed configuration snapshot'
+    LOG    ${output}
+    Wait Until Keyword Succeeds    20    10    Check Karaf Log Has Messages    'Successfully pushed configuration snapshot'    @{MESSAGE_LIST}
     Create Session    session    url=http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
     ${resp}    RequestsLibrary.Get Request    session    ${MODULES_API}
     Should Be Equal As Strings    ${resp.status_code}    200
