@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_8b7c7d74",
+        "filename": "csit/testplans/netvirt-vpnservice-3node-openstack.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 4039
+      },
+      "writtenOn": "2016-08-02T07:59:01Z",
+      "side": 1,
+      "message": "why is this file needed? it is identical to netvirt-3node-openstack.txt \nif it should contains special reference to vpnservice feature, why isn\u0027t it?",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 50
+      },
+      "revId": "ff1b31b05b92fdfc268e69d7b337615a2fa733bd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
