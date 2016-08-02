@@ -1,4 +1,2 @@
 # Place the suites in run order:
 integration/test/csit/suites/ovsdb/Southbound_Cluster
-integration/test/csit/suites/ovsdb/Southbound_Cluster
-integration/test/csit/suites/integration/Create_JVM_Plots.robot

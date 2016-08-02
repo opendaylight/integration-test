@@ -137,4 +137,34 @@ Configure Exit OVSDB Connection
     [Documentation]    Cleans up test environment, close existing sessions.
     OVSDB.Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
     ${dictionary}=    Create Dictionary    ovsdb://uuid=0
-    Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}    dictionary=${dictionary}    member_index_list=${controller_index_list}
+    Wait Until Keyword Succeeds    5s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary}    ${OPERATIONAL_TOPO_API}
+
+Retrieve Bridge Manually And Verify
+    [Arguments]    ${controller_index_list}
+    [Documentation]    Create bridge br-s1 using OVS command and verify it gets created in all instances in ${controller_index_list}.
+    ${dictionary_operational}=    Create Dictionary    br-s1=5
+    ${dictionary_config}=    Create Dictionary    br-s1=0
+    Wait Until Keyword Succeeds    5s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_config}    ${CONFIG_TOPO_API}
+    Wait Until Keyword Succeeds    5s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_operational}    ${OPERATIONAL_TOPO_API}
+
+Retrieve Port To The Manual Bridge And Verify
+    [Arguments]    ${controller_index_list}
+    [Documentation]    Add Port vx1 to br-s1 using OVS command and verify it gets added in all instances in ${controller_index_list}.
+    ${dictionary_operational}=    Create Dictionary    vx1=2
+    ${dictionary_config}=    Create Dictionary    vx1=0
+    Wait Until Keyword Succeeds    5s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_config}    ${CONFIG_TOPO_API}
+    Wait Until Keyword Succeeds    5s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_operational}    ${OPERATIONAL_TOPO_API}
+
+Update Sample Bridge Manually And Verify
+    [Arguments]    ${controller_index_list}    ${SYSTEM_IP}=${TOOLS_SYSTEM_IP}
+    [Documentation]    Update bridge br-s1 using OVS command and Modify openflow version of bridge in all instances in ${controller_index_list}.
+    Utils.Run Command On Mininet    ${SYSTEM_IP}    sudo ovs-vsctl -- set bridge br-s1 protocols=OpenFlow12
+    ${dictionary_operational}=    Create Dictionary    ovsdb-bridge-protocol-openflow-12=1
+    Wait Until Keyword Succeeds    5s    1s    ClusterKeywords.Check Item Occurrence At URI In Cluster    ${controller_index_list}    ${dictionary_operational}    ${OPERATIONAL_TOPO_API}
+
+Verify The Protocol Version
+    [Arguments]    ${SYSTEM_IP}=${TOOLS_SYSTEM_IP}
+    [Documentation]    Verifying the protocol version.
+    ${output}=    Utils.Run Command On Mininet    ${SYSTEM_IP}    sudo ovs-ofctl --version
+    Should Contain    ${output}    OpenFlow versions 0x1
+    [Return]    ${output}
