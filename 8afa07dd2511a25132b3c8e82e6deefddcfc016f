@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_fdba1809",
+        "filename": "csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot",
+        "patchSetId": 83
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-08-02T11:31:50Z",
+      "side": 1,
+      "message": "I was not successful on this during the SHKeywords.Virtual_Env_ keywords creation. Lack of time to debug.",
+      "parentUuid": "7a6b29fe_9d6e84c8",
+      "range": {
+        "startLine": 131,
+        "startChar": 38,
+        "endLine": 131,
+        "endChar": 50
+      },
+      "revId": "8afa07dd2511a25132b3c8e82e6deefddcfc016f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_5d9b4cc9",
         "filename": "csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot",
         "patchSetId": 83
@@ -59,6 +83,30 @@
       "writtenOn": "2016-08-02T11:03:31Z",
       "side": 1,
       "message": "SSHKeywords.Virtual_Env_Deactivate_On_Current_Session\nJust to hide Read_Until_Prompt and logging.",
+      "range": {
+        "startLine": 156,
+        "startChar": 38,
+        "endLine": 156,
+        "endChar": 48
+      },
+      "revId": "8afa07dd2511a25132b3c8e82e6deefddcfc016f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_5d5eacea",
+        "filename": "csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot",
+        "patchSetId": 83
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-08-02T11:31:50Z",
+      "side": 1,
+      "message": "Not that simple, because exabgp when sends and receives messages it uses \u003e\u003e and \u003c\u003c in its stdout. It causes problems to get all stdout for debug purposes. The preset implementation is the result of some debug activities during the suite creation not the lack of knowledge of how it should look like. I\u0027ll prefer having the suite running in releng in this state and later to come up with improvements.",
+      "parentUuid": "7a6b29fe_5d9b4cc9",
       "range": {
         "startLine": 156,
         "startChar": 38,
@@ -128,6 +176,30 @@
       "writtenOn": "2016-08-02T11:03:31Z",
       "side": 1,
       "message": "No please. Update job definition instead.\n\nMention the required feature in suite [Documentation].",
+      "range": {
+        "startLine": 93,
+        "startChar": 79,
+        "endLine": 93,
+        "endChar": 106
+      },
+      "revId": "8afa07dd2511a25132b3c8e82e6deefddcfc016f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_7d1448f5",
+        "filename": "csit/suites/bgpcep/bgpfunct/040_bgp_functional_route_ref.robot",
+        "patchSetId": 83
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-08-02T11:31:50Z",
+      "side": 1,
+      "message": "https://git.opendaylight.org/gerrit/42961",
+      "parentUuid": "7a6b29fe_3d793094",
       "range": {
         "startLine": 93,
         "startChar": 79,
