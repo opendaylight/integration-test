@@ -229,7 +229,7 @@ Setup Topology Complex
 Setup SXP Session
     [Documentation]    Create session to Controller
     Verify Feature Is Installed    odl-sxp-controller
-    Wait Until Keyword Succeeds    20    10    Check Karaf Log Has Messages    Successfully pushed configuration snapshot 22-sxp-controller-one-node.xml
+    Wait Until Keyword Succeeds    20    10    Check Karaf Log Has Messages    sxp    Successfully pushed configuration snapshot
     Create Session    session    url=http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
     ${resp}    RequestsLibrary.Get Request    session    ${MODULES_API}
     Should Be Equal As Strings    ${resp.status_code}    200
