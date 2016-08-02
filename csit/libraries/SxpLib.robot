@@ -11,6 +11,7 @@ Variables         ../variables/Variables.py
 
 *** Variables ***
 ${REST_CONTEXT}    /restconf/operations/sxp-controller
+@{MESSAGE_LIST}    sxp
 
 *** Keywords ***
 Add Node
@@ -226,10 +227,16 @@ Setup Topology Complex
     Add Binding    10    10.10.0.0/16    127.0.0.1
     Add Binding    10    10.0.0.0/8    127.0.0.1
 
+Verify Snapshot Was Pushed
+    [Arguments]    ${SNAPSHOT_STRING}=sxp
+    [Documentation]    Will succeed if the ${SNAPSHOT_STRING} is found in the karaf logs
+    ${output}    Run Command On Controller    ${ODL_SYSTEM_IP}    cat ${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log* | grep -c 'Successfully pushed configuration snapshot.*${SNAPSHOT_STRING}'
+    Should Not Be Equal As Strings    ${output}    0
+
 Setup SXP Session
     [Documentation]    Create session to Controller
     Verify Feature Is Installed    odl-sxp-controller
-    Wait Until Keyword Succeeds    20    10    Check Karaf Log Has Messages    Successfully pushed configuration snapshot 22-sxp-controller-one-node.xml
+    Wait Until Keyword Succeeds    20    10    Verify Snapshot Was Pushed
     Create Session    session    url=http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
     ${resp}    RequestsLibrary.Get Request    session    ${MODULES_API}
     Should Be Equal As Strings    ${resp.status_code}    200
