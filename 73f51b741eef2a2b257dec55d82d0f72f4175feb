@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_f1cd1f88",
+        "filename": "csit/libraries/ListenerDatabaseStore.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 5996
+      },
+      "writtenOn": "2016-08-02T23:27:24Z",
+      "side": 1,
+      "message": "just a suggestion to make it same with python 2 and 3 have it extended from object. ListenerDatabaseStore(object):",
+      "range": {
+        "startLine": 39,
+        "startChar": 0,
+        "endLine": 39,
+        "endChar": 28
+      },
+      "revId": "73f51b741eef2a2b257dec55d82d0f72f4175feb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
