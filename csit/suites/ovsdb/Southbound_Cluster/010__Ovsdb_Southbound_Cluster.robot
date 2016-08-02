@@ -190,6 +190,39 @@ Delete Bridge In Old Owner And Verify After Recover
     [Documentation]    Delete bridge in Owner and verify it gets deleted from all instances.
     ClusterOvsdb.Delete Sample Bridge And Verify    ${original_owner}
 
+Delete the OVSDB Connection
+    [Documentation]    Delete OVSDB connection and it gets deleted from ovs switch.
+    ClusterOvsdb.Delete Managers in OVS instance    ${new_cluster_list}    ${original_owner}
+
+Verify Operational Topology to make sure the connection has been deleted
+    [Documentation]    Verify the operational topology after the OVSDB node is deleted
+    ClusterOvsdb.Verify Operational Topology after Deletion of OVSDB Node
+
+Verify Configuration Topology to make sure the connection has been deleted
+    [Documentation]    Verify the operational topology after the OVSDB node is deleted
+    ClusterOvsdb.Verify Configuration Topology after Deletion of OVSDB Node
+
+Create Bridge Before OVSDB Node Reconnect and Verify
+    [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
+    ClusterOvsdb.Create Bridge Before OVSDB Node Reconnect    ${original_owner}
+
+Reconnect to OVSDB Connection
+    [Documentation]    Connect OVS to all cluster instances.
+    ${ovsdb_uuid}    Ovsdb.Add Multiple Managers to OVS
+    Set Suite Variable    ${ovsdb_uuid}
+
+Verify Operational Topology After Node Reconnect
+    [Documentation]    Verify the operational topology from the connected OVSDB nodes to verify the bridge is added to the data store.
+    ClusterOvsdb.Verify Operational Topology After Node Reconnect
+
+Verify Configuration Topology After Node Reconnect
+    [Documentation]    Verify the configuration topology from the connected OVSDB nodes to verify the bridge is added to the data store.
+    ClusterOvsdb.Verify Configuration Topology After Node Reconnect
+
+Delete Bridge After Node Reconnect And Verify
+    [Documentation]    Delete bridge in Owner and verify it gets deleted from all instances.
+    ClusterOvsdb.Delete Sample Bridge And Verify    ${original_owner}
+
 Cleans Up Test Environment For Next Suite
     [Documentation]    Cleans up test environment, close existing sessions in teardown.
     ClusterOvsdb.Configure Exit OVSDB Connection
