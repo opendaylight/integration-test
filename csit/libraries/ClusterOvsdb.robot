@@ -138,3 +138,44 @@ Configure Exit OVSDB Connection
     OVSDB.Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
     ${dictionary}=    Create Dictionary    ovsdb://uuid=0
     Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}    dictionary=${dictionary}    member_index_list=${controller_index_list}
+
+Delete Managers in OVS instance
+    [Arguments]    ${controller_index_list}    ${controller_index}
+    [Documentation]   Delete the manager.
+    ${show_list}=    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
+    ${show_list}=    Utils.Run Command On Mininet    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl show
+    Wait Until Keyword Succeeds    5s    1s    Verify OVS Instances Deleted
+
+Verify OVS Instances Deleted
+    [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
+    [Documentation]    Uses "vsctl show" to check for string "is_connected"
+    ${output}=    Utils.Run Command On Remote System    ${tools_system}    sudo ovs-vsctl show
+    Should Not Contain    ${output}    is_connected
+    [Return]    ${output}
+
+Create Sample Bridge And Verify Only Configuration
+    [Arguments]    ${controller_index}    ${controller_index_list}=${EMPTY}
+    [Documentation]    Create bridge ${BRIDGE} in controller ${controller_index} and verify it gets created in all instances in ${controller_index_list}.
+    ${body}=    OperatingSystem.Get File    ${CURDIR}/../variables/ovsdb/create_bridge_3node.json
+    ${body}    Replace String    ${body}    ovsdb://127.0.0.1:61644    ovsdb://uuid/${ovsdb_uuid}
+    ${body}    Replace String    ${body}    tcp:controller1:6633    tcp:${ODL_SYSTEM_1_IP}:6633
+    ${body}    Replace String    ${body}    tcp:controller2:6633    tcp:${ODL_SYSTEM_2_IP}:6633
+    ${body}    Replace String    ${body}    tcp:controller3:6633    tcp:${ODL_SYSTEM_3_IP}:6633
+    ${body}    Replace String    ${body}    127.0.0.1    ${TOOLS_SYSTEM_IP}
+    ${body}    Replace String    ${body}    br01    ${BRIDGE}
+    ${body}    Replace String    ${body}    61644    ${OVSDB_PORT}
+    Log    ${body}
+    ${TOOLS_SYSTEM_IP1}    Replace String    ${TOOLS_SYSTEM_IP}    ${TOOLS_SYSTEM_IP}    "${TOOLS_SYSTEM_IP}"
+    ${dictionary}=    Create Dictionary    ${TOOLS_SYSTEM_IP1}=1    ${OVSDBPORT}=4    ${BRIDGE}=1
+    Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Put_As_Json_And_Check_Member_List_Or_All    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2Fuuid%2F${ovsdb_uuid}%2Fbridge%2F${BRIDGE}    ${body}    ${controller_index}
+    ...    ${controller_index_list}
+
+Verify Bridge In Operational And Configuration
+    [Arguments]    ${ovs_system_ip}=${TOOLS_SYSTEM_IP}    ${controller_index_list}=${EMPTY}
+    [Documentation]    Verify bridge using OVS command and verify it gets created in all instances in ${controller_index_list}.
+    ${dictionary_operational}=    Create Dictionary    br01=5
+    ${dictionary_config}=    Create Dictionary    br01=5
+    Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${CONFIG_TOPO_API}    dictionary=${dictionary_config}    member_index_list=${controller_index_list}
+    Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}    dictionary=${dictionary_operational}    member_index_list=${controller_index_list}
+

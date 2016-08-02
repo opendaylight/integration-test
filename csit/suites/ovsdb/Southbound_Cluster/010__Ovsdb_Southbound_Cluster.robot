@@ -190,6 +190,23 @@ Delete Bridge In Old Owner And Verify After Recover
     [Documentation]    Delete bridge in Owner and verify it gets deleted from all instances.
     ClusterOvsdb.Delete Sample Bridge And Verify    ${original_owner}
 
+Delete OVS Multiple Connections And Verify
+    [Documentation]    Disconnect OVS to all cluster instances and it gets disconnected from all instances.
+    ClusterOvsdb.Delete Managers in OVS instance    ${new_cluster_list}    ${original_owner}
+
+Manager Disconnects Create Bridge In Owner once and Verify
+    [Documentation]    Create Bridge in Owner and verify it gets applied from all instances.
+    ClusterOvsdb.Create Sample Bridge And Verify Only Configuration    ${original_owner}
+
+Restart OVS Multiple Connections
+    [Documentation]    Connect OVS to all cluster instances.
+    ${ovsdb_uuid}    Ovsdb.Add Multiple Managers to OVS
+    Set Suite Variable    ${ovsdb_uuid}
+
+Verify Bridge After OVSDB Manager Reconnects
+    [Documentation]    Verify bridge after OVSDB reconnects and verify it gets applied from all instances.
+    ClusterOvsdb.Verify Bridge In Operational And Configuration
+
 Cleans Up Test Environment For Next Suite
     [Documentation]    Cleans up test environment, close existing sessions in teardown.
     ClusterOvsdb.Configure Exit OVSDB Connection
