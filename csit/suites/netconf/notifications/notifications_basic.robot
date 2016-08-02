@@ -37,7 +37,8 @@ Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 ${TEMPLATE_FOLDER}    ${CURDIR}/templates
 ${RESTCONF_SUBSCRIBE_URI}    restconf/operations/sal-remote:create-data-change-event-subscription
 ${RESTCONF_SUBSCRIBE_DATA}    subscribe.xml
-${RESTCONF_GET_SUBSCRIPTION_URI}    restconf/streams/stream/opendaylight-inventory:nodes/datastore=CONFIGURATION/scope=BASE
+${RESTCONF_GET_SUBSCRIPTION_URI}    restconf/streams/stream/data-change-event-subscription/opendaylight-inventory:nodes/datastore=CONFIGURATION/scope=BASE
+${RESTCONF_GET_SUBSCRIPTION_URI_LITHIUM}    restconf/streams/stream/opendaylight-inventory:nodes/datastore=CONFIGURATION/scope=BASE
 ${RESTCONF_CONFIG_URI}    restconf/config
 ${RESTCONF_CONFIG_DATA}    config_data.xml
 ${RECEIVER_LOG_FILE}    wsreceiver.log
@@ -49,55 +50,55 @@ Clean_Config
     [Documentation]    Delete item in configuration.
     [Tags]    critical
     BuiltIn.Log    ${CONFIG_NODES_API}
-    ${resp}=    RequestsLibrary.Delete_Request    restconf    ${CONFIG_NODES_API}    headers=${SEND_ACCEPT_XML_HEADERS}
+    ${resp} =    RequestsLibrary.Delete_Request    restconf    ${CONFIG_NODES_API}    headers=${SEND_ACCEPT_XML_HEADERS}
     Log_Response    ${resp}
     BuiltIn.Should_Be_Equal_As_Strings    ${resp.status_code}    200
 
 Create_Subscribtion
     [Documentation]    Subscribe for notifications.
     [Tags]    critical
-    ${body}=    OperatingSystem.Get_File    ${TEMPLATE_FOLDER}/${RESTCONF_SUBSCRIBE_DATA}
+    ${body} =    OperatingSystem.Get_File    ${TEMPLATE_FOLDER}/${RESTCONF_SUBSCRIBE_DATA}
     BuiltIn.Log    ${RESTCONF_SUBSCRIBE_URI}
     BuiltIn.Log    ${body}
-    ${resp}=    RequestsLibrary.Post_Request    restconf    ${RESTCONF_SUBSCRIBE_URI}    headers=${SEND_ACCEPT_XML_HEADERS}    data=${body}
+    ${resp} =    RequestsLibrary.Post_Request    restconf    ${RESTCONF_SUBSCRIBE_URI}    headers=${SEND_ACCEPT_XML_HEADERS}    data=${body}
     Log_Response    ${resp}
     BuiltIn.Should_Be_Equal_As_Strings    ${resp.status_code}    200
 
 Check_Subscribtion
     [Documentation]    Get & check subscribtion ...
     [Tags]    critical
-    ${resp}=    RequestsLibrary.Get_Request    restconf    ${RESTCONF_GET_SUBSCRIPTION_URI}    headers=${SEND_ACCEPT_XML_HEADERS}
+    ${resp} =    RequestsLibrary.Get_Request    restconf    ${restconf_subscription_stream_uri}    headers=${SEND_ACCEPT_XML_HEADERS}
     Log_Response    ${resp}
     BuiltIn.Should_Be_Equal_As_Strings    ${resp.status_code}    200    Response    status code error
-    ${location}=    Collections.Get_From_Dictionary    ${resp.headers}    location
+    ${location} =    Collections.Get_From_Dictionary    ${resp.headers}    location
     BuiltIn.Log    ${location}
     BuiltIn.Set_Suite_Variable    ${location}
 
 Start_Receiver
     [Documentation]    Start the websocket listener
-    ${output}=    SSHLibrary.Write    python wsreceiver.py --uri ${location} --count 2 --logfile ${RECEIVER_LOG_FILE} ${RECEIVER_OPTIONS}
+    ${output} =    SSHLibrary.Write    python wsreceiver.py --uri ${location} --count 2 --logfile ${RECEIVER_LOG_FILE} ${RECEIVER_OPTIONS}
     BuiltIn.Log    ${output}
-    ${output}=    SSHLibrary.Read    delay=2s
+    ${output} =    SSHLibrary.Read    delay=2s
     BuiltIn.Log    ${output}
 
 Change_Config
     [Documentation]    Make a change in configuration.
     [Tags]    critical
-    ${body}=    OperatingSystem.Get_File    ${TEMPLATE_FOLDER}/${RESTCONF_CONFIG_DATA}
+    ${body} =    OperatingSystem.Get_File    ${TEMPLATE_FOLDER}/${RESTCONF_CONFIG_DATA}
     BuiltIn.Log    ${RESTCONF_CONFIG_URI}
     BuiltIn.Log    ${body}
-    ${resp}=    RequestsLibrary.Post_Request    restconf    ${RESTCONF_CONFIG_URI}    headers=${SEND_ACCEPT_XML_HEADERS}    data=${body}
+    ${resp} =    RequestsLibrary.Post_Request    restconf    ${RESTCONF_CONFIG_URI}    headers=${SEND_ACCEPT_XML_HEADERS}    data=${body}
     Log_Response    ${resp}
     BuiltIn.Should_Be_Equal_As_Strings    ${resp.status_code}    204
     BuiltIn.Log    ${CONFIG_NODES_API}
-    ${resp}=    RequestsLibrary.Delete_Request    restconf    ${CONFIG_NODES_API}    headers=${SEND_ACCEPT_XML_HEADERS}
+    ${resp} =    RequestsLibrary.Delete_Request    restconf    ${CONFIG_NODES_API}    headers=${SEND_ACCEPT_XML_HEADERS}
     Log_Response    ${resp}
     BuiltIn.Should_Be_Equal_As_Strings    ${resp.status_code}    200
 
 Check_Create_Notification
     [Documentation]    Check the websocket listener log for a change notification.
     [Tags]    critical
-    ${notification}=    SSHLibrary.Execute_Command    cat ${RECEIVER_LOG_FILE}
+    ${notification} =    SSHLibrary.Execute_Command    cat ${RECEIVER_LOG_FILE}
     BuiltIn.Log    ${notification}
     BuiltIn.Set_Suite_Variable    ${notification}
     BuiltIn.Should_Contain    ${notification}    <notification xmlns=
@@ -111,11 +112,11 @@ Check_Create_Notification
 Check_Bug_3934
     [Documentation]    Check the websocket listener log for the bug correction.
     [Tags]    critical
-    ${data}=    OperatingSystem.Get_File    ${TEMPLATE_FOLDER}/${RESTCONF_CONFIG_DATA}
+    ${data} =    OperatingSystem.Get_File    ${TEMPLATE_FOLDER}/${RESTCONF_CONFIG_DATA}
     BuiltIn.Log    ${data}
     BuiltIn.Log    ${notification}
-    ${packed_data}=    String.Remove_String    ${data}    ${SPACE}
-    ${packed_notification}=    String.Remove_String    ${notification}    ${SPACE}
+    ${packed_data} =    String.Remove_String    ${data}    ${SPACE}
+    ${packed_notification} =    String.Remove_String    ${notification}    ${SPACE}
     BuiltIn.Should_Contain    ${packed_notification}    ${packed_data}
     [Teardown]    Report_Failure_Due_To_Bug    3934
 
@@ -133,7 +134,7 @@ Setup_Everything
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    alias=receiver
     Utils.Flexible_Mininet_Login
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/wstools/wsreceiver.py
-    ${output_log}    ${error_log}=    SSHLibrary.Execute Command    sudo apt-get install -y python-pip    return_stdout=True    return_stderr=True
+    ${output_log}    ${error_log} =    SSHLibrary.Execute Command    sudo apt-get install -y python-pip    return_stdout=True    return_stderr=True
     BuiltIn.Log    ${output_log}
     BuiltIn.Log    ${error_log}
     ${output_log} =    SSHLibrary.Execute_Command    sudo pip install websocket-client
@@ -143,6 +144,7 @@ Setup_Everything
     Should Contain    ${output_log}    websocket
     RequestsLibrary.Create Session    restconf    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     BuiltIn.Log    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
+    ${restconf_subscription_stream_uri} =    BuiltIn.Set_Variable_If    """"ODL_STREAM""" == "stable-lithium"    ${RESTCONF_GET_SUBSCRIPTION_URI_LITHIUM}    ${RESTCONF_GET_SUBSCRIPTION_URI}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
 
 Teardown_Everything
