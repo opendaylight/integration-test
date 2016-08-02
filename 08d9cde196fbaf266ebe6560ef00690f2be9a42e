@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_71baafe2",
+        "filename": "csit/suites/sfc/Full_Deploy/010__sfc_full_deploy.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-02T23:22:04Z",
+      "side": 1,
+      "message": "is this one needed?",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 34
+      },
+      "revId": "08d9cde196fbaf266ebe6560ef00690f2be9a42e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_11eedbec",
+        "filename": "csit/suites/sfc/Full_Deploy/010__sfc_full_deploy.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-02T23:22:04Z",
+      "side": 1,
+      "message": "add a blank line here.\n\nactually, you can run \"python -m robot.tidy \u003cthis file\u003e\" to get some free cleanup, and should add a line here as well.",
+      "revId": "08d9cde196fbaf266ebe6560ef00690f2be9a42e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_d1e3c303",
+        "filename": "csit/suites/sfc/Full_Deploy/010__sfc_full_deploy.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-02T23:22:04Z",
+      "side": 1,
+      "message": "For the variables here that do not depend on $VERSION_DIR I think it\u0027s better to go in the *** Variables *** section at the top, between *** Settings *** and *** Test Cases *** sections.  It\u0027s a little more readable.  However, they also look like some of them could/should end up in our Variables.py file.  ${SERVICE_FUNCTIONS_URI} is a good example.  If not there, even an SFC Variables file in our variables dir.  This makes it easier for future suites to take advantage of.\n\nNot to say what you have here wont work, just pointing out what we typically have and what might be better going forward.",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 139
+      },
+      "revId": "08d9cde196fbaf266ebe6560ef00690f2be9a42e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_b1b447f3",
+        "filename": "csit/suites/sfc/Full_Deploy/docker-ovs.sh",
+        "patchSetId": 24
+      },
+      "lineNbr": 320,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-02T23:22:04Z",
+      "side": 1,
+      "message": "need this?",
+      "range": {
+        "startLine": 317,
+        "startChar": 0,
+        "endLine": 320,
+        "endChar": 3
+      },
+      "revId": "08d9cde196fbaf266ebe6560ef00690f2be9a42e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
