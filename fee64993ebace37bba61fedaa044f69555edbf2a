@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_33e2ffd5",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 238,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-02T16:35:22Z",
+      "side": 1,
+      "message": "I don\u0027t think this is going to do exactly what you want.  this will pass if it sees \"Successfully pushed configuration snapshot\" which may or may not be related to any sxp feature AND if the string sxp is in the log, which may or may not be relevant to confirming if the feature is actually successfully installed which I think is what you want here.\n\nSince your messsage list is only a single item, I think this would work better:\n\nCheck Karaf Log Has Messages    \u0027Successfully pushed configuration snapshot.*${SXP_FEATURE_STRING}\u0027\n\nand above in Variables section, instead of @MESSAGE_LIST} you just have:\n\n${SXP_FEATURE_STRING}    sxp",
+      "range": {
+        "startLine": 238,
+        "startChar": 4,
+        "endLine": 238,
+        "endChar": 142
+      },
+      "revId": "fee64993ebace37bba61fedaa044f69555edbf2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
