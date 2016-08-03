@@ -31,9 +31,29 @@ Add a macmap for bridge1
     ${destination}=    Get DynamicMacAddress    h3
     Add a macmap    Tenant1    vBridge1    ${source}    ${destination}
 
+Get macmapflow h1 h3
+    [Documentation]    ping h1 to h3
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+
+Verify mac addressof h3 and h1
+    [Documentation]    Verify mac address in flow entries
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flows On OpenFlow    h1    h3    ${DUMPFLOWS_OF13}
+
 Get macmapflow h3 h1
     [Documentation]    ping h3 to h1
     Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h3    h1
+
+Verify mac addressof h1 and h3
+    [Documentation]    Verify mac address in flow entries
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flows On OpenFlow    h3    h1    ${DUMPFLOWS_OF13}
+
+Get macmapflow h1 and h3
+    [Documentation]    ping h1 to h3
+    Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+
+Verify mac addressof h1 h3
+    [Documentation]    Verify mac address in flow entries
+    Wait_Until_Keyword_Succeeds    20s    1s    Verify Flows On OpenFlow    h1    h3    ${DUMPFLOWS_OF13}
 
 Delete a vtn Tenant1
     [Documentation]    Delete a vtn Tenant1
