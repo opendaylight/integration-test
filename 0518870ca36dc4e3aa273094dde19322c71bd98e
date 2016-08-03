@@ -45,6 +45,29 @@
       "revId": "0518870ca36dc4e3aa273094dde19322c71bd98e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_78a1eba8",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 232,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-03T23:17:41Z",
+      "side": 1,
+      "message": "fine with me, but check karaf has log message would have worked too.  no big deal.  +1 from me and Vratko can merge if it\u0027s good with him.",
+      "range": {
+        "startLine": 232,
+        "startChar": 3,
+        "endLine": 232,
+        "endChar": 193
+      },
+      "revId": "0518870ca36dc4e3aa273094dde19322c71bd98e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
