@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_91ecabc9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-08-03T00:29:30Z",
+      "side": 1,
+      "message": "Please modify as Workaround patch to modify loglevel",
+      "revId": "24ff5601fa8f6e4dc7179fb89376a1f3d2a40f50",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
