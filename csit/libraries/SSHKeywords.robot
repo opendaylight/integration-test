@@ -134,4 +134,23 @@ Virtual_Env_Uninstall_Package
 
 Virtual_Env_Freeze
     [Documentation]    Shows installed packages within the returned stdout.
-    BuiltIn.Run_Keyword_And_Return    Virtual_Env_Run_Cmd_At_Cwd    pip freeze
+    BuiltIn.Run_Keyword_And_Return    Virtual_Env_Run_Cmd_At_Cwd    pip freeze --all
+
+Virtual_Env_Activate
+    [Documentation]    Activates virtual environment.
+    SSHLibrary.Write    source ${SSHKeywords__current_venv_path}/bin/activate
+    BuiltIn.Run_Keyword_And_Return    SSHLibrary.Read_Until_Prompt
+
+Virtual_Env_Deactivate
+    [Documentation]    Deactivates virtual environment.
+    SSHLibrary.Write    deactivate
+    BuiltIn.Run_Keyword_And_Return    SSHLibrary.Read_Until_Prompt
+
+Virtual_Env_Activate2
+    [Documentation]    Deactivates virtual environment.
+    BuiltIn.Run_Keyword_And_Return    Execute_Command_At_Cwd_Should_Pass    source ${SSHKeywords__current_venv_path}/bin/activate
+
+Virtual_Env_Deactivate2
+    [Documentation]    Deactivates virtual environment.
+    BuiltIn.Run_Keyword_And_Return    Execute_Command_At_Cwd_Should_Pass    deactivate
+
