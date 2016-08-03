@@ -51,6 +51,36 @@ Topology_Unauthorized_1
     [Tags]    critical
     WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    10s    1s    Compare_Topology    ${off_json}    020_Unauthorized_1.json
 
+Enable_Tcpmd5_No_Password_Yet
+    [Documentation]    Send series of restconf puts derived from https://wiki.opendaylight.org/view/BGP_LS_PCEP:TCP_MD5_Guide#RESTCONF_Configuration
+    ...    Every put should return empty text with allwed status code.
+    # No ${mapping_as_string} is given, as there are no placeholders present in the following folders.
+    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}key_access_module
+    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}key_access_service
+    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}md5_client_channel_module
+    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}md5_client_channel_service
+    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}md5_server_channel_module
+    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}md5_server_channel_service
+    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}pcep_client_channel_module
+    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}pcep_server_channel_module
+    # TODO: Is it worth changing ConfigViaRestconf to read ${directory_with_template_folders} variable by default?
+
+Check_For_Bug_3753_Via_Bug_4267
+    [Documentation]    Check state of disptcher configuration module, apply workaround if needed.
+    ...    This test case should not be failing, failure indicates Bug 3753 was not fixed enough yet.
+    ...    For more details, see https://bugs.opendaylight.org/show_bug.cgi?id=4267#c2
+    ...    As dispatcher configuration differs between Lithium and Beryllium, two checks and two workarounds are needed.
+    ${success}=    BuiltIn.Run_Keyword_And_Return_Status    ConfigViaRestconf.Verify_Json_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}pcep_dispatcher_module
+    BuiltIn.Pass_Execution_If    ${success}    Bug 4267 not present, Beryllium data.
+    ${success}=    BuiltIn.Run_Keyword_And_Return_Status    ConfigViaRestconf.Verify_Json_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}lithium_pcep_dispatcher_module
+    BuiltIn.Pass_Execution_If    ${success}    Bug 4267 not present, Lithium data.
+    ${success}=    BuiltIn.Run_Keyword_And_Return_Status    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}pcep_dispatcher_module
+    BuiltIn.Run_Keyword_If    ${success}    BuiltIn.Fail    Bug 4267 present, Beryllium workaround successful.
+    ${success}=    BuiltIn.Run_Keyword_And_Return_Status    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}lithium_pcep_dispatcher_module
+    BuiltIn.Run_Keyword_If    ${success}    BuiltIn.Fail    Bug 4267 present, Lithium workaround successful.
+    BuiltIn.Fail    Bug 4267 probably present. No workaround succeeded, so Bug 4491 is probably present too.
+    [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
+
 Topology_Unauthorized_2
     [Documentation]    The same logic as Topology_Unauthorized_1 as no password was provided to ODL.
     [Tags]    critical
