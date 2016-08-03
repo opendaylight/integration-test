@@ -2,6 +2,7 @@
 Documentation     Test suite for VTN Manager PathPolicy using OF13
 Suite Setup       Start PathSuiteVtnMaTest
 Suite Teardown    Stop PathSuiteVtnMaTest
+Force Tags        exclude
 Resource          ../../../libraries/VtnMaKeywords.robot
 
 *** Variables ***
