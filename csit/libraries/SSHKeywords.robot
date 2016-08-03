@@ -134,4 +134,18 @@ Virtual_Env_Uninstall_Package
 
 Virtual_Env_Freeze
     [Documentation]    Shows installed packages within the returned stdout.
-    BuiltIn.Run_Keyword_And_Return    Virtual_Env_Run_Cmd_At_Cwd    pip freeze
+    BuiltIn.Run_Keyword_And_Return    Virtual_Env_Run_Cmd_At_Cwd    pip freeze --all
+
+Virtual_Env_Activate_On_Current_Session
+    [Arguments]    ${log_output}=${False}
+    [Documentation]    Activates virtual environment. To run anything in the env activated this way you should use SSHLibrary.Write and Read commands.
+    SSHLibrary.Write    source ${SSHKeywords__current_venv_path}/bin/activate
+    ${output}=    SSHLibrary.Read_Until_Prompt
+    BuiltIn.Run_Keyword_If    ${log_output}==${True}    BuiltIn.Log    ${output}
+
+Virtual_Env_Deactivate_On_Current_Session
+    [Arguments]    ${log_output}=${False}
+    [Documentation]    Deactivates virtual environment.
+    SSHLibrary.Write    deactivate
+    ${output}=    SSHLibrary.Read_Until_Prompt
+    BuiltIn.Run_Keyword_If    ${log_output}==${True}    BuiltIn.Log    ${output}
