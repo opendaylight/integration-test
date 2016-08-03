@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_e7643ae7",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-03T15:42:44Z",
+      "side": 1,
+      "message": "22-sxp-controller-one-node\\.xml",
+      "range": {
+        "startLine": 230,
+        "startChar": 38,
+        "endLine": 230,
+        "endChar": 41
+      },
+      "revId": "0518870ca36dc4e3aa273094dde19322c71bd98e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_c76e5ec9",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 230,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-03T15:42:44Z",
+      "side": 1,
+      "message": ".toLower() please",
+      "range": {
+        "startLine": 230,
+        "startChar": 19,
+        "endLine": 230,
+        "endChar": 37
+      },
+      "revId": "0518870ca36dc4e3aa273094dde19322c71bd98e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
