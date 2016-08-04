@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_8b174ca3",
+        "filename": "csit/suites/bgpcep/bgpfunct/040_bgp_functional_route_ref.robot",
+        "patchSetId": 86
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-04T16:01:50Z",
+      "side": 1,
+      "message": "The releng/builder patch was merged few days ago, this line should be removed.",
+      "range": {
+        "startLine": 94,
+        "startChar": 95,
+        "endLine": 94,
+        "endChar": 106
+      },
+      "revId": "1233c9f5353bb43181a826907c1cc10c2186cd95",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
