@@ -24,11 +24,10 @@ Create Network
     [Documentation]    Create Network with neutron request.
     ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${command}    Set Variable If    "${verbose}" == "TRUE"    neutron -v net-create ${network_name} ${additional_args}
-    ...    neutron net-create ${network_name} ${additional_args} | grep -w id | awk '{print $4}'
+    ${command}    Set Variable 	 neutron -v net-create ${network_name} ${additional_args}
     ${output}=    Write Commands Until Prompt    ${command}    30s
     Log    ${output}
-    [Return]    ${output}
+    Should Contain    ${output}    Created a new network
 
 List Networks
     [Documentation]    List networks and return output with neutron client.
@@ -140,7 +139,7 @@ Get Port Id
     [Arguments]    ${port_name}      ${devstack_conn_id}
     [Documentation]    Retrieve the port id for the given port name to attach specific vm instance to a particular port
     Switch Connection    ${devstack_conn_id}
-    ${port_id}=    Write Commands Until Prompt    neutron port-list | grep "${port_name} | awk '{print $2}'       30s
+    ${port_id}=    Write Commands Until Prompt    neutron port-list | grep "${port_name}" | awk '{print $2}'       30s
     Log    ${port_id}
     [Return]    ${port_id}
 
