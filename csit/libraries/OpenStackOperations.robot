@@ -140,7 +140,7 @@ Get Port Id
     [Arguments]    ${port_name}      ${devstack_conn_id}
     [Documentation]    Retrieve the port id for the given port name to attach specific vm instance to a particular port
     Switch Connection    ${devstack_conn_id}
-    ${port_id}=    Write Commands Until Prompt    neutron port-list | grep "${port_name} | awk '{print $2}'       30s
+    ${port_id}=    Write Commands Until Prompt    neutron port-list | grep "${port_name}" | awk '{print $2}'       30s
     Log    ${port_id}
     [Return]    ${port_id}
 
