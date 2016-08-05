@@ -137,3 +137,23 @@ Add Multiple Managers to OVS
     ${session}=    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${controller_index}
     ${ovsdb_uuid}=    Wait Until Keyword Succeeds    30s    2s    Get OVSDB UUID    controller_http_session=${session}
     [Return]    ${ovsdb_uuid}
+
+Add Multiple Managers to OVS In Passive Scenarios
+    [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}    ${controller_index_list}=${EMPTY}    ${ovs_mgr_port}=6640
+    [Documentation]    Connect OVS to the list of controllers in the ${controller_index_list} or all if no list is provided.
+    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${controller_index_list}
+    Log    Clear any existing mininet
+    Utils.Clean Mininet System    ${tools_system}
+    ${ovs_opt}=    Set Variable
+    : FOR    ${index}    IN    @{index_list}
+    \    ${ovs_opt}=    Catenate    ${ovs_opt}    ${SPACE}ptcp:${ODL_SYSTEM_${index}_IP}:${ovs_mgr_port}
+    \    Log    ${ovs_opt}
+    Log    Configure OVS Managers in the OVS
+    Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl set-manager ${ovs_opt}
+    Log    Check OVS configuration
+    ${output}=    Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected    ${tools_system}
+    Log    ${output}
+    ${controller_index}=    Collections.Get_From_List    ${index_list}    0
+    ${session}=    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${controller_index}
+    ${ovsdb_uuid}=    Wait Until Keyword Succeeds    30s    2s    Get OVSDB UUID    controller_http_session=${session}
+    [Return]    ${ovsdb_uuid}

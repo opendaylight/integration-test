@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite for Ovsdb Southbound Cluster - Owner failover and recover
+Documentation     Test suite for Ovsdb Southbound Cluster - Passive Scenarios
 Suite Setup       ClusterManagement Setup
 Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
@@ -14,7 +14,7 @@ Check Shards Status Before Fail
 
 Start OVS Multiple Connections
     [Documentation]    Connect OVS to all cluster instances.
-    ${ovsdb_uuid}    Ovsdb.Add Multiple Managers to OVS
+    ${ovsdb_uuid}    Ovsdb.Add Multiple Managers to OVS In Passive Scenarios
     Set Suite Variable    ${ovsdb_uuid}
 
 Check Entity Owner Status And Find Owner and Candidate Before Fail
