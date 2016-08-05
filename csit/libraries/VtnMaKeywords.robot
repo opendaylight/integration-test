@@ -56,6 +56,7 @@ ${custom}         ${CURDIR}/${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}
 Start SuiteVtnMa
     [Documentation]    Start VTN Manager Rest Config Api Test Suite, and enabling karaf loglevel as TRACE for VTN.
     Issue Command On Karaf Console    log:set TRACE org.opendaylight.vtn
+    Issue Command On Karaf Console    log:set trace org.opendaylight.openflowplugin
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_YANG_JSON}
     BuiltIn.Wait_Until_Keyword_Succeeds    30    3    Fetch vtn list
     Start Suite
@@ -86,7 +87,7 @@ Fetch vtn switch inventory
 Add a Topology wait
     [Arguments]    ${topo_wait}
     [Documentation]    Add a topology wait to complete all Inter-switch link connection of switches
-    ${resp}=    RequestsLibrary.Put Request    session    restconf/config/vtn-config:vtn-config    data={"vtn-config": {"topology-wait":${topo_wait}, "host-tracking": "true"}}
+    ${resp}=    RequestsLibrary.Post Request    session    restconf/config/vtn-config:vtn-config    data={"vtn-config": {"topology-wait":${topo_wait}, "host-tracking": "true"}}
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Add a Vtn
