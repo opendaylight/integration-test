@@ -27,7 +27,7 @@ Check if switch3 detected
 
 Add a Topology Wait
     [Documentation]    Add a topology wait to wait for a completion of inter-switch link
-    Add a Topology wait    6000
+    Add a Topology wait    1000
 
 Add a vtn Tenant1
     [Documentation]    Add a vtn Tenant1
