@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite for Ovsdb Southbound Cluster - Owner failover and recover
+Documentation     Test suite for Ovsdb Southbound Cluster - Passive Scenarios
 Suite Setup       ClusterManagement Setup
 Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
@@ -7,15 +7,17 @@ Resource          ../../../libraries/ClusterOvsdb.robot
 Resource          ../../../libraries/ClusterManagement.robot
 Variables         ../../../variables/Variables.py
 
+*** Variables ***
+${OVSDB_PORT}     6634
+
 *** Test Cases ***
 Check Shards Status Before Fail
     [Documentation]    Check Status for all shards in Ovsdb application.
     ClusterOvsdb.Check Ovsdb Shards Status
 
-Start OVS Multiple Connections
-    [Documentation]    Connect OVS to all cluster instances.
-    ${ovsdb_uuid}    Ovsdb.Add Multiple Managers to OVS
-    Set Suite Variable    ${ovsdb_uuid}
+Make the OVS instance to listen for connection
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl del-manager
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-manager ptcp:${OVSDB_PORT}
 
 Check Entity Owner Status And Find Owner and Candidate Before Fail
     [Documentation]    Check Entity Owner Status and identify owner and candidate.
