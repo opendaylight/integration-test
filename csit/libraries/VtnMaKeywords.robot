@@ -60,6 +60,8 @@ Start SuiteVtnMa
     Set Suite Variable    ${vtn_mgr_id}
     SSHLibrary.Login_With_Public_Key    ${ODL_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     SSHLibrary.Execute Command    sudo sed -i "$ i log4j.logger.org.opendaylight.vtn = TRACE" ${WORKSPACE}/${BUNDLEFOLDER}/etc/org.ops4j.pax.logging.cfg
+    Issue Command On Karaf Console    log:set TRACE org.opendaylight.vtn
+    Issue Command On Karaf Console    log:set trace org.opendaylight.openflowplugin
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_YANG_JSON}
     BuiltIn.Wait_Until_Keyword_Succeeds    30    3    Fetch vtn list
     Start Suite
@@ -91,7 +93,8 @@ Add a Topology wait
     [Arguments]    ${topo_wait}
     [Documentation]    Add a topology wait to complete all Inter-switch link connection of switches
     ${resp}=    RequestsLibrary.Put Request    session    restconf/config/vtn-config:vtn-config    data={"vtn-config": {"topology-wait":${topo_wait}, "host-tracking": "true"}}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Run Keyword If    '${resp.status_code}' == '201'    Should Be Equal As Strings    ${resp.status_code}    201
+    ...    ELSE    Should Be Equal As Strings    ${resp.status_code}    200
 
 Add a Vtn
     [Arguments]    ${vtn_name}
