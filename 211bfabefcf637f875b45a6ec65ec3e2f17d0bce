@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_6e411339",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-08-06T01:57:33Z",
+      "side": 1,
+      "message": "would it be better to use --poll as an option to nova boot? This makes the nova boot not return until the command has truly spawned the vm.",
+      "range": {
+        "startLine": 154,
+        "startChar": 54,
+        "endLine": 154,
+        "endChar": 58
+      },
+      "revId": "211bfabefcf637f875b45a6ec65ec3e2f17d0bce",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
