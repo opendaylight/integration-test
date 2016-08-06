@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_8ebbcf0d",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-06T07:15:02Z",
+      "side": 1,
+      "message": "seems like you got rid of the ${verbose} logic and stopped doing the [Return]    ${output}.  is that on purpose?",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 30,
+        "endChar": 56
+      },
+      "revId": "4801d5e70beb1a5d17267277278fd83a40aaeae4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
