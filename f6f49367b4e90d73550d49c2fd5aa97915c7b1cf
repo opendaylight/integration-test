@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_6f7c6d21",
+        "filename": "tools/clustering/cluster-deployer/templates/lispflowmapping/akka.conf.template",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-08T12:26:38Z",
+      "side": 1,
+      "message": "There are more changes needed: https://git.opendaylight.org/gerrit/gitweb?p\u003dcontroller.git;a\u003dblobdiff;f\u003dopendaylight/md-sal/sal-clustering-config/src/main/resources/initial/akka.conf;h\u003d852171285ce63124c62225b8c5fb9f36341d62d7;hp\u003d5a6dbe587984c5310e141c79bea8d1e08f457b87;hb\u003dHEAD;hpb\u003d1a4a451d17d39b0dac45a70de9016bd4b0e6b249",
+      "revId": "f6f49367b4e90d73550d49c2fd5aa97915c7b1cf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
