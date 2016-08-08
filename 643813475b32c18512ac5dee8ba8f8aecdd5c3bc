@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_d49a7813",
+        "filename": "csit/suites/sfc/Full_Deploy/010__sfc_full_deploy.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5849
+      },
+      "writtenOn": "2016-08-08T10:05:04Z",
+      "side": 1,
+      "message": "Agree. Done in the next patch!",
+      "parentUuid": "7a6b29fe_c3f3e071",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 53
+      },
+      "revId": "643813475b32c18512ac5dee8ba8f8aecdd5c3bc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_83e2889d",
         "filename": "csit/suites/sfc/Full_Deploy/010__sfc_full_deploy.robot",
         "patchSetId": 28
@@ -36,6 +60,30 @@
       "writtenOn": "2016-08-05T23:51:23Z",
       "side": 1,
       "message": "we don\u0027t allow sleeps like this...  what\u0027s the need, and I can help figure out a better solution.",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 15
+      },
+      "revId": "643813475b32c18512ac5dee8ba8f8aecdd5c3bc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_34a00c43",
+        "filename": "csit/suites/sfc/Full_Deploy/010__sfc_full_deploy.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5849
+      },
+      "writtenOn": "2016-08-08T10:05:04Z",
+      "side": 1,
+      "message": "I inherited this from previous SFC test suites. I have been testing with lower values, down to 1, and it works fine. I\u0027ll fix it in the next patch.",
+      "parentUuid": "7a6b29fe_83e2889d",
       "range": {
         "startLine": 40,
         "startChar": 4,
