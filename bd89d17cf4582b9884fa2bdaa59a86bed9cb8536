@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_61b6413f",
+        "filename": "csit/libraries/ListenerDatabaseStore.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-08T13:53:02Z",
+      "side": 1,
+      "message": "This executes at the time this Library is imported. Perhaps it would be better if this was executed during store_data?\nAlternatively, rename the variable to job_date_time.",
+      "range": {
+        "startLine": 45,
+        "startChar": 66,
+        "endLine": 45,
+        "endChar": 71
+      },
+      "revId": "bd89d17cf4582b9884fa2bdaa59a86bed9cb8536",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_a1a059f5",
+        "filename": "csit/libraries/ListenerDatabaseStore.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-08T13:53:02Z",
+      "side": 1,
+      "message": "If this is a dict, I would expect dict_col_schema.iteritems()",
+      "range": {
+        "startLine": 74,
+        "startChar": 39,
+        "endLine": 74,
+        "endChar": 54
+      },
+      "revId": "bd89d17cf4582b9884fa2bdaa59a86bed9cb8536",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_01a66d10",
+        "filename": "csit/libraries/ListenerDatabaseStore.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-08T13:53:02Z",
+      "side": 1,
+      "message": "So line 43 should initialize to a dict?\n    test_col_schema \u003d {}",
+      "range": {
+        "startLine": 75,
+        "startChar": 32,
+        "endLine": 75,
+        "endChar": 45
+      },
+      "revId": "bd89d17cf4582b9884fa2bdaa59a86bed9cb8536",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_017dcd6e",
+        "filename": "csit/libraries/ListenerDatabaseStore.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-08T13:53:02Z",
+      "side": 1,
+      "message": "Is this a typo?",
+      "range": {
+        "startLine": 90,
+        "startChar": 38,
+        "endLine": 90,
+        "endChar": 50
+      },
+      "revId": "bd89d17cf4582b9884fa2bdaa59a86bed9cb8536",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_a1ee9920",
+        "filename": "csit/libraries/ListenerDatabaseStore.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-08T13:53:02Z",
+      "side": 1,
+      "message": "Do we also want to store failures? If not, mention that in the docstring.",
+      "range": {
+        "startLine": 205,
+        "startChar": 41,
+        "endLine": 205,
+        "endChar": 42
+      },
+      "revId": "bd89d17cf4582b9884fa2bdaa59a86bed9cb8536",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
