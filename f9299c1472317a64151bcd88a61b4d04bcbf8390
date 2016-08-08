@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_0f47b920",
+        "filename": "tools/clustering/cluster-deployer/templates/lispflowmapping/akka.conf.template",
+        "patchSetId": 3
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 552
+      },
+      "writtenOn": "2016-08-08T11:56:15Z",
+      "side": 1,
+      "message": "ok, I removed this section",
+      "parentUuid": "7a6b29fe_efe99d1b",
+      "range": {
+        "startLine": 64,
+        "startChar": 0,
+        "endLine": 64,
+        "endChar": 15
+      },
+      "revId": "f9299c1472317a64151bcd88a61b4d04bcbf8390",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_0f82194f",
         "filename": "tools/clustering/cluster-deployer/templates/lispflowmapping/jolokia.xml.template",
         "patchSetId": 3
@@ -36,6 +60,30 @@
       "writtenOn": "2016-08-08T11:20:13Z",
       "side": 1,
       "message": "Not needed anymore. Install odl-jolokia feature instead (which installs jolokia version specified in Odlparent).",
+      "range": {
+        "startLine": 5,
+        "startChar": 19,
+        "endLine": 5,
+        "endChar": 34
+      },
+      "revId": "f9299c1472317a64151bcd88a61b4d04bcbf8390",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_ef5ebde8",
+        "filename": "tools/clustering/cluster-deployer/templates/lispflowmapping/jolokia.xml.template",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 552
+      },
+      "writtenOn": "2016-08-08T11:56:15Z",
+      "side": 1,
+      "message": "ok, file was removed",
+      "parentUuid": "7a6b29fe_0f82194f",
       "range": {
         "startLine": 5,
         "startChar": 19,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_cf6301b0",
+        "filename": "tools/clustering/cluster-deployer/templates/lispflowmapping/module-shards.conf.template",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 552
+      },
+      "writtenOn": "2016-08-08T11:56:15Z",
+      "side": 1,
+      "message": "I do not know what is this doing probably was copied and probably isn\u0027t necessary.",
+      "parentUuid": "7a6b29fe_cfee6122",
+      "range": {
+        "startLine": 66,
+        "startChar": 39,
+        "endLine": 66,
+        "endChar": 40
+      },
+      "revId": "f9299c1472317a64151bcd88a61b4d04bcbf8390",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_2ff435f1",
         "filename": "tools/clustering/cluster-deployer/templates/lispflowmapping/modules.conf.template",
         "patchSetId": 3
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_2f59d5fe",
+        "filename": "tools/clustering/cluster-deployer/templates/lispflowmapping/modules.conf.template",
+        "patchSetId": 3
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 552
+      },
+      "writtenOn": "2016-08-08T11:56:15Z",
+      "side": 1,
+      "message": "ok",
+      "parentUuid": "7a6b29fe_2ff435f1",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 4
+      },
+      "revId": "f9299c1472317a64151bcd88a61b4d04bcbf8390",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_0ff979e9",
         "filename": "tools/clustering/cluster-deployer/templates/lispflowmapping/org.apache.karaf.features.cfg.template",
         "patchSetId": 3
@@ -105,6 +201,30 @@
       "writtenOn": "2016-08-08T11:20:13Z",
       "side": 1,
       "message": "This does not need to be listed in Boron.",
+      "range": {
+        "startLine": 44,
+        "startChar": 89,
+        "endLine": 44,
+        "endChar": 110
+      },
+      "revId": "f9299c1472317a64151bcd88a61b4d04bcbf8390",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_0f5e99e6",
+        "filename": "tools/clustering/cluster-deployer/templates/lispflowmapping/org.apache.karaf.features.cfg.template",
+        "patchSetId": 3
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 552
+      },
+      "writtenOn": "2016-08-08T11:56:15Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "7a6b29fe_0ff979e9",
       "range": {
         "startLine": 44,
         "startChar": 89,
