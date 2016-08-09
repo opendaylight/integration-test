@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_ab966f92",
+        "filename": "csit/libraries/GBP/AssertionUtils.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-09T14:49:09Z",
+      "side": 1,
+      "message": "tidy",
+      "range": {
+        "startLine": 131,
+        "startChar": 17,
+        "endLine": 131,
+        "endChar": 28
+      },
+      "revId": "ed364346e5fb560e4a056dc16085a2cce3608197",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_8bc1f382",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-09T14:49:09Z",
+      "side": 1,
+      "message": "This block repeats below.\nPerhaps it can be moved to a new Keyword, so instead of this block there will only be:\n\nWrite_Neutron_Command_Until_Prompt    security-group-create ${security-group-name}",
+      "range": {
+        "startLine": 119,
+        "startChar": 4,
+        "endLine": 124,
+        "endChar": 20
+      },
+      "revId": "ed364346e5fb560e4a056dc16085a2cce3608197",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_8b48d32e",
+        "filename": "csit/suites/groupbasedpolicy/GBP/Devstack/02__neutron-mapper_test.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-09T14:49:09Z",
+      "side": 1,
+      "message": "Two 3-line blocks would be more readable while spanning the same 6 lines as this FOR implementation.",
+      "range": {
+        "startLine": 89,
+        "startChar": 4,
+        "endLine": 89,
+        "endChar": 22
+      },
+      "revId": "ed364346e5fb560e4a056dc16085a2cce3608197",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
