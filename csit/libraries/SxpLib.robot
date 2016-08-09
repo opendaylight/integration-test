@@ -14,7 +14,7 @@ ${REST_CONTEXT}    /restconf/operations/sxp-controller
 
 *** Keywords ***
 Add Node
-    [Arguments]    ${node}    ${password}=password    ${version}=version4    ${port}=64999    ${session}=session
+    [Arguments]    ${node}    ${password}=${EMPTY}    ${version}=version4    ${port}=64999    ${session}=session
     [Documentation]    Add node via RPC to ODL
     ${DATA}    Add Node Xml    ${node}    ${port}    ${password}    ${version}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-node    data=${DATA}    headers=${HEADERS_XML}
@@ -28,12 +28,13 @@ Delete Node
     Should be Equal As Strings    ${resp.status_code}    200
 
 Add Connection
-    [Arguments]    ${version}    ${mode}    ${ip}    ${port}    ${node}=127.0.0.1    ${password}=none
+    [Arguments]    ${version}    ${mode}    ${ip}    ${port}    ${node}=127.0.0.1    ${password}=${EMPTY}
     ...    ${session}=session    ${domain}=global
     [Documentation]    Add connection via RPC to node
     ${DATA}    Add Connection Xml    ${version}    ${mode}    ${ip}    ${port}    ${node}
     ...    ${password}    ${domain}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-connection    data=${DATA}    headers=${HEADERS_XML}
+    LOG    ${resp.content}
     Should be Equal As Strings    ${resp.status_code}    200
 
 Get Connections
@@ -57,7 +58,7 @@ Clean Connections
     ${resp}    Get Connections    ${node}    ${session}    ${domain}
     @{connections}    Parse Connections    ${resp}
     : FOR    ${connection}    IN    @{connections}
-    \    delete connections    ${connection['peer-address']}    ${connection['tcp-port']}    ${node}    ${session}
+    \    delete connections    ${connection['peer-address']}    ${connection['tcp-port']}    ${node}    ${session}    ${domain}
 
 Verify Connection
     [Arguments]    ${version}    ${mode}    ${ip}    ${port}=64999    ${node}=127.0.0.1    ${state}=on
@@ -235,7 +236,6 @@ Verify Snapshot Was Pushed
 Setup SXP Session
     [Documentation]    Create session to Controller
     Verify Feature Is Installed    odl-sxp-controller
-    Wait Until Keyword Succeeds    20    10    Verify Snapshot Was Pushed
     Create Session    session    url=http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
     ${resp}    RequestsLibrary.Get Request    session    ${MODULES_API}
     Should Be Equal As Strings    ${resp.status_code}    200
@@ -274,19 +274,19 @@ Delete Bindings
     Should be Equal As Strings    ${resp.status_code}    200
 
 Add Bindings Range
-    [Arguments]    ${sgt}    ${start}    ${size}    ${node}
+    [Arguments]    ${sgt}    ${start}    ${size}    ${node}=127.0.0.1
     [Documentation]    Add Bindings to Node specified by range
     ${prefixes}    Prefix Range    ${start}    ${size}
     Add Bindings    ${sgt}    ${prefixes}    ${node}
 
 Delete Bindings Range
-    [Arguments]    ${sgt}    ${start}    ${size}    ${node}
+    [Arguments]    ${sgt}    ${start}    ${size}    ${node}=127.0.0.1
     [Documentation]    Delete Bindings to Node specified by range
     ${prefixes}    Prefix Range    ${start}    ${size}
     Delete Bindings    ${sgt}    ${prefixes}    ${node}
 
 Check Binding Range
-    [Arguments]    ${sgt}    ${start}    ${end}    ${node}
+    [Arguments]    ${sgt}    ${start}    ${end}    ${node}=127.0.0.1
     [Documentation]    Check if Node contains Bindings specified by range
     ${resp}    Get Bindings    ${node}
     : FOR    ${num}    IN RANGE    ${start}    ${end}
@@ -294,7 +294,7 @@ Check Binding Range
     \    Should Contain Binding    ${resp}    ${sgt}    ${ip}/32
 
 Check Binding Range Negative
-    [Arguments]    ${sgt}    ${start}    ${end}    ${node}
+    [Arguments]    ${sgt}    ${start}    ${end}    ${node}=127.0.0.1
     [Documentation]    Check if Node does not contains Bindings specified by range
     ${resp}    Get Bindings    ${node}
     : FOR    ${num}    IN RANGE    ${start}    ${end}
