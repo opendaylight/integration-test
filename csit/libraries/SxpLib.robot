@@ -14,7 +14,7 @@ ${REST_CONTEXT}    /restconf/operations/sxp-controller
 
 *** Keywords ***
 Add Node
-    [Arguments]    ${node}    ${password}=password    ${version}=version4    ${port}=64999    ${session}=session
+    [Arguments]    ${node}    ${password}=${EMPTY}    ${version}=version4    ${port}=64999    ${session}=session
     [Documentation]    Add node via RPC to ODL
     ${DATA}    Add Node Xml    ${node}    ${port}    ${password}    ${version}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-node    data=${DATA}    headers=${HEADERS_XML}
@@ -28,12 +28,13 @@ Delete Node
     Should be Equal As Strings    ${resp.status_code}    200
 
 Add Connection
-    [Arguments]    ${version}    ${mode}    ${ip}    ${port}    ${node}=127.0.0.1    ${password}=none
+    [Arguments]    ${version}    ${mode}    ${ip}    ${port}    ${node}=127.0.0.1    ${password}=${EMPTY}
     ...    ${session}=session    ${domain}=global
     [Documentation]    Add connection via RPC to node
     ${DATA}    Add Connection Xml    ${version}    ${mode}    ${ip}    ${port}    ${node}
     ...    ${password}    ${domain}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-connection    data=${DATA}    headers=${HEADERS_XML}
+    LOG    ${resp.content}
     Should be Equal As Strings    ${resp.status_code}    200
 
 Get Connections
@@ -235,7 +236,6 @@ Verify Snapshot Was Pushed
 Setup SXP Session
     [Documentation]    Create session to Controller
     Verify Feature Is Installed    odl-sxp-controller
-    Wait Until Keyword Succeeds    20    10    Verify Snapshot Was Pushed
     Create Session    session    url=http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
     ${resp}    RequestsLibrary.Get Request    session    ${MODULES_API}
     Should Be Equal As Strings    ${resp.status_code}    200
@@ -316,8 +316,7 @@ Check Node Started
     [Documentation]    Verify that SxpNode has data writed to Operational datastore
     ${resp}    RequestsLibrary.Get Request    session    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${rc}    Run Command On Remote System    ${system}    netstat -tln | grep -q ${node}:${port} && echo 0 || echo 1    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}    prompt=${ODL_SYSTEM_PROMPT}
-    Should Be Equal As Strings    ${rc}    0
+    sleep    2s
 
 Clean SXP Environment
     [Arguments]    ${node_range}=2
