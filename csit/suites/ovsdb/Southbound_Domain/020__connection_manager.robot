@@ -63,7 +63,7 @@ Create a Bridge through controller
     Log    URL is ${uri}
     Log    data: ${body}
     ${resp}    RequestsLibrary.Put Request    session    ${uri}    data=${body}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be Equal As Strings    ${resp.status_code}    "20?"
 
 Get Operational Topology to verify the bridge has been added through rest call
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes
@@ -89,7 +89,7 @@ Create bridge of already added bridge
     Log    URL is ${uri}
     Log    data: ${body}
     ${resp}    RequestsLibrary.Put Request    session    ${uri}    data=${body}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be Equal As Strings    ${resp.status_code}    "20?"
 
 Get Config Topology to verify the entry of existing bridge added to the config datastore
     [Documentation]    This request will fetch the configuration topology from configuration data store

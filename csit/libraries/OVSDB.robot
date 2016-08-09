@@ -22,7 +22,7 @@ Connect To Ovsdb Node
     Log    data: ${body}
     ${resp}    RequestsLibrary.Put Request    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}    data=${body}
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be Equal As Strings    ${resp.status_code}    "20?"
 
 Disconnect From Ovsdb Node
     [Arguments]    ${mininet_ip}
@@ -43,7 +43,7 @@ Add Bridge To Ovsdb Node
     Log    data: ${body}
     ${resp}    RequestsLibrary.Put Request    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}%2Fbridge%2F${bridge_num}    data=${body}
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be Equal As Strings    ${resp.status_code}    "20?"
 
 Delete Bridge From Ovsdb Node
     [Arguments]    ${mininet_ip}    ${bridge_num}
@@ -60,7 +60,7 @@ Add Vxlan To Bridge
     Log    data: ${body}
     ${resp}    RequestsLibrary.Put Request    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}%2Fbridge%2F${bridge_num}/termination-point/${vxlan_port}/    data=${body}
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be Equal As Strings    ${resp.status_code}    "20?"
 
 Verify OVS Reports Connected
     [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
