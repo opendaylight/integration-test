@@ -8,6 +8,7 @@ Library           RequestsLibrary
 Variables         ../variables/Variables.py
 Resource          ./Utils.robot
 Resource          ./KarafKeywords.robot
+Resource          ./TemplatedRequests.robot
 
 *** Variables ***
 ${vlan_topo_10}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom vlan_vtn_test.py --topo vlantopo
@@ -91,7 +92,7 @@ Add a Topology wait
     [Arguments]    ${topo_wait}
     [Documentation]    Add a topology wait to complete all Inter-switch link connection of switches
     ${resp}=    RequestsLibrary.Put Request    session    restconf/config/vtn-config:vtn-config    data={"vtn-config": {"topology-wait":${topo_wait}, "host-tracking": "true"}}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Add a Vtn
     [Arguments]    ${vtn_name}
