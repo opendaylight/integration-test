@@ -16,6 +16,19 @@ def mod(num, base):
     return int(num) % int(base)
 
 
+def div(num, divider):
+    """Gets division of number
+
+        :param num: Number to be used
+        :type num: string
+        :param divider: Divider used
+        :type divider: string
+        :returns: Int representing division of specified numbers.
+
+        """
+    return int(num) / int(divider)
+
+
 def get_ip_from_number(n):
     """Generate string representing Ipv4 from specified number that is added number 2130706432
 
@@ -382,7 +395,7 @@ def find_connection(connections_json, version, mode, ip, port, state):
     """
     for connection in parse_connections(connections_json):
         if (connection['peer-address'] == ip and connection['tcp-port'] == int(port) and connection['mode'] == mode and
-                connection['version'] == version):
+                    connection['version'] == version):
             if state == 'none':
                 return True
             elif connection['state'] == state:
