@@ -1,5 +1,5 @@
 import json
-from ipaddr import IPAddress
+from netaddr import IPAddress
 from string import Template
 
 
@@ -16,15 +16,41 @@ def mod(num, base):
     return int(num) % int(base)
 
 
-def get_ip_from_number(n):
-    """Generate string representing Ipv4 from specified number that is added number 2130706432
+def get_average_of_items(items):
+    """Gets average of items in provided list
+
+    :param items: To be proceed
+    :return: Average value
+
+    """
+    return sum(items) / len(items)
+
+
+def get_ip_from_number(n, base=2130706432):
+    """Generate string representing Ipv4 from specified number plus base value
 
     :param n: Number to be converted
     :type n: int
+    :param base: Starting index
+    :type base: int
     :returns: String containing Ipv4.
 
     """
-    ip = IPAddress(2130706432 + n)
+    ip = IPAddress(int(base) + n)
+    return str(ip)
+
+
+def get_ip_from_number_and_ip(n, ip_address):
+    """Generate string representing Ipv4 from specified number and IPAddress
+
+    :param n: Number to be converted
+    :type n: int
+    :param ip_address: Base address
+    :type ip_address: string
+    :returns: String containing Ipv4.
+
+    """
+    ip = IPAddress(int(IPAddress(ip_address)) + n)
     return str(ip)
 
 
@@ -530,7 +556,7 @@ def add_connection_xml(version, mode, ip, port, node, password_, domain_name):
          <connection-timers>
             <hold-time-min-acceptable>45</hold-time-min-acceptable>
             <keep-alive-time>30</keep-alive-time>
-            <reconciliation-time>120</reconciliation-time>
+            <reconciliation-time>0</reconciliation-time>
          </connection-timers>
       </connection>
    </connections>
@@ -911,7 +937,7 @@ def delete_domain_xml(node_id, name):
     :returns: String containing xml data for request
 
     """
-    return add_domain_xml(name, node_id)
+    return add_domain_xml(node_id, name)
 
 
 def get_domain_name(domain_name):
@@ -989,7 +1015,7 @@ def prefix_range(start, end):
     index = 0
     prefixes = ''
     while index < end:
-        prefixes += get_ip_from_number(start + index) + '/32'
+        prefixes += get_ip_from_number(index, start) + '/32'
         index += 1
         if index < end:
             prefixes += ','
