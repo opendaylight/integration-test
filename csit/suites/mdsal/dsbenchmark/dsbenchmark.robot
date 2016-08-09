@@ -51,7 +51,7 @@ ${OPS_PER_TX}     100000
 ${INNER_OPS}      100000
 ${WARMUPS}        10
 ${RUNS}           10
-${TIMEOUT}        30 min
+${TIMEOUT}        3 h
 ${FILTER}         EXEC
 ${UNITS}          microseconds
 ${tool}           dsbenchmark.py
