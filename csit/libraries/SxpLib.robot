@@ -235,7 +235,6 @@ Verify Snapshot Was Pushed
 Setup SXP Session
     [Documentation]    Create session to Controller
     Verify Feature Is Installed    odl-sxp-controller
-    Wait Until Keyword Succeeds    20    10    Verify Snapshot Was Pushed
     Create Session    session    url=http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
     ${resp}    RequestsLibrary.Get Request    session    ${MODULES_API}
     Should Be Equal As Strings    ${resp.status_code}    200
@@ -316,8 +315,7 @@ Check Node Started
     [Documentation]    Verify that SxpNode has data writed to Operational datastore
     ${resp}    RequestsLibrary.Get Request    session    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${rc}    Run Command On Remote System    ${system}    netstat -tln | grep -q ${node}:${port} && echo 0 || echo 1    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}    prompt=${ODL_SYSTEM_PROMPT}
-    Should Be Equal As Strings    ${rc}    0
+    sleep    2s
 
 Clean SXP Environment
     [Arguments]    ${node_range}=2
