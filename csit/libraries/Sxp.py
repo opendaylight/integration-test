@@ -16,15 +16,40 @@ def mod(num, base):
     return int(num) % int(base)
 
 
-def get_ip_from_number(n):
+def get_average_of_items(items):
+    """Gets average of items in provided list
+
+    :param items: To be proceed
+    :return: Average value
+
+    """
+    return sum(items) / len(items)
+
+
+def div(num, divider):
+    """Gets division of number
+
+        :param num: Number to be used
+        :type num: string
+        :param divider: Divider used
+        :type divider: string
+        :returns: Int representing division of specified numbers.
+
+        """
+    return float(num) / float(divider)
+
+
+def get_ip_from_number(n, base=2130706432):
     """Generate string representing Ipv4 from specified number that is added number 2130706432
 
     :param n: Number to be converted
     :type n: int
+    :param base: Starting index
+    :type base: int
     :returns: String containing Ipv4.
 
     """
-    ip = IPAddress(2130706432 + n)
+    ip = IPAddress(int(base) + n)
     return str(ip)
 
 
@@ -382,7 +407,7 @@ def find_connection(connections_json, version, mode, ip, port, state):
     """
     for connection in parse_connections(connections_json):
         if (connection['peer-address'] == ip and connection['tcp-port'] == int(port) and connection['mode'] == mode and
-                connection['version'] == version):
+                    connection['version'] == version):
             if state == 'none':
                 return True
             elif connection['state'] == state:
@@ -989,7 +1014,7 @@ def prefix_range(start, end):
     index = 0
     prefixes = ''
     while index < end:
-        prefixes += get_ip_from_number(start + index) + '/32'
+        prefixes += get_ip_from_number(index, start) + '/32'
         index += 1
         if index < end:
             prefixes += ','
