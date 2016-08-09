@@ -67,7 +67,7 @@ Clean Connections
     ${resp}    Get Connections    ${node}    ${session}    ${domain}
     @{connections}    Parse Connections    ${resp}
     : FOR    ${connection}    IN    @{connections}
-    \    delete connections    ${connection['peer-address']}    ${connection['tcp-port']}    ${node}    ${session}
+    \    delete connections    ${connection['peer-address']}    ${connection['tcp-port']}    ${node}    ${session}    ${domain}
 
 Verify Connection
     [Arguments]    ${version}    ${mode}    ${ip}    ${port}=64999    ${node}=127.0.0.1    ${state}=on
@@ -272,19 +272,19 @@ Delete Bindings
     Wait Until Keyword Succeeds    5    1    Post To Controller    ${session}    delete-bindings    ${DATA}
 
 Add Bindings Range
-    [Arguments]    ${sgt}    ${start}    ${size}    ${node}
+    [Arguments]    ${sgt}    ${start}    ${size}    ${node}=127.0.0.1
     [Documentation]    Add Bindings to Node specified by range
     ${prefixes}    Prefix Range    ${start}    ${size}
     Add Bindings    ${sgt}    ${prefixes}    ${node}
 
 Delete Bindings Range
-    [Arguments]    ${sgt}    ${start}    ${size}    ${node}
+    [Arguments]    ${sgt}    ${start}    ${size}    ${node}=127.0.0.1
     [Documentation]    Delete Bindings to Node specified by range
     ${prefixes}    Prefix Range    ${start}    ${size}
     Delete Bindings    ${sgt}    ${prefixes}    ${node}
 
 Check Binding Range
-    [Arguments]    ${sgt}    ${start}    ${end}    ${node}
+    [Arguments]    ${sgt}    ${start}    ${end}    ${node}=127.0.0.1
     [Documentation]    Check if Node contains Bindings specified by range
     ${resp}    Get Bindings    ${node}
     : FOR    ${num}    IN RANGE    ${start}    ${end}
@@ -292,7 +292,7 @@ Check Binding Range
     \    Should Contain Binding    ${resp}    ${sgt}    ${ip}/32
 
 Check Binding Range Negative
-    [Arguments]    ${sgt}    ${start}    ${end}    ${node}
+    [Arguments]    ${sgt}    ${start}    ${end}    ${node}=127.0.0.1
     [Documentation]    Check if Node does not contains Bindings specified by range
     ${resp}    Get Bindings    ${node}
     : FOR    ${num}    IN RANGE    ${start}    ${end}
