@@ -34,7 +34,7 @@ Connect to OVSDB Node
     Log    URL is ${SOUTHBOUND_CONFIG_API}
     ${resp}    RequestsLibrary.Put Request    session    ${SOUTHBOUND_CONFIG_API}    data=${body}
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be Equal As Strings    ${resp.status_code}    "20?"
 
 Get Operational Topology
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes
@@ -57,7 +57,7 @@ Create bridge of already added bridge
     Log    data: ${body}
     ${resp}    RequestsLibrary.Put Request    session    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2F${BRIDGE}    data=${body}
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be Equal As Strings    ${resp.status_code}    "20?"
 
 Get Config Topology with Bridge
     [Documentation]    This will fetch the configuration topology from configuration data store to verify the bridge is added to the data store
@@ -73,7 +73,7 @@ Create Port of already added port in OVSDB
     Log    data: ${body}
     ${resp}    RequestsLibrary.Put Request    session    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2F${BRIDGE}/termination-point/vx1/    data=${body}
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be Equal As Strings    ${resp.status_code}    "20?"
 
 Get Config Topology with Bridge and Port
     [Documentation]    This will fetch the configuration topology from configuration data store to verify the bridge is added to the data store
@@ -103,7 +103,7 @@ Create Port and attach to a Bridge
     Log    data: ${body}
     ${resp}    RequestsLibrary.Put Request    session    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2F${BRIDGE}/termination-point/vxlanport/    data=${body}
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be Equal As Strings    ${resp.status_code}    "20?"
 
 Get Operational Topology with Port
     [Documentation]    This request will fetch the operational topology after the Port is added to the bridge
