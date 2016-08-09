@@ -91,7 +91,8 @@ Add a Topology wait
     [Arguments]    ${topo_wait}
     [Documentation]    Add a topology wait to complete all Inter-switch link connection of switches
     ${resp}=    RequestsLibrary.Put Request    session    restconf/config/vtn-config:vtn-config    data={"vtn-config": {"topology-wait":${topo_wait}, "host-tracking": "true"}}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Run Keyword If    '${resp.status_code}' == '200'    Should Be Equal As Strings    ${resp.status_code}    200
+    ...    ELSE    Should Be Equal As Strings    ${resp.status_code}    201
 
 Add a Vtn
     [Arguments]    ${vtn_name}
