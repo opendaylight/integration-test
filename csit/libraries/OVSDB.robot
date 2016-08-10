@@ -10,6 +10,7 @@ Variables         ../variables/Variables.py
 *** Variables ***
 ${OVSDB_CONFIG_DIR}    ../variables/ovsdb
 ${SOUTHBOUND_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F
+@{ALLOWED_STATUS_CODES}    200    201
 
 *** Keywords ***
 Connect To Ovsdb Node
@@ -22,7 +23,7 @@ Connect To Ovsdb Node
     Log    data: ${body}
     ${resp}    RequestsLibrary.Put Request    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}    data=${body}
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    "20?"
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Disconnect From Ovsdb Node
     [Arguments]    ${mininet_ip}
@@ -43,7 +44,7 @@ Add Bridge To Ovsdb Node
     Log    data: ${body}
     ${resp}    RequestsLibrary.Put Request    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}%2Fbridge%2F${bridge_num}    data=${body}
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    "20?"
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Delete Bridge From Ovsdb Node
     [Arguments]    ${mininet_ip}    ${bridge_num}
@@ -60,7 +61,7 @@ Add Vxlan To Bridge
     Log    data: ${body}
     ${resp}    RequestsLibrary.Put Request    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}%2Fbridge%2F${bridge_num}/termination-point/${vxlan_port}/    data=${body}
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    "20?"
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Verify OVS Reports Connected
     [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}
