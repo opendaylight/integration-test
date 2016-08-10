@@ -121,7 +121,7 @@ Create Bridge
     Log    URL is ${uri}
     Log    data: ${body}
     ${resp}    RequestsLibrary.Put Request    session    ${uri}    data=${body}
-    Should Be Equal As Strings    ${resp.status_code}    "20?"
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Connect Controller To OVSDB Node
     [Documentation]    Initiate the connection to OVSDB node from controller
@@ -131,5 +131,5 @@ Connect Controller To OVSDB Node
     Log    data: ${body}
     ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:${OVSDB_PORT}    data=${body}
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    "20?"
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected

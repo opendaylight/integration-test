@@ -32,7 +32,7 @@ Connect to OVSDB Node
     Log    data: ${body}
     ${resp}    RequestsLibrary.Put Request    session    ${SOUTHBOUND_CONFIG_API}    data=${body}
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    "20?"
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Wait Until Keyword Succeeds    5s    1s    Verify OVS Reports Connected
 
 Get Operational Topology
@@ -50,7 +50,7 @@ Create a Bridge
     Log    data: ${body}
     ${resp}    RequestsLibrary.Put Request    session    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2F${BRIDGE}    data=${body}
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    "20?"
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Get Config Topology with Bridge
     [Documentation]    This will fetch the configuration topology from configuration data store to verify the bridge is added to the data store
@@ -71,7 +71,7 @@ Create Port and attach to a Bridge
     Log    data: ${body}
     ${resp}    RequestsLibrary.Put Request    session    ${SOUTHBOUND_CONFIG_API}%2Fbridge%2F${BRIDGE}/termination-point/vxlanport/    data=${body}
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    "20?"
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Get Operational Topology with Port
     [Documentation]    This request will fetch the operational topology after the Port is added to the bridge
@@ -129,7 +129,7 @@ Reconnect to OVSDB Node
     Log    data: ${body}
     ${resp}    RequestsLibrary.Put Request    session    ${SOUTHBOUND_CONFIG_API}    data=${body}
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    "20?"
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Get Operational Topology After Node Reconnect
     [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes to verify the bridge is added to the data store
