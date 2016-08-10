@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_22839c57",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-08-10T01:47:44Z",
+      "side": 1,
+      "message": "Please check something like 20? rather than this way.\nYou can refer this patch here: https://git.opendaylight.org/gerrit/43569",
+      "revId": "0f2922fff3f8c1b59b71a9d8470f46038192489a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
