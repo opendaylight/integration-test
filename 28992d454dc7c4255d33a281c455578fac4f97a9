@@ -1,0 +1,314 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_cf4bf057",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-10T10:21:37Z",
+      "side": 1,
+      "message": "If this keyword is needed, add [Documentation].",
+      "range": {
+        "startLine": 409,
+        "startChar": 4,
+        "endLine": 409,
+        "endChar": 5
+      },
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_4fa6c011",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-10T10:21:37Z",
+      "side": 1,
+      "message": "You can just call Run_Command_On_List_Or_All instead of repeating all the logic here.\nEither construct long bash line do delete all target directories, ur just call it repeatedly for each directory.",
+      "range": {
+        "startLine": 420,
+        "startChar": 4,
+        "endLine": 420,
+        "endChar": 8
+      },
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_0fa208ae",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-10T10:21:37Z",
+      "side": 1,
+      "message": "Add missing [Documentation].",
+      "range": {
+        "startLine": 202,
+        "startChar": 4,
+        "endLine": 202,
+        "endChar": 5
+      },
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_6fda9c79",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-10T10:21:37Z",
+      "side": 1,
+      "message": "Use ${device_name} as an argument instead of this, so that this Keyword can be used as an operation in Perform_Operation_On_Each_Device",
+      "range": {
+        "startLine": 210,
+        "startChar": 19,
+        "endLine": 210,
+        "endChar": 35
+      },
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_efeeac21",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-10T10:21:37Z",
+      "side": 1,
+      "message": "There can be many device numbers, we do not need separate Http sessions for them. Either use default session (by omitting this argument) or require caller to specify session to use.",
+      "range": {
+        "startLine": 215,
+        "startChar": 67,
+        "endLine": 215,
+        "endChar": 95
+      },
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_8fc45893",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-10T10:21:37Z",
+      "side": 1,
+      "message": "Make this check optional, so that this Keyword can be used for devices which have non-trivial initial configuration.\nOr just skip this check entirely, as presence of data is confirmed by status code (checked already by TemplatedRequests.Get_As_Xml_From_Uri I believe).",
+      "range": {
+        "startLine": 216,
+        "startChar": 12,
+        "endLine": 216,
+        "endChar": 38
+      },
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_4f424011",
+        "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-10T10:21:37Z",
+      "side": 1,
+      "message": "This suite does not update a device. Choose a more fitting file name.",
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_afbb140d",
+        "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-10T10:21:37Z",
+      "side": 1,
+      "message": "Add suite [Documentation].",
+      "range": {
+        "startLine": 1,
+        "startChar": 15,
+        "endLine": 1,
+        "endChar": 16
+      },
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_cf55b0c7",
+        "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-10T10:21:37Z",
+      "side": 1,
+      "message": "What is this needed for?",
+      "range": {
+        "startLine": 10,
+        "startChar": 47,
+        "endLine": 10,
+        "endChar": 65
+      },
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_4f59a0fd",
+        "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-10T10:21:37Z",
+      "side": 1,
+      "message": "Which variables are used? Do they need to be in separate file?",
+      "range": {
+        "startLine": 12,
+        "startChar": 51,
+        "endLine": 12,
+        "endChar": 75
+      },
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_8f72987a",
+        "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-10T10:21:37Z",
+      "side": 1,
+      "message": "tidy",
+      "range": {
+        "startLine": 26,
+        "startChar": 7,
+        "endLine": 26,
+        "endChar": 23
+      },
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_0fd4c81e",
+        "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-10T10:21:37Z",
+      "side": 1,
+      "message": "Use just SSHKeywords.Open_Connection_To_ODL_System\ninstead of this and lines 30-31.",
+      "range": {
+        "startLine": 35,
+        "startChar": 15,
+        "endLine": 35,
+        "endChar": 32
+      },
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_8fe73812",
+        "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-10T10:21:37Z",
+      "side": 1,
+      "message": "Move to Documentation.",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 2
+      },
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_8f41f83b",
+        "filename": "csit/variables/xmls/netconf_update_cfg.xml",
+        "patchSetId": 49
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-10T10:21:37Z",
+      "side": 1,
+      "message": "What is this file needed for?",
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
