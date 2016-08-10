@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_b24b7baf",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 409,
+      "author": {
+        "id": 5394
+      },
+      "writtenOn": "2016-08-10T14:46:50Z",
+      "side": 1,
+      "message": "@425\nWill add docs",
+      "parentUuid": "7a6b29fe_cf4bf057",
+      "range": {
+        "startLine": 409,
+        "startChar": 4,
+        "endLine": 409,
+        "endChar": 5
+      },
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_4fa6c011",
         "filename": "csit/libraries/ClusterManagement.robot",
         "patchSetId": 49
@@ -36,6 +60,30 @@
       "writtenOn": "2016-08-10T10:21:37Z",
       "side": 1,
       "message": "You can just call Run_Command_On_List_Or_All instead of repeating all the logic here.\nEither construct long bash line do delete all target directories, ur just call it repeatedly for each directory.",
+      "range": {
+        "startLine": 420,
+        "startChar": 4,
+        "endLine": 420,
+        "endChar": 8
+      },
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_d24ef7c0",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 5394
+      },
+      "writtenOn": "2016-08-10T14:46:50Z",
+      "side": 1,
+      "message": "I need @424\nSo I need the :FOR with all it\u0027s logic for now.\nI cannot construct a bash \"rm -fr\" command with optional AND default values without @424 as far as I am aware of.",
+      "parentUuid": "7a6b29fe_4fa6c011",
       "range": {
         "startLine": 420,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_259f2354",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 202,
+      "author": {
+        "id": 5394
+      },
+      "writtenOn": "2016-08-10T14:46:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_0fa208ae",
+      "range": {
+        "startLine": 202,
+        "startChar": 4,
+        "endLine": 202,
+        "endChar": 5
+      },
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_6fda9c79",
         "filename": "csit/libraries/NetconfKeywords.robot",
         "patchSetId": 49
@@ -82,6 +154,30 @@
       "writtenOn": "2016-08-10T10:21:37Z",
       "side": 1,
       "message": "Use ${device_name} as an argument instead of this, so that this Keyword can be used as an operation in Perform_Operation_On_Each_Device",
+      "range": {
+        "startLine": 210,
+        "startChar": 19,
+        "endLine": 210,
+        "endChar": 35
+      },
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_052dc746",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 210,
+      "author": {
+        "id": 5394
+      },
+      "writtenOn": "2016-08-10T14:46:50Z",
+      "side": 1,
+      "message": "Ok, changed it to accept a string name instead.",
+      "parentUuid": "7a6b29fe_6fda9c79",
       "range": {
         "startLine": 210,
         "startChar": 19,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_856d5735",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5394
+      },
+      "writtenOn": "2016-08-10T14:46:50Z",
+      "side": 1,
+      "message": "removed",
+      "parentUuid": "7a6b29fe_efeeac21",
+      "range": {
+        "startLine": 215,
+        "startChar": 67,
+        "endLine": 215,
+        "endChar": 95
+      },
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_8fc45893",
         "filename": "csit/libraries/NetconfKeywords.robot",
         "patchSetId": 49
@@ -128,6 +248,30 @@
       "writtenOn": "2016-08-10T10:21:37Z",
       "side": 1,
       "message": "Make this check optional, so that this Keyword can be used for devices which have non-trivial initial configuration.\nOr just skip this check entirely, as presence of data is confirmed by status code (checked already by TemplatedRequests.Get_As_Xml_From_Uri I believe).",
+      "range": {
+        "startLine": 216,
+        "startChar": 12,
+        "endLine": 216,
+        "endChar": 38
+      },
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_a574d3fd",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 216,
+      "author": {
+        "id": 5394
+      },
+      "writtenOn": "2016-08-10T14:46:50Z",
+      "side": 1,
+      "message": "made it optional. it will be skipped if ${expected_data} is not supplied",
+      "parentUuid": "7a6b29fe_8fc45893",
       "range": {
         "startLine": 216,
         "startChar": 12,
@@ -283,6 +427,30 @@
       "writtenOn": "2016-08-10T10:21:37Z",
       "side": 1,
       "message": "Move to Documentation.",
+      "range": {
+        "startLine": 67,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 2
+      },
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_cf581059",
+        "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 5394
+      },
+      "writtenOn": "2016-08-10T14:46:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_8fe73812",
       "range": {
         "startLine": 67,
         "startChar": 0,
