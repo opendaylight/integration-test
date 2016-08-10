@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_f294d338",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/Bug_Validation.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-10T13:27:37Z",
+      "side": 1,
+      "message": "\"201\" !\u003d \"20?\"",
+      "range": {
+        "startLine": 124,
+        "startChar": 14,
+        "endLine": 124,
+        "endChar": 30
+      },
+      "revId": "58702447db050ccc0190d2a0c10a94a3aed4aecc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
