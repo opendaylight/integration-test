@@ -91,6 +91,75 @@
       "revId": "7a184a559cd0f02f6f0d5126d7816731092f88ea",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_a1afa093",
+        "filename": "csit/suites/controller/NETCONF/Performance.robot",
+        "patchSetId": 54
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-11T14:20:14Z",
+      "side": 1,
+      "message": "Mention that this is a scale/performance suite, which measures connection time against high number of devices.",
+      "range": {
+        "startLine": 3,
+        "startChar": 78,
+        "endLine": 3,
+        "endChar": 79
+      },
+      "revId": "7a184a559cd0f02f6f0d5126d7816731092f88ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_e1907850",
+        "filename": "csit/suites/controller/NETCONF/Performance.robot",
+        "patchSetId": 54
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-11T14:20:14Z",
+      "side": 1,
+      "message": "This could take extremely long. Use NetconfKeywords.Perform_Operation_On_Each_Device to guarantee a maximal time.",
+      "range": {
+        "startLine": 62,
+        "startChar": 48,
+        "endLine": 62,
+        "endChar": 51
+      },
+      "revId": "7a184a559cd0f02f6f0d5126d7816731092f88ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_a1868011",
+        "filename": "csit/testplans/netconf-performance.txt",
+        "patchSetId": 54
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-11T14:20:14Z",
+      "side": 1,
+      "message": "Hmm, perhaps configured_conenction_performace.robot, to better distinguish from suites such as csit/suites/netconf/restperfclient/performance.robot or csit/suites/netconf/scale/getmulti.robot",
+      "range": {
+        "startLine": 1,
+        "startChar": 48,
+        "endLine": 1,
+        "endChar": 65
+      },
+      "revId": "7a184a559cd0f02f6f0d5126d7816731092f88ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
