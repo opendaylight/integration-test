@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_41f20cd3",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 54
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-11T14:05:37Z",
+      "side": 1,
+      "message": "This should not be needed. You can create separate keyword which would compute port number from the new-style device name.",
+      "range": {
+        "startLine": 144,
+        "startChar": 37,
+        "endLine": 144,
+        "endChar": 55
+      },
+      "revId": "7a184a559cd0f02f6f0d5126d7816731092f88ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_6130e89e",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 54
+      },
+      "lineNbr": 171,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-11T14:05:37Z",
+      "side": 1,
+      "message": "If ${device_number} is not a number (empty or device_name), then probably ${current_port} suite variable is set, so take the port number from there.",
+      "range": {
+        "startLine": 171,
+        "startChar": 6,
+        "endLine": 171,
+        "endChar": 15
+      },
+      "revId": "7a184a559cd0f02f6f0d5126d7816731092f88ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_81d42421",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 54
+      },
+      "lineNbr": 200,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-11T14:05:37Z",
+      "side": 1,
+      "message": "Did you mean \"number\u003d$number\"? Most operations would complain against unexpected arguments, I think.",
+      "range": {
+        "startLine": 200,
+        "startChar": 61,
+        "endLine": 200,
+        "endChar": 80
+      },
+      "revId": "7a184a559cd0f02f6f0d5126d7816731092f88ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_7e4b6987",
+        "filename": "csit/libraries/NetconfKeywords.robot",
+        "patchSetId": 54
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-11T14:05:37Z",
+      "side": 1,
+      "message": "${device_name} and optionally check whether the XML data is ${expected_data}.",
+      "range": {
+        "startLine": 213,
+        "startChar": 98,
+        "endLine": 213,
+        "endChar": 114
+      },
+      "revId": "7a184a559cd0f02f6f0d5126d7816731092f88ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
