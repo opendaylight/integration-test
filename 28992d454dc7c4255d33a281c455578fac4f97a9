@@ -301,6 +301,24 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_d9a0daf6",
+        "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5394
+      },
+      "writtenOn": "2016-08-11T07:00:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_4f424011",
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_afbb140d",
         "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.robot",
         "patchSetId": 49
@@ -347,6 +365,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_39a62e11",
+        "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 5394
+      },
+      "writtenOn": "2016-08-11T07:00:06Z",
+      "side": 1,
+      "message": "Not needed. Forgot to remove it.",
+      "parentUuid": "7a6b29fe_cf55b0c7",
+      "range": {
+        "startLine": 10,
+        "startChar": 47,
+        "endLine": 10,
+        "endChar": 65
+      },
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_4f59a0fd",
         "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.robot",
         "patchSetId": 49
@@ -358,6 +400,30 @@
       "writtenOn": "2016-08-10T10:21:37Z",
       "side": 1,
       "message": "Which variables are used? Do they need to be in separate file?",
+      "range": {
+        "startLine": 12,
+        "startChar": 51,
+        "endLine": 12,
+        "endChar": 75
+      },
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_f9e9561b",
+        "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5394
+      },
+      "writtenOn": "2016-08-11T07:00:06Z",
+      "side": 1,
+      "message": "Removed",
+      "parentUuid": "7a6b29fe_4f59a0fd",
       "range": {
         "startLine": 12,
         "startChar": 51,
@@ -393,6 +459,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_f99b16c7",
+        "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 5394
+      },
+      "writtenOn": "2016-08-11T07:00:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_8f72987a",
+      "range": {
+        "startLine": 26,
+        "startChar": 7,
+        "endLine": 26,
+        "endChar": 23
+      },
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_0fd4c81e",
         "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.robot",
         "patchSetId": 49
@@ -404,6 +494,30 @@
       "writtenOn": "2016-08-10T10:21:37Z",
       "side": 1,
       "message": "Use just SSHKeywords.Open_Connection_To_ODL_System\ninstead of this and lines 30-31.",
+      "range": {
+        "startLine": 35,
+        "startChar": 15,
+        "endLine": 35,
+        "endChar": 32
+      },
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_995f820e",
+        "filename": "csit/suites/controller/NETCONF/Update_Netconf_Device.robot",
+        "patchSetId": 49
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 5394
+      },
+      "writtenOn": "2016-08-11T07:00:06Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_0fd4c81e",
       "range": {
         "startLine": 35,
         "startChar": 15,
@@ -474,6 +588,24 @@
       "writtenOn": "2016-08-10T10:21:37Z",
       "side": 1,
       "message": "What is this file needed for?",
+      "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_39f46ef1",
+        "filename": "csit/variables/xmls/netconf_update_cfg.xml",
+        "patchSetId": 49
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5394
+      },
+      "writtenOn": "2016-08-11T07:00:06Z",
+      "side": 1,
+      "message": "Don\u0027t know.\nCould have been used in suite prior to this one.\nRemoved.",
+      "parentUuid": "7a6b29fe_8f41f83b",
       "revId": "28992d454dc7c4255d33a281c455578fac4f97a9",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
