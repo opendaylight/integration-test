@@ -17,7 +17,7 @@ Put Service Function Forwarders
     ${jsonbody}    To Json    ${body}
     ${forwarders}    Get From Dictionary    ${jsonbody}    service-function-forwarders
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299 
     ${result}    To JSON    ${resp.content}
     ${forwarder}    Get From Dictionary    ${result}    service-function-forwarders
     Lists Should be Equal    ${forwarder}    ${forwarders}
@@ -25,7 +25,7 @@ Put Service Function Forwarders
 Delete All Service Function Forwarders
     [Documentation]    Delete all Service Function Forwarders
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299 
     Remove All Elements At URI    ${SERVICE_FORWARDERS_URI}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
@@ -49,7 +49,7 @@ Delete A Service Function Forwarder
     Remove All Elements At URI    ${SERVICE_FORWARDERS_URI}
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}service-function-forwarder/SFF-bootstrap
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299 
     Remove All Elements At URI    ${SERVICE_FORWARDERS_URI}service-function-forwarder/SFF-bootstrap
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}service-function-forwarder/SFF-bootstrap
     Should Be Equal As Strings    ${resp.status_code}    404
@@ -66,7 +66,7 @@ Delete A Non-existing Service Function Forwarder
     ${forwarders}    Get From Dictionary    ${jsonbody}    service-function-forwarders
     Remove All Elements At URI    ${SERVICE_FORWARDERS_URI}service-function-forwarder/non-existing-sff
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299 
     ${result}    To JSON    ${resp.content}
     ${forwarder}    Get From Dictionary    ${result}    service-function-forwarders
     Lists Should be Equal    ${forwarder}    ${forwarders}
@@ -76,7 +76,7 @@ Put one Service Function Forwarder
     Remove All Elements At URI    ${SERVICE_FORWARDERS_URI}
     Add Elements To URI From File    ${SFF_OVS100_URI}    ${SFF_OVS100_FILE}
     ${resp}    RequestsLibrary.Get Request    session    ${SFF_OVS100_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299 
     ${elements}=    Create List    ovs-100    SF7
     Check For Elements At URI    ${SFF_OVS100_URI}    ${elements}
     Check For Elements At URI    ${SERVICE_FORWARDERS_URI}    ${elements}
@@ -102,7 +102,7 @@ Put DPL to a Non-existing Service Function Forwarder
     Remove All Elements At URI    ${SERVICE_FORWARDERS_URI}
     Add Elements To URI From File    ${SFF_OVS100_URI}sff-data-plane-locator/dpl-101    ${SFF_DPL101_FILE}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299 
     Should Contain    ${resp.content}    ovs-100
     ${elements}=    Create List    dpl-101    6101
     Check For Elements At URI    ${SFF_OVS100_URI}sff-data-plane-locator/dpl-101    ${elements}
@@ -114,7 +114,7 @@ Delete Service Function Forwarder DPL
     Add Elements To URI From File    ${SFF_OVS100_URI}    ${SFF_OVS100_FILE}
     Remove All Elements At URI    ${SFF_OVS100_URI}sff-data-plane-locator/eth0
     ${resp}    RequestsLibrary.Get Request    session    ${SFF_OVS100_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299 
     Should Not Contain    ${resp.content}    "name":"eth0"
 
 Get Service Function Forwarder DPL's Locator
@@ -145,12 +145,12 @@ Delete Service Function Forwarder DPL's Locator
     Add Elements To URI From File    ${SFF_OVS100_URI}sff-data-plane-locator/dpl-101/data-plane-locator/    ${SFF_DPL_LOCATOR_FILE}
     Remove All Elements At URI    ${SFF_OVS100_URI}sff-data-plane-locator/dpl-101/data-plane-locator
     ${resp}    RequestsLibrary.Get Request    session    ${SFF_OVS100_URI}sff-data-plane-locator/dpl-101
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299 
     Should Contain    ${resp.content}    dpl-101
     Should Not Contain    ${resp.content}    6101
     Should Not Contain    ${resp.content}    service-locator:vxlan-gpe
     ${resp}    RequestsLibrary.Get Request    session    ${SFF_OVS100_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299 
     Should Contain    ${resp.content}    dpl-101
     Should Not Contain    ${resp.content}    6101
 
@@ -166,7 +166,7 @@ Delete Service Function Dictionary From SFF
     Remove All Elements At URI    ${SERVICE_FORWARDERS_URI}
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}service-function-forwarder/SFF-bootstrap/service-function-dictionary/SF1
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299 
     Remove All Elements At URI    ${SERVICE_FORWARDERS_URI}service-function-forwarder/SFF-bootstrap/service-function-dictionary/SF1
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}service-function-forwarder/SFF-bootstrap/service-function-dictionary/SF1
     Should Be Equal As Strings    ${resp.status_code}    404
@@ -197,7 +197,7 @@ Delete Service Function Dictionary's DPL From SFF
     Remove All Elements At URI    ${SERVICE_FORWARDERS_URI}
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}service-function-forwarder/SFF-bootstrap/service-function-dictionary/SF1/sff-sf-data-plane-locator/
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299 
     Remove All Elements At URI    ${SERVICE_FORWARDERS_URI}service-function-forwarder/SFF-bootstrap/service-function-dictionary/SF1/sff-sf-data-plane-locator/
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}service-function-forwarder/SFF-bootstrap/service-function-dictionary/SF1/sff-sf-data-plane-locator/
     Should Be Equal As Strings    ${resp.status_code}    404
@@ -218,7 +218,7 @@ Get Connected SFF Dictionary From SFF
     ${elements}=    create list    connected-sff-dictionary    br-int-ovs-2    sff-sff-data-plane-locator
     Check For Elements At URI    ${SERVICE_FORWARDERS_URI}service-function-forwarder/SFF-bootstrap/connected-sff-dictionary/br-int-ovs-2    ${elements}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}service-function-forwarder/br-int-ovs-2/connected-sff-dictionary/SFF-bootstrap
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299 
     Should Contain    ${resp.content}    SFF-bootstrap
 
 Delete Connected SFF Dictionary From SFF
@@ -231,7 +231,7 @@ Delete Connected SFF Dictionary From SFF
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}service-function-forwarder/SFF-bootstrap/connected-sff-dictionary/br-int-ovs-2
     Should Be Equal As Strings    ${resp.status_code}    404
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}service-function-forwarder/SFF-bootstrap/
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299 
     Should Not Contain    ${resp.content}    br-int-ovs-2
 
 Put Connected SFF Dictionary to SFF

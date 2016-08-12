@@ -17,7 +17,7 @@ Put Service Nodes
     ${jsonbody}    To Json    ${body}
     ${nodes}    Get From Dictionary    ${jsonbody}    service-nodes
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_NODES_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299
     ${result}    To JSON    ${resp.content}
     ${node}    Get From Dictionary    ${result}    service-nodes
     Lists Should be Equal    ${node}    ${nodes}
@@ -26,7 +26,7 @@ Delete All Service Nodes
     [Documentation]    Delete all Service Nodes
     Add Elements To URI From File    ${SERVICE_NODES_URI}    ${SERVICE_NODES_FILE}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_NODES_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299
     Remove All Elements At URI    ${SERVICE_NODES_URI}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_NODES_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
@@ -51,7 +51,7 @@ Delete A Service Node
     Add Elements To URI From File    ${SERVICE_NODES_URI}    ${SERVICE_NODES_FILE}
     Remove All Elements At URI    ${SERVICE_NODES_URI}service-node/node-101
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_NODES_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299
     Should Not Contain    ${resp.content}    node-101
 
 Delete A Non-existing Service Node
@@ -63,7 +63,7 @@ Delete A Non-existing Service Node
     ${nodes}    Get From Dictionary    ${jsonbody}    service-nodes
     Remove All Elements At URI    ${SERVICE_NODES_URI}service-node/non-existing-sn
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_NODES_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299
     ${result}    To JSON    ${resp.content}
     ${node}    Get From Dictionary    ${result}    service-nodes
     Lists Should be Equal    ${node}    ${nodes}
