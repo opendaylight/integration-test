@@ -8,6 +8,7 @@ Library           OperatingSystem
 Library           RequestsLibrary
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
+Resource          ../../../libraries/TemplatedRequests.robot
 
 *** Test Cases ***
 Add Service Function Paths
@@ -17,7 +18,7 @@ Add Service Function Paths
     ${jsonbody}    To Json    ${body}
     ${paths}    Get From Dictionary    ${jsonbody}    service-function-paths
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${result}    To JSON    ${resp.content}
     ${path}    Get From Dictionary    ${result}    service-function-paths
     Lists Should be Equal    ${path}    ${paths}
@@ -25,7 +26,7 @@ Add Service Function Paths
 Delete All Service Function Paths
     [Documentation]    Delete all Service Function Paths
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Remove All Elements At URI    ${SERVICE_FUNCTION_PATHS_URI}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
@@ -49,12 +50,12 @@ Delete A Service Function Path
     Remove All Elements At URI    ${SERVICE_FUNCTION_PATHS_URI}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}service-function-path/SFC1-100
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Remove All Elements At URI    ${SERVICE_FUNCTION_PATHS_URI}service-function-path/SFC1-100
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}service-function-path/SFC1-100
     Should Be Equal As Strings    ${resp.status_code}    404
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Should Not Contain    ${resp.content}    SFC1-100
 
 Delete A Non-existing Empty Service Function Path
@@ -66,7 +67,7 @@ Delete A Non-existing Empty Service Function Path
     ${paths}    Get From Dictionary    ${jsonbody}    service-function-paths
     Remove All Elements At URI    ${SERVICE_FUNCTION_PATHS_URI}service-function-path/non-existing-sfp
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${result}    To JSON    ${resp.content}
     ${path}    Get From Dictionary    ${result}    service-function-paths
     Lists Should be Equal    ${path}    ${paths}
@@ -76,10 +77,10 @@ Put one Service Function
     Remove All Elements At URI    ${SERVICE_FUNCTION_PATHS_URI}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATH400_URI}    ${SERVICE_FUNCTION_PATH400_FILE}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATH400_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Should Contain    ${resp.content}    SFC1-400
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Should Contain    ${resp.content}    SFC1-400
 
 Clean All Service Function Paths After Tests
