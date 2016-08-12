@@ -23,7 +23,7 @@ Create and Get Rendered Service Path
     [Documentation]    Create and Get Rendered Service Path Through RESTConf APIs
     Post Elements To URI As JSON    ${OPERATIONS_CREATE_RSP_URI}    ${CREATE_RSP1_INPUT}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSPS_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299
     ${elements}=    Create List    SFC1-100-Path-1    "parent-service-function-path":"SFC1-100"    "hop-number":0    "service-index":255    "hop-number":1
     ...    "service-index":254    "hop-number":2    "service-index":253
     Check For Elements At URI    ${OPERATIONAL_RSPS_URI}    ${elements}
@@ -37,7 +37,7 @@ Get Rendered Service Path By Name
     [Documentation]    Get Rendered Service Path By Name Through RESTConf APIs
     Post Elements To URI As JSON    ${OPERATIONS_CREATE_RSP_URI}    ${CREATE_RSP1_INPUT}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-1
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299
     ${elements}=    Create List    SFC1-100-Path-1    "parent-service-function-path":"SFC1-100"    "hop-number":0    "service-index":255    "hop-number":1
     ...    "service-index":254    "hop-number":2    "service-index":253
     Check For Elements At URI    ${OPERATIONAL_RSPS_URI}    ${elements}
@@ -48,38 +48,38 @@ Get Non Existing Rendered Service Path
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSPS_URI}rendered-service-path/non-existing-rsp
     Should Be Equal As Strings    ${resp.status_code}    404
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSPS_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299
     Should Not Contain    ${resp.content}    non-existing-rsp
 
 Delete one Rendered Service Path By Name
     [Documentation]    Delete One Rendered Service Path By Name Through RESTConf APIs
     Post Elements To URI As JSON    ${OPERATIONS_CREATE_RSP_URI}    ${CREATE_RSP1_INPUT}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-1
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299
     Should Contain    ${resp.content}    SFC1-100-Path-1
     Post Elements To URI As JSON    ${OPERATIONS_DELETE_RSP_URI}    ${DELETE_RSP1_INPUT}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-1
     Should Be Equal As Strings    ${resp.status_code}    404
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSPS_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299
     Should Not Contain    ${resp.content}    SFC1-100-Path-1
 
 Delete Non Existing Rendered Service Path By Name
     [Documentation]    Delete One Rendered Service Path By Name Through RESTConf APIs
     Post Elements To URI As JSON    ${OPERATIONS_CREATE_RSP_URI}    ${CREATE_RSP1_INPUT}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-1
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299
     Should Contain    ${resp.content}    SFC1-100-Path-1
     Post Elements To URI As JSON    ${OPERATIONS_DELETE_RSP_URI}    ${DELETE_RSP2_INPUT}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSPS_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299
     Should Not Contain    ${resp.content}    {"rendered-service-paths":{}}
 
 Get Rendered Service Path Hop
     [Documentation]    Get Rendered Service Path By Name Through RESTConf APIs
     Post Elements To URI As JSON    ${OPERATIONS_CREATE_RSP_URI}    ${CREATE_RSP1_INPUT}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-1/rendered-service-path-hop/0/
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299
     ${elements}=    Create List    "hop-number":0    "service-index":255    "service-function-name":"dpi
     Check For Elements At URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-1/rendered-service-path-hop/0/    ${elements}
     ${elements}=    Create List    "hop-number":1    "service-index":254    "service-function-name":"napt44
@@ -177,25 +177,25 @@ Generate RSPs with Shortest Path Schedule Algorithm type
     ${elements}=    Create List    "hop-number":2    "service-index":253    "service-function-name":"firewall
     Check For Elements At URI    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-1/rendered-service-path-hop/2/    ${elements}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-1/rendered-service-path-hop/0/
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299
     ${fwd_hop1}    Extract Value From Content    ${resp.content}    /rendered-service-path-hop/0/service-function-forwarder
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-1/rendered-service-path-hop/1/
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299
     ${fwd_hop2}    Extract Value From Content    ${resp.content}    /rendered-service-path-hop/0/service-function-forwarder
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-1/rendered-service-path-hop/2/
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299
     ${fwd_hop3}    Extract Value From Content    ${resp.content}    /rendered-service-path-hop/0/service-function-forwarder
     Should Be Equal    ${fwd_hop1}    ${fwd_hop2}
     Should Be Equal    ${fwd_hop2}    ${fwd_hop3}
     Post Elements To URI As JSON    ${OPERATIONS_CREATE_RSP_URI}    ${CREATE_RSP2_INPUT}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-2/rendered-service-path-hop/0/
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299
     ${fwd_hop1}    Extract Value From Content    ${resp.content}    /rendered-service-path-hop/0/service-function-forwarder
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-2/rendered-service-path-hop/1/
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299
     ${fwd_hop2}    Extract Value From Content    ${resp.content}    /rendered-service-path-hop/0/service-function-forwarder
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSPS_URI}rendered-service-path/SFC1-100-Path-2/rendered-service-path-hop/2/
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299
     ${fwd_hop3}    Extract Value From Content    ${resp.content}    /rendered-service-path-hop/0/service-function-forwarder
     Should Be Equal    ${fwd_hop1}    ${fwd_hop2}
     Should Be Equal    ${fwd_hop2}    ${fwd_hop3}
@@ -215,7 +215,7 @@ Clean Datastore After Tests
 Post Elements To URI As JSON
     [Arguments]    ${uri}    ${data}
     ${resp}    RequestsLibrary.Post Request    session    ${uri}    data=${data}    headers=${headers}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299
 
 Get JSON Elements From URI
     [Arguments]    ${uri}

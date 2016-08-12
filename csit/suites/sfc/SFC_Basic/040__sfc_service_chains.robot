@@ -17,7 +17,7 @@ Put Service Function Chains
     ${jsonbody}    To Json    ${body}
     ${chains}    Get From Dictionary    ${jsonbody}    service-function-chains
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAINS_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299
     ${result}    To JSON    ${resp.content}
     ${chain}    Get From Dictionary    ${result}    service-function-chains
     Lists Should be Equal    ${chain}    ${chains}
@@ -25,7 +25,7 @@ Put Service Function Chains
 Delete All Service Function Chains
     [Documentation]    Delete all Service Function Chains
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAINS_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299
     Remove All Elements At URI    ${SERVICE_CHAINS_URI}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAINS_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
@@ -49,7 +49,7 @@ Delete A Service Function Chain
     Remove All Elements At URI    ${SERVICE_CHAINS_URI}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAINS_URI}service-function-chain/SFC1
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299
     Remove All Elements At URI    ${SERVICE_CHAINS_URI}service-function-chain/SFC1
     ${elements}=    Create List    SFC1    dpi-abstract1    napt44-abstract1    firewall-abstract1
     Check For Elements Not At URI    ${SERVICE_CHAINS_URI}    ${elements}
@@ -63,7 +63,7 @@ Delete A Non-existing Service Function Chain
     ${chains}    Get From Dictionary    ${jsonbody}    service-function-chains
     Remove All Elements At URI    ${SERVICE_CHAINS_URI}service-function-chain/non-existing-sfc
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAINS_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299
     ${result}    To JSON    ${resp.content}
     ${chain}    Get From Dictionary    ${result}    service-function-chains
     Lists Should be Equal    ${chain}    ${chains}
@@ -96,7 +96,7 @@ Delete A Service Function From Chain
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     Remove All Elements At URI    ${SERVICE_CHAINS_URI}service-function-chain/SFC1/sfc-service-function/dpi-abstract1
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAINS_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}>=200 & ${resp.status_code}<=299
     Should Contain    ${resp.content}    SFC1
     ${elements}=    Create List    dpi-abstract1    service-function-type:dpi
     Check For Elements Not At URI    ${SERVICE_CHAINS_URI}service-function-chain/SFC1/    ${elements}
