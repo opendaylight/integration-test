@@ -8,6 +8,7 @@ Library           OperatingSystem
 Library           RequestsLibrary
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
+Resource          ../../../libraries/TemplatedRequests.robot
 
 *** Test Cases ***
 Add Service Function Schedule Algorithm Types
@@ -17,7 +18,7 @@ Add Service Function Schedule Algorithm Types
     ${jsonbody}    To Json    ${body}
     ${types}    Get From Dictionary    ${jsonbody}    service-function-scheduler-types
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_SCHED_TYPES_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${result}    To JSON    ${resp.content}
     ${type}    Get From Dictionary    ${result}    service-function-scheduler-types
     Lists Should be Equal    ${type}    ${types}
@@ -25,7 +26,7 @@ Add Service Function Schedule Algorithm Types
 Delete All Service Function Schedule Algorithm Types
     [Documentation]    Delete Service Function Schedule Algorithm Types
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_SCHED_TYPES_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Remove All Elements At URI    ${SERVICE_SCHED_TYPES_URI}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_SCHED_TYPES_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
@@ -62,7 +63,7 @@ Delete A Non-existing Service Function Schedule Algorithm Type
     ${types}    Get From Dictionary    ${jsonbody}    service-function-scheduler-types
     Remove All Elements At URI    ${SERVICE_SCHED_TYPES_URI}service-function-scheduler-type/service-function-scheduler-type:user-defined
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_SCHED_TYPES_URI}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${result}    To JSON    ${resp.content}
     ${type}    Get From Dictionary    ${result}    service-function-scheduler-types
     Lists Should be Equal    ${type}    ${types}
