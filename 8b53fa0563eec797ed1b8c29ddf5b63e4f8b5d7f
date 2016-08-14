@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_74041dc0",
+        "filename": "csit/libraries/JsonGenerator.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 38,
+      "author": {
+        "id": 5443
+      },
+      "writtenOn": "2016-08-14T19:15:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_28140c43",
+      "range": {
+        "startLine": 38,
+        "startChar": 28,
+        "endLine": 38,
+        "endChar": 29
+      },
+      "revId": "8b53fa0563eec797ed1b8c29ddf5b63e4f8b5d7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_c8f758f4",
         "filename": "csit/libraries/JsonGenerator.py",
         "patchSetId": 13
@@ -36,6 +60,30 @@
       "writtenOn": "2016-08-12T15:14:53Z",
       "side": 1,
       "message": "See line 38.",
+      "range": {
+        "startLine": 48,
+        "startChar": 28,
+        "endLine": 48,
+        "endChar": 29
+      },
+      "revId": "8b53fa0563eec797ed1b8c29ddf5b63e4f8b5d7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_54ff61aa",
+        "filename": "csit/libraries/JsonGenerator.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 5443
+      },
+      "writtenOn": "2016-08-14T19:15:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_c8f758f4",
       "range": {
         "startLine": 48,
         "startChar": 28,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_b42d1549",
+        "filename": "csit/libraries/JsonGenerator.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 5443
+      },
+      "writtenOn": "2016-08-14T19:15:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_a8277cb5",
+      "range": {
+        "startLine": 55,
+        "startChar": 37,
+        "endLine": 55,
+        "endChar": 46
+      },
+      "revId": "8b53fa0563eec797ed1b8c29ddf5b63e4f8b5d7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_c85bd82c",
         "filename": "csit/libraries/JsonGenerator.py",
         "patchSetId": 13
@@ -82,6 +154,30 @@
       "writtenOn": "2016-08-12T15:14:53Z",
       "side": 1,
       "message": "out_dump \u003d \u0027{\"eid\": \u0027 + pbj_dump + \u0027}\u0027\nreturn Clean_JSON(out_dump)",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 154,
+        "endChar": 43
+      },
+      "revId": "8b53fa0563eec797ed1b8c29ddf5b63e4f8b5d7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_9430d99f",
+        "filename": "csit/libraries/JsonGenerator.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 154,
+      "author": {
+        "id": 5443
+      },
+      "writtenOn": "2016-08-14T19:15:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_c85bd82c",
       "range": {
         "startLine": 153,
         "startChar": 0,
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_f4278d62",
+        "filename": "csit/libraries/JsonGenerator.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 223,
+      "author": {
+        "id": 5443
+      },
+      "writtenOn": "2016-08-14T19:15:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_a883fc54",
+      "range": {
+        "startLine": 223,
+        "startChar": 8,
+        "endLine": 223,
+        "endChar": 12
+      },
+      "revId": "8b53fa0563eec797ed1b8c29ddf5b63e4f8b5d7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_88860064",
         "filename": "csit/libraries/JsonGenerator.py",
         "patchSetId": 13
@@ -151,6 +271,30 @@
       "writtenOn": "2016-08-12T15:14:53Z",
       "side": 1,
       "message": "Line 153.",
+      "range": {
+        "startLine": 239,
+        "startChar": 15,
+        "endLine": 239,
+        "endChar": 16
+      },
+      "revId": "8b53fa0563eec797ed1b8c29ddf5b63e4f8b5d7f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_d42a512b",
+        "filename": "csit/libraries/JsonGenerator.py",
+        "patchSetId": 13
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 5443
+      },
+      "writtenOn": "2016-08-14T19:15:03Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_88860064",
       "range": {
         "startLine": 239,
         "startChar": 15,
