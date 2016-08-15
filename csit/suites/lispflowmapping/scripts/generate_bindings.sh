@@ -25,7 +25,7 @@ curl "$GITWEB_MDSAL;f=model/yang-ext/src/main/yang/yang-ext.yang" -o ${WORKSPACE
 curl "$GITWEB_CONTROLLER;f=opendaylight/config/config-api/src/main/yang/config.yang" -o ${WORKSPACE}/$DIRECTORY/config.yang
 
 # Copy bits patch to yang file directory
-cp bits.patch ${WORKSPACE}/$DIRECTORY
+cp integration/test/csit/suites/lispflowmapping/scripts/bits.patch ${WORKSPACE}/$DIRECTORY
 
 # Go to odl-lispflowmapping-yang-files directory
 cd ${WORKSPACE}/$DIRECTORY
