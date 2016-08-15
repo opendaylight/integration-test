@@ -1,0 +1,13 @@
+db:queues": [
+    {
+      "queue-id": "QUEUE-1",
+      "dscp": 25,
+      "queues-other-config": [
+        {
+          "queue-other-config-key": "max-rate",
+          "queue-other-config-value": "3600000"
+        }
+      ]
+    }
+  ]
+}
