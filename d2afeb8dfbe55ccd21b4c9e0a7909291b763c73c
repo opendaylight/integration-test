@@ -16,6 +16,24 @@
       "revId": "d2afeb8dfbe55ccd21b4c9e0a7909291b763c73c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_cc8925cc",
+        "filename": "csit/suites/lispflowmapping/scripts/generate_bindings.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5443
+      },
+      "writtenOn": "2016-08-15T12:46:11Z",
+      "side": 1,
+      "message": "Yes I didn\u0027t move it but It was giving \u0027bits.patch not found\u0027 in sandbox here https://jenkins.opendaylight.org/sandbox/job/lispflowmapping-csit-1node-msmr-only-boron/2/console./\nI think it is because this script is called from some other folder something like ./csit/suites/lispflowmapping/scripts/generate_bindings.sh so need to give the whole path.",
+      "parentUuid": "7a6b29fe_4c2cf502",
+      "revId": "d2afeb8dfbe55ccd21b4c9e0a7909291b763c73c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
