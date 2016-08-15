@@ -21,7 +21,7 @@ Basic Request Put
     [Documentation]    Send a simple HTTP PUT request to Configurational datastore
     ${resp}    Put Request    session    ${CONFIG_API}/${overlay_topology_url}    data=${request}
     Log    ${CONFIG_API}/${overlay_topology_url}
-    Should Match    ${resp.status_code}    "20?"
+    Should Match    "${resp.status_code}"    "20?"
     Wait For Karaf Log    Correlation configuration successfully read
     Wait For Karaf Log    Transaction successfully written
 
@@ -117,16 +117,16 @@ Insert Underlay Topologies
     : FOR    ${index}    IN RANGE    1    7
     \    ${resp}    Put Request    session    ${CONFIG_API}/${TOPOLOGY_URL}/network-topo:${index}    data=${NETWORK_UNDERLAY_TOPOLOGY_${index}}
     \    Log    ${resp.content}
-    \    Should Match    ${resp.status_code}    "20?"
+    \    Should Match    "${resp.status_code}"    "20?"
     # Openflow underlay nodes
     ${resp}    Put Request    session    ${CONFIG_API}/opendaylight-inventory:nodes    data=${OPENFLOW_UNDERLAY_NODES}
     Log    ${resp.content}
-    Should Match    ${resp.status_code}    "20?"
+    Should Match    "${resp.status_code}"    "20?"
     # Openflow underlay topologies
     : FOR    ${index}    IN RANGE    1    7
     \    ${resp}    Put Request    session    ${CONFIG_API}/${TOPOLOGY_URL}/openflow-topo:${index}    data=${OPENFLOW_UNDERLAY_TOPOLOGY_${index}}
     \    Log    ${resp.content}
-    \    Should Match    ${resp.status_code}    "20?"
+    \    Should Match    "${resp.status_code}"    "20?"
     Issue Command On Karaf Console    log:clear
     Log    ${resp.content}
 
