@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_ea45e470",
+        "filename": "csit/scriptplans/lispflowmapping-pyangbind-generate-bindings.txt",
+        "patchSetId": 15
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-15T10:39:15Z",
+      "side": 1,
+      "message": "This will be read only by jobs with \"pyangbind-generate-bindings\" functionality.",
+      "revId": "dd61e4a3e331a3610377dbe89c21af00e5c3e76d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_0a7300e8",
+        "filename": "csit/suites/lispflowmapping/scripts/generate_bindings.sh",
+        "patchSetId": 15
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-15T10:39:15Z",
+      "side": 1,
+      "message": "I believe this would pick HEAD of branch master. That means this is not suitable fro testing earlier releases.",
+      "range": {
+        "startLine": 11,
+        "startChar": 55,
+        "endLine": 11,
+        "endChar": 90
+      },
+      "revId": "dd61e4a3e331a3610377dbe89c21af00e5c3e76d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
