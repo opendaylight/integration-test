@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_aaef6c86",
+        "filename": "csit/libraries/JsonGenerator.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-15T10:40:48Z",
+      "side": 1,
+      "message": "Storing a Python object into a variable named string_dump is confusing.",
+      "range": {
+        "startLine": 14,
+        "startChar": 4,
+        "endLine": 14,
+        "endChar": 15
+      },
+      "revId": "54e4c0957805b4d20b48d54dcce22f34c391e5dc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_8a3550f9",
+        "filename": "csit/libraries/JsonGenerator.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-15T10:40:48Z",
+      "side": 1,
+      "message": "Functions up to this one lack docstrings.",
+      "range": {
+        "startLine": 53,
+        "startChar": 4,
+        "endLine": 53,
+        "endChar": 6
+      },
+      "revId": "54e4c0957805b4d20b48d54dcce22f34c391e5dc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_6a4f14be",
+        "filename": "csit/libraries/JsonGenerator.py",
+        "patchSetId": 14
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-15T10:40:48Z",
+      "side": 1,
+      "message": "Most functions return Python objects, but this returns a string representation. Is that intended? If yes, docstring should mention that.",
+      "range": {
+        "startLine": 233,
+        "startChar": 11,
+        "endLine": 233,
+        "endChar": 19
+      },
+      "revId": "54e4c0957805b4d20b48d54dcce22f34c391e5dc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
