@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_4c2cf502",
+        "filename": "csit/suites/lispflowmapping/scripts/generate_bindings.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-08-15T12:18:36Z",
+      "side": 1,
+      "message": "This shouldn\u0027t be necessary, you didn\u0027t move bits.patch, right?",
+      "revId": "d2afeb8dfbe55ccd21b4c9e0a7909291b763c73c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
