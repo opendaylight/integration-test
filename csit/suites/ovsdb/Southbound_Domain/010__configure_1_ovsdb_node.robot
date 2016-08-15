@@ -14,6 +14,8 @@ Resource          ../../../libraries/OVSDB.robot
 *** Variables ***
 ${OVSDB_PORT}     6634
 ${BRIDGE}         ovsdb-csit-test-bridge
+${QOS}            QOS-1
+${QUEUE}          QUEUE-1
 ${SOUTHBOUND_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F${TOOLS_SYSTEM_IP}:${OVSDB_PORT}
 ${OVSDB_CONFIG_DIR}    ${CURDIR}/../../../variables/ovsdb
 @{node_list}      ovsdb://${TOOLS_SYSTEM_IP}:${OVSDB_PORT}    ${TOOLS_SYSTEM_IP}    ${OVSDB_PORT}
@@ -141,6 +143,86 @@ Get Config Topology After Reconnect
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200    Response    status code error
     Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${node_list}
+
+Create OVSDB NODE HOST1
+    [Documentation]    This request will create OVSDB NODE HOST1 and attach it to the specific bridge
+    ${body}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_node.json
+    Log    URL is ${CONFIG_TOPO_API}/topology/ovsdb:1/
+    Log    data: ${body}
+    ${resp}    RequestsLibrary.Post Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1    data=${body}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    "20?"
+
+Create QOS entry
+    [Documentation]    This request will create QOS entry
+    ${body}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_qos.json
+    Log    URL is ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:qos-entries/${QOS}/
+    Log    data: ${body}
+    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:qos-entries/${QOS}/    data=${body}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    "20?"
+
+Create Queue entry to the queues list of a ovsdb node
+    [Documentation]    This request will creates Queue entry in the queues list of a ovsdb node
+    ${body}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_queue.json
+    Log    URL is ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:queues/${QUEUE}/
+    Log    data: ${body}
+    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:queues/${QUEUE}/    data=${body}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    "20?"
+
+Create a QOS and a Linked queue entry to a OVSDB Node
+    [Documentation]    This request will create a QOS and a Linked queue entry to a OVSDB Node
+    ${body}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_qoslinkedqueue.json
+    Log    URL is ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1
+    Log    data: ${body}
+    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1    data=${body}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    "20?"
+
+Get QOS Config Topology with port
+    [Documentation]    This will fetch the configuration topology from configuration data store to verify the QOS is added to the data store
+    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    "20?"    Response    status code error
+    Should Contain    ${resp.content}    ${QOS}
+
+Get QOS Operational Topology with port
+    [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes to verify the QOS is added to the data store
+    @{list}    Create List    ${QOS}
+    Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}
+
+Get Queue Config Topology with port
+    [Documentation]    This request will fetch the configuration topology from configuration data store to verify the Queue is added to the data store
+    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_TOPO_API}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    "20?"    Response    status code error
+    Should Contain    ${resp.content}    ${QUEUE}
+
+Get Queue Operational Topology with port
+    [Documentation]    This request will fetch the operational topology from the connected OVSDB nodes to verify the Queue is added to the data store
+    @{list}    Create List    ${QUEUE}
+    Wait Until Keyword Succeeds    8s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/ovsdb:1    ${list}
+
+Delete a Queue entry from a Qos entry
+    [Documentation]    This request will Delete a Queue entry from a Qos entry
+    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:qos-entries/${QOS}/queue-list/0/
+    Should Be Equal As Strings    ${resp.status_code}    "20?"    Response    status code error
+
+Delete a QoS entry from a node
+    [Documentation]    This request will Delete a QoS entry from a node.
+    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:qos-entries/${QOS}/
+    Should Be Equal As Strings    ${resp.status_code}    "20?"    Response    status code error
+
+Delete a Queue entry from an ovsdb node
+    [Documentation]    This request will Delete a Queue entry from an ovsdb node
+    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:queues/${QUEUE}/
+    Should Be Equal As Strings    ${resp.status_code}    "20?"    Response    status code error
+
+Delete the OVSDB Node HOST1
+    [Documentation]    This request will delete the OVSDB node
+    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1
+    Should Be Equal As Strings    ${resp.status_code}    "20?"    Response    status code error
 
 Check For Bug 4756
     [Documentation]    bug 4756 has been seen in the OVSDB Southbound suites. This test case should be one of the last test
