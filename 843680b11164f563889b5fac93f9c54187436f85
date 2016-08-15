@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_4c7a35f2",
+        "filename": "csit/suites/lispflowmapping/msmr/020_RPC_CRUD.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 491
+      },
+      "writtenOn": "2016-08-15T12:28:28Z",
+      "side": 1,
+      "message": "We have this keyword in both files. If the contents are the same, can we factor it out to csit/libraries/LISPFlowMapping.robot ?",
+      "revId": "843680b11164f563889b5fac93f9c54187436f85",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
