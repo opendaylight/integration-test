@@ -1,0 +1,13 @@
+{
+    "node": [
+        {
+            "node-id": "ovsdb:HOST1",
+            "connection-info": {
+                "ovsdb:remote-ip": "{{HYPERVISOR-IP}}",
+                "ovsdb:remote-port": "{{HYPERVISOR-OVSDB-PORT}}"
+            }
+        }
+    ]
+}
+
+
