@@ -25,10 +25,10 @@ curl "$GITWEB_MDSAL;f=model/yang-ext/src/main/yang/yang-ext.yang" -o ${WORKSPACE
 curl "$GITWEB_CONTROLLER;f=opendaylight/config/config-api/src/main/yang/config.yang" -o ${WORKSPACE}/$DIRECTORY/config.yang
 
 # Copy bits patch to yang file directory
-cp bits.patch ${WORKSPACE}/$DIRECTORY
+cp ${WORKSPACE}/test/csit/suites/lispflowmapping/scripts/bits.patch ${WORKSPACE}/$DIRECTORY
 
 # Go to odl-lispflowmapping-yang-files directory
-cd ${WORKSPACE}/$DIRECTORY
+pushd ${WORKSPACE}/$DIRECTORY
 
 # Currently bits are not supported in pyangbind plugin so
 # We need to apply patch to generate pyangbind bindings
@@ -40,6 +40,6 @@ PYBINDPLUGIN=`/usr/bin/env python -c 'import pyangbind; import os; print "%s/plu
 pyang --plugindir $PYBINDPLUGIN -f pybind --build-rpcs --split-class-dir ${WORKSPACE}/$DIRECTORY/LISPFlowMappingYANGBindings ./odl-mappingservice.yang
 
 # Go back the main direcory
-cd ../../
+popd
 
 echo "Yang Dependencies and bindings downloaded successfully in ${WORKSPACE}/$DIRECTORY"
