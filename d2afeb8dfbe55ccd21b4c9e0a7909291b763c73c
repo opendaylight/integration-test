@@ -34,6 +34,29 @@
       "revId": "d2afeb8dfbe55ccd21b4c9e0a7909291b763c73c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_0fc94f78",
+        "filename": "csit/suites/lispflowmapping/scripts/generate_bindings.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-15T13:35:12Z",
+      "side": 1,
+      "message": "I believe the main directory is ${WORKSPACE}, so only one .. is needed. The best would be to use pushd and popd instead the two cds.",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 9
+      },
+      "revId": "d2afeb8dfbe55ccd21b4c9e0a7909291b763c73c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
