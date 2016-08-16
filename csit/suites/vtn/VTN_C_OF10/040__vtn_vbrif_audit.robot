@@ -2,6 +2,7 @@
 Documentation     Test suite for VTN Coordinator
 Suite Setup       Start SuiteVtnCoTest
 Suite Teardown    Stop SuiteVtnCoTest
+Force Tags        exclude
 Resource          ../../../libraries/VtnCoKeywords.robot
 Resource          ../../../libraries/WaitForFailure.robot
 
