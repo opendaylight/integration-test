@@ -36,6 +36,9 @@ parser.add_argument("--optype", choices=["PUT", "MERGE", "DELETE", "READ"], narg
                     default=["PUT", "MERGE", "DELETE", "READ"], help="list of the types operations to execute.")
 parser.add_argument("--format", choices=["BINDING-AWARE", "BINDING-INDEPENDENT"], nargs='+',
                     default=["BINDING-AWARE", "BINDING-INDEPENDENT"], help="list of data formats to execute.")
+parser.add_argument("--datastore", choices=["CONFIG", "OPERATIONAL", "BOTH"], nargs='+',
+                    default=["OPERATIONAL", "CONFIG"], help="data-store type (config/operational) to use")
+# There is also "listeners" parameter specified in the Yang file now.
 parser.add_argument("--warmup", type=int, default=10, help="number of warmup runs before official test runs")
 parser.add_argument("--runs", type=int, default=10,
                     help="number of official test runs. Note: Reported results are based on these runs.")
@@ -61,13 +64,14 @@ def send_clear_request():
     print r.status_code
 
 
-def send_test_request(tx_type, operation, data_fmt, outer_elem, inner_elem, ops_per_tx):
+def send_test_request(tx_type, operation, data_fmt, datastore, outer_elem, inner_elem, ops_per_tx):
     """
     Sends a request to the dsbenchmark app to start a data store benchmark test run.
     The dsbenchmark app will perform the requested benchmark test and return measured
     transaction times
     :param operation: PUT, MERGE, DELETE or READ
     :param data_fmt: BINDING-AWARE or BINDING-INDEPENDENT
+    :param datastore: OPERATIONAL, CONFIG or BOTH
     :param outer_elem: Number of elements in the outer list
     :param inner_elem: Number of elements in the inner list
     :param ops_per_tx: Number of operations (PUTs, MERGEs or DELETEs) on each transaction
@@ -81,12 +85,13 @@ def send_test_request(tx_type, operation, data_fmt, outer_elem, inner_elem, ops_
             "transaction-type": "%s",
             "operation": "%s",
             "data-format": "%s",
+            "data-store": "%s",
             "outerElements": %d,
             "innerElements": %d,
             "putsPerTx": %d
         }
     }'''
-    data = test_request_template % (tx_type, operation, data_fmt, outer_elem, inner_elem, ops_per_tx)
+    data = test_request_template % (tx_type, operation, data_fmt, datastore, outer_elem, inner_elem, ops_per_tx)
     r = requests.post(url, data, headers=postheaders, stream=False, auth=('admin', 'admin'))
     result = {u'http-status': r.status_code}
     if r.status_code == 200:
@@ -110,7 +115,7 @@ def print_results(run_type, idx, res):
           (run_type, idx, res[u'status'], res[u'listBuildTime'], res[u'execTime'], res[u'txOk'], res[u'txError'])
 
 
-def run_test(warmup_runs, test_runs, tx_type, operation, data_fmt, outer_elem, inner_elem, ops_per_tx):
+def run_test(warmup_runs, test_runs, tx_type, operation, data_fmt, datastore, outer_elem, inner_elem, ops_per_tx):
     """
     Execute a benchmark test. Performs the JVM 'wamrup' before the test, runs
     the specified number of dsbenchmark test runs and computes the average time
@@ -120,6 +125,7 @@ def run_test(warmup_runs, test_runs, tx_type, operation, data_fmt, outer_elem, i
     :param test_runs: # of test runs
     :param operation: PUT, MERGE or DELETE
     :param data_fmt: BINDING-AWARE or BINDING-INDEPENDENT
+    :param datastore: OPERATIONAL, CONFIG or BOTH
     :param outer_elem: Number of elements in the outer list
     :param inner_elem: Number of elements in the inner list
     :param ops_per_tx: Number of operations (PUTs, MERGEs or DELETEs) on each transaction
@@ -128,14 +134,14 @@ def run_test(warmup_runs, test_runs, tx_type, operation, data_fmt, outer_elem, i
     total_build_time = 0.0
     total_exec_time = 0.0
 
-    print 'Tx Type: {0:s}, Operation: {1:s}, Data Format: {2:s}, Outer/Inner Elements: {3:d}/{4:d}, PutsPerTx {5:d}' \
-        .format(tx_type, operation, data_fmt, outer_elem, inner_elem, ops_per_tx)
+    print 'Tx Type: {0:s}, Operation: {1:s}, Data Format: {2:s}, Datastore: {3:s}, Outer/Inner Elements: {4:d}/{5:d}, PutsPerTx {6:d}' \
+        .format(tx_type, operation, data_fmt, datastore, outer_elem, inner_elem, ops_per_tx)
     for idx in range(warmup_runs):
-        res = send_test_request(tx_type, operation, data_fmt, outer_elem, inner_elem, ops_per_tx)
+        res = send_test_request(tx_type, operation, data_fmt, datastore, outer_elem, inner_elem, ops_per_tx)
         print_results('WARMUP', idx, res)
 
     for idx in range(test_runs):
-        res = send_test_request(tx_type, operation, data_fmt, outer_elem, inner_elem, ops_per_tx)
+        res = send_test_request(tx_type, operation, data_fmt, datastore, outer_elem, inner_elem, ops_per_tx)
         print_results('TEST', idx, res)
         total_build_time += res['listBuildTime']
         total_exec_time += res['execTime']
@@ -143,12 +149,13 @@ def run_test(warmup_runs, test_runs, tx_type, operation, data_fmt, outer_elem, i
     return total_build_time / test_runs, total_exec_time / test_runs
 
 
-def store_result(values, tx_type, operation, data_fmt, outer_elem, inner_elem, ops_per_tx, value_name, value):
+def store_result(values, tx_type, operation, data_fmt, datastore, outer_elem, inner_elem, ops_per_tx, value_name, value):
     """
     Stores a record to the list (dictionary) of values to be written into a csv file for plotting purposes.
     :param values: The list (dictionary) to be used for storing the result
     :param operation: PUT, MERGE or DELETE
     :param data_fmt: BINDING-AWARE or BINDING-INDEPENDENT
+    :param datastore: OPERATIONAL, CONFIG or BOTH
     :param outer_elem: Number of elements in the outer list
     :param inner_elem: Number of elements in the inner list
     :param ops_per_tx: Number of operations (PUTs, MERGEs or DELETEs) on each transaction
@@ -156,7 +163,7 @@ def store_result(values, tx_type, operation, data_fmt, outer_elem, inner_elem, o
     :param value: The (measured) value
     :return: none
     """
-    plot_key = (tx_type + '-' + data_fmt + '-' + operation + '-' + str(outer_elem) + '/' +
+    plot_key = (tx_type + '-' + data_fmt + '-' + datastore + '-' + operation + '-' + str(outer_elem) + '/' +
                 str(inner_elem) + 'OUTER/INNER-' + str(ops_per_tx) + 'OP-' + value_name)
     values[plot_key] = value
 
@@ -194,6 +201,7 @@ if __name__ == "__main__":
     OPS_PER_TX = args.ops
     OPERATIONS = args.optype
     DATA_FORMATS = args.format
+    DATASTORES = args.datastore
     PLOT_FILTER = args.plot
     if args.units == 'miliseconds':
         TIME_DIV = 1
@@ -237,20 +245,25 @@ if __name__ == "__main__":
                 print '---------------------------------------'
                 writer.writerow(('', ('%s:' % fmt), ''))
 
-                for oper in OPERATIONS:
-                    print 'Operation: %s' % oper
-                    writer.writerow(('', '', '%s:' % oper))
+                for datastore in DATASTORES:
+                    print
+                    print 'Data store: %s' % datastore
+                    print
 
-                    for elem in INNER_ELEMENTS:
-                        avg_build_time, avg_exec_time = \
-                            run_test(WARMUP_RUNS, TEST_RUNS, tx_type, oper, fmt, TOTAL_ELEMENTS / elem, elem, 1)
-                        e_label = '%d/%d' % (TOTAL_ELEMENTS / elem, elem)
-                        writer.writerow(('', '', '', e_label, avg_build_time, avg_exec_time,
-                                         (avg_build_time + avg_exec_time)))
-                        store_result(PLOT1, tx_type, oper, fmt, TOTAL_ELEMENTS / elem, elem, 1,
-                                     'BUILD', avg_build_time / TIME_DIV)
-                        store_result(PLOT1, tx_type, oper, fmt, TOTAL_ELEMENTS / elem, elem, 1,
-                                     'EXEC', avg_exec_time / TIME_DIV)
+                    for oper in OPERATIONS:
+                        print 'Operation: %s' % oper
+                        writer.writerow(('', '', '%s:' % oper))
+
+                        for elem in INNER_ELEMENTS:
+                            avg_build_time, avg_exec_time = \
+                                run_test(WARMUP_RUNS, TEST_RUNS, tx_type, oper, fmt, datastore, TOTAL_ELEMENTS / elem, elem, 1)
+                            e_label = '%d/%d' % (TOTAL_ELEMENTS / elem, elem)
+                            writer.writerow(('', '', '', e_label, avg_build_time, avg_exec_time,
+                                             (avg_build_time + avg_exec_time)))
+                            store_result(PLOT1, tx_type, oper, fmt, datastore, TOTAL_ELEMENTS / elem, elem, 1,
+                                         'BUILD', avg_build_time / TIME_DIV)
+                            store_result(PLOT1, tx_type, oper, fmt, datastore, TOTAL_ELEMENTS / elem, elem, 1,
+                                         'EXEC', avg_exec_time / TIME_DIV)
 
         # Determine the impact of number of writes per transaction on performance.
         # Iterate over all transaction types, data formats, operation types, and
@@ -270,19 +283,24 @@ if __name__ == "__main__":
                 print '---------------------------------------'
                 writer.writerow(('', ('%s:' % fmt), ''))
 
-                for oper in OPERATIONS:
-                    print 'Operation: %s' % oper
-                    writer.writerow(('', '', '%s:' % oper))
+                for datastore in DATASTORES:
+                    print
+                    print 'Data store: %s' % datastore
+                    print
 
-                    for wtx in OPS_PER_TX:
-                        avg_build_time, avg_exec_time = \
-                            run_test(WARMUP_RUNS, TEST_RUNS, tx_type, oper, fmt, TOTAL_ELEMENTS, 1, wtx)
-                        writer.writerow(('', '', '', wtx, avg_build_time, avg_exec_time,
-                                         (avg_build_time + avg_exec_time)))
-                        store_result(PLOT2, tx_type, oper, fmt, TOTAL_ELEMENTS / elem, 1, wtx,
-                                     'BUILD', avg_build_time / TIME_DIV)
-                        store_result(PLOT2, tx_type, oper, fmt, TOTAL_ELEMENTS / elem, 1, wtx,
-                                     'EXEC', avg_exec_time / TIME_DIV)
+                    for oper in OPERATIONS:
+                        print 'Operation: %s' % oper
+                        writer.writerow(('', '', '%s:' % oper))
+
+                        for wtx in OPS_PER_TX:
+                            avg_build_time, avg_exec_time = \
+                                run_test(WARMUP_RUNS, TEST_RUNS, tx_type, oper, fmt, datastore, TOTAL_ELEMENTS, 1, wtx)
+                            writer.writerow(('', '', '', wtx, avg_build_time, avg_exec_time,
+                                             (avg_build_time + avg_exec_time)))
+                            store_result(PLOT2, tx_type, oper, fmt, datastore, TOTAL_ELEMENTS / elem, 1, wtx,
+                                         'BUILD', avg_build_time / TIME_DIV)
+                            store_result(PLOT2, tx_type, oper, fmt, datastore, TOTAL_ELEMENTS / elem, 1, wtx,
+                                         'EXEC', avg_exec_time / TIME_DIV)
 
         write_results_to_file(PLOT1, 'perf_per_struct.csv', PLOT_FILTER)
         write_results_to_file(PLOT2, 'perf_per_ops.csv', PLOT_FILTER)
