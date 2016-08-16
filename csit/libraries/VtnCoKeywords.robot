@@ -11,6 +11,7 @@ Variables         ../variables/Variables.py
 Resource          ./Utils.robot
 
 *** variable ***
+${boron_nexus_path}    https://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/org/opendaylight/vtn/distribution.vtn-coordinator/6.3.0-SNAPSHOT
 ${vlan_topo}      sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom vlan_vtn_test.py --topo vlantopo
 
 *** Keywords ***
@@ -38,7 +39,11 @@ Start SuiteVtnCo
     SSHLibrary.Execute Command    sudo chown jenkins /usr/local/vtn
     SSHLibrary.Execute Command    sudo yum install -q -y http://yum.postgresql.org/9.3/redhat/rhel-7-x86_64/pgdg-centos93-9.3-1.noarch.rpm
     SSHLibrary.Execute Command    sudo yum install -q -y postgresql93-libs postgresql93 postgresql93-server postgresql93-contrib postgresql93-odbc-09.03.0400
-    SSHLibrary.Execute Command    tar -C/ -jxvf ${WORKSPACE}/${BUNDLEFOLDER}/externalapps/*vtn-coordinator*-bin.tar.bz2
+    SSHLibrary.Execute Command     wget "${boron_nexus_path}/maven-metadata.xml"
+    ${timestamp}=    XML.Get Element Text    maven-metadata.xml    xpath=.//snapshotVersion[extension='tar.bz2']/value
+    SSHLibrary.Execute Command    wget '${boron_nexus_path}/distribution.vtn-coordinator-${timestamp}-bin.tar.bz2'
+    SSHLibrary.Execute Command    tar -C/ -jxvf *vtn-coordinator*-bin.tar.bz2
+    SSHLibrary.Execute Command    tar -C/ -jxvf /tmp/*vtn-coordinator*-bin.tar.bz2
     SSHLibrary.Execute Command    /usr/local/vtn/sbin/db_setup
     SSHLibrary.Execute Command    /usr/local/vtn/bin/vtn_start
     SSHLibrary.Execute Command    /usr/local/vtn/bin/unc_dmctl status
