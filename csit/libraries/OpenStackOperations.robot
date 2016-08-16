@@ -244,6 +244,7 @@ Check If Console Is VmInstance
 
 Exit From Vm Console
     [Documentation]    Check if the session has been able to login to the VM instance and exit the instance
+    Write Commands Until Expected Prompt    “sudo ifconfig eth0 mtu 1500”    ${OS_SYSTEM_PROMPT}
     ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance    cirros
     Run Keyword If    ${rcode}    Write Commands Until Prompt    exit
     Get OvsDebugInfo
@@ -266,6 +267,7 @@ Test Operations From Vm Instance
     ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${net_id}=    Get Net Id    ${net_name}      ${devstack_conn_id}
+    Write Commands Until Expected Prompt    “sudo ifconfig eth0 mtu 1500”    ${OS_SYSTEM_PROMPT}
     ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${src_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no    d:
     Log    ${output}
     ${output}=    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
