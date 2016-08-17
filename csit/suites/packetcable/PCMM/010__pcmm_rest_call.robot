@@ -8,6 +8,7 @@ Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/PacketcableVersion.robot
+Resource          ../../../libraries/TemplatedRequests.robot
 
 *** Variables ***
 ${CCAP_ID1}       93b7d8de-15fb-11e5-b60b-1697f925ec7b
@@ -25,7 +26,7 @@ Add CCAP
     log    ${Data}
     log    ${ODLREST_CCAPS}/${CCAP_TOKEN}/${CCAP_ID1}
     ${resp}    RequestsLibrary.Put Request    ODLSession    ${ODLREST_CCAPS}/${CCAP_TOKEN}/${CCAP_ID1}    data=${Data}
-    Should be Equal As Strings    ${resp.status_code}    200
+	Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Get CCAP
     [Documentation]    Get Single CCAP
