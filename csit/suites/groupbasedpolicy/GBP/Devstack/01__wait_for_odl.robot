@@ -13,14 +13,14 @@ Variables         ../../../../variables/Variables.py
 
 *** Test Cases ***
 Wait for Renderers and NeutronMapper
-    Create Session    session     http://${ODL_SYSTEM_IP}:8181    auth=${AUTH}    headers=${headers}
-    Wait Until Keyword Succeeds   60x    5s    Renderers And NeutronMapper Initialized    session
+    Create Session    session    http://${ODL_SYSTEM_IP}:8181    auth=${AUTH}    headers=${headers}
+    Wait Until Keyword Succeeds    60x    5s    Renderers And NeutronMapper Initialized    session
     Delete All Sessions
 
 *** Keywords ***
 Renderers And NeutronMapper Initialized
-    [Documentation]  Ofoverlay and Neutronmapper features start check via datastore.
-    [Arguments]      ${session}
+    [Arguments]    ${session}
+    [Documentation]    Ofoverlay and Neutronmapper features start check via datastore.
     Get Data From URI    ${session}    ${OF_OVERLAY_BOOT_URL}    headers=${headers}
     ${response}    RequestsLibrary.Get Request    ${session}    ${NEURONMAPPER_BOOT_URL}    ${headers}
     Should Be Equal As Strings    404    ${response.status_code}

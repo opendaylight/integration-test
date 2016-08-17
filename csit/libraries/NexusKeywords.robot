@@ -28,7 +28,7 @@ ${JAVA_8_HOME_UBUNTU}    /usr/lib/jvm/java-8-openjdk-amd64
 ${JAVA_OPTIONS}    -Xmx2560m    # Note that '-Xmx=3g' is wrong syntax. Also 3GB heap may not fit in 4GB RAM.
 ${JAVA_7_OPTIONS}    -Xmx2048m -XX:MaxPermSize=512m
 ${MAVEN_DEFAULT_OUTPUT_FILENAME}    default_maven.log
-${MAVEN_OPTIONS}     -Pq -Djenkins
+${MAVEN_OPTIONS}    -Pq -Djenkins
 ${MAVEN_REPOSITORY_PATH}    /tmp/r
 ${MAVEN_SETTINGS_URL}    https://raw.githubusercontent.com/opendaylight/odlparent/master/settings.xml
 ${MAVEN_VERSION}    3.3.9

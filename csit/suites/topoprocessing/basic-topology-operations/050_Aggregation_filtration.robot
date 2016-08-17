@@ -26,7 +26,8 @@ Unification Filtration Node Inside Network Topology model
     ${request}    Insert Apply Filters    ${request}    1    1
     ${request}    Set IPV4 Filter    ${request}    192.168.2.1/24
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=2    supporting-node_count=3    node-ref_count=3    tp_count=0    tp-ref_count=0
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=2    supporting-node_count=3
+    ...    node-ref_count=3    tp_count=0    tp-ref_count=0
     Check Aggregated Node in Topology    ${model}    ${resp.content}    0    bgp:18    bgp:20
     Check Aggregated Node in Topology    ${model}    ${resp.content}    0    bgp:19
 
@@ -38,7 +39,8 @@ Unification Filtration Node Inside Inventory model
     ${request}    Insert Apply Filters    ${request}    1    1
     ${request}    Set IPV4 Filter    ${request}    192.168.2.1/24
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=2    supporting-node_count=4    node-ref_count=4    tp_count=0    tp-ref_count=0
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=2    supporting-node_count=4
+    ...    node-ref_count=4    tp_count=0    tp-ref_count=0
     Check Aggregated Node in Topology    ${model}    ${resp.content}    0    of-node:18
     Check Aggregated Node in Topology    ${model}    ${resp.content}    0    of-node:17    of-node:19    of-node:20
 
@@ -50,7 +52,8 @@ Unification Filtration Termination Point Inside Network Topology model
     ${request}    Insert Apply Filters    ${request}    1    1
     ${request}    Set Specific String Filter    ${request}    portA
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5    node-ref_count=5    tp_count=3    tp-ref_count=6
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5
+    ...    node-ref_count=5    tp_count=3    tp-ref_count=6
     ${topology_id}    Set Variable    network-topo:5
     Check Aggregated Termination Point in Node    ${model}    ${resp.content}    ${topology_id}    bgp:21    tp:21:1    tp:21:1
     ...    tp:21:2    tp:21:3
@@ -69,7 +72,8 @@ Unification Filtration Node Network Topology model
     ${request}    Insert Apply Filters    ${request}    2    1
     ${request}    Set IPV4 Filter    ${request}    192.168.1.1/24
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=2    supporting-node_count=4    node-ref_count=4    tp_count=3    tp-ref_count=3
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=2    supporting-node_count=4
+    ...    node-ref_count=4    tp_count=3    tp-ref_count=3
     Check Aggregated Node in Topology    ${model}    ${resp.content}    3    bgp:1    bgp:16
     Check Aggregated Node in Topology    ${model}    ${resp.content}    0    bgp:2    bgp:17
 
@@ -83,6 +87,7 @@ Unification Filtration Node Inventory model
     ${request}    Insert Apply Filters    ${request}    2    1
     ${request}    Set IPV4 Filter    ${request}    192.168.1.1/24
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=2    supporting-node_count=3    node-ref_count=3    tp_count=0    tp-ref_count=0
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=2    supporting-node_count=3
+    ...    node-ref_count=3    tp_count=0    tp-ref_count=0
     Check Aggregated Node in Topology    ${model}    ${resp.content}    0    of-node:28
     Check Aggregated Node in Topology    ${model}    ${resp.content}    0    of-node:16    of-node:26
