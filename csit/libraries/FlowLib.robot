@@ -152,7 +152,7 @@ Add Flow To Controller And Verify
     [Documentation]    Push flow through REST-API and verify in data-store
     ${resp}    RequestsLibrary.Put Request    session    ${REST_CON}/node/${node_id}/table/${table_id}/flow/${flow_id}    headers=${HEADERS_XML}    data=${flow_body}
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    BuiltIn.Should_Match    "${resp.status_code}"    "20?"
     ${resp}    RequestsLibrary.Get Request    session    ${REST_CON}/node/${node_id}/table/${table_id}/flow/${flow_id}    headers=${ACCEPT_XML}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200

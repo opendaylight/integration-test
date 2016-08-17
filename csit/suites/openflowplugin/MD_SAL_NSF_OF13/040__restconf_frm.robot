@@ -17,7 +17,7 @@ ${BODY2}          <flow xmlns="urn:opendaylight:flow:inventory"><priority>2</pri
 Add a flow - Sending IPv4 Dest Address and Eth type
     [Documentation]    Push a flow through REST-API
     ${resp}    RequestsLibrary.Put Request    session    ${REST_CON}/node/openflow:1/table/2/flow/139    headers=${HEADERS_XML}    data=${BODY1}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    BuiltIn.Should_Match    "${resp.status_code}"    "20?"
 
 Verify after adding flow config - Sending IPv4 Dest Address and Eth type
     [Documentation]    Verify the flow

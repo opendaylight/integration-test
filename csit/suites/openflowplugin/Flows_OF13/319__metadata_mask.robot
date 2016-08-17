@@ -23,7 +23,7 @@ Add a flow - Output to physical port#
     ${body}    OperatingSystem.Get File    ${FILE}
     Set Suite Variable    ${body}
     ${resp}    RequestsLibrary.Put Request    session    ${REST_CON}/node/openflow:1/table/${TABLE}/flow/${FLOW}    headers=${HEADERS_XML}    data=${body}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    BuiltIn.Should_Match    "${resp.status_code}"    "20?"
 
 Verify after adding flow config - Output to physical port#
     [Documentation]    Verify the flow
