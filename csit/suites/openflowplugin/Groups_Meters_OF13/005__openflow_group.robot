@@ -32,7 +32,7 @@ Add a group
     Set Suite Variable    ${body}
     ${resp}    RequestsLibrary.Put Request    session    ${REST_CONTEXT_CF}/group/1    headers=${HEADERS_XML}    data=${body}
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    BuiltIn.Should_Match    "${resp.status_code}"    "20?"
 
 Verify after adding group config
     [Documentation]    Get the group stat in config
@@ -54,7 +54,7 @@ Add a flow that includes a group
     Set Suite Variable    ${body}
     ${resp}    RequestsLibrary.Put Request    session    ${REST_CONTEXT_CF}/table/0/flow/1    headers=${HEADERS_XML}    data=${body}
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    BuiltIn.Should_Match    "${resp.status_code}"    "20?"
 
 Verify after adding flow config
     [Documentation]    Verify the flow
