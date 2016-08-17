@@ -6,11 +6,12 @@ Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
+Resource          ../../../libraries/TemplatedRequests.robot
 
 *** Test Cases ***
 Get Controller Modules
     [Documentation]    Get the controller modules via Restconf
     ${resp}    RequestsLibrary.Get Request    session    ${MODULES_API}
     Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Should Contain    ${resp.content}    ietf-restconf
