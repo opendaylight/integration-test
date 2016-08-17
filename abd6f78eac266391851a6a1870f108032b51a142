@@ -1,0 +1,197 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_851c1015",
+        "filename": "csit/libraries/ClusterPerformanceScaleup.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-17T23:47:24Z",
+      "side": 1,
+      "message": "So far I do not see a need to maintain a new library as most KWs can live in existing libraries.",
+      "revId": "abd6f78eac266391851a6a1870f108032b51a142",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_a542ec3b",
+        "filename": "csit/libraries/ClusterPerformanceScaleup.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-17T23:47:24Z",
+      "side": 1,
+      "message": "This KW is nothing to do with scale, it would be better in ClusterOpenFlow.robot library.",
+      "revId": "abd6f78eac266391851a6a1870f108032b51a142",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_85d9b085",
+        "filename": "csit/libraries/ClusterPerformanceScaleup.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-17T23:47:24Z",
+      "side": 1,
+      "message": "switches can use 6633 or 6653, lets create a default global variable OFPORT\u003d6633 in Variables.py and use the variable here so anybody can overide the value if needed.",
+      "range": {
+        "startLine": 15,
+        "startChar": 63,
+        "endLine": 15,
+        "endChar": 67
+      },
+      "revId": "abd6f78eac266391851a6a1870f108032b51a142",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_a5c5cc8f",
+        "filename": "csit/libraries/ClusterPerformanceScaleup.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-17T23:47:24Z",
+      "side": 1,
+      "message": "This KW is extremely useful, lets put it in ClusterManagement.robot library directly.",
+      "revId": "abd6f78eac266391851a6a1870f108032b51a142",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_45467824",
+        "filename": "csit/libraries/ClusterPerformanceScaleup.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-17T23:47:24Z",
+      "side": 1,
+      "message": "Very useful KW that can be used by many tests, I would put it in ClusterOpenFlow.robot.",
+      "revId": "abd6f78eac266391851a6a1870f108032b51a142",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_050ac0d1",
+        "filename": "csit/libraries/ClusterPerformanceScaleup.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-17T23:47:24Z",
+      "side": 1,
+      "message": "Why do not use Utils.Run_Command_On_Mininet directly?",
+      "revId": "abd6f78eac266391851a6a1870f108032b51a142",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_6528d434",
+        "filename": "csit/libraries/ClusterPerformanceScaleup.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-17T23:47:24Z",
+      "side": 1,
+      "message": "I do not get this KW and the ${switch_state_pre_connection}, can you explain?",
+      "revId": "abd6f78eac266391851a6a1870f108032b51a142",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_05e2c0d4",
+        "filename": "csit/suites/openflowplugin/Clustering_Bulkomatic/100K_Flows_10DPN_3Node_Cluster_Scaleup_Test.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-17T23:47:24Z",
+      "side": 1,
+      "message": "This is redundant. Can you define this as ${flow_count_per_switch} x ${switch_count}?",
+      "revId": "abd6f78eac266391851a6a1870f108032b51a142",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_25d53c1c",
+        "filename": "csit/suites/openflowplugin/Clustering_Bulkomatic/100K_Flows_10DPN_3Node_Cluster_Scaleup_Test.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-17T23:47:24Z",
+      "side": 1,
+      "message": "Why are we repeating the same thing 2 times?",
+      "revId": "abd6f78eac266391851a6a1870f108032b51a142",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_e5f224d1",
+        "filename": "csit/suites/openflowplugin/Clustering_Bulkomatic/100K_Flows_10DPN_3Node_Cluster_Scaleup_Test.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-17T23:47:24Z",
+      "side": 1,
+      "message": "I am curious: why are you using netstat in mininet VM instead of querying the controller directly to get the number of switches?",
+      "revId": "abd6f78eac266391851a6a1870f108032b51a142",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_6537344f",
+        "filename": "csit/testplans/openflowplugin-bulkomatic-clustering-Perf.txt",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-17T23:47:24Z",
+      "side": 1,
+      "message": "Do not use cap letter in testplan name. Use something like openflowplugin-bulkomatic-clustering-perf-daily.txt",
+      "revId": "abd6f78eac266391851a6a1870f108032b51a142",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
