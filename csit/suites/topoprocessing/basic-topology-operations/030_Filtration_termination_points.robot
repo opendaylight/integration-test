@@ -24,7 +24,8 @@ Filtration Range Number Network Topology Model
     ${request}    Insert Filter    ${request}    ${FILTER_RANGE_NUMBER}    ${OVSDB_OFPORT}
     ${request}    Set Range Number Filter    ${request}    1115    1119
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5    node-ref_count=5    tp_count=3    tp-ref_count=3
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5
+    ...    node-ref_count=5    tp_count=3    tp-ref_count=3
     Check Filtered Termination Points in Node    ${resp.content}    bgp:6    tp:6:1
     Check Filtered Termination Points in Node    ${resp.content}    bgp:7    tp:7:1    tp:7:2
     Check Filtered Termination Points in Node    ${resp.content}    bgp:8
@@ -37,7 +38,8 @@ Filtration Range Number Inventory Model
     ${request}    Insert Filter    ${request}    ${FILTER_RANGE_NUMBER}    ${OPENFLOW_NODE_CONNECTOR_PORT_NUMBER}
     ${request}    Set Range Number Filter    ${request}    2    4
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5    node-ref_count=5    tp_count=5    tp-ref_count=5
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5
+    ...    node-ref_count=5    tp_count=5    tp-ref_count=5
     Check Filtered Termination Points in Node    ${resp.content}    of-node:1
     Check Filtered Termination Points in Node    ${resp.content}    of-node:2    tp:2:3    tp:2:2
     Check Filtered Termination Points in Node    ${resp.content}    of-node:3    tp:3:1    tp:3:2
@@ -50,7 +52,8 @@ Filtration Specific Number Network Topology Model
     ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_NUMBER}    ${OVSDB_OFPORT}
     ${request}    Set Specific Number Filter    ${request}    1119
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5    node-ref_count=5    tp_count=1    tp-ref_count=1
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5
+    ...    node-ref_count=5    tp_count=1    tp-ref_count=1
     ${node}    Get Element    ${resp.content}    xpath=.//node/supporting-node[node-ref='bgp:7']/..
     ${node}    Element to String    ${node}
     Should Contain X Times    ${node}    <termination-point>    1
@@ -66,7 +69,8 @@ Filtration Specific Number Inventory Model
     ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_NUMBER}    ${OPENFLOW_NODE_CONNECTOR_MAXIMUM_SPEED}
     ${request}    Set Specific Number Filter    ${request}    2
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5    node-ref_count=5    tp_count=3    tp-ref_count=3
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5
+    ...    node-ref_count=5    tp_count=3    tp-ref_count=3
     Check Filtered Termination Points in Node    ${resp.content}    of-node:1
     Check Filtered Termination Points in Node    ${resp.content}    of-node:2    tp:2:2
     Check Filtered Termination Points in Node    ${resp.content}    of-node:3    tp:3:1    tp:3:2
@@ -79,7 +83,8 @@ Filtration Specific String Network Topology Model
     ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_STRING}    ${OVSDB_TP_NAME}
     ${request}    Set Specific String Filter    ${request}    portC
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5    node-ref_count=5    tp_count=1    tp-ref_count=1
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5
+    ...    node-ref_count=5    tp_count=1    tp-ref_count=1
     Check Filtered Termination Points in Node    ${resp.content}    bgp:6
     Check Filtered Termination Points in Node    ${resp.content}    bgp:7    tp:7:2
     Check Filtered Termination Points in Node    ${resp.content}    bgp:8
@@ -92,7 +97,8 @@ Filtration Specific String Inventory Model
     ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_STRING}    ${OPENFLOW_NODE_CONNECTOR_NAME}
     ${request}    Set Specific String Filter    ${request}    portB
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5    node-ref_count=5    tp_count=2    tp-ref_count=2
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5
+    ...    node-ref_count=5    tp_count=2    tp-ref_count=2
     Check Filtered Termination Points in Node    ${resp.content}    of-node:1
     Check Filtered Termination Points in Node    ${resp.content}    of-node:2    tp:2:1
     Check Filtered Termination Points in Node    ${resp.content}    of-node:3
@@ -105,7 +111,8 @@ Filtration Range String Network Topology Model
     ${request}    Insert Filter    ${request}    ${FILTER_RANGE_STRING}    ${OVSDB_TP_NAME}
     ${request}    Set Range String Filter    ${request}    portA    portC
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5    node-ref_count=5    tp_count=3    tp-ref_count=3
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5
+    ...    node-ref_count=5    tp_count=3    tp-ref_count=3
     Check Filtered Termination Points in Node    ${resp.content}    bgp:6    tp:6:1
     Check Filtered Termination Points in Node    ${resp.content}    bgp:7    tp:7:2
     Check Filtered Termination Points in Node    ${resp.content}    bgp:8
@@ -118,7 +125,8 @@ Filtration Range String Inventory Model
     ${request}    Insert Filter    ${request}    ${FILTER_RANGE_STRING}    ${OPENFLOW_NODE_CONNECTOR_NAME}
     ${request}    Set Range String Filter    ${request}    portA    portB
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5    node-ref_count=5    tp_count=3    tp-ref_count=3
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5
+    ...    node-ref_count=5    tp_count=3    tp-ref_count=3
     Check Filtered Termination Points in Node    ${resp.content}    of-node:1
     Check Filtered Termination Points in Node    ${resp.content}    of-node:2    tp:2:1    tp:2:3
     Check Filtered Termination Points in Node    ${resp.content}    of-node:3
@@ -132,7 +140,8 @@ Filtration Script Network Topology Model
     ${script}    Set Variable    if (node.getValue() > 1117 ) {filterOut.setResult(true);} else {filterOut.setResult(false);}
     ${request}    Set Script Filter    ${request}    javascript    ${script}
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5    node-ref_count=5    tp_count=3    tp-ref_count=3
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5
+    ...    node-ref_count=5    tp_count=3    tp-ref_count=3
     Check Filtered Termination Points in Node    ${resp.content}    bgp:1
     Check Filtered Termination Points in Node    ${resp.content}    bgp:2
     Check Filtered Termination Points in Node    ${resp.content}    bgp:3
@@ -146,7 +155,8 @@ Filtration Script Inventory Model
     ${script}    Set Variable    if (node.getValue().indexOf("portB") > -1 ) {filterOut.setResult(true);} else {filterOut.setResult(false);}
     ${request}    Set Script Filter    ${request}    javascript    ${script}
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5    node-ref_count=5    tp_count=3    tp-ref_count=3
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=5    supporting-node_count=5
+    ...    node-ref_count=5    tp_count=3    tp-ref_count=3
     Check Filtered Termination Points in Node    ${resp.content}    of-node:1    tp:1:1
     Check Filtered Termination Points in Node    ${resp.content}    of-node:2    tp:2:2    tp:2:3
     Check Filtered Termination Points in Node    ${resp.content}    of-node:3
