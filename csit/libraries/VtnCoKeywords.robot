@@ -12,6 +12,8 @@ Resource          ./Utils.robot
 
 *** variable ***
 ${vlan_topo}      sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom vlan_vtn_test.py --topo vlantopo
+${boron_nexus_path}    https://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/org/opendaylight/vtn/distribution.vtn-coordinator/6.3.0-SNAPSHOT
+${carbon_nexus_path}    https://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/org/opendaylight/vtn/distribution.vtn-coordinator/6.4.0-SNAPSHOT
 
 *** Keywords ***
 Get VtnCo
@@ -38,7 +40,15 @@ Start SuiteVtnCo
     SSHLibrary.Execute Command    sudo chown jenkins /usr/local/vtn
     SSHLibrary.Execute Command    sudo yum install -q -y http://yum.postgresql.org/9.3/redhat/rhel-7-x86_64/pgdg-centos93-9.3-1.noarch.rpm
     SSHLibrary.Execute Command    sudo yum install -q -y postgresql93-libs postgresql93 postgresql93-server postgresql93-contrib postgresql93-odbc-09.03.0400
-    SSHLibrary.Execute Command    tar -C/ -jxvf ${WORKSPACE}/${BUNDLEFOLDER}/externalapps/*vtn-coordinator*-bin.tar.bz2
+    Run Keyword If    '${ODL_STREAM}' == 'boron'    SSHLibrary.Execute Command    wget "${boron_nexus_path}/maven-metadata.xml"
+    ...    ELSE IF    '${ODL_STREAM}' == 'carbon'   SSHLibrary.Execute Command    wget "${carbon_nexus_path}/maven-metadata.xml"
+    Run Keyword If    '${ODL_STREAM}' == 'boron' or '${ODL_STREAM}' == 'carbon'   SSHLibrary.Get_file    maven-metadata.xml
+    ${time_stamp}=    XML.Get Element Text    maven-metadata.xml    xpath=.//snapshot/timestamp
+    ${build_number}=    XML.Get Element Text    maven-metadata.xml    xpath=.//snapshot/buildNumber
+    Run Keyword If    '${ODL_STREAM}' == 'boron'    SSHLibrary.Execute Command    wget '${boron_nexus_path}/distribution.vtn-coordinator-6.3.0-${time_stamp}-${build_number}-bin.tar.bz2'
+    ...    ELSE IF    '${ODL_STREAM}' == 'carbon'    SSHLibrary.Execute Command    wget '${carbon_nexus_path}/distribution.vtn-coordinator-6.4.0-${time_stamp}-${build_number}-bin.tar.bz2'
+    Run Keyword If    '${ODL_STREAM}' == 'boron' or '${ODL_STREAM}' == 'carbon'   SSHLibrary.Execute Command    tar -C/ -jxvf distribution.vtn-coordinator*-bin.tar.bz2
+    ...    ELSE    SSHLibrary.Execute Command    tar -C/ -jxvf /tmp/*vtn-coordinator*-bin.tar.bz2
     SSHLibrary.Execute Command    /usr/local/vtn/sbin/db_setup
     SSHLibrary.Execute Command    /usr/local/vtn/bin/vtn_start
     SSHLibrary.Execute Command    /usr/local/vtn/bin/unc_dmctl status
