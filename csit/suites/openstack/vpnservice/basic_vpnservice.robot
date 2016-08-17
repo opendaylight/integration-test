@@ -14,22 +14,19 @@ Resource          ../../../libraries/DevstackUtils.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-@{NETWORKS}    NET10    NET20
-@{SUBNETS}    SUBNET1    SUBNET2
+@{NETWORKS}       NET10    NET20
+@{SUBNETS}        SUBNET1    SUBNET2
 @{SUBNET_CIDR}    10.1.1.0/24    20.1.1.0/24
-@{PORT_LIST}    PORT11    PORT21    PORT12    PORT22
+@{PORT_LIST}      PORT11    PORT21    PORT12    PORT22
 @{VM_INSTANCES}    VM11    VM21    VM12    VM22
-@{ROUTERS}    ROUTER_1    ROUTER_2
+@{ROUTERS}        ROUTER_1    ROUTER_2
 
 *** Test Cases ***
 Verify Tunnel Creation
     [Documentation]    Checks that vxlan tunnels have been created properly.
     [Tags]    exclude
-    Log    This test case is currently a noop, but work can be added here to validate if needed.  However, as the
-    ...    suite Documentation notes, it's already assumed that the environment has been configured properly.  If
-    ...    we do add work in this test case, we need to remove the "exclude" tag for it to run.  In fact, if this
-    ...    test case is critical to run, and if it fails we would be dead in the water for the rest of the suite,
-    ...    we should move it to Suite Setup so that nothing else will run and waste time in a broken environment.
+    Log    This test case is currently a noop, but work can be added here to validate if needed.    However, as the    suite Documentation notes, it's already assumed that the environment has been configured properly.    If    we do add work in this test case, we need to remove the "exclude" tag for it to run.    In fact, if this
+    ...    test case is critical to run, and if it fails we would be dead in the water for the rest of the suite,    we should move it to Suite Setup so that nothing else will run and waste time in a broken environment.
 
 Create Neutron Networks
     [Documentation]    Create two networks

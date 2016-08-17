@@ -24,7 +24,8 @@ Filtration IPV4 Network Topology Model
     ${request}    Insert Filter    ${request}    ${FILTER_IPV4}    ${ISIS_NODE_TE_ROUTER_ID_IPV4}
     ${request}    Set IPV4 Filter    ${request}    192.168.1.1/24
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=2    supporting-node_count=2    node-ref_count=2    tp_count=3    tp-ref_count=3
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=2    supporting-node_count=2
+    ...    node-ref_count=2    tp_count=3    tp-ref_count=3
     Check Filtered Nodes in Topology    ${resp.content}    3    bgp:1    bgp:2
 
 Filtration IPV4 Inventory Model
@@ -33,7 +34,8 @@ Filtration IPV4 Inventory Model
     ${request}    Insert Filter    ${request}    ${FILTER_IPV4}    ${OPENFLOW_NODE_IP_ADDRESS}
     ${request}    Set IPV4 Filter    ${request}    192.168.1.1/24
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=3    supporting-node_count=3    node-ref_count=3    tp_count=8    tp-ref_count=8
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=3    supporting-node_count=3
+    ...    node-ref_count=3    tp_count=8    tp-ref_count=8
     Check Filtered Nodes in Topology    ${resp.content}    8    of-node:1    of-node:2    of-node:3
 
 Filtration Range Number Network Topology Model
@@ -42,7 +44,8 @@ Filtration Range Number Network Topology Model
     ${request}    Insert Filter    ${request}    ${FILTER_RANGE_NUMBER}    ${OVSDB_OVS_VERSION}
     ${request}    Set Range Number Filter    ${request}    20    25
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=4    supporting-node_count=4    node-ref_count=4    tp_count=5    tp-ref_count=5
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=4    supporting-node_count=4
+    ...    node-ref_count=4    tp_count=5    tp-ref_count=5
     Check Filtered Nodes in Topology    ${resp.content}    5    bgp:7    bgp:8    bgp:9    bgp:10
 
 Filtration Range Number Inventory Model
@@ -51,7 +54,8 @@ Filtration Range Number Inventory Model
     ${request}    Insert Filter    ${request}    ${FILTER_RANGE_NUMBER}    ${OPENFLOW_NODE_SERIAL_NUMBER}
     ${request}    Set Range Number Filter    ${request}    20    25
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=3    supporting-node_count=3    node-ref_count=3    tp_count=0    tp-ref_count=0
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=3    supporting-node_count=3
+    ...    node-ref_count=3    tp_count=0    tp-ref_count=0
     Check Filtered Nodes in Topology    ${resp.content}    0    of-node:8    of-node:9    of-node:10
 
 Filtration Specific String Network Topology Model
@@ -60,7 +64,8 @@ Filtration Specific String Network Topology Model
     ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_STRING}    ${OVSDB_OVS_VERSION}
     ${request}    Set Specific String Filter    ${request}    25
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=2    supporting-node_count=2    node-ref_count=2    tp_count=2    tp-ref_count=2
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=2    supporting-node_count=2
+    ...    node-ref_count=2    tp_count=2    tp-ref_count=2
     Check Filtered Nodes in Topology    ${resp.content}    2    bgp:9    bgp:10
 
 Filtration Specific String Inventory Model
@@ -69,7 +74,8 @@ Filtration Specific String Inventory Model
     ${request}    Insert Filter    ${request}    ${FILTER_SPECIFIC_STRING}    ${OPENFLOW_NODE_SERIAL_NUMBER}
     ${request}    Set Specific String Filter    ${request}    21
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=2    supporting-node_count=2    node-ref_count=2    tp_count=0    tp-ref_count=0
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=2    supporting-node_count=2
+    ...    node-ref_count=2    tp_count=0    tp-ref_count=0
     Check Filtered Nodes in Topology    ${resp.content}    0    of-node:8    of-node:9
 
 Filtration Range String Network Topology Model
@@ -78,7 +84,8 @@ Filtration Range String Network Topology Model
     ${request}    Insert Filter    ${request}    ${FILTER_RANGE_STRING}    ${OVSDB_OVS_VERSION}
     ${request}    Set Range String Filter    ${request}    20    25
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=4    supporting-node_count=4    node-ref_count=4    tp_count=5    tp-ref_count=5
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=4    supporting-node_count=4
+    ...    node-ref_count=4    tp_count=5    tp-ref_count=5
     Check Filtered Nodes in Topology    ${resp.content}    5    bgp:7    bgp:8    bgp:9    bgp:10
 
 Filtration Range String Inventory Model
@@ -87,7 +94,8 @@ Filtration Range String Inventory Model
     ${request}    Insert Filter    ${request}    ${FILTER_RANGE_STRING}    ${OPENFLOW_NODE_SERIAL_NUMBER}
     ${request}    Set Range String Filter    ${request}    20    25
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=3    supporting-node_count=3    node-ref_count=3    tp_count=0    tp-ref_count=0
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=3    supporting-node_count=3
+    ...    node-ref_count=3    tp_count=0    tp-ref_count=0
     Check Filtered Nodes in Topology    ${resp.content}    0    of-node:8    of-node:9    of-node:10
 
 Filtration IPV6 Network Topology Model
@@ -96,7 +104,8 @@ Filtration IPV6 Network Topology Model
     ${request}    Insert Filter    ${request}    ${FILTER_IPV6}    ${ISIS_NODE_TE_ROUTER_ID_IPV6}
     ${request}    Set IPV6 Filter    ${request}    fe80:0:0:0:0:0:c0a8:101/120
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=2    supporting-node_count=2    node-ref_count=2    tp_count=1    tp-ref_count=1
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=2    supporting-node_count=2
+    ...    node-ref_count=2    tp_count=1    tp-ref_count=1
     Check Filtered Nodes in Topology    ${resp.content}    1    bgp:11    bgp:12
 
 Filtration IPV6 Inventory Model
@@ -105,7 +114,8 @@ Filtration IPV6 Inventory Model
     ${request}    Insert Filter    ${request}    ${FILTER_IPV6}    ${OPENFLOW_NODE_IP_ADDRESS}
     ${request}    Set IPV6 Filter    ${request}    fe80:0:0:0:0:0:c0a8:201/120
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=3    supporting-node_count=3    node-ref_count=3    tp_count=0    tp-ref_count=0
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=3    supporting-node_count=3
+    ...    node-ref_count=3    tp_count=0    tp-ref_count=0
     Check Filtered Nodes in Topology    ${resp.content}    0    of-node:12    of-node:14    of-node:15
 
 Filtration Script Network Topology Model
@@ -115,7 +125,8 @@ Filtration Script Network Topology Model
     ${script}    Set Variable    if (node.getValue().indexOf("192.168.1") > -1 ) {filterOut.setResult(true);} else {filterOut.setResult(false);}
     ${request}    Set Script Filter    ${request}    javascript    ${script}
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=3    supporting-node_count=3    node-ref_count=3    tp_count=5    tp-ref_count=5
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=3    supporting-node_count=3
+    ...    node-ref_count=3    tp_count=5    tp-ref_count=5
     Check Filtered Nodes in Topology    ${resp.content}    5    bgp:3    bgp:4    bgp:5
 
 Filtration Script Inventory Model
@@ -125,5 +136,6 @@ Filtration Script Inventory Model
     ${script}    Set Variable    if (node.getValue().indexOf("192.168.2") > -1 ) {filterOut.setResult(true);} else {filterOut.setResult(false);}
     ${request}    Set Script Filter    ${request}    javascript    ${script}
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=3    supporting-node_count=3    node-ref_count=3    tp_count=8    tp-ref_count=8
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=3    supporting-node_count=3
+    ...    node-ref_count=3    tp_count=8    tp-ref_count=8
     Check Filtered Nodes in Topology    ${resp.content}    8    of-node:1    of-node:2    of-node:3

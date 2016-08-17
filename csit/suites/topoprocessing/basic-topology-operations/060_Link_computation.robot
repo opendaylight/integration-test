@@ -25,7 +25,8 @@ Link Computation Aggregation Inside
     ${request}    Insert Target Field    ${request}    0    ${ISIS_NODE_TE_ROUTER_ID_IPV4}    0
     ${request}    Insert Link Computation Inside    ${request}    ${LINK_COMPUTATION_INSIDE}    n:network-topology-model    network-topo:6
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=4    supporting-node_count=5    node-ref_count=5    link_count=4    link-ref_count=4
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=4    supporting-node_count=5
+    ...    node-ref_count=5    link_count=4    link-ref_count=4
     ${overlay_node_id_28_29}    Check Aggregated Node in Topology    ${model}    ${resp.content}    0    bgp:28    bgp:29
     ${overlay_node_id_26}    Check Aggregated Node in Topology    ${model}    ${resp.content}    0    bgp:26
     ${overlay_node_id_30}    Check Aggregated Node in Topology    ${model}    ${resp.content}    0    bgp:30
@@ -44,7 +45,8 @@ Link Computation Filtration
     ${request}    Set IPV4 Filter    ${request}    192.168.2.1/32
     ${request}    Insert Link Computation Inside    ${request}    ${LINK_COMPUTATION_INSIDE}    n:network-topology-model    network-topo:6
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=2    supporting-node_count=2    node-ref_count=2    link_count=1    link-ref_count=1
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=2    supporting-node_count=2
+    ...    node-ref_count=2    link_count=1    link-ref_count=1
     ${overlay_node_id_28}    Check Aggregated Node in Topology    ${model}    ${resp.content}    0    bgp:28
     ${overlay_node_id_29}    Check Aggregated Node in Topology    ${model}    ${resp.content}    0    bgp:29
     Check Overlay Link Source And Destination    ${model}    ${resp.content}    network-topo:6    link:28:29    ${overlay_node_id_28}    ${overlay_node_id_29}
@@ -61,7 +63,8 @@ Link Computation Aggregation Filtration
     ${request}    Set IPV4 Filter    ${request}    192.168.1.1/24
     ${request}    Insert Link Computation    ${request}    ${LINK_COMPUTATION}    n:network-topology-model    network-topo:6    network-topo:1
     Basic Request Put    ${request}    ${OVERLAY_TOPO_URL}
-    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=2    supporting-node_count=4    node-ref_count=4    link_count=2    link-ref_count=2
+    ${resp}    Wait Until Keyword Succeeds    3x    1s    Output Topo Should Be Complete    node_count=2    supporting-node_count=4
+    ...    node-ref_count=4    link_count=2    link-ref_count=2
     ${overlay_node_id_1_26}    Check Aggregated Node in Topology    ${model}    ${resp.content}    3    bgp:26    bgp:1
     ${overlay_node_id_2_27}    Check Aggregated Node in Topology    ${model}    ${resp.content}    0    bgp:27    bgp:2
     ${topology_id}    Set Variable    network-topo:1
