@@ -389,8 +389,12 @@ Verify_Test_Preconditions
     Loc_Rib_Presnece    ${empty_routes}
 
 Remove_Configured_Routes
+    [Documentation]    Removes the route if present. First GET is for debug purposes.
     ${rsp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${LOC_RIB_URL}    headers=${HEADERS}
     Log    ${rsp.content}
+    ${rsp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}    headers=${HEADERS}
+    Log    ${rsp.content}
+    BuiltIn.Return_From_Keyword_If    "${rsp.status_code}"=="404"
     ${resp}=    RequestsLibrary.Delete_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}
     BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    200
 
