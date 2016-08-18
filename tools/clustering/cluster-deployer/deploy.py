@@ -148,6 +148,8 @@ class Deployer:
         distribution_name \
             = os.path.splitext(os.path.basename(self.distribution))[0]
         distribution_ver = re.search('(\d+\.\d+\.\d+-\w+\Z)|'
+                                     '(\d+\.\d+\.\d+-\w+)(-RC\d+\Z)|'
+                                     '(\d+\.\d+\.\d+-\w+)(-RC\d+(\.\d+)\Z)|'
                                      '(\d+\.\d+\.\d+-\w+)(-SR\d+\Z)|'
                                      '(\d+\.\d+\.\d+-\w+)(-SR\d+(\.\d+)\Z)',
                                      distribution_name)  # noqa
@@ -157,7 +159,7 @@ class Deployer:
                                       " (Must contain version in the form: " \
                                       "\"<#>.<#>.<#>-<name>\" or \"<#>.<#>." \
                                       "<#>-<name>-SR<#>\" or \"<#>.<#>.<#>" \
-                                      "-<name>\", e.g. 0.2.0-SNAPSHOT)"  # noqa
+                                      "-<name>-RC<#>\", e.g. 0.2.0-SNAPSHOT)"
             sys.exit(1)
         distribution_ver = distribution_ver.group()
 
