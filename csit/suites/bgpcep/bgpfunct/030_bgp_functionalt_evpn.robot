@@ -391,6 +391,9 @@ Verify_Test_Preconditions
 Remove_Configured_Routes
     ${rsp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${LOC_RIB_URL}    headers=${HEADERS}
     Log    ${rsp.content}
+    ${rsp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}    headers=${HEADERS}
+    Log    ${rsp.content}
+    BuiltIn.Return_From_Keyword_If    "${rsp.status_code"}=="404"
     ${resp}=    RequestsLibrary.Delete_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}
     BuiltIn.Should_Be_Equal_As_Numbers    ${resp.status_code}    200
 
