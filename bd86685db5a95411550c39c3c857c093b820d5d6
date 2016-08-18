@@ -1,0 +1,113 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_0c2e6443",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/010__configure_1_ovsdb_node.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-18T22:56:49Z",
+      "side": 1,
+      "message": "${CONFIG_TOPO_API} here instead.\n\napplies in places below as well.",
+      "range": {
+        "startLine": 150,
+        "startChar": 18,
+        "endLine": 150,
+        "endChar": 69
+      },
+      "revId": "bd86685db5a95411550c39c3c857c093b820d5d6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_ec3048a0",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/010__configure_1_ovsdb_node.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 163,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-18T22:56:49Z",
+      "side": 1,
+      "message": "should be 201 now, right?\n\napplies elsewhere too.",
+      "range": {
+        "startLine": 163,
+        "startChar": 57,
+        "endLine": 163,
+        "endChar": 60
+      },
+      "revId": "bd86685db5a95411550c39c3c857c093b820d5d6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_4c285c34",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/010__configure_1_ovsdb_node.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-18T22:56:49Z",
+      "side": 1,
+      "message": "probably should use the variable above ${QUEUE} so it can easily be changed in just that one place.",
+      "range": {
+        "startLine": 170,
+        "startChar": 155,
+        "endLine": 170,
+        "endChar": 162
+      },
+      "revId": "bd86685db5a95411550c39c3c857c093b820d5d6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_8c21d44f",
+        "filename": "csit/variables/ovsdb/create_node.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-18T22:56:49Z",
+      "side": 1,
+      "message": "cosmetic, but looks like an accidental extra indent here.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 8
+      },
+      "revId": "bd86685db5a95411550c39c3c857c093b820d5d6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_2c2b6031",
+        "filename": "csit/variables/ovsdb/create_qoslinkedqueue.json",
+        "patchSetId": 2
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-18T22:56:49Z",
+      "side": 1,
+      "message": "Big Dog, man!  :)",
+      "revId": "bd86685db5a95411550c39c3c857c093b820d5d6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
