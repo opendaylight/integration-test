@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_423dc3dd",
+        "filename": "csit/libraries/ListenerDatabaseStore.py",
+        "patchSetId": 7
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-19T12:46:22Z",
+      "side": 1,
+      "message": "self.test_col_schema_dict.update(dict_col_schema)\n\nIf \"load\" is really intended to \"merge\" the argument dict into current dict (as opposed to replacing the whole dict).",
+      "range": {
+        "startLine": 74,
+        "startChar": 8,
+        "endLine": 75,
+        "endChar": 63
+      },
+      "revId": "281cce9eeb324c701a0169ad4c36615698320e45",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
