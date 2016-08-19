@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_182e9e43",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-19T16:10:49Z",
+      "side": 1,
+      "message": "That works too but what is the difference?",
+      "parentUuid": "7a6b29fe_bdb5dc32",
+      "range": {
+        "startLine": 181,
+        "startChar": 49,
+        "endLine": 181,
+        "endChar": 76
+      },
+      "revId": "f4a6c2666d3ded1b69ea31d67a3a8f4884dc5656",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_ddbff8f9",
         "filename": "csit/suites/openflowplugin/Clustering/010__Cluster_HA_Owner_Failover.robot",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2016-08-19T13:24:22Z",
       "side": 1,
       "message": "ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device names this argument controller_index_list. Assume the value is not ${EMPTY}.\n\nThen the value is passed to ClusterManagement.Verify_Owner_And_Successors_For_Device as the argument named candidate_list. There, the new owner is substracted and the result is asserted to be same as the new successor list.\n\nI do not see a reason why Carbon should behave differently if all the keywords involved honor their Documentation. So I believe there is an error somewhere, I am not sure at which place exactly yet.",
+      "range": {
+        "startLine": 35,
+        "startChar": 123,
+        "endLine": 35,
+        "endChar": 137
+      },
+      "revId": "f4a6c2666d3ded1b69ea31d67a3a8f4884dc5656",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_58281634",
+        "filename": "csit/suites/openflowplugin/Clustering/010__Cluster_HA_Owner_Failover.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-19T16:10:49Z",
+      "side": 1,
+      "message": "I do not think there is any error, in normal cluster implementation candidates are those that the OF switch connects to, in singleton the candidate is any member. Anyway let me check back with devs to see if this is expected behavior.",
+      "parentUuid": "7a6b29fe_ddbff8f9",
       "range": {
         "startLine": 35,
         "startChar": 123,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_382b9a31",
+        "filename": "csit/suites/openflowplugin/EntityOwhership/010_Switch_Disconnect.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-19T16:10:49Z",
+      "side": 1,
+      "message": "Sorry I am not reworking this test at this moment, I am just making it work for singleton. No this means the same as before: iin normal cluster implementation candidates are those that the OF switch connects to, in singleton the candidate is any member. Anyway let me check back with devs to see if this is expected behavior.",
+      "parentUuid": "7a6b29fe_fded9426",
+      "range": {
+        "startLine": 96,
+        "startChar": 83,
+        "endLine": 96,
+        "endChar": 84
+      },
+      "revId": "f4a6c2666d3ded1b69ea31d67a3a8f4884dc5656",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_bdbafc07",
         "filename": "csit/testplans/openflowplugin-clustering.txt",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2016-08-19T13:24:22Z",
       "side": 1,
       "message": "Add a comment line explaining why this new order is better.",
+      "range": {
+        "startLine": 12,
+        "startChar": 61,
+        "endLine": 12,
+        "endChar": 62
+      },
+      "revId": "f4a6c2666d3ded1b69ea31d67a3a8f4884dc5656",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_98210e50",
+        "filename": "csit/testplans/openflowplugin-clustering.txt",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-19T16:10:49Z",
+      "side": 1,
+      "message": "I saw the last test can sporadically impact the result of further tests.",
+      "parentUuid": "7a6b29fe_bdbafc07",
       "range": {
         "startLine": 12,
         "startChar": 61,
