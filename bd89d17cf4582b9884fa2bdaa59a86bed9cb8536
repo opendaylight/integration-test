@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_ff7aacef",
+        "filename": "csit/libraries/ListenerDatabaseStore.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-08-19T05:10:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_61b6413f",
+      "range": {
+        "startLine": 45,
+        "startChar": 66,
+        "endLine": 45,
+        "endChar": 71
+      },
+      "revId": "bd89d17cf4582b9884fa2bdaa59a86bed9cb8536",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_a1a059f5",
         "filename": "csit/libraries/ListenerDatabaseStore.py",
         "patchSetId": 5
@@ -36,6 +60,30 @@
       "writtenOn": "2016-08-08T13:53:02Z",
       "side": 1,
       "message": "If this is a dict, I would expect dict_col_schema.iteritems()",
+      "range": {
+        "startLine": 74,
+        "startChar": 39,
+        "endLine": 74,
+        "endChar": 54
+      },
+      "revId": "bd89d17cf4582b9884fa2bdaa59a86bed9cb8536",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_df64104b",
+        "filename": "csit/libraries/ListenerDatabaseStore.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-08-19T05:10:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_a1a059f5",
       "range": {
         "startLine": 74,
         "startChar": 39,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_3f5c247e",
+        "filename": "csit/libraries/ListenerDatabaseStore.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-08-19T05:10:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_01a66d10",
+      "range": {
+        "startLine": 75,
+        "startChar": 32,
+        "endLine": 75,
+        "endChar": 45
+      },
+      "revId": "bd89d17cf4582b9884fa2bdaa59a86bed9cb8536",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_017dcd6e",
         "filename": "csit/libraries/ListenerDatabaseStore.py",
         "patchSetId": 5
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_7f6e9c30",
+        "filename": "csit/libraries/ListenerDatabaseStore.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-08-19T05:10:32Z",
+      "side": 1,
+      "message": "It\u0027s not a typo but could be done in a much more readable and maintainable way instead of a double assignment on one line.",
+      "parentUuid": "7a6b29fe_017dcd6e",
+      "range": {
+        "startLine": 90,
+        "startChar": 38,
+        "endLine": 90,
+        "endChar": 50
+      },
+      "revId": "bd89d17cf4582b9884fa2bdaa59a86bed9cb8536",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_a1ee9920",
         "filename": "csit/libraries/ListenerDatabaseStore.py",
         "patchSetId": 5
@@ -105,6 +201,30 @@
       "writtenOn": "2016-08-08T13:53:02Z",
       "side": 1,
       "message": "Do we also want to store failures? If not, mention that in the docstring.",
+      "range": {
+        "startLine": 205,
+        "startChar": 41,
+        "endLine": 205,
+        "endChar": 42
+      },
+      "revId": "bd89d17cf4582b9884fa2bdaa59a86bed9cb8536",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_3f8544d0",
+        "filename": "csit/libraries/ListenerDatabaseStore.py",
+        "patchSetId": 5
+      },
+      "lineNbr": 205,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-08-19T05:10:32Z",
+      "side": 1,
+      "message": "I don\u0027t think we want to store perf data if test doesn\u0027t pass. However I can see other tests wanting to store data on a failure. I\u0027ve modified the doc string to note that it currently only stores on passes and will leave it up to someone else to add failures in the future when it\u0027s needed.",
+      "parentUuid": "7a6b29fe_a1ee9920",
       "range": {
         "startLine": 205,
         "startChar": 41,
