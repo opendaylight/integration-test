@@ -27,6 +27,9 @@ Documentation     MD-SAL Data Store benchmarking.
 ...               for each build if needed. Parameter UNITS defines time units returned
 ...               by odl-dsbenchmark-impl module. The dsbenchmark.py tool always returns
 ...               values in miliseconds.
+...
+...               Note: Currently, the number of lines in one graph makes default height insufficient.
+...               Workaround: See http://stackoverflow.com/questions/34180337/set-default-height-of-jenkins-plot-generated-with-plot-plugin
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
