@@ -17,7 +17,7 @@ ${start}          sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo tree,1 
 
 *** Keywords ***
 Start Suite
-    [Arguments]    ${system}=${TOOLS_SYSTEM_IP}    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${TOOLS_SYSTEM_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${timeout}=30s
+    [Arguments]    ${system}=${TOOLS_SYSTEM_IP}    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${TOOLS_SYSTEM_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${timeout}=30s    ${cmd}=${start}
     [Documentation]    Basic setup/cleanup work that can be done safely before any system
     ...    is run.
     Log    Start the test on the base edition
@@ -26,7 +26,7 @@ Start Suite
     Set Suite Variable    ${mininet_conn_id}
     Flexible Mininet Login    user=${user}    password=${password}
     Execute Command    sudo ovs-vsctl set-manager ptcp:6644
-    Write    ${start}
+    Write    ${cmd}
     Read Until    mininet>
 
 Start Mininet
