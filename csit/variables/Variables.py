@@ -173,6 +173,7 @@ NEUTRON_NB_API = '/controller/nb/v2/neutron'
 NEUTRON_NETWORKS_API = NEUTRON_NB_API + '/' + 'networks'
 NEUTRON_PORTS_API = NEUTRON_NB_API + '/' + 'ports'
 NEUTRON_ROUTERS_API = NEUTRON_NB_API + '/' + 'routers'
+NEUTRON_SUBNETS_API = NEUTRON_NB_API + '/' + 'subnets'
 OSREST = '/v2.0/networks'
 KARAF_HOME = '${WORKSPACE}${/}${BUNDLEFOLDER}'
 

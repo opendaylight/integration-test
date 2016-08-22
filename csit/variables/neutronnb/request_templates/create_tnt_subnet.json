@@ -1,0 +1,26 @@
+{
+  "subnet": {
+    "name": "{subnetName}",
+    "enable_dhcp": true,
+    "network_id": "{netId}",
+    "tenant_id": "{tntId}",
+    "dns_nameservers": [
+      "192.168.111.254"
+    ],
+    "gateway_ip": "10.1.0.1",
+    "ipv6_ra_mode": null,
+    "allocation_pools": [
+      {
+        "start": "10.1.0.2",
+        "end": "10.1.0.254"
+      }
+    ],
+    "host_routes": [],
+    "shared": false,
+    "ip_version": 4,
+    "ipv6_address_mode": null,
+    "cidr": "10.1.0.0/24",
+    "id": "{subnetId}",
+    "subnetpool_id": null
+  }
+}
