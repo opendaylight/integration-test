@@ -1,0 +1,2 @@
+integration/test/csit/suites/netvirt/Openstack_Neutron/001__connection_manager.robot
+integration/test/csit/suites/netvirt/Netvirt_Scale
