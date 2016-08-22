@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_93472c4b",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-22T09:50:23Z",
+      "side": 1,
+      "message": "The difference is whether maintenance is needed when nitrogen branch appears.\n\nFor a long term solution, I have created a Trello card: https://trello.com/c/TvtNggv7/334-create-a-resource-for-odl-stream-comparison",
+      "parentUuid": "7a6b29fe_182e9e43",
+      "range": {
+        "startLine": 181,
+        "startChar": 49,
+        "endLine": 181,
+        "endChar": 76
+      },
+      "revId": "f4a6c2666d3ded1b69ea31d67a3a8f4884dc5656",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_ddbff8f9",
         "filename": "csit/suites/openflowplugin/Clustering/010__Cluster_HA_Owner_Failover.robot",
         "patchSetId": 2
@@ -84,6 +108,30 @@
       "side": 1,
       "message": "I do not think there is any error, in normal cluster implementation candidates are those that the OF switch connects to, in singleton the candidate is any member. Anyway let me check back with devs to see if this is expected behavior.",
       "parentUuid": "7a6b29fe_ddbff8f9",
+      "range": {
+        "startLine": 35,
+        "startChar": 123,
+        "endLine": 35,
+        "endChar": 137
+      },
+      "revId": "f4a6c2666d3ded1b69ea31d67a3a8f4884dc5656",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_3370d8a4",
+        "filename": "csit/suites/openflowplugin/Clustering/010__Cluster_HA_Owner_Failover.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-22T09:50:23Z",
+      "side": 1,
+      "message": "\u003e in singleton the candidate is any member\n\nSo when a switch is connected only to two members, it is possible that \"owner\" would be the member without connection? Sounds like a Bug (but I have not read the e-mails yet).",
+      "parentUuid": "7a6b29fe_58281634",
       "range": {
         "startLine": 35,
         "startChar": 123,
