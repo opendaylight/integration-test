@@ -14,6 +14,7 @@ ${MIN_SWITCHES}    200
 ${MAX_SWITCHES}    2000
 ${STEP_SWITCHES}    200
 ${SB_SWITCHES_RESULT_FILE}    sb_switches.csv
+${NUM_TOOLS_SYSTEM}    1
 
 *** Test Cases ***
 Find Max Ovsdb Sb Switches
