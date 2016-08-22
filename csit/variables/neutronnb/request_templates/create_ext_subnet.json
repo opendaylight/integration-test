@@ -1,0 +1,24 @@
+{
+  "subnet": {
+    "name": "subext1",
+    "enable_dhcp": false,
+    "network_id": "{netId}",
+    "tenant_id": "{tntId}",
+    "dns_nameservers": [], 
+    "gateway_ip": "192.168.111.254",
+    "ipv6_ra_mode": null,
+    "allocation_pools": [
+      {
+        "start": "192.168.111.21",
+        "end": "192.168.111.40"
+      }
+    ],
+    "host_routes": [],
+    "shared": false,
+    "ip_version": 4,
+    "ipv6_address_mode": null,
+    "cidr": "192.168.111.0/24",
+    "id": "{subnetId}",
+    "subnetpool_id": null
+  }
+}
