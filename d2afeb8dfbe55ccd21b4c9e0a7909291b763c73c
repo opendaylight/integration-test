@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "7a6b29fe_36d3a6d7",
+        "filename": "csit/suites/lispflowmapping/scripts/generate_bindings.sh",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-22T14:20:55Z",
+      "side": 1,
+      "message": "If this script was run by scriptplan (as opposed to Robot suite), it would have access to $BRANCH variable.\nThen, the following should be added so that the correct branch is queried:\n;hb\u003drefs/heads/$BRANCH",
+      "range": {
+        "startLine": 11,
+        "startChar": 90,
+        "endLine": 11,
+        "endChar": 91
+      },
+      "revId": "d2afeb8dfbe55ccd21b4c9e0a7909291b763c73c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_4c2cf502",
         "filename": "csit/suites/lispflowmapping/scripts/generate_bindings.sh",
         "patchSetId": 3
