@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_f00656cd",
+        "filename": "csit/libraries/VtnCoKeywords.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-08-22T05:41:54Z",
+      "side": 1,
+      "message": "I think the path from which the tar extracts is wrong. there is no external apps. The tar is direct file. Please fix this line to extract corectly.",
+      "revId": "734f610fdb67659a426372ca815eaea1103dc76b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
