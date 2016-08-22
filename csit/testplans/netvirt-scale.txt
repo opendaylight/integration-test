@@ -1,0 +1,5 @@
+# Using int/basic as Hello World for now
+integration/test/csit/suites/integration/basic
+
+# TODO: Build and run
+#integration/test/csit/suites/netvirt/Netvirt_Scale
