@@ -204,9 +204,9 @@ def main(*argv):
                                                  'into the config tree, as specified by optional parameters.')
 
     parser.add_argument('--host', default='127.0.0.1',
-                        help='Host where onos controller is running (default is 127.0.0.1)')
+                        help='Host where ODL controller is running (default is 127.0.0.1)')
     parser.add_argument('--port', default='8181',
-                        help='Port on which onos\'s RESTCONF is listening (default is 8181)')
+                        help='Port on which ODL\'s RESTCONF is listening (default is 8181)')
     parser.add_argument('--threads', type=int, default=1,
                         help='Number of request worker threads to start in each cycle; default=1. '
                              'Each thread will add/delete <FLOWS> flows.')
