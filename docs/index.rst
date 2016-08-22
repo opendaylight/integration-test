@@ -1,8 +1,3 @@
-.. Integration/Test documentation master file, created by
-   sphinx-quickstart on Thu May 19 22:13:07 2016.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Integration Testing Guide
 =========================
 
@@ -14,5 +9,12 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
+External resources:
 
-Link to `Robot API docs <http://docs.opendaylight.org/en/latest/_static/integration/robot/index.html>`_.
+* `Creating System Tests <https://wiki.opendaylight.org/view/CrossProject:Integration_Group:System_Test:Step_by_Step_Guide>`_.
+* `Infrastructure Guide <http://docs.opendaylight.org/en/latest/submodules/releng/builder/docs/jenkins.html>`_.
+* `Running System Tests <https://wiki.opendaylight.org/view/Integration/Test/Running_System_Tests>`_.
+* `Test Code Guidelines <https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines>`_.
+* `Test Case Expectations <https://wiki.opendaylight.org/view/Integration/Test/Test_Case_Expectations>`_.
+* `Boron Test Requirements <https://wiki.opendaylight.org/view/CrossProject:Integration_Group:Boron_Traditional_Release_Project_Integration_Requirements>`_.
+* `Robot API docs <http://docs.opendaylight.org/en/latest/_static/integration/robot/index.html>`_.

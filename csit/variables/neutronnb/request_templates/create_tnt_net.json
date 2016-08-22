@@ -1,0 +1,14 @@
+{
+  "network": {
+    "name": "{name}",
+    "provider:physical_network": null,
+    "router:external": false,
+    "tenant_id": "{tenant_id}",
+    "admin_state_up": true,
+    "provider:network_type": "vxlan",
+    "shared": false,
+    "port_security_enabled": true,
+    "id": "{id}",
+    "provider:segmentation_id": {provider_segmentation_id}
+  }
+}
