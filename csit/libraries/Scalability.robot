@@ -352,6 +352,10 @@ Stop Mininet Simulation
     : FOR    ${mininet_conn_id}    IN    @{tools_conn_ids_list}
     \    Utils.Stop Mininet    ${mininet_conn_id}
 
+Scalability Suite Setup
+    Open Controller Karaf Console On Background
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+
 Scalability Suite Teardown
     Delete All Sessions
     ${tools_system_range_end}    Evaluate    ${NUM_TOOLS_SYSTEM}+1
