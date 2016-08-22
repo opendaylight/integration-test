@@ -8,6 +8,10 @@ Variables         ../variables/Variables.py
 Library           RequestsLibrary
 Library           SwitchClasses/BaseSwitch.py
 
+*** Variables ***
+${NUM_TOOLS_SYSTEM}    1
+${TOOLS_SYSTEM_1_IP}    ${TOOLS_SYSTEM_IP}
+
 *** Keywords ***
 Find Max Switches
     [Arguments]    ${start}    ${stop}    ${step}
@@ -207,8 +211,8 @@ Check No Hosts
 Start Mininet Linear
     [Arguments]    ${switches}    ${timeout}=${switches*2}    ${test_mode}=openflow
     [Documentation]    Start mininet linear topology with ${switches} nodes
-    Log To Console    Starting mininet linear ${switches}
     ${num_ovs_per_mininet}    Evaluate    ${switches}/${NUM_TOOLS_SYSTEM}
+    Log    Starting ${num_ovs_per_mininet} OVS switches per Mininet instance
     ${tools_system_range_end}    Evaluate    ${NUM_TOOLS_SYSTEM}+1
     @{tools_conn_ids_list}=    Create List
     : FOR    ${mininet_system_num}    IN RANGE    1    ${tools_system_range_end}
@@ -266,21 +270,24 @@ Check Every Switch
     ${mac}=    Replace String Using Regexp    ${base_mac}    :    ${EMPTY}
     ${mac}=    Convert Hex To Decimal As String    ${mac}
     ${mac}=    Convert To Integer    ${mac}
-    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    : FOR    ${switch}    IN RANGE    1    ${switches}+1
+    \    Log    Checking Switch ${switch}
     \    ${dpid_decimal}=    Evaluate    ${mac}+${switch}
     \    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}/node/openflow:${dpid_decimal}
+    \    Log    ${resp.content}
     \    Should Be Equal As Strings    ${resp.status_code}    200
-    \    Log To Console    Checking Switch ${switch}
     \    Should Contain    ${resp.content}    flow-capable-node-connector-statistics
     \    Should Contain    ${resp.content}    flow-table-statistics
 
 Check Linear Topology
     [Arguments]    ${switches}
     [Documentation]    Check Linear topology given ${switches}
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
     Log To Console    Checking Topology
+    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
+    Log    ${resp.status_code}
+    Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
-    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    : FOR    ${switch}    IN RANGE    1    ${switches}+1
     \    Should Contain    ${resp.content}    "node-id":"openflow:${switch}"
     \    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:1"
     \    Should Contain    ${resp.content}    "tp-id":"openflow:${switch}:2"
@@ -297,7 +304,7 @@ Check No Switches
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
     Log To Console    Checking No Switches
     Should Be Equal As Strings    ${resp.status_code}    200
-    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    : FOR    ${switch}    IN RANGE    1    ${switches}+1
     \    Should Not Contain    ${resp.content}    openflow:${switch}
 
 Check No Topology
@@ -306,7 +313,7 @@ Check No Topology
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
     Log To Console    Checking No Topology
     Should Be Equal As Strings    ${resp.status_code}    200
-    : FOR    ${switch}    IN RANGE    1    ${switches+1}
+    : FOR    ${switch}    IN RANGE    1    ${switches}+1
     \    Should Not Contain    ${resp.content}    openflow:${switch}
 
 Check Ovsdb Topology
@@ -351,6 +358,11 @@ Stop Mininet Simulation
     Log To Console    Stopping Mininet
     : FOR    ${mininet_conn_id}    IN    @{tools_conn_ids_list}
     \    Utils.Stop Mininet    ${mininet_conn_id}
+
+Scalability Suite Setup
+    Open Controller Karaf Console On Background
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    ${mininet_conn_id}    SSHLibrary.Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${TOOLS_SYSTEM_PROMPT}
 
 Scalability Suite Teardown
     Delete All Sessions
