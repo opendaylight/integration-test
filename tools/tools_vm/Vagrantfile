@@ -23,14 +23,29 @@ Vagrant.configure(2) do |config|
     vb.cpus = $CPU
   end
 
+  # LibVirt configuration
+  config.vm.provider "libvirt" do |libvirt|
+    # Set RAM in MB
+    libvirt.memory = $MEMORY
+    # Set num CPU cores
+    libvirt.cpus = $CPU
+  end
+
+  # NFS is fragile, disable it and use rsync
+  config.nfs.functional = false
+
+  # Work around but in Vagrant 1.8.5 by using password over SSH auth
+  # https://github.com/mitchellh/vagrant/issues/7610
+  config.ssh.insert_key = false
+
   # ---------------------------
-  # Configuration for Fedora 20
+  # Configuration for Fedora 24
   # ---------------------------
 
   # Multi-machine definition for Fedora
   config.vm.define "fedora" do |fedora|
-    # Build Vagrant box based on Fedora 20
-    fedora.vm.box = "chef/fedora-20"
+    # Build Vagrant box based on Fedora 24
+    fedora.vm.box = "fedora/24-cloud-base"
     # Set hostname of box
     fedora.vm.hostname = "tools-fedora"
     # Use shell provisioner to install additional packages
@@ -39,13 +54,14 @@ Vagrant.configure(2) do |config|
     # Install OpenDaylight using its Puppet module
     fedora.vm.provision "puppet" do |puppet|
       puppet.module_path = ["modules"]
-      puppet.manifest_file = "odl_install.pp"
+      puppet.environment_path = "environments"
+      puppet.environment = "main"
     end
 
     # VirtualBox configuration specific to this box
     fedora.vm.provider "virtualbox" do |vb|
       # Name for guest machine
-      vb.name = "Integration Tools: Fedora 20"
+      vb.name = "Integration Tools: Fedora 24"
     end
   end
 

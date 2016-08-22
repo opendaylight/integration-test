@@ -12,7 +12,7 @@ HOME="/home/vagrant"
 su -c "cp /vagrant/scripts/welcome.txt /etc/motd"
 
 # Install initial packages
-su -c "yum install -y \
+su -c "dnf install -y \
   git \
   puppet \
   python-pip \
@@ -24,7 +24,7 @@ su -c "yum install -y \
 echo "Installing netopeer"
 
 # Install required dependencies
-su -c "yum install -y \
+su -c "dnf install -y \
   readline \
   readline-devel \
   libssh2 \
@@ -75,10 +75,13 @@ cd $HOME && \
 echo "Installing Robot Framework and RIDE"
 
 # Install required dependencies
-su -c "yum install -y \
+su -c "dnf install -y \
   wxGTK-devel \
   gcc-c++ \
-  xorg-x11-xauth"
+  xorg-x11-xauth \
+  libffi-devel \
+  redhat-rpm-config \
+  wget"
 
 # Install Robot Framework libraries
 su -c "pip install \
@@ -87,6 +90,7 @@ su -c "pip install \
   robotframework-requests"
 
 # Install wxPython, a blending of the wxWidgets C++ class library used for RIDE
+# FIXME: wxPython fails to build
 cd $HOME && \
   wget -e dotbytes=1M http://sourceforge.net/projects/wxpython/files/wxPython/2.8.12.1/wxPython-src-2.8.12.1.tar.bz2 && \
   tar -xvjf wxPython-src-2.8.12.1.tar.bz2 && \
