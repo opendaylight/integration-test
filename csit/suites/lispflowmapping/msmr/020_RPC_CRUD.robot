@@ -39,6 +39,7 @@ Update Key
     [Documentation]    Update an existing key for an IPv4 EID
     ${update_key}=    OperatingSystem.Get File    ${IPV4_U_KEY}
     Post Log Check    ${LFM_RPC_API}:update-key    ${update_key}
+    Sleep    200ms
 
 Read Updated Key
     [Documentation]    Read the key updated in the previous test
@@ -50,6 +51,7 @@ Delete Key
     [Documentation]    Delete an existing key for an IPv4 EID
     ${remove_key}=    OperatingSystem.Get File    ${IPV4_RD}
     Post Log Check    ${LFM_RPC_API}:remove-key    ${remove_key}
+    Sleep    200ms
 
 Attempt To Read Deleted Key
     [Documentation]    Try to read the key deleted in the previous test
@@ -70,6 +72,7 @@ Attempt To Read Non-Existing Mapping
     [Documentation]    Try to read a non-existing mapping for an IPv4 EID
     ${get_mapping}=    OperatingSystem.Get File    ${MISS_RD}
     Check Mapping Removal    ${get_mapping}
+    Sleep    200ms
 
 Read Mapping
     [Documentation]    Read an existing mapping for an IPv4 EID
