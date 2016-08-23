@@ -39,7 +39,7 @@ Verification of Full Record Text for Netflow Dumps
     ${out}=    Query the Data from HBaseClient    scan 'NETFLOW',{ COLUMNS => 'c1' , LIMIT => 10, FILTER => "ValueFilter( =, 'regexstring:srcAddr=${IP_1}' )" }
     Should Contain    ${out}    srcAddr=${IP_1}
     Should Contain    ${out}    dstAddr=${IP_2}
-    Should Contain    ${out}    dstPort=${port}
+    Should Contain    ${out}    srcPort=${port}
     Should Contain    ${out}    protocol=${protocol}
     Should Contain    ${out}    nextHop=${nexthop}
     Should Contain    ${out}    engine_type
