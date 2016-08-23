@@ -28,6 +28,13 @@ Create All Controller Sessions
     [Documentation]    Create sessions for all three contorllers.
     ClusterManagement.ClusterManagement Setup
 
+Check Initial Dump Flows
+    [Documentation]    Verify the existence of tables from table 0 to table 110 in the dump flow.
+    ${output}=    Write Commands Until Expected Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int    ]>
+    Log    ${output}
+    : FOR    ${table}    IN    @{TABLE_LIST}
+    \    Should Contain    ${output}    ${table}
+
 Create Networks
     [Documentation]    Create Network with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
@@ -36,10 +43,14 @@ Create Networks
 Create Subnets For l3_net_1
     [Documentation]    Create Sub Nets for the Networks with neutron request.
     OpenStackOperations.Create SubNet    l3_net_1    l3_sub_net_1    @{SUBNETS_RANGE}[0]
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
 
 Create Subnets For l3_net_2
     [Documentation]    Create Sub Nets for the Networks with neutron request.
     OpenStackOperations.Create SubNet    l3_net_2    l3_sub_net_2    @{SUBNETS_RANGE}[1]
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
 
 Take Down ODL1
     [Documentation]    Kill the karaf in First Controller
@@ -48,6 +59,8 @@ Take Down ODL1
 Create Vm Instances For l3_net_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     OpenStackOperations.Create Vm Instances    l3_net_1    ${NET_1_VM_INSTANCES}
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
     [Teardown]    OpenStackOperations.Show Debugs    ${NET_1_VM_INSTANCES}
 
 Bring Up ODL1
@@ -61,6 +74,8 @@ Take Down ODL2
 Create Vm Instances For l3_net_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     OpenStackOperations.Create Vm Instances    l3_net_2    ${NET_2_VM_INSTANCES}
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
     [Teardown]    Show Debugs    ${NET_2_VM_INSTANCES}
 
 Bring Up ODL2
