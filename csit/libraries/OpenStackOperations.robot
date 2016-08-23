@@ -369,6 +369,8 @@ Show Debugs
     : FOR    ${index}    IN    @{vm_indices}
     \    ${output}=    Write Commands Until Prompt    nova show ${index}     30s
     \    Log    ${output}
+	\    ${vm_output}=    Write Commands Until Prompt    nova console-log ${index} | grep "debug start" -A10     30s
+    \    Log    ${vm_output}
     Close Connection
 
 Get Mac Address

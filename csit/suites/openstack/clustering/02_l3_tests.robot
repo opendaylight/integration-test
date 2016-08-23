@@ -28,6 +28,13 @@ Create All Controller Sessions
     [Documentation]    Create sessions for all three contorllers.
     ClusterManagement.ClusterManagement Setup
 
+Check Initial Dump Flows
+    [Documentation]    Verify the existence of tables from table 0 to table 110 in the dump flow.
+    ${output}=    Write Commands Until Expected Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int    ]>
+    Log    ${output}
+    : FOR    ${table}    IN    @{TABLE_LIST}
+    \    Should Contain    ${output}    ${table}
+
 Create Networks
     [Documentation]    Create Network with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}

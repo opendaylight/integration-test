@@ -48,10 +48,14 @@ Create Networks
 Create Subnets For l2_net_1
     [Documentation]    Create Sub Nets for the Networks with neutron request.
     OpenStackOperations.Create SubNet    l2_net_1    l2_sub_net_1    @{SUBNETS_RANGE}[0]
+	${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
 
 Create Subnets For l2_net_2
     [Documentation]    Create Sub Nets for the Networks with neutron request.
     OpenStackOperations.Create SubNet    l2_net_2    l2_sub_net_2    @{SUBNETS_RANGE}[1]
+	${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
 
 Create Bridge Manually and Verify Before Fail
     [Documentation]    Create bridge with OVS command and verify it gets applied from all instances.
@@ -86,6 +90,8 @@ Create Vm Instances For l2_net_1
     [Documentation]    Create Vm instances using flavor and image names for a network.
     Log    ${devstack_conn_id}
     OpenStackOperations.Create Vm Instances    l2_net_1    ${NET_1_VM_INSTANCES}
+	${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${output}
     [Teardown]    OpenStackOperations.Show Debugs    ${NET_1_VM_INSTANCES}
 
 Bring Up ODL1
