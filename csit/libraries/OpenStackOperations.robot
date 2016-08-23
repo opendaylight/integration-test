@@ -30,6 +30,14 @@ Create Network
     Log    ${output}
     [Return]    ${output}
 
+Add Allow Ssh Rule
+    [Arguments]    ${network_range}
+    [Documentation]    Create Network with neutron request.
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt     nova secgroup-add-rule default tcp 22 22 ${network_range}     30s
+    Log    ${output}
+
 List Networks
     [Documentation]    List networks and return output with neutron client.
     ${devstack_conn_id}=       Get ControlNode Connection
@@ -63,6 +71,7 @@ Create SubNet
     [Documentation]    Create SubNet for the Network with neutron request.
     ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
+    Add Allow Ssh Rule     ${range_ip}
     ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet}    30s
     Close Connection
     Log    ${output}
