@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_9f30cd02",
+        "filename": "csit/suites/lispflowmapping/msmr/020_RPC_CRUD.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-23T10:01:42Z",
+      "side": 1,
+      "message": "Is this enough also for -all- job where other features may still be being installed?\n\nUsual recommendation would be to run all the Post_Log_Check within BuiltIn.Wait_Until_Keyword_Succeeds with retry\u003d3x and suitable refresh.\nBut in this case of sub-second waits, time savings may not be worth enough to warrant more complicated Robot code and possibly larger log.html files. So BuiltIn.sleep may be okay here, just confirm the sleep time is really sufficient.",
+      "range": {
+        "startLine": 42,
+        "startChar": 13,
+        "endLine": 42,
+        "endChar": 18
+      },
+      "revId": "1d661054122de7f2e540588e7b14e416752c050c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
