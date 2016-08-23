@@ -30,6 +30,13 @@ Create Network
     Log    ${output}
     [Return]    ${output}
 
+Add Allow Ssh Rule
+    [Documentation]    Create Network with neutron request.
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt     nova secgroup-add-group-rule default default tcp 22 22      30s
+    Log    ${output}
+
 List Networks
     [Documentation]    List networks and return output with neutron client.
     ${devstack_conn_id}=       Get ControlNode Connection
@@ -263,6 +270,7 @@ Test Operations From Vm Instance
     [Arguments]    ${net_name}    ${src_ip}    ${list_of_local_dst_ips}    ${l2_or_l3}=l2    ${list_of_external_dst_ips}=${NONE}    ${user}=cirros
     ...    ${password}=cubswin:)
     [Documentation]    Login to the vm instance using ssh in the network.
+    Add Allow Ssh Rule
     ${devstack_conn_id}=       Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${net_id}=    Get Net Id    ${net_name}      ${devstack_conn_id}
