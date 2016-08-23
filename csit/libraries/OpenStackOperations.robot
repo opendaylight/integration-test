@@ -164,6 +164,10 @@ Create Vm Instances
     : FOR    ${VmElement}    IN    @{vm_instance_names}
     \    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement}    30s
     \    Log    ${output}
+    \    ${vm_output}=    Write Commands Until Prompt    nova console-log ${VmElement} | grep "debug start" -A10     30s
+    \    Log    ${vm_output}
+    \    ${flow_output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int    30s
+    \    Log    ${flow_output}
     \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VmElement}
 
 Create Vm Instance With Port On Compute Node
@@ -369,6 +373,10 @@ Show Debugs
     : FOR    ${index}    IN    @{vm_indices}
     \    ${output}=    Write Commands Until Prompt    nova show ${index}     30s
     \    Log    ${output}
+    \    ${vm_output}=    Write Commands Until Prompt    nova console-log ${index} | grep "debug start" -A10     30s
+    \    Log    ${vm_output}
+    \    ${flow_output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int    30s
+    \    Log    ${flow_output}
     Close Connection
 
 Get Mac Address

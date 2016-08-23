@@ -28,6 +28,34 @@ Create All Controller Sessions
     [Documentation]    Create sessions for all three contorllers.
     ClusterManagement.ClusterManagement Setup
 
+Check Initial Dump Flows
+    [Documentation]    Verify the existence of tables from table 0 to table 110 in the dump flow.
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int    30s
+    Log    ${output}
+
+Verified Initial Flows Both Control and Compute Node
+    [Arguments]    ${controller_index_list}
+    [Documentation]    Delete bridge br-int using OVS command and verify it gets applied in all instances in ${controller_index_list}.
+    ${dictionary}=    Create Dictionary    br-int=18
+    ${show_list}=    Utils.Run Command On Mininet    ${OS_CONTROL_NODE_IP}    sudo ovs-vsctl show
+    Log    ${show_list}
+    ${show_list}=    Utils.Run Command On Mininet    ${OS_COMPUTE_1_IP}    sudo ovs-vsctl show
+    Log    ${show_list}
+    ${show_list}=    Utils.Run Command On Mininet    ${OS_COMPUTE_2_IP}    sudo ovs-vsctl show
+    Log    ${show_list}
+    ${show_list}=    Utils.Run Command On Mininet    ${OS_CONTROL_NODE_IP}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${show_list}
+    ${show_list}=    Utils.Run Command On Mininet    ${OS_COMPUTE_1_IP}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${show_list}
+    ${show_list}=    Utils.Run Command On Mininet    ${OS_COMPUTE_2_IP}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${show_list}
+     ${show_list}=    Utils.Run Command On Mininet    ${OS_CONTROL_NODE_IP}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-ex
+    Log    ${show_list}
+    ${show_list}=    Utils.Run Command On Mininet    ${OS_COMPUTE_1_IP}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-ex
+    Log    ${show_list}
+    ${show_list}=    Utils.Run Command On Mininet    ${OS_COMPUTE_2_IP}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-ex
+    Log    ${show_list}
+
 Create Networks
     [Documentation]    Create Network with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
@@ -50,26 +78,10 @@ Create Vm Instances For l3_net_1
     OpenStackOperations.Create Vm Instances    l3_net_1    ${NET_1_VM_INSTANCES}
     [Teardown]    OpenStackOperations.Show Debugs    ${NET_1_VM_INSTANCES}
 
-Bring Up ODL1
-    [Documentation]    Bring up ODL1 again
-    ClusterManagement.Start Single Member    1
-
-Take Down ODL2
-    [Documentation]    Kill the karaf in Second Controller
-    ClusterManagement.Kill Single Member    2
-
 Create Vm Instances For l3_net_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     OpenStackOperations.Create Vm Instances    l3_net_2    ${NET_2_VM_INSTANCES}
     [Teardown]    Show Debugs    ${NET_2_VM_INSTANCES}
-
-Bring Up ODL2
-    [Documentation]    Bring up ODL2 again
-    ClusterManagement.Start Single Member    2
-
-Take Down ODL3
-    [Documentation]    Kill the karaf in Third Controller
-    ClusterManagement.Kill Single Member    3
 
 Create Routers
     [Documentation]    Create Router and Add Interface to the subnets.
@@ -86,10 +98,6 @@ Verify Created Routers
     ${data}    Utils.Get Data From URI    1    ${NEUTRON_ROUTERS_API}
     Log    ${data}
     Should Contain    ${data}    router_3
-
-Bring Up ODL3
-    [Documentation]    Bring up ODL3 again
-    ClusterManagement.Start Single Member    3
 
 Ping Vm Instance1 In l3_net_2 From l3_net_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
@@ -114,10 +122,6 @@ Ping Vm Instance2 In l3_net_1 From l3_net_2
 Ping Vm Instance3 In l3_net_1 From l3_net_2
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
     OpenStackOperations.Ping Vm From DHCP Namespace    l3_net_2    @{NET_1_VM_IPS}[2]
-
-Take Down ODL1 and ODL2
-    [Documentation]    Kill the karaf in First and Second Controller
-    ClusterManagement.Kill Members From List Or All    ${odl_1_and_2_down}
 
 Connectivity Tests From Vm Instance1 In l3_net_1
     [Documentation]    Logging to the vm instance using generated key pair.
@@ -175,10 +179,6 @@ Connectivity Tests From Vm Instance3 In l3_net_2
     Log    ${other_dst_ip_list}
     OpenStackOperations.Test Operations From Vm Instance    l3_net_2    @{NET_2_VM_IPS}[2]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
-Bring Up ODL2 and ODL3
-    [Documentation]    Bring up ODL2 and ODL3 again.
-    ClusterManagement.Start Members From List Or All    ${odl_2_and_3_down}
-
 Delete Vm Instances In l3_net_1
     [Documentation]    Delete Vm instances using instance names in l3_net_1.
     : FOR    ${VmElement}    IN    @{NET_1_VM_INSTANCES}
@@ -217,3 +217,4 @@ Delete Networks
     [Documentation]    Delete Networks with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
     \    OpenStackOperations.Delete Network    ${NetworkElement}
+
