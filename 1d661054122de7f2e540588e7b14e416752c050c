@@ -40,6 +40,24 @@
       "revId": "1d661054122de7f2e540588e7b14e416752c050c",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_d02d0f48",
+        "filename": "csit/suites/lispflowmapping/msmr/020_RPC_CRUD.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-24T09:31:57Z",
+      "side": 1,
+      "message": "I would introduce WUKS with very big retry and small retry_interval, run -all- job in Sandbox and look how long did it took. Then multiply that time by two and if it is still a second or less, convert back to Sleep.",
+      "parentUuid": "7a6b29fe_a54f76bc",
+      "revId": "1d661054122de7f2e540588e7b14e416752c050c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
