@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_1c0fa02f",
+        "filename": "tools/tools_vm/Vagrantfile",
+        "patchSetId": 2
+      },
+      "lineNbr": 59,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-24T22:37:28Z",
+      "side": 1,
+      "message": "so is ODL getting installed?",
+      "range": {
+        "startLine": 54,
+        "startChar": 0,
+        "endLine": 59,
+        "endChar": 7
+      },
+      "revId": "475534f277335f65adefad4d864491a9012fd508",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
