@@ -67,11 +67,11 @@ Setup Environment
     Issue Command On Karaf Console    log:set DEBUG org.opendaylight.topoprocessing
     Install a Feature    odl-restconf-noauth    timeout=30
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${SEND_ACCEPT_XML_HEADERS}
-    ${features}    Issue Command On Karaf Console    feature:list -i
-    ${lines}    Get Lines Containing String    ${features}    odl-topoprocessing-framework
-    ${length}    Get Length    ${lines}
     Install a Feature    odl-openflowplugin-nsf-model odl-topoprocessing-framework odl-topoprocessing-network-topology odl-topoprocessing-inventory odl-mdsal-models odl-ovsdb-southbound-impl    timeout=120
-    Run Keyword If    ${length} == 0    Wait For Karaf Log    Registering Topology Request Listener    60
+    Set Global Variable If It Does Not Exist    \${WAIT_FOR_FEATURES_TO_INSTALL}    ${True}
+    Run Keyword If    ${WAIT_FOR_FEATURES_TO_INSTALL}    Run Keywords    Wait For Karaf Log    Registering Topology Request Listener    60
+    ...    AND    Set Global Variable    \${WAIT_FOR_FEATURES_TO_INSTALL}    ${FALSE}
+    TopoprocessingKeywords.Setup Environment
     Prepare New Feature Installation
     Insert Underlay topologies
 
@@ -450,3 +450,8 @@ Output Topo Should Be Complete
     Log    ---- Output Topo ----
     Log    ${resp.content}
     [Return]    ${resp}
+
+Set Global Variable If It Does Not Exist
+    [Arguments]    ${name}    ${value}
+    ${status}    ${message} =    Run Keyword And Ignore Error    Variable Should Exist    ${name}
+    Run Keyword If    "${status}" == "FAIL"    Set Global Variable    ${name}    ${value}
