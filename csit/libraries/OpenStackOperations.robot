@@ -172,7 +172,7 @@ Create Vm Instance With Port On Compute Node
     Switch Connection    ${devstack_conn_id}
     ${port_id}=    Get Port Id    ${port_name}      ${devstack_conn_id}
     ${hostname_compute_node}=    Run Command On Remote System    ${compute_node}    hostname
-    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --availability-zone nova:${hostname_compute_node}   30s
+    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --availability-zone nova:${hostname_compute_node} --key_name test --security-groups sg1    30s
     Log    ${output}
     Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${vm_instance_name}
 
@@ -366,4 +366,76 @@ Show Debugs
     : FOR    ${index}    IN    @{vm_indices}
     \    ${output}=    Write Commands Until Prompt    nova show ${index}     30s
     \    Log    ${output}
+    \    Get DumpFlows And Ovsconfig    ${OS_CONTROL_NODE_IP}
+    Close Connection
+
+Delete Default Ingress SG Rule
+    [Arguments]    ${ether_types}
+    [Documentation]    Delete ingress rule for default SG.
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    : FOR    ${index}    IN    @{ether_types}
+    \    ${sg_temp}=    Write Commands Until Prompt    neutron security-group-rule-list | grep default | grep ingress | grep ${index} | get_field 1
+    \    Log    ${sg_temp}
+    \    @{sg_list}    Split String     ${sg_temp}    ${EMPTY}
+    \    ${rem_list}=    Remove From List    ${sg_list}    -2
+    \    ${rem_list}=    Remove From List    ${sg_list}    -1
+    \    Write Commands Until Prompt    neutron security-group-rule-delete ${rem_list}     30s
+    Close Connection
+
+Delete Default Egress SG Rule
+    [Arguments]    ${ether_types}
+    [Documentation]    Delete egress rule for default SG.
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    : FOR    ${index}    IN    @{ether_types}
+    \    ${sg_temp}=    Write Commands Until Prompt    neutron security-group-rule-list | grep default | grep egress | grep ${index} | get_field 1
+    \    Log    ${sg_temp}
+    \    @{sg_list}    Split String     ${sg_temp}    ${EMPTY}
+    \    ${rem_list}=    Remove From List    ${sg_list}    -2
+    \    ${rem_list}=    Remove From List    ${sg_list}    -1
+    \    Write Commands Until Prompt    neutron security-group-rule-delete ${rem_list}     30s
+    Close Connection
+
+ Create Custom Security Group
+    [Arguments]    ${sg_name}
+    [Documentation]    Create a new custom security group.
+    Log    ${sg_name}
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron security-group-create ${sg_name}
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    Created a new security_group
+
+Add Custom Rule
+    [Arguments]    ${sg_name}
+    [Documentation]    Add a rule to the custom security group.
+    Log    ${sg_name}
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron security-group-rule-create --direction egress --ethertype IPv4 --protocol tcp --port-range-min 22 --port-range-max 22 ${sg_name}
+    Log    ${output}
+    Close Connection
+
+Get Mac Address
+    [Arguments]    ${dhcp_or_vm_ip}
+    [Documentation]    This keyword is used to retrieve both dhcp ip's mac address and vm instance ip's mac address.
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${mac_add_src}=    Write Commands Until Prompt    neutron port-list | grep "${dhcp_or_vm_ip}" | get_field 3    40s
+    Log    ${mac_add_src}
+    ${mac_add_list}=    Split String    ${mac_add_src}    ${EMPTY}
+    ${mac_add}=    Get from List    ${mac_add_list}    0
+    Log    ${mac_add}
+    [Return]    ${mac_add}
+
+Add Rule To DHCP
+    [Arguments]    ${mac_addr}
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl add-flow -O OpenFlow13 br-int "table=40, n_packets=0, n_bytes=0, priority=61007, tcp,dl_src=${mac_addr},tcp_flags=syn,actions=goto_table:50"    30s
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    sudo ovs-ofctl add-flow -O OpenFlow13 br-int "table=90, n_packets=0, n_bytes=0, priority=61007, tcp,dl_src=${mac_addr},tcp_flags=syn,actions=goto_table:100"    30s
+    Log    ${output}
     Close Connection
