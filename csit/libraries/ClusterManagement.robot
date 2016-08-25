@@ -308,6 +308,14 @@ Run_Command_On_List_Or_All
     : FOR    ${index}    IN    @{index_list}
     \    Run_Command_On_Member    command=${command}    member_index=${index}
 
+Run_Karaf_Command_On_List_Or_All
+    [Arguments]    ${command}    ${member_index_list}=${EMPTY}
+    [Documentation]    Cycle through indices (or all), run karaf command on each.
+    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    : FOR    ${index}    IN    @{index_list}
+    \    ${member_ip} =    Collections.Get_From_Dictionary    dictionary=${ClusterManagement__index_to_ip_mapping}    key=${index}
+    \    KarafKeywords.Issue Command On Karaf Console    ${command}    ${member_ip}
+
 Run_Command_On_Member
     [Arguments]    ${command}    ${member_index}
     [Documentation]    Obtain IP, call Utils and return output. This does not preserve active ssh session.
