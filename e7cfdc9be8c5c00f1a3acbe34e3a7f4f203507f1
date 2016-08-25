@@ -22,6 +22,30 @@
       "revId": "e7cfdc9be8c5c00f1a3acbe34e3a7f4f203507f1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_06246ac3",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-08-25T10:23:47Z",
+      "side": 1,
+      "message": "Yeah, there\u0027s a huge difference.\ntempest.api.network basically tests neutron-northbound only - it sends REST API requests and passes if it gets an HTTP OK\n\ntempest.scenario are tests that do a full end-to-end test - e.g. loading a VM, attaching floating IP, checking ping connectivity etc. - similar to netvirt CSIT but more extensive (and used by openstack community)",
+      "parentUuid": "7a6b29fe_c6471276",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 16
+      },
+      "revId": "e7cfdc9be8c5c00f1a3acbe34e3a7f4f203507f1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
