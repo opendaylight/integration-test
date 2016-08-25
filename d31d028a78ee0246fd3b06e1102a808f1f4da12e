@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_9c8c5037",
+        "filename": "csit/libraries/ClusterOpenFlow.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-25T01:26:52Z",
+      "side": 1,
+      "message": "The ScaleClient.py library contains Get_Switches_Count keyword, why do not use this instead of counting netstat connections?",
+      "revId": "d31d028a78ee0246fd3b06e1102a808f1f4da12e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_5c9bd871",
+        "filename": "csit/libraries/ClusterOpenFlow.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 135,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-25T01:26:52Z",
+      "side": 1,
+      "message": "Add library: ScaleClient.Flow_Stats_Collected",
+      "revId": "d31d028a78ee0246fd3b06e1102a808f1f4da12e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_fc83c401",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 165,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-25T01:26:52Z",
+      "side": 1,
+      "message": "Same question here, why the test does not wait until switches show up in inventory operational? I think it is more safe to check ODL inventory than OF TCP session.",
+      "revId": "d31d028a78ee0246fd3b06e1102a808f1f4da12e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_9ce1f0d2",
+        "filename": "csit/suites/openflowplugin/Clustering_Bulkomatic/100K_Flows_10DPN_3Node_Cluster_Scaleup_Test.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-25T01:26:52Z",
+      "side": 1,
+      "message": "Do you really need this check when you are really stopping mininet and verifying there is no switchrs connected later?",
+      "revId": "d31d028a78ee0246fd3b06e1102a808f1f4da12e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_3c7d3c1d",
+        "filename": "csit/suites/openflowplugin/Clustering_Bulkomatic/100K_Flows_10DPN_3Node_Cluster_Scaleup_Test.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-25T01:26:52Z",
+      "side": 1,
+      "message": "remove trail space",
+      "revId": "d31d028a78ee0246fd3b06e1102a808f1f4da12e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_1c78402a",
+        "filename": "csit/suites/openflowplugin/Clustering_Bulkomatic/100K_Flows_10DPN_3Node_Cluster_Scaleup_Test.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-25T01:26:52Z",
+      "side": 1,
+      "message": "remove trail space",
+      "revId": "d31d028a78ee0246fd3b06e1102a808f1f4da12e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_5cd758ed",
+        "filename": "csit/suites/openflowplugin/Clustering_Bulkomatic/100K_Flows_10DPN_3Node_Cluster_Scaleup_Test.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-25T01:26:52Z",
+      "side": 1,
+      "message": "I guess we stop mininet at this point because there are issues deleting flows via bulk right? If so we should probably not collect delete time information.",
+      "revId": "d31d028a78ee0246fd3b06e1102a808f1f4da12e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_9c08d092",
+        "filename": "csit/suites/openflowplugin/Clustering_Bulkomatic/100K_Flows_10DPN_3Node_Cluster_Scaleup_Test.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-08-25T01:26:52Z",
+      "side": 1,
+      "message": "I would like you to add step to plot 2 graphs:\n\n- Flow Add time with 3 values: config DS, switch, operational DS \n- Flow Add rate with 3 values: config DS, switch, operational DS\n\nLet me know if you have questions on how to do this.",
+      "revId": "d31d028a78ee0246fd3b06e1102a808f1f4da12e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
