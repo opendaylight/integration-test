@@ -367,3 +367,80 @@ Show Debugs
     \    ${output}=    Write Commands Until Prompt    nova show ${index}     30s
     \    Log    ${output}
     Close Connection
+
+Delete Default SG Rules
+    ${output}=    Write Commands Until Prompt    neutron security-group-rule-list | grep default 
+    Log    ${output}
+
+Delete Default Ingress SG Rule
+    [Arguments]    ${ether_types}
+    [Documentation]    Delete ingress rule for default SG.
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    : FOR    ${index}    IN    @{ether_types}
+    \    ${sg_temp}=    Write Commands Until Prompt    neutron security-group-rule-list | grep default | grep ingress | grep ${index} | get_field 1
+    \    Log    ${sg_temp}
+    \    @{sg_list}    Split String     ${sg_temp}    ${EMPTY}
+    \    ${rem_list}=    Remove From List    ${sg_list}    -2
+    \    ${rem_list}=    Remove From List    ${sg_list}    -1
+    \    Delete Rule With Id    ${rem_list}
+    Close Connection
+
+Delete Rule With Id
+    [Arguments]    ${rem_list}
+    [Documentation]    Delete ingress rule with id.
+    : FOR    ${index}    IN    @{rem_list}
+    \    Log    ${index}
+    \    ${output}=    Write Commands Until Prompt    neutron security-group-rule-delete ${index}     30s
+    \    Log    ${output}
+
+Delete Default Egress SG Rule
+    [Documentation]    Delete egress rule for default SG.
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${sg_temp}=    Write Commands Until Prompt    neutron security-group-rule-list | grep default | grep egress | grep IPv4 | get_field 1
+    Log    ${sg_temp}
+    @{sg_list}    Split String     ${sg_temp}    ${EMPTY}
+    ${rem_list}=    Remove From List    ${sg_list}    -2
+    ${rem_list}=    Remove From List    ${sg_list}    -1
+    : FOR    ${index}    IN    @{sg_list}
+    \    Log    ${index}
+    \    ${output}=    Write Commands Until Prompt    neutron security-group-rule-delete ${index}     30s
+    \    Log    ${output}
+    Close Connection
+
+ Create Custom Security Group
+    [Arguments]    ${sg_name}
+    [Documentation]    Create a new custom security group.
+    Log    ${sg_name}
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron security-group-create ${sg_name}
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    Created a new security_group
+
+Add Custom Rule
+    [Arguments]    ${sg_name}
+    [Documentation]    Add a rule to the custom security group.
+    Log    ${sg_name}
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron security-group-rule-create --direction egress --ethertype IPv4 --protocol tcp --port-range-min 22 --port-range-max 22 ${sg_name}
+    Log    ${output}
+    Close Connection
+
+Get Mac Address
+    [Arguments]    ${dhcp_or_vm_ip}
+    [Documentation]    This keyword is used to retrieve both dhcp ip's mac address and vm instance ip's mac address.
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${mac_add_src}=    Write Commands Until Prompt    neutron port-list | grep "${dhcp_or_vm_ip}" | get_field 3    40s
+    Log    ${mac_add_src}
+    ${mac_add_list}=    Split String    ${mac_add_src}    ${EMPTY}
+    ${mac_add}=    Get from List    ${mac_add_list}    0
+    Log    ${mac_add}
+    [Return]    ${mac_add}
+
+Add Rule To DHCP
+    [Arguments]    ${mac_addr}
