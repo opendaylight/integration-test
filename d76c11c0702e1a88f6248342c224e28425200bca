@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_c9b9e57a",
+        "filename": "csit/suites/controller/NETCONF/configured_connection_performance.robot",
+        "patchSetId": 62
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5394
+      },
+      "writtenOn": "2016-08-25T13:08:06Z",
+      "side": 1,
+      "message": "The problems are as follows:\nThe sandbox is configured to run multiple \"systems\" I am assuming these are VMs. One is the \"ODL\" system and another the \"TOOLS\" system. On the \"TOOLS\" System, we run our netconf-testtool. On our \"ODL\" system, we run our ODL.\nSo far so good.\nBUT, the ODL system already runs ODL when we run our tests. This means we need to shut off the running instance in order for us to be able to generate testtool device configuration. Then we download a separate netconf-testtool executable so that we can generate the configuration files. After the configuration files are generated, with the IP address pointing to our \"TOOLS\" system (since we are running on the \"ODL\" system we need to make sure it is connecting to the correct VM), we then shut off the executable. This is what happens in the \u0027Generate netconf configuration files\u0027 test case.\nWe then connect to the TOOLS system to start the ACTUAL netconf-testtool executable that is supposed to run our devices.\nWe then restart the ODL system. After the restart, we expect the system to start connecting back to the simulated devices.\n\nThe next 2 test suites \u0027Wait_For_Device_To_Become_Connected\u0027 and \u0027Wait_For_Device_Data_To_Be_Seen\u0027 are supposed to track the time.\nThe problem that I have been unable to solve, neither on the sandbox or locally, is that the ODL system refuses to connect to the devices. Which then results in 404 errors in the test suite.\n\nWhen this is done without any complicated setup, just generating the configuration files and then letting the ODL to connect to them from the same machine, this works like a charm. However with the introduction of multiple systems, such as a docker image\nor multiple VMs, ODL refuses to connect. Maybe I have been doing something wrong this entire time but, alas, I do not know what.\nI know there was an error when generating configuration files into a karaf distribution whose configuration has been previously generated. (That is, generating the configuration twice in a row) The ODL refuses to connect.\nThis is most likely a bug in ODL, but it has not yet been resolved. That is why it is important to clean up directories which are populated by these configuration files to avoid any possible problems of this nature. This is also performed in the keyword \u0027Generate netconf configuration files\u0027.",
+      "revId": "d76c11c0702e1a88f6248342c224e28425200bca",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
