@@ -367,3 +367,7 @@ Show Debugs
     \    ${output}=    Write Commands Until Prompt    nova show ${index}     30s
     \    Log    ${output}
     Close Connection
+
+Delete Default SG Rules
+    ${output}=    Write Commands Until Prompt    neutron security-group-rule-list
+    Log    ${output}

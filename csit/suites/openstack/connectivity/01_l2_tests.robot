@@ -22,6 +22,10 @@ Resource          ../../../libraries/DevstackUtils.robot
 @{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
 
 *** Test Cases ***
+Delete Default Security Group Rules
+    [Documentation]    Delete the existing default security group rules before creating networks.
+    Delete Default SG Rules
+  
 Create Networks
     [Documentation]    Create Network with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
