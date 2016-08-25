@@ -95,6 +95,9 @@ Set DPN And Flow Count In Json Add
     ${get_string}=    Set Variable    "sal-bulk-flow:flows-per-dpn" : "1000"
     ${put_string}=    Set Variable    "sal-bulk-flow:flows-per-dpn" : "${flows_count}"
     ${json_body_add}    Replace String Using Regexp    ${str}    ${get_string}    ${put_string}
+    ${get_string}=    Set Variable    "sal-bulk-flow:batch-size" : "1"
+    ${put_string}=    Set Variable    "sal-bulk-flow:batch-size" : "${flows_count}"
+    ${json_body_add}    Replace String Using Regexp    ${json_body_add}    ${get_string}    ${put_string}
     Log    ${json_body_add}
     [Return]    ${json_body_add}
 
@@ -121,5 +124,8 @@ Set DPN And Flow Count In Json Del
     ${get_string}=    Set Variable    "sal-bulk-flow:flows-per-dpn" : "1000"
     ${put_string}=    Set Variable    "sal-bulk-flow:flows-per-dpn" : "${flows_count}"
     ${json_body_del}    Replace String Using Regexp    ${str}    ${get_string}    ${put_string}
+    ${get_string}=    Set Variable    "sal-bulk-flow:batch-size" : "1"
+    ${put_string}=    Set Variable    "sal-bulk-flow:batch-size" : "${flows_count}"
+    ${json_body_del}    Replace String Using Regexp    ${json_body_del}    ${get_string}    ${put_string}
     Log    ${json_body_del}
     [Return]    ${json_body_del}
