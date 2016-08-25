@@ -94,6 +94,30 @@
       "revId": "e7cfdc9be8c5c00f1a3acbe34e3a7f4f203507f1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_ef55c1fa",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-25T21:21:59Z",
+      "side": 1,
+      "message": "The idea of running tempest in these jobs is that we are running against *some* openstack deployment.  We don\u0027t know\nif it was deployed by devstack or not.  It is not, but it\nmay not be in the future.  So, relying on devstack to give\nus tempest configs is probably not what we want to do.",
+      "parentUuid": "7a6b29fe_29dfb96a",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 16
+      },
+      "revId": "e7cfdc9be8c5c00f1a3acbe34e3a7f4f203507f1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
