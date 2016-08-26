@@ -55,6 +55,8 @@ End Suite
     ClusterManagement.Flush Iptables From List Or All
     RequestsLibrary.Delete All Sessions
     Utils.Stop Suite
+    # This sleep is required to properly deregister the switch.
+    Sleep    5
 
 Are Switches Connected Topo
     [Documentation]    Checks wheather switches are connected to controller
