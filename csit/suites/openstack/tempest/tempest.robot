@@ -3,6 +3,7 @@ Documentation     Test suite for running tempest tests. It is assumed that the t
 ...               is already deployed and ready.
 Suite Setup       Log In To Tempest Executor And Setup Test Environment
 Suite Teardown    Close All Connections
+Test Setup        Log Testcase Start To Controller Karaf
 Library           SSHLibrary
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/DevstackUtils.robot

@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation     Test suite to deploy devstack with networking-odl
 Suite Setup       Devstack Suite Setup
+Test Setup        Log Testcase Start To Controller Karaf
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary

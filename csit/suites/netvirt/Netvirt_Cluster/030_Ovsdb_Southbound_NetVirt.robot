@@ -2,6 +2,7 @@
 Documentation     Test suite for Ovsdb Southbound Cluster
 Suite Setup       ClusterManagement Setup
 Suite Teardown    Delete All Sessions
+Test Setup        Log Testcase Start To Controller Karaf
 Library           RequestsLibrary
 Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/ClusterOvsdb.robot

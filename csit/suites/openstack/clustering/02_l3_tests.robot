@@ -2,6 +2,7 @@
 Documentation     Test suite to check connectivity in L3 using routers.
 Suite Setup       Devstack Suite Setup Tests    source_pwd=yes
 Suite Teardown    Close All Connections
+Test Setup        Log Testcase Start To Controller Karaf
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary

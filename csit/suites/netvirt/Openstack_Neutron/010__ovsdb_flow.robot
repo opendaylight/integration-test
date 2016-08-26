@@ -2,6 +2,7 @@
 Documentation     Checking Network created in OVSDB are pushed to OpenDaylight
 Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 Suite Teardown    Delete All Sessions
+Test Setup        Log Testcase Start To Controller Karaf
 Test Teardown     Collect OVSDB Debugs
 Library           SSHLibrary
 Library           Collections

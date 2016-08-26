@@ -2,6 +2,7 @@
 Documentation     Test suite to verify packet flows between vm instances.
 Suite Setup       Devstack Suite Setup Tests
 Suite Teardown    Close All Connections
+Test Setup        Log Testcase Start To Controller Karaf
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
