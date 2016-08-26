@@ -30,10 +30,11 @@ Reconnect Extra Switches To Candidate And Check Entity Owner
     [Documentation]    Connect switches s2 and s3 to candidate instance.
     OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s2    tcp:${ODL_SYSTEM_${original_candidate}_IP}:6633
     OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s3    tcp:${ODL_SYSTEM_${original_candidate}_IP}:6633
-    ${owner_list}=    Create List    ${original_candidate}
-    ${owner}    ${candidate_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:2    1    ${owner_list}
+    ${member_list} =    BuiltIn.Run_Keyword_If    '${ODL_STREAM}' != 'beryllium' and '${ODL_OF_PLUGIN}' == 'lithium'    Create List    @{ClusterManagement__member_index_list}
+    ...    ELSE    Create List    ${original_candidate}
+    ${owner}    ${candidate_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:2    1    ${member_list}
     Should Be Equal    ${owner}    ${original_candidate}
-    ${owner}    ${candidate_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:3    1    ${owner_list}
+    ${owner}    ${candidate_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:3    1    ${member_list}
     Should Be Equal    ${owner}    ${original_candidate}
 
 Check Network Operational Information Before Fail
