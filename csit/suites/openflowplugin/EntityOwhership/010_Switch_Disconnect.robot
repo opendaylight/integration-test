@@ -92,7 +92,8 @@ Disconnect Switchs Old Master
     ${new_master}=    BuiltIn.Wait Until Keyword Succeeds    5x    3s    Verify New Master Controller Node    ${switch_name}    ${old_master}
     ${owner}    ${followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
     Collections.List Should Contain Value    ${old_followers}    ${owner}
-    Check Count Integrity    ${switch_name}    expected_controllers=2
+    BuiltIn.Run Keyword If    '${ODL_STREAM}' != 'beryllium' and '${ODL_OF_PLUGIN}' == 'lithium'    Check Count Integrity    ${switch_name}    expected_controllers=3
+    ...    ELSE    Check Count Integrity    ${switch_name}    expected_controllers=2
     BuiltIn.Should Be Equal As Strings    ${new_master}    ${ODL_SYSTEM_${owner}_IP}
     BuiltIn.Set Test Variable    ${old_owner}
     BuiltIn.Set Test Variable    ${old_followers}
@@ -117,10 +118,12 @@ Disconnect Switchs Follower
     ${old_slave}=    BuiltIn.Set Variable    ${ODL_SYSTEM_${old_follower}_IP}
     OvsManager.Disconnect Switch From Controller And Verify Disconnected    ${switch_name}    ${old_slave}
     BuiltIn.Set Test Variable    ${disc_cntl}    ${old_slave}
-    BuiltIn.Wait Until Keyword Succeeds    5x    3s    Check Count Integrity    ${switch_name}    expected_controllers=2
+    BuiltIn.Run Keyword If    '${ODL_STREAM}' != 'beryllium' and '${ODL_OF_PLUGIN}' == 'lithium'    Check Count Integrity    ${switch_name}    expected_controllers=3
+    ...    ELSE    Check Count Integrity    ${switch_name}    expected_controllers=2
     ${owner}    ${followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
     BuiltIn.Should Be Equal    ${owner}    ${old_owner}
-    Collections.List Should Not Contain Value    ${followers}    ${old_follower}
+    BuiltIn.Run Keyword If    '${ODL_STREAM}' == 'beryllium' and '${ODL_OF_PLUGIN}' == 'lithium'    Collections.Lists Should Be Equal    ${followers}    ${old_followers}
+    ...    ELSE    Collections.List Should Not Contain Value    ${followers}    ${old_follower}
     BuiltIn.Should Be Equal As Strings    ${new_master}    ${ODL_SYSTEM_${owner}_IP}
     BuiltIn.Set Test Variable    ${old_owner}
     BuiltIn.Set Test Variable    ${old_followers}
