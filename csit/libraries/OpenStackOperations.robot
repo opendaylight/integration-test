@@ -342,8 +342,20 @@ Get DumpFlows And Ovsconfig
     SSHLibrary.Open Connection    ${openstack_node_ip}    prompt=${DEFAULT_LINUX_PROMPT}
     Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
+    Write Commands Until Expected Prompt    ip -o link    ]>
+    Write Commands Until Expected Prompt    ip -o addr    ]>
+    Write Commands Until Expected Prompt    ip route    ]>
+    ${nslist}=    Write Commands Until Expected Prompt    ip netns list    ]>
+    @{lines}    Split To Lines    ${nslist}
+    : FOR    ${line}    IN    @{lines}
+    \    Write Commands Until Expected Prompt    sudo ip netns exec ${line} ip -o link    ]>
+    \    Write Commands Until Expected Prompt    sudo ip netns exec ${line} ip -o addr    ]>
+    \    Write Commands Until Expected Prompt    sudo ip netns exec ${line} ip route    ]>
     Write Commands Until Expected Prompt    sudo ovs-vsctl show    ]>
+    Write Commands Until Expected Prompt    sudo ovs-ofctl show br-int -OOpenFlow13    ]>
     Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows br-int -OOpenFlow13    ]>
+    Write Commands Until Expected Prompt    sudo ovs-ofctl dump-groups br-int -OOpenFlow13    ]>
+    Write Commands Until Expected Prompt    sudo ovs-ofctl dump-group-stats br-int -OOpenFlow13    ]>
 
 Get ControlNode Connection
     ${control_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
