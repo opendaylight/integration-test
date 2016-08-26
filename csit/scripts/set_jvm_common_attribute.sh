@@ -60,5 +60,6 @@ EOF
     scp ${WORKSPACE}/elasticsearch_startup.sh ${!CONTROLLERIP}:/tmp
     ssh ${!CONTROLLERIP} 'bash /tmp/elasticsearch_startup.sh'
     ssh ${!CONTROLLERIP} 'ps aux | grep elasticsearch'
+    ssh ${!CONTROLLERIP} "curl -XDELETE 'http://${!CONTROLLERIP}:9200/_all'"
 
 done
