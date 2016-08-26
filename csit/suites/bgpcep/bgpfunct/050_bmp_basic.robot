@@ -20,9 +20,11 @@ Suite Setup       Set_It_Up
 Suite Teardown    Tear_It_Down
 Library           SSHLibrary
 Library           RequestsLibrary
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
+
 
 *** Variables ***
 ${CONFIG_SESSION}    config-session
@@ -36,8 +38,9 @@ Start_Bmp_Mock
     BuiltIn.Log    ${command}
     SSHLibrary.Set_Client_Configuration    timeout=30s
     SSHLibrary.Write    ${command}
-    ${until_phrase}=    BuiltIn.Set_Variable_If    "${ODL_STREAM}"=="beryllium"    sucesfully established.    successfully established.
+    ${until_phrase}=    CompareStream.Set_Variable_If_At_Least    boron       successfully established.    sucesfully established.
     SSHLibrary.Read_Until    ${until_phrase}
+
 
 Verify Data Reported
     [Documentation]    Verifies if the tool reported expected data
