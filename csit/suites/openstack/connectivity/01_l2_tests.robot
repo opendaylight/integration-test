@@ -45,6 +45,7 @@ Create Vm Instances For l2_network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     Create Vm Instances    l2_network_2    ${NET_2_VM_INSTANCES}
     [Teardown]    Show Debugs    ${NET_2_VM_INSTANCES}
+    Get OvsDebugInfo
 
 Ping Vm Instance1 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
@@ -74,7 +75,9 @@ Connectivity Tests From Vm Instance1 In l2_network_1
     [Documentation]    Logging to the vm instance1
     ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}[1]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[2]
     Log    ${dst_ip_list}
+    Get OvsDebugInfo
     Test Operations From Vm Instance    l2_network_1    @{NET_1_VM_IPS}[0]    ${dst_ip_list}
+    Get OvsDebugInfo
 
 Connectivity Tests From Vm Instance2 In l2_network_1
     [Documentation]    Logging to the vm instance2
