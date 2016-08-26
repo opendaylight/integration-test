@@ -55,6 +55,7 @@ End Suite
     ClusterManagement.Flush Iptables From List Or All
     RequestsLibrary.Delete All Sessions
     Utils.Stop Suite
+    Check Count Integrity    openflow:1    expected_controllers=0
 
 Are Switches Connected Topo
     [Documentation]    Checks wheather switches are connected to controller
