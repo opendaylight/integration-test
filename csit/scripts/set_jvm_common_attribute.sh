@@ -61,4 +61,18 @@ EOF
     ssh ${!CONTROLLERIP} 'bash /tmp/elasticsearch_startup.sh'
     ssh ${!CONTROLLERIP} 'ps aux | grep elasticsearch'
 
+    out='{"acknowledged":true}'
+    cmd='http://'${!CONTROLLERIP}':9200/_all'
+
+    for ((i=1;i<=100;i++));
+    do
+        output=$(curl -XDELETE $cmd 2> /dev/null);
+        if [[ "$out" ==  "$output" ]];
+        then
+            echo "indices deleted";
+            break;
+        fi
+        echo "could not reach server, retrying";
+        sleep 2
+    done;
 done
