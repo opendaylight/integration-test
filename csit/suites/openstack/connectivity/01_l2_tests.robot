@@ -48,6 +48,7 @@ Create Vm Instances For l2_network_2
 
 Ping Vm Instance1 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
+    Sleep    180s
     Ping Vm From DHCP Namespace    l2_network_1    @{NET_1_VM_IPS}[0]
 
 Ping Vm Instance2 In l2_network_1

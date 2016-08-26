@@ -56,6 +56,7 @@ Add Interfaces To Router
 
 Ping Vm Instance1 In network_2 From network_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
+    Sleep    180s
     Ping Vm From DHCP Namespace    network_1    @{NET_2_VM_IPS}[0]
 
 Ping Vm Instance2 In network_2 From network_1
