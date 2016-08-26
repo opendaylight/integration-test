@@ -117,6 +117,7 @@ Set Controller In OVS Bridge
     [Arguments]    ${tools_system}    ${bridge}    ${controller_opt}
     [Documentation]    Sets controller for a given OVS ${bridge} using controller options in ${controller_opt}
     Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl del-controller ${bridge}
+    Sleep    2
     Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl set-controller ${bridge} ${controller_opt}
 
 Add Multiple Managers to OVS
