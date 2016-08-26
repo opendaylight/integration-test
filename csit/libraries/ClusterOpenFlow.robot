@@ -130,5 +130,5 @@ Verify_Switch_Connections_Running_On_Member
 Check_Flows_Operational_Datastore_On_Member
     [Arguments]    ${flow_count}    ${member_index}
     [Documentation]    Check if number of Operational Flows on member of given index is equal to ${flow_count}.
-    ${sw}    ${repf}    ${found_flow}=    ScaleClient.Flow Stats Collected    controller=${ODL_SYSTEM_${member_index}_IP}
+    ${sw}    ${reported_flow}    ${found_flow}=    ScaleClient.Flow Stats Collected    controller=${ODL_SYSTEM_${member_index}_IP}
     BuiltIn.Should_Be_Equal_As_Numbers    ${flow_count}    ${found_flow}
