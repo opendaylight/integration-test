@@ -156,6 +156,7 @@ Get_Owner_And_Candidates_For_Device
     ${entity_type} =    BuiltIn.Set_Variable_If    '${device_type}' == 'netconf'    netconf-node/${device_name}    ${device_type}
     ${clear_data} =    BuiltIn.Run_Keyword_If    '${device_type}' == 'openflow' or '${device_type}' == 'netconf'    Extract_OpenFlow_Device_Data    ${data}
     ...    ELSE IF    '${device_type}' == 'ovsdb'    Extract_Ovsdb_Device_Data    ${data}
+    ...    ELSE IF    '${device_type}' == 'org.opendaylight.mdsal.ServiceEntityType'    Extract_Service_Entity_Type    ${data}
     ...    ELSE    Fail    Not recognized device type: ${device_type}
     ${json} =    RequestsLibrary.To_Json    ${clear_data}
     ${entity_type_list} =    Collections.Get_From_Dictionary    &{json}[entity-owners]    entity-type
@@ -174,6 +175,14 @@ Get_Owner_And_Candidates_For_Device
     \    ${candidate} =    BuiltIn.Convert_To_Integer    ${candidate}
     \    Collections.Append_To_List    ${candidate_list}    ${candidate}
     [Return]    ${owner}    ${candidate_list}
+
+Extract_Service_Entity_Type
+    [Arguments]    ${data}
+    [Documentation]    Remove superfluous device data from Entity Owner printout.
+    ${clear_data} =    String.Replace_String    ${data}    /odl-general-entity:entity[odl-general-entity:name='Uri [_value=    ${EMPTY}
+    ${clear_data} =    String.Replace_String    ${clear_data}    ]-service-group']    ${EMPTY}
+    Log    ${clear_data}
+    [Return]    ${clear_data}
 
 Extract_OpenFlow_Device_Data
     [Arguments]    ${data}
