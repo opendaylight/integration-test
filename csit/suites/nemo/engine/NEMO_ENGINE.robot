@@ -7,6 +7,7 @@ Library           OperatingSystem
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 
 *** Variables ***
 ${REGISTER_TENANT_FILE}    ${CURDIR}/../../../variables/nemo/register-user.json
@@ -22,21 +23,21 @@ Add Pre-define Role
     [Tags]    Put
     ${body}    OperatingSystem.Get File    ${PREDEFINE_ROLE_FILE}
     ${resp}    RequestsLibrary.Put Request    session    ${PREDEFINE_ROLE_URI}    data=${body}    headers=${HEADERS_YANG_JSON}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Add Pre-define Node
     [Documentation]    Add Pre-define Node
     [Tags]    Put
     ${body}    OperatingSystem.Get File    ${PREDEFINE_NODE_FILE}
     ${resp}    RequestsLibrary.Put Request    session    ${PREDEFINE_NODE_URI}    data=${body}    headers=${HEADERS_YANG_JSON}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Add Pre-define Connection
     [Documentation]    Add Pre-define Connection
     [Tags]    Put
     ${body}    OperatingSystem.Get File    ${PREDEFINE_CONNECTION_FILE}
     ${resp}    RequestsLibrary.Put Request    session    ${PREDEFINE_CONNECTION_URI}    data=${body}    headers=${HEADERS_YANG_JSON}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Register Tenant
     [Documentation]    Register Tenant
