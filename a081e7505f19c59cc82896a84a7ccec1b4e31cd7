@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_35270acc",
+        "filename": "csit/suites/bgpcep/bgpclustering/040_bgp_ha_karaf_restart.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-26T17:17:20Z",
+      "side": 1,
+      "message": "Do not mention specific Bugs in the suite.\nThe suite is expected to cover several releases (both as streams and as time periods).\n\nInstead, use SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed in combination with External References field in Bugzilla. That way, committers do not need to review Change to the suite just because another symptom (dis-)appeared.",
+      "range": {
+        "startLine": 15,
+        "startChar": 93,
+        "endLine": 15,
+        "endChar": 97
+      },
+      "revId": "a081e7505f19c59cc82896a84a7ccec1b4e31cd7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_350eea3b",
+        "filename": "csit/suites/bgpcep/bgpclustering/040_bgp_ha_karaf_restart.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-26T17:17:20Z",
+      "side": 1,
+      "message": "old?",
+      "range": {
+        "startLine": 79,
+        "startChar": 36,
+        "endLine": 79,
+        "endChar": 39
+      },
+      "revId": "a081e7505f19c59cc82896a84a7ccec1b4e31cd7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
