@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_003a8ae6",
+        "filename": "csit/libraries/ClusterOpenFlow.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 133,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-08-26T22:42:47Z",
+      "side": 1,
+      "message": "I had to look up in the ScaleClient.py code to figure out what\nthis meant.  It\u0027s not used, but still confusing.  maybe change\nit to ${reported_flow_count}\n\n... in a new patch",
+      "range": {
+        "startLine": 133,
+        "startChar": 13,
+        "endLine": 133,
+        "endChar": 20
+      },
+      "revId": "d3c5ef57d245a9acddaf7c3a17b455808b80d73e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
