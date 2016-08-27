@@ -68,6 +68,30 @@
       "revId": "a081e7505f19c59cc82896a84a7ccec1b4e31cd7",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_bb066b84",
+        "filename": "csit/suites/bgpcep/bgpclustering/040_bgp_ha_karaf_restart.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-08-27T19:15:14Z",
+      "side": 1,
+      "message": "I believe election should be even faster. New owner election is a mandatory condition for cluster member to start accepting bgp connection and this is a reason of having this test case in the suite.",
+      "parentUuid": "7a6b29fe_7504e217",
+      "range": {
+        "startLine": 88,
+        "startChar": 43,
+        "endLine": 88,
+        "endChar": 51
+      },
+      "revId": "a081e7505f19c59cc82896a84a7ccec1b4e31cd7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
