@@ -18,12 +18,12 @@ ${RANDOM_CONTEXT_ID}    ${EMPTY}
 *** Test Cases ***
 Check the simple IRD information
     [Documentation]    Get the default IRD information
-    Wait Until Keyword Succeeds    5s    1s    Check GET Response Code Equals 200    /${ALTO_SIMPLE_IRD_INFO}
+    Wait Until Keyword Succeeds    10s    1s    Check GET Response Code Equals 200    /${ALTO_SIMPLE_IRD_INFO}
     ${resp}    RequestsLibrary.Get Request    session    /${ALTO_SIMPLE_IRD_INFO}
     ${context_id}    ${BASE_URL}    Get Basic Info    ${resp.content}
     Set Suite Variable    ${BASE_URL}
     Set Suite Variable    ${RANDOM_CONTEXT_ID}    ${context_id}
-    Wait Until Keyword Succeeds    5s    1s    Check GET Response Code Equals 200    /${RESOURCE_POOL_BASE}/${context_id}
+    Wait Until Keyword Succeeds    10s    1s    Check GET Response Code Equals 200    /${RESOURCE_POOL_BASE}/${context_id}
 
 Create two IRDs
     [Documentation]    Create two IRDs and verify their existence
@@ -43,16 +43,17 @@ Add one IRD configuration entry in one IRD instance
 Check GET Response Code Equals 200
     [Arguments]    ${uri_without_ip_port}
     ${resp}    RequestsLibrary.Get Request    session    ${uri_without_ip_port}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}==200
 
 Create An IRD
     [Arguments]    ${context_id}    ${IRD_id}
     ${body}    Set Variable    {"ird-instance-configuration":{"entry-context":"/alto-resourcepool:context[alto-resourcepool:context-id='${context_id}']","instance-id":"${IRD_id}"}}
     ${resp}    RequestsLibrary.Put Request    session    /${ALTO_CONFIG_IRD_INSTANCE_CONFIG}/${IRD_id}    data=${body}
-    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}==200 or ${resp.status_code}==201
 
 Add An IRD Configuration Entry
     [Arguments]    ${IRD_id}    ${context_id}    ${resource_id}    ${base_url}
     ${body}    Set Variable    {"ird-configuration-entry":{"entry-id":"${resource_id}","instance":"/alto-resourcepool:context[alto-resourcepool:context-id='${context_id}']/alto-resourcepool:resource[alto-resourcepool:resource-id='${resource_id}']","path":"${base_url}/${resource_id}"}}
     ${resp}    RequestsLibrary.Put Request    session    /${ALTO_CONFIG_IRD_INSTANCE_CONFIG}/${IRD_id}/ird-configuration-entry/${resource_id}    data=${body}
-    should Be Equal As Strings    ${resp.status_code}    200
+    Should Be True    ${resp.status_code}==200 or ${resp.status_code}==201
+
