@@ -118,6 +118,30 @@
       "revId": "e7cfdc9be8c5c00f1a3acbe34e3a7f4f203507f1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_0d82c2c7",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-08-28T18:52:05Z",
+      "side": 1,
+      "message": "If it\u0027s indeed intended to be generic - we need to fill in a lot of details in the tempest.conf (e.g. VM images used - this is the first issue we saw, tempest tries to boot non-existent images).\n\nHowever, for the devstack case - the easy solution is to use tempest.conf automatically generated according to local.conf details. Alternatively we would need to manage tempest.conf, which is nice as it will be generic as you said, but would need to catch up with changes to local.conf",
+      "parentUuid": "7a6b29fe_ef55c1fa",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 16
+      },
+      "revId": "e7cfdc9be8c5c00f1a3acbe34e3a7f4f203507f1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
