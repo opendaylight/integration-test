@@ -47,6 +47,7 @@ Run Cbench And Log Results
     ##If the cbench command fails to return, the keyword to run it will time out.    The test tear
     ##down can catch this problem and log the results as zero.    However, we need to know which
     ##file to log to, so setting it as a suite variable here.
+    KarafKeywords.Issue Command On Karaf Console    log:set ERROR
     Set Suite Variable    ${output_filename}
     ${output}=    Run Keyword If    "${cbench_system}" == "localhost"    Run Process    ${cbench_executable}    -c    ${ODL_SYSTEM_IP}
     ...    ${cbench_args}
