@@ -106,6 +106,7 @@ Isolate Switchs Old Owner
     BuiltIn.Set Test Variable    ${old_master}
     BuiltIn.Set Test Variable    ${owner}
     BuiltIn.Set Test Variable    ${new_master}
+    [Teardown]    Report_Failure_Due_To_Bug    6177
 
 Rejoin Switchs Old Owner
     [Arguments]    ${switch_name}
@@ -116,6 +117,7 @@ Rejoin Switchs Old Owner
     Check Count Integrity    ${switch_name}    expected_controllers=3
     BuiltIn.Should Be Equal    ${owner}    ${new_owner}
     Collections.List Should Contain Value    ${new_followers}    ${old_owner}
+    [Teardown]    Report_Failure_Due_To_Bug    6177
 
 Isolate Switchs Candidate
     [Arguments]    ${switch_name}
@@ -134,6 +136,7 @@ Isolate Switchs Candidate
     BuiltIn.Set Test Variable    ${old_follower}
     BuiltIn.Set Test Variable    ${old_slave}
     BuiltIn.Set Test Variable    ${owner}
+    [Teardown]    Report_Failure_Due_To_Bug    6177
 
 Rejoin Switchs Candidate
     [Arguments]    ${switch_name}
@@ -143,6 +146,7 @@ Rejoin Switchs Candidate
     ${new_owner}    ${new_followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
     BuiltIn.Should Be Equal    ${old_owner}    ${new_owner}
     Collections.List Should Contain Value    ${new_followers}    ${old_follower}
+    [Teardown]    Report_Failure_Due_To_Bug    6177
 
 Rejoin Controller To The Cluster
     [Arguments]    ${isolated_node}
