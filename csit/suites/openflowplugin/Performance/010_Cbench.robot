@@ -15,10 +15,11 @@ Resource          ../../../libraries/KarafKeywords.robot
 *** Variables ***
 ${throughput_threshold}    30000
 ${latency_threshold}    10000
-${switch_count}    8
+${switch_count}    100
 ${duration_in_secs}    12
 ${loops}          10
-${num_of_unique_macs}    10000
+${num_of_unique_macs}    100
+${start_delay}    10000
 ${cbench_system}    ${TOOLS_SYSTEM_IP}
 ${cbench_executable}    /usr/local/bin/cbench
 ${throughput_results_file}    throughput.csv
@@ -31,7 +32,7 @@ Cbench Latency Test
     [Tags]    latency
     [Timeout]    ${test_timeout}
     Log    Cbench tests using ${loops} iterations of ${duration_in_secs} second tests. Switch Count: ${switch_count}. Unique MACS to cycle: ${num_of_unique_macs}
-    Run Cbench And Log Results    -m ${duration_in_ms} -M ${num_of_unique_macs} -s ${switch_count} -l ${loops}    ${latency_threshold}    ${latency_results_file}
+    Run Cbench And Log Results    -m ${duration_in_ms} -M ${num_of_unique_macs} -s ${switch_count} -l ${loops} -D ${start_delay}    ${latency_threshold}    ${latency_results_file}
 
 Cbench Throughput Test
     [Documentation]    cbench executed in throughput mode (-t). Test parameters have defaults, but can be overridden
@@ -39,7 +40,7 @@ Cbench Throughput Test
     [Tags]    throughput
     [Timeout]    ${test_timeout}
     Log    Cbench tests using ${loops} iterations of ${duration_in_secs} second tests. Switch Count: ${switch_count}. Unique MACS to cycle: ${num_of_unique_macs}
-    Run Cbench And Log Results    -t -m ${duration_in_ms} -M ${num_of_unique_macs} -s ${switch_count} -l ${loops}    ${throughput_threshold}    ${throughput_results_file}
+    Run Cbench And Log Results    -t -m ${duration_in_ms} -M ${num_of_unique_macs} -s ${switch_count} -l ${loops} -D ${start_delay}    ${throughput_threshold}    ${throughput_results_file}
 
 *** Keywords ***
 Run Cbench And Log Results
@@ -71,6 +72,7 @@ Run Cbench And Log Results
     Log Results And Determine Status    ${min}    ${max}    ${average}    ${average_threshold}    ${output_filename}
 
 Cbench Suite Setup
+    KarafKeywords.Issue Command On Karaf Console    log:set ERROR
     Append To File    ${latency_results_file}    LATENCY_MIN,LATENCY_MAX,LATENCY_AVERAGE\n
     Append To File    ${throughput_results_file}    THROUGHPUT_MIN,THROUGHPUT_MAX,THROUGHPUT_AVERAGE\n
     ${duration_in_ms}    Evaluate    ${duration_in_secs} * 1000
