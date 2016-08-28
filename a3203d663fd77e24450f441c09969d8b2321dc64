@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_8de372a3",
+        "filename": "csit/suites/alto/basic/020_simple_IRD.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 52,
+      "author": {
+        "id": 6258
+      },
+      "writtenOn": "2016-08-28T21:17:08Z",
+      "side": 1,
+      "message": "What scenarios are you expecting a get request to return 201 ?",
+      "range": {
+        "startLine": 52,
+        "startChar": 0,
+        "endLine": 52,
+        "endChar": 74
+      },
+      "revId": "a3203d663fd77e24450f441c09969d8b2321dc64",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
