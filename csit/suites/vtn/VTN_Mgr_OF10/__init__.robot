@@ -1,5 +1,6 @@
 *** Settings ***
 Documentation     Test suite for VTN Manager (OF10)
+Force Tags        exclude
 Suite Setup       Start SuiteVtnMa
 Suite Teardown    Stop SuiteVtnMa
 Resource          ../../../libraries/VtnMaKeywords.robot
