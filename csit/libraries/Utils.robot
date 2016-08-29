@@ -61,6 +61,7 @@ Stop Suite
     Write    exit
     Read Until    ${prompt}
     Close Connection
+    Sleep    2
 
 Report_Failure_Due_To_Bug
     [Arguments]    ${number}
