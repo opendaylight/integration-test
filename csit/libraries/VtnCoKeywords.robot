@@ -45,8 +45,8 @@ Start SuiteVtnCo
     Run Keyword If    '${ODL_STREAM}' == 'boron'    SSHLibrary.Execute Command    wget "${nexus_path}/${boron}/maven-metadata.xml"
     ...    ELSE IF    '${ODL_STREAM}' == 'carbon'    SSHLibrary.Execute Command    wget "${nexus_path}/${carbon}/maven-metadata.xml"
     Run Keyword If    '${ODL_STREAM}' == 'boron' or '${ODL_STREAM}' == 'carbon'    SSHLibrary.Get_file    maven-metadata.xml
-    ${time_stamp}=    XML.Get Element Text    maven-metadata.xml    xpath=.//snapshot/timestamp
-    ${build_number}=    XML.Get Element Text    maven-metadata.xml    xpath=.//snapshot/buildNumber
+    ...    ${time_stamp}=    XML.Get Element Text    maven-metadata.xml    xpath=.//snapshot/timestamp
+    ...    ${build_number}=    XML.Get Element Text    maven-metadata.xml    xpath=.//snapshot/buildNumber
     Run Keyword If    '${ODL_STREAM}' == 'boron'    SSHLibrary.Execute Command    wget '${nexus_path}/${boron}/${vtn_dist}-6.3.1-${time_stamp}-${build_number}-bin.tar.bz2'
     ...    ELSE IF    '${ODL_STREAM}' == 'carbon'    SSHLibrary.Execute Command    wget '${nexus_path}/${carbon}/${vtn_dist}-6.4.0-${time_stamp}-${build_number}-bin.tar.bz2'
     Run Keyword If    '${ODL_STREAM}' == 'boron' or '${ODL_STREAM}' == 'carbon'    SSHLibrary.Execute Command    tar -C/ -jxvf ${vtn_dist}*-bin.tar.bz2
