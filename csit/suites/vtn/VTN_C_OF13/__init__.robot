@@ -1,5 +1,6 @@
 *** Settings ***
 Documentation     Test suite for AD-SAL NSF mininet OF13
+Force Tags        exclude
 Suite Setup       Start Suite
 Suite Teardown    Stop Suite
 Library           SSHLibrary
