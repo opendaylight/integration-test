@@ -50,6 +50,7 @@ Stop Mininet
     SSHLibrary.Write    exit
     Read Until    ${prompt}
     Close Connection
+    Sleep    5
 
 Stop Suite
     [Arguments]    ${prompt}=${DEFAULT_LINUX_PROMPT}
