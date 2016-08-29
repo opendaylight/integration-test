@@ -1,5 +1,6 @@
 *** Settings ***
 Documentation     Test suite for AD-SAL NSF
+Force Tags        exclude
 Suite Setup       Start Suite
 Suite Teardown    Delete All Sessions
 Library           SSHLibrary
