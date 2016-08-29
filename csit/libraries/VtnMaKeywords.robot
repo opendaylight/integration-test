@@ -44,6 +44,7 @@ ${in_port}        1
 ${filter_index}    1
 @{inet_action}    set_field:192.0.0.1->ip_src    set_field:192.0.0.2->ip_dst
 ${dscp_action}    set_field:32->ip_dscp
+${dscp_be_action}    set_field:32->nw_tos_shifted
 ${dscp_flow}      mod_nw_tos:128
 @{icmp_action}    mod_tp_dst:1    mod_tp_src:3
 ${drop_action}    actions=drop
@@ -315,7 +316,8 @@ Verify flowactions
     [Documentation]    Verify the flowfilter actions after ping in the dumpflows
     write    ${DUMPFLOWS}
     ${result}    Read Until    mininet>
-    Should Contain    ${result}    ${actions}
+    Run Keyword If    '${actions}' == 'set_field:32->ip_dscp' and '${ODL_STREAM}' == 'beryllium'    Should Contain    ${result}    ${dscp_be_action}
+    ...    ELSE    Should Contain    ${result}    ${actions}
 
 Add a vtn flowfilter
     [Arguments]    ${vtn_name}    ${vtnflowfilter_data}
