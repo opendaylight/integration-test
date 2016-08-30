@@ -6,6 +6,7 @@ Library           RequestsLibrary
 Library           ../../../libraries/ALTO/AltoParser.py
 Variables         ../../../variables/Variables.py
 Variables         ../../../variables/alto/Variables.py
+Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 
 *** Variables ***
 ${THE_FIRST_IRD_RESOURCE_ID}    hello
@@ -49,11 +50,10 @@ Create An IRD
     [Arguments]    ${context_id}    ${IRD_id}
     ${body}    Set Variable    {"ird-instance-configuration":{"entry-context":"/alto-resourcepool:context[alto-resourcepool:context-id='${context_id}']","instance-id":"${IRD_id}"}}
     ${resp}    RequestsLibrary.Put Request    session    /${ALTO_CONFIG_IRD_INSTANCE_CONFIG}/${IRD_id}    data=${body}
-    Should Be True    ${resp.status_code}==200 or ${resp.status_code}==201
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Add An IRD Configuration Entry
     [Arguments]    ${IRD_id}    ${context_id}    ${resource_id}    ${base_url}
     ${body}    Set Variable    {"ird-configuration-entry":{"entry-id":"${resource_id}","instance":"/alto-resourcepool:context[alto-resourcepool:context-id='${context_id}']/alto-resourcepool:resource[alto-resourcepool:resource-id='${resource_id}']","path":"${base_url}/${resource_id}"}}
     ${resp}    RequestsLibrary.Put Request    session    /${ALTO_CONFIG_IRD_INSTANCE_CONFIG}/${IRD_id}/ird-configuration-entry/${resource_id}    data=${body}
-    Should Be True    ${resp.status_code}==200 or ${resp.status_code}==201
-
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
