@@ -84,7 +84,7 @@ Setup DIDM Environment
     Verify Feature Is Installed    odl-didm-hp-impl
     Verify Feature Is Installed    odl-didm-ovs-all
     Verify Feature Is Installed    odl-didm-ovs-impl
-    Verify Feature Is Installed    odl-openflowplugin-all-li
+    Verify Feature Is Installed    odl-openflowplugin-flow-services
     ${message}=    Set Variable    org.opendaylight.didm.ovs - 0.2.0.SNAPSHOT | Device-type Listener registered
     Wait For Karaf Log    ${message}
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
