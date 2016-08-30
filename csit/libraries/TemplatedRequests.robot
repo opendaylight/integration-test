@@ -112,8 +112,10 @@ Library           ${CURDIR}/norm_json.py
 Variables         ${CURDIR}/../variables/Variables.py
 
 *** Variables ***
-# TODO: Make the following list more narrow when Bug 2594 is fixed.
-@{ALLOWED_STATUS_CODES}    ${200}    ${201}    ${204}    # List of integers, not strings. Used by both PUT and DELETE.
+# TODO: Make the following list more narrow when streams without Bug 2594 fix (up to beryllium) are no longer used.
+@{ALLOWED_STATUS_CODES}    ${200}    ${201}    ${204}    # List of integers, not strings. Used by both PUT and DELETE (if the resource should have been present).
+@{ALLOWED_DELETE_STATUS_CODES}    ${200}    ${201}    ${204}    ${404}    # List of integers, not strings. Used by DELETE if the resource may be not present.
+# TODO: Add option for delete to require 404.
 
 *** Keywords ***
 Create_Default_Session
@@ -179,10 +181,10 @@ Post_As_Xml_Templated
     [Return]    ${response_text}
 
 Delete_Templated
-    [Arguments]    ${folder}    ${mapping}={}    ${session}=default
+    [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${allow_404}=False
     [Documentation]    Resolve URI from folder, issue DELETE request.
     ${uri} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=location    extension=uri    mapping=${mapping}
-    ${response_text} =    Delete_From_Uri    uri=${uri}    session=${session}
+    ${response_text} =    Delete_From_Uri    uri=${uri}    session=${session}    allow_404=${allow_404}
     [Return]    ${response_text}
 
 Verify_Response_As_Json_Templated
@@ -242,11 +244,11 @@ Post_As_Xml_To_Uri
     [Return]    ${response_text}
 
 Delete_From_Uri
-    [Arguments]    ${uri}    ${session}=default
+    [Arguments]    ${uri}    ${session}=default    ${allow_404}=False
     [Documentation]    DELETE resource at URI, check status_code and return response text..
     BuiltIn.Log    ${uri}
     ${response} =    RequestsLibrary.Delete_Request    alias=${session}    uri=${uri}
-    Check_Status_Code    ${response}
+    Check_Status_Code    ${response}    allow_404=${allow_404}
     [Return]    ${response.text}
 
 Get_Templated
@@ -335,13 +337,13 @@ Post_To_Uri
     [Return]    ${text_normalized}
 
 Check_Status_Code
-    [Arguments]    ${response}
+    [Arguments]    ${response}    ${allow_404}=False
     [Documentation]    Log response text, check status_code is one of allowed ones.
     # TODO: Remove overlap with keywords from Utils.robot
     BuiltIn.Log    ${response.text}
     BuiltIn.Log    ${response.status_code}
-    BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${response.status_code}
-    # TODO: Add support for 404 on Delete?
+    Run_Keyword_If    ${allow_404}    BuiltIn.Should_Contain    ${ALLOWED_DELETE_STATUS_CODES}    ${response.status_code}
+    ...    ELSE    BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${response.status_code}
 
 Join_Two_Headers
     [Arguments]    ${first}    ${second}
