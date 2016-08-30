@@ -39,6 +39,7 @@ Documentation     netconf-connector readiness test suite.
 ...               this test suite.
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Library           RequestsLibrary
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
