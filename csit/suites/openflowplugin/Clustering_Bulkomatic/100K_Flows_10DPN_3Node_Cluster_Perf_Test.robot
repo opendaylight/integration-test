@@ -13,9 +13,9 @@ Variables         ../../../variables/Variables.py
 
 *** Variables ***
 ${operation_timeout}    250s
-${oper_ds_timeout}    500s
+${oper_ds_timeout}    600s
 ${mininet_timeout}    120s
-${flow_count_per_switch}    1000
+${flow_count_per_switch}    10000
 ${switch_count}    10
 ${switch_state_pre_connection}    'TIME_WAIT|CLOSE_WAIT|FIN_WAIT'
 ${switch_state_post_connection}    'ESTABLISHED'
