@@ -1,5 +1,7 @@
 *** Settings ***
 Documentation     Test suite for NETCONF client
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
 Suite Teardown    Delete All Sessions
 Library           Collections
