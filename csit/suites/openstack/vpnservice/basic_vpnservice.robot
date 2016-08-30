@@ -8,9 +8,11 @@ Test Setup        Log Testcase Start To Controller Karaf
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
+Library           json
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/DevstackUtils.robot
+Resource          ../../../libraries/KarafKeywords.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
@@ -20,16 +22,29 @@ Variables         ../../../variables/Variables.py
 @{PORT_LIST}    PORT11    PORT21    PORT12    PORT22
 @{VM_INSTANCES}    VM11    VM21    VM12    VM22
 @{ROUTERS}    ROUTER_1    ROUTER_2
+@{NET10_VM_IPS}    10.1.1.2    10.1.1.3
+@{NET20_VM_IPS}    20.1.1.2    20.1.1.3
+${bridge_ref_info_api}    /restconf/operational/odl-interface-meta:bridge-ref-info
+${RESTCONF_OPERATIONS_URI}      /restconf/operations/
+${VPN_CONFIG_DIR}    ${CURDIR}/../../../variables/vpnservice
+${associate_network}    associate_nwstovpn.json
+
 
 *** Test Cases ***
 Verify Tunnel Creation
     [Documentation]    Checks that vxlan tunnels have been created properly.
-    [Tags]    exclude
-    Log    This test case is currently a noop, but work can be added here to validate if needed.  However, as the
-    ...    suite Documentation notes, it's already assumed that the environment has been configured properly.  If
-    ...    we do add work in this test case, we need to remove the "exclude" tag for it to run.  In fact, if this
-    ...    test case is critical to run, and if it fails we would be dead in the water for the rest of the suite,
-    ...    we should move it to Suite Setup so that nothing else will run and waste time in a broken environment.
+    ${control_node_dpid}=    Get DPID For Compute Node    ${OS_CONTROL_NODE_IP}
+    ${node_1_dpid}=    Get DPID For Compute Node    ${OS_COMPUTE_1_IP}
+    ${node_2_dpid}=    Get DPID For Compute Node    ${OS_COMPUTE_2_IP}
+    ${control_node_adapter}=    Get Ethernet Adapter From Compute Node    ${OS_CONTROL_NODE_IP}
+    ${node_1_adapter}=    Get Ethernet Adapter From Compute Node    ${OS_COMPUTE_1_IP}
+    ${node_2_adapter}=    Get Ethernet Adapter From Compute Node    ${OS_COMPUTE_2_IP}
+    ${first_two_octets}    ${third_octet}    ${last_octet}=    Split String From Right    ${OS_COMPUTE_1_IP}    .    2
+    ${subnet}=    Set Variable    ${first_two_octets}.0.0/16
+    ${gateway}=    Get Default Gateway    ${OS_COMPUTE_1_IP}
+    Create TEP For Compute Node    ${OS_CONTROL_NODE_IP}    ${control_node_dpid}    ${control_node_adapter}    ${subnet}    ${gateway}
+    Create TEP For Compute Node    ${OS_COMPUTE_1_IP}    ${node_1_dpid}    ${node_1_adapter}    ${subnet}    ${gateway}
+    Create TEP For Compute Node    ${OS_COMPUTE_2_IP}    ${node_2_dpid}    ${node_2_adapter}    ${subnet}    ${gateway}
 
 Create Neutron Networks
     [Documentation]    Create two networks
@@ -37,11 +52,26 @@ Create Neutron Networks
     Create Network    ${NETWORKS[1]}    --provider:network_type local
     List Networks
 
+Verify Fetching Network
+    [Documentation]    Fetching available network
+    ${NET_LIST}    List Networks
+    Log    ${NET_LIST}
+    Should Contain    ${NET_LIST}    ${NETWORKS[0]}
+    Should Contain    ${NET_LIST}    ${NETWORKS[1]}
+
+
 Create Neutron Subnets
     [Documentation]    Create two subnets for previously created networks
     Create SubNet    ${NETWORKS[0]}    ${SUBNETS[0]}    ${SUBNET_CIDR[0]}
     Create SubNet    ${NETWORKS[1]}    ${SUBNETS[1]}    ${SUBNET_CIDR[1]}
     List Subnets
+
+Verify Fetching Subnet
+    [Documentation]    Fetching available subnet
+    ${SUB_LIST}    List Subnets
+    Log    ${SUB_LIST}
+    Should Contain    ${SUB_LIST}    ${SUBNETS[0]}
+    Should Contain    ${SUB_LIST}    ${SUBNETS[1]}
 
 Create Neutron Ports
     [Documentation]    Create four ports under previously created subnets
