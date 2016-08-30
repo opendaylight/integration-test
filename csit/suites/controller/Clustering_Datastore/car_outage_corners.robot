@@ -62,7 +62,7 @@ Clean_And_Start_Tipping_Follower
 
 Add_Cars_On_Tipping_Follower
     [Documentation]    Add cars on the tipping Follower.
-    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_DIR}/cars    session=${car_first_follower_session}    iterations=${CAR_ITEMS}    iter_start=${MAJORITY_START_I}
+    BuiltIn.Wait_Until_Keyword_Succeeds    10s    2s    TemplatedRequests.Put_As_Json_Templated    folder=${VAR_DIR}/cars    session=${car_first_follower_session}    iterations=${CAR_ITEMS}    iter_start=${MAJORITY_START_I}
 
 See_Cars_On_Existing_Members
     [Documentation]    On each up member: GET cars, should match the ones added on tipping Follower.
