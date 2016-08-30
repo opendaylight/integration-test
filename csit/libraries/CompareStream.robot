@@ -27,7 +27,7 @@ Set_Variable_If_At_Least
      ...               returns ${value_if_true}
     ...                in case ${ODL_STREAM} is before ${lower_bound} returns ${value_if_false}
 
-     BuildIn.Run_Keyword_And_Return    BuildIn.Set_Variable_If    &{Stream_dict}[${ODL_STREAM}]} >= &{Stream_dict}[${lower_bound}]}     ${value_if_true}    ${value_if_false}
+     BuiltIn.Run_Keyword_And_Return    BuiltIn.Set_Variable_If    &{Stream_dict}[${ODL_STREAM}]} >= &{Stream_dict}[${lower_bound}]}     ${value_if_true}    ${value_if_false}
 
 
 Set_Variable_If_At_Least_Carbon
