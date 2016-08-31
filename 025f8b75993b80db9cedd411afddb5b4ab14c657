@@ -1,0 +1,234 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_fab8d3c9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-31T12:52:35Z",
+      "side": 1,
+      "message": "Line too long.",
+      "range": {
+        "startLine": 7,
+        "startChar": 86,
+        "endLine": 7,
+        "endChar": 87
+      },
+      "revId": "025f8b75993b80db9cedd411afddb5b4ab14c657",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_9aed5fba",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-31T12:52:35Z",
+      "side": 1,
+      "message": "There are more keyword types now.",
+      "range": {
+        "startLine": 2,
+        "startChar": 53,
+        "endLine": 2,
+        "endChar": 79
+      },
+      "revId": "025f8b75993b80db9cedd411afddb5b4ab14c657",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_7afa0376",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-31T12:52:35Z",
+      "side": 1,
+      "message": "keywords (or even Keywords)\nDo not use non-standard abbreviations.",
+      "range": {
+        "startLine": 2,
+        "startChar": 49,
+        "endLine": 2,
+        "endChar": 52
+      },
+      "revId": "025f8b75993b80db9cedd411afddb5b4ab14c657",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_fa2d73ff",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-31T12:52:35Z",
+      "side": 1,
+      "message": "None of the following is needed in this Resource.",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 6,
+        "endChar": 7
+      },
+      "revId": "025f8b75993b80db9cedd411afddb5b4ab14c657",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_1a394f41",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-31T12:52:35Z",
+      "side": 1,
+      "message": "The first two variables are not used here.",
+      "range": {
+        "startLine": 13,
+        "startChar": 14,
+        "endLine": 13,
+        "endChar": 17
+      },
+      "revId": "025f8b75993b80db9cedd411afddb5b4ab14c657",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_1aeb0fb1",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-31T12:52:35Z",
+      "side": 1,
+      "message": "Order keywords in increasing or decreasing stream.",
+      "range": {
+        "startLine": 32,
+        "startChar": 25,
+        "endLine": 32,
+        "endChar": 31
+      },
+      "revId": "025f8b75993b80db9cedd411afddb5b4ab14c657",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_dabd17b9",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-31T12:52:35Z",
+      "side": 1,
+      "message": "tidy",
+      "range": {
+        "startLine": 35,
+        "startChar": 4,
+        "endLine": 35,
+        "endChar": 5
+      },
+      "revId": "025f8b75993b80db9cedd411afddb5b4ab14c657",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_dae4f7e2",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-31T12:52:35Z",
+      "side": 1,
+      "message": "Helium\n\nIt is true that the stream values contains both dash and \"stable\", but Helium is easier to use with no risk of user confusion.",
+      "range": {
+        "startLine": 40,
+        "startChar": 25,
+        "endLine": 40,
+        "endChar": 38
+      },
+      "revId": "025f8b75993b80db9cedd411afddb5b4ab14c657",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_9ad6ffef",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-31T12:52:35Z",
+      "side": 1,
+      "message": "*_At_Most is missing from complete set of comparisons.",
+      "range": {
+        "startLine": 72,
+        "startChar": 15,
+        "endLine": 72,
+        "endChar": 23
+      },
+      "revId": "025f8b75993b80db9cedd411afddb5b4ab14c657",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_9abf1faa",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-31T12:52:35Z",
+      "side": 1,
+      "message": "Sentences should end with full stop.\n\nAlso, Documentation should mention that unlike BuiltIn.Run_Keyword_If, ELSE and ELSE IF strings do not have syntactic meaning for this keyword.",
+      "range": {
+        "startLine": 75,
+        "startChar": 78,
+        "endLine": 75,
+        "endChar": 79
+      },
+      "revId": "025f8b75993b80db9cedd411afddb5b4ab14c657",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
