@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_5a258707",
+        "filename": "csit/suites/controller/NETCONF/010__netconf_inventory.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-08-31T13:00:09Z",
+      "side": 1,
+      "message": "This Resource is not imported.",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 28
+      },
+      "revId": "c4b163b1c5e0d6f63133aafdb52b5b27b152e96b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
