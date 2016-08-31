@@ -1,5 +1,5 @@
 {
-  "policy:tenant": {
+  "tenant": {
     "id": "tenant-red",
     "name": "GBPPOC",
     "forwarding-context": {
