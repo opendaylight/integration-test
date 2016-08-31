@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_3a11ab5d",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2016-08-31T13:46:05Z",
+      "side": 1,
+      "message": "This is a great change (we wanted to add this ourselves)..\n\nHowever, I think Connectivity Tests already trigger \"OvsDebugInfo\" after the test - so it might be a redundant call (look at the Teardown phase \"TEARDOWN - Exit From Vm Console\"",
+      "revId": "51ff8e62ad3c7acddcf56a398b7e2c56452a7377",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
