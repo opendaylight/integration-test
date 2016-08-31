@@ -31,7 +31,7 @@ On GBPSFC1 Send HTTP req h35_3-h36_4 to GBPSFC2
     [Documentation]    HTTP traffic inspection.
     Switch Connection    GPSFC1_CONNECTION
     ${flow}    Inspect Classifier Outbound    in_port=5    out_port=${VXLAN_GPE_PORT}    eth_type=${ETHER_TYPE}    inner_src_ip=${CLIENT_IP}    inner_dst_ip=${SERVER_IP}
-    ...    next_hop_ip=${GBPSFC2}    nsi=255    proto=${PROTO}    dst_port=${SERVICE_PORT}
+    ...    next_hop_ip=${GBPSFC2}    nsi=255    proto=${PROTO}
     ${nsp_35_3-nsp_36_4}    GET NSP Value From Flow    ${flow}
     Set Global Variable    ${NSP_path1}    ${nsp_35_3-nsp_36_4}
 
