@@ -334,6 +334,12 @@ Remove All Elements At URI And Verify
     ${resp}    RequestsLibrary.Get Request    session    ${uri}
     Should Be Equal As Strings    ${resp.status_code}    404
 
+Remove All Elements If Exist
+    [Arguments]    ${uri}
+    [Documentation]    Delete all elements from an URI if the configuration was not empty
+    ${resp}    RequestsLibrary.Get Request    session    ${uri}
+    Run Keyword If    '${resp.status_code}'!='404'    Remove All Elements At URI    ${uri}
+
 Add Elements To URI From File
     [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}
     ${body}    OperatingSystem.Get File    ${data_file}

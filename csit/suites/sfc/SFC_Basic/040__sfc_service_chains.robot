@@ -2,6 +2,7 @@
 Documentation     Test suite for SFC Service Function Chains, Operates Chains from Restconf APIs.
 Suite Setup       Init Suite
 Suite Teardown    Delete All Sessions
+Test Setup        Remove All Elements If Exist    ${SERVICE_CHAINS_URI}
 Library           SSHLibrary
 Library           Collections
 Library           OperatingSystem
@@ -25,6 +26,7 @@ Put Service Function Chains
 
 Delete All Service Function Chains
     [Documentation]    Delete all Service Function Chains
+    Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAINS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Remove All Elements At URI    ${SERVICE_CHAINS_URI}
@@ -33,21 +35,18 @@ Delete All Service Function Chains
 
 Get one Service Function Chain
     [Documentation]    Get one Service Function Chain
-    Remove All Elements At URI    ${SERVICE_CHAINS_URI}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     ${elements}=    Create List    SFC1    dpi-abstract1    napt44-abstract1    firewall-abstract1
     Check For Elements At URI    ${SERVICE_CHAINS_URI}service-function-chain/SFC1    ${elements}
 
 Get A Non-existing Service Function Chain
     [Documentation]    Get A Non-existing Service Function Chain
-    Remove All Elements At URI    ${SERVICE_CHAINS_URI}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAINS_URI}service-function-chain/non-existing-sfc
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete A Service Function Chain
     [Documentation]    Delete A Service Function Chain
-    Remove All Elements At URI    ${SERVICE_CHAINS_URI}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAINS_URI}service-function-chain/SFC1
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
@@ -57,12 +56,12 @@ Delete A Service Function Chain
 
 Delete A Non-existing Service Function Chain
     [Documentation]    Delete A Non existing Service Function Chain
-    Remove All Elements At URI    ${SERVICE_CHAINS_URI}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     ${body}    OperatingSystem.Get File    ${SERVICE_CHAINS_FILE}
     ${jsonbody}    To Json    ${body}
     ${chains}    Get From Dictionary    ${jsonbody}    service-function-chains
-    Remove All Elements At URI    ${SERVICE_CHAINS_URI}service-function-chain/non-existing-sfc
+    ${resp}    RequestsLibrary.Delete Request    session    ${SERVICE_CHAINS_URI}service-function-chain/non-existing-sfc
+    Should Be Equal As Strings    ${resp.status_code}    404
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAINS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${result}    To JSON    ${resp.content}
@@ -71,7 +70,6 @@ Delete A Non-existing Service Function Chain
 
 Put one Service Function Chain
     [Documentation]    Put one Service Function Chain
-    Remove All Elements At URI    ${SERVICE_CHAINS_URI}
     Add Elements To URI From File    ${SERVICE_CHAIN100_URI}    ${SERVICE_CHAIN100_FILE}
     ${elements}=    Create List    SFC100    dpi-abstract100    napt44-abstract100    firewall-abstract100
     Check For Elements At URI    ${SERVICE_CHAIN100_URI}    ${elements}
@@ -79,21 +77,18 @@ Put one Service Function Chain
 
 Get one Service Function From Chain
     [Documentation]    Get one Service Function From Chain
-    Remove All Elements At URI    ${SERVICE_CHAINS_URI}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     ${elements}=    Create List    dpi-abstract1    "order":0    "type":"dpi"
     Check For Elements At URI    ${SERVICE_CHAINS_URI}service-function-chain/SFC1/sfc-service-function/dpi-abstract1    ${elements}
 
 Get A Non-existing Service Function From Chain
     [Documentation]    Get A Non-existing Service Function From Chain
-    Remove All Elements At URI    ${SERVICE_CHAINS_URI}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAINS_URI}service-function-chain/SFC1/sfc-service-function/non-existing-sft
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete A Service Function From Chain
     [Documentation]    Delete A Service Function From Chain
-    Remove All Elements At URI    ${SERVICE_CHAINS_URI}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     Remove All Elements At URI    ${SERVICE_CHAINS_URI}service-function-chain/SFC1/sfc-service-function/dpi-abstract1
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_CHAINS_URI}
@@ -104,26 +99,21 @@ Delete A Service Function From Chain
 
 Delete A Non-existing Service Function From Chain
     [Documentation]    Delete A Non existing Service Function From Chain
-    Remove All Elements At URI    ${SERVICE_CHAINS_URI}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
-    Remove All Elements At URI    ${SERVICE_CHAINS_URI}service-function-chain/SFC1/sfc-service-function/non-existing-sft
+    ${resp}    RequestsLibrary.Delete Request    session    ${SERVICE_CHAINS_URI}service-function-chain/SFC1/sfc-service-function/non-existing-sft
+    Should Be Equal As Strings    ${resp.status_code}    404
     ${elements}=    Create List    dpi-abstract1    napt44-abstract1    firewall-abstract1
     Check For Elements At URI    ${SERVICE_CHAINS_URI}service-function-chain/SFC1    ${elements}
     Check For Elements At URI    ${SERVICE_CHAINS_URI}    ${elements}
 
 Put one Service Function into Chain
     [Documentation]    Put one Service Function Chain
-    Remove All Elements At URI    ${SERVICE_CHAINS_URI}
     Add Elements To URI From File    ${SERVICE_CHAINS_URI}    ${SERVICE_CHAINS_FILE}
     Add Elements To URI From File    ${SERVICE_CHAIN100_SFIDS_URI}    ${SERVICE_CHAIN100_SFIDS_FILE}
     ${elements}=    Create List    ids-abstract100    "order":3    "type":"ids"
     Check For Elements At URI    ${SERVICE_CHAIN100_SFIDS_URI}    ${elements}
     Check For Elements At URI    ${SERVICE_CHAIN100_URI}    ${elements}
     Check For Elements At URI    ${SERVICE_CHAINS_URI}    ${elements}
-
-Clean All Service Function Chains After Tests
-    [Documentation]    Delete all Service Function Chains From Datastore After Tests
-    Remove All Elements At URI    ${SERVICE_CHAINS_URI}
 
 *** keywords ***
 Init Suite

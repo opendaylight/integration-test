@@ -2,6 +2,7 @@
 Documentation     Test suite for SFC Service Function Paths, Operates paths from Restconf APIs.
 Suite Setup       Init Suite
 Suite Teardown    Delete All Sessions
+Test Setup        Remove All Elements If Exist    ${SERVICE_FUNCTION_PATHS_URI}
 Library           SSHLibrary
 Library           Collections
 Library           OperatingSystem
@@ -25,6 +26,7 @@ Add Service Function Paths
 
 Delete All Service Function Paths
     [Documentation]    Delete all Service Function Paths
+    Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Remove All Elements At URI    ${SERVICE_FUNCTION_PATHS_URI}
@@ -33,21 +35,18 @@ Delete All Service Function Paths
 
 Get one Service Function Path
     [Documentation]    Get one Service Function Path
-    Remove All Elements At URI    ${SERVICE_FUNCTION_PATHS_URI}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
     ${elements}=    Create List    SFC1-100    "service-chain-name":"SFC1"
     Check For Elements At URI    ${SERVICE_FUNCTION_PATHS_URI}service-function-path/SFC1-100    ${elements}
 
 Get A Non-existing Service Function Path
     [Documentation]    Get A Non-existing Service Function Path
-    Remove All Elements At URI    ${SERVICE_FUNCTION_PATHS_URI}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}service-function-path/non-existing-sfp
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Delete A Service Function Path
     [Documentation]    Delete A Service Function Path
-    Remove All Elements At URI    ${SERVICE_FUNCTION_PATHS_URI}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}service-function-path/SFC1-100
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
@@ -60,12 +59,12 @@ Delete A Service Function Path
 
 Delete A Non-existing Empty Service Function Path
     [Documentation]    Delete A Non existing Service Function Path
-    Remove All Elements At URI    ${SERVICE_FUNCTION_PATHS_URI}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATHS_URI}    ${SERVICE_FUNCTION_PATHS_FILE}
     ${body}    OperatingSystem.Get File    ${SERVICE_FUNCTION_PATHS_FILE}
     ${jsonbody}    To Json    ${body}
     ${paths}    Get From Dictionary    ${jsonbody}    service-function-paths
-    Remove All Elements At URI    ${SERVICE_FUNCTION_PATHS_URI}service-function-path/non-existing-sfp
+    ${resp}    RequestsLibrary.Delete Request    session    ${SERVICE_FUNCTION_PATHS_URI}service-function-path/non-existing-sfp
+    Should Be Equal As Strings    ${resp.status_code}    404
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${result}    To JSON    ${resp.content}
@@ -74,7 +73,6 @@ Delete A Non-existing Empty Service Function Path
 
 Put one Service Function
     [Documentation]    Put one Service Function
-    Remove All Elements At URI    ${SERVICE_FUNCTION_PATHS_URI}
     Add Elements To URI From File    ${SERVICE_FUNCTION_PATH400_URI}    ${SERVICE_FUNCTION_PATH400_FILE}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATH400_URI}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
@@ -83,9 +81,6 @@ Put one Service Function
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Should Contain    ${resp.content}    SFC1-400
 
-Clean All Service Function Paths After Tests
-    [Documentation]    Delete all Service Function Paths From Datastore After Tests
-    Remove All Elements At URI    ${SERVICE_FUNCTION_PATHS_URI}
 
 *** keywords ***
 Init Suite
