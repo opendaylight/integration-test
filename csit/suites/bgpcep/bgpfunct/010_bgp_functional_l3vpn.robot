@@ -41,6 +41,7 @@ ${L3VPN_URL}      /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/loc-
 ${CONFIG_SESSION}    config-session
 ${EXARPCSCRIPT}    ${CURDIR}/../../../../tools/exabgp_files/exarpc.py
 ${PEER_CHECK_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
+${DEFAULT_BGPCEP_LOG_LEVEL}    INFO
 
 *** Test Cases ***
 Configure_App_Peer
@@ -94,6 +95,7 @@ Start_Suite
     SSHKeywords.Virtual_Env_Install_Package    exabgp==3.4.16
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     Upload_Config_Files
+    KarafKeywords.Set_Bgpcep_Log_Levels    # ${DEFAULT_BGPCEP_LOG_LEVEL} is applied by default
 
 Stop_Suite
     [Documentation]    Suite teardown keyword
