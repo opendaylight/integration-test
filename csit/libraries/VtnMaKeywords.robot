@@ -61,6 +61,7 @@ Start SuiteVtnMa
     Set Suite Variable    ${vtn_mgr_id}
     SSHLibrary.Login_With_Public_Key    ${ODL_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     SSHLibrary.Execute Command    sudo sed -i "$ i log4j.logger.org.opendaylight.vtn = TRACE" ${WORKSPACE}/${BUNDLEFOLDER}/etc/org.ops4j.pax.logging.cfg
+    SSHLibrary.Execute Command    sudo sed -i "$ i log4j.logger.org.opendaylight.openflowplugin.impl.device.TransactionChainManager = DEBUG" ${WORKSPACE}/${BUNDLEFOLDER}/etc/org.ops4j.pax.logging.cfg
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_YANG_JSON}
     BuiltIn.Wait_Until_Keyword_Succeeds    30    3    Fetch vtn list
     Start Suite
