@@ -1,0 +1,90 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_43763ed8",
+        "filename": "csit/suites/iotdm/basic/080_FilterCriteriaTest.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-09-01T06:17:59Z",
+      "side": 1,
+      "message": "why this blank line?",
+      "revId": "20d062d41eab84d4945b1f17461e3171c910006b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_0371e6df",
+        "filename": "csit/suites/iotdm/basic/090_AccessControlPolicyTest.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-09-01T06:17:59Z",
+      "side": 1,
+      "message": "https://github.com/opendaylight/integration-test/blob/master/csit/variables/Variables.py#L48-L49",
+      "range": {
+        "startLine": 8,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 23
+      },
+      "revId": "20d062d41eab84d4945b1f17461e3171c910006b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_6379bac7",
+        "filename": "csit/suites/iotdm/basic/090_AccessControlPolicyTest.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-09-01T06:17:59Z",
+      "side": 1,
+      "message": "this seems to be a common way people are doing this now.  makes it a little more strict:\n\nhttps://git.opendaylight.org/gerrit/#/c/44817/2/csit/suites/packetcable/PCMM/010__pcmm_rest_call.robot",
+      "range": {
+        "startLine": 31,
+        "startChar": 0,
+        "endLine": 31,
+        "endChar": 48
+      },
+      "revId": "20d062d41eab84d4945b1f17461e3171c910006b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_a3a8f220",
+        "filename": "csit/suites/iotdm/basic/100_NodeTest.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-09-01T06:17:59Z",
+      "side": 1,
+      "message": "you\u0027re not even using these in this file, which is what the Variables section is for.  I wouldn\u0027t count on them bleeding down to other suites.  if they do, it\u0027s probably a bug in robot framework.  but, maybe you just have them here by mistake.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 14,
+        "endChar": 15
+      },
+      "revId": "20d062d41eab84d4945b1f17461e3171c910006b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
