@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_91c6dd98",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-09-01T21:02:19Z",
+      "side": 1,
+      "message": "Would it be easier to just add this rule to the default SG? That way we wouldn\u0027t need to add sg\u003dcsit on the nova creates.",
+      "revId": "0368ec05c75075976d37e4cebdd509479cad5fdb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
