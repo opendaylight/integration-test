@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_51d0c5c8",
+        "filename": "csit/suites/openstack/clustering/02_l3_tests.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-09-01T23:14:57Z",
+      "side": 1,
+      "message": "you should add the Teardown step that reports the bug id here, to better follow the test case expectations.",
+      "range": {
+        "startLine": 74,
+        "startChar": 0,
+        "endLine": 76,
+        "endChar": 49
+      },
+      "revId": "c089871739de52fbf824667f68f4384cb541c3d0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
