@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite to validate vpnservice functionality in an openstack integrated environment.
+Documentation     Test suite to validate vpnservice functionality in an openstack integrated environment.Test Push.
 ...               The assumption of this suite is that the environment is already configured with the proper
 ...               integration bridges and vxlan tunnels.
 Suite Setup       Basic Vpnservice Suite Setup
@@ -20,8 +20,30 @@ Variables         ../../../variables/Variables.py
 @{PORT_LIST}      PORT11    PORT21    PORT12    PORT22
 @{VM_INSTANCES}    VM11    VM21    VM12    VM22
 @{ROUTERS}        ROUTER_1    ROUTER_2
+${REST_CON}       /restconf/config/
+@{vpn_inst_values}    testVpn1    1000:1    1000:1,2000:1    3000:1,4000:1
+@{vm_int_values}    s1-eth1    l2vlan    openflow:1:1
+@{vm_vpnint_values}    s1-eth1    testVpn1    10.0.0.1    12:f8:57:a8:b9:a1
+${VPN_CONFIG_DIR}    ${CURDIR}/../../variables/vpnservice
 
 *** Test Cases ***
+Create VPN Instance
+    [Documentation]    Creates VPN Instance through restconf
+    [Tags]    Post
+    ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/vpn_instance.json
+    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON}l3vpn:vpn-instances/    data=${body}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    204
+
+Verify VPN instance
+    [Documentation]    Verifies the vpn instance is created
+    [Tags]    Get
+    ${resp}    RequestsLibrary.Get Request    session    ${REST_CON}l3vpn:vpn-instances/vpn-instance/${vpn_inst_values[0]}/    headers=${ACCEPT_XML}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Log    ${resp.content}
+    : FOR    ${value}    IN    @{vpn_inst_values}
+    \    Should Contain    ${resp.content}    ${value}
+
 Verify Tunnel Creation
     [Documentation]    Checks that vxlan tunnels have been created properly.
     [Tags]    exclude
