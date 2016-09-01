@@ -38,14 +38,19 @@ Create Subnets For l2_network_2
 
 Create Vm Instances For l2_network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    l2_network_1    ${NET_1_VM_INSTANCES}
+    Create Vm Instances    l2_network_1    ${NET_1_VM_INSTANCES}     sg=csit
     [Teardown]    Show Debugs    ${NET_1_VM_INSTANCES}
 
 Create Vm Instances For l2_network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    l2_network_2    ${NET_2_VM_INSTANCES}
+    Create Vm Instances    l2_network_2    ${NET_2_VM_INSTANCES}     sg=csit
     [Teardown]    Show Debugs    ${NET_2_VM_INSTANCES}
     Get OvsDebugInfo
+
+Add Ssh Allow Rule
+    [Documentation]    Allow ssh packets
+    Create Security Group      csit    "CSIT SSH Allow"
+    Create Security Rule     ingress      tcp     22     0.0.0.0/24      csit
 
 Ping Vm Instance1 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
