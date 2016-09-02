@@ -41,7 +41,15 @@ Cbench Throughput Test
     [Timeout]    ${test_timeout}
     Log    Cbench tests using ${loops} iterations of ${duration_in_secs} second tests. Switch Count: ${switch_count}. Unique MACS to cycle: ${num_of_unique_macs}
     Run Cbench And Log Results    -t -m ${duration_in_ms} -M ${num_of_unique_macs} -s ${switch_count} -l ${loops} -D ${start_delay}    ${throughput_threshold}    ${throughput_results_file}
+
+Rerun latency to see if controller is healthy
+    [Documentation]    cbench executed in latency mode to check bug 6176
+    [Tags]    latency
+    [Timeout]    ${test_timeout}
+    Log    Cbench tests using ${loops} iterations of ${duration_in_secs} second tests. Switch Count: ${switch_count}. Unique MACS to cycle: ${num_of_unique_macs}
+    Run Cbench And Log Results    -m ${duration_in_ms} -M ${num_of_unique_macs} -s ${switch_count} -l ${loops} -D ${start_delay}    ${throughput_threshold}    bug.csv
     [Teardown]    Report_Failure_Due_To_Bug    6176
+
 
 *** Keywords ***
 Run Cbench And Log Results
