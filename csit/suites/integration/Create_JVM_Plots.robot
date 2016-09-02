@@ -4,4 +4,4 @@ Resource          ${CURDIR}/../../libraries/CheckJVMResource.robot
 
 *** Test Cases ***
 Create JVM Plots
-    CheckJVMResource.Create JVM Plots
+    BuiltIn.Run Keyword And Ignore Error    CheckJVMResource.Create JVM Plots
