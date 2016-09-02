@@ -3,6 +3,9 @@ Documentation     Test suite to check connectivity in L3 using routers.
 Suite Setup       Devstack Suite Setup Tests
 Suite Teardown    Close All Connections
 Test Setup        Log Testcase Start To Controller Karaf
+Test Teardown     Run Keywords    Show Debugs    ${NET_1_VM_IPS}
+...               AND    Show Debugs    ${NET_2_VM_IPS}
+...               AND    Get OvsDebugInfo
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -38,12 +41,10 @@ Create Subnets For network_2
 Create Vm Instances For network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     Create Vm Instances    network_1    ${NET_1_VM_INSTANCES}    sg=csit
-    [Teardown]    Show Debugs    ${NET_1_VM_INSTANCES}
 
 Create Vm Instances For network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     Create Vm Instances    network_2    ${NET_2_VM_INSTANCES}    sg=csit
-    [Teardown]    Show Debugs    ${NET_2_VM_INSTANCES}
 
 Create Routers
     [Documentation]    Create Router
@@ -56,26 +57,32 @@ Add Interfaces To Router
 
 Ping Vm Instance1 In network_2 From network_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
+    Get OvsDebugInfo
     Ping Vm From DHCP Namespace    network_1    @{NET_2_VM_IPS}[0]
 
 Ping Vm Instance2 In network_2 From network_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
+    Get OvsDebugInfo
     Ping Vm From DHCP Namespace    network_1    @{NET_2_VM_IPS}[1]
 
 Ping Vm Instance3 In network_2 From network_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
+    Get OvsDebugInfo
     Ping Vm From DHCP Namespace    network_1    @{NET_2_VM_IPS}[2]
 
 Ping Vm Instance1 In network_1 From network_2
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
+    Get OvsDebugInfo
     Ping Vm From DHCP Namespace    network_2    @{NET_1_VM_IPS}[0]
 
 Ping Vm Instance2 In network_1 From network_2
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
+    Get OvsDebugInfo
     Ping Vm From DHCP Namespace    network_2    @{NET_1_VM_IPS}[1]
 
 Ping Vm Instance3 In network_1 From network_2
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
+    Get OvsDebugInfo
     Ping Vm From DHCP Namespace    network_2    @{NET_1_VM_IPS}[2]
 
 Connectivity Tests From Vm Instance1 In network_1
@@ -84,6 +91,7 @@ Connectivity Tests From Vm Instance1 In network_1
     Log    ${dst_ip_list}
     ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[0]    @{NET_2_VM_IPS}[1]    @{NET_2_VM_IPS}[2]
     Log    ${other_dst_ip_list}
+    Get OvsDebugInfo
     Test Operations From Vm Instance    network_1    @{NET_1_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
 Connectivity Tests From Vm Instance2 In network_1
@@ -92,6 +100,7 @@ Connectivity Tests From Vm Instance2 In network_1
     Log    ${dst_ip_list}
     ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[0]    @{NET_2_VM_IPS}[1]    @{NET_2_VM_IPS}[2]
     Log    ${other_dst_ip_list}
+    Get OvsDebugInfo
     Test Operations From Vm Instance    network_1    @{NET_1_VM_IPS}[1]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
 Connectivity Tests From Vm Instance3 In network_1
@@ -100,6 +109,7 @@ Connectivity Tests From Vm Instance3 In network_1
     Log    ${dst_ip_list}
     ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[0]    @{NET_2_VM_IPS}[1]    @{NET_2_VM_IPS}[2]
     Log    ${other_dst_ip_list}
+    Get OvsDebugInfo
     Test Operations From Vm Instance    network_1    @{NET_1_VM_IPS}[2]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
 Connectivity Tests From Vm Instance1 In network_2
@@ -108,6 +118,7 @@ Connectivity Tests From Vm Instance1 In network_2
     Log    ${dst_ip_list}
     ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
     Log    ${other_dst_ip_list}
+    Get OvsDebugInfo
     Test Operations From Vm Instance    network_2    @{NET_2_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
 Connectivity Tests From Vm Instance2 In network_2
@@ -116,6 +127,7 @@ Connectivity Tests From Vm Instance2 In network_2
     Log    ${dst_ip_list}
     ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
     Log    ${other_dst_ip_list}
+    Get OvsDebugInfo
     Test Operations From Vm Instance    network_2    @{NET_2_VM_IPS}[1]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
 Connectivity Tests From Vm Instance3 In network_2
@@ -124,6 +136,7 @@ Connectivity Tests From Vm Instance3 In network_2
     Log    ${dst_ip_list}
     ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
     Log    ${other_dst_ip_list}
+    Get OvsDebugInfo
     Test Operations From Vm Instance    network_2    @{NET_2_VM_IPS}[2]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
 Delete Vm Instances In network_1
