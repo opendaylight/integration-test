@@ -27,25 +27,30 @@ Create Networks
     [Documentation]    Create Network with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
     \    Create Network    ${NetworkElement}
+    Get OvsDebugInfo
 
 Create Subnets For l2_network_1
     [Documentation]    Create Sub Nets for the Networks with neutron request.
     Create SubNet    l2_network_1    l2_subnet_1    @{SUBNETS_RANGE}[0]
+    Get OvsDebugInfo
 
 Create Subnets For l2_network_2
     [Documentation]    Create Sub Nets for the Networks with neutron request.
     Create SubNet    l2_network_2    l2_subnet_2    @{SUBNETS_RANGE}[1]
+    Get OvsDebugInfo
 
 Add Ssh Allow Rule
     [Documentation]    Allow all TCP packets for testing
     Create Security Group      csit    "CSIT SSH Allow"
     Create Security Rule     ingress      tcp     1     65535     0.0.0.0/0      csit
     Create Security Rule     egress       tcp     1     65535     0.0.0.0/0      csit
+    Get OvsDebugInfo
 
 Create Vm Instances For l2_network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     Create Vm Instances    l2_network_1    ${NET_1_VM_INSTANCES}     sg=csit
     [Teardown]    Show Debugs    ${NET_1_VM_INSTANCES}
+    Get OvsDebugInfo
 
 Create Vm Instances For l2_network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
@@ -151,19 +156,23 @@ Delete Vm Instances In l2_network_1
     [Documentation]    Delete Vm instances using instance names in l2_network_1.
     : FOR    ${VmElement}    IN    @{NET_1_VM_INSTANCES}
     \    Delete Vm Instance    ${VmElement}
+    Get OvsDebugInfo
 
 Delete Vm Instances In l2_network_2
     [Documentation]    Delete Vm instances using instance names in l2_network_2.
     : FOR    ${VmElement}    IN    @{NET_2_VM_INSTANCES}
     \    Delete Vm Instance    ${VmElement}
+    Get OvsDebugInfo
 
 Delete Sub Networks In l2_network_1
     [Documentation]    Delete Sub Nets for the Networks with neutron request.
     Delete SubNet    l2_subnet_1
+    Get OvsDebugInfo
 
 Delete Sub Networks In l2_network_2
     [Documentation]    Delete Sub Nets for the Networks with neutron request.
     Delete SubNet    l2_subnet_2
+    Get OvsDebugInfo
 
 Delete Networks
     [Documentation]    Delete Networks with neutron request.

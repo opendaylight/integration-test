@@ -2,6 +2,7 @@
 Documentation     Test suite to check connectivity in L3 using routers.
 Suite Setup       Devstack Suite Setup Tests    source_pwd=yes
 Suite Teardown    Close All Connections
+Test Setup        Log Testcase Start To Controller Karaf
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -27,100 +28,129 @@ Resource          ../../../libraries/ClusterManagement.robot
 Create All Controller Sessions
     [Documentation]    Create sessions for all three contorllers.
     ClusterManagement.ClusterManagement Setup
+    Get OvsDebugInfo
 
 Create Networks
     [Documentation]    Create Network with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
     \    OpenStackOperations.Create Network    ${NetworkElement}
+    Get OvsDebugInfo
 
 Create Subnets For l3_net_1
     [Documentation]    Create Sub Nets for the Networks with neutron request.
     OpenStackOperations.Create SubNet    l3_net_1    l3_sub_net_1    @{SUBNETS_RANGE}[0]
+    Get OvsDebugInfo
 
 Create Subnets For l3_net_2
     [Documentation]    Create Sub Nets for the Networks with neutron request.
     OpenStackOperations.Create SubNet    l3_net_2    l3_sub_net_2    @{SUBNETS_RANGE}[1]
+    Get OvsDebugInfo
 
 Take Down ODL1
     [Documentation]    Kill the karaf in First Controller
     ClusterManagement.Kill Single Member    1
+    Get OvsDebugInfo
 
 Create Vm Instances For l3_net_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     OpenStackOperations.Create Vm Instances    l3_net_1    ${NET_1_VM_INSTANCES}     sg=csit
     [Teardown]    OpenStackOperations.Show Debugs    ${NET_1_VM_INSTANCES}
+    Get OvsDebugInfo
 
 Bring Up ODL1
     [Documentation]    Bring up ODL1 again
     ClusterManagement.Start Single Member    1
+    Get OvsDebugInfo
 
 Take Down ODL2
     [Documentation]    Kill the karaf in Second Controller
     ClusterManagement.Kill Single Member    2
+    Get OvsDebugInfo
 
 Create Vm Instances For l3_net_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     OpenStackOperations.Create Vm Instances    l3_net_2    ${NET_2_VM_INSTANCES}     sg=csit
     [Teardown]    Show Debugs    ${NET_2_VM_INSTANCES}
+    Get OvsDebugInfo
 
 Bring Up ODL2
     [Documentation]    Bring up ODL2 again
     ClusterManagement.Start Single Member    2
+    Get OvsDebugInfo
 
 Take Down ODL3
     [Documentation]    Kill the karaf in Third Controller
     ClusterManagement.Kill Single Member    3
+    Get OvsDebugInfo
 
 Create Router router_2
     [Documentation]    Create Router and Add Interface to the subnets. this fails sometimes.
     OpenStackOperations.Create Router    router_2
+    Get OvsDebugInfo
 
 Create Router router_3
     [Documentation]    Create Router and Add Interface to the subnets.
     OpenStackOperations.Create Router    router_3
+    Get OvsDebugInfo
 
 Add Interfaces To Router
     [Documentation]    Add Interfaces
     : FOR    ${interface}    IN    @{SUBNETS_NAME}
     \    OpenStackOperations.Add Router Interface    router_3    ${interface}
+    Get OvsDebugInfo
 
 Verify Created Routers
     [Documentation]    Check created routers using northbound rest calls
     ${data}    Utils.Get Data From URI    1    ${NEUTRON_ROUTERS_API}
     Log    ${data}
     Should Contain    ${data}    router_3
+    Get OvsDebugInfo
 
 Bring Up ODL3
     [Documentation]    Bring up ODL3 again
     ClusterManagement.Start Single Member    3
+    Get OvsDebugInfo
 
 Ping Vm Instance1 In l3_net_2 From l3_net_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
+    Get OvsDebugInfo
     OpenStackOperations.Ping Vm From DHCP Namespace    l3_net_1    @{NET_2_VM_IPS}[0]
+    Get OvsDebugInfo
 
 Ping Vm Instance2 In l3_net_2 From l3_net_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
+    Get OvsDebugInfo
     OpenStackOperations.Ping Vm From DHCP Namespace    l3_net_1    @{NET_2_VM_IPS}[1]
+    Get OvsDebugInfo
 
 Ping Vm Instance3 In l3_net_2 From l3_net_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
+    Get OvsDebugInfo
     OpenStackOperations.Ping Vm From DHCP Namespace    l3_net_1    @{NET_2_VM_IPS}[2]
+    Get OvsDebugInfo
 
 Ping Vm Instance1 In l3_net_1 From l3_net_2
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
+    Get OvsDebugInfo
     OpenStackOperations.Ping Vm From DHCP Namespace    l3_net_2    @{NET_1_VM_IPS}[0]
+    Get OvsDebugInfo
 
 Ping Vm Instance2 In l3_net_1 From l3_net_2
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
+    Get OvsDebugInfo
     OpenStackOperations.Ping Vm From DHCP Namespace    l3_net_2    @{NET_1_VM_IPS}[1]
+    Get OvsDebugInfo
 
 Ping Vm Instance3 In l3_net_1 From l3_net_2
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
+    Get OvsDebugInfo
     OpenStackOperations.Ping Vm From DHCP Namespace    l3_net_2    @{NET_1_VM_IPS}[2]
+    Get OvsDebugInfo
 
 Take Down ODL1 and ODL2
     [Documentation]    Kill the karaf in First and Second Controller
     ClusterManagement.Kill Members From List Or All    ${odl_1_and_2_down}
+    Get OvsDebugInfo
 
 Connectivity Tests From Vm Instance1 In l3_net_1
     [Documentation]    Logging to the vm instance using generated key pair.
@@ -128,7 +158,9 @@ Connectivity Tests From Vm Instance1 In l3_net_1
     Log    ${dst_ip_list}
     ${other_dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[2]    @{NET_2_VM_IPS}[1]
     Log    ${other_dst_ip_list}
+    Get OvsDebugInfo
     OpenStackOperations.Test Operations From Vm Instance    l3_net_1    @{NET_1_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    Get OvsDebugInfo
 
 Connectivity Tests From Vm Instance2 In l3_net_1
     [Documentation]    Logging to the vm instance using generated key pair.
@@ -136,7 +168,9 @@ Connectivity Tests From Vm Instance2 In l3_net_1
     Log    ${dst_ip_list}
     ${other_dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[2]
     Log    ${other_dst_ip_list}
+    Get OvsDebugInfo
     OpenStackOperations.Test Operations From Vm Instance    l3_net_1    @{NET_1_VM_IPS}[1]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    Get OvsDebugInfo
 
 Connectivity Tests From Vm Instance3 In l3_net_1
     [Documentation]    Logging to the vm instance using generated key pair.
@@ -144,15 +178,19 @@ Connectivity Tests From Vm Instance3 In l3_net_1
     Log    ${dst_ip_list}
     ${other_dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[2]
     Log    ${other_dst_ip_list}
+    Get OvsDebugInfo
     OpenStackOperations.Test Operations From Vm Instance    l3_net_1    @{NET_1_VM_IPS}[2]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    Get OvsDebugInfo
 
 Bring Up ODL1 and ODL2
     [Documentation]    Bring up ODL1 and ODL2 again
     ClusterManagement.Start Members From List Or All    ${odl_1_and_2_down}
+    Get OvsDebugInfo
 
 Take Down ODL2 and ODL3
     [Documentation]    Kill the karaf in First and Second Controller
     ClusterManagement.Kill Members From List Or All    ${odl_2_and_3_down}
+    Get OvsDebugInfo
 
 Connectivity Tests From Vm Instance1 In l3_net_2
     [Documentation]    Logging to the vm instance using generated key pair.
@@ -160,7 +198,9 @@ Connectivity Tests From Vm Instance1 In l3_net_2
     Log    ${dst_ip_list}
     ${other_dst_ip_list}=    Create List    @{NET_1_VM_IPS}[0]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
     Log    ${other_dst_ip_list}
+    Get OvsDebugInfo
     OpenStackOperations.Test Operations From Vm Instance    l3_net_2    @{NET_2_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    Get OvsDebugInfo
 
 Connectivity Tests From Vm Instance2 In l3_net_2
     [Documentation]    Logging to the vm instance using generated key pair.
@@ -168,7 +208,9 @@ Connectivity Tests From Vm Instance2 In l3_net_2
     Log    ${dst_ip_list}
     ${other_dst_ip_list}=    Create List    @{NET_1_VM_IPS}[0]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
     Log    ${other_dst_ip_list}
+    Get OvsDebugInfo
     OpenStackOperations.Test Operations From Vm Instance    l3_net_2    @{NET_2_VM_IPS}[1]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    Get OvsDebugInfo
 
 Connectivity Tests From Vm Instance3 In l3_net_2
     [Documentation]    Logging to the vm instance using generated key pair.
@@ -176,47 +218,58 @@ Connectivity Tests From Vm Instance3 In l3_net_2
     Log    ${dst_ip_list}
     ${other_dst_ip_list}=    Create List    @{NET_1_VM_IPS}[0]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
     Log    ${other_dst_ip_list}
+    Get OvsDebugInfo
     OpenStackOperations.Test Operations From Vm Instance    l3_net_2    @{NET_2_VM_IPS}[2]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    Get OvsDebugInfo
 
 Bring Up ODL2 and ODL3
     [Documentation]    Bring up ODL2 and ODL3 again.
     ClusterManagement.Start Members From List Or All    ${odl_2_and_3_down}
+    Get OvsDebugInfo
 
 Delete Vm Instances In l3_net_1
     [Documentation]    Delete Vm instances using instance names in l3_net_1.
     : FOR    ${VmElement}    IN    @{NET_1_VM_INSTANCES}
     \    OpenStackOperations.Delete Vm Instance    ${VmElement}
+    Get OvsDebugInfo
 
 Delete Vm Instances In l3_net_2
     [Documentation]    Delete Vm instances using instance names in l3_net_2.
     : FOR    ${VmElement}    IN    @{NET_2_VM_INSTANCES}
     \    OpenStackOperations.Delete Vm Instance    ${VmElement}
+    Get OvsDebugInfo
 
 Delete Router Interfaces
     [Documentation]    Remove Interface to the subnets.
     : FOR    ${interface}    IN    @{SUBNETS_NAME}
     \    OpenStackOperations.Remove Interface    router_3    ${interface}
+    Get OvsDebugInfo
 
 Delete Routers
     [Documentation]    Delete Router and Interface to the subnets.
     OpenStackOperations.Delete Router    router_2
     OpenStackOperations.Delete Router    router_3
+    Get OvsDebugInfo
 
 Verify Deleted Routers
     [Documentation]    Check deleted routers using northbound rest calls
     ${data}    Utils.Get Data From URI    1    ${NEUTRON_ROUTERS_API}
     Log    ${data}
     Should Not Contain    ${data}    router_3
+    Get OvsDebugInfo
 
 Delete Sub Networks In l3_net_1
     [Documentation]    Delete Sub Nets for the Networks with neutron request.
     OpenStackOperations.Delete SubNet    l3_sub_net_1
+    Get OvsDebugInfo
 
 Delete Sub Networks In l3_net_2
     [Documentation]    Delete Sub Nets for the Networks with neutron request.
     OpenStackOperations.Delete SubNet    l3_sub_net_2
+    Get OvsDebugInfo
 
 Delete Networks
     [Documentation]    Delete Networks with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
     \    OpenStackOperations.Delete Network    ${NetworkElement}
+    Get OvsDebugInfo
