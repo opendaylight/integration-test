@@ -74,6 +74,7 @@ Take Down ODL3
 Create Router router_2
     [Documentation]    Create Router and Add Interface to the subnets. this fails sometimes.
     OpenStackOperations.Create Router    router_2
+    [Teardown]    Report_Failure_Due_To_Bug     6117
 
 Create Router router_3
     [Documentation]    Create Router and Add Interface to the subnets.
