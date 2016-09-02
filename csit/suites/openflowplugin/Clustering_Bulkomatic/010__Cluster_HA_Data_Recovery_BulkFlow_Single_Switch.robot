@@ -135,7 +135,7 @@ Verify Data Recovery After Leader Restart
 Check No Network Operational Information After Leader Restart
     [Documentation]    Check device is not in operational inventory or topology in all cluster instances.
     ClusterOpenFlow.Check No OpenFlow Network Operational Information
-    [Teardown]    Report_Failure_Due_To_Bug    6058
+    [Teardown]    Report_Failure_Due_To_Bug    6459
 
 Start Mininet Again Connect To Leader
     [Documentation]    Start mininet with connection to Leader Node.
@@ -145,7 +145,7 @@ Start Mininet Again Connect To Leader
 Verify Flows In Switch After Leader Restart
     [Documentation]    Verify flows are installed in switch after leader restart.
     MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count}    ${flow_count_per_switch}    ${operation_timeout}
-    [Teardown]    Report_Failure_Due_To_Bug    6058
+    [Teardown]    Report_Failure_Due_To_Bug    6459
 
 Stop Mininet Connected To Leader Node After Leader Restart
     [Documentation]    Stop mininet and exit connection.
@@ -203,7 +203,7 @@ Verify Data Recovery After Follower Node2 Restart
 Check No Network Operational Information After Follower Node2 Restart
     [Documentation]    Check device is not in operational inventory or topology in all cluster instances.
     ClusterOpenFlow.Check No OpenFlow Network Operational Information
-    [Teardown]    Report_Failure_Due_To_Bug    6058
+    [Teardown]    Report_Failure_Due_To_Bug    6459
 
 Start Mininet Again Connect To Follower Node2
     [Documentation]    Start mininet with connection to follower node1.
@@ -213,7 +213,7 @@ Start Mininet Again Connect To Follower Node2
 Verify Flows In Switch After Follower Node2 Restart
     [Documentation]    Verify flows are installed in switch after follower restart.
     MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count}    ${flow_count_per_switch}    ${operation_timeout}
-    [Teardown]    Report_Failure_Due_To_Bug    6058
+    [Teardown]    Report_Failure_Due_To_Bug    6459
 
 Stop Mininet Connected To Follower Node2
     [Documentation]    Stop mininet and exit connection.
