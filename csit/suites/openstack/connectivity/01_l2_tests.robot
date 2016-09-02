@@ -3,6 +3,9 @@ Documentation     Test suite to verify packet flows between vm instances.
 Suite Setup       Devstack Suite Setup Tests
 Suite Teardown    Close All Connections
 Test Setup        Log Testcase Start To Controller Karaf
+Test Teardown     Run Keywords    Show Debugs    ${NET_1_VM_IPS}
+...               AND    Show Debugs    ${NET_2_VM_IPS}
+...               AND    Get OvsDebugInfo
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -45,49 +48,40 @@ Add Ssh Allow Rule
 Create Vm Instances For l2_network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     Create Vm Instances    l2_network_1    ${NET_1_VM_INSTANCES}     sg=csit
-    [Teardown]    Show Debugs    ${NET_1_VM_INSTANCES}
 
 Create Vm Instances For l2_network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     Create Vm Instances    l2_network_2    ${NET_2_VM_INSTANCES}     sg=csit
-    [Teardown]    Show Debugs    ${NET_2_VM_INSTANCES}
-    Get OvsDebugInfo
 
 Ping Vm Instance1 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
     Get OvsDebugInfo
     Ping Vm From DHCP Namespace    l2_network_1    @{NET_1_VM_IPS}[0]
-    Get OvsDebugInfo
 
 Ping Vm Instance2 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
     Get OvsDebugInfo
     Ping Vm From DHCP Namespace    l2_network_1    @{NET_1_VM_IPS}[1]
-    Get OvsDebugInfo
 
 Ping Vm Instance3 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
     Get OvsDebugInfo
     Ping Vm From DHCP Namespace    l2_network_1    @{NET_1_VM_IPS}[2]
-    Get OvsDebugInfo
 
 Ping Vm Instance1 In l2_network_2
     [Documentation]    Check reachability of vm instances by pinging to them.
     Get OvsDebugInfo
     Ping Vm From DHCP Namespace    l2_network_2    @{NET_2_VM_IPS}[0]
-    Get OvsDebugInfo
 
 Ping Vm Instance2 In l2_network_2
     [Documentation]    Check reachability of vm instances by pinging to them.
     Get OvsDebugInfo
     Ping Vm From DHCP Namespace    l2_network_2    @{NET_2_VM_IPS}[1]
-    Get OvsDebugInfo
 
 Ping Vm Instance3 In l2_network_2
     [Documentation]    Check reachability of vm instances by pinging to them.
     Get OvsDebugInfo
     Ping Vm From DHCP Namespace    l2_network_2    @{NET_2_VM_IPS}[2]
-    Get OvsDebugInfo
 
 Connectivity Tests From Vm Instance1 In l2_network_1
     [Documentation]    Logging to the vm instance1
@@ -95,7 +89,6 @@ Connectivity Tests From Vm Instance1 In l2_network_1
     Log    ${dst_ip_list}
     Get OvsDebugInfo
     Test Operations From Vm Instance    l2_network_1    @{NET_1_VM_IPS}[0]    ${dst_ip_list}
-    Get OvsDebugInfo
 
 Connectivity Tests From Vm Instance2 In l2_network_1
     [Documentation]    Logging to the vm instance2
@@ -103,7 +96,6 @@ Connectivity Tests From Vm Instance2 In l2_network_1
     Log    ${dst_ip_list}
     Get OvsDebugInfo
     Test Operations From Vm Instance    l2_network_1    @{NET_1_VM_IPS}[1]    ${dst_ip_list}
-    Get OvsDebugInfo
 
 Connectivity Tests From Vm Instance3 In l2_network_1
     [Documentation]    Logging to the vm instance2
@@ -111,7 +103,6 @@ Connectivity Tests From Vm Instance3 In l2_network_1
     Log    ${dst_ip_list}
     Get OvsDebugInfo
     Test Operations From Vm Instance    l2_network_1    @{NET_1_VM_IPS}[2]    ${dst_ip_list}
-    Get OvsDebugInfo
 
 Connectivity Tests From Vm Instance1 In l2_network_2
     [Documentation]    Logging to the vm instance using generated key pair.
@@ -119,7 +110,6 @@ Connectivity Tests From Vm Instance1 In l2_network_2
     Log    ${dst_ip_list}
     Get OvsDebugInfo
     Test Operations From Vm Instance    l2_network_2    @{NET_2_VM_IPS}[0]    ${dst_ip_list}
-    Get OvsDebugInfo
 
 Connectivity Tests From Vm Instance2 In l2_network_2
     [Documentation]    Logging to the vm instance using generated key pair.
@@ -127,7 +117,6 @@ Connectivity Tests From Vm Instance2 In l2_network_2
     Log    ${dst_ip_list}
     Get OvsDebugInfo
     Test Operations From Vm Instance    l2_network_2    @{NET_2_VM_IPS}[1]    ${dst_ip_list}
-    Get OvsDebugInfo
 
 Connectivity Tests From Vm Instance3 In l2_network_2
     [Documentation]    Logging to the vm instance using generated key pair.
@@ -135,7 +124,6 @@ Connectivity Tests From Vm Instance3 In l2_network_2
     Log    ${dst_ip_list}
     Get OvsDebugInfo
     Test Operations From Vm Instance    l2_network_2    @{NET_2_VM_IPS}[2]    ${dst_ip_list}
-    Get OvsDebugInfo
 
 Delete A Vm Instance
     [Documentation]    Delete Vm instances using instance names.
@@ -145,7 +133,6 @@ No Ping For Deleted Vm
     [Documentation]    Check non reachability of deleted vm instances by pinging to them.
     Get OvsDebugInfo
     ${output}=    Ping From DHCP Should Not Succeed    l2_network_1    @{NET_1_VM_IPS}[0]
-    Get OvsDebugInfo
 
 Delete Vm Instances In l2_network_1
     [Documentation]    Delete Vm instances using instance names in l2_network_1.
@@ -169,4 +156,3 @@ Delete Networks
     [Documentation]    Delete Networks with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
     \    Delete Network    ${NetworkElement}
-    Get OvsDebugInfo
