@@ -2,7 +2,9 @@
 Documentation     Test suite to check connectivity in L3 using routers.
 Suite Setup       Devstack Suite Setup Tests    source_pwd=yes
 Suite Teardown    Close All Connections
-Library           SSHLibrary
+Test Teardown     Run Keywords    Show Debugs    ${NET_1_VM_IPS}
+...               AND    Show Debugs    ${NET_2_VM_IPS}
+...               AND    Get OvsDebugInfoLibrary           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
 Resource          ../../../libraries/Utils.robot
@@ -96,26 +98,32 @@ Bring Up ODL3
 
 Ping Vm Instance1 In l3_net_2 From l3_net_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
+    Get OvsDebugInfo
     OpenStackOperations.Ping Vm From DHCP Namespace    l3_net_1    @{NET_2_VM_IPS}[0]
 
 Ping Vm Instance2 In l3_net_2 From l3_net_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
+    Get OvsDebugInfo
     OpenStackOperations.Ping Vm From DHCP Namespace    l3_net_1    @{NET_2_VM_IPS}[1]
 
 Ping Vm Instance3 In l3_net_2 From l3_net_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
+    Get OvsDebugInfo
     OpenStackOperations.Ping Vm From DHCP Namespace    l3_net_1    @{NET_2_VM_IPS}[2]
 
 Ping Vm Instance1 In l3_net_1 From l3_net_2
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
+    Get OvsDebugInfo
     OpenStackOperations.Ping Vm From DHCP Namespace    l3_net_2    @{NET_1_VM_IPS}[0]
 
 Ping Vm Instance2 In l3_net_1 From l3_net_2
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
+    Get OvsDebugInfo
     OpenStackOperations.Ping Vm From DHCP Namespace    l3_net_2    @{NET_1_VM_IPS}[1]
 
 Ping Vm Instance3 In l3_net_1 From l3_net_2
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
+    Get OvsDebugInfo
     OpenStackOperations.Ping Vm From DHCP Namespace    l3_net_2    @{NET_1_VM_IPS}[2]
 
 Take Down ODL1 and ODL2
@@ -128,6 +136,7 @@ Connectivity Tests From Vm Instance1 In l3_net_1
     Log    ${dst_ip_list}
     ${other_dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[2]    @{NET_2_VM_IPS}[1]
     Log    ${other_dst_ip_list}
+    Get OvsDebugInfo
     OpenStackOperations.Test Operations From Vm Instance    l3_net_1    @{NET_1_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
 Connectivity Tests From Vm Instance2 In l3_net_1
@@ -136,6 +145,7 @@ Connectivity Tests From Vm Instance2 In l3_net_1
     Log    ${dst_ip_list}
     ${other_dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[2]
     Log    ${other_dst_ip_list}
+    Get OvsDebugInfo
     OpenStackOperations.Test Operations From Vm Instance    l3_net_1    @{NET_1_VM_IPS}[1]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
 Connectivity Tests From Vm Instance3 In l3_net_1
@@ -144,6 +154,7 @@ Connectivity Tests From Vm Instance3 In l3_net_1
     Log    ${dst_ip_list}
     ${other_dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[2]
     Log    ${other_dst_ip_list}
+    Get OvsDebugInfo
     OpenStackOperations.Test Operations From Vm Instance    l3_net_1    @{NET_1_VM_IPS}[2]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
 Bring Up ODL1 and ODL2
@@ -160,6 +171,7 @@ Connectivity Tests From Vm Instance1 In l3_net_2
     Log    ${dst_ip_list}
     ${other_dst_ip_list}=    Create List    @{NET_1_VM_IPS}[0]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
     Log    ${other_dst_ip_list}
+    Get OvsDebugInfo
     OpenStackOperations.Test Operations From Vm Instance    l3_net_2    @{NET_2_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
 Connectivity Tests From Vm Instance2 In l3_net_2
@@ -168,6 +180,7 @@ Connectivity Tests From Vm Instance2 In l3_net_2
     Log    ${dst_ip_list}
     ${other_dst_ip_list}=    Create List    @{NET_1_VM_IPS}[0]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
     Log    ${other_dst_ip_list}
+    Get OvsDebugInfo
     OpenStackOperations.Test Operations From Vm Instance    l3_net_2    @{NET_2_VM_IPS}[1]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
 Connectivity Tests From Vm Instance3 In l3_net_2
@@ -176,6 +189,7 @@ Connectivity Tests From Vm Instance3 In l3_net_2
     Log    ${dst_ip_list}
     ${other_dst_ip_list}=    Create List    @{NET_1_VM_IPS}[0]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
     Log    ${other_dst_ip_list}
+    Get OvsDebugInfo
     OpenStackOperations.Test Operations From Vm Instance    l3_net_2    @{NET_2_VM_IPS}[2]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
 Bring Up ODL2 and ODL3

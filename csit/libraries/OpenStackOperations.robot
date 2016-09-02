@@ -371,6 +371,8 @@ Get OvsDebugInfo
 Show Debugs
     [Arguments]    ${vm_indices}
     [Documentation]    Run these commands for debugging, it can list state of VM instances and ip information in control node
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    sudo ip netns list
     Log    ${output}
     : FOR    ${index}    IN    @{vm_indices}

@@ -2,6 +2,9 @@
 Documentation     Test suite to verify packet flows between vm instances.
 Suite Setup       Devstack Suite Setup Tests    source_pwd=yes
 Suite Teardown    Close All Connections
+Test Teardown     Run Keywords    Show Debugs    ${NET_1_VM_IPS}
+...               AND    Show Debugs    ${NET_2_VM_IPS}
+...               AND    Get OvsDebugInfo
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -86,7 +89,6 @@ Create Vm Instances For l2_net_1
     [Documentation]    Create Vm instances using flavor and image names for a network.
     Log    ${devstack_conn_id}
     OpenStackOperations.Create Vm Instances    l2_net_1    ${NET_1_VM_INSTANCES}     sg=csit
-    [Teardown]    OpenStackOperations.Show Debugs    ${NET_1_VM_INSTANCES}
 
 Bring Up ODL1
     [Documentation]    Bring up ODL1 again
@@ -111,7 +113,6 @@ Take Down ODL2
 Create Vm Instances For l2_net_2
     [Documentation]    Create Vm instances using flavor and image names for a network.
     OpenStackOperations.Create Vm Instances    l2_net_2    ${NET_2_VM_INSTANCES}      sg=csit
-    [Teardown]    OpenStackOperations.Show Debugs    ${NET_2_VM_INSTANCES}
 
 Bring Up ODL2
     [Documentation]    Bring up ODL2 again
@@ -119,26 +120,32 @@ Bring Up ODL2
 
 Ping Vm Instance1 In l2_net_1
     [Documentation]    Check reachability of vm instances by pinging to them.
+    Get OvsDebugInfo
     OpenStackOperations.Ping Vm From DHCP Namespace    l2_net_1    @{NET_1_VM_IPS}[0]
 
 Ping Vm Instance2 In l2_net_1
     [Documentation]    Check reachability of vm instances by pinging to them.
+    Get OvsDebugInfo
     OpenStackOperations.Ping Vm From DHCP Namespace    l2_net_1    @{NET_1_VM_IPS}[1]
 
 Ping Vm Instance3 In l2_net_1
     [Documentation]    Check reachability of vm instances by pinging to them.
+    Get OvsDebugInfo
     OpenStackOperations.Ping Vm From DHCP Namespace    l2_net_1    @{NET_1_VM_IPS}[2]
 
 Ping Vm Instance1 In l2_net_2
     [Documentation]    Check reachability of vm instances by pinging to them.
+    Get OvsDebugInfo
     OpenStackOperations.Ping Vm From DHCP Namespace    l2_net_2    @{NET_2_VM_IPS}[0]
 
 Ping Vm Instance2 In l2_net_2
     [Documentation]    Check reachability of vm instances by pinging to them.
+    Get OvsDebugInfo
     OpenStackOperations.Ping Vm From DHCP Namespace    l2_net_2    @{NET_2_VM_IPS}[1]
 
 Ping Vm Instance3 In l2_net_2
     [Documentation]    Check reachability of vm instances by pinging to them.
+    Get OvsDebugInfo
     OpenStackOperations.Ping Vm From DHCP Namespace    l2_net_2    @{NET_2_VM_IPS}[2]
 
 Take Down ODL3
@@ -149,18 +156,21 @@ Connectivity Tests From Vm Instance1 In l2_net_1
     [Documentation]    Logging to the vm instance using generated key pair.
     ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}[1]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[2]
     Log    ${dst_ip_list}
+    Get OvsDebugInfo
     OpenStackOperations.Test Operations From Vm Instance    l2_net_1    @{NET_1_VM_IPS}[0]    ${dst_ip_list}
 
 Connectivity Tests From Vm Instance2 In l2_net_1
     [Documentation]    Logging to the vm instance using generated key pair.
     ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}[0]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[2]
     Log    ${dst_ip_list}
+    Get OvsDebugInfo
     OpenStackOperations.Test Operations From Vm Instance    l2_net_1    @{NET_1_VM_IPS}[1]    ${dst_ip_list}
 
 Connectivity Tests From Vm Instance3 In l2_net_1
     [Documentation]    Logging to the vm instance using generated key pair.
     ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}[0]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[1]
     Log    ${dst_ip_list}
+    Get OvsDebugInfo
     OpenStackOperations.Test Operations From Vm Instance    l2_net_1    @{NET_1_VM_IPS}[2]    ${dst_ip_list}
 
 Bring Up ODL3
@@ -175,18 +185,21 @@ Connectivity Tests From Vm Instance1 In l2_net_2
     [Documentation]    Logging to the vm instance using generated key pair.
     ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[1]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[2]
     Log    ${dst_ip_list}
+    Get OvsDebugInfo
     OpenStackOperations.Test Operations From Vm Instance    l2_net_2    @{NET_2_VM_IPS}[0]    ${dst_ip_list}
 
 Connectivity Tests From Vm Instance2 In l2_net_2
     [Documentation]    Logging to the vm instance using generated key pair.
     ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[2]
     Log    ${dst_ip_list}
+    Get OvsDebugInfo
     OpenStackOperations.Test Operations From Vm Instance    l2_net_2    @{NET_2_VM_IPS}[1]    ${dst_ip_list}
 
 Connectivity Tests From Vm Instance3 In l2_net_2
     [Documentation]    Logging to the vm instance using generated key pair.
     ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[1]
     Log    ${dst_ip_list}
+    Get OvsDebugInfo
     OpenStackOperations.Test Operations From Vm Instance    l2_net_2    @{NET_2_VM_IPS}[2]    ${dst_ip_list}
 
 Bring Up ODL1 and ODL2
