@@ -88,7 +88,7 @@ Create the tree
     Connect And Create The Tree
 
 1. createdBefore
-    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&crb=20160612T033748
+    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&crb=20170612T033748
     ${count} =    Get Length    ${r.json()['m2m:ae']['ch']}
     Should Be Equal As Integers    ${count}    2
 
@@ -103,7 +103,7 @@ Create the tree
     Should Be Equal As Integers    ${count}    2
 
 4. unmodifiedSince
-    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&us=20160612T033748
+    ${r} =    Retrieve Resource With Command    ${iserver}    InCSE1/AE1    rcn=4&us=20170612T033748
     ${count} =    Get Length    ${r.json()['m2m:ae']['ch']}
     Should Be Equal As Integers    ${count}    2
 
