@@ -137,7 +137,7 @@ Verify_Owner_And_Successors_For_Device
     Collections.Lists_Should_Be_Equal    ${expected_successor_list}    ${successor_list}    Successor list ${successor_list} is not in candidate list ${index_list}
     [Return]    ${owner}    ${successor_list}
 
-Get_Owner_And_Successors_For_device
+Get_Owner_And_Successors_For_Device
     [Arguments]    ${device_name}    ${device_type}    ${member_index}
     [Documentation]    Returns the owner and a list of successors for the SB device ${device_name} of type ${device_type}. Request is sent to member ${member_index}.
     ...    Successors are those device candidates not elected as owner. The list of successors = (list of candidates) - (owner).
@@ -150,6 +150,7 @@ Get_Owner_And_Candidates_For_Device
     [Arguments]    ${device_name}    ${device_type}    ${member_index}
     [Documentation]    Returns the owner and a list of candidates for the SB device ${device_name} of type ${device_type}. Request is sent to member ${member_index}.
     ...    Candidates are all members that register to own a device, so the list of candiates includes the owner.
+    BuiltIn.Comment    TODO: Can this implementation be changed to call Get_Owner_And_Candidates_For_Type_And_Id?
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
     ${data} =    TemplatedRequests.Get_As_Json_From_Uri    uri=${ENTITY_OWNER_URI}    session=${session}
     ${candidate_list} =    BuiltIn.Create_List
@@ -165,6 +166,33 @@ Get_Owner_And_Candidates_For_Device
     ${entity_list} =    Collections.Get_From_Dictionary    @{entity_type_list}[${entity_type_index}]    entity
     ${entity_index} =    Utils.Get_Index_From_List_Of_Dictionaries    ${entity_list}    id    ${device_name}
     BuiltIn.Should Not Be Equal    ${entity_index}    -1    Device ${device_name} not found in Entity Owner ${device_type}
+    ${entity_owner} =    Collections.Get_From_Dictionary    @{entity_list}[${entity_index}]    owner
+    BuiltIn.Should_Not_Be_Empty    ${entity_owner}    No owner found for ${device_name}
+    ${owner} =    String.Replace_String    ${entity_owner}    member-    ${EMPTY}
+    ${owner} =    BuiltIn.Convert_To_Integer    ${owner}
+    ${entity_candidates_list} =    Collections.Get_From_Dictionary    @{entity_list}[${entity_index}]    candidate
+    : FOR    ${entity_candidate}    IN    @{entity_candidates_list}
+    \    ${candidate} =    String.Replace_String    &{entity_candidate}[name]    member-    ${EMPTY}
+    \    ${candidate} =    BuiltIn.Convert_To_Integer    ${candidate}
+    \    Collections.Append_To_List    ${candidate_list}    ${candidate}
+    [Return]    ${owner}    ${candidate_list}
+
+Get_Owner_And_Candidates_For_Type_And_Id
+    [Arguments]    ${type}    ${id}    ${member_index}
+    [Documentation]    Returns the owner and a list of candidates for entity specified by ${type} and ${id}
+    ...    Request is sent to member ${member_index}.
+    ...    Candidates are all members that register to own a device, so the list of candiates includes the owner.
+    BuiltIn.Comment    TODO: Find a way to unify and deduplicate code blocks in Get_Owner_And_Candidates_* keywords.
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${data} =    TemplatedRequests.Get_As_Json_From_Uri    uri=${ENTITY_OWNER_URI}    session=${session}
+    ${candidate_list} =    BuiltIn.Create_List
+    ${json} =    RequestsLibrary.To_Json    ${data}
+    ${entity_type_list} =    Collections.Get_From_Dictionary    &{json}[entity-owners]    entity-type
+    ${entity_type_index} =    Utils.Get_Index_From_List_Of_Dictionaries    ${entity_type_list}    type    ${type}
+    BuiltIn.Should_Not_Be_Equal    ${entity_type_index}    -1    No Entity Owner found for ${type}
+    ${entity_list} =    Collections.Get_From_Dictionary    @{entity_type_list}[${entity_type_index}]    entity
+    ${entity_index} =    Utils.Get_Index_From_List_Of_Dictionaries    ${entity_list}    id    ${id}
+    BuiltIn.Should Not Be Equal    ${entity_index}    -1    Id ${id} not found in Entity Owner ${type}
     ${entity_owner} =    Collections.Get_From_Dictionary    @{entity_list}[${entity_index}]    owner
     BuiltIn.Should_Not_Be_Empty    ${entity_owner}    No owner found for ${device_name}
     ${owner} =    String.Replace_String    ${entity_owner}    member-    ${EMPTY}
@@ -317,19 +345,28 @@ Run_Command_On_List_Or_All
     : FOR    ${index}    IN    @{index_list}
     \    Run_Command_On_Member    command=${command}    member_index=${index}
 
+Run_Command_On_Member
+    [Arguments]    ${command}    ${member_index}
+    [Documentation]    Obtain IP, call Utils and return output. This does not preserve active ssh session.
+    # TODO: Rename these keyword to Run_Bash_Command_On_Member to distinguish from Karaf (or even Windows) commands.
+    ${member_ip} =    Collections.Get_From_Dictionary    dictionary=${ClusterManagement__index_to_ip_mapping}    key=${member_index}
+    ${output} =    Utils.Run_Command_On_Controller    ${member_ip}    ${command}
+    [Return]    ${output}
+
 Run_Karaf_Command_On_List_Or_All
     [Arguments]    ${command}    ${member_index_list}=${EMPTY}
     [Documentation]    Cycle through indices (or all), run karaf command on each.
     ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
     : FOR    ${index}    IN    @{index_list}
     \    ${member_ip} =    Collections.Get_From_Dictionary    dictionary=${ClusterManagement__index_to_ip_mapping}    key=${index}
-    \    KarafKeywords.Issue Command On Karaf Console    ${command}    ${member_ip}
+    \    KarafKeywords.Issue_Command_On_Karaf_Console    ${command}    ${member_ip}
 
-Run_Command_On_Member
+Run_Karaf_Command_On_Member
     [Arguments]    ${command}    ${member_index}
-    [Documentation]    Obtain IP, call Utils and return output. This does not preserve active ssh session.
+    [Documentation]    Obtain IP address, call KarafKeywords and return output. This does not preserve active ssh session.
+    ...    This keyword is not used by Run_Karaf_Command_On_List_Or_All, but returned output may be useful.
     ${member_ip} =    Collections.Get_From_Dictionary    dictionary=${ClusterManagement__index_to_ip_mapping}    key=${member_index}
-    ${output} =    Utils.Run_Command_On_Controller    ${member_ip}    ${command}
+    ${output} =    KarafKeywords.Issue_Command_On_Karaf_Console    ${command}    controller=${member_ip}
     [Return]    ${output}
 
 Put_As_Json_And_Check_Member_List_Or_All
