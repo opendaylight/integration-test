@@ -11,7 +11,10 @@ Resource          Utils.robot
 *** Variables ***
 ${CONFIGURATION_XML}    ${CURDIR}/../suites/topoprocessing/configuration.xml
 ${OPERATIONAL_XML}    ${CURDIR}/../suites/topoprocessing/operational.xml
-${REMOTE_FILE}    ${WORKSPACE}/${BUNDLEFOLDER}/etc/opendaylight/karaf/80-topoprocessing-config.xml
+${CONFIGURATION_CFG}    ${CURDIR}/../suites/topoprocessing/configuration.cfg
+${OPERATIONAL_CFG}    ${CURDIR}/../suites/topoprocessing/operational.cfg
+${REMOTE_XML_FILE}    ${WORKSPACE}/${BUNDLEFOLDER}/etc/opendaylight/karaf/80-topoprocessing-config.xml
+${REMOTE_CFG_FILE}    ${WORKSPACE}/${BUNDLEFOLDER}/etc/org.opendaylight.topoprocessing.cfg
 ${OUTPUT_TOPO_NAME}    topo:1
 ${OVERLAY_TOPO_URL}    ${TOPOLOGY_URL}/${OUTPUT_TOPO_NAME}
 
@@ -62,7 +65,8 @@ Setup Environment
     Log    ---- Setup Environment ----
     Open Connection    ${ODL_SYSTEM_IP}
     Flexible Controller Login
-    Put File    ${CONFIGURATION_XML}    ${REMOTE_FILE}
+    Run Keyword If    '${ODL_STREAM}' == 'carbon'    Put File    ${CONFIGURATION_CFG}    ${REMOTE_CFG_FILE}
+    Run Keyword Unless    '${ODL_STREAM}' == 'carbon'    Put File    ${CONFIGURATION_XML}    ${REMOTE_XML_FILE}
     Close Connection
     Wait Until Keyword Succeeds    2x    2s    Issue Command On Karaf Console    log:set DEBUG org.opendaylight.topoprocessing
     Install a Feature    odl-restconf-noauth    timeout=30
@@ -99,7 +103,8 @@ Clean Environment
     Log    ---- Clean Environment ----
     Open Connection    ${ODL_SYSTEM_IP}
     Flexible Controller Login
-    Put File    ${OPERATIONAL_XML}    ${REMOTE_FILE}
+    Run Keyword If    '${ODL_STREAM}' == 'carbon'    Put File    ${OPERATIONAL_CFG}    ${REMOTE_CFG_FILE}
+    Run Keyword Unless    '${ODL_STREAM}' == 'carbon'    Put File    ${OPERATIONAL_XML}    ${REMOTE_XML_FILE}
     Close Connection
     Delete All Sessions
 
