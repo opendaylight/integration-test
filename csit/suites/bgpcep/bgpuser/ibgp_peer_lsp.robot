@@ -43,6 +43,12 @@ ${BGP_PEER_LOG_LEVEL}    debug
 ${CONTROLLER_LOG_LEVEL}    INFO
 ${CONTROLLER_BGP_LOG_LEVEL}    DEFAULT
 ${JSONKEYSTR}     "linkstate-route"
+${BGP_PEER_NAME}    example-bgp-peer
+${DEVICE_NAME}    controller-config
+${CONFIG_SESSION}    config-session
+${BGP_VAR_FOLDER}    ${CURDIR}/../../../variables/bgpfunctional
+${SKIP_PARAMS}    --skipattr
+${RIB_INSTANCE}    example-bgp-rib
 
 *** Test Cases ***
 TC1_Configure_iBGP_Peer
@@ -58,17 +64,18 @@ TC1_Check_Example_Bgp_Rib_Is_Empty
     Check_Example_Bgp_Rib_Does_Not_Contain    ${JSONKEYSTR}
 
 TC1_Connect_BGP_Peer
-    [Documentation]    Connect BGP peer
+    [Documentation]    Connect BGP peer with advertising the routes without mandatory params like LOC_PREF.
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer_console
-    BGPcliKeywords.Start_Console_Tool    ${BGP_PEER_COMMAND}    ${BGP_PEER_OPTIONS}
+    BGPcliKeywords.Start_Console_Tool    ${BGP_PEER_COMMAND} ${SKIP_PARAMS}    ${BGP_PEER_OPTIONS}
     BGPcliKeywords.Read_And_Fail_If_Prompt_Is_Seen
 
 TC1_Check_Example_Bgp_Rib
-    [Documentation]    Check RIB for linkstate-route(s)
+    [Documentation]    Check RIB for not containig linkstate-route(s), because update messages were not good.
     [Tags]    critical
     SSHLibrary.Switch Connection    bgp_peer_console
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_RIB_CHECK_TIMEOUT}    ${DEFAULT_RIB_CHECK_PERIOD}    Check_Example_Bgp_Rib_Content    ${JSONKEYSTR}
+    #BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_RIB_CHECK_TIMEOUT}    ${DEFAULT_RIB_CHECK_PERIOD}    Check_Example_Bgp_Rib_Content    ${JSONKEYSTR}
+    WaitForFailure.Verify_Keyword_Does_Not_Fail_Within_Timeout    ${DEFAULT_RIB_CHECK_TIMEOUT}    ${DEFAULT_RIB_CHECK_PERIOD}    Check_Example_Bgp_Rib_Does_Not_Contain    ${JSONKEYSTR}
 
 TC1_Disconnect_BGP_Peer
     [Documentation]    Stop BGP peer & store logs
@@ -76,6 +83,54 @@ TC1_Disconnect_BGP_Peer
     SSHLibrary.Switch Connection    bgp_peer_console
     BGPcliKeywords.Stop_Console_Tool
     BGPcliKeywords.Store_File_To_Workspace    ${BGP_PEER_LOG_FILE}    tc1_${BGP_PEER_LOG_FILE}
+
+TC1_Deconfigure_iBGP_Peer
+    [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
+    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}
+    TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+
+TC2_Configure_iBGP_Peer
+    [Documentation]    Configures BGP peer module with initiate-connection set to false.
+    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
+    ...    INITIATE=false    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+
+TC2_Check_Example_Bgp_Rib_Is_Empty
+    [Documentation]    Check RIB for none linkstate-routes
+    [Tags]    critical
+    SSHLibrary.Switch Connection    bgp_peer_console
+    Check_Example_Bgp_Rib_Does_Not_Contain    ${JSONKEYSTR}
+
+TC2_Connect_BGP_Peer
+    [Documentation]    Connect BGP peer
+    [Tags]    critical
+    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
+    SSHLibrary.Switch Connection    bgp_peer_console
+    BGPcliKeywords.Start_Console_Tool    ${BGP_PEER_COMMAND}    ${BGP_PEER_OPTIONS}
+    BGPcliKeywords.Read_And_Fail_If_Prompt_Is_Seen
+
+TC2_Check_Example_Bgp_Rib
+    [Documentation]    Check RIB for linkstate-route(s)
+    [Tags]    critical
+    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
+    SSHLibrary.Switch Connection    bgp_peer_console
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_RIB_CHECK_TIMEOUT}    ${DEFAULT_RIB_CHECK_PERIOD}    Check_Example_Bgp_Rib_Content    ${JSONKEYSTR}
+
+TC2_Disconnect_BGP_Peer
+    [Documentation]    Stop BGP peer & store logs
+    [Tags]    critical
+    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
+    SSHLibrary.Switch Connection    bgp_peer_console
+    BGPcliKeywords.Stop_Console_Tool
+    BGPcliKeywords.Store_File_To_Workspace    ${BGP_PEER_LOG_FILE}    tc2_${BGP_PEER_LOG_FILE}
+
+TC2_Deconfigure_iBGP_Peer
+    [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
+    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}
+    TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 *** Keywords ***
 Setup_Everything
@@ -89,6 +144,7 @@ Setup_Everything
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
     RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
+    RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     ConfigViaRestconf.Setup_Config_Via_Restconf
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.bgpcep
