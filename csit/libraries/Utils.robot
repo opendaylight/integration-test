@@ -399,7 +399,7 @@ Get Index From List Of Dictionaries
     ${index}=    Set Variable    -1
     : FOR    ${i}    IN RANGE    ${length}
     \    ${dictionary}=    Get From List    ${dictionary_list}    ${i}
-    \    Run Keyword If    '&{dictionary}[${key}]' == '${value}'    Set Test Variable    ${index}    ${i}
+    \    Run Keyword If    """&{dictionary}[${key}]""" == """${value}"""    Set Test Variable    ${index}    ${i}
     [Return]    ${index}
 
 Check Item Occurrence
