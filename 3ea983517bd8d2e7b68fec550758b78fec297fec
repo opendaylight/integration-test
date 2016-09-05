@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_3e67cd4e",
+        "filename": "csit/suites/unimgr/uni_legato/010_unimanager_epl.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6270
+      },
+      "writtenOn": "2016-09-05T13:55:21Z",
+      "side": 1,
+      "message": "Why is this sleep here?",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 16
+      },
+      "revId": "3ea983517bd8d2e7b68fec550758b78fec297fec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_fe71d50c",
+        "filename": "csit/suites/unimgr/uni_legato/020_unimanager_eplan.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6270
+      },
+      "writtenOn": "2016-09-05T13:55:21Z",
+      "side": 1,
+      "message": "Why is this sleep here?",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 16
+      },
+      "revId": "3ea983517bd8d2e7b68fec550758b78fec297fec",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
