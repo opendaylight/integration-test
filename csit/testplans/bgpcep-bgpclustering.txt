@@ -7,5 +7,5 @@
 # Place the suites in run order:
 integration/test/csit/suites/netconf/ready/netconfready.robot
 integration/test/csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route.robot
-integration/test/csit/suites/bgpcep/bgpclustering/020_singlepeer_prefixcount_100kroutes.robot
-integration/test/csit/suites/bgpcep/bgpclustering/030_singlepeer_prefixcount_1Mroutes.robot
+#integration/test/csit/suites/bgpcep/bgpclustering/020_singlepeer_prefixcount_100kroutes.robot
+#integration/test/csit/suites/bgpcep/bgpclustering/030_singlepeer_prefixcount_1Mroutes.robot
