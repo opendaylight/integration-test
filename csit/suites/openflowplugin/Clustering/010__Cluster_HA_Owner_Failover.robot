@@ -28,6 +28,8 @@ Check Entity Owner Status And Find Owner and Candidate Before Fail
 
 Reconnect Extra Switches To Candidate And Check Entity Owner
     [Documentation]    Connect switches s2 and s3 to candidate instance.
+    # wait before switch reconnection
+    Sleep    1
     OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s2    tcp:${ODL_SYSTEM_${original_candidate}_IP}:6633
     OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s3    tcp:${ODL_SYSTEM_${original_candidate}_IP}:6633
     ${member_list} =    BuiltIn.Run_Keyword_If    '${ODL_STREAM}' != 'beryllium' and '${ODL_OF_PLUGIN}' == 'lithium'    Create List    @{ClusterManagement__member_index_list}
