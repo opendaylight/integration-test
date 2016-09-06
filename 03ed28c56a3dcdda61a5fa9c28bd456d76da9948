@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_bf6637eb",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-06T08:25:16Z",
+      "side": 1,
+      "message": "line still too long",
+      "range": {
+        "startLine": 7,
+        "startChar": 86,
+        "endLine": 7,
+        "endChar": 87
+      },
+      "revId": "03ed28c56a3dcdda61a5fa9c28bd456d76da9948",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_9f7a5b75",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-06T08:25:16Z",
+      "side": 1,
+      "message": "Also At_Most. Perhaps do not list all comparisons here, just state they are analogues of Set_Variable_If and Run_Keyword_If.",
+      "range": {
+        "startLine": 2,
+        "startChar": 109,
+        "endLine": 2,
+        "endChar": 110
+      },
+      "revId": "03ed28c56a3dcdda61a5fa9c28bd456d76da9948",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_9fa37bff",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-06T08:25:16Z",
+      "side": 1,
+      "message": "Not needed.",
+      "range": {
+        "startLine": 7,
+        "startChar": 18,
+        "endLine": 7,
+        "endChar": 33
+      },
+      "revId": "03ed28c56a3dcdda61a5fa9c28bd456d76da9948",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_5f7603a5",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 151,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-06T08:25:16Z",
+      "side": 1,
+      "message": "Most",
+      "range": {
+        "startLine": 151,
+        "startChar": 18,
+        "endLine": 151,
+        "endChar": 23
+      },
+      "revId": "03ed28c56a3dcdda61a5fa9c28bd456d76da9948",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_7f713fa7",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-06T08:25:16Z",
+      "side": 1,
+      "message": "most",
+      "range": {
+        "startLine": 153,
+        "startChar": 90,
+        "endLine": 153,
+        "endChar": 95
+      },
+      "revId": "03ed28c56a3dcdda61a5fa9c28bd456d76da9948",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_9f6c1bd2",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 155,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-06T08:25:16Z",
+      "side": 1,
+      "message": "Most",
+      "range": {
+        "startLine": 155,
+        "startChar": 59,
+        "endLine": 155,
+        "endChar": 64
+      },
+      "revId": "03ed28c56a3dcdda61a5fa9c28bd456d76da9948",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_7ff65ffa",
+        "filename": "csit/suites/bgpcep/bgpfunct/050_bmp_basic.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-06T08:25:16Z",
+      "side": 1,
+      "message": "tidy",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 0
+      },
+      "revId": "03ed28c56a3dcdda61a5fa9c28bd456d76da9948",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_9fc89ba9",
+        "filename": "csit/suites/bgpcep/bgpfunct/050_bmp_basic.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-06T08:25:16Z",
+      "side": 1,
+      "message": "\"Least_Boron\" takes less space.\nUnless you want to save one click when expanding log.html (in which case it would be better to remove *_Boron and similar from CompareStream).",
+      "range": {
+        "startLine": 41,
+        "startChar": 57,
+        "endLine": 41,
+        "endChar": 71
+      },
+      "revId": "03ed28c56a3dcdda61a5fa9c28bd456d76da9948",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
