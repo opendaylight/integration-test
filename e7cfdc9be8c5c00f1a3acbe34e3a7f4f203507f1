@@ -166,6 +166,30 @@
       "revId": "e7cfdc9be8c5c00f1a3acbe34e3a7f4f203507f1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_0ac1e453",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-09-06T17:43:00Z",
+      "side": 1,
+      "message": "I think $TEST_NAME automatically uses the test case name, so that\u0027s actually a different value between the two test cases.\n\nIn any case this is still a WIP, since there are issues with floating IP pools not being configured in local.conf.. we will do a sandbox run before merging so we can see how it looks",
+      "parentUuid": "7a6b29fe_997a7b75",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 16
+      },
+      "revId": "e7cfdc9be8c5c00f1a3acbe34e3a7f4f203507f1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
