@@ -26,15 +26,12 @@ Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 
 *** Variables ***
 ${BGP_VAR_FOLDER}    ${CURDIR}/../../../variables/bgpclustering
-${BGP_PEER_FOLDER}    ${CURDIR}/../../../variables/bgpclustering/bgp_peer
+${BGP_PEER_FOLDER}    ${CURDIR}/../../../variables/bgpfunctional/openconfig_bgp_peer
 ${DEFAUTL_EXA_CFG}    exa.cfg
 ${EXA_CMD}        env exabgp.tcp.port=1790 exabgp
 ${PEER_CHECK_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
 ${DEVICE_NAME}    peer-controller-config
-${NETCONF_DEV_FOLDER}    ${CURDIR}/../../../variables/netconf/device/full-uri-device
-${NETCONF_MOUNT_FOLDER}    ${CURDIR}/../../../variables/netconf/device/full-uri-mount
 ${HOLDTIME}       180
-${BGP_PEER_NAME}    example-bgp-peer
 ${RIB_INSTANCE}    example-bgp-rib
 
 *** Test Cases ***
@@ -48,22 +45,11 @@ Get Example Bgp Rib Owner
     BuiltIn.Set_Suite_Variable    ${living_session}    ${session}
     BuiltIn.Set_Suite_Variable    ${living_node}    ${rib_owner}
 
-Configure_Netconf_Device
-    [Documentation]    Configures and verifies netconf device configuration. If configuration is not successful, it de-configures the device before the next attempt.
-    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    DEVICE_PORT=1830    DEVICE_IP=${rib_owner_node_id}    DEVICE_USER=admin    DEVICE_PASSWORD=admin
-    # After the netconf device is configured, odl starts downloading schemas. If the downloading will not finish within akka timeout, more tries are needed, 3 is based on a user experience.
-    : FOR    ${index}    IN RANGE    0    3
-    \    ${status}    ${value}=    Run Keyword And Ignore Error    Configure Netconf Device And Check Mounted    ${mapping}
-    \    Exit For Loop If    '${status}' == 'PASS'
-    \    Run Keyword Unless    '${status}' == 'PASS'    TemplatedRequests.Delete_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}    session=${living_session}
-    Run Keyword Unless    '${status}' == 'PASS'    Fail
-
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
-    ...    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
-    TemplatedRequests.Put_As_Json_Templated    ${BGP_PEER_FOLDER}    mapping=${mapping}    session=${living_session}
+    &{mapping}    Create Dictionary    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    PASSIVE_MODE=true    BGP_RIB=${RIB_INSTANCE}
+    TemplatedRequests.Post_As_Json_Templated    ${BGP_PEER_FOLDER}    mapping=${mapping}    session=${living_session}
     [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
 Start_ExaBgp_Peer
@@ -110,16 +96,9 @@ Stop_ExaBgp_Peer
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers
-    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
-    ...    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
+    &{mapping}    Create Dictionary    BGP_RIB=${RIB_INSTANCE}
     ${session}=    Resolve_Http_Session_For_Member    member_index=${old_rib_owner}
     TemplatedRequests.Delete_Templated    ${BGP_PEER_FOLDER}    mapping=${mapping}    session=${session}
-
-Delete_Netconf_Device_Configuration
-    [Documentation]    Revert the netconf configuration to the original stat
-    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    DEVICE_PORT=1830    DEVICE_IP=${rib_owner_node_id}    DEVICE_USER=admin    DEVICE_PASSWORD=admin
-    ${session}=    Resolve_Http_Session_For_Member    member_index=${old_rib_owner}
-    TemplatedRequests.Delete_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}    session=${session}
 
 *** Keywords ***
 Setup_Everything
@@ -138,12 +117,6 @@ Teardown_Everything
     SSHKeywords.Virtual_Env_Delete
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
-
-Configure Netconf Device And Check Mounted
-    [Arguments]    ${mapping}
-    [Documentation]    Configures netconf device and checks mountpoint presence
-    TemplatedRequests.Put_As_Xml_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}    session=${living_session}
-    BuiltIn.Wait Until Keyword Succeeds    10x    3s    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_MOUNT_FOLDER}    mapping=${mapping}    session=${living_session}
 
 Start_Tool
     [Arguments]    ${cfg_file}    ${mapping}={}
