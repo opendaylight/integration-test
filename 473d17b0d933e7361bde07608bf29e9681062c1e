@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_47f635fa",
+        "filename": "csit/suites/openflowplugin/Performance/010_Cbench.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-06T15:37:49Z",
+      "side": 1,
+      "message": "Perhaps the best would be to include both this and Log Results As Zero If Cbench Timed Out (line 8).",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 14
+      },
+      "revId": "473d17b0d933e7361bde07608bf29e9681062c1e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
