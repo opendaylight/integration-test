@@ -3,6 +3,7 @@ Documentation     Test suite for VTN Manager using OF13
 Suite Setup       Start SuiteVtnMaTest
 Suite Teardown    Stop SuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
+Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
 ${flowconditiondata}    "vtn-flow-match":[{"vtn-inet-match":{"source-network":"10.0.0.1/32","destination-network":"10.0.0.3/32"},"index":"1"}]
@@ -91,6 +92,7 @@ Add a vtn flowfilter with inet4src and inet4dst
 Verify inet4src and inet4dst of vtn flowfilter
     [Documentation]    Verify vtn flowfilter actions in Flow Enties for inet4src and inet4dst
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF13}    @{inet_action}
+    [Teardown]    Report_Failure_Due_To_Bug    6643
 
 Remove vtn Flowfilter index
     [Documentation]    Remove a index of vtn flowfilter
