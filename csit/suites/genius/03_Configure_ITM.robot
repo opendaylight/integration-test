@@ -316,6 +316,7 @@ set json
 
 check-Tunnel-delete-on-ovs
     [Arguments]    ${connection-id}    ${tunnel}
+	[Documentation]    Verifies the Tunnel is deleted from OVS 
     Log    ${tunnel}
     Switch Connection    ${connection-id}
     Log    ${connection-id}
@@ -326,6 +327,7 @@ check-Tunnel-delete-on-ovs
 
 check interface status
     [Arguments]    ${tunnel}    ${dpid}
+	[Documentation]    Verifies the operational state of the interface .           
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${tunnel}/    headers=${ACCEPT_XML}
     Log    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${tunnel}/
     Log    ${resp.content}
@@ -343,6 +345,7 @@ check interface status
 
 Verify Data Base after Delete
     [Arguments]    ${Dpn_id_1}    ${Dpn_id_2}    ${tunnel-1}    ${tunnel-2}
+	[Documentation]    Verifies the config database after the Tunnel deletion is done.
     ${type}    set variable    odl-interface:tunnel-type-vxlan
     No Content From URI    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${Dpn_id_1}/${Dpn_id_2}/${type}/    headers=${ACCEPT_XML}
     No Content From URI    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${Dpn_id_2}/${Dpn_id_1}/${type}/    headers=${ACCEPT_XML}
