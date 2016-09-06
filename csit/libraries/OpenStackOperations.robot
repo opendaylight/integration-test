@@ -351,6 +351,7 @@ Get DumpFlows And Ovsconfig
     \    Write Commands Until Expected Prompt    sudo ip netns exec ${line} ip -o addr    ]>
     \    Write Commands Until Expected Prompt    sudo ip netns exec ${line} ip route    ]>
     Write Commands Until Expected Prompt    sudo ovs-vsctl show    ]>
+    Write Commands Until Expected Prompt    sudo ovs-vsctl list Open_vSwitch    ]>
     Write Commands Until Expected Prompt    sudo ovs-ofctl show br-int -OOpenFlow13    ]>
     Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows br-int -OOpenFlow13    ]>
     Write Commands Until Expected Prompt    sudo ovs-ofctl dump-groups br-int -OOpenFlow13    ]>
