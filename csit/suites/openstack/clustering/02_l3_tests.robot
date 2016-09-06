@@ -2,8 +2,8 @@
 Documentation     Test suite to check connectivity in L3 using routers.
 Suite Setup       Devstack Suite Setup Tests    source_pwd=yes
 Suite Teardown    Close All Connections
-Test Teardown     Run Keywords    Show Debugs    ${NET_1_VM_IPS}
-...               AND    Show Debugs    ${NET_2_VM_IPS}
+Test Teardown     Run Keywords    Show Debugs    ${NET_1_VM_INSTANCES}
+...               AND    Show Debugs    ${NET_2_VM_INSTANCES}
 ...               AND    Get OvsDebugInfo
 Library           SSHLibrary
 Library           OperatingSystem
@@ -51,7 +51,6 @@ Take Down ODL1
 Create Vm Instances For l3_net_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     OpenStackOperations.Create Vm Instances    l3_net_1    ${NET_1_VM_INSTANCES}     sg=csit
-    [Teardown]    OpenStackOperations.Show Debugs    ${NET_1_VM_INSTANCES}
 
 Bring Up ODL1
     [Documentation]    Bring up ODL1 again
@@ -64,7 +63,6 @@ Take Down ODL2
 Create Vm Instances For l3_net_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     OpenStackOperations.Create Vm Instances    l3_net_2    ${NET_2_VM_INSTANCES}     sg=csit
-    [Teardown]    Show Debugs    ${NET_2_VM_INSTANCES}
 
 Bring Up ODL2
     [Documentation]    Bring up ODL2 again
