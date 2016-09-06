@@ -4,7 +4,8 @@ Suite Setup       Devstack Suite Setup Tests    source_pwd=yes
 Suite Teardown    Close All Connections
 Test Teardown     Run Keywords    Show Debugs    ${NET_1_VM_IPS}
 ...               AND    Show Debugs    ${NET_2_VM_IPS}
-...               AND    Get OvsDebugInfoLibrary           SSHLibrary
+...               AND    Get OvsDebugInfo
+Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
 Resource          ../../../libraries/Utils.robot
