@@ -24,17 +24,18 @@ ${SSHKeywords__current_venv_path}    /tmp/defaultvenv
 
 *** Keywords ***
 Open_Connection_To_ODL_System
-    [Documentation]    Open a connection to the ODL system and return its identifier.
-    ...    On clustered systems this opens the connection to the first node.
-    ${odl} =    SSHLibrary.Open_Connection    ${ODL_SYSTEM_IP}    prompt=${ODL_SYSTEM_PROMPT}    timeout=10s
+    [Arguments]    ${ip_address}=${ODL_SYSTEM_IP}
+    [Documentation]    Open a connection to the ODL system at ${ip_address} and return its identifier.
+    ${odl_connection} =    SSHLibrary.Open_Connection    ${ip_address}    prompt=${ODL_SYSTEM_PROMPT}    timeout=10s
     Utils.Flexible_Controller_Login
-    [Return]    ${odl}
+    [Return]    ${odl_connection}
 
 Open_Connection_To_Tools_System
-    [Documentation]    Open a connection to the tools system and return its identifier.
-    ${tools} =    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    prompt=${TOOLS_SYSTEM_PROMPT}
+    [Arguments]    ${ip_address}=${TOOLS_SYSTEM_IP}
+    [Documentation]    Open a connection to the tools system at ${ip_address} and return its identifier.
+    ${tools_connection} =    SSHLibrary.Open_Connection    ${ip_address}    prompt=${TOOLS_SYSTEM_PROMPT}
     Utils.Flexible_Mininet_Login
-    [Return]    ${tools}
+    [Return]    ${tools_connection}
 
 Log_Command_Results
     [Arguments]    ${stdout}    ${stderr}    ${rc}
