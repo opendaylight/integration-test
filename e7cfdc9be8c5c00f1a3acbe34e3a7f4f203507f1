@@ -190,6 +190,30 @@
       "revId": "e7cfdc9be8c5c00f1a3acbe34e3a7f4f203507f1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_8a93345a",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-09-06T17:45:16Z",
+      "side": 1,
+      "message": "correct, the test case name here is what makes this work.  line 17 would run the tempest test cases in the \"tempest.api.network\" (which is held in ${TEST_NAME} and line 20 would run \"tempest.scenario\".",
+      "parentUuid": "7a6b29fe_0ac1e453",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 16
+      },
+      "revId": "e7cfdc9be8c5c00f1a3acbe34e3a7f4f203507f1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
