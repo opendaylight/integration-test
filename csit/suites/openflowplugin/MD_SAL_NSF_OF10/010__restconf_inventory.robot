@@ -22,8 +22,10 @@ Get list of nodes
     Set Suite Variable    ${SW_HARDWARE}    "flow-node-inventory:manufacturer":"${HARDWARE}"
     Set Suite Variable    @{SW_CAPABILITIES}    "flow-node-inventory:flow-feature-capability-flow-stats"    "flow-node-inventory:flow-feature-capability-table-stats"    "flow-node-inventory:flow-feature-capability-port-stats"    "flow-node-inventory:flow-feature-capability-queue-stats"
     Wait Until Keyword Succeeds    30s    2s    Ensure All Nodes Are In Response    ${REST_CONTEXT}    ${node_list}
-    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}
-    Log    ${resp.content}
+
+Check No Link Down
+    [Documentation]    Check there is no link down
+    Wait Until Keyword Succeeds    30s    2s    Check For Specific Number Of Elements At URI    ${REST_CONTEXT}    "link-down":false    11
 
 Get node 1 inventory
     [Documentation]    Get the inventory for a node
