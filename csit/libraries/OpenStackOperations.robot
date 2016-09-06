@@ -343,6 +343,7 @@ Get DumpFlows And Ovsconfig
     Write Commands Until Expected Prompt    ip -o link    ]>
     Write Commands Until Expected Prompt    ip -o addr    ]>
     Write Commands Until Expected Prompt    ip route    ]>
+    Write Commands Until Expected Prompt    arp -an    ]>
     ${nslist}=    Write Commands Until Expected Prompt    ip netns list | awk '{print $1}'    ]>
     @{lines}    Split To Lines    ${nslist}
     : FOR    ${line}    IN    @{lines}
