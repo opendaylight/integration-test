@@ -47,6 +47,7 @@ Neg_Allocate ids of size 10 from the same pool
     should be equal as strings    ${resp.status_code}    500
 
 Allocate IDs of size 3 from the pool
+    [Documentation]    This testcase allocates 3 Ids from the created pool in test case 1 
     ${body}    OperatingSystem.Get File    ${genius_config_dir}/${allocaterange_json}
     ${body}    replace string    ${body}    test-key    ${test_keys[2]}
     ${body}    replace string    ${body}    5    3
@@ -58,6 +59,7 @@ Allocate IDs of size 3 from the pool
     Should Be Equal As Strings    ${get_resp.status_code}    200
 
 Release a block of IDs allocated using releaseIds RPC
+    [Documentation]    This testcase Releases the block of Ids by using the key which is sent in json.
     ${body}    OperatingSystem.Get File    ${genius_config_dir}/releaseIds.json
     log    ${body}
     ${body}    replace string    ${body}    test-key    ${test_keys[2]}
@@ -74,6 +76,7 @@ Release a block of IDs allocated using releaseIds RPC
     log    ${released_ids}
 
 Delete the ID Pool using deleteIdPool RPC
+    [Documentation]    This testcase deletes the ID pool craeted in the 1st testcase.
     ${body}    OperatingSystem.Get File    ${genius_config_dir}/deleteIdPool.json
     ${body}    replace string    ${body}    poolname    ${pool-name}
     log    ${body}
@@ -82,6 +85,7 @@ Delete the ID Pool using deleteIdPool RPC
 
 *** Keywords ***
 get Id pool
+    [Documentation]    This keyword checks the created ID pool by doing GET.
     ${get_resp}    RequestsLibrary.Get Request    session    ${CONFIG_API}/id-manager:id-pools/id-pool/${pool-name}/available-ids-holder/    headers=${ACCEPT_XML}
     Log    ${get_resp.content}
     Should Contain    ${get_resp.content}    14

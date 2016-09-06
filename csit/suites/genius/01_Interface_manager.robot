@@ -127,7 +127,7 @@ table entry
     should contain    ${result}    goto_table:50
 
 no table0 entry
-    [Documentation]    after Deleting trunk interface , checking for absence of table 0 in the flow dumps
+    [Documentation]    After Deleting trunk interface, checking for absence of table 0 in the flow dumps
     switch connection    ${conn_id_1}
     ${bridgename}    set variable    BR1
     ${ovs-check}    execute command    sudo ovs-ofctl -O OpenFlow13 dump-flows ${bridgename}
@@ -137,7 +137,7 @@ no table0 entry
 
 no goto_table entry
     [Arguments]    ${table-id}
-    [Documentation]    cchecks for absence of no goto_table afetr unbinding the service on the interface.
+    [Documentation]    Checks for absence of no goto_table after unbinding the service on the interface.
     switch connection    ${conn_id_1}
     ${ovs-check1}    execute command    sudo ovs-ofctl -O OpenFlow13 dump-flows ${bridgename}
     Log    ${ovs-check1}
@@ -145,7 +145,7 @@ no goto_table entry
 
 table0 entry
     [Arguments]    ${connection-id}    ${bridgename}
-    [Documentation]    after Deleting trunk interface , checking for absence of table 0 in the flow dumps
+    [Documentation]    After Creating the trunk interface , checking for  table 0 entry exist in the flow dumps
     switch connection    ${connection-id}
     log    switch connection
     ${ovs-check}    execute command    sudo ovs-ofctl -O OpenFlow13 dump-flows ${bridgename}
@@ -155,6 +155,7 @@ table0 entry
 
 ovs check for member interface creation
     [Arguments]    ${connection-id}    ${bridgename}
+    [Documentation]    This keyword verifies the member interface created on OVS by checking the table0 ,vlan and action=pop_vlan entries    
     switch connection    ${connection-id}
     ${ovs-check}    execute command    sudo ovs-ofctl -O OpenFlow13 dump-flows ${bridgename}
     log    ${ovs-check}
@@ -164,6 +165,7 @@ ovs check for member interface creation
 
 Create Interface
     [Arguments]    ${json_file}    ${interface_mode}
+    [Documentation]    Creates an trunk/transparent interface based on input provided to the json body                           
     ${body}    OperatingSystem.Get File    ${genius_config_dir}/${json_file}
     log    ${genius_config_dir}/${json_file}
     ${body}    replace string    ${body}    "l2vlan-mode":"trunk"    "l2vlan-mode":"${interface_mode}"
