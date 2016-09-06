@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_94119d54",
+        "filename": "csit/configplans/bgpcep-bgpclustering.txt",
+        "patchSetId": 10
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-06T12:56:24Z",
+      "side": 1,
+      "message": "It would be better to change releng/builder scripts to search for {project}-{functionality}-{stream}.txt firts (which would be this file for beryllium, which would allow the script to not contain if).",
+      "range": {
+        "startLine": 8,
+        "startChar": 47,
+        "endLine": 8,
+        "endChar": 50
+      },
+      "revId": "531b44aae2175f283672511e67a7cb8505572685",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
