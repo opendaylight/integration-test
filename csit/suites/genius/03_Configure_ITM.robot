@@ -189,7 +189,7 @@ Create VTEP - Vlan and Gateway
     Log    ${resp.content}
 
 Delete VTEP -Vlan and gateway
-    [Documentation]    This Delete testcase deletes the ITM tunnel created between 2 dpns.
+    [Documentation]    This testcase deletes the ITM tunnel created between 2 dpns.
     Remove All Elements At URI And Verify    ${CONFIG_API}/itm:transport-zones/transport-zone/${itm_created[0]}/
     Wait Until Keyword Succeeds    40    10    Verify Data Base after Delete    ${Dpn_id_1}    ${Dpn_id_2}    ${tunnel-5}
     ...    ${tunnel-6}
@@ -251,7 +251,7 @@ Validate interface state
 
 Check Table0 Entry for 2 Dpn
     [Arguments]    ${connection_id}    ${Bridgename}    ${port-num1}
-    [Documentation]    Checks the Table 0 entry in the OVS when flows are dumped in it.
+    [Documentation]    Checks the Table 0 entry in the OVS when flows are dumped.
     Switch Connection    ${connection_id}
     Log    ${connection_id}
     ${check}    Execute Command    sudo ovs-ofctl -O OpenFlow13 dump-flows ${Bridgename}
@@ -316,6 +316,7 @@ set json
 
 check-Tunnel-delete-on-ovs
     [Arguments]    ${connection-id}    ${tunnel}
+    [Documentation]    Verifies the Tunnel is deleted from OVS
     Log    ${tunnel}
     Switch Connection    ${connection-id}
     Log    ${connection-id}
@@ -326,6 +327,7 @@ check-Tunnel-delete-on-ovs
 
 check interface status
     [Arguments]    ${tunnel}    ${dpid}
+    [Documentation]    Verifies the operational state of the interface .
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${tunnel}/    headers=${ACCEPT_XML}
     Log    ${OPERATIONAL_API}/ietf-interfaces:interfaces-state/interface/${tunnel}/
     Log    ${resp.content}
@@ -343,6 +345,7 @@ check interface status
 
 Verify Data Base after Delete
     [Arguments]    ${Dpn_id_1}    ${Dpn_id_2}    ${tunnel-1}    ${tunnel-2}
+    [Documentation]    Verifies the config database after the Tunnel deletion is done.
     ${type}    set variable    odl-interface:tunnel-type-vxlan
     No Content From URI    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${Dpn_id_1}/${Dpn_id_2}/${type}/    headers=${ACCEPT_XML}
     No Content From URI    session    ${CONFIG_API}/itm-state:tunnel-list/internal-tunnel/${Dpn_id_2}/${Dpn_id_1}/${type}/    headers=${ACCEPT_XML}
