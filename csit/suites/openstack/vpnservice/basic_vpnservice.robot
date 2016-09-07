@@ -31,7 +31,7 @@ Verify Tunnel Creation
 Create Neutron Networks
     [Documentation]    Create two networks
     Create Network    ${NETWORKS[0]}    --provider:network_type local
-    Create Network    ${NETWORKS[1]}    --provider:network_type local
+    Create Network    ${NETWORKS[1]}    --provider:network_type local 
     List Networks
 
 Create Neutron Subnets
