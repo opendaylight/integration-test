@@ -3,6 +3,7 @@ Documentation     Test suite for VTN Manager using OF10
 Suite Setup       Start SuiteVtnMaTest
 Suite Teardown    Stop SuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
+Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
 ${flowconditiondata}    "vtn-flow-match":[{"vtn-inet-match":{"source-network":"10.0.0.1/32","destination-network":"10.0.0.3/32"},"index":"1"}]
@@ -54,6 +55,7 @@ Add a portmap for interface if2
 Ping h1 to h3
     [Documentation]    Ping h1 to h3, verify no packet loss
     Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+    [Teardown]    Report_Failure_Due_To_Bug   6595
 
 Add a vBridge vBridge2
     [Documentation]    Add a vBridge vBridge2 in vtn Tenant1
@@ -91,6 +93,7 @@ Add a vtn flowfilter with inet4src and inet4dst
 Verify inet4src and inet4dst of vtn flowfilter
     [Documentation]    Verify vtn flowfilter actions in Flow Enties for inet4src and inet4dst
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF10}    @{inet_actions}
+    [Teardown]    Report_Failure_Due_To_Bug   6595
 
 Remove vtn Flowfilter index
     [Documentation]    Remove a index of vtn flowfilter
@@ -104,6 +107,7 @@ Add a vbr flowfilter with inet4src and inet4dst
 Verify inet4src and inet4dst of vbr flowfilter
     [Documentation]    Verify actions in Flow Enties for inet4src and inet4dst
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF10}    @{inet_actions}
+    [Teardown]    Report_Failure_Due_To_Bug   6595
 
 Remove vbr Flowfilter index
     [Documentation]    Remove a index of vbr flowfilter
@@ -117,6 +121,7 @@ Add a vbrif flowfilter with inet4src and inet4dst
 Verify inet4src and inet4dst of vbrif flowfilter
     [Documentation]    Verify actions in Flow Enties for inet4src and inet4dst
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF10}    @{inet_actions}
+    [Teardown]    Report_Failure_Due_To_Bug   6595
 
 Remove vbrif Flowfilter index
     [Documentation]    Remove a index of vbrif flowfilter
@@ -174,10 +179,12 @@ Add a vtn flowfilter with dscp
     [Documentation]    Create a flowfilter with dscp and Verify ping
     Add a vtn flowfilter    Tenant1    ${flowfilterDscpdata}
     Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+    [Teardown]    Report_Failure_Due_To_Bug   6595
 
 Verify dscp action for vtn flowfilter
     [Documentation]    Verify actions in Flow Enties for dscp
     Wait_Until_Keyword_Succeeds    20s    1s    Verify flowactions    ${dscp_flow}    ${FF_DUMPFLOWS_OF10}
+    [Teardown]    Report_Failure_Due_To_Bug   6595
 
 Remove vtn Flowfilter index which have dscp
     [Documentation]    Remove a index of vtn flowfilter which have DSCP
@@ -187,10 +194,12 @@ Add a vbr flowfilter with dscp
     [Documentation]    Create a flowfilter with dscp and Verify ping
     Add a vbr flowfilter    Tenant1    vBridge1    ${flowfilterDscpdata}
     Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+    [Teardown]    Report_Failure_Due_To_Bug   6595
 
 Verify dscp action for vbr flowfilter
     [Documentation]    Verify actions in Flow Enties for dscp
     Wait_Until_Keyword_Succeeds    20s    1s    Verify flowactions    ${dscp_flow}    ${FF_DUMPFLOWS_OF10}
+    [Teardown]    Report_Failure_Due_To_Bug   6595
 
 Remove vbr Flowfilter index which have dscp
     [Documentation]    Remove a index of vbr flowfilter which have DSCP
@@ -200,10 +209,12 @@ Add a vbrif flowfilter with dscp
     [Documentation]    Create a flowfilter with dscp and Verify ping
     Add a vbrif flowfilter    Tenant1    vBridge1    if1    ${flowfilterDscpdata}
     Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+    [Teardown]    Report_Failure_Due_To_Bug   6595
 
 Verify dscp action for vbrif flowfilter
     [Documentation]    Verify actions in Flow Enties for dscp
     Wait_Until_Keyword_Succeeds    20s    1s    Verify flowactions    ${dscp_flow}    ${FF_DUMPFLOWS_OF10}
+    [Teardown]    Report_Failure_Due_To_Bug   6595
 
 Remove vbrif Flowfilter index which have dscp
     [Documentation]    Remove a index of vbrif flowfilter which have DSCP
@@ -213,10 +224,12 @@ Add a vtn flowfilter with dl-src
     [Documentation]    Create a flowfilter with dl-src and Verify ping
     Add a vtn flowfilter    Tenant1    ${flowfilterdlsrc}
     Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+    [Teardown]    Report_Failure_Due_To_Bug   6595
 
 Verify dl-src action for vtn flowfilter
     [Documentation]    Verify actions in Flow Enties for dl-src
     Wait_Until_Keyword_Succeeds    20s    1s    Verify flowactions    ${dlsrc_action}    ${FF_DUMPFLOWS_OF10}
+    [Teardown]    Report_Failure_Due_To_Bug   6595
 
 Remove vtn Flowfilter index which have dl-src
     [Documentation]    Remove a index of vtn flowfilter which have DL_SRC
@@ -226,10 +239,12 @@ Add a vbr flowfilter with dl-src
     [Documentation]    Create a flowfilter with dl-src and Verify ping
     Add a vbr flowfilter    Tenant1    vBridge1    ${flowfilterdlsrc}
     Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+    [Teardown]    Report_Failure_Due_To_Bug   6595
 
 Verify dl-src action for vbr flowfilter
     [Documentation]    Verify actions in Flow Enties for dl-src
     Wait_Until_Keyword_Succeeds    20s    1s    Verify flowactions    ${dlsrc_action}    ${FF_DUMPFLOWS_OF10}
+    [Teardown]    Report_Failure_Due_To_Bug   6595
 
 Remove vbr Flowfilter index which have dl-src
     [Documentation]    Remove a index of vbr flowfilter which have DL_SRC
@@ -239,10 +254,12 @@ Add a vbrif flowfilter with dl-src
     [Documentation]    Create a flowfilter with dl-src and Verify ping
     Add a vbrif flowfilter    Tenant1    vBridge1    if1    ${flowfilterdlsrc}
     Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+    [Teardown]    Report_Failure_Due_To_Bug   6595
 
 Verify dl-src action for vbrif flowfilter
     [Documentation]    Verify actions in Flow Enties for dl-src
     Wait_Until_Keyword_Succeeds    20s    1s    Verify flowactions    ${dlsrc_action}    ${FF_DUMPFLOWS_OF10}
+    [Teardown]    Report_Failure_Due_To_Bug   6595
 
 Remove vbrif Flowfilter index which have dl-src
     [Documentation]    Remove a index of vbrif flowfilter which have DL_SRC
@@ -256,6 +273,7 @@ Add a flowfilter with inet4 for drop
 Verify Removed Flow Entry For Inet After Drop Action
     [Documentation]    Verify no flows between the hosts after drop
     Wait_Until_Keyword_Succeeds    20s    1s    Verify flowactions    ${drop_action}    ${DROP_DUMPFLOWS_OF10}
+    [Teardown]    Report_Failure_Due_To_Bug   6595
 
 Delete a flowcondition
     [Documentation]    Delete a flowcondition

@@ -3,6 +3,7 @@ Documentation     Test suite for VTN Coordinator
 Suite Setup       Start SuiteVtnCoTest
 Suite Teardown    Stop SuiteVtnCoTest
 Resource          ../../../libraries/VtnCoKeywords.robot
+Resource          ../../../libraries/Utils.robot
 
 *** Test Cases ***
 Add a ODL Controller
@@ -60,6 +61,7 @@ Create FlowfilterEntry in VBRFlowFilter
 Test Ping for Configuration
     [Documentation]    ping between hosts in mininet
     Wait Until Keyword Succeeds    20s    1s    Test Ping    h1    h3
+    [Teardown]    Report_Failure_Due_To_Bug   6595
 
 Delete a VTN Tenant1
     [Documentation]    Delete Vtn Tenant1

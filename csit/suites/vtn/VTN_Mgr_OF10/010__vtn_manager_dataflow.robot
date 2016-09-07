@@ -3,6 +3,7 @@ Documentation     Test suite for VTN Manager Data Flow using OF10
 Suite Setup       Start SuiteVtnMaTest
 Suite Teardown    Stop SuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
+Resource          ../../../libraries/Utils.robot
 
 *** Test Cases ***
 Check if switch1 detected
@@ -44,6 +45,7 @@ Add a portmap for interface if2
 Ping h1 to h3
     [Documentation]    Ping h1 to h3, verify no packet loss
     Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+    [Teardown]    Report_Failure_Due_To_Bug   6595
 
 Verify data flow details For vBridge1
     [Documentation]    Verify the data flows for the specified tenant and bridge
