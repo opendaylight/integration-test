@@ -16,7 +16,7 @@ Resource          ../../../libraries/KarafKeywords.robot
 ${throughput_threshold}    30000
 ${latency_threshold}    10000
 ${switch_count}    16
-${duration_in_secs}    12
+${duration_in_secs}    10
 ${loops}          10
 ${num_of_unique_macs}    100
 ${start_delay}    5000
@@ -33,6 +33,8 @@ Cbench Latency Test
     [Timeout]    ${test_timeout}
     Log    Cbench tests using ${loops} iterations of ${duration_in_secs} second tests. Switch Count: ${switch_count}. Unique MACS to cycle: ${num_of_unique_macs}
     Run Cbench And Log Results    -m ${duration_in_ms} -M ${num_of_unique_macs} -s ${switch_count} -l ${loops} -D ${start_delay}    ${latency_threshold}    ${latency_results_file}
+    # We have to give some time for the controller to recover. See bug 6176.
+    Sleep    10
 
 Cbench Throughput Test
     [Documentation]    cbench executed in throughput mode (-t). Test parameters have defaults, but can be overridden
@@ -41,6 +43,8 @@ Cbench Throughput Test
     [Timeout]    ${test_timeout}
     Log    Cbench tests using ${loops} iterations of ${duration_in_secs} second tests. Switch Count: ${switch_count}. Unique MACS to cycle: ${num_of_unique_macs}
     Run Cbench And Log Results    -t -m ${duration_in_ms} -M ${num_of_unique_macs} -s ${switch_count} -l ${loops} -D ${start_delay}    ${throughput_threshold}    ${throughput_results_file}
+    # We have to give some time for the controller to recover. See bug 6176.
+    Sleep    10
 
 Rerun Latency Test To Check Bug 6176
     [Documentation]    cbench executed in latency mode to see if controller is healthy
@@ -48,7 +52,8 @@ Rerun Latency Test To Check Bug 6176
     [Timeout]    ${test_timeout}
     Log    Cbench tests using ${loops} iterations of ${duration_in_secs} second tests. Switch Count: ${switch_count}. Unique MACS to cycle: ${num_of_unique_macs}
     Run Cbench And Log Results    -m ${duration_in_ms} -M ${num_of_unique_macs} -s ${switch_count} -l ${loops} -D ${start_delay}    ${latency_threshold}    bug.csv
-    [Teardown]    Report_Failure_Due_To_Bug    6176
+    # We have to give some time for the controller to recover. See bug 6176.
+    Sleep    10
 
 *** Keywords ***
 Run Cbench And Log Results
