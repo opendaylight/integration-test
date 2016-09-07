@@ -149,8 +149,8 @@ Get Port Id
     [Documentation]    Retrieve the port id for the given port name to attach specific vm instance to a particular port
     Switch Connection    ${devstack_conn_id}
     ${port_id}=    Write Commands Until Prompt    neutron port-list | grep "${port_name}" | awk '{print $2}'    30s
-    Log    ${port_id}
-    [Return]    ${port_id}
+    Log    "PortID=***${port_id.strip()}***"
+    [Return]    ${port_id.strip()}
 
 Create Vm Instances
     [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano      ${sg}=default
