@@ -20,6 +20,8 @@ Variables         ../../../variables/Variables.py
 @{PORT_LIST}      PORT11    PORT21    PORT12    PORT22
 @{VM_INSTANCES}    VM11    VM21    VM12    VM22
 @{ROUTERS}        ROUTER_1    ROUTER_2
+@{NET_1_VM_INSTANCES}    l3_instance_net_1_1    l3_instance_net_1_2    l3_instance_net_1_3
+@{NET_2_VM_INSTANCES}    l3_instance_net_2_1    l3_instance_net_2_2    l3_instance_net_2_3
 
 *** Test Cases ***
 Verify Tunnel Creation
@@ -39,6 +41,24 @@ Create Neutron Subnets
     Create SubNet    ${NETWORKS[0]}    ${SUBNETS[0]}    ${SUBNET_CIDR[0]}
     Create SubNet    ${NETWORKS[1]}    ${SUBNETS[1]}    ${SUBNET_CIDR[1]}
     List Subnets
+
+Create Vm For network_1
+    [Documentation]    Create Four Vm instances using flavor and image names for a network.
+    Create Vm Instances    ${NETWORKS[0]}     ${NET_1_VM_INSTANCES}    sg=csit
+
+Create Vm For network_2
+    [Documentation]    Create Four Vm instances using flavor and image names for a network.
+    Create Vm Instances    ${NETWORKS[1]}    ${NET_2_VM_INSTANCES}    sg=csit
+
+Delete Vm In network_1
+    [Documentation]    Delete Vm instances using instance names in l2_network_1.
+    : FOR    ${VmElement}    IN    @{NET_1_VM_INSTANCES}
+    \    Delete Vm Instance    ${VmElement}
+
+Delete Vm In network_2
+    [Documentation]    Delete Vm instances using instance names in l2_network_2.
+    : FOR    ${VmElement}    IN    @{NET_2_VM_INSTANCES}
+    \    Delete Vm Instance    ${VmElement}
 
 Create Neutron Ports
     [Documentation]    Create four ports under previously created subnets
