@@ -72,3 +72,10 @@ Add Config To File On Existing SSH Connection
     # this keyword is only one line so seems like extra overhead, but this may be a good candidate to move
     # to a library at some point, when/if other suites need to use it, so wanted to make it generic.
     Write Commands Until Prompt    sudo -E crudini --set ${config_file} ${config_section} ${config_key} ${config_value}
+
+Clean Up After Running Tempest
+    [Documentation]    Clean up any extra leftovers that were created to allow tempest tests to run.
+    Delete SubNet     external-subnet
+    Delete Network    external
+    List Networks
+    Close All Connections
