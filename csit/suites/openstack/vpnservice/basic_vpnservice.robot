@@ -40,6 +40,21 @@ Create Neutron Subnets
     Create SubNet    ${NETWORKS[1]}    ${SUBNETS[1]}    ${SUBNET_CIDR[1]}
     List Subnets
 
+Create Vm For network_1
+    [Documentation]    Create Four Vm instances using flavor and image names for a network.
+    Create Vm Instances    ${NETWORKS[0]}    ${VM_INSTANCES[0]} 
+    [Teardown]    Show Debugs    ${VM_INSTANCES[0]} 
+
+Create Vm For network_2
+    [Documentation]    Create Four Vm instances using flavor and image names for a network.
+    Create Vm Instances    ${NETWORKS[1]}    ${VM_INSTANCES[1]} 
+    [Teardown]    Show Debugs    ${VM_INSTANCES[1]} 
+
+Delete Vm Instances
+    [Documentation]    Delete Vm instances in the given Instance List
+    Delete Vm Instance    ${VM_INSTANCES[0]} 
+    Delete Vm Instance    ${VM_INSTANCES[1]}
+
 Create Neutron Ports
     [Documentation]    Create four ports under previously created subnets
     Create Port    ${NETWORKS[0]}    ${PORT_LIST[0]}
