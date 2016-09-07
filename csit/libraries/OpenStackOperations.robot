@@ -86,6 +86,15 @@ Delete Port
     Log    ${output}
     Should Contain    ${output}    Deleted a new port
 
+List Ports
+    [Documentation]    List ports and return output with neutron client.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron port-list    30s
+    Close Connection
+    Log    ${output}
+    [Return]    ${output}
+
 Verify Gateway Ips
     [Documentation]    Verifies the Gateway Ips with dump flow.
     ${output}=    Write Commands Until Prompt    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
@@ -380,6 +389,9 @@ Show Debugs
     : FOR    ${index}    IN    @{vm_indices}
     \    ${output}=    Write Commands Until Prompt    nova show ${index}    30s
     \    Log    ${output}
+    List Networks
+    List Subnets
+    List Ports
     Close Connection
 
 Create Security Group
