@@ -4,6 +4,7 @@ Suite Setup       Start SuiteVtnCoTest
 Suite Teardown    Stop SuiteVtnCoTest
 Resource          ../../../libraries/VtnCoKeywords.robot
 Resource          ../../../libraries/WaitForFailure.robot
+Resource          ../../../libraries/Utils.robot
 
 *** Test Cases ***
 Add a ODL Controller with Invalid IP
@@ -53,6 +54,7 @@ Define Portmap for Interface2
 Test Ping for Configuration1
     [Documentation]    ping between hosts in mininet
     Wait Until Keyword Succeeds    20s    1s    Test Ping    h1    h2
+    [Teardown]    Report_Failure_Due_To_Bug   6595
 
 Delete a VTN Tenant1
     [Documentation]    Delete Vtn Tenant1

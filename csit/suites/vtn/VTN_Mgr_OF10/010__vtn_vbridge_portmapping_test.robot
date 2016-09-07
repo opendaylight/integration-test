@@ -3,6 +3,7 @@ Documentation     Test suite for VTN Manager using OF10
 Suite Setup       Start SuiteVtnMaTest
 Suite Teardown    Stop SuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
+Resource          ../../../libraries/Utils.robot
 
 *** Test Cases ***
 Check if switch1 detected
@@ -44,6 +45,7 @@ Add a portmap for interface if2
 Ping h1 to h3
     [Documentation]    Verify Ping between hosts h1 and h3. To check mininet ping here added wait until time as '20s'. Since, sometimes it takes maximum '20sec' to send packet b/w hosts.
     Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+    [Teardown]    Report_Failure_Due_To_Bug   6595
 
 Add a vBridge vBridge2
     [Documentation]    Add a vBridge vBridge2 in vtn Tenant1

@@ -3,6 +3,7 @@ Documentation     Test suite for VTN Manager using OF13
 Suite Setup       Start SuiteVtnMaTest
 Suite Teardown    Stop SuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
+Resource          ../../../libraries/Utils.robot
 
 *** Test Cases ***
 Check if switch1 detected
@@ -34,6 +35,7 @@ Add a macmap for bridge1
 Get macmapflow h3 h1
     [Documentation]    ping h3 to h1
     Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h3    h1
+    [Teardown]    Report_Failure_Due_To_Bug    6595
 
 Delete a vtn Tenant1
     [Documentation]    Delete a vtn Tenant1
