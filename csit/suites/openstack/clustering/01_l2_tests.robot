@@ -236,3 +236,20 @@ Delete Networks
     [Documentation]    Delete Networks with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
     \    OpenStackOperations.Delete Network    ${NetworkElement}
+
+Delete Internal bridge and Verify
+    [Documentation]    Delete internal bridge with OVS command and verify it gets deleted from all instances.
+    ClusterOvsdb.Delete Internal Bridge Manually And Verify    ${new_cluster_list}
+    [Teardown]    Report_Failure_Due_To_Bug    6262
+
+Delete External bridge and Verify
+    [Documentation]    Delete external bridge with OVS command and verify it gets deleted from all instances.
+    ClusterOvsdb.Delete External Bridge Manually And Verify    ${new_cluster_list}
+    [Teardown]    Report_Failure_Due_To_Bug    6262
+
+Cleans Up Test Environment For Next Suite
+    [Documentation]    Cleans up test environment, close existing sessions in teardown.
+    Log    ${new_cluster_list}
+    ClusterOvsdb.Configure Exit Netvirt Connection    ${new_cluster_list}
+    [Teardown]    Report_Failure_Due_To_Bug    6262
+

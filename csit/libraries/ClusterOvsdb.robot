@@ -138,3 +138,43 @@ Configure Exit OVSDB Connection
     OVSDB.Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
     ${dictionary}=    Create Dictionary    ovsdb://uuid=0
     Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}    dictionary=${dictionary}    member_index_list=${controller_index_list}
+
+Delete Internal Bridge Manually And Verify
+    [Arguments]    ${controller_index_list}
+    [Documentation]    Delete bridge br-int using OVS command and verify it gets applied in all instances in ${controller_index_list}.
+    Utils.Run Command On Mininet    ${OS_CONTROL_NODE_IP}    sudo ovs-vsctl del-br br-int
+    Utils.Run Command On Mininet    ${OS_COMPUTE_1_IP}    sudo ovs-vsctl del-br br-int
+    Utils.Run Command On Mininet    ${OS_COMPUTE_2_IP}    sudo ovs-vsctl del-br br-int
+    ${dictionary}=    Create Dictionary    br-int=0
+    ${show_list}=    Utils.Run Command On Mininet    ${OS_CONTROL_NODE_IP}    sudo ovs-vsctl show
+    Log    ${show_list}
+    ${show_list}=    Utils.Run Command On Mininet    ${OS_COMPUTE_1_IP}    sudo ovs-vsctl show
+    Log    ${show_list}
+    ${show_list}=    Utils.Run Command On Mininet    ${OS_COMPUTE_2_IP}    sudo ovs-vsctl show
+    Log    ${show_list}
+    Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}    dictionary=${dictionary}    member_index_list=${controller_index_list}
+
+Delete External Bridge Manually And Verify
+    [Arguments]    ${controller_index_list}
+    [Documentation]    Delete bridge br-ex using OVS command and verify it gets applied in all instances in ${controller_index_list}.
+    Utils.Run Command On Mininet    ${OS_CONTROL_NODE_IP}    sudo ovs-vsctl del-br br-ex
+    Utils.Run Command On Mininet    ${OS_COMPUTE_1_IP}    sudo ovs-vsctl del-br br-ex
+    Utils.Run Command On Mininet    ${OS_COMPUTE_2_IP}    sudo ovs-vsctl del-br br-ex
+    ${dictionary}=    Create Dictionary    br-ex=1
+    ${show_list}=    Utils.Run Command On Mininet    ${OS_CONTROL_NODE_IP}    sudo ovs-vsctl show
+    Log    ${show_list}
+    ${show_list}=    Utils.Run Command On Mininet    ${OS_COMPUTE_1_IP}    sudo ovs-vsctl show
+    Log    ${show_list}
+    ${show_list}=    Utils.Run Command On Mininet    ${OS_COMPUTE_2_IP}    sudo ovs-vsctl show
+    Log    ${show_list}
+    Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}    dictionary=${dictionary}    member_index_list=${controller_index_list}
+
+Configure Exit Netvirt Connection
+    [Arguments]    ${controller_index_list}
+    [Documentation]    Cleans up test environment, close existing sessions.
+    OVSDB.Clean OVSDB Test Environment    ${OS_CONTROL_NODE_IP}
+    ${dictionary}=    Create Dictionary    ovsdb://uuid=0
+    ${show_list}=    Utils.Run Command On Mininet    ${OS_CONTROL_NODE_IP}    sudo ovs-vsctl show
+    Log    ${show_list}
+    Wait Until Keyword Succeeds    5s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${OPERATIONAL_TOPO_API}    dictionary=${dictionary}    member_index_list=${controller_index_list}
+
