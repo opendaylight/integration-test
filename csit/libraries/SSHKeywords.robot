@@ -86,6 +86,12 @@ Require_Python
     BuiltIn.Return_From_Keyword_If    ${passed}
     BuiltIn.Fatal_Error    Python is not installed!
 
+Require_Pypy
+    [Documentation]    Verify current SSH connection leads to machine with python working. Fatal fail otherwise.
+    ${passed} =    Execute_Command_Passes    pypy --version
+    BuiltIn.Return_From_Keyword_If    ${passed}
+    BuiltIn.Fatal_Error    Pypy is not installed!
+
 Assure_Library_Ipaddr
     [Arguments]    ${target_dir}=.
     [Documentation]    Tests whether ipaddr module is present on ssh-connected machine, Puts ipaddr.py to target_dir if not.
