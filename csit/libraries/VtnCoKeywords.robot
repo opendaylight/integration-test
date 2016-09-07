@@ -48,7 +48,7 @@ Start SuiteVtnCo
     ${time_stamp}=    XML.Get Element Text    maven-metadata.xml    xpath=.//snapshot/timestamp
     ${build_number}=    XML.Get Element Text    maven-metadata.xml    xpath=.//snapshot/buildNumber
     Run Keyword If    '${ODL_STREAM}' == 'boron'    SSHLibrary.Execute Command    wget '${nexus_path}/${boron}/${vtn_dist}-6.3.0-${time_stamp}-${build_number}-bin.tar.bz2'
-    ...    ELSE IF    '${ODL_STREAM}' == 'carbon'    SSHLibrary.Execute Command    wget '${nexus_path}/${carbon}/${vtn_dist}-6.4.0-${time_stamp}-${build_number}-bin.tar.bz2'
+    ...    ELSE IF    '${ODL_STREAM}' == 'carbon'    SSHLibrary.Execute Command    wget 'https://logs.opendaylight.org/releng/jenkins092/vtn-verify-carbon-mvn33-openjdk8/5/archives/coordinator/dist/target/distribution.vtn-coordinator-6.4.0-SNAPSHOT-bin.tar.bz2'
     Run Keyword If    '${ODL_STREAM}' == 'boron' or '${ODL_STREAM}' == 'carbon'   SSHLibrary.Execute Command    tar -C/ -jxvf ${vtn_dist}*-bin.tar.bz2
     ...    ELSE    SSHLibrary.Execute Command    tar -C/ -jxvf ${WORKSPACE}/${BUNDLEFOLDER}/externalapps/${vtn_dist}*-bin.tar.bz2
     SSHLibrary.Execute Command    /usr/local/vtn/sbin/db_setup
