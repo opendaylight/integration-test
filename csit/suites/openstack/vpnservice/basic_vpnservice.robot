@@ -20,13 +20,24 @@ Variables         ../../../variables/Variables.py
 @{PORT_LIST}      PORT11    PORT21    PORT12    PORT22
 @{VM_INSTANCES}    VM11    VM21    VM12    VM22
 @{ROUTERS}        ROUTER_1    ROUTER_2
+@{NET10_VM_IPS}    10.1.1.2    10.1.1.3
+@{NET20_VM_IPS}    20.1.1.2    20.1.1.3
 
 *** Test Cases ***
 Verify Tunnel Creation
     [Documentation]    Checks that vxlan tunnels have been created properly.
-    [Tags]    exclude
-    Log    This test case is currently a noop, but work can be added here to validate if needed.    However, as the    suite Documentation notes, it's already assumed that the environment has been configured properly.    If    we do add work in this test case, we need to remove the "exclude" tag for it to run.    In fact, if this
-    ...    test case is critical to run, and if it fails we would be dead in the water for the rest of the suite,    we should move it to Suite Setup so that nothing else will run and waste time in a broken environment.
+    ${control_node_dpid}=    Get DPID For Compute Node    ${OS_CONTROL_NODE_IP}
+    ${node_1_dpid}=    Get DPID For Compute Node    ${OS_COMPUTE_1_IP}
+    ${node_2_dpid}=    Get DPID For Compute Node    ${OS_COMPUTE_2_IP}
+    ${control_node_adapter}=    Get Ethernet Adapter From Compute Node    ${OS_CONTROL_NODE_IP}
+    ${node_1_adapter}=    Get Ethernet Adapter From Compute Node    ${OS_COMPUTE_1_IP}
+    ${node_2_adapter}=    Get Ethernet Adapter From Compute Node    ${OS_COMPUTE_2_IP}
+    ${first_two_octets}    ${third_octet}    ${last_octet}=    Split String From Right    ${OS_COMPUTE_1_IP}    .    2
+    ${subnet}=    Set Variable    ${first_two_octets}.0.0/16
+    ${gateway}=    Get Default Gateway    ${OS_COMPUTE_1_IP}
+    Create TEP For Compute Node    ${OS_CONTROL_NODE_IP}    ${control_node_dpid}    ${control_node_adapter}    ${subnet}    ${gateway}
+    Create TEP For Compute Node    ${OS_COMPUTE_1_IP}    ${node_1_dpid}    ${node_1_adapter}    ${subnet}    ${gateway}
+    Create TEP For Compute Node    ${OS_COMPUTE_2_IP}    ${node_2_dpid}    ${node_2_adapter}    ${subnet}    ${gateway}
 
 Create Neutron Networks
     [Documentation]    Create two networks
@@ -62,8 +73,18 @@ Create Nova VMs
 
 Check ELAN Datapath Traffic Within The Networks
     [Documentation]    Checks datapath within the same network with different vlans.
-    [Tags]    exclude
-    Log    This test will be added in the next patch
+    Log    "Checking datapath from NET10"
+    ${dst_ip_list}=    Create List    @{NET10_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list}=    Create List    @{NET20_VM_IPS}[0]    @{NET20_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l2    list_of_external_dst_ips=${other_dst_ip_list}
+    Log    "Checking datapath from NET20"
+    ${dst_ip_list}=    Create List    @{NET20_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list}=    Create List    @{NET10_VM_IPS}[0]    @{NET10_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l2    list_of_external_dst_ips=${other_dst_ip_list}
 
 Create Routers
     [Documentation]    Create Router
@@ -111,7 +132,7 @@ Delete Vm Instances
 Delete Neutron Ports
     [Documentation]    Delete Neutron Ports in the given Port List.
     : FOR    ${Port}    IN    @{PORT_LIST}
-    \    Delete SubNet    ${Port}
+    \    Delete Port    ${Port}
 
 Delete Sub Networks
     [Documentation]    Delete Sub Nets in the given Subnet List.
