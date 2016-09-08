@@ -17,6 +17,7 @@ Start Mininet Multiple Connections
     [Documentation]    Start mininet tree,2 with connection to all cluster instances.
     ${mininet_conn_id}=    MininetKeywords.Start Mininet Multiple Controllers    ${TOOLS_SYSTEM_IP}    ${ClusterManagement__member_index_list}    --topo tree,2 --switch ovsk,protocols=OpenFlow13
     Set Suite Variable    ${mininet_conn_id}
+    Wait Until Keyword Succeeds    10s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    9
 
 Check Entity Owner Status And Find Owner and Candidate Before Fail
     [Documentation]    Check Entity Owner Status and identify owner and candidate for first switch s1.
@@ -28,16 +29,15 @@ Check Entity Owner Status And Find Owner and Candidate Before Fail
 
 Reconnect Extra Switches To Candidate And Check Entity Owner
     [Documentation]    Connect switches s2 and s3 to candidate instance.
-    # wait before switch reconnection
-    Sleep    1
     OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s2    tcp:${ODL_SYSTEM_${original_candidate}_IP}:6633
     OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s3    tcp:${ODL_SYSTEM_${original_candidate}_IP}:6633
+    Wait Until Keyword Succeeds    10s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    5
     ${member_list} =    BuiltIn.Run_Keyword_If    '${ODL_STREAM}' != 'beryllium' and '${ODL_OF_PLUGIN}' == 'lithium'    Create List    @{ClusterManagement__member_index_list}
     ...    ELSE    Create List    ${original_candidate}
-    ${owner}    ${candidate_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:2    1    ${member_list}
-    Should Be Equal    ${owner}    ${original_candidate}
-    ${owner}    ${candidate_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:3    1    ${member_list}
-    Should Be Equal    ${owner}    ${original_candidate}
+    Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check OpenFlow Device Owner    openflow:2    1    ${original_candidate}
+    ...    ${member_list}
+    Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check OpenFlow Device Owner    openflow:3    1    ${original_candidate}
+    ...    ${member_list}
 
 Check Network Operational Information Before Fail
     [Documentation]    Check devices in operational inventory and topology in all cluster instances.
@@ -102,7 +102,9 @@ Check Shards Status After Fail
 
 Check Entity Owner Status And Find Owner and Candidate After Fail
     [Documentation]    Check Entity Owner Status and identify owner and candidate.
-    ${new_owner}    ${new_candidate_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    ${original_candidate}    ${new_cluster_list}
+    ${new_owner}    ${new_candidate_list}    BuiltIn.Run Keyword If    '${ODL_STREAM}' != 'beryllium'    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    ${original_candidate}
+    ...    ELSE    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    ${original_candidate}    ${new_cluster_list}
+    BuiltIn.Run Keyword If    '${ODL_STREAM}' != 'beryllium'    Collections.Remove Values From List    ${new_candidate_list}    ${original_owner}
     ${new_candidate}=    Get From List    ${new_candidate_list}    0
     Set Suite Variable    ${new_owner}
     Set Suite Variable    ${new_candidate}
