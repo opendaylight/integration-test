@@ -96,7 +96,7 @@ Kill Switchs Old Owner
     ${new_master}=    BuiltIn.Wait Until Keyword Succeeds    5x    3s    Verify New Master Controller Node    ${switch_name}    ${old_master}
     ${owner}    ${followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
     Collections.List Should Contain Value    ${old_followers}    ${owner}
-    Check Count Integrity    ${switch_name}    expected_controllers=2
+    Check Count Integrity    ${switch_name}    expected_controllers=3
     BuiltIn.Should Be Equal As Strings    ${new_master}    ${ODL_SYSTEM_${owner}_IP}
     BuiltIn.Set Suite Variable    ${active_member}    ${owner}
     BuiltIn.Set Test Variable    ${old_owner}
@@ -122,10 +122,9 @@ Kill Switchs Candidate
     ${old_slave}=    BuiltIn.Set Variable    ${ODL_SYSTEM_${old_follower}_IP}
     Stop Controller Node And Verify    ${old_follower}
     BuiltIn.Set Test Variable    ${stopped_karaf}    ${old_follower}
-    BuiltIn.Wait Until Keyword Succeeds    5x    3s    Check Count Integrity    ${switch_name}    expected_controllers=2
+    BuiltIn.Wait Until Keyword Succeeds    5x    3s    Check Count Integrity    ${switch_name}    expected_controllers=3
     ${owner}    ${followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
     BuiltIn.Should Be Equal    ${owner}    ${old_owner}
-    Collections.List Should Not Contain Value    ${followers}    ${old_follower}
     BuiltIn.Should Be Equal As Strings    ${new_master}    ${ODL_SYSTEM_${owner}_IP}
     BuiltIn.Set Test Variable    ${old_owner}
     BuiltIn.Set Test Variable    ${old_followers}
