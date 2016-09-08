@@ -71,7 +71,9 @@ Check Shards Status After Fail
 
 Check Entity Owner Status And Find Owner and Candidate After Fail
     [Documentation]    Check Entity Owner Status and identify owner and candidate.
-    ${new_owner}    ${new_candidate_list}    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    ${original_owner}    ${new_cluster_list}
+    ${new_owner}    ${new_candidate_list}    BuiltIn.Run Keyword If    '${ODL_STREAM}' != 'beryllium'    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    ${original_candidate}
+    ...    ELSE    ClusterOvsdb.Get Ovsdb Entity Owner Status For One Device    ovsdb://uuid/${ovsdb_uuid}    ${original_candidate}    ${new_cluster_list}
+    BuiltIn.Run Keyword If    '${ODL_STREAM}' != 'beryllium'    Collections.Remove Values From List    ${new_candidate_list}    ${original_owner}
     ${new_candidate}=    Get From List    ${new_candidate_list}    0
     Set Suite Variable    ${new_owner}
     Set Suite Variable    ${new_candidate}
