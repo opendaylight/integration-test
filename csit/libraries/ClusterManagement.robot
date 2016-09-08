@@ -126,11 +126,16 @@ Get_Raft_State_Of_Shard_At_Member
     [Return]    ${raft_state}
 
 Verify_Owner_And_Successors_For_Device
-    [Arguments]    ${device_name}    ${device_type}    ${member_index}    ${candidate_list}=${EMPTY}
+    [Arguments]    ${device_name}    ${device_type}    ${member_index}    ${candidate_list}=${EMPTY}    ${peer_down_status}=${EMPTY}    ${down_index}=${EMPTY}
     [Documentation]    Returns the owner and successors for the SB device ${device_name} of type ${device_type}. Request is sent to member ${member_index}.
     ...    Extra check is done to verify owner and successors are within the ${candidate_list}. This KW is useful when combined with WUKS.
     ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${candidate_list}
     ${owner}    ${successor_list} =    Get_Owner_And_Successors_For_Device    device_name=${device_name}    device_type=${device_type}    member_index=${member_index}
+    Log    ${successor_list}
+    Log    ${down_index}
+    Log    ${ODL_STREAM}
+    BuiltIn.Run_Keyword_If    '${peer_down_status}' == 'True' and '${ODL_STREAM}' not in ['beryllium', 'stable-lithium']    Collections.Remove_Values_From_List    ${successor_list}    ${down_index}
+    Log    ${successor_list}
     Collections.List_Should_Contain_Value    ${index_list}    ${owner}    Owner ${owner} is not in candidate list ${index_list}
     ${expected_successor_list} =    BuiltIn.Create_List    @{index_list}
     Collections.Remove_Values_From_List    ${expected_successor_list}    ${owner}
