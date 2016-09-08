@@ -13,7 +13,7 @@ Variables         ../../../variables/Variables.py
 ${operation_timeout}    100s
 ${restart_timeout}    350s
 ${flow_count_per_switch}    1000
-${switch_count}    1
+${switch_count}    2
 ${flow_count_after_add}    1000
 ${flow_count_after_del}    0
 ${orig_json_config_add}    sal_add_bulk_flow_config.json
