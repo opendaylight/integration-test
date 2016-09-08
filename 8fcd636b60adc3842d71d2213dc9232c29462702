@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_e7701674",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-08T16:50:06Z",
+      "side": 1,
+      "message": "I do not like this argument, emptiness of ${down_index} should suffice (unless we are testing 5node cluster with two nodes down).",
+      "range": {
+        "startLine": 129,
+        "startChar": 104,
+        "endLine": 129,
+        "endChar": 132
+      },
+      "revId": "8fcd636b60adc3842d71d2213dc9232c29462702",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
