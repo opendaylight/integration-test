@@ -9,7 +9,7 @@ Resource          ../../../libraries/MininetKeywords.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${flow_count_per_switch}    1
+${flow_count_per_switch}    2
 ${switch_count_per_node}    1
 ${operation_timeout}    15s
 
