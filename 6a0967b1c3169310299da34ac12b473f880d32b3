@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_cc39c1f3",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-08T14:32:44Z",
+      "side": 1,
+      "message": "These two changes mean this Verify_* keyword basically calls Get_Owner_And_Successors_For_device without any verification of its results.",
+      "range": {
+        "startLine": 134,
+        "startChar": 28,
+        "endLine": 134,
+        "endChar": 47
+      },
+      "revId": "6a0967b1c3169310299da34ac12b473f880d32b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_0c2739cb",
+        "filename": "csit/libraries/ClusterOpenFlow.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-08T14:32:44Z",
+      "side": 1,
+      "message": "${expected_candidate_list} would be a better name, but no big deal.",
+      "range": {
+        "startLine": 45,
+        "startChar": 76,
+        "endLine": 45,
+        "endChar": 100
+      },
+      "revId": "6a0967b1c3169310299da34ac12b473f880d32b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_2c015506",
+        "filename": "csit/suites/openflowplugin/Clustering/010__Cluster_HA_Owner_Failover.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-08T14:32:44Z",
+      "side": 1,
+      "message": "We now have CompareStream Resource, use that to have code less fragile and more readable.",
+      "range": {
+        "startLine": 34,
+        "startChar": 50,
+        "endLine": 35,
+        "endChar": 79
+      },
+      "revId": "6a0967b1c3169310299da34ac12b473f880d32b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_0c0e193b",
+        "filename": "csit/suites/openflowplugin/Clustering/010__Cluster_HA_Owner_Failover.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-08T14:32:44Z",
+      "side": 1,
+      "message": "If there is a good reason to expect different successors on different configuration, the logic should be moved to ClusterOpenFlow.Check_OpenFlow_Device_Owner using the more logical expected candidate list as argument (to be possibly updated internally in Check_OpenFlow_Device_Owner).",
+      "range": {
+        "startLine": 35,
+        "startChar": 32,
+        "endLine": 35,
+        "endChar": 46
+      },
+      "revId": "6a0967b1c3169310299da34ac12b473f880d32b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
