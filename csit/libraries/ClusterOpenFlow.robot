@@ -41,6 +41,12 @@ Get OpenFlow Entity Owner Status For One Device
     ...    device_type=openflow    member_index=${controller_index}    candidate_list=${controller_index_list}
     [Return]    ${owner}    ${successor_list}
 
+Check OpenFlow Device Owner
+    [Arguments]    ${device}    ${controller_index}    ${expected_owner}    ${controller_index_list}=${EMPTY}
+    [Documentation]    Check entity owner for the device ${device} matches ${expected_owner}. Request is sent to controller ${controller_index}.
+    ${owner}    ${successor_list}    ClusterManagement.Verify_Owner_And_Successors_For_Device    device_name=${device}    device_type=openflow    member_index=${controller_index}    candidate_list=${controller_index_list}
+    Should Be Equal    ${owner}    ${expected_owner}
+
 Check OpenFlow Network Operational Information For Sample Topology
     [Arguments]    ${controller_index_list}=${EMPTY}
     [Documentation]    Check devices in tree,2 are in operational inventory and topology in all instances in ${controller_index_list}.

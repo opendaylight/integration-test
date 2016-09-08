@@ -131,10 +131,10 @@ Verify_Owner_And_Successors_For_Device
     ...    Extra check is done to verify owner and successors are within the ${candidate_list}. This KW is useful when combined with WUKS.
     ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${candidate_list}
     ${owner}    ${successor_list} =    Get_Owner_And_Successors_For_Device    device_name=${device_name}    device_type=${device_type}    member_index=${member_index}
-    Collections.List_Should_Contain_Value    ${index_list}    ${owner}    Owner ${owner} is not in candidate list ${index_list}
+    BuiltIn.Run Keyword And Continue On Failure    Collections.List_Should_Contain_Value    ${index_list}    ${owner}    Owner ${owner} is not in candidate list ${index_list}
     ${expected_successor_list} =    BuiltIn.Create_List    @{index_list}
     Collections.Remove_Values_From_List    ${expected_successor_list}    ${owner}
-    Collections.Lists_Should_Be_Equal    ${expected_successor_list}    ${successor_list}    Successor list ${successor_list} is not in candidate list ${index_list}
+    BuiltIn.Run Keyword And Continue On Failure    Collections.Lists_Should_Be_Equal    ${expected_successor_list}    ${successor_list}    Successor list ${successor_list} is not in candidate list ${index_list}
     [Return]    ${owner}    ${successor_list}
 
 Get_Owner_And_Successors_For_device
