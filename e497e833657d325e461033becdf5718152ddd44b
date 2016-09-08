@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_07227251",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-09-08T17:17:44Z",
+      "side": 1,
+      "message": "I think I have seen this in the past: when we remove a value from a list that has been created with Set variable from other list, the original list, in this case ${ClusterManagement__member_index_list} is also affected by the removal and we do not want that.",
+      "revId": "e497e833657d325e461033becdf5718152ddd44b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
