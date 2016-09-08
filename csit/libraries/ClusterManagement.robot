@@ -29,6 +29,7 @@ Documentation     Resource housing Keywords common to several suites for cluster
 ...               TODO: Unify capitalization of Leaders and Followers.
 Library           RequestsLibrary    # for Create_Session and To_Json
 Library           Collections
+Resource          ${CURDIR}/CompareStream.robot
 Resource          ${CURDIR}/TemplatedRequests.robot    # for Get_As_Json_From_Uri
 Resource          ${CURDIR}/Utils.robot    # for Run_Command_On_Controller
 
@@ -128,16 +129,24 @@ Get_Raft_State_Of_Shard_At_Member
 Verify_Owner_And_Successors_For_Device
     [Arguments]    ${device_name}    ${device_type}    ${member_index}    ${candidate_list}=${EMPTY}
     [Documentation]    Returns the owner and successors for the SB device ${device_name} of type ${device_type}. Request is sent to member ${member_index}.
+    ...    For Boron and beyond, candidates are not removed on node down or isolation,
+    ...    so this keyword expects candidates to be all members from Boron on.
     ...    Extra check is done to verify owner and successors are within the ${candidate_list}. This KW is useful when combined with WUKS.
+    ...    ${candidate_list} minus owner is returned as ${successor list}.
+    ...    Users can still use Get_Owner_And_Successors_For_Device if they are interested in downed candidates,
+    ...    or for testing heterogeneous clusters.
     ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${candidate_list}
     ${owner}    ${successor_list} =    Get_Owner_And_Successors_For_Device    device_name=${device_name}    device_type=${device_type}    member_index=${member_index}
     Collections.List_Should_Contain_Value    ${index_list}    ${owner}    Owner ${owner} is not in candidate list ${index_list}
-    ${expected_successor_list} =    BuiltIn.Create_List    @{index_list}
+    ${expected_successor_list} =    BuiltIn.Run Keyword If    '${ODL_STREAM}' != 'beryllium'    BuiltIn.Create_List    @{ClusterManagement__member_index_list}
+    ...    ELSE    BuiltIn.Create_List    @{index_list}
     Collections.Remove_Values_From_List    ${expected_successor_list}    ${owner}
-    Collections.Lists_Should_Be_Equal    ${expected_successor_list}    ${successor_list}    Successor list ${successor_list} is not in candidate list ${index_list}
-    [Return]    ${owner}    ${successor_list}
+    Collections.Lists_Should_Be_Equal    ${expected_successor_list}    ${successor_list}    Successor list ${successor_list} is not the came as expected ${expected_successor_list}
+    ${reduced_successor_list} =    BuiltIn.Create_List    ${index_list}
+    Collections.Remove_Values_From_List    ${reduced_successor_list}    ${owner}
+    [Return]    ${owner}    ${reduced_successor_list}
 
-Get_Owner_And_Successors_For_device
+Get_Owner_And_Successors_For_Device
     [Arguments]    ${device_name}    ${device_type}    ${member_index}
     [Documentation]    Returns the owner and a list of successors for the SB device ${device_name} of type ${device_type}. Request is sent to member ${member_index}.
     ...    Successors are those device candidates not elected as owner. The list of successors = (list of candidates) - (owner).
