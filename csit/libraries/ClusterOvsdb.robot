@@ -26,10 +26,10 @@ Check Ovsdb Shards Status After Cluster Event
     Wait Until Keyword Succeeds    90s    1s    Check Ovsdb Shards Status    ${controller_index_list}
 
 Get Ovsdb Entity Owner Status For One Device
-    [Arguments]    ${device}    ${controller_index}    ${controller_index_list}=${EMPTY}
+    [Arguments]    ${device}    ${controller_index}    ${controller_index_list}=${EMPTY}    ${down_index}=${EMPTY}    ${peer_down_status}=false
     [Documentation]    Check Entity Owner Status and identify owner and successors for an ovs device ${device}. Request is sent to controller ${controller_index}.
     ${owner}    ${successor_list}    Wait Until Keyword Succeeds    20s    1s    ClusterManagement.Verify_Owner_And_Successors_For_Device    device_name=${device}
-    ...    device_type=ovsdb    member_index=${controller_index}    candidate_list=${controller_index_list}
+    ...    device_type=ovsdb    member_index=${controller_index}    candidate_list=${controller_index_list}    ${down_index}    ${peer_down_status}
     [Return]    ${owner}    ${successor_list}
 
 Create Sample Bridge Manually And Verify

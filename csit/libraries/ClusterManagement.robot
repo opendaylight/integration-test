@@ -126,7 +126,7 @@ Get_Raft_State_Of_Shard_At_Member
     [Return]    ${raft_state}
 
 Verify_Owner_And_Successors_For_Device
-    [Arguments]    ${device_name}    ${device_type}    ${member_index}    ${candidate_list}=${EMPTY}
+    [Arguments]    ${device_name}    ${device_type}    ${member_index}    ${candidate_list}=${EMPTY}    ${down_index}=${EMPTY}    ${peer_down_status}=false
     [Documentation]    Returns the owner and successors for the SB device ${device_name} of type ${device_type}. Request is sent to member ${member_index}.
     ...    Extra check is done to verify owner and successors are within the ${candidate_list}. This KW is useful when combined with WUKS.
     ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${candidate_list}
@@ -134,6 +134,7 @@ Verify_Owner_And_Successors_For_Device
     Collections.List_Should_Contain_Value    ${index_list}    ${owner}    Owner ${owner} is not in candidate list ${index_list}
     ${expected_successor_list} =    BuiltIn.Create_List    @{index_list}
     Collections.Remove_Values_From_List    ${expected_successor_list}    ${owner}
+    BuiltIn.Run_Keyword_If    '${peer_down_status}' == 'true'    Collections.Remove_Values_From_List    ${expected_successor_list}    ${down_index}
     Collections.Lists_Should_Be_Equal    ${expected_successor_list}    ${successor_list}    Successor list ${successor_list} is not in candidate list ${index_list}
     [Return]    ${owner}    ${successor_list}
 
