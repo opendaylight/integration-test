@@ -118,6 +118,13 @@ Set Controller In OVS Bridge
     [Documentation]    Sets controller for a given OVS ${bridge} using controller options in ${controller_opt}
     Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl set-controller ${bridge} ${controller_opt}
 
+Check OVS OpenFlow Connections
+    [Arguments]    ${tools_system}    ${of_connections}
+    [Documentation]    Check OVS instance with IP ${tools_system} has ${of_connections} OpenFlow connections.
+    ${output}=    Utils.Run Command On Mininet    ${tools_system}    sudo ovs-vsctl show
+    Log    ${output}
+    BuiltIn.Should Contain X Times    ${output}    is_connected    ${of_connections}
+
 Add Multiple Managers to OVS
     [Arguments]    ${tools_system}=${TOOLS_SYSTEM_IP}    ${controller_index_list}=${EMPTY}    ${ovs_mgr_port}=6640
     [Documentation]    Connect OVS to the list of controllers in the ${controller_index_list} or all if no list is provided.

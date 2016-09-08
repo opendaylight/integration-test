@@ -55,7 +55,7 @@ End Suite
     ClusterManagement.Flush Iptables From List Or All
     RequestsLibrary.Delete All Sessions
     Utils.Stop Suite
-    # This sleep is required to properly deregister the switch.
+    # This sleep is so far required to properly deregister the switch.
     Sleep    5
 
 Are Switches Connected Topo
@@ -100,7 +100,7 @@ Isolate Switchs Old Owner
     ${new_master}=    BuiltIn.Wait Until Keyword Succeeds    10x    3s    Verify New Master Controller Node    ${switch_name}    ${old_master}
     ${owner}    ${followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
     Collections.List Should Contain Value    ${old_followers}    ${owner}
-    Check Count Integrity    ${switch_name}    expected_controllers=2
+    Check Count Integrity    ${switch_name}    expected_controllers=3
     BuiltIn.Should Be Equal As Strings    ${new_master}    ${ODL_SYSTEM_${owner}_IP}
     BuiltIn.Set Suite Variable    ${active_member}    ${owner}
     BuiltIn.Set Test Variable    ${old_owner}
@@ -126,10 +126,9 @@ Isolate Switchs Candidate
     ${old_slave}=    BuiltIn.Set Variable    ${ODL_SYSTEM_${old_follower}_IP}
     Isolate Controller From The Cluster    ${old_follower}
     BuiltIn.Set Test Variable    ${isol_cntl}    ${old_slave}
-    BuiltIn.Wait Until Keyword Succeeds    10x    3s    Check Count Integrity    ${switch_name}    expected_controllers=2
+    BuiltIn.Wait Until Keyword Succeeds    10x    3s    Check Count Integrity    ${switch_name}    expected_controllers=3
     ${owner}    ${followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
     BuiltIn.Should Be Equal    ${owner}    ${old_owner}
-    Collections.List Should Not Contain Value    ${followers}    ${old_follower}
     BuiltIn.Should Be Equal As Strings    ${new_master}    ${ODL_SYSTEM_${owner}_IP}
     BuiltIn.Set Test Variable    ${old_owner}
     BuiltIn.Set Test Variable    ${old_followers}
