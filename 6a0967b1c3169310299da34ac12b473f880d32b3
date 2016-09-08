@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_c7b4fa83",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-09-08T21:35:10Z",
+      "side": 1,
+      "message": "I just want to mark failure if there is but continue with execution so i can return some value to the suite. I think this KW does that right?",
+      "parentUuid": "7a6b29fe_cc39c1f3",
+      "range": {
+        "startLine": 134,
+        "startChar": 28,
+        "endLine": 134,
+        "endChar": 47
+      },
+      "revId": "6a0967b1c3169310299da34ac12b473f880d32b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_0c2739cb",
         "filename": "csit/libraries/ClusterOpenFlow.robot",
         "patchSetId": 3
