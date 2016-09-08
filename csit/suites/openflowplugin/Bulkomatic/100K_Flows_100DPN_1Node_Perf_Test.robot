@@ -5,9 +5,9 @@ Suite Teardown    Delete All Sessions
 Library           DateTime
 Library           OperatingSystem
 Resource          ../../../libraries/BulkomaticKeywords.robot
-Resource          ../../../libraries/MininetKeywords.robot
 Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/ClusterOpenFlow.robot
+Resource          ../../../libraries/Scalability.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
@@ -38,7 +38,7 @@ Initialize Variables
 
 Start Mininet And verify Switches
     [Documentation]    Start mininet.
-    ${mininet_conn_id}=    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    --topo linear,${switch_count} --switch ovsk,protocols=OpenFlow13
+    Scalability.Start Mininet Linear    100
     BuiltIn.Set Suite Variable    ${mininet_conn_id}
     BuiltIn.Wait Until Keyword Succeeds    ${mininet_timeout}    2s    ClusterOpenFlow.Verify_Switch_Connections_Running_On_Member    ${switch_count}    1
 
@@ -83,7 +83,7 @@ Verify Flows In Oper DS
 
 Stop Mininet And Verify
     [Documentation]    Stop mininet and exit connection.
-    MininetKeywords.Stop Mininet And Exit    ${mininet_conn_id}
+    Scalability.Stop Mininet Simulation
     BuiltIn.Wait Until Keyword Succeeds    ${mininet_timeout}    2s    ClusterOpenFlow.Verify_Switch_Connections_Running_On_Member    0    1
 
 Delete All Flows
