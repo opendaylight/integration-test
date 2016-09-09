@@ -55,6 +55,9 @@ Create Vm Instances For l2_network_2
 
 Ping Vm Instance1 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
+    Start Packet Capture    ${OS_CONTROL_NODE_IP}
+    Start Packet Capture    ${OS_COMPUTE_1_IP}
+    Start Packet Capture    ${OS_COMPUTE_2_IP}
     Get OvsDebugInfo
     Ping Vm From DHCP Namespace    l2_network_1    @{NET_1_VM_IPS}[0]
 
@@ -124,6 +127,9 @@ Connectivity Tests From Vm Instance3 In l2_network_2
     Log    ${dst_ip_list}
     Get OvsDebugInfo
     Test Operations From Vm Instance    l2_network_2    @{NET_2_VM_IPS}[2]    ${dst_ip_list}
+    Stop Packet Capture and Log Trace   ${OS_CONTROL_NODE_IP}
+    Stop Packet Capture and Log Trace   ${OS_COMPUTE_1_IP}
+    Stop Packet Capture and Log Trace   ${OS_COMPUTE_2_IP}
 
 Delete A Vm Instance
     [Documentation]    Delete Vm instances using instance names.
