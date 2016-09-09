@@ -17,7 +17,7 @@ Documentation     Nexus repository access keywords, and supporting Java and Mave
 Library           OperatingSystem
 Library           SSHLibrary
 Library           String
-Resource          SSHKeywords.robot
+Resource          ${CURDIR}/SSHKeywords.robot
 
 *** Variables ***
 ${JDKVERSION}     None
@@ -71,7 +71,7 @@ NexusKeywords__Detect_Version_To_Pull
     SSHKeywords.Open_Connection_To_ODL_System
     ${version}    ${result} =    SSHLibrary.Execute_Command    sh search.sh ${WORKSPACE}/${BUNDLEFOLDER}/system ${itemlist}    return_rc=True
     SSHLibrary.Close_Connection
-    Restore Current SSH Connection From Index    ${current_ssh_connection.index}
+    SSHKeywords.Restore Current SSH Connection From Index    ${current_ssh_connection.index}
     BuiltIn.Log    ${version}
     BuiltIn.Run_Keyword_If    ${result}!=0    BuiltIn.Fail    Component "${component}" not found, cannot locate test tool
     ${version}    ${location} =    String.Split_String    ${version}    max_split=1
