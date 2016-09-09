@@ -407,3 +407,16 @@ Create Security Rule
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron security-group-rule-create --direction ${direction} --protocol ${protocol} --port-range-min ${min_port} --port-range-max ${max_port} --remote-ip-prefix ${remote_ip} ${sg_name}
     Close Connection
+
+Start Packet Capture
+    [Arguments]    ${system_ip}    ${network_adapter}=eth0
+    [Documentation]    start packet capture and write to a file
+    Run Command On Remote System    ${system_ip}    sudo /usr/sbin/tcpdump -vvv -ni ${network_adapter} -w trace.pcap &
+
+Stop Packet Capture and Log Trace
+    [Arguments]    ${system_ip}
+    [Documentation]    stop tcpdump process and log the contents of the trace file
+    Run Command On Remote System    ${system_ip}    sudo ps -elf | grep tcpdump
+    Run Command On Remote System    ${system_ip}    sudo kill `pgrep tcpdump`
+    ${output}=    Run Command On Remote System    ${system_ip}    sudo /usr/sbin/tcpdump -rn trace.pcap
+    Log    ${output}
