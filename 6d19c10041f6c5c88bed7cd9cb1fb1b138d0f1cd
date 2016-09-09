@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_82df8d0c",
+        "filename": "csit/suites/netvirt/Netvirt_Scale/010_netvirt_scale.robot",
+        "patchSetId": 45
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-09-09T22:16:29Z",
+      "side": 1,
+      "message": "I\u0027m really surprised we don\u0027t have these in some lib\nalready, but looks like we don\u0027t.  when you get things\nreally going I\u0027d put these in a common lib, maybe even\nthe openstackoperations.robot lib.",
+      "range": {
+        "startLine": 139,
+        "startChar": 0,
+        "endLine": 173,
+        "endChar": 58
+      },
+      "revId": "6d19c10041f6c5c88bed7cd9cb1fb1b138d0f1cd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
