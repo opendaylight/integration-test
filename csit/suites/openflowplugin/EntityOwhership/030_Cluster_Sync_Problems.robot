@@ -10,6 +10,7 @@ Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/OvsManager.robot
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/ClusterOpenFlow.robot
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Library           Collections
 
 *** Variables ***
@@ -46,15 +47,18 @@ Switches To Be Connected To All Nodes
 
 Isolating Owner Of Switch s1
     s1
+    [Teardown]    Report_Failure_Due_To_Bug    6540
 
 Switches Still Be Connected To All Nodes
     [Template]    NONE
     BuiltIn.Wait Until Keyword Succeeds    15x    1s    Check All Switches Connected To All Cluster Nodes
+    [Teardown]    Report_Failure_Due_To_Bug    6540
 
 Stop Mininet And Verify No Owners
     [Template]    NONE
     Utils.Stop Suite
     BuiltIn.Wait Until Keyword Succeeds    15x    1s    Check No Owners In Controller
+    [Teardown]    Report_Failure_Due_To_Bug    6540
 
 *** Keywords ***
 Start Suite
@@ -107,7 +111,8 @@ Isolate Switchs Old Owner
     ${new_master}=    BuiltIn.Wait Until Keyword Succeeds    10x    3s    Verify New Master Controller Node    ${switch_name}    ${old_master}
     ${owner}    ${followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
     Collections.List Should Contain Value    ${old_followers}    ${owner}
-    BuiltIn.Wait Until Keyword Succeeds    10x    3s    Check Count Integrity    ${switch_name}    expected_controllers=3
+    ${expected_controllers}=    CompareStream.Set_Variable_If_At_Least_Boron    3    2
+    BuiltIn.Wait Until Keyword Succeeds    10x    3s    Check Count Integrity    ${switch_name}    expected_controllers=${expected_controllers}
     BuiltIn.Should Be Equal As Strings    ${new_master}    ${ODL_SYSTEM_${owner}_IP}
     BuiltIn.Set Suite Variable    ${active_member}    ${owner}
     BuiltIn.Set Test Variable    ${old_owner}
@@ -137,7 +142,8 @@ Isolate Switchs Candidate
     Isolate Controller From The Cluster    ${old_follower}
     ClusterOpenFlow.Check OpenFlow Shards Status After Cluster Event    ${tmp_members}
     BuiltIn.Set Test Variable    ${isol_cntl}    ${old_slave}
-    BuiltIn.Wait Until Keyword Succeeds    10x    3s    Check Count Integrity    ${switch_name}    expected_controllers=3
+    ${expected_controllers}=    CompareStream.Set_Variable_If_At_Least_Boron    3    2
+    BuiltIn.Wait Until Keyword Succeeds    10x    3s    Check Count Integrity    ${switch_name}    expected_controllers=${expected_controllers}
     ${owner}    ${followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
     BuiltIn.Should Be Equal    ${owner}    ${old_owner}
     BuiltIn.Should Be Equal As Strings    ${new_master}    ${ODL_SYSTEM_${owner}_IP}
