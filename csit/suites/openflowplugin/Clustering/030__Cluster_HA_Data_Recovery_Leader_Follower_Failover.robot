@@ -5,11 +5,11 @@ Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
 Resource          ../../../libraries/ClusterOpenFlow.robot
 Resource          ../../../libraries/ClusterManagement.robot
+Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../libraries/MininetKeywords.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${flow_count_per_switch}    2
 ${switch_count_per_node}    1
 ${operation_timeout}    15s
 
@@ -17,6 +17,8 @@ ${operation_timeout}    15s
 Check Shards Status Before Leader Restart
     [Documentation]    Check Status for all shards in OpenFlow application.
     ClusterOpenFlow.Check OpenFlow Shards Status
+    ${flow_count_per_switch}=    CompareStream.Set_Variable_If_At_Least_Boron    2    1
+    Set Suite Variable    ${flow_count_per_switch}
 
 Get inventory Leader Before Leader Restart
     [Documentation]    Find leader in the inventory config shard

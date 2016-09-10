@@ -9,6 +9,7 @@ Library           XML
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/OvsManager.robot
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Library           Collections
 
 *** Variables ***
@@ -96,7 +97,8 @@ Kill Switchs Old Owner
     ${new_master}=    BuiltIn.Wait Until Keyword Succeeds    5x    3s    Verify New Master Controller Node    ${switch_name}    ${old_master}
     ${owner}    ${followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
     Collections.List Should Contain Value    ${old_followers}    ${owner}
-    Check Count Integrity    ${switch_name}    expected_controllers=3
+    ${expected_controllers}=    CompareStream.Set_Variable_If_At_Least_Boron    3    2
+    BuiltIn.Wait Until Keyword Succeeds    5x    3s    Check Count Integrity    ${switch_name}    expected_controllers=${expected_controllers}
     BuiltIn.Should Be Equal As Strings    ${new_master}    ${ODL_SYSTEM_${owner}_IP}
     BuiltIn.Set Suite Variable    ${active_member}    ${owner}
     BuiltIn.Set Test Variable    ${old_owner}
@@ -111,7 +113,7 @@ Restart Switchs Old Owner
     BuiltIn.Set Test Variable    ${stopped_karaf}    ${Empty}
     BuiltIn.Wait Until Keyword Succeeds    5x    3s    Verify Follower Added    ${switch_name}    ${old_owner}
     ${new_owner}    ${new_followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
-    Check Count Integrity    ${switch_name}    expected_controllers=3
+    BuiltIn.Wait Until Keyword Succeeds    5x    3s    Check Count Integrity    ${switch_name}    expected_controllers=3
     BuiltIn.Should Be Equal    ${owner}    ${new_owner}
     Collections.List Should Contain Value    ${new_followers}    ${old_owner}
 
@@ -122,7 +124,8 @@ Kill Switchs Candidate
     ${old_slave}=    BuiltIn.Set Variable    ${ODL_SYSTEM_${old_follower}_IP}
     Stop Controller Node And Verify    ${old_follower}
     BuiltIn.Set Test Variable    ${stopped_karaf}    ${old_follower}
-    BuiltIn.Wait Until Keyword Succeeds    5x    3s    Check Count Integrity    ${switch_name}    expected_controllers=3
+    ${expected_controllers}=    CompareStream.Set_Variable_If_At_Least_Boron    3    2
+    BuiltIn.Wait Until Keyword Succeeds    5x    3s    Check Count Integrity    ${switch_name}    expected_controllers=${expected_controllers}
     ${owner}    ${followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
     BuiltIn.Should Be Equal    ${owner}    ${old_owner}
     BuiltIn.Should Be Equal As Strings    ${new_master}    ${ODL_SYSTEM_${owner}_IP}
