@@ -13,6 +13,7 @@ Library           RequestsLibrary
 Library           DateTime
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Scalability.robot
+Resource          ../../../libraries/KarafKeywords.robot
 
 *** Variables ***
 ${NUM_SWITCHES}    200
