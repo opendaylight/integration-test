@@ -9,6 +9,7 @@ Library           XML
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/OvsManager.robot
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
+Resource          ${CURDIR}/../../../libraries/ClusterOpenFlow.robot
 Library           Collections
 
 *** Variables ***
@@ -19,21 +20,8 @@ ${START_CMD}      sudo mn --topo linear,${SWITCHES} --switch ovsk,protocols=Open
 @{cntls_idx_list}    ${1}    ${2}    ${3}
 
 *** Test Cases ***
-Switches To Be Connected To All Nodes
-    [Documentation]    Initial check for correct connected topology.
+Start Mininet To All Mebers
     [Template]    NONE
-    BuiltIn.Wait Until Keyword Succeeds    5x    3s    Check All Switches Connected To All Cluster Nodes
-
-Isolating Owner Of Switch s1
-    s1
-
-Switches Still Be Connected To All Nodes
-    [Template]    NONE
-    BuiltIn.Wait Until Keyword Succeeds    5x    3s    Check All Switches Connected To All Cluster Nodes
-
-*** Keywords ***
-Start Suite
-    ClusterManagement.ClusterManagement Setup
     ${mininet_conn_id}=    SSHLibrary.Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${TOOLS_SYSTEM_PROMPT}
     BuiltIn.Set Suite Variable    ${mininet_conn_id}
     SSHLibrary.Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/id_rsa    any
@@ -49,14 +37,32 @@ Start Suite
     \    Collections.Append To List    ${switch_list}    s${sid}
     BuiltIn.Set Suite Variable    ${active_member}    1
     OvsManager.Setup Clustered Controller For Switches    ${switch_list}    ${cntls_list}
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Are Switches Connected Topo
+    BuiltIn.Wait Until Keyword Succeeds    15s    1s    Are Switches Connected Topo
+
+Switches To Be Connected To All Nodes
+    [Documentation]    Initial check for correct connected topology.
+    [Template]    NONE
+    BuiltIn.Wait Until Keyword Succeeds    15x    1s    Check All Switches Connected To All Cluster Nodes
+
+Isolating Owner Of Switch s1
+    s1
+
+Switches Still Be Connected To All Nodes
+    [Template]    NONE
+    BuiltIn.Wait Until Keyword Succeeds    15x    1s    Check All Switches Connected To All Cluster Nodes
+
+Stop Mininet And Verify
+    [Template]    NONE
+    Utils.Stop Suite
+    BuiltIn.Wait Until Keyword Succeeds    15x    1s    Check No Owners In Controller
+
+*** Keywords ***
+Start Suite
+    ClusterManagement.ClusterManagement Setup
 
 End Suite
     ClusterManagement.Flush Iptables From List Or All
     RequestsLibrary.Delete All Sessions
-    Utils.Stop Suite
-    # This sleep is so far required to properly deregister the switch.
-    Sleep    5
 
 Are Switches Connected Topo
     [Documentation]    Checks wheather switches are connected to controller
@@ -96,11 +102,12 @@ Isolate Switchs Old Owner
     ${tmp_follower}=    Collections.Get From List    ${tmp_followers}    0
     BuiltIn.Set Suite Variable    ${active_member}    ${tmp_follower}
     Isolate Controller From The Cluster    ${old_owner}
+    ClusterOpenFlow.Check OpenFlow Shards Status After Cluster Event    ${tmp_followers}
     BuiltIn.Set Test Variable    ${isol_node}    ${old_owner}
     ${new_master}=    BuiltIn.Wait Until Keyword Succeeds    10x    3s    Verify New Master Controller Node    ${switch_name}    ${old_master}
     ${owner}    ${followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
     Collections.List Should Contain Value    ${old_followers}    ${owner}
-    Check Count Integrity    ${switch_name}    expected_controllers=3
+    BuiltIn.Wait Until Keyword Succeeds    10x    3s    Check Count Integrity    ${switch_name}    expected_controllers=3
     BuiltIn.Should Be Equal As Strings    ${new_master}    ${ODL_SYSTEM_${owner}_IP}
     BuiltIn.Set Suite Variable    ${active_member}    ${owner}
     BuiltIn.Set Test Variable    ${old_owner}
@@ -112,10 +119,11 @@ Isolate Switchs Old Owner
 Rejoin Switchs Old Owner
     [Arguments]    ${switch_name}
     Rejoin Controller To The Cluster    ${old_owner}
+    ClusterOpenFlow.Check OpenFlow Shards Status After Cluster Event
     BuiltIn.Set Test Variable    ${isol_node}    ${Empty}
-    BuiltIn.Wait Until Keyword Succeeds    10x    3s    Verify Follower Added    ${switch_name}    ${old_owner}
+    BuiltIn.Wait Until Keyword Succeeds    20x    3s    Verify Follower Added    ${switch_name}    ${old_owner}
     ${new_owner}    ${new_followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
-    Check Count Integrity    ${switch_name}    expected_controllers=3
+    BuiltIn.Wait Until Keyword Succeeds    10x    3s    Check Count Integrity    ${switch_name}    expected_controllers=3
     BuiltIn.Should Be Equal    ${owner}    ${new_owner}
     Collections.List Should Contain Value    ${new_followers}    ${old_owner}
 
@@ -124,7 +132,10 @@ Isolate Switchs Candidate
     ${old_owner}    ${old_followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
     ${old_follower}=    Collections.Get From List    ${old_followers}    0
     ${old_slave}=    BuiltIn.Set Variable    ${ODL_SYSTEM_${old_follower}_IP}
+    ${tmp_members}=    BuiltIn.Create List    @{ClusterManagement__member_index_list}
+    Collections.Remove Values From List    ${tmp_members}    ${old_follower}
     Isolate Controller From The Cluster    ${old_follower}
+    ClusterOpenFlow.Check OpenFlow Shards Status After Cluster Event    ${tmp_members}
     BuiltIn.Set Test Variable    ${isol_cntl}    ${old_slave}
     BuiltIn.Wait Until Keyword Succeeds    10x    3s    Check Count Integrity    ${switch_name}    expected_controllers=3
     ${owner}    ${followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
@@ -139,6 +150,8 @@ Isolate Switchs Candidate
 Rejoin Switchs Candidate
     [Arguments]    ${switch_name}
     Rejoin Controller To The Cluster    ${old_follower}
+    ClusterOpenFlow.Check OpenFlow Shards Status After Cluster Event
+    BuiltIn.Wait Until Keyword Succeeds    20x    3s    Verify Follower Added    ${switch_name}    ${old_follower}
     BuiltIn.Set Test Variable    ${isol_node}    ${Empty}
     BuiltIn.Wait Until Keyword Succeeds    10x    3s    Check Count Integrity    ${switch_name}    expected_controllers=3
     ${new_owner}    ${new_followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
@@ -162,6 +175,12 @@ Check Count Integrity
     ${owner}    ${candidates}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
     ${count}=    BuiltIn.Get Length    ${candidates}
     BuiltIn.Should Be Equal As Numbers    ${expected_controllers}    ${count}
+
+Check No Owners In Controller
+    [Documentation]    Check there is no owners in controllers
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${active_member}
+    ${data} =    TemplatedRequests.Get_As_Json_From_Uri    uri=${ENTITY_OWNER_URI}    session=${session}
+    BuiltIn.Should Not Contain    ${data}    member
 
 Verify New Master Controller Node
     [Arguments]    ${switch_name}    ${old_master}
