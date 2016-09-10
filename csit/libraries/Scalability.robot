@@ -254,6 +254,7 @@ Stop Mininet Simulation
     Write    exit
     Read Until    ${DEFAULT_LINUX_PROMPT}
     Close Connection
+    Sleep    6
 
 Scalability Suite Teardown
     Delete All Sessions
