@@ -17,6 +17,7 @@ Resource          ../../../libraries/Scalability.robot
 *** Variables ***
 ${NUM_SWITCHES}    200
 ${TEST_LENGTH}    2 hours
+${KARAF_LOG_LEVEL}    ERROR
 
 *** Test Cases ***
 Longevity Test
@@ -54,6 +55,7 @@ Longevity Suite Setup
     [Documentation]    In addtion to opening the REST session to the controller, the ${end_time} that this
     ...    test should not exceed is calculated and made in to a suite wide variable.
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+    KarafKeywords.Issue Command On Karaf Console    log:set    ${KARAF_LOG_LEVEL}
     ${start_time}=    Get Current Date
     ${end_time}=    Add Time To Date    ${start_time}    ${TEST_LENGTH}
     ${end_time}=    Convert Date    ${end_time}    epoch
