@@ -16,28 +16,28 @@ Check Shards Status Before Fail
 Start Mininet Multiple Connections
     [Documentation]    Start mininet tree,2 with connection to all cluster instances.
     ${mininet_conn_id}=    MininetKeywords.Start Mininet Multiple Controllers    ${TOOLS_SYSTEM_IP}    ${ClusterManagement__member_index_list}    --topo tree,2 --switch ovsk,protocols=OpenFlow13
-    Set Suite Variable    ${mininet_conn_id}
-    Wait Until Keyword Succeeds    10s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    9
+    BuiltIn.Set Suite Variable    ${mininet_conn_id}
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    9
 
 Check Entity Owner Status And Find Owner and Candidate Before Fail
     [Documentation]    Check Entity Owner Status and identify owner and candidate for first switch s1.
     ${original_owner}    ${original_candidate_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    1
-    ${original_candidate}=    Get From List    ${original_candidate_list}    0
-    Set Suite Variable    ${original_owner}
-    Set Suite Variable    ${original_candidate_list}
-    Set Suite Variable    ${original_candidate}
+    ${original_candidate}=    Collections.Get From List    ${original_candidate_list}    0
+    BuiltIn.Set Suite Variable    ${original_owner}
+    BuiltIn.Set Suite Variable    ${original_candidate_list}
+    BuiltIn.Set Suite Variable    ${original_candidate}
 
-Reconnect Extra Switches To Candidate And Check Entity Owner
-    [Documentation]    Connect switches s2 and s3 to candidate instance.
-    OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s2    tcp:${ODL_SYSTEM_${original_candidate}_IP}:6633
-    OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s3    tcp:${ODL_SYSTEM_${original_candidate}_IP}:6633
-    Wait Until Keyword Succeeds    10s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    5
-    ${member_list} =    BuiltIn.Run_Keyword_If    '${ODL_STREAM}' != 'beryllium' and '${ODL_OF_PLUGIN}' == 'lithium'    Create List    @{ClusterManagement__member_index_list}
+Reconnect Extra Switches To Candidates And Check OVS Connections
+    [Documentation]    Connect switches s2 and s3 to candidate instances.
+    ${candidate_list} =    BuiltIn.Run_Keyword_If    '${ODL_STREAM}' != 'beryllium' and '${ODL_OF_PLUGIN}' == 'lithium'    Create List    @{ClusterManagement__member_index_list}
     ...    ELSE    Create List    ${original_candidate}
-    Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check OpenFlow Device Owner    openflow:2    1    ${original_candidate}
-    ...    ${member_list}
-    Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check OpenFlow Device Owner    openflow:3    1    ${original_candidate}
-    ...    ${member_list}
+    ${controller_opt} =    BuiltIn.Set Variable
+    : FOR    ${index}    IN    @{original_candidate_list}
+    \    ${controller_opt} =    BuiltIn.Catenate    ${controller_opt}    ${SPACE}tcp:${ODL_SYSTEM_${index}_IP}:${ODL_OF_PORT}
+    \    Log    ${controller_opt}
+    OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s2    ${controller_opt}
+    OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s3    ${controller_opt}
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    7
 
 Check Network Operational Information Before Fail
     [Documentation]    Check devices in operational inventory and topology in all cluster instances.
@@ -94,7 +94,7 @@ Restore Network And Verify Before Fail
 Kill Owner Instance
     [Documentation]    Kill Owner Instance and verify it is dead
     ClusterManagement.Kill Single Member    ${original_owner}
-    Set Suite Variable    ${new_cluster_list}    ${original_candidate_list}
+    BuiltIn.Set Suite Variable    ${new_cluster_list}    ${original_candidate_list}
 
 Check Shards Status After Fail
     [Documentation]    Create original cluster list and check Status for all shards in OpenFlow application.
@@ -103,9 +103,9 @@ Check Shards Status After Fail
 Check Entity Owner Status And Find Owner and Candidate After Fail
     [Documentation]    Check Entity Owner Status and identify owner and candidate.
     ${new_owner}    ${new_candidate_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    ${original_candidate}    ${new_cluster_list}
-    ${new_candidate}=    Get From List    ${new_candidate_list}    0
-    Set Suite Variable    ${new_owner}
-    Set Suite Variable    ${new_candidate}
+    ${new_candidate}=    Collections.Get From List    ${new_candidate_list}    0
+    BuiltIn.Set Suite Variable    ${new_owner}
+    BuiltIn.Set Suite Variable    ${new_candidate}
 
 Check Network Operational Information After Fail
     [Documentation]    Check devices in operational inventory and topology in all cluster instances.
@@ -170,7 +170,7 @@ Check Shards Status After Recover
 Check Entity Owner Status After Recover
     [Documentation]    Check Entity Owner Status and identify owner and candidate.
     ${new_owner}    ${new_candidates_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    1
-    Set Suite Variable    ${new_owner}
+    BuiltIn.Set Suite Variable    ${new_owner}
 
 Check Network Operational Information After Recover
     [Documentation]    Check devices in operational inventory and topology in all cluster instances.
