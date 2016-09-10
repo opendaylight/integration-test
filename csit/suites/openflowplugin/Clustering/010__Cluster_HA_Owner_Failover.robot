@@ -29,15 +29,16 @@ Check Entity Owner Status And Find Owner and Candidate Before Fail
 
 Reconnect Extra Switches To Candidate And Check Entity Owner
     [Documentation]    Connect switches s2 and s3 to candidate instance.
+    ${candidate_list} =    BuiltIn.Run_Keyword_If    '${ODL_STREAM}' != 'beryllium' and '${ODL_OF_PLUGIN}' == 'lithium'    Create List    @{ClusterManagement__member_index_list}
+    ...    ELSE    Create List    ${original_candidate}
     OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s2    tcp:${ODL_SYSTEM_${original_candidate}_IP}:6633
+    Wait Until Keyword Succeeds    10s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    7
+    Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check OpenFlow Device Owner    openflow:2    1    ${original_candidate}
+    ...    ${candidate_list}
     OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s3    tcp:${ODL_SYSTEM_${original_candidate}_IP}:6633
     Wait Until Keyword Succeeds    10s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    5
-    ${member_list} =    BuiltIn.Run_Keyword_If    '${ODL_STREAM}' != 'beryllium' and '${ODL_OF_PLUGIN}' == 'lithium'    Create List    @{ClusterManagement__member_index_list}
-    ...    ELSE    Create List    ${original_candidate}
-    Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check OpenFlow Device Owner    openflow:2    1    ${original_candidate}
-    ...    ${member_list}
     Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check OpenFlow Device Owner    openflow:3    1    ${original_candidate}
-    ...    ${member_list}
+    ...    ${candidate_list}
 
 Check Network Operational Information Before Fail
     [Documentation]    Check devices in operational inventory and topology in all cluster instances.
