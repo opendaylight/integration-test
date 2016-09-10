@@ -28,16 +28,16 @@ Check Entity Owner Status And Find Owner and Candidate Before Fail
     Set Suite Variable    ${original_candidate}
 
 Reconnect Extra Switches To Candidate And Check Entity Owner
-    [Documentation]    Connect switches s2 and s3 to candidate instance.
-    OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s2    tcp:${ODL_SYSTEM_${original_candidate}_IP}:6633
-    OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s3    tcp:${ODL_SYSTEM_${original_candidate}_IP}:6633
-    Wait Until Keyword Succeeds    10s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    5
-    ${member_list} =    BuiltIn.Run_Keyword_If    '${ODL_STREAM}' != 'beryllium' and '${ODL_OF_PLUGIN}' == 'lithium'    Create List    @{ClusterManagement__member_index_list}
+    [Documentation]    Connect switches s2 and s3 to candidate instances.
+    ${candidate_list} =    BuiltIn.Run_Keyword_If    '${ODL_STREAM}' != 'beryllium' and '${ODL_OF_PLUGIN}' == 'lithium'    Create List    @{ClusterManagement__member_index_list}
     ...    ELSE    Create List    ${original_candidate}
-    Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check OpenFlow Device Owner    openflow:2    1    ${original_candidate}
-    ...    ${member_list}
-    Wait Until Keyword Succeeds    10s    1s    ClusterOpenFlow.Check OpenFlow Device Owner    openflow:3    1    ${original_candidate}
-    ...    ${member_list}
+    ${controller_opt}=    Set Variable
+    : FOR    ${index}    IN    @{original_candidate_list}
+    \    ${controller_opt}=    Catenate    ${controller_opt}    ${SPACE}tcp:${ODL_SYSTEM_${index}_IP}:${ODL_OF_PORT}
+    \    Log    ${controller_opt}
+    OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s2    ${controller_opt}
+    OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s3    ${controller_opt}
+    Wait Until Keyword Succeeds    10s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    7
 
 Check Network Operational Information Before Fail
     [Documentation]    Check devices in operational inventory and topology in all cluster instances.

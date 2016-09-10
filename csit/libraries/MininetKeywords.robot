@@ -24,7 +24,7 @@ Start Mininet Single Controller
     [Return]    ${mininet_conn_id}
 
 Start Mininet Multiple Controllers
-    [Arguments]    ${mininet}    ${controller_index_list}=${EMPTY}    ${options}=--topo tree,1 --switch ovsk,protocols=OpenFlow13    ${custom}=${EMPTY}    ${ofport}=6633
+    [Arguments]    ${mininet}    ${controller_index_list}=${EMPTY}    ${options}=--topo tree,1 --switch ovsk,protocols=OpenFlow13    ${custom}=${EMPTY}    ${ofport}=${ODL_OF_PORT}
     [Documentation]    Start Mininet with custom topology and connect to list of controllers in ${controller_index_list} or all if no list is provided.
     ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${controller_index_list}
     Log    Clear any existing mininet
