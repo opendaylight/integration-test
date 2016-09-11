@@ -17,6 +17,7 @@ Resource          ../../../libraries/KarafKeywords.robot
 
 *** Variables ***
 ${NUM_SWITCHES}    200
+${SUSTAIN_TIME}    60
 ${TEST_LENGTH}    2 hours
 ${KARAF_LOG_LEVEL}    ERROR
 
@@ -27,7 +28,7 @@ Longevity Test
     : FOR    ${i}    IN RANGE    1    65536
     \    ${expiration_flag}=    Check If There Is A Reason To Exit Test Or If Duration Has Expired
     \    Exit For Loop If    "${expiration_flag}" == "True"
-    \    ${switch_count}=    Find Max Switches    ${NUM_SWITCHES}    ${NUM_SWITCHES}    ${NUM_SWITCHES}
+    \    ${switch_count}=    Find Max Switches    ${NUM_SWITCHES}    ${NUM_SWITCHES}    ${NUM_SWITCHES}    ${SUSTAIN_TIME}
     \    Check If There Is A Reason To Exit Test Or If Duration Has Expired    ${switch_count}    ${NUM_SWITCHES}    Switch count not correct
 
 *** Keywords ***
@@ -56,7 +57,7 @@ Longevity Suite Setup
     [Documentation]    In addtion to opening the REST session to the controller, the ${end_time} that this
     ...    test should not exceed is calculated and made in to a suite wide variable.
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    KarafKeywords.Issue Command On Karaf Console    log:set ${KARAF_LOG_LEVEL}
+    Wait Until Keyword Succeeds    3x    1s    KarafKeywords.Issue Command On Karaf Console    log:set ${KARAF_LOG_LEVEL}
     ${start_time}=    Get Current Date
     ${end_time}=    Add Time To Date    ${start_time}    ${TEST_LENGTH}
     ${end_time}=    Convert Date    ${end_time}    epoch

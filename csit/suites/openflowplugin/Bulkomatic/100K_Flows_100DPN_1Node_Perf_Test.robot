@@ -28,7 +28,7 @@ ${time_results_file}    time.csv
 *** Test Cases ***
 Initialize Variables
     [Documentation]    Check Status for all shards in OpenFlow application and set the logs across cluster nodes.
-    ClusterManagement.Run_Karaf_Command_On_List_Or_All    ${karaf_log_level}
+    Wait Until Keyword Succeeds    3x    3s    ClusterManagement.Run_Karaf_Command_On_List_Or_All    ${karaf_log_level}
     ${temp_json_config_add}    BulkomaticKeywords.Set DPN And Flow Count In Json Add    ${orig_json_config_add}    ${switch_count}    ${flow_count_per_switch}
     ${temp_json_config_get}    BulkomaticKeywords.Set DPN And Flow Count In Json Get    ${orig_json_config_get}    ${switch_count}    ${flow_count_after_add}
     ${temp_json_config_del}    BulkomaticKeywords.Set DPN And Flow Count In Json Del    ${orig_json_config_del}    ${switch_count}    ${flow_count_per_switch}
