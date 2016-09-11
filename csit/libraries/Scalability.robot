@@ -9,8 +9,9 @@ Library           SwitchClasses/BaseSwitch.py
 
 *** Keywords ***
 Find Max Switches
-    [Arguments]    ${start}    ${stop}    ${step}
-    [Documentation]    Will find out max switches starting from ${start} till reaching ${stop} and in steps defined by ${step}
+    [Arguments]    ${start}    ${stop}    ${step}    ${sustain_time}=60
+    [Documentation]    Will find out max switches starting from ${start} till reaching ${stop} and in steps defined by ${step}.
+    ...    The network is hold for ${sustain_time} seconds after everything is checked successful.
     ${max-switches}    Set Variable    ${0}
     Set Suite Variable    ${max-switches}
     ${start}    Convert to Integer    ${start}
@@ -27,6 +28,7 @@ Find Max Switches
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
     \    ...    Check Linear Topology    ${switches}
     \    Exit For Loop If    '${status}' == 'FAIL'
+    \    Sleep    ${sustain_time}
     \    ${status}    ${result}    Run Keyword And Ignore Error    Stop Mininet Simulation
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
@@ -36,11 +38,13 @@ Find Max Switches
     \    ...    Check No Topology    ${switches}
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${max-switches}    Convert To String    ${switches}
+    \    Sleep    ${sustain_time}
     [Return]    ${max-switches}
 
 Find Max Links
-    [Arguments]    ${begin}    ${stop}    ${step}
-    [Documentation]    Will find out max switches in fully mesh topology starting from ${start} till reaching ${stop} and in steps defined by ${step}
+    [Arguments]    ${begin}    ${stop}    ${step}    ${sustain_time}=5
+    [Documentation]    Will find out max switches in fully mesh topology starting from ${start} till reaching ${stop} and in steps defined by ${step}.
+    ...    The network is hold for ${sustain_time} seconds after everything is checked successful.
     ${max_switches}    Set Variable    ${0}
     ${stop}    Convert to Integer    ${stop}
     ${step}    Convert to Integer    ${step}
@@ -59,6 +63,7 @@ Find Max Links
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120    10s
     \    ...    Check Number Of Links    ${max-links}
     \    Exit For Loop If    '${status}' == 'FAIL'
+    \    Sleep    ${sustain_time}
     \    ${status}    ${result}    Run Keyword And Ignore Error    Stop Mininet Simulation
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120    10s
@@ -68,12 +73,14 @@ Find Max Links
     \    ...    Check No Topology    ${switches}
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${max_switches}    Set Variable    ${switches}
+    \    Sleep    ${sustain_time}
     ${max-links}=    Evaluate    ${max_switches}*${max_switches-1}
     [Return]    ${max-links}
 
 Find Max Hosts
-    [Arguments]    ${begin}    ${stop}    ${step}
-    [Documentation]    Will find out max hosts starting from ${begin} till reaching ${stop} and in steps defined by ${step}
+    [Arguments]    ${begin}    ${stop}    ${step}    ${sustain_time}=5
+    [Documentation]    Will find out max hosts starting from ${begin} till reaching ${stop} and in steps defined by ${step}.
+    ...    The network is hold for ${sustain_time} seconds after everything is checked successful.
     ${max-hosts}    Set Variable    ${0}
     ${stop}    Convert to Integer    ${stop}
     ${step}    Convert to Integer    ${step}
@@ -91,6 +98,7 @@ Find Max Hosts
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120s    30s
     \    ...    Check Number Of Hosts    ${hosts}
     \    Exit For Loop If    '${status}' == 'FAIL'
+    \    Sleep    ${sustain_time}
     \    ${status}    ${result}    Run Keyword And Ignore Error    Stop Mininet Simulation
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${status}    ${result}    Run Keyword And Ignore Error    Check No Switches    ${1}
@@ -98,6 +106,7 @@ Find Max Hosts
     \    ${status}    ${result}    Run Keyword And Ignore Error    Check No Hosts
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${max-hosts}    Convert To String    ${hosts}
+    \    Sleep    ${sustain_time}
     [Return]    ${max-hosts}
 
 Get Mininet Hosts
@@ -178,7 +187,6 @@ Start Mininet Linear
     Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     Write    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --topo linear,${switches} --switch ovsk,protocols=OpenFlow13
     Read Until    mininet>
-    Sleep    6
 
 Start Mininet With Custom Topology
     [Arguments]    ${topology_file}    ${switches}    ${base_mac}=00:00:00:00:00:00    ${base_ip}=1.1.1.1    ${hosts}=0    ${mininet_start_time}=100
@@ -254,7 +262,6 @@ Stop Mininet Simulation
     Write    exit
     Read Until    ${DEFAULT_LINUX_PROMPT}
     Close Connection
-    Sleep    6
 
 Scalability Suite Teardown
     Delete All Sessions

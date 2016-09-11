@@ -17,6 +17,7 @@ Resource          ../../../libraries/KarafKeywords.robot
 
 *** Variables ***
 ${NUM_SWITCHES}    200
+${SUSTAIN_TIME}    60
 ${TEST_LENGTH}    2 hours
 ${KARAF_LOG_LEVEL}    ERROR
 
@@ -27,7 +28,7 @@ Longevity Test
     : FOR    ${i}    IN RANGE    1    65536
     \    ${expiration_flag}=    Check If There Is A Reason To Exit Test Or If Duration Has Expired
     \    Exit For Loop If    "${expiration_flag}" == "True"
-    \    ${switch_count}=    Find Max Switches    ${NUM_SWITCHES}    ${NUM_SWITCHES}    ${NUM_SWITCHES}
+    \    ${switch_count}=    Find Max Switches    ${NUM_SWITCHES}    ${NUM_SWITCHES}    ${NUM_SWITCHES}    ${SUSTAIN_TIME}
     \    Check If There Is A Reason To Exit Test Or If Duration Has Expired    ${switch_count}    ${NUM_SWITCHES}    Switch count not correct
 
 *** Keywords ***
