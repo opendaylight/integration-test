@@ -44,8 +44,8 @@ Create JVM Plots
     \    Log    ${controller-ip}
     \    ${session}    ElasticsearchAppender.Get_Connection    ${controller-ip}    ${elastic-port}
     \    Log    ${session}
-    \    ElasticsearchAppender.Plot Points    ${session}    JVM ThreadCount    threadcount_${index}.png    'Threading'    'TotalStartedThreadCount'
+    \    ElasticsearchAppender.Plot Points    ${session}    JVM Threads    threadcount_${index}.png    'Threading'    'ThreadCount'
     \    ElasticsearchAppender.Plot Points    ${session}    JVM Heap Memory    heapmemory_${index}.png    'Memory'    'HeapMemoryUsage'
     \    ...    'used'
-    \    ElasticsearchAppender.Plot Points    ${session}    JVM LoadedClassCount    class_count_${index}.png    'ClassLoading'    'TotalLoadedClassCount'
+    \    ElasticsearchAppender.Plot Points    ${session}    JVM Loaded Classes    class_count_${index}.png    'ClassLoading'    'TotalLoadedClassCount'
     \    ElasticsearchAppender.Plot Points    ${session}    JVM CPU Usage    cpu_usage_${index}.png    'OperatingSystem'    'ProcessCpuLoad'
