@@ -280,6 +280,7 @@ Test Operations From Vm Instance
     ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    ifconfig    ${OS_SYSTEM_PROMPT}
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    route    ${OS_SYSTEM_PROMPT}
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    arp -an    ${OS_SYSTEM_PROMPT}
     ${dest_vm}=    Get From List    ${list_of_local_dst_ips}    0
     Log    ${dest_vm}
     Run Keyword If    ${rcode}    Check Ping    ${dest_vm}
