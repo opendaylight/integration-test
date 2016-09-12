@@ -9,7 +9,7 @@ Library           XML
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/OvsManager.robot
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
-Resource          ${CURDIR}/../../../libraries/CompareStream.robot
+Resource          ${CURDIR}/../../../libraries/ClusterOpenFlow.robot
 Library           Collections
 
 *** Variables ***
@@ -73,36 +73,31 @@ Check All Switches Connected To All Cluster Nodes
 
 Restarting Karaf Scenario
     [Arguments]    ${switch_name}
-    [Documentation]    Disconnect and connect master and follower and check switch data to be consistent
+    [Documentation]    Disconnect and connect owner and successor and check switch data to be consistent
     ${idx}=    BuiltIn.Evaluate    str("${switch_name}"[1:])
     BuiltIn.Set Test Variable    ${idx}
     Kill Switchs Old Owner    ${switch_name}
     Restart Switchs Old Owner    ${switch_name}
-    Kill Switchs Candidate    ${switch_name}
-    Restart Switchs Candidate    ${switch_name}
+    Kill Switchs Successor    ${switch_name}
+    Restart Switchs Successor    ${switch_name}
     [Teardown]    Run Keyword If    "${stopped_karaf}"!="${Empty}"    Start Controller Node And Verify    ${stopped_karaf}
 
 Kill Switchs Old Owner
     [Arguments]    ${switch_name}
     BuiltIn.Set Test Variable    ${stopped_karaf}    ${Empty}
-    Check Count Integrity    ${switch_name}    expected_controllers=3
-    ${old_owner}    ${old_followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
+    ${old_owner}    ${old_successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:${idx}    ${active_member}
     ${old_master}=    BuiltIn.Set Variable    ${ODL_SYSTEM_${old_owner}_IP}
-    ${tmp_followers}=    BuiltIn.Create List    @{old_followers}
-    Collections.Remove Values From List    ${tmp_followers}    ${old_owner}
-    ${tmp_follower}=    Collections.Get From List    ${tmp_followers}    0
-    BuiltIn.Set Suite Variable    ${active_member}    ${tmp_follower}
+    ${active_member}=    Collections.Get From List    ${old_successors}    0
+    BuiltIn.Set Suite Variable    ${active_member}
     Stop Controller Node And Verify    ${old_owner}
     BuiltIn.Set Test Variable    ${stopped_karaf}    ${old_owner}
+    ClusterOpenFlow.Check OpenFlow Shards Status After Cluster Event    ${old_successors}
     ${new_master}=    BuiltIn.Wait Until Keyword Succeeds    5x    3s    Verify New Master Controller Node    ${switch_name}    ${old_master}
-    ${owner}    ${followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
-    Collections.List Should Contain Value    ${old_followers}    ${owner}
-    ${expected_controllers}=    CompareStream.Set_Variable_If_At_Least_Boron    3    2
-    BuiltIn.Wait Until Keyword Succeeds    5x    3s    Check Count Integrity    ${switch_name}    expected_controllers=${expected_controllers}
+    ${owner}    ${successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:${idx}    ${active_member}    ${old_successors}
     BuiltIn.Should Be Equal As Strings    ${new_master}    ${ODL_SYSTEM_${owner}_IP}
     BuiltIn.Set Suite Variable    ${active_member}    ${owner}
     BuiltIn.Set Test Variable    ${old_owner}
-    BuiltIn.Set Test Variable    ${old_followers}
+    BuiltIn.Set Test Variable    ${old_successors}
     BuiltIn.Set Test Variable    ${old_master}
     BuiltIn.Set Test Variable    ${owner}
     BuiltIn.Set Test Variable    ${new_master}
@@ -111,62 +106,45 @@ Restart Switchs Old Owner
     [Arguments]    ${switch_name}
     Start Controller Node And Verify    ${old_owner}
     BuiltIn.Set Test Variable    ${stopped_karaf}    ${Empty}
-    BuiltIn.Wait Until Keyword Succeeds    5x    3s    Verify Follower Added    ${switch_name}    ${old_owner}
-    ${new_owner}    ${new_followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
-    BuiltIn.Wait Until Keyword Succeeds    5x    3s    Check Count Integrity    ${switch_name}    expected_controllers=3
+    ClusterOpenFlow.Check OpenFlow Shards Status After Cluster Event
+    ${new_owner}    ${new_successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:${idx}    ${active_member}
     BuiltIn.Should Be Equal    ${owner}    ${new_owner}
-    Collections.List Should Contain Value    ${new_followers}    ${old_owner}
 
-Kill Switchs Candidate
+Kill Switchs Successor
     [Arguments]    ${switch_name}
-    ${old_owner}    ${old_followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
-    ${old_follower}=    Collections.Get From List    ${old_followers}    0
-    ${old_slave}=    BuiltIn.Set Variable    ${ODL_SYSTEM_${old_follower}_IP}
-    Stop Controller Node And Verify    ${old_follower}
-    BuiltIn.Set Test Variable    ${stopped_karaf}    ${old_follower}
-    ${expected_controllers}=    CompareStream.Set_Variable_If_At_Least_Boron    3    2
-    BuiltIn.Wait Until Keyword Succeeds    5x    3s    Check Count Integrity    ${switch_name}    expected_controllers=${expected_controllers}
-    ${owner}    ${followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
+    ${old_owner}    ${old_successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:${idx}    ${active_member}
+    ${old_successor}=    Collections.Get From List    ${old_successors}    0
+    ${old_slave}=    BuiltIn.Set Variable    ${ODL_SYSTEM_${old_successor}_IP}
+    Stop Controller Node And Verify    ${old_successor}
+    BuiltIn.Set Test Variable    ${stopped_karaf}    ${old_successor}
+    ${tmp_candidates}=    BuiltIn.Create List    @{ClusterManagement__member_index_list}
+    Collections.Remove Values From List    ${tmp_candidates}    ${old_successor}
+    ClusterOpenFlow.Check OpenFlow Shards Status After Cluster Event    ${tmp_candidates}
+    ${owner}    ${successor}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:${idx}    ${active_member}    ${tmp_candidates}
     BuiltIn.Should Be Equal    ${owner}    ${old_owner}
     BuiltIn.Should Be Equal As Strings    ${new_master}    ${ODL_SYSTEM_${owner}_IP}
     BuiltIn.Set Test Variable    ${old_owner}
-    BuiltIn.Set Test Variable    ${old_followers}
-    BuiltIn.Set Test Variable    ${old_follower}
+    BuiltIn.Set Test Variable    ${old_successors}
+    BuiltIn.Set Test Variable    ${old_successor}
     BuiltIn.Set Test Variable    ${old_slave}
     BuiltIn.Set Test Variable    ${owner}
 
-Restart Switchs Candidate
+Restart Switchs Successor
     [Arguments]    ${switch_name}
-    Start Controller Node And Verify    ${old_follower}
+    Start Controller Node And Verify    ${old_successor}
     BuiltIn.Set Test Variable    ${stopped_karaf}    ${Empty}
-    BuiltIn.Wait Until Keyword Succeeds    5x    3s    Check Count Integrity    ${switch_name}    expected_controllers=3
-    ${new_owner}    ${new_followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
+    ClusterOpenFlow.Check OpenFlow Shards Status After Cluster Event
+    ${new_owner}    ${new_successors}=    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:${idx}    ${active_member}
     BuiltIn.Should Be Equal    ${old_owner}    ${new_owner}
-    Collections.List Should Contain Value    ${new_followers}    ${old_follower}
-
-Check Count Integrity
-    [Arguments]    ${switch_name}    ${expected_controllers}=3
-    [Documentation]    Every switch must have only one master and rest must be followers and together must be of expected nodes count
-    ${idx}=    BuiltIn.Evaluate    "${switch_name}"[1:]
-    ${owner}    ${candidates}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
-    ${count}=    BuiltIn.Get Length    ${candidates}
-    BuiltIn.Should Be Equal As Numbers    ${expected_controllers}    ${count}
 
 Verify New Master Controller Node
     [Arguments]    ${switch_name}    ${old_master}
     [Documentation]    Checks if given node is different from actual master
     ${idx}=    BuiltIn.Evaluate    "${switch_name}"[1:]
-    ${owner}    ${followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
+    ${owner}    ${successors}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
     ${new_master}    BuiltIn.Set Variable    ${ODL_SYSTEM_${owner}_IP}
     BuiltIn.Should Not Be Equal    ${old_master}    ${new_master}
     Return From Keyword    ${new_master}
-
-Verify Follower Added
-    [Arguments]    ${switch_name}    ${expected_node}
-    [Documentation]    Checks if given node is in the list of active followers
-    ${idx}=    BuiltIn.Evaluate    "${switch_name}"[1:]
-    ${owner}    ${followers}=    ClusterManagement.Get Owner And Candidates For Device    openflow:${idx}    openflow    ${active_member}
-    Collections.List Should Contain Value    ${followers}    ${expected_node}
 
 Stop Controller Node And Verify
     [Arguments]    ${node}

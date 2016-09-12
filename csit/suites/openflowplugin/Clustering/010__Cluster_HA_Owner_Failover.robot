@@ -19,20 +19,18 @@ Start Mininet Multiple Connections
     BuiltIn.Set Suite Variable    ${mininet_conn_id}
     BuiltIn.Wait Until Keyword Succeeds    10s    1s    OVSDB.Check OVS OpenFlow Connections    ${TOOLS_SYSTEM_IP}    9
 
-Check Entity Owner Status And Find Owner and Candidate Before Fail
-    [Documentation]    Check Entity Owner Status and identify owner and candidate for first switch s1.
-    ${original_owner}    ${original_candidate_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    1
-    ${original_candidate}=    Collections.Get From List    ${original_candidate_list}    0
+Check Entity Owner Status And Find Owner and Successor Before Fail
+    [Documentation]    Check Entity Owner Status and identify owner and successor for first switch s1.
+    ${original_owner}    ${original_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    1
+    ${original_successor}=    Collections.Get From List    ${original_successor_list}    0
     BuiltIn.Set Suite Variable    ${original_owner}
-    BuiltIn.Set Suite Variable    ${original_candidate_list}
-    BuiltIn.Set Suite Variable    ${original_candidate}
+    BuiltIn.Set Suite Variable    ${original_successor_list}
+    BuiltIn.Set Suite Variable    ${original_successor}
 
-Reconnect Extra Switches To Candidates And Check OVS Connections
-    [Documentation]    Connect switches s2 and s3 to candidate instances.
-    ${candidate_list} =    BuiltIn.Run_Keyword_If    '${ODL_STREAM}' != 'beryllium' and '${ODL_OF_PLUGIN}' == 'lithium'    Create List    @{ClusterManagement__member_index_list}
-    ...    ELSE    Create List    ${original_candidate}
+Reconnect Extra Switches To Successors And Check OVS Connections
+    [Documentation]    Connect switches s2 and s3 to successor instances.
     ${controller_opt} =    BuiltIn.Set Variable
-    : FOR    ${index}    IN    @{original_candidate_list}
+    : FOR    ${index}    IN    @{original_successor_list}
     \    ${controller_opt} =    BuiltIn.Catenate    ${controller_opt}    ${SPACE}tcp:${ODL_SYSTEM_${index}_IP}:${ODL_OF_PORT}
     \    Log    ${controller_opt}
     OVSDB.Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    s2    ${controller_opt}
@@ -55,17 +53,17 @@ Delete Configuration In Owner and Verify Before Fail
     [Documentation]    Delete Flow in Owner and verify it gets applied from all instances.
     ClusterOpenFlow.Delete Sample Flow and Verify    ${original_owner}
 
-Add Configuration In Candidate and Verify Before Fail
-    [Documentation]    Add Flow in Candidate and verify it gets applied from all instances.
-    ClusterOpenFlow.Add Sample Flow and Verify    ${original_candidate}
+Add Configuration In Successor and Verify Before Fail
+    [Documentation]    Add Flow in Successor and verify it gets applied from all instances.
+    ClusterOpenFlow.Add Sample Flow and Verify    ${original_successor}
 
-Modify Configuration In Candidate and Verify Before Fail
-    [Documentation]    Modify Flow in candidate and verify it gets applied from all instances.
-    ClusterOpenFlow.Modify Sample Flow and Verify    ${original_candidate}
+Modify Configuration In Successor and Verify Before Fail
+    [Documentation]    Modify Flow in successor and verify it gets applied from all instances.
+    ClusterOpenFlow.Modify Sample Flow and Verify    ${original_successor}
 
-Delete Configuration In Candidate and Verify Before Fail
-    [Documentation]    Delete Flow in Candidate and verify it gets removed from all instances.
-    ClusterOpenFlow.Delete Sample Flow and Verify    ${original_candidate}
+Delete Configuration In Successor and Verify Before Fail
+    [Documentation]    Delete Flow in Successor and verify it gets removed from all instances.
+    ClusterOpenFlow.Delete Sample Flow and Verify    ${original_successor}
 
 Send RPC Add to Owner and Verify Before Fail
     [Documentation]    Add Flow in Owner and verify it gets applied from all instances.
@@ -75,13 +73,13 @@ Send RPC Delete to Owner and Verify Before Fail
     [Documentation]    Delete Flow in Owner and verify it gets removed from all instances.
     ClusterOpenFlow.Send RPC Delete Sample Flow and Verify    ${original_owner}
 
-Send RPC Add to Candidate and Verify Before Fail
-    [Documentation]    Add Flow in Candidate and verify it gets applied from all instances.
-    ClusterOpenFlow.Send RPC Add Sample Flow and Verify    ${original_candidate}
+Send RPC Add to Successor and Verify Before Fail
+    [Documentation]    Add Flow in Successor and verify it gets applied from all instances.
+    ClusterOpenFlow.Send RPC Add Sample Flow and Verify    ${original_successor}
 
-Send RPC Delete to Candidate and Verify Before Fail
-    [Documentation]    Delete Flow in Candidate and verify it gets removed from all instances.
-    ClusterOpenFlow.Send RPC Delete Sample Flow and Verify    ${original_candidate}
+Send RPC Delete to Successor and Verify Before Fail
+    [Documentation]    Delete Flow in Successor and verify it gets removed from all instances.
+    ClusterOpenFlow.Send RPC Delete Sample Flow and Verify    ${original_successor}
 
 Modify Network And Verify Before Fail
     [Documentation]    Take a link down and verify port status in all instances.
@@ -94,18 +92,18 @@ Restore Network And Verify Before Fail
 Kill Owner Instance
     [Documentation]    Kill Owner Instance and verify it is dead
     ClusterManagement.Kill Single Member    ${original_owner}
-    BuiltIn.Set Suite Variable    ${new_cluster_list}    ${original_candidate_list}
+    BuiltIn.Set Suite Variable    ${new_cluster_list}    ${original_successor_list}
 
 Check Shards Status After Fail
     [Documentation]    Create original cluster list and check Status for all shards in OpenFlow application.
     ClusterOpenFlow.Check OpenFlow Shards Status After Cluster Event    ${new_cluster_list}
 
-Check Entity Owner Status And Find Owner and Candidate After Fail
-    [Documentation]    Check Entity Owner Status and identify owner and candidate.
-    ${new_owner}    ${new_candidate_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    ${original_candidate}    ${new_cluster_list}
-    ${new_candidate}=    Collections.Get From List    ${new_candidate_list}    0
+Check Entity Owner Status And Find Owner and Successor After Fail
+    [Documentation]    Check Entity Owner Status and identify owner and successor.
+    ${new_owner}    ${new_successor_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    ${original_successor}    ${new_cluster_list}
+    ${new_successor}=    Collections.Get From List    ${new_successor_list}    0
     BuiltIn.Set Suite Variable    ${new_owner}
-    BuiltIn.Set Suite Variable    ${new_candidate}
+    BuiltIn.Set Suite Variable    ${new_successor}
 
 Check Network Operational Information After Fail
     [Documentation]    Check devices in operational inventory and topology in all cluster instances.
@@ -123,17 +121,17 @@ Delete Configuration In Owner and Verify After Fail
     [Documentation]    Delete Flow in Owner and verify it gets applied from all instances.
     ClusterOpenFlow.Delete Sample Flow and Verify    ${new_owner}    ${new_cluster_list}
 
-Add Configuration In Candidate and Verify After Fail
-    [Documentation]    Add Flow in Candidate and verify it gets applied from all instances.
-    ClusterOpenFlow.Add Sample Flow and Verify    ${new_candidate}    ${new_cluster_list}
+Add Configuration In Successor and Verify After Fail
+    [Documentation]    Add Flow in Successor and verify it gets applied from all instances.
+    ClusterOpenFlow.Add Sample Flow and Verify    ${new_successor}    ${new_cluster_list}
 
-Modify Configuration In Candidate and Verify After Fail
-    [Documentation]    Modify Flow in Candidate and verify it gets applied from all instances.
-    ClusterOpenFlow.Modify Sample Flow and Verify    ${new_candidate}    ${new_cluster_list}
+Modify Configuration In Successor and Verify After Fail
+    [Documentation]    Modify Flow in Successor and verify it gets applied from all instances.
+    ClusterOpenFlow.Modify Sample Flow and Verify    ${new_successor}    ${new_cluster_list}
 
-Delete Configuration In Candidate and Verify After Fail
-    [Documentation]    Delete Flow in Candidate and verify it gets applied from all instances.
-    ClusterOpenFlow.Delete Sample Flow and Verify    ${new_candidate}    ${new_cluster_list}
+Delete Configuration In Successor and Verify After Fail
+    [Documentation]    Delete Flow in Successor and verify it gets applied from all instances.
+    ClusterOpenFlow.Delete Sample Flow and Verify    ${new_successor}    ${new_cluster_list}
 
 Send RPC Add to Owner and Verify After Fail
     [Documentation]    Add Flow in Owner and verify it gets applied from all instances.
@@ -143,13 +141,13 @@ Send RPC Delete to Owner and Verify After Fail
     [Documentation]    Delete Flow in Owner and verify it gets removed from all instances.
     ClusterOpenFlow.Send RPC Delete Sample Flow and Verify    ${new_owner}    ${new_cluster_list}
 
-Send RPC Add to Candidate and Verify After Fail
-    [Documentation]    Add Flow in Candidate and verify it gets applied from all instances.
-    ClusterOpenFlow.Send RPC Add Sample Flow and Verify    ${new_candidate}    ${new_cluster_list}
+Send RPC Add to Successor and Verify After Fail
+    [Documentation]    Add Flow in Successor and verify it gets applied from all instances.
+    ClusterOpenFlow.Send RPC Add Sample Flow and Verify    ${new_successor}    ${new_cluster_list}
 
-Send RPC Delete to Candidate and Verify After Fail
-    [Documentation]    Delete Flow in Candidate and verify it gets removed from all instances.
-    ClusterOpenFlow.Send RPC Delete Sample Flow and Verify    ${new_candidate}    ${new_cluster_list}
+Send RPC Delete to Successor and Verify After Fail
+    [Documentation]    Delete Flow in Successor and verify it gets removed from all instances.
+    ClusterOpenFlow.Send RPC Delete Sample Flow and Verify    ${new_successor}    ${new_cluster_list}
 
 Modify Network and Verify After Fail
     [Documentation]    Take a link down and verify port status in all instances.
@@ -168,8 +166,8 @@ Check Shards Status After Recover
     ClusterOpenFlow.Check OpenFlow Shards Status After Cluster Event
 
 Check Entity Owner Status After Recover
-    [Documentation]    Check Entity Owner Status and identify owner and candidate.
-    ${new_owner}    ${new_candidates_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    1
+    [Documentation]    Check Entity Owner Status and identify owner and successor.
+    ${new_owner}    ${new_successors_list}    ClusterOpenFlow.Get OpenFlow Entity Owner Status For One Device    openflow:1    1
     BuiltIn.Set Suite Variable    ${new_owner}
 
 Check Network Operational Information After Recover
