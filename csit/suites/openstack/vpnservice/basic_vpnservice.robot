@@ -6,14 +6,21 @@ Suite Setup       Basic Vpnservice Suite Setup
 Suite Teardown    Basic Vpnservice Suite Teardown
 Test Setup        Log Testcase Start To Controller Karaf
 Library           SSHLibrary
+Library           String
 Library           OperatingSystem
 Library           RequestsLibrary
+Library           Collections
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/DevstackUtils.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
+${REST_CON}       /restconf/config/
+@{vpn_inst_values}    testVpn1    1000:1    1000:1,2000:1    3000:1,4000:1
+@{vm_int_values}    s1-eth1    l2vlan    openflow:1:1
+@{vm_vpnint_values}    s1-eth1    testVpn1    10.0.0.1    12:f8:57:a8:b9:a1
+${VPN_CONFIG_DIR}    ${CURDIR}/../../../variables/openstack/vpnservice
 @{NETWORKS}       NET10    NET20
 @{SUBNETS}        SUBNET1    SUBNET2
 @{SUBNET_CIDR}    10.1.1.0/24    20.1.1.0/24
@@ -78,6 +85,25 @@ Check L3_Datapath Traffic Across Networks With Router
     [Documentation]    Datapath Test Across the networks using Router for L3.
     [Tags]    exclude
     Log    This test will be added in the next patch
+
+Create L3VPN
+    [Documentation]    Creates VPN Instance through restconf
+    [Tags]    Post
+    ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/bgpvpn_instance.json
+    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON}bgpvpn:bgpvpns/    data=${body}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    204
+
+Associate Networks To L3VPN
+    [Documentation]    Associate Networks To L3VPN.
+    [Tags]    exclude
+    Log    This test will be added in the next patch
+
+Check Datapath Traffic Across Networks With L3VPN
+    [Documentation]    Datapath Test Across the networks with VPN.
+    [Tags]    exclude
+    Log    This test will be added in the next patch
+
 
 Delete Router Interfaces
     [Documentation]    Remove Interface to the subnets.
