@@ -9,16 +9,12 @@ Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../libraries/MininetKeywords.robot
 Variables         ../../../variables/Variables.py
 
-*** Variables ***
-${switch_count_per_node}    1
-${operation_timeout}    15s
-
 *** Test Cases ***
 Check Shards Status Before Leader Restart
-    [Documentation]    Check Status for all shards in OpenFlow application.
+    [Documentation]    Check Status for all shards in OpenFlow application and set default flows variable.
+    ...    Note that Boron and beyond use latest OVS 2.5 which means controller has to push table miss flow,
+    ...    therefore Boron+ has 1 flow/switch more than Beryllium.
     ClusterOpenFlow.Check OpenFlow Shards Status
-    ${flow_count_per_switch}=    CompareStream.Set_Variable_If_At_Least_Boron    2    1
-    Set Suite Variable    ${flow_count_per_switch}
 
 Get inventory Leader Before Leader Restart
     [Documentation]    Find leader in the inventory config shard
@@ -65,7 +61,7 @@ Start Mininet Connect To Old Leader
 
 Verify Flows In Switch After Leader Restart
     [Documentation]    Verify flows are installed in switch after leader restart.
-    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count_per_node}    ${flow_count_per_switch}    ${operation_timeout}
+    ClusterOpenFlow.Verify Sample Flow
 
 Stop Mininet Connected To Old Leader and Exit
     [Documentation]    Stop mininet and exit connection.
@@ -93,7 +89,7 @@ Start Mininet Connect To Leader
 
 Verify Flows In Switch After Follower Restart
     [Documentation]    Verify flows are installed in switch after follower restart.
-    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count_per_node}    ${flow_count_per_switch}    ${operation_timeout}
+    ClusterOpenFlow.Verify Sample Flow
 
 Stop Mininet Connected To Leader and Exit
     [Documentation]    Stop mininet Connected To Other Follower and exit connection.
@@ -121,7 +117,7 @@ Start Mininet Connect To Follower Node2 After Cluster Restart
 
 Verify Flows In Switch After Cluster Restart
     [Documentation]    Verify flows are installed in switch after cluster restart.
-    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count_per_node}    ${flow_count_per_switch}    ${operation_timeout}
+    ClusterOpenFlow.Verify Sample Flow
 
 Delete Flows In Follower Node1 and Verify After Leader Restart
     [Documentation]    Delete Flow in Follower Node1.
