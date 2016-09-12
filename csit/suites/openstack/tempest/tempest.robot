@@ -35,6 +35,7 @@ Log In To Tempest Executor And Setup Test Environment
     List Networks
     ${control_node_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
     Utils.Flexible SSH Login    ${OS_USER}
+    Write Commands Until Prompt    pip install -r requirements.txt --upgrade
     Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
     ${net_id}=    Get Net Id    external    ${control_node_conn_id}
     Generate Tempest Conf File    ${net_id}
