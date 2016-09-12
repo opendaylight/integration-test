@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_d80a1825",
+        "filename": "csit/suites/openflowplugin/Clustering/030__Cluster_HA_Data_Recovery_Leader_Follower_Failover.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-12T11:07:25Z",
+      "side": 1,
+      "message": "Why is it expected to see the added flow counted twice for Boron (but not Beryllium)?",
+      "range": {
+        "startLine": 20,
+        "startChar": 81,
+        "endLine": 20,
+        "endChar": 87
+      },
+      "revId": "4ee399c9683167b5e4e1f367b10a3fa0ce00c77d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_f80d543f",
+        "filename": "csit/suites/openflowplugin/EntityOwhership/030_Cluster_Sync_Problems.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-12T11:07:25Z",
+      "side": 1,
+      "message": "We have Verify_Owner_And_Successors_For_Device now, please use that instead of manipulating expected_controllers in the suite.",
+      "range": {
+        "startLine": 181,
+        "startChar": 52,
+        "endLine": 181,
+        "endChar": 87
+      },
+      "revId": "4ee399c9683167b5e4e1f367b10a3fa0ce00c77d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
