@@ -76,6 +76,15 @@ Add Sample Flow And Verify
     ClusterManagement.Put_As_Json_And_Check_Member_List_Or_All    ${config_table_0}/flow/1    ${body}    ${controller_index}    ${controller_index_list}
     Wait Until Keyword Succeeds    15s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${operational_table_0}    dictionary=${dictionary}    member_index_list=${controller_index_list}
 
+Verify Sample Flow
+    [Arguments]    ${controller_index_list}=${EMPTY}
+    [Documentation]    Verify sample flow gets applied in all instances in ${controller_index_list}.
+    # There are slight differences on the way He and Li plugin display table information. He plugin has an additional Hashmap field
+    # replicating some of the matches in the flows section. Same comment applies for further keywords.
+    Run Keyword If    '${ODL_OF_PLUGIN}' == 'helium'    Set Test Variable    &{dictionary}    10.0.1.0/24=2    "output-node-connector":"1"=1
+    Run Keyword If    '${ODL_OF_PLUGIN}' == 'lithium'    Set Test Variable    &{dictionary}    10.0.1.0/24=1    "output-node-connector":"1"=1
+    Wait Until Keyword Succeeds    15s    1s    ClusterManagement.Check_Item_Occurrence_Member_List_Or_All    uri=${operational_table_0}    dictionary=${dictionary}    member_index_list=${controller_index_list}
+
 Modify Sample Flow And Verify
     [Arguments]    ${controller_index}    ${controller_index_list}=${EMPTY}
     [Documentation]    Modify sample flow in ${controller_index} and verify it gets applied in all instances in ${controller_index_list}.
