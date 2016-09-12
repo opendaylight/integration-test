@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_4edabe4c",
+        "filename": "csit/suites/openflowplugin/Clustering/030__Cluster_HA_Data_Recovery_Leader_Follower_Failover.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-09-12T16:59:00Z",
+      "side": 1,
+      "message": "Boron and beyond use latest OVS 2.5 which does not have table miss flow and has to be pushed by controller, therefore it has 1 flow/switch more than Beryllium. I will add a note here.",
+      "parentUuid": "7a6b29fe_b31e5d5d",
+      "range": {
+        "startLine": 20,
+        "startChar": 81,
+        "endLine": 20,
+        "endChar": 87
+      },
+      "revId": "4ee399c9683167b5e4e1f367b10a3fa0ce00c77d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_f80d543f",
         "filename": "csit/suites/openflowplugin/EntityOwhership/030_Cluster_Sync_Problems.robot",
         "patchSetId": 5
@@ -60,6 +84,30 @@
       "writtenOn": "2016-09-12T11:07:25Z",
       "side": 1,
       "message": "We have Verify_Owner_And_Successors_For_Device now, please use that instead of manipulating expected_controllers in the suite.",
+      "range": {
+        "startLine": 181,
+        "startChar": 52,
+        "endLine": 181,
+        "endChar": 87
+      },
+      "revId": "4ee399c9683167b5e4e1f367b10a3fa0ce00c77d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_0ec3a657",
+        "filename": "csit/suites/openflowplugin/EntityOwhership/030_Cluster_Sync_Problems.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 181,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-09-12T16:59:00Z",
+      "side": 1,
+      "message": "Fair point, I should probably change the entity owner suites to use the Verify_Owner_And_Successor instead of this KW.",
+      "parentUuid": "7a6b29fe_f80d543f",
       "range": {
         "startLine": 181,
         "startChar": 52,
