@@ -90,7 +90,7 @@ Create L3VPN
     [Documentation]    Creates VPN Instance through restconf
     [Tags]    Post
     ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/bgpvpn_instance.json
-    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON}bgpvpn:bgpvpns/    data=${body}
+    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON}neutronvpn:createL3VPN/    data=${body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    204
 
