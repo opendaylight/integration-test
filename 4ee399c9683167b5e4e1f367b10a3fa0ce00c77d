@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_b31e5d5d",
+        "filename": "csit/suites/openflowplugin/Clustering/030__Cluster_HA_Data_Recovery_Leader_Follower_Failover.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-12T11:13:14Z",
+      "side": 1,
+      "message": "Especially when the flow is seen in once also in Boron.\nYou can see flow_count\u003d1 output-ed here:\nhttps://logs.opendaylight.org/releng/jenkins092/openflowplugin-csit-3node-clustering-only-beryllium/692/archives/log.html.gz#s1-s5-t9-k1-k1-k9-k4-k1-k1-k1",
+      "parentUuid": "7a6b29fe_d80a1825",
+      "range": {
+        "startLine": 20,
+        "startChar": 81,
+        "endLine": 20,
+        "endChar": 87
+      },
+      "revId": "4ee399c9683167b5e4e1f367b10a3fa0ce00c77d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_f80d543f",
         "filename": "csit/suites/openflowplugin/EntityOwhership/030_Cluster_Sync_Problems.robot",
         "patchSetId": 5
