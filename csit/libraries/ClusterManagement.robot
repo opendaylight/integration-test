@@ -449,9 +449,12 @@ ClusterManagement__Parse_Sync_Status
 ClusterManagement__Given_Or_Internal_Index_List
     [Arguments]    ${given_list}=${EMPTY}
     [Documentation]    Utility to allow \${EMPTY} as default argument value, as the internal list is computed at runtime.
-    ${given_length} =    BuiltIn.Get_Length    ${given_list}
-    ${return_list} =    BuiltIn.Set_Variable_If    ${given_length} > 0    ${given_list}    ${ClusterManagement__member_index_list}
-    [Return]    ${return_list}
+    ...    This keyword always return a (shallow) copy of given or default list,
+    ...    so operations with the returned list should not affect other lists.
+    ...    Also note that this keyword does not consider empty list to be \${EMPTY}.
+    ${return_list_reference} =    BuiltIn.Set_Variable_If    """${given_list}""" == ""    ${given_list}    ${ClusterManagement__member_index_list}
+    ${return_list_copy} =    BuiltIn.Create_List    @{return_list_reference}
+    [Return]    ${return_list_copy}
 
 ClusterManagement__Given_Or_Empty_List
     [Arguments]    ${given_list}=${EMPTY}
