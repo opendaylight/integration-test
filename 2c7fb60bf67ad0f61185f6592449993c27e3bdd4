@@ -22,6 +22,30 @@
       "revId": "2c7fb60bf67ad0f61185f6592449993c27e3bdd4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_2e993f6e",
+        "filename": "csit/libraries/Scalability.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-09-13T18:55:59Z",
+      "side": 1,
+      "message": "This sleep is removed here: https://git.opendaylight.org/gerrit/#/c/45467/3/csit/libraries/Scalability.robot\n\nThere is a new variable called ${sustain_time}, the controller normally need some time to stabilize (default 5 secs) after bringing many switches in and after deleting many switches. I can set 0 sec and see what happens.",
+      "parentUuid": "7a6b29fe_ce8ecb2d",
+      "range": {
+        "startLine": 257,
+        "startChar": 0,
+        "endLine": 257,
+        "endChar": 14
+      },
+      "revId": "2c7fb60bf67ad0f61185f6592449993c27e3bdd4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
