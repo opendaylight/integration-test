@@ -17,7 +17,7 @@ Verify Feature Is Installed
     [Return]    ${output}
 
 Issue Command On Karaf Console
-    [Arguments]    ${cmd}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=5    ${loglevel}=INFO
+    [Arguments]    ${cmd}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=${DEFAULT_TIMEOUT}    ${loglevel}=INFO
     [Documentation]    Will execute the given ${cmd} by ssh'ing to the karaf console running on ${ODL_SYSTEM_IP}
     ...    Note that this keyword will open&close new SSH connection, without switching back to previously current session.
     Open Connection    ${controller}    port=${karaf_port}    prompt=${KARAF_PROMPT}    timeout=${timeout}
@@ -29,7 +29,7 @@ Issue Command On Karaf Console
     [Return]    ${output}
 
 Check For Elements On Karaf Command Output Message
-    [Arguments]    ${cmd}    ${elements}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=5
+    [Arguments]    ${cmd}    ${elements}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=${DEFAULT_TIMEOUT}
     [Documentation]    Will execute the command using Issue Command On Karaf Console then check for the given elements
     ...    in the command output message
     ${output}    Issue Command On Karaf Console    ${cmd}    ${controller}    ${karaf_port}    ${timeout}
