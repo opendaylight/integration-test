@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_ce8ecb2d",
+        "filename": "csit/libraries/Scalability.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 257,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-09-13T18:27:58Z",
+      "side": 1,
+      "message": "why this?",
+      "range": {
+        "startLine": 257,
+        "startChar": 0,
+        "endLine": 257,
+        "endChar": 14
+      },
+      "revId": "2c7fb60bf67ad0f61185f6592449993c27e3bdd4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
