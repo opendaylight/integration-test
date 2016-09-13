@@ -111,7 +111,7 @@ Delete Vm Instances
 Delete Neutron Ports
     [Documentation]    Delete Neutron Ports in the given Port List.
     : FOR    ${Port}    IN    @{PORT_LIST}
-    \    Delete SubNet    ${Port}
+    \    Delete Port    ${Port}
 
 Delete Sub Networks
     [Documentation]    Delete Sub Nets in the given Subnet List.
