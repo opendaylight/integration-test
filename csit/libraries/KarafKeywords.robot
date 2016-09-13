@@ -17,7 +17,7 @@ Verify Feature Is Installed
     [Return]    ${output}
 
 Issue Command On Karaf Console
-    [Arguments]    ${cmd}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=5    ${loglevel}=INFO
+    [Arguments]    ${cmd}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=${DEFAULT_TIMEOUT}    ${loglevel}=INFO
     [Documentation]    Will execute the given ${cmd} by ssh'ing to the karaf console running on ${ODL_SYSTEM_IP}
     ...    Note that this keyword will open&close new SSH connection, without switching back to previously current session.
     Open Connection    ${controller}    port=${karaf_port}    prompt=${KARAF_PROMPT}    timeout=${timeout}
@@ -29,7 +29,7 @@ Issue Command On Karaf Console
     [Return]    ${output}
 
 Check For Elements On Karaf Command Output Message
-    [Arguments]    ${cmd}    ${elements}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=5
+    [Arguments]    ${cmd}    ${elements}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=${DEFAULT_TIMEOUT}
     [Documentation]    Will execute the command using Issue Command On Karaf Console then check for the given elements
     ...    in the command output message
     ${output}    Issue Command On Karaf Console    ${cmd}    ${controller}    ${karaf_port}    ${timeout}
@@ -110,7 +110,7 @@ Restore Current SSH Connection From Index
 Open Controller Karaf Console On Background
     [Documentation]    Connect to the controller's karaf console, but do not switch to it.
     ${current_ssh_connection}=    SSHLibrary.Get Connection
-    SSHLibrary.Open Connection    ${ODL_SYSTEM_IP}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_DETAILED_PROMPT}
+    SSHLibrary.Open Connection    ${ODL_SYSTEM_IP}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_DETAILED_PROMPT}    timeout=${DEFAULT_TIMEOUT}
     ${karaf_connection}=    SSHLibrary.Get Connection
     SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}
     BuiltIn.Set Suite Variable    ${KarafKeywords__karaf_connection_index}    ${karaf_connection.index}
