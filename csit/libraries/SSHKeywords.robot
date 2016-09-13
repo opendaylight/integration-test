@@ -14,7 +14,7 @@ Documentation     Resource enhancing SSHLibrary with Keywords used in multiple s
 ...               you can place them here.
 ...
 ...               TODO: Migrate Keywords related to handling SSH here.
-...               That may include Utils.Flexible_SSH_Login, KarafKeywords.Restore_Current_SSH_Connection_From_Index and similar.
+...               That may include Utils.Flexible_SSH_Login, and similar.
 Library           SSHLibrary
 Resource          ${CURDIR}/Utils.robot
 
@@ -24,17 +24,54 @@ ${SSHKeywords__current_venv_path}    /tmp/defaultvenv
 
 *** Keywords ***
 Open_Connection_To_ODL_System
-    [Documentation]    Open a connection to the ODL system and return its identifier.
-    ...    On clustered systems this opens the connection to the first node.
-    ${odl} =    SSHLibrary.Open_Connection    ${ODL_SYSTEM_IP}    prompt=${ODL_SYSTEM_PROMPT}    timeout=10s
+    [Arguments]    ${ip_address}=${ODL_SYSTEM_IP}
+    [Documentation]    Open a connection to the ODL system at ${ip_address} and return its identifier.
+    ${odl_connection} =    SSHLibrary.Open_Connection    ${ip_address}    prompt=${ODL_SYSTEM_PROMPT}    timeout=10s
     Utils.Flexible_Controller_Login
-    [Return]    ${odl}
+    [Return]    ${odl_connection}
 
 Open_Connection_To_Tools_System
-    [Documentation]    Open a connection to the tools system and return its identifier.
-    ${tools} =    SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    prompt=${TOOLS_SYSTEM_PROMPT}
+    [Arguments]    ${ip_address}=${TOOLS_SYSTEM_IP}
+    [Documentation]    Open a connection to the tools system at ${ip_address} and return its identifier.
+    ${tools_connection} =    SSHLibrary.Open_Connection    ${ip_address}    prompt=${TOOLS_SYSTEM_PROMPT}
     Utils.Flexible_Mininet_Login
-    [Return]    ${tools}
+    [Return]    ${tools_connection}
+
+Restore_Current_Ssh_Connection_From_Index
+    [Arguments]    ${connection_index}
+    [Documentation]    Restore active SSH connection in SSHLibrary to given index.
+    ...
+    ...    Restore the currently active connection state in
+    ...    SSHLibrary to match the state returned by "Switch
+    ...    Connection" or "Get Connection". More specifically makes
+    ...    sure that there will be no active connection when the
+    ...    \${connection_index} reported by these means is None.
+    ...
+    ...    There is a misfeature in SSHLibrary: Invoking "SSHLibrary.Switch_Connection"
+    ...    and passing None as the "index_or_alias" argument to it has exactly the
+    ...    same effect as invoking "Close Connection".
+    ...    https://github.com/robotframework/SSHLibrary/blob/master/src/SSHLibrary/library.py#L560
+    ...
+    ...    We want to have Keyword which will "switch out" to previous
+    ...    "no connection active" state without killing the background one.
+    ...
+    ...    As some suites may hypothetically rely on non-writability of active connection,
+    ...    workaround is applied by opening and closing temporary connection.
+    ...    Unfortunately this will fail if run on Jython and there is no SSH server
+    ...    running on localhost, port 22 but there is nothing easy that can be done about it.
+    BuiltIn.Run Keyword And Return If    ${connection_index} is not None    SSHLibrary.Switch Connection    ${connection_index}
+    # The background connection is still current, bury it.
+    SSHLibrary.Open Connection    127.0.0.1
+    SSHLibrary.Close Connection
+
+Run_Keyword_Preserve_Connection
+    [Arguments]    ${keyword_name}    @{args}    &{kwargs}
+    [Documentation]    Store current connection index, run keyword returning its result, restore connection in teardown.
+    ...    Note that in order to avoid "got positional argument after named arguments", it is safer to use positional (not named) arguments on call.
+    ${current_connection}=    SSHLibrary.Get_Connection
+    BuiltIn.Run_Keyword_And_Return    ${keyword_name}    @{args}    &{kwargs}
+    # Resource name has to be prepended, as KarafKeywords still contains a redirect.
+    [Teardown]    SSHKeywords.Restore_Current_SSH_Connection_From_Index    ${current_connection.index}
 
 Log_Command_Results
     [Arguments]    ${stdout}    ${stderr}    ${rc}
