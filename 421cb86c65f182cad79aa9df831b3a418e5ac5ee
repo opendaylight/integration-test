@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_cea7ebbb",
+        "filename": "csit/suites/openflowplugin/EntityOwhership/030_Cluster_Sync_Problems.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-09-13T18:25:29Z",
+      "side": 1,
+      "message": "what\u0027s this?",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 48,
+        "endChar": 6
+      },
+      "revId": "421cb86c65f182cad79aa9df831b3a418e5ac5ee",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
