@@ -90,8 +90,11 @@ Delete Routers
 
 Create L3VPN
     [Documentation]    Create L3VPN.
-    [Tags]    exclude
-    Log    This test will be added in the next patch
+    neutron bgpvpn-create --route-targets 10:4 --import-targets '10:1,10:2,10:3'
+    \ --route-distinguishers '100:1'  
+    \--tenant_id 57059583384e4d49948ef32735ae669f --name testvpn1
+    neutron bgpvpn-list
+    Log    This test will add a new vpn instance and list vpn instances
 
 Associate Networks To L3VPN
     [Documentation]    Associate Networks To L3VPN.
