@@ -64,12 +64,12 @@ Setup Environment
     Flexible Controller Login
     Put File    ${CONFIGURATION_XML}    ${REMOTE_FILE}
     Close Connection
-    Wait Until Keyword Succeeds    2x    2s    Issue Command On Karaf Console    log:set DEBUG org.opendaylight.topoprocessing
     Install a Feature    odl-restconf-noauth    timeout=30
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${SEND_ACCEPT_XML_HEADERS}
     Install Features    odl-openflowplugin-nsf-model odl-topoprocessing-framework odl-topoprocessing-network-topology odl-topoprocessing-inventory odl-mdsal-models odl-ovsdb-southbound-impl
     Prepare New Feature Installation
     Insert Underlay topologies
+    Wait Until Keyword Succeeds    2x    2s    Issue Command On Karaf Console    log:set DEBUG org.opendaylight.topoprocessing
 
 Install Features
     [Arguments]    ${features}    ${timeout}=180
