@@ -1,12 +1,14 @@
 *** Settings ***
-Documentation     Karaf library. This library is useful to deal with controller Karaf console.
+Documentation     Karaf library. This library is useful to deal with controller Karaf console for ssh sessions from 1 to ${NUM_ODL_SYSTEM}.
+                  The created connections to karaf console remain opened. Their connecion indices are stored as values in ${connection_index_dict},
+                  keys being cluster member indices.
 Library           SSHLibrary
 Library           OperatingSystem
 Variables         ../variables/Variables.py
 
 *** Variables ***
 ${WORKSPACE}      /tmp
-${KarafKeywords__karaf_connection_index}    -1
+${connection_index_dict}             &{EMPTY}
 
 *** Keywords ***
 Verify Feature Is Installed
@@ -108,12 +110,20 @@ Restore Current SSH Connection From Index
     SSHLibrary.Close Connection
 
 Open Controller Karaf Console On Background
-    [Documentation]    Connect to the controller's karaf console, but do not switch to it.
+    [Documentation]    If there is a stored ssh connection index of connection to the controller's karaf console for ${member_index},
+    ...                close the previous connection. In any case create a new connection
+    ...                to karaf console for ${member_index} and login to karaf console.
+    ...                Store connection index for ${member_index} and restore the previous active connection.
+    # stored ssh connection index: Collection &{connection_index_dict}[${member_index}]
+    [Arguments]    ${member_index}=${1}          #${connection_index_dict}
     ${current_ssh_connection}=    SSHLibrary.Get Connection
-    SSHLibrary.Open Connection    ${ODL_SYSTEM_IP}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_DETAILED_PROMPT}
-    ${karaf_connection}=    SSHLibrary.Get Connection
+    ${old_connection_index} =    Get From Dictionary    ${connection_index_dict}    ${member_index}
+    BuiltIn.Run Keyword If    ${old_connection_index}!=-1    BuiltIn.Run Keywords    SSHLibrary.Switch Connection    ${old_connection_index}   AND    SSHLibrary.Close Connection
+    ${odl_ip}=    ClusterManagement.Resolve_IP_Address_For_Member     ${member_index}
+    SSHLibrary.Open Connection    ${odl_ip}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_DETAILED_PROMPT}
+    ${karaf_connection_object}=    SSHLibrary.Get Connection
+    BuiltIn.Set To Dictionary    ${connection_index_dict}    ${member_index}    ${karaf_connection_object.index}
     SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}
-    BuiltIn.Set Suite Variable    ${KarafKeywords__karaf_connection_index}    ${karaf_connection.index}
     [Teardown]    Restore Current SSH Connection From Index    ${current_ssh_connection.index}
 
 Configure Timeout For Karaf Console
@@ -136,12 +146,12 @@ Execute Controller Karaf Command On Background
     BuiltIn.Log    ${message_wait}
     BuiltIn.Run Keyword If    '${status_wait}' != 'PASS'    BuiltIn.Fail    Failed to see prompt after sending the command: ${command}
     [Teardown]    Restore Current SSH Connection From Index    ${current_connection_index}
-    [Return]    ${message_wait}
+    [Return]    ${message_wait}l
 
 Execute Controller Karaf Command With Retry On Background
-    [Arguments]    ${command}
+    [Arguments]    ${command}    ${KarafKeywords__karaf_connection_index}    ${current_connection_index}
     [Documentation]    Attemp to send command to karaf, if fail then open connection and try again.
-    ${status}    ${message}=    BuiltIn.Run Keyword And Ignore Error    Execute Controller Karaf Command On Background    ${command}
+    ${status}    ${message}=    BuiltIn.Run Keyword And Ignore Error    Execute Controller Karaf Command On Background    ${command}  #index session, member
     BuiltIn.Return_From_Keyword_If    '${status}' == 'PASS'    ${message}
     # TODO: Verify this does not leak connections indices.
     Open Controller Karaf Console On Background
@@ -149,9 +159,10 @@ Execute Controller Karaf Command With Retry On Background
     [Return]    ${message}
 
 Log Message To Controller Karaf
-    [Arguments]    ${message}
-    [Documentation]    Send a message into the controller's karaf log file. Do not change current SSH connection.
-    ${reply}=    Execute Controller Karaf Command With Retry On Background    log:log "ROBOT MESSAGE: ${message}"
+    [Arguments]    ${message}    @{sessions_list}
+    [Documentation]    Send a message into the controller's karaf log file. Go through all SSH connections. This keyword uses global variable ${NUM_ODL_SYSTEMl}.
+    :FOR    ${node}    IN    @{sessions_list}           #RANGE    1    ${NUM_ODL_SYSTEMl}+1
+     \    ${karaf_connection.index}    ${reply}=    Execute Controller Karaf Command With Retry On Background    log:log "ROBOT MESSAGE: ${message}"    ${KarafKeywords__karaf_connection_index}    ${connection_index}
     [Return]    ${reply}
 
 Log Test Suite Start To Controller Karaf
