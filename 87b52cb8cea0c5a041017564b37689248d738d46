@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_d17aee86",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 455,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-09-14T03:48:29Z",
+      "side": 1,
+      "message": "I think you have to reverse the 2 values, when EMPTY you want to use ${ClusterManagement__member_index_list} otherwise the ${given_list}.",
+      "revId": "87b52cb8cea0c5a041017564b37689248d738d46",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
