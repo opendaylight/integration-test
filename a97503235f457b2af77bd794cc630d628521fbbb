@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_b4b8002b",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-14T11:06:05Z",
+      "side": 1,
+      "message": "This variable goes through three different roles, but as every rename costs a line of code, I hope the code comments are enough for now.",
+      "range": {
+        "startLine": 141,
+        "startChar": 6,
+        "endLine": 141,
+        "endChar": 16
+      },
+      "revId": "a97503235f457b2af77bd794cc630d628521fbbb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
