@@ -3,6 +3,7 @@ Documentation     Test suite for VTN Manager Data Flow using OF13
 Suite Setup       Start SuiteVtnMaTest
 Suite Teardown    Stop SuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
+Resource          ../../../libraries/Utils.robot
 
 *** Test Cases ***
 Check if switch1 detected
@@ -48,6 +49,7 @@ Ping h1 to h3
 Verify data flow details For vBridge1
     [Documentation]    Verify the data flows for the specified tenant and bridge
     Verify Data Flows    Tenant1    vBridge1
+    [Teardown]    Report_Failure_Due_To_Bug    6720
 
 Add a vBridge vBridge2
     [Documentation]    Add a vBridge vBridge2 in vtn Tenant1
@@ -76,6 +78,7 @@ Ping h2 to h4
 Verify data flow details for vBridge2
     [Documentation]    Verify the data flows for the specified tenant and bridge
     Verify Data Flows    Tenant1    vBridge2
+    [Teardown]    Report_Failure_Due_To_Bug    6720
 
 Verify FlowMacAddress
     [Documentation]    Checking Flows on switch

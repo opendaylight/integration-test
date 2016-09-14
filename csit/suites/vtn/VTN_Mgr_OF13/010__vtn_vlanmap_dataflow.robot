@@ -3,6 +3,7 @@ Documentation     Test suite for VTN Manager Data Flows using OF13
 Suite Setup       Start SuiteVtnMaTest
 Suite Teardown    Stop SuiteVtnMaTest
 Resource          ../../../libraries/VtnMaKeywords.robot
+Resource          ../../../libraries/Utils.robot
 
 *** Test Cases ***
 Start topology
@@ -52,6 +53,7 @@ Get vlanflow h1 h5
 Verify data flow details for vlanmap vBridge1_vlan
     [Documentation]    Verify the data flows for the specified tenant and vBridge1_vlan
     Verify Data Flows    Tenant1    vBridge1_vlan
+    [Teardown]    Report_Failure_Due_To_Bug    6720
 
 Get vlanflow h2 h4
     [Documentation]    ping h2 to h4
@@ -64,6 +66,7 @@ Get vlanflow h2 h6
 Verify data flow details for vlanmap vBridge2_vlan
     [Documentation]    Verify the data flows for the specified tenant and vBridge2_vlan
     Verify Data Flows    Tenant1    vBridge2_vlan
+    [Teardown]    Report_Failure_Due_To_Bug    6720
 
 Get vlanflow h2 h5
     [Documentation]    ping h2 to h5
