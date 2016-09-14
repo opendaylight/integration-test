@@ -4,22 +4,32 @@ Documentation     Test suite to validate vpnservice functionality in an openstac
 ...               integration bridges and vxlan tunnels.
 Suite Setup       Basic Vpnservice Suite Setup
 Suite Teardown    Basic Vpnservice Suite Teardown
-Test Setup        Log Testcase Start To Controller Karaf
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
+Library           json
+Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/DevstackUtils.robot
 Variables         ../../../variables/Variables.py
+#Variables         ../../../variables/vpnservice/vpnservice_json.py
+#Variables         ../../../variables/vpnservice/associate_nwstovpn.py
 
 *** Variables ***
-@{NETWORKS}       NET10    NET20
-@{SUBNETS}        SUBNET1    SUBNET2
+@{NETWORKS}    NET11    NET20
+@{SUBNETS}    SUBNET1    SUBNET2
 @{SUBNET_CIDR}    10.1.1.0/24    20.1.1.0/24
-@{PORT_LIST}      PORT11    PORT21    PORT12    PORT22
-@{VM_INSTANCES}    VM11    VM21    VM12    VM22
-@{ROUTERS}        ROUTER_1    ROUTER_2
+@{PORT_LIST}    PORT11    PORT21    PORT12    PORT22
+@{VM_INSTANCES}    VM11a    VM21a    VM12    VM22
+@{ROUTERS}    ROUTER_1    ROUTER_2
+@{NET10_VM_IPS}    10.1.1.2    10.1.1.3
+@{NET20_VM_IPS}    20.1.1.2    20.1.1.3
+${bridge_ref_info_api}    /restconf/operational/odl-interface-meta:bridge-ref-info
+${RESTCONF_OPERATIONS_URI}      /restconf/operations/
+${VPN_CONFIG_DIR}    ${CURDIR}/../../../variables/vpnservice
+#${associate_network}    associate_nwstovpn.py
+${USER_HOME}    /home/mininet
 
 *** Test Cases ***
 Verify Tunnel Creation
@@ -59,6 +69,50 @@ Create Nova VMs
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES[1]}    ${OS_COMPUTE_2_IP}
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES[2]}    ${OS_COMPUTE_1_IP}
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES[3]}    ${OS_COMPUTE_2_IP}
+
+
+
+
+
+
+#Create L3 VPN Instance
+#    [Arguments]    ${vpn_instance}
+#    [Documentation]    Creates L3 VPN Instance through restconf
+#    [Tags]    Post
+#    ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/${vpn_instance}
+#    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:createL3VPN
+#    ...   data=${body}
+#    Log    ${resp.content}
+#    Should Be Equal As Strings    ${resp.status_code}    204
+
+#Verify L3 vpn instance
+#    [Arguments]    ${vpnid_instance}
+#    [Documentation]    Verify L3 VPN Instance through restconf
+#    [Tags]    Get
+#    ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/${vpnid_instance}
+#    ${resp}    RequestsLibrary.Get Request    session    ${REST_CON_OP}neutronvpn:getL3VPN
+#    ...  data=${body}       headers=  ${ACCEPT_XML}
+#    Log    ${resp.content}
+#    Should Be Equal As Strings    ${resp.status_code}    200
+
+#Delete L3 VPNs instances
+#    [Documentation]    Delete L3 VPN instance
+#    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CON}l3vpn:vpn-instances
+#    Log    ${resp.content}
+#    Should Be Equal As Strings    ${resp.status_code}    200
+
+#Create L3 VM-VPN interface
+#    [Arguments]  ${body}
+#    [Documentation]    Creates vm-vpn interface for the corresponding ietf interface
+#    [Tags]    Post
+#    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON}l3vpn:vpn-interfaces/
+#    ...   data=${body}
+#    Should Be Equal As Strings    ${resp.status_code}    204
+
+
+
+
+
 
 Check ELAN Datapath Traffic Within The Networks
     [Documentation]    Checks datapath within the same network with different vlans.
@@ -111,7 +165,7 @@ Delete Vm Instances
 Delete Neutron Ports
     [Documentation]    Delete Neutron Ports in the given Port List.
     : FOR    ${Port}    IN    @{PORT_LIST}
-    \    Delete SubNet    ${Port}
+    \    Delete Port    ${Port}
 
 Delete Sub Networks
     [Documentation]    Delete Sub Nets in the given Subnet List.

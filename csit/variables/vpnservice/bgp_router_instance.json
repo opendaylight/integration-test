@@ -1,0 +1,6 @@
+{
+  "bgp-router": {
+    "local-as-identifier": "172.16.73.159",
+    "local-as-number": 100
+  }
+}
