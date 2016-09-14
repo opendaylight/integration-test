@@ -97,13 +97,13 @@ Associate Networks To L3VPN
     [Documentation]    Associate Networks To L3VPN.
     [Tags]    Post
     ${devstack_conn_id}=    Get ControlNode Connection
-    ${networkid} = Get Net Id ${NETWORKS[0]}    ${devstack_conn_id}
+    ${networkid}=    Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
     ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/testVpn1-network.json
     ${body}    Replace String    ${body}    {netid}    ${networkid}
     ${resp}    RequestsLibrary.Post Request    session    ${REST_CON}neutronvpn:associateNetworks/    data=${body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    204
-    ${networkid} = Get Net Id ${NETWORKS[1]}    ${devstack_conn_id}
+    ${networkid}=    Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
     ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/testVpn2-network.json
     ${body}    Replace String    ${body}    {netid}    ${networkid}
     ${resp}    RequestsLibrary.Post Request    session    ${REST_CON}neutronvpn:associateNetworks/    data=${body}
