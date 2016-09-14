@@ -14,6 +14,8 @@ Documentation     Resource housing Keywords common to several suites for cluster
 ...               The state includes member indexes, IP addresses and Http (RequestsLibrary) sessions.
 ...               Cluster Keywords normally use member index, member list or nothing (all members) as argument.
 ...
+...               All index lists returned should be sorted numerically, fix if not.
+...
 ...               Requirements:
 ...               odl-jolokia is assumed to be installed.
 ...
@@ -100,6 +102,7 @@ Get_State_Info_For_Shard
     ...    The biggest difference from Get_Leader_And_Followers_For_Shard
     ...    is that no check on number of Leaders is performed.
     ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    Collections.Sort_List    ${index_list}    # to guarantee return values are also sorted lists
     # TODO: Support alternative capitalization of 'config'?
     ${ds_type} =    BuiltIn.Set_Variable_If    '${shard_type}' != 'config'    operational    config
     ${leader_list} =    BuiltIn.Create_List
@@ -138,20 +141,24 @@ Verify_Owner_And_Successors_For_Device
     ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${candidate_list}
     ${owner}    ${successor_list} =    Get_Owner_And_Successors_For_Device    device_name=${device_name}    device_type=${device_type}    member_index=${member_index}
     Collections.List_Should_Contain_Value    ${index_list}    ${owner}    Owner ${owner} is not in candidate list ${index_list}
-    ${expected_successor_list} =    BuiltIn.Run Keyword If    '${ODL_STREAM}' != 'beryllium'    BuiltIn.Create_List    @{ClusterManagement__member_index_list}
-    ...    ELSE    BuiltIn.Create_List    @{index_list}
+    ${expected_candidate_list_origin} =    CompareStream.Set_Variable_If_At_Least_Boron    ${ClusterManagement__member_index_list}    ${index_list}
+    # We do not want to manipulate either origin list.
+    ${expected_successor_list} =    BuiltIn.Create_List    @{expected_candidate_list_origin}
     Collections.Remove_Values_From_List    ${expected_successor_list}    ${owner}
     Collections.Lists_Should_Be_Equal    ${expected_successor_list}    ${successor_list}    Successor list ${successor_list} is not the came as expected ${expected_successor_list}
-    ${reduced_successor_list} =    BuiltIn.Create_List    @{index_list}
-    Collections.Remove_Values_From_List    ${reduced_successor_list}    ${owner}
-    [Return]    ${owner}    ${reduced_successor_list}
+    # User expects the returned successor list to be the provided candidate list minus the owner.
+    Collections.Remove_Values_From_List    ${index_list}    ${owner}
+    [Return]    ${owner}    ${index_list}
 
 Get_Owner_And_Successors_For_Device
     [Arguments]    ${device_name}    ${device_type}    ${member_index}
     [Documentation]    Returns the owner and a list of successors for the SB device ${device_name} of type ${device_type}. Request is sent to member ${member_index}.
     ...    Successors are those device candidates not elected as owner. The list of successors = (list of candidates) - (owner).
+    ...    The returned successor list is sorted numerically.
+    ...    Note that "candidate list" definition currently differs between Beryllium and Boron.
+    ...    Use Verify_Owner_And_Successors_For_Device if you want the older semantics (inaccessible nodes not present in the list).
     ${owner}    ${candidate_list} =    Get_Owner_And_Candidates_For_Device    device_name=${device_name}    device_type=${device_type}    member_index=${member_index}
-    ${successor_list} =    BuiltIn.Create_List    @{candidate_list}
+    ${successor_list} =    BuiltIn.Create_List    @{candidate_list}    # Copy operation is not required, but new variable name requires a line anyway.
     Collections.Remove_Values_From_List    ${successor_list}    ${owner}
     [Return]    ${owner}    ${successor_list}
 
@@ -159,6 +166,9 @@ Get_Owner_And_Candidates_For_Device
     [Arguments]    ${device_name}    ${device_type}    ${member_index}
     [Documentation]    Returns the owner and a list of candidates for the SB device ${device_name} of type ${device_type}. Request is sent to member ${member_index}.
     ...    Candidates are all members that register to own a device, so the list of candiates includes the owner.
+    ...    The returned candidate list is sorted numerically.
+    ...    Note that "candidate list" definition currently differs between Beryllium and Boron.
+    ...    It is recommended to use Get_Owner_And_Successors_For_Device instead of this keyword, see documentation there.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
     ${data} =    TemplatedRequests.Get_As_Json_From_Uri    uri=${ENTITY_OWNER_URI}    session=${session}
     ${candidate_list} =    BuiltIn.Create_List
@@ -183,6 +193,7 @@ Get_Owner_And_Candidates_For_Device
     \    ${candidate} =    String.Replace_String    &{entity_candidate}[name]    member-    ${EMPTY}
     \    ${candidate} =    BuiltIn.Convert_To_Integer    ${candidate}
     \    Collections.Append_To_List    ${candidate_list}    ${candidate}
+    Collections.Sort_List    ${candidate_list}
     [Return]    ${owner}    ${candidate_list}
 
 Extract_Service_Entity_Type
@@ -449,9 +460,12 @@ ClusterManagement__Parse_Sync_Status
 ClusterManagement__Given_Or_Internal_Index_List
     [Arguments]    ${given_list}=${EMPTY}
     [Documentation]    Utility to allow \${EMPTY} as default argument value, as the internal list is computed at runtime.
-    ${given_length} =    BuiltIn.Get_Length    ${given_list}
-    ${return_list} =    BuiltIn.Set_Variable_If    ${given_length} > 0    ${given_list}    ${ClusterManagement__member_index_list}
-    [Return]    ${return_list}
+    ...    This keyword always return a (shallow) copy of given or default list,
+    ...    so operations with the returned list should not affect other lists.
+    ...    Also note that this keyword does not consider empty list to be \${EMPTY}.
+    ${return_list_reference} =    BuiltIn.Set_Variable_If    """${given_list}""" != ""    ${given_list}    ${ClusterManagement__member_index_list}
+    ${return_list_copy} =    BuiltIn.Create_List    @{return_list_reference}
+    [Return]    ${return_list_copy}
 
 ClusterManagement__Given_Or_Empty_List
     [Arguments]    ${given_list}=${EMPTY}
