@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_117106a8",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-09-14T03:58:44Z",
+      "side": 1,
+      "message": "Line 161 \u0026 164 :   These two logs can be removed",
+      "range": {
+        "startLine": 161,
+        "startChar": 13,
+        "endLine": 161,
+        "endChar": 19
+      },
+      "revId": "74133f4e1f5130564e9551edeadcf73561945af2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
