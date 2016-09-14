@@ -286,7 +286,7 @@ Isolate_Member_From_List_Or_All
     \    BuiltIn.Run_Keyword_If    "${index}" != "${isolate_member_index}"    Run_Command_On_Member    command=${command}    member_index=${isolate_member_index}
     ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -L -n
     ${output} =    Run_Command_On_Member    command=${command}    member_index=${isolate_member_index}
-    BuiltIn.Log    ${output}
+    BuiltIn.Log    ${output}${current_ssh_connection.index}
     ${updated_index_list} =    BuiltIn.Create_List    @{index_list}
     Collections.Remove_Values_From_List    ${updated_index_list}    ${isolate_member_index}
     [Return]    ${updated_index_list}
