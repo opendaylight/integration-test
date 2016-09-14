@@ -1,0 +1,14 @@
+{
+    "vpn-interface": [
+        {
+            "name": "VM_ID",
+            "odl-l3vpn:adjacency": [
+                {
+                    "odl-l3vpn:ip_address": "VM_IP",
+                    "odl-l3vpn:mac_address": "VM_MAC"
+                }
+            ],
+            "vpn-instance-name": "VPN_NAME"
+        }
+    ]
+}
