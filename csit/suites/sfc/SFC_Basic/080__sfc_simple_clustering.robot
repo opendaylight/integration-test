@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for SFC Service Functions, Operates functions from Restconf APIs.
-Suite Setup       Init Variables
+Suite Setup       Init Suite
 Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
 Library           SSHLibrary
@@ -8,6 +8,9 @@ Library           Collections
 Library           OperatingSystem
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
+
+*** Variables ***
+${SFC_API}    /restconf/config/service-function:service-functions
 
 *** Test Cases ***
 Add Service Functions To First Node
@@ -43,18 +46,12 @@ Read JSON From File
     ${jsonbody}    To Json    ${body}
     [Return]    ${jsonbody}
 
-Init Variables
+Init Suite
     [Documentation]    Initialize ODL version specific variables
     log    ${ODL_STREAM}
-    Run Keyword If    '${ODL_STREAM}' == 'stable-lithium'    Init Variables Lithium
-    ...    ELSE    Init Variables Master
+    Run Keyword If    '${ODL_STREAM}' == 'stable-lithium'    Set Suite Variable    ${VERSION_DIR}    lithium
+    ...    ELSE    Set Suite Variable    ${VERSION_DIR}    master
+    Set Suite Variable    ${SFC_FUNCTIONS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-functions.json
 
-Init Variables Master
-    [Documentation]    Sets variables specific to latest(master) version
-    Set Suite Variable    ${SFC_API}    /restconf/config/service-function:service-functions
-    Set Suite Variable    ${SFC_FUNCTIONS_FILE}    ${CURDIR}/../../../variables/sfc/master/service-functions.json
 
-Init Variables Lithium
-    [Documentation]    Sets variables specific to Lithium version
-    Set Suite Variable    ${SFC_API}    /restconf/config/service-function:service-functions
-    Set Suite Variable    ${SFC_FUNCTIONS_FILE}    ${CURDIR}/../../../variables/sfc/lithium/service-functions.json
+
