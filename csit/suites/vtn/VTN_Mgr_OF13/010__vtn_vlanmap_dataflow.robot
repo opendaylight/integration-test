@@ -20,6 +20,7 @@ Check if switch2 detected
 Check if switch3 detected
     [Documentation]    Check if openflow:3 is detected
     BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch inventory    openflow:3
+    [Teardown]    Collect Debug Info
 
 Add a vtn Tenant1
     [Documentation]    Add a vtn Tenant1
@@ -40,22 +41,27 @@ Add a vBridge vBridge2_vlan
 Add a vlanmap for vBridge2_vlan
     [Documentation]    Add a Vlanmap for vBridge2_vlan in vtn Tenant1
     Add a vlanmap    Tenant1    vBridge2_vlan    ${vlanmap_bridge2}
+    [Teardown]    Collect Debug Info
 
 Get vlanflow h1 h3
     [Documentation]    ping h1 to h3
     Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+    [Teardown]    Collect Debug Info
 
 Get vlanflow h1 h5
     [Documentation]    ping h1 to h5
     Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h5
+    [Teardown]    Collect Debug Info
 
 Verify data flow details for vlanmap vBridge1_vlan
     [Documentation]    Verify the data flows for the specified tenant and vBridge1_vlan
     Verify Data Flows    Tenant1    vBridge1_vlan
+    [Teardown]    Collect Debug Info
 
 Get vlanflow h2 h4
     [Documentation]    ping h2 to h4
     Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h2    h4
+    [Teardown]    Collect Debug Info
 
 Get vlanflow h2 h6
     [Documentation]    ping h2 to h6
@@ -64,6 +70,7 @@ Get vlanflow h2 h6
 Verify data flow details for vlanmap vBridge2_vlan
     [Documentation]    Verify the data flows for the specified tenant and vBridge2_vlan
     Verify Data Flows    Tenant1    vBridge2_vlan
+    [Teardown]    Collect Debug Info
 
 Get vlanflow h2 h5
     [Documentation]    ping h2 to h5
