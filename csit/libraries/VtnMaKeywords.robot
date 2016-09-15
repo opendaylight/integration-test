@@ -88,6 +88,18 @@ Fetch vtn switch inventory
     ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-inventory:vtn-nodes/vtn-node/${sw_name}
     Should Be Equal As Strings    ${resp.status_code}    200
 
+Collect Debug Info
+    [Documentation]    Check if Switch is detected.
+    ${resp_odl_inventory}=    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}
+    ${resp_vtn_inventory}=    RequestsLibrary.Get Request    session    ${VTN_INVENTORY_NODE_API}
+    write    ${DUMPFLOWS_OF10}
+    ${result}    Read Until    mininet>
+    write    ${DUMPFLOWS_OF13}
+    ${result}    Read Until    mininet>
+    Log    ${resp_odl_inventory.content}
+    Log    ${resp_vtn_inventory.content}
+    Should Be Equal As Strings    ${resp_vtn_inventory.status_code}    200
+
 Add a Topology wait
     [Arguments]    ${topo_wait}
     [Documentation]    Add a topology wait to complete all Inter-switch link connection of switches
