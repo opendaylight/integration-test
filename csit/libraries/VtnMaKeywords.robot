@@ -61,6 +61,7 @@ Start SuiteVtnMa
     Set Suite Variable    ${vtn_mgr_id}
     SSHLibrary.Login_With_Public_Key    ${ODL_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     SSHLibrary.Execute Command    sudo sed -i "$ i log4j.logger.org.opendaylight.vtn = TRACE" ${WORKSPACE}/${BUNDLEFOLDER}/etc/org.ops4j.pax.logging.cfg
+    SSHLibrary.Execute Command    sudo sed -i "$ i log4j.logger.org.opendaylight.openflowplugin = TRACE" ${WORKSPACE}/${BUNDLEFOLDER}/etc/org.ops4j.pax.logging.cfg
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_YANG_JSON}
     BuiltIn.Wait_Until_Keyword_Succeeds    30    3    Fetch vtn list
     Start Suite
@@ -87,6 +88,26 @@ Fetch vtn switch inventory
     [Documentation]    Check if Switch is detected.
     ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-inventory:vtn-nodes/vtn-node/${sw_name}
     Should Be Equal As Strings    ${resp.status_code}    200
+
+Collect Debug Info
+    [Documentation]    Check if Switch is detected.
+    ${resp_odl_inventory}=    RequestsLibrary.Get Request    session    restconf/operational/opendaylight-inventory:nodes
+    ${resp_openflow_2_1}=    RequestsLibrary.Get Request    session    restconf/operational/opendaylight-inventory:nodes/node/openflow:2/node-connector/openflow:2:1
+    ${resp_openflow_2_3}=    RequestsLibrary.Get Request    session    restconf/operational/opendaylight-inventory:nodes/node/openflow:2/node-connector/openflow:2:3
+    ${resp_openflow_1_1}=    RequestsLibrary.Get Request    session    restconf/operational/opendaylight-inventory:nodes/node/openflow:1/node-connector/openflow:1:1
+    ${resp_openflow_1_2}=    RequestsLibrary.Get Request    session    restconf/operational/opendaylight-inventory:nodes/node/openflow:1/node-connector/openflow:1:2
+    ${resp_openflow_3_3}=    RequestsLibrary.Get Request    session    restconf/operational/opendaylight-inventory:nodes/node/openflow:3/node-connector/openflow:3:3
+    ${resp_openflow_3_1}=    RequestsLibrary.Get Request    session    restconf/operational/opendaylight-inventory:nodes/node/openflow:3/node-connector/openflow:3:1
+    ${resp_vtn_inventory}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-inventory:vtn-nodes
+    Log    ${resp_openflow_2_1.content}
+    Log    ${resp_openflow_2_3.content}
+    Log    ${resp_openflow_1_1.content}
+    Log    ${resp_openflow_1_2.content}
+    Log    ${resp_openflow_3_3.content}
+    Log    ${resp_openflow_3_1.content}
+    Log    ${resp_odl_inventory.content}
+    Log    ${resp_vtn_inventory.content}
+    Should Be Equal As Strings    ${resp_vtn_inventory.status_code}    200
 
 Add a Topology wait
     [Arguments]    ${topo_wait}

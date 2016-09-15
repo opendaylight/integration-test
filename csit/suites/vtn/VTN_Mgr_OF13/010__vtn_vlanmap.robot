@@ -24,6 +24,7 @@ Check if switch2 detected
 Check if switch3 detected
     [Documentation]    Check if openflow:3 is detected
     BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch inventory    openflow:3
+    [Teardown]    Collect Debug Info
 
 Add a Topology Wait
     [Documentation]    Add a topology wait to wait for a completion of inter-switch link
@@ -36,10 +37,12 @@ Add a vtn Tenant1
 Add a vBridge vBridge1
     [Documentation]    Add a vBridge vBridge1 in vtn Tenant1
     Add a vBridge    Tenant1    vBridge1
+    [Teardown]    Collect Debug Info
 
 Add a vlanmap for bridge1
     [Documentation]    Add a Vlanmap for bridge1 in vtn Tenant1
     Add a vlanmap    Tenant1    vBridge1    ${vlanmap_bridge1}
+    [Teardown]    Collect Debug Info
 
 Add a vBridge vBridge2
     [Documentation]    Add a vBridge vBridge2 in vtn Tenant1
@@ -52,18 +55,22 @@ Add a vlanmap for bridge2
 Get vlanflow h1 h5
     [Documentation]    ping h1 to h5
     Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h5
+    [Teardown]    Collect Debug Info
 
 Get vlanflow h3 h5
     [Documentation]    ping h3 to h5
     Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h3    h5
+    [Teardown]    Collect Debug Info
 
 Get vlanflow h2 h4
     [Documentation]    ping h2 to h4
     Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h2    h4
+    [Teardown]    Collect Debug Info
 
 Get vlanflow h2 h6
     [Documentation]    ping h2 to h6
     Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h2    h6
+    [Teardown]    Collect Debug Info
 
 Get vlanflow h1 h4
     [Documentation]    ping h1 to h4
