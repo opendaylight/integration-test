@@ -28,6 +28,10 @@ Check if switch3 detected
     [Documentation]    Check if openflow:3 is detected
     BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch inventory    openflow:3
 
+Check switch details
+    [Documentation]    Check switch details from vtn inventory  is detected
+    BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch details
+
 Add a vtn Tenant1
     [Documentation]    Add a vtn Tenant1
     Add a vtn    Tenant1
@@ -89,10 +93,18 @@ Add a vtn flowfilter with inet4src and inet4dst
     Add a vtn flowfilter    Tenant1    ${flowfilterInetdata}
     Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Not Succeed    h1    h3
 
+Check switch details before veriying flows
+    [Documentation]    Check switch details from vtn inventory  is detected
+    BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch details
+
 Verify inet4src and inet4dst of vtn flowfilter
     [Documentation]    Verify vtn flowfilter actions in Flow Enties for inet4src and inet4dst
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF13}    @{inet_action}
     [Teardown]    Report_Failure_Due_To_Bug    6643
+
+Check switch details after veriying flows
+    [Documentation]    Check switch details from vtn inventory  is detected
+    BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch details
 
 Remove vtn Flowfilter index
     [Documentation]    Remove a index of vtn flowfilter

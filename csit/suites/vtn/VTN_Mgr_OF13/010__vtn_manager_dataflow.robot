@@ -17,6 +17,10 @@ Check if switch3 detected
     [Documentation]    Check if openflow:3 is detected
     BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch inventory    openflow:3
 
+Check switch details
+    [Documentation]    Check switch details from vtn inventory  is detected
+    BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch details
+
 Add a vtn Tenant1
     [Documentation]    Add a vtn Tenant1
     Add a vtn    Tenant1
@@ -45,9 +49,17 @@ Ping h1 to h3
     [Documentation]    Ping h1 to h3, verify no packet loss
     Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
 
+Check switch details before verify dataflow
+    [Documentation]    Check switch details from vtn inventory  is detected
+    BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch details
+
 Verify data flow details For vBridge1
     [Documentation]    Verify the data flows for the specified tenant and bridge
     Verify Data Flows    Tenant1    vBridge1
+
+Check switch details after verify dataflow
+    [Documentation]    Check switch details from vtn inventory  is detected
+    BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch details
 
 Add a vBridge vBridge2
     [Documentation]    Add a vBridge vBridge2 in vtn Tenant1
