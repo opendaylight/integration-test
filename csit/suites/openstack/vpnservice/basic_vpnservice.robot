@@ -117,10 +117,51 @@ Associate Networks To L3VPN
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    204
 
+Check VM accessibility across DPNs on same VPN
+    [Documentation]    VM accessibility check Across the DPNs for same VPN
+    Check Ping From VM    ${NETWORKS[0]}   ${NET_10_VM_IPS[0]}    ${NET_10_VM_IPS[1]}    ${ping_pass}
 
 Check VM accessibility across VPNs
-    [Documentation]    VM accessibility check Across the VPNs
-    Check Ping From VM  ${NETWORKS[0]} ${NET_10_VM_IPS[0]} ${NET_20_VM_IPS[0]} ${ping_fail} 
+    [Documentation]    VM accessibility check Across the VPNs 
+    Check Ping From VM    ${NETWORKS[0]}   ${NET_10_VM_IPS[0]}    ${NET_20_VM_IPS[0]}    ${ping_fail} 
+
+Exchange VPN Routes
+    [Documentation]   Import/Export Routes between VPN
+    [Tags]    Post
+    ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/vpn_instance_impex.json
+    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON}neutronvpn:createL3VPN/    data=${body}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    204
+
+Check VM accessibility across VPNs within DPN1
+    [Documentation]    VM accessibility check Across the VPNs within DPN's
+    Check Ping From VM    ${NETWORKS[0]}    ${NET_10_VM_IPS[0]}    ${NET_20_VM_IPS[0]}    ${ping_pass}
+    Check Ping From VM    ${NETWORKS[1]}    ${NET_20_VM_IPS[0]}    ${NET_10_VM_IPS[0]}    ${ping_pass}
+
+Check VM accessibility across VPNs within DPN2
+    [Documentation]    VM accessibility check Across the VPNs within DPN's
+    Check Ping From VM    ${NETWORKS[0]}    ${NET_10_VM_IPS[1]}    ${NET_20_VM_IPS[1]}    ${ping_pass}
+    Check Ping From VM    ${NETWORKS[1]}    ${NET_20_VM_IPS[1]}    ${NET_10_VM_IPS[1]}    ${ping_pass}
+
+Check VM accessibility across VPNs on other DPNs 
+    [Documentation]    VM accessibility check Across VPNs on other DPNs
+    Check Ping From VM    ${NETWORKS[0]}    ${NET_10_VM_IPS[0]}    ${NET_20_VM_IPS[1]}    ${ping_pass}
+    Check Ping From VM    ${NETWORKS[1]}    ${NET_10_VM_IPS[1]}    ${NET_20_VM_IPS[0]}    ${ping_pass}
+
+Check VPN Route
+    [Documentation]   TC4-Verify the subnet route is learnt for VPN1 and is shared across the other VPNs   
+    [Tags]    exclude    
+    Log    This test will be added in the next patch
+
+Delete Neutron Port
+   [Documentation]  TC5- Deletion of Neutron Port for VPN1 
+   Delete Port   ${PORT_LIST[0]}
+
+Check VPN Route
+    [Documentation]   TC5-Verify the subnet route for route Withdrawl after deletion for neutron port on VPN1
+    [Tags]    exclude
+    Log    This test will be added in the next patch
+
 
 Check Datapath Traffic Across Networks With L3VPN
     [Documentation]    Datapath Test Across the networks with VPN.
