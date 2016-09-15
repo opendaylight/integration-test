@@ -72,23 +72,29 @@ Add a portmap for interface if4
 Ping h2 to h4
     [Documentation]    Ping h2 to h4, verify no packet loss
     Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h2    h4
+    [Teardown]    Collect Debug Info
 
 Verify data flow details for vBridge2
     [Documentation]    Verify the data flows for the specified tenant and bridge
     Verify Data Flows    Tenant1    vBridge2
+    [Teardown]    Collect Debug Info
 
 Verify FlowMacAddress
     [Documentation]    Checking Flows on switch
     Wait Until Keyword Succeeds    20s    1s    Verify FlowMacAddress    h2    h4    OF10
+    [Teardown]    Collect Debug Info
 
 Remove Portmap for If1
     [Documentation]    Remove portmap for the interface If1
     Remove a portmap    Tenant1    vBridge1    if1
+    [Teardown]    Collect Debug Info
 
 Verify RemovedFlowMacAddress
     [Documentation]    flows will be deleted after the port map is removed
     Verify RemovedFlowMacAddress    h1    h3    OF10
+    [Teardown]    Collect Debug Info
 
 Delete a vtn Tenant1
     [Documentation]    Delete a vtn Tenant1
     Delete a vtn    Tenant1
+    [Teardown]    Collect Debug Info
