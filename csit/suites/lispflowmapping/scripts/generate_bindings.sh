@@ -1,4 +1,9 @@
 #!/bin/bash
+# Activate robotframework virtualenv
+# ${ROBOT_VENV} comes from the include-raw-integration-install-robotframework.sh
+# script.
+source ${ROBOT_VENV}/bin/activate
+
 echo "Downloading yang dependencies..."
 
 DIRECTORY="odl-lispflowmapping-yang-files"
