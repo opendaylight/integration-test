@@ -25,6 +25,10 @@ Check if switch3 detected
     [Documentation]    Check if openflow:3 is detected
     BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch inventory    openflow:3
 
+Check switch details
+    [Documentation]    Check switch details from vtn inventory  is detected
+    BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch details
+
 Add a Topology Wait
     [Documentation]    Add a topology wait to wait for a completion of inter-switch link
     Add a Topology wait    6000
@@ -49,9 +53,17 @@ Add a vlanmap for bridge2
     [Documentation]    Add a Vlanmap for bridge1 in vtn Tenant1
     Add a vlanmap    Tenant1    vBridge2    ${vlanmap_bridge2}
 
+Check switch details before ping starts
+    [Documentation]    Check switch details from vtn inventory  is detected
+    BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch details
+
 Get vlanflow h1 h5
     [Documentation]    ping h1 to h5
     Wait Until Keyword Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h5
+
+Check switch details after ping starts
+    [Documentation]    Check switch details from vtn inventory  is detected
+    BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch details
 
 Get vlanflow h3 h5
     [Documentation]    ping h3 to h5

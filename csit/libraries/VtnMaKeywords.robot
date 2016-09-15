@@ -88,6 +88,12 @@ Fetch vtn switch inventory
     ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-inventory:vtn-nodes/vtn-node/${sw_name}
     Should Be Equal As Strings    ${resp.status_code}    200
 
+Fetch vtn switch details
+    [Documentation]    Check if Switch is detected.
+    ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-inventory:vtn-nodes
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+
 Add a Topology wait
     [Arguments]    ${topo_wait}
     [Documentation]    Add a topology wait to complete all Inter-switch link connection of switches
