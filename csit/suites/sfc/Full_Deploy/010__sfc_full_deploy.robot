@@ -10,9 +10,11 @@ Variables         ../../../variables/Variables.py
 Resource          ../../../variables/sfc/Variables.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/TemplatedRequests.robot
+
 *** Variables ***
 ${CREATE_RSP1_INPUT}    {"input":{"parent-service-function-path":"SFP-1","name":"SFP-1-Path-1"}}
 ${CREATE_RSP_FAILURE_INPUT}    {"input":{"parent-service-function-path":"SFC1-empty","name":"SFC1-empty-Path-1"}}
+
 *** Test Cases ***
 Basic Environment Setup Tests
     [Documentation]    Prepare Basic Test Environment
