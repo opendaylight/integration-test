@@ -41,9 +41,11 @@ Create Subnets For l2_network_2
 
 Add Ssh Allow Rule
     [Documentation]    Allow all TCP packets for testing
-    Create Security Group    csit    "CSIT SSH Allow"
-    Create Security Rule    ingress    tcp    1    65535    0.0.0.0/0    csit
-    Create Security Rule    egress    tcp    1    65535    0.0.0.0/0    csit
+    Create Security Group      csit    "CSIT SSH Allow"
+    Create Tcp Security Rule     ingress      tcp     1     65535     0.0.0.0/0      csit
+    Create Tcp Security Rule     egress       tcp     1     65535     0.0.0.0/0      csit
+    Create Protocol Security Rule     ingress     icmp     csit
+    Create Protocol Security Rule     egress     icmp     csit
 
 Create Vm Instances For l2_network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
