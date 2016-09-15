@@ -18,42 +18,52 @@ ${flowfiltervlanpcp}    "vtn-flow-filter":[{"condition":"cond_1","vtn-pass-filte
 Check if switch1 detected
     [Documentation]    Check if openflow:1 is detected
     BuiltIn.Wait_Until_Keyword_Succeeds    12    3    Fetch vtn switch inventory    openflow:1
+    [Teardown]    Collect Debug Info
 
 Check if switch2 detected
     [Documentation]    Check if openflow:2 is detected
     BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch inventory    openflow:2
+    [Teardown]    Collect Debug Info
 
 Check if switch3 detected
     [Documentation]    Check if openflow:3 is detected
     BuiltIn.Wait_Until_Keyword_Succeeds    3    1    Fetch vtn switch inventory    openflow:3
+    [Teardown]    Collect Debug Info
 
 Add a vtn Tenant1
     [Documentation]    Add a vtn Tenant1
     Add a vtn    Tenant1
+    [Teardown]    Collect Debug Info
 
 Add a vBridge vBridge1
     [Documentation]    Add a vBridge vBridge1 in vtn Tenant1
     Add a vBridge    Tenant1    vBridge1
+    [Teardown]    Collect Debug Info
 
 Add a interface If1
     [Documentation]    Add a interface if1 into vBridge vBridge1
     Add a interface    Tenant1    vBridge1    if1
+    [Teardown]    Collect Debug Info
 
 Add a interface if2
     [Documentation]    Add a interface if2 into vBridge vBridge1
     Add a interface    Tenant1    vBridge1    if2
+    [Teardown]    Collect Debug Info
 
 Add a portmap for interface if1
     [Documentation]    Create a portmap on Interface if1 of vBridge1
     Add a portmap    Tenant1    vBridge1    if1    openflow:2    s2-eth1
+    [Teardown]    Collect Debug Info
 
 Add a portmap for interface if2
     [Documentation]    Create a portmap on Interface if2 of vBridge1
     Add a portmap    Tenant1    vBridge1    if2    openflow:3    s3-eth1
+    [Teardown]    Collect Debug Info
 
 Ping h1 to h3
     [Documentation]    Ping h1 to h3, verify no packet loss
     Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h3
+    [Teardown]    Collect Debug Info
 
 Add a vBridge vBridge2
     [Documentation]    Add a vBridge vBridge2 in vtn Tenant1
@@ -78,36 +88,44 @@ Add a portmap for interface if4
 Ping h2 to h4
     [Documentation]    Ping h2 to h4, verify no packet loss
     Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h2    h4
+    [Teardown]    Collect Debug Info
 
 Add a flowcondition
     [Documentation]    Create a flowcondition cond_1 using restconfig api
     Add a flowcondition    cond_1    ${flowconditiondata}
+    [Teardown]    Collect Debug Info
 
 Add a vtn flowfilter with inet4src and inet4dst
     [Documentation]    Create a flowfilter with inet4 and Verify ping
     Add a vtn flowfilter    Tenant1    ${flowfilterInetdata}
     Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Not Succeed    h1    h3
+    [Teardown]    Collect Debug Info
 
 Verify inet4src and inet4dst of vtn flowfilter
     [Documentation]    Verify vtn flowfilter actions in Flow Enties for inet4src and inet4dst
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF10}    @{inet_actions}
+    [Teardown]    Collect Debug Info
 
 Remove vtn Flowfilter index
     [Documentation]    Remove a index of vtn flowfilter
     Remove a vtn flowfilter    Tenant1    ${filter_index}
+    [Teardown]    Collect Debug Info
 
 Add a vbr flowfilter with inet4src and inet4dst
     [Documentation]    Create a flowfilter with inet4 and Verify ping
     Add a vbr flowfilter    Tenant1    vBridge1    ${flowfilterInetdata}
     Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Not Succeed    h1    h3
+    [Teardown]    Collect Debug Info
 
 Verify inet4src and inet4dst of vbr flowfilter
     [Documentation]    Verify actions in Flow Enties for inet4src and inet4dst
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF10}    @{inet_actions}
+    [Teardown]    Collect Debug Info
 
 Remove vbr Flowfilter index
     [Documentation]    Remove a index of vbr flowfilter
     Remove a vbr flowfilter    Tenant1    vBridge1    ${filter_index}
+    [Teardown]    Collect Debug Info
 
 Add a vbrif flowfilter with inet4src and inet4dst
     [Documentation]    Create a flowfilter with inet4 and Verify ping
