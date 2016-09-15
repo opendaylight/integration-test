@@ -266,6 +266,21 @@ Check Metadata Access
     ${output}=    Write Commands Until Expected Prompt    curl -i http://169.254.169.254    ${OS_SYSTEM_PROMPT}
     Should Contain    ${output}    200
 
+Check Ping From VM
+    [Arguments]    ${net_name}    ${src_ip}    ${dest_ip}    ${ping_result}    ${user}=cirros    ${password}=cubswin:)
+    [Documentation]    Login to the vm instance using ssh in the network.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
+    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${src_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no    d:
+    Log    ${output}
+    ${output}=    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
+    Log    ${output}
+    ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance
+    Run Keyword If    ${rcode}    Ping From Instance     ${dest_ip}
+    Result Should Contain    ${ping_result}
+    [Teardown]    Exit From Vm Console
+
 Test Operations From Vm Instance
     [Arguments]    ${net_name}    ${src_ip}    ${list_of_local_dst_ips}    ${l2_or_l3}=l2    ${list_of_external_dst_ips}=${NONE}    ${user}=cirros
     ...    ${password}=cubswin:)

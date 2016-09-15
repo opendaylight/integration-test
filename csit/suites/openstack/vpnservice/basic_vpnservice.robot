@@ -7,6 +7,7 @@ Suite Teardown    Basic Vpnservice Suite Teardown
 Test Setup        Log Testcase Start To Controller Karaf
 Library           SSHLibrary
 Library           OperatingSystem
+Library           String
 Library           RequestsLibrary
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/OpenStackOperations.robot
@@ -14,12 +15,24 @@ Resource          ../../../libraries/DevstackUtils.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
+${REST_CON}       /restconf/config/
+@{vpn_inst_values}    testVpn1    1000:1    1000:1,2000:1    3000:1,4000:1
+@{vm_int_values}    s1-eth1    l2vlan    openflow:1:1
+@{vm_vpnint_values}    s1-eth1    testVpn1    10.0.0.1    12:f8:57:a8:b9:a1
+${VPN_CONFIG_DIR}    ${CURDIR}/../../../variables/openstack/vpnservice
 @{NETWORKS}       NET10    NET20
 @{SUBNETS}        SUBNET1    SUBNET2
 @{SUBNET_CIDR}    10.1.1.0/24    20.1.1.0/24
 @{PORT_LIST}      PORT11    PORT21    PORT12    PORT22
 @{VM_INSTANCES}    VM11    VM21    VM12    VM22
 @{ROUTERS}        ROUTER_1    ROUTER_2
+@{NET_10_VM_IPS}    10.1.1.3    10.1.1.4
+@{NET_20_VM_IPS}    20.1.1.3    20.1.1.4
+@{GATEWAY_IPS}    10.1.1.1    20.1.1.1
+@{DHCP_IPS}       10.1.1.2    20.1.1.2
+${ping_pass}    3 packets recieved
+${ping_fail}    Network is unreachable
+
 
 *** Test Cases ***
 Verify Tunnel Creation
@@ -76,6 +89,41 @@ Add Interfaces To Router
 
 Check L3_Datapath Traffic Across Networks With Router
     [Documentation]    Datapath Test Across the networks using Router for L3.
+    [Tags]    exclude
+    Log    This test will be added in the next patch
+
+Create L3VPN
+    [Documentation]    Creates VPN Instance through restconf
+    [Tags]    Post
+    ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/vpn_instance.json
+    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON}neutronvpn:createL3VPN/    data=${body}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    204
+
+Associate Networks To L3VPN
+    [Documentation]    Associate Networks To L3VPN.
+    [Tags]    Post
+    ${devstack_conn_id}=    Get ControlNode Connection
+    ${networkid}=    Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
+    ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/testVpn1-network.json
+    ${body}    Replace String    ${body}    {netid}    ${networkid}
+    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON}neutronvpn:associateNetworks/    data=${body}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    204
+    ${networkid}=    Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
+    ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/testVpn2-network.json
+    ${body}    Replace String    ${body}    {netid}    ${networkid}
+    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON}neutronvpn:associateNetworks/    data=${body}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    204
+
+
+Check VM accessibility across VPNs
+    [Documentation]    VM accessibility check Across the VPNs
+    Check Ping From VM  ${NETWORKS[0]} ${NET_10_VM_IPS[0]} ${NET_20_VM_IPS[0]} ${ping_fail} 
+
+Check Datapath Traffic Across Networks With L3VPN
+    [Documentation]    Datapath Test Across the networks with VPN.
     [Tags]    exclude
     Log    This test will be added in the next patch
 
