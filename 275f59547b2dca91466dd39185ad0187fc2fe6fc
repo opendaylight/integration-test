@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_f588af72",
+        "filename": "csit/testplans/sfc-rest-basic.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-09-15T23:30:19Z",
+      "side": 1,
+      "message": "did I miss something?  I think you removed the 3node job from the builder repo.  if so, then I think this suite would fail right, because it would only run on a single node.  \n\nIf I understand correctly, then I think the solution could be to add the 3node job back and remove the 1node job.  Then run this set of suites against the 3node env.  it should be fine and all the suites here that don\u0027t expect 3 controllers will still work as expected and this last suite that needs 3 would be ok.\n\nor maybe I\u0027m confused :)",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 71
+      },
+      "revId": "275f59547b2dca91466dd39185ad0187fc2fe6fc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
