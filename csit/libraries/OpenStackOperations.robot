@@ -279,7 +279,7 @@ Test Operations From Vm Instance
     Log    ${output}
     ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    ifconfig    ${OS_SYSTEM_PROMPT}
-    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    route    ${OS_SYSTEM_PROMPT}
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    route    ${OS_SYSTEM_PROMPT}    40s
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    arp -an    ${OS_SYSTEM_PROMPT}
     ${dest_vm}=    Get From List    ${list_of_local_dst_ips}    0
     Log    ${dest_vm}
@@ -402,9 +402,16 @@ Create Security Group
     ${output}=    Write Commands Until Prompt    nova secgroup-create ${sg_name} ${desc}    40s
     Close Connection
 
-Create Security Rule
-    [Arguments]    ${direction}    ${protocol}    ${min_port}    ${max_port}    ${remote_ip}    ${sg_name}
+Create Tcp Security Rule
+    [Arguments]    ${direction}     ${protocol}      ${min_port}     ${max_port}     ${remote_ip}     ${sg_name}
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron security-group-rule-create --direction ${direction} --protocol ${protocol} --port-range-min ${min_port} --port-range-max ${max_port} --remote-ip-prefix ${remote_ip} ${sg_name}
+    Close Connection
+
+Create Protocol Security Rule
+    [Arguments]    ${direction}     ${protocol}      ${sg_name}
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron security-group-rule-create --direction ${direction} --protocol ${protocol} ${sg_name}
     Close Connection
