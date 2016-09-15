@@ -61,6 +61,7 @@ Start SuiteVtnMa
     Set Suite Variable    ${vtn_mgr_id}
     SSHLibrary.Login_With_Public_Key    ${ODL_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
     SSHLibrary.Execute Command    sudo sed -i "$ i log4j.logger.org.opendaylight.vtn = TRACE" ${WORKSPACE}/${BUNDLEFOLDER}/etc/org.ops4j.pax.logging.cfg
+    SSHLibrary.Execute Command    sudo sed -i "$ i log4j.logger.org.opendaylight.openflowplugin = TRACE" ${WORKSPACE}/${BUNDLEFOLDER}/etc/org.ops4j.pax.logging.cfg
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_YANG_JSON}
     BuiltIn.Wait_Until_Keyword_Succeeds    30    3    Fetch vtn list
     Start Suite
@@ -88,6 +89,18 @@ Fetch vtn switch inventory
     ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-inventory:vtn-nodes/vtn-node/${sw_name}
     Should Be Equal As Strings    ${resp.status_code}    200
 
+Collect Debug Info
+    [Documentation]    Check if Switch is detected.
+    ${resp_odl_inventory}=    RequestsLibrary.Get Request    session    restconf/operational/opendaylight-inventory:nodes
+    ${resp_vtn_inventory}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-inventory:vtn-nodes
+    write    ${DUMPFLOWS_OF10}
+    ${result}    Read Until    mininet>
+    write    ${DUMPFLOWS_OF13}
+    ${result}    Read Until    mininet>
+    Log    ${resp_odl_inventory.content}
+    Log    ${resp_vtn_inventory.content}
+    Should Be Equal As Strings    ${resp_vtn_inventory.status_code}    200
+
 Add a Topology wait
     [Arguments]    ${topo_wait}
     [Documentation]    Add a topology wait to complete all Inter-switch link connection of switches
@@ -99,12 +112,14 @@ Add a Vtn
     [Documentation]    Create a vtn with specified parameters.
     ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn:update-vtn    data={"input": {"tenant-name":${vtn_name}, "update-mode": "CREATE","operation": "SET", "description": "creating vtn", "idle-timeout":300, "hard-timeout":0}}
     Should Be Equal As Strings    ${resp.status_code}    200
+    [Teardown]    Collect Debug Info
 
 Add a vBridge
     [Arguments]    ${vtn_name}    ${vbr_name}
     [Documentation]    Create a vBridge in a VTN
     ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-vbridge:update-vbridge    data={"input": {"update-mode": "CREATE","operation":"SET", "tenant-name":${vtn_name}, "bridge-name":${vbr_name}, "description": "vbrdige created"}}
     Should Be Equal As Strings    ${resp.status_code}    200
+    [Teardown]    Collect Debug Info
 
 Add a interface
     [Arguments]    ${vtn_name}    ${vbr_name}    ${interface_name}
@@ -117,18 +132,21 @@ Add a portmap
     [Documentation]    Create a portmap for a interface of a vbridge
     ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-port-map:set-port-map    data={"input": { "tenant-name":${vtn_name}, "bridge-name":${vbr_name}, "interface-name": ${interface_name}, "node":"${node_id}", "port-name":"${port_id}"}}
     Should Be Equal As Strings    ${resp.status_code}    200
+    [Teardown]    Collect Debug Info
 
 Delete a Vtn
     [Arguments]    ${vtn_name}
     [Documentation]    Delete a vtn with specified parameters.
     ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn:remove-vtn    data={"input": {"tenant-name":${vtn_name}}}
     Should Be Equal As Strings    ${resp.status_code}    200
+    [Teardown]    Collect Debug Info
 
 Add a vlanmap
     [Arguments]    ${vtn_name}    ${vbr_name}    ${vlan_id}
     [Documentation]    Create a vlanmap
     ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-vlan-map:add-vlan-map    data={"input": {"tenant-name":${vtn_name},"bridge-name":${vbr_name},"vlan-id":${vlan_id}}}
     Should Be Equal As Strings    ${resp.status_code}    200
+    [Teardown]    Collect Debug Info
 
 Verify Data Flows
     [Arguments]    ${vtn_name}    ${vBridge_name}
@@ -138,6 +156,7 @@ Verify Data Flows
     ...    ELSE IF    '${vBridge_name}' == 'vBridge2'    DataFlowsForBridge    ${resp}    @{BRIDGE2_DATAFLOW}
     ...    ELSE IF    '${vBridge_name}' == 'vBridge1_vlan'    DataFlowsForBridge    ${resp}    @{VLANMAP_BRIDGE1_DATAFLOW}
     ...    ELSE    DataFlowsForBridge    ${resp}    @{VLANMAP_BRIDGE2_DATAFLOW}
+    [Teardown]    Collect Debug Info
 
 Start PathSuiteVtnMaTest
     [Documentation]    Start VTN Manager Test Suite and Mininet
@@ -184,6 +203,7 @@ Get a pathpolicy
     ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-path-policy:vtn-path-policies/vtn-path-policy/${pathpolicy_id}
     : FOR    ${pathpolicyElement}    IN    @{PATHPOLICY_ATTR}
     \    should Contain    ${resp.content}    ${pathpolicyElement}
+    [Teardown]    Collect Debug Info
 
 Delete a pathmap
     [Arguments]    ${tenant_path}
@@ -204,6 +224,7 @@ Verify flowEntryPathPolicy
     write    ${DUMPFLOWS}
     ${result}    Read Until    mininet>
     Should Contain    ${result}    in_port=${port}    actions=${output}
+    [Teardown]    Collect Debug Info
 
 Add a macmap
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${src_add}    ${dst_add}
@@ -227,6 +248,7 @@ Mininet Ping Should Succeed
     Write    ${host1} ping -c 1 ${host2}
     ${result}    Read Until    mininet>
     Should Contain    ${result}    64 bytes
+    [Teardown]    Collect Debug Info
 
 Mininet Ping Should Not Succeed
     [Arguments]    ${host1}    ${host2}
@@ -234,6 +256,7 @@ Mininet Ping Should Not Succeed
     Write    ${host1} ping -c 3 ${host2}
     ${result}    Read Until    mininet>
     Should Not Contain    ${result}    64 bytes
+    [Teardown]    Collect Debug Info
 
 Start vlan_topo
     [Arguments]    ${OF}
@@ -247,30 +270,35 @@ Get flow
     [Documentation]    Get data flow.
     ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/vtn-flow-impl:vtn-flows/vtn-flow-table/${vtn_name}
     Should Be Equal As Strings    ${resp.status_code}    200
+    [Teardown]    Collect Debug Info
 
 Remove a portmap
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${interface_name}
     [Documentation]    Remove a portmap for a interface of a vbridge
     ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-port-map:remove-port-map    data={"input": {"tenant-name":${vtn_name},"bridge-name":${vBridge_name},"interface-name":${interface_name}}}
     Should Be Equal As Strings    ${resp.status_code}    200
+    [Teardown]    Collect Debug Info
 
 Verify FlowMacAddress
     [Arguments]    ${host1}    ${host2}    ${OF_VERSION}
     [Documentation]    Verify the source and destination mac address.
     Run Keyword If    '${OF_VERSION}' == 'OF10'    Verify Flows On OpenFlow    ${host1}    ${host2}    ${FF_DUMPFLOWS_OF10}
     ...    ELSE    VerifyFlowsOnOpenFlow    ${host1}    ${host2}    ${FF_DUMPFLOWS_OF13}
+    [Teardown]    Collect Debug Info
 
 Verify Flows On OpenFlow
     [Arguments]    ${host1}    ${host2}    ${DUMPFLOWS}
     [Documentation]    Verify the mac addresses on the specified open flow.
     ${booleanValue}=    Run Keyword And Return Status    Verify macaddress    ${host1}    ${host2}    ${DUMPFLOWS}
     Should Be Equal As Strings    ${booleanValue}    True
+    [Teardown]    Collect Debug Info
 
 Verify RemovedFlowMacAddress
     [Arguments]    ${host1}    ${host2}    ${OF_VERSION}
     [Documentation]    Verify the removed source and destination mac address.
     Run Keyword If    '${OF_VERSION}' == 'OF10'    Verify Removed Flows On OpenFlow    ${host1}    ${host2}    ${FF_DUMPFLOWS_OF10}
     ...    ELSE    Verify Removed Flows On OpenFlow    ${host1}    ${host2}    ${FF_DUMPFLOWS_OF13}
+    [Teardown]    Collect Debug Info
 
 Verify Removed Flows On OpenFlow
     [Arguments]    ${host1}    ${host2}    ${DUMPFLOWS}
@@ -302,60 +330,70 @@ Verify flowactions
     write    ${DUMPFLOWS}
     ${result}    Read Until    mininet>
     Should Contain    ${result}    ${actions}
+    [Teardown]    Collect Debug Info
 
 Add a vtn flowfilter
     [Arguments]    ${vtn_name}    ${vtnflowfilter_data}
     [Documentation]    Create a flowfilter for a vtn
     ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-filter:set-flow-filter    data={"input": {"tenant-name": "${vtn_name}",${vtnflowfilter_data}}}
     Should Be Equal As Strings    ${resp.status_code}    200
+    [Teardown]    Collect Debug Info
 
 Remove a vtn flowfilter
     [Arguments]    ${vtn_name}    ${filter_index}
     [Documentation]    Delete a vtn flowfilter
     ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-filter:remove-flow-filter    data={"input": {"indices": ["${filter_index}"], "tenant-name": "${vtn_name}"}}
     Should Be Equal As Strings    ${resp.status_code}    200
+    [Teardown]    Collect Debug Info
 
 Add a vbr flowfilter
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${vbrflowfilter_data}
     [Documentation]    Create a flowfilter for a vbr
     ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-filter:set-flow-filter    data={"input": {"tenant-name": "${vtn_name}", "bridge-name": "${vBridge_name}", ${vbrflowfilter_data}}}
     Should Be Equal As Strings    ${resp.status_code}    200
+    [Teardown]    Collect Debug Info
 
 Remove a vbr flowfilter
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${filter_index}
     [Documentation]    Delete a vbr flowfilter
     ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-filter:remove-flow-filter    data={"input": {"indices": ["${filter_index}"], "tenant-name": "${vtn_name}","bridge-name": "${vBridge_name}"}}
     Should Be Equal As Strings    ${resp.status_code}    200
+    [Teardown]    Collect Debug Info
 
 Add a vbrif flowfilter
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${interface_name}    ${vbrif_flowfilter_data}
     [Documentation]    Create a flowfilter for a vbrif
     ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-filter:set-flow-filter    data={"input": {"tenant-name": ${vtn_name}, "bridge-name": "${vBridge_name}","interface-name":"${interface_name}",${vbrif_flowfilter_data}}}
     Should Be Equal As Strings    ${resp.status_code}    200
+    [Teardown]    Collect Debug Info
 
 Remove a vbrif flowfilter
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${interface_name}    ${filter_index}
     [Documentation]    Delete a vbrif flowfilter
     ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-filter:remove-flow-filter    data={"input": {"indices": ["${filter_index}"], "tenant-name": "${vtn_name}","bridge-name": "${vBridge_name}","interface-name": "${interface_name}"}}
     Should Be Equal As Strings    ${resp.status_code}    200
+    [Teardown]    Collect Debug Info
 
 Add a vlan portmap
     [Arguments]    ${vtn_name}    ${vbr_name}    ${interface_name}    ${id}    ${node_id}    ${port_id}
     [Documentation]    Create a portmap for a interface of a vbridge
     ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-port-map:set-port-map    data={"input": { "tenant-name":${vtn_name}, "bridge-name":${vbr_name}, "interface-name": ${interface_name}, "vlan-id": ${id}, "node":"${node_id}", "port-name":"${port_id}"}}
     Should Be Equal As Strings    ${resp.status_code}    200
+    [Teardown]    Collect Debug Info
 
 Verify Flow Entries for Flowfilter
     [Arguments]    ${dumpflows}    @{flowfilter_actions}
     [Documentation]    Verify switch flow entry using flowfilter for a vtn
     ${booleanValue}=    Run Keyword And Return Status    Verify Actions on Flow Entry    ${dumpflows}    @{flowfilter_actions}
     Should Be Equal As Strings    ${booleanValue}    True
+    [Teardown]    Collect Debug Info
 
 Verify Removed Flow Entry for Inet Drop Flowfilter
     [Arguments]    ${dumpflows}    @{flowfilter_actions}
     [Documentation]    Verify removed switch flow entry using flowfilter drop for a vtn
     ${booleanValue}=    Run Keyword And Return Status    Verify Actions on Flow Entry    ${dumpflows}    @{flowfilter_actions}
     Should Be Equal As Strings    ${booleanValue}    True
+    [Teardown]    Collect Debug Info
 
 Verify Actions on Flow Entry
     [Arguments]    ${dumpflows}    @{flowfilter_actions}
@@ -389,3 +427,4 @@ Remove flowcondition
     [Documentation]    Remove the flowcondition by name
     ${resp}=    RequestsLibrary.Post Request    session    restconf/operations/vtn-flow-condition:remove-flow-condition    data={"input":{"name":"${flowcond_name}"}}
     Should Be Equal As Strings    ${resp.status_code}    200
+    [Teardown]    Collect Debug Info
