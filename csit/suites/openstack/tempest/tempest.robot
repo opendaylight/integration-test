@@ -11,7 +11,6 @@ Variables         ../../../variables/Variables.py
 
 *** Variables ***
 ${exclusion_regex}    'metering|test_l3_agent_scheduler.L3AgentSchedulerTestJSON|test_extensions.ExtensionsTestJSON.test_list_show_extensions'
-${tempest_directory}    /opt/stack/tempest
 ${tempest_config_file}    ./tempest.conf
 
 *** Test Cases ***
@@ -36,8 +35,6 @@ Log In To Tempest Executor And Setup Test Environment
     List Networks
     ${control_node_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
     Utils.Flexible SSH Login    ${OS_USER}
-    Write Commands Until Prompt    cd ${tempest_directory}
-    Write Commands Until Prompt    sudo pip install -r requirements.txt --upgrade    timeout=300s
     Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
     ${net_id}=    Get Net Id    external    ${control_node_conn_id}
     Generate Tempest Conf File    ${net_id}
