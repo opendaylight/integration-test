@@ -1,3 +1,4 @@
+import difflib
 import os
 import sys
 import stat
@@ -72,6 +73,21 @@ def tidy(FileSpec):
         Error(FileSpec, "Not accessible: " + str(e))
 
 
+def diff(FileSpec):
+    TidyTool = robot.tidy.Tidy()
+    try:
+        ActualLines = open(FileSpec, 'U').readlines()
+        CleanedData = TidyTool.file(FileSpec)
+        # Unified diff wants list of lines, and split on newline creates empty line at the end.
+        CleanedLines = [line + '\n' for line in CleanedData.encode("utf8").split('\n')[:-1]]
+        DiffText = "".join(tuple(difflib.unified_diff(ActualLines, CleanedLines, n=10)))
+        # TODO: If the last line does not contain \n, the output is ugly. Can we fix that without causing confsion?
+        if DiffText:
+            Error(FileSpec, "Tidy requires the following diff:\n" + DiffText)
+    except (IOError, OSError), e:
+        Error(FileSpec, "Not accessible: " + str(e))
+
+
 # TODO: Refactor the command line argument parsing to use argparse. Since I
 #       wanted to just quickly make this tool to get rid of manual robot.tidy
 #       runs I did not have time to create polished argparse based command
@@ -105,6 +121,8 @@ if __name__ == "__main__":
         Processor = check_quietly
     elif Command == "tidy":
         Processor = tidy
+    elif Command == "diff":
+        Processor = diff
     else:
         print "Unrecognized command:", Command
         sys.exit(1)
