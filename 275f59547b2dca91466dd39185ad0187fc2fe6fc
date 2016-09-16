@@ -22,6 +22,30 @@
       "revId": "275f59547b2dca91466dd39185ad0187fc2fe6fc",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_988c12dc",
+        "filename": "csit/testplans/sfc-rest-basic.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5849
+      },
+      "writtenOn": "2016-09-16T06:58:12Z",
+      "side": 1,
+      "message": "Hi JamO,\nthis test suite (rest basic) is already running in a 3node job. There should be no problems by adding 080_simple_clustering here.\nSome background: While I was doing some inspection/cleaning I realized Rest Basic was already running in 3node. Instead of putting back Rest Basic to 1node I decided to keep it with 3node and then merge clustering to optimize.",
+      "parentUuid": "7a6b29fe_f588af72",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 71
+      },
+      "revId": "275f59547b2dca91466dd39185ad0187fc2fe6fc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
