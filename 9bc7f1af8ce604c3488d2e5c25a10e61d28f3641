@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_0b1c2a77",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_prefixcount_clus.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-16T13:39:35Z",
+      "side": 1,
+      "message": "Mention cluster and ingest, maybe even prefix counting.",
+      "range": {
+        "startLine": 2,
+        "startChar": 21,
+        "endLine": 2,
+        "endChar": 22
+      },
+      "revId": "9bc7f1af8ce604c3488d2e5c25a10e61d28f3641",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_8b0f9a36",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_prefixcount_clus.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-16T13:39:35Z",
+      "side": 1,
+      "message": "remove",
+      "range": {
+        "startLine": 73,
+        "startChar": 13,
+        "endLine": 73,
+        "endChar": 18
+      },
+      "revId": "9bc7f1af8ce604c3488d2e5c25a10e61d28f3641",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_ab009602",
+        "filename": "csit/suites/bgpcep/bgpingest/singlepeer_prefixcount_clus.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-16T13:39:35Z",
+      "side": 1,
+      "message": "Is this needed?",
+      "range": {
+        "startLine": 130,
+        "startChar": 0,
+        "endLine": 131,
+        "endChar": 61
+      },
+      "revId": "9bc7f1af8ce604c3488d2e5c25a10e61d28f3641",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
