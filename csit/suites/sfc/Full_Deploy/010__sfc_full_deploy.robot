@@ -10,9 +10,11 @@ Variables         ../../../variables/Variables.py
 Resource          ../../../variables/sfc/Variables.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/TemplatedRequests.robot
+
 *** Variables ***
 ${CREATE_RSP1_INPUT}    {"input":{"parent-service-function-path":"SFP-1","name":"SFP-1-Path-1"}}
 ${CREATE_RSP_FAILURE_INPUT}    {"input":{"parent-service-function-path":"SFC1-empty","name":"SFC1-empty-Path-1"}}
+
 *** Test Cases ***
 Basic Environment Setup Tests
     [Documentation]    Prepare Basic Test Environment
@@ -44,7 +46,7 @@ Clean Datastore After Tests
 Post Elements To URI As JSON
     [Arguments]    ${uri}    ${data}
     ${resp}    RequestsLibrary.Post Request    session    ${uri}    data=${data}    headers=${headers}
-    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}    
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Get JSON Elements From URI
     [Arguments]    ${uri}
@@ -77,4 +79,3 @@ Init Suite
     Set Suite Variable    ${SERVICE_FUNCTION_PATHS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/full-deploy/service-function-paths.json
     Set Suite Variable    ${SERVICE_RANDOM_SCHED_TYPE_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/full-deploy/service-random-schedule-type.json
     Set Suite Variable    ${SERVICE_ROUNDROBIN_SCHED_TYPE_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/full-deploy/service-roundrobin-schedule-type.json
-

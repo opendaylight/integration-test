@@ -74,7 +74,6 @@ Put one Service Function Schedule Algorithm Type
     Check For Elements At URI    ${SERVICE_WSP_SCHED_TYPE_URI}    ${elements}
     Check For Elements At URI    ${SERVICE_SCHED_TYPES_URI}    ${elements}
 
-
 *** keywords ***
 Init Suite
     [Documentation]    Initialize session and ODL version specific variables

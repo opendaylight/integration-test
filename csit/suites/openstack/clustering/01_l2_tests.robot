@@ -88,7 +88,7 @@ Delete the Bridge Manually and Verify After Fail
 Create Vm Instances For l2_net_1
     [Documentation]    Create Vm instances using flavor and image names for a network.
     Log    ${devstack_conn_id}
-    OpenStackOperations.Create Vm Instances    l2_net_1    ${NET_1_VM_INSTANCES}     sg=csit
+    OpenStackOperations.Create Vm Instances    l2_net_1    ${NET_1_VM_INSTANCES}    sg=csit
 
 Bring Up ODL1
     [Documentation]    Bring up ODL1 again
@@ -112,7 +112,7 @@ Take Down ODL2
 
 Create Vm Instances For l2_net_2
     [Documentation]    Create Vm instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instances    l2_net_2    ${NET_2_VM_INSTANCES}      sg=csit
+    OpenStackOperations.Create Vm Instances    l2_net_2    ${NET_2_VM_INSTANCES}    sg=csit
 
 Bring Up ODL2
     [Documentation]    Bring up ODL2 again

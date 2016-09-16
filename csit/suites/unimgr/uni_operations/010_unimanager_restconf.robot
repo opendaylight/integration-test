@@ -47,7 +47,7 @@ Update UNI Speed
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}/${Uni_topo_API}${Mininet2_IP}/cl-unimgr-mef:speed    data=${speedJson}
     Log    ${resp.content}
-    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}    
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${elements}    Create List    speed-10G
     Wait Until Keyword Succeeds    16s    2s    Check For Elements At URI    ${OPERATIONAL_TOPO_API}/topology/unimgr:uni/    ${elements}
 

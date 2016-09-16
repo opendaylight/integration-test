@@ -162,7 +162,7 @@ Get Port Id
     [Return]    ${port_id}
 
 Create Vm Instances
-    [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano      ${sg}=default
+    [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create X Vm Instance with the net id of the Netowrk.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
@@ -396,14 +396,14 @@ Show Debugs
     List Ports
 
 Create Security Group
-    [Arguments]    ${sg_name}     ${desc}
+    [Arguments]    ${sg_name}    ${desc}
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    nova secgroup-create ${sg_name} ${desc}      40s
+    ${output}=    Write Commands Until Prompt    nova secgroup-create ${sg_name} ${desc}    40s
     Close Connection
 
 Create Security Rule
-    [Arguments]    ${direction}     ${protocol}      ${min_port}     ${max_port}     ${remote_ip}     ${sg_name}
+    [Arguments]    ${direction}    ${protocol}    ${min_port}    ${max_port}    ${remote_ip}    ${sg_name}
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron security-group-rule-create --direction ${direction} --protocol ${protocol} --port-range-min ${min_port} --port-range-max ${max_port} --remote-ip-prefix ${remote_ip} ${sg_name}

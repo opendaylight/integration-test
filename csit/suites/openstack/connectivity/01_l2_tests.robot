@@ -41,17 +41,17 @@ Create Subnets For l2_network_2
 
 Add Ssh Allow Rule
     [Documentation]    Allow all TCP packets for testing
-    Create Security Group      csit    "CSIT SSH Allow"
-    Create Security Rule     ingress      tcp     1     65535     0.0.0.0/0      csit
-    Create Security Rule     egress       tcp     1     65535     0.0.0.0/0      csit
+    Create Security Group    csit    "CSIT SSH Allow"
+    Create Security Rule    ingress    tcp    1    65535    0.0.0.0/0    csit
+    Create Security Rule    egress    tcp    1    65535    0.0.0.0/0    csit
 
 Create Vm Instances For l2_network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    l2_network_1    ${NET_1_VM_INSTANCES}     sg=csit
+    Create Vm Instances    l2_network_1    ${NET_1_VM_INSTANCES}    sg=csit
 
 Create Vm Instances For l2_network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    l2_network_2    ${NET_2_VM_INSTANCES}     sg=csit
+    Create Vm Instances    l2_network_2    ${NET_2_VM_INSTANCES}    sg=csit
 
 Ping Vm Instance1 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.

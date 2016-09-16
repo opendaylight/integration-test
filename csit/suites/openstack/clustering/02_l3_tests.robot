@@ -50,7 +50,7 @@ Take Down ODL1
 
 Create Vm Instances For l3_net_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instances    l3_net_1    ${NET_1_VM_INSTANCES}     sg=csit
+    OpenStackOperations.Create Vm Instances    l3_net_1    ${NET_1_VM_INSTANCES}    sg=csit
 
 Bring Up ODL1
     [Documentation]    Bring up ODL1 again
@@ -62,7 +62,7 @@ Take Down ODL2
 
 Create Vm Instances For l3_net_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instances    l3_net_2    ${NET_2_VM_INSTANCES}     sg=csit
+    OpenStackOperations.Create Vm Instances    l3_net_2    ${NET_2_VM_INSTANCES}    sg=csit
 
 Bring Up ODL2
     [Documentation]    Bring up ODL2 again
@@ -75,7 +75,7 @@ Take Down ODL3
 Create Router router_2
     [Documentation]    Create Router and Add Interface to the subnets. this fails sometimes.
     OpenStackOperations.Create Router    router_2
-    [Teardown]    Report_Failure_Due_To_Bug     6117
+    [Teardown]    Report_Failure_Due_To_Bug    6117
 
 Create Router router_3
     [Documentation]    Create Router and Add Interface to the subnets.

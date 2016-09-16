@@ -49,7 +49,7 @@ Delete A Service Function Forwarder
     [Documentation]    Delete A Service Function Forwarder
     Add Elements To URI From File    ${SERVICE_FORWARDERS_URI}    ${SERVICE_FORWARDERS_FILE}
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}service-function-forwarder/SFF-bootstrap
-    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code} 
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Remove All Elements At URI    ${SERVICE_FORWARDERS_URI}service-function-forwarder/SFF-bootstrap
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}service-function-forwarder/SFF-bootstrap
     Should Be Equal As Strings    ${resp.status_code}    404

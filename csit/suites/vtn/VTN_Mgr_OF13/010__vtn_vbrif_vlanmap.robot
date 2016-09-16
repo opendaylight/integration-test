@@ -59,8 +59,8 @@ Add a flowcondition
 
 Add a vbrif flowfilter with vlanpcp
     [Documentation]    Create a flowfilter with vlanpcp and Verify ping
-    Add a vbrif flowfilter    Tenant1    vBridge1    if1    ${flowfiltervlanpcp}
     [Tags]    exclude
+    Add a vbrif flowfilter    Tenant1    vBridge1    if1    ${flowfiltervlanpcp}
     Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h5
 
 Verify vlanpcp of vbrif flowfilter

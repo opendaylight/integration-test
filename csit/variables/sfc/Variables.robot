@@ -12,4 +12,3 @@ ${SERVICE_ROUNDROBIN_SCHED_TYPE_URI}    SERVICE_SCHED_TYPE_URI_BASE+'round-robin
 ${OPERATIONAL_RSPS_URI}    /restconf/operational/rendered-service-path:rendered-service-paths/
 ${OPERATIONS_CREATE_RSP_URI}    /restconf/operations/rendered-service-path:create-rendered-path/
 ${OPERATIONS_DELETE_RSP_URI}    /restconf/operations/rendered-service-path:delete-rendered-path/
-

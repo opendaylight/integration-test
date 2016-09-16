@@ -57,11 +57,11 @@ Check Mapping Removal
     Post Log Check    ${LFM_RPC_API}:get-mapping    ${json}    404
 
 Get Mapping JSON
-    [Documentation]    Returns mapping record JSON dict
     [Arguments]    ${eid}    ${rloc}
+    [Documentation]    Returns mapping record JSON dict
     ${loc_record}=    Get LocatorRecord Object    ${rloc}
     ${lisp_address}=    Get LispAddress Object    ${eid}
     ${loc_record_list}=    Create List    ${loc_record}
     ${mapping_record_json}=    Get MappingRecord JSON    ${lisp_address}    ${loc_record_list}
     ${mapping}=    Wrap input    ${mapping_record_json}
-    [return]    ${mapping}
+    [Return]    ${mapping}

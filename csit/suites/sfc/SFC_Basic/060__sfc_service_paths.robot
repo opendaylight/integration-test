@@ -81,7 +81,6 @@ Put one Service Function
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     Should Contain    ${resp.content}    SFC1-400
 
-
 *** keywords ***
 Init Suite
     [Documentation]    Initialize session and ODL version specific variables

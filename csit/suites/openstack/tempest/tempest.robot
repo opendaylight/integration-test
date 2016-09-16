@@ -75,7 +75,7 @@ Add Config To File On Existing SSH Connection
 
 Clean Up After Running Tempest
     [Documentation]    Clean up any extra leftovers that were created to allow tempest tests to run.
-    Delete SubNet     external-subnet
+    Delete SubNet    external-subnet
     Delete Network    external
     List Networks
     Close All Connections

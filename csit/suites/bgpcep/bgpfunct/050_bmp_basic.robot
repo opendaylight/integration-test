@@ -25,7 +25,6 @@ Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 
-
 *** Variables ***
 ${CONFIG_SESSION}    config-session
 ${BGP_BMP_DIR}    ${CURDIR}/../../../variables/bgpfunctional/bmp_basic
@@ -38,9 +37,8 @@ Start_Bmp_Mock
     BuiltIn.Log    ${command}
     SSHLibrary.Set_Client_Configuration    timeout=30s
     SSHLibrary.Write    ${command}
-    ${until_phrase}=    CompareStream.Set_Variable_If_At_Least_Boron       successfully established.    sucesfully established.
+    ${until_phrase}=    CompareStream.Set_Variable_If_At_Least_Boron    successfully established.    sucesfully established.
     SSHLibrary.Read_Until    ${until_phrase}
-
 
 Verify Data Reported
     [Documentation]    Verifies if the tool reported expected data

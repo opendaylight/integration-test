@@ -47,7 +47,7 @@ Neg_Allocate ids of size 10 from the same pool
     should be equal as strings    ${resp.status_code}    500
 
 Allocate IDs of size 3 from the pool
-    [Documentation]    This testcase allocates 3 Ids from the created pool in test case 1 
+    [Documentation]    This testcase allocates 3 Ids from the created pool in test case 1
     ${body}    OperatingSystem.Get File    ${genius_config_dir}/${allocaterange_json}
     ${body}    replace string    ${body}    test-key    ${test_keys[2]}
     ${body}    replace string    ${body}    5    3
