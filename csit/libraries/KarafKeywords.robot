@@ -141,6 +141,8 @@ Execute Controller Karaf Command On Background
 Execute Controller Karaf Command With Retry On Background
     [Arguments]    ${command}
     [Documentation]    Attemp to send command to karaf, if fail then open connection and try again.
+    # As an attempt to debug intermittent SSH failures in the karaf logging command, we want to know the avail entropy on the controller system
+    Run Command On Controller    cmd=cat /proc/sys/kernel/random/entropy_avail
     ${status}    ${message}=    BuiltIn.Run Keyword And Ignore Error    Execute Controller Karaf Command On Background    ${command}
     BuiltIn.Return_From_Keyword_If    '${status}' == 'PASS'    ${message}
     # TODO: Verify this does not leak connections indices.
