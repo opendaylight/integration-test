@@ -46,6 +46,30 @@
       "revId": "275f59547b2dca91466dd39185ad0187fc2fe6fc",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_2eebf478",
+        "filename": "csit/testplans/sfc-rest-basic.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-09-16T17:16:07Z",
+      "side": 1,
+      "message": "gotcha, I see it now:\nhttps://github.com/opendaylight/releng-builder/blob/master/jjb/sfc/sfc-csit-rest-basic.yaml#L4",
+      "parentUuid": "7a6b29fe_988c12dc",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 71
+      },
+      "revId": "275f59547b2dca91466dd39185ad0187fc2fe6fc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
