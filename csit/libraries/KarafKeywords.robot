@@ -2,7 +2,8 @@
 Documentation     Karaf library. This library is useful to deal with controller Karaf console.
 Library           SSHLibrary
 Library           OperatingSystem
-Variables         ../variables/Variables.py
+Resource          ${CURDIR}/SSHKeywords.robot
+Variables         ${CURDIR}/../variables/Variables.py
 
 *** Variables ***
 ${WORKSPACE}      /tmp
@@ -18,7 +19,7 @@ Verify Feature Is Installed
 
 Issue Command On Karaf Console
     [Arguments]    ${cmd}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=5    ${loglevel}=INFO
-    [Documentation]    Will execute the given ${cmd} by ssh'ing to the karaf console running on ${ODL_SYSTEM_IP}
+    [Documentation]    Will execute the given ${cmd} by ssh'ing to the karaf console running on ${controller}
     ...    Note that this keyword will open&close new SSH connection, without switching back to previously current session.
     Open Connection    ${controller}    port=${karaf_port}    prompt=${KARAF_PROMPT}    timeout=${timeout}
     Login    ${KARAF_USER}    ${KARAF_PASSWORD}    loglevel=${loglevel}
@@ -27,6 +28,12 @@ Issue Command On Karaf Console
     Close Connection
     Log    ${output}
     [Return]    ${output}
+
+Safe_Issue_Command_On_Karaf_Console
+    [Arguments]    ${cmd}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=5    ${loglevel}=INFO
+    [Documentation]    Run Issue_Command_On_Karaf_Console but restore previous connection afterwards.
+    BuiltIn.Run_Keyword_And_Return    SSHKeywords.Run_Keyword_Preserve_Connection    Issue_Command_On_Karaf_Console    ${cmd}    ${controller}    ${karaf_port}    ${timeout}
+    ...    ${loglevel}
 
 Check For Elements On Karaf Command Output Message
     [Arguments]    ${cmd}    ${elements}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=5
@@ -80,33 +87,6 @@ Uninstall a Feature
     Log    ${output}
     [Return]    ${output}
 
-Restore Current SSH Connection From Index
-    [Arguments]    ${connection_index}
-    [Documentation]    Restore active SSH connection in SSHLibrary to given index.
-    ...
-    ...    Restore the currently active connection state in
-    ...    SSHLibrary to match the state returned by "Switch
-    ...    Connection" or "Get Connection". More specifically makes
-    ...    sure that there will be no active connection when the
-    ...    \${connection_index} reported by these means is None.
-    ...
-    ...    There is a misfeature in SSHLibrary: Invoking "SSHLibrary.Switch_Connection"
-    ...    and passing None as the "index_or_alias" argument to it has exactly the
-    ...    same effect as invoking "Close Connection".
-    ...    https://github.com/robotframework/SSHLibrary/blob/master/src/SSHLibrary/library.py#L560
-    ...
-    ...    We want to have Keyword which will "switch out" to previous
-    ...    "no connection active" state without killing the background one.
-    ...
-    ...    As some suites may hypothetically rely on non-writability of active connection,
-    ...    workaround is applied by opening and closing temporary connection.
-    ...    Unfortunately this will fail if run on Jython and there is no SSH server
-    ...    running on localhost, port 22 but there is nothing easy that can be done about it.
-    BuiltIn.Run Keyword And Return If    ${connection_index} is not None    SSHLibrary.Switch Connection    ${connection_index}
-    # The background connection is still current, bury it.
-    SSHLibrary.Open Connection    127.0.0.1
-    SSHLibrary.Close Connection
-
 Open Controller Karaf Console On Background
     [Documentation]    Connect to the controller's karaf console, but do not switch to it.
     ${current_ssh_connection}=    SSHLibrary.Get Connection
@@ -114,7 +94,7 @@ Open Controller Karaf Console On Background
     ${karaf_connection}=    SSHLibrary.Get Connection
     SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}
     BuiltIn.Set Suite Variable    ${KarafKeywords__karaf_connection_index}    ${karaf_connection.index}
-    [Teardown]    Restore Current SSH Connection From Index    ${current_ssh_connection.index}
+    [Teardown]    SSHKeywords.Restore Current SSH Connection From Index    ${current_ssh_connection.index}
 
 Configure Timeout For Karaf Console
     [Arguments]    ${timeout}
@@ -122,7 +102,7 @@ Configure Timeout For Karaf Console
     BuiltIn.Run Keyword If    ${KarafKeywords__karaf_connection_index} == -1    Fail    Need to connect to a Karaf Console first
     ${current_connection_index}=    SSHLibrary.Switch Connection    ${KarafKeywords__karaf_connection_index}
     SSHLibrary.Set_Client_Configuration    timeout=${timeout}
-    [Teardown]    Restore Current SSH Connection From Index    ${current_connection_index}
+    [Teardown]    SshKeywords.Restore Current SSH Connection From Index    ${current_connection_index}
 
 Execute Controller Karaf Command On Background
     [Arguments]    ${command}
@@ -135,7 +115,7 @@ Execute Controller Karaf Command On Background
     BuiltIn.Run Keyword If    '${status_write}' != 'PASS'    BuiltIn.Fail    Failed to send the command: ${command}
     BuiltIn.Log    ${message_wait}
     BuiltIn.Run Keyword If    '${status_wait}' != 'PASS'    BuiltIn.Fail    Failed to see prompt after sending the command: ${command}
-    [Teardown]    Restore Current SSH Connection From Index    ${current_connection_index}
+    [Teardown]    SshKeywords.Restore Current SSH Connection From Index    ${current_connection_index}
     [Return]    ${message_wait}
 
 Execute Controller Karaf Command With Retry On Background
