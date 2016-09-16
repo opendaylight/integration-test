@@ -214,6 +214,30 @@
       "revId": "e7cfdc9be8c5c00f1a3acbe34e3a7f4f203507f1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_2e8654db",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-16T16:19:05Z",
+      "side": 1,
+      "message": "Oh. I wonder why I have missed that.\n\nPossibly I expected the first argument to contain the explicit scenario name, and the test case name could be different then (possibly the same meaning but more Robot capitalization).\n\nFor example:\n\nTempest_Api_Network\n    Run_Tempest_Tests    tempest.api.network    ${exclusion_regex}    ${tempest_config_file}",
+      "parentUuid": "7a6b29fe_8a93345a",
+      "range": {
+        "startLine": 19,
+        "startChar": 0,
+        "endLine": 19,
+        "endChar": 16
+      },
+      "revId": "e7cfdc9be8c5c00f1a3acbe34e3a7f4f203507f1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
