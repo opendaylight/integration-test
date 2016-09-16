@@ -11,7 +11,7 @@ to OpenDaylight.
 
 Contents:
 
-.. toctree::
+.. toctree:
    :maxdepth: 2
 
 
