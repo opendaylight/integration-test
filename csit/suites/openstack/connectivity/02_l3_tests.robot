@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite to check connectivity in L3 using routers.
+Documentation     Test suite to check connectivity in L3 using routers.Modified for netvirt-vpnservice test.
 Suite Setup       Devstack Suite Setup Tests
 Suite Teardown    Close All Connections
 Test Setup        Log Testcase Start To Controller Karaf
