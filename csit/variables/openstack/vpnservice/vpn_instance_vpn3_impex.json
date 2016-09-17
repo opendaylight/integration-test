@@ -1,0 +1,13 @@
+{"input" : {
+    "l3vpn" : [
+     {
+      "id": "4ae8cd92-48ca-49b5-94e1-b2921a2661e5",
+      "name": "testVpn3",
+      "route-distinguisher": ["300:1"],
+      "export-RT": ["300:1"],
+      "import-RT": ["300:1"],
+      "tenant-id": "{tntid}"
+      }
+    ]
+}
+}
