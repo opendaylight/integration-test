@@ -18,6 +18,24 @@ Get Tenant ID From Security Group
     Log    ${output}
     [Return]    ${output}
 
+Get Tenant ID From Nova List
+    [Arguments]    ${vmname}
+    [Documentation]    Returns tenant ID by reading it from existing nova list for given VM instance
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    nova list --all-tenant | grep ${vmname} | awk '{print $6}'
+    Log    ${output}
+    [Return]    ${output}
+
+Get Router ID
+    [Arguments]    ${router_name}
+    [Documentation]    Returns Rotuer ID by reading it from existing Router list
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron router-list | grep "| ${router_name}" | awk '{print $2}'
+    Log    ${output}
+    [Return]    ${output}
+
 Create Network
     [Arguments]    ${network_name}    ${additional_args}=${EMPTY}    ${verbose}=TRUE
     [Documentation]    Create Network with neutron request.
@@ -175,14 +193,23 @@ Create Vm Instances
     \    Log    ${output}
     \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VmElement}
 
+Restart VM
+    [Arguments]    ${vm_instance_name}
+    [Documentation]    Reboot specified vm instance.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    nova reboot ${vm_instance_name} --poll    30s
+    Log    ${output}
+    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${vm_instance_name}
+
 Create Vm Instance With Port On Compute Node
-    [Arguments]    ${port_name}    ${vm_instance_name}    ${compute_node}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano
-    [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
+    [Arguments]    ${port_name}    ${vm_instance_name}    ${compute_node}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default
+    [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node} in default/specified SG
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${port_id}=    Get Port Id    ${port_name}    ${devstack_conn_id}
     ${hostname_compute_node}=    Run Command On Remote System    ${compute_node}    hostname
-    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --availability-zone nova:${hostname_compute_node}    30s
+    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --availability-zone nova:${hostname_compute_node} --security-groups ${sg}    30s
     Log    ${output}
     Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${vm_instance_name}
 
@@ -268,6 +295,21 @@ Check Metadata Access
     [Documentation]    Try curl on the Metadataurl and check if it is okay
     ${output}=    Write Commands Until Expected Prompt    curl -i http://169.254.169.254    ${OS_SYSTEM_PROMPT}
     Should Contain    ${output}    200
+
+Check Ping From VM
+    [Arguments]    ${net_name}    ${src_ip}    ${dest_ip}    ${ping_result}    ${user}=cirros    ${password}=cubswin:)
+    [Documentation]    Login to the vm instance using ssh in the network.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
+    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${src_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no    d:
+    Log    ${output}
+    ${output}=    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
+    Log    ${output}
+    ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance
+    Run Keyword If    ${rcode}    Ping From Instance     ${dest_ip}
+    Result Should Contain    ${ping_result}
+    [Teardown]    Exit From Vm Console
 
 Test Operations From Vm Instance
     [Arguments]    ${net_name}    ${src_ip}    ${list_of_local_dst_ips}    ${l2_or_l3}=l2    ${list_of_external_dst_ips}=${NONE}    ${user}=cirros
@@ -357,6 +399,7 @@ Get DumpFlows And Ovsconfig
     Write Commands Until Expected Prompt    ip -o addr    ]>
     Write Commands Until Expected Prompt    ip route    ]>
     Write Commands Until Expected Prompt    arp -an    ]>
+    Write Commands Until Expected Prompt    ifconfig    ]>
     ${nslist}=    Write Commands Until Expected Prompt    ip netns list | awk '{print $1}'    ]>
     @{lines}    Split To Lines    ${nslist}
     : FOR    ${line}    IN    @{lines}
