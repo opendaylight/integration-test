@@ -1,5 +1,5 @@
 *** Settings ***
-Documentation     Test suite to verify packet flows between vm instances.
+Documentation     Test suite to verify packet flows between vm instances.Modified for netvirt-vpnservice test.
 Suite Setup       Devstack Suite Setup Tests
 Suite Teardown    Close All Connections
 Test Setup        Log Testcase Start To Controller Karaf
