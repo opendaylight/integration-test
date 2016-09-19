@@ -81,5 +81,9 @@ if [ -z `sudo docker images | awk '/^ovs-docker / {print $1}'` ];
    sudo docker build -t ovs-docker .
 fi
 
-
+# deactivate CentOS firewall
+CMD='sudo yum list installed firewalld'
+if $CMD; then
+  sudo chkconfig firewalld off
+fi
 
