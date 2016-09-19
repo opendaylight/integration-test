@@ -49,6 +49,5 @@ Read JSON From File
 Init Suite
     [Documentation]    Initialize ODL version specific variables
     log    ${ODL_STREAM}
-    Run Keyword If    '${ODL_STREAM}' == 'stable-lithium'    Set Suite Variable    ${VERSION_DIR}    lithium
-    ...    ELSE    Set Suite Variable    ${VERSION_DIR}    master
+    Set Suite Variable    ${VERSION_DIR}    master
     Set Suite Variable    ${SFC_FUNCTIONS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-functions.json

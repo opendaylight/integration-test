@@ -1,6 +1,0 @@
-{
-    "sff-sf-data-plane-locator": {
-         "port": 6000,
-         "ip": "10.1.1.1"
-    }
-}
