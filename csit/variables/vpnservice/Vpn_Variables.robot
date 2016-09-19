@@ -1,0 +1,21 @@
+***Variables***
+${CREATE_RESP_CODE}    200
+${GETL3VPN}       GETL3vpn.json
+${GETL3VPN1}       GETL3vpn1.json
+
+${CREATE_ID1}    "4ae8cd92-48ca-49b5-94e1-b2921a2661c7"
+${CREATE_NAME1}    "vpn1"
+${CREATE_ROUTER_DISTINGUISHER1}    ["2200:1"]
+${CREATE_EXPORT_RT1}    ["3300:1","8800:1"]
+${CREATE_IMPORT_RT1}    ["3300:1","8800:1"]
+${CREATE_TENANT_ID1}    "6c53df3a-3456-11e5-a151-feff819cdc9f"
+
+
+# Values passed by the calling method to API
+${CREATE_ID}    "4ae8cd92-48ca-49b5-94e1-b2921a261111"
+${CREATE_NAME}    "vpn2"
+${CREATE_ROUTER_DISTINGUISHER}    ["2200:2"]
+${CREATE_EXPORT_RT}    ["3300:2","8800:2"]
+${CREATE_IMPORT_RT}    ["3300:2","8800:2"]
+${CREATE_TENANT_ID}    "6c53df3a-3456-11e5-a151-feff819c1111"
+

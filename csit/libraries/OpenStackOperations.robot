@@ -3,6 +3,8 @@ Documentation     Openstack library. This library is useful for tests to create 
 Library           SSHLibrary
 Resource          Utils.robot
 Variables         ../variables/Variables.py
+${GETL3VPN}       ../variables/vpnservice/GETL3vpn.json
+
 
 *** Keywords ***
 Source Password
@@ -163,6 +165,18 @@ Get Port Id
     ${port_id}=    Get from List    ${splitted_output}    0
     Log    ${port_id}
     [Return]    ${port_id}
+
+
+Get Router Id
+    [Arguments]    ${router1}    ${devstack_conn_id}
+    [Documentation]    Retrieve the net id for the given network name to create specific vm instance
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron router-list | grep "${router1}" | get_field 1    30s 
+    Log    ${output}
+    ${splitted_output}=    Split String    ${output}    ${EMPTY}
+    ${router_id}=    Get from List    ${splitted_output}    0   
+    Log    ${router_id}
+    [Return]    ${router_id}
 
 Create Vm Instances
     [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default
@@ -411,3 +425,5 @@ Create Security Rule
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron security-group-rule-create --direction ${direction} --protocol ${protocol} --port-range-min ${min_port} --port-range-max ${max_port} --remote-ip-prefix ${remote_ip} ${sg_name}
     Close Connection
+
+
