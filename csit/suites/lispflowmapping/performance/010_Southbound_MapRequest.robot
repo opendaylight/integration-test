@@ -54,7 +54,7 @@ Generate Authenticated Map-Register Test Traffic
 Clean Up
     Clear Config Datastore
     Clear Operational Datastore
-    Sleep    500ms
+    Sleep    1s
 
 Clear Config Datastore
     ${resp}=    RequestsLibrary.Delete Request    session    /restconf/config/odl-mappingservice:mapping-database
