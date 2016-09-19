@@ -34,6 +34,11 @@ search_path () {
     exit 1
 }
 
+clean_iptables () {
+    sudo iptables -F
+    sudo iptables -t nat -F
+}
+
 ovs_vsctl () {
     sudo ovs-vsctl --timeout=60 "$@"
 }
@@ -185,8 +190,6 @@ spawn_node () {
 
     if [ -z "$ODL" ]; then :; else
         d_ovs_vsctl "$CONTAINER" set-manager "tcp:${ODL}:6640"
-        d_ovs_vsctl "$CONTAINER" set-controller br-tun "tcp:${ODL}:6633"
-        d_ovs_vsctl "$CONTAINER" set-controller br-int "tcp:${ODL}:6633"
     fi
 
     DO_GUEST="$GUESTS"
@@ -313,6 +316,7 @@ EOF
 UTIL=$(basename $0)
 search_path ovs-vsctl
 search_path docker
+clean_iptables
 
 #if [[ $EUID -ne 0 ]]; then
 #   echo "This script must be run as root" 1>&2
