@@ -10,7 +10,7 @@ Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
-${SFC_API}    /restconf/config/service-function:service-functions
+${SFC_API}        /restconf/config/service-function:service-functions
 
 *** Test Cases ***
 Add Service Functions To First Node
@@ -52,6 +52,3 @@ Init Suite
     Run Keyword If    '${ODL_STREAM}' == 'stable-lithium'    Set Suite Variable    ${VERSION_DIR}    lithium
     ...    ELSE    Set Suite Variable    ${VERSION_DIR}    master
     Set Suite Variable    ${SFC_FUNCTIONS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-functions.json
-
-
-
