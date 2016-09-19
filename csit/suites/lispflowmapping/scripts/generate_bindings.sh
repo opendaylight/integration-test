@@ -21,9 +21,7 @@ GITWEB_CONTROLLER="https://git.opendaylight.org/gerrit/gitweb?p=controller.git;a
 # binding files.
 curl "$GITWEB_LISP;f=mappingservice/lisp-proto/src/main/yang/ietf-lisp-address-types.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-lisp-address-types.yang
 curl "$GITWEB_LISP;f=mappingservice/lisp-proto/src/main/yang/odl-lisp-proto.yang" -o ${WORKSPACE}/$DIRECTORY/odl-lisp-proto.yang
-curl "$GITWEB_LISP;f=mappingservice/lisp-proto/src/main/yang/odl-inet-binary-types.yang" -o ${WORKSPACE}/$DIRECTORY/odl-inet-binary-types.yang
 curl "$GITWEB_LISP;f=mappingservice/api/src/main/yang/odl-mappingservice.yang" -o ${WORKSPACE}/$DIRECTORY/odl-mappingservice.yang
-curl "$GITWEB_LISP;f=mappingservice/lisp-proto/src/main/yang/odl-lisp-address-types.yang" -o ${WORKSPACE}/$DIRECTORY/odl-lisp-address-types.yang
 
 # Currently there is dependency revisions inconsistency in beryllium
 # for ietf-yang-types and ietf-inet-types
