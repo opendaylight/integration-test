@@ -84,7 +84,7 @@ Delete Port
     ${output}=    Write Commands Until Prompt    neutron -v port-delete ${port_name}    30s
     Close Connection
     Log    ${output}
-    Should Contain    ${output}    Deleted a new port
+    Should Contain    ${output}    Deleted port: ${port_name}
 
 List Ports
     [Documentation]    List ports and return output with neutron client.
@@ -157,7 +157,10 @@ Get Port Id
     [Arguments]    ${port_name}    ${devstack_conn_id}
     [Documentation]    Retrieve the port id for the given port name to attach specific vm instance to a particular port
     Switch Connection    ${devstack_conn_id}
-    ${port_id}=    Write Commands Until Prompt    neutron port-list | grep "${port_name}" | awk '{print $2}'    30s
+    ${output}=    Write Commands Until Prompt    neutron port-list | grep "${port_name}" | awk '{print $2}'    30s
+    Log    ${output}
+    ${splitted_output}=    Split String    ${output}    ${EMPTY}
+    ${port_id}=    Get from List    ${splitted_output}    0
     Log    ${port_id}
     [Return]    ${port_id}
 
