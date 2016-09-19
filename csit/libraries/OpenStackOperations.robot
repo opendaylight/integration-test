@@ -3,6 +3,8 @@ Documentation     Openstack library. This library is useful for tests to create 
 Library           SSHLibrary
 Resource          Utils.robot
 Variables         ../variables/Variables.py
+${GETL3VPN}       ../variables/vpnservice/GETL3vpn.json
+
 
 *** Keywords ***
 Source Password
@@ -84,7 +86,7 @@ Delete Port
     ${output}=    Write Commands Until Prompt    neutron -v port-delete ${port_name}    30s
     Close Connection
     Log    ${output}
-    Should Contain    ${output}    Deleted a new port
+    Should Contain    ${output}    Deleted port: ${port_name}
 
 List Ports
     [Documentation]    List ports and return output with neutron client.
@@ -157,9 +159,24 @@ Get Port Id
     [Arguments]    ${port_name}    ${devstack_conn_id}
     [Documentation]    Retrieve the port id for the given port name to attach specific vm instance to a particular port
     Switch Connection    ${devstack_conn_id}
-    ${port_id}=    Write Commands Until Prompt    neutron port-list | grep "${port_name}" | awk '{print $2}'    30s
+    ${output}=    Write Commands Until Prompt    neutron port-list | grep "${port_name}" | awk '{print $2}'    30s
+    Log    ${output}
+    ${splitted_output}=    Split String    ${output}    ${EMPTY}
+    ${port_id}=    Get from List    ${splitted_output}    0
     Log    ${port_id}
     [Return]    ${port_id}
+
+
+Get Router Id
+    [Arguments]    ${router1}    ${devstack_conn_id}
+    [Documentation]    Retrieve the net id for the given network name to create specific vm instance
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron router-list | grep "${router1}" | get_field 1    30s 
+    Log    ${output}
+    ${splitted_output}=    Split String    ${output}    ${EMPTY}
+    ${router_id}=    Get from List    ${splitted_output}    0   
+    Log    ${router_id}
+    [Return]    ${router_id}
 
 Create Vm Instances
     [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default
@@ -408,3 +425,39 @@ Create Security Rule
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron security-group-rule-create --direction ${direction} --protocol ${protocol} --port-range-min ${min_port} --port-range-max ${max_port} --remote-ip-prefix ${remote_ip} ${sg_name}
     Close Connection
+
+Associate VPN to Router
+    [Documentation]    Associate VPN to Router
+    [Arguments]      ${ROUTER}     ${VPN_INSTANCE_NAME}
+    ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/vpn_router.json
+    ${body} =    Replace String    ${body}    VPN_ID    ${VPN_INSTANCE_NAME}
+    ${body} =    Replace String    ${body}    ROUTER_ID    ${ROUTER}
+    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:associateRouter
+    ...  data=${body}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${body1}    OperatingSystem.Get File    ${GETL3VPN}
+     Log To Console     ${body1}
+     ${resp}    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:getL3VPN    data=${body1}
+     Log To Console    ${resp.status_code}
+     Log To Console    ${resp}
+     Should Be Equal As Strings    ${resp.status_code}    200
+
+
+Dissociate VPN to Router
+    [Documentation]    Associate VPN to Router
+    [Arguments]      ${ROUTER}     ${VPN_INSTANCE_NAME}
+    ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/vpn_router.json
+    ${body} =    Replace String    ${body}    VPN_ID    ${VPN_INSTANCE_NAME}
+    ${body} =    Replace String    ${body}    ROUTER_ID    ${ROUTER}
+    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:dissociateRouter
+    ...  data=${body}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${body1}    OperatingSystem.Get File    ${GETL3VPN}
+     Log To Console     ${body1}
+     ${resp}    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:getL3VPN    data=${body1}
+     Log To Console    ${resp.status_code}
+     Log To Console    ${resp}
+     Should Be Equal As Strings    ${resp.status_code}    200
+
