@@ -11,6 +11,7 @@ Library           RequestsLibrary
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/DevstackUtils.robot
+
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
@@ -20,6 +21,23 @@ Variables         ../../../variables/Variables.py
 @{PORT_LIST}      PORT11    PORT21    PORT12    PORT22
 @{VM_INSTANCES}    VM11    VM21    VM12    VM22
 @{ROUTERS}        ROUTER_1    ROUTER_2
+@{NET10_VM_IPS}    10.1.1.2    10.1.1.3
+@{NET20_VM_IPS}    20.1.1.2    20.1.1.3
+@{VPN_INSTANCE}    vpn1_instance.json    vpn2_instance.json    vpn3_instance.json
+@{VPN_INSTANCE_NAME}    4ae8cd92-48ca-49b5-94e1-b2921a2661c7    4ae8cd92-48ca-49b5-94e1-b2921a266112    4ae8cd92-48ca-49b5-94e1-b2921a2661c5
+${id1}    4ae8cd92-48ca-49b5-94e1-b2921a2661c7
+${name1}    vpn1
+${route-distinguisher1}    ["2200:1"]
+${export-RT1}    ["3300:1","8800:1"]
+${import-RT1}    ["3300:1","8800:1"]
+${tenant-id1}    6c53df3a-3456-11e5-a151-feff819cdc9f
+# Values passed by the calling method to API
+${id}    4ae8cd92-48ca-49b5-94e1-b2921a261111
+${name}    vpn2
+${route-distinguisher}    ["2200:2"]
+${export-RT}    ["3300:2","8800:2"]
+${import-RT}    ["3300:2","8800:2"]
+${tenant-id}    6c53df3a-3456-11e5-a151-feff819c1111
 
 *** Test Cases ***
 Verify Tunnel Creation
@@ -88,10 +106,10 @@ Delete Routers
     [Documentation]    Delete Router and Interface to the subnets.
     Delete Router    ${ROUTERS[0]}
 
-Create L3VPN
+VPN L3VPN Creation
     [Documentation]    Create L3VPN.
-    [Tags]    exclude
-    Log    This test will be added in the next patch
+    VPN Create L3VPN    ${VPN_INSTANCE[0]}    id=${id}      name=${name}     route-distinguisher=${route-distinguisher}
+    ...    export-RT=${export-RT}    import-RT=${import-RT}   tenant-id=${tenant-id}
 
 Associate Networks To L3VPN
     [Documentation]    Associate Networks To L3VPN.
@@ -111,7 +129,7 @@ Delete Vm Instances
 Delete Neutron Ports
     [Documentation]    Delete Neutron Ports in the given Port List.
     : FOR    ${Port}    IN    @{PORT_LIST}
-    \    Delete SubNet    ${Port}
+    \    Delete Port    ${Port}
 
 Delete Sub Networks
     [Documentation]    Delete Sub Nets in the given Subnet List.
