@@ -6,15 +6,23 @@
         "sfc-service-function": [
           {
             "name": "dpi-abstract1",
-            "type": "dpi",
-            "order" : 0
+            "type": "dpi"
           },
           {
-            "name": "napt44-abstract1",
-            "type": "napt44",
-            "order" : 1
+            "name": "firewall-abstract1",
+            "type": "firewall"
           }
         ]
+      },
+      {
+          "name": "SFC2",
+          "symmetric": "true",
+          "sfc-service-function": [
+              {
+                  "name": "dpi-abstract1",
+                  "type": "dpi"
+              }
+          ]
       }
     ]
   }
