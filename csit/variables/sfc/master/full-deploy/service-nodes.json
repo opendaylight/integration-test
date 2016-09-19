@@ -2,42 +2,34 @@
     "service-nodes": {
         "service-node": [
             {
-                "name": "SF-1",
+                "name": "sf1",
                 "service-function": [
-                    "dpi-102-2"
+                    "dpi-1"
                 ],
-                "ip-mgmt-address": "172.17.0.4"
+                "ip-mgmt-address": "ovs-node-4"
             },
             {
-                "name": "SF-2",
+                "name": "sf2",
                 "service-function": [
-                    "napt-44-103-2"
+                    "firewall-1"
                 ],
-                "ip-mgmt-address": "172.17.0.6"
+                "ip-mgmt-address": "ovs-node-2"
             },
             {
-                "name": "SFF-1",
-                "service-function": [
-                ],
-                "ip-mgmt-address": "172.17.0.3"
+                "name": "sff1",
+                "ip-mgmt-address": "ovs-node-5"
             },
             {
-                "name": "SFF-2",
-                "service-function": [
-                ],
-                "ip-mgmt-address": "172.17.0.5"
+                "name": "sff2",
+                "ip-mgmt-address": "ovs-node-3"
             },
             {
-                "name": "classifier-1",
-                "service-function": [
-                ],
-                "ip-mgmt-address": "172.17.0.2"
+                "name": "classifier1",
+                "ip-mgmt-address": "ovs-node-6"
             },
             {
-                "name": "classifier-2",
-                "service-function": [
-                ],
-                "ip-mgmt-address": "172.17.0.7"
+                "name": "classifier2",
+                "ip-mgmt-address": "ovs-node-1"
             }
        ]
     }
