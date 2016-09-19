@@ -2,34 +2,36 @@
   "service-functions": {
     "service-function": [
       {
-        "rest-uri": "http://localhost:10002",
-        "ip-mgmt-address": "172.17.0.4",
+        "ip-mgmt-address": "ovs-node-4",
         "sf-data-plane-locator": [
           {
-            "name": "SF-1-DPL",
-            "port": 10002,
-            "ip": "172.17.0.4",
-            "service-function-forwarder": "SFF-1"
+            "name": "dpi-1-dpl",
+            "port": 6633,
+            "ip": "ovs-node-4",
+            "transport": "service-locator:vxlan-gpe",
+            "service-function-forwarder": "SFF1"
           }
         ],
-        "name": "dpi-102-2",
+        "name": "dpi-1",
         "type": "dpi",
-        "nsh-aware": true
+        "nsh-aware": true,
+        "rest-uri": "http://ovs-node-4:5000"
       },
       {
-        "rest-uri": "http://localhost:10001",
-        "ip-mgmt-address": "172.17.0.6",
+        "ip-mgmt-address": "ovs-node-2",
         "sf-data-plane-locator": [
           {
-            "name": "SF-2-DPL",
-            "port": 10001,
-            "ip": "172.17.0.6",
-            "service-function-forwarder": "SFF-2"
+            "name": "firewall-1-dpl",
+            "port": 6633,
+            "ip": "ovs-node-2",
+            "transport": "service-locator:vxlan-gpe",
+            "service-function-forwarder": "SFF2"
           }
         ],
-        "name": "napt44-103-2",
-        "type": "napt44",
-        "nsh-aware": true
+        "name": "firewall-1",
+        "type": "firewall",
+        "nsh-aware": true,
+        "rest-uri": "http://ovs-node-2:5000"
       }
    ]
   }
