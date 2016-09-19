@@ -3,6 +3,9 @@ Documentation     Openstack library. This library is useful for tests to create 
 Library           SSHLibrary
 Resource          Utils.robot
 Variables         ../variables/Variables.py
+*** Variables ***
+${REST_CON}       /restconf/config/
+${REST_CON_OP}    /restconf/operations/
 
 *** Keywords ***
 Source Password
@@ -84,7 +87,7 @@ Delete Port
     ${output}=    Write Commands Until Prompt    neutron -v port-delete ${port_name}    30s
     Close Connection
     Log    ${output}
-    Should Contain    ${output}    Deleted a new port
+    Should Contain    ${output}    Deleted port: ${port_name}
 
 List Ports
     [Documentation]    List ports and return output with neutron client.
@@ -94,6 +97,46 @@ List Ports
     Close Connection
     Log    ${output}
     [Return]    ${output}
+VPN Create L3VPN
+    [Arguments]    ${vpn_instance}    &{Kwargs}
+    Log To Console     ${Kwargs}    ${vpn_instance}
+    [Documentation]    Create Network with neutron request.
+    @{KeysList}     Create List    id     name     route-distinguisher     export-RT     import-RT     tenant-id
+    Log To Console     "After Create List"
+    ${devstack_conn_id}=     Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/${vpn_instance}
+    Log To Console     "Template BODY"
+    Log To Console    ${body}
+    Run Keyword If    ${Kwargs}    Log    ${Kwargs}
+    ${id}    Run Keyword If    ${Kwargs}
+    ...    Pop From Dictionary    ${Kwargs}    ${KeysList[0]}    default=${id1}
+    ${name}    Run Keyword If    ${Kwargs}
+    ...    Pop From Dictionary    ${Kwargs}    ${KeysList[1]}    default=${name1}
+    ${route-distinguisher}    Run Keyword If    ${Kwargs}
+    ...    Pop From Dictionary    ${Kwargs}    ${KeysList[2]}    default=${route-distinguisher1}
+    ${export-RT}    Run Keyword If    ${Kwargs}
+    ...    Pop From Dictionary    ${Kwargs}    ${KeysList[3]}    default=${export-RT1}
+    ${import-RT}    Run Keyword If    ${Kwargs}
+    ...    Pop From Dictionary    ${Kwargs}    ${KeysList[4]}    default=${import-RT1}
+    ${tenant-id}    Run Keyword If    ${Kwargs}
+    ...    Pop From Dictionary    ${Kwargs}    ${KeysList[5]}    default=${tenant-id1}
+    Set Global Variable      ${GET_ID}      ${id}
+    Log To Console      getivalue:${GET_ID}
+    ${body} =    Replace String    ${body}    ${id1}    ${id}
+    ${body} =    Replace String    ${body}    ${name1}    ${name}
+    ${body} =    Replace String    ${body}    ${route-distinguisher1}     ${route-distinguisher}
+    ${body} =    Replace String    ${body}    ${export-RT1}    ${export-RT}
+    ${body} =    Replace String    ${body}    ${import-RT1}    ${import-RT}
+    ${body} =    Replace String    ${body}    ${tenant-id1}    ${tenant-id}
+    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:createL3VPN    data=${body}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${body1}    OperatingSystem.Get File    ${GETL3VPN}
+    ${body1} =     Replace String     ${body1}     ${id1}     ${GET_ID}
+    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:getL3VPN    data=${body1}
+    Log    ${resp.status_code}
+    Should Be Equal As Strings    ${resp.status_code}    200
 
 Verify Gateway Ips
     [Documentation]    Verifies the Gateway Ips with dump flow.
@@ -153,13 +196,18 @@ Get Net Id
     Log    ${net_id}
     [Return]    ${net_id}
 
+
 Get Port Id
     [Arguments]    ${port_name}    ${devstack_conn_id}
     [Documentation]    Retrieve the port id for the given port name to attach specific vm instance to a particular port
     Switch Connection    ${devstack_conn_id}
-    ${port_id}=    Write Commands Until Prompt    neutron port-list | grep "${port_name}" | awk '{print $2}'    30s
+    ${output}=    Write Commands Until Prompt    neutron port-list | grep "${port_name}" | awk '{print $2}'    30s
+    Log    ${output}
+    ${splitted_output}=    Split String    ${output}    ${EMPTY}
+    ${port_id}=    Get from List    ${splitted_output}    0
     Log    ${port_id}
     [Return]    ${port_id}
+
 
 Create Vm Instances
     [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default
