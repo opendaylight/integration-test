@@ -31,16 +31,19 @@ Documentation     Resource housing Keywords common to several suites for cluster
 ...               TODO: Unify capitalization of Leaders and Followers.
 Library           RequestsLibrary    # for Create_Session and To_Json
 Library           Collections
-Resource          ${CURDIR}/CompareStream.robot
+Resource          ${CURDIR}/KarafKeywords.robot
+Resource          ${CURDIR}/SSHKeywords.robot
 Resource          ${CURDIR}/TemplatedRequests.robot    # for Get_As_Json_From_Uri
 Resource          ${CURDIR}/Utils.robot    # for Run_Command_On_Controller
 
 *** Variables ***
+${ENTITY_OWNER_URI}    restconf/operational/entity-owners:entity-owners
 ${JAVA_HOME}      ${EMPTY}    # releng/builder scripts should provide correct value
 ${JOLOKIA_CONF_SHARD_MANAGER_URI}    jolokia/read/org.opendaylight.controller:Category=ShardManager,name=shard-manager-config,type=DistributedConfigDatastore
 ${JOLOKIA_OPER_SHARD_MANAGER_URI}    jolokia/read/org.opendaylight.controller:Category=ShardManager,name=shard-manager-operational,type=DistributedOperationalDatastore
 ${JOLOKIA_READ_URI}    jolokia/read/org.opendaylight.controller
-${ENTITY_OWNER_URI}    restconf/operational/entity-owners:entity-owners
+${KARAF_HOME}     ${WORKSPACE}${/}${BUNDLEFOLDER}    # Migrate to Variables.robot
+@{ODL_DEFAULT_DATA_PATHS}    tmp/    data/    cache/    snapshot/    journal/    etc/opendaylight/current/
 ${RESTCONF_MODULES_DIR}    ${CURDIR}/../variables/restconf/modules
 
 *** Keywords ***
@@ -169,6 +172,7 @@ Get_Owner_And_Candidates_For_Device
     ...    The returned candidate list is sorted numerically.
     ...    Note that "candidate list" definition currently differs between Beryllium and Boron.
     ...    It is recommended to use Get_Owner_And_Successors_For_Device instead of this keyword, see documentation there.
+    BuiltIn.Comment    TODO: Can this implementation be changed to call Get_Owner_And_Candidates_For_Type_And_Id?
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
     ${data} =    TemplatedRequests.Get_As_Json_From_Uri    uri=${ENTITY_OWNER_URI}    session=${session}
     ${candidate_list} =    BuiltIn.Create_List
@@ -194,6 +198,40 @@ Get_Owner_And_Candidates_For_Device
     \    ${candidate} =    BuiltIn.Convert_To_Integer    ${candidate}
     \    Collections.Append_To_List    ${candidate_list}    ${candidate}
     Collections.Sort_List    ${candidate_list}
+    [Return]    ${owner}    ${candidate_list}
+
+Get_Owner_And_Candidates_For_Type_And_Id
+    [Arguments]    ${type}    ${id}    ${member_index}    ${require_candidate_list}=${EMPTY}
+    [Documentation]    Returns the owner and a list of candidates for entity specified by ${type} and ${id}
+    ...    Request is sent to member ${member_index}.
+    ...    Candidates are all members that register to own a device, so the list of candiates includes the owner.
+    ...    Bear in mind that for Boron and beyond, candidates are not removed on node down or isolation.
+    ...    If ${require_candidate_list} is not \${EMPTY}, check whether the actual list of candidates matches.
+    ...    Note that differs from "given list" semantics used in other keywords,
+    ...    namely you cannot use \${EMPTY} to stand for "full list" in this keyword.
+    BuiltIn.Comment    TODO: Find a way to unify and deduplicate code blocks in Get_Owner_And_Candidates_* keywords.
+    ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
+    ${data} =    TemplatedRequests.Get_As_Json_From_Uri    uri=${ENTITY_OWNER_URI}    session=${session}
+    ${candidate_list} =    BuiltIn.Create_List
+    ${json} =    RequestsLibrary.To_Json    ${data}
+    ${entity_type_list} =    Collections.Get_From_Dictionary    &{json}[entity-owners]    entity-type
+    ${entity_type_index} =    Utils.Get_Index_From_List_Of_Dictionaries    ${entity_type_list}    type    ${type}
+    BuiltIn.Should_Not_Be_Equal    ${entity_type_index}    -1    No Entity Owner found for ${type}
+    ${entity_list} =    Collections.Get_From_Dictionary    @{entity_type_list}[${entity_type_index}]    entity
+    ${entity_index} =    Utils.Get_Index_From_List_Of_Dictionaries    ${entity_list}    id    ${id}
+    BuiltIn.Should Not Be Equal    ${entity_index}    -1    Id ${id} not found in Entity Owner ${type}
+    ${entity_owner} =    Collections.Get_From_Dictionary    @{entity_list}[${entity_index}]    owner
+    BuiltIn.Should_Not_Be_Empty    ${entity_owner}    No owner found for type=${type} id=${id}
+    ${owner} =    String.Replace_String    ${entity_owner}    member-    ${EMPTY}
+    ${owner} =    BuiltIn.Convert_To_Integer    ${owner}
+    ${entity_candidates_list} =    Collections.Get_From_Dictionary    @{entity_list}[${entity_index}]    candidate
+    : FOR    ${entity_candidate}    IN    @{entity_candidates_list}
+    \    ${candidate} =    String.Replace_String    &{entity_candidate}[name]    member-    ${EMPTY}
+    \    ${candidate} =    BuiltIn.Convert_To_Integer    ${candidate}
+    \    Collections.Append_To_List    ${candidate_list}    ${candidate}
+    Collections.Sort_List    ${candidate_list}
+    BuiltIn.Comment    TODO: Separate check lines into Verify_Owner_And_Candidates_For_Type_And_Id
+    BuiltIn.Run_Keyword_If    """${require_candidate_list}"""    BuiltIn.Should_Be_Equal    ${require_candidate_list}    ${candidate_list}    Candidate list does not match: ${candidate_list} is not ${require_candidate_list}
     [Return]    ${owner}    ${candidate_list}
 
 Extract_Service_Entity_Type
@@ -256,7 +294,7 @@ Start_Single_Member
     Start_Members_From_List_Or_All    ${index_list}    ${wait_for_sync}    ${timeout}
 
 Start_Members_From_List_Or_All
-    [Arguments]    ${member_index_list}=${EMPTY}    ${wait_for_sync}=True    ${timeout}=300s    ${karaf_home}=${WORKSPACE}${/}${BUNDLEFOLDER}    ${export_java_home}=${JAVA_HOME}
+    [Arguments]    ${member_index_list}=${EMPTY}    ${wait_for_sync}=True    ${timeout}=300s    ${karaf_home}=${KARAF_HOME}    ${export_java_home}=${JAVA_HOME}
     [Documentation]    If the list is empty, start all cluster members. Otherwise, start members based on present indices.
     ...    If ${wait_for_sync}, wait for cluster sync on listed members.
     ...    Optionally karaf_home can be overriden. Optionally specific JAVA_HOME is used for starting.
@@ -264,11 +302,11 @@ Start_Members_From_List_Or_All
     ${command} =    BuiltIn.Set_Variable_If    "${export_java_home}"    export JAVA_HOME="${export_java_home}"; ${base_command}    ${base_command}
     Run_Command_On_List_Or_All    command=${command}    member_index_list=${member_index_list}
     BuiltIn.Return_From_Keyword_If    not ${wait_for_sync}
-    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    1s    Check_Cluster_Is_In_Sync    member_index_list=${member_index_list}
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    10s    Check_Cluster_Is_In_Sync    member_index_list=${member_index_list}
     # TODO: Do we also want to check Shard Leaders here?
 
 Clean_Journals_And_Snapshots_On_List_Or_All
-    [Arguments]    ${member_index_list}=${EMPTY}    ${karaf_home}=${WORKSPACE}${/}${BUNDLEFOLDER}
+    [Arguments]    ${member_index_list}=${EMPTY}    ${karaf_home}=${KARAF_HOME}
     [Documentation]    Delete journal and snapshots directories on every node listed (or all).
     ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
     ${command} =    Set Variable    rm -rf "${karaf_home}/journal" "${karaf_home}/snapshots"
@@ -337,20 +375,82 @@ Run_Command_On_List_Or_All
     : FOR    ${index}    IN    @{index_list}
     \    Run_Command_On_Member    command=${command}    member_index=${index}
 
+Run_Command_On_Member
+    [Arguments]    ${command}    ${member_index}
+    [Documentation]    Obtain IP, call Utils and return output. This does not preserve active ssh session.
+    # TODO: Rename these keyword to Run_Bash_Command_On_Member to distinguish from Karaf (or even Windows) commands.
+    ${member_ip} =    Collections.Get_From_Dictionary    dictionary=${ClusterManagement__index_to_ip_mapping}    key=${member_index}
+    ${output} =    SSHKeywords.Run_Keyword_Preserve_Connection    Utils.Run_Command_On_Controller    ${member_ip}    ${command}
+    [Return]    ${output}
+
 Run_Karaf_Command_On_List_Or_All
-    [Arguments]    ${command}    ${member_index_list}=${EMPTY}
+    [Arguments]    ${command}    ${member_index_list}=${EMPTY}    ${timeout}=10s
     [Documentation]    Cycle through indices (or all), run karaf command on each.
     ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
     : FOR    ${index}    IN    @{index_list}
     \    ${member_ip} =    Collections.Get_From_Dictionary    dictionary=${ClusterManagement__index_to_ip_mapping}    key=${index}
-    \    KarafKeywords.Issue Command On Karaf Console    ${command}    ${member_ip}
+    \    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    ${command}    ${member_ip}    timeout=${timeout}
 
-Run_Command_On_Member
-    [Arguments]    ${command}    ${member_index}
-    [Documentation]    Obtain IP, call Utils and return output. This does not preserve active ssh session.
+Run_Karaf_Command_On_Member
+    [Arguments]    ${command}    ${member_index}    ${timeout}=10s
+    [Documentation]    Obtain IP address, call KarafKeywords and return output. This does not preserve active ssh session.
+    ...    This keyword is not used by Run_Karaf_Command_On_List_Or_All, but returned output may be useful.
     ${member_ip} =    Collections.Get_From_Dictionary    dictionary=${ClusterManagement__index_to_ip_mapping}    key=${member_index}
-    ${output} =    Utils.Run_Command_On_Controller    ${member_ip}    ${command}
+    ${output} =    KarafKeywords.Safe_Issue_Command_On_Karaf_Console    ${command}    controller=${member_ip}    timeout=${timeout}
     [Return]    ${output}
+
+Install_Feature_On_List_Or_All
+    [Arguments]    ${feature_name}    ${member_index_list}=${EMPTY}    ${timeout}=60s
+    [Documentation]    Attempt installation on each member from list (or all). Then look for failures.
+    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    ${status_list} =    BuiltIn.Create_List
+    : FOR    ${index}    IN    @{index_list}
+    \    ${status}    ${text} =    BuiltIn.Run_Keyword_And_Ignore_Error    Install_Feature_On_Member    feature_name=${feature_name}    member_index=${index}
+    \    ...    timeout=${timeout}
+    \    BuiltIn.Log    ${text}
+    \    Collections.Append_To_List    ${status_list}    ${status}
+    : FOR    ${status}    IN    @{status_list}
+    \    BuiltIn.Run_Keyword_If    "${status}" != "PASS"    BuiltIn.Fail    ${feature_name} installation failed, see log.
+
+Install_Feature_On_Member
+    [Arguments]    ${feature_name}    ${member_index}    ${timeout}=60s
+    [Documentation]    Run feature:install karaf command, fail if installation was not successful. Return output.
+    ${status}    ${output} =    BuiltIn.Run_Keyword_And_Ignore_Error    Run_Karaf_Command_On_Member    command=feature:install ${feature_name}    member_index=${member_index}    timeout=${timeout}
+    BuiltIn.Run_Keyword_If    "${status}" != "PASS"    BuiltIn.Fail    Failed to install ${feature_name}: ${output}
+    BuiltIn.Should_Not_Contain    ${output}    Can't install    Failed to install ${feature_name}: ${output}
+    [Return]    ${output}
+
+With_Ssh_To_List_Or_All_Run_Keyword
+    [Arguments]    ${member_index_list}    ${keyword_name}    @{args}    &{kwargs}
+    [Documentation]    For each index in given list (or all): activate SSH connection, run given Keyword, close active connection. Return None.
+    ...    Note that if the Keyword affects SSH connections, results are still deterministic, but perhaps undesirable.
+    ...    Beware that in order to avoid "got positional argument after named arguments", first two arguments in the call should not be named.
+    BuiltIn.Comment    This keyword is experimental and there is high risk of being replaced by another approach.
+    # TODO: For_Index_From_List_Or_All_Run_Keyword applied to With_Ssh_To_Member_Run_Keyword?
+    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    : FOR    ${member_index}    IN    @{index_list}
+    \    ${member_ip} =    Resolve_IP_Address_For_Member    ${member_index}
+    \    SSHKeywords.Open_Connection_To_Odl_System    ip_address=${member_ip}
+    \    BuiltIn.Run_Keyword    ${keyword_name}    @{args}    &{kwargs}
+    \    SSHLibrary.Close_Connection
+
+Safe_With_Ssh_To_List_Or_All_Run_Keyword
+    [Arguments]    ${member_index_list}    ${keyword_name}    @{args}    &{kwargs}
+    [Documentation]    Remember active ssh connection index, call With_Ssh_To_List_Or_All_Run_Keyword, return None. Restore the conection index on teardown.
+    SSHLibrary.Run_Keyword_Preserve_Connection    With_Ssh_To_List_Or_All_Run_Keyword    ${member_index_list}    ${keyword_name}    @{args}    &{kwargs}
+
+Clean_Directories_On_List_Or_All
+    [Arguments]    ${member_index_list}=${EMPTY}    ${directory_list}=${EMPTY}    ${karaf_home}=${KARAF_HOME}
+    [Documentation]    Clear @{directory_list} or @{ODL_DEFAULT_DATA_PATHS} for members in given list or all. Return None.
+    ...    This is intended to return Karaf (offline) to the state it was upon the first boot.
+    ${path_list} =    Builtin.Set Variable If    "${directory_list}" == "${EMPTY}"    ${ODL_DEFAULT_DATA_PATHS}    ${directory_list}
+    SSHKeywords.Run_Keyword_Preserve_Connection    With_Ssh_To_List_Or_All_Run_Keyword    ${member_index_list}    ClusterManagement__Clean_Directories    ${path_list}    ${karaf_home}
+
+ClusterManagement__Clean_Directories
+    [Arguments]    ${relative_path_list}    ${karaf_home}
+    [Documentation]    For each relative path, remove files with respect to ${karaf_home}. Return None.
+    : FOR    ${relative_path}    IN    @{relative_path_list}
+    \    SSHLibrary.Execute_Command    rm -rf ${karaf_home}${/}${relative_path}
 
 Put_As_Json_And_Check_Member_List_Or_All
     [Arguments]    ${uri}    ${data}    ${member_index}    ${member_index_list}=${EMPTY}
