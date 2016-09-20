@@ -20,13 +20,25 @@ Variables         ../../../variables/Variables.py
 @{PORT_LIST}      PORT11    PORT21    PORT12    PORT22
 @{VM_INSTANCES}    VM11    VM21    VM12    VM22
 @{ROUTERS}        ROUTER_1    ROUTER_2
+@{NET10_VM_IPS}    10.1.1.3    10.1.1.4
+@{NET20_VM_IPS}    20.1.1.3    20.1.1.4
+@{GATEWAY_IPS}    10.0.0.1    20.0.0.1
+@{DHCP_IPS}       10.0.0.2    20.0.0.2
+${bridge_ref_info_api}    /restconf/operational/odl-interface-meta:bridge-ref-info
+
 
 *** Test Cases ***
 Verify Tunnel Creation
     [Documentation]    Checks that vxlan tunnels have been created properly.
-    [Tags]    exclude
-    Log    This test case is currently a noop, but work can be added here to validate if needed.    However, as the    suite Documentation notes, it's already assumed that the environment has been configured properly.    If    we do add work in this test case, we need to remove the "exclude" tag for it to run.    In fact, if this
-    ...    test case is critical to run, and if it fails we would be dead in the water for the rest of the suite,    we should move it to Suite Setup so that nothing else will run and waste time in a broken environment.
+    ${node_1_dpid}=    Get DPID For Compute Node    ${OS_COMPUTE_1_IP}
+    ${node_2_dpid}=    Get DPID For Compute Node    ${OS_COMPUTE_2_IP}
+    ${node_1_adapter}=    Get Ethernet Adapter From Compute Node    ${OS_COMPUTE_1_IP}
+    ${node_2_adapter}=    Get Ethernet Adapter From Compute Node    ${OS_COMPUTE_2_IP}
+    ${first_two_octets}    ${third_octet}    ${last_octet}=    Split String From Right    ${OS_COMPUTE_1_IP}    .    2
+    ${subnet}=    Set Variable    ${first_two_octets}.0.0/16
+    ${gateway}=    Get Default Gateway    ${OS_COMPUTE_1_IP}
+    Create TEP For Compute Node    ${OS_COMPUTE_1_IP}    ${node_1_dpid}    ${node_1_adapter}    ${subnet}    ${gateway}
+    Create TEP For Compute Node    ${OS_COMPUTE_2_IP}    ${node_2_dpid}    ${node_2_adapter}    ${subnet}    ${gateway}
 
 Create Neutron Networks
     [Documentation]    Create two networks
@@ -54,7 +66,7 @@ Check OpenDaylight Neutron Ports
     Should be Equal As Strings    ${resp.status_code}    200
 
 Create Nova VMs
-    [Documentation]    Create two subnets for previously created networks
+    [Documentation]    Create NOVA VM from compute node 
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[0]}    ${VM_INSTANCES[0]}    ${OS_COMPUTE_1_IP}
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES[1]}    ${OS_COMPUTE_2_IP}
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES[2]}    ${OS_COMPUTE_1_IP}
@@ -111,7 +123,7 @@ Delete Vm Instances
 Delete Neutron Ports
     [Documentation]    Delete Neutron Ports in the given Port List.
     : FOR    ${Port}    IN    @{PORT_LIST}
-    \    Delete SubNet    ${Port}
+    \    Delete Port    ${Port}
 
 Delete Sub Networks
     [Documentation]    Delete Sub Nets in the given Subnet List.
@@ -123,9 +135,68 @@ Delete Networks
     : FOR    ${Network}    IN    @{NETWORKS}
     \    Delete Network    ${Network}
 
+Verify Tunnel Deletion
+    [Documentation]    Checks that vxlan tunnels have been deleted properly.
+    Delete All TEP
+
 *** Keywords ***
 Basic Vpnservice Suite Setup
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 
 Basic Vpnservice Suite Teardown
     Delete All Sessions
+
+Get DPID For Compute Node
+    [Arguments]    ${ip}
+    [Documentation]    Returns the decimal form of the dpid of br-int as found in bridge-ref-info API
+    ...    that matches the ovs UUID for the given ${ip}
+    ${found_dpid}=    Set Variable    ${EMPTY}
+    Create Session    odl_session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    ${uuid}=    Run Command On Remote System    ${ip}    sudo ovs-vsctl show | head -1
+    ${resp}=    RequestsLibrary.Get Request    odl_session    ${bridge_ref_info_api}
+    Log    ${resp.content}
+    ${resp_json}=    To Json    ${resp.content}
+    ${bride_ref_info}=    Get From Dictionary    ${resp_json}    bridge-ref-info
+    ${bridge_list}=    Get From Dictionary    ${bride_ref_info}    bridge-ref-entry
+    : FOR    ${bridge}    IN    @{bridge_list}
+    \    ${ref}=    Get From Dictionary    ${bridge}    bridge-reference
+    \    ${dpid}=    Get From Dictionary    ${bridge}    dpid
+    \    ${found_dpid}=    Set Variable If    """${uuid}""" in """${ref}"""    ${dpid}    ${found_dpid}
+    [Return]    ${found_dpid}
+
+
+
+Get Ethernet Adapter From Compute Node
+    [Arguments]    ${ip}
+    [Documentation]    Returns the adapter name on the system for the provided ${ip}
+    ${adapter}=    Run Command On Remote System    ${ip}    ip addr show
+    Log    ${adapter}
+    ${adapter}=    Run Command On Remote System    ${ip}    ip addr show | grep ${ip} | cut -d " " -f 11
+    [Return]    ${adapter}
+
+Get Default Gateway
+    [Arguments]    ${ip}
+    [Documentation]    Returns the default gateway used by ${ip}
+    ${gateway}=    Run Command On Remote System    ${ip}    route -n
+    Log    ${gateway}
+    ${gateway}=    Run Command On Remote System    ${ip}    route -n | grep '^0.0.0.0' | cut -d " " -f 10
+    [Return]    ${gateway}
+
+Create TEP For Compute Node
+    [Arguments]    ${ip}    ${dpid}    ${adapter}    ${subnet}    ${gateway}
+    [Documentation]    Uses tep:add and tep:commit karaf console command to create tep for given values
+    ...  and verify tunnel by checking the status is UP (tep:show-state)
+    Issue Command On Karaf Console    tep:add ${dpid} ${adapter} 0 ${ip} ${subnet} ${gateway} TZA
+    Issue Command On Karaf Console    tep:commit
+    ${resp}    Sleep    30
+    ${output}=    Issue Command On Karaf Console    tep:show-state | grep ${ip}
+    Log    ${output}
+    Should Contain    ${output}    UP
+
+Delete All TEP
+    [Documentation]    Uses tep:deletedatastore to delete All tunnel
+    ${output}=    Issue Command On Karaf Console    tep:deletedatastore
+    Log    ${output}
+    Should Not Contain    ${output}    ${OS_COMPUTE_1_IP}
+    Should Not Contain    ${output}    ${OS_COMPUTE_2_IP}
+
