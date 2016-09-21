@@ -6,10 +6,10 @@ Library           DateTime
 Library           Process
 Library           Collections
 Library           RequestsLibrary
-Library           ./UtilLibrary.py
-Resource          KarafKeywords.robot
-Resource          TemplatedRequests.robot
-Variables         ../variables/Variables.py
+Library           ${CURDIR}/UtilLibrary.py
+Resource          ${CURDIR}/SSHKeywords.robot
+Resource          ${CURDIR}/TemplatedRequests.robot
+Variables         ${CURDIR}/../variables/Variables.py
 
 *** Variables ***
 # TODO: Introduce ${tree_size} and use instead of 1 in the next line.
@@ -241,7 +241,7 @@ Run Command On Remote System
     ${stdout}    ${stderr}    SSHLibrary.Execute Command    ${cmd}    return_stderr=True
     SSHLibrary.Close Connection
     Log    ${stderr}
-    [Teardown]    KarafKeywords.Restore_Current_SSH_Connection_From_Index    ${current_ssh_connection.index}
+    [Teardown]    SSHKeywords.Restore_Current_SSH_Connection_From_Index    ${current_ssh_connection.index}
     [Return]    ${stdout}
 
 Write_Bare_Ctrl_C
