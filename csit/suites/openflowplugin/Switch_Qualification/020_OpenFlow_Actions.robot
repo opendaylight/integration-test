@@ -20,6 +20,7 @@ Library           XML
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/FlowLib.robot
 Resource          ../../../libraries/SwitchUtils.robot
+Resource          ../../../libraries/OVSDB.robot
 Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
@@ -98,10 +99,13 @@ Create And Remove Flow
     Call Method    ${test_switch}    create_flow_match_elements    ${flow.xml}
     Log    ${test_switch.flow_validations}
     ${dpid_id}=    Get Switch Datapath ID    ${test_switch}
-    Add Flow To Controller And Verify    ${flow.xml}    openflow:${dpid_id}    ${flow.table_id}    ${flow.id}
-    Validate Switch Output    ${test_switch}    ${test_switch.dump_all_flows}    ${test_switch.flow_validations}
-    Remove Flow From Controller And Verify    ${flow.xml}    openflow:${dpid_id}    ${flow.table_id}    ${flow.id}
-    Validate Switch Output    ${test_switch}    ${test_switch.dump_all_flows}    ${test_switch.flow_validations}    false
+    Wait Until Keyword Succeeds    3s    1s    Add Flow To Controller And Verify    ${flow.xml}    openflow:${dpid_id}    ${flow.table_id}
+    ...    ${flow.id}
+    Wait Until Keyword Succeeds    3s    1s    Validate Switch Output    ${test_switch}    ${test_switch.dump_all_flows}    ${test_switch.flow_validations}
+    Wait Until Keyword Succeeds    3s    1s    Remove Flow From Controller And Verify    ${flow.xml}    openflow:${dpid_id}    ${flow.table_id}
+    ...    ${flow.id}
+    Wait Until Keyword Succeeds    3s    1s    Validate Switch Output    ${test_switch}    ${test_switch.dump_all_flows}    ${test_switch.flow_validations}
+    ...    false
 
 OpenFlow Actions Suite Setup
     ${test_switch}=    Get Switch    ${SWITCH_CLASS}
@@ -117,6 +121,7 @@ OpenFlow Actions Suite Setup
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
 
 OpenFlow Actions Suite Teardown
+    Clean OVSDB Test Environment
     Cleanup Switch    ${test_switch}
     SSHLibrary.Close All Connections
     Telnet.Close All Connections
