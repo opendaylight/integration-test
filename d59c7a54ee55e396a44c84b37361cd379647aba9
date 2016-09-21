@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_15c71297",
+        "filename": "csit/libraries/VtnMaKeywords.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 95,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-09-21T23:21:07Z",
+      "side": 1,
+      "message": "Are lines 95-100 really needed?\nDoes the output of line:94 have everything?",
+      "revId": "d59c7a54ee55e396a44c84b37361cd379647aba9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
