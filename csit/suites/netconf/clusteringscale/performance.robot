@@ -25,6 +25,7 @@ Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
+Default Tags      1node    netconf    critical
 Library           Collections
 Library           RequestsLibrary
 Library           OperatingSystem
