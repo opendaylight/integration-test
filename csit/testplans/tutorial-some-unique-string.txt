@@ -1,0 +1,2 @@
+# Place the suites in run order:
+integration/test/csit/suites/examples/2016_Summit_Tutorial_Example.robot
