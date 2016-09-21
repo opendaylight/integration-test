@@ -21,9 +21,7 @@ GITWEB_CONTROLLER="https://git.opendaylight.org/gerrit/gitweb?p=controller.git;a
 # binding files.
 curl "$GITWEB_LISP;f=mappingservice/lisp-proto/src/main/yang/ietf-lisp-address-types.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-lisp-address-types.yang
 curl "$GITWEB_LISP;f=mappingservice/lisp-proto/src/main/yang/odl-lisp-proto.yang" -o ${WORKSPACE}/$DIRECTORY/odl-lisp-proto.yang
-curl "$GITWEB_LISP;f=mappingservice/lisp-proto/src/main/yang/odl-inet-binary-types.yang" -o ${WORKSPACE}/$DIRECTORY/odl-inet-binary-types.yang
 curl "$GITWEB_LISP;f=mappingservice/api/src/main/yang/odl-mappingservice.yang" -o ${WORKSPACE}/$DIRECTORY/odl-mappingservice.yang
-curl "$GITWEB_LISP;f=mappingservice/lisp-proto/src/main/yang/odl-lisp-address-types.yang" -o ${WORKSPACE}/$DIRECTORY/odl-lisp-address-types.yang
 
 # Currently there is dependency revisions inconsistency in beryllium
 # for ietf-yang-types and ietf-inet-types
@@ -32,6 +30,8 @@ then
     curl "$GITWEB_MDSAL;f=model/ietf/ietf-yang-types/src/main/yang/ietf-yang-types.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-yang-types.yang
     curl "$GITWEB_MDSAL;f=model/ietf/ietf-inet-types/src/main/yang/ietf-inet-types.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-inet-types.yang
 else
+    curl "$GITWEB_LISP;f=mappingservice/lisp-proto/src/main/yang/odl-lisp-address-types.yang" -o ${WORKSPACE}/$DIRECTORY/odl-lisp-address-types.yang
+    curl "$GITWEB_LISP;f=mappingservice/lisp-proto/src/main/yang/odl-inet-binary-types.yang" -o ${WORKSPACE}/$DIRECTORY/odl-inet-binary-types.yang
     curl "$GITWEB_MDSAL;f=model/ietf/ietf-yang-types-20130715/src/main/yang/ietf-yang-types@2013-07-15.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-yang-types.yang
     curl "$GITWEB_MDSAL;f=model/ietf/ietf-inet-types-2013-07-15/src/main/yang/ietf-inet-types@2013-07-15.yang" -o ${WORKSPACE}/$DIRECTORY/ietf-inet-types.yang
 fi
@@ -52,7 +52,25 @@ patch -i bits.patch && echo 'Patch applied successfully!'
 
 # Generate binding files using pyangbind
 PYBINDPLUGIN=`/usr/bin/env python -c 'import pyangbind; import os; print "%s/plugin" % os.path.dirname(pyangbind.__file__)'`
-pyang --plugindir $PYBINDPLUGIN -f pybind --build-rpcs --split-class-dir ${WORKSPACE}/$DIRECTORY/LISPFlowMappingYANGBindings ./odl-mappingservice.yang
+echo $PYBINDPLUGIN
+echo "pyang version"
+pyang --version
+
+ls -la
+
+sleep 20
+
+pyang ./ietf-inet-types.yang
+
+ls -la $PYBINDPLUGIN
+
+sleep 20
+
+cat ietf-inet-types.yang
+
+pyang --plugindir $PYBINDPLUGIN -f pybind --build-rpcs --split-class-dir ./LISPFlowMappingYANGBindings    ./ietf-inet-types.yang
+
+sleep 20
 
 # Go back the main direcory
 popd
