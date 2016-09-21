@@ -23,6 +23,7 @@ Library           SSHLibrary    timeout=10s
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
+Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
 
@@ -57,7 +58,7 @@ Issue_Requests_On_Devices
     \    Read_Python_Tool_Operation_Result    ${number}
     SSHLibrary.Read_Until_Prompt
     SSHLibrary.Close_Connection
-    Restore Current SSH Connection From Index    ${current_ssh_connection.index}
+    SSHKeywords.Restore Current SSH Connection From Index    ${current_ssh_connection.index}
 
 Deconfigure_Devices
     [Documentation]    Make requests to deconfigure the testtool devices.
