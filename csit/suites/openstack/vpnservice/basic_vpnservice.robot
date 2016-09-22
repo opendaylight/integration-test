@@ -11,6 +11,7 @@ Library           RequestsLibrary
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/DevstackUtils.robot
+Resource          ../../../libraries/VpnOperations.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
@@ -20,6 +21,16 @@ Variables         ../../../variables/Variables.py
 @{PORT_LIST}      PORT11    PORT21    PORT12    PORT22
 @{VM_INSTANCES}    VM11    VM21    VM12    VM22
 @{ROUTERS}        ROUTER_1    ROUTER_2
+
+# Values passed by the calling method to API
+${CREATE_ID}    "4ae8cd92-48ca-49b5-94e1-b2921a261111"
+${CREATE_NAME}    "vpn2"
+${CREATE_ROUTER_DISTINGUISHER}    ["2200:2"]
+${CREATE_EXPORT_RT}    ["3300:2","8800:2"]
+${CREATE_IMPORT_RT}    ["3300:2","8800:2"]
+${CREATE_TENANT_ID}    "6c53df3a-3456-11e5-a151-feff819c1111"
+@{VPN_INSTANCE}    vpn1_instance.json    vpn2_instance.json    vpn3_instance.json
+@{VPN_INSTANCE_NAME}    4ae8cd92-48ca-49b5-94e1-b2921a2661c7    4ae8cd92-48ca-49b5-94e1-b2921a266112    4ae8cd92-48ca-49b5-94e1-b2921a2661c5    4ae8cd92-48ca-49b5-94e1-b2921a261111
 
 *** Test Cases ***
 Verify Tunnel Creation
@@ -32,13 +43,19 @@ Create Neutron Networks
     [Documentation]    Create two networks
     Create Network    ${NETWORKS[0]}    --provider:network_type local
     Create Network    ${NETWORKS[1]}    --provider:network_type local
-    List Networks
+    ${NET_LIST}    List Networks
+    Log    ${NET_LIST}
+    Should Contain    ${NET_LIST}    ${NETWORKS[0]}
+    Should Contain    ${NET_LIST}    ${NETWORKS[1]}
 
 Create Neutron Subnets
     [Documentation]    Create two subnets for previously created networks
     Create SubNet    ${NETWORKS[0]}    ${SUBNETS[0]}    ${SUBNET_CIDR[0]}
     Create SubNet    ${NETWORKS[1]}    ${SUBNETS[1]}    ${SUBNET_CIDR[1]}
-    List Subnets
+    ${SUB_LIST}    List Subnets
+    Log    ${SUB_LIST}
+    Should Contain    ${SUB_LIST}    ${SUBNETS[0]}
+    Should Contain    ${SUB_LIST}    ${SUBNETS[1]}
 
 Create Neutron Ports
     [Documentation]    Create four ports under previously created subnets
@@ -79,6 +96,26 @@ Check L3_Datapath Traffic Across Networks With Router
     [Tags]    exclude
     Log    This test will be added in the next patch
 
+Create L3VPN
+    [Documentation]    Creates L3VPN and verify the same
+    VPN Create L3VPN    ${VPN_INSTANCE[0]}     CREATE_ID=${CREATE_ID}
+    ...    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}   CREATE_TENANT_ID=${CREATE_TENANT_ID}
+    VPN Get L3VPN    ${CREATE_ID}
+
+Associate L3VPN to Routers
+    [Documentation]     Associating router to L3VPN
+    [Tags]    Associate
+    ${devstack_conn_id}=    Get ControlNode Connection
+    ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
+    Associate VPN to Router    ${router_id}     ${VPN_INSTANCE_NAME[3]}
+
+Dissociate L3VPN to Routers
+    [Documentation]     Dissociating router to L3VPN
+    [Tags]    Dissociate
+    ${devstack_conn_id}=    Get ControlNode Connection
+    ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
+    Dissociate VPN to Router    ${router_id}     ${VPN_INSTANCE_NAME[3]}
+
 Delete Router Interfaces
     [Documentation]    Remove Interface to the subnets.
     : FOR    ${INTERFACE}    IN    @{SUBNETS}
@@ -88,20 +125,14 @@ Delete Routers
     [Documentation]    Delete Router and Interface to the subnets.
     Delete Router    ${ROUTERS[0]}
 
-Create L3VPN
-    [Documentation]    Create L3VPN.
-    [Tags]    exclude
-    Log    This test will be added in the next patch
-
-Associate Networks To L3VPN
-    [Documentation]    Associate Networks To L3VPN.
-    [Tags]    exclude
-    Log    This test will be added in the next patch
-
 Check Datapath Traffic Across Networks With L3VPN
     [Documentation]    Datapath Test Across the networks with VPN.
     [Tags]    exclude
     Log    This test will be added in the next patch
+
+Delete L3VPN 
+    [Documentation]    Delete L3VPN 
+    VPN Delete L3VPN     ${CREATE_ID} 
 
 Delete Vm Instances
     [Documentation]    Delete Vm instances in the given Instance List
