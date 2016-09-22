@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_dbb5cb7e",
+        "filename": "csit/suites/openflowplugin/Performance/010_Cbench.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-22T11:52:33Z",
+      "side": 1,
+      "message": "Can we have a separate test case to see whether the sleep is still needed (as that is a regression)?",
+      "range": {
+        "startLine": 36,
+        "startChar": 71,
+        "endLine": 36,
+        "endChar": 75
+      },
+      "revId": "a2959475bcd3a2e57b8b87e2e7bc1f06e52b564d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
