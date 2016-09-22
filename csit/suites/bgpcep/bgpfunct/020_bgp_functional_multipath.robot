@@ -60,6 +60,7 @@ Reconfigure_ODL_To_Accept_Connection
 
 Odl Allpaths Exa SendReceived
     [Documentation]    all-paths selected policy selected
+    [Tags]    critical
     [Setup]    Configure_Path_Selection_And_App_Peer_And_Connect_Peer    ${ALLPATHS_SELM}    ${ADDPATHCAP_SR}
     Log_Loc_Rib_Operational
     BuiltIn.Wait_Until_Keyword_Succeeds    6x    2s    Verify_Expected_Update_Count    ${PATH_ID_LIST_LEN}
@@ -67,6 +68,7 @@ Odl Allpaths Exa SendReceived
 
 Odl Npaths Exa SendReceived
     [Documentation]    n-paths policy selected on odl
+    [Tags]    critical
     [Setup]    Configure_Path_Selection_And_App_Peer_And_Connect_Peer    ${NPATHS_SELM}    ${ADDPATHCAP_SR}
     Log_Loc_Rib_Operational
     BuiltIn.Wait_Until_Keyword_Succeeds    6x    2s    Verify_Expected_Update_Count    ${N_PATHS_VALUE}
@@ -165,6 +167,7 @@ Stop_Tool
 Remove_App_Peer_Configuration_And_Stop_Tool
     Deconfigure_App_Peer
     Stop_Tool
+    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
 Verify_Expected_Update_Count
     [Arguments]    ${exp_count}
