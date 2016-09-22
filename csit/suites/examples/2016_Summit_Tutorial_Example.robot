@@ -9,7 +9,7 @@ Resource          ../../libraries/KarafKeywords.robot
 Resource          ../../libraries/OVSDB.robot
 
 *** Variables ***
-${switch_name}    odl_summit_switch
+${switch_name}    2016_odl_summit_switch
 
 *** Test Cases ***
 Verify Ovs Is Discovered In Operational
