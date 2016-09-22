@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_01f6b08e",
+        "filename": "csit/libraries/ClusterOpenFlow.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-22T16:05:37Z",
+      "side": 1,
+      "message": "Maybe move these comments (also lines 72-73) to Documentation in Settings table.\n\nOr even better, create a separate keyword for populating \u0026{dictionary} and put the comments to that keyword\u0027s Documentation.",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 6
+      },
+      "revId": "c1523f6678e09130a3c4268b8b7bcd6365448c88",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_01cfd056",
+        "filename": "csit/suites/openflowplugin/Clustering/030__Cluster_HA_Data_Recovery_Leader_Follower_Failover.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-22T16:05:37Z",
+      "side": 1,
+      "message": "I do not see this implemented in the test case.",
+      "range": {
+        "startLine": 14,
+        "startChar": 79,
+        "endLine": 14,
+        "endChar": 105
+      },
+      "revId": "c1523f6678e09130a3c4268b8b7bcd6365448c88",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_61f16494",
+        "filename": "csit/suites/openflowplugin/Clustering/030__Cluster_HA_Data_Recovery_Leader_Follower_Failover.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-22T16:05:37Z",
+      "side": 1,
+      "message": "Is this related to the ${ODL_OF_PLUGIN} Ifs in ClusterOpenFlow.robot, are there also ${ODL_STREAM} Ifs hidden from my sight somewhere?",
+      "range": {
+        "startLine": 16,
+        "startChar": 32,
+        "endLine": 16,
+        "endChar": 50
+      },
+      "revId": "c1523f6678e09130a3c4268b8b7bcd6365448c88",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_e19e1406",
+        "filename": "csit/suites/openflowplugin/EntityOwnership/020_Cluster_Node_Failure.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-22T16:05:37Z",
+      "side": 1,
+      "message": "https://git.opendaylight.org/gerrit/46077\n\nBut it would be even better if Stop_Controller_Node_And_Verify returned ${updated_index_list} value returned by ClusterManagement.Kill_* keywords.",
+      "range": {
+        "startLine": 120,
+        "startChar": 26,
+        "endLine": 120,
+        "endChar": 88
+      },
+      "revId": "c1523f6678e09130a3c4268b8b7bcd6365448c88",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
