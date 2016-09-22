@@ -9,7 +9,7 @@ Library           SwitchClasses/BaseSwitch.py
 
 *** Keywords ***
 Find Max Switches
-    [Arguments]    ${start}    ${stop}    ${step}    ${sustain_time}=5
+    [Arguments]    ${start}    ${stop}    ${step}    ${sustain_time}=0
     [Documentation]    Will find out max switches starting from ${start} till reaching ${stop} and in steps defined by ${step}.
     ...    The network is hold for ${sustain_time} seconds after everything is checked successful.
     ${max-switches}    Set Variable    ${0}
