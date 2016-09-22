@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_0166b0ec",
+        "filename": "csit/libraries/Scalability.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-22T14:45:57Z",
+      "side": 1,
+      "message": "What is this needed for? Bug 6176?",
+      "range": {
+        "startLine": 31,
+        "startChar": 9,
+        "endLine": 31,
+        "endChar": 14
+      },
+      "revId": "0355a9bac58c1fb718610711f2078be9f2db9c57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
