@@ -120,6 +120,15 @@ Transfer_Persisted_Data
     # SSHLibrary.Switch_Connection    ${odl_system_ssh_index}
     ${stdout} =    SSHKeywords.Execute_Command_Should_Pass    cp -rv "${alternative_bundlefolder}/snapshots" "${WORKSPACE}/${BUNDLEFOLDER}/" && cp -rv "${alternative_bundlefolder}/journal" "${WORKSPACE}/${BUNDLEFOLDER}/"
     # TODO: Should we require a snapshot was created?
+    Set Suite Variable    ${stdout}
+
+Check_Snapshot_With_Transferred_Persisted_Data
+    [Documentation]    Check which would fail if snapshot with transferred persisted data was not created.
+    [Arguments]    ${stdout}
+    #if snapshot nie je FAIL
+    #else nooperation
+    #${status}=    Run Keyword And Return If   failure
+    
 
 Start_Newer_Odl
     [Documentation]    Start the newer ODL on background.

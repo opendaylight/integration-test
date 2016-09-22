@@ -46,7 +46,7 @@ Log_Command_Results
 Execute_Command_Passes
     [Arguments]    ${command}    ${return_success_only}=True    ${log_on_success}=False    ${log_on_failure}=True    ${stderr_must_be_empty}=False
     [Documentation]    Execute command via the active SSH connection. For success, rc has to be zero and optionally stderr has to be empty.
-    ...    Log everything, depending on arguments and success. Retrun either success string or stdout.
+    ...    Log everything, depending on arguments and success. Return either success string or stdout.
     ...    TODO: Do we want to support customizing return values the same way as SSHLibrary.Execute_Command does?
     ${stdout}    ${stderr}    ${rc} =    SSHLibrary.Execute_Command    ${command}    return_stderr=True    return_rc=True
     ${emptiness_status}    ${result} =    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Should_Be_Empty    ${stderr}
