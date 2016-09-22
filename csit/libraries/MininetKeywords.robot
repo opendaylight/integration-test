@@ -85,14 +85,15 @@ Stop Mininet And Exit Multiple Sessions
     \    MininetKeywords.Stop Mininet And Exit    ${mininet_conn_id}
 
 Verify Aggregate Flow From Mininet Session
-    [Arguments]    ${mininet_conn_id}    ${switch_count}    ${flow_count}    ${time_out}
+    [Arguments]    ${mininet_conn_id}    ${flow_count}    ${time_out}
     [Documentation]    Verify flow count per switch
-    Wait Until Keyword Succeeds    ${time_out}    2s    MininetKeywords.Mininet Sync Status    ${mininet_conn_id}    ${switch_count}    ${flow_count}
+    Wait Until Keyword Succeeds    ${time_out}    2s    MininetKeywords.Mininet Sync Status    ${mininet_conn_id}    ${flow_count}
 
 Mininet Sync Status
-    [Arguments]    ${mininet_id}    ${switch_count}    ${flow_count}
+    [Arguments]    ${mininet_id}    ${flow_count}
     [Documentation]    Sync with mininet to match exact number of flows
-    Set Test Variable    &{dictionary}    flow_count\=${flow_count}=${switch_count}
     ${cmd} =    Set Variable    dpctl dump-aggregate -O OpenFlow13
     ${output}=    MininetKeywords.Send Mininet Command    ${mininet_id}    ${cmd}
-    Utils.Check Item Occurrence    ${output}    ${dictionary}
+    ${flows}=    String.Get RegExp Matches    ${output}    (?<=flow_count\=).*?(?=\r)
+    ${total_flows}=    BuiltIn.Evaluate    sum(map(int, ${flows}))
+    Should Be Equal As Numbers    ${total_flows}    ${flow_count}

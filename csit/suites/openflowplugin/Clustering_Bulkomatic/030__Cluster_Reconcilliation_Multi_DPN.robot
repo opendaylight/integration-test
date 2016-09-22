@@ -54,7 +54,7 @@ Get Bulk Flows and Verify In Cluster
 
 Verify Flows In Switch Before Cluster Restart
     [Documentation]    Verify flows are installed in switch before cluster restart.
-    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count}    ${flow_count_per_switch}    ${operation_timeout}
+    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${flow_count_after_add}    ${operation_timeout}
 
 Stop Mininet Connected To Follower Node1 and Exit
     [Documentation]    Stop mininet and exit connection.
@@ -68,7 +68,7 @@ Start Mininet Reconnect To Follower Node1
 
 Verify Flows In Switch Reconnected To Follower Node1
     [Documentation]    Verify 1K flows per DPN installed in switch after it is reconnected to follower node1.
-    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count}    ${flow_count_per_switch}    ${operation_timeout}
+    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${flow_count_after_add}    ${operation_timeout}
 
 Stop Mininet Connected To Follower Node1
     [Documentation]    Stop mininet and exit connection.
@@ -82,7 +82,7 @@ Start Mininet Connect To Follower Node2
 
 Verify Flows In Switch Connected To Follower Node2
     [Documentation]    Verify 1K flows per DPN installed in switch after it is connected to follower node2.
-    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count}    ${flow_count_per_switch}    ${operation_timeout}
+    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${flow_count_after_add}    ${operation_timeout}
 
 Stop Mininet Connected To Follower Node2
     [Documentation]    Stop mininet and exit connection.
@@ -96,7 +96,7 @@ Start Mininet Connect To Inventory Leader
 
 Verify Flows In Switch Connected To Leader
     [Documentation]    Verify 1K flows per DPN installed in switch after it is connected to inventory leader.
-    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count}    ${flow_count_per_switch}    ${operation_timeout}
+    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${flow_count_after_add}    ${operation_timeout}
 
 Stop Mininet Connected To Inventory Leader
     [Documentation]    Stop mininet and exit connection.
