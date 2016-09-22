@@ -558,12 +558,20 @@ ClusterManagement__Parse_Sync_Status
     ${sync_status} =    Collections.Get_From_Dictionary    dictionary=${value_object}    key=SyncStatus
     [Return]    ${sync_status}
 
+List_Indices_Minus_Member
+    [Arguments]    ${member_index}    ${member_index_list}=${EMPTY}
+    [Documentation]    Create a new list which contains indices from ${member_index_list} (or all) without ${member_index}.
+    ${index_list} =    ClusterManagement__Given_Or_Empty_List    ${member_index_list}
+    Collections.Remove Values From List    ${index_list}    ${member_index}
+    [Return]    ${index_list}
+
 ClusterManagement__Given_Or_Internal_Index_List
     [Arguments]    ${given_list}=${EMPTY}
     [Documentation]    Utility to allow \${EMPTY} as default argument value, as the internal list is computed at runtime.
     ...    This keyword always return a (shallow) copy of given or default list,
     ...    so operations with the returned list should not affect other lists.
     ...    Also note that this keyword does not consider empty list to be \${EMPTY}.
+    ...    TODO: This keyword is frequently used for obtaining copy of ${ClusterManagement__member_index_list}. Give this keyword public name.
     ${return_list_reference} =    BuiltIn.Set_Variable_If    """${given_list}""" != ""    ${given_list}    ${ClusterManagement__member_index_list}
     ${return_list_copy} =    BuiltIn.Create_List    @{return_list_reference}
     [Return]    ${return_list_copy}
