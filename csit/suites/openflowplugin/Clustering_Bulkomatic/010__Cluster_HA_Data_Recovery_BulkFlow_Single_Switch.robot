@@ -52,7 +52,7 @@ Get Bulk Flows and Verify In Cluster
 
 Verify Flows In Switch Before Cluster Restart
     [Documentation]    Verify flows are installed in switch before cluster restart.
-    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count}    ${flow_count_per_switch}    ${operation_timeout}
+    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${flow_count_after_add}    ${operation_timeout}
 
 Kill All Cluster Nodes
     [Documentation]    Kill All Nodes.
@@ -78,7 +78,7 @@ Start Mininet Again Connect To Follower Node1
 
 Verify Flows In Switch After Cluster Restart
     [Documentation]    Verify flows are installed in switch after cluster restart.
-    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count}    ${flow_count_per_switch}    ${operation_timeout}
+    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${flow_count_after_add}    ${operation_timeout}
 
 Stop Mininet Connected To Follower Node1
     [Documentation]    Stop mininet and exit connection.
@@ -113,7 +113,7 @@ Get Bulk Flows and Verify In Cluster Before Leader Restart
 
 Verify Flows In Switch Before Leader Restart
     [Documentation]    Verify flows are installed in switch before leader restart.
-    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count}    ${flow_count_per_switch}    ${operation_timeout}
+    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${flow_count_after_add}    ${operation_timeout}
 
 Kill Leader From Cluster Node
     [Documentation]    Kill Leader Node.
@@ -144,7 +144,7 @@ Start Mininet Again Connect To Leader
 
 Verify Flows In Switch After Leader Restart
     [Documentation]    Verify flows are installed in switch after leader restart.
-    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count}    ${flow_count_per_switch}    ${operation_timeout}
+    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${flow_count_after_add}    ${operation_timeout}
     [Teardown]    Report_Failure_Due_To_Bug    6459
 
 Stop Mininet Connected To Leader Node After Leader Restart
@@ -181,7 +181,7 @@ Get Bulk Flows and Verify In Cluster Before Follower Restart
 
 Verify Flows In Switch Before Follower Restart
     [Documentation]    Verify flows are installed in switch before follower restart.
-    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count}    ${flow_count_per_switch}    ${operation_timeout}
+    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${flow_count_after_add}    ${operation_timeout}
 
 Kill Follower Node2
     [Documentation]    Kill Follower Node2.
@@ -212,7 +212,7 @@ Start Mininet Again Connect To Follower Node2
 
 Verify Flows In Switch After Follower Node2 Restart
     [Documentation]    Verify flows are installed in switch after follower restart.
-    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count}    ${flow_count_per_switch}    ${operation_timeout}
+    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${flow_count_after_add}    ${operation_timeout}
     [Teardown]    Report_Failure_Due_To_Bug    6459
 
 Stop Mininet Connected To Follower Node2
