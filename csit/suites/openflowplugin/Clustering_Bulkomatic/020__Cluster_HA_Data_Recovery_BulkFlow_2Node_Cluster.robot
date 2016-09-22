@@ -64,7 +64,7 @@ Get Bulk Flows and Verify In Cluster
 
 Verify Flows In Switch Before Cluster Restart
     [Documentation]    Verify flows are installed in switch before cluster restart.
-    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count}    ${flow_count_per_switch}    ${operation_timeout}
+    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${flow_count_after_add}    ${operation_timeout}
 
 Restart Leader From Cluster Node
     [Documentation]    Restart Leader Node.
@@ -76,7 +76,7 @@ Verify Data Recovery After Leader Restart
 
 Verify Flows In Switch After Leader Restart
     [Documentation]    Verify flows are installed in switch after cluster restart.
-    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count}    ${flow_count_per_switch}    ${operation_timeout}
+    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${flow_count_after_add}    ${operation_timeout}
 
 Stop Mininet Connected To Follower Node1
     [Documentation]    Stop mininet and exit connection.
@@ -125,7 +125,7 @@ Get Bulk Flows and Verify In Cluster Before Follower Restart
 
 Verify Flows In Switch Before Follower Restart
     [Documentation]    Verify flows are installed in switch before follower restart.
-    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count}    ${flow_count_per_switch}    ${operation_timeout}
+    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${flow_count_after_add}    ${operation_timeout}
 
 Restart Follower From Cluster Node
     [Documentation]    Restart Follower Node2.
@@ -137,7 +137,7 @@ Verify Data Recovery After Follower Restart
 
 Verify Flows In Switch After Follower Restart
     [Documentation]    Verify flows are installed in switch after cluster restart.
-    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${switch_count}    ${flow_count_per_switch}    ${operation_timeout}
+    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${flow_count_after_add}    ${operation_timeout}
 
 Stop Mininet Connected To Follower Node
     [Documentation]    Stop mininet and exit connection.
