@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_9866b928",
+        "filename": "csit/libraries/SSHKeywords.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-22T09:25:23Z",
+      "side": 1,
+      "message": "pypy",
+      "range": {
+        "startLine": 90,
+        "startChar": 75,
+        "endLine": 90,
+        "endChar": 81
+      },
+      "revId": "15b25fd962e7c067e3917336c188a8138778b3fc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
