@@ -33,7 +33,7 @@ Documentation     MD-SAL Data Store benchmarking.
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
-Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
+Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
 Library           OperatingSystem
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
