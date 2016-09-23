@@ -40,7 +40,8 @@ Delete Openflow Rule
 Connect Ovs To Controller
     [Documentation]    Will set the ovs manager to point at the ODL IP on the openflow port
     Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl add-br ${switch_name}
-    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set-br ${switch_name} protocols=OpenFlow13
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set bridge ${switch_name} protocols=OpenFlow13
+    Run Command On Remote System    ${TOOLS_SYSTEM_IP}    sudo ovs-vsctl set bridge ${switch_name} other-config:hwaddr=00:00:00:00:00:01
     Set Controller In OVS Bridge    ${TOOLS_SYSTEM_IP}    ${switch_name}    tcp:${ODL_SYSTEM_IP}:${ODL_OF_PORT}
 
 Local Suite Setup
@@ -48,7 +49,7 @@ Local Suite Setup
     # the variable named "session" has grandfathered it's way in to CSIT such that some keywords expect
     # it to be the name of the session with which it should make it's rest calls with.    There is no other
     # good reason than that.
-    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
     Clean OVSDB Test Environment
 
 Local Suite Teardown
