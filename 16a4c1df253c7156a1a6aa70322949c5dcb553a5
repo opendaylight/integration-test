@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_4f644eb8",
+        "filename": "csit/suites/controller/akka_upgrade/1node.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 122,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-23T14:29:10Z",
+      "side": 1,
+      "message": "TODO is done by this Change, so this line should be removed.",
+      "range": {
+        "startLine": 122,
+        "startChar": 6,
+        "endLine": 122,
+        "endChar": 11
+      },
+      "revId": "16a4c1df253c7156a1a6aa70322949c5dcb553a5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
