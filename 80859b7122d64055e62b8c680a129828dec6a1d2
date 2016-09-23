@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_afe6c2e5",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-09-23T16:56:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_6f8b0a1f",
+      "range": {
+        "startLine": 14,
+        "startChar": 18,
+        "endLine": 14,
+        "endChar": 19
+      },
+      "revId": "80859b7122d64055e62b8c680a129828dec6a1d2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_6fd66a29",
         "filename": "csit/libraries/KarafKeywords.robot",
         "patchSetId": 28
@@ -36,6 +60,30 @@
       "writtenOn": "2016-09-23T14:50:00Z",
       "side": 1,
       "message": "Delete this line.",
+      "range": {
+        "startLine": 124,
+        "startChar": 4,
+        "endLine": 124,
+        "endChar": 6
+      },
+      "revId": "80859b7122d64055e62b8c680a129828dec6a1d2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_efd39a01",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-09-23T16:56:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_6fd66a29",
       "range": {
         "startLine": 124,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_2fdab216",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-09-23T16:56:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_afdc0247",
+      "range": {
+        "startLine": 129,
+        "startChar": 49,
+        "endLine": 129,
+        "endChar": 89
+      },
+      "revId": "80859b7122d64055e62b8c680a129828dec6a1d2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_2fc75265",
         "filename": "csit/libraries/KarafKeywords.robot",
         "patchSetId": 28
@@ -82,6 +154,30 @@
       "writtenOn": "2016-09-23T14:50:00Z",
       "side": 1,
       "message": "No argument needed to get current connection object.",
+      "range": {
+        "startLine": 143,
+        "startChar": 62,
+        "endLine": 143,
+        "endChar": 91
+      },
+      "revId": "80859b7122d64055e62b8c680a129828dec6a1d2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_6f078a82",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 143,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-09-23T16:56:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_2fc75265",
       "range": {
         "startLine": 143,
         "startChar": 62,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_4f0a8e8a",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 144,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-09-23T16:56:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_0fc25652",
+      "range": {
+        "startLine": 144,
+        "startChar": 67,
+        "endLine": 144,
+        "endChar": 68
+      },
+      "revId": "80859b7122d64055e62b8c680a129828dec6a1d2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_4fa72ebd",
         "filename": "csit/libraries/KarafKeywords.robot",
         "patchSetId": 28
@@ -128,6 +248,30 @@
       "writtenOn": "2016-09-23T14:50:00Z",
       "side": 1,
       "message": "Delete this line.",
+      "range": {
+        "startLine": 153,
+        "startChar": 4,
+        "endLine": 153,
+        "endChar": 5
+      },
+      "revId": "80859b7122d64055e62b8c680a129828dec6a1d2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_affd2270",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-09-23T16:56:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_4fa72ebd",
       "range": {
         "startLine": 153,
         "startChar": 4,
@@ -163,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_cff5fe83",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-09-23T16:56:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_0f99b678",
+      "range": {
+        "startLine": 183,
+        "startChar": 18,
+        "endLine": 183,
+        "endChar": 19
+      },
+      "revId": "80859b7122d64055e62b8c680a129828dec6a1d2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_2f9e3263",
         "filename": "csit/libraries/KarafKeywords.robot",
         "patchSetId": 28
@@ -174,6 +342,30 @@
       "writtenOn": "2016-09-23T14:50:00Z",
       "side": 1,
       "message": "This could use ${member_index_list}\u003d${EMPTY} argument.",
+      "range": {
+        "startLine": 187,
+        "startChar": 18,
+        "endLine": 187,
+        "endChar": 19
+      },
+      "revId": "80859b7122d64055e62b8c680a129828dec6a1d2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_2ff11295",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 187,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-09-23T16:56:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_2f9e3263",
       "range": {
         "startLine": 187,
         "startChar": 18,
@@ -209,6 +401,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_0fec16ba",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 191,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-09-23T16:56:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_8fadc69d",
+      "range": {
+        "startLine": 191,
+        "startChar": 14,
+        "endLine": 191,
+        "endChar": 15
+      },
+      "revId": "80859b7122d64055e62b8c680a129828dec6a1d2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_ef971a46",
         "filename": "csit/libraries/KarafKeywords.robot",
         "patchSetId": 28
@@ -220,6 +436,30 @@
       "writtenOn": "2016-09-23T14:50:00Z",
       "side": 1,
       "message": "This could use ${member_index}\u003d${1} argument.",
+      "range": {
+        "startLine": 198,
+        "startChar": 14,
+        "endLine": 198,
+        "endChar": 15
+      },
+      "revId": "80859b7122d64055e62b8c680a129828dec6a1d2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_4f31ee58",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-09-23T16:56:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_ef971a46",
       "range": {
         "startLine": 198,
         "startChar": 14,
