@@ -1,0 +1,8 @@
+{
+   "input":{
+      "vpn-id":"VPN_ID",
+      "router-id":[
+         "ROUTER_ID"
+      ]
+   }
+}
