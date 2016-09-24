@@ -280,7 +280,7 @@ Check Config Flow
 Check Operational Flow
     [Arguments]    ${expected}    ${expvalue}    ${check_id}=${False}
     [Documentation]    Wrapper keyword that calls "Flow Presence In Operational Store" and "Get Presence Failure Message" from this library
-    ...    to verify that the ${expvalue} flow is or is not found in the config store, depending on whether or not it was ${expected}
+    ...    to verify that the ${expvalue} flow is or is not found in the operational store, depending on whether or not it was ${expected}
     ${presence_table}    ${msg}=    Flow Presence In Operational Store    ${expvalue}    ${check_id}
     ${msgf}=    Get Presence Failure Message    operational    ${expected}    ${presence_table}    ${msg}
     Should Be Equal    ${expected}    ${presence_table}    msg=${msgf}
