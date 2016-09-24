@@ -28,13 +28,15 @@ Verify There Is No Topology In Config Store
 
 Add Openflow Rule
     [Documentation]    TODO
-    [Tags]    exclude
-    Log    This test case is not implemented yet
+    ${body}=    OperatingSystem.Get File    /home/vagrant/test/csit/variables/xmls/f1.xml
+    ${resp}=    RequestsLibrary.Put Request    session    ${CONFIG_NODES_API}/node/openflow:1/table/2/flow/124    headers=${HEADERS_XML}    data=${body}
+    Log    ${resp.content}
+    BuiltIn.Should_Match    "${resp.status_code}"    "20?"
 
 Delete Openflow Rule
     [Documentation]    TODO
-    [Tags]    exclude
-    Log    This test case is not implemented yet
+    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/openflow:1/table/2/flow/124
+    Should Be Equal As Strings    ${resp.status_code}    200
 
 *** Keywords ***
 Connect Ovs To Controller
