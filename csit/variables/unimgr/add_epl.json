@@ -1,0 +1,26 @@
+{
+"mef-services": {
+    "mef-service": [
+      {
+        "svc-id": 1,
+        "svc-type": "epl",
+        "evc": {
+          "evc-id": "1",
+          "unis": {
+            "uni": [
+              {
+                "uni-id": "1:s1-eth1",
+                "role": "root"
+              },
+              {
+                "uni-id": "1:s1-eth2",
+                "role": "root"
+              }
+            ]
+          },
+          "evc-type": "point-to-point"
+        }
+      }
+    ]
+  }
+}
