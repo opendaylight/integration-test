@@ -98,3 +98,17 @@ Mininet Sync Status
     ${flows}=    String.Get RegExp Matches    ${output}    (?<=flow_count\=).*?(?=\r)
     ${total_flows}=    BuiltIn.Evaluate    sum(map(int, ${flows}))
     Should Be Equal As Numbers    ${total_flows}    ${flow_count}
+
+Verify Mininet Ping
+    [Arguments]    ${host1}    ${host2}
+    [Documentation]    Send ping from mininet and verify connectivity.
+    Write    ${host1} ping -w 3 ${host2}
+    ${result}=    Read Until    mininet>
+    Should Contain    ${result}    64 bytes
+
+Verify Mininet No Ping
+    [Arguments]    ${host1}    ${host2}
+    [Documentation]    Send ping from mininet and verify no conectivity.
+    Write    ${host1} ping -w 1 ${host2}
+    ${result}=    Read Until    mininet>
+    Should Contain    ${result}    100% packet loss
