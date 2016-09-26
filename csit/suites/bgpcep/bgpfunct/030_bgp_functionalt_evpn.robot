@@ -417,9 +417,8 @@ Loc_Rib_Presnece
     [Documentation]    Verifies if loc-rib contains expected data
     ${rsp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${LOC_RIB_URL}    headers=${HEADERS}
     Log    ${rsp.content}
-    ${keys_with_bits}=    BuiltIn.Create_List    op
-    ${received_json}=    norm_json.Normalize_Json_Text    ${rsp.content}    keys_with_bits=${keys_with_bits}
+    ${received_json}=    norm_json.Normalize_Json_Text    ${rsp.content}
     BuiltIn.Log    ${received_json}
-    ${expected_json}=    norm_json.Normalize_Json_Text    ${exp_content}    keys_with_bits=${keys_with_bits}
+    ${expected_json}=    norm_json.Normalize_Json_Text    ${exp_content}
     BuiltIn.Log    ${expected_json}
     BuiltIn.Should_Be_Equal    ${received_json}    ${expected_json}
