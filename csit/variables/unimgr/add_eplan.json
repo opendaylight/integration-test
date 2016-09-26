@@ -1,0 +1,30 @@
+{
+"mef-services": {
+    "mef-service": [
+      {
+        "svc-id": 2,
+        "svc-type": "eplan",
+        "evc": {
+          "evc-id": "2",
+          "unis": {
+            "uni": [
+              {
+                "uni-id": "1:s1-eth3",
+                "role": "root"
+              },
+              {
+                "uni-id": "1:s1-eth4",
+                "role": "root"
+              },
+              {
+                "uni-id": "1:s1-eth5",
+                "role": "root"
+              }
+            ]
+          },
+          "evc-type": "multipoint-to-multipoint"
+        }
+      }
+    ]
+  }
+}
