@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_a33d39df",
+        "filename": "csit/suites/examples/2016_Summit_Tutorial_Example.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-26T16:33:06Z",
+      "side": 1,
+      "message": "I recommend these:\n\nTest Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing\nTest Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 5,
+        "endChar": 56
+      },
+      "revId": "b28f758fcd506f0afff5afae414cf360b18f97e7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
