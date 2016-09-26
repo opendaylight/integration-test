@@ -4,6 +4,7 @@ Library           SSHLibrary
 Resource          Utils.robot
 Resource          OVSDB.robot
 Resource          ClusterManagement.robot
+Resource          MininetKeywords.robot
 Variables         ../variables/Variables.py
 
 *** Keywords ***
@@ -97,3 +98,20 @@ Mininet Sync Status
     ${flows}=    String.Get RegExp Matches    ${output}    (?<=flow_count\=).*?(?=\r)
     ${total_flows}=    BuiltIn.Evaluate    sum(map(int, ${flows}))
     Should Be Equal As Numbers    ${total_flows}    ${flow_count}
+
+Verify Mininet Ping
+    [Arguments]    ${host1}    ${host2}
+    [Documentation]    Send ping from mininet and verify connectivity.
+    Write    ${host1} ping -w 1 ${host2}
+    Check Expected Ping Result    0
+
+Verify Mininet No Ping
+    [Arguments]    ${host1}    ${host2}
+    [Documentation]    Send ping from mininet and verify no conectivity.
+    Write    ${host1} ping -w 1 ${host2}
+    Check Expected Ping Result    100
+
+Compare Ping Result
+    [Arguments]    ${Expected_value}
+    ${result}=    Read Until    mininet>
+    Should Contain    ${result}    received, ${Expected_value}% packet loss
