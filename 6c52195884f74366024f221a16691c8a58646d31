@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_e3ff3132",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-26T16:08:48Z",
+      "side": 1,
+      "message": "${UUID_PATTERN} is defined in csit/variables/gbp/Constants.robot\n\nEither declare that variable file here, or move the definition to csit/variables/Variables.py",
+      "range": {
+        "startLine": 5,
+        "startChar": 42,
+        "endLine": 5,
+        "endChar": 43
+      },
+      "revId": "6c52195884f74366024f221a16691c8a58646d31",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_c39e7506",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-26T16:08:48Z",
+      "side": 1,
+      "message": "Get_ControlNode_Connection performs unconditional SSHLibrary.Open_Connections, so I guess the correct way is to close the connection once it is not needed.\n\nWhy do some keywords close the connection and others do not?\nIf there is a reason, keyword Documentation should mention whether the new connection is closed or stays current.\n\nAlso, Get_ControlNode_Connection leaves the created connection as current, so no SSHLibrary.Switch_Connection is necessary. Finally, ${devstack_conn_id} is not used for anything else (than switching connection), so it may be omitted.",
+      "range": {
+        "startLine": 147,
+        "startChar": 4,
+        "endLine": 147,
+        "endChar": 20
+      },
+      "revId": "6c52195884f74366024f221a16691c8a58646d31",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
