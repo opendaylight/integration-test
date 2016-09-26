@@ -71,9 +71,10 @@ Set Karaf Log Levels
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_LOG_LEVEL}
 
 Start Measurement
-    [Documentation]    Start the benchmark tool. Fail if test not started.
-    [Tags]    critical
-    Start_Benchmark_Tool
+    [Documentation]    Repeatedly attempt to start the benchmark tool. Fail if test not started successfully even after several retries.
+    ...    Retries are needed as there is no easier way to check whether start-test RPC has been registered.
+    ...    Especially in -all- jobs, the RPC registration can be quite late compared to Restconf.
+    BuiltIn.Wait_Until_Keyword_Succeeds    300x    10s    Start_Benchmark_Tool
 
 Wait For Results
     [Documentation]    Wait until results are available. Fail if timeout occures.
