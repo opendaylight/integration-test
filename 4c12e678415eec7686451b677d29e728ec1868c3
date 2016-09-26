@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_6805c00f",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2016-09-26T06:28:05Z",
+      "side": 1,
+      "message": "Please remove unused variable.",
+      "range": {
+        "startLine": 31,
+        "startChar": 41,
+        "endLine": 31,
+        "endChar": 59
+      },
+      "revId": "4c12e678415eec7686451b677d29e728ec1868c3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
