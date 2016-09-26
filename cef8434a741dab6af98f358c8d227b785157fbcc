@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_e3e4510e",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-26T14:01:41Z",
+      "side": 1,
+      "message": "${member_index} is missing.",
+      "range": {
+        "startLine": 148,
+        "startChar": 46,
+        "endLine": 148,
+        "endChar": 47
+      },
+      "revId": "cef8434a741dab6af98f358c8d227b785157fbcc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_03ea2dda",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-26T14:01:41Z",
+      "side": 1,
+      "message": "${member_index} is missing.",
+      "range": {
+        "startLine": 149,
+        "startChar": 78,
+        "endLine": 149,
+        "endChar": 79
+      },
+      "revId": "cef8434a741dab6af98f358c8d227b785157fbcc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
