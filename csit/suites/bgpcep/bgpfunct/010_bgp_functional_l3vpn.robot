@@ -174,9 +174,8 @@ Verify_Tool_Received_Update
     ${exp_update}=    Get_Expected_Response_From_File    ${exp_update_fn}
     ${rcv_update_dict}=    BgpRpcClient.exa_get_update_message    msg_only=${True}
     ${rcv_update}=    BuiltIn.Evaluate    json.dumps(${rcv_update_dict})    modules=json
-    ${keys_with_bits}=    BuiltIn.Create_List    op
-    ${received_json}=    norm_json.Normalize_Json_Text    ${rcv_update}    keys_with_bits=${keys_with_bits}
-    ${expected_json}=    norm_json.Normalize_Json_Text    ${exp_update}    keys_with_bits=${keys_with_bits}
+    ${received_json}=    norm_json.Normalize_Json_Text    ${rcv_update}
+    ${expected_json}=    norm_json.Normalize_Json_Text    ${exp_update}
     BuiltIn.Log    ${received_json}
     BuiltIn.Log    ${expected_json}
     BuiltIn.Should_Be_Equal    ${received_json}    ${expected_json}
@@ -184,12 +183,11 @@ Verify_Tool_Received_Update
 Verify_Reported_Data
     [Arguments]    ${url}    ${exprspfile}
     [Documentation]    Verifies expected response
-    ${keys_with_bits}=    BuiltIn.Create_List    op
     ${expected_rsp}=    Get_Expected_Response_From_File    ${exprspfile}
-    ${expected_json}=    norm_json.Normalize_Json_Text    ${expected_rsp}    keys_with_bits=${keys_with_bits}
+    ${expected_json}=    norm_json.Normalize_Json_Text    ${expected_rsp}
     ${rsp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${url}
     BuiltIn.Log    ${rsp.content}
-    ${received_json}=    norm_json.Normalize_Json_Text    ${rsp.content}    keys_with_bits=${keys_with_bits}
+    ${received_json}=    norm_json.Normalize_Json_Text    ${rsp.content}
     BuiltIn.Log    ${received_json}
     BuiltIn.Log    ${expected_json}
     BuiltIn.Should_Be_Equal    ${received_json}    ${expected_json}
