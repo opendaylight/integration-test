@@ -28,7 +28,11 @@ Verify There Is No Topology In Config Store
 
 Add Openflow Rule
     [Documentation]    TODO
-    [Tags]    exclude
+    [Tags]    exclude 
+	${body}=	OperatingSystem.Get File /home/vagrant/test/csit/variables/xmls/fl.xml
+	${resp}=	RequestsLibrary.Put Request 	session ${CONFIG_NODE_API}/node/openflow:1/table/2/flow/124	headers=${HEADERS_XML}	data=${body}
+	Log	${resp.content}
+BuiltIn.Should_Match	"${resp.status_code}"	"20?"
     Log    This test case is not implemented yet
 
 Delete Openflow Rule
