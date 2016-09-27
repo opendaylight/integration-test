@@ -45,6 +45,30 @@
       "revId": "6c52195884f74366024f221a16691c8a58646d31",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_c33792e1",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 147,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-27T10:49:16Z",
+      "side": 1,
+      "message": "Now I see that Get_ControlNode_Connection is used the same way in many places, so the refactor may be done in a separate Change.",
+      "parentUuid": "7a6b29fe_c39e7506",
+      "range": {
+        "startLine": 147,
+        "startChar": 4,
+        "endLine": 147,
+        "endChar": 20
+      },
+      "revId": "6c52195884f74366024f221a16691c8a58646d31",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
