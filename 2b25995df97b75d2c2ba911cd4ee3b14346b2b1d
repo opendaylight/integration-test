@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_0317ca45",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-27T10:47:54Z",
+      "side": 1,
+      "message": "Looks like a common pattern, that is inefficient and possibly leaks SSH connections.\nSee https://git.opendaylight.org/gerrit/#/c/41653/24/csit/libraries/OpenStackOperations.robot@147\n\nBut as it is so frequent, it may be better to clean it up in a separate Change.",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 30,
+        "endChar": 51
+      },
+      "revId": "2b25995df97b75d2c2ba911cd4ee3b14346b2b1d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_601b1481",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-27T10:47:54Z",
+      "side": 1,
+      "message": "I recommend to Log before checking status_code, so that if failure happens, its cause is logged.",
+      "range": {
+        "startLine": 70,
+        "startChar": 4,
+        "endLine": 70,
+        "endChar": 7
+      },
+      "revId": "2b25995df97b75d2c2ba911cd4ee3b14346b2b1d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_e00e043a",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-27T10:47:54Z",
+      "side": 1,
+      "message": "Why do some assignments lack equal sign?",
+      "range": {
+        "startLine": 76,
+        "startChar": 10,
+        "endLine": 76,
+        "endChar": 11
+      },
+      "revId": "2b25995df97b75d2c2ba911cd4ee3b14346b2b1d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_00006000",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-27T10:47:54Z",
+      "side": 1,
+      "message": "I recommend to take a look at TemplatedRequests.robot but no big deal.",
+      "range": {
+        "startLine": 105,
+        "startChar": 4,
+        "endLine": 109,
+        "endChar": 76
+      },
+      "revId": "2b25995df97b75d2c2ba911cd4ee3b14346b2b1d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_c022e8b7",
+        "filename": "csit/variables/vpnservice/vpn_instance_template.json",
+        "patchSetId": 7
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-27T10:47:54Z",
+      "side": 1,
+      "message": "No trailing whitespace.",
+      "range": {
+        "startLine": 2,
+        "startChar": 11,
+        "endLine": 2,
+        "endChar": 12
+      },
+      "revId": "2b25995df97b75d2c2ba911cd4ee3b14346b2b1d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_0029809a",
+        "filename": "csit/variables/vpnservice/vpn_instance_template.json",
+        "patchSetId": 7
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-27T10:47:54Z",
+      "side": 1,
+      "message": "Regular indentation please.",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 8
+      },
+      "revId": "2b25995df97b75d2c2ba911cd4ee3b14346b2b1d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_e02724c8",
+        "filename": "csit/variables/vpnservice/vpn_instance_template.json",
+        "patchSetId": 7
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-27T10:47:54Z",
+      "side": 1,
+      "message": "Spaces instead of tabs.",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 2
+      },
+      "revId": "2b25995df97b75d2c2ba911cd4ee3b14346b2b1d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
