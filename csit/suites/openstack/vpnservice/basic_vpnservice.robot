@@ -90,29 +90,49 @@ Add Interfaces To Router
     : FOR    ${INTERFACE}    IN    @{SUBNETS}
     \    Add Router Interface    ${ROUTERS[0]}    ${INTERFACE}
 
-Check L3_Datapath Traffic Across Networks With Router
-    [Documentation]    Datapath Test Across the networks using Router for L3.
-    [Tags]    exclude
-    Log    This test will be added in the next patch
+Ping VM1
+    [Documentation]    Ping VM
+    Log    "Pinging VM from namespace"
+    Ping Vm From DHCP Namespace    @{NETWORKS}[0]    @{NET10_VM_IPS}[0] 
 
-Create L3VPN
-    [Documentation]    Creates L3VPN and verify the same
-    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
-    VPN Get L3VPN    ${CREATE_ID}
+Ping VM2
+    [Documentation]    Ping VM
+    Log    "Pinging VM from namespace"
+    Ping Vm From DHCP Namespace    @{NETWORKS}[0]    @{NET20_VM_IPS}[0]
 
-Associate L3VPN to Routers
-    [Documentation]    Associating router to L3VPN
-    [Tags]    Associate
-    ${devstack_conn_id}=    Get ControlNode Connection
-    ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
-    Associate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
+Ping VM2
+    [Documentation]    Ping VM
+    Log    "Pinging VM from namespace"
+    Ping Vm From DHCP Namespace    @{NETWORKS}[0]    @{NET20_VM_IPS}[1]
 
-Dissociate L3VPN to Routers
-    [Documentation]    Dissociating router to L3VPN
-    [Tags]    Dissociate
-    ${devstack_conn_id}=    Get ControlNode Connection
-    ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
-    Dissociate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
+Ping VM3
+    [Documentation]    Ping VM
+    Log    "Pinging VM from namespace"
+    Ping Vm From DHCP Namespace    @{NETWORKS}[1]    @{NET20_VM_IPS}[0]
+
+#Check L3_Datapath Traffic Across Networks With Router
+    #[Documentation]    Datapath Test Across the networks using Router for L3.
+    #[Tags]    exclude
+    #Log    This test will be added in the next patch
+
+#Create L3VPN
+    #[Documentation]    Creates L3VPN and verify the same
+    #VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
+    #VPN Get L3VPN    ${CREATE_ID}
+
+#Associate L3VPN to Routers
+    #[Documentation]    Associating router to L3VPN
+    #[Tags]    Associate
+    #${devstack_conn_id}=    Get ControlNode Connection
+    #${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
+    #Associate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
+
+#Dissociate L3VPN to Routers
+    #[Documentation]    Dissociating router to L3VPN
+    #[Tags]    Dissociate
+    #${devstack_conn_id}=    Get ControlNode Connection
+    #${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
+    #Dissociate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
 
 Delete Router Interfaces
     [Documentation]    Remove Interface to the subnets.
