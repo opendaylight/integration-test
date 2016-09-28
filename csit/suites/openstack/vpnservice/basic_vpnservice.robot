@@ -113,6 +113,22 @@ Dissociate L3VPN to Routers
     ${devstack_conn_id}=    Get ControlNode Connection
     ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
     Dissociate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
+Networks associated to VPN3
+     [Documentation]    Associate Networks to VPN
+     ${devstack_conn_id}=    Get ControlNode Connection
+     ${network1_id} =     Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
+     ${network2_id} =     Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
+     Associate Network to VPN    ${VPN_INSTANCE_NAME[3]}    ${network1_id}
+     Associate Network to VPN    ${VPN_INSTANCE_NAME[3]}    ${network2_id}
+
+Networks dissociated to VPN3
+     [Documentation]    dissociate Networks to VPN
+     ${devstack_conn_id}=    Get ControlNode Connection
+     ${network1_id} =     Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
+     ${network2_id} =     Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
+     Dissociate Network to VPN    ${VPN_INSTANCE_NAME[3]}    ${network1_id}
+     Dissociate Network to VPN    ${VPN_INSTANCE_NAME[3]}    ${network2_id}
+
 
 Delete Router Interfaces
     [Documentation]    Remove Interface to the subnets.
