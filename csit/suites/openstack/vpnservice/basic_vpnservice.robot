@@ -21,6 +21,8 @@ Variables         ../../../variables/Variables.py
 @{PORT_LIST}      PORT11    PORT21    PORT12    PORT22
 @{VM_INSTANCES}    VM11    VM21    VM12    VM22
 @{ROUTERS}        ROUTER_1    ROUTER_2
+@{NET_1_VM_IPS}    10.1.1.3    10.1.1.4 
+
 # Values passed by the calling method to API
 ${CREATE_ID}      "4ae8cd92-48ca-49b5-94e1-b2921a261111"
 ${CREATE_NAME}    "vpn2"
@@ -75,6 +77,20 @@ Create Nova VMs
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES[1]}    ${OS_COMPUTE_2_IP}
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES[2]}    ${OS_COMPUTE_1_IP}
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES[3]}    ${OS_COMPUTE_2_IP}
+    Get DHCP Namespace List    ${NETWORKS[0]}
+    Get DHCP Namespace List    ${NETWORKS[1]}
+ 
+Ping Vm Instance1 From Network_1
+    [Documentation]    Check reachability of vm instances by pinging to them.
+    Get OvsDebugInfo
+    Get DHCP Namespace List ${NETWORKS[0]}
+    Ping Vm From DHCP Namespace    ${NETWORKS[0]}    @{NET_1_VM_IPS}[0]
+
+Ping Vm Instance1 From Network_2
+    [Documentation]    Check reachability of vm instances by pinging to them.
+    Get OvsDebugInfo
+    Get DHCP Namespace List ${NETWORKS[1]}
+    Ping Vm From DHCP Namespace    ${NETWORKS[1]}    @{NET_2_VM_IPS}[0]
 
 Check ELAN Datapath Traffic Within The Networks
     [Documentation]    Checks datapath within the same network with different vlans.
@@ -158,3 +174,14 @@ Basic Vpnservice Suite Setup
 
 Basic Vpnservice Suite Teardown
     Delete All Sessions
+
+Get DHCP Namespace List
+    [Arguments]    ${net_name}   
+    [Documentation]    Get DHCP name space list from Netowrk.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
+    Log    ${net_id}
+    ${output}=    Write Commands Until Prompt    sudo ip netns list    20s
+    Log    ${output}
+    Close Connection
