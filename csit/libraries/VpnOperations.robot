@@ -54,8 +54,8 @@ VPN Create L3VPN
     Should Be Equal As Strings    ${resp.status_code}    ${CREATE_RESP_CODE}
     ${body1} =    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/${GETL3VPN}
     ${body1} =    Replace String    ${body1}    ${CREATE_ID_DEFAULT}    ${CREATE_ID}
-    ${resp} =    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:getL3VPN    data=${body1}
-    Log    ${resp}
+    ${resp1} =    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:getL3VPN    data=${body1}
+    Log    ${resp1}
     Should Be Equal As Strings    ${resp.status_code}    ${CREATE_RESP_CODE}
 
 VPN Get L3VPN
