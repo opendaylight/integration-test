@@ -22,8 +22,8 @@ Variables         ../../../variables/Variables.py
 @{VM_INSTANCES}    VM11    VM21    VM12    VM22
 @{ROUTERS}        ROUTER_1    ROUTER_2
 # Values passed by the calling method to API
-${CREATE_ID}      "4ae8cd92-48ca-49b5-94e1-b2921a261111"
-${CREATE_NAME}    "vpn2"
+@{CREATE_ID}      "4ae8cd92-48ca-49b5-94e1-b2921a261111"    "4ae8cd92-48ca-49b5-94e1-b2921a261112"    "4ae8cd92-48ca-49b5-94e1-b2921a261113"
+@{CREATE_NAME}    "vpn1"    "vpn2"    "vpn3"
 ${CREATE_ROUTER_DISTINGUISHER}    ["2200:2"]
 ${CREATE_EXPORT_RT}    ["3300:2","8800:2"]
 ${CREATE_IMPORT_RT}    ["3300:2","8800:2"]
@@ -97,8 +97,9 @@ Check L3_Datapath Traffic Across Networks With Router
 
 Create L3VPN
     [Documentation]    Creates L3VPN and verify the same
-    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
-    VPN Get L3VPN    ${CREATE_ID}
+    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[0]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
+    ${resp} =    VPN Get L3VPN    ${CREATE_ID[0]}
+    Should Contain    ${resp.content}    ${CREATE_ID[0]}
 
 Associate L3VPN to Routers
     [Documentation]    Associating router to L3VPN
@@ -125,7 +126,25 @@ Delete Routers
 
 Delete L3VPN
     [Documentation]    Delete L3VPN
-    VPN Delete L3VPN    ${CREATE_ID}
+    VPN Delete L3VPN    ${CREATE_ID[0]}
+
+Create Multiple L3VPN
+    [Documentation]    Creates three L3VPNs and then verify the same
+    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[0]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
+    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[1]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
+    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[2]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
+    ${resp1} =    VPN Get L3VPN    ${CREATE_ID[0]}
+    Should Contain    ${resp1.content}    ${CREATE_ID[0]}
+    ${resp2} =    VPN Get L3VPN    ${CREATE_ID[1]}
+    Should Contain    ${resp2.content}    ${CREATE_ID[1]}
+    ${resp3} =    VPN Get L3VPN    ${CREATE_ID[2]}
+    Should Contain    ${resp3.content}    ${CREATE_ID[2]}
+
+Delete Multiple L3VPN
+    [Documentation]    Delete three L3VPNs
+    VPN Delete L3VPN    ${CREATE_ID[0]}
+    VPN Delete L3VPN    ${CREATE_ID[1]}
+    VPN Delete L3VPN    ${CREATE_ID[2]}
 
 Check Datapath Traffic Across Networks With L3VPN
     [Documentation]    Datapath Test Across the networks with VPN.
