@@ -7,7 +7,7 @@ Documentation     Robot keyword library (Resource) for performing PCEP operation
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
 Library           RequestsLibrary
-Library           ${CURDIR}/HsfJson/hsf_json.py
+Library           ${CURDIR}/norm_json.py
 Variables         ${CURDIR}/../variables/Variables.py
 
 *** Keywords ***
@@ -59,7 +59,7 @@ Pcep_Json_Is_Refused
     [Documentation]    Given text should be equal to json response when device refuses tunnel removal.
     ${expected_raw}=    BuiltIn.Set_Variable    {"output":{"error":[{"error-object":{"ignore":false,"processing-rule":false,"type":19,"value":9}}],"failure":"failed"}}
     # TODO: Is that JSON worth referencing pcepuser variables from this library?
-    ${expected_normalized}=    hsf_json.hsf_json    ${expected_raw}
-    ${actual_normalized}=    hsf_json.hsf_json    ${actual_raw}
+    ${expected_normalized}=    norm_json.normalize_json_text    ${expected_raw}
+    ${actual_normalized}=    norm_json.normalize_json_text    ${actual_raw}
     BuiltIn.Should_Be_Equal    ${actual_normalized}    ${expected_normalized}
     # TODO: Would the diff approach be more useful?

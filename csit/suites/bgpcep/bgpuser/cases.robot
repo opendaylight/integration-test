@@ -32,7 +32,7 @@ Test Teardown     FailFast.Start_Failing_Fast_If_This_Failed
 Library           OperatingSystem
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
-Library           ${CURDIR}/../../../libraries/HsfJson/hsf_json.py
+Library           ${CURDIR}/norm_json.py
 Variables         ${CURDIR}/../../../variables/Variables.py
 Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
 Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
@@ -267,8 +267,8 @@ Compare_Topology
 
 Normalize_And_Save_Expected_Json
     [Arguments]    ${json_text}    ${filename}    ${directory}
-    [Documentation]    Normalize given json using hsf_json library. Log and save the result to given filename under given directory.
-    ${json_normalized}=    hsf_json.Hsf_Json    ${json_text}
+    [Documentation]    Normalize given json using norm_json library. Log and save the result to given filename under given directory.
+    ${json_normalized}=    norm_json.normalize_json_text    ${json_text}
     BuiltIn.Log    ${json_normalized}
     OperatingSystem.Create_File    ${directory}${/}${filename}    ${json_normalized}
     # TODO: Should we prepend .json to the filename? When we detect it is not already prepended?
