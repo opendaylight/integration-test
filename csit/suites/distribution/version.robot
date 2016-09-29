@@ -18,10 +18,13 @@ Documentation     Suite for testing ODL distribution ability to report ist versi
 ...
 ...               This suite require both Restconf and Netconf-connector to be ready,
 ...               so it is recommended to run netconfready.robot before running this suite.
+...
+...               TODO: Figure out a way to reliably predict Odlparent version.
+...               Possibly, inspection of system/org/opendaylight/odlparent/ would be required.
 Suite Setup       Suite_Setup
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
-Default Tags      critical
+Default Tags      critical    distribution    version
 Resource          ${CURDIR}/../../libraries/TemplatedRequests.robot
 Resource          ${CURDIR}/../../libraries/SetupUtils.robot
 
