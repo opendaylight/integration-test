@@ -108,7 +108,7 @@ Associate Network to VPN
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    ${CREATE_RESP_CODE}
     ${body1}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/${GETL3VPN}
-    ${body1} =     Replace String     ${body1}     ${CREATE_ID_DEFAULT}     ${GET_ID}
+    ${body1} =    Replace String    ${body1}    ${CREATE_ID_DEFAULT}    ${GET_ID}
     ${resp}    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:getL3VPN    data=${body1}
     Log    ${resp}
     Should Be Equal As Strings    ${resp.status_code}    ${CREATE_RESP_CODE}
@@ -123,11 +123,10 @@ Dissociate Network to VPN
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    ${CREATE_RESP_CODE}
     ${body1}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/${GETL3VPN}
-    ${body1} =     Replace String     ${body1}     ${CREATE_ID_DEFAULT}     ${GET_ID}
+    ${body1} =    Replace String    ${body1}    ${CREATE_ID_DEFAULT}    ${GET_ID}
     ${resp}    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:getL3VPN    data=${body1}
     Log    ${resp}
     Should Be Equal As Strings    ${resp.status_code}    ${CREATE_RESP_CODE}
-
 
 VPN Delete L3VPN
     [Arguments]    ${DEL_L3VPN_ID}
