@@ -69,6 +69,9 @@ Run_Keyword_Preserve_Connection
     [Documentation]    Store current connection index, run keyword returning its result, restore connection in teardown.
     ...    Note that in order to avoid "got positional argument after named arguments", it is safer to use positional (not named) arguments on call.
     ${current_connection}=    SSHLibrary.Get_Connection
+    BuiltIn.Log    ${args}
+    BuiltIn.Log    ${kwargs}
+    BuiltIn.Log    ${KARAF_HOME}
     BuiltIn.Run_Keyword_And_Return    ${keyword_name}    @{args}    &{kwargs}
     # Resource name has to be prepended, as KarafKeywords still contains a redirect.
     [Teardown]    SSHKeywords.Restore_Current_SSH_Connection_From_Index    ${current_connection.index}

@@ -301,6 +301,8 @@ Start_Members_From_List_Or_All
     ...    Optionally karaf_home can be overriden. Optionally specific JAVA_HOME is used for starting.
     ${base_command} =    BuiltIn.Set_Variable    ${karaf_home}/bin/start
     ${command} =    BuiltIn.Set_Variable_If    "${export_java_home}"    export JAVA_HOME="${export_java_home}"; ${base_command}    ${base_command}
+    BuiltIn.Log    ${command}
+    BuiltIn.Log    ${KARAF_HOME}
     Run_Bash_Command_On_List_Or_All    command=${command}    member_index_list=${member_index_list}
     BuiltIn.Return_From_Keyword_If    not ${wait_for_sync}
     BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    10s    Check_Cluster_Is_In_Sync    member_index_list=${member_index_list}
@@ -374,6 +376,8 @@ Run_Bash_Command_On_List_Or_All
     [Documentation]    Cycle through indices (or all), run command on each.
     ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
     : FOR    ${index}    IN    @{index_list}
+    \    BuiltIn.Log    ${command}
+    \    BuiltIn.Log    ${KARAF_HOME}
     \    Run_Bash_Command_On_Member    command=${command}    member_index=${index}
 
 Run_Bash_Command_On_Member
@@ -381,6 +385,8 @@ Run_Bash_Command_On_Member
     [Documentation]    Obtain IP, call Utils and return output. This does not preserve active ssh session.
     # TODO: Rename these keyword to Run_Bash_Command_On_Member to distinguish from Karaf (or even Windows) commands.
     ${member_ip} =    Collections.Get_From_Dictionary    dictionary=${ClusterManagement__index_to_ip_mapping}    key=${member_index}
+    BuiltIn.Log    ${command}
+    BuiltIn.Log    ${KARAF_HOME}
     ${output} =    SSHKeywords.Run_Keyword_Preserve_Connection    Utils.Run_Command_On_Controller    ${member_ip}    ${command}
     [Return]    ${output}
 

@@ -265,6 +265,8 @@ Run Command On Controller
     [Arguments]    ${system}=${ODL_SYSTEM_IP}    ${cmd}=echo    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}
     [Documentation]    Call Run Comand On Remote System, but with default values suitable for Controller machine.
     BuiltIn.Log    ${password}
+    BuiltIn.Log    ${cmd}
+    BuiltIn.Log    ${KARAF_HOME}
     BuiltIn.Run Keyword And Return    Run Command On Remote System    ${system}    ${cmd}    ${user}    ${password}    prompt=${prompt}
 
 Verify File Exists On Remote System
