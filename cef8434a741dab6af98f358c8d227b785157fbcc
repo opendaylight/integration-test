@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_83bd9dda",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-09-29T11:14:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_e3e4510e",
+      "range": {
+        "startLine": 148,
+        "startChar": 46,
+        "endLine": 148,
+        "endChar": 47
+      },
+      "revId": "cef8434a741dab6af98f358c8d227b785157fbcc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_03ea2dda",
         "filename": "csit/libraries/KarafKeywords.robot",
         "patchSetId": 32
@@ -36,6 +60,30 @@
       "writtenOn": "2016-09-26T14:01:41Z",
       "side": 1,
       "message": "${member_index} is missing.",
+      "range": {
+        "startLine": 149,
+        "startChar": 78,
+        "endLine": 149,
+        "endChar": 79
+      },
+      "revId": "cef8434a741dab6af98f358c8d227b785157fbcc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_63c04150",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 149,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-09-29T11:14:16Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_03ea2dda",
       "range": {
         "startLine": 149,
         "startChar": 78,
