@@ -31,7 +31,7 @@ Documentation     Robot keyword library (Resource) for runtime changes to config
 Library           OperatingSystem
 Library           RequestsLibrary
 Library           String
-Library           ${CURDIR}/HsfJson/hsf_json.py
+Library           ${CURDIR}/norm_json.py
 Variables         ${CURDIR}/../variables/Variables.py
 
 *** Variables ***
@@ -98,8 +98,8 @@ Normalize_Jsons_Save_And_Compare
     [Arguments]    ${actual_raw}    ${expected_raw}
     [Documentation]    Use HsfJson to normalize both arguments, compute and Log diff, fail if diff is non-empty.
     ...    This keywords assumes ${WORKSPACE} is defined as a suite variable.
-    ${actual_normalized}=    hsf_json.Hsf_Json    ${actual_raw}
-    ${expected_normalized}=    hsf_json.Hsf_Json    ${expected_raw}
+    ${actual_normalized}=    norm_json.normalize_json_text    ${actual_raw}
+    ${expected_normalized}=    norm_json.normalize_json_text    ${expected_raw}
     OperatingSystem.Create_File    ${cvr_expfile}    ${expected_normalized}
     OperatingSystem.Create_File    ${cvr_actfile}    ${actual_normalized}
     ${diff}=    OperatingSystem.Run    diff -du '${cvr_expfile}' '${cvr_actfile}'
