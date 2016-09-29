@@ -76,6 +76,29 @@ Create Nova VMs
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES[2]}    ${OS_COMPUTE_1_IP}
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES[3]}    ${OS_COMPUTE_2_IP}
 
+Create L3VPN
+    [Documentation]    Creates L3VPN and verify the same
+    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
+    VPN Get L3VPN    ${CREATE_ID}
+
+Networks associated to VPN3
+     [Documentation]    Associate Networks to VPN
+     ${devstack_conn_id}=    Get ControlNode Connection
+     ${network1_id} =     Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
+     ${network2_id} =     Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
+     Associate Network to VPN    ${VPN_INSTANCE_NAME[1]}    ${network1_id}
+     Associate Network to VPN    ${VPN_INSTANCE_NAME[1]}    ${network2_id}
+     VPN Get L3VPN    ${CREATE_ID}
+
+Networks dissociated to VPN3
+     [Documentation]    dissociate Networks to VPN
+     ${devstack_conn_id}=    Get ControlNode Connection
+     ${network1_id} =     Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
+     ${network2_id} =     Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
+     Dissociate Network to VPN    ${VPN_INSTANCE_NAME[1]}    ${network1_id}
+     Dissociate Network to VPN    ${VPN_INSTANCE_NAME[1]}    ${network2_id}
+     VPN Get L3VPN    ${CREATE_ID}
+
 Check ELAN Datapath Traffic Within The Networks
     [Documentation]    Checks datapath within the same network with different vlans.
     [Tags]    exclude
@@ -94,11 +117,6 @@ Check L3_Datapath Traffic Across Networks With Router
     [Documentation]    Datapath Test Across the networks using Router for L3.
     [Tags]    exclude
     Log    This test will be added in the next patch
-
-Create L3VPN
-    [Documentation]    Creates L3VPN and verify the same
-    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
-    VPN Get L3VPN    ${CREATE_ID}
 
 Associate L3VPN to Routers
     [Documentation]    Associating router to L3VPN
