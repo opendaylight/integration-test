@@ -69,92 +69,94 @@ Check OpenDaylight Neutron Ports
     Log    ${resp.content}
     Should be Equal As Strings    ${resp.status_code}    200
 
-Create Nova VMs
-    [Documentation]    Create Vm instances on compute node with port
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[0]}    ${VM_INSTANCES[0]}    ${OS_COMPUTE_1_IP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES[1]}    ${OS_COMPUTE_2_IP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES[2]}    ${OS_COMPUTE_1_IP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES[3]}    ${OS_COMPUTE_2_IP}
+#Create Nova VMs
+#    [Documentation]    Create Vm instances on compute node with port
+#    Create Vm Instance With Port On Compute Node    ${PORT_LIST[0]}    ${VM_INSTANCES[0]}    ${OS_COMPUTE_1_IP}
+#    Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES[1]}    ${OS_COMPUTE_2_IP}
+#    Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES[2]}    ${OS_COMPUTE_1_IP}
+#    Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES[3]}    ${OS_COMPUTE_2_IP}
 
 Create L3VPN
     [Documentation]    Creates L3VPN and verify the same
-    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
-    VPN Get L3VPN    ${CREATE_ID}
+#    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
+    VPN Create L3VPN    ${VPN_INSTANCE[0]}     CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
+
+    VPN Get L3VPN    ${VPN_INSTANCE_NAME[0]}
 
 Networks associated to VPN3
      [Documentation]    Associate Networks to VPN
      ${devstack_conn_id}=    Get ControlNode Connection
      ${network1_id} =     Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
      ${network2_id} =     Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
-     Associate Network to VPN    ${VPN_INSTANCE_NAME[1]}    ${network1_id}
-     Associate Network to VPN    ${VPN_INSTANCE_NAME[1]}    ${network2_id}
-     VPN Get L3VPN    ${CREATE_ID}
+     Associate Network to VPN    ${VPN_INSTANCE_NAME[0]}    ${network1_id}
+     Associate Network to VPN    ${VPN_INSTANCE_NAME[0]}    ${network2_id}
+     VPN Get L3VPN    ${VPN_INSTANCE_NAME[0]}
 
 Networks dissociated to VPN3
      [Documentation]    dissociate Networks to VPN
      ${devstack_conn_id}=    Get ControlNode Connection
      ${network1_id} =     Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
      ${network2_id} =     Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
-     Dissociate Network to VPN    ${VPN_INSTANCE_NAME[1]}    ${network1_id}
-     Dissociate Network to VPN    ${VPN_INSTANCE_NAME[1]}    ${network2_id}
-     VPN Get L3VPN    ${CREATE_ID}
+     Dissociate Network to VPN    ${VPN_INSTANCE_NAME[0]}    ${network1_id}
+     Dissociate Network to VPN    ${VPN_INSTANCE_NAME[0]}    ${network2_id}
+     VPN Get L3VPN    ${VPN_INSTANCE_NAME[0]}
 
-Check ELAN Datapath Traffic Within The Networks
-    [Documentation]    Checks datapath within the same network with different vlans.
-    [Tags]    exclude
-    Log    This test will be added in the next patch
-
-Create Routers
-    [Documentation]    Create Router
-    Create Router    ${ROUTERS[0]}
-
-Add Interfaces To Router
-    [Documentation]    Add Interfaces
-    : FOR    ${INTERFACE}    IN    @{SUBNETS}
-    \    Add Router Interface    ${ROUTERS[0]}    ${INTERFACE}
-
-Check L3_Datapath Traffic Across Networks With Router
-    [Documentation]    Datapath Test Across the networks using Router for L3.
-    [Tags]    exclude
-    Log    This test will be added in the next patch
-
-Associate L3VPN to Routers
+#Check ELAN Datapath Traffic Within The Networks
+#    [Documentation]    Checks datapath within the same network with different vlans.
+#    [Tags]    exclude
+#    Log    This test will be added in the next patch
+#
+#Create Routers
+#    [Documentation]    Create Router
+#    Create Router    ${ROUTERS[0]}
+#
+#Add Interfaces To Router
+#    [Documentation]    Add Interfaces
+#    : FOR    ${INTERFACE}    IN    @{SUBNETS}
+#    \    Add Router Interface    ${ROUTERS[0]}    ${INTERFACE}
+#
+#Check L3_Datapath Traffic Across Networks With Router
+#    [Documentation]    Datapath Test Across the networks using Router for L3.
+#    [Tags]    exclude
+#    Log    This test will be added in the next patch
+#
+#Associate L3VPN to Routers
     [Documentation]    Associating router to L3VPN
-    [Tags]    Associate
-    ${devstack_conn_id}=    Get ControlNode Connection
-    ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
-    Associate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
-
-Dissociate L3VPN to Routers
-    [Documentation]    Dissociating router to L3VPN
-    [Tags]    Dissociate
-    ${devstack_conn_id}=    Get ControlNode Connection
-    ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
-    Dissociate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
-
-Delete Router Interfaces
-    [Documentation]    Remove Interface to the subnets.
-    : FOR    ${INTERFACE}    IN    @{SUBNETS}
-    \    Remove Interface    ${ROUTERS[0]}    ${INTERFACE}
-
-Delete Routers
-    [Documentation]    Delete Router and Interface to the subnets.
-    Delete Router    ${ROUTERS[0]}
-
+#    [Tags]    Associate
+#    ${devstack_conn_id}=    Get ControlNode Connection
+#    ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
+#    Associate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
+#
+#Dissociate L3VPN to Routers
+#    [Documentation]    Dissociating router to L3VPN
+#    [Tags]    Dissociate
+#    ${devstack_conn_id}=    Get ControlNode Connection
+#    ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
+#    Dissociate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
+#
+#Delete Router Interfaces
+#    [Documentation]    Remove Interface to the subnets.
+#    : FOR    ${INTERFACE}    IN    @{SUBNETS}
+#    \    Remove Interface    ${ROUTERS[0]}    ${INTERFACE}
+#
+#Delete Routers
+#    [Documentation]    Delete Router and Interface to the subnets.
+#    Delete Router    ${ROUTERS[0]}
+#
 Delete L3VPN
     [Documentation]    Delete L3VPN
-    VPN Delete L3VPN    ${CREATE_ID}
+    VPN Delete L3VPN    ${VPN_INSTANCE_NAME[0]}
 
-Check Datapath Traffic Across Networks With L3VPN
-    [Documentation]    Datapath Test Across the networks with VPN.
-    [Tags]    exclude
-    Log    This test will be added in the next patch
-
-Delete Vm Instances
-    [Documentation]    Delete Vm instances in the given Instance List
-    : FOR    ${VmInstance}    IN    @{VM_INSTANCES}
-    \    Delete Vm Instance    ${VmInstance}
-
+#Check Datapath Traffic Across Networks With L3VPN
+#    [Documentation]    Datapath Test Across the networks with VPN.
+#    [Tags]    exclude
+#    Log    This test will be added in the next patch
+#
+#Delete Vm Instances
+#    [Documentation]    Delete Vm instances in the given Instance List
+#    : FOR    ${VmInstance}    IN    @{VM_INSTANCES}
+#    \    Delete Vm Instance    ${VmInstance}
+#
 Delete Neutron Ports
     [Documentation]    Delete Neutron Ports in the given Port List.
     : FOR    ${Port}    IN    @{PORT_LIST}
