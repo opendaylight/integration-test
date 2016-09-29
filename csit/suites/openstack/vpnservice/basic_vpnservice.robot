@@ -21,6 +21,8 @@ Variables         ../../../variables/Variables.py
 @{PORT_LIST}      PORT11    PORT21    PORT12    PORT22
 @{VM_INSTANCES}    VM11    VM21    VM12    VM22
 @{ROUTERS}        ROUTER_1    ROUTER_2
+@{NET_1_VM_IPS}    10.1.1.3    10.1.1.4
+@{NET_2_VM_IPS}    20.1.1.3    20.1.1.4
 # Values passed by the calling method to API
 ${CREATE_ID}      "4ae8cd92-48ca-49b5-94e1-b2921a261111"
 ${CREATE_NAME}    "vpn2"
@@ -75,6 +77,30 @@ Create Nova VMs
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES[1]}    ${OS_COMPUTE_2_IP}
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES[2]}    ${OS_COMPUTE_1_IP}
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES[3]}    ${OS_COMPUTE_2_IP}
+    Get DHCP Namespace List    ${NETWORKS[0]}
+    Get DHCP Namespace List    ${NETWORKS[1]}
+
+Ping Vm Instance1 From Network_1
+    [Documentation]    Check reachability of vm instances by pinging to them.
+    Get OvsDebugInfo
+    Get DHCP Namespace List    ${NETWORKS[0]}
+    Ping Vm From ComputeNode    ${NETWORKS[0]}    @{NET_1_VM_IPS}[0] 
+
+Ping Vm Instance1 From Network_2
+    [Documentation]    Check reachability of vm instances by pinging to them.
+    Get OvsDebugInfo
+    Get DHCP Namespace List    ${NETWORKS[1]}
+    Ping Vm From ComputeNode    ${NETWORKS[1]}    @{NET_2_VM_IPS}[0]
+
+SSH Vm Instance1 From Network_1
+    [Documentation]    Check reachability of vm instances by pinging to them.
+    Get OvsDebugInfo
+    SSH Namespace Network    ${NETWORKS[0]}    @{NET_1_VM_IPS}[0]
+
+SSH Vm Instance1 From Network_2
+    [Documentation]    Check reachability of vm instances by pinging to them.
+    Get OvsDebugInfo
+    SSH Namespace Network    ${NETWORKS[1]}    @{NET_2_VM_IPS}[0]
 
 Check ELAN Datapath Traffic Within The Networks
     [Documentation]    Checks datapath within the same network with different vlans.
@@ -158,3 +184,47 @@ Basic Vpnservice Suite Setup
 
 Basic Vpnservice Suite Teardown
     Delete All Sessions
+
+Get DHCP Namespace List
+    [Arguments]    ${net_name}
+    [Documentation]    Get DHCP name space list from Netowrk.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
+    Log    ${net_id}
+    ${output}=    Write Commands Until Prompt    sudo ip netns list    20s
+    Log    ${output}
+    Close Connection
+
+SSH Namespace Network
+    [Arguments]    ${net_name}    ${src_ip}    ${user}=cirros    ${password}=cubswin:)
+    [Documentation]    Login to the vm instance using ssh in the network.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
+    #${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${src_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no    d:
+    ${output}=    Run Command On Remote System    ${OS_COMPUTE_1_IP}    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${src_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no 
+    Log    ${output}
+    ${output}=    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
+    Log    ${output}
+    ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance
+    Log    ${rcode}
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    ifconfig    ${OS_SYSTEM_PROMPT}
+    Log    ${rcode}
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    route    ${OS_SYSTEM_PROMPT}
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    arp -an    ${OS_SYSTEM_PROMPT}
+    [Teardown]    Exit From Vm Console
+
+Ping Vm From ComputeNode
+    [Arguments]    ${net_name}    ${vm_ip}
+    [Documentation]    Reach all Vm Instance with the net id of the Netowrk.
+    Log    ${vm_ip}
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
+    Log    ${net_id}
+    ${output}=    Run Command On Remote System    ${OS_COMPUTE_1_IP}    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}
+    #${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    64 bytes
