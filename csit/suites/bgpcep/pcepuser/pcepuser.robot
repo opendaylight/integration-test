@@ -11,7 +11,7 @@ Suite Teardown    Tear_It_Down
 Library           OperatingSystem
 Library           SSHLibrary
 Library           RequestsLibrary
-Library           ${CURDIR}/../../../libraries/HsfJson/hsf_json.py
+Library           ${CURDIR}/norm_json.py
 Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
 Resource          ${CURDIR}/../../../libraries/PcepOperations.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
@@ -133,13 +133,13 @@ Compare_Topology
     [Documentation]    Get current pcep-topology as json, normalize both expected and actual json.
     ...    Save normalized jsons to files for later processing.
     ...    Error codes and normalized jsons should match exactly.
-    ${normexp}=    Hsf_Json    ${expected}
+    ${normexp}=    normalize_json_text    ${expected}
     Log    ${normexp}
     Create_File    ${ExpDir}${/}${name}    ${normexp}
     ${resp}=    RequestsLibrary.Get Request    ses    topology/pcep-topology
     Log    ${resp}
     Log    ${resp.text}
-    ${normresp}=    Hsf_Json    ${resp.text}
+    ${normresp}=    normalize_json_text    ${resp.text}
     Log    ${normresp}
     Create_File    ${ActDir}${/}${name}    ${normresp}
     Should_Be_Equal_As_Strings    ${resp.status_code}    200
