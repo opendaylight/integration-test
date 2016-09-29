@@ -1,0 +1,372 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_479ee7b9",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 71
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-29T16:13:22Z",
+      "side": 1,
+      "message": "Mention Initialization is now needed.\nMention affected suites were updated.",
+      "range": {
+        "startLine": 7,
+        "startChar": 57,
+        "endLine": 7,
+        "endChar": 58
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_67a7a30b",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-29T16:13:22Z",
+      "side": 1,
+      "message": "Also mention these two pieces of information, as they are useful for suite maintainers:\n* If SetupUtils initialization is called, this gets initialized as well.\n* If this gets initialized, ClusterManagement gets initialized as well.",
+      "range": {
+        "startLine": 3,
+        "startChar": 59,
+        "endLine": 3,
+        "endChar": 60
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_477707a0",
+        "filename": "csit/suites/controller/akka_upgrade/1node.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-29T16:13:22Z",
+      "side": 1,
+      "message": "Initialize SetupUtils instead.",
+      "range": {
+        "startLine": 146,
+        "startChar": 4,
+        "endLine": 146,
+        "endChar": 17
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_4750a70a",
+        "filename": "csit/suites/examples/2016_Summit_Tutorial_Example.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-29T16:13:22Z",
+      "side": 1,
+      "message": "The Resource is not listed in Settings table yet.",
+      "range": {
+        "startLine": 5,
+        "startChar": 18,
+        "endLine": 5,
+        "endChar": 28
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_2753eb17",
+        "filename": "csit/suites/examples/2016_Summit_Tutorial_Example.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-29T16:13:22Z",
+      "side": 1,
+      "message": "Move to line 48.",
+      "range": {
+        "startLine": 51,
+        "startChar": 15,
+        "endLine": 51,
+        "endChar": 20
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_e72d7390",
+        "filename": "csit/suites/netconf/CRUD/CRUD.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-29T16:13:22Z",
+      "side": 1,
+      "message": "Tidy check fails due to trailing whitespace.",
+      "range": {
+        "startLine": 218,
+        "startChar": 89,
+        "endLine": 218,
+        "endChar": 90
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_07334ff6",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-29T16:13:22Z",
+      "side": 1,
+      "message": "Use SetupUtils initialization instead, and move into Setup_Everything",
+      "range": {
+        "startLine": 40,
+        "startChar": 42,
+        "endLine": 40,
+        "endChar": 55
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_672203a4",
+        "filename": "csit/suites/netvirt/Openstack_Neutron/001__connection_manager.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-29T16:13:22Z",
+      "side": 1,
+      "message": "Is this needed?",
+      "range": {
+        "startLine": 16,
+        "startChar": 37,
+        "endLine": 16,
+        "endChar": 50
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_272c8b98",
+        "filename": "csit/suites/openstack/connectivity/02_l3_tests.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-29T16:13:22Z",
+      "side": 1,
+      "message": "This Resource is neither initialized, nor listed in Settings table.",
+      "range": {
+        "startLine": 5,
+        "startChar": 18,
+        "endLine": 5,
+        "endChar": 28
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_c715d740",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-29T16:13:22Z",
+      "side": 1,
+      "message": "Swap with line 30.",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 6
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_670b2324",
+        "filename": "csit/suites/ovsdb/Southbound_Cluster/010__Ovsdb_Southbound_Cluster.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-29T16:13:22Z",
+      "side": 1,
+      "message": "Does not seem to be used. Either switch back to initializing KarafManagement, or add Test Setup.",
+      "range": {
+        "startLine": 8,
+        "startChar": 37,
+        "endLine": 8,
+        "endChar": 47
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_15053c13",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/010__configure_1_ovsdb_node.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-29T16:13:22Z",
+      "side": 1,
+      "message": "Initialize SetupUtils instead.",
+      "range": {
+        "startLine": 3,
+        "startChar": 42,
+        "endLine": 3,
+        "endChar": 76
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_7514704c",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/010__configure_1_ovsdb_node.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-29T16:13:22Z",
+      "side": 1,
+      "message": "Is this needed?",
+      "range": {
+        "startLine": 12,
+        "startChar": 37,
+        "endLine": 12,
+        "endChar": 56
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_351e7870",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/020__connection_manager.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-29T16:13:22Z",
+      "side": 1,
+      "message": "Already performed, as SetupUtils initializes KarafKeywords.",
+      "range": {
+        "startLine": 142,
+        "startChar": 18,
+        "endLine": 142,
+        "endChar": 61
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_f5288098",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/030__configure_exit_ovsdb_node.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-29T16:13:22Z",
+      "side": 1,
+      "message": "Already performed, as SetupUtils initializes KarafKeywords.",
+      "range": {
+        "startLine": 170,
+        "startChar": 18,
+        "endLine": 170,
+        "endChar": 61
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_b52288b6",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/040__Vxlan_Extension_Test.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-29T16:13:22Z",
+      "side": 1,
+      "message": "Already performed, as SetupUtils initializes KarafKeywords.",
+      "range": {
+        "startLine": 116,
+        "startChar": 18,
+        "endLine": 116,
+        "endChar": 61
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}

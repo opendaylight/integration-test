@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_152edca4",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/030__configure_exit_ovsdb_node.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-29T16:13:22Z",
+      "side": 0,
+      "message": "This is still needed, variables such as ${OVSDB_PORT} are devined there.",
+      "range": {
+        "startLine": 10,
+        "startChar": 37,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "67385947e8059b215336f7f86a6771aa9ad2d58d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
