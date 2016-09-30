@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_aa86a2b6",
+        "filename": "csit/libraries/ClusterKeywords.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-30T11:58:07Z",
+      "side": 1,
+      "message": "Use library prefix:\n\nnorm_json.normalize_json_text",
+      "range": {
+        "startLine": 138,
+        "startChar": 25,
+        "endLine": 138,
+        "endChar": 44
+      },
+      "revId": "d8b37ae10b21b90dcdefd7a246593e545e4aebe2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_0a9236f5",
+        "filename": "csit/suites/bgpcep/bgpuser/bgp_app_peer_basic.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 57,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-30T11:58:07Z",
+      "side": 1,
+      "message": "norm_json.py is in csit/libraries/, not in csit/suites/bgpcep/bgpuser/.",
+      "range": {
+        "startLine": 57,
+        "startChar": 27,
+        "endLine": 57,
+        "endChar": 28
+      },
+      "revId": "d8b37ae10b21b90dcdefd7a246593e545e4aebe2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
