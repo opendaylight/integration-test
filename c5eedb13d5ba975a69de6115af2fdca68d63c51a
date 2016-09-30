@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_3d85be59",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-30T15:20:41Z",
+      "side": 1,
+      "message": "Do you have a preference?\n\nI can see arguments for both \"List every file content of which you use in code.\" and \"Only list leaf Resources in you hierarchy\".\n\nIn this Change, I prefer \"list all\" for Keywords and \"list leafs\" for variables. Maybe because {resource}.{keyword} works, but {resource}.{variable} does not.\n\nOr maybe because Resources with variables usually only list one variable Resource, which evokes inheriting from parent; whereas Resources with Keywords usually list several keyword Resources, which evokes listing upstream dependencies, no clear parent and precision is required.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 2
+      },
+      "revId": "c5eedb13d5ba975a69de6115af2fdca68d63c51a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_1d88c26f",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-30T15:20:41Z",
+      "side": 1,
+      "message": "Each variable in Variables.py (and Variables.robot) is used as if it was immutable. Even though pybot can override the initial value, it still resembles constant more than variable.\n\nIs it too late to rename csit/variables/Variables.robot to csit/variables/Constants.robot?\nOr even csit/constants/general.robot?",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 2
+      },
+      "revId": "c5eedb13d5ba975a69de6115af2fdca68d63c51a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
