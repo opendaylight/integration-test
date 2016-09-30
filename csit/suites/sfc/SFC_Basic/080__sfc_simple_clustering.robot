@@ -7,6 +7,7 @@ Library           SSHLibrary
 Library           Collections
 Library           OperatingSystem
 Variables         ../../../variables/Variables.py
+Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
@@ -47,8 +48,8 @@ Read JSON From File
     [Return]    ${jsonbody}
 
 Init Suite
-    [Documentation]    Initialize ODL version specific variables
+    [Documentation]    Initialize ODL version specific variables using resource CompareStream.
     log    ${ODL_STREAM}
-    Run Keyword If    '${ODL_STREAM}' == 'stable-lithium'    Set Suite Variable    ${VERSION_DIR}    lithium
+    CompareStream.Run_Keyword_If_Version_Is_Lithium    Set Suite Variable    ${VERSION_DIR}    lithium
     ...    ELSE    Set Suite Variable    ${VERSION_DIR}    master
     Set Suite Variable    ${SFC_FUNCTIONS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-functions.json
