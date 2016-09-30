@@ -1,5 +1,6 @@
 *** Settings ***
 Documentation     This setup variable for Packetcable based on ODL version
+Resource          ../../../libraries/CompareStream.robot
 
 *** Variables ***
 ${ODL_VERSION}    master    # defaults to latest version in the master branch
@@ -9,7 +10,7 @@ ${PACKETCABLE_RESOURCE_DIR}    ${CURDIR}/../variables/packetcable/${ODL_VERSION}
 
 *** Keywords ***
 Init Variables
-    Run Keyword If    "${ODL_VERSION}" == "lithium"    Init Variables Lithium
+    CompareStream.Run_Keyword_If_Version_Is_Lithium    Init Variables Lithium
     log    ${ODL_VERSION}
     log    ${ODLREST_CCAPS}
     log    ${CCAP_TOKEN}
