@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_6aa76a0b",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 1
+      },
+      "lineNbr": 177,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-09-30T08:13:39Z",
+      "side": 0,
+      "message": "Right. This has been merged in [0] and I believe it never worked due to mechanics described in [1].\nI was not aware of this line, so I have not realized my refactor [2] (line 46) is broken by this.\n\n[0] https://git.opendaylight.org/gerrit/#/c/38053/48/csit/variables/Variables.py\n[1] https://trello.com/c/17Ks74IA/298-int-test-move-variable-definitions-from-variables-py-into-variables-robot\n[2] https://git.opendaylight.org/gerrit/#/c/44728/95/csit/libraries/ClusterManagement.robot",
+      "range": {
+        "startLine": 177,
+        "startChar": 13,
+        "endLine": 177,
+        "endChar": 46
+      },
+      "revId": "67385947e8059b215336f7f86a6771aa9ad2d58d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
