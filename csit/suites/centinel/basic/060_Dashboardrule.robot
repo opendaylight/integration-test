@@ -6,9 +6,10 @@ Library           Collections
 Library           RequestsLibrary
 Library           OperatingSystem
 Library           requests
-Variables         ../../../variables/Variables.py
+Resource          ${CURDIR}/../../../variables/centinel/centinel_vars.robot
 
 *** Variables ***
+# TODO: Move this into centinel_vars.robot
 ${SET_DASHBOARD_JSON}    ${CURDIR}/../../../variables/centinel/set_dashboard.json
 
 *** Test Cases ***

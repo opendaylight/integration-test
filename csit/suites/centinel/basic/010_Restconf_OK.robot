@@ -3,8 +3,8 @@ Documentation     Test suite to verify Restconf is OK
 Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
 Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
-Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../variables/centinel/centinel_vars.robot
 
 *** Variables ***
 ${REST_CONTEXT}    /restconf/modules

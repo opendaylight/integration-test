@@ -22,9 +22,6 @@ Documentation     Resource consisting purely of variable definitions useful for 
 *** Variables ***
 # Keep this list sorted alphabetically.
 &{ACCEPT_XML}     Accept=application/xml    # Header for accepting XML data. Used frequently. TODO: Migrate to TemplatedRequests.&{HEADERS_ACCEPT_XML}
-${ALERTFIELDCONTENTRULERECORD}    /restconf/config/alertrule:alertFieldContentRuleRecord/    # FIXME: Move to a separate Centinel-related Resource and add description.
-${ALERTFIELDVALUERULERECORD}    /restconf/config/alertrule:alertFieldValueRuleRecord    # FIXME: Move to a separate Centinel-related Resource and add description.
-${ALERTMESSAGECOUNTRULERECORD}    /restconf/config/alertrule:alertMessageCountRuleRecord/    # FIXME: Move to a separate Centinel-related Resource and add description.
 @{AUTH}           admin    admin    # Authentication tuple for accessing ODL RESTCONF server. TODO: Migrate most suites to TemplatedRequests, then chose a more descriptive name.
 ${AUTH_TOKEN_API}    /oauth2/token    # FIXME: Move to a separate AAA-related Resource and add description.
 ${BASE_IP_1}      75.75.0.0    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
@@ -57,7 +54,6 @@ ${DEFAULT_PASSWORD}    ${EMPTY}    # Generic *_SYSTEM linux password. If empty, 
 ${DEFAULT_PROTOCOL_LOG_LEVEL}    ${DEFAULT_ODL_LOG_LEVEL}    # Fallback Karaf log level specific to org.opendaylight.protocol.
 ${DEFAULT_USER}    jenkins    # Generic *_SYSTEM linux user name name. TODO: Rename to DEFUALT_LINUX_USER. FIXME: Add -v to releng/builder and change the value to something more common, e.g. "vagrant".
 ${DEFAULT_TIMEOUT}    30s    # Generic *_SYSTEM SSH.Login timeout. Some systems are slow to authenticate.
-${DELETE_DASHBOARDRECORD}    /restconf/operations/dashboardrule:delete-dashboard    # FIXME: Move to a separate Centinel-related Resource and add description.
 ${ELASTICPORT}    9200    # Port to use when interacting with ElasticSearch. FIXME: Hide into a specific Resource.
 ${ENABLE_GLOBAL_TEST_DEADLINES}    True    # Some suites need this to avoid getting stuck. FIXME: Move to the Resource which uses this.
 ${ESCAPE_CHARACTER}    \x1b    # A more readable alias to the special escape character.
@@ -74,8 +70,6 @@ ${GBP_REGEP_API}    /restconf/operations/endpoint:register-endpoint    # FIXME: 
 ${GBP_TENANTS_API}    /restconf/config/policy:tenants    # FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
 ${GBP_TUNNELS_API}    /restconf/config/opendaylight-inventory:nodes    # FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
 ${GBP_UNREGEP_API}    /restconf/operations/endpoint:unregister-endpoint    # FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
-${GET_CONFIGURATION_URI}    /restconf/operational/configuration:configurationRecord/    # FIXME: Move to a separate Centinel-related Resource and add description.
-${GET_DASHBOARDRECORD}    /restconf/operational/dashboardrule:dashboardRecord/    # FIXME: Move to a separate Centinel-related Resource and add description.
 ${GET_INTENTS_URI}    /retconf/config/intent:intents    # FIXME: Move to a separate Nemo-related Resource and add description.
 &{HEADERS}        &{HEADERS_CONTENT_JSON}    # Deprecated. Used frequently. Sometimes conflicts with argument name. FIXME: Replace with &{HEADERS_CONTENT_JSON}.
 &{HEADERS_CONTENT_JSON}    Content-Type=application/json    # Http header for JSON content. Requests unconditionally serializes given data. TODO: Make sure every suite uses TemplatedRequests and move this variable there.
@@ -139,17 +133,8 @@ ${RESTPORT}       8282    # Deprecated. Restconf port used by AD-SAL services. F
 ${REVOKE_TOKEN_API}    /oauth2/revoke    # FIXME: Move to a separate AAA-related Resource and add description.
 ${SCOPE}          sdn    # Scope, used for some types of HTTP requests agains ODL RESTCONF. TODO: Migrate most suites to TemplatedRequests or AuthStandalone, then chose a more descriptive name.
 &{SEND_ACCEPT_XML_HEADERS}    Content-Type=application/xml    Accept=application/xml    # Accept and Content type for XML data. TODO: Hide into more specific Resource if possible.
-${SET_ALERTFIELDCONTENTRULERECORD}    /restconf/operations/alertrule:set-alert-field-content-rule    # FIXME: Move to a separate Centinel-related Resource and add description.
-${SET_ALERTFIELDVALUERULERECORD}    /restconf/operations/alertrule:set-alert-field-value-rule    # FIXME: Move to a separate Centinel-related Resource and add description.
-${SET_ALERTMESSAGECOUNTRULERECORD}    /restconf/operations/alertrule:set-alert-message-count-rule    # FIXME: Move to a separate Centinel-related Resource and add description.
-${SET_CONFIGURATION_URI}    /restconf/operations/configuration:set-centinel-configurations    # FIXME: Move to a separate Centinel-related Resource and add description.
-${SET_DASHBOARDRECORD}    /restconf/operations/dashboardrule:set-dashboard    # FIXME: Move to a separate Centinel-related Resource and add description.
-${SET_STREAMRECORD}    /restconf/operations/stream:set-stream    # FIXME: Move to a separate Centinel-related Resource and add description.
-${SET_SUBSCRIBEUSER}    /restconf/operations/subscribe:subscribe-user    # FIXME: Move to a separate Centinel-related Resource and add description.
 ${SSH_KEY}        id_rsa    # Implementation detail related to SSHLibrary.Login_With_Public_Key. TODO: Hide in SSHKeywords.
-${STREAMRECORD_CONFIG}    /restconf/config/stream:streamRecord    # FIXME: Move to a separate Centinel-related Resource and add description.
 ${STRUCTURE_INTENT_URI}    /restconf/operations/nemo-intent:structure-style-nemo-update    # FIXME: Move to a separate Nemo-related Resource and add description.
-${SUBSCRIPTION}    /restconf/config/subscribe:subscription/    # FIXME: Move to a separate Centinel-related Resource and add description.
 ${SW}             switches    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${TOOLS_SYSTEM_1_IP}    127.0.0.1    # IP address of first system hosting testing tools.
 ${TOOLS_SYSTEM_2_IP}    127.0.0.2    # IP address of second system hosting testing tools.

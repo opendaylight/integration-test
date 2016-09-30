@@ -3,9 +3,9 @@ Suite Setup       Create Session    session    http://${CONTROLLER}:${RESTCONFPO
 Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
 Library           OperatingSystem
-Resource          ../../../libraries/KarafKeywords.robot
-Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
+Resource          ${CURDIR}/../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../variables/centinel/centinel_vars.robot
 
 *** Variables ***
 ${SET_CONFIGURATION}    ${CURDIR}/../../../variables/centinel/set_configuration.json

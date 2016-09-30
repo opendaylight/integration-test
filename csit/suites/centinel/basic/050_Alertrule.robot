@@ -6,9 +6,10 @@ Library           Collections
 Library           json
 Library           String
 Library           OperatingSystem
-Variables         ../../../variables/Variables.py
+Resource          ${CURDIR}/../../../variables/centinel/centinel_vars.robot
 
 *** Variables ***
+# TODO: Move these into centinel_vars.robot
 ${SET_STREAMRECORD_JSON}    ${CURDIR}/../../../variables/centinel/set_streamRecord.json
 ${SET_ALERTFIELDCONTENTRULERECORD_JSON}    ${CURDIR}/../../../variables/centinel/set_alertFieldContentRuleRecord.json
 ${SET_ALERTFIELDVALUERULERECORD_JSON}    ${CURDIR}/../../../variables/centinel/set_alertFieldValueRuleRecord.json

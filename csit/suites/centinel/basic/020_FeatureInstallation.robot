@@ -6,8 +6,8 @@ Library           OperatingSystem
 Library           String
 Library           Collections
 Library           DateTime
-Resource          ../../../libraries/KarafKeywords.robot
-Variables         ../../../variables/Variables.py
+Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
+Resource          ${CURDIR}/../../../variables/centinel/centinel_vars.robot
 
 *** Test Cases ***
 Centinel Feature Installation

@@ -5,8 +5,8 @@ Library           RequestsLibrary
 Library           OperatingSystem
 Library           String
 Library           Collections
-Resource          ../../../libraries/KarafKeywords.robot
-Variables         ../../../variables/Variables.py
+Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
+Resource          ${CURDIR}/../../../variables/centinel/centinel_vars.robot
 
 *** Test Cases ***
 Centinel Feature Uninstallation

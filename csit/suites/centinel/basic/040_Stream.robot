@@ -6,8 +6,8 @@ Library           Collections
 Library           json
 Library           String
 Library           OperatingSystem
-Resource          ../../../libraries/KarafKeywords.robot
-Variables         ../../../variables/Variables.py
+Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
+Resource          ${CURDIR}/../../../variables/centinel/centinel_vars.robot
 
 *** Variables ***
 ${SET_STREAMRECORD_JSON}    ${CURDIR}/../../../variables/centinel/set_streamRecord.json
