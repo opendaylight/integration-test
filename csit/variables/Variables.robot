@@ -64,12 +64,6 @@ ${FLOWFILTERS_UPDATE}    flowfilterentries
 ${FLOWLISTS}      flowlists    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${FLOWLISTS_CREATE}    flowlists.json    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${FLOWLISTENTRIES_CREATE}    flowlistentries.json    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
-${GBP_BASE_ENDPOINTS_API}    /restconf/operational/base-endpoint:endpoints    # FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
-${GBP_ENDPOINTS_API}    /restconf/operational/endpoint:endpoints    # FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
-${GBP_REGEP_API}    /restconf/operations/endpoint:register-endpoint    # FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
-${GBP_TENANTS_API}    /restconf/config/policy:tenants    # FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
-${GBP_TUNNELS_API}    /restconf/config/opendaylight-inventory:nodes    # FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
-${GBP_UNREGEP_API}    /restconf/operations/endpoint:unregister-endpoint    # FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
 ${GET_INTENTS_URI}    /retconf/config/intent:intents    # FIXME: Move to a separate Nemo-related Resource and add description.
 &{HEADERS}        &{HEADERS_CONTENT_JSON}    # Deprecated. Used frequently. Sometimes conflicts with argument name. FIXME: Replace with &{HEADERS_CONTENT_JSON}.
 &{HEADERS_CONTENT_JSON}    Content-Type=application/json    # Http header for JSON content. Requests unconditionally serializes given data. TODO: Make sure every suite uses TemplatedRequests and move this variable there.

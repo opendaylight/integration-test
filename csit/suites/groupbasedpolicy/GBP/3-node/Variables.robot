@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Global variables for GBPSFC 3-node topology
-Variables         ../../../../variables/Variables.py
+Resource          ${CURDIR}/../../../../variables/gbp/Constants.robot
 
 *** Variables ***
 ${VM_HOME_FOLDER}    ${WORKSPACE}

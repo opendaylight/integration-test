@@ -5,8 +5,8 @@ Library           RequestsLibrary
 Library           SSHLibrary
 Library           Collections
 Library           OperatingSystem
-Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../variables/gbp/Constants.robot
 
 *** Test Cases ***
 Init Variables

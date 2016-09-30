@@ -4,10 +4,9 @@ Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCON
 Suite Teardown    Delete All Sessions
 Library           RequestsLibrary
 Library           OperatingSystem
-Variables         ../../../../../variables/Variables.py
-Resource          ../../../../../libraries/Utils.robot
-Resource          ../Variables.robot
-Resource          ../../../../../libraries/GBP/OpenFlowUtils.robot
+Resource          ${CURDIR}/../../../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../../../libraries/GBP/OpenFlowUtils.robot
+Resource          ${CURDIR}/../Variables.robot
 
 *** Test Cases ***
 Put Service Functions

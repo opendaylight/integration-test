@@ -6,8 +6,8 @@ Library           SSHLibrary
 Library           Collections
 Library           OperatingSystem
 Library           RequestsLibrary
-Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../variables/gbp/Constants.robot
 
 *** Variables ***
 ${REGISTER_ENDPOINT_FILE}    ../../../variables/gbp/register-endpoint.json

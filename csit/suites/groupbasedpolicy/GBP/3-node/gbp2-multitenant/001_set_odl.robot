@@ -5,9 +5,8 @@ Suite Teardown    Delete All Sessions
 Default Tags      multi-tenant    setup    multi-tenant-setup
 Library           RequestsLibrary
 Library           OperatingSystem
-Variables         ../../../../../variables/Variables.py
-Resource          ../../../../../libraries/Utils.robot
-Resource          ../Variables.robot
+Resource          ${CURDIR}/../../../../../libraries/Utils.robot
+Resource          ${CURDIR}/../Variables.robot
 
 *** Variables ***
 

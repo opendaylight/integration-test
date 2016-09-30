@@ -4,12 +4,11 @@ Suite Setup       Set Test Variables    client_switch_ip=${GBP1}    client_docke
 ...               same_webserver_mac=00:00:00:00:36:04    diff_webserver_switch_ip=${GBP3}    diff_webserver_docker=h36_3    diff_webserver_ip=10.0.36.3    diff_webserver_mac=00:00:00:00:36:03
 Default Tags      single-tenant    icmp    single-tenant-main
 Library           SSHLibrary
-Resource          ../../../../../libraries/Utils.robot
-Resource          ../../../../../libraries/GBP/ConnUtils.robot
-Resource          ../../../../../libraries/GBP/DockerUtils.robot
-Resource          ../../../../../libraries/GBP/OpenFlowUtils.robot
-Variables         ../../../../../variables/Variables.py
-Resource          ../Variables.robot
+Resource          ${CURDIR}/../../../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../../../libraries/GBP/ConnUtils.robot
+Resource          ${CURDIR}/../../../../../libraries/GBP/DockerUtils.robot
+Resource          ${CURDIR}/../../../../../libraries/GBP/OpenFlowUtils.robot
+Resource          ${CURDIR}/../Variables.robot
 
 *** Variables ***
 ${timeout}        10s

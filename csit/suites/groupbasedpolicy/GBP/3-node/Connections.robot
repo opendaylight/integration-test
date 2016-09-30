@@ -2,8 +2,8 @@
 Documentation     Creates/closes SSH connections to all GBP nodes. Existing connections
 ...               can be identified by aliases.
 Library           SSHLibrary
-Resource          ../../../../libraries/Utils.robot
-Resource          Variables.robot
+Resource          ${CURDIR}/../../../../libraries/Utils.robot
+Resource          ${CURDIR}/Variables.robot
 
 *** Keywords ***
 Start Connections

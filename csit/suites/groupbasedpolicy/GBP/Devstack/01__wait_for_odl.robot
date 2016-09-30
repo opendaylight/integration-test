@@ -4,10 +4,9 @@ Suite Teardown    Delete All Sessions
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
-Resource          Variables.robot
-Resource          ../../../../libraries/Utils.robot
-Resource          ../../../../libraries/DevstackUtils.robot
-Variables         ../../../../variables/Variables.py
+Resource          ${CURDIR}/Variables.robot
+Resource          ${CURDIR}/../../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../../libraries/DevstackUtils.robot
 
 *** Variables ***
 

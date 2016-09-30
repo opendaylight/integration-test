@@ -1,9 +1,8 @@
 *** Settings ***
 Library           SSHLibrary
-Resource          ../../../../libraries/Utils.robot
-Resource          ../../../../libraries/GBP/ConnUtils.robot
-Variables         ../../../../variables/Variables.py
-Resource          Variables.robot
+Resource          ${CURDIR}/../../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../../libraries/GBP/ConnUtils.robot
+Resource          ${CURDIR}/Variables.robot
 
 *** Keywords ***
 Start Connections

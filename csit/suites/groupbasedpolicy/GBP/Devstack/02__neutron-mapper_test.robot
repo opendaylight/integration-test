@@ -6,13 +6,13 @@ Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
 Library           String
-Resource          Variables.robot
-Resource          ../../../../variables/gbp/Constants.robot
-Resource          ../../../../libraries/Utils.robot
-Resource          ../../../../libraries/GBP/RestconfUtils.robot
-Resource          ../../../../libraries/GBP/AssertionUtils.robot
-Resource          ../../../../libraries/DevstackUtils.robot
-Resource          ../../../../libraries/OpenStackOperations.robot
+Resource          ${CURDIR}/Variables.robot
+Resource          ${CURDIR}/../../../../variables/gbp/Constants.robot
+Resource          ${CURDIR}/../../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../../libraries/GBP/RestconfUtils.robot
+Resource          ${CURDIR}/../../../../libraries/GBP/AssertionUtils.robot
+Resource          ${CURDIR}/../../../../libraries/DevstackUtils.robot
+Resource          ${CURDIR}/../../../../libraries/OpenStackOperations.robot
 
 *** Variables ***
 ${NETWORK_NAME}    net123

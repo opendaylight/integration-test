@@ -2,7 +2,7 @@
 Documentation     Global variables for GBPSFC 6node topology. Some variables are release specific and their value depend on
 ...               ODL_VERSION variable which contains release name and is defined in Jenkins job. Keywords for setting release specific
 ...               data are located in this file.
-Variables         ../../../../variables/Variables.py
+Resource          ${CURDIR}/../../../../variables/gbp/Constants.robot
 
 *** Variables ***
 ${NEURONMAPPER_BOOT_URL}    restconf/config/neutron-mapper:mappings

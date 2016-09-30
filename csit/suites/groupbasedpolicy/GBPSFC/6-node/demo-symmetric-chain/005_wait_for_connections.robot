@@ -3,10 +3,10 @@ Documentation     Waiting for manager and switch connections.
 Suite Setup       Start Connections
 Suite Teardown    Close Connections
 Library           SSHLibrary
-Resource          ../../../../../libraries/GBP/ConnUtils.robot
-Resource          ../../../../../libraries/GBP/OpenFlowUtils.robot
-Resource          ../Variables.robot
-Resource          ../Connections.robot
+Resource          ${CURDIR}/../../../../../libraries/GBP/ConnUtils.robot
+Resource          ${CURDIR}/../../../../../libraries/GBP/OpenFlowUtils.robot
+Resource          ${CURDIR}/../Variables.robot
+Resource          ${CURDIR}/../Connections.robot
 
 *** Testcases ***
 Wait For Manager Connected on GBPSFC2

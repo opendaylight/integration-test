@@ -2,12 +2,11 @@
 Documentation     Tests for HTTP flow
 Force Tags        multi-tenant    http    multi-tenant-main
 Library           SSHLibrary
-Resource          ../../../../../libraries/Utils.robot
-Resource          ../../../../../libraries/GBP/ConnUtils.robot
-Resource          ../../../../../libraries/GBP/DockerUtils.robot
-Resource          ../../../../../libraries/GBP/OpenFlowUtils.robot
-Variables         ../../../../../variables/Variables.py
-Resource          ../Variables.robot
+Resource          ${CURDIR}/../../../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../../../libraries/GBP/ConnUtils.robot
+Resource          ${CURDIR}/../../../../../libraries/GBP/DockerUtils.robot
+Resource          ${CURDIR}/../../../../../libraries/GBP/OpenFlowUtils.robot
+Resource          ${CURDIR}/../Variables.robot
 
 *** Variables ***
 ${timeout}        10s

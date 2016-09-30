@@ -2,10 +2,9 @@
 Documentation     Waiting until flows are created
 Default Tags      single-tenant    setup    single-tenant-setup
 Library           SSHLibrary
-Resource          ../../../../../libraries/Utils.robot
-Resource          ../../../../../libraries/GBP/OpenFlowUtils.robot
-Variables         ../../../../../variables/Variables.py
-Resource          ../Variables.robot
+Resource          ${CURDIR}/../../../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../../../libraries/GBP/OpenFlowUtils.robot
+Resource          ${CURDIR}/../Variables.robot
 
 *** Variables ***
 ${timeout}        10s

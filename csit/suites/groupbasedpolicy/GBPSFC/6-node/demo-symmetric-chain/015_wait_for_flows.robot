@@ -3,13 +3,12 @@ Documentation     Documentation Waiting for flows to appear on switches.
 Suite Setup       Start Connections
 Suite Teardown    Close Connections
 Library           SSHLibrary
-Resource          ../../../../../libraries/Utils.robot
-Resource          ../../../../../libraries/GBP/ConnUtils.robot
-Resource          ../../../../../libraries/GBP/DockerUtils.robot
-Resource          ../../../../../libraries/GBP/OpenFlowUtils.robot
-Variables         ../../../../../variables/Variables.py
-Resource          ../Variables.robot
-Resource          ../Connections.robot
+Resource          ${CURDIR}/../../../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../../../libraries/GBP/ConnUtils.robot
+Resource          ${CURDIR}/../../../../../libraries/GBP/DockerUtils.robot
+Resource          ${CURDIR}/../../../../../libraries/GBP/OpenFlowUtils.robot
+Resource          ${CURDIR}/../Variables.robot
+Resource          ${CURDIR}/../Connections.robot
 
 *** Testcases ***
 Wait For Flows on GBPSFC1

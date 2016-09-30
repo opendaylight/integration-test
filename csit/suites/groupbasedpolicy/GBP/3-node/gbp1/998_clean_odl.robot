@@ -6,10 +6,9 @@ Default Tags      single-tenant    teardown    single-tenant-teardown
 Library           RequestsLibrary
 Library           OperatingSystem
 Library           json
-Variables         ../../../../../variables/Variables.py
-Resource          ../../../../../libraries/Utils.robot
-Resource          ../../../../../libraries/GBP/RestconfUtils.robot
-Resource          ../Variables.robot
+Resource          ${CURDIR}/../../../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../../../libraries/GBP/RestconfUtils.robot
+Resource          ${CURDIR}/../Variables.robot
 
 *** Variables ***
 

@@ -4,10 +4,10 @@ Documentation     Deep inspection of HTTP traffic on asymmetric chain.
 Suite Setup       Start Connections
 Suite Teardown    Close Connections
 Library           SSHLibrary
-Resource          ../../../../../libraries/GBP/OpenFlowUtils.robot
-Resource          ../../../../../libraries/GBP/ConnUtils.robot
-Resource          ../Variables.robot
-Resource          ../Connections.robot
+Resource          ${CURDIR}/../../../../../libraries/GBP/OpenFlowUtils.robot
+Resource          ${CURDIR}/../../../../../libraries/GBP/ConnUtils.robot
+Resource          ${CURDIR}/../Variables.robot
+Resource          ${CURDIR}/../Connections.robot
 
 *** Variables ***
 

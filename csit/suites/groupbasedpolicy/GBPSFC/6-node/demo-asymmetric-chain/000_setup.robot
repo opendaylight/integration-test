@@ -1,6 +1,6 @@
 *** Settings ***
-Resource          ../Variables.robot
-Resource          ../GBPSFC_6node.robot
+Resource          ${CURDIR}/../Variables.robot
+Resource          ${CURDIR}/../GBPSFC_6node.robot
 
 *** Test Cases ***
 Initialize Nodes

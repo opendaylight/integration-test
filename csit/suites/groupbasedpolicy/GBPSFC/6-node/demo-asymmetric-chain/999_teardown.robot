@@ -1,10 +1,9 @@
 *** Settings ***
 Library           SSHLibrary
-Resource          ../../../../../libraries/Utils.robot
-Resource          ../../../../../libraries/GBP/ConnUtils.robot
-Variables         ../../../../../variables/Variables.py
-Resource          ../Variables.robot
-Resource          ../GBPSFC_6node.robot
+Resource          ${CURDIR}/../../../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../../../libraries/GBP/ConnUtils.robot
+Resource          ${CURDIR}/../Variables.robot
+Resource          ${CURDIR}/../GBPSFC_6node.robot
 
 *** Variables ***
 ${timeout}        10s
