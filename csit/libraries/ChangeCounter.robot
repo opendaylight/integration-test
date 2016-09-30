@@ -11,6 +11,7 @@ Documentation     Robot keyword library (Resource) for common handling of data c
 ...               This resource assumes that RequestsLibrary has open a connection named "operational"
 ...               which points to (an analogue of) http://${ODL_SYSTEM_IP}:${RESTCONFPORT}/${OPERATIONAL_API}
 Library           RequestsLibrary
+Resource          ${CURDIR}/CompareStream.robot
 Resource          ${CURDIR}/ConfigViaRestconf.robot
 Resource          ${CURDIR}/ScalarClosures.robot
 Resource          ${CURDIR}/WaitUtils.robot
@@ -27,13 +28,12 @@ CC_Setup
     BuiltIn.Set_Suite_Variable    ${ChangeCounter__getter}    ${counter}
 
 Get_Change_Count
-    [Documentation]    GET data change request, assert status 200, return the value.
+    [Documentation]    GET data change request, assert status 200, extract the value depending on stream.
     ${response} =    RequestsLibrary.Get_Request    operational    data-change-counter:data-change-counter
     BuiltIn.Should_Be_Equal    ${response.status_code}    ${200}    Got status: ${response.status_code} and message: ${response.text}
     # TODO: The following line can be insecure. Should we use regexp instead?
-    # TODO: beware of new releases (carbon ...) and mind if more counters are used
-    ${count} =    BuiltIn.Run Keyword If    "${ODL_STREAM}" in ["beryllium", "stable-lithium"]    BuiltIn.Evaluate    ${response.text}["data-change-counter"]["count"]
-    ...    ELSE    BuiltIn.Evaluate    ${response.text}["data-change-counter"]["counter"][0]["count"]
+    ${code_string} =    CompareStream.Set_Variable_If_At_Most_Beryllium    ${response.text}["data-change-counter"]["count"]    ${response.text}["data-change-counter"]["counter"][0]["count"]
+    ${count} =    BuiltIn.Evaluate    ${code_string}
     [Return]    ${count}
 
 Reconfigure_Topology_Name

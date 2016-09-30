@@ -21,6 +21,18 @@ Set_Variable_If_At_Most
     ...    return ${value_if_false} otherwise.
     BuiltIn.Run_Keyword_And_Return    BuiltIn.Set_Variable_If    &{Stream_dict}[${ODL_STREAM}] <= &{Stream_dict}[${upper_bound}]    ${value_if_true}    ${value_if_false}
 
+Set_Variable_If_Less_Than
+    [Arguments]    ${lower_bound}    ${value_if_true}    ${value_if_false}
+    [Documentation]    Compare ${lower_bound} to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is less than ${lower_bound},
+    ...    return ${value_if_false} otherwise.
+    BuiltIn.Run_Keyword_And_Return    BuiltIn.Set_Variable_If    &{Stream_dict}[${ODL_STREAM}] < &{Stream_dict}[${lower_bound}]    ${value_if_true}    ${value_if_false}
+
+Set_Variable_If_More_Than
+    [Arguments]    ${lower_bound}    ${value_if_true}    ${value_if_false}
+    [Documentation]    Compare ${lower_bound} to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is more than ${lower_bound},
+    ...    return ${value_if_false} otherwise.
+    BuiltIn.Run_Keyword_And_Return    BuiltIn.Set_Variable_If    &{Stream_dict}[${ODL_STREAM}] > &{Stream_dict}[${lower_bound}]    ${value_if_true}    ${value_if_false}
+
 Set_Variable_If_At_Least_Helium
     [Arguments]    ${value_if_true}    ${value_if_false}
     [Documentation]    Compare stable-helium to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at least stable-helium,
@@ -80,6 +92,24 @@ Set_Variable_If_At_Most_Carbon
     [Documentation]    Compare carbon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is at most carbon,
     ...    return ${value_if_false} otherwise.
     BuiltIn.Run_Keyword_And_Return    Set_Variable_If_At_Most    carbon    ${value_if_true}    ${value_if_false}
+
+Set_Variable_If_Less_Than_Boron
+    [Arguments]    ${value_if_true}    ${value_if_false}
+    [Documentation]    Compare boron to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is less than boron,
+    ...    return ${value_if_false} otherwise.
+    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_Less_Than    boron    ${value_if_true}    ${value_if_false}
+
+Set_Variable_If_Less_Than_Carbon
+    [Arguments]    ${value_if_true}    ${value_if_false}
+    [Documentation]    Compare carbon to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is less than carbon,
+    ...    return ${value_if_false} otherwise.
+    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_Less_Than    carbon    ${value_if_true}    ${value_if_false}
+
+Set_Variable_If_More_Than_Beryllium
+    [Arguments]    ${value_if_true}    ${value_if_false}
+    [Documentation]    Compare beryllium to ${ODL_STREAM} and return ${value_if_true} if ${ODL_STREAM} is more than beryllium,
+    ...    return ${value_if_false} otherwise.
+    BuiltIn.Run_Keyword_And_Return    Set_Variable_If_More_Than    beryllium    ${value_if_true}    ${value_if_false}
 
 Run_Keyword_If_At_Least
     [Arguments]    ${lower_bound}    ${kw_name}    @{varargs}    &{kwargs}
