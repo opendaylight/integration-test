@@ -105,6 +105,18 @@ Run_Keyword_If_Less_Than
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     BuiltIn.Run_Keyword_And_Return_If    &{Stream_dict}[${ODL_STREAM}] < &{Stream_dict}[${lower_bound}]    ${kw_name}    @{varargs}    &{kwargs}
 
+Run_Keyword_If_Version_Is
+    [Arguments]    ${lower_bound}    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare ${lower_bound} to ${ODL_STREAM} and in case ${ODL_STREAM} is ${lower_bound},
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return_If    &{Stream_dict}[${ODL_STREAM}] == &{Stream_dict}[${lower_bound}]    ${kw_name}    @{varargs}    &{kwargs}
+
+Run_Keyword_If_Version_Is_Not
+    [Arguments]    ${lower_bound}    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare ${lower_bound} to ${ODL_STREAM} and in case ${ODL_STREAM} is not ${lower_bound},
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return_If    &{Stream_dict}[${ODL_STREAM}] != &{Stream_dict}[${lower_bound}]    ${kw_name}    @{varargs}    &{kwargs}
+
 Run_Keyword_If_At_Least_Helium
     [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
     [Documentation]    Compare stable-helium to ${ODL_STREAM} and in case ${ODL_STREAM} is at least stable-helium,
@@ -224,3 +236,39 @@ Run_Keyword_If_Less_Than_Carbon
     [Documentation]    Compare carbon to ${ODL_STREAM} and in case ${ODL_STREAM} is less than carbon,
     ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
     BuiltIn.Run_Keyword_And_Return_If    Run_Keyword_If_Less_Than    carbon    ${kw_name}    @{varargs}    &{kwargs}
+
+Run_Keyword_If_Version_Is_Helium
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare stable-helium to ${ODL_STREAM} and in case ${ODL_STREAM} is stable-helium,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value
+    BuiltIn.Run_Keyword_And_Return_If    Run_Keyword_If_Version_Is    stable-helium    ${kw_name}    @{varargs}    &{kwargs}
+
+Run_Keyword_If_Version_Is_Lithium
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare stable-lithium to ${ODL_STREAM} and in case ${ODL_STREAM} is stable-lithium,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return_If    Run_Keyword_If_AVersion_Is    stable-lithium    ${kw_name}    @{varargs}    &{kwargs}
+
+Run_Keyword_If_Version_Is_Beryllium
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare beryllium to ${ODL_STREAM} and in case ${ODL_STREAM} is beryllium,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value
+    BuiltIn.Run_Keyword_And_Return_If    Run_Keyword_If_Version_Is    beryllium    ${kw_name}    @{varargs}    &{kwargs}
+
+Run_Keyword_If_Version_Is_Boron
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare boron to ${ODL_STREAM} and in case ${ODL_STREAM} is boron,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value
+    BuiltIn.Run_Keyword_And_Return_If    Run_Keyword_If_Version_Is    boron    ${kw_name}    @{varargs}    &{kwargs}
+
+Run_Keyword_If_Version_Is_Carbon
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare carbon to ${ODL_STREAM} and in case ${ODL_STREAM} is carbon,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value.
+    BuiltIn.Run_Keyword_And_Return_If    Run_Keyword_If_Version_Is    carbon    ${kw_name}    @{varargs}    &{kwargs}
+
+Run_Keyword_If_Version_Is_Not_Beryllium
+    [Arguments]    ${kw_name}    @{varargs}    &{kwargs}
+    [Documentation]    Compare beryllium to ${ODL_STREAM} and in case ${ODL_STREAM} is not beryllium,
+    ...    run ${kw_name} @{varargs} &{kwargs} and return its value
+    BuiltIn.Run_Keyword_And_Return_If    Run_Keyword_If_Version_Is_Not    beryllium    ${kw_name}    @{varargs}    &{kwargs}
