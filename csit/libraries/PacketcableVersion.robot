@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     This setup variable for Packetcable based on ODL version using resource CompareStream.
-Resource          ${CURDIR}/CompareStream.robot
+Resource          ../../../libraries/CompareStream.robot
 
 *** Keywords ***
 Init Variables

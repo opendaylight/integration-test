@@ -8,6 +8,7 @@ Library           Collections
 Library           OperatingSystem
 Library           RequestsLibrary
 Variables         ../../../variables/Variables.py
+Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/TemplatedRequests.robot
 
@@ -76,11 +77,11 @@ Put one Service Function Schedule Algorithm Type
 
 *** keywords ***
 Init Suite
-    [Documentation]    Initialize session and ODL version specific variables
+    [Documentation]    Initialize session and ODL version specific variables using resource CompareStream.
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     log    ${ODL_STREAM}
-    Run Keyword If    '${ODL_STREAM}' == 'stable-lithium'    Set Suite Variable    ${VERSION_DIR}    lithium
-    ...    ELSE    Set Suite Variable    ${VERSION_DIR}    master
+    ${VERSION_DIR}=    CompareStream.Set_Variable_If_At_Most_Lithium    lithium    master
+    BuiltIn.Set Suite Variable    ${VERSION_DIR}
     Set Suite Variable    ${SERVICE_SCHED_TYPES_URI}    /restconf/config/service-function-scheduler-type:service-function-scheduler-types/
     Set Suite Variable    ${SERVICE_SCHED_TYPES_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-schedule-types.json
     Set Suite Variable    ${SERVICE_WSP_SCHED_TYPE_URI}    /restconf/config/service-function-scheduler-type:service-function-scheduler-types/service-function-scheduler-type/service-function-scheduler-type:weighted-shortest-path

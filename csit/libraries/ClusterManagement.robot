@@ -245,9 +245,13 @@ Extract_Service_Entity_Type
 
 Extract_OpenFlow_Device_Data
     [Arguments]    ${data}
-    [Documentation]    Remove superfluous OpenFlow device data from Entity Owner printout.
-    ${clear_data} =    BuiltIn.Run Keyword If    '${ODL_STREAM}' != 'beryllium' and '${ODL_OF_PLUGIN}' == 'lithium'    String.Replace_String    ${data}    org.opendaylight.mdsal.ServiceEntityType    openflow
-    ...    ELSE    BuiltIn.Set_Variable    ${data}
+    [Documentation]    Remove superfluous OpenFlow device data from Entity Owner printout. Use resource CompareStream.
+    ${clear_data_replaced} =    String.Replace_String    ${data}    org.opendaylight.mdsal.ServiceEntityType    openflow
+    #${clear_data} =    CompareStream.Set_Variable_If_Less_Than_Boron    ${data}    ${clear_data_replaced}
+    #${clear_data} =    BuiltIn.Run Keywords    CompareStream.Set_Variable_If_At_Least_Boron    ${clear_data_replaced}    ${data}
+    #...AND    BuiltIn.Set Variable If    '${ODL_OF_PLUGIN}' != 'lithium'    ${data}    ${clear_data}
+    ${clear_data} =    CompareStream.Set_Variable_If_Less_Than_Boron    ${data}    ${clear_data_replaced}
+    ${clear_data} =    BuiltIn.Set Variable If    '${ODL_OF_PLUGIN}' != 'lithium'    ${data}    ${clear_data}
     ${clear_data} =    String.Replace_String    ${clear_data}    /odl-general-entity:entity[odl-general-entity:name='    ${EMPTY}
     ${clear_data} =    String.Replace_String    ${clear_data}    /general-entity:entity[general-entity:name='    ${EMPTY}
     ${clear_data} =    String.Replace_String    ${clear_data}    ']    ${EMPTY}
