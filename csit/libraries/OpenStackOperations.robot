@@ -422,3 +422,186 @@ Create Security Rule
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron security-group-rule-create --direction ${direction} --protocol ${protocol} --port-range-min ${min_port} --port-range-max ${max_port} --remote-ip-prefix ${remote_ip} ${sg_name}
     Close Connection
+
+Neutron Security Group Show
+    [Arguments]      ${SecurityGroupRuleName}    ${additional_args}=${EMPTY}
+    [Documentation]    List security groups that belong to a given tenant
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}    Set Variable     neutron security-group-show ${SecurityGroupRuleName} ${additional_args}
+    Log   ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    [Return]     ${output}
+
+Neutron Port Show
+    [Arguments]      ${PortName}    ${additional_args}=${EMPTY}
+    [Documentation]    Display the port configuration that belong to a given tenant
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}    Set Variable     neutron port-show ${PortName} ${additional_args}
+    Log   ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    [Return]     ${output}
+
+Neutron Port Update
+    [Arguments]      ${PortName}    ${additional_args}=${EMPTY}
+    [Documentation]    Updating the port configuration that belong to a given tenant
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}    Set Variable     neutron port-update ${PortName} ${additional_args}
+    Log   ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    [Return]     ${output}
+
+Neutron Security Group Create
+    [Arguments]    ${SecurityGroupName}    ${additional_args}=${EMPTY}
+    [Documentation]    Create a security group with specified name ,description & protocol value according to security group template
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}    Set Variable     neutron security-group-create ${SecurityGroupName} ${additional_args}
+    Log   ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Should Contain    ${output}    Created a new security_group
+    ${sgp_id}=    Should Match Regexp    ${output}    [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
+    Log    ${sgp_id}
+    Close Connection
+    [Return]     ${output}    ${sgp_id}
+
+Neutron Security Group Delete
+    [Arguments]    ${SecurityGroupName}    ${additional_args}=${EMPTY}
+    [Documentation]    Delete a security group with specified name
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}    Set Variable     neutron security-group-delete ${SecurityGroupName} ${additional_args}
+    Log   ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Should Contain    ${output}    Deleted security_group
+    Close Connection
+    [Return]     ${output}
+
+Neutron Security Group List
+    [Arguments]    ${additional_args}=${EMPTY}
+    [Documentation]    List all security groups
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}    Set Variable     neutron security-group-list ${additional_args}
+    Log   ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    [Return]     ${output}
+
+Neutron Security Group Update
+    [Arguments]    ${SecurityGroupName}    ${additional_args}=${EMPTY}
+    [Documentation]    Updating security groups
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}    Set Variable     neutron security-group-update ${SecurityGroupName} ${additional_args}
+    Log   ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    [Return]     ${output}
+
+Neutron Security Group Rule Create
+    [Arguments]      ${SecurityGroupName}    ${additional_args}=${EMPTY}
+    [Documentation]    Create a security group rule
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}    Set Variable     neutron security-group-rule-create ${SecurityGroupName} ${additional_args}
+    Log   ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Log To Console    ${output}
+    ${rule_id}=    Should Match Regexp    ${output}    [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
+    Log    ${rule_id}
+    Should Contain    ${output}    Created a new security_group_rule
+    Close Connection
+    [Return]     ${output}    ${rule_id}
+
+Neutron Security Group Rule Delete
+    [Arguments]      ${rule_id}    ${additional_args}=${EMPTY}
+    [Documentation]    Delete a security group rule
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}    Set Variable     neutron security-group-rule-delete ${rule_id} ${additional_args}
+    Log   ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Should Contain    ${output}    Deleted security_group_rule
+    Close Connection
+    [Return]     ${output}
+
+Neutron Security Group Rule List
+    [Arguments]      ${additional_args}=${EMPTY}
+    [Documentation]    List all security group rule
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}    Set Variable     neutron security-group-rule-list ${additional_args}
+    Log   ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    [Return]     ${output}
+
+Neutron Security Group Rule Show
+    [Arguments]      ${rule_id}    ${additional_args}=${EMPTY}
+    [Documentation]    List all security group rule
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}    Set Variable     neutron security-group-rule-show ${rule_id} ${additional_args}
+    Log   ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    [Return]     ${output}
+
+Neutron Security Group Rule Update
+    [Arguments]      ${rule_id}    ${additional_args}=${EMPTY}
+    [Documentation]    Updating security group rule
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}    Set Variable     neutron security-group-rule-update ${rule_id} ${additional_args}
+    Log   ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    [Return]     ${output}
+
+Get VM IP
+    [Arguments]      ${VM_Name}    ${additional_args}=${EMPTY}
+    [Documentation]    Extracting the VM IP
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable     nova show ${VM_Name} ${additional_args}
+    Log    ${cmd}
+    ${OUTPUT}=      Write Commands Until Prompt    ${cmd}    30s
+    Log    ${OUTPUT}
+    ${VM_IP}=    Should Match Regexp    ${OUTPUT}   net1\\snetwork\\s+\\|\\s+(\\d+\\.\\d+\\.\\d+\\.\\d+)
+    Log     ${VM_IP[1]}
+    Close Connection
+    [Return]     ${VM_IP[1]}
+
+Create Neutron Port With SecurityGroups
+    [Arguments]      ${network_name}    ${port_name}    ${additional_args}=${EMPTY}    ${SG_ID}=${EMPTY}
+    [Documentation]    Create Port With SecurityGroups
+    ${devstack_conn_id}=       Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable     neutron -v port-create ${network_name} --name ${port_name} ${additional_args} ${SG_ID}
+    Log    ${cmd}
+    ${OUTPUT}=      Write Commands Until Prompt    ${cmd}    30s
+    Log    ${OUTPUT}
+    Should Contain    ${output}    Created a new port
+    ${port_id}=    Should Match Regexp    ${OUTPUT}    [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
+    Log    ${port_id}
+    Close Connection
+    [Return]     ${OUTPUT}    ${port_id}
+
