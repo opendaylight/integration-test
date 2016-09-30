@@ -601,8 +601,9 @@ Test Is Flow 225 Deleted
 
 *** Keywords ***
 Initialization Phase
-    [Documentation]    Initiate tcp connection with controller
-    ${check_id} =    Set Variable If    '${ODL_STREAM}' == 'stable/lithium' or '${ODL_STREAM}' == 'beryllium'    ${False}    ${True}
+    [Documentation]    Initiate tcp connection with controller using resource CompareStream.
+    #${check_id} =    Set Variable If    '${ODL_STREAM}' == 'stable/lithium' or '${ODL_STREAM}' == 'beryllium'    ${False}    ${True}
+    ${check_id} =    CompareStream.Set_Variable_If_Less_Than_Boron    ${False}    ${True}
     Set Suite Variable    ${check_id}
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
     Write    dpctl dump-flows -O OpenFlow13
