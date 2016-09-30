@@ -32,7 +32,10 @@ Get_Change_Count
     BuiltIn.Should_Be_Equal    ${response.status_code}    ${200}    Got status: ${response.status_code} and message: ${response.text}
     # TODO: The following line can be insecure. Should we use regexp instead?
     # TODO: beware of new releases (carbon ...) and mind if more counters are used
-    ${count} =    BuiltIn.Run Keyword If    "${ODL_STREAM}" in ["beryllium", "stable-lithium"]    BuiltIn.Evaluate    ${response.text}["data-change-counter"]["count"]
+    #${count} =    BuiltIn.Run Keyword If    "${ODL_STREAM}" in ["beryllium", "stable-lithium"]    BuiltIn.Evaluate    ${response.text}["data-change-counter"]["count"]
+    #...    ELSE    BuiltIn.Evaluate    ${response.text}["data-change-counter"]["counter"][0]["count"]
+    ${count} =    BuiltIn.Run Keywords    Run_Keyword_If_Version_Is_Beryllium
+     ...AND    Run_Keyword_If_Version_Is_Lithium    BuiltIn.Evaluate    ${response.text}["data-change-counter"]["count"]
     ...    ELSE    BuiltIn.Evaluate    ${response.text}["data-change-counter"]["counter"][0]["count"]
     [Return]    ${count}
 
