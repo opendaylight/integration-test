@@ -5,8 +5,9 @@ Variables         ../variables/topoprocessing/TopologyRequests.py
 Library           RequestsLibrary
 Library           SSHLibrary
 Library           XML
-Resource          KarafKeywords.robot
-Resource          Utils.robot
+Resource          ${CURDIR}/CompareStream.robot
+Resource          ${CURDIR}/KarafKeywords.robot
+Resource          ${CURDIR}/Utils.robot
 
 *** Variables ***
 ${CONFIGURATION_XML}    ${CURDIR}/../suites/topoprocessing/configuration.xml
@@ -61,12 +62,14 @@ Delete Underlay Link
     [Return]    ${resp}
 
 Setup Environment
-    [Documentation]    Setup karaf enviroment for following tests
+    [Documentation]    Setup karaf enviroment for following tests using CompareStream.robot
     Log    ---- Setup Environment ----
     Open Connection    ${ODL_SYSTEM_IP}
     Flexible Controller Login
-    Run Keyword If    '${ODL_STREAM}' == 'carbon'    Put File    ${CONFIGURATION_CFG}    ${REMOTE_CFG_FILE}
-    Run Keyword Unless    '${ODL_STREAM}' == 'carbon'    Put File    ${CONFIGURATION_XML}    ${REMOTE_XML_FILE}
+    #Run Keyword If    '${ODL_STREAM}' == 'carbon'    Put File    ${CONFIGURATION_CFG}    ${REMOTE_CFG_FILE}
+    CompareStream.Run_Keyword_If_Version_Is_Carbon    Put File    ${CONFIGURATION_CFG}    ${REMOTE_CFG_FILE}
+    #Run Keyword Unless    '${ODL_STREAM}' == 'carbon'    Put File    ${CONFIGURATION_XML}    ${REMOTE_XML_FILE}
+    CompareStream.Run_Keyword_If_Less_Than_Carbon    Put File    ${CONFIGURATION_XML}    ${REMOTE_XML_FILE}
     Close Connection
     Wait Until Keyword Succeeds    2x    2s    Issue Command On Karaf Console    log:set DEBUG org.opendaylight.topoprocessing
     Install a Feature    odl-restconf-noauth    timeout=30
@@ -78,7 +81,7 @@ Setup Environment
 Install Features
     [Arguments]    ${features}    ${timeout}=180
     [Documentation]    Install features according to tested distribution
-    Run Keyword If    '${ODL_STREAM}' == 'beryllium'    Install Features for Beryllium Distribution    ${features}    ${timeout}
+    CompareStream.Run_Keyword_If_Version_Is_Beryllium    Install Features for Beryllium Distribution    ${features}    ${timeout}
     ...    ELSE    Install Features for Other Distributions    ${features}    ${timeout}
 
 Install Features for Beryllium Distribution
@@ -99,12 +102,12 @@ Install Features for Other Distributions
     Run Keyword If    ${length} == 0    Wait For Karaf Log    Registering Topology Request Listener    ${timeout}
 
 Clean Environment
-    [Documentation]    Revert startup changes
+    [Documentation]    Revert startup changes using resource CompareStream.robot.
     Log    ---- Clean Environment ----
     Open Connection    ${ODL_SYSTEM_IP}
     Flexible Controller Login
-    Run Keyword If    '${ODL_STREAM}' == 'carbon'    Put File    ${OPERATIONAL_CFG}    ${REMOTE_CFG_FILE}
-    Run Keyword Unless    '${ODL_STREAM}' == 'carbon'    Put File    ${OPERATIONAL_XML}    ${REMOTE_XML_FILE}
+    CompareStream.Run_Keyword_If_Version_Is_Carbon    Put File    ${OPERATIONAL_CFG}    ${REMOTE_CFG_FILE}
+    CompareStream.Run_Keyword_If_Less_Than_Carbon    Put File    ${OPERATIONAL_XML}    ${REMOTE_XML_FILE}
     Close Connection
     Delete All Sessions
 

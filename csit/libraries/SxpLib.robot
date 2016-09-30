@@ -5,6 +5,7 @@ Library           RequestsLibrary
 Library           SSHLibrary
 Library           String
 Library           ./Sxp.py
+Resource          CompareStream.robot
 Resource          KarafKeywords.robot
 Resource          Utils.robot
 Variables         ../variables/Variables.py
@@ -75,32 +76,34 @@ Add Binding
 
 Get Bindings
     [Arguments]    ${node}=127.0.0.1    ${session}=session    ${domain}=global
-    [Documentation]    Gets all binding via RPC from Master DB of node
-    ${DATA}    Get Bindings From Node Xml    ${node}    all    ${domain}
-    ${resp}    Run Keyword If    '${ODL_STREAM}' not in ['beryllium', 'stable-lithium']    Post Request    ${session}    ${REST_CONTEXT}:get-node-bindings    data=${DATA}
-    ...    headers=${HEADERS_XML}
+    [Documentation]    Gets all binding via RPC from Master DB of node using resource CompareStream.robot.
+    ${DATA}    Get Bindings From Node Xml    ${node}    all    ${domain}    #${resp}    Run Keyword If
+    ...    # '${ODL_STREAM}' not in ['beryllium', 'stable-lithium']    Post Request    ${session}    ${REST_CONTEXT}:get-node-bindings    data=${DATA}    #...
+    ...    # headers=${HEADERS_XML}    #...    # ELSE    Get Request    ${session}    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/master-database/
+    ...    # headers=${HEADERS_XML}
+    ${resp}    CompareStream.Run_Keyword_If_At_Least_Boron    Post Request    ${session}    ${REST_CONTEXT}:get-node-bindings    data=${DATA}    headers=${HEADERS_XML}
     ...    ELSE    Get Request    ${session}    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/master-database/    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.content}
 
 Clean Bindings
     [Arguments]    ${node}=127.0.0.1    ${session}=session    ${domain}=global
-    [Documentation]    Delete all bindings via RPC from Master DB of node
+    [Documentation]    Delete all bindings via RPC from Master DB of node using resource CompareStream.robot.
     ${resp}    Get Bindings    ${node}    ${session}    ${domain}
-    @{bindings}    Run Keyword If    '${ODL_STREAM}' not in ['beryllium', 'stable-lithium']    Parse Bindings    ${resp}
+    @{bindings}    CompareStream.Run_Keyword_If_At_Least_Boron    Parse Bindings    ${resp}
     ...    ELSE    Parse Prefix Groups    ${resp}    local
     : FOR    ${binding}    IN    @{bindings}
-    \    Run Keyword If    '${ODL_STREAM}' not in ['beryllium', 'stable-lithium']    Clean Binding    ${binding['sgt']}    ${binding['ip-prefix']}    ${node}
-    \    ...    ${session}    ${domain}
+    \    CompareStream.Run_Keyword_If_At_Least_Boron    Clean Binding    ${binding['sgt']}    ${binding['ip-prefix']}    ${node}    ${session}
+    \    ...    ${domain}
     \    ...    ELSE    Clean Binding    ${binding}    ${binding['binding']}    ${node}
     \    ...    ${session}    ${domain}
 
 Clean Binding
     [Arguments]    ${sgt}    ${prefixes}    ${node}    ${session}    ${domain}=global
-    [Documentation]    Used for nester FOR loop
+    [Documentation]    Used for nester FOR loop. Use resource CompareStream.robot.
     : FOR    ${prefix}    IN    @{prefixes}
-    \    Run Keyword If    '${ODL_STREAM}' not in ['beryllium', 'stable-lithium']    Delete Binding    ${sgt}    ${prefix}    ${node}
-    \    ...    ${domain}    ${session}
+    \    CompareStream.Run_Keyword_If_At_Least_Boron    Delete Binding    ${sgt}    ${prefix}    ${node}    ${domain}
+    \    ...    ${session}
     \    ...    ELSE    Delete Binding    ${sgt['sgt']}    ${prefix['ip-prefix']}    ${node}
     \    ...    ${domain}    ${session}
 
@@ -180,16 +183,16 @@ Delete Domain Filter
 
 Should Contain Binding
     [Arguments]    ${resp}    ${sgt}    ${prefix}    ${db_source}=any
-    [Documentation]    Tests if data contains specified binding
-    ${out}    Run Keyword If    '${ODL_STREAM}' not in ['beryllium', 'stable-lithium']    Find Binding    ${resp}    ${sgt}    ${prefix}
+    [Documentation]    Test if data contains specified binding by using resource CompareStream.robot.
+    ${out}    CompareStream.Run_Keyword_If_At_Least_Boron    Find Binding    ${resp}    ${sgt}    ${prefix}
     ...    ELSE    Find Binding Legacy    ${resp}    ${sgt}    ${prefix}    ${db_source}
     ...    add
     Should Be True    ${out}    Doesn't have ${sgt} ${prefix}
 
 Should Not Contain Binding
     [Arguments]    ${resp}    ${sgt}    ${prefix}    ${db_source}=any
-    [Documentation]    Tests if data doesn't contains specified binding
-    ${out}    Run Keyword If    '${ODL_STREAM}' not in ['beryllium', 'stable-lithium']    Find Binding    ${resp}    ${sgt}    ${prefix}
+    [Documentation]    Test if data doesn't contains specified binding by using resorce CompareStream.robot.
+    ${out}    CompareStream.Run_Keyword_If_At_Least_Boron    Find Binding    ${resp}    ${sgt}    ${prefix}
     ...    ELSE    Find Binding Legacy    ${resp}    ${sgt}    ${prefix}    ${db_source}
     ...    add
     Should Not Be True    ${out}    Should't have ${sgt} ${prefix}
@@ -303,13 +306,12 @@ Check Binding Range Negative
 
 Setup SXP Environment
     [Arguments]    ${node_range}=2
-    [Documentation]    Create session to Controller, node_range parameter specifies number of nodes to be created plus one
+    [Documentation]    Create session to Controller, node_range parameter specifies number of nodes to be created plus one using resource CompareStream.robot.
     Setup SXP Session
     : FOR    ${num}    IN RANGE    1    ${node_range}
     \    ${ip}    Get Ip From Number    ${num}
-    \    Run Keyword If    '${ODL_STREAM}' not in ['beryllium', 'stable-lithium']    Add Node    ${ip}
-    \    Run Keyword If    '${ODL_STREAM}' not in ['beryllium', 'stable-lithium']    Wait Until Keyword Succeeds    20    1    Check Node Started
-    \    ...    ${ip}
+    \    CompareStream.Run_Keyword_If_At_Least_Boron    Add Node    ${ip}
+    \    CompareStream.Run_Keyword_If_At_Least_Boron    Wait Until Keyword Succeeds    20    1    Check Node Started    ${ip}
 
 Check Node Started
     [Arguments]    ${node}    ${port}=64999    ${system}=${ODL_SYSTEM_IP}
@@ -321,8 +323,8 @@ Check Node Started
 
 Clean SXP Environment
     [Arguments]    ${node_range}=2
-    [Documentation]    Destroy created sessions
+    [Documentation]    Destroy created sessions using resource CompareStream.robot.
     : FOR    ${num}    IN RANGE    1    ${node_range}
     \    ${ip}    Get Ip From Number    ${num}
-    \    Run Keyword If    '${ODL_STREAM}' not in ['beryllium', 'stable-lithium']    Delete Node    ${ip}
+    \    CompareStream.Run_Keyword_If_At_Least_Boron    Delete Node    ${ip}
     Clean SXP Session
