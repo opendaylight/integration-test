@@ -103,16 +103,20 @@ Documentation     Resource for supporting http Requests based on data stored in 
 ...
 ...               TODO: Should iterations=0 be supported for JSON (remove [])?
 ...
-...               TODO: Currently, ${ACCEPT_EMPTY} is used for JSON-expecting requests.
-...               perhaps explicit ${ACCEPT_JSON} will be better, even if it sends few bytes more?
+...               TODO: Currently, ${HEADERS_ACCEPT_EMPTY} is used for JSON-expecting requests.
+...               perhaps explicit ${HEADERS_ACCEPT_JSON} will be better, even if it sends few bytes more?
 Library           Collections
 Library           OperatingSystem
 Library           RequestsLibrary
 Library           ${CURDIR}/norm_json.py
-Variables         ${CURDIR}/../variables/Variables.py
+Variables         ${CURDIR}/../variables/Variables.robot
 
 *** Variables ***
 # TODO: Make the following list more narrow when streams without Bug 2594 fix (up to beryllium) are no longer used.
+&{HEADERS_ACCEPT_EMPTY}    # Empty accept header. Useful for Jolokia queries. Restconf should send JSON data in this case.
+&{HEADERS_ACCEPT_JSON}    Accept=application/json    # Header for accepting JSON data. Should not be needed as this is ODL default.
+&{HEADERS_ACCEPT_XML}    Accept=application/xml    # Header for accepting XML data. TODO: Migrate most suites to handle JSON data.
+&{HEADERS_CONTENT_YANG_JSON}    Content-Type=application/yang.data+json    # Header for content type for YANG sub-type of JSON data, use to work around Requests auto-serialization.
 @{ALLOWED_STATUS_CODES}    ${200}    ${201}    ${204}    # List of integers, not strings. Used by both PUT and DELETE (if the resource should have been present).
 @{ALLOWED_DELETE_STATUS_CODES}    ${200}    ${201}    ${204}    ${404}    # List of integers, not strings. Used by DELETE if the resource may be not present.
 # TODO: Add option for delete to require 404.
@@ -128,7 +132,7 @@ Get_As_Json_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
     [Documentation]    Add arguments sensible for JSON data, return Get_Templated response text.
     ...    Optionally, verification against JSON data (may be iterated) is called.
-    ${response_text} =    Get_Templated    folder=${folder}    mapping=${mapping}    accept=${ACCEPT_EMPTY}    session=${session}    normalize_json=True
+    ${response_text} =    Get_Templated    folder=${folder}    mapping=${mapping}    accept=${HEADERS_ACCEPT_EMPTY}    session=${session}    normalize_json=True
     BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Json_Templated    response=${response_text}    folder=${folder}    base_name=data    mapping=${mapping}
     ...    iterations=${iterations}    iter_start=${iter_start}
     [Return]    ${response_text}
@@ -137,7 +141,7 @@ Get_As_Xml_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
     [Documentation]    Add arguments sensible for XML data, return Get_Templated response text.
     ...    Optionally, verification against XML data (may be iterated) is called.
-    ${response_text} =    Get_Templated    folder=${folder}    mapping=${mapping}    accept=${ACCEPT_XML}    session=${session}    normalize_json=False
+    ${response_text} =    Get_Templated    folder=${folder}    mapping=${mapping}    accept=${HEADERS_ACCEPT_XML}    session=${session}    normalize_json=False
     BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Xml_Templated    response=${response_text}    folder=${folder}    base_name=data    mapping=${mapping}
     ...    iterations=${iterations}    iter_start=${iter_start}
     [Return]    ${response_text}
@@ -146,7 +150,7 @@ Put_As_Json_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
     [Documentation]    Add arguments sensible for JSON data, return Put_Templated response text.
     ...    Optionally, verification against response.json (no iteration) is called.
-    ${response_text} =    Put_Templated    folder=${folder}    base_name=data    extension=json    accept=${ACCEPT_EMPTY}    content_type=${HEADERS_YANG_JSON}
+    ${response_text} =    Put_Templated    folder=${folder}    base_name=data    extension=json    accept=${HEADERS_ACCEPT_EMPTY}    content_type=${HEADERS_CONTENT_YANG_JSON}
     ...    mapping=${mapping}    session=${session}    normalize_json=True    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}
     BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Json_Templated    response=${response_text}    folder=${folder}    base_name=response    mapping=${mapping}
     [Return]    ${response_text}
@@ -156,7 +160,7 @@ Put_As_Xml_Templated
     [Documentation]    Add arguments sensible for XML data, return Put_Templated response text.
     ...    Optionally, verification against response.xml (no iteration) is called.
     # In case of iterations, we use endlines in data to send, as it should not matter and it is more readable.
-    ${response_text} =    Put_Templated    folder=${folder}    base_name=data    extension=xml    accept=${ACCEPT_XML}    content_type=${HEADERS_XML}
+    ${response_text} =    Put_Templated    folder=${folder}    base_name=data    extension=xml    accept=${HEADERS_ACCEPT_XML}    content_type=${HEADERS_CONTENT_XML}
     ...    mapping=${mapping}    session=${session}    normalize_json=False    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}
     BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Xml_Templated    response=${response_text}    folder=${folder}    base_name=response    mapping=${mapping}
     [Return]    ${response_text}
@@ -165,7 +169,7 @@ Post_As_Json_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
     [Documentation]    Add arguments sensible for JSON data, return Post_Templated response text.
     ...    Optionally, verification against response.json (no iteration) is called.
-    ${response_text} =    Post_Templated    folder=${folder}    base_name=data    extension=json    accept=${ACCEPT_EMPTY}    content_type=${HEADERS_YANG_JSON}
+    ${response_text} =    Post_Templated    folder=${folder}    base_name=data    extension=json    accept=${HEADERS_ACCEPT_EMPTY}    content_type=${HEADERS_CONTENT_YANG_JSON}
     ...    mapping=${mapping}    session=${session}    normalize_json=True    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}
     BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Json_Templated    response=${response_text}    folder=${folder}    base_name=response    mapping=${mapping}
     [Return]    ${response_text}
@@ -175,7 +179,7 @@ Post_As_Xml_Templated
     [Documentation]    Add arguments sensible for XML data, return Post_Templated response text.
     ...    Optionally, verification against response.xml (no iteration) is called.
     # In case of iterations, we use endlines in data to send, as it should not matter and it is more readable.
-    ${response_text} =    Post_Templated    folder=${folder}    base_name=data    extension=xml    accept=${ACCEPT_XML}    content_type=${HEADERS_XML}
+    ${response_text} =    Post_Templated    folder=${folder}    base_name=data    extension=xml    accept=${HEADERS_ACCEPT_XML}    content_type=${HEADERS_CONTENT_XML}
     ...    mapping=${mapping}    session=${session}    normalize_json=False    endline=${\n}    iterations=${iterations}    iter_start=${iter_start}
     BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Xml_Templated    response=${response_text}    folder=${folder}    base_name=response    mapping=${mapping}
     [Return]    ${response_text}
@@ -204,27 +208,27 @@ Verify_Response_As_Xml_Templated
 Get_As_Json_From_Uri
     [Arguments]    ${uri}    ${session}=default
     [Documentation]    Specify JSON headers and return Get_From_Uri normalized response text.
-    ${response_text} =    Get_From_Uri    uri=${uri}    accept=${ACCEPT_EMPTY}    session=${session}    normalize_json=True
+    ${response_text} =    Get_From_Uri    uri=${uri}    accept=${HEADERS_ACCEPT_EMPTY}    session=${session}    normalize_json=True
     [Return]    ${response_text}
 
 Get_As_Xml_From_Uri
     [Arguments]    ${uri}    ${session}=default
     [Documentation]    Specify XML headers and return Get_From_Uri response text.
-    ${response_text} =    Get_From_Uri    uri=${uri}    accept=${ACCEPT_XML}    session=${session}    normalize_json=False
+    ${response_text} =    Get_From_Uri    uri=${uri}    accept=${HEADERS_ACCEPT_XML}    session=${session}    normalize_json=False
     [Return]    ${response_text}
 
 Put_As_Json_To_Uri
     [Arguments]    ${uri}    ${data}    ${session}=default
     [Documentation]    Specify JSON headers and return Put_To_Uri normalized response text.
     ...    Yang json content type is used as a workaround to RequestsLibrary json conversion eagerness.
-    ${response_text} =    Put_To_Uri    uri=${uri}    data=${data}    accept=${ACCEPT_EMPTY}    content_type=${HEADERS_YANG_JSON}    session=${session}
+    ${response_text} =    Put_To_Uri    uri=${uri}    data=${data}    accept=${HEADERS_ACCEPT_EMPTY}    content_type=${HEADERS_CONTENT_YANG_JSON}    session=${session}
     ...    normalize_json=True
     [Return]    ${response_text}
 
 Put_As_Xml_To_Uri
     [Arguments]    ${uri}    ${data}    ${session}=default
     [Documentation]    Specify XML headers and return Put_To_Uri response text.
-    ${response_text} =    Put_To_Uri    uri=${uri}    data=${data}    accept=${ACCEPT_XML}    content_type=${HEADERS_XML}    session=${session}
+    ${response_text} =    Put_To_Uri    uri=${uri}    data=${data}    accept=${HEADERS_ACCEPT_XML}    content_type=${HEADERS_CONTENT_XML}    session=${session}
     ...    normalize_json=False
     [Return]    ${response_text}
 
@@ -232,14 +236,14 @@ Post_As_Json_To_Uri
     [Arguments]    ${uri}    ${data}    ${session}=default
     [Documentation]    Specify JSON headers and return Post_To_Uri normalized response text.
     ...    Yang json content type is used as a workaround to RequestsLibrary json conversion eagerness.
-    ${response_text} =    Post_To_Uri    uri=${uri}    data=${data}    accept=${ACCEPT_EMPTY}    content_type=${HEADERS_YANG_JSON}    session=${session}
+    ${response_text} =    Post_To_Uri    uri=${uri}    data=${data}    accept=${HEADERS_ACCEPT_EMPTY}    content_type=${HEADERS_CONTENT_YANG_JSON}    session=${session}
     ...    normalize_json=True
     [Return]    ${response_text}
 
 Post_As_Xml_To_Uri
     [Arguments]    ${uri}    ${data}    ${session}=default
     [Documentation]    Specify XML headers and return Post_To_Uri response text.
-    ${response_text} =    Post_To_Uri    uri=${uri}    data=${data}    accept=${ACCEPT_XML}    content_type=${HEADERS_XML}    session=${session}
+    ${response_text} =    Post_To_Uri    uri=${uri}    data=${data}    accept=${HEADERS_ACCEPT_XML}    content_type=${HEADERS_CONTENT_XML}    session=${session}
     ...    normalize_json=False
     [Return]    ${response_text}
 

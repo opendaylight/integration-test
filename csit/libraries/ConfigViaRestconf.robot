@@ -28,11 +28,13 @@ Documentation     Robot keyword library (Resource) for runtime changes to config
 ...               * netconf-connector feature installed on ODL.
 ...               * Setup_Config_Via_Restconf called from suite Setup
 ...               (or before any other call to a keyword from this library) at least once.
+...
+...               This Resource is deprecated. Migrate to TemplatedRequests instead.
 Library           OperatingSystem
 Library           RequestsLibrary
 Library           String
 Library           ${CURDIR}/HsfJson/hsf_json.py
-Variables         ${CURDIR}/../variables/Variables.py
+Resource          ${CURDIR}/../variables/Variables.robot
 
 *** Variables ***
 # TODO: Make the following list more narrow when Bug 2594 is fixed.
@@ -188,7 +190,7 @@ Get_Json_Config_Via_Restconf
     [Arguments]    ${uri_part}
     [Documentation]    Get XML data from given controller-config URI, check status_code is one of allowed ones, return response text.
     BuiltIn.Log    ${uri_part}
-    ${response}=    RequestsLibrary.Get Request    cvr_session    ${uri_part}    headers=${ACCEPT_JSON}
+    ${response}=    RequestsLibrary.Get Request    cvr_session    ${uri_part}    headers=${HEADERS_ACCEPT_EMPTY}
     BuiltIn.Log    ${response.text}
     BuiltIn.Log    ${response.status_code}
     BuiltIn.Should_Contain    ${allowed_status_codes}    ${response.status_code}

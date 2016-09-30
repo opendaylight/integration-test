@@ -36,6 +36,7 @@ Resource          ${CURDIR}/KarafKeywords.robot
 Resource          ${CURDIR}/SSHKeywords.robot
 Resource          ${CURDIR}/TemplatedRequests.robot    # for Get_As_Json_From_Uri
 Resource          ${CURDIR}/Utils.robot    # for Run_Command_On_Controller
+Resource          ${CURDIR}/../variables/Variables.robot    # for RESTCONFPORT and similar
 
 *** Variables ***
 ${ENTITY_OWNER_URI}    restconf/operational/entity-owners:entity-owners
@@ -518,7 +519,7 @@ Check_No_Content_Member_List_Or_All
     \    Utils.No_Content_From_URI    ${session}    ${uri}
 
 Get_From_Member
-    [Arguments]    ${uri}    ${member_index}    ${access}=${ACCEPT_EMPTY}
+    [Arguments]    ${uri}    ${member_index}    ${access}=${HEADERS_ACCEPT_EMPTY}
     [Documentation]    Send a GET with the supplied uri to member ${member_index}.
     ${session} =    Resolve_Http_Session_For_Member    member_index=${member_index}
     ${response_text} =    TemplatedRequests.Get_From_Uri    uri=${uri}    accept=${access}    session=${session}

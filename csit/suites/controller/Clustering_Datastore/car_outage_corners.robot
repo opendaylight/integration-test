@@ -26,7 +26,7 @@ Library           Collections
 Resource          ${CURDIR}/../../../libraries/CarPeople.robot
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
-Variables         ${CURDIR}/../../../variables/Variables.py
+Resource          ${CURDIR}/../../../variables/Variables.robot
 
 *** Variables ***
 ${CAR_ITEMS}      50
@@ -45,7 +45,7 @@ Kill_Majority_Of_The_Followers
     \    ${data}    OperatingSystem.Get File    ${CLUSTER_DIR}/member_down.json
     \    ${member_ip} =    Collections.Get_From_Dictionary    ${ClusterManagement__index_to_ip_mapping}    ${index}
     \    ${data}    String.Replace String    ${data}    {member_ip}    ${member_ip}
-    \    TemplatedRequests.Post_To_Uri    uri=jolokia    data=${data}    content_type=${HEADERS}    accept=${ACCEPT_EMPTY}    session=${car_leader_session}
+    \    TemplatedRequests.Post_To_Uri    uri=jolokia    data=${data}    content_type=${HEADERS}    accept=${HEADERS_ACCEPT_EMPTY}    session=${car_leader_session}
 
 Attempt_To_Add_Cars_To_Leader
     [Documentation]    Adding cars should fail, as majority of Followers are down.

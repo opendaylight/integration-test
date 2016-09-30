@@ -21,9 +21,7 @@ Documentation     Resource consisting purely of variable definitions useful for 
 
 *** Variables ***
 # Keep this list sorted alphabetically.
-&{ACCEPT_EMPTY}    # Empty accept header. ODL should send JSON data in this case. TODO: Hide into more specific Resource if possible.
-&{ACCEPT_JSON}    Accept=application/json    # Header for accpeting JSON data. TODO: Hide into more specific Resource if possible.
-&{ACCEPT_XML}     Accept=application/xml    # Header for accepting XML data. TODO: Hide into more specific Resource if possible.
+&{ACCEPT_XML}     Accept=application/xml    # Header for accepting XML data. Used frequently. TODO: Migrate to TemplatedRequests.&{HEADERS_ACCEPT_XML}
 ${ALERTFIELDCONTENTRULERECORD}    /restconf/config/alertrule:alertFieldContentRuleRecord/    # FIXME: Move to a separate Centinel-related Resource and add description.
 ${ALERTFIELDVALUERULERECORD}    /restconf/config/alertrule:alertFieldValueRuleRecord    # FIXME: Move to a separate Centinel-related Resource and add description.
 ${ALERTMESSAGECOUNTRULERECORD}    /restconf/config/alertrule:alertMessageCountRuleRecord/    # FIXME: Move to a separate Centinel-related Resource and add description.
@@ -79,9 +77,10 @@ ${GBP_UNREGEP_API}    /restconf/operations/endpoint:unregister-endpoint    # FIX
 ${GET_CONFIGURATION_URI}    /restconf/operational/configuration:configurationRecord/    # FIXME: Move to a separate Centinel-related Resource and add description.
 ${GET_DASHBOARDRECORD}    /restconf/operational/dashboardrule:dashboardRecord/    # FIXME: Move to a separate Centinel-related Resource and add description.
 ${GET_INTENTS_URI}    /retconf/config/intent:intents    # FIXME: Move to a separate Nemo-related Resource and add description.
-&{HEADERS}        Content-Type=application/json    # Deprecated. Sometimes conflicts with argument name. TODO: Migrate most suites to TemplatedRequests, then chose a more descriptive name.
-&{HEADERS_YANG_JSON}    Content-Type=application/yang.data+json    # Content type for JSON data, used to work around Requests auto-serialization. TODO: Hide into more specific Resource if possible.
-&{HEADERS_XML}    Content-Type=application/xml    # Content type for XML data. TODO: Hide into more specific Resource if possible.
+&{HEADERS}        &{HEADERS_CONTENT_JSON}    # Deprecated. Used frequently. Sometimes conflicts with argument name. FIXME: Replace with &{HEADERS_CONTENT_JSON}.
+&{HEADERS_CONTENT_JSON}    Content-Type=application/json    # Http header for JSON content. Requests unconditionally serializes given data. TODO: Make sure every suite uses TemplatedRequests and move this variable there.
+&{HEADERS_YANG_JSON}    Content-Type=application/yang.data+json    # Content type for JSON data, used to work around Requests auto-serialization. Frequently used. TODO: Migrate to TemplatedRequests.&{HEADERS_CONTENT_YANG_JSON}
+&{HEADERS_XML}    Content-Type=application/xml    # Content type for XML data. Used frequently. TODO: Migrate to TemplatedRequests.&{HEADERS_CONTENT_XML}
 ${KARAF_DETAILED_PROMPT}    @${ESCAPE_CHARACTER}[0m${ESCAPE_CHARACTER}[34mroot${ESCAPE_CHARACTER}[0m>    # Larger substring of Karaf prompt, shorter ones may result in false positives.
 ${KARAF_PASSWORD}    karaf    # Plaintext password to authenticate to Karaf console.
 ${KARAF_PROMPT}    opendaylight-user    # Simple and readable Karaf prompt substring.
