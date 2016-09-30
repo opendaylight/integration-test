@@ -8,6 +8,7 @@ Library           Collections
 Library           OperatingSystem
 Library           RequestsLibrary
 Variables         ../../../variables/Variables.py
+Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/TemplatedRequests.robot
 
@@ -83,11 +84,11 @@ Put one Service Function
 
 *** keywords ***
 Init Suite
-    [Documentation]    Initialize session and ODL version specific variables
+    [Documentation]    Initialize session and ODL version specific variables using resource CompareStream.
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     log    ${ODL_STREAM}
-    Run Keyword If    '${ODL_STREAM}' == 'stable-lithium'    Set Suite Variable    ${VERSION_DIR}    lithium
-    ...    ELSE    Set Suite Variable    ${VERSION_DIR}    master
+    ${VERSION_DIR}=    CompareStream.Set_Variable_If_At_Most_Lithium    lithium    master
+    BuiltIn.Set Suite Variable    ${VERSION_DIR}
     Set Suite Variable    ${SERVICE_FUNCTION_PATHS_URI}    /restconf/config/service-function-path:service-function-paths/
     Set Suite Variable    ${SERVICE_FUNCTION_PATHS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-function-paths.json
     Set Suite Variable    ${SERVICE_FUNCTION_PATH400_URI}    /restconf/config/service-function-path:service-function-paths/service-function-path/SFC1-400

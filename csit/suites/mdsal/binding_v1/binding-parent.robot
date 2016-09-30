@@ -23,6 +23,7 @@ Test Teardown     Teardown_Test
 Default Tags      1node    binding_v1    critical
 Library           SSHLibrary
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
