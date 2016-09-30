@@ -1,5 +1,6 @@
 *** Settings ***
 Documentation     This setup variable for Packetcable based on ODL version
+Resource          ../../../libraries/CompareStream.robot
 
 *** Variables ***
 ${ODL_VERSION}    master    # defaults to latest version in the master branch

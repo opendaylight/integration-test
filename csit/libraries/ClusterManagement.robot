@@ -246,7 +246,8 @@ Extract_Service_Entity_Type
 Extract_OpenFlow_Device_Data
     [Arguments]    ${data}
     [Documentation]    Remove superfluous OpenFlow device data from Entity Owner printout.
-    ${clear_data} =    BuiltIn.Run Keyword If    '${ODL_STREAM}' != 'beryllium' and '${ODL_OF_PLUGIN}' == 'lithium'    String.Replace_String    ${data}    org.opendaylight.mdsal.ServiceEntityType    openflow
+    ${clear_data} =    RunKeywords    Run_Keyword_If_At_Least_Boron
+    ...AND    BuiltIn.Run Keyword If    '${ODL_OF_PLUGIN}' == 'lithium'    String.Replace_String    ${data}    org.opendaylight.mdsal.ServiceEntityType    openflow
     ...    ELSE    BuiltIn.Set_Variable    ${data}
     ${clear_data} =    String.Replace_String    ${clear_data}    /odl-general-entity:entity[odl-general-entity:name='    ${EMPTY}
     ${clear_data} =    String.Replace_String    ${clear_data}    /general-entity:entity[general-entity:name='    ${EMPTY}
