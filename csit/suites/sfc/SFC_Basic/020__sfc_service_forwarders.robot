@@ -8,6 +8,7 @@ Library           Collections
 Library           OperatingSystem
 Library           RequestsLibrary
 Variables         ../../../variables/Variables.py
+Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/TemplatedRequests.robot
 
@@ -242,11 +243,11 @@ Put DPL of Connected SFF Dictionary to SFF
 
 *** keywords ***
 Init Suite
-    [Documentation]    Initialize session and ODL version specific variables
+    [Documentation]    Initialize session and ODL version specific variables using resource CompareStream.
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     log    ${ODL_STREAM}
-    Run Keyword If    '${ODL_STREAM}' == 'stable-lithium'    Set Suite Variable    ${VERSION_DIR}    lithium
-    ...    ELSE    Set Suite Variable    ${VERSION_DIR}    master
+    ${VERSION_DIR}=    CompareStream.Set_Variable_If_At_Most_Lithium    lithium    master
+    BuiltIn.Set Suite Variable    ${VERSION_DIR}
     Set Suite Variable    ${SERVICE_FORWARDERS_URI}    /restconf/config/service-function-forwarder:service-function-forwarders/
     Set Suite Variable    ${SERVICE_FORWARDERS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-function-forwarders.json
     Set Suite Variable    ${SFF_OVS100_URI}    /restconf/config/service-function-forwarder:service-function-forwarders/service-function-forwarder/ovs-100/
