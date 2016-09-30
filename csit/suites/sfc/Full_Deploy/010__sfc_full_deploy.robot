@@ -7,6 +7,7 @@ Library           Collections
 Library           OperatingSystem
 Library           RequestsLibrary
 Variables         ../../../variables/Variables.py
+Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../variables/sfc/Variables.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/TemplatedRequests.robot
@@ -55,7 +56,7 @@ Get JSON Elements From URI
     [Return]    ${value}
 
 Init Suite
-    [Documentation]    Connect Create session and initialize ODL version specific variables
+    [Documentation]    Connect Create session and initialize ODL version specific variables using resource CompareStream.
     SSHLibrary.Open Connection    ${TOOLS_SYSTEM_IP}    timeout=3s
     Utils.Flexible Mininet Login
     SSHLibrary.Put File    ${CURDIR}/docker-ovs.sh    .    mode=0755
@@ -70,8 +71,8 @@ Init Suite
     SSHLibrary.Close Connection
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     log    ${ODL_STREAM}
-    Run Keyword If    '${ODL_STREAM}' == 'stable-lithium'    Set Suite Variable    ${VERSION_DIR}    lithium
-    ...    ELSE    Set Suite Variable    ${VERSION_DIR}    master
+    ${VERSION_DIR}=    CompareStream.Set_Variable_If_At_Most_Lithium    lithium    master
+    BuiltIn.Set Suite Variable    ${VERSION_DIR}
     Set Suite Variable    ${SERVICE_FUNCTIONS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/full-deploy/service-functions.json
     Set Suite Variable    ${SERVICE_FORWARDERS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/full-deploy/service-function-forwarders.json
     Set Suite Variable    ${SERVICE_NODES_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/full-deploy/service-nodes.json
