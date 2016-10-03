@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_f156cd28",
+        "filename": "csit/suites/distribution/size.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-03T17:43:47Z",
+      "side": 1,
+      "message": "parse",
+      "range": {
+        "startLine": 28,
+        "startChar": 47,
+        "endLine": 28,
+        "endChar": 52
+      },
+      "revId": "f812a22d5db0650d6ef6486b47a95ecb5838101e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_d1ff5100",
+        "filename": "csit/suites/distribution/size.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-03T17:43:47Z",
+      "side": 1,
+      "message": "ls works.  \"du\" would have been my first choice, but only because of habit",
+      "range": {
+        "startLine": 28,
+        "startChar": 28,
+        "endLine": 28,
+        "endChar": 30
+      },
+      "revId": "f812a22d5db0650d6ef6486b47a95ecb5838101e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
