@@ -8,9 +8,13 @@ Test Setup        Log Testcase Start To Controller Karaf
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
+Resource          Utils.robot
+Library           Collections
+Library           String
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/DevstackUtils.robot
+Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/VpnOperations.robot
 Variables         ../../../variables/Variables.py
 
@@ -30,6 +34,18 @@ ${CREATE_IMPORT_RT}    ["3300:2","8800:2"]
 ${CREATE_TENANT_ID}    "6c53df3a-3456-11e5-a151-feff819c1111"
 @{VPN_INSTANCE}    vpn_instance_template.json
 @{VPN_INSTANCE_NAME}    4ae8cd92-48ca-49b5-94e1-b2921a2661c7    4ae8cd92-48ca-49b5-94e1-b2921a261111
+${REST_CON}       /restconf/config/
+${REST_CON_OP}    /restconf/operations/
+${VPN_INSTANCE_DELETE}    vpn1_instance_delete.json
+${GETL3VPN}       GETL3vpn.json
+${CREATE_RESP_CODE}    200
+${CREATE_ID_DEFAULT}    "4ae8cd92-48ca-49b5-94e1-b2921a2661c7"
+${CREATE_NAME_DEFAULT}    "vpn1"
+${CREATE_ROUTER_DISTINGUISHER_DEFAULT}    ["2200:1"]
+${CREATE_EXPORT_RT_DEFAULT}    ["3300:1","8800:1"]
+${CREATE_IMPORT_RT_DEFAULT}    ["3300:1","8800:1"]
+${CREATE_TENANT_ID_DEFAULT}    "6c53df3a-3456-11e5-a151-feff819cdc9f"
+${VPN_CONFIG_DIR}    ${CURDIR}/../../../variables/vpnservice
 
 *** Test Cases ***
 Verify Tunnel Creation
@@ -40,8 +56,8 @@ Verify Tunnel Creation
 
 Create Neutron Networks
     [Documentation]    Create two networks
-    Create Network    ${NETWORKS[0]}    --provider:network_type local
-    Create Network    ${NETWORKS[1]}    --provider:network_type local
+    Create Network    ${NETWORKS[0]}
+    Create Network    ${NETWORKS[1]}
     ${NET_LIST}    List Networks
     Log    ${NET_LIST}
     Should Contain    ${NET_LIST}    ${NETWORKS[0]}
@@ -80,15 +96,14 @@ Check ELAN Datapath Traffic Within The Networks
     [Documentation]    Checks datapath within the same network with different vlans.
     [Tags]    exclude
     Log    This test will be added in the next patch
-
-Create Routers
-    [Documentation]    Create Router
-    Create Router    ${ROUTERS[0]}
-
-Add Interfaces To Router
-    [Documentation]    Add Interfaces
-    : FOR    ${INTERFACE}    IN    @{SUBNETS}
-    \    Add Router Interface    ${ROUTERS[0]}    ${INTERFACE}
+    #Create Routers
+    #    [Documentation]    Create Router
+    #    Create Router    ${ROUTERS[0]}
+    #
+    #Add Interfaces To Router
+    #    [Documentation]    Add Interfaces
+    #    : FOR    ${INTERFACE}    IN    @{SUBNETS}
+    #    Add Router Interface    ${ROUTERS[0]}    ${INTERFACE}
 
 Check L3_Datapath Traffic Across Networks With Router
     [Documentation]    Datapath Test Across the networks using Router for L3.
@@ -100,28 +115,68 @@ Create L3VPN
     VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
     VPN Get L3VPN    ${CREATE_ID}
 
-Associate L3VPN to Routers
-    [Documentation]    Associating router to L3VPN
-    [Tags]    Associate
+Networks associated to VPN3
+    [Documentation]    Associate Networks to VPN
     ${devstack_conn_id}=    Get ControlNode Connection
-    ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
-    Associate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
+    ${output_T}=    Issue Command On Karaf Console    log:set TRACE org.opendaylight.netvirt
+    Log    ${output_T}
+    ${output_DISP}=    Issue Command On Karaf Console    log:display TRACE org.opendaylight.netvirt
+    Log    ${output_DISP}
+    ${output1}=    Issue Command On Karaf Console    log:display | grep ERR
+    Log    ${output1}
+    ${output2}=    Issue Command On Karaf Console    log:display | grep WARN
+    Log    ${output2}
+    ${network1_id} =    Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
+    ${network2_id} =    Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
+    Associate Network to VPN    4ae8cd92-48ca-49b5-94e1-b2921a261111    ${network1_id}
+    Associate Network to VPN    4ae8cd92-48ca-49b5-94e1-b2921a261111    ${network2_id}
+    ${output_T1}=    Issue Command On Karaf Console    log:set TRACE org.opendaylight.netvirt
+    Log    ${output_T1}
+    ${output_DISP1}=    Issue Command On Karaf Console    log:display TRACE org.opendaylight.netvirt
+    Log    ${output_DISP1}
+    ${output3}=    Issue Command On Karaf Console    log:display | grep ERR
+    Log    ${output3}
+    ${output4}=    Issue Command On Karaf Console    log:display | grep WARN
+    Log    ${output4}
+    VPN Get L3VPN    "4ae8cd92-48ca-49b5-94e1-b2921a261111"
 
-Dissociate L3VPN to Routers
-    [Documentation]    Dissociating router to L3VPN
-    [Tags]    Dissociate
+Networks dissociated to VPN3
     ${devstack_conn_id}=    Get ControlNode Connection
-    ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
-    Dissociate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
-
-Delete Router Interfaces
-    [Documentation]    Remove Interface to the subnets.
-    : FOR    ${INTERFACE}    IN    @{SUBNETS}
-    \    Remove Interface    ${ROUTERS[0]}    ${INTERFACE}
-
-Delete Routers
-    [Documentation]    Delete Router and Interface to the subnets.
-    Delete Router    ${ROUTERS[0]}
+    ${network1_id} =    Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
+    ${network2_id} =    Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
+    ${output1}=    Issue Command On Karaf Console    log:display | grep ERR
+    Log    ${output1}
+    ${output2}=    Issue Command On Karaf Console    log:display | grep WARN
+    Log    ${output2}
+    Dissociate Network to VPN    4ae8cd92-48ca-49b5-94e1-b2921a261111    ${network1_id}
+    Dissociate Network to VPN    4ae8cd92-48ca-49b5-94e1-b2921a261111    ${network2_id}
+    ${output3}=    Issue Command On Karaf Console    log:display | grep ERR
+    Log    ${output3}
+    ${output4}=    Issue Command On Karaf Console    log:display | grep WARN
+    Log    ${output4}
+    VPN Get L3VPN    "4ae8cd92-48ca-49b5-94e1-b2921a261111"
+    #Associate L3VPN to Routers
+    #    [Documentation]    Associating router to L3VPN
+    #    [Tags]    Associate
+    #    ${devstack_conn_id}=    Get ControlNode Connection
+    #    ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
+    #    Associate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
+    #
+    #Dissociate L3VPN to Routers
+    #    [Documentation]    Dissociating router to L3VPN
+    #    [Tags]    Dissociate
+    #    ${devstack_conn_id}=    Get ControlNode Connection
+    #    ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
+    #    Dissociate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
+    #
+    #Delete Router Interfaces
+    #    [Documentation]    Remove Interface to the subnets.
+    #    : FOR    ${INTERFACE}    IN    @{SUBNETS}
+    #    Remove Interface    ${ROUTERS[0]}    ${INTERFACE}
+    #
+    #Delete Routers
+    #    [Documentation]    Delete Router and Interface to the subnets.
+    #    Delete Router    ${ROUTERS[0]}
 
 Delete L3VPN
     [Documentation]    Delete L3VPN
@@ -158,3 +213,32 @@ Basic Vpnservice Suite Setup
 
 Basic Vpnservice Suite Teardown
     Delete All Sessions
+Associate Network to VPN
+    [Arguments]    ${VPN_ID}    ${NETWORK_ID}
+    [Documentation]    Associate Network to VPN
+    ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/vpn_network.json
+    ${body} =    Replace String    ${body}    VPN_ID    ${VPN_ID}
+    ${body} =    Replace String    ${body}    NETWORK_ID    ${NETWORK_ID}
+    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:associateNetworks    data=${body}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    ${CREATE_RESP_CODE}
+    ${body1}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/${GETL3VPN}
+    ${body1} =    Replace String    ${body1}    ${CREATE_ID_DEFAULT}    ${GET_ID}
+    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:getL3VPN    data=${body1}
+    Log    ${resp}
+    Should Be Equal As Strings    ${resp.status_code}    ${CREATE_RESP_CODE}
+
+Dissociate Network to VPN
+    [Arguments]    ${VPN_ID}    ${NETWORK_ID}
+    [Documentation]    Dissociate Network to VPN
+    ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/vpn_network.json
+    ${body} =    Replace String    ${body}    VPN_ID    ${VPN_ID}
+    ${body} =    Replace String    ${body}    NETWORK_ID    ${NETWORK_ID}
+    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:dissociateNetworks    data=${body}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    ${CREATE_RESP_CODE}
+    ${body1}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/${GETL3VPN}
+    ${body1} =    Replace String    ${body1}    ${CREATE_ID_DEFAULT}    ${GET_ID}
+    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:getL3VPN    data=${body1}
+    Log    ${resp}
+    Should Be Equal As Strings    ${resp.status_code}    ${CREATE_RESP_CODE}
