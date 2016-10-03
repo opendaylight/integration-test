@@ -48,6 +48,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_e76573af",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-03T12:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_67a7a30b",
+      "range": {
+        "startLine": 3,
+        "startChar": 59,
+        "endLine": 3,
+        "endChar": 60
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_477707a0",
         "filename": "csit/suites/controller/akka_upgrade/1node.robot",
         "patchSetId": 71
@@ -59,6 +83,30 @@
       "writtenOn": "2016-09-29T16:13:22Z",
       "side": 1,
       "message": "Initialize SetupUtils instead.",
+      "range": {
+        "startLine": 146,
+        "startChar": 4,
+        "endLine": 146,
+        "endChar": 17
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_870e3fe3",
+        "filename": "csit/suites/controller/akka_upgrade/1node.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 146,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-03T12:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_477707a0",
       "range": {
         "startLine": 146,
         "startChar": 4,
@@ -94,6 +142,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_a7f6dbd4",
+        "filename": "csit/suites/examples/2016_Summit_Tutorial_Example.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-03T12:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_4750a70a",
+      "range": {
+        "startLine": 5,
+        "startChar": 18,
+        "endLine": 5,
+        "endChar": 28
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_2753eb17",
         "filename": "csit/suites/examples/2016_Summit_Tutorial_Example.robot",
         "patchSetId": 71
@@ -105,6 +177,30 @@
       "writtenOn": "2016-09-29T16:13:22Z",
       "side": 1,
       "message": "Move to line 48.",
+      "range": {
+        "startLine": 51,
+        "startChar": 15,
+        "endLine": 51,
+        "endChar": 20
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_07022fb3",
+        "filename": "csit/suites/examples/2016_Summit_Tutorial_Example.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-03T12:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_2753eb17",
       "range": {
         "startLine": 51,
         "startChar": 15,
@@ -140,6 +236,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_472f073f",
+        "filename": "csit/suites/netconf/CRUD/CRUD.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 218,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-03T12:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_e72d7390",
+      "range": {
+        "startLine": 218,
+        "startChar": 89,
+        "endLine": 218,
+        "endChar": 90
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_07334ff6",
         "filename": "csit/suites/netconf/ready/netconfready.robot",
         "patchSetId": 71
@@ -151,6 +271,30 @@
       "writtenOn": "2016-09-29T16:13:22Z",
       "side": 1,
       "message": "Use SetupUtils initialization instead, and move into Setup_Everything",
+      "range": {
+        "startLine": 40,
+        "startChar": 42,
+        "endLine": 40,
+        "endChar": 55
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_2732cba6",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-03T12:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_07334ff6",
       "range": {
         "startLine": 40,
         "startChar": 42,
@@ -186,6 +330,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_87259f5d",
+        "filename": "csit/suites/netvirt/Openstack_Neutron/001__connection_manager.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-03T12:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_672203a4",
+      "range": {
+        "startLine": 16,
+        "startChar": 37,
+        "endLine": 16,
+        "endChar": 50
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_272c8b98",
         "filename": "csit/suites/openstack/connectivity/02_l3_tests.robot",
         "patchSetId": 71
@@ -209,6 +377,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_67284333",
+        "filename": "csit/suites/openstack/connectivity/02_l3_tests.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-03T12:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_272c8b98",
+      "range": {
+        "startLine": 5,
+        "startChar": 18,
+        "endLine": 5,
+        "endChar": 28
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_c715d740",
         "filename": "csit/suites/openstack/tempest/tempest.robot",
         "patchSetId": 71
@@ -220,6 +412,30 @@
       "writtenOn": "2016-09-29T16:13:22Z",
       "side": 1,
       "message": "Swap with line 30.",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 6
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_c722f750",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-03T12:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_c715d740",
       "range": {
         "startLine": 29,
         "startChar": 4,
@@ -278,6 +494,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_a71d3b11",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/010__configure_1_ovsdb_node.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-03T12:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_15053c13",
+      "range": {
+        "startLine": 3,
+        "startChar": 42,
+        "endLine": 3,
+        "endChar": 76
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_7514704c",
         "filename": "csit/suites/ovsdb/Southbound_Domain/010__configure_1_ovsdb_node.robot",
         "patchSetId": 71
@@ -289,6 +529,30 @@
       "writtenOn": "2016-09-29T16:13:22Z",
       "side": 1,
       "message": "Is this needed?",
+      "range": {
+        "startLine": 12,
+        "startChar": 37,
+        "endLine": 12,
+        "endChar": 56
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_07198f21",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/010__configure_1_ovsdb_node.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-03T12:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_7514704c",
       "range": {
         "startLine": 12,
         "startChar": 37,
@@ -324,6 +588,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_e713b3fe",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/020__connection_manager.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-03T12:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_351e7870",
+      "range": {
+        "startLine": 142,
+        "startChar": 18,
+        "endLine": 142,
+        "endChar": 61
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_f5288098",
         "filename": "csit/suites/ovsdb/Southbound_Domain/030__configure_exit_ovsdb_node.robot",
         "patchSetId": 71
@@ -347,6 +635,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_27d92b57",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/030__configure_exit_ovsdb_node.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 170,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-03T12:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_f5288098",
+      "range": {
+        "startLine": 170,
+        "startChar": 18,
+        "endLine": 170,
+        "endChar": 61
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_b52288b6",
         "filename": "csit/suites/ovsdb/Southbound_Domain/040__Vxlan_Extension_Test.robot",
         "patchSetId": 71
@@ -358,6 +670,30 @@
       "writtenOn": "2016-09-29T16:13:22Z",
       "side": 1,
       "message": "Already performed, as SetupUtils initializes KarafKeywords.",
+      "range": {
+        "startLine": 116,
+        "startChar": 18,
+        "endLine": 116,
+        "endChar": 61
+      },
+      "revId": "49630b16dc2d5a426c5e0902daa5b4a9336506d7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_87dc7f47",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/040__Vxlan_Extension_Test.robot",
+        "patchSetId": 71
+      },
+      "lineNbr": 116,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-03T12:39:08Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_b52288b6",
       "range": {
         "startLine": 116,
         "startChar": 18,
