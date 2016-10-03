@@ -1,0 +1,12 @@
+${ITM_CREATE_JSON} = itm_tunnel_create.json
+${itm_prefix_def} = "1.1.1.1/24"
+${itm_vlan-id_def} = 0
+${itm_dpn-id1_def} = 1
+${itm_portname1_def} = "BR1-eth1"
+${itm_ip-address1_def} = "2.2.2.2"
+${itm_dpn-id2_def} = 2
+${itm_portname2_def} = "BR2-eth1"
+${itm_ip-address2_def} = "3.3.3.3"
+${itm_gateway-ip_def} = "0.0.0.0"
+${itm_tunnel-type_def} = vxlan
+${itm_zone-name_def} = TZA
