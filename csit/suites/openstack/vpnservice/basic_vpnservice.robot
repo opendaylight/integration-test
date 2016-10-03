@@ -33,10 +33,29 @@ ${CREATE_TENANT_ID}    "6c53df3a-3456-11e5-a151-feff819c1111"
 
 *** Test Cases ***
 Verify Tunnel Creation
-    [Documentation]    Checks that vxlan tunnels have been created properly.
-    [Tags]    exclude
-    Log    This test case is currently a noop, but work can be added here to validate if needed.    However, as the    suite Documentation notes, it's already assumed that the environment has been configured properly.    If    we do add work in this test case, we need to remove the "exclude" tag for it to run.    In fact, if this
-    ...    test case is critical to run, and if it fails we would be dead in the water for the rest of the suite,    we should move it to Suite Setup so that nothing else will run and waste time in a broken environment.
+    [Documentation]    Checks that vxlan tunnels are created successfully.
+    ${node_1_dpid}=    Get DPID For Compute Node    ${OS_COMPUTE_1_IP}
+    ${node_2_dpid}=    Get DPID For Compute Node    ${OS_COMPUTE_2_IP}
+    ${node_1_adapter}=    Get Ethernet Adapter From Compute Node    ${OS_COMPUTE_1_IP}
+    ${node_2_adapter}=    Get Ethernet Adapter From Compute Node    ${OS_COMPUTE_2_IP}
+    ${first_two_octets}    ${third_octet}    ${last_octet}=    Split String From Right    ${OS_COMPUTE_1_IP}    .    2
+    ${subnet}=    Set Variable    ${first_two_octets}.0.0/16
+    ${gateway}=    Get Default Gateway    ${OS_COMPUTE_1_IP}
+    ITM Create Tunnel    tunnel-type=vxlan    vlan-id=0    ip-address1="${OS_COMPUTE_1_IP}"    dpn-id1=${node_1_dpid}    portname1="${node_1_adapter}"    ip-address2="${OS_COMPUTE_2_IP}"
+    ...    dpn-id2=${node_2_dpid}    portname2="${node_2_adapter}"    prefix="${subnet}"    gateway-ip="${gateway}"
+
+Get All Tunnels
+    [Documentation]    Gets the list of ITM tunnels created.
+    ${output}=    Run Command On Remote System    ${OS_COMPUTE_1_IP}    sudo ovs-vsctl show
+    Log    ${output}
+    ${output}=    Run Command On Remote System    ${OS_COMPUTE_2_IP}    sudo ovs-vsctl show
+    Log    ${output}
+    ${output}=    ITM Get Tunnels
+    Log    ${output}
+
+Delete Existing Tunnel
+    [Documentation]    To delete if there is any tunnel for this specific transport-zone.
+    ITM Delete Tunnel    TZA
 
 Create Neutron Networks
     [Documentation]    Create two networks
@@ -173,3 +192,25 @@ Basic Vpnservice Suite Setup
 
 Basic Vpnservice Suite Teardown
     Delete All Sessions
+
+Get DPID For Compute Node
+    [Arguments]    ${ip}
+    [Documentation]    Returns the dpnid for the given ${ip}
+    ${output}=    Run Command On Remote System    ${ip}    sudo ovs-ofctl show -O Openflow13 br-int | head -1 | awk -F "dpid:" '{print $2}'
+    ${dpnid}=    Convert To Integer    ${output}    16
+    Log    ${dpnid}
+    [Return]    ${dpnid}
+
+Get Ethernet Adapter From Compute Node
+    [Arguments]    ${ip}
+    [Documentation]    Returns the adapter name on the system for the provided ${ip}
+    ${adapter}=    Run Command On Remote System    ${ip}    /usr/sbin/ip addr show | grep ${ip} | cut -d " " -f 11
+    [Return]    ${adapter}
+
+Get Default Gateway
+    [Arguments]    ${ip}
+    [Documentation]    Returns the default gateway used by ${ip}
+    ${gateway}=    Run Command On Remote System    ${ip}    /usr/sbin/route -n
+    Log    ${gateway}
+    ${gateway}=    Run Command On Remote System    ${ip}    /usr/sbin/route -n | grep '^0.0.0.0' | cut -d " " -f 10
+    [Return]    ${gateway}
