@@ -9,6 +9,7 @@ Library           RequestsLibrary
 Library           ${CURDIR}/UtilLibrary.py
 Resource          ${CURDIR}/SSHKeywords.robot
 Resource          ${CURDIR}/TemplatedRequests.robot
+Resource          ${CURDIR}/SFC/DockerSfc.robot
 Variables         ${CURDIR}/../variables/Variables.py
 
 *** Variables ***
@@ -509,3 +510,14 @@ Install Package On Ubuntu System
     Flexible Mininet Login    user=${user}    password=${password}
     Write    sudo apt-get install -y ${package_name}
     Read Until    ${prompt}
+
+Post Elements To URI As JSON
+    [Arguments]    ${uri}    ${data}
+    ${resp}    RequestsLibrary.Post Request    session    ${uri}    data=${data}    headers=${headers}
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+
+Get JSON Elements From URI
+    [Arguments]    ${uri}
+    ${resp}    RequestsLibrary.Get Request    session    ${uri}
+    ${value}    To Json    ${resp.content}
+    [Return]    ${value}
