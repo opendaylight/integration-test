@@ -218,12 +218,6 @@ Post Elements To URI As JSON
     ${resp}    RequestsLibrary.Post Request    session    ${uri}    data=${data}    headers=${headers}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
-Get JSON Elements From URI
-    [Arguments]    ${uri}
-    ${resp}    RequestsLibrary.Get Request    session    ${uri}
-    ${value}    To Json    ${resp.content}
-    [Return]    ${value}
-
 Init Suite
     [Documentation]    Create session and initialize ODL version specific variables
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
