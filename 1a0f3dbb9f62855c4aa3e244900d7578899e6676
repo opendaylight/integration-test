@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_ff2df3a9",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 23
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-04T11:51:00Z",
+      "side": 1,
+      "message": "update",
+      "range": {
+        "startLine": 30,
+        "startChar": 41,
+        "endLine": 30,
+        "endChar": 94
+      },
+      "revId": "1a0f3dbb9f62855c4aa3e244900d7578899e6676",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_6a5c7fee",
+        "filename": "csit/suites/sxp/performance/010_ConnectivityTests.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-04T11:51:00Z",
+      "side": 1,
+      "message": "I see code for this remote Robot library in SXP project. Having .jar in git is ugly, but it is too late to prevent.\n\nI also see there is odl-sxp-robot feature defined, so this is part of larger ODL Karaf container now.\n\nFirst of all, Port 8270 should now be listed at [0] to avoid creating conflicts with other projects.\n\nThen, if odl-sxp-robot is intended as an official part of ODL (as opposed to testing-only part), it should be added to Integration. \n\nFinally, that feature runs on ODL, so its address is ${ODL_SYSTEM_IP}. This suite is executed on Robot VM, so 127.0.0.1:8270 connection would be refused.\n\n[0] https://wiki.opendaylight.org/view/Ports",
+      "range": {
+        "startLine": 8,
+        "startChar": 28,
+        "endLine": 8,
+        "endChar": 71
+      },
+      "revId": "1a0f3dbb9f62855c4aa3e244900d7578899e6676",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_0a6b4b86",
+        "filename": "csit/suites/sxp/performance/010_ConnectivityTests.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-04T11:51:00Z",
+      "side": 1,
+      "message": "This could also probably be ${ODL_SYSTEM_IP}, unless this is always applied on ODL SYSTEM, in which case this is fine as performance will not be limited by network speed.",
+      "range": {
+        "startLine": 11,
+        "startChar": 18,
+        "endLine": 11,
+        "endChar": 27
+      },
+      "revId": "1a0f3dbb9f62855c4aa3e244900d7578899e6676",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_aa35f7dc",
+        "filename": "csit/suites/sxp/performance/010_ConnectivityTests.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-04T11:51:00Z",
+      "side": 1,
+      "message": "Where is this defined?",
+      "range": {
+        "startLine": 40,
+        "startChar": 54,
+        "endLine": 40,
+        "endChar": 66
+      },
+      "revId": "1a0f3dbb9f62855c4aa3e244900d7578899e6676",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_8a6d9bcf",
+        "filename": "csit/suites/sxp/performance/020_BindingExportTests.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-04T11:51:00Z",
+      "side": 1,
+      "message": "It would be more readable if this could be specified as IPv4 address string.",
+      "range": {
+        "startLine": 12,
+        "startChar": 18,
+        "endLine": 12,
+        "endChar": 28
+      },
+      "revId": "1a0f3dbb9f62855c4aa3e244900d7578899e6676",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_aa3cd7c0",
+        "filename": "csit/suites/sxp/performance/020_BindingExportTests.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-04T11:51:00Z",
+      "side": 1,
+      "message": "BuiltIn.Evaluate accepts \"modules\" argument.",
+      "range": {
+        "startLine": 40,
+        "startChar": 45,
+        "endLine": 40,
+        "endChar": 68
+      },
+      "revId": "1a0f3dbb9f62855c4aa3e244900d7578899e6676",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
