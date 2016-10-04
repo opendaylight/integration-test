@@ -92,9 +92,9 @@ Verify_Json_Template_Folder_Config_Via_Restconf
     [Documentation]    Resolve URI from folder, GET from controller config, compare to expected data as normalized JSONs.
     ${expected}=    Resolve_Json_Data_From_Template_Folder    ${folder}    ${mapping_as_string}
     ${actual}=    Get_Json_Template_Folder_Config_Via_Restconf    ${folder}    ${mapping_as_string}
-    Normalize_Jsons_And_Compare    ${actual}    ${expected}
+    Normalize_Jsons_Save_And_Compare    ${actual}    ${expected}
 
-Normalize_Jsons_And_Compare
+Normalize_Jsons_Save_And_Compare
     [Arguments]    ${actual_raw}    ${expected_raw}
     [Documentation]    Use HsfJson to normalize both arguments, compute and Log diff, fail if diff is non-empty.
     ...    This keywords assumes ${WORKSPACE} is defined as a suite variable.
