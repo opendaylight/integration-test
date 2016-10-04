@@ -60,4 +60,5 @@ Verify Switches Connected
 Log Store Max Found
     [Documentation]    Logs the found number
     Log To Console    ${max_found}
+    Log    ${max_found}
     Append To File    ${out_file}    Max\n${max_found}
