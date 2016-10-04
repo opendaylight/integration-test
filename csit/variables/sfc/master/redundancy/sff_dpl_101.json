@@ -1,0 +1,12 @@
+{
+    "sff-data-plane-locator": [
+        {
+            "name": "dpl-101",
+            "data-plane-locator": {
+                "ip": "192.168.1.1",
+                "port": 6101,
+                "transport": "service-locator:vxlan-gpe"
+            }
+        }
+    ]
+}
