@@ -34,12 +34,6 @@ Read Tenant from other node
     Lists Should be Equal    ${result}    ${jsonbody}
 
 *** Keywords ***
-Read JSON From File
-    [Arguments]    ${filepath}
-    ${body}    OperatingSystem.Get File    ${filepath}
-    ${jsonbody}    To Json    ${body}
-    [Return]    ${jsonbody}
-
 Init Variables Master
     [Documentation]    Sets variables specific to latest(master) version
     Set Suite Variable    ${GBP_TENANT_ID}    tenant-red
