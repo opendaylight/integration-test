@@ -25,6 +25,7 @@ Get list of nodes
 
 Check No Link Down
     [Documentation]    Check there is no link down
+    [Tags]    bug
     Wait Until Keyword Succeeds    30s    2s    Check For Specific Number Of Elements At URI    ${REST_CONTEXT}    "link-down":false    11
     [Teardown]    Report_Failure_Due_To_Bug    6595
 
