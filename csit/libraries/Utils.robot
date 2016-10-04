@@ -473,3 +473,22 @@ Install Package On Ubuntu System
     Flexible Mininet Login    user=${user}    password=${password}
     Write    sudo apt-get install -y ${package_name}
     Read Until    ${prompt}
+
+Post Elements To URI As JSON
+    [Arguments]    ${uri}    ${data}
+    [Documentation]    Posts provided data to URI
+    ${resp}    RequestsLibrary.Post Request    session    ${uri}    data=${data}    headers=${headers}
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+
+Get JSON Elements From URI
+    [Arguments]    ${uri}
+    [Documentation]    Performs Get Operation to the provided URI. Result is expected to be a JSON
+    ${resp}    RequestsLibrary.Get Request    session    ${uri}
+    ${value}    To Json    ${resp.content}
+    [Return]    ${value}
+
+Read JSON From File
+    [Arguments]    ${filepath}
+    ${body}    OperatingSystem.Get File    ${filepath}
+    ${jsonbody}    To Json    ${body}
+    [Return]    ${jsonbody}

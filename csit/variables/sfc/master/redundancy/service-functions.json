@@ -1,0 +1,22 @@
+{
+  "service-functions": {
+    "service-function": [
+      {
+        "ip-mgmt-address": "172.17.0.3",
+        "sf-data-plane-locator": [
+          {
+            "name": "dpi-1-dpl",
+            "port": 6633,
+            "ip": "172.17.0.3",
+            "transport": "service-locator:vxlan-gpe",
+            "service-function-forwarder": "SFF1"
+          }
+        ],
+        "name": "dpi-1",
+        "type": "dpi",
+        "nsh-aware": true,
+        "rest-uri": "http://172.17.0.3:5000"
+      }
+   ]
+  }
+}
