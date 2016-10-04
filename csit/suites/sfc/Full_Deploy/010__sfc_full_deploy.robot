@@ -14,8 +14,6 @@ Resource          ../../../libraries/TemplatedRequests.robot
 Resource          ../../../libraries/SFC/DockerSfc.robot
 
 *** Variables ***
-${CREATE_RSP1_INPUT}    {"input":{"parent-service-function-path":"SFP1","name":"RSP1"}}
-${CREATE_RSP_FAILURE_INPUT}    {"input":{"parent-service-function-path":"SFC1-empty","name":"RSP1-empty-Path-1"}}
 ${DOCKER_DEFAULT_SUBNET}    172.17.0
 
 *** Test Cases ***
@@ -52,17 +50,6 @@ Create and Get Classifiers
     Should Contain Match    ${flowList}    *actions=push_nsh*
 
 *** Keywords ***
-Post Elements To URI As JSON
-    [Arguments]    ${uri}    ${data}
-    ${resp}    RequestsLibrary.Post Request    session    ${uri}    data=${data}    headers=${headers}
-    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-
-Get JSON Elements From URI
-    [Arguments]    ${uri}
-    ${resp}    RequestsLibrary.Get Request    session    ${uri}
-    ${value}    To Json    ${resp.content}
-    [Return]    ${value}
-
 Switch Ips In Json Files
     [Arguments]    ${ip_old}    ${ip_new}    ${file_list}
     : FOR    ${file}    IN    @{file_list}

@@ -9,6 +9,7 @@ Library           RequestsLibrary
 Library           ${CURDIR}/UtilLibrary.py
 Resource          ${CURDIR}/SSHKeywords.robot
 Resource          ${CURDIR}/TemplatedRequests.robot
+Resource          ${CURDIR}/SFC/DockerSfc.robot
 Variables         ${CURDIR}/../variables/Variables.py
 
 *** Variables ***
@@ -509,3 +510,24 @@ Install Package On Ubuntu System
     Flexible Mininet Login    user=${user}    password=${password}
     Write    sudo apt-get install -y ${package_name}
     Read Until    ${prompt}
+
+Post Elements To URI As JSON
+    [Arguments]    ${uri}    ${data}
+    ${resp}    RequestsLibrary.Post Request    session    ${uri}    data=${data}    headers=${headers}
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+    Sleep    5
+    ${flowList}=    Get Flows In Docker Containers
+    log    ${flowList}
+    Should Contain Match    ${flowList}    *cookie=0x14*
+
+Get JSON Elements From URI
+    [Arguments]    ${uri}
+    ${resp}    RequestsLibrary.Get Request    session    ${uri}
+    ${value}    To Json    ${resp.content}
+    [Return]    ${value}
+
+Create Session In Controller
+    [Arguments]    ${CONTROLLER}=${ODL_SYSTEM_IP}
+    [Documentation]    Removes previously created Sessions and creates a session in specified controller
+    Delete All Sessions
+    Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
