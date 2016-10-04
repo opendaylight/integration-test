@@ -7,7 +7,6 @@ Library           Collections
 Library           OperatingSystem
 Library           RequestsLibrary
 Library           ../../../libraries/SFC/SfcUtils.py
-Variables         ../../../variables/Variables.py
 Resource          ../../../variables/sfc/Variables.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/TemplatedRequests.robot
@@ -81,9 +80,9 @@ Init Suite
     ${docker_mask}=    SfcUtils.Get Mask From Cidr    ${docker_cidr}
     ${route_to_docker_net}=    Set Variable    sudo route add -net ${docker_nw} netmask ${docker_mask} gw ${TOOLS_SYSTEM_IP}
     Run Command On Remote System    ${ODL_SYSTEM_IP}    ${route_to_docker_net}    ${ODL_SYSTEM_USER}    prompt=${ODL_SYSTEM_PROMPT}
-    SSHLibrary.Put File    ${CURDIR}/docker-ovs.sh    .    mode=0755
-    SSHLibrary.Put File    ${CURDIR}/Dockerfile    .    mode=0755
-    SSHLibrary.Put File    ${CURDIR}/setup-docker-image.sh    .    mode=0755
+    SSHLibrary.Put File    ${CURDIR}/../utils/docker-ovs.sh    .    mode=0755
+    SSHLibrary.Put File    ${CURDIR}/../utils/Dockerfile    .    mode=0755
+    SSHLibrary.Put File    ${CURDIR}/../utils/setup-docker-image.sh    .    mode=0755
     ${result}    SSHLibrary.Execute Command    ./setup-docker-image.sh > >(tee myFile.log) 2> >(tee myFile.log)    return_stderr=True    return_stdout=True    return_rc=True
     log    ${result}
     Should be equal as integers    ${result[2]}    0
