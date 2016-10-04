@@ -14,10 +14,11 @@ ${REST_CONTEXT}    /restconf/operations/sxp-controller
 
 *** Keywords ***
 Add Node
-    [Arguments]    ${node}    ${password}=${EMPTY}    ${version}=version4    ${port}=64999    ${session}=session
+    [Arguments]    ${node}    ${password}=${EMPTY}    ${version}=version4    ${port}=64999    ${session}=session    ${ip}=${EMPTY}
     [Documentation]    Add node via RPC to ODL
-    ${DATA}    Add Node Xml    ${node}    ${port}    ${password}    ${version}
+    ${DATA}    Add Node Xml    ${node}    ${port}    ${password}    ${version}    ${ip}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-node    data=${DATA}    headers=${HEADERS_XML}
+    Log    ${resp.content}
     Should be Equal As Strings    ${resp.status_code}    200
 
 Delete Node
@@ -234,10 +235,11 @@ Verify Snapshot Was Pushed
     Should Not Be Equal As Strings    ${output}    0
 
 Setup SXP Session
+    [Arguments]    ${session}=session
     [Documentation]    Create session to Controller
     Verify Feature Is Installed    odl-sxp-controller
-    Create Session    session    url=http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    ${resp}    RequestsLibrary.Get Request    session    ${MODULES_API}
+    Create Session    ${session}    url=http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${MODULES_API}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ietf-restconf
 
@@ -312,11 +314,13 @@ Setup SXP Environment
     \    ...    ${ip}
 
 Check Node Started
-    [Arguments]    ${node}    ${port}=64999    ${system}=${ODL_SYSTEM_IP}
+    [Arguments]    ${node}    ${port}=64999    ${system}=${ODL_SYSTEM_IP}    ${session}=session
     [Documentation]    Verify that SxpNode has data writed to Operational datastore
-    ${resp}    RequestsLibrary.Get Request    session    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/
+    ${resp}    RequestsLibrary.Get Request    ${session}    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/
     Should Be Equal As Strings    ${resp.status_code}    200
-    sleep    2s
+    #${rc}    Run Command On Remote System    ${system}    netstat -tln | grep -q ${node}:${port} && echo 0 || echo 1    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}    prompt=${ODL_SYSTEM_PROMPT}
+    #Should Be Equal As Strings    ${rc}    0
+    Sleep    5s
 
 Clean SXP Environment
     [Arguments]    ${node_range}=2
