@@ -15,8 +15,6 @@ Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/SFC/DockerSfc.robot
 
 *** Variables ***
-${CREATE_RSP1_INPUT}    {"input":{"parent-service-function-path":"SFP1","name":"RSP1"}}
-${CREATE_RSP_FAILURE_INPUT}    {"input":{"parent-service-function-path":"SFC1-empty","name":"RSP1-empty-Path-1"}}
 ${DOCKER_DEFAULT_SUBNET}    172.17.0
 
 *** Test Cases ***
@@ -52,20 +50,10 @@ Create and Get Classifiers
     Should Contain Match    ${flowList}    *actions=pop_nsh*
     Should Contain Match    ${flowList}    *actions=push_nsh*
     ${output}=    Issue Command On Karaf Console    feature:list -i
+
     log    ${output}
 
 *** Keywords ***
-Post Elements To URI As JSON
-    [Arguments]    ${uri}    ${data}
-    ${resp}    RequestsLibrary.Post Request    session    ${uri}    data=${data}    headers=${headers}
-    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-
-Get JSON Elements From URI
-    [Arguments]    ${uri}
-    ${resp}    RequestsLibrary.Get Request    session    ${uri}
-    ${value}    To Json    ${resp.content}
-    [Return]    ${value}
-
 Switch Ips In Json Files
     [Arguments]    ${ip_old}    ${ip_new}    ${file_list}
     : FOR    ${file}    IN    @{file_list}
@@ -81,9 +69,9 @@ Init Suite
     ${docker_mask}=    SfcUtils.Get Mask From Cidr    ${docker_cidr}
     ${route_to_docker_net}=    Set Variable    sudo route add -net ${docker_nw} netmask ${docker_mask} gw ${TOOLS_SYSTEM_IP}
     Run Command On Remote System    ${ODL_SYSTEM_IP}    ${route_to_docker_net}    ${ODL_SYSTEM_USER}    prompt=${DEFAULT_LINUX_PROMPT}
-    SSHLibrary.Put File    ${CURDIR}/docker-ovs.sh    .    mode=0755
-    SSHLibrary.Put File    ${CURDIR}/Dockerfile    .    mode=0755
-    SSHLibrary.Put File    ${CURDIR}/setup-docker-image.sh    .    mode=0755
+    SSHLibrary.Put File    ${CURDIR}/../utils/docker-ovs.sh    .    mode=0755
+    SSHLibrary.Put File    ${CURDIR}/../utils/Dockerfile    .    mode=0755
+    SSHLibrary.Put File    ${CURDIR}/../utils/setup-docker-image.sh    .    mode=0755
     ${result}    SSHLibrary.Execute Command    ./setup-docker-image.sh > >(tee myFile.log) 2> >(tee myFile.log)    return_stderr=True    return_stdout=True    return_rc=True
     log    ${result}
     Should be equal as integers    ${result[2]}    0
