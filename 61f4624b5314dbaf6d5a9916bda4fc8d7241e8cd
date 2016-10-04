@@ -1,0 +1,72 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_2a4e0797",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2016-10-04T13:25:14Z",
+      "side": 1,
+      "message": "This added method could be better in DockerSfc.robot library instead of bringing the dependency to Utils.robot",
+      "revId": "61f4624b5314dbaf6d5a9916bda4fc8d7241e8cd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_ca52f367",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 516,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2016-10-04T13:25:14Z",
+      "side": 1,
+      "message": "Documentation tag",
+      "revId": "61f4624b5314dbaf6d5a9916bda4fc8d7241e8cd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_6a5e3f78",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 524,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2016-10-04T13:25:14Z",
+      "side": 1,
+      "message": "Add the documentation tag in this functions",
+      "revId": "61f4624b5314dbaf6d5a9916bda4fc8d7241e8cd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_0a4d0bc5",
+        "filename": "csit/suites/sfc/SFC_Redundancy/010__sfc_redundancy.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2016-10-04T13:25:14Z",
+      "side": 1,
+      "message": "This is redundant. Jenkins job already assigns the ODL_SYSTEM_IP to ODL_SYSTEM_1_IP",
+      "revId": "61f4624b5314dbaf6d5a9916bda4fc8d7241e8cd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
