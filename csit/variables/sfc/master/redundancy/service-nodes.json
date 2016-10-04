@@ -1,0 +1,17 @@
+{
+    "service-nodes": {
+        "service-node": [
+            {
+                "name": "sf1",
+                "service-function": [
+                    "dpi-1"
+                ],
+                "ip-mgmt-address": "172.17.0.3"
+            },
+            {
+                "name": "sff1",
+                "ip-mgmt-address": "172.17.0.2"
+            }
+       ]
+    }
+}
