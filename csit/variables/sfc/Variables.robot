@@ -15,3 +15,7 @@ ${SERVICE_METADATA_URI}    /restconf/config/service-function-path-metadata:servi
 ${OPERATIONAL_RSPS_URI}    /restconf/operational/rendered-service-path:rendered-service-paths/
 ${OPERATIONS_CREATE_RSP_URI}    /restconf/operations/rendered-service-path:create-rendered-path/
 ${OPERATIONS_DELETE_RSP_URI}    /restconf/operations/rendered-service-path:delete-rendered-path/
+${SFF_SFC100_URI}    /restconf/config/service-function-forwarder:service-function-forwarders/service-function-forwarder/sfc-100/
+${CREATE_RSP1_INPUT}    {"input":{"parent-service-function-path":"SFP1","name":"RSP1"}}
+${DELETE_RSP1_INPUT}    {"input":{"name":"RSP1"}}
+${CREATE_RSP_FAILURE_INPUT}    {"input":{"parent-service-function-path":"SFC1-empty","name":"RSP1-empty-Path-1"}}
