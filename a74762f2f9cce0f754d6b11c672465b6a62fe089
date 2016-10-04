@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_9f1b1f1c",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-04T10:12:36Z",
+      "side": 1,
+      "message": "It is better to maintain one space after the variable name and equal sign",
+      "range": {
+        "startLine": 141,
+        "startChar": 15,
+        "endLine": 141,
+        "endChar": 17
+      },
+      "revId": "a74762f2f9cce0f754d6b11c672465b6a62fe089",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_7fdc4347",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-04T10:12:36Z",
+      "side": 1,
+      "message": "One space after variable name",
+      "range": {
+        "startLine": 37,
+        "startChar": 17,
+        "endLine": 37,
+        "endChar": 19
+      },
+      "revId": "a74762f2f9cce0f754d6b11c672465b6a62fe089",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_9fe2ffff",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-04T10:12:36Z",
+      "side": 1,
+      "message": "Do we need to log this gateway and adapter",
+      "range": {
+        "startLine": 215,
+        "startChar": 19,
+        "endLine": 215,
+        "endChar": 22
+      },
+      "revId": "a74762f2f9cce0f754d6b11c672465b6a62fe089",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_ffefb3e7",
+        "filename": "csit/testplans/netvirt-vpnservice-1node-openstack.txt",
+        "patchSetId": 7
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-04T10:12:36Z",
+      "side": 1,
+      "message": "Revert back this",
+      "range": {
+        "startLine": 1,
+        "startChar": 22,
+        "endLine": 1,
+        "endChar": 23
+      },
+      "revId": "a74762f2f9cce0f754d6b11c672465b6a62fe089",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_1fbeefd4",
+        "filename": "csit/variables/vpnservice/itm_tunnel_create.json",
+        "patchSetId": 7
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-04T10:12:36Z",
+      "side": 1,
+      "message": "Use on-line JSON formatter to format this. Ensure that there is no space after end of the line",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 26
+      },
+      "revId": "a74762f2f9cce0f754d6b11c672465b6a62fe089",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
