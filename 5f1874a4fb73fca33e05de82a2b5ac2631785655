@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_d06624ee",
+        "filename": "csit/suites/controller/benchmark/dsbenchmark.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 77,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-10-04T16:07:43Z",
+      "side": 1,
+      "message": "This is 50 mins of max retrying. Are you sure we need this long?",
+      "revId": "5f1874a4fb73fca33e05de82a2b5ac2631785655",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
