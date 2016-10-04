@@ -40,12 +40,6 @@ Read Service Functions From Third Node
     Lists Should be Equal    ${result}    ${jsonbody}
 
 *** Keywords ***
-Read JSON From File
-    [Arguments]    ${filepath}
-    ${body}    OperatingSystem.Get File    ${filepath}
-    ${jsonbody}    To Json    ${body}
-    [Return]    ${jsonbody}
-
 Init Suite
     [Documentation]    Initialize ODL version specific variables
     log    ${ODL_STREAM}
