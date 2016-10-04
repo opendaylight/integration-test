@@ -66,8 +66,15 @@ Get Flows In Docker Containers
     ${docker_flows}    DockerSfc.Multiple Docker Exec    ${docker_list}    ovs-ofctl dump-flows -OOpenflow13 br-int    OFPST_FLOW
     [Return]    ${docker_flows}
 
+Switch Ips In Json Files
+    [Arguments]    ${json_dir}    ${container_names}
+    ${normalized_dir}=    OperatingSystem.Normalize Path    ${json_dir}/*.json
+    : FOR    ${cont_name}    IN    @{container_names}
+    \    ${cont_ip}=    Get Docker IP    ${cont_name}
+    \    OperatingSystem.Run    sudo sed -i 's/${cont_name}/${cont_ip}/g' ${normalized_dir}
+
 Get Docker Bridge Subnet
     [Documentation]    Obtain the subnet used by docker bridge using the docker inspect tool
-    ${output}    ${rc}    SSHLibrary.Execute Command    sudo docker network inspect bridge --format {{.IPAM.Config}} | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}[\/][0-9]{1,2}"    return_stdout=True    return_stderr=False    return_rc=True
+    ${output}    ${rc}    SSHLibrary.Execute Command    sudo docker network inspect --format {{.IPAM.Config}} bridge | grep -E -o "([0-9]{1,3}[\.]){3}[0-9]{1,3}[\/][0-9]{1,2}"    return_stdout=True    return_stderr=False    return_rc=True
     Should Be Equal As Numbers    ${rc}    0
     [Return]    ${output}
