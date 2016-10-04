@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_d05c644f",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-04T17:53:02Z",
+      "side": 1,
+      "message": "Note that in Gerrit comments 4 spaces are shown as a single space. With this in mind, this is how I would do that:\n\n0. Add \u0026{ITD_DEFAULT_VALUES} to Variables table.\n\nand in this keyword:\n\n1. \u0026{itd_actual_values} \u003d    Collections.Copy_Dictionary    \u0026{ITD_DEFAULT_VALUES}    # a mutable copy\n\n2. Collections.Set_To_Dictionary    ${itd_actual_values}    \u0026{kwargs}    # override default avlues by given arguments\n\n3. TemplatedRequests.Post_As_Json_Templated    folder\u003d${IDM_CREATE_FOLDER}    mapping\u003d${itd_actual_values}\n\nThat would include changing the JSON data file to contain key-named placeholders instead of example values.",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 17
+      },
+      "revId": "82e609ed847fa754a5bfaa56154a2256001d0f0f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
