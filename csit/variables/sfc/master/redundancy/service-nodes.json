@@ -1,0 +1,17 @@
+{
+    "service-nodes": {
+        "service-node": [
+            {
+                "name": "sf1",
+                "service-function": [
+                    "dpi-1"
+                ],
+                "ip-mgmt-address": "ovs-node-2"
+            },
+            {
+                "name": "sff1",
+                "ip-mgmt-address": "ovs-node-1"
+            }
+       ]
+    }
+}
