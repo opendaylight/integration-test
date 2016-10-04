@@ -7,7 +7,6 @@ Library           Collections
 Library           OperatingSystem
 Library           RequestsLibrary
 Library           ../../../libraries/SFC/SfcUtils.py
-Variables         ../../../variables/Variables.py
 Resource          ../../../variables/sfc/Variables.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/TemplatedRequests.robot
@@ -65,13 +64,6 @@ Check Classifier Flows
     Should Contain Match    ${flowList}    *actions=pop_nsh*
     Should Contain Match    ${flowList}    *actions=push_nsh*
 
-Switch Ips In Json Files
-    [Arguments]    ${json_dir}    ${container_names}
-    ${normalized_dir}=    OperatingSystem.Normalize Path    ${json_dir}/*.json
-    : FOR    ${cont_name}    IN    @{container_names}
-    \    ${cont_ip}=    Get Docker IP    ${cont_name}
-    \    OperatingSystem.Run    sudo sed -i 's/${cont_name}/${cont_ip}/g' ${normalized_dir}
-
 Init Suite
     [Documentation]    Connect Create session and initialize ODL version specific variables
     SSHLibrary.Open Connection    ${TOOLS_SYSTEM_IP}    timeout=3s
@@ -81,9 +73,9 @@ Init Suite
     ${docker_mask}=    SfcUtils.Get Mask From Cidr    ${docker_cidr}
     ${route_to_docker_net}=    Set Variable    sudo route add -net ${docker_nw} netmask ${docker_mask} gw ${TOOLS_SYSTEM_IP}
     Run Command On Remote System    ${ODL_SYSTEM_IP}    ${route_to_docker_net}    ${ODL_SYSTEM_USER}    prompt=${ODL_SYSTEM_PROMPT}
-    SSHLibrary.Put File    ${CURDIR}/docker-ovs.sh    .    mode=0755
-    SSHLibrary.Put File    ${CURDIR}/Dockerfile    .    mode=0755
-    SSHLibrary.Put File    ${CURDIR}/setup-docker-image.sh    .    mode=0755
+    SSHLibrary.Put File    ${CURDIR}/../utils/docker-ovs.sh    .    mode=0755
+    SSHLibrary.Put File    ${CURDIR}/../utils/Dockerfile    .    mode=0755
+    SSHLibrary.Put File    ${CURDIR}/../utils/setup-docker-image.sh    .    mode=0755
     ${result}    SSHLibrary.Execute Command    ./setup-docker-image.sh > >(tee myFile.log) 2> >(tee myFile.log)    return_stderr=True    return_stdout=True    return_rc=True
     log    ${result}
     Should be equal as integers    ${result[2]}    0
@@ -101,7 +93,7 @@ Init Suite
     Set Suite Variable    ${SERVICE_METADATA_FILE}    ${CONFIG_DIR}/service-function-metadata.json
     Set Suite Variable    ${SERVICE_FUNCTION_ACLS_FILE}    ${CONFIG_DIR}/service-function-acls.json
     Set Suite Variable    ${SERVICE_CLASSIFIERS_FILE}    ${CONFIG_DIR}/service-function-classifiers.json
-    Switch Ips In Json Files    ${CONFIG_DIR}    ${DOCKER_NAMES_LIST}
+    DockerSfc.Switch Ips In Json Files    ${CONFIG_DIR}    ${DOCKER_NAMES_LIST}
 
 Cleanup Suite
     [Documentation]    Clean up all docker containers created and delete sessions
