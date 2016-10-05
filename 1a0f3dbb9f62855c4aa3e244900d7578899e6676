@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_f124ff0f",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 23
+      },
+      "lineNbr": 30,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-10-05T20:05:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_ff2df3a9",
+      "range": {
+        "startLine": 30,
+        "startChar": 41,
+        "endLine": 30,
+        "endChar": 94
+      },
+      "revId": "1a0f3dbb9f62855c4aa3e244900d7578899e6676",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_6a5c7fee",
         "filename": "csit/suites/sxp/performance/010_ConnectivityTests.robot",
         "patchSetId": 23
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_31579728",
+        "filename": "csit/suites/sxp/performance/010_ConnectivityTests.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-10-05T20:05:49Z",
+      "side": 1,
+      "message": "Jar was embeded as the version of it in nexus is not OSGI aware and causes conflicts with multiple features from ODL. Later it will be replaced when the nexus is updated with new version of it.\n\nPort 8270 is not mandatory and can be updated later, but it will be added to wiki.\n\nFeaure odl-sxp-robot wont be official part of ODL, only testing part.",
+      "parentUuid": "7a6b29fe_6a5c7fee",
+      "range": {
+        "startLine": 8,
+        "startChar": 28,
+        "endLine": 8,
+        "endChar": 71
+      },
+      "revId": "1a0f3dbb9f62855c4aa3e244900d7578899e6676",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_0a6b4b86",
         "filename": "csit/suites/sxp/performance/010_ConnectivityTests.robot",
         "patchSetId": 23
@@ -59,6 +107,30 @@
       "writtenOn": "2016-10-04T11:51:00Z",
       "side": 1,
       "message": "This could also probably be ${ODL_SYSTEM_IP}, unless this is always applied on ODL SYSTEM, in which case this is fine as performance will not be limited by network speed.",
+      "range": {
+        "startLine": 11,
+        "startChar": 18,
+        "endLine": 11,
+        "endChar": 27
+      },
+      "revId": "1a0f3dbb9f62855c4aa3e244900d7578899e6676",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_311f97b9",
+        "filename": "csit/suites/sxp/performance/010_ConnectivityTests.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-10-05T20:05:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_0a6b4b86",
       "range": {
         "startLine": 11,
         "startChar": 18,
@@ -117,6 +189,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_91714be3",
+        "filename": "csit/suites/sxp/performance/020_BindingExportTests.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-10-05T20:05:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_8a6d9bcf",
+      "range": {
+        "startLine": 12,
+        "startChar": 18,
+        "endLine": 12,
+        "endChar": 28
+      },
+      "revId": "1a0f3dbb9f62855c4aa3e244900d7578899e6676",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_aa3cd7c0",
         "filename": "csit/suites/sxp/performance/020_BindingExportTests.robot",
         "patchSetId": 23
@@ -128,6 +224,30 @@
       "writtenOn": "2016-10-04T11:51:00Z",
       "side": 1,
       "message": "BuiltIn.Evaluate accepts \"modules\" argument.",
+      "range": {
+        "startLine": 40,
+        "startChar": 45,
+        "endLine": 40,
+        "endChar": 68
+      },
+      "revId": "1a0f3dbb9f62855c4aa3e244900d7578899e6676",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_91d5cbbb",
+        "filename": "csit/suites/sxp/performance/020_BindingExportTests.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-10-05T20:05:49Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_aa3cd7c0",
       "range": {
         "startLine": 40,
         "startChar": 45,

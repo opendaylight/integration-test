@@ -22,6 +22,30 @@
       "revId": "2ce49dd4bec8c53a96c08a505b4d8f1970bd3d22",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_f1007f37",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 319,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-10-05T20:05:49Z",
+      "side": 0,
+      "message": "This check was replaced by sleep just for local testing, and it will be reverted to previous state.",
+      "parentUuid": "7a6b29fe_df011708",
+      "range": {
+        "startLine": 319,
+        "startChar": 58,
+        "endLine": 319,
+        "endChar": 116
+      },
+      "revId": "2ce49dd4bec8c53a96c08a505b4d8f1970bd3d22",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
