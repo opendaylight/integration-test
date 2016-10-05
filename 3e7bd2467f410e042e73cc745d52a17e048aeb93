@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_b6c55d3f",
+        "filename": "csit/suites/openflowplugin/Maximum_Switches/020__find_max_switches.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 62,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-05T15:25:52Z",
+      "side": 1,
+      "message": "wanna also just keep the \"Log To Console\" step in case someone that was using it that way still gets it?  wont hurt anything.",
+      "range": {
+        "startLine": 62,
+        "startChar": 4,
+        "endLine": 62,
+        "endChar": 23
+      },
+      "revId": "3e7bd2467f410e042e73cc745d52a17e048aeb93",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
