@@ -24,22 +24,16 @@ Peer Sequence Filtering
     Setup Nodes
     Wait Until Keyword Succeeds    4    1    Check PeerSequence One
     Delete Filter    GROUP    outbound
-    ${peers}    Add Peers    127.0.0.2
-    Add PeerGroup    GROUP    ${peers}
     ${entry1}    Get Filter Entry    10    permit    ps=le,1
     ${entries}    Combine Strings    ${entry1}
     Add Filter    GROUP    outbound    ${entries}
     Wait Until Keyword Succeeds    4    1    Check PeerSequence Two
     Delete Filter    GROUP    outbound
-    ${peers}    Add Peers    127.0.0.2
-    Add PeerGroup    GROUP    ${peers}
     ${entry1}    Get Filter Entry    10    permit    ps=le,2
     ${entries}    Combine Strings    ${entry1}
     Add Filter    GROUP    outbound    ${entries}
     Wait Until Keyword Succeeds    4    1    Check PeerSequence Three
     Delete Filter    GROUP    outbound
-    ${peers}    Add Peers    127.0.0.2
-    Add PeerGroup    GROUP    ${peers}
     ${entry1}    Get Filter Entry    10    deny    ps=eq,1
     ${entry2}    Get Filter Entry    20    permit    ps=ge,0
     ${entries}    Combine Strings    ${entry1}    ${entry2}
