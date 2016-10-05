@@ -22,6 +22,30 @@
       "revId": "82e609ed847fa754a5bfaa56154a2256001d0f0f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_20762307",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 123,
+      "author": {
+        "id": 5779
+      },
+      "writtenOn": "2016-10-05T09:36:04Z",
+      "side": 1,
+      "message": "Hi Vratko Polák,\n\nThanks a million for your review comments.\n\nRegarding your comments on using TemplatedRequests, I have difficulties to achieve this. \n\nThe current json template used for the create logic has two sets of \"vteps\", each of them having “dpn-id, portname and ip-address”.\n Both sets have unique keys.  (Json copy below)\n\nAfter refereing to the TemplatedRequests and Post_As_Json_Templated which you have  recommended, I  understood that the keyword expects the template to be available in the FOLDER which could only have one set of dpn-id, portname and ip-address in the data.json. \nAlso we cannot pass dictionary with same key and two values.\n\nHence I have a feel that the current approach would be easier for this. \nOpine your thoughts\n\n\nThanks in advance!\nAbbas\n\n\nJson Used:\n**********\n\"vteps\":[\n                  {\n                     \"dpn-id\":1,\n                     \"portname\":\"BR1-eth1\",\n                     \"ip-address\":\"2.2.2.2\"\n                  },\n                  {\n                     \"dpn-id\":2,\n                     \"portname\":\"BR2-eth1\",\n                     \"ip-address\":\"3.3.3.3\"\n                  }\n               ],",
+      "parentUuid": "7a6b29fe_d05c644f",
+      "range": {
+        "startLine": 123,
+        "startChar": 0,
+        "endLine": 123,
+        "endChar": 17
+      },
+      "revId": "82e609ed847fa754a5bfaa56154a2256001d0f0f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
