@@ -663,3 +663,15 @@ ClusterManagement__Include_Member_Index
     ${session_alias} =    Resolve_Http_Session_For_Member    member_index=${index}
     RequestsLibrary.Create_Session    ${session_alias}    http://${member_ip}:${RESTCONFPORT}    auth=${AUTH}    max_retries=0
     Collections.Append_To_List    ${session_list}    ${session_alias}
+
+Sync_Status_Should_Be_False
+    [Arguments]    ${controller_index}
+    [Documentation]    Verify that cluster node is not in sync with others
+    ${status}    Get_Sync_Status_Of_Member    ${controller_index}
+    BuiltIn.Should_Not_Be_True    ${status}
+
+Sync_Status_Should_Be_True
+    [Arguments]    ${controller_index}
+    [Documentation]    Verify that cluster node is in sync with others
+    ${status}    Get_Sync_Status_Of_Member    ${controller_index}
+    BuiltIn.Should_Be_True    ${status}
