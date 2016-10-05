@@ -37,7 +37,7 @@ Test Delete Binding
     Add Binding    52301    12.1.1.1/32
     ${resp}    Get Bindings
     Should Contain Binding    ${resp}    52301    12.1.1.1/32
-    Delete Binding    2631    12.1.1.1/32
+    Run Keyword And Expect Error    Delete Binding    2631    12.1.1.1/32
     ${resp}    Get Bindings
     Should Contain Binding    ${resp}    52301    12.1.1.1/32
     Delete Binding    52301    12.1.1.1/32
@@ -50,7 +50,7 @@ Test Delete Connection
     Add Connection    version4    speaker    127.1.0.30    60000
     ${resp}    Get Connections
     Should Contain Connection    ${resp}    127.1.0.30    60000    speaker    version4
-    Delete Connections    127.1.0.30    65000
+    Run Keyword And Expect Error    Delete Connections    127.1.0.30    65000
     ${resp}    Get Connections
     Should Contain Connection    ${resp}    127.1.0.30    60000    speaker    version4
     Delete Connections    127.1.0.30    60000
