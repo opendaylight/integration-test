@@ -69,6 +69,40 @@
       "revId": "6c52195884f74366024f221a16691c8a58646d31",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_0cf88048",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 169,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-10-05T23:46:06Z",
+      "side": 1,
+      "message": "Please change the description as  this kw creates router",
+      "revId": "6c52195884f74366024f221a16691c8a58646d31",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_ccfde83d",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 179,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-10-05T23:46:06Z",
+      "side": 1,
+      "message": "The same Keyword found below as \"Add Router Interface\" Maynot be the same command, but works similarly",
+      "revId": "6c52195884f74366024f221a16691c8a58646d31",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
