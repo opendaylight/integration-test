@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_b10e07e4",
+        "filename": "csit/libraries/ChangeCounter.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-05T17:51:51Z",
+      "side": 1,
+      "message": "I think CompareStream Documentation explicitly mentions this will not work.\n\nThe correct way is to evaluate both expressions and then use CompareStream.Set_Variable_If_* to choose which value applies.\n\nOr, add parsing for ELSE (maybe even ELSE IF) to CompareStream keywords.",
+      "range": {
+        "startLine": 37,
+        "startChar": 11,
+        "endLine": 37,
+        "endChar": 15
+      },
+      "revId": "1fd81b63e4b72e73810a1a4486a20303f06a7867",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_3102f7b4",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-05T17:51:51Z",
+      "side": 1,
+      "message": "CompareStream keywords do not support processing additional conditions.",
+      "range": {
+        "startLine": 249,
+        "startChar": 80,
+        "endLine": 249,
+        "endChar": 102
+      },
+      "revId": "1fd81b63e4b72e73810a1a4486a20303f06a7867",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_d1f463d1",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-05T17:51:51Z",
+      "side": 1,
+      "message": "At_Least_Boron",
+      "range": {
+        "startLine": 249,
+        "startChar": 52,
+        "endLine": 249,
+        "endChar": 76
+      },
+      "revId": "1fd81b63e4b72e73810a1a4486a20303f06a7867",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_11fffbab",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 108,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-05T17:51:51Z",
+      "side": 1,
+      "message": "These should not be required. Usually the suite means At_Most or At_Least.",
+      "range": {
+        "startLine": 108,
+        "startChar": 12,
+        "endLine": 108,
+        "endChar": 25
+      },
+      "revId": "1fd81b63e4b72e73810a1a4486a20303f06a7867",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_b125675e",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-05T17:51:51Z",
+      "side": 1,
+      "message": "This is even dangerous. For example \"Is_Not carbon\" is not intended to pass for nitrogen.",
+      "range": {
+        "startLine": 114,
+        "startChar": 12,
+        "endLine": 114,
+        "endChar": 29
+      },
+      "revId": "1fd81b63e4b72e73810a1a4486a20303f06a7867",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
