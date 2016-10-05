@@ -13,12 +13,21 @@ Variables         ../variables/Variables.py
 ${REST_CONTEXT}    /restconf/operations/sxp-controller
 
 *** Keywords ***
+Verify RPC request result
+    [Arguments]    ${resp}
+    [Documentation]    Check if RPC response was marked as Succesfull
+    ${content}    evaluate    json.loads('''${resp.content}''')    json
+    ${content}    get from dictionary    ${content}    output
+    ${content}    get from dictionary    ${content}    result
+    should be true    ${content}
+
 Add Node
-    [Arguments]    ${node}    ${password}=password    ${version}=version4    ${port}=64999    ${session}=session
+    [Arguments]    ${node}    ${password}=${EMPTY}    ${version}=version4    ${port}=64999    ${session}=session    ${ip}=${EMPTY}
     [Documentation]    Add node via RPC to ODL
-    ${DATA}    Add Node Xml    ${node}    ${port}    ${password}    ${version}
+    ${DATA}    Add Node Xml    ${node}    ${port}    ${password}    ${version}    ${ip}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-node    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
+    Verify RPC request result    ${resp}
 
 Delete Node
     [Arguments]    ${node}    ${session}=session
@@ -26,15 +35,17 @@ Delete Node
     ${DATA}    Delete Node Xml    ${node}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:delete-node    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
+    Verify RPC request result    ${resp}
 
 Add Connection
-    [Arguments]    ${version}    ${mode}    ${ip}    ${port}    ${node}=127.0.0.1    ${password}=none
+    [Arguments]    ${version}    ${mode}    ${ip}    ${port}    ${node}=127.0.0.1    ${password}=${EMPTY}
     ...    ${session}=session    ${domain}=global
     [Documentation]    Add connection via RPC to node
     ${DATA}    Add Connection Xml    ${version}    ${mode}    ${ip}    ${port}    ${node}
     ...    ${password}    ${domain}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-connection    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
+    Verify RPC request result    ${resp}
 
 Get Connections
     [Arguments]    ${node}=127.0.0.1    ${session}=session    ${domain}=global
@@ -50,6 +61,7 @@ Delete Connections
     ${DATA}    Delete Connections Xml    ${ip}    ${port}    ${node}    ${domain}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:delete-connection    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
+    Verify RPC request result    ${resp}
 
 Clean Connections
     [Arguments]    ${node}=127.0.0.1    ${session}=session    ${domain}=global
@@ -72,6 +84,7 @@ Add Binding
     ${DATA}    Add Entry Xml    ${sgt}    ${prefix}    ${node}    ${domain}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-entry    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
+    Verify RPC request result    ${resp}
 
 Get Bindings
     [Arguments]    ${node}=127.0.0.1    ${session}=session    ${domain}=global
@@ -112,6 +125,7 @@ Update Binding
     ...    ${domain}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:update-entry    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
+    Verify RPC request result    ${resp}
 
 Delete Binding
     [Arguments]    ${sgt}    ${prefix}    ${node}=127.0.0.1    ${domain}=global    ${session}=session
@@ -119,6 +133,7 @@ Delete Binding
     ${DATA}    Delete Binding Xml    ${sgt}    ${prefix}    ${node}    ${domain}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:delete-entry    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
+    Verify RPC request result    ${resp}
 
 Add PeerGroup
     [Arguments]    ${name}    ${peers}=    ${node}=127.0.0.1    ${session}=session
@@ -126,6 +141,7 @@ Add PeerGroup
     ${DATA}    Add Peer Group Xml    ${name}    ${peers}    ${node}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-peer-group    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
+    Verify RPC request result    ${resp}
 
 Delete Peer Group
     [Arguments]    ${name}    ${node}=127.0.0.1    ${session}=session
@@ -133,6 +149,7 @@ Delete Peer Group
     ${DATA}    Delete Peer Group Xml    ${name}    ${node}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:delete-peer-group    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
+    Verify RPC request result    ${resp}
 
 Get Peer Groups
     [Arguments]    ${node}=127.0.0.1    ${session}=session
@@ -156,6 +173,7 @@ Add Filter
     ${DATA}    Add Filter Xml    ${name}    ${type}    ${entries}    ${node}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-filter    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
+    Verify RPC request result    ${resp}
 
 Add Domain Filter
     [Arguments]    ${name}    ${domains}    ${entries}    ${node}=127.0.0.1    ${filter_name}=base-domain-filter    ${session}=session
@@ -163,6 +181,7 @@ Add Domain Filter
     ${DATA}    Add Domain Filter Xml    ${name}    ${domains}    ${entries}    ${node}    ${filter_name}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-domain-filter    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
+    Verify RPC request result    ${resp}
 
 Delete Filter
     [Arguments]    ${name}    ${type}    ${node}=127.0.0.1    ${session}=session
@@ -170,6 +189,7 @@ Delete Filter
     ${DATA}    Delete Filter Xml    ${name}    ${type}    ${node}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:delete-filter    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
+    Verify RPC request result    ${resp}
 
 Delete Domain Filter
     [Arguments]    ${name}    ${node}=127.0.0.1    ${filter_name}=base-domain-filter    ${session}=session
@@ -177,6 +197,7 @@ Delete Domain Filter
     ${DATA}    Delete Domain Filter Xml    ${name}    ${node}    ${filter_name}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:delete-domain-filter    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
+    Verify RPC request result    ${resp}
 
 Should Contain Binding
     [Arguments]    ${resp}    ${sgt}    ${prefix}    ${db_source}=any
@@ -233,11 +254,12 @@ Verify Snapshot Was Pushed
     Should Not Be Equal As Strings    ${output}    0
 
 Setup SXP Session
+    [Arguments]    ${session}=session    ${controller}=${ODL_SYSTEM_IP}
     [Documentation]    Create session to Controller
-    Verify Feature Is Installed    odl-sxp-controller
-    Wait Until Keyword Succeeds    20    10    Verify Snapshot Was Pushed
-    Create Session    session    url=http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    ${resp}    RequestsLibrary.Get Request    session    ${MODULES_API}
+    Install a Feature    odl-sxp-controller    ${controller}
+    Verify Feature Is Installed    odl-sxp-controller    ${controller}
+    Create Session    ${session}    url=http://${controller}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${MODULES_API}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    ietf-restconf
 
@@ -251,6 +273,7 @@ Add Domain
     ${DATA}    Add Domain Xml    ${node}    ${domain_name}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-domain    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
+    Verify RPC request result    ${resp}
 
 Delete Domain
     [Arguments]    ${domain_name}    ${node}=127.0.0.1    ${session}=session
@@ -258,6 +281,7 @@ Delete Domain
     ${DATA}    Delete Domain Xml    ${node}    ${domain_name}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:delete-domain    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
+    Verify RPC request result    ${resp}
 
 Add Bindings
     [Arguments]    ${sgt}    ${prefixes}    ${node}=127.0.0.1    ${session}=session    ${domain}=global
@@ -265,6 +289,7 @@ Add Bindings
     ${DATA}    Add Bindings Xml    ${node}    ${domain}    ${sgt}    ${prefixes}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:add-bindings    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
+    Verify RPC request result    ${resp}
 
 Delete Bindings
     [Arguments]    ${sgt}    ${prefixes}    ${node}=127.0.0.1    ${session}=session    ${domain}=global
@@ -272,6 +297,7 @@ Delete Bindings
     ${DATA}    Delete Bindings Xml    ${node}    ${domain}    ${sgt}    ${prefixes}
     ${resp}    Post Request    ${session}    ${REST_CONTEXT}:delete-bindings    data=${DATA}    headers=${HEADERS_XML}
     Should be Equal As Strings    ${resp.status_code}    200
+    Verify RPC request result    ${resp}
 
 Add Bindings Range
     [Arguments]    ${sgt}    ${start}    ${size}    ${node}
@@ -312,11 +338,11 @@ Setup SXP Environment
     \    ...    ${ip}
 
 Check Node Started
-    [Arguments]    ${node}    ${port}=64999    ${system}=${ODL_SYSTEM_IP}
+    [Arguments]    ${node}    ${port}=64999    ${system}=${ODL_SYSTEM_IP}    ${session}=session    ${ip}=${node}
     [Documentation]    Verify that SxpNode has data writed to Operational datastore
-    ${resp}    RequestsLibrary.Get Request    session    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/
+    ${resp}    RequestsLibrary.Get Request    ${session}    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${rc}    Run Command On Remote System    ${system}    netstat -tln | grep -q ${node}:${port} && echo 0 || echo 1    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}    prompt=${ODL_SYSTEM_PROMPT}
+    ${rc}    Run Command On Remote System    ${system}    netstat -tln | grep -q ${ip}:${port} && echo 0 || echo 1    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}    prompt=${ODL_SYSTEM_PROMPT}
     Should Be Equal As Strings    ${rc}    0
 
 Clean SXP Environment
