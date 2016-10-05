@@ -46,6 +46,29 @@
       "revId": "82e609ed847fa754a5bfaa56154a2256001d0f0f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_71046fc6",
+        "filename": "csit/variables/vpnservice/itm_tunnel_create.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-05T17:42:49Z",
+      "side": 1,
+      "message": "Oh, I was not clear enough. When I was talking about key-named placeholders, I was thinking about keys of \u0026{args}, not keys in the JSON.\n\nSo the highlighted text should be replaced by \"ip-address2\" (assuming string.Template does not prohibit dashes) not by \"ip-address\".",
+      "range": {
+        "startLine": 18,
+        "startChar": 34,
+        "endLine": 18,
+        "endChar": 43
+      },
+      "revId": "82e609ed847fa754a5bfaa56154a2256001d0f0f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
