@@ -134,11 +134,6 @@ Add Filters
     ${entry1}    Get Filter Entry    10    permit    pl=20.0.0.0/8
     ${entries}    Combine Strings    ${entry1}
     Add Domain Filter    ${DOMAIN_1}    ${domains}    ${entries}
-    ${domain_1_xml}    Add Domains    ${DOMAIN_4}
-    ${domains}    Combine Strings    ${domain_1_xml}
-    ${entry1}    Get Filter Entry    10    permit    pl=20.20.0.0/16
-    ${entries}    Combine Strings    ${entry1}
-    Add Domain Filter    ${DOMAIN_1}    ${domains}    ${entries}    127.0.0.1    extended-domain-filter
     ${domain_1_xml}    Add Domains    ${DOMAIN_1}
     ${domains}    Combine Strings    ${domain_1_xml}
     ${entry1}    Get Filter Entry    10    permit    pl=30.30.0.0/16
@@ -161,7 +156,6 @@ Add Filters After Update
 Remove Filters
     [Documentation]    Remove 4 Domain filters that shared portion of Bindings
     Delete Domain Filter    ${DOMAIN_1}
-    Delete Domain Filter    ${DOMAIN_1}    127.0.0.1    extended-domain-filter
     Delete Domain Filter    ${DOMAIN_2}
     Delete Domain Filter    ${DOMAIN_2}    127.0.0.1    extended-domain-filter
 
