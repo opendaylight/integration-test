@@ -69,6 +69,30 @@
       "revId": "82e609ed847fa754a5bfaa56154a2256001d0f0f",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_11eedbb4",
+        "filename": "csit/variables/vpnservice/itm_tunnel_create.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-05T18:46:02Z",
+      "side": 1,
+      "message": "\u003e assuming string.Template does not prohibit dashes\n\nWrong assumption, it has to be a valid Python identifier. And I forgot about the dollar sign requirement. So \"$ip_address2\".\n\nhttps://docs.python.org/2/library/string.html?#template-strings",
+      "parentUuid": "7a6b29fe_71046fc6",
+      "range": {
+        "startLine": 18,
+        "startChar": 34,
+        "endLine": 18,
+        "endChar": 43
+      },
+      "revId": "82e609ed847fa754a5bfaa56154a2256001d0f0f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
