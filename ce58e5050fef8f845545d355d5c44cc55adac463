@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_b30e0f31",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 429,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-05T10:26:01Z",
+      "side": 1,
+      "message": "General comments applicable for all the code\n\n1. One space after the variable name and \u0027\u003d\u0027 sign is must to be consistent\n2. All the assignment should have \u003d sign [ e.g.   a \u003d 5 ]\n3. Jenkin has to give +1 for code review\n\nThese have been given to us",
+      "range": {
+        "startLine": 429,
+        "startChar": 0,
+        "endLine": 429,
+        "endChar": 57
+      },
+      "revId": "ce58e5050fef8f845545d355d5c44cc55adac463",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
