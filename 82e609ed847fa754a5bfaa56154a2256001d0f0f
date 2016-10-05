@@ -49,6 +49,46 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_8c1010aa",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-05T23:10:15Z",
+      "side": 1,
+      "message": "if ${Kwargs} \u003d\u003d None, then this keyword is not gonna work right?  If so, can you just add a quick \"Run Keyword If    ${Kwargs} \u003d\u003d None    Fail\" at this point.  Then you can remove all that logic from every other line below to make it a little more readable.",
+      "revId": "82e609ed847fa754a5bfaa56154a2256001d0f0f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_0ceec0b4",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-05T23:10:15Z",
+      "side": 1,
+      "message": "these seem like useful keywords that probably belong in the library.  better docs would be good as well.\n\ne.g., \"returns the dpnid from the system at the given ip address using ovs-ofctl assuming br-int is there\"  it makes it easier to understand from our library docs we publish:\n\nhttp://docs.opendaylight.org/en/latest/_static/integration/robot/index.html",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 209,
+        "endChar": 26
+      },
+      "revId": "82e609ed847fa754a5bfaa56154a2256001d0f0f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_71046fc6",
         "filename": "csit/variables/vpnservice/itm_tunnel_create.json",
         "patchSetId": 3
