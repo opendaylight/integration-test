@@ -16,6 +16,21 @@ def mod(num, base):
     return int(num) % int(base)
 
 
+def get_opposing_mode(mode):
+    """Generate string representing opposing SXP peer mode
+
+        :param mode: SXP peer mode
+        :type mode: str
+        :returns: String with opposing SXP peer mode.
+
+        """
+    if 'speaker' == mode:
+        return 'listener'
+    elif 'listener' == mode:
+        return 'speaker'
+    return 'both'
+
+
 def get_ip_from_number(n):
     """Generate string representing Ipv4 from specified number that is added number 2130706432
 
@@ -381,8 +396,8 @@ def find_connection(connections_json, version, mode, ip, port, state):
 
     """
     for connection in parse_connections(connections_json):
-        if (connection['peer-address'] == ip and connection['tcp-port'] == int(port) and connection['mode'] == mode and
-                connection['version'] == version):
+        if (connection['peer-address'] == ip and connection['tcp-port'] == int(port) and (
+                        mode.strip() == 'any' or connection['mode'] == mode) and connection['version'] == version):
             if state == 'none':
                 return True
             elif connection['state'] == state:
