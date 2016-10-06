@@ -122,7 +122,6 @@ Create_Default_Session
     [Arguments]    ${url}=http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    ${auth}=${AUTH}
     [Documentation]    Create "default" session to ${url} with default authentication.
     ...    This Keyword is in this Resource only so that user do not need to call RequestsLibrary directly.
-    RequestsLibrary.Create_Session    alias=default    url=${url}    auth=${auth}
 
 Get_As_Json_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
@@ -380,8 +379,13 @@ Resolve_Text_From_Template_Folder
     [Return]    ${final_text}
 
 Resolve_Text_From_Template_File
-    [Arguments]    ${file_path}    ${mapping}={}
-    [Documentation]    Read an Log contents of file, remove endline, perform safe substitution, return result.
+    [Arguments]    ${folder}    ${file_name}    ${mapping}={}
+    [Documentation]    Check if ${folder}.${ODL_STREAM}/${file_name} exists. If yes read an Log contents of file ${folder}.${ODL_STREAM}/${file_name},
+    ...    remove endline, perform safe substitution, return result.
+    ...    If no do it with the default ${folder}/${file_name}.
+    ${file_path_stream}=    BuiltIn.Set Variable    ${folder}.${ODL_STREAM}${/}${file_name}
+    ${file_stream_exists}=    BuiltIn.Run Keyword And Return Status    OperatingSystem.File Should Exist    ${file_path_stream}
+    ${file_path}=    BuiltIn.Set Variable If    ${file_stream_exists}    ${file_path_stream}    ${folder}${/}${file_name}
     ${template} =    OperatingSystem.Get_File    ${file_path}
     BuiltIn.Log    ${template}
     ${final_text} =    BuiltIn.Evaluate    string.Template('''${template}'''.rstrip()).safe_substitute(${mapping})    modules=string
