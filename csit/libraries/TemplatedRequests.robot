@@ -362,11 +362,11 @@ Resolve_Text_From_Template_Folder
     ...    where additional template variable ${i} goes from ${iter_start}, by one ${iterations} times.
     ...    POST (as opposed to PUT) needs slightly different data, \${name_prefix} may be used to distinguish.
     ...    (Actually, it is GET who formats data differently when URI is a top-level container.)
-    BuiltIn.Run_Keyword_And_Return_If    not "${iterations}"    Resolve_Text_From_Template_File    file_path=${folder}${/}${name_prefix}${base_name}.${extension}    mapping=${mapping}
-    ${prolog} =    Resolve_Text_From_Template_File    file_path=${folder}${/}${name_prefix}${base_name}.prolog.${extension}    mapping=${mapping}
-    ${epilog} =    Resolve_Text_From_Template_File    file_path=${folder}${/}${name_prefix}${base_name}.epilog.${extension}    mapping=${mapping}
+    BuiltIn.Run_Keyword_And_Return_If    not "${iterations}"    Resolve_Text_From_Template_File    folder=${folder}    file_name=${name_prefix}${base_name}.${extension}    mapping=${mapping}
+    ${prolog} =    Resolve_Text_From_Template_File    folder=${folder}    file_name=${name_prefix}${base_name}.prolog.${extension}    mapping=${mapping}
+    ${epilog} =    Resolve_Text_From_Template_File    folder=${folder}    file_name=${name_prefix}${base_name}.epilog.${extension}    mapping=${mapping}
     # Even POST uses the same item template (except indentation), so name prefix is ignored.
-    ${item_template} =    Resolve_Text_From_Template_File    file_path=${folder}${/}${base_name}.item.${extension}    mapping=${mapping}
+    ${item_template} =    Resolve_Text_From_Template_File    folder=${folder}    file_name=${base_name}.item.${extension}    mapping=${mapping}
     ${items} =    BuiltIn.Create_List
     ${separator} =    BuiltIn.Set_Variable_If    '${extension}' != 'json'    ${endline}    ,${endline}
     : FOR    ${iteration}    IN RANGE    ${iter_start}    ${iterations}+${iter_start}
@@ -380,8 +380,13 @@ Resolve_Text_From_Template_Folder
     [Return]    ${final_text}
 
 Resolve_Text_From_Template_File
-    [Arguments]    ${file_path}    ${mapping}={}
-    [Documentation]    Read an Log contents of file, remove endline, perform safe substitution, return result.
+    [Arguments]    ${folder}    ${file_name}    ${mapping}={}
+    [Documentation]    Check if ${folder}.${ODL_STREAM}/${file_name} exists. If yes read an Log contents of file ${folder}.${ODL_STREAM}/${file_name},
+    ...    remove endline, perform safe substitution, return result.
+    ...    If no do it with the default ${folder}/${file_name}.
+    ${file_path_stream}=    BuiltIn.Set Variable    ${folder}.${ODL_STREAM}${/}${file_name}
+    ${file_stream_exists}=    BuiltIn.Run Keyword And Return Status    OperatingSystem.File Should Exist    ${file_path_stream}
+    ${file_path}=    BuiltIn.Set Variable If    ${file_stream_exists}    ${file_path_stream}    ${folder}${/}${file_name}
     ${template} =    OperatingSystem.Get_File    ${file_path}
     BuiltIn.Log    ${template}
     ${final_text} =    BuiltIn.Evaluate    string.Template('''${template}'''.rstrip()).safe_substitute(${mapping})    modules=string
