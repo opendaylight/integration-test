@@ -25,6 +25,7 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 
 *** Variables ***
 ${DEVICE_COUNT}    500
+${TIMEOUT_FACTOR}    10
 
 *** Test Cases ***
 Start_Test_Tool
@@ -34,18 +35,18 @@ Start_Test_Tool
 Configure_Devices_Onto_Netconf
     [Documentation]    Make requests to configure the testtool devices.
     [Tags]    critical
-    ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*10
+    ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*${TIMEOUT_FACTOR}
     NetconfKeywords.Perform_Operation_On_Each_Device    Configure_Device    timeout=${timeout}
 
 Get_Data_From_Devices
     [Documentation]    Ask testtool devices for data.
-    ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*2
+    ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*${TIMEOUT_FACTOR}
     NetconfKeywords.Perform_Operation_On_Each_Device    Check_Device_Data    timeout=${timeout}
 
 Deconfigure_Devices_From_Netconf
     [Documentation]    Make requests to deconfigure the testtool devices.
     [Tags]    critical
-    ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*10
+    ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*${TIMEOUT_FACTOR}
     NetconfKeywords.Perform_Operation_On_Each_Device    Deconfigure_Device    timeout=${timeout}
     [Teardown]    Report_Failure_Due_To_Bug    4547
 

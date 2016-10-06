@@ -30,6 +30,7 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 *** Variables ***
 ${DEVICE_COUNT}    500
 ${WORKER_COUNT}    10
+${TIMEOUT_FACTOR}    10
 ${device_name_base}    netconf-scaling-device
 ${base_port}      17830
 
@@ -40,12 +41,12 @@ Start_Test_Tool
 
 Configure_Devices_On_Netconf
     [Documentation]    Make requests to configure the testtool devices.
-    ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*10
+    ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*${TIMEOUT_FACTOR}
     NetconfKeywords.Perform_Operation_On_Each_Device    Configure_Device    timeout=${timeout}
 
 Wait_For_Devices_To_Connect
     [Documentation]    Wait for the devices to become connected.
-    ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*10
+    ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*${TIMEOUT_FACTOR}
     NetconfKeywords.Perform_Operation_On_Each_Device    Wait_Connected    timeout=${timeout}
 
 Issue_Requests_On_Devices
@@ -62,13 +63,13 @@ Issue_Requests_On_Devices
 
 Deconfigure_Devices
     [Documentation]    Make requests to deconfigure the testtool devices.
-    ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*10
+    ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*${TIMEOUT_FACTOR}
     NetconfKeywords.Perform_Operation_On_Each_Device    Deconfigure_Device    timeout=${timeout}
     [Teardown]    Report_Failure_Due_To_Bug    4547
 
 Check_Devices_Are_Deconfigured
     [Documentation]    Check there are no netconf connectors or other stuff related to the testtool devices.
-    ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*10
+    ${timeout}=    BuiltIn.Evaluate    ${DEVICE_COUNT}*${TIMEOUT_FACTOR}timeout
     NetconfKeywords.Perform_Operation_On_Each_Device    Check_Device_Deconfigured    timeout=${timeout}
 
 *** Keywords ***
