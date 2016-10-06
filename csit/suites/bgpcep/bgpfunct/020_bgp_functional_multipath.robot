@@ -125,13 +125,6 @@ Configure_Path_Selection_And_App_Peer_And_Connect_Peer
     Upload_Config_Files    addpath=${exa_add_path_value}
     BuiltIn.Wait_Until_Keyword_Succeeds    3x    1s    Start_Tool_And_Verify_Connected    ${DEFAUTL_RPC_CFG}
 
-Get_New_Config_File
-    [Arguments]    ${cfg_template_file}    ${mapping}={}    ${new_cfg_name}=cfg.cfg
-    [Documentation]    Returns a new config file from template
-    ${cfg_content}=    TemplatedRequests.Resolve_Text_From_Template_File    ${cfg_template}    ${mapping}
-    SSHLibrary.Execute_Command    echo    ${cfg_content} > ${new_cfg_name}
-    [Return]    ${new_cfg_name}
-
 Start_Tool
     [Arguments]    ${cfg_file}    ${mapping}={}
     [Documentation]    Start the tool ${cmd} ${cfg_file}
