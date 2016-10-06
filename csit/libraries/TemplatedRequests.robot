@@ -122,7 +122,6 @@ Create_Default_Session
     [Arguments]    ${url}=http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    ${auth}=${AUTH}
     [Documentation]    Create "default" session to ${url} with default authentication.
     ...    This Keyword is in this Resource only so that user do not need to call RequestsLibrary directly.
-    RequestsLibrary.Create_Session    alias=default    url=${url}    auth=${auth}
 
 Get_As_Json_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
@@ -380,8 +379,17 @@ Resolve_Text_From_Template_Folder
     [Return]    ${final_text}
 
 Resolve_Text_From_Template_File
-    [Arguments]    ${file_path}    ${mapping}={}
-    [Documentation]    Read an Log contents of file, remove endline, perform safe substitution, return result.
+    [Arguments]    ${folder}    ${file_name}    ${mapping}={}
+    [Documentation]    Check if ${folder}.${ODL_STREAM} exists. Select the right folder if exists ${folder}.${ODL_STREAM}
+    ...    ELSE default ${folder}.
+    ...    == search for ${folder}.${ODL_STREAM} before falling back to ${folder}
+    ...    Read an Log contents of file, remove endline, perform safe substitution, return result.
+    ${folder_path_stream}=    BuiltIn.Catenate    SEPARATOR=.    ${folder}    ${ODL_STREAM}
+    ${folder_path_without_stream}=${folder}
+    ${folder.stream_exists}=    BuiltIn.Run Keyword And Return Status    OperatingSystem.Directory Should Exist    ${file_path_stream}    msg='${folder}.${ODL_STREAM} does not exist'
+    ${folder_path}=    BuiltIn.Run Keyword If    ${folder.stream_exists}    ${folder_path_stream}
+    ...    ELSE    ${folder_path_without_stream}
+    ${file_path}=${folder_path}${/}${file_name}
     ${template} =    OperatingSystem.Get_File    ${file_path}
     BuiltIn.Log    ${template}
     ${final_text} =    BuiltIn.Evaluate    string.Template('''${template}'''.rstrip()).safe_substitute(${mapping})    modules=string
