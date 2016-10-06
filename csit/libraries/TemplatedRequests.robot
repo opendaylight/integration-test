@@ -128,6 +128,7 @@ Get_As_Json_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
     [Documentation]    Add arguments sensible for JSON data, return Get_Templated response text.
     ...    Optionally, verification against JSON data (may be iterated) is called.
+
     ${response_text} =    Get_Templated    folder=${folder}    mapping=${mapping}    accept=${ACCEPT_EMPTY}    session=${session}    normalize_json=True
     BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Json_Templated    response=${response_text}    folder=${folder}    base_name=data    mapping=${mapping}
     ...    iterations=${iterations}    iter_start=${iter_start}
@@ -137,6 +138,8 @@ Get_As_Xml_Templated
     [Arguments]    ${folder}    ${mapping}={}    ${session}=default    ${verify}=False    ${iterations}=${EMPTY}    ${iter_start}=1
     [Documentation]    Add arguments sensible for XML data, return Get_Templated response text.
     ...    Optionally, verification against XML data (may be iterated) is called.
+    #check if folder.stream exists
+
     ${response_text} =    Get_Templated    folder=${folder}    mapping=${mapping}    accept=${ACCEPT_XML}    session=${session}    normalize_json=False
     BuiltIn.Run_Keyword_If    ${verify}    Verify_Response_As_Xml_Templated    response=${response_text}    folder=${folder}    base_name=data    mapping=${mapping}
     ...    iterations=${iterations}    iter_start=${iter_start}
@@ -254,6 +257,7 @@ Delete_From_Uri
 Get_Templated
     [Arguments]    ${folder}    ${accept}    ${mapping}={}    ${session}=default    ${normalize_json}=False
     [Documentation]    Resolve URI from folder, call Get_From_Uri, return response text.
+    #select the right folder if exists folder.stream ELSE default without .stream
     ${uri} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=location    extension=uri    mapping=${mapping}
     ${response_text} =    Get_From_Uri    uri=${uri}    accept=${accept}    session=${session}    normalize_json=${normalize_json}
     [Return]    ${response_text}

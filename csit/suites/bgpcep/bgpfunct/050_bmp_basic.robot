@@ -43,8 +43,7 @@ Start_Bmp_Mock
 Verify Data Reported
     [Documentation]    Verifies if the tool reported expected data
     &{mapping}    BuiltIn.Create_Dictionary    TOOL_IP=${TOOLS_SYSTEM_IP}
-    ${bmp_dir}=    CompareStream.Set_Variable_If_At_Least_Boron    ${BGP_BMP_DIR}    ${BGP_BMP_DIR}_Be
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    folder=${bmp_dir}    mapping=${mapping}    session=${CONFIG_SESSION}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    2s    TemplatedRequests.Get_As_Json_Templated    folder=${BGP_BMP_DIR}   mapping=${mapping}    session=${CONFIG_SESSION}
     ...    verify=True
 
 Stop_Bmp_Mock
