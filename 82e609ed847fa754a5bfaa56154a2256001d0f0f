@@ -66,6 +66,24 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_c20e4f32",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 131,
+      "author": {
+        "id": 5779
+      },
+      "writtenOn": "2016-10-06T09:29:43Z",
+      "side": 1,
+      "message": "Hi Jamo,\nI had already checked and verified that the keyword will not fail if the ${Kwargs} \u003d\u003d None.\nIf ${Kwargs} \u003d\u003d None, it will not continue for the current if loop.\n\nThe check you suggested to add \"Run Keyword If    ${Kwargs} \u003d\u003d None    Fail\" in the beginning of it, will not work on this case, since I am doing a pop values out of Dictionary, inside each IF. (Pop-out is usage is to have option to give default value passed; get_from_dictionary doesn\u0027t support this.)\nSo even if we check for null in the beginning, dictionary could become empty in between. Hence added this way. Similar logic has been used for the Create L3VPN Create aswell in this Library.\n\nHope I have clarified.\n\n/Thanks,\nAbbas",
+      "parentUuid": "7a6b29fe_8c1010aa",
+      "revId": "82e609ed847fa754a5bfaa56154a2256001d0f0f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_0ceec0b4",
         "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
         "patchSetId": 3
@@ -77,6 +95,30 @@
       "writtenOn": "2016-10-05T23:10:15Z",
       "side": 1,
       "message": "these seem like useful keywords that probably belong in the library.  better docs would be good as well.\n\ne.g., \"returns the dpnid from the system at the given ip address using ovs-ofctl assuming br-int is there\"  it makes it easier to understand from our library docs we publish:\n\nhttp://docs.opendaylight.org/en/latest/_static/integration/robot/index.html",
+      "range": {
+        "startLine": 189,
+        "startChar": 0,
+        "endLine": 209,
+        "endChar": 26
+      },
+      "revId": "82e609ed847fa754a5bfaa56154a2256001d0f0f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_02196779",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 5779
+      },
+      "writtenOn": "2016-10-06T09:29:43Z",
+      "side": 1,
+      "message": "Comment accepted. Now I have moved these three keywords to the OVSDB.robot library where we already have same category keywords are added. Also the docs has been changed to align with the ODL documentation standards.",
+      "parentUuid": "7a6b29fe_0ceec0b4",
       "range": {
         "startLine": 189,
         "startChar": 0,
@@ -123,6 +165,30 @@
       "writtenOn": "2016-10-05T18:46:02Z",
       "side": 1,
       "message": "\u003e assuming string.Template does not prohibit dashes\n\nWrong assumption, it has to be a valid Python identifier. And I forgot about the dollar sign requirement. So \"$ip_address2\".\n\nhttps://docs.python.org/2/library/string.html?#template-strings",
+      "parentUuid": "7a6b29fe_71046fc6",
+      "range": {
+        "startLine": 18,
+        "startChar": 34,
+        "endLine": 18,
+        "endChar": 43
+      },
+      "revId": "82e609ed847fa754a5bfaa56154a2256001d0f0f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_624c9b77",
+        "filename": "csit/variables/vpnservice/itm_tunnel_create.json",
+        "patchSetId": 3
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 5779
+      },
+      "writtenOn": "2016-10-06T09:29:43Z",
+      "side": 1,
+      "message": "Hi Vratko,\n\nI would work on it to change the implementation as you suggested i.e., using TemplatedRequests.\n\nMeantime rebasing once again to incorporate other comments from Jamo.\nWould you think it would be OK to merge now and we improve the logic to add TemplatedRequests in another patch?\n\nThanks,\nAbbas",
       "parentUuid": "7a6b29fe_71046fc6",
       "range": {
         "startLine": 18,
