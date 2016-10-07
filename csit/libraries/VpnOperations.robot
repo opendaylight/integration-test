@@ -68,6 +68,36 @@ VPN Get L3VPN
     Should Be Equal As Strings    ${resp.status_code}    ${CREATE_RESP_CODE}
     [Return]    ${resp.content}
 
+Associate Network to VPN
+    [Arguments]    ${VPN_ID}    ${NETWORK_ID}
+    [Documentation]    Associate Network to VPN
+    ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/vpn_network.json
+    ${body} =    Replace String    ${body}    VPN_ID    ${VPN_ID}
+    ${body} =    Replace String    ${body}    NETWORK_ID    ${NETWORK_ID}
+    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:associateNetworks    data=${body}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    ${CREATE_RESP_CODE}
+    ${body1}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/${GETL3VPN}
+    ${body1} =    Replace String    ${body1}    ${CREATE_ID_DEFAULT}    ${GET_ID}
+    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:getL3VPN    data=${body1}
+    Log    ${resp}
+    Should Be Equal As Strings    ${resp.status_code}    ${CREATE_RESP_CODE}
+
+Dissociate Network to VPN
+    [Arguments]    ${VPN_ID}    ${NETWORK_ID}
+    [Documentation]    Dissociate Network to VPN
+    ${body}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/vpn_network.json
+    ${body} =    Replace String    ${body}    VPN_ID    ${VPN_ID}
+    ${body} =    Replace String    ${body}    NETWORK_ID    ${NETWORK_ID}
+    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:dissociateNetworks    data=${body}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    ${CREATE_RESP_CODE}
+    ${body1}    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/${GETL3VPN}
+    ${body1} =    Replace String    ${body1}    ${CREATE_ID_DEFAULT}    ${GET_ID}
+    ${resp}    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:getL3VPN    data=${body1}
+    Log    ${resp}
+    Should Be Equal As Strings    ${resp.status_code}    ${CREATE_RESP_CODE}
+
 Associate VPN to Router
     [Arguments]    ${ROUTER}    ${VPN_INSTANCE_NAME}
     [Documentation]    Associate VPN to Router

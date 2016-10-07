@@ -40,8 +40,8 @@ Verify Tunnel Creation
 
 Create Neutron Networks
     [Documentation]    Create two networks
-    Create Network    ${NETWORKS[0]}    --provider:network_type local
-    Create Network    ${NETWORKS[1]}    --provider:network_type local
+    Create Network    ${NETWORKS[0]}
+    Create Network    ${NETWORKS[1]}
     ${NET_LIST}    List Networks
     Log    ${NET_LIST}
     Should Contain    ${NET_LIST}    ${NETWORKS[0]}
@@ -81,6 +81,27 @@ Check ELAN Datapath Traffic Within The Networks
     [Tags]    exclude
     Log    This test will be added in the next patch
 
+Create L3VPN
+    [Documentation]    Creates L3VPN and verify the same
+    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[0]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
+    VPN Get L3VPN    ${CREATE_ID[0]}
+
+Networks associated to VPN3
+    [Documentation]    Associate Networks to VPN
+    ${devstack_conn_id}=    Get ControlNode Connection
+    ${network1_id} =    Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
+    ${network2_id} =    Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
+    Associate Network to VPN    ${VPN_INSTANCE_NAME[1]}    ${network1_id}
+    Associate Network to VPN    ${VPN_INSTANCE_NAME[1]}    ${network2_id}
+
+Networks dissociated to VPN3
+    [Documentation]    dissociate Networks to VPN
+    ${devstack_conn_id}=    Get ControlNode Connection
+    ${network1_id} =    Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
+    ${network2_id} =    Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
+    Dissociate Network to VPN    ${VPN_INSTANCE_NAME[1]}    ${network1_id}
+    Dissociate Network to VPN    ${VPN_INSTANCE_NAME[1]}    ${network2_id}
+
 Create Routers
     [Documentation]    Create Router
     Create Router    ${ROUTERS[0]}
@@ -94,11 +115,6 @@ Check L3_Datapath Traffic Across Networks With Router
     [Documentation]    Datapath Test Across the networks using Router for L3.
     [Tags]    exclude
     Log    This test will be added in the next patch
-
-Create L3VPN
-    [Documentation]    Creates L3VPN and verify the same
-    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[0]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
-    VPN Get L3VPN    ${CREATE_ID[0]}
 
 Associate L3VPN to Routers
     [Documentation]    Associating router to L3VPN
