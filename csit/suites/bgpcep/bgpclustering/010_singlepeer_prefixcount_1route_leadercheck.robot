@@ -33,7 +33,7 @@ Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Resource          ${CURDIR}/PrefixcountKeywords.robot
 
 *** Variables ***
-${COUNT}          100000
+${COUNT}          1
 
 *** Test Cases ***
 Get Example Bgp Rib Owner
@@ -42,6 +42,11 @@ Get Example Bgp Rib Owner
     BuiltIn.Set_Suite_Variable    ${rib_owner}    ${rib_owner}
     BuiltIn.Set_Suite_Variable    ${rib_owner_node_id}    ${ODL_SYSTEM_${rib_owner}_IP}
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_${rib_owner}_IP}:${RESTCONFPORT}    auth=${AUTH}
+
+Get Topology Operational Leader
+    [Documentation]    Gets the operationa topology shard leader
+    ${leader}    ${followers}=     ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_name=topology    shard_type=operational
+    BuiltIn.Set_Suite_Variable    ${topo_lead_ses}      operational-${leader}
 
 Check_For_Empty_Ipv4_Topology_Before_Talking_1
     [Documentation]    Wait for ${EXAMPLE_IPV4_TOPOLOGY} to come up and empty. Give large timeout for case when BGP boots slower than restconf.
@@ -83,35 +88,15 @@ Start_Talking_BGP_Speaker
     [Documentation]    Start Python speaker to connect to ODL. We need to do WUKS until odl really starts to accept incomming bgp connection. The failure happens if the incomming connection comes too quickly after configuring the peer in the previous test case.
     BuiltIn.Wait_Until_Keyword_Succeeds    3x    1s    Start Bgp Peer
 
-Wait_For_Stable_Talking_Ipv4_Topology_1
+Wait_For_Stable_Talking_Ipv4_Topology
     [Documentation]    Wait until ${EXAMPLE_IPV4_TOPOLOGY} becomes stable. This is done by checking stability of prefix count as seen from node 1.
-    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD}    repetitions=${REPETITIONS}    excluded_count=0    session=${CONFIGURATION_1}    topology=${EXAMPLE_IPV4_TOPOLOGY}
+    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD}    repetitions=${REPETITIONS}    excluded_count=0    session=${topo_lead_ses}    topology=${EXAMPLE_IPV4_TOPOLOGY}
 
-Wait_For_Stable_Talking_Ipv4_Topology_2
-    [Documentation]    Wait until ${EXAMPLE_IPV4_TOPOLOGY} becomes stable. This is done by checking stability of prefix count as seen from node 2.
-    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD}    repetitions=${REPETITIONS}    excluded_count=0    session=${CONFIGURATION_2}    topology=${EXAMPLE_IPV4_TOPOLOGY}
-
-Wait_For_Stable_Talking_Ipv4_Topology_3
-    [Documentation]    Wait until ${EXAMPLE_IPV4_TOPOLOGY} becomes stable. This is done by checking stability of prefix count as seen from node 3.
-    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD}    repetitions=${REPETITIONS}    excluded_count=0    session=${CONFIGURATION_3}    topology=${EXAMPLE_IPV4_TOPOLOGY}
-
-Check_Talking_Ipv4_Topology_Count_1
+Check_Talking_Ipv4_Topology_Count
     [Documentation]    Count the routes in ${EXAMPLE_IPV4_TOPOLOGY} and fail if the count is not correct as seen from node 1.
     [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT}    session=${CONFIGURATION_1}    topology=${EXAMPLE_IPV4_TOPOLOGY}
-
-Check_Talking_Ipv4_Topology_Count_2
-    [Documentation]    Count the routes in ${EXAMPLE_IPV4_TOPOLOGY} and fail if the count is not correct as seen from node 2.
-    [Tags]    critical
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT}    session=${CONFIGURATION_2}    topology=${EXAMPLE_IPV4_TOPOLOGY}
-
-Check_Talking_Ipv4_Topology_Count_3
-    [Documentation]    Count the routes in ${EXAMPLE_IPV4_TOPOLOGY} and fail if the count is not correct as seen from node 3.
-    [Tags]    critical
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT}    session=${CONFIGURATION_3}    topology=${EXAMPLE_IPV4_TOPOLOGY}
+    PrefixCounting.Check_Ipv4_Topology_Count    ${COUNT}    session=${topo_lead_ses}    topology=${EXAMPLE_IPV4_TOPOLOGY}
 
 Kill_Talking_BGP_Speaker
     [Documentation]    Abort the Python speaker. Also, attempt to stop failing fast.
@@ -120,38 +105,16 @@ Kill_Talking_BGP_Speaker
     BGPSpeaker.Kill_BGP_Speaker
     FailFast.Do_Not_Fail_Fast_From_Now_On
 
-Wait_For_Stable_Ipv4_Topology_After_Listening_1
+Wait_For_Stable_Ipv4_Topology_After_Listening
     [Documentation]    Wait until ${EXAMPLE_IPV4_TOPOLOGY} becomes stable again as seen from node 1.
     [Tags]    critical
-    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD}    repetitions=${REPETITIONS}    excluded_count=${COUNT}    session=${CONFIGURATION_1}    topology=${EXAMPLE_IPV4_TOPOLOGY}
+    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD}    repetitions=${REPETITIONS}    excluded_count=${COUNT}    session=${topo_lead_ses}    topology=${EXAMPLE_IPV4_TOPOLOGY}
 
-Wait_For_Stable_Ipv4_Topology_After_Listening_2
-    [Documentation]    Wait until ${EXAMPLE_IPV4_TOPOLOGY} becomes stable again as seen from node 2.
-    [Tags]    critical
-    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD}    repetitions=${REPETITIONS}    excluded_count=${COUNT}    session=${CONFIGURATION_2}    topology=${EXAMPLE_IPV4_TOPOLOGY}
-
-Wait_For_Stable_Ipv4_Topology_After_Listening_3
-    [Documentation]    Wait until ${EXAMPLE_IPV4_TOPOLOGY} becomes stable again as seen from node 3.
-    [Tags]    critical
-    PrefixCounting.Wait_For_Ipv4_Topology_Prefixes_To_Become_Stable    timeout=${bgp_filling_timeout}    period=${CHECK_PERIOD}    repetitions=${REPETITIONS}    excluded_count=${COUNT}    session=${CONFIGURATION_3}    topology=${EXAMPLE_IPV4_TOPOLOGY}
-
-Check_For_Empty_Ipv4_Topology_After_Listening_1
+Check_For_Empty_Ipv4_Topology_After_Listening
     [Documentation]    Example-ipv4-topology should be empty now as seen from node 1.
     [Tags]    critical
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    PrefixCounting.Check_Ipv4_Topology_Is_Empty    session=${CONFIGURATION_1}    topology=${EXAMPLE_IPV4_TOPOLOGY}
-
-Check_For_Empty_Ipv4_Topology_After_Listening_2
-    [Documentation]    Example-ipv4-topology should be empty now as seen from node 2.
-    [Tags]    critical
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    PrefixCounting.Check_Ipv4_Topology_Is_Empty    session=${CONFIGURATION_2}    topology=${EXAMPLE_IPV4_TOPOLOGY}
-
-Check_For_Empty_Ipv4_Topology_After_Listening_3
-    [Documentation]    Example-ipv4-topology should be empty now as seen from node 3.
-    [Tags]    critical
-    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    PrefixCounting.Check_Ipv4_Topology_Is_Empty    session=${CONFIGURATION_3}    topology=${EXAMPLE_IPV4_TOPOLOGY}
+    PrefixCounting.Check_Ipv4_Topology_Is_Empty    session=${topo_lead_ses}    topology=${EXAMPLE_IPV4_TOPOLOGY}
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
