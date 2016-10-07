@@ -67,7 +67,7 @@ ${BGP_PEER_NAME}    example-bgp-peer
 *** Test Cases ***
 Get Example Bgp Rib Owner
     [Documentation]    Find an odl node which is able to accept incomming connection. To this node netconf connector should be configured.
-    ${rib_owner}    ${rib_candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib    org.opendaylight.mdsal.ServiceEntityType    1
+    ${rib_owner}    ${rib_candidates}=    ClusterManagement.Get_Owner_And_Successors_For_device    example-bgp-rib-service-group    org.opendaylight.mdsal.ServiceEntityType    1
     BuiltIn.Set Suite variable    ${rib_owner}    ${rib_owner}
     BuiltIn.Set Suite variable    ${rib_owner_node_id}    ${ODL_SYSTEM_${rib_owner}_IP}
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_${rib_owner}_IP}:${RESTCONFPORT}    auth=${AUTH}
