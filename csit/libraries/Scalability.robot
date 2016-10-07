@@ -243,7 +243,7 @@ Check No Switches
     Log To Console    Checking No Switches
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
-    \    Should Not Contain    ${resp.content}    openflow:${switch}
+    \    Should Not Contain    ${resp.content}    "openflow:${switch}"
 
 Check No Topology
     [Arguments]    ${switches}
