@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_584eaf97",
+        "filename": "csit/suites/sxp/performance/020_BindingExportTests.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-07T11:46:37Z",
+      "side": 1,
+      "message": "I see only one open bracket. Does this work on Sandbox?",
+      "range": {
+        "startLine": 40,
+        "startChar": 89,
+        "endLine": 40,
+        "endChar": 91
+      },
+      "revId": "c558e41f597c1082c007efac242fbd57aadac3eb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
