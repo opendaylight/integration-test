@@ -238,7 +238,7 @@ Get_Owner_And_Candidates_For_Type_And_Id
 Extract_Service_Entity_Type
     [Arguments]    ${data}
     [Documentation]    Remove superfluous device data from Entity Owner printout.
-    ${clear_data} =    String.Replace_String    ${data}    /odl-general-entity:entity[odl-general-entity:name='Uri [_value=    ${EMPTY}
+    ${clear_data} =    String.Replace_String    ${data}    /odl-general-entity:entity[odl-general-entity:name='    ${EMPTY}
     ${clear_data} =    String.Replace_String    ${clear_data}    ]-service-group']    ${EMPTY}
     Log    ${clear_data}
     [Return]    ${clear_data}
