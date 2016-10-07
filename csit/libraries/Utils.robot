@@ -522,3 +522,9 @@ Get JSON Elements From URI
     ${resp}    RequestsLibrary.Get Request    session    ${uri}
     ${value}    To Json    ${resp.content}
     [Return]    ${value}
+
+Read JSON From File
+    [Arguments]    ${filepath}
+    ${body}    OperatingSystem.Get File    ${filepath}
+    ${jsonbody}    To Json    ${body}
+    [Return]    ${jsonbody}
