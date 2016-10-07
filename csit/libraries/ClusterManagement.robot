@@ -447,6 +447,16 @@ Clean_Directories_On_List_Or_All
     ${path_list} =    Builtin.Set Variable If    "${directory_list}" == "${EMPTY}"    ${ODL_DEFAULT_DATA_PATHS}    ${directory_list}
     Safe_With_Ssh_To_List_Or_All_Run_Keyword    ${member_index_list}    ClusterManagement__Clean_Directories    ${path_list}    ${karaf_home}
 
+Store_Karaf_Log_On_List_Or_All
+    [Arguments]    ${member_index_list}=${EMPTY}    ${dst_dir}=/tmp    ${karaf_home}=${KARAF_HOME}
+    [Documentation]    Saves karaf.log to the ${dst_dir} for members in given list or all. Return None.
+    Safe_With_Ssh_To_List_Or_All_Run_Keyword    ${member_index_list}    SSHKeywords.Execute_Command_Should_Pass    cp ${karaf_home}/data/log/karaf.log ${dst_dir}
+
+Restore_Karaf_Log_On_List_Or_All
+    [Arguments]    ${member_index_list}=${EMPTY}    ${src_dir}=/tmp    ${karaf_home}=${KARAF_HOME}
+    [Documentation]    Places stored karaf.log to the ${karaf_home}/data/log for members in given list or all. Return None.
+    Safe_With_Ssh_To_List_Or_All_Run_Keyword    ${member_index_list}    SSHKeywords.Execute_Command_Should_Pass    cp ${src_dir}/karaf.log ${karaf_home}/data/log/
+
 ClusterManagement__Clean_Directories
     [Arguments]    ${relative_path_list}    ${karaf_home}
     [Documentation]    For each relative path, remove files with respect to ${karaf_home}. Return None.
