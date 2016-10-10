@@ -276,6 +276,13 @@ Verify File Exists On Remote System
     SSHLibrary.File Should Exist    ${file}
     Close Connection
 
+Check Karaf Log File Does Not Have Messages
+    [Arguments]    ${ip}    ${message}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}    ${log_file}=${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log
+    [Documentation]    Fails if the provided ${message} is found in the karaf.log file. Uses grep to search. The
+    ...    karaf.log file can be overridden with ${log_file} to be any file on the given system @ ${ip}
+    ${output}=    Run Command On Controller    ${ip}    grep -c '${message}' ${log_file}    user=${user}    password=${password}    prompt=${prompt}
+    Should Be Equal As Strings    ${output}    0
+
 Verify Controller Is Not Dead
     [Arguments]    ${controller_ip}=${ODL_SYSTEM_IP}
     [Documentation]    Will execute any tests to verify the controller is not dead. Some checks are
