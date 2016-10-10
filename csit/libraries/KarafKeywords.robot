@@ -65,13 +65,6 @@ Check Karaf Log Has Messages
     \    Should Contain    ${output}    ${message}
     [Return]    ${output}
 
-Check Karaf Log File Does Not Have Messages
-    [Arguments]    ${ip}    ${message}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}    ${log_file}=${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log
-    [Documentation]    Fails if the provided ${message} is found in the karaf.log file. Uses grep to search. The
-    ...    karaf.log file can be overridden with ${log_file} to be any file on the given system @ ${ip}
-    ${output}=    Run Command On Controller    ${ip}    grep -c '${message}' ${log_file}    user=${user}    password=${password}    prompt=${prompt}
-    Should Be Equal As Strings    ${output}    0
-
 Install a Feature
     [Arguments]    ${feature_name}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=180
     [Documentation]    Will Install the given ${feature_name}
