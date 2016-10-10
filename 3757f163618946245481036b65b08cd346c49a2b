@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_ae04d6c6",
+        "filename": "csit/libraries/ConfGen.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-10T11:35:51Z",
+      "side": 1,
+      "message": "modules.conf?",
+      "range": {
+        "startLine": 55,
+        "startChar": 22,
+        "endLine": 55,
+        "endChar": 31
+      },
+      "revId": "3757f163618946245481036b65b08cd346c49a2b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_8e091ae0",
+        "filename": "csit/libraries/ConfGen.py",
+        "patchSetId": 4
+      },
+      "lineNbr": 75,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-10T11:35:51Z",
+      "side": 1,
+      "message": "module-shards.conf?",
+      "range": {
+        "startLine": 75,
+        "startChar": 22,
+        "endLine": 75,
+        "endChar": 31
+      },
+      "revId": "3757f163618946245481036b65b08cd346c49a2b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
