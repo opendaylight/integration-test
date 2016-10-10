@@ -66,13 +66,14 @@ Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 
 *** Variables ***
 ${FEATURE_ONCT}    odl-netconf-clustered-topology    # the feature name is mentioned multiple times, this is to prevent typos
-${OWNER_ELECTION_TIMEOUT}    60s    # large value to allow for recolving complicated interactions
+${OWNER_ELECTION_TIMEOUT}    180s    # very large value to allow for -all- jobs with many feature installations taking up time
 
 *** Test Cases ***
 Locate_Leader
     [Documentation]    Set suite variables based on where the Leader is.
+    ...    As this test may get executed just after cluster restart, WUKS is used to give ODL chance to elect Leaders.
     BuiltIn.Comment    FIXME: Migrate Set_Variables_For_Shard to ClusterManagement.robot
-    CarPeople.Set_Variables_For_Shard    shard_name=topology    shard_type=config
+    BuiltIn.Wait_Until_Keyword_Succeeds    3m    15s    CarPeople.Set_Variables_For_Shard    shard_name=topology    shard_type=config
 
 Install_Feature_On_Followers
     [Documentation]    Perform feature installation on follower members, one by one.
