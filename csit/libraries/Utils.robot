@@ -267,6 +267,13 @@ Run Command On Controller
     BuiltIn.Log    ${password}
     BuiltIn.Run Keyword And Return    Run Command On Remote System    ${system}    ${cmd}    ${user}    ${password}    prompt=${prompt}
 
+Check Karaf Log File Does Not Have Messages
+    [Arguments]    ${ip}    ${message}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}    ${log_file}=${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log
+    [Documentation]    Fails if the provided ${message} is found in the karaf.log file. Uses grep to search. The
+    ...    karaf.log file can be overridden with ${log_file} to be any file on the given system @ ${ip}
+    ${output}=    Run Command On Controller    ${ip}    grep -c '${message}' ${log_file}    user=${user}    password=${password}    prompt=${prompt}
+    Should Be Equal As Strings    ${output}    0
+
 Verify File Exists On Remote System
     [Arguments]    ${system}    ${file}    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${TOOLS_SYSTEM_PASSWORD}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=5s
     [Documentation]    Will create connection with public key and will PASS if the given ${file} exists,
