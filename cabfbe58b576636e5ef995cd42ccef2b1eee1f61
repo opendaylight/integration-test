@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_1a126458",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 384,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-11T16:18:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_ff72fae1",
+      "range": {
+        "startLine": 384,
+        "startChar": 89,
+        "endLine": 384,
+        "endChar": 91
+      },
+      "revId": "cabfbe58b576636e5ef995cd42ccef2b1eee1f61",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_3f7d92b2",
         "filename": "csit/suites/mdsal/binding_v1/binding-parent.robot",
         "patchSetId": 11
@@ -36,6 +60,30 @@
       "writtenOn": "2016-10-11T15:15:51Z",
       "side": 1,
       "message": "This variable is no longer needed.",
+      "range": {
+        "startLine": 33,
+        "startChar": 0,
+        "endLine": 33,
+        "endChar": 28
+      },
+      "revId": "cabfbe58b576636e5ef995cd42ccef2b1eee1f61",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_5a333cf6",
+        "filename": "csit/suites/mdsal/binding_v1/binding-parent.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-11T16:18:50Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_3f7d92b2",
       "range": {
         "startLine": 33,
         "startChar": 0,
