@@ -8,7 +8,7 @@
                 <type>2048</type>
             </ethernet-type>
         </ethernet-match>
-        <ipv4-destination-address-no-mask>7.7.7.0</ipv4-destination-address-no-mask>
+        <ipv4-destination-address-no-mask>7.0.17.0</ipv4-destination-address-no-mask>
         <ipv4-destination-arbitrary-bitmask>255.0.241.0</ipv4-destination-arbitrary-bitmask>
     </match>
     <id>346</id>

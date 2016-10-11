@@ -31,7 +31,6 @@ ${SWITCH_CLASS}    Ovs
 ${SWITCH_IP}      ${TOOLS_SYSTEM_IP}
 ${SWITCH_PROMPT}    ${DEFAULT_LINUX_PROMPT}
 ${ODL_SYSTEM_IP}    null
-${REST_CON}       /restconf/config/opendaylight-inventory:nodes
 ${ipv4_src}       11.3.0.0/16
 ${ipv4_dst}       99.0.0.0/8
 ${eth_type}       0x800
@@ -45,7 +44,6 @@ ${FLOOD_doc}      OF1.3 OFPP_FLOOD = 0xfffffffb, /* All physical ports in VLAN, 
 ${ALL_doc}        OF1.3: OFPP_ALL = 0xfffffffc, /* All physical ports except input port. */
 ${CONTROLLER_doc}    OF1.3 OFPP_CONTROLLER = 0xfffffffd, /* Send to controller. */
 ${LOCAL_doc}      OF1.3 OFPP_LOCAL = 0xfffffffe, /* Local openflow "port". */
-${ANY_doc}        OF1.3 OFPP_ANY = 0xffffffff /* Wildcard port used only for flow mod (delete) and flow stats requests. Selects all flows regardless of output port (including flows with no output port). */
 
 *** Test Cases ***    output port        tableID              flowID    priority
 INPORT                [Documentation]    ${INPORT_doc}
@@ -76,10 +74,6 @@ LOCAL                 [Documentation]    ${LOCAL_doc}
                       [Tags]             local
                       ${TEST_NAME}       200                  32        12345
 
-ANY                   [Documentation]    ${ANY_doc}
-                      [Tags]             any
-                      ${TEST_NAME}       200                  111       54321
-
 *** Keywords ***
 Create And Remove Flow
     [Arguments]    ${output_port}    ${table_id}    ${flow_id}    ${priority}
@@ -102,8 +96,7 @@ Create And Remove Flow
     Wait Until Keyword Succeeds    3s    1s    Add Flow To Controller And Verify    ${flow.xml}    openflow:${dpid_id}    ${flow.table_id}
     ...    ${flow.id}
     Wait Until Keyword Succeeds    3s    1s    Validate Switch Output    ${test_switch}    ${test_switch.dump_all_flows}    ${test_switch.flow_validations}
-    Wait Until Keyword Succeeds    3s    1s    Remove Flow From Controller And Verify    ${flow.xml}    openflow:${dpid_id}    ${flow.table_id}
-    ...    ${flow.id}
+    Wait Until Keyword Succeeds    3s    1s    Remove Flow From Controller And Verify    openflow:${dpid_id}    ${flow.table_id}    ${flow.id}
     Wait Until Keyword Succeeds    3s    1s    Validate Switch Output    ${test_switch}    ${test_switch.dump_all_flows}    ${test_switch.flow_validations}
     ...    false
 
@@ -113,7 +106,7 @@ OpenFlow Actions Suite Setup
     Call Method    ${test_switch}    set_mgmt_ip    ${SWITCH_IP}
     Call Method    ${test_switch}    set_controller_ip    ${ODL_SYSTEM_IP}
     Call Method    ${test_switch}    set_mgmt_prompt    ${SWITCH_PROMPT}
-    Run Command On Remote System    ${ODL_SYSTEM_IP}    ps -elf | grep java
+    Run Command On Controller    ${ODL_SYSTEM_IP}    ps -elf | grep java
     Log    MAKE: ${test_switch.make}\n MODEL: ${test_switch.model}\n IP: ${test_switch.mgmt_ip}\n PROMPT: ${test_switch.mgmt_prompt}\n CONTROLLER_IP: ${test_switch.of_controller_ip}\n MGMT_PROTOCOL: ${test_switch.mgmt_protocol}
     Ping    ${test_switch.mgmt_ip}
     Initialize Switch    ${test_switch}
