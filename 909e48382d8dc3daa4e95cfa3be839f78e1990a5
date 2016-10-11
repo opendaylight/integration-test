@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_6aaf5f95",
+        "filename": "csit/suites/distribution/karaf/karaf-hang.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-11T07:33:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_aaf4d7cf",
+      "range": {
+        "startLine": 27,
+        "startChar": 18,
+        "endLine": 27,
+        "endChar": 41
+      },
+      "revId": "909e48382d8dc3daa4e95cfa3be839f78e1990a5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_eafecfad",
         "filename": "csit/suites/distribution/karaf/karaf-hang.robot",
         "patchSetId": 12
@@ -36,6 +60,30 @@
       "writtenOn": "2016-10-04T12:04:01Z",
       "side": 1,
       "message": "Do not install this, it is an aggregate feature which may legitimitely take longer time to install.",
+      "range": {
+        "startLine": 28,
+        "startChar": 4,
+        "endLine": 28,
+        "endChar": 38
+      },
+      "revId": "909e48382d8dc3daa4e95cfa3be839f78e1990a5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_ca93135b",
+        "filename": "csit/suites/distribution/karaf/karaf-hang.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-11T07:33:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_eafecfad",
       "range": {
         "startLine": 28,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_e5ec40f6",
+        "filename": "csit/suites/distribution/karaf/karaf-hang.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-11T07:33:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_8adc7b48",
+      "range": {
+        "startLine": 34,
+        "startChar": 4,
+        "endLine": 34,
+        "endChar": 22
+      },
+      "revId": "909e48382d8dc3daa4e95cfa3be839f78e1990a5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_2a30c79d",
         "filename": "csit/suites/distribution/karaf/karaf-hang.robot",
         "patchSetId": 12
@@ -82,6 +154,30 @@
       "writtenOn": "2016-10-04T12:04:01Z",
       "side": 1,
       "message": "Do not use dash in keyword name.",
+      "range": {
+        "startLine": 119,
+        "startChar": 11,
+        "endLine": 119,
+        "endChar": 12
+      },
+      "revId": "909e48382d8dc3daa4e95cfa3be839f78e1990a5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_ea71af45",
+        "filename": "csit/suites/distribution/karaf/karaf-hang.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 119,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-11T07:33:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_2a30c79d",
       "range": {
         "startLine": 119,
         "startChar": 11,
@@ -117,6 +213,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_2ae1e7d0",
+        "filename": "csit/suites/distribution/karaf/karaf-hang.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 128,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-11T07:33:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_8a259b5e",
+      "range": {
+        "startLine": 128,
+        "startChar": 52,
+        "endLine": 128,
+        "endChar": 59
+      },
+      "revId": "909e48382d8dc3daa4e95cfa3be839f78e1990a5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_eaec0ff6",
         "filename": "csit/testplans/distribution-karaf.txt",
         "patchSetId": 12
@@ -128,6 +248,30 @@
       "writtenOn": "2016-10-04T12:04:01Z",
       "side": 1,
       "message": "There are other scenarios where Karaf could hang. Choose a better name for the suite.",
+      "range": {
+        "startLine": 1,
+        "startChar": 48,
+        "endLine": 1,
+        "endChar": 58
+      },
+      "revId": "909e48382d8dc3daa4e95cfa3be839f78e1990a5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_65af9095",
+        "filename": "csit/testplans/distribution-karaf.txt",
+        "patchSetId": 12
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-11T07:33:22Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_eaec0ff6",
       "range": {
         "startLine": 1,
         "startChar": 48,
