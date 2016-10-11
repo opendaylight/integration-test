@@ -1,0 +1,372 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_1a71c477",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-11T16:38:31Z",
+      "side": 1,
+      "message": "Add space after dot.",
+      "range": {
+        "startLine": 3,
+        "startChar": 59,
+        "endLine": 3,
+        "endChar": 61
+      },
+      "revId": "d53a248e714856463b2bae88b77f2b19b728af43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_da40ec09",
+        "filename": "csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-11T16:38:31Z",
+      "side": 1,
+      "message": "See later comments.",
+      "range": {
+        "startLine": 85,
+        "startChar": 44,
+        "endLine": 85,
+        "endChar": 65
+      },
+      "revId": "d53a248e714856463b2bae88b77f2b19b728af43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_9a3674b3",
+        "filename": "csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-11T16:38:31Z",
+      "side": 1,
+      "message": "See later comments.",
+      "range": {
+        "startLine": 83,
+        "startChar": 44,
+        "endLine": 83,
+        "endChar": 65
+      },
+      "revId": "d53a248e714856463b2bae88b77f2b19b728af43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_9a7314b4",
+        "filename": "csit/suites/bgpcep/bgpfunct/030_bgp_functionalt_evpn.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 311,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-11T16:38:31Z",
+      "side": 1,
+      "message": "Move to front of this Documentation.",
+      "range": {
+        "startLine": 311,
+        "startChar": 44,
+        "endLine": 311,
+        "endChar": 65
+      },
+      "revId": "d53a248e714856463b2bae88b77f2b19b728af43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_5a4a1c56",
+        "filename": "csit/suites/bgpcep/bgpfunct/040_bgp_functional_route_ref.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-11T16:38:31Z",
+      "side": 1,
+      "message": "See the \"first half of this sentence\" comment in an other file.",
+      "range": {
+        "startLine": 88,
+        "startChar": 44,
+        "endLine": 88,
+        "endChar": 65
+      },
+      "revId": "d53a248e714856463b2bae88b77f2b19b728af43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_ba5b702d",
+        "filename": "csit/suites/bgpcep/bgpuser/bgp_app_peer_basic.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 303,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-11T16:38:31Z",
+      "side": 1,
+      "message": "Move to front of this Documentation.",
+      "range": {
+        "startLine": 303,
+        "startChar": 53,
+        "endLine": 303,
+        "endChar": 75
+      },
+      "revId": "d53a248e714856463b2bae88b77f2b19b728af43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_da562c06",
+        "filename": "csit/suites/bgpcep/bgpuser/cases.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 209,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-11T16:38:31Z",
+      "side": 1,
+      "message": "Move to front of this Documentation.",
+      "range": {
+        "startLine": 209,
+        "startChar": 53,
+        "endLine": 209,
+        "endChar": 74
+      },
+      "revId": "d53a248e714856463b2bae88b77f2b19b728af43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_7a51d80d",
+        "filename": "csit/suites/bgpcep/bgpuser/ebgp_peers_basic.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 199,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-11T16:38:31Z",
+      "side": 1,
+      "message": "Move to front of this Documentation.",
+      "range": {
+        "startLine": 199,
+        "startChar": 53,
+        "endLine": 199,
+        "endChar": 75
+      },
+      "revId": "d53a248e714856463b2bae88b77f2b19b728af43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_9a4cb478",
+        "filename": "csit/suites/bgpcep/bgpuser/ibgp_peer_lsp.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 129,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-11T16:38:31Z",
+      "side": 1,
+      "message": "Move to front of this Documentation.",
+      "range": {
+        "startLine": 129,
+        "startChar": 53,
+        "endLine": 129,
+        "endChar": 75
+      },
+      "revId": "d53a248e714856463b2bae88b77f2b19b728af43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_3a3000e8",
+        "filename": "csit/suites/bgpcep/bgpuser/ibgp_peers_basic.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 299,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-11T16:38:31Z",
+      "side": 1,
+      "message": "Move to front of this Documentation.",
+      "range": {
+        "startLine": 299,
+        "startChar": 53,
+        "endLine": 299,
+        "endChar": 74
+      },
+      "revId": "d53a248e714856463b2bae88b77f2b19b728af43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_fa0e8831",
+        "filename": "csit/suites/controller/OneNode_Datastore/010_crud_mdsal_perf.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 101,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-11T16:38:31Z",
+      "side": 1,
+      "message": "In this case, maybe it is better to leave only the first half of the sentence there, ase there are many more steps beside resource initializations.",
+      "range": {
+        "startLine": 101,
+        "startChar": 42,
+        "endLine": 101,
+        "endChar": 65
+      },
+      "revId": "d53a248e714856463b2bae88b77f2b19b728af43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_da08ec2a",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-11T16:38:31Z",
+      "side": 1,
+      "message": "robot",
+      "range": {
+        "startLine": 15,
+        "startChar": 51,
+        "endLine": 15,
+        "endChar": 54
+      },
+      "revId": "d53a248e714856463b2bae88b77f2b19b728af43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_9afe7404",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/010__configure_1_ovsdb_node.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 161,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-11T16:38:31Z",
+      "side": 1,
+      "message": "It would be more readable to initialize SetupUtils just before this line, to simplify line 3.",
+      "range": {
+        "startLine": 161,
+        "startChar": 4,
+        "endLine": 161,
+        "endChar": 47
+      },
+      "revId": "d53a248e714856463b2bae88b77f2b19b728af43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_3f2bd295",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/020__connection_manager.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 85,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-11T16:38:31Z",
+      "side": 1,
+      "message": "Delete",
+      "range": {
+        "startLine": 85,
+        "startChar": 91,
+        "endLine": 85,
+        "endChar": 136
+      },
+      "revId": "d53a248e714856463b2bae88b77f2b19b728af43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_5f2e8ea6",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/030__configure_exit_ovsdb_node.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-11T16:38:31Z",
+      "side": 1,
+      "message": "Not needed, as Configure Exit OVSDB Node Suite Setup already initializes SetupUtils.",
+      "range": {
+        "startLine": 3,
+        "startChar": 42,
+        "endLine": 3,
+        "endChar": 76
+      },
+      "revId": "d53a248e714856463b2bae88b77f2b19b728af43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_ff203ab2",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/040__Vxlan_Extension_Test.robot",
+        "patchSetId": 74
+      },
+      "lineNbr": 114,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-11T16:38:31Z",
+      "side": 1,
+      "message": "This is now a subset of what \"Initialize SetupUtils\" does.",
+      "range": {
+        "startLine": 114,
+        "startChar": 44,
+        "endLine": 114,
+        "endChar": 75
+      },
+      "revId": "d53a248e714856463b2bae88b77f2b19b728af43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
