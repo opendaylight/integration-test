@@ -4,6 +4,7 @@ Documentation     Keywords used to create/modify flow objects. The object is def
 ...               cookie and barrier fields, string formatted xml that can be used to push to
 ...               controller)
 Library           ./FlowLib.py
+Library           ./XmlComparator.py
 Library           XML
 Library           RequestsLibrary
 Variables         ../variables/Variables.py
