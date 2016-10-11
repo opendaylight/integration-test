@@ -76,10 +76,6 @@ LOCAL                 [Documentation]    ${LOCAL_doc}
                       [Tags]             local
                       ${TEST_NAME}       200                  32        12345
 
-ANY                   [Documentation]    ${ANY_doc}
-                      [Tags]             any
-                      ${TEST_NAME}       200                  111       54321
-
 *** Keywords ***
 Create And Remove Flow
     [Arguments]    ${output_port}    ${table_id}    ${flow_id}    ${priority}
@@ -113,7 +109,7 @@ OpenFlow Actions Suite Setup
     Call Method    ${test_switch}    set_mgmt_ip    ${SWITCH_IP}
     Call Method    ${test_switch}    set_controller_ip    ${ODL_SYSTEM_IP}
     Call Method    ${test_switch}    set_mgmt_prompt    ${SWITCH_PROMPT}
-    Run Command On Remote System    ${ODL_SYSTEM_IP}    ps -elf | grep java
+    Run Command On Controller    ${ODL_SYSTEM_IP}    ps -elf | grep java
     Log    MAKE: ${test_switch.make}\n MODEL: ${test_switch.model}\n IP: ${test_switch.mgmt_ip}\n PROMPT: ${test_switch.mgmt_prompt}\n CONTROLLER_IP: ${test_switch.of_controller_ip}\n MGMT_PROTOCOL: ${test_switch.mgmt_protocol}
     Ping    ${test_switch.mgmt_ip}
     Initialize Switch    ${test_switch}
