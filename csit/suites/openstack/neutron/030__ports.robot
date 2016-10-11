@@ -46,6 +46,6 @@ Create New Port
 
 Check New Port
     [Documentation]    Check new port created in OpenDaylight
-    [Tags]    Check subnet OpenDaylight
+    [Tags]    Check port OpenDaylight
     ${resp}    get request    ODLSession    ${ODLREST}/${PORTID}
     Should be Equal As Strings    ${resp.status_code}    200
