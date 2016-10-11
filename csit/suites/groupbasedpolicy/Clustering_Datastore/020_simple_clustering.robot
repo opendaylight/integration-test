@@ -6,14 +6,16 @@ Library           SSHLibrary
 Library           Collections
 Library           OperatingSystem
 Variables         ../../../variables/Variables.py
+Resource          ../../../CompareStream.robot
 Resource          ../../../libraries/Utils.robot
 
 *** Test Cases ***
 Init Variables
-    [Documentation]    Initialize ODL version specific variables
-    log    ${ODL_VERSION}
-    Run Keyword If    '${ODL_VERSION}' == 'stable-lithium'    Init Variables Lithium
-    ...    ELSE    Init Variables Master
+    [Documentation]    Initialize ODL version specific variables using resource CompareStream.
+    CompareStream.Run_Keyword_If_Less_Than_Beryllium    Init Variables Lithium
+    BuiltIn.Set Suite Variable    ${GBP_TENANT_ID}    tenant-red
+    BuiltIn.Set Suite Variable    ${GBP_TENANT1_API}    /restconf/config/policy:tenants/tenant/${GBP_TENANT_ID}
+    BuiltIn.Set Suite Variable    ${GBP_TENANT1_FILE}    ${CURDIR}/../../../variables/gbp/beryllium/tenant1.json
 
 Add Tenant to one node
     [Documentation]    Add one Tenant from JSON file
@@ -39,12 +41,6 @@ Read JSON From File
     ${body}    OperatingSystem.Get File    ${filepath}
     ${jsonbody}    To Json    ${body}
     [Return]    ${jsonbody}
-
-Init Variables Master
-    [Documentation]    Sets variables specific to latest(master) version
-    Set Suite Variable    ${GBP_TENANT_ID}    tenant-red
-    Set Suite Variable    ${GBP_TENANT1_API}    /restconf/config/policy:tenants/tenant/${GBP_TENANT_ID}
-    Set Suite Variable    ${GBP_TENANT1_FILE}    ${CURDIR}/../../../variables/gbp/master/tenant1.json
 
 Init Variables Lithium
     [Documentation]    Sets variables specific to Lithium version
