@@ -1,0 +1,7 @@
+*.deb
+*.deb.md5
+*.noarch.rpm
+*.rpm
+.vagrant
+distribution-karaf-*.tar.gz
+distribution-karaf-*.zip
