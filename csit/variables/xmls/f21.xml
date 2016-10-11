@@ -25,7 +25,7 @@
                 <type>34525</type>
             </ethernet-type>
         </ethernet-match>
-        <ipv6-source>1234:5678:9ABC:DEF0:FDCD:A987:6543:210F/76</ipv6-source>
+        <ipv6-source>1234:5678:9ABC:DEF0:FDC0::/76</ipv6-source>
         <ipv6-destination>fe80::2acf:e9ff:fe21:6431/128</ipv6-destination>
         <metadata>
             <metadata>12345</metadata>

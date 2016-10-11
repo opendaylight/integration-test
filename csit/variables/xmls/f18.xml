@@ -26,6 +26,6 @@
             </ethernet-type>
         </ethernet-match>
         <ipv6-source>fe80::2acf:e9ff:fe21:6431/128</ipv6-source>
-        <ipv6-destination>aabb:1234:2acf:e9ff::fe21:6431/64</ipv6-destination>
+        <ipv6-destination>aabb:1234:2acf:e9ff::/64</ipv6-destination>
     </match>
 </flow>
