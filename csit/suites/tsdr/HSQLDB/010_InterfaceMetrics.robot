@@ -6,6 +6,7 @@ Library           SSHLibrary
 Library           Collections
 Library           String
 Library           ../../../libraries/Common.py
+Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../libraries/KarafKeywords.robot
 Resource          ../../../libraries/TsdrUtils.robot
 Variables         ../../../variables/Variables.py
@@ -18,8 +19,8 @@ Variables         ../../../variables/Variables.py
 Init Variables
     [Documentation]    Initialize ODL version specific variables
     log    ${ODL_VERSION}
-    Run Keyword If    '${ODL_VERSION}' == 'stable-lithium'    Init Variables Lithium
-    ...    ELSE    Init Variables Master
+    CompareStream.Run_Keyword_If_Less_Than_Beryllium    Init Variables Lithium
+    Init Variables Master
 
 Verification of TSDR HSQLDB Feature Installation
     [Documentation]    Install and Verify the TSDR HSQLDB Datastore and JDBC

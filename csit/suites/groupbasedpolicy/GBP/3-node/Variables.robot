@@ -1,6 +1,7 @@
 *** Settings ***
 Documentation     Global variables for GBPSFC 3-node topology
 Variables         ../../../../variables/Variables.py
+Resource          ../../../libraries/CompareStream.robot
 
 *** Variables ***
 ${VM_HOME_FOLDER}    ${WORKSPACE}
@@ -35,10 +36,9 @@ Set Test Variables
     Set Global Variable    ${DIFF_WEBSERVER_MAC}    ${diff_webserver_mac}
 
 Init Variables
-    [Documentation]    Initialize ODL version specific variables
-    log    ${ODL_VERSION}
-    Run Keyword If    '${ODL_VERSION}' == 'stable-lithium'    Init Variables Lithium
-    ...    ELSE    Init Variables Master
+    [Documentation]    Initialize ODL version specific variables using resource CompareStream.
+    CompareStream.Run_Keyword_If_Less_Than_Beryllium    Init Variables Lithium
+    Init Variables Master
 
 Init Variables Master
     [Documentation]    Sets variables specific to latest(master) version

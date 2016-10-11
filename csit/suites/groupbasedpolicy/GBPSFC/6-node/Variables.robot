@@ -3,6 +3,7 @@ Documentation     Global variables for GBPSFC 6node topology. Some variables are
 ...               ODL_VERSION variable which contains release name and is defined in Jenkins job. Keywords for setting release specific
 ...               data are located in this file.
 Variables         ../../../../variables/Variables.py
+Resource          ../../../libraries/CompareStream.robot
 
 *** Variables ***
 ${VM_HOME_FOLDER}    ${WORKSPACE}
@@ -49,10 +50,10 @@ Set Test Variables
     Set Global Variable    ${VXLAN_GPE_PORT}    ${vxlan_gpe_port}
 
 Set ODL Variables
-    [Documentation]    Initialize ODL version specific variables
+    [Documentation]    Initialize ODL version specific variables using resource CompareStream.
     log    ${ODL_VERSION}
-    Run Keyword If    "${ODL_VERSION}" == "stable-lithium" or "${ODL_VERSION}" == "stable/lithium"    Set ODL Variables Lithium
-    ...    ELSE    Set ODL Variables Master
+    CompareStream.Run_Keyword_If_Less_Than_Beryllium    Set ODL Variables Lithium
+    Set ODL Variables Master
 
 Set ODL Variables Master
     [Documentation]    Sets variables specific to latest(master) version
