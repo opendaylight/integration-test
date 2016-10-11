@@ -98,17 +98,6 @@ Report_Failure_And_Point_To_Linked_Bugs
     BuiltIn.Set Test Message    ${msg}${newline}${bugs}${newline}${newline}${TEST_MESSAGE}
     BuiltIn.Log    ${msg}${newline}${bugs}
 
-Ensure All Nodes Are In Response
-    [Arguments]    ${URI}    ${node_list}
-    [Documentation]    A GET is made to the supplied ${URI} and every item in the ${node_list}
-    ...    is verified to exist in the repsonse. This keyword currently implies that it's node
-    ...    specific but any list of strings can be given in ${node_list}. Refactoring of this
-    ...    to make it more generic should be done. (see keyword "Check For Elements At URI")
-    : FOR    ${node}    IN    @{node_list}
-    \    ${resp}    RequestsLibrary.Get Request    session    ${URI}
-    \    Should Be Equal As Strings    ${resp.status_code}    200
-    \    Should Contain    ${resp.content}    ${node}
-
 Check Nodes Stats
     [Arguments]    ${node}
     [Documentation]    A GET on the /node/${node} API is made and specific flow stat
@@ -117,16 +106,6 @@ Check Nodes Stats
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    flow-capable-node-connector-statistics
     Should Contain    ${resp.content}    flow-table-statistics
-
-Check That Port Count Is Ok
-    [Arguments]    ${node}    ${count}
-    [Documentation]    A GET on the /port API is made and the specified port ${count} is
-    ...    verified. A more generic Keyword "Check For Specific Number Of Elements At URI"
-    ...    also does this work and further consolidation should be done.
-    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/${CONTAINER}/port
-    Log    ${resp.content}
-    Should Be Equal As Strings    ${resp.status_code}    200
-    Should Contain X Times    ${resp.content}    ${node}    ${count}
 
 Check For Specific Number Of Elements At URI
     [Arguments]    ${uri}    ${element}    ${expected_count}

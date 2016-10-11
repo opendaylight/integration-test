@@ -8,7 +8,7 @@
             <apply-actions>
                 <action>
                     <group-action>
-                        <group-id>1</group-id>
+                        <group-id>2</group-id>
                     </group-action>
                     <order>1</order>
                 </action>
