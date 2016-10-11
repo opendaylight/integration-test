@@ -1,22 +1,21 @@
 *** Settings ***
-Documentation     This setup variable for Packetcable based on ODL version
-
-*** Variables ***
-${ODL_VERSION}    master    # defaults to latest version in the master branch
-${ODLREST_CCAPS}    /restconf/config/packetcable:ccaps
-${CCAP_TOKEN}     ccap
-${PACKETCABLE_RESOURCE_DIR}    ${CURDIR}/../variables/packetcable/${ODL_VERSION}
+Documentation     This setup variable for Packetcable based on ODL version using resource CompareStream.
+Resource          ${CURDIR}/CompareStream.robot
 
 *** Keywords ***
 Init Variables
-    Run Keyword If    "${ODL_VERSION}" == "lithium"    Init Variables Lithium
-    log    ${ODL_VERSION}
+    CompareStream.Run_Keyword_If_Less_Than_Beryllium    Init Variables Lithium
+    BuiltIn.Set Suite Variable    ${PACKETCABLE_RESOURCE_DIR}    ${CURDIR}/../variables/packetcable/beryllium
+    BuiltIn.Set Suite Variable    ${PACKETCABLE_RESOURCE_DIR}    ${packetcable}
+    BuiltIn.Set Suite Variable    ${ODLREST_CCAPS}    /restconf/config/packetcable:ccaps
+    BuiltIn.Set Suite Variable    ${CCAP_TOKEN}    ccap
     log    ${ODLREST_CCAPS}
     log    ${CCAP_TOKEN}
 
 Init Variables Lithium
-    Set Suite Variable    ${ODLREST_CCAPS}    /restconf/config/packetcable:ccap
-    Set Suite Variable    ${CCAP_TOKEN}    ccaps
+    BuiltIn.Set Suite Variable    ${PACKETCABLE_RESOURCE_DIR}    ${CURDIR}/../variables/packetcable/lithium
+    BuildIn.Set Suite Variable    ${ODLREST_CCAPS}    /restconf/config/packetcable:ccap
+    BuildIn.Set Suite Variable    ${CCAP_TOKEN}    ccaps
 
 Create Session And Init Variables
     Init Variables
