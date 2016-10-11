@@ -6,14 +6,14 @@ Library           SSHLibrary
 Library           Collections
 Library           OperatingSystem
 Variables         ../../../variables/Variables.py
+Resource          ../../../libraries/CompareStream.robot
 Resource          ../../../libraries/Utils.robot
 
 *** Test Cases ***
 Init Variables
-    [Documentation]    Initialize ODL version specific variables
-    log    ${ODL_VERSION}
-    Run Keyword If    '${ODL_VERSION}' == 'stable-lithium'    Init Variables Lithium
-    ...    ELSE    Init Variables Master
+    [Documentation]    Initialize ODL version specific variables using resource CompareStream.
+    CompareStream.Run_Keyword_If_Less_Than_Beryllium    Init Variables Lithium
+    Init Variables Master
 
 Add Tenant to one node
     [Documentation]    Add one Tenant from JSON file
