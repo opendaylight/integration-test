@@ -15,7 +15,7 @@ ${REST_CONTEXT}    /restconf/operational/network-topology:network-topology
 *** Test Cases ***
 Get RESTCONF Topology
     [Documentation]    Get RESTCONF Topology and validate the result.
-    Wait Until Keyword Succeeds    30s    2s    Ensure All Nodes Are In Response    ${REST_CONTEXT}    ${node_list}
+    Wait Until Keyword Succeeds    10s    2s    Ensure All Nodes Are In Response    ${REST_CONTEXT}    ${node_list}
     ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}
     Log    ${resp.content}
 
@@ -38,7 +38,7 @@ List all the links
     ${link3}    Create Dictionary    link-id=openflow:1:1    destination=${body1}    source=${body2}
     Set Suite Variable    ${link3}
     ${links}    Create List    ${link1}    ${link2}    ${link3}    ${link4}
-    Wait Until Keyword Succeeds    30s    2s    Verify Links    ${links}
+    Wait Until Keyword Succeeds    10s    2s    Verify Links    ${links}
 
 Link Down
     [Documentation]    Take link s1-s2 down
@@ -62,21 +62,21 @@ Link Up
     Write    link s1 s2 up
     Read Until    mininet>
     ${links}    Create List    ${link1}    ${link2}    ${link3}    ${link4}
-    Wait Until Keyword Succeeds    30s    2s    Verify Links    ${links}
+    Wait Until Keyword Succeeds    10s    2s    Verify Links    ${links}
 
 Remove Port
     [Documentation]    Remove port s2-eth2
     Write    sh ovs-vsctl del-port s2 s2-eth2
     Read Until    mininet>
     @{list}    Create List    openflow:2:2
-    Wait Until Keyword Succeeds    30s    2s    Check For Elements Not At URI    ${REST_CONTEXT}    ${list}
+    Wait Until Keyword Succeeds    10s    2s    Check For Elements Not At URI    ${REST_CONTEXT}    ${list}
 
 Add Port
     [Documentation]    Add port s2-eth2, new id 5
     Write    sh ovs-vsctl add-port s2 s2-eth2
     Read Until    mininet>
     @{list}    Create List    openflow:2:5
-    Wait Until Keyword Succeeds    30s    2s    Check For Elements At URI    ${REST_CONTEXT}    ${list}
+    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${REST_CONTEXT}    ${list}
 
 *** Keywords ***
 Verify Links
