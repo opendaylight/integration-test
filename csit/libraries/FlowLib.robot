@@ -3,9 +3,11 @@ Documentation     Keywords used to create/modify flow objects. The object is def
 ...               corresponding FlowLib.py library and contains pertinent fields and methods (e.g.,
 ...               cookie and barrier fields, string formatted xml that can be used to push to
 ...               controller)
-Library           ./FlowLib.py
 Library           XML
 Library           RequestsLibrary
+Library           ./FlowLib.py
+Library           ./XmlComparator.py
+Library           ./Common.py
 Variables         ../variables/Variables.py
 
 *** Variables ***
@@ -147,44 +149,67 @@ Remove Flow XML Element
     Set Flow Field    ${flow}    xml    ${xml_string}
     [Return]    ${flow}
 
+Add Group To Controller And Verify
+    [Arguments]    ${group_body}    ${node_id}    ${group_id}
+    [Documentation]    Push group through REST-API and verify in data-store
+    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_NODES_API}/node/${node_id}/group/${group_id}    headers=${HEADERS_XML}    data=${group_body}
+    Log    ${resp.content}
+    BuiltIn.Should_Match    "${resp.status_code}"    "20?"
+    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/${node_id}/group/${group_id}    headers=${ACCEPT_XML}
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Compare Xml    ${group_body}    ${resp.content}
+
 Add Flow To Controller And Verify
     [Arguments]    ${flow_body}    ${node_id}    ${table_id}    ${flow_id}
     [Documentation]    Push flow through REST-API and verify in data-store
-    ${resp}    RequestsLibrary.Put Request    session    ${REST_CON}/node/${node_id}/table/${table_id}/flow/${flow_id}    headers=${HEADERS_XML}    data=${flow_body}
+    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_NODES_API}/node/${node_id}/table/${table_id}/flow/${flow_id}    headers=${HEADERS_XML}    data=${flow_body}
     Log    ${resp.content}
     BuiltIn.Should_Match    "${resp.status_code}"    "20?"
-    ${resp}    RequestsLibrary.Get Request    session    ${REST_CON}/node/${node_id}/table/${table_id}/flow/${flow_id}    headers=${ACCEPT_XML}
+    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/${node_id}/table/${table_id}/flow/${flow_id}    headers=${ACCEPT_XML}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
-    compare xml    ${flow_body}    ${resp.content}
+    Compare Xml    ${flow_body}    ${resp.content}
 
 Verify Flow On Mininet Switch
     [Arguments]    ${flow_elements}
     [Documentation]    Checking flow on switch
-    sleep    1
-    write    dpctl dump-flows -O OpenFlow13
+    Sleep    1
+    Write    dpctl dump-flows -O OpenFlow13
     ${switchoutput}    Read Until    >
     : FOR    ${flowElement}    IN    @{flow_elements}
-    \    should Contain    ${switchoutput}    ${flowElement}
+    \    Should Contain    ${switchoutput}    ${flowElement}
 
-Remove Flow From Controller And Verify
-    [Arguments]    ${flow_body}    ${node_id}    ${table_id}    ${flow_id}
-    [Documentation]    Remove flow
-    ${resp}    RequestsLibrary.Delete Request    session    ${REST_CON}/node/${node_id}/table/${table_id}/flow/${flow_id}
+Remove Group From Controller And Verify
+    [Arguments]    ${node_id}    ${group_id}
+    [Documentation]    Remove group and verify
+    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/${node_id}/group/${group_id}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
-    ${resp}    RequestsLibrary.Get Request    session    ${REST_CON}/node/${node_id}/table/${table_id}
+    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/${node_id}/group/${group_id}
+    Builtin.Return_From_Keyword_If    ${resp.status_code} == 404
+    Builtin.Log    ${resp.text}
+    Builtin.Fail    The request failed with code ${resp.status_code}
+
+Remove Flow From Controller And Verify
+    [Arguments]    ${node_id}    ${table_id}    ${flow_id}
+    [Documentation]    Remove flow and verify
+    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}/node/${node_id}/table/${table_id}/flow/${flow_id}
     Log    ${resp.content}
-    Should Not Contain    ${resp.content}    ${flow_id}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    ${resp}    RequestsLibrary.Get Request    session    ${CONFIG_NODES_API}/node/${node_id}/table/${table_id}/flow/${flow_id}
+    Builtin.Return_From_Keyword_If    ${resp.status_code} == 404
+    Builtin.Log    ${resp.text}
+    Builtin.Fail    The request failed with code ${resp.status_code}
 
 Verify Flow Does Not Exist On Mininet Switch
     [Arguments]    ${flow_elements}
     [Documentation]    Checking flow on switch is removed
-    sleep    1
-    write    dpctl dump-flows -O OpenFlow13
+    Sleep    1
+    Write    dpctl dump-flows -O OpenFlow13
     ${switchoutput}    Read Until    >
     : FOR    ${flowElement}    IN    @{flow_elements}
-    \    should Not Contain    ${switchoutput}    ${flowElement}
+    \    Should Not Contain    ${switchoutput}    ${flowElement}
 
 Remove Default Flows
     [Arguments]    ${node_id}

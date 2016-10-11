@@ -14,6 +14,7 @@ Library           RequestsLibrary
 Library           ../../../../libraries/Common.py
 
 *** Variables ***
+${flow_update_time}    3s
 ${XmlsDir}        ${CURDIR}/../../../../variables/xmls
 ${switch_idx}     1
 ${switch_name}    s${switch_idx}
@@ -227,7 +228,7 @@ Test Update Flows Group 0
     \    Create Flow Variables For Suite From XML File    ${XmlsDir}/${flowfile}
     \    Run Keyword And Continue On Failure    Update Flow Via Restconf    ${switch_idx}    ${table_id}    ${flow_id}    ${upddata}
     # Lets wait for ofp to collect stats
-    Sleep    3s
+    Sleep    ${flow_update_time}
     # Show switch content (for debug purposes if needed)
     Write    dpctl dump-flows -O OpenFlow13
     Read Until    mininet>
@@ -417,7 +418,7 @@ Test Delete Flows Group 0
     \    Create Flow Variables For Suite From XML File    ${XmlsDir}/${flowfile}
     \    Run Keyword And Continue On Failure    Delete Flow Via Restconf    ${switch_idx}    ${table_id}    ${flow_id}
     # Lets wait for ofp to collect stats
-    Sleep    3s
+    Sleep    ${flow_update_time}
     # Show switch content (for debug purposes if needed)
     Write    dpctl dump-flows -O OpenFlow13
     Read Until    mininet>
