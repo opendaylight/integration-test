@@ -2,14 +2,14 @@
 Documentation     Openstack library. This library is useful for tests to create network, subnet, router and vm instances
 Library           SSHLibrary
 Resource          Utils.robot
+Resource          TemplatedRequests.robot
+Resource          ../variables/Variables.robot
 Library           Collections
 Library           String
 Library           OperatingSystem
 Variables         ../variables/Variables.py
 
 *** Variables ***
-${REST_CON}       /restconf/config/
-${REST_CON_OP}    /restconf/operations/
 ${VPN_INSTANCE_DELETE}    vpn1_instance_delete.json
 ${GETL3VPN}       GETL3vpn.json
 ${CREATE_RESP_CODE}    200
@@ -32,11 +32,12 @@ ${itm_ip-address2_def}    "3.3.3.3"
 ${itm_gateway-ip_def}    "0.0.0.0"
 ${itm_tunnel-type_def}    vxlan
 ${itm_zone-name_def}    TZA
+${VAR_BASE}       ${CURDIR}/../variables/vpnservice/
 
 *** Keywords ***
 VPN Create L3VPN
     [Arguments]    ${vpn_instance}    &{Kwargs}
-    [Documentation]    Create L3VPN .
+    [Documentation]    Create an L3VPN using the Json  using the list of optional arguments received.
     @{KeysList}    Create List    CREATE_ID    CREATE_NAME    CREATE_ROUTER_DISTINGUISHER    CREATE_EXPORT_RT    CREATE_IMPORT_RT
     ...    CREATE_TENANT_ID
     ${body} =    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/${vpn_instance}
@@ -62,67 +63,89 @@ VPN Create L3VPN
     Log    TENANT_ID:${CREATE_TENANT_ID}
     Set Global Variable    ${GET_ID}    ${CREATE_ID}
     Log    ${body}
-    ${resp} =    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:createL3VPN    data=${body}
+    ${resp} =    RequestsLibrary.Post Request    session    ${OPERATIONS_API}/neutronvpn:createL3VPN    data=${body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    ${CREATE_RESP_CODE}
     ${body1} =    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/${GETL3VPN}
     ${body1} =    Replace String    ${body1}    ${CREATE_ID_DEFAULT}    ${CREATE_ID}
-    ${resp} =    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:getL3VPN    data=${body1}
+    ${resp} =    RequestsLibrary.Post Request    session    ${OPERATIONS_API}/neutronvpn:getL3VPN    data=${body1}
     Log    ${resp}
     Should Be Equal As Strings    ${resp.status_code}    ${CREATE_RESP_CODE}
 
 VPN Get L3VPN
     [Arguments]    ${GET_L3VPN_ID}
+    [Documentation]    Will return detailed list of the L3VPN_ID received 
     ${body1} =    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/${GETL3VPN}
     ${body1} =    Replace String    ${body1}    ${CREATE_ID_DEFAULT}    ${GET_L3VPN_ID}
-    ${resp} =    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:getL3VPN    data=${body1}
+    ${resp} =    RequestsLibrary.Post Request    session    ${OPERATIONS_API}/neutronvpn:getL3VPN    data=${body1}
     Log    ${resp}
     Log    BODY:${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    ${CREATE_RESP_CODE}
     [Return]    ${resp.content}
 
+Associate L3VPN To Network
+    [Arguments]    &{Kwargs}
+    [Documentation]    Associate the created L3VPN to a network-id received as dictionary argument
+    ${resp} =    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/assoc_l3vpn    mapping=${Kwargs}    session=session
+    Log    ${resp}
+    Get L3VPN Association
+
+Dissociate L3VPN From Networks
+    [Arguments]    &{Kwargs}
+    [Documentation]    Disssociate the already associated networks from L3VPN 
+    ${resp} =    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/dissoc_l3vpn    mapping=${Kwargs}    session=session
+    Log    ${resp}
+    Get L3VPN Association
+
+Get L3VPN Association
+    [Documentation]    Will return detailed list of L3VPN created and associated networks
+    ${resp} =    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/get_l3vpn    mapping={"getid":${GET_ID}}    session=session
+    Log    ${resp}
+    [Return]    ${resp}
+
 Associate VPN to Router
     [Arguments]    ${ROUTER}    ${VPN_INSTANCE_NAME}
-    [Documentation]    Associate VPN to Router
+    [Documentation]    Associate the created L3VPN to a router-id received as argument
     ${body} =    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/vpn_router.json
     ${body} =    Replace String    ${body}    VPN_ID    ${VPN_INSTANCE_NAME}
     ${body} =    Replace String    ${body}    ROUTER_ID    ${ROUTER}
-    ${resp} =    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:associateRouter    data=${body}
+    ${resp} =    RequestsLibrary.Post Request    session    ${OPERATIONS_API}/neutronvpn:associateRouter    data=${body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    ${CREATE_RESP_CODE}
     ${body1} =    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/${GETL3VPN}
     ${body1} =    Replace String    ${body1}    ${CREATE_ID_DEFAULT}    ${GET_ID}
-    ${resp} =    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:getL3VPN    data=${body1}
+    ${resp} =    RequestsLibrary.Post Request    session    ${OPERATIONS_API}/neutronvpn:getL3VPN    data=${body1}
     Log    ${resp}
     Should Be Equal As Strings    ${resp.status_code}    ${CREATE_RESP_CODE}
 
 Dissociate VPN to Router
     [Arguments]    ${ROUTER}    ${VPN_INSTANCE_NAME}
-    [Documentation]    Dissociate VPN to Router
+    [Documentation]    Dissociate the already associated routers from L3VPN
     ${body} =    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/vpn_router.json
     ${body} =    Replace String    ${body}    VPN_ID    ${VPN_INSTANCE_NAME}
     ${body} =    Replace String    ${body}    ROUTER_ID    ${ROUTER}
-    ${resp} =    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:dissociateRouter    data=${body}
+    ${resp} =    RequestsLibrary.Post Request    session    ${OPERATIONS_API}/neutronvpn:dissociateRouter    data=${body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    ${CREATE_RESP_CODE}
     ${body1} =    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/${GETL3VPN}
     ${body1} =    Replace String    ${body1}    ${CREATE_ID_DEFAULT}    ${GET_ID}
-    ${resp} =    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:getL3VPN    data=${body1}
+    ${resp} =    RequestsLibrary.Post Request    session    ${OPERATIONS_API}/neutronvpn:getL3VPN    data=${body1}
     Log    ${resp}
     Should Be Equal As Strings    ${resp.status_code}    ${CREATE_RESP_CODE}
 
 VPN Delete L3VPN
     [Arguments]    ${DEL_L3VPN_ID}
+    [Documentation]    Delete the created L3VPN
     ${body1} =    OperatingSystem.Get File    ${VPN_CONFIG_DIR}/${VPN_INSTANCE_DELETE}
     Log    ${body1}
     ${body1} =    Replace String    ${body1}    ${CREATE_ID_DEFAULT}    ${DEL_L3VPN_ID}
-    ${resp} =    RequestsLibrary.Post Request    session    ${REST_CON_OP}neutronvpn:deleteL3VPN    ${body1}
+    ${resp} =    RequestsLibrary.Post Request    session    ${OPERATIONS_API}/neutronvpn:deleteL3VPN    ${body1}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    ${CREATE_RESP_CODE}
 
 ITM Create Tunnel
     [Arguments]    &{Kwargs}
-    [Documentation]    Creates Tunnel between the two DPNs
+    [Documentation]    Creates Tunnel between the two DPNs received in the dictionary argument
     @{KeysList}    Create List    prefix    vlan-id    dpn-id1    portname1    ip-address1
     ...    dpn-id2    portname2    ip-address2    gateway-ip    tunnel-type    zone-name
     Log    Arguments Received:${Kwargs}
@@ -152,14 +175,14 @@ ITM Create Tunnel
     ${zone-name} =    Run Keyword If    ${Kwargs} != None    Pop From Dictionary    ${Kwargs}    ${KeysList[10]}    default=${itm_zone-name_def}
     ${json_body} =    Replace String    ${json_body}    \"zone-name\":\"${itm_zone-name_def}    \"zone-name\":\"${zone-name}
     Log    ${json_body}
-    ${resp} =    RequestsLibrary.Post Request    session    ${REST_CON}/itm:transport-zones/    data=${json_body}
+    ${resp} =    RequestsLibrary.Post Request    session    ${CONFIG_API}/itm:transport-zones/    data=${json_body}
     Log    ${resp.content}
     Log    ${resp.status_code}
     Should Be Equal As Strings    ${resp.status_code}    204
 
 ITM Get Tunnels
     [Documentation]    Get all Tunnels and return the contents
-    ${resp} =    RequestsLibrary.Get Request    session    ${REST_CON}itm:transport-zones/
+    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/itm:transport-zones/
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.content}
@@ -167,7 +190,7 @@ ITM Get Tunnels
 ITM Delete Tunnel
     [Arguments]    ${zone-name}
     [Documentation]    Delete Tunnels created under the transport-zone
-    ${resp} =    RequestsLibrary.Delete Request    session    ${REST_CON}/itm:transport-zones/transport-zone/${zone-name}/
+    ${resp} =    RequestsLibrary.Delete Request    session    ${CONFIG_API}/itm:transport-zones/transport-zone/${zone-name}/
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.content}

@@ -117,9 +117,10 @@ ${ODL_SYSTEM_USER}    ${DEFAULT_USER}    # Linux username specific for ODL syste
 ${ODL_SYSTEM_PASSWORD}    ${DEFAULT_PASSWORD}    # Linux password (or empty to use public key) specific for ODL systems.
 ${ODL_SYSTEM_PROMPT}    ${DEFAULT_PROMPT}    # Bash prompt substring specific for ODL systems.
 ${OPERATIONAL_API}    /restconf/operational    # FIXME: Move to a separate Resource and add description.
+${OPERATIONS_API}    /restconf/operations    # FIXME: Move to a separate Resource and add description.
 ${OPERATIONAL_GBP_TENANTS_API}    /restconf/operational/policy:tenants    # FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
 ${OPERATIONAL_NODES_API}    /restconf/operational/opendaylight-inventory:nodes    # FIXME: Move to a separate Resource and add description.
-${OPERATIONAL_NODES_NETVIRT} /restconf/operational/network-topology:network-topology/topology/netvirt:1    \    # FIXME: Move to a separate Resource and add description.
+${OPERATIONAL_NODES_NETVIRT}    /restconf/operational/network-topology:network-topology/topology/netvirt:1    \    # FIXME: Move to a separate Resource and add description.
 ${OPERATIONAL_TOPO_API}    /restconf/operational/network-topology:network-topology    # FIXME: Move to a separate Resource and add description.
 ${OS_SYSTEM_PROMPT}    \$    # Prompt substring specific to OpenStack systems.
 ${OSREST}         /v2.0/networks    # FIXME: Move to a separate Neutron-related Resource and add description.
