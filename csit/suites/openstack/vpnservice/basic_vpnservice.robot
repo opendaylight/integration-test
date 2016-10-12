@@ -53,8 +53,8 @@ Create ITM Tunnel
 
 Create Neutron Networks
     [Documentation]    Create two networks
-    Create Network    ${NETWORKS[0]}    --provider:network_type local
-    Create Network    ${NETWORKS[1]}    --provider:network_type local
+    Create Network    ${NETWORKS[0]}
+    Create Network    ${NETWORKS[1]}
     ${NET_LIST}    List Networks
     Log    ${NET_LIST}
     Should Contain    ${NET_LIST}    ${NETWORKS[0]}
@@ -108,6 +108,11 @@ Check L3_Datapath Traffic Across Networks With Router
     [Tags]    exclude
     Log    This test will be added in the next patch
 
+Delete Router Interfaces
+    [Documentation]    Remove Interface to the subnets.
+    : FOR    ${INTERFACE}    IN    @{SUBNETS}
+    \    Remove Interface    ${ROUTERS[0]}    ${INTERFACE}
+
 Create L3VPN
     [Documentation]    Creates L3VPN and verify the same
     VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[0]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
@@ -127,10 +132,21 @@ Dissociate L3VPN to Routers
     ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
     Dissociate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
 
-Delete Router Interfaces
-    [Documentation]    Remove Interface to the subnets.
-    : FOR    ${INTERFACE}    IN    @{SUBNETS}
-    \    Remove Interface    ${ROUTERS[0]}    ${INTERFACE}
+Associate L3VPN To Networks
+    [Documentation]    Associates L3VPN to networks and verify
+    ${devstack_conn_id} =    Get ControlNode Connection
+    ${network1_id} =    Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
+    ${network2_id} =    Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
+    Associate Network to VPN    ${VPN_INSTANCE_NAME[1]}    ${network1_id}
+    Associate Network to VPN    ${VPN_INSTANCE_NAME[1]}    ${network2_id}
+
+Dissociate L3VPN From Networks
+    [Documentation]    Dissociate L3VPN from networks
+    ${devstack_conn_id} =    Get ControlNode Connection
+    ${network1_id} =    Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
+    ${network2_id} =    Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
+    Dissociate L3VPN From Networks    ${VPN_INSTANCE_NAME[1]}    ${network1_id}
+    Dissociate L3VPN From Networks    ${VPN_INSTANCE_NAME[1]}    ${network2_id}
 
 Delete Routers
     [Documentation]    Delete Router and Interface to the subnets.
