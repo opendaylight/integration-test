@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_3a6e3d97",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 24
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2016-10-12T11:19:25Z",
+      "side": 1,
+      "message": "Datapath validation test cases for ELAN, router and extra route",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 19
+      },
+      "revId": "fdefa3442af397482c37ee6123c565f6c482303e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_7a8c3580",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 332,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2016-10-12T11:19:25Z",
+      "side": 1,
+      "message": "Pls remove this code",
+      "range": {
+        "startLine": 327,
+        "startChar": 2,
+        "endLine": 332,
+        "endChar": 63
+      },
+      "revId": "fdefa3442af397482c37ee6123c565f6c482303e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_3ac0fd7b",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 93,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2016-10-12T11:19:25Z",
+      "side": 1,
+      "message": "Pls add one space between variable name and \u003d sign. This is applicable for all your new changes.",
+      "range": {
+        "startLine": 93,
+        "startChar": 2,
+        "endLine": 93,
+        "endChar": 56
+      },
+      "revId": "fdefa3442af397482c37ee6123c565f6c482303e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_3ad91d84",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2016-10-12T11:19:25Z",
+      "side": 1,
+      "message": "Use sentence case , Example: Datapath test across the L3 networks using router.",
+      "range": {
+        "startLine": 110,
+        "startChar": 21,
+        "endLine": 110,
+        "endChar": 77
+      },
+      "revId": "fdefa3442af397482c37ee6123c565f6c482303e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_9ae67143",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 118,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2016-10-12T11:19:25Z",
+      "side": 1,
+      "message": "change the title as follow to align with other testcase(Camel case)",
+      "range": {
+        "startLine": 118,
+        "startChar": 19,
+        "endLine": 118,
+        "endChar": 67
+      },
+      "revId": "fdefa3442af397482c37ee6123c565f6c482303e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_dacf49b2",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 120,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2016-10-12T11:19:25Z",
+      "side": 1,
+      "message": "Same as above test case",
+      "range": {
+        "startLine": 119,
+        "startChar": 23,
+        "endLine": 120,
+        "endChar": 41
+      },
+      "revId": "fdefa3442af397482c37ee6123c565f6c482303e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_bad40d48",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 142,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2016-10-12T11:19:25Z",
+      "side": 1,
+      "message": "Pls add doc",
+      "range": {
+        "startLine": 142,
+        "startChar": 0,
+        "endLine": 142,
+        "endChar": 12
+      },
+      "revId": "fdefa3442af397482c37ee6123c565f6c482303e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
