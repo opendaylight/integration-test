@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_751c4978",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-12T04:39:37Z",
+      "side": 1,
+      "message": "Change this to \"Test cases are added for L3VPN Network Assocition and Dissotiation use cases\"",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 7,
+        "endChar": 45
+      },
+      "revId": "4d82bf1418becb1e952aa1948f41addbdfc0ce57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_d511dd5e",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 73,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-12T04:39:37Z",
+      "side": 1,
+      "message": "Associate L3VPN to a network",
+      "range": {
+        "startLine": 73,
+        "startChar": 23,
+        "endLine": 73,
+        "endChar": 47
+      },
+      "revId": "4d82bf1418becb1e952aa1948f41addbdfc0ce57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_90fe5304",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 86,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-12T04:39:37Z",
+      "side": 1,
+      "message": "Dissociate L3VPN from networks",
+      "range": {
+        "startLine": 86,
+        "startChar": 0,
+        "endLine": 86,
+        "endChar": 25
+      },
+      "revId": "4d82bf1418becb1e952aa1948f41addbdfc0ce57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_b516e153",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 88,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-12T04:39:37Z",
+      "side": 1,
+      "message": "Disssociate L3VPN from network",
+      "range": {
+        "startLine": 88,
+        "startChar": 23,
+        "endLine": 88,
+        "endChar": 48
+      },
+      "revId": "4d82bf1418becb1e952aa1948f41addbdfc0ce57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_150b552c",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 89,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-12T04:39:37Z",
+      "side": 1,
+      "message": "Associate L3VPN to networks",
+      "range": {
+        "startLine": 88,
+        "startChar": 0,
+        "endLine": 89,
+        "endChar": 27
+      },
+      "revId": "4d82bf1418becb1e952aa1948f41addbdfc0ce57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_5505cd12",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-12T04:39:37Z",
+      "side": 1,
+      "message": "Associates L3VPN to networks and verify",
+      "range": {
+        "startLine": 90,
+        "startChar": 23,
+        "endLine": 90,
+        "endChar": 48
+      },
+      "revId": "4d82bf1418becb1e952aa1948f41addbdfc0ce57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_f507b91b",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-12T04:39:37Z",
+      "side": 1,
+      "message": "Dissociate L3VPN from networks",
+      "range": {
+        "startLine": 96,
+        "startChar": 0,
+        "endLine": 97,
+        "endChar": 28
+      },
+      "revId": "4d82bf1418becb1e952aa1948f41addbdfc0ce57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_3502d10b",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 98,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-12T04:39:37Z",
+      "side": 1,
+      "message": "Dissociate L3VPN from networks",
+      "range": {
+        "startLine": 98,
+        "startChar": 23,
+        "endLine": 98,
+        "endChar": 49
+      },
+      "revId": "4d82bf1418becb1e952aa1948f41addbdfc0ce57",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
