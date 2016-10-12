@@ -74,7 +74,7 @@ Play_To_Odl_route_es_arb
 
 Odl_To_Play_route_es_as
     [Template]    Odl_To_Play_Template
-    route_es_arb
+    route_es_as
 
 Play_To_Odl_route_es_as
     [Template]    Play_To_Odl_Template
@@ -82,7 +82,7 @@ Play_To_Odl_route_es_as
 
 Odl_To_Play_route_es_lacp
     [Template]    Odl_To_Play_Template
-    route_es_arb
+    route_es_lacp
 
 Play_To_Odl_route_es_lacp
     [Template]    Play_To_Odl_Template
@@ -90,7 +90,7 @@ Play_To_Odl_route_es_lacp
 
 Odl_To_Play_route_es_lan
     [Template]    Odl_To_Play_Template
-    route_es_arb
+    route_es_lan
 
 Play_To_Odl_route_es_lan
     [Template]    Play_To_Odl_Template
@@ -98,7 +98,7 @@ Play_To_Odl_route_es_lan
 
 Odl_To_Play_route_es_mac
     [Template]    Odl_To_Play_Template
-    route_es_arb
+    route_es_mac
 
 Play_To_Odl_route_es_mac
     [Template]    Play_To_Odl_Template
@@ -106,7 +106,7 @@ Play_To_Odl_route_es_mac
 
 Odl_To_Play_route_es_rou
     [Template]    Odl_To_Play_Template
-    route_es_arb
+    route_es_rou
 
 Play_To_Odl_route_es_rou
     [Template]    Play_To_Odl_Template
