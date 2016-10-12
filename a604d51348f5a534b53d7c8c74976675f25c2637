@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_1d209b9a",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-12T13:49:03Z",
+      "side": 1,
+      "message": "also this one",
+      "range": {
+        "startLine": 172,
+        "startChar": 34,
+        "endLine": 172,
+        "endChar": 37
+      },
+      "revId": "a604d51348f5a534b53d7c8c74976675f25c2637",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
