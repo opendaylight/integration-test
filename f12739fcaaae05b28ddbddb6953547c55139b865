@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_a005fa15",
+        "filename": "csit/suites/sfc/Full_Deploy/010__sfc_full_deploy.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-12T20:22:06Z",
+      "side": 1,
+      "message": "can you wrap the below 4 lines in a local keyword and then use \"Wait Until Keyword Succeeds\" to poll instead of a sleep.",
+      "range": {
+        "startLine": 48,
+        "startChar": 4,
+        "endLine": 48,
+        "endChar": 14
+      },
+      "revId": "f12739fcaaae05b28ddbddb6953547c55139b865",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
