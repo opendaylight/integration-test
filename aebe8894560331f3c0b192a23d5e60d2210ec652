@@ -1,0 +1,188 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_b00d4f3a",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 317,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-12T05:02:06Z",
+      "side": 1,
+      "message": "Let us remove this line if not needed",
+      "range": {
+        "startLine": 312,
+        "startChar": 0,
+        "endLine": 317,
+        "endChar": 63
+      },
+      "revId": "aebe8894560331f3c0b192a23d5e60d2210ec652",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_d008cb2a",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 92,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-12T05:02:06Z",
+      "side": 1,
+      "message": "One space is needed between variable and \u0027\u003d\u0027 sign. This needs to be done for all the assignment entries",
+      "range": {
+        "startLine": 92,
+        "startChar": 17,
+        "endLine": 92,
+        "endChar": 19
+      },
+      "revId": "aebe8894560331f3c0b192a23d5e60d2210ec652",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_10124358",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-12T05:02:06Z",
+      "side": 1,
+      "message": "Remove this if not needed",
+      "range": {
+        "startLine": 108,
+        "startChar": 0,
+        "endLine": 117,
+        "endChar": 29
+      },
+      "revId": "aebe8894560331f3c0b192a23d5e60d2210ec652",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_f00ea731",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-12T05:02:06Z",
+      "side": 1,
+      "message": "Add Multiple Extra Routes And Check Data Path Before L3VPN Creation",
+      "range": {
+        "startLine": 136,
+        "startChar": 0,
+        "endLine": 136,
+        "endChar": 67
+      },
+      "revId": "aebe8894560331f3c0b192a23d5e60d2210ec652",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_501cbb6a",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 156,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-12T05:02:06Z",
+      "side": 1,
+      "message": "Remove if not needed",
+      "range": {
+        "startLine": 153,
+        "startChar": 0,
+        "endLine": 156,
+        "endChar": 93
+      },
+      "revId": "aebe8894560331f3c0b192a23d5e60d2210ec652",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_30193f7a",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 173,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-12T05:02:06Z",
+      "side": 1,
+      "message": "Remove if not needed",
+      "range": {
+        "startLine": 163,
+        "startChar": 2,
+        "endLine": 173,
+        "endChar": 159
+      },
+      "revId": "aebe8894560331f3c0b192a23d5e60d2210ec652",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_d01f2b5a",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 278,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-12T05:02:06Z",
+      "side": 1,
+      "message": "Move to the library",
+      "range": {
+        "startLine": 258,
+        "startChar": 0,
+        "endLine": 278,
+        "endChar": 20
+      },
+      "revId": "aebe8894560331f3c0b192a23d5e60d2210ec652",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_f03507dc",
+        "filename": "csit/testplans/netvirt-vpnservice-1node-openstack.txt",
+        "patchSetId": 16
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-12T05:02:06Z",
+      "side": 1,
+      "message": "Revert back this",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 53
+      },
+      "revId": "aebe8894560331f3c0b192a23d5e60d2210ec652",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
