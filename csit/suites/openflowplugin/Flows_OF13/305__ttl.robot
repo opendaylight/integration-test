@@ -85,5 +85,5 @@ Create And Remove Flow
     Log    Flow XML is ${flow.xml}
     Add Flow To Controller And Verify    ${flow.xml}    ${node_id}    ${flow.table_id}    ${flow.id}
     Run Keyword If    "${verify_switch_flag}" == "yes"    Verify Flow On Mininet Switch    ${OVS_FLOWELEMENTS}
-    Remove Flow From Controller And Verify    ${flow.xml}    ${node_id}    ${flow.table_id}    ${flow.id}
+    Remove Flow From Controller And Verify    ${node_id}    ${flow.table_id}    ${flow.id}
     Run Keyword If    "${verify_switch_flag}" == "yes"    Verify Flow Does Not Exist On Mininet Switch    ${OVS_FLOWELEMENTS}
