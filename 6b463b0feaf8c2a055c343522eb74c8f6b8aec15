@@ -2,6 +2,46 @@
   "comments": [
     {
       "key": {
+        "uuid": "7a6b29fe_0f87b910",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-13T19:41:23Z",
+      "side": 1,
+      "message": "it would be better if test case docs would be a little more descriptive and not just a copy/paste of the actual test case name.  maybe a little more on the how or why of the test case.",
+      "revId": "6b463b0feaf8c2a055c343522eb74c8f6b8aec15",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_2f99d56e",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-13T19:41:23Z",
+      "side": 1,
+      "message": "btw, these are globally available from our Variables resources (hoping to get people to move to Variables.robot\nas ${CONFIG_API} and ${OPERATIONAL_API} in case you thought it\u0027s worth the refactor.",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 39
+      },
+      "revId": "6b463b0feaf8c2a055c343522eb74c8f6b8aec15",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_94eda0f2",
         "filename": "csit/libraries/VpnOperations.robot",
         "patchSetId": 4
