@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_b4e6dc42",
+        "filename": "csit/libraries/TemplatedRequests.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 292,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-13T14:31:53Z",
+      "side": 1,
+      "message": "Use the current robotframework\u003d\u003d3.0 for tidying.",
+      "range": {
+        "startLine": 292,
+        "startChar": 141,
+        "endLine": 292,
+        "endChar": 145
+      },
+      "revId": "e23dc0da7217404b579d6de2be70c0ea721452b3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
