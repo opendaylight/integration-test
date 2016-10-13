@@ -7,12 +7,19 @@ Library           Collections
 Library           OperatingSystem
 Library           RequestsLibrary
 Library           HttpLibrary.HTTP
+Library           Config103.py
 Library           ../../../libraries/SFC/SfcUtils.py
+Resource          ../../../libraries/ClusterOpenFlow.robot
+Resource          ../../../libraries/KarafKeywords.robot
 Variables         ../../../variables/Variables.py
 Resource          ../../../variables/sfc/Variables.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/TemplatedRequests.robot
 Resource          ../../../libraries/SFC/DockerSfc.robot
+
+
+*** Variables ***
+@{FEATURE_LIST}    odl-sfc-model    odl-sfc-provider    odl-sfc-provider-rest    odl-sfc-netconf    odl-sfc-ovs    odl-sfc-scf-openflow    odl-sfc-sb-rest    odl-sfc-ui 
 
 *** Test Cases ***
 Basic Environment Setup Tests
@@ -36,6 +43,47 @@ Create and Get Rendered Service Path
     ${flowList}=    Get Flows In Docker Containers
     log    ${flowList}
     Should Contain Match    ${flowList}    *cookie=0x14*
+
+Verify if the SFC features are installed on each node
+    [Documentation]    Executes command "feature list -i | grep <feature_name>" in karaf console and checks if output \ contain \ the specific features.
+    : FOR    ${index}    IN RANGE    1    ${NUM_ODL_SYSTEM}+1
+    \    ${member_ip} =    BuiltIn.Set_Variable    ${ODL_SYSTEM_${index}_IP}
+    \    Verify if the SFC features in node    ${member_ip}
+    Add SFC Elements
+
+Kill leader and check followers status
+    [Documentation]    Kill leader and check followers status
+    ${leader_list}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    default    operational
+    ${leader_list}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    default    config
+    ClusterManagement.Kill_Single_Member    ${leader_list}
+    Wait until Keyword succeeds    2min    5 sec     ClusterOpenFlow.Check OpenFlow Shards Status    ${follower_list}
+    ClusterManagement.Start_Single_Member    ${leader_list}
+    Wait until Keyword succeeds    2min    5 sec     ClusterOpenFlow.Check OpenFlow Shards Status
+
+Complete configuration after failover
+    [Documentation]    Add SFC cofiguration in leader without creating the RSP. Kill the leader. Add the RSP in the new leader. Check correction.
+    ${leader_list}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    default    operational
+    ${leader_ip} =    Set_Variable    ${ODL_SYSTEM_${leader_list}_IP}
+    ${first_follower} =    Get From List    ${follower_list}    0
+    Load configuration without RSP    ${leader_ip}
+    ClusterManagement.Kill_Single_Member    ${leader_list}
+    Load_RSP103    ${ODL_SYSTEM_${first_follower}_IP}
+    ${session} =    Resolve_Http_Session_For_Member    ${first_follower}
+    ${uri} =    BuiltIn.Set_Variable    /restconf/operational/rendered-service-path:rendered-service-paths/
+    ${data_text} =    TemplatedRequests.Get_As_Json_From_Uri    uri=${uri}    session=${session}
+    ClusterManagement.Start_Single_Member    ${leader_list}
+    Wait until Keyword succeeds    2min    5 sec     ClusterOpenFlow.Check OpenFlow Shards Status
+    Remove SFC Elements
+
+Check follower failure and restart
+    [Documentation]    Stop karaf in follower and start again and check everything is ok
+    ClusterOpenFlow.Check OpenFlow Shards Status
+    ${leader_list}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    default    operational
+    ${first_follower} =    Get From List    ${follower_list}    0
+    ClusterManagement.Kill_Single_Member    ${first_follower}
+    ClusterManagement.Start_Single_Member    ${first_follower}
+    Wait until Keyword succeeds    2min    5 sec     ClusterOpenFlow.Check OpenFlow Shards Status
+    ClusterOpenFlow.Check OpenFlow Shards Status
 
 *** Keywords ***
 Init Suite
@@ -64,6 +112,7 @@ Init Suite
     Set Suite Variable    ${SERVICE_CHAINS_FILE}    ${JSON_DIR}/service-function-chains.json
     Set Suite Variable    ${SERVICE_FUNCTION_PATHS_FILE}    ${JSON_DIR}/service-function-paths.json
     DockerSfc.Docker Ovs Start    nodes=2    guests=1    tunnel=vxlan-gpe    odl_ip=${ODL_SYSTEM_IP}
+    ClusterManagement Setup
 
 Add SFC Elements
     [Documentation]    Add Elements to the Controller via API REST
@@ -84,7 +133,6 @@ Remove SFC Elements
 Create Session In Controller
     [Arguments]    ${CONTROLLER}=${ODL_SYSTEM_IP}
     [Documentation]    Removes previously created Sessions and creates a session in specified controller
-    Delete All Sessions
     Create Session    session    http://${CONTROLLER}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 
 Cleanup Suite
@@ -94,3 +142,8 @@ Cleanup Suite
     DockerSfc.Docker Ovs Clean    log_file=myFile4.log
     Delete All Sessions
     SSHLibrary.Close Connection
+
+Verify if the SFC features in node
+    [Arguments]    ${member_ip}
+    : FOR    ${feature}    IN    @{FEATURE_LIST}
+    \    Verify Feature Is Installed    ${feature}    ${member_ip}

@@ -1,2 +1,3 @@
 # Place the suites in run order:
-integration/test/csit/suites/sfc/Full_Deploy/010__sfc_full_deploy.robot
+#integration/test/csit/suites/sfc/Full_Deploy/010__sfc_full_deploy.robot
+integration/test/csit/suites/sfc/SFC_Redundancy/010__sfc_redundancy.robot
