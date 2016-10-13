@@ -18,6 +18,17 @@ Get Tenant ID From Security Group
     Log    ${output}
     [Return]    ${output}
 
+Get Tenant ID From Network
+    [Arguments]    ${network_uuid}
+    [Documentation]    Returns tenant ID by reading it from existing network.
+    ${resp} =    RequestsLibrary.Get Request    session    ${REST_CON}/neutron:neutron/networks/network/${network_uuid}/
+    Log    ${resp.content}
+    ${matches} =    Get Lines Containing String    ${resp.content}    tenant-id
+    ${matches}=    Fetch From Right   ${matches}    :
+    #${tenant_id}=    Strip String    ${matches}
+    ${tenant_id}=    Strip String    ${matches}    characters=}]
+    [Return]    ${tenant_id}
+
 Create Network
     [Arguments]    ${network_name}    ${additional_args}=${EMPTY}    ${verbose}=TRUE
     [Documentation]    Create Network with neutron request.
@@ -295,15 +306,9 @@ Test Operations From Vm Instance
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    ifconfig    ${OS_SYSTEM_PROMPT}
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    route    ${OS_SYSTEM_PROMPT}
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    arp -an    ${OS_SYSTEM_PROMPT}
-    ${dest_vm}=    Get From List    ${list_of_local_dst_ips}    0
-    Log    ${dest_vm}
-    Run Keyword If    ${rcode}    Check Ping    ${dest_vm}
-    ${dest_dhcp}=    Get From List    ${list_of_local_dst_ips}    1
-    Log    ${dest_dhcp}
-    Run Keyword If    ${rcode}    Check Ping    ${dest_dhcp}
-    ${dest_vm}=    Get From List    ${list_of_local_dst_ips}    2
-    Log    ${dest_vm}
-    Run Keyword If    ${rcode}    Check Ping    ${dest_vm}
+    : FOR    ${dest_ip}    IN    @{list_of_local_dst_ips}
+    \    Log    ${dest_ip}
+    \    Run Keyword If    ${rcode}    Check Ping    ${dest_ip}
     Run Keyword If    ${rcode}    Check Metadata Access
     Run Keyword If    '${l2_or_l3}' == 'l3'    Ping Other Instances    ${list_of_external_dst_ips}
     [Teardown]    Exit From Vm Console
@@ -312,15 +317,9 @@ Ping Other Instances
     [Arguments]    ${list_of_external_dst_ips}
     [Documentation]    Check reachability with other network's instances.
     ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance
-    ${dest_vm}=    Get From List    ${list_of_external_dst_ips}    0
-    Log    ${dest_vm}
-    Run Keyword If    ${rcode}    Check Ping    ${dest_vm}
-    ${dest_dhcp}=    Get From List    ${list_of_external_dst_ips}    1
-    Log    ${dest_dhcp}
-    Run Keyword If    ${rcode}    Check Ping    ${dest_dhcp}
-    ${dest_vm}=    Get From List    ${list_of_external_dst_ips}    2
-    Log    ${dest_vm}
-    Run Keyword If    ${rcode}    Check Ping    ${dest_vm}
+    : FOR    ${dest_ip}    IN    @{list_of_external_dst_ips}
+    \    Log    ${dest_ip}
+    \    Run Keyword If    ${rcode}    Check Ping    ${dest_ip}
 
 Create Router
     [Arguments]    ${router_name}
@@ -526,3 +525,18 @@ Create Neutron Port With Additional Params
     Log    ${port_id}
     Close Connection
     [Return]    ${OUTPUT}    ${port_id}
+
+Execute Command on VM Instance
+    [Arguments]    ${net_name}    ${src_ip}    ${cmd}    ${user}=cirros    ${password}=cubswin:)
+    [Documentation]    Login to the vm instance using ssh in the network, executes a command inside the VM and returns the ouput.
+    ${devstack_conn_id} =    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${net_id} =    Get Net Id    ${net_name}    ${devstack_conn_id}
+    ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${src_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no    d:
+    Log    ${output}
+    ${output} =    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
+    Log    ${output}
+    ${rcode} =    Run Keyword And Return Status    Check If Console Is VmInstance
+    ${output} =    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    ${cmd}    ${OS_SYSTEM_PROMPT}
+    [Teardown]    Exit From Vm Console
+    [Return]    ${output}
