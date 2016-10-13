@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_03179852",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2016-10-13T07:50:22Z",
+      "side": 1,
+      "message": "if possible change the TC after L3VPN router association/Disassociation which looks good when we add datapath validation.",
+      "range": {
+        "startLine": 84,
+        "startChar": 0,
+        "endLine": 103,
+        "endChar": 79
+      },
+      "revId": "6d034a89f453fdc79a929f35dcc5aa5020ffcde2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
