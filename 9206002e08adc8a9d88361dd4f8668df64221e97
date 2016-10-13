@@ -16,6 +16,24 @@
       "revId": "9206002e08adc8a9d88361dd4f8668df64221e97",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_89e1099d",
+        "filename": "csit/variables/sfc/master/full-deploy/service-functions.json",
+        "patchSetId": 37
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2016-10-13T13:22:36Z",
+      "side": 0,
+      "message": "Yes, that\u0027s right. After this change this becomes incompatible with Beryllium (that\u0027s also why it is not included as one of the execution releases in jenkins_job_builder), so maybe what we should do is leave a single folder for boron/carbon and following releases (it will also simplify the testing code, as there won´t be need to check the release)",
+      "parentUuid": "7a6b29fe_891629f0",
+      "revId": "9206002e08adc8a9d88361dd4f8668df64221e97",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
