@@ -16,6 +16,18 @@ Get Tenant ID From Security Group
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron security-group-show default | grep "| tenant_id" | awk '{print $4}'
     Log    ${output}
+    ${splitted_output}=    Split String    ${output}    ${EMPTY}
+    ${tenant_id}=    Get from List    ${splitted_output}    0
+    Log    ${tenant_id}
+    [Return]    ${tenant_id}
+
+Get Tenant ID From Network
+    [Arguments]    ${network_name}  
+    [Documentation]    Returns tenant ID by reading it from existing network.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron net-show ${network_name} | grep "| tenant_id" | awk '{print $4}'
+    Log    ${output}
     [Return]    ${output}
 
 Create Network
@@ -295,15 +307,9 @@ Test Operations From Vm Instance
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    ifconfig    ${OS_SYSTEM_PROMPT}
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    route    ${OS_SYSTEM_PROMPT}
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    arp -an    ${OS_SYSTEM_PROMPT}
-    ${dest_vm}=    Get From List    ${list_of_local_dst_ips}    0
-    Log    ${dest_vm}
-    Run Keyword If    ${rcode}    Check Ping    ${dest_vm}
-    ${dest_dhcp}=    Get From List    ${list_of_local_dst_ips}    1
-    Log    ${dest_dhcp}
-    Run Keyword If    ${rcode}    Check Ping    ${dest_dhcp}
-    ${dest_vm}=    Get From List    ${list_of_local_dst_ips}    2
-    Log    ${dest_vm}
-    Run Keyword If    ${rcode}    Check Ping    ${dest_vm}
+    : FOR    ${dest_ip}    IN    @{list_of_local_dst_ips}
+    \    Log    ${dest_ip}
+    \    Run Keyword If    ${rcode}    Check Ping    ${dest_ip}
     Run Keyword If    ${rcode}    Check Metadata Access
     Run Keyword If    '${l2_or_l3}' == 'l3'    Ping Other Instances    ${list_of_external_dst_ips}
     [Teardown]    Exit From Vm Console
@@ -312,15 +318,9 @@ Ping Other Instances
     [Arguments]    ${list_of_external_dst_ips}
     [Documentation]    Check reachability with other network's instances.
     ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance
-    ${dest_vm}=    Get From List    ${list_of_external_dst_ips}    0
-    Log    ${dest_vm}
-    Run Keyword If    ${rcode}    Check Ping    ${dest_vm}
-    ${dest_dhcp}=    Get From List    ${list_of_external_dst_ips}    1
-    Log    ${dest_dhcp}
-    Run Keyword If    ${rcode}    Check Ping    ${dest_dhcp}
-    ${dest_vm}=    Get From List    ${list_of_external_dst_ips}    2
-    Log    ${dest_vm}
-    Run Keyword If    ${rcode}    Check Ping    ${dest_vm}
+    : FOR    ${dest_ip}    IN    @{list_of_external_dst_ips}
+    \    Log    ${dest_ip}
+    \    Run Keyword If    ${rcode}    Check Ping    ${dest_ip}
 
 Create Router
     [Arguments]    ${router_name}
@@ -422,3 +422,18 @@ Create Security Rule
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron security-group-rule-create --direction ${direction} --protocol ${protocol} --port-range-min ${min_port} --port-range-max ${max_port} --remote-ip-prefix ${remote_ip} ${sg_name}
     Close Connection
+
+Execute Command on VM Instance
+    [Arguments]    ${net_name}    ${src_ip}    ${cmd}    ${user}=cirros    ${password}=cubswin:)
+    [Documentation]    Login to the vm instance using ssh in the network, executes a command inside the VM and returns the ouput.
+    ${devstack_conn_id} =    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${net_id} =    Get Net Id    ${net_name}    ${devstack_conn_id}
+    ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${src_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no    d:
+    Log    ${output}
+    ${output} =    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
+    Log    ${output}
+    ${rcode} =    Run Keyword And Return Status    Check If Console Is VmInstance
+    ${output} =    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    ${cmd}    ${OS_SYSTEM_PROMPT}
+    [Teardown]    Exit From Vm Console
+    [Return]    ${output}
