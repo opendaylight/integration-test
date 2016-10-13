@@ -7,7 +7,6 @@ Library           RequestsLibrary
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${ODLREST}        /controller/nb/v2/neutron/ports
 ${OSREST}         /v2.0/ports
 ${data}           {"port":{"network_id":"${NETID}","admin_state_up": true}}
 
@@ -25,7 +24,7 @@ Check OpenDaylight ports
     [Documentation]    Checking OpenDaylight Neutron API for known ports
     [Tags]    Ports Neutron OpenDaylight
     Create Session    ODLSession    http://${ODL_SYSTEM_IP}:${PORT}    headers=${HEADERS}    auth=${AUTH}
-    ${resp}    get request    ODLSession    ${ODLREST}
+    ${resp}    get request    ODLSession    ${NEUTRON_PORTS_API}
     Should be Equal As Strings    ${resp.status_code}    200
     ${ODLResult}    To Json    ${resp.content}
     Log    ${ODLResult}
@@ -47,5 +46,5 @@ Create New Port
 Check New Port
     [Documentation]    Check new port created in OpenDaylight
     [Tags]    Check port OpenDaylight
-    ${resp}    get request    ODLSession    ${ODLREST}/${PORTID}
+    ${resp}    get request    ODLSession    ${NEUTRON_PORTS_API}/${PORTID}
     Should be Equal As Strings    ${resp.status_code}    200
