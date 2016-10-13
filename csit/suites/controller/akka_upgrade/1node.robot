@@ -47,6 +47,7 @@ Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Variables         ${CURDIR}/../../../variables/Variables.robot
 
 *** Variables ***
 ${ALTERNATIVE_BUNDLEFOLDER_PARENT}    /tmp/older
@@ -59,6 +60,19 @@ ${PYTHON_UTILITY_FILENAME}    patch_cars_be_sr2.py
 ${SEGMENT_SIZE}    10000
 
 *** Test Cases ***
+Autodetection of previous release
+    [Documentation]    Parse BUNDLEURL value to find the current version (without SNAPSHOT, daily timestamp, or element)
+     ...               and search Nexus (https://nexus.opendaylight.org/content/repositories/opendaylight.release/org/opendaylight/integration/distribution-karaf/)
+      ...              for latest Service Release of the previous release train.
+     ...               Add such logic to provide URL if ${PREVIOUS_ODL_RELEASE_ZIP_URL} is left empty.
+    #ACTUALBUNDLEURL=https://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/org/opendaylight/integration/distribution-karaf/0.4.4-SNAPSHOT/distribution-karaf-0.4.4-20161010.162829-454.zip
+
+    #SSHLibrary.Get_File    ${actualbundleurl}
+    #${alternative_bundlefolder}/data/log/karaf.log.xz    older.karaf.log.xz
+    # Search the latest Service Release on Nexus
+    # SSHLibrary.Get_File    https://nexus.opendaylight.org/content/repositories/opendaylight.release/org/opendaylight/integration/distribution-karaf/
+    ${Actual_version}=    BuiltIn.Evaluate    '''${BUNDLEFOLDER}'''[len("distribution-karaf-"):]
+
 Kill_Original_Odl
     [Documentation]    The ODL prepared by releng/builder is the newer one, kill it.
     ...    Also, remove journal and snapshots.
