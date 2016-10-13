@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_891629f0",
+        "filename": "csit/variables/sfc/master/full-deploy/service-functions.json",
+        "patchSetId": 37
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-13T12:12:20Z",
+      "side": 0,
+      "message": "Data in csit/variables/sfc/master/ files are currently used for every stream from beryllium on. Is this Change compatible with Beryllium? If not, I recommend to abandon /master/ and create /beryllium/ and /carbon/.",
+      "revId": "9206002e08adc8a9d88361dd4f8668df64221e97",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
