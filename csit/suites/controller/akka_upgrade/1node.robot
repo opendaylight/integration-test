@@ -59,6 +59,14 @@ ${PYTHON_UTILITY_FILENAME}    patch_cars_be_sr2.py
 ${SEGMENT_SIZE}    10000
 
 *** Test Cases ***
+Autodetection of previous release
+    [Documentation]    Parse BUNDLEURL value to find the current version (without SNAPSHOT, daily timestamp, or element)
+     ...               and search Nexus (https://nexus.opendaylight.org/content/repositories/opendaylight.release/org/opendaylight/integration/distribution-karaf/)
+      ...              for latest Service Release of the previous release train.
+     ...               Add such logic to provide URL if ${PREVIOUS_ODL_RELEASE_ZIP_URL} is left empty.
+    # Search the latest Service Release on Nexus
+     SSHLibrary.Get_File    https://nexus.opendaylight.org/content/repositories/opendaylight.release/org/opendaylight/integration/distribution-karaf/
+
 Kill_Original_Odl
     [Documentation]    The ODL prepared by releng/builder is the newer one, kill it.
     ...    Also, remove journal and snapshots.
