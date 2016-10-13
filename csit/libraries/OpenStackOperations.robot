@@ -295,15 +295,9 @@ Test Operations From Vm Instance
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    ifconfig    ${OS_SYSTEM_PROMPT}
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    route    ${OS_SYSTEM_PROMPT}
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    arp -an    ${OS_SYSTEM_PROMPT}
-    ${dest_vm}=    Get From List    ${list_of_local_dst_ips}    0
-    Log    ${dest_vm}
-    Run Keyword If    ${rcode}    Check Ping    ${dest_vm}
-    ${dest_dhcp}=    Get From List    ${list_of_local_dst_ips}    1
-    Log    ${dest_dhcp}
-    Run Keyword If    ${rcode}    Check Ping    ${dest_dhcp}
-    ${dest_vm}=    Get From List    ${list_of_local_dst_ips}    2
-    Log    ${dest_vm}
-    Run Keyword If    ${rcode}    Check Ping    ${dest_vm}
+    : FOR    ${dest_ip}    IN    @{list_of_local_dst_ips}
+    \    Log    ${dest_ip}
+    \    Run Keyword If    ${rcode}    Check Ping    ${dest_ip}
     Run Keyword If    ${rcode}    Check Metadata Access
     Run Keyword If    '${l2_or_l3}' == 'l3'    Ping Other Instances    ${list_of_external_dst_ips}
     [Teardown]    Exit From Vm Console
@@ -312,15 +306,9 @@ Ping Other Instances
     [Arguments]    ${list_of_external_dst_ips}
     [Documentation]    Check reachability with other network's instances.
     ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance
-    ${dest_vm}=    Get From List    ${list_of_external_dst_ips}    0
-    Log    ${dest_vm}
-    Run Keyword If    ${rcode}    Check Ping    ${dest_vm}
-    ${dest_dhcp}=    Get From List    ${list_of_external_dst_ips}    1
-    Log    ${dest_dhcp}
-    Run Keyword If    ${rcode}    Check Ping    ${dest_dhcp}
-    ${dest_vm}=    Get From List    ${list_of_external_dst_ips}    2
-    Log    ${dest_vm}
-    Run Keyword If    ${rcode}    Check Ping    ${dest_vm}
+    : FOR    ${dest_ip}    IN    @{list_of_external_dst_ips}
+    \    Log    ${dest_ip}
+    \    Run Keyword If    ${rcode}    Check Ping    ${dest_ip}
 
 Create Router
     [Arguments]    ${router_name}
