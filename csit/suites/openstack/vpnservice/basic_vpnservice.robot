@@ -2,9 +2,10 @@
 Documentation     Test suite to validate vpnservice functionality in an openstack integrated environment.
 ...               The assumption of this suite is that the environment is already configured with the proper
 ...               integration bridges and vxlan tunnels.
-Suite Setup       Basic Vpnservice Suite Setup
-Suite Teardown    Basic Vpnservice Suite Teardown
+Suite Setup       Devstack Suite Setup Tests
+Suite Teardown    Close All Connections
 Test Setup        Log Testcase Start To Controller Karaf
+Test Teardown     Get OvsDebugInfo
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -21,6 +22,8 @@ Variables         ../../../variables/Variables.py
 @{SUBNET_CIDR}    10.1.1.0/24    20.1.1.0/24
 @{PORT_LIST}      PORT11    PORT21    PORT12    PORT22
 @{VM_INSTANCES}    VM11    VM21    VM12    VM22
+@{NET10_VM_IPS}    10.1.1.3    10.1.1.4
+@{NET20_VM_IPS}    20.1.1.3    20.1.1.4
 @{ROUTERS}        ROUTER_1    ROUTER_2
 # Values passed by the calling method to API
 @{CREATE_ID}      "4ae8cd92-48ca-49b5-94e1-b2921a261111"    "4ae8cd92-48ca-49b5-94e1-b2921a261112"    "4ae8cd92-48ca-49b5-94e1-b2921a261113"
@@ -33,28 +36,10 @@ ${CREATE_TENANT_ID}    "6c53df3a-3456-11e5-a151-feff819c1111"
 @{VPN_INSTANCE_NAME}    4ae8cd92-48ca-49b5-94e1-b2921a2661c7    4ae8cd92-48ca-49b5-94e1-b2921a261111
 
 *** Test Cases ***
-Create ITM Tunnel
-    [Documentation]    Checks that vxlan tunnels are created successfully. The proc expects that the two DPNs are in the same network and populates the gateway accordingly.
-    ${node_1_dpid} =    Get DPID    ${OS_COMPUTE_1_IP}
-    ${node_2_dpid} =    Get DPID    ${OS_COMPUTE_2_IP}
-    ${node_1_adapter} =    Get Ethernet Adapter    ${OS_COMPUTE_1_IP}
-    ${node_2_adapter} =    Get Ethernet Adapter    ${OS_COMPUTE_2_IP}
-    ${first_two_octets}    ${third_octet}    ${last_octet}=    Split String From Right    ${OS_COMPUTE_1_IP}    .    2
-    ${subnet} =    Set Variable    ${first_two_octets}.0.0/16
-    ${gateway} =    Get Default Gateway    ${OS_COMPUTE_1_IP}
-    ITM Create Tunnel    tunnel-type=vxlan    vlan-id=0    ip-address1="${OS_COMPUTE_1_IP}"    dpn-id1=${node_1_dpid}    portname1="${node_1_adapter}"    ip-address2="${OS_COMPUTE_2_IP}"
-    ...    dpn-id2=${node_2_dpid}    portname2="${node_2_adapter}"    prefix="${subnet}"    gateway-ip="${gateway}"
-    ${output}=    Run Command On Remote System    ${OS_COMPUTE_1_IP}    sudo ovs-vsctl show
-    Log    ${output}
-    ${output}=    Run Command On Remote System    ${OS_COMPUTE_2_IP}    sudo ovs-vsctl show
-    Log    ${output}
-    ${output} =    ITM Get Tunnels
-    Log    ${output}
-
 Create Neutron Networks
     [Documentation]    Create two networks
-    Create Network    ${NETWORKS[0]}    --provider:network_type local
-    Create Network    ${NETWORKS[1]}    --provider:network_type local
+    Create Network    ${NETWORKS[0]}
+    Create Network    ${NETWORKS[1]}
     ${NET_LIST}    List Networks
     Log    ${NET_LIST}
     Should Contain    ${NET_LIST}    ${NETWORKS[0]}
@@ -89,6 +74,17 @@ Create Nova VMs
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES[2]}    ${OS_COMPUTE_1_IP}
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES[3]}    ${OS_COMPUTE_2_IP}
 
+Verify ITM Tunnel
+    [Documentation]    Verify the tunnels created by neutron
+    ${output}=    Run Command On Remote System    ${OS_CONTROL_NODE_IP}    sudo ovs-vsctl show
+    Log    ${output}
+    ${output}=    Run Command On Remote System    ${OS_COMPUTE_1_IP}    sudo ovs-vsctl show
+    Log    ${output}
+    ${output}=    Run Command On Remote System    ${OS_COMPUTE_2_IP}    sudo ovs-vsctl show
+    Log    ${output}
+    ${output} =    ITM Get Tunnels
+    Log    ${output}
+
 Check ELAN Datapath Traffic Within The Networks
     [Documentation]    Checks datapath within the same network with different vlans.
     [Tags]    exclude
@@ -108,6 +104,34 @@ Check L3_Datapath Traffic Across Networks With Router
     [Tags]    exclude
     Log    This test will be added in the next patch
 
+Check L3 Datapath After Delete And Recreate Interface On Router
+    [Documentation]    Verify recreation of router interface and check datapath
+    # Remove Interface to the subnets.
+    : FOR    ${INTERFACE}    IN    @{SUBNETS}
+    \    Remove Interface    ${ROUTERS[0]}    ${INTERFACE}
+    # Add interface
+    : FOR    ${INTERFACE}    IN    @{SUBNETS}
+    \    Add Router Interface    ${ROUTERS[0]}    ${INTERFACE}
+    #Add 30s delay for routes to propogate
+    Sleep    30
+    # Check datapath from network1 to network2
+    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET20_VM_IPS}[0]    @{NET20_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    # Check datapath from network2 to network1
+    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET10_VM_IPS}[0]    @{NET10_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+
+Delete Router Interfaces
+    [Documentation]    Remove Interface to the subnets.
+    : FOR    ${INTERFACE}    IN    @{SUBNETS}
+    \    Remove Interface    ${ROUTERS[0]}    ${INTERFACE}
+
 Create L3VPN
     [Documentation]    Creates L3VPN and verify the same
     VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[0]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
@@ -120,21 +144,87 @@ Associate L3VPN to Routers
     ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
     Associate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
 
+Check Datapath After Router Association To L3VPN
+    [Documentation]    Check datapath after router association to L3VPN
+    #Add 30s delay for routes to propogate
+    Sleep    30
+    # Check datapath from network1 to network2
+    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET20_VM_IPS}[0]    @{NET20_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    # Check datapath from network2 to network1
+    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET10_VM_IPS}[0]    @{NET10_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+
+Check Datapath After Delete And Recreate L3VPN On Router
+    [Documentation]    Verify recreation of L3VPN and check datapath
+    # Dissociate and delete L3VPN
+    ${devstack_conn_id}=    Get ControlNode Connection
+    ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
+    Dissociate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
+    VPN Delete L3VPN    ${CREATE_ID[0]}
+    # Create and Associate L3VPN
+    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[0]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
+    VPN Get L3VPN    ${CREATE_ID[0]}
+    ${devstack_conn_id}=    Get ControlNode Connection
+    ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
+    Associate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
+    #Add 30s delay for routes to propogate
+    Sleep    30
+    # Check datapath from network1 to network2
+    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET20_VM_IPS}[0]    @{NET20_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    # Check datapath from network2 to network1
+    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET10_VM_IPS}[0]    @{NET10_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+
+
+Check Datapath After OVS Restart
+    [Documentation]   Verify end to end data path within same network and from one network to the other
+    [Tags]    RestartOVS
+    Log    "Restarting OVS1 and OVS2"
+    ${output}=    Run Command On Remote System    ${OS_COMPUTE_1_IP}    sudo service openvswitch-switch stop
+    Log    ${output}
+    ${output}=    Run Command On Remote System    ${OS_COMPUTE_2_IP}    sudo service openvswitch-switch stop
+    Log    ${output}
+    Sleep    5
+    ${output}=    Run Command On Remote System    ${OS_COMPUTE_1_IP}    sudo service openvswitch-switch start
+    Log    ${output}
+    ${output}=    Run Command On Remote System    ${OS_COMPUTE_2_IP}    sudo service openvswitch-switch start
+    Log    ${output}
+    Log    "Checking the OVS state after restart"
+    Wait Until Keyword Succeeds    30s    10s    Verify OVS Reports Connected    tools_system=${OS_COMPUTE_1_IP}
+    Wait Until Keyword Succeeds    30s    10s    Verify OVS Reports Connected    tools_system=${OS_COMPUTE_2_IP}
+    # Check datapath from network1 to network2
+    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET20_VM_IPS}[0]    @{NET20_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    # Check datapath from network2 to network1
+    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET10_VM_IPS}[0]    @{NET10_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+
 Dissociate L3VPN to Routers
     [Documentation]    Dissociating router to L3VPN
     [Tags]    Dissociate
     ${devstack_conn_id}=    Get ControlNode Connection
     ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
     Dissociate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
-
-Delete Router Interfaces
-    [Documentation]    Remove Interface to the subnets.
-    : FOR    ${INTERFACE}    IN    @{SUBNETS}
-    \    Remove Interface    ${ROUTERS[0]}    ${INTERFACE}
-
-Delete Routers
-    [Documentation]    Delete Router and Interface to the subnets.
-    Delete Router    ${ROUTERS[0]}
 
 Delete L3VPN
     [Documentation]    Delete L3VPN
@@ -159,6 +249,10 @@ Check Datapath Traffic Across Networks With L3VPN
     [Documentation]    Datapath Test Across the networks with VPN.
     [Tags]    exclude
     Log    This test will be added in the next patch
+
+Delete Routers
+    [Documentation]    Delete Router and Interface to the subnets.
+    Delete Router    ${ROUTERS[0]}
 
 Delete Vm Instances
     [Documentation]    Delete Vm instances in the given Instance List
@@ -190,3 +284,23 @@ Basic Vpnservice Suite Setup
 
 Basic Vpnservice Suite Teardown
     Delete All Sessions
+
+Wait For Routes To Propogate
+    ${devstack_conn_id} =    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${net_id} =    Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
+    ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ip route    ]>
+    Should Contain    ${output}    @{SUBNET_CIDR}[0]
+    ${net_id} =    Get Net Id    @{NETWORKS}[1]    ${devstack_conn_id}
+    ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ip route    ]>
+    Should Contain    ${output}    @{SUBNET_CIDR}[1]
+
+Wait For OVS To Propogate
+    ${devstack_conn_id} =    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${net_id} =    Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
+    ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ip route    ]>
+    Should Contain    ${output}    @{SUBNET_CIDR}[0]
+    ${net_id} =    Get Net Id    @{NETWORKS}[1]    ${devstack_conn_id}
+    ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ip route    ]>
+    Should Contain    ${output}    @{SUBNET_CIDR}[1]
