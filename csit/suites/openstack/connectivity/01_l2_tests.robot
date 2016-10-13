@@ -44,6 +44,9 @@ Add Ssh Allow Rule
     Create Security Group    csit    "CSIT SSH Allow"
     Create Security Rule    ingress    tcp    1    65535    0.0.0.0/0    csit
     Create Security Rule    egress    tcp    1    65535    0.0.0.0/0    csit
+    Create Security Rule    egress    udp    53    53    0.0.0.0/0    csit
+    Create Icmp Security Rule    egress    icmp    csit   
+    Create Icmp Security Rule    ingress    icmp    csit
 
 Create Vm Instances For l2_network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
