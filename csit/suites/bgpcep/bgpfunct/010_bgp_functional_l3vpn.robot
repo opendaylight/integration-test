@@ -21,7 +21,6 @@ Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
-Library           ${CURDIR}/../../../libraries/norm_json.py
 Library           ${CURDIR}/../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
 
 *** Variables ***
@@ -174,23 +173,14 @@ Verify_Tool_Received_Update
     ${exp_update}=    Get_Expected_Response_From_File    ${exp_update_fn}
     ${rcv_update_dict}=    BgpRpcClient.exa_get_update_message    msg_only=${True}
     ${rcv_update}=    BuiltIn.Evaluate    json.dumps(${rcv_update_dict})    modules=json
-    ${received_json}=    norm_json.Normalize_Json_Text    ${rcv_update}
-    ${expected_json}=    norm_json.Normalize_Json_Text    ${exp_update}
-    BuiltIn.Log    ${received_json}
-    BuiltIn.Log    ${expected_json}
-    BuiltIn.Should_Be_Equal    ${received_json}    ${expected_json}
+    TemplatedRequests.Normalize_Jsons_And_Compare    ${exp_update}    ${rcv_update}
 
 Verify_Reported_Data
     [Arguments]    ${url}    ${exprspfile}
     [Documentation]    Verifies expected response
     ${expected_rsp}=    Get_Expected_Response_From_File    ${exprspfile}
-    ${expected_json}=    norm_json.Normalize_Json_Text    ${expected_rsp}
     ${rsp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${url}
-    BuiltIn.Log    ${rsp.content}
-    ${received_json}=    norm_json.Normalize_Json_Text    ${rsp.content}
-    BuiltIn.Log    ${received_json}
-    BuiltIn.Log    ${expected_json}
-    BuiltIn.Should_Be_Equal    ${received_json}    ${expected_json}
+    TemplatedRequests.Normalize_Jsons_And_Compare    ${expected_rsp}    ${rsp.content}
 
 Get_Expected_Response_From_File
     [Arguments]    ${exprspfile}
