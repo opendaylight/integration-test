@@ -18,7 +18,6 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
-Library           ${CURDIR}/../../../libraries/norm_json.py
 Library           ${CURDIR}/../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
 Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
