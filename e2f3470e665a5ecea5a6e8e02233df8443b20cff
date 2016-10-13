@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_2e127b62",
+        "filename": "csit/variables/xmls/f101.xml",
+        "patchSetId": 12
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-13T11:19:04Z",
+      "side": 1,
+      "message": "Is this a known limitation of OVS 2.5, or were we previously using data not semantically valid for OpenFlow protocol?",
+      "range": {
+        "startLine": 31,
+        "startChar": 44,
+        "endLine": 31,
+        "endChar": 47
+      },
+      "revId": "e2f3470e665a5ecea5a6e8e02233df8443b20cff",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
