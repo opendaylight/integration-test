@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_8f02a909",
+        "filename": "csit/suites/openstack/neutron/001__reachability.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-13T23:10:03Z",
+      "side": 1,
+      "message": "would you mind refactoring this slightly.  should be minor.\n\non line 5, instead of the .py file use:\nResource ../../../variables/Variables.robot\n\nadd the proper subnets variable to Variables.robot.\n\nyou can remove all the local variables you have, and in the\ntest cases you can use what we have from the Variables.robot\nfile.  namely:\n\n${NEUTRON_NETWORKS_API}\n${NEUTRON_PORTS_API}\n${NEUTRON_SUBNETS_API}\n\n\nlet me know if it doesn\u0027t make sense and I can modify the patch.",
+      "revId": "a96763c0674a05af524769fc4e4de014578ed352",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
