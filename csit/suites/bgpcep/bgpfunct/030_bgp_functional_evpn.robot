@@ -21,7 +21,6 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
-Library           ${CURDIR}/../../../libraries/norm_json.py
 Library           ${CURDIR}/../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
 Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
@@ -416,9 +415,4 @@ Loc_Rib_Presnece
     [Arguments]    ${exp_content}
     [Documentation]    Verifies if loc-rib contains expected data
     ${rsp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${LOC_RIB_URL}    headers=${HEADERS}
-    Log    ${rsp.content}
-    ${received_json}=    norm_json.Normalize_Json_Text    ${rsp.content}
-    BuiltIn.Log    ${received_json}
-    ${expected_json}=    norm_json.Normalize_Json_Text    ${exp_content}
-    BuiltIn.Log    ${expected_json}
-    BuiltIn.Should_Be_Equal    ${received_json}    ${expected_json}
+    TemplatedRequests.Normalize_Jsons_And_Compare    ${exp_content}    ${rsp.content}

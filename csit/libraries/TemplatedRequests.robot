@@ -115,6 +115,7 @@ Variables         ${CURDIR}/../variables/Variables.py
 # TODO: Make the following list more narrow when streams without Bug 2594 fix (up to beryllium) are no longer used.
 @{ALLOWED_STATUS_CODES}    ${200}    ${201}    ${204}    # List of integers, not strings. Used by both PUT and DELETE (if the resource should have been present).
 @{ALLOWED_DELETE_STATUS_CODES}    ${200}    ${201}    ${204}    ${404}    # List of integers, not strings. Used by DELETE if the resource may be not present.
+@{KEYS_WITH_BITS}    op    # the default list with keys to be sorted when norm_json libray is used
 # TODO: Add option for delete to require 404.
 
 *** Keywords ***
@@ -401,3 +402,10 @@ Normalize_Jsons_And_Compare
     # Should_Be_Equal shall print nice diff-style line comparison.
     BuiltIn.Should_Be_Equal    ${expected_normalized}    ${actual_normalized}
     # TODO: Add garbage collection? Check whether the temporary data accumulates.
+
+Normalize_Jsons_With_Bits_And_Compare
+    [Arguments]    ${expected_raw}    ${actual_raw}    ${keys_with_bits}=${KEYS_WITH_BITS}
+    [Documentation]    Use norm_json to normalize both JSON arguments, call Should_Be_Equal.
+    ${expected_normalized} =    norm_json.normalize_json_text    ${expected_raw}    keys_with_bits=${keys_with_bits}
+    ${actual_normalized} =    norm_json.normalize_json_text    ${actual_raw}    keys_with_bits=${keys_with_bits}
+    BuiltIn.Should_Be_Equal    ${expected_normalized}    ${actual_normalized}
