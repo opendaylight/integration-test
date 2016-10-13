@@ -173,6 +173,7 @@ ${VTNC}           127.0.0.1    # IP address where VTN Coordinator application is
 &{VTNC_HEADERS}    Content-Type=application/json    username=admin    password=adminpass    # Dict of headers to use for HTTP requests against VTN Coordinator.
 ${VTNC_PREFIX}    http://${VTNC}:${VTNCPORT}    # Shorthand for composing HTTP requests.
 ${VTNCPORT}       8083    # Port number VTN Coordinator listens on.
+${VTN_INVENTORY_NODE_API}    /restconf/operational/vtn-inventory:vtn-nodes
 ${VTNS}           vtns    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${VTNS_CREATE}    vtns.json    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${VTNWEBAPI}      /vtn-webapi    # Directory part of URI used when sending HTTP requests to VTN Coordinator.
