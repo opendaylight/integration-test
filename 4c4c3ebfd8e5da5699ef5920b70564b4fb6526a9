@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_94e3e032",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 425,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-10-13T14:32:00Z",
+      "side": 1,
+      "message": "rename \"Create Other Security Rule\"\n\n(because ICMP protocol is a parameter)",
+      "revId": "4c4c3ebfd8e5da5699ef5920b70564b4fb6526a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_14f870e4",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-10-13T14:32:00Z",
+      "side": 1,
+      "message": "Why only allow DNS?\nMaybe we should allow everything as a start, like we do for TCP and ICMP (1-65535)",
+      "revId": "4c4c3ebfd8e5da5699ef5920b70564b4fb6526a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_54d94882",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-10-13T14:32:00Z",
+      "side": 1,
+      "message": "cosmetic: remove space",
+      "revId": "4c4c3ebfd8e5da5699ef5920b70564b4fb6526a9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
