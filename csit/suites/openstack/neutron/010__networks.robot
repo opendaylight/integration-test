@@ -7,7 +7,6 @@ Library           RequestsLibrary
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${ODLREST}        /controller/nb/v2/neutron/networks
 ${OSREST}         /v2.0/networks
 ${postNet}        {"network":{"name":"odl_network","admin_state_up":true}}
 
@@ -25,7 +24,7 @@ Check OpenDaylight Networks
     [Documentation]    Checking OpenDaylight Neutron API for known networks
     [Tags]    Network Neutron OpenDaylight
     Create Session    ODLSession    http://${ODL_SYSTEM_IP}:${PORT}    headers=${HEADERS}    auth=${AUTH}
-    ${resp}    get request    ODLSession    ${ODLREST}
+    ${resp}    get request    ODLSession    ${NEUTRON_NETWORKS_API}
     Should be Equal As Strings    ${resp.status_code}    200
     ${ODLResult}    To Json    ${resp.content}
     Log    ${ODLResult}
@@ -47,5 +46,5 @@ Create Network
 Check Network
     [Documentation]    Check network created in OpenDaylight
     [Tags]    Check    Network OpenDaylight
-    ${resp}    get request    ODLSession    ${ODLREST}/${NetID}
+    ${resp}    get request    ODLSession    ${NEUTRON_NETWORKS_API}/${NetID}
     Should be Equal As Strings    ${resp.status_code}    200

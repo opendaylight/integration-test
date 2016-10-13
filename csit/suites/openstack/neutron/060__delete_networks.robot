@@ -6,7 +6,6 @@ Library           RequestsLibrary
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${ODLREST}        /controller/nb/v2/neutron/networks
 ${OSREST}         /v2.0/networks/${NETID}
 ${postNet}        {"network":{"name":"odl_network","admin_state_up":true}}
 
@@ -23,17 +22,17 @@ Delete Network
 Check Network deleted
     [Documentation]    Check network deleted in OpenDaylight
     [Tags]    Check Network OpenDaylight
-    ${resp}    get request    ODLSession    ${ODLREST}
+    ${resp}    get request    ODLSession    ${NEUTRON_NETWORKS_API}
     Should be Equal As Strings    ${resp.status_code}    200
     ${ODLResult}    To Json    ${resp.content}
     Log    ${ODLResult}
-    ${resp}    get request    ODLSession    ${ODLREST}/${NETID}
+    ${resp}    get request    ODLSession    ${NEUTRON_NETWORKS_API}/${NETID}
     Should be Equal As Strings    ${resp.status_code}    404
 
 *** Keywords ***
 Check Network Exists
     [Arguments]    ${netid}
-    ${resp}    get request    ODLSession    ${ODLREST}/${netid}
+    ${resp}    get request    ODLSession    ${NEUTRON_NETWORKS_API}/${netid}
     Should be Equal As Strings    ${resp.status_code}    200
 
 Start Suite
