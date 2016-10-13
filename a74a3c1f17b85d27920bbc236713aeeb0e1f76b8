@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_a3da2415",
+        "filename": "csit/suites/openflowplugin/Flows_Additional_TCs/Stat_Manager_extended/020_SM_sal_add_upd_del_flows.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 212,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-10-13T06:57:20Z",
+      "side": 1,
+      "message": "Not really, this is here to give time for all flows to get updated in operational DS, otherwise the Test Is Flow X Updated will fail.",
+      "parentUuid": "7a6b29fe_2399f46e",
+      "range": {
+        "startLine": 212,
+        "startChar": 4,
+        "endLine": 212,
+        "endChar": 32
+      },
+      "revId": "a74a3c1f17b85d27920bbc236713aeeb0e1f76b8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_c393e04d",
         "filename": "csit/suites/openflowplugin/MD_SAL_NSF_OF10/030__restconf_statistics.robot",
         "patchSetId": 11
@@ -48,6 +72,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_83d728ed",
+        "filename": "csit/suites/openflowplugin/MD_SAL_NSF_OF10/030__restconf_statistics.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 18,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-10-13T06:57:20Z",
+      "side": 1,
+      "message": "Good point, will do.",
+      "parentUuid": "7a6b29fe_c393e04d",
+      "range": {
+        "startLine": 18,
+        "startChar": 83,
+        "endLine": 18,
+        "endChar": 99
+      },
+      "revId": "a74a3c1f17b85d27920bbc236713aeeb0e1f76b8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_039e7856",
         "filename": "csit/suites/openflowplugin/Switch_Qualification/020_OpenFlow_Actions.robot",
         "patchSetId": 11
@@ -59,6 +107,30 @@
       "writtenOn": "2016-10-13T04:30:33Z",
       "side": 1,
       "message": "don\u0027t need this line any more either.",
+      "range": {
+        "startLine": 47,
+        "startChar": 0,
+        "endLine": 47,
+        "endChar": 205
+      },
+      "revId": "a74a3c1f17b85d27920bbc236713aeeb0e1f76b8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_23fe146c",
+        "filename": "csit/suites/openflowplugin/Switch_Qualification/020_OpenFlow_Actions.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-10-13T06:57:20Z",
+      "side": 1,
+      "message": "Sure.",
+      "parentUuid": "7a6b29fe_039e7856",
       "range": {
         "startLine": 47,
         "startChar": 0,

@@ -22,6 +22,30 @@
       "revId": "42287c0f77788f88882327ff777cc76ef8cc7cce",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_e3037c74",
+        "filename": "csit/suites/openflowplugin/Switch_Qualification/020_OpenFlow_Actions.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-10-13T06:57:20Z",
+      "side": 0,
+      "message": "Yes, the flow body is not needed to delete a flow, the flow id is enough. Not sure why this argument was added in first place.",
+      "parentUuid": "7a6b29fe_63a2cc9b",
+      "range": {
+        "startLine": 105,
+        "startChar": 89,
+        "endLine": 105,
+        "endChar": 100
+      },
+      "revId": "42287c0f77788f88882327ff777cc76ef8cc7cce",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
