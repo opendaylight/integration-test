@@ -115,6 +115,7 @@ Variables         ${CURDIR}/../variables/Variables.py
 # TODO: Make the following list more narrow when streams without Bug 2594 fix (up to beryllium) are no longer used.
 @{ALLOWED_STATUS_CODES}    ${200}    ${201}    ${204}    # List of integers, not strings. Used by both PUT and DELETE (if the resource should have been present).
 @{ALLOWED_DELETE_STATUS_CODES}    ${200}    ${201}    ${204}    ${404}    # List of integers, not strings. Used by DELETE if the resource may be not present.
+@{KEYS_WITH_BITS}    op    # the default list with keys to be sorted when norm_json libray is used
 # TODO: Add option for delete to require 404.
 
 *** Keywords ***
@@ -288,8 +289,8 @@ Verify_Response_Templated
     # TODO: Support for XML-aware comparison could be added, but there are issues with namespaces and similar.
     ${expected_text} =    Resolve_Text_From_Template_Folder    folder=${folder}    base_name=${base_name}    extension=${extension}    mapping=${mapping}    endline=${endline}
     ...    iterations=${iterations}    iter_start=${iter_start}
-    BuiltIn.Run_Keyword_If    ${normalize_json}    Normalize_Jsons_And_Compare    expected_raw=${expected_text}    actual_raw=${response}
-    ...    ELSE    BuiltIn.Should_Be_Equal    ${expected_text}    ${response}
+    BuiltIn.Run_Keyword_If    ${normalize_json}    Normalize_Jsons_And_Compare    expected_raw=${expected_text}    actual_raw=${response}    ELSE    BuiltIn.Should_Be_Equal
+    ...    ${expected_text}    ${response}
 
 Get_From_Uri
     [Arguments]    ${uri}    ${accept}    ${session}=default    ${normalize_json}=False
@@ -342,8 +343,8 @@ Check_Status_Code
     # TODO: Remove overlap with keywords from Utils.robot
     BuiltIn.Log    ${response.text}
     BuiltIn.Log    ${response.status_code}
-    Run_Keyword_If    ${allow_404}    BuiltIn.Should_Contain    ${ALLOWED_DELETE_STATUS_CODES}    ${response.status_code}
-    ...    ELSE    BuiltIn.Should_Contain    ${ALLOWED_STATUS_CODES}    ${response.status_code}
+    Run_Keyword_If    ${allow_404}    BuiltIn.Should_Contain    ${ALLOWED_DELETE_STATUS_CODES}    ${response.status_code}    ELSE    BuiltIn.Should_Contain
+    ...    ${ALLOWED_STATUS_CODES}    ${response.status_code}
 
 Join_Two_Headers
     [Arguments]    ${first}    ${second}
@@ -401,3 +402,10 @@ Normalize_Jsons_And_Compare
     # Should_Be_Equal shall print nice diff-style line comparison.
     BuiltIn.Should_Be_Equal    ${expected_normalized}    ${actual_normalized}
     # TODO: Add garbage collection? Check whether the temporary data accumulates.
+
+Normalize_Jsons_With_Bits_And_Compare
+    [Arguments]    ${expected_raw}    ${actual_raw}    keys_with_bits=${KEYS_WITH_BITS}
+    [Documentation]    Use norm_json to normalize both JSON arguments, call Should_Be_Equal.
+    ${expected_normalized} =    norm_json.normalize_json_text    ${expected_raw}    keys_with_bits=${keys_with_bits}
+    ${actual_normalized} =    norm_json.normalize_json_text    ${actual_raw}    keys_with_bits=${keys_with_bits}
+    BuiltIn.Should_Be_Equal    ${expected_normalized}    ${actual_normalized}

@@ -16,7 +16,7 @@ Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
 Resource          ${CURDIR}/../../../libraries/CompareStream.robot
-Library           ${CURDIR}/../../../libraries/norm_json.py
+Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 
 *** Variables ***
 ${HOLDTIME}       180
@@ -124,13 +124,8 @@ Verify Flowspec Data
     ${keys_with_bits}=    BuiltIn.Create_List
     CompareStream.Run_Keyword_If_At_Most    boron    Collections.Append_To_List    ${keys_with_bits}    op
     ${expected_rsp}=    Get Expected Response From File    ${exprspfile}
-    ${expected_json}=    norm_json.Normalize Json Text    ${expected_rsp}    keys_with_bits=${keys_with_bits}
     ${rsp}=    RequestsLibrary.Get Request    session    ${FLOWSPEC_URL}
-    BuiltIn.Log    ${rsp.content}
-    ${received_json}=    norm_json.Normalize Json Text    ${rsp.content}    keys_with_bits=${keys_with_bits}
-    BuiltIn.Log    ${received_json}
-    BuiltIn.Log    ${expected_json}
-    BuiltIn.Should Be Equal    ${received_json}    ${expected_json}
+    TemplatedRequests.Normalize_Jsons_With_Bits_And_Compare    ${expected_rsp}    ${rsp.content}    keys_with_bits=${keys_with_bits}
 
 Get Expected Response From File
     [Arguments]    ${exprspfile}
