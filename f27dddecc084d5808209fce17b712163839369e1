@@ -1,0 +1,119 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_8f1629f0",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-13T19:20:12Z",
+      "side": 1,
+      "message": "good library keyword",
+      "range": {
+        "startLine": 283,
+        "startChar": 0,
+        "endLine": 283,
+        "endChar": 30
+      },
+      "revId": "f27dddecc084d5808209fce17b712163839369e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_cfd78122",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-13T19:20:12Z",
+      "side": 1,
+      "message": "can you make this a little better, since we now like to point people to the robot library pretty docs [0].  I know it should also be better in other keywords (feel free to update those too :).\n\n[0] http://opendaylight.readthedocs.io/en/latest/_static/integration/robot/OpenStackOperations.robot.html#Remove%20Interface",
+      "range": {
+        "startLine": 356,
+        "startChar": 4,
+        "endLine": 356,
+        "endChar": 36
+      },
+      "revId": "f27dddecc084d5808209fce17b712163839369e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_8fff49aa",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-13T19:20:12Z",
+      "side": 1,
+      "message": "please remove all Sleep lines [0].  One idea is to create a local/library keyword that checks that routes are propagated.  Wrap that keyword in a WUKS and set it for max 30s and check every 1-5s.  If the routes don\u0027t show up, this test case would fail which is probably a good thing.  if the routes show up in 5s then we have saved 25s of runtime.\n\n[0] https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Stay_away_from_using_a_Sleep",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 15
+      },
+      "revId": "f27dddecc084d5808209fce17b712163839369e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_6fe62d18",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-13T19:20:12Z",
+      "side": 1,
+      "message": "I\u0027d like to see a \"Router Show\" keyword in the OpenStackOperations.robot library.  Makes sense to have Port Show, Network Show, etc as well, but you don\u0027t need those for this at this point.",
+      "range": {
+        "startLine": 121,
+        "startChar": 50,
+        "endLine": 121,
+        "endChar": 69
+      },
+      "revId": "f27dddecc084d5808209fce17b712163839369e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_8fed89f2",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-13T19:20:12Z",
+      "side": 1,
+      "message": "these 6 lines are just debug code.  you could get a lot more bang for your buck in two lines if you wanted to by doing this:\n\nGet DumpFlows And Ovsconfig    ${OS_COMPUTE_1_IP}\nGet DumpFlows And Ovsconfig    ${OS_COMPUTE_2_IP}",
+      "range": {
+        "startLine": 215,
+        "startChar": 0,
+        "endLine": 220,
+        "endChar": 20
+      },
+      "revId": "f27dddecc084d5808209fce17b712163839369e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
