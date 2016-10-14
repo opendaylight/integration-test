@@ -1,0 +1,159 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_f70e93e4",
+        "filename": "csit/suites/distribution/Karaf_Sequence_Install.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-14T11:49:51Z",
+      "side": 1,
+      "message": "Update according to the test case Documentation.",
+      "range": {
+        "startLine": 12,
+        "startChar": 18,
+        "endLine": 12,
+        "endChar": 55
+      },
+      "revId": "8a9c7536fac029bd1d2f568a0efbaf0f35d4f4cf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_d75c37f0",
+        "filename": "csit/suites/distribution/Karaf_Sequence_Install.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-14T11:49:51Z",
+      "side": 1,
+      "message": "This file contains test cases. Is the import successful?",
+      "range": {
+        "startLine": 19,
+        "startChar": 47,
+        "endLine": 19,
+        "endChar": 66
+      },
+      "revId": "8a9c7536fac029bd1d2f568a0efbaf0f35d4f4cf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_37712b78",
+        "filename": "csit/suites/distribution/Karaf_Sequence_Install.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-14T11:49:51Z",
+      "side": 1,
+      "message": "We now have Variables.robot, use that please.",
+      "range": {
+        "startLine": 21,
+        "startChar": 47,
+        "endLine": 21,
+        "endChar": 59
+      },
+      "revId": "8a9c7536fac029bd1d2f568a0efbaf0f35d4f4cf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_770283b5",
+        "filename": "csit/suites/distribution/Karaf_Sequence_Install.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-14T11:49:51Z",
+      "side": 1,
+      "message": "Features_Compatible_With_All to make it clear the top-level integration feature (odl-integration-compatible-with-all) is not installed directly.",
+      "range": {
+        "startLine": 27,
+        "startChar": 15,
+        "endLine": 27,
+        "endChar": 34
+      },
+      "revId": "8a9c7536fac029bd1d2f568a0efbaf0f35d4f4cf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_176eaf96",
+        "filename": "csit/suites/distribution/Karaf_Sequence_Install.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-14T11:49:51Z",
+      "side": 1,
+      "message": "Either delete these three lines, or reformulate them as code description (instead of task definition).",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 5
+      },
+      "revId": "8a9c7536fac029bd1d2f568a0efbaf0f35d4f4cf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_b7041bc7",
+        "filename": "csit/suites/distribution/Karaf_Sequence_Install.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 35,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-14T11:49:51Z",
+      "side": 1,
+      "message": "Prefix resource and use underscores, to keep this file style consistent.",
+      "range": {
+        "startLine": 35,
+        "startChar": 9,
+        "endLine": 35,
+        "endChar": 10
+      },
+      "revId": "8a9c7536fac029bd1d2f568a0efbaf0f35d4f4cf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_b7d25b32",
+        "filename": "csit/testplans/distribution-karaf.txt",
+        "patchSetId": 19
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-14T11:49:51Z",
+      "side": 1,
+      "message": "There already is distribution-userfeatures.txt this suite can be added to.",
+      "revId": "8a9c7536fac029bd1d2f568a0efbaf0f35d4f4cf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
