@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_b72a5be5",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 250,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-14T17:29:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_d7b8b7e7",
+      "range": {
+        "startLine": 250,
+        "startChar": 4,
+        "endLine": 250,
+        "endChar": 5
+      },
+      "revId": "f3886b1e6937b0b575bfebf1c9da2f655ab07456",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_97a59fb7",
         "filename": "csit/libraries/CompareStream.robot",
         "patchSetId": 21
@@ -36,6 +60,30 @@
       "writtenOn": "2016-10-14T12:06:41Z",
       "side": 1,
       "message": "This does need to be introduced, as you can use Set_Variable_If_At_Least_Boron with the arguments swapped.\n\nIf you consider Set_Variable_If_Less_Than to be useful for users, also add Set_Variable_If_More_Than, and all their *_{stream} wrappers.",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 90,
+        "endChar": 31
+      },
+      "revId": "f3886b1e6937b0b575bfebf1c9da2f655ab07456",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_37dacbe9",
+        "filename": "csit/libraries/CompareStream.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-14T17:29:12Z",
+      "side": 1,
+      "message": "Useful keywords added. It isn\u0027t necessary to have all options",
+      "parentUuid": "7a6b29fe_97a59fb7",
       "range": {
         "startLine": 90,
         "startChar": 0,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_b7941be9",
+        "filename": "csit/libraries/PacketcableVersion.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 3,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-14T17:29:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_f7aa1384",
+      "range": {
+        "startLine": 3,
+        "startChar": 18,
+        "endLine": 3,
+        "endChar": 36
+      },
+      "revId": "f3886b1e6937b0b575bfebf1c9da2f655ab07456",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_17918f52",
         "filename": "csit/libraries/SxpLib.robot",
         "patchSetId": 21
@@ -82,6 +154,30 @@
       "writtenOn": "2016-10-14T12:06:41Z",
       "side": 1,
       "message": "Remove all commented-out code.",
+      "range": {
+        "startLine": 80,
+        "startChar": 76,
+        "endLine": 80,
+        "endChar": 77
+      },
+      "revId": "f3886b1e6937b0b575bfebf1c9da2f655ab07456",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_f7b5f37e",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 21
+      },
+      "lineNbr": 80,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-14T17:29:12Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_17918f52",
       "range": {
         "startLine": 80,
         "startChar": 76,
