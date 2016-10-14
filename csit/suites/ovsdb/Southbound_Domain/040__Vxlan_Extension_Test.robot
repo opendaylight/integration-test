@@ -12,14 +12,15 @@ Library           RequestsLibrary
 Library           ../../../libraries/Common.py
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
+Resource          ../../../libraries/MininetKeywords.robot
 Resource          ../../../libraries/OVSDB.robot
 
 *** Variables ***
 ${OVSDB_PORT}     6634
 ${OVSDB_CONFIG_DIR}    ${CURDIR}/../../../variables/ovsdb
 @{node_list1}     ovsdb://${TOOLS_SYSTEM_2_IP}:${OVSDB_PORT}    ${TOOLS_SYSTEM_2_IP}    ${OVSDB_PORT}    ovsdb://${TOOLS_SYSTEM_IP}:${OVSDB_PORT}    ${TOOLS_SYSTEM_IP}    ${OVSDB_PORT}
-${start1}         sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --switch=ovsk,protocols=OpenFlow13 --custom ovsdb.py --topo host,1
-${start2}         sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --switch=ovsk,protocols=OpenFlow13 --custom ovsdb.py --topo host,2
+${start1}         --switch=ovsk,protocols=OpenFlow13 --custom ovsdb.py --topo host,1
+${start2}         --switch=ovsk,protocols=OpenFlow13 --custom ovsdb.py --topo host,2
 
 *** Test Cases ***
 Make the OVS instance to listen for connection
@@ -42,9 +43,9 @@ Get Operational Topology from OVSDB Node1 and OVSDB Node2
 
 Start the Mininet and create custom topology
     [Documentation]    This will start mininet with custom topology on both the Virtual Machines
-    ${conn_id1}    Start Mininet    ${TOOLS_SYSTEM_2_IP}    ${start1}    ${OVSDB_CONFIG_DIR}/ovsdb.py
+    ${conn_id1}    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_2_IP}    ${ODL_SYSTEM_IP}    ${start1}    ${OVSDB_CONFIG_DIR}/ovsdb.py
     Set Global Variable    ${conn_id1}
-    ${conn_id2}    Start Mininet    ${TOOLS_SYSTEM_IP}    ${start2}    ${OVSDB_CONFIG_DIR}/ovsdb.py
+    ${conn_id2}    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${start2}    ${OVSDB_CONFIG_DIR}/ovsdb.py
     Set Global Variable    ${conn_id2}
 
 Get Operational Topology with custom topology
