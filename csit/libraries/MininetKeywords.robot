@@ -24,7 +24,7 @@ Start Mininet Single Controller
     [Return]    ${mininet_conn_id}
 
 Start Mininet Multiple Controllers
-    [Arguments]    ${mininet}    ${controller_index_list}=${EMPTY}    ${options}=--topo tree,1 --switch ovsk,protocols=OpenFlow13    ${custom}=${EMPTY}    ${ofport}=${ODL_OF_PORT}
+    [Arguments]    ${mininet}=${TOOLS_SYSTEM_IP}    ${controller_index_list}=${EMPTY}    ${options}=--topo tree,1 --switch ovsk,protocols=OpenFlow13    ${custom}=${EMPTY}    ${ofport}=${ODL_OF_PORT}
     [Documentation]    Start Mininet with custom topology and connect to list of controllers in ${controller_index_list} or all if no list is provided.
     ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${controller_index_list}
     Log    Clear any existing mininet
@@ -54,9 +54,9 @@ Start Mininet Multiple Controllers
     [Return]    ${mininet_conn_id}
 
 Send Mininet Command
-    [Arguments]    ${mininet_conn_id}    ${cmd}=help
-    [Documentation]    Sends Command ${cmd} to Mininet session ${mininet_conn_id} and returns read buffer response.
-    SSHLibrary.Switch Connection    ${mininet_conn_id}
+    [Arguments]    ${mininet_conn}=${EMPTY}    ${cmd}=help
+    [Documentation]    Sends Command ${cmd} to Mininet session ${mininet_conn} and returns read buffer response.
+    Run Keyword If    """${mininet_conn}""" != ""    SSHLibrary.Switch Connection    ${mininet_conn}
     SSHLibrary.Write    ${cmd}
     ${output}=    SSHLibrary.Read Until    mininet>
     [Return]    ${output}
@@ -65,15 +65,15 @@ Send Mininet Command Multiple Sessions
     [Arguments]    ${mininet_conn_list}    ${cmd}=help
     [Documentation]    Sends Command ${cmd} to Mininet sessions in ${mininet_conn_list} and returns list of read buffer responses.
     ${output_list}=    Create List
-    : FOR    ${mininet_conn_id}    IN    @{mininet_conn_list}
-    \    ${output}=    Utils.Send Mininet Command    ${mininet_conn_id}    ${cmd}
+    : FOR    ${mininet_conn}    IN    @{mininet_conn_list}
+    \    ${output}=    Utils.Send Mininet Command    ${mininet_conn}    ${cmd}
     \    Append To List    ${output_list}    ${output}
     [Return]    ${output_list}
 
 Stop Mininet And Exit
-    [Arguments]    ${mininet_conn_id}
-    [Documentation]    Stops Mininet and exits session ${mininet_conn_id}
-    SSHLibrary.Switch Connection    ${mininet_conn_id}
+    [Arguments]    ${mininet_conn}=${EMPTY}
+    [Documentation]    Stops Mininet and exits session ${mininet_conn}
+    Run Keyword If    """${mininet_conn}""" != ""    SSHLibrary.Switch Connection    ${mininet_conn}
     SSHLibrary.Write    exit
     SSHLibrary.Read Until    ${TOOLS_SYSTEM_PROMPT}
     Close Connection
@@ -81,19 +81,19 @@ Stop Mininet And Exit
 Stop Mininet And Exit Multiple Sessions
     [Arguments]    ${mininet_conn_list}
     [Documentation]    Stops Mininet and exits sessions in ${mininet_conn_list}.
-    : FOR    ${mininet_conn_id}    IN    @{mininet_conn_list}
-    \    MininetKeywords.Stop Mininet And Exit    ${mininet_conn_id}
+    : FOR    ${mininet_conn}    IN    @{mininet_conn_list}
+    \    MininetKeywords.Stop Mininet And Exit    ${mininet_conn}
 
 Verify Aggregate Flow From Mininet Session
-    [Arguments]    ${mininet_conn_id}    ${flow_count}    ${time_out}
+    [Arguments]    ${mininet_conn}=${EMPTY}    ${flow_count}=0    ${time_out}=0s
     [Documentation]    Verify flow count per switch
-    Wait Until Keyword Succeeds    ${time_out}    2s    MininetKeywords.Mininet Sync Status    ${mininet_conn_id}    ${flow_count}
+    Wait Until Keyword Succeeds    ${time_out}    2s    MininetKeywords.Mininet Sync Status    ${mininet_conn}    ${flow_count}
 
 Mininet Sync Status
-    [Arguments]    ${mininet_id}    ${flow_count}
+    [Arguments]    ${mininet_conn}=${EMPTY}    ${flow_count}=0
     [Documentation]    Sync with mininet to match exact number of flows
     ${cmd} =    Set Variable    dpctl dump-aggregate -O OpenFlow13
-    ${output}=    MininetKeywords.Send Mininet Command    ${mininet_id}    ${cmd}
+    ${output}=    MininetKeywords.Send Mininet Command    ${mininet_conn}    ${cmd}
     ${flows}=    String.Get RegExp Matches    ${output}    (?<=flow_count\=).*?(?=\r)
     ${total_flows}=    BuiltIn.Evaluate    sum(map(int, ${flows}))
     Should Be Equal As Numbers    ${total_flows}    ${flow_count}
