@@ -7,10 +7,11 @@ Library           json
 Library           RequestsLibrary
 Variables         ../variables/Variables.py
 Resource          ./Utils.robot
+Resource          ./MininetKeywords.robot
 
 *** Variables ***
-${vlan_topo_10}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom vlan_vtn_test.py --topo vlantopo
-${vlan_topo_13}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom vlan_vtn_test.py --topo vlantopo --switch ovsk,protocols=OpenFlow13
+${vlan_topo_10}    --custom vlan_vtn_test.py --topo vlantopo
+${vlan_topo_13}    --custom vlan_vtn_test.py --topo vlantopo --switch ovsk,protocols=OpenFlow13
 ${REST_CONTEXT_VTNS}    controller/nb/v2/vtn/default/vtns
 ${REST_CONTEXT}    controller/nb/v2/vtn/default
 ${VERSION_VTN}    controller/nb/v2/vtn/version
@@ -25,8 +26,8 @@ ${vlanmap_bridge1}    {"vlan": "200"}
 ${vlanmap_bridge2}    {"vlan": "300"}
 @{VLANMAP_BRIDGE1_DATAFLOW}    "reason":"VLANMAPPED"    "path":{"tenant":"Tenant1","bridge":"vBridge1_vlan"}
 @{VLANMAP_BRIDGE2_DATAFLOW}    "reason":"VLANMAPPED"    "path":{"tenant":"Tenant1","bridge":"vBridge2_vlan"}
-${pathpolicy_topo_13}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom topo-3sw-2host_multipath.py --topo pathpolicytopo --switch ovsk,protocols=OpenFlow13
-${pathpolicy_topo_10}    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom topo-3sw-2host_multipath.py --topo pathpolicytopo --switch ovsk,protocols=OpenFlow10
+${pathpolicy_topo_13}    --custom topo-3sw-2host_multipath.py --topo pathpolicytopo --switch ovsk,protocols=OpenFlow13
+${pathpolicy_topo_10}    --custom topo-3sw-2host_multipath.py --topo pathpolicytopo --switch ovsk,protocols=OpenFlow10
 @{PATHMAP_ATTR}    "index":"1"    "condition":"flowcond_path"    "policy":"1"
 ${policy_id}      1
 @{PATHPOLICY_ATTR}    "id":"1"    "type":"OF"    "name":"s4-eth2"
@@ -156,17 +157,17 @@ Verify flowEntryPathPolicy
 Start PathSuiteVtnMaTest
     [Documentation]    Start VTN Manager Test Suite and Mininet
     Start SuiteVtnMaTest
-    Start Mininet    ${TOOLS_SYSTEM_IP}    ${pathpolicy_topo_13}    ${custom}
+    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${pathpolicy_topo_13}    ${custom}
 
 Start PathSuiteVtnMaTestOF10
     [Documentation]    Start VTN Manager Test Suite and Mininet in Open Flow 10 Specification
     Start SuiteVtnMaTest
-    Start Mininet    ${TOOLS_SYSTEM_IP}    ${pathpolicy_topo_10}    ${custom}
+    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${pathpolicy_topo_10}    ${custom}
 
 Stop PathSuiteVtnMaTest
     [Documentation]    Cleanup/Shutdown work at the completion of all tests.
     Delete All Sessions
-    Stop Mininet    ${mininet_conn_id}
+    MininetKeywords.Stop Mininet And Exit    ${mininet_conn_id}
 
 Delete a pathmap
     [Documentation]    Delete a pathmap for a vtn
@@ -238,8 +239,9 @@ Start vlan_topo
     [Arguments]    ${OF}
     [Documentation]    Create custom topology for vlan functionality
     Install Package On Ubuntu System    vlan
-    Run Keyword If    '${OF}' == 'OF13'    Start Mininet    ${TOOLS_SYSTEM_IP}    ${vlan_topo_13}    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
-    ...    ELSE IF    '${OF}' == 'OF10'    Start Mininet    ${TOOLS_SYSTEM_IP}    ${vlan_topo_10}    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
+    Run Keyword If    '${OF}' == 'OF13'    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${vlan_topo_13}    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
+    ...    ELSE IF    '${OF}' == 'OF10'    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${vlan_topo_10}
+    ...    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
 
 Add a vlanmap
     [Arguments]    ${vtn_name}    ${vBridge_name}    ${vlanmap_data}
