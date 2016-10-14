@@ -54,9 +54,9 @@ Start Mininet Multiple Controllers
     [Return]    ${mininet_conn_id}
 
 Send Mininet Command
-    [Arguments]    ${mininet_conn_id}    ${cmd}=help
+    [Arguments]    ${mininet_conn}=${EMPTY}    ${cmd}=help
     [Documentation]    Sends Command ${cmd} to Mininet session ${mininet_conn_id} and returns read buffer response.
-    SSHLibrary.Switch Connection    ${mininet_conn_id}
+    Run Keyword If    """${mininet_conn_id}""" != ""    SSHLibrary.Switch Connection    ${mininet_conn_id}
     SSHLibrary.Write    ${cmd}
     ${output}=    SSHLibrary.Read Until    mininet>
     [Return]    ${output}
@@ -71,9 +71,9 @@ Send Mininet Command Multiple Sessions
     [Return]    ${output_list}
 
 Stop Mininet And Exit
-    [Arguments]    ${mininet_conn_id}
+    [Arguments]    ${mininet_conn}=${EMPTY}
     [Documentation]    Stops Mininet and exits session ${mininet_conn_id}
-    SSHLibrary.Switch Connection    ${mininet_conn_id}
+    Run Keyword If    """${mininet_conn_id}""" != ""    SSHLibrary.Switch Connection    ${mininet_conn_id}
     SSHLibrary.Write    exit
     SSHLibrary.Read Until    ${TOOLS_SYSTEM_PROMPT}
     Close Connection
