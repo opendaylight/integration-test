@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_5a2b2e94",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 283,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2016-10-14T15:28:40Z",
+      "side": 1,
+      "message": "thanks:)",
+      "parentUuid": "7a6b29fe_8f1629f0",
+      "range": {
+        "startLine": 283,
+        "startChar": 0,
+        "endLine": 283,
+        "endChar": 30
+      },
+      "revId": "f27dddecc084d5808209fce17b712163839369e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_cfd78122",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 7
@@ -36,6 +60,30 @@
       "writtenOn": "2016-10-13T19:20:12Z",
       "side": 1,
       "message": "can you make this a little better, since we now like to point people to the robot library pretty docs [0].  I know it should also be better in other keywords (feel free to update those too :).\n\n[0] http://opendaylight.readthedocs.io/en/latest/_static/integration/robot/OpenStackOperations.robot.html#Remove%20Interface",
+      "range": {
+        "startLine": 356,
+        "startChar": 4,
+        "endLine": 356,
+        "endChar": 36
+      },
+      "revId": "f27dddecc084d5808209fce17b712163839369e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_1a21b6b4",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 356,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2016-10-14T15:28:40Z",
+      "side": 1,
+      "message": "I have improved the documentation.",
+      "parentUuid": "7a6b29fe_cfd78122",
       "range": {
         "startLine": 356,
         "startChar": 4,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_fa115a5e",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 82,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2016-10-14T15:28:40Z",
+      "side": 1,
+      "message": "A local keyword is created for checking the routes",
+      "parentUuid": "7a6b29fe_8fff49aa",
+      "range": {
+        "startLine": 82,
+        "startChar": 4,
+        "endLine": 82,
+        "endChar": 15
+      },
+      "revId": "f27dddecc084d5808209fce17b712163839369e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_6fe62d18",
         "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
         "patchSetId": 7
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_da161e55",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2016-10-14T15:28:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_6fe62d18",
+      "range": {
+        "startLine": 121,
+        "startChar": 50,
+        "endLine": 121,
+        "endChar": 69
+      },
+      "revId": "f27dddecc084d5808209fce17b712163839369e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_8fed89f2",
         "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
         "patchSetId": 7
@@ -105,6 +201,30 @@
       "writtenOn": "2016-10-13T19:20:12Z",
       "side": 1,
       "message": "these 6 lines are just debug code.  you could get a lot more bang for your buck in two lines if you wanted to by doing this:\n\nGet DumpFlows And Ovsconfig    ${OS_COMPUTE_1_IP}\nGet DumpFlows And Ovsconfig    ${OS_COMPUTE_2_IP}",
+      "range": {
+        "startLine": 215,
+        "startChar": 0,
+        "endLine": 220,
+        "endChar": 20
+      },
+      "revId": "f27dddecc084d5808209fce17b712163839369e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_3a0bd22c",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2016-10-14T15:28:40Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_8fed89f2",
       "range": {
         "startLine": 215,
         "startChar": 0,
