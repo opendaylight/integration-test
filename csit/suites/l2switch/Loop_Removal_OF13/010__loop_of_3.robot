@@ -38,7 +38,7 @@ Ping Test
     [Documentation]    Ping h1 to h2, verify no packet loss or duplicates
     # This sleep is needed because if the ping in the below WUKS is launched before the STP effectively removes the link,
     # it produces a packet storm in mininet that makes the test unresponsive.
-    Sleep    1
+    Sleep    4
     Wait Until Keyword Succeeds    10s    2s    Ping Works Good
 
 Link Down
@@ -59,7 +59,7 @@ Link Up
     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    ${DISCARD}    2
     # This sleep is needed because if the ping in the below WUKS is launched before the STP effectively removes the link,
     # it produces a packet storm in mininet that makes the test unresponsive.
-    Sleep    1
+    Sleep    4
     Wait Until Keyword Succeeds    10s    2s    Ping Works Good
 
 Remove Port
@@ -76,7 +76,7 @@ Add Port
     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    ${DISCARD}    2
     # This sleep is needed because if the ping in the below WUKS is launched before the STP effectively removes the link,
     # it produces a packet storm in mininet that makes the test unresponsive.
-    Sleep    1
+    Sleep    4
     Wait Until Keyword Succeeds    10s    2s    Ping Works Good
 
 *** Keywords ***
