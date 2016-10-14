@@ -79,7 +79,8 @@ Create Nova VMs
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES[2]}    ${OS_COMPUTE_1_IP}
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES[3]}    ${OS_COMPUTE_2_IP}
     Log    Add 30s delay for routes to propogate
-    Wait Until Keyword Succeeds    30s    10s    Wait For Routes To Propogate
+    #Sleep    30
+    Wait Until Keyword Succeeds    30s    5s    Wait For Routes To Propogate
 
 Check ELAN Datapath Traffic Within The Networks
     [Documentation]    Checks datapath within the same network with different vlans.
@@ -233,10 +234,10 @@ Wait For Routes To Propogate
     ${devstack_conn_id} =    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${net_id} =    Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
-    ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ip addr    ]>
     ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ip route    ]>
     Should Contain    ${output}    @{SUBNET_CIDR}[0]
-    ${net_id} =    Get Net Id    @{NETWORKS}[1]    ${devstack_conn_id}
-    ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ip addr    ]>
-    ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ip route    ]>
-    Should Contain    ${output}    @{SUBNET_CIDR}[1]
+    ${net_id} =    Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
+    ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh cirros@${NET10_VM_IPS[0]} -o ConnectTimeout=10 -o StrictHostKeyChecking=no    d:
+    Log    ${output}
+    ${output} =    Write Commands Until Expected Prompt    cubswin:)    ${OS_SYSTEM_PROMPT}
+    [Teardown]    Exit From Vm Console
