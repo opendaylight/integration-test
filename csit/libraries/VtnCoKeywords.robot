@@ -269,7 +269,7 @@ Create VLANMAP in VBRIDGE
 Start vlan_topo
     [Documentation]    This will start mininet with custom topology on both the Virtual Machines
     Install Package On Ubuntu System    vlan
-    Start Mininet    ${TOOLS_SYSTEM_IP}    ${vlan_topo}    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
+    MininetKeywords.Start Mininet Single Controller    ${TOOLS_SYSTEM_IP}    ${ODL_SYSTEM_IP}    ${vlan_topo}    ${CURDIR}/${CREATE_VLAN_TOPOLOGY_FILE_PATH}
 
 Delete a FLOWLIST
     [Arguments]    ${flowlistname}
