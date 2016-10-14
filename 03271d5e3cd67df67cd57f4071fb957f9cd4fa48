@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_9a782691",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 249,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-14T13:30:59Z",
+      "side": 1,
+      "message": "If you are repeatedly re-using ${clear_data}, you may use that also for this value.",
+      "range": {
+        "startLine": 249,
+        "startChar": 16,
+        "endLine": 249,
+        "endChar": 25
+      },
+      "revId": "03271d5e3cd67df67cd57f4071fb957f9cd4fa48",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
