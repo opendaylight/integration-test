@@ -34,7 +34,7 @@ Start NIC VTN Rest Test Suite
 
 Stop NIC VTN Rest Test Suite
     [Documentation]    Stop Nic VTN Renderer Test Suite
-    Stop Mininet    ${mininet_conn_id}
+    Stop Mininet Simulation
 
 Fetch Intent List
     [Documentation]    Check if VTN Renderer feature is installed.
