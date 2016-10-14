@@ -31,6 +31,9 @@ Check No Host Is Present
 
 Ping All
     [Documentation]    Pingall, verify no packet loss
+    # This sleep is needed because if the ping in the below WUKS is launched before the STP resolves link,
+    # the address tracker function may not work very well.
+    Sleep    4
     Wait Until Keyword Succeeds    10s    2s    Ping All Works Good
 
 Check node 1 addresses
