@@ -64,9 +64,9 @@ ${ELASTICPORT}    9200    # Port to use when interacting with ElasticSearch. FIX
 ${ENABLE_GLOBAL_TEST_DEADLINES}    True    # Some suites need this to avoid getting stuck. FIXME: Move to the Resource which uses this.
 ${ESCAPE_CHARACTER}    \x1b    # A more readable alias to the special escape character.
 ${FLOWFILTERENTRIES_CREATE}    flowfilterentries.json    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
-${FLOWFILTERS}    flowfilters/in
+${FLOWFILTERS}    flowfilters/in    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${FLOWFILTERS_CREATE}    flowfilters.json    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
-${FLOWFILTERS_UPDATE}    flowfilterentries
+${FLOWFILTERS_UPDATE}    flowfilterentries    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${FLOWLISTS}      flowlists    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${FLOWLISTS_CREATE}    flowlists.json    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${FLOWLISTENTRIES_CREATE}    flowlistentries.json    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
@@ -169,12 +169,12 @@ ${VBRIFS_CREATE}    interfaces.json    # A shorthand. FIXME: Find who uses this 
 ${VBRS}           vbridges    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${VBRS_CREATE}    vbridges.json    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${VLANMAP_CREATE}    vlanmaps.json    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
-${VTNC}           127.0.0.1    # IP address where VTN Coordinator application is running.
-&{VTNC_HEADERS}    Content-Type=application/json    username=admin    password=adminpass    # Dict of headers to use for HTTP requests against VTN Coordinator.
-${VTNC_PREFIX}    http://${VTNC}:${VTNCPORT}    # Shorthand for composing HTTP requests.
-${VTNCPORT}       8083    # Port number VTN Coordinator listens on.
-${VTN_INVENTORY_NODE_API}    /restconf/operational/vtn-inventory:vtn-nodes
+${VTNC}           127.0.0.1    # IP address where VTN Coordinator application is running. TODO: Move to a VTN-specific Resource.
+&{VTNC_HEADERS}    Content-Type=application/json    username=admin    password=adminpass    # Dict of headers to use for HTTP requests against VTN Coordinator. TODO: Move to a VTN-specific Resource.
+${VTNC_PREFIX}    http://${VTNC}:${VTNCPORT}    # Shorthand for composing HTTP requests. TODO: Move to a VTN-specific Resource.
+${VTNCPORT}       8083    # Port number VTN Coordinator listens on. TODO: Move to a VTN-specific Resource.
+${VTN_INVENTORY_NODE_API}    /restconf/operational/vtn-inventory:vtn-nodes    # Path part of restconf URL towards operational vtn-nodes. TODO: Move to a VTN-specific Resource.
 ${VTNS}           vtns    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${VTNS_CREATE}    vtns.json    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
-${VTNWEBAPI}      /vtn-webapi    # Directory part of URI used when sending HTTP requests to VTN Coordinator.
+${VTNWEBAPI}      /vtn-webapi    # Directory part of URI used when sending HTTP requests to VTN Coordinator. TODO: Move to a VTN-specific Resource.
 # Keep this list sorted alphabetically.
