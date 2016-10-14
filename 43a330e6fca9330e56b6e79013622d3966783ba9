@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_5ac7bc64",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 19
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-14T11:22:36Z",
+      "side": 1,
+      "message": "This is copied from an unrelated Change.",
+      "range": {
+        "startLine": 9,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 1
+      },
+      "revId": "43a330e6fca9330e56b6e79013622d3966783ba9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_daaaac84",
+        "filename": "csit/libraries/ChangeCounter.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-14T11:22:36Z",
+      "side": 1,
+      "message": "extract the value depending on stream.",
+      "range": {
+        "startLine": 31,
+        "startChar": 67,
+        "endLine": 31,
+        "endChar": 112
+      },
+      "revId": "43a330e6fca9330e56b6e79013622d3966783ba9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_5a9e9c64",
+        "filename": "csit/libraries/ChangeCounter.robot",
+        "patchSetId": 19
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-14T11:22:36Z",
+      "side": 1,
+      "message": "One of the Evaluate calls will probably fail. The correct way is to Set_Variable_If to get the code string and then Evaluate it to get the count.",
+      "range": {
+        "startLine": 34,
+        "startChar": 14,
+        "endLine": 34,
+        "endChar": 15
+      },
+      "revId": "43a330e6fca9330e56b6e79013622d3966783ba9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
