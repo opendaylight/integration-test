@@ -2,6 +2,7 @@
 Documentation     Openstack library. This library is useful for tests to create network, subnet, router and vm instances
 Library           SSHLibrary
 Resource          Utils.robot
+Resource          TemplatedRequests.robot
 Library           Collections
 Library           String
 Library           OperatingSystem
@@ -32,6 +33,7 @@ ${itm_ip-address2_def}    "3.3.3.3"
 ${itm_gateway-ip_def}    "0.0.0.0"
 ${itm_tunnel-type_def}    vxlan
 ${itm_zone-name_def}    TZA
+${VAR_BASE}       ${CURDIR}/../variables/vpnservice/
 
 *** Keywords ***
 VPN Create L3VPN
@@ -80,6 +82,26 @@ VPN Get L3VPN
     Log    BODY:${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    ${CREATE_RESP_CODE}
     [Return]    ${resp.content}
+
+Associate L3VPN To Network
+    [Arguments]    &{Kwargs}
+    [Documentation]    Associate L3VPN to a network
+    ${resp} =    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/assoc_l3vpn    mapping=${Kwargs}    session=session
+    Log    ${resp}
+    Get L3VPN Association
+
+Dissociate L3VPN From Networks
+    [Arguments]    &{Kwargs}
+    [Documentation]    Disssociate L3VPN from network
+    ${resp} =    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/dissoc_l3vpn    mapping=${Kwargs}    session=session
+    Log    ${resp}
+    Get L3VPN Association
+
+Get L3VPN Association
+    [Documentation]    Associate L3VPN to a network
+    ${resp} =    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/get_l3vpn    mapping={"getid":${GET_ID}}    session=session
+    Log    ${resp}
+    [Return]    ${resp}
 
 Associate VPN to Router
     [Arguments]    ${ROUTER}    ${VPN_INSTANCE_NAME}
