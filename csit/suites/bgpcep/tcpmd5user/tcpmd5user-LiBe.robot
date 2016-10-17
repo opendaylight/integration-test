@@ -18,7 +18,7 @@ Library           OperatingSystem
 Library           RequestsLibrary
 Library           SSHLibrary    prompt=]>
 Library           String
-Library           ${CURDIR}/../../../libraries/HsfJson/hsf_json.py
+Library           ${CURDIR}/../../../libraries/norm_json.py
 Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
@@ -203,13 +203,13 @@ Compare_Topology
     ...    Save normalized jsons to files for later processing.
     ...    Error codes and normalized jsons should match exactly.
     # FIXME: See bgpuser to move handling of expected outside WUKS loop, as in bgpuser suite.
-    ${normexp}=    hsf_json.Hsf_Json    ${expected}
+    ${normexp}=    norm_json.normalize_json_text    ${expected}
     BuiltIn.Log    ${normexp}
     OperatingSystem.Create_File    ${directory_for_expected_responses}${/}${name}    ${normexp}
     ${resp}=    RequestsLibrary.Get_Request    ses    topology/pcep-topology
     BuiltIn.Log    ${resp}
     BuiltIn.Log    ${resp.text}
-    ${normresp}=    hsf_json.Hsf_Json    ${resp.text}
+    ${normresp}=    norm_json.normalize_json_text    ${resp.text}
     BuiltIn.Log    ${normresp}
     OperatingSystem.Create_File    ${directory_for_actual_responses}${/}${name}    ${normresp}
     BuiltIn.Should_Be_Equal_As_Strings    ${resp.status_code}    200
