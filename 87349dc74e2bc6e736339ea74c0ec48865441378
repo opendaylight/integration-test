@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_c88c9182",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 467,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-17T11:24:49Z",
+      "side": 1,
+      "message": "It would be great if the documentation is better (i.e. it would be more than test case name)",
+      "range": {
+        "startLine": 467,
+        "startChar": 23,
+        "endLine": 467,
+        "endChar": 31
+      },
+      "revId": "87349dc74e2bc6e736339ea74c0ec48865441378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_28e9c51a",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 519,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-17T11:24:49Z",
+      "side": 1,
+      "message": "It would be great if the documentation is better (i.e. it would be more than test case name)",
+      "range": {
+        "startLine": 519,
+        "startChar": 30,
+        "endLine": 519,
+        "endChar": 34
+      },
+      "revId": "87349dc74e2bc6e736339ea74c0ec48865441378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_48f881e5",
+        "filename": "csit/suites/openstack/NeutronSecurityGrp/Neutron_Security_Group.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-17T11:24:49Z",
+      "side": 1,
+      "message": "It would be great if the documentation is better (i.e. it would be more than test case name)",
+      "range": {
+        "startLine": 40,
+        "startChar": 27,
+        "endLine": 40,
+        "endChar": 38
+      },
+      "revId": "87349dc74e2bc6e736339ea74c0ec48865441378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_a8dcb575",
+        "filename": "csit/suites/openstack/NeutronSecurityGrp/Neutron_Security_Group.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-17T11:24:49Z",
+      "side": 1,
+      "message": "It would be great if the documentation is better (i.e. it would be more than test case name)",
+      "range": {
+        "startLine": 61,
+        "startChar": 23,
+        "endLine": 61,
+        "endChar": 29
+      },
+      "revId": "87349dc74e2bc6e736339ea74c0ec48865441378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_c8e3f131",
+        "filename": "csit/suites/openstack/NeutronSecurityGrp/Neutron_Security_Group.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 100,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-17T11:24:49Z",
+      "side": 1,
+      "message": "Not sure... Can this be moved to library. This applies to rest of the keywords in this file",
+      "range": {
+        "startLine": 100,
+        "startChar": 0,
+        "endLine": 100,
+        "endChar": 9
+      },
+      "revId": "87349dc74e2bc6e736339ea74c0ec48865441378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_08d5e942",
+        "filename": "csit/suites/openstack/NeutronSecurityGrp/Neutron_Security_Group.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 125,
+      "author": {
+        "id": 5448
+      },
+      "writtenOn": "2016-10-17T11:24:49Z",
+      "side": 1,
+      "message": "CSIT review team expects to have all the variable assignment with \u003d syntax.    This applies for all rest of the code",
+      "range": {
+        "startLine": 125,
+        "startChar": 11,
+        "endLine": 125,
+        "endChar": 15
+      },
+      "revId": "87349dc74e2bc6e736339ea74c0ec48865441378",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
