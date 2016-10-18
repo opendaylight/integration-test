@@ -293,7 +293,7 @@ Test Operations From Vm Instance
     Log    ${output}
     ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    ifconfig    ${OS_SYSTEM_PROMPT}
-    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    route    ${OS_SYSTEM_PROMPT}
+    Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    route    ${OS_SYSTEM_PROMPT}      90s
     Run Keyword If    ${rcode}    Write Commands Until Expected Prompt    arp -an    ${OS_SYSTEM_PROMPT}
     ${dest_vm}=    Get From List    ${list_of_local_dst_ips}    0
     Log    ${dest_vm}
@@ -422,3 +422,11 @@ Create Security Rule
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron security-group-rule-create --direction ${direction} --protocol ${protocol} --port-range-min ${min_port} --port-range-max ${max_port} --remote-ip-prefix ${remote_ip} ${sg_name}
     Close Connection
+
+Create Icmp Security Rule
+    [Arguments]    ${direction}     ${remote_ip}    ${sg_name}
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron security-group-rule-create --direction ${direction} --protocol icmp --remote-ip-prefix ${remote_ip} ${sg_name}
+    Close Connection
+
