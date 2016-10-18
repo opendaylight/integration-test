@@ -146,7 +146,7 @@ Get Net Id
     [Arguments]    ${network_name}    ${devstack_conn_id}
     [Documentation]    Retrieve the net id for the given network name to create specific vm instance
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron net-list | grep "${network_name}" | get_field 1    30s
+    ${output}=    Write Commands Until Prompt    neutron net-list | grep "${network_name}" | awk '{print $2}'    30s
     Log    ${output}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${net_id}=    Get from List    ${splitted_output}    0
@@ -168,7 +168,7 @@ Get Router Id
     [Arguments]    ${router1}    ${devstack_conn_id}
     [Documentation]    Retrieve the net id for the given network name to create specific vm instance
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron router-list | grep "${router1}" | get_field 1    30s
+    ${output}=    Write Commands Until Prompt    neutron router-list | grep "${router1}" | awk '{print $2}'    30s
     Log    ${output}
     ${splitted_output}=    Split String    ${output}    ${EMPTY}
     ${router_id}=    Get from List    ${splitted_output}    0
