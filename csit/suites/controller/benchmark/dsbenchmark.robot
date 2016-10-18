@@ -133,7 +133,9 @@ Start_Benchmark_Tool
 Wait_Until_Benchmark_Tool_Finish
     [Arguments]    ${timeout}
     [Documentation]    Wait until the benchmark tool is finished. Fail in case of test timeout (${timeout}).
-    BuiltIn.Wait Until Keyword Succeeds    ${timeout}    15s    Read Until Prompt
+    ...    In order to prevent SSH session from closing due to inactivity, newline is sent every check.
+    BuiltIn.Wait Until Keyword Succeeds    ${timeout}    30s    BuiltIn.Run Keywords    SSHLibrary.Write    ${EMPTY}
+    ...    AND    SSHLibrary.Read Until Prompt
 
 Stop_Benchmark_Tool
     [Documentation]    Stop the benchmark tool. Fail if still running.
