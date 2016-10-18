@@ -91,8 +91,8 @@ Deploy_Artifact
     ${version}    ${location} =    NexusKeywords__Detect_Version_To_Pull    ${component}
     # TODO: Use RequestsLibrary and String instead of curl and bash utilities?
     ${url} =    BuiltIn.Set_Variable    ${urlbase}/${location}/${artifact}/${version}
-    ${namepart} =    SSHLibrary.Execute_Command    curl -L ${url}/maven-metadata.xml | grep value | head -n 1 | cut -d '>' -f 2 | cut -d '<' -f 1
-    BuiltIn.Log    ${namepart}
+    ${metadata}=    SSHKeywords.Execute_Command_Should_Pass    curl -L ${url}/maven-metadata.xml
+    ${namepart}=    SSHKeywords.Execute_Command_Should_Pass    echo "${metadata}" | grep value | head -n 1 | cut -d '>' -f 2 | cut -d '<' -f 1    stderr_must_be_empty=${True}
     ${length} =    BuiltIn.Get_Length    ${namepart}
     ${namepart} =    BuiltIn.Set_Variable_If    ${length} == 0    ${version}    ${namepart}
     ${filename} =    BuiltIn.Set_Variable    ${name_prefix}${namepart}${name_suffix}
