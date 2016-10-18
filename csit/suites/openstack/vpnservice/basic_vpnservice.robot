@@ -2,9 +2,10 @@
 Documentation     Test suite to validate vpnservice functionality in an openstack integrated environment.
 ...               The assumption of this suite is that the environment is already configured with the proper
 ...               integration bridges and vxlan tunnels.
-Suite Setup       Basic Vpnservice Suite Setup
-Suite Teardown    Basic Vpnservice Suite Teardown
+Suite Setup       Devstack Suite Setup Tests 
+Suite Teardown    Close All Connections
 Test Setup        Log Testcase Start To Controller Karaf
+Test Teardown     Get OvsDebugInfo
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -22,6 +23,8 @@ Variables         ../../../variables/Variables.py
 @{PORT_LIST}      PORT11    PORT21    PORT12    PORT22
 @{VM_INSTANCES}    VM11    VM21    VM12    VM22
 @{ROUTERS}        ROUTER_1    ROUTER_2
+@{NET10_VM_IPS}    10.1.1.3    10.1.1.4
+@{NET20_VM_IPS}    20.1.1.3    20.1.1.4
 # Values passed by the calling method to API
 @{CREATE_ID}      "4ae8cd92-48ca-49b5-94e1-b2921a261111"    "4ae8cd92-48ca-49b5-94e1-b2921a261112"    "4ae8cd92-48ca-49b5-94e1-b2921a261113"
 @{CREATE_NAME}    "vpn1"    "vpn2"    "vpn3"
@@ -53,8 +56,8 @@ Create ITM Tunnel
 
 Create Neutron Networks
     [Documentation]    Create two networks
-    Create Network    ${NETWORKS[0]}    --provider:network_type local
-    Create Network    ${NETWORKS[1]}    --provider:network_type local
+    Create Network    ${NETWORKS[0]}    
+    Create Network    ${NETWORKS[1]}    
     ${NET_LIST}    List Networks
     Log    ${NET_LIST}
     Should Contain    ${NET_LIST}    ${NETWORKS[0]}
@@ -88,11 +91,54 @@ Create Nova VMs
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES[1]}    ${OS_COMPUTE_2_IP}
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES[2]}    ${OS_COMPUTE_1_IP}
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES[3]}    ${OS_COMPUTE_2_IP}
+    Sleep     20s
 
 Check ELAN Datapath Traffic Within The Networks
     [Documentation]    Checks datapath within the same network with different vlans.
-    [Tags]    exclude
     Log    This test will be added in the next patch
+    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET20_VM_IPS}[0]    @{NET20_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l2    list_of_external_dst_ips=${other_dst_ip_list}
+
+Create L3VPN
+    [Documentation]    Creates L3VPN and verify the same
+    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[0]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
+    VPN Get L3VPN    ${CREATE_ID[0]}
+
+Associate L3VPN To Networks
+    [Documentation]    Associates L3VPN to networks and verify
+    ${devstack_conn_id} =    Get ControlNode Connection
+    ${network1_id} =    Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
+    ${network2_id} =    Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
+    Associate Network to VPN    ${VPN_INSTANCE_NAME[1]}    ${network1_id}
+    Associate Network to VPN    ${VPN_INSTANCE_NAME[1]}    ${network2_id}
+	
+Check L3_Datapath Traffic Across Networks With L3VPN
+    [Documentation]    Datapath test across the networks using network for L3.
+    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET20_VM_IPS}[0]    @{NET20_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET10_VM_IPS}[0]    @{NET10_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+
+Dissociate L3VPN From Networks
+    [Documentation]    Dissociate L3VPN from networks
+    ${devstack_conn_id} =    Get ControlNode Connection
+    ${network1_id} =    Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
+    ${network2_id} =    Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
+    Dissociate L3VPN From Networks    ${VPN_INSTANCE_NAME[1]}    ${network1_id}
+    Dissociate L3VPN From Networks    ${VPN_INSTANCE_NAME[1]}    ${network2_id}
+
+Delete L3VPN
+    [Documentation]    Delete L3VPN
+    VPN Delete L3VPN    ${CREATE_ID[0]}
 
 Create Routers
     [Documentation]    Create Router
@@ -104,11 +150,19 @@ Add Interfaces To Router
     \    Add Router Interface    ${ROUTERS[0]}    ${INTERFACE}
 
 Check L3_Datapath Traffic Across Networks With Router
-    [Documentation]    Datapath Test Across the networks using Router for L3.
-    [Tags]    exclude
-    Log    This test will be added in the next patch
+    [Documentation]    Datapath test across the networks using router for L3.
+    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET20_VM_IPS}[0]    @{NET20_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET10_VM_IPS}[0]    @{NET10_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
-Create L3VPN
+Create L3VPN1
     [Documentation]    Creates L3VPN and verify the same
     VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[0]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
     VPN Get L3VPN    ${CREATE_ID[0]}
@@ -119,6 +173,19 @@ Associate L3VPN to Routers
     ${devstack_conn_id}=    Get ControlNode Connection
     ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
     Associate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
+
+Check L3_Datapath Traffic Across Networks With Router associated withh L3VPN
+    [Documentation]    Datapath test across the networks using router for L3.
+    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET20_VM_IPS}[0]    @{NET20_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET10_VM_IPS}[0]    @{NET10_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
 Dissociate L3VPN to Routers
     [Documentation]    Dissociating router to L3VPN
@@ -136,7 +203,7 @@ Delete Routers
     [Documentation]    Delete Router and Interface to the subnets.
     Delete Router    ${ROUTERS[0]}
 
-Delete L3VPN
+Delete L3VPN1
     [Documentation]    Delete L3VPN
     VPN Delete L3VPN    ${CREATE_ID[0]}
 
