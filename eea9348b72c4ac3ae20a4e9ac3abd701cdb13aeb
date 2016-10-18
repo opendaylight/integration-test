@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_f72fa8f4",
+        "filename": "csit/suites/distribution/Karaf_Sequence_Install.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-18T15:08:33Z",
+      "side": 1,
+      "message": "This requires odl-jolokia feature to be installed, otherwise it fails due to 404: https://logs.opendaylight.org/sandbox/jenkins091/distribution-csit-1node-userfeatures-only-beryllium/2/archives/log.html.gz#s1-s4-k1-k4-k2-k5-k31-k2-k1-k1-k2-k1-k4-k1",
+      "range": {
+        "startLine": 58,
+        "startChar": 22,
+        "endLine": 58,
+        "endChar": 52
+      },
+      "revId": "eea9348b72c4ac3ae20a4e9ac3abd701cdb13aeb",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
