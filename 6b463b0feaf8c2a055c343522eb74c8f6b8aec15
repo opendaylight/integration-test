@@ -37,6 +37,24 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_bcf8774a",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5779
+      },
+      "writtenOn": "2016-10-18T15:15:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_0f87b910",
+      "revId": "6b463b0feaf8c2a055c343522eb74c8f6b8aec15",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_2f99d56e",
         "filename": "csit/libraries/VpnOperations.robot",
         "patchSetId": 4
@@ -84,6 +102,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_7cfedf39",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 5779
+      },
+      "writtenOn": "2016-10-18T15:15:51Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_2f99d56e",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 39
+      },
+      "revId": "6b463b0feaf8c2a055c343522eb74c8f6b8aec15",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_94eda0f2",
         "filename": "csit/libraries/VpnOperations.robot",
         "patchSetId": 4
@@ -118,6 +160,30 @@
       "writtenOn": "2016-10-18T13:10:32Z",
       "side": 1,
       "message": "I will submit a new patch with Keywords using TemplatedRequest.robot.",
+      "parentUuid": "7a6b29fe_94eda0f2",
+      "range": {
+        "startLine": 90,
+        "startChar": 17,
+        "endLine": 90,
+        "endChar": 32
+      },
+      "revId": "6b463b0feaf8c2a055c343522eb74c8f6b8aec15",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_fc2f8ff4",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 5779
+      },
+      "writtenOn": "2016-10-18T15:15:51Z",
+      "side": 1,
+      "message": "Hi Vratko,\n\nI am creating a new patch, where it would use the TemplatedRequests.robot. After verification in sandbox, will submit here.\n\nThanks,\nAbbas",
       "parentUuid": "7a6b29fe_94eda0f2",
       "range": {
         "startLine": 90,
