@@ -11,6 +11,7 @@ Library           ../../../libraries/Common.py
 Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/AAAKeywords.robot
+Resource          ../../../libraries/KarafKeywords.robot
 
 *** Variables ***
 
