@@ -17,6 +17,7 @@ Documentation     Nexus repository access keywords, and supporting Java and Mave
 Library           OperatingSystem
 Library           SSHLibrary
 Library           String
+Library           Process
 Resource          ${CURDIR}/SSHKeywords.robot
 
 *** Variables ***
@@ -91,6 +92,10 @@ Deploy_Artifact
     ${version}    ${location} =    NexusKeywords__Detect_Version_To_Pull    ${component}
     # TODO: Use RequestsLibrary and String instead of curl and bash utilities?
     ${url} =    BuiltIn.Set_Variable    ${urlbase}/${location}/${artifact}/${version}
+    ${metadata}    ${stderr}=    SSHLibrary.Execute_Command    curl -L ${url}/maven-metadata.xml    stdout=True    stderr=True
+    BuiltIn.Log    ${metadata}
+    ${result}=    Process.Run_Process    echo ${metadata} | grep value | head -n 1 | cut -d '>' -f 2 | cut -d '<' -f 1
+    ${namepart} =    BuiltIn.Set_Variable    ${result.stdout}
     ${namepart} =    SSHLibrary.Execute_Command    curl -L ${url}/maven-metadata.xml | grep value | head -n 1 | cut -d '>' -f 2 | cut -d '<' -f 1
     BuiltIn.Log    ${namepart}
     ${length} =    BuiltIn.Get_Length    ${namepart}
