@@ -184,10 +184,10 @@ def write_results_to_file(values, file_name, key_filter):
     try:
         for key in sorted(values):
             if (key_filter != 'none') & ((key_filter == 'all') | (re.search(key_filter, key) is not None)):
-                first_line += key + ', '
-                second_line += str(values[key]) + ', '
-        first_line = first_line[:-2]
-        second_line = second_line[:-2]
+                first_line += key + ','
+                second_line += str(values[key]) + ','
+        first_line = first_line[:-1]
+        second_line = second_line[:-1]
         f.write(first_line + '\n')
         f.write(second_line + '\n')
     finally:
