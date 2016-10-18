@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_425fb872",
+        "filename": "csit/suites/aaa/authn/010_Credential_Authentication.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-18T17:37:20Z",
+      "side": 1,
+      "message": "Yup, this is from KarafKeywords.robot which is no longer pulled in transitively via Utils.robot",
+      "range": {
+        "startLine": 4,
+        "startChar": 18,
+        "endLine": 4,
+        "endChar": 56
+      },
+      "revId": "c7816ebcf6006ff40a0fb25e9c4712a6dfdd0ff2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
