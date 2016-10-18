@@ -16,6 +16,24 @@
       "revId": "13576122e3919c48845f1ce17ef878a231a05ca1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_150fc7e2",
+        "filename": "csit/testplans/distribution-userfeatures.txt",
+        "patchSetId": 21
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6608
+      },
+      "writtenOn": "2016-10-18T07:02:24Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "7a6b29fe_5aedeeee",
+      "revId": "13576122e3919c48845f1ce17ef878a231a05ca1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
