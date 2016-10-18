@@ -34,15 +34,17 @@ Check Ports STP status
     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    ${FORWARD}    4
     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    ${DISCARD}    2
 
+Check Flows
+    [Documentation]    Check all flows are present
+    Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    "output-node-connector"    16
+    [Teardown]    Report_Failure_Due_To_Bug    6984
+
 Ping Test
     [Documentation]    Ping h1 to h2, verify no packet loss or duplicates
-    # This sleep is needed because if the ping in the below WUKS is launched before the STP effectively removes the link,
-    # it produces a packet storm in mininet that makes the test unresponsive.
-    Sleep    1
     Wait Until Keyword Succeeds    10s    2s    Ping Works Good
 
 Link Down
-    [Documentation]    Take link s1-s2 down and verify ping works
+    [Documentation]    Take link s1-s2 down and verify ping works. This is not implemented.
     [Tags]    exclude
     Write    link s1 s2 down
     Read Until    mininet>
@@ -51,7 +53,7 @@ Link Down
     Wait Until Keyword Succeeds    10s    2s    Ping Works Good
 
 Link Up
-    [Documentation]    Take link s1-s2 up and verify ping works
+    [Documentation]    Take link s1-s2 up and verify ping works. This is not implemented.
     [Tags]    exclude
     Write    link s1 s2 up
     Read Until    mininet>
@@ -63,13 +65,15 @@ Link Up
     Wait Until Keyword Succeeds    10s    2s    Ping Works Good
 
 Remove Port
-    [Documentation]    Remove port s1-eth2 and verify ping works
+    [Documentation]    Remove port s1-eth2 and verify ping works. This is not stable, should be rewritten to pick a port that is not blocked.
+    [Tags]    exclude
     Write    sh ovs-vsctl del-port s1 s1-eth2
     Read Until    mininet>
     Wait Until Keyword Succeeds    10s    2s    Ping Works Good
 
 Add Port
-    [Documentation]    Add port s1-eth2 and verify ping works
+    [Documentation]    Add port s1-eth2 and verify ping works. This is not stable, should be rewritten to pick a port that is not blocked.
+    [Tags]    exclude
     Write    sh ovs-vsctl add-port s1 s1-eth2 -- set interface s1-eth2 ofport=2
     Read Until    mininet>
     Wait Until Keyword Succeeds    10s    2s    Check For Specific Number Of Elements At URI    ${OPERATIONAL_NODES_API}    ${FORWARD}    4
