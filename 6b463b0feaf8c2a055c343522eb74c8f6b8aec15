@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_9c765bd7",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 6434
+      },
+      "writtenOn": "2016-10-18T13:10:32Z",
+      "side": 1,
+      "message": "Documentation will be corrected.",
+      "parentUuid": "7a6b29fe_0f87b910",
+      "revId": "6b463b0feaf8c2a055c343522eb74c8f6b8aec15",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_2f99d56e",
         "filename": "csit/libraries/VpnOperations.robot",
         "patchSetId": 4
@@ -42,6 +60,30 @@
     },
     {
       "key": {
+        "uuid": "7a6b29fe_3c72a7e5",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 6434
+      },
+      "writtenOn": "2016-10-18T13:10:32Z",
+      "side": 1,
+      "message": "CONFIG_API will used across.\n\nOPERATIONAL_API is not usable, as it points to /restconf/operational.\n\nI will create a new variable OPERATIONS_API to use.",
+      "parentUuid": "7a6b29fe_2f99d56e",
+      "range": {
+        "startLine": 11,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 39
+      },
+      "revId": "6b463b0feaf8c2a055c343522eb74c8f6b8aec15",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_94eda0f2",
         "filename": "csit/libraries/VpnOperations.robot",
         "patchSetId": 4
@@ -53,6 +95,30 @@
       "writtenOn": "2016-10-13T14:50:22Z",
       "side": 1,
       "message": "Using TemplatedRequests.robot would save a few lines here.",
+      "range": {
+        "startLine": 90,
+        "startChar": 17,
+        "endLine": 90,
+        "endChar": 32
+      },
+      "revId": "6b463b0feaf8c2a055c343522eb74c8f6b8aec15",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_dca9f325",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 90,
+      "author": {
+        "id": 6434
+      },
+      "writtenOn": "2016-10-18T13:10:32Z",
+      "side": 1,
+      "message": "I will submit a new patch with Keywords using TemplatedRequest.robot.",
+      "parentUuid": "7a6b29fe_94eda0f2",
       "range": {
         "startLine": 90,
         "startChar": 17,
