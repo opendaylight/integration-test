@@ -46,6 +46,29 @@
       "revId": "a9000f24ff916531fd755e0481f36bfd1870285a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_f235f3f7",
+        "filename": "csit/suites/bgpcep/bgpfunct/030_bgp_functionalt_evpn.robot",
+        "patchSetId": 76
+      },
+      "lineNbr": 51,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-19T12:04:20Z",
+      "side": 0,
+      "message": "This means the Test Setup from Settings table is not applied. If this line is missing from your commit, Verify _Test_Preconditions will be executed. That maybe does not lead to failures, but nevertheless that was not the intention of the Base code.",
+      "range": {
+        "startLine": 51,
+        "startChar": 4,
+        "endLine": 51,
+        "endChar": 11
+      },
+      "revId": "a9000f24ff916531fd755e0481f36bfd1870285a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
