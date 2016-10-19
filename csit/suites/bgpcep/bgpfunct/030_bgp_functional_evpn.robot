@@ -14,7 +14,8 @@ Documentation     Functional test for bgp - evpn
 ...               is recevied from odl.
 Suite Setup       Start_Suite
 Suite Teardown    Stop_Suite
-Test Setup        Verify Test Preconditions
+Test Setup        Run Keywords    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+...               AND    Verify Test Preconditions
 Library           RequestsLibrary
 Library           SSHLibrary
 Variables         ${CURDIR}/../../../variables/Variables.py
@@ -24,7 +25,6 @@ Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Library           ${CURDIR}/../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
 Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
-Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 
 *** Variables ***
@@ -47,20 +47,20 @@ ${LOC_RIB_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/loc-
 *** Test Cases ***
 Configure_App_Peer
     [Documentation]    Configures bgp application peer
-    [Setup]    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    APP_PEER_NAME=${APP_PEER_NAME}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    APP_PEER_ID=${ODL_SYSTEM_IP}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}/app_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configures BGP peer module with initiate-connection set to false.
-    [Setup]    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
     ...    INITIATE=false    RIB_INSTANCE_NAME=${RIB_INSTANCE}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Start_Bgp_Peer
     [Documentation]    Start Python speaker to connect to ODL. We need to do WUKS until odl really starts to accept incomming bgp connection. The failure happens if the incomming connection comes too quickly after configuring the peer in the previous test case.
-    [Setup]    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     BuiltIn.Wait_Until_Keyword_Succeeds    3x    1s    Start Bgp Peer
 
 Odl_To_Play_route_es_arb
@@ -297,24 +297,24 @@ Play_To_Odl_route_mac_rou
 
 Kill_Talking_BGP_Speaker
     [Documentation]    Abort the Python speaker
-    [Setup]    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     BGPSpeaker.Kill_BGP_Speaker
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    [Setup]    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Deconfigure_App_Peer
     [Documentation]    Revert the BGP configuration to the original state: without application peer
-    [Setup]    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    APP_PEER_NAME=${APP_PEER_NAME}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}/app_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 *** Keywords ***
 Start_Suite
-    [Documentation]    Suite setup keyword
+    [Documentation]    Initialize SetupUtils. Suite setup keyword.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     ${mininet_conn_id}=    SSHLibrary.Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=6s
     Builtin.Set Suite Variable    ${mininet_conn_id}
@@ -335,7 +335,6 @@ Start_Bgp_Peer
 
 Odl_To_Play_Template
     [Arguments]    ${totest}
-    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     ${data_xml}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/${totest}.xml
     ${data_json}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/${totest}.json
     ${announce_hex}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/announce_${totest}.hex
@@ -361,7 +360,6 @@ Odl_To_Play_Template
 
 Play_To_Odl_Template
     [Arguments]    ${totest}
-    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     ${data_xml}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/${totest}.xml
     ${data_json}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/${totest}.json
     ${announce_hex}=    OperatingSystem.Get_File    ${EVPN_VARIABLES_DIR}/announce_${totest}.hex
