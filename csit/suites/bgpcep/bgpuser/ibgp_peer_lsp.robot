@@ -23,7 +23,6 @@ Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
-Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
@@ -85,13 +84,11 @@ TC1_Disconnect_BGP_Peer
 
 TC1_Deconfigure_iBGP_Peer
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}
     TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 TC2_Configure_iBGP_Peer
     [Documentation]    Configures BGP peer module with initiate-connection set to false.
-    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
     ...    INITIATE=false    RIB_INSTANCE_NAME=${RIB_INSTANCE}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
@@ -105,7 +102,6 @@ TC2_Check_Example_Bgp_Rib_Is_Empty
 TC2_Connect_BGP_Peer
     [Documentation]    Connect BGP peer
     [Tags]    critical
-    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     SSHLibrary.Switch Connection    bgp_peer_console
     BGPcliKeywords.Start_Console_Tool    ${BGP_PEER_COMMAND}    ${BGP_PEER_OPTIONS}
     BGPcliKeywords.Read_And_Fail_If_Prompt_Is_Seen
@@ -113,27 +109,24 @@ TC2_Connect_BGP_Peer
 TC2_Check_Example_Bgp_Rib
     [Documentation]    Check RIB for linkstate-route(s)
     [Tags]    critical
-    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     SSHLibrary.Switch Connection    bgp_peer_console
     BuiltIn.Wait_Until_Keyword_Succeeds    ${DEFAULT_RIB_CHECK_TIMEOUT}    ${DEFAULT_RIB_CHECK_PERIOD}    Check_Example_Bgp_Rib_Content    ${JSONKEYSTR}
 
 TC2_Disconnect_BGP_Peer
     [Documentation]    Stop BGP peer & store logs
     [Tags]    critical
-    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     SSHLibrary.Switch Connection    bgp_peer_console
     BGPcliKeywords.Stop_Console_Tool
     BGPcliKeywords.Store_File_To_Workspace    ${BGP_PEER_LOG_FILE}    tc2_${BGP_PEER_LOG_FILE}
 
 TC2_Deconfigure_iBGP_Peer
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}
     TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 *** Keywords ***
 Setup_Everything
-    [Documentation]    SSH-login to mininet machine, create HTTP session,
+    [Documentation]    Initialize SetupUtils. SSH-login to mininet machine, create HTTP session,
     ...    prepare directories for responses, put Python tool to mininet machine, setup imported resources.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
