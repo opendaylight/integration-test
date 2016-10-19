@@ -422,3 +422,107 @@ Create Security Rule
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron security-group-rule-create --direction ${direction} --protocol ${protocol} --port-range-min ${min_port} --port-range-max ${max_port} --remote-ip-prefix ${remote_ip} ${sg_name}
     Close Connection
+
+Neutron Security Group Show
+    [Arguments]    ${SecurityGroupRuleName}    ${additional_args}=${EMPTY}
+    [Documentation]    Displays the neutron security group configurations that belongs to a given neutron security group name
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron security-group-show ${SecurityGroupRuleName} ${additional_args}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    [Return]    ${output}
+
+Neutron Port Show
+    [Arguments]    ${PortName}    ${additional_args}=${EMPTY}
+    [Documentation]    Display the port configuration that belong to a given neutron port
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron port-show ${PortName} ${additional_args}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    [Return]    ${output}
+
+Neutron Security Group Create
+    [Arguments]    ${SecurityGroupName}    ${additional_args}=${EMPTY}
+    [Documentation]    Create a security group with specified name ,description & protocol value according to security group template
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron security-group-create ${SecurityGroupName} ${additional_args}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Should Contain    ${output}    Created a new security_group
+    ${sgp_id}=    Should Match Regexp    ${output}    [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
+    Log    ${sgp_id}
+    Close Connection
+    [Return]    ${output}    ${sgp_id}
+
+Neutron Security Group Update
+    [Arguments]    ${SecurityGroupName}    ${additional_args}=${EMPTY}
+    [Documentation]    Updating security groups
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron security-group-update ${SecurityGroupName} ${additional_args}
+    Log    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${output}
+    Close Connection
+    [Return]    ${output}
+
+Neutron Security Group Rule Create
+    [Arguments]    ${Security_group_name}    &{Kwargs}
+    [Documentation]    Creates neutron security rule with neutron request with or without optional params, here security group name is mandatory args, rule with optional params can be created by passing the optional args values ex: direction=${INGRESS_EGRESS}, Then these optional params are catenated with mandatory args, example of usage: "Neutron Security Group Rule Create ${SGP_SSH} direction=${RULE_PARAMS[0]} ethertype=${RULE_PARAMS[1]} ..."
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    Run Keyword If    ${Kwargs}    Log    ${Kwargs}
+    ${description}    Run Keyword If    ${Kwargs}    Pop From Dictionary    ${Kwargs}    description    default=${None}
+    ${direction}    Run Keyword If    ${Kwargs}    Pop From Dictionary    ${Kwargs}    direction    default=${None}
+    ${ethertype}    Run Keyword If    ${Kwargs}    Pop From Dictionary    ${Kwargs}    ethertype    default=${None}
+    ${port_range_max}    Run Keyword If    ${Kwargs}    Pop From Dictionary    ${Kwargs}    port_range_max    default=${None}
+    ${port_range_min}    Run Keyword If    ${Kwargs}    Pop From Dictionary    ${Kwargs}    port_range_min    default=${None}
+    ${protocol}    Run Keyword If    ${Kwargs}    Pop From Dictionary    ${Kwargs}    protocol    default=${None}
+    ${remote_group_id}    Run Keyword If    ${Kwargs}    Pop From Dictionary    ${Kwargs}    remote_group_id    default=${None}
+    ${remote_ip_prefix}    Run Keyword If    ${Kwargs}    Pop From Dictionary    ${Kwargs}    remote_ip_prefix    default=${None}
+    ${cmd}=    Set Variable    neutron security-group-rule-create ${Security_group_name}
+    ${cmd}=    Run Keyword If    '${description}'!='None'    Catenate    ${cmd}    --description ${description}
+    ...    ELSE    Catenate    ${cmd}
+    ${cmd}=    Run Keyword If    '${direction}'!='None'    Catenate    ${cmd}    --direction ${direction}
+    ...    ELSE    Catenate    ${cmd}
+    ${cmd}=    Run Keyword If    '${ethertype}'!='None'    Catenate    ${cmd}    --ethertype ${ethertype}
+    ...    ELSE    Catenate    ${cmd}
+    ${cmd}=    Run Keyword If    '${port_range_max}'!='None'    Catenate    ${cmd}    --port_range_max ${port_range_max}
+    ...    ELSE    Catenate    ${cmd}
+    ${cmd}=    Run Keyword If    '${port_range_min}'!='None'    Catenate    ${cmd}    --port_range_min ${port_range_min}
+    ...    ELSE    Catenate    ${cmd}
+    ${cmd}=    Run Keyword If    '${protocol}'!='None'    Catenate    ${cmd}    --protocol ${protocol}
+    ...    ELSE    Catenate    ${cmd}
+    ${cmd}=    Run Keyword If    '${remote_group_id}'!='None'    Catenate    ${cmd}    --remote_group_id ${remote_group_id}
+    ...    ELSE    Catenate    ${cmd}
+    ${cmd}=    Run Keyword If    '${remote_ip_prefix}'!='None'    Catenate    ${cmd}    --remote_ip_prefix ${remote_ip_prefix}
+    ...    ELSE    Catenate    ${cmd}
+    ${output}=    Write Commands Until Prompt    ${cmd}    30s
+    ${rule_id}=    Should Match Regexp    ${output}    [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
+    Log    ${rule_id}
+    Should Contain    ${output}    Created a new security_group_rule
+    Close Connection
+    [Return]    ${output}    ${rule_id}
+
+Create Neutron Port With Additional Params
+    [Arguments]    ${network_name}    ${port_name}    ${additional_args}=${EMPTY}
+    [Documentation]    Create Port With given additional parameters
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${cmd}=    Set Variable    neutron -v port-create ${network_name} --name ${port_name} ${additional_args}
+    Log    ${cmd}
+    ${OUTPUT}=    Write Commands Until Prompt    ${cmd}    30s
+    Log    ${OUTPUT}
+    Should Contain    ${output}    Created a new port
+    ${port_id}=    Should Match Regexp    ${OUTPUT}    [0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}
+    Log    ${port_id}
+    Close Connection
+    [Return]    ${OUTPUT}    ${port_id}
