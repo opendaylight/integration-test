@@ -12,15 +12,15 @@ Resource          ../../../../libraries/Utils.robot
 Resource          ../../../../libraries/KarafKeywords.robot
 
 *** Variables ***
-${GBP_INSTANCE_COUNT}    0
-${VBD_INSTANCE_COUNT}    0
+${GBP_INSTANCE_COUNT}    ${0}
+${VBD_INSTANCE_COUNT}    ${0}
 
 *** Test Cases ***
 Identify GBP Master Instance
     Log Many   ${ODL_SYSTEM_1_IP}    ${ODL_SYSTEM_2_IP}    ${ODL_SYSTEM_3_IP}
     Wait Until Keyword Succeeds    10x    10 sec    Search For Gbp Master    ${ODL_SYSTEM_1_IP}    ${ODL_SYSTEM_2_IP}    ${ODL_SYSTEM_3_IP}
     Should Be Equal As Integers   ${GBP_INSTANCE_COUNT}    1
-    Log    GBP ${GBP_MASTER_IP}, VBD ${VBD_IP}
+    Log    GBP ${GBP_MASTER_IP}, VBD ${VBD_MASTER_IP}
     Set Suite Variable    ${ODL_SYSTEM_IP}    ${GBP_MASTER_IP}
 
 *** Keywords ***
@@ -38,8 +38,9 @@ Set Gbp Master Ip And Increment Count
     [Arguments]    ${ip}
     Set Global Variable    ${GBP_MASTER_IP}    ${ip}
     Log    ${GBP_INSTANCE_COUNT}
-    ${NEW_COUNT}    Evaluate    ${GBP_INSTANCE_COUNT} + 1
-    Set Suite Variable    ${GBP_INSTANCE_COUNT}    ${NEW_COUNT}
+    #${NEW_COUNT}    Evaluate    ${GBP_INSTANCE_COUNT} + 1
+    #Set Suite Variable    ${GBP_INSTANCE_COUNT}    ${NEW_COUNT}
+    Set Suite Variable    ${GBP_INSTANCE_COUNT}    ${GBP_INSTANCE_COUNT+1}
     Log    ${GBP_INSTANCE_COUNT}
 
 Set Vbd Ip
@@ -47,8 +48,9 @@ Set Vbd Ip
     ${VBD_IP}    Set Variable    ${ip}
     Set Global Variable    ${VBD_MASTER_IP}    ${ip}
     Log    ${VBD_INSTANCE_COUNT}
-    ${NEW_COUNT}    Evaluate    ${VBD_INSTANCE_COUNT} + 1
-    Set Suite Variable    ${VBD_INSTANCE_COUNT}    ${NEW_COUNT}
+#    ${NEW_COUNT}    Evaluate    ${VBD_INSTANCE_COUNT} + 1
+#    Set Suite Variable    ${VBD_INSTANCE_COUNT}    ${NEW_COUNT}
+    Set Suite Variable    ${VBD_INSTANCE_COUNT}    ${VBD_INSTANCE_COUNT+1}
     Log    ${VBD_INSTANCE_COUNT}
 
 Read JSON From File
