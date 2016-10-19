@@ -143,7 +143,7 @@ Archive_Older_Karaf_Log
 *** Keywords ***
 Setup_Suite
     [Documentation]    Activate dependency Resources, create SSH connection, copy Python utility.
-    ClusterManagement.ClusterManagement_Setup
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown
     TemplatedRequests.Create_Default_Session
     ${connection} =    SSHKeywords.Open_Connection_To_ODL_System
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/odl-mdsal-clustering-tests/${PYTHON_UTILITY_FILENAME}

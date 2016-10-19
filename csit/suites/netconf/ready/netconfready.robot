@@ -39,6 +39,7 @@ Documentation     netconf-connector readiness test suite.
 ...               this test suite.
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Library           RequestsLibrary
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
@@ -103,7 +104,8 @@ Wait_For_MDSAL
 
 *** Keywords ***
 Setup_Everything
-    [Documentation]    Setup requests library and log into karaf.log that the netconf readiness wait starts.
+    [Documentation]    Initialize SetupUtils. Setup requests library and log into karaf.log that the netconf readiness wait starts.
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown
     ${connector}=    BuiltIn.Set_Variable_If    ${USE_NETCONF_CONNECTOR}    /node/controller-config/yang-ext:mount/config:modules/module/odl-sal-netconf-connector-cfg:sal-netconf-connector/controller-config    ${EMPTY}
     BuiltIn.Set_Suite_Variable    ${netconf_connector}    ${connector}
     BuiltIn.Comment    A workaround for EOF error follows. TODO: Create a test case for the EOF bug, possibly tagged "exclude".

@@ -41,7 +41,6 @@ Library           OperatingSystem
 Library           String
 Library           SSHLibrary    timeout=10s
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
-Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
@@ -190,7 +189,7 @@ Check_Device_Deconfigured_On_Setter
 
 *** Keywords ***
 Setup_Everything
-    [Documentation]    Setup everything needed for the test cases.
+    [Documentation]    Initialize SetupUtils, setup everything needed for the test cases.
     # Setup resources used by the suite.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     NetconfKeywords.Setup_Netconf_Keywords    create_session_for_templated_requests=False

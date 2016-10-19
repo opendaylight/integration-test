@@ -4,7 +4,7 @@ Documentation     Test suite to validate vpnservice functionality in an openstac
 ...               integration bridges and vxlan tunnels.
 Suite Setup       Basic Vpnservice Suite Setup
 Suite Teardown    Basic Vpnservice Suite Teardown
-Test Setup        Log Testcase Start To Controller Karaf
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -13,6 +13,7 @@ Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/DevstackUtils.robot
 Resource          ../../../libraries/VpnOperations.robot
 Resource          ../../../libraries/OVSDB.robot
+Resource          ../../../libraries/SetupUtils.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
@@ -202,6 +203,8 @@ Delete ITM Tunnel
 
 *** Keywords ***
 Basic Vpnservice Suite Setup
+    [Documentation]    Initialize SetupUtils, create session
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
 
 Basic Vpnservice Suite Teardown

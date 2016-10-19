@@ -3,10 +3,11 @@ Documentation     Test suite for running tempest tests. It is assumed that the t
 ...               is already deployed and ready.
 Suite Setup       Log In To Tempest Executor And Setup Test Environment
 Suite Teardown    Clean Up After Running Tempest
-Test Setup        Log Testcase Start To Controller Karaf
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           SSHLibrary
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/DevstackUtils.robot
+Resource          ../../../libraries/SetupUtils.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
@@ -23,8 +24,9 @@ tempest.scenario.test_minimum_basic
 
 *** Keywords ***
 Log In To Tempest Executor And Setup Test Environment
-    [Documentation]    Open SSH connection to a devstack system and source the openstack
+    [Documentation]    Initialize SetupUtils, open SSH connection to a devstack system and source the openstack
     ...    credentials needed to run the tempest tests
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown
     # source_pwd is expected to exist in the below Create Network, Create Subnet keywords.    Might be a bug.
     ${source_pwd}    Set Variable    yes
     Set Suite Variable    ${source_pwd}

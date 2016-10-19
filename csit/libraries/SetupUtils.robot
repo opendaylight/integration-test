@@ -13,8 +13,7 @@ ${SetupUtils__Known_Bug_ID}    ${EMPTY}
 Setup_Utils_For_Setup_And_Teardown
     [Documentation]    Prepare both FailFast and karaf logging, to be used in suite setup.
     FailFast.Do_Not_Fail_Fast_From_Now_On
-    BuiltIn.Comment    First connections to Karaf console may fail, so WUKS is used. TODO: Track as a Bug.
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    0.2s    KarafKeywords.Open_Controller_Karaf_Console_On_Background
+    KarafKeywords.Setup Karaf Keywords
     BuiltIn.Run Keyword And Ignore Error    KarafKeywords.Log_Test_Suite_Start_To_Controller_Karaf
 
 Setup_Test_With_Logging_And_Fast_Failing

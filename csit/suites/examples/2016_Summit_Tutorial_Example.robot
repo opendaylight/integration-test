@@ -2,11 +2,11 @@
 Documentation     Example Robot suite used for the CSIT tutorial at the 2016 OpenDaylight Summit
 Suite Setup       Local Suite Setup
 Suite Teardown    Local Suite Teardown
-Test Setup        Log Testcase Start To Controller Karaf
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           RequestsLibrary
 Variables         ../../variables/Variables.py
-Resource          ../../libraries/KarafKeywords.robot
 Resource          ../../libraries/OVSDB.robot
+Resource          ../../libraries/SetupUtils.robot
 
 *** Variables ***
 ${switch_name}    odl_summit_switch
@@ -46,6 +46,7 @@ Connect Ovs To Controller
 
 Local Suite Setup
     [Documentation]    Make sure the environment is in a clean state.
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown
     # the variable named "session" has grandfathered it's way in to CSIT such that some keywords expect
     # it to be the name of the session with which it should make it's rest calls with.    There is no other
     # good reason than that.

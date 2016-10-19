@@ -5,13 +5,14 @@ Documentation     Collection of test cases to validate OVSDB projects bugs.
 ...               - https://bugs.opendaylight.org/show_bug.cgi?id=4794
 Suite Setup       OVSDB Connection Manager Suite Setup
 Suite Teardown    OVSDB Connection Manager Suite Teardown
-Test Setup        Log Testcase Start To Controller Karaf
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Force Tags        Southbound
 Library           OperatingSystem
 Library           String
 Library           RequestsLibrary
 Variables         ../../../variables/Variables.py
 Resource          ../../../libraries/Utils.robot
+Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/WaitForFailure.robot
 Resource          ../../../libraries/OVSDB.robot
 
@@ -83,6 +84,7 @@ Bug 4794
 
 *** Keywords ***
 OVSDB Connection Manager Suite Setup
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown
     Open Controller Karaf Console On Background
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     Clean OVSDB Test Environment    ${TOOLS_SYSTEM_IP}
