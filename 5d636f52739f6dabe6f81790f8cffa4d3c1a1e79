@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_72fe033a",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-19T11:31:51Z",
+      "side": 1,
+      "message": "Add a comment line explaining we want to separate downloading and parsing to make debugging easier.",
+      "range": {
+        "startLine": 94,
+        "startChar": 4,
+        "endLine": 94,
+        "endChar": 5
+      },
+      "revId": "5d636f52739f6dabe6f81790f8cffa4d3c1a1e79",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_32a48b56",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 94,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-19T11:31:51Z",
+      "side": 1,
+      "message": "Perhaps you can save few lines by using SSHKeywords.Execute_Command_Should_Pass, possibly with stderr_must_be_empty\u003dTrue.",
+      "range": {
+        "startLine": 94,
+        "startChar": 28,
+        "endLine": 94,
+        "endChar": 29
+      },
+      "revId": "5d636f52739f6dabe6f81790f8cffa4d3c1a1e79",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_52e8277c",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 97,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-19T11:31:51Z",
+      "side": 1,
+      "message": "This is not needed, as it is the default.",
+      "range": {
+        "startLine": 97,
+        "startChar": 146,
+        "endLine": 97,
+        "endChar": 161
+      },
+      "revId": "5d636f52739f6dabe6f81790f8cffa4d3c1a1e79",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
