@@ -22,6 +22,29 @@
       "revId": "9d1edc21ead678bfdc9958e1bd3ae36891f4f3f8",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_088f9e24",
+        "filename": "csit/suites/bgpcep/bgpfunct/030_bgp_functional_evpn.robot",
+        "patchSetId": 81
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-19T14:52:37Z",
+      "side": 1,
+      "message": "This is a suite setup keyword, not the logging test setup one. Also applies to lines with [Setup].",
+      "range": {
+        "startLine": 17,
+        "startChar": 45,
+        "endLine": 17,
+        "endChar": 79
+      },
+      "revId": "9d1edc21ead678bfdc9958e1bd3ae36891f4f3f8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
