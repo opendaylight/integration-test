@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_a8c4aa5f",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 81
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-19T14:49:15Z",
+      "side": 0,
+      "message": "This Teardown is useful, keep it. It does not interfere with the new Setup.",
+      "range": {
+        "startLine": 42,
+        "startChar": 5,
+        "endLine": 42,
+        "endChar": 13
+      },
+      "revId": "02031091eed3aa3d8ae12fcc0780c35ccf5eda3c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}

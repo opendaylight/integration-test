@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_28b09af3",
+        "filename": "csit/suites/aaa/authn/010_Credential_Authentication.robot",
+        "patchSetId": 81
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-19T14:49:15Z",
+      "side": 1,
+      "message": "Already present in line 16. If you with to reaorder things, the recommended order is Library, Resource, Variables, and within each block sort alphabetically by filename.",
+      "range": {
+        "startLine": 12,
+        "startChar": 37,
+        "endLine": 12,
+        "endChar": 54
+      },
+      "revId": "9d1edc21ead678bfdc9958e1bd3ae36891f4f3f8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
