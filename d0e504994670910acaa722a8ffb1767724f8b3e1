@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_de1c407a",
+        "filename": "csit/testplans/netvirt-vpnservice-1node-openstack.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-10-19T21:44:26Z",
+      "side": 1,
+      "message": "is this just a test? otherwise why remove the existing test plans?",
+      "revId": "d0e504994670910acaa722a8ffb1767724f8b3e1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
