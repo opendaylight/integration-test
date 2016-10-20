@@ -98,6 +98,17 @@ Report_Failure_And_Point_To_Linked_Bugs
     BuiltIn.Set Test Message    ${msg}${newline}${bugs}${newline}${newline}${TEST_MESSAGE}
     BuiltIn.Log    ${msg}${newline}${bugs}
 
+Ensure All Nodes Are In Response
+    [Arguments]    ${URI}    ${node_list}
+    [Documentation]    A GET is made to the supplied ${URI} and every item in the ${node_list}
+    ...    is verified to exist in the repsonse. This keyword currently implies that it's node
+    ...    specific but any list of strings can be given in ${node_list}. Refactoring of this
+    ...    to make it more generic should be done. (see keyword "Check For Elements At URI")
+    : FOR    ${node}    IN    @{node_list}
+    \    ${resp}    RequestsLibrary.Get Request    session    ${URI}
+    \    Should Be Equal As Strings    ${resp.status_code}    200
+    \    Should Contain    ${resp.content}    ${node}
+
 Check Nodes Stats
     [Arguments]    ${node}
     [Documentation]    A GET on the /node/${node} API is made and specific flow stat
@@ -106,6 +117,16 @@ Check Nodes Stats
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    flow-capable-node-connector-statistics
     Should Contain    ${resp.content}    flow-table-statistics
+
+Check That Port Count Is Ok
+    [Arguments]    ${node}    ${count}
+    [Documentation]    A GET on the /port API is made and the specified port ${count} is
+    ...    verified. A more generic Keyword "Check For Specific Number Of Elements At URI"
+    ...    also does this work and further consolidation should be done.
+    ${resp}    RequestsLibrary.Get Request    session    ${REST_CONTEXT}/${CONTAINER}/port
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain X Times    ${resp.content}    ${node}    ${count}
 
 Check For Specific Number Of Elements At URI
     [Arguments]    ${uri}    ${element}    ${expected_count}
@@ -262,17 +283,31 @@ Check Karaf Log File Does Not Have Messages
     ${output}=    Run Command On Controller    ${ip}    grep -c '${message}' ${log_file}    user=${user}    password=${password}    prompt=${prompt}
     Should Be Equal As Strings    ${output}    0
 
-Verify Controller Is Not Dead
-    [Arguments]    ${controller_ip}=${ODL_SYSTEM_IP}
-    [Documentation]    Will execute any tests to verify the controller is not dead. Some checks are
-    ...    Out Of Memory Execptions.
-    Check Karaf Log File Does Not Have Messages    ${controller_ip}    java.lang.OutOfMemoryError
-    # TODO: Should Verify Controller * keywords also accept user, password, prompt and karaf_log arguments?
 
 Verify Controller Has No Null Pointer Exceptions
     [Arguments]    ${controller_ip}=${ODL_SYSTEM_IP}
-    [Documentation]    Will execute any tests to verify the controller is not having any null pointer eceptions.
+    [Documentation]    Will execute any tests to verify the controller is not having any null pointer exceptions.
     Check Karaf Log File Does Not Have Messages    ${controller_ip}    java.lang.NullPointerException
+
+Verify Java/Karaf Process Is Running
+    [Arguments]    ${prompt}=${DEFAULT_LINUX_PROMPT}
+    [Documentation]    Uses grep to verify Java/Karaf process is running.
+    Execute Command    ps -aux | grep odl   prompt=${prompt}
+    # grep should show ODL is running Java/Karaf process
+
+Out Of Memory Exceptions
+    [Arguments]    ${controller_ip}=${ODL_SYSTEM_IP}
+    [Documentation]    Will execute any tests to verify the controller is not having any Out of Memory exceptions.
+    Check Karaf Log File Does Not Have Messages    ${controller_ip}    java.lang.OutOfMemoryError
+
+Verify Controller Is Not Dead
+    [Arguments]    ${controller_ip}=${ODL_SYSTEM_IP}    ${prompt}=${DEFAULT_LINUX_PROMPT}
+    [Documentation]    Will execute any tests to verify the controller is not dead. Some checks are
+    ...    Null Pointer Exceptions, Out Of Memory Execptions, Java/Karaf process is running.
+    Check Null Pointer Exceptions
+    Check Java/Karaf Process Is Running
+    Check Out Of Memory Exceptions
+    # TODO: Should Verify Controller * keywords also accept user, password, prompt and karaf_log arguments?
 
 Get Epoch Time
     [Arguments]    ${time}
