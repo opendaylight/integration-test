@@ -17,6 +17,7 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           RequestsLibrary
 Library           SSHLibrary
 Variables         ${CURDIR}/../../../variables/Variables.py
+Resource          ${CURDIR}/../../../libraries/ExaBgpLib.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
@@ -29,7 +30,6 @@ ${DEVICE_NAME}    controller-config
 ${BGP_PEER_NAME}    example-bgp-peer
 ${RIB_INSTANCE}    example-bgp-rib
 ${APP_PEER_NAME}    example-bgp-peer-app
-${CMD}            env exabgp.tcp.port=1790 exabgp --debug
 ${BGP_VAR_FOLDER}    ${CURDIR}/../../../variables/bgpfunctional
 ${BGP_L3VPN_DIR}    ${BGP_VAR_FOLDER}/l3vpn_ipv4
 ${DEFAUTL_EXA_CFG}    exa.cfg
@@ -39,7 +39,6 @@ ${L3VPN_RSP}      ${BGP_L3VPN_DIR}/bgp-l3vpn-ipv4.json
 ${L3VPN_URL}      /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/loc-rib/tables/bgp-types:ipv4-address-family/bgp-types:mpls-labeled-vpn-subsequent-address-family/bgp-vpn-ipv4:vpn-ipv4-routes
 ${CONFIG_SESSION}    config-session
 ${EXARPCSCRIPT}    ${CURDIR}/../../../../tools/exabgp_files/exarpc.py
-${PEER_CHECK_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
 ${DEFAULT_BGPCEP_LOG_LEVEL}    INFO
 
 *** Test Cases ***
@@ -58,16 +57,16 @@ L3vpn_Ipv4_To_Odl
     [Documentation]    Testing mpls vpn ipv4 routes reported to odl from exabgp
     [Setup]    Setup_Testcase    ${L3VPN_EXA_CFG}    ${L3VPN_URL}    ${L3VPN_RSPEMPTY}
     BuiltIn.Wait_Until_Keyword_Succeeds    15s    1s    Verify Reported Data    ${L3VPN_URL}    ${L3VPN_RSP}
-    [Teardown]    Teardown_Testcase    ${L3VPN_URL}    ${L3VPN_RSPEMPTY}
+    [Teardown]    Teardown_Simple
 
 L3vpn_Ipv4_From_Odl
     [Documentation]    Testing mpls vpn ipv4 routes reported from odl to exabgp
-    [Setup]    Start_Tool_And_Verify_Connected    ${DEFAUTL_EXA_CFG}
+    [Setup]    Setup_Testcase    ${DEFAUTL_EXA_CFG}    ${L3VPN_URL}    ${L3VPN_RSPEMPTY}
     BgpRpcClient.exa_clean_update_message
     &{mapping}    BuiltIn.Create_Dictionary    BGP_PEER_IP=${TOOLS_SYSTEM_IP}
     TemplatedRequests.Post_As_Xml_Templated    ${BGP_L3VPN_DIR}/route    mapping=${mapping}    session=${CONFIG_SESSION}
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_Tool_Received_Update    ${BGP_L3VPN_DIR}/route/exa-expected.json
-    [Teardown]    Remove_Route_And_Stop_Tool
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_ExaBgp_Received_Update    ${BGP_L3VPN_DIR}/route/exa-expected.json
+    [Teardown]    Teardowm_With_Remove_Route
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
@@ -113,56 +112,24 @@ Upload_Config_Files
     \    Log    ${stdout}
 
 Setup_Testcase
-    [Arguments]    ${cfg_file}    ${url}    ${empty_response}
-    [Documentation]    Verifies initial test condition and starts the tool
-    Verify_Reported_Data    ${url}    ${empty_response}
-    Start_Tool_And_Verify_Connected    ${cfg_file}
+    [Arguments]    ${cfg_file}    ${url}
+    [Documentation]    Verifies initial test condition and starts the exabgp
+    KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
+    Verify_Reported_Data    ${url}    ${L3VPN_RSPEMPTY}
+    ExaBgpLib.Start_ExaBgp_And_Verify_Connected    ${cfg_file}    ${CONFIG_SESSION}    ${TOOLS_SYSTEM_IP}
 
-Start_Tool
-    [Arguments]    ${cfg_file}    ${mapping}={}
-    [Documentation]    Start the tool ${cmd} ${cfg_file}
-    ${start_cmd}    BuiltIn.Set_Variable    ${cmd} ${cfg_file}
-    BuiltIn.Log    ${start_cmd}
-    SSHKeywords.Virtual_Env_Activate_On_Current_Session    log_output=${True}
-    ${output}=    SSHLibrary.Write    ${start_cmd}
-    BuiltIn.Log    ${output}
-
-Verify_Tools_Connection
-    [Arguments]    ${connected}=${True}
-    [Documentation]    Checks peer presence in operational datastore
-    ${exp_status_code}=    BuiltIn.Set_Variable_If    ${connected}    ${200}    ${404}
-    ${rsp}=    RequestsLibrary.Get Request    ${CONFIG_SESSION}    ${PEER_CHECK_URL}${TOOLS_SYSTEM_IP}
-    BuiltIn.Log    ${rsp.content}
-    BuiltIn.Should_Be_Equal_As_Numbers    ${exp_status_code}    ${rsp.status_code}
-
-Start_Tool_And_Verify_Connected
-    [Arguments]    ${cfg_file}
-    [Documentation]    Start the tool and verify its connection
-    Start_Tool    ${cfg_file}
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    3s    Verify_Tools_Connection    connected=${True}
-
-Stop_Tool
-    [Documentation]    Stop the tool by sending ctrl+c
-    ${output}=    SSHLibrary.Read
-    BuiltIn.Log    ${output}
-    Utils.Write_Bare_Ctrl_C
-    ${output}=    SSHLibrary.Read_Until_Prompt
-    BuiltIn.Log    ${output}
-    SSHKeywords.Virtual_Env_Deactivate_On_Current_Session    log_output=${True}
-
-Remove_Route_And_Stop_Tool
-    [Documentation]    Removes configured route from application peer and stops the tool
+Teardowm_With_Remove_Route
+    [Documentation]    Removes configured route from application peer and stops the exabgp
     &{mapping}    BuiltIn.Create_Dictionary
     TemplatedRequests.Delete_Templated    ${BGP_L3VPN_DIR}/route    mapping=${mapping}    session=${CONFIG_SESSION}
-    Stop_Tool
+    Teardown_Simple
 
-Teardown_Testcase
-    [Arguments]    ${url}    ${empty_response}
+Teardown_Simple
     [Documentation]    Testcse teardown with data verification
-    Stop_Tool
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    1s    Verify_Reported_Data    ${url}    ${empty_response}
+    ExaBgpLib.Stop_ExaBgp
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    1s    Verify_Reported_Data    ${L3VPN_URL}    ${L3VPN_RSPEMPTY}
 
-Verify_Tool_Received_Update
+Verify_ExaBgp_Received_Update
     [Arguments]    ${exp_update_fn}
     [Documentation]    Verification of receiving particular update message
     ${exp_update}=    Get_Expected_Response_From_File    ${exp_update_fn}
