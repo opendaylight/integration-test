@@ -8,28 +8,29 @@ Variables         ../variables/Variables.py
 
 *** Keywords ***
 Start Mininet Single Controller
-    [Arguments]    ${mininet}=${TOOLS_SYSTEM_IP}    ${controller}=${ODL_SYSTEM_IP}    ${options}=--topo tree,1 --switch ovsk,protocols=OpenFlow13    ${custom}=${EMPTY}    ${ofport}=${ODL_OF_PORT}
+    [Arguments]    ${mininet}=${TOOLS_SYSTEM_IP}    ${controller}=${ODL_SYSTEM_IP}    ${options}=--topo tree,1 --switch ovsk,protocols=OpenFlow13    ${custom}=${EMPTY}    ${ofport}=${ODL_OF_PORT}    ${timeout}=${DEFAULT_TIMEOUT}
     [Documentation]    Start Mininet with custom topology and connect to controller.
     Log    Clear any existing mininet
     Utils.Clean Mininet System    ${mininet}
-    ${mininet_conn_id}=    SSHLibrary.Open Connection    ${mininet}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=${DEFAULT_TIMEOUT}
+    ${mininet_conn_id}=    SSHLibrary.Open Connection    ${mininet}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=${timeout}
     Set Suite Variable    ${mininet_conn_id}
     Utils.Flexible Mininet Login
     Run Keyword If    '${custom}' != '${EMPTY}'    Put File    ${custom}
     Log    Start mininet ${options} to ${controller}
     SSHLibrary.Write    sudo mn --controller 'remote,ip=${controller},port=${ofport}' ${options}
     SSHLibrary.Read Until    mininet>
-    ${output}=    Utils.Run Command On Mininet    ${mininet}    sudo ovs-vsctl show
-    Log    ${output}
+    Log    Check OVS configuratiom
+    SSHLibrary.Write    sh ovs-vsctl show
+    SSHLibrary.Read Until    mininet>
     [Return]    ${mininet_conn_id}
 
 Start Mininet Multiple Controllers
-    [Arguments]    ${mininet}=${TOOLS_SYSTEM_IP}    ${controller_index_list}=${EMPTY}    ${options}=--topo tree,1 --switch ovsk,protocols=OpenFlow13    ${custom}=${EMPTY}    ${ofport}=${ODL_OF_PORT}
+    [Arguments]    ${mininet}    ${controller_index_list}=${EMPTY}    ${options}=--topo tree,1 --switch ovsk,protocols=OpenFlow13    ${custom}=${EMPTY}    ${ofport}=${ODL_OF_PORT}    ${timeout}=${DEFAULT_TIMEOUT}
     [Documentation]    Start Mininet with custom topology and connect to list of controllers in ${controller_index_list} or all if no list is provided.
     ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${controller_index_list}
     Log    Clear any existing mininet
     Utils.Clean Mininet System    ${mininet}
-    ${mininet_conn_id}=    SSHLibrary.Open Connection    ${mininet}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=${DEFAULT_TIMEOUT}
+    ${mininet_conn_id}=    SSHLibrary.Open Connection    ${mininet}    prompt=${TOOLS_SYSTEM_PROMPT}    timeout=${timeout}
     Set Suite Variable    ${mininet_conn_id}
     Utils.Flexible Mininet Login
     Run Keyword If    '${custom}' != '${EMPTY}'    Put File    ${custom}
@@ -49,8 +50,8 @@ Start Mininet Multiple Controllers
     \    ${bridge}=    Utils.Run Command On Mininet    ${mininet}    sudo ovs-vsctl show | grep Bridge | cut -c 12- | sort | head -${i} | tail -1
     \    OVSDB.Set Controller In OVS Bridge    ${mininet}    ${bridge}    ${controller_opt}
     Log    Check OVS configuratiom
-    ${output}=    Utils.Run Command On Mininet    ${mininet}    sudo ovs-vsctl show
-    Log    ${output}
+    SSHLibrary.Write    sh ovs-vsctl show
+    SSHLibrary.Read Until    mininet>
     [Return]    ${mininet_conn_id}
 
 Send Mininet Command
@@ -76,7 +77,7 @@ Stop Mininet And Exit
     Run Keyword If    """${mininet_conn}""" != ""    SSHLibrary.Switch Connection    ${mininet_conn}
     SSHLibrary.Write    exit
     SSHLibrary.Read Until    ${TOOLS_SYSTEM_PROMPT}
-    Close Connection
+    SSHLibrary.Close Connection
 
 Stop Mininet And Exit Multiple Sessions
     [Arguments]    ${mininet_conn_list}
