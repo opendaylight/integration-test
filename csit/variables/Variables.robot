@@ -29,8 +29,8 @@ ${ALERTFIELDVALUERULERECORD}    /restconf/config/alertrule:alertFieldValueRuleRe
 ${ALERTMESSAGECOUNTRULERECORD}    /restconf/config/alertrule:alertMessageCountRuleRecord/    # FIXME: Move to a separate Centinel-related Resource and add description.
 @{AUTH}           admin    admin    # Authentication tuple for accessing ODL RESTCONF server. TODO: Migrate most suites to TemplatedRequests, then chose a more descriptive name.
 ${AUTH_TOKEN_API}    /oauth2/token    # FIXME: Move to a separate AAA-related Resource and add description.
-${BASE_IP_1}      75.75.0.0    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
-${BASE_MAC_1}     00:4b:00:00:00:00    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
+${BASE_IP_1}      10.0.0.0    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
+${BASE_MAC_1}     00:00:00:00:00:00    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${BGP_TOOL_PORT}    17900    # Tool side of BGP communication listens on this port.
 ${BGPCEP_LOG_LEVEL}    ${DEFAULT_BGPCEP_LOG_LEVEL}    # Some suites temporarily override org.opendaylight.bgpcep Karaf log level to this value.
 ${CTRLS}          controllers    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
@@ -46,7 +46,7 @@ ${CONTROLLERS}    ${ODL_SYSTEM_IP_LIST}    # Deprecated. FIXME: Eradicate.
 ${CONTROLLER_CONFIG_MOUNT}    /restconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount    # FIXME: Move to a separate Resource and add description.
 ${CONTROLLER_STOP_TIMEOUT}    120    # Max number of seconds test will wait for a controller to stop. FIXME: Hiden into a Resource and rename.
 ${CREATE_FULLYMESH_TOPOLOGY_FILE}    create_fullymesh.py    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
-${CREATE_FULLYMESH_TOPOLOGY_FILE_PATH}    libraries/MininetTopo/${CREATE_FULLYMESH_TOPOLOGY_FILE}    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
+${CREATE_FULLYMESH_TOPOLOGY_FILE_PATH}    MininetTopo/${CREATE_FULLYMESH_TOPOLOGY_FILE}    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${CREATE_PATHPOLICY_TOPOLOGY_FILE}    topo-3sw-2host_multipath.py    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}    MininetTopo/${CREATE_PATHPOLICY_TOPOLOGY_FILE}    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${CREATE_VLAN_TOPOLOGY_FILE}    vlan_vtn_test.py    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
