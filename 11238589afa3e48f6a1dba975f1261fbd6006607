@@ -1,0 +1,251 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_a4016e6c",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 30
+      },
+      "lineNbr": 858,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-20T17:14:14Z",
+      "side": 1,
+      "message": "node_ip \u003d node_ip or node_id",
+      "range": {
+        "startLine": 857,
+        "startChar": 4,
+        "endLine": 858,
+        "endChar": 25
+      },
+      "revId": "11238589afa3e48f6a1dba975f1261fbd6006607",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_0425c2c1",
+        "filename": "csit/libraries/SxpClusterLib.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-20T17:14:14Z",
+      "side": 1,
+      "message": "If Rejoin works correctly, Flush is not needed.\nIf Rejoin is not reliable, Flush will restore all connectivity, so Rejoin is not needed.\nPick one.\nApplies elsewhere as well.",
+      "range": {
+        "startLine": 25,
+        "startChar": 9,
+        "endLine": 25,
+        "endChar": 39
+      },
+      "revId": "11238589afa3e48f6a1dba975f1261fbd6006607",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_444e9ac2",
+        "filename": "csit/libraries/SxpClusterLib.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-20T17:14:14Z",
+      "side": 1,
+      "message": "written",
+      "range": {
+        "startLine": 60,
+        "startChar": 52,
+        "endLine": 60,
+        "endChar": 58
+      },
+      "revId": "11238589afa3e48f6a1dba975f1261fbd6006607",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_a4eb2e77",
+        "filename": "csit/libraries/SxpClusterLib.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-20T17:14:14Z",
+      "side": 1,
+      "message": "controller",
+      "range": {
+        "startLine": 103,
+        "startChar": 31,
+        "endLine": 103,
+        "endChar": 40
+      },
+      "revId": "11238589afa3e48f6a1dba975f1261fbd6006607",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_0402e23d",
+        "filename": "csit/libraries/SxpClusterLib.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 107,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-20T17:14:14Z",
+      "side": 1,
+      "message": "These two keywords can be moved to ClusterManagement.",
+      "range": {
+        "startLine": 107,
+        "startChar": 0,
+        "endLine": 107,
+        "endChar": 27
+      },
+      "revId": "11238589afa3e48f6a1dba975f1261fbd6006607",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_84bc326e",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-20T17:14:14Z",
+      "side": 1,
+      "message": "Why is WUKS needed (applies to other lines in this file)? I would expect WUKS to be only used in test cases, after a comment explaining why transient failures are expected here.",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 41
+      },
+      "revId": "11238589afa3e48f6a1dba975f1261fbd6006607",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_241b9ecb",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 313,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-20T17:14:14Z",
+      "side": 1,
+      "message": "Wow, this really evaluates to the first argument value, on each independent call. Cool. I think this is new in robotframework\u003d\u003d3.0",
+      "range": {
+        "startLine": 313,
+        "startChar": 105,
+        "endLine": 313,
+        "endChar": 112
+      },
+      "revId": "11238589afa3e48f6a1dba975f1261fbd6006607",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_242a7e90",
+        "filename": "csit/suites/sxp/clustering/010_Connection_switchover.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-20T17:14:14Z",
+      "side": 1,
+      "message": "This probably re-runs one of the previous test cases.\n\nIt would be better to test the second follower here and the first follower in line 21.",
+      "range": {
+        "startLine": 27,
+        "startChar": 13,
+        "endLine": 27,
+        "endChar": 19
+      },
+      "revId": "11238589afa3e48f6a1dba975f1261fbd6006607",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_641bd680",
+        "filename": "csit/suites/sxp/clustering/020_Bindings_consistency.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-20T17:14:14Z",
+      "side": 1,
+      "message": "See the comment in the previous file.",
+      "range": {
+        "startLine": 43,
+        "startChar": 13,
+        "endLine": 43,
+        "endChar": 19
+      },
+      "revId": "11238589afa3e48f6a1dba975f1261fbd6006607",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_c7090c2e",
+        "filename": "csit/suites/sxp/clustering/030_RPC_functionality.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-20T17:14:14Z",
+      "side": 1,
+      "message": "See previous comments.",
+      "range": {
+        "startLine": 28,
+        "startChar": 13,
+        "endLine": 28,
+        "endChar": 19
+      },
+      "revId": "11238589afa3e48f6a1dba975f1261fbd6006607",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "7a6b29fe_c7b0ecdf",
+        "filename": "csit/suites/sxp/scripts/clustering_node_setup.sh",
+        "patchSetId": 30
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-20T17:14:14Z",
+      "side": 1,
+      "message": "File name does not really describe what is this used for. This is a separate ODL instance running on TOOLS_SYSTEM. The motivation is to act as an opposing SXP node against the regular ODL cluster.",
+      "revId": "11238589afa3e48f6a1dba975f1261fbd6006607",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
