@@ -20,6 +20,7 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           RequestsLibrary
 Library           SSHLibrary
 Variables         ${CURDIR}/../../../variables/Variables.py
+Resource          ${CURDIR}/../../../libraries/ExaBgpLib.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
@@ -32,14 +33,12 @@ ${DEVICE_NAME}    controller-config
 ${BGP_PEER_NAME}    example-bgp-peer
 ${RIB_INSTANCE}    example-bgp-rib
 ${APP_PEER_NAME}    example-bgp-peer-app
-${CMD}            env exabgp.tcp.port=1790 exabgp --debug
 ${BGP_VAR_FOLDER}    ${CURDIR}/../../../variables/bgpfunctional
 ${BGP_RR_VAR_FOLDER}    ${BGP_VAR_FOLDER}/route_refresh
 ${BGP_CFG_NAME}    exa.cfg
 ${CONFIG_SESSION}    config-session
 ${EXARPCSCRIPT}    ${CURDIR}/../../../../tools/exabgp_files/exarpc.py
 ${JOLOKURL}       /jolokia/read/org.opendaylight.controller:instanceName=${BGP_PEER_NAME},type=RuntimeBean,moduleFactoryName=bgp-peer
-${PEER_CHECK_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
 
 *** Test Cases ***
 Configure_App_Peer
@@ -55,22 +54,22 @@ Reconfigure_ODL_To_Accept_Connection
 
 Exa_To_Send_Route_Request
     [Documentation]    Exabgp sends route refresh and count received updates
-    [Setup]    Configure_Routes_And_Start_Tool    ${BGP_CFG_NAME}
+    [Setup]    Configure_Routes_And_Start_ExaBgp    ${BGP_CFG_NAME}
     Verify_Odl_Received_Route_Request    0
     BgpRpcClient.exa_clean_received_update_count
     BgpRpcClient.exa_announce    announce route-refresh ipv4 unicast
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_Odl_Received_Route_Request    1
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_Tool_Received_Updates    ${nr_configured_routes}
-    [Teardown]    Deconfigure_Routes_And_Stop_Tool
+    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_ExaBgp_Received_Updates    ${nr_configured_routes}
+    [Teardown]    Deconfigure_Routes_And_Stop_ExaBgp
 
 Odl_To_Send_Route_Request
     [Documentation]    Sends route requests and checks if exabgp receives it
-    [Setup]    Start_Tool_And_Verify_Connected    ${BGP_CFG_NAME}
+    [Setup]    ExaBgpLib.Start_ExaBgp_And_Verify_Connected    ${BGP_CFG_NAME}    ${CONFIG_SESSION}    ${TOOLS_SYSTEM_IP}
     BgpRpcClient.exa_clean_received_route_refresh_count
     &{mapping}    BuiltIn.Create_Dictionary    BGP_PEER_IP=${TOOLS_SYSTEM_IP}
     TemplatedRequests.Post_As_Xml_Templated    ${BGP_VAR_FOLDER}/route_refresh    mapping=${mapping}    session=${CONFIG_SESSION}
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_Odl_Sent_Route_Request    1
-    [Teardown]    Stop_Tool
+    [Teardown]    ExaBgpLib.Stop_ExaBgp
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
@@ -113,51 +112,19 @@ Upload_Config_Files
     \    ${stdout}=    SSHLibrary.Execute_Command    cat ${cfgfile}
     \    Log    ${stdout}
 
-Start_Tool
-    [Arguments]    ${cfg_file}    ${mapping}={}
-    [Documentation]    Start the tool ${cmd} ${cfg_file}
-    ${start_cmd}    BuiltIn.Set_Variable    ${cmd} ${cfg_file}
-    BuiltIn.Log    ${start_cmd}
-    SSHKeywords.Virtual_Env_Activate_On_Current_Session    log_output=${True}
-    ${output}=    SSHLibrary.Write    ${start_cmd}
-    BuiltIn.Log    ${output}
-
-Verify_Tools_Connection
-    [Arguments]    ${connected}=${True}
-    [Documentation]    Checks peer presence in operational datastore
-    ${exp_status_code}=    BuiltIn.Set_Variable_If    ${connected}    ${200}    ${404}
-    ${rsp}=    RequestsLibrary.Get Request    ${CONFIG_SESSION}    ${PEER_CHECK_URL}${TOOLS_SYSTEM_IP}
-    BuiltIn.Log    ${rsp.content}
-    BuiltIn.Should_Be_Equal_As_Numbers    ${exp_status_code}    ${rsp.status_code}
-
-Start_Tool_And_Verify_Connected
-    [Arguments]    ${cfg_file}
-    [Documentation]    Start the tool and verify its connection
-    Start_Tool    ${cfg_file}
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    3s    Verify_Tools_Connection    connected=${True}
-
-Stop_Tool
-    [Documentation]    Stop the tool by sending ctrl+c
-    ${output}=    SSHLibrary.Read
-    BuiltIn.Log    ${output}
-    Utils.Write_Bare_Ctrl_C
-    ${output}=    SSHLibrary.Read_Until_Prompt
-    BuiltIn.Log    ${output}
-    SSHKeywords.Virtual_Env_Deactivate_On_Current_Session    log_output=${True}
-
-Configure_Routes_And_Start_Tool
+Configure_Routes_And_Start_ExaBgp
     [Arguments]    ${cfg_file}
     [Documentation]    Setup keyword for exa to odl test case
     : FOR    ${prefix}    IN    1.1.1.1/32    2.2.2.2/32
     \    &{mapping}    BuiltIn.Create_Dictionary    PREFIX=${prefix}
     \    TemplatedRequests.Post_As_Xml_Templated    ${BGP_RR_VAR_FOLDER}/route    mapping=${mapping}    session=${CONFIG_SESSION}
     BuiltIn.Set_Suite_Variable    ${nr_configured_routes}    2
-    Start_Tool_And_Verify_Connected    ${cfg_file}
-    BuiltIn.Wait_Until_Keyword_Succeeds    3x    3s    Verify_Tool_Received_Updates    ${nr_configured_routes}
+    ExaBgpLib.Start_ExaBgp_And_Verify_Connected    ${cfg_file}    ${CONFIG_SESSION}    ${TOOLS_SYSTEM_IP}
+    BuiltIn.Wait_Until_Keyword_Succeeds    3x    3s    Verify_ExaBgp_Received_Updates    ${nr_configured_routes}
 
-Deconfigure_Routes_And_Stop_Tool
+Deconfigure_Routes_And_Stop_ExaBgp
     [Documentation]    Teardown keyword for exa to odl test case
-    Stop_Tool
+    ExaBgpLib.Stop_ExaBgp
     &{mapping}    BuiltIn.Create_Dictionary    PREFIX=${prefix}
     TemplatedRequests.Delete_Templated    ${BGP_RR_VAR_FOLDER}/route    mapping=${mapping}    session=${CONFIG_SESSION}
 
@@ -176,7 +143,7 @@ Verify_Odl_Received_Route_Request
     BuiltIn.Should_Be_Equal_As_Numbers    ${rsp.json()['status']}    200
     BuiltIn.Should_Be_Equal_As_Numbers    ${rsp.json()['value']['BgpSessionState']['messagesStats']['routeRefreshMsgs']['received']['count']['value']}    ${expcount}
 
-Verify_Tool_Received_Updates
+Verify_ExaBgp_Received_Updates
     [Arguments]    ${expcount}
     [Documentation]    Gets numebr of received update requests and compares with given expected count
     ${count_recv}=    BgpRpcClient.exa_get_received_update_count
