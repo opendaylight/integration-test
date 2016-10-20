@@ -5,8 +5,8 @@ cat > ${WORKSPACE}/cassandrastartup.sh <<EOF
 cd /tmp/cassandra
 echo "Start the Cassandra Server"
 export JAVA_HOME=/usr
-sudo /tmp/cassandra/apache-cassandra-2.1.14/bin/cassandra
-ls -l /tmp/cassandra/apache-cassandra-2.1.14/bin/cassandra
+sudo /tmp/cassandra/apache-cassandra-2.1.16/bin/cassandra
+ls -l /tmp/cassandra/apache-cassandra-2.1.16/bin/cassandra
 
 EOF
 echo "Copy the Cassanra startup script to ${ODL_SYSTEM_IP}"
