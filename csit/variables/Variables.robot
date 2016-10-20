@@ -29,8 +29,6 @@ ${ALERTFIELDVALUERULERECORD}    /restconf/config/alertrule:alertFieldValueRuleRe
 ${ALERTMESSAGECOUNTRULERECORD}    /restconf/config/alertrule:alertMessageCountRuleRecord/    # FIXME: Move to a separate Centinel-related Resource and add description.
 @{AUTH}           admin    admin    # Authentication tuple for accessing ODL RESTCONF server. TODO: Migrate most suites to TemplatedRequests, then chose a more descriptive name.
 ${AUTH_TOKEN_API}    /oauth2/token    # FIXME: Move to a separate AAA-related Resource and add description.
-${BASE_IP_1}      75.75.0.0    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
-${BASE_MAC_1}     00:4b:00:00:00:00    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${BGP_TOOL_PORT}    17900    # Tool side of BGP communication listens on this port.
 ${BGPCEP_LOG_LEVEL}    ${DEFAULT_BGPCEP_LOG_LEVEL}    # Some suites temporarily override org.opendaylight.bgpcep Karaf log level to this value.
 ${CTRLS}          controllers    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
@@ -41,12 +39,10 @@ ${CONFIG_API}     /restconf/config    # FIXME: Move to a separate Resource and a
 ${CONTAINER}      default    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${CONTROLLER}     ${ODL_SYSTEM_IP}    # Deprecated. FIXME: Eradicate.
 ${CONTROLLER_PASSWORD}    ${ODL_SYSTEM_PASSWORD}    # Deprecated. FIXME: Eradicate.
-${CONTROLLER_PROMPT}    ${ODL_SYSTEM_PROMPT}    # Deprecated. FIXME: Eradicate.
+${CONTROLLER_PROMPT}    ${DEFAULT_LINUX_PROMPT}    # Deprecated. FIXME: Eradicate.
 ${CONTROLLERS}    ${ODL_SYSTEM_IP_LIST}    # Deprecated. FIXME: Eradicate.
 ${CONTROLLER_CONFIG_MOUNT}    /restconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount    # FIXME: Move to a separate Resource and add description.
 ${CONTROLLER_STOP_TIMEOUT}    120    # Max number of seconds test will wait for a controller to stop. FIXME: Hiden into a Resource and rename.
-${CREATE_FULLYMESH_TOPOLOGY_FILE}    create_fullymesh.py    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
-${CREATE_FULLYMESH_TOPOLOGY_FILE_PATH}    libraries/MininetTopo/${CREATE_FULLYMESH_TOPOLOGY_FILE}    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${CREATE_PATHPOLICY_TOPOLOGY_FILE}    topo-3sw-2host_multipath.py    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${CREATE_PATHPOLICY_TOPOLOGY_FILE_PATH}    MininetTopo/${CREATE_PATHPOLICY_TOPOLOGY_FILE}    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
 ${CREATE_VLAN_TOPOLOGY_FILE}    vlan_vtn_test.py    # A shorthand. FIXME: Find who uses this and eliminate, or at least add a good description.
@@ -115,7 +111,7 @@ ${ODL_SYSTEM_IP}    ${ODL_SYSTEM_1_IP}    # IP address of system hosting ODL for
 @{ODL_SYSTEM_IP_LIST}    ${ODL_SYSTEM_1_IP}    ${ODL_SYSTEM_2_IP}    ${ODL_SYSTEM_3_IP}    # Deprecated. List of ODL cluster member IP addresses. See ClusterManagement.robot for alternatives.
 ${ODL_SYSTEM_USER}    ${DEFAULT_USER}    # Linux username specific for ODL systems.
 ${ODL_SYSTEM_PASSWORD}    ${DEFAULT_PASSWORD}    # Linux password (or empty to use public key) specific for ODL systems.
-${ODL_SYSTEM_PROMPT}    ${DEFAULT_PROMPT}    # Bash prompt substring specific for ODL systems.
+${ODL_SYSTEM_PROMPT}    ${DEFAULT_LINUX_PROMPT}    # Bash prompt substring specific for ODL systems.
 ${OPERATIONAL_API}    /restconf/operational    # FIXME: Move to a separate Resource and add description.
 ${OPERATIONS_API}    /restconf/operations    # FIXME: Move to a separate Resource and add description.
 ${OPERATIONAL_GBP_TENANTS_API}    /restconf/operational/policy:tenants    # FIXME: Move to a separate GroupBasedPolicy-related Resource and add description.
@@ -134,7 +130,7 @@ ${PREDEFINE_NODE_URI}    /restconf/config/nemo-object:node-definitions    # FIXM
 ${PREDEFINE_ROLE_URI}    /restconf/config/nemo-user:user-roles    # FIXME: Move to a separate Nemo-related Resource and add description.
 ${PREFIX}         http://${ODL_SYSTEM_IP}:${PORT}    # Deprecated. FIXME: Name is to generic. Eradicate.
 ${PROTOCOL_LOG_LEVEL}    ${DEFAULT_PROTOCOL_LOG_LEVEL}    # Some suites temporarily override org.opendaylight.protocol Karaf log level to this value.
-${PWD}            ${ODL_RESTCONF_PESSWORD}    # Deprecated. FIXME: Eradicate.
+${PWD}            ${ODL_RESTCONF_PASSWORD}    # Deprecated. FIXME: Eradicate.
 ${REGISTER_TENANT_URI}    /restconf/operations/nemo-intent:register-user    # FIXME: Move to a separate Nemo-related Resource and add description.
 ${RESTCONFPORT}    8181    # Primary port for ODL RESTCONF, although 8080 should also work.
 ${RESTPORT}       8282    # Deprecated. Restconf port used by AD-SAL services. FIXME: Eradicate.
