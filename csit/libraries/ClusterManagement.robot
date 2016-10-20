@@ -185,10 +185,10 @@ Get_Owner_And_Candidates_For_Device
     ${json} =    RequestsLibrary.To_Json    ${clear_data}
     ${entity_type_list} =    Collections.Get_From_Dictionary    &{json}[entity-owners]    entity-type
     ${entity_type_index} =    Utils.Get_Index_From_List_Of_Dictionaries    ${entity_type_list}    type    ${entity_type}
-    BuiltIn.Should_Not_Be_Equal    ${entity_type_index}    -1    No Entity Owner found for ${device_type}
+    BuiltIn.Should_Not_Be_Equal_As_Integers    ${entity_type_index}    -1    No Entity Owner found for ${device_type}
     ${entity_list} =    Collections.Get_From_Dictionary    @{entity_type_list}[${entity_type_index}]    entity
     ${entity_index} =    Utils.Get_Index_From_List_Of_Dictionaries    ${entity_list}    id    ${device_name}
-    BuiltIn.Should Not Be Equal    ${entity_index}    -1    Device ${device_name} not found in Entity Owner ${device_type}
+    BuiltIn.Should_Not_Be_Equal_As_Integers    ${entity_index}    -1    Device ${device_name} not found in Entity Owner ${device_type}
     ${entity_owner} =    Collections.Get_From_Dictionary    @{entity_list}[${entity_index}]    owner
     BuiltIn.Should_Not_Be_Empty    ${entity_owner}    No owner found for ${device_name}
     ${owner} =    String.Replace_String    ${entity_owner}    member-    ${EMPTY}
@@ -217,10 +217,10 @@ Get_Owner_And_Candidates_For_Type_And_Id
     ${json} =    RequestsLibrary.To_Json    ${data}
     ${entity_type_list} =    Collections.Get_From_Dictionary    &{json}[entity-owners]    entity-type
     ${entity_type_index} =    Utils.Get_Index_From_List_Of_Dictionaries    ${entity_type_list}    type    ${type}
-    BuiltIn.Should_Not_Be_Equal    ${entity_type_index}    -1    No Entity Owner found for ${type}
+    BuiltIn.Should_Not_Be_Equal_As_Integers    ${entity_type_index}    -1    No Entity Owner found for ${type}
     ${entity_list} =    Collections.Get_From_Dictionary    @{entity_type_list}[${entity_type_index}]    entity
     ${entity_index} =    Utils.Get_Index_From_List_Of_Dictionaries    ${entity_list}    id    ${id}
-    BuiltIn.Should Not Be Equal    ${entity_index}    -1    Id ${id} not found in Entity Owner ${type}
+    BuiltIn.Should Not_Be_Equal_As_Integers    ${entity_index}    -1    Id ${id} not found in Entity Owner ${type}
     ${entity_owner} =    Collections.Get_From_Dictionary    @{entity_list}[${entity_index}]    owner
     BuiltIn.Should_Not_Be_Empty    ${entity_owner}    No owner found for type=${type} id=${id}
     ${owner} =    String.Replace_String    ${entity_owner}    member-    ${EMPTY}
