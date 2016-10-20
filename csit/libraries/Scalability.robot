@@ -1,112 +1,252 @@
 *** Settings ***
 Library           SSHLibrary
-Resource          Utils.robot
+Library           DateTime
 Library           String
 Library           Collections
-Variables         ../variables/Variables.py
 Library           RequestsLibrary
+Library           ScaleClient.py
 Library           SwitchClasses/BaseSwitch.py
+Resource          Utils.robot
+Resource          CompareStream.robot
+Resource          MininetKeywords.robot
+Variables         ../variables/Variables.py
+
+*** Variables ***
+${flow_count}     10000
+${swspread}       linear
+${tables}         10
+${tabspread}      linear
+${nrthreads}      1
 
 *** Keywords ***
 Find Max Switches
     [Arguments]    ${start}    ${stop}    ${step}    ${sustain_time}=0
     [Documentation]    Will find out max switches starting from ${start} till reaching ${stop} and in steps defined by ${step}.
     ...    The network is hold for ${sustain_time} seconds after everything is checked successful.
-    ${max-switches}    Set Variable    ${0}
+    ${error_message}=    Set Variable    No error
+    ${controller_list}=    Create List    ${ODL_SYSTEM_IP}
+    ${max-switches}=    Set Variable    ${0}
     Set Suite Variable    ${max-switches}
-    ${start}    Convert to Integer    ${start}
-    ${stop}    Convert to Integer    ${stop}
-    ${step}    Convert to Integer    ${step}
+    ${start}=    Convert to Integer    ${start}
+    ${stop}=    Convert to Integer    ${stop}
+    ${step}=    Convert to Integer    ${step}
+    ${flow_count}=    Convert to Integer    ${flow_count}
     : FOR    ${switches}    IN RANGE    ${start}    ${stop+1}    ${step}
+    \    ${flows_ovs_25}=    BuiltIn.Evaluate    ${flow_count} + ${switches}
+    \    ${flows_before}=    CompareStream.Set_Variable_If_At_Least_Boron    ${switches}    ${0}
+    \    ${flows_after}=    CompareStream.Set_Variable_If_At_Least_Boron    ${flows_ovs_25}    ${flow_count}
+    \    ${flows}    ${notes}    ScaleClient.Generate New Flow Details    flows=${flow_count}    switches=${switches}    swspread=${swspread}
+    \    ...    tables=${tables}    tabspread=${tabspread}
+    \    Log to console    ${\n}
+    \    Log To Console    Starting mininet linear ${switches}
     \    ${status}    ${result}    Run Keyword And Ignore Error    Start Mininet Linear    ${switches}
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Fail starting mininet
     \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${start_time}=    DateTime.Get Current Date    result_format=timestamp
+    \    Log To Console    Verify controller is OK
     \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Is Not Dead    ${ODL_SYSTEM_IP}
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Controller is dead
     \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Has No Null Pointer Exceptions    ${ODL_SYSTEM_IP}
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Controller has NPE
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    Log To Console    Checking ${switches} switches
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
     \    ...    Check Every Switch    ${switches}
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Fail checking switch
     \    Exit For Loop If    '${status}' == 'FAIL'
-    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
+    \    Log To Console    Checking Linear Topology
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches}    5s
     \    ...    Check Linear Topology    ${switches}
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Fail checking topology
     \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${end_time}=    DateTime.Get Current Date    result_format=timestamp
+    \    ${topology_discover_time}=    DateTime.Subtract Date From Date    ${end_time}    ${start_time}
+    \    Log To Console    Topology Discovery Time = ${topology_discover_time} seconds
+    \    Log To Console    Adding ${flow_count} flows
+    \    ${status}    ${result}    Run Keyword And Ignore Error    ScaleClient.Configure Flows    flow_details=${flows}    controllers=${controller_list}
+    \    ...    nrthreads=${nrthreads}
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Fail configuring flows
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    Log To Console    Checking ${flow_count} flows in Mininet
+    \    ${status}    ${result}    Run Keyword And Ignore Error    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${flows_after}
+    \    ...    ${switches}
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Fail checking flows in mininet
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    Log To Console    Checking ${flow_count} flows in Operational DS
+    \    ${status}    ${result}    Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    ${switches*4}    10s
+    \    ...    Check Flows Operational Datastore    ${flows_after}
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Fail checking flows in operational DS
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    Log To Console    Sleep for ${sustain_time} seconds
     \    Sleep    ${sustain_time}
+    \    Log To Console    Deleting ${flow_count} flows
+    \    ${status}    ${result}    Run Keyword And Ignore Error    ScaleClient.Deconfigure Flows    flow_details=${flows}    controllers=${controller_list}
+    \    ...    nrthreads=${nrthreads}
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Fail deconfiguring flows
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    Log To Console    Checking no flows in Mininet
+    \    ${status}    ${result}    Run Keyword And Ignore Error    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${flows_before}
+    \    ...    ${switches}
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Fail checking no flows in mininet
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    Log To Console    Checking no flows in Operational DS
+    \    ${status}    ${result}    Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    ${switches*4}    10s
+    \    ...    Check Flows Operational Datastore    ${flows_before}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Fail checking no flows in operational DS
+    \    Log To Console    Stopping Mininet
     \    ${status}    ${result}    Run Keyword And Ignore Error    Stop Mininet Simulation
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Fail stopping mininet
     \    Exit For Loop If    '${status}' == 'FAIL'
-    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
+    \    Log To Console    Checking No Switches
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    10s    2s
     \    ...    Check No Switches    ${switches}
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Fail checking no switch
     \    Exit For Loop If    '${status}' == 'FAIL'
-    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    ${switches*2}    10s
+    \    Log To Console    Checking No Topology
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    10s    2s
     \    ...    Check No Topology    ${switches}
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Fail checking no topology
     \    Exit For Loop If    '${status}' == 'FAIL'
-    \    ${max-switches}    Convert To String    ${switches}
-    \    Sleep    ${sustain_time}
-    [Return]    ${max-switches}
+    \    ${max-switches}=    Convert To String    ${switches}
+    [Return]    ${max-switches}    ${topology_discover_time}    ${error_message}
 
 Find Max Links
-    [Arguments]    ${begin}    ${stop}    ${step}    ${sustain_time}=5
+    [Arguments]    ${begin}    ${stop}    ${step}    ${sustain_time}=0
     [Documentation]    Will find out max switches in fully mesh topology starting from ${start} till reaching ${stop} and in steps defined by ${step}.
     ...    The network is hold for ${sustain_time} seconds after everything is checked successful.
+    ${error_message}=    Set Variable    No error
+    ${controller_list}=    Create List    ${ODL_SYSTEM_IP}
     ${max_switches}    Set Variable    ${0}
     ${stop}    Convert to Integer    ${stop}
     ${step}    Convert to Integer    ${step}
+    ${flow_count}=    Convert to Integer    ${flow_count}
     : FOR    ${switches}    IN RANGE    ${begin}    ${stop+1}    ${step}
+    \    ${mininet_timeout}=    BuiltIn.Evaluate    ${switches} * ${switches}
+    \    ${flows_ovs_25}=    BuiltIn.Evaluate    ${flow_count} + ${switches}
+    \    ${flows_before}=    CompareStream.Set_Variable_If_At_Least_Boron    ${switches}    ${0}
+    \    ${flows_after}=    CompareStream.Set_Variable_If_At_Least_Boron    ${flows_ovs_25}    ${flow_count}
+    \    ${flows}    ${notes}    ScaleClient.Generate New Flow Details    flows=${flow_count}    switches=${switches}    swspread=${swspread}
+    \    ...    tables=${tables}    tabspread=${tabspread}
+    \    Log to console    ${\n}
+    \    Log To Console    Start a custom mininet topology with ${switches} nodes
     \    ${status}    ${result}    Run Keyword And Ignore Error    Start Mininet With Custom Topology    ${CREATE_FULLYMESH_TOPOLOGY_FILE}    ${switches}
-    \    ...    ${BASE_MAC_1}    ${BASE_IP_1}    ${0}    ${switches*20}
+    \    ...    ${BASE_MAC_1}    ${BASE_IP_1}    ${0}    ${mininet_timeout}
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Fail starting mininet
     \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${start_time}=    DateTime.Get Current Date    result_format=timestamp
+    \    Log To Console    Verify controller is OK
     \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Is Not Dead    ${ODL_SYSTEM_IP}
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Controller is dead
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Has No Null Pointer Exceptions    ${ODL_SYSTEM_IP}
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Controller has NPE
     \    Exit For Loop If    '${status}' == 'FAIL'
-    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120    10s
+    \    Log To Console    Checking ${switches} switches
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    10    2s
     \    ...    Check Every Switch    ${switches}    ${BASE_MAC_1}
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Fail checking switch
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${max-links}=    Evaluate    ${switches}*${switches-1}
-    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120    10s
+    \    Log To Console    Check number of links in inventory is ${max-links}
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    10    2s
     \    ...    Check Number Of Links    ${max-links}
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Fail checking topology
     \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${end_time}=    DateTime.Get Current Date    result_format=timestamp
+    \    ${topology_discover_time}=    DateTime.Subtract Date From Date    ${end_time}    ${start_time}
+    \    Log To Console    Topology Discovery Time = ${topology_discover_time} seconds
+    \    Log To Console    Adding ${flow_count} flows
+    \    ${status}    ${result}    Run Keyword And Ignore Error    ScaleClient.Configure Flows    flow_details=${flows}    controllers=${controller_list}
+    \    ...    nrthreads=${nrthreads}
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Fail configuring flows
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    Log To Console    Checking ${flow_count} flows in Mininet
+    \    ${status}    ${result}    Run Keyword And Ignore Error    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${flows_after}
+    \    ...    ${switches}
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Fail checking flows in mininet
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    Log To Console    Checking ${flow_count} flows in Operational DS
+    \    ${status}    ${result}    Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    ${switches*4}    10s
+    \    ...    Check Flows Operational Datastore    ${flows_after}
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Fail checking flows in operational DS
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    Log To Console    Sleep for ${sustain_time} seconds
     \    Sleep    ${sustain_time}
+    \    Log To Console    Deleting ${flow_count} flows
+    \    ${status}    ${result}    Run Keyword And Ignore Error    ScaleClient.Deconfigure Flows    flow_details=${flows}    controllers=${controller_list}
+    \    ...    nrthreads=${nrthreads}
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Fail deconfiguring flows
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    Log To Console    Checking no flows in Mininet
+    \    ${status}    ${result}    Run Keyword And Ignore Error    MininetKeywords.Verify Aggregate Flow From Mininet Session    ${mininet_conn_id}    ${flows_before}
+    \    ...    ${switches}
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Fail checking no flows in mininet
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    Log To Console    Checking no flows in Operational DS
+    \    ${status}    ${result}    Run Keyword And Ignore Error    BuiltIn.Wait Until Keyword Succeeds    ${switches*4}    10s
+    \    ...    Check Flows Operational Datastore    ${flows_before}
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Fail checking no flows in operational DS
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    Log To Console    Stopping Mininet
     \    ${status}    ${result}    Run Keyword And Ignore Error    Stop Mininet Simulation
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Fail stopping mininet
     \    Exit For Loop If    '${status}' == 'FAIL'
-    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120    10s
+    \    Log To Console    Checking No Switches
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    10    2s
     \    ...    Check No Switches    ${switches}
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Fail checking no switch
     \    Exit For Loop If    '${status}' == 'FAIL'
-    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120    10s
+    \    Log To Console    Checking No Topology
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    10    2s
     \    ...    Check No Topology    ${switches}
+    \    ${error_message}=    Set Variable If    '${status}' == 'FAIL'    Fail checking no topology
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${max_switches}    Set Variable    ${switches}
-    \    Sleep    ${sustain_time}
     ${max-links}=    Evaluate    ${max_switches}*${max_switches-1}
-    [Return]    ${max-links}
+    [Return]    ${max-links}    ${topology_discover_time}    ${error_message}
 
 Find Max Hosts
-    [Arguments]    ${begin}    ${stop}    ${step}    ${sustain_time}=5
+    [Arguments]    ${begin}    ${stop}    ${step}    ${sustain_time}=0
     [Documentation]    Will find out max hosts starting from ${begin} till reaching ${stop} and in steps defined by ${step}.
     ...    The network is hold for ${sustain_time} seconds after everything is checked successful.
     ${max-hosts}    Set Variable    ${0}
     ${stop}    Convert to Integer    ${stop}
     ${step}    Convert to Integer    ${step}
     : FOR    ${hosts}    IN RANGE    ${begin}    ${stop+1}    ${step}
+    \    Log To Console    Starting mininet with one switch and ${hosts} hosts
     \    ${status}    ${result}    Run Keyword And Ignore Error    Start Mininet With One Switch And ${hosts} hosts
     \    Exit For Loop If    '${status}' == 'FAIL'
+    \    Log To Console    Checking ${switches} switches
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120s    30s
     \    ...    Check Every Switch    ${1}
     \    Exit For Loop If    '${status}' == 'FAIL'
+    \    Log To Console    Ping all hosts
     \    @{host_list}=    Get Mininet Hosts
     \    ${status}=    Ping All Hosts    @{host_list}
     \    Exit For Loop If    ${status} != ${0}
+    \    Log To Console    Verify controller is OK
     \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Is Not Dead    ${ODL_SYSTEM_IP}
     \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${status}    ${result}    Run Keyword And Ignore Error    Verify Controller Has No Null Pointer Exceptions    ${ODL_SYSTEM_IP}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    Log To Console    Check number of hosts in inventory is ${hosts}
     \    ${status}    ${result}    Run Keyword And Ignore Error    Wait Until Keyword Succeeds    120s    30s
     \    ...    Check Number Of Hosts    ${hosts}
     \    Exit For Loop If    '${status}' == 'FAIL'
+    \    Log To Console    Sleep for ${sustain_time} seconds
     \    Sleep    ${sustain_time}
+    \    Log To Console    Stopping Mininet
     \    ${status}    ${result}    Run Keyword And Ignore Error    Stop Mininet Simulation
     \    Exit For Loop If    '${status}' == 'FAIL'
+    \    Log To Console    Checking No Switches
     \    ${status}    ${result}    Run Keyword And Ignore Error    Check No Switches    ${1}
     \    Exit For Loop If    '${status}' == 'FAIL'
+    \    Log To Console    Checking no hosts are present in operational database
     \    ${status}    ${result}    Run Keyword And Ignore Error    Check No Hosts
     \    Exit For Loop If    '${status}' == 'FAIL'
     \    ${max-hosts}    Convert To String    ${hosts}
-    \    Sleep    ${sustain_time}
     [Return]    ${max-hosts}
 
 Get Mininet Hosts
@@ -132,7 +272,6 @@ Ping All Hosts
 Start Mininet With One Switch And ${hosts} hosts
     [Documentation]    Start mininet with one switch and ${hosts} hosts
     Log    Starting mininet with one switch and ${hosts} hosts
-    Log To Console    Starting mininet with one switch and ${hosts} hosts
     ${mininet_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${hosts*3}
     Set Suite Variable    ${mininet_conn_id}
     Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
@@ -143,8 +282,7 @@ Check Number Of Hosts
     [Arguments]    ${hosts}
     [Documentation]    Check number of hosts in inventory
     ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
-    Log    Check number of hosts in inventory
-    Log To Console    Check number of hosts in inventory
+    Log    Check number of hosts in inventory is ${hosts}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${count}=    Get Count    ${resp.content}    "node-id":"host:
     Should Be Equal As Integers    ${count}    ${hosts}
@@ -154,7 +292,6 @@ Check Number Of Links
     [Documentation]    Check number of links in inventory is ${links}
     ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
     Log    Check number of links in inventory is ${links}
-    Log To Console    Check number of links in inventory is ${links}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${count}=    Get Count    ${resp.content}    "link-id":"openflow:
     Should Be Equal As Integers    ${count}    ${links}
@@ -173,7 +310,6 @@ Ping Two Hosts
 Check No Hosts
     [Documentation]    Check if all hosts are deleted from inventory
     ${resp}=    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
-    Log To Console    Checking no hosts are present in operational database
     Log    Checking no hosts are present in operational database
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Not Contain    ${resp.content}    "node-id":"host:
@@ -181,7 +317,6 @@ Check No Hosts
 Start Mininet Linear
     [Arguments]    ${switches}
     [Documentation]    Start mininet linear topology with ${switches} nodes
-    Log To Console    Starting mininet linear ${switches}
     ${mininet_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${switches*3}
     Set Suite Variable    ${mininet_conn_id}
     Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
@@ -191,10 +326,11 @@ Start Mininet Linear
 Start Mininet With Custom Topology
     [Arguments]    ${topology_file}    ${switches}    ${base_mac}=00:00:00:00:00:00    ${base_ip}=1.1.1.1    ${hosts}=0    ${mininet_start_time}=100
     [Documentation]    Start a custom mininet topology.
-    Log To Console    Start a custom mininet topology with ${switches} nodes
     ${mininet_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}    timeout=${mininet_start_time}
     Set Suite Variable    ${mininet_conn_id}
     Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
+    Log    Copying ${CREATE_FULLYMESH_TOPOLOGY_FILE_PATH} file to Mininet VM
+    Put File    ${CURDIR}/${CREATE_FULLYMESH_TOPOLOGY_FILE_PATH}
     Write    python ${topology_file} ${switches} ${hosts} ${base_mac} ${base_ip}
     Read Until    ${DEFAULT_LINUX_PROMPT}
     Write    sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom switch.py --topo demotopo --switch ovsk,protocols=OpenFlow13
@@ -203,7 +339,6 @@ Start Mininet With Custom Topology
     ${output}=    Read Until    mininet>
     # Ovsdb connection is sometimes lost after mininet is started. Checking if the connection is alive before proceeding.
     Should Not Contain    ${output}    database connection failed
-    Log To Console    Mininet Started with ${switches} nodes
 
 Check Every Switch
     [Arguments]    ${switches}    ${base_mac}=00:00:00:00:00:00
@@ -215,7 +350,6 @@ Check Every Switch
     \    ${dpid_decimal}=    Evaluate    ${mac}+${switch}
     \    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}/node/openflow:${dpid_decimal}
     \    Should Be Equal As Strings    ${resp.status_code}    200
-    \    Log To Console    Checking Switch ${switch}
     \    Should Contain    ${resp.content}    flow-capable-node-connector-statistics
     \    Should Contain    ${resp.content}    flow-table-statistics
 
@@ -223,7 +357,6 @@ Check Linear Topology
     [Arguments]    ${switches}
     [Documentation]    Check Linear topology given ${switches}
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
-    Log To Console    Checking Topology
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
     \    Should Contain    ${resp.content}    "node-id":"openflow:${switch}"
@@ -236,11 +369,16 @@ Check Linear Topology
     \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "source-tp":"openflow:${switch}:3"
     \    Run Keyword Unless    ${edge}    Should Contain    ${resp.content}    "dest-tp":"openflow:${switch}:3"
 
+Check Flows Operational Datastore
+    [Arguments]    ${flow_count}    ${controller_ip}=${ODL_SYSTEM_IP}
+    [Documentation]    Check if number of Operational Flows on member of given index is equal to ${flow_count}.
+    ${sw}    ${reported_flow}    ${found_flow}=    ScaleClient.Flow Stats Collected    controller=${controller_ip}
+    BuiltIn.Should_Be_Equal_As_Numbers    ${flow_count}    ${found_flow}
+
 Check No Switches
     [Arguments]    ${switches}
     [Documentation]    Check no switch is in inventory
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}
-    Log To Console    Checking No Switches
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
     \    Should Not Contain    ${resp.content}    "openflow:${switch}"
@@ -249,14 +387,12 @@ Check No Topology
     [Arguments]    ${switches}
     [Documentation]    Check no switch is in topology
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_TOPO_API}
-    Log To Console    Checking No Topology
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${switch}    IN RANGE    1    ${switches+1}
     \    Should Not Contain    ${resp.content}    openflow:${switch}
 
 Stop Mininet Simulation
     [Documentation]    Stop mininet
-    Log To Console    Stopping Mininet
     Switch Connection    ${mininet_conn_id}
     Read
     Write    exit
@@ -264,5 +400,6 @@ Stop Mininet Simulation
     Close Connection
 
 Scalability Suite Teardown
+    Run Keyword And Ignore Error    RequestsLibrary.Delete Request    session    ${CONFIG_NODES_API}
     Delete All Sessions
     Clean Mininet System
