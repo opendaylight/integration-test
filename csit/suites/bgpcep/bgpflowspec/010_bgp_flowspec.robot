@@ -12,6 +12,7 @@ Library           RequestsLibrary
 Library           SSHLibrary
 Variables         ${CURDIR}/../../../variables/Variables.py
 Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
+Resource          ${CURDIR}/../../../libraries/ExaBgpLib.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
@@ -28,6 +29,7 @@ ${EXP1}           bgp-flowspec.json
 ${CFG2}           bgp-flowspec-redirect.cfg
 ${EXP2}           bgp-flowspec-redirect.json
 ${FLOWSPEC_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/loc-rib/tables/bgp-types:ipv4-address-family/bgp-flowspec:flowspec-subsequent-address-family/bgp-flowspec:flowspec-routes
+${CONFIG_SESSION}    session
 
 *** Test Cases ***
 Check_For_Empty_Topology_Before_Talking
@@ -44,13 +46,13 @@ FlowSpec Test 1
     [Documentation]    Testing flowspec values for ${CFG1}
     [Setup]    Setup Testcase    ${CFG1}
     BuiltIn.Wait Until Keyword Succeeds    15s    1s    Verify Flowspec Data    ${EXP1}
-    [Teardown]    Stop_Tool
+    [Teardown]    ExaBgpLib.Stop_ExaBgp
 
 FlowSpec Test 2
     [Documentation]    Testing flowspec values for ${CFG2}
     [Setup]    Setup Testcase    ${CFG2}
     BuiltIn.Wait Until Keyword Succeeds    15s    1s    Verify Flowspec Data    ${EXP2}
-    [Teardown]    Stop_Tool
+    [Teardown]    ExaBgpLib.Stop_ExaBgp
 
 Deconfigure_ODL_To_Accept_Connection
     [Documentation]    Deconfigure BGP peer.
@@ -69,7 +71,7 @@ Start Suite
     ...    return_rc=True
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    sudo pip install exabgp    return_stdout=True    return_stderr=True
     ...    return_rc=True
-    RequestsLibrary.Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
+    RequestsLibrary.Create Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     ConfigViaRestconf.Setup_Config_Via_Restconf
     Upload Config Files    ${CURDIR}/../../../variables/bgpflowspec/
 
@@ -93,26 +95,7 @@ Upload Config Files
 Setup Testcase
     [Arguments]    ${cfg_file}
     Verify Empty Flowspec Data
-    Start Tool    ${cfg_file}
-
-Start_Tool
-    [Arguments]    ${cfg_file}
-    [Documentation]    Start the tool ${cmd} ${cfg_file}
-    BuiltIn.Log    ${cmd} ${cfg_file}
-    ${output}=    SSHLibrary.Write    ${cmd} ${cfg_file}
-    BuiltIn.Log    ${output}
-
-Wait_Until_Tool_Finish
-    [Arguments]    ${timeout}
-    [Documentation]    Wait ${timeout} for the tool exit.
-    BuiltIn.Wait Until Keyword Succeeds    ${timeout}    1s    SSHLibrary.Read Until Prompt
-
-Stop_Tool
-    [Documentation]    Stop the tool if still running.
-    Utils.Write_Bare_Ctrl_C
-    ${output}=    SSHLibrary.Read    delay=1s
-    BuiltIn.Log    ${output}
-    Verify Empty Flowspec Data
+    ExaBgpLib.Start_ExaBgp_And_Verify_Connected    ${cfg_file}    ${CONFIG_SESSION}    ${TOOLS_SYSTEM_IP}
 
 Verify Empty Flowspec Data
     [Documentation]    Verify expected response.
@@ -124,7 +107,7 @@ Verify Flowspec Data
     ${keys_with_bits}=    BuiltIn.Create_List
     CompareStream.Run_Keyword_If_At_Most    boron    Collections.Append_To_List    ${keys_with_bits}    op
     ${expected_rsp}=    Get Expected Response From File    ${exprspfile}
-    ${rsp}=    RequestsLibrary.Get Request    session    ${FLOWSPEC_URL}
+    ${rsp}=    RequestsLibrary.Get Request    ${CONFIG_SESSION}    ${FLOWSPEC_URL}
     TemplatedRequests.Normalize_Jsons_With_Bits_And_Compare    ${expected_rsp}    ${rsp.content}    keys_with_bits=${keys_with_bits}
 
 Get Expected Response From File
