@@ -7,7 +7,6 @@ Library           Collections
 Library           OperatingSystem
 Library           RequestsLibrary
 Library           HttpLibrary.HTTP
-Library           Config103.py
 Library           ../../../libraries/SFC/SfcUtils.py
 Resource          ../../../libraries/ClusterOpenFlow.robot
 Resource          ../../../libraries/KarafKeywords.robot
@@ -49,7 +48,6 @@ Verify if the SFC features are installed on each node
     : FOR    ${index}    IN RANGE    1    ${NUM_ODL_SYSTEM}+1
     \    ${member_ip} =    BuiltIn.Set_Variable    ${ODL_SYSTEM_${index}_IP}
     \    Verify if the SFC features in node    ${member_ip}
-    Add SFC Elements
 
 Kill leader and check followers status
     [Documentation]    Kill leader and check followers status
@@ -65,9 +63,11 @@ Complete configuration after failover
     ${leader_list}    ${follower_list} =    ClusterManagement.Get_Leader_And_Followers_For_Shard    default    operational
     ${leader_ip} =    Set_Variable    ${ODL_SYSTEM_${leader_list}_IP}
     ${first_follower} =    Get From List    ${follower_list}    0
-    Load configuration without RSP    ${leader_ip}
+    Create Session In Controller    ${leader_ip}
+    Add SFC Elements
     ClusterManagement.Kill_Single_Member    ${leader_list}
-    Load_RSP103    ${ODL_SYSTEM_${first_follower}_IP}
+    Create Session In Controller    ${ODL_SYSTEM_${first_follower}_IP}    
+    Post Elements To URI As JSON    ${OPERATIONS_CREATE_RSP_URI}    ${CREATE_RSP1_INPUT}    
     ${session} =    Resolve_Http_Session_For_Member    ${first_follower}
     ${uri} =    BuiltIn.Set_Variable    /restconf/operational/rendered-service-path:rendered-service-paths/
     ${data_text} =    TemplatedRequests.Get_As_Json_From_Uri    uri=${uri}    session=${session}
