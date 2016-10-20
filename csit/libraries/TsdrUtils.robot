@@ -13,10 +13,10 @@ Library           Process
 
 *** Variables ***
 ${HBASE_CLIENT}    /tmp/Hbase/hbase-0.94.27/bin
-${CASSANDRA_CLIENT}    /tmp/cassandra/apache-cassandra-2.1.14/bin
+${CASSANDRA_CLIENT}    /tmp/cassandra/apache-cassandra-2.1.16/bin
 ${final}          ${EMPTY}
 ${prompt_timeout}    ${EMPTY}
-${CASSANDRA_DB_PATH}    /tmp/cassandra/apache-cassandra-2.1.14/
+${CASSANDRA_DB_PATH}    /tmp/cassandra/apache-cassandra-2.1.16/
 ${metric_path}    metricpath
 ${metric_val}     metricval
 ${metric_log}     metriclog
