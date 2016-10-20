@@ -33,7 +33,6 @@ ${DEVICE_NAME}    controller-config
 ${BGP_PEER_NAME}    example-bgp-peer
 ${RIB_INSTANCE}    example-bgp-rib
 ${APP_PEER_NAME}    example-bgp-peer-app
-${CMD}            env exabgp.tcp.port=1790 exabgp --debug
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpfunctional
 ${DEFAUTL_RPC_CFG}    exa.cfg
 ${CONFIG_SESSION}    config-session
