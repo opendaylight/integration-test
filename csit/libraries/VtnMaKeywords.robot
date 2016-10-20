@@ -43,7 +43,7 @@ ${policy_id}      1
 ${in_port}        1
 ${filter_index}    1
 @{inet_action}    set_field:192.0.0.1->ip_src    set_field:192.0.0.2->ip_dst
-${dscp_action}    set_field:32->ip_dscp
+@{dscp_action}    set_field:32->ip_dscp   set_field:32->nw_tos_shifted
 ${dscp_flow}      mod_nw_tos:128
 @{icmp_action}    mod_tp_dst:1    mod_tp_src:3
 ${drop_action}    actions=drop
