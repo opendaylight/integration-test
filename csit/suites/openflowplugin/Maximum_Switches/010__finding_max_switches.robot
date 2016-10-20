@@ -19,6 +19,7 @@ Find Max Switches
     [Documentation]    Find max number of switches starting from ${MIN_SWITCHES} till reaching ${MAX_SWITCHES} in steps of ${STEP_SWITCHES}
     Wait Until Keyword Succeeds    3x    1s    KarafKeywords.Issue Command On Karaf Console    log:set ERROR
     Append To File    ${SWITCHES_RESULT_FILE}    Max Switches Linear Topo\n
-    ${max-switches}    Find Max Switches    ${MIN_SWITCHES}    ${MAX_SWITCHES}    ${STEP_SWITCHES}
-    Log    ${max-switches}
-    Append To File    ${SWITCHES_RESULT_FILE}    ${max-switches}\n
+    ${max_switches}    ${error_message}    Find Max Switches    ${MIN_SWITCHES}    ${MAX_SWITCHES}    ${STEP_SWITCHES}
+    Log    ${error_message}
+    Log    ${max_switches}
+    Append To File    ${SWITCHES_RESULT_FILE}    ${max_switches}\n

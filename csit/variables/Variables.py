@@ -137,9 +137,9 @@ AUTH_TOKEN_API = '/oauth2/token'
 REVOKE_TOKEN_API = '/oauth2/revoke'
 
 # Base Mininet Mac address. DPID of mininet switches will be derived from this.
-BASE_MAC_1 = '00:4b:00:00:00:00'
+BASE_MAC_1 = '00:00:00:00:00:00'
 # Base IP of mininet hosts
-BASE_IP_1 = '75.75.0.0'
+BASE_IP_1 = '10.0.0.0'
 
 # Vlan Custom Topology Path and File
 CREATE_VLAN_TOPOLOGY_FILE = "vlan_vtn_test.py"
@@ -148,7 +148,7 @@ CREATE_VLAN_TOPOLOGY_FILE_PATH = "MininetTopo/" +\
 
 # Mininet Custom Topology Path and File
 CREATE_FULLYMESH_TOPOLOGY_FILE = "create_fullymesh.py"
-CREATE_FULLYMESH_TOPOLOGY_FILE_PATH = "libraries/MininetTopo/" +\
+CREATE_FULLYMESH_TOPOLOGY_FILE_PATH = "MininetTopo/" +\
                                       CREATE_FULLYMESH_TOPOLOGY_FILE
 
 # Mininet Custom Topology Path and File for Path Policy
