@@ -1,2 +1,3 @@
 # Place the suites in run order:
 integration/test/csit/suites/openflowplugin/Maximum_Links
+integration/test/csit/suites/integration/Create_JVM_Plots.robot
