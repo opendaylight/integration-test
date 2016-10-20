@@ -6,8 +6,8 @@ Library           Collections
 Library           json
 Library           RequestsLibrary
 Variables         ../variables/Variables.py
-Resource          ./Utils.robot
-Resource          Scalability.robot
+Resource          Utils.robot
+Resource          WorkflowsOpenFlow.robot
 
 *** Variables ***
 ${switches}       2

@@ -1,33 +1,32 @@
 *** Settings ***
 Documentation     Test suite for finding out max number of Links
-Suite Setup       Link Scale Suite Setup
-Suite Teardown    Scalability Suite Teardown
+Suite Setup       Workflow Setup
+Suite Teardown    Workflow Teardown
 Library           OperatingSystem
-Library           RequestsLibrary
-Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Scalability.robot
+Resource          ../../../variables/Variables.robot
+Resource          ../../../libraries/WorkflowsOpenFlow.robot
+Resource          ../../../libraries/KarafKeywords.robot
 
 *** Variables ***
-${MIN_SWITCHES}    10
-${MAX_SWITCHES}    200
-${STEP_SWITCHES}    5
+@{SWITCH_LIST}    ${16}    ${32}    ${40}    ${48}    ${52}    ${56}    ${60}
+...               ${64}
 ${LINKS_RESULT_FILE}    links.csv
+${TIME_RESULT_FILE}    time.csv
 
 *** Test Cases ***
-Find Max Switch Links
+Find Max Links
     [Documentation]    Find max number of Links supported. Fully mesh topology starting from
     ...    ${MIN_SWITCHES} switches till ${MAX_SWITCHES} switches will be attempted in steps of ${STEP_SWITCHES}
-    Append To File    ${LINKS_RESULT_FILE}    Max Links \n
-    ${max-links}    Find Max Links    ${MIN_SWITCHES}    ${MAX_SWITCHES}    ${STEP_SWITCHES}
-    Log    ${max-links}
-    Append To File    ${LINKS_RESULT_FILE}    ${max-links}\n
-
-*** Keywords ***
-Link Scale Suite Setup
-    [Documentation]    Do initial steps for link scale tests
-    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
-    ${mininet_conn_id}=    Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}
-    Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/${SSH_KEY}    any
-    Log    Copying ${CREATE_FULLYMESH_TOPOLOGY_FILE_PATH} file to Mininet VM
-    Put File    ${CURDIR}/../../../${CREATE_FULLYMESH_TOPOLOGY_FILE_PATH}
-    Close Connection
+    ${error_message}=    Set Variable    Fail initializing suite
+    ${maximum_links}=    Set Variable    ${0}
+    : FOR    ${switches}    IN    @{SWITCH_LIST}
+    \    ${status}    ${error_message}    ${topology_discover_time}    WorkflowsOpenFlow.Workflow Full Mesh Topology    ${switches}
+    \    Exit For Loop If    '${status}' == 'FAIL'
+    \    ${maximum_links}=    Evaluate    ${switches} * ${switches-1}
+    Log to console    ${\n}
+    Log To Console    Execution stopped because: ${error_message}
+    Log To Console    Max Links: ${maximum_links}
+    OperatingSystem.Append To File    ${LINKS_RESULT_FILE}    Max Links\n
+    OperatingSystem.Append To File    ${LINKS_RESULT_FILE}    ${maximum_links}\n
+    OperatingSystem.Append To File    ${TIME_RESULT_FILE}    Discover Time\n
+    OperatingSystem.Append To File    ${TIME_RESULT_FILE}    ${topology_discover_time}\n
