@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Beta Version of the Longevity Test. Currently it does a single test:
-...               1. runs one iteration of the switch scale test based on ${NUM_SWITCHES}
+...               1. runs one iteration of the link scale test based on ${NUM_SWITCHES}
 ...               Step 1 runs in a psuedo infinite loop and before each loop is
 ...               run, a time check is made against the ${TEST_LENGTH}. If the test duration
 ...               has expired, the loop is exited and the test is marked PASS
@@ -16,7 +16,7 @@ Resource          ../../../libraries/Scalability.robot
 Resource          ../../../libraries/KarafKeywords.robot
 
 *** Variables ***
-${NUM_SWITCHES}    200
+${NUM_SWITCHES}    36
 ${SUSTAIN_TIME}    60
 ${TEST_LENGTH}    2 hours
 ${KARAF_LOG_LEVEL}    ERROR
@@ -24,12 +24,15 @@ ${KARAF_LOG_LEVEL}    ERROR
 *** Test Cases ***
 Longevity Test
     [Documentation]    Uses switch scalability test functionality in a loop for given period of time
+    ${switches}=    Convert To Integer    ${NUM_SWITCHES}
+    ${max_links}=    Evaluate    ${switches}*${switches-1}
     #    This loop is not infinite, so going "sufficiently large" for now.
     : FOR    ${i}    IN RANGE    1    65536
     \    ${expiration_flag}=    Check If There Is A Reason To Exit Test Or If Duration Has Expired
     \    Exit For Loop If    "${expiration_flag}" == "True"
-    \    ${switch_count}=    Find Max Switches    ${NUM_SWITCHES}    ${NUM_SWITCHES}    ${NUM_SWITCHES}    ${SUSTAIN_TIME}
-    \    Check If There Is A Reason To Exit Test Or If Duration Has Expired    ${switch_count}    ${NUM_SWITCHES}    Switch count not correct
+    \    ${link_count}    ${topology_discover_time}    ${error_message}    Find Max Links    ${switches}    ${switches}
+    \    ...    ${switches}    ${SUSTAIN_TIME}
+    \    Check If There Is A Reason To Exit Test Or If Duration Has Expired    ${link_count}    ${max_links}    ${error_message}
 
 *** Keywords ***
 Check If There Is A Reason To Exit Test Or If Duration Has Expired
@@ -39,8 +42,6 @@ Check If There Is A Reason To Exit Test Or If Duration Has Expired
     ...    indicate if the requested duration of the longevity test has elapsed. The caller does not have to use
     ...    that return value.
     Should Be Equal    ${comparator1}    ${comparator2}    ${comparator_failure_message}
-    Verify Controller Is Not Dead    ${ODL_SYSTEM_IP}
-    Verify Controller Has No Null Pointer Exceptions    ${ODL_SYSTEM_IP}
     ${is_expired}=    Check If Test Duration Is Expired
     [Return]    ${is_expired}
 
