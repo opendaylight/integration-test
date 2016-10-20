@@ -12,7 +12,7 @@ Library           SSHLibrary
 Library           Collections
 Library           ../../../libraries/Common.py
 Resource          ../../../libraries/NicKeywords.robot
-Resource          ../../../libraries/Scalability.robot
+Resource          ../../../libraries/WorkflowsOpenFlow.robot
 
 *** Variables ***
 ${switches}       8
