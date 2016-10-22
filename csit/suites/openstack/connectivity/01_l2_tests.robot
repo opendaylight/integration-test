@@ -42,10 +42,14 @@ Create Subnets For l2_network_2
     Create SubNet    l2_network_2    l2_subnet_2    @{SUBNETS_RANGE}[1]
 
 Add Ssh Allow Rule
-    [Documentation]    Allow all TCP packets for testing
-    Create Security Group    csit    "CSIT SSH Allow"
-    Create Security Rule    ingress    tcp    1    65535    0.0.0.0/0    csit
-    Create Security Rule    egress    tcp    1    65535    0.0.0.0/0    csit
+    [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
+    Neutron Security Group Create    csit
+    Neutron Security Group Rule Create    csit    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    csit    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    csit    direction=ingress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    csit    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    csit    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    csit    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
 
 Create Vm Instances For l2_network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
