@@ -1,0 +1,140 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_ef025d0a",
+        "filename": "csit/libraries/LegatoUtils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-10-24T18:00:20Z",
+      "side": 1,
+      "message": "Going forward we recommend to import resource variables/Variables.robot",
+      "revId": "15aae54711052a887947c7d8235f9042d61b7e8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_4a26dfbb",
+        "filename": "csit/suites/unimgr/uni_legato/010_unimanager_epl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-10-24T18:00:20Z",
+      "side": 1,
+      "message": "Why is this sleep required?",
+      "revId": "15aae54711052a887947c7d8235f9042d61b7e8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_2a2ba383",
+        "filename": "csit/suites/unimgr/uni_legato/010_unimanager_epl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-10-24T18:00:20Z",
+      "side": 1,
+      "message": "Adding a WUKS here would avoid the sleep in the previous TC, right?",
+      "revId": "15aae54711052a887947c7d8235f9042d61b7e8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_ca394fda",
+        "filename": "csit/suites/unimgr/uni_legato/010_unimanager_epl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-10-24T18:00:20Z",
+      "side": 1,
+      "message": "We are replacing this KW in this patch https://git.opendaylight.org/gerrit/#/c/47456/, going forward it will be Start/Stop Mininet.",
+      "revId": "15aae54711052a887947c7d8235f9042d61b7e8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_2a044314",
+        "filename": "csit/suites/unimgr/uni_legato/020_unimanager_eplan.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-10-24T18:00:20Z",
+      "side": 1,
+      "message": "I thought you were going to use TemplatedRequest library for REST requests, anyway this also works.",
+      "revId": "15aae54711052a887947c7d8235f9042d61b7e8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_8a09172f",
+        "filename": "csit/suites/unimgr/uni_legato/020_unimanager_eplan.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-10-24T18:00:20Z",
+      "side": 1,
+      "message": "This will retry every 6s, dont you want to retry more often? with a timeout of 10s, i guess there will be a single retry, right?",
+      "revId": "15aae54711052a887947c7d8235f9042d61b7e8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_aa0fb32d",
+        "filename": "csit/suites/unimgr/uni_legato/020_unimanager_eplan.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-10-24T18:00:20Z",
+      "side": 1,
+      "message": "I think you can add a WUKS here so that sleep is not needed.",
+      "revId": "15aae54711052a887947c7d8235f9042d61b7e8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_ea19ab7a",
+        "filename": "csit/suites/unimgr/uni_legato/020_unimanager_eplan.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-10-24T18:00:20Z",
+      "side": 1,
+      "message": "We are getting rid of Utils.Start Suite (https://git.opendaylight.org/gerrit/#/c/47456/), please use Start/Stop Mininet KWs when this patch gets merged.",
+      "revId": "15aae54711052a887947c7d8235f9042d61b7e8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
