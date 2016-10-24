@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_4aeedf8c",
+        "filename": "csit/libraries/LegatoUtils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-10-24T22:47:18Z",
+      "side": 1,
+      "message": "+1, if we can use MininetKeywords.Start_Mininet_Single_Controller instead of Utils.Start_Suite that would be also good idea.",
+      "parentUuid": "5a682502_ca25cf0b",
+      "revId": "15aae54711052a887947c7d8235f9042d61b7e8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_ef025d0a",
         "filename": "csit/libraries/LegatoUtils.robot",
         "patchSetId": 2
@@ -87,6 +105,30 @@
       "writtenOn": "2016-10-24T22:34:19Z",
       "side": 1,
       "message": "Luis, what is the better way forward with starting mininet?  I know you are working on a refactor there.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 116
+      },
+      "revId": "15aae54711052a887947c7d8235f9042d61b7e8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_eae1ab9b",
+        "filename": "csit/suites/unimgr/uni_legato/010_unimanager_epl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-10-24T22:47:18Z",
+      "side": 1,
+      "message": "Going forward we have 2 KWs: Utils.Start_Mininet and MininetKeywords.Start_Mininet_Single_Controller. The first is just the old Utils.Start_Suite, the second is better imo as it allows for custom mininet topologies and other parameters if required.",
+      "parentUuid": "5a682502_4a79bffb",
       "range": {
         "startLine": 17,
         "startChar": 0,
