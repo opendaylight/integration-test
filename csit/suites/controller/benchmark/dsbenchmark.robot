@@ -28,8 +28,9 @@ Documentation     MD-SAL Data Store benchmarking.
 ...               by odl-dsbenchmark-impl module. The dsbenchmark.py tool always returns
 ...               values in miliseconds.
 ...
-...               Note: Currently, the number of lines in one graph makes default height insufficient.
-...               Workaround: See http://stackoverflow.com/questions/34180337/set-default-height-of-jenkins-plot-generated-with-plot-plugin
+...               When running this robot suite always use --exclude tag for distinguish
+...               the run for 3node setup: need a benchmark for leader and follow (--exlucede singlenode_setup)
+...               the run for 1node setup: no followr present (--exlucede clustered_setup)
 Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
@@ -38,23 +39,21 @@ Library           OperatingSystem
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
 Variables         ${CURDIR}/../../../variables/Variables.py
-Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
-Resource          ${CURDIR}/../../../libraries/FailFast.robot
-Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
+Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 
 *** Variables ***
-${ODL_LOG_LEVEL}    DEFAULT
+${ODL_LOG_LEVEL}    info
 ${TX_TYPE}        {TX-CHAINING,SIMPLE-TX}
-${OP_TYPE}        {PUT,MERGE,DELETE}
-${TOTAL_OPS}      100000
-${OPS_PER_TX}     100000
-${INNER_OPS}      100000
+${OP_TYPE}        {PUT,READ,MERGE,DELETE}
+${TOTAL_OPS}      10000
+${OPS_PER_TX}     10000
+${INNER_OPS}      10000
 ${WARMUPS}        10
 ${RUNS}           10
-${TIMEOUT}        3 h
+${TIMEOUT}        2h
 ${FILTER}         EXEC
 ${UNITS}          microseconds
 ${tool}           dsbenchmark.py
@@ -66,63 +65,63 @@ ${tool_results1_name}    perf_per_struct.csv
 ${tool_results2_name}    perf_per_ops.csv
 
 *** Test Cases ***
-Set Karaf Log Levels
-    [Documentation]    Set Karaf log level
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_LOG_LEVEL}
+Measure_Both_Datastores_For_One_Node_Odl_Setup
+    [Tags]    critical    singlenode_setup
+    [Template]    Measuring_Template
+    leader    {CONFIG,OPERATIONAL}    both_lead_
 
-Start Measurement
-    [Documentation]    Start the benchmark tool. Fail if test not started.
-    [Tags]    critical
-    Start_Benchmark_Tool
+Measure_Config_Leader
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    leader    CONFIG    conf_lead_
 
-Wait For Results
-    [Documentation]    Wait until results are available. Fail if timeout occures.
-    [Tags]    critical
-    Wait_Until_Benchmark_Tool_Finish    ${TIMEOUT}
-    SSHLibrary.File Should Exist    ${tool_results1_name}
-    SSHLibrary.File Should Exist    ${tool_results2_name}
-    Store_File_To_Robot    ${tool_results1_name}
-    Store_File_To_Robot    ${tool_results2_name}
+Measure_Operational_Leader
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    leader    OPERATIONAL    op_lead_
 
-Stop Measurement
-    [Documentation]    Stop the benchmark tool (if still running)
-    [Setup]    FailFast.Run_Even_When_Failing_Fast
-    Stop_Benchmark_Tool
+Measure_Config_Follwer
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    follower    CONFIG    conf_fol_
 
-Collect Logs
-    [Documentation]    Collect logs and detailed results for debugging
-    [Setup]    FailFast.Run_Even_When_Failing_Fast
-    ${files}=    SSHLibrary.List Files In Directory    .
-    ${tool_log}=    Get_Log_File    ${tool_log_name}
-    ${tool_output}=    Get_Log_File    ${tool_output_name}
-    ${tool_results1}=    Get_Log_File    ${tool_results1_name}
-    ${tool_results2}=    Get_Log_File    ${tool_results2_name}
+Measure_Operational_Follower
+    [Tags]    critical    clustered_setup
+    [Template]    Measuring_Template
+    follower    OPERATIONAL    op_fol_
 
-Check Results
-    [Documentation]    Check outputs for expected content. Fail in case of unexpected content.
-    [Tags]    critical
-    ${tool_log}=    Get_Log_File    ${tool_log_name}
-    BuiltIn.Should Contain    ${tool_log}    Total execution time:
-    BuiltIn.Should Not Contain    ${tool_log}    status: NOK
+Merge_Csvs_Together
+    [Documentation]    Merge created csvs into given file necause plot plugin cannot have more
+    ...    source files for one graph.
+    [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    Merge_Csv    perf_per_ops.csv
+    Merge_Csv    perf_per_struct.csv
 
 *** Keywords ***
 Setup_Everything
     [Documentation]    Setup imported resources, SSH-login to mininet machine,
     ...    create HTTP session, put Python tool to mininet machine.
+    ClusterManagement.ClusterManagement_Setup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
     Utils.Flexible_Mininet_Login
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/mdsal_benchmark/${tool}
+    SSHKeywords.Virtual_Env_Create
+    SSHKeywords.Virtual_Env_Install_Package    requests
+    ClusterManagement.Run_Karaf_Command_On_List_Or_All    log:set ${ODL_LOG_LEVEL}
 
 Teardown_Everything
     [Documentation]    Cleaning-up
+    SSHKeywords.Virtual_Env_Delete
     SSHLibrary.Close_All_Connections
 
 Start_Benchmark_Tool
+    [Arguments]    ${tested_datastore}
     [Documentation]    Start the benchmark tool. Check that it has been running at least for ${tool_startup_timeout} period.
-    ${command}=    BuiltIn.Set_Variable    python ${tool} --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --warmup ${WARMUPS} --runs ${RUNS} --total ${TOTAL_OPS} --inner ${INNER_OPS} --txtype ${TX_TYPE} --ops ${OPS_PER_TX} --optype ${OP_TYPE} --plot ${FILTER} --units ${UNITS} ${tool_args} &> ${tool_log_name}
+    ${command}=    BuiltIn.Set_Variable    python ${tool} --host ${odl_node_ip} --port ${RESTCONFPORT} --warmup ${WARMUPS} --runs ${RUNS} --total ${TOTAL_OPS} --inner ${INNER_OPS} --txtype ${TX_TYPE} --ops ${OPS_PER_TX} --optype ${OP_TYPE} --plot ${FILTER} --units ${UNITS} --datastore ${tested_datastore} ${tool_args} &> ${tool_log_name}
     BuiltIn.Log    ${command}
+    SSHKeywords.Virtual_Env_Activate_On_Current_Session
     ${output}=    SSHLibrary.Write    ${command}
     ${status}    ${message}=    BuiltIn.Run Keyword And Ignore Error    Write Until Expected Output    ${EMPTY}    ${TOOLS_SYSTEM_PROMPT}    ${tool_startup_timeout}
     ...    1s
@@ -140,7 +139,9 @@ Wait_Until_Benchmark_Tool_Finish
 Stop_Benchmark_Tool
     [Documentation]    Stop the benchmark tool. Fail if still running.
     Utils.Write_Bare_Ctrl_C
+    SSHLibrary.Read
     SSHLibrary.Read Until Prompt
+    SSHKeywords.Virtual_Env_Deactivate_On_Current_Session
 
 Get_Log_File
     [Arguments]    ${file_name}
@@ -150,8 +151,79 @@ Get_Log_File
     [Return]    ${output_log}
 
 Store_File_To_Robot
-    [Arguments]    ${file_name}
+    [Arguments]    ${file_name}    ${file_prefix}
     [Documentation]    Store the provided file from the MININET to the ROBOT machine.
     ${output_log}=    SSHLibrary.Execute_Command    cat ${file_name}
     BuiltIn.Log    ${output_log}
-    Create File    ${file_name}    ${output_log}
+    OperatingSystem.Create_File    ${file_prefix}${file_name}    ${output_log}
+
+Collect Logs
+    [Documentation]    Collect logs and detailed results for debugging
+    ${files}=    SSHLibrary.List Files In Directory    .
+    ${tool_log}=    Get_Log_File    ${tool_log_name}
+    ${tool_output}=    Get_Log_File    ${tool_output_name}
+    ${tool_results1}=    Get_Log_File    ${tool_results1_name}
+    ${tool_results2}=    Get_Log_File    ${tool_results2_name}
+
+Check Results
+    [Documentation]    Check outputs for expected content. Fail in case of unexpected content.
+    ${tool_log}=    Get_Log_File    ${tool_log_name}
+    BuiltIn.Should Contain    ${tool_log}    Total execution time:
+    BuiltIn.Should Not Contain    ${tool_log}    status: NOK
+
+Set_Node_Ip_For_Benchmark
+    [Arguments]    ${state}    ${tested_ds}    ${file_prefix}
+    BuiltIn.Return From Keyword If    ${NUM_ODL_SYSTEM}==1    ${ODL_SYSTEM_1_IP}
+    ${shard_type}=    BuiltIn.Set_Variable_If    "${tested_ds}"=="CONFIG"    config    operational
+    ${leader}    ${followers}=    ClusterManagement.Get_Leader_And_Followers_For_Shard    shard_type=${shard_type}
+    BuiltIn.Return From Keyword If    "${state}"=="leader"    ${ODL_SYSTEM_${leader}_IP}
+    BuiltIn.Return From Keyword    ${ODL_SYSTEM_@{followers}[0]_IP}
+
+Measuring_Template
+    [Arguments]    ${state}    ${tested_ds}    ${file_prefix}
+    [Documentation]    Keywork which will cover a whole banchmark.
+    ...    If ${file_prefix} is ${Empty} we have 1 node odl.
+    ${odl_node_ip}=    Set_Node_Ip_For_Benchmark    ${state}    ${tested_ds}    ${file_prefix}
+    BuiltIn.Set_Suite_Variable    ${odl_node_ip}
+    Start_Benchmark_Tool    ${tested_ds}
+    Wait_Until_Benchmark_Tool_Finish    ${TIMEOUT}
+    SSHLibrary.File Should Exist    ${tool_results1_name}
+    SSHLibrary.File Should Exist    ${tool_results2_name}
+    Check Results
+    Store_File_To_Robot    ${tool_results1_name}    ${file_prefix}
+    Store_File_To_Robot    ${tool_results2_name}    ${file_prefix}
+    [Teardown]    Stop_Measurement_And_Save_Logs
+
+Stop_Measurement_And_Save_Logs
+    Stop_Benchmark_Tool
+    Collect Logs
+
+Merge_Csv
+    [Arguments]    ${final_file}
+    [Documentation]    Creates ${final_file} csv file from existing files in the current directory
+    ${final_columns}=    BuiltIn.Set_Variable    ${Empty}
+    ${final_values}=    BuiltIn.Set_variable    ${Empty}
+    @{csv_files}=    OperatingSystem.List_Files_In_Directory    .    *${final_file}
+    Collections.Sort_List    ${csv_files}
+    : FOR    ${file}    IN    @{csv_files}
+    \    BuiltIn.Log_To_Console    ${file}
+    \    ${csv_content}=    OperatingSystem.GetFile    ${file}
+    \    ${column_names}=    Get_Column_Names    ${file}    ${csv_content}
+    \    ${column_values}=    String.Get_Line    ${csv_content}    1
+    \    ${final_columns}=    BuiltIn.Set_Variable_If    "${final_columns}"=="${Empty}"    ${column_names}    ${final_columns},${column_names}
+    \    ${final_values}=    BuiltIn.Set_Variable_If    "${final_values}"=="${Empty}"    ${column_values}    ${final_values},${column_values}
+    ${content}=    BuiltIn.Catenate    SEPARATOR=${\n}    ${final_columns}    ${final_values}
+    OperatingSystem.Create_File    blabla    ${content}
+
+Get_Column_Names
+    [Arguments]    ${file_name}    ${file_content}
+    [Documentation]    Returns the first line of the given csv file. It is modified if the file name
+    ...    indicates that it is the file from the shard follower.
+    ${column_names}=    String.Get_Line    ${file_content}    0
+    BuiltIn.Return_From_Keyword_If    "_fol_" not in "${file_name}"    ${column_names}
+    # now we have followers and FOL_ will be prepended to the column names
+    @{columns}    String.Split_String    ${column_names}    ,
+    ${final_columns}    BuiltIn.Set_Variable    ${Empty}
+    : FOR    ${column}    IN    @{columns}
+    \    ${final_columns}    BuiltIn.Set_Variable_If    "${final_columns}"=="${Empty}"    FOL_${column}    ${final_columns},FOL_${column}
+    BuiltIn.Return_From_Keyword    ${final_columns}
