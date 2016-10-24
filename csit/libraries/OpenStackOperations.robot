@@ -185,6 +185,7 @@ Create Vm Instances
     \    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement} --security-groups ${sg}    30s
     \    Log    ${output}
     \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VmElement}
+    \    Wait Until Keyword Succeeds    25s    5s    Verify IP For VM    ${VmElement}    ${net_name}
 
 Create Vm Instance With Port On Compute Node
     [Arguments]    ${port_name}    ${vm_instance_name}    ${compute_node}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano
@@ -203,6 +204,24 @@ Verify VM Is ACTIVE
     ${output}=    Write Commands Until Prompt    nova show ${vm_name} | grep OS-EXT-STS:vm_state    30s
     Log    ${output}
     Should Contain    ${output}    active
+
+Verify IP For VM
+    [Arguments]    ${vm_name}    ${net_name}
+    [Documentation]    Run these commands to check whether the created vm instance has assigned ip or not.
+    ${vm_ip}=    Get VM IP    ${vm_name}    ${net_name}
+    ${output}=    Write Commands Until Prompt    nova console-log ${vm_name} | grep "debug start" -A10    30s
+    Log    ${output}
+    Should Contain    ${output}    ${vm_ip}
+
+Get VM IP
+    [Arguments]    ${vm_name}    ${net_name}
+    [Documentation]    Retrieve the Vm assigned ip for the given specific vm instance.
+    ${output}=    Write Commands Until Prompt    nova show ${vm_name} | grep ${net_name}    30s
+    Log    ${output}
+    ${splitted_output}=    Split String    ${output}    ${EMPTY}
+    ${vm_ip}=    Get from List    ${splitted_output}    3
+    Log    ${vm_ip}
+    [Return]    ${vm_ip}
 
 View Vm Console
     [Arguments]    ${vm_instance_names}
