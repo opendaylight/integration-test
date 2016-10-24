@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "5a682502_ca25cf0b",
+        "filename": "csit/libraries/LegatoUtils.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-24T22:34:19Z",
+      "side": 1,
+      "message": "I\u0027d say these keywords fit better in the already existing MininetKeywords library.  they really don\u0027t have anything to do with \"legato\", but they would probably be useful to others doing mininet stuff and that\u0027s where\u0027d they look for this kind of keyword.",
+      "revId": "15aae54711052a887947c7d8235f9042d61b7e8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_ef025d0a",
         "filename": "csit/libraries/LegatoUtils.robot",
         "patchSetId": 2
@@ -36,6 +53,52 @@
     },
     {
       "key": {
+        "uuid": "5a682502_0a2067f6",
+        "filename": "csit/suites/unimgr/uni_legato/010_unimanager_epl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-24T22:34:19Z",
+      "side": 1,
+      "message": "use ${CONFIG_API} from Variables.robot",
+      "range": {
+        "startLine": 16,
+        "startChar": 0,
+        "endLine": 16,
+        "endChar": 35
+      },
+      "revId": "15aae54711052a887947c7d8235f9042d61b7e8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_4a79bffb",
+        "filename": "csit/suites/unimgr/uni_legato/010_unimanager_epl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-24T22:34:19Z",
+      "side": 1,
+      "message": "Luis, what is the better way forward with starting mininet?  I know you are working on a refactor there.",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 116
+      },
+      "revId": "15aae54711052a887947c7d8235f9042d61b7e8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_4a26dfbb",
         "filename": "csit/suites/unimgr/uni_legato/010_unimanager_epl.robot",
         "patchSetId": 2
@@ -47,6 +110,29 @@
       "writtenOn": "2016-10-24T18:00:20Z",
       "side": 1,
       "message": "Why is this sleep required?",
+      "revId": "15aae54711052a887947c7d8235f9042d61b7e8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_2a7e03e5",
+        "filename": "csit/suites/unimgr/uni_legato/010_unimanager_epl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-24T22:34:19Z",
+      "side": 1,
+      "message": "like the other one above, please refrain from using sleeps.",
+      "range": {
+        "startLine": 43,
+        "startChar": 4,
+        "endLine": 43,
+        "endChar": 15
+      },
       "revId": "15aae54711052a887947c7d8235f9042d61b7e8b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -70,6 +156,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_8a83d7cb",
+        "filename": "csit/suites/unimgr/uni_legato/010_unimanager_epl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-24T22:34:19Z",
+      "side": 1,
+      "message": "perfect idea.",
+      "parentUuid": "5a682502_2a2ba383",
+      "revId": "15aae54711052a887947c7d8235f9042d61b7e8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_ca394fda",
         "filename": "csit/suites/unimgr/uni_legato/010_unimanager_epl.robot",
         "patchSetId": 2
@@ -81,6 +185,41 @@
       "writtenOn": "2016-10-24T18:00:20Z",
       "side": 1,
       "message": "We are replacing this KW in this patch https://git.opendaylight.org/gerrit/#/c/47456/, going forward it will be Start/Stop Mininet.",
+      "revId": "15aae54711052a887947c7d8235f9042d61b7e8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_6a88fbe7",
+        "filename": "csit/suites/unimgr/uni_legato/010_unimanager_epl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-24T22:34:19Z",
+      "side": 1,
+      "message": "ok.  this addresses my question above I think.",
+      "parentUuid": "5a682502_ca394fda",
+      "revId": "15aae54711052a887947c7d8235f9042d61b7e8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_4ac7ff12",
+        "filename": "csit/suites/unimgr/uni_legato/020_unimanager_eplan.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-24T22:34:19Z",
+      "side": 1,
+      "message": "comments I made in 010 suite also apply here.",
       "revId": "15aae54711052a887947c7d8235f9042d61b7e8b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
