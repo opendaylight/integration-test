@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite for the OpenDaylight base edition with of13, aimed for statistics manager
 Suite Setup       Start Suite
-Suite Teardown    Utils.Stop Suite
+Suite Teardown    Utils.Stop Mininet
 Library           SSHLibrary
 Resource          ../../../libraries/Utils.robot
 
