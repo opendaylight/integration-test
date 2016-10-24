@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite to find maximum switches which can be connected to the controller
 Suite Setup       Start Suite
-Suite Teardown    Utils.Stop Suite
+Suite Teardown    Utils.Stop Mininet
 Library           SSHLibrary
 Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py

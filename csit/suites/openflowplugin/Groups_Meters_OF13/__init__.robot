@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite for OpenFlow Groups and Meters
-Suite Setup       Start Suite
-Suite Teardown    Stop Suite
+Suite Setup       Start Mininet
+Suite Teardown    Stop Mininet
 Library           SSHLibrary
 Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
