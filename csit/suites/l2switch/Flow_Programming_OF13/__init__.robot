@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite for L2switch's Flow Programming using mininet OF13
-Suite Setup       Start Suite
-Suite Teardown    Stop Suite
+Suite Setup       Start Mininet
+Suite Teardown    Stop Mininet
 Library           SSHLibrary
 Resource          ../../../libraries/Utils.robot
 

@@ -55,7 +55,7 @@ Switches Still Be Connected To All Nodes
 
 Stop Mininet And Verify No Owners
     [Template]    NONE
-    Utils.Stop Suite
+    Utils.Stop Mininet
     BuiltIn.Wait Until Keyword Succeeds    15x    1s    Check No Owners In Controller
     [Teardown]    Report_Failure_Due_To_Bug    6177
 

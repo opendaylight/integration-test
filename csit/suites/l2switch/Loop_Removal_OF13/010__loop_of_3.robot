@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite for Ring/Loop topology of size 3
 Suite Setup       Start Suite
-Suite Teardown    Utils.Stop Suite
+Suite Teardown    Utils.Stop Mininet
 Library           RequestsLibrary
 Resource          ../../../libraries/Utils.robot
 Variables         ../../../variables/Variables.py
