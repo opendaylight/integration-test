@@ -53,7 +53,7 @@ Start Suite
 
 End Suite
     RequestsLibrary.Delete All Sessions
-    Utils.Stop Suite
+    Utils.Stop Mininet
 
 Are Switches Connected Topo
     [Documentation]    Checks wheather switches are connected to controller

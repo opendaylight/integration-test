@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Test suite with connection of multiple switches
-Suite Setup       Utils.Start Suite
-Suite Teardown    Utils.Stop Suite
+Suite Setup       Utils.Start Mininet
+Suite Teardown    Utils.Stop Mininet
 Library           OperatingSystem
 Library           XML
 Library           Process
