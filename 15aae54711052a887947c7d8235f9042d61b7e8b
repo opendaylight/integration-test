@@ -19,6 +19,23 @@
     },
     {
       "key": {
+        "uuid": "5a682502_2a528313",
+        "filename": "csit/suites/unimgr/uni_legato/010_unimanager_epl.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-10-24T18:02:08Z",
+      "side": 1,
+      "message": "same comment on import resource variables/Variables.robot",
+      "revId": "15aae54711052a887947c7d8235f9042d61b7e8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_4a26dfbb",
         "filename": "csit/suites/unimgr/uni_legato/010_unimanager_epl.robot",
         "patchSetId": 2
@@ -64,6 +81,23 @@
       "writtenOn": "2016-10-24T18:00:20Z",
       "side": 1,
       "message": "We are replacing this KW in this patch https://git.opendaylight.org/gerrit/#/c/47456/, going forward it will be Start/Stop Mininet.",
+      "revId": "15aae54711052a887947c7d8235f9042d61b7e8b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_8a575702",
+        "filename": "csit/suites/unimgr/uni_legato/020_unimanager_eplan.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-10-24T18:02:08Z",
+      "side": 1,
+      "message": "Same comment on import resource variables/Variables.robot",
       "revId": "15aae54711052a887947c7d8235f9042d61b7e8b",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
