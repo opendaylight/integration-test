@@ -38,9 +38,7 @@ Library           OperatingSystem
 Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
 Variables         ${CURDIR}/../../../variables/Variables.py
-Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
-Resource          ${CURDIR}/../../../libraries/FailFast.robot
-Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
+Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
@@ -49,12 +47,12 @@ Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 ${ODL_LOG_LEVEL}    DEFAULT
 ${TX_TYPE}        {TX-CHAINING,SIMPLE-TX}
 ${OP_TYPE}        {PUT,MERGE,DELETE}
-${TOTAL_OPS}      100000
-${OPS_PER_TX}     100000
-${INNER_OPS}      100000
+${TOTAL_OPS}      10000
+${OPS_PER_TX}     10000
+${INNER_OPS}      10000
 ${WARMUPS}        10
 ${RUNS}           10
-${TIMEOUT}        3 h
+${TIMEOUT}        1 h
 ${FILTER}         EXEC
 ${UNITS}          microseconds
 ${tool}           dsbenchmark.py
@@ -68,47 +66,38 @@ ${tool_results2_name}    perf_per_ops.csv
 *** Test Cases ***
 Set Karaf Log Levels
     [Documentation]    Set Karaf log level
-    KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${ODL_LOG_LEVEL}
+    ClusterManagement.Run_Karaf_Command_On_Member    log:set ${ODL_LOG_LEVEL}
 
-Start Measurement
-    [Documentation]    Start the benchmark tool. Fail if test not started.
-    [Tags]    critical
-    Start_Benchmark_Tool
+Set Needed Suite Variables
+    ${tested_datastore} =   BuiltIn.Set_Variable_If    "${NUM_ODL_SYSTEM}"==1    {CONFIG,OPERATIONAL}    {CONFIG}
+    BuiltIn.Set_Suite_Variable    ${tested_datastore}
+    ${file_prefix} =   BuiltIn.Set_Variable_If    "${NUM_ODL_SYSTEM}"==1    ${Empty}     conf_lead_
+    BuiltIn.Set_Suite_Variable    ${file_prefix}
 
-Wait For Results
-    [Documentation]    Wait until results are available. Fail if timeout occures.
-    [Tags]    critical
-    Wait_Until_Benchmark_Tool_Finish    ${TIMEOUT}
-    SSHLibrary.File Should Exist    ${tool_results1_name}
-    SSHLibrary.File Should Exist    ${tool_results2_name}
-    Store_File_To_Robot    ${tool_results1_name}
-    Store_File_To_Robot    ${tool_results2_name}
+Measure Config Leader Or Both Datastores For One Node
+    [Template]    Measuring_Template
+    leader    ${tested_datastore}    ${file_prefix}
 
-Stop Measurement
-    [Documentation]    Stop the benchmark tool (if still running)
-    [Setup]    FailFast.Run_Even_When_Failing_Fast
-    Stop_Benchmark_Tool
+Measure Operational Leader
+    [Template]    Measuring_Template
+    [Skip]     clustered_setup
+    leader    OPERATIONAL     op_lead_
 
-Collect Logs
-    [Documentation]    Collect logs and detailed results for debugging
-    [Setup]    FailFast.Run_Even_When_Failing_Fast
-    ${files}=    SSHLibrary.List Files In Directory    .
-    ${tool_log}=    Get_Log_File    ${tool_log_name}
-    ${tool_output}=    Get_Log_File    ${tool_output_name}
-    ${tool_results1}=    Get_Log_File    ${tool_results1_name}
-    ${tool_results2}=    Get_Log_File    ${tool_results2_name}
+Measure Config Follwer
+    [Template]    Measuring_Template
+    [Skip]     clustered_setup
+    follower    CONFIG    conf_fol_
 
-Check Results
-    [Documentation]    Check outputs for expected content. Fail in case of unexpected content.
-    [Tags]    critical
-    ${tool_log}=    Get_Log_File    ${tool_log_name}
-    BuiltIn.Should Contain    ${tool_log}    Total execution time:
-    BuiltIn.Should Not Contain    ${tool_log}    status: NOK
+Measure Operational Follower
+    [Template]    Measuring_Template
+    [Skip]     clustered_setup
+    follower     OPERATIONAL       op_fol_
 
 *** Keywords ***
 Setup_Everything
     [Documentation]    Setup imported resources, SSH-login to mininet machine,
     ...    create HTTP session, put Python tool to mininet machine.
+    ClusterManagement.ClusterManagement_Setup
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}
@@ -120,8 +109,9 @@ Teardown_Everything
     SSHLibrary.Close_All_Connections
 
 Start_Benchmark_Tool
+    [Arguments]    ${tested_datastore}
     [Documentation]    Start the benchmark tool. Check that it has been running at least for ${tool_startup_timeout} period.
-    ${command}=    BuiltIn.Set_Variable    python ${tool} --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --warmup ${WARMUPS} --runs ${RUNS} --total ${TOTAL_OPS} --inner ${INNER_OPS} --txtype ${TX_TYPE} --ops ${OPS_PER_TX} --optype ${OP_TYPE} --plot ${FILTER} --units ${UNITS} ${tool_args} &> ${tool_log_name}
+    ${command}=    BuiltIn.Set_Variable    python ${tool} --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --warmup ${WARMUPS} --runs ${RUNS} --total ${TOTAL_OPS} --inner ${INNER_OPS} --txtype ${TX_TYPE} --ops ${OPS_PER_TX} --optype ${OP_TYPE} --plot ${FILTER} --units ${UNITS} ${tool_args} --datastore ${tested_datastore} &> ${tool_log_name}
     BuiltIn.Log    ${command}
     ${output}=    SSHLibrary.Write    ${command}
     ${status}    ${message}=    BuiltIn.Run Keyword And Ignore Error    Write Until Expected Output    ${EMPTY}    ${TOOLS_SYSTEM_PROMPT}    ${tool_startup_timeout}
@@ -150,8 +140,39 @@ Get_Log_File
     [Return]    ${output_log}
 
 Store_File_To_Robot
-    [Arguments]    ${file_name}
+    [Arguments]    ${file_name}    ${file_prefix}
     [Documentation]    Store the provided file from the MININET to the ROBOT machine.
     ${output_log}=    SSHLibrary.Execute_Command    cat ${file_name}
     BuiltIn.Log    ${output_log}
-    Create File    ${file_name}    ${output_log}
+    Create File    ${file_prefix}${file_name}    ${output_log}
+
+Collect Logs
+    [Documentation]    Collect logs and detailed results for debugging
+    ${files}=    SSHLibrary.List Files In Directory    .
+    ${tool_log}=    Get_Log_File    ${tool_log_name}
+    ${tool_output}=    Get_Log_File    ${tool_output_name}
+    ${tool_results1}=    Get_Log_File    ${tool_results1_name}
+    ${tool_results2}=    Get_Log_File    ${tool_results2_name}
+
+Check Results
+    [Documentation]    Check outputs for expected content. Fail in case of unexpected content.
+    ${tool_log}=    Get_Log_File    ${tool_log_name}
+    BuiltIn.Should Contain    ${tool_log}    Total execution time:
+    BuiltIn.Should Not Contain    ${tool_log}    status: NOK
+
+Measuring_Template
+    [Documentation]    Keywork which will cover a whole banchmark.
+    ...     If ${file_prefix} is ${Empty} we have 1 node odl.
+    [Arguments]    ${state}    ${tested_ds}    ${file_prefix}
+    Start_Benchmark_Tool    ${tested_ds}
+    Wait_Until_Benchmark_Tool_Finish    ${TIMEOUT}
+    SSHLibrary.File Should Exist    ${tool_results1_name}
+    SSHLibrary.File Should Exist    ${tool_results2_name}
+    Check Results
+    Store_File_To_Robot    ${tool_results1_name}    ${file_prefix}
+    Store_File_To_Robot    ${tool_results2_name}    ${file_prefix}
+    [Teardown]     Stop_Measurement_And_Save_Logs    ${file_prefix}
+
+Stop_Measurement_And_Save_Logs
+    Stop_Benchmark_Tool
+    Collect Logs
