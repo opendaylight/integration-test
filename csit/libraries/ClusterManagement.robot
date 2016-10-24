@@ -46,6 +46,10 @@ ${JOLOKIA_READ_URI}    jolokia/read/org.opendaylight.controller
 ${KARAF_HOME}     ${WORKSPACE}${/}${BUNDLEFOLDER}    # TODO: Migrate to Variables.robot
 @{ODL_DEFAULT_DATA_PATHS}    tmp/    data/    cache/    snapshots/    journal/    etc/opendaylight/current/
 ${RESTCONF_MODULES_DIR}    ${CURDIR}/../variables/restconf/modules
+${SINGLETON_NETCONF_DEVICE_ID_PREFIX}    /odl-general-entity:entity[odl-general-entity:name='KeyedInstanceIdentifier{targetType=interface org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node, path=[org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.NetworkTopology, org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.Topology[key=TopologyKey [_topologyId=Uri [_value=topology-netconf]]], org.opendaylight.yang.gen.v1.urn.tbd.params.xml.ns.yang.network.topology.rev131021.network.topology.topology.Node[key=NodeKey [_nodeId=Uri [_value=
+${SINGLETON_NETCONF_DEVICE_ID_SUFFIX}    ]]]]}']
+${SINGLETON_ELECTION_ENTITY_TYPE}    org.opendaylight.mdsal.ServiceEntityType
+${SINGLETON_CHANGE_OWNERSHIP_ENTITY_TYPE}    org.opendaylight.mdsal.AsyncServiceCloseEntityType
 
 *** Keywords ***
 ClusterManagement_Setup
@@ -166,7 +170,7 @@ Get_Owner_And_Successors_For_Device
     Collections.Remove_Values_From_List    ${successor_list}    ${owner}
     [Return]    ${owner}    ${successor_list}
 
-Get_Owner_And_Candidates_For_Device
+Get_Owner_And_Candidates_For_Device_Old
     [Arguments]    ${device_name}    ${device_type}    ${member_index}
     [Documentation]    Returns the owner and a list of candidates for the SB device ${device_name} of type ${device_type}. Request is sent to member ${member_index}.
     ...    Candidates are all members that register to own a device, so the list of candiates includes the owner.
@@ -200,6 +204,47 @@ Get_Owner_And_Candidates_For_Device
     \    Collections.Append_To_List    ${candidate_list}    ${candidate}
     Collections.Sort_List    ${candidate_list}
     [Return]    ${owner}    ${candidate_list}
+
+Get_Owner_And_Candidates_For_Device_Singleton
+    [Arguments]    ${device_name}    ${device_type}    ${member_index}
+    [Documentation]    Returns the owner and a list of candidates for the SB device ${device_name} of type ${device_type}. Request is sent to member ${member_index}.
+    ...    Parsing method is selected by device type
+    ...    Separate kw for every supported device type must be defined
+    BuiltIn.Keyword_Should_Exist    Get_Owner_And_Candidates_For_Device_Singleton_${device_type}
+    BuiltIn.Run_Keyword_And_Return    Get_Owner_And_Candidates_For_Device_Singleton_${device_type}    ${device_name}    ${member_index}
+
+Get_Owner_And_Candidates_For_Device_Singleton_Netconf
+    [Arguments]    ${device_name}    ${member_index}
+    [Documentation]    Returns the owner and a list of candidates for the SB device ${device_name} of type netconf. Request is sent to member ${member_index}.
+    ...    Parsing method is set as netconf (using netconf device id prefix and suffix)
+    # Get election entity type results
+    ${type} =    BuiltIn.Set_Variable    ${SINGLETON_ELECTION_ENTITY_TYPE}
+    ${id} =    BuiltIn.Set_Variable    ${SINGLETON_NETCONF_DEVICE_ID_PREFIX}${device_name}${SINGLETON_NETCONF_DEVICE_ID_SUFFIX}
+    ${owner_1}    ${candidate_list_1} =    Get_Owner_And_Candidates_For_Type_And_Id    ${type}    ${id}    ${member_index}
+    # Get change ownership entity type results
+    ${type} =    BuiltIn.Set_Variable    ${SINGLETON_CHANGE_OWNERSHIP_ENTITY_TYPE}
+    ${id} =    BuiltIn.Set_Variable    ${SINGLETON_NETCONF_DEVICE_ID_PREFIX}${device_name}${SINGLETON_NETCONF_DEVICE_ID_SUFFIX}
+    ${owner_2}    ${candidate_list_2} =    Get_Owner_And_Candidates_For_Type_And_Id    ${type}    ${id}    ${member_index}
+    # Owners must be same, if not, there is still some election or change ownership in progress
+    BuiltIn.Should_Be_Equal_As_Integers    ${owner_1}    ${owner_2}    Owners for device ${device_name} are not same
+    [Return]    ${owner_1}    ${candidate_list_1}
+
+Get_Owner_And_Candidates_For_Device
+    [Arguments]    ${device_name}    ${device_type}    ${member_index}
+    [Documentation]    Returns the owner and a list of candidates for the SB device ${device_name} of type ${device_type}. Request is sent to member ${member_index}.
+    ...    If parsing as singleton failed, kw try to parse data in old way (without singleton).
+    ...    Candidates are all members that register to own a device, so the list of candiates includes the owner.
+    ...    The returned candidate list is sorted numerically.
+    ...    Note that "candidate list" definition currently differs between Beryllium and Boron.
+    ...    It is recommended to use Get_Owner_And_Successors_For_Device instead of this keyword, see documentation there.
+    # Try singleton
+    ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    Get_Owner_And_Candidates_For_Device_Singleton    device_name=${device_name}    device_type=${device_type}    member_index=${member_index}
+    BuiltIn.Return_From_Keyword_If    "${status}"=="PASS"    ${results}
+    # If singleton failed, try parsing in old way
+    ${status}    ${results} =    BuiltIn.Run_Keyword_And_Ignore_Error    Get_Owner_And_Candidates_For_Device_Old    device_name=${device_name}    device_type=${device_type}    member_index=${member_index}
+    # previous 3 lines (BuilIn.Return.., # If singleton..., ${status}....) could be deleted when old way will not be supported anymore
+    BuiltIn.Run_Keyword_If    '${status}'=='FAIL'    BuiltIn.Fail    Could not parse owner and candidates for device ${device_name}
+    [Return]    @{results}
 
 Get_Owner_And_Candidates_For_Type_And_Id
     [Arguments]    ${type}    ${id}    ${member_index}    ${require_candidate_list}=${EMPTY}
