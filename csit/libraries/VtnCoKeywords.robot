@@ -12,7 +12,7 @@ Resource          ./Utils.robot
 Resource          ./MininetKeywords.robot
 
 *** variable ***
-${vlan_topo}      sudo mn --controller=remote,ip=${ODL_SYSTEM_IP} --custom vlan_vtn_test.py --topo vlantopo
+${vlan_topo}      --custom vlan_vtn_test.py --topo vlantopo
 ${nexus_path}     https://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/org/opendaylight/vtn/distribution.vtn-coordinator
 ${boron}          6.3.1-SNAPSHOT
 ${carbon}         6.4.0-SNAPSHOT

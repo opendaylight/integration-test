@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite for AD-SAL NSF
-Suite Setup       Start Suite
+Suite Setup       Start Mininet
 Suite Teardown    Delete All Sessions
 Library           SSHLibrary
 Resource          ../../../libraries/VtnCoKeywords.robot

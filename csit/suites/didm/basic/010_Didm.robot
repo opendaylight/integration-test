@@ -39,5 +39,5 @@ Setup Didm Environment
     Install a Feature    odl-didm-drivers-api
     Install a Feature    odl-didm-mininet
     Install a Feature    odl-hp3800
-    Start Suite
+    Start Mininet
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}

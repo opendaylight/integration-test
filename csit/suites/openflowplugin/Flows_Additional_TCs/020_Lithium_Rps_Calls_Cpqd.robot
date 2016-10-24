@@ -22,13 +22,13 @@ Sending Update Table
 *** Keywords ***
 Initialization Phase
     [Documentation]    Starts mininet and verify if topology is in operational ds
-    Start Suite
+    Start Mininet
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
     Wait Until Keyword Succeeds    90s    1s    Are Switches Connected Topo
 
 Final Phase
     [Documentation]    Stops mininet
-    Stop Suite
+    Stop Mininet
     Delete All Sessions
 
 Are Switches Connected Topo

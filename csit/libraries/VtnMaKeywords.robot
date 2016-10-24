@@ -65,7 +65,7 @@ Start SuiteVtnMa
     SSHLibrary.Execute Command    sudo sed -i "$ i log4j.logger.org.opendaylight.vtn = TRACE" ${WORKSPACE}/${BUNDLEFOLDER}/etc/org.ops4j.pax.logging.cfg
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_YANG_JSON}
     BuiltIn.Wait_Until_Keyword_Succeeds    30    3    Fetch vtn list
-    Start Suite
+    Start Mininet
 
 Start SuiteVtnMaTest
     [Documentation]    Start VTN Manager Test Suite
