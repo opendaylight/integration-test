@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "5a682502_a4f40c88",
+        "filename": "csit/suites/sxp/filtering/040_Peer_Sequence_filtering.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-10-24T15:36:54Z",
+      "side": 0,
+      "message": "Will be updated ...",
+      "parentUuid": "7a6b29fe_2718c074",
+      "range": {
+        "startLine": 28,
+        "startChar": 30,
+        "endLine": 28,
+        "endChar": 38
+      },
+      "revId": "9eca5b4407b24b2490810aa9c7c73c87e0a77b7b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_073ae4cc",
         "filename": "csit/suites/sxp/filtering/050_Domain_filtering.robot",
         "patchSetId": 30
@@ -36,6 +60,30 @@
       "writtenOn": "2016-10-20T17:14:14Z",
       "side": 0,
       "message": "Why is this filter skipped now?",
+      "range": {
+        "startLine": 141,
+        "startChar": 25,
+        "endLine": 141,
+        "endChar": 36
+      },
+      "revId": "9eca5b4407b24b2490810aa9c7c73c87e0a77b7b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_441258b5",
+        "filename": "csit/suites/sxp/filtering/050_Domain_filtering.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-10-24T15:36:54Z",
+      "side": 0,
+      "message": "This one is subset of filter at line 136 and wont affect the result of tested scenario.",
+      "parentUuid": "7a6b29fe_073ae4cc",
       "range": {
         "startLine": 141,
         "startChar": 25,
