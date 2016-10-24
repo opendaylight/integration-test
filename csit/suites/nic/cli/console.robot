@@ -65,7 +65,7 @@ Verify NIC Command Add and Remove
 *** Keywords ***
 Setup NIC Console Environment
     [Documentation]    Installing NIC Console related features (odl-nic-core-mdsal, odl-nic-console)
-    Start Suite
+    Start Mininet
     Verify Feature Is Installed    odl-nic-core-mdsal
     Verify Feature Is Installed    odl-nic-console
 
