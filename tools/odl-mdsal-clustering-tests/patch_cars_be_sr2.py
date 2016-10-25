@@ -66,6 +66,7 @@ $ENTRIES
     parser.add_argument("--password", help="Restconf password", default="admin")
 
     args = parser.parse_args()
+    logger = logging.getLogger("logger")
 
     # Logic
     url = "http://" + args.host + ':' + args.port + "/restconf/config/car:cars"
@@ -81,8 +82,8 @@ $ENTRIES
         data = patch_data_template.substitute(mapping)
         response = session.patch(url=url, auth=auth, headers=headers, data=data)
         if response.status_code not in [200, 201, 204]:
-            print "status:", response.status_code
-            print "text:", response.text
+            logger.info("status: {}".format(response.status_code))
+            logger.info("text: {}".format(response.text))
             sys.exit(1)
 
 
