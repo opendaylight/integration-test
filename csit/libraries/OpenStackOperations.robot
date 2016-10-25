@@ -18,6 +18,17 @@ Get Tenant ID From Security Group
     Log    ${output}
     [Return]    ${output}
 
+Get Tenant ID From Network
+    [Arguments]    ${network_uuid}
+    [Documentation]    Returns tenant ID by reading it from existing network.
+    ${resp} =    RequestsLibrary.Get Request    session    ${REST_CON}/neutron:neutron/networks/network/${network_uuid}/
+    Log    ${resp.content}
+    ${matches} =    Get Lines Containing String    ${resp.content}    tenant-id
+    ${matches}=    Fetch From Right   ${matches}    :
+    #${tenant_id}=    Strip String    ${matches}
+    ${tenant_id}=    Strip String    ${matches}    characters=}]
+    [Return]    ${tenant_id}
+
 Create Network
     [Arguments]    ${network_name}    ${additional_args}=${EMPTY}    ${verbose}=TRUE
     [Documentation]    Create Network with neutron request.
