@@ -6,6 +6,7 @@ Library           RequestsLibrary
 Library           SSHLibrary
 Library           XML
 Resource          KarafKeywords.robot
+Resource          SetupUtils.robot
 Resource          Utils.robot
 
 *** Variables ***
@@ -63,6 +64,7 @@ Delete Underlay Link
 Setup Environment
     [Documentation]    Setup karaf enviroment for following tests
     Log    ---- Setup Environment ----
+    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     Open Connection    ${ODL_SYSTEM_IP}
     Flexible Controller Login
     Run Keyword If    '${ODL_STREAM}' == 'carbon'    Put File    ${CONFIGURATION_CFG}    ${REMOTE_CFG_FILE}
