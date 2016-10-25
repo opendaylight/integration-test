@@ -30,8 +30,8 @@ Variables         ../../../variables/Variables.py
 @{CREATE_ID}      "4ae8cd92-48ca-49b5-94e1-b2921a261111"    "4ae8cd92-48ca-49b5-94e1-b2921a261112"    "4ae8cd92-48ca-49b5-94e1-b2921a261113"
 @{CREATE_NAME}    "vpn1"    "vpn2"    "vpn3"
 ${CREATE_ROUTER_DISTINGUISHER}    ["2200:2"]
-${CREATE_EXPORT_RT}    ["3300:2","8800:2"]
-${CREATE_IMPORT_RT}    ["3300:2","8800:2"]
+${CREATE_EXPORT_RT}    ["2200:2","8800:2"]
+${CREATE_IMPORT_RT}    ["2200:2","8800:2"]
 ${CREATE_TENANT_ID}    "6c53df3a-3456-11e5-a151-feff819c1111"
 @{VPN_INSTANCE}    vpn_instance_template.json
 @{VPN_INSTANCE_NAME}    4ae8cd92-48ca-49b5-94e1-b2921a2661c7    4ae8cd92-48ca-49b5-94e1-b2921a261111
@@ -148,15 +148,17 @@ Delete And Recreate Extra Route
     Update Router    @{ROUTERS}[0]    ${RT_CLEAR}
     Show Router    @{ROUTERS}[0]    -D
 
-Delete Router Interfaces
-    [Documentation]    Remove Interface to the subnets.
-    : FOR    ${INTERFACE}    IN    @{SUBNETS}
-    \    Remove Interface    ${ROUTERS[0]}    ${INTERFACE}
-
 Create L3VPN
     [Documentation]    Creates L3VPN and verify the same
-    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[0]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
+    ${devstack_conn_id} =    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${net_id} =    Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
+    ${tenant_id} =    Get Tenant ID From Network     ${net_id}
+    Log    ${tenant_id}
+    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[0]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${tenant_id}
     VPN Get L3VPN    ${CREATE_ID[0]}
+    Karaf Log For Fib And L3VPN
+
 
 Associate L3VPN to Routers
     [Documentation]    Associating router to L3VPN
@@ -164,13 +166,37 @@ Associate L3VPN to Routers
     ${devstack_conn_id}=    Get ControlNode Connection
     ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
     Associate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
+    VPN Get L3VPN    ${CREATE_ID[0]}
+    Karaf Log For Fib And L3VPN
+
+Check Datapath After Router Association To L3VPN
+    [Documentation]    Check datapath after router association to L3VPN
+    # Check datapath from network1 to network2
+    Sleep    30
+    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET20_VM_IPS}[0]    @{NET20_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    # Check datapath from network2 to network1
+    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET10_VM_IPS}[0]    @{NET10_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
 Dissociate L3VPN to Routers
     [Documentation]    Dissociating router to L3VPN
     [Tags]    Dissociate
+    Karaf Log For Fib And L3VPN
     ${devstack_conn_id}=    Get ControlNode Connection
     ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
     Dissociate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
+
+Delete Router Interfaces
+    [Documentation]    Remove Interface to the subnets.
+    : FOR    ${INTERFACE}    IN    @{SUBNETS}
+    \    Remove Interface    ${ROUTERS[0]}    ${INTERFACE}
 
 Associate L3VPN To Networks
     [Documentation]    Associates L3VPN to networks and verify
@@ -179,6 +205,23 @@ Associate L3VPN To Networks
     ${network2_id} =    Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
     Associate L3VPN To Network    networkid=${network1_id}    vpnid=${VPN_INSTANCE_NAME[1]}
     Associate L3VPN To Network    networkid=${network2_id}    vpnid=${VPN_INSTANCE_NAME[1]}
+
+Check Datapath After Network Association To L3VPN
+    [Documentation]    Check datapath after router association to L3VPN
+    # Check datapath from network1 to network2
+    Sleep    30
+    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET20_VM_IPS}[0]    @{NET20_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    # Check datapath from network2 to network1
+    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET10_VM_IPS}[0]    @{NET10_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+
 
 Dissociate L3VPN From Networks
     [Documentation]    Dissociate L3VPN from networks
@@ -272,3 +315,11 @@ Wait For Routes To Propogate
     ${net_id} =    Get Net Id    @{NETWORKS}[1]    ${devstack_conn_id}
     ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ip route    ]>
     Should Contain    ${output}    @{SUBNET_CIDR}[1]
+
+Karaf Log For Fib And L3VPN
+    [Documentation]    Log fib-show and l3vpn-config-show karaf console command
+    ${output}=    Issue Command On Karaf Console    fib-show
+    Log    ${output}
+    ${output}=    Issue Command On Karaf Console    l3vpn-config-show
+    Log    ${output}
+
