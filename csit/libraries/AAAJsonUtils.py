@@ -7,7 +7,6 @@ Author: Carmen Kelling - HP Enterprise
 """
 
 import json
-import jsonpath
 
 
 def countnodes(args):
