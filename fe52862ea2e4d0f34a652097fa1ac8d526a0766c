@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_68375eb1",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/010__configure_1_ovsdb_node.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 150,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-10-25T23:55:05Z",
+      "side": 1,
+      "message": "You need to replace the variables in create_node.json for this to work. See example:\n\n${sample}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/connect.json\n    ${sample1}    Replace String    ${sample}    127.0.0.1    ${TOOLS_SYSTEM_IP}\n    ${body}    Replace String    ${sample1}    61644    ${OVSDB_PORT}",
+      "revId": "fe52862ea2e4d0f34a652097fa1ac8d526a0766c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
