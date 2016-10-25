@@ -6,6 +6,7 @@ Documentation     Test suite to verify link computation operation on different m
 ...               Topology-id on the end of each urls must match topology-id from xml. Yang models of components in topology are defined in xmls.
 Suite Setup       Setup Environment
 Suite Teardown    Clean Environment
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Delete Overlay Topology
 Library           RequestsLibrary
 Library           SSHLibrary

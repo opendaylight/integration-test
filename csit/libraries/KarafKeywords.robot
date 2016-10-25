@@ -173,8 +173,8 @@ Wait For Karaf Log
     [Arguments]    ${message}    ${timeout}=60    ${member_index}=${1}
     [Documentation]    Read karaf logs until message appear
     Log    Waiting for '${message}' in karaf log
-    ${karaf_connection_index}=    Collections.Get From Dictionary    ${connection_index_dict}    ${member_index}
-    ${current_connection_index}=    SSHLibrary.Switch Connection    ${karaf_connection_index}
-    Flexible SSH Login    ${KARAF_USER}    ${KARAF_PASSWORD}
+    Open Connection    ${ODL_SYSTEM_IP}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_PROMPT}    timeout=${timeout}
+    Login    ${KARAF_USER}    ${KARAF_PASSWORD}    loglevel=${loglevel}
     Write    log:tail
     Read Until    ${message}
+    Close Connection
