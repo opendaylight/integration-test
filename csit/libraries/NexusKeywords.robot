@@ -17,6 +17,9 @@ Documentation     Nexus repository access keywords, and supporting Java and Mave
 Library           OperatingSystem
 Library           SSHLibrary
 Library           String
+Library           XML
+Library           Collections
+Library           RequestsLibrary
 Resource          ${CURDIR}/SSHKeywords.robot
 
 *** Variables ***
@@ -33,6 +36,7 @@ ${MAVEN_REPOSITORY_PATH}    /tmp/r
 ${MAVEN_SETTINGS_URL}    https://raw.githubusercontent.com/opendaylight/odlparent/master/settings.xml
 ${MAVEN_VERSION}    3.3.9
 ${NEXUS_FALLBACK_URL}    ${NEXUSURL_PREFIX}/content/repositories/opendaylight.snapshot
+${NEXUS_RELEASES_URL}    https://nexus.opendaylight.org/content/repositories/opendaylight.release/org/opendaylight/integration/distribution-karaf
 
 *** Keywords ***
 Initialize_Artifact_Deployment_And_Usage
@@ -218,3 +222,47 @@ Run_Maven
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    mkdir -p '${MAVEN_REPOSITORY_PATH}'
     ${maven_repository_options} =    BuiltIn.Set_Variable    -Dmaven.repo.local=${MAVEN_REPOSITORY_PATH} -Dorg.ops4j.pax.url.mvn.localRepository=${MAVEN_REPOSITORY_PATH}
     SSHKeywords.Execute_Command_At_Cwd_Should_Pass    ${maven_bash_command} clean install dependency:tree -V -B -DoutputFile=dependency_tree.log -s './settings.xml' -f '${pom_file}' ${MAVEN_OPTIONS} ${maven_repository_options} > '${log_file}'
+
+Get_ODL_Versions_From_Nexus
+    [Documentation]    Returns name of last release found on nexus and list of all versions.
+    RequestsLibrary.Create_Session    nexus    ${NEXUS_RELEASES_URL}    verify=${TRUE}
+    ${uri}=    BuiltIn.Set_Variable    maven-metadata.xml
+    ${response}=    RequestsLibrary.Get_Request    nexus    ${uri}
+    BuiltIn.Log    ${response.text}
+    ${root}=    XML.Parse_XML    ${response.text}
+    ${element}=    XML.Get_Element    ${root}    versioning/latest
+    ${latest}=    BuiltIn.Set_Variable    ${element.text}
+    BuiltIn.Log    ${latest}
+    @{elements}=    XML.Get_Elements    ${root}    .//version
+    ${versions}=    BuiltIn.Create_List
+    :FOR    ${element}    IN    @{elements}
+    \    Collections.Append_To_List    ${versions}    ${element.text}
+    Collections.Sort_List    ${versions}
+    BuiltIn.Log_Many    @{versions}
+    [Return]    ${latest}    @{versions}
+
+Get_Latest_ODL_Release_From_Nexus
+    [Documentation]    Returns name of last release found on nexus
+    ${latest}  @{versions}=    Get_ODL_Versions_From_Nexus
+    [Return]    ${latest}
+
+Get_Latest_ODL_Stream_Release
+    [Documentation]    Returns name for last release for specified stream.
+    [Arguments]    ${stream}=latest
+    ${latest}  @{versions}=    Get_ODL_Versions_From_Nexus
+    BuiltIn.Return_From_Keyword_If    '${stream}'=='latest'    ${latest}
+    ${latest_version}=    BuiltIn.Set_Variable    xxx
+    :FOR    ${version}    IN    @{versions}
+    \    ${latest_version}=    BuiltIn.Set_Variable_If    '${stream}'.title() in '${version}'    ${version}    ${latest_version}
+    BuiltIn.Run_Keyword_If    '${latest_version}'=='xxx'    BuiltIn.Fail    Could not find latest release for stream ${stream}
+    BuiltIn.Log    ${latest_version}
+    [Return]    ${latest_version}
+
+Get_Latest_ODL_Stream_Release_URL
+    [Documentation]    Returns URL for last release for specified stream. Default format is .zip.
+    [Arguments]    ${stream}=latest    ${format}=.zip
+    ${latest_version}=    Get_Latest_ODL_Stream_Release    ${stream}
+    ${url}=    BuiltIn.Set_Variable    ${NEXUS_RELEASES_URL}/${latest_version}/distribution-karaf-${latest_version}${format}
+    BuiltIn.Log    ${url}
+    [Return]   ${url}
+
