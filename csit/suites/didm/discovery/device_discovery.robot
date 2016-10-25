@@ -7,6 +7,7 @@ Documentation     Basic Tests for DIDM in Beryllium.
 ...               http://www.eclipse.org/legal/ep1-v10.html
 Suite Setup       Setup DIDM Environment
 Suite Teardown    DIDM Suite Teardown
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Library           SSHLibrary
 Library           Collections
 Library           RequestsLibrary
@@ -16,6 +17,7 @@ Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/MininetKeywords.robot
 Resource          ../../../libraries/DIDMKeywords.robot
 Resource          ../../../libraries/KarafKeywords.robot
+Resource          ../../../libraries/SetupUtils.robot
 
 *** Test Cases ***
 Identifying Unknown Device
@@ -76,6 +78,7 @@ Setup DIDM Environment
     [Documentation]    Install DIDM Karaf feature. Wait for DIDM Listener to register.
     ...    Wait for DIDM Listener is registered. Create REST session to the controller.
     ...    Start the device.
+    SetupUtils.Setup_Utils_For_Setup_And_Teardown
     Install a Feature    odl-didm-all
     Verify Feature Is Installed    odl-didm-all
     Verify Feature Is Installed    odl-didm-identification
