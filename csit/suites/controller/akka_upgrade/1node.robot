@@ -47,6 +47,7 @@ Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
 
 *** Variables ***
 ${ALTERNATIVE_BUNDLEFOLDER_PARENT}    /tmp/older
@@ -54,11 +55,19 @@ ${CAR_VAR_DIR}    ${CURDIR}/../../../variables/carpeople/libtest/cars
 ${CLUSTER_BOOTUP_SYNC_TIMEOUT}    1200s    # Rebooting after kill may take longer time, especially for -all- install.
 ${ITERATIONS}     1000
 ${MOVE_PER_ITER}    1000
-${PREVIOUS_ODL_RELEASE_ZIP_URL}    https://nexus.opendaylight.org/content/repositories/public/org/opendaylight/integration/distribution-karaf/0.4.2-Beryllium-SR2/distribution-karaf-0.4.2-Beryllium-SR2.zip
+${PREVIOUS_ODL_RELEASE_ZIP_URL}    ${EMPTY}
 ${PYTHON_UTILITY_FILENAME}    patch_cars_be_sr2.py
 ${SEGMENT_SIZE}    10000
 
 *** Test Cases ***
+Select_Latest_Previous_Release_If_Not_Specified
+    [Documentation]    If previous ODL release is not specified, then latest release for previous to current stream is used.
+    ...    Note: If current stream is not found on nexus, then it is taken as new one (not released yet).
+    ...    So in this case, latest release version is return.
+    ${previous_release} =    NexusKeywords.Get_Latest_ODL_Previous_Stream_Release_URL    ${ODL_STREAM}
+    ${PREVIOUS_ODL_RELEASE_ZIP_URL} =    BuiltIn.Set_Variable_If    '${PREVIOUS_ODL_RELEASE_ZIP_URL}'==''    ${previous_release}    ${PREVIOUS_ODL_RELEASE_ZIP_URL}
+    BuiltIn.Set_Suite_Variable    ${PREVIOUS_ODL_RELEASE_ZIP_URL}
+
 Kill_Original_Odl
     [Documentation]    The ODL prepared by releng/builder is the newer one, kill it.
     ...    Also, remove journal and snapshots.
