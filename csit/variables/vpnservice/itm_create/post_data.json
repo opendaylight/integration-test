@@ -1,0 +1,27 @@
+{
+   "transport-zone":[
+      {
+         "zone-name":"TZA",
+         "subnets":[
+            {
+               "prefix":"$prefix",
+               "vlan-id":$vlanid,
+               "vteps":[
+                  {
+                     "dpn-id":$dpnid1,
+                     "portname":"$portname1",
+                     "ip-address":"$ipaddress1"
+                  },
+                  {
+                     "dpn-id":$dpnid2,
+                     "portname":"$portname2",
+                     "ip-address":"$ipaddress2"
+                  }
+               ],
+               "gateway-ip":"$gateway"
+            }
+         ],
+         "tunnel-type":"odl-interface:tunnel-type-$tunneltype"
+      }
+   ]
+}
