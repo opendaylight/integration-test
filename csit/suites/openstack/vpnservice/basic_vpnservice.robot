@@ -41,6 +41,7 @@ ${EXT_RT1}        destination=40.1.1.0/24,nexthop=10.1.1.3
 ${EXT_RT2}        destination=50.1.1.0/24,nexthop=10.1.1.3
 ${RT_OPTIONS}     --routes type=dict list=true
 ${RT_CLEAR}       --routes action=clear
+&{L3VPN_CREATE_TEST}    vpnid=4ae8cd92-48ca-49b5-94e1-b2921a261111    name=vpn1    routedistinguisher=["2200:2"]    exportrt=["3300:2","8800:2"]    importrt=["3300:2","8800:2"]    tenantid=6c53df3a-3456-11e5-a151-feff819c1111
 
 *** Test Cases ***
 Create Neutron Networks
@@ -141,8 +142,8 @@ Delete Router Interfaces
 
 Create L3VPN
     [Documentation]    Creates L3VPN and verify the same
-    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[0]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
-    VPN Get L3VPN    ${CREATE_ID[0]}
+    Log To Console    ${L3VPN_CREATE_TEST}
+    VPN Create L3VPN    &{L3VPN_CREATE_TEST}
 
 Associate L3VPN to Routers
     [Documentation]    Associating router to L3VPN
@@ -181,21 +182,20 @@ Delete L3VPN
 Delete Routers
     [Documentation]    Delete Router and Interface to the subnets.
     Delete Router    ${ROUTERS[0]}
-
-Create Multiple L3VPN
-    [Documentation]    Creates three L3VPNs and then verify the same
-    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[0]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
-    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[1]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
-    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[2]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
-    VPN Get L3VPN    ${CREATE_ID[0]}
-    VPN Get L3VPN    ${CREATE_ID[1]}
-    VPN Get L3VPN    ${CREATE_ID[2]}
-
-Delete Multiple L3VPN
-    [Documentation]    Delete three L3VPNs
-    VPN Delete L3VPN    ${CREATE_ID[0]}
-    VPN Delete L3VPN    ${CREATE_ID[1]}
-    VPN Delete L3VPN    ${CREATE_ID[2]}
+    #Create Multiple L3VPN
+    #    [Documentation]    Creates three L3VPNs and then verify the same
+    #    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[0]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
+    #    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[1]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
+    #    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[2]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
+    #    VPN Get L3VPN    ${CREATE_ID[0]}
+    #    VPN Get L3VPN    ${CREATE_ID[1]}
+    #    VPN Get L3VPN    ${CREATE_ID[2]}
+    #
+    #Delete Multiple L3VPN
+    #    [Documentation]    Delete three L3VPNs
+    #    VPN Delete L3VPN    ${CREATE_ID[0]}
+    #    VPN Delete L3VPN    ${CREATE_ID[1]}
+    #    VPN Delete L3VPN    ${CREATE_ID[2]}
 
 Check Datapath Traffic Across Networks With L3VPN
     [Documentation]    Datapath Test Across the networks with VPN.
@@ -223,7 +223,7 @@ Delete Networks
     \    Delete Network    ${Network}
 
 Create ITM Tunnel
-    [Documentation]    Checks that vxlan tunnels are created successfully. The proc expects that the two DPNs are in the same network and populates the gateway accordingly.
+    [Documentation]    Checks that vxlan tunnels are created successfully. This keyword expects that the two DPNs are in the same network and populates the gateway accordingly.
     ${node_1_dpid} =    Get DPID    ${OS_COMPUTE_1_IP}
     ${node_2_dpid} =    Get DPID    ${OS_COMPUTE_2_IP}
     ${node_1_adapter} =    Get Ethernet Adapter    ${OS_COMPUTE_1_IP}
@@ -231,10 +231,12 @@ Create ITM Tunnel
     ${first_two_octets}    ${third_octet}    ${last_octet}=    Split String From Right    ${OS_COMPUTE_1_IP}    .    2
     ${subnet} =    Set Variable    ${first_two_octets}.0.0/16
     ${gateway} =    Get Default Gateway    ${OS_COMPUTE_1_IP}
-    ITM Create Tunnel    tunnel-type=vxlan    vlan-id=0    ip-address1="${OS_COMPUTE_1_IP}"    dpn-id1=${node_1_dpid}    portname1="${node_1_adapter}"    ip-address2="${OS_COMPUTE_2_IP}"
-    ...    dpn-id2=${node_2_dpid}    portname2="${node_2_adapter}"    prefix="${subnet}"    gateway-ip="${gateway}"
-    Get DumpFlows And Ovsconfig    ${OS_COMPUTE_1_IP}
-    Get DumpFlows And Ovsconfig    ${OS_COMPUTE_2_IP}
+    ITM Create Tunnel    tunneltype=vxlan    vlanid=0    prefix=${subnet}    gateway=${gateway}    ipaddress1=${OS_COMPUTE_1_IP}    dpnid1=${node_1_dpid}
+    ...    portname1=${node_1_adapter}    ipaddress2=${OS_COMPUTE_2_IP}    dpnid2=${node_2_dpid}    portname2=${node_2_adapter}
+    ${output}=    Run Command On Remote System    ${OS_COMPUTE_1_IP}    sudo ovs-vsctl show
+    Log    ${output}
+    ${output}=    Run Command On Remote System    ${OS_COMPUTE_2_IP}    sudo ovs-vsctl show
+    Log    ${output}
     ${output} =    ITM Get Tunnels
     Log    ${output}
 
