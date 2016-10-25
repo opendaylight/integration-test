@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_a8ca169f",
+        "filename": "csit/libraries/WorkflowsL2switch.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-10-25T23:55:44Z",
+      "side": 1,
+      "message": "This is not really my test (just created this file from Scalability.robot) but I think the reason to do individual host is to see indivudual ping failures.",
+      "parentUuid": "5a682502_ad3b48ea",
+      "revId": "9fe2bae77f8c52c730fe87845bc157b14a6ef0d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_4d36f404",
         "filename": "csit/libraries/WorkflowsL2switch.robot",
         "patchSetId": 16
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "5a682502_e8c36e88",
+        "filename": "csit/libraries/WorkflowsL2switch.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-10-25T23:55:44Z",
+      "side": 1,
+      "message": "I can refactor this test too, as I commented at the beginning of the file, but first we need l2switch people to fix the controller as the test doe not really work due to this bug: https://bugs.opendaylight.org/show_bug.cgi?id\u003d6573",
+      "parentUuid": "5a682502_4d36f404",
+      "revId": "9fe2bae77f8c52c730fe87845bc157b14a6ef0d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "5a682502_a857b601",
         "filename": "csit/libraries/WorkflowsOpenFlow.robot",
         "patchSetId": 16
@@ -47,6 +83,24 @@
       "writtenOn": "2016-10-25T23:11:02Z",
       "side": 1,
       "message": "No difference betwen this and the earlier keyword",
+      "revId": "9fe2bae77f8c52c730fe87845bc157b14a6ef0d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_08bb4a0f",
+        "filename": "csit/libraries/WorkflowsOpenFlow.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-10-25T23:55:44Z",
+      "side": 1,
+      "message": "There is, see the URL it is invoked.",
+      "parentUuid": "5a682502_a857b601",
       "revId": "9fe2bae77f8c52c730fe87845bc157b14a6ef0d1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
