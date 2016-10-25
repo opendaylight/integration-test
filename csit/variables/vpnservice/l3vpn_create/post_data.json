@@ -1,0 +1,20 @@
+{
+   "input":{
+      "l3vpn":[
+         {
+            "id":"$vpnid",
+            "name":"$name",
+            "route-distinguisher":[
+               $routedistinguisher
+            ],
+            "export-RT":[
+               $exportrt
+            ],
+            "import-RT":[
+               $importrt
+            ],
+            "tenant-id":"$tenantid"
+         }
+      ]
+   }
+}
