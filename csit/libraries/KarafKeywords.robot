@@ -175,6 +175,6 @@ Wait For Karaf Log
     Log    Waiting for '${message}' in karaf log
     ${karaf_connection_index}=    Collections.Get From Dictionary    ${connection_index_dict}    ${member_index}
     ${current_connection_index}=    SSHLibrary.Switch Connection    ${karaf_connection_index}
-    Flexible SSH Login    ${KARAF_USER}    ${KARAF_PASSWORD}
+    Flexible SSH Login    ${KARAF_USER}    ${KARAF_PASSWORD}    ${timeout}
     Write    log:tail
     Read Until    ${message}
