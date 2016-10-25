@@ -47,6 +47,7 @@ Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
 
 *** Variables ***
 ${ALTERNATIVE_BUNDLEFOLDER_PARENT}    /tmp/older
@@ -59,6 +60,12 @@ ${PYTHON_UTILITY_FILENAME}    patch_cars_be_sr2.py
 ${SEGMENT_SIZE}    10000
 
 *** Test Cases ***
+Select_Latest_Release_If_Not_Specified
+    [Documentation]    If previous ODL release is not specified, then latest release for current stream is used.
+    ${latest_release} =    NexusKeywords.Get_Latest_ODL_Stream_Release_URL    ${ODL_STREAM}
+    ${PREVIOUS_ODL_RELEASE_ZIP_URL} =    BuiltIn.Set_Variable_If    '${PREVIOUS_ODL_RELEASE_ZIP_URL}'==''    ${latest_release}    ${PREVIOUS_ODL_RELEASE_ZIP_URL}
+    BuiltIn.Set_Suite_Variable    ${PREVIOUS_ODL_RELEASE_ZIP_URL}
+ 
 Kill_Original_Odl
     [Documentation]    The ODL prepared by releng/builder is the newer one, kill it.
     ...    Also, remove journal and snapshots.
