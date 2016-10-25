@@ -133,6 +133,20 @@ Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
 Delete Extra Route
     [Documentation]    Delete the extra routes
     Update Router    @{ROUTERS}[0]    ${RT_CLEAR}
+    Show Router    @{ROUTERS}[0]    -D
+
+Delete And Recreate Extra Route
+    [Documentation]    Recreate multiple extra route and check data path before L3VPN creation
+    Log    "Adding extra route to VM"
+    ${CONFIG_EXTRA_ROUTE_IP1} =    Catenate    sudo ifconfig eth0:1 @{EXTRA_NW_IP}[0] netmask 255.255.255.0 up
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    @{NET10_VM_IPS}[0]    ${CONFIG_EXTRA_ROUTE_IP1}
+    ${cmd} =    Catenate    ${RT_OPTIONS}    ${EXT_RT1}
+    Update Router    @{ROUTERS}[0]    ${cmd}
+    Show Router    @{ROUTERS}[0]    -D
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    @{NET10_VM_IPS}[1]    ping -c 3 @{EXTRA_NW_IP}[0]
+    Should Contain    ${output}    64 bytes
+    Update Router    @{ROUTERS}[0]    ${RT_CLEAR}
+    Show Router    @{ROUTERS}[0]    -D
 
 Delete Router Interfaces
     [Documentation]    Remove Interface to the subnets.
@@ -174,13 +188,13 @@ Dissociate L3VPN From Networks
     Dissociate L3VPN From Networks    networkid=${network1_id}    vpnid=${VPN_INSTANCE_NAME[1]}
     Dissociate L3VPN From Networks    networkid=${network2_id}    vpnid=${VPN_INSTANCE_NAME[1]}
 
-Delete L3VPN
-    [Documentation]    Delete L3VPN
-    VPN Delete L3VPN    ${CREATE_ID[0]}
-
 Delete Routers
     [Documentation]    Delete Router and Interface to the subnets.
     Delete Router    ${ROUTERS[0]}
+
+Delete L3VPN
+    [Documentation]    Delete L3VPN
+    VPN Delete L3VPN    ${CREATE_ID[0]}
 
 Create Multiple L3VPN
     [Documentation]    Creates three L3VPNs and then verify the same
