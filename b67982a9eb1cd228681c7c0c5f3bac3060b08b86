@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "7a6b29fe_8f9e02b7",
+        "filename": "csit/libraries/Scalability.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-10-25T23:11:02Z",
+      "side": 1,
+      "message": "Can we use Variables.robot here?",
+      "revId": "b67982a9eb1cd228681c7c0c5f3bac3060b08b86",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
