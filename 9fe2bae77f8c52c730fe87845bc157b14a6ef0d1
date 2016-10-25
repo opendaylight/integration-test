@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_ad3b48ea",
+        "filename": "csit/libraries/WorkflowsL2switch.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-10-25T23:11:02Z",
+      "side": 1,
+      "message": "I think we can use pingall right? instead of the loop and judge if the required hosts figure in the output or not?",
+      "revId": "9fe2bae77f8c52c730fe87845bc157b14a6ef0d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_4d36f404",
+        "filename": "csit/libraries/WorkflowsL2switch.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 99,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-10-25T23:11:02Z",
+      "side": 1,
+      "message": "just a curious question, Is it better to check for success here rather than packet loss which sometimes might be a partial loss also?",
+      "revId": "9fe2bae77f8c52c730fe87845bc157b14a6ef0d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "5a682502_a857b601",
+        "filename": "csit/libraries/WorkflowsOpenFlow.robot",
+        "patchSetId": 16
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-10-25T23:11:02Z",
+      "side": 1,
+      "message": "No difference betwen this and the earlier keyword",
+      "revId": "9fe2bae77f8c52c730fe87845bc157b14a6ef0d1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
