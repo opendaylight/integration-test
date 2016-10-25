@@ -223,7 +223,7 @@ Delete Networks
     \    Delete Network    ${Network}
 
 Create ITM Tunnel
-    [Documentation]    Checks that vxlan tunnels are created successfully. The proc expects that the two DPNs are in the same network and populates the gateway accordingly.
+    [Documentation]    Checks that vxlan tunnels are created successfully. This keyword expects that the two DPNs are in the same network and populates the gateway accordingly.
     ${node_1_dpid} =    Get DPID    ${OS_COMPUTE_1_IP}
     ${node_2_dpid} =    Get DPID    ${OS_COMPUTE_2_IP}
     ${node_1_adapter} =    Get Ethernet Adapter    ${OS_COMPUTE_1_IP}
@@ -231,10 +231,12 @@ Create ITM Tunnel
     ${first_two_octets}    ${third_octet}    ${last_octet}=    Split String From Right    ${OS_COMPUTE_1_IP}    .    2
     ${subnet} =    Set Variable    ${first_two_octets}.0.0/16
     ${gateway} =    Get Default Gateway    ${OS_COMPUTE_1_IP}
-    ITM Create Tunnel    tunnel-type=vxlan    vlan-id=0    ip-address1="${OS_COMPUTE_1_IP}"    dpn-id1=${node_1_dpid}    portname1="${node_1_adapter}"    ip-address2="${OS_COMPUTE_2_IP}"
-    ...    dpn-id2=${node_2_dpid}    portname2="${node_2_adapter}"    prefix="${subnet}"    gateway-ip="${gateway}"
-    Get DumpFlows And Ovsconfig    ${OS_COMPUTE_1_IP}
-    Get DumpFlows And Ovsconfig    ${OS_COMPUTE_2_IP}
+    ITM Create Tunnel    tunneltype=vxlan    vlanid=0    prefix=${subnet}    gateway=${gateway}    ipaddress1=${OS_COMPUTE_1_IP}    dpnid1=${node_1_dpid}
+    ...    portname1=${node_1_adapter}    ipaddress2=${OS_COMPUTE_2_IP}    dpnid2=${node_2_dpid}    portname2=${node_2_adapter}
+    ${output}=    Run Command On Remote System    ${OS_COMPUTE_1_IP}    sudo ovs-vsctl show
+    Log    ${output}
+    ${output}=    Run Command On Remote System    ${OS_COMPUTE_2_IP}    sudo ovs-vsctl show
+    Log    ${output}
     ${output} =    ITM Get Tunnels
     Log    ${output}
 
