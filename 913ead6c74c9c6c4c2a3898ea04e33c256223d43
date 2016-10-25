@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_2d03b8b9",
+        "filename": "tools/odl-mdsal-clustering-tests/clustering-performance-test/flow_config_blaster.py",
+        "patchSetId": 2
+      },
+      "lineNbr": 346,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-10-25T19:32:05Z",
+      "side": 1,
+      "message": "Looks like a good change to me.\n\nReading through this method, it appears nb_actions.append was mistakenly placed inside of self.fpr for loop. Since a list of flows for a specific node is created in this for loop, it seems premature to add the list before it is complete.",
+      "revId": "913ead6c74c9c6c4c2a3898ea04e33c256223d43",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
