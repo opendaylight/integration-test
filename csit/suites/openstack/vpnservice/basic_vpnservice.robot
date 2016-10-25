@@ -30,8 +30,8 @@ Variables         ../../../variables/Variables.py
 @{CREATE_ID}      "4ae8cd92-48ca-49b5-94e1-b2921a261111"    "4ae8cd92-48ca-49b5-94e1-b2921a261112"    "4ae8cd92-48ca-49b5-94e1-b2921a261113"
 @{CREATE_NAME}    "vpn1"    "vpn2"    "vpn3"
 ${CREATE_ROUTER_DISTINGUISHER}    ["2200:2"]
-${CREATE_EXPORT_RT}    ["3300:2","8800:2"]
-${CREATE_IMPORT_RT}    ["3300:2","8800:2"]
+${CREATE_EXPORT_RT}    ["2200:2","8800:2"]
+${CREATE_IMPORT_RT}    ["2200:2","8800:2"]
 ${CREATE_TENANT_ID}    "6c53df3a-3456-11e5-a151-feff819c1111"
 @{VPN_INSTANCE}    vpn_instance_template.json
 @{VPN_INSTANCE_NAME}    4ae8cd92-48ca-49b5-94e1-b2921a2661c7    4ae8cd92-48ca-49b5-94e1-b2921a261111
@@ -98,6 +98,7 @@ Add Interfaces To Router
     [Documentation]    Add Interfaces
     : FOR    ${INTERFACE}    IN    @{SUBNETS}
     \    Add Router Interface    ${ROUTERS[0]}    ${INTERFACE}
+    Show Router    @{ROUTERS}[0]    -D
 
 Check L3_Datapath Traffic Across Networks With Router
     [Documentation]    Datapath test across the networks using router for L3.
@@ -148,15 +149,65 @@ Delete And Recreate Extra Route
     Update Router    @{ROUTERS}[0]    ${RT_CLEAR}
     Show Router    @{ROUTERS}[0]    -D
 
-Delete Router Interfaces
-    [Documentation]    Remove Interface to the subnets.
-    : FOR    ${INTERFACE}    IN    @{SUBNETS}
-    \    Remove Interface    ${ROUTERS[0]}    ${INTERFACE}
+#Check L3 Datapath after Delete And Recreate Router Interface 
+#    [Documentation]   Check data path after delete and recreate router interface.
+#    #Delete interface
+#    : FOR    ${INTERFACE}    IN    @{SUBNETS}
+#    \    Remove Interface    ${ROUTERS[0]}    ${INTERFACE}
+#    #Create interface
+#    : FOR    ${INTERFACE}    IN    @{SUBNETS}
+#    \    Add Router Interface    ${ROUTERS[0]}    ${INTERFACE}
+#    #Check DataPath
+#      ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]
+#    Log    ${dst_ip_list}
+#    ${other_dst_ip_list} =    Create List    @{NET20_VM_IPS}[0]    @{NET20_VM_IPS}[1]
+#    Log    ${other_dst_ip_list}
+#    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+#    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]
+#    Log    ${dst_ip_list}
+#    ${other_dst_ip_list} =    Create List    @{NET10_VM_IPS}[0]    @{NET10_VM_IPS}[1]
+#    Log    ${other_dst_ip_list}
+#    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
+Check Datapath After OVS Restart
+    [Documentation]    Verify end to end data path within same network and from one network to the other
+    [Tags]    RestartOVS
+    Log    "Restarting OVS1 and OVS2"
+    ${output}=    Run Command On Remote System    ${OS_COMPUTE_1_IP}    sudo /usr/share/openvswitch/scripts/ovs-ctl stop
+    Log    ${output}
+    ${output}=    Run Command On Remote System    ${OS_COMPUTE_2_IP}    sudo /usr/share/openvswitch/scripts/ovs-ctl stop
+    Log    ${output}
+    ${output}=    Run Command On Remote System    ${OS_COMPUTE_1_IP}    sudo /usr/share/openvswitch/scripts/ovs-ctl start
+    Log    ${output}
+    ${output}=    Run Command On Remote System    ${OS_COMPUTE_2_IP}    sudo /usr/share/openvswitch/scripts/ovs-ctl start
+    Log    ${output}
+    Log    "Checking the OVS state after restart"
+    Wait Until Keyword Succeeds    30s    10s    Verify OVS Reports Connected    tools_system=${OS_COMPUTE_1_IP}
+    Wait Until Keyword Succeeds    30s    10s    Verify OVS Reports Connected    tools_system=${OS_COMPUTE_2_IP}
+    # Check datapath from network1 to network2
+    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET20_VM_IPS}[0]    @{NET20_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    # Check datapath from network2 to network1
+    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET10_VM_IPS}[0]    @{NET10_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+       
 Create L3VPN
     [Documentation]    Creates L3VPN and verify the same
-    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[0]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
+    ${devstack_conn_id} =    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${net_id} =    Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
+    ${tenant_id} =    Get Tenant ID From Network     ${net_id}
+    Log    ${tenant_id}
+    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[0]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${tenant_id}
     VPN Get L3VPN    ${CREATE_ID[0]}
+    Karaf Log For Fib And L3VPN
+
 
 Associate L3VPN to Routers
     [Documentation]    Associating router to L3VPN
@@ -164,21 +215,118 @@ Associate L3VPN to Routers
     ${devstack_conn_id}=    Get ControlNode Connection
     ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
     Associate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
+    VPN Get L3VPN    ${CREATE_ID[0]}
+    Show Router    @{ROUTERS}[0]    -D
+    Karaf Log For Fib And L3VPN
+
+Check Datapath After Router Association To L3VPN
+    [Documentation]    Check datapath after router association to L3VPN
+    # Check datapath from network1 to network2
+    Sleep    30
+    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET20_VM_IPS}[0]    @{NET20_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    # Check datapath from network2 to network1
+    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET10_VM_IPS}[0]    @{NET10_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+
+
+Check Datapath After delete and recreate L3VPN on router
+    [Documentation]    Check datapath after delete and recreate L3VPN on router
+    # Remove Ass and delete l3vpn
+    ${devstack_conn_id}=    Get ControlNode Connection
+    ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
+    Dissociate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
+    VPN Delete L3VPN    ${CREATE_ID[0]}
+    # Create l2vpn and ass
+    Switch Connection    ${devstack_conn_id}
+    ${net_id} =    Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
+    ${tenant_id} =    Get Tenant ID From Network     ${net_id}
+    Log    ${tenant_id}
+    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[0]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${tenant_id}
+    Associate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]} 
+    # Check datapath from network1 to network2
+    Sleep    30
+    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET20_VM_IPS}[0]    @{NET20_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    # Check datapath from network2 to network1
+    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET10_VM_IPS}[0]    @{NET10_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
 Dissociate L3VPN to Routers
     [Documentation]    Dissociating router to L3VPN
     [Tags]    Dissociate
+    Karaf Log For Fib And L3VPN
     ${devstack_conn_id}=    Get ControlNode Connection
     ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
     Dissociate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
+    Show Router    @{ROUTERS}[0]    -D
 
-Associate L3VPN To Networks
+Delete L3VPN With Router Associated
+    [Documentation]    Delete L3VPN when its associated with router
+    # Associate L3VPN to Router and Verify 
+    ${devstack_conn_id}=    Get ControlNode Connection
+    ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
+    Associate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
+    ${output} =    VPN Get L3VPN    ${CREATE_ID[0]}
+    Should Contain  ${output}     ${router_id}
+    Show Router    @{ROUTERS}[0]    -D
+    # Delete L3 VPN when router associated
+    VPN Delete L3VPN    ${CREATE_ID[0]}
+    Show Router    @{ROUTERS}[0]    -D
+
+Delete Router Interfaces
+    [Documentation]    Remove Interface to the subnets.
+    : FOR    ${INTERFACE}    IN    @{SUBNETS}
+    \    Remove Interface    ${ROUTERS[0]}    ${INTERFACE}
+    Show Router    @{ROUTERS}[0]    -D
+
+Delete Routers
+    [Documentation]    Delete Router and Interface to the subnets.
+    Delete Router    ${ROUTERS[0]}
+
+Create and Associate L3VPN To Networks
     [Documentation]    Associates L3VPN to networks and verify
     ${devstack_conn_id} =    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${net_id} =    Get Net Id    @{NETWORKS}[0]    ${devstack_conn_id}
+    ${tenant_id} =    Get Tenant ID From Network     ${net_id}
+    Log    ${tenant_id}
+    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[0]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${tenant_id}
     ${network1_id} =    Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
     ${network2_id} =    Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
     Associate L3VPN To Network    networkid=${network1_id}    vpnid=${VPN_INSTANCE_NAME[1]}
     Associate L3VPN To Network    networkid=${network2_id}    vpnid=${VPN_INSTANCE_NAME[1]}
+    ${output} =    VPN Get L3VPN    ${CREATE_ID[0]}
+    Should Contain    ${output}     ${network1_id}
+
+Check Datapath After Network Association To L3VPN
+    [Documentation]    Check datapath after router association to L3VPN
+    # Check datapath from network1 to network2
+    Sleep    30
+    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET20_VM_IPS}[0]    @{NET20_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    # Check datapath from network2 to network1
+    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET10_VM_IPS}[0]    @{NET10_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+
 
 Dissociate L3VPN From Networks
     [Documentation]    Dissociate L3VPN from networks
@@ -187,10 +335,6 @@ Dissociate L3VPN From Networks
     ${network2_id} =    Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
     Dissociate L3VPN From Networks    networkid=${network1_id}    vpnid=${VPN_INSTANCE_NAME[1]}
     Dissociate L3VPN From Networks    networkid=${network2_id}    vpnid=${VPN_INSTANCE_NAME[1]}
-
-Delete Routers
-    [Documentation]    Delete Router and Interface to the subnets.
-    Delete Router    ${ROUTERS[0]}
 
 Delete L3VPN
     [Documentation]    Delete L3VPN
@@ -272,3 +416,11 @@ Wait For Routes To Propogate
     ${net_id} =    Get Net Id    @{NETWORKS}[1]    ${devstack_conn_id}
     ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ip route    ]>
     Should Contain    ${output}    @{SUBNET_CIDR}[1]
+
+Karaf Log For Fib And L3VPN
+    [Documentation]    Log fib-show and l3vpn-config-show karaf console command
+    ${output}=    Issue Command On Karaf Console    fib-show
+    Log    ${output}
+    ${output}=    Issue Command On Karaf Console    l3vpn-config-show
+    Log    ${output}
+
