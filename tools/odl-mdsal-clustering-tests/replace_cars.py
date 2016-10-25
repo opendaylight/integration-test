@@ -1,10 +1,8 @@
 """
 The purpose of this script to create enough traffic in config datastore
 to trigger creation of Snapshot.
-This script uses PATCH http method for handling "moving segment" of cars.
+This script uses PUT http method for handling/replacing "moving segment" of cars.
 The car data is minimal, containing only an ID (car-<num>).
-This script is tailored to behavior of Berylium-SR2,
-if the behavior changes, new script will be needed.
 """
 
 
@@ -12,6 +10,7 @@ import argparse
 import string
 import sys
 import requests
+import logging
 
 
 def main():
@@ -28,21 +27,11 @@ def main():
       }''')
 
     patch_data_template = string.Template('''{
- "ietf-restconf:yang-patch": {
-  "patch-id": "$ID",
-  "edit": [
-   {
-    "edit-id": "0",
-    "operation": "replace",
-    "target": "/car:car-entry[car:id='0']",
-    "value": {
-     "car:car-entry": [
+ "cars": {
+  "car-entry": [
 $ENTRIES
      ]
     }
-   }
-  ]
- }
 }''')
 
     # Arguments
@@ -79,10 +68,10 @@ $ENTRIES
             entry_list.append(car_entry_template.substitute({"NUM": str(num_id)}))
         mapping = {"ID": str(iteration), "ENTRIES": ",\n".join(entry_list)}
         data = patch_data_template.substitute(mapping)
-        response = session.patch(url=url, auth=auth, headers=headers, data=data)
+        response = session.put(url=url, auth=auth, headers=headers, data=data)
         if response.status_code not in [200, 201, 204]:
-            print "status:", response.status_code
-            print "text:", response.text
+            print "status: {}".format(response.status_code)
+            print "text: {}".format(response.text)
             sys.exit(1)
 
 
