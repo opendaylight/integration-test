@@ -441,7 +441,7 @@ def find_connection(connections_json, version, mode, ip, port, state):
     """
     for connection in parse_connections(connections_json):
         if (connection['peer-address'] == ip and connection['tcp-port'] == int(port) and (
-                        mode.strip() == 'any' or connection['mode'] == mode) and connection['version'] == version):
+                mode.strip() == 'any' or connection['mode'] == mode) and connection['version'] == version):
             if state == 'none':
                 return True
             elif connection['state'] == state:

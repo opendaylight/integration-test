@@ -466,7 +466,7 @@ class OneM2MHttpJsonDecoderRx(IoTDataDecoder):
 
         if protocol_message.method:
             operation = OneM2MHttpDecodeUtils.translate_http_method_to_onem2m_operation(
-                            protocol_message.method, builder.has_param(OneM2M.short_resource_type))
+                protocol_message.method, builder.has_param(OneM2M.short_resource_type))
             builder.set_param(OneM2M.short_operation, operation)
 
         return builder.build()

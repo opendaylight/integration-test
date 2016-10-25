@@ -269,7 +269,7 @@ class Changes(object):
         if msg:
             lines = str(msg.group()).split("\\n")
             cli = next((i for i, line in enumerate(lines[:-1]) if '* changes\\:' in line), None)
-            first_msg = lines[cli+1] if cli else None
+            first_msg = lines[cli + 1] if cli else None
         if first_msg:
             if self.verbose >= 1:
                 print("did not find Change-Id or commit-msg in %s, trying with merge commit-msg: %s"
