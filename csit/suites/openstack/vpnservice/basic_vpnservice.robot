@@ -34,13 +34,18 @@ ${CREATE_EXPORT_RT}    ["3300:2","8800:2"]
 ${CREATE_IMPORT_RT}    ["3300:2","8800:2"]
 ${CREATE_TENANT_ID}    "6c53df3a-3456-11e5-a151-feff819c1111"
 @{VPN_INSTANCE}    vpn_instance_template.json
-@{VPN_INSTANCE_NAME}    4ae8cd92-48ca-49b5-94e1-b2921a2661c7    4ae8cd92-48ca-49b5-94e1-b2921a261111
+@{VPN_INSTANCE_NAME}    4ae8cd92-48ca-49b5-94e1-b2921a2661c7    4ae8cd92-48ca-49b5-94e1-b2921a261111    "4ae8cd92-48ca-49b5-94e1-b2921a261112"
 @{EXTRA_NW_IP}    40.1.1.2    50.1.1.2
 # Values passed for extra routes
 ${EXT_RT1}        destination=40.1.1.0/24,nexthop=10.1.1.3
 ${EXT_RT2}        destination=50.1.1.0/24,nexthop=10.1.1.3
 ${RT_OPTIONS}     --routes type=dict list=true
 ${RT_CLEAR}       --routes action=clear
+# test variables
+${CREATE_EXPORT_RT0}    ["2200:2"]
+${CREATE_IMPORT_RT0}    ["2200:2"]
+${CREATE_EXPORT_RT1}    ["2200:1"]
+${CREATE_IMPORT_RT1}    ["2200:1"]
 
 *** Test Cases ***
 Create Neutron Networks
@@ -134,6 +139,46 @@ Delete Extra Route
     [Documentation]    Delete the extra routes
     Update Router    @{ROUTERS}[0]    ${RT_CLEAR}
 
+Delete And Recreate Extra Route
+    [Documentation]    Add multiple extra routes and check data path before L3VPN creation
+    Log    "Adding extra one route to VM"
+    ${CONFIG_EXTRA_ROUTE_IP1} =    Catenate    sudo ifconfig eth0:1 @{EXTRA_NW_IP}[0] netmask 255.255.255.0 up
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    @{NET10_VM_IPS}[0]    ${CONFIG_EXTRA_ROUTE_IP1}
+    ${cmd} =    Catenate    ${RT_OPTIONS}    ${EXT_RT1}
+    Update Router    @{ROUTERS}[0]    ${cmd}
+    Show Router    @{ROUTERS}[0]    -D
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    @{NET10_VM_IPS}[1]    ping -c 3 @{EXTRA_NW_IP}[0]
+    Should Contain    ${output}    64 bytes
+    Update Router    @{ROUTERS}[0]    ${RT_CLEAR}
+
+Check Datapath After OVS Restart
+    [Documentation]    Verify end to end data path within same network and from one network to the other
+    [Tags]    RestartOVS
+    Log    "Restarting OVS1 and OVS2"
+    ${output}=    Run Command On Remote System    ${OS_COMPUTE_1_IP}    sudo service openvswitch-switch stop
+    Log    ${output}
+    ${output}=    Run Command On Remote System    ${OS_COMPUTE_2_IP}    sudo service openvswitch-switch stop
+    Log    ${output}
+    ${output}=    Run Command On Remote System    ${OS_COMPUTE_1_IP}    sudo service openvswitch-switch start
+    Log    ${output}
+    ${output}=    Run Command On Remote System    ${OS_COMPUTE_2_IP}    sudo service openvswitch-switch start
+    Log    ${output}
+    Log    "Checking the OVS state after restart"
+    Wait Until Keyword Succeeds    30s    10s    Verify OVS Reports Connected    tools_system=${OS_COMPUTE_1_IP}
+    Wait Until Keyword Succeeds    30s    10s    Verify OVS Reports Connected    tools_system=${OS_COMPUTE_2_IP}
+    # Check datapath from network1 to network2
+    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET20_VM_IPS}[0]    @{NET20_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    # Check datapath from network2 to network1
+    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET10_VM_IPS}[0]    @{NET10_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+
 Delete Router Interfaces
     [Documentation]    Remove Interface to the subnets.
     : FOR    ${INTERFACE}    IN    @{SUBNETS}
@@ -184,18 +229,39 @@ Delete Routers
 
 Create Multiple L3VPN
     [Documentation]    Creates three L3VPNs and then verify the same
-    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[0]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
-    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[1]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
-    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[2]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
+    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[0]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT0}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT0}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
+    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[1]}    CREATE_ROUTER_DISTINGUISHER = ${CREATE_ROUTER_DISTINGUISHER}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT1}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT1}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
     VPN Get L3VPN    ${CREATE_ID[0]}
     VPN Get L3VPN    ${CREATE_ID[1]}
-    VPN Get L3VPN    ${CREATE_ID[2]}
+
+Associate L3VPN To Networks
+    [Documentation]    Associates L3VPN to networks and verify
+    ${devstack_conn_id} =    Get ControlNode Connection
+    ${network1_id} =    Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
+    ${network2_id} =    Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
+    Associate L3VPN To Network    networkid=${network1_id}    vpnid=${VPN_INSTANCE_NAME[1]}
+    Associate L3VPN To Network    networkid=${network2_id}    vpnid=${VPN_INSTANCE_NAME[2]}
+
+Check L3_Datapath Traffic Across Multiple VPNs
+    [Documentation]    Datapath test across the networks using router for L3.
+    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET20_VM_IPS}[0]    @{NET20_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+
+Dissociate L3VPN From Networks
+    [Documentation]    Dissociate L3VPN from networks
+    ${devstack_conn_id} =    Get ControlNode Connection
+    ${network1_id} =    Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
+    ${network2_id} =    Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
+    Dissociate L3VPN From Networks    networkid=${network1_id}    vpnid=${VPN_INSTANCE_NAME[1]}
+    Dissociate L3VPN From Networks    networkid=${network2_id}    vpnid=${VPN_INSTANCE_NAME[2]}
 
 Delete Multiple L3VPN
     [Documentation]    Delete three L3VPNs
     VPN Delete L3VPN    ${CREATE_ID[0]}
     VPN Delete L3VPN    ${CREATE_ID[1]}
-    VPN Delete L3VPN    ${CREATE_ID[2]}
 
 Check Datapath Traffic Across Networks With L3VPN
     [Documentation]    Datapath Test Across the networks with VPN.
