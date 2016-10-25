@@ -55,6 +55,7 @@ Rerun Latency Test To Check Bug 6176
     Run Cbench And Log Results    -m ${duration_in_ms} -M ${num_of_unique_macs} -s ${switch_count} -l ${loops} -D ${start_delay}    ${latency_threshold}    bug.csv
     # We have to give some time for the controller to recover. See bug 6176.
     Sleep    ${test_delay}
+    [Teardown]    Report_Failure_Due_To_Bug    6176
 
 *** Keywords ***
 Run Cbench And Log Results
