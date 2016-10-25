@@ -341,9 +341,10 @@ class FlowConfigBlaster(object):
                 self.flows[tid][flow_id] = node_id
                 flow_list.append(self.create_flow_from_template(flow_id, self.ip_addr.increment(), node_id))
                 nflows += 1
-                nb_actions.append((s, node_id, flow_list, nflows))
                 if nflows >= self.nflows:
                     break
+            nb_actions.append((s, node_id, flow_list, nflows))
+
 
         with Timer() as t:
             for nb_action in nb_actions:
