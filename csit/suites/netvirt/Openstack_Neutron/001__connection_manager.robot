@@ -23,13 +23,15 @@ ${OF_PORT}        6653
 ${FLOWS_TABLE_20}    actions=goto_table:20
 ${FLOW_CONTROLLER}    actions=CONTROLLER:65535
 ${FLOWS_TABLE_30}    actions=goto_table:30
-${FLOWS_TABLE_40}    actions=goto_table:40
+${FLOWS_TABLE_31}    actions=goto_table:31
+${FLOWS_TABLE_40}    actions=resubmit(,39),resubmit(,40)
 ${FLOWS_TABLE_50}    actions=goto_table:50
 ${FLOWS_TABLE_60}    actions=goto_table:60
 ${FLOWS_TABLE_70}    actions=goto_table:70
 ${FLOWS_TABLE_80}    actions=goto_table:80
 ${FLOWS_TABLE_90}    actions=goto_table:90
 ${FLOWS_TABLE_100}    actions=goto_table:100
+${FLOWS_TABLE_105}    actions=goto_table:105
 ${FLOWS_TABLE_110}    actions=goto_table:110
 ${FLOW_DROP}      actions=drop
 ${PING_NOT_CONTAIN}    Destination Host Unreachable
@@ -90,6 +92,7 @@ Get the bridge flows
     Should Contain    ${output}    ${FLOWS_TABLE_20}
     Should Contain    ${output}    ${FLOW_CONTROLLER}
     Should Contain    ${output}    ${FLOWS_TABLE_30}
+    Should Contain    ${output}    ${FLOWS_TABLE_31}
     Should Contain    ${output}    ${FLOWS_TABLE_40}
     Should Contain    ${output}    ${FLOWS_TABLE_50}
     Should Contain    ${output}    ${FLOWS_TABLE_60}
@@ -97,5 +100,6 @@ Get the bridge flows
     Should Contain    ${output}    ${FLOWS_TABLE_80}
     Should Contain    ${output}    ${FLOWS_TABLE_90}
     Should Contain    ${output}    ${FLOWS_TABLE_100}
+    Should Contain    ${output}    ${FLOWS_TABLE_105}
     Should Contain    ${output}    ${FLOWS_TABLE_110}
     Should Contain    ${output}    ${FLOW_DROP}
