@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_e3727c48",
+        "filename": "csit/variables/ovsdb/create_queue.json",
+        "patchSetId": 13
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-10-26T22:41:39Z",
+      "side": 1,
+      "message": "Not sure if these should be tabs but not blocking IMHO.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 9,
+        "endChar": 1
+      },
+      "revId": "76d5fa90585ebf0d2eee760f9ba601106f6211a0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
