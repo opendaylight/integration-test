@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_143c1493",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 136,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-26T04:16:09Z",
+      "side": 1,
+      "message": "maybe in another patch you\u0027ll want to add a verification step here (and below in line 150) to check that the \"Show Router\" output is correct.  just a thought.",
+      "range": {
+        "startLine": 136,
+        "startChar": 4,
+        "endLine": 136,
+        "endChar": 38
+      },
+      "revId": "660962de40b19c13245fc5a3d2a2a9daf8d6130d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
