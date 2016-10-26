@@ -368,6 +368,7 @@ Show Router
     ${output} =    Write Commands Until Prompt    neutron router-show ${router_name} ${options}    30s
     Log    ${output}
     Close Connection
+    [Return]    ${output}
 
 Delete Router
     [Arguments]    ${router_name}
