@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_2803a6b9",
+        "filename": "csit/variables/ovsdb/create_node.json",
+        "patchSetId": 9
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-10-26T00:13:31Z",
+      "side": 1,
+      "message": "please change to ip instead of port and below add port where it should be listed.",
+      "revId": "52ff85f5c4d3fac29f4a5e71bc56da54dc0ca40b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
