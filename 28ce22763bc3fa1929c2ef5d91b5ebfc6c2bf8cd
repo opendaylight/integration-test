@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_b4cd6089",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/010__configure_1_ovsdb_node.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-26T05:28:59Z",
+      "side": 1,
+      "message": "we are now asking to use Variables.robot.  should not affect this suite, but please change it to help us with the refactor effort.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "28ce22763bc3fa1929c2ef5d91b5ebfc6c2bf8cd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_14a6d4c1",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/010__configure_1_ovsdb_node.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 213,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-26T05:28:59Z",
+      "side": 1,
+      "message": "missing one more space.  robot.tidy probably catches this.",
+      "range": {
+        "startLine": 213,
+        "startChar": 0,
+        "endLine": 213,
+        "endChar": 3
+      },
+      "revId": "28ce22763bc3fa1929c2ef5d91b5ebfc6c2bf8cd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_54b04cf4",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/010__configure_1_ovsdb_node.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-26T05:28:59Z",
+      "side": 1,
+      "message": "would be good to also add another Get Request after these deletes and make sure the configs are gone from config store.  just checking on the response code is good, but even better to check config store response.content.",
+      "range": {
+        "startLine": 210,
+        "startChar": 0,
+        "endLine": 228,
+        "endChar": 68
+      },
+      "revId": "28ce22763bc3fa1929c2ef5d91b5ebfc6c2bf8cd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
