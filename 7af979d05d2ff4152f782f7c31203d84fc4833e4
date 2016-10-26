@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_43e9b019",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/010__configure_1_ovsdb_node.robot",
+        "patchSetId": 11
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-10-26T21:09:02Z",
+      "side": 1,
+      "message": "Please remove these two spaces.",
+      "range": {
+        "startLine": 236,
+        "startChar": 0,
+        "endLine": 236,
+        "endChar": 4
+      },
+      "revId": "7af979d05d2ff4152f782f7c31203d84fc4833e4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
