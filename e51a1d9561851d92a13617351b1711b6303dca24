@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_88147af6",
+        "filename": "csit/suites/ovsdb/Southbound_Domain/010__configure_1_ovsdb_node.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 241,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-10-26T00:09:12Z",
+      "side": 1,
+      "message": "Much of the code in this active mode section is duplicate from the passive mode section. Please consider ways to reduce code duplication whilst still testing active and passive.",
+      "revId": "e51a1d9561851d92a13617351b1711b6303dca24",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
