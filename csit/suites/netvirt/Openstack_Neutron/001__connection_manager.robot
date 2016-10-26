@@ -23,7 +23,7 @@ ${OF_PORT}        6653
 ${FLOWS_TABLE_20}    actions=goto_table:20
 ${FLOW_CONTROLLER}    actions=CONTROLLER:65535
 ${FLOWS_TABLE_30}    actions=goto_table:30
-${FLOWS_TABLE_40}    actions=goto_table:40
+${FLOWS_TABLE_40}    actions=resubmit(,39),resubmit(,40)
 ${FLOWS_TABLE_50}    actions=goto_table:50
 ${FLOWS_TABLE_60}    actions=goto_table:60
 ${FLOWS_TABLE_70}    actions=goto_table:70
