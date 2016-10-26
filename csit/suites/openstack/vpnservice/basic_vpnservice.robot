@@ -122,7 +122,7 @@ Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    @{NET10_VM_IPS}[0]    ifconfig
     ${cmd} =    Catenate    ${RT_OPTIONS}    ${EXT_RT1}    ${EXT_RT2}
     Update Router    @{ROUTERS}[0]    ${cmd}
-    Show Router    @{ROUTERS}[0]    -D
+    ${output}=    Show Router    @{ROUTERS}[0]    -D
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    @{NET10_VM_IPS}[1]    ping -c 3 @{EXTRA_NW_IP}[1]
     Should Contain    ${output}    64 bytes
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    @{NET20_VM_IPS}[1]    ping -c 3 @{EXTRA_NW_IP}[1]
@@ -146,12 +146,8 @@ Delete And Recreate Extra Route
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    @{NET10_VM_IPS}[1]    ping -c 3 @{EXTRA_NW_IP}[0]
     Should Contain    ${output}    64 bytes
     Update Router    @{ROUTERS}[0]    ${RT_CLEAR}
-    Show Router    @{ROUTERS}[0]    -D
-
-Delete Router Interfaces
-    [Documentation]    Remove Interface to the subnets.
-    : FOR    ${INTERFACE}    IN    @{SUBNETS}
-    \    Remove Interface    ${ROUTERS[0]}    ${INTERFACE}
+    ${output}=    Show Router    @{ROUTERS}[0]    -D
+    Should Contain    ${output}    40.1.1.0/24
 
 Create L3VPN
     [Documentation]    Creates L3VPN and verify the same
@@ -172,8 +168,26 @@ Dissociate L3VPN to Routers
     ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
     Dissociate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
 
+Delete Router Interfaces
+    [Documentation]    Remove Interface to the subnets.
+    : FOR    ${INTERFACE}    IN    @{SUBNETS}
+    \    Remove Interface    ${ROUTERS[0]}    ${INTERFACE}
+
+Delete L3VPN With Router Associated
+    [Documentation]    Delete L3VPN
+    : FOR    ${INTERFACE}    IN    @{SUBNETS}
+    \    Add Router Interface    ${ROUTERS[0]}    ${INTERFACE}
+    ${devstack_conn_id}=    Get ControlNode Connection
+    ${router_id}=    Get Router Id    ${ROUTERS[0]}    ${devstack_conn_id}
+    Associate VPN to Router    ${router_id}    ${VPN_INSTANCE_NAME[1]}
+    VPN Delete L3VPN    ${CREATE_ID[0]}
+    : FOR    ${INTERFACE}    IN    @{SUBNETS}
+    \    Remove Interface    ${ROUTERS[0]}    ${INTERFACE}
+
 Associate L3VPN To Networks
     [Documentation]    Associates L3VPN to networks and verify
+    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[0]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
+    VPN Get L3VPN    ${CREATE_ID[0]}
     ${devstack_conn_id} =    Get ControlNode Connection
     ${network1_id} =    Get Net Id    ${NETWORKS[0]}    ${devstack_conn_id}
     ${network2_id} =    Get Net Id    ${NETWORKS[1]}    ${devstack_conn_id}
@@ -188,33 +202,9 @@ Dissociate L3VPN From Networks
     Dissociate L3VPN From Networks    networkid=${network1_id}    vpnid=${VPN_INSTANCE_NAME[1]}
     Dissociate L3VPN From Networks    networkid=${network2_id}    vpnid=${VPN_INSTANCE_NAME[1]}
 
-Delete Routers
-    [Documentation]    Delete Router and Interface to the subnets.
-    Delete Router    ${ROUTERS[0]}
-
 Delete L3VPN
     [Documentation]    Delete L3VPN
     VPN Delete L3VPN    ${CREATE_ID[0]}
-
-Create Multiple L3VPN
-    [Documentation]    Creates three L3VPNs and then verify the same
-    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[0]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
-    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[1]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
-    VPN Create L3VPN    ${VPN_INSTANCE[0]}    CREATE_ID=${CREATE_ID[2]}    CREATE_EXPORT_RT=${CREATE_EXPORT_RT}    CREATE_IMPORT_RT=${CREATE_IMPORT_RT}    CREATE_TENANT_ID=${CREATE_TENANT_ID}
-    VPN Get L3VPN    ${CREATE_ID[0]}
-    VPN Get L3VPN    ${CREATE_ID[1]}
-    VPN Get L3VPN    ${CREATE_ID[2]}
-
-Delete Multiple L3VPN
-    [Documentation]    Delete three L3VPNs
-    VPN Delete L3VPN    ${CREATE_ID[0]}
-    VPN Delete L3VPN    ${CREATE_ID[1]}
-    VPN Delete L3VPN    ${CREATE_ID[2]}
-
-Check Datapath Traffic Across Networks With L3VPN
-    [Documentation]    Datapath Test Across the networks with VPN.
-    [Tags]    exclude
-    Log    This test will be added in the next patch
 
 Delete Vm Instances
     [Documentation]    Delete Vm instances in the given Instance List
