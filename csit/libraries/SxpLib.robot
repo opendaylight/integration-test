@@ -31,6 +31,7 @@ Add Node
     [Arguments]    ${node}    ${password}=${EMPTY}    ${version}=version4    ${port}=64999    ${session}=session    ${ip}=${EMPTY}
     [Documentation]    Add node via RPC to ODL
     ${DATA}    Add Node Xml    ${node}    ${port}    ${password}    ${version}    ${ip}
+    ...    bindings_timeout=0
     Post To Controller    ${session}    add-node    ${DATA}
 
 Delete Node
@@ -44,7 +45,7 @@ Add Connection
     ...    ${session}=session    ${domain}=global
     [Documentation]    Add connection via RPC to node
     ${DATA}    Add Connection Xml    ${version}    ${mode}    ${ip}    ${port}    ${node}
-    ...    ${password}    ${domain}
+    ...    ${password}    ${domain}    0
     Wait Until Keyword Succeeds    5    1    Post To Controller    ${session}    add-connection    ${DATA}
 
 Get Connections

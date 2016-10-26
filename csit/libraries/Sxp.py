@@ -511,7 +511,7 @@ def add_entry_xml(sgt, prefix, ip, domain_name):
     return data
 
 
-def add_connection_xml(version, mode, ip, port, node, password_, domain_name):
+def add_connection_xml(version, mode, ip, port, node, password_, domain_name, bindings_timeout=120):
     """Generate xml for Add Connection request
 
     :param version: Version of SXP protocol (version1/2/3/4)
@@ -528,6 +528,8 @@ def add_connection_xml(version, mode, ip, port, node, password_, domain_name):
     :type password_: string
     :param domain_name: Name of Domain
     :type domain_name: string
+    :param bindings_timeout: Specifies DHD and Reconciliation timers
+    :type bindings_timeout: int
     :returns: String containing xml data for request
 
     """
@@ -545,7 +547,8 @@ def add_connection_xml(version, mode, ip, port, node, password_, domain_name):
          <connection-timers>
             <hold-time-min-acceptable>45</hold-time-min-acceptable>
             <keep-alive-time>30</keep-alive-time>
-            <reconciliation-time>120</reconciliation-time>
+            <reconciliation-time>$timeout</reconciliation-time>
+            <delete-hold-down-time>$timeout</delete-hold-down-time>
          </connection-timers>
       </connection>
    </connections>
@@ -553,7 +556,7 @@ def add_connection_xml(version, mode, ip, port, node, password_, domain_name):
 ''')
     data = templ.substitute(
         {'ip': ip, 'port': port, 'mode': mode, 'version': version, 'node': node,
-         'password_': password_, 'domain': get_domain_name(domain_name)})
+         'password_': password_, 'domain': get_domain_name(domain_name), 'timeout': bindings_timeout})
     return data
 
 
@@ -840,7 +843,7 @@ def get_bindings_from_node_xml(ip, binding_range, domain_name):
     return data
 
 
-def add_node_xml(node_id, port, password, version, node_ip=None, expansion=0):
+def add_node_xml(node_id, port, password, version, node_ip=None, expansion=0, bindings_timeout=120):
     """Generate xml for Add Node request
 
     :param node_id: Ipv4 address formatted node id
@@ -849,8 +852,14 @@ def add_node_xml(node_id, port, password, version, node_ip=None, expansion=0):
     :type node_ip: string
     :param port: Node port number
     :type port: int
+    :param password: TCP-MD5 password
+    :type password: string
+    :param version: Sxp device version
+    :type version: string
     :param expansion: Bindings expansion
     :type expansion: int
+    :param bindings_timeout: Specifies DHD and Reconciliation timers
+    :type bindings_timeout: int
     :returns: String containing xml data for request
 
     """
@@ -859,9 +868,9 @@ def add_node_xml(node_id, port, password, version, node_ip=None, expansion=0):
     <timers>
         <retry-open-time>1</retry-open-time>
         <hold-time-min-acceptable>120</hold-time-min-acceptable>
-        <delete-hold-down-time>120</delete-hold-down-time>
+        <delete-hold-down-time>$timeout</delete-hold-down-time>
         <hold-time-min>90</hold-time-min>
-        <reconciliation-time>120</reconciliation-time>
+        <reconciliation-time>$timeout</reconciliation-time>
         <hold-time>90</hold-time>
         <hold-time-max>180</hold-time-max>
         <keep-alive-time>30</keep-alive-time>
@@ -878,7 +887,7 @@ def add_node_xml(node_id, port, password, version, node_ip=None, expansion=0):
 </input>''')
     data = templ.substitute(
         {'ip': node_id if not node_ip else node_ip, 'id': node_id, 'port': port, 'password': password,
-         'version': version, 'expansion': expansion})
+         'version': version, 'expansion': expansion, 'timeout': bindings_timeout})
     return data
 
 
