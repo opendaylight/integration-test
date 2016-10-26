@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "5a682502_480a62d3",
+        "filename": "csit/variables/ovsdb/create_node.json",
+        "patchSetId": 8
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-10-26T00:07:15Z",
+      "side": 1,
+      "message": "HYPERVISOR-IP etc look like leftovers from postman import. Please change to some sane default and replace that default dynamically.",
+      "revId": "b44ec72da18ced90483383d9ac64deed0cbcc3ea",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
