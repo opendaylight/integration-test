@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_23bf54d2",
+        "filename": "csit/variables/ovsdb/create_queue.json",
+        "patchSetId": 12
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-10-26T21:58:45Z",
+      "side": 1,
+      "message": "The json used here appears to be broken. There appears to be a missing top curly bracket. Putting this json into a json validator fails (try http://jsonlint.com/) and the sandbox job fails when trying to post this: https://logs.opendaylight.org/sandbox/jenkins091/ovsdb-csit-1node-southbound-only-boron/6/archives/robot-plugin/log.html.gz#s1-s4-t22-k5 \n\nThis appears to be valid version of this json:\n{\n\t\"db: queues \": [{\n\t\t\"queue-id\": \"QUEUE-1\",\n\t\t\"dscp\": 25,\n\t\t\"queues-other-config\": [{\n\t\t\t\"queue-other-config-key\": \"max-rate\",\n\t\t\t\"queue-other-config-value\": \"3600000\"\n\t\t}]\n\t}]\n}",
+      "revId": "8d927945aaa828a4892349a35f1a2f9aa0f39cdd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
