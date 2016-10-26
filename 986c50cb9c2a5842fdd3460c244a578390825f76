@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_639e6c58",
+        "filename": "csit/libraries/LegatoUtils.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-26T22:33:14Z",
+      "side": 1,
+      "message": "this file will be removed in an upcoming patch set.",
+      "revId": "986c50cb9c2a5842fdd3460c244a578390825f76",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_c3a2e099",
+        "filename": "csit/suites/unimgr/uni_legato/010_unimanager_epl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-26T22:33:14Z",
+      "side": 1,
+      "message": "remove this line.  Variables.robot should be enough.",
+      "range": {
+        "startLine": 12,
+        "startChar": 0,
+        "endLine": 12,
+        "endChar": 49
+      },
+      "revId": "986c50cb9c2a5842fdd3460c244a578390825f76",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_03adf888",
+        "filename": "csit/suites/unimgr/uni_legato/010_unimanager_epl.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 17,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-26T22:33:14Z",
+      "side": 1,
+      "message": "remove this line.  it is given to you already when you source Variables.robot",
+      "range": {
+        "startLine": 17,
+        "startChar": 0,
+        "endLine": 17,
+        "endChar": 35
+      },
+      "revId": "986c50cb9c2a5842fdd3460c244a578390825f76",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
