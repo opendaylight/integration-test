@@ -1,0 +1,10 @@
+Verified+1: jenkins-releng <jenkins-releng@opendaylight.org>
+Code-Review+1: Andrej Zan <andrej.zan@pantheon.sk>
+Code-Review+1: A H <an.ho@huawei.com>
+Code-Review+1: Marcus G K Williams <marcus.williams@intel.com>
+Code-Review+2: Vratko Polák <vrpolak@cisco.com>
+Submitted-by: Vratko Polák <vrpolak@cisco.com>
+Submitted-at: Thu, 27 Oct 2016 17:49:54 +0000
+Reviewed-on: https://git.opendaylight.org/gerrit/47558
+Project: integration/test
+Branch: refs/heads/master
