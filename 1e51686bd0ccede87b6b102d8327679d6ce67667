@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_e9ed3df1",
+        "filename": "csit/libraries/ExaBgpLib.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-27T11:28:33Z",
+      "side": 1,
+      "message": "This keyword assumes that ExaBgp is currently not started on this SSH session, and that the ExaBgp process will stay running when this keyword returns. Neither of the two assumptions are verified here, so care should be taken when running this in WUKS block.\n\nSome (not sure how much) of this should be mentioned in this keyword Documentation.",
+      "range": {
+        "startLine": 24,
+        "startChar": 23,
+        "endLine": 24,
+        "endChar": 29
+      },
+      "revId": "1e51686bd0ccede87b6b102d8327679d6ce67667",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_692bed30",
+        "filename": "csit/suites/bgpcep/bgpfunct/010_bgp_functional_l3vpn.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 117,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-27T11:28:33Z",
+      "side": 1,
+      "message": "This suite does not import KarafKeywords directly, so it is better to call SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing instead.",
+      "range": {
+        "startLine": 117,
+        "startChar": 4,
+        "endLine": 117,
+        "endChar": 56
+      },
+      "revId": "1e51686bd0ccede87b6b102d8327679d6ce67667",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_c91fa108",
+        "filename": "csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-27T11:28:33Z",
+      "side": 1,
+      "message": "ExaBgpLib.Start_ExaBgp_And_Verify_Connected already performs WUKS on its verify part. Do you really want to SSHLibrary.Write the starup command repeatedly? If yes, I recommend creating an enhanced startup keyword which stops ExaBgp if peer check fails.",
+      "range": {
+        "startLine": 121,
+        "startChar": 4,
+        "endLine": 121,
+        "endChar": 39
+      },
+      "revId": "1e51686bd0ccede87b6b102d8327679d6ce67667",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
