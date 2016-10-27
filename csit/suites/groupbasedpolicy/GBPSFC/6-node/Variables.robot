@@ -3,7 +3,7 @@ Documentation     Global variables for GBPSFC 6node topology. Some variables are
 ...               ODL_VERSION variable which contains release name and is defined in Jenkins job. Keywords for setting release specific
 ...               data are located in this file.
 Variables         ../../../../variables/Variables.py
-Resource          ../../../libraries/CompareStream.robot
+Resource          ../../../../libraries/CompareStream.robot
 
 *** Variables ***
 ${VM_HOME_FOLDER}    ${WORKSPACE}
