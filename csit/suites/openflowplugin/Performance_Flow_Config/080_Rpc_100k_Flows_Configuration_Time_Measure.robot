@@ -13,8 +13,8 @@ Library           ../../../libraries/ScaleClient.py
 *** Variables ***
 ${swnr}           63
 ${flnr}           100000
-${fpr}            25
-${nrthreads}      5
+${fpr}            500
+${nrthreads}      20
 ${swspread}       linear
 ${tabspread}      first
 @{cntls}          ${ODL_SYSTEM_IP}
