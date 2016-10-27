@@ -22,6 +22,30 @@
       "revId": "aac169955bc8bb7335ab883bbba88ac8fcaab6b2",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_8e5acf81",
+        "filename": "csit/suites/netvirt/Netvirt_Cluster/030_Ovsdb_Southbound_NetVirt.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 4062
+      },
+      "writtenOn": "2016-10-27T08:51:03Z",
+      "side": 1,
+      "message": "Thanks Marcus for pointing it. Yeah table 31 should also be there along with table 105.",
+      "parentUuid": "3a65312a_835aa881",
+      "range": {
+        "startLine": 15,
+        "startChar": 75,
+        "endLine": 15,
+        "endChar": 100
+      },
+      "revId": "aac169955bc8bb7335ab883bbba88ac8fcaab6b2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
