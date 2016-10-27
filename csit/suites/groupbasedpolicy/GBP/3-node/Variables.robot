@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     Global variables for GBPSFC 3-node topology
 Variables         ../../../../variables/Variables.py
-Resource          ../../../libraries/CompareStream.robot
+Resource          ../../../../libraries/CompareStream.robot
 
 *** Variables ***
 ${VM_HOME_FOLDER}    ${WORKSPACE}
