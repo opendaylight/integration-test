@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_c9da01e9",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-27T12:28:11Z",
+      "side": 1,
+      "message": "This argument can be removed.",
+      "range": {
+        "startLine": 217,
+        "startChar": 37,
+        "endLine": 217,
+        "endChar": 51
+      },
+      "revId": "786302a962eaf43a665c6aa35c8665e6641d0798",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_a9698527",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-27T12:28:11Z",
+      "side": 1,
+      "message": "old",
+      "range": {
+        "startLine": 235,
+        "startChar": 14,
+        "endLine": 235,
+        "endChar": 17
+      },
+      "revId": "786302a962eaf43a665c6aa35c8665e6641d0798",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_69edad8b",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-27T12:28:11Z",
+      "side": 1,
+      "message": "It is expected that as releases go, the old way will be used less, and the new way will be used more. Therefore it is good idea to try the new way first, so that in distant future we can delete the old way without affecting which keywords are tried.",
+      "range": {
+        "startLine": 240,
+        "startChar": 10,
+        "endLine": 240,
+        "endChar": 13
+      },
+      "revId": "786302a962eaf43a665c6aa35c8665e6641d0798",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_29cc5535",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-27T12:28:11Z",
+      "side": 1,
+      "message": "BuiltIn.Return_From_Keyword_If    \"status\"\u003d\u003d\"PASS\"    ${results}\n\nThen you can BuiltIn.Run_Keyword_And_Return Get_Owner_And_Candidates_For_Device_Singleton_${device_type}",
+      "range": {
+        "startLine": 242,
+        "startChar": 4,
+        "endLine": 242,
+        "endChar": 5
+      },
+      "revId": "786302a962eaf43a665c6aa35c8665e6641d0798",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
