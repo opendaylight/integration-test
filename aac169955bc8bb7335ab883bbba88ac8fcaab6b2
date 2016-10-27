@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_835aa881",
+        "filename": "csit/suites/netvirt/Netvirt_Cluster/030_Ovsdb_Southbound_NetVirt.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2616
+      },
+      "writtenOn": "2016-10-27T00:39:34Z",
+      "side": 1,
+      "message": "Should there be an entry for table 31?\n\nsudo ovs-ofctl -O OpenFlow13 dump-flows br-int | cut -d\u0027,\u0027 -f3-:\n...\n table\u003d20, n_packets\u003d6, n_bytes\u003d480, priority\u003d0 actions\u003dgoto_table:30\n table\u003d30, n_packets\u003d6, n_bytes\u003d480, priority\u003d0 actions\u003dgoto_table:31\n table\u003d31, n_packets\u003d6, n_bytes\u003d480, priority\u003d0 actions\u003dresubmit(,39),resubmit(,40)\n table\u003d40, n_packets\u003d6, n_bytes\u003d480, priority\u003d0 actions\u003dgoto_table:50\n...",
+      "range": {
+        "startLine": 15,
+        "startChar": 75,
+        "endLine": 15,
+        "endChar": 100
+      },
+      "revId": "aac169955bc8bb7335ab883bbba88ac8fcaab6b2",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
