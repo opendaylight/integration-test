@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_1e342add",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 175,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-27T17:49:50Z",
+      "side": 1,
+      "message": "Single space, no big deal.",
+      "range": {
+        "startLine": 175,
+        "startChar": 94,
+        "endLine": 175,
+        "endChar": 98
+      },
+      "revId": "1899287f9252753dbde6ee85b97d622f5abaee45",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_fe304eea",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-27T17:49:50Z",
+      "side": 1,
+      "message": "Ok, first the suite should stop closing SSH connections it has not explicitly opened, then we can switch to the previous implementations of this keyword.\n\nOr, we can add a retry, similar to what Execute_Controller_Karaf_Command_With_Retry_On_Background does. Anyway, this works, TODO is there, so this Change is good to go.",
+      "range": {
+        "startLine": 178,
+        "startChar": 60,
+        "endLine": 178,
+        "endChar": 100
+      },
+      "revId": "1899287f9252753dbde6ee85b97d622f5abaee45",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
