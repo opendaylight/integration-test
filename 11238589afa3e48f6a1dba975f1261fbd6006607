@@ -96,6 +96,29 @@
     },
     {
       "key": {
+        "uuid": "3a65312a_b40f152e",
+        "filename": "csit/libraries/SxpClusterLib.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 37,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-28T10:19:00Z",
+      "side": 1,
+      "message": "Robot allows several ways to write a keyword name. Pick one way and stick to it in the whole file.\n\nhttps://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines#Calling_Imported_Keywords",
+      "range": {
+        "startLine": 37,
+        "startChar": 23,
+        "endLine": 37,
+        "endChar": 40
+      },
+      "revId": "11238589afa3e48f6a1dba975f1261fbd6006607",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_444e9ac2",
         "filename": "csit/libraries/SxpClusterLib.robot",
         "patchSetId": 30
@@ -284,6 +307,30 @@
     },
     {
       "key": {
+        "uuid": "3a65312a_9112eb60",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-28T10:19:00Z",
+      "side": 1,
+      "message": "WUKS should be applied only in test cases where it is needed. Transient RPC errors may point to a Bug in clustering, so it would be good to know when does it happen.",
+      "parentUuid": "5a682502_843bd0ea",
+      "range": {
+        "startLine": 40,
+        "startChar": 4,
+        "endLine": 40,
+        "endChar": 41
+      },
+      "revId": "11238589afa3e48f6a1dba975f1261fbd6006607",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_241b9ecb",
         "filename": "csit/libraries/SxpLib.robot",
         "patchSetId": 30
@@ -366,6 +413,30 @@
       "side": 1,
       "message": "So the tests that are more widespread should be testd before the specific ones? Or you mean that one of the speficic cases, should be removed as it is covered by the global one?",
       "parentUuid": "7a6b29fe_242a7e90",
+      "range": {
+        "startLine": 27,
+        "startChar": 13,
+        "endLine": 27,
+        "endChar": 19
+      },
+      "revId": "11238589afa3e48f6a1dba975f1261fbd6006607",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_51185384",
+        "filename": "csit/suites/sxp/clustering/010_Connection_switchover.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-28T10:19:00Z",
+      "side": 1,
+      "message": "In 3node job, Get_Any_Controller chooses one of the three controllers, two of which were already tested in previous test cases. Testing only the last remaining controller would be a better test case. Or, if the third one is not expected to behave differently, this test case can be removed entirely.",
+      "parentUuid": "5a682502_24cc7c35",
       "range": {
         "startLine": 27,
         "startChar": 13,

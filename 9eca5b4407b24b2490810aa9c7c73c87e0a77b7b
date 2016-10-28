@@ -49,6 +49,30 @@
     },
     {
       "key": {
+        "uuid": "3a65312a_d10bc329",
+        "filename": "csit/suites/sxp/filtering/040_Peer_Sequence_filtering.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-28T10:19:00Z",
+      "side": 0,
+      "message": "Still waiting for the update.",
+      "parentUuid": "5a682502_a4f40c88",
+      "range": {
+        "startLine": 28,
+        "startChar": 30,
+        "endLine": 28,
+        "endChar": 38
+      },
+      "revId": "9eca5b4407b24b2490810aa9c7c73c87e0a77b7b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "7a6b29fe_073ae4cc",
         "filename": "csit/suites/sxp/filtering/050_Domain_filtering.robot",
         "patchSetId": 30
@@ -84,6 +108,30 @@
       "side": 0,
       "message": "This one is subset of filter at line 136 and wont affect the result of tested scenario.",
       "parentUuid": "7a6b29fe_073ae4cc",
+      "range": {
+        "startLine": 141,
+        "startChar": 25,
+        "endLine": 141,
+        "endChar": 36
+      },
+      "revId": "9eca5b4407b24b2490810aa9c7c73c87e0a77b7b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_1106db20",
+        "filename": "csit/suites/sxp/filtering/050_Domain_filtering.robot",
+        "patchSetId": 30
+      },
+      "lineNbr": 141,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-10-28T10:19:00Z",
+      "side": 0,
+      "message": "All right then.\nWhat about line 146 and the 5 lines block after it, should the block be removed as well??",
+      "parentUuid": "5a682502_441258b5",
       "range": {
         "startLine": 141,
         "startChar": 25,
