@@ -22,6 +22,30 @@
       "revId": "765c4f5852f4473942f47a9156cdb56cc841cf4e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_2c4bb9b1",
+        "filename": "csit/libraries/MininetKeywords.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-10-31T23:33:38Z",
+      "side": 1,
+      "message": "based on email, I think I need to be more clear here.\n\nin your latest patch (I did a rebase) the [Argument] line has ${timeout}\u003d${DEFAULT_TIMEOUT}.  So, in the body of the keyword here on line 32 we should be using the value that is passed in on the argument line which is stored in ${timeout}.  this change you\u0027ve made here is making the argument ${timeout} irrelevant as you are hard coding line 32 to use DEFAULT_TIMEOUT.  If someone calling \"Start Mininet Multiple Controllers\" wanted to give a different value for timeout, they couldn\u0027t.",
+      "parentUuid": "3a65312a_eada48e8",
+      "range": {
+        "startLine": 32,
+        "startChar": 114,
+        "endLine": 32,
+        "endChar": 129
+      },
+      "revId": "765c4f5852f4473942f47a9156cdb56cc841cf4e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
