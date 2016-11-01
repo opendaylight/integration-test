@@ -187,13 +187,13 @@ Create Vm Instances
     \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VmElement}
 
 Create Vm Instance With Port On Compute Node
-    [Arguments]    ${port_name}    ${vm_instance_name}    ${compute_node}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano
+    [Arguments]    ${port_name}    ${vm_instance_name}    ${compute_node}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${port_id}=    Get Port Id    ${port_name}    ${devstack_conn_id}
     ${hostname_compute_node}=    Run Command On Remote System    ${compute_node}    hostname
-    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --availability-zone nova:${hostname_compute_node}    30s
+    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --security-groups ${sg} --availability-zone nova:${hostname_compute_node}    30s
     Log    ${output}
     Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${vm_instance_name}
 
