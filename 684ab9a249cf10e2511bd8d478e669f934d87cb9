@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_6f6803f6",
+        "filename": "csit/suites/unimgr/uni_legato/010_unimanager_epl.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-01T17:11:43Z",
+      "side": 1,
+      "message": "please remove the sleep",
+      "range": {
+        "startLine": 33,
+        "startChar": 4,
+        "endLine": 33,
+        "endChar": 16
+      },
+      "revId": "684ab9a249cf10e2511bd8d478e669f934d87cb9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_cf6dd706",
+        "filename": "csit/suites/unimgr/uni_legato/010_unimanager_epl.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 34,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-01T17:11:43Z",
+      "side": 1,
+      "message": "56 is not a multiple of 20, fyi.",
+      "range": {
+        "startLine": 34,
+        "startChar": 35,
+        "endLine": 34,
+        "endChar": 45
+      },
+      "revId": "684ab9a249cf10e2511bd8d478e669f934d87cb9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_af721be3",
+        "filename": "csit/suites/unimgr/uni_legato/010_unimanager_epl.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 48,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-01T17:11:43Z",
+      "side": 1,
+      "message": "same here, 6 is not a multiple of 10",
+      "range": {
+        "startLine": 48,
+        "startChar": 35,
+        "endLine": 48,
+        "endChar": 44
+      },
+      "revId": "684ab9a249cf10e2511bd8d478e669f934d87cb9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_ef7373e5",
+        "filename": "csit/suites/unimgr/uni_legato/020_unimanager_eplan.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-01T17:11:43Z",
+      "side": 1,
+      "message": "please remove the sleep",
+      "range": {
+        "startLine": 26,
+        "startChar": 4,
+        "endLine": 26,
+        "endChar": 15
+      },
+      "revId": "684ab9a249cf10e2511bd8d478e669f934d87cb9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_0f77cfd5",
+        "filename": "csit/suites/unimgr/uni_legato/020_unimanager_eplan.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-01T17:11:43Z",
+      "side": 1,
+      "message": "this is saying to poll for 16s total, but to check every 20s.  doesn\u0027t make sense.",
+      "range": {
+        "startLine": 31,
+        "startChar": 35,
+        "endLine": 31,
+        "endChar": 45
+      },
+      "revId": "684ab9a249cf10e2511bd8d478e669f934d87cb9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_4f81c78e",
+        "filename": "csit/suites/unimgr/uni_legato/020_unimanager_eplan.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 53,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-01T17:11:43Z",
+      "side": 1,
+      "message": "maybe you want 12 or 18 instead of 10?",
+      "range": {
+        "startLine": 53,
+        "startChar": 35,
+        "endLine": 53,
+        "endChar": 45
+      },
+      "revId": "684ab9a249cf10e2511bd8d478e669f934d87cb9",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
