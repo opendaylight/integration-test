@@ -61,12 +61,22 @@ Create Neutron Subnets
     Should Contain    ${SUB_LIST}    ${SUBNETS[0]}
     Should Contain    ${SUB_LIST}    ${SUBNETS[1]}
 
+Add Ssh Allow Rule
+    [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
+    Neutron Security Group Create    sg-vpnservice
+    Neutron Security Group Rule Create    sg-vpnservice    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    sg-vpnservice    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    sg-vpnservice    direction=ingress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    sg-vpnservice    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    sg-vpnservice    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    sg-vpnservice    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
+
 Create Neutron Ports
     [Documentation]    Create four ports under previously created subnets
-    Create Port    ${NETWORKS[0]}    ${PORT_LIST[0]}
-    Create Port    ${NETWORKS[0]}    ${PORT_LIST[1]}
-    Create Port    ${NETWORKS[1]}    ${PORT_LIST[2]}
-    Create Port    ${NETWORKS[1]}    ${PORT_LIST[3]}
+    Create Port    ${NETWORKS[0]}    ${PORT_LIST[0]}    sg=sg-vpnservice
+    Create Port    ${NETWORKS[0]}    ${PORT_LIST[1]}    sg=sg-vpnservice
+    Create Port    ${NETWORKS[1]}    ${PORT_LIST[2]}    sg=sg-vpnservice
+    Create Port    ${NETWORKS[1]}    ${PORT_LIST[3]}    sg=sg-vpnservice
 
 Check OpenDaylight Neutron Ports
     [Documentation]    Checking OpenDaylight Neutron API for known ports
@@ -76,10 +86,10 @@ Check OpenDaylight Neutron Ports
 
 Create Nova VMs
     [Documentation]    Create Vm instances on compute node with port
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[0]}    ${VM_INSTANCES[0]}    ${OS_COMPUTE_1_IP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES[1]}    ${OS_COMPUTE_2_IP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES[2]}    ${OS_COMPUTE_1_IP}
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES[3]}    ${OS_COMPUTE_2_IP}
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[0]}    ${VM_INSTANCES[0]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES[1]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES[2]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES[3]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
     Log    Check for routes
     Wait Until Keyword Succeeds    30s    10s    Wait For Routes To Propogate
 
