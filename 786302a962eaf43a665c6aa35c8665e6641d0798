@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3a65312a_fb25f10a",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 217,
+      "author": {
+        "id": 3269
+      },
+      "writtenOn": "2016-11-02T14:22:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a65312a_c9da01e9",
+      "range": {
+        "startLine": 217,
+        "startChar": 37,
+        "endLine": 217,
+        "endChar": 51
+      },
+      "revId": "786302a962eaf43a665c6aa35c8665e6641d0798",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a65312a_a9698527",
         "filename": "csit/libraries/ClusterManagement.robot",
         "patchSetId": 2
@@ -36,6 +60,30 @@
       "writtenOn": "2016-10-27T12:28:11Z",
       "side": 1,
       "message": "old",
+      "range": {
+        "startLine": 235,
+        "startChar": 14,
+        "endLine": 235,
+        "endChar": 17
+      },
+      "revId": "786302a962eaf43a665c6aa35c8665e6641d0798",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_db22b500",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 235,
+      "author": {
+        "id": 3269
+      },
+      "writtenOn": "2016-11-02T14:22:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a65312a_a9698527",
       "range": {
         "startLine": 235,
         "startChar": 14,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "3a65312a_1b1d4dbe",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 240,
+      "author": {
+        "id": 3269
+      },
+      "writtenOn": "2016-11-02T14:22:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a65312a_69edad8b",
+      "range": {
+        "startLine": 240,
+        "startChar": 10,
+        "endLine": 240,
+        "endChar": 13
+      },
+      "revId": "786302a962eaf43a665c6aa35c8665e6641d0798",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a65312a_29cc5535",
         "filename": "csit/libraries/ClusterManagement.robot",
         "patchSetId": 2
@@ -82,6 +154,30 @@
       "writtenOn": "2016-10-27T12:28:11Z",
       "side": 1,
       "message": "BuiltIn.Return_From_Keyword_If    \"status\"\u003d\u003d\"PASS\"    ${results}\n\nThen you can BuiltIn.Run_Keyword_And_Return Get_Owner_And_Candidates_For_Device_Singleton_${device_type}",
+      "range": {
+        "startLine": 242,
+        "startChar": 4,
+        "endLine": 242,
+        "endChar": 5
+      },
+      "revId": "786302a962eaf43a665c6aa35c8665e6641d0798",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_7b79e1fb",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 242,
+      "author": {
+        "id": 3269
+      },
+      "writtenOn": "2016-11-02T14:22:35Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a65312a_29cc5535",
       "range": {
         "startLine": 242,
         "startChar": 4,
