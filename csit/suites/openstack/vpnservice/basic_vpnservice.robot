@@ -148,6 +148,33 @@ Delete And Recreate Extra Route
     Update Router    @{ROUTERS}[0]    ${RT_CLEAR}
     Show Router    @{ROUTERS}[0]    -D
 
+Check Datapath After OVS Restart
+    [Documentation]    Verify end to end data path after OVS restart within same network and from one network to the other
+    Log    "Restarting OVS1 and OVS2"
+    ${output} =    Run Command On Remote System    ${OS_COMPUTE_1_IP}    sudo /usr/share/openvswitch/scripts/ovs-ctl stop
+    Log    ${output}
+    ${output} =    Run Command On Remote System    ${OS_COMPUTE_2_IP}    sudo /usr/share/openvswitch/scripts/ovs-ctl stop
+    Log    ${output}
+    ${output} =    Run Command On Remote System    ${OS_COMPUTE_1_IP}    sudo /usr/share/openvswitch/scripts/ovs-ctl start
+    Log    ${output}
+    ${output} =    Run Command On Remote System    ${OS_COMPUTE_2_IP}    sudo /usr/share/openvswitch/scripts/ovs-ctl start
+    Log    ${output}
+    Log    "Checking the OVS state after restart"
+    Wait Until Keyword Succeeds    30s    10s    Verify OVS Reports Connected    tools_system=${OS_COMPUTE_1_IP}
+    Wait Until Keyword Succeeds    30s    10s    Verify OVS Reports Connected    tools_system=${OS_COMPUTE_2_IP}
+    # Check datapath from network1 to network2
+    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET20_VM_IPS}[0]    @{NET20_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    # Check datapath from network2 to network1
+    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]
+    Log    ${dst_ip_list}
+    ${other_dst_ip_list} =    Create List    @{NET10_VM_IPS}[0]    @{NET10_VM_IPS}[1]
+    Log    ${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+
 Delete Router Interfaces
     [Documentation]    Remove Interface to the subnets.
     : FOR    ${INTERFACE}    IN    @{SUBNETS}
