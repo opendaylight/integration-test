@@ -18,10 +18,13 @@ Resource          ../../../libraries/SetupUtils.robot
 *** Variables ***
 @{NETWORKS_NAME}    l2_network_1    l2_network_2
 @{SUBNETS_NAME}    l2_subnet_1    l2_subnet_2
-@{NET_1_VM_INSTANCES}    MyFirstInstance_1    MySecondInstance_1    MyThirdInstance_1
-@{NET_2_VM_INSTANCES}    MyFirstInstance_2    MySecondInstance_2    MyThirdInstance_2
-@{NET_1_VM_IPS}    30.0.0.3    30.0.0.4    30.0.0.5
-@{NET_2_VM_IPS}    40.0.0.3    40.0.0.4    40.0.0.5
+@{NET_1_VM_INSTANCES}    MyFirstInstance_1    MySecondInstance_1    MyThirdInstance_1     MyfourthInstance_1
+@{SG1_INSTANCE}      MyFirstInstance_1
+@{SG2_INSTANCE}      MySecondInstance_1
+@{SG3_INSTANCES}     MyThirdInstance_1      MyfourthInstance_1
+@{NET_2_VM_INSTANCES}    MyFirstInstance_2    MySecondInstance_2
+@{NET_1_VM_IPS}    30.0.0.3    30.0.0.4    30.0.0.5      30.0.0.6
+@{NET_2_VM_IPS}    40.0.0.3    40.0.0.4
 @{VM_IPS_NOT_DELETED}    30.0.0.4    30.0.0.5
 @{GATEWAY_IPS}    30.0.0.1    40.0.0.1
 @{DHCP_IPS}       30.0.0.2    40.0.0.2
@@ -48,12 +51,22 @@ Add Ssh Allow Rule
     Neutron Security Group Rule Create    csit    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    csit    direction=ingress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    csit    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    csit    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    csit    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Create    csit1
+    Neutron Security Group Rule Create    csit1    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    csit1    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    csit1    direction=ingress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    csit1    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Create    csit2
+    Neutron Security Group Rule Create    csit2    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    csit2    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    csit2    direction=ingress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    csit2    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
 
 Create Vm Instances For l2_network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    l2_network_1    ${NET_1_VM_INSTANCES}    sg=csit
+    Create Vm Instances    l2_network_1    ${SG1_INSTANCE}    sg=csit
+    Create Vm Instances    l2_network_1    ${SG2_INSTANCE}    sg=csit1
+    Create Vm Instances    l2_network_1    ${SG3_INSTANCES}    sg=csit2
 
 Create Vm Instances For l2_network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
@@ -74,6 +87,11 @@ Ping Vm Instance3 In l2_network_1
     Get OvsDebugInfo
     Ping Vm From DHCP Namespace    l2_network_1    @{NET_1_VM_IPS}[2]
 
+Ping Vm Instance4 In l2_network_1
+    [Documentation]    Check reachability of vm instances by pinging to them.
+    Get OvsDebugInfo
+    Ping Vm From DHCP Namespace    l2_network_1    @{NET_1_VM_IPS}[3]
+
 Ping Vm Instance1 In l2_network_2
     [Documentation]    Check reachability of vm instances by pinging to them.
     Get OvsDebugInfo
@@ -83,11 +101,6 @@ Ping Vm Instance2 In l2_network_2
     [Documentation]    Check reachability of vm instances by pinging to them.
     Get OvsDebugInfo
     Ping Vm From DHCP Namespace    l2_network_2    @{NET_2_VM_IPS}[1]
-
-Ping Vm Instance3 In l2_network_2
-    [Documentation]    Check reachability of vm instances by pinging to them.
-    Get OvsDebugInfo
-    Ping Vm From DHCP Namespace    l2_network_2    @{NET_2_VM_IPS}[2]
 
 Connectivity Tests From Vm Instance1 In l2_network_1
     [Documentation]    Logging to the vm instance1
@@ -110,26 +123,26 @@ Connectivity Tests From Vm Instance3 In l2_network_1
     Get OvsDebugInfo
     Test Operations From Vm Instance    l2_network_1    @{NET_1_VM_IPS}[2]    ${dst_ip_list}
 
+Connectivity Tests From Vm Instance4 In l2_network_1
+    [Documentation]    Logging to the vm instance2
+    ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}[0]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[1]      @{NET_1_VM_IPS}[2]
+    Log    ${dst_ip_list}
+    Get OvsDebugInfo
+    Test Operations From Vm Instance    l2_network_1    @{NET_1_VM_IPS}[3]    ${dst_ip_list}
+
 Connectivity Tests From Vm Instance1 In l2_network_2
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[1]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[2]
+    ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[1]    @{DHCP_IPS}[1]
     Log    ${dst_ip_list}
     Get OvsDebugInfo
     Test Operations From Vm Instance    l2_network_2    @{NET_2_VM_IPS}[0]    ${dst_ip_list}
 
 Connectivity Tests From Vm Instance2 In l2_network_2
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[2]
+    ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]
     Log    ${dst_ip_list}
     Get OvsDebugInfo
     Test Operations From Vm Instance    l2_network_2    @{NET_2_VM_IPS}[1]    ${dst_ip_list}
-
-Connectivity Tests From Vm Instance3 In l2_network_2
-    [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[1]
-    Log    ${dst_ip_list}
-    Get OvsDebugInfo
-    Test Operations From Vm Instance    l2_network_2    @{NET_2_VM_IPS}[2]    ${dst_ip_list}
 
 Delete A Vm Instance
     [Documentation]    Delete Vm instances using instance names.
