@@ -194,7 +194,6 @@ Create Vm Instances
     : FOR    ${VmElement}    IN    @{vm_instance_names}
     \    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement} --security-groups ${sg}    30s
     \    Log    ${output}
-    \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VmElement}
 
 Create Vm Instance With Port On Compute Node
     [Arguments]    ${port_name}    ${vm_instance_name}    ${compute_node}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default
@@ -213,6 +212,17 @@ Verify VM Is ACTIVE
     ${output}=    Write Commands Until Prompt    nova show ${vm_name} | grep OS-EXT-STS:vm_state    30s
     Log    ${output}
     Should Contain    ${output}    active
+
+Verify VM Received DHCP Lease
+    [Arguments]    ${vm_name}
+    [Documentation]    Using nova console-log on the provided ${vm_name} to search for the string "obtained" which
+    ...        correlates to the instance receiving it's IP address via DHCP.  This should provide a good indication
+    ...        that the instance is fully up and ready.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    nova console-log ${vm_name} | grep -i "obtained"    30s
+    Log    ${output}
+    Should Contain    ${output}    obtained
 
 View Vm Console
     [Arguments]    ${vm_instance_names}
