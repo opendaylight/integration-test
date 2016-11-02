@@ -4,9 +4,7 @@ Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_T
 ...               AND    DevstackUtils.Devstack Suite Setup Tests
 Suite Teardown    Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     Run Keywords    Show Debugs    ${NET_1_VM_INSTANCES}
-...               AND    Show Debugs    ${NET_2_VM_INSTANCES}
-...               AND    Get OvsDebugInfo
+Test Teardown     Get OvsDebugInfo
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -48,6 +46,24 @@ Create Vm Instances For network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     Create Vm Instances    network_2    ${NET_2_VM_INSTANCES}    sg=csit
 
+Check Vm Instances Have Ip Address
+    [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
+    ...    We are polling first and longest on the last VM created assuming that if it's received it's address
+    ...    already the other instances should have theirs already or at least shortly thereafter.
+    # first, ensure all VMs are in ACTIVE state.    if not, we can just fail the test case and not waste time polling
+    # for dhcp addresses
+    : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
+    \    Wait Until Keyword Succeeds    15s    5s    Verify VM Is ACTIVE    ${vm}
+    Wait Until Keyword Succeeds    180s    10s    Verify VM Received DHCP Lease    MyThirdInstance_2
+    Wait Until Keyword Succeeds    20s    5s    Verify VM Received DHCP Lease    MyFirstInstance_1
+    Wait Until Keyword Succeeds    20s    5s    Verify VM Received DHCP Lease    MySecondInstance_1
+    Wait Until Keyword Succeeds    20s    5s    Verify VM Received DHCP Lease    MyThirdInstance_1
+    Wait Until Keyword Succeeds    20s    5s    Verify VM Received DHCP Lease    MyFirstInstance_2
+    Wait Until Keyword Succeeds    20s    5s    Verify VM Received DHCP Lease    MySecondInstance_2
+    [Teardown]    Run Keywords    Show Debugs    ${NET_1_VM_INSTANCES}
+    ...    AND    Show Debugs    ${NET_2_VM_INSTANCES}
+    ...    AND    Get OvsDebugInfo
+
 Create Routers
     [Documentation]    Create Router
     Create Router    router_1
@@ -59,33 +75,30 @@ Add Interfaces To Router
 
 Ping Vm Instance1 In network_2 From network_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Get OvsDebugInfo
     Ping Vm From DHCP Namespace    network_1    @{NET_2_VM_IPS}[0]
 
 Ping Vm Instance2 In network_2 From network_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Get OvsDebugInfo
     Ping Vm From DHCP Namespace    network_1    @{NET_2_VM_IPS}[1]
 
 Ping Vm Instance3 In network_2 From network_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Get OvsDebugInfo
     Ping Vm From DHCP Namespace    network_1    @{NET_2_VM_IPS}[2]
 
 Ping Vm Instance1 In network_1 From network_2
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Get OvsDebugInfo
     Ping Vm From DHCP Namespace    network_2    @{NET_1_VM_IPS}[0]
 
 Ping Vm Instance2 In network_1 From network_2
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Get OvsDebugInfo
     Ping Vm From DHCP Namespace    network_2    @{NET_1_VM_IPS}[1]
 
 Ping Vm Instance3 In network_1 From network_2
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Get OvsDebugInfo
     Ping Vm From DHCP Namespace    network_2    @{NET_1_VM_IPS}[2]
+    [Teardown]    Run Keywords    Show Debugs    ${NET_1_VM_INSTANCES}
+    ...    AND    Show Debugs    ${NET_2_VM_INSTANCES}
+    ...    AND    Get OvsDebugInfo
 
 Connectivity Tests From Vm Instance1 In network_1
     [Documentation]    Logging to the vm instance using generated key pair.
@@ -93,7 +106,6 @@ Connectivity Tests From Vm Instance1 In network_1
     Log    ${dst_ip_list}
     ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[0]    @{NET_2_VM_IPS}[1]    @{NET_2_VM_IPS}[2]
     Log    ${other_dst_ip_list}
-    Get OvsDebugInfo
     Test Operations From Vm Instance    network_1    @{NET_1_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
 Connectivity Tests From Vm Instance2 In network_1
@@ -102,7 +114,6 @@ Connectivity Tests From Vm Instance2 In network_1
     Log    ${dst_ip_list}
     ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[0]    @{NET_2_VM_IPS}[1]    @{NET_2_VM_IPS}[2]
     Log    ${other_dst_ip_list}
-    Get OvsDebugInfo
     Test Operations From Vm Instance    network_1    @{NET_1_VM_IPS}[1]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
 Connectivity Tests From Vm Instance3 In network_1
@@ -111,7 +122,6 @@ Connectivity Tests From Vm Instance3 In network_1
     Log    ${dst_ip_list}
     ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[0]    @{NET_2_VM_IPS}[1]    @{NET_2_VM_IPS}[2]
     Log    ${other_dst_ip_list}
-    Get OvsDebugInfo
     Test Operations From Vm Instance    network_1    @{NET_1_VM_IPS}[2]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
 Connectivity Tests From Vm Instance1 In network_2
@@ -120,7 +130,6 @@ Connectivity Tests From Vm Instance1 In network_2
     Log    ${dst_ip_list}
     ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
     Log    ${other_dst_ip_list}
-    Get OvsDebugInfo
     Test Operations From Vm Instance    network_2    @{NET_2_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
 Connectivity Tests From Vm Instance2 In network_2
@@ -129,7 +138,6 @@ Connectivity Tests From Vm Instance2 In network_2
     Log    ${dst_ip_list}
     ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
     Log    ${other_dst_ip_list}
-    Get OvsDebugInfo
     Test Operations From Vm Instance    network_2    @{NET_2_VM_IPS}[1]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
 
 Connectivity Tests From Vm Instance3 In network_2
@@ -138,8 +146,10 @@ Connectivity Tests From Vm Instance3 In network_2
     Log    ${dst_ip_list}
     ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
     Log    ${other_dst_ip_list}
-    Get OvsDebugInfo
     Test Operations From Vm Instance    network_2    @{NET_2_VM_IPS}[2]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    [Teardown]    Run Keywords    Show Debugs    ${NET_1_VM_INSTANCES}
+    ...    AND    Show Debugs    ${NET_2_VM_INSTANCES}
+    ...    AND    Get OvsDebugInfo
 
 Delete Vm Instances In network_1
     [Documentation]    Delete Vm instances using instance names in network_1.
@@ -150,6 +160,9 @@ Delete Vm Instances In network_2
     [Documentation]    Delete Vm instances using instance names in network_2.
     : FOR    ${VmElement}    IN    @{NET_2_VM_INSTANCES}
     \    Delete Vm Instance    ${VmElement}
+    [Teardown]    Run Keywords    Show Debugs    ${NET_1_VM_INSTANCES}
+    ...    AND    Show Debugs    ${NET_2_VM_INSTANCES}
+    ...    AND    Get OvsDebugInfo
 
 Delete Router Interfaces
     [Documentation]    Remove Interface to the subnets.
