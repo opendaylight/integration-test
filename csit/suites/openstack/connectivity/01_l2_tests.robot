@@ -4,9 +4,6 @@ Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_T
 ...               AND    DevstackUtils.Devstack Suite Setup Tests
 Suite Teardown    Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     Run Keywords    Show Debugs    ${NET_1_VM_INSTANCES}
-...               AND    Show Debugs    ${NET_2_VM_INSTANCES}
-...               AND    Get OvsDebugInfo
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -40,6 +37,7 @@ Create Subnets For l2_network_1
 Create Subnets For l2_network_2
     [Documentation]    Create Sub Nets for the Networks with neutron request.
     Create SubNet    l2_network_2    l2_subnet_2    @{SUBNETS_RANGE}[1]
+    [Teardown]    Get OvsDebugInfo
 
 Add Ssh Allow Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
@@ -58,6 +56,20 @@ Create Vm Instances For l2_network_1
 Create Vm Instances For l2_network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     Create Vm Instances    l2_network_2    ${NET_2_VM_INSTANCES}    sg=csit
+
+Check Vm Instances Have Ip Address
+    [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
+    ...        We are polling first and longest on the last VM created assuming that if it's received it's address
+    ...        already the other instances should have theirs already or at least shortly thereafter.
+    Wait Until Keyword Succeeds    180s    10s    Verify VM Received DHCP Lease    MyThirdInstance_2
+    Wait Until Keyword Succeeds    20s    5s    Verify VM Received DHCP Lease    MyFirstInstance_1
+    Wait Until Keyword Succeeds    20s    5s    Verify VM Received DHCP Lease    MySecondInstance_1
+    Wait Until Keyword Succeeds    20s    5s    Verify VM Received DHCP Lease    MyThirdInstance_1
+    Wait Until Keyword Succeeds    20s    5s    Verify VM Received DHCP Lease    MyFirstInstance_2
+    Wait Until Keyword Succeeds    20s    5s    Verify VM Received DHCP Lease    MySecondInstance_2
+    [Teardown]    Run Keywords    Show Debugs    ${NET_1_VM_INSTANCES}
+    ...               AND    Show Debugs    ${NET_2_VM_INSTANCES}
+    ...               AND    Get OvsDebugInfo
 
 Ping Vm Instance1 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
@@ -88,6 +100,9 @@ Ping Vm Instance3 In l2_network_2
     [Documentation]    Check reachability of vm instances by pinging to them.
     Get OvsDebugInfo
     Ping Vm From DHCP Namespace    l2_network_2    @{NET_2_VM_IPS}[2]
+    [Teardown]    Run Keywords    Show Debugs    ${NET_1_VM_INSTANCES}
+    ...               AND    Show Debugs    ${NET_2_VM_INSTANCES}
+    ...               AND    Get OvsDebugInfo
 
 Connectivity Tests From Vm Instance1 In l2_network_1
     [Documentation]    Logging to the vm instance1
@@ -130,6 +145,9 @@ Connectivity Tests From Vm Instance3 In l2_network_2
     Log    ${dst_ip_list}
     Get OvsDebugInfo
     Test Operations From Vm Instance    l2_network_2    @{NET_2_VM_IPS}[2]    ${dst_ip_list}
+    [Teardown]    Run Keywords    Show Debugs    ${NET_1_VM_INSTANCES}
+    ...               AND    Show Debugs    ${NET_2_VM_INSTANCES}
+    ...               AND    Get OvsDebugInfo
 
 Delete A Vm Instance
     [Documentation]    Delete Vm instances using instance names.
@@ -139,6 +157,9 @@ No Ping For Deleted Vm
     [Documentation]    Check non reachability of deleted vm instances by pinging to them.
     Get OvsDebugInfo
     ${output}=    Ping From DHCP Should Not Succeed    l2_network_1    @{NET_1_VM_IPS}[0]
+    [Teardown]    Run Keywords    Show Debugs    ${NET_1_VM_INSTANCES}
+    ...               AND    Show Debugs    ${NET_2_VM_INSTANCES}
+    ...               AND    Get OvsDebugInfo
 
 Delete Vm Instances In l2_network_1
     [Documentation]    Delete Vm instances using instance names in l2_network_1.
