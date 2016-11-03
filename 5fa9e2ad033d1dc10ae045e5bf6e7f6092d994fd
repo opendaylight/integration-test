@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_83ee1321",
+        "filename": "csit/testplans/netvirt-1node-openstack.txt",
+        "patchSetId": 1
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-11-03T09:10:46Z",
+      "side": 1,
+      "message": "Let\u0027s get this in, but I\u0027m not sure why the new netvirt is regressed in all tests - since the connectivity suite is common to both I would expect it to work? It doesn\u0027t look like real regression though so lets commit this and see",
+      "revId": "5fa9e2ad033d1dc10ae045e5bf6e7f6092d994fd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
