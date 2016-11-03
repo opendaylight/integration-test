@@ -5,6 +5,8 @@ Resource          Utils.robot
 Variables         ../variables/Variables.py
 
 *** Keywords ***
+#Keywords for review
+
 Source Password
     [Arguments]    ${force}=no    ${source_pwd}=yes
     [Documentation]    Sourcing the Openstack PAsswords for neutron configurations
@@ -17,6 +19,16 @@ Get Tenant ID From Security Group
     ${output}=    Write Commands Until Prompt    neutron security-group-show default | grep "| tenant_id" | awk '{print $4}'
     Log    ${output}
     [Return]    ${output}
+
+Get Tenant ID From Network
+    [Arguments]    ${network_uuid}
+    [Documentation]    Returns tenant ID by reading it from existing network.
+    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/neutron:neutron/networks/network/${network_uuid}/
+    Log    ${resp.content}
+    ${matches} =    Get Lines Containing String    ${resp.content}    tenant-id
+    ${matches}=    Fetch From Right    ${matches}    :
+    ${tenant_id}=    Strip String    ${matches}    characters=}]"
+    [Return]    ${tenant_id}
 
 Create Network
     [Arguments]    ${network_name}    ${additional_args}=${EMPTY}    ${verbose}=TRUE

@@ -13,6 +13,8 @@ ${OVSDB_CONFIG_DIR}    ../variables/ovsdb
 ${SOUTHBOUND_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F
 
 *** Keywords ***
+#Keywords for review
+
 Connect To Ovsdb Node
     [Arguments]    ${mininet_ip}
     [Documentation]    This will Initiate the connection to OVSDB node from controller
