@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_a3822f50",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-11-03T09:08:10Z",
+      "side": 0,
+      "message": "Can we keep GetOvsDebugInfo in each test teardown - flows and counters are very useful between tests and this only takes ~3 seconds.\n\nThe Show Debugs are the ones that need to go from all tests..",
+      "revId": "57888fb13972e49f70a80a2671a8ae2de17b0443",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}

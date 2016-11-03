@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_a326afb8",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-11-03T09:08:10Z",
+      "side": 1,
+      "message": "Can probably keep the polling of VMs active, but do it here after booting everything, unless the nova show is slowing things down.. this way we have indication if nova never even booted the VM",
+      "revId": "5a6a1d54610b8a4883c19fa6daa90118f9322a7a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_c3812b4c",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-11-03T09:08:10Z",
+      "side": 1,
+      "message": "If we keep the OvsDebugInfo in all tests teardown, can remove it here so it doesnt happen twice",
+      "revId": "5a6a1d54610b8a4883c19fa6daa90118f9322a7a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_e37c2775",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-11-03T09:08:10Z",
+      "side": 1,
+      "message": "No need for more show debugs here - only after creating/deleting VMs",
+      "revId": "5a6a1d54610b8a4883c19fa6daa90118f9322a7a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_23961f95",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 148,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-11-03T09:08:10Z",
+      "side": 1,
+      "message": "No need for more show debugs here - only after creating/deleting VMs",
+      "revId": "5a6a1d54610b8a4883c19fa6daa90118f9322a7a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_63901796",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-11-03T09:08:10Z",
+      "side": 1,
+      "message": "Can push the show debugs down to be after all the deletes..",
+      "revId": "5a6a1d54610b8a4883c19fa6daa90118f9322a7a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
