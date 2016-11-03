@@ -23,12 +23,14 @@ Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Library           ${CURDIR}/../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
 Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 
 *** Variables ***
 ${HOLDTIME}       180
 ${DEVICE_NAME}    controller-config
 ${BGP_PEER_NAME}    example-bgp-peer
 ${RIB_INSTANCE}    example-bgp-rib
+${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
 ${APP_PEER_NAME}    example-bgp-peer-app
 ${BGP_VAR_FOLDER}    ${CURDIR}/../../../variables/bgpfunctional
 ${MULT_VAR_FOLDER}    ${BGP_VAR_FOLDER}/multipaths
@@ -41,6 +43,7 @@ ${N_PATHS_VALUE}    2
 ${PATH_ID_LIST_LEN}    3
 ${NEXT_HOP_PREF}    100.100.100.
 ${RIB_URI}        /restconf/config/network-topology:network-topology/topology/topology-netconf/node/controller-config/yang-ext:mount/config:modules/module/odl-bgp-rib-impl-cfg:rib-impl/example-bgp-rib
+${OPENCONFIG_RIB_URI}    /restconf/config/openconfig-network-instance:network-instances/network-instance/global-bgp/openconfig-network-instance:protocols/protocol/openconfig-policy-types:BGP/example-bgp-rib
 ${NPATHS_SELM}    n-paths
 ${ALLPATHS_SELM}    all-paths
 ${ADDPATHCAP_SR}    send\\/receive
@@ -50,10 +53,11 @@ ${ADDPATHCAP_D}    disable
 
 *** Test Cases ***
 Reconfigure_ODL_To_Accept_Connection
-    [Documentation]    Configure BGP peer module with initiate-connection set to false.
+    [Documentation]    Configures BGP peer module with initiate-connection set to false.
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
-    ...    INITIATE=false    RIB_INSTANCE_NAME=${RIB_INSTANCE}
-    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    ...    INITIATE=false    RIB_INSTANCE_NAME=${RIB_INSTANCE}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    PASSIVE_MODE=true
+    # configuration of the peer and multipath for carbon and above is done in the testcase at once
+    CompareStream.Run_Keyword_If_At_Most_Boron    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Odl Allpaths Exa SendReceived
     [Documentation]    all-paths selected policy selected
@@ -61,7 +65,7 @@ Odl Allpaths Exa SendReceived
     [Setup]    Configure_Path_Selection_And_App_Peer_And_Connect_Peer    ${ALLPATHS_SELM}    ${ADDPATHCAP_SR}
     Log_Loc_Rib_Operational
     BuiltIn.Wait_Until_Keyword_Succeeds    6x    2s    Verify_Expected_Update_Count    ${PATH_ID_LIST_LEN}
-    [Teardown]    Remove_App_Peer_Configuration_And_Stop_ExaBgp
+    [Teardown]    Remove_Odl_And_App_Peer_Configuration_And_Stop_ExaBgp
 
 Odl Npaths Exa SendReceived
     [Documentation]    n-paths policy selected on odl
@@ -69,12 +73,12 @@ Odl Npaths Exa SendReceived
     [Setup]    Configure_Path_Selection_And_App_Peer_And_Connect_Peer    ${NPATHS_SELM}    ${ADDPATHCAP_SR}
     Log_Loc_Rib_Operational
     BuiltIn.Wait_Until_Keyword_Succeeds    6x    2s    Verify_Expected_Update_Count    ${N_PATHS_VALUE}
-    [Teardown]    Remove_App_Peer_Configuration_And_Stop_ExaBgp
+    [Teardown]    Remove_Odl_And_App_Peer_Configuration_And_Stop_ExaBgp
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}
-    TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    CompareStream.Run_Keyword_If_At_Most_Boron    TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 *** Keywords ***
 Start_Suite
@@ -87,12 +91,14 @@ Start_Suite
     SSHKeywords.Virtual_Env_Install_Package    exabgp==3.4.16
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     Upload_Config_Files
-    Configure_Odl_With_Multipaths
+    CompareStream.Run_Keyword_If_At_Most_Boron    Configure_Odl_With_Multipaths
+    CompareStream.Run_Keyword_If_At_Least_Carbon    Store_Rib_Configuration
 
 Stop_Suite
-    [Documentation]    Suite teardown keyword with ord rib restoration
+    [Documentation]    Suite teardown keyword with old rib restoration
     SSHKeywords.Virtual_Env_Delete
-    TemplatedRequests.Put_As_Xml_To_Uri    ${RIB_URI}    ${rib_old}    session=${CONFIG_SESSION}
+    CompareStream.Run_Keyword_If_At_Most_Boron    TemplatedRequests.Put_As_Xml_To_Uri    ${RIB_URI}    ${rib_old}    session=${CONFIG_SESSION}
+    CompareStream.Run_Keyword_If_At_Least_Carbon    TemplatedRequests.Put_As_Xml_To_Uri    ${OPENCONFIG_RIB_URI}    ${rib_old}    session=${CONFIG_SESSION}
     SSHLibrary.Close_All_Connections
     RequestsLibrary.Delete_All_Sessions
 
@@ -115,12 +121,16 @@ Configure_Path_Selection_And_App_Peer_And_Connect_Peer
     [Documentation]    Setup test case keyword. Early after the path selection config the incomming connection
     ...    from exabgp towards odl may be rejected by odl due to config process not finished yet. Because of that
     ...    we try to start the tool 3 times in case early attempts fail.
-    Configure_Path_Selection_Mode    ${odl_path_sel_mode}
+    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+    CompareStream.Run_Keyword_If_At_Most_Boron    Configure_Path_Selection_Mode    ${odl_path_sel_mode}
+    CompareStream.Run_Keyword_If_At_Least_Carbon    Configure_Odl_Peer_With_Path_Selection_Mode    ${odl_path_sel_mode}
     Configure_App_Peer_With_Routes
     Upload_Config_Files    addpath=${exa_add_path_value}
     ExaBgpLib.Start_ExaBgp_And_Verify_Connected    ${DEFAUTL_RPC_CFG}    ${CONFIG_SESSION}    ${TOOLS_SYSTEM_IP}    connection_retries=${3}
 
-Remove_App_Peer_Configuration_And_Stop_ExaBgp
+Remove_Odl_And_App_Peer_Configuration_And_Stop_ExaBgp
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    CompareStream.Run_Keyword_If_At_Least_Carbon    TemplatedRequests.Delete_Templated    ${MULT_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
     Deconfigure_App_Peer
     ExaBgpLib.Stop_ExaBgp
     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
@@ -138,6 +148,15 @@ Configure_Path_Selection_Mode
     TemplatedRequests.Get_As_Xml_Templated    ${MULT_VAR_FOLDER}/rib    mapping=${mapping}    session=${CONFIG_SESSION}
     TemplatedRequests.Put_As_Xml_Templated    ${MULT_VAR_FOLDER}/module_psm    mapping=${mapping}    session=${CONFIG_SESSION}
 
+Configure_Odl_Peer_With_Path_Selection_Mode
+    [Arguments]    ${psm}
+    [Documentation]    Configures odl peer with path selection mode
+    ${npaths}=    BuiltIn.Set_Variable_If    "${psm}"=="${ALLPATHS_SELM}"    0    ${N_PATHS_VALUE}
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    PASSIVE_MODE=true    MULTIPATH=${npaths}
+    ...    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    TemplatedRequests.Put_As_Xml_Templated    ${MULT_VAR_FOLDER}/rib    mapping=${mapping}    session=${CONFIG_SESSION}
+    TemplatedRequests.Put_As_Xml_Templated    ${MULT_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+
 Configure_Odl_With_Multipaths
     [Documentation]    Configures odl to support n-paths or all-paths selection
     ${mapping}=    BuiltIn.Set Variable    ${DEFAULT_MAPPING}
@@ -146,9 +165,14 @@ Configure_Odl_With_Multipaths
     TemplatedRequests.Put_As_Xml_Templated    ${MULT_VAR_FOLDER}/service_psmf    mapping=${mapping}    session=${CONFIG_SESSION}
     Configure_Path_Selection_Mode    n-paths
     TemplatedRequests.Put_As_Xml_Templated    ${MULT_VAR_FOLDER}/service_bpsm    mapping=${mapping}    session=${CONFIG_SESSION}
+    Store_Rib_Configuration
+    TemplatedRequests.Put_As_Xml_Templated    ${MULT_VAR_FOLDER}/rib    mapping=${mapping}    session=${CONFIG_SESSION}
+
+Store_Rib_Configuration
+    [Documentation]    Stores rib configuration
+    ${mapping}=    BuiltIn.Set Variable    ${DEFAULT_MAPPING}
     ${rib_old}=    TemplatedRequests.Get_As_Xml_Templated    ${MULT_VAR_FOLDER}/rib    mapping=${mapping}    session=${CONFIG_SESSION}
     BuiltIn.Set_Suite_Variable    ${rib_old}
-    TemplatedRequests.Put_As_Xml_Templated    ${MULT_VAR_FOLDER}/rib    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Log_Loc_Rib_Operational
     ${rsp}=    RequestsLibrary.Get Request    ${CONFIG_SESSION}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/loc-rib/
@@ -156,15 +180,18 @@ Log_Loc_Rib_Operational
 
 Configure_App_Peer_With_Routes
     [Documentation]    Configure bgp application peer and fill it immediately with routes.
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    APP_PEER_NAME=${APP_PEER_NAME}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    APP_PEER_ID=${ODL_SYSTEM_IP}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    APP_PEER_NAME=${APP_PEER_NAME}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    APP_PEER_ID=${ODL_SYSTEM_IP}    IP=${ODL_SYSTEM_IP}
+    ...    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VAR_FOLDER}/app_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    ${app_rib}    CompareStream.Set_Variable_If_At_Most_Boron    example-app-rib    ${ODL_SYSTEM_IP}
     : FOR    ${pathid}    IN    @{PATH_ID_LIST}
-    \    &{route_mapping}    BuiltIn.Create_Dictionary    NEXTHOP=${NEXT_HOP_PREF}${pathid}    LOCALPREF=${pathid}00    PATHID=${pathid}
+    \    &{route_mapping}    BuiltIn.Create_Dictionary    NEXTHOP=${NEXT_HOP_PREF}${pathid}    LOCALPREF=${pathid}00    PATHID=${pathid}    APP_RIB=${app_rib}
     \    TemplatedRequests.Post_As_Xml_Templated    ${MULT_VAR_FOLDER}/route    mapping=${route_mapping}    session=${CONFIG_SESSION}
 
 Deconfigure_App_Peer
     [Documentation]    Revert the BGP configuration to the original state: without application peer
-    &{route_mapping}    BuiltIn.Create_Dictionary
+    ${app_rib}    CompareStream.Set_Variable_If_At_Most_Boron    example-app-rib    ${ODL_SYSTEM_IP}
+    &{route_mapping}    BuiltIn.Create_Dictionary    APP_RIB=${app_rib}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     TemplatedRequests.Delete_Templated    ${MULT_VAR_FOLDER}/route    mapping=${route_mapping}    session=${CONFIG_SESSION}
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    APP_PEER_NAME=${APP_PEER_NAME}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    APP_PEER_NAME=${APP_PEER_NAME}    IP=${ODL_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/app_peer    mapping=${mapping}    session=${CONFIG_SESSION}
