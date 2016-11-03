@@ -32,6 +32,7 @@ ${HOLDTIME}       180
 ${DEVICE_NAME}    controller-config
 ${BGP_PEER_NAME}    example-bgp-peer
 ${RIB_INSTANCE}    example-bgp-rib
+${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
 ${APP_PEER_NAME}    example-bgp-peer-app
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpfunctional
 ${DEFAUTL_RPC_CFG}    exa.cfg
@@ -39,22 +40,20 @@ ${CONFIG_SESSION}    config-session
 ${EVPN_VARIABLES_DIR}    ${CURDIR}/../../../variables/bgpfunctional/l2vpn_evpn
 ${BGP_TOOL_LOG_LEVEL}    debug
 ${PLAY_SCRIPT}    ${CURDIR}/../../../../tools/fastbgp/play.py
-${EVPN_CONF_URL}    /restconf/config/bgp-rib:application-rib/example-app-rib/tables/odl-bgp-evpn:l2vpn-address-family/odl-bgp-evpn:evpn-subsequent-address-family/odl-bgp-evpn:evpn-routes/
-${EVPN_RIB_OPER_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/loc-rib/tables/odl-bgp-evpn:l2vpn-address-family/odl-bgp-evpn:evpn-subsequent-address-family/odl-bgp-evpn:evpn-routes
-${LOC_RIB_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/loc-rib/tables/odl-bgp-evpn:l2vpn-address-family/odl-bgp-evpn:evpn-subsequent-address-family/odl-bgp-evpn:evpn-routes
 
 *** Test Cases ***
 Configure_App_Peer
-    [Documentation]    Configures bgp application peer
+    [Documentation]    Configures bgp application peer. Openconfig is used for carbon and above.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    APP_PEER_NAME=${APP_PEER_NAME}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    APP_PEER_ID=${ODL_SYSTEM_IP}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    APP_PEER_NAME=${APP_PEER_NAME}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    APP_PEER_ID=${ODL_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    ...    IP=${ODL_SYSTEM_IP}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}/app_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configures BGP peer module with initiate-connection set to false.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
-    ...    INITIATE=false    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    ...    INITIATE=false    RIB_INSTANCE_NAME=${RIB_INSTANCE}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    PASSIVE_MODE=true
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Start_Bgp_Peer
@@ -302,13 +301,13 @@ Kill_Talking_BGP_Speaker
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Deconfigure_App_Peer
     [Documentation]    Revert the BGP configuration to the original state: without application peer
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    APP_PEER_NAME=${APP_PEER_NAME}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    APP_PEER_NAME=${APP_PEER_NAME}    IP=${ODL_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}/app_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 *** Keywords ***
@@ -321,6 +320,10 @@ Start_Suite
     RequestsLibrary.Create Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     SSHLibrary.Put File    ${PLAY_SCRIPT}    .
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
+    ${app_rib}=    CompareStream.Set_Variable_If_At_Most_Boron    example-app-rib    ${ODL_SYSTEM_IP}
+    ${bgp_rib}=    CompareStream.Set_Variable_If_At_Most_Boron    example-bgp-rib    example-bgp-rib
+    BuiltIn.Set_Suite_Variable    ${EVPN_CONF_URL}    /restconf/config/bgp-rib:application-rib/${app_rib}/tables/odl-bgp-evpn:l2vpn-address-family/odl-bgp-evpn:evpn-subsequent-address-family/odl-bgp-evpn:evpn-routes/
+    BuiltIn.Set_Suite_Variable    ${EVPN_LOC_RIB_OPER_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/${bgp_rib}/loc-rib/tables/odl-bgp-evpn:l2vpn-address-family/odl-bgp-evpn:evpn-subsequent-address-family/odl-bgp-evpn:evpn-routes
 
 Stop_Suite
     [Documentation]    Suite teardown keyword
@@ -386,7 +389,7 @@ Verify_Test_Preconditions
 
 Remove_Configured_Routes
     [Documentation]    Removes the route if present. First GET is for debug purposes.
-    ${rsp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${LOC_RIB_URL}    headers=${HEADERS}
+    ${rsp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_LOC_RIB_OPER_URL}    headers=${HEADERS}
     Log    ${rsp.content}
     ${rsp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_CONF_URL}    headers=${HEADERS}
     Log    ${rsp.content}
@@ -402,7 +405,7 @@ Withdraw_Route_And_Verify
 
 Get_Update_Content
     [Documentation]    Gets received data from odl's peer
-    ${resp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_RIB_OPER_URL}    headers=${HEADERS_XML}
+    ${resp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_LOC_RIB_OPER_URL}    headers=${HEADERS_XML}
     BuiltIn.Log    ${resp.content}
     ${update}=    BgpRpcClient.play_get
     BuiltIn.Should_Not_Be_Equal    ${update}    ${Empty}
@@ -411,5 +414,5 @@ Get_Update_Content
 Loc_Rib_Presnece
     [Arguments]    ${exp_content}
     [Documentation]    Verifies if loc-rib contains expected data
-    ${rsp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${LOC_RIB_URL}    headers=${HEADERS}
+    ${rsp}=    RequestsLibrary.Get_Request    ${CONFIG_SESSION}    ${EVPN_LOC_RIB_OPER_URL}    headers=${HEADERS}
     TemplatedRequests.Normalize_Jsons_And_Compare    ${exp_content}    ${rsp.content}
