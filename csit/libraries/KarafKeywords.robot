@@ -2,7 +2,7 @@
 Documentation     Karaf library. This library is useful to deal with controller Karaf console for ssh sessions in cluster.
 ...               Running Setup Karaf Keywords is necessary. If SetupUtils initialization is called, this gets initialized as well.
 ...               If this gets initialized, ClusterManagement gets initialized as well.
-Library           SSHLibrary
+Library           SSHLibrary    60s
 Library           OperatingSystem
 Resource          ${CURDIR}/ClusterManagement.robot
 Resource          ${CURDIR}/SSHKeywords.robot
@@ -170,11 +170,23 @@ Set Bgpcep Log Levels
     \    Execute Controller Karaf Command On Background    log:set ${protocol_level} org.opendaylight.protocol    member_index=${index}
 
 Wait For Karaf Log
-    [Arguments]    ${message}    ${timeout}=60    ${member_index}=${1}
+    [Arguments]    ${message}    ${timeout}=60    ${member_index}=${1}    ${karaf_ip}=${EMPTY}
     [Documentation]    Read karaf logs until message appear
-    Log    Waiting for '${message}' in karaf log
-    ${karaf_connection_index}=    Collections.Get From Dictionary    ${connection_index_dict}    ${member_index}
-    ${current_connection_index}=    SSHLibrary.Switch Connection    ${karaf_connection_index}
+    Log    Waiting for '${message}' in karaf log. Karaf is identified by ip in prior or by member_index.
+    ${ip_length} =    BuiltIn.Get Length    ${karaf_ip}
+    BuiltIn.Run Keyword If    ${ip_length} > 0    Open Karaf Connection By Ip    ${karaf_ip}
+    BuiltIn.Run Keyword If    ${ip_length} == 0    Open Karaf Connection By Member Index    ${member_index}
     Flexible SSH Login    ${KARAF_USER}    ${KARAF_PASSWORD}
     Write    log:tail
     Read Until    ${message}
+
+Open Karaf Connection By Ip
+    [Arguments]     ${ip_address}
+    [Documentation]    Open SSH connection to karaf running on given ip_address
+    SSHLibrary.Open Connection    ${ip_address}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_DETAILED_PROMPT}
+
+Open Karaf Connection By Member Index
+    [Arguments]     ${member_index}
+    [Documentation]    Open SSH connection to karaf based on given member_index
+    S${karaf_connection_index}=    Collections.Get From Dictionary    ${connection_index_dict}    ${member_index}
+    ${current_connection_index}=    SSHLibrary.Switch Connection    ${karaf_connection_index}
