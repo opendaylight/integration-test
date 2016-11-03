@@ -42,7 +42,7 @@ Start_ExaBgp_And_Verify_Connected
     [Arguments]    ${cfg_file}    ${session}    ${exabgp_ip}    ${connection_retries}=${1}
     [Documentation]    Starts the ExaBgp and verifies its connection. The verification is done by checking the presence
     ...    of the peer in the bgp rib.
-    : FOR    ${idx}    IN    RANGE    ${connection_retries}
+    : FOR    ${idx}    IN RANGE    ${connection_retries}
     \    Start_ExaBgp    ${cfg_file}
     \    ${status}    ${value}=    BuiltIn.Run_Keyword_And_Ignore_Error    BuiltIn.Wait_Until_Keyword_Succeeds    3x    3s
     \    ...    Verify_ExaBgps_Connection    ${session}    ${exabgp_ip}    connected=${True}
