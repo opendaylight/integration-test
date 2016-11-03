@@ -21,6 +21,7 @@ Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Library           ${CURDIR}/../../../libraries/BgpRpcClient.py    ${TOOLS_SYSTEM_IP}
 
 *** Variables ***
@@ -28,6 +29,7 @@ ${HOLDTIME}       180
 ${DEVICE_NAME}    controller-config
 ${BGP_PEER_NAME}    example-bgp-peer
 ${RIB_INSTANCE}    example-bgp-rib
+${RIB_INSTANCE_OPENCONFIG}    bgp-example
 ${APP_PEER_NAME}    example-bgp-peer-app
 ${CMD}            env exabgp.tcp.port=1790 exabgp --debug
 ${BGP_VAR_FOLDER}    ${CURDIR}/../../../variables/bgpfunctional
@@ -40,19 +42,22 @@ ${L3VPN_URL}      /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/loc-
 ${CONFIG_SESSION}    config-session
 ${EXARPCSCRIPT}    ${CURDIR}/../../../../tools/exabgp_files/exarpc.py
 ${PEER_CHECK_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
+${OPENCONFIG_PEER_URI}    /restconf/config/openconfig-network-instance:network-instances/network-instance/global-bgp/openconfig-network-instance:protocols/protocol/openconfig-policy-types:BGP/bgp-example/bgp/neighbors/neighbour
 ${DEFAULT_BGPCEP_LOG_LEVEL}    INFO
 
 *** Test Cases ***
 Configure_App_Peer
-    [Documentation]    Configures bgp application peer
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    APP_PEER_NAME=${APP_PEER_NAME}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    APP_PEER_ID=${ODL_SYSTEM_IP}
-    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VAR_FOLDER}/app_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    [Documentation]    Configures bgp application peer. Openconfig is used for carbon and above.
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    APP_PEER_NAME=${APP_PEER_NAME}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    APP_PEER_ID=${ODL_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${RIB_INSTANCE_OPENCONFIG}    IP=${ODL_SYSTEM_IP}
+    CompareStream.Run_Keyword_If_At_Most_Boron    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VAR_FOLDER}/app_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    CompareStream.Run_Keyword_If_At_Least_Carbon    TemplatedRequests.Post_As_Xml_Templated    ${BGP_VAR_FOLDER}/openconfig_app_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configures BGP peer module with initiate-connection set to false.
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
-    ...    INITIATE=false    RIB_INSTANCE_NAME=${RIB_INSTANCE}
-    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    ...    INITIATE=false    RIB_INSTANCE_NAME=${RIB_INSTANCE}    BGP_RIB_OPENCONFIG=${RIB_INSTANCE_OPENCONFIG}    IP=${ODL_SYSTEM_IP}    PASSIVE_MODE=true
+    CompareStream.Run_Keyword_If_At_Most_Boron    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    CompareStream.Run_Keyword_If_At_Least_Carbon    TemplatedRequests.Post_As_Xml_Templated    ${BGP_VAR_FOLDER}/openconfig_bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 L3vpn_Ipv4_To_Odl
     [Documentation]    Testing mpls vpn ipv4 routes reported to odl from exabgp
@@ -72,12 +77,14 @@ L3vpn_Ipv4_From_Odl
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}
-    TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    CompareStream.Run_Keyword_If_At_Most_Boron    TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    CompareStream.Run_Keyword_If_At_Least_Carbon    TemplatedRequests.Delete_From_Uri    uri=${OPENCONFIG_PEER_URI}/${TOOLS_SYSTEM_IP}    session=${CONFIG_SESSION}    allow_404=${False}
 
 Deconfigure_App_Peer
     [Documentation]    Revert the BGP configuration to the original state: without application peer
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    APP_PEER_NAME=${APP_PEER_NAME}
-    TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/app_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    CompareStream.Run_Keyword_If_At_Most_Boron    TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/app_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    CompareStream.Run_Keyword_If_At_Least_Carbon    TemplatedRequests.Delete_From_Uri    uri=${OPENCONFIG_PEER_URI}/${ODL_SYSTEM_IP}    session=${CONFIG_SESSION}    allow_404=${False}
 
 *** Keywords ***
 Start_Suite
