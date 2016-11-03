@@ -15,7 +15,6 @@ Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${TOOLS_S
 Resource          ${CURDIR}/../../../libraries/ExaBgpLib.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
 Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 
@@ -30,6 +29,10 @@ ${CFG2}           bgp-flowspec-redirect.cfg
 ${EXP2}           bgp-flowspec-redirect.json
 ${FLOWSPEC_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/loc-rib/tables/bgp-types:ipv4-address-family/bgp-flowspec:flowspec-subsequent-address-family/bgp-flowspec:flowspec-routes
 ${CONFIG_SESSION}    session
+${DEVICE_NAME}    controller-config
+${BGP_PEER_NAME}    example-bgp-peer
+${RIB_INSTANCE}    example-bgp-rib
+${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
 
 *** Test Cases ***
 Check_For_Empty_Topology_Before_Talking
@@ -39,8 +42,9 @@ Check_For_Empty_Topology_Before_Talking
 
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${TOOLS_SYSTEM_IP}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'false'}
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}    ${template_as_string}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
+    ...    INITIATE=false    RIB_INSTANCE_NAME=${RIB_INSTANCE}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    PASSIVE_MODE=true
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 FlowSpec Test 1
     [Documentation]    Testing flowspec values for ${CFG1}
@@ -56,8 +60,8 @@ FlowSpec Test 2
 
 Deconfigure_ODL_To_Accept_Connection
     [Documentation]    Deconfigure BGP peer.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${TOOLS_SYSTEM_IP}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'false'}
-    ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}    ${template_as_string}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 *** Keywords ***
 Start Suite
@@ -72,12 +76,10 @@ Start Suite
     ${stdout}    ${stderr}    ${rc}=    SSHLibrary.Execute Command    sudo pip install exabgp    return_stdout=True    return_stderr=True
     ...    return_rc=True
     RequestsLibrary.Create Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
-    ConfigViaRestconf.Setup_Config_Via_Restconf
     Upload Config Files    ${CURDIR}/../../../variables/bgpflowspec/
 
 Stop Suite
     [Documentation]    Suite teardown keyword
-    ConfigViaRestconf.Teardown_Config_Via_Restconf
     SSHLibrary.Close All Connections
     RequestsLibrary.Delete All Sessions
 
