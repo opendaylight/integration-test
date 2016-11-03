@@ -32,6 +32,7 @@ ${HOLDTIME}       180
 ${DEVICE_NAME}    controller-config
 ${BGP_PEER_NAME}    example-bgp-peer
 ${RIB_INSTANCE}    example-bgp-rib
+${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
 ${APP_PEER_NAME}    example-bgp-peer-app
 ${BGP_VAR_FOLDER}    ${CURDIR}/../../../variables/bgpfunctional
 ${BGP_RR_VAR_FOLDER}    ${BGP_VAR_FOLDER}/route_refresh
@@ -42,14 +43,15 @@ ${JOLOKURL}       /jolokia/read/org.opendaylight.controller:instanceName=${BGP_P
 
 *** Test Cases ***
 Configure_App_Peer
-    [Documentation]    Configure bgp application peer
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    APP_PEER_NAME=${APP_PEER_NAME}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    APP_PEER_ID=${ODL_SYSTEM_IP}
+    [Documentation]    Configures bgp application peer. Openconfig is used for carbon and above.
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    APP_PEER_NAME=${APP_PEER_NAME}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    APP_PEER_ID=${ODL_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    ...    IP=${ODL_SYSTEM_IP}
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VAR_FOLDER}/app_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Reconfigure_ODL_To_Accept_Connection
-    [Documentation]    Configure BGP peer module with initiate-connection set to false.
+    [Documentation]    Configures BGP peer module with initiate-connection set to false.
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
-    ...    INITIATE=false    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    ...    INITIATE=false    RIB_INSTANCE_NAME=${RIB_INSTANCE}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    PASSIVE_MODE=true
     TemplatedRequests.Put_As_Xml_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Exa_To_Send_Route_Request
@@ -73,12 +75,12 @@ Odl_To_Send_Route_Request
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Deconfigure_App_Peer
     [Documentation]    Revert the BGP configuration to the original state: without application peer
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    APP_PEER_NAME=${APP_PEER_NAME}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    APP_PEER_NAME=${APP_PEER_NAME}    IP=${ODL_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/app_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 *** Keywords ***
