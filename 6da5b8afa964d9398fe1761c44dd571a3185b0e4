@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_c130fc58",
+        "filename": "csit/libraries/NexusKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 252,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-04T18:45:43Z",
+      "side": 1,
+      "message": "tidy",
+      "range": {
+        "startLine": 252,
+        "startChar": 13,
+        "endLine": 252,
+        "endChar": 15
+      },
+      "revId": "6da5b8afa964d9398fe1761c44dd571a3185b0e4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
