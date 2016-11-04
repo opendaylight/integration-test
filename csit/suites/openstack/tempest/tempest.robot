@@ -11,12 +11,16 @@ Resource          ../../../libraries/SetupUtils.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
-${exclusion_regex}    'metering|test_l3_agent_scheduler.L3AgentSchedulerTestJSON|test_extensions.ExtensionsTestJSON.test_list_show_extensions'
+${exclusion_regex}    'metering|test_l3_agent_scheduler.L3AgentSchedulerTestJSON|test_extensions.ExtensionsTestJSON.test_list_show_extensions|test_routers_dvr.RoutersTestDVR.test_centralized_router_update_to_dvr'
 ${tempest_config_file}    ./tempest.conf
 
 *** Test Cases ***
 tempest.api.network
     Run Tempest Tests    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+
+test_routers_dvr.RoutersTestDVR.test_centralized_router_update_to_dvr
+    Run Tempest Tests    ${TEST_NAME}
+    Report_Failure_Due_To_Bug    9999
 
 tempest.scenario.test_minimum_basic
     [Tags]    exclude
