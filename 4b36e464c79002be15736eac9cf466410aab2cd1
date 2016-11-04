@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_413eacb9",
+        "filename": "csit/suites/sfc/Full_Deploy/010__sfc_full_deploy.robot",
+        "patchSetId": 39
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-04T16:38:44Z",
+      "side": 1,
+      "message": "you should be able to remove this now.  Variables.robot is supposed to have everything in here (and maybe more)\n\nbut ok if you want to do this on a new patch since this patch has been waiting for a while.",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "4b36e464c79002be15736eac9cf466410aab2cd1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
