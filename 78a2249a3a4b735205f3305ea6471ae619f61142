@@ -2,6 +2,52 @@
   "comments": [
     {
       "key": {
+        "uuid": "3a65312a_9b815392",
+        "filename": "csit/suites/bgpcep/bgpclustering/005_Cluster_Reset_And_Set_Nonreplicated_Bgp_Rib.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-04T13:39:36Z",
+      "side": 1,
+      "message": "Not performed anymore.",
+      "range": {
+        "startLine": 26,
+        "startChar": 8,
+        "endLine": 26,
+        "endChar": 21
+      },
+      "revId": "78a2249a3a4b735205f3305ea6471ae619f61142",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_7b55571c",
+        "filename": "csit/suites/bgpcep/bgpclustering/005_Cluster_Reset_And_Set_Nonreplicated_Bgp_Rib.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-04T13:39:36Z",
+      "side": 1,
+      "message": "Either BuiltIn.Log these two variables, or make sure the files are archived at the end of the job run.",
+      "range": {
+        "startLine": 66,
+        "startChar": 22,
+        "endLine": 66,
+        "endChar": 23
+      },
+      "revId": "78a2249a3a4b735205f3305ea6471ae619f61142",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a65312a_db12abb3",
         "filename": "csit/suites/bgpcep/bgpclustering/030_singlepeer_prefixcount_1Mroutes_Be.robot",
         "patchSetId": 24
@@ -18,6 +64,98 @@
         "startChar": 115,
         "endLine": 172,
         "endChar": 151
+      },
+      "revId": "78a2249a3a4b735205f3305ea6471ae619f61142",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_bb1d2f76",
+        "filename": "csit/suites/bgpcep/bgpclustering/030_singlepeer_prefixcount_1Mroutes_nonreplicated_rib.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-04T13:39:36Z",
+      "side": 1,
+      "message": "operational",
+      "range": {
+        "startLine": 45,
+        "startChar": 32,
+        "endLine": 45,
+        "endChar": 42
+      },
+      "revId": "78a2249a3a4b735205f3305ea6471ae619f61142",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_9b06731f",
+        "filename": "csit/suites/bgpcep/bgpclustering/030_singlepeer_prefixcount_1Mroutes_nonreplicated_rib.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 47,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-04T13:39:36Z",
+      "side": 1,
+      "message": "It would be better to call ClusterManagamant.Resolve_Http_Session_For_Member instead of creating your own sessions in suite setup.\n\nBut I guess that can wait for a separate Change, where PrefixCounting is converted from accepting session arguments to accepting member index arguments.\nhttps://trello.com/c/eqqsXgxn/373-int-test-prefixcounting-to-use-member-index-arguments",
+      "range": {
+        "startLine": 47,
+        "startChar": 54,
+        "endLine": 47,
+        "endChar": 75
+      },
+      "revId": "78a2249a3a4b735205f3305ea6471ae619f61142",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_de829951",
+        "filename": "csit/suites/bgpcep/bgpclustering/030_singlepeer_prefixcount_1Mroutes_nonreplicated_rib.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 49,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-04T13:39:36Z",
+      "side": 1,
+      "message": "Why not a single test case with :FOR over members?",
+      "range": {
+        "startLine": 49,
+        "startChar": 44,
+        "endLine": 49,
+        "endChar": 46
+      },
+      "revId": "78a2249a3a4b735205f3305ea6471ae619f61142",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_5b25fbc0",
+        "filename": "csit/suites/bgpcep/bgpclustering/PrefixcountKeywords.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 61,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-04T13:39:36Z",
+      "side": 1,
+      "message": "Not needed since https://git.opendaylight.org/gerrit/45596",
+      "range": {
+        "startLine": 61,
+        "startChar": 22,
+        "endLine": 61,
+        "endChar": 45
       },
       "revId": "78a2249a3a4b735205f3305ea6471ae619f61142",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
