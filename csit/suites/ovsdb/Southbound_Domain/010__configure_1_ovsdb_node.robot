@@ -7,7 +7,7 @@ Force Tags        Southbound
 Library           OperatingSystem
 Library           String
 Library           RequestsLibrary
-Variables         ../../../variables/Variables.robot
+Resource          ../../../variables/Variables.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/OVSDB.robot
