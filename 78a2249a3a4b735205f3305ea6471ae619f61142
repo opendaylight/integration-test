@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_db12abb3",
+        "filename": "csit/suites/bgpcep/bgpclustering/030_singlepeer_prefixcount_1Mroutes_Be.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 172,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-04T12:55:05Z",
+      "side": 1,
+      "message": "Is this the only difference from PrefixcountKeywords.Start_Bgp_Peer? If yes, then you can just add an argument there and call that keyword instead of this one.",
+      "range": {
+        "startLine": 172,
+        "startChar": 115,
+        "endLine": 172,
+        "endChar": 151
+      },
+      "revId": "78a2249a3a4b735205f3305ea6471ae619f61142",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_5bdb3bed",
+        "filename": "csit/suites/bgpcep/bgpclustering/PrefixcountKeywords.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-04T12:55:05Z",
+      "side": 1,
+      "message": "Single space.",
+      "range": {
+        "startLine": 103,
+        "startChar": 25,
+        "endLine": 103,
+        "endChar": 29
+      },
+      "revId": "78a2249a3a4b735205f3305ea6471ae619f61142",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
