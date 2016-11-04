@@ -1,0 +1,9 @@
+Verified+1: jenkins-releng <jenkins-releng@opendaylight.org>
+Code-Review+1: Miguel Ángel Muñoz González <miguel.angel.munoz.gonzalez@ericsson.com>
+Code-Review+1: Jamo Luhrsen <jluhrsen@redhat.com>
+Code-Review+2: Vratko Polák <vrpolak@cisco.com>
+Submitted-by: Vratko Polák <vrpolak@cisco.com>
+Submitted-at: Fri, 04 Nov 2016 19:53:04 +0000
+Reviewed-on: https://git.opendaylight.org/gerrit/45819
+Project: integration/test
+Branch: refs/heads/master
