@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_782f12a2",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 1
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2759
+      },
+      "writtenOn": "2016-11-07T18:07:29Z",
+      "side": 1,
+      "message": "If you leave a blank line after the first summary line commands like git shortlog will render correctly.",
+      "revId": "e7308f662ba1024531270f799f7cf338c7869392",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
