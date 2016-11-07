@@ -50,6 +50,7 @@ ${EXAMPLE_IPV4_TOPOLOGY}    example-ipv4-topology
 ${DEVICE_NAME}    peer-controller-config
 ${DEVICE_CHECK_TIMEOUT}    60s
 ${RIB_INSTANCE}    example-bgp-rib
+${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
 ${BGP_PEER_NAME}    example-bgp-peer
 ${PEER_CHECK_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
 
