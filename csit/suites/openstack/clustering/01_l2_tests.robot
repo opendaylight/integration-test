@@ -35,14 +35,6 @@ Create All Controller Sessions
     [Documentation]    Create sessions for all three contorllers.
     ClusterManagement.ClusterManagement Setup
 
-Check OVS Manager Connection Status
-    [Documentation]    This will verify if the OVS manager is connected
-    ${output}=    Wait Until Keyword Succeeds    5s    1s    Ovsdb.Verify OVS Reports Connected    ${OS_CONTROL_NODE_IP}
-    Log    ${output}
-    Set Suite Variable    ${status}    is_connected: true
-    ${dictionary}=    Create Dictionary    ${status}=9
-    Utils.Check Item Occurrence    ${output}    ${dictionary}
-
 Create Networks
     [Documentation]    Create Network with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
