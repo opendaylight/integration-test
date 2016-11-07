@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_22ac4bed",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 612,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-07T12:05:50Z",
+      "side": 1,
+      "message": "This file uses underscores.",
+      "range": {
+        "startLine": 612,
+        "startChar": 4,
+        "endLine": 612,
+        "endChar": 5
+      },
+      "revId": "84f019fe3a5d0bb5b686d6992f12c22c374b4537",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_82b9df30",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 616,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-07T12:05:50Z",
+      "side": 1,
+      "message": "BuiltIn.Should_Not_Be_True",
+      "range": {
+        "startLine": 616,
+        "startChar": 4,
+        "endLine": 616,
+        "endChar": 22
+      },
+      "revId": "84f019fe3a5d0bb5b686d6992f12c22c374b4537",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_424b472b",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-07T12:05:50Z",
+      "side": 1,
+      "message": "See https://git.opendaylight.org/gerrit/#/c/46454/30/csit/libraries/SxpClusterLib.robot@37",
+      "range": {
+        "startLine": 20,
+        "startChar": 4,
+        "endLine": 20,
+        "endChar": 5
+      },
+      "revId": "84f019fe3a5d0bb5b686d6992f12c22c374b4537",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_a2633bb0",
+        "filename": "csit/suites/sxp/clustering/020_Bindings_consistency.robot",
+        "patchSetId": 36
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-07T12:05:50Z",
+      "side": 1,
+      "message": "I do not think every step can take up to 120 seconds. I recommend to run -all- job on Sandbox and use twice the amount it took there.",
+      "range": {
+        "startLine": 65,
+        "startChar": 35,
+        "endLine": 65,
+        "endChar": 38
+      },
+      "revId": "84f019fe3a5d0bb5b686d6992f12c22c374b4537",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
