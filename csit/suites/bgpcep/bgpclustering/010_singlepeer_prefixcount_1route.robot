@@ -30,6 +30,7 @@ Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
+Resource          ${CURDIR}/../../../libraries/CompareStream.robot
 Resource          ${CURDIR}/PrefixcountKeywords.robot
 
 *** Variables ***
@@ -63,6 +64,8 @@ Check_For_Empty_Ipv4_Topology_Before_Talking_3
 
 Configure_Netconf_Device
     [Documentation]    Configures and verifies netconf device configuration. If configuration is not successful, it de-configures the device before the next attempt.
+    # No need for configuring netconf device in carbon and above, openconfig is used
+    CompareStream.Run_Keyword_If_At_Least_Carbon    BuiltIn.Return_From_Keyword
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    DEVICE_PORT=1830    DEVICE_IP=${rib_owner_node_id}    DEVICE_USER=admin    DEVICE_PASSWORD=admin
     # After the netconf device is configured, odl starts downloading schemas. If the downloading will not finish within akka timeout, more tries are needed, 3 is based on a user experience.
     : FOR    ${index}    IN RANGE    0    3
@@ -75,7 +78,7 @@ Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
-    ...    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
+    ...    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true
     TemplatedRequests.Put_As_Json_Templated    ${BGP_VARIABLES_FOLDER}    mapping=${mapping}    session=${CONFIG_SESSION}
     [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
