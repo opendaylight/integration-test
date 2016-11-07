@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3a65312a_d3ee078b",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 64,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-07T23:24:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a65312a_a326afb8",
+      "revId": "5a6a1d54610b8a4883c19fa6daa90118f9322a7a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a65312a_c3812b4c",
         "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
         "patchSetId": 2
@@ -36,6 +54,24 @@
     },
     {
       "key": {
+        "uuid": "3a65312a_734bb3b0",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 72,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-07T23:24:32Z",
+      "side": 1,
+      "message": "new patch has the global test teardown to do Get OvsDebugInfo so it will run in every test case.  But, when we put a [Teardown] section in a specific test case (like here) it overrides the global teardown, so we have to also include OvsDebugInfo here.",
+      "parentUuid": "3a65312a_c3812b4c",
+      "revId": "5a6a1d54610b8a4883c19fa6daa90118f9322a7a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a65312a_e37c2775",
         "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
         "patchSetId": 2
@@ -47,6 +83,24 @@
       "writtenOn": "2016-11-03T09:08:10Z",
       "side": 1,
       "message": "No need for more show debugs here - only after creating/deleting VMs",
+      "revId": "5a6a1d54610b8a4883c19fa6daa90118f9322a7a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_b3cc2b37",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-07T23:24:32Z",
+      "side": 1,
+      "message": "my thought was to do this at the end of the test cases doing namespace ping as well as at the end of the cases doing the ssh operations.  I remember some cases where flows/rules were taking some time to get programmed, so if we have it once after creating/deleting VMs and then at least one time later in the suite it can help debug when/if we get failures.\n\nyes/no?",
+      "parentUuid": "3a65312a_e37c2775",
       "revId": "5a6a1d54610b8a4883c19fa6daa90118f9322a7a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
@@ -81,6 +135,24 @@
       "writtenOn": "2016-11-03T09:08:10Z",
       "side": 1,
       "message": "Can push the show debugs down to be after all the deletes..",
+      "revId": "5a6a1d54610b8a4883c19fa6daa90118f9322a7a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_13d23fd2",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 160,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-07T23:24:32Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a65312a_63901796",
       "revId": "5a6a1d54610b8a4883c19fa6daa90118f9322a7a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false

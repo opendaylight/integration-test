@@ -16,6 +16,24 @@
       "revId": "57888fb13972e49f70a80a2671a8ae2de17b0443",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_53db17ed",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-07T23:24:32Z",
+      "side": 0,
+      "message": "Done",
+      "parentUuid": "3a65312a_a3822f50",
+      "revId": "57888fb13972e49f70a80a2671a8ae2de17b0443",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
