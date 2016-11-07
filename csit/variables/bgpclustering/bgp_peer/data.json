@@ -1,33 +1,34 @@
 {
-    "module": [
+    "bgp-openconfig-extensions:neighbor": [
         {
-            "type": "odl-bgp-rib-impl-cfg:bgp-peer",
-            "name": "$BGP_NAME",
-            "odl-bgp-rib-impl-cfg:rib": {
-                "type": "odl-bgp-rib-impl-cfg:rib-instance",
-                "name": "$BGP_RIB"
-            },
-            "odl-bgp-rib-impl-cfg:holdtimer": $HOLDTIME,
-            "odl-bgp-rib-impl-cfg:port": $PEER_PORT,
-            "odl-bgp-rib-impl-cfg:advertized-table": [
-                {
-                    "type": "odl-bgp-rib-impl-cfg:bgp-table-type",
-                    "name": "ipv4-unicast"
-                },
-                {
-                    "type": "odl-bgp-rib-impl-cfg:bgp-table-type",
-                    "name": "linkstate"
-                },
-                {
-                    "type": "odl-bgp-rib-impl-cfg:bgp-table-type",
-                    "name": "ipv6-unicast"
+            "neighbor-address": "$IP",
+            "timers": {
+                "config": {
+                    "hold-time": $HOLDTIME,
+                    "connect-retry": 10
                 }
-            ],
-            "odl-bgp-rib-impl-cfg:host": "$IP",
-            "odl-bgp-rib-impl-cfg:initiate-connection": $INITIATE,
-            "odl-bgp-rib-impl-cfg:peer-registry": {
-                "type": "odl-bgp-rib-impl-cfg:bgp-peer-registry",
-                "name": "global-bgp-peer-registry"
+            },
+            "afi-safis": {
+                "afi-safi": [
+                    {
+                        "afi-safi-name": "openconfig-bgp-types:IPV4-UNICAST"
+                    },
+                    {
+                        "afi-safi-name": "openconfig-bgp-types:L3VPN-IPV4-UNICAST"
+                    },
+                    {
+                        "afi-safi-name": "openconfig-bgp-types:L2VPN-EVPN"
+                    }
+                ]
+            },
+            "transport": {
+                "config": {
+                    "remote-port": $PEER_PORT,
+                    "passive-mode": $PASSIVE_MODE
+                }
+            },
+            "config": {
+                "peer-type": "INTERNAL"
             }
         }
     ]
