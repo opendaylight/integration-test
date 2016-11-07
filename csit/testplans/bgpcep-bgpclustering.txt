@@ -14,4 +14,3 @@ integration/test/csit/suites/netconf/ready/netconfready.robot
 integration/test/csit/suites/bgpcep/bgpclustering/010_singlepeer_prefixcount_1route_nonreplicated_rib.robot
 integration/test/csit/suites/bgpcep/bgpclustering/020_singlepeer_prefixcount_100kroutes_nonreplicated_rib.robot
 integration/test/csit/suites/bgpcep/bgpclustering/030_singlepeer_prefixcount_1Mroutes_nonreplicated_rib.robot
-
