@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_c412bfb3",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 421,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-11-08T13:34:22Z",
+      "side": 1,
+      "message": "I would also add -evv to the tcpdump params, so we see MACs and more verbose.",
+      "revId": "6c952b1938c76719ad5a92aa12037f1f65193163",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
