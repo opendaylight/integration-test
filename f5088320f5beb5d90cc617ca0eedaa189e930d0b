@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_ae2b2481",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-11-08T03:04:06Z",
+      "side": 1,
+      "message": "This only runs the one test right? Does it simply fire the test or is there some setup that would take time?\n\nWith the test failing, would there be any left over crud that would flow into the next tests? \n\nSpeaking of, did we ever add the cleanup between test suites, so that following suites would not be polluted?",
+      "revId": "f5088320f5beb5d90cc617ca0eedaa189e930d0b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
