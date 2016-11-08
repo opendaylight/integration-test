@@ -125,6 +125,24 @@
     },
     {
       "key": {
+        "uuid": "3a65312a_4d2c1348",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-11-08T19:16:57Z",
+      "side": 1,
+      "message": "I agree, the most important part here is seeing the flow debug. But that assumes the previous setup all worked and we collected the Show Debugs there. Can we add a test that checks if the network setup and instance boots all passed and then use that point to collect the Show Debugs?",
+      "parentUuid": "3a65312a_a4306357",
+      "revId": "5a6a1d54610b8a4883c19fa6daa90118f9322a7a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a65312a_23961f95",
         "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
         "patchSetId": 2
