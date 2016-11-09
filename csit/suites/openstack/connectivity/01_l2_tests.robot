@@ -21,6 +21,14 @@ Resource          ../../../libraries/SetupUtils.robot
 @{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
 
 *** Test Cases ***
+Create A New Flavor
+    [Documentation]    Create new flavor with the required ram and disk size parameters.
+    Create New Flavor    m1.nano1    256    3
+
+Create A Glance Image
+    [Documentation]    Create Glance image with the given specific parameters
+    Create Glance Image    fed24-cloud-image    https://download.fedoraproject.org/pub/fedora/linux/releases/24/CloudImages/x86_64/images/Fedora-Cloud-Base-24-1.2.x86_64.qcow2
+
 Create Networks
     [Documentation]    Create Network with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
@@ -44,9 +52,13 @@ Add Ssh Allow Rule
     Neutron Security Group Rule Create    csit    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    csit    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
 
+Add Key Pair
+    [Documentation]    Create and add pem file.
+    Create Key Pair
+
 Create Vm Instances For l2_network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    l2_network_1    ${NET_1_VM_INSTANCES}    sg=csit
+    Create Vm Instances    l2_network_1    ${NET_1_VM_INSTANCES}    image=fed24-cloud-image    flavor=m1.nano1    user_data=cloudinit.sh    sg=csit
 
 Create Vm Instances For l2_network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
@@ -72,58 +84,6 @@ Check Vm Instances Have Ip Address
 Ping Vm Instance1 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
     Ping Vm From DHCP Namespace    l2_network_1    @{NET1_VM_IPS}[0]
-
-Ping Vm Instance2 In l2_network_1
-    [Documentation]    Check reachability of vm instances by pinging to them.
-    Ping Vm From DHCP Namespace    l2_network_1    @{NET1_VM_IPS}[1]
-
-Ping Vm Instance3 In l2_network_1
-    [Documentation]    Check reachability of vm instances by pinging to them.
-    Ping Vm From DHCP Namespace    l2_network_1    @{NET1_VM_IPS}[2]
-
-Ping Vm Instance1 In l2_network_2
-    [Documentation]    Check reachability of vm instances by pinging to them.
-    Ping Vm From DHCP Namespace    l2_network_2    @{NET2_VM_IPS}[0]
-
-Ping Vm Instance2 In l2_network_2
-    [Documentation]    Check reachability of vm instances by pinging to them.
-    Ping Vm From DHCP Namespace    l2_network_2    @{NET2_VM_IPS}[1]
-
-Ping Vm Instance3 In l2_network_2
-    [Documentation]    Check reachability of vm instances by pinging to them.
-    Ping Vm From DHCP Namespace    l2_network_2    @{NET2_VM_IPS}[2]
-
-Connectivity Tests From Vm Instance1 In l2_network_1
-    [Documentation]    Login to the vm instance and test some operations
-    Test Operations From Vm Instance    l2_network_1    @{NET1_VM_IPS}[0]    ${NET1_VM_IPS}
-
-Connectivity Tests From Vm Instance2 In l2_network_1
-    [Documentation]    Login to the vm instance and test operations
-    Test Operations From Vm Instance    l2_network_1    @{NET1_VM_IPS}[1]    ${NET1_VM_IPS}
-
-Connectivity Tests From Vm Instance3 In l2_network_1
-    [Documentation]    Login to the vm instance and test operations
-    Test Operations From Vm Instance    l2_network_1    @{NET1_VM_IPS}[2]    ${NET1_VM_IPS}
-
-Connectivity Tests From Vm Instance1 In l2_network_2
-    [Documentation]    Login to the vm instance and test operations
-    Test Operations From Vm Instance    l2_network_2    @{NET2_VM_IPS}[0]    ${NET2_VM_IPS}
-
-Connectivity Tests From Vm Instance2 In l2_network_2
-    [Documentation]    Logging to the vm instance using generated key pair.
-    Test Operations From Vm Instance    l2_network_2    @{NET2_VM_IPS}[1]    ${NET2_VM_IPS}
-
-Connectivity Tests From Vm Instance3 In l2_network_2
-    [Documentation]    Login to the vm instance using generated key pair.
-    Test Operations From Vm Instance    l2_network_2    @{NET2_VM_IPS}[2]    ${NET2_VM_IPS}
-
-Delete A Vm Instance
-    [Documentation]    Delete Vm instances using instance names.
-    Delete Vm Instance    MyFirstInstance_1
-
-No Ping For Deleted Vm
-    [Documentation]    Check non reachability of deleted vm instances by pinging to them.
-    ${output}=    Ping From DHCP Should Not Succeed    l2_network_1    @{NET_1_VM_IPS}[0]
 
 Delete Vm Instances In l2_network_1
     [Documentation]    Delete Vm instances using instance names in l2_network_1.
