@@ -16,6 +16,24 @@
       "revId": "8b91756a752ee4a38a5ed720ccbc31b158b0a555",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_19009900",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-09T17:23:06Z",
+      "side": 1,
+      "message": "this is just a tighter match.  if we tried \"Deleted subnet.*: ${subnet}\" then that would match this (totally made up to make the point) output:\n\n\nDeleted subnet(s): none\nSubnets available for deletion: l2_subnet_1\n\n\nbtw, still trying to test in sandbox.  infra and broken jjb stuff got in the way last night.",
+      "parentUuid": "3a65312a_304bea88",
+      "revId": "8b91756a752ee4a38a5ed720ccbc31b158b0a555",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
