@@ -35,11 +35,11 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
 Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
-Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
+Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 
@@ -49,6 +49,7 @@ ${HOLDTIME}       180
 ${BGP_PEER_LOG_LEVEL}    debug
 ${CONTROLLER_LOG_LEVEL}    INFO
 ${CONTROLLER_BGP_LOG_LEVEL}    DEFAULT
+${DEVICE_NAME}    controller-config
 ${BGP_PEER1_IP}    127.0.0.1
 ${BGP_PEER2_IP}    127.0.0.2
 ${BGP_PEER1_FIRST_PREFIX_IP}    8.1.0.0
@@ -69,21 +70,32 @@ ${DEFAULT_LOG_CHECK_TIMEOUT}    20s
 ${DEFAULT_LOG_CHECK_PERIOD}    1s
 ${DEFAULT_TOPOLOGY_CHECK_TIMEOUT}    10s
 ${DEFAULT_TOPOLOGY_CHECK_PERIOD}    1s
+${CONFIG_SESSION}    session
+${RIB_INSTANCE}    example-bgp-rib
+${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
+${DEVICE_NAME}    controller-config
+
 
 *** Test Cases ***
 TC1_Configure_Two_iBGP_Route_Reflector_Client_Peers
     [Documentation]    Configure two iBGP peers as routing reflector clients.
     [Tags]    critical
-    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer1', 'IP': '${BGP_PEER1_IP}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}','PEER_ROLE': 'rr-client', 'INITIATE': 'false'}
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    ${template_as_string}
-    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer2', 'IP': '${BGP_PEER2_IP}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}','PEER_ROLE': 'rr-client', 'INITIATE': 'false'}
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    ${template_as_string}
-    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer1'}
-    ${result}=    ConfigViaRestconf.Get_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    ${template_as_string}
-    BuiltIn.Log    ${result}
-    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer2'}
-    ${result}=    ConfigViaRestconf.Get_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    ${template_as_string}
-    BuiltIn.Log    ${result}
+    #${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer1', 'IP': '${BGP_PEER1_IP}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}','PEER_ROLE': 'rr-client', 'INITIATE': 'false'}
+    #ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    ${template_as_string}
+    #${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer2', 'IP': '${BGP_PEER2_IP}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}','PEER_ROLE': 'rr-client', 'INITIATE': 'false'}
+    #ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    ${template_as_string}
+    #${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer1'}
+    #${result}=    ConfigViaRestconf.Get_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    ${template_as_string}
+    #BuiltIn.Log    ${result}
+    #${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer2'}
+    #${result}=    ConfigViaRestconf.Get_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    ${template_as_string}
+    #BuiltIn.Log    ${result}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    NAME=example-bgp-peer1    IP=${BGP_PEER1_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    PEER_ROLE=rr-client
+    ...    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    RR_CLIENT=true
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    mapping=${mapping}    session=${CONFIG_SESSION}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    NAME=example-bgp-peer2    IP=${BGP_PEER2_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    PEER_ROLE=rr-client
+    ...    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    RR_CLIENT=true
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    mapping=${mapping}    session=${CONFIG_SESSION}
 
 TC1_Connect_BGP_Peer1
     [Documentation]    Connect BGP peer
@@ -145,24 +157,35 @@ TC_1_Check_for_Empty_IPv4_Topology
 TC1_Delete_BGP_Peers_Configuration
     [Documentation]    Delete all previously configured BGP peers.
     [Tags]    critical
-    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer1'}
-    ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    ${template_as_string}
-    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer2'}
-    ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    ${template_as_string}
+    #${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer1'}
+    #ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    ${template_as_string}
+    #${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer2'}
+    #ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    ${template_as_string}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    NAME=example-bgp-peer1    IP=${BGP_PEER1_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    mapping=${mapping}    session=${CONFIG_SESSION}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    NAME=example-bgp-peer2    IP=${BGP_PEER2_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    mapping=${mapping}    session=${CONFIG_SESSION}
+
 
 TC2_Configure_One_iBGP_Route_Reflector_Client_And_One_iBGP_Non_Client
     [Documentation]    Configure iBGP peers: 1st one as RR client, 2nd one as RR non-client.
     [Tags]    critical
-    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer1', 'IP': '${BGP_PEER1_IP}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}','PEER_ROLE': 'rr-client', 'INITIATE': 'false'}
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    ${template_as_string}
-    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer2', 'IP': '${BGP_PEER2_IP}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}','PEER_ROLE': 'ibgp', 'INITIATE': 'false'}
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    ${template_as_string}
-    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer1'}
-    ${result}=    ConfigViaRestconf.Get_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    ${template_as_string}
-    BuiltIn.Log    ${result}
-    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer2'}
-    ${result}=    ConfigViaRestconf.Get_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    ${template_as_string}
-    BuiltIn.Log    ${result}
+    #${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer1', 'IP': '${BGP_PEER1_IP}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}','PEER_ROLE': 'rr-client', 'INITIATE': 'false'}
+    #ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    ${template_as_string}
+    #${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer2', 'IP': '${BGP_PEER2_IP}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}','PEER_ROLE': 'ibgp', 'INITIATE': 'false'}
+    #ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    ${template_as_string}
+    #${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer1'}
+    #${result}=    ConfigViaRestconf.Get_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    ${template_as_string}
+    #BuiltIn.Log    ${result}
+    #${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer2'}
+    #${result}=    ConfigViaRestconf.Get_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    ${template_as_string}
+    #BuiltIn.Log    ${result}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    NAME=example-bgp-peer1    IP=${BGP_PEER1_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    PEER_ROLE=rr-client
+    ...    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    RR_CLIENT=true
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    mapping=${mapping}    session=${CONFIG_SESSION}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    NAME=example-bgp-peer2    IP=${BGP_PEER2_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    PEER_ROLE=rr-client
+    ...    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}    RR_CLIENT=false
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    mapping=${mapping}    session=${CONFIG_SESSION}
 
 TC2_Connect_BGP_Peer1
     [Documentation]    Connect BGP peer
@@ -222,10 +245,14 @@ TC_2_Check_for_Empty_IPv4_Topology
 TC2_Delete_BGP_Peers_Configuration
     [Documentation]    Delete all previously configured BGP peers.
     [Tags]    critical
-    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer1'}
-    ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    ${template_as_string}
-    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer2'}
-    ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    ${template_as_string}
+    #${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer1'}
+    #ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    ${template_as_string}
+    #${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer2'}
+    #ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    ${template_as_string}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    NAME=example-bgp-peer1    IP=${BGP_PEER1_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    mapping=${mapping}    session=${CONFIG_SESSION}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    NAME=example-bgp-peer2    IP=${BGP_PEER2_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}ibgp_peers    mapping=${mapping}    session=${CONFIG_SESSION}
 
 TC3_Configure_Two_iBGP_Non_Client_Peers
     [Documentation]    Configure iBGP peers: 1st one as RR client, 2nd one as RR non-client.
@@ -308,7 +335,7 @@ Setup_Everything
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
     RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_TOPO_API}    auth=${AUTH}
-    ConfigViaRestconf.Setup_Config_Via_Restconf
+    RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.bgpcep
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.protocol
@@ -317,7 +344,6 @@ Teardown_Everything
     [Documentation]    Create and Log the diff between expected and actual responses, make sure Python tool was killed.
     ...    Tear down imported Resources.
     KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
-    ConfigViaRestconf.Teardown_Config_Via_Restconf
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
 
