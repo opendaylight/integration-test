@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_398915ec",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 195,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-11-09T21:10:57Z",
+      "side": 1,
+      "message": "What about the tests that do not use a key pair. Please add an additional keyword or arguments that can b used as requeired",
+      "revId": "1b2bdd5476529762e0414449d3e908a31700f7a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_f97e7de3",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 567,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-11-09T21:10:57Z",
+      "side": 1,
+      "message": "Please do not hardcode the ram and other things, We need not set it all parameters  are optional. Why are we setting ovf, we can set other items as arguments.",
+      "revId": "1b2bdd5476529762e0414449d3e908a31700f7a4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
