@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_304bea88",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 138,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-11-09T08:42:46Z",
+      "side": 1,
+      "message": "Can\u0027t we do something like \"Deleted subnet.*: ${subnet}\" ?\nIn any case, whatever works :)",
+      "revId": "8b91756a752ee4a38a5ed720ccbc31b158b0a555",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
