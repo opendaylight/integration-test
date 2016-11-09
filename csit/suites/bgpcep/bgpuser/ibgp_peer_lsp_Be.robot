@@ -21,12 +21,12 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
 Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
-Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
+Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Resource          ${CURDIR}/../../../libraries/Utils.robot
 Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 
@@ -46,14 +46,14 @@ ${JSONKEYSTR}     "linkstate-route"
 ${BGP_PEER_NAME}    example-bgp-peer
 ${DEVICE_NAME}    controller-config
 ${CONFIG_SESSION}    config-session
-${BGP_VAR_FOLDER}    ${CURDIR}/../../../variables/bgpfunctional
 
 *** Test Cases ***
 TC1_Configure_iBGP_Peer
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
     [Tags]    critical
-    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${TOOLS_SYSTEM_IP}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'false'}
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
+    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
+    ...    INITIATE=false    BGP_RIB=${RIB_INSTANCE}
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 TC1_Check_Example_Bgp_Rib_Is_Empty
     [Documentation]    Check RIB for none linkstate-routes
@@ -86,7 +86,7 @@ TC1_Deconfigure_iBGP_Peer
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
     KarafKeywords.Log_Testcase_Start_To_Controller_Karaf
     &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}
-    TemplatedRequests.Delete_Templated    ${BGP_VAR_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}/bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 *** Keywords ***
 Setup_Everything
@@ -101,7 +101,6 @@ Setup_Everything
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
     RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
     RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
-    ConfigViaRestconf.Setup_Config_Via_Restconf
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.bgpcep
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.protocol
@@ -110,7 +109,6 @@ Teardown_Everything
     [Documentation]    Create and Log the diff between expected and actual responses, make sure Python tool was killed.
     ...    Tear down imported Resources.
     KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
-    ConfigViaRestconf.Teardown_Config_Via_Restconf
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
 
