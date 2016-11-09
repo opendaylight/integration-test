@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_70a60212",
+        "filename": "csit/suites/groupbasedpolicy/GBP/Devstack/02__neutron-mapper_test.robot",
+        "patchSetId": 28
+      },
+      "lineNbr": 215,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-09T01:47:01Z",
+      "side": 1,
+      "message": "the openstackoperations.robot do these things I think.  can you use those instead?",
+      "range": {
+        "startLine": 196,
+        "startChar": 0,
+        "endLine": 215,
+        "endChar": 136
+      },
+      "revId": "b1741aea9b8db665c9ed2f062da47fab07584a4b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
