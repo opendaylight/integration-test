@@ -64,7 +64,7 @@ Delete Network
     ${output}=    Write Commands Until Prompt    neutron -v net-delete ${network_name}    30s
     Close Connection
     Log    ${output}
-    Should Contain    ${output}    Deleted network: ${network_name}
+    Should Match Regexp    ${output}    Deleted network: ${network_name}|Deleted network\\(s\\): ${network_name}
 
 Create SubNet
     [Arguments]    ${network_name}    ${subnet}    ${range_ip}
@@ -135,7 +135,7 @@ Delete SubNet
     ${output}=    Write Commands Until Prompt    neutron -v subnet-delete ${subnet}
     Close Connection
     Log    ${output}
-    Should Contain    ${output}    Deleted subnet: ${subnet}
+    Should Match Regexp    ${output}    Deleted subnet: ${subnet}|Deleted subnet\\(s\\): ${subnet}
 
 Verify No Gateway Ips
     [Documentation]    Verifies the Gateway Ips removed with dump flow.
