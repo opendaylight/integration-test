@@ -37,7 +37,7 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 Variables         ${CURDIR}/../../../variables/bgpuser/variables.py    ${TOOLS_SYSTEM_IP}    ${ODL_STREAM}
 Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
-Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
+Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
@@ -54,6 +54,11 @@ ${HOLDTIME}       180
 ${BGP_TOOL_LOG_LEVEL}    info
 ${CONTROLLER_LOG_LEVEL}    INFO
 ${CONTROLLER_BGP_LOG_LEVEL}    DEFAULT
+${CONFIG_SESSION}    session
+${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
+${DEVICE_NAME}    controller-config
+${BGP_PEER_NAME}    example-bgp-peer
+${RIB_INSTANCE}    example-bgp-rib
 
 *** Test Cases ***
 Check_For_Empty_Topology_Before_Talking
@@ -64,8 +69,13 @@ Check_For_Empty_Topology_Before_Talking
 
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${TOOLS_SYSTEM_IP}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'false'}
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
+    # ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${TOOLS_SYSTEM_IP}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'false'}
+    # ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
+    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
+    ...    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+    [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
+
 
 Start_Talking_BGP_speaker
     [Documentation]    Start Python speaker to connect to ODL, verify that the tool does not promptly exit.
@@ -114,8 +124,11 @@ Check_For_Empty_Topology_Before_Listening
 
 Reconfigure_ODL_To_Initiate_Connection
     [Documentation]    Replace BGP peer config module, now with initiate-connection set to true.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${TOOLS_SYSTEM_IP}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'true'}
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
+    # ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${TOOLS_SYSTEM_IP}', 'HOLDTIME': '${HOLDTIME}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'true'}
+    # ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
+    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}
+    ...    INITIATE=true    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=false    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 Check_Listening_Connection_Is_Established
     [Documentation]    See TCP (BGP) connection in established state.
@@ -200,9 +213,12 @@ Check_For_Empty_Topology_After_Listening_Case_3
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer'}
-    ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
+    # ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer'}
+    # ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
     # TODO: Do we need to check something else?
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}    session=${CONFIG_SESSION}
+
 
 *** Keywords ***
 Setup_Everything
@@ -224,7 +240,8 @@ Setup_Everything
     SSHKeywords.Require_Python
     SSHKeywords.Assure_Library_Ipaddr    target_dir=.
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/fastbgp/play.py
-    ConfigViaRestconf.Setup_Config_Via_Restconf
+    # ConfigViaRestconf.Setup_Config_Via_Restconf
+    RequestsLibrary.Create_Session    ${CONFIG_SESSION}    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.bgpcep
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.protocol
@@ -235,7 +252,7 @@ Teardown_Everything
     ${diff}=    OperatingSystem.Run    diff -dur ${EXPECTED_RESPONSES_FOLDER} ${ACTUAL_RESPONSES_FOLDER}
     BuiltIn.Log    ${diff}
     KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
-    ConfigViaRestconf.Teardown_Config_Via_Restconf
+    #ConfigViaRestconf.Teardown_Config_Via_Restconf
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
 
