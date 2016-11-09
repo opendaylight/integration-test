@@ -195,6 +195,17 @@ Create Vm Instances
     \    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} ${VmElement} --security-groups ${sg}    30s
     \    Log    ${output}
 
+Create Vm Instance With Key Pair To Allow Ssh
+    [Arguments]    ${net_name}    ${vm_instance_names}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default
+    [Documentation]    Create X Vm Instance with the net id of the Netowrk.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
+    : FOR    ${VmElement}    IN    @{vm_instance_names}
+    \    ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic net-id=${net_id} --key-name test ${VmElement} --security-groups ${sg}    30s
+    \    Log    ${output}
+    \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VmElement}
+
 Create Vm Instance With Port On Compute Node
     [Arguments]    ${port_name}    ${vm_instance_name}    ${compute_node}    ${image}=cirros-0.3.4-x86_64-uec    ${flavor}=m1.nano    ${sg}=default
     [Documentation]    Create One VM instance using given ${port_name} and for given ${compute_node}
@@ -570,3 +581,27 @@ Create Neutron Port With Additional Params
     Log    ${port_id}
     Close Connection
     [Return]    ${OUTPUT}    ${port_id}
+
+Create Glance Image
+    [Arguments]    ${image_name}    ${image_url}    ${disk_size}    ${ram}
+    [Documentation]    Creates Glance image with the given specific parameters
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    glance --os-image-api-version 1 image-create --name ${image_name} --min-disk ${disk_size} --min-ram ${ram} --location ${image_url} --file \ centos-6.5-20140117.0.x86_64.qcow2 --is-public True --property net_model=e1000 --property \ disk_bus=ide --disk-format=qcow2 --container-format ovf --progress    30s
+    Log    ${output}
+
+Create New Flavor
+    [Arguments]    ${flavor_name}    ${ram}    ${disk_size}
+    [Documentation]    Creates a new flavor with the given ram and disk size
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    openstack flavor create ${flavor_name} --id 7 --ram ${ram} --disk ${disk_size} --vcpus 1    30s
+    Log    ${output}
+
+Create Key Pair
+    [Documentation]    Creates a key pair pem file
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    nova keypair-add test > test.pem
+    ${output}=    Write Commands Until Prompt    chmod 600 test.pem
+    Log    ${output}
