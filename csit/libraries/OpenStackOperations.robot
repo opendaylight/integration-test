@@ -557,3 +557,27 @@ Create Neutron Port With Additional Params
     Log    ${port_id}
     Close Connection
     [Return]    ${OUTPUT}    ${port_id}
+
+Create Glance Image
+    [Arguments]    ${image_name}    ${image_url}
+    [Documentation]    Creates Glance image with the given specific parameters
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    glance --os-image-api-version 1 image-create --name ${image_name} --min-disk 1 --min-ram 768 --location ${image_url} --file \ centos-6.5-20140117.0.x86_64.qcow2 --is-public True --property net_model=e1000 --property \ disk_bus=ide --disk-format=qcow2 --container-format ovf --progress    30s
+    Log    ${output}
+
+Create New Flavor
+    [Arguments]    ${ram}    ${disk_size}
+    [Documentation]    Creates a new flavor with the given ram and disk size
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    openstack flavor create m1.nano --id 6 --ram ${ram} --disk ${disk_size} --vcpus 1    30s
+    Log    ${output}
+
+Create Key Pair
+    [Documentation]    Creates a key pair pem file
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    nova keypair-add test > test.pem
+    ${output}=    Write Commands Until Prompt    chmod 600 test.pem
+    Log    ${output}
