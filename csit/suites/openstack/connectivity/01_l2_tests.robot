@@ -28,6 +28,14 @@ Resource          ../../../libraries/SetupUtils.robot
 @{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
 
 *** Test Cases ***
+Create A New Flavor
+    [Documentation]    Create new flavor with the required ram and disk size parameters.
+    Create New Flavor    m1.nano1    512    1
+
+Create A Glance Image
+    [Documentation]    Create Glance image with the given specific parameters
+    Create Glance Image    fed24-cloud-image    https://download.fedoraproject.org/pub/fedora/linux/releases/24/CloudImages/x86_64/images/Fedora-Cloud-Base-24-1.2.x86_64.qcow2    1    768
+
 Create Networks
     [Documentation]    Create Network with neutron request.
     : FOR    ${NetworkElement}    IN    @{NETWORKS_NAME}
@@ -50,6 +58,10 @@ Add Ssh Allow Rule
     Neutron Security Group Rule Create    csit    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    csit    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
     Neutron Security Group Rule Create    csit    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
+
+Add Key Pair
+    [Documentation]    Create and add pem file.
+    Create Key Pair
 
 Create Vm Instances For l2_network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
