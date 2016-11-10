@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "3a65312a_8a3a86cb",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 196,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-10T23:20:09Z",
+      "side": 1,
+      "message": "the --poll flag will make this command block until the VM is active.  without poll, it will return right away.  This lets us request many VMs in a row without blocking on them in turn.  That\u0027s why the test suite actually does it\u0027s own form of polling on the \"active\" state of each VM.  it should result in things coming up faster...",
+      "parentUuid": "3a65312a_6a10ca4e",
+      "revId": "9a4d985414f1302ff742dadf5caf7d1badc01d47",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a65312a_4745076f",
         "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
         "patchSetId": 13
