@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_4745076f",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-11-10T21:53:15Z",
+      "side": 1,
+      "message": "Seems like we should have the neutron debug here to show that everything is cleaned up before moving to the next test suite",
+      "revId": "9a4d985414f1302ff742dadf5caf7d1badc01d47",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
