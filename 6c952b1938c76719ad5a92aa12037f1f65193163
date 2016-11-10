@@ -37,6 +37,40 @@
     },
     {
       "key": {
+        "uuid": "3a65312a_df03a1b6",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2016-11-10T11:27:58Z",
+      "side": 1,
+      "message": "No need for -vvv, just when displaying.\nAlso, might worth to add \"-s 0\" to capture the entire packets",
+      "revId": "6c952b1938c76719ad5a92aa12037f1f65193163",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_df1a8116",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 420,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2016-11-10T11:27:58Z",
+      "side": 1,
+      "message": "Guess this is ok for now, but will be problematic if we\u0027ll want to do packet captures for neutron ports as well (as this doesn\u0027t allow several tcpdumps running in parallel)\n\nThe cleanest way to solve this is to return the PID of tcpdump when starting the capture, and then pass that PID to the \"Stop Packet Capture\"\n\nIf too complicated, can probably change to \"pgrep -f tcpdump.*\u003cinterface name\u003e\"",
+      "revId": "6c952b1938c76719ad5a92aa12037f1f65193163",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a65312a_c412bfb3",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 6
@@ -48,6 +82,23 @@
       "writtenOn": "2016-11-08T13:34:22Z",
       "side": 1,
       "message": "I would also add -evv to the tcpdump params, so we see MACs and more verbose.",
+      "revId": "6c952b1938c76719ad5a92aa12037f1f65193163",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_bf0065ab",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2016-11-10T11:27:58Z",
+      "side": 1,
+      "message": "Partially cosmetic, but I believe a different step for capturing is more appropriate, to mae sure all \"Ping Vm\" steps are the same for all VMs (same goes for the \"stop packet capture\"",
       "revId": "6c952b1938c76719ad5a92aa12037f1f65193163",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
