@@ -51,6 +51,24 @@
       "revId": "9a4d985414f1302ff742dadf5caf7d1badc01d47",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_aa3142ee",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 162,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-10T23:21:38Z",
+      "side": 1,
+      "message": "actually, probably best to put those neutron debugs in the \"Suite Teardown\" section so we know it will always run last.\n\nlet\u0027s do that in a different patch.  this one needs to get in asap so we can start saving time on these runs.",
+      "parentUuid": "3a65312a_4745076f",
+      "revId": "9a4d985414f1302ff742dadf5caf7d1badc01d47",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
