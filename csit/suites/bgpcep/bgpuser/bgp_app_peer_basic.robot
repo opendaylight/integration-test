@@ -304,7 +304,7 @@ Delete_Bgp_Peer_Configuration
 Delete_Bgp_Application_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
     [Tags]    critical
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    NAME=${BGP_PEER_APP_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    NAME=${BGP_PEER_APP_NAME}    IP=${ODL_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_application_peer    mapping=${mapping}    session=${CONFIG_SESSION}
 
 *** Keywords ***
