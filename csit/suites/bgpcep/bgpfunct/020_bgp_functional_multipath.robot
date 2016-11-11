@@ -170,8 +170,7 @@ Configure_Odl_With_Multipaths
 
 Store_Rib_Configuration
     [Documentation]    Stores rib configuration
-    ${mapping}=    BuiltIn.Set Variable    ${DEFAULT_MAPPING}
-    ${rib_old}=    TemplatedRequests.Get_As_Xml_Templated    ${MULT_VAR_FOLDER}/rib    mapping=${mapping}    session=${CONFIG_SESSION}
+    ${rib_old}=    TemplatedRequests.Get_As_Xml_Templated    ${MULT_VAR_FOLDER}/rib    mapping=${DEFAULT_MAPPING}    session=${CONFIG_SESSION}
     BuiltIn.Set_Suite_Variable    ${rib_old}
 
 Log_Loc_Rib_Operational
