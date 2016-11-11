@@ -330,7 +330,7 @@ Setup_Everything
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.bgpcep
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.protocol
-    ${scritp_uri_opt}=    CompareStream.Set_Variable_If_At_Most_Boron    ${Empty}    --uri config/bgp-rib:application-rib/${TOOLS_SYSTEM_IP}/tables/bgp-types:ipv4-address-family/bgp-types:unicast-subsequent-address-family/
+    ${scritp_uri_opt}=    CompareStream.Set_Variable_If_At_Most_Boron    ${Empty}    --uri config/bgp-rib:application-rib/${ODL_SYSTEM_IP}/tables/bgp-types:ipv4-address-family/bgp-types:unicast-subsequent-address-family/
     BuiltIn.Set_Suite_Variable    ${scritp_uri_opt}
 
 Teardown_Everything
