@@ -243,7 +243,7 @@ TC3_BGP_Application_Peer_Put_3_Routes
     [Documentation]    Start BGP application peer tool and give him ${BGP_APP_PEER_TIMEOUT}
     [Tags]    critical
     Switch_To_BGP_Application_Peer_Console
-    Start_Console_Tool    ${BGP_APP_PEER_PUT_COMMAND}    ${BGP_APP_PEER_OPTIONS}
+    Start_Console_Tool    ${BGP_APP_PEER_PUT_COMMAND} ${scritp_uri_opt}    ${BGP_APP_PEER_OPTIONS}
     Wait_Until_Console_Tool_Finish    ${BGP_APP_PEER_TIMEOUT}
     Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_put_tc3.log
 
@@ -269,7 +269,7 @@ TC3_BGP_Application_Peer_Delete_All_Routes
     [Documentation]    Start BGP application peer tool and give him ${BGP_APP_PEER_TIMEOUT}
     [Tags]    critical
     Switch_To_BGP_Application_Peer_Console
-    Start_Console_Tool    ${BGP_APP_PEER_DELETE_ALL_COMMAND}    ${BGP_APP_PEER_OPTIONS}
+    Start_Console_Tool    ${BGP_APP_PEER_DELETE_ALL_COMMAND} ${scritp_uri_opt}    ${BGP_APP_PEER_OPTIONS}
     Wait_Until_Console_Tool_Finish    ${BGP_APP_PEER_TIMEOUT}
     Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_delete_all_tc3.log
 
@@ -330,7 +330,7 @@ Setup_Everything
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.bgpcep
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.protocol
-    ${scritp_uri_opt}=    CompareStream.Set_Variable_If_At_Most_Boron    ${Empty}    --uri config/bgp-rib:application-rib/${TOOLS_SYSTEM_IP}/tables/bgp-types:ipv4-address-family/bgp-types:unicast-subsequent-address-family/
+    ${scritp_uri_opt}=    CompareStream.Set_Variable_If_At_Most_Boron    ${Empty}    --uri config/bgp-rib:application-rib/${ODL_SYSTEM_IP}/tables/bgp-types:ipv4-address-family/bgp-types:unicast-subsequent-address-family/
     BuiltIn.Set_Suite_Variable    ${scritp_uri_opt}
 
 Teardown_Everything
