@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_05ef8788",
+        "filename": "csit/scriptplans/distribution-userfeatures.txt",
+        "patchSetId": 46
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-11T11:35:10Z",
+      "side": 1,
+      "message": "Would this work with 3g? Csit -all- jobs are using that value, and this suite should not be hungrier.",
+      "range": {
+        "startLine": 2,
+        "startChar": 44,
+        "endLine": 2,
+        "endChar": 46
+      },
+      "revId": "714a760f6d55e7e06d74ae5192b6e2b54c912041",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_45d21fd3",
+        "filename": "csit/suites/distribution/Karaf_Sequence_Install.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-11T11:35:10Z",
+      "side": 1,
+      "message": "I do not like the fact that this is opening and closing SSH connection (as that may hide possible bugs).\nIt would be better to use Execute_Controller_Karaf_Command_On_Background to feature:install here, using the fact that one SSH session was already opened for karaf logging.",
+      "range": {
+        "startLine": 36,
+        "startChar": 23,
+        "endLine": 36,
+        "endChar": 40
+      },
+      "revId": "714a760f6d55e7e06d74ae5192b6e2b54c912041",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_455b3f87",
+        "filename": "csit/suites/distribution/Karaf_Sequence_Install.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-11T11:35:10Z",
+      "side": 1,
+      "message": "I do not recall why cleaning is required, but I guess it does not hurt and the job now can contain feature-affecting suites without worrying about this one.",
+      "range": {
+        "startLine": 39,
+        "startChar": 6,
+        "endLine": 39,
+        "endChar": 17
+      },
+      "revId": "714a760f6d55e7e06d74ae5192b6e2b54c912041",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_c5e58fa9",
+        "filename": "csit/suites/distribution/Karaf_Sequence_Install.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-11T11:35:10Z",
+      "side": 1,
+      "message": "Move this into line 41 (as ClusterManagement_Setup is indirectly called by this).",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 49
+      },
+      "revId": "714a760f6d55e7e06d74ae5192b6e2b54c912041",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
