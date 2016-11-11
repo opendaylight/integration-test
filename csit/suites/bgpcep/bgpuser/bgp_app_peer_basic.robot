@@ -347,6 +347,8 @@ Open_BGP_Peer_Console
     [Documentation]    Create a session for BGP peer.
     SSHLibrary.Open_Connection    ${TOOLS_SYSTEM_IP}    alias=bgp_peer_console
     Utils.Flexible_Mininet_Login
+    SSHLibrary.Execute_Command    pip install ipaddr
+    SSHLibrary.Execute_Command    pip freeze
 
 Open_BGP_Aplicationp_Peer_Console
     [Documentation]    Create a session for BGP peer.
