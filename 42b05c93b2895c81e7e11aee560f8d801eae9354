@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_456e9f02",
+        "filename": "csit/suites/bgpcep/bgpfunct/020_bgp_functional_multipath.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-11T12:11:11Z",
+      "side": 1,
+      "message": "Why not ${DEFAULT_MAPPING} directly?",
+      "range": {
+        "startLine": 174,
+        "startChar": 95,
+        "endLine": 174,
+        "endChar": 105
+      },
+      "revId": "42b05c93b2895c81e7e11aee560f8d801eae9354",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
