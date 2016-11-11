@@ -57,10 +57,13 @@ Reconfigure_ODL_To_Accept_Connection
 Exa_To_Send_Route_Request
     [Documentation]    Exabgp sends route refresh and count received updates
     [Setup]    Configure_Routes_And_Start_ExaBgp    ${BGP_CFG_NAME}
-    Verify_Odl_Received_Route_Request    0
+    # TODO: remove Run_Keyword_If_At_Most_Boron and leave Verify_Odl_Received_Route_Request only after bug 5032 is implemented.
+    # ... This will require also kw Verify_Odl_Received_Route_Request adaptation for ${ODL_STREAM} as the stats url will be different in carbon/openconfig
+    # ... comparing to boron(${JOLOKURL})
+    CompareStream.Run_Keyword_If_At_Most_Boron    Verify_Odl_Received_Route_Request    0
     BgpRpcClient.exa_clean_received_update_count
     BgpRpcClient.exa_announce    announce route-refresh ipv4 unicast
-    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_Odl_Received_Route_Request    1
+    CompareStream.Run_Keyword_If_At_Most_Boron    BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_Odl_Received_Route_Request    1
     BuiltIn.Wait_Until_Keyword_Succeeds    5x    2s    Verify_ExaBgp_Received_Updates    ${nr_configured_routes}
     [Teardown]    Deconfigure_Routes_And_Stop_ExaBgp
 
