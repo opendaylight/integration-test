@@ -1,0 +1,142 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_8526f714",
+        "filename": "csit/suites/bgpcep/bgpuser/bgp_app_peer_basic.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 385,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-11T11:17:26Z",
+      "side": 1,
+      "message": "This now produces diff-like output, so it would look nicer if the first argument was the expected data.",
+      "range": {
+        "startLine": 385,
+        "startChar": 31,
+        "endLine": 385,
+        "endChar": 77
+      },
+      "revId": "108669fbfbccdab1947e3eff99cb3e2c694ff03c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_a5efb3af",
+        "filename": "csit/suites/bgpcep/bgpuser/ebgp_peers_basic.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 190,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-11T11:17:26Z",
+      "side": 1,
+      "message": "Remove commented-out code.",
+      "range": {
+        "startLine": 190,
+        "startChar": 4,
+        "endLine": 190,
+        "endChar": 5
+      },
+      "revId": "108669fbfbccdab1947e3eff99cb3e2c694ff03c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_45369f53",
+        "filename": "csit/suites/bgpcep/bgpuser/ebgp_peers_basic.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 198,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-11T11:17:26Z",
+      "side": 1,
+      "message": "Collections.Set_To_Dictionary would save some space here, as some entries are the same.",
+      "range": {
+        "startLine": 198,
+        "startChar": 18,
+        "endLine": 198,
+        "endChar": 43
+      },
+      "revId": "108669fbfbccdab1947e3eff99cb3e2c694ff03c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_051307b9",
+        "filename": "csit/suites/bgpcep/bgpuser/ebgp_peers_basic.robot",
+        "patchSetId": 23
+      },
+      "lineNbr": 219,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-11T11:17:26Z",
+      "side": 1,
+      "message": "If configurability of the config session alias is not required, TemplatedRequests.Create_Default_Session would allow you to skip session\u003d argument on calls.",
+      "range": {
+        "startLine": 219,
+        "startChar": 4,
+        "endLine": 219,
+        "endChar": 34
+      },
+      "revId": "108669fbfbccdab1947e3eff99cb3e2c694ff03c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_450dff8f",
+        "filename": "csit/variables/bgpuser/bgp_application_peer.beryllium/data.xml",
+        "patchSetId": 23
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-11T11:17:26Z",
+      "side": 1,
+      "message": "space trails",
+      "range": {
+        "startLine": 4,
+        "startChar": 100,
+        "endLine": 4,
+        "endChar": 101
+      },
+      "revId": "108669fbfbccdab1947e3eff99cb3e2c694ff03c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_251283b1",
+        "filename": "csit/variables/bgpuser/bgp_application_peer.boron/data.xml",
+        "patchSetId": 23
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-11T11:17:26Z",
+      "side": 1,
+      "message": "also here",
+      "range": {
+        "startLine": 4,
+        "startChar": 100,
+        "endLine": 4,
+        "endChar": 101
+      },
+      "revId": "108669fbfbccdab1947e3eff99cb3e2c694ff03c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
