@@ -225,6 +225,7 @@ Verify VMs Received DHCP Lease
     : FOR    ${vm}    IN    @{vm_list}
     \    ${output}=    Write Commands Until Prompt    nova console-log ${vm} | grep -i "obtained"    30s
     \    Log    ${output}
+    \    @{output_words}     Split String       ${output}
     \    Should Contain    ${output}    obtained
 
 View Vm Console
@@ -263,9 +264,9 @@ Ping From DHCP Should Not Succeed
     Should Not Contain    ${output}    64 bytes
 
 Ping From Instance
-    [Arguments]    ${dest_vm}
+    [Arguments]    ${dest_vm_ip}
     [Documentation]    Ping to the expected destination ip.
-    ${output}=    Write Commands Until Expected Prompt    ping -c 3 ${dest_vm}    ${OS_SYSTEM_PROMPT}
+    ${output}=    Write Commands Until Expected Prompt    ping -c 3 ${dest_vm_ip}    ${OS_SYSTEM_PROMPT}
     Log    ${output}
     [Return]    ${output}
 
@@ -286,6 +287,24 @@ Check If Console Is VmInstance
     ${output}=    Write Commands Until Expected Prompt    id    ${OS_SYSTEM_PROMPT}
     Should Contain    ${output}    ${console}
 
+Get Instance IpAddress
+    [Arguments]        ${instance_name}
+    [Documentation]    Get IP Address of a VM Instance from nova show
+    ${ipaddress}=    Write Commands Until Prompt    nova show ${instance_name} | grep " network" | awk '{print $5}'       30s
+    Log     ${ipaddress}
+    [Return]    ${ipaddress}
+
+Collect IpAddresses
+    [Arguments]        ${instance_names}
+    [Documentation]    Get IP Address of a bunch of instances and returns a dictionary
+    ${devstack_conn_id} =    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${ip_list_dict}     Create List       ${EMPTY}
+    : FOR    ${vm}    IN    @{instance_names}
+    \    ${ip}=      Get Instance IpAddress     ${vm}
+    \    Append To List     ${ip_list_dict}    ${vm}     ${ip}
+    [Return]    ${ip_list_dict}
+
 Exit From Vm Console
     [Documentation]    Check if the session has been able to login to the VM instance and exit the instance
     ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance    cirros
@@ -304,11 +323,13 @@ Check Metadata Access
     Should Contain    ${output}    200
 
 Execute Command on VM Instance
-    [Arguments]    ${net_name}    ${src_ip}    ${cmd}    ${user}=cirros    ${password}=cubswin:)
+    [Arguments]    ${net_name}    ${vm_name}    ${cmd}    ${user}=cirros    ${password}=cubswin:)
     [Documentation]    Login to the vm instance using ssh in the network, executes a command inside the VM and returns the ouput.
     ${devstack_conn_id} =    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${net_id} =    Get Net Id    ${net_name}    ${devstack_conn_id}
+    ${src_ip} =    Get Instance IpAddress       ${vm_name}
+    Log     ${src_ip}
     ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${src_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no    d:
     Log    ${output}
     ${output} =    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
@@ -319,13 +340,14 @@ Execute Command on VM Instance
     [Return]    ${output}
 
 Test Operations From Vm Instance
-    [Arguments]    ${net_name}    ${src_ip}    ${list_of_local_dst_ips}    ${l2_or_l3}=l2    ${list_of_external_dst_ips}=${NONE}    ${user}=cirros
+    [Arguments]    ${net_name}    ${src_ip}    ${list_of_local_dst_ips}       ${dhcp_ips}=${NONE}    ${user}=cirros
     ...    ${password}=cubswin:)
     [Documentation]    Login to the vm instance using ssh in the network.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
+    Log      ${src_ip}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
-    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${src_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no    d:
+    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no ${user}@${src_ip}   d:
     Log    ${output}
     ${output}=    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
     Log    ${output}
@@ -337,7 +359,7 @@ Test Operations From Vm Instance
     \    Log    ${dest_ip}
     \    Run Keyword If    ${rcode}    Check Ping    ${dest_ip}
     Run Keyword If    ${rcode}    Check Metadata Access
-    Run Keyword If    '${l2_or_l3}' == 'l3'    Ping Other Instances    ${list_of_external_dst_ips}
+    Ping Other Instances    ${dhcp_ips}
     [Teardown]    Exit From Vm Console
 
 Ping Other Instances
@@ -346,7 +368,7 @@ Ping Other Instances
     ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance
     : FOR    ${dest_ip}    IN    @{list_of_external_dst_ips}
     \    Log    ${dest_ip}
-    \    Run Keyword If    ${rcode}    Check Ping    ${dest_ip}
+    \    Check Ping    ${dest_ip}
 
 Create Router
     [Arguments]    ${router_name}
