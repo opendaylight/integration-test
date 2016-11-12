@@ -107,16 +107,12 @@ Add Interfaces To Router
 
 Check L3_Datapath Traffic Across Networks With Router
     [Documentation]    Datapath test across the networks using router for L3.
-    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]
+    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]    @{NET20_VM_IPS}[0]    @{NET20_VM_IPS}[1]
     Log    ${dst_ip_list}
-    ${other_dst_ip_list} =    Create List    @{NET20_VM_IPS}[0]    @{NET20_VM_IPS}[1]
-    Log    ${other_dst_ip_list}
-    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
-    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]
+    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}
+    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]    @{NET10_VM_IPS}[0]    @{NET10_VM_IPS}[1]
     Log    ${dst_ip_list}
-    ${other_dst_ip_list} =    Create List    @{NET10_VM_IPS}[0]    @{NET10_VM_IPS}[1]
-    Log    ${other_dst_ip_list}
-    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}
 
 Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     [Documentation]    Add multiple extra routes and check data path before L3VPN creation
