@@ -18,9 +18,6 @@ Resource          ../../../libraries/DevstackUtils.robot
 @{SUBNETS_NAME}    subnet_1    subnet_2
 @{NET_1_VM_INSTANCES}    l3_instance_net_1_1    l3_instance_net_1_2    l3_instance_net_1_3
 @{NET_2_VM_INSTANCES}    l3_instance_net_2_1    l3_instance_net_2_2    l3_instance_net_2_3
-@{NET_1_VM_IPS}    50.0.0.3    50.0.0.4    50.0.0.5
-@{NET_2_VM_IPS}    60.0.0.3    60.0.0.4    60.0.0.5
-@{GATEWAY_IPS}    50.0.0.1    60.0.0.1
 @{DHCP_IPS}       50.0.0.2    60.0.0.2
 @{SUBNETS_RANGE}    50.0.0.0/24    60.0.0.0/24
 
@@ -59,6 +56,13 @@ Check Vm Instances Have Ip Address
     ...    AND    Show Debugs    ${NET_2_VM_INSTANCES}
     ...    AND    Get OvsDebugInfo
 
+Collect All Ip Address
+    [Documentation]    Collect the list of IP Addressess
+    ${NET1_VM_IPS}=     Collect IpAddresses        ${NET_1_VM_INSTANCES}
+    ${NET2_VM_IPS}=     Collect IpAddresses        ${NET_2_VM_INSTANCES}
+    Set Suite Variable    ${NET1_VM_IPS}
+    Set Suite Variable    ${NET2_VM_IPS}
+
 Create Routers
     [Documentation]    Create Router
     Create Router    router_1
@@ -70,75 +74,63 @@ Add Interfaces To Router
 
 Ping Vm Instance1 In network_2 From network_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Ping Vm From DHCP Namespace    network_1    @{NET_2_VM_IPS}[0]
+    Ping Vm From DHCP Namespace    network_1      @{NET2_VM_IPS}[0]
 
 Ping Vm Instance2 In network_2 From network_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Ping Vm From DHCP Namespace    network_1    @{NET_2_VM_IPS}[1]
+    Ping Vm From DHCP Namespace    network_1    @{NET2_VM_IPS}[1]
 
 Ping Vm Instance3 In network_2 From network_1
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Ping Vm From DHCP Namespace    network_1    @{NET_2_VM_IPS}[2]
+    Ping Vm From DHCP Namespace    network_1    @{NET2_VM_IPS}[2]
 
 Ping Vm Instance1 In network_1 From network_2
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Ping Vm From DHCP Namespace    network_2    @{NET_1_VM_IPS}[0]
+    Ping Vm From DHCP Namespace    network_2    @{NET1_VM_IPS}[0]
 
 Ping Vm Instance2 In network_1 From network_2
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Ping Vm From DHCP Namespace    network_2    @{NET_1_VM_IPS}[1]
+    Ping Vm From DHCP Namespace    network_2    @{NET1_VM_IPS}[1]
 
 Ping Vm Instance3 In network_1 From network_2
     [Documentation]    Check reachability of vm instances by pinging to them after creating routers.
-    Ping Vm From DHCP Namespace    network_2    @{NET_1_VM_IPS}[2]
+    Ping Vm From DHCP Namespace    network_2    @{NET1_VM_IPS}[2]
 
 Connectivity Tests From Vm Instance1 In network_1
-    [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
-    Log    ${dst_ip_list}
-    ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[0]    @{NET_2_VM_IPS}[1]    @{NET_2_VM_IPS}[2]
-    Log    ${other_dst_ip_list}
-    Test Operations From Vm Instance    network_1    @{NET_1_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    [Documentation]     Login to the VM instance and test operations
+    ${dst_list}=    Create List     @{NET1_VM_IPS}    @{NET2_VM_IPS}
+    Log    ${dst_list}
+    Test Operations From Vm Instance    network_1    @{NET1_VM_IPS}[0]    ${dst_list}      dhcp_ips=${DHCP_IPS}
 
 Connectivity Tests From Vm Instance2 In network_1
-    [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
-    Log    ${dst_ip_list}
-    ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[0]    @{NET_2_VM_IPS}[1]    @{NET_2_VM_IPS}[2]
-    Log    ${other_dst_ip_list}
-    Test Operations From Vm Instance    network_1    @{NET_1_VM_IPS}[1]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    [Documentation]    Login to the vm instance and test operations
+    ${dst_list}=    Create List     @{NET1_VM_IPS}    @{NET2_VM_IPS}
+    Log    ${dst_list}
+    Test Operations From Vm Instance    network_1    @{NET1_VM_IPS}[1]    ${dst_list}     dhcp_ips=${DHCP_IPS}
 
 Connectivity Tests From Vm Instance3 In network_1
-    [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
-    Log    ${dst_ip_list}
-    ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[0]    @{NET_2_VM_IPS}[1]    @{NET_2_VM_IPS}[2]
-    Log    ${other_dst_ip_list}
-    Test Operations From Vm Instance    network_1    @{NET_1_VM_IPS}[2]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    [Documentation]    Login to the vm instance  and test operations
+    ${dst_list}=    Create List     @{NET1_VM_IPS}    @{NET2_VM_IPS}
+    Log    ${dst_list}
+    Test Operations From Vm Instance    network_1    @{NET1_VM_IPS}[2]    ${dst_list}     dhcp_ips=${DHCP_IPS}
 
 Connectivity Tests From Vm Instance1 In network_2
-    [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[1]    @{NET_2_VM_IPS}[2]
-    Log    ${dst_ip_list}
-    ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
-    Log    ${other_dst_ip_list}
-    Test Operations From Vm Instance    network_2    @{NET_2_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    [Documentation]    Login to the vm instance and test operations
+    ${dst_list}=    Create List     @{NET_1_VM_IPS}    @{NET2_VM_IPS}
+    Log    ${dst_list}
+    Test Operations From Vm Instance    network_2    @{NET2_VM_IPS}[0]    ${dst_list}     dhcp_ips=${DHCP_IPS}
 
 Connectivity Tests From Vm Instance2 In network_2
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[0]    @{NET_2_VM_IPS}[2]
-    Log    ${dst_ip_list}
-    ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
-    Log    ${other_dst_ip_list}
-    Test Operations From Vm Instance    network_2    @{NET_2_VM_IPS}[1]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    ${dst_list}=    Create List     @{NET_1_VM_IPS}    @{NET2_VM_IPS}
+    Log    ${dst_list}
+    Test Operations From Vm Instance    network_2    @{NET2_VM_IPS}[1]    ${dst_list}     dhcp_ips=${DHCP_IPS}
 
 Connectivity Tests From Vm Instance3 In network_2
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[0]    @{NET_2_VM_IPS}[1]
-    Log    ${dst_ip_list}
-    ${other_dst_ip_list}=    Create List    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
-    Log    ${other_dst_ip_list}
-    Test Operations From Vm Instance    network_2    @{NET_2_VM_IPS}[2]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    ${dst_list}=    Create List     @{NET_1_VM_IPS}    @{NET2_VM_IPS}
+    Log    ${dst_list}
+    Test Operations From Vm Instance    network_2    @{NET2_VM_IPS}[2]    ${dst_list}     dhcp_ips=${DHCP_IPS}
 
 Delete Vm Instances In network_1
     [Documentation]    Delete Vm instances using instance names in network_1.
