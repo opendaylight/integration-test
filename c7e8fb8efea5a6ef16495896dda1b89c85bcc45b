@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_cba63910",
+        "filename": "csit/suites/unimgr/uni_legato/010_unimanager_epl.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-14T18:08:56Z",
+      "side": 1,
+      "message": "Not used now, but could be replacing lines 27-30 and 41-43.",
+      "range": {
+        "startLine": 11,
+        "startChar": 37,
+        "endLine": 11,
+        "endChar": 54
+      },
+      "revId": "c7e8fb8efea5a6ef16495896dda1b89c85bcc45b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_0bb03142",
+        "filename": "csit/suites/unimgr/uni_legato/020_unimanager_eplan.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-14T18:08:56Z",
+      "side": 1,
+      "message": "27-30 and 51-53",
+      "range": {
+        "startLine": 11,
+        "startChar": 37,
+        "endLine": 11,
+        "endChar": 54
+      },
+      "revId": "c7e8fb8efea5a6ef16495896dda1b89c85bcc45b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
