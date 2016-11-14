@@ -8,11 +8,11 @@ Documentation     Robot keyword library (Resource) for common handling of data c
 ...               and is available at http://www.eclipse.org/legal/epl-v10.html
 ...
 ...
-...               This resource assumes that RequestsLibrary has open a connection named "operational"
-...               which points to (an analogue of) http://${ODL_SYSTEM_IP}:${RESTCONFPORT}/${OPERATIONAL_API}
+...               This resource creates a "default" session using TemplatedRequests.Create_Default_Session
+...               which points to (an analogue of) http://${ODL_SYSTEM_IP}:${RESTCONFPORT}
 Library           RequestsLibrary
-Resource          ${CURDIR}/ConfigViaRestconf.robot
 Resource          ${CURDIR}/ScalarClosures.robot
+Resource          ${CURDIR}/TemplatedRequests.robot
 Resource          ${CURDIR}/WaitUtils.robot
 
 *** Variables ***
@@ -21,7 +21,7 @@ ${CHANGE_COUNTER_TEMPLATE_FOLDER}    ${CURDIR}/../variables/bgpuser
 *** Keywords ***
 CC_Setup
     [Documentation]    Initialize dependency libraries.
-    ConfigViaRestconf.Setup_Config_Via_Restconf
+    TemplatedRequests.Create_Default_Session
     WaitUtils.WU_Setup    # includes ScalarClosures.SC_Setup
     ${counter} =    ScalarClosures.Closure_From_Keyword_And_Arguments    Get_Change_Count
     BuiltIn.Set_Suite_Variable    ${ChangeCounter__getter}    ${counter}
@@ -40,8 +40,8 @@ Reconfigure_Topology_Name
     [Arguments]    ${topology_name}=example-linkstate-topology
     [Documentation]    Configure data change counter to count transactions affecting
     ...    ${topology_name} instead of previously configured topology name.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'TOPOLOGY_NAME': '${topology_name}'}
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${CHANGE_COUNTER_TEMPLATE_FOLDER}${/}change_counter    ${template_as_string}
+    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    TOPOLOGY_NAME=${topology_name}
+    TemplatedRequests.Put_As_Xml_Templated    ${CHANGE_COUNTER_TEMPLATE_FOLDER}${/}change_counter    mapping=${mapping}
 
 Wait_For_Change_Count_To_Become_Stable
     [Arguments]    ${timeout}=60s    ${period}=1s    ${repetitions}=4    ${count_to_overcome}=-1
