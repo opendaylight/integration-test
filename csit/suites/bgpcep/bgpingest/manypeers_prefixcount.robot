@@ -35,6 +35,12 @@ Documentation     BGP performance of ingesting from many iBGP peers, data change
 ...               TODO: Figure out how to make it configurable.
 ...               As peer IP adresses are set incrementally, we need ipaddr to be used in Robot somehow.
 ...
+...               Brief description how to configure BGP peer can be found here:
+...               https://wiki.opendaylight.org/view/BGP_LS_PCEP:User_Guide#BGP_Peer
+...               http://docs.opendaylight.org/en/stable-boron/user-guide/bgp-user-guide.html#bgp-peering
+...               The peer configuration depends on the ${ODL_STREAM}. For "boron" and older streams it uses netconf connector and
+...               for carbon and further it configures peer via openconfig.
+...
 ...               TODO: Is there a need for version of this suite where ODL connects to pers?
 ...               Note that configuring ODL is slow, which may affect measured performance singificantly.
 ...               Advanced TODO: Give manager ability to start pushing on trigger long after connections are established.
@@ -47,12 +53,12 @@ Library           RequestsLibrary
 Library           SSHLibrary    timeout=10s
 Variables         ${CURDIR}/../../../variables/Variables.py
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
-Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
 Resource          ${CURDIR}/../../../libraries/PrefixCounting.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
+Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 
 *** Variables ***
 ${BGP_TOOL_LOG_LEVEL}    info
@@ -79,6 +85,9 @@ ${REPETITIONS_PREFIX_COUNT_MANY}    ${REPETITIONS_PREFIX_COUNT}
 ${TEST_DURATION_MULTIPLIER}    1
 ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT}    ${TEST_DURATION_MULTIPLIER}
 ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT_MANY}    ${TEST_DURATION_MULTIPLIER_PREFIX_COUNT}
+${RIB_INSTANCE}    example-bgp-rib
+${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
+${DEVICE_NAME}    controller-config
 # TODO: Option names can be better.
 
 *** Test Cases ***
@@ -93,8 +102,10 @@ Reconfigure_ODL_To_Accept_Connections
     : FOR    ${index}    IN RANGE    1    ${MULTIPLICITY_PREFIX_COUNT_MANY}+1
     \    ${peer_name} =    BuiltIn.Set_Variable    example-bgp-peer-${index}
     \    ${peer_ip} =    BuiltIn.Evaluate    str(ipaddr.IPAddress('${FIRST_PEER_IP}') + ${index} - 1)    modules=ipaddr
-    \    ${template_as_string} =    BuiltIn.Set_Variable    {'NAME': '${peer_name}', 'IP': '${peer_ip}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'HOLDTIME': '${HOLDTIME_PREFIX_COUNT_MANY}', 'INITIATE': 'false'}
-    \    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
+    \    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${peer_name}    IP=${peer_ip}    HOLDTIME=${HOLDTIME_PREFIX_COUNT_MANY}
+    \    ...    PEER_PORT=${BGP_TOOL_PORT}    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    \    ...    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    \    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
     # FIXME: Add testcase to change bgpcep and protocol log levels, when a Keyword that does it without messing with current connection is ready.
 
 Change_Karaf_Logging_Levels
@@ -147,15 +158,17 @@ Delete_Bgp_Peer_Configuration
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
     # TODO: Is it useful to extract peer naming logic to separate Keyword?
     : FOR    ${index}    IN RANGE    1    ${MULTIPLICITY_PREFIX_COUNT_MANY}+1
-    \    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer-${index}'}
-    \    ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLESFOLDER}${/}bgp_peer    ${template_as_string}
+    \    ${peer_name} =    BuiltIn.Set_Variable    example-bgp-peer-${index}
+    \    ${peer_ip} =    BuiltIn.Evaluate    str(ipaddr.IPAddress('${FIRST_PEER_IP}') + ${index} - 1)    modules=ipaddr
+    \    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${peer_name}    IP=${peer_ip}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    \    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
 
 *** Keywords ***
 Setup_Everything
     [Documentation]    Setup imported resources, SSH-login to ODL system,
     ...    create HTTP session, put Python tool to ODL system.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    ConfigViaRestconf.Setup_Config_Via_Restconf
+    TemplatedRequests.Create_Default_Session
     PrefixCounting.PC_Setup
     RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
     # TODO: Do not include slash in ${OPERATIONAL_TOPO_API}, having it typed here is more readable.
@@ -179,6 +192,5 @@ Teardown_Everything
     [Documentation]    Make sure Python tool was killed and tear down imported Resources.
     # Environment issue may have dropped the SSH connection, but we do not want Teardown to fail.
     BuiltIn.Run_Keyword_And_Ignore_Error    KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
-    ConfigViaRestconf.Teardown_Config_Via_Restconf
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
