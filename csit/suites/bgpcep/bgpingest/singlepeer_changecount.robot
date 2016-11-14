@@ -38,12 +38,12 @@ Library           RequestsLibrary
 Variables         ${CURDIR}/../../../variables/Variables.py
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
 Resource          ${CURDIR}/../../../libraries/ChangeCounter.robot
-Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
 Resource          ${CURDIR}/../../../libraries/PrefixCounting.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
+Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 
 *** Variables ***
 ${BGP_TOOL_LOG_LEVEL}    info
@@ -71,6 +71,10 @@ ${TEST_DURATION_MULTIPLIER_CHANGE_COUNT}    ${TEST_DURATION_MULTIPLIER}
 ${TEST_DURATION_MULTIPLIER_CHANGE_COUNT_SINGLE}    ${TEST_DURATION_MULTIPLIER_CHANGE_COUNT}
 ${UPDATE}         single
 ${WITHDRAW}       0
+${RIB_INSTANCE}    example-bgp-rib
+${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
+${DEVICE_NAME}    controller-config
+${BGP_PEER_NAME}    example-bgp-peer
 # TODO: Option names can be better.
 ${last_change_count_single}    -1
 
@@ -83,8 +87,9 @@ Check_For_Empty_Ipv4_Topology_Before_Talking
 
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
-    ${template_as_string} =    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${TOOLS_SYSTEM_IP}', 'HOLDTIME': '${HOLDTIME_CHANGE_COUNT_SINGLE}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'false'}
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
+    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME_CHANGE_COUNT_SINGLE}    PEER_PORT=${BGP_TOOL_PORT}
+    ...    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
 
 Wait_For_Data_Change_Counter_Ready
     [Documentation]    Data change counter might have been slower to start than ipv4 topology, wait for it.
@@ -150,8 +155,9 @@ Start_Listening_BGP_Speaker
 Reconfigure_ODL_To_Initiate_Connection
     [Documentation]    Replace BGP peer config module, now with initiate-connection set to true.
     Store_Change_Count
-    ${template_as_string} =    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${TOOLS_SYSTEM_IP}', 'HOLDTIME': '${HOLDTIME_CHANGE_COUNT_SINGLE}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'true'}
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
+    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME_CHANGE_COUNT_SINGLE}    PEER_PORT=${BGP_TOOL_PORT}
+    ...    INITIATE=true    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=false    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
 
 Wait_For_Stable_Listening_Ipv4_Topology
     [Documentation]    Wait until example-ipv4-topology becomes stable.
@@ -204,15 +210,15 @@ Restore_Data_Change_Counter_Configuration
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    ${template_as_string} =    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer'}
-    ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
 
 *** Keywords ***
 Setup_Everything
     [Documentation]    Setup imported resources, SSH-login to tools system,
     ...    create HTTP session, put Python tool to tools system.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    ConfigViaRestconf.Setup_Config_Via_Restconf
+    TemplatedRequests.Create_Default_Session
     ChangeCounter.CC_Setup
     PrefixCounting.PC_Setup
     RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
@@ -236,7 +242,6 @@ Teardown_Everything
     [Documentation]    Make sure Python tool was killed and tear down imported Resources.
     # Environment issue may have dropped the SSH connection, but we do not want Teardown to fail.
     BuiltIn.Run_Keyword_And_Ignore_Error    KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
-    ConfigViaRestconf.Teardown_Config_Via_Restconf
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
 
