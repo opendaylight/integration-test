@@ -16,6 +16,29 @@
       "revId": "012b7339f876c2ec8b500d0a473980c0a0b22dcf",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_d6589c34",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 67,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-14T22:14:16Z",
+      "side": 1,
+      "message": "I\u0027m thinking we can/should add the work to collect the VM ips in this test case, so it only happens once.  After the Verify VMs Received DHCP Lease is done, we can call the keyword to get all the IPs.\n\nthis way the other keywords don\u0027t have to figure it out every time, and we can keep them as is passing the VM IP as an argument instead of the vm name.\n\njust thinking out loud",
+      "range": {
+        "startLine": 56,
+        "startChar": 0,
+        "endLine": 67,
+        "endChar": 34
+      },
+      "revId": "012b7339f876c2ec8b500d0a473980c0a0b22dcf",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
