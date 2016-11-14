@@ -114,7 +114,7 @@ Configure Timeout For Karaf Console
     [Documentation]    Configure a different timeout for each Karaf console.
     ${index_list} =    ClusterManagement.ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
     ${current_connection_object}=    SSHLibrary.Get Connection
-    : FOR    ${index}    IN    @{index_list}    # usually: 1, 2, 3.
+    : FOR    ${member_index}    IN    @{index_list}    # usually: 1, 2, 3.
     \    ${karaf_connection_index}=    Collections.Get From Dictionary    ${connection_index_dict}    ${member_index}
     \    SSHLibrary.Switch Connection    ${karaf_connection_index}
     \    SSHLibrary.Set_Client_Configuration    timeout=${timeout}
