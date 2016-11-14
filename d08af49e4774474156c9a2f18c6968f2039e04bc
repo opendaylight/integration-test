@@ -22,6 +22,30 @@
       "revId": "d08af49e4774474156c9a2f18c6968f2039e04bc",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_857a70ef",
+        "filename": "csit/suites/bgpcep/bgpfunct/040_bgp_functional_route_ref.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-11-14T14:19:22Z",
+      "side": 1,
+      "message": "Not possible yet.\nhttps://bugs.opendaylight.org/show_bug.cgi?id\u003d5032",
+      "parentUuid": "3a65312a_452178fa",
+      "range": {
+        "startLine": 60,
+        "startChar": 33,
+        "endLine": 60,
+        "endChar": 46
+      },
+      "revId": "d08af49e4774474156c9a2f18c6968f2039e04bc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
