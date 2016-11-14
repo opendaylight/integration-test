@@ -1,7 +1,7 @@
 *** Settings ***
 Documentation     netconf-connector readiness test suite.
 ...
-...               Copyright (c) 2015 Cisco Systems, Inc. and others. All rights reserved.
+...               Copyright (c) 2015,2016 Cisco Systems, Inc. and others. All rights reserved.
 ...
 ...               This program and the accompanying materials are made available under the
 ...               terms of the Eclipse Public License v1.0 which accompanies this distribution,
@@ -22,6 +22,7 @@ Documentation     netconf-connector readiness test suite.
 ...               within the minute. If yes, then the testcase will pass, which
 ...               indicates that the "ODL cooldown" of 1 minute is not long enough
 ...               to allow for netconf-connector to initialize properly.
+...               If this fails, one more check with even longer timeout is run.
 ...
 ...               If the USE_NETCONF_CONNECTOR is forced to be False by the Robot
 ...               invocation argument, then the suite does not use netconf
@@ -42,15 +43,15 @@ Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Library           RequestsLibrary
-Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
-Resource          ${CURDIR}/../../../libraries/Utils.robot
+Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
 
 *** Variables ***
 ${netconf_is_ready}    False
 ${NETCONFREADY_WAIT}    60s
+${NETCONFREADY_FALLBACK_WAIT}    1200s
 ${USE_NETCONF_CONNECTOR}    True
 ${DEBUG_LOGGING_FOR_EVERYTHING}    False
 ${NETCONFREADY_WAIT_MDSAL}    60s
@@ -59,16 +60,20 @@ ${NETCONFREADY_WAIT_MDSAL}    60s
 Check_Whether_Netconf_Is_Up_And_Running
     [Documentation]    Make one request to Netconf topology to see whether Netconf is up and running.
     [Tags]    exclude
-    SetupUtils.Set_Known_Bug_Id    4708
     Check_Netconf_Up_And_Running
     BuiltIn.Set_Suite_Variable    ${netconf_is_ready}    True
 
 Wait_For_Netconf
     [Documentation]    Wait for the Netconf to go up for configurable time.
     [Tags]    critical
-    BuiltIn.Set_Suite_Variable    ${netconf_not_ready_cause}    4583
-    SetupUtils.Set_Known_Bug_Id    4583
     BuiltIn.Run_Keyword_Unless    ${netconf_is_ready}    BuiltIn.Wait_Until_Keyword_Succeeds    ${NETCONFREADY_WAIT}    1s    Check_Netconf_Up_And_Running
+    BuiltIn.Set_Suite_Variable    ${netconf_is_ready}    True
+
+Wait_Even_Longer
+    [Documentation]    Bugs such as 7175 may require to wait longer till netconf-connector works.
+    [Tags]    critical
+    BuiltIn.Pass_Execution_If    ${netconf_is_ready}    Netconf was detected to be up and running so bug 5014 did not show up.
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${NETCONFREADY_FALLBACK_WAIT}    10s    Check_Netconf_Up_And_Running
     BuiltIn.Set_Suite_Variable    ${netconf_is_ready}    True
 
 Check_For_Bug_5014
@@ -80,7 +85,6 @@ Check_For_Bug_5014
     ...    as this signifies the bug 5014 to be present. Skip this testcase
     ...    if Netconf is detected to be up and running.
     [Tags]    critical
-    SetupUtils.Set_Known_Bug_Id    5014
     BuiltIn.Pass_Execution_If    ${netconf_is_ready}    Netconf was detected to be up and running so bug 5014 did not show up.
     ${status}    ${error}=    BuiltIn.Run_Keyword_And_Ignore_Error    Check_Netconf_Usable
     BuiltIn.Run_Keyword_If    '${status}'=='PASS'    BuiltIn.Set_Suite_Variable    ${netconf_is_ready}    True
@@ -89,13 +93,11 @@ Check_For_Bug_5014
 Check_Whether_Netconf_Can_Pretty_Print
     [Documentation]    Make one request to netconf-connector and see if it works.
     [Tags]    critical
-    SetupUtils.Set_Known_Bug_Id    ${netconf_not_ready_cause}
     BuiltIn.Run_Keyword_Unless    ${netconf_is_ready}    Fail    Netconf is not ready so it can't pretty-print now.
     Check_Netconf_Up_And_Running    ?prettyPrint=true
 
 Wait_For_MDSAL
     [Documentation]    Wait for the MDSAL feature to become online
-    SetupUtils.Set_Known_Bug_Id    4583
     ${status}    ${message}=    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Verify_Feature_Is_Installed    odl-netconf-mdsal
     BuiltIn.Run_Keyword_If    '${status}' == 'FAIL'    BuiltIn.Pass_Execution    The 'odl-netconf-mdsal' feature is not installed so no need to wait for it.
     SSHKeywords.Open_Connection_To_ODL_System
