@@ -34,12 +34,12 @@ Library           RequestsLibrary
 Variables         ${CURDIR}/../../../variables/Variables.py
 Resource          ${CURDIR}/../../../libraries/BGPcliKeywords.robot
 Resource          ${CURDIR}/../../../libraries/BGPSpeaker.robot
-Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KillPythonTool.robot
 Resource          ${CURDIR}/../../../libraries/PrefixCounting.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
+Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 
 *** Variables ***
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpuser/
@@ -65,6 +65,10 @@ ${BGP_APP_PEER_GET_COMMAND}    python bgp_app_peer.py --host ${ODL_SYSTEM_IP} --
 ${BGP_APP_PEER_OPTIONS}    &>bgp_app_peer.log
 ${TEST_DURATION_MULTIPLIER}    30
 ${last_prefix_count}    -1
+${DEVICE_NAME}    controller-config
+${BGP_PEER_NAME}    example-bgp-peer
+${RIB_INSTANCE}    example-bgp-rib
+${PROTOCOL_OPENCONFIG}    ${RIB_INSTANCE}
 
 *** Test Cases ***
 Check_For_Empty_Ipv4_Topology_Before_Starting
@@ -73,13 +77,14 @@ Check_For_Empty_Ipv4_Topology_Before_Starting
 
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module with initiate-connection set to false.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer', 'IP': '${TOOLS_SYSTEM_IP}', 'HOLDTIME': '${HOLDTIME_APP_PEER_PREFIX_COUNT}', 'PEER_PORT': '${BGP_TOOL_PORT}', 'INITIATE': 'false'}
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
+    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME_APP_PEER_PREFIX_COUNT}    PEER_PORT=${BGP_TOOL_PORT}
+    ...    INITIATE=false    BGP_RIB=${RIB_INSTANCE}    PASSIVE_MODE=true    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    RIB_INSTANCE_NAME=${RIB_INSTANCE}
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
 
 Reconfigure_ODL_To_Accept_BGP_Application_Peer
     [Documentation]    Configure BGP application peer module.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer-app', 'IP': '${BGP_APP_PEER_ID}'}
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_application_peer    ${template_as_string}
+    &{mapping}    Create Dictionary    DEVICE_NAME=${DEVICE_NAME}    NAME=example-bgp-peer-app    RIB_INSTANCE_NAME=${RIB_INSTANCE}    IP=${BGP_APP_PEER_ID}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    TemplatedRequests.Put_As_Xml_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_application_peer    mapping=${mapping}
 
 Connect_BGP_Peer
     [Documentation]    Start BGP peer tool
@@ -164,13 +169,13 @@ Stop_BGP_Peer
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer'}
-    ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    ${template_as_string}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
 
 Delete_Bgp_Application_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    ${template_as_string}=    BuiltIn.Set_Variable    {'NAME': 'example-bgp-peer-app'}
-    ConfigViaRestconf.Delete_Xml_Template_Folder_Config_Via_Restconf    ${BGP_VARIABLES_FOLDER}${/}bgp_application_peer    ${template_as_string}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    NAME=example-bgp-peer-app    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_application_peer    mapping=${mapping}
 
 Check_Bug_4791
     [Documentation]    Check controller's log for errors
@@ -181,7 +186,7 @@ Setup_Everything
     [Documentation]    Setup imported resources, SSH-login to tools system,
     ...    create HTTP session, put Python tool to tools system.
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
-    ConfigViaRestconf.Setup_Config_Via_Restconf
+    TemplatedRequests.Create_Default_Session
     PrefixCounting.PC_Setup
     SSHLibrary.Set_Default_Configuration    prompt=${TOOLS_SYSTEM_PROMPT}
     RequestsLibrary.Create_Session    operational    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}${OPERATIONAL_API}    auth=${AUTH}
@@ -211,7 +216,6 @@ Teardown_Everything
     SSHLibrary.Switch Connection    bgp_peer_console
     KillPythonTool.Search_And_Kill_Remote_Python    'play\.py'
     KillPythonTool.Search_And_Kill_Remote_Python    'bgp_app_peer\.py'
-    ConfigViaRestconf.Teardown_Config_Via_Restconf
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
 
