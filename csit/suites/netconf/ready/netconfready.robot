@@ -50,7 +50,7 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 
 *** Variables ***
 ${netconf_is_ready}    False
-${NETCONFREADY_WAIT}    60s
+${NETCONFREADY_WAIT}    600s    # Temporary workaround for -all- jobs.
 ${USE_NETCONF_CONNECTOR}    True
 ${DEBUG_LOGGING_FOR_EVERYTHING}    False
 ${NETCONFREADY_WAIT_MDSAL}    60s
