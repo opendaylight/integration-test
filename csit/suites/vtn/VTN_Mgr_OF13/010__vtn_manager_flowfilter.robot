@@ -92,7 +92,7 @@ Add a vtn flowfilter with inet4src and inet4dst
 Verify inet4src and inet4dst of vtn flowfilter
     [Documentation]    Verify vtn flowfilter actions in Flow Enties for inet4src and inet4dst
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF13}    @{inet_action}
-    [Teardown]    Report_Failure_Due_To_Bug    6643
+    [Teardown]    Report_Failure_Due_To_Bug    6643    Collect Debug Info
 
 Remove vtn Flowfilter index
     [Documentation]    Remove a index of vtn flowfilter
