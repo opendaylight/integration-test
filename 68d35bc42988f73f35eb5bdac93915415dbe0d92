@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_e6108703",
+        "filename": "csit/suites/bgpcep/bgpclustering/PrefixcountKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-15T15:33:17Z",
+      "side": 1,
+      "message": "Needed to avoid using netconf-connector in Boron.",
+      "range": {
+        "startLine": 24,
+        "startChar": 54,
+        "endLine": 24,
+        "endChar": 64
+      },
+      "revId": "68d35bc42988f73f35eb5bdac93915415dbe0d92",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
