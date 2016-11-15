@@ -1,4 +1,4 @@
-integration/test/csit/suites/openstack/connectivity/
-integration/test/csit/suites/openstack/clustering/
-integration/test/csit/suites/integration/Create_JVM_Plots.robot
-
+integration/test/csit/suites/openstack/connectivity/01_query_tests.robot
+integration/test/csit/suites/openstack/connectivity/01_query_tests.robot
+integration/test/csit/suites/openstack/connectivity/01_query_tests.robot
+integration/test/csit/suites/openstack/connectivity/01_query_tests.robot
