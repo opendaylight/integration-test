@@ -50,6 +50,8 @@ ${SINGLETON_NETCONF_DEVICE_ID_PREFIX}    /odl-general-entity:entity[odl-general-
 ${SINGLETON_NETCONF_DEVICE_ID_SUFFIX}    ]]]]}']
 ${SINGLETON_ELECTION_ENTITY_TYPE}    org.opendaylight.mdsal.ServiceEntityType
 ${SINGLETON_CHANGE_OWNERSHIP_ENTITY_TYPE}    org.opendaylight.mdsal.AsyncServiceCloseEntityType
+${NODE_START_COMMAND}    ${KARAF_HOME}/bin/start
+${NODE_KILL_COMMAND}    ps axf | grep karaf | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
 
 *** Keywords ***
 ClusterManagement_Setup
@@ -322,8 +324,7 @@ Kill_Members_From_List_Or_All
     ...    The KW will return a list of available members: \${updated index_list}=\${original_index_list}-\${member_index_list}
     ${kill_index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
     ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${original_index_list}
-    ${command} =    BuiltIn.Set_Variable    ps axf | grep karaf | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
-    Run_Bash_Command_On_List_Or_All    command=${command}    member_index_list=${member_index_list}
+    Run_Bash_Command_On_List_Or_All    command=${NODE_KILL_COMMAND}    member_index_list=${member_index_list}
     ${updated_index_list} =    BuiltIn.Create_List    @{index_list}
     Collections.Remove_Values_From_List    ${updated_index_list}    @{kill_index_list}
     BuiltIn.Return_From_Keyword_If    not ${confirm}    ${updated_index_list}
@@ -340,11 +341,11 @@ Start_Single_Member
     Start_Members_From_List_Or_All    ${index_list}    ${wait_for_sync}    ${timeout}
 
 Start_Members_From_List_Or_All
-    [Arguments]    ${member_index_list}=${EMPTY}    ${wait_for_sync}=True    ${timeout}=300s    ${karaf_home}=${KARAF_HOME}    ${export_java_home}=${JAVA_HOME}
+    [Arguments]    ${member_index_list}=${EMPTY}    ${wait_for_sync}=True    ${timeout}=300s    ${karaf_home}=${EMPTY}    ${export_java_home}=${EMPTY}
     [Documentation]    If the list is empty, start all cluster members. Otherwise, start members based on present indices.
     ...    If ${wait_for_sync}, wait for cluster sync on listed members.
     ...    Optionally karaf_home can be overriden. Optionally specific JAVA_HOME is used for starting.
-    ${base_command} =    BuiltIn.Set_Variable    ${karaf_home}/bin/start
+    ${base_command} =    BuiltIn.Set_Variable_If    "${karaf_home}"    ${karaf_home}/bin/start    ${NODE_START_COMMAND}
     ${command} =    BuiltIn.Set_Variable_If    "${export_java_home}"    export JAVA_HOME="${export_java_home}"; ${base_command}    ${base_command}
     Run_Bash_Command_On_List_Or_All    command=${command}    member_index_list=${member_index_list}
     BuiltIn.Return_From_Keyword_If    not ${wait_for_sync}
