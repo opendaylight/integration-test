@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_d63c1ce5",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-11-15T09:26:11Z",
+      "side": 1,
+      "message": "Is this an attempt to parse the output? Where is output_words used?",
+      "revId": "e56c30619c2d9b80b90a32398c408f6f5d7db034",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_f659585c",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 291,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-11-15T09:26:11Z",
+      "side": 1,
+      "message": "+1 for Sam\u0027s approach - a nova show for each operation will slow things down dramatically.. we should cache the IPs in Verify VMs Received DHCP Lease, and use that for resolution on each operation",
+      "revId": "e56c30619c2d9b80b90a32398c408f6f5d7db034",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_764ee897",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-11-15T09:26:11Z",
+      "side": 1,
+      "message": "Technically these shouldn\u0027t be hardcoded either.. it might work out ok currently, but might be a good time to correct these as well. On the other hand I don\u0027t fully understand why we need the DHCP IP, dont we just need the namespace name for ip netns? Or do we ping the namespace back from the VM?",
+      "revId": "e56c30619c2d9b80b90a32398c408f6f5d7db034",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
