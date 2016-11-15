@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3a65312a_22e1d29a",
+        "filename": "csit/scriptplans/distribution-userfeatures.txt",
+        "patchSetId": 46
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 3269
+      },
+      "writtenOn": "2016-11-15T14:18:10Z",
+      "side": 1,
+      "message": "it is working with 3g on 8g image, but not on 4g image\nhttps://logs.opendaylight.org/sandbox/jenkins091/distribution-csit-1node-userfeatures-only-carbon/2/archives/log.html.gz",
+      "parentUuid": "3a65312a_05ef8788",
+      "range": {
+        "startLine": 2,
+        "startChar": 44,
+        "endLine": 2,
+        "endChar": 46
+      },
+      "revId": "714a760f6d55e7e06d74ae5192b6e2b54c912041",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a65312a_25ee0389",
         "filename": "csit/suites/distribution/Karaf_Sequence_Install.robot",
         "patchSetId": 46
@@ -36,6 +60,30 @@
       "writtenOn": "2016-11-11T11:36:41Z",
       "side": 1,
       "message": "I think 3m is more reasonable.",
+      "range": {
+        "startLine": 24,
+        "startChar": 30,
+        "endLine": 24,
+        "endChar": 33
+      },
+      "revId": "714a760f6d55e7e06d74ae5192b6e2b54c912041",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_028ad6be",
+        "filename": "csit/suites/distribution/Karaf_Sequence_Install.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 3269
+      },
+      "writtenOn": "2016-11-15T14:18:10Z",
+      "side": 1,
+      "message": "3m is not enough\nodl-didm-all needs over 3m \nboron:\nhttps://logs.opendaylight.org/sandbox/jenkins091/distribution-csit-1node-userfeatures-only-boron/1/archives/log.html.gz#s1-s4-t1-k6-k12\ncarbon:\nhttps://logs.opendaylight.org/sandbox/jenkins091/distribution-csit-1node-userfeatures-only-carbon/1/archives/log.html.gz#s1-s4-t1-k6-k12\n\nsometimes near 5min, so i think 5min can be in some cases not enough",
+      "parentUuid": "3a65312a_25ee0389",
       "range": {
         "startLine": 24,
         "startChar": 30,
@@ -71,6 +119,30 @@
     },
     {
       "key": {
+        "uuid": "3a65312a_033bf538",
+        "filename": "csit/suites/distribution/Karaf_Sequence_Install.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 36,
+      "author": {
+        "id": 3269
+      },
+      "writtenOn": "2016-11-15T14:18:10Z",
+      "side": 1,
+      "message": "created kwds KarafKeywords.Open_Controller_Karaf_Console_With_Timeout and KarafKeywords.Install_a_Feature_Using_Active_Connection",
+      "parentUuid": "3a65312a_45d21fd3",
+      "range": {
+        "startLine": 36,
+        "startChar": 23,
+        "endLine": 36,
+        "endChar": 40
+      },
+      "revId": "714a760f6d55e7e06d74ae5192b6e2b54c912041",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a65312a_455b3f87",
         "filename": "csit/suites/distribution/Karaf_Sequence_Install.robot",
         "patchSetId": 46
@@ -94,6 +166,30 @@
     },
     {
       "key": {
+        "uuid": "3a65312a_020db63e",
+        "filename": "csit/suites/distribution/Karaf_Sequence_Install.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 3269
+      },
+      "writtenOn": "2016-11-15T14:18:10Z",
+      "side": 1,
+      "message": "whole clear/reset removed due to problems with debugging",
+      "parentUuid": "3a65312a_455b3f87",
+      "range": {
+        "startLine": 39,
+        "startChar": 6,
+        "endLine": 39,
+        "endChar": 17
+      },
+      "revId": "714a760f6d55e7e06d74ae5192b6e2b54c912041",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a65312a_c5e58fa9",
         "filename": "csit/suites/distribution/Karaf_Sequence_Install.robot",
         "patchSetId": 46
@@ -105,6 +201,30 @@
       "writtenOn": "2016-11-11T11:35:10Z",
       "side": 1,
       "message": "Move this into line 41 (as ClusterManagement_Setup is indirectly called by this).",
+      "range": {
+        "startLine": 44,
+        "startChar": 4,
+        "endLine": 44,
+        "endChar": 49
+      },
+      "revId": "714a760f6d55e7e06d74ae5192b6e2b54c912041",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_4345edb1",
+        "filename": "csit/suites/distribution/Karaf_Sequence_Install.robot",
+        "patchSetId": 46
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 3269
+      },
+      "writtenOn": "2016-11-15T14:18:10Z",
+      "side": 1,
+      "message": "set as suite setup",
+      "parentUuid": "3a65312a_c5e58fa9",
       "range": {
         "startLine": 44,
         "startChar": 4,
