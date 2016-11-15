@@ -50,6 +50,24 @@
       "revId": "e56c30619c2d9b80b90a32398c408f6f5d7db034",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_d9f44cf4",
+        "filename": "csit/suites/openstack/connectivity/01_l2_tests.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 21,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-15T19:06:21Z",
+      "side": 1,
+      "message": "looks like the test cases do ping the namespace ip from inside the instances.\n\nwe could glean the namespace ip with \"ip netns exec $ns ifconfig\" if we want to.\n\nor we can remove that step altogether and just assume that when we do the namespace ping test case, it\u0027s proof enough that connectivity between VM instances and dhcp namespace is fine.",
+      "parentUuid": "3a65312a_764ee897",
+      "revId": "e56c30619c2d9b80b90a32398c408f6f5d7db034",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
