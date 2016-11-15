@@ -45,6 +45,30 @@
       "revId": "0605a7cb0788a43490ac396fd113e6e8d8f2fdd1",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_a6de8f0f",
+        "filename": "csit/suites/distribution/Karaf_Sequence_Install.robot",
+        "patchSetId": 53
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 3269
+      },
+      "writtenOn": "2016-11-15T15:59:28Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "3a65312a_a62def48",
+      "range": {
+        "startLine": 32,
+        "startChar": 36,
+        "endLine": 32,
+        "endChar": 37
+      },
+      "revId": "0605a7cb0788a43490ac396fd113e6e8d8f2fdd1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
