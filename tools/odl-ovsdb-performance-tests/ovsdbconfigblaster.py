@@ -324,6 +324,7 @@ class OvsdbConfigBlaster (object):
                              json_body)
         return ret.status_code
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Add:delete bridge/port/term-points to OpenDaylight')
 

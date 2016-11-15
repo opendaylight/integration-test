@@ -34,4 +34,5 @@ def main():
             remote.exec_cmd("rm -rf " + args.rootdir + "/deploy/current/odl/snapshots")
         remote.start_controller(args.rootdir + "/deploy/current")
 
+
 main()

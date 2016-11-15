@@ -99,6 +99,7 @@ class Topologynew(object):
             nodes += self._enumerate_nodes(currentdepth + 1, nodeid + nodes, i, fanout, depth, leafnodes)
         return nodes
 
+
 if __name__ == '__main__':
     topologynew = Topologynew()
     # print topologynew.get_nodes_from_tree_topo(2)

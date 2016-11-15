@@ -163,6 +163,7 @@ class MappingRPCBlaster(object):
             self.send_rpc(self.session, 'get-mapping', rpc_json)
         self.session.close()
 
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Add simple IPv4 \
         prefix-to-IPv4 locator LISP mappings to OpenDaylight')

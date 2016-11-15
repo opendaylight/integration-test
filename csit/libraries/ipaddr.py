@@ -371,6 +371,7 @@ def collapse_address_list(addresses):
     return _collapse_address_list_recursive(sorted(
         addrs + nets, key=_BaseNet._get_networks_key))
 
+
 # backwards compatibility
 CollapseAddrList = collapse_address_list
 

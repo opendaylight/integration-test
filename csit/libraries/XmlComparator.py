@@ -176,6 +176,7 @@ class XMLtoDictParserTools():
                 diff[key] = (KEY_NOT_FOUND, key)
         return diff
 
+
 IGNORED_TAGS_FOR_OPERATIONAL_COMPARISON = ['id', 'flow-name', 'barrier', 'cookie_mask', 'installHw', 'flags',
                                            'strict', 'byte-count', 'duration', 'packet-count', 'in-port',
                                            'vlan-id-present', 'out_group', 'out_port', 'hard-timeout', 'idle-timeout',

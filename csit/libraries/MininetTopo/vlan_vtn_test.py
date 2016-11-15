@@ -60,4 +60,5 @@ class VlanTopo(Topo):
         self.addLink(s3, host5)
         self.addLink(s3, host6)
 
+
 topos = {'vlantopo': (lambda: VlanTopo())}

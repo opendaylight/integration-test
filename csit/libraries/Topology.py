@@ -40,6 +40,7 @@ class Topology(object):
         else:
             return None
 
+
 if __name__ == '__main__':
     topology = Topology()
     print topology.get_nodes_from_topology(2)

@@ -36,5 +36,6 @@ class Switch2(Topo):
             host = self.addHost('h%s' % (h + 3), mac="00:00:00:00:00:0" + str(h + 3), ip="10.0.0." + str(h + 3))
             self.addLink(host, switch)
 
+
 topos = {'Switch1': (lambda: Switch1()),
          'Switch2': (lambda: Switch2())}

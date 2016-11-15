@@ -114,6 +114,7 @@ def list_entity_owners(ipaddress, entity_owner_list):
                     print("IP Address", str(owner_role[0]))
                     print("\n")
 
+
 # Main Block
 if __name__ == '__main__':
     print('*****Cluster Status******')

@@ -392,5 +392,6 @@ def main(*argv):
             fd.write("AddRate,DeleteRate\n")
             fd.write("{0},{1}\n".format(addrate, delrate))
 
+
 if __name__ == "__main__":
     main(sys.argv[1:])

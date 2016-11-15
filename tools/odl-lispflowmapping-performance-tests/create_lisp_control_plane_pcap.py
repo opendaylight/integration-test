@@ -113,6 +113,7 @@ def generate_map_register(eid, rloc, key_id):
                                     xtr_id_low=netaddr.IPAddress(eid))
     return packet
 
+
 parser = argparse.ArgumentParser(description='Create a Map-Request trace file')
 
 parser.add_argument('--dst-mac', default='00:00:00:00:00:00',

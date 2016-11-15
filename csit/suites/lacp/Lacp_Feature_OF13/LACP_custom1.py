@@ -59,4 +59,5 @@ class LacpTopo(Topo):
     CLI(net)
     net.stop()
 
+
 topos = {'lacp': (lambda: LacpTopo())}

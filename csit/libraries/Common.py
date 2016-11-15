@@ -79,5 +79,6 @@ def num_of_links_for_node(nodeid, leaflist, fanout):
         return 1
     return (fanout + 1)
 
+
 if __name__ == '__main__':
     print(num_of_nodes(3, 4))

@@ -268,6 +268,7 @@ def launch(switches, hosts, odl_ip='127.0.0.1'):
                 print "Created container: %s with IP: %s. Connect using docker attach %s," \
                     "disconnect with 'ctrl-p-q'." % (host['name'], host['ip'], host['name'])
 
+
 if __name__ == "__main__":
     if len(sys.argv) < 2 or len(sys.argv) > 3:
         print "Please, specify IP of ODL and switch index in arguments."

@@ -8,6 +8,7 @@ def call_dpctl():
     listcmd = cmd.split()
     return check_output(listcmd)
 
+
 if __name__ == "__main__":
     flows = call_dpctl().split("recirc_id")
     for flow in flows:
