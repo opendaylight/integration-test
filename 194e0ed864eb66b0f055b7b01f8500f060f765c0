@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_7193924f",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-15T11:05:16Z",
+      "side": 1,
+      "message": "0",
+      "range": {
+        "startLine": 514,
+        "startChar": 95,
+        "endLine": 514,
+        "endChar": 98
+      },
+      "revId": "194e0ed864eb66b0f055b7b01f8500f060f765c0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_d19a6662",
+        "filename": "csit/libraries/Sxp.py",
+        "patchSetId": 3
+      },
+      "lineNbr": 846,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-15T11:05:16Z",
+      "side": 1,
+      "message": "0",
+      "range": {
+        "startLine": 846,
+        "startChar": 95,
+        "endLine": 846,
+        "endChar": 98
+      },
+      "revId": "194e0ed864eb66b0f055b7b01f8500f060f765c0",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
