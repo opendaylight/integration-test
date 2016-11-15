@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_a3c84123",
+        "filename": "csit/libraries/ChangeCounter.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-15T14:39:39Z",
+      "side": 1,
+      "message": "No, it creates \"default\" session.",
+      "range": {
+        "startLine": 11,
+        "startChar": 32,
+        "endLine": 11,
+        "endChar": 102
+      },
+      "revId": "ccf862d7faad07db5ea7f42238c1aabb21535097",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_23dc31e4",
+        "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 19,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-15T14:39:39Z",
+      "side": 1,
+      "message": "Minor importance:\nMention that the specific way depends on stream, and give links to both ways. This applies to other suite documentations as well.",
+      "range": {
+        "startLine": 19,
+        "startChar": 24,
+        "endLine": 19,
+        "endChar": 35
+      },
+      "revId": "ccf862d7faad07db5ea7f42238c1aabb21535097",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
