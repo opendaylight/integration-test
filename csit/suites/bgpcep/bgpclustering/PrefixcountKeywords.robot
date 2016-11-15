@@ -21,7 +21,7 @@ Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 
 *** Variables ***
 ${BGP_TOOL_LOG_LEVEL}    info
-${BGP_PEER_FOLDER}    ${CURDIR}/../../../variables/bgpfunctional/openconfig_bgp_peer    # used for configuration of bgp peer via openconfig
+${BGP_PEER_FOLDER}    ${CURDIR}/../../../variables/bgpclustering/bgp_peer_openconf    # used for configuration of bgp peer via openconfig
 ${BGP_VARIABLES_FOLDER}    ${CURDIR}/../../../variables/bgpclustering/bgp_peer    # used for configuration of bgp peer vie netconf connector
 ${BGP_VARIABLES_FOLDER_OP}    ${CURDIR}/../../../variables/bgpclustering/bgp_peer_operational
 ${NETCONF_DEV_FOLDER}    ${CURDIR}/../../../variables/netconf/device/full-uri-device

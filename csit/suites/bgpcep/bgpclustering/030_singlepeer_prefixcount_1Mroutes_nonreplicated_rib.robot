@@ -55,7 +55,7 @@ Check_For_Empty_Ipv4_Topology_Before_Talking
 Reconfigure_ODL_To_Accept_Connection
     [Documentation]    Configure BGP peer module in passive mode (not initiating connection)
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    &{mapping}    Create Dictionary    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    PASSIVE_MODE=true    BGP_RIB=${RIB_INSTANCE}
+    &{mapping}    Create Dictionary    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    IP=${TOOLS_SYSTEM_IP}    HOLDTIME=${HOLDTIME}    PEER_PORT=${BGP_TOOL_PORT}    PASSIVE_MODE=true
     TemplatedRequests.Post_As_Xml_Templated    ${BGP_PEER_FOLDER}    mapping=${mapping}    session=${CONFIG_SESSION}
     [Teardown]    SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 
@@ -93,5 +93,5 @@ Check_For_Empty_Ipv4_Topology_After_Listening
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers
-    &{mapping}    Create Dictionary    BGP_RIB=${RIB_INSTANCE}
+    &{mapping}    Create Dictionary    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}    IP=${TOOLS_SYSTEM_IP}
     TemplatedRequests.Delete_Templated    ${BGP_PEER_FOLDER}    mapping=${mapping}    session=${CONFIG_SESSION}
