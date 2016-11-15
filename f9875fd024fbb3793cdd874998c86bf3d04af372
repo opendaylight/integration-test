@@ -22,6 +22,30 @@
       "revId": "f9875fd024fbb3793cdd874998c86bf3d04af372",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_23f9d180",
+        "filename": "csit/suites/distribution/Karaf_Sequence_Install.robot",
+        "patchSetId": 48
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 3269
+      },
+      "writtenOn": "2016-11-15T14:18:10Z",
+      "side": 1,
+      "message": "removed whole reset/clear",
+      "parentUuid": "3a65312a_90ef4c87",
+      "range": {
+        "startLine": 66,
+        "startChar": 22,
+        "endLine": 66,
+        "endChar": 39
+      },
+      "revId": "f9875fd024fbb3793cdd874998c86bf3d04af372",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
