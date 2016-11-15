@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_86ba73be",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 53
+      },
+      "lineNbr": 78,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-15T15:54:47Z",
+      "side": 1,
+      "message": "Future improvement: https://trello.com/c/94Mefbd4/380-int-test-systematize-karafkeywords-robot",
+      "range": {
+        "startLine": 78,
+        "startChar": 0,
+        "endLine": 78,
+        "endChar": 17
+      },
+      "revId": "0605a7cb0788a43490ac396fd113e6e8d8f2fdd1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_a62def48",
+        "filename": "csit/suites/distribution/Karaf_Sequence_Install.robot",
+        "patchSetId": 53
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-15T15:54:47Z",
+      "side": 1,
+      "message": "_",
+      "range": {
+        "startLine": 32,
+        "startChar": 36,
+        "endLine": 32,
+        "endChar": 37
+      },
+      "revId": "0605a7cb0788a43490ac396fd113e6e8d8f2fdd1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
