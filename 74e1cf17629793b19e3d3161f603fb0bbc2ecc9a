@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_19b1a48f",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-16T00:32:06Z",
+      "side": 1,
+      "message": "I didn\u0027t follow this line.\n\nisn\u0027t all you want to have is:\n\n${base_command}\u003d    BuiltIn.Set_Variable    ${NODE_START_COMMAND}",
+      "range": {
+        "startLine": 348,
+        "startChar": 0,
+        "endLine": 348,
+        "endChar": 119
+      },
+      "revId": "74e1cf17629793b19e3d3161f603fb0bbc2ecc9a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
