@@ -77,6 +77,47 @@
     },
     {
       "key": {
+        "uuid": "3a65312a_8ded6e28",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-11-16T17:04:36Z",
+      "side": 1,
+      "message": "I like the verbose capture. Seems like it would be useful to quickly see the packet decoding.",
+      "parentUuid": "3a65312a_df03a1b6",
+      "revId": "6c952b1938c76719ad5a92aa12037f1f65193163",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_6d91f298",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-11-16T17:04:36Z",
+      "side": 1,
+      "message": "can the capture be called for different interfaces, such that we need different output files?",
+      "range": {
+        "startLine": 414,
+        "startChar": 117,
+        "endLine": 414,
+        "endChar": 121
+      },
+      "revId": "6c952b1938c76719ad5a92aa12037f1f65193163",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a65312a_df1a8116",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 6
