@@ -67,11 +67,11 @@ Delete Network
     Should Match Regexp    ${output}    Deleted network: ${network_name}|Deleted network\\(s\\): ${network_name}
 
 Create SubNet
-    [Arguments]    ${network_name}    ${subnet}    ${range_ip}
+    [Arguments]    ${network_name}    ${subnet}    ${range_ip}  ${additional_args}=${EMPTY}
     [Documentation]    Create SubNet for the Network with neutron request.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet}    30s
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet} ${additional_args}    30s
     Close Connection
     Log    ${output}
     Should Contain    ${output}    Created a new subnet
@@ -262,6 +262,17 @@ Ping From DHCP Should Not Succeed
     Log    ${output}
     Should Not Contain    ${output}    64 bytes
 
+Ping Vm From Control Node
+    [Arguments]    ${vm_floating_ip}
+    [Documentation]    Ping VM floating IP from control node
+    Log    ${vm_floating_ip}
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    ping -c 3 ${vm_floating_ip}    20s
+    Log    ${output}
+    Close Connection
+    Should Contain    ${output}    64 bytes
+
 Ping From Instance
     [Arguments]    ${dest_vm}
     [Documentation]    Ping to the expected destination ip.
@@ -364,6 +375,14 @@ Add Router Interface
     ${output}=    Write Commands Until Prompt    neutron -v router-interface-add ${router_name} ${interface_name}
     Close Connection
     Should Contain    ${output}    Added interface
+
+Add Router Gateway
+    [Arguments]    ${router_name}    ${network_name}
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron -v router-gateway-set ${router_name} ${network_name}
+    Close Connection
+    Should Contain    ${output}    Set gateway
 
 Remove Interface
     [Arguments]    ${router_name}    ${interface_name}
