@@ -33,7 +33,6 @@ Library           SSHLibrary    timeout=10s
 Library           RequestsLibrary
 Library           Collections
 Variables         ${CURDIR}/../../../variables/Variables.py
-Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
@@ -160,7 +159,6 @@ Setup_Everything
 Teardown_Everything
     [Documentation]    Close connections.
     ...    Tear down imported Resources.
-    ConfigViaRestconf.Teardown_Config_Via_Restconf
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
 
