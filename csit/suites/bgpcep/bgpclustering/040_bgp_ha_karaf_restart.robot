@@ -26,7 +26,7 @@ Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 
 *** Variables ***
 ${BGP_VAR_FOLDER}    ${CURDIR}/../../../variables/bgpclustering
-${BGP_PEER_FOLDER}    ${CURDIR}/../../../variables/bgpfunctional/openconfig_bgp_peer
+${BGP_PEER_FOLDER}    ${CURDIR}/../../../variables/bgpclustering/bgp_peer_openconf
 ${DEFAUTL_EXA_CFG}    exa.cfg
 ${EXA_CMD}        env exabgp.tcp.port=1790 exabgp
 ${PEER_CHECK_URL}    /restconf/operational/bgp-rib:bgp-rib/rib/example-bgp-rib/peer/bgp:%2F%2F
@@ -96,7 +96,7 @@ Stop_ExaBgp_Peer
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers
-    &{mapping}    Create Dictionary    BGP_RIB=${RIB_INSTANCE}
+    &{mapping}    Create Dictionary    BGP_RIB=${RIB_INSTANCE}    IP=${TOOLS_SYSTEM_IP}
     TemplatedRequests.Delete_Templated    ${BGP_PEER_FOLDER}    mapping=${mapping}    session=${living_session}
 
 *** Keywords ***
