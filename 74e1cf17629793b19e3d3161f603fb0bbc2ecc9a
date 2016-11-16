@@ -46,6 +46,30 @@
       "revId": "74e1cf17629793b19e3d3161f603fb0bbc2ecc9a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_1c3b52d2",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 348,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-16T04:43:25Z",
+      "side": 1,
+      "message": "ok, got it.",
+      "parentUuid": "3a65312a_b916b053",
+      "range": {
+        "startLine": 348,
+        "startChar": 0,
+        "endLine": 348,
+        "endChar": 119
+      },
+      "revId": "74e1cf17629793b19e3d3161f603fb0bbc2ecc9a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
