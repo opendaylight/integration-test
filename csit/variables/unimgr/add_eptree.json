@@ -1,0 +1,35 @@
+{
+"mef-service": [
+    {
+      "svc-id": 7,
+      "svc-type": "eptree",
+      "evc": {
+        "evc-id": "7",
+        "evc-type": "rooted-multipoint",
+        "admin-state-enabled": true,
+        "unis": {
+          "uni": [
+            {
+              "uni-id": "1:s1-eth2",
+              "role": "leaf",
+              "admin-state-enabled": true,
+              "evc-uni-ce-vlans": {}
+            },
+            {
+              "uni-id": "1:s1-eth3",
+              "role": "leaf",
+              "admin-state-enabled": true,
+              "evc-uni-ce-vlans": {}
+            },
+            {
+              "uni-id": "1:s1-eth1",
+              "role": "root",
+              "admin-state-enabled": true,
+              "evc-uni-ce-vlans": {}
+            }
+          ]
+        }
+      }
+    }
+  ]
+}

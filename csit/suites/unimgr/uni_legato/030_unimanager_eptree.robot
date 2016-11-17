@@ -1,0 +1,60 @@
+*** Settings ***
+Documentation     Test suite for legato topology of 1 switch
+Suite Setup       Setup Test Environment
+Suite Teardown    Delete All Sessions
+Library           RequestsLibrary
+Library           SSHLibrary
+Library           Collections
+Library           OperatingSystem
+Resource          ../../../libraries/Utils.robot
+Resource          ../../../libraries/MininetKeywords.robot
+Resource          ../../../variables/Variables.robot
+
+*** Variables ***
+${UniMgr_variables_DIR}    ${CURDIR}/../../../variables/unimgr
+${options}        --topo single,3 --switch ovsk,protocols=OpenFlow13
+
+*** Test Cases ***
+Check no connectivity before creating service
+    [Documentation]    Verify no connectivity between h1 to h2 before creating the service between
+    MininetKeywords.Verify Mininet No Ping    h1    h2
+
+Create eptree service
+    [Documentation]    Create Rooted MP service between the eth ports
+    ${interface}    Create List    s1-eth1    s1-eth2    s1-eth3
+    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${CONFIG_API}/mef-interfaces:mef-interfaces/    ${interface}
+    ${body}=    OperatingSystem.Get File    ${UniMgr_variables_DIR}/add_eptree.json
+    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_API}/mef-services:mef-services/    headers=${HEADERS_YANG_JSON}    data=${body}
+    Log    ${resp.content}
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+
+Check ping between h1-root h2-leaf, after service creation
+    [Documentation]    Verify ping between h1-root to leaf h2
+    MininetKeywords.Verify Mininet Ping    h1    h2
+    Wait Until Keyword Succeeds    8s    2s    MininetKeywords.Verify Mininet Ping    h1    h2
+
+Check ping between h1-root h3-leaf, after service creation
+    [Documentation]    Verify ping between the hosts h1-root h3-leaf
+    MininetKeywords.Verify Mininet Ping    h1    h3
+    Wait Until Keyword Succeeds    8s    2s    MininetKeywords.Verify Mininet Ping    h1    h3
+
+Check no ping between h2-leaf leaf-h3, after service creation
+    [Documentation]    Verify no ping between the hosts h2-leaf h3-leaf
+    MininetKeywords.Verify Mininet No Ping    h2    h3
+    Wait Until Keyword Succeeds    8s    2s    MininetKeywords.Verify Mininet No Ping    h2    h3
+
+Delete epl service
+    [Documentation]    Delete the evc eptree  & verify no ping
+    ${resp}    RequestsLibrary.Delete Request    session    ${CONFIG_API}/mef-services:mef-services/    headers=${HEADERS_YANG_JSON}
+    Log    ${resp.content}
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+
+Check no connectivity after deleting service
+    [Documentation]    Verify no ping after deleteing the eplan service
+    Wait Until Keyword Succeeds    8s    2s    MininetKeywords.Verify Mininet No Ping    h1    h2
+
+*** Keywords ***
+Setup Test Environment
+    [Documentation]    Establish the Opendayligh session and prepair 1 Mininet VMs
+    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+    Mininetkeywords.Start Mininet Single Controller    options=${options}
