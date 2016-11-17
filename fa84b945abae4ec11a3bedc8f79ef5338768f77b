@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3a65312a_c85c74f0",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-11-17T10:44:57Z",
+      "side": 1,
+      "message": "great thanks. that\u0027s convenient!",
+      "parentUuid": "3a65312a_4d7d16b1",
+      "range": {
+        "startLine": 70,
+        "startChar": 62,
+        "endLine": 70,
+        "endChar": 64
+      },
+      "revId": "fa84b945abae4ec11a3bedc8f79ef5338768f77b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a65312a_ad4b0a86",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 3
@@ -117,6 +141,30 @@
     },
     {
       "key": {
+        "uuid": "3a65312a_28cfe880",
+        "filename": "csit/suites/openstack/connectivity/03_extnet_tests.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-11-17T10:44:57Z",
+      "side": 1,
+      "message": "haha changed to router1.. even more creative :)",
+      "parentUuid": "3a65312a_cd48068a",
+      "range": {
+        "startLine": 46,
+        "startChar": 41,
+        "endLine": 46,
+        "endChar": 47
+      },
+      "revId": "fa84b945abae4ec11a3bedc8f79ef5338768f77b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a65312a_0d5afe4f",
         "filename": "csit/suites/openstack/connectivity/03_extnet_tests.robot",
         "patchSetId": 3
@@ -140,6 +188,30 @@
     },
     {
       "key": {
+        "uuid": "3a65312a_68c9e077",
+        "filename": "csit/suites/openstack/connectivity/03_extnet_tests.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-11-17T10:44:57Z",
+      "side": 1,
+      "message": "Yeah I can copy the step. By the way it is missing from clustering suites (that\u0027s where I started copying this from)",
+      "parentUuid": "3a65312a_0d5afe4f",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 83
+      },
+      "revId": "fa84b945abae4ec11a3bedc8f79ef5338768f77b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a65312a_2d5ffa42",
         "filename": "csit/suites/openstack/connectivity/03_extnet_tests.robot",
         "patchSetId": 3
@@ -151,6 +223,30 @@
       "writtenOn": "2016-11-17T05:04:51Z",
       "side": 1,
       "message": "you want this to run first?  if you want debugs to run *always* for a test case, put this as the last line in the test case\n\n[Teardown]    Get OvsDebug\n\n\nin robot, if any single step fails in the test case, the rest will be skipped.  Except that, ALL keywords in the [Teardown] will be executed.",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 20
+      },
+      "revId": "fa84b945abae4ec11a3bedc8f79ef5338768f77b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_a8a2d8ab",
+        "filename": "csit/suites/openstack/connectivity/03_extnet_tests.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-11-17T10:44:57Z",
+      "side": 1,
+      "message": "yeah started copying from clustering tests that aren\u0027t updated with this logic yet.. my bad will make it like the connectivity suite teardowns",
+      "parentUuid": "3a65312a_2d5ffa42",
       "range": {
         "startLine": 74,
         "startChar": 4,
