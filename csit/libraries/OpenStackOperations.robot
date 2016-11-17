@@ -4,6 +4,9 @@ Library           SSHLibrary
 Resource          Utils.robot
 Variables         ../variables/Variables.py
 
+*** Variables ***
+${PING_PASS}      , 0% packet loss
+
 *** Keywords ***
 Source Password
     [Arguments]    ${force}=no    ${source_pwd}=yes
@@ -204,7 +207,7 @@ Create Vm Instance With Port On Compute Node
     ${hostname_compute_node}=    Run Command On Remote System    ${compute_node}    hostname
     ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --security-groups ${sg} --availability-zone nova:${hostname_compute_node}    30s
     Log    ${output}
-    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${vm_instance_name}
+    #Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${vm_instance_name}
 
 Verify VM Is ACTIVE
     [Arguments]    ${vm_name}
@@ -222,11 +225,17 @@ Verify VMs Received DHCP Lease
     ...    that the instance is fully up and ready.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
+    ${ip_list}    Create List
     : FOR    ${vm}    IN    @{vm_list}
     \    ${output}=    Write Commands Until Prompt    nova console-log ${vm} | grep -i "obtained"    30s
+    \    ${dhcp_ip_line}=    Write Commands Until Prompt    nova console-log ${vm} | grep "^nameserver"    30s
     \    Log    ${output}
+    \    @{output_words}    Split String    ${output}
+    \    @{dhcp_output_words}    Split String    ${dhcp_ip_line}
     \    Should Contain    ${output}    obtained
-
+    \    Append To List    ${ip_list}    @{output_words}[2]
+    [Return]    ${ip_list}    @{dhcp_output_words}[1]
+    
 View Vm Console
     [Arguments]    ${vm_instance_names}
     [Documentation]    View Console log of the created vm instances using nova show.
@@ -247,7 +256,7 @@ Ping Vm From DHCP Namespace
     ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
     Log    ${output}
     Close Connection
-    Should Contain    ${output}    64 bytes
+    Should Contain    ${output}    ${PING_PASS}
 
 Ping From DHCP Should Not Succeed
     [Arguments]    ${net_name}    ${vm_ip}
@@ -260,7 +269,7 @@ Ping From DHCP Should Not Succeed
     ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
     Close Connection
     Log    ${output}
-    Should Not Contain    ${output}    64 bytes
+    Should Not Contain    ${output}    ${PING_PASS}
 
 Ping From Instance
     [Arguments]    ${dest_vm}
@@ -296,7 +305,7 @@ Check Ping
     [Arguments]    ${ip_address}
     [Documentation]    Run Ping command on the IP available as argument
     ${output}=    Write Commands Until Expected Prompt    ping -c 3 ${ip_address}    ${OS_SYSTEM_PROMPT}
-    Should Contain    ${output}    64 bytes
+    Should Contain    ${output}    ${PING_PASS}
 
 Check Metadata Access
     [Documentation]    Try curl on the Metadataurl and check if it is okay
