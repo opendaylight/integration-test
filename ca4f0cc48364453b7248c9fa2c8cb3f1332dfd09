@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_d1689cbc",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 113,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-17T18:23:58Z",
+      "side": 1,
+      "message": "get rid of this.  it\u0027s intializing the list with one empty element.",
+      "range": {
+        "startLine": 113,
+        "startChar": 29,
+        "endLine": 113,
+        "endChar": 41
+      },
+      "revId": "ca4f0cc48364453b7248c9fa2c8cb3f1332dfd09",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
