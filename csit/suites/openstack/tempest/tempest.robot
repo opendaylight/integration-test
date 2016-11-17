@@ -13,6 +13,11 @@ Variables         ../../../variables/Variables.py
 *** Variables ***
 ${exclusion_regex}    'metering|test_l3_agent_scheduler.L3AgentSchedulerTestJSON|test_extensions.ExtensionsTestJSON.test_list_show_extensions|test_routers_dvr.RoutersTestDVR.test_centralized_router_update_to_dvr'
 ${tempest_config_file}    ./tempest.conf
+${external_physical_network}    physnet1
+${external_net_name}    external-net
+${external_subnet_name}    external-subnet
+${external_gateway}    10.10.10.250
+${external_subnet}    10.10.10.0/24
 
 *** Test Cases ***
 tempest.api.network
@@ -21,6 +26,15 @@ tempest.api.network
 tempest.scenario.test_minimum_basic
     [Tags]    exclude
     Run Tempest Tests    ${TEST_NAME}
+
+tempest.scenario.test_network_advanced_server_ops.TestNetworkAdvancedServerOps.test_server_connectivity_pause_unpause
+    Run Tempest Tests    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+
+tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_connectivity_between_vms_on_different_networks
+    Run Tempest Tests    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+
+tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_network_basic_ops
+    Run Tempest Tests    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
 
 *** Keywords ***
 Log In To Tempest Executor And Setup Test Environment
@@ -32,13 +46,13 @@ Log In To Tempest Executor And Setup Test Environment
     Set Suite Variable    ${source_pwd}
     # Tempest network.api tests need an existing external network in order to create
     # routers against.    Creating that here.
-    Create Network    external --router:external=True
-    Create Subnet    external    external-subnet    10.0.0.0/24
+    Create Network    ${external_net_name} --router:external --provider:network_type=flat --provider:physical_network=${external_physical_network}
+    Create Subnet    ${external_net_name}    ${external_subnet_name}    ${external_subnet}    --gateway ${external_gateway}
     List Networks
     ${control_node_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
     Utils.Flexible SSH Login    ${OS_USER}
     Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
-    ${net_id}=    Get Net Id    external    ${control_node_conn_id}
+    ${net_id}=    Get Net Id    ${external_net_name}    ${control_node_conn_id}
     Generate Tempest Conf File    ${net_id}
 
 Generate Tempest Conf File
@@ -77,7 +91,8 @@ Add Config To File On Existing SSH Connection
 
 Clean Up After Running Tempest
     [Documentation]    Clean up any extra leftovers that were created to allow tempest tests to run.
-    Delete SubNet    external-subnet
-    Delete Network    external
+    Delete SubNet    ${external_subnet_name}
+    Delete Network    ${external_net_name}
     List Networks
     Close All Connections
+
