@@ -1,0 +1,165 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_4d7d16b1",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 70,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-17T05:04:51Z",
+      "side": 1,
+      "message": "put 4 spaces here.\n\nwell, run this:\n\npython -m robot.tidy ${this file}\n\nthat will give you some \"cleaner\" output that wont get caught by our robot code inspection (which is just that robot.tidy tool).\n\nI usually redirect it to a tmp file, then diff the tmp with this one and see what needs to be changed.",
+      "range": {
+        "startLine": 70,
+        "startChar": 62,
+        "endLine": 70,
+        "endChar": 64
+      },
+      "revId": "fa84b945abae4ec11a3bedc8f79ef5338768f77b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_ad4b0a86",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 109,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-17T05:04:51Z",
+      "side": 1,
+      "message": "4 spaces",
+      "range": {
+        "startLine": 109,
+        "startChar": 29,
+        "endLine": 109,
+        "endChar": 32
+      },
+      "revId": "fa84b945abae4ec11a3bedc8f79ef5338768f77b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_8d4e0e95",
+        "filename": "csit/suites/openstack/connectivity/03_extnet_tests.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 41,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-17T05:04:51Z",
+      "side": 1,
+      "message": "probably some spacing issue here.\n\nrobot is driven by \"tabs\" (which is 4 spaces) to separate args.  so your ${additional_args} aren\u0027t here I don\u0027t think?  it\u0027s all going to be seen as the first arg to the \"Create Network\" keyword.",
+      "range": {
+        "startLine": 41,
+        "startChar": 22,
+        "endLine": 41,
+        "endChar": 138
+      },
+      "revId": "fa84b945abae4ec11a3bedc8f79ef5338768f77b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_ed450271",
+        "filename": "csit/suites/openstack/connectivity/03_extnet_tests.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-17T05:04:51Z",
+      "side": 1,
+      "message": "for example, this line is \"Create Subnet\" and it\u0027s 4 args",
+      "range": {
+        "startLine": 42,
+        "startChar": 4,
+        "endLine": 42,
+        "endChar": 106
+      },
+      "revId": "fa84b945abae4ec11a3bedc8f79ef5338768f77b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_cd48068a",
+        "filename": "csit/suites/openstack/connectivity/03_extnet_tests.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 46,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-17T05:04:51Z",
+      "side": 1,
+      "message": "so creative ;)",
+      "range": {
+        "startLine": 46,
+        "startChar": 41,
+        "endLine": 46,
+        "endChar": 47
+      },
+      "revId": "fa84b945abae4ec11a3bedc8f79ef5338768f77b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_0d5afe4f",
+        "filename": "csit/suites/openstack/connectivity/03_extnet_tests.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-17T05:04:51Z",
+      "side": 1,
+      "message": "do you want to add that same logic here to poll on the VMs for when they have received their dhcp address.  just as a step to know that your VMs have come up and are hopefully healthy.",
+      "range": {
+        "startLine": 66,
+        "startChar": 4,
+        "endLine": 66,
+        "endChar": 83
+      },
+      "revId": "fa84b945abae4ec11a3bedc8f79ef5338768f77b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_2d5ffa42",
+        "filename": "csit/suites/openstack/connectivity/03_extnet_tests.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-17T05:04:51Z",
+      "side": 1,
+      "message": "you want this to run first?  if you want debugs to run *always* for a test case, put this as the last line in the test case\n\n[Teardown]    Get OvsDebug\n\n\nin robot, if any single step fails in the test case, the rest will be skipped.  Except that, ALL keywords in the [Teardown] will be executed.",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 20
+      },
+      "revId": "fa84b945abae4ec11a3bedc8f79ef5338768f77b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
