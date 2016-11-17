@@ -14,6 +14,7 @@ Variables         ../variables/Variables.py
 ...               dpnid2=2    portname2= BR2-eth1    ipaddress2=3.3.3.3
 &{L3VPN_CREATE_DEFAULT}    vpnid=4ae8cd92-48ca-49b5-94e1-b2921a261111    name=vpn1    rd=["2200:1"]    exportrt=["2200:1","8800:1"]    importrt=["2200:1","8800:1"]    tenantid=6c53df3a-3456-11e5-a151-feff819cdc9f
 ${VAR_BASE}       ${CURDIR}/../variables/vpnservice/
+${ODL_DHCP_RESPONSE}     "controller-dhcp-enabled":true
 
 *** Keywords ***
 VPN Create L3VPN
@@ -76,3 +77,21 @@ ITM Delete Tunnel
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.content}
+
+Enable ODL DHCP Service
+    [Documentation]    Enable and Verify ODL DHCP service
+    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/enable_dhcp    mapping={}    session=session
+    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/dhcpservice-config:dhcpservice-config
+    Log    ${resp.content}
+    Should Be Equal As Strings    ${resp.status_code}    200
+    Should Contain    ${resp.content}    ${ODL_DHCP_RESPONSE}
+
+Disable Openstack DHCP Service
+    [Documentation]    Disable and Verify Openstack DHCP service
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    sudo /etc/init.d/dnsmasq stop    30s
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    sudo /etc/init.d/dnsmasq status    30s
+    Log    ${output}
+    Should Contain    ${output}   dead
