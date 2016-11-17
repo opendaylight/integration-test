@@ -29,6 +29,15 @@ Start Mininet
     Write    ${start}
     Read Until    mininet>
 
+Skip_Test_And_Report_Failure
+    [Arguments]    ${number}
+    [Documentation]    Report that a test skipped due to a known Bugzilla bug whose
+    ...    number is provided as an argument.
+    ${newline}=    BuiltIn.Evaluate    chr(10)
+    ${msg}=    BuiltIn.Set_Variable    This test skips due to https://bugs.opendaylight.org/show_bug.cgi?id=${number}
+    BuiltIn.Log    ${msg}
+    Pass Execution    ${msg}
+
 Stop Mininet
     [Arguments]    ${prompt}=${DEFAULT_LINUX_PROMPT}
     [Documentation]    Cleanup/Shutdown work that should be done at the completion of all
