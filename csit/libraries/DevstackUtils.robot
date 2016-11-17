@@ -26,16 +26,26 @@ ${CLEAN_DEVSTACK_HOST}    False
 Run Tempest Tests
     [Arguments]    ${tempest_regex}    ${tempest_exclusion_regex}=""    ${tempest_conf}=""    ${tempest_directory}=/opt/stack/tempest    ${timeout}=600s
     [Documentation]    Execute the tempest tests.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
     Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
     Write Commands Until Prompt    cd ${tempest_directory}
-    Write Commands Until Prompt    sudo rm -rf ${tempest_directory}/.testrepository
     Write Commands Until Prompt    sudo testr list-tests | egrep ${tempest_regex} | egrep -v ${tempest_exclusion_regex} > tests_to_execute.txt
     ${tests_to_execute}=    Write Commands Until Prompt    sudo cat tests_to_execute.txt
     Log    ${tests_to_execute}
     # run_tempests.sh is a wrapper to testr, and we are providing the config file
-    ${results}=    Write Commands Until Prompt    sudo -E ./run_tempest.sh -C ${tempest_conf} -N ${tempest_regex} -- --load-list tests_to_execute.txt    timeout=${timeout}
+    ${results}=    Write Commands Until Prompt    sudo -E ${tempest_directory}/run_tempest.sh -C ${tempest_conf} -N ${tempest_regex} -- --load-list tests_to_execute.txt    timeout=${timeout}
     Log    ${results}
+    # Save stdout to file
     Create File    tempest_output_${tempest_regex}.log    data=${results}
+    # output tempest generated log file which may have different debug levels than what stdout would show
+    # FIXME: having the INFO level tempest logs is helpful as it gives details like the UUIDs of nouns used in the
+    # the tests which can sometimes be tracked in ODL and Openstack logs when debugging.  However, this "cat" step
+    # does not even complete for the tempest.api.network tests in under 2min.  We need a faster way to get this
+    # info.  probably pulling the log file and storing it on the log server is best.  Hopefully someone can get
+    # to this.  For now, commenting out this next debug step.
+    # ${output}=    Write Commands Until Prompt    cat ${tempest_directory}/tempest.log    timeout=120s
+    # Log    ${output}
     Should Contain    ${results}    Failed: 0
     # TODO: also need to verify some non-zero pass count as well as other results are ok (e.g. skipped, etc)
 
