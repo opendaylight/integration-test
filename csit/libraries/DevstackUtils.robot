@@ -28,7 +28,6 @@ Run Tempest Tests
     [Documentation]    Execute the tempest tests.
     Write Commands Until Prompt    source ${DEVSTACK_DEPLOY_PATH}/openrc admin admin
     Write Commands Until Prompt    cd ${tempest_directory}
-    Write Commands Until Prompt    sudo rm -rf ${tempest_directory}/.testrepository
     Write Commands Until Prompt    sudo testr list-tests | egrep ${tempest_regex} | egrep -v ${tempest_exclusion_regex} > tests_to_execute.txt
     ${tests_to_execute}=    Write Commands Until Prompt    sudo cat tests_to_execute.txt
     Log    ${tests_to_execute}
