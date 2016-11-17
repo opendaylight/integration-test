@@ -3,8 +3,9 @@ Documentation     Test suite to validate vpnservice functionality in an openstac
 ...               The assumption of this suite is that the environment is already configured with the proper
 ...               integration bridges and vxlan tunnels.
 Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
-...               AND    DevstackUtils.Devstack Suite Setup Tests
+...               AND    DevstackUtils.Devstack Suite Setup
 ...               AND    Enable ODL Karaf Log
+...               AND    Enable ODL DHCP Service
 Suite Teardown    Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Run Keyword If Test Failed    Get OvsDebugInfo    
@@ -85,8 +86,7 @@ Create Nova VMs
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES[3]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
     : FOR    ${VM}    IN    @{VM_INSTANCES}
     \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VM}
-    Log    Check for routes
-    Wait Until Keyword Succeeds    30s    10s    Wait For Routes To Propogate
+    Wait Until Keyword Succeeds    180s    10s    Verify VMs Received DHCP Lease    @{VM_INSTANCES}
 
 Check ELAN Datapath Traffic Within The Networks
     [Documentation]    Checks datapath within the same network
@@ -114,12 +114,12 @@ Verify L3 Datapath with Router
     Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${NET10_VM_IPS}
     Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${NET20_VM_IPS}
     Log    L3 Datapath test across the networks using router
-    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]    @{NET20_VM_IPS}
+    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]
     Log    ${dst_ip_list}
-    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    
-    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]    @{NET10_VM_IPS}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${NET20_VM_IPS}
+    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]
     Log    ${dst_ip_list}
-    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}    
+    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${NET10_VM_IPS}
 
 Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     [Documentation]    UC_32 Add multiple extra routes and check data path before L3VPN creation
@@ -183,13 +183,13 @@ Verify L3VPN Datapath with Router association
     Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${vm_instances}
     Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${vm_instances}
     Log    Check datapath from network1 to network2
-    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]    @{NET20_VM_IPS}
+    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]
     Log    ${dst_ip_list}
-    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    
+    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${NET20_VM_IPS}
     Log    Check datapath from network2 to network1
-    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]    @{{NET10_VM_IPS}
+    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]
     Log    ${dst_ip_list}
-    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}    
+    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${NET10_VM_IPS}
     Log    Dissociate router from L3VPN
     Dissociate VPN to Router    routerid=${router_id}    vpnid=${VPN_INSTANCE_ID[0]}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
@@ -239,13 +239,13 @@ Verify L3VPN datapath with Networks Association
     Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${vm_instances}
     Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${vm_instances}
     Log    Check datapath from network1 to network2
-    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]    @{NET20_VM_IPS}
+    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]
     Log    ${dst_ip_list}
-    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    
+    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${NET20_VM_IPS}
     Log    Check datapath from network2 to network1
-    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]    @{NET10_VM_IPS}
+    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]
     Log    ${dst_ip_list}
-    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}    
+    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${NET10_VM_IPS}
     Log    Dissociate networks from L3VPN
     Dissociate L3VPN From Networks    networkid=${network1_id}    vpnid=${VPN_INSTANCE_ID[0]}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
