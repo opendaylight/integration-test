@@ -3,8 +3,10 @@ Documentation     Test suite to validate vpnservice functionality in an openstac
 ...               The assumption of this suite is that the environment is already configured with the proper
 ...               integration bridges and vxlan tunnels.
 Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
-...               AND    DevstackUtils.Devstack Suite Setup Tests
-...               AND    Enable ODL Karaf Log
+...               AND    DevstackUtils.Devstack Suite Setup 
+...               AND    Disable Openstack DHCP Service
+...               AND    Enable ODL DHCP Service
+#...               AND    Enable ODL Karaf Log
 Suite Teardown    Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Run Keyword If Test Failed    Get OvsDebugInfo    
