@@ -4,6 +4,9 @@ Library           SSHLibrary
 Resource          Utils.robot
 Variables         ../variables/Variables.py
 
+*** Variables ***
+${PING_PASS}      , 0% packet loss
+
 *** Keywords ***
 Source Password
     [Arguments]    ${force}=no    ${source_pwd}=yes
@@ -71,7 +74,7 @@ Create SubNet
     [Documentation]    Create SubNet for the Network with neutron request.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet} ${additional_args}    30s
+    ${output}=    Write Commands Until Prompt    neutron -v subnet-create ${network_name} ${range_ip} --name ${subnet} --enable-dhcp ${additional_args}    30s
     Close Connection
     Log    ${output}
     Should Contain    ${output}    Created a new subnet
@@ -219,13 +222,15 @@ Create Vm Instance With Port On Compute Node
     ${hostname_compute_node}=    Run Command On Remote System    ${compute_node}    hostname
     ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --security-groups ${sg} --availability-zone nova:${hostname_compute_node}    30s
     Log    ${output}
-    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${vm_instance_name}
+    #Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${vm_instance_name}
 
 Verify VM Is ACTIVE
     [Arguments]    ${vm_name}
     [Documentation]    Run these commands to check whether the created vm instance is active or not.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    nova show ${vm_name}     30s
+    Log    ${output}
     ${output}=    Write Commands Until Prompt    nova show ${vm_name} | grep OS-EXT-STS:vm_state    30s
     Log    ${output}
     Should Contain    ${output}    active
@@ -268,7 +273,7 @@ Ping Vm From DHCP Namespace
     ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
     Log    ${output}
     Close Connection
-    Should Contain    ${output}    64 bytes
+    Should Contain    ${output}    ${PING_PASS}
 
 Ping From DHCP Should Not Succeed
     [Arguments]    ${net_name}    ${vm_ip}
@@ -281,7 +286,7 @@ Ping From DHCP Should Not Succeed
     ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
     Close Connection
     Log    ${output}
-    Should Not Contain    ${output}    64 bytes
+    Should Not Contain    ${output}    ${PING_PASS}
 
 Ping Vm From Control Node
     [Arguments]    ${vm_floating_ip}
@@ -328,7 +333,7 @@ Check Ping
     [Arguments]    ${ip_address}
     [Documentation]    Run Ping command on the IP available as argument
     ${output}=    Write Commands Until Expected Prompt    ping -c 3 ${ip_address}    ${OS_SYSTEM_PROMPT}
-    Should Contain    ${output}    64 bytes
+    Should Contain    ${output}    ${PING_PASS}
 
 Check Metadata Access
     [Documentation]    Try curl on the Metadataurl and check if it is okay
