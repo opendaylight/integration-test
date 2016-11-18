@@ -231,22 +231,27 @@ Verify VM Is ACTIVE
     Should Contain    ${output}    active
 
 Verify VMs Received DHCP Lease
-    [Arguments]    @{vm_list}
+    [Arguments]    ${parse_dhcp_ip}=true    @{vm_list}
     [Documentation]    Using nova console-log on the provided ${vm_list} to search for the string "obtained" which
     ...    correlates to the instance receiving it's IP address via DHCP. This should provide a good indication
     ...    that the instance is fully up and ready.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
-    ${ip_list}    Create List
+    ${ip_list}    Create List    @{EMPTY}
+    ${dhcp_ip}    Create List    @{EMPTY}
     : FOR    ${vm}    IN    @{vm_list}
-    \    ${output}=    Write Commands Until Prompt    nova console-log ${vm} | grep -i "obtained"    30s
+    \    ${vm_ip_line}=    Write Commands Until Prompt    nova console-log ${vm} | grep -i "obtained"    30s
+    \    Log    ${vm_ip_line}
+    \    @{vm_ip}    Get Regexp Matches    ${vm_ip_line}    [0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}
+    \    Should Contain    ${vm_ip_line}    obtained
+    \    Append To List    ${ip_list}    @{vm_ip}[0]
+    \    Continue For Loop If    '${parse_dhcp_ip}'!='true'
     \    ${dhcp_ip_line}=    Write Commands Until Prompt    nova console-log ${vm} | grep "^nameserver"    30s
-    \    Log    ${output}
-    \    @{output_words}    Split String    ${output}
-    \    @{dhcp_output_words}    Split String    ${dhcp_ip_line}
-    \    Should Contain    ${output}    obtained
-    \    Append To List    ${ip_list}    @{output_words}[2]
-    [Return]    ${ip_list}    @{dhcp_output_words}[1]
+    \    Log    ${dhcp_ip_line}
+    \    @{dhcp_ip}    Get Regexp Matches    ${dhcp_ip_line}    [0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}
+    \    Log    ${dhcp_ip}
+    Return From Keyword If    '${parse_dhcp_ip}'!='true'    ${ip_list}
+    [Return]    ${ip_list}    @{dhcp_ip}[0]
 
 View Vm Console
     [Arguments]    ${vm_instance_names}
