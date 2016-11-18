@@ -228,3 +228,6 @@ SUBSCRIPTION = '/restconf/config/subscribe:subscription/'
 
 # Elasticsearch Variables
 ELASTICPORT = 9200
+
+#RegEx Matches
+IP_REGEX = [0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}
