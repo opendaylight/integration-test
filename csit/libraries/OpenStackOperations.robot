@@ -228,10 +228,10 @@ Verify VMs Received DHCP Lease
     \    ${dhcp_ip_line}=    Write Commands Until Prompt    nova console-log ${vm} | grep "^nameserver"    30s
     \    Log    ${output}
     \    @{output_words}    Split String    ${output}
-    \    @{dhcp_output_words}    Split String    ${dhcp_ip_line}
+    \    @{dhcp_ip}    Get Regexp Matches    ${dhcp_ip_line}    '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}'
     \    Should Contain    ${output}    obtained
     \    Append To List    ${ip_list}    @{output_words}[2]
-    [Return]    ${ip_list}    @{dhcp_output_words}[1]
+    [Return]    ${ip_list}    ${dhcp_ip}
 
 View Vm Console
     [Arguments]    ${vm_instance_names}
