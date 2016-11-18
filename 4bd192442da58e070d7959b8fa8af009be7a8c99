@@ -22,6 +22,30 @@
       "revId": "4bd192442da58e070d7959b8fa8af009be7a8c99",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_e2fea8ad",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-11-18T22:38:44Z",
+      "side": 1,
+      "message": "Jamo, what I found is that when using a list the proper way to initialize it is to use @{EMPTY}. This does the same thing as not including EMPTY at all. I think it is more readable to keep the EMPTY.",
+      "parentUuid": "3a65312a_c241ec3a",
+      "range": {
+        "startLine": 225,
+        "startChar": 4,
+        "endLine": 225,
+        "endChar": 41
+      },
+      "revId": "4bd192442da58e070d7959b8fa8af009be7a8c99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
