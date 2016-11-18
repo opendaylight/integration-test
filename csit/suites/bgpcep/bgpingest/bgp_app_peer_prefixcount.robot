@@ -100,7 +100,7 @@ Connect_BGP_Peer
 BGP_Application_Peer_Prefill_Routes
     [Documentation]    Start BGP application peer tool and prefill routes.
     SSHLibrary.Switch Connection    bgp_app_peer_console
-    Start_Console_Tool    ${BGP_APP_PEER_INITIAL_COMMAND}    ${BGP_APP_PEER_OPTIONS}
+    Start_Console_Tool    ${BGP_APP_PEER_INITIAL_COMMAND} ${script_uri_opt}    ${BGP_APP_PEER_OPTIONS}
     Wait_Until_Console_Tool_Finish    ${bgp_filling_timeout}
     Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_prefill.log
 
@@ -116,7 +116,7 @@ Check_Bgp_Peer_Updates_For_Prefilled_Routes
 BGP_Application_Peer_Introduce_Single_Routes
     [Documentation]    Start BGP application peer tool and introduce routes.
     SSHLibrary.Switch Connection    bgp_app_peer_console
-    Start_Console_Tool    python bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command add --count ${remaining_prefixes} --prefix 12.0.0.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM}    ${BGP_APP_PEER_OPTIONS}
+    Start_Console_Tool    python bgp_app_peer.py --host ${ODL_SYSTEM_IP} --port ${RESTCONFPORT} --command add --count ${remaining_prefixes} --prefix 12.0.0.0 --prefixlen 28 --${BGP_APP_PEER_LOG_LEVEL} --stream=${ODL_STREAM} ${script_uri_opt}    ${BGP_APP_PEER_OPTIONS}
     Wait_Until_Console_Tool_Finish    ${bgp_filling_timeout}
     Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_singles.log
 
@@ -149,7 +149,7 @@ Check_Bgp_Peer_Updates_For_Reintroduced_Routes
 BGP_Application_Peer_Delete_All_Routes
     [Documentation]    Start BGP application peer tool and delete all routes.
     SSHLibrary.Switch Connection    bgp_app_peer_console
-    Start_Console_Tool    ${BGP_APP_PEER_DELETE_ALL_COMMAND}    ${BGP_APP_PEER_OPTIONS}
+    Start_Console_Tool    ${BGP_APP_PEER_DELETE_ALL_COMMAND} ${script_uri_opt}    ${BGP_APP_PEER_OPTIONS}
     Wait_Until_Console_Tool_Finish    ${bgp_emptying_timeout}
     Store_File_To_Workspace    bgp_app_peer.log    bgp_app_peer_delete_all.log
 
@@ -174,12 +174,12 @@ Stop_BGP_Peer
 
 Delete_Bgp_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    BGP_NAME=${BGP_PEER_NAME}    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_peer    mapping=${mapping}
 
 Delete_Bgp_Application_Peer_Configuration
     [Documentation]    Revert the BGP configuration to the original state: without any configured peers.
-    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    NAME=example-bgp-peer-app    IP=${TOOLS_SYSTEM_IP}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    NAME=example-bgp-peer-app    IP=${BGP_APP_PEER_ID}    BGP_RIB_OPENCONFIG=${PROTOCOL_OPENCONFIG}
     TemplatedRequests.Delete_Templated    ${BGP_VARIABLES_FOLDER}${/}bgp_application_peer    mapping=${mapping}
 
 Check_Bug_4791
@@ -215,6 +215,8 @@ Setup_Everything
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_LOG_LEVEL}
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.bgpcep
     KarafKeywords.Execute_Controller_Karaf_Command_On_Background    log:set ${CONTROLLER_BGP_LOG_LEVEL} org.opendaylight.protocol
+    ${script_uri_opt}=    CompareStream.Set_Variable_If_At_Most_Boron    ${Empty}    --uri config/bgp-rib:application-rib/${BGP_APP_PEER_ID}/tables/bgp-types:ipv4-address-family/bgp-types:unicast-subsequent-address-family/
+    BuiltIn.Set_Suite_Variable    ${script_uri_opt}
 
 Teardown_Everything
     [Documentation]    Make sure Python tool was killed and tear down imported Resources.
