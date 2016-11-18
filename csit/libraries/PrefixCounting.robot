@@ -44,6 +44,7 @@ Check_Ipv4_Topology_Count
     [Arguments]    ${expected_count}    ${session}=operational    ${topology}=example-ipv4-topology
     [Documentation]    Check that the count of prefixes matches the expected count. Fails if it does not. In either case, collect garbage.
     ${actual_count} =    ScalarClosures.Run_Keyword_And_Collect_Garbage    Get_Ipv4_Topology_Count    session=${session}    topology=${topology}
+    BuiltIn.Log To Console    A: ${actual_count} ${expected_count}
     BuiltIn.Should_Be_Equal_As_Strings    ${actual_count}    ${expected_count}
 
 Check_Ipv4_Topology_Is_Empty
