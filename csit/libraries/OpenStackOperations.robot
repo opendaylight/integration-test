@@ -225,13 +225,13 @@ Verify VMs Received DHCP Lease
     ${ip_list}    Create List
     : FOR    ${vm}    IN    @{vm_list}
     \    ${output}=    Write Commands Until Prompt    nova console-log ${vm} | grep -i "obtained"    30s
-    \    ${dhcp_ip_line}=    Write Commands Until Prompt    nova console-log ${vm} | grep "^nameserver"    30s
+    \    ${dhcp_ip_line}=    Write Commands Until Prompt    nova console-log ${vm} | grep "^nameserver" | grep -oE '[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}\.[0-9]\{1,3\}'    30s
     \    Log    ${output}
     \    @{output_words}    Split String    ${output}
     \    @{dhcp_output_words}    Split String    ${dhcp_ip_line}
     \    Should Contain    ${output}    obtained
     \    Append To List    ${ip_list}    @{output_words}[2]
-    [Return]    ${ip_list}    @{dhcp_output_words}[1]
+    [Return]    ${ip_list}    @{dhcp_output_words}[0]
 
 View Vm Console
     [Arguments]    ${vm_instance_names}
