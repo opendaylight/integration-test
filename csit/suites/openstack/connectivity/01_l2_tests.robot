@@ -62,8 +62,12 @@ Check Vm Instances Have Ip Address
     # for dhcp addresses
     : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     \    Wait Until Keyword Succeeds    15s    5s    Verify VM Is ACTIVE    ${vm}
-    ${NET1_VM_IPS}    ${NET1_DHCP_IP}    Wait Until Keyword Succeeds    180s    10s    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
-    ${NET2_VM_IPS}    ${NET2_DHCP_IP}    Wait Until Keyword Succeeds    180s    10s    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
+    : FOR    ${index}    IN RANGE    1    8
+    \    ${NET1_VM_IPS}    ${NET1_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
+    \    ${NET2_VM_IPS}    ${NET2_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
+    \    ${NET1_VM_LIST_LENGTH}=    Get Length    ${NET1_VM_IPS}
+    \    ${NET2_VM_LIST_LENGTH}=    Get Length    ${NET2_VM_IPS}
+    \    Exit For Loop If    ${NET1_VM_LIST_LENGTH}==3 and ${NET2_VM_LIST_LENGTH}==3
     Append To List    ${NET1_VM_IPS}    ${NET1_DHCP_IP}
     Set Suite Variable    ${NET1_VM_IPS}
     Append To List    ${NET2_VM_IPS}    ${NET2_DHCP_IP}
