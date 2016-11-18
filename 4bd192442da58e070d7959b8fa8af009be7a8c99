@@ -46,6 +46,30 @@
       "revId": "4bd192442da58e070d7959b8fa8af009be7a8c99",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_c2a3ac9c",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 22
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-18T23:22:32Z",
+      "side": 1,
+      "message": "good to know.  thanks for the knowledge, and agreed it\u0027s more readable to keep the @{EMPTY}",
+      "parentUuid": "3a65312a_e2fea8ad",
+      "range": {
+        "startLine": 225,
+        "startChar": 4,
+        "endLine": 225,
+        "endChar": 41
+      },
+      "revId": "4bd192442da58e070d7959b8fa8af009be7a8c99",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
