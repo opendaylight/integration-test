@@ -239,14 +239,15 @@ Verify VMs Received DHCP Lease
     Switch Connection    ${devstack_conn_id}
     ${ip_list}    Create List
     : FOR    ${vm}    IN    @{vm_list}
-    \    ${output}=    Write Commands Until Prompt    nova console-log ${vm} | grep -i "obtained"    30s
+    \    ${vm_ip_line}=    Write Commands Until Prompt    nova console-log ${vm} | grep -i "obtained"    30s
+    \    Log    ${vm_ip_line}
     \    ${dhcp_ip_line}=    Write Commands Until Prompt    nova console-log ${vm} | grep "^nameserver"    30s
-    \    Log    ${output}
-    \    @{output_words}    Split String    ${output}
-    \    @{dhcp_output_words}    Split String    ${dhcp_ip_line}
-    \    Should Contain    ${output}    obtained
-    \    Append To List    ${ip_list}    @{output_words}[2]
-    [Return]    ${ip_list}    @{dhcp_output_words}[1]
+    \    Log    ${dhcp_ip_line}
+    \    @{vm_ip}    Get Regexp Matches    ${vm_ip_line}    [0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}
+    \    @{dhcp_ip}    Get Regexp Matches    ${dhcp_ip_line}    [0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}
+    \    Should Contain    ${vm_ip_line}    obtained
+    \    Append To List    ${ip_list}    @{vm_ip}[0]
+    [Return]    ${ip_list}    @{dhcp_ip}[0]
 
 View Vm Console
     [Arguments]    ${vm_instance_names}
