@@ -6,9 +6,9 @@
 
 # Place the suites in run order:
 integration/test/csit/suites/netconf/ready/netconfready.robot
-integration/test/csit/suites/bgpcep/bgpingest/singlepeer_prefixcount.robot
-integration/test/csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot
+#integration/test/csit/suites/bgpcep/bgpingest/singlepeer_prefixcount.robot
+#integration/test/csit/suites/bgpcep/bgpingest/singlepeer_changecount.robot
 integration/test/csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot
-integration/test/csit/suites/bgpcep/bgpingest/manypeers_prefixcount.robot
-integration/test/csit/suites/bgpcep/bgpingest/manypeers_peercount.robot
-integration/test/csit/suites/bgpcep/bgpingest/manypeers_changecount.robot
+#integration/test/csit/suites/bgpcep/bgpingest/manypeers_prefixcount.robot
+#integration/test/csit/suites/bgpcep/bgpingest/manypeers_peercount.robot
+#integration/test/csit/suites/bgpcep/bgpingest/manypeers_changecount.robot
