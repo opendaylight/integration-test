@@ -2,9 +2,8 @@
 Documentation     Test suite to verify packet flows between vm instances.
 Suite Setup       Devstack Suite Setup Tests    source_pwd=yes
 Suite Teardown    Close All Connections
-Test Teardown     Run Keywords    Show Debugs    ${NET_1_VM_INSTANCES}
-...               AND    Show Debugs    ${NET_2_VM_INSTANCES}
-...               AND    Get OvsDebugInfo
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+Test Teardown     Get OvsDebugInfo
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -15,6 +14,7 @@ Resource          ../../../libraries/DevstackUtils.robot
 Resource          ../../../libraries/OVSDB.robot
 Resource          ../../../libraries/ClusterOvsdb.robot
 Resource          ../../../libraries/ClusterManagement.robot
+Resource          ../../../libraries/SetupUtils.robot
 Variables         ../../../variables/Variables.py
 
 *** Variables ***
@@ -22,11 +22,7 @@ Variables         ../../../variables/Variables.py
 @{SUBNETS_NAME}    l2_sub_net_1    l2_sub_net_2
 @{NET_1_VM_INSTANCES}    VmInstance1_l2_net_1    VmInstance2_net_1    VmInstance3_net_1
 @{NET_2_VM_INSTANCES}    VmInstance1_l2_net_2    VmInstance2_net_2    VmInstance3_net_2
-@{NET_1_VM_IPS}    70.0.0.3    70.0.0.4    70.0.0.5
-@{NET_2_VM_IPS}    80.0.0.3    80.0.0.4    80.0.0.5
 @{VM_IPS_NOT_DELETED}    70.0.0.4
-@{GATEWAY_IPS}    70.0.0.1    80.0.0.1
-@{DHCP_IPS}       70.0.0.2    80.0.0.2
 @{cluster_down_list}    ${1}    ${2}
 @{SUBNETS_RANGE}    70.0.0.0/24    80.0.0.0/24
 
@@ -81,6 +77,24 @@ Create Vm Instances For l2_net_1
     [Documentation]    Create Vm instances using flavor and image names for a network.
     Log    ${devstack_conn_id}
     OpenStackOperations.Create Vm Instances    l2_net_1    ${NET_1_VM_INSTANCES}    sg=csit
+
+Check Vm Instances Have Ip Address
+    [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
+    ...    We are polling first and longest on the last VM created assuming that if it's received it's address
+    ...    already the other instances should have theirs already or at least shortly thereafter.
+    # first, ensure all VMs are in ACTIVE state.    if not, we can just fail the test case and not waste time polling
+    # for dhcp addresses
+    : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
+    \    Wait Until Keyword Succeeds    15s    5s    Verify VM Is ACTIVE    ${vm}
+    ${NET1_VM_IPS}    ${NET1_DHCP_IP}    Wait Until Keyword Succeeds    180s    10s    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
+    ${NET2_VM_IPS}    ${NET2_DHCP_IP}    Wait Until Keyword Succeeds    180s    10s    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
+    Append To List    ${NET1_VM_IPS}    ${NET1_DHCP_IP}
+    Set Suite Variable    ${NET1_VM_IPS}
+    Append To List    ${NET2_VM_IPS}    ${NET2_DHCP_IP}
+    Set Suite Variable    ${NET2_VM_IPS}
+    [Teardown]    Run Keywords    Show Debugs    ${NET_1_VM_INSTANCES}
+    ...    AND    Show Debugs    ${NET_2_VM_INSTANCES}
+    ...    AND    Get OvsDebugInfo
 
 Bring Up ODL1
     [Documentation]    Bring up ODL1 again
@@ -146,24 +160,15 @@ Take Down ODL3
 
 Connectivity Tests From Vm Instance1 In l2_net_1
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}[1]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[2]
-    Log    ${dst_ip_list}
-    Get OvsDebugInfo
-    OpenStackOperations.Test Operations From Vm Instance    l2_net_1    @{NET_1_VM_IPS}[0]    ${dst_ip_list}
+    OpenStackOperations.Test Operations From Vm Instance    l2_net_1    @{NET_1_VM_IPS}[0]    ${NET_1_VM_IPS}
 
 Connectivity Tests From Vm Instance2 In l2_net_1
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}[0]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[2]
-    Log    ${dst_ip_list}
-    Get OvsDebugInfo
-    OpenStackOperations.Test Operations From Vm Instance    l2_net_1    @{NET_1_VM_IPS}[1]    ${dst_ip_list}
+    OpenStackOperations.Test Operations From Vm Instance    l2_net_1    @{NET_1_VM_IPS}[1]    ${NET_1_VM_IPS}
 
 Connectivity Tests From Vm Instance3 In l2_net_1
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}[0]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[1]
-    Log    ${dst_ip_list}
-    Get OvsDebugInfo
-    OpenStackOperations.Test Operations From Vm Instance    l2_net_1    @{NET_1_VM_IPS}[2]    ${dst_ip_list}
+    OpenStackOperations.Test Operations From Vm Instance    l2_net_1    @{NET_1_VM_IPS}[2]    ${NET_1_VM_IPS}
 
 Bring Up ODL3
     [Documentation]    Bring up ODL3 again
@@ -175,24 +180,15 @@ Take Down ODL1 and ODL2
 
 Connectivity Tests From Vm Instance1 In l2_net_2
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[1]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[2]
-    Log    ${dst_ip_list}
-    Get OvsDebugInfo
-    OpenStackOperations.Test Operations From Vm Instance    l2_net_2    @{NET_2_VM_IPS}[0]    ${dst_ip_list}
+    OpenStackOperations.Test Operations From Vm Instance    l2_net_2    @{NET_2_VM_IPS}[0]    ${NET_2_VM_IPS}
 
 Connectivity Tests From Vm Instance2 In l2_net_2
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[2]
-    Log    ${dst_ip_list}
-    Get OvsDebugInfo
-    OpenStackOperations.Test Operations From Vm Instance    l2_net_2    @{NET_2_VM_IPS}[1]    ${dst_ip_list}
+    OpenStackOperations.Test Operations From Vm Instance    l2_net_2    @{NET_2_VM_IPS}[1]    ${NET_2_VM_IPS}
 
 Connectivity Tests From Vm Instance3 In l2_net_2
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[1]
-    Log    ${dst_ip_list}
-    Get OvsDebugInfo
-    OpenStackOperations.Test Operations From Vm Instance    l2_net_2    @{NET_2_VM_IPS}[2]    ${dst_ip_list}
+    OpenStackOperations.Test Operations From Vm Instance    l2_net_2    @{NET_2_VM_IPS}[2]    ${NET_2_VM_IPS}
 
 Bring Up ODL1 and ODL2
     [Documentation]    Bring up ODL1 and ODL2 again.
