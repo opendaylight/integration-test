@@ -19,10 +19,10 @@ Library           RequestsLibrary
 Library           SSHLibrary    prompt=]>
 Library           String
 Library           ${CURDIR}/../../../libraries/norm_json.py
-Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
 Resource          ${CURDIR}/../../../libraries/PcepOperations.robot
+Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
 Variables         ${CURDIR}/../../../variables/pcepuser/variables.py    ${TOOLS_SYSTEM_IP}
@@ -139,7 +139,7 @@ Set_It_Up
     # The previous suite may have been using the same directories.
     OperatingSystem.Create_Directory    ${directory_for_expected_responses}
     OperatingSystem.Create_Directory    ${directory_for_actual_responses}
-    ConfigViaRestconf.Setup_Config_Via_Restconf
+    TemplatedRequests.Create_Default_Session
     PcepOperations.Setup_Pcep_Operations
     FailFast.Do_Not_Fail_Fast_From_Now_On
 
@@ -153,7 +153,6 @@ Tear_It_Down
     ${diff}=    OperatingSystem.Run    diff -dur ${directory_for_expected_responses} ${directory_for_actual_responses}
     BuiltIn.Log    ${diff}
     PcepOperations.Teardown_Pcep_Operations
-    ConfigViaRestconf.Teardown_Config_Via_Restconf
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
 
@@ -195,6 +194,5 @@ Construct_Password_Element_Line_Using_Password
 Replace_Password_Xml_Element_In_Pcep_Client_Module
     [Arguments]    ${password_element}
     [Documentation]    Send restconf PUT to replace the config module specifying PCEP password element (may me empty=missing).
-    ${mapping_as_string}=    BuiltIn.Set_Variable    {'IP': '${TOOLS_SYSTEM_IP}', 'PASSWD': '''${password_element}'''}
-    BuiltIn.Log    ${mapping_as_string}
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}pcep_topology_client_module    ${mapping_as_string}
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    PASSWD=${password_element}
+    TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}pcep_topology_client_module    mapping=${mapping}
