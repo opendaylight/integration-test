@@ -131,6 +131,8 @@ Check_Bgp_Peer_Updates_For_All_Routes
 
 Disconnect_BGP_Peer
     [Documentation]    Stop BGP peer tool
+    ${out}=    SSHLibrary.Execute Command    cat bgp_peer.log
+    Log    ${out}
     SSHLibrary.Switch Connection    bgp_peer_console
     Stop_Console_Tool
     Store_File_To_Workspace    bgp_peer.log    bgp_peer_reconnect.log
