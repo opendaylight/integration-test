@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_2e089190",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-11-20T12:22:07Z",
+      "side": 1,
+      "message": "These shouldn\u0027t be hardcoded. Also duplicated between here and 03_external_network_tests, though names can be different.\n\nThe gateway/subnet/physical_network need to be globally configured and can\u0027t be touched (linked to releng/builder and local.conf)",
+      "revId": "900fd7bbd96edac0cf9c0e60b5a6d58721c10dac",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
