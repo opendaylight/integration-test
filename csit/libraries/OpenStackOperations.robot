@@ -407,7 +407,7 @@ Delete Router
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    neutron -v router-delete ${router_name}    60s
     Close Connection
-    Should Contain    ${output}    Deleted router:
+    Should Match Regexp    ${output}    Deleted router: ${router_name}|Deleted router\\(s\\): ${router_name}
 
 Get DumpFlows And Ovsconfig
     [Arguments]    ${openstack_node_ip}
