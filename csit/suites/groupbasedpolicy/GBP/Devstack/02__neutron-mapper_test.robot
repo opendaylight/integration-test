@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Testing of Group Based Policy Neutron-Mapper
-Suite Setup       Devstack Suite Setup Tests
+Suite Setup       Devstack Suite Setup
 Suite Teardown    Clean Suite
 Library           SSHLibrary
 Library           OperatingSystem
