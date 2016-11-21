@@ -23,13 +23,13 @@ Check no connectivity before creating service
 Create epl service
     [Documentation]    Create point to point service between the eth ports
     ${interface}    Create List    s1-eth1    s1-eth2
-    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${CONFIG_API}/mef-interfaces:mef-interfaces/    ${interface}
+    Wait Until Keyword Succeeds    12s    2s    Check For Elements At URI    ${CONFIG_API}/mef-interfaces:mef-interfaces/    ${interface}
     ${body}=    OperatingSystem.Get File    ${UniMgr_variables_DIR}/add_epl.json
     ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_API}/mef-services:mef-services/    headers=${HEADERS_YANG_JSON}    data=${body}
     Log    ${resp.content}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${elements}    Create List    eth1    eth2
-    Wait Until Keyword Succeeds    24s    2s    Check For Elements At URI    ${CONFIG_API}/elan:elan-interfaces/    ${elements}
+    Wait Until Keyword Succeeds    56s    8s    Check For Elements At URI    ${CONFIG_API}/elan:elan-interfaces/    ${elements}
 
 Check ping between h1-h2 after service creation
     [Documentation]    Verify ping between the hosts h1 - h2

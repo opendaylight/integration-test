@@ -29,7 +29,7 @@ Create epl service
     Log    ${resp.content}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${elements}    Create List    eth3    eth4    eth5
-    Wait Until Keyword Succeeds    24s    8s    Check For Elements At URI    ${CONFIG_API}/elan:elan-interfaces/    ${elements}
+    Wait Until Keyword Succeeds    56s    8s    Check For Elements At URI    ${CONFIG_API}/elan:elan-interfaces/    ${elements}
 
 Check ping between h3-h4 after service creation
     [Documentation]    Verify ping between the hosts h3 - h4
