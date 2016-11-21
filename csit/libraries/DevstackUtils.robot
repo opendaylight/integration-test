@@ -39,7 +39,7 @@ Run Tempest Tests
     Should Contain    ${results}    Failed: 0
     # TODO: also need to verify some non-zero pass count as well as other results are ok (e.g. skipped, etc)
 
-Devstack Suite Setup Tests
+Devstack Suite Setup
     [Arguments]    ${source_pwd}=no    ${odl_ip}=${ODL_SYSTEM_IP}
     [Documentation]    Login to the Openstack Control Node to run tempest suite
     Create Session    session    http://${odl_ip}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
@@ -49,48 +49,6 @@ Devstack Suite Setup Tests
     Log    ${devstack_conn_id}
     Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
     SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
-
-Devstack Suite Setup
-    [Arguments]    ${source_pwd}=no
-    [Documentation]    Login to the Openstack Control Node to run tempest suite
-    ${devstack_conn_id}=    SSHLibrary.Open Connection    ${DEVSTACK_SYSTEM_IP}    prompt=${DEFAULT_LINUX_PROMPT}
-    Set Suite Variable    ${devstack_conn_id}
-    Set Suite Variable    ${source_pwd}
-    Log    ${devstack_conn_id}
-    Utils.Flexible SSH Login    ${DEVSTACK_SYSTEM_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
-    SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
-    Run Keyword If    ${CLEAN_DEVSTACK_HOST}    Clean DevStack Host In Case It Is Not Sterile
-    Write Commands Until Prompt    export PATH=$PATH:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin:/usr/local/sbin
-    Write Commands Until Prompt    export ODL_VERSION=${ODL_VERSION}
-    Write Commands Until Prompt    export OPENSTACK_BRANCH=${OPENSTACK_BRANCH}
-    Write Commands Until Prompt    export TEMPEST_REGEX=${TEMPEST_REGEX}
-    Write Commands Until Prompt    export ODL_BOOT_WAIT_URL=${ODL_BOOT_WAIT_URL}
-    ${odl_version_to_install}=    Get Networking ODL Version Of Release    ${ODL_VERSION}
-    Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG="enable_plugin networking-odl https://git.openstack.org/openstack/networking-odl ${NETWORKING-ODL_BRANCH};"
-    Write Commands Until Prompt    export DEVSTACK_LOCAL_CONFIG+="ODL_NETVIRT_DEBUG_LOGS=True;ODL_RELEASE=${odl_version_to_install};"
-    Write Commands Until Prompt    echo $DEVSTACK_LOCAL_CONFIG
-    Write Commands Until Prompt    export OVERRIDE_ZUUL_BRANCH=${OPENSTACK_BRANCH}
-    Write Commands Until Prompt    export PYTHONUNBUFFERED=true
-    Write Commands Until Prompt    export DEVSTACK_GATE_TIMEOUT=120
-    Write Commands Until Prompt    export DEVSTACK_GATE_TEMPEST=1
-    Write Commands Until Prompt    export DEVSTACK_GATE_NEUTRON=1
-    Write Commands Until Prompt    export KEEP_LOCALRC=1
-    Write Commands Until Prompt    export PROJECTS="openstack/networking-odl $PROJECTS"
-    Write Commands Until Prompt    export DEVSTACK_GATE_TEMPEST_REGEX=tempest.api.network.test_ports.PortsTestJSON.test_show_port
-    Write Commands Until Prompt    sudo yum -y install redhat-lsb-core indent python-testrepository    timeout=120s
-    Write Commands Until Prompt    sudo /usr/sbin/groupadd ${DEVSTACK_SYSTEM_USER}
-    Write Commands Until Prompt    sudo mkdir -p /opt/stack/new
-    Write Commands Until Prompt    sudo chown -R ${DEVSTACK_SYSTEM_USER}:${DEVSTACK_SYSTEM_USER} /opt/stack/new
-    Write Commands Until Prompt    sudo bash -c 'echo "stack ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers'
-    Write Commands Until Prompt    sudo mkdir -p /usr/local/${DEVSTACK_SYSTEM_USER}/slave_scripts
-    Write Commands Until Prompt    git clone https://github.com/openstack/os-testr.git    timeout=30s
-    Write Commands Until Prompt    cd os-testr/os_testr
-    Write Commands Until Prompt    sudo cp subunit2html.py /usr/local/${DEVSTACK_SYSTEM_USER}/slave_scripts
-    Write Commands Until Prompt    mkdir -p ${devstack_workspace}
-    Write Commands Until Prompt    cd ${devstack_workspace}
-    Write Commands Until Prompt    export WORKSPACE=${devstack_workspace}
-    Write Commands Until Prompt    rm -rf devstack-gate
-    Write Commands Until Prompt    git clone https://git.openstack.org/openstack-infra/devstack-gate    timeout=30s
 
 Clean DevStack Host In Case It Is Not Sterile
     [Documentation]    In upstream CI, the expectation is that the devstack VM is fresh, sterile and ready
