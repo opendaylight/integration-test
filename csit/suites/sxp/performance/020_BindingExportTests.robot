@@ -21,6 +21,7 @@ ${DOMAIN_1}       test-domain
 *** Test Cases ***
 Binding Export Test
     [Documentation]    Test binding export speed without any filters
+    pass execution    SKIP
     Add Bindings Range    112    84213760    ${EXPORT_AMOUNT}
     ${export_speed}    Simple Export    ${EXPORT_AMOUNT}    ${TEST_SAMPLES}
     Log    Average export speed ${export_speed} bindings/s.
@@ -28,12 +29,14 @@ Binding Export Test
 
 Binding Forwarding Export Test
     [Documentation]    Test binding forwarding speed without any filters
+    pass execution    SKIP
     ${export_speed}    Forwarding Export    ${EXPORT_AMOUNT}    ${TEST_SAMPLES}
     Log    Average export speed ${export_speed} bindings/s.
     Should Be True    ${export_speed} > ${MINIMAL_SPEED}
 
 Binding Outbound Filter Export Test
     [Documentation]    Test binding export speed with Outbound filter and multiple passrates.
+    pass execution    SKIP
     Add Bindings Range    112    84213760    ${EXPORT_AMOUNT}
     : FOR    ${num}    IN RANGE    16    20
     \    ${passrate}    Evaluate    100.0/(2**(${num} - 16))
@@ -46,6 +49,7 @@ Binding Outbound Filter Export Test
 
 Binding Inbound Filter Forwarding Export Test
     [Documentation]    Test binding forwarding speed with Inbound filter and multiple passrates.
+    pass execution    SKIP
     : FOR    ${num}    IN RANGE    16    20
     \    ${passrate}    Evaluate    100.0/(2**(${num} - 16))
     \    ${exported_bindings}    Evaluate    math.ceil( ${EXPORT_AMOUNT}*${passrate}/100 )    modules=math
@@ -57,6 +61,7 @@ Binding Inbound Filter Forwarding Export Test
 
 Binding Inbound-Discarding Filter Forwarding Export Test
     [Documentation]    Test binding forwarding speed with Inbound-discarding filter and multiple passrates.
+    pass execution    SKIP
     : FOR    ${num}    IN RANGE    16    20
     \    ${passrate}    Evaluate    100.0/(2**(${num} - 16))
     \    ${exported_bindings}    Evaluate    math.ceil( ${EXPORT_AMOUNT}*${passrate}/100 )    modules=math
@@ -68,6 +73,7 @@ Binding Inbound-Discarding Filter Forwarding Export Test
 
 Binding Domain Filter Export Test
     [Documentation]    Test binding export speed with domain filter and multiple passrates.
+    pass execution    SKIP
     Add Bindings Range    112    84213760    ${EXPORT_AMOUNT}
     : FOR    ${num}    IN RANGE    16    20
     \    ${passrate}    Evaluate    100.0/(2**(${num} - 16))
@@ -80,6 +86,7 @@ Binding Domain Filter Export Test
 
 Binding Domain Filter Forwarding Export Test
     [Documentation]    Test binding forward speed with domain filter and multiple passrates.
+    pass execution    SKIP
     : FOR    ${num}    IN RANGE    16    20
     \    ${passrate}    Evaluate    100.0/(2**(${num} - 16))
     \    ${exported_bindings}    Evaluate    math.ceil( ${EXPORT_AMOUNT}*${passrate}/100 )    modules=math
@@ -91,6 +98,7 @@ Binding Domain Filter Forwarding Export Test
 
 Binding Combined Filter Export Test
     [Documentation]    Test binding export speed with domain filter, Outbound filter and multiple passrates.
+    pass execution    SKIP
     Add Bindings Range    112    84213760    ${EXPORT_AMOUNT}
     : FOR    ${num}    IN RANGE    16    20
     \    ${passrate}    Evaluate    100.0/(2**(${num} - 16))
@@ -104,6 +112,7 @@ Binding Combined Filter Export Test
 
 Binding Combined Filter Forwarding Export Test
     [Documentation]    Test binding forward speed with domain filter, Inbound-discarding filter and multiple passrates.
+    pass execution    SKIP
     : FOR    ${num}    IN RANGE    16    20
     \    ${passrate}    Evaluate    100.0/(2**(${num} - 16))
     \    ${exported_bindings}    Evaluate    math.ceil( ${EXPORT_AMOUNT}*${passrate}/100 )    modules=math
