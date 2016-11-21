@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_78d1a456",
+        "filename": "csit/suites/unimgr/uni_legato/020_unimanager_eplan.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 32,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-11-21T15:56:39Z",
+      "side": 1,
+      "message": "you can use \"6x  8s\" too",
+      "range": {
+        "startLine": 32,
+        "startChar": 35,
+        "endLine": 32,
+        "endChar": 44
+      },
+      "revId": "b460a560aa28749f0f6625166898d267869a0792",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
