@@ -22,6 +22,30 @@
       "revId": "0c6fdd7fb713a79852f9bf9503ddcaf04fab0289",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_98e12001",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-11-21T16:22:51Z",
+      "side": 1,
+      "message": "Peter, could you elaborate?\nIf I add \"Test Template\", how would I actually run the tests in these lines here?\n\nIn any case these reviews have been through a lot of sandboxes and testing, so if cosmetic, prefer to keep in a separate review if possible..",
+      "parentUuid": "3a65312a_5862e8ad",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 21
+      },
+      "revId": "0c6fdd7fb713a79852f9bf9503ddcaf04fab0289",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
