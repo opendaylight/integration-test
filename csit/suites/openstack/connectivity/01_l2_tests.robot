@@ -18,7 +18,7 @@ Resource          ../../../libraries/SetupUtils.robot
 @{SUBNETS_NAME}    l2_subnet_1    l2_subnet_2
 @{NET_1_VM_INSTANCES}    MyFirstInstance_1    MySecondInstance_1    MyThirdInstance_1
 @{NET_2_VM_INSTANCES}    MyFirstInstance_2    MySecondInstance_2    MyThirdInstance_2
-@{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
+@{SUBNETS_RANGE}    2001:db8:1234:0000::/64       2002:db8:1234:0000::/64
 
 *** Test Cases ***
 Create Networks
@@ -28,21 +28,21 @@ Create Networks
 
 Create Subnets For l2_network_1
     [Documentation]    Create Sub Nets for the Networks with neutron request.
-    Create SubNet    l2_network_1    l2_subnet_1    @{SUBNETS_RANGE}[0]
+    Create SubNet    l2_network_1    l2_subnet_1    @{SUBNETS_RANGE}[0]     additional_args="--ip-version=6 --ipv6-address-mode=slaac --ipv6-ra-mode=slaac"
 
 Create Subnets For l2_network_2
     [Documentation]    Create Sub Nets for the Networks with neutron request.
-    Create SubNet    l2_network_2    l2_subnet_2    @{SUBNETS_RANGE}[1]
+    Create SubNet    l2_network_2    l2_subnet_2    @{SUBNETS_RANGE}[1]      additional_args="--ip-version=6 --ipv6-address-mode=slaac --ipv6-ra-mode=slaac"
 
 Add Ssh Allow Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
     Neutron Security Group Create    csit
-    Neutron Security Group Rule Create    csit    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    csit    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    csit    direction=ingress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    csit    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    csit    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    csit    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    csit    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp        ethertype=ipv6
+    Neutron Security Group Rule Create    csit    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp         ethertype=ipv6
+    Neutron Security Group Rule Create    csit    direction=ingress    protocol=icmp     ethertype=ipv6
+    Neutron Security Group Rule Create    csit    direction=egress    protocol=icmp      ethertype=ipv6
+    Neutron Security Group Rule Create    csit    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    ethertype=ipv6
+    Neutron Security Group Rule Create    csit    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp     ethertype=ipv6
 
 Create Vm Instances For l2_network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.

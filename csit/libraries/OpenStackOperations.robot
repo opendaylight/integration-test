@@ -265,7 +265,7 @@ Ping Vm From DHCP Namespace
     Switch Connection    ${devstack_conn_id}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
     Log    ${net_id}
-    ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
+    ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping6 -c 3 ${vm_ip}    20s
     Log    ${output}
     Close Connection
     Should Contain    ${output}    64 bytes
@@ -278,7 +278,7 @@ Ping From DHCP Should Not Succeed
     Switch Connection    ${devstack_conn_id}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
     Log    ${net_id}
-    ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
+    ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping6 -c 3 ${vm_ip}    20s
     Close Connection
     Log    ${output}
     Should Not Contain    ${output}    64 bytes
@@ -327,7 +327,7 @@ Exit From Vm Console
 Check Ping
     [Arguments]    ${ip_address}
     [Documentation]    Run Ping command on the IP available as argument
-    ${output}=    Write Commands Until Expected Prompt    ping -c 3 ${ip_address}    ${OS_SYSTEM_PROMPT}
+    ${output}=    Write Commands Until Expected Prompt    ping6 -c 3 ${ip_address}    ${OS_SYSTEM_PROMPT}
     Should Contain    ${output}    64 bytes
 
 Check Metadata Access
@@ -342,7 +342,7 @@ Execute Command on VM Instance
     Switch Connection    ${devstack_conn_id}
     ${net_id} =    Get Net Id    ${net_name}    ${devstack_conn_id}
     Log    ${vm_ip}
-    ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh ${user}@${vm_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no    d:
+    ${output} =    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -6 ${user}@${vm_ip} -o ConnectTimeout=10 -o StrictHostKeyChecking=no    d:
     Log    ${output}
     ${output} =    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
     Log    ${output}
@@ -358,7 +358,7 @@ Test Operations From Vm Instance
     Switch Connection    ${devstack_conn_id}
     Log    ${src_ip}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
-    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -o ConnectTimeout=10 -o StrictHostKeyChecking=no ${user}@${src_ip}    d:
+    ${output}=    Write Commands Until Expected Prompt    sudo ip netns exec qdhcp-${net_id} ssh -6 -o ConnectTimeout=10 -o StrictHostKeyChecking=no ${user}@${src_ip}    d:
     Log    ${output}
     ${output}=    Write Commands Until Expected Prompt    ${password}    ${OS_SYSTEM_PROMPT}
     Log    ${output}
