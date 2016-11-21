@@ -19,10 +19,10 @@ Library           RequestsLibrary
 Library           SSHLibrary    prompt=]>
 Library           String
 Library           ${CURDIR}/../../../libraries/norm_json.py
-Resource          ${CURDIR}/../../../libraries/ConfigViaRestconf.robot
 Resource          ${CURDIR}/../../../libraries/FailFast.robot
 Resource          ${CURDIR}/../../../libraries/NexusKeywords.robot
 Resource          ${CURDIR}/../../../libraries/PcepOperations.robot
+Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Resource          ${CURDIR}/../../../libraries/WaitForFailure.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
 Variables         ${CURDIR}/../../../variables/pcepuser/variables.py    ${TOOLS_SYSTEM_IP}
@@ -55,28 +55,27 @@ Enable_Tcpmd5_No_Password_Yet
     [Documentation]    Send series of restconf puts derived from https://wiki.opendaylight.org/view/BGP_LS_PCEP:TCP_MD5_Guide#RESTCONF_Configuration
     ...    Every put should return empty text with allwed status code.
     # No ${mapping_as_string} is given, as there are no placeholders present in the following folders.
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}key_access_module
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}key_access_service
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}md5_client_channel_module
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}md5_client_channel_service
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}md5_server_channel_module
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}md5_server_channel_service
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}pcep_client_channel_module
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}pcep_server_channel_module
-    # TODO: Is it worth changing ConfigViaRestconf to read ${directory_with_template_folders} variable by default?
+    TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}key_access_module
+    TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}key_access_service
+    TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}md5_client_channel_module
+    TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}md5_client_channel_service
+    TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}md5_server_channel_module
+    TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}md5_server_channel_service
+    TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}pcep_client_channel_module
+    TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}pcep_server_channel_module
 
 Check_For_Bug_3753_Via_Bug_4267
     [Documentation]    Check state of disptcher configuration module, apply workaround if needed.
     ...    This test case should not be failing, failure indicates Bug 3753 was not fixed enough yet.
     ...    For more details, see https://bugs.opendaylight.org/show_bug.cgi?id=4267#c2
     ...    As dispatcher configuration differs between Lithium and Beryllium, two checks and two workarounds are needed.
-    ${success}=    BuiltIn.Run_Keyword_And_Return_Status    ConfigViaRestconf.Verify_Json_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}pcep_dispatcher_module
+    ${success}=    BuiltIn.Run_Keyword_And_Return_Status    TemplatedRequests.Get_As_Json_Templated    ${directory_with_template_folders}${/}pcep_dispatcher_module    verify=${True}
     BuiltIn.Pass_Execution_If    ${success}    Bug 4267 not present, Beryllium data.
-    ${success}=    BuiltIn.Run_Keyword_And_Return_Status    ConfigViaRestconf.Verify_Json_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}lithium_pcep_dispatcher_module
+    ${success}=    BuiltIn.Run_Keyword_And_Return_Status    TemplatedRequests.Get_As_Json_Templated    ${directory_with_template_folders}${/}lithium_pcep_dispatcher_module    verify=${True}
     BuiltIn.Pass_Execution_If    ${success}    Bug 4267 not present, Lithium data.
-    ${success}=    BuiltIn.Run_Keyword_And_Return_Status    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}pcep_dispatcher_module
+    ${success}=    BuiltIn.Run_Keyword_And_Return_Status    TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}pcep_dispatcher_module
     BuiltIn.Run_Keyword_If    ${success}    BuiltIn.Fail    Bug 4267 present, Beryllium workaround successful.
-    ${success}=    BuiltIn.Run_Keyword_And_Return_Status    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}lithium_pcep_dispatcher_module
+    ${success}=    BuiltIn.Run_Keyword_And_Return_Status    TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}lithium_pcep_dispatcher_module
     BuiltIn.Run_Keyword_If    ${success}    BuiltIn.Fail    Bug 4267 present, Lithium workaround successful.
     BuiltIn.Fail    Bug 4267 probably present. No workaround succeeded, so Bug 4491 is probably present too.
     [Teardown]    FailFast.Do_Not_Start_Failing_If_This_Failed
@@ -169,7 +168,7 @@ Set_It_Up
     # The previous suite may have been using the same directories.
     OperatingSystem.Create_Directory    ${directory_for_expected_responses}
     OperatingSystem.Create_Directory    ${directory_for_actual_responses}
-    ConfigViaRestconf.Setup_Config_Via_Restconf
+    TemplatedRequests.Create_Default_Session
     PcepOperations.Setup_Pcep_Operations
     FailFast.Do_Not_Fail_Fast_From_Now_On
 
@@ -183,7 +182,6 @@ Tear_It_Down
     ${diff}=    OperatingSystem.Run    diff -dur ${directory_for_expected_responses} ${directory_for_actual_responses}
     BuiltIn.Log    ${diff}
     PcepOperations.Teardown_Pcep_Operations
-    ConfigViaRestconf.Teardown_Config_Via_Restconf
     RequestsLibrary.Delete_All_Sessions
     SSHLibrary.Close_All_Connections
 
@@ -225,6 +223,5 @@ Construct_Password_Element_Line_Using_Password
 Replace_Password_Xml_Element_In_Pcep_Client_Module
     [Arguments]    ${password_element}
     [Documentation]    Send restconf PUT to replace the config module specifying PCEP password element (may me empty=missing).
-    ${mapping_as_string}=    BuiltIn.Set_Variable    {'IP': '${TOOLS_SYSTEM_IP}', 'PASSWD': '''${password_element}'''}
-    BuiltIn.Log    ${mapping_as_string}
-    ConfigViaRestconf.Put_Xml_Template_Folder_Config_Via_Restconf    ${directory_with_template_folders}${/}pcep_topology_client_module    ${mapping_as_string}
+    &{mapping}    BuiltIn.Create_Dictionary    IP=${TOOLS_SYSTEM_IP}    PASSWD=${password_element}
+    TemplatedRequests.Put_As_Xml_Templated    ${directory_with_template_folders}${/}pcep_topology_client_module    mapping=${mapping}
