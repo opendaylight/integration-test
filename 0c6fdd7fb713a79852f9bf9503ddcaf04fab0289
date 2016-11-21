@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_5862e8ad",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-11-21T16:09:17Z",
+      "side": 1,
+      "message": "usage of DevstackUtils.Run Tempest Tests (Library.Keyword) is prefered \nbut in your case the usage of test template is the best\n*** Settings ***\nTest Template    DevstackUtils.Run Tempest Tests",
+      "range": {
+        "startLine": 29,
+        "startChar": 4,
+        "endLine": 29,
+        "endChar": 21
+      },
+      "revId": "0c6fdd7fb713a79852f9bf9503ddcaf04fab0289",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
