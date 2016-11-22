@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ns4:sgt xmlns:ers="ers.ise.cisco.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns4="trustsec.ers.ise.cisco.com" description="" id="ea10e940-997f-11e3-9fda-000c29ab7d13" name="Administrators_Group">
+  <link rel="self" href="https://localhost:443/ers/config/sgt/ea10e940-997f-11e3-9fda-000c29ab7d13" type="application/xml"/>
+  <generationId>0</generationId>
+  <value>28</value>
+</ns4:sgt>
