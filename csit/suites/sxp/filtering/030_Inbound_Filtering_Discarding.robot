@@ -24,7 +24,7 @@ Access List Filtering
     Add Filter    GROUP    inbound-discarding    ${entries}
     Wait Until Keyword Succeeds    4    1    Check One Group 4-2
     Delete Filter    GROUP    inbound-discarding
-    Wait Until Keyword Succeeds    4    1    Check One Group 4-2
+    Wait Until Keyword Succeeds    4    1    Check One Group 4-2    ${TRUE}
 
 Access List Sgt Filtering
     [Documentation]    Test ACL and SGT filter behaviour during filter update
@@ -38,7 +38,7 @@ Access List Sgt Filtering
     Setup Nodes
     Wait Until Keyword Succeeds    4    1    Check One Group 5-3
     Delete Filter    GROUP    inbound-discarding
-    Wait Until Keyword Succeeds    4    1    Check One Group 5-3
+    Wait Until Keyword Succeeds    4    1    Check One Group 5-3    ${TRUE}
 
 Prefix List Filtering
     [Documentation]    Test Prefix List filter behaviour during filter update
@@ -52,7 +52,7 @@ Prefix List Filtering
     Add Filter    GROUP    inbound-discarding    ${entries}
     Wait Until Keyword Succeeds    4    1    Check One Group 4-2
     Delete Filter    GROUP    inbound-discarding
-    Wait Until Keyword Succeeds    4    1    Check One Group 4-2
+    Wait Until Keyword Succeeds    4    1    Check One Group 4-2    ${TRUE}
 
 Prefix List Sgt Filtering
     [Documentation]    Test Prefix List and SGT filter behaviour during filter update
@@ -66,7 +66,7 @@ Prefix List Sgt Filtering
     Setup Nodes
     Wait Until Keyword Succeeds    4    1    Check One Group 5-3
     Delete Filter    GROUP    inbound-discarding
-    Wait Until Keyword Succeeds    4    1    Check One Group 5-3
+    Wait Until Keyword Succeeds    4    1    Check One Group 5-3    ${TRUE}
 
 Access List Filtering Legacy
     [Documentation]    Test ACL filter behaviour during filter update
@@ -80,7 +80,7 @@ Access List Filtering Legacy
     Add Filter    GROUP    inbound-discarding    ${entries}
     Wait Until Keyword Succeeds    4    1    Check One Group 4-2
     Delete Filter    GROUP    inbound-discarding
-    Wait Until Keyword Succeeds    4    1    Check One Group 4-2
+    Wait Until Keyword Succeeds    4    1    Check One Group 4-2    ${TRUE}
 
 Access List Sgt Filtering Legacy
     [Documentation]    Test ACL and SGT filter behaviour during filter update
@@ -94,7 +94,7 @@ Access List Sgt Filtering Legacy
     Setup Nodes Legacy Par One
     Wait Until Keyword Succeeds    4    1    Check One Group 5-3
     Delete Filter    GROUP    inbound-discarding
-    Wait Until Keyword Succeeds    4    1    Check One Group 5-3
+    Wait Until Keyword Succeeds    4    1    Check One Group 5-3    ${TRUE}
 
 Prefix List Filtering Legacy
     [Documentation]    Test Prefix List filter behaviour during filter update
@@ -108,7 +108,7 @@ Prefix List Filtering Legacy
     Add Filter    GROUP    inbound-discarding    ${entries}
     Wait Until Keyword Succeeds    4    1    Check One Group 4-2
     Delete Filter    GROUP    inbound-discarding
-    Wait Until Keyword Succeeds    4    1    Check One Group 4-2
+    Wait Until Keyword Succeeds    4    1    Check One Group 4-2    ${TRUE}
 
 Prefix List Sgt Filtering Legacy
     [Documentation]    Test Prefix List and SGT filter behaviour during filter update
@@ -194,6 +194,7 @@ Setup Nodes Legacy Par Two
     ...    64999    127.0.0.3
 
 Check One Group 4-2
+    [Arguments]    ${MAY_FAIL}=${FALSE}
     [Documentation]    Check if only bindings matching filter from node 4 and 2 are propagated to SXP-DB of other nodes
     ...    Database should contains only Bindings regarding to these matches:
     ...    permit ACL 10.10.10.0 0.0.0.255
@@ -205,19 +206,20 @@ Check One Group 4-2
     Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
     Should Contain Binding    ${resp}    10    10.0.0.0/8    sxp
     Should Contain Binding    ${resp}    20    10.10.10.20/32    sxp
-    Should Not Contain Binding    ${resp}    20    10.10.20.0/24    sxp
+    Run Keyword With Optional Error    ${MAY_FAIL}    Should Not Contain Binding    ${resp}    20    10.10.20.0/24    sxp
     Should Contain Binding    ${resp}    20    10.20.0.0/16    sxp
-    Should Not Contain Binding    ${resp}    20    20.0.0.0/8    sxp
+    Run Keyword With Optional Error    ${MAY_FAIL}    Should Not Contain Binding    ${resp}    20    20.0.0.0/8    sxp
     Should Contain Binding    ${resp}    30    10.10.10.30/32    sxp
     Should Contain Binding    ${resp}    30    10.10.30.0/24    sxp
     Should Contain Binding    ${resp}    30    10.30.0.0/16    sxp
     Should Contain Binding    ${resp}    30    30.0.0.0/8    sxp
     Should Contain Binding    ${resp}    40    10.10.10.40/32    sxp
-    Should Not Contain Binding    ${resp}    40    10.10.40.0/24    sxp
+    Run Keyword With Optional Error    ${MAY_FAIL}    Should Not Contain Binding    ${resp}    40    10.10.40.0/24    sxp
     Should Contain Binding    ${resp}    40    10.40.0.0/16    sxp
-    Should Not Contain Binding    ${resp}    40    40.0.0.0/8    sxp
+    Run Keyword With Optional Error    ${MAY_FAIL}    Should Not Contain Binding    ${resp}    40    40.0.0.0/8    sxp
 
 Check One Group 5-3
+    [Arguments]    ${MAY_FAIL}=${FALSE}
     [Documentation]    Check if only bindings matching filter from node 5 and 3 are propagated to SXP-DB of other nodes
     ...    Database should contains only Bindings regarding to these matches:
     ...    permit SGT 30 ACL 10.10.10.0 0.0.0.255
@@ -229,13 +231,13 @@ Check One Group 5-3
     Should Contain Binding    ${resp}    10    10.10.0.0/16    sxp
     Should Contain Binding    ${resp}    10    10.0.0.0/8    sxp
     Should Contain Binding    ${resp}    30    10.10.10.30/32    sxp
-    Should Not Contain Binding    ${resp}    30    10.10.30.0/24    sxp
-    Should Not Contain Binding    ${resp}    30    10.30.0.0/16    sxp
-    Should Not Contain Binding    ${resp}    30    30.0.0.0/8    sxp
-    Should Not Contain Binding    ${resp}    50    10.10.10.50/32    sxp
-    Should Not Contain Binding    ${resp}    50    10.10.50.0/24    sxp
+    Run Keyword With Optional Error    ${MAY_FAIL}    Should Not Contain Binding    ${resp}    30    10.10.30.0/24    sxp
+    Run Keyword With Optional Error    ${MAY_FAIL}    Should Not Contain Binding    ${resp}    30    10.30.0.0/16    sxp
+    Run Keyword With Optional Error    ${MAY_FAIL}    Should Not Contain Binding    ${resp}    30    30.0.0.0/8    sxp
+    Run Keyword With Optional Error    ${MAY_FAIL}    Should Not Contain Binding    ${resp}    50    10.10.10.50/32    sxp
+    Run Keyword With Optional Error    ${MAY_FAIL}    Should Not Contain Binding    ${resp}    50    10.10.50.0/24    sxp
     Should Contain Binding    ${resp}    50    10.50.0.0/16    sxp
-    Should Not Contain Binding    ${resp}    50    50.0.0.0/8    sxp
+    Run Keyword With Optional Error    ${MAY_FAIL}    Should Not Contain Binding    ${resp}    50    50.0.0.0/8    sxp
 
 Clean Nodes
     Clean Bindings    127.0.0.1
