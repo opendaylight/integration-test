@@ -103,6 +103,29 @@
       "revId": "6c52195884f74366024f221a16691c8a58646d31",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_a4b79585",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 24
+      },
+      "lineNbr": 418,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-22T17:28:38Z",
+      "side": 1,
+      "message": "With respect to line 147 comments, there are several solutions.\n\nThe simple but perhaps ineffective solution would add keyword Documentation explaining this keyword (perhaps renamed to Open_ControlNode_Connection) opens a new SSH session, and caller should close the session as soon as interaction is done. Then SSHLibrary.Close_Connection would be added to every keyword in this file which calls this keyword.\n\nA more effective solution would change this keyword as in the previous case, but otherwise without any open or close calls in this file. Instead, Resource Documentation would mention most keywords require an already open and activated session, and would instruct suites to call this keyword once in suite setup (and close in suite teardown).\n\nThe least simple solution would manage a pool of connections in Resource-private variable, similarly to what KarafKeywords.robot does for karaf console ssh sessions.",
+      "range": {
+        "startLine": 418,
+        "startChar": 0,
+        "endLine": 418,
+        "endChar": 26
+      },
+      "revId": "6c52195884f74366024f221a16691c8a58646d31",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
