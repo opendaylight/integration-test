@@ -1,0 +1,41 @@
+{
+    "sxp-ep-mapper": {
+        "endpoint-policy-template-by-sgt": [
+            {
+                "endpoint-groups": [
+                    "Development_Servers"
+                ],
+                "tenant": "tenant-red",
+                "sgt": 5
+            },
+            {
+                "endpoint-groups": [
+                    "Finance"
+                ],
+                "tenant": "tenant-red",
+                "sgt": 18
+            },
+            {
+                "endpoint-groups": [
+                    "Device_SGT"
+                ],
+                "tenant": "tenant-red",
+                "sgt": 20
+            },
+            {
+                "endpoint-groups": [
+                    "Employees"
+                ],
+                "tenant": "tenant-red",
+                "sgt": 23
+            },
+            {
+                "endpoint-groups": [
+                    "Administrators_Group"
+                ],
+                "tenant": "tenant-red",
+                "sgt": 28
+            }
+        ]
+    }
+}
