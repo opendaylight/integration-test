@@ -2,8 +2,7 @@
 Documentation     Test suite to check connectivity in L3 using routers.
 Suite Setup       Devstack Suite Setup    source_pwd=yes
 Suite Teardown    Close All Connections
-Test Teardown     Run Keywords    Show Debugs    ${NET_1_VM_INSTANCES}
-...               AND    Show Debugs    ${NET_2_VM_INSTANCES}
+Test Teardown     Run Keywords    Show Debugs    ${NET_1_VM_INSTANCES}    ${NET_2_VM_INSTANCES}
 ...               AND    Get OvsDebugInfo
 Library           SSHLibrary
 Library           OperatingSystem
