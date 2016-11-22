@@ -1,6 +1,6 @@
 *** Settings ***
 Documentation     Test suite to check North-South connectivity in L3 using a router and an external network
-Suite Setup       Devstack Suite Setup Tests    source_pwd=yes
+Suite Setup       Devstack Suite Setup    source_pwd=yes
 Suite Teardown    Close All Connections
 Test Teardown     Get OvsDebugInfo
 Library           SSHLibrary
