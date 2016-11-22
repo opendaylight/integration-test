@@ -1,0 +1,30 @@
+{
+    "sxp-ep-mapper": {
+        "endpoint-forwarding-template-by-subnet": [
+            {
+                "ip-prefix": "10.11.12.42/32",
+                "l3-context": "l3ContextId-3",
+                "network-containment": {
+                    "network-domain-id": "networkContainmentId-3",
+                    "network-domain-type": "forwarding:context-type"
+                }
+            },
+            {
+                "ip-prefix": "10.11.12.0/24",
+                "l3-context": "l3ContextId-1",
+                "network-containment": {
+                    "network-domain-id": "networkContainmentId-1",
+                    "network-domain-type": "forwarding:context-type"
+                }
+            },
+            {
+                "ip-prefix": "10.11.13.0/24",
+                "l3-context": "l3ContextId-2",
+                "network-containment": {
+                    "network-domain-id": "networkContainmentId-2",
+                    "network-domain-type": "forwarding:context-type"
+                }
+            }
+        ]
+    }
+}

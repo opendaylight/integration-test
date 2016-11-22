@@ -1,0 +1,36 @@
+{
+    "node": [
+        {
+            "node-id": "1.1.1.1",
+            "sxp-node:description": "ODL SXP Controller - dummy",
+            "sxp-node:enabled": true,
+            "sxp-node:mapping-expanded": 0,
+            "sxp-node:security": {
+                "password": "secret123"
+            },
+            "sxp-node:source-ip": "127.0.0.1",
+            "sxp-node:sxp-domains": {
+                "sxp-domain": [
+                    {
+                        "connections": {},
+                        "domain-name": "global",
+                        "master-database": {}
+                    }
+                ]
+            },
+            "sxp-node:sxp-peer-groups": {},
+            "sxp-node:tcp-port": 64991,
+            "sxp-node:timers": {
+                "delete-hold-down-time": 120,
+                "hold-time": 90,
+                "hold-time-max": 180,
+                "hold-time-min": 90,
+                "hold-time-min-acceptable": 120,
+                "keep-alive-time": 30,
+                "reconciliation-time": 120,
+                "retry-open-time": 5
+            },
+            "sxp-node:version": "version4"
+        }
+    ]
+}
