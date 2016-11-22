@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "3a65312a_ae9ad660",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-11-22T09:21:27Z",
+      "side": 1,
+      "message": "Two main reasons we are doing it one by one, at least for now:\na. It looks much much better in the report, we get a separate robot test case for each test and a convenient log per test to debug in case of failures, see [1].\nb. There are a lot of tempest tests, we aren\u0027t currently aware of all of them, what they do and how long they take to run. These ones I added initially are good candidates of stable tests that check networking and don\u0027t run too long. We can add more/refactor later, but as long as this is in our daily csit/gate I prefer stability over maximum coverage/tests, and to use a whitelist instead of a blacklist (unlike API tests which there are a ton of and are all pretty straightforward).\n\n[1] https://logs.opendaylight.org/sandbox/jenkins091/netvirt-csit-1node-openstack-mitaka-upstream-transparent-boron/16/archives/log.html.gz#s1-s2-s1",
+      "parentUuid": "3a65312a_6e00be01",
+      "range": {
+        "startLine": 28,
+        "startChar": 1,
+        "endLine": 28,
+        "endChar": 39
+      },
+      "revId": "0c6fdd7fb713a79852f9bf9503ddcaf04fab0289",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a65312a_5862e8ad",
         "filename": "csit/suites/openstack/tempest/tempest.robot",
         "patchSetId": 18
