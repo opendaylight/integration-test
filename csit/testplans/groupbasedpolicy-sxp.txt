@@ -1,0 +1,4 @@
+# Place the suites in run order:
+integration/test/csit/suites/groupbasedpolicy/GBPSXP/ise-adapter.robot
+integration/test/csit/suites/groupbasedpolicy/GBPSXP/ep_provider_register_part.robot
+integration/test/csit/suites/groupbasedpolicy/GBPSXP/ep_provider_renderer_part.robot
