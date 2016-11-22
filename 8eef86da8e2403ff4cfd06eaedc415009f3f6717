@@ -16,6 +16,24 @@
       "revId": "8eef86da8e2403ff4cfd06eaedc415009f3f6717",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_7ff7c6f5",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 228,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-11-22T18:38:50Z",
+      "side": 1,
+      "message": "This  is just a small improvement, I see some failures in repeated runs, so added this fix. Will test in sandbox before merge.",
+      "parentUuid": "3a65312a_4467a125",
+      "revId": "8eef86da8e2403ff4cfd06eaedc415009f3f6717",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
