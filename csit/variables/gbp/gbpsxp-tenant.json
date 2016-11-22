@@ -1,0 +1,36 @@
+{
+    "tenant": [
+        {
+            "id": "tenant-red",
+            "policy": {
+                "endpoint-group": [
+                    {
+                        "description": "imported from ISE for sgt=5",
+                        "id": "Development_Servers",
+                        "name": "Development_Servers--5"
+                    },
+                    {
+                        "description": "imported from ISE for sgt=18",
+                        "id": "Finance",
+                        "name": "Finance--18"
+                    },
+                    {
+                        "description": "imported from ISE for sgt=20",
+                        "id": "Device_SGT",
+                        "name": "Device_SGT--20"
+                    },
+                    {
+                        "description": "imported from ISE for sgt=23",
+                        "id": "Employees",
+                        "name": "Employees--23"
+                    },
+                    {
+                        "description": "imported from ISE for sgt=28",
+                        "id": "Administrators_Group",
+                        "name": "Administrators_Group--28"
+                    }
+                ]
+            }
+        }
+    ]
+}
