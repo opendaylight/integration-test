@@ -1,0 +1,24 @@
+{
+    "ise-source-config": {
+        "connection-config": {
+            "header": [
+                {
+                    "name": "authorization",
+                    "value": "Basic YWRtaW46bmltZGE="
+                },
+                {
+                    "name": "Accept",
+                    "value": "application/vnd.com.cisco.ise.trustsec.sgt.1.1+xml"
+                },
+                {
+                    "name": "Accept-Search-Result",
+                    "value": "application/vnd.com.cisco.ise.ers.searchresult.2.0+xml"
+                }
+            ],
+            "ise-rest-url": "http://localhost:9060"
+        },
+        "sgt-range-max": 100,
+        "sgt-range-min": 1,
+        "tenant": "tenant-red"
+    }
+}
