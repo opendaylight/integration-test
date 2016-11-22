@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_24f3859f",
+        "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 134,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-22T16:19:39Z",
+      "side": 1,
+      "message": "Is this necessary? The output is large and it is also logged in line 138.",
+      "range": {
+        "startLine": 134,
+        "startChar": 45,
+        "endLine": 134,
+        "endChar": 61
+      },
+      "revId": "bfbd948de0d8e2977deb0203d874761baf919268",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_e4d18dfc",
+        "filename": "csit/suites/bgpcep/bgpingest/bgp_app_peer_prefixcount.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 220,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-22T16:19:39Z",
+      "side": 1,
+      "message": "pt?",
+      "range": {
+        "startLine": 220,
+        "startChar": 10,
+        "endLine": 220,
+        "endChar": 12
+      },
+      "revId": "bfbd948de0d8e2977deb0203d874761baf919268",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
