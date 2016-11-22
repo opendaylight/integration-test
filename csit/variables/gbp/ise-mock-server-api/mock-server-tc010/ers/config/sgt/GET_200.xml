@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ns3:searchResult xmlns:ns5="ers.ise.cisco.com" xmlns:ers-v2="ers-v2" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns3="v2.ers.ise.cisco.com" total="21">
+  <ns3:nextPage rel="next" href="" type="application/xml"/>
+  <ns3:resources>
+    <ns5:resource description="" id="ea10e940-997f-11e3-9fda-000c29ab7d13" name="Administrators_Group">
+      <link rel="self" href="https://localhost:9060/ers/config/sgt/ea10e940-997f-11e3-9fda-000c29ab7d13" type="application/xml"/>
+    </ns5:resource>
+    <ns5:resource description="" id="3c08e690-85e8-11e3-9fda-000c29ab7d13" name="Development_Servers">
+      <link rel="self" href="https://localhost:9060/ers/config/sgt/3c08e690-85e8-11e3-9fda-000c29ab7d13" type="application/xml"/>
+    </ns5:resource>
+    <ns5:resource description="" id="79d28960-85e6-11e3-9fda-000c29ab7d13" name="Device_SGT">
+      <link rel="self" href="https://localhost:9060/ers/config/sgt/79d28960-85e6-11e3-9fda-000c29ab7d13" type="application/xml"/>
+    </ns5:resource>
+    <ns5:resource description="" id="95da0600-85e7-11e3-9fda-000c29ab7d13" name="Employees">
+      <link rel="self" href="https://localhost:9060/ers/config/sgt/95da0600-85e7-11e3-9fda-000c29ab7d13" type="application/xml"/>
+    </ns5:resource>
+    <ns5:resource description="" id="733867c0-2c5b-11e4-9b8c-000c29ab7d13" name="Finance">
+      <link rel="self" href="https://localhost:9060/ers/config/sgt/733867c0-2c5b-11e4-9b8c-000c29ab7d13" type="application/xml"/>
+    </ns5:resource>
+  </ns3:resources>
+</ns3:searchResult>
