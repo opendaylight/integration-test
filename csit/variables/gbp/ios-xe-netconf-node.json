@@ -1,0 +1,28 @@
+{
+    "node": [
+        {
+            "netconf-node-topology:connection-timeout-millis": 5000,
+            "netconf-node-topology:default-request-timeout-millis": 10000,
+            "netconf-node-topology:host": "0.0.0.0",
+            "netconf-node-topology:keepalive-delay": 0,
+            "netconf-node-topology:max-connection-attempts": 2,
+            "netconf-node-topology:password": "nimda",
+            "netconf-node-topology:port": 17830,
+            "netconf-node-topology:tcp-only": false,
+            "netconf-node-topology:username": "admin",
+            "netconf-node-topology:yang-module-capabilities": {
+                "capability": [
+                    "urn:ios?module=ned&revision=2016-03-08",
+                    "urn:ietf:params:xml:ns:yang:ietf-inet-types?module=ietf-inet-types&revision=2013-07-15",
+                    "urn:ietf:params:xml:ns:yang:ietf-netconf-monitoring?module=ietf-netconf-monitoring&revision=2010-10-04",
+                    "urn:ietf:params:xml:ns:yang:ietf-yang-types?module=ietf-yang-types&revision=2013-07-15",
+                    "http://tail-f.com/yang/common?module=tailf-common&revision=2015-05-22",
+                    "http://tail-f.com/yang/common?module=tailf-meta-extensions&revision=2013-11-07",
+                    "http://tail-f.com/yang/common?module=tailf-cli-extensions&revision=2015-03-19"
+                ],
+                "override": true
+            },
+            "node-id": "ios-xe-mock-X"
+        }
+    ]
+}

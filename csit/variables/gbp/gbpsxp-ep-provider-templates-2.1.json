@@ -1,0 +1,91 @@
+{
+    "sxp-ep-mapper": {
+        "endpoint-forwarding-template-by-subnet": [
+            {
+                "ip-prefix": "10.11.12.42/32",
+                "l3-context": "l3ContextId-3",
+                "network-containment": {
+                    "network-domain-id": "networkContainmentId-3",
+                    "network-domain-type": "forwarding:context-type"
+                }
+            },
+            {
+                "ip-prefix": "10.11.12.0/24",
+                "l3-context": "l3ContextId-1",
+                "network-containment": {
+                    "network-domain-id": "networkContainmentId-1",
+                    "network-domain-type": "forwarding:context-type"
+                }
+            },
+            {
+                "ip-prefix": "10.11.13.0/24",
+                "l3-context": "l3ContextId-2",
+                "network-containment": {
+                    "network-domain-id": "networkContainmentId-2",
+                    "network-domain-type": "forwarding:context-type"
+                }
+            }
+        ],
+        "endpoint-policy-template-by-sgt": [
+            {
+                "conditions": [
+                    "chain"
+                ],
+                "endpoint-groups": [
+                    "webservers"
+                ],
+                "sgt": 5,
+                "tenant": "tenant-red"
+            },
+            {
+                "conditions": [
+                    "condition-4",
+                    "condition-5",
+                    "condition-6"
+                ],
+                "endpoint-groups": [
+                    "epg-4",
+                    "epg-3"
+                ],
+                "sgt": 3,
+                "tenant": "tenantId-3"
+            },
+            {
+                "conditions": [
+                    "chain"
+                ],
+                "endpoint-groups": [
+                    "clients"
+                ],
+                "sgt": 4,
+                "tenant": "tenant-red"
+            },
+            {
+                "conditions": [
+                    "condition-1",
+                    "condition-2",
+                    "condition-3"
+                ],
+                "endpoint-groups": [
+                    "epg-2",
+                    "epg-1"
+                ],
+                "sgt": 1,
+                "tenant": "tenantId-1"
+            },
+            {
+                "conditions": [
+                    "condition-4",
+                    "condition-5",
+                    "condition-3"
+                ],
+                "endpoint-groups": [
+                    "epg-2",
+                    "epg-3"
+                ],
+                "sgt": 2,
+                "tenant": "tenantId-2"
+            }
+        ]
+    }
+}
