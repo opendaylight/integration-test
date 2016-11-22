@@ -481,7 +481,7 @@ Get OvsDebugInfo
     Run Keyword If    2 < ${NUM_OS_SYSTEM}    Get DumpFlows And Ovsconfig    ${OS_COMPUTE_2_IP}
 
 Show Debugs
-    [Arguments]    ${vm_indices}
+    [Arguments]    @{vm_indices}
     [Documentation]    Run these commands for debugging, it can list state of VM instances and ip information in control node
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
