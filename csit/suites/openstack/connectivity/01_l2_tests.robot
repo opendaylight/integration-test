@@ -66,8 +66,7 @@ Check Vm Instances Have Ip Address
     Set Suite Variable    ${NET1_VM_IPS}
     Append To List    ${NET2_VM_IPS}    ${NET2_DHCP_IP}
     Set Suite Variable    ${NET2_VM_IPS}
-    [Teardown]    Run Keywords    Show Debugs    ${NET_1_VM_INSTANCES}
-    ...    AND    Show Debugs    ${NET_2_VM_INSTANCES}
+    [Teardown]    Run Keywords    Show Debugs    ${NET_1_VM_INSTANCES} ${NET_2_VM_INSTANCES}
     ...    AND    Get OvsDebugInfo
 
 Ping Vm Instance1 In l2_network_1
@@ -135,8 +134,7 @@ Delete Vm Instances In l2_network_2
     [Documentation]    Delete Vm instances using instance names in l2_network_2.
     : FOR    ${VmElement}    IN    @{NET_2_VM_INSTANCES}
     \    Delete Vm Instance    ${VmElement}
-    [Teardown]    Run Keywords    Show Debugs    ${NET_1_VM_INSTANCES}
-    ...    AND    Show Debugs    ${NET_2_VM_INSTANCES}
+    [Teardown]    Run Keywords    Show Debugs    ${NET_1_VM_INSTANCES} ${NET_2_VM_INSTANCES}
     ...    AND    Get OvsDebugInfo
 
 Delete Sub Networks In l2_network_1

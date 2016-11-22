@@ -56,8 +56,7 @@ Check Vm Instances Have Ip Address
     Set Suite Variable    ${NET1_DHCP_IP}
     Set Suite Variable    ${NET2_L3_VM_IPS}
     Set Suite Variable    ${NET2_DHCP_IP}
-    [Teardown]    Run Keywords    Show Debugs    ${NET_1_VM_INSTANCES}
-    ...    AND    Show Debugs    ${NET_2_VM_INSTANCES}
+    [Teardown]    Run Keywords    Show Debugs    ${NET_1_VM_INSTANCES} ${NET_2_VM_INSTANCES}
     ...    AND    Get OvsDebugInfo
 
 Create Routers
@@ -138,8 +137,7 @@ Delete Vm Instances In network_2
     [Documentation]    Delete Vm instances using instance names in network_2.
     : FOR    ${VmElement}    IN    @{NET_2_VM_INSTANCES}
     \    Delete Vm Instance    ${VmElement}
-    [Teardown]    Run Keywords    Show Debugs    ${NET_1_VM_INSTANCES}
-    ...    AND    Show Debugs    ${NET_2_VM_INSTANCES}
+    [Teardown]    Run Keywords    Show Debugs    ${NET_1_VM_INSTANCES} ${NET_2_VM_INSTANCES}
     ...    AND    Get OvsDebugInfo
 
 Delete Router Interfaces
