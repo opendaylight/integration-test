@@ -1,0 +1,28 @@
+{
+    "sxp-ep-mapper": {
+        "endpoint-policy-template-by-sgt": [
+            {
+                "conditions": [
+                    "chain"
+                ],
+                "endpoint-groups": [
+                    "clients"
+                ],
+                "origin": "sxp-ep-provider-model:template-generated",
+                "sgt": 101,
+                "tenant": "tenant-red"
+            },
+            {
+                "conditions": [
+                    "chain"
+                ],
+                "endpoint-groups": [
+                    "webservers"
+                ],
+                "origin": "sxp-ep-provider-model:template-generated",
+                "sgt": 100,
+                "tenant": "tenant-red"
+            }
+        ]
+    }
+}
