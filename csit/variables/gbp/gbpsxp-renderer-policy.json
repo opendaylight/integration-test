@@ -1,0 +1,292 @@
+{
+    "renderer-policy": {
+        "configuration": {
+            "endpoints": {
+                "address-endpoint-with-location": [
+                    {
+                        "absolute-location": {
+                            "external-node-connector": "/a:network-topology/a:topology[a:topology-id='topology-netconf']/a:node[a:node-id='ios-xe-mock-1']/a:termination-point[a:tp-id='12345']",
+                            "external-node-mount-point": "/network-topology:network-topology/network-topology:topology[network-topology:topology-id='topology-netconf']/network-topology:node[network-topology:node-id='ios-xe-mock-1']"
+                        },
+                        "address": "10.0.35.2/24",
+                        "address-type": "l2-l3-forwarding:ip-prefix-type",
+                        "condition": [
+                            "chain"
+                        ],
+                        "context-id": "l3-context-vrf-red",
+                        "context-type": "l2-l3-forwarding:l3-context",
+                        "endpoint-group": [
+                            "clients"
+                        ],
+                        "network-containment": {
+                            "network-domain-id": "subnet-10.0.35.0/24",
+                            "network-domain-type": "l2-l3-forwarding:subnet"
+                        },
+                        "renderer-name": "ios-xe-renderer",
+                        "tenant": "tenant-red",
+                        "timestamp": 1465570272304
+                    },
+                    {
+                        "absolute-location": {
+                            "external-node-connector": "/a:network-topology/a:topology[a:topology-id='topology-netconf']/a:node[a:node-id='ios-xe-mock-2']/a:termination-point[a:tp-id='54321']",
+                            "external-node-mount-point": "/network-topology:network-topology/network-topology:topology[network-topology:topology-id='topology-netconf']/network-topology:node[network-topology:node-id='ios-xe-mock-2']"
+                        },
+                        "address": "10.0.36.2/24",
+                        "address-type": "l2-l3-forwarding:ip-prefix-type",
+                        "condition": [
+                            "chain"
+                        ],
+                        "context-id": "l3-context-vrf-red",
+                        "context-type": "l2-l3-forwarding:l3-context",
+                        "endpoint-group": [
+                            "webservers"
+                        ],
+                        "network-containment": {
+                            "network-domain-id": "subnet-10.0.36.0/24",
+                            "network-domain-type": "l2-l3-forwarding:subnet"
+                        },
+                        "renderer-name": "ios-xe-renderer",
+                        "tenant": "tenant-red",
+                        "timestamp": 1465570272438
+                    }
+                ]
+            },
+            "renderer-endpoints": {
+                "renderer-endpoint": [
+                    {
+                        "address": "10.0.35.2/24",
+                        "address-type": "l2-l3-forwarding:ip-prefix-type",
+                        "context-id": "l3-context-vrf-red",
+                        "context-type": "l2-l3-forwarding:l3-context",
+                        "peer-endpoint": [
+                            {
+                                "address": "10.0.36.2/24",
+                                "address-type": "l2-l3-forwarding:ip-prefix-type",
+                                "context-id": "l3-context-vrf-red",
+                                "context-type": "l2-l3-forwarding:l3-context",
+                                "rule-group-with-renderer-endpoint-participation": [
+                                    {
+                                        "contract-id": "icmp-http-contract",
+                                        "renderer-endpoint-participation": "CONSUMER",
+                                        "subject-name": "allow-icmp-subject",
+                                        "tenant-id": "tenant-red"
+                                    },
+                                    {
+                                        "contract-id": "icmp-http-contract",
+                                        "renderer-endpoint-participation": "CONSUMER",
+                                        "subject-name": "allow-http-subject",
+                                        "tenant-id": "tenant-red"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "address": "10.0.36.2/24",
+                        "address-type": "l2-l3-forwarding:ip-prefix-type",
+                        "context-id": "l3-context-vrf-red",
+                        "context-type": "l2-l3-forwarding:l3-context",
+                        "peer-endpoint": [
+                            {
+                                "address": "10.0.35.2/24",
+                                "address-type": "l2-l3-forwarding:ip-prefix-type",
+                                "context-id": "l3-context-vrf-red",
+                                "context-type": "l2-l3-forwarding:l3-context",
+                                "rule-group-with-renderer-endpoint-participation": [
+                                    {
+                                        "contract-id": "icmp-http-contract",
+                                        "renderer-endpoint-participation": "PROVIDER",
+                                        "subject-name": "allow-icmp-subject",
+                                        "tenant-id": "tenant-red"
+                                    },
+                                    {
+                                        "contract-id": "icmp-http-contract",
+                                        "renderer-endpoint-participation": "PROVIDER",
+                                        "subject-name": "allow-http-subject",
+                                        "tenant-id": "tenant-red"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            "renderer-forwarding": {
+                "renderer-forwarding-by-tenant": [
+                    {
+                        "renderer-forwarding-context": [
+                            {
+                                "context-id": "flood-domain-1",
+                                "context-type": "l2-l3-forwarding:l2-flood-domain",
+                                "parent": {
+                                    "context-id": "bridge-domain1",
+                                    "context-type": "l2-l3-forwarding:l2-bridge-domain"
+                                }
+                            },
+                            {
+                                "context-id": "flood-domain1",
+                                "context-type": "l2-l3-forwarding:l2-flood-domain",
+                                "parent": {
+                                    "context-id": "bridge-domain1",
+                                    "context-type": "l2-l3-forwarding:l2-bridge-domain"
+                                }
+                            },
+                            {
+                                "context-id": "bridge-domain1",
+                                "context-type": "l2-l3-forwarding:l2-bridge-domain",
+                                "parent": {
+                                    "context-id": "l3-context-vrf-red",
+                                    "context-type": "l2-l3-forwarding:l3-context"
+                                }
+                            },
+                            {
+                                "context-id": "l3-context-vrf-red",
+                                "context-type": "l2-l3-forwarding:l3-context"
+                            }
+                        ],
+                        "renderer-network-domain": [
+                            {
+                                "l2-l3-forwarding:subnet": {
+                                    "ip-prefix": "10.0.35.0/24",
+                                    "virtual-router-ip": "10.0.35.1"
+                                },
+                                "network-domain-id": "subnet-10.0.35.0/24",
+                                "network-domain-type": "l2-l3-forwarding:subnet",
+                                "parent": {
+                                    "context-id": "flood-domain-1",
+                                    "context-type": "l2-l3-forwarding:l2-flood-domain"
+                                }
+                            },
+                            {
+                                "l2-l3-forwarding:subnet": {
+                                    "ip-prefix": "10.0.36.0/24",
+                                    "virtual-router-ip": "10.0.36.1"
+                                },
+                                "network-domain-id": "subnet-10.0.36.0/24",
+                                "network-domain-type": "l2-l3-forwarding:subnet",
+                                "parent": {
+                                    "context-id": "flood-domain1",
+                                    "context-type": "l2-l3-forwarding:l2-flood-domain"
+                                }
+                            }
+                        ],
+                        "tenant-id": "tenant-red"
+                    }
+                ]
+            },
+            "rule-groups": {
+                "rule-group": [
+                    {
+                        "contract-id": "icmp-http-contract",
+                        "resolved-rule": [
+                            {
+                                "action": [
+                                    {
+                                        "action-definition-id": "Action-Chain",
+                                        "name": "allow1",
+                                        "order": 0,
+                                        "parameter-value": [
+                                            {
+                                                "name": "sfc-chain-name",
+                                                "string-value": "SFCGBP"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "classifier": [
+                                    {
+                                        "classifier-definition-id": "Classifier-IP-Protocol",
+                                        "connection-tracking": "normal",
+                                        "direction": "out",
+                                        "name": "icmp-out",
+                                        "parameter-value": [
+                                            {
+                                                "int-value": 1,
+                                                "name": "proto"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "classifier-definition-id": "Classifier-IP-Protocol",
+                                        "connection-tracking": "normal",
+                                        "direction": "in",
+                                        "name": "icmp-in",
+                                        "parameter-value": [
+                                            {
+                                                "int-value": 1,
+                                                "name": "proto"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "name": "allow-icmp-rule",
+                                "order": 0
+                            }
+                        ],
+                        "subject-name": "allow-icmp-subject",
+                        "tenant-id": "tenant-red"
+                    },
+                    {
+                        "contract-id": "icmp-http-contract",
+                        "resolved-rule": [
+                            {
+                                "action": [
+                                    {
+                                        "action-definition-id": "Action-Chain",
+                                        "name": "allow1",
+                                        "order": 0,
+                                        "parameter-value": [
+                                            {
+                                                "name": "sfc-chain-name",
+                                                "string-value": "SFCGBP"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "classifier": [
+                                    {
+                                        "classifier-definition-id": "Classifier-L4",
+                                        "connection-tracking": "normal",
+                                        "direction": "out",
+                                        "name": "http-src",
+                                        "parameter-value": [
+                                            {
+                                                "int-value": 80,
+                                                "name": "sourceport"
+                                            },
+                                            {
+                                                "int-value": 6,
+                                                "name": "proto"
+                                            }
+                                        ]
+                                    },
+                                    {
+                                        "classifier-definition-id": "Classifier-L4",
+                                        "connection-tracking": "normal",
+                                        "direction": "in",
+                                        "name": "http-dest",
+                                        "parameter-value": [
+                                            {
+                                                "int-value": 6,
+                                                "name": "proto"
+                                            },
+                                            {
+                                                "int-value": 80,
+                                                "name": "destport"
+                                            }
+                                        ]
+                                    }
+                                ],
+                                "name": "allow-http-rule",
+                                "order": 0
+                            }
+                        ],
+                        "subject-name": "allow-http-subject",
+                        "tenant-id": "tenant-red"
+                    }
+                ]
+            }
+        },
+        "version": 1
+    }
+}
