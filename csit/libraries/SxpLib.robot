@@ -2,6 +2,7 @@
 Documentation     Library containing Keywords used for SXP testing
 Library           Collections
 Library           RequestsLibrary
+Library           OperatingSystem
 Library           SSHLibrary
 Library           String
 Library           ./Sxp.py
@@ -25,7 +26,7 @@ Post To Controller
     ${content}    Evaluate    json.loads('''${resp.content}''')    json
     ${content}    Get From Dictionary    ${content}    output
     ${content}    Get From Dictionary    ${content}    result
-    Should Be True    ${content}
+    Should Be True    ${content}    Post to ${path} failed as invalid data manipulation
 
 Add Node
     [Arguments]    ${node}    ${password}=${EMPTY}    ${version}=version4    ${port}=64999    ${session}=session    ${ip}=${EMPTY}
@@ -317,10 +318,26 @@ Check Node Started
     ${rc}    Run Command On Remote System    ${system}    netstat -tln | grep -q ${ip}:${port} && echo 0 || echo 1    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}    prompt=${ODL_SYSTEM_PROMPT}
     Should Be Equal As Strings    ${rc}    0
 
+Check Node Stopped
+    [Arguments]    ${node}    ${port}=64999    ${system}=${ODL_SYSTEM_IP}    ${session}=session    ${ip}=${node}
+    [Documentation]    Verify that SxpNode has data writed to Operational datastore
+    ${resp}    RequestsLibrary.Get Request    ${session}    /restconf/operational/network-topology:network-topology/topology/sxp/node/${node}/
+    Should Not Be Equal As Strings    ${resp.status_code}    200
+    ${rc}    Run Command On Remote System    ${system}    netstat -tln | grep -q ${ip}:${port} && echo 1 || echo 0    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}    prompt=${ODL_SYSTEM_PROMPT}
+    Should Be Equal As Strings    ${rc}    0
+
 Clean SXP Environment
     [Arguments]    ${node_range}=2
     [Documentation]    Destroy created sessions
     : FOR    ${num}    IN RANGE    1    ${node_range}
     \    ${ip}    Get Ip From Number    ${num}
     \    Run Keyword If    '${ODL_STREAM}' not in ['beryllium', 'stable-lithium']    Delete Node    ${ip}
+    \    Run Keyword If    '${ODL_STREAM}' not in ['beryllium', 'stable-lithium']    Wait Until Keyword Succeeds    20    1    Check Node Stopped
+    \    ...    ${ip}
     Clean SXP Session
+
+Run Keyword With Optional Error
+    [Arguments]    ${MAY_FAIL}    ${keyword}    @{args}
+    [Documentation]    Runs keyword and ignore Error if ${MAY_FAIL} is set to True
+    Run Keyword If    ${MAY_FAIL}    Run Keyword And Ignore Error    ${keyword}    @{args}
+    ...    ELSE    ${keyword}    @{args}
