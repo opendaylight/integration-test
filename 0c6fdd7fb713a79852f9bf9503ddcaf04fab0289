@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "3a65312a_6e00be01",
+        "filename": "csit/suites/openstack/tempest/tempest.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-22T00:40:49Z",
+      "side": 1,
+      "message": "any reason we are cherry picking scenario tests one by one instead of running the entire bucket and using some exclusion regex for tests that are invalid?",
+      "range": {
+        "startLine": 28,
+        "startChar": 1,
+        "endLine": 28,
+        "endChar": 39
+      },
+      "revId": "0c6fdd7fb713a79852f9bf9503ddcaf04fab0289",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "3a65312a_5862e8ad",
         "filename": "csit/suites/openstack/tempest/tempest.robot",
         "patchSetId": 18
