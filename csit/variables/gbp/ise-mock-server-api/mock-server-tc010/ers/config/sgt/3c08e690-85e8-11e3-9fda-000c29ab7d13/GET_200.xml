@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<ns4:sgt xmlns:ers="ers.ise.cisco.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns4="trustsec.ers.ise.cisco.com" description="" id="3c08e690-85e8-11e3-9fda-000c29ab7d13" name="Development_Servers">
+  <link rel="self" href="https://localhost:443/ers/config/sgt/3c08e690-85e8-11e3-9fda-000c29ab7d13" type="application/xml"/>
+  <generationId>0</generationId>
+  <value>5</value>
+</ns4:sgt>

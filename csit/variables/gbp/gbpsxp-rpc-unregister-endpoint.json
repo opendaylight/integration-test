@@ -1,0 +1,10 @@
+{
+    "input": {
+        "address-endpoint-unreg": {
+            "context-type": "l2-l3-forwarding:l3-context",
+            "context-id": "l3ContextId-3",
+            "address-type": "l2-l3-forwarding:ip-prefix-type",
+            "address": "10.11.12.42/32"
+        }
+    }
+}
