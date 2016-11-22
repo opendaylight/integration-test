@@ -22,6 +22,30 @@
       "revId": "7670479c976a8ae1b41c09809381488933064336",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_ce68f223",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 31
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-11-22T10:06:07Z",
+      "side": 1,
+      "message": "Commit was divided into two so that part which is stable may be reviewed and merged, other part that was unstable will be added as individual commit.",
+      "parentUuid": "3a65312a_c5062f20",
+      "range": {
+        "startLine": 9,
+        "startChar": 35,
+        "endLine": 9,
+        "endChar": 38
+      },
+      "revId": "7670479c976a8ae1b41c09809381488933064336",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
