@@ -1,0 +1,25 @@
+{
+    "endpoints": {
+        "address-endpoints": {
+            "address-endpoint": [
+                {
+                    "address": "10.11.12.42/32",
+                    "address-type": "l2-l3-forwarding:ip-prefix-type",
+                    "condition": [
+                        "chain"
+                    ],
+                    "context-id": "l3ContextId-3",
+                    "context-type": "l2-l3-forwarding:l3-context",
+                    "endpoint-group": [
+                        "webservers"
+                    ],
+                    "network-containment": {
+                        "network-domain-id": "networkContainmentId-3",
+                        "network-domain-type": "forwarding:context-type"
+                    },
+                    "tenant": "tenant-red"
+                }
+            ]
+        }
+    }
+}

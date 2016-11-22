@@ -228,3 +228,6 @@ SUBSCRIPTION = '/restconf/config/subscribe:subscription/'
 
 # Elasticsearch Variables
 ELASTICPORT = 9200
+
+# GBP-SXP
+ISO8601_DATETIME_FORMAT = '%Y-%m-%dT%H:%M:%S.%f'
