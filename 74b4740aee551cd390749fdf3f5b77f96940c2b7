@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_03f3dc73",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-23T18:23:26Z",
+      "side": 1,
+      "message": "this seemed extra complicated to me, so I did some checking.  I think you can do this single line to get what you want:\n\n${tenant-id}    Utils.Extract Value From Content    ${resp}    /network/0/tenant-id    strip\n\n\nyou *may* need to also add \"Library    HttpLibrary.HTTP\" in the setting section above.\n\nI have tested the above locally and it works.  just fyi.  but, please run your patch in\nthe sandbox so we know it works.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 29,
+        "endChar": 72
+      },
+      "revId": "74b4740aee551cd390749fdf3f5b77f96940c2b7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
