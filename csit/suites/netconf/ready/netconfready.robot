@@ -42,6 +42,8 @@ Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
+Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
+Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Library           RequestsLibrary
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
@@ -55,8 +57,32 @@ ${NETCONFREADY_FALLBACK_WAIT}    1200s
 ${USE_NETCONF_CONNECTOR}    True
 ${DEBUG_LOGGING_FOR_EVERYTHING}    False
 ${NETCONFREADY_WAIT_MDSAL}    60s
+${DEVICE_NAME}    test-device
+${DEVICE_PORT}    1830
+${NETCONF_FOLDER}    ${CURDIR}/../../../variables/netconf/device
 
 *** Test Cases ***
+Check_Netconf_Ready_Via_Topology
+    [Documentation]    Checks if odl-netconf-connector-ssh is installed and passes execition if done.
+    ...    If odl-netconf-topology is installed then it configures the device and verifies it is mounted. The device name will be the same as if
+    ...    ssh connector was installed to be able to use implemented suites.
+    ...    If none if the features are present it fails.
+    ...    If idl-netconf-clustered-topology is installed we do nothing and rely on suites that they do all needed stuff.
+    : FOR    ${idx}    IN    @{ClusterManagement__member_index_list}
+    \    BuiltIn.Wait_Until_Keyword_Succeeds    3x    1s    Verify_Netconf_Ready_For_Node    ${idx}
+#    ${status}    ${rsp}=    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Verify Feature Is Installed    odl-netconf-connector-ssh
+#    BuiltIn.Pass_Execution_If    '${status}' == 'PASS'    odl-netconf-connector-ssh is installed
+#    ${status}    ${rsp}=    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Verify Feature Is Installed    odl-netconf-clustered-topology
+#    BuiltIn.Pass_Execution_If    '${status}' == 'PASS'    odl-netconf-clustered-topology is installed
+#    ${status}    ${rsp}=    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Verify Feature Is Installed    odl-netconf-topology
+#    BuiltIn.Run_Keyword_If     '${status}' == 'FAIL'    BuiltIn.Fail    msg=None of the netconf features installed.
+#    # Now odl-netconf-topology is installed. Configuring device will be done with it's mounting check.
+#    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    DEVICE_PORT=1830    DEVICE_IP=${ODL_SYSTEM_IP}    DEVICE_USER=admin    DEVICE_PASSWORD=admin
+#    TemplatedRequests.Put_As_Xml_Templated    ${NETCONF_FOLDER}${/}full-uri-device   mapping=${mapping}    session=ses
+#    BuiltIn.Wait_Until_Keyword_Succeeds    10x    3s    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_FOLDER}${/}full-uri-mount   mapping=${mapping}    session=ses
+#    ${out}=    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_FOLDER}${/}full-uri-mount    mapping=${mapping}    session=ses
+#    Log    ${out}
+
 Check_Whether_Netconf_Is_Up_And_Running
     [Documentation]    Make one request to Netconf topology to see whether Netconf is up and running.
     [Tags]    exclude
@@ -107,6 +133,7 @@ Wait_For_MDSAL
 *** Keywords ***
 Setup_Everything
     [Documentation]    Initialize SetupUtils. Setup requests library and log into karaf.log that the netconf readiness wait starts.
+    # Setup_Utils_For_Setup_And_Teardown includes KarafKeywords and ClusterManagement setups
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     ${connector}=    BuiltIn.Set_Variable_If    ${USE_NETCONF_CONNECTOR}    /node/controller-config/yang-ext:mount/config:modules/module/odl-sal-netconf-connector-cfg:sal-netconf-connector/controller-config    ${EMPTY}
     BuiltIn.Set_Suite_Variable    ${netconf_connector}    ${connector}
@@ -131,6 +158,30 @@ Check_Netconf_Up_And_Running
     BuiltIn.Run_Keyword_If    ${status}    BuiltIn.Set_Suite_Variable    ${netconf_not_ready_cause}    5832
     BuiltIn.Run_Keyword_If    ${status}    SetupUtils.Set_Known_Bug_Id    5832
     BuiltIn.Should_Be_Equal_As_Strings    ${response.status_code}    200
+
+Verify_Netconf_Ready_For_Node
+    [Arguments]    ${node_index}
+    [Documentation]    Blabla
+    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${node_index}
+    Configure_Netconf_Device    ${DEVICE_NAME}    ${session}    ${ODL_SYSTEM_${node_index}_IP}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    MODULE_TYPE=sal-restconf-service:json-restconf-service-impl     MODULE_NAME=json-restconf-service-impl
+    Wait_Netconf_Device_Mounted    ${DEVICE_NAME}    ${session}    ${mapping}
+    : FOR    ${idx}    IN    @{ClusterManagement__member_index_list}
+    \    ${mod_session}=    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${idx}
+    \    ${resp}=    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_FOLDER}${/}module    mapping=${mapping}    session=${mod_session}
+    [Teardown]    Remove_Netconf_Device    ${DEVICE_NAME}    ${session}
+
+Configure_Netconf_Device
+    [Arguments]    ${device_name}    ${session}    ${device_ip}
+    NetconfKeywords.Configure_Device_In_Netconf    ${device_name}    device_type=full-uri-device     device_port=${DEVICE_PORT}    device_address=${device_ip}    device_user=admin    device_password=admin    session=${session}
+
+Remove_Netconf_Device
+    [Arguments]    ${device_name}    ${session}
+    NetconfKeywords.Remove_Device_From_Netconf    ${device_name}    session=${session}
+
+Wait_Netconf_Device_Mounted
+    [Arguments]    ${device_name}    ${session}    ${mapping}    ${timeout}=30s
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    3s    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_FOLDER}${/}full-uri-mount    mapping=${mapping}    session=${session}
 
 Check_Netconf_Usable
     NetconfKeywords.Configure_Device_In_Netconf    test-device    device_type=configure-via-topology
