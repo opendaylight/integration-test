@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_e3aea084",
+        "filename": "csit/libraries/VtnCoKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 60,
+      "author": {
+        "id": 396
+      },
+      "writtenOn": "2016-11-23T17:26:03Z",
+      "side": 1,
+      "message": "Just an idea which you don\u0027t need to apply in this patch, but probably good to apply in a separate patch.\n\nIn this section, I think it\u0027s better to have a new variable which keep the version number as the following:\n\nIf ${ODL_STREAM} \u003d\u003d \u0027boron\u0027 then ${version} \u003d ${boron}\nELSE IF {ODL_STREAM} \u003d\u003d \u0027carbon\u0027 then ${version} \u003d ${carbon}.\n\nThen, we can remove some \"IF and ELSE IF\" conditions.",
+      "range": {
+        "startLine": 60,
+        "startChar": 0,
+        "endLine": 60,
+        "endChar": 27
+      },
+      "revId": "7c37a3750e7e60821923ab0ad83ffbd5d73fa3f1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_4387940f",
+        "filename": "csit/libraries/VtnCoKeywords.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 396
+      },
+      "writtenOn": "2016-11-23T17:26:03Z",
+      "side": 1,
+      "message": "I think we should change the ${boron} just have the version number (e.g. 6.3.2), and use the ${boron} here also.\n\nThat being said, since we are facing CSIT failures now and should fix the failures immediately with this patch, I agree to merge the patch as is right away. So I added my +1 to the patch.",
+      "range": {
+        "startLine": 66,
+        "startChar": 123,
+        "endLine": 66,
+        "endChar": 128
+      },
+      "revId": "7c37a3750e7e60821923ab0ad83ffbd5d73fa3f1",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
