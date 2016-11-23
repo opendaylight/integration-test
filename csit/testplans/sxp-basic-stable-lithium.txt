@@ -1,4 +1,0 @@
-# Place the suites in run order:
-integration/test/csit/suites/sxp/basic/010_Restconf_OK.robot
-integration/test/csit/suites/sxp/basic/020_Restconf_CRUD.robot
-integration/test/csit/suites/sxp/basic/030_Connectivity.robot
