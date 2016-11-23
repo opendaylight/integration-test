@@ -16,6 +16,24 @@
       "revId": "008f1c129d8ebe8ed3ea46ba82cd0dc7c32b833e",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_237b78f6",
+        "filename": "csit/suites/openstack/clustering/02_l3_tests.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 157,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-11-23T18:10:53Z",
+      "side": 0,
+      "message": "What we did is set Get OvsDebugInfo to Test Teardown - so it gets run automatically at the end of each test case\n\nOn the other hand we removed the nova/neutron shows from teardown as they are only interesting after booting/removing VMs",
+      "parentUuid": "3a65312a_03875c62",
+      "revId": "008f1c129d8ebe8ed3ea46ba82cd0dc7c32b833e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
