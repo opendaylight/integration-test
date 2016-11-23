@@ -1,0 +1,6 @@
+{
+  "input" : {
+    "check-models" : true,
+    "clear-stores" : "${FLAG}"
+  }
+}

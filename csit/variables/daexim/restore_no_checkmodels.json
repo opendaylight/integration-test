@@ -1,0 +1,6 @@
+{
+  "input" : {
+    "check-models" : false,
+    "clear-stores" : "data"
+  }
+}
