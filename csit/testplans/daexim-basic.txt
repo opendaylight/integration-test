@@ -1,0 +1,3 @@
+test/csit/suites/daexim/010-special-export.robot
+test/csit/suites/daexim/020-basic-backup.robot
+test/csit/suites/daexim/030-restore-no-change.robot
