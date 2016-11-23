@@ -21,11 +21,8 @@ Get Tenant ID From Security Group
 Get Tenant ID From Network
     [Arguments]    ${network_uuid}
     [Documentation]    Returns tenant ID by reading it from existing network.
-    ${resp} =    RequestsLibrary.Get Request    session    ${CONFIG_API}/neutron:neutron/networks/network/${network_uuid}/
-    Log    ${resp.content}
-    ${matches} =    Get Lines Containing String    ${resp.content}    tenant-id
-    ${matches}=    Fetch From Right    ${matches}    :
-    ${tenant_id}=    Strip String    ${matches}    characters=}]"
+    ${resp}=    Get_From_Uri    uri=${CONFIG_API}/neutron:neutron/networks/network/${network_uuid}/    accept=${ACCEPT_EMPTY}    session=session
+    ${tenant_id}=    Utils.Extract Value From Content    ${resp}    /network/0/tenant-id    strip
     [Return]    ${tenant_id}
 
 Create Network
