@@ -14,7 +14,7 @@ Resource          ./MininetKeywords.robot
 *** variable ***
 ${vlan_topo}      --custom vlan_vtn_test.py --topo vlantopo
 ${nexus_path}     https://nexus.opendaylight.org/content/repositories/opendaylight.snapshot/org/opendaylight/vtn/distribution.vtn-coordinator
-${boron}          6.3.1-SNAPSHOT
+${boron}          6.3.2-SNAPSHOT
 ${carbon}         6.4.0-SNAPSHOT
 ${vtn_dist}       distribution.vtn-coordinator
 
