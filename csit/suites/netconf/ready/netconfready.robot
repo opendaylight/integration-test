@@ -43,6 +43,7 @@ Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
 Library           RequestsLibrary
+Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
 Resource          ${CURDIR}/../../../libraries/SSHKeywords.robot
@@ -55,8 +56,28 @@ ${NETCONFREADY_FALLBACK_WAIT}    1200s
 ${USE_NETCONF_CONNECTOR}    True
 ${DEBUG_LOGGING_FOR_EVERYTHING}    False
 ${NETCONFREADY_WAIT_MDSAL}    60s
+${DEVICE_NAME}    controller-config
+${NETCONF_DEV_FOLDER}    ${CURDIR}/../../../variables/netconf/device/full-uri-device
+${NETCONF_MOUNT_FOLDER}    ${CURDIR}/../../../variables/netconf/device/full-uri-mount
 
 *** Test Cases ***
+Check_Netconf_Connector_Intalled_And_Install_If_Needed
+    [Documentation]    Checks if odl-netconf-connector-ssh is installed and passes execition if done.
+    ...    If odl-netconf-topology is installed then it configures the device and verifies it is mounted. The device name will be the same as if
+    ...    ssh connector was installed to be able to use implemented suites.
+    ...    If none if the features are present it fails.
+    ...    If idl-netconf-clustered-topology is installed we do nothing and rely on suites that they do all needed stuff.
+    ${status}    ${rsp}=    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Verify Feature Is Installed    odl-netconf-connector-ssh
+    BuiltIn.Pass_Execution_If    '${status}' == 'PASS'    odl-netconf-connector-ssh is installed
+    ${status}    ${rsp}=    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Verify Feature Is Installed    odl-netconf-clustered-topology
+    BuiltIn.Pass_Execution_If    '${status}' == 'PASS'    odl-netconf-clustered-topology is installed
+    ${status}    ${rsp}=    BuiltIn.Run_Keyword_And_Ignore_Error    KarafKeywords.Verify Feature Is Installed    odl-netconf-topology
+    BuiltIn.Run_Keyword_If     '${status}' == 'FAIL'    BuiltIn.Fail    msg=None of the netconf features installed.
+    # Now odl-netconf-topology is installed. Configuring device will be done with it's mounting check.
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    DEVICE_PORT=1830    DEVICE_IP=${ODL_SYSTEM_IP}    DEVICE_USER=admin    DEVICE_PASSWORD=admin
+    TemplatedRequests.Put_As_Xml_Templated    ${NETCONF_DEV_FOLDER}    mapping=${mapping}    session=ses
+    BuiltIn.Wait_Until_Keyword_Succeeds    10x    3s    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_MOUNT_FOLDER}    mapping=${mapping}    session=ses
+
 Check_Whether_Netconf_Is_Up_And_Running
     [Documentation]    Make one request to Netconf topology to see whether Netconf is up and running.
     [Tags]    exclude
