@@ -16,6 +16,24 @@
       "revId": "a0a7f2898ca3cd860dea925a14da07e6cf372ffd",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_86641ae6",
+        "filename": "csit/suites/openstack/clustering/01_l2_tests.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-23T21:35:54Z",
+      "side": 1,
+      "message": "yeah, but only because the library keyword was also changed to expect a list as it\u0027s single argument.",
+      "parentUuid": "3a65312a_6670dea5",
+      "revId": "a0a7f2898ca3cd860dea925a14da07e6cf372ffd",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
