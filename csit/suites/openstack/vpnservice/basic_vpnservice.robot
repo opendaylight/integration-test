@@ -22,9 +22,10 @@ Variables         ../../../variables/Variables.py
 @{SUBNETS}        SUBNET1    SUBNET2
 @{SUBNET_CIDR}    10.1.1.0/24    20.1.1.0/24
 @{PORT_LIST}      PORT11    PORT21    PORT12    PORT22
-@{VM_INSTANCES}    VM11    VM21    VM12    VM22
-@{NET10_VM_IPS}    10.1.1.3    10.1.1.4
-@{NET20_VM_IPS}    20.1.1.3    20.1.1.4
+@{VM_INSTANCES_NET10}    VM11    VM21
+@{VM_INSTANCES_NET20}    VM12    VM22
+#@{NET10_VM_IPS}    10.1.1.3    10.1.1.4
+#@{NET20_VM_IPS}    20.1.1.3    20.1.1.4
 @{ROUTERS}        ROUTER_1    ROUTER_2
 @{VPN_INSTANCE_ID}    4ae8cd92-48ca-49b5-94e1-b2921a261111    4ae8cd92-48ca-49b5-94e1-b2921a261112    4ae8cd92-48ca-49b5-94e1-b2921a261113
 @{VPN_NAME}       vpn1    vpn2    vpn3
@@ -33,8 +34,8 @@ ${CREATE_EXPORT_RT}    ["2200:2","8800:2"]
 ${CREATE_IMPORT_RT}    ["2200:2","8800:2"]
 @{EXTRA_NW_IP}    40.1.1.2    50.1.1.2
 # Values passed for extra routes
-${EXT_RT1}        destination=40.1.1.0/24,nexthop=10.1.1.3
-${EXT_RT2}        destination=50.1.1.0/24,nexthop=10.1.1.3
+#${EXT_RT1}        destination=40.1.1.0/24,nexthop=${VM_IP_NET10[0]}
+#${EXT_RT2}        destination=50.1.1.0/24,nexthop=${VM_IP_NET10[0]}
 ${RT_OPTIONS}     --routes type=dict list=true
 ${RT_CLEAR}       --routes action=clear
 
@@ -82,18 +83,24 @@ Check OpenDaylight Neutron Ports
 
 Create Nova VMs
     [Documentation]    Create Vm instances on compute node with port
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[0]}    ${VM_INSTANCES[0]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES[1]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES[2]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
-    Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES[3]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[0]}    ${VM_INSTANCES_NET10[0]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES_NET10[1]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES_NET20[0]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
+    Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES_NET20[1]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
     Log    Check for routes
     Wait Until Keyword Succeeds    30s    10s    Wait For Routes To Propogate
+    ${VM_IP_NET10}    ${DHCP_IP1}    Wait Until Keyword Succeeds    30s    10s    Verify VMs Received DHCP Lease    @{VM_INSTANCES_NET10}
+    Log    ${VM_IP_NET10}
+    Set Suite Variable    ${VM_IP_NET10}
+    ${VM_IP_NET20}    ${DHCP_IP2}    Wait Until Keyword Succeeds    30s    10s    Verify VMs Received DHCP Lease    @{VM_INSTANCES_NET20}
+    Log    ${VM_IP_NET20}
+    Set Suite Variable    ${VM_IP_NET20}
 
 Check ELAN Datapath Traffic Within The Networks
     [Documentation]    Checks datapath within the same network with different vlans.
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    @{NET10_VM_IPS}[0]    ping -c 3 @{NET10_VM_IPS}[1]
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[0]}    ping -c 3 ${VM_IP_NET10[1]}
     Should Contain    ${output}    64 bytes
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    @{NET20_VM_IPS}[0]    ping -c 3 @{NET20_VM_IPS}[1]
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    ${VM_IP_NET20[0]}    ping -c 3 ${VM_IP_NET20[1]}
     Should Contain    ${output}    64 bytes
 
 Create Routers
@@ -107,29 +114,31 @@ Add Interfaces To Router
 
 Check L3_Datapath Traffic Across Networks With Router
     [Documentation]    Datapath test across the networks using router for L3.
-    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]    @{NET20_VM_IPS}[0]    @{NET20_VM_IPS}[1]
+    ${dst_ip_list} =    Create List    ${VM_IP_NET10[1]}    ${VM_IP_NET20[0]}    ${VM_IP_NET20[1]}
     Log    ${dst_ip_list}
-    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}
-    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]    @{NET10_VM_IPS}[0]    @{NET10_VM_IPS}[1]
+    Test Operations From Vm Instance    ${NETWORKS[0]}    ${VM_IP_NET10[1]}    ${dst_ip_list}
+    ${dst_ip_list} =    Create List    ${VM_IP_NET20[1]}    ${VM_IP_NET10[0]}    ${VM_IP_NET10[1]}
     Log    ${dst_ip_list}
-    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[1]}    ${VM_IP_NET20[0]}    ${dst_ip_list}
 
 Add Multiple Extra Routes And Check Datapath Before L3VPN Creation
     [Documentation]    Add multiple extra routes and check data path before L3VPN creation
     Log    "Adding extra one route to VM"
     ${CONFIG_EXTRA_ROUTE_IP1} =    Catenate    sudo ifconfig eth0:1 @{EXTRA_NW_IP}[0] netmask 255.255.255.0 up
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    @{NET10_VM_IPS}[0]    ${CONFIG_EXTRA_ROUTE_IP1}
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[0]}    ${CONFIG_EXTRA_ROUTE_IP1}
     ${CONFIG_EXTRA_ROUTE_IP2} =    Catenate    sudo ifconfig eth0:2 @{EXTRA_NW_IP}[1] netmask 255.255.255.0 up
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    @{NET10_VM_IPS}[0]    ${CONFIG_EXTRA_ROUTE_IP2}
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    @{NET10_VM_IPS}[0]    ifconfig
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[0]}    ${CONFIG_EXTRA_ROUTE_IP2}
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[0]}    ifconfig
+    ${EXT_RT1}        destination=40.1.1.0/24,nexthop=${VM_IP_NET10[0]}
+    ${EXT_RT2}        destination=50.1.1.0/24,nexthop=${VM_IP_NET10[0]}
     ${cmd} =    Catenate    ${RT_OPTIONS}    ${EXT_RT1}    ${EXT_RT2}
     Update Router    @{ROUTERS}[0]    ${cmd}
     Show Router    @{ROUTERS}[0]    -D
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    @{NET10_VM_IPS}[1]    ping -c 3 @{EXTRA_NW_IP}[1]
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[1]}    ping -c 3 @{EXTRA_NW_IP}[1]
     Should Contain    ${output}    64 bytes
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    @{NET20_VM_IPS}[1]    ping -c 3 @{EXTRA_NW_IP}[1]
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    ${VM_IP_NET20[1]}    ping -c 3 @{EXTRA_NW_IP}[1]
     Should Contain    ${output}    64 bytes
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    @{NET10_VM_IPS}[1]    ping -c 3 @{EXTRA_NW_IP}[0]
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[1]}    ping -c 3 @{EXTRA_NW_IP}[0]
     Should Contain    ${output}    64 bytes
 
 Delete Extra Route
@@ -141,11 +150,11 @@ Delete And Recreate Extra Route
     [Documentation]    Recreate multiple extra route and check data path before L3VPN creation
     Log    "Adding extra route to VM"
     ${CONFIG_EXTRA_ROUTE_IP1} =    Catenate    sudo ifconfig eth0:1 @{EXTRA_NW_IP}[0] netmask 255.255.255.0 up
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    @{NET10_VM_IPS}[0]    ${CONFIG_EXTRA_ROUTE_IP1}
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[0]}    ${CONFIG_EXTRA_ROUTE_IP1}
     ${cmd} =    Catenate    ${RT_OPTIONS}    ${EXT_RT1}
     Update Router    @{ROUTERS}[0]    ${cmd}
     Show Router    @{ROUTERS}[0]    -D
-    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    @{NET10_VM_IPS}[1]    ping -c 3 @{EXTRA_NW_IP}[0]
+    ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    ${VM_IP_NET10[1]}    ping -c 3 @{EXTRA_NW_IP}[0]
     Should Contain    ${output}    64 bytes
     Update Router    @{ROUTERS}[0]    ${RT_CLEAR}
     Show Router    @{ROUTERS}[0]    -D
@@ -242,6 +251,7 @@ Check Datapath Traffic Across Networks With L3VPN
 
 Delete Vm Instances
     [Documentation]    Delete Vm instances in the given Instance List
+    @{VM_INSTANCES}    Combine List    @{VM_INSTANCES_NET10}    @{VM_INSTANCES_NET20}
     : FOR    ${VmInstance}    IN    @{VM_INSTANCES}
     \    Delete Vm Instance    ${VmInstance}
 
