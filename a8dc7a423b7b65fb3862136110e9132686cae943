@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_06ee4a22",
+        "filename": "csit/suites/openstack/clustering/01_l2_tests.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-23T23:40:40Z",
+      "side": 1,
+      "message": "can you refactor to be like this:\nhttps://github.com/opendaylight/integration-test/blob/master/csit/suites/openstack/connectivity/01_l2_tests.robot#L69",
+      "range": {
+        "startLine": 120,
+        "startChar": 0,
+        "endLine": 121,
+        "endChar": 54
+      },
+      "revId": "a8dc7a423b7b65fb3862136110e9132686cae943",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_66f57eed",
+        "filename": "csit/suites/openstack/clustering/02_l3_tests.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-23T23:40:40Z",
+      "side": 1,
+      "message": "https://github.com/opendaylight/integration-test/blob/master/csit/suites/openstack/connectivity/01_l2_tests.robot#L69",
+      "range": {
+        "startLine": 83,
+        "startChar": 0,
+        "endLine": 84,
+        "endChar": 54
+      },
+      "revId": "a8dc7a423b7b65fb3862136110e9132686cae943",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
