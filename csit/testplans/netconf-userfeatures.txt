@@ -6,9 +6,9 @@
 
 # Place the suites in run order:
 integration/test/csit/suites/netconf/ready
-integration/test/csit/suites/netconf/MDSAL
-integration/test/csit/suites/netconf/CRUD
-integration/test/csit/suites/netconf/notifications
+#integration/test/csit/suites/netconf/MDSAL
+#integration/test/csit/suites/netconf/CRUD
+#integration/test/csit/suites/netconf/notifications
 # The following suite only works on Centos 6 right now,
 # due to the way netopeer is installed.
 # integration/test/csit/suites/controller/NETCONF
