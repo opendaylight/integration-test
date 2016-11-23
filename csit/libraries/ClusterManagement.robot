@@ -427,8 +427,8 @@ Run_Bash_Command_On_Member
     [Documentation]    Obtain IP, call Utils and return output. This does not preserve active ssh session.
     # TODO: Rename these keyword to Run_Bash_Command_On_Member to distinguish from Karaf (or even Windows) commands.
     ${member_ip} =    Collections.Get_From_Dictionary    dictionary=${ClusterManagement__index_to_ip_mapping}    key=${member_index}
-    ${output} =    SSHKeywords.Run_Keyword_Preserve_Connection    Utils.Run_Command_On_Controller    ${member_ip}    ${command}
-    [Return]    ${output}
+    ${output}    ${rc} =    SSHKeywords.Run_Keyword_Preserve_Connection    Utils.Run_Command_On_Controller    ${member_ip}    ${command}
+    [Return]    ${output}    ${rc}
 
 Run_Karaf_Command_On_List_Or_All
     [Arguments]    ${command}    ${member_index_list}=${EMPTY}    ${timeout}=10s
