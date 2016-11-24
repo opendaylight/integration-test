@@ -142,6 +142,7 @@ Check For Elements At URI
     [Documentation]    A GET is made at the supplied ${URI} and every item in the list of
     ...    ${elements} is verified to exist in the response
     ${resp}    RequestsLibrary.Get Request    session    ${uri}
+    Log    ${resp.content}    console=yes
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${i}    IN    @{elements}
