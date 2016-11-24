@@ -73,6 +73,30 @@ tempest.scenario.test_network_basic_ops.TestNetworkBasicOps.test_port_security_m
     [Tags]    skip_if_transparent
     ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
 
+tempest.scenario.test_security_groups_basic_ops.TestSecurityGroupsBasicOps.test_boot_into_disabled_port_security_network_without_secgroup
+    [Tags]    skip_if_transparent
+    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+
+tempest.scenario.test_security_groups_basic_ops.TestSecurityGroupsBasicOps.test_in_tenant_traffic
+    [Tags]    skip_if_transparent
+    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+
+tempest.scenario.test_security_groups_basic_ops.TestSecurityGroupsBasicOps.test_cross_tenant_traffic
+    [Tags]    skip_if_transparent
+    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+
+tempest.scenario.test_security_groups_basic_ops.TestSecurityGroupsBasicOps.test_multiple_security_groups
+    [Tags]    skip_if_transparent
+    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+
+tempest.scenario.test_security_groups_basic_ops.TestSecurityGroupsBasicOps.test_port_update_new_security_group
+    [Tags]    skip_if_transparent
+    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+
+tempest.scenario.test_security_groups_basic_ops.TestSecurityGroupsBasicOps.test_port_security_disable_security_group
+    [Tags]    skip_if_transparent
+    ${TEST_NAME}    ${exclusion_regex}    ${tempest_config_file}
+
 *** Keywords ***
 Log In To Tempest Executor And Setup Test Environment
     [Documentation]    Initialize SetupUtils, open SSH connection to a devstack system and source the openstack
