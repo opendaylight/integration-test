@@ -94,7 +94,8 @@ Delete Port
     ${output}=    Write Commands Until Prompt    neutron -v port-delete ${port_name}    30s
     Close Connection
     Log    ${output}
-    Should Contain    ${output}    Deleted port: ${port_name}
+    ${regex}=    Set Variable    ([Deleted port\W:\s+${port_name}])\w+
+    Should Match Regexp    ${output}    ${regex}
 
 List Ports
     [Documentation]    List ports and return output with neutron client.
@@ -481,7 +482,7 @@ Get OvsDebugInfo
     Run Keyword If    2 < ${NUM_OS_SYSTEM}    Get DumpFlows And Ovsconfig    ${OS_COMPUTE_2_IP}
 
 Show Debugs
-    [Arguments]    @{vm_indices}
+    [Arguments]    ${vm_indices}
     [Documentation]    Run these commands for debugging, it can list state of VM instances and ip information in control node
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
