@@ -474,11 +474,27 @@ Get ControlNode Connection
     Source Password    force=yes
     [Return]    ${control_conn_id}
 
+Get OdlDebugInfo
+    Create Session    session    http://${HA_PROXY_IP}:8181    auth=${AUTH}    headers=${HEADERS_YANG_JSON}
+    ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/entity-owners:entity-owners
+    Log Json    ${resp.content}
+    ${resp}=    RequestsLibrary.Get Request    session    restconf/config/opendaylight-inventory:nodes
+    Log Json    ${resp.content}
+    ${resp}=    RequestsLibrary.Get Request    session    restconf/config/network-topology:network-topology
+    Log Json    ${resp.content}
+    ${resp}=    RequestsLibrary.Get Request    session    restconf/operational/network-topology:network-topology
+    Log Json    ${resp.content}
+    ${resp}=    RequestsLibrary.Get Request    session    restconf/config/neutron:neutron/networks/
+    Log Json    ${resp.content}
+    ${resp}=    RequestsLibrary.Get Request    session    restconf/config/neutron:neutron/ports/
+    Log Json    ${resp.content}
+
 Get OvsDebugInfo
     [Documentation]    Get the OvsConfig and Flow entries from all Openstack nodes
     Run Keyword If    0 < ${NUM_OS_SYSTEM}    Get DumpFlows And Ovsconfig    ${OS_CONTROL_NODE_IP}
     Run Keyword If    1 < ${NUM_OS_SYSTEM}    Get DumpFlows And Ovsconfig    ${OS_COMPUTE_1_IP}
     Run Keyword If    2 < ${NUM_OS_SYSTEM}    Get DumpFlows And Ovsconfig    ${OS_COMPUTE_2_IP}
+    Get OdlDebugInfo
 
 Show Debugs
     [Arguments]    @{vm_indices}
