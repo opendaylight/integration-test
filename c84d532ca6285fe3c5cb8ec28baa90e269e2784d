@@ -22,6 +22,30 @@
       "revId": "c84d532ca6285fe3c5cb8ec28baa90e269e2784d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_696f11fe",
+        "filename": "csit/suites/sxp/filtering/030_Inbound_Filtering_Discarding.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-11-24T10:48:56Z",
+      "side": 1,
+      "message": "Peer reconnection may happen during the first check of bindings but as the filter is present the state of database must remain consistent. After the filter is removed the state of database must remain the same as before until any of peers are reconnected. That is the idea behind thse tests.\n\nTest was expecting that after peers were connected they wont have to reconnect again, but from time to time peers reconnects themselfs and then the test are marked as FAILED due to issue described above.",
+      "parentUuid": "3a65312a_20d52e1c",
+      "range": {
+        "startLine": 27,
+        "startChar": 68,
+        "endLine": 27,
+        "endChar": 75
+      },
+      "revId": "c84d532ca6285fe3c5cb8ec28baa90e269e2784d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
