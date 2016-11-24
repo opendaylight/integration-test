@@ -9,6 +9,7 @@ Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
 Resource          ../../../libraries/Utils.robot
+Resource          ../../../libraries/Netvirt.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/DevstackUtils.robot
 Resource          ../../../libraries/SetupUtils.robot
@@ -67,7 +68,7 @@ Check Vm Instances Have Ip Address
     Append To List    ${NET2_VM_IPS}    ${NET2_DHCP_IP}
     Set Suite Variable    ${NET2_VM_IPS}
     [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
-    ...    AND    Get OvsDebugInfo
+    ...    AND    Get OvsDebugInfo    AND    Get Model Dump    ${ODL_SYSTEM_IP}
 
 Ping Vm Instance1 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
@@ -135,7 +136,7 @@ Delete Vm Instances In l2_network_2
     : FOR    ${VmElement}    IN    @{NET_2_VM_INSTANCES}
     \    Delete Vm Instance    ${VmElement}
     [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
-    ...    AND    Get OvsDebugInfo
+    ...    AND    Get OvsDebugInfo    AND    Get Model Dump    ${ODL_SYSTEM_IP}
 
 Delete Sub Networks In l2_network_1
     [Documentation]    Delete Sub Nets for the Networks with neutron request.
