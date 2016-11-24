@@ -94,7 +94,7 @@ Delete Port
     ${output}=    Write Commands Until Prompt    neutron -v port-delete ${port_name}    30s
     Close Connection
     Log    ${output}
-    Should Contain    ${output}    Deleted port: ${port_name}
+    Should Match Regexp    ${output}    Deleted port: ${port_name}|Deleted port\\(s\\): ${port_name}
 
 List Ports
     [Documentation]    List ports and return output with neutron client.
