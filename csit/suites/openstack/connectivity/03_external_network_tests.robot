@@ -3,12 +3,14 @@ Documentation     Test suite to check North-South connectivity in L3 using a rou
 Suite Setup       Devstack Suite Setup    source_pwd=yes
 Suite Teardown    Close All Connections
 Test Teardown     Get OvsDebugInfo
+...               AND    Get Model Dump    ${ODL_SYSTEM_IP}
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/DevstackUtils.robot
+Resource          ../../../libraries/Netvirt.robot
+Resource          ../../../libraries/OpenStackOperations.robot
+Resource          ../../../libraries/Utils.robot
 
 *** Variables ***
 @{NETWORKS_NAME}    l3_net
@@ -73,6 +75,7 @@ Check Vm Instances Have Ip Address
     Wait Until Keyword Succeeds    180s    10s    Verify VMs Received DHCP Lease    @{VM_INSTANCES}
     [Teardown]    Run Keywords    Show Debugs    ${VM_INSTANCES}
     ...    AND    Get OvsDebugInfo
+    ...    AND    Get Model Dump    ${ODL_SYSTEM_IP}
 
 Create And Associate Floating IPs for VMs
     [Documentation]    Create and associate a floating IP for the VM
@@ -80,6 +83,7 @@ Create And Associate Floating IPs for VMs
     Set Suite Variable    ${VM_FLOATING_IPS}
     [Teardown]    Run Keywords    Show Debugs    ${VM_INSTANCES}
     ...    AND    Get OvsDebugInfo
+    ...    AND    Get Model Dump    ${ODL_SYSTEM_IP}
 
 Ping External Gateway From Control Node
     [Documentation]    Check reachability of external gateway by pinging it from the control node.
