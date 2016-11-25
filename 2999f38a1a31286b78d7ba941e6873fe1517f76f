@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_35c9e626",
+        "filename": "csit/suites/sxp/performance/020_BindingExportTests.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-25T11:35:41Z",
+      "side": 1,
+      "message": "I strongly recommend adding an option to disable logging of DATA, as it is big [0]. Not a blocker though.\n\n[0] https://logs.opendaylight.org/sandbox/jenkins091/sxp-csit-1node-periodic-performance-only-carbon/7/archives/log.html.gz#s1-s1-t1-k2-k2-k2-k5",
+      "range": {
+        "startLine": 24,
+        "startChar": 60,
+        "endLine": 24,
+        "endChar": 61
+      },
+      "revId": "2999f38a1a31286b78d7ba941e6873fe1517f76f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
