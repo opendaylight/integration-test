@@ -142,6 +142,30 @@
       "revId": "c84d532ca6285fe3c5cb8ec28baa90e269e2784d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_876ed12d",
+        "filename": "csit/suites/sxp/filtering/030_Inbound_Filtering_Discarding.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-25T15:52:44Z",
+      "side": 1,
+      "message": "\u003e that behaviour is tested in other suites\n\nWhere? I assume it is tested that it happens within 4 seconds, but is it tested that it happens before line 24 gets executed here?\nI am not sure what exactly happens in those late connections, but one possibility is that if there was a WUKS before line 24, line 27 would not need ${TRUE}.\n\nAlso, please explain how do 21,22 prefixes affect the excess bindings. Every time I think about it, I end up with \"no obvious match ergo unrelated ergo should not affect\".",
+      "parentUuid": "3a65312a_673bb538",
+      "range": {
+        "startLine": 27,
+        "startChar": 68,
+        "endLine": 27,
+        "endChar": 75
+      },
+      "revId": "c84d532ca6285fe3c5cb8ec28baa90e269e2784d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
