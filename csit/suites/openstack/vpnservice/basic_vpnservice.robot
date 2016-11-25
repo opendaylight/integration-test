@@ -266,8 +266,7 @@ Create ITM Tunnel
     ${node_2_dpid} =    Get DPID    ${OS_COMPUTE_2_IP}
     ${node_1_adapter} =    Get Ethernet Adapter    ${OS_COMPUTE_1_IP}
     ${node_2_adapter} =    Get Ethernet Adapter    ${OS_COMPUTE_2_IP}
-    ${first_two_octets}    ${third_octet}    ${last_octet}=    Split String From Right    ${OS_COMPUTE_1_IP}    .    2
-    ${subnet} =    Set Variable    ${first_two_octets}.0.0/16
+    ${subnet} =    Get Subnet    ${OS_COMPUTE_1_IP}    
     ${gateway} =    Get Default Gateway    ${OS_COMPUTE_1_IP}
     ITM Create Tunnel    tunneltype=vxlan    vlanid=0    prefix=${subnet}    gateway=${gateway}    ipaddress1=${OS_COMPUTE_1_IP}    dpnid1=${node_1_dpid}
     ...    portname1=${node_1_adapter}    ipaddress2=${OS_COMPUTE_2_IP}    dpnid2=${node_2_dpid}    portname2=${node_2_adapter}
