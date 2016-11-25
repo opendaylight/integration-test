@@ -22,6 +22,30 @@
       "revId": "3ff416b0983183629953fdb8c014cc2d381ac110",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_55174251",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-11-25T12:23:17Z",
+      "side": 1,
+      "message": "It would be better to keep this check in place as it will verify that tested feature is correctly installed and may catch  issues like conflicts with other features and reflect them in CSIT results. As for feature name it wont be changed in near future.",
+      "parentUuid": "3a65312a_9521dab6",
+      "range": {
+        "startLine": 239,
+        "startChar": 4,
+        "endLine": 239,
+        "endChar": 11
+      },
+      "revId": "3ff416b0983183629953fdb8c014cc2d381ac110",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
