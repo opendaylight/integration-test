@@ -236,7 +236,6 @@ Verify Snapshot Was Pushed
 Setup SXP Session
     [Arguments]    ${session}=session    ${controller}=${ODL_SYSTEM_IP}
     [Documentation]    Create session to Controller
-    Install a Feature    odl-sxp-controller    ${controller}
     Verify Feature Is Installed    odl-sxp-controller    ${controller}
     Create Session    ${session}    url=http://${controller}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS_XML}
     ${resp}    RequestsLibrary.Get Request    ${session}    ${MODULES_API}
