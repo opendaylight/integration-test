@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_b527b611",
+        "filename": "csit/libraries/KarafKeywords.robot",
+        "patchSetId": 82
+      },
+      "lineNbr": 183,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-25T11:06:34Z",
+      "side": 1,
+      "message": "...    ELSE",
+      "range": {
+        "startLine": 183,
+        "startChar": 4,
+        "endLine": 183,
+        "endChar": 47
+      },
+      "revId": "7f7751077761b758176b70e1be8a63848630bd2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_95227aff",
+        "filename": "csit/suites/groupbasedpolicy/Clustering/Clustering_demo/init_scripts/local-demo-postman.json",
+        "patchSetId": 82
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-25T11:06:34Z",
+      "side": 1,
+      "message": "1, 2, or 4 spaces instead of tab.",
+      "range": {
+        "startLine": 2,
+        "startChar": 0,
+        "endLine": 2,
+        "endChar": 1
+      },
+      "revId": "7f7751077761b758176b70e1be8a63848630bd2a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
