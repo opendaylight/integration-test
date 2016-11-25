@@ -166,6 +166,30 @@
       "revId": "c84d532ca6285fe3c5cb8ec28baa90e269e2784d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_27725de5",
+        "filename": "csit/suites/sxp/filtering/030_Inbound_Filtering_Discarding.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-11-25T17:29:48Z",
+      "side": 1,
+      "message": "| that behaviour is tested in other suites\nIt is tested in Topology suites as those suites covers distribution of bindings to other SXP nodes. Thus this test build on fact that after peers were succesfully connected to each other bindings are propagated without problem.\n\nThe intial check can be added before line 24 to assure that database is ready and test may start, but without this check SXP is tested also for situation where filter is added during binding propagation.\n\nTo explain the situation of those late connections:\n\n1. Before test start it is verified that all perrs are connected\n2. We add filter that removed binding \"A\" from database\n3. Database is without bindings \"A\" \n4. Peer that is source of binding \"A\" reconnect and repropagate its bindings\n5. Node with filters recieves bindings \"A\" but it will be discarded\n6. We remove filter\n7. Database remains the same as with filter\n8. Strep 4 is repeated\n9. Node that contained filters recieves bindings \"A\" again but as there are no filters it will it will accept it and store it in database\n\n\u003d\u003d When the reconnection was not allowed (pre Boron) the binding \"A\" was not recieved multiple times after initial connection of peers\n\n|no obvious match\nIn keyword \"Check One Group 4-2\" we can see all bindings and if the filter from line 21,22 is applied it will allow olny bindings matching [ 10.10.10.* or 10.(odd number).0.0 ]\nthus bindings [ 10.10.20.0/24, 20.0.0.0/8, 10.10.40.0/24, 40.0.0.0/8 ] will be dropped",
+      "parentUuid": "3a65312a_876ed12d",
+      "range": {
+        "startLine": 27,
+        "startChar": 68,
+        "endLine": 27,
+        "endChar": 75
+      },
+      "revId": "c84d532ca6285fe3c5cb8ec28baa90e269e2784d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
