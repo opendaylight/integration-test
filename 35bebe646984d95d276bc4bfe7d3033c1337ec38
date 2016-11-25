@@ -22,6 +22,30 @@
       "revId": "35bebe646984d95d276bc4bfe7d3033c1337ec38",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_3533a615",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-11-25T12:10:22Z",
+      "side": 1,
+      "message": "Yes this is redundant as all necessary features are specified in releng/builder as startup features.\n\nChange removes this redundant step.\nhttps://git.opendaylight.org/gerrit/#/c/48696/",
+      "parentUuid": "3a65312a_b5b17691",
+      "range": {
+        "startLine": 239,
+        "startChar": 4,
+        "endLine": 239,
+        "endChar": 21
+      },
+      "revId": "35bebe646984d95d276bc4bfe7d3033c1337ec38",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
