@@ -3,6 +3,7 @@ Library           SSHLibrary
 Library           String
 Library           Collections
 Library           RequestsLibrary
+Library           ipaddress
 Resource          Utils.robot
 Resource          ClusterManagement.robot
 Resource          ${CURDIR}/TemplatedRequests.robot
@@ -152,6 +153,14 @@ Get DPID
     ${dpnid} =    Convert To Integer    ${output}    16
     Log    ${dpnid}
     [Return]    ${dpnid}
+
+Get Subnet
+    [Arguments]    ${ip}
+    [Documentation]    Return the subnet from the system at the given ip address and interface
+    ${output} =    Run Command On Remote System    ${ip}    /usr/sbin/ip addr show | grep ${ip} | cut -d' ' -f6
+    ${interface} =    ipaddress.ip_interface    ${output}
+    ${network}=    Set Variable    ${interface.network.__str__()}
+    [Return]    ${network}
 
 Get Ethernet Adapter
     [Arguments]    ${ip}
