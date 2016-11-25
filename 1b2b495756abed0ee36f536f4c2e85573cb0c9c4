@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_f5e64eb3",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 484,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-25T11:42:43Z",
+      "side": 1,
+      "message": "This is a partial revert of https://git.opendaylight.org/gerrit/48567 and it would break suites.",
+      "range": {
+        "startLine": 484,
+        "startChar": 19,
+        "endLine": 484,
+        "endChar": 20
+      },
+      "revId": "1b2b495756abed0ee36f536f4c2e85573cb0c9c4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_b5dcd6e5",
+        "filename": "csit/suites/openstack/vpnservice/basic_vpnservice.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-25T11:42:43Z",
+      "side": 1,
+      "message": "Remove commented-out code.",
+      "range": {
+        "startLine": 27,
+        "startChar": 0,
+        "endLine": 27,
+        "endChar": 1
+      },
+      "revId": "1b2b495756abed0ee36f536f4c2e85573cb0c9c4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
