@@ -118,6 +118,30 @@
       "revId": "c84d532ca6285fe3c5cb8ec28baa90e269e2784d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_673bb538",
+        "filename": "csit/suites/sxp/filtering/030_Inbound_Filtering_Discarding.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-11-25T15:36:44Z",
+      "side": 1,
+      "message": "Yes before line 24 those bindings were present. \nThe check on the initial state is skipped as that behaviour is tested in other suites ...\n|\"late proceeded connections\"\nYes these are late proceeded connections and the cause of this is that from Boron if SXP recieves OPEN/RESP messages on connection that is already functional it will close the old one a reconnects.\n| a corrective action\nYes repetition will restore it to expected state\nReconnection is described above.",
+      "parentUuid": "3a65312a_076001a4",
+      "range": {
+        "startLine": 27,
+        "startChar": 68,
+        "endLine": 27,
+        "endChar": 75
+      },
+      "revId": "c84d532ca6285fe3c5cb8ec28baa90e269e2784d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
