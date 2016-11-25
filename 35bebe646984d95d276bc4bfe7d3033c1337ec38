@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_b5b17691",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 33
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-25T11:58:05Z",
+      "side": 1,
+      "message": "Are there tests which need that? Usually the feature installation is handled on releng/builder side.",
+      "range": {
+        "startLine": 239,
+        "startChar": 4,
+        "endLine": 239,
+        "endChar": 21
+      },
+      "revId": "35bebe646984d95d276bc4bfe7d3033c1337ec38",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
