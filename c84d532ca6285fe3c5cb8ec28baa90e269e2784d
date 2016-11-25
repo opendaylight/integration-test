@@ -46,6 +46,30 @@
       "revId": "c84d532ca6285fe3c5cb8ec28baa90e269e2784d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_750ebe8e",
+        "filename": "csit/suites/sxp/filtering/030_Inbound_Filtering_Discarding.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-25T11:02:42Z",
+      "side": 1,
+      "message": "I still do not see how a filter built from prefixes in lines 21,22 affects presence of bindings for prefixes in lines 209,211,217,219. What is \"consistent state of database\" in this case?\n\nAnother thing is usability. When users add/delete a filter, are they expecting a silent reconnect may alter the resulting bindings? If yes, is there a corrective action users should take?\nThis patch set corresponds to \"yes, expect reconnect\" and \"no, you have to live with additional bindings present\", which I find hard to believe is the correct set of answers.\nI expect either the reconnect to be a Bug (so Base should be kept failing), or at least users can detect and correct when it happens (so failed Check_One_Group_* WUKS would be followed by some action and the set of checks including Should_Not_Contain_Binding ones is retried).",
+      "parentUuid": "3a65312a_696f11fe",
+      "range": {
+        "startLine": 27,
+        "startChar": 68,
+        "endLine": 27,
+        "endChar": 75
+      },
+      "revId": "c84d532ca6285fe3c5cb8ec28baa90e269e2784d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
