@@ -70,6 +70,30 @@
       "revId": "c84d532ca6285fe3c5cb8ec28baa90e269e2784d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_0784815c",
+        "filename": "csit/suites/sxp/filtering/030_Inbound_Filtering_Discarding.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 3920
+      },
+      "writtenOn": "2016-11-25T13:27:53Z",
+      "side": 1,
+      "message": "This reconnections of peer is from Boron considered as normal behavior, before it was considered as faulty state and test should fail due to its consequence. \n\nIt may be better solution to create separate checks for streams so that test remains consistent for previous releases...\n\nAs for \"consistence of database\" it means that while this type of filter is present database contains only data that is permited by filter. \nThis suite is testing specific type of filter that after is removed does not restore database to its previos state when filter was not applied.",
+      "parentUuid": "3a65312a_750ebe8e",
+      "range": {
+        "startLine": 27,
+        "startChar": 68,
+        "endLine": 27,
+        "endChar": 75
+      },
+      "revId": "c84d532ca6285fe3c5cb8ec28baa90e269e2784d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
