@@ -94,6 +94,30 @@
       "revId": "c84d532ca6285fe3c5cb8ec28baa90e269e2784d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "3a65312a_076001a4",
+        "filename": "csit/suites/sxp/filtering/030_Inbound_Filtering_Discarding.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-25T13:43:49Z",
+      "side": 1,
+      "message": "\u003e\u003e bindings for prefixes in lines 209,211,217,219\n\nI will call them \"the excess bindings\" to keep sentences short.\n\n\u003e does not restore database to its previous state when filter was not applied.\n\nSo before line 24, were the excess bindings (going to be) present? Maybe there should be check on that, to prove line 24 has actually changed something. Is it possible that \"reconnections\" are just \"late processed connections\"?\n\n\u003e a corrective action\n\nWould repetition of Add_Filter and Delete_Filter (including WUKSes) be such an action? Are peers allowed to reconnect twice in a row?",
+      "parentUuid": "3a65312a_0784815c",
+      "range": {
+        "startLine": 27,
+        "startChar": 68,
+        "endLine": 27,
+        "endChar": 75
+      },
+      "revId": "c84d532ca6285fe3c5cb8ec28baa90e269e2784d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
