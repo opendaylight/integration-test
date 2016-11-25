@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "3a65312a_9521dab6",
+        "filename": "csit/libraries/SxpLib.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 239,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-25T12:14:32Z",
+      "side": 1,
+      "message": "Perhaps also this is not required? Future releases may rename this feature.",
+      "range": {
+        "startLine": 239,
+        "startChar": 4,
+        "endLine": 239,
+        "endChar": 11
+      },
+      "revId": "3ff416b0983183629953fdb8c014cc2d381ac110",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
