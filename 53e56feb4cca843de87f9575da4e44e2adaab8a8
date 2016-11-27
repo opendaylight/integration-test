@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_736e40cb",
+        "filename": "csit/libraries/Netvirt.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-11-27T09:02:40Z",
+      "side": 1,
+      "message": "use HA_PROXY_IP once https://git.opendaylight.org/gerrit/#/c/48645/ is in for cluster support",
+      "revId": "53e56feb4cca843de87f9575da4e44e2adaab8a8",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
