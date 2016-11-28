@@ -1,0 +1,16 @@
+{
+  "variable-metadata": [
+    {
+      "tlv-metadata": [
+        {
+          "flags": "r2 r3",
+          "length": "1",
+          "tlv-class": "1",
+          "tlv-type": "1",
+          "tlv-data": "TLV SFM1 NEW DATA"
+        }
+      ],
+      "name": "SFM1"
+    }
+  ]
+}

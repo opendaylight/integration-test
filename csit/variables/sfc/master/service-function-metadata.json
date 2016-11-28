@@ -1,0 +1,46 @@
+{
+  "service-function-metadata": {
+    "context-metadata": [
+      {
+        "name": "SFM1",
+        "context-header1": "1",
+        "context-header2": "2",
+        "context-header3": "3",
+        "context-header4": "4"
+      },
+      {
+        "name": "SFM2",
+        "context-header1": "5",
+        "context-header2": "6",
+        "context-header3": "7",
+        "context-header4": "8"
+      }
+    ],
+    "variable-metadata": [
+      {
+        "tlv-metadata": [
+          {
+            "flags": "r1 r3",
+            "length": "0",
+            "tlv-class": "0",
+            "tlv-type": "0",
+            "tlv-data": "SFM1_TLV"
+          }
+        ],
+        "name": "SFM1"
+      },
+      {
+        "tlv-metadata": [
+          {
+            "flags": "r1 r2",
+            "length": "0",
+            "tlv-class": "0",
+            "tlv-type": "0",
+            "tlv-data": "SFM2_TLV"
+          }
+        ],
+        "name": "SFM2"
+      }
+    ]
+  }
+}
