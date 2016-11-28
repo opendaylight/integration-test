@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_392b07ed",
+        "filename": "csit/suites/netvirt/Netvirt_VpnService/basic_vpnservice.robot",
+        "patchSetId": 20
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-11-28T13:55:01Z",
+      "side": 1,
+      "message": "As there is an explicit test for creating ITM tunnels below (\"Create ITM Tunnel\"), does this sentence still make sense?",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 56
+      },
+      "revId": "f5938eb984df95a783f07170a783db6bcb0ebb65",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
