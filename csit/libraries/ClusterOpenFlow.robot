@@ -35,7 +35,7 @@ Check OpenFlow Shards Status After Cluster Event
     Wait Until Keyword Succeeds    90s    1s    ClusterOpenFlow.Check OpenFlow Shards Status    ${controller_index_list}
 
 Get OpenFlow Entity Owner Status For One Device
-    [Arguments]    ${device}    ${controller_index}    ${controller_index_list}=${EMPTY}
+    [Arguments]    ${device}    ${controller_index}    ${controller_index_list}=${EMPTY}    ${after_stop}=False
     [Documentation]    Check Entity Owner Status and identify owner and successors for the device ${device}. Request is sent to controller ${controller_index}.
     ${owner}    ${successor_list}    Wait Until Keyword Succeeds    10s    1s    ClusterManagement.Verify_Owner_And_Successors_For_Device    device_name=${device}
     ...    device_type=openflow    member_index=${controller_index}    candidate_list=${controller_index_list}
