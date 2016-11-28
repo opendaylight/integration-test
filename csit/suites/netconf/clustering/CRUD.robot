@@ -81,15 +81,15 @@ Check_Configurer_Has_Netconf_Connector_For_Device
 
 Wait_For_Device_To_Become_Visible_For_Configurer
     [Documentation]    Wait until the device becomes visible on configurer node.
-    NetconfKeywords.Wait_Device_Connected    ${DEVICE_NAME}    session=${NODE_CONFIGURER}
+    NetconfKeywords.Wait_Device_Connected    ${DEVICE_NAME}    session=${NODE_CONFIGURER}    timeout=120s
 
 Wait_For_Device_To_Become_Visible_For_Checker
     [Documentation]    Wait until the device becomes visible on checker node.
-    NetconfKeywords.Wait_Device_Connected    ${DEVICE_NAME}    session=${NODE_CHECKER}
+    NetconfKeywords.Wait_Device_Connected    ${DEVICE_NAME}    session=${NODE_CHECKER}    timeout=120s
 
 Wait_For_Device_To_Become_Visible_For_Setter
     [Documentation]    Wait until the device becomes visible on setter node.
-    NetconfKeywords.Wait_Device_Connected    ${DEVICE_NAME}    session=${NODE_SETTER}
+    NetconfKeywords.Wait_Device_Connected    ${DEVICE_NAME}    session=${NODE_SETTER}    timeout=120s
 
 Check_Device_Data_Is_Seen_As_Empty_On_Configurer
     [Documentation]    Get the device data as seen by configurer and make sure it is empty.
