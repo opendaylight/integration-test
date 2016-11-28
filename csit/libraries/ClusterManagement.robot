@@ -23,7 +23,7 @@ Documentation     Resource housing Keywords common to several suites for cluster
 ...               - Cluster Setup
 ...               - Shard state, leader and followers
 ...               - Entity Owner, candidates and successors
-...               - Kill and Start Member
+...               - Kill, Stop and Start Member
 ...               - Isolate and Rejoin Member
 ...               - Run Commands On Member
 ...               - REST requests and checks on Members
@@ -51,6 +51,7 @@ ${SINGLETON_NETCONF_DEVICE_ID_SUFFIX}    ]]]]}']
 ${SINGLETON_ELECTION_ENTITY_TYPE}    org.opendaylight.mdsal.ServiceEntityType
 ${SINGLETON_CHANGE_OWNERSHIP_ENTITY_TYPE}    org.opendaylight.mdsal.AsyncServiceCloseEntityType
 ${NODE_START_COMMAND}    ${KARAF_HOME}/bin/start
+${NODE_STOP_COMMAND}    ${KARAF_HOME}/bin/stop
 ${NODE_KILL_COMMAND}    ps axf | grep karaf | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
 
 *** Keywords ***
@@ -140,7 +141,7 @@ Get_Raft_State_Of_Shard_At_Member
     [Return]    ${raft_state}
 
 Verify_Owner_And_Successors_For_Device
-    [Arguments]    ${device_name}    ${device_type}    ${member_index}    ${candidate_list}=${EMPTY}
+    [Arguments]    ${device_name}    ${device_type}    ${member_index}    ${candidate_list}=${EMPTY}    ${after_stop}=False
     [Documentation]    Returns the owner and successors for the SB device ${device_name} of type ${device_type}. Request is sent to member ${member_index}.
     ...    For Boron and beyond, candidates are not removed on node down or isolation,
     ...    so this keyword expects candidates to be all members from Boron on.
@@ -151,7 +152,8 @@ Verify_Owner_And_Successors_For_Device
     ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${candidate_list}
     ${owner}    ${successor_list} =    Get_Owner_And_Successors_For_Device    device_name=${device_name}    device_type=${device_type}    member_index=${member_index}
     Collections.List_Should_Contain_Value    ${index_list}    ${owner}    Owner ${owner} is not in candidate list ${index_list}
-    ${expected_candidate_list_origin} =    CompareStream.Set_Variable_If_At_Least_Boron    ${ClusterManagement__member_index_list}    ${index_list}
+    # In Beryllium or after stopping an instance, the removed instance does not show in the candidate list.
+    ${expected_candidate_list_origin} =    BuiltIn.Set_Variable_If    '${ODL_STREAM}' == 'beryllium' or ${after_stop}    ${index_list}    ${ClusterManagement__member_index_list}
     # We do not want to manipulate either origin list.
     ${expected_successor_list} =    BuiltIn.Create_List    @{expected_candidate_list_origin}
     Collections.Remove_Values_From_List    ${expected_successor_list}    ${owner}
@@ -332,6 +334,29 @@ Kill_Members_From_List_Or_All
     BuiltIn.Sleep    1s    Kill -9 closes open files, which may take longer than ssh overhead, but not long enough to warrant WUKS.
     : FOR    ${index}    IN    @{kill_index_list}
     \    Verify_Karaf_Is_Not_Running_On_Member    member_index=${index}
+    [Return]    ${updated_index_list}
+
+Stop_Single_Member
+    [Arguments]    ${member}    ${original_index_list}=${EMPTY}    ${confirm}=True
+    [Documentation]    Convenience keyword that stops the specified member of the cluster.
+    ...    The KW will return a list of available members: \${updated index_list}=\${original_index_list}-\${member}
+    ${index_list} =    ClusterManagement__Build_List    ${member}
+    ${updated_index_list} =    Stop_Members_From_List_Or_All    ${index_list}    ${original_index_list}    ${confirm}
+    [Return]    ${updated_index_list}
+
+Stop_Members_From_List_Or_All
+    [Arguments]    ${member_index_list}=${EMPTY}    ${original_index_list}=${EMPTY}    ${confirm}=True    ${timeout}=120s
+    [Documentation]    If the list is empty, stops all ODL instances. Otherwise stop members based on \${stop_index_list}
+    ...    If \${confirm} is True, verify stopped instances are not there anymore.
+    ...    The KW will return a list of available members: \${updated index_list}=\${original_index_list}-\${member_index_list}
+    ${stop_index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${original_index_list}
+    Run_Bash_Command_On_List_Or_All    command=${NODE_STOP_COMMAND}    member_index_list=${member_index_list}
+    ${updated_index_list} =    BuiltIn.Create_List    @{index_list}
+    Collections.Remove_Values_From_List    ${updated_index_list}    @{stop_index_list}
+    BuiltIn.Return_From_Keyword_If    not ${confirm}    ${updated_index_list}
+    : FOR    ${index}    IN    @{stop_index_list}
+    \    BuiltIn.Wait Until Keyword Succeeds    ${timeout}    2s    Verify_Karaf_Is_Not_Running_On_Member    member_index=${index}
     [Return]    ${updated_index_list}
 
 Start_Single_Member
