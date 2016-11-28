@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_c7f82ec7",
+        "filename": "csit/suites/sfc/SFC_Basic/100__sfc_service_function_acl.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2016-11-28T18:01:19Z",
+      "side": 1,
+      "message": "The tests should be autocontained. If you configure something, you should clean it up before the next test case",
+      "revId": "0ac87d6d8b3d746fb33c38741e1e3d34671d9be3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_675ddae9",
+        "filename": "csit/suites/sfc/SFC_Basic/100__sfc_service_function_acl.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2016-11-28T18:01:19Z",
+      "side": 1,
+      "message": "It is not needed anymore to differenciate the odl stream. It only exists one master folder. Check how it is done in Full_Deploy",
+      "revId": "0ac87d6d8b3d746fb33c38741e1e3d34671d9be3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
