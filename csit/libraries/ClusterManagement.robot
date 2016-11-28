@@ -51,6 +51,7 @@ ${SINGLETON_NETCONF_DEVICE_ID_SUFFIX}    ]]]]}']
 ${SINGLETON_ELECTION_ENTITY_TYPE}    org.opendaylight.mdsal.ServiceEntityType
 ${SINGLETON_CHANGE_OWNERSHIP_ENTITY_TYPE}    org.opendaylight.mdsal.AsyncServiceCloseEntityType
 ${NODE_START_COMMAND}    ${KARAF_HOME}/bin/start
+${NODE_STOP_COMMAND}    ${KARAF_HOME}/bin/stop
 ${NODE_KILL_COMMAND}    ps axf | grep karaf | grep -v grep | awk '{print \"kill -9 \" $1}' | sh
 
 *** Keywords ***
@@ -332,6 +333,29 @@ Kill_Members_From_List_Or_All
     BuiltIn.Sleep    1s    Kill -9 closes open files, which may take longer than ssh overhead, but not long enough to warrant WUKS.
     : FOR    ${index}    IN    @{kill_index_list}
     \    Verify_Karaf_Is_Not_Running_On_Member    member_index=${index}
+    [Return]    ${updated_index_list}
+
+Stop_Single_Member
+    [Arguments]    ${member}    ${original_index_list}=${EMPTY}    ${confirm}=True
+    [Documentation]    Convenience keyword that stops the specified member of the cluster.
+    ...    The KW will return a list of available members: \${updated index_list}=\${original_index_list}-\${member}
+    ${index_list} =    ClusterManagement__Build_List    ${member}
+    ${updated_index_list} =    Stop_Members_From_List_Or_All    ${index_list}    ${original_index_list}    ${confirm}
+    [Return]    ${updated_index_list}
+
+Stop_Members_From_List_Or_All
+    [Arguments]    ${member_index_list}=${EMPTY}    ${original_index_list}=${EMPTY}    ${confirm}=True    ${timeout}=60s
+    [Documentation]    If the list is empty, kill all ODL instances. Otherwise, kill members based on \${kill_index_list}
+    ...    If \${confirm} is True, sleep 1 second and verify killed instances are not there anymore.
+    ...    The KW will return a list of available members: \${updated index_list}=\${original_index_list}-\${member_index_list}
+    ${kill_index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${member_index_list}
+    ${index_list} =    ClusterManagement__Given_Or_Internal_Index_List    given_list=${original_index_list}
+    Run_Bash_Command_On_List_Or_All    command=${NODE_STOP_COMMAND}    member_index_list=${member_index_list}
+    ${updated_index_list} =    BuiltIn.Create_List    @{index_list}
+    Collections.Remove_Values_From_List    ${updated_index_list}    @{kill_index_list}
+    BuiltIn.Return_From_Keyword_If    not ${confirm}    ${updated_index_list}
+    : FOR    ${index}    IN    @{kill_index_list}
+    \    Wait Until Keyword Succeeds    ${timeout}    2s    Verify_Karaf_Is_Not_Running_On_Member    member_index=${index}
     [Return]    ${updated_index_list}
 
 Start_Single_Member
