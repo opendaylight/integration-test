@@ -37,6 +37,7 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 ${DEVICE_NAME}    ${FIRST_TESTTOOL_PORT}-sim-device
 ${REQUEST_COUNT}    65536
 ${directory_with_crud_templates}    ${CURDIR}/../../../variables/netconf/CRUD
+${device_type}    default
 
 *** Test Cases ***
 Start_Testtool
@@ -47,7 +48,7 @@ Start_Testtool
 
 Configure_Device_On_Netconf
     [Documentation]    Configure the testtool device on Netconf connector.
-    NetconfKeywords.Configure_Device_In_Netconf    ${DEVICE_NAME}
+    NetconfKeywords.Configure_Device_In_Netconf    ${DEVICE_NAME}    device_type=${device_type}
 
 Wait_For_Device_To_Become_Connected
     [Documentation]    Wait until the device becomes available through Netconf.

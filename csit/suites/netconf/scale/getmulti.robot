@@ -32,6 +32,7 @@ ${DEVICE_COUNT}    500
 ${WORKER_COUNT}    10
 ${TIMEOUT_FACTOR}    10
 ${device_name_base}    netconf-scaling-device
+${device_type}    default
 ${base_port}      17830
 
 *** Test Cases ***
@@ -93,7 +94,7 @@ Configure_Device
     [Arguments]    ${current_name}
     [Documentation]    Operation for configuring the device.
     KarafKeywords.Log_Message_To_Controller_Karaf    Configuring device ${current_name} to Netconf
-    NetconfKeywords.Configure_Device_In_Netconf    ${current_name}    device_port=${current_port}
+    NetconfKeywords.Configure_Device_In_Netconf    ${current_name}    device_type=${device_type}    device_port=${current_port}
     KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} configured
 
 Wait_Connected

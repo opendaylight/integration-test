@@ -34,6 +34,7 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 *** Variables ***
 ${directory_with_template_folders}    ${CURDIR}/../../../variables/netconf/CRUD
 ${device_name}    netconf-test-device
+${device_type}    default
 
 *** Test Cases ***
 Start_Testtool
@@ -48,7 +49,7 @@ Check_Device_Is_Not_Configured_At_Beginning
 Configure_Device_On_Netconf
     [Documentation]    Make request to configure a testtool device on Netconf connector.
     [Tags]    critical
-    NetconfKeywords.Configure_Device_In_Netconf    ${device_name}
+    NetconfKeywords.Configure_Device_In_Netconf    ${device_name}    device_type=${device_type}
 
 Check_ODL_Has_Netconf_Connector_For_Device
     [Documentation]    Get the list of configured devices and search for our device there. Fail if not found.
@@ -99,7 +100,7 @@ Configure_The_Device_Back
     [Documentation]    Configure the device again.
     ...    This is the second step of the device configuration.
     [Tags]    critical
-    NetconfKeywords.Configure_Device_In_Netconf    ${device_name}
+    NetconfKeywords.Configure_Device_In_Netconf    ${device_name}    device_type=${device_type}
 
 Wait_For_Device_To_Reconnect
     [Documentation]    Wait until the device becomes available through Netconf.
