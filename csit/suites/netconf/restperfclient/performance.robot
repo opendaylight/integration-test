@@ -47,7 +47,7 @@ Start_Testtool
 
 Configure_Device_On_Netconf
     [Documentation]    Configure the testtool device on Netconf connector.
-    NetconfKeywords.Configure_Device_In_Netconf    ${DEVICE_NAME}
+    NetconfKeywords.Configure_Device_In_Netconf    ${DEVICE_NAME}    device_type=configure-via-topology
 
 Wait_For_Device_To_Become_Connected
     [Documentation]    Wait until the device becomes available through Netconf.

@@ -70,7 +70,7 @@ Configure_Device
     [Arguments]    ${current_name}
     [Documentation]    Operation for configuring the device in the Netconf subsystem and connecting to it.
     KarafKeywords.Log_Message_To_Controller_Karaf    Connecting device ${current_name}
-    NetconfKeywords.Configure_Device_In_Netconf    ${current_name}    device_port=${current_port}
+    NetconfKeywords.Configure_Device_In_Netconf    ${current_name}    device_type=configure-via-topology    device_port=${current_port}
     KarafKeywords.Log_Message_To_Controller_Karaf    Waiting for device ${current_name} to connect
     NetconfKeywords.Wait_Device_Connected    ${current_name}    period=0.5s
     KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} connected

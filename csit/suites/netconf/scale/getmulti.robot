@@ -93,7 +93,7 @@ Configure_Device
     [Arguments]    ${current_name}
     [Documentation]    Operation for configuring the device.
     KarafKeywords.Log_Message_To_Controller_Karaf    Configuring device ${current_name} to Netconf
-    NetconfKeywords.Configure_Device_In_Netconf    ${current_name}    device_port=${current_port}
+    NetconfKeywords.Configure_Device_In_Netconf    ${current_name}    device_type=configure-via-topology    device_port=${current_port}
     KarafKeywords.Log_Message_To_Controller_Karaf    Device ${current_name} configured
 
 Wait_Connected

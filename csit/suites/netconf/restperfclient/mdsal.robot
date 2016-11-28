@@ -71,7 +71,7 @@ Create_Test_Data_For_Connector_Access
 
 Configure_ODL_As_A_Device_On_Netconf
     [Documentation]    Configure ODL MDSAL Northbound as a Netconf device on a Netconf connector.
-    NetconfKeywords.Configure_Device_In_Netconf    odl-mdsal-northbound-via-netconf-connector    device_address=${ODL_SYSTEM_IP}    device_port=${ODL_NETCONF_MDSAL_PORT}    device_user=${ODL_NETCONF_USER}    device_password=${ODL_NETCONF_PASSWORD}
+    NetconfKeywords.Configure_Device_In_Netconf    odl-mdsal-northbound-via-netconf-connector    device_type=configure-via-topology    device_address=${ODL_SYSTEM_IP}    device_port=${ODL_NETCONF_MDSAL_PORT}    device_user=${ODL_NETCONF_USER}    device_password=${ODL_NETCONF_PASSWORD}
     NetconfKeywords.Wait_Device_Connected    odl-mdsal-northbound-via-netconf-connector
 
 Run_RestPerfClient_Through_Netconf_Connector
