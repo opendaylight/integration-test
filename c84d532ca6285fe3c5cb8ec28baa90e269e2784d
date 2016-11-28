@@ -190,6 +190,30 @@
       "revId": "c84d532ca6285fe3c5cb8ec28baa90e269e2784d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_3cbc956c",
+        "filename": "csit/suites/sxp/filtering/030_Inbound_Filtering_Discarding.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-28T16:45:59Z",
+      "side": 1,
+      "message": "\u003e allow only bindings matching\n\nOk, now I see what I was missing. The filter is added only for GROUP, so bindings from other peers are all allowed.\n\nSo, this particular filter removal only affects new connections, that is why the final bindings depend on whether a reconnect happened after the filter removal.\n\n\u003e without this check SXP is tested also for situation\n\u003e where filter is added during binding propagation.\n\nIs \"binding propagation\" for peer 127.0.0.2 the time between line 137 (for ${node}\u003d\u003d2 iteration) and the time a binding would be seen in line 211? I can imagine the call in line 25 can pass when binding 10.20.0.0/16 is propagated but binding 20.0.0.0/8 is not propagated yet, and this late binding would be seen in the line call.\n\nI would like tests to have deterministic checks, that is why I do not like random reconnects if a more careful line ordering could eliminate them.",
+      "parentUuid": "3a65312a_27725de5",
+      "range": {
+        "startLine": 27,
+        "startChar": 68,
+        "endLine": 27,
+        "endChar": 75
+      },
+      "revId": "c84d532ca6285fe3c5cb8ec28baa90e269e2784d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
