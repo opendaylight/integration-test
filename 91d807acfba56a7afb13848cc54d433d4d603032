@@ -1,0 +1,293 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_7c5d68e9",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 2,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-11-29T18:47:05Z",
+      "side": 1,
+      "message": "You miss libraries (e.g. String) here and you have probably too many in 010-special-export.robot. In general we define just the libraries that are required by the Test or Keywords sections, so please rearrange Settings definition.",
+      "revId": "91d807acfba56a7afb13848cc54d433d4d603032",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_bc6ee094",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-11-29T18:47:05Z",
+      "side": 1,
+      "message": "I am a bit confused here. Some KWs reference to cluster member index, which is good if you are going to run this test in cluster but some other like this or the next KW point to an IP address. Can you align this by using ClusterManagement.Run_Bash_Command_On_Member instead of Run Command On Controller?",
+      "revId": "91d807acfba56a7afb13848cc54d433d4d603032",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_fc685889",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 33,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-11-29T18:47:05Z",
+      "side": 1,
+      "message": "It is a good practice to add the library before the KW: String.Convert To String, so that we can easily find the libraries used in the test. This comment applies to all KWs you are using in thi file.",
+      "revId": "91d807acfba56a7afb13848cc54d433d4d603032",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_5c050cc1",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-11-29T18:47:05Z",
+      "side": 1,
+      "message": "Add Documentation",
+      "revId": "91d807acfba56a7afb13848cc54d433d4d603032",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_3c0ad0d2",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-11-29T18:47:05Z",
+      "side": 1,
+      "message": "Add documentation",
+      "revId": "91d807acfba56a7afb13848cc54d433d4d603032",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9c0fa4e1",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-11-29T18:47:05Z",
+      "side": 1,
+      "message": "Add documentation",
+      "revId": "91d807acfba56a7afb13848cc54d433d4d603032",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_bcf540cd",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 65,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-11-29T18:47:05Z",
+      "side": 1,
+      "message": "I do not see where ${host} or ${TIME} are used below. Also we do not use ${CONTROLLER} anymore, use ${ODL_SYSTEM_IP}",
+      "revId": "91d807acfba56a7afb13848cc54d433d4d603032",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7c1448f5",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 66,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-11-29T18:47:05Z",
+      "side": 1,
+      "message": "Add documentation",
+      "revId": "91d807acfba56a7afb13848cc54d433d4d603032",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_1c0394b9",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-11-29T18:47:05Z",
+      "side": 1,
+      "message": "Same comment with ${CONTROLLER}",
+      "revId": "91d807acfba56a7afb13848cc54d433d4d603032",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_3c3130a3",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 103,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-11-29T18:47:05Z",
+      "side": 1,
+      "message": "It would be good if this KW could use cluster member index instead of controller IP",
+      "revId": "91d807acfba56a7afb13848cc54d433d4d603032",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9c268467",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 104,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-11-29T18:47:05Z",
+      "side": 1,
+      "message": "Add documentation",
+      "revId": "91d807acfba56a7afb13848cc54d433d4d603032",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7c2ba830",
+        "filename": "csit/suites/daexim/010-special-export.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 5,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-11-29T18:47:05Z",
+      "side": 1,
+      "message": "Clean this section, only declare what you really use below.",
+      "revId": "91d807acfba56a7afb13848cc54d433d4d603032",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_dc1f5c08",
+        "filename": "csit/suites/daexim/010-special-export.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-11-29T18:47:05Z",
+      "side": 1,
+      "message": "Same comment on adding library to KWs. This applies to all KWs in this file.",
+      "revId": "91d807acfba56a7afb13848cc54d433d4d603032",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_bc1c2015",
+        "filename": "csit/suites/daexim/010-special-export.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-11-29T18:47:05Z",
+      "side": 1,
+      "message": "With a timeout of 20 sec I would set lower retry, e.g. 2 sec, but this is up to you.",
+      "revId": "91d807acfba56a7afb13848cc54d433d4d603032",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_1c1a7417",
+        "filename": "csit/suites/daexim/010-special-export.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-11-29T18:47:05Z",
+      "side": 1,
+      "message": "Do not use ${CONTROLLER}",
+      "revId": "91d807acfba56a7afb13848cc54d433d4d603032",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_fc1698f0",
+        "filename": "csit/suites/daexim/010-special-export.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 45,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-11-29T18:47:05Z",
+      "side": 1,
+      "message": "Do not use ${CONTROLLER}",
+      "revId": "91d807acfba56a7afb13848cc54d433d4d603032",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9c5844fc",
+        "filename": "csit/variables/daexim/DaeximVariables.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-11-29T18:47:05Z",
+      "side": 1,
+      "message": "Do you work for Cisco now?",
+      "revId": "91d807acfba56a7afb13848cc54d433d4d603032",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
