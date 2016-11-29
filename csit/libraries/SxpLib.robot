@@ -79,8 +79,10 @@ Verify Connection
 Add Binding
     [Arguments]    ${sgt}    ${prefix}    ${node}=127.0.0.1    ${domain}=global    ${session}=session
     [Documentation]    Add binding via RPC to Master DB of node
-    ${DATA}    Add Entry Xml    ${sgt}    ${prefix}    ${node}    ${domain}
-    Post To Controller    ${session}    add-entry    ${DATA}
+    ${DATA}    Set Variable    ${EMPTY}
+    Run Keyword If    '${ODL_STREAM}' not in ['boron', 'beryllium', 'stable-lithium']    Add Bindings    ${sgt}    ${prefix}    ${node}    ${session}    ${domain}
+    ...    ELSE    ${DATA}    Add Entry Xml    ${sgt}    ${prefix}    ${node}    ${domain}
+    Run Keyword If     "${DATA}" != "${EMPTY}"    Post To Controller    ${session}    add-entry    ${DATA}
 
 Get Bindings
     [Arguments]    ${node}=127.0.0.1    ${session}=session    ${domain}=global    ${scope}=all
@@ -271,16 +273,16 @@ Delete Bindings
     Post To Controller    ${session}    delete-bindings    ${DATA}
 
 Add Bindings Range
-    [Arguments]    ${sgt}    ${start}    ${size}    ${node}=127.0.0.1
+    [Arguments]    ${sgt}    ${start}    ${size}    ${node}=127.0.0.1    ${session}=session    ${domain}=global
     [Documentation]    Add Bindings to Node specified by range
     ${prefixes}    Prefix Range    ${start}    ${size}
-    Add Bindings    ${sgt}    ${prefixes}    ${node}
+    Add Bindings    ${sgt}    ${prefixes}    ${node}    ${session}    ${domain}
 
 Delete Bindings Range
-    [Arguments]    ${sgt}    ${start}    ${size}    ${node}=127.0.0.1
+    [Arguments]    ${sgt}    ${start}    ${size}    ${node}=127.0.0.1    ${session}=session    ${domain}=global
     [Documentation]    Delete Bindings to Node specified by range
     ${prefixes}    Prefix Range    ${start}    ${size}
-    Delete Bindings    ${sgt}    ${prefixes}    ${node}
+    Delete Bindings    ${sgt}    ${prefixes}    ${node}    ${session}    ${domain}
 
 Check Binding Range
     [Arguments]    ${sgt}    ${start}    ${end}    ${node}=127.0.0.1
