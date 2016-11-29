@@ -4,9 +4,11 @@ Documentation     Test suite to validate vpnservice functionality in an openstac
 ...               integration bridges and vxlan tunnels.
 Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
 ...               AND    DevstackUtils.Devstack Suite Setup
+...               AND    Enable ODL DHCP Service
+...               AND    Enable ODL Karaf Log
 Suite Teardown    Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     Get OvsDebugInfo
+Test Teardown     Run Keyword If Test Failed    Get OvsDebugInfo 
 Library           OperatingSystem
 Library           RequestsLibrary
 Resource          ../../../libraries/Utils.robot
@@ -47,6 +49,7 @@ Create Neutron Networks
     Log    ${NET_LIST}
     Should Contain    ${NET_LIST}    ${NETWORKS[0]}
     Should Contain    ${NET_LIST}    ${NETWORKS[1]}
+    Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/networks/    ${NETWORKS}
 
 Create Neutron Subnets
     [Documentation]    Create two subnets for previously created networks
@@ -56,6 +59,7 @@ Create Neutron Subnets
     Log    ${SUB_LIST}
     Should Contain    ${SUB_LIST}    ${SUBNETS[0]}
     Should Contain    ${SUB_LIST}    ${SUBNETS[1]}
+    Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/subnets/    ${SUBNETS}
 
 Add Ssh Allow Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
@@ -73,12 +77,7 @@ Create Neutron Ports
     Create Port    ${NETWORKS[0]}    ${PORT_LIST[1]}    sg=sg-vpnservice
     Create Port    ${NETWORKS[1]}    ${PORT_LIST[2]}    sg=sg-vpnservice
     Create Port    ${NETWORKS[1]}    ${PORT_LIST[3]}    sg=sg-vpnservice
-
-Check OpenDaylight Neutron Ports
-    [Documentation]    Checking OpenDaylight Neutron API for known ports
-    ${resp}    RequestsLibrary.Get Request    session    ${NEUTRON_PORTS_API}
-    Log    ${resp.content}
-    Should be Equal As Strings    ${resp.status_code}    200
+    Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/ports/    ${PORT_LIST}
 
 Create Nova VMs
     [Documentation]    Create Vm instances on compute node with port
@@ -86,11 +85,15 @@ Create Nova VMs
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[1]}    ${VM_INSTANCES[1]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[2]}    ${VM_INSTANCES[2]}    ${OS_COMPUTE_1_IP}    sg=sg-vpnservice
     Create Vm Instance With Port On Compute Node    ${PORT_LIST[3]}    ${VM_INSTANCES[3]}    ${OS_COMPUTE_2_IP}    sg=sg-vpnservice
+    : FOR    ${VM}    IN    @{VM_INSTANCES}
+    \    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${VM}
     Log    Check for routes
     Wait Until Keyword Succeeds    30s    10s    Wait For Routes To Propogate
 
 Check ELAN Datapath Traffic Within The Networks
     [Documentation]    Checks datapath within the same network with different vlans.
+    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For ELAN    ${OS_COMPUTE_1_IP}
+    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For ELAN    ${OS_COMPUTE_2_IP}
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[0]    @{NET10_VM_IPS}[0]    ping -c 3 @{NET10_VM_IPS}[1]
     Should Contain    ${output}    64 bytes
     ${output} =    Execute Command on VM Instance    @{NETWORKS}[1]    @{NET20_VM_IPS}[0]    ping -c 3 @{NET20_VM_IPS}[1]
@@ -99,18 +102,34 @@ Check ELAN Datapath Traffic Within The Networks
 Create Routers
     [Documentation]    Create Router
     Create Router    ${ROUTERS[0]}
+    ${router_output} =    List Router
+    Log    ${router_output}
+    Should Contain    ${router_output}    ${ROUTERS[0]}
+    ${router_list} =    Create List    ${ROUTERS[0]}
+    Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/routers/    ${router_list}
 
 Add Interfaces To Router
     [Documentation]    Add Interfaces
     : FOR    ${INTERFACE}    IN    @{SUBNETS}
     \    Add Router Interface    ${ROUTERS[0]}    ${INTERFACE}
+    ${interface_output} =    show Router Interface    ${ROUTERS[0]}
+    : FOR    ${INTERFACE}    IN    @{SUBNETS}
+    \    ${subnet_id} =    Get subNet Id    ${INTERFACE}
+    \    Should Contain    ${interface_output}    ${subnet_id}
+    #Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/routerInterfaces???    ${SUBNETS}
 
 Check L3_Datapath Traffic Across Networks With Router
     [Documentation]    Datapath test across the networks using router for L3.
-    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]    @{NET20_VM_IPS}[0]    @{NET20_VM_IPS}[1]
+    Log    Verification of FIB Entries and Flow
+    ${vm_instances} =    Create List    @{NET10_VM_IPS}    @{NET20_VM_IPS}
+    Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    /restconf/config/odl-fib:fibEntries/    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${NET10_VM_IPS}
+    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${NET20_VM_IPS}
+    Log    L3 Datapath test across the networks using router
+    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]    @{NET20_VM_IPS}
     Log    ${dst_ip_list}
     Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}
-    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]    @{NET10_VM_IPS}[0]    @{NET10_VM_IPS}[1]
+    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]    @{NET10_VM_IPS}
     Log    ${dst_ip_list}
     Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}
 
@@ -150,11 +169,6 @@ Delete And Recreate Extra Route
     Update Router    @{ROUTERS}[0]    ${RT_CLEAR}
     Show Router    @{ROUTERS}[0]    -D
 
-Delete Router Interfaces
-    [Documentation]    Remove Interface to the subnets.
-    : FOR    ${INTERFACE}    IN    @{SUBNETS}
-    \    Remove Interface    ${ROUTERS[0]}    ${INTERFACE}
-
 Create L3VPN
     [Documentation]    Creates L3VPN and verify the same
     ${devstack_conn_id} =    Get ControlNode Connection
@@ -172,6 +186,24 @@ Associate L3VPN To Routers
     Associate VPN to Router    routerid=${router_id}    vpnid=${VPN_INSTANCE_ID[0]}
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Contain    ${resp}    ${router_id}
+
+Verify L3VPN Datapath With Router Association
+    [Documentation]    Datapath test across the networks using L3VPN with router association.
+    Log    Check datapath after router association to L3VPN
+    ${vm_instances} =    Create List    @{NET10_VM_IPS}    @{NET20_VM_IPS}
+    Log    Verify VPN interfaces, FIB entries and Flow table
+    Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    /restconf/config/l3vpn:vpn-interfaces/    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    /restconf/config/odl-fib:fibEntries/    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_2_IP}    ${vm_instances}
+    Log    Check datapath from network1 to network2
+    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]    @{NET20_VM_IPS}
+    Log    ${dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    
+    Log    Check datapath from network2 to network1
+    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]    @{{NET10_VM_IPS}
+    Log    ${dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}      
 
 Dissociate L3VPN To Routers
     [Documentation]    Dissociating router from L3VPN
@@ -193,6 +225,22 @@ Associate L3VPN To Networks
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Contain    ${resp}    ${network2_id}
 
+Verify L3VPN datapath with Networks Association
+    [Documentation]    Datapath test across the networks using L3VPN with network association.
+    ${vm_instances} =    Create List    @{NET10_VM_IPS}    @{NET20_VM_IPS}
+    Log    Verify FIB entries and Flow
+    Wait Until Keyword Succeeds    30s    5s    Check For Elements At URI    /restconf/config/odl-fib:fibEntries/    ${vm_instances}
+    Wait Until Keyword Succeeds    30s    5s    Verify Flows Are Present For L3VPN    ${OS_COMPUTE_1_IP}    ${vm_instances}
+    Get OvsDebugInfo
+    Log    Check datapath from network1 to network2
+    ${dst_ip_list} =    Create List    @{NET10_VM_IPS}[1]    @{NET20_VM_IPS}
+    Log    ${dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[0]}    @{NET10_VM_IPS}[0]    ${dst_ip_list}    
+    Log    Check datapath from network2 to network1
+    ${dst_ip_list} =    Create List    @{NET20_VM_IPS}[1]    @{NET10_VM_IPS}
+    Log    ${dst_ip_list}
+    Test Operations From Vm Instance    ${NETWORKS[1]}    @{NET20_VM_IPS}[0]    ${dst_ip_list}
+
 Dissociate L3VPN From Networks
     [Documentation]    Dissociate L3VPN from networks
     ${devstack_conn_id} =    Get ControlNode Connection
@@ -205,9 +253,25 @@ Dissociate L3VPN From Networks
     ${resp}=    VPN Get L3VPN    vpnid=${VPN_INSTANCE_ID[0]}
     Should Not Contain    ${resp}    ${network2_id}
 
+Delete Router Interfaces
+    [Documentation]    Remove Interface to the subnets.
+    : FOR    ${INTERFACE}    IN    @{SUBNETS}
+    \    Remove Interface    ${ROUTERS[0]}    ${INTERFACE}
+     ${interface_output} =    show Router Interface    ${ROUTERS[0]}
+    : FOR    ${INTERFACE}    IN    @{SUBNETS}
+    \    ${subnet_id} =    Get subNet Id    ${INTERFACE}
+    \    Should Not Contain    ${interface_output}    ${subnet_id}
+    #Wait Until Keyword Succeeds    3s    1s    Check For Elements At URI    ${CONFIG_API}/neutron:neutron/routerInterfaces???    ${SUBNETS}
+
 Delete Routers
     [Documentation]    Delete Router and Interface to the subnets.
     Delete Router    ${ROUTERS[0]}
+    ${router_output} =    List Router
+    Log    ${router_output}
+    Should Not Contain    ${router_output}    ${ROUTERS[0]}
+    ${router_list} =    Create List    ${ROUTERS[0]}
+    Wait Until Keyword Succeeds    3s    1s    Check For Elements Not At URI    ${CONFIG_API}/neutron:neutron/routers/    ${router_list}
+
 
 Delete L3VPN
     [Documentation]    Delete L3VPN
