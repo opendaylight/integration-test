@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_68f807e6",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-29T13:10:23Z",
+      "side": 1,
+      "message": "BuiltIn.Wait_Until_Keyword_Succeeds\nno big deal.",
+      "range": {
+        "startLine": 359,
+        "startChar": 9,
+        "endLine": 359,
+        "endChar": 36
+      },
+      "revId": "48cc89f97e123b87dee98fa2d5fe40aea0dc8ae6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e8e37731",
+        "filename": "csit/suites/openflowplugin/Clustering/020__Cluster_HA_Owner_Restart.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-29T13:10:23Z",
+      "side": 1,
+      "message": "Stop\n\nReal failures (not enough RAM or power outage) are closer to Kill than Stop.\n\nPerhaps documentation in ClusterManagement can state that Kill_* is for simulating a catastrophic node failure and Stop_* is for simulating a maintenance shutdown.",
+      "range": {
+        "startLine": 12,
+        "startChar": 27,
+        "endLine": 12,
+        "endChar": 31
+      },
+      "revId": "48cc89f97e123b87dee98fa2d5fe40aea0dc8ae6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
