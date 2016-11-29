@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_e2d718ec",
+        "filename": "csit/testplans/netvirt-3node-openstack.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-29T06:41:20Z",
+      "side": 1,
+      "message": "this should be the last line in the testplan as it will collect some debug info that would be relevant for all suites that ran before it.",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 63
+      },
+      "revId": "fd15920bd923acda8e743cd62020f0936c9bc91d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
