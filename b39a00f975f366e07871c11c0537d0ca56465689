@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_1c771404",
+        "filename": "csit/libraries/Netvirt.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 824
+      },
+      "writtenOn": "2016-11-29T21:31:05Z",
+      "side": 1,
+      "message": "Should the session model_dump_session be closed? as this keyword will be invoked multiple times?",
+      "revId": "b39a00f975f366e07871c11c0537d0ca56465689",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
