@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_42d08c53",
+        "filename": "csit/variables/Variables.py",
+        "patchSetId": 16
+      },
+      "lineNbr": 233,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-29T00:28:49Z",
+      "side": 1,
+      "message": "we are trying to deprecate this Variables.py file.  Can you put this in Variables.robot?",
+      "range": {
+        "startLine": 232,
+        "startChar": 0,
+        "endLine": 233,
+        "endChar": 57
+      },
+      "revId": "1ab554aff7314d2efb1c40d03518f9f033535dd5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
