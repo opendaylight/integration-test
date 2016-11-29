@@ -19,6 +19,8 @@ ${VAR_BASE}       ${CURDIR}/../variables/vpnservice/
 VPN Create L3VPN
     [Arguments]    &{Kwargs}
     [Documentation]    Create an L3VPN using the Json using the list of optional arguments received.
+    Run keyword if    "routerid" in ${Kwargs}    Collections.Set_To_Dictionary    ${Kwargs}    router=, "router-id":"${Kwargs['routerid']}"
+    ...    ELSE    Collections.Set_To_Dictionary    ${Kwargs}    router=${empty}
     &{L3vpn_create_actual_val} =    Collections.Copy_Dictionary    ${L3VPN_CREATE_DEFAULT}
     Collections.Set_To_Dictionary    ${L3vpn_create_actual_val}    &{Kwargs}
     TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/l3vpn_create    mapping=${L3vpn_create_actual_val}    session=session

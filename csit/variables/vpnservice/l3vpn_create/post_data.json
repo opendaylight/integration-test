@@ -14,6 +14,7 @@
                $importrt
             ,
             "tenant-id":"$tenantid"
+            $router
          }
       ]
    }
