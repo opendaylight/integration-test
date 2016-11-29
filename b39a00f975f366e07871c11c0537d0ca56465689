@@ -16,6 +16,24 @@
       "revId": "b39a00f975f366e07871c11c0537d0ca56465689",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_9c6de407",
+        "filename": "csit/libraries/Netvirt.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-29T23:13:54Z",
+      "side": 1,
+      "message": "This is something I\u0027ve never really tested, but the RequestsLibrary only gives us \"Delete All Sessions\" to clean up session objects.  Is that going to also delete the other sessions objects if we call it here?\n\nthat\u0027s what it looks like to me as I read through the library\ncode:\nhttps://github.com/bulkan/robotframework-requests/blob/master/src/RequestsLibrary/RequestsKeywords.py\n\nI started looking deeper in to the utils.connectioncache lib\nto learn more and it seems that create session adds a session\nto a local cache mostly for an alias ot index mapping.\nprobably lightweight.\n\nSince this is working ok as is, maybe we should merge it and then figure out an answer to this otherwise.  I\u0027m guessing we\nhave this situation in many places.",
+      "parentUuid": "1a622d24_1c771404",
+      "revId": "b39a00f975f366e07871c11c0537d0ca56465689",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
