@@ -3,6 +3,24 @@ from netaddr import IPAddress
 from string import Template
 
 
+def get_active_controller_from_json(resp, service):
+    """Gets index of active controller running specified service
+
+    :param resp: JSON formatted response from EOS
+    :type resp: string
+    :param service: EOS Service to look for
+    :type service: string
+    :return: Index of controller
+    """
+    entities = json.loads(resp)['entity-owners']['entity-type']
+    for entity in entities:
+        if entity['type'] == "org.opendaylight.mdsal.ServiceEntityType":
+            for instance in entity['entity']:
+                if service in instance['id']:
+                    return int(instance['owner'][-1:])
+    return 0
+
+
 def mod(num, base):
     """Gets modulo of number
 
