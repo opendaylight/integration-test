@@ -46,6 +46,30 @@
       "revId": "afb8ab66f43a8ca0535a9b2c8a94664b93336e8a",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e8d7f7eb",
+        "filename": "csit/suites/sxp/filtering/030_Inbound_Filtering_Discarding.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-11-29T14:35:12Z",
+      "side": 1,
+      "message": "Why does the reconnection occur? Can it be prevented or at least independently detected?",
+      "parentUuid": "1a622d24_689e4758",
+      "range": {
+        "startLine": 27,
+        "startChar": 68,
+        "endLine": 27,
+        "endChar": 75
+      },
+      "revId": "afb8ab66f43a8ca0535a9b2c8a94664b93336e8a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
