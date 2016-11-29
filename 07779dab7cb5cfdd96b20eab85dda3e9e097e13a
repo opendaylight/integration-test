@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_c2c3fc88",
+        "filename": "csit/libraries/Netvirt.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-29T00:34:14Z",
+      "side": 1,
+      "message": "this fails our robot.tidy check.  this format is much better, imo.  I\u0027m not sure if there is a way to get around it though.  I\u0027ll see, but for now the latest patch is back to munging all these apis in to 3 ugly lines.",
+      "range": {
+        "startLine": 5,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 54
+      },
+      "revId": "07779dab7cb5cfdd96b20eab85dda3e9e097e13a",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
