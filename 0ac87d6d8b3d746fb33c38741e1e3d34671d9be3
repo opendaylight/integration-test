@@ -2,6 +2,75 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a622d24_022054f6",
+        "filename": "csit/suites/sfc/SFC_Basic/100__sfc_service_function_acl.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 10,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-29T07:22:03Z",
+      "side": 1,
+      "message": "can you change this to use Variables.robot instead?  we are trying to start moving all references to that.  It should not affect your suites as all the same variables (probably some extra) will be in Variables.robot",
+      "range": {
+        "startLine": 10,
+        "startChar": 0,
+        "endLine": 10,
+        "endChar": 49
+      },
+      "revId": "0ac87d6d8b3d746fb33c38741e1e3d34671d9be3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_227e30e5",
+        "filename": "csit/suites/sfc/SFC_Basic/100__sfc_service_function_acl.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 12,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-29T07:22:03Z",
+      "side": 1,
+      "message": "are you using this?",
+      "range": {
+        "startLine": 12,
+        "startChar": 18,
+        "endLine": 12,
+        "endChar": 60
+      },
+      "revId": "0ac87d6d8b3d746fb33c38741e1e3d34671d9be3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e21c38c4",
+        "filename": "csit/suites/sfc/SFC_Basic/100__sfc_service_function_acl.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 24,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-29T07:22:03Z",
+      "side": 1,
+      "message": "you probably want this above the \"should contain\" line.  If that should contain line were to fail, the rest of this test case would not execute and the one time you want to look at resp.content to debug it would not be there.",
+      "range": {
+        "startLine": 24,
+        "startChar": 4,
+        "endLine": 24,
+        "endChar": 43
+      },
+      "revId": "0ac87d6d8b3d746fb33c38741e1e3d34671d9be3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_c7f82ec7",
         "filename": "csit/suites/sfc/SFC_Basic/100__sfc_service_function_acl.robot",
         "patchSetId": 5
@@ -13,6 +82,29 @@
       "writtenOn": "2016-11-28T18:01:19Z",
       "side": 1,
       "message": "The tests should be autocontained. If you configure something, you should clean it up before the next test case",
+      "revId": "0ac87d6d8b3d746fb33c38741e1e3d34671d9be3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_0277b403",
+        "filename": "csit/suites/sfc/SFC_Basic/100__sfc_service_function_acl.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 55,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-29T07:22:03Z",
+      "side": 1,
+      "message": "I think after a Get request we know we want a 200.  This ${ALLOWED_STATUS_CODES} was implemented because the PUT request used to give 200, but now might give 201 or 204.  I think it only applies to PUT though.",
+      "range": {
+        "startLine": 55,
+        "startChar": 22,
+        "endLine": 55,
+        "endChar": 45
+      },
       "revId": "0ac87d6d8b3d746fb33c38741e1e3d34671d9be3",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
