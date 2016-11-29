@@ -1,0 +1,55 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_8d09352f",
+        "filename": "csit/suites/openstack/clustering/01_l2_tests.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-11-29T09:22:21Z",
+      "side": 1,
+      "message": "Venkat, need to remove \"Show Debugs\" from each test teardown.. this really speeds things up",
+      "revId": "6a795c46026863a73f07ad88cb0f0916e370957b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_6d0e5936",
+        "filename": "csit/suites/openstack/clustering/02_l3_tests.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-11-29T09:22:21Z",
+      "side": 1,
+      "message": "need to remove \"Show Debugs\" from each test teardown",
+      "revId": "6a795c46026863a73f07ad88cb0f0916e370957b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_ad0fd12d",
+        "filename": "csit/suites/openstack/clustering/02_l3_tests.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 203,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-11-29T09:22:21Z",
+      "side": 1,
+      "message": "Can add a \"Show Debug\" here if you like (in 1node we did a show after all creates and one after all deletes)",
+      "revId": "6a795c46026863a73f07ad88cb0f0916e370957b",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
