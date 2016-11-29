@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_28cc4f35",
+        "filename": "csit/suites/sfc/SFC_Basic/090__sfc_service_function_metadata.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 105,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2016-11-29T15:17:39Z",
+      "side": 1,
+      "message": "Variables not used in function",
+      "revId": "666a3a5426f1a4c57d80b9c2dc4511c70fe26725",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
