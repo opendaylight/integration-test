@@ -22,6 +22,30 @@
       "revId": "fd15920bd923acda8e743cd62020f0936c9bc91d",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_82358448",
+        "filename": "csit/testplans/netvirt-3node-openstack.txt",
+        "patchSetId": 5
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 6453
+      },
+      "writtenOn": "2016-11-29T08:49:30Z",
+      "side": 1,
+      "message": "Done",
+      "parentUuid": "1a622d24_e2d718ec",
+      "range": {
+        "startLine": 4,
+        "startChar": 0,
+        "endLine": 4,
+        "endChar": 63
+      },
+      "revId": "fd15920bd923acda8e743cd62020f0936c9bc91d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
