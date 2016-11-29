@@ -74,25 +74,18 @@ Check Device is Connected
     Should Be True    ${is_connected}
 
 Get Active Controller
-    [Arguments]    ${port}=64999    ${ip}=${EMPTY}
-    [Documentation]    Find cluster controller that is actively connected to SXP device
-    ${controller}    Set Variable    ${EMPTY}
+    [Documentation]    Find cluster controller that is marked as leader for SXP service in cluster
+    ${controller}    Set Variable    0
     : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    ${rc}    Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    netstat -tln | grep -q ${ip}:${port} && echo 0 || echo 1    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}
-    \    ...    prompt=${ODL_SYSTEM_PROMPT}
-    \    ${controller}    Set Variable If    '${rc}' == '0'    ${i+1}    ${controller}
+    \    ${resp}    RequestsLibrary.Get Request    controller${i+1}    /restconf/operational/entity-owners:entity-owners
+    \    ${controller}    get active controller from json    ${resp.content}    SxpControllerInstance
+    \    Run Keyword If    '${controller}' != '0'    Exit For Loop
     [Return]    ${controller}
 
 Get Inactive Controller
-    [Arguments]    ${port}=64999    ${ip}=${EMPTY}
-    [Documentation]    Find cluster controller that is not actively connected to SXP device
-    @{controllers}    Create List
-    : FOR    ${i}    IN RANGE    ${NUM_ODL_SYSTEM}
-    \    ${rc}    Run Command On Remote System    ${ODL_SYSTEM_${i+1}_IP}    netstat -tln | grep -q ${ip}:${port} && echo 0 || echo 1    ${ODL_SYSTEM_USER}    ${ODL_SYSTEM_PASSWORD}
-    \    ...    prompt=${ODL_SYSTEM_PROMPT}
-    \    Run Keyword If    '${rc}' != '0'    Append To List    ${controllers}    ${i+1}
-    Log    ${controllers}
-    ${controller}    Evaluate    random.choice( ${controllers})    random
+    [Documentation]    Find cluster controller that is not marked as leader for SXP service in cluster
+    ${active_controller}    Get Active Controller
+    ${controller}    Evaluate    random.choice( filter( lambda i: i!=${active_controller}, range(1, ${NUM_ODL_SYSTEM} + 1)))    random
     [Return]    ${controller}
 
 Get Any Controller
