@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_5c186c84",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-11-29T23:49:55Z",
+      "side": 1,
+      "message": "tox failed because it only wants to see 4 spaces here.",
+      "range": {
+        "startLine": 23,
+        "startChar": 7,
+        "endLine": 23,
+        "endChar": 22
+      },
+      "revId": "79816d7d738a583c2a7e8be5850e81b371d6b0fc",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
