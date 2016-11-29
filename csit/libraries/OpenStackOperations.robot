@@ -4,6 +4,9 @@ Library           SSHLibrary
 Resource          Utils.robot
 Variables         ../variables/Variables.py
 
+*** Variables ***
+${PING_PASS}      , 0% packet loss
+
 *** Keywords ***
 Source Password
     [Arguments]    ${force}=no    ${source_pwd}=yes
@@ -178,6 +181,17 @@ Get Net Id
     Log    ${net_id}
     [Return]    ${net_id}
 
+Get subNet Id
+    [Arguments]    ${subnet_name}    ${devstack_conn_id}
+    [Documentation]    Retrieve the net id for the given network name to create specific vm instance
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron subnet-list | grep "${subnet_name}" | awk '{print $2}'    30s
+    Log    ${output}
+    ${splitted_output}=    Split String    ${output}    ${EMPTY}
+    ${subnet_id}=    Get from List    ${splitted_output}    0
+    Log    ${subnet_id}
+    [Return]    ${subnet_id}
+
 Get Port Id
     [Arguments]    ${port_name}    ${devstack_conn_id}
     [Documentation]    Retrieve the port id for the given port name to attach specific vm instance to a particular port
@@ -219,7 +233,7 @@ Create Vm Instance With Port On Compute Node
     ${hostname_compute_node}=    Run Command On Remote System    ${compute_node}    hostname
     ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --security-groups ${sg} --availability-zone nova:${hostname_compute_node}    30s
     Log    ${output}
-    Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${vm_instance_name}
+    #Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${vm_instance_name}
 
 Verify VM Is ACTIVE
     [Arguments]    ${vm_name}
@@ -268,7 +282,7 @@ Ping Vm From DHCP Namespace
     ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
     Log    ${output}
     Close Connection
-    Should Contain    ${output}    64 bytes
+    Should Contain    ${output}    ${PING_PASS}
 
 Ping From DHCP Should Not Succeed
     [Arguments]    ${net_name}    ${vm_ip}
@@ -281,7 +295,7 @@ Ping From DHCP Should Not Succeed
     ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
     Close Connection
     Log    ${output}
-    Should Not Contain    ${output}    64 bytes
+    Should Not Contain    ${output}    ${PING_PASS} 
 
 Ping Vm From Control Node
     [Arguments]    ${vm_floating_ip}
@@ -292,7 +306,7 @@ Ping Vm From Control Node
     ${output}=    Write Commands Until Prompt    ping -c 3 ${vm_floating_ip}    20s
     Log    ${output}
     Close Connection
-    Should Contain    ${output}    64 bytes
+    Should Contain    ${output}    ${PING_PASS}
 
 Ping From Instance
     [Arguments]    ${dest_vm_ip}
@@ -327,8 +341,8 @@ Exit From Vm Console
 Check Ping
     [Arguments]    ${ip_address}
     [Documentation]    Run Ping command on the IP available as argument
-    ${output}=    Write Commands Until Expected Prompt    ping -c 3 ${ip_address}    ${OS_SYSTEM_PROMPT}
-    Should Contain    ${output}    64 bytes
+    ${output}=    Write Commands Until Expected Prompt    ping -c 10 ${ip_address}    ${OS_SYSTEM_PROMPT}
+    Should Contain    ${output}    ${PING_PASS}
 
 Check Metadata Access
     [Documentation]    Try curl on the Metadataurl and check if it is okay
@@ -391,6 +405,15 @@ Create Router
     Close Connection
     Should Contain    ${output}    Created a new router
 
+List Router
+    [Documentation]    List Router and return output with neutron client.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron router-list    30s
+    Close Connection
+    Log    ${output}
+    [Return]    ${output}
+
 Add Router Interface
     [Arguments]    ${router_name}    ${interface_name}
     ${devstack_conn_id}=    Get ControlNode Connection
@@ -398,6 +421,16 @@ Add Router Interface
     ${output}=    Write Commands Until Prompt    neutron -v router-interface-add ${router_name} ${interface_name}
     Close Connection
     Should Contain    ${output}    Added interface
+
+show Router Interface
+    [Arguments]    ${router_name}  
+    [Documentation]    List Router interface associated with given Router and return output with neutron client.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron router-port-list ${router_name}    30s
+    Close Connection
+    Log    ${output}
+    [Return]    ${output}
 
 Add Router Gateway
     [Arguments]    ${router_name}    ${network_name}
