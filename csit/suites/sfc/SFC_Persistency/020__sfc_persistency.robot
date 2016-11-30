@@ -22,12 +22,18 @@ Basic Environment Setup Tests
     [Documentation]    Prepare Basic Test Environment
     Create Session In Controller    ${ODL_SYSTEM_1_IP}
 
-Add SFC Elements and restart controller
+
+Add SFC Elements and restart cluster
     Add SFC Elements
-    ClusterManagement.Kill_Single_Member    1
-    ClusterManagement.Start_Single_Member    1    wait_for_sync=False
     ${session} =    Resolve_Http_Session_For_Member    member_index=1
-    Wait until Keyword succeeds    2min    5 sec    TemplatedRequests.Get_As_Json_Templated    session=${session}    folder=${RESTCONF_MODULES_DIR}    verify=False
+    Wait until Keyword succeeds    1min    1 sec     Post Elements To URI As JSON    ${OPERATIONS_CREATE_RSP_URI}    ${CREATE_RSP1_INPUT}
+    : FOR    ${index}    IN RANGE    1    ${NUM_ODL_SYSTEM}+1
+    \    ClusterManagement.Kill_Single_Member    ${index}
+    : FOR    ${index}    IN RANGE    1    ${NUM_ODL_SYSTEM}+1
+    \    ClusterManagement.Start_Single_Member   ${index}    wait_for_sync=False
+    : FOR    ${index}    IN RANGE    1    ${NUM_ODL_SYSTEM}+1
+    \    ${session} =    Resolve_Http_Session_For_Member    member_index=${index}
+    \    Wait until Keyword succeeds    10min    5 sec     TemplatedRequests.Get_As_Json_Templated    session=${session}    folder=${RESTCONF_MODULES_DIR}    verify=False
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FORWARDERS_URI}
     Should Be Equal As Strings    ${resp.status_code}    200
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_NODES_URI}
@@ -38,16 +44,10 @@ Add SFC Elements and restart controller
     Should Be Equal As Strings    ${resp.status_code}    200
     ${resp}    RequestsLibrary.Get Request    session    ${SERVICE_FUNCTION_PATHS_URI}
     Should Be Equal As Strings    ${resp.status_code}    200
-
-Post RSP and restart controller
-    Add SFC Elements
-    ${session} =    Resolve_Http_Session_For_Member    member_index=1
-    Wait until Keyword succeeds    1min    1 sec    Post Elements To URI As JSON    ${OPERATIONS_CREATE_RSP_URI}    ${CREATE_RSP1_INPUT}
-    ClusterManagement.Kill_Single_Member    1
-    ClusterManagement.Start_Single_Member    1    wait_for_sync=False
-    Wait until Keyword succeeds    2min    5 sec    TemplatedRequests.Get_As_Json_Templated    session=${session}    folder=${RESTCONF_MODULES_DIR}    verify=False
+    Wait until Keyword succeeds    2min    5 sec     TemplatedRequests.Get_As_Json_Templated    session=${session}    folder=${RESTCONF_MODULES_DIR}    verify=False
     ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_RSPS_URI}
     Should Be Equal As Strings    ${resp.status_code}    404
+
 
 *** Keywords ***
 Init Suite
@@ -88,3 +88,4 @@ Cleanup Suite
     Create Session In Controller    ${ODL_SYSTEM_1_IP}
     Remove SFC Elements
     Delete All Sessions
+
