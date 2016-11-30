@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_b23d69be",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 23,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2016-11-30T09:58:40Z",
+      "side": 1,
+      "message": "This proc is generic where its create L3vpn and based on need we will associate network or router. If you feel its needed then pls add another proc with router.",
+      "revId": "1919b6222559d5433f5fe4f5aa49d7e3181d9e96",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
