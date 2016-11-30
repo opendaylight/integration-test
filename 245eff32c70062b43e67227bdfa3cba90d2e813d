@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_35794394",
+        "filename": "csit/suites/sfc/SFC_Persistency/010__sfc_persistency.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2016-11-30T14:16:09Z",
+      "side": 1,
+      "message": "Remove the Variables.py",
+      "revId": "245eff32c70062b43e67227bdfa3cba90d2e813d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_956e57c8",
+        "filename": "csit/suites/sfc/SFC_Persistency/010__sfc_persistency.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2016-11-30T14:16:09Z",
+      "side": 1,
+      "message": "Please, add documentation section to know what the test is about",
+      "revId": "245eff32c70062b43e67227bdfa3cba90d2e813d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_156247d8",
+        "filename": "csit/suites/sfc/SFC_Persistency/010__sfc_persistency.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 40,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2016-11-30T14:16:09Z",
+      "side": 1,
+      "message": "Call to Remove SFC Elements so you leave the test case in a clean state. Including it in a Testcase Teardwon is also a good practice",
+      "revId": "245eff32c70062b43e67227bdfa3cba90d2e813d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7573bbb1",
+        "filename": "csit/suites/sfc/SFC_Persistency/010__sfc_persistency.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 42,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2016-11-30T14:16:09Z",
+      "side": 1,
+      "message": "Please, add documentation section to know what the test is about",
+      "revId": "245eff32c70062b43e67227bdfa3cba90d2e813d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_b56433e6",
+        "filename": "csit/suites/sfc/SFC_Persistency/010__sfc_persistency.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 54,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2016-11-30T14:16:09Z",
+      "side": 1,
+      "message": "No need to differenciate between odl streams. Now it is only master",
+      "revId": "245eff32c70062b43e67227bdfa3cba90d2e813d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
