@@ -20,6 +20,9 @@ Initialize If Shell Used
 Get Ovsdb Data
     [Arguments]    ${prompt}=mininet>
     [Documentation]    Gets ovs data and parse them.
+    ${current_ssh_connection}=    SSHLibrary.Get Connection
+    ${conn_id}=    SSHLibrary.Open Connection     ${OS_COMPUTE_1_IP}     prompt=${DEFAULT_LINUX_PROMPT}    timeout=${DEFAULT_TIMEOUT}
+    Flexible SSH Login   ${DEFAULT_USER}    ${EMPTY}
     SSHLibrary.Write    ${lcmd_prefix} ${SH_BR_CMD}
     ${brstdout}=    SSHLibrary.Read_Until    ${lprompt}
     Log    ${brstdout}
