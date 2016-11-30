@@ -20,11 +20,15 @@ Initialize If Shell Used
 Get Ovsdb Data
     [Arguments]    ${prompt}=mininet>
     [Documentation]    Gets ovs data and parse them.
-    SSHLibrary.Write    ${lcmd_prefix} ${SH_BR_CMD}
-    ${brstdout}=    SSHLibrary.Read_Until    ${lprompt}
+    ${current_ssh_connection}=    SSHLibrary.Get Connection
+    ${conn_id}=    SSHLibrary.Open Connection     ${OS_COMPUTE_1_IP}     prompt=${DEFAULT_LINUX_PROMPT}    timeout=${DEFAULT_TIMEOUT}
+    Flexible SSH Login   ${DEFAULT_USER}    ${EMPTY}
+    SSHLibrary.Write     sudo ${SH_BR_CMD}
+    ${brstdout}=    SSHLibrary.Read_Until     ${DEFAULT_LINUX_PROMPT}
     Log    ${brstdout}
-    SSHLibrary.Write    ${lcmd_prefix} ${SH_CNTL_CMD}
-    ${cntlstdout}=    SSHLibrary.Read_Until    ${lprompt}
+    SSHLibrary.Write     ${SH_CNTL_CMD}
+    ${cntlstdout}=    SSHLibrary.Read_Until    ${DEFAULT_LINUX_PROMPT}
+    ${cntlstdout}    Write Commands Until Prompt     sudo ${SH_CNTL_CMD}
     Log    ${cntlstdout}
     ${data}    ${bridegs}    ${controllers}=    VsctlListParser.Parse    ${brstdout}    ${cntlstdout}
     BuiltIn.Log    ${data}
@@ -43,9 +47,14 @@ Get Controllers Uuid
 
 Execute OvsVsctl Show Command
     [Documentation]    Executes ovs-vsctl show command and returns stdout, no check nor change is performed
-    SSHLibrary.Write    ${lcmd_prefix} ovs-vsctl show
-    ${output}=    SSHLibrary.Read_Until    ${lprompt}
+    #SSHLibrary.Write    ${lcmd_prefix} ovs-vsctl show
+    #${output}=    SSHLibrary.Read_Until    ${lprompt}
+    ${current_ssh_connection}=    SSHLibrary.Get Connection
+    ${conn_id}=    SSHLibrary.Open Connection     ${OS_COMPUTE_1_IP}     prompt=${DEFAULT_LINUX_PROMPT}    timeout=${DEFAULT_TIMEOUT}
+    Flexible SSH Login   ${DEFAULT_USER}    ${EMPTY}
+    ${output}=    Write Commands Until Prompt     sudo ovs-vsctl show
     Log    ${output}
+    SSHLibrary.Close Connection
 
 Set Bridge Controllers
     [Arguments]    ${bridge}    ${controllers}    ${disconnected}=${False}
@@ -61,14 +70,20 @@ Set Bridge Controllers
 Disconnect Switch From Controller And Verify Disconnected
     [Arguments]    ${switch}    ${controller}    ${update_data}=${False}    ${verify_disconnected}=${True}
     [Documentation]    Disconnects the switch from the controller by setting the incorrect port
-    Run Keyword If    ${update_data}==${True}    Get Ovsdb Data
-    ${uuid}=    Get Controllers Uuid    ${switch}    ${controller}
-    ${cmd}=    BuiltIn.Set Variable    ${lcmd_prefix} ovs-vsctl set Controller ${uuid} target="tcp\\:${controller}\\:6654"
-    SSHLibrary.Write    ${cmd}
-    ${output}=    SSHLibrary.Read_Until    ${lprompt}
-    Log    ${output}
+    #Run Keyword If    ${update_data}==${True}    Get Ovsdb Data
+    #${uuid}=    Get Controllers Uuid    ${switch}    ${controller}
+    ${current_ssh_connection}=    SSHLibrary.Get Connection
+    ${conn_id}=    SSHLibrary.Open Connection     ${OS_COMPUTE_1_IP}     prompt=${DEFAULT_LINUX_PROMPT}    timeout=${DEFAULT_TIMEOUT}
+    Flexible SSH Login   ${DEFAULT_USER}    ${EMPTY}
+    ${cmd}=    BuiltIn.Set Variable    sudo ovs-vsctl set Controller br-int target="tcp\\:${controller}\\:6654"
+    ${cntlstdout}    Write Commands Until Prompt     ${cmd}
+    Log    ${cntlstdout}
+    #SSHLibrary.Write    ${cmd}
+    #${output}=    SSHLibrary.Read_Until    ${lprompt}
+    #Log    ${output}
     Return From Keyword If    ${verify_disconnected}==${False}
-    BuiltIn.Wait Until Keyword Succeeds    5x    2s    Should Be Disconnected    ${switch}    ${controller}    update_data=${True}
+    SSHLibrary.Close Connection
+#    BuiltIn.Wait Until Keyword Succeeds    5x    2s    Should Be Disconnected    ${switch}    ${controller}    update_data=${True}
     [Teardown]    Execute OvsVsctl Show Command
 
 Reconnect Switch To Controller And Verify Connected
