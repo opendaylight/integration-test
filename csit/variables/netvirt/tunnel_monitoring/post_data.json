@@ -1,0 +1,4 @@
+{
+  "monitor-protocol": "odl-interface:tunnel-monitoring-type-bfd",
+  "enabled": "false"
+}
