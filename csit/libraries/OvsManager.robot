@@ -5,8 +5,8 @@ Library           ${CURDIR}/VsctlListParser.py
 Library           Collections
 
 *** Variables ***
-${SH_BR_CMD}      ovs-vsctl list Bridge
-${SH_CNTL_CMD}    ovs-vsctl list Controller
+${SH_BR_CMD}      sudo ovs-vsctl list Bridge
+${SH_CNTL_CMD}    sudo ovs-vsctl list Controller
 ${ovs_switch_data}    ${None}
 ${lprompt}        mininet>
 ${lcmd_prefix}    sh
@@ -20,12 +20,21 @@ Initialize If Shell Used
 Get Ovsdb Data
     [Arguments]    ${prompt}=mininet>
     [Documentation]    Gets ovs data and parse them.
-    SSHLibrary.Write    ${lcmd_prefix} ${SH_BR_CMD}
-    ${brstdout}=    SSHLibrary.Read_Until    ${lprompt}
+    #${mininet_conn_id}=    SSHLibrary.Open Connection    ${TOOLS_SYSTEM_IP}    prompt=${TOOLS_SYSTEM_PROMPT}
+    #BuiltIn.Set Suite Variable    ${mininet_conn_id}
+    #SSHLibrary.Login With Public Key    ${TOOLS_SYSTEM_USER}    ${USER_HOME}/.ssh/id_rsa    any
+    ${current_ssh_connection}=    SSHLibrary.Get Connection
+    ${conn_id}=    SSHLibrary.Open Connection     ${OS_COMPUTE_1_IP}     prompt=${DEFAULT_LINUX_PROMPT}    timeout=${DEFAULT_TIMEOUT}
+    Flexible SSH Login   ${DEFAULT_USER}    ${EMPTY}
+    SSHLibrary.Execute Command    sudo ovs-vsctl set-manager ptcp:6644
+    SSHLibrary.Execute Command    sudo mn -c
+    SSHLibrary.Write     ${SH_BR_CMD}   
+    ${brstdout}=    SSHLibrary.Read_Until     ${DEFAULT_LINUX_PROMPT}
     Log    ${brstdout}
-    SSHLibrary.Write    ${lcmd_prefix} ${SH_CNTL_CMD}
-    ${cntlstdout}=    SSHLibrary.Read_Until    ${lprompt}
-    Log    ${cntlstdout}
+    SSHLibrary.Write     ${SH_CNTL_CMD}
+    ${cntlstdout}=    SSHLibrary.Read_Until    ${DEFAULT_LINUX_PROMPT}
+    3${cntlstdout}    Write Commands Until Prompt     ${lcmd_prefix} ${SH_CNTL_CMD}
+    3Log    ${cntlstdout}
     ${data}    ${bridegs}    ${controllers}=    VsctlListParser.Parse    ${brstdout}    ${cntlstdout}
     BuiltIn.Log    ${data}
     BuiltIn.Set Suite Variable    ${ovs_switch_data}    ${data}
@@ -68,7 +77,7 @@ Disconnect Switch From Controller And Verify Disconnected
     ${output}=    SSHLibrary.Read_Until    ${lprompt}
     Log    ${output}
     Return From Keyword If    ${verify_disconnected}==${False}
-    BuiltIn.Wait Until Keyword Succeeds    5x    2s    Should Be Disconnected    ${switch}    ${controller}    update_data=${True}
+#    BuiltIn.Wait Until Keyword Succeeds    5x    2s    Should Be Disconnected    ${switch}    ${controller}    update_data=${True}
     [Teardown]    Execute OvsVsctl Show Command
 
 Reconnect Switch To Controller And Verify Connected
