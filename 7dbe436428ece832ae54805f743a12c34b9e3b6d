@@ -1,0 +1,89 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_7581fb49",
+        "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2016-11-30T14:34:27Z",
+      "side": 1,
+      "message": "Variables.py shouldn´t be used. Everything is contained in Variables.robot",
+      "revId": "7dbe436428ece832ae54805f743a12c34b9e3b6d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_55d03f53",
+        "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 26,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2016-11-30T14:34:27Z",
+      "side": 1,
+      "message": "Add Description section to know what the test is verifying",
+      "revId": "7dbe436428ece832ae54805f743a12c34b9e3b6d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_156c079c",
+        "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 29,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2016-11-30T14:34:27Z",
+      "side": 1,
+      "message": "You could use method Kill_Members_From_List_Or_All and avoid using a for loop to kill each member",
+      "revId": "7dbe436428ece832ae54805f743a12c34b9e3b6d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f5686b89",
+        "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 31,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2016-11-30T14:34:27Z",
+      "side": 1,
+      "message": "The same when starting the members, you could use: Start_Members_From_List_Or_All",
+      "revId": "7dbe436428ece832ae54805f743a12c34b9e3b6d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_5505dfc0",
+        "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 50,
+      "author": {
+        "id": 6322
+      },
+      "writtenOn": "2016-11-30T14:34:27Z",
+      "side": 1,
+      "message": "It is good practice to leave the test case in the same state it was before starting. You could add Remove SFC Elements as Testcase Teardown or at the end of the test",
+      "revId": "7dbe436428ece832ae54805f743a12c34b9e3b6d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
