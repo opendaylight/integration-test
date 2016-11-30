@@ -14,6 +14,10 @@ Variables         ../variables/Variables.py
 ...               dpnid2=2    portname2= BR2-eth1    ipaddress2=3.3.3.3
 &{L3VPN_CREATE_DEFAULT}    vpnid=4ae8cd92-48ca-49b5-94e1-b2921a261111    name=vpn1    rd=["2200:1"]    exportrt=["2200:1","8800:1"]    importrt=["2200:1","8800:1"]    tenantid=6c53df3a-3456-11e5-a151-feff819cdc9f
 ${VAR_BASE}       ${CURDIR}/../variables/vpnservice/
+${MAC_REGEX}      ([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})
+${L3VPN_TABLE}       21
+${ELAN_SMACTABLE}    50
+${ELAN_DMACTABLE}    51
 
 *** Keywords ***
 VPN Create L3VPN
@@ -29,6 +33,15 @@ VPN Get L3VPN
     ${resp} =    TemplatedRequests.Post_As_Json_Templated    folder=${VAR_BASE}/get_l3vpn    mapping=${Kwargs}    session=session
     Log    ${resp}
     [Return]    ${resp}
+
+List L3VPN From Neutron
+    [Documentation]    List L3VPN and return output with neutron client.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    neutron bgpvpn-list    30s
+    Close Connection
+    Log    ${output}
+    [Return]    ${output}
 
 Associate L3VPN To Network
     [Arguments]    &{Kwargs}
@@ -76,3 +89,29 @@ ITM Delete Tunnel
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.content}
+
+Verify Flows Are Present For ELAN
+    [Arguments]    ${ip}
+    [Documentation]    Verify Flows Are Present For ELAN
+    ${flow_output} =    Run Command On Remote System    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${flow_output}
+    ${resp} =    Should Not Contain    ${flow_output}    goto_table:${L3VPN_TABLE}
+    ${resp} =    Should Contain    ${flow_output}    table=${ELAN_SMACTABLE}
+    ${resp} =    Should Contain    ${flow_output}    table=${ELAN_DMACTABLE}
+    ${resp} =    Should Contain    ${flow_output}    goto_table:${ELAN_SMACTABLE}
+    ${table_output} =    Get Lines Containing String    ${flow_output}    table=${ELAN_SMACTABLE}
+    Log    ${table_output}
+    @{table_output} =    Split To Lines    ${table_output}    0    -1
+    : FOR    ${line}    IN    @{table_output}
+    \    Log    ${line}
+    \    ${resp} =    Should Match Regexp    ${line}    ${MAC_REGEX}
+
+Verify Flows Are Present For L3VPN
+    [Arguments]    ${ip}    ${vm_ips}
+    [Documentation]    Verify Flows Are Present For L3VPN
+    ${flow_output}=    Run Command On Remote System    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    Log    ${flow_output}
+    ${resp}=    Should Contain    ${flow_output}    table=${L3VPN_TABLE}
+    : FOR    ${i}    IN    @{vm_ips}
+    \    ${resp}=    Should Contain    ${flow_output}    ${i}
+
