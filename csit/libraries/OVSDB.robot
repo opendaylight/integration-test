@@ -29,7 +29,7 @@ Connect To Ovsdb Node
 Disconnect From Ovsdb Node
     [Arguments]    ${mininet_ip}
     [Documentation]    This request will disconnect the OVSDB node from the controller
-    ${resp}    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:${OVSDB_PORT}
+    ${resp}    RequestsLibrary.Delete Request    session    ${SOUTHBOUND_CONFIG_API}${mininet_ip}:6634
     Should Be Equal As Strings    ${resp.status_code}    200
 
 Add Bridge To Ovsdb Node
