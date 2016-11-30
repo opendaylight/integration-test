@@ -14,6 +14,7 @@ Variables         ../variables/Variables.py
 ...               dpnid2=2    portname2= BR2-eth1    ipaddress2=3.3.3.3
 &{L3VPN_CREATE_DEFAULT}    vpnid=4ae8cd92-48ca-49b5-94e1-b2921a261111    name=vpn1    rd=["2200:1"]    exportrt=["2200:1","8800:1"]    importrt=["2200:1","8800:1"]    tenantid=6c53df3a-3456-11e5-a151-feff819cdc9f
 ${VAR_BASE}       ${CURDIR}/../variables/vpnservice/
+${MAC_REGEX}      ([0-9A-Fa-f]{2}[:]){5}([0-9A-Fa-f]{2})
 
 *** Keywords ***
 VPN Create L3VPN
@@ -76,3 +77,38 @@ ITM Delete Tunnel
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     [Return]    ${resp.content}
+
+Verify Flows Are Present For ELAN
+    [Arguments]    ${ip}
+    [Documentation]    Verify Flows Are Present For ELAN
+    ${flow_output}=    Run Command On Remote System    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    ${resp}=    Should Not Contain    ${flow_output}    goto_table:20
+    Log To Console    ${resp}
+    ${resp}=    Should Not Contain    ${flow_output}    goto_table:21
+    Log To Console    ${resp}
+    ${resp}=    Should Contain    ${flow_output}    table=50
+    Log    ${resp}
+    ${resp}=    Should Contain    ${flow_output}    table=51
+    Log    ${resp}
+    ${resp}=    Should Contain    ${flow_output}    goto_table:50
+    Log To Console    ${resp}
+    ${table50_output} =    Get Lines Containing String    ${flow_output}    table=50
+    Log To Console    ${table50_output}
+    @{table50_output}=    Split To Lines    ${table50_output}    0    -1
+    : FOR    ${line}    IN    @{table50_output}
+    \    Log To Console    ${line}
+    \    ${resp}=    Should Match Regexp    ${line}    ${MAC_REGEX}
+    \    Log    ${resp}
+
+Verify Flows Are Present For L3VPN
+    [Arguments]    ${ip}    ${vm_ips}
+    [Documentation]    Verify Flows Are Present For L3VPN
+    ${flow_output}=    Run Command On Remote System    ${ip}    sudo ovs-ofctl -O OpenFlow13 dump-flows br-int
+    ${resp}=    Should Contain    ${flow_output}    table=21
+    Log    ${resp}
+    ${resp}=    Should Contain    ${flow_output}    goto_table:21
+    Log    ${resp}
+    : FOR    ${i}    IN    @{vm_ips}
+    \    ${resp}=    Should Contain    ${flow_output}    ${i}
+    \    Log To Console    ${resp}
+
