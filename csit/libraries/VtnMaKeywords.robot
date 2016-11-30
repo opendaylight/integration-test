@@ -98,8 +98,8 @@ Collect Debug Info
     ${result}    Read Until    mininet>
     write    ${DUMPFLOWS_OF13}
     ${result}    Read Until    mininet>
-    Log    ${resp_odl_inventory.content}
-    Log    ${resp_vtn_inventory.content}
+    Log    ${resp_odl_inventory.content} | python -m json.tool
+    Log    ${resp_vtn_inventory.content} | python -m json.tool
     Should Be Equal As Strings    ${resp_vtn_inventory.status_code}    200
 
 Add a Topology wait

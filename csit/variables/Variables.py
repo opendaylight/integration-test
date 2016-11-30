@@ -110,7 +110,7 @@ FLOWFILTERS_UPDATE = 'flowfilterentries'
 
 # Common APIs
 CONFIG_NODES_API = '/restconf/config/opendaylight-inventory:nodes'
-OPERATIONAL_NODES_API = '/restconf/operational/opendaylight-inventory:nodes'
+OPERATIONAL_NODES_API = '/restconf/operational/opendaylight-inventory:nodes | python -m json.tool'
 OPERATIONAL_NODES_NETVIRT = '/restconf/operational/network-topology:network-topology/topology/netvirt:1'
 OPERATIONAL_TOPO_API = '/restconf/operational/network-topology:' \
                        'network-topology'
@@ -122,7 +122,7 @@ CONTROLLER_CONFIG_MOUNT = ('/restconf/config/network-topology:'
 CONFIG_API = '/restconf/config'
 OPERATIONAL_API = '/restconf/operational'
 MODULES_API = '/restconf/modules'
-VTN_INVENTORY_NODE_API = '/restconf/operational/vtn-inventory:vtn-nodes'
+VTN_INVENTORY_NODE_API = '/restconf/operational/vtn-inventory:vtn-nodes | python -m json.tool'
 
 # NEMO Variables
 PREDEFINE_ROLE_URI = '/restconf/config/nemo-user:user-roles'
