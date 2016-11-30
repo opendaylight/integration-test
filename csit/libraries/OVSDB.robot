@@ -11,7 +11,7 @@ Variables         ../variables/Variables.py
 
 *** Variables ***
 ${OVSDB_CONFIG_DIR}    ../variables/ovsdb
-${SOUTHBOUND_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:%2F%2F
+${SOUTHBOUND_CONFIG_API}    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:
 
 *** Keywords ***
 Connect To Ovsdb Node
