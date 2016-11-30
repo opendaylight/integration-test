@@ -676,3 +676,9 @@ Sync_Status_Should_Be_True
     [Documentation]    Verify that cluster node is in sync with others
     ${status}    Get_Sync_Status_Of_Member    ${controller_index}
     BuiltIn.Should_Be_True    ${status}
+
+Wait_For_Cluster_Ready
+    : FOR    ${index}    IN RANGE    1    ${NUM_ODL_SYSTEM}+1
+    \    ${session} =    Resolve_Http_Session_For_Member    member_index=${index}
+    \    Wait until Keyword succeeds    5min    5 sec    TemplatedRequests.Get_As_Json_Templated    session=${session}    folder=${RESTCONF_MODULES_DIR}
+    \    ...    verify=False
