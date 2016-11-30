@@ -1,0 +1,6 @@
+{
+  "tunnel-monitor-params": {
+    "enabled": true,
+    "monitor-protocol": "odl-interface:tunnel-monitoring-type-lldp"
+                           }
+}
