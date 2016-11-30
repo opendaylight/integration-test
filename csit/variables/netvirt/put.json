@@ -1,0 +1,7 @@
+put = {
+  "tunnel-monitor-params": {
+    "enabled": false,
+    "monitor-protocol": "odl-interface:tunnel-monitoring-type-bfd"
+  }
+}
+
