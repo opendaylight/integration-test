@@ -32,7 +32,7 @@ ${DEVICE_COUNT}    500
 ${WORKER_COUNT}    10
 ${TIMEOUT_FACTOR}    10
 ${device_name_base}    netconf-scaling-device
-${device_type}    default
+${device_type}    full-uri-device
 ${base_port}      17830
 
 *** Test Cases ***
