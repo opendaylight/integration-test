@@ -11,30 +11,41 @@ Documentation     netconf-connector readiness test suite.
 ...               Try to detect whether Netconf is up and running and wait for
 ...               it for a configurable time if it is not yet up and running.
 ...
-...               By default this is done by querying netconf-connector and
+...               This is achieved by the test Check_Whether_Netconf_Is_Ready if the feature
+...               odl-netconf-(clustered-)topology is installed. Other test cases are basically
+...               dedicated to test readiness of the odl-netconf-connector-ssh|all feature.
+...
+...               Testing netconf readiness is done by creating a netconf test device configured
+...               to all odl nodes one by one and check if GET works from mounted
+...               device. GET is done from all the odl nodes. This is done by tc
+...               Check_Whether_Netconf_Is_Ready and it works for both, 1 or 3 nodes
+...               setup. This test case is skipped (Pass Execution) if the usage of netconf
+...               connector if indicated.
+...
+...               The following testcases check netconf by querying netconf-connector and
 ...               seeing whether it works. Some testsuites expect netconf-connector
 ...               to be ready as soon as possible and will fail if it is not. We
 ...               want to see a failure if this is the cause of the failure.
 ...
-...               If the netconf-connector is not ready upon startup (as seen by
-...               the first test case failing), the second case starts to repeat
-...               the query for a minute to see whether it is going "to fix itself"
+...               The usage of netconf-connector happens in other suites than netconf,
+...               especially bgpcep to configure odl's bgp peers. Testing the readiness
+...               of the netconf-connector must be invoked by the Robot invocation
+...               argument USE_NETCONF_CONNECTOR. By default it is set to False and
+...               test jobs should be responsible to set it to True if needed. In
+...               default configuration the affected test cases waits for the netconf
+...               topology to appear only.
+...
+...               If the netconf-connector is not ready upon startup and it's usage is set
+...               to True (as seen by the second test case failing), the next case starts
+...               to repeat the query for a minute to see whether it is going "to fix itself"
 ...               within the minute. If yes, then the testcase will pass, which
 ...               indicates that the "ODL cooldown" of 1 minute is not long enough
 ...               to allow for netconf-connector to initialize properly.
 ...               If this fails, one more check with even longer timeout is run.
+...               If the Check_Whether_Netconf_Is_Up_And_Running pass, then the next test
+...               case does nothing.
 ...
-...               If the USE_NETCONF_CONNECTOR is forced to be False by the Robot
-...               invocation argument, then the suite does not use netconf
-...               connector for the readiness detection but merely waits for the
-...               Netconf topology to appear. This is a weaker condition when
-...               Netconf connector is about to be used but is necessary if the
-...               suite in question does not use the Netconf connector.
-...
-...               If the first test case passed, then the second test case does
-...               nothing.
-...
-...               The third test case then checks whether Netconf can pretty print
+...               The other test case then checks whether Netconf can pretty print
 ...               data. This sometimes makes problems, most likely due to too
 ...               new Robot Requests library with an interface incompatible with
 ...               this test suite.
@@ -42,6 +53,8 @@ Suite Setup       Setup_Everything
 Suite Teardown    Teardown_Everything
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_If_Test_Failed
+Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
+Resource          ${CURDIR}/../../../libraries/KarafKeywords.robot
 Library           RequestsLibrary
 Resource          ${CURDIR}/../../../libraries/NetconfKeywords.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
@@ -52,18 +65,26 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 ${netconf_is_ready}    False
 ${NETCONFREADY_WAIT}    60s
 ${NETCONFREADY_FALLBACK_WAIT}    1200s
-${USE_NETCONF_CONNECTOR}    True
+${USE_NETCONF_CONNECTOR}    False
 ${DEBUG_LOGGING_FOR_EVERYTHING}    False
 ${NETCONFREADY_WAIT_MDSAL}    60s
+${DEVICE_NAME}    test-device
+${DEVICE_PORT}    1830
+${NETCONF_FOLDER}    ${CURDIR}/../../../variables/netconf/device
 
 *** Test Cases ***
-Check_Whether_Netconf_Is_Up_And_Running
+Check_Whether_Netconf_Topology_Is_Ready
+    [Documentation]    Checks netconf readiness.
+    BuiltIn.Pass_Execution_If    ${USE_NETCONF_CONNECTOR}==${True}    Netconf connector is used. Next testcases do their job in this case.
+    Check_Netconf_Topology_Ready
+
+Check_Whether_Netconf_Connector_Is_Up_And_Running
     [Documentation]    Make one request to Netconf topology to see whether Netconf is up and running.
     [Tags]    exclude
     Check_Netconf_Up_And_Running
     BuiltIn.Set_Suite_Variable    ${netconf_is_ready}    True
 
-Wait_For_Netconf
+Wait_For_Netconf_Connector
     [Documentation]    Wait for the Netconf to go up for configurable time.
     [Tags]    critical
     BuiltIn.Run_Keyword_Unless    ${netconf_is_ready}    BuiltIn.Wait_Until_Keyword_Succeeds    ${NETCONFREADY_WAIT}    1s    Check_Netconf_Up_And_Running
@@ -121,6 +142,41 @@ Teardown_Everything
     [Documentation]    Destroy all sessions in the requests library and log into karaf.log that the netconf readiness wait is over.
     KarafKeywords.Log_Message_To_Controller_Karaf    Ending Netconf readiness test suite
     RequestsLibrary.Delete_All_Sessions
+
+Check_Netconf_Topology_Ready
+    [Documentation]    Verifies the netconf readiness for every odl node.
+    : FOR    ${idx}    IN    @{ClusterManagement__member_index_list}
+    \    Verify_Netconf_Topology_Ready_For_Node    ${idx}
+
+Verify_Netconf_Topology_Ready_For_Node
+    [Arguments]    ${node_index}
+    [Documentation]    Netconf readines for a node is done by creating a netconf device connected to that node
+    ...    and performing GET operation got from the device's mount point.
+    ${session} =    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${node_index}
+    Configure_Netconf_Device    ${DEVICE_NAME}    ${session}    ${ODL_SYSTEM_${node_index}_IP}
+    &{mapping}    BuiltIn.Create_Dictionary    DEVICE_NAME=${DEVICE_NAME}    MODULE_TYPE=sal-restconf-service:json-restconf-service-impl    MODULE_NAME=json-restconf-service-impl
+    Wait_Netconf_Device_Mounted    ${DEVICE_NAME}    ${session}    ${mapping}
+    : FOR    ${idx}    IN    @{ClusterManagement__member_index_list}
+    \    ${mod_session}=    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${idx}
+    \    BuiltIn.Wait_Until_Keyword_Succeeds    3x    3s    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_FOLDER}${/}module    mapping=${mapping}
+    \    ...    session=${mod_session}
+    [Teardown]    Remove_Netconf_Device    ${DEVICE_NAME}    ${session}
+
+Configure_Netconf_Device
+    [Arguments]    ${device_name}    ${session}    ${device_ip}
+    [Documentation]    Configures the device via REST api.
+    NetconfKeywords.Configure_Device_In_Netconf    ${device_name}    device_type=full-uri-device    device_port=${DEVICE_PORT}    device_address=${device_ip}    device_user=admin    device_password=admin
+    ...    session=${session}
+
+Remove_Netconf_Device
+    [Arguments]    ${device_name}    ${session}
+    [Documentation]    Removes configured device
+    NetconfKeywords.Remove_Device_From_Netconf    ${device_name}    session=${session}
+
+Wait_Netconf_Device_Mounted
+    [Arguments]    ${device_name}    ${session}    ${mapping}    ${timeout}=30s
+    [Documentation]    Checks weather the device was mounted.
+    BuiltIn.Wait_Until_Keyword_Succeeds    ${timeout}    3s    TemplatedRequests.Get_As_Xml_Templated    ${NETCONF_FOLDER}${/}full-uri-mount    mapping=${mapping}    session=${session}
 
 Check_Netconf_Up_And_Running
     [Arguments]    ${pretty_print}=${EMPTY}
