@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_86d62fc4",
+        "filename": "csit/libraries/ClusterManagement.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 359,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-12-01T10:29:46Z",
+      "side": 1,
+      "message": "Underscores. Never mind.",
+      "range": {
+        "startLine": 359,
+        "startChar": 21,
+        "endLine": 359,
+        "endChar": 22
+      },
+      "revId": "91cea006bff0b9d0efd14c52704dd0c1a14516de",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
