@@ -93,16 +93,16 @@ Get Flows
     [Arguments]    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
     [Documentation]    Get the Flows from DPN1 and DPN2
     Log    "Fetching the flows from DPN1"
-    ${resp}=    Run Command On Remote System    ${OS_COMPUTE_1_IP}    sudo ovs-ofctl dump-flows br-int -O OpenFlow13
+    ${resp}    ${rc}    Run Command On Remote System    ${OS_COMPUTE_1_IP}    sudo ovs-ofctl dump-flows br-int -O OpenFlow13
     Log    ${resp}
     Log    "Fetching the Groups from DPN1"
-    ${resp}=    Run Command On Remote System    ${OS_COMPUTE_1_IP}    sudo ovs-ofctl dump-groups br-int -OOpenflow13
+    ${resp}    ${rc}    Run Command On Remote System    ${OS_COMPUTE_1_IP}    sudo ovs-ofctl dump-groups br-int -OOpenflow13
     Log    ${resp}
     Log    "Fetching the flows from DPN2"
-    ${resp}=    Run Command On Remote System    ${OS_COMPUTE_2_IP}    sudo ovs-ofctl dump-flows br-int -O OpenFlow13
+    ${resp}    ${rc}    Run Command On Remote System    ${OS_COMPUTE_2_IP}    sudo ovs-ofctl dump-flows br-int -O OpenFlow13
     Log    ${resp}
     Log    "Fetching the Groups from DPN2"
-    ${resp}=    Run Command On Remote System    ${OS_COMPUTE_2_IP}    sudo ovs-ofctl dump-groups br-int -OOpenflow13
+    ${resp}    ${rc}    Run Command On Remote System    ${OS_COMPUTE_2_IP}    sudo ovs-ofctl dump-groups br-int -OOpenflow13
     Log    ${resp}
 
 Create Security Group and Validate

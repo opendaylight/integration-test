@@ -144,7 +144,7 @@ Get Process ID Based On Regex On Remote System
     ...    the expected PID
     # doing the extra -v grep in this command to exclude the grep process itself from the output
     ${cmd}=    Set Variable    ps -elf | grep -v grep | grep ${regex_string_to_match_on} | awk '{print $4}'
-    ${output}=    Run Command On Remote System    ${system}    ${cmd}    user=${user}    password=${password}    prompt=${prompt}
+    ${output}    ${rc}    Run Command On Remote System    ${system}    ${cmd}    user=${user}    password=${password}    prompt=${prompt}
     ...    prompt_timeout=${prompt_timeout}
     # ${output} contains the system prompt and all we want is the value of the number
     ${pid}=    Fetch From Left    ${output}    \r
@@ -156,7 +156,7 @@ Get Process Thread Count On Remote System
     [Arguments]    ${system}    ${pid}    ${user}=${TOOLS_SYSTEM_USER}    ${password}=${EMPTY}    ${prompt}=${DEFAULT_LINUX_PROMPT}    ${prompt_timeout}=30s
     [Documentation]    Executes the ps command to retrieve the lightweight process (aka thread) count.
     ${cmd}=    Set Variable    ps --no-headers -o nlwp ${pid}
-    ${output}=    Run Command On Remote System    ${system}    ${cmd}    user=${user}    password=${password}    prompt=${prompt}
+    ${output}    ${rc}    Run Command On Remote System    ${system}    ${cmd}    user=${user}    password=${password}    prompt=${prompt}
     ...    prompt_timeout=${prompt_timeout}
     # ${output} contains the system prompt and all we want is the value of the number
     ${thread_count}=    Fetch From Left    ${output}    \r

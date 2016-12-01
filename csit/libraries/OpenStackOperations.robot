@@ -213,7 +213,7 @@ Create Vm Instance With Port On Compute Node
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${port_id}=    Get Port Id    ${port_name}    ${devstack_conn_id}
-    ${hostname_compute_node}=    Run Command On Remote System    ${compute_node}    hostname
+    ${hostname_compute_node}    ${rc}    Run Command On Remote System    ${compute_node}    hostname
     ${output}=    Write Commands Until Prompt    nova boot --image ${image} --flavor ${flavor} --nic port-id=${port_id} ${vm_instance_name} --security-groups ${sg} --availability-zone nova:${hostname_compute_node}    30s
     Log    ${output}
     Wait Until Keyword Succeeds    25s    5s    Verify VM Is ACTIVE    ${vm_instance_name}
