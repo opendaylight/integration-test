@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_8874799d",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 253,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-12-01T16:52:12Z",
+      "side": 1,
+      "message": "the one big downside on this is that when there truly is trouble/bugs in our environment and no instances will be getting their IPs then this test case to check for addresses will spin for something like 18m.\n\nwe can probably think of a smarter way, like if the first VM fails after 3m to get an IP then just check each other VM once (no polling).  That will be some trickier logic though.\n\nworth it or just go with this?",
+      "range": {
+        "startLine": 253,
+        "startChar": 9,
+        "endLine": 253,
+        "endChar": 44
+      },
+      "revId": "bedad900e170a2d8ed174a6130bdb6ab82cc4990",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
