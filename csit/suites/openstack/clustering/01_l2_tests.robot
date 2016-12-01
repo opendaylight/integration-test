@@ -145,21 +145,21 @@ Take Down ODL3
 
 Connectivity Tests From Vm Instance1 In l2_net_1
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}[1]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[2]
+    ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}    @{DHCP_IPS}[0]
     Log    ${dst_ip_list}
     Get OvsDebugInfo
     OpenStackOperations.Test Operations From Vm Instance    l2_net_1    @{NET_1_VM_IPS}[0]    ${dst_ip_list}
 
 Connectivity Tests From Vm Instance2 In l2_net_1
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}[0]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[2]
+    ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}    @{DHCP_IPS}[0]
     Log    ${dst_ip_list}
     Get OvsDebugInfo
     OpenStackOperations.Test Operations From Vm Instance    l2_net_1    @{NET_1_VM_IPS}[1]    ${dst_ip_list}
 
 Connectivity Tests From Vm Instance3 In l2_net_1
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}[0]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[1]
+    ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}    @{DHCP_IPS}[0]
     Log    ${dst_ip_list}
     Get OvsDebugInfo
     OpenStackOperations.Test Operations From Vm Instance    l2_net_1    @{NET_1_VM_IPS}[2]    ${dst_ip_list}
@@ -174,21 +174,21 @@ Take Down ODL1 and ODL2
 
 Connectivity Tests From Vm Instance1 In l2_net_2
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[1]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[2]
+    ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}    @{DHCP_IPS}[1]
     Log    ${dst_ip_list}
     Get OvsDebugInfo
     OpenStackOperations.Test Operations From Vm Instance    l2_net_2    @{NET_2_VM_IPS}[0]    ${dst_ip_list}
 
 Connectivity Tests From Vm Instance2 In l2_net_2
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[2]
+    ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}    @{DHCP_IPS}[1]
     Log    ${dst_ip_list}
     Get OvsDebugInfo
     OpenStackOperations.Test Operations From Vm Instance    l2_net_2    @{NET_2_VM_IPS}[1]    ${dst_ip_list}
 
 Connectivity Tests From Vm Instance3 In l2_net_2
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[1]
+    ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}    @{DHCP_IPS}[1]
     Log    ${dst_ip_list}
     Get OvsDebugInfo
     OpenStackOperations.Test Operations From Vm Instance    l2_net_2    @{NET_2_VM_IPS}[2]    ${dst_ip_list}

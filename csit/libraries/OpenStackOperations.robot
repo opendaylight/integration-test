@@ -235,6 +235,7 @@ Verify VMs Received DHCP Lease
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${ip_list}    Create List
+    : FOR    ${INDEX}    IN RANGE    1    4
     : FOR    ${vm}    IN    @{vm_list}
     \    ${output}=    Write Commands Until Prompt    nova console-log ${vm} | grep -i "obtained"    30s
     \    ${dhcp_ip_line}=    Write Commands Until Prompt    nova console-log ${vm} | grep "^nameserver"    30s
