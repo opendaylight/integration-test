@@ -44,5 +44,5 @@ Log Environment Details
     ...    needed in the future.
     ${output}=    Get Process ID Based On Regex On Remote System    ${ODL_SYSTEM_IP}    java.*karaf    ${ODL_SYSTEM_USER}
     Log    ${output}
-    ${output}=    Run Command On Remote System    ${ODL_SYSTEM_IP}    netstat -na | grep 6633    ${ODL_SYSTEM_USER}
+    ${output}    ${rc}    Run Command On Remote System    ${ODL_SYSTEM_IP}    netstat -na | grep 6633    ${ODL_SYSTEM_USER}
     Log    ${output}

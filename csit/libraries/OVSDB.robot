@@ -149,7 +149,7 @@ Add Multiple Managers to OVS
 Get DPID
     [Arguments]    ${ip}
     [Documentation]    Returns the dpnid from the system at the given ip address using ovs-ofctl assuming br-int is present.
-    ${output} =    Run Command On Remote System    ${ip}    sudo ovs-ofctl show -O Openflow13 br-int | head -1 | awk -F "dpid:" '{print $2}'
+    ${output}    ${rc}    Run Command On Remote System    ${ip}    sudo ovs-ofctl show -O Openflow13 br-int | head -1 | awk -F "dpid:" '{print $2}'
     ${dpnid} =    Convert To Integer    ${output}    16
     Log    ${dpnid}
     [Return]    ${dpnid}
@@ -157,7 +157,7 @@ Get DPID
 Get Subnet
     [Arguments]    ${ip}
     [Documentation]    Return the subnet from the system at the given ip address and interface
-    ${output} =    Run Command On Remote System    ${ip}    /usr/sbin/ip addr show | grep ${ip} | cut -d' ' -f6
+    ${output}    ${rc}    Run Command On Remote System    ${ip}    /usr/sbin/ip addr show | grep ${ip} | cut -d' ' -f6
     ${interface} =    ipaddress.ip_interface    ${output}
     ${network}=    Set Variable    ${interface.network.__str__()}
     [Return]    ${network}
@@ -165,13 +165,13 @@ Get Subnet
 Get Ethernet Adapter
     [Arguments]    ${ip}
     [Documentation]    Returns the ethernet adapter name from the system at the given ip address using ip addr show.
-    ${adapter} =    Run Command On Remote System    ${ip}    /usr/sbin/ip addr show | grep ${ip} | cut -d " " -f 11
+    ${adapter}    ${rc}    Run Command On Remote System    ${ip}    /usr/sbin/ip addr show | grep ${ip} | cut -d " " -f 11
     Log    ${adapter}
     [Return]    ${adapter}
 
 Get Default Gateway
     [Arguments]    ${ip}
     [Documentation]    Returns the default gateway at the given ip address using route command.
-    ${gateway} =    Run Command On Remote System    ${ip}    /usr/sbin/route -n | grep '^0.0.0.0' | cut -d " " -f 10
+    ${gateway}    ${rc}    Run Command On Remote System    ${ip}    /usr/sbin/route -n | grep '^0.0.0.0' | cut -d " " -f 10
     Log    ${gateway}
     [Return]    ${gateway}
