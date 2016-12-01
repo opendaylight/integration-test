@@ -22,6 +22,30 @@
       "revId": "0d7c4c5d8b040af5b01c36828caaa9108b070a25",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a57240e3",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 13,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-12-01T16:12:44Z",
+      "side": 1,
+      "message": "Yes, this caused a breakage. Before that patch the method would just return a single value. After the patch, the method returns the single value plus a return code.\n\nThe vpnservice tests would use that value directly as input to neutron apis. After the patch, now you get the value plus the return and that is passed to the neutron api and it pukes. So The fix here is to make the caller keep the value and rc separate.\n\nMost other users of the method were doing greps against the returned values so they didn\u0027t break when both values were returned.\n\nSo I don\u0027t think it needs to be reverted if we can fix one offs like this.",
+      "parentUuid": "1a622d24_058974ca",
+      "range": {
+        "startLine": 13,
+        "startChar": 0,
+        "endLine": 13,
+        "endChar": 50
+      },
+      "revId": "0d7c4c5d8b040af5b01c36828caaa9108b070a25",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
     }
   ]
 }
