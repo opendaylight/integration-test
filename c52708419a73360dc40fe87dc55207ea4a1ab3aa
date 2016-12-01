@@ -25,6 +25,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_68ee3d24",
+        "filename": "csit/suites/sfc/SFC_Basic/110__sfc_rendered_service_paths_logical.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-12-01T17:11:38Z",
+      "side": 1,
+      "message": "In fact, you should use Setup and TearDowns also in the test cases. That way you ensure that the test is cleaned up even when failed.",
+      "parentUuid": "1a622d24_0896a994",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 6
+      },
+      "revId": "c52708419a73360dc40fe87dc55207ea4a1ab3aa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_055e9445",
         "filename": "csit/variables/sfc/master/service-function-chains-logicalsff.json",
         "patchSetId": 1
