@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_6682f353",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 110,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-12-01T08:44:55Z",
+      "side": 1,
+      "message": "This looks as a very specific function to be included in a library. I think a proper generic function should be done, and the specific parts be kept at the tests themselves",
+      "range": {
+        "startLine": 90,
+        "startChar": 0,
+        "endLine": 110,
+        "endChar": 23
+      },
+      "revId": "439cd75382ab1b4d6a7d076536ea9b597fc8bdd6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
