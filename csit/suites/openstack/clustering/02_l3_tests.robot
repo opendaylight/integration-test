@@ -131,30 +131,24 @@ Take Down ODL1 and ODL2
 
 Connectivity Tests From Vm Instance1 In l3_net_1
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}[1]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[2]
+    ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}    @{NET_2_VM_IPS}
     Log    ${dst_ip_list}
-    ${other_dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[2]    @{NET_2_VM_IPS}[1]
-    Log    ${other_dst_ip_list}
     Get OvsDebugInfo
-    OpenStackOperations.Test Operations From Vm Instance    l3_net_1    @{NET_1_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    OpenStackOperations.Test Operations From Vm Instance    l3_net_1    @{NET_1_VM_IPS}[0]    ${dst_ip_list}
 
 Connectivity Tests From Vm Instance2 In l3_net_1
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}[0]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[2]
+    ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}    @{NET_2_VM_IPS}
     Log    ${dst_ip_list}
-    ${other_dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[2]
-    Log    ${other_dst_ip_list}
     Get OvsDebugInfo
-    OpenStackOperations.Test Operations From Vm Instance    l3_net_1    @{NET_1_VM_IPS}[1]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    OpenStackOperations.Test Operations From Vm Instance    l3_net_1    @{NET_1_VM_IPS}[1]    ${dst_ip_list}
 
 Connectivity Tests From Vm Instance3 In l3_net_1
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}[0]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[1]
+    ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}    @{NET_2_VM_IPS}
     Log    ${dst_ip_list}
-    ${other_dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[2]
-    Log    ${other_dst_ip_list}
     Get OvsDebugInfo
-    OpenStackOperations.Test Operations From Vm Instance    l3_net_1    @{NET_1_VM_IPS}[2]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    OpenStackOperations.Test Operations From Vm Instance    l3_net_1    @{NET_1_VM_IPS}[2]    ${dst_ip_list}
 
 Bring Up ODL1 and ODL2
     [Documentation]    Bring up ODL1 and ODL2 again
@@ -166,30 +160,24 @@ Take Down ODL2 and ODL3
 
 Connectivity Tests From Vm Instance1 In l3_net_2
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[1]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[2]
+    ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}    @{NET_2_VM_IPS}
     Log    ${dst_ip_list}
-    ${other_dst_ip_list}=    Create List    @{NET_1_VM_IPS}[0]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
-    Log    ${other_dst_ip_list}
     Get OvsDebugInfo
-    OpenStackOperations.Test Operations From Vm Instance    l3_net_2    @{NET_2_VM_IPS}[0]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    OpenStackOperations.Test Operations From Vm Instance    l3_net_2    @{NET_2_VM_IPS}[0]    ${dst_ip_list}
 
 Connectivity Tests From Vm Instance2 In l3_net_2
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[2]
+    ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}    @{NET_2_VM_IPS}
     Log    ${dst_ip_list}
-    ${other_dst_ip_list}=    Create List    @{NET_1_VM_IPS}[0]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
-    Log    ${other_dst_ip_list}
     Get OvsDebugInfo
-    OpenStackOperations.Test Operations From Vm Instance    l3_net_2    @{NET_2_VM_IPS}[1]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    OpenStackOperations.Test Operations From Vm Instance    l3_net_2    @{NET_2_VM_IPS}[1]    ${dst_ip_list}
 
 Connectivity Tests From Vm Instance3 In l3_net_2
     [Documentation]    Logging to the vm instance using generated key pair.
-    ${dst_ip_list}=    Create List    @{NET_2_VM_IPS}[0]    @{DHCP_IPS}[1]    @{NET_2_VM_IPS}[1]
+    ${dst_ip_list}=    Create List    @{NET_1_VM_IPS}    @{NET_2_VM_IPS}
     Log    ${dst_ip_list}
-    ${other_dst_ip_list}=    Create List    @{NET_1_VM_IPS}[0]    @{DHCP_IPS}[0]    @{NET_1_VM_IPS}[1]    @{NET_1_VM_IPS}[2]
-    Log    ${other_dst_ip_list}
     Get OvsDebugInfo
-    OpenStackOperations.Test Operations From Vm Instance    l3_net_2    @{NET_2_VM_IPS}[2]    ${dst_ip_list}    l2_or_l3=l3    list_of_external_dst_ips=${other_dst_ip_list}
+    OpenStackOperations.Test Operations From Vm Instance    l3_net_2    @{NET_2_VM_IPS}[2]    ${dst_ip_list}
 
 Bring Up ODL2 and ODL3
     [Documentation]    Bring up ODL2 and ODL3 again.
