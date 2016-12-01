@@ -1,0 +1,1 @@
+integration/test/csit/suites/sfc/SFC_Persistency/010__sfc_persistency.robot
