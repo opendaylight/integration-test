@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_2590f0eb",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 475,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-12-01T16:07:10Z",
+      "side": 1,
+      "message": "minor nit, does this go better right after the show br-int?",
+      "revId": "ba958a13a425eadd1dde3a7e63a7861d045761a3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
