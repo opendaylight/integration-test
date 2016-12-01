@@ -102,6 +102,15 @@ List Ports
     Log    ${output}
     [Return]    ${output}
 
+List Nova VMs
+    [Documentation]    List VMs and return output with nova client.
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    nova list    30s
+    Close Connection
+    Log    ${output}
+    [Return]    ${output}
+
 Create And Associate Floating IPs
     [Arguments]    ${external_net}    @{vm_list}
     [Documentation]    Create and associate floating IPs to VMs with nova request
@@ -241,7 +250,7 @@ Verify VMs Received DHCP Lease
     \    Log    ${output}
     \    @{output_words}    Split String    ${output}
     \    @{dhcp_output_words}    Split String    ${dhcp_ip_line}
-    \    Should Contain    ${output}    obtained
+    \    Run Keyword And Continue On Failure    Should Contain    ${output}    obtained
     \    Append To List    ${ip_list}    @{output_words}[2]
     [Return]    ${ip_list}    @{dhcp_output_words}[1]
 
@@ -463,6 +472,7 @@ Get DumpFlows And Ovsconfig
     Write Commands Until Expected Prompt    sudo ovs-ofctl dump-flows br-int -OOpenFlow13    ]>
     Write Commands Until Expected Prompt    sudo ovs-ofctl dump-groups br-int -OOpenFlow13    ]>
     Write Commands Until Expected Prompt    sudo ovs-ofctl dump-group-stats br-int -OOpenFlow13    ]>
+    Write Commands Until Expected Prompt    sudo ovs-ofctl dump-ports-desc br-int -OOpenFlow13    ]>
 
 Get ControlNode Connection
     ${control_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
@@ -488,6 +498,7 @@ Show Debugs
     \    ${output}=    Write Commands Until Prompt    nova show ${index}    30s
     \    Log    ${output}
     Close Connection
+    List Nova VMs
     List Networks
     List Subnets
     List Ports
