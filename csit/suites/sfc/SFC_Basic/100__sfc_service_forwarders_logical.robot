@@ -77,3 +77,4 @@ Init Suite
     [Documentation]    Initialize session and ODL version specific variable. Logical SFFs
     Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
     log    ${ODL_STREAM}
+
