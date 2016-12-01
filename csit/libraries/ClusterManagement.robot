@@ -401,7 +401,7 @@ Count_Running_Karafs_On_Member
     [Arguments]    ${member_index}
     [Documentation]    Remotely execute grep for karaf process, return count as string.
     ${command} =    BuiltIn.Set_Variable    ps axf | grep karaf | grep -v grep | wc -l
-    ${count} =    Run_Bash_Command_On_Member    command=${command}    member_index=${member_index}
+    ${count}    ${rc} =    Run_Bash_Command_On_Member    command=${command}    member_index=${member_index}
     [Return]    ${count}
 
 Isolate_Member_From_List_Or_All
@@ -415,7 +415,7 @@ Isolate_Member_From_List_Or_All
     \    ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -I OUTPUT -p all --source ${source} --destination ${destination} -j DROP
     \    BuiltIn.Run_Keyword_If    "${index}" != "${isolate_member_index}"    Run_Bash_Command_On_Member    command=${command}    member_index=${isolate_member_index}
     ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -L -n
-    ${output} =    Run_Bash_Command_On_Member    command=${command}    member_index=${isolate_member_index}
+    ${output}    ${rc} =    Run_Bash_Command_On_Member    command=${command}    member_index=${isolate_member_index}
     BuiltIn.Log    ${output}
     ${updated_index_list} =    BuiltIn.Create_List    @{index_list}
     Collections.Remove_Values_From_List    ${updated_index_list}    ${isolate_member_index}
@@ -431,7 +431,7 @@ Rejoin_Member_From_List_Or_All
     \    ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -D OUTPUT -p all --source ${source} --destination ${destination} -j DROP
     \    BuiltIn.Run_Keyword_If    "${index}" != "${rejoin_member_index}"    Run_Bash_Command_On_Member    command=${command}    member_index=${rejoin_member_index}
     ${command} =    BuiltIn.Set_Variable    sudo /sbin/iptables -L -n
-    ${output} =    Run_Bash_Command_On_Member    command=${command}    member_index=${rejoin_member_index}
+    ${output}    ${rc} =    Run_Bash_Command_On_Member    command=${command}    member_index=${rejoin_member_index}
     BuiltIn.Log    ${output}
 
 Flush_Iptables_From_List_Or_All
