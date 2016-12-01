@@ -32,7 +32,7 @@ ${DEVICE_COUNT}    500
 ${WORKER_COUNT}    10
 ${TIMEOUT_FACTOR}    10
 ${device_name_base}    netconf-scaling-device
-${device_type}    default
+${device_type}    full-uri-device
 ${base_port}      17830
 
 *** Test Cases ***
@@ -84,6 +84,9 @@ Setup_Everything
     # Deploy testing tools.
     SSHLibrary.Put_File    ${CURDIR}/../../../../tools/netconf_tools/getter.py
     SSHLibrary.Put_File    ${CURDIR}/../../../libraries/AuthStandalone.py
+    ${device_type}=    BuiltIn.Set_Variable_If    ${USE_NETCONF_CONNECTOR}==${True}    default    ${device_type}
+    BuiltIn.Set_Suite_Variable    ${device_type}
+
 
 Teardown_Everything
     [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.

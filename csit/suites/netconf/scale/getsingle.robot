@@ -26,7 +26,7 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 *** Variables ***
 ${DEVICE_COUNT}    500
 ${TIMEOUT_FACTOR}    10
-${device_type}    default
+${device_type}    full-uri-device
 
 *** Test Cases ***
 Start_Test_Tool
@@ -61,6 +61,8 @@ Setup_Everything
     SetupUtils.Setup_Utils_For_Setup_And_Teardown
     NetconfKeywords.Setup_Netconf_Keywords
     KarafKeywords.Configure_Timeout_For_Karaf_Console    120s
+    ${device_type}=    BuiltIn.Set_Variable_If    ${USE_NETCONF_CONNECTOR}==${True}    default    ${device_type}
+    BuiltIn.Set_Suite_Variable    ${device_type}
 
 Teardown_Everything
     [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.
