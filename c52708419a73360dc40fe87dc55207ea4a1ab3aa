@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_0896a994",
+        "filename": "csit/suites/sfc/SFC_Basic/110__sfc_rendered_service_paths_logical.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 58,
+      "author": {
+        "id": 6139
+      },
+      "writtenOn": "2016-12-01T17:06:54Z",
+      "side": 1,
+      "message": "As a general comment, try to remove everything that was created in the test case, to avoid inconsisntences in later test cases; e.g. If RSP1 is created and only RSP1-Reverse is removed then the next time the RSP1 is created it will exist and the RSP1-Reverse will not be created",
+      "range": {
+        "startLine": 58,
+        "startChar": 0,
+        "endLine": 58,
+        "endChar": 6
+      },
+      "revId": "c52708419a73360dc40fe87dc55207ea4a1ab3aa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_055e9445",
+        "filename": "csit/variables/sfc/master/service-function-chains-logicalsff.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 6139
+      },
+      "writtenOn": "2016-12-01T17:06:54Z",
+      "side": 1,
+      "message": "Is it not necessary \"order\": 0 ?",
+      "range": {
+        "startLine": 11,
+        "startChar": 17,
+        "endLine": 11,
+        "endChar": 19
+      },
+      "revId": "c52708419a73360dc40fe87dc55207ea4a1ab3aa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e55a784f",
+        "filename": "csit/variables/sfc/master/service-function-chains-logicalsff.json",
+        "patchSetId": 1
+      },
+      "lineNbr": 25,
+      "author": {
+        "id": 6139
+      },
+      "writtenOn": "2016-12-01T17:06:54Z",
+      "side": 1,
+      "message": "Is it not necessary \"order\": 1 ?",
+      "range": {
+        "startLine": 25,
+        "startChar": 17,
+        "endLine": 25,
+        "endChar": 18
+      },
+      "revId": "c52708419a73360dc40fe87dc55207ea4a1ab3aa",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
