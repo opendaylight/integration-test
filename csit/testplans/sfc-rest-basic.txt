@@ -7,3 +7,6 @@ integration/test/csit/suites/sfc/SFC_Basic/050__sfc_service_schedule_types.robot
 integration/test/csit/suites/sfc/SFC_Basic/060__sfc_service_paths.robot
 integration/test/csit/suites/sfc/SFC_Basic/070__sfc_rendered_service_paths.robot
 integration/test/csit/suites/sfc/SFC_Basic/080__sfc_simple_clustering.robot
+integration/test/csit/suites/sfc/SFC_Basic/090__sfc_service_functions_logical.robot
+integration/test/csit/suites/sfc/SFC_Basic/100__sfc_service_forwarders_logical.robot
+integration/test/csit/suites/sfc/SFC_Basic/110__sfc_rendered_service_paths_logical.robot
