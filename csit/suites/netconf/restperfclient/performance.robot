@@ -37,7 +37,7 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 ${DEVICE_NAME}    ${FIRST_TESTTOOL_PORT}-sim-device
 ${REQUEST_COUNT}    65536
 ${directory_with_crud_templates}    ${CURDIR}/../../../variables/netconf/CRUD
-${device_type}    default
+${device_type}    full-uri-device
 
 *** Test Cases ***
 Start_Testtool
@@ -95,6 +95,8 @@ Setup_Everything
     # Connect to the tools system (testtool)
     ${testtool}=    SSHKeywords.Open_Connection_To_Tools_System
     BuiltIn.Set_Suite_Variable    ${testtool}    ${testtool}
+    ${device_type}=    BuiltIn.Set_Variable_If    ${USE_NETCONF_CONNECTOR}==${True}    default    ${device_type}
+    BuiltIn.Set_Suite_Variable    ${device_type}
 
 Teardown_Everything
     [Documentation]    Teardown the test infrastructure, perform cleanup and release all resources.
