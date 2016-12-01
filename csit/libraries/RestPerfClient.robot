@@ -56,6 +56,7 @@ Restperfclient__Invoke_With_Timeout
     [Arguments]    ${timeout}    ${command}
     [Timeout]    ${timeout}
     Execute_Command_Passes    ${command} >${RestPerfClient__restperfclientlog} 2>&1
+    Execute_Command_Passes    cat ${RestPerfClient__restperfclientlog}
 
 Invoke_Restperfclient
     [Arguments]    ${timeout}    ${url}    ${testcase}=${EMPTY}    ${ip}=${ODL_SYSTEM_IP}    ${port}=${RESTCONFPORT}    ${count}=${REQUEST_COUNT}

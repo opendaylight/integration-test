@@ -35,6 +35,7 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 ${DIRECTORY_WITH_TEMPLATE_FOLDERS}    ${CURDIR}/../../../variables/netconf/RestPerfClient
 ${REQUEST_COUNT}    65536
 ${device_type}    default
+${test_device}    odl-mdsal-northbound-via-netconf-connector
 
 *** Test Cases ***
 Create_Test_Data_For_Direct_Access
@@ -72,12 +73,12 @@ Create_Test_Data_For_Connector_Access
 
 Configure_ODL_As_A_Device_On_Netconf
     [Documentation]    Configure ODL MDSAL Northbound as a Netconf device on a Netconf connector.
-    NetconfKeywords.Configure_Device_In_Netconf    odl-mdsal-northbound-via-netconf-connector    device_type=${device_type}    device_address=${ODL_SYSTEM_IP}    device_port=${ODL_NETCONF_MDSAL_PORT}    device_user=${ODL_NETCONF_USER}    device_password=${ODL_NETCONF_PASSWORD}
-    NetconfKeywords.Wait_Device_Connected    odl-mdsal-northbound-via-netconf-connector
+    NetconfKeywords.Configure_Device_In_Netconf    ${test_device}    device_type=${device_type}    device_address=${ODL_SYSTEM_IP}    device_port=${ODL_NETCONF_MDSAL_PORT}    device_user=${ODL_NETCONF_USER}    device_password=${ODL_NETCONF_PASSWORD}
+    NetconfKeywords.Wait_Device_Connected    ${test_device}
 
 Run_RestPerfClient_Through_Netconf_Connector
-    [Documentation]    Ask RestPerfClient to send the requests to the MDSAL mapped via a netconf connector.
-    ${url}=    BuiltIn.Set_Variable    /restconf/config/network-topology:network-topology/topology/topology-netconf/node/odl-mdsal-northbound-via-netconf-connector/yang-ext:mount/car:cars
+    [Documentation]    Ask RestPerfClient to send the requests to the MDSAL mapped via netconf topology device.
+    ${url}=    BuiltIn.Set_Variable    /restconf/config/network-topology:network-topology/topology/topology-netconf/node/${test_device}/yang-ext:mount/car:cars
     RestPerfClient.Invoke_Restperfclient    ${NETCONF_CONNECTOR_MDSAL_TIMEOUT}    ${url}    testcase=netconf-connector
 
 Check_For_Failed_Netconf_Connector_Requests
@@ -98,7 +99,7 @@ Check_For_Failed_Netconf_Connector_Requests
 Deconfigure_ODL_From_Netconf
     [Documentation]    Deconfigure the ODL MDSAL Northbound attached to a Netconf connector.
     [Setup]    SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-    NetconfKeywords.Remove_Device_From_Netconf    odl-mdsal-northbound-via-netconf-connector
+    NetconfKeywords.Remove_Device_From_Netconf    ${test_device}
 
 Cleanup_And_Collect_For_Connector_Access
     [Documentation]    Delete the test data produced by the Netconf connector MDSAL access.
