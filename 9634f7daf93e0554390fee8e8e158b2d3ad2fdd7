@@ -1,0 +1,96 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_654f8893",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 13
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-12-01T16:21:56Z",
+      "side": 1,
+      "message": "Empty line. See https://wiki.opendaylight.org/view/BestPractices/Commit_Messages",
+      "range": {
+        "startLine": 8,
+        "startChar": 2,
+        "endLine": 8,
+        "endChar": 3
+      },
+      "revId": "9634f7daf93e0554390fee8e8e158b2d3ad2fdd7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e5d718be",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 74,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-12-01T16:21:56Z",
+      "side": 1,
+      "message": "[Documentation] is missing.",
+      "range": {
+        "startLine": 74,
+        "startChar": 4,
+        "endLine": 74,
+        "endChar": 5
+      },
+      "revId": "9634f7daf93e0554390fee8e8e158b2d3ad2fdd7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_85ee248a",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-12-01T16:21:56Z",
+      "side": 1,
+      "message": "We need cluser-aware versions of TemplatedRequests keywords, Post_As_Json_Templated in this case.",
+      "range": {
+        "startLine": 79,
+        "startChar": 42,
+        "endLine": 79,
+        "endChar": 64
+      },
+      "revId": "9634f7daf93e0554390fee8e8e158b2d3ad2fdd7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_05db34ee",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-12-01T16:21:56Z",
+      "side": 1,
+      "message": "It would be better to move conveniences such as this inside ClusterManagement keywords themselves.",
+      "range": {
+        "startLine": 84,
+        "startChar": 27,
+        "endLine": 84,
+        "endChar": 53
+      },
+      "revId": "9634f7daf93e0554390fee8e8e158b2d3ad2fdd7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
