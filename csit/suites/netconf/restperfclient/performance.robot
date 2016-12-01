@@ -37,7 +37,7 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 ${DEVICE_NAME}    ${FIRST_TESTTOOL_PORT}-sim-device
 ${REQUEST_COUNT}    65536
 ${directory_with_crud_templates}    ${CURDIR}/../../../variables/netconf/CRUD
-${device_type}    default
+${device_type}    full-uri-device
 
 *** Test Cases ***
 Start_Testtool

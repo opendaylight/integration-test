@@ -26,7 +26,7 @@ Variables         ${CURDIR}/../../../variables/Variables.py
 *** Variables ***
 ${DEVICE_COUNT}    500
 ${TIMEOUT_FACTOR}    10
-${device_type}    default
+${device_type}    full-uri-device
 
 *** Test Cases ***
 Start_Test_Tool
