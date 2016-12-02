@@ -1,0 +1,11 @@
+{
+	"node": {
+		"node-id": "${ENDPOINT}",
+		"host": "127.0.0.1",
+		"port": "1830",
+		"username": "admin",
+		"password": "admin",
+		"tcp-only": "false",
+		"keepalive-delay": "0"
+	}
+}

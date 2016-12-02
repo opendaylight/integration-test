@@ -196,7 +196,7 @@ Run Command On Remote System
     BuiltIn.Log    ${password}
     ${conn_id}=    SSHLibrary.Open Connection    ${system}    prompt=${prompt}    timeout=${prompt_timeout}
     Flexible SSH Login    ${user}    ${password}
-    ${stdout}    ${stderr}    SSHLibrary.Execute Command    ${cmd}    return_stderr=True    return_rc=True
+    ${stdout}    ${stderr}    SSHLibrary.Execute Command    ${cmd}    return_stderr=True
     SSHLibrary.Close Connection
     Log    ${stderr}
     [Teardown]    SSHKeywords.Restore_Current_SSH_Connection_From_Index    ${current_ssh_connection.index}
