@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_ee5a554f",
+        "filename": "csit/libraries/Utils.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 479,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-12-02T13:42:10Z",
+      "side": 1,
+      "message": "use camel case as it is used above",
+      "range": {
+        "startLine": 479,
+        "startChar": 0,
+        "endLine": 479,
+        "endChar": 22
+      },
+      "revId": "cd933c452e16692fdcb14eec63615b8a37956da5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_990e8933",
+        "filename": "csit/suites/groupbasedpolicy/GBPSXP/030_ep_provider_renderer_part.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 178,
+      "author": {
+        "id": 2630
+      },
+      "writtenOn": "2016-12-02T13:42:10Z",
+      "side": 1,
+      "message": "use library.KW or just KW, dont mix, preferably lib.KW",
+      "range": {
+        "startLine": 177,
+        "startChar": 0,
+        "endLine": 178,
+        "endChar": 44
+      },
+      "revId": "cd933c452e16692fdcb14eec63615b8a37956da5",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
