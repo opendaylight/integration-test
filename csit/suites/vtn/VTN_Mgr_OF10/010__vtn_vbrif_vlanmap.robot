@@ -27,7 +27,7 @@ Check if switch3 detected
 
 Add a Topology Wait
     [Documentation]    Add a topology wait to wait for a completion of inter-switch link
-    Add a Topology wait    6000
+    Add a Topology wait    2000
 
 Add a vtn Tenant1
     [Documentation]    Add a vtn Tenant1
@@ -59,13 +59,11 @@ Add a flowcondition
 
 Add a vbrif flowfilter with vlanpcp
     [Documentation]    Create a flowfilter with vlanpcp and Verify ping
-    [Tags]    exclude
     Add a vbrif flowfilter    Tenant1    vBridge1    if1    ${flowfiltervlanpcp}
     Wait_Until_Keyword_Succeeds    20s    1s    Mininet Ping Should Succeed    h1    h5
 
 Verify vlanpcp of vbrif flowfilter
     [Documentation]    Verify actions in Flow Enties for vlanpcp
-    [Tags]    exclude
     Wait_Until_Keyword_Succeeds    20s    1s    Verify Flow Entries for Flowfilter    ${FF_DUMPFLOWS_OF10}    ${vlanpcp_action}
 
 Remove vbrif Flowfilter index
