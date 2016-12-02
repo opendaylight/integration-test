@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_8e600137",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 84,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-12-02T13:06:19Z",
+      "side": 1,
+      "message": "Rename keywords (also in line 79) and test case names, to distinguish netconf-connector and netconf-topology readiness.",
+      "range": {
+        "startLine": 84,
+        "startChar": 18,
+        "endLine": 84,
+        "endChar": 32
+      },
+      "revId": "f4f023e1b7f552771fb3c81c377bdeafe0ab7a7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_4e20a9f7",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 153,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-12-02T13:06:19Z",
+      "side": 1,
+      "message": "e",
+      "range": {
+        "startLine": 153,
+        "startChar": 95,
+        "endLine": 153,
+        "endChar": 97
+      },
+      "revId": "f4f023e1b7f552771fb3c81c377bdeafe0ab7a7d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
