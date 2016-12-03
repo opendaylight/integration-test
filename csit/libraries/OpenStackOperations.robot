@@ -231,7 +231,8 @@ Verify VMs Received DHCP Lease
     [Arguments]    @{vm_list}
     [Documentation]    Using nova console-log on the provided ${vm_list} to search for the string "obtained" which
     ...    correlates to the instance receiving it's IP address via DHCP. This should provide a good indication
-    ...    that the instance is fully up and ready.
+    ...    that the instance is fully up and ready.  The keyword will also return a list of the learned ips as it
+    ...    finds them in the console log output.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${ip_list}    Create List
@@ -241,9 +242,13 @@ Verify VMs Received DHCP Lease
     \    Log    ${output}
     \    @{output_words}    Split String    ${output}
     \    @{dhcp_output_words}    Split String    ${dhcp_ip_line}
-    \    Should Contain    ${output}    obtained
-    \    Append To List    ${ip_list}    @{output_words}[2]
+    \    Run Keyword If    "obtained" in ${output}    Append To List    ${ip_list}    @{output_words}[2]
+    ${expected_ip_count}=    Get Length    ${vm_list}
+    ${actual_ip_count}=    Get Length    ${ip_list}
+    # using continue on failure below, otherwise the return values (even if partial) would not be returned
+    Run Keyword And Continue On Failure    Should Be Equal As Numbers    ${actual_ip_count}    ${expected_ip_count}
     [Return]    ${ip_list}    @{dhcp_output_words}[1]
+
 
 View Vm Console
     [Arguments]    ${vm_instance_names}
