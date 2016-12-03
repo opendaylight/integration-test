@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_7f60ad35",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 3
+      },
+      "lineNbr": 245,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-12-03T19:56:15Z",
+      "side": 1,
+      "message": "Nice, but.. we would probably want an \"unknown\" value inserted for VMs with unknown IP\n\nOtherwise, if VM2 didn\u0027t get IP, list would have VM1, VM3\nBut tests assume that ip_list[1] is VM2 not VM3",
+      "revId": "851f970f8d27bdb70e13e04606989377ec94b65f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
