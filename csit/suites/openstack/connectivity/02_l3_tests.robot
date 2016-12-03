@@ -48,12 +48,17 @@ Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
     ...    We are polling first and longest on the last VM created assuming that if it's received it's address
     ...    already the other instances should have theirs already or at least shortly thereafter.
-    # first, ensure all VMs are in ACTIVE state.    if not, we can just fail the test case and not waste time polling
+    # first, ensure all VMs are in ACTIVE state. if not, we can just fail the test case and not waste time polling
     # for dhcp addresses
     : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     \    Wait Until Keyword Succeeds    15s    5s    Verify VM Is ACTIVE    ${vm}
-    ${NET1_L3_VM_IPS}    ${NET1_DHCP_IP}    Wait Until Keyword Succeeds    180s    10s    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
-    ${NET2_L3_VM_IPS}    ${NET2_DHCP_IP}    Wait Until Keyword Succeeds    180s    10s    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
+    # First we'll poll for up to 180s (90s twice).  If the Verify VMs keywords pass before that, we'll bail early
+    Run Keyword And Continue On Failure    Wait Until Keyword Succeeds    90s    10s    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
+    Run Keyword And Continue On Failure    Wait Until Keyword Succeeds    90s    10s    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
+    # even if the above keywords fail, we will continue on failure, and now we run Verify VMs one more time to collect ips
+    # note that although we'll continue the work below, this test case will still be marked with a failure in the report
+    ${NET1_L3_VM_IPS}    ${NET1_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
+    ${NET2_L3_VM_IPS}    ${NET2_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
     Set Suite Variable    ${NET1_L3_VM_IPS}
     Set Suite Variable    ${NET1_DHCP_IP}
     Set Suite Variable    ${NET2_L3_VM_IPS}
