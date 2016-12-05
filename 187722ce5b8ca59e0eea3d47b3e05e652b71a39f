@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_3a1ac317",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/CR101.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2016-12-05T04:43:22Z",
+      "side": 1,
+      "message": "Pls change file as KK mentioned",
+      "revId": "187722ce5b8ca59e0eea3d47b3e05e652b71a39f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_da1c6f16",
+        "filename": "csit/variables/netvirt/Variables.robot",
+        "patchSetId": 18
+      },
+      "lineNbr": 44,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2016-12-05T04:43:22Z",
+      "side": 1,
+      "message": "Use REST call",
+      "range": {
+        "startLine": 41,
+        "startChar": 13,
+        "endLine": 44,
+        "endChar": 28
+      },
+      "revId": "187722ce5b8ca59e0eea3d47b3e05e652b71a39f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
