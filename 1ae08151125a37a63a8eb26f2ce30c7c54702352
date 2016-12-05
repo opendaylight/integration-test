@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_316829ba",
+        "filename": "csit/libraries/VpnOperations.robot",
+        "patchSetId": 15
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 5701
+      },
+      "writtenOn": "2016-12-05T11:47:32Z",
+      "side": 1,
+      "message": "Variables will be pushed to variable.py when it checkin to community.",
+      "range": {
+        "startLine": 20,
+        "startChar": 2,
+        "endLine": 20,
+        "endChar": 16
+      },
+      "revId": "1ae08151125a37a63a8eb26f2ce30c7c54702352",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
