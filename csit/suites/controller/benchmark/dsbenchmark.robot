@@ -63,6 +63,7 @@ ${tool_log_name}    dsbenchmark.log
 ${tool_output_name}    test.csv
 ${tool_results1_name}    perf_per_struct.csv
 ${tool_results2_name}    perf_per_ops.csv
+${DS_TYPE}           noncds
 
 *** Test Cases ***
 Measure_Both_Datastores_For_One_Node_Odl_Setup
@@ -118,7 +119,7 @@ Teardown_Everything
 Start_Benchmark_Tool
     [Arguments]    ${tested_datastore}    ${tested_node_ip}
     [Documentation]    Start the benchmark tool. Check that it has been running at least for ${tool_startup_timeout} period.
-    ${command}=    BuiltIn.Set_Variable    python ${tool} --host ${tested_node_ip} --port ${RESTCONFPORT} --warmup ${WARMUPS} --runs ${RUNS} --total ${TOTAL_OPS} --inner ${INNER_OPS} --txtype ${TX_TYPE} --ops ${OPS_PER_TX} --optype ${OP_TYPE} --plot ${FILTER} --units ${UNITS} --datastore ${tested_datastore} ${tool_args} &> ${tool_log_name}
+    ${command}=    BuiltIn.Set_Variable    python ${tool} --host ${tested_node_ip} --port ${RESTCONFPORT} --warmup ${WARMUPS} --runs ${RUNS} --total ${TOTAL_OPS} --inner ${INNER_OPS} --txtype ${TX_TYPE} --ops ${OPS_PER_TX} --optype ${OP_TYPE} --plot ${FILTER} --units ${UNITS} --datastore ${tested_datastore} --ds-type ${DS_TYPE} ${tool_args} &> ${tool_log_name}
     BuiltIn.Log    ${command}
     SSHKeywords.Virtual_Env_Activate_On_Current_Session
     ${output}=    SSHLibrary.Write    ${command}

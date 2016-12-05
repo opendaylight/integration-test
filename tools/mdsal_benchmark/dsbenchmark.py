@@ -46,6 +46,8 @@ parser.add_argument("--plot", type=str, default='none',
                     help="keywords filter for results to be drawn in plot (special keywords: all, none).")
 parser.add_argument("--units", choices=["miliseconds", "microseconds"], default="microseconds",
                     help="units of test duration values provided by dsbenchmark controller feature")
+parser.add_argument("--ds-type", choices=["noncds", "cds"], default="noncds",dest='ds_type'
+                    help="Type of datastore used during benchmark")
 args = parser.parse_args()
 
 
@@ -89,8 +91,9 @@ def send_test_request(tx_type, operation, data_fmt, datastore, outer_elem, inner
             "outerElements": %d,
             "innerElements": %d,
             "putsPerTx": %d
+            {}
         }
-    }'''
+    }'''.format('' if args.ds_type == "noncds" else '''"newParam": blabla''')
     data = test_request_template % (tx_type, operation, data_fmt, datastore, outer_elem, inner_elem, ops_per_tx)
     r = requests.post(url, data, headers=postheaders, stream=False, auth=('admin', 'admin'))
     result = {u'http-status': r.status_code}
