@@ -26,6 +26,10 @@ Variables         ../../../variables/Variables.py
 @{SUBNETS_RANGE}    90.0.0.0/24    100.0.0.0/24
 @{odl_1_and_2_down}    ${1}    ${2}
 @{odl_2_and_3_down}    ${2}    ${3}
+@{NET1_L3_VM_IPS}      90.0.0.3      90.0.0.4      90.0.0.5
+@{NET2_L3_VM_IPS}      100.0.0.3      100.0.0.4      100.0.0.5
+${NET1_DHCP_IP}     90.0.0.2
+${NET2_DHCP_IP}     100.0.0.2
 
 *** Test Cases ***
 Create All Controller Sessions
