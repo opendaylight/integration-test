@@ -479,6 +479,19 @@ Get DumpFlows And Ovsconfig
     Write Commands Until Expected Prompt    sudo ovs-ofctl dump-groups br-int -OOpenFlow13    ]>
     Write Commands Until Expected Prompt    sudo ovs-ofctl dump-group-stats br-int -OOpenFlow13    ]>
 
+Get Karaf Log Type From Test Start
+    [Arguments]    ${ip}    ${test_name}    ${type}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}    ${log_file}=${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log
+    ${cmd}    Set Variable    sed '1,/ROBOT MESSAGE: Starting test ${test_name}/d' ${log_file} | grep '${type}'
+    Run Command On Controller    ${ip}    ${cmd}    ${user}    ${password}    ${prompt}
+
+Get Karaf Log Errors From Test Start
+    [Arguments]    ${ip}    ${test_name}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}    ${log_file}=${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log
+    Get Karaf Log Type From Test Start    ${ip}    ${test_name}    ERROR    ${user}    ${password}    ${prompt}    ${log_file}
+
+Get Karaf Log Warnings From Test Start
+    [Arguments]    ${ip}    ${test_name}    ${user}=${ODL_SYSTEM_USER}    ${password}=${ODL_SYSTEM_PASSWORD}    ${prompt}=${ODL_SYSTEM_PROMPT}    ${log_file}=${WORKSPACE}/${BUNDLEFOLDER}/data/log/karaf.log
+    Get Karaf Log Type From Test Start    ${ip}    ${test_name}    WARN    ${user}    ${password}    ${prompt}    ${log_file}
+
 Get ControlNode Connection
     ${control_conn_id}=    SSHLibrary.Open Connection    ${OS_CONTROL_NODE_IP}    prompt=${DEFAULT_LINUX_PROMPT_STRICT}
     Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
