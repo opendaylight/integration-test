@@ -3,7 +3,6 @@ Documentation     Test suite to check connectivity in L3 using routers.
 Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
 ...               AND    DevstackUtils.Devstack Suite Setup
 Suite Teardown    Close All Connections
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Run Keywords    Get OvsDebugInfo
 ...               AND    Get Model Dump    ${ODL_SYSTEM_IP}
 Library           SSHLibrary
@@ -21,6 +20,10 @@ Resource          ../../../libraries/Utils.robot
 @{NET_1_VM_INSTANCES}    l3_instance_net_1_1    l3_instance_net_1_2    l3_instance_net_1_3
 @{NET_2_VM_INSTANCES}    l3_instance_net_2_1    l3_instance_net_2_2    l3_instance_net_2_3
 @{SUBNETS_RANGE}    50.0.0.0/24    60.0.0.0/24
+@{NET1_L3_VM_IPS}      50.0.0.3      50.0.0.4      50.0.0.5
+@{NET2_L3_VM_IPS}      60.0.0.3      60.0.0.4      60.0.0.5
+${NET1_DHCP_IP}     50.0.0.2
+${NET2_DHCP_IP}     60.0.0.2
 
 *** Test Cases ***
 Create Networks
