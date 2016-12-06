@@ -58,7 +58,6 @@ Devstack Suite Setup
     Set Suite Variable    ${source_pwd}
     Log    ${devstack_conn_id}
     Utils.Flexible SSH Login    ${OS_USER}    ${DEVSTACK_SYSTEM_PASSWORD}
-    SSHLibrary.Set Client Configuration    timeout=${default_devstack_prompt_timeout}
 
 Clean DevStack Host In Case It Is Not Sterile
     [Documentation]    In upstream CI, the expectation is that the devstack VM is fresh, sterile and ready

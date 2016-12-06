@@ -2,6 +2,7 @@
 Documentation     Test suite to check North-South connectivity in L3 using a router and an external network
 Suite Setup       Devstack Suite Setup    source_pwd=yes
 Suite Teardown    Close All Connections
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
 Test Teardown     Run Keywords    Get OvsDebugInfo
 ...               AND    Get Model Dump    ${ODL_SYSTEM_IP}
 Library           SSHLibrary
@@ -62,7 +63,7 @@ Verify Created Routers
 
 Create Vm Instances
     [Documentation]    Create VM instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instances    @{NETWORKS_NAME}[0]    ${VM_INSTANCES}    sg=csit
+    OpenStackOperations.Create Vm Instances    @{NETWORKS_NAME}[0]    ${VM_INSTANCES}
 
 Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.

@@ -2,8 +2,9 @@
 Documentation     Test suite to verify packet flows between vm instances.
 Suite Setup       Devstack Suite Setup    source_pwd=yes
 Suite Teardown    Close All Connections
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
 Test Teardown     Run Keywords    Get OvsDebugInfo
+...               AND    Get Model Dump    ${HA_PROXY_IP}
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -12,6 +13,7 @@ Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/DevstackUtils.robot
 Resource          ../../../libraries/OVSDB.robot
+Resource          ../../../libraries/Netvirt.robot
 Resource          ../../../libraries/ClusterOvsdb.robot
 Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/SetupUtils.robot
@@ -25,6 +27,10 @@ Variables         ../../../variables/Variables.py
 @{VM_IPS_NOT_DELETED}    70.0.0.4
 @{cluster_down_list}    ${1}    ${2}
 @{SUBNETS_RANGE}    70.0.0.0/24    80.0.0.0/24
+@{NET1_VM_IPS}      70.0.0.3      70.0.0.4      70.0.0.5
+@{NET2_VM_IPS}      80.0.0.3      80.0.0.4      80.0.0.5
+${NET1_DHCP_IP}     70.0.0.2
+${NET2_DHCP_IP}     80.0.0.2
 
 *** Test Cases ***
 Create All Controller Sessions
@@ -95,12 +101,12 @@ Take Down ODL2
 
 Create Vm Instances For l2_net_2
     [Documentation]    Create Vm instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instances    l2_net_2    ${NET_2_VM_INSTANCES}    sg=csit
+    OpenStackOperations.Create Vm Instances    l2_net_2    ${NET_2_VM_INSTANCES}
 
 Create Vm Instances For l2_net_1
     [Documentation]    Create Vm instances using flavor and image names for a network.
     Log    ${devstack_conn_id}
-    OpenStackOperations.Create Vm Instances    l2_net_1    ${NET_1_VM_INSTANCES}    sg=csit
+    OpenStackOperations.Create Vm Instances    l2_net_1    ${NET_1_VM_INSTANCES}
 
 Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
