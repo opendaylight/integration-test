@@ -3,7 +3,7 @@ Documentation     Test suite to check connectivity in L3 using routers.
 Suite Setup       Devstack Suite Setup    source_pwd=yes
 Suite Teardown    Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     Run Keywords    Get OvsDebugInfo
+Test Teardown     Get Test Teardown Debugs
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -87,7 +87,7 @@ Check Vm Instances Have Ip Address
     Set Suite Variable    ${NET2_L3_VM_IPS}
     Set Suite Variable    ${NET2_DHCP_IP}
     [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
-    ...    AND    Get OvsDebugInfo
+    ...    AND    Get Test Teardown Debugs
 
 Bring Up ODL2
     [Documentation]    Bring up ODL2 again
