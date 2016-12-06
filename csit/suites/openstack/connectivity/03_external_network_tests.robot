@@ -4,6 +4,8 @@ Suite Setup       Devstack Suite Setup    source_pwd=yes
 Suite Teardown    Close All Connections
 Test Teardown     Run Keywords    Get OvsDebugInfo
 ...               AND    Get Model Dump    ${ODL_SYSTEM_IP}
+...               AND    Get Karaf Log Errors From Test Start    ${ODL_SYSTEM_IP}    ${TEST_NAME}
+...               AND    Get Karaf Log Warnings From Test Start    ${ODL_SYSTEM_IP}    ${TEST_NAME}
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -76,6 +78,8 @@ Check Vm Instances Have Ip Address
     [Teardown]    Run Keywords    Show Debugs    ${VM_INSTANCES}
     ...    AND    Get OvsDebugInfo
     ...    AND    Get Model Dump    ${ODL_SYSTEM_IP}
+    ...    AND    Get Karaf Log Errors From Test Start    ${ODL_SYSTEM_IP}    ${TEST_NAME}
+    ...    AND    Get Karaf Log Warnings From Test Start    ${ODL_SYSTEM_IP}    ${TEST_NAME}
 
 Create And Associate Floating IPs for VMs
     [Documentation]    Create and associate a floating IP for the VM
@@ -84,6 +88,8 @@ Create And Associate Floating IPs for VMs
     [Teardown]    Run Keywords    Show Debugs    ${VM_INSTANCES}
     ...    AND    Get OvsDebugInfo
     ...    AND    Get Model Dump    ${ODL_SYSTEM_IP}
+    ...    AND    Get Karaf Log Errors From Test Start    ${ODL_SYSTEM_IP}    ${TEST_NAME}
+    ...    AND    Get Karaf Log Warnings From Test Start    ${ODL_SYSTEM_IP}    ${TEST_NAME}
 
 Ping External Gateway From Control Node
     [Documentation]    Check reachability of external gateway by pinging it from the control node.

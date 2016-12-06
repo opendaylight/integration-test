@@ -6,6 +6,8 @@ Suite Teardown    Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Run Keywords    Get OvsDebugInfo
 ...               AND    Get Model Dump    ${ODL_SYSTEM_IP}
+...               AND    Get Karaf Log Errors From Test Start    ${ODL_SYSTEM_IP}    ${TEST_NAME}
+...               AND    Get Karaf Log Warnings From Test Start    ${ODL_SYSTEM_IP}    ${TEST_NAME}
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -68,6 +70,8 @@ Check Vm Instances Have Ip Address
     [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     ...    AND    Get OvsDebugInfo
     ...    AND    Get Model Dump    ${ODL_SYSTEM_IP}
+    ...    AND    Get Karaf Log Errors From Test Start    ${ODL_SYSTEM_IP}    ${TEST_NAME}
+    ...    AND    Get Karaf Log Warnings From Test Start    ${ODL_SYSTEM_IP}    ${TEST_NAME}
 
 Create Routers
     [Documentation]    Create Router
@@ -150,6 +154,8 @@ Delete Vm Instances In network_2
     [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     ...    AND    Get OvsDebugInfo
     ...    AND    Get Model Dump    ${ODL_SYSTEM_IP}
+    ...    AND    Get Karaf Log Errors From Test Start    ${ODL_SYSTEM_IP}    ${TEST_NAME}
+    ...    AND    Get Karaf Log Warnings From Test Start    ${ODL_SYSTEM_IP}    ${TEST_NAME}
 
 Delete Router Interfaces
     [Documentation]    Remove Interface to the subnets.

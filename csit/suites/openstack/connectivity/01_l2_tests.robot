@@ -6,6 +6,8 @@ Suite Teardown    Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Run Keywords    Get OvsDebugInfo
 ...               AND    Get Model Dump    ${ODL_SYSTEM_IP}
+...               AND    Get Karaf Log Errors From Test Start    ${ODL_SYSTEM_IP}    ${TEST_NAME}
+...               AND    Get Karaf Log Warnings From Test Start    ${ODL_SYSTEM_IP}    ${TEST_NAME}
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -78,6 +80,8 @@ Check Vm Instances Have Ip Address
     [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     ...    AND    Get OvsDebugInfo
     ...    AND    Get Model Dump    ${ODL_SYSTEM_IP}
+    ...    AND    Get Karaf Log Errors From Test Start    ${ODL_SYSTEM_IP}    ${TEST_NAME}
+    ...    AND    Get Karaf Log Warnings From Test Start    ${ODL_SYSTEM_IP}    ${TEST_NAME}
 
 Ping Vm Instance1 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
@@ -147,6 +151,8 @@ Delete Vm Instances In l2_network_2
     [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     ...    AND    Get OvsDebugInfo
     ...    AND    Get Model Dump    ${ODL_SYSTEM_IP}
+    ...    AND    Get Karaf Log Errors From Test Start    ${ODL_SYSTEM_IP}    ${TEST_NAME}
+    ...    AND    Get Karaf Log Warnings From Test Start    ${ODL_SYSTEM_IP}    ${TEST_NAME}
 
 Delete Sub Networks In l2_network_1
     [Documentation]    Delete Sub Nets for the Networks with neutron request.
