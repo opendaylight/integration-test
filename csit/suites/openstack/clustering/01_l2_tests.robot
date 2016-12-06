@@ -4,6 +4,7 @@ Suite Setup       Devstack Suite Setup    source_pwd=yes
 Suite Teardown    Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Run Keywords    Get OvsDebugInfo
+...               AND    Get Model Dump    ${HA_PROXY_IP}
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -25,6 +26,10 @@ Variables         ../../../variables/Variables.py
 @{VM_IPS_NOT_DELETED}    70.0.0.4
 @{cluster_down_list}    ${1}    ${2}
 @{SUBNETS_RANGE}    70.0.0.0/24    80.0.0.0/24
+@{NET1_VM_IPS}      70.0.0.3      70.0.0.4      70.0.0.5
+@{NET2_VM_IPS}      80.0.0.3      80.0.0.4      80.0.0.5
+${NET1_DHCP_IP}     70.0.0.2
+${NET2_DHCP_IP}     80.0.0.2
 
 *** Test Cases ***
 Create All Controller Sessions
