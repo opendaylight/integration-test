@@ -4,13 +4,11 @@ Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_T
 ...               AND    DevstackUtils.Devstack Suite Setup
 Suite Teardown    Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     Run Keywords    Get OvsDebugInfo
-...               AND    Get Model Dump    ${ODL_SYSTEM_IP}
+Test Teardown     Get Test Teardown Debugs    ${TEST_NAME}
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
 Resource          ../../../libraries/DevstackUtils.robot
-Resource          ../../../libraries/Netvirt.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
@@ -76,8 +74,7 @@ Check Vm Instances Have Ip Address
     Append To List    ${NET2_VM_IPS}    ${NET2_DHCP_IP}
     Set Suite Variable    ${NET2_VM_IPS}
     [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
-    ...    AND    Get OvsDebugInfo
-    ...    AND    Get Model Dump    ${ODL_SYSTEM_IP}
+    ...    AND    Get Test Teardown Debugs    ${TEST_NAME}
 
 Ping Vm Instance1 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
@@ -145,8 +142,7 @@ Delete Vm Instances In l2_network_2
     : FOR    ${VmElement}    IN    @{NET_2_VM_INSTANCES}
     \    Delete Vm Instance    ${VmElement}
     [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
-    ...    AND    Get OvsDebugInfo
-    ...    AND    Get Model Dump    ${ODL_SYSTEM_IP}
+    ...    AND    Get Test Teardown Debugs    ${TEST_NAME}
 
 Delete Sub Networks In l2_network_1
     [Documentation]    Delete Sub Nets for the Networks with neutron request.

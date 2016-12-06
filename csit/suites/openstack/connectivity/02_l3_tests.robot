@@ -4,13 +4,11 @@ Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_T
 ...               AND    DevstackUtils.Devstack Suite Setup
 Suite Teardown    Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     Run Keywords    Get OvsDebugInfo
-...               AND    Get Model Dump    ${ODL_SYSTEM_IP}
+Test Teardown     Get Test Teardown Debugs    ${TEST_NAME}
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
 Resource          ../../../libraries/DevstackUtils.robot
-Resource          ../../../libraries/Netvirt.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/SetupUtils.robot
 Resource          ../../../libraries/Utils.robot
@@ -66,8 +64,7 @@ Check Vm Instances Have Ip Address
     Set Suite Variable    ${NET2_L3_VM_IPS}
     Set Suite Variable    ${NET2_DHCP_IP}
     [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
-    ...    AND    Get OvsDebugInfo
-    ...    AND    Get Model Dump    ${ODL_SYSTEM_IP}
+    ...    AND    Get Test Teardown Debugs    ${TEST_NAME}
 
 Create Routers
     [Documentation]    Create Router
@@ -148,8 +145,7 @@ Delete Vm Instances In network_2
     : FOR    ${VmElement}    IN    @{NET_2_VM_INSTANCES}
     \    Delete Vm Instance    ${VmElement}
     [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
-    ...    AND    Get OvsDebugInfo
-    ...    AND    Get Model Dump    ${ODL_SYSTEM_IP}
+    ...    AND    Get Test Teardown Debugs    ${TEST_NAME}
 
 Delete Router Interfaces
     [Documentation]    Remove Interface to the subnets.

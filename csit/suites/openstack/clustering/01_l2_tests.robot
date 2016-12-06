@@ -3,7 +3,7 @@ Documentation     Test suite to verify packet flows between vm instances.
 Suite Setup       Devstack Suite Setup    source_pwd=yes
 Suite Teardown    Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
-Test Teardown     Run Keywords    Get OvsDebugInfo
+Test Teardown     Get Test Teardown Debugs    ${TEST_NAME}
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -124,7 +124,7 @@ Check Vm Instances Have Ip Address
     Append To List    ${NET2_VM_IPS}    ${NET2_DHCP_IP}
     Set Suite Variable    ${NET2_VM_IPS}
     [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
-    ...    AND    Get OvsDebugInfo
+    ...    AND    Get Test Teardown Debugs    ${TEST_NAME}
 
 Bring Up ODL2
     [Documentation]    Bring up ODL2 again
