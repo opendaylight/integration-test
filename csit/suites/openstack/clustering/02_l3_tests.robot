@@ -4,6 +4,9 @@ Suite Setup       Devstack Suite Setup    source_pwd=yes
 Suite Teardown    Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Run Keywords    Get OvsDebugInfo
+...               AND    Get Model Dump    ${ODL_SYSTEM_IP}
+...               AND    Get Karaf Log Errors From Test Start    ${ODL_SYSTEM_IP}    ${TEST_NAME}
+...               AND    Get Karaf Log Warnings From Test Start    ${ODL_SYSTEM_IP}    ${TEST_NAME}
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -11,6 +14,7 @@ Library           Collections
 Resource          ../../../libraries/Utils.robot
 Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/DevstackUtils.robot
+Resource          ../../../libraries/Netvirt.robot
 Resource          ../../../libraries/OVSDB.robot
 Resource          ../../../libraries/ClusterOvsdb.robot
 Resource          ../../../libraries/ClusterManagement.robot
@@ -88,6 +92,9 @@ Check Vm Instances Have Ip Address
     Set Suite Variable    ${NET2_DHCP_IP}
     [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     ...    AND    Get OvsDebugInfo
+    ...    AND    Get Model Dump    ${ODL_SYSTEM_IP}
+    ...    AND    Get Karaf Log Errors From Test Start    ${ODL_SYSTEM_IP}    ${TEST_NAME}
+    ...    AND    Get Karaf Log Warnings From Test Start    ${ODL_SYSTEM_IP}    ${TEST_NAME}
 
 Bring Up ODL2
     [Documentation]    Bring up ODL2 again
