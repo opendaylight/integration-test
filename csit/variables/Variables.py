@@ -13,7 +13,7 @@ DEFAULT_USER = 'jenkins'
 DEFAULT_TIMEOUT = '30s'
 
 # ODL system variables
-ODL_SYSTEM_IP = '127.0.0.1'  # Override if ODL is not running locally to pybot
+ODL_SYSTEM_IP = '192.168.122.93'  # Override if ODL is not running locally to pybot
 ODL_SYSTEM_IP_LIST = ['ODL_SYSTEM_1_IP', 'ODL_SYSTEM_2_IP', 'ODL_SYSTEM_3_IP']
 ODL_SYSTEM_USER = DEFAULT_USER
 ODL_SYSTEM_PASSWORD = ''  # empty means use public key authentication
