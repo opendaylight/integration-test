@@ -1,0 +1,345 @@
+{
+  "neutron": {
+    "networks": {
+      "network": [
+        {
+          "uuid": "e82a3ecf-bda8-4868-936e-494999edc0ba",
+          "name": "vxlannet1",
+          "neutron-L3-ext:external": false,
+          "neutron-provider-ext:segmentation-id": "20",
+          "neutron-provider-ext:network-type": "neutron-networks:network-type-vxlan",
+          "admin-state-up": true,
+          "shared": false,
+          "status": "ACTIVE",
+          "tenant-id": "92070479-5900-498b-84e3-893a04f55709"
+        },
+        {
+          "uuid": "89c86c84-4672-4541-8e56-1f7d95717462",
+          "name": "vxlannet2",
+          "neutron-L3-ext:external": false,
+          "neutron-provider-ext:segmentation-id": "20",
+          "neutron-provider-ext:network-type": "neutron-networks:network-type-vxlan",
+          "admin-state-up": true,
+          "shared": false,
+          "status": "ACTIVE",
+          "tenant-id": "92070479-5900-498b-84e3-893a04f55709"
+        }
+      ]
+    },
+    "subnets": {
+      "subnet": [
+        {
+          "uuid": "3d1158f1-540b-4139-81a6-4dbbb3dae1e5",
+          "ip-version": "neutron-constants:ip-version-v4",
+          "gateway-ip": "10.100.0.1",
+          "name": "vxlansubnet1",
+          "network-id": "e82a3ecf-bda8-4868-936e-494999edc0ba",
+          "cidr": "10.100.0.0/24",
+          "enable-dhcp": true,
+          "tenant-id": "92070479-5900-498b-84e3-893a04f55709",
+          "allocation-pools": [
+            {
+              "start": "10.100.0.2",
+              "end": "10.100.0.254"
+            }
+          ]
+        },
+        {
+          "uuid": "5d7b5604-779f-419c-b9c1-7c7d85c51654",
+          "ip-version": "neutron-constants:ip-version-v4",
+          "gateway-ip": "10.101.0.1",
+          "name": "vxlansubnet2",
+          "network-id": "89c86c84-4672-4541-8e56-1f7d95717462",
+          "cidr": "10.101.0.0/24",
+          "enable-dhcp": true,
+          "tenant-id": "92070479-5900-498b-84e3-893a04f55709",
+          "allocation-pools": [
+            {
+              "start": "10.101.0.2",
+              "end": "10.101.0.254"
+            }
+          ]
+        }
+      ]
+    },
+    "security-groups": {
+      "security-group": [
+        {
+          "uuid": "0fbd740b-aa18-4bbf-95b6-cca9f3f14107",
+          "name": "default",
+          "tenant-id": "92070479-5900-498b-84e3-893a04f55709"
+        }
+      ]
+    },
+    "security-rules": {
+      "security-rule": [
+        {
+          "uuid": "7d037f8c-e35d-4f34-b2a8-6e6912728498",
+          "direction": "neutron-constants:direction-ingress",
+          "security-group-id": "0fbd740b-aa18-4bbf-95b6-cca9f3f14107",
+          "ethertype": "neutron-constants:ethertype-v4",
+          "tenant-id": "92070479-5900-498b-84e3-893a04f55709",
+          "remote-group-id": "0fbd740b-aa18-4bbf-95b6-cca9f3f14107"
+        },
+        {
+          "uuid": "b5fb268c-54d1-4f1e-8a6c-cb248fc57278",
+          "direction": "neutron-constants:direction-ingress",
+          "security-group-id": "0fbd740b-aa18-4bbf-95b6-cca9f3f14107",
+          "ethertype": "neutron-constants:ethertype-v6",
+          "tenant-id": "92070479-5900-498b-84e3-893a04f55709",
+          "remote-group-id": "0fbd740b-aa18-4bbf-95b6-cca9f3f14107"
+        },
+        {
+          "uuid": "e7e07939-8962-4e3c-a056-ddbb83a36d7f",
+          "direction": "neutron-constants:direction-egress",
+          "security-group-id": "0fbd740b-aa18-4bbf-95b6-cca9f3f14107",
+          "ethertype": "neutron-constants:ethertype-v4",
+          "tenant-id": "92070479-5900-498b-84e3-893a04f55709"
+        },
+        {
+          "uuid": "efd160f9-8383-4d42-ab35-201d898fd87e",
+          "direction": "neutron-constants:direction-egress",
+          "security-group-id": "0fbd740b-aa18-4bbf-95b6-cca9f3f14107",
+          "ethertype": "neutron-constants:ethertype-v6",
+          "tenant-id": "92070479-5900-498b-84e3-893a04f55709"
+        }
+      ]
+    },
+    "ports": {
+      "port": [
+        {
+          "uuid": "00000000-01ba-45c1-80bd-ca5e3fa0edfc",
+          "device-owner": "network:router_interface",
+          "admin-state-up": true,
+          "name": "qr1",
+          "fixed-ips": [
+            {
+              "subnet-id": "3d1158f1-540b-4139-81a6-4dbbb3dae1e5",
+              "ip-address": "10.11.12.1"
+            }
+          ],
+          "network-id": "e82a3ecf-bda8-4868-936e-494999edc0ba",
+          "neutron-binding:vnic-type": "normal",
+          "neutron-binding:host-id": "controller",
+          "neutron-binding:vif-details": [
+            {
+              "details-key": "port_filter",
+              "value": "true"
+            }
+          ],
+          "neutron-binding:vif-type": "vhostuser",
+          "device-id": "3a1fd562-6423-4bbd-89f0-6130ebb96e92",
+          "tenant-id": "92070479-5900-498b-84e3-893a04f55709",
+          "mac-address": "fa:16:3e:4c:11:20",
+          "security-groups": [
+            "0fbd740b-aa18-4bbf-95b6-cca9f3f14107"
+          ],
+          "neutron-portsecurity:port-security-enabled": false
+        },
+        {
+          "uuid": "00000000-0223-4c27-8757-f107de803ed8",
+          "device-owner": "network:router_interface",
+          "admin-state-up": true,
+          "name": "qr2",
+          "fixed-ips": [
+            {
+              "subnet-id": "5d7b5604-779f-419c-b9c1-7c7d85c51654",
+              "ip-address": "10.11.13.1"
+            }
+          ],
+          "network-id": "89c86c84-4672-4541-8e56-1f7d95717462",
+          "neutron-binding:vnic-type": "normal",
+          "neutron-binding:host-id": "controller",
+          "neutron-binding:vif-details": [
+            {
+              "details-key": "port_filter",
+              "value": "true"
+            }
+          ],
+          "neutron-binding:vif-type": "vhostuser",
+          "device-id": "3a1fd562-6423-4bbd-89f0-6130ebb96e92",
+          "tenant-id": "92070479-5900-498b-84e3-893a04f55709",
+          "mac-address": "fa:16:3e:4c:11:21",
+          "security-groups": [
+            "0fbd740b-aa18-4bbf-95b6-cca9f3f14107"
+          ],
+          "neutron-portsecurity:port-security-enabled": false
+        },
+        {
+          "uuid": "00000000-01fa-41cc-8f2f-8d62b6e9bc1c",
+          "device-owner": "network:dhcp",
+          "admin-state-up": true,
+          "name": "vm-0-1-port",
+          "fixed-ips": [
+            {
+              "subnet-id": "3d1158f1-540b-4139-81a6-4dbbb3dae1e5",
+              "ip-address": "10.11.12.3"
+            }
+          ],
+          "network-id": "e82a3ecf-bda8-4868-936e-494999edc0ba",
+          "neutron-binding:vnic-type": "normal",
+          "neutron-binding:host-id": "compute0",
+          "neutron-binding:vif-details": [
+            {
+              "details-key": "port_filter",
+              "value": "true"
+            }
+          ],
+          "neutron-binding:vif-type": "vhostuser",
+          "device-id": "6b87c96a-8f3f-451f-a3d7-200b01d80744",
+          "tenant-id": "92070479-5900-498b-84e3-893a04f55709",
+          "mac-address": "fa:16:3e:4c:fd:34",
+          "security-groups": [
+            "0fbd740b-aa18-4bbf-95b6-cca9f3f14107"
+          ],
+          "neutron-portsecurity:port-security-enabled": true
+        },
+        {
+          "uuid": "00000000-0270-4459-adc4-b189717441b4",
+          "device-owner": "network:dhcp",
+          "admin-state-up": true,
+          "name": "vm-0-2-port",
+          "fixed-ips": [
+            {
+              "subnet-id": "3d1158f1-540b-4139-81a6-4dbbb3dae1e5",
+              "ip-address": "10.11.12.4"
+            }
+          ],
+          "network-id": "e82a3ecf-bda8-4868-936e-494999edc0ba",
+          "neutron-binding:vnic-type": "normal",
+          "neutron-binding:host-id": "compute0",
+          "neutron-binding:vif-details": [
+            {
+              "details-key": "port_filter",
+              "value": "true"
+            }
+          ],
+          "neutron-binding:vif-type": "vhostuser",
+          "device-id": "6e85b372-9269-4f96-8049-f6cccdaf340c",
+          "tenant-id": "92070479-5900-498b-84e3-893a04f55709",
+          "mac-address": "fa:16:3e:c7:76:82",
+          "security-groups": [
+            "0fbd740b-aa18-4bbf-95b6-cca9f3f14107"
+          ],
+          "neutron-portsecurity:port-security-enabled": true
+        },
+        {
+          "uuid": "00000000-0352-4230-9456-66ab7304d8c6",
+          "device-owner": "network:dhcp",
+          "admin-state-up": true,
+          "name": "vm-0-3-port",
+          "fixed-ips": [
+            {
+              "subnet-id": "5d7b5604-779f-419c-b9c1-7c7d85c51654",
+              "ip-address": "10.11.13.2"
+            }
+          ],
+          "network-id": "89c86c84-4672-4541-8e56-1f7d95717462",
+          "neutron-binding:vnic-type": "normal",
+          "neutron-binding:host-id": "compute0",
+          "neutron-binding:vif-details": [
+            {
+              "details-key": "port_filter",
+              "value": "true"
+            }
+          ],
+          "neutron-binding:vif-type": "vhostuser",
+          "device-id": "6e85b372-9269-4f96-8049-f6cccdaf340c",
+          "tenant-id": "92070479-5900-498b-84e3-893a04f55709",
+          "mac-address": "fa:16:3e:c7:76:83",
+          "security-groups": [
+            "0fbd740b-aa18-4bbf-95b6-cca9f3f14107"
+          ],
+          "neutron-portsecurity:port-security-enabled": true
+        },
+        {
+          "uuid": "00000000-0126-4968-880d-3aba22cf6f9d",
+          "device-owner": "network:dhcp",
+          "admin-state-up": true,
+          "name": "vm-1-1-port",
+          "fixed-ips": [
+            {
+              "subnet-id": "3d1158f1-540b-4139-81a6-4dbbb3dae1e5",
+              "ip-address": "10.11.12.5"
+            }
+          ],
+          "network-id": "e82a3ecf-bda8-4868-936e-494999edc0ba",
+          "neutron-binding:vnic-type": "normal",
+          "neutron-binding:host-id": "compute1",
+          "neutron-binding:vif-details": [
+            {
+              "details-key": "port_filter",
+              "value": "true"
+            }
+          ],
+          "neutron-binding:vif-type": "vhostuser",
+          "device-id": "565c0e5f-515a-457b-ae89-857c3f66296a",
+          "tenant-id": "92070479-5900-498b-84e3-893a04f55709",
+          "mac-address": "fa:16:3e:6f:d4:3c",
+          "security-groups": [
+            "0fbd740b-aa18-4bbf-95b6-cca9f3f14107"
+          ],
+          "neutron-portsecurity:port-security-enabled": true
+        },
+        {
+          "uuid": "00000000-02e1-41a6-80ee-3fa292d2d320",
+          "device-owner": "network:dhcp",
+          "admin-state-up": true,
+          "name": "vm-1-2-port",
+          "fixed-ips": [
+            {
+              "subnet-id": "3d1158f1-540b-4139-81a6-4dbbb3dae1e5",
+              "ip-address": "10.11.12.6"
+            }
+          ],
+          "network-id": "e82a3ecf-bda8-4868-936e-494999edc0ba",
+          "neutron-binding:vnic-type": "normal",
+          "neutron-binding:host-id": "compute1",
+          "neutron-binding:vif-details": [
+            {
+              "details-key": "port_filter",
+              "value": "true"
+            }
+          ],
+          "neutron-binding:vif-type": "vhostuser",
+          "device-id": "945b82f4-07a9-4442-aa64-d3cc34cfb64d",
+          "tenant-id": "92070479-5900-498b-84e3-893a04f55709",
+          "mac-address": "fa:16:3e:ec:3a:40",
+          "security-groups": [
+            "0fbd740b-aa18-4bbf-95b6-cca9f3f14107"
+          ],
+          "neutron-portsecurity:port-security-enabled": true
+        },
+        {
+          "uuid": "00000000-033c-43a1-9e4f-427a58f22fb6",
+          "device-owner": "network:dhcp",
+          "admin-state-up": true,
+          "name": "vm-1-3-port",
+          "fixed-ips": [
+            {
+              "subnet-id": "5d7b5604-779f-419c-b9c1-7c7d85c51654",
+              "ip-address": "10.11.13.3"
+            }
+          ],
+          "network-id": "89c86c84-4672-4541-8e56-1f7d95717462",
+          "neutron-binding:vnic-type": "normal",
+          "neutron-binding:host-id": "compute1",
+          "neutron-binding:vif-details": [
+            {
+              "details-key": "port_filter",
+              "value": "true"
+            }
+          ],
+          "neutron-binding:vif-type": "vhostuser",
+          "device-id": "945b82f4-07a9-4442-aa64-d3cc34cfb64d",
+          "tenant-id": "92070479-5900-498b-84e3-893a04f55709",
+          "mac-address": "fa:16:3e:ec:3a:41",
+          "security-groups": [
+            "0fbd740b-aa18-4bbf-95b6-cca9f3f14107"
+          ],
+          "neutron-portsecurity:port-security-enabled": true
+        }
+      ]
+    }
+  }
+}
