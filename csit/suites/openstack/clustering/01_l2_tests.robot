@@ -4,6 +4,8 @@ Suite Setup       Devstack Suite Setup    source_pwd=yes
 Suite Teardown    Close All Connections
 Test Teardown     Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
 ...               AND    Get OvsDebugInfo
+...               AND    Get Karaf Log Errors From Test Start    ${ODL_SYSTEM_IP}    ${TEST_NAME}
+...               AND    Get Karaf Log Warnings From Test Start    ${ODL_SYSTEM_IP}    ${TEST_NAME}
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
