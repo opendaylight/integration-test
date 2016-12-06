@@ -1,0 +1,123 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_82a0cdf5",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 6
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-12-06T01:52:00Z",
+      "side": 1,
+      "message": "leave an empty line between title and description.",
+      "revId": "9c2171653999d9e3b287914ea09a35e6241d534e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_425fd50e",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-12-06T01:52:00Z",
+      "side": 1,
+      "message": "You do not need Variables.py if you are using variables.robot (recommended).",
+      "revId": "9c2171653999d9e3b287914ea09a35e6241d534e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_a29b49c8",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 9,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-12-06T01:52:00Z",
+      "side": 1,
+      "message": "This entry seems duplicated.",
+      "revId": "9c2171653999d9e3b287914ea09a35e6241d534e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_c21485f7",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 83,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-12-06T01:52:00Z",
+      "side": 1,
+      "message": "FYI, whenever you need to replace some values in a json template, you can use TemplatedRequests.Put_As_Json_Templated or TemplatedRequests.Post_As_Json_Templated. These KWe take controller HTTP session id as argument but it is easy to extract that with ClusterManagement.Resolve_Http_Session_For_Member. This comment also applies to Schedule Import + Mount Netconf Endpoint.",
+      "revId": "9c2171653999d9e3b287914ea09a35e6241d534e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_02acbdec",
+        "filename": "csit/libraries/DaeximKeywords.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-12-06T01:52:00Z",
+      "side": 1,
+      "message": "I bet this is the same as RequestsLibrary.To Json, can you try?",
+      "revId": "9c2171653999d9e3b287914ea09a35e6241d534e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_0265dde0",
+        "filename": "csit/variables/daexim/daexim/odl_backup_config.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-12-06T01:52:00Z",
+      "side": 1,
+      "message": "It would be good to prettify this json to make it more readable. Same comment with the other json file.",
+      "revId": "9c2171653999d9e3b287914ea09a35e6241d534e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_c273e5af",
+        "filename": "csit/variables/daexim/netconf_mount.json",
+        "patchSetId": 6
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 797
+      },
+      "writtenOn": "2016-12-06T01:52:00Z",
+      "side": 1,
+      "message": "Change tabs to spaces.",
+      "revId": "9c2171653999d9e3b287914ea09a35e6241d534e",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
