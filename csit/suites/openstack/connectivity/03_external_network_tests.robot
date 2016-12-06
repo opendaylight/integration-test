@@ -2,6 +2,7 @@
 Documentation     Test suite to check North-South connectivity in L3 using a router and an external network
 Suite Setup       Devstack Suite Setup    source_pwd=yes
 Suite Teardown    Close All Connections
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
 Test Teardown     Run Keywords    Get OvsDebugInfo
 ...               AND    Get Model Dump    ${ODL_SYSTEM_IP}
 Library           SSHLibrary
