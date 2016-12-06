@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_42b6b53e",
+        "filename": "csit/suites/openstack/clustering/01_l2_tests.robot",
+        "patchSetId": 32
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-12-06T01:33:03Z",
+      "side": 1,
+      "message": "this method is fine and we can abandon the other attempt [0], but this is still missing a FAIL condition.  We still\nwant this test case to fail if it didn\u0027t get all the IPs\n\nalso, instead of hardcoding \u00273\u0027 for the vm/ip count, can we \ndo a Get Length on ${NET_1_VM_INSTANCES} and ${{NET_2_VM_INSTANCES}\n\nAlon, this also has the same problem as you commented in the other patch.  say the 2nd VM in the list doesn\u0027t get it\u0027s ip, then the 3rd VMs ip will end up in the second location and could cause weird results in further test cases using it.\n\n[0] https://git.opendaylight.org/gerrit/#/c/48948/",
+      "range": {
+        "startLine": 105,
+        "startChar": 0,
+        "endLine": 124,
+        "endChar": 34
+      },
+      "revId": "0b072c6a35bba31ae497429eb1dfde977aa8de5c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
