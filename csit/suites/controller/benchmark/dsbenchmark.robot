@@ -37,7 +37,7 @@ Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
 Test Teardown     SetupUtils.Teardown_Test_Show_Bugs_And_Start_Fast_Failing_If_Test_Failed
 Library           OperatingSystem
 Library           SSHLibrary    timeout=10s
-Library           RequestsLibrary
+Resource          ${CURDIR}/../../../libraries/TemplatedRequests.robot
 Variables         ${CURDIR}/../../../variables/Variables.py
 Resource          ${CURDIR}/../../../libraries/ClusterManagement.robot
 Resource          ${CURDIR}/../../../libraries/SetupUtils.robot
@@ -63,8 +63,14 @@ ${tool_log_name}    dsbenchmark.log
 ${tool_output_name}    test.csv
 ${tool_results1_name}    perf_per_struct.csv
 ${tool_results2_name}    perf_per_ops.csv
+${BENCH_DIR}     ${CURDIR}/../../../variables/controller/dsbenchmark
 
 *** Test Cases ***
+Readiness_Test
+    [Documentation]    Checks for readines of the odl for ds benchmark test
+    BuiltIn.Wait_Until_Keyword_Succeeds    18x    10s    Check_Ds_Benchmark_Ready
+    [Teardown]     Clean_Ds_Benchmark
+
 Measure_Both_Datastores_For_One_Node_Odl_Setup
     [Tags]    critical    singlenode_setup
     [Template]    Measuring_Template
@@ -114,6 +120,18 @@ Teardown_Everything
     [Documentation]    Cleaning-up
     SSHKeywords.Virtual_Env_Delete
     SSHLibrary.Close_All_Connections
+
+Check_Ds_Benchmark_Ready
+    [Documentation]
+    : FOR    ${idx}    IN    @{ClusterManagement__member_index_list}
+    \    ${session}=    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${idx}
+    \    TemplatedRequests.Post_As_Json_Templated    ${BENCH_DIR}${/}start-test     session=${session}
+
+Clean_Ds_Benchmark
+    [Documentation]
+    : FOR    ${idx}    IN    @{ClusterManagement__member_index_list}
+    \    ${session}=    ClusterManagement.Resolve_Http_Session_For_Member    member_index=${idx}
+    \    TemplatedRequests.Post_As_Json_Templated    ${BENCH_DIR}${/}cleanup-store     session=${session}
 
 Start_Benchmark_Tool
     [Arguments]    ${tested_datastore}    ${tested_node_ip}

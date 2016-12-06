@@ -1,0 +1,11 @@
+{
+    "input": {
+        "transaction-type": "SIMPLE-TX",
+        "operation": "100",
+        "data-format": "BINDING-INDEPENDENT",
+        "data-store": "CONFIG",
+        "outerElements": 10,
+        "innerElements": 10,
+        "putsPerTx": 1
+    }
+}
