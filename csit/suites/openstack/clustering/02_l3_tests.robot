@@ -2,8 +2,9 @@
 Documentation     Test suite to check connectivity in L3 using routers.
 Suite Setup       Devstack Suite Setup    source_pwd=yes
 Suite Teardown    Close All Connections
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
 Test Teardown     Run Keywords    Get OvsDebugInfo
+...               AND    Get Model Dump    ${HA_PROXY_IP}
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
@@ -13,6 +14,7 @@ Resource          ../../../libraries/OpenStackOperations.robot
 Resource          ../../../libraries/DevstackUtils.robot
 Resource          ../../../libraries/OVSDB.robot
 Resource          ../../../libraries/ClusterOvsdb.robot
+Resource          ../../../libraries/Netvirt.robot
 Resource          ../../../libraries/ClusterManagement.robot
 Resource          ../../../libraries/SetupUtils.robot
 Variables         ../../../variables/Variables.py
@@ -20,12 +22,16 @@ Variables         ../../../variables/Variables.py
 *** Variables ***
 @{NETWORKS_NAME}    l3_net_1    l3_net_2
 @{SUBNETS_NAME}    l3_sub_net_1    l3_sub_net_2
-@{NET_1_VM_INSTANCES}    VmInstance1_net_1    VmInstance2_net_1    VmInstance3_net_1
-@{NET_2_VM_INSTANCES}    VmInstance1_net_2    VmInstance2_net_2    VmInstance3_net_2
+@{NET_1_VM_INSTANCES}    VMInstance1_net_1    VmInstance2_net_1    VmInstance3_net_1
+@{NET_2_VM_INSTANCES}    VMInstance1_net_2    VmInstance2_net_2    VmInstance3_net_2
 @{GATEWAY_IPS}    90.0.0.1    100.0.0.1
 @{SUBNETS_RANGE}    90.0.0.0/24    100.0.0.0/24
 @{odl_1_and_2_down}    ${1}    ${2}
 @{odl_2_and_3_down}    ${2}    ${3}
+@{NET1_L3_VM_IPS}      90.0.0.3      90.0.0.4      90.0.0.5
+@{NET2_L3_VM_IPS}      100.0.0.3      100.0.0.4      100.0.0.5
+${NET1_DHCP_IP}     90.0.0.2
+${NET2_DHCP_IP}     100.0.0.2
 
 *** Test Cases ***
 Create All Controller Sessions
@@ -51,7 +57,7 @@ Take Down ODL1
 
 Create Vm Instances For l3_net_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instances    l3_net_1    ${NET_1_VM_INSTANCES}    sg=csit
+    OpenStackOperations.Create Vm Instances    l3_net_1    ${NET_1_VM_INSTANCES}
 
 Bring Up ODL1
     [Documentation]    Bring up ODL1 again
@@ -63,7 +69,7 @@ Take Down ODL2
 
 Create Vm Instances For l3_net_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    OpenStackOperations.Create Vm Instances    l3_net_2    ${NET_2_VM_INSTANCES}    sg=csit
+    OpenStackOperations.Create Vm Instances    l3_net_2    ${NET_2_VM_INSTANCES}
 
 Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
