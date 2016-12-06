@@ -239,8 +239,9 @@ Verify VM Is ACTIVE
 Verify VMs Received DHCP Lease
     [Arguments]    @{vm_list}
     [Documentation]    Using nova console-log on the provided ${vm_list} to search for the string "obtained" which
-    ...    correlates to the instance receiving it's IP address via DHCP. This should provide a good indication
-    ...    that the instance is fully up and ready.
+    ...    correlates to the instance receiving it's IP address via DHCP. Also retrieved is the ip of the nameserver
+    ...    if available in the console-log output. The keyword will also return a list of the learned ips as it
+    ...    finds them in the console log output, and will have "None" for Vms that no ip was found.
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${ip_list}    Create List    @{EMPTY}
@@ -251,6 +252,7 @@ Verify VMs Received DHCP Lease
     \    @{vm_ip}    Get Regexp Matches    ${vm_ip_line}    [0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}
     \    ${vm_ip_length}    Get Length    ${vm_ip}
     \    Run Keyword If    ${vm_ip_length}>0    Append To List    ${ip_list}    @{vm_ip}[0]
+    \    ...    ELSE    Append To List    ${ip_list}    None
     \    ${dhcp_ip_line}=    Write Commands Until Prompt    nova console-log ${vm} | grep "^nameserver"    30s
     \    Log    ${dhcp_ip_line}
     \    @{dhcp_ip}    Get Regexp Matches    ${dhcp_ip_line}    [0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}
