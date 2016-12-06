@@ -20,12 +20,16 @@ Variables         ../../../variables/Variables.py
 *** Variables ***
 @{NETWORKS_NAME}    l3_net_1    l3_net_2
 @{SUBNETS_NAME}    l3_sub_net_1    l3_sub_net_2
-@{NET_1_VM_INSTANCES}    VmInstance1_net_1    VmInstance2_net_1    VmInstance3_net_1
-@{NET_2_VM_INSTANCES}    VmInstance1_net_2    VmInstance2_net_2    VmInstance3_net_2
+@{NET_1_VM_INSTANCES}    VMInstance1_net_1    VmInstance2_net_1    VmInstance3_net_1
+@{NET_2_VM_INSTANCES}    VMInstance1_net_2    VmInstance2_net_2    VmInstance3_net_2
 @{GATEWAY_IPS}    90.0.0.1    100.0.0.1
 @{SUBNETS_RANGE}    90.0.0.0/24    100.0.0.0/24
 @{odl_1_and_2_down}    ${1}    ${2}
 @{odl_2_and_3_down}    ${2}    ${3}
+@{NET1_L3_VM_IPS}      90.0.0.3      90.0.0.4      90.0.0.5
+@{NET2_L3_VM_IPS}      100.0.0.3      100.0.0.4      100.0.0.5
+${NET1_DHCP_IP}     90.0.0.2
+${NET2_DHCP_IP}     100.0.0.2
 
 *** Test Cases ***
 Create All Controller Sessions
