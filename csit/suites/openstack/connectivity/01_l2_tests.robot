@@ -21,6 +21,11 @@ Resource          ../../../libraries/Utils.robot
 @{NET_1_VM_INSTANCES}    MyFirstInstance_1    MySecondInstance_1    MyThirdInstance_1
 @{NET_2_VM_INSTANCES}    MyFirstInstance_2    MySecondInstance_2    MyThirdInstance_2
 @{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
+@{NET1_VM_IPS}      30.0.0.3      30.0.0.4      30.0.0.5
+@{NET2_VM_IPS}      40.0.0.3      40.0.0.4      40.0.0.5
+${NET1_DHCP_IP}     30.0.0.2
+${NET2_DHCP_IP}     40.0.0.2
+
 
 *** Test Cases ***
 Create Networks
@@ -53,31 +58,6 @@ Create Vm Instances For l2_network_1
 Create Vm Instances For l2_network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
     Create Vm Instances    l2_network_2    ${NET_2_VM_INSTANCES}    sg=csit
-
-Check Vm Instances Have Ip Address
-    [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
-    ...    We are polling first and longest on the last VM created assuming that if it's received it's address
-    ...    already the other instances should have theirs already or at least shortly thereafter.
-    # first, ensure all VMs are in ACTIVE state.    if not, we can just fail the test case and not waste time polling
-    # for dhcp addresses
-    : FOR    ${vm}    IN    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
-    \    Wait Until Keyword Succeeds    15s    5s    Verify VM Is ACTIVE    ${vm}
-    ${NET1_VM_COUNT}    Get Length    ${NET_1_VM_INSTANCES}
-    ${NET2_VM_COUNT}    Get Length    ${NET_2_VM_INSTANCES}
-    ${LOOP_COUNT}    Evaluate    ${NET1_VM_COUNT}+${NET2_VM_COUNT}
-    : FOR    ${index}    IN RANGE    1    ${LOOP_COUNT}
-    \    ${NET1_VM_IPS}    ${NET1_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_1_VM_INSTANCES}
-    \    ${NET2_VM_IPS}    ${NET2_DHCP_IP}    Verify VMs Received DHCP Lease    @{NET_2_VM_INSTANCES}
-    \    ${NET1_VM_LIST_LENGTH}=    Get Length    ${NET1_VM_IPS}
-    \    ${NET2_VM_LIST_LENGTH}=    Get Length    ${NET2_VM_IPS}
-    \    Exit For Loop If    ${NET1_VM_LIST_LENGTH}==${NET1_VM_COUNT} and ${NET2_VM_LIST_LENGTH}==${NET2_VM_COUNT}
-    Append To List    ${NET1_VM_IPS}    ${NET1_DHCP_IP}
-    Set Suite Variable    ${NET1_VM_IPS}
-    Append To List    ${NET2_VM_IPS}    ${NET2_DHCP_IP}
-    Set Suite Variable    ${NET2_VM_IPS}
-    [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
-    ...    AND    Get OvsDebugInfo
-    ...    AND    Get Model Dump    ${ODL_SYSTEM_IP}
 
 Ping Vm Instance1 In l2_network_1
     [Documentation]    Check reachability of vm instances by pinging to them.
