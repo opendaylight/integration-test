@@ -21,6 +21,11 @@ Resource          ../../../libraries/Utils.robot
 @{NET_1_VM_INSTANCES}    MyFirstInstance_1    MySecondInstance_1    MyThirdInstance_1
 @{NET_2_VM_INSTANCES}    MyFirstInstance_2    MySecondInstance_2    MyThirdInstance_2
 @{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
+@{NET1_VM_IPS}      30.0.0.3      30.0.0.4      30.0.0.5
+@{NET2_VM_IPS}      40.0.0.3      40.0.0.4      40.0.0.5
+${NET1_DHCP_IP}     30.0.0.2
+${NET2_DHCP_IP}     40.0.0.2
+
 
 *** Test Cases ***
 Create Networks
