@@ -1,9 +1,8 @@
 *** Settings ***
 Documentation     Test suite to verify packet flows between vm instances.
-Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
-...               AND    DevstackUtils.Devstack Suite Setup
+Suite Setup       DevstackUtils.Devstack Suite Setup
 Suite Teardown    Close All Connections
-Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
+Test Setup        SetupUtils.Setup_Test_With_Logging_And_Fast_Failing
 Test Teardown     Run Keywords    Get OvsDebugInfo
 ...               AND    Get Model Dump    ${ODL_SYSTEM_IP}
 Library           SSHLibrary
@@ -21,6 +20,11 @@ Resource          ../../../libraries/Utils.robot
 @{NET_1_VM_INSTANCES}    MyFirstInstance_1    MySecondInstance_1    MyThirdInstance_1
 @{NET_2_VM_INSTANCES}    MyFirstInstance_2    MySecondInstance_2    MyThirdInstance_2
 @{SUBNETS_RANGE}    30.0.0.0/24    40.0.0.0/24
+@{NET1_VM_IPS}      30.0.0.3      30.0.0.4      30.0.0.5
+@{NET2_VM_IPS}      40.0.0.3      40.0.0.4      40.0.0.5
+${NET1_DHCP_IP}     30.0.0.2
+${NET2_DHCP_IP}     40.0.0.2
+
 
 *** Test Cases ***
 Create Networks
@@ -38,21 +42,16 @@ Create Subnets For l2_network_2
 
 Add Ssh Allow Rule
     [Documentation]    Allow all TCP/UDP/ICMP packets for this suite
-    Neutron Security Group Create    csit
-    Neutron Security Group Rule Create    csit    direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    csit    direction=egress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    csit    direction=ingress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    csit    direction=egress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    csit    direction=ingress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
-    Neutron Security Group Rule Create    csit    direction=egress    port_range_max=65535    port_range_min=1    protocol=udp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    default     direction=ingress    port_range_max=65535    port_range_min=1    protocol=tcp    remote_ip_prefix=0.0.0.0/0
+    Neutron Security Group Rule Create    default     direction=ingress    protocol=icmp    remote_ip_prefix=0.0.0.0/0
 
 Create Vm Instances For l2_network_1
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    l2_network_1    ${NET_1_VM_INSTANCES}    sg=csit
+    Create Vm Instances    l2_network_1    ${NET_1_VM_INSTANCES}
 
 Create Vm Instances For l2_network_2
     [Documentation]    Create Four Vm instances using flavor and image names for a network.
-    Create Vm Instances    l2_network_2    ${NET_2_VM_INSTANCES}    sg=csit
+    Create Vm Instances    l2_network_2    ${NET_2_VM_INSTANCES}
 
 Check Vm Instances Have Ip Address
     [Documentation]    Test case to verify that all created VMs are ready and have received their ip addresses.
