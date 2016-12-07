@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_466520e0",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-12-07T21:50:04Z",
+      "side": 1,
+      "message": "can a simply string cat be used rather than sed? Or is this somehow also ensuring the log is only from the start of the test until the next test?",
+      "revId": "209d8b6915a405018181101382ed56d05e579806",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e6826c51",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-12-07T21:50:04Z",
+      "side": 1,
+      "message": "maybe add another function to wrap all the types so that both error and warn don\u0027t have to be each requested in the teardown?",
+      "revId": "209d8b6915a405018181101382ed56d05e579806",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
