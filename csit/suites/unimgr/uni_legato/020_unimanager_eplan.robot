@@ -20,16 +20,37 @@ Check no connectivity before creating service
     [Documentation]    Verify packet loss before creating the service between h3 to h4
     MininetKeywords.Verify Mininet No Ping    h3    h4
 
+Create device
+    ${device}=    OperatingSystem.Get File    ${UniMgr_variables_DIR}/add_device.json
+    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_API}/mef-topology:mef-topology/devices/    headers=${HEADERS_YANG_JSON}    data=${device}
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+    ${el}    Create List    1
+    Wait Until Keyword Succeeds    16s    2s    Check For Elements At URI    ${CONFIG_API}/mef-topology:mef-topology/devices/    ${el}
+
+Create tenant
+    ${ten}=    OperatingSystem.Get File    ${UniMgr_variables_DIR}/add_tenant.json
+    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_API}/mef-global:mef-global/tenants-instances/    headers=${HEADERS_YANG_JSON}    data=${ten}
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+    ${ten}    Create List    tenant
+    Wait Until Keyword Succeeds    16s    2s    Check For Elements At URI    ${CONFIG_API}/mef-global:mef-global/tenants-instances    ${ten}
+
+Create linkUni
+    ${link}=    OperatingSystem.Get File    ${UniMgr_variables_DIR}/eplan_uni_link.json
+    ${resp}    RequestsLibrary.Post Request    session    ${CONFIG_API}/mef-interfaces:mef-interfaces/unis/    headers=${HEADERS_YANG_JSON}    data=${link}
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+    ${aa}    Create List    eth3    eth4    eth5
+    Wait Until Keyword Succeeds    56s    2s    Check For Elements At URI    ${CONFIG_API}/mef-interfaces:mef-interfaces/unis/    ${aa}
+
 Create epl service
     [Documentation]    Create multi point to multi point service between the eth ports
-    ${interface}    Create List    s1-eth1    s1-eth2
-    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${CONFIG_API}/mef-interfaces:mef-interfaces/    ${interface}
+    ${interface}    Create List    s1-eth3    s1-eth4    s1-eth5
+    Wait Until Keyword Succeeds    10s    2s    Check For Elements At URI    ${OPERATIONAL_API}/mef-interfaces:mef-interfaces/    ${interface}
     ${body}=    OperatingSystem.Get File    ${UniMgr_variables_DIR}/add_eplan.json
     ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_API}/mef-services:mef-services/    headers=${HEADERS_YANG_JSON}    data=${body}
     Log    ${resp.content}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
     ${elements}    Create List    eth3    eth4    eth5
-    Wait Until Keyword Succeeds    56s    8s    Check For Elements At URI    ${CONFIG_API}/elan:elan-interfaces/    ${elements}
+    Wait Until Keyword Succeeds    56s    8s    Check For Elements At URI    ${CONFIG_API}/mef-services:mef-services/    ${elements}
 
 Check ping between h3-h4 after service creation
     [Documentation]    Verify ping between the hosts h3 - h4

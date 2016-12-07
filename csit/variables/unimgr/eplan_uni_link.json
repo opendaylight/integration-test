@@ -1,0 +1,50 @@
+s": {
+    "uni": [
+      {
+        "uni-id": "1:s1-eth3",
+        "tenant-id": "csit",
+        "physical-layers": {
+          "links": {
+            "link": [
+              {
+                "device": "1",
+                "interface": "1:s1-eth3"
+              }
+            ]
+          }
+        },
+        "admin-state-enabled": true
+      },
+      {
+        "uni-id": "1:s1-eth4",
+        "tenant-id": "csit",
+        "physical-layers": {
+          "links": {
+            "link": [
+              {
+                "device": "1",
+                "interface": "1:s1-eth4"
+              }
+            ]
+          }
+        },
+        "admin-state-enabled": true
+      },
+      {
+        "uni-id": "1:s1-eth5",
+        "tenant-id": "csit",
+        "physical-layers": {
+          "links": {
+            "link": [
+              {
+                "device": "1",
+                "interface": "1:s1-eth5"
+              }
+            ]
+          }
+        },
+        "admin-state-enabled": true
+      }
+    ]
+  }
+}
