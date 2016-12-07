@@ -1,0 +1,10 @@
+{
+  "devices": {
+    "device": [
+      {
+        "dev-id": "1",
+        "device-name": "s1"
+      }
+    ]
+  }
+}
