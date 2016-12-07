@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_faede18c",
+        "filename": "csit/suites/openstack/clustering/01_l2_tests.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 132,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-12-07T10:13:20Z",
+      "side": 1,
+      "message": "Leaving this for a separate commit, but we really need to refactor this to something like \"Get Quick Debug Info\", and have all robot suites use it.\n\nNo point in copy pasting this code across all test suites, these changes should just be in OpenstackOperations",
+      "revId": "d91eb0e23213db5e6e6d0a01f2d3bdff34944481",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
