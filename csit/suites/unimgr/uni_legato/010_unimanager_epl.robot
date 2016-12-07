@@ -24,6 +24,15 @@ Create epl service
     [Documentation]    Create point to point service between the eth ports
     ${interface}    Create List    s1-eth1    s1-eth2
     Wait Until Keyword Succeeds    12s    2s    Check For Elements At URI    ${CONFIG_API}/mef-interfaces:mef-interfaces/    ${interface}
+    
+    ${device}=    OperatingSystem.Get File    ${UniMgr_variables_DIR}/add_device.json
+    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_API}/mef-topology:mef-topology/devices/    headers=${HEADERS_YANG_JSON}    data=${device}
+    Wait Until Keyword Succeeds    6s    2s    Check For Elements At URI    ${CONFIG_API}/mef-topology:mef-topology/devices/    ${device}
+
+    ${ten}=    OperatingSystem.Get File    ${UniMgr_variables_DIR}/add_tenant.json
+    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_API}/mef-interfaces:mef-interfaces/    headers=${HEADERS_YANG_JSON}    data=${ten}
+    Wait Until Keyword Succeeds    6s    2s    Check For Elements At URI    ${CONFIG_API}/mef-interfaces:mef-interfaces/    ${ten}
+
     ${body}=    OperatingSystem.Get File    ${UniMgr_variables_DIR}/add_epl.json
     ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_API}/mef-services:mef-services/    headers=${HEADERS_YANG_JSON}    data=${body}
     Log    ${resp.content}

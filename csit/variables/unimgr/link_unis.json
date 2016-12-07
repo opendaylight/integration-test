@@ -1,0 +1,34 @@
+{
+  "uni": [
+    {
+      "uni-id": "1:s1-eth1",
+      "tenant-id": "55",
+      "physical-layers": {
+        "links": {
+          "link": [
+            {
+              "device": "1",
+              "interface": "1:s1-eth1"
+            }
+          ]
+        }
+      },
+      "admin-state-enabled": true
+    },
+	{
+      "uni-id": "1:s1-eth2",
+      "tenant-id": "55",
+      "physical-layers": {
+        "links": {
+          "link": [
+            {
+              "device": "1",
+              "interface": "1:s1-eth2"
+            }
+          ]
+        }
+      },
+      "admin-state-enabled": true
+    }
+  ]
+}

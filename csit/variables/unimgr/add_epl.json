@@ -1,26 +1,33 @@
 {
-"mef-services": {
+  "mef-services": {
     "mef-service": [
       {
-        "svc-id": 1,
-        "svc-type": "epl",
+        "svc-id": "90",
         "evc": {
-          "evc-id": "1",
           "unis": {
             "uni": [
               {
                 "uni-id": "1:s1-eth1",
-                "role": "root"
+                "admin-state-enabled": true,
+                "role": "root",
+                "evc-uni-ce-vlans": {}
               },
               {
                 "uni-id": "1:s1-eth2",
-                "role": "root"
+                "admin-state-enabled": true,
+                "role": "root",
+                "evc-uni-ce-vlans": {}
               }
             ]
           },
+          "evc-id": "90",
+          "admin-state-enabled": true,
           "evc-type": "point-to-point"
-        }
+        },
+        "tenant-id": "55",
+        "svc-type": "epl"
       }
     ]
   }
 }
+
