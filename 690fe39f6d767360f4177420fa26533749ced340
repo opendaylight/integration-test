@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_9ac82d76",
+        "filename": "csit/suites/sfc/SFC_Basic/100__sfc_service_function_acl.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-12-07T08:37:04Z",
+      "side": 1,
+      "message": "It looks like this test case depends on the previous one. \n\nTest cases should be independent.\n\nBesides, always clean everything after a test case. If a test case creates ACLs, it should delete them at the end. A safe way to do this is as the Test Case Teardown phase. For instance:\n\n  [TearDown]  Delete all ACLs",
+      "revId": "690fe39f6d767360f4177420fa26533749ced340",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
