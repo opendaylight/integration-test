@@ -19,6 +19,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_e0bb6f70",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 485,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-12-08T12:45:14Z",
+      "side": 1,
+      "message": "nah we need this.. it\u0027s ensuring that the log is only from the start of the test (and until the end of the log, which means the end of the test since we didnt start the next test yet).\n\nthink of it as \"cat $log_file | grep \u003call lines after\u003e ${test_name}\"",
+      "parentUuid": "1a622d24_466520e0",
+      "revId": "209d8b6915a405018181101382ed56d05e579806",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_e6826c51",
         "filename": "csit/libraries/OpenStackOperations.robot",
         "patchSetId": 6
@@ -30,6 +48,24 @@
       "writtenOn": "2016-12-07T21:50:04Z",
       "side": 1,
       "message": "maybe add another function to wrap all the types so that both error and warn don\u0027t have to be each requested in the teardown?",
+      "revId": "209d8b6915a405018181101382ed56d05e579806",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_802f1ba1",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 497,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-12-08T12:45:14Z",
+      "side": 1,
+      "message": "yeah tried refactoring the whole test teardown part - giving it a try now in sandbox",
+      "parentUuid": "1a622d24_e6826c51",
       "revId": "209d8b6915a405018181101382ed56d05e579806",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
