@@ -2,6 +2,29 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a622d24_b6053dc4",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 511,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-12-08T16:25:37Z",
+      "side": 1,
+      "message": "instead of giving this as an argument, can you just use it inline?  thinking it might work since when it\u0027s finally called at the end of a test, it will then be defined...  just a guess.",
+      "range": {
+        "startLine": 511,
+        "startChar": 4,
+        "endLine": 511,
+        "endChar": 31
+      },
+      "revId": "d4094162d73873c3e8c4dbb3806913cb49fa2019",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_36af6de5",
         "filename": "csit/suites/openstack/clustering/02_l3_tests.robot",
         "patchSetId": 10
