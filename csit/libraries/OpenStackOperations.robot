@@ -118,7 +118,7 @@ Create And Associate Floating IPs
     Switch Connection    ${devstack_conn_id}
     ${ip_list}=    Create List    @{EMPTY}
     : FOR    ${vm}    IN    @{vm_list}
-    \    ${output}=    Write Commands Until Prompt    nova floating-ip-create ${external_net} | grep "${external_net}"    30s
+    \    ${output}=    Write Commands Until Prompt    nova floating-ip-create ${external_net} | grep "${external_net}" 2>/dev/null    30s
     \    Log    ${output}
     \    @{output_words}    Split String    ${output}
     \    Append To List    ${ip_list}    @{output_words}[3]
