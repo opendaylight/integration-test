@@ -1,7 +1,9 @@
 *** Settings ***
 Documentation     Test suite to verify packet flows between vm instances.
-Suite Setup       Devstack Suite Setup    source_pwd=yes
-Suite Teardown    Close All Connections
+Suite Setup       Run Keywords    Devstack Suite Setup    source_pwd=yes
+...               AND    Get OvsDebugInfo    AND    Get Model Dump
+Suite Teardown    Run Keywords    Get OvsDebugInfo
+...               AND    Get Model Dump    AND    Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Run Keywords    Get OvsDebugInfo
 Library           SSHLibrary

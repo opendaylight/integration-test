@@ -1,8 +1,10 @@
 *** Settings ***
 Documentation     Test suite for running tempest tests. It is assumed that the test environment
 ...               is already deployed and ready.
-Suite Setup       Log In To Tempest Executor And Setup Test Environment
-Suite Teardown    Clean Up After Running Tempest
+Suite Setup       Run Keywords    Log In To Tempest Executor And Setup Test Environment
+...               AND    Get OvsDebugInfo    AND    Get Model Dump
+Suite Teardown    Run Keywords    Clean Up After Running Tempest
+...               AND    Get OvsDebugInfo    AND    Get Model Dump
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Get OvsDebugInfo
 Test Template     DevstackUtils.Run Tempest Tests

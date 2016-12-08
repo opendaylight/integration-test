@@ -1,7 +1,9 @@
 *** Settings ***
 Documentation     Test Suite for Neutron Security Group
-Suite Setup       Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-Test Teardown     Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
+Suite Setup       Run Keywords    Get OvsDebugInfo
+...               AND    Get Model Dump    AND    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
+Test Teardown     Run Keywords    Get OvsDebugInfo
+...               AND    Get Model Dump    AND    Get Flows    ${OS_COMPUTE_1_IP}    ${OS_COMPUTE_2_IP}
 Library           SSHLibrary
 Library           OperatingSystem
 Library           RequestsLibrary
