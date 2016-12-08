@@ -118,11 +118,10 @@ Create And Associate Floating IPs
     Switch Connection    ${devstack_conn_id}
     ${ip_list}=    Create List    @{EMPTY}
     : FOR    ${vm}    IN    @{vm_list}
-    \    ${output}=    Write Commands Until Prompt    nova floating-ip-create ${external_net} | grep "${external_net}"    30s
+    \    ${output}=    Write Commands Until Prompt    neutron floatingip-create ${external_net} -f value -c floating_ip_address    30s
     \    Log    ${output}
-    \    @{output_words}    Split String    ${output}
-    \    Append To List    ${ip_list}    @{output_words}[3]
-    \    ${output}=    Write Commands Until Prompt    nova floating-ip-associate ${vm} @{output_words}[3]    30s
+    \    Append To List    ${ip_list}    ${output}
+    \    ${output}=    Write Commands Until Prompt    nova floating-ip-associate ${vm} ${output}    30s
     \    Log    ${output}
     [Return]    ${ip_list}
 
