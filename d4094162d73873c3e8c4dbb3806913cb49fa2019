@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_36af6de5",
+        "filename": "csit/suites/openstack/clustering/02_l3_tests.robot",
+        "patchSetId": 10
+      },
+      "lineNbr": 6,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-12-08T15:58:03Z",
+      "side": 1,
+      "message": "meh, this doesn\u0027t work, TEST_NAME isn\u0027t available here..\ndon\u0027t merge i\u0027ll play around with it more",
+      "revId": "d4094162d73873c3e8c4dbb3806913cb49fa2019",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
