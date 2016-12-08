@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_4c79bf2e",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 14,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-12-08T09:05:52Z",
+      "side": 1,
+      "message": "_Topology_",
+      "range": {
+        "startLine": 14,
+        "startChar": 68,
+        "endLine": 14,
+        "endChar": 69
+      },
+      "revId": "a381e313c322dc37210b17f5a1e504da44646834",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_6cd11bfb",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 7
+      },
+      "lineNbr": 15,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-12-08T09:05:52Z",
+      "side": 1,
+      "message": "This suite does not check which feature is installed, and in Carbon odl-netconf-connector-ssh depends on odl-netconf-topology.\n\nFor this suite, the important difference is whether controller-config device is already configured (an maybe presence of some modules in config subsystem).\n\nAfter explaining the relations, documentation can refer to ${USE_NETCONF_CONNECTOR} value instead of features used. Or perhaps \"Connector case\" and \"Topology case\".",
+      "range": {
+        "startLine": 15,
+        "startChar": 18,
+        "endLine": 15,
+        "endChar": 63
+      },
+      "revId": "a381e313c322dc37210b17f5a1e504da44646834",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
