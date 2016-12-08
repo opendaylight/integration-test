@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_a0c177e6",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 8
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-12-08T12:10:28Z",
+      "side": 1,
+      "message": "This sounds like the test case is setting the variable.",
+      "range": {
+        "startLine": 16,
+        "startChar": 18,
+        "endLine": 16,
+        "endChar": 24
+      },
+      "revId": "3e6a727bf4c9fc2c6f2bdc7f81eb0f1f287a8bed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
