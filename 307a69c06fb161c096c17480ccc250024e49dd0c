@@ -1,0 +1,73 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_96792196",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-12-08T15:53:46Z",
+      "side": 1,
+      "message": "Move the sentence from lines 21-22 to replace the second half of this sentence.",
+      "range": {
+        "startLine": 15,
+        "startChar": 97,
+        "endLine": 16,
+        "endChar": 26
+      },
+      "revId": "307a69c06fb161c096c17480ccc250024e49dd0c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_764ba559",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 20,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-12-08T15:53:46Z",
+      "side": 1,
+      "message": "_Topology_",
+      "range": {
+        "startLine": 20,
+        "startChar": 39,
+        "endLine": 20,
+        "endChar": 40
+      },
+      "revId": "307a69c06fb161c096c17480ccc250024e49dd0c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_766285d9",
+        "filename": "csit/suites/netconf/ready/netconfready.robot",
+        "patchSetId": 9
+      },
+      "lineNbr": 27,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-12-08T15:53:46Z",
+      "side": 1,
+      "message": "Jobs do not \"use\" subset of test cases. They execute all (except when --exclude is specified, which is not for this suite).\n\nInstead, the *Connector test cases change behavior depending on ${USE_NETCONF_CONNECTOR}. If True, they check data mounted behind controller-config is readable, if False they only check topology-netconf is readable.",
+      "range": {
+        "startLine": 27,
+        "startChar": 29,
+        "endLine": 27,
+        "endChar": 39
+      },
+      "revId": "307a69c06fb161c096c17480ccc250024e49dd0c",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
