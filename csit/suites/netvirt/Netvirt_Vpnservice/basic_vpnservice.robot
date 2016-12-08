@@ -4,7 +4,11 @@ Documentation     Test suite to validate vpnservice functionality in an openstac
 ...               integration bridges and vxlan tunnels.
 Suite Setup       BuiltIn.Run Keywords    SetupUtils.Setup_Utils_For_Setup_And_Teardown
 ...               AND    DevstackUtils.Devstack Suite Setup
-Suite Teardown    Close All Connections
+...               AND    Get OvsDebugInfo
+...               AND    Get Model Dump    ${ODL_SYSTEM_IP}
+Suite Teardown    Run Keywords    Get OvsDebugInfo
+...               AND    Get Model Dump    ${ODL_SYSTEM_IP}
+...               AND    Close All Connections
 Test Setup        SetupUtils.Setup_Test_With_Logging_And_Without_Fast_Failing
 Test Teardown     Get OvsDebugInfo
 Library           OperatingSystem
