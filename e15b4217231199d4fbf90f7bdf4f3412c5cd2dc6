@@ -1,0 +1,61 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_79b9d62d",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-12-08T18:19:34Z",
+      "side": 1,
+      "message": "nice change",
+      "revId": "e15b4217231199d4fbf90f7bdf4f3412c5cd2dc6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_59b69a3e",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 121,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-12-08T18:19:34Z",
+      "side": 1,
+      "message": "does the tail -1 add any value now?",
+      "range": {
+        "startLine": 121,
+        "startChar": 135,
+        "endLine": 121,
+        "endChar": 136
+      },
+      "revId": "e15b4217231199d4fbf90f7bdf4f3412c5cd2dc6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_39af5ee5",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 4
+      },
+      "lineNbr": 124,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-12-08T18:19:34Z",
+      "side": 1,
+      "message": "is a new var needed?",
+      "revId": "e15b4217231199d4fbf90f7bdf4f3412c5cd2dc6",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
