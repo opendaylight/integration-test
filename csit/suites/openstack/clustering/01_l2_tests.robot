@@ -200,29 +200,31 @@ Bring Up ODL1 and ODL2
     [Documentation]    Bring up ODL1 and ODL2 again.
     ClusterManagement.Start Members From List Or All    ${cluster_down_list}
 
-Delete Vm Instance
-    [Documentation]    Delete Vm instances using instance names.
-    OpenStackOperations.Delete Vm Instance    VmInstance1_l2_net_1
-
-No Ping For Deleted Vm
-    [Documentation]    Check non reachability of deleted vm instances by pinging to them.
-    ${output}=    OpenStackOperations.Ping From DHCP Should Not Succeed    l2_network_1    @{NET_1_VM_IPS}[0]
-
-Delete Vm Instances In network_1
+Delete Vm Instances In l2_net_1
     [Documentation]    Delete Vm instances using instance names in network_1.
     : FOR    ${VmElement}    IN    @{NET_1_VM_INSTANCES}
     \    OpenStackOperations.Delete Vm Instance    ${VmElement}
 
-Delete Vm Instances In network_2
-    [Documentation]    Delete Vm instances using instance names in network_2.
+No Ping For Deleted Vms In l2_net_1
+    [Documentation]    Check non reachability of deleted vm instances by pinging to them.
+    : FOR    ${VmElement}    IN    @{NET_1_VM_INSTANCES}
+    \    ${output}=    OpenStackOperations.Ping From DHCP Should Not Succeed    l2_net_1    ${VmElement}
+
+Delete Vm Instances In l2_net_2
+    [Documentation]    Delete Vm instances using instance names in l2_net_2.
     : FOR    ${VmElement}    IN    @{NET_2_VM_INSTANCES}
     \    OpenStackOperations.Delete Vm Instance    ${VmElement}
 
-Delete Sub Networks In network_1
+No Ping For Deleted Vms In l2_net_2
+    [Documentation]    Check non reachability of deleted vm instances by pinging to them.
+    : FOR    ${VmElement}    IN    @{NET_2_VM_INSTANCES}
+    \    ${output}=    OpenStackOperations.Ping From DHCP Should Not Succeed    l2_net_2    ${VmElement}
+
+Delete Sub Networks In l2_net_1
     [Documentation]    Delete Sub Nets for the Networks with neutron request.
     OpenStackOperations.Delete SubNet    l2_sub_net_1
 
-Delete Sub Networks In network_2
+Delete Sub Networks In l2_net_2
     [Documentation]    Delete Sub Nets for the Networks with neutron request.
     OpenStackOperations.Delete SubNet    l2_sub_net_2
 
