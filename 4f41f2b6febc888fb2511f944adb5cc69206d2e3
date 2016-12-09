@@ -1,0 +1,44 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_140d0991",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-12-09T08:14:38Z",
+      "side": 1,
+      "message": "Why are you adding a None value to the list? This seems unnecessary.",
+      "range": {
+        "startLine": 126,
+        "startChar": 0,
+        "endLine": 126,
+        "endChar": 60
+      },
+      "revId": "4f41f2b6febc888fb2511f944adb5cc69206d2e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_54266117",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 127,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-12-09T08:14:38Z",
+      "side": 1,
+      "message": "What if not ${ip_length}\u003e0 ? This line would fail.",
+      "revId": "4f41f2b6febc888fb2511f944adb5cc69206d2e3",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
