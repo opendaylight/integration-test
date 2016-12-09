@@ -173,6 +173,7 @@ Delete Vm Instance
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    nova force-delete ${vm_name}    40s
+    Should Not Contain    ${output}    No server with a name or ID of '${vm_name}' exists.
     Close Connection
 
 Get Net Id
