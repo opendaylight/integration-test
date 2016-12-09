@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_6f03c80f",
+        "filename": "csit/variables/daexim/daexim/odl_backup_models.json",
+        "patchSetId": 9
+      },
+      "lineNbr": 1,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-12-09T12:57:18Z",
+      "side": 1,
+      "message": "Content of these two files correspond to a typical content of ODL configuration. But in shapshot builds, this content can change very easily (for example when another piece of functionality gets converted from config subsystem to blueprint).\nMaybe this content does not need to match the current configuration of ODL under test. But if the suites need the content to match, it would be better to GET the content at runtime, instead of reading it from these two files.",
+      "range": {
+        "startLine": 1,
+        "startChar": 0,
+        "endLine": 1,
+        "endChar": 2
+      },
+      "revId": "5d9b6bcf238bd6249eb8e874c71e73f7ee526676",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
