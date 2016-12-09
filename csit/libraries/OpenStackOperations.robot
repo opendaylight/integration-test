@@ -173,6 +173,7 @@ Delete Vm Instance
     ${devstack_conn_id}=    Get ControlNode Connection
     Switch Connection    ${devstack_conn_id}
     ${output}=    Write Commands Until Prompt    nova force-delete ${vm_name}    40s
+    Should Not Contain    ${output}    No server with a name or ID of '${vm_name}' exists.
     Close Connection
 
 Get Net Id
@@ -293,7 +294,7 @@ Ping From DHCP Should Not Succeed
     Switch Connection    ${devstack_conn_id}
     ${net_id}=    Get Net Id    ${net_name}    ${devstack_conn_id}
     Log    ${net_id}
-    ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    20s
+    ${output}=    Write Commands Until Prompt    sudo ip netns exec qdhcp-${net_id} ping -c 3 ${vm_ip}    30s
     Close Connection
     Log    ${output}
     Should Not Contain    ${output}    64 bytes

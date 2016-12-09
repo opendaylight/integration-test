@@ -127,18 +127,15 @@ Connectivity Tests From Vm Instance3 In l2_network_2
     [Documentation]    Login to the vm instance using generated key pair.
     Test Operations From Vm Instance    l2_network_2    @{NET2_VM_IPS}[2]    ${NET2_VM_IPS}
 
-Delete A Vm Instance
-    [Documentation]    Delete Vm instances using instance names.
-    Delete Vm Instance    MyFirstInstance_1
-
-No Ping For Deleted Vm
-    [Documentation]    Check non reachability of deleted vm instances by pinging to them.
-    ${output}=    Ping From DHCP Should Not Succeed    l2_network_1    @{NET_1_VM_IPS}[0]
-
 Delete Vm Instances In l2_network_1
     [Documentation]    Delete Vm instances using instance names in l2_network_1.
     : FOR    ${VmElement}    IN    @{NET_1_VM_INSTANCES}
     \    Delete Vm Instance    ${VmElement}
+
+No Ping For Deleted Vms In l2_network_1
+    [Documentation]    Check non reachability of deleted vm instances by pinging to them.
+    : FOR    ${VmElement}    IN    @{NET_1_VM_INSTANCES}
+    \    ${output}=    Ping From DHCP Should Not Succeed    l2_network_1    ${VmElement}
 
 Delete Vm Instances In l2_network_2
     [Documentation]    Delete Vm instances using instance names in l2_network_2.
@@ -147,6 +144,11 @@ Delete Vm Instances In l2_network_2
     [Teardown]    Run Keywords    Show Debugs    @{NET_1_VM_INSTANCES}    @{NET_2_VM_INSTANCES}
     ...    AND    Get OvsDebugInfo
     ...    AND    Get Model Dump    ${ODL_SYSTEM_IP}
+
+No Ping For Deleted Vms In l2_network_2
+    [Documentation]    Check non reachability of deleted vm instances by pinging to them.
+    : FOR    ${VmElement}    IN    @{NET_2_VM_INSTANCES}
+    \    ${output}=    Ping From DHCP Should Not Succeed    l2_network_2    ${VmElement}
 
 Delete Sub Networks In l2_network_1
     [Documentation]    Delete Sub Nets for the Networks with neutron request.
