@@ -1,0 +1,67 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_d4dd5116",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 8,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-12-09T08:02:21Z",
+      "side": 1,
+      "message": "What if you group these operation into one single keyword: \"collect info\" or similar?",
+      "range": {
+        "startLine": 7,
+        "startChar": 0,
+        "endLine": 8,
+        "endChar": 59
+      },
+      "revId": "5682b34d43755434844f69080d57797cfaa6c773",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_74c1dd2d",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 11,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-12-09T08:02:21Z",
+      "side": 1,
+      "message": "If logs collection is done per Test Case, maybe it\u0027s not needed at the Suite level.",
+      "range": {
+        "startLine": 6,
+        "startChar": 0,
+        "endLine": 11,
+        "endChar": 46
+      },
+      "revId": "5682b34d43755434844f69080d57797cfaa6c773",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_74d8bd1d",
+        "filename": "csit/suites/openstack/NeutronSecurityGrp/Neutron_Security_Group.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 4,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-12-09T08:02:21Z",
+      "side": 1,
+      "message": "It looks like \"Get Model Dump\" will always be invoked with ${ODL_SYSTEM_IP}. Therefore, why not let \"Get Model Dump\" itself take care of that value and use it as a default, so leaving test cases cleaner?",
+      "revId": "5682b34d43755434844f69080d57797cfaa6c773",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
