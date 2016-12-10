@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_6ce8f1b4",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 14
+      },
+      "lineNbr": 514,
+      "author": {
+        "id": 6177
+      },
+      "writtenOn": "2016-12-10T09:13:49Z",
+      "side": 1,
+      "message": "We should probably add Exceptions from the karaf.log.\n\nAnother thing we should probably add is uncaught exceptions in karaf-stdout.log. These ones are trickier to do per test, because there is not \"ROBOT MESSAGE\" in them. Jamo, any idea what adds those messages to the karaf.log? Can we do the same for the karaf-stdout.log?",
+      "revId": "eb7f709c4e8133a8a5db01bdce2d4612edded51f",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
