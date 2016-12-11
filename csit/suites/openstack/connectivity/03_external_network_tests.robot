@@ -15,7 +15,9 @@ Resource          ../../../libraries/Utils.robot
 *** Variables ***
 @{NETWORKS_NAME}    l3_net
 @{SUBNETS_NAME}    l3_subnet
-@{VM_INSTANCES}    VmInstance1_net    VmInstance2_net
+@{VM_INSTANCES_FLOATING}    VmInstance1_floating    VmInstance2_floating
+@{VM_INSTANCES_SNAT}    VmInstance3_snat
+@{VM_INSTANCES}    ${VM_INSTANCES_FLOATING}    ${VM_INSTANCES_SNAT}
 @{SUBNETS_RANGE}    90.0.0.0/24
 ${external_gateway}    10.10.10.250
 ${external_subnet}    10.10.10.0/24
@@ -77,11 +79,11 @@ Check Vm Instances Have Ip Address
     ...    AND    Get OvsDebugInfo
     ...    AND    Get Model Dump    ${ODL_SYSTEM_IP}
 
-Create And Associate Floating IPs for VMs
+Create And Associate Floating IPs for VMs testing Floating IP
     [Documentation]    Create and associate a floating IP for the VM
-    ${VM_FLOATING_IPS}    OpenStackOperations.Create And Associate Floating IPs    ${external_net_name}    @{VM_INSTANCES}
+    ${VM_FLOATING_IPS}    OpenStackOperations.Create And Associate Floating IPs    ${external_net_name}    @{VM_INSTANCES_FLOATING}
     Set Suite Variable    ${VM_FLOATING_IPS}
-    [Teardown]    Run Keywords    Show Debugs    ${VM_INSTANCES}
+    [Teardown]    Run Keywords    Show Debugs    ${VM_INSTANCES_FLOATING}
     ...    AND    Get OvsDebugInfo
     ...    AND    Get Model Dump    ${ODL_SYSTEM_IP}
 
@@ -96,6 +98,14 @@ Ping Vm Instance1 Floating IP From Control Node
 Ping Vm Instance2 Floating IP From Control Node
     [Documentation]    Check reachability of VM instance through floating IP by pinging them.
     OpenStackOperations.Ping Vm From Control Node    @{VM_FLOATING_IPS}[1]
+
+SNAT - Send UDP to External Gateway From VM Instance (without Floating IP)
+    [Documentation]    Login to the VM instance and test ping to the external gateway.
+    Test Netcat Operations From Vm Instance    network_1    ${external_gateway}    UDP
+
+SNAT - Send TCP to External Gateway From VM Instance (without Floating IP)
+    [Documentation]    Login to the VM instance and test ping to the external gateway.
+    Test Netcat Operations From Vm Instance    network_1    ${external_gateway}    TCP
 
 Delete Vm Instances
     [Documentation]    Delete Vm instances using instance names.
