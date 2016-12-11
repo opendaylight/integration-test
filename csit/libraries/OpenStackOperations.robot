@@ -348,7 +348,6 @@ Exit From Vm Console
     [Documentation]    Check if the session has been able to login to the VM instance and exit the instance
     ${rcode}=    Run Keyword And Return Status    Check If Console Is VmInstance    cirros
     Run Keyword If    ${rcode}    Write Commands Until Prompt    exit
-    Get OvsDebugInfo
 
 Check Ping
     [Arguments]    ${ip_address}
@@ -399,6 +398,35 @@ Test Operations From Vm Instance
     \    Run Keyword If    ${rcode}    Check Ping    ${dest_ip}
     Run Keyword If    ${rcode}    Check Metadata Access
     [Teardown]    Exit From Vm Console
+
+Install Netcat On Controller
+    [Documentation]    Installs Netcat on the controller - this probably shouldn't be here
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    ${output}=    Write Commands Until Prompt    sudo yum install -y nc
+    Log    ${output}
+    Close Connection
+
+Test Netcat Operations From Vm Instance
+    [Arguments]    ${net_name}    ${vm_ip}    ${dest_ip}    ${additional_args}=${EMPTY}    ${port}=12345    ${user}=cirros
+    ...    ${password}=cubswin:)
+    [Documentation]    Use Netcat to test TCP/UDP connections to the controller
+    ${client_data}    Set Variable    Test Client Data
+    ${server_data}    Set Variable    Test Server Data
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    Log    ${vm_ip}
+    ${output}=    Write Commands Until Prompt    ( ( echo "${server_data}" | sudo timeout 60 nc -w 1 -l ${additional_args} ${port} ) & )
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    sudo netstat -nlap | grep ${port}
+    Log    ${output}
+    ${nc_output}=    Execute Command on VM Instance    ${net_name}    ${vm_ip}    sudo echo "${client_data}" | nc -v -w 1 ${additional_args} ${dest_ip} ${port}
+    Log    ${nc_output}
+    ${output}=    Execute Command on VM Instance    ${net_name}    ${vm_ip}    sudo route -n
+    Log    ${output}
+    ${output}=    Execute Command on VM Instance    ${net_name}    ${vm_ip}    sudo arp -an
+    Log    ${output}
+    Should Match Regexp    ${nc_output}    ${server_data}
 
 Ping Other Instances
     [Arguments]    ${list_of_external_dst_ips}
