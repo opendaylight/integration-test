@@ -348,6 +348,20 @@ Check Metadata Access
     ${output}=    Write Commands Until Expected Prompt    curl -i http://169.254.169.254    ${OS_SYSTEM_PROMPT}
     Should Contain    ${output}    200
 
+Check Netcat TCP
+    [Arguments]    ${net_name}    ${vm_ip}    ${ip_address}    ${port}
+    [Documentation]    Run Netcat to the IP and port to test a TCP connection
+    ${output}=    Execute Command on VM Instance    ${net_name}    ${vm_ip}    sudo nc -v -w 1 ${ip_address} ${port}    d:
+    Log    ${output}
+    Should Contain    ${output}    succeeded
+
+Check Netcat UDP
+    [Arguments]    ${net_name}    ${vm_ip}    ${ip_address}    ${port}
+    [Documentation]    Run Netcat to the IP and port to test a UDP connection
+    ${output}=    Execute Command on VM Instance    ${net_name}    ${vm_ip}    sudo nc -v -w 1 -u ${ip_address} ${port}    d:
+    Log    ${output}
+    Should Contain    ${output}    succeeded
+
 Execute Command on VM Instance
     [Arguments]    ${net_name}    ${vm_ip}    ${cmd}    ${user}=cirros    ${password}=cubswin:)
     [Documentation]    Login to the vm instance using ssh in the network, executes a command inside the VM and returns the ouput.
@@ -385,6 +399,21 @@ Test Operations From Vm Instance
     \    Run Keyword If    ${string_empty}    Continue For Loop
     \    Run Keyword If    ${rcode}    Check Ping    ${dest_ip}
     Run Keyword If    ${rcode}    Check Metadata Access
+    [Teardown]    Exit From Vm Console
+
+Test Netcat Operations From Vm Instance
+    [Arguments]    ${net_name}    ${vm_ip}    ${dest_ip}    ${protocol}    ${port}=12345    ${user}=cirros
+    ...    ${password}=cubswin:)
+    [Documentation]    Use Netcat to test UDP and TCP connections to the controller (via external network) using SNAT
+    ${devstack_conn_id}=    Get ControlNode Connection
+    Switch Connection    ${devstack_conn_id}
+    Log    ${vm_ip}
+    ${output}=    Write Commands Until Prompt    sudo timeout 60 nc -w 1 -l ${port} &
+    Log    ${output}
+    ${output}=    Write Commands Until Prompt    sudo timeout 60 nc -w 1 -lu ${port} &
+    Log    ${output}
+    Run Keyword If    ${protocol} == "TCP"    Check Netcat TCP    ${net_name}    ${vm_ip}    ${dest_ip}    ${port}
+    Run Keyword If    ${protocol} == "UDP"    Check Netcat UDP    ${net_name}    ${vm_ip}    ${dest_ip}    ${port}
     [Teardown]    Exit From Vm Console
 
 Ping Other Instances
