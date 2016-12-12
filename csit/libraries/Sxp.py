@@ -1056,7 +1056,7 @@ def prefix_range(start, end):
     index = 0
     prefixes = ''
     while index < end:
-        prefixes += get_ip_from_number(index, start) + '/32'
+        prefixes += get_ip_from_number(index + start) + '/32'
         index += 1
         if index < end:
             prefixes += ','
