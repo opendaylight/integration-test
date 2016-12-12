@@ -173,6 +173,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_9edbebec",
+        "filename": "csit/suites/openstack/connectivity/03_external_network_tests.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 76,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-12-12T18:22:10Z",
+      "side": 1,
+      "message": "yeah thanks we definitely need to refactor things here. initially trying to get SNAT test working",
+      "parentUuid": "1a622d24_2361e439",
+      "range": {
+        "startLine": 76,
+        "startChar": 53,
+        "endLine": 76,
+        "endChar": 81
+      },
+      "revId": "5d3920fb1497d5103c815e178799b13fbe0e2fc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_e3f24c99",
         "filename": "csit/suites/openstack/connectivity/03_external_network_tests.robot",
         "patchSetId": 12
@@ -190,6 +214,24 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_3ed737c3",
+        "filename": "csit/suites/openstack/connectivity/03_external_network_tests.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-12-12T18:22:10Z",
+      "side": 1,
+      "message": "yeah we really need to put this \"Check Vm Instances Have Ip Address\" into the OpenStackOperations library, since its duplicated across tests.\nshould also simplify the very complicated logic - I tried combining lists but hit some syntax issues, probably my bad",
+      "parentUuid": "1a622d24_e3f24c99",
+      "revId": "5d3920fb1497d5103c815e178799b13fbe0e2fc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_c3ef50af",
         "filename": "csit/suites/openstack/connectivity/03_external_network_tests.robot",
         "patchSetId": 12
@@ -201,6 +243,24 @@
       "writtenOn": "2016-12-12T16:06:58Z",
       "side": 1,
       "message": "not sue if this adds value since the test case already has floating ips in it.",
+      "revId": "5d3920fb1497d5103c815e178799b13fbe0e2fc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7ed88fef",
+        "filename": "csit/suites/openstack/connectivity/03_external_network_tests.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 670
+      },
+      "writtenOn": "2016-12-12T18:22:10Z",
+      "side": 1,
+      "message": "the intention was that only the first two VMs are receiving floating IPs. removed though.",
+      "parentUuid": "1a622d24_c3ef50af",
       "revId": "5d3920fb1497d5103c815e178799b13fbe0e2fc4",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
       "unresolved": false
