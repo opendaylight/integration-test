@@ -78,38 +78,38 @@ Report_Failure_And_Point_To_Linked_Bugs
     BuiltIn.Log    ${msg}${newline}${bugs}
 
 Check Nodes Stats
-    [Arguments]    ${node}
+    [Arguments]    ${node}    ${session}=session
     [Documentation]    A GET on the /node/${node} API is made and specific flow stat
     ...    strings are checked for existence.
-    ${resp}    RequestsLibrary.Get Request    session    ${OPERATIONAL_NODES_API}/node/${node}
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${OPERATIONAL_NODES_API}/node/${node}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain    ${resp.content}    flow-capable-node-connector-statistics
     Should Contain    ${resp.content}    flow-table-statistics
 
 Check For Specific Number Of Elements At URI
-    [Arguments]    ${uri}    ${element}    ${expected_count}
+    [Arguments]    ${uri}    ${element}    ${expected_count}    ${session}=session
     [Documentation]    A GET is made to the specified ${URI} and the specific count of a
     ...    given element is done (as supplied by ${element} and ${expected_count})
-    ${resp}    RequestsLibrary.Get Request    session    ${uri}
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${uri}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     Should Contain X Times    ${resp.content}    ${element}    ${expected_count}
 
 Check For Elements At URI
-    [Arguments]    ${uri}    ${elements}
+    [Arguments]    ${uri}    ${elements}    ${session}=session
     [Documentation]    A GET is made at the supplied ${URI} and every item in the list of
     ...    ${elements} is verified to exist in the response
-    ${resp}    RequestsLibrary.Get Request    session    ${uri}
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${uri}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${i}    IN    @{elements}
     \    Should Contain    ${resp.content}    ${i}
 
 Check For Elements Not At URI
-    [Arguments]    ${uri}    ${elements}
+    [Arguments]    ${uri}    ${elements}    ${session}=session
     [Documentation]    A GET is made at the supplied ${URI} and every item in the list of
     ...    ${elements} is verified to NOT exist in the response
-    ${resp}    RequestsLibrary.Get Request    session    ${uri}
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${uri}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    200
     : FOR    ${i}    IN    @{elements}
@@ -290,48 +290,48 @@ Post Elements To URI
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Remove All Elements At URI
-    [Arguments]    ${uri}
-    ${resp}    RequestsLibrary.Delete Request    session    ${uri}
+    [Arguments]    ${uri}    ${session}=session
+    ${resp}    RequestsLibrary.Delete Request    ${session}    ${uri}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Remove All Elements At URI And Verify
-    [Arguments]    ${uri}
-    ${resp}    RequestsLibrary.Delete Request    session    ${uri}
+    [Arguments]    ${uri}    ${session}=session
+    ${resp}    RequestsLibrary.Delete Request    ${session}    ${uri}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${resp}    RequestsLibrary.Get Request    session    ${uri}
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${uri}
     Should Be Equal As Strings    ${resp.status_code}    404
 
 Remove All Elements If Exist
-    [Arguments]    ${uri}
+    [Arguments]    ${uri}    ${session}=session
     [Documentation]    Delete all elements from an URI if the configuration was not empty
-    ${resp}    RequestsLibrary.Get Request    session    ${uri}
-    Run Keyword If    '${resp.status_code}'!='404'    Remove All Elements At URI    ${uri}
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${uri}
+    Run Keyword If    '${resp.status_code}'!='404'    Remove All Elements At URI    ${uri}    ${session}
 
 Add Elements To URI From File
-    [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}
+    [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}    ${session}=session
     ${body}    OperatingSystem.Get File    ${data_file}
-    ${resp}    RequestsLibrary.Put Request    session    ${dest_uri}    data=${body}    headers=${headers}
+    ${resp}    RequestsLibrary.Put Request    ${session}    ${dest_uri}    data=${body}    headers=${headers}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Add Elements To URI From File And Verify
-    [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}
+    [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}    ${session}=session
     ${body}    OperatingSystem.Get File    ${data_file}
-    ${resp}    RequestsLibrary.Put Request    session    ${dest_uri}    data=${body}    headers=${headers}
+    ${resp}    RequestsLibrary.Put Request    ${session}    ${dest_uri}    data=${body}    headers=${headers}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${resp}    RequestsLibrary.Get Request    session    ${dest_uri}
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${dest_uri}
     Should Not Be Equal    ${resp.status_code}    404
 
 Add Elements To URI And Verify
-    [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}
-    ${resp}    RequestsLibrary.Put Request    session    ${dest_uri}    ${data_file}    headers=${headers}
+    [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}    ${session}=session
+    ${resp}    RequestsLibrary.Put Request    ${session}    ${dest_uri}    ${data_file}    headers=${headers}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
-    ${resp}    RequestsLibrary.Get Request    session    ${dest_uri}
+    ${resp}    RequestsLibrary.Get Request    ${session}    ${dest_uri}
     Should Not Be Equal    ${resp.status_code}    404
 
 Post Elements To URI From File
-    [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}
+    [Arguments]    ${dest_uri}    ${data_file}    ${headers}=${headers}    ${session}=session
     ${body}    OperatingSystem.Get File    ${data_file}
-    ${resp}    RequestsLibrary.Post Request    session    ${dest_uri}    data=${body}    headers=${headers}
+    ${resp}    RequestsLibrary.Post Request    ${session}    ${dest_uri}    data=${body}    headers=${headers}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
 Run Process With Logging And Status Check
@@ -382,9 +382,9 @@ Check Item Occurrence
     \    Should Contain X Times    ${string}    ${item}    &{dictionary_item_occurrence}[${item}]
 
 Post Log Check
-    [Arguments]    ${uri}    ${body}    ${status_code}=200
+    [Arguments]    ${uri}    ${body}    ${status_code}=200    ${session}=session
     [Documentation]    Post body to ${uri}, log response content, and check status
-    ${resp}=    RequestsLibrary.Post Request    session    ${uri}    ${body}
+    ${resp}=    RequestsLibrary.Post Request    ${session}    ${uri}    ${body}
     Log    ${resp.content}
     Should Be Equal As Strings    ${resp.status_code}    ${status_code}
     [Return]    ${resp}
