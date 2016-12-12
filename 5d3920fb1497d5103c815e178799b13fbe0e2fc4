@@ -1,0 +1,186 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_0332e8a6",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 403,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-12-12T16:06:58Z",
+      "side": 1,
+      "message": "wonder if these should be constants? The function should take an args as you have it, but the defaults use a constant.",
+      "range": {
+        "startLine": 403,
+        "startChar": 76,
+        "endLine": 403,
+        "endChar": 115
+      },
+      "revId": "5d3920fb1497d5103c815e178799b13fbe0e2fc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_432ce047",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 404,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-12-12T16:06:58Z",
+      "side": 1,
+      "message": "is this really what the function does?",
+      "revId": "5d3920fb1497d5103c815e178799b13fbe0e2fc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_c39c706c",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 407,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-12-12T16:06:58Z",
+      "side": 1,
+      "message": "Real bummer there isn\u0027t a builtin \"Log Arguments\" method. Seems like each test should have this.",
+      "revId": "5d3920fb1497d5103c815e178799b13fbe0e2fc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_4388601f",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-12-12T16:06:58Z",
+      "side": 1,
+      "message": "would it make sense to add port as an argument with this default?",
+      "range": {
+        "startLine": 408,
+        "startChar": 33,
+        "endLine": 408,
+        "endChar": 38
+      },
+      "revId": "5d3920fb1497d5103c815e178799b13fbe0e2fc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_038e682e",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 408,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-12-12T16:06:58Z",
+      "side": 1,
+      "message": "nitpick, keep \u003d with the variable since all the others are that way/",
+      "revId": "5d3920fb1497d5103c815e178799b13fbe0e2fc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_2390c442",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 414,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-12-12T16:06:58Z",
+      "side": 1,
+      "message": "seems like this should be a library method",
+      "revId": "5d3920fb1497d5103c815e178799b13fbe0e2fc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e3ad2c8a",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 424,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-12-12T16:06:58Z",
+      "side": 1,
+      "message": "where is the loop? Or does this break from the lop this is called from? If so, that seems hackey. Would it be possible to return a rc here and have it checked in the loop?",
+      "revId": "5d3920fb1497d5103c815e178799b13fbe0e2fc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_e3f24c99",
+        "filename": "csit/suites/openstack/connectivity/03_external_network_tests.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 79,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-12-12T16:06:58Z",
+      "side": 1,
+      "message": "maybe keep these loops separate? Possible make a function to do this loop taking the vm_instance lists. Append the lists after each call. Also in the beginning create a single combined list. Then you can compare the list sizes directly rather than adding two temp length vars.",
+      "revId": "5d3920fb1497d5103c815e178799b13fbe0e2fc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_c3ef50af",
+        "filename": "csit/suites/openstack/connectivity/03_external_network_tests.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 96,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-12-12T16:06:58Z",
+      "side": 1,
+      "message": "not sue if this adds value since the test case already has floating ips in it.",
+      "revId": "5d3920fb1497d5103c815e178799b13fbe0e2fc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_63363c54",
+        "filename": "csit/suites/openstack/connectivity/03_external_network_tests.robot",
+        "patchSetId": 12
+      },
+      "lineNbr": 126,
+      "author": {
+        "id": 773
+      },
+      "writtenOn": "2016-12-12T16:06:58Z",
+      "side": 1,
+      "message": "same thing here, maybe just use a single combined list",
+      "revId": "5d3920fb1497d5103c815e178799b13fbe0e2fc4",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
