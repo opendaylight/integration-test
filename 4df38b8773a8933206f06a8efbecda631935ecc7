@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_03378800",
+        "filename": "csit/suites/netvirt/Netvirt_Vpnservice/basic_vpnservice.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 236,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-12-12T16:46:34Z",
+      "side": 1,
+      "message": "it would be better to put these in FOR LOOPS ( 0..${NUM_VPNS} ) and then you could easily add more just by changing the lists in the Variables section.",
+      "range": {
+        "startLine": 228,
+        "startChar": 0,
+        "endLine": 236,
+        "endChar": 54
+      },
+      "revId": "4df38b8773a8933206f06a8efbecda631935ecc7",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
