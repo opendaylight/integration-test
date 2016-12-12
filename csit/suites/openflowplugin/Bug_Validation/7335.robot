@@ -6,7 +6,7 @@ Library           XML
 Library           RequestsLibrary
 Resource          ../../../libraries/MininetKeywords.robot
 Resource          ../../../libraries/FlowLib.robot
-Variables         ../../../variables/Variables.py
+Resource          ../../../variables/Variables.robot
 
 *** Variables ***
 ${XmlsDir}        ${CURDIR}/../../../variables/xmls
@@ -26,9 +26,9 @@ Add Flow And Check It Is In Operational DS
 Update Flow With Invalid Match And Check It Is Not In Operational DS
     [Documentation]    Update flow removing Ethertype, this should remove flow from switch and operational DS
     FlowLib.Create Flow Variables For Suite From XML File    ${XmlsDir}/${flowfile2}
-    FlowLib.Update Flow Via Restconf    ${switch_idx}    ${table_id}    285    ${data}
+    FlowLib.Update Flow Via Restconf    ${switch_idx}    ${table_id}    ${flow_id}    ${data}
     FlowLib.Check Config Flow    ${True}    ${data}
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Utils.No Content From URI    session    ${OPERATIONAL_NODES_API}/node/openflow:${switch_idx}/table/0/flow/285
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    Utils.No Content From URI    session    ${OPERATIONAL_NODES_API}/node/openflow:${switch_idx}/table/${table_id}/flow/${flow_id}
     [Teardown]    Report_Failure_Due_To_Bug    7335
 
 *** Keywords ***

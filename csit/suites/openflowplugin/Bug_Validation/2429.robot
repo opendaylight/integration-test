@@ -8,7 +8,7 @@ Library           OperatingSystem
 Library           SSHLibrary
 Library           Process
 Resource          ../../../libraries/Utils.robot
-Variables         ../../../variables/Variables.py
+Resource          ../../../variables/Variables.robot
 
 *** Variables ***
 ${openflow_port}    6633

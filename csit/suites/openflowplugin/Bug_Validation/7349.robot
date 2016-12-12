@@ -10,18 +10,27 @@ Resource          ../../../variables/Variables.robot
 
 *** Variables ***
 ${XmlsDir}        ${CURDIR}/../../../variables/xmls
-${flowfile}       f161.xml
+${flowfile1}      f162.xml
+${flowfile2}      f164.xml
 ${switch_idx}     1
 ${switch_name}    s${switch_idx}
 
 *** Test Cases ***
-Add Alien Flow And Verify It Is In Operational DS
-    [Documentation]    Add flow with incorrect in-port format to generate alien ID
-    FlowLib.Create Flow Variables For Suite From XML File    ${XmlsDir}/${flowfile}
+Add Flow And Check It Is In Operational DS
+    [Documentation]    Add flow match IP and Ethertype IP
+    FlowLib.Create Flow Variables For Suite From XML File    ${XmlsDir}/${flowfile1}
     FlowLib.Add Flow Via Restconf    ${switch_idx}    ${table_id}    ${data}
-    BuiltIn.Wait Until Keyword Succeeds    10s    1s    FlowLib.Check Datastore Presence    ${flowfile}    ${True}    ${True}
-    ...    ${False}    ${False}
-    [Teardown]    Report_Failure_Due_To_Bug    7258
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    FlowLib.Check Datastore Presence    ${flowfile1}    ${True}    ${True}
+    ...    ${False}    ${True}
+
+Delete and Add Flow Same Match With Different ID
+    [Documentation]    Delete flow and add flow with same body and different ID. New ID should be shown in operational.
+    FlowLib.Delete Flow Via Restconf    ${switch_idx}    ${table_id}    ${flow_id}
+    FlowLib.Create Flow Variables For Suite From XML File    ${XmlsDir}/${flowfile2}
+    FlowLib.Add Flow Via Restconf    ${switch_idx}    ${table_id}    ${data}
+    BuiltIn.Wait Until Keyword Succeeds    10s    1s    FlowLib.Check Datastore Presence    ${flowfile2}    ${True}    ${True}
+    ...    ${False}    ${True}
+    [Teardown]    Report_Failure_Due_To_Bug    7349
 
 *** Keywords ***
 Initialization Phase

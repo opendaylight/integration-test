@@ -6,7 +6,7 @@ Library           XML
 Library           RequestsLibrary
 Resource          ../../../libraries/MininetKeywords.robot
 Resource          ../../../libraries/FlowLib.robot
-Variables         ../../../variables/Variables.py
+Resource          ../../../variables/Variables.robot
 
 *** Variables ***
 ${XmlsDir}        ${CURDIR}/../../../variables/xmls
