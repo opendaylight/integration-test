@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_4ba07243",
+        "filename": "/COMMIT_MSG",
+        "patchSetId": 2
+      },
+      "lineNbr": 7,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-12-13T13:58:36Z",
+      "side": 1,
+      "message": "netconf",
+      "range": {
+        "startLine": 7,
+        "startChar": 9,
+        "endLine": 7,
+        "endChar": 12
+      },
+      "revId": "b2b338bef8062f79bcf3e18436981d5a4fbab544",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_cbaac218",
+        "filename": "csit/suites/netconf/CRUD/CRUD.robot",
+        "patchSetId": 2
+      },
+      "lineNbr": 225,
+      "author": {
+        "id": 2046
+      },
+      "writtenOn": "2016-12-13T13:58:36Z",
+      "side": 1,
+      "message": "Do not look at stream, look at (presence and) value of ${USE_NETCONF_CONNECTOR}.",
+      "range": {
+        "startLine": 225,
+        "startChar": 61,
+        "endLine": 225,
+        "endChar": 66
+      },
+      "revId": "b2b338bef8062f79bcf3e18436981d5a4fbab544",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
