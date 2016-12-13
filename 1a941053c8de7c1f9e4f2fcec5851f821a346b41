@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_e8d50444",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 1
+      },
+      "lineNbr": 174,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-12-13T09:22:58Z",
+      "side": 1,
+      "message": "I\u0027m not sure of the convenience of this line either. If the VM is already deleted, the purpose is achieved, and no error is really needed. In fact, it should fail if the VM is there and couldn\u0027t be deleted for some reason after some time. Something like:\n\n  Wait Until Keyword Succeeds    25s    5s    Verify Vm is deleted ${vm_name}",
+      "revId": "1a941053c8de7c1f9e4f2fcec5851f821a346b41",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
