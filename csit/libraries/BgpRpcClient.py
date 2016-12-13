@@ -12,8 +12,10 @@ import xmlrpclib
 class BgpRpcClient(object):
     """The client for SimpleXMLRPCServer."""
 
-    def __init__(self, peer_addr):
+    def __init__(self, peer_addr=None):
         """Setup destination point of the rpc server"""
+        if peer_addr is None:
+            return
         self.proxy = xmlrpclib.ServerProxy("http://{}:8000".format(peer_addr))
 
     def exa_announce(self, full_exabgp_cmd):
@@ -32,8 +34,10 @@ class BgpRpcClient(object):
         """Gets keepalive messages counter."""
         return self._exa_get_counter('keepalive')
 
-    def exa_get_received_update_count(self):
+    def exa_get_received_update_count(self, proxy=None):
         """Gets update messges counter."""
+        if proxy is not None:
+            self.proxy = proxy
         return self._exa_get_counter('update')
 
     def exa_get_received_route_refresh_count(self):
@@ -52,8 +56,10 @@ class BgpRpcClient(object):
         """Cleans keepalive message counter."""
         return self._exa_clean_counter('keepalive')
 
-    def exa_clean_received_update_count(self):
+    def exa_clean_received_update_count(self, proxy=None):
         """Cleans update message counter."""
+        if proxy is not None:
+            self.proxy = proxy
         return self._exa_clean_counter('update')
 
     def exa_clean_received_route_refresh_count(self):
@@ -64,21 +70,25 @@ class BgpRpcClient(object):
         """Cleans stored message on the server of given message type."""
         return self.proxy.clean_message(msg_type)
 
-    def exa_clean_update_message(self):
+    def exa_clean_update_message(self, proxy=None):
         """Cleans update message."""
+        if proxy is not None:
+            self.proxy = proxy
         return self._exa_clean_message('update')
 
     def _exa_get_message(self, msg_type):
         """Gets stored message on the server of given message type."""
         return self.proxy.get_message(msg_type)
 
-    def exa_get_update_message(self, msg_only=True):
+    def exa_get_update_message(self, msg_only=True, proxy = None):
         """Cleans update message.
 
         Exabgp provides more details than just message content (e.g. peer ip,
         timestamp, ...). msg_only is a flag that we want just message content
         and no details.
         """
+        if proxy is not None:
+            self.proxy = proxy
         msg = self._exa_get_message('update')
         if not msg_only:
             return msg
@@ -95,3 +105,6 @@ class BgpRpcClient(object):
     def play_clean(self, what='update'):
         """Cleans the message (update) on the server."""
         return self.proxy.clean(what)
+
+    def exa_get_new_proxy(self, peer_addr):
+        return xmlrpclib.ServerProxy("http://{}:8000".format(peer_addr))
