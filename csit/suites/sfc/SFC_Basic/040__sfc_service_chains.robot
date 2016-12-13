@@ -3,13 +3,7 @@ Documentation     Test suite for SFC Service Function Chains, Operates Chains fr
 Suite Setup       Init Suite
 Suite Teardown    Delete All Sessions
 Test Setup        Remove All Elements If Exist    ${SERVICE_CHAINS_URI}
-Library           SSHLibrary
-Library           Collections
-Library           OperatingSystem
-Library           RequestsLibrary
-Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/TemplatedRequests.robot
+Resource          SFC_Basic.robot
 
 *** Test Cases ***
 Put Service Function Chains
@@ -117,13 +111,4 @@ Put one Service Function into Chain
 
 *** keywords ***
 Init Suite
-    [Documentation]    Initialize session and ODL version specific variables
-    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-    log    ${ODL_STREAM}
-    Set Suite Variable    ${VERSION_DIR}    master
-    Set Suite Variable    ${SERVICE_CHAINS_URI}    /restconf/config/service-function-chain:service-function-chains/
-    Set Suite Variable    ${SERVICE_CHAINS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-function-chains.json
-    Set Suite Variable    ${SERVICE_CHAIN100_URI}    /restconf/config/service-function-chain:service-function-chains/service-function-chain/SFC100
-    Set Suite Variable    ${SERVICE_CHAIN100_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sfc_chain_100.json
-    Set Suite Variable    ${SERVICE_CHAIN100_SFIDS_URI}    /restconf/config/service-function-chain:service-function-chains/service-function-chain/SFC100/sfc-service-function/ids-abstract100
-    Set Suite Variable    ${SERVICE_CHAIN100_SFIDS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sfc_chain_100_sfids.json
+    SFC_Basic.Init    040__sfc_service_chains

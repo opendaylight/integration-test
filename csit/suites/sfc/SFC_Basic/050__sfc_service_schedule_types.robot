@@ -3,13 +3,7 @@ Documentation     Test suite for SFC Function Schedule Algorithm Types, Operates
 Suite Setup       Init Suite
 Suite Teardown    Delete All Sessions
 Test Setup        Remove All Elements If Exist    ${SERVICE_SCHED_TYPES_URI}
-Library           SSHLibrary
-Library           Collections
-Library           OperatingSystem
-Library           RequestsLibrary
-Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/TemplatedRequests.robot
+Resource          SFC_Basic.robot
 
 *** Test Cases ***
 Add Service Function Schedule Algorithm Types
@@ -76,11 +70,4 @@ Put one Service Function Schedule Algorithm Type
 
 *** keywords ***
 Init Suite
-    [Documentation]    Initialize session and ODL version specific variables
-    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-    log    ${ODL_STREAM}
-    Set Suite Variable    ${VERSION_DIR}    master
-    Set Suite Variable    ${SERVICE_SCHED_TYPES_URI}    /restconf/config/service-function-scheduler-type:service-function-scheduler-types/
-    Set Suite Variable    ${SERVICE_SCHED_TYPES_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-schedule-types.json
-    Set Suite Variable    ${SERVICE_WSP_SCHED_TYPE_URI}    /restconf/config/service-function-scheduler-type:service-function-scheduler-types/service-function-scheduler-type/service-function-scheduler-type:weighted-shortest-path
-    Set Suite Variable    ${SERVICE_WSP_SCHED_TYPE_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-wsp-schedule-type.json
+    SFC_Basic.Init    050__sfc_service_schedule_types

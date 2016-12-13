@@ -4,13 +4,28 @@ import sys
 import stat
 import robot.tidy
 
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
 
 def Error(FileSpec, Message):
     global ErrorsReported
-    print "File", FileSpec + ":", Message
+    print "\nFile", FileSpec + ":", Message
     ErrorsReported = True
 
-
+def process (File, Processor):
+    """process .robot file"""
+    if File.endswith(".robot"):
+        Processor(File)
+    else:
+        Error(File, "Must end with .robot")
+                    
 def traverse_and_process(DirList, Processor):
     """Traverse the directory and process all .robot files found"""
     Stack = []
@@ -96,25 +111,42 @@ def diff(FileSpec):
 
 
 def usage():
-    print "Usage:\ttidytool.py <command>k <dir1> [<dir2> <dir3> ...]"
+    print "Usage:\ttidytool.py <what> <command> <file>|<dir1> [<dir2> <dir3> ...]"
     print
-    print "where <command> is one of these:"
+    print "what: file or dir, whatever you want to check"
+    print "command: is one of these:"
+    print "\tcheck\tCheck that the Robot test data is tidy."
+    print "\tquiet\tCheck quietly that the Robot test data is tidy."
+    print "\ttidy\tTidy the Robot test data."
+    print "\tdiff\tDiff the Robot test data."
     print
-    print "check\tCheck that the Robot test data is tidy."
-    print "quiet\tCheck quietly that the Robot test data is tidy."
-    print "tidy\tTidy the Robot test data."
+    print "* If what is file, the extension .robot is mandatory"
     print
-    print "The program traverses the specified directories, searching for"
-    print "Robot test data (.robot files) and performing the specified"
-    print "command on them."
+    print "* If what is dir, the program traverses the specified directories, searching for"
+    print "Robot test data (.robot files) and performing the specified command on them."
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
+    os.system("clear")
+    if len(sys.argv) < 3:
         usage()
         raise SystemExit
-    Command = sys.argv[1]
-    DirList = sys.argv[2:]
+
+    What = sys.argv[1].upper()
+    Command = sys.argv[2]
+    
+    if What != "FILE" and What != "DIR":
+        usage()
+        sys.exit(1)
+    
+    if What == "FILE":
+        File = sys.argv[3]
+        if not os.path.isfile(File):
+            usage()
+            Error(File, "is not a file")
+    else:
+        DirList = sys.argv[3:]
+
     if Command == "check":
         Processor = check
     elif Command == "quiet":
@@ -126,8 +158,15 @@ if __name__ == "__main__":
     else:
         print "Unrecognized command:", Command
         sys.exit(1)
+    
     ErrorsReported = False
-    traverse_and_process(DirList, Processor)
+    if What == "FILE":
+        process(File, Processor)
+    else:
+        traverse_and_process(DirList, Processor)
+    
     if ErrorsReported:
-        print "tidytool run FAILED !!!"
-        sys.exit(1)
+        print "\ntidytool run " + bcolors.FAIL + " FAILED !!!\n" + bcolors.ENDC
+    else:
+        print "\ntidytool run " + bcolors.OKGREEN + " SUCCESS !!!\n" + bcolors.ENDC
+    sys.exit(1)

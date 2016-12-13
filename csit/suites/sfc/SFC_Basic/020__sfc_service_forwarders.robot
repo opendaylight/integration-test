@@ -3,13 +3,7 @@ Documentation     Test suite for SFC Service Function Forwarders, Operates SFFs 
 Suite Setup       Init Suite
 Suite Teardown    Delete All Sessions
 Test Setup        Remove All Elements If Exist    ${SERVICE_FORWARDERS_URI}
-Library           SSHLibrary
-Library           Collections
-Library           OperatingSystem
-Library           RequestsLibrary
-Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.robot
-Resource          ../../../libraries/TemplatedRequests.robot
+Resource          SFC_Basic.robot
 
 *** Test Cases ***
 Put Service Function Forwarders
@@ -242,17 +236,4 @@ Put DPL of Connected SFF Dictionary to SFF
 
 *** keywords ***
 Init Suite
-    [Documentation]    Initialize session and ODL version specific variables
-    Create Session    session    http://${ODL_SYSTEM_IP}:${RESTCONFPORT}    auth=${AUTH}    headers=${HEADERS}
-    log    ${ODL_STREAM}
-    Set Suite Variable    ${VERSION_DIR}    master
-    Set Suite Variable    ${SERVICE_FORWARDERS_URI}    /restconf/config/service-function-forwarder:service-function-forwarders/
-    Set Suite Variable    ${SERVICE_FORWARDERS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-function-forwarders.json
-    Set Suite Variable    ${SFF_OVS100_URI}    /restconf/config/service-function-forwarder:service-function-forwarders/service-function-forwarder/ovs-100/
-    Set Suite Variable    ${SFF_OVS100_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sff_ovs_100.json
-    Set Suite Variable    ${SFF_DPL101_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sff_dpl_101.json
-    Set Suite Variable    ${SFF_DPL_LOCATOR_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sff_dpl_locator.json
-    Set Suite Variable    ${SFF_SFD_SF100_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sff_sfd_sf100.json
-    Set Suite Variable    ${SFF_SFD_LOCATOR_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sff_sfd_locator.json
-    Set Suite Variable    ${SFF_CSD_SFF100_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sff_csd_sff100.json
-    Set Suite Variable    ${SFF_CSD_LOCATOR_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/sff_csd_locator.json
+    SFC_Basic.Init    020__sfc_service_forwarders

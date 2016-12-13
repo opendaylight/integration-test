@@ -2,12 +2,7 @@
 Documentation     Test suite for SFC Service Functions, Operates functions from Restconf APIs.
 Suite Setup       Init Suite
 Suite Teardown    Delete All Sessions
-Library           RequestsLibrary
-Library           SSHLibrary
-Library           Collections
-Library           OperatingSystem
-Variables         ../../../variables/Variables.py
-Resource          ../../../libraries/Utils.robot
+Resource          SFC_Basic.robot
 
 *** Variables ***
 ${SFC_API}        /restconf/config/service-function:service-functions
@@ -47,7 +42,4 @@ Read JSON From File
     [Return]    ${jsonbody}
 
 Init Suite
-    [Documentation]    Initialize ODL version specific variables
-    log    ${ODL_STREAM}
-    Set Suite Variable    ${VERSION_DIR}    master
-    Set Suite Variable    ${SFC_FUNCTIONS_FILE}    ${CURDIR}/../../../variables/sfc/${VERSION_DIR}/service-functions.json
+    SFC_Basic.Init    080__sfc_simple_clustering
