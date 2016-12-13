@@ -1,0 +1,27 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_15833957",
+        "filename": "csit/libraries/OpenStackOperations.robot",
+        "patchSetId": 13
+      },
+      "lineNbr": 363,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-12-13T01:55:39Z",
+      "side": 1,
+      "message": "how about just one \"Check Netcat\" with a proto argument.  can be defaulted to TCP.  or even just ${additional_args}\u003d${NONE} and caller can give a -u when they want UDP",
+      "range": {
+        "startLine": 351,
+        "startChar": 0,
+        "endLine": 363,
+        "endChar": 44
+      },
+      "revId": "b472d6fab591640831c312e69eae33bf245ead94",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
