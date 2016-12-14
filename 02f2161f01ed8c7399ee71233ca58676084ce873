@@ -181,6 +181,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_bc06aa1e",
+        "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 69,
+      "author": {
+        "id": 6362
+      },
+      "writtenOn": "2016-12-14T09:30:41Z",
+      "side": 1,
+      "message": "What do you mean? Should this be changed?",
+      "parentUuid": "1a622d24_bcad0a8b",
+      "range": {
+        "startLine": 63,
+        "startChar": 0,
+        "endLine": 69,
+        "endChar": 100
+      },
+      "revId": "02f2161f01ed8c7399ee71233ca58676084ce873",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_9caace6e",
         "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
         "patchSetId": 6
