@@ -1,0 +1,19 @@
+{
+  "ovsdb:qos-entries": [
+    {
+      "qos-id": "QOS-1",
+      "qos-other-config": [
+        {
+          "other-config-key": "max-rate",
+          "other-config-value": "3300000"
+        }
+      ],
+      "qos-type": "ovsdb:qos-type-linux-htb",
+      "queue-list": [
+        {
+          "queue-number": "0"
+        }
+      ]
+    }
+  ]
+}
