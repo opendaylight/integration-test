@@ -1,0 +1,85 @@
+# Text editor configuration file
+#
+# - find the link to the style-guide followed, before each section
+
+root = true
+
+# General rules
+# -------------
+# - Unicode
+# - Unix-style line endings
+# - Newline before EOF
+# - No sloppy trailing spaces
+
+[*]
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+
+# https://wiki.opendaylight.org/view/Integration/Test/Test_Code_Guidelines
+[*.robot]
+indent_size = 4
+
+# https://github.com/bbatsov/ruby-style-guide#source-code-layout
+[*.rb]
+charset = utf-8
+indent_size = 2
+max_line_length = 80
+
+# https://google.github.io/styleguide/shell.xml
+[*.sh]
+indent_size = 2
+max_line_length = 80
+
+# https://www.python.org/dev/peps/pep-0008/
+[*.py]
+charset = utf-8
+indent_size = 4
+max_line_length = 79
+
+# http://documentation-style-guide-sphinx.readthedocs.io/en/latest/style-guide.html
+[*.rst]
+indent_size = 2
+max_line_length = 79
+trim_trailing_whitespace = false
+
+# Nothing specified for json files, so going with 4 indent_size as per Coala
+# json - https://google.github.io/styleguide/jsoncstyleguide.xml
+[*.json]
+indent_size = 4
+
+# http://xmlsoft.org/xmllint.html and https://google.github.io/styleguide/xmlstyle.html
+[*.xml]
+indent_size = 2
+
+# http://yaml.org/spec/1.2/spec.html#Basic
+[*.{yaml,yml}]
+indent_size = 2
+
+# Trailing spaces in markdown is used to differentiate line breaks and paragraphs
+[*.{md,markdown}]
+indent_size = 4
+trim_trailing_whitespace = false
+insert_final_newline = false
+
+# No style-guide, so fix 2 which is used currently in vagrant/docker files
+# of this repo
+[Vagrantfile]
+indent_size = 2
+
+[Dockerfile]
+indent_size = 2
+
+# Keep same as for ruby
+[Gemfile]
+indent_size = 2
+
+# https://docs.puppet.com/guides/style_guide.html
+[*.pp]
+indent_size = 2
+max_line_length = 140
+
+# Keep same as for ruby
+[*.erb]
+indent_size = 2
