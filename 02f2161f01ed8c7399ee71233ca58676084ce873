@@ -2,6 +2,23 @@
   "comments": [
     {
       "key": {
+        "uuid": "1a622d24_7c0c1243",
+        "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 22,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-12-14T08:50:34Z",
+      "side": 1,
+      "message": "I think I understand what you are trying here, precisely, establishing a connection to the Controller. But, for the sake of readability the intention should be *explicit*.\n\nTherefore, we should have a keyword like \"Resolve_Http_Session_for_Controller\" or something like that.",
+      "revId": "02f2161f01ed8c7399ee71233ca58676084ce873",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_bc76aa3c",
         "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
         "patchSetId": 6
@@ -18,6 +35,52 @@
         "startChar": 40,
         "endLine": 28,
         "endChar": 45
+      },
+      "revId": "02f2161f01ed8c7399ee71233ca58676084ce873",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_f7ff9dff",
+        "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-12-14T08:50:34Z",
+      "side": 1,
+      "message": "Again, the intention to establish connections to all *computes* should be explicit, instead of figuring out that RANGE 1 ${NUM_ODL_SYSTEM}+1 are precisely the computes.\n\nAnyway, why are you establishing connections to all computes, when you only use the last one ${session} in the code afterwards?\n\nI guess the intention is to ensure that all karafs are already connected before starting the test case. This probably should be a function in a library, if not already existing. Check this one:\n\n  KarafKeywords.Setup Karaf Keywords",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 153
+      },
+      "revId": "02f2161f01ed8c7399ee71233ca58676084ce873",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_7c77f2d4",
+        "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 43,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-12-14T08:50:34Z",
+      "side": 1,
+      "message": "This could go to the [Teardown] section in the test case so to ensure that the elements are removed even if something failed in the test case. Think on the teardown as the \u0027finally\u0027 section of a contruct try-except-finally.",
+      "range": {
+        "startLine": 43,
+        "startChar": 0,
+        "endLine": 43,
+        "endChar": 23
       },
       "revId": "02f2161f01ed8c7399ee71233ca58676084ce873",
       "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
