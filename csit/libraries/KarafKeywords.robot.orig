@@ -83,15 +83,6 @@ Install a Feature
     Log    ${output}
     [Return]    ${output}
 
-Install a Feature Using Active Connection
-    [Arguments]    ${feature_name}
-    [Documentation]    Will Install the given ${feature_name} using active connection
-    ${cmd}=    BuiltIn.Set_Variable    feature:install ${feature_name}
-    Write    ${cmd}
-    ${output}    SSHLibrary.Read_Until    ${KARAF_PROMPT}
-    Log    ${output}
-    [Return]    ${output}
-
 Uninstall a Feature
     [Arguments]    ${feature_name}    ${controller}=${ODL_SYSTEM_IP}    ${karaf_port}=${KARAF_SHELL_PORT}    ${timeout}=180
     [Documentation]    Will UnInstall the given ${feature_name}
@@ -117,14 +108,6 @@ Open Controller Karaf Console On Background
     Collections.Set To Dictionary    ${connection_index_dict}    ${member_index}    ${karaf_connection_object.index}
     SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}
     [Teardown]    SSHKeywords.Restore Current SSH Connection From Index    ${current_ssh_connection_object.index}
-
-Open Controller Karaf Console With Timeout
-    [Arguments]    ${member_index}=${1}    ${timeout}=3s
-    [Documentation]    Open new connection to karaf console for member index with specified timeout.
-    BuiltIn.Log    ${member_index}
-    ${odl_ip}=    ClusterManagement.Resolve_IP_Address_For_Member    ${member_index}
-    SSHLibrary.Open Connection    ${odl_ip}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_DETAILED_PROMPT}    timeout=${timeout}
-    SSHLibrary.Login    ${KARAF_USER}    ${KARAF_PASSWORD}
 
 Configure Timeout For Karaf Console
     [Arguments]    ${timeout}    ${member_index_list}=${EMPTY}
@@ -189,11 +172,19 @@ Set Bgpcep Log Levels
 Wait For Karaf Log
     [Arguments]    ${message}    ${timeout}=60    ${member_index}=${1}    ${karaf_ip}=${EMPTY}
     [Documentation]    Read karaf logs until message appear
+<<<<<<< HEAD
     # TODO: refactor this keyword to use the new workflow to account for multiple controllers.    Initial work was done
     # in this patch https://git.opendaylight.org/gerrit/#/c/45596/
     # however, the consumers of this keyword were breaking after that change.    Initial theory is that a previous
     # keyword used before this "Wait For Karaf Log" keyword was closing the karaf console connection, so the
     # "Flexible SSH Login" keyword from the patch above (45596) was failing.
+    Log    Waiting for '${message}' in karaf log
+    Open Connection    ${ODL_SYSTEM_IP}    port=${KARAF_SHELL_PORT}    prompt=${KARAF_PROMPT}    timeout=${timeout}
+    Login    ${KARAF_USER}    ${KARAF_PASSWORD}    loglevel=${loglevel}
+    Write    log:tail
+    Read Until    ${message}
+    Close Connection
+=======
     Log    Waiting for '${message}' in karaf log. Karaf is identified by ip in prior or by member_index.
     ${ip_length} =    BuiltIn.Get Length    ${karaf_ip}
     BuiltIn.Run Keyword If    ${ip_length} > 0    Open Karaf Connection By Ip    ${karaf_ip}
@@ -212,3 +203,4 @@ Open Karaf Connection By Member Index
     [Documentation]    Open SSH connection to karaf based on given member_index
     S${karaf_connection_index}=    Collections.Get From Dictionary    ${connection_index_dict}    ${member_index}
     ${current_connection_index}=    SSHLibrary.Switch Connection    ${karaf_connection_index}
+>>>>>>> c7fdb29... clustering test for GBP
