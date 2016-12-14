@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_afa949e1",
+        "filename": ".editorconfig",
+        "patchSetId": 1
+      },
+      "lineNbr": 16,
+      "author": {
+        "id": 1723
+      },
+      "writtenOn": "2016-12-14T19:35:13Z",
+      "side": 1,
+      "message": "80 or 79?",
+      "revId": "609bac4a6975e3f08fc8800803ba4c1f2904feed",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
