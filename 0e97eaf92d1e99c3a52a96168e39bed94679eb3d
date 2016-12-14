@@ -1,0 +1,50 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "1a622d24_7c7c1221",
+        "filename": "csit/suites/sfc/SFC_Basic/090__sfc_service_function_metadata.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 39,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-12-14T01:11:51Z",
+      "side": 1,
+      "message": "is this right?  SFM3?  you are using SFM1 everywhere below.  if you are going to have a static string, then you can put it as a variable in the *** Variables *** section and then just refer to it.  so, like ${SFM_NAME} or something",
+      "range": {
+        "startLine": 39,
+        "startChar": 43,
+        "endLine": 39,
+        "endChar": 47
+      },
+      "revId": "0e97eaf92d1e99c3a52a96168e39bed94679eb3d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "1a622d24_1c887e1e",
+        "filename": "csit/suites/sfc/SFC_Basic/090__sfc_service_function_metadata.robot",
+        "patchSetId": 5
+      },
+      "lineNbr": 159,
+      "author": {
+        "id": 2264
+      },
+      "writtenOn": "2016-12-14T01:11:51Z",
+      "side": 1,
+      "message": "all of these could probably be put in the *** Variables *** section above and then all that\u0027s left for Init Suite is the Create Session which can just be inline with the Suite Setup in the *** Settings *** section which is a tiny bit cleaner, imho",
+      "range": {
+        "startLine": 153,
+        "startChar": 4,
+        "endLine": 159,
+        "endChar": 177
+      },
+      "revId": "0e97eaf92d1e99c3a52a96168e39bed94679eb3d",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    }
+  ]
+}
