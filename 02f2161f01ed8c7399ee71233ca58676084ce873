@@ -65,6 +65,30 @@
     },
     {
       "key": {
+        "uuid": "1a622d24_9748e95c",
+        "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
+        "patchSetId": 6
+      },
+      "lineNbr": 28,
+      "author": {
+        "id": 5440
+      },
+      "writtenOn": "2016-12-14T09:01:08Z",
+      "side": 1,
+      "message": "Sorry, I was confused with the Opestack nodes. Thake into account only these comments:\n\nI guess the intention is to ensure that all karafs are already connected before starting the test case. This probably should be a function in a library, if not already existing. Check this one:\n\n  KarafKeywords.Setup Karaf Keywords",
+      "parentUuid": "1a622d24_f7ff9dff",
+      "range": {
+        "startLine": 26,
+        "startChar": 0,
+        "endLine": 28,
+        "endChar": 153
+      },
+      "revId": "02f2161f01ed8c7399ee71233ca58676084ce873",
+      "serverId": "7fc14799-209e-464c-9743-7a06c2c21a81",
+      "unresolved": false
+    },
+    {
+      "key": {
         "uuid": "1a622d24_7c77f2d4",
         "filename": "csit/suites/sfc/SFC_Persistency/020__sfc_persistency.robot",
         "patchSetId": 6
