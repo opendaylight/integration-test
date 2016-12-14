@@ -174,12 +174,21 @@ Create Queue entry to the queues list of a ovsdb node
     Log    ${resp.content}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
-Create a QOS and a Linked queue entry to a OVSDB Node
-    [Documentation]    This request will create a QOS and a Linked queue entry to a OVSDB Node
+Update existing Queue entry to a OVSDB Node
+    [Documentation]    This request will update the existing queue entry to a OVSDB Node
     ${body}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/create_qoslinkedqueue.json
     Log    URL is ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1
     Log    data: ${body}
-    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1    data=${body}
+    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:queues/${QUEUE}/    data=${body}
+    Log    ${resp.content}
+    Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
+
+Update QOS with a Linked queue entry to a OVSDB Node
+    [Documentation]    This request will update the QOS entry with a Linked queue entry to a OVSDB Node
+    ${body}    OperatingSystem.Get File    ${OVSDB_CONFIG_DIR}/update_existingqos.json
+    Log    URL is ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1
+    Log    data: ${body}
+    ${resp}    RequestsLibrary.Put Request    session    ${CONFIG_TOPO_API}/topology/ovsdb:1/node/ovsdb:HOST1/ovsdb:qos-entries/${QOS}/    data=${body}
     Log    ${resp.content}
     Should Contain    ${ALLOWED_STATUS_CODES}    ${resp.status_code}
 
